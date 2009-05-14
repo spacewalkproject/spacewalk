@@ -1096,6 +1096,7 @@
 			</trans-unit>
 			<trans-unit id="login.jsp.satbody3">
 				<source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href="http://spacewalk.redhat.com/communicate.html" target="_new"&gt; http://spacewalk.redhat.com/communicate.html&lt;/a&gt;. </source>
+				<target>Para detalhes sobre como interagir com a comunidade do @@NOME_DO_PRODUTO@@, por favor visite-nos em &lt;a href="http://spacewalk.redhat.com/communicate.html" target="_new"&gt; http://spacewalk.redhat.com/communicate.html&lt;/a&gt;. </target>
 			</trans-unit>
 			<trans-unit id="login.jsp.hostbody1">
 				<source>@@PRODUCT_NAME@@ is a complete systems management platform for Linux. It's built on open standards and uses a simple, Internet-based graphical interface. It also features a modular design--as networks grow, administrators can add enhanced capabilities for system updates, management, and monitoring of their entire infrastructure.</source>
@@ -1792,7 +1793,7 @@
 			<trans-unit id="disableself.jsp.message">
 				<source>You may deactivate your @@PRODUCT_NAME@@ account below. &lt;b&gt;This will remove your ability
 to log into @@PRODUCT_NAME@@.&lt;/b&gt;</source>
-				<target>Você pode desativar sua conta @@NOME_DO_PRODUTO@@ abaixo. &lt;b&gt;Isto irá remover seu direito de acesso
+				<target>Você pode desativar sua conta @@NOME_DO_PRODUTO@@ abaixo. &lt;b&gt;Isto irá remover seu direito de acesso 
 ao @@NOME_DO_PRODUTO@@.&lt;/b&gt;</target>
 			</trans-unit>
 			<trans-unit id="disableself.jsp.message2">
@@ -2041,7 +2042,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target>
 			</trans-unit>
 			<trans-unit id="usercreate.jsp.pam.reference">
 				<source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
-				<target state="needs-review-translation">Se você deseja configurar seu Satellite para autenticar no LDAP, kerberos e em outros sistemas baseados em rede, por favor visite o &lt;a href="/rhn/help/satellite/en/s1-maintenance-pam-auth.jsp"&gt;guia de referência&lt;/a&gt; para instruções sobre a configuração do PAM. </target>
+				<target>Se você deseja configurar seu Satellite para autenticar no LDAP, kerberos e em outros sistemas baseados em rede, por favor visite o &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;guia de referência&lt;/a&gt; para instruções sobre a configuração do PAM. </target>
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.header">
 				<source>User Details</source>
@@ -3217,6 +3218,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target>
 			</trans-unit>
 			<trans-unit id="erratalist.jsp.channelinfo">
 				<source>The following errata affect this channel, and may affect subscribed systems.</source>
+				<target>A seguinte errata afeta este canal, e também pode afetar sistemas inscritos.</target>
 			</trans-unit>
 			<trans-unit id="erratalist.jsp.oval">
 				<source>OVAL</source>
@@ -3901,7 +3903,7 @@ abaixo e &lt;b&gt;não poderá mais se autenticar&lt;/b&gt;.</target>
 			<trans-unit id="softwareentitlements.tip">
 				<source>&lt;strong&gt;*Tip:&lt;/strong&gt; 'Total' refers to the total available to the @@PRODUCT_NAME@@
 as reflected in this @@PRODUCT_NAME@@'s certificate.</source>
-				<target>&lt;strong&gt;*Dica:&lt;/strong&gt; 'Total' se refere ao total disponível ao @@NOME_DO_PRODUTO@@
+				<target>&lt;strong&gt;*Dica:&lt;/strong&gt; 'Total' se refere ao total disponível ao @@NOME_DO_PRODUTO@@ 
  como refletido neste certificado do @@NOME_DO_PRODUTO@@ .</target>
 			</trans-unit>
 			<trans-unit id="satusers.tip">
@@ -3920,7 +3922,7 @@ permanecer sem modificações nesta página. Caso queira modificá-los, visite
 organization above, those entitlements will be added back to the default organization,
 and if you add entitlements from a non-default organization they will be
 deducted from the default organization.</source>
-				<target>&lt;strong&gt;Dica:&lt;/strong&gt; Esta é a empresa padrão de seu @@NOME_DO_PRODUTO@@. Os serviços para esta empresa estão ligados ao seu arquivo de certificado do @@NOME_DO_PRODUTO@@, portanto não podem ser modificados. Caso você remova os serviços de uma empresa não-padrão acima
+				<target>&lt;strong&gt;Dica:&lt;/strong&gt; Esta é a empresa padrão de seu @@NOME_DO_PRODUTO@@. Os serviços para esta empresa estão ligados ao seu arquivo de certificado do @@NOME_DO_PRODUTO@@, portanto não podem ser modificados. Caso você remova os serviços de uma empresa não-padrão acima 
 estes serviços serão adicionados novamente à empresa padrão, e se você adicionar
 serviços de uma empresa não-padrão, eles serão deduzidos da empresa padrão.</target>
 			</trans-unit>
@@ -3990,7 +3992,7 @@ serviços de uma empresa não-padrão, eles serão deduzidos da empresa padrão.
 			</trans-unit>
 			<trans-unit id="softwareEntitlementDetails.header.accessGrantedDescription">
 				<source>A single '{0}' entitlement may be used to gain access to any one of the following &lt;a href="/rhn/software/channels/All.do"&gt;software channels&lt;/a&gt;:</source>
-				<target state="needs-review-translation">Um serviço único '{0}' pode ser usado para obter acesso à qualquer um dos seguintes &lt;a href="/rhn/software/channels/Relevant.do"&gt;software channels&lt;/a&gt;:</target>
+				<target>Um serviço único '{0}' pode ser usado para obter acesso à qualquer um dos seguintes &lt;a href="/rhn/software/channels/All.do"&gt;software channels&lt;/a&gt;:</target>
 			</trans-unit>
 			<trans-unit id="orgsoftwaresubs.jsp.nochannelfams">
 				<source>No channels found.</source>
@@ -4172,6 +4174,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="erratasearch.jsp.whatsearch.tip">
 				<source>Use 'all fields' to search synopsis, description, topic, or solution.</source>
+				<target>Use 'todos os campos' para buscar sinopse, descrição, tópico ou solução.</target>
 			</trans-unit>
 			<trans-unit id="erratasearch.jsp.types_to_search">
 				<source>Types of Errata to Search:.</source>
@@ -4391,11 +4394,11 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="errata.publish.packagepush.nopackages_pushed">
 				<source>No packages were pushed to channel &lt;strong&gt;{0}&lt;/strong&gt;.</source>
-				<target state="needs-review-translation">&lt;strong&gt;{0}&lt;/strong&gt; pacotes adicionados à 	 errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
+				<target>Nenhum pacote foi adicionado ao canal &lt;strong&gt;{0}&lt;/strong&gt; </target>
 			</trans-unit>
 			<trans-unit id="errata.publish.packagepush.packages_pushed">
 				<source>&lt;strong&gt;{1}&lt;/strong&gt; package(s) were pushed to channel &lt;strong&gt;{0}&lt;/strong&gt;.</source>
-				<target state="needs-review-translation">&lt;strong&gt;{0}&lt;/strong&gt; pacotes adicionados à 	 errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
+				<target>&lt;strong&gt;{1}&lt;/strong&gt; pacotes foram adicionados ao canal &lt;strong&gt;{0}&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="channels.jsp.alt">
 				<source>Software Channel Icon</source>
@@ -4683,133 +4686,135 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="systems.groups.jsp.noGroups">
 				<source>No System Groups. To add System Groups this system, please visit the &lt;a href="{0}"&gt;{1}&lt;/a&gt; tab.</source>
+				<target>Nenhum Grupo de Sistema. Para adicionar os Grupos de Sistemas à este sistema, visite &lt;a href="{0}"&gt;{1}&lt;/a&gt;.</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.add.jsp.noGroups">
 				<source>No system groups are available to add. You have already added all the system groups available (&lt;a href="{0}"&gt;View System Groups&lt;/a&gt;) to this system.</source>
+				<target>Nenhum grupo de sistema disponível para ser adicionado. Você já adicionou todos os grupos de sistemas disponíveis (&lt;a href="{0}"&gt;Visualizar Grupos de Sistemas&lt;/a&gt;) para este sistema.</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.jsp.summary.nonadmin">
 				<source>Below are all the system groups that have been added to this system.</source>
-				<target state="needs-review-translation">Editar os sistemas atribuídos ao conjunto.</target>
+				<target>Abaixo seguem todos os grupos de sistemas adicionados à este sistema.</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.jsp.summary">
 				<source>Below are all the system groups that have been added to this system. To remove a system group membership, check its checkbox and make sure you click the "{0}" button when you are finished with your changes.</source>
-				<target state="needs-review-translation">Segue abaixo uma lista de canais de configuração disponível para este sistema. Para se registrar neste canal, selecione. Tenha certeza que você clicou em "Continuar" quando você terminar de realizar suas mudanças.</target>
+				<target>Segue abaixo todos os grupos de sistemas que já foram adicionados neste sistema. Para remover um associado do grupo de sistema, selecione este ítem e tenha certeza que você clicou em "{0}" quando você terminar de realizar suas mudanças.</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.add.jsp.summary">
 				<source>Below is a list of system groups available to this system. To join a system group, check its checkbox. Make sure you click the "{0}" button when you are finished with your changes.</source>
-				<target state="needs-review-translation">Segue abaixo uma lista de canais de configuração disponível para este sistema. Para se registrar neste canal, selecione. Tenha certeza que você clicou em "Continuar" quando você terminar de realizar suas mudanças.</target>
+				<target>Segue abaixo uma lista dos grupos de sistemas disponíveis para este sistema. Para escolher um grupo de sistema, selecione este ítem. Tenha certeza que você clicou em "{0}" quando você terminar de realizar suas mudanças.</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.add.jsp.title">
 				<source>System Group Membership</source>
-				<target state="needs-review-translation">Nome do Grupo de Sistemas</target>
+				<target>Associação do Grupo de Sistemas</target>
 			</trans-unit>
 			<trans-unit id="activation-key.groups.add.jsp.title">
 				<source>System Group Membership</source>
-				<target state="needs-review-translation">Nome do Grupo de Sistemas</target>
+				<target>Associação do Grupo de Sistemas</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.add.jsp.title">
 				<source>System Group Membership</source>
-				<target state="needs-review-translation">Nome do Grupo de Sistemas</target>
+				<target>Associação do Grupo de Sistemas</target>
 			</trans-unit>
 			<trans-unit id="activation-key.groups.add.jsp.title">
 				<source>System Group Membership</source>
-				<target state="needs-review-translation">Nome do Grupo de Sistemas</target>
+				<target>Associação do Grupo de Sistemas</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.jsp.removed">
 				<source>{0} system groups removed.</source>
-				<target state="needs-review-translation">Nenhum grupo de sistema.</target>
+				<target>{0} grupo de sistemas removidos.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.groups.jsp.removed">
 				<source>{0} system groups removed.</source>
-				<target state="needs-review-translation">Nenhum grupo de sistema.</target>
+				<target>{0} grupo de sistemas removidos.</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.jsp.removed">
 				<source>{0} system groups removed.</source>
-				<target state="needs-review-translation">Nenhum grupo de sistema.</target>
+				<target>{0} grupo de sistemas removidos.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.groups.jsp.removed">
 				<source>{0} system groups removed.</source>
-				<target state="needs-review-translation">Nenhum grupo de sistema.</target>
+				<target>{0} grupo de sistemas removidos.</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.jsp.added">
 				<source>{0} system groups added.</source>
-				<target state="needs-review-translation">Nenhum grupo de sistema.</target>
+				<target>{0} grupo de sistemas adicionados.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.groups.jsp.added">
 				<source>{0} system groups added.</source>
-				<target state="needs-review-translation">Nenhum grupo de sistema.</target>
+				<target>{0} grupo de sistemas adicionados.</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.jsp.added">
 				<source>{0} system groups added.</source>
-				<target state="needs-review-translation">Nenhum grupo de sistema.</target>
+				<target>{0} grupo de sistemas adicionados.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.groups.jsp.added">
 				<source>{0} system groups added.</source>
-				<target state="needs-review-translation">Nenhum grupo de sistema.</target>
+				<target>{0} grupo de sistemas adicionados.</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.jsp.remove">
 				<source>Leave Selected Groups</source>
-				<target state="needs-review-translation">Remover Arquivos Selecionados</target>
+				<target>Sair dos Grupos Selecionados</target>
 			</trans-unit>
 			<trans-unit id="activation-key.groups.jsp.remove">
 				<source>Leave Selected Groups</source>
-				<target state="needs-review-translation">Remover Arquivos Selecionados</target>
+				<target>Sair dos Grupos Selecionados</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.jsp.remove">
 				<source>Leave Selected Groups</source>
-				<target state="needs-review-translation">Remover Arquivos Selecionados</target>
+				<target>Sair dos Grupos Selecionados</target>
 			</trans-unit>
 			<trans-unit id="activation-key.groups.jsp.remove">
 				<source>Leave Selected Groups</source>
-				<target state="needs-review-translation">Remover Arquivos Selecionados</target>
+				<target>Sair dos Grupos Selecionados</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.jsp.add">
 				<source>Join Selected Groups</source>
-				<target state="needs-review-translation">Grupos de Sistemas Atribuídos</target>
+				<target>Entrar nos Grupos de Sistemas</target>
 			</trans-unit>
 			<trans-unit id="activation-key.groups.jsp.add">
 				<source>Join Selected Groups</source>
-				<target state="needs-review-translation">Grupos de Sistemas Atribuídos</target>
+				<target>Entrar nos Grupos de Sistemas</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.jsp.add">
 				<source>Join Selected Groups</source>
-				<target state="needs-review-translation">Grupos de Sistemas Atribuídos</target>
+				<target>Entrar nos Grupos de Sistemas</target>
 			</trans-unit>
 			<trans-unit id="activation-key.groups.jsp.add">
 				<source>Join Selected Groups</source>
-				<target state="needs-review-translation">Grupos de Sistemas Atribuídos</target>
+				<target>Entrar nos Grupos de Sistemas</target>
 			</trans-unit>
 			<trans-unit id="systemgroup.target-systems.summary">
 				<source>The following are systems that may be added to this group.</source>
-				<target state="needs-review-translation">Os seguintes patches podem ser instalados neste sistema.</target>
+				<target>Os seguintes sistemas podem ser adicionados à este grupo.</target>
 			</trans-unit>
 			<trans-unit id="systemgroup.target-systems.added">
 				<source>{0} systems were added to &lt;strong&gt;{1}&lt;/strong&gt; server group.</source>
-				<target state="needs-review-translation">&lt;strong&gt;{0}&lt;/strong&gt; pacotes adicionados à 	 errata &lt;strong&gt;{1}&lt;/strong&gt;</target>
+				<target>{0} sistemas foram adicionados ao grupo do servidor &lt;strong&gt;{1}&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="systemgroup.target-systems.add">
 				<source>Add Systems</source>
-				<target state="needs-review-translation">Sistemas</target>
+				<target>Adicionar Sistemas</target>
 			</trans-unit>
 			<trans-unit id="systemgroup.systems.summary">
 				<source>Below are all the systems that have been added to this system group. To remove a system group membership, check its checkbox and make sure you click the "{0}" button when you are finished with your changes.</source>
-				<target state="needs-review-translation">Segue abaixo uma lista de canais de configuração disponível para este sistema. Para se registrar neste canal, selecione. Tenha certeza que você clicou em "Continuar" quando você terminar de realizar suas mudanças.</target>
+				<target>Seguem todos os sistemas que foram adicionados ao grupo de sistemas. Para remover uma associação de grupo de sistema, selecione este ítem e tenha certeza que você clicou em "{0}" quando você terminar de realizar suas mudanças.</target>
 			</trans-unit>
 			<trans-unit id="systemgroup.systems.summary.nonadmin">
 				<source>Below are all the systems that have been added to this system group.</source>
-				<target state="needs-review-translation">Editar os sistemas atribuídos ao conjunto.</target>
+				<target>Abaixo seguem todos os sistemas que foram adicionados à este grupo de sistemas.</target>
 			</trans-unit>
 			<trans-unit id="systemgroup.systems.removed">
 				<source>{0} systems were removed from &lt;strong&gt;{1}&lt;/strong&gt; server group.</source>
-				<target state="needs-review-translation">Bug &lt;strong&gt;{0}&lt;/strong&gt; removido da errata &lt;strong&gt;{1}&lt;/strong&gt;.</target>
+				<target>{0} sistemas foram removido do grupo de servidor &lt;strong&gt;{1}&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="systemgroup.systems.remove">
 				<source>Remove Systems</source>
-				<target state="needs-review-translation">Resumir Sistema</target>
+				<target>Remover Sistemas</target>
 			</trans-unit>
 			<trans-unit id="systementitlements.jsp.header">
 				<source>System Entitlements</source>
-				<target>Direitos a Níveis de Serviço do Sistema</target>
+				<target>Serviços de  Sistemas</target>
 			</trans-unit>
 			<trans-unit id="systementitlements.jsp.para1">
 				<source>In order to get the most out of @@PRODUCT_NAME@@, each system must be &lt;strong&gt;entitled&lt;/strong&gt; to service. If a system is not entitled, you will not be allowed to perform key software management tasks for that system, such as package installs or errata updates.</source>
@@ -5233,7 +5238,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="removeconfirm.jsp.widgetsummary">
 				<source>You may schedule the package removals to take place as soon as possible, or no sooner than a specified time:</source>
-				<target state="needs-review-translation">Você pode agendar esta implementação para iniciar assim que possível, ou para iniciar no tempo especificado.</target>
+				<target>Você pode agendar esta remoção de pacotes para iniciar assim que possível, ou para iniciar no tempo especificado.</target>
 			</trans-unit>
 			<trans-unit id="message.packageremoval">
 				<source>{0} package removal has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
@@ -5325,7 +5330,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="upgradeconfirm.jsp.widgetsummary">
 				<source>You may schedule the package upgrades to take place as soon as possible, or no sooner than a specified time:</source>
-				<target state="needs-review-translation">Você pode agendar esta implementação para iniciar assim que possível, ou para iniciar no tempo especificado.</target>
+				<target>Você pode agendar esta atualização de pacotes para iniciar assim que possível, ou para iniciar no tempo especificado:</target>
 			</trans-unit>
 			<trans-unit id="upgrade.jsp.confirm">
 				<source>Confirm Upgrade</source>
@@ -5449,7 +5454,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="scheduleremote.jsp.nosoonerthan">
 				<source>Schedule no sooner than</source>
-				<target state="needs-review-translation">Agendar kickstart para não antes de:</target>
+				<target>Agendar para depois de:</target>
 			</trans-unit>
 			<trans-unit id="scheduleremote.jsp.schedulepackageremoval">
 				<source>Schedule Package Removal</source>
@@ -5677,7 +5682,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="installconfirm.jsp.widgetsummary">
 				<source>You may schedule the package installations to take place as soon as possible, or no sooner than a specified time:</source>
-				<target state="needs-review-translation">Você pode agendar esta ação de importação para ocorrer assim que possível ou depois de uma determinada hora:</target>
+				<target>Você pode agendar estas instalações de pacotes para ocorrer assim que possível ou depois de uma determinada hora:</target>
 			</trans-unit>
 			<trans-unit id="confirm.jsp.selection">
 				<source>Date Selection</source>
@@ -5717,7 +5722,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="verifyconfirm.jsp.widgetsummary">
 				<source>You may schedule the package verifications to take place as soon as possible, or no sooner than a specified time:</source>
-				<target state="needs-review-translation">Você pode agendar esta ação de importação para ocorrer assim que possível ou depois de uma determinada hora:</target>
+				<target>Você pode agendar esta verificação de pacotes para ocorrer assim que possível ou depois de uma determinada hora:</target>
 			</trans-unit>
 			<trans-unit id="verifypkgs.jsp.verifiablepackages">
 				<source>Verifiable Packages</source>
@@ -5826,7 +5831,7 @@ regain this role if you choose to remove it now.  You will no longer have access
 organization management tools if you choose to remove this role from your login.</source>
 				<target>Você tem certeza que quer remover a função  "Administrador do @@NOME_DO_PRODUTO@@" de seu
 próprio registro? Você terá que entrar em contato com outro administrador do satellite para
-recuperar esta função, caso você escolha removê-la agora. Você não terá mais acesso às ferramentas de configuração do @@NOME_DO_PRODUTO@@ e
+recuperar esta função, caso você escolha removê-la agora. Você não terá mais acesso às ferramentas de configuração do @@NOME_DO_PRODUTO@@ e 
 ferramentas de gerenciamento da empresa se você escolher remover esta função de seu registro. </target>
 			</trans-unit>
 			<trans-unit id="orgs.trust.channels.plural.jsp.enabled">
@@ -5839,9 +5844,11 @@ ferramentas de gerenciamento da empresa se você escolher remover esta função 
 			</trans-unit>
 			<trans-unit id="orgtrustdetails.jsp.systemconsume1">
 				<source>systems in your organization consume {0} of these</source>
+				<target>sistemas em sua organização consomem {0} destes</target>
 			</trans-unit>
 			<trans-unit id="orgtrustdetails.jsp.systemconsume2">
 				<source>systems in the {0} organization consume {1} of these</source>
+				<target>sistemas na {0} organização consomem {1} destes</target>
 			</trans-unit>
 			<trans-unit id="orgtrustdetails.jsp.header1">
 				<source>Basic Details</source>
@@ -5853,12 +5860,17 @@ ferramentas de gerenciamento da empresa se você escolher remover esta função 
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.orgaccess.header">
 				<source>Trusted Organization Access to Channel Content</source>
+				<target>Acesso da Organização em Trust ao Conteúdo de Canais</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.orgaccess.summary">
 				<source>The organizations listed below are organizations with which
           your organization has a trust. The organizations checked below will be
           granted access to view and consume the content in
           &lt;strong&gt;{0}&lt;/strong&gt; channel. Organizations that are not checked below will not have access to this software channel. You can modify an organization's access to this channel below.</source>
+				<target>As organizações listadas abaixo são organizações com as quais
+                 sua organização possui um trust. As organizações selecionadas abaixo obterão 
+                   acesso à visualização e consumo do conteúdo no 
+                canal &lt;strong&gt;{0}&lt;/strong&gt;. Organizações que não são selecionadas abaixo não terão acesso à este canal de software. Você pode modificar um acesso de organização à este canal abaixo.</target>
 			</trans-unit>
 			<trans-unit id="orgtrustdetails.jsp.header3">
 				<source>System Details</source>
@@ -5870,24 +5882,27 @@ ferramentas de gerenciamento da empresa se você escolher remover esta função 
 			</trans-unit>
 			<trans-unit id="orgtrustdetails.jsp.channelsprovided">
 				<source>Channels Provided to your Organization</source>
-				<target state="needs-review-translation">Propriedades de Canais</target>
+				<target>Canais Fornecidos à sua Organização</target>
 			</trans-unit>
 			<trans-unit id="orgtrustdetails.jsp.channelsconsumed">
 				<source>Channels Consumed from your Organization</source>
+				<target>Canais Consumidos em sua Organização</target>
 			</trans-unit>
 			<trans-unit id="orgtrust.jsp.channelconsume.summary">
 				<source>Below is a list of channels your organization is sharing with &lt;strong&gt;{0}&lt;/strong&gt;. This list also shows how many packages are in each channel and how many systems in that organization are consuming from these shared channels. If you would like to modify how many of these channels are shared, click on the channel's name for more details. </source>
+				<target>Abaixo segue uma lista dos canais que sua organização compartilha com &lt;strong&gt;{0}&lt;/strong&gt;. Este lista também exibe quantos pacotes existem em cada canal e quantos sistemas nesta organização são utilizados nestes canais compartilhados. Se você quiser modificar a quantidade de canais que são compartilhados, selecione o nome do canal para mais detalhes. </target>
 			</trans-unit>
 			<trans-unit id="orgtrust.jsp.channelprovide.summary">
 				<source>Below is a list of channels that organization &lt;strong&gt;{0}&lt;/strong&gt; has shared with your organization, also showing how many packages are in each channel and how many systems in your organization are consuming from these shared channels. </source>
+				<target>Abaixo seque uma lista de canais que a organização &lt;strong&gt;{0}&lt;/strong&gt; compartilhou com sua organização, também exibindo quantos pacotes existem em cada canal e quantos sistemas em sua organização estão utilizando estes canais compartilhados. </target>
 			</trans-unit>
 			<trans-unit id="orgtrustdetails.jsp.sysmigratedto">
 				<source>Systems Migrated to Your Organization</source>
-				<target state="needs-review-translation">Satellite Organizations </target>
+				<target>Sistemas Migrados para Sua Organização</target>
 			</trans-unit>
 			<trans-unit id="orgtrustdetails.jsp.sysmigratedfrom">
 				<source>Systems Migrated from Your Organization</source>
-				<target state="needs-review-translation">Satellite Organizations </target>
+				<target>Sistemas Migrados para sua Organização</target>
 			</trans-unit>
 			<trans-unit id="deleteconfirm.jsp.confirmprofiledeletion">
 				<source>Confirm Profile Deletion</source>
@@ -6498,7 +6513,7 @@ administrator privileges in all of the organizations on your @@PRODUCT_NAME@@ an
 may also assign or take away an organization administrator's satellite
 administrator privileges.</source>
 				<target>Crie e gerencie as organizações em seu @@NOME_DO_PRODUTO@@. Você pode não conseguir visualizar todos
-os usuários no @@NOME_DO_PRODUTO@@ por aqui, mas você pode procurar pelos usuários com os previlégios do administrador da organização em todas as organizaçẽos em seu @@NOME_DO_PRODUTO@@ e
+os usuários no @@NOME_DO_PRODUTO@@ por aqui, mas você pode procurar pelos usuários com os previlégios do administrador da organização em todas as organizaçẽos em seu @@NOME_DO_PRODUTO@@ e 
 também pode atribuir ou tomar os previlégios do administrador de uma organização do satellite.</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.link3">
@@ -6689,6 +6704,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="cobbler.jsp.synced">
 				<source>Cobbler Sync action was successfully executed. Look at /var/log/cobbler/*.log for more information</source>
+				<target>Ação de Sincronização do Cobbler foi executada com sucesso. Procure em /var/log/cobbler/*.log para obter mais informações. </target>
 			</trans-unit>
 			<trans-unit id="cobbler.jsp.summary1">
 				<source>Setup your @@PRODUCT_NAME@@ Cobbler settings below.</source>
@@ -6696,6 +6712,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="cobbler.jsp.summary2">
 				<source>Cobbler sync is used to repair or rebuild the contents /tftpboot or /var/www/cobbler when manual modification of cobbler has occured.</source>
+				<target>A sincronização do Cobbler é usada para reparar ou reconstruir o conteúdo de /tftpboot ou /var/www/cobbler quando a modificação manual do cobbler ocorreu.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.jsp.summary3">
 				<source>For more information refer to the 'cobbler' man page.</source>
@@ -6786,11 +6803,14 @@ Please note that some manual configuration of these scripts may still be require
 				<target>Atualizações das Variantes</target>
 			</trans-unit>
 			<trans-unit id="kickstart.variable.jsp.summary">
-				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
-				You would then use $name within the profile to substitute in the value.</source>
+				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+        			You would then use $name within the profile to substitute in the value.</source>
+				<target>As variantes do kickstart podem ser usadas para substituir valores nos perfis do kickstart. Para definir a variante, simplesmente adicione nome=valor na caixa abaixo. 
+        			 Você teria então que usar o $nome dentro do perfil para substituir no valor.</target>
 			</trans-unit>
 			<trans-unit id="kickstarttree.variable.jsp.summary">
 				<source>Any variables specified below will be usable in any profile that uses this distro.  They can be overridden in each profile as well.</source>
+				<target>Qualquer variante especificada abaixo será útil em qualquer perfil que utiliza este distro. Elas podem ser sobrescritas em cada perfil também. </target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virt_disk_path">
 				<source>Virtual Storage Path</source>
@@ -6798,6 +6818,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virt_disk_path.tip">
 				<source>&lt;strong&gt;Tip:&lt;/strong&gt; You may specify a file path (/var/lib/xen/images/disk), a Volume Group (VolGroup00), or a partiion (/dev/sda5).  You can also specify multiple virtual disks by comma separating the filepaths, volume group, or partition (/dev/sdb1,/devsdc1).</source>
+				<target>&lt;strong&gt;Dica&lt;/strong&gt;: Você pode espeficar um caminho de arquivo (/var/lib/xen/images/disk), um Grupo de Volume (VolGroup00), ou uma partição (/dev/sda5). Você também pode especificar discos virtuais múltiplos, utilizando vírgulas para separar os caminhos de arquivos, grupo de volume, ou partição (/dev/sdb1,/devsdc1).</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virt_mem_kb">
 				<source>Virtual Memory (in kilobytes)</source>
@@ -6825,12 +6846,15 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstart.jsp.error.invalidvariable">
 				<source>You have specified an invalid variable: '{0}'.  Variables should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a new line.  For example: 'ip=192.168.0.1'</source>
+				<target>Você especificou uma variante inválida: '{0}'. Variantes devem ser pares do valor do nome, separado por um simbolo '=', com cada par separado por uma nova linha. Por exemplo: 'ip=192.168.0.1'</target>
 			</trans-unit>
 			<trans-unit id="kickstart.jsp.error.invalidoption">
 				<source>You have specified an invalid option '{0}'.  Options should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a space.  For example: 'ip=192.168.0.1 netmask=255.255.255.0'</source>
+				<target>Você especificou uma opção inválida '{0}. Opções devem ter o mesmo par de valores de nome, separados por um simbolo '=', sendo que cada par é separado por um espaço. Por exemplo:  'ip=192.168.0.1 netmask=255.255.255.0'</target>
 			</trans-unit>
 			<trans-unit id="kickstart.jsp.error.template_generation">
 				<source>There are errors in your kickstart template. Please check the &lt;a href="{0}"&gt;template errors&lt;/a&gt; to determine the problem with the template.</source>
+				<target>Existem erros em seu modelo de kickstart. Por favor, verifique o &lt;a href="{0}"&gt;template errors&lt;/a&gt; para determinar o problema com o modelo.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.kernel_options">
 				<source>Kernel Options</source>
@@ -6974,7 +6998,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.prelog.msg">
 				<source>If selected, all output of pre scripts will be logged to /root/ks-pre.log.</source>
-				<target state="needs-review-translation">Caso selecionado, todos os resultados dos pós scripts padronizados, serão autenticados no root/ks-post.log.</target>
+				<target>Caso selecionado, todos os resultados dos pré scripts, serão autenticados no root/ks-pre.log.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.kscfg">
 				<source>Preserve ks.cfg:</source>
@@ -6982,6 +7006,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.kscfg.msg">
 				<source>If selected, ks.cfg and all %include fragments will be copied to /root.</source>
+				<target>Caso selecionado, o ks.cfg e todos os fragmentos do %include serão copiados para /root.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.header1">
 				<source>Kickstart: {0}</source>
@@ -7025,7 +7050,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.activeDescription">
 				<source>You cannot kickstart a system registered to @@PRODUCT_NAME@@ using an inactive kickstart profile. However, the kickstart files for inactive kickstart profiles are still available for manual download and may be used for bare metal kickstarts.</source>
-				<target state="needs-review-translation">Você não pode fazer o kickstart de um sistema registrado no @@NOME_DO_PRODUTO@@, usando um perfil kickstart inativo. No entanto, os arquivos de kickstart para perfis de kickstart inativos, ainda estão disponíveis para download manual e podem ser usados para kickstarts bare metal.</target>
+				<target>Você não pode realizar o kickstart de um sistema registrado no @@NOME_DO_PRODUTO@@, usando um perfil kickstart inativo. No entanto, os arquivos de kickstart para perfis de kickstart inativos, ainda estão disponíveis para download manual e podem ser usados para kickstarts bare metal.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.jsp.org_default">
 				<source>Organization Default</source>
@@ -7121,9 +7146,13 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations.
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
+            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
+            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
             tab to verify the new settings.</source>
+				<target>&lt;strong&gt;NOTA:&lt;/strong&gt; Caso você mude o Tipo de Virtualização, precisará realizar mudanças no
+            carregador de inicialização do perfil do kickstart e opções de partição, sobrescrevendo principalmente as padronizações do usuário. 
+            Por favor, visite a aba &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
+            para verificar as novas configurações.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.active">
 				<source>Active:</source>
@@ -7167,6 +7196,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstart.advanced.jsp.para1">
 				<source>Each kickstart file you upload to satellite will need a label so that you can refer to it later - please choose a label for this kickstart and enter it below. Entries marked with an asterisk (*) are required.</source>
+				<target>Cada arquivo de kickstart que você carregar no satellite, precisará de uma etiqueta para que você possa consultá-lo mais tarde. Escolha uma etiqueta para este kickstart e insira-a abaixo. As entradas marcadas com um asterisco (*) são obrigatórias.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.advanced.jsp.uploadtab">
 				<source>File to Upload</source>
@@ -7174,7 +7204,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstart.advanced.filedetails.jsp.tip.edit">
 				<source> Alternatively, you can upload a new version in the '{0}' section below and select '{1}'.</source>
-				<target state="needs-review-translation">&lt;strong&gt;Dica:&lt;/strong&gt; Como forma alternativa, você pode carregar uma nova revisão a partir da aba 'Gerenciar Revisões' acima.</target>
+				<target>Como forma alternativa, você pode carregar uma nova versão na seção '{0}' abaixo e selecionar '{1}'.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdatadelete.jsp.confirmdelete">
 				<source>Delete Kickstart</source>
@@ -7182,7 +7212,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstart.activationkeys.jsp.summary">
 				<source>You can associate one or more activation keys with this kickstart profile.  Activation keys will allow systems kickstarted with this profile to automatically register to @@PRODUCT_NAME@@, gain @@PRODUCT_NAME@@ service level entitlements, subscribe to specified software and configuration channels, and subscribe to specified system groups.  Activation keys can also specify packages to be installed on a system.  Please consider how this may affect your package selection in this profile's &lt;a href="/rhn/kickstart/KickstartPackagesEdit.do?ksid={0}"&gt;Software&lt;/a&gt; tab.</source>
-				<target state="needs-review-translation">Você pode associar uma ou mais chaves de ativação com este perfil de kickstart.  As chaves de ativação permitem que os sistemas com este perfil de kickstart sejam registrados automaticamente no @@NOME_DO_PRODUTO@@, obtenham níveis de serviço do @@NOME_DO_PRODUTO@@, registrem em canais de software e configuração específicos e também registrem em grupos de sistemas específicos.  As chaves de ativação também podem especificar pacotes a serem instalados num sistema.  Por favor considere como isto pode afetar sua seleção de pacotes na aba &lt;a href="/rhn/kickstart/KickstartPackagesEdit.do?ksid={0}"&gt;Software&lt;/a&gt; deste perfil.</target>
+				<target>Você pode associar uma ou mais chaves de ativação com este perfil de kickstart.  As chaves de ativação permitem que os sistemas com este perfil de kickstart sejam registrados automaticamente no @@NOME_DO_PRODUTO@@,  obtenham níveis de serviço do @@NOME_DO_PRODUTO@@, registrem em canais de software e configuração específicos e também registrem em grupos de sistemas específicos.  As chaves de ativação também podem especificar pacotes a serem instalados num sistema.  Por favor considere como isto pode afetar sua seleção de pacotes na aba &lt;a href="/rhn/kickstart/KickstartPackagesEdit.do?ksid={0}"&gt;Software&lt;/a&gt; deste perfil.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.activationkeys.jsp.nokeys">
 				<source>No activation keys available</source>
@@ -7562,6 +7592,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.repos-tooltip">
 				<source>Selected Repositories will be available in the &lt;strong&gt;%packages &lt;/strong&gt; section of the kickstart file.</source>
+				<target>Repositórios selecionados estarão disponíveis na seção &lt;strong&gt;%packages &lt;/strong&gt; do arquivo do kickstart.</target>
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.tip1">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; New file location must be the root of an install tree (for the operating system version above) on either an http or ftp server.&lt;/span&gt;</source>
@@ -7569,7 +7600,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.warning">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Warning:&lt;/strong&gt; If any activation keys are associated with this kickstart profile(under the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;activation keys tab&lt;/a&gt;). the child channel subscriptions above will be overridden. In that situation please use an activation key to specify child channel subscriptions.&lt;/span&gt;</source>
-				<target state="needs-review-translation">&lt;span class="small-text"&gt;&lt;strong&gt;Aviso:&lt;/strong&gt; Se alguma chave de ativação for associada à este perfil kickstart (sob a &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;aba de chave de ativação&lt;/a&gt;), as inscrições do canal filho acima será sobrescrita. Neste caso, use uma chave de ativação para especificar as inscrições de canal filho.&lt;/span&gt;</target>
+				<target>&lt;span class="small-text"&gt;&lt;strong&gt;Aviso:&lt;/strong&gt; Se alguma chave de ativação for associada à este perfil kickstart (sob a &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;aba de chave de ativação&lt;/a&gt;), as inscrições do canal filho acima serão sobrescritas. Neste caso, use uma chave de ativação para especificar as inscrições de canal filho.&lt;/span&gt;</target>
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.tip2">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; If your systems are connected through an @@PRODUCT_NAME@@ Proxy, you may place the installation tree in  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; on the Proxy.</source>
@@ -7647,6 +7678,14 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 				<source>nochroot</source>
 				<target>nochroot</target>
 			</trans-unit>
+			<trans-unit id="kickstart.script.template">
+				<source>Template</source>
+				<target>Modelo</target>
+			</trans-unit>
+			<trans-unit id="kickstart.script.template.tip">
+				<source>Enable this to enable templating on this script using cobbler.</source>
+				<target>Ativar este para que a opção de modelo seja ativada neste script usando o cobbler.</target>
+			</trans-unit>
 			<trans-unit id="kickstart.script.tip3">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This specifies when the script gets ran (before or after kickstart).&lt;/span&gt;</source>
 				<target>&lt;span class="small-text"&gt;&lt;strong&gt;Dica:&lt;/strong&gt; Isto determina quando o script é executado (antes ou depois do kickstart).&lt;/span&gt;</target>
@@ -7720,33 +7759,36 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 				<target>Snippets do Kickstart</target>
 			</trans-unit>
 			<trans-unit id="snippets.jsp.summary">
-				<source>Use Kickstart Snippets to store common blocks of code that can be shared across multiple Kickstart profiles in @@PRODUCT_NAME@@. When you create a Kickstart Snippet, all Kickstart profiles including that snippet will be updated accordingly.</source>
+				<source>Use kickstart snippets to store common blocks of code that can be shared across multiple kickstart profiles in @@PRODUCT_NAME@@. When you create a kickstart snippet, all kickstart profiles including that snippet will be updated accordingly.</source>
+				<target>Use os snippets para armazenar blocos comuns de código que podem ser compartilhados por perfis de kickstart múltiplos no @@NOME_DO_PRODUTO@@. Quando você criar um snippet de kickstart, todos os perfis de kickstart, incluindo este snippet, serão atualizados quando necessário.</target>
 			</trans-unit>
 			<trans-unit id="snippets.jsp.note.default">
-				<source>default kickstart snippets are not editable.</source>
-				<target state="needs-review-translation">As seguintes distribuições de kickstart estão disponíveis.</target>
+				<source>Default kickstart snippets are not editable.</source>
+				<target>Snippets de kickstart padrão não são editáveis.</target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.snippets">
 				<source>create new snippet</source>
-				<target state="needs-review-translation">Criar Nova Organização</target>
+				<target>criar novo snippet</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.name">
 				<source>Snippet Name</source>
-				<target state="needs-review-translation">Nome do Conjunto</target>
+				<target>Nome do Snippet</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.macro">
 				<source>Snippet Macro</source>
-				<target state="needs-review-translation">Nome do Conjunto</target>
+				<target>Snippet Macro</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.jsp.nosnippets">
-				<source>No Cobbler snippets found.</source>
-				<target state="needs-review-translation">Nenhum Conjunto de Detecções definido.</target>
+				<source>No kickstart snippets found.</source>
+				<target>Nenhum Snippet de kickstart foi encontrado.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.copy-paste-snippet-tip">
-				<source>Copy and paste the snippet macro into your Kickstart profiles to make the full snippet appear in that Kickstart profile.</source>
+				<source>Copy and paste the snippet macro into your kickstart profiles to make the full snippet appear in that kickstart profile.</source>
+				<target>Copiar e colar o snippet macro nos seus perfis de kickstart para fazer com que todo o snippet apareça no perfil do kickstart.</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.warning.tip">
 				<source>Changing this snippet's name will require updating any kickstart profiles that refer to it so that they can continue to access the content of this snippet.</source>
+				<target>Caso você mude o nome deste snippet, será necessário atualizar todos os perfis de kickstart que se refira à ele, para que consiga acessar o conteúdo deste snippet. </target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.path">
 				<source>File Path</source>
@@ -7754,6 +7796,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.path.tip">
 				<source>This is where the snippet resides on the @@PRODUCT_NAME@@ file system.</source>
+				<target>Aqui se encontra o sistema de arquivo do @@NOME_DO_PRODUTO@@.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.header.name">
 				<source>Kickstart Snippet: {0}</source>
@@ -7768,14 +7811,16 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 				<target>Padronização</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.custom.tip">
-				<source>Custom Kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
+				<source>Custom kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
+				<target>Snippets de kickstart padronizados estarão disponíveis somente à organização &lt;strong&gt;{0}&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default">
 				<source>Default</source>
 				<target>Padrão</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default.tip">
-				<source>Default Kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
+				<source>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
+				<target>Os snippets do kickstart padrão estão disponíveis para todas as organizações. Estes snippets não podem ser modificados. </target>
 			</trans-unit>
 			<trans-unit id="snippetedit.jsp.header2">
 				<source>Edit Snippet</source>
@@ -7786,12 +7831,28 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 				<target>Criar Novo Snippet</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.summary">
-				<source>Snippets can be shared between Kickstart Profiles</source>
-				<target state="needs-review-translation">Criar Novo Perfil de Kickstart</target>
+				<source>Snippets can be shared between kickstart profiles</source>
+				<target>Os snippets podem ser compartilhados entre os perfis do kickstart</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.header2">
 				<source>Create Snippet</source>
 				<target>Criar Snippet</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.submit">
+				<source>Create Snippet</source>
+				<target>Criar Snippet</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.header2">
+				<source>Create Snippet</source>
+				<target>Criar Snippet</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.submit">
+				<source>Create Snippet</source>
+				<target>Criar Snippet</target>
+			</trans-unit>
+			<trans-unit id="snippetdetails.jsp.header2">
+				<source>Snippet Details</source>
+				<target>Detalhes do Snippet</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.contents">
 				<source>Contents</source>
@@ -7802,9 +7863,10 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 				<target>Conteúdo do Snippet do Kickstart</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.tip1">
-				<source>Avoid spaces in the snippet name.</source>
+				<source>The snippet name is the name of a file that will reside in this organization's snippet directory. Any standard unix file name characters are acceptable. Snippet names containing slash character or snippet names beginning with period are not allowed.</source>
+				<target>O nome do snippet é o nome de um arquivo que se encontra no diretório do snippet desta organização. Qualquer caractere de nome de arquivo do unix padrão é aceitável. Os nomes do snippets que contém caracteres com barra ou nomes de snippet começando com um ponto final, não são permitidos. </target>
 			</trans-unit>
-			<trans-unit id="snippetcreate.jsp.submit">
+			<trans-unit id="snippetupdate.jsp.submit">
 				<source>Update Snippet</source>
 				<target>Atualizar Snippet</target>
 			</trans-unit>
@@ -7817,11 +7879,12 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 				<target>Removendo Snippet</target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.summary">
-				<source>Are you sure you want to delete this Snippet permanently?</source>
-				<target>Você tem certeza que deseja remover este Snippet permanentemente?</target>
+				<source>Are you sure you want to delete this snippet permanently?</source>
+				<target>Você tem certeza que deseja remover este Snippet permanentemente? </target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.warning">
-				<source>Deleting this snippet will affect any kickstart profiles that refere to it. It may break kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
+				<source>Deleting this snippet will affect any kickstart profiles that refer to it. It may break those kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
+				<target>Remover este snippet afetará qualquer perfil de kickstart que se refira à ele. Ele pode quebrar aqueles perfis. Recomendamos que você tenha certeza de que nenhum perfil de kickstart depende deste snippet antes de removê-lo.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.delete">
 				<source>Confirm Snippet Delete</source>
@@ -8113,11 +8176,11 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 			</trans-unit>
 			<trans-unit id="channels.redhat.jsp.header1">
 				<source>The software channels listed below are Red Hat channels or child channels of Red Hat Channels.</source>
-				<target state="needs-review-translation">Os canais de software listados abaixo fazem parte da subscrição adquirida por sua empresa.</target>
+				<target>Os canais de software listados abaixo são canais da Red Hat ou canais filho do Red Hat Channels.</target>
 			</trans-unit>
 			<trans-unit id="channels.shared.jsp.header1">
 				<source>The software channels listed below my be shared by your organization.</source>
-				<target>Os canais de software listados abaixo podem ser compartilhadas pela sua empresa. </target>
+				<target>Os canais de software listados abaixo podem ser compartilhadas pela sua empresa.  </target>
 			</trans-unit>
 			<trans-unit id="channels.custom.jsp.header1">
 				<source>The software channels listed below belong to your organization.</source>
@@ -8125,6 +8188,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 			</trans-unit>
 			<trans-unit id="channels.popular.jsp.header1">
 				<source>The software channels listed below are considered popular (defined as having a certain number of systems subscribed).</source>
+				<target>Os canais de software listados abaixo são considerados populares (por ter um certo número de sistemas inscritos).</target>
 			</trans-unit>
 			<trans-unit id="channels.popular.jsp.label0">
 				<source>Popularity</source>
@@ -8132,7 +8196,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 			</trans-unit>
 			<trans-unit id="channels.popular.jsp.label1">
 				<source>Display channels with at least</source>
-				<target state="needs-review-translation">Exibir sempre como</target>
+				<target>Exibir canais com ao menos</target>
 			</trans-unit>
 			<trans-unit id="channels.popular.jsp.label2">
 				<source> systems subscribed below.</source>
@@ -8156,6 +8220,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 			</trans-unit>
 			<trans-unit id="channels.manage.jsp.header2">
 				<source>Modify an existing software channel by selecting it from the list below, or create a new software channel. </source>
+				<target>Modificar um canal de software existente selecionando-o a partir da lista abaixo, ou criar um novo canal de software.</target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.channel">
 				<source>create new channel</source>
@@ -8187,10 +8252,11 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 			</trans-unit>
 			<trans-unit id="kickstart.troubleshooting.jsp.nonchrootpost">
 				<source>Log non-chroot post script actions</source>
-				<target state="needs-review-translation">Conteúdo do Pós Script Não-chroot</target>
+				<target>Autenticar ações de pós script Não-chroot</target>
 			</trans-unit>
 			<trans-unit id="kickstart.troubleshooting.jsp.verboseup2date">
 				<source>Enable debugging in up2date/yum</source>
+				<target>Ativar a depuração em up2date/yum</target>
 			</trans-unit>
 			<trans-unit id="kickstart.troubleshooting.jsp.bootloadertip.text">
 				<source>LILO is a text-based bootloader.  Choose LILO as your bootloader if you are having video card issues.</source>
@@ -8290,15 +8356,15 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 			</trans-unit>
 			<trans-unit id="kickstart.jsp.virt-type.qemu">
 				<source>None Or KVM Virtualized Guest</source>
-				<target state="needs-review-translation">Convidado Virtual</target>
+				<target>Nenhum ou Convidado Virtualizado KVM</target>
 			</trans-unit>
 			<trans-unit id="kickstart.jsp.virt-type.xenfv">
 				<source>XEN Fully-Virtualized Guest</source>
-				<target state="needs-review-translation">Convidado Virtual</target>
+				<target>Convidado Totalmente Virtualizado XEN</target>
 			</trans-unit>
 			<trans-unit id="kickstart.jsp.virt-type.xenpv">
 				<source>XEN Para-Virtualized Guest</source>
-				<target state="needs-review-translation">Convidado Virtual</target>
+				<target>Convidado Para-Virtualizado XEN</target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.activationkeys">
 				<source>create new key</source>
@@ -8478,12 +8544,15 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 			</trans-unit>
 			<trans-unit id="activation-key.jsp.config-auto-deploy-tooltip">
 				<source> Deploy configuration files to systems when they are registered with this activation key.</source>
+				<target>Implementar arquivos de configuração em sistemas quando forem registrados com esta chave de ativação.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.jsp.disabled-config-auto-deploy-tooltip">
 				<source> Configuration File Deployment is currently disabled. Select "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;"  to enable configuration management facilities for this activation key.</source>
+				<target>Implementação de Arquivo de Configuração está desativado atualmente. Selecione "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;" para ativar os recursos de administração da configuração para esta chave de ativação.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.packages.jsp.summary">
 				<source>Any system registered with this activation key will have the packages listed below installed, if those packages are available. Package names may be listed as package name only or may include an extension to specify the desired architecture.  There should only one package name included per line.</source>
+				<target>Todos os sistemas registrados com esta chave de ativação terão seus pacotes listados abaixo instalados, se estiverem disponíveis. Os nomes de pacotes, podem ser listados somente como nome de pacote ou podem incluir uma extensão para especificar a arquitetura desejada. Deve haver somente um nome de pacote incluso por linha.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.packages.jsp.enter-names">
 				<source>Enter package names below</source>
@@ -8495,19 +8564,19 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 			</trans-unit>
 			<trans-unit id="activation-keys.config.subscriptions.jsp.noChannels">
 				<source>No configuration channels are available for subscription. You have already subscribed this activation key to all available channels (&lt;a href="{0}"&gt;view subscribed channels&lt;/a&gt;).</source>
-				<target state="needs-review-translation">Nenhum canal de configuração está disponível para subscrição. Você pode já ter registrado este sistema em todos os canais disponíveis  (&lt;a href="{0}"&gt;visualizar canais registrados&lt;/a&gt;) ou então não possui permissões de acesso à nenhum canal disponível.</target>
+				<target>Nenhum canal de configuração está disponível para subscrição. Você pode já ter registrado este sistema em todos os canais disponíveis  (&lt;a href="{0}"&gt;visualizar canais registrados&lt;/a&gt;).</target>
 			</trans-unit>
 			<trans-unit id="activation-key.config.jsp.para1">
 				<source>Below are all the centrally-managed configuration channels to which this activation key is subscribed. They are in priority order with the highest-ranked channels appearing first in the list.</source>
-				<target state="needs-review-translation">Segue abaixo todos os canais de configuração gerenciados centralmente para o qual este sistema está inscrito. Eles estão em ordem de prioridade, sendo os canais de maior classificação os primeiros da lista.</target>
+				<target>Segue abaixo todos os canais de configuração gerenciados centralmente para o qual este sistema está inscrito. Eles estão em ordem de prioridade, sendo os canais de maior classificação os primeiros da lista.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.config.subscriptions.jsp.para1">
 				<source>Below is a list of configuration channels available to this activation key. To subscribe to a channel, check its checkbox. Make sure you click the "{0}" button when you are finished with your changes.</source>
-				<target state="needs-review-translation">Segue abaixo uma lista de canais de configuração disponível para este sistema. Para se registrar neste canal, selecione. Tenha certeza que você clicou em "Continuar" quando você terminar de realizar suas mudanças.</target>
+				<target>Segue abaixo uma lista de canais de configuração disponíveis para esta chave de ativação. Para se registrar neste canal, selecione. Tenha certeza que você clicou em "{0}" quando você terminar de realizar suas mudanças.</target>
 			</trans-unit>
 			<trans-unit id="activation-keys.config.rank.jsp.para1">
 				<source>This activation key is subscribed to the configuration channels listed below in order from highest to lowest rank. Files from a particular channel will override files with the same filepath and name from channels below it.</source>
-				<target state="needs-review-translation">Este sistema é registrado nos canais de configuração listados abaixo em ordem crescente. Os arquivos de um canal específico, irão sobrescrever arquivos com o mesmo caminho de arquivo e nome a partir dos canais abaixo deles.</target>
+				<target>Esta chave de ativação é registrada para os canais canais de configuração listados abaixo em ordem decrescente. Os arquivos de um canal específico, irão sobrescrever arquivos com o mesmo caminho de arquivo e nome a partir dos canais abaixo deles.</target>
 			</trans-unit>
 			<trans-unit id="activation-keys.config.rank.jsp.para2">
 				<source>To modify the respective rankings of the subscribed channels, you may select one channel at a time to move up or down using the arrow buttons below. After you have completed the ranking process, you will need to click on "{0}" below to confirm the channel subscriptions and ordering.</source>
@@ -8527,47 +8596,51 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 			</trans-unit>
 			<trans-unit id="activation-keys.groups.jsp.noGroups">
 				<source>No System Groups. To add System Groups this activation key, please visit the &lt;a href="{0}"&gt;{1}&lt;/a&gt; tab.</source>
+				<target>Nenhum Grupo de Sistema. Para adicionar Grupos de Sistema à esta chave de ativação, visite a aba &lt;a href="{0}"&gt;{1}&lt;/a&gt;.</target>
 			</trans-unit>
 			<trans-unit id="activation-keys.groups.add.jsp.noGroups">
 				<source>No system groups are available to add. You have already added all the system groups available (&lt;a href="{0}"&gt;View System Groups&lt;/a&gt;) to this activation key.</source>
+				<target>Não há nenhum grupo de sistema disponível para adicionar. Você pode já ter adicionado todos os grupos de sistema disponíveis (&lt;a href="{0}"&gt;Visualizar Grupos de Sistema&lt;/a&gt;) à esta chave de ativação.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.groups.jsp.summary">
 				<source>Below are all the system groups that have been added to this activation key. Any system registering with this activation key will be added to the selected system groups. To remove a system group membership, check its checkbox and make sure you click the "{0}" button when you are finished with your changes.</source>
-				<target state="needs-review-translation">Segue abaixo uma lista de canais de configuração disponível para este sistema. Para se registrar neste canal, selecione. Tenha certeza que você clicou em "Continuar" quando você terminar de realizar suas mudanças.</target>
+				<target>Segue abaixo todos os grupos de sistema que já foram adicionados nesta chave de ativação. Qualquer sistema que se registre com esta chave de ativação será adicionado ao grupo de sistemas selecionado. Para se remover uma sociedade de grupo de sistema,  selecione este ítem e tenha certeza que você clicou em "{0}" quando você terminar de realizar suas mudanças.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.groups.add.jsp.summary">
 				<source>Below is a list of system groups available to this activation key. To join a system group, check its checkbox. Make sure you click the "{0}" button when you are finished with your changes.</source>
-				<target state="needs-review-translation">Segue abaixo uma lista de canais de configuração disponível para este sistema. Para se registrar neste canal, selecione. Tenha certeza que você clicou em "Continuar" quando você terminar de realizar suas mudanças.</target>
+				<target>Segue abaixo uma lista de grupos de sistema disponíveis para esta chave de ativação. Para se registrar neste grupo de sistema, selecione-o. Tenha certeza que você clicou em "{0}" quando você terminar de realizar suas mudanças.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.systems.para1">
 				<source>Below are all the systems that have been registered with this activation key.</source>
+				<target>Abaixo seguem todos os sistemas que já foram registrados com esta chave ativação.</target>
 			</trans-unit>
 			<trans-unit id="profile.list.header">
 				<source>Stored Profiles</source>
-				<target state="needs-review-translation">Criar Perfil Armazenado</target>
+				<target>Perfis Armazenados</target>
 			</trans-unit>
 			<trans-unit id="profile.list.header.alt">
 				<source>Profile Icon</source>
-				<target state="needs-review-translation">Este perfil somente</target>
+				<target>Icone do Perfil </target>
 			</trans-unit>
 			<trans-unit id="profile.list.summary">
 				<source>The following stored profiles exist within your organization. To create a stored profile from a system, go to the Packages view for that system.</source>
+				<target>Existem os seguintes perfis armazenados dentro de sua empresa. Para criar um perfil armazenado de um sistema, vá para visualizar Pacotes neste sistema. </target>
 			</trans-unit>
 			<trans-unit id="profile.list.noprofiles">
 				<source>No stored profiles.</source>
-				<target state="needs-review-translation">Nenhum Perfil de Kickstart</target>
+				<target>Nenhum Perfil Armazenado</target>
 			</trans-unit>
 			<trans-unit id="profile.details.toolbar">
 				<source>Stored Profile: </source>
-				<target state="needs-review-translation">Criar Perfil Armazenado</target>
+				<target>Perfil Armazenado:</target>
 			</trans-unit>
 			<trans-unit id="profile.details.summary">
 				<source>Edit the profile below.</source>
-				<target state="needs-review-translation">Etiqueta do perfil de kickstart</target>
+				<target>Editar o perfil abaixo.</target>
 			</trans-unit>
 			<trans-unit id="profile.packagelist.summary">
 				<source>The following packages are associated with this stored profile.</source>
-				<target state="needs-review-translation">Os seguintes pacotes estão associados a esta ação:</target>
+				<target>Os seguintes pacotes estão associados a este perfil armazenado:</target>
 			</trans-unit>
 			<trans-unit id="system.common.systemAlt">
 				<source>system</source>
@@ -8835,7 +8908,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 			</trans-unit>
 			<trans-unit id="targetsystems.jsp.summary">
 				<source>The systems listed below do not have files managed via @@PRODUCT_NAME@@ configuration management.  For systems to be capable of being managed by @@PRODUCT_NAME@@ configuration management, they will need a provisioning entitlement in addition to having particular rhncfg-* packages installed. You can enable configuration management on selected systems by using the 'Enable @@PRODUCT_NAME@@ Configuration Management' button below.</source>
-				<target state="needs-review-translation">O sistema listado abaixo não possui arquivos gerenciados via gerenciamento de configuração @@NOME_DO_PRODUTO@@. Para os sistemas que são capazes de ser gerenciados pelo gerenciamento de configuração @@NOME_DO_PRODUTO@@, eles precisarão de um serviço de provisioning, além de ter pacotes rhncfg* específicos instalados. Você pode habilitar o gerenciamento de configuração nos sistemas selecionados, usando o botão de ' Habilitar Gerenciamento de Configuração do @@NOME_DO_PRODUTO@@' abaixo.</target>
+				<target>Os sistemas listados abaixo não possuem arquivos gerenciados via gerenciamento de configuração @@NOME_DO_PRODUTO@@. Os sistemas que são capazes de ser gerenciados pelo gerenciamento de configuração @@NOME_DO_PRODUTO@@, precisarão de um serviço de provisioning, além de ter pacotes rhncfg* específicos instalados. Você pode habilitar o gerenciamento de configuração nos sistemas selecionados, usando o botão de ' Habilitar Gerenciamento de Configuração do @@NOME_DO_PRODUTO@@' abaixo.</target>
 			</trans-unit>
 			<trans-unit id="targetsystems.jsp.noSystems">
 				<source>No non-managed systems.</source>
@@ -11622,19 +11695,23 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
 			</trans-unit>
 			<trans-unit id="ssm.operations.viewlog.empty">
 				<source>No tasks match the given criteria</source>
+				<target>Nenhuma tarefa coincide com o critério desejado.</target>
 			</trans-unit>
 			<trans-unit id="ssm.operations.viewlog.emptyservers">
 				<source>No servers associated with this task</source>
-				<target state="needs-review-translation">Nenhum conjunto de reparos associado à este canal.</target>
+				<target>Nenhum servidor associad à este canal.</target>
 			</trans-unit>
 			<trans-unit id="ssm.operations.inprogress.summary">
 				<source>The following tasks are currently taking place. Click on a task's description to see more details.</source>
+				<target>Estas são as tarefas atuais. Clique em uma descrição de tarefa para obter mais detalhes.</target>
 			</trans-unit>
 			<trans-unit id="ssm.operations.all.summary">
 				<source>The following lists all tasks performed against servers in the SSM. Click on an task's description to see more details.</source>
+				<target>A seguir uma lista das tarefas realizadas em servidores no SSM. Clique em uma descrição de tarefa para obter mais detalhes.</target>
 			</trans-unit>
 			<trans-unit id="ssm.operations.completed.summary">
 				<source>The following lists all tasks that have finished running. Click on an task's description to see more details.</source>
+				<target>A seguir uma lista das tarefas que concluiram a execução. Clique em uma descrição de tarefa para obter mais detalhes.</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.header">
 				<source>Package Operations</source>
@@ -11642,10 +11719,11 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
 			</trans-unit>
 			<trans-unit id="ssm.package.summary">
 				<source>You may perform the following actions upon the selected systems:</source>
+				<target>Você pode realizar as seguintes ações nos sistemas selecionados:</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.install">
 				<source>Install new packages</source>
-				<target state="needs-review-translation">Instalar Pacotes Novos</target>
+				<target>Instalar Pacotes Novos </target>
 			</trans-unit>
 			<trans-unit id="ssm.package.upgrade">
 				<source>Upgrade existing packages</source>
@@ -11661,7 +11739,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
 			</trans-unit>
 			<trans-unit id="ssm.package.install.selectchannel.summary">
 				<source>First, select the channel containing the packages to be installed upon the selected systems.</source>
-				<target state="needs-review-translation">Os seguintes pacotes podem ser instalados neste sistema.</target>
+				<target>Primeiro, selecione os canais contendo os pacotes a serem instalados nestes sistema selecionados.</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.install.selectpackages.header">
 				<source>Select Packages To Install</source>
@@ -11669,21 +11747,23 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
 			</trans-unit>
 			<trans-unit id="ssm.package.install.selectpackages.summary">
 				<source>Now select the packages to be installed upon the selected systems.</source>
-				<target state="needs-review-translation">Os seguintes pacotes podem ser instalados neste sistema.</target>
+				<target>Agora selecione os pacotes a serem instalados neste sistemas selecionados.</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.install.schedule.summary.plural">
 				<source>The {0} packages you have selected will be installed to the compatible selected systems, listed below:</source>
+				<target>O {0} pacotes que você selecionou serão instalados nos sistemas selecionados compatíveis, listados abaixo:</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.install.schedule.summary.single">
 				<source>The {0} package you have selected will be installed to the compatible selected systems, listed below:</source>
+				<target>O pacote {0} que você selecionou será instalado aos sistemas selecionados compatíveis, listados abaixo:</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.install.message.packageinstall">
 				<source>{0} package installation has been scheduled</source>
-				<target state="needs-review-translation">Instalações de Pacote atualmente pendentes.</target>
+				<target>{0} instalação de pacotes foi concluída com sucesso.</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.install.message.packageinstalls">
 				<source>{0} package installations have been scheduled</source>
-				<target state="needs-review-translation">Instalações de Pacote atualmente pendentes.</target>
+				<target>{0} instalações de pacotes foram agendadas.</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.remove.select.header">
 				<source>Package Removal</source>
@@ -11693,6 +11773,9 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
 				<source>Packages listed below may be removed from one or more systems.
 
              Select one or more and click the &lt;b&gt;Remove Selected Packages&lt;/b&gt; button to schedule package removal.</source>
+				<target>Pacotes listados abaixo podem ser removidos de um ou mais sistemas 
+
+            Selecione um ou mais e clique em &lt;b&gt;Remover Pacotes Selecionados&lt;/b&gt; para agendar a remoção de pacotes.</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.remove.select.confirm">
 				<source>Remove Selected Packages</source>
@@ -11700,6 +11783,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
 			</trans-unit>
 			<trans-unit id="ssm.package.remove.schedule.summary">
 				<source>Below is a list of the packages that will be removed, on a per system basis.</source>
+				<target>Abaixo segue uma lista de pacotes que serão removidos, um a um.</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.remove.schedule.packages">
 				<source>Packages to Remove</source>
@@ -11731,9 +11815,11 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
 			</trans-unit>
 			<trans-unit id="ssm.package.remove.message.packageremoval">
 				<source>{0} package removal has been scheduled</source>
+				<target>Foi agendada {0} remoção de pacotes</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.remove.message.packageremovals">
 				<source>{0} package removals have been scheduled</source>
+				<target>Foram agendadas {0} remoção de pacotes</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.upgrade.select.header">
 				<source>Select Packages to Upgrade</source>
@@ -11741,6 +11827,7 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
 			</trans-unit>
 			<trans-unit id="ssm.package.upgrade.select.summary">
 				<source>Select the packages to be upgraded. Only those systems to which the package updates apply will receive the updates.</source>
+				<target>Selecione os pacotes para serem atualizados. Somente os sistemas para o qual a aplicação das atualizações dos pacotes receberá as atualizações.</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.upgrade.select.confirm">
 				<source>Upgrade Selected Packages</source>
@@ -11758,9 +11845,13 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
 				<source>Packages listed below may be removed from one or more systems.
 
             Select one or more and click the &lt;b&gt;Verify Selected Packages&lt;/b&gt; button to schedule package removal.</source>
+				<target>Pacotes listados abaixo devem ser removidos de um ou mais sistemas 
+
+               Selecione um ou mais e clique em &lt;b&gt;Verificar Pacotes Selecionados&lt;/b&gt; para agendar remoção de pacote.</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.verify.schedule.summary">
 				<source>Below is a list of the packages that will be verified, on a per system basis.</source>
+				<target>Abaixo segue uma lista de pacotes que serão verificados em cada sistema.</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.verify.schedule.packages">
 				<source>Packages to Verify</source>
@@ -11768,9 +11859,11 @@ para qualquer uma das revisões, assim como todo o histórico de implementação
 			</trans-unit>
 			<trans-unit id="ssm.package.verify.message.packageverification">
 				<source>{0} package verification has been scheduled</source>
+				<target>Foi agendada {0} verificação de pacotes</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.verify.message.packageverifications">
 				<source>{0} package verifications have been scheduled</source>
+				<target>Foram agendados {0} verificações de pacotes</target>
 			</trans-unit>
 			<trans-unit id="rootPassword">
 				<source>Root password</source>
@@ -11893,6 +11986,7 @@ a aba &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Chaves de At
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.button0.tooltip.jsp">
 				<source>Creating a cobbler system record will allow this system to be provisioned from the command line on the system itself with the 'koan' command.  This also allows you to assign Variables specific to this system's kickstart using the Variables page.</source>
+				<target>Ao criar uma gravação de sistema cobbler, será permitido à este sistema ser provisionado de uma linha de comando no próprio sistema com o comando 'koan'. Isto também permite que você atribua Variantes específicas à este kickstart de sistema usando a página de Variantes.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.button1.jsp">
 				<source>Advanced Configuration</source>
@@ -11944,12 +12038,15 @@ a aba &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Chaves de At
 			</trans-unit>
 			<trans-unit id="kickstart.distro.cobbler-only.tooltip">
 				<source> Profiles that are not @@PRODUCT_NAME@@-managed are not guaranteed to register systems to @@PRODUCT_NAME@@ after kickstart. You may wish to review these kickstarts (click on the profile name to do so) to confirm whether or not your system will reappear in the @@PRODUCT_NAME@@ system list after kickstart.</source>
+				<target>Os perfis que não forem gerenciados por @@NOME_DO_PRODUTO@@, não possuem garantia de registrar sistemas no @@NOME_DO_PRODUTO@@ após realizar o kickstart. Talvez você queira rever estes kickstarts (clique no nome do perfil para fazer isto) para confirmar se seu sistema irá reaparecer ou não na lista de sistemas do @@NOME_DO_PRODUTO@@ após o kickstart.</target>
 			</trans-unit>
 			<trans-unit id="kickstarts.distro.cobbler-only.tooltip">
 				<source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler edit profile' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
+				<target>Os perfis de kickstart que não são gerenciados por @@NOME_DO_PRODUTO@@ não poderão ser editados na UI do @@NOME_DO_PRODUTO@@. Para modificar estes perfis, registre-se no servidor do @@NOME_DO_PRODUTO@@ e execute o comando 'cobbler edit profile'. Para mais informações, consulte o Guia de Referência do @@NOME_DO_PRODUTO@@.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.distro.sw_managed.jsp">
 				<source>@@PRODUCT_NAME@@ Managed?*</source>
+				<target>@@NOME_DO_PRODUTO@@ Gerenciado?*</target>
 			</trans-unit>
 			<trans-unit id="kickstart.distro.label.jsp">
 				<source>Distribution</source>
@@ -12105,7 +12202,7 @@ a aba &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Chaves de At
 			</trans-unit>
 			<trans-unit id="kickstart.session_status.jsp.status_profile">
 				<source>Sync system to &lt;a href="/rhn/profiles/Details.do?prid={0}"&gt;package profile&lt;/a&gt;</source>
-				<target state="needs-review-translation">Sincronizar sistema ao &lt;a href="/network/profiles/details.pxt?prid={0}"&gt;perfil de pacotes&lt;/a&gt;</target>
+				<target>Sincronizar sistema ao &lt;a href="/rhn/profiles/Details.do?prid={0}"&gt;perfil de pacotes&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session_status.jsp.status_config">
 				<source>Deploy configuration files</source>
@@ -12259,7 +12356,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
 
 O campo Etiqueta da Distribuição deve conter apenas letras, números, hífens, pontos finais, e sublinhados (underscores). Além disso, deve ter pelo menos 4 caracteres.&lt;br/&gt;&lt;br/&gt;
 
-O Caminho da Árvore, o RPM do Kickstart, o Canal Base, e a Geração do Instalador sempre devem coincidir. Isto geralmente significa que as versões para cada campo devem ser da mesma versão do Red Hat Enterprise Linux.&lt;br/&gt;
+O Caminho da Árvore, o RPM do Kickstart, o Canal Base, e a Geração do Instalador sempre devem coincidir. Isto geralmente significa que as versões para cada campo devem ser da mesma versão do Red Hat Enterprise Linux.&lt;br/&gt; 
 O Caminho da Árvore deve ser um caminho de disco local em seu servidor @@NOME_DO_PRODUTO@@, contendo toda a àrvore do kickstart para uma distribuição incluindo o kernel, initrd, e informações sobre repo, mas excluindo quaisquer rpms. Este diretório deve ser legível por usuários do apache e tomcat. A partir do caminho da árvore especificada, um kernel deve estar disponível em "./images/pxeboot/vmlinuz"  e uma imagem de initrd deve estar disponível em "./images/pxeboot/initrd.img". Por exemplo, se você possui uma mídia localizada no servidor @@PRODUCT_NAME@@ em &lt;i&gt;/var/distro-trees/rhel-5-server/&lt;/i&gt; você precisa especificar o caminho como o valor do Caminho da Árvore, o qual buscaria por um kernel e um initrd aqui: &lt;i&gt;/var/distro-trees/rhel-5-server/images/pxeboot/&lt;/i&gt; &lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="treecreate.jsp.header2">
@@ -12465,7 +12562,7 @@ Você pode precisar executar uma sincronização do Satellite dos canais de
 			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.header3">
 				<source>Virtual System Hardware Overrides</source>
-				<target state="needs-review-translation">Configuração de Hardware de Sistema Virtual</target>
+				<target>Sobrescrição do Hardware de Sistemas Virtuais</target>
 			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.guest_name.header">
 				<source>Guest Name:</source>
@@ -12509,6 +12606,7 @@ Você pode precisar executar uma sincronização do Satellite dos canais de
 			</trans-unit>
 			<trans-unit id="virtualization.provision.override.jsp.message">
 				<source>The following fields may be left blank (in which case default values as defined in the selected kickstart profile will be used).  Each field may be set individually to override the profile's default value.</source>
+				<target>Os campos a seguir podem ser deixados em branco (cujo caso, usará os valores padrão como definidos no perfil do kickstart selecionado). Cada campo pode ser estabelecido individualmente para sobrescrever o valor do perfil padrão.</target>
 			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.storage.local.message1">
 				<source>Use the virtual host system's disk space: </source>
@@ -12850,6 +12948,10 @@ Você pode precisar executar uma sincronização do Satellite dos canais de
 				<source>Building</source>
 				<target>Construção</target>
 			</trans-unit>
+			<trans-unit id="sdc.details.overview.updatesavailable">
+				<source>Software Updates Available</source>
+				<target>Atualizações de Software Disponíveis</target>
+			</trans-unit>
 			<trans-unit id="sdc.details.overview.updates.critical">
 				<source>&lt;strong&gt;&lt;a href="{0}"&gt;Critical: &lt;/a&gt;&lt;/strong&gt; {1}</source>
 				<target>&lt;strong&gt;&lt;a href="{0}"&gt;Critico: &lt;/a&gt;&lt;/strong&gt; {1}</target>
@@ -12896,7 +12998,7 @@ Você pode precisar executar uma sincronização do Satellite dos canais de
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet.reactivate">
 				<source>Reactivate rhn-applet for @@PRODUCT_NAME@@ usage.</source>
-				<target state="needs-review-translation">Reativar rhn-miniaplicativo para uso do Sattelite.</target>
+				<target>Reativar rhn-miniaplicativo para uso do @@NOME_DO_PRODUTO@.</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet.activate">
 				<source>Activate rhn-applet for @@PRODUCT_NAME@@ usage."</source>
@@ -12984,12 +13086,15 @@ Você pode precisar executar uma sincronização do Satellite dos canais de
 			</trans-unit>
 			<trans-unit id="login.jsp.error.message">
 				<source>This error may have been caused by an interrupted logout or by logging in from another browser tab. Please contact your satellite administrator if the problem persists.</source>
+				<target>Este erro podem ter sido causado por um logout interrompido ou por se registrar a partir de uma outra aba do navegador. Por favor, contate seu administrador do satellite caso o problema persista.</target>
 			</trans-unit>
 			<trans-unit id="login.jsp.error.currentlyLoggedInAs">
 				<source>Currently logged in as: {0}</source>
+				<target>Registrado como: {0}</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.header">
 				<source>@@PRODUCT_NAME@@ Outage Policy</source>
+				<target>Política Externa do .@@NOME_DO_PRODUTO@@</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.intro">
 				<source>Our highest priority is your access to @@PRODUCT_NAME@@ and the
@@ -13017,7 +13122,7 @@ list (see below) about this scheduled downtime whenever possible.</source>
 				<target>A Red Hat agenda todas as manutenções planejadas do @@NOME_DO_PRODUTO@@ para
 cada Terça-Feira das 9 PM às 3 AM, Horário do Leste dos EUA (1 AM às 7 AM UTC).  Apesar
 da Red Hat não necessariamente usar todos estes períodos para executar tarefas de manutenção, nós recomendamos que a sua 
-organização desenvolva práticas que levem em conta estes períodos de indisponibilidade do @@NOME_DO_PRODUTO@@.
+organização desenvolva práticas que levem em conta estes períodos de indisponibilidade do @@NOME_DO_PRODUTO@@.  
 A Red Hat, sempre que for possível, tentará informar sobre estes períodos de manutenção programados com pelo menos uma semana de antecedência através da lista de e-mails relevante 
 (veja abaixo). </target>
 			</trans-unit>
@@ -13151,7 +13256,7 @@ Os canais de software listados abaixo possuem imagens ISO disponíveis para todo
 &lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;wget -c 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;For more information on how to use Red Hat ISOs, check the &lt;a href="http://www.redhat.com/download/howto_download.html" target="new"&gt;How To Download&lt;/a&gt; page.&lt;/p&gt;</source>
-				<target state="needs-review-translation">
+				<target>
 &lt;p&gt;Recomenda-se que você utilize &lt;strong&gt;curl&lt;/strong&gt; para baixar as imagens do ISO. Se você usar o @@NOME_DO_PRODUTO@@ e não tiver o curl atualmente, você pode instalá-lo rodando o comando "up2date curl"  (Enterprise Linux 4 e anteriores) ou "yum curl" (Enterprise Linux 5 e posteriores) a partir de um terminal.&lt;/p&gt;
 
 &lt;p&gt;Quando o  curl estiver instalado, em uma janela de comandos, recorte e cole o URL para o ISO no comando curl como a seguir:&lt;/p&gt;
@@ -13162,7 +13267,7 @@ Os canais de software listados abaixo possuem imagens ISO disponíveis para todo
 
 &lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;curl -C - -o 'myfilename.iso' 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;O URL é longo pois contém informações de autenticação de sessão. Tenha certeza de incluir as marcas de cotação simples. A opção '&lt;strong&gt;&lt;code&gt;-C -&lt;/code&gt;&lt;/strong&gt;' lhe permite que continue com o download se este for interrompido (por exemplo, no caso de cair a conexão).  A opção '&lt;strong&gt;&lt;code&gt;-O&lt;/code&gt;&lt;/strong&gt;' (a letra 'O', não zero) salvará o arquivo com o mesmo nome que se encontra nos servidores do @@NOME_DO_PRODUTO@@.&lt;/p&gt;
+&lt;p&gt;A URL é longa pois contém informações de autenticação de sessão. Tenha certeza de incluir as marcas de cotação simples. A opção '&lt;strong&gt;&lt;code&gt;-C -&lt;/code&gt;&lt;/strong&gt;' lhe permite que continue com o download se este for interrompido (por exemplo, no caso de cair a conexão).  A opção '&lt;strong&gt;&lt;code&gt;-O&lt;/code&gt;&lt;/strong&gt;' (a letra 'O', não zero) salvará o arquivo com o mesmo nome que se encontra nos servidores do @@NOME_DO_PRODUTO@@.&lt;/p&gt;
 
 &lt;p&gt;Você também pode usar wget para obter os arquivos ISO. Se você usar o @@NOME_DO_PRODUTO@@ e não tiver um wget instalado, você poderá instalá-lo rodando o comando  "up2date wget" a partir da linha de comando.&lt;/p&gt;
 
@@ -13387,6 +13492,7 @@ Como forma alternativa, caso você queira atualizar os canais que você já impo
 			</trans-unit>
 			<trans-unit id="guestlimited.jsp.title">
 				<source>@@PRODUCT_NAME@@ - Virtualization Entitlements - Virtualization Hosts</source>
+				<target>@@NOME_DO_PRODUTO@@ - Serviços de Virtualização - Hosts de Virtualização</target>
 			</trans-unit>
 			<trans-unit id="guestlimited.jsp.header2">
 				<source>Guest-Limited  Hosts</source>
@@ -13442,6 +13548,7 @@ Como forma alternativa, caso você queira atualizar os canais que você já impo
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.title">
 				<source>@@PRODUCT_NAME@@ - Virtualization Entitlements - Guests without Hosts</source>
+				<target>@@NOME_DO_PRODUTO@@ - Serviços de Virtualização - Hosts sem Convidados</target>
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.header2">
 				<source>Guests of Non-Virtual Entitled Hosts</source>
@@ -13513,7 +13620,7 @@ Como forma alternativa, caso você queira atualizar os canais que você já impo
 			</trans-unit>
 			<trans-unit id="guestunlimited.jsp.title">
 				<source>@@PRODUCT_NAME@@ - Virtualization Entitlements - Virtualization Platform Hosts</source>
-				<target state="needs-review-translation">Hosts de Plataforma de Virtualização com Convidados Ilimitados</target>
+				<target>@@NOME_DO_PRODUTO@@ - Serviços de Virtualização - Hosts de Plataforma de Virtualização</target>
 			</trans-unit>
 			<trans-unit id="guestunlimited.jsp.header2">
 				<source>Unlimited-Guest Virtualization Platform Hosts</source>
@@ -13549,11 +13656,11 @@ Como forma alternativa, caso você queira atualizar os canais que você já impo
 			</trans-unit>
 			<trans-unit id="org.channels.trusted.protection">
 				<source>No trusted organizations available</source>
-				<target state="needs-review-translation">Nenhuma chave de ativação disponível</target>
+				<target>Não há nenhuma organização em trust disponível</target>
 			</trans-unit>
 			<trans-unit id="org.trust.header">
 				<source>Organizations Trusted By {0}</source>
-				<target state="needs-review-translation">Uso da Organização</target>
+				<target>Organizações em Trust Desde {0}</target>
 			</trans-unit>
 			<trans-unit id="org.login.tip">
 				<source>Between {0} and 64 characters</source>
@@ -13618,7 +13725,7 @@ Como forma alternativa, caso você queira atualizar os canais que você já impo
 			<trans-unit id="sys_entitlements.tip">
 				<source>*&lt;strong&gt;Tip:&lt;/strong&gt;'Total' refers to the total available to the @@PRODUCT_NAME@@
 as reflected in this @@PRODUCT_NAME@@'s certificate.</source>
-				<target>*&lt;strong&gt;Dica:&lt;/strong&gt; 'Total' se refere ao total disponível no @@NOME_DO_PRODUTO@@
+				<target>*&lt;strong&gt;Dica:&lt;/strong&gt; 'Total' se refere ao total disponível no @@NOME_DO_PRODUTO@@ 
 como refletido neste certificado do @@NOME_DO_PRODUTO@@. </target>
 			</trans-unit>
 			<trans-unit id="sys_entitlements.not_allocated">
@@ -13754,6 +13861,10 @@ as organizações (excluindo a organização do @@NOME_DO_PRODUTO@@ padrão) nes
           The organizations checked off below are trusted organizations of the {0} organization. This means that it is
           possible to share content and migrate systems between these two organizations. You may add a trust by checking
           the box next to an organization (or remove a trust by unchecking it) and clicking the 'Modify Trusts' button.</source>
+				<target>
+             As organizações selecionadas abaixo são organizações em trust de {0} organização. Isto significa que é 
+            possível de compartilhar conteúdo e migrar sistemas entre estas duas organizações. Você pode adicionar uma trust, selecionando
+            a caixa próxima à uma organização (ou remover uma trust desselecionando-a) e clicando em 'Modificar Trusts'. </target>
 			</trans-unit>
 			<trans-unit id="org.trust.confirm.summary">
 				<source>
@@ -13763,13 +13874,25 @@ as organizações (excluindo a organização do @@NOME_DO_PRODUTO@@ padrão) nes
             no longer receive security updates for content provided through the trust.
             &lt;p/&gt;
             Please review the changes you are about to make before confirming the trust removal(s).</source>
+				<target>
+           Você tem certeza de que deseja remover a(s) trust(s) listadas abaixo? Existem sistemas na 
+          {0} organização que possui inscrição do conteúdo fornecido pela(s) organizações cuja(s) trust(s) 
+          você deseja remover. Esta ação pode afetar estes sistemas. Por exemplo, estes sistemas podem 
+         não receber mais atualizações de segurança para o conteúdo fornecido através da trust. 
+            &lt;p/&gt;
+            Por favor, revise as mudanças que irá realizar antes de confirmar a remoção da(s) trust(s).</target>
 			</trans-unit>
 			<trans-unit id="org.trust.affectedsystems.summary">
 				<source>
-            The systems listed below will be affected by removing the trust relationship between
+            The systems listed below will be affected by removing the trust relationship between 
             the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.</source>
+				<target>
+        Os sistemas listados abaixo serão afetados com a remoção da relação da trust entre 
+         a &lt;b&gt;{0}&lt;/b&gt; organização e a  &lt;b&gt;{1}&lt;/b&gt; organização. 
+         A remoção desta trust pode afetar seriamente estes sistemas. Por exemplo, estes sistemas podem
+        não receber mais atualizações de segurança para o conteúdo fornecido através desta trust.</target>
 			</trans-unit>
 			<trans-unit id="org.trust.trusts">
 				<source>Trusts</source>
@@ -13805,6 +13928,7 @@ as organizações (excluindo a organização do @@NOME_DO_PRODUTO@@ padrão) nes
 			</trans-unit>
 			<trans-unit id="org.trust.updated">
 				<source>The {0} organization's trusts have been updated.</source>
+				<target>As trusts da organização {0} foram atualizadas.</target>
 			</trans-unit>
 			<trans-unit id="ssmchildsubs.jsp.subscribe">
 				<source>Subscribe</source>
@@ -13851,13 +13975,13 @@ Below is a list of channels in your organization.
 &lt;li&gt;To unsubscribe selected systems from a channel, check Unsubscribed for that channel.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;strong&gt;Note:&lt;/strong&gt; attempts to assign a system to an incompatible channel will fail.</source>
-				<target state="needs-review-translation">
+				<target>
 Segue abaixo uma lista de canais em sua organização.
 &lt;ul&gt;
 &lt;li&gt;Para registrar os sistemas selecionados em um canal, selecione Registrado para o canal que desejar.&lt;/li&gt;
 &lt;li&gt;Para cancelar subscrição de sistemas selecionados de um canal, desselessione Registrado para este canal.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;strong&gt;Nota:&lt;/strong&gt; Tentativas de atribuir um sistema à um canal incompatível, irão falhar.</target>
+&lt;strong&gt;Nota:&lt;/strong&gt; Tentativas de atribuir um sistema à um canal incompatível, irão falhar. RHN </target>
 			</trans-unit>
 			<trans-unit id="ssmchildsubs.jsp.noChannels">
 				<source>No child-channels were found for the systems in the current System Set!</source>
@@ -14186,6 +14310,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="docsearch.jsp.pagesummary">
 				<source>Document Search will return links to pages matching your search term. </source>
+				<target>A Busca de Documetno retornará os links para páginas, coincidindo seu termo de busca.</target>
 			</trans-unit>
 			<trans-unit id="docsearch.jsp.nopages">
 				<source>No pages found.</source>
@@ -14201,7 +14326,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="kickstart.list.jsp.orgdefault">
 				<source>This is your organizations default kickstart profile.</source>
-				<target state="needs-review-translation">&lt;strong&gt;Nota:&lt;/strong&gt; Opções padronizadas inválidas podem fazer com que os kickstarts falhem.</target>
+				<target>Este é o perfil do kickstart de sua empresa.</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.refguide">
 				<source>@@PRODUCT_NAME@@ Reference Guide</source>
@@ -14217,22 +14342,27 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="help.jsp.detailed">
 				<source>Detailed instructions for using RHN service.</source>
+				<target>Instruções detalhadas para usar o serviço RHN.</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.install">
 				<source>Detailed information regarding @@PRODUCT_NAME@@ server and its installation. </source>
+				<target>Informações detalhadas a respeito do servidor do @@NOME_DO_PRODUTO@@ e sua instalação.</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.install.title">
 				<source>@@PRODUCT_NAME@@ Installation Guide</source>
+				<target>Guia de Instalação do @@NOME_DO_PRODUTO@@</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.proxy">
 				<source>Detailed information regarding RHN Proxy server.</source>
+				<target>Informações detalhadas a respeito do RHN Proxy server</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.proxy.title">
 				<source>Proxy Guide</source>
-				<target>Guia Proxy</target>
+				<target>Proxy Guide</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.clients">
 				<source>Documentation for setting up clients to connect to a @@PRODUCT_NAME@@ Proxy or @@PRODUCT_NAME@@ server.</source>
+				<target>Documentação para configurar clientes para conectarem-se ao Proxy do @@NOME_DO_PRODUTO@@ ou ao servidor @@NOME_DO_PRODUTO@@.</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.clients.title">
 				<source>Client Configuration Guide</source>
@@ -14240,6 +14370,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="help.jsp.channel">
 				<source>Documentation for the creation and maintenance of custom channels using @@PRODUCT_NAME@@.</source>
+				<target>Documentação para a criação e manutenção de canais padronizados usando  @@NOME_DO_PRODUTO@@.</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.channel.title">
 				<source>Channel Management Guide</source>
@@ -14247,9 +14378,11 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="help.jsp.release.title">
 				<source>@@PRODUCT_NAME@@ Release Notes</source>
+				<target>Notas de Lançamento do @@NOME_DO_PRODUTO@@.</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.proxyrelease.title">
 				<source>@@PRODUCT_NAME@@ Proxy Release Notes</source>
+				<target>Notas de Lançamento do Proxy do @@NOME_DO_PRODUTO@@.</target>
 			</trans-unit>
 			<trans-unit id="iprange.emptylist">
 				<source>No Ip Ranges Found</source>
@@ -14257,9 +14390,11 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="package.jsp.emptylist">
 				<source>This channel contains no packages.</source>
+				<target>Este canal não contém nenhum pacote.</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.list">
 				<source>This channel contains the following packages:</source>
+				<target>Este canal contém os seguintes pacotes:</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.provider">
 				<source>Content Provider</source>
@@ -14271,11 +14406,11 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.jsp.globallysub">
 				<source> If checked, all users in your organization may subscribe to this channel.</source>
-				<target state="needs-review-translation">Não há nenhum sistema inscrito neste canal.</target>
+				<target>Se este canal for selecionado, todos os usuários de sua empresa deveram se registrar nele.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.globallysubtitle">
 				<source>Globally Subscribable</source>
-				<target state="needs-review-translation">Canal globalmente registrável</target>
+				<target>Globalmente registrável</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.systemssubsribed">
 				<source>Systems Subscribed</source>
@@ -14299,6 +14434,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.jsp.gpgheader">
 				<source>This channel has a GnuPG key associated with it. For a system to be able to download and install packages from this channel, you must import the key into a particular keyring. </source>
+				<target>Este canal possui uma chave GnuPG associada à ele. Para que um sistema possa baixar e instalar pacotes a partir deste canal, você precisará importar a chave para um chaveiro específico.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.gpglocation">
 				<source>Key Location</source>
@@ -14314,13 +14450,15 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.jsp.gpgfooter">
 				<source>Once you have downloaded the key file, you must import it to your RPM keyring using the command "rpm --import /path/to/gpg_key.txt".</source>
+				<target>Depois que você baixar o arquivo de chave, você precisa importá-lo para seu chaveiro de RPM usando o comando "rpm --import /path/to/gpg_key.txt".</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.remove">
 				<source>Below is the list of packages which you have selected to remove from this channel. Removing a package from this channel does not affect the systems which are subscribed to it, or the errata which are applicable to it.</source>
+				<target>Abaixo segue uma lista de pacotes que você selecionou para remover deste canal. A remoção de um pacote deste canal não afeta os sistemas nos quais eles estão inscritos, ou a errata na qual serão aplicáveis.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.listmessage">
 				<source>The following packages are in this channel. To remove a package from this channel, select it here, and click 'Confirm Removal' below. To add a package to this channel, click 'add' above.</source>
-				<target state="needs-review-translation">Os seguintes pacotes estão associados a esta errata. Para remover pacotes desta errata, selecione-os e clique em 'Remover Pacotes' abaixo. Para adicionar pacotes, clique em 'adicionar' acima.</target>
+				<target>Os seguintes pacotes estão associados a esta errata. Para remover pacotes desta errata, selecione-o aqui e clique em 'Remover Pacotes' abaixo. Para adicionar pacotes, clique em 'adicionar' acima.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.details.title">
 				<source>Details</source>
@@ -14332,6 +14470,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.removesuccess">
 				<source>{0} package(s) removed from channel {1}</source>
+				<target>{0} pacote(s) removidos do canal {1}</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.removebutton">
 				<source>Confirm Removal</source>
@@ -14363,7 +14502,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.addsuccess">
 				<source>{0} package(s) added to channel {1}</source>
-				<target state="needs-review-translation">{0} sistemas falharam ao registrar-se no canal '{1}' </target>
+				<target>{0} pacotes adicionados ao canal {1}</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.addbutton">
 				<source>Add Package(s)</source>
@@ -14375,22 +14514,27 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.addemptylist">
 				<source>No packages found for this critera.</source>
-				<target state="needs-review-translation">Nenhuma imagem próxima ao seu critério foi encontrada.</target>
+				<target>Não foi encontrado nenhum pacote para este critério.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.addmessage">
 				<source>Below is the list of packages you can add to this channel. The "Channel" select box allows you to restrict the set of available packages. To add a package to this channel, select it here, and click 'Add Packages' below.
 
 			Only packages of a compatible arch will be shown</source>
-				<target state="needs-review-translation">Veja abaixo a lista de pacotes que você pode adicionar a esta errata. A caixa  "visualizar" permite a você restringir o conjunto de pacotes disponíveis. Para adicionar pacotes a esta errata, selecione-os e clique em 'Adicionar Pacotes' abaixo.</target>
+				<target>Veja abaixo a lista de pacotes que você pode adicionar a este canal. A caixa  "Canal" permite que você restrinja o conjunto de pacotes disponíveis. Para adicionar pacotes a este canal, selecione-os e clique em 'Adicionar Pacotes' abaixo.
+
+			 Serão exibidos somente pacotes de uma arquitetura compatível.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.add.confirm.msg">
 				<source>Below is the list of packages which you have selected to add to this channel. Adding a package to this channel does not automatically affect the systems which are subscribed to it, or the errata which are applicable to it.</source>
+				<target>Abaixo segue uma lista de pacotes que você selecionou para adicionar à este canal. Adicionar um pacote à este canal não afeta automaticamente os sistemas nos quais ele está registrado, ou à errata na qual ele é aplicável.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.listtitle">
 				<source>This channel contains the following errata:</source>
+				<target>Este canal contém a seguinte errata:</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.emptylist">
 				<source>This channel contains no errata.</source>
+				<target>Este canal não contém errata.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.list">
 				<source>Channel Packages.</source>
@@ -14402,13 +14546,15 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.empty">
 				<source>No Custom Info Keys Found</source>
+				<target>Não foi encontrada nenhuma Chave de Informação Padronizada</target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.message">
 				<source>Custom system info keys allow your adminstrators to store relevant custom key/value pairs with your system profiles. Custom system info is fully {0}searchable{1}.</source>
+				<target>As chaves de Informação de sistema padronizada, permite que seus administradores armazenem pares de valores/chaves padronizadas relevantes com seus perfis de sistema. A informação de sistema padronizada é totalmente {0} acessível {1}.</target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.message2">
 				<source>The following custom system info keys have been defined for your organization.</source>
-				<target state="needs-review-translation">As seguintes chaves de ativação foram criadas para o uso de sua empresa:</target>
+				<target>As seguintes chaves de informações de sistema padronizada foram criadas para o uso de sua empresa:</target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.keylabel">
 				<source>Key Label</source>
@@ -14420,10 +14566,11 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.createtitle">
 				<source>Create Custom Info Key</source>
-				<target state="needs-review-translation">Criar Errata Padronizada</target>
+				<target>Criar Chave de Informações Padronizada</target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.createmsg">
 				<source>Define infomation about this key below.</source>
+				<target>Defina informação sobre esta chave abaixo.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.manage.package.title">
 				<source>Package Management</source>
@@ -14431,7 +14578,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.jsp.manage.package.message">
 				<source>You may delete packages owned by your organization. The "view packages in channels" select box allows you to restrict the set of packages you will view. To delete a package, check the box next to it and click 'Confirm Deletion', below.</source>
-				<target state="needs-review-translation">Veja abaixo a lista de pacotes que você pode adicionar a esta errata. A caixa  "visualizar" permite a você restringir o conjunto de pacotes disponíveis. Para adicionar pacotes a esta errata, selecione-os e clique em 'Adicionar Pacotes' abaixo.</target>
+				<target>Você pode remover pacotes de posse de sua empresa.  A caixa de seleção  do  "visualizar pacote em canais" permite a você restringir o conjunto que irá visualizar. Para remover pacotes, selecione a caixa próxima a ele e clique em 'Confirmar a Remoção', abaixo.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.manage.package.subtitle">
 				<source>Package List</source>
@@ -14449,6 +14596,9 @@ given channel.</source>
 				<source>Are you certain you want to delete these packages?
 
 			This process can take several seconds. Be patient and do not click the button below more than once.</source>
+				<target>Você tem certeza de que deseja remover estes pacotes?
+
+			 Este processo pode levar alguns segundos. Seja paciente e não clique em nenhum botão abaixo mais de uma vez.</target>
 			</trans-unit>
 			<trans-unit id="baddownload.jsp.title">
 				<source>File Download Failed</source>
@@ -14456,7 +14606,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="baddownload.jsp.summary">
 				<source>The file you requested could not be downloaded, likely due to one of the following reasons:</source>
-				<target state="needs-review-translation">O arquivo CSV que você solicitou não pôde ser exportado, provavelmente por causa de uma das seguintes razões:</target>
+				<target>O arquivo que você solicitou não pôde ser baixado, provavelmente por causa de uma das seguintes razões:</target>
 			</trans-unit>
 			<trans-unit id="baddownload.jsp.reason1">
 				<source>The url has expired.</source>
@@ -14464,16 +14614,19 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="baddownload.jsp.reason2">
 				<source>The url has been modified.</source>
+				<target>A URL foi modificada</target>
 			</trans-unit>
 			<trans-unit id="baddownload.jsp.reason3">
 				<source>The @@PRODUCT_NAME@@ server does not have read permissions on the specified file.</source>
+				<target>O servidor do @@NOME_DO_PRODUTO@@ não possui permissões de leitura no arquivo especificado.</target>
 			</trans-unit>
 			<trans-unit id="baddownload.jsp.retry">
 				<source>Please revisit the page you recieved this url from to recieve a new one.</source>
+				<target>Por favor, revisite a página que você recebeu contendo esta url para receber outra.</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.arch">
 				<source>Package Architecture</source>
-				<target state="needs-review-translation">Arquitetura</target>
+				<target>Arquitetura do Pacote</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.availarch">
 				<source>Available Architectures</source>
@@ -14605,7 +14758,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.parentarch">
 				<source>Parent Channel Architecture</source>
-				<target state="needs-review-translation">Botão Canal Pai</target>
+				<target>Arquitetura do Canal Pai</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.summary">
 				<source>Channel Summary</source>
@@ -14637,7 +14790,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.perusersub">
 				<source>Per-User Subscription Restrictions</source>
-				<target state="needs-review-translation">Permissões de Subscrição do Canal</target>
+				<target>Restrições de Subscrição por Usuário</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.orgsharing">
 				<source>Organization Sharing</source>
@@ -14653,14 +14806,15 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.gpgkeyfingerprint">
 				<source>GPG key Fingerprint</source>
+				<target>chave GPG Fingerprint</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.createchannel">
 				<source>Create Channel</source>
-				<target state="needs-review-translation">Criar Canal de Configuração</target>
+				<target>Criar Canal</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.editchannel">
 				<source>Update Channel</source>
-				<target state="needs-review-translation">Atualizar Canais</target>
+				<target>Atualizar Canais </target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.toolbar">
 				<source>{0}</source>
@@ -14676,6 +14830,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.channelaccesscontrol">
 				<source>Channel Access Control</source>
+				<target>Controlar Acesso de Canais</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.security.gpg">
 				<source>Security: GPG</source>
@@ -14683,43 +14838,63 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Channel name and label are required. They each must be at least 6
         characters in length. Labels must begin with a letter, contain only
         lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
         numerals. Channel name may also contain spaces and forward slashes
         ('/').
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Channel summary is also required.</source>
+				<target>Criar ou editar canais de software a partir desta página
+         &lt;p/&gt;
+         Se o canal pai estiver configurado para 'nenhum' o canal é um canal base.
+         Caso contrário, o canal será o filho de um canal especificado.
+         &lt;p/&gt;
+         O nome do canal e etiqueta são requeridos. Cada um deve conter ao menos 6
+        caracteres. As etiquetas devem iniciar com uma letra, conter somente
+         letras minúsculas, hifens ('-'), pontos finais ('.'), e sublinhado ('_'), e 
+        numerais. O nome do canal também pode conter espaços e barras 
+         ('/'). 
+         &lt;p/&gt; 
+        O sumário do canal também é necessário.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.public">
 				<source>This channel is &lt;strong&gt;public&lt;/strong&gt; and may be
         accessed by any of the &lt;a href="{0}"&gt;trusted
         organizations&lt;/a&gt; trusted by this organization.</source>
+				<target>Este canal é &lt;strong&gt;público&lt;/strong&gt; e pode ser acessado
+           por qualquer uma das  &lt;a href="{0}"&gt;trusted
+        organizações&lt;/a&gt; em trust por esta organização.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.protected">
 				<source>This channel is &lt;strong&gt;protected&lt;/strong&gt; and may
         only be accessed by specific &lt;a href="{0}"&gt;trusted
         organizations&lt;/a&gt;.</source>
+				<target>Este canal é &lt;strong&gt;protegido&lt;/strong&gt; e pode ser acessado
+           por qualquer uma das  &lt;a href="{0}"&gt;trusted
+        organizações&lt;/a&gt;.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.private">
 				<source>This channel is &lt;strong&gt;private&lt;/strong&gt; and cannot
         be accessed by any other organization.</source>
+				<target>Este canal é &lt;strong&gt;privado&lt;/strong&gt; e não pode ser acessado
+           por qualquer nenhuma outra organização.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.allusers">
 				<source>All users within your organization may subscribe to this channel.</source>
-				<target state="needs-review-translation">Não há nenhum sistema inscrito neste canal.</target>
+				<target>Todos os usuários dentro de sua empresa devem se registrar neste canal.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.selectedusers">
 				<source>Only selected users within your organization may subscribe to this channel.</source>
-				<target state="needs-review-translation">Não há nenhum sistema inscrito neste canal.</target>
+				<target>Somente os usuários selecionados dentro de sua empresa devem se registrar neste canal.</target>
 			</trans-unit>
 			<trans-unit id="confirmprivate.jsp.title">
 				<source>Confirm Channel Sharing Modification</source>
-				<target state="needs-review-translation">Confirmar a Modificação do Administrador do Satellite</target>
+				<target>Confirmar a Modificação de Compartilhamento do Canal</target>
 			</trans-unit>
 			<trans-unit id="confirmprivate.jsp.confirmmsg">
 				<source>Are you sure you want to set this channel to
@@ -14729,10 +14904,19 @@ given channel.</source>
         this channel may adversely affect those systems. For example, those
         systems may no longer receive critical security updates to content
         provided by this channel.</source>
+				<target>Você tem certeza de que quer configurar este canal para 
+        &lt;strong&gt;privado&lt;/strong&gt;, acessível somente por sistemas em sua
+         empresa? Existem sistemas nesta empresa listados abaixo
+         que são registrados neste conteúdo fornecido por este canal. Se você remover o acesso
+        à este canal, poderá afetar seriamente estes sistemas. Por exemplo, estes
+         sistemas podem não receber mais atualizações de segurança críticas para o conteúdo
+          fornecido por este canal.</target>
 			</trans-unit>
 			<trans-unit id="confirmprivate.jsp.confirmmsg.deux">
 				<source>Please review the change you are about to make before confirming
         this access removal.</source>
+				<target>Por favor reveja a modificação que você irá realizar antes de confirmar
+       esta remoção de acesso.</target>
 			</trans-unit>
 			<trans-unit id="confirmprotected.jsp.confirmmsg">
 				<source>Are you sure you want to set this channel's access policy to
@@ -14741,11 +14925,20 @@ given channel.</source>
         Removing these organizations' access may adversely affect those systems.
         For example, they may no longer receive critical security updates to
         content provided by this channel.</source>
+				<target>Você tem certeza de que deseja configurar esta política de acesso do canal para 
+          ser um canal &lt;strong&gt;protegido&lt;/strong&gt;, observe que as
+          empresas abaixo possuem sistemas que são registrados neste canal. 
+          Se você remover o acesso à este canal, poderá afetar seriamente estes sistemas. 
+           Por exemplo, eles podem não receber mais atualizações de segurança críticas para o conteúdo
+          fornecido por este canal.</target>
 			</trans-unit>
 			<trans-unit id="confirmprotected.jsp.confirmmsg.deux">
 				<source>You may choose to grant the organizations below access to this
         channel, or you may deny them access. You can modify access to this
         channel at any time using the 'Organizations' tab above.</source>
+				<target>Você pode escolher fornecer às organizações acesso baixo à este 
+          canal, ou você pode negar acesso à elas. Você poderá modificar o acesso
+         à este canal a qualquer hora usando a aba acima 'Organizações'.</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.software.channel">
 				<source>delete software channel</source>
@@ -14757,10 +14950,11 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="button.denyaccess.confirm">
 				<source>Deny Access and Confirm</source>
+				<target>Negar Acesso e Confirmar</target>
 			</trans-unit>
 			<trans-unit id="button.grantaccess.confirm">
 				<source>Grant Access and Confirm</source>
-				<target state="needs-review-translation">Confirmar Senha</target>
+				<target>Obter Acesso e Confirmar</target>
 			</trans-unit>
 			<trans-unit id="button.search">
 				<source>Search</source>
@@ -14780,7 +14974,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.listempty">
 				<source>There are no errata associated with this channel.</source>
-				<target state="needs-review-translation">Nenhum conjunto de reparos associado à este canal.</target>
+				<target>Não há nenhuma errata associada à este canal.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.remove">
 				<source>Remove Errata</source>
@@ -14788,13 +14982,15 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.remove.message">
 				<source>Below is the list of errata associated with this channel. To remove an erratum from this channel, select it here, and click 'Remove' below.</source>
+				<target>Segue abaixo uma lista de erratas associadas à este canal. Para remover uma erratum deste canal, selecione-a aqui e clique em 'Remover', abaixo.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.remove.confirmmessage">
 				<source>Click 'Confirm' below to remove these errata from your channel. Related packages will also be removed from the channel.</source>
+				<target>Clique em 'Confirmar' abaixo, para remover estas erratas de seu canal. Os pacotes relacionados à elas também serão removidos deste canal. </target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.remove.finalmessage">
 				<source>Successfully removed {0} errata from this channel.</source>
-				<target state="needs-review-translation">Arquivo copiado com sucesso em 1 canal.</target>
+				<target>Foram removidas {0}erratas deste canal.</target>
 			</trans-unit>
 			<trans-unit id="unknown.package">
 				<source>Unknown Package</source>
@@ -14802,6 +14998,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="unknown.package.msg">
 				<source>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by Red Hat Network.</source>
+				<target>Infelizmente você solicitou informações sobre um pacote que não possuimos em nossos bancos de dados. É possível que seja um pacote padronizado que você instalou manualmente, ou que seja uma distribuição não suportada pela Red Hat Network.</target>
 			</trans-unit>
 			<trans-unit id="unknown.kickstart">
 				<source>Kickstart Not Found</source>
@@ -14810,6 +15007,8 @@ given channel.</source>
 			<trans-unit id="unknown.kickstart.message">
 				<source>The requested kickstart file could not be found.
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
+				<target>O arquivo do kickstart solicitado não foi encontrado.
+           Se você estiver solicitando um kickstart padrão organizacional, assegure-se de que um kickstart foi selecionado como "Organização Padrão".</target>
 			</trans-unit>
 		</body>
 	</file>

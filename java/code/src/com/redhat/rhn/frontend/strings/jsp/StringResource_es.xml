@@ -340,7 +340,7 @@
 			</trans-unit>
 			<trans-unit id="errors.required">
 				<source>{0} is required.</source>
-				<target>{0} es requerido.</target>
+				<target>{0} es obligatorio.</target>
 			</trans-unit>
 			<trans-unit id="errors.ascii">
 				<source>{0} contains invalid characters.  Only alphanumeric characters, '-', '_', '.', and '@' are allowed.</source>
@@ -520,7 +520,7 @@
 			</trans-unit>
 			<trans-unit id="lookup.default.reason1">
 				<source>The required data object does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
-				<target>El objeto de datos no existe. Es lo más probable si llegó a esta página a través de un marcador o mediante algún otro método diferente a un hipervínculo.</target>
+				<target>El objeto de datos requerido no existe. Es lo más probable si llegó a esta página a través de un marcador o mediante algún otro método diferente a un hipervínculo.</target>
 			</trans-unit>
 			<trans-unit id="lookup.configchan.reason1">
 				<source>The configuration channel requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
@@ -1288,7 +1288,7 @@
 			</trans-unit>
 			<trans-unit id="preferences.recently-registered-systems.description">
 				<source> A listing of the most recently registered systems within the past 30 days.</source>
-				<target>Una lista de los sistemas registrados más recientemente en los últimos 30 días.</target>
+				<target>Una lista de los sistemas registrados en los últimos 30 días.</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.entriesperpage">
 				<source> entries per list page</source>
@@ -1548,7 +1548,7 @@
 			</trans-unit>
 			<trans-unit id="header.jsp.singleSystemSelected">
 				<source>1 system selected</source>
-				<target>1 sistema seleccionado</target>
+				<target>Un sistema seleccionado</target>
 			</trans-unit>
 			<trans-unit id="header.jsp.systemsSelected">
 				<source>{0} systems selected</source>
@@ -1556,7 +1556,7 @@
 			</trans-unit>
 			<trans-unit id="footer.jsp.copyright">
 				<source>Copyright &amp;#169; 2002-08 Red Hat, Inc. All rights reserved.</source>
-				<target>Copyright &amp;#169; 2002-08 Red Hat, Inc. Todos los derechos reservados.</target>
+				<target>Derecho de autor &amp;#169; 2002-08 Red Hat, Inc. Todos los derechos reservados.</target>
 			</trans-unit>
 			<trans-unit id="footer.jsp.legalStatement">
 				<source>Legal statement</source>
@@ -1580,11 +1580,11 @@
 			</trans-unit>
 			<trans-unit id="sidebar.ads.buynowalt">
 				<source>Buy Now Image</source>
-				<target>Imagen Comprar ya</target>
+				<target>Imagen de ¡Comprar Ahora!</target>
 			</trans-unit>
 			<trans-unit id="sidebar.ads.downloadnowalt">
 				<source>Software Downloads Image</source>
-				<target>Imagen de descargas de software</target>
+				<target>Imagen de Descargas de software</target>
 			</trans-unit>
 			<trans-unit id="errata-legend.jsp.title">
 				<source>Errata Legend</source>
@@ -1949,15 +1949,15 @@ inmediatamente y usted &lt;b&gt;no podrá iniciar una sesión nuevamente&lt;/b&g
 			</trans-unit>
 			<trans-unit id="usercreate.stateRequired">
 				<source>(required for US or Canada)</source>
-				<target>(requeridos para US o Canadá)</target>
+				<target>(obligatorios para USA o Canadá)</target>
 			</trans-unit>
 			<trans-unit id="edit_address.jsp.staterequired">
 				<source>(required for US or Canada)</source>
-				<target>(requeridos para US o Canadá)</target>
+				<target>(obligatorios para USA o Canadá)</target>
 			</trans-unit>
 			<trans-unit id="usercreate.requiredField">
 				<source>Required Field</source>
-				<target>Campo requerido</target>
+				<target>Campo obligatorio</target>
 			</trans-unit>
 			<trans-unit id="usercreate.contactMethod">
 				<source>Contact Method</source>
@@ -2037,7 +2037,7 @@ inmediatamente y usted &lt;b&gt;no podrá iniciar una sesión nuevamente&lt;/b&g
 			</trans-unit>
 			<trans-unit id="usercreate.jsp.pam.instructions.note">
 				<source>Note: The password fields above are not required when this box is checked; however you may fill in a password that will work only when PAM authentication for this user account is disabled.</source>
-				<target>Nota: el campo de contraseña no es requerido cuando esta casilla está seleccionada; sin embargo, puede introducir una contraseña que trabaje cuando la autenticación PAM para esta cuenta de usuario esté desactivada.</target>
+				<target>Nota: los campos de contraseña no son obligatorios cuando se selecciona esta casilla; sin embargo, puede introducir una contraseña que funcione sólo cuando la autenticación PAM para esta cuenta de usuario esté desactivada.</target>
 			</trans-unit>
 			<trans-unit id="usercreate.jsp.pam.reference">
 				<source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
@@ -2065,7 +2065,7 @@ inmediatamente y usted &lt;b&gt;no podrá iniciar una sesión nuevamente&lt;/b&g
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.summary">
 				<source> This user's information may be edited using the form provided below.  Entries marked with an asterisk (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) are &lt;strong&gt;required&lt;/strong&gt;. </source>
-				<target>Esta información puede ser editada usando el formulario dado a continuación. Las entradas marcadas con un asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) son &lt;strong&gt;requeridas&lt;/strong&gt;.</target>
+				<target>Esta información puede ser editada usando el formulario dado a continuación. Las entradas marcadas con un asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) son &lt;strong&gt;obligatorias&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.company">
 				<source>Company Name</source>
@@ -2334,7 +2334,7 @@ del rol de Administrador de la organización.</target>
 			</trans-unit>
 			<trans-unit id="disableuser.jsp.body">
 				<source>&lt;p&gt;This action will deactivate this user.  This user will no longer be able to log in or perform actions unless it is reactivated.&lt;/p&gt;</source>
-				<target>&lt;p&gt;Esta acción desactivará este usuario. Este usuario no podrá entrar o ejecutar acciones hasta ser reactivado&lt;/p&gt;</target>
+				<target>&lt;p&gt;Esta acción desactivará este usuario. El usuario no podrá entrar ni ejecutar acciones a no ser que sea reactivado.&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="enableuser.jsp.enable">
 				<source>Reactivate User</source>
@@ -2350,7 +2350,7 @@ del rol de Administrador de la organización.</target>
 			</trans-unit>
 			<trans-unit id="systemsadmined.jsp.summary">
 				<source>To modify this user's access levels, &lt;a href="{0}"&gt;change the groups&lt;/a&gt; to which this user is assigned.</source>
-				<target>Para modificar los niveles de acceso de este usuario, &lt;a href="{0}"&gt;cambie los grupos&lt;/a&gt; a los cuales este usuario está asignado.</target>
+				<target>Para modificar los niveles de acceso de este usuario, &lt;a href="{0}"&gt;cambie los grupos&lt;/a&gt; a los cuales el usuario está asignado.</target>
 			</trans-unit>
 			<trans-unit id="systemsadmined.jsp.headertwo">
 				<source>Systems Administered by this User</source>
@@ -2358,7 +2358,7 @@ del rol de Administrador de la organización.</target>
 			</trans-unit>
 			<trans-unit id="systemsadmined.jsp.summarytwo">
 				<source>You can select from the systems below for use in the System Set Manager.</source>
-				<target>Puede seleccionar entre los sistemas a continuación para que sean usados en el Gestor de grupos de sistemas.</target>
+				<target>Puede seleccionar a continuación los sistemas a utilizar en el Gestor de grupos de sistemas.</target>
 			</trans-unit>
 			<trans-unit id="Update List">
 				<source>Update List</source>
@@ -2390,7 +2390,7 @@ del rol de Administrador de la organización.</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.subscriptionmanagement">
 				<source> Purchase or Renew </source>
-				<target>Adquirir o renovar</target>
+				<target> Adquirir o renovar</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.renew">
 				<source>Renew Subscriptions &amp;amp; Entitlements</source>
@@ -2418,7 +2418,7 @@ del rol de Administrador de la organización.</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.entitlements">
 				<source>View &amp;amp; Assign Entitlements to Systems</source>
-				<target>Ver y asignar derechos a los sistemas</target>
+				<target>Ver &amp;amp; Asignar derechos a los sistemas</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.entitlements.description1">
 				<source>&lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;View your open system entitlement slots and apply system entitlements to your systems&lt;/a&gt;&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;Systems Entitlements&lt;/a&gt;&lt;/strong&gt; page in the left navigation bar.</source>
@@ -2434,7 +2434,7 @@ del rol de Administrador de la organización.</target>
 			</trans-unit>
 			<trans-unit id="edit_address.jsp.summary">
 				<source>This user's address information may be edited in the form provided below.  Entries marked with an asterisk (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) are &lt;strong&gt;required&lt;/strong&gt;.</source>
-				<target>La información de la dirección del usuario puede ser editada usando el formulario dado a continuación. Las entradas marcadas con un asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) son &lt;strong&gt;requeridas&lt;/strong&gt;.</target>
+				<target>La información de la dirección del usuario puede ser editada usando el siguiente formulario. Las entradas marcadas con un asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) son &lt;strong&gt;obligatorias&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="edit_address.jsp.fax">
 				<source>FAX</source>
@@ -2446,7 +2446,7 @@ del rol de Administrador de la organización.</target>
 			</trans-unit>
 			<trans-unit id="yourdetails.jsp.summary">
 				<source> Please enter your information in the form provided below.  Entries marked with an asterisk (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) are &lt;strong&gt;required&lt;/strong&gt;.</source>
-				<target>Por favor introduzca su información en el formulario proporcionado a continuación. Las entradas marcadas con un asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) son &lt;strong&gt;requeridas&lt;/strong&gt;.</target>
+				<target> Por favor introduzca su información en el formulario proporcionado a continuación. Las entradas marcadas con un asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) son &lt;strong&gt;obligatorias&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="your_edit_address_record.displayname">
 				<source>Record:</source>
@@ -2454,7 +2454,7 @@ del rol de Administrador de la organización.</target>
 			</trans-unit>
 			<trans-unit id="your_edit_address.jsp.summary">
 				<source>Please enter your information in the form provided below.  Entries marked with an asterisk (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) are &lt;strong&gt;required&lt;/strong&gt;.</source>
-				<target>Por favor introduzca su información en el formulario proporcionado a continuación. Las entradas marcadas con un asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) son &lt;strong&gt;requeridas&lt;/strong&gt;.</target>
+				<target>Por favor introduzca su información en el formulario proporcionado a continuación. Las entradas marcadas con un asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) son &lt;strong&gt;obligatorias&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="usercreate.do_you_need_corp_1">
 				<source>You will need a &lt;strong&gt;business&lt;/strong&gt; login to administer systems owned by your business, or to make business purchases of Red Hat products and services. </source>
@@ -2578,11 +2578,11 @@ del rol de Administrador de la organización.</target>
 			</trans-unit>
 			<trans-unit id="actions.jsp.failed">
 				<source>Failed</source>
-				<target>Fallido</target>
+				<target>Fallida</target>
 			</trans-unit>
 			<trans-unit id="failedsystems.jsp.failed">
 				<source>Failed</source>
-				<target>Fallido</target>
+				<target>Fallida</target>
 			</trans-unit>
 			<trans-unit id="actions.jsp.inprogress">
 				<source>Pending</source>
@@ -3074,7 +3074,7 @@ del rol de Administrador de la organización.</target>
 			</trans-unit>
 			<trans-unit id="failedsystems.jsp.summary">
 				<source>The following systems have failed this action. You may reschedule the action, but you should ensure that whatever caused the failure has been solved before rescheduling.</source>
-				<target>La acción ha fallado en los siguientes sistemas. Usted puede reprogramar la acción, pero debe comprobar que la causa de la acción ha sido resuelta antes de reprogramarla.</target>
+				<target>La acción ha fallado en los siguientes sistemas. Usted puede volver a programar la acción, pero antes debe asegurarse de que lo que causó el problema haya sido resuelto.</target>
 			</trans-unit>
 			<trans-unit id="failedsystems.jsp.nosystems">
 				<source>No systems have failed this action.</source>
@@ -3298,7 +3298,7 @@ del rol de Administrador de la organización.</target>
 			</trans-unit>
 			<trans-unit id="errata.edit.instructions">
 				<source>Edit erratum here.  Required items are marked with a (&lt;span class="required-form-field"&gt;*&lt;/span&gt;).</source>
-				<target>Edite la errata aquí. Los elementos requeridos están marcados con un asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;).</target>
+				<target>Edite la errata aquí. Los elementos obligatorios están marcados con un asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;).</target>
 			</trans-unit>
 			<trans-unit id="errata.edit.updateerrata">
 				<source>Update Erratum</source>
@@ -3366,11 +3366,11 @@ del rol de Administrador de la organización.</target>
 			</trans-unit>
 			<trans-unit id="errata.edit.error.id">
 				<source>Bug ID is required</source>
-				<target>El ID del error es requerido</target>
+				<target>El ID del error es obligatorio</target>
 			</trans-unit>
 			<trans-unit id="errata.edit.error.summary">
 				<source>Bug Summary is required</source>
-				<target>El resumen del error es requerido</target>
+				<target>El resumen del error es obligatorio</target>
 			</trans-unit>
 			<trans-unit id="errata.edit.error.idNonNumeric">
 				<source>Bug ID must be numeric</source>
@@ -3762,7 +3762,7 @@ del rol de Administrador de la organización.</target>
 			</trans-unit>
 			<trans-unit id="organizationtrusts.jsp.toolbar">
 				<source>Organization Trusts</source>
-				<target>Confianzas de organización</target>
+				<target>Confianzas organizativas</target>
 			</trans-unit>
 			<trans-unit id="org.displayname">
 				<source>Organization</source>
@@ -4044,7 +4044,7 @@ deducted from the default organization.</source>
 			</trans-unit>
 			<trans-unit id="softwareEntitlementSubs.systemWideCounts.header">
 				<source>System-Wide Entitlement Counts</source>
-				<target>Conteo de derechos del sistemas</target>
+				<target>Conteo de derechos del sistema</target>
 			</trans-unit>
 			<trans-unit id="softwareEntitlementSubs.possibleValues">
 				<source>Possible Values: &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;</source>
@@ -4292,7 +4292,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="errata.create.jsp.instructions">
 				<source>Create new errata here.  Required items are marked with a (&lt;span class="required-form-field"&gt;*&lt;/span&gt;).</source>
-				<target>Cree aquí nueva errata. Los elementos requeridos están marcados con un asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;).</target>
+				<target>Cree aquí nueva errata. Los elementos obligatorios están marcados con un asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;).</target>
 			</trans-unit>
 			<trans-unit id="errata.create.jsp.synopsis">
 				<source>Synopsis&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</source>
@@ -4304,7 +4304,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="errata.create.jsp.advisoryrelease">
 				<source>Advisory Release&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</source>
-				<target>Versión de la recomendación&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</target>
+				<target>Lanzamiento de la recomendación&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</target>
 			</trans-unit>
 			<trans-unit id="errata.create.jsp.advisorytype">
 				<source>Advisory Type&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</source>
@@ -4328,7 +4328,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="errata.create.jsp.topic">
 				<source>Topic&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</source>
-				<target>Tópico&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</target>
+				<target>Tema&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</target>
 			</trans-unit>
 			<trans-unit id="errata.create.jsp.description">
 				<source>Description&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</source>
@@ -4924,7 +4924,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="system_entitlements.unentitle.failure">
 				<source>Unable to  &lt;strong&gt;Unentitle {0}&lt;/strong&gt; system(s).</source>
-				<target>Incapaz de &lt;strong&gt;desregistrar {0}&lt;/strong&gt; sistema(s).</target>
+				<target>Imposible &lt;strong&gt;quitar derechos a {0}&lt;/strong&gt; sistema(s).</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.provisioning.success">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Provisioning&lt;/strong&gt;.</source>
@@ -4952,19 +4952,19 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization_host.removed.success">
 				<source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
-				<target>Se removió &lt;strong&gt;Virtualization&lt;/strong&gt; de &lt;strong&gt;{0}&lt;/strong&gt; sistemas. Esto causará que los huéspedes asociados con el anfitrión seleccionado consuman derechos de sistema y canal físicos.</target>
+				<target>Se removió &lt;strong&gt;Virtualization&lt;/strong&gt; de &lt;strong&gt;{0}&lt;/strong&gt; sistemas. Esto hará que los huéspedes asociados con el anfitrión seleccionado consuman derechos de sistema y canal físico.</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization_host_platform.removed.success">
 				<source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
-				<target>Se removió &lt;strong&gt;Virtualization&lt;/strong&gt; de &lt;strong&gt;{0}&lt;/strong&gt; sistemas. Esto causará que los huéspedes asociados con el anfitrión seleccionado consuman derechos de sistema y canal físicos.</target>
+				<target>Se removió &lt;strong&gt;Virtualization&lt;/strong&gt; de &lt;strong&gt;{0}&lt;/strong&gt; sistemas. Esto hará que los huéspedes asociados con el anfitrión seleccionado consuman derechos de sistema y canal físico.</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization_host.removed.success">
 				<source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
-				<target>Se removió &lt;strong&gt;Virtualization&lt;/strong&gt; de &lt;strong&gt;{0}&lt;/strong&gt; sistemas. Esto causará que los huéspedes asociados con el anfitrión seleccionado consuman derechos de sistema y canal físicos.</target>
+				<target>Se removió &lt;strong&gt;Virtualization&lt;/strong&gt; de &lt;strong&gt;{0}&lt;/strong&gt; sistemas. Esto hará que los huéspedes asociados con el anfitrión seleccionado consuman derechos de sistema y canal físico.</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization_host_platform.removed.success">
 				<source>Removed &lt;strong&gt;Virtualization&lt;/strong&gt; from &lt;strong&gt;{0}&lt;/strong&gt; system(s)  This will cause any guests associated with the selected host to consume physical Channel and System entitlements.</source>
-				<target>Se removió &lt;strong&gt;Virtualization&lt;/strong&gt; de &lt;strong&gt;{0}&lt;/strong&gt; sistemas. Esto causará que los huéspedes asociados con el anfitrión seleccionado consuman derechos de sistema y canal físicos.</target>
+				<target>Se removió &lt;strong&gt;Virtualization&lt;/strong&gt; de &lt;strong&gt;{0}&lt;/strong&gt; sistemas. Esto hará que los huéspedes asociados con el anfitrión seleccionado consuman derechos de sistema y canal físico.</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization_host.notEnoughSlots">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements, you will be able to upgrade these systems. &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
@@ -5420,7 +5420,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="scheduleremote.jsp.summary">
 				<source>You can schedule a remote script to execute on this system below.  The script will run as the user you specify.&lt;/p&gt; &lt;p&gt;You must enable Remote Command execution on the target system, by adding a file to the local rhn configuration directory: &lt;code&gt;allowed-actions/script/run/&lt;/code&gt;.</source>
-				<target>Puede programar la ejecución de un script remoto en este sistema. El script será ejecutado como el usuario que usted especifique. &lt;/p&gt;&lt;p&gt;Usted debe activar la ejecución de comandos remotos en el sistema de destino añadiendo un archivo al directorio de configuración rhn local: &lt;code&gt;allowed-actions/script/run&lt;/code&gt;.</target>
+				<target>Puede programar la ejecución de un script remoto en este sistema. El script será ejecutado como el usuario que usted especifique.&lt;/p&gt; &lt;p&gt;Usted debe activar la ejecución de comandos remotos en el sistema de destino añadiendo un archivo al directorio de configuración rhn local: &lt;code&gt;allowed-actions/script/run&lt;/code&gt;.</target>
 			</trans-unit>
 			<trans-unit id="scheduleremote.jsp.run">
 				<source>Run</source>
@@ -5885,11 +5885,11 @@ de la organización si remueve este rol de su cuenta.</target>
 			</trans-unit>
 			<trans-unit id="orgtrustdetails.jsp.channelsprovided">
 				<source>Channels Provided to your Organization</source>
-				<target>Canales proporcionados para su organización</target>
+				<target>Canales ofrecidos a su organización</target>
 			</trans-unit>
 			<trans-unit id="orgtrustdetails.jsp.channelsconsumed">
 				<source>Channels Consumed from your Organization</source>
-				<target>Canales consumidos desde su organización</target>
+				<target>Canales consumidos de su organización</target>
 			</trans-unit>
 			<trans-unit id="orgtrust.jsp.channelconsume.summary">
 				<source>Below is a list of channels your organization is sharing with &lt;strong&gt;{0}&lt;/strong&gt;. This list also shows how many packages are in each channel and how many systems in that organization are consuming from these shared channels. If you would like to modify how many of these channels are shared, click on the channel's name for more details. </source>
@@ -6808,10 +6808,10 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
 				<target>Variables de actualizaciones </target>
 			</trans-unit>
 			<trans-unit id="kickstart.variable.jsp.summary">
-				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
-				You would then use $name within the profile to substitute in the value.</source>
-				<target>Las variables de Kickstart sirven para sustituir valores en perfiles kickstart. Para definir una variable simplemente agregue 'nombre=valor' a la casilla siguiente.
-				Luego usaría $nombre dentro del perfil para sustituir el valor.</target>
+				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+        			You would then use $name within the profile to substitute in the value.</source>
+				<target>Las variables de Kickstart sirven para sustituir valores en perfiles kickstart. Para definir una variable simplemente agregue 'nombre=valor' a la casilla siguiente.  
+        			Luego usaría $nombre dentro del perfil para sustituir el valor.</target>
 			</trans-unit>
 			<trans-unit id="kickstarttree.variable.jsp.summary">
 				<source>Any variables specified below will be usable in any profile that uses this distro.  They can be overridden in each profile as well.</source>
@@ -7043,7 +7043,7 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.summary1">
 				<source>This kickstart profile may be edited using the form provided below. Entries marked with an asterisk (*) are required.</source>
-				<target>El perfil kickstart puede ser editado utilizando el formulario dado a continuación. Las entradas marcadas con un asterisco (*) son requeridas.</target>
+				<target>El perfil kickstart puede ser editado utilizando el formulario dado a continuación. Las entradas marcadas con un asterisco (*) son obligatorias.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdelete.jsp.summary1">
 				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its associated system and corresponding options.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
@@ -7051,7 +7051,7 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.summary2">
 				<source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
-				<target>&lt;span class="small-text"&gt; El parámetro Perfil predeterminado de la organización puede ser usado con archivos kickstart manualmente creados o bare-metal. Seleccione esta opción para indicar cuál perfil en su organización es usado cuando el URL de &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; este enlace &lt;/strong&gt; &lt;/a&gt; es especificado en la sección &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; de su archivo kickstart. El enlace no funcionará a menos de que se haya especificado el parámetro Predeterminado de la organización.&lt;/span&gt;</target>
+				<target>&lt;span class="small-text"&gt; El Perfil predeterminado de organización se puede usar con archivos kickstart manualmente creados o vacíos. Seleccione esta opción para indicar el perfil utilizado en su organización para especificar la URL desde &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; este enlace &lt;/strong&gt; &lt;/a&gt; en la sección &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; de su archivo kickstart. El enlace no funcionará a no ser que se haya especificado el Perfil predeterminado de la organización.&lt;/span&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.activeDescription">
 				<source>You cannot kickstart a system registered to @@PRODUCT_NAME@@ using an inactive kickstart profile. However, the kickstart files for inactive kickstart profiles are still available for manual download and may be used for bare metal kickstarts.</source>
@@ -7087,7 +7087,7 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
 			</trans-unit>
 			<trans-unit id="kickstartscript.jsp.summary2">
 				<source>You may view or edit the scripts for this kickstart below. You may add a new script using the add new kickstart script button above to the right.</source>
-				<target>Puede ver o editar a continuación scripts para este inicio de instalación mediante kickstart. Puede añadir un nuevo script utilizando el botón "añadir un nuevo script kickstart" ubicado en la parte inferior izquierda.</target>
+				<target>Puede ver o editar a continuación scripts para este inicio de instalación mediante kickstart. Puede añadir un nuevo script utilizando el botón "añadir un nuevo script kickstart" ubicado en la parte superior derecha.</target>
 			</trans-unit>
 			<trans-unit id="kickstartscript.jsp.noscripts">
 				<source>No scripts are associated with this kickstart profile</source>
@@ -7111,7 +7111,7 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
 			</trans-unit>
 			<trans-unit id="kickstartips.jsp.baremetal_summary2">
 				<source>Alternatively, you may associate each of your kickstart profiles with particular ip ranges. Then, you can provide bare metal systems with a single URL that will provide each system the kickstart file associated with its IP Address. Below you will find this URL:</source>
-				<target>Como alternativa, puede asociar cada perfil kickstart con rangos IP particulares. Luego puede proporcionar a los sistemas "vacíos" una sola URL que entregue a cada sistema el archivo kickstart asociado con la dirección IP. A continuación encontrará esa URL: </target>
+				<target>Como alternativa, puede asociar cada perfil kickstart con rangos IP particulares. Luego puede proporcionar a los sistemas "vacíos" una sola URL que entregue a cada sistema el archivo kickstart asociado con la dirección IP. A continuación encontrará esa URL:</target>
 			</trans-unit>
 			<trans-unit id="kickstartips.jsp.baremetal2">
 				<source>IP Address-Based Bare Metal Kickstart URL</source>
@@ -7147,16 +7147,16 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.labelwarning">
 				<source>&lt;strong&gt;Tip:&lt;/strong&gt; The label field should not be easily guessable, since it could be used to expose information about this kickstart profile to a 3rd party.</source>
-				<target>&lt;strong&gt;Concejo:&lt;/strong&gt; La etiqueta no debería ser fácil de adivinar, ya que podría ser usada para exponer información sobre el perfil kickstart a personas ajenas a la organización.</target>
+				<target>&lt;strong&gt;Consejo:&lt;/strong&gt; La etiqueta no debería ser fácil de adivinar, ya que se podría utilizar para exponer información sobre el perfil kickstart a personas ajenas a la organización.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations.
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
+            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
+            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
             tab to verify the new settings.</source>
-				<target>&lt;strong&gt;NOTA:&lt;/strong&gt; El cambio del tipo de virtualización puede requerir cambios en las
-            opciones de gestor de arranque de kickstart y de partición, potencialmente sobrescribiendo los ajustes de usuario.
-            Por favor vaya a la pestaña &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Particionamiento&lt;/a&gt;
+				<target>&lt;strong&gt;NOTA:&lt;/strong&gt; El cambio del tipo de virtualización puede requerir cambios en las 
+            opciones de gestor de arranque de kickstart y de partición, potencialmente sobrescribiendo los ajustes de usuario. 
+            Por favor vaya a la pestaña &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Particionamiento&lt;/a&gt; 
             para verificar la nueva configuración.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.active">
@@ -7237,7 +7237,7 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
 			</trans-unit>
 			<trans-unit id="kickstart.activationkeys.jsp.note">
 				<source>&lt;strong&gt;Note: The selection of incompatible activation keys can prevent a system from registering properly after it is kickstarted.&lt;/strong&gt;  You'll want to review the RHN Reference Guide section on using multiple activation keys before making use of this feature.</source>
-				<target>&lt;strong&gt;Nota: la selección de llaves de activación incompatibles puede resultar en la imposibilidad de registrar apropiadamente un sistema tras de iniciar la instalación a través de kickstart.&lt;/strong&gt; Revise la sección sobre cómo utilizar llaves de activación múltiple en el Manual de referencia de RHN antes de hacer uso de esta característica.</target>
+				<target>&lt;strong&gt;Nota: la selección de llaves de activación incompatibles puede resultar en la imposibilidad de registrar apropiadamente un sistema tras de iniciar la instalación a través de kickstart.&lt;/strong&gt; Revise la sección sobre cómo utilizar llaves de activación múltiple en el Manual de referencia de RHN antes de hacer uso de esta funcióna.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.activationkeys.jsp.warning">
 				<source>&lt;strong&gt;Warning:&lt;/strong&gt; Any child channel subscriptions associated with this profile will be overridden if any activation keys are selected above. If you wish to associate activation keys with this profile, please use an activation key to specify child channel subscriptions.</source>
@@ -7277,7 +7277,7 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
 			</trans-unit>
 			<trans-unit id="kickstart.netconn.jsp.label">
 				<source>Kickstart &lt;br /&gt;Network &lt;br /&gt;Connection</source>
-				<target>Conección &lt;br /&gt; de red &lt;br /&gt; Kickstart</target>
+				<target>Conexión &lt;br /&gt; de red &lt;br /&gt; Kickstart</target>
 			</trans-unit>
 			<trans-unit id="kickstart.selinux.jsp.label">
 				<source>SELinux</source>
@@ -7297,7 +7297,7 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
 			</trans-unit>
 			<trans-unit id="kickstart.selinux.warn.policy.jsp.label">
 				<source>Permissive - SELinux prints warnings instead of enforcing</source>
-				<target>Permisiva - SELinux muestra advertencias en vez de reforzar</target>
+				<target>Permisiva - SELinux muestra advertencias en vez de hacer cumplir</target>
 			</trans-unit>
 			<trans-unit id="kickstart.selinux.disable.policy.jsp.label">
 				<source>Disabled - SELinux is fully disabled</source>
@@ -7369,7 +7369,7 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
 			</trans-unit>
 			<trans-unit id="distro-delete.jsp.summary1">
 				<source>This will delete this distribution &lt;strong&gt;permanently&lt;/strong&gt;.</source>
-				<target>Esta acción borrará la distribución &lt;strong&gt;permanentemente&lt;/strong&gt;</target>
+				<target>Esta acción borrará &lt;strong&gt;permanentemente&lt;/strong&gt; la distribución.</target>
 			</trans-unit>
 			<trans-unit id="distro-delete.jsp.confirmdelete">
 				<source>Delete Distribution</source>
@@ -7377,7 +7377,7 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
 			</trans-unit>
 			<trans-unit id="keys.jsp.nokeys">
 				<source>No public keys or ssl certs defined.</source>
-				<target>No hay llaves públicas o certificados ssl definidos.</target>
+				<target>No hay llaves públicas o certificados SSL definidos.</target>
 			</trans-unit>
 			<trans-unit id="keys.jsp.summary">
 				<source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an @@PRODUCT_NAME@@ Proxy Server or @@PRODUCT_NAME@@ Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
@@ -7401,7 +7401,7 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
 			</trans-unit>
 			<trans-unit id="keydelete.jsp.toolbar">
 				<source>Delete Key Confirmation</source>
-				<target>Confirmación del borrado de la llave</target>
+				<target>Confirmación del borrado de llave</target>
 			</trans-unit>
 			<trans-unit id="keyedit.jsp.header2">
 				<source>Edit Key</source>
@@ -7421,15 +7421,15 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
 			</trans-unit>
 			<trans-unit id="keydelete.jsp.header2">
 				<source>Deleting Key</source>
-				<target>Borrando la llave</target>
+				<target>Borrando llave</target>
 			</trans-unit>
 			<trans-unit id="keycreate.jsp.summary">
 				<source>Please enter the information for your key in the form provided below.  Entries marked with an (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) are &lt;strong&gt;required&lt;/strong&gt; and must be unique.</source>
-				<target>Por favor introduzca la información para la llave en el formulario proporcionado a continuación. Las entradas marcadas con un asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) son &lt;strong&gt;requeridas&lt;/strong&gt; y deben ser únicas.</target>
+				<target>Por favor introduzca la información para la llave en el formulario proporcionado a continuación. Las entradas marcadas con un asterisco (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) son &lt;strong&gt;obligatorias&lt;/strong&gt; y deben ser únicas.</target>
 			</trans-unit>
 			<trans-unit id="keydelete.jsp.summary">
 				<source>Are you sure you want to delete this Key permanently?&lt;p&gt;&lt;strong&gt;If so please click the button once.&lt;/strong&gt;&lt;/p&gt;</source>
-				<target>¿Está seguro que quiere borrar esta llave permanentemente? &lt;p&gt;&lt;strong&gt;En caso afirmativo, por favor haga clic en el botón una sola vez.&lt;/strong&gt;&lt;/p&gt;</target>
+				<target>¿Está seguro de que quiere borrar permanentemente esta llave? &lt;p&gt;&lt;strong&gt;En caso afirmativo, por favor haga clic en el botón una sola vez.&lt;/strong&gt;&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="keycreate.jsp.filecontents">
 				<source>Key contents:</source>
@@ -7465,7 +7465,7 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
 			</trans-unit>
 			<trans-unit id="preservationlistdeleteconfirm.jsp.summary">
 				<source>Are you sure you want to delete the selected File List(s)?  &lt;strong&gt;WARNING: Deleting the selected File List(s) will delete all its associated files.&lt;/strong&gt;</source>
-				<target>¿Está seguro que quiere borrar la Lista(s) de archivos seleccionada? &lt;strong&gt;ADVERTENCIA: al borrar la Lista(s) de archivos seleccionada se borrarán todos los archivos asociados.&lt;/strong&gt;</target>
+				<target>¿Está seguro de que quiere borrar la Lista(s) de archivos seleccionada? &lt;strong&gt;ADVERTENCIA: al borrar la Lista(s) de archivos seleccionada se borrarán todos los archivos asociados.&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="preservationlistdeleteconfirm.jsp.header2">
 				<source>Confirm File List(s) deletion.</source>
@@ -7537,7 +7537,7 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
 			</trans-unit>
 			<trans-unit id="preservation-form.jsp.tip2">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; Only file and directory names may be entered. No regular expression wildcards can be included.&lt;/span&gt;</source>
-				<target>&lt;span class="small-text"&gt;&lt;strong&gt;Consejo:&lt;/strong&gt; Sólo los nombres de directorios y archivos pueden ser introducidos. Ninguna expresión regular o comodines puede ser incluido.&lt;/span&gt;</target>
+				<target>&lt;span class="small-text"&gt;&lt;strong&gt;Consejo:&lt;/strong&gt; Sólo los nombres de directorios y archivos pueden ser introducidos. Ninguna expresión regular o comodín puede ser incluido.&lt;/span&gt;</target>
 			</trans-unit>
 			<trans-unit id="preservation_edit.jsp.toolbar">
 				<source>Edit Kickstart File Preservation List</source>
@@ -7557,7 +7557,7 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.summary1">
 				<source>You can modify the software this kickstart profile will deploy below.</source>
-				<target>A continuación puede modificar el software que este perfil Kickstart implementará. </target>
+				<target>A continuación puede modificar el software que este perfil Kickstart implementará.</target>
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.header2">
 				<source>Modify Operating System</source>
@@ -7605,11 +7605,11 @@ Por favor tenga en cuenta que podría ser necesario configurar manualmente estos
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.warning">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Warning:&lt;/strong&gt; If any activation keys are associated with this kickstart profile(under the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;activation keys tab&lt;/a&gt;). the child channel subscriptions above will be overridden. In that situation please use an activation key to specify child channel subscriptions.&lt;/span&gt;</source>
-				<target>&lt;span class="small-text"&gt;&lt;strong&gt;Advertencia:&lt;/strong&gt; Si hay llaves de activación asociadas con este perfil Kickstart (bajo la pestaña &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;llaves de activación&lt;/a&gt;), las suscripciones de canal hijo listadas arriba serán sobrescritas. En ese caso, por favor utilice una llave de activación que especifique las suscripciones a los canales hijos&lt;/span&gt;</target>
+				<target>&lt;span class="small-text"&gt;&lt;strong&gt;Advertencia:&lt;/strong&gt; Si hay llaves de activación asociadas con este perfil Kickstart (bajo la pestaña &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;llaves de activación&lt;/a&gt;), las suscripciones de canal hijo listadas arriba serán sobrescritas. En ese caso, por favor utilice una llave de activación que especifique las suscripciones a los canales hijos.&lt;/span&gt;</target>
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.tip2">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; If your systems are connected through an @@PRODUCT_NAME@@ Proxy, you may place the installation tree in  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; on the Proxy.</source>
-				<target>&lt;span class="small-text"&gt;&lt;strong&gt;Consejo:&lt;/strong&gt; Si sus sistemas están conectados a través de un @@PRODUCT_NAME@@ Proxy, usted puede ubicar el árbol de instalación en &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; en el Proxy.</target>
+				<target>&lt;span class="small-text"&gt;&lt;strong&gt;Consejo:&lt;/strong&gt; Si sus sistemas están conectados a través de un @@PRODUCT_NAME@@ Proxy, usted puede ubicar el árbol de instalación en  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; en el Proxy.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.cryptokeys.jsp.submit">
 				<source>Update keys</source>
@@ -7654,7 +7654,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>A continuación podrá editar los scripts pre y post para este Kickstart de abajo. Los pre-scripts de un archivo Kickstart han sido analizados en un sistema.
 Usted puede acceder a la red en esta sección, pero debe utilizar direcciones IP (el servicio de nombre no ha sido configurado en este momento). Para mayor información sobre los pre-scripts, consulte el &lt;strong&gt;Manual de administración de sistemas Red Hat Enterprise Linux&lt;/strong&gt;
 &lt;br/&gt;&lt;br/&gt;
-También puede editar el post script para este Kickstart de abajo. Primero, los comandos relacionados con @@PRODUCT_NAME@@ serán automáticamente ejecutados (Por ejemplo, registro de esystem a @@PRODUCT_NAME@@).
+También puede editar el post script para este Kickstart de abajo. Primero, los comandos relacionados con @@PRODUCT_NAME@@ serán automáticamente ejecutados (Por ejemplo, registro de esystem a @@PRODUCT_NAME@@). 
 Luego, el post script de non-chroot será ejecutado y por último, el post script será ejecutado. Para obtener mayor información sobre los post scripts de Kickstart, por favor consulte
 el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.&lt;/strong&gt;</target>
 			</trans-unit>
@@ -7681,6 +7681,14 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
 			<trans-unit id="kickstart.script.nochroot">
 				<source>nochroot</source>
 				<target>nochroot</target>
+			</trans-unit>
+			<trans-unit id="kickstart.script.template">
+				<source>Template</source>
+				<target>Plantilla</target>
+			</trans-unit>
+			<trans-unit id="kickstart.script.template.tip">
+				<source>Enable this to enable templating on this script using cobbler.</source>
+				<target>Actívela para habilitar el uso de la plantilla en este script utilizando Cobbler.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.script.tip3">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This specifies when the script gets ran (before or after kickstart).&lt;/span&gt;</source>
@@ -7755,12 +7763,12 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
 				<target>Fragmentos Kickstart</target>
 			</trans-unit>
 			<trans-unit id="snippets.jsp.summary">
-				<source>Use Kickstart Snippets to store common blocks of code that can be shared across multiple Kickstart profiles in @@PRODUCT_NAME@@. When you create a Kickstart Snippet, all Kickstart profiles including that snippet will be updated accordingly.</source>
-				<target>Utilice fragmentos Kickstart para almacenar bloques comunes de código que se pueden compartir a través de varios perfiles Kickstart en @@PRODUCT_NAME@@. Cuando cree un fragmento de Kickstart, todos los perfiles incluyendo ese fragmento serán por consiguiente actualizados.</target>
+				<source>Use kickstart snippets to store common blocks of code that can be shared across multiple kickstart profiles in @@PRODUCT_NAME@@. When you create a kickstart snippet, all kickstart profiles including that snippet will be updated accordingly.</source>
+				<target>Utilice fragmentos Kickstart para almacenar bloques comunes de código compartidos a través de varios perfiles Kickstart en @@PRODUCT_NAME@@. Cuando cree un fragmento de Kickstart, todos los perfiles incluyendo ese fragmento serán por consiguiente actualizados.</target>
 			</trans-unit>
 			<trans-unit id="snippets.jsp.note.default">
-				<source>default kickstart snippets are not editable.</source>
-				<target>Los fragmentos Kickstart no se pueden modificar.</target>
+				<source>Default kickstart snippets are not editable.</source>
+				<target>Los fragmentos Kickstart predeterminados no se pueden editar.</target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.snippets">
 				<source>create new snippet</source>
@@ -7775,12 +7783,12 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
 				<target>Macro fragmento</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.jsp.nosnippets">
-				<source>No Cobbler snippets found.</source>
-				<target>No se encontró ningún fragmento de Cobbler.</target>
+				<source>No kickstart snippets found.</source>
+				<target>No se encontró ningún fragmento Kickstart.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.copy-paste-snippet-tip">
-				<source>Copy and paste the snippet macro into your Kickstart profiles to make the full snippet appear in that Kickstart profile.</source>
-				<target>Copie y pegue el macro fragmento en sus perfiles Kickstart para que todo el fragmento aparezca en su perfil Kickstart.</target>
+				<source>Copy and paste the snippet macro into your kickstart profiles to make the full snippet appear in that kickstart profile.</source>
+				<target>Copie y pegue el macro fragmento en sus perfiles Kickstart para que todo el fragmento aparezca en ese perfil Kickstart.</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.warning.tip">
 				<source>Changing this snippet's name will require updating any kickstart profiles that refer to it so that they can continue to access the content of this snippet.</source>
@@ -7807,16 +7815,16 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
 				<target>Personalizar</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.custom.tip">
-				<source>Custom Kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
-				<target>Fragmentos de Kickstart personalizados solamente estarán disponibles para la organización &lt;strong&gt;{0}&lt;/strong&gt;.</target>
+				<source>Custom kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
+				<target>Los fragmentos Kickstart personalizados solamente estarán disponibles para la organización &lt;strong&gt;{0}&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default">
 				<source>Default</source>
 				<target>Predeterminado</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default.tip">
-				<source>Default Kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
-				<target>Fragmentos Kickstart predeterminados están disponibles para todas las organizaciones. Dichos fragmentos no pueden ser modificados.</target>
+				<source>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
+				<target>Los fragmentos Kickstart predeterminados están disponibles para todas las organizaciones. Dichos fragmentos no pueden ser modificados.</target>
 			</trans-unit>
 			<trans-unit id="snippetedit.jsp.header2">
 				<source>Edit Snippet</source>
@@ -7827,12 +7835,28 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
 				<target>Crear nuevo fragmento</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.summary">
-				<source>Snippets can be shared between Kickstart Profiles</source>
-				<target>Los fragmentos pueden compartirse entre perfiles Kickstart</target>
+				<source>Snippets can be shared between kickstart profiles</source>
+				<target>Los fragmentos pueden ser compartidos entre perfiles Kickstart</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.header2">
 				<source>Create Snippet</source>
 				<target>Crear fragmento</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.submit">
+				<source>Create Snippet</source>
+				<target>Crear fragmento</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.header2">
+				<source>Create Snippet</source>
+				<target>Crear fragmento</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.submit">
+				<source>Create Snippet</source>
+				<target>Crear fragmento</target>
+			</trans-unit>
+			<trans-unit id="snippetdetails.jsp.header2">
+				<source>Snippet Details</source>
+				<target>Información de fragmento</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.contents">
 				<source>Contents</source>
@@ -7843,10 +7867,10 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
 				<target>Contenidos de fragmento Kickstart</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.tip1">
-				<source>Avoid spaces in the snippet name.</source>
-				<target>Evitar espacios en el nombre de fragmento</target>
+				<source>The snippet name is the name of a file that will reside in this organization's snippet directory. Any standard unix file name characters are acceptable. Snippet names containing slash character or snippet names beginning with period are not allowed.</source>
+				<target>El nombre de fragmento es el nombre de un archivo que residirá en este directorio de fragmento de organización. Cualquier caracter de nombre de archivo Unix estándar es aceptable. No se aceptan los nombres de fragmento que contengan el caracter de barra oblicua ni los nombres de fragmentos comenzados por punto.</target>
 			</trans-unit>
-			<trans-unit id="snippetcreate.jsp.submit">
+			<trans-unit id="snippetupdate.jsp.submit">
 				<source>Update Snippet</source>
 				<target>Actualizar fragmento</target>
 			</trans-unit>
@@ -7859,12 +7883,12 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
 				<target>Borrando fragmento</target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.summary">
-				<source>Are you sure you want to delete this Snippet permanently?</source>
+				<source>Are you sure you want to delete this snippet permanently?</source>
 				<target>¿Está seguro de querer borrar permanentemente este fragmento?</target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.warning">
-				<source>Deleting this snippet will affect any kickstart profiles that refere to it. It may break kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
-				<target>El borrado de este fragmento afectará todos los perfiles Kickstart que se refieren a éste. Se podrían romper los perfiles Kickstart. Le recomendamos asegurarse de que ningún perfil Kickstart dependa de este fragmento antes de borrarlo.</target>
+				<source>Deleting this snippet will affect any kickstart profiles that refer to it. It may break those kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
+				<target>El borrado de este fragmento afectará todos los perfiles Kickstart que se refieren a éste. Se podrían romper esos perfiles Kickstart. Le recomendamos asegurarse de que ningún perfil Kickstart dependa de este fragmento antes de borrarlo.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.delete">
 				<source>Confirm Snippet Delete</source>
@@ -8980,7 +9004,7 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
 			</trans-unit>
 			<trans-unit id="summary.jsp.noerror">
 				<source>No Error.</source>
-				<target>Ninguna error</target>
+				<target>Ningún error.</target>
 			</trans-unit>
 			<trans-unit id="summary.jsp.orgadmin">
 				<source>Remaining actions require organization administrator.</source>
@@ -9000,7 +9024,7 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
 			</trans-unit>
 			<trans-unit id="summary.jsp.okAlt">
 				<source>okay</source>
-				<target>vale</target>
+				<target>okay</target>
 			</trans-unit>
 			<trans-unit id="config.jsp.imgAlt">
 				<source>Configuration Icon</source>
@@ -9072,15 +9096,15 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
 			</trans-unit>
 			<trans-unit id="channelOverview.jsp.empty-label">
 				<source>Label is required.</source>
-				<target>La etiqueta es requerida.</target>
+				<target>La etiqueta es obligatoria.</target>
 			</trans-unit>
 			<trans-unit id="channelOverview.jsp.empty-name">
 				<source>Name is required.</source>
-				<target>El nombre es requerido.</target>
+				<target>El nombre es obligatorio.</target>
 			</trans-unit>
 			<trans-unit id="channelOverview.jsp.empty-descr">
 				<source>Description is required.</source>
-				<target>La descripción es requerida.</target>
+				<target>La descripción es obligatroria.</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.configchannel">
 				<source>delete channel</source>
@@ -9116,15 +9140,15 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
 			</trans-unit>
 			<trans-unit id="channelOverview.jsp.recentfile-header">
 				<source>Most-Recently Modified File</source>
-				<target>Archivo más recientemente modificado</target>
+				<target>Archivo modificado recientemente</target>
 			</trans-unit>
 			<trans-unit id="channelOverview.jsp.recentsystem-header">
 				<source>Most-Recently Subscribed System</source>
-				<target>Sistema más recientemente suscrito</target>
+				<target>Sistema recientemente suscrito</target>
 			</trans-unit>
 			<trans-unit id="channelOverview.jsp.recentdeploy-header">
 				<source>Most-Recent File Deploy</source>
-				<target>Archivo más recientemente implementado</target>
+				<target>Archivo recientemente implementado</target>
 			</trans-unit>
 			<trans-unit id="channelOverview.jsp.numfiles">
 				<source>{0} files, {1} directories</source>
@@ -9244,19 +9268,19 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
 			</trans-unit>
 			<trans-unit id="channelOverview.jsp.tasks.deployAll2All">
 				<source>Deploy all configuration files to all subscribed systems</source>
-				<target>Implementar todos los archivos de configuración a todos los sistemas suscritos</target>
+				<target>Implementar todos los archivos de configuración en todos los sistemas suscritos</target>
 			</trans-unit>
 			<trans-unit id="channelOverview.jsp.tasks.deploySel2All">
 				<source>Deploy selected configuration files to all subscribed systems</source>
-				<target>Implementar los archivos de configuración seleccionados a todos los sistemas suscritos</target>
+				<target>Implementar los archivos de configuración seleccionados en todos los sistemas suscritos</target>
 			</trans-unit>
 			<trans-unit id="channelOverview.jsp.tasks.deployAll2Sel">
 				<source>Deploy all configuration files to selected subscribed systems</source>
-				<target>Implementar todos los archivos de configuración a los sistemas suscritos seleccionados</target>
+				<target>Implementar todos los archivos de configuración en los sistemas suscritos seleccionados</target>
 			</trans-unit>
 			<trans-unit id="channelOverview.jsp.tasks.deploySel2Sel">
 				<source>Deploy selected configuration files to selected subscribed systems</source>
-				<target>Implementar los archivos de configuración seleccionados a los sistemas suscritos seleccionados</target>
+				<target>Implementar los archivos de configuración seleccionados en los sistemas suscritos seleccionados</target>
 			</trans-unit>
 			<trans-unit id="channelOverview.jsp.tasks.compare">
 				<source>Compare Files</source>
@@ -9312,11 +9336,11 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
 			</trans-unit>
 			<trans-unit id="deploytask.error.badmode">
 				<source>Unrecognized deployment task - please contact Red Hat support.</source>
-				<target>Tarea de implementación no reconocida - por favor contacte al equipo de asistencia de Red Hat</target>
+				<target>Tarea de implementación no reconocida - por favor contacte al equipo de asistencia de Red Hat.</target>
 			</trans-unit>
 			<trans-unit id="comparetask.error.emptysets">
 				<source>Channel has no files, no subscribed systems, or both - compare action canceled.</source>
-				<target>El canal no tiene archivos, sistemas suscritos o ninguno de los dos - acción de comparación cancelada.</target>
+				<target>El canal no tiene archivos, no tiene sistemas suscritos, o ninguno de los dos - acción de comparación cancelada.</target>
 			</trans-unit>
 			<trans-unit id="channelOverview.error.labelexists">
 				<source>Label '{0}' already exists.  Please choose a different label for the new channel.</source>
@@ -9354,7 +9378,7 @@ el &lt;strong&gt;Manual de administración del sistema Red Hat Enterprise Linux.
 				<source>This list shows the files that this configuration channel contains.  You can remove
 a file or files, or copy the latest version into a set of local overrides or into other central configuration channels.</source>
 				<target>Esta lista muestra los archivos que este canal de configuración contiene. Puede remover
-uno o varios archivo, copiar la última versión a un grupo de sobrescritura local o en algún canal de configuración central.</target>
+uno o varios archivos, copiar la última versión en un grupo de sobrescritura local o en otros canales de configuración centrales.</target>
 			</trans-unit>
 			<trans-unit id="channelfiles.jsp.path">
 				<source>Filename</source>
@@ -9518,11 +9542,11 @@ uno o varios archivo, copiar la última versión a un grupo de sobrescritura loc
 			</trans-unit>
 			<trans-unit id="copy2systems.jsp.success.1x1">
 				<source>{0} file copied into {1} local override</source>
-				<target>{0} archivo copiado a {1} sobrescritura local</target>
+				<target>{0} archivo copiado en {1} sobrescritura local</target>
 			</trans-unit>
 			<trans-unit id="copy2systems.jsp.success.1xn">
 				<source>{0} file copied into {1} local overrides</source>
-				<target>{0} archivo copiado a {1} sobrescrituras locales</target>
+				<target>{0} archivo copiado en {1} sobrescrituras locales</target>
 			</trans-unit>
 			<trans-unit id="copy2systems.jsp.success.nx1">
 				<source>{0} files copied into {1} local override</source>
@@ -9554,7 +9578,7 @@ uno o varios archivo, copiar la última versión a un grupo de sobrescritura loc
 			</trans-unit>
 			<trans-unit id="copy2channels.jsp.success.1xn">
 				<source>{0} file copied into {1} central configuration channels</source>
-				<target>{0} archivo copiado en {1} canales de configuración central</target>
+				<target>{0} archivo copiado en {1} canales de configuración centrales</target>
 			</trans-unit>
 			<trans-unit id="copy2channels.jsp.success.nx1">
 				<source>{0} files copied into {1} central configuration channel</source>
@@ -9562,7 +9586,7 @@ uno o varios archivo, copiar la última versión a un grupo de sobrescritura loc
 			</trans-unit>
 			<trans-unit id="copy2channels.jsp.success.nxn">
 				<source>{0} files copied into {1} central configuration channels</source>
-				<target>{0} archivos copiados en {1} canales de configuración central</target>
+				<target>{0} archivos copiados en {1} canales de configuración centrales</target>
 			</trans-unit>
 			<trans-unit id="copy2channels.jsp.noChannels">
 				<source>No channels found</source>
@@ -9824,7 +9848,7 @@ Observe que si un sistema dado sobrescribe un archivo, o tiene el archivo en un 
 			</trans-unit>
 			<trans-unit id="deploylocal.jspf.tip.local">
 				<source>&lt;strong&gt;Tip:&lt;/strong&gt; If you would like to deploy this version of the this file to other systems you'll need to &lt;a href="{0}"&gt;copy this file to a centrally-managed config channel&lt;/a&gt;</source>
-				<target>&lt;strong&gt;Consejo:&lt;/strong&gt; Si desea implementar esta versión del archivo de configuración en otros sistemas, deberá &lt;a href="{0}"&gt;copiar este archivo a un canal de configuración centralmente administrado&lt;/a&gt;</target>
+				<target>&lt;strong&gt;Consejo:&lt;/strong&gt; Si desea implementar esta versión del archivo de configuración en otros sistemas, deberá &lt;a href="{0}"&gt;copiar este archivo a un canal de configuración administrado centralmente&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="deploy.jsp.tip.global-1">
 				<source>&lt;strong&gt;Tip:&lt;/strong&gt; If a system has a locally-managed override for this file, you will not be able to deploy it.  However, you may click on the 'Modify rank' link to re-rank the overriding channels.</source>
@@ -9860,13 +9884,13 @@ Observe que si un sistema dado sobrescribe un archivo, o tiene el archivo en un 
 			</trans-unit>
 			<trans-unit id="deploy.jsp.global">
 				<source>You can deploy the latest revision (&lt;a href="{1}"&gt;Revision {0}&lt;/a&gt;) of this file to any systems subscribed to this file's centrally-managed config channel, &lt;a href="{3}"&gt;{2}&lt;/a&gt;; below is a list of systems you may deploy this file to.</source>
-				<target>Puede implementar la última revisión &lt;a href="{1}"&gt;Revisión {0}&lt;/a&gt; de este archivo en cualquier sistema suscrito al canal de configuración centralmente administrado de este archivo, &lt;a href="{3}"&gt;{2}&lt;/a&gt;; a continuación se presenta una lista de los sistemas donde se puede implementar este archivo.</target>
+				<target>Puede implementar la última revisión (&lt;a href="{1}"&gt;Revisión {0}&lt;/a&gt;) de este archivo en cualquier sistema suscrito al canal de configuración centralmente administrado, &lt;a href="{3}"&gt;{2}&lt;/a&gt;; a continuación se listan los sistemas donde se puede implementar este archivo.</target>
 			</trans-unit>
 			<trans-unit id="deploylocal.jspf.local">
 				<source>
 	You can deploy the latest revision (&lt;a href="{1}"&gt;Revision {0}&lt;/a&gt;) of this file to &lt;a href="{3}"&gt;{2}&lt;/a&gt; - this file is part of that system's locally-managed config channel.</source>
 				<target>
-	Puede implementar la última revisión (&lt;a href="{1}"&gt;Revisión {0}&lt;/a&gt;) de este archivo a &lt;a href="{3}"&gt;{2}&lt;/a&gt; - este archivo es parte del canal de configuración localmente administrado de este sistema.</target>
+	Puede implementar la última revisión (&lt;a href="{1}"&gt;Revisión {0}&lt;/a&gt;) de este archivo a &lt;a href="{3}"&gt;{2}&lt;/a&gt; - este archivo es parte del canal de configuración localmente administrado de ese sistema.</target>
 			</trans-unit>
 			<trans-unit id="deploy.jsp.filedetails">
 				<source>File Details</source>
@@ -10262,7 +10286,7 @@ Sin embargo, usted puede descargarlo.</target>
 			</trans-unit>
 			<trans-unit id="filedetails.properties.jspf.permissions">
 				<source>File Permissions Mode &lt;span class=required-form-field&gt;*&lt;/span&gt;:</source>
-				<target>Permisos del archivo &lt;span class=required-form-field&gt;*&lt;/span&gt;:</target>
+				<target>Modo de Permisos de archivo &lt;span class=required-form-field&gt;*&lt;/span&gt;:</target>
 			</trans-unit>
 			<trans-unit id="filedetails.properties.jspf.uid">
 				<source>User name &lt;span class=required-form-field&gt;*&lt;/span&gt;:</source>
@@ -12086,7 +12110,7 @@ para suscribir los sistemas a los canales de software durante el inicio de insta
 			</trans-unit>
 			<trans-unit id="kickstart.scriptdelete.jsp.summary1">
 				<source>Are you sure you want to delete this Kickstart Script?&lt;strong&gt;&lt;p&gt;WARNING: deleting this script will remove it from the Kickstart Profile..&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once.&lt;/strong&gt;&lt;/p&gt;</source>
-				<target>¿Está seguro que desea borrar este script de Kickstart? &lt;strong&gt;&lt;p&gt;ADVERTENCIA: este script será removido del perfil Kickstart si usted decide borrarlo.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Por favor haga clic en el botón una vez&lt;/strong&gt;&lt;/p&gt;</target>
+				<target>¿Está seguro que desea borrar este script de Kickstart?&lt;strong&gt;&lt;p&gt;ADVERTENCIA: al borrar este script lo removerá del perfil Kickstart..&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Por favor haga clic en el botón sólo una vez.&lt;/strong&gt;&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstart.scriptdelete.jsp.confirmdelete">
 				<source>Delete Kickstart Script</source>
@@ -12927,6 +12951,10 @@ distribución Kickstart.&lt;/strong&gt;</target>
 				<source>Building</source>
 				<target>Edificio</target>
 			</trans-unit>
+			<trans-unit id="sdc.details.overview.updatesavailable">
+				<source>Software Updates Available</source>
+				<target>Actualización de software disponible</target>
+			</trans-unit>
 			<trans-unit id="sdc.details.overview.updates.critical">
 				<source>&lt;strong&gt;&lt;a href="{0}"&gt;Critical: &lt;/a&gt;&lt;/strong&gt; {1}</source>
 				<target>&lt;strong&gt;&lt;a href="{0}"&gt;Crítico: &lt;/a&gt;&lt;/strong&gt; {1}</target>
@@ -13098,7 +13126,7 @@ list (see below) about this scheduled downtime whenever possible.</source>
 que sean llevadas a cabo todos los martes de 9pm-3am, E.U. (1am-7am UTC). Aunque
  Red Hat no utiliza cada uno de estos periodos de mantenimiento, es aconsejable que
 su empresa desarrolle una práctica empresarial que permita este periodo de
- racionamiento para su solución de @@PRODUCT_NAME@@. Red Hat siempre intentará informarle al
+ racionamiento para su solución de @@PRODUCT_NAME@@. Red Hat siempre intentará informarle al 
 menos con una semana de anticipación los periodos de corte a través de la lista de correo-e de interrupciones (ver abajo).</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.unscheduled-header">
@@ -13110,7 +13138,7 @@ menos con una semana de anticipación los periodos de corte a través de la list
 Network will attempt notification, again through the email outage list
 (see below), at least 12 hours or as soon as possible in advance of
 unscheduled maintenance.</source>
-				<target>Las ventanas de mantenimiento no programadas son posibles, aunque muy raras.Red Hat
+				<target>Las ventanas de mantenimiento no programadas son posibles, aunque muy raras.Red Hat 
 Network intentará notificar otra vez a través de la lista de correo-e de interrupciones
  (ver abajo), al menos con 12 horas de anticipación
  o tan pronto como sea posible en caso de mantenimiento no programado.</target>
@@ -13427,7 +13455,7 @@ si desea actualizar canales ya importados a su s@@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="sdc.channels.edit.virtsubwarning">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; These channels are not part of the Red Hat Enterprise Linux subscription for this guest's host, &lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;. Subscribing to them will consume additional software entitlements. &lt;a href="/rhn/systems/details/SystemChannels.do?sid={0}"&gt;Applying a different virtual system entitlement to the host system&lt;/a&gt; will affect which channels have this mark.</source>
-				<target>&lt;strong&gt;NOTA:&lt;/strong&gt; Estos canales no son parte de las suscripciones de Red Hat Enterprise Linux para el anfitrión de este huésped, &lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;. La suscripción a éstos consumirá derechos de software adicional. &lt;a href="/rhn/systems/details/SystemChannels.do?sid={0}"&gt;Si se aplican diferentes derechos virtuales al sistema anfitrión&lt;/a&gt;, los canales que tienen esta marca se verán afectados.</target>
+				<target>&lt;strong&gt;NOTA:&lt;/strong&gt; Estos canales no son parte de las suscripciones de Red Hat Enterprise Linux para el anfitrión de este huésped, &lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;. La suscripción a éstos consumirá derechos de software adicionales. &lt;a href="/rhn/systems/details/SystemChannels.do?sid={0}"&gt;Si se aplican diferentes derechos virtuales al sistema anfitrión&lt;/a&gt;, los canales que tienen esta marca se verán afectados.</target>
 			</trans-unit>
 			<trans-unit id="sdc.channels.edit.virtsubwarning_nohost">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; These channels are not part of the Red Hat Enterprise Linux subscription for this guest's host. Subscribing to them will consume additional software entitlements. Applying a different virtual system entitlement to the host system will affect which channels have this mark.</source>
@@ -13635,7 +13663,7 @@ si desea actualizar canales ya importados a su s@@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="org.trust.header">
 				<source>Organizations Trusted By {0}</source>
-				<target>Organizaciones de confiadas por {0}</target>
+				<target>Organizaciones de confianza por {0}</target>
 			</trans-unit>
 			<trans-unit id="org.login.tip">
 				<source>Between {0} and 64 characters</source>
@@ -13838,8 +13866,8 @@ en este  @@PRODUCT_NAME@@. No es igual al total disponible en el certificado del
           possible to share content and migrate systems between these two organizations. You may add a trust by checking
           the box next to an organization (or remove a trust by unchecking it) and clicking the 'Modify Trusts' button.</source>
 				<target>
-          Las organizaciones revisadas abajo son organizaciones de confianza de the {0} organización. Esto significa que es
-          posible compartir el contenido y migrar sistemas entre estas dos organizaciones.  Usted puede agregar una confianza al seleccionar la
+          Las organizaciones revisadas abajo son organizaciones de confianza de the {0} organización. Esto significa que es 
+          posible compartir el contenido y migrar sistemas entre estas dos organizaciones.  Usted puede agregar una confianza al seleccionar la 
           siguiente casilla cerca de una organización (o remover una confianza desactivándola) y haciendo clic en el botón de 'Modificar confianzas' .</target>
 			</trans-unit>
 			<trans-unit id="org.trust.confirm.summary">
@@ -13860,12 +13888,12 @@ en este  @@PRODUCT_NAME@@. No es igual al total disponible en el certificado del
 			</trans-unit>
 			<trans-unit id="org.trust.affectedsystems.summary">
 				<source>
-            The systems listed below will be affected by removing the trust relationship between
+            The systems listed below will be affected by removing the trust relationship between 
             the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.</source>
 				<target>
-            Los sistemas listados se afectarán al remover la relación de confianza entre
+            Los sistemas listados se afectarán al remover la relación de confianza entre 
             la organización &lt;b&gt;{0}&lt;/b&gt; y la organización &lt;b&gt;{1}&lt;/b&gt;.
             Remover esta confianza puede causar efectos adversos a estos sistemas. Por ejemplo, estos sistemas ya no
             podrán recibir actualizaciones de seguridad para contenido proporcionado a través de esta confianza.</target>
@@ -14814,28 +14842,28 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Channel name and label are required. They each must be at least 6
         characters in length. Labels must begin with a letter, contain only
         lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
         numerals. Channel name may also contain spaces and forward slashes
         ('/').
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Channel summary is also required.</source>
 				<target>Crear o editar canales de software desde está página.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Si el canal principal está establecido a 'ninguno', el canal es un canal base.
         De lo contrario, el canal es un hijo del canal especificado.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         El nombre de canal y etiqueta son requeridos. Deben ser al menos de 6
         caracteres. Las etiquetas deben comenzar por una letra, contener sólo
         minúsculas, guiones ('-'), puntos('.'), guiones de subrayado ('_'), y
         numerales. El nombre de canal puede también contener espacios y barra oblicua
         ('/').
-        &lt;p/&gt;
+        &lt;p/&gt; 
         El resumen de canal es requerido.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.public">
@@ -14880,8 +14908,8 @@ given channel.</source>
         this channel may adversely affect those systems. For example, those
         systems may no longer receive critical security updates to content
         provided by this channel.</source>
-				<target>¿Está seguro de querer establecer este canal a
-        &lt;strong&gt;privado&lt;/strong&gt;, de acceso únicamente a sistemas en su
+				<target>¿Está seguro de querer establecer este canal a 
+        &lt;strong&gt;privado&lt;/strong&gt;, de acceso únicamente a sistemas en su 
         organización? Hay sistema(s) en otra(s) organización(es) listados abajo
         que se suscriben al contenido proporcionado por este canal. Quitar el acceso
         a este canal puede afectar adversamente esos sistemas. Por ejemplo, esos
@@ -14912,7 +14940,7 @@ given channel.</source>
 				<source>You may choose to grant the organizations below access to this
         channel, or you may deny them access. You can modify access to this
         channel at any time using the 'Organizations' tab above.</source>
-				<target>Puede optar por otorgar acceso a las organizaciones de abajo para este
+				<target>Puede optar por otorgar acceso a las organizaciones de abajo para este 
         canal, o puede negarles el acceso. Puede modificar el acceso a este
         canal en cualquier momento utilizando la pestaña de arriba'Organizaciones'.</target>
 			</trans-unit>

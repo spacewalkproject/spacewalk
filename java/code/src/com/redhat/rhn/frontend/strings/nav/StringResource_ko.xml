@@ -590,10 +590,6 @@
 				<source>Critical</source>
 				<target>치명적</target>
 			</trans-unit>
-			<trans-unit id="Warning">
-				<source>Warning</source>
-				<target>경고</target>
-			</trans-unit>
 			<trans-unit id="Unknown">
 				<source>Unknown</source>
 				<target>알 수 없는</target>

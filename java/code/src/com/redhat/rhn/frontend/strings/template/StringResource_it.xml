@@ -682,7 +682,7 @@ Thank you for using @@PRODUCT_NAME@@.
 Egregio utente di @@PRODUCT_NAME@@,
 
 Questa email le è stata recapitata per informarLa che il suo Certificato @@PRODUCT_NAME@@
-sul suo satellite locale  {0} è scaduto. Fra {1} giorno(i) i servizi di gestione del sistema
+sul suo satellite locale  {0} è scaduto. Fra {1} giorno(i) i servizi di gestione del sistema 
 forniti dal suo @@PRODUCT_NAME@@ Server non saranno più accessibili.
 La preghiamo di contattare il suo rappresentante di zona del Red Hat Customer Service per informazioni 
 su come rinnovare il suo Certificato @@PRODUCT_NAME@@.
@@ -710,7 +710,7 @@ Thank you for using @@PRODUCT_NAME@@.
 Egregio utente di Red Hat Network,
 
 Questa email le è stata recapitata per informarLa che il suo Certificato @@PRODUCT_NAME@@
-sul suo satellite locale {0} è scaduto. I servizi di gestione del sistema non saranno più accessibili
+sul suo satellite locale {0} è scaduto. I servizi di gestione del sistema non saranno più accessibili 
 fino a quando il suo certificato non verrà rinnovato. La preghiamo di contattare il suo
 rappresentante di zona del Red Hat Customer Service, per informazioni su come rinnovare il suo Certificato @@PRODUCT_NAME@@.
 

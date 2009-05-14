@@ -138,6 +138,14 @@
 				<source>Tip</source>
 				<target>ਟਿੱਪਣੀ</target>
 			</trans-unit>
+			<trans-unit id="Note">
+				<source>Note</source>
+				<target>ਸੂਚਨਾ</target>
+			</trans-unit>
+			<trans-unit id="Warning">
+				<source>Warning</source>
+				<target>ਚੇਤਾਵਨੀ</target>
+			</trans-unit>
 			<trans-unit id="About Spacewalk">
 				<source>About</source>
 				<target>ਇਸ ਬਾਰੇ</target>
@@ -172,7 +180,7 @@
 			</trans-unit>
 			<trans-unit id="address not filled out">
 				<source>Address not filled out</source>
-				<target>ਸਿਰਨਾਵਾਂ ਭਰਿਆ ਨਹੀਂ ਗਿਆ</target>
+				<target>ਸਿਰਨਾਵਾਂ ਨਹੀਂ ਦਿੱਤਾ</target>
 			</trans-unit>
 			<trans-unit id="Add this address">
 				<source>Add this address</source>
@@ -248,7 +256,7 @@
 			</trans-unit>
 			<trans-unit id="Client Configuration">
 				<source>Client Configuration</source>
-				<target>ਕਲਾਂਇਟ ਸੰਰਚਨਾ</target>
+				<target>ਸੈਟੇਲਾਈਟ ਸੰਰਚਨਾ</target>
 			</trans-unit>
 			<trans-unit id="Clone Errata">
 				<source>Clone Errata</source>
@@ -308,7 +316,7 @@
 			</trans-unit>
 			<trans-unit id="Errata">
 				<source>Errata</source>
-				<target>ਇੱਰਟਾ(Errata)</target>
+				<target>ਇੱਰਟਾ</target>
 			</trans-unit>
 			<trans-unit id="exception">
 				<source>Exception</source>
@@ -380,7 +388,7 @@
 			</trans-unit>
 			<trans-unit id="Magic Entitler">
 				<source>Magic Entitler</source>
-				<target>ਜਾਦੂ ਇੰਟਾਇਟਲਰ</target>
+				<target>ਜਾਦੂ ਇੰਟਾਈਟਲਰ</target>
 			</trans-unit>
 			<trans-unit id="Manage Config Channels">
 				<source>Manage Config Channels</source>
@@ -1217,7 +1225,7 @@ available for this kickstart profile to function properly.
 &lt;ul&gt;
 &lt;li&gt;
 ਕੀ ਇਸ ਕਿੱਕਸਟਾਰਟ ਪਰੋਫਾਈਲ ਦੇ ਅਧਾਰ ਚੈਨਲ ਲਈ 'rhn-tools' ਅਧੀਨ ਸਾਫਟਵੇਅਰ ਚੈਨਲ ਤੁਹਾਡੇ
-ਸੰਗਠਨ ਨੂੰ ਉਪਲੱਬਧ ਹੈ? ਜੇ ਨਹੀਂ, ਤਾਂ ਤੁਹਾਨੂੰ ਆਪਣੇ @@PRODUCT_NAME@@ ਪਰਬੰਧਕ ਤੋਂ
+ਸੰਗਠਨ ਨੂੰ ਉਪਲੱਬਧ ਹੈ? ਜੇ ਨਹੀਂ, ਤਾਂ ਤੁਹਾਨੂੰ ਆਪਣੇ @@PRODUCT_NAME@@ ਪਰਬੰਧਕ ਤੋਂ 
 'rhn-tools' ਸਾਫਟਵੇਅਰ ਚੈਨਲ ਲਈ ਇੰਟਾਈਟਲਮੈਂਟ ਬੇਨਤੀ ਭੇਜਣੀ ਪਵੇਗੀ।
 &lt;/li&gt;
 &lt;li&gt;
@@ -1307,16 +1315,16 @@ available for this kickstart profile to function properly.
 				<target>ਕਿੱਕਸਟਾਰਟ ਪਰੋਫਾਈਲ {0} ਵਿੱਚੋਂ IP ਰੇਂਜ ਹਟਾਉਣ ਦੌਰਾਨ ਇੱਕ ਗਲਤੀ ਹੋਈ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.update.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
-				<target>Cobbler ਸਨਿੱਪਟ &lt;strong&gt;{0}&lt;/strong&gt; ਸਫਲਤਾਪੂਰਕ ਅੱਪਡੇਟ ਹੋ ਗਈ।</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
+				<target>ਕਿੱਕਸਟਾਰਟ ਸਨਿੱਪਟ &lt;strong&gt;{0}&lt;/strong&gt; ਸਫਲਤਾਪੂਰਕ ਅੱਪਡੇਟ ਹੋ ਗਈ।</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.create.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
-				<target>Cobbler ਸਨਿੱਪਟ &lt;strong&gt;{0}&lt;/strong&gt; ਸਫਲਤਾਪੂਰਕ ਬਣਾਈ ਗਈ।</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
+				<target>ਕਿੱਕਸਟਾਰਟ ਸਨਿੱਪਟ &lt;strong&gt;{0}&lt;/strong&gt; ਸਫਲਤਾਪੂਰਕ ਬਣਾਈ ਗਈ।</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.delete.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
-				<target>Cobbler ਸਨਿੱਪਟ &lt;strong&gt;{0}&lt;/strong&gt; ਸਫਲਤਾਪੂਰਕ ਹਟਾਈ ਗਈ।</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
+				<target>ਕਿੱਕਸਟਾਰਟ ਸਨਿੱਪਟ &lt;strong&gt;{0}&lt;/strong&gt; ਸਫਲਤਾਪੂਰਕ ਹਟਾਈ ਗਈ।</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.couldnotdelete.message">
 				<source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -1327,12 +1335,12 @@ available for this kickstart profile to function properly.
 				<target>ਇਸ ਸਨਿੱਪਟ &lt;strong&gt;{0}&lt;/strong&gt; ਨੂੰ ਸਨਿੱਪਟ &lt;strong&gt;{1}&lt;/strong&gt; ਮੁੜ-ਨਾਂ ਦੇਣ ਵੇਲੇ ਇੱਕ ਗਲਤੀ ਆਈ ਸੀ।</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.filenameexists.message">
-				<source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; ਨਾਂ ਵਾਲੀ Cobbler ਸਨਿੱਪਟ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।</target>
+				<source>Kickstart snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; ਨਾਂ ਵਾਲੀ ਕਿੱਕਸਟਾਰਟ ਸਨਿੱਪਟ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.invalidfilename.message">
-				<source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
-				<target>ਲੋੜੀਂਦਾ Cobbler snippet ਫਾਇਲ-ਨਾਂ ਸਹੀ ਨਹੀਂ ਹੈ।  ਯੋਗ ਅੱਖਰ ਹਨ A-Z, a-z, 0-9, _ ਅਤੇ -।</target>
+				<source>The requested kickstart snippet filename is not valid. The kickstart snippet file name cannot contain slash (/) or  begin with a period(.)</source>
+				<target>ਲੋੜੀਂਦਾ ਕਿੱਕਸਟਾਰਟ ਸਨਿੱਪਟ ਫਾਇਲ-ਨਾਂ ਯੋਗ ਨਹੀਂ ਹੈ। ਕਿੱਕਸਟਾਰਟ ਸਨਿੱਪਟ ਫਾਇਲ-ਨਾਂ ਵਿੱਚ ਸਲੈਸ਼ (/) ਨਹੀਂ ਹੋਣੀ ਚਾਹੀਦੀ ਜਾਂ ਪੀਰੀਅਡ(.) ਨਾਲ ਸ਼ੁਰੂ ਨਹੀਂ ਹੋਣਾ ਚਾਹੀਦਾ।</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.snippets">
 				<source>delete snippet</source>
@@ -5064,7 +5072,7 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="api.kickstart.ip.invalid">
 				<source>The Ip Address specified, {0}, is not valid..</source>
-				<target>ਦਿੱਤਾ ਗਿਆ Ipਐਡਰੈੱਸ, ({0}) ਗਲਤ ਹੈ..</target>
+				<target>ਦਿੱਤਾ ਗਿਆ Ip ਐਡਰੈੱਸ, ({0}) ਗਲਤ ਹੈ..</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.filelist.exists">
 				<source>A file list with label {0} already exists.</source>
@@ -5228,17 +5236,16 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to
-syncronize kickstart distributions from Spacewalk to Cobbler.  These
-errors must be corrected for the distributions to be available for
-kickstarting systems kickstart distributions failed to sync from
-Spacewalk to Cobbler:
+The following is a list of errors gathered while Spacewalk attempts to 
+syncronize kickstart distributions from Spacewalk to Cobbler.  These 
+errors must be corrected for the distributions to be available for 
+kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
@@ -5246,16 +5253,16 @@ for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
 ਹੇਠਾਂ ਗਲਤੀਆਂ ਦੀ ਸੂਚੀ ਦਿੱਤੀ ਗਈ ਹੈ ਜੋ Spacewalk ਦੁਆਰਾ ਕਿੱਕਸਟਾਰਟ ਡਿਸਟਰੀਬਿਊਸ਼ਨਾਂ
-ਨੂੰ Spacewalk ਤੋਂ Cobbler ਨਾਲ ਸਮਕਾਲੀ ਕਰਨ ਦੌਰਾਨ ਇਕੱਠੀ ਕੀਤੀ ਗਈ ਸੀ।  ਇਹ
-ਗਲਤੀਆਂ ਠੀਕ ਕਰਨੀ ਜਰੂਰੀ ਹਨ ਤਾਂ ਜੋ ਕਿੱਕਸਟਾਰਟ ਸਿਸਟਮ ਕਿੱਕਸਟਾਰਟ ਡਿਸਟਰੀਬਿਊਸ਼ਨ
-ਦੀ Spacewalk ਤੋਂ Cobbler ਵੱਲ ਫੇਲ ਹੋਈ ਸਮਕਾਲਤਾ ਲਈ
+ਨੂੰ Spacewalk ਤੋਂ ਕਿੱਕਸਟਾਰਟ ਨਾਲ ਸਮਕਾਲੀ ਕਰਨ ਦੌਰਾਨ ਇਕੱਠੀ ਕੀਤੀ ਗਈ ਸੀ।  ਇਹ 
+ਗਲਤੀਆਂ ਠੀਕ ਕਰਨੀ ਜਰੂਰੀ ਹਨ ਤਾਂ ਜੋ ਕਿੱਕਸਟਾਰਟ ਸਿਸਟਮ ਕਿੱਕਸਟਾਰਟ ਡਿਸਟਰੀਬਿਊਸ਼ਨ 
+ਦੀ Spacewalk ਤੋਂ ਕਿੱਕਸਟਾਰਟ ਵੱਲ ਫੇਲ ਹੋਈ ਸਮਕਾਲਤਾ ਲਈ 
 ਡਿਸਟਰੀਬਿਊਸ਼ਨ ਉਪਲੱਬਧ ਹੋ:
 
 {0}
 
 ਗਲਤੀ ਵੇਰਵਾ ਵੇਖਣ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਜਾਂਚ ਕਰੋ:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 

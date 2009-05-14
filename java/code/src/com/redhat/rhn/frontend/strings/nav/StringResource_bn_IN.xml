@@ -590,10 +590,6 @@
 				<source>Critical</source>
 				<target>গুরুতর</target>
 			</trans-unit>
-			<trans-unit id="Warning">
-				<source>Warning</source>
-				<target>সতর্কতামূলক</target>
-			</trans-unit>
 			<trans-unit id="Unknown">
 				<source>Unknown</source>
 				<target>অজানা</target>

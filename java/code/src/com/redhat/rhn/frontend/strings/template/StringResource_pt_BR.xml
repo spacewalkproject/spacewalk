@@ -680,7 +680,7 @@ Prezado Usuário do @@NOME_DO_PRODUTO@@,
 
 Este e-mail está sendo enviado para lhe informar que o seu Certificado do @@NOME_DO_PRODUTO@@
 seu Satellite {0} local está vencido. Após {1} dia(s) os serviços 
-de gerenciamento de sistemas oferecidos pelo seu @@NOME_DO_PRODUTO@@ irão se tornar inacessíveis.
+de gerenciamento de sistemas oferecidos pelo seu @@NOME_DO_PRODUTO@@ irão se tornar inacessíveis. 
 Por favor contate o seu Representante regional de Serviços ao Cliente da Red Hat para informações 
 sobre como renovar o seu Certificado do @@NOME_DO_PRODUTO@@.
 
@@ -706,7 +706,7 @@ Thank you for using @@PRODUCT_NAME@@.
 				<target>
 Prezado Usuário do @@NOME_DO_PRODUTO@@,
 
-Este e-mail está sendo enviado para lhe informar que o seu Certificado do @@NOME_DO_PRODUTO@@
+Este e-mail está sendo enviado para lhe informar que o seu Certificado do @@NOME_DO_PRODUTO@@ 
 do seu Satellite local {0} venceu. Os serviços de gerenciamento de sistemas ficarão inacessíveis até que 
 o seu certificado seja renovado. Por favor contate o seu Representante regional de Serviços ao Cliente 
 da Red Hat para informações sobre como renovar o seu Certificado do @@NOME_DO_PRODUTO@@.

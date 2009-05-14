@@ -52,11 +52,11 @@
 			</trans-unit>
 			<trans-unit id="action.nav.backout">
 				<source>Back Out Patches</source>
-				<target>ਬੈਕਆਉਟ ਪੈਂਚ</target>
+				<target>ਬੈਕ ਆਊਟ ਪੈਚ</target>
 			</trans-unit>
 			<trans-unit id="action.nav.install">
 				<source>Install Patches</source>
-				<target>ਇੰਸਟਾਲ ਪੈਂਚ</target>
+				<target>ਇੰਸਟਾਲ ਪੈਚ</target>
 			</trans-unit>
 			<trans-unit id="virtualization.entitlements">
 				<source>Virtualization Entitlements</source>
@@ -88,7 +88,7 @@
 			</trans-unit>
 			<trans-unit id="system.nav.unentitled">
 				<source>Unentitled</source>
-				<target>ਬਿਨਾਂ-ਇੰਟਾਇਟਲ</target>
+				<target>ਬਿਨਾਂ-ਇੰਟਾਈਟਲ</target>
 			</trans-unit>
 			<trans-unit id="system.nav.ungrouped">
 				<source>Ungrouped</source>
@@ -204,7 +204,7 @@
 			</trans-unit>
 			<trans-unit id="config.nav.managed">
 				<source>Managed Systems</source>
-				<target>ਪਰਬੰਧ ਕੀਤੇ ਸਿਸਟਮ</target>
+				<target>ਪਰਬੰਧਿਤ ਸਿਸਟਮ</target>
 			</trans-unit>
 			<trans-unit id="config.nav.target">
 				<source>Target Systems</source>
@@ -296,11 +296,11 @@
 			</trans-unit>
 			<trans-unit id="configfile.nav.copy.sandbox">
 				<source>Copy To System Sandbox</source>
-				<target>ਸਿਸਟਮ ਸੈਂਟ-ਬਕਸੇ ਵਿੱਚ ਨਕਲ ਕਰੋ</target>
+				<target>ਸਿਸਟਮ ਸੈਂਡ-ਬਕਸੇ ਵਿੱਚ ਨਕਲ ਕਰੋ</target>
 			</trans-unit>
 			<trans-unit id="configfile.nav.compare">
 				<source>Compare File</source>
-				<target>ਫਾਇਲਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ</target>
+				<target>ਫਾਇਲ ਤੁਲਨਾ ਕਰੋ</target>
 			</trans-unit>
 			<trans-unit id="configfile.nav.compare.deployed">
 				<source>Deployed Files</source>
@@ -376,7 +376,7 @@
 			</trans-unit>
 			<trans-unit id="Snapshots">
 				<source>Snapshots</source>
-				<target>ਸਨੈਪ-ਸ਼ਾਟ</target>
+				<target>ਸਨੈਪਸ਼ਾਟ</target>
 			</trans-unit>
 			<trans-unit id="Installation Guide">
 				<source>Installation Guide</source>
@@ -388,11 +388,11 @@
 			</trans-unit>
 			<trans-unit id="Provisioning">
 				<source>Provisioning</source>
-				<target>ਪਰੋਵੀਜ਼ਨਿੰਗ</target>
+				<target>ਮਨਜੂਰੀ</target>
 			</trans-unit>
 			<trans-unit id="Misc">
 				<source>Misc</source>
-				<target>Misc</target>
+				<target>ਫੁਟਕਲ</target>
 			</trans-unit>
 			<trans-unit id="Snapshot Tags">
 				<source>Snapshot Tags</source>
@@ -436,11 +436,11 @@
 			</trans-unit>
 			<trans-unit id="Patches">
 				<source>Patches</source>
-				<target>ਪੈਂਚ</target>
+				<target>ਪੈਚ</target>
 			</trans-unit>
 			<trans-unit id="Patch Clusters">
 				<source>Patch Clusters</source>
-				<target>ਪੈਂਚ ਕਲਾਸਟਰ</target>
+				<target>ਪੈਚ ਕਲਾਸਟਰ</target>
 			</trans-unit>
 			<trans-unit id="Notes">
 				<source>Notes</source>
@@ -589,10 +589,6 @@
 			<trans-unit id="Critical">
 				<source>Critical</source>
 				<target>ਨਾਜੁਕ</target>
-			</trans-unit>
-			<trans-unit id="Warning">
-				<source>Warning</source>
-				<target>ਚੇਤਾਵਨੀ</target>
 			</trans-unit>
 			<trans-unit id="Unknown">
 				<source>Unknown</source>

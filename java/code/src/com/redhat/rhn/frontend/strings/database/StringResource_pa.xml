@@ -252,31 +252,31 @@
 			</trans-unit>
 			<trans-unit id="RHN_ADMIN_EMAIL">
 				<source>@@PRODUCT_NAME@@ administrator email</source>
-				<target>@@PRODUCT_NAME@@ administrator email</target>
+				<target>@@PRODUCT_NAME@@ ਪਰਬੰਧਕ ਈ-ਮੇਲ</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_NAME">
 				<source>@@PRODUCT_NAME@@ database name</source>
-				<target>@@PRODUCT_NAME@@ database name</target>
+				<target>@@PRODUCT_NAME@@ ਡਾਟਾਬੇਸ ਨਾਂ</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_PASSWD">
 				<source>@@PRODUCT_NAME@@ database password</source>
-				<target>@@PRODUCT_NAME@@ database password</target>
+				<target>@@PRODUCT_NAME@@ ਡਾਟਾਬੇਸ ਪਾਸਵਰਡ</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_TABLE_OWNER">
 				<source>@@PRODUCT_NAME@@ Database table owner</source>
-				<target>@@PRODUCT_NAME@@ Database table owner</target>
+				<target>@@PRODUCT_NAME@@ ਡਾਟਾਬੇਸ ਟੇਬਲ ਮਾਲਕ</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_USERNAME">
 				<source>@@PRODUCT_NAME@@ database username</source>
-				<target>@@PRODUCT_NAME@@ database username</target>
+				<target>@@PRODUCT_NAME@@ ਡਾਟਾਬੇਸ ਉਪਭੋਗੀ ਨਾਂ</target>
 			</trans-unit>
 			<trans-unit id="RHN_SAT_HOSTNAME">
 				<source>@@PRODUCT_NAME@@ hostname (FQDN)</source>
-				<target>@@PRODUCT_NAME@@ hostname (FQDN)</target>
+				<target>@@PRODUCT_NAME@@ ਮੇਜ਼ਬਾਨ ਨਾਂ (FQDN)</target>
 			</trans-unit>
 			<trans-unit id="RHN_SAT_WEB_PORT">
 				<source>@@PRODUCT_NAME@@ webserver port (80 for http, 443 for https)</source>
-				<target>@@PRODUCT_NAME@@ webserver port (http ਲਈ 80, https ਲਈ 443)</target>
+				<target>@@PRODUCT_NAME@@ ਵੈੱਬ-ਸਰਵਰ ਪੋਰਟ (http ਲਈ 80, https ਲਈ 443)</target>
 			</trans-unit>
 			<trans-unit id="XPROTO">
 				<source>External protocol ('http' or 'https')</source>
@@ -356,7 +356,7 @@
 			</trans-unit>
 			<trans-unit id="Critical Buffer Cache Hit Ratio">
 				<source>Critical Buffer Cache Hit Ratio</source>
-				<target>ਨਾਜ਼ੁਕ ਬਫ਼ਰ ਕੈਂਚੇ ਹਿੱਟ ਅਨੁਪਾਤ</target>
+				<target>ਨਾਜ਼ੁਕ ਬਫ਼ਰ ਕੈਸ਼ੇ ਹਿੱਟ ਅਨੁਪਾਤ</target>
 			</trans-unit>
 			<trans-unit id="Critical CLOSE_WAIT Connections">
 				<source>Critical CLOSE_WAIT Connections</source>
@@ -464,7 +464,7 @@
 			</trans-unit>
 			<trans-unit id="Critical Library Cache Miss Ratio">
 				<source>Critical Library Cache Miss Ratio</source>
-				<target>ਨਾਜ਼ੁਕ ਲਾਇਬਰੇਰੀ ਕੈਂਚੇ ਗੁੰਮ ਦਰ</target>
+				<target>ਨਾਜ਼ੁਕ ਲਾਇਬਰੇਰੀ ਕੈਸ਼ੇ ਗੁੰਮ ਦਰ</target>
 			</trans-unit>
 			<trans-unit id="Critical Line Rate">
 				<source>Critical Line Rate</source>
@@ -480,7 +480,7 @@
 			</trans-unit>
 			<trans-unit id="Critical Matches">
 				<source>Critical Matches</source>
-				<target>ਨਾਜ਼ੁਕ ਮਿਲਾਨ</target>
+				<target>ਨਾਜ਼ੁਕ ਮੇਲ</target>
 			</trans-unit>
 			<trans-unit id="Critical Number Running Maximum">
 				<source>Critical Number Running Maximum</source>
@@ -500,7 +500,7 @@
 			</trans-unit>
 			<trans-unit id="Critical Output Rate">
 				<source>Critical Output Rate</source>
-				<target>ਨਾਜ਼ੁਕ ਆਉਟਪੁੱਟ ਦਰ</target>
+				<target>ਨਾਜ਼ੁਕ ਆਊਟਪੁੱਟ ਦਰ</target>
 			</trans-unit>
 			<trans-unit id="Critical Packet Loss Pct">
 				<source>Critical Packet Loss Pct</source>
@@ -548,7 +548,7 @@
 			</trans-unit>
 			<trans-unit id="Critical Redo Log Space Requests">
 				<source>Critical Redo Log Space Requests</source>
-				<target>ਨਾਜ਼ੁਕ ਮੁੜ-ਵਾਪਸ ਲਾਗ ਥਾਂ ਮੰਗ</target>
+				<target>ਨਾਜ਼ੁਕ ਮੁੜ-ਵਾਪਸ ਲਾਗ ਸਪੇਸ ਮੰਗ</target>
 			</trans-unit>
 			<trans-unit id="Critical Request Rate">
 				<source>Critical Request Rate</source>
@@ -616,11 +616,11 @@
 			</trans-unit>
 			<trans-unit id="Critical Traffic">
 				<source>Critical Traffic</source>
-				<target>ਨਾਜ਼ੁਕ ਆਵਾਜਾਈ</target>
+				<target>ਨਾਜ਼ੁਕ ਟਰੈਫਿਕ</target>
 			</trans-unit>
 			<trans-unit id="Critical Transferred Per Child">
 				<source>Critical Transferred Per Child</source>
-				<target>ਨਾਜ਼ੁਕ ਸੰਚਾਰ ਪ੍ਰਤੀ ਚਾਲਇਡ</target>
+				<target>ਨਾਜ਼ੁਕ ਸੰਚਾਰ ਪ੍ਰਤੀ ਚਾਈਲਡ</target>
 			</trans-unit>
 			<trans-unit id="Critical Transferred Per Slot">
 				<source>Critical Transferred Per Slot</source>
@@ -636,11 +636,11 @@
 			</trans-unit>
 			<trans-unit id="Critical Virtual Mem Pct Free">
 				<source>Critical Virtual Mem Pct Free</source>
-				<target>ਨਾਜ਼ੁਕ ਵੁਰਚੁਅਲ ਮੈਮੋਰੀ ਫੀ-ਸਦੀ ਮੁਕਤ</target>
+				<target>ਨਾਜ਼ੁਕ ਵਰਚੁਅਲ ਮੈਮੋਰੀ ਫੀ-ਸਦੀ ਮੁਕਤ</target>
 			</trans-unit>
 			<trans-unit id="Critical Virtual Memory Used">
 				<source>Critical Virtual Memory Used</source>
-				<target>ਨਾਜ਼ੁਕ ਵੁਰਚੁਅਲ ਮੈਮੋਰੀ ਵਰਤੋਂ</target>
+				<target>ਨਾਜ਼ੁਕ ਵਰਚੁਅਲ ਮੈਮੋਰੀ ਵਰਤੋਂ</target>
 			</trans-unit>
 			<trans-unit id="Critical Waiters">
 				<source>Critical Waiters</source>
@@ -808,7 +808,7 @@
 			</trans-unit>
 			<trans-unit id="Output Traffic Critical">
 				<source>Output Traffic Critical</source>
-				<target>ਆਉਟਪੁੱਟ ਆਵਾਜਾਈ ਨਾਜ਼ੁਕ</target>
+				<target>ਆਊਟਪੁੱਟ ਆਵਾਜਾਈ ਨਾਜ਼ੁਕ</target>
 			</trans-unit>
 			<trans-unit id="PID file (overrides command name)">
 				<source>PID file (overrides command name)</source>
@@ -952,7 +952,7 @@
 			</trans-unit>
 			<trans-unit id="Virtual Host">
 				<source>Virtual Host</source>
-				<target>ਵੁਰਚੁਅਲ ਮੇਜ਼ਬਾਨ</target>
+				<target>ਵਰਚੁਅਲ ਮੇਜ਼ਬਾਨ</target>
 			</trans-unit>
 			<trans-unit id="Warn 1 min">
 				<source>Warn 1 min</source>
@@ -1024,7 +1024,7 @@
 			</trans-unit>
 			<trans-unit id="Warning Buffer Cache Hit Ratio">
 				<source>Warning Buffer Cache Hit Ratio</source>
-				<target>ਸਾਵਧਾਨ ਬਫ਼ਰ ਕੈਂਚੇ ਹਿੱਟ ਦਰ</target>
+				<target>ਸਾਵਧਾਨ ਬਫ਼ਰ ਕੈਸ਼ੇ ਹਿੱਟ ਦਰ</target>
 			</trans-unit>
 			<trans-unit id="Warning CLOSE_WAIT Connections">
 				<source>Warning CLOSE_WAIT Connections</source>
@@ -1132,7 +1132,7 @@
 			</trans-unit>
 			<trans-unit id="Warning Library Cache Miss Ratio">
 				<source>Warning Library Cache Miss Ratio</source>
-				<target>ਸਾਵਧਾਨ ਲਾਇਬਰੇਰੀ ਕੈਂਚੇ ਗੁੰਮ ਦਰ</target>
+				<target>ਸਾਵਧਾਨ ਲਾਇਬਰੇਰੀ ਕੈਸ਼ੇ ਗੁੰਮ ਦਰ</target>
 			</trans-unit>
 			<trans-unit id="Warning Line Rate">
 				<source>Warning Line Rate</source>
@@ -1160,7 +1160,7 @@
 			</trans-unit>
 			<trans-unit id="Warning Output Rate">
 				<source>Warning Output Rate</source>
-				<target>ਸਾਵਧਾਨ ਆਉਟਪੁੱਟ ਦਰ</target>
+				<target>ਸਾਵਧਾਨ ਆਊਟਪੁੱਟ ਦਰ</target>
 			</trans-unit>
 			<trans-unit id="Warning Packet Loss Pct">
 				<source>Warning Packet Loss Pct</source>
@@ -1288,11 +1288,11 @@
 			</trans-unit>
 			<trans-unit id="Warning Virtual Mem Pct Free">
 				<source>Warning Virtual Mem Pct Free</source>
-				<target>ਸਾਵਧਾਨ ਵੁਰਚੁਅਲ ਮੈਮੋਰੀ ਫੀ-ਸਦੀ ਮੁਕਤ</target>
+				<target>ਸਾਵਧਾਨ ਵਰਚੁਅਲ ਮੈਮੋਰੀ ਫੀ-ਸਦੀ ਮੁਕਤ</target>
 			</trans-unit>
 			<trans-unit id="Warning Virtual Memory Used">
 				<source>Warning Virtual Memory Used</source>
-				<target>ਸਾਵਧਾਨ ਵੁਰਚੁਅਲ ਮੈਮੋਰੀ ਵਰਤੋਂ</target>
+				<target>ਸਾਵਧਾਨ ਵਰਚੁਅਲ ਮੈਮੋਰੀ ਵਰਤੋਂ</target>
 			</trans-unit>
 			<trans-unit id="Warning Waiters">
 				<source>Warning Waiters</source>
@@ -1320,7 +1320,7 @@
 			</trans-unit>
 			<trans-unit id="metrics.Buffer cache hit ratio">
 				<source>Buffer cache hit ratio</source>
-				<target>ਬਫ਼ਰ ਕੈਂਚੇ ਹਿੱਟ ਦਰ</target>
+				<target>ਬਫ਼ਰ ਕੈਸ਼ੇ ਹਿੱਟ ਦਰ</target>
 			</trans-unit>
 			<trans-unit id="metrics.CLOSE_WAIT conns">
 				<source>CLOSE_WAIT conns</source>
@@ -1360,7 +1360,7 @@
 			</trans-unit>
 			<trans-unit id="metrics.Cache miss rate">
 				<source>Cache miss rate</source>
-				<target>ਕੈਂਚੇ ਮਿਸ ਦਰ</target>
+				<target>ਕੈਸ਼ੇ ਮਿਸ ਦਰ</target>
 			</trans-unit>
 			<trans-unit id="metrics.Child process groups">
 				<source>Child process groups</source>
@@ -1476,7 +1476,7 @@
 			</trans-unit>
 			<trans-unit id="metrics.Library cache miss ratio">
 				<source>Library cache miss ratio</source>
-				<target>ਲਾਇਬਰੇਰੀ ਕੈਂਚੇ ਮਿਸ ਅਨੁਪਾਤ</target>
+				<target>ਲਾਇਬਰੇਰੀ ਕੈਸ਼ੇ ਮਿਸ ਅਨੁਪਾਤ</target>
 			</trans-unit>
 			<trans-unit id="metrics.Line rate">
 				<source>Line rate</source>
@@ -1520,7 +1520,7 @@
 			</trans-unit>
 			<trans-unit id="metrics.Output rate">
 				<source>Output rate</source>
-				<target>ਆਉਟਪੁੱਟ ਦਰ</target>
+				<target>ਆਊਟਪੁੱਟ ਦਰ</target>
 			</trans-unit>
 			<trans-unit id="metrics.Packet loss pct">
 				<source>Packet loss pct</source>
@@ -1724,11 +1724,11 @@
 			</trans-unit>
 			<trans-unit id="metrics.Virtual mem pct free">
 				<source>Virtual mem pct free</source>
-				<target>ਵੁਰਚੁਅਲ ਮੈਮੋਰੀ ਫੀ-ਸਦੀ ਮੁਕਤ</target>
+				<target>ਵਰਚੁਅਲ ਮੈਮੋਰੀ ਫੀ-ਸਦੀ ਮੁਕਤ</target>
 			</trans-unit>
 			<trans-unit id="metrics.Virtual memory used">
 				<source>Virtual memory used</source>
-				<target>ਵੁਰਚੁਅਲ ਮੈਮੋਰੀ ਵਰਤੋਂ</target>
+				<target>ਵਰਚੁਅਲ ਮੈਮੋਰੀ ਵਰਤੋਂ</target>
 			</trans-unit>
 			<trans-unit id="metrics.Waiters">
 				<source>Waiters</source>
@@ -1812,7 +1812,7 @@
 			</trans-unit>
 			<trans-unit id="Buffer Cache Hit Ratio">
 				<source>Buffer Cache Hit Ratio</source>
-				<target>ਬਫ਼ਰ ਕੈਂਚੇ ਹਿੱਟ ਦਰ</target>
+				<target>ਬਫ਼ਰ ਕੈਸ਼ੇ ਹਿੱਟ ਦਰ</target>
 			</trans-unit>
 			<trans-unit id="CLOSE_WAIT Connections">
 				<source>CLOSE_WAIT Connections</source>
@@ -1836,7 +1836,7 @@
 			</trans-unit>
 			<trans-unit id="Cache Miss Rate">
 				<source>Cache Miss Rate</source>
-				<target>ਕੈਂਚੇ ਮਿਸ ਦਰ</target>
+				<target>ਕੈਸ਼ੇ ਮਿਸ ਦਰ</target>
 			</trans-unit>
 			<trans-unit id="Child Process Groups">
 				<source>Child Process Groups</source>
@@ -1920,7 +1920,7 @@
 			</trans-unit>
 			<trans-unit id="Library Cache Miss Ratio">
 				<source>Library Cache Miss Ratio</source>
-				<target>ਲਾਇਬਰੇਰੀ ਕੈਂਚੇ ਮਿਸ ਅਨੁਪਾਤ</target>
+				<target>ਲਾਇਬਰੇਰੀ ਕੈਸ਼ੇ ਮਿਸ ਅਨੁਪਾਤ</target>
 			</trans-unit>
 			<trans-unit id="Line Rate">
 				<source>Line Rate</source>
@@ -1952,7 +1952,7 @@
 			</trans-unit>
 			<trans-unit id="Output Rate">
 				<source>Output Rate</source>
-				<target>ਆਉਟਪੁੱਟ ਦਰ</target>
+				<target>ਆਊਟਪੁੱਟ ਦਰ</target>
 			</trans-unit>
 			<trans-unit id="Packet Loss">
 				<source>Packet Loss</source>
@@ -2056,11 +2056,11 @@
 			</trans-unit>
 			<trans-unit id="Virtual Memory Free">
 				<source>Virtual Memory Free</source>
-				<target>ਵੁਰਚੁਅਲ ਮੈਮੋਰੀ ਮੁਕਤ</target>
+				<target>ਵਰਚੁਅਲ ਮੈਮੋਰੀ ਮੁਕਤ</target>
 			</trans-unit>
 			<trans-unit id="Virtual Memory Used">
 				<source>Virtual Memory Used</source>
-				<target>ਵੁਰਚੁਅਲ ਮੈਮੋਰੀ ਵਰਤੀਂ</target>
+				<target>ਵਰਚੁਅਲ ਮੈਮੋਰੀ ਵਰਤੀਂ</target>
 			</trans-unit>
 			<trans-unit id="Write Rate">
 				<source>Write Rate</source>
@@ -2300,7 +2300,7 @@
 			</trans-unit>
 			<trans-unit id="Buffer Cache">
 				<source>Buffer Cache</source>
-				<target>ਬਫ਼ਰ ਕੈਂਚੇ</target>
+				<target>ਬਫ਼ਰ ਕੈਸ਼ੇ</target>
 			</trans-unit>
 			<trans-unit id="CPU Usage">
 				<source>CPU Usage</source>
@@ -2320,7 +2320,7 @@
 			</trans-unit>
 			<trans-unit id="Data Dictionary Cache">
 				<source>Data Dictionary Cache</source>
-				<target>ਡਾਟਾ ਡਿਕਸ਼ਨਰੀ ਕੈਂਚੇ</target>
+				<target>ਡਾਟਾ ਡਿਕਸ਼ਨਰੀ ਕੈਸ਼ੇ</target>
 			</trans-unit>
 			<trans-unit id="Database Accessibility">
 				<source>Database Accessibility</source>
@@ -2392,7 +2392,7 @@
 			</trans-unit>
 			<trans-unit id="Library Cache">
 				<source>Library Cache</source>
-				<target>ਲਾਇਬਰੇਰੀ ਕੈਂਚੇ</target>
+				<target>ਲਾਇਬਰੇਰੀ ਕੈਸ਼ੇ</target>
 			</trans-unit>
 			<trans-unit id="Load">
 				<source>Load</source>
@@ -2556,7 +2556,7 @@
 			</trans-unit>
 			<trans-unit id="Virtual Memory">
 				<source>Virtual Memory</source>
-				<target>ਵੁਰਚੁਅਲ ਮੈਮੋਰੀ</target>
+				<target>ਵਰਚੁਅਲ ਮੈਮੋਰੀ</target>
 			</trans-unit>
 			<trans-unit id="Web server (HTTP)">
 				<source>Web server (HTTP)</source>
@@ -2616,7 +2616,7 @@
 			</trans-unit>
 			<trans-unit id="kickstart.state.configuration_deploy">
 				<source>Configuration files are being deployed.</source>
-				<target>ਸੰਰਚਨਾ ਫਾਇਲਾਂ ਲੜੀਬੱਧ ਕੀਤੀਆਂ ਹਨ।</target>
+				<target>ਸੰਰਚਨਾ ਫਾਇਲਾਂ ਡਿਪਲਾਏ ਕੀਤੀਆਂ ਹਨ।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.complete">
 				<source>Kickstart complete.</source>
@@ -2624,7 +2624,7 @@
 			</trans-unit>
 			<trans-unit id="kickstart.state.failed">
 				<source>Kickstart failed.</source>
-				<target>ਕਿੱਕਸਟਾਰਟ ਅਸਫਲ ਹੋ ਗਈ।</target>
+				<target>ਕਿੱਕਸਟਾਰਟ ਫੇਲ ਹੋ ਗਈ।</target>
 			</trans-unit>
 		</body>
 	</file>

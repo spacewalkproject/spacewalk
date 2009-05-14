@@ -420,7 +420,7 @@
 			</trans-unit>
 			<trans-unit id="errors.email">
 				<source>{0} is an invalid e-mail address.</source>
-				<target>{0} ਇੱਕ ਠੀਕ ਈ-ਮੇਲ ਸਿਰਨਾਵਾਂ ਨਹੀਂ ਹੈ।</target>
+				<target>{0} ਇੱਕ ਠੀਕ ਈ-ਮੇਲ ਐਡਰੈੱਸ ਨਹੀਂ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="toolbar.jsp.helpicon.alt">
 				<source>Help Icon</source>
@@ -448,7 +448,7 @@
 			</trans-unit>
 			<trans-unit id="lookup.jsp.title.errata">
 				<source>We're sorry, but the erratum could not be found.</source>
-				<target>ਸਾਨੂੰ ਅਫ਼ਸੋਸ ਹੈ, ਪਰ ਇੱਰਟਮ (erratum) ਖੋਜਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ ਹੈ।</target>
+				<target>ਸਾਨੂੰ ਅਫ਼ਸੋਸ ਹੈ, ਪਰ ਇੱਰਟਮ ਖੋਜਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="lookup.jsp.title.system">
 				<source>We're sorry, but the system could not be found.</source>
@@ -748,7 +748,7 @@
 			</trans-unit>
 			<trans-unit id="404.jsp.reason1">
 				<source>If you typed this address into your browser, double-check the spelling and capitalization. The address you are copying may also be outdated.</source>
-				<target>ਜੇਕਰ ਤੁਸੀਂ ਆਪਣੇ ਝਲਕਾਰੇ 'ਚ ਇਹ ਸਿਰਨਾਵਾਂ ਲਿਖਿਆ ਹੈ ਤਾਂ ਸ਼ਬਦ-ਜੋੜ ਦੀ ਦੋਹਰੀ ਜਾਂਚ ਕਰੋ   ਅਤੇ ਵੱਡੇ-ਛੋਟੇ ਅੱਖਰਾਂ ਦਾ ਵੀ ਖਿਆਲ ਰੱਖੋ। ਤੁਹਾਡੇ ਰਾਹੀਂ ਨਕਲ ਕੀਤਾ ਗਿਆ ਸਿਰਨਾਵਾਂ ਵੀ ਪੁਰਾਣਾ ਹੋ ਸਕਦਾ ਹੈ।</target>
+				<target>ਜੇਕਰ ਤੁਸੀਂ ਆਪਣੇ ਝਲਕਾਰੇ 'ਚ ਇਹ ਐਡਰੈੱਸ ਲਿਖਿਆ ਹੈ ਤਾਂ ਸ਼ਬਦ-ਜੋੜ ਦੀ ਦੋਹਰੀ ਜਾਂਚ ਕਰੋ   ਅਤੇ ਵੱਡੇ-ਛੋਟੇ ਅੱਖਰਾਂ ਦਾ ਵੀ ਖਿਆਲ ਰੱਖੋ। ਤੁਹਾਡੇ ਰਾਹੀਂ ਨਕਲ ਕੀਤਾ ਗਿਆ ਐਡਰੈੱਸ ਵੀ ਪੁਰਾਣਾ ਹੋ ਸਕਦਾ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="404.jsp.reason2">
 				<source>If you followed a link to reach '{0},' the link may be incorrect or outdated.  Click on the back button in your browser to try a different link, or use the top (or left) navigation bars to find the page you are looking for.</source>
@@ -980,7 +980,7 @@
 			</trans-unit>
 			<trans-unit id="address1.displayname">
 				<source>Street Address</source>
-				<target>ਗਲੀ ਸਿਰਨਾਵਾਂ</target>
+				<target>ਗਲੀ ਐਡਰੈੱਸ</target>
 			</trans-unit>
 			<trans-unit id="city.displayname">
 				<source>City</source>
@@ -1040,7 +1040,7 @@
 			</trans-unit>
 			<trans-unit id="address_record.displayname">
 				<source>Address Record:</source>
-				<target>ਸਿਰਨਾਵਾਂ ਰਿਕਾਰਡ:</target>
+				<target>ਐਡਰੈੱਸ ਰਿਕਾਰਡ:</target>
 			</trans-unit>
 			<trans-unit id="message.actionArchived">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; action archived.</source>
@@ -1732,19 +1732,19 @@
 			</trans-unit>
 			<trans-unit id="yourchangeemail.jsp.title">
 				<source>Change Email Address</source>
-				<target>ਈ-ਮੇਲ ਸਿਰਨਾਵਾਂ ਤਬਦੀਲ</target>
+				<target>ਈ-ਮੇਲ ਐਡਰੈੱਸ ਤਬਦੀਲ</target>
 			</trans-unit>
 			<trans-unit id="changeemail.jsp.summary">
 				<source>Please enter the new email address below.</source>
-				<target>ਕਿਰਪਾ ਕਰਕੇ ਨਵਾਂ ਈ-ਮੇਲ ਸਿਰਨਾਵਾਂ ਹੇਠਾਂ ਦਿਓ।</target>
+				<target>ਕਿਰਪਾ ਕਰਕੇ ਨਵਾਂ ਈ-ਮੇਲ ਐਡਰੈੱਸ ਹੇਠਾਂ ਦਿਓ।</target>
 			</trans-unit>
 			<trans-unit id="yourchangeemail.verified">
 				<source>Your current email address has been verified. If you wish to change it, please enter your new address below and click 'Update.'</source>
-				<target>ਤੁਹਾਡਾ ਮੌਜੂਦਾ ਈ-ਮੇਲ ਸਿਰਨਾਵੇਂ ਦੀ ਜਾਂਚ ਕੀਤੀ ਜਾ ਚੁੱਕੀ ਹੈ। ਜੇਕਰ ਤੁਸੀਂ ਇਸ ਨੂੰ ਤਬਦੀਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ, ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਹੇਠਾਂ ਆਪਣਾ ਨਵਾਂ ਈ-ਮੇਲ ਸਿਰਨਾਵਾਂ ਦਿਓ ਅਤੇ 'ਅੱਪਡੇਟ' ਨੂੰ ਦਬਾਓ।</target>
+				<target>ਤੁਹਾਡਾ ਮੌਜੂਦਾ ਈ-ਮੇਲ ਸਿਰਨਾਵੇਂ ਦੀ ਜਾਂਚ ਕੀਤੀ ਜਾ ਚੁੱਕੀ ਹੈ। ਜੇਕਰ ਤੁਸੀਂ ਇਸ ਨੂੰ ਤਬਦੀਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ, ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਹੇਠਾਂ ਆਪਣਾ ਨਵਾਂ ਈ-ਮੇਲ ਐਡਰੈੱਸ ਦਿਓ ਅਤੇ 'ਅੱਪਡੇਟ' ਨੂੰ ਦਬਾਓ।</target>
 			</trans-unit>
 			<trans-unit id="yourchangeemail.unverified">
 				<source> In accordance with the {0}, you must have a verified email address in order to receive service. Currently your email address has not yet been verified. If you wish to change your address, or would like to have your email verification re-sent, please input your email address below and click 'Send Verification.' </source>
-				<target> {0} ਦੇ ਅਨੁਸਾਰ, ਤੁਹਾਨੂੰ ਸੇਵਾ ਪਰਾਪਤ ਕਰਨ ਲਈ ਇੱਕ ਜਾਂਚਿਆ ਈ-ਮੇਲ ਸਿਰਨਾਵਾਂ ਚਾਹੀਦਾ ਹੈ। ਇਸ ਸਮੇਂ, ਤੁਹਾਡਾ ਈ-ਮੇਲ ਸਿਰਨਾਵਾਂ ਜਾਂਚਿਆ ਨਹੀਂ ਗਿਆ ਹੈ। ਜੇਕਰ ਤੁਸੀਂ ਆਪਣਾ ਸਿਰਨਾਵਾਂ ਬਦਲਣਾ ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ ਆਪਣੀ ਈ-ਮੇਲ ਜਾਂਚ ਮੁੜ-ਭੇਜਣੀ ਚਾਹੁੰਦੇ ਹੋ ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਹੇਠਾਂ ਈ-ਮੇਲ ਸਿਰਨਾਵਾਂ ਦਿਓ ਅਤੇ 'ਜਾਂਚ ਭੇਜੋ' ਨੂੰ ਦਬਾਓ।</target>
+				<target> {0} ਦੇ ਅਨੁਸਾਰ, ਤੁਹਾਨੂੰ ਸੇਵਾ ਪਰਾਪਤ ਕਰਨ ਲਈ ਇੱਕ ਜਾਂਚਿਆ ਈ-ਮੇਲ ਐਡਰੈੱਸ ਚਾਹੀਦਾ ਹੈ। ਇਸ ਸਮੇਂ, ਤੁਹਾਡਾ ਈ-ਮੇਲ ਐਡਰੈੱਸ ਜਾਂਚਿਆ ਨਹੀਂ ਗਿਆ ਹੈ। ਜੇਕਰ ਤੁਸੀਂ ਆਪਣਾ ਐਡਰੈੱਸ ਬਦਲਣਾ ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ ਆਪਣੀ ਈ-ਮੇਲ ਜਾਂਚ ਮੁੜ-ਭੇਜਣੀ ਚਾਹੁੰਦੇ ਹੋ ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਹੇਠਾਂ ਈ-ਮੇਲ ਐਡਰੈੱਸ ਦਿਓ ਅਤੇ 'ਜਾਂਚ ਭੇਜੋ' ਨੂੰ ਦਬਾਓ।</target>
 			</trans-unit>
 			<trans-unit id="yourchangeemail.TermsAndConditions">
 				<source>@@PRODUCT_NAME@@ Terms and Conditions</source>
@@ -1752,7 +1752,7 @@
 			</trans-unit>
 			<trans-unit id="yourchangeemail.instructions">
 				<source>Please enter your new email address below.</source>
-				<target>ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਨਵਾਂ ਈ-ਮੇਲ ਸਿਰਨਾਵਾਂ ਹੇਠਾਂ ਦਿਓ।</target>
+				<target>ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਨਵਾਂ ਈ-ਮੇਲ ਐਡਰੈੱਸ ਹੇਠਾਂ ਦਿਓ।</target>
 			</trans-unit>
 			<trans-unit id="channelManagementPerms.title">
 				<source>Channel Management Permissions</source>
@@ -1793,7 +1793,7 @@
 			<trans-unit id="disableself.jsp.message">
 				<source>You may deactivate your @@PRODUCT_NAME@@ account below. &lt;b&gt;This will remove your ability
 to log into @@PRODUCT_NAME@@.&lt;/b&gt;</source>
-				<target>ਤੁਸੀਂ ਹੇਠਾਂ ਆਪਣਾ @@PRODUCT_NAME@@ ਖਾਤਾ ਨਾ-ਸਰਗਰਮ ਕਰ ਸਕਦੇ ਹੋ। &lt;b&gt;ਇਸ ਨਾਲ ਤੁਸੀਂ @@PRODUCT_NAME@@ ਤੇ
+				<target>ਤੁਸੀਂ ਹੇਠਾਂ ਆਪਣਾ @@PRODUCT_NAME@@ ਖਾਤਾ ਨਾ-ਸਰਗਰਮ ਕਰ ਸਕਦੇ ਹੋ। &lt;b&gt;ਇਸ ਨਾਲ ਤੁਸੀਂ @@PRODUCT_NAME@@ ਤੇ 
 ਲਾਗ ਇਨ ਨਹੀਂ ਕਰ ਸਕੋਗੇ।&lt;/b&gt;</target>
 			</trans-unit>
 			<trans-unit id="disableself.jsp.message2">
@@ -2050,11 +2050,11 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.noemailaddress">
 				<source>No email address</source>
-				<target>ਕੋਈ ਈ-ਮੇਲ ਸਿਰਨਾਵਾਂ ਨਹੀਂ</target>
+				<target>ਕੋਈ ਈ-ਮੇਲ ਐਡਰੈੱਸ ਨਹੀਂ</target>
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.pleasechangeemailaddress">
 				<source>We do not have a valid email address on record, please change your email address.</source>
-				<target>ਸਾਡੇ ਕੋਲ ਰਿਕਾਰਡ ਵਿੱਚ ਇੱਕ ਠੀਕ ਈ-ਮੇਲ ਸਿਰਨਾਵਾਂ ਨਹੀਂ ਹੈ, ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਈ-ਮੇਲ ਸਿਰਨਾਵਾਂ ਤਬਦੀਲ ਕਰੋ।</target>
+				<target>ਸਾਡੇ ਕੋਲ ਰਿਕਾਰਡ ਵਿੱਚ ਇੱਕ ਠੀਕ ਈ-ਮੇਲ ਐਡਰੈੱਸ ਨਹੀਂ ਹੈ, ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਈ-ਮੇਲ ਐਡਰੈੱਸ ਤਬਦੀਲ ਕਰੋ।</target>
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.disable">
 				<source>deactivate user</source>
@@ -2430,7 +2430,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="edit_address.jsp.address">
 				<source> Address</source>
-				<target> ਸਿਰਨਾਵਾਂ</target>
+				<target> ਐਡਰੈੱਸ</target>
 			</trans-unit>
 			<trans-unit id="edit_address.jsp.summary">
 				<source>This user's address information may be edited in the form provided below.  Entries marked with an asterisk (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) are &lt;strong&gt;required&lt;/strong&gt;.</source>
@@ -5420,7 +5420,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="scheduleremote.jsp.summary">
 				<source>You can schedule a remote script to execute on this system below.  The script will run as the user you specify.&lt;/p&gt; &lt;p&gt;You must enable Remote Command execution on the target system, by adding a file to the local rhn configuration directory: &lt;code&gt;allowed-actions/script/run/&lt;/code&gt;.</source>
-				<target>ਤੁਸੀਂ ਹੇਠ ਦਿੱਤੇ ਇਸ ਸਿਸਟਮ ਉੱਤੇ ਇੱਕ ਰਿਮੋਟ ਸਕਰਿਪਟ ਚਲਾਉਣ ਲਈ ਸਮਾਂ-ਤਹਿ ਕਰ ਸਕਦੇ ਹੋ। ਸਕਰਿਪਟ ਨੂੰ ਤੁਹਾਡੇ ਰਾਹੀਂ ਉਪਭੋਗੀ ਦੇ ਤੌਰ 'ਤੇ ਚਲਾਇਆ ਜਾਵੇਗਾ।&lt;/p&gt;&lt;p&gt;ਤੁਸੀਂ ਨਿਯਤ ਸਿਸਟਮ ਉੱਤੇ ਰਿਮੋਟ ਕਮਾਂਡ ਚਲਾਉਣ ਦੇ ਯੋਗ ਹੋਣੇ ਚਾਹੀਦੇ ਹੋ, ਜੋ ਕਿ ਲੋਕਲ rhn ਸੰਰਚਨਾ ਡਾਇਰੈਕਟਰੀ ਵਿੱਚ ਇੱਕ ਫਾਇਲ ਜੋੜ ਕੇ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ: &lt;code&gt;allowed-actions/script/run/&lt;/code&gt;</target>
+				<target>ਤੁਸੀਂ ਹੇਠ ਦਿੱਤੇ ਇਸ ਸਿਸਟਮ ਉੱਤੇ ਇੱਕ ਰਿਮੋਟ ਸਕਰਿਪਟ ਚਲਾਉਣ ਲਈ ਸਮਾਂ-ਤਹਿ ਕਰ ਸਕਦੇ ਹੋ। ਸਕਰਿਪਟ ਨੂੰ ਤੁਹਾਡੇ ਰਾਹੀਂ ਉਪਭੋਗੀ ਦੇ ਤੌਰ 'ਤੇ ਚਲਾਇਆ ਜਾਵੇਗਾ।&lt;/p&gt; &lt;p&gt;ਤੁਸੀਂ ਨਿਯਤ ਸਿਸਟਮ ਉੱਤੇ ਰਿਮੋਟ ਕਮਾਂਡ ਚਲਾਉਣ ਦੇ ਯੋਗ ਹੋਣੇ ਚਾਹੀਦੇ ਹੋ, ਜੋ ਕਿ ਲੋਕਲ rhn ਸੰਰਚਨਾ ਡਾਇਰੈਕਟਰੀ ਵਿੱਚ ਇੱਕ ਫਾਇਲ ਜੋੜ ਕੇ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ: &lt;code&gt;allowed-actions/script/run/&lt;/code&gt;।</target>
 			</trans-unit>
 			<trans-unit id="scheduleremote.jsp.run">
 				<source>Run</source>
@@ -6532,7 +6532,7 @@ administrator privileges.</source>
 			</trans-unit>
 			<trans-unit id="general.jsp.admin_email">
 				<source>Administrator Email Address</source>
-				<target>ਪਰਸ਼ਾਸਕ ਈ-ਮੇਲ ਸਿਰਨਾਵਾਂ</target>
+				<target>ਪਰਸ਼ਾਸਕ ਈ-ਮੇਲ ਐਡਰੈੱਸ</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.hostname">
 				<source>@@PRODUCT_NAME@@ Hostname</source>
@@ -6808,10 +6808,10 @@ Please note that some manual configuration of these scripts may still be require
 				<target>ਅੱਪਡੇਟ ਵੇਰੀਏਬਲ</target>
 			</trans-unit>
 			<trans-unit id="kickstart.variable.jsp.summary">
-				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
-				You would then use $name within the profile to substitute in the value.</source>
-				<target>ਕਿੱਕਸਟਾਰਟ ਵੇਰੀਏਬਲਾਂ ਨੂੰ ਕਿੱਕਸਟਾਰਟ ਪਰੋਫਾਈਲ ਵਿੱਚ ਮੁੱਲ ਭਰਨ ਲਈ ਵਰਤਿਆ ਜਾ ਸਕਦਾ ਹੈ।  ਇੱਕ ਵੇਰੀਏਬਲ ਪਰਿਭਾਸ਼ਤ ਕਰਨ ਲਈ ਸਿਰਫ 'name=value' ਨੂੰ ਹੇਠਲੇ ਬਕਸੇ ਵਿੱਚ ਜੋੜੋ।
-				ਤੁਸੀਂ ਫਿਰ ਪਰੋਫਾਈਲ ਵਿੱਚ ਮੁੱਲ ਭਰਨ ਲਈ $name ਵਿੱਚ ਵਰਤੋਗੇ।</target>
+				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+        			You would then use $name within the profile to substitute in the value.</source>
+				<target>ਕਿੱਕਸਟਾਰਟ ਵੇਰੀਏਬਲਾਂ ਨੂੰ ਕਿੱਕਸਟਾਰਟ ਪਰੋਫਾਈਲ ਵਿੱਚ ਮੁੱਲ ਭਰਨ ਲਈ ਵਰਤਿਆ ਜਾ ਸਕਦਾ ਹੈ।  ਇੱਕ ਵੇਰੀਏਬਲ ਪਰਿਭਾਸ਼ਤ ਕਰਨ ਲਈ ਸਿਰਫ 'name=value' ਨੂੰ ਹੇਠਲੇ ਬਕਸੇ ਵਿੱਚ ਜੋੜੋ।  
+        			ਤੁਸੀਂ ਫਿਰ ਪਰੋਫਾਈਲ ਵਿੱਚ ਮੁੱਲ ਭਰਨ ਲਈ $name ਵਿੱਚ ਵਰਤੋਗੇ।</target>
 			</trans-unit>
 			<trans-unit id="kickstarttree.variable.jsp.summary">
 				<source>Any variables specified below will be usable in any profile that uses this distro.  They can be overridden in each profile as well.</source>
@@ -7115,7 +7115,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartips.jsp.baremetal2">
 				<source>IP Address-Based Bare Metal Kickstart URL</source>
-				<target>IP ਸਿਰਨਾਵਾਂ-ਅਧਾਰਿਤ ਬੇਅਰ ਮੈਟਲ ਕਿੱਕਸਟਾਰਟ URL</target>
+				<target>IP ਐਡਰੈੱਸ-ਅਧਾਰਿਤ ਬੇਅਰ ਮੈਟਲ ਕਿੱਕਸਟਾਰਟ URL</target>
 			</trans-unit>
 			<trans-unit id="kickstartips.jsp.ranges">
 				<source>Associated IP Ranges with Kickstart Profile</source>
@@ -7127,7 +7127,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartranges.jsp.summary">
 				<source>The following IP Address ranges are associated with kickstart profiles.</source>
-				<target>ਹੇਠਲੀ IP ਸਿਰਨਾਵਾਂ ਰੇਂਜ ਇਸ ਕਿੱਕਸਟਾਰਟ ਪਰੋਫਾਈਲ ਨਾਲ ਸੰਬੰਧਿਤ ਹੈ।</target>
+				<target>ਹੇਠਲੀ IP ਐਡਰੈੱਸ ਰੇਂਜ ਇਸ ਕਿੱਕਸਟਾਰਟ ਪਰੋਫਾਈਲ ਨਾਲ ਸੰਬੰਧਿਤ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="kickstartips.jsp.addrange">
 				<source>Add IP Range</source>
@@ -7135,7 +7135,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartips.jsp.label">
 				<source>IP Address Range</source>
-				<target>IP ਸਿਰਨਾਵਾਂ ਰੇਂਜ</target>
+				<target>IP ਐਡਰੈੱਸ ਰੇਂਜ</target>
 			</trans-unit>
 			<trans-unit id="kickstartoptions.jsp.summary">
 				<source>You may wish to modify the following options for special-case kickstart scenarios. We recommend consulting the Red Hat Enterprise Linux System Administration Guide for detailed documentation of all of these options.</source>
@@ -7151,12 +7151,12 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations.
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
+            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
+            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
             tab to verify the new settings.</source>
 				<target>&lt;strong&gt;ਸੂਚਨਾ:&lt;/strong&gt; ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਕਿਸਮ ਤਬਦੀਲ ਕਰਨ ਲਈ
-            ਕਿੱਕਸਾਟਰਟ ਪਰੋਫਾਈਲ ਦਾ ਬੂਟਲੋਡਰ ਅਤੇ ਭਾਗ ਚੋਣ ਤਬਦੀਲ ਕਰਨ ਦੀ ਲੋੜ ਹੋਵੇਗੀ, ਜਿਸ ਨਾਲ ਉਪਭੋਗੀ ਪਸੰਦ ਮੁੜ-ਲਿਖੀ ਜਾਂਦੀ ਹੈ।
-            ਨਵੀਂ ਤਬਦੀਲੀਆਂ ਦੀ ਜਾਂਚ ਕਰਨ ਲਈ ਕਿਰਪਾ ਕਰਕੇ &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;ਵਿਭਾਗੀਕਰਨ&lt;/a&gt;
+            ਕਿੱਕਸਾਟਰਟ ਪਰੋਫਾਈਲ ਦਾ ਬੂਟਲੋਡਰ ਅਤੇ ਭਾਗ ਚੋਣ ਤਬਦੀਲ ਕਰਨ ਦੀ ਲੋੜ ਹੋਵੇਗੀ, ਜਿਸ ਨਾਲ ਉਪਭੋਗੀ ਪਸੰਦ ਮੁੜ-ਲਿਖੀ ਜਾਂਦੀ ਹੈ। 
+            ਨਵੀਂ ਤਬਦੀਲੀਆਂ ਦੀ ਜਾਂਚ ਕਰਨ ਲਈ ਕਿਰਪਾ ਕਰਕੇ &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;ਵਿਭਾਗੀਕਰਨ&lt;/a&gt; 
             ਟੈਬ ਵੇਖੋ।</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.active">
@@ -7289,7 +7289,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstart.netconn.static.jsp.label">
 				<source>Use static IP from interface</source>
-				<target>ਇੰਟਰਫੇਸ ਤੋਂ ਸਥਿਰ IP ਸਿਰਨਾਵਾਂ ਵਰਤੋ</target>
+				<target>ਇੰਟਰਫੇਸ ਤੋਂ ਸਥਿਰ IP ਐਡਰੈੱਸ ਵਰਤੋ</target>
 			</trans-unit>
 			<trans-unit id="kickstart.selinux.enforce.policy.jsp.label">
 				<source>Enforcing - SELinux policy enforced</source>
@@ -7609,7 +7609,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.tip2">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; If your systems are connected through an @@PRODUCT_NAME@@ Proxy, you may place the installation tree in  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; on the Proxy.</source>
-				<target>&lt;span class="small-text"&gt;&lt;strong&gt;ਇਸ਼ਾਰਾ:&lt;/strong&gt; ਜੇਕਰ ਤੁਹਾਡੇ ਸਿਸਟਮ ਇੱਕ @@PRODUCT_NAME@@ ਪਰਾਕਸੀ ਰਾਹੀਂ ਜੁੜੇ ਹੋਏ ਹੋਣ ਤਾਂ ਤੁਸੀਂ ਲੜੀ ਨੂੰ ਪਰਾਕਸੀ ਉਤੇ &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; ਵਿੱਚ ਰੱਖ ਸਕਦੇ ਹੋ।</target>
+				<target>&lt;span class="small-text"&gt;&lt;strong&gt;ਟਿੱਪਣੀ:&lt;/strong&gt; ਜੇਕਰ ਤੁਹਾਡੇ ਸਿਸਟਮ ਇੱਕ @@PRODUCT_NAME@@ ਪਰਾਕਸੀ ਰਾਹੀਂ ਜੁੜੇ ਹੋਏ ਹੋਣ ਤਾਂ ਤੁਸੀਂ ਲੜੀ ਨੂੰ ਪਰਾਕਸੀ ਉਤੇ &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; ਵਿੱਚ ਰੱਖ ਸਕਦੇ ਹੋ।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.cryptokeys.jsp.submit">
 				<source>Update keys</source>
@@ -7652,10 +7652,10 @@ You can also edit the post script for this kickstart below.  First, commands rel
 Next, the non-chroot post script will be executed, and finally the post script will be executed.  For more details on kickstart post scripts, please refer to
 the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/strong&gt;</source>
 				<target>ਤੁਸੀਂ ਹੇਠਾਂ ਇਸ ਕਿੱਕਸਟਾਰਟ ਫਾਇਲ ਲਈ ਪਰੀ ਅਤੇ ਪੋਸਟ ਸਕਰਿਪਟ ਨੂੰ ਸੋਧ ਸਕਦੇ ਹੋ। ਕਿੱਕਸਟਾਰਟ ਪਰੀ-ਸਕਰਿਪਟ ਸਿਸਟਮ ਉੱਪਰ ਕਿੱਕਸਟਾਰਟ ਫਾਇਲ ਨੂੰ ਰੱਖਣ ਨਾਲ ਤੁਰੰਤ ਹੀ ਚੱਲ ਪੈਂਦੀ ਹੈ।
-ਤੁਸੀਂ ਇਸ ਭਾਗ ਵਿੱਚ ਨੈੱਟਵਰਕ ਵਰਤ ਸਕਦੇ ਹੋ, ਪਰ ਤੁਹਾਨੂੰ IP ਸਿਰਨਾਵਾਂ ਵਰਤਣਾ ਜਰੂਰੀ ਹੈ (ਇਸ ਸਮੇਂ ਨਾਂ ਸਰਵਿਸ ਸੰਰਚਿਤ ਨਹੀਂ ਹੁੰਦੀ)। ਕਿੱਕਸਟਾਰਟ ਪਰੀ ਸਕਰਿਪਟ ਬਾਰੇ
+ਤੁਸੀਂ ਇਸ ਭਾਗ ਵਿੱਚ ਨੈੱਟਵਰਕ ਵਰਤ ਸਕਦੇ ਹੋ, ਪਰ ਤੁਹਾਨੂੰ IP ਐਡਰੈੱਸ ਵਰਤਣਾ ਜਰੂਰੀ ਹੈ (ਇਸ ਸਮੇਂ ਨਾਂ ਸਰਵਿਸ ਸੰਰਚਿਤ ਨਹੀਂ ਹੁੰਦੀ)। ਕਿੱਕਸਟਾਰਟ ਪਰੀ ਸਕਰਿਪਟ ਬਾਰੇ
 ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ, ਕਿਰਪਾ ਕਰਕੇ &lt;strong&gt;Red Hat Enterprise Linux ਸਿਸਟਮ ਪਰਬੰਧਕ ਗਾਈਡ.&lt;/strong&gt; ਵੇਖੋ।
 &lt;br/&gt;&lt;br/&gt;
-ਤੁਸੀਂ ਇਸ ਕਿੱਕਸਟਾਰਟ ਲਈ ਹੇਠਾਂ ਪੋਸਟ ਸਕਰਿਪਟ ਤਬਦੀਲ ਕਰ ਸਕਦੇ ਹੋ। ਪਹਿਲਾਂ, @@PRODUCT_NAME@@ ਨਾਲ ਸੰਬੰਧਿਤ ਕਮਾਂਡਾਂ ਸਵੈ ਹੀ ਚੱਲਣਗੀਆਂ (ਉਦਾਹਰਨ ਲਈ, @@PRODUCT_NAME@@ ਦੀ ਰਜਿਸਟਰੇਸ਼ਨ ਲਈ esystem )।
+ਤੁਸੀਂ ਇਸ ਕਿੱਕਸਟਾਰਟ ਲਈ ਹੇਠਾਂ ਪੋਸਟ ਸਕਰਿਪਟ ਤਬਦੀਲ ਕਰ ਸਕਦੇ ਹੋ। ਪਹਿਲਾਂ, @@PRODUCT_NAME@@ ਨਾਲ ਸੰਬੰਧਿਤ ਕਮਾਂਡਾਂ ਸਵੈ ਹੀ ਚੱਲਣਗੀਆਂ (ਉਦਾਹਰਨ ਲਈ, @@PRODUCT_NAME@@ ਦੀ ਰਜਿਸਟਰੇਸ਼ਨ ਲਈ esystem )। 
 ਅੱਗੇ, non-chroot ਪੋਸਟ ਸਕਰਿਪਟ ਚੱਲੇਗੀ, ਅਤੇ ਆਖਰ ਤੇ ਪੋਸਟ ਸਕਰਿਪਟ ਚੱਲੇਗੀ। ਕਿੱਕਸਟਾਰਟ ਪੋਸਟ ਸਕਰਿਪਟ ਬਾਰੇ ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ, ਕਿਰਪਾ ਕਰਕੇ
 &lt;strong&gt;Red Hat Enterprise Linux ਸਿਸਟਮ ਪਰਬੰਧਕ ਗਾਈਡ.&lt;/strong&gt; ਵੇਖੋ।</target>
 			</trans-unit>
@@ -7682,6 +7682,14 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			<trans-unit id="kickstart.script.nochroot">
 				<source>nochroot</source>
 				<target>nochroot</target>
+			</trans-unit>
+			<trans-unit id="kickstart.script.template">
+				<source>Template</source>
+				<target>ਟੈਂਪਲਿਟ</target>
+			</trans-unit>
+			<trans-unit id="kickstart.script.template.tip">
+				<source>Enable this to enable templating on this script using cobbler.</source>
+				<target>ਇਸ ਸਕਰਿਪਟ ਤੇ ਟੈਂਪਲੇਟਿੰਗ ਯੋਗ ਕਰਨ ਲਈ cobbler ਵਰਤ ਕੇ ਇਸ ਨੂੰ ਯੋਗ ਕਰੋ।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.script.tip3">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This specifies when the script gets ran (before or after kickstart).&lt;/span&gt;</source>
@@ -7756,12 +7764,12 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>ਕਿੱਕਸਟਾਰਟ ਸਕਰਿਪਟ</target>
 			</trans-unit>
 			<trans-unit id="snippets.jsp.summary">
-				<source>Use Kickstart Snippets to store common blocks of code that can be shared across multiple Kickstart profiles in @@PRODUCT_NAME@@. When you create a Kickstart Snippet, all Kickstart profiles including that snippet will be updated accordingly.</source>
+				<source>Use kickstart snippets to store common blocks of code that can be shared across multiple kickstart profiles in @@PRODUCT_NAME@@. When you create a kickstart snippet, all kickstart profiles including that snippet will be updated accordingly.</source>
 				<target>ਕੋਡ ਦੇ ਕਾਮਨ ਬਲਾਕ ਸੰਭਾਲਣ ਲਈ ਕਿੱਕਸਟਾਰਟ ਸਨਿੱਪਟ ਵਰਤੋ ਜਿਸ ਨੂੰ @@PRODUCT_NAME@@ ਵਿੱਚ ਬਹੁਤੇ ਕਿੱਕਸਟਾਰਟ ਪਰੋਫਾਈਲਾਂ ਵਿੱਚ ਸ਼ੇਅਰ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ। ਜਦੋਂ ਤੁਸੀਂ ਇੱਕ ਕਿੱਕਸਟਾਰਟ ਸਨਿੱਪਟ ਬਣਾ ਲਿਆ, ਇਸ ਸਨਿੱਪਟ ਵਾਲੇ ਸਭ ਕਿੱਕਸਟਾਰਟ ਪਰੋਫਾਈਲ ਵੀ ਅੱਪਡੇਟ ਹੋ ਜਾਣਗੇ।</target>
 			</trans-unit>
 			<trans-unit id="snippets.jsp.note.default">
-				<source>default kickstart snippets are not editable.</source>
-				<target>ਮੂਲ ਕਿੱਕਸਟਾਰਟ ਸਨਿੱਪਟ ਉਪਲੱਬਧ ਨਹੀਂ ਹਨ।</target>
+				<source>Default kickstart snippets are not editable.</source>
+				<target>ਮੂਲ ਕਿੱਕਸਟਾਰਟ ਸਨਿੱਪਟ ਸੋਧਯੋਗ ਨਹੀਂ ਹਨ।</target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.snippets">
 				<source>create new snippet</source>
@@ -7776,11 +7784,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>ਸਨਿੱਪਟ ਮੈਕਰੋ</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.jsp.nosnippets">
-				<source>No Cobbler snippets found.</source>
-				<target>ਕੋਈ Cobbler ਸਨਿੱਪਟ ਨਹੀਂ ਲੱਭਿਆ।</target>
+				<source>No kickstart snippets found.</source>
+				<target>ਕੋਈ ਕਿੱਕਸਟਾਰਟ ਸਨਿੱਪਟ ਨਹੀਂ ਲੱਭਿਆ।</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.copy-paste-snippet-tip">
-				<source>Copy and paste the snippet macro into your Kickstart profiles to make the full snippet appear in that Kickstart profile.</source>
+				<source>Copy and paste the snippet macro into your kickstart profiles to make the full snippet appear in that kickstart profile.</source>
 				<target>ਸਨਿੱਪਟ ਮੈਕਰੋ ਨੂੰ ਆਪਣੀ ਕਿੱਕਸਟਾਰਟ ਪਰੋਫਾਈਲ ਵਿੱਚ ਕਾਪੀ ਅਤੇ ਪੇਸਟ ਕਰੋ ਤਾਂ ਜੋ ਇਸ ਕਿੱਕਸਟਾਰਟ ਪਰੋਫਾਈਲ ਵਿੱਚ ਫੁਲ ਸਨਿੱਪਟ ਦਿਸ ਸਕੇ।</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.warning.tip">
@@ -7808,7 +7816,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>ਪਸੰਦ</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.custom.tip">
-				<source>Custom Kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
+				<source>Custom kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
 				<target>ਪਸੰਦੀ ਦੇ ਕਿੱਕਸਟਾਰਟ ਸਨਿੱਪਟ ਸਿਰਫ &lt;strong&gt;{0}&lt;/strong&gt; ਸੰਗਠਨਾਂ ਨੂੰ ਉਪਲੱਬਧ ਹਨ।</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default">
@@ -7816,7 +7824,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>ਮੂਲ</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default.tip">
-				<source>Default Kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
+				<source>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
 				<target>ਮੂਲ ਕਿੱਕਸਟਾਰਟ ਸਨਿੱਪਟਾਂ ਸਭ ਸੰਗਠਨਾਂ ਨੂੰ ਉਪਲੱਬਧ ਹਨ। ਇਹ ਸਨਿੱਪਟਾਂ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤੀਆਂ ਜਾ ਸਕਦੀਆਂ।</target>
 			</trans-unit>
 			<trans-unit id="snippetedit.jsp.header2">
@@ -7828,12 +7836,28 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>ਨਵਾਂ ਸਨਿੱਪਟ ਬਣਾਓ</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.summary">
-				<source>Snippets can be shared between Kickstart Profiles</source>
+				<source>Snippets can be shared between kickstart profiles</source>
 				<target>ਸਨਿੱਪਟਾਂ ਨੂੰ ਕਿੱਕਸਟਾਰਟ ਪਰੋਫਾਈਲਾਂ ਵਿਚਕਾਰ ਸ਼ੇਅਰ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.header2">
 				<source>Create Snippet</source>
 				<target>ਸਨਿੱਪਟ ਬਣਾਓ</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.submit">
+				<source>Create Snippet</source>
+				<target>ਸਨਿੱਪਟ ਬਣਾਓ</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.header2">
+				<source>Create Snippet</source>
+				<target>ਸਨਿੱਪਟ ਬਣਾਓ</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.submit">
+				<source>Create Snippet</source>
+				<target>ਸਨਿੱਪਟ ਬਣਾਓ</target>
+			</trans-unit>
+			<trans-unit id="snippetdetails.jsp.header2">
+				<source>Snippet Details</source>
+				<target>ਸਨਿੱਪਟ ਵੇਰਵਾ</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.contents">
 				<source>Contents</source>
@@ -7844,10 +7868,10 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>ਕਿੱਕਸਟਾਰਟ ਸਨਿੱਪਟ ਸੰਖੇਪ</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.tip1">
-				<source>Avoid spaces in the snippet name.</source>
-				<target>ਸਨਿੱਪਟ ਨਾਂ ਵਿੱਚ ਸਪੇਸ ਨਾ ਦਿਓ।</target>
+				<source>The snippet name is the name of a file that will reside in this organization's snippet directory. Any standard unix file name characters are acceptable. Snippet names containing slash character or snippet names beginning with period are not allowed.</source>
+				<target>ਸਨਿੱਪਟ ਨਾਂ ਇੱਕ ਫਾਇਲ ਦਾ ਨਾਂ ਹੈ ਜੋ ਇਸ ਸੰਗਠਨ ਦੀ ਸਨਿੱਪਟ ਡਾਇਰੈਕਟਰੀ ਵਿੱਚ ਹੈ। ਕੋਈ ਸਟੈਂਡਰਡ ਯੂਨਿਕਸ ਫਾਇਲ ਨਾਂ ਅੱਖਰ ਸਵੀਕਾਰ ਹੋ ਜਾਂਦੇ ਹਨ। ਸਨਿੱਪਟ ਨਾਂ ਜਿਸ ਵਿੱਚ ਸਲੈਸ਼ ਹੈ ਜਾਂ ਸਨਿੱਪਟ ਨਾਂ ਪੀਰੀਅਡ ਨਾਲ ਸ਼ੁਰੂ ਹੁੰਦਾ ਹੈ ਨੂੰ ਮਨਜੂਦੀ ਨਹੀਂ ਹੈ।</target>
 			</trans-unit>
-			<trans-unit id="snippetcreate.jsp.submit">
+			<trans-unit id="snippetupdate.jsp.submit">
 				<source>Update Snippet</source>
 				<target>ਅੱਪਡੇਟ ਸਨਿੱਪਟ</target>
 			</trans-unit>
@@ -7860,11 +7884,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>ਸਨਿੱਪਟ ਹਟਾ ਰਿਹਾ ਹੈ</target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.summary">
-				<source>Are you sure you want to delete this Snippet permanently?</source>
-				<target>ਕੀ ਤੁਸੀਂ ਇਸ ਸਨਿੱਪਟ ਨੂੰ ਹਟਾਉਣ ਲਈ ਸਹਿਮਤ ਹੋ?</target>
+				<source>Are you sure you want to delete this snippet permanently?</source>
+				<target>ਕੀ ਤੁਸੀਂ ਇਸ ਸਨਿੱਪਟ ਨੂੰ ਪੱਕੇ ਤੌਰ ਤੇ ਹਟਾਉਣ ਲਈ ਸਹਿਮਤ ਹੋ?</target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.warning">
-				<source>Deleting this snippet will affect any kickstart profiles that refere to it. It may break kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
+				<source>Deleting this snippet will affect any kickstart profiles that refer to it. It may break those kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
 				<target>ਇਸ ਸਨਿੱਪਟ ਨੂੰ ਤਬਦੀਲ ਕਰਨ ਨਾਲ ਕਿੱਕਸਟਾਰਟ ਪੋਰਫਾਈਲ ਤੇ ਅਸਰ ਪਵੇਗਾ ਜੋ ਇਸ ਨਾਲ ਸੰਬੰਧਿਤ ਹੈ। ਇਸ ਨਾਲ ਕਿੱਕਸਟਾਰਟ ਪੋਰਫਾਈਲ ਟੁੱਟ ਸਕਦਾ ਹੈ। ਅਸੀਂ ਸਿਫਾਰਸ਼ ਕਰਦੇ ਹਾਂ ਕਿ ਕੋਈ ਵੀ ਕਿੱਕਸਟਾਰਟ ਪੋਰਫਾਈਲ ਹਟਾਉਣ ਤੋਂ ਪਹਿਲਾਂ ਇਸ ਸਨਿੱਪਟ ਤੇ ਭਰੋਸਾ ਨਹੀਂ ਕਰਦਾ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.delete">
@@ -8605,6 +8629,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="profile.list.summary">
 				<source>The following stored profiles exist within your organization. To create a stored profile from a system, go to the Packages view for that system.</source>
+				<target>ਹੇਠਲੇ ਸੰਭਾਲੇ ਪਰੋਫਾਈਲ ਤੁਹਾਡੇ ਸੰਗਠਨ ਵਿੱਚ ਮੌਜੂਦ ਹਨ। ਇੱਕ ਸਿਸਟਮ ਤੋਂ ਇੱਕ ਸੰਭਾਲਿਆ ਪਰੋਫਾਈਲ ਬਣਾਉਣ ਲਈ, ਇਸ ਸਿਸਟਮ ਦੇ ਪੈਕੇਜ ਦਰਿਸ਼ ਤੇ ਜਾਓ।</target>
 			</trans-unit>
 			<trans-unit id="profile.list.noprofiles">
 				<source>No stored profiles.</source>
@@ -11885,7 +11910,7 @@ below.  &lt;strong&gt;Note&lt;/strong&gt;: This list will
 only show package profiles that were made against the same
 Base Channel chosen on the
 &lt;a href="/rhn/kickstart/KickstartSoftwareEdit.do?ksid={0}"&gt;Operating System&lt;/a&gt; page.</source>
-				<target>ਤੁਸੀਂ ਹੇਠਲਾ ਪਰੋਫਾਈਲ ਚੁਣ ਕੇ ਕਿੱਕਸਟਾਰਟ ਹੋਣ ਵਾਲੇ ਸਿਸਟਮਾਂ ਨੂੰ @@PRODUCT_NAME@@ ਤੇ
+				<target>ਤੁਸੀਂ ਹੇਠਲਾ ਪਰੋਫਾਈਲ ਚੁਣ ਕੇ ਕਿੱਕਸਟਾਰਟ ਹੋਣ ਵਾਲੇ ਸਿਸਟਮਾਂ ਨੂੰ @@PRODUCT_NAME@@ ਤੇ 
 ਰਜਿਸਟਰ ਹੋਏ ਸਿਸਟਮਾਂ ਦੇ ਪੈਕੇਜ ਪਰੋਫਾਈਲ ਨਾਲ ਸਮਕਾਲੀ ਬਣਾ ਸਕਦੇ 
 ਹੋ। &lt;strong&gt;ਸੂਚਨਾ&lt;/strong&gt;: ਇਹ ਸੂਚੀ 
 ਸਿਰਫ ਉਹੀ ਪੈਕੇਜ ਪਰੋਫਾਈਲ ਵੇਖਾਏਗੀ ਜੋ ਉਸੇ ਅਧਾਰ ਚੈਨਲ 
@@ -11966,6 +11991,7 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.button0.tooltip.jsp">
 				<source>Creating a cobbler system record will allow this system to be provisioned from the command line on the system itself with the 'koan' command.  This also allows you to assign Variables specific to this system's kickstart using the Variables page.</source>
+				<target>ਇੱਕ cobbler ਸਿਸਟਮ ਰਿਕਾਰਡ ਬਣਾਉਣ ਨਾਲ ਇਸ ਸਿਸਟਮ ਨੂੰ ਕਮਾਂਡ ਲਾਈਨ ਤੋਂ 'koan' ਕਮਾਂਡ ਦੀ ਮਨਜੂਰੀ ਮਿਲ ਜਾਵੇਗੀ।  ਇਸ ਨਾਲ ਤੁਸੀਂ ਵੇਰੀਏਬਲ ਸਫਾ ਵਰਤ ਕੇ ਇਸ ਸਿਸਟਮ ਦੀ ਕਿੱਕਸਟਾਰਟ ਦਾ ਸੰਬੰਧਿਤ ਵੇਰੀਏਬਲ ਨਿਰਧਾਰਤ ਕਰ ਸਕਦੇ ਹੋ।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.button1.jsp">
 				<source>Advanced Configuration</source>
@@ -12021,6 +12047,7 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
 			</trans-unit>
 			<trans-unit id="kickstarts.distro.cobbler-only.tooltip">
 				<source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler edit profile' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
+				<target>ਕਿੱਸਟਾਰਕਟ ਪਰੋਫਾਈਲ ਜਿਸ ਦਾ ਪਰਬੰਧਨ @@PRODUCT_NAME@@ ਨਾਲ ਨਹੀਂ ਹੁੰਦਾ ਨੂੰ @@PRODUCT_NAME@@ UI ਵਿੱਚ ਸੋਧਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ। ਇਹਨਾਂ ਪਰੋਫਾਈਲਾਂ ਨੂੰ ਸੋਧਣ ਲਈ, ਕਿਰਪਾ ਕਰਕੇ @@PRODUCT_NAME@@ ਸਰਵਰ ਤੇ ਲਾਗਇਨ ਕਰੋ ਅਤੇ 'cobbler edit profile' ਕਮਾਂਡ ਚਲਾਓ। ਵਝੇਰੇ ਜਾਣਕਾਰੀ ਲਈ, @@PRODUCT_NAME@@ ਹਵਾਲਾ ਗਾਈਡ ਵੇਖੋ।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.distro.sw_managed.jsp">
 				<source>@@PRODUCT_NAME@@ Managed?*</source>
@@ -12380,7 +12407,7 @@ the @@PRODUCT_NAME@@ Tools channels for each supported parent channel.  You may
 need to perform a satellite sync of the @@PRODUCT_NAME@@ Tools channels before
 performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;</source>
 				<target> &lt;strong&gt; ਕੋਈ ਕਿੱਕਸਟਾਰਟ RPMs ਲੱਭ ਨਹੀਂ ਸਕਿਆ। ਇਹ RPMs ਹਰੇਕ ਸਹਿਯੋਗੀ
- ਅਧਾਰ ਚੈਨਲ ਲਈ @@PRODUCT_NAME@@ ਸੰਦ ਚੈਨਲਾਂ ਵਿੱਚ ਸਥਾਪਿਤ ਕੀਤੀਆਂ ਹਨ। ਤੁਹਾਨੂੰ ਕਿੱਕਸਟਾਰਟ ਕਰਨ
+ ਅਧਾਰ ਚੈਨਲ ਲਈ @@PRODUCT_NAME@@ ਸੰਦ ਚੈਨਲਾਂ ਵਿੱਚ ਸਥਾਪਿਤ ਕੀਤੀਆਂ ਹਨ। ਤੁਹਾਨੂੰ ਕਿੱਕਸਟਾਰਟ ਕਰਨ 
 ਜਾਂ ਨਵੀਂ ਕਿੱਕਸਟਾਰਟ ਡਿਸਟਰੀਬਿਊਸ਼ਨ ਬਣਾਉਣ ਤੋਂ ਪਹਿਲਾਂ @@PRODUCT_NAME@@ ਸੰਦ ਚੈਨਲਾਂ ਦੀ
 satellite sync ਲਾਗੂ ਕਰਨ ਦੀ ਲੋੜ ਪੈ ਸਕਦੀ ਹੈ।&lt;/strong&gt;</target>
 			</trans-unit>
@@ -12584,6 +12611,7 @@ satellite sync ਲਾਗੂ ਕਰਨ ਦੀ ਲੋੜ ਪੈ ਸਕਦੀ ਹ�
 			</trans-unit>
 			<trans-unit id="virtualization.provision.override.jsp.message">
 				<source>The following fields may be left blank (in which case default values as defined in the selected kickstart profile will be used).  Each field may be set individually to override the profile's default value.</source>
+				<target>ਹੇਠਲੇ ਖੇਤਰ ਖਾਲੀ ਛੱਡੇ ਜਾ ਸਕਦੇ ਹਨ (ਜਿਸ ਵਿੱਚ ਚੁਣੇ ਕਿੱਕਸਟਾਟ ਪਰੋਫਾਈਲ ਵਿੱਚ ਦਿੱਤੇ ਮੁੱਲ ਵਰਤੇ ਜਾਣਗੇ)। ਹਰੇਕ ਖੇਤਰ ਵੱਖਰੇ ਤੌਰ ਤੇ ਸੈੱਟ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ ਤਾਂ ਜੋਂ ਪਰੋਫਾਈਲ ਦਾ ਮੂਲ ਮੁੱਲ ਮੁੜ-ਲਿਖਿਆ ਜਾ ਸਕੇ।</target>
 			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.storage.local.message1">
 				<source>Use the virtual host system's disk space: </source>
@@ -12795,7 +12823,7 @@ satellite sync ਲਾਗੂ ਕਰਨ ਦੀ ਲੋੜ ਪੈ ਸਕਦੀ ਹ�
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.ipaddy">
 				<source>IP Address:</source>
-				<target>IP ਸਿਰਨਾਵਾਂ:</target>
+				<target>IP ਐਡਰੈੱਸ:</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.kernel">
 				<source>Kernel:</source>
@@ -12925,6 +12953,10 @@ satellite sync ਲਾਗੂ ਕਰਨ ਦੀ ਲੋੜ ਪੈ ਸਕਦੀ ਹ�
 				<source>Building</source>
 				<target>ਬਿਲਡਿੰਗ</target>
 			</trans-unit>
+			<trans-unit id="sdc.details.overview.updatesavailable">
+				<source>Software Updates Available</source>
+				<target>ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਹਨ</target>
+			</trans-unit>
 			<trans-unit id="sdc.details.overview.updates.critical">
 				<source>&lt;strong&gt;&lt;a href="{0}"&gt;Critical: &lt;/a&gt;&lt;/strong&gt; {1}</source>
 				<target>&lt;strong&gt;&lt;a href="{0}"&gt;ਨਾਜ਼ੁਕ: &lt;/a&gt;&lt;/strong&gt; {1}</target>
@@ -12991,7 +13023,7 @@ satellite sync ਲਾਗੂ ਕਰਨ ਦੀ ਲੋੜ ਪੈ ਸਕਦੀ ਹ�
 			</trans-unit>
 			<trans-unit id="sdc.details.edit.address">
 				<source>Facility Address:</source>
-				<target>ਸਹੂਲਤ ਸਿਰਨਾਵਾਂ:</target>
+				<target>ਸਹੂਲਤ ਐਡਰੈੱਸ:</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.edit.city">
 				<source>City:</source>
@@ -13075,8 +13107,8 @@ advantages of a registered account. We strive to maintain 100% uptime
 for your @@PRODUCT_NAME@@ service, but must also periodically perform maintenance
 tasks to upgrade functionality, fix reported bugs, and improve
 performance.</source>
-				<target>ਸਾਡੀ ਵੱਧ ਤਰਜੀਹ ਤੁਹਾਡੀ @@PRODUCT_NAME@@ ਪਹੁੰਚ ਅਤੇ ਰਜਿਸਟਰ ਕੀਤੇ
-ਖਾਤਿਆਂ ਦੇ ਫਾਇਦਿਆ ਲਈ ਹੈ। ਅਸੀਂ ਤੁਹਾਡੀ @@PRODUCT_NAME@@ ਸਰਵਿਸ ਲਈ 100% ਪਰਬੰਧਨ
+				<target>ਸਾਡੀ ਵੱਧ ਤਰਜੀਹ ਤੁਹਾਡੀ @@PRODUCT_NAME@@ ਪਹੁੰਚ ਅਤੇ ਰਜਿਸਟਰ ਕੀਤੇ 
+ਖਾਤਿਆਂ ਦੇ ਫਾਇਦਿਆ ਲਈ ਹੈ। ਅਸੀਂ ਤੁਹਾਡੀ @@PRODUCT_NAME@@ ਸਰਵਿਸ ਲਈ 100% ਪਰਬੰਧਨ 
 ਕਰਨ ਲਈ ਪੂਰੀ ਕੋਸ਼ਿਸ਼ ਕਰਦੇ ਹਾਂ, ਪਰ ਨਾਲ ਹੀ ਕਾਰਜਕੁਸ਼ਲਤਾ ਅੱਪਗਰੇਡ ਕਰਨ ਲਈ ਨਿਗਰਾਨੀ 
 ਵੀ ਕਰ ਰਹੇ ਹੈ, ਰਿਪੋਰਟ ਕੀਤਾ ਬੱਗ ਫਿਕਸ, ਅਤੇ ਕਾਰਜਕੁਸ਼ਲਤਾ ਵਧਾ 
 ਰਹੇ ਹਾਂ।</target>
@@ -13095,7 +13127,7 @@ list (see below) about this scheduled downtime whenever possible.</source>
 				<target>Red Hat ਹਰੇਕ ਮੰਗਲਵਾਰ ਨੂੰ ਸ਼ਾਮ 9 ਤੋਂ ਸਵੇਰ 3 ਵਜੇ ਤੱਕ @@PRODUCT_NAME@@ ਲਈ
 ਪਰਬੰਧਨ ਤਹਿ ਕਰਦਾ ਹੈ, ਪੂਰਬੀ U.S. ਸਮਾਂ (1ਸਵੇਰੇ-7ਸਵੇਰੇ UTC)। ਜਦੋਂ ਕਿ Red Hat ਹਰ ਸਮੇਂ 
 ਇਹ ਵਿੰਡੋਜ਼ ਨੂੰ ਪਰਬੰਧਨ ਕਰਨ ਲਈ ਨਹੀਂ ਵਰਤਦਾ, ਅਸੀਂ ਸਿਫਾਰਸ਼ ਕਰਦੇ ਹਾਂ ਕਿ ਤੁਹਾਡੀ
-ਇੰਟਰਪਰਾਈਜ਼ ਕਿੱਤਾ ਵਿਕਸਿਤ ਕਰਦੀ ਹੈ ਜੋ ਇਸ ਮੁਸ਼ਕਿਲ ਸਮੇਂ @@PRODUCT_NAME@@ ਮੁੱਦੇ ਹੱਲ ਕਰਦਾ ਹੈ।
+ਇੰਟਰਪਰਾਈਜ਼ ਕਿੱਤਾ ਵਿਕਸਿਤ ਕਰਦੀ ਹੈ ਜੋ ਇਸ ਮੁਸ਼ਕਿਲ ਸਮੇਂ @@PRODUCT_NAME@@ ਮੁੱਦੇ ਹੱਲ ਕਰਦਾ ਹੈ। 
 Red Hat ਹਮੇਸ਼ਾ ਈ-ਮੇਲ ਆਊਟੇਜ ਸੂਚੀ (ਹੇਠਾਂ ਵੇਖੋ) ਦੁਆਰਾ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਹਫਤਾ 
 ਪਹਿਲਾਂ ਸੂਚਿਤ ਕਰੇਗਾ।</target>
 			</trans-unit>
@@ -13845,13 +13877,25 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
             no longer receive security updates for content provided through the trust.
             &lt;p/&gt;
             Please review the changes you are about to make before confirming the trust removal(s).</source>
+				<target>
+            ਕੀ ਤੁਸੀਂ ਯਕੀਨਨ ਹੇਠਾਂ ਦਿੱਤੇ ਵਿਸ਼ਵਾਸ ਹਟਾਉਣੇ ਚਾਹੁੰਦੇ ਹੋ?  {0} ਸੰਗਠਨ ਵਿੱਚ ਅਜਿਹੇ ਸਿਸਟਮ
+            ਹਨ ਜੋ ਸੰਗਠਨਾਂ ਦੁਆਰਾ ਦਿੱਤੇ ਸੰਖੇਪਾ ਤੇ ਮੈਂਬਰ ਬਣੇ ਹਨ ਜਿਨਾਂ ਦਾ ਵਿਸ਼ਵਾਸ ਤੁਸੀਂ
+            ਹਟਾ ਰਹੇ ਹੋ।  ਇਸ ਨਾਲ ਉਹ ਸਿਸਟਮ ਪ੍ਰਭਾਵਿਤ ਹੋ ਸਕਦੇ ਹਨ।  ਉਦਾਹਰਨ ਲਈ, ਉਹ ਸਿਸਟਮ
+            ਅੱਗੇ ਵਿਸ਼ਵਾਸੀ ਦੁਆਰਾ ਦਿੱਤੇ ਸੰਖੇਪਾਂ ਲਈ ਸੁਰੱਖਿਆ ਅੱਪਡੇਟ ਨਹੀਂ ਲੈਣਗੇ।
+            &lt;p/&gt;
+            ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀ ਤਬਦੀਲੀਆਂ ਦਾ ਜਾਂਚ ਕਰੋ ਜੋ ਤੁਸੀਂ ਵਿਸ਼ਵਾਸ ਹਟਾਉਣ ਤੋਂ ਪਹਿਲਾਂ ਕੀਤੀਆਂ ਹਨ।</target>
 			</trans-unit>
 			<trans-unit id="org.trust.affectedsystems.summary">
 				<source>
-            The systems listed below will be affected by removing the trust relationship between
+            The systems listed below will be affected by removing the trust relationship between 
             the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.</source>
+				<target>
+            ਹੇਠਾਂ ਦਿੱਤੇ ਸਿਸਟਮ &lt;b&gt;{0}&lt;/b&gt; ਸੰਗਠਨ ਅਤੇ &lt;b&gt;{1}&lt;/b&gt; ਸੰਗਠਨ ਵਿਚਕਾਰ 
+            ਵਿਸ਼ਵਾਸ ਸੰਬੰਧ ਹਚਾਉਣ ਨਾਲ ਪ੍ਰਭਾਵਿਤ ਹੋਣਗੇ।
+            ਇਹ ਵਿਸ਼ਵਾਸ ਹਟਾਉਣ ਨਾਲ ਇਹ ਸਿਸਟਮ ਪੂਰੀ ਤਰਾਂ ਪ੍ਰਭਾਵਿਤ ਹੋ ਸਕਦੇ ਹਨ।  ਉਦਾਹਰਨ ਲਈ, ਇਹ ਸਿਸਟਮ ਅੱਗੇ
+            ਇਸ ਵਿਸ਼ਵਾਸ ਦੁਆਰਾ ਦਿੱਤੇ ਸੰਖੇਪਾਂ ਲਈ ਸੁਰੱਖਿਆ ਅੱਪਡੇਟ ਨਹੀਂ ਲੈ ਸਕਦੇ।</target>
 			</trans-unit>
 			<trans-unit id="org.trust.trusts">
 				<source>Trusts</source>
@@ -13887,6 +13931,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
 			</trans-unit>
 			<trans-unit id="org.trust.updated">
 				<source>The {0} organization's trusts have been updated.</source>
+				<target>{0} ਸੰਗਠਨ ਦੇ ਵਿਸ਼ਵਾਸ ਅੱਪਡੇਟ ਕੀਤਾ ਗਏ ਹਨ।</target>
 			</trans-unit>
 			<trans-unit id="ssmchildsubs.jsp.subscribe">
 				<source>Subscribe</source>
@@ -14270,6 +14315,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="docsearch.jsp.pagesummary">
 				<source>Document Search will return links to pages matching your search term. </source>
+				<target>ਦਸਤਾਵੇਜ ਖੋਜ ਦੇ ਨਤੀਜੇ ਵਜੋਂ ਤੁਹਾਡੀ ਖੋਜ ਇਕਾਈ ਨਾਲ ਮਿਲਦੇ ਸਫਿਆ ਦੇ ਸੰਬੰਧ ਲੱਭਦੇ ਹਨ।</target>
 			</trans-unit>
 			<trans-unit id="docsearch.jsp.nopages">
 				<source>No pages found.</source>
@@ -14309,9 +14355,11 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="help.jsp.install.title">
 				<source>@@PRODUCT_NAME@@ Installation Guide</source>
+				<target>@@PRODUCT_NAME@@ ਇੰਸਟਾਲੇਸ਼ਨ ਗਾਈਡ</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.proxy">
 				<source>Detailed information regarding RHN Proxy server.</source>
+				<target>RHN ਪਰਾਕਸੀ ਸਰਵਰ ਸਬੰਧੀ ਵਿਸਥਾਰ ਜਾਣਕਾਰੀ।</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.proxy.title">
 				<source>Proxy Guide</source>
@@ -14319,6 +14367,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="help.jsp.clients">
 				<source>Documentation for setting up clients to connect to a @@PRODUCT_NAME@@ Proxy or @@PRODUCT_NAME@@ server.</source>
+				<target>ਕਲਾਈਂਟਾਂ ਨੂੰ @@PRODUCT_NAME@@ ਪਰਾਕਸੀ ਜਾਂ @@PRODUCT_NAME@@ ਸਰਵਰ ਨਾਲ ਜੁੜਨ ਲਈ ਸੈਟਿੰਗ ਕਰਨ ਵਾਸਤੇ ਦਸਤਾਵੇਜ।</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.clients.title">
 				<source>Client Configuration Guide</source>
@@ -14326,6 +14375,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="help.jsp.channel">
 				<source>Documentation for the creation and maintenance of custom channels using @@PRODUCT_NAME@@.</source>
+				<target>@@PRODUCT_NAME@@ ਵਰਤ ਕੇ ਪਸੰਦੀ ਦੇ ਚੈਨਲ ਬਣਾਉਣ ਤੇ ਪਰਬੰਧਨ ਕਰਨ ਲਈ ਦਸਤਾਵੇਜ।</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.channel.title">
 				<source>Channel Management Guide</source>
@@ -14333,9 +14383,11 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="help.jsp.release.title">
 				<source>@@PRODUCT_NAME@@ Release Notes</source>
+				<target>@@PRODUCT_NAME@@ ਜਾਰੀ ਸੂਚਨਾ</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.proxyrelease.title">
 				<source>@@PRODUCT_NAME@@ Proxy Release Notes</source>
+				<target>@@PRODUCT_NAME@@ ਪਰਾਕਸੀ ਜਾਰੀ ਸੂਚਨਾ</target>
 			</trans-unit>
 			<trans-unit id="iprange.emptylist">
 				<source>No Ip Ranges Found</source>
@@ -14343,9 +14395,11 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="package.jsp.emptylist">
 				<source>This channel contains no packages.</source>
+				<target>ਇਸ ਚੈਨਲ ਵਿੱਚ ਕੋਈ ਪੈਕੇਜ ਨਹੀਂ।</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.list">
 				<source>This channel contains the following packages:</source>
+				<target>ਇਸ ਚੈਨਲ ਵਿੱਚ ਹੇਠਲੇ ਪੈਕੇਜ ਹਨ:</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.provider">
 				<source>Content Provider</source>
@@ -14381,9 +14435,11 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.jsp.gpgtitle">
 				<source>GPG Public Key</source>
+				<target>GPG ਪਬਲਿਕ ਕੁੰਜੀ</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.gpgheader">
 				<source>This channel has a GnuPG key associated with it. For a system to be able to download and install packages from this channel, you must import the key into a particular keyring. </source>
+				<target>ਇਸ ਚੈਨਲ ਨਾਲ ਸੰਬੰਧਿਤ ਇੱਕ GnuPG ਕੁੰਜੀ ਹੈ। ਇਕ ਸਿਸਟਮ ਲਈ ਇਸ ਚੈਨਲ ਤੋਂ ਪੈਕੇਜ ਡਾਊਨਲੋਡ ਅਤੇ ਇੰਸਟਾਲ ਕਰਨ ਲਈ, ਤੁਹਾਨੂੰ ਖਾਸ ਕੀਰਿੰਗ ਵਿੱਚ ਇਹ ਕੁੰਜੀ ਅਯਾਤ ਕਰਨੀ ਪਵੇਗੀ। </target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.gpglocation">
 				<source>Key Location</source>
@@ -14395,12 +14451,15 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.jsp.gpgfp">
 				<source>Key Fingerprint</source>
+				<target>ਕੁੰਜੀ ਫਿੰਗਰਪ੍ਰਿੰਟ</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.gpgfooter">
 				<source>Once you have downloaded the key file, you must import it to your RPM keyring using the command "rpm --import /path/to/gpg_key.txt".</source>
+				<target>ਇੱਕ ਵਾਰ ਕੁੰਜੀ ਫਾਇਲ ਡਾਊਨਲੋਡ ਕਰਨ ਤੇ, ਤੁਹਾਨੂੰ ਇਹ ਆਪਣੀ RPM ਕੀਰਿੰਗ ਵਿੱਚ "rpm --import /path/to/gpg_key.txt" ਕਮਾਂਡ ਵਰਤ ਕੇ ਅਯਾਤ ਕਰਨੀ ਪਵੇਗੀ।</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.remove">
 				<source>Below is the list of packages which you have selected to remove from this channel. Removing a package from this channel does not affect the systems which are subscribed to it, or the errata which are applicable to it.</source>
+				<target>ਹੇਠਾਂ ਪੈਕੇਜਾਂ ਦੀ ਸੂਚੀ ਹੈ ਜੋ ਤੁਸੀਂ ਇਸ ਚੈਨਲ ਤੋਂ ਹਟਾਉਣ ਲਈ ਚੁਣੇ ਹਨ। ਇਸ ਚੈਨਲ ਤੋਂ ਪੈਕੇਜ ਹਟਾਉਣ ਨਾਲ ਉਹ ਸਿਸਟਮ ਪ੍ਰਭਾਵਿਤ ਨਹੀਂ ਹੁੰਦੇ ਜੋ ਇਸ ਤੇ ਮੈਂਬਰ ਬਣੇ ਹਨ, ਜਾਂ ਇਰੱਟਾ ਜੋ ਇਸ ਤੇ ਲਾਗੂ ਹੁੰਦੇ ਹੈ ਵੀ ਪ੍ਰਭਾਵਿਤ ਨਹੀਂ ਹੁੰਦਾ।</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.listmessage">
 				<source>The following packages are in this channel. To remove a package from this channel, select it here, and click 'Confirm Removal' below. To add a package to this channel, click 'add' above.</source>
@@ -14416,6 +14475,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.removesuccess">
 				<source>{0} package(s) removed from channel {1}</source>
+				<target>{0} ਪੈਕੇਜ ਚੈਨਲ {1} ਤੋਂ ਹਟਾਏ ਗਏ ਹਨ</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.removebutton">
 				<source>Confirm Removal</source>
@@ -14439,6 +14499,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="nvrea">
 				<source>nvrea</source>
+				<target>nvrea</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.viewpackages">
 				<source>View Packages</source>
@@ -14470,12 +14531,15 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.add.confirm.msg">
 				<source>Below is the list of packages which you have selected to add to this channel. Adding a package to this channel does not automatically affect the systems which are subscribed to it, or the errata which are applicable to it.</source>
+				<target>ਹੇਠਾਂ ਪੈਕੇਜਾਂ ਦੀ ਸੂਚੀ ਹੈ ਜੋ ਤੁਸੀਂ ਇਸ ਚੈਨਲ ਤੇ ਜੋੜਨ ਲਈ ਚੁਣੇ ਹਨ। ਇਸ ਚੈਨਲ ਤੇ ਪੈਕੇਜ ਜੋੜਨ ਨਾਲ ਉਹ ਸਿਸਟਮ ਪ੍ਰਭਾਵਿਤ ਹੁੰਦੇ ਹਨ ਜੋ ਇਸ ਤੇ ਮੈਂਬਰ ਬਣੇ ਹਨ, ਜਾਂ ਇਰੱਟਾ ਜੋ ਇਸ ਤੇ ਲਾਗੂ ਹੁੰਦੇ ਹੈ ਵੀ ਪ੍ਰਭਾਵਿਤ ਹੁੰਦਾ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.listtitle">
 				<source>This channel contains the following errata:</source>
+				<target>ਇਸ ਚੈਨਲ ਤੇ ਹੇਠਲਾ ਇਰੱਟਾ ਹੈ:</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.emptylist">
 				<source>This channel contains no errata.</source>
+				<target>ਇਸ ਚੈਨਲ ਤੇ ਕੋਈ ਇਰੱਟਾ ਨਹੀਂ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.list">
 				<source>Channel Packages.</source>
@@ -14487,9 +14551,11 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.empty">
 				<source>No Custom Info Keys Found</source>
+				<target>ਕੋਈ ਕਸਟਮ ਕੁੰਦੀ ਨਹੀਂ ਲੱਭੀ</target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.message">
 				<source>Custom system info keys allow your adminstrators to store relevant custom key/value pairs with your system profiles. Custom system info is fully {0}searchable{1}.</source>
+				<target>ਪਸੰਦੀ ਦੀ ਸਿਸਟਮ ਜਾਣਕਾਰੀ ਤੁਹਾਡੇ ਪਰਬੰਧਕ ਨੂੰ ਸੰਬੰਧਿਤ ਪਸੰਦੀ ਦੀ ਕੁੰਜੀ/ਮੁੱਲ ਜੋੜੇ ਤੁਹਾਡੇ ਸਿਸਟਮ ਨਾਲ ਸੰਭਾਲਣ ਲਈ ਮਦਦ ਕਰਦੀ ਹੈ। ਪਸੰਦੀ ਦੀ ਸਿਸਟਮ ਜਾਣਕਾਰੀ ਪੂਰੀ {0}searchable{1} ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.message2">
 				<source>The following custom system info keys have been defined for your organization.</source>
@@ -14509,6 +14575,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.createmsg">
 				<source>Define infomation about this key below.</source>
+				<target>ਇਸ ਕੁੰਜੀ ਬਾਰੇ ਜਾਣਕਾਰੀ ਹੇਠਾਂ ਦਿਓ।</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.manage.package.title">
 				<source>Package Management</source>
@@ -14534,6 +14601,9 @@ given channel.</source>
 				<source>Are you certain you want to delete these packages?
 
 			This process can take several seconds. Be patient and do not click the button below more than once.</source>
+				<target>ਕੀ ਤੁਹਾਨੂੰ ਪਤਾ ਹੈ ਕਿ ਤੁਸੀਂ ਇਹਨਾਂ ਪੈਕੇਜਾਂ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?
+
+			ਇਹ ਕਾਰਜ ਕੁਝ ਸਕਿੰਟ ਲੈ ਸਕਦਾ ਹੈ। ਉਡੀਕ ਕਰੋ ਅਤੇ ਹੇਠਲੇ ਬਟਨ ਨੂੰ ਇੱਕ ਤੋਂ ਜਿਆਦਾ ਵਾਰ ਨਾ ਦਬਾਓ।</target>
 			</trans-unit>
 			<trans-unit id="baddownload.jsp.title">
 				<source>File Download Failed</source>
@@ -14545,15 +14615,19 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="baddownload.jsp.reason1">
 				<source>The url has expired.</source>
+				<target>url ਮਿਆਦ ਪੁੰਗ ਗਈ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="baddownload.jsp.reason2">
 				<source>The url has been modified.</source>
+				<target>url ਤਬਦੀਲ ਹੋ ਗਿਆ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="baddownload.jsp.reason3">
 				<source>The @@PRODUCT_NAME@@ server does not have read permissions on the specified file.</source>
+				<target>@@PRODUCT_NAME@@ ਸਰਵਰ ਨੂੰ ਨਿਰਧਾਰਤ ਫਾਇਲ ਪੜਨ ਲਈ ਅਧਿਕਾਰ ਨਹੀਂ ਹਨ।</target>
 			</trans-unit>
 			<trans-unit id="baddownload.jsp.retry">
 				<source>Please revisit the page you recieved this url from to recieve a new one.</source>
+				<target>ਕਿਰਪਾ ਕਰਕੇ ਸਫਾ ਵੇਖੋ ਜਿਸ ਤੋਂ ਤੁਸੀਂ ਇਹ url ਲਿਆ ਹੈ ਤਾਂ ਜੋ ਇੱਕ ਨਵਾਂ ਲਿਆ ਜਾ ਸਕੇ।</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.arch">
 				<source>Package Architecture</source>
@@ -14589,9 +14663,11 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="package.jsp.builddate">
 				<source>Build Date</source>
+				<target>ਨਿਰਮਾਣ ਮਿਤੀ</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.license">
 				<source>License</source>
+				<target>ਲਾਈਸੈਂਸ</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.group">
 				<source>Package Group</source>
@@ -14671,15 +14747,19 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="layout.jsp.productname">
 				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="layout.jsp.vendor.name">
 				<source>@@PRODUCT_NAME@@ project</source>
+				<target>@@PRODUCT_NAME@@ ਪਰੋਜੈਕਟ</target>
 			</trans-unit>
 			<trans-unit id="layout.jsp.vendor.title">
 				<source>Visit http://spacewalk.redhat.com/ for more information</source>
+				<target>ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ http://spacewalk.redhat.com/ ਵੇਖੋ</target>
 			</trans-unit>
 			<trans-unit id="layout.jsp.vendor.website">
 				<source>http://spacewalk.redhat.com/</source>
+				<target>http://spacewalk.redhat.com/</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.parentarch">
 				<source>Parent Channel Architecture</source>
@@ -14703,13 +14783,15 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.emailaddress">
 				<source>Email Address</source>
-				<target>ਈ-ਮੇਲ ਸਿਰਨਾਵਾਂ</target>
+				<target>ਈ-ਮੇਲ ਐਡਰੈੱਸ</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.phonenumber">
 				<source>Phone Number</source>
+				<target>ਫੋਨ ਨੰਬਰ</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.supportpolicy">
 				<source>Support Policy</source>
+				<target>ਸਹਿਯੋਗ ਨੀਤੀ</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.perusersub">
 				<source>Per-User Subscription Restrictions</source>
@@ -14721,12 +14803,15 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.gpgkeyurl">
 				<source>GPG key URL</source>
+				<target>GPG ਕੁੰਜੀ URL</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.gpgkeyid">
 				<source>GPG key ID</source>
+				<target>GPG ਕੁੰਜੀ ID</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.gpgkeyfingerprint">
 				<source>GPG key Fingerprint</source>
+				<target>GPG ਕੁੰਜੀ ਫਿੰਗਰਪ੍ਰਿੰਟ</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.createchannel">
 				<source>Create Channel</source>
@@ -14750,6 +14835,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.channelaccesscontrol">
 				<source>Channel Access Control</source>
+				<target>ਚੈਨਲ ਪਹੁੰਚ ਕੰਟਰੋਲ</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.security.gpg">
 				<source>Security: GPG</source>
@@ -14757,31 +14843,51 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Channel name and label are required. They each must be at least 6
         characters in length. Labels must begin with a letter, contain only
         lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
         numerals. Channel name may also contain spaces and forward slashes
         ('/').
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Channel summary is also required.</source>
+				<target>ਇਸ ਸਫੇ ਤੋਂ ਸਾਫਟਵੇਅਰ ਚੈਨਲ ਬਣਾਓ ਜਾਨ ਸੋਧੋ।
+        &lt;p/&gt; 
+        ਜੇ ਅਧਾਰ ਚੈਨਲ ਨੂੰ 'none' ਨਿਰਧਾਰਤ ਕੀਤਾ ਹੈ, ਚੈਨਲ ਅਧਾਰ ਚੈਨਲ ਹੈ।
+        ਨਹੀਂ ਤਾਂ,  ਚੈਨਲ ਨਿਰਧਾਰਤ ਚੈਨਲ ਦਾ ਅਧੀਨ ਚੈਨਲ ਹੈ।
+        &lt;p/&gt; 
+        ਚੈਨਲ ਨਾਂ ਅਤੇ ਲੈਬਲ ਲੋੜੀਂਦੇ ਹਨ। ਇਹ ਹਰੇਕ ਘੱਟੋ-ਘੱਟ 6
+        ਅੱਖਰ ਲੰਬਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ। ਲੇਬਲ ਇੱਕ ਅੱਖਰ ਨਾਲ ਸ਼ੁਰੂ ਹੋਣੇ ਜਰੂਰੀ ਹਨ, ਜਿਨਾਂ ਵਿੱਚ ਸਿਰਫ
+        ਛੋਟੇ ਅੱਖਰ, ਹਾਈਫਨ ('-'), ਪੀਰੀਅਡ ('.'), ਅੰਡਰਸਕੋਰ ('_'), ਅਤੇ
+        ਅੰਕ ਹੋਣ। ਚੈਨਲ ਨਾਂ ਵਿੱਚ ਸਪੇਸ ਅਤੇ ਫਾਰਵਰਡ ਸਲੈਸ
+        ('/') ਵੀ ਹੋ ਸਕਦਾ ਹੈ।
+        &lt;p/&gt; 
+        Channel summary is also required.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.public">
 				<source>This channel is &lt;strong&gt;public&lt;/strong&gt; and may be
         accessed by any of the &lt;a href="{0}"&gt;trusted
         organizations&lt;/a&gt; trusted by this organization.</source>
+				<target>ਇਹ ਚੈਨਲ &lt;strong&gt;ਪਬਲਿਕ&lt;/strong&gt; ਹੈ ਅਤੇ ਇਸ ਸੰਗਠਨ ਦੁਆਰਾ ਵਿਸ਼ਵਾਸੀ ਕਿਸੇ ਵੀ 
+        &lt;a href="{0}"&gt;ਵਿਸ਼ਵਾਸੀ ਸੰਗਠਨ&lt;/a&gt;
+        ਦੁਆਰਾ ਵਰਤਿਆ ਜਾ ਸਕਦਾ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.protected">
 				<source>This channel is &lt;strong&gt;protected&lt;/strong&gt; and may
         only be accessed by specific &lt;a href="{0}"&gt;trusted
         organizations&lt;/a&gt;.</source>
+				<target>ਇਹ ਚੈਨਲ &lt;strong&gt;ਸੁਰੱਖਿਅਤ&lt;/strong&gt; ਹੈ ਅਤੇ
+        ਸਿਰਫ ਖਾਸ &lt;a href="{0}"&gt;ਵਿਸ਼ਵਾਸੀ ਸੰਗਠਨਾਂ&lt;/a&gt;
+        ਦੁਆਰਾ ਵਰਤਿਆ ਜਾ ਸਕਦਾ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.private">
 				<source>This channel is &lt;strong&gt;private&lt;/strong&gt; and cannot
         be accessed by any other organization.</source>
+				<target>ਇਹ ਚੈਨਲ &lt;strong&gt;ਪਰਾਈਵੇਟ&lt;/strong&gt; ਹੈ ਅਤੇ ਕਿਸੇ ਹੋਰ
+        ਸੰਗਠਨ ਦੁਆਰਾ ਵਰਤਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ।</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.allusers">
 				<source>All users within your organization may subscribe to this channel.</source>
@@ -14803,10 +14909,19 @@ given channel.</source>
         this channel may adversely affect those systems. For example, those
         systems may no longer receive critical security updates to content
         provided by this channel.</source>
+				<target>ਕੀ ਤੁਸੀਂ ਯਕੀਨਨ ਇਸ ਚੈਨਲ ਨੂੰ &lt;strong&gt;ਪਰਾਈਵਟ&lt;/strong&gt; ਨਿਰਧਾਰਤ
+        ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ, ਸਿਰਫ ਤੁਹਾਡੇ ਸੰਗਠਨ ਵਿਚਲੇ ਸਿਸਟਨਾਂ ਦੁਆਰਾ
+        ਪਹੁੰਚਯੋਗ? ਹੋਰ ਸੰਗਠਨਾਂ ਵਿੱਚ ਸਿਸਟਮ ਹਨ ਜੋ ਹੇਠਾਂ ਵੇਖਾਏ ਹਨ
+        ਜੋ ਇਸ ਚੈਨਲ ਦੁਆਰਾ ਦਿੱਤੇ ਸੰਖੇਪਾਂ ਤੇ ਮੈਂਬਰ ਬਣੇ ਹਨ। ਇਸ ਚੈਨਲ ਤੋਂ ਪਹੁੰਚ ਹਟਾਉਣ ਨਾਲ
+        ਉਹ ਸਿਸਟਮ ਪ੍ਰਭਾਵਿਤ ਹੋਣਗੇ। ਉਦਾਹਰਨ ਲਈ, ਉਹ ਸਿਸਟਮ
+        ਅੱਗੇ ਇਸ ਚੈਨਲ ਦੁਆਰਾ ਦਿੱਤੇ ਸੰਖੇਪਾਂ ਲਈ ਸੁਰੱਖਿਆ ਅੱਪਡੇਟ
+        ਨਹੀਂ ਲੈਣਗੇ।</target>
 			</trans-unit>
 			<trans-unit id="confirmprivate.jsp.confirmmsg.deux">
 				<source>Please review the change you are about to make before confirming
         this access removal.</source>
+				<target>ਕਿਰਪਾ ਕਰਕੇ ਇਹ ਪਹੁੰਚ ਹਟਾਉਣ ਪੁਸ਼ਟੀ ਕਰਨ ਤੋਂ ਪਹਿਲਾ ਆਪਣੀਆਂ
+        ਤਬਦੀਲੀਆ ਦੀ ਜਾਂਚ ਕਰੋ।</target>
 			</trans-unit>
 			<trans-unit id="confirmprotected.jsp.confirmmsg">
 				<source>Are you sure you want to set this channel's access policy to
@@ -14815,11 +14930,20 @@ given channel.</source>
         Removing these organizations' access may adversely affect those systems.
         For example, they may no longer receive critical security updates to
         content provided by this channel.</source>
+				<target>ਕੀ ਤੁਸੀਂ ਯਕੀਨਨ ਇਸ ਚੈਨਲ ਦੀ ਪਹੁੰਚ ਨੀਤੀ ਨੂੰ &lt;strong&gt;protected&lt;/strong&gt; ਚੈਨਲ
+        ਤੌਰ ਤੇ ਨਿਰਧਾਰਤ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ, ਧਿਆਨ ਰੱਖੋ ਕਿ
+        ਹੇਠਲੇ ਸੰਗਠਨ ਵਿੱਚ ਸਿਸਟਮ ਹਨ ਜੋ ਇਸ ਚੈਨਲ ਤੇ ਮੈਂਬਰ ਬਣੇ ਹਨ।
+        ਇਹਨਾਂ ਸੰਗਠਨ ਦੀ ਪਹੁੰਚ ਹਟਾਉਣ ਨਾਲ ਇਹ ਸਿਸਟਮ ਪ੍ਰਭਾਵਿਤ ਹੋਣਗੇ।
+        ਉਦਾਹਰਨ ਲਈ, ਇਹ ਹੁਣ ਇਸ ਚੈਨਲ ਦੁਆਰਾ ਦਿੱਤੇ ਸੰਖੇਪਾਂ ਲਈ ਨਾਜੁਕ ਸੁਰੱਖਿਆ ਅੱਪਡੇਟ
+        ਨਹੀਂ ਲੈਣਗੇ।</target>
 			</trans-unit>
 			<trans-unit id="confirmprotected.jsp.confirmmsg.deux">
 				<source>You may choose to grant the organizations below access to this
         channel, or you may deny them access. You can modify access to this
         channel at any time using the 'Organizations' tab above.</source>
+				<target>ਤੁਸੀਂ ਹੇਠਾਂ ਸੰਗਠਨ ਨੂੰ ਇਹ ਚੈਨਲ ਵਰਤਣ ਲਈ ਮਨਜੂਰੀ ਦੇ ਸਕਦੇ
+        ਹੋ, ਜਾਂ ਤੁਸੀਂ ਇਸ ਪਹੁੰਚ ਨੂੰ ਰੱਦ ਕਰ ਸਕਦੇ ਹੋ। ਤੁਸੀਂ ਕਦੇ ਵੀ 'ਸੰਗਠਨ' ਟੈਬ ਵਰਤ ਕੇ
+        ਇਸ ਚੈਨਲ ਨੂੰ ਪਹੁੰਚ ਸੋਧ ਕਰ ਸਕਦੇ ਹੋ।</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.software.channel">
 				<source>delete software channel</source>
@@ -14831,6 +14955,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="button.denyaccess.confirm">
 				<source>Deny Access and Confirm</source>
+				<target>ਪਹੁੰਚ ਰੱਦ ਅਤੇ ਪੁਸ਼ਟੀ</target>
 			</trans-unit>
 			<trans-unit id="button.grantaccess.confirm">
 				<source>Grant Access and Confirm</source>
@@ -14862,9 +14987,11 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.remove.message">
 				<source>Below is the list of errata associated with this channel. To remove an erratum from this channel, select it here, and click 'Remove' below.</source>
+				<target>ਹੇਠਾਂ ਇਸ ਚੈਨਲ ਨਾਲ ਸੰਬੰਧਿਤ ਇਰੱਟਾ ਦੀ ਸੂਚੀ ਦਿੱਤੀ ਗਈ ਹੈ। ਇਸ ਚੈਨਲ ਤੋਂ ਇੱਕ ਇਰੱਟਮ ਹਟਾਉਣ ਲਈ, ਇਸ ਨੂੰ ਏਥੇ ਚੁਣੋ, ਅਤੇ ਹੇਠਾਂ 'ਹਟਾਓ' ਚੁਣੋ।</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.remove.confirmmessage">
 				<source>Click 'Confirm' below to remove these errata from your channel. Related packages will also be removed from the channel.</source>
+				<target>ਆਪਣੇ ਚੈਨਲ ਤੋਂ ਇਹ ਇਰੱਟਾ ਹਟਾਉਣ ਲਈ ਹੇਠਾਂ 'ਪੁਸ਼ਟੀ' ਦਬਾਓ। ਸੰਬੰਧਿਤ ਪੈਕੇਜ ਵੀ ਚੈਨਲ ਤੋਂ ਹਟਾਏ ਜਾਣਗੇ।</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.remove.finalmessage">
 				<source>Successfully removed {0} errata from this channel.</source>
@@ -14876,6 +15003,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="unknown.package.msg">
 				<source>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by Red Hat Network.</source>
+				<target>ਬਦਕਿਸਮਤੀ ਨਾਲ, ਤੁਸੀਂ ਉਸ ਪੈਕੇਜ ਬਾਰੇ ਜਾਣਕਾਰੀ ਮੰਗੀ ਹੈ ਜੋ ਸਾਡੇ ਡਾਟਾਬੇਸ ਵਿੱਚ ਨਹੀਂ ਹੈ। ਇੰਜ ਲੱਗਦਾ ਕਿ ਇਹ ਕਸਟਮ ਪੈਕੇਜ ਹੈ ਜੋ ਤੁਸੀਂ ਦਸਤੀ ਇੰਸਟਾਲ ਕੀਤਾ ਹੈ, ਜਾਂ ਉਸ ਡਿਸਟਰੀਬਿਊਸ਼ਨ ਦਾ ਹੈ ਜੋ Red Hat Network ਦੁਆਰਾ ਸਹਿਯੋਗੀ ਨਹੀਂ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="unknown.kickstart">
 				<source>Kickstart Not Found</source>
@@ -14884,6 +15012,8 @@ given channel.</source>
 			<trans-unit id="unknown.kickstart.message">
 				<source>The requested kickstart file could not be found.
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
+				<target>ਲੋੜੀਂਦੀ ਕਿੱਕਸਟਾਰਟ ਫਾਇਲ ਲੱਭੀ ਨਹੀਂ।
+         ਜੇ ਤੁਸੀਂ ਇੱਕ ਸੰਗਠਨ ਮੂਲ ਕਿੱਕਸਟਾਰਟ ਚਾਹੁੰਦੇ ਹੋ, ਜਾਂਚ ਕਰੋ ਕਿ ਇੱਕ ਕਿੱਕਸਟਾਰਟ ਨੂੰ "ਸੰਗਠਨ ਮੂਲ" ਚੁਣਿਆ ਹੈ।</target>
 			</trans-unit>
 		</body>
 	</file>

@@ -590,13 +590,9 @@
 				<source>Critical</source>
 				<target>重大的</target>
 			</trans-unit>
-			<trans-unit id="Warning">
-				<source>Warning</source>
-				<target>警告</target>
-			</trans-unit>
 			<trans-unit id="Unknown">
 				<source>Unknown</source>
-				<target>未知的</target>
+				<target>不明的</target>
 			</trans-unit>
 			<trans-unit id="Recently Registered">
 				<source>Recently Registered</source>

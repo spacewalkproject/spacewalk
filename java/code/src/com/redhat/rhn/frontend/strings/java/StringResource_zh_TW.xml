@@ -138,9 +138,17 @@
 				<source>Tip</source>
 				<target>提示</target>
 			</trans-unit>
+			<trans-unit id="Note">
+				<source>Note</source>
+				<target>注意</target>
+			</trans-unit>
+			<trans-unit id="Warning">
+				<source>Warning</source>
+				<target>警告</target>
+			</trans-unit>
 			<trans-unit id="About Spacewalk">
 				<source>About</source>
-				<target>關於</target>
+				<target>相關資訊</target>
 			</trans-unit>
 			<trans-unit id="Account">
 				<source>Account</source>
@@ -1305,16 +1313,16 @@ available for this kickstart profile to function properly.
 				<target>從 kickstart 設定檔 {0} 中刪除 IP 位址範圍時，發生錯誤。請再試一次。</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.update.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
-				<target>已成功更新 Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt;。</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
+				<target>已成功更新 Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt;。</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.create.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
-				<target>已成功建立 Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt;。</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
+				<target>已成功建立 Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt;。</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.delete.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
-				<target>已成功刪除 Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt;。</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
+				<target>已成功刪除 Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt;。</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.couldnotdelete.message">
 				<source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -1325,12 +1333,12 @@ available for this kickstart profile to function properly.
 				<target>當嘗試將 snippet &lt;strong&gt;{0}&lt;/strong&gt; 重新命名為 &lt;strong&gt;{1}&lt;/strong&gt; 時發生了錯誤。</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.filenameexists.message">
-				<source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
-				<target>名稱同樣為 &lt;strong&gt;{0}&lt;/strong&gt; 的 Cobbler snippet 已存在。</target>
+				<source>Kickstart snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+				<target>名稱同樣為 &lt;strong&gt;{0}&lt;/strong&gt; 的 Kickstart snippet 已存在。</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.invalidfilename.message">
-				<source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
-				<target>請求的 Cobbler snippet 檔案名稱無效。有效字元為 A-Z、0-9、_ 和 -。</target>
+				<source>The requested kickstart snippet filename is not valid. The kickstart snippet file name cannot contain slash (/) or  begin with a period(.)</source>
+				<target>請求的 kickstart snippet 檔案名稱無效。Kickstart snippet 的檔案名稱不可包含斜線（/）或以句號作為起始（.）</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.snippets">
 				<source>delete snippet</source>
@@ -5225,17 +5233,16 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to
-syncronize kickstart distributions from Spacewalk to Cobbler.  These
-errors must be corrected for the distributions to be available for
-kickstarting systems kickstart distributions failed to sync from
-Spacewalk to Cobbler:
+The following is a list of errors gathered while Spacewalk attempts to 
+syncronize kickstart distributions from Spacewalk to Cobbler.  These 
+errors must be corrected for the distributions to be available for 
+kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
@@ -5243,16 +5250,15 @@ for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
 下列為一列當 Spacewalk 嘗試將 kickstart 發行套件由 Spacewalk 同步化
-至 Cobbler 時所蒐集的錯誤之清單。這些錯誤必須先被
-修正，如此一來發行套件才可被用來 kickstart 無
-法由 Spacewalk 同步化至 Cobbler 的
-系統 kickstart 發行套件：
+至 Cobbler 時所蒐集的錯誤之清單。這些錯誤必須
+先被修正，如此一來發行套件才可被
+用來 kickstart 系統：
 
 {0}
 
 請檢查：
 
-/var/log/rhn/rhn_taskomatic_daemon.log 和
+/var/log/rhn/rhn_taskomatic_daemon.log 和 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 

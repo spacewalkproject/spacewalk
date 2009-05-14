@@ -6804,10 +6804,10 @@ Please note that some manual configuration of these scripts may still be require
 				<target>Обновить переменные</target>
 			</trans-unit>
 			<trans-unit id="kickstart.variable.jsp.summary">
-				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
-				You would then use $name within the profile to substitute in the value.</source>
+				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+        			You would then use $name within the profile to substitute in the value.</source>
 				<target>Переменные кикстарта могут использоваться для замены значений в профилях кикстарта. Определить переменную можно с помощью выражения «имя=значение».
-				После этого для замены значения в профиле можно просто указать $name.</target>
+        			После этого для замены значения в профиле можно просто указать $name.</target>
 			</trans-unit>
 			<trans-unit id="kickstarttree.variable.jsp.summary">
 				<source>Any variables specified below will be usable in any profile that uses this distro.  They can be overridden in each profile as well.</source>
@@ -7147,8 +7147,8 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations.
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
+            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
+            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
             tab to verify the new settings.</source>
 				<target>&lt;strong&gt;Замечание:&lt;/strong&gt; Изменение типа виртуализации может потребовать изменений
             загрузчика профиля кикстарта и параметров разделов, что может перезаписать пользовательские настройки.
@@ -7678,6 +7678,14 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<source>nochroot</source>
 				<target>не chroot</target>
 			</trans-unit>
+			<trans-unit id="kickstart.script.template">
+				<source>Template</source>
+				<target>Шаблон</target>
+			</trans-unit>
+			<trans-unit id="kickstart.script.template.tip">
+				<source>Enable this to enable templating on this script using cobbler.</source>
+				<target>Допускает использование шаблонов для сценария с помощью Cobbler.</target>
+			</trans-unit>
 			<trans-unit id="kickstart.script.tip3">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This specifies when the script gets ran (before or after kickstart).&lt;/span&gt;</source>
 				<target>&lt;span class="small-text"&gt;&lt;strong&gt;Замечание:&lt;/strong&gt; Задает время запуска сценария (до или после выполнения кикстарта).&lt;/span&gt;</target>
@@ -7751,12 +7759,12 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>Фрагменты кикстарта</target>
 			</trans-unit>
 			<trans-unit id="snippets.jsp.summary">
-				<source>Use Kickstart Snippets to store common blocks of code that can be shared across multiple Kickstart profiles in @@PRODUCT_NAME@@. When you create a Kickstart Snippet, all Kickstart profiles including that snippet will be updated accordingly.</source>
+				<source>Use kickstart snippets to store common blocks of code that can be shared across multiple kickstart profiles in @@PRODUCT_NAME@@. When you create a kickstart snippet, all kickstart profiles including that snippet will be updated accordingly.</source>
 				<target>Используйте фрагменты кикстарта для хранения фрагментов кода, которые используются несколькими профилями кикстарта в @@PRODUCT_NAME@@. При создании такого фрагмента все профили кикстарта будут обновлены соответственно.</target>
 			</trans-unit>
 			<trans-unit id="snippets.jsp.note.default">
-				<source>default kickstart snippets are not editable.</source>
-				<target>нельзя изменять стандартные фрагменты кикстарта.</target>
+				<source>Default kickstart snippets are not editable.</source>
+				<target>Нельзя изменять стандартные фрагменты кикстарта.</target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.snippets">
 				<source>create new snippet</source>
@@ -7771,11 +7779,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>Макрос фрагмента</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.jsp.nosnippets">
-				<source>No Cobbler snippets found.</source>
-				<target>Не определен ни один фрагмент Cobbler.</target>
+				<source>No kickstart snippets found.</source>
+				<target>Не найдены фрагменты кикстарта.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.copy-paste-snippet-tip">
-				<source>Copy and paste the snippet macro into your Kickstart profiles to make the full snippet appear in that Kickstart profile.</source>
+				<source>Copy and paste the snippet macro into your kickstart profiles to make the full snippet appear in that kickstart profile.</source>
 				<target>Скопируйте макрос фрагмента в профили кикстарта, чтобы весь фрагмент был включен в профиль.</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.warning.tip">
@@ -7803,7 +7811,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>Произвольный</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.custom.tip">
-				<source>Custom Kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
+				<source>Custom kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
 				<target>Произвольные фрагменты кикстарта будут доступны только организации &lt;strong&gt;{0}&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default">
@@ -7811,7 +7819,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>Исходный</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default.tip">
-				<source>Default Kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
+				<source>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
 				<target>Исходные фрагменты кикстарта будут доступны всем организациям. Исходные фрагменты не подлежат изменению.</target>
 			</trans-unit>
 			<trans-unit id="snippetedit.jsp.header2">
@@ -7823,12 +7831,28 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>Создать фрагмент</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.summary">
-				<source>Snippets can be shared between Kickstart Profiles</source>
+				<source>Snippets can be shared between kickstart profiles</source>
 				<target>Фрагменты могут совместно использоваться профилями кикстарта</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.header2">
 				<source>Create Snippet</source>
 				<target>Создать фрагмент</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.submit">
+				<source>Create Snippet</source>
+				<target>Создать фрагмент</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.header2">
+				<source>Create Snippet</source>
+				<target>Создать фрагмент</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.submit">
+				<source>Create Snippet</source>
+				<target>Создать фрагмент</target>
+			</trans-unit>
+			<trans-unit id="snippetdetails.jsp.header2">
+				<source>Snippet Details</source>
+				<target>Свойства фрагмента</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.contents">
 				<source>Contents</source>
@@ -7839,10 +7863,10 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>Содержимое фрагмента кикстарта</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.tip1">
-				<source>Avoid spaces in the snippet name.</source>
-				<target>Использование пробелов в имени фрагментов нежелательно.</target>
+				<source>The snippet name is the name of a file that will reside in this organization's snippet directory. Any standard unix file name characters are acceptable. Snippet names containing slash character or snippet names beginning with period are not allowed.</source>
+				<target>Имя фрагмента представляет собой имя файла, расположенного в этом каталоге. В имени файла допускается использование любых допустимых Unix-символов. Не допускается использование косой черты, и имена не могут начинаться с точки.</target>
 			</trans-unit>
-			<trans-unit id="snippetcreate.jsp.submit">
+			<trans-unit id="snippetupdate.jsp.submit">
 				<source>Update Snippet</source>
 				<target>Обновить фрагмент</target>
 			</trans-unit>
@@ -7855,11 +7879,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>Удаление фрагмента</target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.summary">
-				<source>Are you sure you want to delete this Snippet permanently?</source>
-				<target>Вы действительно хотите удалить этот фрагмент?</target>
+				<source>Are you sure you want to delete this snippet permanently?</source>
+				<target>Вы действительно хотите насовсем удалить этот фрагмент?</target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.warning">
-				<source>Deleting this snippet will affect any kickstart profiles that refere to it. It may break kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
+				<source>Deleting this snippet will affect any kickstart profiles that refer to it. It may break those kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
 				<target>Удаление этого фрагмента окажет влияние на ссылающиеся на него профили кикстарта, что может нарушить их функциональность. Убедитесь, что профили кикстарта не используют этот фрагмент, прежде чем его удалять.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.delete">
@@ -12927,6 +12951,10 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 				<source>Building</source>
 				<target>Здание</target>
 			</trans-unit>
+			<trans-unit id="sdc.details.overview.updatesavailable">
+				<source>Software Updates Available</source>
+				<target>Доступны программные обновления</target>
+			</trans-unit>
 			<trans-unit id="sdc.details.overview.updates.critical">
 				<source>&lt;strong&gt;&lt;a href="{0}"&gt;Critical: &lt;/a&gt;&lt;/strong&gt; {1}</source>
 				<target>&lt;strong&gt;&lt;a href="{0}"&gt;Критично &lt;/a&gt;&lt;/strong&gt; {1}</target>
@@ -13829,7 +13857,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           possible to share content and migrate systems between these two organizations. You may add a trust by checking
           the box next to an organization (or remove a trust by unchecking it) and clicking the 'Modify Trusts' button.</source>
 				<target>
-          Отмеченные ниже организации являются доверенными по отношению к {0}.
+          Отмеченные ниже организации являются доверенными по отношению к {0}. 
           Это означает, что можно обеспечить совместный доступ к содержимому или осуществлять
           миграцию систем между двумя организациями.
           Установите флажок напротив организации, чтобы определить ее как доверенную и
@@ -13844,24 +13872,24 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
             &lt;p/&gt;
             Please review the changes you are about to make before confirming the trust removal(s).</source>
 				<target>
-            Вы действительно хотите удалить перечисленные ниже доверенные организации?
+            Вы действительно хотите удалить перечисленные ниже доверенные организации? 
             Организация {0} включает в свой состав системы, которые подписаны к содержимому,
             предоставляемому организацией, связь с которой вы удаляете.
-            Так, например, системы больше не смогут получать обновления безопасности,
+            Так, например, системы больше не смогут получать обновления безопасности, 
             предоставляемые этим доверенным ресурсом.
             &lt;p/&gt;
             Еще раз проверьте вносимые изменения, прежде чем их применить.</target>
 			</trans-unit>
 			<trans-unit id="org.trust.affectedsystems.summary">
 				<source>
-            The systems listed below will be affected by removing the trust relationship between
+            The systems listed below will be affected by removing the trust relationship between 
             the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.</source>
 				<target>
             Удаление связи доверия между организациями &lt;b&gt;{0}&lt;/b&gt; и &lt;b&gt;{1}&lt;/b&gt;
             окажет влияние на перечисленные ниже системы.
-            Так, например, системы больше не смогут получать обновления безопасности,
+            Так, например, системы больше не смогут получать обновления безопасности, 
             предоставляемые этим доверенным ресурсом.</target>
 			</trans-unit>
 			<trans-unit id="org.trust.trusts">
@@ -14810,26 +14838,26 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Channel name and label are required. They each must be at least 6
         characters in length. Labels must begin with a letter, contain only
         lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
         numerals. Channel name may also contain spaces and forward slashes
         ('/').
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Channel summary is also required.</source>
 				<target>На этой странице можно создать или изменить программные каналы.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Если родительский канал не задан, то канал будет являться базовым.
         В противном случае канал будет являться дочерним по отношению к заданному.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Потребуется указать имя и метку канала, которые должны содержать не меньше 6 символов.
         Метки должны начинаться с буквы и могут содержать буквы в нижнем регистре, цифры,
         и символы «-», «.», «_». Имя канала также может содержать пробелы и «/».
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Кроме того, требуется ввести краткое описание канала.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.public">
@@ -14874,9 +14902,9 @@ given channel.</source>
         systems may no longer receive critical security updates to content
         provided by this channel.</source>
 				<target>Вы действительно хотите определить этот канал как &lt;strong&gt;частный&lt;/strong&gt;?
-       Он будет доступен только системам в составе вашей организации.
+       Он будет доступен только системам в составе вашей организации. 
        Некоторые системы в других организациях подписаны к содержимому,
-       предоставляемому этим каналом.
+       предоставляемому этим каналом. 
        Так, например, эти системы не смогут получать критические обновления безопасности.</target>
 			</trans-unit>
 			<trans-unit id="confirmprivate.jsp.confirmmsg.deux">
@@ -14893,7 +14921,7 @@ given channel.</source>
         content provided by this channel.</source>
 				<target>Вы действительно хотите определить этот канал как &lt;strong&gt;защищенный&lt;/strong&gt;?
        Некоторые системы в организациях подписаны к содержимому,
-       предоставляемому этим каналом.
+       предоставляемому этим каналом. 
        Так, например, эти системы не смогут получать критические обновления безопасности.</target>
 			</trans-unit>
 			<trans-unit id="confirmprotected.jsp.confirmmsg.deux">

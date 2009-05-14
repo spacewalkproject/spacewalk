@@ -354,10 +354,10 @@ Red Hat 고객님,
 
 1) 최근 시스템을 재설치하신 후 기존 활성 서브스크립션을 가지고 
    이 시스템을 연결하려고 하신 경우. https://rhn.redhat.com/help/faq/#26 에서 
-   설명된 지시 사항을 따르시어 @@PRODUCT_NAME@@에 저장된 기존 시스템 프로파일을
+   설명된 지시 사항을 따르시어 @@PRODUCT_NAME@@에 저장된 기존 시스템 프로파일을 
    삭제하시기 바랍니다.
 
-2) @@PRODUCT_NAME@@에 연결된 시스템 숫자가 고객님 계정에 할당된
+2) @@PRODUCT_NAME@@에 연결된 시스템 숫자가 고객님 계정에 할당된 
    활성 Red Hat 서브스크립션 숫자를 초과한 경우. 고객님 서브스크립션이 
    만기되었다면, 새로운 Red Hat 서브스크립션을 구입하셔야 합니다.
 
@@ -571,7 +571,7 @@ Thank you for using @@PRODUCT_NAME@@.
 {1}
 {2}</source>
 				<target>
-@@PRODUCT_NAME@@ 사용자 귀하.
+@@PRODUCT_NAME@@ 사용자 귀하. 
 
 고객님의 Red Hat 로그인 이메일 주소
 확인을 위해 이 이메일을 보내드립니다. Red Hat 로그인과 활성화된
@@ -622,7 +622,7 @@ Thank you for using @@PRODUCT_NAME@@.
 {1}
 {2}</source>
 				<target>
-@@PRODUCT_NAME@@ 사용자 귀하.
+@@PRODUCT_NAME@@ 사용자 귀하. 
 
 고객님의 Red Hat 로그인 이메일 주소
 확인을 위해 이 이메일을 보내드립니다. Red Hat 로그인과 활성화된
@@ -670,10 +670,10 @@ Thank you for using @@PRODUCT_NAME@@.
 				<target>
 @@PRODUCT_NAME@@ 사용자 귀하,
 
-로컬 satellite {0}에 있는 귀하의 @@PRODUCT_NAME@@ 인증서가 만료되었음을
-알려드리기 위해 이 이메일을 보내드립니다. {1}일이 후에 귀하의 @@PRODUCT_NAME@@  서버에서
+로컬 satellite {0}에 있는 귀하의 @@PRODUCT_NAME@@ 인증서가 만료되었음을 
+알려드리기 위해 이 이메일을 보내드립니다. {1}일이 후에 귀하의 @@PRODUCT_NAME@@  서버에서 
 제공된 시스템 관리 서비스는 사용할 수 없게 됩니다. 
-@@PRODUCT_NAME@@ 인증서를 갱신하는 방법에 관한 정보를 얻으시려면 해당 지역의
+@@PRODUCT_NAME@@ 인증서를 갱신하는 방법에 관한 정보를 얻으시려면 해당 지역의 
 Red Hat 고객 서비스 담당자에게 연락하시기 바랍니다.
 
 @@PRODUCT_NAME@@를 사용해 주셔서 감사합니다.
@@ -698,7 +698,7 @@ Thank you for using @@PRODUCT_NAME@@.
 				<target>
 @@PRODUCT_NAME@@ 사용자 귀하,
 
-로컬 satellite {0}에 있는 귀하의 @@PRODUCT_NAME@@ 인증서가 만료되었음을
+로컬 satellite {0}에 있는 귀하의 @@PRODUCT_NAME@@ 인증서가 만료되었음을 
 알려드리기 위해 이 이메일을 보내드립니다. 인증서를 갱신하실 때 까지 귀하의 시스템 관리 서비를 
 사용하실 수 없습니다. @@PRODUCT_NAME@@ 인증서를 갱신하는 방법에 관한 정보를 얻으시려면
 해당 지역의 Red Hat 고객 서비스 담당자에게 연락하시기 바랍니다.

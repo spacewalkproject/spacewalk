@@ -384,7 +384,7 @@
 			</trans-unit>
 			<trans-unit id="errors.byte">
 				<source>{0} must be a byte.</source>
-				<target>{0} muss ein Byte sein.</target>
+				<target>{0} muss der Datentyp Byte sein.</target>
 			</trans-unit>
 			<trans-unit id="errors.short">
 				<source>{0} must be a short.</source>
@@ -392,7 +392,7 @@
 			</trans-unit>
 			<trans-unit id="errors.integer">
 				<source>{0} must be an integer.</source>
-				<target>{0} muss eine Ganzzahl sein.</target>
+				<target>{0} muss der Datentyp Integer sein.</target>
 			</trans-unit>
 			<trans-unit id="errors.long">
 				<source>{0} must be a long.</source>
@@ -536,55 +536,55 @@
 			</trans-unit>
 			<trans-unit id="lookup.jsp.reason2.user">
 				<source>You do not have permission to view this user.</source>
-				<target>Sie besitzen keine Erlaubnis, um diesen Benutzer einzusehen.</target>
+				<target>Sie haben keine Berechtigung, diesen Benutzer einzusehen.</target>
 			</trans-unit>
 			<trans-unit id="lookup.activatonkey.reason2">
 				<source>You do not have permission to view this activation key.</source>
-				<target>Sie besitzen keine Erlaubnis, um diesen Aktivierungsschl&amp;uuml;ssel einzusehen.</target>
+				<target>Sie haben keine Berechtigung, diesen Aktivierungsschl&amp;uuml;ssel einzusehen.</target>
 			</trans-unit>
 			<trans-unit id="lookup.servergroup.reason2">
 				<source>You do not have permission to view this system group.</source>
-				<target>Sie besitzen keine Erlaubnis, um diese Systemgruppe einzusehen.</target>
+				<target>Sie haben keine Berechtigung, diese Systemgruppe einzusehen.</target>
 			</trans-unit>
 			<trans-unit id="lookup.jsp.reason2.profile">
 				<source>You do not have permission to view this system profile.</source>
-				<target>Sie besitzen keine Erlaubnis, um dieses System-Profil einzusehen.</target>
+				<target>Sie haben keine Berechtigung, dieses System-Profil einzusehen.</target>
 			</trans-unit>
 			<trans-unit id="lookup.jsp.reason2.channel">
 				<source>You do not have permission to view this channel.</source>
-				<target>Sie besitzen keine Erlaubnis, um diesen Channel einzusehen.</target>
+				<target>Sie haben keine Berechtigung, diesen Channel einzusehen.</target>
 			</trans-unit>
 			<trans-unit id="lookup.jsp.reason2.package">
 				<source>You do not have permission to view this package.</source>
-				<target>Sie besitzen keine Erlaubnis, um dieses Paket einzusehen.</target>
+				<target>Sie haben keine Berechtigung, dieses Paket einzusehen.</target>
 			</trans-unit>
 			<trans-unit id="lookup.jsp.reason2.errata">
 				<source>You do not have permission to view this erratum.</source>
-				<target>Sie besitzen keine Erlaubnis, um dieses Erratum einzusehen.</target>
+				<target>Sie haben keine Berechtigung, dieses Erratum einzusehen.</target>
 			</trans-unit>
 			<trans-unit id="lookup.jsp.reason2.action">
 				<source>You do not have permission to view this action.</source>
-				<target>Sie besitzen keine Erlaubnis, um diese Aktion einzusehen.</target>
+				<target>Sie haben keine Berechtigung, diese Aktion einzusehen.</target>
 			</trans-unit>
 			<trans-unit id="lookup.jsp.reason2.system">
 				<source>You do not have permission to view this system.</source>
-				<target>Sie besitzen keine Erlaubnis, um dieses System einzusehen.</target>
+				<target>Sie haben keine Berechtigung, dieses System einzusehen.</target>
 			</trans-unit>
 			<trans-unit id="lookup.default.reason2">
 				<source>You do not have permission to the required data object.</source>
-				<target>Sie besitzen keine Berechtigung f&amp;uuml;r das erforderliche Datenobjekt.</target>
+				<target>Sie haben keine Berechtigung f&amp;uuml;r das erforderliche Datenobjekt.</target>
 			</trans-unit>
 			<trans-unit id="lookup.configchan.reason2">
 				<source>You do not have permission to view this configuration channel.</source>
-				<target>Sie besitzen keine Erlaubnis, um diesen Konfigurations-Channel einzusehen.</target>
+				<target>Sie haben keine Berechtigung, diesen Konfigurations-Channel einzusehen.</target>
 			</trans-unit>
 			<trans-unit id="lookup.configfile.reason2">
 				<source>You do not have permission to view this configuration file.</source>
-				<target>Sie besitzen keine Erlaubnis, um diese Konfigurationsdatei einzusehen.</target>
+				<target>Sie haben keine Berechtigung, diese Konfigurationsdatei einzusehen.</target>
 			</trans-unit>
 			<trans-unit id="lookup.configrev.reason2">
 				<source>You do not have permission to view this configuration revision.</source>
-				<target>Sie besitzen keine Erlaubnis, um diese Konfigurationsrevision einzusehen.</target>
+				<target>Sie haben keine Berechtigung, diese Konfigurationsrevision einzusehen.</target>
 			</trans-unit>
 			<trans-unit id="lookup.jsp.reason3">
 				<source>You've found an error in our site.  Please help us by filling out &lt;a href="/help/contact.pxt"&gt;this form&lt;/a&gt; with details of how you received this message.</source>
@@ -608,7 +608,7 @@
 			</trans-unit>
 			<trans-unit id="permission.jsp.title.package">
 				<source>Cannot view package.</source>
-				<target>Kann Channel nicht ansehen.</target>
+				<target>Kann Paket nicht ansehen.</target>
 			</trans-unit>
 			<trans-unit id="permission.jsp.title.subscribechannel">
 				<source>Cannot subscribe to channel.</source>
@@ -632,7 +632,7 @@
 			</trans-unit>
 			<trans-unit id="permission.jsp.title.lookupuser">
 				<source>Cannot view user information.</source>
-				<target>Kann Benutzer-Information nicht einsehen.</target>
+				<target>Kann Benutzerinformation nicht einsehen.</target>
 			</trans-unit>
 			<trans-unit id="permission.jsp.title.createrev">
 				<source>Cannot create configuration file revision.</source>
@@ -688,7 +688,7 @@
 			</trans-unit>
 			<trans-unit id="permission.jsp.summary.acl.reason1">
 				<source>You are using Konqueror 3.0, which does not handle form variables properly in all cases. Continuing to use Konqueror 3.0 will have unexpected results. If you are using Konqueror 3.0, please use another browser.</source>
-				<target>Sie verwenden Konqueror 3.0, wodurch Formular-Variablen nicht in allen F&amp;auml;llen ordnungsgem&amp;auml;&amp;szlig; abgewickelt werden.  Wenn Sie weiterhin Konqueror 3.0 verwenden, werden Sie unerwartete Resultate erhalten.  Wenn Sie Konqueror 3.0 verwenden, bitte verwenden Sie einen anderen Browser.</target>
+				<target>Sie verwenden Konqueror 3.0, wodurch Formular-Variablen nicht in allen F&amp;auml;llen ordnungsgem&amp;auml;&amp;szlig; gehandhabt werden.  Wenn Sie weiterhin Konqueror 3.0 verwenden, werden Sie unerwartete Resultate erhalten.  Falls Sie Konqueror 3.0 verwenden, verwenden Sie bitte einen anderen Browser.</target>
 			</trans-unit>
 			<trans-unit id="permission.jsp.summary.acl.reason2">
 				<source>Your login session has expired. For security reasons, @@PRODUCT_NAME@@ terminates your login session after {0} minutes of inactivity. To sign in again, click &lt;a href="{1}"&gt;here&lt;/a&gt;.</source>
@@ -756,7 +756,7 @@
 			</trans-unit>
 			<trans-unit id="404.jsp.reason3">
 				<source>If you used a bookmark to reach '{0},' the page may have moved to a different location since the bookmark was created. Use the top (or left) navigation bars to find the page you are looking for, and if you find the document be sure to update your bookmark.</source>
-				<target>Wenn Sie ein Lesezeichen dazu verwendet haben, um auf {0} zu gelangen, dann kann es sein, dass die Seite sich mittlerweile auf einem anderen Ort befindet. Verwenden Sie die obere (oder linke) Navigationsleiste, um die entsprechende Seite zu finden. Wenn Sie die Seite gefunden haben, dann vergessen Sie nicht, Ihr Lesezeichen zu aktualisieren.</target>
+				<target>Wenn Sie ein Lesezeichen dazu verwendet haben, um auf {0} zu gelangen, dann kann es sein, dass die Seite sich mittlerweile an einem anderen Ort befindet. Verwenden Sie die obere (oder linke) Navigationsleiste, um die entsprechende Seite zu finden. Wenn Sie die Seite gefunden haben, dann vergessen Sie nicht, Ihr Lesezeichen zu aktualisieren.</target>
 			</trans-unit>
 			<trans-unit id="404.jsp.reason4">
 				<source>If you feel you've reached this page in error, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt; with details of how you received this message.</source>
@@ -824,7 +824,7 @@
 			</trans-unit>
 			<trans-unit id="realname.displayname">
 				<source>Real Name</source>
-				<target>Name</target>
+				<target>Tatsächlicher Name</target>
 			</trans-unit>
 			<trans-unit id="password.displayname">
 				<source>Password &lt;span class="required-form-field"&gt;*&lt;/span&gt;:</source>
@@ -840,11 +840,11 @@
 			</trans-unit>
 			<trans-unit id="desiredpass.displayname">
 				<source>Desired Password</source>
-				<target>Gew&amp;uml;nschtes Passwort</target>
+				<target>Gewünschtes Passwort</target>
 			</trans-unit>
 			<trans-unit id="desiredPassword.displayname">
 				<source>Desired Password</source>
-				<target>Gew&amp;uml;nschtes Passwort</target>
+				<target>Gewünschtes Passwort</target>
 			</trans-unit>
 			<trans-unit id="confirmpass.displayname">
 				<source>Confirm Password &lt;span class="required-form-field"&gt;*&lt;/span&gt;:</source>
@@ -992,11 +992,11 @@
 			</trans-unit>
 			<trans-unit id="state.displayname">
 				<source>State/Province</source>
-				<target>Staat/Provinz</target>
+				<target>Bundesland</target>
 			</trans-unit>
 			<trans-unit id="edit_address.jsp.state">
 				<source>State/Province</source>
-				<target>Staat/Provinz</target>
+				<target>Bundesland</target>
 			</trans-unit>
 			<trans-unit id="country.displayname">
 				<source>Country</source>
@@ -1008,7 +1008,7 @@
 			</trans-unit>
 			<trans-unit id="zip.displayname">
 				<source>Zip / Postal Code</source>
-				<target>Postleitzahl</target>
+				<target>PLZ</target>
 			</trans-unit>
 			<trans-unit id="phone.displayname">
 				<source>Phone</source>
@@ -1020,7 +1020,7 @@
 			</trans-unit>
 			<trans-unit id="prefix.displayname">
 				<source>Prefix:</source>
-				<target>Titel:</target>
+				<target>Anrede:</target>
 			</trans-unit>
 			<trans-unit id="position.displayname">
 				<source>Position:</source>
@@ -1028,7 +1028,7 @@
 			</trans-unit>
 			<trans-unit id="usertype.displayname">
 				<source>User Type:</source>
-				<target>Benutzer-Typ:</target>
+				<target>Benutzertyp:</target>
 			</trans-unit>
 			<trans-unit id="created.displayname">
 				<source>Created:</source>
@@ -1040,7 +1040,7 @@
 			</trans-unit>
 			<trans-unit id="address_record.displayname">
 				<source>Address Record:</source>
-				<target>Adressaufzeichnung:</target>
+				<target>Adresseintrag:</target>
 			</trans-unit>
 			<trans-unit id="message.actionArchived">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; action archived.</source>
@@ -1100,7 +1100,7 @@
 			</trans-unit>
 			<trans-unit id="login.jsp.hostbody1">
 				<source>@@PRODUCT_NAME@@ is a complete systems management platform for Linux. It's built on open standards and uses a simple, Internet-based graphical interface. It also features a modular design--as networks grow, administrators can add enhanced capabilities for system updates, management, and monitoring of their entire infrastructure.</source>
-				<target>@@PRODUCT_NAME@@ ist eine komplette Systeme-Managementplattform f&amp;uuml;r Linux. Auf offenen Standards aufgebaut, wird eine simple, Internet-basierte grafische Oberfl&amp;auml;che verwendet. Es zeichnet sich ebenfalls durch sein modulares Design aus--w&amp;auml;hrend Netzwerke wachsen, k&amp;ouml;nnen Administratoren erweiterte F&amp;auml;higkeiten f&amp;uuml;r System-Updates, im Bereich Management und zur &amp;Uuml;berwachung der gesamten Infrastruktur hinzuf&amp;uuml;gen.</target>
+				<target>@@PRODUCT_NAME@@ ist eine komplette Systeme-Managementplattform f&amp;uuml;r Linux. Auf offenen Standards aufgebaut, wird eine simple, Internet-basierte grafische Oberfl&amp;auml;che verwendet. Es zeichnet sich ebenfalls durch sein modulares Design aus – w&amp;auml;hrend Netzwerke wachsen, k&amp;ouml;nnen Administratoren erweiterte F&amp;auml;higkeiten f&amp;uuml;r System-Updates, im Bereich Management und zur &amp;Uuml;berwachung der gesamten Infrastruktur hinzuf&amp;uuml;gen.</target>
 			</trans-unit>
 			<trans-unit id="login.jsp.hostbody2">
 				<source>Red Hat currently features three @@PRODUCT_NAME@@ modules:</source>
@@ -1116,7 +1116,7 @@
 			</trans-unit>
 			<trans-unit id="login.jsp.list3">
 				<source>Provisioning: System snapshots, integrated kickstarts, configuration management and more.</source>
-				<target>Provisioning: System-Schnappsch&amp;uuml;sse, integrierte Kickstarts, Konfigurationsmanagement und mehr.</target>
+				<target>Provisioning: System-Snapshots, integrierte Kickstarts, Konfigurationsmanagement und mehr.</target>
 			</trans-unit>
 			<trans-unit id="login.jsp.learnmore">
 				<source>Learn more about RHN now</source>
@@ -1316,11 +1316,11 @@
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagetitle">
 				<source>"Overview" Start Page</source>
-				<target>"Überblick" Startseite</target>
+				<target>"Überblick"-Startseite</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagedesc">
 				<source>Display the following information on my "Overview" page upon login:</source>
-				<target>Die folgenden Informationen beim Einloggen auf meiner Seite "Überblick" anzeigen:</target>
+				<target>Die folgenden Informationen beim Einloggen auf meiner "Überblick"-Seite anzeigen:</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.contactopt">
 				<source>Red Hat Contact Options</source>
@@ -1580,11 +1580,11 @@
 			</trans-unit>
 			<trans-unit id="sidebar.ads.buynowalt">
 				<source>Buy Now Image</source>
-				<target>Boot Image kaufen</target>
+				<target>Jetzt kaufen Image</target>
 			</trans-unit>
 			<trans-unit id="sidebar.ads.downloadnowalt">
 				<source>Software Downloads Image</source>
-				<target>Software l&amp;auml;dt Image herunter</target>
+				<target>Software Downloads Image</target>
 			</trans-unit>
 			<trans-unit id="errata-legend.jsp.title">
 				<source>Errata Legend</source>
@@ -1728,7 +1728,7 @@
 			</trans-unit>
 			<trans-unit id="email_sent.jsp.message">
 				<source>A request to verify this email change has been sent to the user's new email address. When the user responds to this email, the change will be confirmed, and the email address will be fully updated.</source>
-				<target>Eine Anfrage um zu best&amp;auml;tigen, dass diese E-Mail-&amp;Auml;nderung zur neuen E-Mail-Adresse des Benutzers gesendet wurde. Wenn der Benutzer auf dieses E-Mail antwortet, wird gleichzeitig die &amp;Auml;nderung best&amp;auml;tigt und die E-Mail-Adresse wird vollst&amp;auml;ndig aktualisiert.</target>
+				<target>Eine Anfrage, um zu best&amp;auml;tigen, dass diese E-Mail-&amp;Auml;nderung zur neuen E-Mail-Adresse des Benutzers gesendet wurde. Wenn der Benutzer auf diese E-Mail antwortet, wird gleichzeitig die &amp;Auml;nderung best&amp;auml;tigt und die E-Mail-Adresse vollst&amp;auml;ndig aktualisiert.</target>
 			</trans-unit>
 			<trans-unit id="yourchangeemail.jsp.title">
 				<source>Change Email Address</source>
@@ -1990,7 +1990,7 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="usercreate.createPersonal">
 				<source>Create a Home User Login</source>
-				<target>Erstellen Sie einen pers&amp;ouml;nlichen/privaten Login</target>
+				<target>Privat-Login erstellen</target>
 			</trans-unit>
 			<trans-unit id="usercreate.createAccount">
 				<source>Create a Login</source>
@@ -1998,11 +1998,11 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="usercreate.corpSummary">
 				<source>A business login will enable you to administer systems owned by your business and to make business purchases of Red Hat products and services. &lt;strong&gt;If your organization has an existing @@PRODUCT_NAME@@ business login, you should not use this form. Instead, you will need to contact your @@PRODUCT_NAME@@ Organization Administrator to create your account so you are registered with your organization.&lt;/strong&gt; </source>
-				<target>Ein Firmen-Login erm&amp;ouml;glicht Ihnen die Verwaltung der Systeme, die Ihr Unternehmen besitzt und Produkte und Dienstleistungen von Red Hat zu erwerben. &lt;strong&gt;Wenn Ihr Unternehmen einen bestehenden @@PRODUCT_NAME@@ Firmen-Login besitzt, dann sollten Sie dieses Formular nicht verwenden. Stattdessen m&amp;uuml;ssen Sie Ihren @@PRODUCT_NAME@@-Organisations-Administrator kontaktieren, um Ihren Account zu erstellen, so dass Sie bei Ihrer Organisation registriert sind.&lt;/strong&gt; </target>
+				<target>Ein Firmen-Login erm&amp;ouml;glicht Ihnen die Verwaltung der Systeme Ihres Unternehmens und den geschäftlichen Erwerb von Red Hat Produkten und Dienstleistungen. &lt;strong&gt;Wenn Ihre Organisation ein bestehendes @@PRODUCT_NAME@@ Firmen-Login besitzt, dann sollten Sie dieses Formular nicht verwenden. Setzen Sie sich stattdessen mit Ihrem @@PRODUCT_NAME@@-Organisations-Administrator in Verbindung, um Ihren Account so zu erstellen, dass Sie bei Ihrer Organisation registriert sind.&lt;/strong&gt; </target>
 			</trans-unit>
 			<trans-unit id="usercreate.personalSummary">
 				<source> A home user login will enable you to manage systems you own for personal use and make personal purchases of Red Hat products and services. &lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases - for business needs, &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;create a business login&lt;/a&gt; instead.)&lt;/strong&gt; </source>
-				<target>Ein pers&amp;ouml;nlicher/Privat-Login erm&amp;ouml;glicht Ihnen die Verwendung der Systeme, die Sie besitzen, f&amp;uuml;r Ihren privaten Gebrauch und Red Hat Produkte und Dienstleistungen f&amp;uuml;r den pers&amp;ouml;nlichen Gebrauch zu erwerben. &lt;strong&gt;(Sie sollten keinen Privat-Login erstellen, wenn Sie den Red Hat Login dazu verwenden, Systeme, die sich im Besitz eines Unternehmens befinden zu verwalten oder Firmeneink&amp;auml;ufe zu t&amp;auml;tigen - F&amp;uuml;r gesch&amp;auml;ftliche Zwecke, &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;sollten Sie einen Firmen-Login erstellen&lt;/a&gt; stattdessen.)&lt;/strong&gt; </target>
+				<target>Ein privates Login ermöglicht Ihnen die Verwaltung Ihrer eigenen Systeme für Ihren persönlichen Gebrauch und den privaten Erwerb von Red Hat Produkten und Dienstleistungen. &lt;strong&gt;(Sie sollten kein Privat-Login erstellen, wenn Sie ein Red Hat Login dazu verwenden, Systeme zu verwalten, die sich im Besitz eines Unternehmens befinden oder Firmeneink&amp;auml;ufe zu t&amp;auml;tigen – stattdessen sollten Sie f&amp;uuml;r gesch&amp;auml;ftliche Zwecke &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;ein Firmen-Login erstellen&lt;/a&gt;)&lt;/strong&gt; </target>
 			</trans-unit>
 			<trans-unit id="usercreate.loginEnables">
 				<source>A Red Hat Login enables</source>
@@ -2026,7 +2026,7 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="usercreate.enables4">
 				<source>access Red Hat technical support, documentation, and Knowledgebase</source>
-				<target>Zugang zu Red Hats Technischem Support, Dokumentation und zur Knowledgebase</target>
+				<target>Zugang zu Red Hat's Technischem Support, Dokumentation und zur Knowledgebase</target>
 			</trans-unit>
 			<trans-unit id="usercreate.jsp.pam">
 				<source>Pluggable Authentication Modules (PAM): </source>
@@ -2038,7 +2038,7 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="usercreate.jsp.pam.instructions.note">
 				<source>Note: The password fields above are not required when this box is checked; however you may fill in a password that will work only when PAM authentication for this user account is disabled.</source>
-				<target>Anmerkung: Die obigen Passwortfelder sind nicht erforderlich, wenn diese Box angekreuzt ist. Sie k&amp;ouml;nnen jedoch ein Passwort einf&amp;uuml;gen, das nur dann wirksam ist, wenn PAM-Authentifizierung f&amp;uuml;r dieses Benutzer-Account deaktiviert ist.</target>
+				<target>Anmerkung: Die obigen Passwortfelder sind nicht erforderlich, wenn dieses Kästchen angekreuzt ist. Sie k&amp;ouml;nnen jedoch ein Passwort einf&amp;uuml;gen, das nur dann wirksam ist, wenn PAM-Authentifizierung f&amp;uuml;r dieses Benutzer-Account deaktiviert ist.</target>
 			</trans-unit>
 			<trans-unit id="usercreate.jsp.pam.reference">
 				<source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
@@ -2046,7 +2046,7 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.header">
 				<source>User Details</source>
-				<target>Benutzer-Details</target>
+				<target>Benutzerdetails</target>
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.noemailaddress">
 				<source>No email address</source>
@@ -2066,7 +2066,7 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.summary">
 				<source> This user's information may be edited using the form provided below.  Entries marked with an asterisk (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) are &lt;strong&gt;required&lt;/strong&gt;. </source>
-				<target>Diese Benutzerinformation kann bearbeitet werden, indem Sie das unten zur Verf&amp;uuml;gung gestellte Formular verwenden.  Eintr&amp;auml;ge, die mit einem Sternchen (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) versehen sind, sind &lt;strong&gt;erforderlich&lt;/strong&gt;. </target>
+				<target>Diese Benutzerinformation kann bearbeitet werden, indem Sie das unten zur Verf&amp;uuml;gung gestellte Formular verwenden.  Eintr&amp;auml;ge, die mit einem Sternchen (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) versehen sind, sind &lt;strong&gt;Pflichtfelder&lt;/strong&gt;. </target>
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.company">
 				<source>Company Name</source>
@@ -2102,7 +2102,7 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.usertype">
 				<source>User Type</source>
-				<target>Benutzer-Typ</target>
+				<target>Benutzertyp</target>
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.password">
 				<source>Password</source>
@@ -2142,7 +2142,7 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.grantedByOrgAdmin">
 				<source>Above roles are granted via the Organization Administrator role.</source>
-				<target>Die oben aufgef&amp;uuml;hrten Rollen werden durch die Rolle des Organosationsadministrators verliehen.</target>
+				<target>Die oben aufgef&amp;uuml;hrten Rollen werden durch die Rolle des Organisations-Administrators verliehen.</target>
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.lastsign">
 				<source>Last Sign In</source>
@@ -2162,7 +2162,7 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.pendingchange">
 				<source>Pending change to</source>
-				<target>Bevorstehende Ver&amp;auml;nderung an</target>
+				<target>Bevorstehende Änderung an</target>
 			</trans-unit>
 			<trans-unit id="userdetails.usepam">
 				<source>Use PAM: </source>
@@ -2170,7 +2170,7 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="userlist.jsp.useroverview">
 				<source>Users Overview</source>
-				<target>Benutzer-&amp;Uuml;berblick</target>
+				<target>Benutzerüberblick</target>
 			</trans-unit>
 			<trans-unit id="userlist.jsp.noUsers">
 				<source>No users.</source>
@@ -2290,11 +2290,11 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="disabledlist.jsp.disabledBy">
 				<source>Deactivated By</source>
-				<target>Deaktiviert von</target>
+				<target>Deaktiviert durch</target>
 			</trans-unit>
 			<trans-unit id="disabledlist.jsp.disabledOn">
 				<source>Deactivated Date</source>
-				<target>Deaktivierungs-Datum</target>
+				<target>Deaktivierungsdatum</target>
 			</trans-unit>
 			<trans-unit id="disabledlist.jsp.reactivate">
 				<source>Reactivate</source>
@@ -2378,7 +2378,7 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="Add to SSM">
 				<source>Add Selected to SSM</source>
-				<target>Auswahl zum SSM hinzufügen</target>
+				<target>Ausgewählte zum SSM hinzufügen</target>
 			</trans-unit>
 			<trans-unit id="Clear SSM">
 				<source>Remove existing servers from the SSM</source>
@@ -2406,7 +2406,7 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.purchase.description1">
 				<source>&lt;strong&gt;Note:&lt;/strong&gt; Provisioning and Management services are provided to enable add-on features to existing Red Hat Enterprise Linux subscriptions only.  These services alone will not enable you to successfully register an additional system profile in your @@PRODUCT_NAME@@ account.</source>
-				<target>&lt;strong&gt;Anmerkung:&lt;/strong&gt; Provisioning und Management Services werden bereitgestellt um Add-On-Features nur f&amp;uuml;r bestehende Red Hat Enterprise Linux Abonnements zu erm&amp;ouml;glichen.  Diese Dienste alleine erm&amp;ouml;glichen es Ihnen nicht, erfolgreich ein zus&amp;auml;tzliches Systemprofil in Ihrem @@PRODUCT_NAME@@-Account anzumelden.</target>
+				<target>&lt;strong&gt;Anmerkung:&lt;/strong&gt; Provisioning- und Management-Services werden bereitgestellt, um Add-On-Features nur f&amp;uuml;r bestehende Red Hat Enterprise Linux Abonnements zu erm&amp;ouml;glichen.  Diese Dienste alleine erm&amp;ouml;glichen es Ihnen nicht, erfolgreich ein zus&amp;auml;tzliches Systemprofil in Ihrem @@PRODUCT_NAME@@-Account anzumelden.</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.purchase.description2">
 				<source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;Purchase&lt;/a&gt;&lt;/strong&gt; additional &lt;strong&gt;Red Hat Enterprise Linux subscriptions&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat Store&lt;/a&gt;&lt;/strong&gt;.</source>
@@ -2434,7 +2434,7 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="edit_address.jsp.summary">
 				<source>This user's address information may be edited in the form provided below.  Entries marked with an asterisk (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) are &lt;strong&gt;required&lt;/strong&gt;.</source>
-				<target>Diese Benutzerinformation kann bearbeitet werden, indem Sie das unten zur Verf&amp;uuml;gung gestellte Formular verwenden.  Eintr&amp;auml;ge, die mit einem Sternchen (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) versehen sind, sind &lt;strong&gt;erforderlich&lt;/strong&gt;. </target>
+				<target>Diese Benutzerinformation kann in dem unten zur Verf&amp;uuml;gung gestellten Formular geändert werden.  Eintr&amp;auml;ge, die mit einem Sternchen (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) versehen sind, sind &lt;strong&gt;Pflichtfelder&lt;/strong&gt;. </target>
 			</trans-unit>
 			<trans-unit id="edit_address.jsp.fax">
 				<source>FAX</source>
@@ -2442,27 +2442,27 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="edit_address.jsp.zipcode">
 				<source>Zipcode</source>
-				<target>Postleitzahl</target>
+				<target>PLZ</target>
 			</trans-unit>
 			<trans-unit id="yourdetails.jsp.summary">
 				<source> Please enter your information in the form provided below.  Entries marked with an asterisk (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) are &lt;strong&gt;required&lt;/strong&gt;.</source>
-				<target>Bitte geben Sie Ihre Informationen im unten zur Verf&amp;uuml;gung gestellten Formular ein.  Eintr&amp;auml;ge, die mit einem Sternchen (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) versehen sind, sind &lt;strong&gt;erforderlich&lt;/strong&gt;.</target>
+				<target>Bitte geben Sie Ihre Informationen im unten zur Verf&amp;uuml;gung gestellten Formular ein.  Eintr&amp;auml;ge, die mit einem Sternchen (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) versehen sind, sind &lt;strong&gt;Pflichtfelder&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="your_edit_address_record.displayname">
 				<source>Record:</source>
-				<target>Aufzeichnung:</target>
+				<target>Eintrag:</target>
 			</trans-unit>
 			<trans-unit id="your_edit_address.jsp.summary">
 				<source>Please enter your information in the form provided below.  Entries marked with an asterisk (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) are &lt;strong&gt;required&lt;/strong&gt;.</source>
-				<target>Bitte geben Sie Ihre Informationen im unten zur Verf&amp;uuml;gung gestellten Formular ein.  Eintr&amp;auml;ge, die mit einem Sternchen (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) versehen sind, sind &lt;strong&gt;erforderlich&lt;/strong&gt;.</target>
+				<target>Bitte geben Sie Ihre Informationen im unten zur Verf&amp;uuml;gung gestellten Formular ein.  Eintr&amp;auml;ge, die mit einem Sternchen (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) versehen sind, sind &lt;strong&gt;Pflichtfelder&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="usercreate.do_you_need_corp_1">
 				<source>You will need a &lt;strong&gt;business&lt;/strong&gt; login to administer systems owned by your business, or to make business purchases of Red Hat products and services. </source>
-				<target>Sie ben&amp;ouml;tigen einen &lt;strong&gt; Firmen&lt;/strong&gt; -Login, um Systeme zu verwalten, die Ihrem Unternehmen geh&amp;ouml;ren oder um f&amp;uuml;r ein Unternehmen Red Hat Produkte und Services zu erwerben.</target>
+				<target>Sie ben&amp;ouml;tigen ein &lt;strong&gt;Firmen&lt;/strong&gt;-Login, um Systeme Ihres Unternehmens zuverwalten und um Red Hat Produkte und Dienstleistungen geschäftlich zu erwerben.</target>
 			</trans-unit>
 			<trans-unit id="usercreate.do_you_need_corp_2">
 				<source>If your organization has an existing @@PRODUCT_NAME@@ business login, you will need to contact your @@PRODUCT_NAME@@ Organization Administrator to create your account so you are registered with your organization. </source>
-				<target>Wenn Ihre Organisation einen bestehenden @@PRODUCT_NAME@@ Firmen-Login besitzt, dann m&amp;uuml;ssen Sie Ihren @@PRODUCT_NAME@@-Organisations-Administrator kontaktieren, um Ihren Account zu erstellen, sodass Sie bei Ihrer Organisation angemeldet sind. </target>
+				<target>Wenn Ihre Organisation ein bestehendes @@PRODUCT_NAME@@ Firmen-Login besitzt, müssen Sie sich mit Ihrem @@PRODUCT_NAME@@-Organisations-Administrator in Verbindung setzen, um Ihren Account so zu erstellen, dass Sie bei Ihrer Organisation registriert sind.</target>
 			</trans-unit>
 			<trans-unit id="usercreate.createCorpNew">
 				<source>Create a new Business Login</source>
@@ -2470,15 +2470,15 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="usercreate.personalLoginDesc_1">
 				<source>You will need a &lt;strong&gt;home user&lt;/strong&gt; login to manage systems you own for personal use, or to make personal purchases of Red Hat products and services. </source>
-				<target>Sie ben&amp;ouml;tigen einen &lt;strong&gt;pers&amp;ouml;nlichen&lt;/strong&gt; Login, um Systeme, die Sie besitzen f&amp;uuml;r Ihren pers&amp;ouml;nlichen Gebrauch zu benutzen oder um Red Hat Produkte oder Dienstleistungen f&amp;uuml;r ihren pers&amp;ouml;nlichen Gebrauch zu erwerben. </target>
+				<target>Sie ben&amp;ouml;tigen ein &lt;strong&gt;privates&lt;/strong&gt; Login, um Ihre eigenen Systeme für Ihren persönlichen Gebrauch zu verwalten und um Red Hat Produkte und Dienstleistungen privat zu erwerben.</target>
 			</trans-unit>
 			<trans-unit id="usercreate.personalLoginDesc_2">
 				<source>&lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases.)&lt;/strong&gt; </source>
-				<target>&lt;strong&gt;(Sie sollten kein Privat-Login erstellen, wenn Sie einen Red Hat Login dazu verwenden, Systeme eines Unternehmens zu verwalten oder um Firmeneink&amp;auml;ufe zu t&amp;auml;tigen.)&lt;/strong&gt; </target>
+				<target>&lt;strong&gt;(Sie sollten kein Privat-Login erstellen, wenn Sie ein Red Hat Login dazu verwenden, Systeme zu verwalten, die sich im Besitz eines Unternehmens befinden oder Firmeneink&amp;auml;ufe zu t&amp;auml;tigen.)&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="usercreate.createPersonalNew">
 				<source>Create a new Home User Login</source>
-				<target>Neues pers&amp;ouml;nliches/Privat-Login erstellen</target>
+				<target>Neues Privat-Login erstellen</target>
 			</trans-unit>
 			<trans-unit id="assignedgroups.jsp.header">
 				<source>Assigned System Groups</source>
@@ -2486,7 +2486,7 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="assignedgroups.jsp.summary">
 				<source>A list of system groups follows. Use the check boxes to set this user's access permissions to each system group.  Org Admins have permissions to all system groups. </source>
-				<target>Nachfolgend finden Sie eine Liste von Systemgruppen. Verwenden Sie die Kontrollk&amp;auml;stchen, um die Zugangsberechtigungen dieses Benutzers f&amp;uuml;r jede einzelne Systemgruppe zu bestimmen.  Org-Admins besitzen Berechtigungen zu allen Systemgruppen. </target>
+				<target>Nachfolgend finden Sie eine Liste von Systemgruppen. Verwenden Sie die Kontrollk&amp;auml;stchen, um die Zugangsberechtigungen dieses Benutzers f&amp;uuml;r jede Systemgruppe zu bestimmen.  Org-Admins besitzen Berechtigungen zu allen Systemgruppen. </target>
 			</trans-unit>
 			<trans-unit id="assignedgroups.jsp.asadmin">
 				<source>As a System Group Administrator, this user will be able to modify all aspects of the selected system groups. </source>
@@ -2498,7 +2498,7 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="assignedgroups.jsp.youcanselect">
 				<source>You can select one or more default system groups for this user. When the user registers a system, that system will be assigned to the selected group or groups. This allows the user to have access to the newly-registered system immediately, if he or she has permissions to one or more of the groups the system is assigned to. System Groups to which this user has access to are preceded by a (*). </source>
-				<target>Sie k&amp;ouml;nnen eine oder mehrere Standard-Systemgruppen f&amp;uuml;r diesen Benutzer ausw&amp;auml;hlen. Wenn der Benutzer ein System anmeldet, wird dieses System der ausgew&amp;auml;hlten Gruppe oder den ausgew&amp;auml;hlten Gruppen zugewiesen. Dies erm&amp;ouml;glicht dem Benutzer den sofortigen Zugang zum neu-registrierten System, wenn der Benutzer Berechtigungen zu einer oder zu mehreren Gruppen besitzt, der/denen das System zugeordnet ist. Systemgruppen, zu denen dieser Benutzer Zugang hat, sind mit einem (*) markiert. </target>
+				<target>Sie k&amp;ouml;nnen eine oder mehrere Standard-Systemgruppen f&amp;uuml;r diesen Benutzer ausw&amp;auml;hlen. Wenn der Benutzer ein System anmeldet, wird dieses System der ausgew&amp;auml;hlten Gruppe bzw. den ausgew&amp;auml;hlten Gruppen zugewiesen. Das erm&amp;ouml;glicht dem Benutzer den sofortigen Zugang zum neu registrierten System, wenn der Benutzer Berechtigungen zu einer oder zu mehreren der Gruppen besitzt, der/denen das System zugeordnet ist. Systemgruppen, zu denen dieser Benutzer Zugang hat, sind mit einem (*) markiert. </target>
 			</trans-unit>
 			<trans-unit id="assignedgroups.jsp.defaultsysgroups">
 				<source>Default System Groups:</source>
@@ -2526,7 +2526,7 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="updatelist">
 				<source>updatelist</source>
-				<target>Updateliste</target>
+				<target>Update-Liste</target>
 			</trans-unit>
 			<trans-unit id="selectall">
 				<source>selectall</source>
@@ -2538,11 +2538,11 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="actiondetails.jsp.heading2">
 				<source>Action Details</source>
-				<target>Aktion-Details</target>
+				<target>Aktionsdetails</target>
 			</trans-unit>
 			<trans-unit id="actiondetails.jsp.actiontype">
 				<source>Action Type</source>
-				<target>Aktion-Typ</target>
+				<target>Aktionstyp</target>
 			</trans-unit>
 			<trans-unit id="actiondetails.jsp.scheduler">
 				<source>Scheduler</source>
@@ -2842,7 +2842,7 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="packagelist.jsp.notspecified">
 				<source>not specified</source>
-				<target>nicht angegeben</target>
+				<target>nicht spezifiziert</target>
 			</trans-unit>
 			<trans-unit id="packagelist.jsp.removepagesummary">
 				<source>The following packages are installed on this system.  Packages may be scheduled for removal by selecting them and clicking "Remove Packages" below.</source>
@@ -2886,7 +2886,7 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="packagelist.jsp.removablepatchsummary">
 				<source>The following patches are installed on this System. You can back out patches to previous patch versions by using the checkboxes and clicking on the "Back Out"button below. If a patch cannot be selected, it cannot be backed out any further.</source>
-				<target>Die folgenden Patches sind auf diesem System installiert. Sie k&amp;ouml;nnen Patches wieder auf vorherige Patch-Versionen zur&amp;uuml;ckbringen (back out), indem Sie die Kontrollk&amp;auml;stchen verwenden und auf die untenstehenden "Back Out"-Schaltfl&amp;auml;che klicken. Wenn ein Patch nicht ausgew&amp;auml;hlt werden kann, kann dieser nicht weiter zur&amp;uuml;ckgesetzt werden.</target>
+				<target>Die folgenden Patches sind auf diesem System installiert. Sie k&amp;ouml;nnen Patches wieder auf vorherige Patch-Versionen zur&amp;uuml;ckbringen (back out), indem Sie die Kontrollk&amp;auml;stchen verwenden und auf die untenstehenden "Backout"-Schaltfl&amp;auml;che klicken. Wenn ein Patch nicht ausgew&amp;auml;hlt werden kann, kann dieser nicht weiter zur&amp;uuml;ckgesetzt werden.</target>
 			</trans-unit>
 			<trans-unit id="packagelist.jsp.installablepatchsummary">
 				<source>The following patches may be installed on this system.</source>
@@ -2934,11 +2934,11 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="packagelist.confirmpatchsummary.plural">
 				<source>Click on the "confirm" button below to back out the listed patches on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with @@PRODUCT_NAME@@. (last check-in time: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
-				<target>Klicken Sie unten auf die Schaltfl&amp;auml;che "Best&amp;auml;tigen", um die aufgelisteten Patches auf &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; zu entfernen, wenn sich das System das n&amp;auml;chste Mal bei @@PRODUCT_NAME@@ anmeldet. (Letzte Anmeldung: &lt;b&gt;{1}&lt;/b&gt;. N&amp;auml;chste erwartete Anmeldung: &lt;b&gt;{2}&lt;/b&gt;.)</target>
+				<target>Klicken Sie unten auf die Schaltfl&amp;auml;che "Best&amp;auml;tigen", um die aufgelisteten Patches auf &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; zurückzubringen (back out), wenn sich das System das n&amp;auml;chste Mal bei @@PRODUCT_NAME@@ anmeldet. (Letzte Anmeldung: &lt;b&gt;{1}&lt;/b&gt;. N&amp;auml;chste erwartete Anmeldung: &lt;b&gt;{2}&lt;/b&gt;.)</target>
 			</trans-unit>
 			<trans-unit id="packagelist.confirmpatchsummary">
 				<source>Click on the "confirm" button below to back out the listed patch on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with @@PRODUCT_NAME@@. (last check-in: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
-				<target>Klicken Sie unten auf die Schaltfl&amp;auml;che "Best&amp;auml;tigen", um den aufgelisteten Patch auf &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; zu entfernen, wenn sich das System das n&amp;auml;chste Mal bei @@PRODUCT_NAME@@ anmeldet. (Letzte Anmeldung: &lt;b&gt;{1}&lt;/b&gt;. N&amp;auml;chste erwartete Anmeldung: &lt;b&gt;{2}&lt;/b&gt;.)</target>
+				<target>Klicken Sie unten auf die Schaltfl&amp;auml;che "Best&amp;auml;tigen", um den aufgelisteten Patch auf &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; zurückzubringen (back out), wenn sich das System das n&amp;auml;chste Mal bei @@PRODUCT_NAME@@ anmeldet. (Letzte Anmeldung: &lt;b&gt;{1}&lt;/b&gt;. N&amp;auml;chste erwartete Anmeldung: &lt;b&gt;{2}&lt;/b&gt;.)</target>
 			</trans-unit>
 			<trans-unit id="packagelist.confirminstallpatchsummary.plural">
 				<source>Click on the "confirm" button below to install the listed patches on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with @@PRODUCT_NAME@@. (last check-in time: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
@@ -2946,7 +2946,7 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="packagelist.confirminstallpatchsummary">
 				<source>Click on the "confirm" button below to install the listed patch on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with @@PRODUCT_NAME@@. (last check-in: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
-				<target>Klicken Sie unten auf die "Best&amp;auml;tigen"-Schaltfl&amp;auml;che, um den aufgelisteten Patch auf &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; zu installieren, wenn sich das System das n&amp;auml;chste Mal bei @@PRODUCT_NAME@@ anmeldet. (Letzte Anmeldung: &lt;b&gt;{1}&lt;/b&gt;. N&amp;auml;chste erwartete Anmeldung: &lt;b&gt;{2}&lt;/b&gt;.)</target>
+				<target>Klicken Sie unten auf die Schaltfl&amp;auml;che "Best&amp;auml;tigen", um den aufgelisteten Patch auf &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; zu installieren, wenn sich das System das n&amp;auml;chste Mal bei @@PRODUCT_NAME@@ anmeldet. (Letzte Anmeldung: &lt;b&gt;{1}&lt;/b&gt;. N&amp;auml;chste erwartete Anmeldung: &lt;b&gt;{2}&lt;/b&gt;.)</target>
 			</trans-unit>
 			<trans-unit id="upgradable.jsp.header">
 				<source>Upgradable Packages</source>
@@ -3130,27 +3130,27 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="erratalist.jsp.synopsis">
 				<source>Synopsis</source>
-				<target>Zusammenfassung</target>
+				<target>Übersicht</target>
 			</trans-unit>
 			<trans-unit id="simple_errata_search">
 				<source>Synopsis</source>
-				<target>Zusammenfassung</target>
+				<target>Übersicht</target>
 			</trans-unit>
 			<trans-unit id="errata_search_by_synopsis">
 				<source>Synopsis</source>
-				<target>Zusammenfassung</target>
+				<target>Übersicht</target>
 			</trans-unit>
 			<trans-unit id="cloneerrata.jsp.synopsis">
 				<source>Synopsis</source>
-				<target>Zusammenfassung</target>
+				<target>Übersicht</target>
 			</trans-unit>
 			<trans-unit id="exportcolumn.advisorySynopsis">
 				<source>Synopsis</source>
-				<target>Zusammenfassung</target>
+				<target>Übersicht</target>
 			</trans-unit>
 			<trans-unit id="exportcolumn.advisorySynopsis">
 				<source>Synopsis</source>
-				<target>Zusammenfassung</target>
+				<target>Übersicht</target>
 			</trans-unit>
 			<trans-unit id="erratalist.jsp.relevanterrata">
 				<source>Errata Relevant to Your Systems</source>
@@ -3158,7 +3158,7 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="erratalist.jsp.norelevanterrata">
 				<source>No Errata Relevant to Your Systems</source>
-				<target>Keine Errata f&amp;uuml;r Ihre Systeme</target>
+				<target>Keine Errata relevant f&amp;uuml;r Ihre Systeme</target>
 			</trans-unit>
 			<trans-unit id="erratalist.jsp.type">
 				<source>Type</source>
@@ -3286,7 +3286,7 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="errata.edit.cache.explain">
 				<source>These changes will not immediately be available to systems to which this erratum applies. The changes will become available approximately 10 minutes after they are made. Or, you can &lt;a href="/rhn/errata/manage/CommitErrataPackageChanges.do?eid={0}"&gt; commit your changes immediately&lt;/a&gt; when you are finished editing this erratum.</source>
-				<target>Diese &amp;Auml;nderungen stehen Systemen, auf die dieses Erratum zutrifft, nicht umgehend zur Verf&amp;uuml;gung. Es dauert ca. 10 Minuten, bis die &amp;Auml;nderungen wirksam werden. Alternativ k&amp;ouml;nnen Sie &lt;a href="/rhn/errata/manage/CommitErrataPackageChanges.do?eid={0}"&gt; Ihre &amp;Auml;nderungen umgehend festlegen&lt;/a&gt;, wenn Sie mit dem Bearbeiten dieses Erratums fertig sind.</target>
+				<target>Diese &amp;Auml;nderungen stehen Systemen, auf die dieses Erratum zutrifft, nicht umgehend zur Verf&amp;uuml;gung. Es dauert ca. 10 Minuten, bis die &amp;Auml;nderungen wirksam werden. Alternativ k&amp;ouml;nnen Sie &lt;a href="/rhn/errata/manage/CommitErrataPackageChanges.do?eid={0}"&gt; Ihre &amp;Auml;nderungen sofort festlegen&lt;/a&gt;, wenn Sie mit dem Bearbeiten dieses Erratums fertig sind.</target>
 			</trans-unit>
 			<trans-unit id="errata.edit.toolbar">
 				<source>Errata: </source>
@@ -3298,7 +3298,7 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="errata.edit.instructions">
 				<source>Edit erratum here.  Required items are marked with a (&lt;span class="required-form-field"&gt;*&lt;/span&gt;).</source>
-				<target>Erratum hier bearbeiten.  Erforderliche Elemente sind gekennzeichnet mit (&lt;span class="required- form-field"&gt;*&lt;/span&gt;).</target>
+				<target>Erratum hier bearbeiten.  Pflichtfelder sind gekennzeichnet mit (&lt;span class="required- form-field"&gt;*&lt;/span&gt;).</target>
 			</trans-unit>
 			<trans-unit id="errata.edit.updateerrata">
 				<source>Update Erratum</source>
@@ -3342,7 +3342,7 @@ dr&amp;uuml;cken und &lt;b&gt;k&amp;ouml;nnen sich nicht wieder einloggen&lt;/b&
 			</trans-unit>
 			<trans-unit id="errata.edit.updated">
 				<source>Errata updated.</source>
-				<target>Aktualisierte Errata.</target>
+				<target>Errata aktualisiert.</target>
 			</trans-unit>
 			<trans-unit id="errata.edit.deletebug">
 				<source>Delete Bug</source>
@@ -4179,7 +4179,7 @@ f&amp;uuml;r diese Berechtigung.</target>
 			</trans-unit>
 			<trans-unit id="erratasearch.jsp.whatsearch.tip">
 				<source>Use 'all fields' to search synopsis, description, topic, or solution.</source>
-				<target>Wählen Sie 'Alle Felder', um in Zusammenfassung, Beschreibung, Thema und Lösung zu suchen.</target>
+				<target>Wählen Sie 'Alle Felder', um in Übersicht, Beschreibung, Thema und Lösung zu suchen.</target>
 			</trans-unit>
 			<trans-unit id="erratasearch.jsp.types_to_search">
 				<source>Types of Errata to Search:.</source>
@@ -4295,11 +4295,11 @@ f&amp;uuml;r diese Berechtigung.</target>
 			</trans-unit>
 			<trans-unit id="errata.create.jsp.instructions">
 				<source>Create new errata here.  Required items are marked with a (&lt;span class="required-form-field"&gt;*&lt;/span&gt;).</source>
-				<target>Hier neue Errata erstellen.  Erforderliche Positionen sind mit einem (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) markiert.</target>
+				<target>Hier neues Erratum erstellen.  Pflichtfelder sind mit einem (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) markiert.</target>
 			</trans-unit>
 			<trans-unit id="errata.create.jsp.synopsis">
 				<source>Synopsis&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</source>
-				<target>Synopsis (Zusammenfassung)&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</target>
+				<target>Übersicht&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</target>
 			</trans-unit>
 			<trans-unit id="errata.create.jsp.advisory">
 				<source>Advisory&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</source>
@@ -4383,15 +4383,15 @@ f&amp;uuml;r diese Berechtigung.</target>
 			</trans-unit>
 			<trans-unit id="errata.publish.packagepush.currentversion">
 				<source>Current Version in Channel</source>
-				<target>Derzeitige Version in Channel</target>
+				<target>Derzeitige Version im Channel</target>
 			</trans-unit>
 			<trans-unit id="copycentral.jsp.current">
 				<source>Current Version in Channel</source>
-				<target>Derzeitige Version in Channel</target>
+				<target>Derzeitige Version im Channel</target>
 			</trans-unit>
 			<trans-unit id="copycentral.jsp.current">
 				<source>Current Version in Channel</source>
-				<target>Derzeitige Version in Channel</target>
+				<target>Derzeitige Version im Channel</target>
 			</trans-unit>
 			<trans-unit id="errata.publish.packagepush.newversion">
 				<source>New Version to be Pushed</source>
@@ -4439,7 +4439,7 @@ f&amp;uuml;r diese Berechtigung.</target>
 			</trans-unit>
 			<trans-unit id="entitlements.tree.description2">
 				<source>Greyed out rows are parents of child channels in this entitlement that do not belong to the entitlement.</source>
-				<target>Grau markierte Reihen sind &amp;uuml;bergeordnete Haupt-Channels von Sub-Channels in dieser Berechtigung, die nicht zur Berechtigung geh&amp;ouml;ren.</target>
+				<target>Grau markierte Reihen sind &amp;uuml;bergeordnete Channels ("Parents") von Sub-Channels in dieser Berechtigung, die nicht zur Berechtigung geh&amp;ouml;ren.</target>
 			</trans-unit>
 			<trans-unit id="packagesearch.jsp.toolbar">
 				<source>Package Search</source>
@@ -4831,7 +4831,7 @@ f&amp;uuml;r diese Berechtigung.</target>
 			</trans-unit>
 			<trans-unit id="systementitlements.jsp.para3">
 				<source>&lt;strong&gt; If you need additional entitlements,&lt;/strong&gt; please visit &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;Purchase or Renew&lt;/strong&gt;&lt;/a&gt; via the left navigation bar. Please note that you will need to purchase a Red Hat Enterprise Linux subscription for additional &lt;strong&gt;update&lt;/strong&gt; base entitlements.</source>
-				<target>&lt;strong&gt; Wenn Sie zus&amp;auml;tzliche Berechtigungen ben&amp;ouml;tigen,&lt;/strong&gt; besuchen Sie bitte &lt;a href="rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;Kauf oder Erneuerung&lt;/strong&gt;&lt;/a&gt; &amp;uuml;ber die linke Navigationsleiste. Bitte vermerken Sie, dass Sie ein Red Hat Enterprise Linux Abonnement f&amp;uuml;r zus&amp;auml;tzliche &lt;strong&gt;Update&lt;/strong&gt; Basis-Berechtigungen erwerben m&amp;uuml;ssen.</target>
+				<target>&lt;strong&gt; Wenn Sie zus&amp;auml;tzliche Berechtigungen ben&amp;ouml;tigen,&lt;/strong&gt; besuchen Sie bitte &lt;a href="rhn/account/SubscriptionManagement.do"&gt; &lt;strong&gt;Kauf oder Erneuerung&lt;/strong&gt;&lt;/a&gt; &amp;uuml;ber die linke Navigationsleiste. Bitte beachten Sie, dass Sie ein Red Hat Enterprise Linux Abonnement f&amp;uuml;r zus&amp;auml;tzliche &lt;strong&gt;Update&lt;/strong&gt; Basis-Berechtigungen erwerben m&amp;uuml;ssen.</target>
 			</trans-unit>
 			<trans-unit id="systementitlements.jsp.baseentitlement">
 				<source>Base Entitlement</source>
@@ -4887,11 +4887,11 @@ f&amp;uuml;r diese Berechtigung.</target>
 			</trans-unit>
 			<trans-unit id="systementitlements.jsp.entitlement_counts_message_3">
 				<source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlement (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
-				<target>&lt;strong&gt;{0} System&lt;/strong&gt; berechtigt, &lt;strong&gt;{1} erh&amp;auml;ltliche&lt;/strong&gt; Berechtigung (&lt;strong&gt;{2} gesamt&lt;/strong&gt;) </target>
+				<target>&lt;strong&gt;{0} Systeme&lt;/strong&gt; berechtigt, &lt;strong&gt;{1} erh&amp;auml;ltliche&lt;/strong&gt; Berechtigung (&lt;strong&gt;{2} gesamt&lt;/strong&gt;) </target>
 			</trans-unit>
 			<trans-unit id="systementitlements.jsp.entitlement_counts_message_4">
 				<source>&lt;strong&gt;{0} systems&lt;/strong&gt; entitled, &lt;strong&gt;{1} available&lt;/strong&gt; entitlements (&lt;strong&gt;{2} total&lt;/strong&gt;) </source>
-				<target>&lt;strong&gt;{0} System&lt;/strong&gt; berechtigt, &lt;strong&gt;{1} erh&amp;auml;ltliche&lt;/strong&gt; Berechtigungen (&lt;strong&gt;{2} gesamt&lt;/strong&gt;)</target>
+				<target>&lt;strong&gt;{0} Systeme&lt;/strong&gt; berechtigt, &lt;strong&gt;{1} erh&amp;auml;ltliche&lt;/strong&gt; Berechtigungen (&lt;strong&gt;{2} gesamt&lt;/strong&gt;)</target>
 			</trans-unit>
 			<trans-unit id="systementitlements.jsp.footnote">
 				<source>For more information on entitlement purchase and expiration dates, please visit &lt;a href="/rhn/account/PurchaseHistory.do"&gt; &lt;strong&gt;Expiration Dates &amp;amp; Purchase History&lt;/strong&gt;&lt;/a&gt; page via the left-hand navigation bar.</source>
@@ -5215,7 +5215,7 @@ f&amp;uuml;r diese Berechtigung.</target>
 			</trans-unit>
 			<trans-unit id="probedetails.jsp.noselection">
 				<source>You probably want to select at least one of 'Show graph' or 'Show event log'.</source>
-				<target>Sie m&amp;ouml;chten wahrscheinlich mindestens eine Auswahl aus 'Diagramm anzeigen' oder 'Event-Log' anzeigen' treffen.</target>
+				<target>Sie m&amp;ouml;chten wahrscheinlich mindestens eine Auswahl aus 'Diagramm anzeigen' oder 'Event-Log anzeigen' treffen.</target>
 			</trans-unit>
 			<trans-unit id="generalconfig.jsp.header1">
 				<source>@@PRODUCT_NAME@@ Configuration - Monitoring</source>
@@ -5311,7 +5311,7 @@ f&amp;uuml;r diese Berechtigung.</target>
 			</trans-unit>
 			<trans-unit id="download.jsp.summary1">
 				<source>To begin the download process, click the button at the bottom of the page. You will be presented with a dialog box that allows you to choose the directory to which you wish to save the &lt;strong&gt;rhn-packages.tar&lt;/strong&gt; file.</source>
-				<target>Um mit dem Herunterladen zu beginnen, klicken Sie den Schaltfl&amp;auml;che am unteren Ende der Seite. Es erscheint ein Dialogfeld, in welchem Sie das Verzeichnis ausw&amp;auml;hlen k&amp;ouml;nnen, in welchem Sie die &lt;strong&gt;rhn-packages.tar&lt;/strong&gt;-Datei speichern m&amp;ouml;chten.</target>
+				<target>Um mit dem Herunterladen zu beginnen, klicken Sie die Schaltfl&amp;auml;che am unteren Ende der Seite. Es erscheint ein Dialogfeld, in welchem Sie das Verzeichnis ausw&amp;auml;hlen k&amp;ouml;nnen, in dem Sie die &lt;strong&gt;rhn-packages.tar&lt;/strong&gt;-Datei speichern m&amp;ouml;chten.</target>
 			</trans-unit>
 			<trans-unit id="download.jsp.summary2">
 				<source>To extract the packages once the download is complete, run the following from the commandline:</source>
@@ -5539,7 +5539,7 @@ f&amp;uuml;r diese Berechtigung.</target>
 			</trans-unit>
 			<trans-unit id="probesuites.jsp.access">
 				<source>You can only access Probe Suites that contain systems that you have access to. Probe Suites that contain at least one system that you are not allowed to access are shown in the list but can't be accessed by you. Speak with your Org Admin if you need to access those suites.</source>
-				<target>Sie k&amp;ouml;nnen nur auf Probe-Suites zugreifen, die lediglich Systeme beinhalten, zu denen Sie Zugang besitzen. Probe-Suites, die mindestens ein System beinhalten, zu dem Sie keinen Zugang besitzen, werden in der Liste angezeigt, aber Sie k&amp;ouml;nnen nicht darauf zugreifen. Kontaktieren Sie Ihren Org-Admin, wenn Sie Zugriff auf diese Suites ben&amp;ouml;tigen.</target>
+				<target>Sie k&amp;ouml;nnen nur auf Probe-Suites zugreifen, die lediglich Systeme beinhalten, zu denen Sie Zugang besitzen. Probe-Suites, die mindestens ein System beinhalten, zu dem Sie keinen Zugang besitzen, werden in der Liste angezeigt, aber Sie k&amp;ouml;nnen nicht darauf zugreifen. Kontaktieren Sie Ihren Organisations-Admin, wenn Sie Zugriff auf diese Suites ben&amp;ouml;tigen.</target>
 			</trans-unit>
 			<trans-unit id="probesuites.jsp.nosuites">
 				<source>No Probe Suites defined.</source>
@@ -5655,7 +5655,7 @@ f&amp;uuml;r diese Berechtigung.</target>
 			</trans-unit>
 			<trans-unit id="probesuitesystems.jsp.summary">
 				<source>Add and remove systems to this Probe Suite.  Each system will have the Probes in this Suite assigned to it.  Detaching changes the suite of probes to be independent probes that can be configured specific to the system they are monitoring.  Detached probes cannot be re-attached to the Suite.</source>
-				<target>F&amp;uuml;gen Sie Systeme zu dieser Probe-Suite hinzu oder entfernen Sie Systeme von der Probe-Suite. Jedem System werden die Probes in dieser Suite zugeordnet.  Die Abtrennung ver&amp;auml;ndert die Probes-Suite zu unabh&amp;auml;ngigen Probes, welche spezifisch auf das System, das sie &amp;uuml;berwachen konfiguriert werden k&amp;ouml;nnen.  Abgetrennte Probes k&amp;ouml;nnen der Suite wieder angeh&amp;auml;ngt werden.</target>
+				<target>F&amp;uuml;gen Sie Systeme zu dieser Probe-Suite hinzu oder entfernen Sie Systeme von der Probe-Suite. Jedem System werden die Probes in dieser Suite zugeordnet.  Die Abtrennung ver&amp;auml;ndert die Probes-Suite zu unabh&amp;auml;ngigen Probes, welche spezifisch auf das System, das sie &amp;uuml;berwachen, konfiguriert werden k&amp;ouml;nnen.  Abgetrennte Probes k&amp;ouml;nnen der Suite wieder angeh&amp;auml;ngt werden.</target>
 			</trans-unit>
 			<trans-unit id="probesuitesystems.jsp.removesystem">
 				<source>Remove System(s) from Probe Suite</source>
@@ -5683,11 +5683,11 @@ f&amp;uuml;r diese Berechtigung.</target>
 			</trans-unit>
 			<trans-unit id="installconfirm.jsp.header">
 				<source>Confirm Package Install</source>
-				<target>Paket-Installation best&amp;auml;tigen</target>
+				<target>Paketinstallation best&amp;auml;tigen</target>
 			</trans-unit>
 			<trans-unit id="installconfirm.jsp.widgetsummary">
 				<source>You may schedule the package installations to take place as soon as possible, or no sooner than a specified time:</source>
-				<target>Sie k&amp;ouml;nnen die Paket-Installation f&amp;uuml;r sobald wie m&amp;ouml;glich planen oder auch f&amp;uuml;r nicht fr&amp;uuml;her als zu einem bestimmten Zeitpunkt:</target>
+				<target>Sie k&amp;ouml;nnen die Paketinstallation f&amp;uuml;r sobald wie m&amp;ouml;glich planen, oder f&amp;uuml;r nicht fr&amp;uuml;her als zu einem bestimmten Zeitpunkt:</target>
 			</trans-unit>
 			<trans-unit id="confirm.jsp.selection">
 				<source>Date Selection</source>
@@ -5727,7 +5727,7 @@ f&amp;uuml;r diese Berechtigung.</target>
 			</trans-unit>
 			<trans-unit id="verifyconfirm.jsp.widgetsummary">
 				<source>You may schedule the package verifications to take place as soon as possible, or no sooner than a specified time:</source>
-				<target>Sie k&amp;ouml;nnen die Paket-Verifizierung f&amp;uuml;r sobald wie m&amp;ouml;glich planen oder auch f&amp;uuml;r nicht fr&amp;uuml;her als zu einem bestimmten Zeitpunkt:</target>
+				<target>Sie k&amp;ouml;nnen die Paketverifizierung f&amp;uuml;r sobald wie m&amp;ouml;glich planen oder auch f&amp;uuml;r nicht fr&amp;uuml;her als zu einem bestimmten Zeitpunkt:</target>
 			</trans-unit>
 			<trans-unit id="verifypkgs.jsp.verifiablepackages">
 				<source>Verifiable Packages</source>
@@ -5747,7 +5747,7 @@ f&amp;uuml;r diese Berechtigung.</target>
 			</trans-unit>
 			<trans-unit id="verifyconfirm.jsp.header">
 				<source>Confirm Package Verification</source>
-				<target>Paket-Verifizierung best&amp;auml;tigen</target>
+				<target>Paketverifizierung best&amp;auml;tigen</target>
 			</trans-unit>
 			<trans-unit id="compare.jsp.compareto">
 				<source>Compare to {0}</source>
@@ -5811,15 +5811,15 @@ f&amp;uuml;r diese Berechtigung.</target>
 			</trans-unit>
 			<trans-unit id="create.jsp.pagesummary">
 				<source>This will create a stored profile, based upon the package set of this system, that you may use for profile comparisons.</source>
-				<target>Dies erzeugt ein gespeichertes Profil, basierend auf dem Paketsatz dieses Systems, welches sie f&amp;uuml;r Profil-Vergleiche verwenden k&amp;ouml;nnen.</target>
+				<target>Dies erzeugt ein gespeichertes Profil, basierend auf dem Paketsatz dieses Systems, welches sie f&amp;uuml;r Profilvergleiche verwenden k&amp;ouml;nnen.</target>
 			</trans-unit>
 			<trans-unit id="create.jsp.profiledescription">
 				<source>Profile Description</source>
-				<target>Profil-Beschreibung</target>
+				<target>Profilbeschreibung</target>
 			</trans-unit>
 			<trans-unit id="create.jsp.profilename">
 				<source>Profile Name</source>
-				<target>Profil-Name</target>
+				<target>Profilname</target>
 			</trans-unit>
 			<trans-unit id="create.jsp.successmessage">
 				<source>Profile &lt;strong&gt;{0}&lt;/strong&gt; successfully created from &lt;strong&gt;{1}&lt;/strong&gt;.</source>
@@ -5836,7 +5836,7 @@ regain this role if you choose to remove it now.  You will no longer have access
 organization management tools if you choose to remove this role from your login.</source>
 				<target>Sind Sie sicher, dass Sie die Rolle "@@PRODUCT_NAME@@-Administrator" aus Ihrem eigenen Login
 entfernen m&amp;ouml;chten? Sie m&amp;uuml;ssen einen anderen Satellite-Administrator kontaktieren, um diese Rolle
-wieder zu erlangen, wenn Sie sich jetzt entschließen, sie zu entfernen.  Sie haben keinen Zugriff mehr auf die Konfigurations-Tools und Management-Tools des @@PRODUCT_NAME@@s, wenn Sie sich entschließen, diese Rolle aus Ihrem Login zu entfernen.</target>
+wiederzuerlangen, wenn Sie sich jetzt entschließen, sie zu entfernen.  Sie haben keinen Zugriff mehr auf die Konfigurations-Tools und Management-Tools des @@PRODUCT_NAME@@s, wenn Sie sich entschließen, diese Rolle aus Ihrem Login zu entfernen.</target>
 			</trans-unit>
 			<trans-unit id="orgs.trust.channels.plural.jsp.enabled">
 				<source>{0} trusted organizations enabled.</source>
@@ -5874,11 +5874,11 @@ wieder zu erlangen, wenn Sie sich jetzt entschließen, sie zu entfernen.  Sie ha
 				<target>Die unten aufgeführten Organisationen sind jene, mit denen Ihre
           Organisation einen Trust hat. Den unten ausgewählten Organisationen
           wird Zugriff gewährt zum Ansehen und Verwenden von Inhalten im
-          &lt;strong&gt;{0}&lt;/strong&gt; Channel. Organisationen, die unten nicht ausgewählt sind, besitzenkeinen Zugriff auf diesen Software-Channel. Sie können den Zugriff einer Organisation auf diesen Channel unten modifizieren.</target>
+          &lt;strong&gt;{0}&lt;/strong&gt; Channel. Organisationen, die unten nicht ausgewählt sind, besitzen keinen Zugriff auf diesen Software-Channel. Sie können den Zugriff einer Organisation auf diesen Channel unten modifizieren.</target>
 			</trans-unit>
 			<trans-unit id="orgtrustdetails.jsp.header3">
 				<source>System Details</source>
-				<target>System-Details</target>
+				<target>Systemdetails</target>
 			</trans-unit>
 			<trans-unit id="orgtrustdetails.jsp.trusted">
 				<source>Trusted Since</source>
@@ -5990,7 +5990,7 @@ wieder zu erlangen, wenn Sie sich jetzt entschließen, sie zu entfernen.  Sie ha
 			</trans-unit>
 			<trans-unit id="schedulesync.jsp.disclaimer">
 				<source>If you are &lt;strong&gt;certain&lt;/strong&gt; you wish to do this, you may schedule the sync to take place as soon as possible, or no earlier than a specified time:</source>
-				<target>Wenn Sie &lt;strong&gt;sicher&lt;/strong&gt; sind, dass Sie dies tun m&amp;ouml;chten, k&amp;ouml;nnen Sie die Synchronisation sobald als m&amp;ouml;glich einplanen oder auch nicht fr&amp;uuml;her als zu einem bestimmten Zeitpunkt:</target>
+				<target>Wenn Sie &lt;strong&gt;sicher&lt;/strong&gt; sind, dass Sie dies tun m&amp;ouml;chten, k&amp;ouml;nnen Sie die Synchronisation für sobald als m&amp;ouml;glich einplanen, oder für nicht fr&amp;uuml;her als zu einem bestimmten Zeitpunkt:</target>
 			</trans-unit>
 			<trans-unit id="schedulesync.jsp.nopackagesselected">
 				<source>No packages selected.</source>
@@ -6002,7 +6002,7 @@ wieder zu erlangen, wenn Sie sich jetzt entschließen, sie zu entfernen.  Sie ha
 			</trans-unit>
 			<trans-unit id="schedulesync.jsp.profilesync">
 				<source>Profile Syncrhonization</source>
-				<target>Profil-Synchronisation</target>
+				<target>Profilsynchronisation</target>
 			</trans-unit>
 			<trans-unit id="schedulesync.jsp.schedulesync">
 				<source>Schedule Sync</source>
@@ -6054,7 +6054,7 @@ wieder zu erlangen, wenn Sie sich jetzt entschließen, sie zu entfernen.  Sie ha
 			</trans-unit>
 			<trans-unit id="filters.jsp.summary">
 				<source>Notification filters allow you to create long-term rules that suspend, redirect or automatically acknowledge standard notifications or send supplemental notifications.</source>
-				<target>Benachrichtigungsfilter erm&amp;ouml;glichen es Ihnen, Langzeit-Regeln aufzustellen, welche Standard-Benachrichtigungen suspendieren, umleiten oder automatisch deren Empfang best&amp;auml;tigen oder welche auch erg&amp;auml;nzende Benachrichtigungen senden.</target>
+				<target>Benachrichtigungsfilter erm&amp;ouml;glichen es Ihnen, Langzeit-Regeln aufzustellen, welche Standard-Benachrichtigungen aussetzen, umleiten oder automatisch deren Empfang best&amp;auml;tigen oder welche auch erg&amp;auml;nzende Benachrichtigungen senden.</target>
 			</trans-unit>
 			<trans-unit id="filters.jsp.expirefilters">
 				<source>Expire Notification Filters</source>
@@ -6138,7 +6138,7 @@ wieder zu erlangen, wenn Sie sich jetzt entschließen, sie zu entfernen.  Sie ha
 			</trans-unit>
 			<trans-unit id="filter-form.jspf.destination_help">
 				<source>Comma-separated list of email addresses for supplemental or redirected notifications.</source>
-				<target>Durch Beistriche getrennte Liste von E-Mail-Adressen f&amp;uuml;r erg&amp;auml;nzende oder umgeleitete Benachrichtungen.</target>
+				<target>Kommagetrennte Liste von E-Mail-Adressen f&amp;uuml;r erg&amp;auml;nzende oder umgeleitete Benachrichtungen.</target>
 			</trans-unit>
 			<trans-unit id="filter-form.jspf.scope">
 				<source>Scope</source>
@@ -6178,19 +6178,19 @@ wieder zu erlangen, wenn Sie sich jetzt entschließen, sie zu entfernen.  Sie ha
 			</trans-unit>
 			<trans-unit id="filter-form.jspf.all_contact_groups">
 				<source>Any recipient</source>
-				<target>irgendein Empf&amp;auml;nger</target>
+				<target>Irgendein Empf&amp;auml;nger</target>
 			</trans-unit>
 			<trans-unit id="filter-form.jspf.output_match">
 				<source>Match output</source>
-				<target>Match-Output</target>
+				<target>Übereinstimmung mit Ausgabe</target>
 			</trans-unit>
 			<trans-unit id="filter-form.jspf.output_match_case">
 				<source>Match case</source>
-				<target>&amp;Uuml;bereinstimmung</target>
+				<target>Groß-/Kleinschreibung berücksichtigen</target>
 			</trans-unit>
 			<trans-unit id="filter-form.jspf.output_match_help">
 				<source>Leave this field blank to match all notifications. The entry must be a valid regular expression.</source>
-				<target>Lassen Sie dieses Feld frei, um alle Benachrichtigungen anzupassen. Der Eintrag muss eine g&amp;uuml;ltiger regul&amp;auml;rer Ausdruck sein.</target>
+				<target>Lassen Sie dieses Feld frei, um mit allen Benachrichtigungen übereinzustimmen. Der Eintrag muss ein g&amp;uuml;ltiger regul&amp;auml;rer Ausdruck sein.</target>
 			</trans-unit>
 			<trans-unit id="filter-form.jsp.ksoverviewprofiles">
 				<source> Kickstart Profiles</source>
@@ -6198,7 +6198,7 @@ wieder zu erlangen, wenn Sie sich jetzt entschließen, sie zu entfernen.  Sie ha
 			</trans-unit>
 			<trans-unit id="filtercreate.jsp.header2">
 				<source>Create the notification filter using the form provided.</source>
-				<target>Erstellen Sie den Benachrichtigungsfilter mit der zur Verf&amp;uuml;gung gestellten Form.</target>
+				<target>Erstellen Sie den Benachrichtigungsfilter mit Hilfe des zur Verf&amp;uuml;gung gestellten Formulars.</target>
 			</trans-unit>
 			<trans-unit id="filtercreate.jsp.header1">
 				<source>Create Notification Filter.</source>
@@ -6206,7 +6206,7 @@ wieder zu erlangen, wenn Sie sich jetzt entschließen, sie zu entfernen.  Sie ha
 			</trans-unit>
 			<trans-unit id="filteredit.jsp.header2">
 				<source>Edit the notification filter using the form provided.</source>
-				<target>Bearbeiten Sie den Benachrichtigungsfilter unter Verwendung der zur Verf&amp;uuml;gung gestellten Form.</target>
+				<target>Bearbeiten Sie den Benachrichtigungsfilter mit Hilfe des zur Verf&amp;uuml;gung gestellten Formulars.</target>
 			</trans-unit>
 			<trans-unit id="filteredit.jsp.header1">
 				<source>Edit Notification Filter.</source>
@@ -6294,23 +6294,23 @@ wieder zu erlangen, wenn Sie sich jetzt entschließen, sie zu entfernen.  Sie ha
 			</trans-unit>
 			<trans-unit id="monitoring.status.ok">
 				<source>Probe(s) assigned to system have an OK status</source>
-				<target>Zum System zugeordnete Probe(s) besitzen einen OK-Status</target>
+				<target>Zum System zugeordnete Probe(s) haben einen OK-Status</target>
 			</trans-unit>
 			<trans-unit id="monitoring.status.warn">
 				<source>Probe(s) assigned to system have a WARNING status</source>
-				<target>Zum System zugeordnete Probe(s) besitzen einen WARNUNG-Status</target>
+				<target>Zum System zugeordnete Probe(s) haben einen WARNUNG-Status</target>
 			</trans-unit>
 			<trans-unit id="monitoring.status.unknown">
 				<source>Probe(s) assigned to system have an UNKNOWN status</source>
-				<target>Zum System zugeordnete Probes besitzen einen UNBEKANNTEN Status</target>
+				<target>Zum System zugeordnete Probes haben einen UNBEKANNTEN Status</target>
 			</trans-unit>
 			<trans-unit id="monitoring.status.pending">
 				<source>Probe(s) assigned to system have a PENDING status</source>
-				<target>Zum System zugeordnete Probes besitzen einen BEVORSTEHENDEN Status</target>
+				<target>Zum System zugeordnete Probes haben einen BEVORSTEHENDEN Status</target>
 			</trans-unit>
 			<trans-unit id="monitoring.status.critical">
 				<source>Probe(s) assigned to system have a CRITICAL status</source>
-				<target>Zum System zugeordnete Probes besitzen einen KRITISCHEN Status</target>
+				<target>Zum System zugeordnete Probes haben einen KRITISCHEN Status</target>
 			</trans-unit>
 			<trans-unit id="probes.index.jsp.summary">
 				<source>This list shows the Probes that are assigned to this system.  This list includes individual System Probes as well as Probes that are part of Probe Suites used by this System.</source>
@@ -6346,7 +6346,7 @@ wieder zu erlangen, wenn Sie sich jetzt entschließen, sie zu entfernen.  Sie ha
 			</trans-unit>
 			<trans-unit id="applyerrata.disclaimer">
 				<source>If you are &lt;strong&gt;certain&lt;/strong&gt; you wish to do this, you may apply the errata as soon as possible, or no earlier than a specified time:</source>
-				<target>Wenn Sie &lt;strong&gt;sicher&lt;/strong&gt; sind, dass Sie dies tun m&amp;ouml;chten, k&amp;ouml;nnen Sie das Erratum entweder sobald als m&amp;ouml;glich einplanen oder nicht vor einer speziellen Zeit:</target>
+				<target>Wenn Sie &lt;strong&gt;sicher&lt;/strong&gt; sind, dass Sie dies tun m&amp;ouml;chten, k&amp;ouml;nnen Sie das Erratum entweder für sobald wie m&amp;ouml;glich einplanen, oder für nicht früher als zu einem bestimmten Zeitpunkt:</target>
 			</trans-unit>
 			<trans-unit id="systemgroups.admins.updated">
 				<source>Admin list for system group {0} updated.</source>
@@ -6358,15 +6358,15 @@ wieder zu erlangen, wenn Sie sich jetzt entschließen, sie zu entfernen.  Sie ha
 			</trans-unit>
 			<trans-unit id="methods.jsp.toolbar">
 				<source>Notification Methods</source>
-				<target>Benachrichtigungs-Methoden</target>
+				<target>Benachrichtigungsmethoden</target>
 			</trans-unit>
 			<trans-unit id="methods.jsp.header2">
 				<source>Method Configuration</source>
-				<target>Methoden-Konfiguration</target>
+				<target>Methodenkonfiguration</target>
 			</trans-unit>
 			<trans-unit id="methods.jsp.summary">
 				<source>Notification Methods are email addresses where Monitoring related alerts generated by Probes will be sent to.</source>
-				<target>Benachrichtigungsmethoden sind E-mail-Adressen, wohin Warnungen, in Bezug auf Monitoring, die von Probes hervorgebracht werden gesendet werden.</target>
+				<target>Benachrichtigungsmethoden sind E-mail-Adressen, wohin Warnungen in Bezug auf Monitoring, die von Probes hervorgebracht werden, gesendet werden.</target>
 			</trans-unit>
 			<trans-unit id="methods.jsp.target">
 				<source>Target</source>
@@ -6382,11 +6382,11 @@ wieder zu erlangen, wenn Sie sich jetzt entschließen, sie zu entfernen.  Sie ha
 			</trans-unit>
 			<trans-unit id="method-create.jsp.toolbar">
 				<source>Create Notification Method</source>
-				<target>Benachrichtigungs-Methode erstellen</target>
+				<target>Benachrichtigungsmethode erstellen</target>
 			</trans-unit>
 			<trans-unit id="method-create.jsp.header2">
 				<source>Create new Notification Method</source>
-				<target>Neue Benachrichtigungs-Methode erstellen</target>
+				<target>Neue Benachrichtigungsmethode erstellen</target>
 			</trans-unit>
 			<trans-unit id="method-create.jsp.summary">
 				<source>Fill out this form to create a new Notification Method.  Changes to Probes that use this new Method will require a Scout Config Push.</source>
@@ -6446,7 +6446,7 @@ wieder zu erlangen, wenn Sie sich jetzt entschließen, sie zu entfernen.  Sie ha
 			</trans-unit>
 			<trans-unit id="general.jsp.summary">
 				<source>Configure your @@PRODUCT_NAME@@ below. The HTTP proxy settings are for the @@PRODUCT_NAME@@ server's communication with the parent @@PRODUCT_NAME@@ server, if any. The http proxy should be of the form: hostname:port, but a default port of 8080 will be used if none is provided. HTTP proxy settings for clients' systems to connect to this @@PRODUCT_NAME@@ can be different, and will be configured later. If you enable the Monitoring Backend, you should also enable Monitoring Scout, or configure the Monitoring Scout as a separate server. If you enable the Monitoring Scout, you must also enable the Monitoring Backend.</source>
-				<target>Konfigurieren Sie Ihren @@PRODUCT_NAME@@ unten. Die HTTP-Proxy-Einstellungen, falls vorhanden, sind f&amp;uuml;r die Kommunikation zwischen dem @@PRODUCT_NAME@@-Server und dem &amp;uuml;bergeordneten @@PRODUCT_NAME@@-Server gedacht. Der HTTP-Proxy sollte folgendes Format haben: Hostname:Port, aber ein Standardport 8080 wird verwendet, wenn nicht anders angegeben wird. Die HTTP-Proxy-Einstellungen f&amp;uuml;r die Kunden-Systeme f&amp;uuml;r die Verbindung mit diesem @@PRODUCT_NAME@@ k&amp;ouml;nnen anders lauten und werden zu einem sp&amp;auml;teren Zeitpunkt konfiguriert. Wenn Sie Monitoring Backend aktivieren, sollten Sie auch Monitoring Scout aktivieren oder den Monitoring Scout als separaten Server konfigurieren. Wenn Sie den Monitoring Scout aktivieren, m&amp;uuml;ssen Sie auch das Monitoring Backend aktivieren.</target>
+				<target>Konfigurieren Sie Ihren @@PRODUCT_NAME@@ unten. Die HTTP-Proxy-Einstellungen, falls vorhanden, sind f&amp;uuml;r die Kommunikation zwischen dem @@PRODUCT_NAME@@-Server und dem &amp;uuml;bergeordneten @@PRODUCT_NAME@@-Server. Der HTTP-Proxy sollte folgendes Format haben: Hostname:Port, aber ein Standardport 8080 wird verwendet, wenn nicht anders angegeben wird. Die HTTP-Proxy-Einstellungen f&amp;uuml;r die Client-Systeme f&amp;uuml;r die Verbindung mit diesem @@PRODUCT_NAME@@ k&amp;ouml;nnen anders lauten und werden zu einem sp&amp;auml;teren Zeitpunkt konfiguriert. Wenn Sie Monitoring Backend aktivieren, sollten Sie auch Monitoring Scout aktivieren oder den Monitoring Scout als separaten Server konfigurieren. Wenn Sie den Monitoring Scout aktivieren, m&amp;uuml;ssen Sie auch das Monitoring Backend aktivieren.</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.header">
 				<source>@@PRODUCT_NAME@@ Organizations</source>
@@ -6567,7 +6567,7 @@ zuweisen oder entfernen.</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.defaultTo_ssl_explanation">
 				<source>&lt;strong&gt;Tip:&lt;/strong&gt;This will only set the default protocol of the site to https or not. If you desire to disable https entirely please contact support</source>
-				<target>&lt;strong&gt;Tipp:&lt;/strong&gt;Dies wird lediglich das Standardprotokoll der Web-Site auf https oder keines setzen. Wenn Sie https komplett deaktivieren m&amp;ouml;chten, kontaktieren Sie bitte den Support</target>
+				<target>&lt;strong&gt;Tipp:&lt;/strong&gt;Dies wird lediglich das Standardprotokoll der Web-Site auf https oder keines setzen. Wenn Sie https komplett deaktivieren m&amp;ouml;chten, kontaktieren Sie bitte den Support.</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.solaris">
 				<source>Enable Solaris Support</source>
@@ -6615,7 +6615,7 @@ zuweisen oder entfernen.</target>
 			</trans-unit>
 			<trans-unit id="certificate.jsp.cert_text">
 				<source>-or- Certificate Text:</source>
-				<target>-or- Zertifikat-Text:</target>
+				<target>-oder- Zertifikat-Text:</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.jsp.toolbar">
 				<source>@@PRODUCT_NAME@@ Configuration - Bootstrap</source>
@@ -6637,7 +6637,7 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
 			</trans-unit>
 			<trans-unit id="bootstrap.jsp.ssl-cert">
 				<source>SSL cert location</source>
-				<target>SSL Zert Speicherort</target>
+				<target>Speicherort des SSL-Zertifikats</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.jsp.ssl">
 				<source>Enable SSL</source>
@@ -6673,7 +6673,7 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
 			</trans-unit>
 			<trans-unit id="restart.jsp.summary">
 				<source> The configuration changes require a restart of the @@PRODUCT_NAME@@. Please click Restart to restart the @@PRODUCT_NAME@@. This page will auto refresh in 4 minutes.  Be aware that this will affect all users logged into this application as well as systems attempting to register or interact with the @@PRODUCT_NAME@@.</source>
-				<target> Die Konfigurations&amp;auml;nderungen erfordern einen Neustart des @@PRODUCT_NAME@@s.Bitte klicken Sie auf "Neustart", um den @@PRODUCT_NAME@@ neu zu starten. Diese Seite wird in 4 Minuten automatisch aktualisiert.  Bitte seien Sie sich bewusst, dass dies alle in dieser Anwendung eingeloggten Benutzer wie auch Systeme, die versuchen sich bei dem @@PRODUCT_NAME@@ zu registrieren oder mit ihm zu kommunizieren, beeinflussen wird.</target>
+				<target> Die Konfigurations&amp;auml;nderungen erfordern einen Neustart des @@PRODUCT_NAME@@s. Bitte klicken Sie auf "Neustart", um den @@PRODUCT_NAME@@ neu zu starten. Diese Seite wird in 4 Minuten automatisch aktualisiert.  Bitte seien Sie sich bewusst, dass dies alle in dieser Anwendung eingeloggten Benutzer wie auch Systeme, die versuchen, sich bei dem @@PRODUCT_NAME@@ zu registrieren oder mit ihm zu kommunizieren, beeinflussen wird.</target>
 			</trans-unit>
 			<trans-unit id="restart.jsp.header2">
 				<source>Restart @@PRODUCT_NAME@@</source>
@@ -6757,15 +6757,15 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
 			</trans-unit>
 			<trans-unit id="tnc.jsp.refused-desc">
 				<source>You have refused to acknowledge the Terms and Conditions associated with the use of Red Hat products and services. You must accept these Terms and Conditions in order to access @@PRODUCT_NAME@@ and your Red Hat subscriptions. Please click on the link below to log back in to @@PRODUCT_NAME@@ and accept the Terms and Conditions of use.</source>
-				<target>Sie haben es abgelehnt, die Gesch&amp;auml;ftsbedingungen zur Verwendung der Red Hat Produkte und Dienstleistungen anzuerkennen. Sie m&amp;uuml;ssen die Gesch&amp;auml;ftsbedingungen akzeptieren um Zugang zum @@PRODUCT_NAME@@ und Ihren Abonnements zu bekommen. Bitte klicken Sie auf den sich unten befindenden Link um sich wieder ins @@PRODUCT_NAME@@ einzuloggen und akzeptieren Sie die Gesch&amp;auml;ftsbedingungen.</target>
+				<target>Sie haben es abgelehnt, die Gesch&amp;auml;ftsbedingungen zur Verwendung der Red Hat Produkte und Dienstleistungen anzuerkennen. Sie m&amp;uuml;ssen die Gesch&amp;auml;ftsbedingungen akzeptieren, um Zugang zum @@PRODUCT_NAME@@ und Ihren Abonnements zu bekommen. Bitte klicken Sie auf den sich unten befindenden Link, um sich wieder ins @@PRODUCT_NAME@@ einzuloggen und akzeptieren Sie die Gesch&amp;auml;ftsbedingungen.</target>
 			</trans-unit>
 			<trans-unit id="tnc.jsp.return-login">
 				<source>Link to Log in to @@PRODUCT_NAME@@</source>
-				<target>Link um sich im @@PRODUCT_NAME@@ einzuloggen</target>
+				<target>Link zum Einloggen im @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="tnc.jsp.error-desc">
 				<source>An error occurred while processing your acceptance of Red Hat's Terms and Conditions of use. Please click on the link below to log back into @@PRODUCT_NAME@@ and complete the acceptance process.</source>
-				<target>W&amp;auml;hrend der Verarbeitung ihrer Zustimmung zu den Gesch&amp;auml;ftsbedingungen kam es zu einer Fehlermeldung. Bitte klicken Sie auf den sich unten befindenden Link, um sich wieder im @@PRODUCT_NAME@@ einzuloggen und ihren Zustimmungsprozess fortzusetzen.</target>
+				<target>W&amp;auml;hrend der Verarbeitung ihrer Zustimmung zu den Gesch&amp;auml;ftsbedingungen kam es zu einer Fehlermeldung. Bitte klicken Sie auf den sich untenstehenden Link, um sich wieder im @@PRODUCT_NAME@@ einzuloggen und ihren Zustimmungsprozess fortzusetzen.</target>
 			</trans-unit>
 			<trans-unit id="tnc.jsp.print-version">
 				<source>Printer-Friendly Version</source>
@@ -6812,10 +6812,10 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
 				<target>Variablen aktualisieren</target>
 			</trans-unit>
 			<trans-unit id="kickstart.variable.jsp.summary">
-				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
-				You would then use $name within the profile to substitute in the value.</source>
-				<target>Kickstart-Variablen können dazu verwendet werden, Werte in Kickstart-Profile einzusetzen. Um eine Variable zu definieren, fügen Sie einfach 'name=value' in das Feld unten ein.
-				Verwenden Sie dann $name innerhalb des Profils, um den Wert einzusetzen.</target>
+				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+        			You would then use $name within the profile to substitute in the value.</source>
+				<target>Kickstart-Variablen können dazu verwendet werden, Werte in Kickstart-Profile einzusetzen. Um eine Variable zu definieren, fügen Sie einfach 'name=value' in das Feld unten ein.  
+        			Verwenden Sie dann $name innerhalb des Profils, um den Wert einzusetzen.</target>
 			</trans-unit>
 			<trans-unit id="kickstarttree.variable.jsp.summary">
 				<source>Any variables specified below will be usable in any profile that uses this distro.  They can be overridden in each profile as well.</source>
@@ -6827,7 +6827,7 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virt_disk_path.tip">
 				<source>&lt;strong&gt;Tip:&lt;/strong&gt; You may specify a file path (/var/lib/xen/images/disk), a Volume Group (VolGroup00), or a partiion (/dev/sda5).  You can also specify multiple virtual disks by comma separating the filepaths, volume group, or partition (/dev/sdb1,/devsdc1).</source>
-				<target>&lt;strong&gt;Tipp:&lt;/strong&gt; Sie können einen Dateipfad angeben (/var/lib/xen/images/disk), eine Datenträgergruppe (VolGroup00), oder eine Partition (/dev/sda5).  Sie können ebenfalls mehrere virtuelle Disks angeben, indem Sie die Dateipfade, Datenträgergruppe, oder Partition mit Kommas trennen (/dev/sdb1,/devsdc1).</target>
+				<target>&lt;strong&gt;Tipp:&lt;/strong&gt; Sie können einen Dateipfad angeben (/var/lib/xen/images/disk), eine Datenträgergruppe (VolGroup00), oder eine Partition (/dev/sda5).  Sie können ebenfalls mehrere virtuelle Disks angeben, indem Sie die Dateipfade, Datenträgergruppe, oder Partition durch Kommas trennen (/dev/sdb1,/devsdc1).</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virt_mem_kb">
 				<source>Virtual Memory (in kilobytes)</source>
@@ -7047,7 +7047,7 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.summary1">
 				<source>This kickstart profile may be edited using the form provided below. Entries marked with an asterisk (*) are required.</source>
-				<target> Diese Benutzerinformation kann bearbeitet werden, indem Sie das unten zur Verf&amp;uuml;gung gestellte Formular verwenden.  Eintr&amp;auml;ge, die mit einem Sternchen (*) versehen sind, sind erforderlich. </target>
+				<target> Diese Benutzerinformation kann bearbeitet werden, indem Sie das unten zur Verf&amp;uuml;gung gestellte Formular verwenden.  Eintr&amp;auml;ge, die mit einem Sternchen (*) versehen sind, sind Pflichtfelder. </target>
 			</trans-unit>
 			<trans-unit id="kickstartdelete.jsp.summary1">
 				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its associated system and corresponding options.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
@@ -7099,7 +7099,7 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
 			</trans-unit>
 			<trans-unit id="kickstartips.jsp.baremetal_summary">
 				<source>&lt;p&gt; In order to kickstart "bare metal systems", you will need to provide them with a boot image that is compatible with the version of the operating system you are kickstarting to via boot CD. &lt;/p&gt; &lt;p&gt; Once these systems have booted using the appropriate image, you will need to provide a kickstart file. You may use the following URL in your Boot CD or in your PXE configuration to provide these systems with the kickstart file associated with this kickstart profile:&lt;/p&gt;</source>
-				<target>&lt;p&gt;Um "Bare Metal-Systeme" zu kickstarten, m&amp;uuml;ssen Sie diesen ein Boot-Image bereitstellen, das mit der Version des Betriebssystem kompatibel ist, das Sie mit einer Boot-CD kickstarten.&lt;/p&gt; &lt;p&gt; Sobald diese Systeme mit dem richtigen Abbild (image) gestartet sind, m&amp;uuml;ssen sie eine Kickstart-Datei bereitstellen. Sie k&amp;ouml;nnen die folgende URL in Ihrer Boot-CD oder in Ihrer PXE Konfiguration benutzen, um diese Systeme mit der Kickstart-Datei auszustatten, die diesem Kickstartprofil zugeordnet ist:&lt;/p&gt;</target>
+				<target>&lt;p&gt;Um "Bare Metal-Systeme" zu kickstarten, m&amp;uuml;ssen Sie diesen ein Boot-Image bereitstellen, das mit der Version des Betriebssystem kompatibel ist, das Sie mit einer Boot-CD kickstarten.&lt;/p&gt; &lt;p&gt; Sobald diese Systeme mit dem richtigen Image gestartet sind, m&amp;uuml;ssen sie eine Kickstart-Datei bereitstellen. Sie k&amp;ouml;nnen die folgende URL in Ihrer Boot-CD oder in Ihrer PXE Konfiguration benutzen, um diese Systeme mit der Kickstart-Datei auszustatten, die diesem Kickstartprofil zugeordnet ist:&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstartips.jsp.baremetal">
 				<source>Bare Metal Kickstart</source>
@@ -7151,16 +7151,16 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.labelwarning">
 				<source>&lt;strong&gt;Tip:&lt;/strong&gt; The label field should not be easily guessable, since it could be used to expose information about this kickstart profile to a 3rd party.</source>
-				<target>&lt;strong&gt;Tipp:&lt;/strong&gt; Das Labelfeld sollte nicht zu leicht zu erraten sein, da es dazu verwendet werden k&amp;ouml;nnte, Informationen &amp;uuml;ber das Kickstart-Profil an Dritte weiterzugeben.</target>
+				<target>&lt;strong&gt;Tipp:&lt;/strong&gt; Das Label-Feld sollte nicht zu leicht zu erraten sein, da es dazu verwendet werden k&amp;ouml;nnte, Informationen &amp;uuml;ber das Kickstart-Profil an Dritte weiterzugeben.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations.
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
+            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
+            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
             tab to verify the new settings.</source>
 				<target>&lt;strong&gt;ANMERKUNG:&lt;/strong&gt; Eine Änderung des Virtualisierungstyps kann Änderungen am
             Bootloader und an Partitionsoptionen des Kickstart-Profils erfordern, wodurch evtl. Benutzeranpassungen überschrieben werden.
-            Bitte werfen Sie einen Blick auf den &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitionierung&lt;/a&gt;
+            Bitte werfen Sie einen Blick auf den &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitionierung&lt;/a&gt; 
             Reiter, um die neuen Einstellungen zu verifizieren.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.active">
@@ -7205,7 +7205,7 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
 			</trans-unit>
 			<trans-unit id="kickstart.advanced.jsp.para1">
 				<source>Each kickstart file you upload to satellite will need a label so that you can refer to it later - please choose a label for this kickstart and enter it below. Entries marked with an asterisk (*) are required.</source>
-				<target>Jede Kickstart-Datei, die Sie zum Satellite hochladen, benötigt ein Label, damit Sie sich später darauf beziehen können - bitte wählen Sie ein Label für diesen Kickstart und geben es unten ein. Mit einem Sternchen (*) gekennzeichnete Eingaben sind zwingend erforderlich.</target>
+				<target>Jede Kickstart-Datei, die Sie zum Satellite hochladen, benötigt ein Label, damit Sie sich später darauf beziehen können - bitte wählen Sie ein Label für diesen Kickstart und geben es unten ein. Mit einem Sternchen (*) gekennzeichnete Eingaben sind Pflichtfelder.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.advanced.jsp.uploadtab">
 				<source>File to Upload</source>
@@ -7429,7 +7429,7 @@ Bitte beachten Sie, dass m&amp;ouml;glicherweise noch einige manuelle Konfigurat
 			</trans-unit>
 			<trans-unit id="keycreate.jsp.summary">
 				<source>Please enter the information for your key in the form provided below.  Entries marked with an (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) are &lt;strong&gt;required&lt;/strong&gt; and must be unique.</source>
-				<target>Bitte geben Sie die Informationen f&amp;uuml;r Ihren Schl&amp;uuml;ssel in der unten zur Verf&amp;uuml;gung gestellten Form ein.  Eintr&amp;auml;ge, die mit einem (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) markiert sind, werden &lt;strong&gt;ben&amp;ouml;tigt&lt;/strong&gt; und m&amp;uuml;ssen einzigartig sein.</target>
+				<target>Bitte geben Sie die Informationen f&amp;uuml;r Ihren Schl&amp;uuml;ssel in dem unten zur Verf&amp;uuml;gung gestellten Formular ein.  Mit einem (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) markierte Einträge sind &lt;strong&gt;Pflichtfelder&lt;/strong&gt; und m&amp;uuml;ssen eindeutig sein.</target>
 			</trans-unit>
 			<trans-unit id="keydelete.jsp.summary">
 				<source>Are you sure you want to delete this Key permanently?&lt;p&gt;&lt;strong&gt;If so please click the button once.&lt;/strong&gt;&lt;/p&gt;</source>
@@ -7687,6 +7687,14 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
 				<source>nochroot</source>
 				<target>nochroot</target>
 			</trans-unit>
+			<trans-unit id="kickstart.script.template">
+				<source>Template</source>
+				<target>Template</target>
+			</trans-unit>
+			<trans-unit id="kickstart.script.template.tip">
+				<source>Enable this to enable templating on this script using cobbler.</source>
+				<target>Aktivieren Sie dies, um für dieses Skript Templating mittels Cobbler zu ermöglichen.</target>
+			</trans-unit>
 			<trans-unit id="kickstart.script.tip3">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This specifies when the script gets ran (before or after kickstart).&lt;/span&gt;</source>
 				<target>&lt;span class="small-text"&gt;&lt;strong&gt;Tipp:&lt;/strong&gt; Dies gibt an, wenn das Skript ausgef&amp;uuml;hrt wird (vor oder nach einem Kickstart).&lt;/span&gt;</target>
@@ -7760,11 +7768,11 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
 				<target>Kickstart-Snippets</target>
 			</trans-unit>
 			<trans-unit id="snippets.jsp.summary">
-				<source>Use Kickstart Snippets to store common blocks of code that can be shared across multiple Kickstart profiles in @@PRODUCT_NAME@@. When you create a Kickstart Snippet, all Kickstart profiles including that snippet will be updated accordingly.</source>
-				<target>Verwenden Sie Kickstart-Snippets, um gebräuchliche Code-Blöcke zu speichern, die über mehrere Kickstart-Profile in @@PRODUCT_NAME@@ hinweg gemeinsam verwendet werden können. Wenn Sie ein Kickstart-Snippet erstellen, werden alle Kickstart-Profile, die dieses Snippet verwenden, entsprechend aktualisiert.</target>
+				<source>Use kickstart snippets to store common blocks of code that can be shared across multiple kickstart profiles in @@PRODUCT_NAME@@. When you create a kickstart snippet, all kickstart profiles including that snippet will be updated accordingly.</source>
+				<target>Verwenden Sie Kickstart-Snippets, um gebräuchliche Code-Blöcke zu speichern, die über mehrere Kickstart-Profile in @@PRODUCT_NAME@@ hinweg gemeinsam verwendet werden können. Wenn Sie ein Kickstart-Snippet erstellen, werden alle Kickstart-Profile, die dieses Snippet enthalten, entsprechend aktualisiert.</target>
 			</trans-unit>
 			<trans-unit id="snippets.jsp.note.default">
-				<source>default kickstart snippets are not editable.</source>
+				<source>Default kickstart snippets are not editable.</source>
 				<target>Standard-Kickstart-Snippets können nicht bearbeitet werden.</target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.snippets">
@@ -7780,12 +7788,12 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
 				<target>Snippet-Macro</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.jsp.nosnippets">
-				<source>No Cobbler snippets found.</source>
-				<target>Keine Cobbler Snippets gefunden.</target>
+				<source>No kickstart snippets found.</source>
+				<target>Keine Kickstart Snippets gefunden.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.copy-paste-snippet-tip">
-				<source>Copy and paste the snippet macro into your Kickstart profiles to make the full snippet appear in that Kickstart profile.</source>
-				<target>Kopieren Sie das Snippet-Macro und fügen es in Ihre Kickstart-Profile ein, wodurch das vollständige Snippet in diesem Kickstart-Profil erscheint.</target>
+				<source>Copy and paste the snippet macro into your kickstart profiles to make the full snippet appear in that kickstart profile.</source>
+				<target>Kopieren Sie das Snippet-Macro und fügen es in Ihre Kickstart-Profile ein, damit das vollständige Snippet in dem Kickstart-Profil erscheint.</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.warning.tip">
 				<source>Changing this snippet's name will require updating any kickstart profiles that refer to it so that they can continue to access the content of this snippet.</source>
@@ -7812,7 +7820,7 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
 				<target>Custom</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.custom.tip">
-				<source>Custom Kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
+				<source>Custom kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
 				<target>Custom-Kickstart-Snippets werden nur der &lt;strong&gt;{0}&lt;/strong&gt; Organisation zur Verfügung stehen.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default">
@@ -7820,7 +7828,7 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
 				<target>Standard</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default.tip">
-				<source>Default Kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
+				<source>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
 				<target>Standard-Kickstart-Snippets stehen allen Organisationen zur Verfügung. Diese Snippets können nicht verändert werden.</target>
 			</trans-unit>
 			<trans-unit id="snippetedit.jsp.header2">
@@ -7832,12 +7840,28 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
 				<target>Neues Snippet erstellen</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.summary">
-				<source>Snippets can be shared between Kickstart Profiles</source>
+				<source>Snippets can be shared between kickstart profiles</source>
 				<target>Snippets können von Kickstart-Profilen gemeinsam verwendet werden</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.header2">
 				<source>Create Snippet</source>
 				<target>Snippet erstellen</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.submit">
+				<source>Create Snippet</source>
+				<target>Snippet erstellen</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.header2">
+				<source>Create Snippet</source>
+				<target>Snippet erstellen</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.submit">
+				<source>Create Snippet</source>
+				<target>Snippet erstellen</target>
+			</trans-unit>
+			<trans-unit id="snippetdetails.jsp.header2">
+				<source>Snippet Details</source>
+				<target>Snippet-Details</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.contents">
 				<source>Contents</source>
@@ -7848,10 +7872,10 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
 				<target>Kickstart-Snippet Inhalte</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.tip1">
-				<source>Avoid spaces in the snippet name.</source>
-				<target>Vermeiden Sie Leerzeichen im Snippet-Namen.</target>
+				<source>The snippet name is the name of a file that will reside in this organization's snippet directory. Any standard unix file name characters are acceptable. Snippet names containing slash character or snippet names beginning with period are not allowed.</source>
+				<target>Der Snippet-Name ist der Name einer Datei, die sich innerhalb des Snippet-Verzeichnisses dieser Organisation befindet. Es sind alle standardmäßigen Zeichen für Unix-Dateinamen erlaubt. Snippet-Namen, die Schrägstriche enthalten oder mit einem Punkt beginnen, sind hingegen unzulässig.</target>
 			</trans-unit>
-			<trans-unit id="snippetcreate.jsp.submit">
+			<trans-unit id="snippetupdate.jsp.submit">
 				<source>Update Snippet</source>
 				<target>Snippet aktualisieren</target>
 			</trans-unit>
@@ -7864,11 +7888,11 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
 				<target>Snippet löschen</target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.summary">
-				<source>Are you sure you want to delete this Snippet permanently?</source>
+				<source>Are you sure you want to delete this snippet permanently?</source>
 				<target>Sind Sie sich sicher, dass Sie diese Snippet dauerhaft l&amp;ouml;schen möchten?</target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.warning">
-				<source>Deleting this snippet will affect any kickstart profiles that refere to it. It may break kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
+				<source>Deleting this snippet will affect any kickstart profiles that refer to it. It may break those kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
 				<target>Das Löschen dieses Snippets wirkt sich auf alle Kickstart-Profile aus, die darauf referenzieren. Kickstart-Profile können dadurch beschädigt werden. Wie empfehlen Ihnen sicherzustellen, dass keine Kickstart-Profile auf dieses Snippet angewiesen sind, bevor Sie dies löschen.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.delete">
@@ -8141,7 +8165,7 @@ Anschlie&amp;szlig;end wird das nicht-chroot Post-Skript ausgef&amp;uuml;hrt, un
 			</trans-unit>
 			<trans-unit id="channels.parentchannel.alt">
 				<source>Parent Channel Button</source>
-				<target>Haupt-Channel-Schaltfl&amp;auml;che</target>
+				<target>Parent-Channel-Schaltfl&amp;auml;che</target>
 			</trans-unit>
 			<trans-unit id="channels.childchannel.alt">
 				<source>Child Channel</source>
@@ -12385,7 +12409,7 @@ the @@PRODUCT_NAME@@ Tools channels for each supported parent channel.  You may
 need to perform a satellite sync of the @@PRODUCT_NAME@@ Tools channels before
 performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;</source>
 				<target> &lt;strong&gt; Konnte keine Autokickstart RPMs finden.  Diese RPMs existieren
-f&amp;uuml;r jeden unterst&amp;uuml;tzten &amp;uuml;bergeordneten Haupt-Channel in den @@PRODUCT_NAME@@ Tools Channels.
+f&amp;uuml;r jeden unterst&amp;uuml;tzten &amp;uuml;bergeordneten Channel ("Parent") in den @@PRODUCT_NAME@@ Tools Channels.
 Sie m&amp;uuml;ssen vielleicht ein Satellite-Sync der @@PRODUCT_NAME@@ Tools Channels vor Durchf&amp;uuml;hrung
 eines Kickstarts ausf&amp;uuml;hren oder eine neue Kickstart-Distribution erstellen.&lt;/strong&gt;</target>
 			</trans-unit>
@@ -12931,6 +12955,10 @@ eines Kickstarts ausf&amp;uuml;hren oder eine neue Kickstart-Distribution erstel
 				<source>Building</source>
 				<target>Geb&amp;auml;ude</target>
 			</trans-unit>
+			<trans-unit id="sdc.details.overview.updatesavailable">
+				<source>Software Updates Available</source>
+				<target>Software-Updates verf&amp;uuml;gbar</target>
+			</trans-unit>
 			<trans-unit id="sdc.details.overview.updates.critical">
 				<source>&lt;strong&gt;&lt;a href="{0}"&gt;Critical: &lt;/a&gt;&lt;/strong&gt; {1}</source>
 				<target>&lt;strong&gt;&lt;a href="{0}"&gt;Kritisch: &lt;/a&gt;&lt;/strong&gt; {1}</target>
@@ -13321,7 +13349,7 @@ Unsicher beim Herunterladen und Verwenden dieser Images? &lt;a href="{0}"&gt;Wer
 &lt;a href="{1}"&gt;Not sure what an installation number is?&lt;/a&gt;
 &lt;a href="{2}"&gt;Need to look up your installation numbers?&lt;/a&gt;</source>
 				<target>
-&lt;strong&gt;ANMERKUNG:&lt;/strong&gt; F&amp;uuml;r die Installation von {0} ben&amp;ouml;tigen Sie eine Installationsnummer.
+&lt;strong&gt;ANMERKUNG:&lt;/strong&gt; F&amp;uuml;r die Installation von {0} ben&amp;ouml;tigen Sie eine Installationsnummer.  
 &lt;a href="{1}"&gt;Unsicher, was eine Installationsnummer ist?&lt;/a&gt;
 &lt;a href="{2}"&gt;Wollen Sie Ihre Installationsnummern nachsehen?&lt;/a&gt;</target>
 			</trans-unit>
@@ -13860,7 +13888,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
 			</trans-unit>
 			<trans-unit id="org.trust.affectedsystems.summary">
 				<source>
-            The systems listed below will be affected by removing the trust relationship between
+            The systems listed below will be affected by removing the trust relationship between 
             the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.</source>
@@ -14112,7 +14140,7 @@ Als Channel-Administrator k&amp;ouml;nnen Sie die Basis-Channels, die Ihr System
 			</trans-unit>
 			<trans-unit id="basesub.jsp.confirm.header.parentChannel">
 				<source>Parent</source>
-				<target>Haupt</target>
+				<target>Parent</target>
 			</trans-unit>
 			<trans-unit id="basesub.jsp.confirm.clickToShowSystems">
 				<source>(click to show systems)</source>
@@ -14396,11 +14424,11 @@ f&amp;uuml;r einen angegebenen Channel aufgelistet wird.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.parentchannel">
 				<source>Parent Channel</source>
-				<target>Haupt-Channel</target>
+				<target>Parent-Channel</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.parent">
 				<source>Parent Channel</source>
-				<target>Haupt-Channel</target>
+				<target>Parent-Channel</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.chanent">
 				<source>Channel Entitlement Name</source>
@@ -14736,7 +14764,7 @@ f&amp;uuml;r einen angegebenen Channel aufgelistet wird.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.parentarch">
 				<source>Parent Channel Architecture</source>
-				<target>Haupt-Channel-Architektur</target>
+				<target>Parent-Channel-Architektur</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.summary">
 				<source>Channel Summary</source>
@@ -14816,28 +14844,28 @@ f&amp;uuml;r einen angegebenen Channel aufgelistet wird.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Channel name and label are required. They each must be at least 6
         characters in length. Labels must begin with a letter, contain only
         lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
         numerals. Channel name may also contain spaces and forward slashes
         ('/').
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Channel summary is also required.</source>
 				<target>Erstellen oder löschen Sie Software-Channels auf dieser Seite.
-        &lt;p/&gt;
-        Ist der Haupt-Channel auf 'keiner' gesetzt, ist der Channel ein Basis-Channel.
+        &lt;p/&gt; 
+        Ist der Parent-Channel auf 'keiner' gesetzt, ist der Channel ein Basis-Channel.
         Andernfalls ist der Channel dem angegebenen Channel untergeordnet.
-        &lt;p/&gt;
-        Channel-Name und -Label sind erforderlich. Sie müssen mindestens 6
+        &lt;p/&gt; 
+        Channel-Name und -Label sind Pflichtfelder. Sie müssen mindestens 6
         Zeichen lang sein. Labels müssen mit einem Buchstaben beginnen, und nur Klein-
         buchstaben, Bindestriche ('-'), Punkte ('.'), Unterstriche ('_'), und
         Zahlen enthalten. Der Channel-Name kann zudem Leerzeichen und Schrägstriche
         ('/') enthalten.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Channel-Zusammenfassung ist ebenfalls erforderlich.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.public">

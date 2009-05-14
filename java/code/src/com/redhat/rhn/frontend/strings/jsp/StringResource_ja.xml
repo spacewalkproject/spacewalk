@@ -644,7 +644,7 @@
 			</trans-unit>
 			<trans-unit id="permission.jsp.summary.channel">
 				<source>You must be a channel administrator in order to edit a channel.</source>
-				<target>チャンネルを編集するには、 channel administrator でなければなりません。</target>
+				<target>チャンネル管理者でないとチャンネルの編集はできません。</target>
 			</trans-unit>
 			<trans-unit id="permission.jsp.summary.package">
 				<source>You cannot view package information for this package.</source>
@@ -660,27 +660,27 @@
 			</trans-unit>
 			<trans-unit id="permission.jsp.summary.deleteuser">
 				<source>You must be an organization administrator for a satellite to delete a user.</source>
-				<target>ユーザーを削除するにはサテライトの Organization Administrator でなければなりません。</target>
+				<target>Satellite の組織管理者でないとユーザーを削除できません。</target>
 			</trans-unit>
 			<trans-unit id="permission.jsp.summary.disableuser">
 				<source>You must be an organization administrator to deactivate a user.</source>
-				<target>ユーザーを非アクティブにするには Organization Administrator でなければなりません。</target>
+				<target>組織管理者でないとユーザーを非アクティブにできません。</target>
 			</trans-unit>
 			<trans-unit id="permission.jsp.summary.enableuser">
 				<source>You must be an organization administrator to reactivate a user.</source>
-				<target>ユーザーを再度、アクティブにするには Organization Administrator でなければなりません。</target>
+				<target>組織管理者でないとユーザーを再度アクティブにできません。</target>
 			</trans-unit>
 			<trans-unit id="permission.jsp.summary.userlist">
 				<source>You must be an organization administrator to view this page. Contact your organization administrator to get information on the users in this system.</source>
-				<target>このページを表示するには Organization Administrator でなければなりません。 このシステムのユーザーに関する情報を取得するには Organization Administrator に連絡してください。</target>
+				<target>組織管理者でないとこのページを表示できません。 このシステムのユーザーに関する情報を取得するには組織管理者に連絡してください。</target>
 			</trans-unit>
 			<trans-unit id="permission.jsp.summary.lookupuser">
 				<source>You must be an organization administrator to view information on users in this organization.</source>
-				<target>この組織内のユーザーに関する情報を表示するには Organization Administrator でなければなりません。</target>
+				<target>組織管理者でないとこの組織内のユーザーに関する情報を表示できません。</target>
 			</trans-unit>
 			<trans-unit id="permission.jsp.summary.createrev">
 				<source>You must be a configuration administrator to create new configuration file revisions.</source>
-				<target>新しい設定ファイルのリビジョンを作成するには、 configuration administrator でなければなりません。</target>
+				<target>設定管理者でないと、新しい設定ファイルのリビジョンを作成できません。</target>
 			</trans-unit>
 			<trans-unit id="permission.jsp.summary.acl.header">
 				<source>You do not have the appropriate permission set to access the requested page. You may have reached this error page in one of several ways:</source>
@@ -716,7 +716,7 @@
 			</trans-unit>
 			<trans-unit id="permission.jsp.summary.general">
 				<source>You must be an satellite administrator to view this page. Contact your satellite administrator to get information on the organizations in this system.</source>
-				<target>このページを表示するには Organization Administrator でなければなりません。 このシステムの組織に関する情報を取得するには Organization Administrator に連絡してください。</target>
+				<target>組織管理者でないと、このページを表示できません。 このシステムの組織に関する情報を取得するには組織管理者に連絡してください。</target>
 			</trans-unit>
 			<trans-unit id="badparam.jsp.title">
 				<source>Page Request Error</source>
@@ -1244,7 +1244,7 @@
 			</trans-unit>
 			<trans-unit id="preferences.latest-errata.description">
 				<source> View the most recent security errata applicable to your systems.</source>
-				<target> ご使用のシステム群に適用できる最新のセキュリティエラータを表示します。</target>
+				<target> ご使用のシステムに適用できる最新のセキュリティエラータを表示します。</target>
 			</trans-unit>
 			<trans-unit id="preferences.entitlements-widget.name">
 				<source>Entitlements Widget</source>
@@ -1660,7 +1660,7 @@
 			</trans-unit>
 			<trans-unit id="system-legend.jsp.locked">
 				<source>Locked</source>
-				<target>ロックされました</target>
+				<target>ロック</target>
 			</trans-unit>
 			<trans-unit id="system-legend.jsp.kickstarting">
 				<source>Kickstarting</source>
@@ -1793,13 +1793,13 @@
 			<trans-unit id="disableself.jsp.message">
 				<source>You may deactivate your @@PRODUCT_NAME@@ account below. &lt;b&gt;This will remove your ability
 to log into @@PRODUCT_NAME@@.&lt;/b&gt;</source>
-				<target>以下の @@PRODUCT_NAME@@ アカウントを非アクティブにすることができます。 &lt;b&gt;非アクティブにすると
+				<target>以下の @@PRODUCT_NAME@@ アカウントを非アクティブにすることができます。 &lt;b&gt;非アクティブにすると 
 @@PRODUCT_NAME@@ にログインできなくなります。&lt;/b&gt;●</target>
 			</trans-unit>
 			<trans-unit id="disableself.jsp.message2">
 				<source>Once your account is deactivated, you will need to contact your organization's
 @@PRODUCT_NAME@@ Organization Administrator to reactivate your account.</source>
-				<target>アカウントを非アクティブにした後、再度アクティブにするには、
+				<target>アカウントを非アクティブにした後、再度アクティブにするには、 
 @@PRODUCT_NAME@@ 組織管理者に連絡する必要があります。●</target>
 			</trans-unit>
 			<trans-unit id="disableselfconfirm.jsp.warning">
@@ -2002,7 +2002,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="usercreate.personalSummary">
 				<source> A home user login will enable you to manage systems you own for personal use and make personal purchases of Red Hat products and services. &lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases - for business needs, &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;create a business login&lt;/a&gt; instead.)&lt;/strong&gt; </source>
-				<target> ホームユーザーログインでは、 個人で所有するシステム群を管理し、 Red Hat 製品及びサービスを個人使用の目的で購入することができるようになります。 &lt;strong&gt;(企業または組織団体によって所有されるシステム群の管理、 またはビジネス使用を目的とした購入に Red Hat ログインを使用する場合は、 ホームユーザーログインを作成しないでください。 この場合は、 &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;ビジネスログインの作成&lt;/a&gt; を行ってください。)&lt;/strong&gt;</target>
+				<target> ホームユーザーログインでは、 個人で所有するシステムを管理し、 Red Hat 製品及びサービスを個人使用の目的で購入することができるようになります。 &lt;strong&gt;(企業または組織団体によって所有されるシステムの管理、 またはビジネス使用を目的とした購入に Red Hat ログインを使用する場合は、 ホームユーザーログインを作成しないでください。 この場合は、 &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;ビジネスログインの作成&lt;/a&gt; を行ってください。)&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="usercreate.loginEnables">
 				<source>A Red Hat Login enables</source>
@@ -2142,7 +2142,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.grantedByOrgAdmin">
 				<source>Above roles are granted via the Organization Administrator role.</source>
-				<target>上記の役職は Organization Administrator の役職を通じて認可されます。</target>
+				<target>上記のロールは組織管理者のロールを通じて認可されます。</target>
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.lastsign">
 				<source>Last Sign In</source>
@@ -2150,7 +2150,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.error.lastorgadmin">
 				<source>This user is the last Organization Administrator and cannot be removed from the Organization Administrator role.</source>
-				<target>このユーザーは最後の Organization Administrator になるため、 Organization Administrator のロールから削除できません。</target>
+				<target>このユーザーは最後の組織管理者になるため、 組織管理者のロールから削除できません。</target>
 			</trans-unit>
 			<trans-unit id="satadmin.jsp.error.lastsatadmin">
 				<source>The user {0} is the last @@PRODUCT_NAME@@ Administrator and cannot be removed from the @@PRODUCT_NAME@@ Administrator role.</source>
@@ -2354,11 +2354,11 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="systemsadmined.jsp.headertwo">
 				<source>Systems Administered by this User</source>
-				<target>このユーザーにより管理されるシステム群</target>
+				<target>このユーザーにより管理されるシステム</target>
 			</trans-unit>
 			<trans-unit id="systemsadmined.jsp.summarytwo">
 				<source>You can select from the systems below for use in the System Set Manager.</source>
-				<target>システムセットの管理で使用するために以下のシステム群から選択できます。</target>
+				<target>システムセットの管理で使用するために以下のシステムから選択できます。</target>
 			</trans-unit>
 			<trans-unit id="Update List">
 				<source>Update List</source>
@@ -2418,7 +2418,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.entitlements">
 				<source>View &amp;amp; Assign Entitlements to Systems</source>
-				<target>エンタイトルメントを表示してシステム群に割り当てる</target>
+				<target>エンタイトルメントを表示してシステムに割り当てる</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.entitlements.description1">
 				<source>&lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;View your open system entitlement slots and apply system entitlements to your systems&lt;/a&gt;&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;Systems Entitlements&lt;/a&gt;&lt;/strong&gt; page in the left navigation bar.</source>
@@ -2458,7 +2458,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="usercreate.do_you_need_corp_1">
 				<source>You will need a &lt;strong&gt;business&lt;/strong&gt; login to administer systems owned by your business, or to make business purchases of Red Hat products and services. </source>
-				<target>ビジネス目的で所有されているシステム群を管理する、 またはビジネス使用を目的として Red Hat 製品及びサービスを購入する場合には、 &lt;strong&gt;ビジネス&lt;/strong&gt; ログインが必要になります。</target>
+				<target>ビジネス目的で所有されているシステムを管理する場合や、 ビジネス使用を目的として Red Hat 製品及びサービスを購入する場合には、 &lt;strong&gt;ビジネス&lt;/strong&gt; ログインが必要になります。</target>
 			</trans-unit>
 			<trans-unit id="usercreate.do_you_need_corp_2">
 				<source>If your organization has an existing @@PRODUCT_NAME@@ business login, you will need to contact your @@PRODUCT_NAME@@ Organization Administrator to create your account so you are registered with your organization. </source>
@@ -2470,11 +2470,11 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="usercreate.personalLoginDesc_1">
 				<source>You will need a &lt;strong&gt;home user&lt;/strong&gt; login to manage systems you own for personal use, or to make personal purchases of Red Hat products and services. </source>
-				<target>個人使用が目的で所有するシステム群を管理する、 または Red Hat 製品及びサービスを個人購入する場合には、 &lt;strong&gt;ホームユーザー&lt;/strong&gt; ログインが必要になります。</target>
+				<target>個人使用が目的で所有するシステムを管理する場合や、 Red Hat 製品及びサービスを個人購入する場合には、 &lt;strong&gt;ホームユーザー&lt;/strong&gt; ログインが必要になります。</target>
 			</trans-unit>
 			<trans-unit id="usercreate.personalLoginDesc_2">
 				<source>&lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases.)&lt;/strong&gt; </source>
-				<target>&lt;strong&gt;(ビジネス目的で所有するシステム群の管理、 ビジネス使用を目的とする購入に Red Hat ログインを使用する場合には、 ホームユーザーログインを作成しないでください。)&lt;/strong&gt; </target>
+				<target>&lt;strong&gt;(ビジネス目的で所有するシステムの管理や、 ビジネス使用を目的とする購入に Red Hat ログインを使用する場合には、 ホームユーザーログインを作成しないでください。)&lt;/strong&gt; </target>
 			</trans-unit>
 			<trans-unit id="usercreate.createPersonalNew">
 				<source>Create a new Home User Login</source>
@@ -2486,11 +2486,11 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="assignedgroups.jsp.summary">
 				<source>A list of system groups follows. Use the check boxes to set this user's access permissions to each system group.  Org Admins have permissions to all system groups. </source>
-				<target>システムグループの一覧が続きます。 チェックボックスを使用してこのユーザーのアクセスパーミッションを各システムグループに設定します。 Organization Administrator はすべてのシステムグループに対してパーミッションを有します。</target>
+				<target>システムグループの一覧が続きます。 チェックボックスを使用してこのユーザーのアクセスパーミッションを各システムグループに設定します。組織管理者はすべてのシステムグループに対してパーミッションを有します。</target>
 			</trans-unit>
 			<trans-unit id="assignedgroups.jsp.asadmin">
 				<source>As a System Group Administrator, this user will be able to modify all aspects of the selected system groups. </source>
-				<target>System Group Administrator として、 このユーザーは選択されたシステムグループに関してあらゆる変更を行うことができます。</target>
+				<target>システムグループ管理者として、 このユーザーは選択されたシステムグループに関してあらゆる変更を行うことができます。</target>
 			</trans-unit>
 			<trans-unit id="assignedgroups.jsp.header2">
 				<source>Default System Groups</source>
@@ -2738,7 +2738,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="failedactions.jsp.summary">
 				<source> The following actions have failed to execute properly on one or more systems. Actions can only be archived by Org Admins or by the user who scheduled the action. </source>
-				<target> 次のアクションが 1 システムまたは複数のシステムでの正常な実行に失敗しました。 Organization Administrator またはそのアクションをスケジュールしたユーザーしかアクションのアーカイブはできません。</target>
+				<target> 次のアクションが 1 システムまたは複数のシステムでの正常な実行に失敗しました。 組織管理者またはそのアクションをスケジュールしたユーザーしかアクションのアーカイブはできません。</target>
 			</trans-unit>
 			<trans-unit id="failedactions.jsp.nogroups">
 				<source>No failed actions.</source>
@@ -2746,7 +2746,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="completedactions.jsp.summary">
 				<source> The following actions have been completed by one or more systems. Actions can only be archived by Org Admins or by the user who scheduled the action. </source>
-				<target> 次のアクションが 1 システムまたは複数のシステムによって完了されました。 Organization Administrator またはそのアクションをスケジュールしたユーザーしかアクションのアーカイブはできません。</target>
+				<target> 次のアクションが 1 システムまたは複数のシステムによって完了されました。 組織管理者またはそのアクションをスケジュールしたユーザーしかアクションのアーカイブはできません。</target>
 			</trans-unit>
 			<trans-unit id="completedactions.jsp.nogroups">
 				<source>No completed actions.</source>
@@ -3226,19 +3226,19 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="erratalist.jsp.updated">
 				<source>Updated</source>
-				<target>更新されました</target>
+				<target>更新済</target>
 			</trans-unit>
 			<trans-unit id="cloneerrata.jsp.updated">
 				<source>Updated</source>
-				<target>更新されました</target>
+				<target>更新済</target>
 			</trans-unit>
 			<trans-unit id="exportcolumn.updateDate">
 				<source>Updated</source>
-				<target>更新されました</target>
+				<target>更新済</target>
 			</trans-unit>
 			<trans-unit id="exportcolumn.updateDate">
 				<source>Updated</source>
-				<target>更新されました</target>
+				<target>更新済</target>
 			</trans-unit>
 			<trans-unit id="erratalist.jsp.securityadvisory">
 				<source>Security Advisory</source>
@@ -3466,7 +3466,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="errata.notify.instructions">
 				<source>You can send email to the administrators of systems to which this errata applies.</source>
-				<target>このエラータを適用するシステム群の管理者に Email を送信することができます。</target>
+				<target>このエラータを適用するシステムの管理者に電子メールを送信することができます。</target>
 			</trans-unit>
 			<trans-unit id="errata.notify.success">
 				<source>An errata mail update has been scheduled for &lt;a href="/rhn/errata/manage/Edit.do?eid={0}"&gt;{1}&lt;/a&gt;.</source>
@@ -3566,7 +3566,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="affectedsystems.jsp.summary">
 				<source>Below is a list of systems affected by this erratum.</source>
-				<target>以下は、このエラータの影響を受けるシステム群の一覧です。</target>
+				<target>以下は、このエラータの影響を受けるシステムの一覧です。</target>
 			</trans-unit>
 			<trans-unit id="affectedsystems.jsp.summarywithacl">
 				<source>You can select one or more systems and apply this erratum to them.  Only Management Service entitled systems can be selected.</source>
@@ -3650,7 +3650,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="confirm.jsp.summary">
 				<source>The following systems will have &lt;strong&gt;{0}&lt;/strong&gt; applied to them:</source>
-				<target>次のシステム群には &lt;strong&gt;{0}&lt;/strong&gt; が適用されます。</target>
+				<target>次のシステムには &lt;strong&gt;{0}&lt;/strong&gt; が適用されます。</target>
 			</trans-unit>
 			<trans-unit id="org.allusers.summary">
 				<source>The following list of all users on this @@PRODUCT_NAME@@, across organizations. Note that you will only have access to modify the details of users that are members of this organization you are currently logged into ({0}), and only if you have organization administrator privledges for this organization.</source>
@@ -3690,7 +3690,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="org.admins.jsp">
 				<source>Organization Administrators</source>
-				<target>Organization Administrator</target>
+				<target>組織管理者</target>
 			</trans-unit>
 			<trans-unit id="org.id.jsp">
 				<source>Organization ID</source>
@@ -3802,7 +3802,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="org.users.summary">
 				<source>The following is a list of all users in the {0} organization. Note that you will only have access to modify the details of these users if you are logged into the {0} organization and have organization administrator privleges.</source>
-				<target>以下に {0} 組織の全てのユーザーの一覧を示します。 {0} 組織 にログインしていて、 組織管理者（organization administrator）の権限を持っている場合にのみ、これらのユーザーの 詳細を修正するためにアクセスを持てることに注意して下さい。</target>
+				<target>以下に {0} 組織の全てのユーザーの一覧を示します。 {0} 組織 にログインしていて、 組織管理者の権限を持っている場合にのみ、これらのユーザーの 詳細を修正するためにアクセスを持てることに注意して下さい。</target>
 			</trans-unit>
 			<trans-unit id="orglist.jsp.noOrgs">
 				<source>No Organizations.</source>
@@ -5004,7 +5004,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="system_entitlements.monitoring.noSolarisSupport">
 				<source>&lt;strong&gt;Monitoring&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Monitoring is not supported on Solaris systems.</source>
-				<target>Monitoring が Solaris システム上でサポートされていない為、&lt;strong&gt;{0}&lt;/strong&gt; システム用の&lt;strong&gt;Monitoring&lt;/strong&gt; エンタイトルメントは失敗しました。</target>
+				<target>Monitoring が Solaris システム上でサポートされていない為、&lt;strong&gt;{0}&lt;/strong&gt; システム用の &lt;strong&gt;Monitoring&lt;/strong&gt; エンタイトルメントは失敗しました。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization.setup_error">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) failed to add &lt;strong&gt;Virtualization(Platform)&lt;/strong&gt;.  This was caused by errors attempting to automatically subscribe the system to the @@PRODUCT_NAME@@ Tools and RHEL Virtualization channels which are required for virtualization.</source>
@@ -5524,11 +5524,11 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="probesuites.jsp.summary">
 				<source>Probe Suites allows you to apply a set of pre-configured service probes to a system or systems. This is helpful when you have many systems to monitor using the same probes Making changes to the suite automatically applies to the system or systems to which they are defined. Multiple probe suites can be applied to a system.</source>
-				<target>プローブセットを使用すると事前設定されたサービスプローブのセットを 1 システムまたはシステム群に適用することができます。同じプローブで多くのシステムを監視する場合に役立ちます。このセットに変更を加えると、定義されているシステムまたはシステム群に自動的に適用されます。1 システムに対して複数のプローブセットを適用することができます。</target>
+				<target>プローブセットを使用すると事前設定されたサービスプローブのセットを 1 システムまたはシステムに適用することができます。同じプローブで多くのシステムを Monitoring する場合に役立ちます。このセットに変更を加えると、定義されているシステムまたはシステムに自動的に適用されます。1 システムに対して複数のプローブセットを適用することができます。</target>
 			</trans-unit>
 			<trans-unit id="probesuites.jsp.access">
 				<source>You can only access Probe Suites that contain systems that you have access to. Probe Suites that contain at least one system that you are not allowed to access are shown in the list but can't be accessed by you. Speak with your Org Admin if you need to access those suites.</source>
-				<target>アクセス権を有するシステム群を含む Probe Suite にしかアクセスできません。アクセスを許可されていないシステムを少なくとも 1 システム含む Probe Suite は 一覧に表示されますがアクセスすることはできません。これらの Probe Suiteにアクセスする必要がある場合には、担当の Org Admin にお問い合わせください。</target>
+				<target>アクセス権を有するシステムを含む Probe Suite にしかアクセスできません。アクセスを許可されていないシステムを少なくとも 1 システム含む Probe Suite は 一覧に表示されますがアクセスすることはできません。これらの Probe Suiteにアクセスする必要がある場合には、担当の組織管理者にお問い合わせください。</target>
 			</trans-unit>
 			<trans-unit id="probesuites.jsp.nosuites">
 				<source>No Probe Suites defined.</source>
@@ -5632,11 +5632,11 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="probesuitesystemsedit.jsp.nosystems">
 				<source>&lt;p&gt;&amp;nbsp;&lt;/p&gt;No more Systems available that are Monitoring Entitled.  Add Monitoring Entitlement to systems you wish to use with Probe Suites.</source>
-				<target>&lt;p&gt;&amp;nbsp;&lt;/p&gt;Monitoring エンタイトルメントを有する使用可能なシステムはありません。プローブセットと一緒に使用したいシステムに Monitoring エンタイトルメントを追加します。</target>
+				<target>&lt;p&gt;&amp;nbsp;&lt;/p&gt; Monitoring エンタイトルメントを有する使用可能なシステムはありません。プローブセットと一緒に使用したいシステムに Monitoring エンタイトルメントを追加します。</target>
 			</trans-unit>
 			<trans-unit id="probesuitesystems.jsp.header1">
 				<source>Edit {0}'s systems assigned</source>
-				<target>割り当てられた {0} のシステム群を編集</target>
+				<target>割り当てられた {0} のシステムを編集</target>
 			</trans-unit>
 			<trans-unit id="probesuitesystems.jsp.header2">
 				<source>Edit the systems that are assigned to the suite.</source>
@@ -5913,7 +5913,7 @@ organization management tools if you choose to remove this role from your login.
 			</trans-unit>
 			<trans-unit id="deleteconfirm.jsp.satadmin_revoke">
 				<source>Confirm removing the satellite administration role from &lt;strong&gt;{0}&lt;/strong&gt; by clicking the button below.</source>
-				<target>以下のボタンをクリックして &lt;strong&gt;{0}&lt;/strong&gt; から satellite administration の 役職の削除を確認します。</target>
+				<target>以下のボタンをクリックして &lt;strong&gt;{0}&lt;/strong&gt; から Satellite 管理者ロールの削除を確認します。</target>
 			</trans-unit>
 			<trans-unit id="missingpkgs.jsp.missingpackages">
 				<source>Missing Packages</source>
@@ -6353,7 +6353,7 @@ organization management tools if you choose to remove this role from your login.
 			</trans-unit>
 			<trans-unit id="methods.jsp.summary">
 				<source>Notification Methods are email addresses where Monitoring related alerts generated by Probes will be sent to.</source>
-				<target>通知メソッドとは、プローブによって生成される Monitoring 関連の警告が送信される Email アドレス送信先になります。</target>
+				<target>通知メソッドとは、プローブによって生成される Monitoring 関連の警告が送信される電子メールアドレス送信先になります。</target>
 			</trans-unit>
 			<trans-unit id="methods.jsp.target">
 				<source>Target</source>
@@ -6433,7 +6433,7 @@ organization management tools if you choose to remove this role from your login.
 			</trans-unit>
 			<trans-unit id="general.jsp.summary">
 				<source>Configure your @@PRODUCT_NAME@@ below. The HTTP proxy settings are for the @@PRODUCT_NAME@@ server's communication with the parent @@PRODUCT_NAME@@ server, if any. The http proxy should be of the form: hostname:port, but a default port of 8080 will be used if none is provided. HTTP proxy settings for clients' systems to connect to this @@PRODUCT_NAME@@ can be different, and will be configured later. If you enable the Monitoring Backend, you should also enable Monitoring Scout, or configure the Monitoring Scout as a separate server. If you enable the Monitoring Scout, you must also enable the Monitoring Backend.</source>
-				<target>以下で @@PRODUCT_NAME@@ を設定します。HTTP プロキシ設定は、@@PRODUCT_NAME@@ サーバーと親の PRODUCT_NAME@@ サーバーとの通信を設定します。http プロキシは、hostname:port の形式になるはずですが、ポートの指定がないとデフォルトの 8080 番ポートが使用されます。クライアントのシステムが @@PRODUCT_NAME@@ に接続するための HTTP プロキシ設定は異なる場合があり、後で設定します。監視バックエンドを有効にする場合、監視スカウトも有効にするか、監視スカウトを別のサーバーとして設定してください。監視スカウトを有効にする場合は、監視バックエンドも有効にする必要があります。●</target>
+				<target>以下で @@PRODUCT_NAME@@ を設定します。HTTP プロキシ設定は、@@PRODUCT_NAME@@ サーバーと親の PRODUCT_NAME@@ サーバーとの通信を設定します。http プロキシは、hostname:port の形式になるはずですが、ポートの指定がないとデフォルトの 8080 番ポートが使用されます。クライアントのシステムが @@PRODUCT_NAME@@ に接続するための HTTP プロキシ設定は異なる場合があり、後で設定します。Monitoring バックエンドを有効にする場合、Monitoring スカウトも有効にするか、Monitoring スカウトを別のサーバーとして設定してください。Monitoring スカウトを有効にする場合は、Monitoring バックエンドも有効にする必要があります。●</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.header">
 				<source>@@PRODUCT_NAME@@ Organizations</source>
@@ -6442,7 +6442,7 @@ organization management tools if you choose to remove this role from your login.
 			<trans-unit id="general.jsp.org.summary1">
 				<source>@@PRODUCT_NAME@@ allows for the creation of multiple 'organizations'
 on a @@PRODUCT_NAME@@.</source>
-				<target>@@PRODUCT_NAME@@ により、@@PRODUCT_NAME@@ 上に複数の組織を作成する
+				<target>@@PRODUCT_NAME@@ により、@@PRODUCT_NAME@@ 上に複数の組織を作成する 
 ことが可能になります。</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.summary2">
@@ -6454,12 +6454,12 @@ organization administrator, and the entire @@PRODUCT_NAME@@ is managed by a @@PR
 administrator. The organizations on one @@PRODUCT_NAME@@ with multiple organizations
 function similarly to the organizations on multiple @@PRODUCT_NAME@@s with one
 organization.</source>
-				<target>組織（Organization）とは、システムのセット、システムグループ、ソフトウェアチャンネル、 サブスクリプションとエンタイトルメント、キックスタートプロフィール、アクティベーションキー、 設定チャンネルとファイル、ユーザーなど、@@PRODUCT_NAME@@ を使用して管理する全ての項目に境界を設定する方法です。各組織は、少なくとも 1 人の組織管理者 (organization administrator) により管理され、@@PRODUCT_NAME@@ 全体は、@@PRODUCT_NAME@@ 管理者 (Satellite administrator) によって管理されます。複数の組織を持つ 1 つの @@PRODUCT_NAME@@ 上の組織は、1 つの組織を持つ複数の @@PRODUCT_NAME@@ 上の組織と同じように機能をします。</target>
+				<target>組織とは、システムのセット、システムグループ、ソフトウェアチャンネル、 サブスクリプションとエンタイトルメント、キックスタートプロフィール、アクティベーションキー、 設定チャンネルとファイル、ユーザーなど、@@PRODUCT_NAME@@ を使用して管理する全ての項目に境界を設定する方法です。各組織は、少なくとも 1 人の組織管理者により管理され、@@PRODUCT_NAME@@ 全体は、@@PRODUCT_NAME@@ 管理者によって管理されます。複数の組織を持つ 1 つの @@PRODUCT_NAME@@ 上の組織は、1 つの組織を持つ複数の @@PRODUCT_NAME@@ 上の組織と同じように機能をします。</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.summary3">
 				<source>To get started creating and managing organizations on your @@PRODUCT_NAME@@, refer to
 the following tabs in the left navigation menu:</source>
-				<target>ご使用の @@PRODUCT_NAME@@ で、組織の作成と管理を開始するには、左ナビゲーションメニュー内の
+				<target>ご使用の @@PRODUCT_NAME@@ で、組織の作成と管理を開始するには、左ナビゲーションメニュー内の 
 以下のタブを参照して下さい。</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.summary4">
@@ -6507,7 +6507,7 @@ administrator privileges.</source>
 			</trans-unit>
 			<trans-unit id="general.jsp.admin_email">
 				<source>Administrator Email Address</source>
-				<target>Administrator Email アドレス</target>
+				<target>管理者の電子メールアドレス</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.hostname">
 				<source>@@PRODUCT_NAME@@ Hostname</source>
@@ -6567,7 +6567,7 @@ administrator privileges.</source>
 			</trans-unit>
 			<trans-unit id="monitoring.jsp.monitoringdisabled">
 				<source>Monitoring is disabled.  Please go to the &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;General&lt;/strong&gt;&lt;/a&gt; configuration page and select the Enable Monitoring checkbox.</source>
-				<target>Monitoring が無効になっています。&lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;全般&lt;/strong&gt;&lt;/a&gt; 設定ページに行き、Monitoring を有効にするのチェックボックスを選択してください。</target>
+				<target>Monitoring が無効になっています。&lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;全般&lt;/strong&gt;&lt;/a&gt; 設定ページにて、「Monitoring を有効にする」のチェックボックスを選択してください。</target>
 			</trans-unit>
 			<trans-unit id="certificate.jsp.toolbar">
 				<source>@@PRODUCT_NAME@@ Configuration - Certificate</source>
@@ -6784,10 +6784,10 @@ Please note that some manual configuration of these scripts may still be require
 				<target>変数の更新　●</target>
 			</trans-unit>
 			<trans-unit id="kickstart.variable.jsp.summary">
-				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
-				You would then use $name within the profile to substitute in the value.</source>
-				<target>キックスタート変数を使用すると、キックスタートプロフィールに値を代用できます。変数を定義するには、 name=value を下記のボックスに追加します。
-				その後、プロフィールに $name を使用して値を代用することができます。●</target>
+				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+        			You would then use $name within the profile to substitute in the value.</source>
+				<target>キックスタート変数を使用すると、キックスタートプロフィールに値を代用できます。変数を定義するには、 name=value を下記のボックスに追加します。  
+        			その後、プロフィールに $name を使用して値を代用することができます。●</target>
 			</trans-unit>
 			<trans-unit id="kickstarttree.variable.jsp.summary">
 				<source>Any variables specified below will be usable in any profile that uses this distro.  They can be overridden in each profile as well.</source>
@@ -7087,7 +7087,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartips.jsp.baremetal_summary2">
 				<source>Alternatively, you may associate each of your kickstart profiles with particular ip ranges. Then, you can provide bare metal systems with a single URL that will provide each system the kickstart file associated with its IP Address. Below you will find this URL:</source>
-				<target>代わりに、特定の IP 範囲を持つキックスタートプロフィールをそれぞれ関連付けても構いません。この後に、ベアメタルシステム群に URL を 1つ渡し、この URL が IP アドレスと関連付けられたキックスタートファイルを各システム渡すことができます。この URL は以下にあります。</target>
+				<target>代わりに、特定の IP 範囲を持つキックスタートプロフィールをそれぞれ関連付けても構いません。この後に、ベアメタルシステムに URL を 1つ渡し、この URL が IP アドレスと関連付けられたキックスタートファイルを各システム渡すことができます。この URL は以下にあります。</target>
 			</trans-unit>
 			<trans-unit id="kickstartips.jsp.baremetal2">
 				<source>IP Address-Based Bare Metal Kickstart URL</source>
@@ -7127,8 +7127,8 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations.
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
+            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
+            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
             tab to verify the new settings.</source>
 				<target>&lt;strong&gt;注記:&lt;/strong&gt; 仮想化タイプを変更するとキックスタートプロフィールのブートローダー
             やパーティションオプションの変更が必要となることがあるため、ユーザーがカスタマイズした内容が上書きされる可能性があります。
@@ -7333,7 +7333,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstart.partition.jsp.summary">
 				<source>You may edit the partitions that will be created on systems kickstarted with this system below:</source>
-				<target>このシステムを使ってキックスタートするシステム群に作成されるパーティションを以下で編集することができます。</target>
+				<target>このシステムを使ってキックスタートするシステムに作成されるパーティションを以下で編集することができます。</target>
 			</trans-unit>
 			<trans-unit id="distro-delete.jsp.header1">
 				<source>Delete Distribution: {0}</source>
@@ -7632,7 +7632,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 キックスタートのプレスクリプトに関する詳細は、 &lt;strong&gt;Red Hat Enterprise Linux システム管理ガイド&lt;/strong&gt; を参照してください。
 &lt;br/&gt;&lt;br/&gt;
 以下では、 このキックスタートのポストスクリプトも編集することができます。 最初に、 @@PRODUCT_NAME@@ 関連のコマンドが自動的に実行されます (例、 @@PRODUCT_NAME@@ への esystem 登録)。
-次に、 非 chroot のポストスクリプトが実行され、 最後にポストスクリプトが実行されます。 キックスタートポストスクリプトに関する詳細は、
+次に、 非 chroot のポストスクリプトが実行され、 最後にポストスクリプトが実行されます。 キックスタートポストスクリプトに関する詳細は、 
 &lt;strong&gt;Red Hat Enterprise Linux システム管理ガイド&lt;/strong&gt;を参照してください。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.script.langheader">
@@ -7658,6 +7658,14 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			<trans-unit id="kickstart.script.nochroot">
 				<source>nochroot</source>
 				<target>nochroot</target>
+			</trans-unit>
+			<trans-unit id="kickstart.script.template">
+				<source>Template</source>
+				<target>テンプレート</target>
+			</trans-unit>
+			<trans-unit id="kickstart.script.template.tip">
+				<source>Enable this to enable templating on this script using cobbler.</source>
+				<target>Cobbler を使用してこのスクリプトでテンプレートできるようにするには、これを有効にします。●</target>
 			</trans-unit>
 			<trans-unit id="kickstart.script.tip3">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This specifies when the script gets ran (before or after kickstart).&lt;/span&gt;</source>
@@ -7732,11 +7740,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>キックスタートスニペット</target>
 			</trans-unit>
 			<trans-unit id="snippets.jsp.summary">
-				<source>Use Kickstart Snippets to store common blocks of code that can be shared across multiple Kickstart profiles in @@PRODUCT_NAME@@. When you create a Kickstart Snippet, all Kickstart profiles including that snippet will be updated accordingly.</source>
+				<source>Use kickstart snippets to store common blocks of code that can be shared across multiple kickstart profiles in @@PRODUCT_NAME@@. When you create a kickstart snippet, all kickstart profiles including that snippet will be updated accordingly.</source>
 				<target>キックスタートスニペットを使用して、 @@PRODUCT_NAME@@ 内の複数のキックスタートプロフィールが共有できるコードの共通ブロックを保存します。キックスタートスニペットを作成すると、そのスニペットを含むすべてのキックスタートプロフィールが更新されます。●</target>
 			</trans-unit>
 			<trans-unit id="snippets.jsp.note.default">
-				<source>default kickstart snippets are not editable.</source>
+				<source>Default kickstart snippets are not editable.</source>
 				<target>デフォルトのキックスタートスニペットは編集できません。●</target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.snippets">
@@ -7752,11 +7760,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>スニペットマクロ</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.jsp.nosnippets">
-				<source>No Cobbler snippets found.</source>
-				<target>Cobbler スニペットが見つかりませんでした。●</target>
+				<source>No kickstart snippets found.</source>
+				<target>キックスタートスニペットが見つかりませんでした。●</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.copy-paste-snippet-tip">
-				<source>Copy and paste the snippet macro into your Kickstart profiles to make the full snippet appear in that Kickstart profile.</source>
+				<source>Copy and paste the snippet macro into your kickstart profiles to make the full snippet appear in that kickstart profile.</source>
 				<target>スニペットマクロをご自分のキックスタートプロフィールにコピーアンドペーストし、キックスタートプロフィールにスニペット全体が記載されるようにします。●</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.warning.tip">
@@ -7784,7 +7792,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>カスタム</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.custom.tip">
-				<source>Custom Kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
+				<source>Custom kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
 				<target>カスタムキックスタートスニペットは &lt;strong&gt;{0}&lt;/strong&gt; 組織のみが使用できます。●</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default">
@@ -7792,8 +7800,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>デフォルト</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default.tip">
-				<source>Default Kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
-				<target>デフォルトのキックスタートスニペットはすべての組織が使用できます。デフォルトのキックスタートスニペットは変更できません。●</target>
+				<source>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
+				<target>デフォルトのキックスタートスニペットはすべての組織が使用することができますが、変更はできません。●</target>
 			</trans-unit>
 			<trans-unit id="snippetedit.jsp.header2">
 				<source>Edit Snippet</source>
@@ -7804,12 +7812,28 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>新しいスニペットを作成●</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.summary">
-				<source>Snippets can be shared between Kickstart Profiles</source>
+				<source>Snippets can be shared between kickstart profiles</source>
 				<target>スニペットはキックスタートプロフィール間で共有できます●</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.header2">
 				<source>Create Snippet</source>
 				<target>スニペットの作成●</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.submit">
+				<source>Create Snippet</source>
+				<target>スニペットの作成●</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.header2">
+				<source>Create Snippet</source>
+				<target>スニペットの作成●</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.submit">
+				<source>Create Snippet</source>
+				<target>スニペットの作成●</target>
+			</trans-unit>
+			<trans-unit id="snippetdetails.jsp.header2">
+				<source>Snippet Details</source>
+				<target>スニペットの詳細</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.contents">
 				<source>Contents</source>
@@ -7820,10 +7844,10 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>キックスタートスニペットの内容●</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.tip1">
-				<source>Avoid spaces in the snippet name.</source>
-				<target>スニペット名に空白文字を使用しないでください。●</target>
+				<source>The snippet name is the name of a file that will reside in this organization's snippet directory. Any standard unix file name characters are acceptable. Snippet names containing slash character or snippet names beginning with period are not allowed.</source>
+				<target>スニペット名はこの組織のスニペットディレクトリに存在するファイルの名前です。標準の Unix のファイル名に使用できる文字を使用することができます。スニペット名にスラッシュを使用することはできません。また、ピリオドで始まるスニペット名は使用できません。●</target>
 			</trans-unit>
-			<trans-unit id="snippetcreate.jsp.submit">
+			<trans-unit id="snippetupdate.jsp.submit">
 				<source>Update Snippet</source>
 				<target>スニペットの更新</target>
 			</trans-unit>
@@ -7836,12 +7860,12 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>スニペットを削除中</target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.summary">
-				<source>Are you sure you want to delete this Snippet permanently?</source>
+				<source>Are you sure you want to delete this snippet permanently?</source>
 				<target>このスニペットを完全に削除してもよろしいですか？●</target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.warning">
-				<source>Deleting this snippet will affect any kickstart profiles that refere to it. It may break kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
-				<target>このスニペットを削除すると、このスニペットを参照するキックスタートファイルに影響します。キックスタートプロフィールが破損することもあります。スニペットを削除する前に、このスニペットに依存するキックスタートプロフィールがないようにすることを奨励します。●</target>
+				<source>Deleting this snippet will affect any kickstart profiles that refer to it. It may break those kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
+				<target>このスニペットを削除すると、このスニペットを参照するキックスタートファイルに影響します。キックスタートプロフィールが破損することもあります。スニペットを削除する前に、このスニペットに依存するキックスタートプロフィールが存在しないようにすることを推奨します。●</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.delete">
 				<source>Confirm Snippet Delete</source>
@@ -7977,11 +8001,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.criticalsystems.description">
 				<source>most critical systems</source>
-				<target>最も重大なシステム群</target>
+				<target>最も重大なシステム</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.criticalsystems.none">
 				<source>&lt;strong&gt;No critical systems.&lt;/strong&gt; &lt;p&gt;None of your systems are in a critical state. &lt;/p&gt;</source>
-				<target>&lt;strong&gt;重大レベルのシステムはありません。&lt;/strong&gt; &lt;p&gt;いずれも重大レベルにあるシステムはありません。&lt;/p&gt;</target>
+				<target>&lt;strong&gt;重大レベルのシステムはありません。&lt;/strong&gt; &lt;p&gt;重大レベルにあるシステムはありません。&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.recentlyregistered">
 				<source>&lt;strong&gt;Recently Registered Systems&lt;/strong&gt;</source>
@@ -8093,15 +8117,15 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="channels.overview.provider">
 				<source>Provider</source>
-				<target>プロバイダー</target>
+				<target>提供者</target>
 			</trans-unit>
 			<trans-unit id="sdcconfigfiles.jsp.channel">
 				<source>Provider</source>
-				<target>プロバイダー</target>
+				<target>提供者</target>
 			</trans-unit>
 			<trans-unit id="sdcconfigfiles.jsp.channel">
 				<source>Provider</source>
-				<target>プロバイダー</target>
+				<target>提供者</target>
 			</trans-unit>
 			<trans-unit id="channels.overview.showall">
 				<source>Show All Child Channels</source>
@@ -8353,7 +8377,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="activation-keys.jsp.universal-default-text">
 				<source>If a universal default activation key is set for your organization, then systems registered to your organization will inherit the properties of that key by default without the need to explicitly specify that key during registration.</source>
-				<target>汎用のデフォルトアクティベーションキーがユーザーの組織用に設定してある場合は、 その組織に登録してあるシステム群は、登録時点にそのキーを明示的に指定する必要なしに デフォルトでそのキーのプロパティを継承します。</target>
+				<target>汎用のデフォルトアクティベーションキーがユーザーの組織用に設定してある場合は、 その組織に登録してあるシステムは、登録時点にそのキーを明示的に指定する必要なしに デフォルトでそのキーのプロパティを継承します。</target>
 			</trans-unit>
 			<trans-unit id="activation-keys.jsp.description-tooltip">
 				<source>Click on the description above to view the details for this key.</source>
@@ -8885,7 +8909,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="targetsystems.jsp.orgadmin">
 				<source>Requires organization administrator</source>
-				<target>organization administrator の権限が必要です</target>
+				<target>組織管理者の権限が必要です</target>
 			</trans-unit>
 			<trans-unit id="targetsystems.jsp.addprovisioning">
 				<source>Add provisioning entitlement</source>
@@ -8961,7 +8985,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="summary.jsp.orgadmin">
 				<source>Remaining actions require organization administrator.</source>
-				<target>残りのアクションには organization administrator の権限が必要です。</target>
+				<target>残りのアクションには組織管理者の権限が必要です。</target>
 			</trans-unit>
 			<trans-unit id="summary.jsp.provision">
 				<source>Could not grant provisioning entitlement.</source>
@@ -11871,9 +11895,9 @@ so they have access to the packages in the package profile you sync them to.  Vi
 the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Keys&lt;/a&gt;
  tab to subscribe systems to software channels during kickstart.&lt;/span&gt;</source>
 				<target>&lt;span class="small-text"&gt;&lt;strong&gt;ヒント:&lt;/strong&gt; 
-キックスタート中にシステム群を必ず適切なソフトウェアチャンネルにサブスクライブ するようにします。 これによりシステム群は同期されるパッケージプロフィール内の 
+キックスタート中にシステムを必ず適切なソフトウェアチャンネルにサブスクライブ するようにします。 これによりシステムは同期されるパッケージプロフィール内の 
 パッケージにアクセスできるようになります。&lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;アクティベーションキー&lt;/a&gt; タブに行き、
-キックスタート中にシステム群をソフトウェアチャンネルにサブスクライブするようにします。&lt;/span&gt;</target>
+キックスタート中にシステムをソフトウェアチャンネルにサブスクライブするようにします。&lt;/span&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.tip.proxy.jsp">
 				<source>&lt;strong&gt;Tip:&lt;/strong&gt; Date listed is last time proxy contacted @@PRODUCT_NAME@@.</source>
@@ -12308,7 +12332,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
 ディストリビューションラベルのフィールドには、 文字、 数字、 ハイフン、 ピリオド、 下線しか含ませられません。 また、少くとも 4文字の長さにする必要があります。&lt;br/&gt;&lt;br/&gt;
 
 ツリーパス、 キックスタート RPM、 ベースチャンネル、 インストーラ生成は常に一致していなければなりません。 つまり、 基本的には各フィールドのバージョンは Red Hat Enterprise Linux の同じバージョンからでなければならないということです。&lt;br/&gt;&lt;br/&gt;
-
+	
 &lt;p&gt;ツリーパスは、 RPM を除くカーネル、 initrd 、レポジトリ情報などの配布物に対するキックスタートツリー全体を含む @@PRODUCT_NAME@@ サーバー上のローカルディスクパスにする必要があります。 また、 このディレクトリは Apache と Tomcat のユーザーが読み取り可能であり、 指定されたツリーパス内からカーネルを "./images/pxeboot/vmlinuz" で利用でき、 initrd イメージを "./images/pxeboot/initrd.img" で利用できる必要があります。 たとえば、 @@PRODUCT_NAME@@ サーバーの &lt;i&gt;/var/distro-trees/rhel-5-server/&lt;/i&gt; にメディアがある場合は、 そのパスをカーネルと initrd をチェックするツリーパス値として指定します (例: &lt;i&gt;/var/distro-trees/rhel-5-server/images/pxeboot/&lt;/i&gt;)。&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="treecreate.jsp.header2">
@@ -12353,8 +12377,8 @@ the @@PRODUCT_NAME@@ Tools channels for each supported parent channel.  You may
 need to perform a satellite sync of the @@PRODUCT_NAME@@ Tools channels before
 performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;</source>
 				<target> &lt;strong&gt; キックスタート RPM は見つかりませんでした。 このような RPM は 
-サポートされている各親チャンネルの @@PRODUCT_NAME@@ ツールチャンネルにあります。 キックスタート
-を行なう前、 または新規のキックスタートディストリビューションを作成する前に、
+サポートされている各親チャンネルの @@PRODUCT_NAME@@ ツールチャンネルにあります。 キックスタート 
+を行なう前、 または新規のキックスタートディストリビューションを作成する前に、 
  @@PRODUCT_NAME@@ ツールチャンネルのサテライト同期を行なう必要がある場合があります。&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="tree-form.jspf.noinstalltypes">
@@ -12899,6 +12923,10 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 				<source>Building</source>
 				<target>ビルディング</target>
 			</trans-unit>
+			<trans-unit id="sdc.details.overview.updatesavailable">
+				<source>Software Updates Available</source>
+				<target>ソフトウェアの更新があります</target>
+			</trans-unit>
 			<trans-unit id="sdc.details.overview.updates.critical">
 				<source>&lt;strong&gt;&lt;a href="{0}"&gt;Critical: &lt;/a&gt;&lt;/strong&gt; {1}</source>
 				<target>&lt;strong&gt;&lt;a href="{0}"&gt;重大: &lt;/a&gt;&lt;/strong&gt; {1}</target>
@@ -13050,7 +13078,7 @@ for your @@PRODUCT_NAME@@ service, but must also periodically perform maintenanc
 tasks to upgrade functionality, fix reported bugs, and improve
 performance.</source>
 				<target>弊社の最優先事項はお客様の @@PRODUCT_NAME@@ と登録アカウントの特典へのアクセスです。
- その為、@@PRODUCT_NAME@@ サービスに 100% の運用時間を維持することに尽力しておりますが、定期的に
+ その為、@@PRODUCT_NAME@@ サービスに 100% の運用時間を維持することに尽力しておりますが、定期的に 
 機能アップグレード、報告済みバグの修正、パフォーマンス向上などの為にメンテナンス作業を 
 する必要もあります。</target>
 			</trans-unit>
@@ -13065,10 +13093,10 @@ necessarily use every one of these windows to perform maintenance, we recommend 
 enterprise develop business practices that allow this period of downtime for your @@PRODUCT_NAME@@ solution.
 Red Hat will always attempt to inform at least one week in advance through the email outage
 list (see below) about this scheduled downtime whenever possible.</source>
-				<target>Red Hat では、 @@PRODUCT_NAME@@ に対する全ての予定メンテナンスをアメリカ東海岸標準時で、
+				<target>Red Hat では、 @@PRODUCT_NAME@@ に対する全ての予定メンテナンスをアメリカ東海岸標準時で、 
 毎週火曜日の午後 9 時から午前 3 時 までの間 (UTC 午前 1 時から 7 時) にスケジュールしています。 
 Red Hat は 毎週必ずこれらの時間枠を使用してメンテナンスを行うわけではありませんが、 
-企業及び組織の皆様には、 @@PRODUCT_NAME@@ ソリューションのダウンタイムとしてこの時間枠を考慮に入れた
+企業及び組織の皆様には、 @@PRODUCT_NAME@@ ソリューションのダウンタイムとしてこの時間枠を考慮に入れた 
 業務を展開されるようお勧めします。 Red Hat は常に可能な限り、 最低でも 1 週間前にはこのような 
 ダウンタイムの予定に関して Email による機能停止リスト(下記参照) を送信しご連絡できるよう努めます。</target>
 			</trans-unit>
@@ -13323,7 +13351,7 @@ You will want to download &lt;strong&gt;Base Channel Content ISOs&lt;/strong&gt;
 Alternatively, you will want to download &lt;strong&gt;Incremental Channel Content ISOs&lt;/strong&gt; if you want to update channels that you have already imported into your @@PRODUCT_NAME@@.</source>
 				<target>
 チャンネルコンテント ISO は 2 タイプあります。ベースチャンネルコンテント ISO と インクリメンタルチャンネルコンテント ISO です。
-はじめてチャンネルコンテントで新しい @@PRODUCT_NAME@@ を移植する必要がある場合は、 &lt;strong&gt;ベースチャンネルコンテント ISO&lt;/strong&gt; をダウンロードすることになります。
+はじめてチャンネルコンテントで新しい @@PRODUCT_NAME@@ を移植する必要がある場合は、 &lt;strong&gt;ベースチャンネルコンテント ISO&lt;/strong&gt; をダウンロードすることになります。 
 一方、 すでに @@PRODUCT_NAME@@ にインポートしているチャンネルを更新する場合には、 &lt;strong&gt;インクリメンタルチャンネルコンテント ISO&lt;/strong&gt; をダウンロードする方がよいでしょう。</target>
 			</trans-unit>
 			<trans-unit id="isodownload.channel-dump-note">
@@ -13590,7 +13618,7 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 			</trans-unit>
 			<trans-unit id="orgcreate.header2">
 				<source>Your &lt;strong&gt;@@PRODUCT_NAME@@ Administrator&lt;/strong&gt; role will not allow you to login into or modify this new organization, and your @@PRODUCT_NAME@@ login cannot be a member of more than one organization.  Consequently, you will need to create a new login for the initial &lt;strong&gt;Organization Administrator&lt;/strong&gt; for this organization:</source>
-				<target>お持ちの &lt;strong&gt;@@PRODUCT_NAME@@ Administrator&lt;/strong&gt; 役職では、この新規の組織へのログインや修正は 出来ません。そして、その @@PRODUCT_NAME@@ ログインは１つ以上の組織のメンバーであることは出来ません。 そのため、この組織用に初期 &lt;strong&gt;Organization Administrator&lt;/strong&gt; 用の新規ログインを 作成する必要があります。</target>
+				<target>お持ちの &lt;strong&gt;@@PRODUCT_NAME@@ 管理者&lt;/strong&gt;ロールでは、この新規の組織へのログインや修正は出来ません。そして、その @@PRODUCT_NAME@@ ログインは１つ以上の組織のメンバーであることは出来ません。 そのため、この組織に対して初期 &lt;strong&gt;組織管理者&lt;/strong&gt; の新規ログインを作成する必要があります。</target>
 			</trans-unit>
 			<trans-unit id="org.channels.trusted.protection">
 				<source>No trusted organizations available</source>
@@ -13618,7 +13646,7 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 			</trans-unit>
 			<trans-unit id="orgcreate.jsp.adminheader">
 				<source>Create Initial Organization Administrator</source>
-				<target>初期 Organization Administrator の作成</target>
+				<target>初期組織管理者の作成</target>
 			</trans-unit>
 			<trans-unit id="orgsystemsubs.jsp.base">
 				<source>(Base)</source>
@@ -13819,7 +13847,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
 			</trans-unit>
 			<trans-unit id="org.trust.affectedsystems.summary">
 				<source>
-            The systems listed below will be affected by removing the trust relationship between
+            The systems listed below will be affected by removing the trust relationship between 
             the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.</source>
@@ -13973,7 +14001,7 @@ As a Channel Administrator, you may change the base channels your systems are su
 &lt;p/&gt;
 &lt;strong&gt;This operation can have a dramatic effect on the packages and errata available to the systems, and should be used with caution.&lt;/strong&gt;</source>
 				<target>
-Channel Administrator として、ユーザーのシステムがサブスクライブしている ベースチャンネルを変更することができます。有効なチャンネルとは、ユーザーの 組織によって作成されたチャンネルであるか、又はユーザーのオペレーティング システムのバージョンとプロセッサタイプの為のデフォルトの Red Hat ベース チャンネルのことです。サブスクライブ解除はシステムが全てのチャンネルに対して実行可能で、 サブスクライブは新規のベースチャンネルに対してが可能となります。
+チャンネル管理者として、ユーザーのシステムがサブスクライブしている ベースチャンネルを変更することができます。有効なチャンネルとは、ユーザーの 組織によって作成されたチャンネルであるか、又はユーザーのオペレーティング システムのバージョンとプロセッサタイプの為のデフォルトの Red Hat ベース チャンネルのことです。サブスクライブ解除はシステムが全てのチャンネルに対して実行可能で、 サブスクライブは新規のベースチャンネルに対してが可能となります。
 &lt;p/&gt;
 &lt;strong&gt;この操作は、システムで利用可能なパッケージと errata に劇的な効果を 示しますので、注意して操作してください。&lt;/strong&gt;</target>
 			</trans-unit>
@@ -14773,28 +14801,28 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Channel name and label are required. They each must be at least 6
         characters in length. Labels must begin with a letter, contain only
         lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
         numerals. Channel name may also contain spaces and forward slashes
         ('/').
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Channel summary is also required.</source>
 				<target>このページからソフトウェアチャンネルの作成または編集を行います。
-        &lt;p/&gt;
+        &lt;p/&gt; 
         親チャンネルが none に設定されていると、チャンネルはペースチャンネルになります。
         その他の場合、チャンネルは指定されたチャンネルの子チャンネルとなります。
-        &lt;p/&gt;
+        &lt;p/&gt; 
         チャンネル名とラベルが必須項目となります。チャンネル名とラベルは 6 文字以上でなければ
         なりません。ラベルの 1 文字目は小文字のアルファベットでなければならず、2 文字以降に
         使用できるのは、小文字のアルファベット、ハイフン (-)、ピリオド (.)、アンダーライン (_)、
-        数字のみです。チャンネル名にはこれらの文字だけでなく空白文字やフォワードスラッシュ (/)
+        数字のみです。チャンネル名にはこれらの文字だけでなく空白文字やフォワードスラッシュ (/) 
         も使用できます。
-        &lt;p/&gt;
+        &lt;p/&gt; 
         チャンネルの要約も必要となります。</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.public">
