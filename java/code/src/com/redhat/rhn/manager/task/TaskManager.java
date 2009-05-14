@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.manager.task;
 
-import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
@@ -23,9 +22,23 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * 
+ * TaskManager
+ * @version $Rev$
+ */
 public class TaskManager {
 
+    
+    private TaskManager() {
+        
+    }
+    
+    /**
+     * gets the last time a certain task was exectued
+     * @param label the label of the task
+     * @return the date
+     */
     public static Date getTaskExecutionTime(String label) {
 
         SelectMode m = ModeFactory.getMode("Task_queries", "get_task_stats");
@@ -40,7 +53,10 @@ public class TaskManager {
     }
 
 
-
+    /**
+     * Gets the current db time
+     * @return the date
+     */
     public static Date getCurrentDBTime() {
         SelectMode m = ModeFactory.getMode("Task_queries", "get_current_time");
         DataResult<Map> list = m.execute();
