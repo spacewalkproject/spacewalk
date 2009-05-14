@@ -14,32 +14,32 @@
  */
 package com.redhat.rhn.manager.satellite;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.commons.lang.RandomStringUtils;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.user.User;
 
-import org.apache.commons.lang.RandomStringUtils;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
-import java.util.LinkedList;
-import java.util.List;
-
 /**
- * ConfigureSatelliteCommand
- * @version $Rev$
+ * Updates the satellite certificate using the <code>rhn-satellite-activate</code>
+ * utility.
  */
-public class ConfigureCertificateCommand extends BaseConfigureCommand 
-    implements SatelliteConfigurator {
-    
+public class ConfigureCertificateCommand
+    extends BaseConfigureCommand implements SatelliteConfigurator {
+
     private String certificateText;
     private String certificateFileName;
-    
+    private boolean ignoreVersionMismatch;
+
     /**
      * Constructor.
+     *
      * @param userIn who is going to execute this Command
      */
     public ConfigureCertificateCommand(User userIn) {
@@ -47,60 +47,26 @@ public class ConfigureCertificateCommand extends BaseConfigureCommand
     }
 
     /**
-     * Set the text of the cert.
-     * @param certTextIn to set
-     */
-    public void setCertificateText(String certTextIn) {
-        this.certificateText = certTextIn;
-    }
-
-    
-    /**
-     * @return Returns the certificateText.
-     */
-    public String getCertificateText() {
-        return this.certificateText;
-    }
-
-    /**
-     * Write the 
-     * @throws FileNotFoundException
-     */
-    protected void writeStringToFile(String contents) throws FileNotFoundException {
-        String tmpDir = System.getProperty("java.io.tmpdir");
-        this.certificateFileName = tmpDir + "/cert_text" +
-            RandomStringUtils.randomAlphanumeric(13) + ".cert";
-        FileOutputStream out = new FileOutputStream(this.certificateFileName);
-        PrintStream printer = new PrintStream(out);
-        printer.println(this.certificateText);
-        printer.close();
-    }
-    
-    protected boolean deleteCertTempFile(String fileName) {
-        File f = new File(fileName);
-        return f.delete();
-    }
-    
-    /**
      * Store the certificate to the local satellite.  This will 'Activate'
      * the satellite in an attempt to validate the cert.
-     * @return int return code.
+     *
+     * @return errors encountered while storing
      */
     public ValidatorError[] storeConfiguration() {
         Executor e = getExecutor();
         ValidatorError[] errors = new ValidatorError[1];
         String errorKey = "certificate.config.error.";
-        
+
         try {
-            writeStringToFile(this.certificateText);
+            writeStringToFile();
         }
         catch (FileNotFoundException e1) {
             e1.printStackTrace();
-            errors[0] = new ValidatorError(errorKey + "88"); 
+            errors[0] = new ValidatorError(errorKey + "88");
             return errors;
         }
-        
-        List args = new LinkedList();
+
+        List<String> args = new ArrayList<String>();
         args.add("/usr/bin/sudo");
         args.add("/usr/bin/rhn-satellite-activate");
         args.add("--rhn-cert");
@@ -108,11 +74,15 @@ public class ConfigureCertificateCommand extends BaseConfigureCommand
         if (Config.get().isDisconnected()) {
             args.add("--disconnected");
         }
-        
-        int exitcode = e.execute((String[]) args.toArray(new String[0]));
-        
+        if (ignoreVersionMismatch) {
+            args.add("--ignore-version-mismatch");
+        }
+
+        String[] process = args.toArray(new String[args.size()]);
+        int exitcode = e.execute(process);
+
         if (!deleteCertTempFile(this.certificateFileName)) {
-            errors[0] = new ValidatorError(errorKey + "89"); 
+            errors[0] = new ValidatorError(errorKey + "89");
             return errors;
         }
         if (exitcode != 0) {
@@ -120,7 +90,7 @@ public class ConfigureCertificateCommand extends BaseConfigureCommand
             if (!LocalizationService.getInstance().hasMessage(errorKey)) {
                 errorKey = "certificate.config.error.127";
             }
-            errors[0] = new ValidatorError(errorKey); 
+            errors[0] = new ValidatorError(errorKey);
             return errors;
         }
         else {
@@ -128,11 +98,53 @@ public class ConfigureCertificateCommand extends BaseConfigureCommand
         }
     }
 
-    
+    protected void writeStringToFile() throws FileNotFoundException {
+        String tmpDir = System.getProperty("java.io.tmpdir");
+
+        this.certificateFileName = tmpDir + "/cert_text" +
+            RandomStringUtils.randomAlphanumeric(13) + ".cert";
+
+        FileOutputStream out = new FileOutputStream(this.certificateFileName);
+        PrintStream printer = new PrintStream(out);
+        try {
+            printer.println(this.certificateText);
+        }
+        finally {
+            printer.close();
+        }
+    }
+
+    protected boolean deleteCertTempFile(String fileName) {
+        File f = new File(fileName);
+        return f.delete();
+    }
+
     /**
-     * @return Returns the certificateFileName.
+     * Set the text of the cert.
+     *
+     * @param certTextIn to set
      */
+    public void setCertificateText(String certTextIn) {
+        this.certificateText = certTextIn;
+    }
+
+    /** @return Returns the certificateText. */
+    public String getCertificateText() {
+        return this.certificateText;
+    }
+
+    /** @return Returns the certificateFileName. */
     public String getCertificateFileName() {
         return certificateFileName;
+    }
+
+    /**
+     * Indicates if the certificate activation should ignore version mismatches.
+     *
+     * @param ignoreVersionMismatchIn indicates if the activation will ignore
+     *                                version mismatches
+     */
+    public void setIgnoreVersionMismatch(boolean ignoreVersionMismatchIn) {
+        this.ignoreVersionMismatch = ignoreVersionMismatchIn;
     }
 }

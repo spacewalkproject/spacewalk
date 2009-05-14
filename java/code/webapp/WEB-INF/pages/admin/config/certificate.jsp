@@ -45,6 +45,11 @@
             <html:textarea cols="80" rows="24" property="cert_text" />
         </td>
     </tr>
+    <tr>
+        <td colspan="2">
+            <input type="checkbox" name="ignoreMismatch"/> <bean:message key="certificate.jsp.ignore_mismatch"/>
+        </td>
+    </tr>
     </table>
     <hr/>
     <div align="right"><html:submit><bean:message key="config.update"/></html:submit></div>

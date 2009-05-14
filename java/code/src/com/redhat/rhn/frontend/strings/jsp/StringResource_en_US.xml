@@ -8841,6 +8841,13 @@ administrator privileges.</source>
         </context-group>
       </trans-unit>
 
+      <trans-unit id="certificate.jsp.ignore_mismatch">
+<source>Ignore version mismatch</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="bootstrap.jsp.toolbar">
 <source>@@PRODUCT_NAME@@ Configuration - Bootstrap</source>
         <context-group name="ctx">

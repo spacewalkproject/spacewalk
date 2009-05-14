@@ -30,6 +30,7 @@ public class ConfigureCertificateCommandTest extends BaseTestCaseWithUser {
     
     public void testCreateCommand() throws Exception {
         String originalConfig = Config.get().getString(Config.SATELLITE_PARENT);
+
         Config.get().setString(Config.SATELLITE_PARENT, "satellite.webqa.redhat.com");
         user.addRole(RoleFactory.SAT_ADMIN);
         cmd = new ConfigureCertificateCommand(user) {
@@ -41,6 +42,34 @@ public class ConfigureCertificateCommandTest extends BaseTestCaseWithUser {
         assertNotNull(cmd.getUser());
         
         cmd.setCertificateText("some text");
+        assertNotNull(cmd.getCertificateText());
+        assertNull(cmd.storeConfiguration());
+        
+        if (originalConfig == null) {
+            Config.get().setString(Config.SATELLITE_PARENT, "");
+        } 
+        else {
+            Config.get().setString(Config.SATELLITE_PARENT, originalConfig);
+        }
+    }
+    
+    public void testCreateCommandIgnoreMismatch() throws Exception {
+        String originalConfig = Config.get().getString(Config.SATELLITE_PARENT);
+        Config.get().setString(Config.SATELLITE_PARENT, "satellite.webqa.redhat.com");
+        user.addRole(RoleFactory.SAT_ADMIN);
+        cmd = new ConfigureCertificateCommand(user) {
+            protected Executor getExecutor() {
+                TestExecutor testExecutor = new TestExecutor();
+                testExecutor.shouldIgnoreMismatch = true;
+                return testExecutor;
+            }
+        };
+        
+        assertNotNull(cmd.getUser());
+        
+        cmd.setCertificateText("some text");
+        cmd.setIgnoreVersionMismatch(true);
+        
         assertNotNull(cmd.getCertificateText());
         assertNull(cmd.storeConfiguration());
         if (originalConfig == null) {
@@ -55,8 +84,10 @@ public class ConfigureCertificateCommandTest extends BaseTestCaseWithUser {
      * TestExecutor - 
      * @version $Rev$
      */
-    public class TestExecutor implements Executor {
+    private class TestExecutor implements Executor {
 
+        protected boolean shouldIgnoreMismatch;
+        
         public int execute(String[] args) {
             if (!args[0].equals("/usr/bin/sudo")) {
                 return -1;
@@ -73,9 +104,22 @@ public class ConfigureCertificateCommandTest extends BaseTestCaseWithUser {
             else if (!args[4].equals("--disconnected")) {
                 return -1;
             }
+            else if (shouldIgnoreMismatch) {
+                if (args.length != 6 || !args[5].equals("--ignore-version-mismatch")) { 
+                    return -1;
+                }
+            }
             return 0;
         }
-        
+
+        public String getLastCommandOutput() {
+            return null;
+        }
+
+        public String getLastCommandErrorMessage() {
+            return null;
+        }
+
     }
 
 }
