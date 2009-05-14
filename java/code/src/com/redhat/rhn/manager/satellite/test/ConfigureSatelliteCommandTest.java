@@ -257,5 +257,13 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
         public int execute(String[] args) {
             return 0;
         }
+
+        public String getLastCommandOutput() {
+            return null;
+        }
+
+        public String getLastCommandErrorMessage() {
+            return null;
+        }
     }
 }

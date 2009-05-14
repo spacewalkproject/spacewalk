@@ -58,6 +58,14 @@ public class RestartCommandTest extends BaseTestCaseWithUser {
                 return 0;
             }
         }
+
+        public String getLastCommandOutput() {
+            return null;
+        }
+
+        public String getLastCommandErrorMessage() {
+            return null;
+        }
     }
 
 }

@@ -56,6 +56,19 @@ public class CertificateConfigActionTest extends RhnMockStrutsTestCase {
         verifyActionMessages(new String[]{"certificate.config.success"});
     }
     
+    public void testExecuteTextSubmitWithMismatch() throws Exception {
+
+        String certString = "some cert text" + TestUtils.randomString();
+        addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
+        addRequestParameter(CertificateConfigForm.CERT_TEXT, certString);
+        addRequestParameter("ignoreMismatch", "true");
+        actionPerform();
+        
+        DynaActionForm form = (DynaActionForm) getActionForm(); 
+        assertEquals(form.get(CertificateConfigForm.CERT_TEXT), certString);
+        verifyActionMessages(new String[]{"certificate.config.success"});
+    }
+    
     public void testExecuteSubmitNoCert() throws Exception {
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         actionPerform();

@@ -19,20 +19,22 @@ import org.apache.log4j.Logger;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 
 /**
  * SystemCommandExecutor - implementation of the Executor interface that
  * will take in the list of arguments and call Runtime.exec().
- * @version $Rev$
  */
 public class SystemCommandExecutor implements Executor {
 
+    private String lastCommandOutput;
+    private String lastCommandError;
+    
     /**
      * Logger for this class
      */
-    private static Logger logger = Logger
-            .getLogger(SystemCommandExecutor.class);
+    private final Logger logger = Logger.getLogger(this.getClass());
 
     /**
      * {@inheritDoc}
@@ -41,6 +43,7 @@ public class SystemCommandExecutor implements Executor {
         if (logger.isDebugEnabled()) {
             logger.debug("execute(String[] args=" + Arrays.asList(args) + ") - start");
         }
+        
         Runtime r = Runtime.getRuntime();
         try {
             if (logger.isDebugEnabled()) {
@@ -48,19 +51,18 @@ public class SystemCommandExecutor implements Executor {
             }
             Process p = r.exec(args);
             
-            /* read output of the command, if any */
-            BufferedReader input = new BufferedReader(
-                new InputStreamReader(p.getInputStream()));
-            try {
-                String line = input.readLine();
-                while (line != null) {
-                    line = input.readLine();
-                }
+            lastCommandOutput = inputStreamToString(p.getInputStream());
+            if (logger.isDebugEnabled()) {
+                logger.debug("Output from process execution: " + lastCommandOutput);
             }
-            catch (IOException ioe) {
-                logger.debug("IOException...really need better handling here");
+            
+            lastCommandError = inputStreamToString(p.getErrorStream());
+            if (lastCommandError != null && lastCommandError.trim().length() > 0) {
+                logger.error("Error encountered executing (args=" + 
+                             Arrays.asList(args) + ")");
+                logger.error("Error message from process: " + lastCommandError);
             }
-
+            
             try {
                 if (logger.isDebugEnabled()) {
                     logger.debug("execute() - Calling p.waitfor ..");
@@ -85,4 +87,42 @@ public class SystemCommandExecutor implements Executor {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public String getLastCommandOutput() {
+        return lastCommandOutput;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getLastCommandErrorMessage() {
+        return lastCommandError;
+    }
+
+    /**
+     * Reads the given input stream and returns a string containing its contents.
+     * 
+     * @param in cannot be <code>null</code>
+     * @return will not be <code>null</code> but may be the empty string
+     */
+    private String inputStreamToString(InputStream in) {
+        StringBuffer sb = new StringBuffer();
+
+        try {
+            BufferedReader input = new BufferedReader(new InputStreamReader(in));
+
+            String line;
+            while ((line = input.readLine()) != null) {
+                sb.append(line);
+            }
+        }
+        catch (IOException e) {
+            logger.warn("Error reading input from process input stream", e);
+        }
+
+        return sb.toString();
+    }
+    
 }
