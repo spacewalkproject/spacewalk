@@ -152,7 +152,7 @@
     </activity>
 
     <collect-data description="Enable Monitoring Proxy"
-     acl="org_entitlement(rhn_monitor); package_available(rhns-proxy-monitoring); global_config(satellite); global_config(is_monitoring_backend)">
+     acl="org_entitlement(rhn_monitor); package_available(spacewalk-proxy-monitoring); global_config(satellite); global_config(is_monitoring_backend)">
 
       <header>
 Would you like to enable Monitoring Proxy functionality on this system?
