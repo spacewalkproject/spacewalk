@@ -22,6 +22,9 @@ and Enterprise User Reference guides.
 %prep
 %setup -q
 
+%build
+#nothing to do here
+
 %install
 # want to install the documentation in a versioned directory
 install -m 755 -d $RPM_BUILD_ROOT%{docdir}
