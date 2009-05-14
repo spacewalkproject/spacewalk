@@ -37,7 +37,7 @@ rhnChannel
 			constraint rhn_channel_label_nn not null,
 	basedir		varchar2(256)
 			constraint rhn_channel_basedir_nn not null,
-	name		varchar2(64)
+	name		varchar2(256)
 			constraint rhn_channel_name_nn not null,
 	summary		varchar2(500)
 			constraint rhn_channel_summary_nn not null,
