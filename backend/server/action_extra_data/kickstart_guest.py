@@ -61,7 +61,7 @@ def initiate(server_id, action_id, data={}):
         ks_state = 'failed'
         next_action_type = None
     else:
-        ks_state = 'complete'
+        ks_state = 'in_progress'
         next_action_type = 'kickstart_guest.add_tools_channel'
 
     server_kickstart.update_kickstart_session(server_id, action_id,
