@@ -2,13 +2,8 @@ Name: spacewalk-proxy-docs
 Summary: Spacewalk Proxy Server Documentation
 Group: Applications/Internet
 License: GPLv2
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd proxy/proxy-docs
-# make test-srpm
 URL:     https://fedorahosted.org/spacewalk
-Source0: %{name}-%{version}.tar.gz
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version: 0.4.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-root-%(%{__id_u} -n)
