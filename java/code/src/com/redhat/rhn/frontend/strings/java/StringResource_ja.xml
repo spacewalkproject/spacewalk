@@ -138,9 +138,17 @@
 				<source>Tip</source>
 				<target>ヒント</target>
 			</trans-unit>
+			<trans-unit id="Note">
+				<source>Note</source>
+				<target>注記</target>
+			</trans-unit>
+			<trans-unit id="Warning">
+				<source>Warning</source>
+				<target>警告</target>
+			</trans-unit>
 			<trans-unit id="About Spacewalk">
 				<source>About</source>
-				<target>★</target>
+				<target>関連★</target>
 			</trans-unit>
 			<trans-unit id="Account">
 				<source>Account</source>
@@ -708,7 +716,7 @@
 			</trans-unit>
 			<trans-unit id="user.deleteadmin">
 				<source>You cannot delete &lt;strong&gt;another&lt;/strong&gt; organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
-				<target>&lt;strong&gt;別の&lt;/strong&gt; Organization Administrator を削除することはできません。 このユーザーの「Organization Administrator」ロールを削除してからアカウントの削除を行なってください。</target>
+				<target>&lt;strong&gt;別の&lt;/strong&gt;組織管理者を削除することはできません。 このユーザーの「組織管理者」ロールを削除してからアカウントの削除を行なってください。</target>
 			</trans-unit>
 			<trans-unit id="Users/Servers">
 				<source>Users/Servers</source>
@@ -748,7 +756,7 @@
 			</trans-unit>
 			<trans-unit id="Organization Admins">
 				<source>Organization Admins</source>
-				<target>Organization Admin</target>
+				<target>組織管理者</target>
 			</trans-unit>
 			<trans-unit id="Activation Key Administrators">
 				<source>Activation Key Administrators</source>
@@ -756,11 +764,11 @@
 			</trans-unit>
 			<trans-unit id="Channel Administrators">
 				<source>Channel Administrators</source>
-				<target>Channel Administrator</target>
+				<target>チャンネル管理者</target>
 			</trans-unit>
 			<trans-unit id="Organization Administrators">
 				<source>Organization Administrators</source>
-				<target>Organization Administrator</target>
+				<target>組織管理者</target>
 			</trans-unit>
 			<trans-unit id="Satellite Administrators">
 				<source>@@PRODUCT_NAME@@ Administrators</source>
@@ -1214,11 +1222,11 @@ available for this kickstart profile to function properly.
 &lt;p&gt;この問題を解決するために、以下の事項を確認してください。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-このキックスタートプロフィールのベースチャンネルに対する rhn-tools の子ソフトウェア
+このキックスタートプロフィールのベースチャンネルに対する rhn-tools の子ソフトウェア 
 チャンネルは、ユーザーの組織で使用できますか？ 使用できなければ、@@PRODUCT_NAME@@ 管理者に rhn-tools のソフトウェアチャンネルのエンタイトルメントをリクエストしなければなりません。
 &lt;/li&gt;
 &lt;li&gt;
-このキックスタートプロフィールのベースチャンネルに対する rhn-tools の子チャンネルが
+このキックスタートプロフィールのベースチャンネルに対する rhn-tools の子チャンネルが 
 @@PRODUCT_NAME@@ で使用できるか確認してください。使用できなければ、担当の Satellite 管理者に連絡し、rhn-tools チャンネルの satellite-sync をリクエストしてから再度試してください。
 &lt;/li&gt;
 &lt;li&gt;
@@ -1300,16 +1308,16 @@ available for this kickstart profile to function properly.
 				<target>キックスタートプロフィール {0} から IP 範囲を削除する際にエラーが発生しました。 やり直してください。</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.update.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
-				<target>Cobber スニペット &lt;strong&gt;{0}&lt;/strong&gt; が正しく更新されました。●</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
+				<target>キックスタートスニペット &lt;strong&gt;{0}&lt;/strong&gt; が正しく更新されました。●</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.create.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
-				<target>Cobber スニペット &lt;strong&gt;{0}&lt;/strong&gt; が正しく作成されました。●</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
+				<target>キックスタートスニペット &lt;strong&gt;{0}&lt;/strong&gt; が正しく作成されました。●</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.delete.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
-				<target>Cobber スニペット &lt;strong&gt;{0}&lt;/strong&gt; が正しく削除されました。</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
+				<target>キックスタートスニペット &lt;strong&gt;{0}&lt;/strong&gt; が正しく削除されました。</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.couldnotdelete.message">
 				<source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -1320,12 +1328,12 @@ available for this kickstart profile to function properly.
 				<target>スニペット &lt;strong&gt;{0}&lt;/strong&gt; の名前を &lt;strong&gt;{1}&lt;/strong&gt; に変更する際にエラーが発生しました。</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.filenameexists.message">
-				<source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; という名前の Cobbler スニペットは既に存在します。●</target>
+				<source>Kickstart snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; という名前のキックスタートスニペットは既に存在します。●</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.invalidfilename.message">
-				<source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
-				<target>指定された Cobbler スニペットのファイル名は無効です。有効な文字は英数字 (A〜Z、a〜z、0〜9)、アンダーライン (_)、ハイフン (-) です。●</target>
+				<source>The requested kickstart snippet filename is not valid. The kickstart snippet file name cannot contain slash (/) or  begin with a period(.)</source>
+				<target>リクエストされたキックスタートスニペットのファイル名は無効です。キックスタートスニペットのファイル名にスラッシュ (/) は使用できません。また、ピリオド (.) はファイル名の最初に使用できません。</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.snippets">
 				<source>delete snippet</source>
@@ -1493,11 +1501,11 @@ available for this kickstart profile to function properly.
 			</trans-unit>
 			<trans-unit id="cert_admin">
 				<source>Certificate Administrator</source>
-				<target>Certificate Administrator</target>
+				<target>証明書管理者</target>
 			</trans-unit>
 			<trans-unit id="org_admin">
 				<source>Organization Administrator</source>
-				<target>Organization Administrator</target>
+				<target>組織管理者</target>
 			</trans-unit>
 			<trans-unit id="satellite_admin">
 				<source>@@PRODUCT_NAME@@ Administrator</source>
@@ -1509,7 +1517,7 @@ available for this kickstart profile to function properly.
 			</trans-unit>
 			<trans-unit id="channel_admin">
 				<source>Channel Administrator</source>
-				<target>Channel Administrator</target>
+				<target>チャンネル管理者</target>
 			</trans-unit>
 			<trans-unit id="rhn_superuser">
 				<source>@@PRODUCT_NAME@@ Superuser</source>
@@ -1517,15 +1525,15 @@ available for this kickstart profile to function properly.
 			</trans-unit>
 			<trans-unit id="coma_admin">
 				<source>Coma CMS Administrator</source>
-				<target>Coma CMS Administrator</target>
+				<target>Coma CMS 管理者</target>
 			</trans-unit>
 			<trans-unit id="coma_author">
 				<source>Coma CMS Author</source>
-				<target>Coma CMS Author</target>
+				<target>Coma CMS 作者</target>
 			</trans-unit>
 			<trans-unit id="coma_publisher">
 				<source>Coma CMS Publisher</source>
-				<target>Coma CMS Publisher</target>
+				<target>Coma CMS 発行者</target>
 			</trans-unit>
 			<trans-unit id="rhn_support">
 				<source>@@PRODUCT_NAME@@ Support Administrator</source>
@@ -1533,15 +1541,15 @@ available for this kickstart profile to function properly.
 			</trans-unit>
 			<trans-unit id="config_admin">
 				<source>Configuration Administrator</source>
-				<target>Configuration Administrator</target>
+				<target>設定管理者</target>
 			</trans-unit>
 			<trans-unit id="monitoring_admin">
 				<source>Monitoring Administrator</source>
-				<target>Monitoring Administrator</target>
+				<target>Monitoring 管理者</target>
 			</trans-unit>
 			<trans-unit id="system_group_admin">
 				<source>System Group Administrator</source>
-				<target>System Group Administrator</target>
+				<target>システムグループ管理者</target>
 			</trans-unit>
 			<trans-unit id="activation_key_admin">
 				<source>Activation Key Administrator</source>
@@ -1893,11 +1901,11 @@ available for this kickstart profile to function properly.
 			</trans-unit>
 			<trans-unit id="userdisable.error.onlyuser">
 				<source>This user is the last Organization Administrator for this Organization. You cannot remove him from the Organization Administrators group.</source>
-				<target>このユーザーはこの組織/企業の最後の Organization Administrator になるため、 Organization Administrator グループから削除できません。</target>
+				<target>このユーザーはこの組織最後の組織管理者になるため、 組織管理者グループから削除できません。</target>
 			</trans-unit>
 			<trans-unit id="userdisable.error.otheruser">
 				<source>Only Organization Administrators can deactivate users other than themselves.</source>
-				<target>自分以外のユーザーを非アクティブにできるのは Organization Administrator のみになります。</target>
+				<target>自分以外のユーザーを非アクティブにできるのは組織管理者のみになります。</target>
 			</trans-unit>
 			<trans-unit id="org.base.delete.error">
 				<source>You cannot delete the base Organization {0}</source>
@@ -1907,8 +1915,8 @@ available for this kickstart profile to function properly.
 				<source>You cannot deactivate &lt;strong&gt;another&lt;/strong&gt; organization
 administrator. Please remove the 'Organization Administrator' role from this
 user before attempting to deactivate their account.</source>
-				<target>&lt;strong&gt;別の&lt;/strong&gt; Organization Administrator を非アクティブにすることはできません。
-このユーザーの「Organization Administrator」ロールを削除してからアカウントを非アクティブ
+				<target>&lt;strong&gt;別の&lt;/strong&gt;組織管理者を非アクティブにすることはできません。
+このユーザーの「組織管理者」ロールを削除してからアカウントを非アクティブ
 にしてください</target>
 			</trans-unit>
 			<trans-unit id="userdisable.error.userdisabled">
@@ -1933,11 +1941,11 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="userenable.error.orgadmin">
 				<source>You must be an Organization Administrator to enable a user.</source>
-				<target>ユーザーを有効にするには Organization Administrator でなければなりません。</target>
+				<target>組織管理者でないとユーザーを有効にできません。</target>
 			</trans-unit>
 			<trans-unit id="userenable.error.orgadmin.param">
 				<source>{0}: You must be an Organization Administrator to enable a user.</source>
-				<target>{0}: ユーザーを有効にするのは Organization Administrator でなければなりません。</target>
+				<target>{0}: 組織管理者でないとユーザーを有効にできません。</target>
 			</trans-unit>
 			<trans-unit id="reactivateusers.none">
 				<source>Choose at least one user to reactivate.</source>
@@ -3445,7 +3453,7 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="listdisplay.csv">
 				<source>Download CSV</source>
-				<target>CSV のダウンロード</target>
+				<target>CSVのダウンロード</target>
 			</trans-unit>
 			<trans-unit id="listdisplay.sortyby">
 				<source>Sort By This Column</source>
@@ -3617,7 +3625,7 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="scout.default.name">
 				<source>@@PRODUCT_NAME@@ Monitoring Scout</source>
-				<target>@@PRODUCT_NAME@@ 監視スカウト</target>
+				<target>@@PRODUCT_NAME@@ Monitoring スカウト</target>
 			</trans-unit>
 			<trans-unit id="Panic Destination">
 				<source>Panic Destination</source>
@@ -5221,17 +5229,16 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to
-syncronize kickstart distributions from Spacewalk to Cobbler.  These
-errors must be corrected for the distributions to be available for
-kickstarting systems kickstart distributions failed to sync from
-Spacewalk to Cobbler:
+The following is a list of errors gathered while Spacewalk attempts to 
+syncronize kickstart distributions from Spacewalk to Cobbler.  These 
+errors must be corrected for the distributions to be available for 
+kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
@@ -5239,15 +5246,14 @@ for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
 Spacewalk からCobbler へキックスタートディストリビューションを同期しようとした際に
-以下のエラーが収集されました。Spacewalk から Cobbler への同期に失敗したキックスタートするシステムの
-キックスタートディストリビューションに対して、ディストリビューションを使用できるようにするには、
-これらのエラーを修正する必要があります。
+以下のエラーが収集されました。キックスタートするシステムがディストリビューションを使用
+できるようにするには、これらのエラーを修正する必要があります。
 
 {0}
 
 エラーの詳細は以下をチェックしてください。
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 

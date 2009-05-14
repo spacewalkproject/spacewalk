@@ -590,10 +590,6 @@
 				<source>Critical</source>
 				<target>Critical</target>
 			</trans-unit>
-			<trans-unit id="Warning">
-				<source>Warning</source>
-				<target>Warning</target>
-			</trans-unit>
 			<trans-unit id="Unknown">
 				<source>Unknown</source>
 				<target>未知</target>

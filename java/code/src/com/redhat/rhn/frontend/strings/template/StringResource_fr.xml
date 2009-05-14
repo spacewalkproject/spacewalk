@@ -352,7 +352,7 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 Cher client de Red Hat,
 
 Le système suivant a été associé à votre login et votre compte
-Red Hat mais n'a pas reçu de droits d'accès aux services
+Red Hat mais n'a pas reçu de droits d'accès aux services 
 @@PRODUCT_NAME@@.
 
 {0}
@@ -444,7 +444,7 @@ package profile for that server is out of date. In that case you should run
 There is 1 affected system registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
 				<target>
-1 système affecté est enregistré dans "Vue d'ensemble" (seulement les systèmes
+1 système affecté est enregistré dans "Aperçu" (seulement les systèmes
 pour lesquels vous avez activé les alertes d'errata sont affichés).</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.numsystems">
@@ -452,7 +452,7 @@ pour lesquels vous avez activé les alertes d'errata sont affichés).</target>
 There are {0} affected systems registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
 				<target>
-{0} systèmes affectés sont enregistrés dans "Vue d'ensemble" (seulement les systèmes
+{0} systèmes affectés sont enregistrés dans "Aperçu" (seulement les systèmes
 pour lesquels vous avez activé les alertes d'errata sont affichés).</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.affected">
@@ -502,7 +502,7 @@ click the "Details" tab.
 Changer les préférences de notification
 ---------------------------------
 Pour activer/désactiver vos préférences d'alerte d'errata globalement, connectez-vous à @@PRODUCT_NAME@@
-et allez à partir de "Vue d'ensemble"/"Votre compte" sur l'onglet "Préférences".
+et allez à partir de "Aperçu"/"Votre compte" sur l'onglet "Préférences".
 
         Lien : {0}
 
@@ -681,7 +681,7 @@ Cher utilisateur de Red Hat Network,
 
 Ce courrier électronique vous est envoyé pour vous informer que le certificat de votre @@PRODUCT_NAME@@
 a expiré sur votre Satellite local {0}. Dans {1} jour(s) les services de gestion
-des systèmes fournient par votre serveur @@PRODUCT_NAME@@ deviendront inaccessibles.
+des systèmes fournient par votre serveur @@PRODUCT_NAME@@ deviendront inaccessibles. 
 Contactez le représentant du service clientèle Red Hat de votre région pour davantage d'informations 
 concernant le renouvellement de votre certificat @@PRODUCT_NAME@@.
 

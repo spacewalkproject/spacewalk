@@ -590,10 +590,6 @@
 				<source>Critical</source>
 				<target>சிக்கலான</target>
 			</trans-unit>
-			<trans-unit id="Warning">
-				<source>Warning</source>
-				<target>எச்சரிக்கை</target>
-			</trans-unit>
 			<trans-unit id="Unknown">
 				<source>Unknown</source>
 				<target>தெரியாதது</target>

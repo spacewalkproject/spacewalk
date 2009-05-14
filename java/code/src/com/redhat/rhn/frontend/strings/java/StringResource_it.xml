@@ -138,6 +138,14 @@
 				<source>Tip</source>
 				<target>Suggerimento</target>
 			</trans-unit>
+			<trans-unit id="Note">
+				<source>Note</source>
+				<target>Nota Bene</target>
+			</trans-unit>
+			<trans-unit id="Warning">
+				<source>Warning</source>
+				<target>Avvertenza</target>
+			</trans-unit>
 			<trans-unit id="About Spacewalk">
 				<source>About</source>
 				<target>Su</target>
@@ -1305,16 +1313,16 @@ per un corretto funzionamento di questo profilo kickstart.
 				<target>Si è verificato un errore durante la cancellazione dell'IP Range dal Profilo Kickstart {0}. Vi preghiamo di riprovare.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.update.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
-				<target>Snippet &lt;strong&gt;{0}&lt;/strong&gt; di Cobbler aggiornato con successo.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
+				<target>Snippet kickstart &lt;strong&gt;{0}&lt;/strong&gt; aggiornato con successo.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.create.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
-				<target>Snippet &lt;strong&gt;{0}&lt;/strong&gt; di Cobbler creato con successo.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
+				<target>Snippet kickstart &lt;strong&gt;{0}&lt;/strong&gt; creato con successo.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.delete.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
-				<target>Snippet &lt;strong&gt;{0}&lt;/strong&gt; di Cobbler cancellato con successo.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
+				<target>Snippet kickstart &lt;strong&gt;{0}&lt;/strong&gt; cancellato con successo.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.couldnotdelete.message">
 				<source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -1325,12 +1333,12 @@ per un corretto funzionamento di questo profilo kickstart.
 				<target>Si è verificato un errore durante il tentativo di rinominare lo snippet &lt;strong&gt;{0}&lt;/strong&gt; in &lt;strong&gt;{1}&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.filenameexists.message">
-				<source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
-				<target>Uno snippet di cobbler con il nome &lt;strong&gt;{0}&lt;/strong&gt; è già esistente.</target>
+				<source>Kickstart snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+				<target>Uno snippet kickstart con il nome &lt;strong&gt;{0}&lt;/strong&gt; è già esistente.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.invalidfilename.message">
-				<source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
-				<target>Il filename dello snippet di Cobbler richiesto non è valido.  I caratteri validi sono A-Z, a-z, 0-9, _ e -.</target>
+				<source>The requested kickstart snippet filename is not valid. The kickstart snippet file name cannot contain slash (/) or  begin with a period(.)</source>
+				<target>Il nome del file di snippet kickstart non è valido. Il nome non può contenere caratteri slash (/) o iniziare con un punto (.)</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.snippets">
 				<source>delete snippet</source>
@@ -5226,17 +5234,16 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to
-syncronize kickstart distributions from Spacewalk to Cobbler.  These
-errors must be corrected for the distributions to be available for
-kickstarting systems kickstart distributions failed to sync from
-Spacewalk to Cobbler:
+The following is a list of errors gathered while Spacewalk attempts to 
+syncronize kickstart distributions from Spacewalk to Cobbler.  These 
+errors must be corrected for the distributions to be available for 
+kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
@@ -5244,16 +5251,13 @@ for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
 Di seguito viene riportato un elenco di errori presenti durante il tentativo di Spacewalk
-di sincronizzare le distribuzioni kickstart da Spacewalk a Cobbler.  Questi errori
-devono essere corretti per poter rendere le distribuzioni disponibili ai sistemi interessati per
-l'esecuzione di kickstart delle distribuzioni che non hanno eseguito la sincronizzazione da
-Spacewalk a Cobbler:
+di sincronizzare le distribuzioni kickstart da Spacewalk a Cobbler.  Per rendere disponibili queste distribuzioni per l'esecuzione di kickstart, è necessario correggere questi errori:
 
 {0}
 
 Si prega di controllare:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 

@@ -138,6 +138,14 @@
 				<source>Tip</source>
 				<target>Tipp</target>
 			</trans-unit>
+			<trans-unit id="Note">
+				<source>Note</source>
+				<target>Anmerkung</target>
+			</trans-unit>
+			<trans-unit id="Warning">
+				<source>Warning</source>
+				<target>Warnung</target>
+			</trans-unit>
 			<trans-unit id="About Spacewalk">
 				<source>About</source>
 				<target>Info</target>
@@ -1307,16 +1315,16 @@ f&amp;uuml;r dieses Kickstart-Profil verf&amp;uuml;gbar machen, damit es ordnung
 				<target>Es gab einen Fehler beim L&amp;ouml;schen des IP-Bereichs vom Kickstart-Profil {0}. Bitte probieren Sie es noch einmal.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.update.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
-				<target>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; wurde erfolgreich aktualisiert.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
+				<target>Kickstart Snippet &lt;strong&gt;{0}&lt;/strong&gt; wurde erfolgreich aktualisiert.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.create.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
-				<target>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; wurde erfolgreich erstellt.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
+				<target>Kickstart Snippet &lt;strong&gt;{0}&lt;/strong&gt; wurde erfolgreich erstellt.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.delete.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
-				<target>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; wurde erfolgreich erstellt.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
+				<target>Kickstart Snippet &lt;strong&gt;{0}&lt;/strong&gt; wurde erfolgreich gelöscht.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.couldnotdelete.message">
 				<source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -1327,12 +1335,12 @@ f&amp;uuml;r dieses Kickstart-Profil verf&amp;uuml;gbar machen, damit es ordnung
 				<target>Ein Fehler trat auf beim Versuch, das Snippet &lt;strong&gt;{0}&lt;/strong&gt; umzubenennen in &lt;strong&gt;{1}&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.filenameexists.message">
-				<source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
-				<target>Cobbler Snippet mit dem Namen &lt;strong&gt;{0}&lt;/strong&gt; existiert bereits.</target>
+				<source>Kickstart snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+				<target>Kickstart Snippet mit dem Namen &lt;strong&gt;{0}&lt;/strong&gt; existiert bereits.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.invalidfilename.message">
-				<source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
-				<target>Der angegebene Cobbler Snippet Dateiname ist ungültig. Gültige Zeichen sind A-Z, a-z, 0-9, _ und -.</target>
+				<source>The requested kickstart snippet filename is not valid. The kickstart snippet file name cannot contain slash (/) or  begin with a period(.)</source>
+				<target>Der angeforderte Kickstart Snippet Dateiname ist ungültig. Der Kickstart Snippet Dateiname darf keine Schrägstriche (/) enthalten oder mit einem Punkt (.) beginnen.u</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.snippets">
 				<source>delete snippet</source>
@@ -4220,7 +4228,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.notifications.disabled">
 				<source>E-mail notifications disabled globally</source>
-				<target>E-Mail- Benachrichtigungen global deaktiviert</target>
+				<target>E-Mail-Benachrichtigungen global deaktiviert</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.lock.reason">
 				<source>Manually locked</source>
@@ -4340,7 +4348,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="config.files_0_dirs_0_url">
 				<source>No files or directories. &lt;a href="{0}"&gt; Add&lt;/a&gt;</source>
-				<target>Keine Dateien oder Verzeichnisse. &lt;a href="{0}"&gt;Hinzuf&amp;uuml;gen&lt;/a&gt;</target>
+				<target>Keine Dateien oder Verzeichnisse. &lt;a href="{0}"&gt; Hinzuf&amp;uuml;gen&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="config.files_0_dirs_0">
 				<source>No files or directories.</source>
@@ -4436,7 +4444,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="systems.details.virt.guest.virt.start">
 				<source>Start</source>
-				<target>Start</target>
+				<target>Starten</target>
 			</trans-unit>
 			<trans-unit id="systems.details.virt.guest.virt.suspend">
 				<source>Suspend</source>
@@ -4488,7 +4496,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="systems.details.virt.vcpu.increase.warning">
 				<source>{1} must be shutdown if last started with less than {0} vCPUs for changes to take effect.</source>
-				<target>{1} muss heruntergefahren werden, falls zuletzt mit weniger als {0} vCPUs gestartet, damit die &amp;Auml;nderungen wirksam werden.</target>
+				<target>{1} ben&amp;ouml;tigt einen Neustart, falls zuletzt mit weniger als {0} vCPUs gestartet, damit die &amp;Auml;nderungen wirksam werden.</target>
 			</trans-unit>
 			<trans-unit id="systems.details.virt.memory.warning">
 				<source>{0} must be shutdown for max memory settings to take effect.</source>
@@ -4496,7 +4504,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="systems.details.virt.memory.check.host">
 				<source>Ensure the host system has sufficient free memory if increasing guest memory allocation. Otherwise the guest may refuse to boot the next time it is started.</source>
-				<target>Stellen Sie sicher, dass das Host-System über ausreichend freien Speicher verfügt, wenn Sie die Zuweisung von Gastspeicher erhöhen. Andernfalls kann der Gast ggf. nicht Booten, wenn er das nächste mal gestartet wird.</target>
+				<target>Stellen Sie sicher, dass das Host-System über ausreichend freien Speicher verfügt, wenn Sie die Zuweisung von Gastspeicher erhöhen. Andernfalls kann der Gast ggf. nicht hochfahren, wenn er das nächste mal gestartet wird.</target>
 			</trans-unit>
 			<trans-unit id="virtualsystems.none">
 				<source>No virtual systems selected.</source>
@@ -4616,7 +4624,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="system.entitle.no-add.solaris-slots">
 				<source>{0} entitlements cannot be added to solaris machines</source>
-				<target>{0} Berechtigungen k&amp;ouml;nnen zu keinen Solaris-Maschinen hinzugef&amp;uuml;gt werden</target>
+				<target>{0} Berechtigungen k&amp;ouml;nnen nicht zu Solaris-Maschinen hinzugef&amp;uuml;gt werden</target>
 			</trans-unit>
 			<trans-unit id="system.invalidsystem">
 				<source>Invalid system</source>
@@ -4664,7 +4672,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="api.errata.invaliderrata">
 				<source>Invalid errata: {0}</source>
-				<target>Ung&amp;uuml;ltige Errata: {0}</target>
+				<target>Ung&amp;uuml;ltiges Erratum: {0}</target>
 			</trans-unit>
 			<trans-unit id="api.package.invalidpackage">
 				<source>Invalid package: {0}</source>
@@ -4672,7 +4680,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="api.errata.duplicateerrata">
 				<source>Errata already exists with advisory {0}</source>
-				<target>Erratum existiert bereits f&amp;uuml;r das Advisory {0}</target>
+				<target>Erratum existiert bereits f&amp;uuml;r den Hinweis {0}</target>
 			</trans-unit>
 			<trans-unit id="api.system.invalidarch">
 				<source>Invalid arch specified: {0}</source>
@@ -4764,19 +4772,19 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="api.package.provider.invalidKeyType">
 				<source>The package key type specified ({0}) is invalid.</source>
-				<target>Der angegebene Paket-Schlüsseltyp ({0}) ist ung&amp;uuml;ltig.</target>
+				<target>Der angegebene Paketschlüsseltyp ({0}) ist ung&amp;uuml;ltig.</target>
 			</trans-unit>
 			<trans-unit id="api.package.provider.invalidKey">
 				<source>The package key specified ({0}) is invalid.</source>
-				<target>Der angegebene Paket-Schlüssel ({0}) ist ung&amp;uuml;ltig.</target>
+				<target>Der angegebene Paketschlüssel ({0}) ist ung&amp;uuml;ltig.</target>
 			</trans-unit>
 			<trans-unit id="api.package.provider.duplicateKey">
 				<source>The package key specified ({0}) already exists.</source>
-				<target>Der angegebene Paket-Schlüssel ({0}) existiert bereits.</target>
+				<target>Der angegebene Paketschlüssel ({0}) existiert bereits.</target>
 			</trans-unit>
 			<trans-unit id="api.package.provider.invalidProvider">
 				<source>The package provider specified ({0}) is  invalid.</source>
-				<target>Der angegebene Paket-Anbieter ({0}) ist ung&amp;uuml;ltig.</target>
+				<target>Der angegebene Paketanbieter ({0}) ist ung&amp;uuml;ltig.</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.invalidvirttype">
 				<source>Invalid virtualization type: {0}</source>
@@ -4800,7 +4808,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="api.package.invalidpackagearch">
 				<source>The package arch specified ({0}) is invalid.</source>
-				<target>Die angegebene Paket-Architektur ({0}) ist ung&amp;uuml;ltig.</target>
+				<target>Die angegebene Paketarchitektur ({0}) ist ung&amp;uuml;ltig.</target>
 			</trans-unit>
 			<trans-unit id="api.errata.missingerrataaction">
 				<source>A required errata attribute ({0}) was missing.</source>
@@ -4844,7 +4852,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="org.entitlements.system.defaultorg">
 				<source>You are not allowed to update entitlements in the Default Org.  These entitlements are determined by your satellite certificate file.</source>
-				<target>Sie d&amp;uuml;rfen keine Berechtigungen in der Default-Org aktualisieren.  Diese Berechtigungen werden durch die Zertifikat-Datei Ihres Satellite bestimmt.</target>
+				<target>Sie d&amp;uuml;rfen keine Berechtigungen in der Standard-Org aktualisieren.  Diese Berechtigungen werden durch die Zertifikat-Datei Ihres Satellite bestimmt.</target>
 			</trans-unit>
 			<trans-unit id="groupAdmins">
 				<source>Group Admins</source>
@@ -4872,7 +4880,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="roleNames">
 				<source>Role Names</source>
-				<target>Funktionsnamen</target>
+				<target>Rollennamen</target>
 			</trans-unit>
 			<trans-unit id="lastLoggedIn">
 				<source>Last Logged In</source>
@@ -4896,7 +4904,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="entitlementLevel">
 				<source>Entitlement Level</source>
-				<target>Berechtigungs- Level</target>
+				<target>Berechtigungs-Level</target>
 			</trans-unit>
 			<trans-unit id="serverName">
 				<source>Server Name</source>
@@ -4916,7 +4924,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="listtag.listfiltered">
 				<source> This list is filtered.  </source>
-				<target> Diese Liste wird gefiltert.  </target>
+				<target> Diese Liste ist gefiltert.  </target>
 			</trans-unit>
 			<trans-unit id="listtag.clearfilter">
 				<source>Clear filter </source>
@@ -4928,11 +4936,11 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="listtag.filteredmessage">
 				<source>The list of {0} item(s) below is filtered.</source>
-				<target>Die Liste mit {0} Element(en) ist gefiltert.</target>
+				<target>Die unten aufgef&amp;uuml;hrte Liste mit {0} Element(en) ist gefiltert.</target>
 			</trans-unit>
 			<trans-unit id="listtag.all_items_in_filter">
 				<source>The list below is not filtered, because the term you entered to filter by, '&lt;strong&gt;{0}&lt;/strong&gt;', returned matches for every item in the list. Try to filter by a more unique term.</source>
-				<target>Die unten aufgef&amp;uuml;hrte Liste wird nicht gefiltert, da der von Ihnen eingegebene Ausdruck, '&lt;strong&gt;{0}&lt;/strong&gt;', nach dem gefiltert werden sollte, Treffer f&amp;uuml;r jedes Element in der Liste zur&amp;uuml;ckgegeben hat. Versuchen Sie, nach einem etwas eindeutigeren Ausdruck zu filtern.</target>
+				<target>Die unten aufgef&amp;uuml;hrte Liste ist nicht gefiltert, da der von Ihnen eingegebene Ausdruck, '&lt;strong&gt;{0}&lt;/strong&gt;', nach dem gefiltert werden sollte, Treffer f&amp;uuml;r jedes Element in der Liste zur&amp;uuml;ckgegeben hat. Versuchen Sie, nach einem eindeutigeren Ausdruck zu filtern.</target>
 			</trans-unit>
 			<trans-unit id="listtag.filteredmessageempty">
 				<source>The empty list below is filtered.</source>
@@ -4968,7 +4976,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="frontend.actions.channels.manager.add.customizePackages">
 				<source>Customize Package Arch Selection</source>
-				<target>Auswahl der Auswahl der Architektur der Pakete anpassen</target>
+				<target>Auswahl der Paketarchitektur anpassen</target>
 			</trans-unit>
 			<trans-unit id="frontend.actions.channels.manager.add.success">
 				<source>Succesfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
@@ -5024,7 +5032,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="probeparam.passnomatch">
 				<source>The Password and Password Confirm did not match.</source>
-				<target>Das Passw&amp;ouml;r und die Best&amp;auml;tigung desselben stimmen nicht &amp;uuml;berein.</target>
+				<target>Das Passwort und die Best&amp;auml;tigung desselben stimmen nicht &amp;uuml;berein.</target>
 			</trans-unit>
 			<trans-unit id="Password_confirm">
 				<source>Password Confirm</source>
@@ -5036,7 +5044,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="api.kickstart.invalidscripttype">
 				<source>Only script types of "pre" and "post" are allowed for kickstarts.</source>
-				<target>Ausschließlich die Skript-Typen "pre" und "post" sind für Kickstarts erlaubt.</target>
+				<target>Ausschließlich die Skripttypen "pre" und "post" sind für Kickstarts erlaubt.</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.invalidscript">
 				<source>You have specified an invalid kickstart script.</source>
@@ -5180,7 +5188,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="api.channel.delete.haschild">
 				<source>This channel has child channels associated with it.  You must delete those channels first before deleting the parent.</source>
-				<target>Dieser Channel besitzt untergeordnete Sub-Channels.  Sie müssen zunächst diese Channels löschen, bevor Sie den übergeordneten Channel löschen können.</target>
+				<target>Dieser Channel besitzt untergeordnete Sub-Channels.  Sie müssen zunächst diese Channels löschen, bevor Sie den übergeordneten Channel ("Parent") löschen können.</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.tree.notfound">
 				<source>The kickstart tree could not be found.  You may not have access to requested tree.</source>
@@ -5228,39 +5236,37 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to
-syncronize kickstart distributions from Spacewalk to Cobbler.  These
-errors must be corrected for the distributions to be available for
-kickstarting systems kickstart distributions failed to sync from
-Spacewalk to Cobbler:
+The following is a list of errors gathered while Spacewalk attempts to 
+syncronize kickstart distributions from Spacewalk to Cobbler.  These 
+errors must be corrected for the distributions to be available for 
+kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
 for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
-Im Folgenden sehen Sie eine Liste auftretender Fehler während
+Im Folgenden sehen Sie eine Liste auftretender Fehler während 
 Spacewalk versucht, Kickstart-Distributionen von Spacewalk nach Cobbler
 zu synchronisieren.  Diese Fehler müssen behoben werden, damit die
-Distributionen verfügbar werden für Systeme, die einen Kickstart einer Distribution
-durchführen wollen, die nicht von Spacewalk nach Cobbler synchronisiert wurden:
+Distributionen für kickstartende Systeme verfügbar werden:
 
 {0}
 
 Bitte überprüfen Sie:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
 für detailliertere Fehler.  Falls Sie die Fehler nicht beheben, wird der
-Kickstart-Baum nicht für Kickstarts brauchbar sein.</target>
+Kickstart-Baum nicht für Kickstarts nutzbar sein.</target>
 			</trans-unit>
 			<trans-unit id="errata.delete.msg">
 				<source>Successfully deleted {0} errata.</source>

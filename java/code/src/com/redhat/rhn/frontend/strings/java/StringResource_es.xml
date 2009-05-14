@@ -138,6 +138,14 @@
 				<source>Tip</source>
 				<target>Consejo</target>
 			</trans-unit>
+			<trans-unit id="Note">
+				<source>Note</source>
+				<target>Nota</target>
+			</trans-unit>
+			<trans-unit id="Warning">
+				<source>Warning</source>
+				<target>Advertencia</target>
+			</trans-unit>
 			<trans-unit id="About Spacewalk">
 				<source>About</source>
 				<target>Acerca de</target>
@@ -1230,7 +1238,7 @@ disponibles en el canal de 'rhn-tools' del canal base de kickstart. Si no lo est
 necesitará hacerlos disponibles para que este perfil de kickstart funcione correctamente.
 &lt;/li&gt;
 &lt;li&gt;
-¿Están disponibles los paquetes listados anteriormente en este canal de base kickstart? Si no lo están, necesitará hacerlos disponibles
+¿Están disponibles los paquetes listados anteriormente en este canal de base kickstart? Si no lo están, necesitará hacerlos disponibles 
 para que este perfil de kickstart funcione correctamente.
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -1262,7 +1270,7 @@ para que este perfil de kickstart funcione correctamente.
 			</trans-unit>
 			<trans-unit id="kickstart.details.success">
 				<source>Kickstart details successfully updated.</source>
-				<target>La información del perfil kickstart fue exitosamente actualizada</target>
+				<target>La información de Kickstart fue actualizada con éxito.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.details.nolabel">
 				<source>Kickstart profile label is required.</source>
@@ -1270,7 +1278,7 @@ para que este perfil de kickstart funcione correctamente.
 			</trans-unit>
 			<trans-unit id="kickstart.delete.success">
 				<source>Kickstart was deleted successfully.</source>
-				<target>El Kickstart fue borrado exitosamente.</target>
+				<target>Kickstart fue borrado con éxito.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.delete.failure">
 				<source>Kickstart {0} could not be deleted, try again on your next login.</source>
@@ -1278,7 +1286,7 @@ para que este perfil de kickstart funcione correctamente.
 			</trans-unit>
 			<trans-unit id="kickstart.options.success">
 				<source>Kickstart advanced options successfully updated.</source>
-				<target>Las opciones avanzadas de Kickstart fueron actualizadas correctamente.</target>
+				<target>Opciones avanzadas de Kickstart fueron actualizadas con éxito.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.options.url.note">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Default @@PRODUCT_NAME@@ kickstart URLs are stored with just the file path, allowing @@PRODUCT_NAME@@ to know when to dynamically adjust the hostname in the URL rendered in the kickstart file. (for proxies, etc) You may customize this value by changing it to a fully qualified URL, which will appear in the kickstart file as is.</source>
@@ -1286,7 +1294,7 @@ para que este perfil de kickstart funcione correctamente.
 			</trans-unit>
 			<trans-unit id="kickstart.iprange_add.success">
 				<source>Successfully added IP Range to Kickstart Profile {0}</source>
-				<target>Se añadió exitosamente el rango IP al perfil Kickstart {0}</target>
+				<target>Se añadió con éxito el rango IP al perfil Kickstart {0}</target>
 			</trans-unit>
 			<trans-unit id="kickstart.iprange_conflict.failure">
 				<source>Error: The IP range you entered conflicts with another IP range. Please choose a different IP range.</source>
@@ -1298,23 +1306,23 @@ para que este perfil de kickstart funcione correctamente.
 			</trans-unit>
 			<trans-unit id="kickstart.iprange_delete.success">
 				<source>Successfully deleted IP Range from Kickstart Profile {0}</source>
-				<target>Se borró exitosamente el rango IP del perfil Kickstart {0}</target>
+				<target>Se borró con éxito el rango IP del perfil Kickstart {0}</target>
 			</trans-unit>
 			<trans-unit id="kickstart.iprange_delete.failure">
 				<source>There was an error deleting the IP Range from Kickstart Profile {0}. Please try again.</source>
 				<target>Hubo un error al tratar de borrar el rango IP del perfil Kickstart {0}. Por favor inténtelo nuevamente.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.update.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
-				<target>Fragmento de Cobbler &lt;strong&gt;{0}&lt;/strong&gt; actualizado satisfactoriamente.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
+				<target>Fragmento Kickstart &lt;strong&gt;{0}&lt;/strong&gt; actualizado con éxito.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.create.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
-				<target>Fragmento de Cobbler &lt;strong&gt;{0}&lt;/strong&gt; creado satisfactoriamente.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
+				<target>Fragmento de Cobbler &lt;strong&gt;{0}&lt;/strong&gt; creado con éxito.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.delete.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
-				<target>Fragmento de Cobbler &lt;strong&gt;{0}&lt;/strong&gt; creado satisfactoriamente.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
+				<target>Fragmento de Cobbler &lt;strong&gt;{0}&lt;/strong&gt; creado con éxito.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.couldnotdelete.message">
 				<source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -1325,12 +1333,12 @@ para que este perfil de kickstart funcione correctamente.
 				<target>Se presentó un error al tratar de renombrar el fragmento &lt;strong&gt;{0}&lt;/strong&gt; a &lt;strong&gt;{1}&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.filenameexists.message">
-				<source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
-				<target>Ya existe un fragmento de Cobbler con el nombre &lt;strong&gt;{0}&lt;/strong&gt;</target>
+				<source>Kickstart snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+				<target>El fragmento Kickstart con el nombre &lt;strong&gt;{0}&lt;/strong&gt; ya existe.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.invalidfilename.message">
-				<source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
-				<target>El nombre de archivo del fragmento de Cobbler solicitado no es válido. Los caracteres válidos son A-Z, a-z, 0-9, _ y -.</target>
+				<source>The requested kickstart snippet filename is not valid. The kickstart snippet file name cannot contain slash (/) or  begin with a period(.)</source>
+				<target>El nombre de archivo del fragmento kickstart solicitado no es válido. El nombre de archivo del fragmento Kickstart no puede contener barra oblicua (/) ni comenzar por punto(.) </target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.snippets">
 				<source>delete snippet</source>
@@ -1350,11 +1358,11 @@ para que este perfil de kickstart funcione correctamente.
 			</trans-unit>
 			<trans-unit id="kickstart.partition.success">
 				<source>Kickstart profile options updated successfully.</source>
-				<target>Las opciones del perfil Kickstart fueron exitosamente actualizadas.</target>
+				<target>Las opciones del perfil Kickstart fueron actualizadas correctamente.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.edit.pkgs.updated">
 				<source>Kickstart profile package groups updated successfully.</source>
-				<target>Los grupos de paquetes del perfil Kickstart fueron exitosamente actualizados.</target>
+				<target>Los grupos de paquetes del perfil Kickstart fueron actualizados correctamente.</target>
 			</trans-unit>
 			<trans-unit id="activation.schedule_pkg_install">
 				<source>Schedule a package install for activation key</source>
@@ -1426,11 +1434,11 @@ para que este perfil de kickstart funcione correctamente.
 			</trans-unit>
 			<trans-unit id="action.completelink">
 				<source>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} system&lt;/a&gt;&lt;/strong&gt; successfully completed this action.&lt;br/&gt;&lt;br/&gt;</source>
-				<target>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} sistema&lt;/a&gt;&lt;/strong&gt; completó esta acción exitosamente.&lt;br/&gt;&lt;br/&gt;</target>
+				<target>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} sistema&lt;/a&gt;&lt;/strong&gt; completó esta acción con éxito.&lt;br/&gt;&lt;br/&gt;</target>
 			</trans-unit>
 			<trans-unit id="action.completelink.plural">
 				<source>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} systems&lt;/a&gt;&lt;/strong&gt; successfully completed this action.&lt;br/&gt;&lt;br/&gt;</source>
-				<target>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} sistemas&lt;/a&gt;&lt;/strong&gt; completaron esta acción exitosamente.&lt;br/&gt;&lt;br/&gt;</target>
+				<target>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} sistemas&lt;/a&gt;&lt;/strong&gt; completaron esta acción con éxito.&lt;br/&gt;&lt;br/&gt;</target>
 			</trans-unit>
 			<trans-unit id="action.name">
 				<source>Errata Update: {0} - {1}</source>
@@ -1494,7 +1502,7 @@ para que este perfil de kickstart funcione correctamente.
 			</trans-unit>
 			<trans-unit id="message.actionrescheduled">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; successfully rescheduled.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; reprogramada exitosamente.</target>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; re-programada con éxito.</target>
 			</trans-unit>
 			<trans-unit id="cert_admin">
 				<source>Certificate Administrator</source>
@@ -1950,11 +1958,11 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 			</trans-unit>
 			<trans-unit id="enable.confirmed">
 				<source>{0} user successfully reactivated.</source>
-				<target>{0} usuario reactivado satisfactoriamente.</target>
+				<target>{0} usuario reactivado con éxito.</target>
 			</trans-unit>
 			<trans-unit id="enable.confirmed.plural">
 				<source>{0} users successfully reactivated.</source>
-				<target>{0} usuarios reactivados satisfactoriamente.</target>
+				<target>{0} usuarios reactivados correctamente.</target>
 			</trans-unit>
 			<trans-unit id="errata.applynone">
 				<source>No errata selected.</source>
@@ -2230,7 +2238,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 			</trans-unit>
 			<trans-unit id="message.packagerefresh">
 				<source>You have successfully scheduled a &lt;a href="/rhn/schedule/ActionDetails.do?aid={0}"&gt;package profile refresh&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt;.</source>
-				<target>Ha programado exitosamente una &lt;a href="/rhn/schedule/ActionDetails.do?aid={0}"&gt;actualización del perfil de paquetes&lt;/a&gt; para &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt;.</target>
+				<target>Ha programado correctamente una &lt;a href="/rhn/schedule/ActionDetails.do?aid={0}"&gt;actualización del perfil de paquetes&lt;/a&gt; para &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt;.</target>
 			</trans-unit>
 			<trans-unit id="Probe Suites">
 				<source>Probe Suites</source>
@@ -2378,7 +2386,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 			</trans-unit>
 			<trans-unit id="message.syncpackages">
 				<source>You have successfully &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a package profile sync for &lt;strong&gt;{2}&lt;/strong&gt; from &lt;strong&gt;{3}&lt;/strong&gt;.</source>
-				<target>Usted ha &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;programado&lt;/a&gt;&lt;/strong&gt; exitosamente una sincronización del perfil de paquetes para &lt;strong&gt;{2}&lt;/strong&gt; de &lt;strong&gt;{3}&lt;/strong&gt;.</target>
+				<target>Ha &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;programado&lt;/a&gt;&lt;/strong&gt; correctamente una sincronización del perfil de paquetes para &lt;strong&gt;{2}&lt;/strong&gt; de &lt;strong&gt;{3}&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="message.hardwarerefresh">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
@@ -2386,11 +2394,11 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 			</trans-unit>
 			<trans-unit id="filterCreate.success">
 				<source>The filter {0} was successfully created</source>
-				<target>El filtro {0} fue creado exitosamente.</target>
+				<target>El filtro {0} fue creado con éxito.</target>
 			</trans-unit>
 			<trans-unit id="filterEdit.success">
 				<source>The filter {0} was successfully changed</source>
-				<target>El filtro {0} fue cambiado exitosamente.</target>
+				<target>El filtro {0} fue cambiado con éxito.</target>
 			</trans-unit>
 			<trans-unit id="message.nopackagestosync">
 				<source>There are no packages to sync.</source>
@@ -2850,7 +2858,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 			</trans-unit>
 			<trans-unit id="HT">
 				<source>Haiti</source>
-				<target>Haiti</target>
+				<target>Haití</target>
 			</trans-unit>
 			<trans-unit id="HU">
 				<source>Hungary</source>
@@ -3598,7 +3606,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.success">
 				<source>Bootstrap script successfully generated.  You can access it &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt;</source>
-				<target>El script Bootstrap fue generado correctamente. Puede acceder a él en &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt;</target>
+				<target>El script Bootstrap fue generado con éxito. Puede acceder a él en &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="restart.config.error">
 				<source>There was an error restarting the satellite.  It can be manually restarted from the console by issuing the command: &lt;strong&gt;/usr/sbin/service rhn-satellite restart&lt;/strong&gt;.  Please contact support for more information.</source>
@@ -3646,7 +3654,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 			</trans-unit>
 			<trans-unit id="cryptokey.delete.success">
 				<source>Key deleted successfully.</source>
-				<target>La llave fue borrada exitosamente.</target>
+				<target>La llave fue borrada con éxito.</target>
 			</trans-unit>
 			<trans-unit id="crypto.key.descinuse">
 				<source>This description is already in use.  Please type a new description for this key.</source>
@@ -3758,7 +3766,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="kickstart.software.success">
 				<source>Kickstart Operating System selection successfully updated.</source>
-				<target>La selección del sistema operativo para Kickstart fue actualizada exitosamente.</target>
+				<target>La selección del sistema operativo para Kickstart fue actualizada correctamente.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.software.notree">
 				<source>The specified base channel and kickstart tree was not found.</source>
@@ -3774,7 +3782,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="kickstart.script.success">
 				<source>Kickstart Script successfully updated.</source>
-				<target>El script Kickstart fue actualizado exitosamente.</target>
+				<target>El script Kickstart fue actualizado correctamente.</target>
 			</trans-unit>
 			<trans-unit id="language">
 				<source>Language</source>
@@ -3802,7 +3810,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="tree.delete.success">
 				<source>Kickstart Distribution deleted successfully.</source>
-				<target>Distribución Kickstart fue borrada exitosamente.</target>
+				<target>Distribución Kickstart fue borrada con éxito.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.troubleshooting.validation.kernelparams.too_long">
 				<source>Extra kernel parameters can be no longer than 128 characters.</source>
@@ -3822,7 +3830,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="kickstart.clone.success">
 				<source>Kickstart cloned successfully.  You are now editing the cloned Kickstart.</source>
-				<target>Kickstart clonado exitosamente. Ahora está editando el kickstart clonado.</target>
+				<target>Kickstart clonado con éxito. Ahora está editando el kickstart clonado.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session_cancel.success">
 				<source>Kickstart canceled.</source>
@@ -3902,7 +3910,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="kickstart.state.guesttimedout">
 				<source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
-				<target>El sistema huésped no se ha comunicado con @@PRODUCT_NAME@@ en los últimos {0} minutos. El proceso de instalación podría estar progresando lentamente debido a limitaciones de hardware o quizá se ha detenido. &lt;p/&gt; Puede observar si hay algún error si ejecuta &lt;em&gt;consola virsh&lt;strong&gt;nombre_del_huésped&lt;/strong%gt;&lt;/em&gt; en el sistema anfitrión. Este comando le permitirá conectarse a la consola de texto del huésped mientras la instalación está en progreso, con lo cual se puede obtener información adicional sobre el estado de la instalación del sistema huésped.</target>
+				<target>El sistema huésped no se ha comunicado con @@PRODUCT_NAME@@ en los últimos {0} minutos. El proceso de instalación podría estar progresando lentamente debido a limitaciones de hardware o quizá se ha detenido. &lt;p/&gt;Puede observar si hay algún error si ejecuta &lt;em&gt;consola virsh&lt;strong&gt;nombre_del_huésped&lt;/strong%gt;&lt;/em&gt; en el sistema anfitrión. Este comando le permitirá conectarse a la consola de texto del huésped mientras la instalación está en progreso, con lo cual se puede obtener información adicional sobre el estado de la instalación del sistema huésped.</target>
 			</trans-unit>
 			<trans-unit id="tree.edit.success">
 				<source>Kickstart Distribution Updated</source>
@@ -3978,7 +3986,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="system.sdc.missing.config_deploy2">
 				<source>You may ensure that configuration deployment capability will be enabled on this system by selecting this system in the  &lt;a href={0}&gt;{1}&lt;/a&gt; screen and then clicking "{2}"</source>
-				<target>Puede asegurarse de que la capacidad de implementación de configuración será activada en este sistema al seleccionar este sistema en la pantalla &lt;a href={0}&gt;{1}&lt;/a&gt; y hacer clic en "{2}"</target>
+				<target>Puede asegurarse de que la capacidad de implementación de configuración será activada en este sistema al seleccionar este sistema en la pantalla  &lt;a href={0}&gt;{1}&lt;/a&gt; y hacer clic en "{2}"</target>
 			</trans-unit>
 			<trans-unit id="system.sdc.config_enablement.client">
 				<source>Also be certain that configuration management is enabled on this system by running the following commands:.</source>
@@ -4038,7 +4046,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="config_revisions.success">
 				<source>{0} revisions were deleted successfully.</source>
-				<target>{0} revisiones fueron borradas exitosamente.</target>
+				<target>{0} revisiones fueron borradas con éxito.</target>
 			</trans-unit>
 			<trans-unit id="config_revisions.failure.singular">
 				<source>1 revision deletion failed.</source>
@@ -4046,11 +4054,11 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="config_revisions.success.singular">
 				<source>1 revision was deleted successfully.</source>
-				<target>1 revisión borrada satisfactoriamente.</target>
+				<target>1 revisión borrada con éxito.</target>
 			</trans-unit>
 			<trans-unit id="config_files.setFilesToRemove.success">
 				<source>{0} configuration file(s) successfully deleted.</source>
-				<target>{0} archivo(s) de configuración borrados satisfactoriamente.</target>
+				<target>{0} archivo(s) de configuración borrados con éxito.</target>
 			</trans-unit>
 			<trans-unit id="config_files.setFilesToRemove.failure">
 				<source>{0} file deletion(s) failed.</source>
@@ -4062,7 +4070,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="config_subscribed_systems.unsubscribeSystems.success">
 				<source>Successfully unsubscribed {0} system(s).</source>
-				<target>Cancelación exitosa de suscripciones a {0} sistema(s).</target>
+				<target>Cancelación con éxito de suscripciones a {0} sistema(s).</target>
 			</trans-unit>
 			<trans-unit id="config_target_systems.subscribeSystems.failure">
 				<source>Failed to subscribe {0} system(s).</source>
@@ -4070,7 +4078,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="config_target_systems.subscribeSystems.success">
 				<source>Successfully subscribed {0} system(s).</source>
-				<target>{0} sistema(s) suscrito(s) satisfactoriamente.</target>
+				<target>{0} sistema(s) suscrito(s) con éxito.</target>
 			</trans-unit>
 			<trans-unit id="config_channels.failure">
 				<source>Failed to copy file to {0} channels.</source>
@@ -4078,7 +4086,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="config_channels.success">
 				<source>Successfully copied file to {0} channels.</source>
-				<target>Archivo copiado satisfactoriamente a {0} canales.</target>
+				<target>Archivo copiado con éxito a {0} canales.</target>
 			</trans-unit>
 			<trans-unit id="config_channel_name.local">
 				<source>local override for {0}</source>
@@ -4102,31 +4110,31 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="schedulediff.ssm.success">
 				<source>Configuration Comparison Action scheduled successfully for &lt;strong&gt;1 system&lt;/strong&gt;.</source>
-				<target>Programación exitosa de una acción de comparación de configuración para &lt;strong&gt;1 sistema&lt;/strong&gt;.</target>
+				<target>Acción de comparación de configuración programada con éxito para &lt;strong&gt;1 sistema&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="schedulediff.ssm.successes">
 				<source>Configuration Comparison Action scheduled successfully for &lt;strong&gt;{0} systems&lt;/strong&gt;.</source>
-				<target>Programación exitosa de una acción de comparación de configuración para &lt;strong&gt;{0} sistemas&lt;/strong&gt;.</target>
+				<target>Acción de comparación de configuración programada con éxito para &lt;strong&gt;{0} sistemas&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="schedulediff.ssm.failure">
 				<source>Failed to schedule Configuration Comparison Action</source>
-				<target>Programación de una acción de comparación de configuración falló.</target>
+				<target>Acción de comparación de configuración programada falló.</target>
 			</trans-unit>
 			<trans-unit id="scheduledeploy.ssm.success">
 				<source>Configuration Deploy Action scheduled successfully for &lt;strong&gt;1 system&lt;/strong&gt;.</source>
-				<target>Programación exitosa de una acción de implementación de configuración para &lt;strong&gt;1 sistema&lt;/strong&gt;.</target>
+				<target>Acción de implementación de configuración programada con éxito para &lt;strong&gt;1 sistema&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="scheduledeploy.ssm.successes">
 				<source>Configuration Deploy Action scheduled successfully for &lt;strong&gt;{0} systems&lt;/strong&gt;.</source>
-				<target>Programación exitosa de una acción de implementación de configuración para &lt;strong&gt;{0} sistemas&lt;/strong&gt;.</target>
+				<target>Acción de implementación de configuración programada con éxito para &lt;strong&gt;{0} sistemas&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="unsubscribe.ssm.success">
 				<source>&lt;strong&gt;1 system&lt;/strong&gt; successfully unsubscribed from configuration channels.</source>
-				<target>Cancelación exitosa de suscripción a canales de configuración para &lt;strong&gt;1 sistema&lt;/strong&gt;.</target>
+				<target>Suscripción a canales de configuración para &lt;strong&gt;1 sistema&lt;/strong&gt; cancelada con éxito.</target>
 			</trans-unit>
 			<trans-unit id="unsubscribe.ssm.successes">
 				<source>&lt;strong&gt;{0} systems&lt;/strong&gt; successfully unsubscribed from configuration channels.</source>
-				<target>Cancelación exitosa de suscripción a canales de configuración para &lt;strong&gt;{0} sistemas&lt;/strong&gt;.</target>
+				<target>Suscripción a canales de configuración para &lt;strong&gt;{0} sistemas&lt;/strong&gt; cancelada con éxito.</target>
 			</trans-unit>
 			<trans-unit id="cofName">
 				<source>Configuration channel name</source>
@@ -4194,11 +4202,11 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="configdiff.schedule.success">
 				<source>&lt;a href="{0}"&gt;Configuration file compare action&lt;/a&gt; scheduled successfully for {1} systems.</source>
-				<target>Se programó la &lt;a href="{0}"&gt;acción de comparación de archivos de configuración&lt;/a&gt; para sistemas {1}.</target>
+				<target>Se programó con éxito la &lt;a href="{0}"&gt;acción de comparación de archivos de configuración&lt;/a&gt; para sistemas {1}.</target>
 			</trans-unit>
 			<trans-unit id="configdiff.schedule.success.singular">
 				<source>&lt;a href="{0}"&gt;Configuration file compare action&lt;/a&gt; scheduled successfully for {1} system.</source>
-				<target>Se programó una &lt;a href="{0}"&gt;acción de comparación de archivos de configuración&lt;/a&gt; para sistema {1}.</target>
+				<target>Se programó con éxito la &lt;a href="{0}"&gt;acción de comparación de archivos de configuración&lt;/a&gt; para sistema {1}.</target>
 			</trans-unit>
 			<trans-unit id="configdiff.schedule.error">
 				<source>Failed to schedule configuration file compare action</source>
@@ -4266,7 +4274,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="sdc.config.deploy.success">
 				<source>All files and/or directories ({0}) were successfully deployed. [&lt;a href="{1}"&gt;View Details&lt;/a&gt;]</source>
-				<target>Todos los archivos y/o directorios ({0}) fueron implementados satisfactoriamente. [&lt;a href="{1}"&gt;Ver información&lt;/a&gt;]</target>
+				<target>Todos los archivos y/o directorios ({0}) fueron implementados correctamente. [&lt;a href="{1}"&gt;Ver información&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.noaction">
 				<source>No system comparisons completed. [&lt;a href="{0}"&gt;Schedule System Comparison&lt;/a&gt;]</source>
@@ -4278,43 +4286,43 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_0">
 				<source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de 1 archivo en el sistema ha sido comparado satisfactoriamente con los archivos y directorios de @@PRODUCT_NAME@@. [&lt;a href="{1}"&gt;Ver detalles&lt;/a&gt;]</target>
+				<target>{0} de 1 archivo en el sistema ha sido comparado correctamente con los archivos y directorios de @@PRODUCT_NAME@@. [&lt;a href="{1}"&gt;Ver detalles&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_0">
 				<source>{0} of {1} files on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de {1} archivos en el sistema han sido comparados satisfactoriamente con los archivos y directorios de @@PRODUCT_NAME@@ . [&lt;a href="{2}"&gt;Ver detalles&lt;/a&gt;]</target>
+				<target>{0} de {1} archivos en el sistema han sido comparados correctamente con los archivos y directorios de @@PRODUCT_NAME@@ . [&lt;a href="{2}"&gt;Ver detalles&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_1">
 				<source>{0} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de 1 directorio en el sistema ha sido comparado satisfactoriamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{1}"&gt;Ver detalles&lt;/a&gt;]</target>
+				<target>{0} de 1 directorio en el sistema ha sido comparado correctamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{1}"&gt;Ver detalles&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_2">
 				<source>{0} of {1} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de {1} directorios en el sistema han sido comparados satisfactoriamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{2}"&gt;Ver detalles&lt;/a&gt;]</target>
+				<target>{0} de {1} directorios en el sistema han sido comparados correctamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{2}"&gt;Ver detalles&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_1">
 				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de 1 archivo y {1} de 1 directorio en el sistema ha sido comparado satisfactoriamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{2}"&gt;Ver detalles&lt;/a&gt;]</target>
+				<target>{0} de 1 archivo y {1} de 1 directorio en el sistema ha sido comparado correctamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{2}"&gt;Ver detalles&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_2">
 				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de 1 archivo y {1} de {2} directorios en el sistema han sido comparados satisfactoriamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt;Ver detalles&lt;/a&gt;]</target>
+				<target>{0} de 1 archivo y {1} de {2} directorios en el sistema han sido comparados correctamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt;Ver detalles&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
 				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de {1} archivos y {2} de 1 directorio en el sistema han sido comparados satisfactoriamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt;Ver detalles&lt;/a&gt;]</target>
+				<target>{0} de {1} archivos y {2} de 1 directorio en el sistema han sido comparados correctamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt;Ver detalles&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
 				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de {1} archivos y {2} de 1 directorio en el sistema han sido comparados satisfactoriamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt;Ver detalles&lt;/a&gt;]</target>
+				<target>{0} de {1} archivos y {2} de 1 directorio en el sistema han sido comparados correctamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt;Ver detalles&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
 				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de {1} archivos y {2} de 1 directorio en el sistema han sido comparados satisfactoriamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt;Ver detalles&lt;/a&gt;]</target>
+				<target>{0} de {1} archivos y {2} de 1 directorio en el sistema han sido comparados correctamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt;Ver detalles&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
 				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de {1} archivos y {2} de 1 directorio en el sistema han sido comparados satisfactoriamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt;Ver detalles&lt;/a&gt;]</target>
+				<target>{0} de {1} archivos y {2} de 1 directorio en el sistema han sido comparados correctamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt;Ver detalles&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_0">
 				<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
@@ -4562,7 +4570,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="message.org_name_updated">
 				<source>Organization {0} was successfully updated.</source>
-				<target>La organización {0} fue actualizada satisfactoriamente.</target>
+				<target>La organización {0} fue actualizada con éxito.</target>
 			</trans-unit>
 			<trans-unit id="message.org_name_not_updated">
 				<source>Organization {0} was not updated due to identical name.</source>
@@ -4570,7 +4578,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="message.org_deleted">
 				<source>Organization {0} was successfully deleted.</source>
-				<target>La organización {0} fue borrada satisfactoriamente.</target>
+				<target>La organización {0} fue borrada con éxito.</target>
 			</trans-unit>
 			<trans-unit id="config.error.file-exists">
 				<source>A file named "{0}" already exists in this channel.</source>
@@ -4782,7 +4790,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="org.create.success">
 				<source>Organization {0} created successfully</source>
-				<target>La organización {0} fue creada satisfactoriamente</target>
+				<target>La organización {0} fue creada con éxito</target>
 			</trans-unit>
 			<trans-unit id="orgName">
 				<source>Organization Name</source>
@@ -4814,7 +4822,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="org.entitlements.syssoft.success">
 				<source>Entitlements successfully updated.</source>
-				<target>Derechos actualizados satisfactoriamente.</target>
+				<target>Derechos actualizados con éxito.</target>
 			</trans-unit>
 			<trans-unit id="org.entitlements.software.proposedwarning">
 				<source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
@@ -5034,7 +5042,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="api.kickstart.invalidscripttype">
 				<source>Only script types of "pre" and "post" are allowed for kickstarts.</source>
-				<target>Solamente tipos de scripts "pre" y "post" son permitidos para kickstarts.</target>
+				<target>Solamente tipos de scripts "pre" y "post" son permitidos para kickstart.</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.invalidscript">
 				<source>You have specified an invalid kickstart script.</source>
@@ -5094,11 +5102,11 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="system.customkey.addsuccess">
 				<source>Successfully added 1 custom key.</source>
-				<target>Satisfactoriamente agregada 1 llave personalizada.</target>
+				<target>Agregada con éxito 1 llave personalizada.</target>
 			</trans-unit>
 			<trans-unit id="channel.java.package.deletesuccess">
 				<source>Successfully deleted {0} packages.</source>
-				<target>{0} paquetes satisfactoriamente borrados.</target>
+				<target>{0} paquetes correctamente borrados.</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.invalidkickstartinstalltype">
 				<source>Invalid kickstart install type: {0}.</source>
@@ -5226,43 +5234,40 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to
-syncronize kickstart distributions from Spacewalk to Cobbler.  These
-errors must be corrected for the distributions to be available for
-kickstarting systems kickstart distributions failed to sync from
-Spacewalk to Cobbler:
+The following is a list of errors gathered while Spacewalk attempts to 
+syncronize kickstart distributions from Spacewalk to Cobbler.  These 
+errors must be corrected for the distributions to be available for 
+kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
 for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
-La siguiente es una lista de errores recogidos mientras Spacewalk intenta
-sincronizar distribuciones kickstart desde Spacewalk a Cobbler.  Estos
-errores se deben corregir para que las distribuciones estén disponibles porque
-el inicio de sistemas de distribuciones kickstart falló en la sincronización de
-Spacewalk a Cobbler:
+La siguiente es una lista de errores recogidos mientras Spacewalk intenta 
+sincronizar distribuciones kickstart desde Spacewalk a Cobbler.  Estos 
+errores se deben corregir para que las distribuciones estén disponibles para los sistemas que estén iniciando una instalación con kickstart:
 
 {0}
 
 Por favor revise:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
-para mayor información sobre errores.  Si no resuelve los errores del árbol de kickstart
+para mayor información sobre errores.  Si no resuelve los errores el árbol de kickstart
 no será útil para iniciar una instalación a través de kickstart.</target>
 			</trans-unit>
 			<trans-unit id="errata.delete.msg">
 				<source>Successfully deleted {0} errata.</source>
-				<target>{0} errata borrada satisfactoriamente.</target>
+				<target>{0} errata borrada con éxito.</target>
 			</trans-unit>
 		</body>
 	</file>

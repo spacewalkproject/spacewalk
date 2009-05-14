@@ -138,6 +138,14 @@
 				<source>Tip</source>
 				<target>Совет</target>
 			</trans-unit>
+			<trans-unit id="Note">
+				<source>Note</source>
+				<target>Замечание</target>
+			</trans-unit>
+			<trans-unit id="Warning">
+				<source>Warning</source>
+				<target>Внимание</target>
+			</trans-unit>
 			<trans-unit id="About Spacewalk">
 				<source>About</source>
 				<target>О программе</target>
@@ -1308,16 +1316,16 @@ available for this kickstart profile to function properly.
 				<target>Ошибка удаления диапазона IP из профиля кикстарта {0}. Повторите попытку.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.update.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
-				<target>Фрагмент Cobbler &lt;strong&gt;{0}&lt;/strong&gt; обновлен успешно.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
+				<target>Фрагмент кикстарта &lt;strong&gt;{0}&lt;/strong&gt; обновлен успешно.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.create.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
-				<target>Фрагмент Cobbler &lt;strong&gt;{0}&lt;/strong&gt; создан успешно.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
+				<target>Фрагмент кикстарта &lt;strong&gt;{0}&lt;/strong&gt; создан успешно.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.delete.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
-				<target>Фрагмент Cobbler &lt;strong&gt;{0}&lt;/strong&gt; удален успешно.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
+				<target>Фрагмент кикстарта &lt;strong&gt;{0}&lt;/strong&gt; удален успешно.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.couldnotdelete.message">
 				<source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -1328,12 +1336,12 @@ available for this kickstart profile to function properly.
 				<target>Ошибка при попытке изменения имени фрагмента с &lt;strong&gt;{0}&lt;/strong&gt; на &lt;strong&gt;{1}&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.filenameexists.message">
-				<source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
-				<target>Фрагмент Cobbler с именем &lt;strong&gt;{0}&lt;/strong&gt; уже существует.</target>
+				<source>Kickstart snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+				<target>Фрагмент кикстарта с именем &lt;strong&gt;{0}&lt;/strong&gt; уже существует.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.invalidfilename.message">
-				<source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
-				<target>Недопустимое имя файла фрагмента Cobbler. Имя файла может содержать символы A-Z, a-z, 0-9, _ и -.</target>
+				<source>The requested kickstart snippet filename is not valid. The kickstart snippet file name cannot contain slash (/) or  begin with a period(.)</source>
+				<target>Недопустимое имя файла запрошенного фрагмента кикстарта. Имя файла не должно включать символ / и не может начинаться с точки.</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.snippets">
 				<source>delete snippet</source>
@@ -5229,17 +5237,16 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to
-syncronize kickstart distributions from Spacewalk to Cobbler.  These
-errors must be corrected for the distributions to be available for
-kickstarting systems kickstart distributions failed to sync from
-Spacewalk to Cobbler:
+The following is a list of errors gathered while Spacewalk attempts to 
+syncronize kickstart distributions from Spacewalk to Cobbler.  These 
+errors must be corrected for the distributions to be available for 
+kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
@@ -5247,13 +5254,13 @@ for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
 Далее приведен список ошибок, которые были получены в процессе попытки
-синхронизации дистрибутивов кикстарта между Spacewalk и Cobbler.
+синхронизации дистрибутивов кикстарта между Spacewalk и Cobbler. 
 Эти ошибки необходимо исправить, чтобы обеспечить доступ систем
 к дистрибутивам.
 
 {0}
 
-Пожалуйста, убедитесь в отсутствии ошибок в
+Пожалуйста, проверьте
 
 /var/log/rhn/rhn_taskomatic_daemon.log
 /var/log/tomcat5/catalina.out

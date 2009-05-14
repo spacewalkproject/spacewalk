@@ -138,6 +138,14 @@
 				<source>Tip</source>
 				<target>Dica</target>
 			</trans-unit>
+			<trans-unit id="Note">
+				<source>Note</source>
+				<target>Nota</target>
+			</trans-unit>
+			<trans-unit id="Warning">
+				<source>Warning</source>
+				<target>Aviso</target>
+			</trans-unit>
 			<trans-unit id="About Spacewalk">
 				<source>About</source>
 				<target>Sobre </target>
@@ -1304,16 +1312,16 @@ neste perfil do kickstart para que funcione adequadamente.
 				<target>Ocorreu um erro na remoção do Intervalo de IPs do Perfil do Kickstart {0}. Por favor, tente novamente.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.update.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
-				<target>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; criada com sucesso.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
+				<target>Kickstart Snippet &lt;strong&gt;{0}&lt;/strong&gt; atualizado com sucesso.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.create.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
-				<target>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; criada com sucesso.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
+				<target>Kickstart Snippet &lt;strong&gt;{0}&lt;/strong&gt; criado com sucesso.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.delete.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
-				<target>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; criada com sucesso.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
+				<target>Kickstart Snippet &lt;strong&gt;{0}&lt;/strong&gt; removido com sucesso.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.couldnotdelete.message">
 				<source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -1324,12 +1332,12 @@ neste perfil do kickstart para que funcione adequadamente.
 				<target>Ocorreu um erro ao tentar renomear este snippet &lt;strong&gt;{0}&lt;/strong&gt; para &lt;strong&gt;{1}&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.filenameexists.message">
-				<source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
-				<target>Já existe um Cobbler Snippet com o nome &lt;strong&gt;{0}&lt;/strong&gt;.</target>
+				<source>Kickstart snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+				<target>Kickstart snippet com o nome &lt;strong&gt;{0}&lt;/strong&gt; já existe.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.invalidfilename.message">
-				<source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
-				<target>O nome do arquivo do Cobbler snippet requerido não é válido. Os caracteres válidos são A-Z, a-z, 0-9, _ e -.</target>
+				<source>The requested kickstart snippet filename is not valid. The kickstart snippet file name cannot contain slash (/) or  begin with a period(.)</source>
+				<target>O nome de arquivo do kickstart snippet requerido não é válido. O nome do arquivo do kickstart snippet não contém barra (/) ou começa com um ponto final (.)</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.snippets">
 				<source>delete snippet</source>
@@ -5041,8 +5049,8 @@ Follow this url to see the full list of inactive systems:
 				<source>One or more of the packages you have selected for removal below are not contained in
 			a software channel that this system is subscribed to.  If you choose to continue with the removal
 			you will not be able to rollback this system to this snapshot or any prior snapshot.</source>
-				<target>Um ou mais pacotes que você selecionou para a remoção abaixo não estão contidos no
-			 canal do software, no qual este sistema está suscrito. Caso escolha continuar com a remoção
+				<target>Um ou mais pacotes que você selecionou para a remoção abaixo não estão contidos no 
+			 canal do software, no qual este sistema está suscrito. Caso escolha continuar com a remoção 
 			 você não poderá retornar este sistema à este snapshot ou à qualquer outro.</target>
 			</trans-unit>
 			<trans-unit id="list.filter.iprange">
@@ -5223,38 +5231,35 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to
-syncronize kickstart distributions from Spacewalk to Cobbler.  These
-errors must be corrected for the distributions to be available for
-kickstarting systems kickstart distributions failed to sync from
-Spacewalk to Cobbler:
+The following is a list of errors gathered while Spacewalk attempts to 
+syncronize kickstart distributions from Spacewalk to Cobbler.  These 
+errors must be corrected for the distributions to be available for 
+kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
 for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
-Segue uma lista de erros obtida enquanto o Spacewalk tenta
-sincronizar as distribuições do kickstart a partir do Spacewalk para o Cobbler. Estes
-erros devem ser corrigidos para que as distribuições sejam disponibilizadas para
- distribuir sistemas em kickstart que falharam ao sincronizar a partir do
-Spacewalk para o Cobbler:
+Segue uma lista de erros obtida enquanto o Spacewalk tenta 
+sincronizar as distribuições do kickstart a partir do Spacewalk para o Cobbler. Estes 
+erros devem ser corrigidos para que as distribuições sejam disponibilizadas para os sistemas kickstart:
 
 {0}
 
 Por favor verifique:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log e 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
-para mais detalhes sobre erros. Caso você não resolva estes erros a àrvore do kickstart
+para mais detalhes sobre erros. Caso você não resolva estes erros a àrvore do kickstart 
 não poderá ser utilizada para realizar o kickstart. </target>
 			</trans-unit>
 			<trans-unit id="errata.delete.msg">

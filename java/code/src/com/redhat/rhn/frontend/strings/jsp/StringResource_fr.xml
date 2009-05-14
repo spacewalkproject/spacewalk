@@ -1112,7 +1112,7 @@
 			</trans-unit>
 			<trans-unit id="login.jsp.list2">
 				<source>Management: Increased management capabilities and scalability of your Linux deployment.</source>
-				<target>Management&amp;nbsp;: Capacités de gestion et modulabilité améliorées de votre déploiement Linux.</target>
+				<target>Gestion : Capacités de gestion et modulabilité améliorées de votre déploiement Linux.</target>
 			</trans-unit>
 			<trans-unit id="login.jsp.list3">
 				<source>Provisioning: System snapshots, integrated kickstarts, configuration management and more.</source>
@@ -1316,11 +1316,11 @@
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagetitle">
 				<source>"Overview" Start Page</source>
-				<target>Page d'accueil de "Vue d'ensemble"</target>
+				<target>Page d'accueil de "Aperçu"</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagedesc">
 				<source>Display the following information on my "Overview" page upon login:</source>
-				<target>Afficher les informations suivantes sur ma page "Vue d'ensemble" après la connexion :</target>
+				<target>Afficher les informations suivantes sur ma page "Aperçu" après la connexion :</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.contactopt">
 				<source>Red Hat Contact Options</source>
@@ -1580,11 +1580,11 @@
 			</trans-unit>
 			<trans-unit id="sidebar.ads.buynowalt">
 				<source>Buy Now Image</source>
-				<target>Acheter une image</target>
+				<target>Image achat immédiat</target>
 			</trans-unit>
 			<trans-unit id="sidebar.ads.downloadnowalt">
 				<source>Software Downloads Image</source>
-				<target>Image de téléchargements de logiciels</target>
+				<target>Image téléchargements de logiciels</target>
 			</trans-unit>
 			<trans-unit id="errata-legend.jsp.title">
 				<source>Errata Legend</source>
@@ -1704,7 +1704,7 @@
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.title">
 				<source>Overview Legend</source>
-				<target>Légende de Vue d'ensemble</target>
+				<target>Légende de l'Aperçu</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.failedactions">
 				<source>Failed Actions</source>
@@ -2406,7 +2406,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.purchase.description1">
 				<source>&lt;strong&gt;Note:&lt;/strong&gt; Provisioning and Management services are provided to enable add-on features to existing Red Hat Enterprise Linux subscriptions only.  These services alone will not enable you to successfully register an additional system profile in your @@PRODUCT_NAME@@ account.</source>
-				<target>&lt;strong&gt;Remarque :&lt;/strong&gt; les services Provisioning et Management sont fournis pour activer des fonctions additionnelles uniquement aux abonnements Red Hat Enterprise Linux existants. Ces services seuls ne vous permettront pas d'enregistrer un profil de système supplémentaire dans votre compte @@PRODUCT_NAME@@.</target>
+				<target>&lt;strong&gt;Remarque :&lt;/strong&gt; les services Provisioning et Gestion sont fournis pour activer des fonctions additionnelles uniquement aux abonnements Red Hat Enterprise Linux existants. Ces services seuls ne vous permettront pas d'enregistrer un profil de système supplémentaire dans votre compte @@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.purchase.description2">
 				<source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;Purchase&lt;/a&gt;&lt;/strong&gt; additional &lt;strong&gt;Red Hat Enterprise Linux subscriptions&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat Store&lt;/a&gt;&lt;/strong&gt;.</source>
@@ -2414,7 +2414,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.purchase.description3">
 				<source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;Purchase&lt;/a&gt;&lt;/strong&gt; additional &lt;strong&gt;@@PRODUCT_NAME@@ management and provisioning entitlements&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link" /&gt;Red Hat Store&lt;/a&gt;&lt;/strong&gt;.</source>
-				<target>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;Acheter&lt;/a&gt;&lt;/strong&gt; des &lt;strong&gt;droits d'accès Management et Provisioning @@PRODUCT_NAME@@&lt;/strong&gt; supplémentaires dans le &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;magasin Red Hat&lt;/a&gt;&lt;/strong&gt;.</target>
+				<target>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;Acheter&lt;/a&gt;&lt;/strong&gt; des &lt;strong&gt;droits d'accès Gestion et Provisioning @@PRODUCT_NAME@@&lt;/strong&gt; supplémentaires dans le &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;magasin Red Hat&lt;/a&gt;&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.entitlements">
 				<source>View &amp;amp; Assign Entitlements to Systems</source>
@@ -3570,7 +3570,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="affectedsystems.jsp.summarywithacl">
 				<source>You can select one or more systems and apply this erratum to them.  Only Management Service entitled systems can be selected.</source>
-				<target>Vous pouvez sélectionner un ou plusieurs systèmes et leur appliquer cet errata. Seuls les systèmes ayant des droits d'accès au service Management peuvent être sélectionnés.</target>
+				<target>Vous pouvez sélectionner un ou plusieurs systèmes et leur appliquer cet errata. Seuls les systèmes ayant des droits d'accès au service Gestion peuvent être sélectionnés.</target>
 			</trans-unit>
 			<trans-unit id="affectedsystems.jsp.header">
 				<source>Affected Systems</source>
@@ -3634,7 +3634,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="affectedsystems.jsp.management">
 				<source>Management</source>
-				<target>Management</target>
+				<target>Gestion</target>
 			</trans-unit>
 			<trans-unit id="affectedsystems.jsp.provisioning">
 				<source>Provisioning</source>
@@ -4198,7 +4198,7 @@ pour ce droit d'accès.</target>
 			</trans-unit>
 			<trans-unit id="erratalist.jsp.ownederratapagesummary">
 				<source> &lt;p&gt; The following errata list represents errata owned by your organization.&lt;/p&gt; &lt;p&gt; Click on an erratum's Advisory to edit the erratum details or the list of packages to which the erratum applies. &lt;/p&gt;</source>
-				<target> &lt;p&gt; La liste d'errata suivante représente les errata qui appartiennent à votre organisation.&lt;/p&gt; &lt;p&gt; Cliquez sur la synopsis d'un errata pour éditer les détails de l'errata ou la liste de paquetages auxquels s'applique l'errata.&lt;/p&gt;</target>
+				<target> &lt;p&gt; La liste d'errata suivante représente les errata qui appartiennent à votre organisation.&lt;/p&gt; &lt;p&gt; Cliquez sur le synopsis d'un errata pour éditer les détails de l'errata ou la liste des paquetages auxquels s'applique l'errata.&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="erratalist.jsp.unpublishederrata">
 				<source>Unpublished Errata</source>
@@ -4702,7 +4702,7 @@ pour ce droit d'accès.</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.jsp.summary">
 				<source>Below are all the system groups that have been added to this system. To remove a system group membership, check its checkbox and make sure you click the "{0}" button when you are finished with your changes.</source>
-				<target>Ci-dessous figurent tous les groupes de systèmes qui ont été ajoutés à ce système.. Pour annuler un abonnement d'un groupe de systèmes, Cochez sa case et assurez-vous de cliquer sur le bouton "{0}" une fois que vous avez terminé avec vos changements.</target>
+				<target>Ci-dessous figurent tous les groupes de systèmes qui ont été ajoutés à ce système. Pour annuler l'abonnement d'un groupe de systèmes, Cochez sa case et assurez-vous de cliquer sur le bouton "{0}" une fois que vous avez terminé avec vos changements.</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.add.jsp.summary">
 				<source>Below is a list of system groups available to this system. To join a system group, check its checkbox. Make sure you click the "{0}" button when you are finished with your changes.</source>
@@ -4846,7 +4846,7 @@ pour ce droit d'accès.</target>
 			</trans-unit>
 			<trans-unit id="systementitlements.jsp.set_to_manage_entitled">
 				<source>Set to Management Entitled</source>
-				<target>Donner le droit à Management</target>
+				<target>Donner le droit d'accès à la Gestion</target>
 			</trans-unit>
 			<trans-unit id="systementitlements.jsp.set_to_unentitled">
 				<source>Unentitle</source>
@@ -4906,11 +4906,11 @@ pour ce droit d'accès.</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.setToManagementEntitled.success">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Management&lt;/strong&gt;.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; système(s) ayant droit à &lt;strong&gt;Management&lt;/strong&gt;.</target>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; système(s) ayant droit d'accès à la &lt;strong&gt;Gestion&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.setToManagementEntitled.failure">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Management&lt;/strong&gt; entitled, but you do not have  enough &lt;strong&gt;Management&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may free up &lt;strong&gt;Management&lt;/strong&gt; entitlements by downgrading &lt;strong&gt;Management&lt;/strong&gt; entitled machines to an Update entitlement, or you may purchase additional management entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Management&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; système(s) a/ont bien été mis à niveau au droit d'accès au module &lt;strong&gt;Management&lt;/strong&gt;, mais vous n'avez pas assez de droits  &lt;strong&gt;Management&lt;/strong&gt; pour le(s) &lt;strong&gt;{1}&lt;/strong&gt; système(s) restant(s). Vous pouvez libérer des droits d'accès à &lt;strong&gt;Management&lt;/strong&gt; en rétrogradant les machines ayant droit à &lt;strong&gt;Management&lt;/strong&gt; à un droit d'accès au module Update. Vous pouvez également acheter des droits d'accès supplémentaires à Management via le &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;magasin @@PRODUCT_NAME@@&lt;/strong&gt;&lt;/a&gt;. Après l'obtention de droits d'accès supplémentaires au module &lt;strong&gt;Management&lt;/strong&gt;, vous pourrez mettre ces systèmes à niveau.</target>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; système(s) a/ont bien été mis à niveau au droit d'accès au module &lt;strong&gt;Gestion&lt;/strong&gt;, mais vous n'avez pas assez de droits d'accès à la &lt;strong&gt;Gestion&lt;/strong&gt; pour le(s) &lt;strong&gt;{1}&lt;/strong&gt; système(s) restant(s). Vous pouvez libérer des droits d'accès à la &lt;strong&gt;Gestion&lt;/strong&gt; en rétrogradant les machines ayant droit à la &lt;strong&gt;Gestion&lt;/strong&gt; à un droit d'accès au module Update. Vous pouvez également acheter des droits d'accès supplémentaires pour la Gestion via le &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;magasin @@PRODUCT_NAME@@&lt;/strong&gt;&lt;/a&gt;. Après l'obtention de droits d'accès supplémentaires au module &lt;strong&gt;Gestion&lt;/strong&gt;, vous pourrez mettre ces systèmes à niveau.</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.setToUpdateEntitled.success">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Update&lt;/strong&gt;.</source>
@@ -4942,7 +4942,7 @@ pour ce droit d'accès.</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.provisioning.noManagement">
 				<source>&lt;strong&gt;Provisioning&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Provisioning&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Provisioning&lt;/strong&gt; entitlement to these system(s).</source>
-				<target>Le don de droit d'accès à &lt;strong&gt;Provisioning&lt;/strong&gt; a échoué pour &lt;strong&gt;{0}&lt;/strong&gt; système(s) vu qu'ils ne possédaient pas les droits d'accès de base à &lt;strong&gt;Management&lt;/strong&gt;. Les systèmes échoués sont toujours sélectionnés ci-dessous. Si vous cliquez d'abord sur le bouton &lt;strong&gt;Donner le droit à Management&lt;/strong&gt;, puis sélectionnez l'élément &lt;strong&gt;Provisioning&lt;/strong&gt; dans la liste déroulante située dans la section &lt;strong&gt;Droits d'accès supplémentaires&lt;/strong&gt;, puis cliquez sur le bouton &lt;strong&gt;Ajouter des droits d'accès&lt;/strong&gt; ci-dessous, vous pourrez ajouter le droit d'accès au module &lt;strong&gt;Provisioning&lt;/strong&gt; à ce(s) système(s).</target>
+				<target>Le don de droit d'accès à &lt;strong&gt;Provisioning&lt;/strong&gt; a échoué pour &lt;strong&gt;{0}&lt;/strong&gt; système(s) vu qu'ils ne possédaient pas les droits d'accès de base à la &lt;strong&gt;Gestion&lt;/strong&gt;. Les systèmes échoués sont toujours sélectionnés ci-dessous. Si vous cliquez d'abord sur le bouton &lt;strong&gt;Donner le droit d'accès à la Gestion&lt;/strong&gt;, puis sélectionnez l'élément &lt;strong&gt;Provisioning&lt;/strong&gt; dans la liste déroulante située dans la section &lt;strong&gt;Droits d'accès supplémentaires&lt;/strong&gt;, puis cliquez sur le bouton &lt;strong&gt;Ajouter des droits d'accès&lt;/strong&gt; ci-dessous, vous pourrez ajouter le droit d'accès au module &lt;strong&gt;Provisioning&lt;/strong&gt; à ce(s) système(s).</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization.success_note">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; We subscribed the system(s) to the {0} and {1} channel as well as scheduled an install of the {2} package to prepare the system(s) for hosting virtual guests.</source>
@@ -4970,11 +4970,11 @@ pour ce droit d'accès.</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization_host.notEnoughSlots">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements, you will be able to upgrade these systems. &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; système(s) a/ont bien été mis à niveau au droit d'accès au module &lt;strong&gt;Virtualisation&lt;/strong&gt;, mais vous n'avez pas assez de droits à &lt;strong&gt;Virtualisation&lt;/strong&gt; pour le(s) &lt;strong&gt;{1}&lt;/strong&gt; système(s) restant(s). Vous pouvez acheter des droits d'accès supplémentaires à &lt;strong&gt;Virtualisation&lt;/strong&gt; via le &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;magasin @@PRODUCT_NAME@@&lt;/strong&gt;&lt;/a&gt;. Après l'obtention de droits d'accès supplémentaires au module &lt;strong&gt;Virtualisation&lt;/strong&gt;, vous pourrez ensuite mettre à niveau ces systèmes. &lt;br/&gt; &lt;strong&gt;REMARQUE :&lt;/strong&gt; si auparavant le système était configuré pour le module Plateforme de Virtualisation, celui-ci a été rétrogradé au module Virtualisation..</target>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; système(s) a/ont bien été mis à niveau au droit d'accès au module &lt;strong&gt;Virtualisation&lt;/strong&gt;, mais vous n'avez pas assez de droits à &lt;strong&gt;Virtualisation&lt;/strong&gt; pour le(s) &lt;strong&gt;{1}&lt;/strong&gt; système(s) restant(s). Vous pouvez acheter des droits d'accès supplémentaires à &lt;strong&gt;Virtualisation&lt;/strong&gt; via le &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;magasin @@PRODUCT_NAME@@&lt;/strong&gt;&lt;/a&gt;. Après l'obtention de droits d'accès supplémentaires au module &lt;strong&gt;Virtualisation&lt;/strong&gt;, vous pourrez ensuite mettre à niveau ces systèmes. &lt;br/&gt; &lt;strong&gt;REMARQUE :&lt;/strong&gt; si auparavant le système était configuré pour le module Plateforme de Virtualisation, celui-ci a été rétrogradé au module Virtualisation.</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization_host.noManagement">
 				<source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization&lt;/strong&gt; entitlement to these system(s).</source>
-				<target>Le don de droit d'accès à &lt;strong&gt;Virtualisation&lt;/strong&gt; a échoué pour &lt;strong&gt;{0}&lt;/strong&gt; système(s) vu qu'ils ne possédaient pas les droits d'accès de base à &lt;strong&gt;Management&lt;/strong&gt;. Les systèmes échoués sont toujours sélectionnés ci-dessous. Si vous cliquez d'abord sur le bouton &lt;strong&gt;Donner le droit à Management&lt;/strong&gt;, puis sélectionnez l'élément &lt;strong&gt;Virtualisation&lt;/strong&gt; dans la liste déroulante située dans la section &lt;strong&gt;Droits d'accès supplémentaires&lt;/strong&gt;, puis cliquez sur le bouton &lt;strong&gt;Ajouter des droits d'accès&lt;/strong&gt; ci-dessous, vous pourrez ajouter le droit d'accès au module &lt;strong&gt;Virtualisation&lt;/strong&gt; à ce(s) système(s).</target>
+				<target>Le don de droit d'accès à &lt;strong&gt;Virtualisation&lt;/strong&gt; a échoué pour &lt;strong&gt;{0}&lt;/strong&gt; système(s) vu qu'ils ne possédaient pas les droits d'accès de base à la &lt;strong&gt;Gestion&lt;/strong&gt;. Les systèmes échoués sont toujours sélectionnés ci-dessous. Si vous cliquez d'abord sur le bouton &lt;strong&gt;Donner le droit d'accès à la Gestion&lt;/strong&gt;, puis sélectionnez l'élément &lt;strong&gt;Virtualisation&lt;/strong&gt; dans la liste déroulante située dans la section &lt;strong&gt;Droits d'accès supplémentaires&lt;/strong&gt;, puis cliquez sur le bouton &lt;strong&gt;Ajouter des droits d'accès&lt;/strong&gt; ci-dessous, vous pourrez ajouter le droit d'accès au module &lt;strong&gt;Virtualisation&lt;/strong&gt; à ce(s) système(s).</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization_host.noSolarisSupport">
 				<source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
@@ -4986,11 +4986,11 @@ pour ce droit d'accès.</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization_host_platform.notEnoughSlots">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements, you will be able to upgrade these systems.  &lt;br/&gt;&lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; système(s) a/ont bien été mis à niveau au droit d'accès au module &lt;strong&gt;Plate-forme de virtualisation&lt;/strong&gt;, mais vous n'avez pas assez de droits à &lt;strong&gt;Plate-forme de virtualisation&lt;/strong&gt; pour le(s) &lt;strong&gt;{1}&lt;/strong&gt; système(s) restant(s). Vous pouvez acheter des droits d'accès supplémentaires à &lt;strong&gt;Plate-forme de virtualisation&lt;/strong&gt; via le &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;magasin @@PRODUCT_NAME@@&lt;/strong&gt;&lt;/a&gt;. Après l'obtention de droits d'accès supplémentaires au module &lt;strong&gt;Plate-forme de virtualisation&lt;/strong&gt;, vous pourrez mettre à niveau ces systèmes. &lt;br/&gt;&lt;strong&gt;REMARQUE :&lt;/strong&gt; si le système était auparavant configuré pour le module Plate-forme de virtualisation, celui-ci a été rétrogradé au module Virtualisation..</target>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; système(s) a/ont bien été mis à niveau au droit d'accès au module &lt;strong&gt;Plate-forme de virtualisation&lt;/strong&gt;, mais vous n'avez pas assez de droits à &lt;strong&gt;Plate-forme de virtualisation&lt;/strong&gt; pour le(s) &lt;strong&gt;{1}&lt;/strong&gt; système(s) restant(s). Vous pouvez acheter des droits d'accès supplémentaires à &lt;strong&gt;Plate-forme de virtualisation&lt;/strong&gt; via le &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;magasin @@PRODUCT_NAME@@&lt;/strong&gt;&lt;/a&gt;. Après l'obtention de droits d'accès supplémentaires au module &lt;strong&gt;Plate-forme de virtualisation&lt;/strong&gt;, vous pourrez mettre à niveau ces systèmes. &lt;br/&gt;&lt;strong&gt;REMARQUE :&lt;/strong&gt; si le système était auparavant configuré pour le module Plate-forme de virtualisation, celui-ci a été rétrogradé au module Virtualisation.</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization_host_platform.noManagement">
 				<source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement to these system(s).</source>
-				<target>Le don de droit d'accès à &lt;strong&gt;Plateforme de virtualisation&lt;/strong&gt; a échoué pour &lt;strong&gt;{0}&lt;/strong&gt; système(s) vu qu'ils ne possédaient pas les droits d'accès de base à &lt;strong&gt;Management&lt;/strong&gt;. Les systèmes échoués sont toujours sélectionnés ci-dessous. Si vous cliquez d'abord sur le bouton &lt;strong&gt;Donner le droit à Management&lt;/strong&gt;, puis sélectionnez l'élément &lt;strong&gt;Plateforme de virtualisation&lt;/strong&gt; dans la liste déroulante située dans la section &lt;strong&gt;Droits d'accès supplémentaires&lt;/strong&gt;, puis cliquez sur le bouton &lt;strong&gt;Ajouter des droits d'accès&lt;/strong&gt; ci-dessous, vous pourrez ajouter le droit d'accès au module &lt;strong&gt;Plateforme de virtualisation&lt;/strong&gt; à ce(s) système(s).</target>
+				<target>Le don de droit d'accès à &lt;strong&gt;Plateforme de virtualisation&lt;/strong&gt; a échoué pour &lt;strong&gt;{0}&lt;/strong&gt; système(s) vu qu'ils ne possédaient pas les droits d'accès de base à la &lt;strong&gt;Gestion&lt;/strong&gt;. Les systèmes échoués sont toujours sélectionnés ci-dessous. Si vous cliquez d'abord sur le bouton &lt;strong&gt;Donner le droit d'accès à la Gestion&lt;/strong&gt;, puis sélectionnez l'élément &lt;strong&gt;Plateforme de virtualisation&lt;/strong&gt; dans la liste déroulante située dans la section &lt;strong&gt;Droits d'accès supplémentaires&lt;/strong&gt;, puis cliquez sur le bouton &lt;strong&gt;Ajouter des droits d'accès&lt;/strong&gt; ci-dessous, vous pourrez ajouter le droit d'accès au module &lt;strong&gt;Plateforme de virtualisation&lt;/strong&gt; à ce(s) système(s).</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization_host_platform.noSolarisSupport">
 				<source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Virtualization is not supported on Solaris systems.</source>
@@ -5006,11 +5006,11 @@ pour ce droit d'accès.</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.monitoring.notEnoughSlots">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to&lt;strong&gt;Monitoring&lt;/strong&gt; entitled, but you not have enough &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; système(s) a/ont bien été mis à niveau au droit d'accès au module &lt;strong&gt;Monitoring&lt;/strong&gt;, mais vous n'avez pas assez de droits à &lt;strong&gt;Monitoring&lt;/strong&gt; pour le(s) &lt;strong&gt;{1}&lt;/strong&gt; système(s) restant(s). Vous pouvez acheter des droits d'accès supplémentaires à &lt;strong&gt;Monitoring&lt;/strong&gt; via le &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;magasin @@PRODUCT_NAME@@&lt;/strong&gt;&lt;/a&gt;. Après l'obtention de droits d'accès supplémentaires au module &lt;strong&gt;Monitoring&lt;/strong&gt;, vous pourrez ensuite mettre à niveau ces systèmes..</target>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; système(s) a/ont bien été mis à niveau au droit d'accès au module &lt;strong&gt;Monitoring&lt;/strong&gt;, mais vous n'avez pas assez de droits à &lt;strong&gt;Monitoring&lt;/strong&gt; pour le(s) &lt;strong&gt;{1}&lt;/strong&gt; système(s) restant(s). Vous pouvez acheter des droits d'accès supplémentaires à &lt;strong&gt;Monitoring&lt;/strong&gt; via le &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;magasin @@PRODUCT_NAME@@&lt;/strong&gt;&lt;/a&gt;. Après l'obtention de droits d'accès supplémentaires au module &lt;strong&gt;Monitoring&lt;/strong&gt;, vous pourrez ensuite mettre à niveau ces systèmes.</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.monitoring.noManagement">
 				<source>&lt;strong&gt;Monitoring&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Monitoring&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Monitoring&lt;/strong&gt; entitlement to these system(s).</source>
-				<target>Le don de droit d'accès à &lt;strong&gt;Monitoring&lt;/strong&gt; a échoué pour &lt;strong&gt;{0}&lt;/strong&gt; système(s) vu qu'il(s) ne possédai(en)t pas les droits d'accès de base à &lt;strong&gt;Management&lt;/strong&gt;. Les systèmes échoués sont toujours sélectionnés ci-dessous. Si vous cliquez d'abord sur le bouton &lt;strong&gt;Donner le droit à Management&lt;/strong&gt;, puis sélectionnez l'élément &lt;strong&gt;Monitoring&lt;/strong&gt; dans la liste déroulante située dans la section &lt;strong&gt;Droits d'accès supplémentaires&lt;/strong&gt;, puis cliquez sur le bouton &lt;strong&gt;Ajouter des droits d'accès&lt;/strong&gt; ci-dessous, vous pourrez ajouter le droit d'accès au module &lt;strong&gt;Monitoring&lt;/strong&gt; à ce(s) système(s).</target>
+				<target>Le don de droit d'accès à &lt;strong&gt;Monitoring&lt;/strong&gt; a échoué pour &lt;strong&gt;{0}&lt;/strong&gt; système(s) vu qu'il(s) ne possédai(en)t pas les droits d'accès de base à la &lt;strong&gt;Gestion&lt;/strong&gt;. Les systèmes échoués sont toujours sélectionnés ci-dessous. Si vous cliquez d'abord sur le bouton &lt;strong&gt;Donner le droit d'accès à la Gestion&lt;/strong&gt;, puis sélectionnez l'élément &lt;strong&gt;Monitoring&lt;/strong&gt; dans la liste déroulante située dans la section &lt;strong&gt;Droits d'accès supplémentaires&lt;/strong&gt;, puis cliquez sur le bouton &lt;strong&gt;Ajouter des droits d'accès&lt;/strong&gt; ci-dessous, vous pourrez ajouter le droit d'accès au module &lt;strong&gt;Monitoring&lt;/strong&gt; à ce(s) système(s).</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.monitoring.noSolarisSupport">
 				<source>&lt;strong&gt;Monitoring&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because Monitoring is not supported on Solaris systems.</source>
@@ -5018,7 +5018,7 @@ pour ce droit d'accès.</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization.setup_error">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) failed to add &lt;strong&gt;Virtualization(Platform)&lt;/strong&gt;.  This was caused by errors attempting to automatically subscribe the system to the @@PRODUCT_NAME@@ Tools and RHEL Virtualization channels which are required for virtualization.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; système(s) a/ont échoué lors de l'ajout du module &lt;strong&gt;Virtualisation (Plate-forme)&lt;/strong&gt;.  Ceci est dû à des erreurs tentant d'enregistrer le système automatiquement aux canaux @@PRODUCT_NAME@@ Tools (Outils @@PRODUCT_NAME@@) et RHEL Virtualisation (virtualisation RHEL), qui sontrequis pour la virtualisation..</target>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; système(s) a/ont échoué lors de l'ajout du module &lt;strong&gt;Virtualisation (Plate-forme)&lt;/strong&gt;.  Ceci est dû à des erreurs tentant d'enregistrer le système automatiquement aux canaux @@PRODUCT_NAME@@ Tools (Outils @@PRODUCT_NAME@@) et RHEL Virtualisation (virtualisation RHEL), qui sontrequis pour la virtualisation.</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.unknown.error">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) failed to add an entitlement.  This was caused by an unknown error.  Please contact support.</source>
@@ -5226,7 +5226,7 @@ pour ce droit d'accès.</target>
 			</trans-unit>
 			<trans-unit id="generalconfig.jsp.summary">
 				<source>After updating the configuration options below, monitoring services on this satellite and all of your Monitoring-enabled @@PRODUCT_NAME@@ Proxy servers will need to be restarted.  These actions will be scheduled automatically when you update this page.</source>
-				<target>Après avoir mis à jour les options de configuration ci-dessous, les services de contrôle sur ce satellite et sur tous les serveurs proxy @@PRODUCT_NAME@@ de niveau Monitoring devront être redémarrés. Ces actions seront programmées automatiquement lorsque vous mettez cette page à jour..</target>
+				<target>Après avoir mis à jour les options de configuration ci-dessous, les services de contrôle sur ce satellite et sur tous les serveurs proxy @@PRODUCT_NAME@@ de niveau Monitoring devront être redémarrés. Ces actions seront programmées automatiquement lorsque vous mettez cette page à jour.</target>
 			</trans-unit>
 			<trans-unit id="generalconfig.jsp.update_config">
 				<source>Update Config</source>
@@ -5242,7 +5242,7 @@ pour ce droit d'accès.</target>
 			</trans-unit>
 			<trans-unit id="removeconfirm.jsp.widgetsummary">
 				<source>You may schedule the package removals to take place as soon as possible, or no sooner than a specified time:</source>
-				<target>Vous pouvez programmer la suppression de paquetages pour qu'elle commence le plus tôt possible ou à partir d'une date spécifiée..</target>
+				<target>Vous pouvez programmer la suppression de paquetages pour qu'elle commence le plus tôt possible ou à partir d'une date spécifiée :</target>
 			</trans-unit>
 			<trans-unit id="message.packageremoval">
 				<source>{0} package removal has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
@@ -5334,7 +5334,7 @@ pour ce droit d'accès.</target>
 			</trans-unit>
 			<trans-unit id="upgradeconfirm.jsp.widgetsummary">
 				<source>You may schedule the package upgrades to take place as soon as possible, or no sooner than a specified time:</source>
-				<target>Vous pouvez programmer les mises à jour des paquetages pour qu'elles commencent le plus tôt possible ou à partir d'une date spécifiée..</target>
+				<target>Vous pouvez programmer les mises à jour des paquetages pour qu'elles commencent le plus tôt possible ou à partir d'une date spécifiée :</target>
 			</trans-unit>
 			<trans-unit id="upgrade.jsp.confirm">
 				<source>Confirm Upgrade</source>
@@ -5873,7 +5873,7 @@ outils de gestion des organisations si vous supprimez ce rôle de votre nom de c
           &lt;strong&gt;{0}&lt;/strong&gt; channel. Organizations that are not checked below will not have access to this software channel. You can modify an organization's access to this channel below.</source>
 				<target>Les organisations listées ci-dessous sont des organisations avec lesquelles
           votre organisation a une relation de confiance (ou un trust). Les organisations cochées ci-dessous auront
-          la possibilité de voir et consommer le contenu dans
+          la possibilité de voir et consommer le contenu dans 
           &lt;strong&gt;{0}&lt;/strong&gt; canal/canaux. Les organisations ci-dessous qui ne sont pas cochées n'auront pas accès à ce canal de logiciel. Vous pouvez modifier l'accès d'une organisation à un canal ci-dessous.</target>
 			</trans-unit>
 			<trans-unit id="orgtrustdetails.jsp.header3">
@@ -5894,11 +5894,11 @@ outils de gestion des organisations si vous supprimez ce rôle de votre nom de c
 			</trans-unit>
 			<trans-unit id="orgtrust.jsp.channelconsume.summary">
 				<source>Below is a list of channels your organization is sharing with &lt;strong&gt;{0}&lt;/strong&gt;. This list also shows how many packages are in each channel and how many systems in that organization are consuming from these shared channels. If you would like to modify how many of these channels are shared, click on the channel's name for more details. </source>
-				<target>Ci-dessous figure une liste des canaux que votre organisation partage avec &lt;strong&gt;{0}&lt;/strong&gt;. Cette liste montre aussi combien de paquetages sont dans chaque canal et combien de systèmes dans cette organisation consomment depuis ces canaux partagés. Si vous souhaitez modifier le nombre de canaux partagés, veuillez cliquer sur son nom pour obtenir plus de détails..</target>
+				<target>Ci-dessous figure une liste des canaux que votre organisation partage avec &lt;strong&gt;{0}&lt;/strong&gt;. Cette liste montre aussi combien de paquetages sont dans chaque canal et combien de systèmes dans cette organisation consomment depuis ces canaux partagés. Si vous souhaitez modifier le nombre de canaux partagés, veuillez cliquer sur son nom pour obtenir plus de détails.</target>
 			</trans-unit>
 			<trans-unit id="orgtrust.jsp.channelprovide.summary">
 				<source>Below is a list of channels that organization &lt;strong&gt;{0}&lt;/strong&gt; has shared with your organization, also showing how many packages are in each channel and how many systems in your organization are consuming from these shared channels. </source>
-				<target>Ci-dessous figure une liste des canaux que l'organisation &lt;strong&gt;{0}&lt;/strong&gt; a partagé avec votre organisation, celle-ci montre aussi combien de paquetages figurent dans chaque canal et combien de systèmes dans votre organisation consomment depuis ces canaux partagés..</target>
+				<target>Ci-dessous figure une liste des canaux que l'organisation &lt;strong&gt;{0}&lt;/strong&gt; a partagé avec votre organisation, celle-ci montre aussi combien de paquetages figurent dans chaque canal et combien de systèmes dans votre organisation consomment depuis ces canaux partagés.</target>
 			</trans-unit>
 			<trans-unit id="orgtrustdetails.jsp.sysmigratedto">
 				<source>Systems Migrated to Your Organization</source>
@@ -6446,7 +6446,7 @@ outils de gestion des organisations si vous supprimez ce rôle de votre nom de c
 			</trans-unit>
 			<trans-unit id="general.jsp.summary">
 				<source>Configure your @@PRODUCT_NAME@@ below. The HTTP proxy settings are for the @@PRODUCT_NAME@@ server's communication with the parent @@PRODUCT_NAME@@ server, if any. The http proxy should be of the form: hostname:port, but a default port of 8080 will be used if none is provided. HTTP proxy settings for clients' systems to connect to this @@PRODUCT_NAME@@ can be different, and will be configured later. If you enable the Monitoring Backend, you should also enable Monitoring Scout, or configure the Monitoring Scout as a separate server. If you enable the Monitoring Scout, you must also enable the Monitoring Backend.</source>
-				<target>Configurez votre @@PRODUCT_NAME@@ ci-dessous. Les paramètres du proxy HTTP sont pour la communication du serveur @@PRODUCT_NAME@@ avec le serveur @@PRODUCT_NAME@@ parent, s'il y en a. Le proxy http devrait être sous la forme : hostname:port, mais un port par défaut de 8080 sera utilisé si aucun n'est fourni. Les paramètres du proxy HTTP pour que les systèmes du client se connectent à ce @@PRODUCT_NAME@@ peuvent être différents et seront configurés plus tard. Si vous activez le serveur de contrôle, vous devriez également activer l'agent de contrôle ou configurer l'agent de contrôle comme un serveur séparé. Si vous activez l'agent de contrôle, vous devez également activer le serveur de contrôle..</target>
+				<target>Configurez votre @@PRODUCT_NAME@@ ci-dessous. Les paramètres du proxy HTTP sont pour la communication du serveur @@PRODUCT_NAME@@ avec le serveur @@PRODUCT_NAME@@ parent, s'il y en a. Le proxy http devrait être sous la forme : hostname:port, mais un port par défaut de 8080 sera utilisé si aucun n'est fourni. Les paramètres du proxy HTTP pour que les systèmes du client se connectent à ce @@PRODUCT_NAME@@ peuvent être différents et seront configurés plus tard. Si vous activez le serveur de contrôle, vous devriez également activer l'agent de contrôle ou configurer l'agent de contrôle comme un serveur séparé. Si vous activez l'agent de contrôle, vous devez également activer le serveur de contrôle.</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.header">
 				<source>@@PRODUCT_NAME@@ Organizations</source>
@@ -6456,7 +6456,7 @@ outils de gestion des organisations si vous supprimez ce rôle de votre nom de c
 				<source>@@PRODUCT_NAME@@ allows for the creation of multiple 'organizations'
 on a @@PRODUCT_NAME@@.</source>
 				<target>@@PRODUCT_NAME@@ prend en compte la création de plusieurs organisations
-sur un @@PRODUCT_NAME@@..</target>
+sur un @@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.summary2">
 				<source>Organizations are a way to place boundaries between sets of systems, system
@@ -6475,7 +6475,7 @@ d'organisation et le @@PRODUCT_NAME@@ entier est géré par un administrateur @@
 Les organisations sur un @@PRODUCT_NAME@@ avec plusieurs organisations
  fonctionnent de la même manière que les
 organisations sur plusieurs @@PRODUCT_NAME@@ n'ayant qu'une seule
- organisation..</target>
+ organisation.</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.summary3">
 				<source>To get started creating and managing organizations on your @@PRODUCT_NAME@@, refer to
@@ -6507,7 +6507,7 @@ toutes les organisations de votre @@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.description1">
 				<source>Create and manage organizations on your @@PRODUCT_NAME@@. On a per-organization basis, you can also allocate software subscription and system entitlements here.</source>
-				<target>Créer et gérer les organisations sur votre @@PRODUCT_NAME@@. Pour chacune de vos organisations, vous pouvez allouer ici des droits d'accès aux systèmes et aux abonnements logiciels..</target>
+				<target>Créer et gérer les organisations sur votre @@PRODUCT_NAME@@. Pour chacune de vos organisations, vous pouvez allouer ici des droits d'accès aux systèmes et aux abonnements logiciels.</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.link1">
 				<source>Go to Organizations now</source>
@@ -6523,7 +6523,7 @@ administrator privileges.</source>
 utilisateurs de @@PRODUCT_NAME@@ mais vous pouvez rechercher les utilisateurs avec des privilèges
 d'administrateur d'organisation parmi toutes les organisations de votre @@PRODUCT_NAME@@ et vous
 pouvez également assigner ou retirer le privilège d'administrateur de satellite d'un
-administrateur d'organisation..</target>
+administrateur d'organisation.</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.link3">
 				<source>Go to Users now</source>
@@ -6603,7 +6603,7 @@ administrateur d'organisation..</target>
 			</trans-unit>
 			<trans-unit id="certificate.jsp.summary">
 				<source>You must provide an @@PRODUCT_NAME@@ certificate. This certificate entitles you to the various levels of service provided by the @@PRODUCT_NAME@@.</source>
-				<target>Vous devez fournir un certificat du @@PRODUCT_NAME@@. Ce certificat vous donne des droits d'accès aux divers niveaux de service fournis par le @@PRODUCT_NAME@@..</target>
+				<target>Vous devez fournir un certificat du @@PRODUCT_NAME@@. Ce certificat vous donne des droits d'accès aux divers niveaux de service fournis par le @@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="certificate.jsp.header2">
 				<source>@@PRODUCT_NAME@@ Certificate</source>
@@ -6673,7 +6673,7 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
 			</trans-unit>
 			<trans-unit id="restart.jsp.summary">
 				<source> The configuration changes require a restart of the @@PRODUCT_NAME@@. Please click Restart to restart the @@PRODUCT_NAME@@. This page will auto refresh in 4 minutes.  Be aware that this will affect all users logged into this application as well as systems attempting to register or interact with the @@PRODUCT_NAME@@.</source>
-				<target> Les changements apportés à la configuration requièrent le redémarrage du @@PRODUCT_NAME@@. Cliquez sur Redémarrer pour redémarrer le @@PRODUCT_NAME@@. Cette page sera automatiquement rafraîchie dans 4 minutes. Sachez que cela affectera tous les utilisateurs connectés à cette application, ainsi que les systèmes qui essaient de s'enregistrer ou d'intéragir avec le @@PRODUCT_NAME@@..</target>
+				<target> Les changements apportés à la configuration requièrent le redémarrage du @@PRODUCT_NAME@@. Cliquez sur Redémarrer pour redémarrer le @@PRODUCT_NAME@@. Cette page sera automatiquement rafraîchie dans 4 minutes. Sachez que cela affectera tous les utilisateurs connectés à cette application, ainsi que les systèmes qui essaient de s'enregistrer ou d'intéragir avec le @@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="restart.jsp.header2">
 				<source>Restart @@PRODUCT_NAME@@</source>
@@ -6717,11 +6717,11 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
 			</trans-unit>
 			<trans-unit id="cobbler.jsp.summary1">
 				<source>Setup your @@PRODUCT_NAME@@ Cobbler settings below.</source>
-				<target>Ajustez les paramètres Cobbler de votre @@PRODUCT_NAME@@ ci-dessous..</target>
+				<target>Ajustez les paramètres Cobbler de votre @@PRODUCT_NAME@@ ci-dessous.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.jsp.summary2">
 				<source>Cobbler sync is used to repair or rebuild the contents /tftpboot or /var/www/cobbler when manual modification of cobbler has occured.</source>
-				<target>Cobbler sync est utilisé pour réparer ou reconstruire le contenu /tftpboot ou /var/www/cobbler lorsqu'une modification manuelle de cobbler a été faite..</target>
+				<target>Cobbler sync est utilisé pour réparer ou reconstruire le contenu /tftpboot ou /var/www/cobbler lorsqu'une modification manuelle de cobbler a été faite.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.jsp.summary3">
 				<source>For more information refer to the 'cobbler' man page.</source>
@@ -6757,7 +6757,7 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
 			</trans-unit>
 			<trans-unit id="tnc.jsp.refused-desc">
 				<source>You have refused to acknowledge the Terms and Conditions associated with the use of Red Hat products and services. You must accept these Terms and Conditions in order to access @@PRODUCT_NAME@@ and your Red Hat subscriptions. Please click on the link below to log back in to @@PRODUCT_NAME@@ and accept the Terms and Conditions of use.</source>
-				<target>Vous avez refusé d'accepter les termes et conditions associés à l'utilisation des produits et services de Red Hat. Vous devez les accepter pour pouvoir accéder à @@PRODUCT_NAME@@ et vos abonnements Red Hat. Veuillez cliquer sur le lien ci-dessous pour vous reconnecter à @@PRODUCT_NAME@@ et accepter les termes et conditions d'utilisation..</target>
+				<target>Vous avez refusé d'accepter les termes et conditions associés à l'utilisation des produits et services de Red Hat. Vous devez les accepter pour pouvoir accéder à @@PRODUCT_NAME@@ et vos abonnements Red Hat. Veuillez cliquer sur le lien ci-dessous pour vous reconnecter à @@PRODUCT_NAME@@ et accepter les termes et conditions d'utilisation.</target>
 			</trans-unit>
 			<trans-unit id="tnc.jsp.return-login">
 				<source>Link to Log in to @@PRODUCT_NAME@@</source>
@@ -6812,10 +6812,10 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
 				<target>Mise à jour des variables</target>
 			</trans-unit>
 			<trans-unit id="kickstart.variable.jsp.summary">
-				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
-				You would then use $name within the profile to substitute in the value.</source>
-				<target>Les variables kickstart peuvent être utilisées pour substituer les valeurs dans les profils kickstart. Pour définir une variable, ajoutez 'name=value'(nom=valeur) dans la case ci-dessous.
-				Vous devrez ensuite utiliser $name à l'intérieur du profil pour y substituer la valeur..</target>
+				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+        			You would then use $name within the profile to substitute in the value.</source>
+				<target>Les variables kickstart peuvent être utilisées pour substituer les valeurs dans les profils kickstart. Pour définir une variable, ajoutez 'name=value'(nom=valeur) dans la case ci-dessous. 
+        			Vous devrez ensuite utiliser $name à l'intérieur du profil pour y substituer la valeur.</target>
 			</trans-unit>
 			<trans-unit id="kickstarttree.variable.jsp.summary">
 				<source>Any variables specified below will be usable in any profile that uses this distro.  They can be overridden in each profile as well.</source>
@@ -6827,7 +6827,7 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virt_disk_path.tip">
 				<source>&lt;strong&gt;Tip:&lt;/strong&gt; You may specify a file path (/var/lib/xen/images/disk), a Volume Group (VolGroup00), or a partiion (/dev/sda5).  You can also specify multiple virtual disks by comma separating the filepaths, volume group, or partition (/dev/sdb1,/devsdc1).</source>
-				<target>&lt;strong&gt;Astuce :&lt;/strong&gt; Vous pouvez spécifier un chemin d'accès (/var/lib/xen/images/disk), un groupe de volumes (VolGroup00), ou une partition (/dev/sda5). Vous pouvez aussi spécifier de multiples disques virtuels en séparant les chemins de fichier, groupes de volumes, ou partitions (/dev/sdb1,/devsdc1) par une virgule..</target>
+				<target>&lt;strong&gt;Astuce :&lt;/strong&gt; Vous pouvez spécifier un chemin d'accès (/var/lib/xen/images/disk), un groupe de volumes (VolGroup00), ou une partition (/dev/sda5). Vous pouvez aussi spécifier de multiples disques virtuels en séparant les chemins de fichier, groupes de volumes, ou partitions (/dev/sdb1,/devsdc1) par une virgule.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virt_mem_kb">
 				<source>Virtual Memory (in kilobytes)</source>
@@ -7155,12 +7155,12 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations.
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
+            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
+            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
             tab to verify the new settings.</source>
 				<target>&lt;strong&gt;REMARQUE : &lt;/strong&gt; Un changement de type de virtualisation peut appeler à un changement du
-             chargeur de démarrage du profil kickstart et des options de partition, ce qui peut potentiellement remplacer les personnalisations de l'utilisateur.
-             Rendez-vous sur l'onglet &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitionnement&lt;/a&gt;
+             chargeur de démarrage du profil kickstart et des options de partition, ce qui peut potentiellement remplacer les personnalisations de l'utilisateur. 
+             Rendez-vous sur l'onglet &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitionnement&lt;/a&gt; 
             afin de vérifier les nouveaux paramètres.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.active">
@@ -7385,7 +7385,7 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
 			</trans-unit>
 			<trans-unit id="keys.jsp.summary">
 				<source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an @@PRODUCT_NAME@@ Proxy Server or @@PRODUCT_NAME@@ Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
-				<target>Vous pouvez faire référence à ces clés et/ou certificats dans vos profils kickstart afin de les installer sur des systèmes durant une installation kickstart. Un système aura besoin des clés correctes pour installer des paquetages signés et certificats corrects afin de pouvoir être lancé avec kickstart par un serveur Proxy @@PRODUCT_NAME@@ ou un serveur @@PRODUCT_NAME@@. Pour davantage d'informations, consultez le &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_new" &gt;Guide de référence de RHN&lt;/a&gt;..</target>
+				<target>Vous pouvez faire référence à ces clés et/ou certificats dans vos profils kickstart afin de les installer sur des systèmes durant une installation kickstart. Un système aura besoin des clés correctes pour installer des paquetages signés et certificats corrects afin de pouvoir être lancé avec kickstart par un serveur Proxy @@PRODUCT_NAME@@ ou un serveur @@PRODUCT_NAME@@. Pour davantage d'informations, consultez le &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_new" &gt;Guide de référence de RHN&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="keys.jsp.toolbar">
 				<source>GPG Public Keys and SSL Certificates</source>
@@ -7601,7 +7601,7 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.repos-tooltip">
 				<source>Selected Repositories will be available in the &lt;strong&gt;%packages &lt;/strong&gt; section of the kickstart file.</source>
-				<target>Les référentiels sélectionnés seront disponibles dans la section &lt;strong&gt;%packages &lt;/strong&gt; du fichier kickstart..</target>
+				<target>Les référentiels sélectionnés seront disponibles dans la section &lt;strong&gt;%packages &lt;/strong&gt; du fichier kickstart.</target>
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.tip1">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; New file location must be the root of an install tree (for the operating system version above) on either an http or ftp server.&lt;/span&gt;</source>
@@ -7687,6 +7687,14 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
 				<source>nochroot</source>
 				<target>nochroot</target>
 			</trans-unit>
+			<trans-unit id="kickstart.script.template">
+				<source>Template</source>
+				<target>Modèle</target>
+			</trans-unit>
+			<trans-unit id="kickstart.script.template.tip">
+				<source>Enable this to enable templating on this script using cobbler.</source>
+				<target>Activez ceci pour activer le modelage sur ce script en utilisant cobbler.</target>
+			</trans-unit>
 			<trans-unit id="kickstart.script.tip3">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This specifies when the script gets ran (before or after kickstart).&lt;/span&gt;</source>
 				<target>&lt;span class="small-text"&gt;&lt;strong&gt;Astuce :&lt;/strong&gt; cette valeur spécifie quand le script sera exécuté (avant ou après le kickstart).&lt;/span&gt;</target>
@@ -7760,16 +7768,16 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
 				<target>Snippets kickstart</target>
 			</trans-unit>
 			<trans-unit id="snippets.jsp.summary">
-				<source>Use Kickstart Snippets to store common blocks of code that can be shared across multiple Kickstart profiles in @@PRODUCT_NAME@@. When you create a Kickstart Snippet, all Kickstart profiles including that snippet will be updated accordingly.</source>
-				<target>Utilisez les snippets kickstart pour stocker des blocs de code communs qui peuvent être partagés sur de multiples profils kickstart dans @@PRODUCT_NAME@@. Lorsque vous créez un snippet kickstart, tous les profils kickstart y compris ce snippet seront mis à jour en conséquence.</target>
+				<source>Use kickstart snippets to store common blocks of code that can be shared across multiple kickstart profiles in @@PRODUCT_NAME@@. When you create a kickstart snippet, all kickstart profiles including that snippet will be updated accordingly.</source>
+				<target>Utilisez les snippets kickstart pour stocker des blocs de code communs qui peuvent être partagés sur de multiples profils kickstart dans @@PRODUCT_NAME@@. Lorsque vous créez un snippet kickstart, tous les profils kickstart, y compris ce snippet, seront mis à jour en conséquence.</target>
 			</trans-unit>
 			<trans-unit id="snippets.jsp.note.default">
-				<source>default kickstart snippets are not editable.</source>
-				<target>Les snippets kickstart par défaut ne sont pas modifiables..</target>
+				<source>Default kickstart snippets are not editable.</source>
+				<target>Les snippets kickstart, par défaut, ne sont pas modifiables.</target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.snippets">
 				<source>create new snippet</source>
-				<target>Créer un nouveau snippet..</target>
+				<target>Créer un nouveau snippet</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.name">
 				<source>Snippet Name</source>
@@ -7780,12 +7788,12 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
 				<target>Macro snippet</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.jsp.nosnippets">
-				<source>No Cobbler snippets found.</source>
-				<target>Aucun snippet cobbler trouvé.</target>
+				<source>No kickstart snippets found.</source>
+				<target>Aucun snippet kickstart trouvé.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.copy-paste-snippet-tip">
-				<source>Copy and paste the snippet macro into your Kickstart profiles to make the full snippet appear in that Kickstart profile.</source>
-				<target>Copier et coller le macro snippet dans vos profils kickstart pour faire apparaître le snippet entier dans le profil kickstart..</target>
+				<source>Copy and paste the snippet macro into your kickstart profiles to make the full snippet appear in that kickstart profile.</source>
+				<target>Copier et coller le macro snippet dans vos profils kickstart pour faire apparaître le snippet entier dans le profil kickstart.</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.warning.tip">
 				<source>Changing this snippet's name will require updating any kickstart profiles that refer to it so that they can continue to access the content of this snippet.</source>
@@ -7797,7 +7805,7 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.path.tip">
 				<source>This is where the snippet resides on the @@PRODUCT_NAME@@ file system.</source>
-				<target>Ceci est l'endroit où le snippet réside dans le système fichier de @@PRODUCT_NAME@@..</target>
+				<target>Ceci est l'endroit où le snippet réside dans le système fichier de @@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.header.name">
 				<source>Kickstart Snippet: {0}</source>
@@ -7812,7 +7820,7 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
 				<target>Personnalisé</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.custom.tip">
-				<source>Custom Kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
+				<source>Custom kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
 				<target>Les snippets kickstart personnalisés ne seront disponibles que pour l'organisation &lt;strong&gt;{0}&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default">
@@ -7820,7 +7828,7 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
 				<target>Par défaut</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default.tip">
-				<source>Default Kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
+				<source>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
 				<target>Les snippets kickstart par défaut sont disponibles pour toutes les organisations. Ces snippets ne peuvent pas être modifiés.</target>
 			</trans-unit>
 			<trans-unit id="snippetedit.jsp.header2">
@@ -7832,12 +7840,28 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
 				<target>Créer un nouveau snippet</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.summary">
-				<source>Snippets can be shared between Kickstart Profiles</source>
+				<source>Snippets can be shared between kickstart profiles</source>
 				<target>Les snippets peuvent être partagés entre les profils kickstart</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.header2">
 				<source>Create Snippet</source>
 				<target>Créer un snippet</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.submit">
+				<source>Create Snippet</source>
+				<target>Créer un snippet</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.header2">
+				<source>Create Snippet</source>
+				<target>Créer un snippet</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.submit">
+				<source>Create Snippet</source>
+				<target>Créer un snippet</target>
+			</trans-unit>
+			<trans-unit id="snippetdetails.jsp.header2">
+				<source>Snippet Details</source>
+				<target>Détails du snippet</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.contents">
 				<source>Contents</source>
@@ -7848,10 +7872,10 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
 				<target>Contenu du snippet kickstart</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.tip1">
-				<source>Avoid spaces in the snippet name.</source>
-				<target>Évitez les espaces dans le nom du snippet.</target>
+				<source>The snippet name is the name of a file that will reside in this organization's snippet directory. Any standard unix file name characters are acceptable. Snippet names containing slash character or snippet names beginning with period are not allowed.</source>
+				<target>Le nom de snippet est le nom d'un fichier qui résidera dans le répertoire snippet de cette organisation. Tout caractère standard unix de nom de fichier est acceptable. Les noms de snippet qui contiennent une barre oblique ou qui commencent par un point ne sont pas autorisés.</target>
 			</trans-unit>
-			<trans-unit id="snippetcreate.jsp.submit">
+			<trans-unit id="snippetupdate.jsp.submit">
 				<source>Update Snippet</source>
 				<target>Mettre à jour le snippet</target>
 			</trans-unit>
@@ -7864,11 +7888,11 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
 				<target>Suppression du snippet</target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.summary">
-				<source>Are you sure you want to delete this Snippet permanently?</source>
+				<source>Are you sure you want to delete this snippet permanently?</source>
 				<target>Souhaitez-vous vraiment supprimer ce snippet de manière permanente ?</target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.warning">
-				<source>Deleting this snippet will affect any kickstart profiles that refere to it. It may break kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
+				<source>Deleting this snippet will affect any kickstart profiles that refer to it. It may break those kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
 				<target>Effacer ce snippet affectera tout profil kickstart qui s'y réfère, ce qui pourrait empêcher les profils kickstart de fonctionner. Nous vous recommandons de vous assurer qu'aucun profil kickstart ne dépende de ce snippet avant de l'effacer.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.delete">
@@ -7885,7 +7909,7 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.nolists">
 				<source>No lists are currently enabled on the "Overview" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Overview &gt; Your Preferences &gt; "Overview" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
-				<target>Aucune liste n'est  couramment activée sur la page "Vue d'ensemble". Vous pouvez le modifier sur la page &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Vue d'ensemble&gt; Vos Préférences &gt; "Vue d'ensemble" Page d'accueil&lt;/a&gt;&lt;/strong&gt;.</target>
+				<target>Aucune liste n'est  couramment activée sur la page "Aperçu". Vous pouvez le modifier sur la page &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Aperçu&gt; Vos Préférences &gt; "Aperçu" Page d'accueil&lt;/a&gt;&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.user">
 				<source>User</source>
@@ -7913,11 +7937,11 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar">
 				<source>Overview</source>
-				<target>Vue d'ensemble</target>
+				<target>Aperçu</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.menu.overview">
 				<source>Overview</source>
-				<target>Vue d'ensemble</target>
+				<target>Aperçu</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar.img.alt">
 				<source>Home Icon</source>
@@ -8169,11 +8193,11 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
 			</trans-unit>
 			<trans-unit id="channels.custom.jsp.header1">
 				<source>The software channels listed below belong to your organization.</source>
-				<target>Les canaux logiciels listés ci-dessous appartiennent à votre organisation..</target>
+				<target>Les canaux logiciels listés ci-dessous appartiennent à votre organisation.</target>
 			</trans-unit>
 			<trans-unit id="channels.popular.jsp.header1">
 				<source>The software channels listed below are considered popular (defined as having a certain number of systems subscribed).</source>
-				<target>Les canaux logiciels listés ci-dessous sont considérés comme populaires (avec un certain nombre de systèmes y étant souscris)..</target>
+				<target>Les canaux logiciels listés ci-dessous sont considérés comme populaires (avec un certain nombre de systèmes y étant souscris).</target>
 			</trans-unit>
 			<trans-unit id="channels.popular.jsp.label0">
 				<source>Popularity</source>
@@ -8205,7 +8229,7 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
 			</trans-unit>
 			<trans-unit id="channels.manage.jsp.header2">
 				<source>Modify an existing software channel by selecting it from the list below, or create a new software channel. </source>
-				<target>Modifiez un canal logiciel existant en le sélectionnant dans la liste ci-dessous, ou créez-en un nouveau..</target>
+				<target>Modifiez un canal logiciel existant en le sélectionnant dans la liste ci-dessous, ou créez-en un nouveau.</target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.channel">
 				<source>create new channel</source>
@@ -8213,7 +8237,7 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
 			</trans-unit>
 			<trans-unit id="toolbar.clone.channel">
 				<source>clone channel</source>
-				<target>cloner le canal..</target>
+				<target>cloner le canal</target>
 			</trans-unit>
 			<trans-unit id="kickstart.troubleshooting.jsp.header1">
 				<source>Troubleshooting</source>
@@ -8489,7 +8513,7 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
 			</trans-unit>
 			<trans-unit id="activation-key.jsp.org_notice">
 				<source>If you modify the key itself above, please note that the key will be prepended with a '&lt;strong&gt;{0}&lt;/strong&gt;'. This is to identify the organization with which the key is associated and is associated with the @@PRODUCT_NAME@@'s multiple organizations feature.</source>
-				<target>Si vous modifiez la clé ci-dessus, veuillez noter que celle-ci sera ajustée avec un '&lt;strong&gt;{0}&lt;/strong&gt;'. Ceci permet d'identifier l'organisation avec laquelle la clé est associée. Elle est associée à la fonctionnalité multiples organisations du @@PRODUCT_NAME@@..</target>
+				<target>Si vous modifiez la clé ci-dessus, veuillez noter que celle-ci sera ajustée avec un '&lt;strong&gt;{0}&lt;/strong&gt;'. Ceci permet d'identifier l'organisation avec laquelle la clé est associée. Elle est associée à la fonctionnalité multiples organisations du @@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.jsp.rh-default">
 				<source>@@PRODUCT_NAME@@ Default</source>
@@ -8529,15 +8553,15 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
 			</trans-unit>
 			<trans-unit id="activation-key.jsp.config-auto-deploy-tooltip">
 				<source> Deploy configuration files to systems when they are registered with this activation key.</source>
-				<target>Déployer les fichiers de configuration sur des systèmes enregistrés avec cette clé d'activation..</target>
+				<target>Déployer les fichiers de configuration sur des systèmes enregistrés avec cette clé d'activation.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.jsp.disabled-config-auto-deploy-tooltip">
 				<source> Configuration File Deployment is currently disabled. Select "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;"  to enable configuration management facilities for this activation key.</source>
-				<target>Le  déploiement de fichiers de configuration est actuellement désactivé. Sélectionnez "&lt;strong&gt;{0}&lt;/strong&gt;" sous "&lt;strong&gt;{1}&lt;/strong&gt;" afin d'activer les fonctions de gestion de la configuration pour cette clé d'activation..</target>
+				<target>Le  déploiement de fichiers de configuration est actuellement désactivé. Sélectionnez "&lt;strong&gt;{0}&lt;/strong&gt;" sous "&lt;strong&gt;{1}&lt;/strong&gt;" afin d'activer les fonctions de gestion de la configuration pour cette clé d'activation.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.packages.jsp.summary">
 				<source>Any system registered with this activation key will have the packages listed below installed, if those packages are available. Package names may be listed as package name only or may include an extension to specify the desired architecture.  There should only one package name included per line.</source>
-				<target>Tout système enregistré avec cette cléd'activation aura les paquetages listés ci-dessous installés s'ils sont disponibles. Les noms de paquetages peuvent être listés en tant que tels ou peuvent inclure une extension pour spécifier l'architecture désirée. Il ne doit y avoir qu'un seul nom de paquetage par ligne..</target>
+				<target>Tout système enregistré avec cette cléd'activation aura les paquetages listés ci-dessous installés s'ils sont disponibles. Les noms de paquetages peuvent être listés en tant que tels ou peuvent inclure une extension pour spécifier l'architecture désirée. Il ne doit y avoir qu'un seul nom de paquetage par ligne.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.packages.jsp.enter-names">
 				<source>Enter package names below</source>
@@ -8545,23 +8569,23 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
 			</trans-unit>
 			<trans-unit id="activation-keys.config.jsp.noChannels">
 				<source>No configuration channels. To subscribe this activation key to a configuration channel, please visit the &lt;a href="{0}"&gt;Subscribe to Channels&lt;/a&gt; tab.</source>
-				<target>Aucun canal de configuration. Pour abonner cette clé d'activation à un canal de configuration, veuillez visiter l'onglet &lt;a href="{0}"&gt;S'abonner à des canaux&lt;/a&gt;..</target>
+				<target>Aucun canal de configuration. Pour abonner cette clé d'activation à un canal de configuration, veuillez visiter l'onglet &lt;a href="{0}"&gt;S'abonner à des canaux&lt;/a&gt;.</target>
 			</trans-unit>
 			<trans-unit id="activation-keys.config.subscriptions.jsp.noChannels">
 				<source>No configuration channels are available for subscription. You have already subscribed this activation key to all available channels (&lt;a href="{0}"&gt;view subscribed channels&lt;/a&gt;).</source>
-				<target>Aucun canal de configuration n'est disponible pour les abonnements. Vous avez déjà abonné cette clé d'activation à tous les canaux disponibles (&lt;a href="{0}"&gt;afficher les canaux abonnés&lt;/a&gt;)..</target>
+				<target>Aucun canal de configuration n'est disponible pour les abonnements. Vous avez déjà abonné cette clé d'activation à tous les canaux disponibles (&lt;a href="{0}"&gt;afficher les canaux abonnés&lt;/a&gt;).</target>
 			</trans-unit>
 			<trans-unit id="activation-key.config.jsp.para1">
 				<source>Below are all the centrally-managed configuration channels to which this activation key is subscribed. They are in priority order with the highest-ranked channels appearing first in the list.</source>
-				<target>Ci-dessous figurent les canaux de configuration gérés centralement auxquels cette clé d'activation est abonnée. Ils sont ordonnés par priorité, les canaux ayant le rang le plus haut sont classés en premier dans la liste..</target>
+				<target>Ci-dessous figurent les canaux de configuration gérés centralement auxquels cette clé d'activation est abonnée. Ils sont ordonnés par priorité, les canaux ayant le rang le plus haut sont classés en premier dans la liste.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.config.subscriptions.jsp.para1">
 				<source>Below is a list of configuration channels available to this activation key. To subscribe to a channel, check its checkbox. Make sure you click the "{0}" button when you are finished with your changes.</source>
-				<target>Ci-dessous figure une liste de canaux de configuration disponibles pour la clé d'activation. Pour l'inscrire à un canal, cochez sa case. Assurez-vous de cliquer sur le bouton "{0}" une fois que vous avez terminé avec vos changements..</target>
+				<target>Ci-dessous figure une liste de canaux de configuration disponibles pour la clé d'activation. Pour l'inscrire à un canal, cochez sa case. Assurez-vous de cliquer sur le bouton "{0}" une fois que vous avez terminé avec vos changements.</target>
 			</trans-unit>
 			<trans-unit id="activation-keys.config.rank.jsp.para1">
 				<source>This activation key is subscribed to the configuration channels listed below in order from highest to lowest rank. Files from a particular channel will override files with the same filepath and name from channels below it.</source>
-				<target>Cette clé d'activation est abonnée aux canaux de configuration listés ci-dessous. Ils sont classés par rang, du plus haut au plus bas. Les fichiers d'un canal particulier remplaceront les fichiers des canaux d'un rang inférieur qui ont le même nom et le même chemin d'accès..</target>
+				<target>Cette clé d'activation est abonnée aux canaux de configuration listés ci-dessous. Ils sont classés par rang, du plus haut au plus bas. Les fichiers d'un canal particulier remplaceront les fichiers des canaux d'un rang inférieur qui ont le même nom et le même chemin d'accès.</target>
 			</trans-unit>
 			<trans-unit id="activation-keys.config.rank.jsp.para2">
 				<source>To modify the respective rankings of the subscribed channels, you may select one channel at a time to move up or down using the arrow buttons below. After you have completed the ranking process, you will need to click on "{0}" below to confirm the channel subscriptions and ordering.</source>
@@ -8581,11 +8605,11 @@ Le script post non-chroot sera ensuite exécuté et le script post sera enfin ex
 			</trans-unit>
 			<trans-unit id="activation-keys.groups.jsp.noGroups">
 				<source>No System Groups. To add System Groups this activation key, please visit the &lt;a href="{0}"&gt;{1}&lt;/a&gt; tab.</source>
-				<target>Pas de groupes de systèmes. Pour ajouter des groupes de système à cette clé d'activation, rendez-vous sur l'onglet &lt;a href="{0}"&gt;{1}&lt;/a&gt;..</target>
+				<target>Pas de groupes de systèmes. Pour ajouter des groupes de système à cette clé d'activation, rendez-vous sur l'onglet &lt;a href="{0}"&gt;{1}&lt;/a&gt;.</target>
 			</trans-unit>
 			<trans-unit id="activation-keys.groups.add.jsp.noGroups">
 				<source>No system groups are available to add. You have already added all the system groups available (&lt;a href="{0}"&gt;View System Groups&lt;/a&gt;) to this activation key.</source>
-				<target>Aucun groupe de systèmes n'est disponible. Vous avez déjà ajouteé tous les groupes de systèmes disponibles (&lt;a href="{0}"&gt;Voir groupes de systèmes&lt;/a&gt;) pour cette clé d'activation..</target>
+				<target>Aucun groupe de systèmes n'est disponible. Vous avez déjà ajouteé tous les groupes de systèmes disponibles (&lt;a href="{0}"&gt;Voir groupes de systèmes&lt;/a&gt;) pour cette clé d'activation.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.groups.jsp.summary">
 				<source>Below are all the system groups that have been added to this activation key. Any system registering with this activation key will be added to the selected system groups. To remove a system group membership, check its checkbox and make sure you click the "{0}" button when you are finished with your changes.</source>
@@ -10420,7 +10444,7 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
 			</trans-unit>
 			<trans-unit id="managedsystems.jsp.noSystems">
 				<source>No configuration managed systems.</source>
-				<target>Systèmes sans gestion de la configuration.e</target>
+				<target>Systèmes sans gestion de la configuration.</target>
 			</trans-unit>
 			<trans-unit id="managedsystems.jsp.localfiles">
 				<source>Locally-Managed Files</source>
@@ -11040,7 +11064,7 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
 			</trans-unit>
 			<trans-unit id="ssmdiff.jsp.summary">
 				<source>The following configuration files are associated with the systems in this set. You can select files and compare the @@PRODUCT_NAME@@-managed versions of the files to the versions of the files on the systems in your set.&lt;br /&gt;&lt;br /&gt;The comparisons for each system will not complete until each system checks in to @@PRODUCT_NAME@@. Once each comparison is complete, any differences between the files will be accessible from each system's events page.</source>
-				<target>Les fichiers de configuration suivants sont associés aux systèmes de cet ensemble. Vous pouvez sélectionner des fichiers et les comparer aux versions gérées par @@PRODUCT_NAME@@.&lt;br /&gt;&lt;br /&gt; Tant que les systèmes ne se connectent pas à @@PRODUCT_NAME@@, les comparaisons pour chacun de ces systèmes ne seront pas complètes. Lorsque les comparaisons sont complètes, les différences entre les fichiers sont accessibles depuis chaque page Évènements du système..</target>
+				<target>Les fichiers de configuration suivants sont associés aux systèmes de cet ensemble. Vous pouvez sélectionner des fichiers et les comparer aux versions gérées par @@PRODUCT_NAME@@.&lt;br /&gt;&lt;br /&gt; Tant que les systèmes ne se connectent pas à @@PRODUCT_NAME@@, les comparaisons pour chacun de ces systèmes ne seront pas complètes. Lorsque les comparaisons sont complètes, les différences entre les fichiers sont accessibles depuis chaque page Évènements du système.</target>
 			</trans-unit>
 			<trans-unit id="diffconfirm.jsp.header">
 				<source>Confirm Configuration File Comparison</source>
@@ -11620,7 +11644,7 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
 			</trans-unit>
 			<trans-unit id="sdcdifffile.jsp.summary">
 				<source>You may compare configuration files on {0} to @@PRODUCT_NAME@@ managed configuration files. The files listed below are the deployable revisions of files from configuration channels to which this system is subscribed.</source>
-				<target>Vous pouvez comparer les fichiers de configuration sur {0} aux fichiers de configuration gérés par @@PRODUCT_NAME@@. Les fichiers listés ci-dessous représentent les versions déployables des fichiers provenant des canaux de configuration auxquels ce système est abonné..</target>
+				<target>Vous pouvez comparer les fichiers de configuration sur {0} aux fichiers de configuration gérés par @@PRODUCT_NAME@@. Les fichiers listés ci-dessous représentent les versions déployables des fichiers provenant des canaux de configuration auxquels ce système est abonné.</target>
 			</trans-unit>
 			<trans-unit id="sdcdeployfile.jsp.summary">
 				<source>The following configuration files are deployable to this system. Files from configuration channels with a higher priority take precedence over files from configuration channels with a lower priority.</source>
@@ -11664,11 +11688,11 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
 			</trans-unit>
 			<trans-unit id="ssm.operations.viewlog.started">
 				<source>Started</source>
-				<target>Démarré..</target>
+				<target>Démarré</target>
 			</trans-unit>
 			<trans-unit id="ssm.operations.viewlog.progress">
 				<source>Percent Complete</source>
-				<target>Pourcentage achevé..</target>
+				<target>Pourcentage achevé</target>
 			</trans-unit>
 			<trans-unit id="ssm.operations.viewlog.servers">
 				<source>Servers</source>
@@ -11692,11 +11716,11 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
 			</trans-unit>
 			<trans-unit id="ssm.operations.all.summary">
 				<source>The following lists all tasks performed against servers in the SSM. Click on an task's description to see more details.</source>
-				<target>Ceci liste toute les tâches effectuées sur les serveurs dans le SSM. Cliquez sur la description d'une tâche pour obtenir plus de détails..</target>
+				<target>Ceci liste toute les tâches effectuées sur les serveurs dans le SSM. Cliquez sur la description d'une tâche pour obtenir plus de détails.</target>
 			</trans-unit>
 			<trans-unit id="ssm.operations.completed.summary">
 				<source>The following lists all tasks that have finished running. Click on an task's description to see more details.</source>
-				<target>Ceci liste toutes les tâches accomplies. Cliquez sur la description d'une tâche pour obtenir plus de détails..</target>
+				<target>Ceci liste toutes les tâches accomplies. Cliquez sur la description d'une tâche pour obtenir plus de détails.</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.header">
 				<source>Package Operations</source>
@@ -11724,7 +11748,7 @@ pour ces versions seront également supprimées, ainsi que tous les historiques 
 			</trans-unit>
 			<trans-unit id="ssm.package.install.selectchannel.summary">
 				<source>First, select the channel containing the packages to be installed upon the selected systems.</source>
-				<target>Sélectionnez d'abord le canal contenant les paquetages à installer sur les systèmes sélectionnés..</target>
+				<target>Sélectionnez d'abord le canal contenant les paquetages à installer sur les systèmes sélectionnés.</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.install.selectpackages.header">
 				<source>Select Packages To Install</source>
@@ -12342,7 +12366,7 @@ Le champ Distribution devrait uniquement contenir des lettres, des chiffres, des
 
 Le chemin d'arborescence, le RPM kickstart, le canal de base et la génération de l'installateur devraient toujours correspondre. Cela signifie généralement que les versions pour chaque champ devraient provenir de la même version de Red Hat Enterprise Linux.&lt;br/&gt;&lt;br/&gt;
 
-&lt;p&gt;Le chemin d'arborescence doit être un chemin de disque local sur votre serveur @@PRODUCT_NAME@@ contenant l'arborescence kickstart entière pour une distribution, et inclut des informations sur le noyau, initrd et sur le référentiel, mais exclut tous les rpm. Ce répertoire doit pouvoir être lisible pour les utilisateurs dde tomcat et apache. À partir du chemin d'arborescence spécifié, un noyau devrait être disponible à "./images/pxeboot/vmlinuz" et une image initrd à "./images/pxeboot/initrd.img". Par exemple, si vous aviez des fichiers média sur le serveur @@PRODUCT_NAME@@ à : &lt;i&gt;/var/distro-trees/rhel-5-server/&lt;/i&gt;, vous spécifieriez ce chemin comme valeur de chemin d'arborescence, ce qui conduirait à une vérification du noyau et du initrd ici : &lt;i&gt;/var/distro-trees/rhel-5-server/images/pxeboot/&lt;/i&gt; &lt;/p&gt; ..</target>
+&lt;p&gt;Le chemin d'arborescence doit être un chemin de disque local sur votre serveur @@PRODUCT_NAME@@ contenant l'arborescence kickstart entière pour une distribution, et inclut des informations sur le noyau, initrd et sur le référentiel, mais exclut tous les rpm. Ce répertoire doit pouvoir être lisible pour les utilisateurs dde tomcat et apache. À partir du chemin d'arborescence spécifié, un noyau devrait être disponible à "./images/pxeboot/vmlinuz" et une image initrd à "./images/pxeboot/initrd.img". Par exemple, si vous aviez des fichiers média sur le serveur @@PRODUCT_NAME@@ à : &lt;i&gt;/var/distro-trees/rhel-5-server/&lt;/i&gt;, vous spécifieriez ce chemin comme valeur de chemin d'arborescence, ce qui conduirait à une vérification du noyau et du initrd ici : &lt;i&gt;/var/distro-trees/rhel-5-server/images/pxeboot/&lt;/i&gt; &lt;/p&gt; </target>
 			</trans-unit>
 			<trans-unit id="treecreate.jsp.header2">
 				<source>Create Kickstart Distribution</source>
@@ -12546,7 +12570,7 @@ un kickstart ou de créer une nouvelle distribution kickstart.&lt;/strong&gt;</t
 			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.header3">
 				<source>Virtual System Hardware Overrides</source>
-				<target>Remplacements de matériel de système virtuel..</target>
+				<target>Remplacements de matériel de système virtuel</target>
 			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.guest_name.header">
 				<source>Guest Name:</source>
@@ -12590,7 +12614,7 @@ un kickstart ou de créer une nouvelle distribution kickstart.&lt;/strong&gt;</t
 			</trans-unit>
 			<trans-unit id="virtualization.provision.override.jsp.message">
 				<source>The following fields may be left blank (in which case default values as defined in the selected kickstart profile will be used).  Each field may be set individually to override the profile's default value.</source>
-				<target>Les champs suivants peuvent être laissés vierges (dans ce cas, les valeurs par défaut définies dans le profil kickstart sélectionné seront utilisées). Chaque champ peut être réglé individuellement afin de remplacer la valeur par défaut du profil..</target>
+				<target>Les champs suivants peuvent être laissés vierges (dans ce cas, les valeurs par défaut définies dans le profil kickstart sélectionné seront utilisées). Chaque champ peut être réglé individuellement afin de remplacer la valeur par défaut du profil.</target>
 			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.storage.local.message1">
 				<source>Use the virtual host system's disk space: </source>
@@ -12932,6 +12956,10 @@ un kickstart ou de créer une nouvelle distribution kickstart.&lt;/strong&gt;</t
 				<source>Building</source>
 				<target>Bâtiment</target>
 			</trans-unit>
+			<trans-unit id="sdc.details.overview.updatesavailable">
+				<source>Software Updates Available</source>
+				<target>Mises à jour de logiciel(s) disponibles</target>
+			</trans-unit>
 			<trans-unit id="sdc.details.overview.updates.critical">
 				<source>&lt;strong&gt;&lt;a href="{0}"&gt;Critical: &lt;/a&gt;&lt;/strong&gt; {1}</source>
 				<target>&lt;strong&gt;&lt;a href="{0}"&gt;Critique : &lt;/a&gt;&lt;/strong&gt; {1}</target>
@@ -12978,11 +13006,11 @@ un kickstart ou de créer une nouvelle distribution kickstart.&lt;/strong&gt;</t
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet.reactivate">
 				<source>Reactivate rhn-applet for @@PRODUCT_NAME@@ usage.</source>
-				<target>Réactiver rhn-applet pour l'utilisation de @@PRODUCT_NAME@@..</target>
+				<target>Réactiver rhn-applet pour l'utilisation de @@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet.activate">
 				<source>Activate rhn-applet for @@PRODUCT_NAME@@ usage."</source>
-				<target>Activer rhn-applet pour l'utilisation de @@PRODUCT_NAME@@.."</target>
+				<target>Activer rhn-applet pour l'utilisation de @@PRODUCT_NAME@@."</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.edit.header">
 				<source>Edit System Details</source>
@@ -13066,7 +13094,7 @@ un kickstart ou de créer une nouvelle distribution kickstart.&lt;/strong&gt;</t
 			</trans-unit>
 			<trans-unit id="login.jsp.error.message">
 				<source>This error may have been caused by an interrupted logout or by logging in from another browser tab. Please contact your satellite administrator if the problem persists.</source>
-				<target>Une interruption de déconnexion ou une connexion depuis un second onglet du navigateur peut avoir causer cette erreur. Veuillez contacter votre administrateur de satellite si le problème persiste..</target>
+				<target>Une interruption de déconnexion ou une connexion depuis un second onglet du navigateur peut avoir causer cette erreur. Veuillez contacter votre administrateur de satellite si le problème persiste.</target>
 			</trans-unit>
 			<trans-unit id="login.jsp.error.currentlyLoggedInAs">
 				<source>Currently logged in as: {0}</source>
@@ -13084,7 +13112,7 @@ tasks to upgrade functionality, fix reported bugs, and improve
 performance.</source>
 				<target>Notre priorité la plus importante est votre accès à @@PRODUCT_NAME@@ et les
 avantages d'un compte enregistré. Nous nous efforçons de maintenir 100% de
-notre temps de service pour votre @@PRODUCT_NAME@@ mais périodiquement, nous devons également
+notre temps de service pour votre @@PRODUCT_NAME@@ mais périodiquement, nous devons également 
 effectuer des tâches afin de mettre à niveau les fonctionnalités, corriger les
 bogues reportés et améliorer les performances.</target>
 			</trans-unit>
@@ -13378,7 +13406,7 @@ Alternativement, vous pourriez télécharger les &lt;strong&gt;ISO de contenu de
 			</trans-unit>
 			<trans-unit id="isodownload.channel-dumps.view-base">
 				<source>View Base Channel Content ISOs for @@PRODUCT_NAME@@</source>
-				<target>Afficher les ISO de contenu de canal de base pour @@PRODUCT_NAME@@..</target>
+				<target>Afficher les ISO de contenu de canal de base pour @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="isodownload.channel-dumps.view-incr">
 				<source>View Incremental Channel Content ISOs for @@PRODUCT_NAME@@</source>
@@ -13638,7 +13666,7 @@ Alternativement, vous pourriez télécharger les &lt;strong&gt;ISO de contenu de
 			</trans-unit>
 			<trans-unit id="org.trust.header">
 				<source>Organizations Trusted By {0}</source>
-				<target>Organisations de confiance selon {0}..</target>
+				<target>Organisations de confiance selon {0}</target>
 			</trans-unit>
 			<trans-unit id="org.login.tip">
 				<source>Between {0} and 64 characters</source>
@@ -13674,7 +13702,7 @@ Alternativement, vous pourriez télécharger les &lt;strong&gt;ISO de contenu de
 			</trans-unit>
 			<trans-unit id="orgsystemsubs.jsp.man_tip">
 				<source>Required for all systems registered to the @@PRODUCT_NAME@@.</source>
-				<target>Requis pour tous les systèmes enregistrés au @@PRODUCT_NAME@@..</target>
+				<target>Requis pour tous les systèmes enregistrés au @@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="orgsystemsubs.jsp.mon_tip">
 				<source>Enables the tracking of monitoring data for a system.</source>
@@ -13716,7 +13744,7 @@ comme défini dans le certificat de ce @@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="sys_entitlements.enterprise_entitled">
 				<source> Management (Base)</source>
-				<target> Management (Base)</target>
+				<target> Gestion (Base)</target>
 			</trans-unit>
 			<trans-unit id="sys_entitlements.provisioning_entitled">
 				<source> Provisioning (Add-On)</source>
@@ -13744,7 +13772,7 @@ comme défini dans le certificat de ce @@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="system_entitlement_details.access_grant_desc.enterprise_entitled">
 				<source>A single Management (Base) entitlement is required for all systems registered to satellite</source>
-				<target>Un droit d'accès Management unique (Base) est requis pour tous les systèmes enregistrés au Satellite</target>
+				<target>Un droit d'accès Gestion unique (Base) est requis pour tous les systèmes enregistrés au Satellite</target>
 			</trans-unit>
 			<trans-unit id="system_entitlement_details.access_grant_desc.provisioning_entitled">
 				<source>A single Provisioning (Add-On) entitlement allows various advanced functionality such as kickstart and configuration file provisioning. </source>
@@ -13812,7 +13840,7 @@ ce droit.</target>
 				<source>&lt;strong&gt;*Tip:&lt;/strong&gt; 'Total' refers to the total available entitlements to
 the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this @@PRODUCT_NAME@@. It is not equal to the total available in the @@PRODUCT_NAME@@ certificate</source>
 				<target>&lt;strong&gt;*Astuce :&lt;/strong&gt; "Total" fait référence au nombre total de droits d'accès
-disponibles pour les organisations (à l'exception de l'organisation @@PRODUCT_NAME@@ par défaut) sur ce @@PRODUCT_NAME@@. Cela ne correspond pas au total disponible dans le certificat du @@PRODUCT_NAME@@..</target>
+disponibles pour les organisations (à l'exception de l'organisation @@PRODUCT_NAME@@ par défaut) sur ce @@PRODUCT_NAME@@. Cela ne correspond pas au total disponible dans le certificat du @@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="orgsoftwaresubs.jsp.header2">
 				<source>Software Channel Entitlement Counts</source>
@@ -13842,7 +13870,7 @@ disponibles pour les organisations (à l'exception de l'organisation @@PRODUCT_N
 				<target>
           Les organisations sélectionnées ci-dessous sont des organisations de confiance pour l'organisation {0}. Ceci signifie qu'il est
           possible d'en partager le contenu et de migrer les systèmes entre celles-ci. Vous pouvez ajouter un trust (confiance) en cochant
-          la case située à côté d'une organisation (ou de le supprimer en décochant la case) et en cliquant sur le bouton "Modifier les confiances"..</target>
+          la case située à côté d'une organisation (ou de le supprimer en décochant la case) et en cliquant sur le bouton "Modifier les confiances".</target>
 			</trans-unit>
 			<trans-unit id="org.trust.confirm.summary">
 				<source>
@@ -13854,23 +13882,23 @@ disponibles pour les organisations (à l'exception de l'organisation @@PRODUCT_N
             Please review the changes you are about to make before confirming the trust removal(s).</source>
 				<target>
             Êtes-vous certain de vouloir supprimer la(les) confiance(s) listées ci-dessous?  Il y a des systèmes dans
-            l'organisation {0} enregistrés au contenu offert par une ou plusieurs organisation(s) à laquelle ou auxquelles vous supprimez
-            la(les) confiance(s). Cela peut affecter ces systèmes. Par exemple, ces systèmes pourraient
+            l'organisation {0} enregistrés au contenu offert par une ou plusieurs organisation(s) à laquelle ou auxquelles vous supprimez 
+            la(les) confiance(s). Cela peut affecter ces systèmes. Par exemple, ces systèmes pourraient 
             ne plus recevoir de mises à jour de sécurité pour le contenu offert par la confiance.
             &lt;p/&gt;
-            Veuillez vérifier vos changements avant de confirmer la(les) suppression(s) de confiance(s)..</target>
+            Veuillez vérifier vos changements avant de confirmer la(les) suppression(s) de confiance(s).</target>
 			</trans-unit>
 			<trans-unit id="org.trust.affectedsystems.summary">
 				<source>
-            The systems listed below will be affected by removing the trust relationship between
+            The systems listed below will be affected by removing the trust relationship between 
             the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.</source>
 				<target>
-            Les systèmes listés ci-dessous seront affectés par la suppression d'une relation de confiance entre
+            Les systèmes listés ci-dessous seront affectés par la suppression d'une relation de confiance entre 
             les organisations &lt;b&gt;{0}&lt;/b&gt; et &lt;b&gt;{1}&lt;/b&gt;.
             Supprimer cette confiance peut en effet affecter ces systèmes. Par exemple, ils pourraient
-            ne plus recevoir de mises à jour de sécurité pour le contenu offert par cette confiance..</target>
+            ne plus recevoir de mises à jour de sécurité pour le contenu offert par cette confiance.</target>
 			</trans-unit>
 			<trans-unit id="org.trust.trusts">
 				<source>Trusts</source>
@@ -13960,7 +13988,7 @@ Ci-dessous figure une liste des canaux dans votre organisation.
 &lt;li&gt;Pour abonner les systèmes sélectionnés à un canal, cochez Abonné pour ce canal.&lt;/li&gt;
 &lt;li&gt;Pour désabonner les systèmes sélectionnés d'un canal, décochez Abonné pour ce canal.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;strong&gt;Remarque :&lt;/strong&gt; vous ne pouvez pas assigner un système à un canal incompatible..</target>
+&lt;strong&gt;Remarque :&lt;/strong&gt; vous ne pouvez pas assigner un système à un canal incompatible.</target>
 			</trans-unit>
 			<trans-unit id="ssmchildsubs.jsp.noChannels">
 				<source>No child-channels were found for the systems in the current System Set!</source>
@@ -14306,7 +14334,7 @@ fois pour un canal donné.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.list.jsp.orgdefault">
 				<source>This is your organizations default kickstart profile.</source>
-				<target>Ceci est le profil kickstart par défaut de votre organisation..</target>
+				<target>Ceci est le profil kickstart par défaut de votre organisation.</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.refguide">
 				<source>@@PRODUCT_NAME@@ Reference Guide</source>
@@ -14326,7 +14354,7 @@ fois pour un canal donné.</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.install">
 				<source>Detailed information regarding @@PRODUCT_NAME@@ server and its installation. </source>
-				<target>Informations détaillées à propos du serveur @@PRODUCT_NAME@@ et de son installation..</target>
+				<target>Informations détaillées à propos du serveur @@PRODUCT_NAME@@ et de son installation.</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.install.title">
 				<source>@@PRODUCT_NAME@@ Installation Guide</source>
@@ -14350,7 +14378,7 @@ fois pour un canal donné.</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.channel">
 				<source>Documentation for the creation and maintenance of custom channels using @@PRODUCT_NAME@@.</source>
-				<target>Documentation pour la création et maintenance des canaux personnalisés lors de l'utilisation de @@PRODUCT_NAME@@..</target>
+				<target>Documentation pour la création et maintenance des canaux personnalisés lors de l'utilisation de @@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.channel.title">
 				<source>Channel Management Guide</source>
@@ -14370,7 +14398,7 @@ fois pour un canal donné.</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.emptylist">
 				<source>This channel contains no packages.</source>
-				<target>Ce canal ne contient aucun paquetage..</target>
+				<target>Ce canal ne contient aucun paquetage.</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.list">
 				<source>This channel contains the following packages:</source>
@@ -14386,7 +14414,7 @@ fois pour un canal donné.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.globallysub">
 				<source> If checked, all users in your organization may subscribe to this channel.</source>
-				<target>Si sélectionné, tous les utilisateurs dans votre organisation pourront s'abonner à ce canal..</target>
+				<target>Si sélectionné, tous les utilisateurs dans votre organisation pourront s'abonner à ce canal.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.globallysubtitle">
 				<source>Globally Subscribable</source>
@@ -14414,7 +14442,7 @@ fois pour un canal donné.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.gpgheader">
 				<source>This channel has a GnuPG key associated with it. For a system to be able to download and install packages from this channel, you must import the key into a particular keyring. </source>
-				<target>Ce canal possède une clé GnuPG qui lui est associée. Pour qu'un système puisse télécharger et installer des paquetages depuis celui-ci, vous devrez importer la clé dans un porte-clé particulier..</target>
+				<target>Ce canal possède une clé GnuPG qui lui est associée. Pour qu'un système puisse télécharger et installer des paquetages depuis celui-ci, vous devrez importer la clé dans un porte-clé particulier.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.gpglocation">
 				<source>Key Location</source>
@@ -14430,15 +14458,15 @@ fois pour un canal donné.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.gpgfooter">
 				<source>Once you have downloaded the key file, you must import it to your RPM keyring using the command "rpm --import /path/to/gpg_key.txt".</source>
-				<target>Une fois que vous aurez téléchargé le fichier clé, vous devrez l'importer vers votre porte-clé RPM à l'aide de la commande "rpm --import /path/to/gpg_key.txt"..</target>
+				<target>Une fois que vous aurez téléchargé le fichier clé, vous devrez l'importer vers votre porte-clé RPM à l'aide de la commande "rpm --import /path/to/gpg_key.txt".</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.remove">
 				<source>Below is the list of packages which you have selected to remove from this channel. Removing a package from this channel does not affect the systems which are subscribed to it, or the errata which are applicable to it.</source>
-				<target>Ci-dessous figure une liste des paquetages que vous avez choisi de supprimer de ce canal. Supprimer un canal de ce sytème n'affectera ni les systèmes qui y sont abonnés, ni les errata qui lui sont applicables..</target>
+				<target>Ci-dessous figure une liste des paquetages que vous avez choisi de supprimer de ce canal. Supprimer un canal de ce sytème n'affectera ni les systèmes qui y sont abonnés, ni les errata qui lui sont applicables.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.listmessage">
 				<source>The following packages are in this channel. To remove a package from this channel, select it here, and click 'Confirm Removal' below. To add a package to this channel, click 'add' above.</source>
-				<target>Les paquetages suivants se trouvent dans ce canal. Pour supprimer un paquetage de ce canal, sélectionnez-le(s) et cliquez sur "Confirmer suppression" ci-dessous. Pour ajouter un paquetage à ce canal, cliquez sur "ajouter" ci-dessus..</target>
+				<target>Les paquetages suivants se trouvent dans ce canal. Pour supprimer un paquetage de ce canal, sélectionnez-le(s) et cliquez sur "Confirmer suppression" ci-dessous. Pour ajouter un paquetage à ce canal, cliquez sur "ajouter" ci-dessus.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.details.title">
 				<source>Details</source>
@@ -14450,7 +14478,7 @@ fois pour un canal donné.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.removesuccess">
 				<source>{0} package(s) removed from channel {1}</source>
-				<target>{0} paquetage(s) supprimé(s) du canal {1}..</target>
+				<target>{0} paquetage(s) supprimé(s) du canal {1}.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.removebutton">
 				<source>Confirm Removal</source>
@@ -14494,18 +14522,18 @@ fois pour un canal donné.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.addemptylist">
 				<source>No packages found for this critera.</source>
-				<target>Aucun paquetage correspondant à votre critère n'a été trouvé..</target>
+				<target>Aucun paquetage correspondant à votre critère n'a été trouvé.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.addmessage">
 				<source>Below is the list of packages you can add to this channel. The "Channel" select box allows you to restrict the set of available packages. To add a package to this channel, select it here, and click 'Add Packages' below.
 
 			Only packages of a compatible arch will be shown</source>
-				<target>Ci-dessous figure la liste de paquetages que vous pouvez ajouter à ce canal. La case "Canal" vous permet de limiter l'ensemble des paquetages disponibles. Pour ajouter des paquetages à ce canal, sélectionnez-les et cliquez sur "Ajouter des paquetages" ci-dessous.
+				<target>Ci-dessous figure la liste de paquetages que vous pouvez ajouter à ce canal. La case "Canal" vous permet de limiter l'ensemble des paquetages disponibles. Pour ajouter des paquetages à ce canal, sélectionnez-les et cliquez sur "Ajouter des paquetages" ci-dessous. 
 			Seuls les paquetages possédant une architecture compatible seront affichés</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.add.confirm.msg">
 				<source>Below is the list of packages which you have selected to add to this channel. Adding a package to this channel does not automatically affect the systems which are subscribed to it, or the errata which are applicable to it.</source>
-				<target>Ci-dessous figure la liste des paquetages que vous avez choisi d'ajouter à canal. Ajouter un paquetage à ce canal n'affecte pas automatiquement les systèmes qui y sont abonnés, ni les errata qui lui sont applicables..</target>
+				<target>Ci-dessous figure la liste des paquetages que vous avez choisi d'ajouter à canal. Ajouter un paquetage à ce canal n'affecte pas automatiquement les systèmes qui y sont abonnés, ni les errata qui lui sont applicables.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.listtitle">
 				<source>This channel contains the following errata:</source>
@@ -14517,7 +14545,7 @@ fois pour un canal donné.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.list">
 				<source>Channel Packages.</source>
-				<target>Paquetages du canal..</target>
+				<target>Paquetages du canal.</target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.title">
 				<source>Custom System Info Keys</source>
@@ -14529,7 +14557,7 @@ fois pour un canal donné.</target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.message">
 				<source>Custom system info keys allow your adminstrators to store relevant custom key/value pairs with your system profiles. Custom system info is fully {0}searchable{1}.</source>
-				<target>Les clés d'informations système personnalisées permettent à vos administrateurs de stocker les paires de clés/valeurs personnalisées avec vos profils système. Les informations système personnalisées sont entièrement {0}interrogeables{1}..</target>
+				<target>Les clés d'informations système personnalisées permettent à vos administrateurs de stocker les paires de clés/valeurs personnalisées avec vos profils système. Les informations système personnalisées sont entièrement {0}interrogeables{1} </target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.message2">
 				<source>The following custom system info keys have been defined for your organization.</source>
@@ -14549,7 +14577,7 @@ fois pour un canal donné.</target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.createmsg">
 				<source>Define infomation about this key below.</source>
-				<target>Définir les informations de cette clé ci-dessous..</target>
+				<target>Définir les informations de cette clé ci-dessous.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.manage.package.title">
 				<source>Package Management</source>
@@ -14577,7 +14605,7 @@ fois pour un canal donné.</target>
 			This process can take several seconds. Be patient and do not click the button below more than once.</source>
 				<target>Êtes-vous certain de vouloir supprimer ces paquetages?
 
-			Ce processus peut prendre quelques secondes. Veuillez patienter et ne pas cliquer sur le bouton ci-dessous plus d'une fois..</target>
+			Ce processus peut prendre quelques secondes. Veuillez patienter et ne pas cliquer sur le bouton ci-dessous plus d'une fois.</target>
 			</trans-unit>
 			<trans-unit id="baddownload.jsp.title">
 				<source>File Download Failed</source>
@@ -14589,19 +14617,19 @@ fois pour un canal donné.</target>
 			</trans-unit>
 			<trans-unit id="baddownload.jsp.reason1">
 				<source>The url has expired.</source>
-				<target>L'URL a expiré..</target>
+				<target>L'URL a expiré.</target>
 			</trans-unit>
 			<trans-unit id="baddownload.jsp.reason2">
 				<source>The url has been modified.</source>
-				<target>L'URL a été modifié..</target>
+				<target>L'URL a été modifié.</target>
 			</trans-unit>
 			<trans-unit id="baddownload.jsp.reason3">
 				<source>The @@PRODUCT_NAME@@ server does not have read permissions on the specified file.</source>
-				<target>Le serveur @@PRODUCT_NAME@@ n'est pas autorisé à lire sur le fichier spécifié..</target>
+				<target>Le serveur @@PRODUCT_NAME@@ n'est pas autorisé à lire sur le fichier spécifié.</target>
 			</trans-unit>
 			<trans-unit id="baddownload.jsp.retry">
 				<source>Please revisit the page you recieved this url from to recieve a new one.</source>
-				<target>Pour recevoir un nouvel URL, rendez-vous à nouveau sur la page où vous avez obtenu celui-ci..</target>
+				<target>Pour recevoir un nouvel URL, rendez-vous à nouveau sur la page où vous avez obtenu celui-ci.</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.arch">
 				<source>Package Architecture</source>
@@ -14613,7 +14641,7 @@ fois pour un canal donné.</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.availfrom">
 				<source>Available From</source>
-				<target>Disponible depuis..</target>
+				<target>Disponible depuis</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.vendor">
 				<source>Vendor</source>
@@ -14697,11 +14725,11 @@ fois pour un canal donné.</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.menu.changelog">
 				<source>Change Log</source>
-				<target>Changer le journal..</target>
+				<target>Changer le journal</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.menu.map">
 				<source>Package Map</source>
-				<target>Carte des paquetages (de l'anglais, Package map)..</target>
+				<target>Carte des paquetages (de l'anglais, Package map)</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.menu.deps">
 				<source>Dependencies</source>
@@ -14749,11 +14777,11 @@ fois pour un canal donné.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.maintainername">
 				<source>Maintainer Name</source>
-				<target>Nom du chargé de maintenance..</target>
+				<target>Nom du chargé de maintenance</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.maintainercontactinfo">
 				<source>Maintainer Contact Information</source>
-				<target>Coordonnées du chargé de maintenance..</target>
+				<target>Coordonnées du chargé de maintenance</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.emailaddress">
 				<source>Email Address</source>
@@ -14817,35 +14845,35 @@ fois pour un canal donné.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Channel name and label are required. They each must be at least 6
         characters in length. Labels must begin with a letter, contain only
         lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
         numerals. Channel name may also contain spaces and forward slashes
         ('/').
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Channel summary is also required.</source>
 				<target>Créer ou modifier des canaux logiciel depuis cette page.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Si le canal parent est réglé sur 'aucun', alors le canal est un canal de base.
-        Sinon, le canal est un enfant du canal spécifié.n        &lt;p/&gt;
+        Sinon, le canal est un enfant du canal spécifié.n        &lt;p/&gt; 
         Le nom et l'étiquette sont requis. Chacun doit contenir au moins 6
         caractères. Les étiquettes doivent commencer par une lettre, ne peuvent contenir
         que des lettres minuscules, tirets ('-'), points ('.'), tirets bas ('_') et
         des chiffres. Le nom de canal peut aussi contenir des esapces et barres obliques ('/').
-        &lt;p/&gt;
-        Un résumé du canal est aussi requis..</target>
+        &lt;p/&gt; 
+        Un résumé du canal est aussi requis.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.public">
 				<source>This channel is &lt;strong&gt;public&lt;/strong&gt; and may be
         accessed by any of the &lt;a href="{0}"&gt;trusted
         organizations&lt;/a&gt; trusted by this organization.</source>
-				<target>Ce canal est &lt;strong&gt;publique&lt;/strong&gt; et n'importe quelle
+				<target>Ce canal est &lt;strong&gt;public&lt;/strong&gt; et n'importe quelle
         &lt;a href="{0}"&gt;organisation de confiance&lt;/a&gt; en laquelle
-        cette organisation fait confiance peut y avoir accès..</target>
+        cette organisation fait confiance peut y avoir accès.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.protected">
 				<source>This channel is &lt;strong&gt;protected&lt;/strong&gt; and may
@@ -14853,25 +14881,25 @@ fois pour un canal donné.</target>
         organizations&lt;/a&gt;.</source>
 				<target>Ce canal est &lt;strong&gt;protégé&lt;/strong&gt; et seules
         les &lt;a href="{0}"&gt;organisations de confiance&lt;/a&gt;
-        spécifiées peuvent y accéder..</target>
+        spécifiées peuvent y accéder.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.private">
 				<source>This channel is &lt;strong&gt;private&lt;/strong&gt; and cannot
         be accessed by any other organization.</source>
 				<target>Ce canal est &lt;strong&gt;privé&lt;/strong&gt; et aucune
-        autre organisation ne peut y accéder..</target>
+        autre organisation ne peut y accéder.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.allusers">
 				<source>All users within your organization may subscribe to this channel.</source>
-				<target>Tous les utilisateurs au sein de votre organisation peuvent s'abonner à ce canal..</target>
+				<target>Tous les utilisateurs au sein de votre organisation peuvent s'abonner à ce canal.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.selectedusers">
 				<source>Only selected users within your organization may subscribe to this channel.</source>
-				<target>Seuls les utilisateurs sélectionnés au sein de votre organisation peuvent accéder à ce canal..</target>
+				<target>Seuls les utilisateurs sélectionnés au sein de votre organisation peuvent accéder à ce canal.</target>
 			</trans-unit>
 			<trans-unit id="confirmprivate.jsp.title">
 				<source>Confirm Channel Sharing Modification</source>
-				<target>Confirmer la modification du partage du canal..</target>
+				<target>Confirmer la modification du partage du canal.</target>
 			</trans-unit>
 			<trans-unit id="confirmprivate.jsp.confirmmsg">
 				<source>Are you sure you want to set this channel to
@@ -14887,13 +14915,13 @@ fois pour un canal donné.</target>
         qui est(sont) abonné(s) au contenu offert par ce canal. Supprimer l'accès à
         ce canal peut affecter ces systèmes. Par exemple, ces systèmes
         peuvent plus recevoir de mises à jour de sécurité critique pour le contenu
-        offert par ce canal..</target>
+        offert par ce canal.</target>
 			</trans-unit>
 			<trans-unit id="confirmprivate.jsp.confirmmsg.deux">
 				<source>Please review the change you are about to make before confirming
         this access removal.</source>
 				<target>Veuillez vérifier le changement que vous êtes sur le point d'accomplir avant de confirmer
-        la suppression de l'accès..</target>
+        la suppression de l'accès.</target>
 			</trans-unit>
 			<trans-unit id="confirmprotected.jsp.confirmmsg">
 				<source>Are you sure you want to set this channel's access policy to
@@ -14907,7 +14935,7 @@ fois pour un canal donné.</target>
         ci-dessous ont des systèmes abonnés à ce canal.
         Supprimer l'accès de ces organisations peut affecter ces systèmes.
         Par exemple, ils peuvent ne plus recevoir de mises à jour de sécurité critique
-        pour le contenu offert par ce canal..</target>
+        pour le contenu offert par ce canal.</target>
 			</trans-unit>
 			<trans-unit id="confirmprotected.jsp.confirmmsg.deux">
 				<source>You may choose to grant the organizations below access to this
@@ -14915,7 +14943,7 @@ fois pour un canal donné.</target>
         channel at any time using the 'Organizations' tab above.</source>
 				<target>Vous pouvez choisir d'offrir ou de refuser l'accès aux organisations ci-dessous à ce
         canal. Vous pouvez modifier l'accès à ce
-        canal quand vous le désirez en utilisant l'onglet 'Organisations' ci-dessus..</target>
+        canal quand vous le désirez en utilisant l'onglet 'Organisations' ci-dessus.</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.software.channel">
 				<source>delete software channel</source>
@@ -14951,7 +14979,7 @@ fois pour un canal donné.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.listempty">
 				<source>There are no errata associated with this channel.</source>
-				<target>Aucun errata n'est associé à ce canal..</target>
+				<target>Aucun errata n'est associé à ce canal.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.remove">
 				<source>Remove Errata</source>
@@ -14959,15 +14987,15 @@ fois pour un canal donné.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.remove.message">
 				<source>Below is the list of errata associated with this channel. To remove an erratum from this channel, select it here, and click 'Remove' below.</source>
-				<target>Ci-dessous figure une liste d'errata associés à ce canal. Pour en supprimer un du canal, sélectionnez-le ici, puis cliquez sur le bouton 'Supprimer' situé ci-dessous..</target>
+				<target>Ci-dessous figure une liste d'errata associés à ce canal. Pour en supprimer un du canal, sélectionnez-le ici, puis cliquez sur le bouton 'Supprimer' situé ci-dessous.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.remove.confirmmessage">
 				<source>Click 'Confirm' below to remove these errata from your channel. Related packages will also be removed from the channel.</source>
-				<target>Cliquez sur 'Confirmer' pour supprimer ces errata de votre canal. Les paquetages qui y sont liés seront aussi supprimés du canal..</target>
+				<target>Cliquez sur 'Confirmer' pour supprimer ces errata de votre canal. Les paquetages qui y sont liés seront aussi supprimés du canal.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.remove.finalmessage">
 				<source>Successfully removed {0} errata from this channel.</source>
-				<target>{0} errata ont été correctement supprimés de ce canal..</target>
+				<target>{0} errata ont été correctement supprimés de ce canal.</target>
 			</trans-unit>
 			<trans-unit id="unknown.package">
 				<source>Unknown Package</source>
@@ -14975,7 +15003,7 @@ fois pour un canal donné.</target>
 			</trans-unit>
 			<trans-unit id="unknown.package.msg">
 				<source>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by Red Hat Network.</source>
-				<target>Malheureusement, vous avez demandé des informations sur un paquetage que nous n'avons pas dans notre base de données. Il est très probable que ce soit un paquetage personnalisé que vous avez installé manuellement, ou que ce ne'soit pas une distribution prise en charge par Red Hat Network..</target>
+				<target>Malheureusement, vous avez demandé des informations sur un paquetage que nous n'avons pas dans notre base de données. Il est très probable que ce soit un paquetage personnalisé que vous avez installé manuellement, ou que ce ne'soit pas une distribution prise en charge par Red Hat Network.</target>
 			</trans-unit>
 			<trans-unit id="unknown.kickstart">
 				<source>Kickstart Not Found</source>
@@ -14985,7 +15013,7 @@ fois pour un canal donné.</target>
 				<source>The requested kickstart file could not be found.
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
 				<target>Le fichier kickstart demandé n'a pas pu être trouvé.
-         Si vous recherchez un kickstart organisationnel par défaut, assurez-vous qu'un kickstart ait été sélectionné comme "Organisation par défaut"..</target>
+         Si vous recherchez un kickstart organisationnel par défaut, assurez-vous qu'un kickstart ait été sélectionné comme "Organisation par défaut".</target>
 			</trans-unit>
 		</body>
 	</file>

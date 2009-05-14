@@ -36,15 +36,15 @@
 			</trans-unit>
 			<trans-unit id="Spacewalk Management Entitled Servers">
 				<source>Management</source>
-				<target>Management</target>
+				<target>Gestion</target>
 			</trans-unit>
 			<trans-unit id="enterprise_entitled">
 				<source>Management</source>
-				<target>Management</target>
+				<target>Gestion</target>
 			</trans-unit>
 			<trans-unit id="enterprise_entitled">
 				<source>Management</source>
-				<target>Management</target>
+				<target>Gestion</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Provisioning Entitled Servers">
 				<source>Provisioning</source>

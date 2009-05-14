@@ -590,10 +590,6 @@
 				<source>Critical</source>
 				<target>Critique</target>
 			</trans-unit>
-			<trans-unit id="Warning">
-				<source>Warning</source>
-				<target>Avertissement</target>
-			</trans-unit>
 			<trans-unit id="Unknown">
 				<source>Unknown</source>
 				<target>Inconnu</target>
@@ -628,7 +624,7 @@
 			</trans-unit>
 			<trans-unit id="Trusts">
 				<source>Trusts</source>
-				<target>Trusts</target>
+				<target>Confiances</target>
 			</trans-unit>
 			<trans-unit id="Channels Consumed">
 				<source>Channels Consumed</source>

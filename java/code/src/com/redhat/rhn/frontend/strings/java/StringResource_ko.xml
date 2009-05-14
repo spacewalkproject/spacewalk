@@ -138,6 +138,14 @@
 				<source>Tip</source>
 				<target>힌트 </target>
 			</trans-unit>
+			<trans-unit id="Note">
+				<source>Note</source>
+				<target>알림 </target>
+			</trans-unit>
+			<trans-unit id="Warning">
+				<source>Warning</source>
+				<target>경고  </target>
+			</trans-unit>
 			<trans-unit id="About Spacewalk">
 				<source>About</source>
 				<target>정보 </target>
@@ -216,7 +224,7 @@
 			</trans-unit>
 			<trans-unit id="cant have spaces">
 				<source>do spaces work?</source>
-				<target>do spaces work?</target>
+				<target>빈 칸을 사용할 수 있습니까? </target>
 			</trans-unit>
 			<trans-unit id="list delimiter">
 				<source>, </source>
@@ -1126,7 +1134,7 @@
 			</trans-unit>
 			<trans-unit id="reboot.reboot">
 				<source>System reboot</source>
-				<target>시스텝 재부팅</target>
+				<target>시스템 재부팅  </target>
 			</trans-unit>
 			<trans-unit id="rollback.config">
 				<source>Enable or Disable RPM Transaction Rollback</source>
@@ -1304,16 +1312,16 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 				<target>킥스타트 프로파일 {0}에서 IP 범위를 삭제하는데 오류가 발생했습니다. 다시 시도하시기 바랍니다.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.update.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
-				<target>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt;이 성공적으로 업데이트되었습니다. </target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
+				<target>킥스타트 Snippet &lt;strong&gt;{0}&lt;/strong&gt;이 성공적으로 업데이트되었습니다.  </target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.create.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
-				<target>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt;이 성공적으로 생성되었습니다.   </target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
+				<target>킥스타트 Snippet &lt;strong&gt;{0}&lt;/strong&gt;이 성공적으로 생성되었습니다.     </target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.delete.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
-				<target>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt;이 성공적으로 삭제되었습니다.   </target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
+				<target>킥스타트 Snippet &lt;strong&gt;{0}&lt;/strong&gt;이 성공적으로 삭제되었습니다.    </target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.couldnotdelete.message">
 				<source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -1324,12 +1332,12 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 				<target>snippet &lt;strong&gt;{0}&lt;/strong&gt;을 &lt;strong&gt;{1}&lt;/strong&gt;로 이름 변경 시도할 경우 오류가 발생합니다.      </target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.filenameexists.message">
-				<source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt;라는 이름을 갖는 Cobbler snippet이 이미 존재합니다. </target>
+				<source>Kickstart snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt;라는 이름을 갖는 킥스타트 snippet이 이미 존재합니다.  </target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.invalidfilename.message">
-				<source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
-				<target>요청하신 Cobbler snippet 파일 이름이 잘못되었습니다. 유효한 문자는 A-Z, a-z, 0-9, _, - 입니다.  </target>
+				<source>The requested kickstart snippet filename is not valid. The kickstart snippet file name cannot contain slash (/) or  begin with a period(.)</source>
+				<target>요청하신 킥스타트 snippet 파일 이름이 잘못되었습니다. 킥스타트 snippet 파일 이름에 슬래시(/)가 포함되어 있거나 마침표(.)로 시작해서는 안됩니다.    </target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.snippets">
 				<source>delete snippet</source>
@@ -1633,7 +1641,7 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 			</trans-unit>
 			<trans-unit id="toolbar.delete.errata">
 				<source>delete errata</source>
-				<target>에라타 삭제</target>
+				<target>에라타 삭제 </target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.kickstart">
 				<source>delete kickstart</source>
@@ -5045,7 +5053,7 @@ Follow this url to see the full list of inactive systems:
 			you will not be able to rollback this system to this snapshot or any prior snapshot.</source>
 				<target>삭제하기 위해 선택한 하나 이상의 패키지는 시스템이 등록된 소프트웨어 채널에
 			 들어있지 않습니다.  삭제를 계속 진행할 경우 시스템을
-			스냅샷이나 이전 스냅샷으로 시스템을 롤백할 수 없게 됩니다.   </target>
+ 			스냅샷이나 이전 스냅샷으로 시스템을 롤백할 수 없게 됩니다.   </target>
 			</trans-unit>
 			<trans-unit id="list.filter.iprange">
 				<source>Single Ip Address</source>
@@ -5225,27 +5233,25 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to
-syncronize kickstart distributions from Spacewalk to Cobbler.  These
-errors must be corrected for the distributions to be available for
-kickstarting systems kickstart distributions failed to sync from
-Spacewalk to Cobbler:
+The following is a list of errors gathered while Spacewalk attempts to 
+syncronize kickstart distributions from Spacewalk to Cobbler.  These 
+errors must be corrected for the distributions to be available for 
+kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
 for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
-Spacewalk가 Spacewalk에서 Cobbler로 킥스타트 배포판을 동기화하려고
-하면 다음과 같은 오류 목록이 나타났습니다.  Spacewalk에서 Cobbler로
-동기화에 실패한 시스템 킥스타트 배포판을 킥스타트할 수 있게 하려면
-이러한 오류를 수정해야 합니다:
+Spacewalk가 Spacewalk에서 Cobbler로 킥스타트 배포판을 동기화하려고 
+하면 다음과 같은 오류 목록이 나타났습니다. 시스템을 킥스타트하기 위해 
+배포판을 사용 가능하게 하려면 이러한 오류를 수정해야 합니다:
 
 {0}
 
@@ -5256,7 +5262,7 @@ Spacewalk가 Spacewalk에서 Cobbler로 킥스타트 배포판을 동기화하�
 /var/log/cobbler/cobbler.log
 
 오류를 해결하지 않으면 킥스타트를 위해 킥스타트 트리를 사용할 수
-없게 됩니다.  </target>
+없게 됩니다.   </target>
 			</trans-unit>
 			<trans-unit id="errata.delete.msg">
 				<source>Successfully deleted {0} errata.</source>

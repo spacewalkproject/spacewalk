@@ -138,6 +138,14 @@
 				<source>Tip</source>
 				<target>Astuce</target>
 			</trans-unit>
+			<trans-unit id="Note">
+				<source>Note</source>
+				<target>Remarque</target>
+			</trans-unit>
+			<trans-unit id="Warning">
+				<source>Warning</source>
+				<target>Avertissement</target>
+			</trans-unit>
 			<trans-unit id="About Spacewalk">
 				<source>About</source>
 				<target>À propos</target>
@@ -272,7 +280,7 @@
 			</trans-unit>
 			<trans-unit id="Custom System Info">
 				<source>Custom System Info</source>
-				<target>Informations du système personnalisées</target>
+				<target>Informations système personnalisé</target>
 			</trans-unit>
 			<trans-unit id="date">
 				<source>Date</source>
@@ -496,7 +504,7 @@
 			</trans-unit>
 			<trans-unit id="Organization Trusts">
 				<source>Organization Trusts</source>
-				<target>Trusts d'organisation</target>
+				<target>Confiances de l'(des) organisation(s)</target>
 			</trans-unit>
 			<trans-unit id="Quick Start Guide">
 				<source>Quick Start Guide</source>
@@ -970,7 +978,7 @@ utilisateur avant de supprimer son compte.</target>
 			</trans-unit>
 			<trans-unit id="phone">
 				<source>Phone</source>
-				<target>Le téléphone</target>
+				<target>Téléphone</target>
 			</trans-unit>
 			<trans-unit id="message.perms_updated">
 				<source>Permissions Updated</source>
@@ -1307,16 +1315,16 @@ les rendre disponibles pour que le profil kickstart fonctionne correctement.
 				<target>Une erreur s'est produite lors de la suppression de la gamme d'IP du profil Kickstart {0}. Essayez à nouveau.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.update.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
-				<target>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; a bien été mis à jour.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
+				<target>Le kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; a bien été mis à jour.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.create.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
-				<target>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; a bien été créé.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
+				<target>Le kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; a bien été créé.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.delete.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
-				<target>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; a bien été supprimé.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
+				<target>Le kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; a bien été supprimé.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.couldnotdelete.message">
 				<source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -1327,12 +1335,12 @@ les rendre disponibles pour que le profil kickstart fonctionne correctement.
 				<target>Une erreur s'est produite lors de la tentative de renommer le snippet &lt;strong&gt;{0}&lt;/strong&gt; en &lt;strong&gt;{1}&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.filenameexists.message">
-				<source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
-				<target>Un cobbler snippet du nom &lt;strong&gt;{0}&lt;/strong&gt; existe déjà.</target>
+				<source>Kickstart snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+				<target>Un kickstart snippet du nom &lt;strong&gt;{0}&lt;/strong&gt; existe déjà.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.invalidfilename.message">
-				<source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
-				<target>Le nom de fichier du snippet Cobbler requis n'est pas valide. Les caractères acceptés sont les suivants : A-Z, a-z, 0-9, _ et -.</target>
+				<source>The requested kickstart snippet filename is not valid. The kickstart snippet file name cannot contain slash (/) or  begin with a period(.)</source>
+				<target>Le nom de fichier kickstart snippet requis est invalide. Celui-ci ne peut pas contenir de barre oblique (/) ni commencer par un point (.)</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.snippets">
 				<source>delete snippet</source>
@@ -3132,7 +3140,7 @@ utilisateur avant de désactiver son compte.</target>
 			</trans-unit>
 			<trans-unit id="NZ">
 				<source>New Zealand</source>
-				<target>Nouvelle Zélande</target>
+				<target>Nouvelle-Zélande</target>
 			</trans-unit>
 			<trans-unit id="OM">
 				<source>Oman</source>
@@ -3528,7 +3536,7 @@ utilisateur avant de désactiver son compte.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.80">
 				<source>No management entitlements remaining</source>
-				<target>Il ne reste aucun droit d'accès au service management</target>
+				<target>Il ne reste aucun droit d'accès au service de gestion</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.82">
 				<source>@@PRODUCT_NAME@@ channel not found</source>
@@ -4032,7 +4040,7 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
 			</trans-unit>
 			<trans-unit id="error.configtoolarge">
 				<source>Error creating Configuration File Revision:  File too large.  The maximum file size is {0}</source>
-				<target>Erreur lors de la création d'une version de fichier de configuration&amp;nbsp;:  le fichier est trop volumineux.. La taille maximale est {0}.</target>
+				<target>Erreur lors de la création d'une version de fichier de configuration&amp;nbsp;:  le fichier est trop volumineux. La taille maximale est {0}.</target>
 			</trans-unit>
 			<trans-unit id="config_revisions.failure">
 				<source>{0} revision deletions failed.</source>
@@ -5046,8 +5054,8 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
 				<source>One or more of the packages you have selected for removal below are not contained in
 			a software channel that this system is subscribed to.  If you choose to continue with the removal
 			you will not be able to rollback this system to this snapshot or any prior snapshot.</source>
-				<target>Un ou plus des paquetages ci-dessous que vous avez sélectionné pour être supprimé ne se trouvent pas dans
-			un canal de logiciel auquel ce système est abonné. Si vous choisissez de continuer la suppression
+				<target>Un ou plus des paquetages ci-dessous que vous avez sélectionné pour être supprimé ne se trouvent pas dans 
+			un canal de logiciel auquel ce système est abonné. Si vous choisissez de continuer la suppression 
 			vous ne serz plus en mesure de restaurer ce système à cette capture instantanéé ou à toute autre capture précédente.</target>
 			</trans-unit>
 			<trans-unit id="list.filter.iprange">
@@ -5228,38 +5236,36 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to
-syncronize kickstart distributions from Spacewalk to Cobbler.  These
-errors must be corrected for the distributions to be available for
-kickstarting systems kickstart distributions failed to sync from
-Spacewalk to Cobbler:
+The following is a list of errors gathered while Spacewalk attempts to 
+syncronize kickstart distributions from Spacewalk to Cobbler.  These 
+errors must be corrected for the distributions to be available for 
+kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
 for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
-La liste suivante est une liste d'erreurs rencontrées lors des tentatives de Spacewalk de synchronisation avec
-des distributions kickstart de Spacewalk vers Cobbler. Ces
-erreurs doivent être corrigées afin que les distributions soient disponibles pour
-initialiser les systèmes, les distributions kickstart n'ont pas pu se synchroniser de
-Spacewalk à Cobbler :
+La liste suivante est une liste d'erreurs rencontrées lors des tentatives de Spacewalk de synchronisation avec 
+des distributions kickstart de Spacewalk vers Cobbler. Ces 
+erreurs doivent être corrigées afin que les distributions soient disponibles pour 
+initialiser les systèmes :
 
 {0}
 
 Veuillez vérifier :
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log et 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
-Pour des erreurs plus détaillées. Si vous ne résolvez pas les erreurs, le kickstart ne sera pas utilisable pour les futures installations.</target>
+Pour des erreurs plus détaillées. Si vous ne résolvez pas les erreurs, l'arborescence du kickstart ne sera pas utilisable pour les futures installations.</target>
 			</trans-unit>
 			<trans-unit id="errata.delete.msg">
 				<source>Successfully deleted {0} errata.</source>
