@@ -5756,7 +5756,7 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
 
     <trans-unit id="certificate.config.error.10">
-        <source>Could not parse certificate file</source>
+        <source>Could not parse certificate file, see log file for more details.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
@@ -5770,28 +5770,28 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
 
     <trans-unit id="certificate.config.error.12">
-        <source>Unknown @@PRODUCT_NAME@@ version</source>
+        <source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
       </trans-unit>
 
     <trans-unit id="certificate.config.error.20">
-        <source>Remote activation failure</source>
+        <source>Remote activation failure, see log file for more details.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
       </trans-unit>
 
     <trans-unit id="certificate.config.error.30">
-        <source>Local activation failure</source>
+        <source>Local activation failure, see log file for more details.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
       </trans-unit>
 
     <trans-unit id="certificate.config.error.40">
-        <source>Channel population failure</source>
+        <source>Channel population failure, see log file for more details.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
@@ -5826,7 +5826,7 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
 
     <trans-unit id="certificate.config.error.85">
-        <source>Unknown activation error</source>
+        <source>Unknown activation error, see log file for more details.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
@@ -5847,7 +5847,7 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
 
     <trans-unit id="certificate.config.error.127">
-        <source>Unhandled error</source>
+        <source>Unhandled error, see log file for more details.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
