@@ -177,8 +177,8 @@ class BaseCliModule(object):
         filename = os.path.join(rel_eng_dir, GLOBAL_BUILD_PROPS_FILENAME)
         if not os.path.exists(filename):
             # HACK: Try the old filename location, pre-tito rename:
-            filename = os.path.join(rel_eng_dir, "global.build.py.props")
-            if not os.path.exists(filename):
+            oldfilename = os.path.join(rel_eng_dir, "global.build.py.props")
+            if not os.path.exists(oldfilename):
                 error_out("Unable to locate branch configuration: %s" %
                         filename)
         config = ConfigParser.ConfigParser()
