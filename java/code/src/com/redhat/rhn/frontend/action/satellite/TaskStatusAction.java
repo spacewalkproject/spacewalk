@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.satellite;
 
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.task.TaskManager;
 import com.redhat.rhn.taskomatic.task.CleanCurrentAlerts;
@@ -64,11 +65,12 @@ public class TaskStatusAction extends RhnAction {
 
         for (Map map : toDisplay) {
             Date date = TaskManager.getTaskExecutionTime((String) map.get(LABEL));
-            map.put(DATE, date);
+            map.put(DATE, LocalizationService.getInstance().formatDate(date));
         }
 
-
-        request.setAttribute(CURRENT_DB_TIME, TaskManager.getCurrentDBTime());
+        
+        request.setAttribute(CURRENT_DB_TIME, LocalizationService.getInstance().formatDate(
+                                        TaskManager.getCurrentDBTime()));
         request.setAttribute("list", toDisplay);
         return mapping.findForward("default");
     }
@@ -78,56 +80,56 @@ public class TaskStatusAction extends RhnAction {
         List<Map> list = new ArrayList<Map>();
 
 
-        list.add(new HashMap(){
+        list.add(new HashMap() {
             {
                 put(KEY, "task.status.last.completed");
                 put(LABEL, LAST_COMPLETED);
             }
         });
 
-        list.add(new HashMap(){
+        list.add(new HashMap() {
             {
                 put(KEY, "task.status.session.cleanup");
                 put(LABEL, SessionCleanup.DISPLAY_NAME);
             }
         });
 
-        list.add(new HashMap(){
+        list.add(new HashMap() {
             {
                 put(KEY, "task.status.errata.queue.notif");
                 put(LABEL, ErrataQueue.DISPLAY_NAME);
             }
         });
 
-        list.add(new HashMap(){
+        list.add(new HashMap() {
             {
                 put(KEY, "task.status.errata.mail");
                 put(LABEL, "errata_engine");
             }
         });
 
-        list.add(new HashMap(){
+        list.add(new HashMap() {
             {
                 put(KEY, "task.status.daily.summary");
                 put(LABEL, SummaryPopulation.DISPLAY_NAME);
             }
         });
 
-        list.add(new HashMap(){
+        list.add(new HashMap() {
             {
                 put(KEY, "task.status.daily.summary.mail");
                 put(LABEL, DailySummary.DISPLAY_NAME);
             }
         });
 
-        list.add(new HashMap(){
+        list.add(new HashMap() {
             {
                 put(KEY, "task.status.clean.alerts");
                 put(LABEL, CleanCurrentAlerts.DISPLAY_NAME);
             }
         });
 
-        list.add(new HashMap(){
+        list.add(new HashMap() {
             {
                 put(KEY, "task.status.sync.probe");
                 put(LABEL, SynchProbeState.DISPLAY_NAME);
