@@ -27,7 +27,7 @@
          <bean:message key="snippetcreate.jsp.contents"/>
         </th>
         <td>
-   			<pre  class="file-display">${contents}</pre>
+   			<pre  class="file-display"><c:out value="${contents}"/></pre>
        </td>
     </tr>
     </table>
