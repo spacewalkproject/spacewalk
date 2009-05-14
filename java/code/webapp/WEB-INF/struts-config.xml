@@ -794,7 +794,7 @@
         </form-bean>
                 
         <form-bean name="cobblerSnippetsForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+                   type="com.redhat.rhn.frontend.struts.ContentsForm">
             <form-property name="name" type="java.lang.String" />
             <form-property name="oldName" type="java.lang.String" />
             <form-property name="contents" type="java.lang.String" />
