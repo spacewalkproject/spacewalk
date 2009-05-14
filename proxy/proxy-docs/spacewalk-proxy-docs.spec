@@ -6,7 +6,7 @@ URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version: 0.4.1
 Release: 1%{?dist}
-BuildRoot: %{_tmppath}/%{name}-root-%(%{__id_u} -n)
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Obsoletes: rhns-proxy-docs < 5.3.0
 Provides: rhns-proxy-docs = 5.3.0
