@@ -93,8 +93,8 @@ install -p -m 644 cron/notification        $RPM_BUILD_ROOT%{_sysconfdir}/cron.d/
 
 %post
 if [ $1 -eq 2 ]; then
-  ls /opt/notification/config/generated/* 2>/dev/null | xargs -I file mv file %{_sysconfdir}/no
-  ls /opt/notification/config/static/notif.ini 2>/dev/null | xargs -I file mv file %{_sysconfdi
+  ls /opt/notification/config/generated/* 2>/dev/null | xargs -I file mv file %{_sysconfdir}/notification/generated
+  ls /opt/notification/config/static/notif.ini 2>/dev/null | xargs -I file mv file %{_sysconfdir}/notification/static
   ls /opt/notification/var/GenerateNotifConfig-error.log 2>/dev/null | xargs -I file mv file %{_var}/log/nocpulse
   ls /opt/notification/var/archive/* 2>/dev/null | xargs -I file mv file %log_dir/archive
   ls /opt/notification/var/ticketlog/* 2>/dev/null | xargs -I file mv file %log_dir/ticketlog
