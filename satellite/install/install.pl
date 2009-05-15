@@ -836,10 +836,12 @@ sub get_arches_for_needed_rpms {
 
 sub up2date_command_for_arch {
   my ($needed_rpms, $arch) = @_;
+  my $system_arch = `uname -i`;
+  chomp $system_arch;
   if ($arch eq '') {
     my @pkgs = sort grep { not /\./ } keys %$needed_rpms;
     if (@pkgs) {
-      return ('up2date', '-i', @pkgs);
+      return ('up2date', "--arch=$system_arch", '--arch=noarch', '-i', @pkgs);
     }
   } else {
     my @pkgs = sort map { s/\..*$//; $_ } grep { /\.$arch$/ } keys %$needed_rpms;
@@ -875,7 +877,10 @@ EOF
 
 sub purge_needed_rpms {
   my $needed_rpms = shift;
+  my $system_arch = `uname -i`;
+  chomp $system_arch;
   my @anyarch_pkgs = grep { not /\./ } keys %$needed_rpms;
+  @anyarch_pkgs = map { ($_ . ".noarch", $_ . ".$system_arch") } @anyarch_pkgs;
   my @somearch_pkgs = grep { /\./ } keys %$needed_rpms;
   my @installed_needed_rpms = grep { not /\s/ }
     map { chomp; $_ }
