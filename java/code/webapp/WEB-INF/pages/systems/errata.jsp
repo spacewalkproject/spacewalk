@@ -110,7 +110,7 @@
 		
 		  <rl:column headerkey="errata.jsp.status" bound="false"
 		  	sortattr="currentStatusAndActionId[0]"
-		  	sortable="true">
+			sortable="true">
 		      <c:if test="${not empty current.status}">
 		         <c:if test="${current.currentStatusAndActionId[0] == 'Queued'}">
 		            <a href="/rhn/schedule/ActionDetails.do?aid=${current.currentStatusAndActionId[1]}">
@@ -122,7 +122,7 @@
 		         </c:if>
 		         <c:if test="${current.currentStatusAndActionId[0] == 'Picked Up'}">
 		            <a href="/network/systems/details/history/event.pxt?sid=${param.sid}&hid=${current.currentStatusAndActionId[1]}">
-		              <bean:message key="actions.jsp.inprogress"/></a>
+		              <bean:message key="actions.jsp.pickedup"/></a>
 		         </c:if>		         
 		      </c:if>
 		      <c:if test="${empty current.status}">

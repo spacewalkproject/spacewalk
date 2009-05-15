@@ -21201,6 +21201,9 @@ given channel.</source>
      <trans-unit id="task.status.title">
          <source>Task Engine Status</source>
      </trans-unit>
+      <trans-unit id="actions.jsp.pickedup">
+		<source>Picked Up</source>
+      </trans-unit>
   </body>
   </file>
 </xliff>
