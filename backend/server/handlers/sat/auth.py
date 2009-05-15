@@ -47,15 +47,8 @@ class Authentication(rhnHandler):
                 allowed_iss_slaves = CFG.ALLOWED_ISS_SLAVES
         else:
             allowed_iss_slaves = []
-        allowed = False
-        # go throu allowed_iss_slaves and if remote_hostname 
-        # match one of the record set it to 1
-        while not allowed:
-            for slave in allowed_iss_slaves:
-                allowed = slave.strip() == self.remote_hostname
 
-
-        if not allowed:
+        if self.remote_hostname not in allowed_iss_slaves:
             raise rhnFault(2004,
               _('Server "%s" is not enabled for ISS.')
                 % self.remote_hostname)
