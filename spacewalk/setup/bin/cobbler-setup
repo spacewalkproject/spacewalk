@@ -55,6 +55,7 @@ def main():
     if not m.search(conf_lines):
         system ("echo 'cobbler.host = %s' >> %s " % (answers['server'],
                                         common.rhnConfig._CONFIG_FILE))
+    system("cobbler sync")
     
 if __name__=="__main__":
     main()
