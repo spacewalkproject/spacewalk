@@ -50,9 +50,10 @@ class Authentication(rhnHandler):
         allowed = False
         # go throu allowed_iss_slaves and if remote_hostname 
         # match one of the record set it to 1
-        while not allowed and allowed_iss_slaves:
-            machine = allowed_iss_slaves.pop().strip();
-            allowed = machine == self.remote_hostname
+        while not allowed:
+            for slave in allowed_iss_slaves:
+                allowed = slave.strip() == self.remote_hostname
+
 
         if not allowed:
             raise rhnFault(2004,
