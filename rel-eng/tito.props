@@ -1,7 +1,6 @@
 [globalconfig]
 default_builder = spacewalk.releng.builder.Builder
 default_tagger = spacewalk.releng.tagger.VersionTagger
-block_tagging = 1
 
 [koji]
 autobuild_tags = dist-f10-sw-0.6-candidate dist-5E-sw-0.6-candidate
