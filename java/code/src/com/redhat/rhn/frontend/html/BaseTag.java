@@ -14,9 +14,11 @@
  */
 package com.redhat.rhn.frontend.html;
 
+
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,10 +28,9 @@ import java.util.Map;
  */
 public abstract class BaseTag {
     private String tag;
-    private Map attribs;
+    private Map<String, String> attribs;
     private List body;
     private boolean spaceBeforeEndTag;
-    private List keys;
 
     /**
      * Public constructor
@@ -40,10 +41,9 @@ public abstract class BaseTag {
     }
     
     protected BaseTag(String tagIn, boolean spaceBefore) {
-        attribs = new HashMap();
+        attribs = new LinkedHashMap<String, String>();
         tag = tagIn;
         body = new ArrayList();
-        keys = new ArrayList();
         spaceBeforeEndTag = spaceBefore;
     }
 
@@ -54,7 +54,7 @@ public abstract class BaseTag {
      */
     public void setAttribute(String name, String value) {
         attribs.put(name, value);
-        keys.add(name);
+
     }
     
     /**
@@ -63,7 +63,6 @@ public abstract class BaseTag {
      */
     public void removeAttribute(String name) {
         attribs.remove(name);
-        keys.remove(name);
     }
 
     /**
@@ -87,7 +86,7 @@ public abstract class BaseTag {
      * @return the string version
      */
     public String render() {
-        StringBuffer ret = new StringBuffer();
+        StringBuilder ret = new StringBuilder();
         ret.append(renderOpenTag());
         if (!hasBody()) {
             ret.deleteCharAt(ret.length() - 1);
@@ -110,20 +109,16 @@ public abstract class BaseTag {
      * @return the open tag as a string
      */
     public String renderOpenTag() {
-        StringBuffer ret = new StringBuffer("<");
+        StringBuilder ret = new StringBuilder("<");
         ret.append(tag);
-
-        Iterator i = keys.iterator();
-        while (i.hasNext()) {
-            String attrib = (String)i.next();
+        for (String key : attribs.keySet()) {
             ret.append(" ");
-            ret.append(attrib);
+            ret.append(key);
             ret.append("=\"");
-            ret.append((String)attribs.get(attrib));
+            ret.append((String)attribs.get(key));
             ret.append("\"");
         }
         ret.append(">");
-
         return ret.toString();
     }
 
@@ -132,7 +127,7 @@ public abstract class BaseTag {
      * @return the tag body as a string
      */
     public String renderBody() {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         
         for (Iterator itr = body.iterator(); itr.hasNext();) {
             buf.append(convertToString(itr.next()));
