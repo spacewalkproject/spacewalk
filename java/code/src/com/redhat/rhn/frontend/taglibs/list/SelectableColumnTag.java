@@ -19,6 +19,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 import javax.servlet.jsp.tagext.TagSupport;
 
@@ -271,23 +272,28 @@ public class SelectableColumnTag extends TagSupport {
         }
         return false;
     }
-    
     protected void writeStartingTd() throws JspException {
+        writeStartingTd(pageContext, styleClass, width);
+    }
+    
+    static void writeStartingTd(PageContext pageContext, 
+                        String styleClass, String width) throws JspException {
         ListTagUtil.write(pageContext, "<td");
-        if (styleClass != null) {
+        if (!StringUtils.isBlank(styleClass)) {
             ListTagUtil.write(pageContext, " class=\"");
             ListTagUtil.write(pageContext, styleClass);
             ListTagUtil.write(pageContext, "\"");
         }
-        if (width != null) {
+        if (!StringUtils.isBlank(width)) {
             ListTagUtil.write(pageContext, " width=\"");
             ListTagUtil.write(pageContext, width);
             ListTagUtil.write(pageContext, "\"");
         }
         else {
-            ListTagUtil.write(pageContext, " class=\"thin-column list-checkbox-header\" ");
+            ListTagUtil.write(pageContext, 
+                    " class=\"thin-column list-checkbox-header\" ");
 
         }
         ListTagUtil.write(pageContext, ">");       
-    }    
+    }
 }
