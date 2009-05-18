@@ -43,7 +43,7 @@ public class NGramAnalyzerTest extends NGramTestSetup {
                 + result);
         
         assertTrue("testTokenStream", result.compareTo("a,s,p,e,l,l,as,sp,pe," +
-                "el,ll,asp,spe,pel,ell,aspe,spel,pell,") == 0);
+                "el,ll,asp,spe,pel,ell,aspe,spel,pell,aspel,spell,") == 0);
         
     }
 }

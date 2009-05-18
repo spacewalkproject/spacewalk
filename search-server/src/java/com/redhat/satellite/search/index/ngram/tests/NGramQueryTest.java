@@ -41,6 +41,6 @@ public class NGramQueryTest extends NGramTestSetup {
         log.info("NGramQuery("+term+") = " + q.toString());
         assertTrue(q.toString().compareTo("name:s name:p name:e name:l " +
         		"name:l name:sp name:pe name:el name:ll name:spe name:pel " +
-        		"name:ell name:spel name:pell") == 0);
+			"name:ell name:spel name:pell name:spell") == 0);
     }
 }
