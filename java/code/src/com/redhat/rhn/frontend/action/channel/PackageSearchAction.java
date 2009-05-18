@@ -243,6 +243,14 @@ public class PackageSearchAction extends RhnAction {
         args.add(sessionId);
         args.add("package");
         args.add(preprocessSearchString(searchString, mode, pkgArchLabels));
+        if (OPT_FREE_FORM.equals(mode)) {
+            // adding a boolean of true to signify we want the results to be
+            // constrained to closer matches, this will force the Lucene Queries
+            // to use a "MUST" instead of the default "SHOULD".  It will not
+            // allow fuzzy matches as in spelling errors, but it will allow
+            // free form searches to do more advanced options
+            args.add(true);
+        }
         List results = (List)client.invoke("index.search", args);
 
         if (log.isDebugEnabled()) {
@@ -358,15 +366,15 @@ public class PackageSearchAction extends RhnAction {
         // when searching the name field, we also want to include the filename
         // field in case the user passed in version number.
         if (OPT_NAME_AND_SUMMARY.equals(mode)) {
-            return "(name:(" + query + ") summary:(" + query +
+            return "(name:(" + query + ")^2 summary:(" + query +
                    ") filename:(" + query + "))" + archBuf.toString();
         }
         else if (OPT_NAME_AND_DESC.equals(mode)) {
-            return "(name:(" + query + ") description:(" + query +
+            return "(name:(" + query + ")^2 description:(" + query +
                    ") filename:(" + query + "))" + archBuf.toString();
         }
         else if (OPT_NAME_ONLY.equals(mode)) {
-            return "(name:(" + query + ") filename:(" + query + "))" +
+            return "(name:(" + query + ")^2 filename:(" + query + "))" +
                    archBuf.toString();
         }
         

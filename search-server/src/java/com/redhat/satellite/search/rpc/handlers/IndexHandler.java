@@ -81,6 +81,27 @@ public class IndexHandler {
     }
 
     /**
+     * Search index -
+     * assumes English language as default language
+     *
+     * @param sessionId
+     *            user's application session id
+     * @param indexName
+     *            index to use
+     * @param query
+     *            search query
+     *  @param isFineGrained
+     *            if set will restrict matches to be stricter and less forgiving
+     * @return list of document ids as results
+     * @throws XmlRpcFault something bad happened
+     */
+    public List<Result> search(long sessionId, String indexName, String query,
+            boolean isFineGrained)
+            throws XmlRpcFault {
+        return search(sessionId, indexName, query, DEFAULT_LANG, isFineGrained);
+    }
+
+    /**
      * Search index
      *
      * @param sessionId
@@ -95,14 +116,36 @@ public class IndexHandler {
      * @throws XmlRpcFault something bad happened
      */
     public List<Result> search(long sessionId, String indexName, String query,
-            String lang)
+            String lang)  throws XmlRpcFault {
+        return search(sessionId, indexName, query, lang, false);
+    }
+
+    /**
+     * Search index
+     *
+     * @param sessionId
+     *            user's application session id
+     * @param indexName
+     *            index to use
+     * @param query
+     *            search query
+     *  @param lang
+     *            language
+     *  @param isFineGrained
+     *            if set will restrict matches to be stricter and less forgiving
+     * @return list of document ids as results
+     * @throws XmlRpcFault something bad happened
+     */
+    public List<Result> search(long sessionId, String indexName, String query,
+            String lang, boolean isFineGrained)
             throws XmlRpcFault {
         if (log.isDebugEnabled()) {
             log.debug("IndexHandler:: searching for: " + query + ", indexName = " +
                     indexName + ", lang = " + lang);
         }
         try {
-            List<Result> hits = indexManager.search(indexName, query, lang);
+            List<Result> hits = indexManager.search(indexName, query, lang,
+                    isFineGrained);
             if (indexName.compareTo("package") == 0) {
                 return screenHits(sessionId, indexName, hits);
             }
