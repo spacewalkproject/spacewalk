@@ -3,10 +3,13 @@ default_builder = spacewalk.releng.builder.Builder
 default_tagger = spacewalk.releng.tagger.VersionTagger
 
 [koji]
-autobuild_tags = dist-f10-sw-0.6-candidate dist-5E-sw-0.6-candidate
+autobuild_tags = dist-f10-sw-0.6-candidate dist-5E-sw-0.6-candidate dist-f11-sw-0.6-candidate
 
 [dist-f10-sw-0.6-candidate]
 disttag = .fc10
 
 [dist-5E-sw-0.6-candidate]
 disttag = .el5
+
+[dist-f11-sw-0.6-candidate]
+disttag = .fc11
