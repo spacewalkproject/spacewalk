@@ -91,7 +91,6 @@ if [ $1 -eq 0 ]; then
       /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
         && /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} || :
     done
-  /usr/sbin/semanage port -d -t cobbler_port_t -p tcp 25152 || :
 fi
 
 /sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl %{_sbindir}/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn \
