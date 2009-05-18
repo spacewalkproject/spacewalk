@@ -40,8 +40,6 @@ for selinuxvariant in mls strict targeted
 		&& /usr/sbin/semodule -s ${selinuxvariant} -i /usr/share/selinux/${selinuxvariant}/spacewalk.pp || :
   done
 
-/usr/sbin/semanage port -a -t cobbler_port_t -p tcp 25152 || :
-
 /sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl /usr/sbin/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn \
 	/usr/bin/rhn-sudo-ssl-tool /usr/bin/rhn-sudo-load-ssl-cert
 

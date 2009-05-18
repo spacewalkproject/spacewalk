@@ -30,8 +30,6 @@ type spacewalk_data_t;
 files_type(spacewalk_data_t);
 type spacewalk_cache_t;
 files_type(spacewalk_cache_t);
-type cobbler_port_t;
-corenet_port(cobbler_port_t)
 
 allow httpd_t spacewalk_install_log_t:file { append ioctl };
 allow restorecon_t spacewalk_install_log_t:file { append };
@@ -67,5 +65,3 @@ tunable_policy(`spacewalk_nfs_mountpoint',`
 	manage_dirs_pattern(httpd_t, nfs_t, nfs_t)
 	read_lnk_files_pattern(restorecon_t, nfs_t, nfs_t)
 ')
-
-allow httpd_t cobbler_port_t:tcp_socket name_connect;
