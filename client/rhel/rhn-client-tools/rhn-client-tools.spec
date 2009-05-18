@@ -204,6 +204,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Mon May 18 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.4.20-5
+- Resolves: #501316
+
 * Tue May 12 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.4.20-4
 - Resolves: #467866
 
