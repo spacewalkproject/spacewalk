@@ -192,6 +192,17 @@ public class DocSearchSetupAction extends RhnAction {
         // get lang we are searching in
         Locale l = Context.getCurrentContext().getLocale();
         args.add(l.toString());
+        Boolean searchFreeForm = false;
+        if (OPT_FREE_FORM.equals(mode)) {
+            // adding a boolean of true to signify we want the results to be
+            // constrained to closer matches, this will force the Lucene Queries
+            // to use a "MUST" instead of the default "SHOULD".  It will not
+            // allow fuzzy matches as in spelling errors, but it will allow
+            // free form searches to do more advanced options
+            //args.add(true);
+            searchFreeForm = true;
+        }
+        args.add(searchFreeForm);
         List results = (List)client.invoke("index.search", args);
 
         if (log.isDebugEnabled()) {
