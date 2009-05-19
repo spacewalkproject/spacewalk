@@ -45,9 +45,9 @@ DEFAULT_WEBRPC_HANDLER_v3_x = '/rpc/api'
 # reg exp for splitting package names.
 re_rpmName = re.compile("^(.*)-([^-]*)-([^-]*)$")
 def parseRPMName(pkgName):
-    #""" IN:  Package string in, n-n-n-v.v.v-r.r_r, format.
-    #    OUT: Four strings (in a tuple): name, version, release, epoch.
-    #"""
+    """ IN:  Package string in, n-n-n-v.v.v-r.r_r, format.
+        OUT: Four strings (in a tuple): name, version, release, epoch.
+    """
     reg = re_rpmName.match(pkgName)
     if reg == None:
         return None, None, None, None
@@ -62,6 +62,8 @@ def parseRPMName(pkgName):
 
 
 def getSystemId():
+    """ returns content of systemid file """
+
     path = "/etc/sysconfig/rhn/systemid"
     if not os.access(path, os.R_OK):
         return None
@@ -91,6 +93,7 @@ def getServer(options, handler):
 
 def _getProtocolError(e, hostname=''):
     """
+        Based on error, returns couple:
         10      connection issues?
         44     host not found
         47     http proxy authentication failure
@@ -108,6 +111,7 @@ def _getProtocolError(e, hostname=''):
 
 def _getSocketError(e, hostname=''):
     """
+        Based on error, returns couple:
         10     connection issues?
         11     hostname unresolvable
         12     connection refused
@@ -262,7 +266,7 @@ def resolveHostnamePort(hostnamePort=''):
 
 
 def getAPIVersion(options):
-    """ get's the API version, if fails, default back to 1.1
+    """ get's the API version, if fails, default back to 3.2
         returns [x,y,z]
     """
 
