@@ -285,7 +285,7 @@ public class DownloadFile extends DownloadAction {
             if (log.isDebugEnabled()) {
                 log.debug("getStreamInfo KICKSTART type, path: " + path);
             }
-            String diskPath;
+            String diskPath = null;
             String kickstartMount = Config.get().getString(Config.MOUNT_POINT);
             String fileName;
             KickstartSession ksession = (KickstartSession) params.get(SESSION);
@@ -319,21 +319,19 @@ public class DownloadFile extends DownloadAction {
                     if (log.isDebugEnabled()) {
                         log.debug("found package :: diskPath path: " + diskPath);
                     }
+                    newState = KickstartFactory.
+                        lookupSessionStateByLabel(KickstartSessionState.IN_PROGRESS);
                 }
                 else {
                     if (log.isDebugEnabled()) {
-                        log.error("RPM not found: " + fileName + 
-                            " in channel: " + channel.getLabel());
+                        log.debug("Package was not in channel, looking in distro path.");
                     }
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND);
-                    return getStreamForText("".getBytes());
                 }
-                newState = KickstartFactory.
-                    lookupSessionStateByLabel(KickstartSessionState.IN_PROGRESS);
             }
-            // Else it is just a file in the ks tree
+
+            // either it's not an rpm, or we didn't find it in the channel
             // check for dir pings, virt manager or install, bz #345721
-            else {
+            if (diskPath == null) {
                 // my $dp = File::Spec->catfile($kickstart_mount, $tree->base_path, $path);
                 diskPath = kickstartMount + "/" + tree.getBasePath() + path;
                 if (log.isDebugEnabled()) {
