@@ -17,6 +17,9 @@ package com.redhat.rhn.frontend.xmlrpc.proxy;
 import com.redhat.rhn.common.client.ClientCertificate;
 import com.redhat.rhn.common.client.ClientCertificateDigester;
 import com.redhat.rhn.common.client.InvalidCertificateException;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFamily;
+import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidProxyVersionException;
@@ -33,6 +36,8 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ProxyHandler
@@ -187,5 +192,62 @@ public class ProxyHandler extends BaseHandler {
         }
 
         return 0;
+    }
+
+    /**
+     * List available version of proxy channel for the system.
+     * @param clientcert client certificate of the system.
+     * @return 1 if the deactivation succeeded, 0 otherwise.
+     * @since 10.5
+     *
+     * @xmlrpc.doc List available version of proxy channel for system 
+     * identified by the given client certificate i.e. systemid file.
+     * @xmlrpc.param #param_desc("string", "systemid", "systemid file")
+     * @xmlrpc.returntype  #array_single ("string", "version")
+     */
+    public List<String> listAvailableProxyChannels(String clientcert) {
+
+        StringReader rdr = new StringReader(clientcert);
+        Server server = null;
+        try {
+            ClientCertificate cert = ClientCertificateDigester.buildCertificate(rdr);
+            server = SystemManager.lookupByCert(cert);
+        }
+        catch (InvalidCertificateException e) {
+            log.error("Trying to access a system with an invalid certificate", e);
+            throw new MethodInvalidParamException();
+        }
+        catch (IOException e) {
+            log.error("Problem reading certificate", e);
+        }
+        catch (SAXException e) {
+            log.error("Problem parsing certificate", e);
+        }
+        if (server == null) {
+            return null;
+        }
+
+        ChannelFamily proxyFamily = ChannelFamilyFactory
+            .lookupByLabel(ChannelFamilyFactory
+                .PROXY_CHANNEL_FAMILY_LABEL,
+                null);
+
+        if (proxyFamily == null ||
+                proxyFamily.getChannels() == null ||
+                proxyFamily.getChannels().isEmpty()) {
+            return null;
+        }
+
+        List<String> returnList = new ArrayList<String>();
+        /* We search for a proxy channel whose parent channel is our server's basechannel.
+         * This will be the channel we attempt to subscribe the server to.
+         */
+        for (Channel proxyChan : proxyFamily.getChannels()) {
+            if (proxyChan.getProduct() != null &&
+                proxyChan.getParentChannel().equals(server.getBaseChannel())) {
+                returnList.add(proxyChan.getProduct().getVersion());
+            }
+        }
+        return returnList;
     }
 }
