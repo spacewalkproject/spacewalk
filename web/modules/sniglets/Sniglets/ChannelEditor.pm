@@ -711,7 +711,7 @@ sub channel_select_options {
   my %perm_map = map { ('channel_' . $_->{ID}, 1) }
     grep { $_->{HAS_PERM} } @{$subscribable};
 
-  if ($mode eq 'channel_manager' or $mode eq 'compare_channels' or
+  if ($mode eq 'channel_manager' or
       $mode eq 'channel_patchset_manager' or $mode eq 'channel_patch_manager') {
     throw "param cid needed but not provided"
       unless $cid;
@@ -746,6 +746,18 @@ sub channel_select_options {
       @org_channels = grep { $perm_map{$_->[1]} } @org_channels;
       push @channel_list, @org_channels;
     }
+  }
+  elsif ($mode eq 'compare_channels') {
+      my @org_channels = RHN::Channel->channels_owned_by_org($pxt->user->org_id);
+      my @rh_channels = RHN::Channel->channels_owned_by_org('NULL');
+
+      @org_channels = grep { $perm_map{$_->[1]} } @org_channels;
+      @rh_channels = grep { $perm_map{$_->[1]} } @rh_channels;
+
+      push @channel_list, ([ 'My Channels', 'my_channels', 'optgroup' ],
+                           @org_channels,
+                           [ 'Red Hat Channels', 'redhat_channels', 'optgroup' ],
+                           @rh_channels);
   }
   elsif ($mode eq 'errata_manager') {
     @channel_list = ([ 'All managed packages', 'any_channel' ]);
