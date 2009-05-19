@@ -20946,6 +20946,85 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
       </trans-unit>
+       <trans-unit id="channel.delete.jsp.toolbar">
+         <source>{0}</source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
+         </context-group>
+       </trans-unit>
+       <trans-unit id="channel.delete.jsp.channelheader">
+         <source>Delete Channel</source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
+         </context-group>
+       </trans-unit>
+       <trans-unit id="channel.delete.jsp.introparagraph">
+         <source>Are you sure you wish to delete this channel? Packages in the channel will
+           be removed from the channel, but will remain on the server. You will be
+           given the option to delete them after the channel has been deleted. Errata
+           related to the channel will no longer be related to the channel, and may be
+           orphaned. If the channel has child channels, it cannot be deleted; the child
+           channels must be deleted first. If the channel has kickstart distributions
+           associated to it, it cannot be deleted; the kickstart distributions must be
+           dissociated from the channel or deleted first.
+         </source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
+         </context-group>
+       </trans-unit>
+       <trans-unit id="channel.delete.jsp.arch">
+         <source>Architecture:</source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
+         </context-group>
+       </trans-unit>
+       <trans-unit id="channel.delete.jsp.totalpackages">
+         <source>Total Packages:</source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
+         </context-group>
+       </trans-unit>
+       <trans-unit id="channel.delete.jsp.systemssubscribed">
+         <source>Systems Subscribed:</source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
+         </context-group>
+       </trans-unit>
+       <trans-unit id="channel.delete.jsp.orgsheader">
+         <source>Trusted Organizations</source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
+         </context-group>
+       </trans-unit>
+       <trans-unit id="channel.delete.jsp.orgsparagraph">
+         <source>Channel deletion will affect any Trusted Organizations that have systems
+            subscribed to the {0} channel. 
+         </source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
+         </context-group>
+       </trans-unit>       
+       <trans-unit id="channel.delete.jsp.orgsaffected">
+         <source>Organizations Affected: 
+         </source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
+         </context-group>
+       </trans-unit>       
+       <trans-unit id="channel.delete.jsp.unsubheader">
+         <source>Unsubscribe Systems</source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
+         </context-group>
+       </trans-unit>
+       <trans-unit id="channel.delete.jsp.unsubparagraph">
+         <source>Unsubscribe all trusted organization systems that are subscribed to the
+            {0} channel. Subscribed systems will lose access to packages specific to this channel. 
+         </source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
+         </context-group>
+       </trans-unit>       
       <trans-unit id="generic.jsp.none">
         <source>None</source>
         <context-group name="ctx">

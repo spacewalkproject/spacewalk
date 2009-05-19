@@ -448,6 +448,18 @@ public class Channel extends BaseDomainHelper implements Comparable {
     }
 
     /**
+     * @return number of trusted organizations that have access to this channel
+     */
+    public int getTrustedOrgsCount() {
+        if (trustedOrgs != null) {
+            return trustedOrgs.size();
+        }
+        else {
+            return 0;
+        }
+    }
+
+    /**
      * Adds a single channelFamily to the channel
      * @param channelFamilyIn The channelFamily to add
      */

@@ -1720,7 +1720,29 @@ public class SystemManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("System_queries",
                            "systems_subscribed_to_channel", SystemOverview.class);
         return m.execute(params);
-    }    
+    }
+
+    /**
+     * Returns the number of systems subscribed to the given channel.
+     * 
+     * @param channelId identifies the channel
+     * @param user      user making the request
+     * @return number of systems subscribed to the channel
+     */
+    public static int countSystemsSubscribedToChannel(Long channelId, User user) {
+        Map<String, Long> params = new HashMap<String, Long>(2);
+        params.put("user_id", user.getId());
+        params.put("org_id", user.getOrg().getId());
+        params.put("cid", channelId);
+        
+        SelectMode m = ModeFactory.getMode("System_queries",
+            "count_systems_subscribed_to_channel");
+        DataResult dr = makeDataResult(params, params, null, m);
+        
+        Map result = (Map) dr.get(0);
+        Long count = (Long) result.get("count");
+        return count.intValue();
+    }
     
     /**
      * Returns a DataResult containing the systems subscribed to a particular channel.
@@ -2213,6 +2235,28 @@ public class SystemManager extends BaseManager {
         DataResult toReturn = m.execute(params);        
         toReturn.elaborate();
         return toReturn;
+    }
+
+    /**
+     * Returns the number of systems subscribed to the channel that are <strong>not</strong>
+     * in the given org.
+     * 
+     * @param orgId identifies the filter org
+     * @param cid   identifies the channel
+     * @return count of systems
+     */
+    public static int countSubscribedToChannelWithoutOrg(Long orgId, Long cid) {
+        SelectMode m = ModeFactory.getMode("System_queries", 
+        "count_systems_subscribed_to_channel_not_in_org");
+        Map params = new HashMap();
+        params.put("org_id", orgId);
+        params.put("cid", cid);
+        
+        DataResult dr = m.execute(params);
+        Map result = (Map) dr.get(0);
+        Long count = (Long) result.get("count");
+        
+        return count.intValue();
     }
     
     /**
