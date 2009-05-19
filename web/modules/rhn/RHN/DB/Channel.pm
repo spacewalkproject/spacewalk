@@ -608,12 +608,13 @@ sub channels_owned_by_org {
   $query = <<EOQ;
    SELECT C.name, C.id
     FROM rhnChannel C
+   WHERE C.org_id IS NULL
 ORDER BY C.org_id, C.name
 EOQ
 
-  $sth = $dbh->prepare($query);
-  $sth->execute();
-}
+    $sth = $dbh->prepare($query);
+    $sth->execute();
+  }
   else {
     $query = <<EOQ;
    SELECT C.name, C.id
