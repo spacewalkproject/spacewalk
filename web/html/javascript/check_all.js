@@ -156,3 +156,11 @@ function processPagination(req, doc) {
       var bottom = document.getElementById("pagination_selcount_bottom");
       bottom.firstChild.nodeValue = pgcnt.nodeValue;
 }
+
+function sortColumn(sortByWidget, sortByValue, sortDirWidget, sortDirValue) {
+     var sortBy = document.getElementById(sortByWidget); 
+     sortBy.value = sortByValue;
+     var sortDir = document.getElementById(sortDirWidget);
+     sortDir.value = sortDirValue;
+     sortBy.form.submit();
+}

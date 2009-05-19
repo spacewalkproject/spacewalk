@@ -51,10 +51,10 @@ function setStep(stepName) {
 	<rl:list width="100%" emptykey = "virtualization.provision.first.jsp.no.profiles" alphabarcolumn="label">
 			<rl:decorator name = "PageSizeDecorator"/>        
         	<rl:radiocolumn value="${current.cobblerId}" styleclass="first-column"/>
-         	<rl:column headerkey="kickstartranges.jsp.profile" filterattr="label">
+         	<rl:column headerkey="kickstartranges.jsp.profile" filterattr="label"  sortable="true" sortattr="label">
          		<a href="${current.cobblerUrl}">${fn:escapeXml(current.label)}</a>	
          	</rl:column>
-         	<rl:column headerkey="kickstart.channel.label.jsp" bound="true" attr="channelLabel"/>
+         	<rl:column headerkey="kickstart.channel.label.jsp" bound="true" attr="channelLabel" sortable="true" sortattr="channelLabel"/>
          	<rl:column headerkey="kickstart.channel.virtCpu.jsp" bound="true" attr="virtCpus"/>
          	<rl:column headerkey="kickstart.channel.virtDisk.jsp" bound="true" attr="virtSpace"/>         	
          	<rl:column headerkey="kickstart.channel.virtMemory.jsp" bound="true" attr="virtMemory"/>
