@@ -3,6 +3,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <html:xhtml />
 <html>
 
@@ -12,54 +13,15 @@
 
 <script language="javascript">
 //<!--
-function swapValues(fromCtlId, toCtlId) {
-   var fromCtl = document.getElementById(fromCtlId);
-   var toCtl = document.getElementById(toCtlId);
-   toCtl.value = fromCtl.value;
-}
-
-function moveNext() {
-   var form = document.getElementById("wizard-form");
-   form.submit();
-}
-
 function setStep(stepName) {
 	var field = document.getElementById("wizard-step");
 	field.value = stepName;
-}
-
-function setInitialState() {
-  var scheduleAsap = document.getElementById("scheduleAsap");
-  var scheduleDate = document.getElementById("scheduleDate");
-  if(!scheduleAsap.checked && !scheduleDate.checked) {
-      scheduleAsap.checked = true;
-  }
-  var cobbler_id = document.getElementById("cobbler_id");
-  var wizform = document.getElementById("wizard-form");
-  if(cobbler_id.value == "") {  	
-  	for(x = 0; x < wizform.length; x++) {
-  	  if(wizform.elements[x].name == "items_selected") {
-  	    wizform.elements[x].checked =  true;
-  	    cobbler_id.value = wizform.elements[x].value;
-  	    break;
-      }
-    }
-  }
-  else {
-    for(x = 0; x < wizform.length; x++) {
-  	  if(wizform.elements[x].name == "items_selected"
-  	    && wizform.elements[x].value == cobbler_id.value) {
-  	    wizform.elements[x].checked =  true;  	    
-  	    break;
-      }
-    }
-  }
 }
 //-->
 </script>
 </head>
 
-<body onload="setInitialState();">
+<body>
 
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
@@ -93,26 +55,32 @@ function setInitialState() {
         <bean:message key="kickstart.schedule.heading2.text.jsp" />
     </p>
 
-    <html:form method="POST" action="/systems/details/kickstart/ScheduleWizard.do" styleId="wizard-form">
+<c:set var="form" value="${kickstartScheduleWizardForm.map}"/>
+
+<rl:listset name="wizard-form">
         <!--Store form variables obtained from previous page -->
-        <html:hidden property="targetProfileType"/>
-        <html:hidden property="targetProfile"/>
-        <html:hidden property="kernelParams"/>
+        <input type="hidden" name="targetProfileType" value="${form.targetProfileType}"/>
+        <input type="hidden" name="targetProfile" value="${form.targetProfile}" />
+
+        <input type="hidden" name="kernelParams" value="${form.kernelParams}" />
         
         <!-- Store useful id fields-->
-        <html:hidden property="wizardStep" value="first" styleId="wizard-step" />    
-        <html:hidden styleId="cobbler_id" property="cobbler_id" />
-        <html:hidden property="sid" />
-        <rhn:list pageList="${requestScope.pageList}" noDataText="kickstart.schedule.no.profiles.jsp">         
-            <rhn:listdisplay renderDisabled="true" paging="true" filterBy="kickstartranges.jsp.profile">
-                <rhn:set type="radio" value="${current.cobblerId}" />
-                <rhn:column header="kickstartranges.jsp.profile">
-                    <a href="${current.cobblerUrl}">${fn:escapeXml(current.label)}</a>
-                </rhn:column>
-                <rhn:column header="kickstart.distro.label.jsp">
-                    <c:out value="${current.treeLabel}"/>
-                </rhn:column>
-                <rhn:column header="kickstart.distro.sw_managed.jsp">
+        <input type="hidden" name="wizardStep" value="first" id="wizard-step" />    
+        <input type="hidden" name="cobbler_id" value="${form.cobbler_id}" id="cobbler_id" />
+        <input type="hidden" name="sid" value="${form.sid}" />
+		<rl:list width="100%" emptykey = "kickstart.schedule.no.profiles.jsp" alphabarcolumn="label">
+			<rl:decorator name = "PageSizeDecorator"/>        
+        	<rl:radiocolumn value="${current.cobblerId}" styleclass="first-column"/>
+         	<rl:column headerkey="kickstartranges.jsp.profile" filterattr="label">
+         		<a href="${current.cobblerUrl}">${fn:escapeXml(current.label)}</a>	
+         	</rl:column>
+         	
+         	<rl:column headerkey="kickstart.distro.label.jsp">
+         		<c:out value="${current.treeLabel}"/>	
+         	</rl:column>
+         	
+         	<rl:column headerkey="kickstart.distro.sw_managed.jsp"
+         		  styleclass="last-column">
                 	<c:choose>
 	                    <c:when test="${current.cobbler}">
 	                    	<img src="/img/rhn-listicon-error.gif">
@@ -121,9 +89,8 @@ function setInitialState() {
 							<img src="/img/rhn-listicon-checked.gif">
                     	</c:otherwise>
                     </c:choose>
-                </rhn:column>                
-            </rhn:listdisplay>          
-        </rhn:list>
+         	</rl:column>
+    	</rl:list>     	    
     	<rhn:tooltip>* - <bean:message key="kickstart.distro.cobbler-only.tooltip"/></rhn:tooltip>
         <c:if test="${requestScope.hasProxies == 'true'}">    
         <h2>
@@ -135,9 +102,11 @@ function setInitialState() {
         <bean:message key="kickstart.schedule.msg.proxy.jsp"/>
         </p>
         <p>
-          <html:select property="proxyHost">
-              <html:optionsCollection name="proxies"/>
-          </html:select>    
+        <select name="proxyHost">
+			<c:forEach var="proxy" items="${proxies}">
+  			  <option <c:if test="${proxy.value eq proxyHost}">selected="selected"</c:if> value='${proxy.value}'>${proxy.label}</option>
+			</c:forEach>
+		</select>
         <br />
         <bean:message key="kickstart.schedule.tip.proxy.jsp"/>
         </p>
@@ -150,10 +119,10 @@ function setInitialState() {
           </h2>
           <table width="50%">
             <tr>
-              <td><html:radio styleId="scheduleAsap" property="scheduleAsap" value="true"><bean:message key="kickstart.schedule.heading3.option1.jsp" /></html:radio></td>
+              <td><input type="radio" name="scheduleAsap" value="true" id="scheduleAsap"/><bean:message key="kickstart.schedule.heading3.option1.jsp" /></td>
             </tr>
             <tr>
-              <td><html:radio styleId="scheduleDate" property="scheduleAsap" value="false"><bean:message key="kickstart.schedule.heading3.option2.jsp" /></html:radio><br /><br />
+              <td><input type="radio" name="scheduleAsap" value="false" id="scheduleDate" /><bean:message key="kickstart.schedule.heading3.option2.jsp" /><br /><br />
                   <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
                     <jsp:param name="widget" value="date"/>
                   </jsp:include>
@@ -164,16 +133,15 @@ function setInitialState() {
           <table width="100%">
             <tr>
               <td align="right">
-	        <input type="button" value="<bean:message key="kickstart.schedule.button0.jsp" />" onclick="setStep('fourth');moveNext();" />
-                <input type="button" value="<bean:message key="kickstart.schedule.button1.jsp" />" onclick="setStep('second');moveNext();" />
-                <input type="button" value="<bean:message key="kickstart.schedule.button2.jsp" />" onclick="setStep('third');moveNext();" />
+	        <input type="button" value="<bean:message key="kickstart.schedule.button0.jsp" />" onclick="setStep('fourth');this.form.submit();" />
+                <input type="button" value="<bean:message key="kickstart.schedule.button1.jsp" />" onclick="setStep('second');this.form.submit();" />
+                <input type="button" value="<bean:message key="kickstart.schedule.button2.jsp" />" onclick="setStep('third');this.form.submit();" />
               </td>
             </tr>
           </table>
         </c:if>
-    </html:form>
+	</rl:listset>
     </div>
-
 </c:if>
 
 </body>
