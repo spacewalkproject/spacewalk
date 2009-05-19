@@ -304,11 +304,11 @@ public class DataSetManipulator {
             Collections.sort(dataset, new DynamicComparator(alphaCol, 
                     RequestContext.SORT_ASC));
         }
-        else if (sortAttribute != null) {
+        else if (!StringUtils.isBlank(sortAttribute)) {
             Collections.sort(dataset, new DynamicComparator(sortAttribute, 
                     sortDir));
         }
-        else if (defaultSortAttribute != null) {
+        else if (!StringUtils.isBlank(defaultSortAttribute)) {
             Collections.sort(dataset, new DynamicComparator(defaultSortAttribute,
                     ascending ? RequestContext.SORT_ASC : RequestContext.SORT_DESC));
         }
