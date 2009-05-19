@@ -15,17 +15,9 @@
 
 package com.redhat.rhn.frontend.taglibs.list;
 
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.common.util.StringUtil;
-
-import org.apache.commons.beanutils.BeanUtils;
-
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Collections;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,6 +32,13 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 import javax.servlet.jsp.tagext.Tag;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
+
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.util.StringUtil;
+import com.redhat.rhn.frontend.struts.RequestContext;
 
 /**
  * Provides various utility functions for the ListTag, ColumnTag, and SpanTag
@@ -219,7 +218,11 @@ public class ListTagUtil {
      */
     public static String makeColumnSortLink(HttpServletRequest request,
             String listName, String attrName, String sortDir) {
-        if (sortDir == null) {
+        String sortById = ListTagUtil.makeSortById(listName);
+        String sortDirId = ListTagUtil.makeSortDirId(listName);
+        
+        String js = "sortColumn('%s', '%s', '%s', '%s')";
+        if (StringUtils.isBlank(sortDir)) {
             sortDir = RequestContext.SORT_ASC;
         }
         else if (sortDir.equals(RequestContext.SORT_ASC)) {
@@ -228,14 +231,10 @@ public class ListTagUtil {
         else {
             sortDir = RequestContext.SORT_ASC;
         }
-        Map<String, String> params = new HashMap<String, String>();
-
-        params.put(makeSortByLabel(listName), attrName);
-        params.put(makeSortDirLabel(listName), sortDir);
-
-        return makeParamsLink(request, listName, params, Collections.EMPTY_LIST);
+        
+        return String.format(js, sortById, attrName, sortDirId, sortDir);
     }
-
+    
     /**
      * provides the sort direction url key
      * @param listName the name of the list
@@ -254,6 +253,24 @@ public class ListTagUtil {
         return "list_" + listName + "_sortby";
     }
 
+    /**
+     * provides the sort direction url key
+     * @param listName the name of the list
+     * @return the url key for sort direction
+     */
+    public static String makeSortDirId(String listName) {
+        return "list_" + listName + "_sortdir_id";
+    }
+
+    /**
+     * provides the sort label (what to sort by) url key
+     * @param listName the list name
+     * @return the url key for sort label
+     */
+    public static String makeSortById(String listName) {
+        return "list_" + listName + "_sortby_id";
+    }    
+    
     /**
      * provides the filter label (what to sort by) url key
      * @param listName the list name

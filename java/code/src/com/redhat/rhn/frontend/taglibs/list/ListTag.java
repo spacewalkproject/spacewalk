@@ -79,7 +79,26 @@ public class ListTag extends BodyTagSupport {
     private String refLinkKey;
     private String refLinkKeyArg0;
     private String title;
+    private boolean sortable;
     
+    /**
+     * method to let the list tag know
+     * that atleast one of its columns
+     * is sortable. This will help the
+     * list tag render the hidden sortBy 
+     * and sortDir fields.. 
+     * This method has only package access 
+     * because on ColumnTag needs to talk to this.
+     * @param isSortable true if atleast
+     * one of the columns in this list is sortable
+     */
+    void setSortable(boolean isSortable) {
+        sortable = isSortable;
+    }
+    
+    private boolean isSortable() {
+        return sortable;
+    }
     /**
      * Adds a decorator to the parent class..
      * @param decName the name of the decorator
@@ -404,11 +423,34 @@ public class ListTag extends BodyTagSupport {
                 dec.beforeList();
             }
             
-                setupFilterUI();
-                if (filter != null && !isEmpty()) {
-                    ListTagUtil.renderFilterUI(pageContext, filter,
+            setupFilterUI();
+            if (filter != null && !isEmpty()) {
+                ListTagUtil.renderFilterUI(pageContext, filter,
                             getUniqueName(), width, columnCount);
-                }
+            }
+            if (isSortable()) {
+                String sortByLabel = ListTagUtil.makeSortByLabel(getUniqueName());
+                String sortDirLabel = ListTagUtil.makeSortDirLabel(getUniqueName());
+                
+                HtmlTag sortByInputTag = new HtmlTag("input");
+                sortByInputTag.setAttribute("type", "hidden");
+                sortByInputTag.setAttribute("name", sortByLabel);
+                sortByInputTag.setAttribute("id", 
+                        ListTagUtil.makeSortById(getUniqueName()));
+                sortByInputTag.setAttribute("value", StringUtils.defaultString(
+                        pageContext.getRequest().getParameter(sortByLabel)));
+
+                HtmlTag sortByDirTag = new HtmlTag("input");
+                sortByDirTag.setAttribute("type", "hidden");
+                sortByDirTag.setAttribute("name", sortDirLabel);
+                sortByDirTag.setAttribute("id", ListTagUtil.
+                                                makeSortDirId(getUniqueName()));
+                sortByDirTag.setAttribute("value", StringUtils.defaultString(
+                        pageContext.getRequest().getParameter(sortDirLabel)));
+
+                ListTagUtil.write(pageContext, sortByInputTag.render());
+                ListTagUtil.write(pageContext, sortByDirTag.render());
+            }
             
             
            if (!isEmpty()) {  
@@ -617,6 +659,7 @@ public class ListTag extends BodyTagSupport {
         decorators = null;
         decoratorName = null;
         title = null;
+        sortable = false;
         
         super.release();
     }

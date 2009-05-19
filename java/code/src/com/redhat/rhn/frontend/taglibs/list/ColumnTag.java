@@ -130,6 +130,9 @@ public class ColumnTag extends BodyTagSupport {
         if (command.equals(ListCommand.ENUMERATE)) {
             parent.addColumn();
             retval = BodyTagSupport.EVAL_PAGE;
+            if (isSortable()) {
+                parent.setSortable(true);
+            }
         }
         else if (command.equals(ListCommand.COL_HEADER)) {
             renderHeader();
@@ -218,9 +221,7 @@ public class ColumnTag extends BodyTagSupport {
 
 
         ListTagUtil.write(pageContext, ">");
-        if (isSortable()) {
-            writeSortLink();
-        }
+
         if (filterAttr != null) {
             HtmlTag filterClass = new HtmlTag("input");
             filterClass.setAttribute("type", "hidden");
@@ -229,15 +230,12 @@ public class ColumnTag extends BodyTagSupport {
             filterClass.setAttribute("value", filterAttr);
             ListTagUtil.write(pageContext, filterClass.render());
         }
-        LocalizationService ls = LocalizationService.getInstance();
-        if (headerKey != null) {
-            ListTagUtil.write(pageContext, ls.getMessage(headerKey));
+        
+        if (isSortable()) {
+            writeSortLink();
         }
         else {
-            ListTagUtil.write(pageContext, headerText);
-        }
-        if (isSortable()) {
-            ListTagUtil.write(pageContext, "</a>");
+            writeColumnName();
         }
         ListTagUtil.write(pageContext, "</th>");
     }
@@ -263,32 +261,28 @@ public class ColumnTag extends BodyTagSupport {
     }
 
     private void writeSortLink() throws JspException {
-        HttpServletRequest request = (HttpServletRequest)
-            pageContext.getRequest();
+        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         String sortBy = getSortName();
-        String url = ListTagUtil.makeColumnSortLink(request, getListName(),
+        String jsurl = ListTagUtil.makeColumnSortLink(request, getListName(),
                 sortBy, getSortDir());
+        String href = "<a href=\"javascript:%s\">";
+        ListTagUtil.write(pageContext, String.format(href, jsurl));
+        writeColumnName();
+        ListTagUtil.write(pageContext, "</a>");
+        
+    }
 
-        //We add this here so that sorting works across pagenation
-        if (isCurrColumnSorted()) {
-            HtmlTag sortByInputTag = new HtmlTag("input");
-            sortByInputTag.setAttribute("type", "hidden");
-            sortByInputTag.setAttribute("name", ListTagUtil.makeSortByLabel(getListName()));
-            sortByInputTag.setAttribute("value", sortBy);
-
-            HtmlTag sortByDirTag = new HtmlTag("input");
-            sortByDirTag.setAttribute("type", "hidden");
-            sortByDirTag.setAttribute("name",
-                    ListTagUtil.makeSortDirLabel(getListName()));
-            sortByDirTag.setAttribute("value", getSortDir());
-
-            ListTagUtil.write(pageContext, sortByInputTag.render());
-            ListTagUtil.write(pageContext, sortByDirTag.render());
+    /**
+     * @throws JspException
+     */
+    private void writeColumnName() throws JspException {
+        LocalizationService ls = LocalizationService.getInstance();
+        if (headerKey != null) {
+            ListTagUtil.write(pageContext, ls.getMessage(headerKey));
         }
-
-        ListTagUtil.write(pageContext, "<a href=\"");
-        ListTagUtil.write(pageContext, url);
-        ListTagUtil.write(pageContext, "\">");
+        else {
+            ListTagUtil.write(pageContext, headerText);
+        }
     }
 
     private String getSortDir() {

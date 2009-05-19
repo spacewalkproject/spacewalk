@@ -71,15 +71,15 @@ function setStep(stepName) {
 		<rl:list width="100%" emptykey = "kickstart.schedule.no.profiles.jsp" alphabarcolumn="label">
 			<rl:decorator name = "PageSizeDecorator"/>        
         	<rl:radiocolumn value="${current.cobblerId}" styleclass="first-column"/>
-         	<rl:column headerkey="kickstartranges.jsp.profile" filterattr="label">
+         	<rl:column headerkey="kickstartranges.jsp.profile" filterattr="label" sortable="true" sortattr="label">
          		<a href="${current.cobblerUrl}">${fn:escapeXml(current.label)}</a>	
          	</rl:column>
          	
-         	<rl:column headerkey="kickstart.distro.label.jsp">
+         	<rl:column headerkey="kickstart.distro.label.jsp"  sortable="true" sortattr="treeLabel">
          		<c:out value="${current.treeLabel}"/>	
          	</rl:column>
          	
-         	<rl:column headerkey="kickstart.distro.sw_managed.jsp"
+         	<rl:column headerkey="kickstart.distro.sw_managed.jsp" sortable="true" sortattr="cobbler"
          		  styleclass="last-column">
                 	<c:choose>
 	                    <c:when test="${current.cobbler}">
