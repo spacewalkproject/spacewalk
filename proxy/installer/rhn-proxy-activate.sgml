@@ -116,6 +116,13 @@
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>-l,
+            --list-available-versions</term>
+        <listitem>
+            <para>print list of versions of proxy channels available to this system (i.e. which versions you can activate) and exit.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>--non-interactive</term>
         <listitem>
             <para>Non-interactivate mode. You won't be asked to confirm
@@ -138,12 +145,14 @@
     <member>rhn_package_manager(8)</member>
     <member>rhn-proxy(8)</member>
     <member>rhn-proxy-debug(8)</member>
+    <member>configure-proxy.sh(8)</member>
 </simplelist>
 </RefSect1>
 
 <RefSect1><Title>Authors</Title>
 <simplelist>
     <member>Todd Warner <email>taw@redhat.com</email></member>
+    <member>Miroslav Suchy <email>msuchy@redhat.com</email></member>
 </simplelist>
 </RefSect1>
 </RefEntry>
