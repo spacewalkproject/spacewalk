@@ -620,14 +620,13 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
 
         //This is a really really crappy way of doing this, but i don't want to restructure
         //      the actions too much at this point :/
+        //      We only want to do this for the non-guest action
         if (kickstartAction instanceof KickstartAction) {
             ((KickstartAction) kickstartAction).getKickstartActionDetails().
                                                     setCobblerSystemName(rec.getName());
         }
-        else if (kickstartAction instanceof KickstartGuestAction) {
-            ((KickstartGuestAction) kickstartAction).getKickstartGuestActionDetails().
-                                                       setCobblerSystemName(rec.getName());
-        }
+        
+        
         ActionFactory.save(kickstartAction);
 
         log.debug("** Done scheduling kickstart session");
