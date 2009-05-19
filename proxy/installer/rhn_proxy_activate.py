@@ -31,6 +31,7 @@ import pwd
 import string
 import socket
 import urlparse
+import xmlrpclib
 
 ## lib imports
 from rhn import rpclib, SSL
@@ -399,6 +400,28 @@ def activateProxy(options, apiVersion):
         sys.stderr.write("\nThere was a problem activating the RHN Proxy entitlement:\n%s\n" % errorString)
         sys.exit(abs(errorCode))
         
+def listAvailableProxyChannels(options):
+    """ return list of version available to this system """
+
+    server = getServer(options, DEFAULT_WEBRPC_HANDLER_v3_x)
+    systemid=getSystemId()
+
+    errorCode, errorString = 0, ''
+    list = []
+    try:
+        list=server.proxy.list_available_proxy_channels(systemid)
+    except:
+        errorCode, errorString = _errorHandler()
+        try:
+            raise
+        except:
+            # let's force a system exit for this one.
+            sys.stderr.write(errorString + '\n')
+            sys.exit(errorCode)
+    else:
+        errorCode = 0
+        if not options.quiet and list:
+            sys.stdout.write("\n".join(list)+"\n")
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 def processCommandline():
@@ -424,6 +447,7 @@ def processCommandline():
         Option('--no-ssl',        action='store_true', help='turn off SSL (not advisable), default is on.'),
         Option('--version',       action='store',      help='which X.Y version of the RHN Proxy are you upgrading to? Default is your current proxy version ('+defaultVersion+')', default=defaultVersion),
         Option('--deactivate',      action='store_true', help='deactivate proxy, if already activated'),
+        Option('-l','--list-available-versions', action='store_true', help='print list of versions available to this system'),
         Option('--non-interactive', action='store_true', help='non-interactive mode'),
         Option('-q', '--quiet',     action='store_true', help='quiet non-interactive mode.'),
     ]
@@ -491,6 +515,13 @@ def main():
     """
 
     options = processCommandline()
+
+    if options.list_available_versions:
+        resolveHostnamePort(options.http_proxy)
+        if not options.http_proxy:
+            resolveHostnamePort(options.server)
+        listAvailableProxyChannels(options)
+        sys.exit(0)
 
     noSslString = 'false'
     if options.no_ssl:
