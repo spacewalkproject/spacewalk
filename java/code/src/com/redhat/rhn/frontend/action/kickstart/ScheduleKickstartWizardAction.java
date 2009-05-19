@@ -494,9 +494,13 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             RequestContext ctx) {
         String cobblerId = ListTagHelper.getRadioSelection(ListHelper.LIST,
                                                             ctx.getRequest());
+        if (StringUtils.isBlank(cobblerId)) {
+            cobblerId = ctx.getParam(RequestContext.COBBLER_ID, true);
+        }
         
         boolean retval = false;
         form.set(RequestContext.COBBLER_ID, cobblerId);
+        ctx.getRequest().setAttribute(RequestContext.COBBLER_ID, cobblerId);
         if (form.get("scheduleAsap") != null) {
             retval = true;
         }
