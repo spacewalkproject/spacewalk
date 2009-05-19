@@ -193,8 +193,6 @@ SYSTEM_ID=$(/usr/bin/xsltproc /usr/share/rhn/get_system_id.xslt $SYSCONFIG_DIR/s
 DIR=/usr/share/doc/proxy/conf-template
 HOSTNAME=$(hostname)
 
-default_or_input "Proxy version to activate" VERSION $(rpm -q --queryformat %{version} spacewalk-proxy-installer|cut -d. -f1-2)
-
 default_or_input "RHN Parent" RHN_PARENT $(awk -F= '/serverURL=/ {split($2, a, "/")} END { print a[3]}' $SYSCONFIG_DIR/up2date)
 
 if [ "$RHN_PARENT" == "rhn.redhat.com" ]; then
@@ -204,6 +202,8 @@ if [ "$RHN_PARENT" == "rhn.redhat.com" ]; then
 *** Using xmlrpc.rhn.redhat.com instead.
 WARNING
 fi
+
+default_or_input "Proxy version to activate" VERSION $(rhn-proxy-activate --server=$RHN_PARENT --list-available-versions |sort|tail -n1)
 
 default_or_input "Traceback email" TRACEBACK_EMAIL ''
 
