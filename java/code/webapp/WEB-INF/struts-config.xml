@@ -840,7 +840,13 @@
             <form-property name="gpg_key_id" type="java.lang.String" />
             <form-property name="gpg_key_fingerprint" type="java.lang.String" />
         </form-bean>
-		
+
+       <form-bean name="channelDeleteForm" 
+           type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+           <form-property name="cid" type="java.lang.Long"/>
+           <form-property name="submitted" type="java.lang.Boolean"/>
+       </form-bean>
+       
 	<!-- ConfigChannel forms -->
     <form-bean name="channelOverviewForm"
       type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
@@ -6212,6 +6218,15 @@
            type="com.redhat.rhn.frontend.action.channel.manage.ManageChannelsAction"
            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <forward name="default" path="/WEB-INF/pages/channel/manage/manage.jsp"/> 
+   </action>
+     
+   <action path="/channels/manage/Delete"
+           scope="request"
+           name="channelDeleteForm"
+           type="com.redhat.rhn.frontend.action.channel.manage.DeleteChannelAction"
+           className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="default" path="/WEB-INF/pages/channel/manage/delete.jsp"/> 
+      <forward name="success" path="/channels/manage/Manage.do"/> 
    </action>
      
    <action path="/channels/manage/Edit"
