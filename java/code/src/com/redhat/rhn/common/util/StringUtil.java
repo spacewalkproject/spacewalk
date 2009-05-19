@@ -721,15 +721,17 @@ public class StringUtil {
     public static Map convertOptionsToMap(String options, String errorKey)
         throws ValidatorException {
         Map<String, String> toReturn = new HashMap<String, String>();
-        StringTokenizer token = new StringTokenizer(options);
+        StringTokenizer token = new StringTokenizer(options, "\n");
         while (token.hasMoreElements()) {
             String option = token.nextToken();
-            String[] args = option.split("=");
-            if (args.length != 2) {
-                ValidatorException.raiseException(errorKey, option);
-            }
-            else {
-                toReturn.put(args[0], args[1]);
+            if (option.trim().length() > 0) { //Skip blank lines
+                String[] args = option.split("=");
+                if (args.length != 2) {
+                    ValidatorException.raiseException(errorKey, option);
+                }
+                else {
+                    toReturn.put(args[0], args[1]);
+                }
             }
         }
         return toReturn;
