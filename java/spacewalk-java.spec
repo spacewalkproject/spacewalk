@@ -248,6 +248,9 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Wed May 20 2009 Partha Aji <paji@redhat.com> 0.5.46-1
+- 496254 - Included a symlink to common-io on WEB-INF/lib needed by commons-fileupload 1.1
+
 * Mon Apr 20 2009 Partha Aji <paji@redhat.com> 0.5.45-1
 - 495946 - Got a workable edition of cobbler snippets.
 
