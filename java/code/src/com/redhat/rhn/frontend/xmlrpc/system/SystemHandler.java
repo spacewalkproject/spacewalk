@@ -2679,9 +2679,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #param("dateTime.iso8601",  "earliestOccurrence")
-     * @xmlrpc.returntype #return_int_success()
-     * @xmlrpc.returntype #param_desc("int",
-     *  "Id of the action scheduled, exception thrown otherwise")
+     * @xmlrpc.returntype int - ID of the action scheduled, otherwise exception thrown
+     * on error
      */
     public int schedulePackageRefresh(String sessionKey, Integer sid, 
             Date earliestOccurrence) {
