@@ -51,8 +51,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%{oracle}/*
-%{postgres}/*
+%{oracle}
+%{postgres}
+%{rhnroot}/schema-upgrade
 %{_bindir}/%{name}-upgrade
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
