@@ -42,8 +42,7 @@ install -m 0644 postgres/main.sql $RPM_BUILD_ROOT%{postgres}
 install -m 0755 -d $RPM_BUILD_ROOT%{_bindir}
 install -m 0755 %{name}-upgrade $RPM_BUILD_ROOT%{_bindir}
 install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}/schema-upgrade
-find oracle/upgrade -maxdepth 1 -name \*.sql -exec cp {} $RPM_BUILD_ROOT%{oracle} \;
-find postgres/upgrade -maxdepth 1 -name \*.sql -exec cp {} $RPM_BUILD_ROOT%{postgres} \;
+cp -r upgrade/* $RPM_BUILD_ROOT%{rhnroot}/schema-upgrade
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
 cp -p spacewalk-schema-upgrade.1 $RPM_BUILD_ROOT%{_mandir}/man1
 

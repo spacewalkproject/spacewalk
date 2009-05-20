@@ -44,7 +44,7 @@ REPLTBS := sed -re "s/\[\[[^]]+\]\]/$(TBS)/g"
 MKFILES := $(shell find . -mindepth 2 -maxdepth 2 -name Makefile)
 
 
-main : tables views data upgrade
+main : tables views data
 	$(BLEND) $(DIRS)
 
 devel : main
@@ -60,9 +60,6 @@ data :
 views :
 	$(MAKE) -C $@
 
-upgrade :
-	$(MAKE) -C $@
-
 install : main
 	sqlplus $(SQLUSER) @main
 
@@ -70,4 +67,4 @@ clean :
 	@rm -f main.sql
 	@$(foreach m,$(MKFILES),$(MAKE) -C $(dir $(m)) $@;)
 
-.PHONY: clean tables data views upgrade
+.PHONY: clean tables data views
