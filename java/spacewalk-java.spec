@@ -248,6 +248,9 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Wed May 20 2009 Partha Aji <paji@redhat.com> 0.6.17-1
+- 496254 - Included a symlink to common-io on WEB-INF/lib needed by commons-fileupload 1.1
+
 * Thu May 07 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.16-1
 - remove @Override for java 1.5 builds (jesusr@redhat.com)
 
