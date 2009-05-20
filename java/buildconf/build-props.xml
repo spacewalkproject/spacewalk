@@ -57,7 +57,7 @@
              jspapi log4j oro redstone-xmlrpc-client redstone-xmlrpc servletapi5 struts 
              bcprov bcpg jcommon stringtree-json
              jfreechart taglibs-core logdriver quartz
-             commons-fileupload concurrent velocity" />
+             commons-fileupload commons-io concurrent velocity" />
 
   <property name="test.jar.dependencies"
       value="antlr checkstyle dom4j emma emma_ant jdom jta junit
@@ -103,7 +103,7 @@
       value="antlr asm bcel c3p0 cglib
              commons-collections commons-beanutils commons-cli commons-codec
              commons-digester commons-discovery commons-el
-             commons-fileupload commons-lang commons-logging
+             commons-fileupload commons-io commons-lang commons-logging
              commons-validator concurrent dom4j hibernate3 jta
              jaf jasper5-compiler jasper5-runtime javamail jcommon jdom
              jfreechart jspapi jpam log4j redstone-xmlrpc-client redstone-xmlrpc
