@@ -1467,6 +1467,14 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         catch (InvalidErrataException e) {
             // expected
         }
+        try {
+            handler.scheduleApplyErrata(adminKey, new Integer(server.getId().intValue()),
+                    errataIds);
+            fail();
+        }
+        catch (InvalidErrataException e) {
+            // expected
+        }
     }
     
     public void testSchedulePackageInstall() throws Exception {
