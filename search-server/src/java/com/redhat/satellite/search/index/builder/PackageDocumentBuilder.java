@@ -46,7 +46,8 @@ public class PackageDocumentBuilder implements DocumentBuilder {
                 store = Field.Store.YES;
             }
             else if (name.equals("arch") || name.equals("filename") ||
-                    name.equals("version")) {
+                    name.equals("version") || name.equals("release") ||
+                    name.equals("epoch")) {
                 tokenize = Field.Index.UN_TOKENIZED;
             }
             

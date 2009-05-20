@@ -1,0 +1,230 @@
+/**
+ * Copyright (c) 2009 Red Hat, Inc.
+ *
+ * This software is licensed to you under the GNU General Public License,
+ * version 2 (GPLv2). There is NO WARRANTY for this software, express or
+ * implied, including the implied warranties of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+ * along with this software; if not, see
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+ *
+ * Red Hat trademarks are not licensed under GPLv2. No permission is
+ * granted to use or replicate Red Hat trademarks that are incorporated
+ * in this software or its documentation.
+ */
+package com.redhat.rhn.frontend.xmlrpc.packages.search;
+
+import com.redhat.rhn.FaultException;
+import com.redhat.rhn.domain.session.WebSession;
+import com.redhat.rhn.frontend.action.channel.PackageSearchHelper;
+import com.redhat.rhn.frontend.dto.PackageOverview;
+import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.SearchServerCommException;
+import com.redhat.rhn.manager.session.SessionManager;
+
+import org.apache.log4j.Logger;
+
+import redstone.xmlrpc.XmlRpcFault;
+
+
+import java.net.MalformedURLException;
+import java.util.List;
+
+
+/**
+ * PackagesSearchHandler
+ * @version $Rev$
+ * @xmlrpc.namespace packages
+ * @xmlrpc.doc Methods to interface to package search capabilities in search server..
+ */
+public class PackagesSearchHandler extends BaseHandler {
+
+    private static Logger log = Logger.getLogger(PackagesSearchHandler.class);
+
+    /**
+     * Advanced method to search lucene indexes with a passed in query written in Lucene
+     * Query Parser syntax. Lucene Query Parser syntax is defined here:
+     * http://lucene.apache.org/java/2_3_2/queryparsersyntax.html
+     *
+     * @param sessionKey The sessionKey for the logged in used
+     * @param luceneQuery - a search query written in the form of
+     *  Lucene QueryParser Syntax,
+     * @return the package objects requested
+     * @throws FaultException A FaultException is thrown on error.
+     *
+     * @xmlrpc.doc Advanced method to search lucene indexes with a passed in query written
+     * in Lucene Query Parser syntax. Lucene Query Parser syntax is defined here:
+     * http://lucene.apache.org/java/2_3_2/queryparsersyntax.html
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "luceneQuery",
+     *      "a query written in the form of Lucene QueryParser Syntax")
+     * @xmlrpc.returntype
+     *   #array()
+     *      $PackageOverviewSerializer
+     *   #array_end()
+     *  */
+    public List<PackageOverview> luceneQuery(String sessionKey, String luceneQuery)
+        throws FaultException {
+
+        return performSearch(sessionKey, luceneQuery, PackageSearchHelper.OPT_FREE_FORM);
+    }
+
+    /**
+     * Searches the lucene package indexes based on package name
+     *
+     * @param sessionKey The sessionKey for the logged in used
+     * @param name - package name to search for
+     * @return the package objects requested
+     * @throws FaultException A FaultException is thrown on error.
+     *
+     * @xmlrpc.doc Search the lucene package indexes for all packages which
+     *          match the given name.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "name",
+     *      "package name to search for")
+     * @xmlrpc.returntype
+     * #array()
+     *   $PackageOverviewSerializer
+     * #array_end()
+     *  */
+    public List<PackageOverview> name(String sessionKey, String name)
+        throws FaultException {
+        return performSearch(sessionKey, name, PackageSearchHelper.OPT_NAME_ONLY);
+    }
+
+    /**
+     * Searches the lucene package indexes based on package name or description
+     *
+     * @param sessionKey The sessionKey for the logged in used
+     * @param query -text to match in package name and description
+     * @return the package objects requested
+     * @throws FaultException A FaultException is thrown on error.
+     *
+     * @xmlrpc.doc Search the lucene package indexes for all packages which
+     *          match the given query in name and description
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "query",
+     *      "text to match in package name or description")
+     * @xmlrpc.returntype
+     * #array()
+     *   $PackageOverviewSerializer
+     * #array_end()
+     *  */
+    public List<PackageOverview> nameAndDescription(String sessionKey, String query)
+        throws FaultException {
+        return performSearch(sessionKey, query, PackageSearchHelper.OPT_NAME_AND_DESC);
+    }
+
+    /**
+     * Searches the lucene package indexes based on package name or summary
+     *
+     * @param sessionKey The sessionKey for the logged in used
+     * @param query -text to match in package name and summary
+     * @return the package objects requested
+     * @throws FaultException A FaultException is thrown on error.
+     *
+     * @xmlrpc.doc Search the lucene package indexes for all packages which
+     *          match the given query in name or summary.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "query",
+     *      "text to match in package name and description")
+     * @xmlrpc.returntype
+     * #array()
+     *   $PackageOverviewSerializer
+     * #array_end()
+     *  */
+    public List<PackageOverview> nameAndSummary(String sessionKey, String query)
+        throws FaultException {
+        return performSearch(sessionKey, query, PackageSearchHelper.OPT_NAME_AND_SUMMARY);
+    }
+
+    /**
+     * Advanced method to search lucene indexes with a passed in query written in Lucene
+     * Query Parser syntax, additionally this method will limit results to those which are
+     * in the passed in channel label. Lucene Query Parser syntax is defined here:
+     * http://lucene.apache.org/java/2_3_2/queryparsersyntax.html
+     *
+     * @param sessionKey The sessionKey for the logged in used
+     * @param luceneQuery - a search query written in the form of Lucene QueryParser Syntax
+     * @param channelLabel - channel label
+     * @return the package objects requested
+     * @throws FaultException A FaultException is thrown on error.
+     *
+     * @xmlrpc.doc Advanced method to search lucene indexes with a passed in query written
+     * in Lucene Query Parser syntax, additionally this method will limit results to those
+     * which are in the passed in channel label.  Lucene Query Parser syntax is defined
+     * here: http://lucene.apache.org/java/2_3_2/queryparsersyntax.html
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "luceneQuery",
+     *      "a query written in the form of Lucene QueryParser Syntax")
+     * @xmlrpc.param #param_desc("string", "channelLabel",
+     *      "Channel Label")
+     * @xmlrpc.returntype
+     *   #array()
+     *      $PackageOverviewSerializer
+     *   #array_end()
+     *  */
+    public List<PackageOverview> luceneQueryWithChannel(String sessionKey,
+            String luceneQuery, String channelLabel) throws FaultException {
+        List<PackageOverview> pkgs = performSearch(sessionKey, luceneQuery,
+                PackageSearchHelper.OPT_FREE_FORM);
+        // Lookup what packages are in what channel and filter
+        return pkgs;
+    }
+
+    /**
+     * Advanced method to search lucene indexes with a passed in query written in Lucene
+     * Query Parser syntax, additionally this method will limit results to those which are
+     * associated with a given activation key. Lucene Query Parser syntax is defined here:
+     * http://lucene.apache.org/java/2_3_2/queryparsersyntax.html
+     *
+     * @param sessionKey The sessionKey for the logged in used
+     * @param luceneQuery - a search query written in the form of Lucene QueryParser Syntax
+     * @param actKeyId - activation key id
+     * @return the package objects requested
+     * @throws FaultException A FaultException is thrown on error.
+     *
+     * @xmlrpc.doc Advanced method to search lucene indexes with a passed in query written
+     * in Lucene Query Parser syntax, additionally this method will limit results to those
+     * which are associated with a given activation key.  Lucene Query Parser syntax is
+     * defined here:  http://lucene.apache.org/java/2_3_2/queryparsersyntax.html
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "luceneQuery",
+     *      "a query written in the form of Lucene QueryParser Syntax")
+     * @xmlrpc.param #param_desc("string", "channelLabel",
+     *      "Channel Label")
+     * @xmlrpc.returntype
+     *   #array()
+     *      $PackageOverviewSerializer
+     *   #array_end()
+     *  */
+    public List<PackageOverview> luceneQueryWithActKey(String sessionKey,
+            String luceneQuery, Integer actKeyId) throws FaultException {
+        List<PackageOverview> pkgs = performSearch(sessionKey, luceneQuery,
+                PackageSearchHelper.OPT_FREE_FORM);
+        // Lookup what packages are in what activation key and filter
+        return pkgs;
+    }
+
+    protected List<PackageOverview> performSearch(String sessionKey, String query,
+            String mode) throws FaultException {
+        WebSession session = SessionManager.loadSession(sessionKey);
+        Long sessionId = session.getId();
+        List<PackageOverview> pkgs = null;
+        try {
+            pkgs = PackageSearchHelper.performSearch(sessionId, query, mode, null);
+        }
+        catch (MalformedURLException e) {
+            log.info("Caught Exception :" + e);
+            e.printStackTrace();
+            throw new SearchServerCommException();
+        }
+        catch (XmlRpcFault e) {
+            log.info("Caught Exception :" + e);
+            e.printStackTrace();
+            // Connection error
+            throw new SearchServerCommException();
+        }
+        return pkgs;
+    }
+}
