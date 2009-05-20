@@ -51,25 +51,8 @@ public class PackageSearchHelper {
     }
     
     /**
-     * Will form a search request and send message to search server, assumes
-     * searchString is a free form search query written in Lucene QueryParser
-     * syntax
-     *
-     * @param sessionId session id
-     * @param searchString search string
-     * @return List of PackageOverview objects
-     * @throws XmlRpcFault bad communication with search server
-     * @throws MalformedURLException possibly bad configuration for search server address
-     * @throws SearchServerIndexException error executing query
-     */
-    public static List<PackageOverview> performSearch(Long sessionId, String searchString)
-      throws XmlRpcFault, MalformedURLException, SearchServerIndexException {
-        return performSearch(sessionId, searchString, OPT_FREE_FORM, null);
-    }
-
-    /**
      * Will form a search request and send message to search server
-     * 
+     *
      * @param sessionId session id
      * @param searchString search string
      * @param mode mode as in name only, name description, name and summary, free form
@@ -82,8 +65,28 @@ public class PackageSearchHelper {
     public static List<PackageOverview> performSearch(Long sessionId, String searchString,
                                String mode, String[] selectedArches)
         throws XmlRpcFault, MalformedURLException, SearchServerIndexException {
+        return performSearch(sessionId, searchString, mode, selectedArches, true);
+    }
 
-        log.warn("Performing pkg search");
+    /**
+     * Will form a search request and send message to search server
+     * 
+     * @param sessionId session id
+     * @param searchString search string
+     * @param mode mode as in name only, name description, name and summary, free form
+     * @param selectedArches list of archs
+     * @param relevantFlag if set will force packages returned to be relevant to
+     *  subscribed channels
+     * @return List of PackageOverview objects
+     * @throws XmlRpcFault bad communication with search server
+     * @throws MalformedURLException possibly bad configuration for search server address
+     * @throws SearchServerIndexException error executing query
+     */
+    public static List<PackageOverview> performSearch(Long sessionId, String searchString,
+                               String mode, String[] selectedArches, boolean relevantFlag)
+        throws XmlRpcFault, MalformedURLException, SearchServerIndexException {
+
+        log.warn("Performing pkg search: " + searchString + ", " + mode);
 
         List<String> pkgArchLabels = null;
         if (selectedArches != null) {
@@ -144,16 +147,14 @@ public class PackageSearchHelper {
         if (selectedArches != null) {
             arList = new ArrayList<String>(Arrays.asList(selectedArches));
         }
-        List<PackageOverview> unsorted = ChannelManager.packageSearch(pids, arList);
+        List<PackageOverview> unsorted =
+            ChannelManager.packageSearch(pids, arList, relevantFlag);
         List<PackageOverview> ordered = new LinkedList<PackageOverview>();
         
         // we need to use the package names to determine the mapping order
         // because the id in PackageOverview is that of a PackageName while
         // the id from the search server is the Package id.
         for (PackageOverview po : unsorted) {
-            if (log.isDebugEnabled()) {
-                log.debug("Processing po: " + po.getPackageName() + " id: " + po.getId());
-            }
             Object objIdx = lookupmap.get(po.getPackageName());
             if (objIdx == null) {
                 // We got an error looking up a package name, it is most likely caused

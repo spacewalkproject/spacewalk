@@ -202,6 +202,15 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
     
     <query name="Package.searchById">
+            <![CDATA[select distinct p.id, p.packageName.name, p.summary,
+                        p.packageArch.label, p.description, p.packageEvr.epoch,
+                        p.packageEvr.version, p.packageEvr.release
+                       from com.redhat.rhn.domain.rhnpackage.Package as p
+                      where p.id IN (:pids)
+                      ]]>
+    </query>
+
+    <query name="Package.relevantSearchById">
             <![CDATA[select distinct p.packageName.id, p.packageName.name, p.summary,
                         p.packageArch.label, p.description, p.packageEvr.epoch,
                         p.packageEvr.version, p.packageEvr.release
