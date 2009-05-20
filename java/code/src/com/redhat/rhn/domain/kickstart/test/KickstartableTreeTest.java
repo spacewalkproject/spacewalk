@@ -85,7 +85,7 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
     
     public void testDownloadLocation() throws Exception {
         KickstartableTree k = createTestKickstartableTree();
-        String expected = "http://localhost/ks/dist/org/" + k.getOrg().getId() + "/" + 
+        String expected = "/ks/dist/org/" + k.getOrg().getId() + "/" +
                                 k.getLabel();
         assertEquals(expected, k.getDefaultDownloadLocation("localhost"));
     }
