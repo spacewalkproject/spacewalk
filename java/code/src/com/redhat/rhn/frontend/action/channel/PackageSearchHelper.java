@@ -15,9 +15,9 @@
 package com.redhat.rhn.frontend.action.channel;
 
 import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.frontend.dto.PackageOverview;
+import com.redhat.rhn.frontend.xmlrpc.SearchServerIndexException;
 import com.redhat.rhn.manager.channel.ChannelManager;
 
 import org.apache.log4j.Logger;
@@ -51,8 +51,24 @@ public class PackageSearchHelper {
     }
     
     /**
-     * Will form a search request and send message to search server throw
-     * xmlrpc request.  
+     * Will form a search request and send message to search server, assumes
+     * searchString is a free form search query written in Lucene QueryParser
+     * syntax
+     *
+     * @param sessionId session id
+     * @param searchString search string
+     * @return List of PackageOverview objects
+     * @throws XmlRpcFault bad communication with search server
+     * @throws MalformedURLException possibly bad configuration for search server address
+     * @throws SearchServerIndexException error executing query
+     */
+    public static List<PackageOverview> performSearch(Long sessionId, String searchString)
+      throws XmlRpcFault, MalformedURLException, SearchServerIndexException {
+        return performSearch(sessionId, searchString, OPT_FREE_FORM, null);
+    }
+
+    /**
+     * Will form a search request and send message to search server
      * 
      * @param sessionId session id
      * @param searchString search string
@@ -61,16 +77,18 @@ public class PackageSearchHelper {
      * @return List of PackageOverview objects
      * @throws XmlRpcFault bad communication with search server
      * @throws MalformedURLException possibly bad configuration for search server address
-     * @throws PackageSearchActionException error executing query
+     * @throws SearchServerIndexException error executing query
      */
     public static List<PackageOverview> performSearch(Long sessionId, String searchString,
                                String mode, String[] selectedArches)
-        throws XmlRpcFault, MalformedURLException, PackageSearchActionException {
+        throws XmlRpcFault, MalformedURLException, SearchServerIndexException {
 
         log.warn("Performing pkg search");
 
-        List<String> pkgArchLabels = 
-            ChannelManager.listCompatiblePackageArches(selectedArches);
+        List<String> pkgArchLabels = null;
+        if (selectedArches != null) {
+            pkgArchLabels = ChannelManager.listCompatiblePackageArches(selectedArches);
+        }
 
         // call search server
         XmlRpcClient client = new XmlRpcClient(Config.get().getSearchServerUrl(), true);
@@ -121,8 +139,12 @@ public class PackageSearchHelper {
         // In order to maintain the ranking from the search server, we
         // need to reorder the database results to match. This will lead
         // to a better user experience.
-        List<PackageOverview> unsorted = ChannelManager.packageSearch(pids,
-                new ArrayList<String>(Arrays.asList(selectedArches)));
+
+        ArrayList<String> arList = null;
+        if (selectedArches != null) {
+            arList = new ArrayList<String>(Arrays.asList(selectedArches));
+        }
+        List<PackageOverview> unsorted = ChannelManager.packageSearch(pids, arList);
         List<PackageOverview> ordered = new LinkedList<PackageOverview>();
         
         // we need to use the package names to determine the mapping order
@@ -134,10 +156,11 @@ public class PackageSearchHelper {
             }
             Object objIdx = lookupmap.get(po.getPackageName());
             if (objIdx == null) {
-                String msgKey = "packages.search.index_out_of_sync_with_db";
-                LocalizationService li = LocalizationService.getInstance();
-                String localizedMsg = li.getMessage(msgKey);
-                throw new PackageSearchActionException(localizedMsg, msgKey);
+                // We got an error looking up a package name, it is most likely caused
+                // by the search server giving us data which doesn't map into what is
+                // in our database.  This could happen if the search indexes are formed
+                // for a different database instance.
+                throw new SearchServerIndexException();
             }
             int idx = (Integer)objIdx;
             if (ordered.isEmpty()) {

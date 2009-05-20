@@ -4,6 +4,7 @@
   <template name="user" classname="com.redhat.rhn.frontend.xmlrpc.user.UserHandler" />
   <template name="errata" classname="com.redhat.rhn.frontend.xmlrpc.errata.ErrataHandler" />
   <template name="packages" classname="com.redhat.rhn.frontend.xmlrpc.packages.PackagesHandler" />
+  <template name="packages.search" classname="com.redhat.rhn.frontend.xmlrpc.packages.search.PackagesSearchHandler" />
   <template name="packages.provider" classname="com.redhat.rhn.frontend.xmlrpc.packages.provider.PackagesProviderHandler" />
   <template name="system" classname="com.redhat.rhn.frontend.xmlrpc.system.SystemHandler" />
   <template name="system.config" classname="com.redhat.rhn.frontend.xmlrpc.system.config.ServerConfigHandler"/>

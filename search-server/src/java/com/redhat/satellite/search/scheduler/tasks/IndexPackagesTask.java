@@ -99,7 +99,8 @@ public class IndexPackagesTask implements Job {
             throws IndexingException {
         Map<String, String> attrs = new HashMap<String, String>();
         attrs.put("name", pkg.getName());
-        attrs.put("version", pkg.getPrettyVersion());
+        attrs.put("version", pkg.getVersion());
+        attrs.put("release", pkg.getRelease());
         attrs.put("filename", pkg.getFileName());
         attrs.put("description", pkg.getDescription());
         attrs.put("summary", pkg.getSummary());

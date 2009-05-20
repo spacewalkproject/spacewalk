@@ -724,7 +724,9 @@ public class IndexManager {
                 NGramAnalyzer(min_ngram, max_ngram));
         analyzer.addAnalyzer("id", new KeywordAnalyzer());
         analyzer.addAnalyzer("arch", new KeywordAnalyzer());
+        analyzer.addAnalyzer("epoch", new KeywordAnalyzer());
         analyzer.addAnalyzer("version", new KeywordAnalyzer());
+        analyzer.addAnalyzer("release", new KeywordAnalyzer());
         analyzer.addAnalyzer("filename", new KeywordAnalyzer());
         return analyzer;
     }

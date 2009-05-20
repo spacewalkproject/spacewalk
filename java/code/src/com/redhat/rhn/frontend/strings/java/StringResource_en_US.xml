@@ -2667,8 +2667,8 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/channels/Search</context>
         </context-group>
       </trans-unit>
-     <trans-unit id="packages.search.index_out_of_sync_with_db">
-        <source>Package search index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
+     <trans-unit id="searchserver.index_out_of_sync_with_db">
+        <source>SearchServer index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/Search</context>
         </context-group>

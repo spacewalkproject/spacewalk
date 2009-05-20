@@ -327,6 +327,11 @@ public class PackageFactory extends HibernateFactory {
             po.setId((Long) values[0]);
             po.setPackageName((String) values[1]);
             po.setSummary((String) values[2]);
+            po.setPackageArch((String)values[3]);
+            po.setDescription((String) values[4]);
+            po.setEpoch((String) values[5]);
+            po.setVersion((String) values[6]);
+            po.setRelease((String) values[7]);
             realResults.add(po);
         }
 

@@ -18,10 +18,12 @@ package com.redhat.rhn.frontend.action.channel;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.ChannelArch;
+import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.frontend.xmlrpc.SearchServerIndexException;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -117,10 +119,10 @@ public class PackageSearchAction extends RhnAction {
             errors.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("packages.search.use_free_form"));
         }
-        catch (PackageSearchActionException pe) {
-            log.error("Exception caught: " +  pe.getMessage());
+        catch (SearchServerIndexException se) {
+            log.error("Exception caught: " +  se.getMessage());
             errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage(pe.getMessageKey()));
+                    new ActionMessage("searchserver.index_out_of_sync_with_db"));
         }
 
         // keep all params except submitted, in order for the new list
@@ -151,7 +153,7 @@ public class PackageSearchAction extends RhnAction {
     }
     
     private void setupForm(HttpServletRequest request, DynaActionForm form)
-        throws MalformedURLException, XmlRpcFault, PackageSearchActionException {
+        throws MalformedURLException, XmlRpcFault, SearchServerIndexException {
 
         RequestContext ctx = new RequestContext(request);
         String searchString = form.getString("search_string");
@@ -208,10 +210,12 @@ public class PackageSearchAction extends RhnAction {
         request.setAttribute("channel_arch", selectedArches);
 
         if (!StringUtils.isBlank(searchString)) {
-            List results = PackageSearchHelper.performSearch(ctx.getWebSession().getId(),
+            List<PackageOverview> results =
+                PackageSearchHelper.performSearch(ctx.getWebSession().getId(),
                                          searchString,
                                          viewmode,
                                          selectedArches);
+            results = removeDuplicateNames(results);
             log.warn("GET search: " + results);
             request.setAttribute("pageList",
                     results != null ? results : Collections.EMPTY_LIST);
@@ -221,6 +225,27 @@ public class PackageSearchAction extends RhnAction {
         }
     }
     
+    private List<PackageOverview> removeDuplicateNames(List<PackageOverview> pkgs) {
+        // Package Search returns a list of all matching packages, this will likely
+        // include multiple packages with the same name but different version, release,
+        // epoch.  WebUI only wants a list of unique package names, so we need
+        // to strip the duplicate names while preserving order.
+        List<PackageOverview> result = new ArrayList<PackageOverview>();
+        for (PackageOverview pkgOver : pkgs) {
+            boolean addPkg = true;
+            for (PackageOverview temp : result) {
+                if (StringUtils.equals(temp.getPackageName(), pkgOver.getPackageName())) {
+                    addPkg = false;
+                    break;
+                }
+            }
+            if (addPkg) {
+                result.add(pkgOver);
+            }
+        }
+        return result;
+    }
+
     private void addOption(List options, String key, String value) {
         addOption(options, key, value, false);
     }
