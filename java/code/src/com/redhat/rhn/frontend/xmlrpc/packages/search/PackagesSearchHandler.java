@@ -15,20 +15,30 @@
 package com.redhat.rhn.frontend.xmlrpc.packages.search;
 
 import com.redhat.rhn.FaultException;
+import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.session.WebSession;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.channel.PackageSearchHelper;
+import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.SearchServerCommException;
+import com.redhat.rhn.frontend.xmlrpc.SearchServerQueryException;
+import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.session.SessionManager;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import redstone.xmlrpc.XmlRpcFault;
 
 
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -63,7 +73,7 @@ public class PackagesSearchHandler extends BaseHandler {
      *      $PackageOverviewSerializer
      *   #array_end()
      *  */
-    public List<PackageOverview> luceneQuery(String sessionKey, String luceneQuery)
+    public List<PackageOverview> advanced(String sessionKey, String luceneQuery)
         throws FaultException {
 
         return performSearch(sessionKey, luceneQuery, PackageSearchHelper.OPT_FREE_FORM);
@@ -164,12 +174,32 @@ public class PackagesSearchHandler extends BaseHandler {
      *      $PackageOverviewSerializer
      *   #array_end()
      *  */
-    public List<PackageOverview> luceneQueryWithChannel(String sessionKey,
+    public List<PackageOverview> advancedWithChannel(String sessionKey,
             String luceneQuery, String channelLabel) throws FaultException {
+        if (StringUtils.isBlank(channelLabel)) {
+            throw new InvalidChannelLabelException();
+        }
         List<PackageOverview> pkgs = performSearch(sessionKey, luceneQuery,
                 PackageSearchHelper.OPT_FREE_FORM);
+        WebSession session = SessionManager.loadSession(sessionKey);
+        User user = session.getUser();
+        Channel channel = ChannelManager.lookupByLabelAndUser(channelLabel, user);
+        if (channel == null) {
+            throw new InvalidChannelLabelException();
+        }
+        List<PackageDto> pkgsInChan = ChannelManager.listAllPackages(channel);
+        Set<Long> temp = new HashSet<Long>();
+        for (PackageDto pdto : pkgsInChan) {
+            temp.add(pdto.getId());
+        }
         // Lookup what packages are in what channel and filter
-        return pkgs;
+        List<PackageOverview> result = new ArrayList<PackageOverview>();
+        for (PackageOverview pOver : pkgs) {
+            if (temp.contains(pOver.getId())) {
+                result.add(pOver);
+            }
+        }
+        return result;
     }
 
     /**
@@ -198,7 +228,7 @@ public class PackagesSearchHandler extends BaseHandler {
      *      $PackageOverviewSerializer
      *   #array_end()
      *  */
-    public List<PackageOverview> luceneQueryWithActKey(String sessionKey,
+    public List<PackageOverview> advancedWithActKey(String sessionKey,
             String luceneQuery, Integer actKeyId) throws FaultException {
         List<PackageOverview> pkgs = performSearch(sessionKey, luceneQuery,
                 PackageSearchHelper.OPT_FREE_FORM);
@@ -208,11 +238,14 @@ public class PackagesSearchHandler extends BaseHandler {
 
     protected List<PackageOverview> performSearch(String sessionKey, String query,
             String mode) throws FaultException {
+        if (StringUtils.isBlank(query)) {
+            throw new SearchServerQueryException();
+        }
         WebSession session = SessionManager.loadSession(sessionKey);
         Long sessionId = session.getId();
         List<PackageOverview> pkgs = null;
         try {
-            pkgs = PackageSearchHelper.performSearch(sessionId, query, mode, null);
+            pkgs = PackageSearchHelper.performSearch(sessionId, query, mode, null, false);
         }
         catch (MalformedURLException e) {
             log.info("Caught Exception :" + e);
@@ -224,6 +257,10 @@ public class PackagesSearchHandler extends BaseHandler {
             e.printStackTrace();
             // Connection error
             throw new SearchServerCommException();
+        }
+        if (log.isDebugEnabled()) {
+            log.debug("Query = : " + query + ", mode = " + mode);
+            log.debug(pkgs.size() + " packages were fetched");
         }
         return pkgs;
     }

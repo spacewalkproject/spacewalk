@@ -641,6 +641,17 @@ public class ChannelManager extends BaseManager {
         DataResult dr = makeDataResult(params, params, lc, m);
         return dr;
     }
+    /**
+     * Returns a list of packages whose ids match those from the given list.
+     * @param pids The ids of the package list.
+     * @param archLabels Channel arch labels.
+     * @param relevantFlag if set will only return packages relevant to subscribed channels
+     * @return list of packages
+     */
+    public static List<PackageOverview> packageSearch(List pids, List archLabels,
+            boolean relevantFlag) {
+        return PackageFactory.packageSearch(pids, archLabels, relevantFlag);
+    }
     
     /**
      * Returns a list of packages whose ids match those from the given list.
