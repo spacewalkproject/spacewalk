@@ -4,7 +4,7 @@ Group: Applications/Internet
 License: Open Publication
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.6.1
+Version: 0.6.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -38,7 +38,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id: proxy.spec,v 1.290 2007/08/08 07:03:05 msuchy Exp $
 %changelog
-* Wed May 20 2009 Miroslav Suchy <msuchy@redhat.com>
+* Wed May 20 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.2-1
 - clarify the license. It is Open Publication instead of GPLv2
 
 * Thu May 14 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.1-1
