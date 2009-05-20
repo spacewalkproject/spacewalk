@@ -127,7 +127,7 @@ class PollerStateCache:
         if cache_file:
             try:
                 state = cPickle.load(cache_file)
-            except PickleError, pe:
+            except cPickle.PickleError, pe:
                 # Strange.  Possibly, the file is corrupt.  We'll load an empty
                 # state instead.
                 self._log_debug("Error occurred while loading state: %s" % \
