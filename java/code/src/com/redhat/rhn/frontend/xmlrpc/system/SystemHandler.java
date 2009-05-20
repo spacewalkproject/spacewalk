@@ -2224,32 +2224,54 @@ public class SystemHandler extends BaseHandler {
     }
     
     /**
-     * Apply errata updates to a system.
+     * Schedules an action to apply errata updates to a system.
      * @param sessionKey The user's session key.
      * @param sid ID of the server
      * @param errataIds List of errata IDs to apply (as Integers)
      * @return 1 if successful, exception thrown otherwise
+     * @deprecated being replaced by system.scheduleApplyErrata(string sessionKey,
+     * int serverId, array[int errataId])
      *
-     * @xmlrpc.doc Apply errata updates to a system.
+     * @xmlrpc.doc Schedules an action to apply errata updates to a system.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param  #array_single("int", "errataId")
      * @xmlrpc.returntype #return_int_success()
      */
     public int applyErrata(String sessionKey, Integer sid, List errataIds) {
+        scheduleApplyErrata(sessionKey, sid, errataIds);
+        return 1;
+    }
+
+    /**
+     * Schedules an action to apply errata updates to a system.
+     * @param sessionKey The user's session key.
+     * @param sid ID of the server
+     * @param errataIds List of errata IDs to apply (as Integers)
+     * @return 1 if successful, exception thrown otherwise
+     * @since 10.6
+     *
+     * @xmlrpc.doc Schedules an action to apply errata updates to a system.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param  #array_single("int", "errataId")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int scheduleApplyErrata(String sessionKey, Integer sid, List errataIds) {
         applyErrataHelper(sessionKey, sid, errataIds, null);
         return 1;
     }
     
     /**
-     * Apply errata updates to a system at a specified time.
+     * Schedules an action to apply errata updates to a system at a specified time.
      * @param sessionKey The user's session key.
      * @param sid ID of the server
      * @param errataIds List of errata IDs to apply (as Integers)
      * @param earliestOccurrence Earliest occurrence of the errata update
      * @return 1 if successful, exception thrown otherwise
      *
-     * @xmlrpc.doc Apply errata updates to a system.
+     * @xmlrpc.doc Schedules an action to apply errata updates to a system at a
+     * given date/time.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #array_single("int", "errataId")
