@@ -1,7 +1,7 @@
 Name: spacewalk-proxy-docs
 Summary: Spacewalk Proxy Server Documentation
 Group: Applications/Internet
-License: GPLv2
+License: Open Publication
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version: 0.6.1
@@ -38,6 +38,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id: proxy.spec,v 1.290 2007/08/08 07:03:05 msuchy Exp $
 %changelog
+* Wed May 20 2009 Miroslav Suchy <msuchy@redhat.com>
+- clarify the license. It is Open Publication instead of GPLv2
+
 * Thu May 14 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.1-1
 - 497892 - create access.log on rhel5
 - point source0 to fedorahosted.org
