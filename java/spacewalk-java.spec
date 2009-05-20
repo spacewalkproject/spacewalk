@@ -5,7 +5,7 @@
 %define cobdirsnippets  %{_localstatedir}/lib/rhn/kickstarts/snippets
 %define appdir          %{_localstatedir}/lib/tomcat5/webapps
 %define jardir          %{_localstatedir}/lib/tomcat5/webapps/rhn/WEB-INF/lib
-%define jars antlr asm bcel c3p0 cglib commons-beanutils commons-cli commons-codec commons-digester commons-discovery commons-el commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard xalan-j2 xerces-j2 xml-commons-apis commons-collections
+%define jars antlr asm bcel c3p0 cglib commons-beanutils commons-cli commons-codec commons-digester commons-discovery commons-el commons-io commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard xalan-j2 xerces-j2 xml-commons-apis commons-collections
 
 Name: spacewalk-java
 Summary: Spacewalk Java site packages
@@ -78,6 +78,7 @@ BuildRequires: jakarta-commons-collections
 BuildRequires: jakarta-commons-discovery
 BuildRequires: jakarta-commons-el
 BuildRequires: jakarta-commons-fileupload
+BuildRequires: jakarta-commons-io
 BuildRequires: jakarta-commons-validator
 BuildRequires: jakarta-taglibs-standard
 BuildRequires: jasper5
