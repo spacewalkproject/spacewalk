@@ -31,7 +31,9 @@ for prescript in $RUN_PRE ; do
 	fi
 done
 
-echo "Running $0"
+if [ -z "$RUN_PURE" ] ; then
+	echo "Running $0"
+fi
 
 # Install SELinux policy modules
 for selinuxvariant in mls strict targeted
