@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        0.6.5
+Version:        0.6.6
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -104,6 +104,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.6-1
+- spacewalk-selinux-enable: do not print the Running ... message when run in %%post. (jpazdziora@redhat.com)
+
 * Mon May 18 2009 Jan Pazdziora 0.6.5-1
 - spacewalk-selinux: remove cobbler_port_t definition and any references to it
 
