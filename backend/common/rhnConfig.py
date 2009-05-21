@@ -100,7 +100,7 @@ class RHNOptions:
             self.__configs.has_key(self.__component)
 
     def modifiedYN(self):
-        #"returns last modified time diff if rhn.conf has changed."
+        """returns last modified time diff if rhn.conf has changed."""
 
         try:
             si = os.stat(self.file)
@@ -113,7 +113,7 @@ class RHNOptions:
         return lm-self.__timestamp
 
     def updateLastModified(self, timeDiff=None):
-        #"update the last modified time of the rhn.conf file.
+        """ update the last modified time of the rhn.conf file. """
         if timeDiff is None:
             timeDiff = self.modifiedYN()
         self.__timestamp = self.__timestamp + timeDiff
@@ -146,9 +146,10 @@ class RHNOptions:
         self.__merge()
 
     def _parseDefaults(self, allCompsYN=0):
-        # Parsing of the /etc/rhn/default/*.conf (or equivalent)
-        # Make sure we have all the needed default config files loaded
-        # We store the defaults in a dictionary, keyed on the component tuple
+        """ Parsing of the /etc/rhn/default/*.conf (or equivalent)
+        Make sure we have all the needed default config files loaded
+        We store the defaults in a dictionary, keyed on the component tuple
+        """
         comps = parse_comps(self.__component)
         if allCompsYN:
             comps = getAllComponents_tuples()
@@ -202,20 +203,20 @@ class RHNOptions:
     __setitem__ = set
 
     def writeConfig(self, userConfigDict, commentDict={}, stream=None):
-        #"""given dictionaries in these formats:
-        #     config dictionary:
-        #       { component.component.key: value, ...}
-        #          ***OR***
-        #       { (comp0, comp1): {key: value}, ...}
-        #
-        #     comment dictionary:
-        #       { component.component.key: comment string, ...}
-        #
-        #Compare to defaults. If different, write to file, if not,
-        #leave as is. Comments are written to the file as well.
-        #
-        #NOTE: *DESTRUCTIVE* will overwrite file always.
-        #"""
+        """given dictionaries in these formats:
+             config dictionary:
+               { component.component.key: value, ...}
+                  ***OR***
+               { (comp0, comp1): {key: value}, ...}
+        
+             comment dictionary:
+               { component.component.key: comment string, ...}
+        
+        Compare to defaults. If different, write to file, if not,
+        leave as is. Comments are written to the file as well.
+        
+        NOTE: *DESTRUCTIVE* will overwrite file always.
+        """
         if stream is None:
             stream = open(self.file, 'wb')
         _dict = {}
@@ -264,11 +265,11 @@ class RHNOptions:
         return diffDict
 
     def diffConfig(self, configDict):
-        #"""given configDict in this format:
-        #       { (component0, component1) : {key: value}, ...}
-        #diff the settings against the defaults and return a dict of those
-        #that are truly different (removing the ones that == the defaults).
-        #"""
+        """given configDict in this format:
+               { (component0, component1) : {key: value}, ...}
+        diff the settings against the defaults and return a dict of those
+        that are truly different (removing the ones that == the defaults).
+        """
         savedComponent = self.__component
 
         # prep the diff dictionary
@@ -326,16 +327,16 @@ class RHNOptions:
     ### polymorphic methods
 
     def __getattr__(self, key):
-        #"""fetch option you want in a self.DEBUG kind of syntax
-        #   (can force component selection)
-        #
-        #e.g.: say for example we have an option proxy.debug = 5
-        #      stored in the dictionary. proxy just says that only proxy
-        #      can access this option. So for this exmple,
-        #      self.__component is proxy.
-        #       cfg = RHNOptions("proxy")
-        #       print cfg.DEBUG ---> yields 5
-        #"""
+        """fetch option you want in a self.DEBUG kind of syntax
+           (can force component selection)
+        
+        e.g.: say for example we have an option proxy.debug = 5
+              stored in the dictionary. proxy just says that only proxy
+              can access this option. So for this exmple,
+              self.__component is proxy.
+               cfg = RHNOptions("proxy")
+               print cfg.DEBUG ---> yields 5
+        """
         self.__check()
         if not self.__configs[self.__component].has_key(key):
             raise AttributeError(key)
@@ -399,22 +400,22 @@ class RHNOptions:
     ### protected/test methods
 
     def _getDefaults(self):
-        #"""returns the __defaults dict (dictionary of parsed defaults).
-        #"""
+        """returns the __defaults dict (dictionary of parsed defaults).
+        """
         self.__check()
         return self.__defaults
 
     def _getParsedConfig(self):
-        #"""returns the __parsedConfig dict (dictionary of parsed
-        #   /etc/rhn/rhn.conf file).
-        #"""
+        """returns the __parsedConfig dict (dictionary of parsed
+           /etc/rhn/rhn.conf file).
+        """
         self.__check()
         return self.__parsedConfig
 
     def _getConfigs(self):
-        #"""returns the __configs dict (dictionary of the merged options
-        #   keyed by component.
-        #"""
+        """returns the __configs dict (dictionary of the merged options
+           keyed by component.
+        """
         self.__check()
         return self.__configs
 
@@ -518,11 +519,12 @@ def parse_line(line):
 
 
 def unparse_line(component, key, value):
-    # component needs to be in (component1, component2) notation
-    # key is a string
-    # value can be a string, None, int or float ...or [value,value]
-    #                                           ...or (value, linenum)
-    # return 'comonent1.component2.key = value, value
+    """ component needs to be in (component1, component2) notation
+     key is a string
+     value can be a string, None, int or float ...or [value,value]
+                                               ...or (value, linenum)
+     return 'comonent1.component2.key = value, value
+    """
     varSeparator = '.'
     optSeparator = ','
 
