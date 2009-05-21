@@ -59,7 +59,6 @@ class ConfigParserError(Exception):
 
 class RHNOptions:
 
-    # Static state variables
     __component = None
     # Defaults for each option, keyed on tuples
     __defaults = {}
@@ -91,7 +90,7 @@ class RHNOptions:
     def setComponent(self, comp):
         if not comp:
             comp = ()
-        RHNOptions.__component = comp
+        self.__component = comp
 
     def getComponent(self):
         return self.__component
@@ -111,13 +110,13 @@ class RHNOptions:
         lm = si[stat.ST_MTIME]
         # should always be positive, but a non-zero result is still
         # indication that the file has changed.
-        return lm-RHNOptions.__timestamp
+        return lm-self.__timestamp
 
     def updateLastModified(self, timeDiff=None):
         #"update the last modified time of the rhn.conf file.
         if timeDiff is None:
             timeDiff = self.modifiedYN()
-        RHNOptions.__timestamp = RHNOptions.__timestamp + timeDiff
+        self.__timestamp = self.__timestamp + timeDiff
 
     def parse(self):
         """
@@ -141,7 +140,7 @@ class RHNOptions:
 
         # Now that we parsed the defaults, we parse the multi-key
         # self.file configuration (ie, /etc/rhn/rhn.conf)
-        RHNOptions.__parsedConfig = parse_file(self.file)
+        self.__parsedConfig = parse_file(self.file)
 
         # And now generate and cache the current component
         self.__merge()
@@ -285,7 +284,7 @@ class RHNOptions:
 
         # examine all the components and keys
         for comp in unique:
-            RHNOptions.__component = string.join(comp, '.')
+            self.__component = string.join(comp, '.')
             self._parseDefaults(allCompsYN=0)
             if self.__defaults.has_key(comp):
                 for k in configDict[comp].keys():
@@ -311,7 +310,7 @@ class RHNOptions:
                 continue
 
         # restore the component and return the result
-        RHNOptions.__component = savedComponent
+        self.__component = savedComponent
         return diffDict
 
     def show(self):
@@ -333,7 +332,7 @@ class RHNOptions:
         #e.g.: say for example we have an option proxy.debug = 5
         #      stored in the dictionary. proxy just says that only proxy
         #      can access this option. So for this exmple,
-        #      RHNOptions.__component is proxy.
+        #      self.__component is proxy.
         #       cfg = RHNOptions("proxy")
         #       print cfg.DEBUG ---> yields 5
         #"""
@@ -403,32 +402,32 @@ class RHNOptions:
         #"""returns the __defaults dict (dictionary of parsed defaults).
         #"""
         self.__check()
-        return RHNOptions.__defaults
+        return self.__defaults
 
     def _getParsedConfig(self):
         #"""returns the __parsedConfig dict (dictionary of parsed
         #   /etc/rhn/rhn.conf file).
         #"""
         self.__check()
-        return RHNOptions.__parsedConfig
+        return self.__parsedConfig
 
     def _getConfigs(self):
         #"""returns the __configs dict (dictionary of the merged options
         #   keyed by component.
         #"""
         self.__check()
-        return RHNOptions.__configs
+        return self.__configs
 
     def _showall(self):
         from pprint import pprint
         print "__defaults: dictionary of parsed defaults."
-        pprint(RHNOptions.__defaults)
+        pprint(self.__defaults)
         print
         print "__parsedConfig: dictionary of parsed /etc/rhn/rhn.conf file."
-        pprint(RHNOptions.__parsedConfig)
+        pprint(self.__parsedConfig)
         print
         print "__configs: dictionary of the merged options keyed by component."
-        pprint(RHNOptions.__configs)
+        pprint(self.__configs)
 
 
 def parse_comps(component):
