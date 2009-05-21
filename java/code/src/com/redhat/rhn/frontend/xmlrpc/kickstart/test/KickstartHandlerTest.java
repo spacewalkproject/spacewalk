@@ -194,7 +194,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
                 profileLabel, admin.getOrg().getId());
         assertNotNull(newKsProfile);
-        assertTrue(newKsProfile.getCommand("url").getArguments().contains("http"));
+        assertTrue(newKsProfile.getCommand("url").getArguments().contains("/ks/dist/org/"));
     }
     
     public void testCreateWithInvalidRoles() throws Exception {
