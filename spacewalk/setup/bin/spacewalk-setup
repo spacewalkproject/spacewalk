@@ -460,7 +460,7 @@ sub setup_ssl_vhost {
     exit;
   }
 
-  for my $file (glob Spacewalk::Setup::SHARED_DIR . '/ssl.conf.[0-9]') {
+  for my $file (glob Spacewalk::Setup::SHARED_DIR . '/setup/ssl.conf.[0-9]') {
     open FILE, $file or die "Error reading [$file]: $!\n";
     my $regexp = <FILE>;
     chomp $regexp;
