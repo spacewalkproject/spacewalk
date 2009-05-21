@@ -268,7 +268,7 @@ public class KickstartableTree extends BaseDomainHelper {
             return StringUtil.addPath(getAbsolutePath(), "/images/kernel.img");
         }
         else if (arch.equals("channel-ppc")) {
-            return StringUtil.addPath(getAbsolutePath(), "ppc/ppc64/vmlinuz");
+            return StringUtil.addPath(getAbsolutePath(), "/ppc/ppc64/vmlinuz");
         }
         else {
             return StringUtil.addPath(getAbsolutePath(), "/images/pxeboot/vmlinuz");
@@ -287,7 +287,7 @@ public class KickstartableTree extends BaseDomainHelper {
             return StringUtil.addPath(getAbsolutePath(), "/images/initrd.img");
         }
         else if (arch.equals("channel-ppc")) {
-            return StringUtil.addPath(getAbsolutePath(), "ppc/ppc64/ramdisk.image.gz");
+            return StringUtil.addPath(getAbsolutePath(), "/ppc/ppc64/ramdisk.image.gz");
         }
         else {
             return StringUtil.addPath(getAbsolutePath(), "/images/pxeboot/initrd.img");
