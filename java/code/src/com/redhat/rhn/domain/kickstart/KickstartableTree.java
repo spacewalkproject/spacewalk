@@ -267,7 +267,7 @@ public class KickstartableTree extends BaseDomainHelper {
         if (arch.equals("channel-s390") || arch.endsWith("channel-s390x")) {
             return StringUtil.addPath(getAbsolutePath(), "/images/kernel.img");
         }
-        else if (arch.equals("channels-ppc")) {
+        else if (arch.equals("channel-ppc")) {
             return StringUtil.addPath(getAbsolutePath(), "ppc/ppc64/vmlinuz");
         }
         else {
