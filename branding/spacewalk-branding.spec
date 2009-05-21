@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.6.3
+Version:    0.6.4
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -68,6 +68,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.4-1
+- 501038 - Update css to mitigate wrapping of long org names. (jortel@redhat.com)
+
 * Wed May 06 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.3-1
 - 444221 - More fixes related to snippet pages in general (paji@redhat.com)
 - 484962 - Cleanup System Overview alerts. (dgoodwin@redhat.com)
