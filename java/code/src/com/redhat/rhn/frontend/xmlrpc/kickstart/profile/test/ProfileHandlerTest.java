@@ -72,7 +72,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
                 profileLabel, admin.getOrg().getId());
         assertNotNull(newKsProfile);
-        assertTrue(newKsProfile.getCommand("url").getArguments().contains("http"));
+        assertTrue(newKsProfile.getCommand("url").getArguments().contains("/ks/dist/org/"));
                
         KickstartableTree anotherTestTree = KickstartableTreeTest.
         createTestKickstartableTree(baseChan);
@@ -99,7 +99,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
              profileLabel, admin.getOrg().getId());
         assertNotNull(newKsProfile);
-        assertTrue(newKsProfile.getCommand("url").getArguments().contains("http"));
+        assertTrue(newKsProfile.getCommand("url").getArguments().contains("/ks/dist/org/"));
         
         Channel c1 = ChannelFactoryTest.createTestChannel(admin);
         Channel c2 = ChannelFactoryTest.createTestChannel(admin);
@@ -636,7 +636,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
                 profileLabel, admin.getOrg().getId());
         assertNotNull(newKsProfile);
-        assertTrue(newKsProfile.getCommand("url").getArguments().contains("http"));
+        assertTrue(newKsProfile.getCommand("url").getArguments().contains("/ks/dist/org/"));
         return newKsProfile;
     }
 }
