@@ -393,7 +393,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         assertNull(data.getCommand("nfs"));
         KickstartCommand urlCmd = data.getCommand("url"); 
         assertNotNull(urlCmd);
-        assertTrue(urlCmd.getArguments().startsWith("http://"));
+        assertTrue(urlCmd.getArguments().startsWith("/ks/dist/org/"));
     }
     
     
