@@ -158,6 +158,7 @@ public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
         addRequestParameter("date_hour", "8");
         addRequestParameter("date_minute", "0");
         addRequestParameter("date_am_pm", "1");
+        addRequestParameter(RequestContext.COBBLER_ID, k.getCobblerId());
         actionPerform();
         verifyNoActionErrors();
         assertNotNull(request.getAttribute(RequestContext.KICKSTART));
@@ -217,6 +218,7 @@ public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
         addRequestParameter("date_hour", "8");
         addRequestParameter("date_minute", "0");
         addRequestParameter("date_am_pm", "1");
+        addRequestParameter(RequestContext.COBBLER_ID, k.getCobblerId());
         actionPerform();
         verifyActionMessage("kickstart.schedule.success");
         assertEquals(getActualForward(), 
