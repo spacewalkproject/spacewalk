@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.1.13
+Version: 0.1.14
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 0.1.14-1
+- 497424 - Slight redesign of the KS Virt UI to deal with duplicate virt paths (paji@redhat.com)
+
 * Wed May 06 2009 jesus m. rodriguez <jesusr@redhat.com> 0.1.13-1
 - 497871 - fixing issue where guest provisioning would show as succesful even
   when it had failed (jsherril@redhat.com)
