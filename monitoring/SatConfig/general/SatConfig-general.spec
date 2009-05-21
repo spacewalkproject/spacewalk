@@ -2,7 +2,7 @@
 %define hb_res_dir     %{_sysconfdir}/ha.d/resource.d
 %define installed_dir  %sysv_dir/installed
 Name:         SatConfig-general
-Version:      1.216.8
+Version:      1.216.9
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - general setup, used by many packages
 URL:          https://fedorahosted.org/spacewalk
@@ -61,6 +61,9 @@ ln -s ../../rc.d/np.d/hbResource $RPM_BUILD_ROOT%hb_res_dir/ClusterLeader
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 1.216.9-1
+- 499564 - start InstallSoftwareConfig only when it's due (mzazrivec@redhat.com)
+
 * Tue Mar  3 2009 Miroslav Suchý <msuchy@redhat.com> 1.216.8-1
 - 487280 - start/stop Monitoring without the spam on console
 
