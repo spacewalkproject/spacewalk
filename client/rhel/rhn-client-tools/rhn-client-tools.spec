@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.4.25
+Version: 0.4.26
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -204,6 +204,35 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 0.4.26-1
+- new build (pkilambi@redhat.com)
+- 501316 - chnaging the network switch to always send network info by default
+  unless there is a skipNetwork flag. This helps the upgrades issues where the
+  config file gets saved by rpms and causing issues (pkilambi@redhat.com)
+- merging additional spec changes and minor edits from svn
+  (pkilambi@redhat.com)
+- 467866 - catch the BadStatusLine and let use know that the server is
+  unavailable temporarily (pkilambi@redhat.com)
+-  -adding missing config option (pkilambi@redhat.com)
+- Send smbios data in the new_system() call (jbowes@redhat.com)
+- 499860 Ability to define location for the temporary transport file
+  descriptors, uses /tmp by default (pkilambi@redhat.com)
+- 479706 - send network and netInterface information on hardware probing during
+  registration and profile sync is now an option and on by default. Users who
+  do not wish to send network information can jus trun off sendNetwork option
+  in the config. (pkilambi@redhat.com)
+-  Letting firstboot know if the system is already registered through a
+  kickstart so it would'nt prompt the user to re register during firstboot
+  sequence (pkilambi@redhat.com)
+- Throw an InvalidRedirectionError if redirect url does'nt fetch the package
+  (pkilambi@redhat.com)
+- adding NoSystemIdError exception class for 444581 (pkilambi@redhat.com)
+- 467139 - fixing the rhn_check's action name to work for different locale
+  (pkilambi@redhat.com)
+- 491258 - adding check to see if haldaemon or messagebus is running. If not
+  warn the user with right message and dont probe the hal and dmi as we'll
+  obviously get a dbus_exception. (pkilambi@redhat.com)
+
 * Mon May 18 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.4.20-5
 - Resolves: #501316
 
