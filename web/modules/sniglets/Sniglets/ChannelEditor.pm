@@ -438,7 +438,6 @@ sub build_clone_channel_details_form {
   my $subscribable = $ds->execute_query(-u_id => $pxt->user->id, -org_id => $pxt->user->org_id);
   my %perm_map = map { ($_->{ID}, 1) }
     grep { $_->{HAS_PERM} } @{$subscribable};
-
   @channel_list = grep { $perm_map{$_->{ID}} } @channel_list;
 
   my $clone_id = $pxt->dirty_param('clone_from') || 0;
@@ -453,7 +452,9 @@ sub build_clone_channel_details_form {
 							label => 'clone_from');
 
   my @my_channels = grep {$_->{CHANNEL_ORG_ID} and $_->{CHANNEL_ORG_ID} == $pxt->user->org_id} @channel_list;
-  my @other_channels = grep { not ($_->{CHANNEL_ORG_ID} and $_->{CHANNEL_ORG_ID} == $pxt->user->org_id) } @channel_list;
+##  my @other_channels = grep { not ($_->{CHANNEL_ORG_ID} and $_->{CHANNEL_ORG_ID} == $pxt->user->org_id) } @channel_list;
+  ##bugzilla
+  my @other_channels = grep { not ($_->{CHANNEL_ORG_ID}) } @channel_list;
 
   my @options = ( { NAME => 'My Channels', ID => 'my_channels', DEPTH => 1, OPTGROUP => 1 },
 		 @my_channels,
