@@ -9556,7 +9556,7 @@ Please note that some manual configuration of these scripts may still be require
     </trans-unit>
 
     <trans-unit id="kickstartdelete.jsp.summary1">
-        <source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its associated system and corresponding options.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
+        <source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its corresponding options and scripts.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/KickstartDeleteSetup</context>
         </context-group>
