@@ -1,7 +1,7 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
 Source: %{name}-%{version}.tar.gz
-Version: 0.5.4
+Version: 0.5.5
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -59,6 +59,25 @@ make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RP
 
 
 %changelog
+* Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.5-1
+- merging additional spec changes and minor edits from svn (pkilambi@redhat.com)
+- 467866 - catch the BadStatusLine and let use know that the server is
+  unavailable temporarily (pkilambi@redhat.com)
+- 489396 - remove limitation of rhn auth refresh for only 401 errors (jmatthew@redhat.com)
+- Throw an InvalidRedirectionError if redirect url does'nt fetch the package
+  (pkilambi@redhat.com)
+- updating translations (pkilambi@redhat.com)
+- 465340 - clean up loginAuth.pkl along with rest of the cache while yum clean
+  all. This file should get recreated when the clients checks in with RHN
+  again. (pkilambi@redhat.com)
+- cleanup imports (pkilambi@redhat.com)
+- 481042 - handle ssl timeout exceptions raised from m2crypto more gracefully (pkilambi@redhat.com)
+- 448245 - adding a single global module level reference to yumAction so
+  rhn_check uses this for all package related actions as a single instance
+  instead of reloading yum configs each time (pkilambi@redhat.com)
+- 491127 - fixing the package actions to  inspect the error codes and raise
+  except (pkilambi@redhat.com)
+
 * Tue May 12 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.4-7%{?dist}
 - Resolves: #467866  #489396
 
