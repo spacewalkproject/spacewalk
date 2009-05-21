@@ -141,14 +141,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param($date, "endDate")
      * @xmlrpc.returntype
      *      #array()
-     *          #struct("package")
-     *              #prop("string", "name")
-     *              #prop("string", "version")
-     *              #prop("string", "release")
-     *              #prop("string", "epoch")
-     *              #prop("string", "id")
-     *              #prop("string", "arch_label")
-     *          #struct_end()
+     *              $PackageDtoSerializer
      *      #array_end()
      */
     public Object[] listAllPackages(String sessionKey, String channelLabel,
@@ -177,14 +170,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param($date, "startDate")
      * @xmlrpc.returntype
      *      #array()
-     *          #struct("package")
-     *              #prop("string", "name")
-     *              #prop("string", "version")
-     *              #prop("string", "release")
-     *              #prop("string", "epoch")
-     *              #prop("string", "id")
-     *              #prop("string", "arch_label")
-     *          #struct_end()
+     *              $PackageDtoSerializer
      *      #array_end()
      */
     public Object[] listAllPackages(String sessionKey, String channelLabel,
@@ -306,6 +292,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *              #prop("string", "epoch")
      *              #prop("string", "id")
      *              #prop("string", "arch_label")
+     *              #prop("string", "last_modified")
      *          #struct_end()
      *      #array_end()
      */
@@ -345,6 +332,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *              #prop("string", "epoch")
      *              #prop("string", "id")
      *              #prop("string", "arch_label")
+     *              #prop("string", "last_modified")
      *          #struct_end()
      *      #array_end()
      */
@@ -376,6 +364,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *              #prop("string", "epoch")
      *              #prop("string", "id")
      *              #prop("string", "arch_label")
+     *              #prop("string", "last_modified")
      *          #struct_end()
      *      #array_end()
      */
