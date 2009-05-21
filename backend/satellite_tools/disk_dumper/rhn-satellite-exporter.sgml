@@ -70,7 +70,7 @@ A tool that exports satellite content into a directory in an XML format. That co
         <arg>--traceback-mail</arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>--db</arg>
+        <arg>--db=<replaceable>DBUSERNAME/DBPASSWORD@DBSID</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>--help</arg>
@@ -218,7 +218,7 @@ A tool that exports satellite content into a directory in an XML format. That co
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>--db</term>
+        <term>--db=<replaceable>DBUSERNAME/DBPASSWORD@DBSID</replaceable></term>
         <listitem>
             <para>Extract information from this database. The value must be an Oracle connection string that is configured in your tnsnames.ora file.</para>
         </listitem>
