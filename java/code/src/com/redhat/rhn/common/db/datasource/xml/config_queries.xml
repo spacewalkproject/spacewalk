@@ -368,7 +368,9 @@ SELECT S.id,
      AND  ST.label = :set
      AND  NOT EXISTS ( select 1 FROM  rhnClientCapability CC
             		inner join  rhnClientCapabilityName CCN on CC.capability_name_id = CCN.id
-            		where CC.server_id = S.id and CCN.name LIKE 'configfiles%')
+            		inner join rhnServerFeaturesView SFV on SFV.server_id = CC.server_id
+            		where CC.server_id = S.id and CCN.name LIKE 'configfiles%' AND 
+            			SFV.label = 'ftr_config')
 ORDER BY  S.name
   </query>
   <elaborator name="non_managed_elaborator" />
