@@ -20776,6 +20776,10 @@ given channel.</source>
 			<source>Packages</source>
       </trans-unit>                                
       
+     <trans-unit id="package.jsp.menu.patches">
+			<source>Patches</source>
+      </trans-unit>                                
+      
       <trans-unit id="package.jsp.menu.patchclusters">
 			<source>Patch Clusters</source>
       </trans-unit>            
