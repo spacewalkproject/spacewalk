@@ -470,6 +470,8 @@ def sanitizeValue(value, datatype):
     if isinstance(datatype, DBblob):
         if value is None:
             value = ''
+        if isinstance(value, unicode):
+            value = unicode.encode(value, 'utf-8')
         return str(value)
     if value in [None, '']:
         return None
