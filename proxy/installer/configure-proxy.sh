@@ -193,6 +193,12 @@ SYSTEM_ID=$(/usr/bin/xsltproc /usr/share/rhn/get_system_id.xslt $SYSCONFIG_DIR/s
 DIR=/usr/share/doc/proxy/conf-template
 HOSTNAME=$(hostname)
 
+SSL_BUILD_DIR=${SSL_BUILD_DIR:-/root/ssl-build}
+if ! [ -d $SSL_BUILD_DIR ]; then
+	echo "Error: ssl build directory $SSL_BUILD_DIR do not exist."
+	exit 1
+fi
+
 default_or_input "RHN Parent" RHN_PARENT $(awk -F= '/serverURL=/ {split($2, a, "/")} END { print a[3]}' $SYSCONFIG_DIR/up2date)
 
 if [ "$RHN_PARENT" == "rhn.redhat.com" ]; then
@@ -218,7 +224,7 @@ if [ 0$FORCE_OWN_CA -gt 0 ] || \
 	cat <<CA_KEYS
 Please do copy your CA key and public certificate from $RHN_PARENT to 
 /root/ssl-build directory. You may want to execute this command:
- mkdir $SSL_BUILD_DIR; scp 'root@$RHN_PARENT:/root/ssl-build/RHN-ORG-{PRIVATE-SSL-KEY,TRUSTED-SSL-CERT,rhn-ca-openssl.cnf}' $SSL_BUILD_DIR
+ scp 'root@$RHN_PARENT:/root/ssl-build/{RHN-ORG-PRIVATE-SSL-KEY,RHN-ORG-TRUSTED-SSL-CERT,rhn-ca-openssl.cnf}' $SSL_BUILD_DIR
 CA_KEYS
 	exit 1
 fi
