@@ -59,18 +59,17 @@ class ConfigParserError(Exception):
 
 class RHNOptions:
 
-    __component = None
-    # Defaults for each option, keyed on tuples
-    __defaults = {}
-    # Parsed config file, keyed on tuples
-    __parsedConfig = {}
-    # Dictionary used as a cache (to avoid looking up options all over the
-    # place). Keyed on strings (component names)
-    __configs = {}
-    # Last modification date for the config file
-    __timestamp = 0
-
     def __init__(self, component=None, root=None, file=None):
+        self.__component = None
+        # Defaults for each option, keyed on tuples
+        self.__defaults = {}
+        # Parsed config file, keyed on tuples
+        self.__parsedConfig = {}
+        # Dictionary used as a cache (to avoid looking up options all over the
+        # place). Keyed on strings (component names)
+        self.__configs = {}
+        # Last modification date for the config file
+        self.__timestamp = 0
         # NOTE: root: root directory location of config files.
         self._init(component, root, file)
 
