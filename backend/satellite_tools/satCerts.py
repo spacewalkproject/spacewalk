@@ -28,7 +28,7 @@ from server import rhnSQL
 from server.rhnServer import satellite_cert
 from common.rhnTB import fetchTraceback
 from common.rhn_rpm import getInstalledHeader
-
+from common.rhnConfig import RHNOptions
 
 #
 # RHN certificate section
@@ -300,10 +300,9 @@ def storeRhnCert(cert, check_generation=0, check_version=0):
     # always reset the slots
     set_slots_from_cert(sc)
 
-    # Assume that if NPalert is installed, monitoring is supported so we should
-    # push configs:
-    npalert_header = getInstalledHeader("NPalert")
-    if npalert_header is not None:
+    cfg = RHNOptions('web')
+    cfg.parse()
+    if cfg.get('is_monitoring_backend') == 1:
         org_id = get_org_id()
         push_monitoring_configs(org_id)
 
