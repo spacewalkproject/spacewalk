@@ -8053,6 +8053,9 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="system.customkey.error.tooshort">
         <source>A Custom Key label and description must be at least two characters long.</source>
       </trans-unit>
+     <trans-unit id="system.customkey.error.invalid">
+        <source>A Custom Key label can only contain letters, numbers, hyphens (-), and underscores (_).</source>
+      </trans-unit>
      <trans-unit id="system.customkey.addsuccess">
         <source>Successfully added 1 custom key.</source>
       </trans-unit>
