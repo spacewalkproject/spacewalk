@@ -54,7 +54,10 @@ class rpmPackage(IncompletePackage):
                     val = gmtime(val)
             elif val:
                 # Convert to strings
-                val = str(val)
+                if isinstance(val, unicode):
+                    val = unicode.encode(val, 'utf-8')
+                else:
+                    val = str(val)
             elif val == []:
                 val = None
             self[f] = val
