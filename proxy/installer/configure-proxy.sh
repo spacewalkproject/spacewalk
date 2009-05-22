@@ -212,7 +212,7 @@ USE_SSL=$(yes_no $USE_SSL)
 
 default_or_input "CA Chain" CA_CHAIN $(awk -F'[=;]' '/sslCACert=/ {a=$2} END { print a}' $SYSCONFIG_DIR/up2date)
 
-if [0$FORCE_OWN_CA -gt 0 ] || \
+if [ 0$FORCE_OWN_CA -gt 0 ] || \
 	[ "$RHN_PARENT" != "xmlrpc.rhn.redhat.com" -a ! -f /root/ssl-build/RHN-ORG-PRIVATE-SSL-KEY ] && \
 	! diff $CA_CHAIN /root/ssl-build/RHN-ORG-TRUSTED-SSL-KEY &>/dev/null; then
 	cat <<CA_KEYS
