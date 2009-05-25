@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon May 25 2009 Miroslav Suchy <msuchy@redhat.com>
+- 502476 - rhn_sat_node should have uniq constraint on column server_id
+
 * Mon May 18 2009 Jan Pazdziora 0.6.6-1
 - spacewalk-schema-upgrade: add support for reference files
 - 498467 - Forgot to update the create scripts with the new column length
