@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.6.6
+Version:        0.6.7
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -52,7 +52,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
-* Mon May 25 2009 Miroslav Suchy <msuchy@redhat.com>
+* Mon May 25 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.7-1
 - 502476 - rhn_sat_node should have uniq constraint on column server_id
 
 * Mon May 18 2009 Jan Pazdziora 0.6.6-1
