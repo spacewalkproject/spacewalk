@@ -17,6 +17,9 @@ package com.redhat.rhn.frontend.action.configuration.files;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigFile;
+
+import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.rhnset.RhnSetFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.configuration.ConfigActionHelper;
 import com.redhat.rhn.frontend.listview.PageControl;
@@ -24,6 +27,13 @@ import com.redhat.rhn.frontend.struts.BaseSetListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
 
 /**
  * GlobalRevisionDeploySetup
@@ -57,4 +67,25 @@ public class GlobalRevisionDeploySetup extends BaseSetListAction {
     public RhnSetDecl getSetDecl() {
         return RhnSetDecl.CONFIG_FILE_DEPLOY_SYSTEMS;
     }
+
+    /** {@inheritDoc} */
+    public ActionForward execute(ActionMapping mapping,
+                                 ActionForm formIn,
+                                 HttpServletRequest request,
+                                 HttpServletResponse response) {
+
+        RequestContext requestContext = new RequestContext(request);
+
+        // Clear the set of systems if this is a new request, prevents stale system
+        // selections from hanging around if the user didn't complete their previous
+        // attempt:
+        if (!requestContext.isSubmitted()) {
+            RhnSet set = getSetDecl().get(requestContext.getCurrentUser());
+            set.clear();
+            RhnSetFactory.save(set);
+        }
+
+        return super.execute(mapping, formIn, request, response);
+    }
+
 }
