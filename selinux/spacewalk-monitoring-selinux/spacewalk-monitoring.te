@@ -150,3 +150,7 @@ allow spacewalk_monitoring_t mysqld_port_t:tcp_socket name_connect;
 allow spacewalk_monitoring_t usr_t:file { read getattr };
 
 allow spacewalk_monitoring_t ssh_port_t:tcp_socket name_connect;
+
+files_read_etc_runtime_files(spacewalk_monitoring_t)
+files_search_all(spacewalk_monitoring_t)
+fs_getattr_all_fs(spacewalk_monitoring_t)
