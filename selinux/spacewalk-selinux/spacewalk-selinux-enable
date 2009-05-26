@@ -19,7 +19,7 @@ while [ -n "$1" ] ; do
 done
 
 if [ -z "$RUN_PURE" ] ; then
-	RUN_PRE="oracle-instantclient-selinux oracle-instantclient-sqlplus-selinux"
+	RUN_PRE="oracle-nofcontext-selinux oracle-instantclient-selinux oracle-instantclient-sqlplus-selinux"
 	RUN_POST="oracle-rhnsat-selinux oracle-xe-selinux spacewalk-monitoring-selinux jabberd-selinux osa-dispatcher-selinux"
 fi
 
