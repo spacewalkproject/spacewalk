@@ -158,3 +158,5 @@ corenet_tcp_bind_all_rpc_ports(spacewalk_monitoring_t)
 corenet_udp_bind_all_rpc_ports(spacewalk_monitoring_t)
 corenet_tcp_bind_all_nodes(spacewalk_monitoring_t)
 corenet_udp_bind_all_nodes(spacewalk_monitoring_t)
+
+corenet_tcp_connect_ftp_port(spacewalk_monitoring_t)
