@@ -120,6 +120,11 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
                 getLabel().equals(KickstartVirtualizationType.PARA_HOST)) {
             profile.setVirtType(KickstartVirtualizationType.XEN_PARAVIRT);
         }
+        //If we're using NONE, use KVM fully virt
+        else if (ksData.getKickstartDefaults().getVirtualizationType().
+                getLabel().equals(KickstartVirtualizationType.NONE)) {
+            profile.setVirtType(KickstartVirtualizationType.KVM_FULLYVIRT);
+        }
         else {
             profile.setVirtType(ksData.getKickstartDefaults().
                     getVirtualizationType().getLabel());

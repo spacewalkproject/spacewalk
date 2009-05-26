@@ -331,7 +331,7 @@ public class CreateProfileWizardAction extends RhnWizardAction {
         List types = cmd.getVirtualizationTypes();
         form.set(VIRTUALIZATION_TYPES_PARAM, types);
         form.set(VIRTUALIZATION_TYPE_LABEL_PARAM,
-                                KickstartVirtualizationType.KVM_FULLYVIRT);
+                                KickstartVirtualizationType.NONE);
     }
     
     private void setCurrentChannel(DynaActionForm form) {
