@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        0.6.0
+Version:        0.6.1
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -162,6 +162,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue May 26 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.1-1
+- 470335 - Fixed the name error where the class was not called from cPickle
+  (pkilambi@redhat.com)
+
 * Fri May 01 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.0-1
 - Bump version up for 0.6.
 
