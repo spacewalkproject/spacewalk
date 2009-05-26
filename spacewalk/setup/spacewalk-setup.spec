@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.6.5
+Version:        0.6.6
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -97,6 +97,10 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Tue May 26 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.6-1
+- 500688 - Clarify --run-updater help info in spacewalk-setup.
+  (dgoodwin@redhat.com)
+
 * Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.5-1
 - 499901 - made cobbler sync run along with cobbler setup (paji@redhat.com)
 - Make SELinux documentation in Spacewalk::Setup more up-to-date. (jpazdziora@redhat.com)
