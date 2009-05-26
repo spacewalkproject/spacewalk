@@ -3,7 +3,72 @@ package Oracle::TNSping;
 use strict;
 
 use Error qw(:try);
-use Net::Ping;
+use IO::Socket::INET;
+use Time::HiRes;
+
+# based on 
+# http://www.jammed.com/~jwa/hacks/security/tnscmd/tnscmd
+
+sub tnscmd {
+    my ($command, $hostname, $port, $timeout) = @_;
+
+    my $cmdlen = length ($command);
+    my $clenH = $cmdlen >> 8;
+    my $clenL = $cmdlen & 0xff;
+
+    # calculate packet length
+    my $packetlen = length($command) + 58; # "preamble" is 58 bytes
+    my $plenH = $packetlen >> 8;
+    my $plenL = $packetlen & 0xff;
+
+    # decimal offset
+    # 0:   packetlen_high packetlen_low
+    # 26:  cmdlen_high cmdlen_low
+    # 58:  command
+
+    # the packet.
+    my (@packet) = (
+        $plenH, $plenL, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
+        0x01, 0x36, 0x01, 0x2c, 0x00, 0x00, 0x08, 0x00,
+        0x7f, 0xff, 0x7f, 0x08, 0x00, 0x00, 0x00, 0x01,
+        $clenH, $clenL, 0x00, 0x3a, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x34, 0xe6, 0x00, 0x00,
+        0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00
+        );
+
+    for (my $i=0;$i<length($command);$i++) {
+        push(@packet, ord(substr($command, $i, 1)));
+    }
+
+    my ($sendbuf) = pack("C*", @packet);
+
+    my ($tns_sock) = IO::Socket::INET->new(
+        PeerAddr => $hostname,
+        PeerPort => $port,
+        Proto => 'tcp',
+        Type => SOCK_STREAM,
+        Timeout => $timeout) or return (-1, '');
+    $tns_sock->autoflush(1);
+
+    my ($count) = syswrite($tns_sock, $sendbuf, length($sendbuf));
+
+    if ($count != length($sendbuf)) {
+        # only wrote $count bytes?!
+        return (-2, '');
+    }
+
+    # get fun data
+    # 1st 12 bytes have some meaning which so far eludes me
+    my ($buf, $recvbuf);
+    # read until socket EOF
+    while (sysread($tns_sock, $buf, 128)) {
+        $recvbuf .= $buf;
+    }
+    close ($tns_sock);
+    return (1, $recvbuf);
+}
 
 sub run {
     my %args = @_;
@@ -11,17 +76,18 @@ sub run {
     my $result  = $args{result};
     my %params  = %{$args{params}};
 
-    my $p = Net::Ping->new("tcp", $params{'timeout'});
-    $p->hires(1);
-    if (my ($return_code, $time, $resolved_ip) = $p->ping($params{'ip'})) {
-        if ($return_code) {
-	    $result->context("TNS Listener");
-            $result->metric_value('latency', $time, '%.3f'); 
-        } else {
-	    $result->item_critical("Host is unreachable ", $resolved_ip);
-        }
+    my $start= Time::HiRes::time();
+    my ($code, $response)=tnscmd("(CONNECT_DATA=(COMMAND=ping))",
+        $params{'hostname'}, $params{'port'}, $params{'timeout'});
+    my $time=Time::HiRes::time()-$start;
+
+    if ($code <= 0) {
+        $result->item_critical("Could not connect to host ", $params{'hostname'});
+    } elsif ($response =~ /\(ERR=\d+\)/) {
+        $result->context("TNS Listener");
+        $result->metric_value('latency', $time, '%.3f');
     } else {
-	$result->item_unknown("Hostname cannot be found or there is a problem with the IP number ", $params{'ip'});
+        $result->item_critical("Error from Oracle: ", $1);
     }
 }
 
@@ -59,6 +125,8 @@ L<NOCpulse::Probe::Result>
 
 Copyright (c) 2008 Red Hat, Inc.,
 Miroslav Suchy <msuchy@redhat.com>
+
+jwa@jammed.com (tnscmd function)
 
 Permission is granted to copy, distribute and/or modify this 
 document under the terms of the GNU Free Documentation 
