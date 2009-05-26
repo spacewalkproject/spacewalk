@@ -16085,9 +16085,9 @@ any of these revisions.  Are you sure you want to do this?</source>
          <source>Verifiable Packages</source>
        </trans-unit>
        <trans-unit id="ssm.package.verify.select.summary">
-         <source>Packages listed below may be removed from one or more systems.
+         <source>Packages listed below may be verified on one or more systems.
 
-            Select one or more and click the &lt;b&gt;Verify Selected Packages&lt;/b&gt; button to schedule package removal.
+            Select one or more and click the &lt;b&gt;Verify Selected Packages&lt;/b&gt; button to schedule package verification.
          </source>
        </trans-unit>
        <trans-unit id="ssm.package.verify.select.confirm">
