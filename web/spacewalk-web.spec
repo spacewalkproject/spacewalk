@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.6
+Version: 0.6.7
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -317,6 +317,12 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue May 26 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.7-1
+- 500429 - removed join against rhnSharedChannelView to remove dup entries
+  (shughes@redhat.com)
+- Clear selected packages when merging channel contents. (dgoodwin@redhat.com)
+- 494966 - don't allow users to clone shared channels (shughes@redhat.com)
+
 * Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.6-1
 - 501376 - api - deprecate system.applyErrata (bbuckingham@redhat.com)
 - 499667 - Implemented option 2 presented in the BZ: allow comparision of any
