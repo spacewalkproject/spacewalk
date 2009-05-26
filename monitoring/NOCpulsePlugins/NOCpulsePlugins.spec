@@ -65,6 +65,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue May 26 2009 Miroslav Suchý <msuchy@redhat.com>
+- 474279 - rewrite TNSping probe (take 2)
+
 * Mon May 11 2009 Milan Zazrivec <mzazrivec@redhat.com> 2.208.7-1
 - 498257 - migrate existing files into new nocpulse homedir
 
