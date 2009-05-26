@@ -37,6 +37,7 @@ public class KickstartVirtualizationType
     public static final String XEN_FULLYVIRT = "xenfv";
     public static final String KVM_FULLYVIRT = "qemu";
     public static final String PARA_HOST  = "para_host";
+    public static final String NONE  = "none";
 
     private Long id;
     private String label;
@@ -71,6 +72,13 @@ public class KickstartVirtualizationType
      */    
     public static KickstartVirtualizationType paraHost() {
         return KickstartFactory.lookupKickstartVirtualizationTypeByLabel(PARA_HOST);
+    }
+
+    /**
+     * @return the Kickstart Virtualization type associated to para host
+     */
+    public static KickstartVirtualizationType none() {
+        return KickstartFactory.lookupKickstartVirtualizationTypeByLabel(NONE);
     }
     
     /** 

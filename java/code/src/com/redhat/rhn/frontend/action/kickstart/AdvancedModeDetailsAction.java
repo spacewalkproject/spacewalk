@@ -182,7 +182,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
         
         if (isCreateMode(context.getRequest())) {
             form.set(VIRTUALIZATION_TYPE_LABEL_PARAM, 
-                    KickstartVirtualizationType.KVM_FULLYVIRT);
+                    KickstartVirtualizationType.NONE);
         }
         else {
             KickstartRawData data = getKsData(context);
