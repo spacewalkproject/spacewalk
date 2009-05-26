@@ -76,7 +76,7 @@ unlock() {
 
 removeindex() {
     SEARCH_CLASS_PATH=`build-classpath-directory /usr/share/rhn/search/lib /usr/share/java/ojdbc14.jar`
-    CLASSPATH=${SEARCH_CLASS_PATH} exec java com.redhat.satellite.search.DeleteIndexes
+    CLASSPATH=${SEARCH_CLASS_PATH} java com.redhat.satellite.search.DeleteIndexes
 }
 
 # Do not modify anything beyond this point
@@ -383,6 +383,7 @@ case "$1" in
         stopit
         unlock
         removeindex
+        start
         ;;
 
     *)
