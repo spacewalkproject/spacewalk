@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.8
+Version: 0.6.9
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -112,6 +112,10 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Tue May 26 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.9-1
+- 501925 - "rhn-search cleanindex" will now restart search after cleaning index
+  (jmatthew@redhat.com)
+
 * Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.8-1
 - 457350 - added package search apis to match functionality webui provides (jmatthew@redhat.com)
 - Fixing "free form" search.  Adding a boolean flag which when passed (jmatthew@redhat.com)
