@@ -4,7 +4,7 @@ use strict;
 
 use Error qw(:try);
 use IO::Socket::INET;
-use Time::HiRes;
+use Time::HiRes ();
 
 # based on 
 # http://www.jammed.com/~jwa/hacks/security/tnscmd/tnscmd
@@ -52,11 +52,12 @@ sub tnscmd {
         Timeout => $timeout) or return (-1, '');
     $tns_sock->autoflush(1);
 
-    my ($count) = syswrite($tns_sock, $sendbuf, length($sendbuf));
-
-    if ($count != length($sendbuf)) {
-        # only wrote $count bytes?!
-        return (-2, '');
+    my $count = length($sendbuf);
+    my $offset = 0;
+    while ($count > 0) {
+        my $written = syswrite($tns_sock, $sendbuf, $count, $offset);
+        $count -= $written;
+        $offset += $written;
     }
 
     # get fun data
