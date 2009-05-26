@@ -781,6 +781,8 @@
             <form-property name="bootimage" type="java.lang.String"/>
             <form-property name="channelid" type="java.lang.Long"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
+            <form-property name="kernelopts" type="java.lang.String"/>
+            <form-property name="postkernelopts" type="java.lang.String"/>
         </form-bean>
         
         <form-bean name="treeDeleteForm"
