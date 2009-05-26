@@ -11,7 +11,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.21
+Version: 0.6.22
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -248,6 +248,25 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Tue May 26 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.22-1
+- 500366 - ssm pkg verify - fix string in resource bundle
+  (bbuckingham@redhat.com)
+- 501389 - splitting up virt types none and kvm guests, as well as improving
+  virt type names (jsherril@redhat.com)
+- 500444 - Clear system set when beginning a new config deploy pageflow.
+  (dgoodwin@redhat.com)
+- 492902 - Updated a config target systems query to include unprovisioned
+  machines (paji@redhat.com)
+- 502146 - Added validation to custom system info key label to line up with
+  macro argument validation. (jason.dobies@redhat.com)
+- 502186 - Added missing resource key for solaris patches
+  (jason.dobies@redhat.com)
+- adding missing slash on paths (jsherril@redhat.com)
+- 502068 - having cobbler distro create/edit/sync use correct kernel and initrd
+  for ppc distros (jsherril@redhat.com)
+- 457350 - adding api for package search with activation key
+  (jmatthew@redhat.com)
+
 * Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.21-1
 - cleanup duplicate changelog entry
 - 501837 - api - doc - update channel.software.listAllPackages / listAllPackagesByDate returns
