@@ -349,7 +349,7 @@ class Registration(rhnHandler):
                 smbios.has_key('smbios.system.uuid'):
 
                 newserv.virt_type = rhnVirtualization.VirtualizationType.FULLY
-                newserv.virt_uuid = smbios['smbios.bios.uuid'].replace('-', '')
+                newserv.virt_uuid = smbios['smbios.system.uuid'].replace('-', '')
 
         if tokens_obj.forget_rereg_token:
 	    # At this point we retained the server with re-activation
