@@ -880,6 +880,11 @@ sub channel_sync_prompt {
   my %s = (target_channel => sprintf("<strong>%s</strong>", $target->label),
 	   source_channel => sprintf("<strong>%s</strong>", $source->label));
 
+  # Clear the packages for merge set to remove any old selections:
+  my $set = RHN::Set->lookup(-label => 'packages_for_merge', -uid => $pxt->user->id);
+  $set->empty;
+  $set->commit;
+
   return PXT::Utils->perform_substitutions($params{__block__}, \%s);
 }
 
