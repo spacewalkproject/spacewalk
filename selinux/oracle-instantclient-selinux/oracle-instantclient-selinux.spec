@@ -55,7 +55,7 @@ done
 
 EOS
 
-cat <<'EOS' > %{buildroot}%{_sbindir}/%{name}-sqlplus-enable
+cat <<'EOS' > %{buildroot}%{_sbindir}/oracle-instantclient-sqlplus-selinux-enable
 #!/bin/bash
 
 /usr/sbin/semanage fcontext -a -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\..*/client.*/bin/sqlplus'
@@ -84,7 +84,7 @@ fi
 
 %post -n oracle-instantclient-sqlplus-selinux
 if /usr/sbin/selinuxenabled ; then
-   %{_sbindir}/%{name}-sqlplus-enable
+   %{_sbindir}/oracle-instantclient-sqlplus-selinux-enable
 fi
 
 %postun -n oracle-instantclient-sqlplus-selinux
@@ -99,7 +99,7 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %files -n oracle-instantclient-sqlplus-selinux
-%attr(0755,root,root) %{_sbindir}/%{name}-sqlplus-enable
+%attr(0755,root,root) %{_sbindir}/oracle-instantclient-sqlplus-selinux-enable
 
 %changelog
 * Mon May 11 2009 Jan Pazdziora 10.2-12
