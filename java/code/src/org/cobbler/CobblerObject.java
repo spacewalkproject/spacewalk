@@ -15,6 +15,8 @@
 
 package org.cobbler;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -283,12 +285,72 @@ public abstract class CobblerObject {
         return (Map<String, Object>)dataMap.get(KERNEL_OPTIONS);
     }
 
+    /**
+     * gets the kernel options in string form
+     * @return the string
+     */
+    public String getKernelOptionsString() {
+        return convertOptionsMap(getKernelOptions());
+    }
+
+    /**
+     * gets the kernel post options in string form
+     * @return the string
+     */
+    public String getKernelPostOptionsString() {
+        return convertOptionsMap(getKernelPostOptions());
+    }
+
+    private String convertOptionsMap(Map<String, Object> map) {
+        StringBuilder string = new StringBuilder();
+        for (Object key : map.keySet()) {
+            if (StringUtils.isEmpty((String)map.get(key))) {
+                string.append(key + " ");
+            }
+            else {
+                string.append(key + "=" + map.get(key) + " ");
+            }
+        }
+        return string.toString();
+    }
+
     
     /**
      * @param kernelOptionsIn the kernelOptions to set
      */
     public void setKernelOptions(Map<String, Object> kernelOptionsIn) {
         modify(SET_KERNEL_OPTIONS, kernelOptionsIn);
+    }
+
+    /**
+     * @param kernelOptsIn the kernelOptions to set
+     */
+    public void setKernelOptions(String kernelOptsIn) {
+        setKernelOptions(parseKernelOpts(kernelOptsIn));
+    }
+
+
+    /**
+     * @param kernelOptsIn the kernelOptions to set
+     */
+    public void setKernelPostOptions(String kernelOptsIn) {
+        setKernelPostOptions(parseKernelOpts(kernelOptsIn));
+    }
+
+    private Map<String, Object> parseKernelOpts(String kernelOpts) {
+        Map<String, Object> toRet = new HashMap<String, Object>();
+
+        String[] options = StringUtils.split(kernelOpts);
+        for (String option : options) {
+            String[] split = option.split("=");
+            if (split.length == 1) {
+                toRet.put(split[0], "");
+            }
+            else if (split.length == 2) {
+                toRet.put(split[0], split[1]);
+            }
+        }
+        return toRet;
     }
 
     

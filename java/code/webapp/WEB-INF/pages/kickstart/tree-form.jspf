@@ -43,5 +43,20 @@
                 </c:choose>
               </td>
             </tr>
+
+            <tr>
+              <th><bean:message key="kickstartdetails.jsp.kernel_options"/>:</th>
+              <td>
+               <html:text property="kernelopts" maxlength="256" size="64" />
+              </td>
+            </tr>
+
+             <tr>
+              <th><bean:message key="kickstartdetails.jsp.post_kernel_options"/>:</th>
+              <td>
+               <html:text property="postkernelopts" maxlength="256" size="64" />
+              </td>
+            </tr>
+
           </c:if>          
       </table>
