@@ -356,7 +356,7 @@
 			</trans-unit>
 			<trans-unit id="Critical Buffer Cache Hit Ratio">
 				<source>Critical Buffer Cache Hit Ratio</source>
-				<target>Crítico: Cociente de éxito en buffer de caché</target>
+				<target>Crítico: Cociente de conexiones en buffer de cache</target>
 			</trans-unit>
 			<trans-unit id="Critical CLOSE_WAIT Connections">
 				<source>Critical CLOSE_WAIT Connections</source>
@@ -404,7 +404,7 @@
 			</trans-unit>
 			<trans-unit id="Critical Data Dictionary Hit Ratio">
 				<source>Critical Data Dictionary Hit Ratio</source>
-				<target>Crítico: Cociente de éxito en el diccionario de datos</target>
+				<target>Crítico: Cociente de conexiones en el diccionario de datos</target>
 			</trans-unit>
 			<trans-unit id="Critical Defunct Process Count">
 				<source>Critical Defunct Process Count</source>
@@ -464,7 +464,7 @@
 			</trans-unit>
 			<trans-unit id="Critical Library Cache Miss Ratio">
 				<source>Critical Library Cache Miss Ratio</source>
-				<target>Crítico: Tasa de pérdida en librería caché</target>
+				<target>Crítico: Tasa de pérdida en biblioteca cache</target>
 			</trans-unit>
 			<trans-unit id="Critical Line Rate">
 				<source>Critical Line Rate</source>
@@ -1024,7 +1024,7 @@
 			</trans-unit>
 			<trans-unit id="Warning Buffer Cache Hit Ratio">
 				<source>Warning Buffer Cache Hit Ratio</source>
-				<target>Advertencia: Cociente de éxito en buffer de caché</target>
+				<target>Advertencia: Cociente de éxito en buffer de cache</target>
 			</trans-unit>
 			<trans-unit id="Warning CLOSE_WAIT Connections">
 				<source>Warning CLOSE_WAIT Connections</source>
@@ -1132,7 +1132,7 @@
 			</trans-unit>
 			<trans-unit id="Warning Library Cache Miss Ratio">
 				<source>Warning Library Cache Miss Ratio</source>
-				<target>Advertencia: Tasa de pérdida en librería caché</target>
+				<target>Advertencia: Tasa de pérdida en biblioteca cache</target>
 			</trans-unit>
 			<trans-unit id="Warning Line Rate">
 				<source>Warning Line Rate</source>
@@ -1320,7 +1320,7 @@
 			</trans-unit>
 			<trans-unit id="metrics.Buffer cache hit ratio">
 				<source>Buffer cache hit ratio</source>
-				<target>Cociente de éxito en buffer de caché</target>
+				<target>Cociente de éxito en buffer de cache</target>
 			</trans-unit>
 			<trans-unit id="metrics.CLOSE_WAIT conns">
 				<source>CLOSE_WAIT conns</source>
@@ -1360,7 +1360,7 @@
 			</trans-unit>
 			<trans-unit id="metrics.Cache miss rate">
 				<source>Cache miss rate</source>
-				<target>Tasa de pérdida en caché</target>
+				<target>Tasa de pérdida en cache</target>
 			</trans-unit>
 			<trans-unit id="metrics.Child process groups">
 				<source>Child process groups</source>
@@ -1476,7 +1476,7 @@
 			</trans-unit>
 			<trans-unit id="metrics.Library cache miss ratio">
 				<source>Library cache miss ratio</source>
-				<target>Tasa de pérdida en librería caché</target>
+				<target>Tasa de pérdida en biblioteca cache</target>
 			</trans-unit>
 			<trans-unit id="metrics.Line rate">
 				<source>Line rate</source>
@@ -1788,7 +1788,7 @@
 			</trans-unit>
 			<trans-unit id="crit_max">
 				<source>Critical if above</source>
-				<target>Crítico: si es superior de</target>
+				<target>Crítico: si es superior a</target>
 			</trans-unit>
 			<trans-unit id="crit_min">
 				<source>Critical if below</source>
@@ -1796,11 +1796,11 @@
 			</trans-unit>
 			<trans-unit id="warn_max">
 				<source>Warn if above</source>
-				<target>Advertencia: si es superior de</target>
+				<target>Advertencia: si es superior a</target>
 			</trans-unit>
 			<trans-unit id="warn_min">
 				<source>Warn if below</source>
-				<target>Advertencia: si es inferior de</target>
+				<target>Advertencia: si es inferior a</target>
 			</trans-unit>
 			<trans-unit id="Active Locks">
 				<source>Active Locks</source>
@@ -1812,7 +1812,7 @@
 			</trans-unit>
 			<trans-unit id="Buffer Cache Hit Ratio">
 				<source>Buffer Cache Hit Ratio</source>
-				<target>Cociente de éxito en buffer de caché</target>
+				<target>Cociente de éxito en buffer de cache</target>
 			</trans-unit>
 			<trans-unit id="CLOSE_WAIT Connections">
 				<source>CLOSE_WAIT Connections</source>
@@ -1836,7 +1836,7 @@
 			</trans-unit>
 			<trans-unit id="Cache Miss Rate">
 				<source>Cache Miss Rate</source>
-				<target>Tasa de pérdida en caché</target>
+				<target>Tasa de pérdida en cache</target>
 			</trans-unit>
 			<trans-unit id="Child Process Groups">
 				<source>Child Process Groups</source>
@@ -1920,7 +1920,7 @@
 			</trans-unit>
 			<trans-unit id="Library Cache Miss Ratio">
 				<source>Library Cache Miss Ratio</source>
-				<target>Cociente de pérdida en librería caché</target>
+				<target>Cociente de pérdida en biblioteca cache</target>
 			</trans-unit>
 			<trans-unit id="Line Rate">
 				<source>Line Rate</source>
@@ -2320,7 +2320,7 @@
 			</trans-unit>
 			<trans-unit id="Data Dictionary Cache">
 				<source>Data Dictionary Cache</source>
-				<target>Caché del diccionario de datos</target>
+				<target>Cache del diccionario de datos</target>
 			</trans-unit>
 			<trans-unit id="Database Accessibility">
 				<source>Database Accessibility</source>
@@ -2392,7 +2392,7 @@
 			</trans-unit>
 			<trans-unit id="Library Cache">
 				<source>Library Cache</source>
-				<target>Librería caché</target>
+				<target>Biblioteca cache</target>
 			</trans-unit>
 			<trans-unit id="Load">
 				<source>Load</source>
@@ -2576,7 +2576,7 @@
 			</trans-unit>
 			<trans-unit id="kickstart.state.created">
 				<source>Kickstart session created but has not yet been used.</source>
-				<target>La sesión kickstart ha sido creada pero aun no ha sido utilizada.</target>
+				<target>La sesión kickstart ha sido creada pero aún no ha sido utilizada.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.deployed">
 				<source>Files required for kickstart action have been installed.</source>

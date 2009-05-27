@@ -68,7 +68,7 @@
 			</trans-unit>
 			<trans-unit id="guest.unlimited.hosts">
 				<source>Virtualization Platform Hosts</source>
-				<target>Virtualisierungs-Plattform-Hosts</target>
+				<target>Virtualisierungsplattform-Hosts</target>
 			</trans-unit>
 			<trans-unit id="guests.without.hosts">
 				<source>Guests Without Hosts</source>
@@ -468,7 +468,7 @@
 			</trans-unit>
 			<trans-unit id="Custom Info">
 				<source>Custom Info</source>
-				<target>Custom-Info</target>
+				<target>Angepasste Info</target>
 			</trans-unit>
 			<trans-unit id="Config Files">
 				<source>Config Files</source>

@@ -7042,8 +7042,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>Профиль кикстарта может быть отредактирован путем заполнения приведенной ниже формы. Поля, отмеченные звездочкой, являются обязательными.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdelete.jsp.summary1">
-				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its associated system and corresponding options.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
-				<target>Вы действительно хотите удалить этот кикстарт?&lt;p&gt;&lt;strong&gt;ПРЕДУПРЕЖДЕНИЕ: удаление кикстарта приведет к удалению связанной с ним системы и соответствующих параметров.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Нажмите кнопку только один раз, процесс удаления не займет много времени.&lt;/strong&gt;&lt;/p&gt;</target>
+				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its corresponding options and scripts.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
+				<target state="needs-review-translation">Вы действительно хотите удалить этот кикстарт?&lt;p&gt;&lt;strong&gt;ПРЕДУПРЕЖДЕНИЕ: удаление кикстарта приведет к удалению связанной с ним системы и соответствующих параметров.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Нажмите кнопку только один раз, процесс удаления не займет много времени.&lt;/strong&gt;&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.summary2">
 				<source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
@@ -12567,6 +12567,10 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 				<source>Virtual System Hardware Overrides</source>
 				<target>Переопределения оборудования виртуальной системы</target>
 			</trans-unit>
+			<trans-unit id="virtualization.provision.override.jsp.goto.advanced.options">
+				<source>By default virtual guest settings like memory, cpu and storage allocations will be inherited from your kickstart profile. If you want to override these settings click on &lt;strong&gt;{0}&lt;/strong&gt; button below.</source>
+				<target>Исходные настройки виртуальной гостевой системы, такие как объем памяти, процессор, распределение пространства, будут унаследованы от профиля кикстарта. Для переопределения этих настроек нажмите кнопку &lt;strong&gt;{0}&lt;/strong&gt;.</target>
+			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.guest_name.header">
 				<source>Guest Name:</source>
 				<target>Имя гостевой системы:</target>
@@ -14820,6 +14824,10 @@ given channel.</source>
 				<source>{0}</source>
 				<target>{0}</target>
 			</trans-unit>
+			<trans-unit id="channel.delete.jsp.toolbar">
+				<source>{0}</source>
+				<target>{0}</target>
+			</trans-unit>
 			<trans-unit id="channel.edit.jsp.basicchanneldetails">
 				<source>Basic Channel Details</source>
 				<target>Свойства базового канала</target>
@@ -14835,6 +14843,52 @@ given channel.</source>
 			<trans-unit id="channel.edit.jsp.security.gpg">
 				<source>Security: GPG</source>
 				<target>Безопасность: GPG</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.channelheader">
+				<source>Delete Channel</source>
+				<target state="needs-review-translation">удалить канал</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.introparagraph">
+				<source>Are you sure you wish to delete this channel? Packages in the channel will
+           be removed from the channel, but will remain on the server. You will be
+           given the option to delete them after the channel has been deleted. Errata
+           related to the channel will no longer be related to the channel, and may be
+           orphaned. If the channel has child channels, it cannot be deleted; the child
+           channels must be deleted first. If the channel has kickstart distributions
+           associated to it, it cannot be deleted; the kickstart distributions must be
+           dissociated from the channel or deleted first.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.arch">
+				<source>Architecture:</source>
+				<target state="needs-review-translation">Архитектура</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.totalpackages">
+				<source>Total Packages:</source>
+				<target state="needs-review-translation">Всего запрошено пакетов:</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.systemssubscribed">
+				<source>Systems Subscribed:</source>
+				<target state="needs-review-translation">Подписанные системы</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsheader">
+				<source>Trusted Organizations</source>
+				<target state="needs-review-translation">Создать организацию</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsparagraph">
+				<source>Channel deletion will affect any Trusted Organizations that have systems
+            subscribed to the {0} channel.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsaffected">
+				<source>Organizations Affected:</source>
+				<target state="needs-review-translation">Организация:</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubheader">
+				<source>Unsubscribe Systems</source>
+				<target state="needs-review-translation">Отменить подписку систем.</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubparagraph">
+				<source>Unsubscribe all trusted organization systems that are subscribed to the
+            {0} channel. Subscribed systems will lose access to packages specific to this channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
@@ -15000,6 +15054,54 @@ given channel.</source>
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
 				<target>Запрошенный кикстарт не найден.
          Если вы запросили стандартный кикстарт для организации, убедитесь, что он определен как текущий.</target>
+			</trans-unit>
+			<trans-unit id="task.status.current.db.time">
+				<source>Current DB Time</source>
+				<target state="needs-review-translation">Текущий ключ</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.execution">
+				<source>Last Execution Times</source>
+				<target state="needs-review-translation">Время запуска сценария</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.completed">
+				<source>Last Completed Action</source>
+				<target state="needs-review-translation">Завершенные действия</target>
+			</trans-unit>
+			<trans-unit id="task.status.session.cleanup">
+				<source>Session Cleanup</source>
+			</trans-unit>
+			<trans-unit id="task.status.errata.queue.notif">
+				<source>Errata Notification Queue</source>
+				<target state="needs-review-translation">Отправить уведомление об исправлениях</target>
+			</trans-unit>
+			<trans-unit id="task.status.errata.mail">
+				<source>Errata Notification Mail</source>
+				<target state="needs-review-translation">Отправить уведомление об исправлениях</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary">
+				<source>Daily Summary Queue</source>
+				<target state="needs-review-translation">Дневная сводка</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary.mail">
+				<source>Daily Summary Mail</source>
+				<target state="needs-review-translation">Дневная сводка</target>
+			</trans-unit>
+			<trans-unit id="task.status.clean.alerts">
+				<source>Clean Current Alerts</source>
+				<target state="needs-review-translation">Текущая версия</target>
+			</trans-unit>
+			<trans-unit id="task.status.sync.probe">
+				<source>Sync Probe State</source>
+				<target state="needs-review-translation">Статус зонда</target>
+			</trans-unit>
+			<trans-unit id="task.status.message">
+				<source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
+			</trans-unit>
+			<trans-unit id="task.status.title">
+				<source>Task Engine Status</source>
+			</trans-unit>
+			<trans-unit id="actions.jsp.pickedup">
+				<source>Picked Up</source>
 			</trans-unit>
 		</body>
 	</file>

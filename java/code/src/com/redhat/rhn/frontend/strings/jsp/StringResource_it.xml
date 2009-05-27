@@ -1388,7 +1388,7 @@
 			</trans-unit>
 			<trans-unit id="header.jsp.signout">
 				<source>Sign Out</source>
-				<target>Scollega</target>
+				<target>Esci</target>
 			</trans-unit>
 			<trans-unit id="header.jsp.systems">
 				<source>Systems</source>
@@ -2506,7 +2506,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="assignedgroups.jsp.nogroups">
 				<source>Your organization has no system groups.</source>
-				<target>La vostra organizzazione non presenta alcun gruppo del sistema.</target>
+				<target>La vostra organizzazione non presenta alcun gruppo di sistemi.</target>
 			</trans-unit>
 			<trans-unit id="assignedgroups.jsp.submitdefaults">
 				<source>Update Defaults</source>
@@ -3562,7 +3562,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="errata.overview.jsp.summary">
 				<source>The following errata apply to at least one system to which you have administrative access.</source>
-				<target>Il seguente errata viene applicato su uno o più sistemi sui quali avete un accesso amministrativo.</target>
+				<target>I seguenti errata vengono applicati su uno o più sistemi sui quali avete un accesso amministrativo.</target>
 			</trans-unit>
 			<trans-unit id="affectedsystems.jsp.summary">
 				<source>Below is a list of systems affected by this erratum.</source>
@@ -7043,8 +7043,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target> È possibile modificare le informazioni di questo profilo kickstart utilizzando il modulo di seguito riportato. Le voci contrassegnate da un asterisco (*) sono obbligatorie.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdelete.jsp.summary1">
-				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its associated system and corresponding options.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
-				<target>Siete sicuri di voler cancellare questo Kickstart?&lt;strong&gt;&lt;p&gt;AVVERTENZA:se cancellate il suddetto kickstart, rimuoverete i sistemi ad esso associati insieme alle relative opzioni.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Vi preghiamo di fare clic sul pulsante solo una volta, poichè ci varrà qualche istante prima del completamento del processo di cancellazione.&lt;/strong&gt;&lt;/p&gt;</target>
+				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its corresponding options and scripts.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
+				<target state="needs-review-translation">Siete sicuri di voler cancellare questo Kickstart?&lt;strong&gt;&lt;p&gt;AVVERTENZA:se cancellate il suddetto kickstart, rimuoverete i sistemi ad esso associati insieme alle relative opzioni.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Vi preghiamo di fare clic sul pulsante solo una volta, poichè ci varrà qualche istante prima del completamento del processo di cancellazione.&lt;/strong&gt;&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.summary2">
 				<source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
@@ -7422,7 +7422,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="keycreate.jsp.summary">
 				<source>Please enter the information for your key in the form provided below.  Entries marked with an (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) are &lt;strong&gt;required&lt;/strong&gt; and must be unique.</source>
-				<target>Si prega di inserire le informazioni della vostra chiave nella forma sotto riportata.  Le voci contrassegnate con un (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) sono &lt;strong&gt;obbligatorie&lt;/strong&gt; e devono essere uniche.</target>
+				<target>Si prega di inserire le informazioni della vostra chiave nel formato sotto riportato.  Le voci contrassegnate con un (&lt;span class="required-form-field"&gt;*&lt;/span&gt;) sono &lt;strong&gt;obbligatorie&lt;/strong&gt; e devono essere uniche.</target>
 			</trans-unit>
 			<trans-unit id="keydelete.jsp.summary">
 				<source>Are you sure you want to delete this Key permanently?&lt;p&gt;&lt;strong&gt;If so please click the button once.&lt;/strong&gt;&lt;/p&gt;</source>
@@ -8190,7 +8190,7 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
 			</trans-unit>
 			<trans-unit id="channels.popular.jsp.header1">
 				<source>The software channels listed below are considered popular (defined as having a certain number of systems subscribed).</source>
-				<target>I canali software di seguito elencati sono considerati molto diffusi (essi presentano un certo numero di sistemi software ad essi sottoscritti).</target>
+				<target>I canali software di seguito elencati sono considerati molto diffusi (presentano un certo numero di sistemi software ad essi sottoscritti).</target>
 			</trans-unit>
 			<trans-unit id="channels.popular.jsp.label0">
 				<source>Popularity</source>
@@ -8210,7 +8210,7 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
 			</trans-unit>
 			<trans-unit id="channels.retired.jsp.header1">
 				<source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization &lt;a href="/rhn/channels/software/Entitlements.do"&gt; is entitled to &lt;/a&gt;but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-				<target>I canali software di seguito riportati, corrispondono ai &lt;strong&gt;canali ritirati&lt;/strong&gt; verso i quali la vostra organizzazione &lt;a href="/rhn/channels/software/Entitlements.do"&gt;ha diritto,&lt;/a&gt; essi non sono attualmente supportati da Red Hat poichè hanno raggiunto la loro data di 'fine ciclo' .</target>
+				<target>I canali software di seguito riportati corrispondono ai &lt;strong&gt;canali ritirati&lt;/strong&gt; ai quali la vostra organizzazione &lt;a href="/rhn/channels/software/Entitlements.do"&gt;ha diritto,&lt;/a&gt; essi non sono attualmente supportati da Red Hat poichè hanno raggiunto la loro data di 'fine ciclo' .</target>
 			</trans-unit>
 			<trans-unit id="channels.manage.jsp.toolbar">
 				<source>Software Channel Management</source>
@@ -9034,7 +9034,7 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
 			</trans-unit>
 			<trans-unit id="globalconfiglist.jsp.summary">
 				<source>The configuration channels listed below are &lt;strong&gt;centrally-managed&lt;/strong&gt;. This means that any system registered to @@PRODUCT_NAME@@ can subscribe to the configuration channels below. Any changes made to the files within one of these channels will affect every system subscribed to that channel.</source>
-				<target>I canali di configurazione di seguito elencati sono &lt;strong&gt;gestiti-localmente&lt;/strong&gt;. Ciò significa che qualsiasi sistema registrato con @@PRODUCT_NAME@@, può essere sottoscritto ai canali di configurazione. Qualsiasi modifica fatta ai file presenti all'interno di uno dei suddetti canali, interesserà ogni sistema sottoscritto a quel canale.</target>
+				<target>I canali di configurazione di seguito elencati sono &lt;strong&gt;gestiti-centralmente&lt;/strong&gt;. Ciò significa che qualsiasi sistema registrato con @@PRODUCT_NAME@@, può essere sottoscritto ai canali di configurazione. Qualsiasi modifica fatta ai file presenti all'interno di uno dei suddetti canali, interesserà ogni sistema sottoscritto a quel canale.</target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.configchannel">
 				<source>create new config channel</source>
@@ -12565,6 +12565,10 @@ prima di creare una nuova distribuzione kickstart.&lt;/strong&gt;</target>
 				<source>Virtual System Hardware Overrides</source>
 				<target>Override hardware del sistema virtuale</target>
 			</trans-unit>
+			<trans-unit id="virtualization.provision.override.jsp.goto.advanced.options">
+				<source>By default virtual guest settings like memory, cpu and storage allocations will be inherited from your kickstart profile. If you want to override these settings click on &lt;strong&gt;{0}&lt;/strong&gt; button below.</source>
+				<target>Per impostazione predefinita le impostazioni del guest virtuale, in modo simile alle assegnazioni storage, cpu e della memoria, verranno ereditate dal vostro profilo kickstart. Se desiderate sovrascriverle fate clic sul pulsante &lt;strong&gt;{0}&lt;/strong&gt;.</target>
+			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.guest_name.header">
 				<source>Guest Name:</source>
 				<target>Nome guest:</target>
@@ -14013,7 +14017,7 @@ Per sottoscrivere i sistemi selezionati ad un canale, selezionate Sottoscritto p
 			</trans-unit>
 			<trans-unit id="ssmchildsubconfirm.jsp.summary">
 				<source>Below is a per-system summary of the channel subscription changes that will occur.</source>
-				<target>Di seguito viene riportato un sommario per ogni sistema, relativo alle modifiche che verranno implementate sulla sottoscrizione al canale.</target>
+				<target>Di seguito viene riportato un sommario per ogni sistema relativo alle modifiche che verranno implementate alla sottoscrizione del canale.</target>
 			</trans-unit>
 			<trans-unit id="ssmchildsubconfirm.jsp.canSub">
 				<source>To Subscribe To</source>
@@ -14547,7 +14551,7 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.empty">
 				<source>No Custom Info Keys Found</source>
-				<target>Nessuna chiave per le informazioni personalizzate trovata</target>
+				<target>Nessuna chiave trovata per le informazioni personalizzate</target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.message">
 				<source>Custom system info keys allow your adminstrators to store relevant custom key/value pairs with your system profiles. Custom system info is fully {0}searchable{1}.</source>
@@ -14555,7 +14559,7 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.message2">
 				<source>The following custom system info keys have been defined for your organization.</source>
-				<target>Le seguenti chiavi per le informazioni personalizzate del sistema sono state definite per la vostra organizzazione.</target>
+				<target>Sono state definite per la vostra organizzazione le seguenti chiavi per le informazioni personalizzate del sistema.</target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.keylabel">
 				<source>Key Label</source>
@@ -14821,6 +14825,10 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
 				<source>{0}</source>
 				<target>{0}</target>
 			</trans-unit>
+			<trans-unit id="channel.delete.jsp.toolbar">
+				<source>{0}</source>
+				<target>{0}</target>
+			</trans-unit>
 			<trans-unit id="channel.edit.jsp.basicchanneldetails">
 				<source>Basic Channel Details</source>
 				<target>Informazioni del Canale di base</target>
@@ -14836,6 +14844,52 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
 			<trans-unit id="channel.edit.jsp.security.gpg">
 				<source>Security: GPG</source>
 				<target>Security: GPG</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.channelheader">
+				<source>Delete Channel</source>
+				<target state="needs-review-translation">cancella canale</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.introparagraph">
+				<source>Are you sure you wish to delete this channel? Packages in the channel will
+           be removed from the channel, but will remain on the server. You will be
+           given the option to delete them after the channel has been deleted. Errata
+           related to the channel will no longer be related to the channel, and may be
+           orphaned. If the channel has child channels, it cannot be deleted; the child
+           channels must be deleted first. If the channel has kickstart distributions
+           associated to it, it cannot be deleted; the kickstart distributions must be
+           dissociated from the channel or deleted first.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.arch">
+				<source>Architecture:</source>
+				<target state="needs-review-translation">Architettura</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.totalpackages">
+				<source>Total Packages:</source>
+				<target state="needs-review-translation">Pacchetti totali richiesti:</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.systemssubscribed">
+				<source>Systems Subscribed:</source>
+				<target state="needs-review-translation">Sistemi sottoscritti</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsheader">
+				<source>Trusted Organizations</source>
+				<target state="needs-review-translation">Crea Organizzazione</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsparagraph">
+				<source>Channel deletion will affect any Trusted Organizations that have systems
+            subscribed to the {0} channel.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsaffected">
+				<source>Organizations Affected:</source>
+				<target state="needs-review-translation">Organizzazione:</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubheader">
+				<source>Unsubscribe Systems</source>
+				<target state="needs-review-translation">Rimuovi sottoscrizione ai sistemi.</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubparagraph">
+				<source>Unsubscribe all trusted organization systems that are subscribed to the
+            {0} channel. Subscribed systems will lose access to packages specific to this channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
@@ -15010,6 +15064,54 @@ stesso pacchetto in un singolo canale, ciò potrebbe causare però il
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
 				<target>Il file kickstart richiesto non è stato trovato.
          Se state richiedendo un kickstart predefinito dell'organizzazione, assicuratevi di aver selezionato un tipo di kickstart come "Default dell'organizzazione".</target>
+			</trans-unit>
+			<trans-unit id="task.status.current.db.time">
+				<source>Current DB Time</source>
+				<target state="needs-review-translation">Chiave corrente</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.execution">
+				<source>Last Execution Times</source>
+				<target state="needs-review-translation">Tempo di Esecuzione dello Script</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.completed">
+				<source>Last Completed Action</source>
+				<target state="needs-review-translation">Azioni completate</target>
+			</trans-unit>
+			<trans-unit id="task.status.session.cleanup">
+				<source>Session Cleanup</source>
+			</trans-unit>
+			<trans-unit id="task.status.errata.queue.notif">
+				<source>Errata Notification Queue</source>
+				<target state="needs-review-translation">Invia la notifica errata</target>
+			</trans-unit>
+			<trans-unit id="task.status.errata.mail">
+				<source>Errata Notification Mail</source>
+				<target state="needs-review-translation">Invia la notifica errata</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary">
+				<source>Daily Summary Queue</source>
+				<target state="needs-review-translation">Sommario giornaliero</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary.mail">
+				<source>Daily Summary Mail</source>
+				<target state="needs-review-translation">Sommario giornaliero</target>
+			</trans-unit>
+			<trans-unit id="task.status.clean.alerts">
+				<source>Clean Current Alerts</source>
+				<target state="needs-review-translation">Versione corrente</target>
+			</trans-unit>
+			<trans-unit id="task.status.sync.probe">
+				<source>Sync Probe State</source>
+				<target state="needs-review-translation">Stato di Probe</target>
+			</trans-unit>
+			<trans-unit id="task.status.message">
+				<source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
+			</trans-unit>
+			<trans-unit id="task.status.title">
+				<source>Task Engine Status</source>
+			</trans-unit>
+			<trans-unit id="actions.jsp.pickedup">
+				<source>Picked Up</source>
 			</trans-unit>
 		</body>
 	</file>

@@ -628,7 +628,7 @@
 			</trans-unit>
 			<trans-unit id="permission.jsp.title.userlist">
 				<source>Cannot display user list.</source>
-				<target>ব্যবহারকারীর তালিকা প্রদর্শন করা সম্ভব নয়।</target>
+				<target>ব্যবহারকারীদের তালিকা প্রদর্শন করা সম্ভব নয়।</target>
 			</trans-unit>
 			<trans-unit id="permission.jsp.title.lookupuser">
 				<source>Cannot view user information.</source>
@@ -1116,7 +1116,7 @@
 			</trans-unit>
 			<trans-unit id="login.jsp.list3">
 				<source>Provisioning: System snapshots, integrated kickstarts, configuration management and more.</source>
-				<target>প্রভিশনিং: সিস্টেমের স্ন্যাপশট, পূর্ণাঙ্গ কিকস্টার্ট, কনফিগারেশন পরিচালনা প্রভৃতি।</target>
+				<target>প্রভিশনিং: সিস্টেমের স্ন্যাপশট, পূর্ণাঙ্গ kickstart, কনফিগারেশন পরিচালনা প্রভৃতি।</target>
 			</trans-unit>
 			<trans-unit id="login.jsp.learnmore">
 				<source>Learn more about RHN now</source>
@@ -1664,7 +1664,7 @@
 			</trans-unit>
 			<trans-unit id="system-legend.jsp.kickstarting">
 				<source>Kickstarting</source>
-				<target>কিকস্টার্ট প্রণালী</target>
+				<target>kickstart প্রণালী</target>
 			</trans-unit>
 			<trans-unit id="system-legend.jsp.pending">
 				<source>Pending Actions</source>
@@ -3330,7 +3330,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="errata.edit.sendnotification">
 				<source>Send Notification</source>
-				<target>বার্তা প্রেরিত হয়েছে</target>
+				<target>সূচিত করুন</target>
 			</trans-unit>
 			<trans-unit id="errata.edit.youmaynotify">
 				<source>You can send an email notification of this erratum.</source>
@@ -4231,15 +4231,15 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="erratalist.jsp.cloneerrata">
 				<source>Clone Errata</source>
-				<target>ত্রুটি-বিচ্যুতির প্রতিলপি</target>
+				<target>ত্রুটি-বিচ্যুতির প্রতিলিপি</target>
 			</trans-unit>
 			<trans-unit id="cloneerrata.jsp.cloneerrata">
 				<source>Clone Errata</source>
-				<target>ত্রুটি-বিচ্যুতির প্রতিলপি</target>
+				<target>ত্রুটি-বিচ্যুতির প্রতিলিপি</target>
 			</trans-unit>
 			<trans-unit id="list.jsp.errata.clone">
 				<source>Clone Errata</source>
-				<target>ত্রুটি-বিচ্যুতির প্রতিলপি</target>
+				<target>ত্রুটি-বিচ্যুতির প্রতিলিপি</target>
 			</trans-unit>
 			<trans-unit id="deleteconfirm.jsp.pagesummary">
 				<source>Are you sure you wish to delete these errata?</source>
@@ -4535,7 +4535,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="systemlist.jsp.kickstart">
 				<source>Kickstart in progress</source>
-				<target>কিকস্টার্ট কর্ম চলছে</target>
+				<target>kickstart কর্ম চলছে</target>
 			</trans-unit>
 			<trans-unit id="systemlist.jsp.virthost">
 				<source>Virtual Host</source>
@@ -4563,7 +4563,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="systemlist.jsp.critical">
 				<source>Critical updates available</source>
-				<target>গুরুত্র আপডেট উপলব্ধ রয়েছে</target>
+				<target>গুরুতর আপডেট উপলব্ধ রয়েছে</target>
 			</trans-unit>
 			<trans-unit id="systemlist.jsp.updates">
 				<source>Updates available</source>
@@ -6813,7 +6813,7 @@ Please note that some manual configuration of these scripts may still be require
 			<trans-unit id="kickstart.variable.jsp.summary">
 				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
         			You would then use $name within the profile to substitute in the value.</source>
-				<target>কিক-স্টার্ট ভেরিয়েবল ব্যবহার করে কিক-স্টার্ট প্রোফাইলের মধ্যে মান পরিবর্তন করা যাবে।  নতুন ভেরিয়েবল ধার্য করার জন্য 'নাম=মান' বিন্যাসে নিম্নলিখিত বাক্স প্রয়োজনীয় তথ্য সংযোজন করুন।  
+				<target>kickstart ভেরিয়েবল ব্যবহার করে kickstart প্রোফাইলের মধ্যে মান পরিবর্তন করা যাবে।  নতুন ভেরিয়েবল ধার্য করার জন্য 'নাম=মান' বিন্যাসে নিম্নলিখিত বাক্স প্রয়োজনীয় তথ্য সংযোজন করুন।  
         			প্রোফাইলের মধ্যে $name প্রয়োগ করে সংশ্লিষ্ট মান স্থাপন করা যাবে।</target>
 			</trans-unit>
 			<trans-unit id="kickstarttree.variable.jsp.summary">
@@ -6862,7 +6862,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstart.jsp.error.template_generation">
 				<source>There are errors in your kickstart template. Please check the &lt;a href="{0}"&gt;template errors&lt;/a&gt; to determine the problem with the template.</source>
-				<target>কিক-স্টার্ট টেমপ্লেটের মধ্যে ত্রুটি উপস্থিত রয়েছে ও সমস্যা সনাক্ত করার জন্য অনুগ্রহ করে &lt;a href="{0}"&gt;টেমপ্লেট সংক্রান্ত ত্রুটি&lt;/a&gt; পরীক্ষা করুন।</target>
+				<target>kickstart টেমপ্লেটের মধ্যে ত্রুটি উপস্থিত রয়েছে ও সমস্যা সনাক্ত করার জন্য অনুগ্রহ করে &lt;a href="{0}"&gt;টেমপ্লেট সংক্রান্ত ত্রুটি&lt;/a&gt; পরীক্ষা করুন।</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.kernel_options">
 				<source>Kernel Options</source>
@@ -6954,7 +6954,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartoverview.jsp.uploadksfile">
 				<source>Upload a New Kickstart File</source>
-				<target>একটি নতুন কিক-স্টার্ট ফাইল আপলোড করুন</target>
+				<target>একটি নতুন kickstart ফাইল আপলোড করুন</target>
 			</trans-unit>
 			<trans-unit id="kickstartoverview.jsp.cloneksprofile">
 				<source>Clone a Kickstart Profile</source>
@@ -7049,8 +7049,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target> নীচে উল্লিখিত ফর্মের সাহায্যে kickstart প্রোফাইল সম্পাদন করা সম্ভব। তারাচিহ্ন দ্বারা নির্দেশিত মানগুলি উল্লেখ করা আবশ্যক।</target>
 			</trans-unit>
 			<trans-unit id="kickstartdelete.jsp.summary1">
-				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its associated system and corresponding options.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
-				<target>আপনি কি নিশ্চিতরূপে চিহ্নিত Kickstart মুছে ফেলতে ইচ্ছুক?&lt;strong&gt;&lt;p&gt;সতর্কবাণী: এই kickstart মুছে ফেলা হলে সংযুক্ত সিস্টেম ও সংশ্লিষ্ট বিকল্প মুছে যাবে।&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;অনুগ্রহ করে বাটনের উপর শুধুমাত্র একবার টিপুন; অপসারণ কর্মে সম্পন্ন করতে কিছু সময় ব্যয় হবে।&lt;/strong&gt;&lt;/p&gt;</target>
+				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its corresponding options and scripts.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
+				<target state="needs-review-translation">আপনি কি নিশ্চিতরূপে চিহ্নিত Kickstart মুছে ফেলতে ইচ্ছুক?&lt;strong&gt;&lt;p&gt;সতর্কবাণী: এই kickstart মুছে ফেলা হলে সংযুক্ত সিস্টেম ও সংশ্লিষ্ট বিকল্প মুছে যাবে।&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;অনুগ্রহ করে বাটনের উপর শুধুমাত্র একবার টিপুন; অপসারণ কর্মে সম্পন্ন করতে কিছু সময় ব্যয় হবে।&lt;/strong&gt;&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.summary2">
 				<source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
@@ -7157,7 +7157,7 @@ Please note that some manual configuration of these scripts may still be require
             kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
             Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
             tab to verify the new settings.</source>
-				<target>&lt;strong&gt;উল্লেখ্য:&lt;/strong&gt; Virtualization Type পরিবর্তন করা হলে কিক-স্টার্ট প্রোফাইলের বুট-লোডার ও
+				<target>&lt;strong&gt;উল্লেখ্য:&lt;/strong&gt; Virtualization Type পরিবর্তন করা হলে kickstart প্রোফাইলের বুট-লোডার ও
              পার্টিশন সংক্রান্ত বিকল্প পরিবর্তনের প্রয়োজন দেখা দিতে পারে। এর ফলে ব্যবহারকারী দ্বারা স্থাপিত স্বনির্ধারিত বৈশিষ্ট্যগুলি মুছে যেতে পারে। 
             নতুন বৈশিষ্ট্যগুলি যাচাই করার জন্য অনুগ্র করে &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;পার্টিশন বিন্যাস&lt;/a&gt; 
             শীর্ষক ট্যাবটি দেখুন।</target>
@@ -7204,7 +7204,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstart.advanced.jsp.para1">
 				<source>Each kickstart file you upload to satellite will need a label so that you can refer to it later - please choose a label for this kickstart and enter it below. Entries marked with an asterisk (*) are required.</source>
-				<target>satellite-র মধ্যে আপলোড করা প্রতিটি কিক-স্টার্ট ফাইল পৃথকরূপে সনাক্ত করার উদ্দেশ্যে একটি লেবেল ধার্য করা আবশ্যক - অনুগ্রহ করে এই কিক-স্টার্ট ফাইলের জন্য একটি লেবেল নীচে উল্লেখ করুন। তারা চিহ্ন সহযোগে (*) চিহ্নিত মান উল্লেখ করা আবশ্যক।</target>
+				<target>satellite-র মধ্যে আপলোড করা প্রতিটি kickstart ফাইল পৃথকরূপে সনাক্ত করার উদ্দেশ্যে একটি লেবেল ধার্য করা আবশ্যক - অনুগ্রহ করে এই kickstart ফাইলের জন্য একটি লেবেল নীচে উল্লেখ করুন। তারা চিহ্ন সহযোগে (*) চিহ্নিত মান উল্লেখ করা আবশ্যক।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.advanced.jsp.uploadtab">
 				<source>File to Upload</source>
@@ -7600,7 +7600,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.repos-tooltip">
 				<source>Selected Repositories will be available in the &lt;strong&gt;%packages &lt;/strong&gt; section of the kickstart file.</source>
-				<target>নির্বাচিত সংগ্রহস্থলগুলি কিক-স্টার্ট ফাইলের &lt;strong&gt;%packages &lt;/strong&gt; বিভাগে উপলব্ধ থাকবে।</target>
+				<target>নির্বাচিত সংগ্রহস্থলগুলি kickstart ফাইলের &lt;strong&gt;%packages &lt;/strong&gt; বিভাগে উপলব্ধ থাকবে।</target>
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.tip1">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; New file location must be the root of an install tree (for the operating system version above) on either an http or ftp server.&lt;/span&gt;</source>
@@ -7768,11 +7768,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="snippets.jsp.summary">
 				<source>Use kickstart snippets to store common blocks of code that can be shared across multiple kickstart profiles in @@PRODUCT_NAME@@. When you create a kickstart snippet, all kickstart profiles including that snippet will be updated accordingly.</source>
-				<target>@@PRODUCT_NAME@@-র মধ্যে উপস্থিত একাধিক কিক-স্টার্ট প্রোফাইলে ব্যবহারযোগ্য কোডের অংশবিশেষ কিক-স্টার্ট স্নিপেট রূপে সংরক্ষণ করুন। কিক-স্টার্ট স্নিপেট নির্মাণ করে ব্যবহার করা হলে, সংশ্লিষ্ট কিক-স্টার্ট স্নিপেট প্রয়োগকারী সকল কিক-স্টার্ট প্রোফাইল যথাযতভাবে আপডেট করা হবে।</target>
+				<target>@@PRODUCT_NAME@@-র মধ্যে উপস্থিত একাধিক kickstart প্রোফাইলে ব্যবহারযোগ্য কোডের অংশবিশেষ kickstart স্নিপেট রূপে সংরক্ষণ করুন। kickstart স্নিপেট নির্মাণ করে ব্যবহার করা হলে, সংশ্লিষ্ট kickstart স্নিপেট প্রয়োগকারী সকল kickstart প্রোফাইল যথাযতভাবে আপডেট করা হবে।</target>
 			</trans-unit>
 			<trans-unit id="snippets.jsp.note.default">
 				<source>Default kickstart snippets are not editable.</source>
-				<target>ডিফল্ট কিক-স্টার্ট স্নিপেটগুলি সম্পাদনযোগ্য নয়।</target>
+				<target>ডিফল্ট kickstart স্নিপেটগুলি সম্পাদনযোগ্য নয়।</target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.snippets">
 				<source>create new snippet</source>
@@ -7788,15 +7788,15 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.jsp.nosnippets">
 				<source>No kickstart snippets found.</source>
-				<target>কোনো কিক-স্টার্ট স্নিপেট পাওয়া যায়নি।</target>
+				<target>কোনো kickstart স্নিপেট পাওয়া যায়নি।</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.copy-paste-snippet-tip">
 				<source>Copy and paste the snippet macro into your kickstart profiles to make the full snippet appear in that kickstart profile.</source>
-				<target>কিক-স্টার্ট প্রোফাইলের মধ্যে সম্পূর্ণ স্নিপেট উপলব্ধ করার জন্য স্নিপেট ম্যাক্রো কপি করে কিক-স্টার্ট প্রোফাইলের মধ্যে পেস্ট করুন।</target>
+				<target>kickstart প্রোফাইলের মধ্যে সম্পূর্ণ স্নিপেট উপলব্ধ করার জন্য স্নিপেট ম্যাক্রো কপি করে kickstart প্রোফাইলের মধ্যে পেস্ট করুন।</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.warning.tip">
 				<source>Changing this snippet's name will require updating any kickstart profiles that refer to it so that they can continue to access the content of this snippet.</source>
-				<target>স্নিপেটের নাম পরিবর্তন করার পরে এটির মধ্যে উপস্থিত তথ্যের ব্যবহারে বিঘ্ন সৃষ্টি না করার জন্য এই স্নিপেট প্রয়োগকারী সকল কিক-স্টার্ট প্রোফাইল আপডেট করা আবশ্যক।</target>
+				<target>স্নিপেটের নাম পরিবর্তন করার পরে এটির মধ্যে উপস্থিত তথ্যের ব্যবহারে বিঘ্ন সৃষ্টি না করার জন্য এই স্নিপেট প্রয়োগকারী সকল kickstart প্রোফাইল আপডেট করা আবশ্যক।</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.path">
 				<source>File Path</source>
@@ -7820,7 +7820,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.custom.tip">
 				<source>Custom kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
-				<target>স্বনির্ধারিত কিক-স্টার্ট স্নিপেটগুলি শুধুমাত্র &lt;strong&gt;{0}&lt;/strong&gt; প্রতিষ্ঠানের ক্ষেত্রে উপলব্ধ থাকবে।</target>
+				<target>স্বনির্ধারিত kickstart স্নিপেটগুলি শুধুমাত্র &lt;strong&gt;{0}&lt;/strong&gt; প্রতিষ্ঠানের ক্ষেত্রে উপলব্ধ থাকবে।</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default">
 				<source>Default</source>
@@ -7828,7 +7828,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default.tip">
 				<source>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
-				<target>ডিফল্ট কিক-স্টার্ট স্নিপেটগুলি সকল প্রতিষ্ঠানের ব্যবহারের জন্য উপলব্ধ থাকবে। এই স্নিপেটগুলি পরিবর্তন করা যাবে না।</target>
+				<target>ডিফল্ট kickstart স্নিপেটগুলি সকল প্রতিষ্ঠানের ব্যবহারের জন্য উপলব্ধ থাকবে। এই স্নিপেটগুলি পরিবর্তন করা যাবে না।</target>
 			</trans-unit>
 			<trans-unit id="snippetedit.jsp.header2">
 				<source>Edit Snippet</source>
@@ -7840,7 +7840,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.summary">
 				<source>Snippets can be shared between kickstart profiles</source>
-				<target>একাধিক কিক-স্টার্ট প্রোফাইল দ্বারা স্নিপেট যৌথরূপে ব্যবহার করা যাবে</target>
+				<target>একাধিক kickstart প্রোফাইল দ্বারা স্নিপেট যৌথরূপে ব্যবহার করা যাবে</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.header2">
 				<source>Create Snippet</source>
@@ -7868,7 +7868,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.contents.header">
 				<source>Kickstart Snippet Contents</source>
-				<target>কিক-স্টার্ট স্নিপেটের মধ্যে অন্তর্ভুক্ত সামগ্রী</target>
+				<target>kickstart স্নিপেটের মধ্যে অন্তর্ভুক্ত সামগ্রী</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.tip1">
 				<source>The snippet name is the name of a file that will reside in this organization's snippet directory. Any standard unix file name characters are acceptable. Snippet names containing slash character or snippet names beginning with period are not allowed.</source>
@@ -7892,7 +7892,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.warning">
 				<source>Deleting this snippet will affect any kickstart profiles that refer to it. It may break those kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
-				<target>এই স্নিপেট মুছে ফেলা হলে, এটি প্রয়োগকারী কিক-স্টার্ট প্রোফাইলগুলি প্রভাবিত হবে ও ক্ষতিগ্রস্ত হওয়ার সম্ভাবনা রয়েছে। স্নিপেট মুছে ফেলার পূর্বে সকল কিক-স্টার্ট প্রোফাইলের সাথে এর সম্পর্ক বিচ্ছিন্ন করা বাঞ্ছনীয়।</target>
+				<target>এই স্নিপেট মুছে ফেলা হলে, এটি প্রয়োগকারী kickstart প্রোফাইলগুলি প্রভাবিত হবে ও ক্ষতিগ্রস্ত হওয়ার সম্ভাবনা রয়েছে। স্নিপেট মুছে ফেলার পূর্বে সকল kickstart প্রোফাইলের সাথে এর সম্পর্ক বিচ্ছিন্ন করা বাঞ্ছনীয়।</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.delete">
 				<source>Confirm Snippet Delete</source>
@@ -8056,7 +8056,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.noinactivesystems">
 				<source>&lt;strong&gt;No inactive systems.&lt;/strong&gt; &lt;p&gt;All of your systems are actively checking into @@PRODUCT_NAME@@ at this time. You can view a list of all of your systems at &lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;Systems &gt; All&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;</source>
-				<target>&lt;strong&gt;নিষ্ক্রিয় অবস্থায় কোনো সিস্টেম নেই।&lt;/strong&gt; &lt;p&gt;বর্তমানে আপনার নিবন্ধিত সমস্ত সিস্টেম @@PRODUCT_NAME@@-র সাথে যোগাযোগ করছে। &lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;Systems &gt; All&lt;/a&gt;&lt;/strong&gt;'এ আপনি আপনার সমস্ত সিস্টেমের তালিকা দেখতে পারবেন।&lt;/p&gt;</target>
+				<target>&lt;strong&gt;নিষ্ক্রিয় অবস্থায় কোনো সিস্টেম নেই।&lt;/strong&gt; &lt;p&gt;বর্তমানে আপনার নিবন্ধিত সমস্ত সিস্টেম @@PRODUCT_NAME@@-র সাথে যোগাযোগ করছে। &lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;সিস্টেম &gt; সমস্ত&lt;/a&gt;&lt;/strong&gt; শীর্ষক অংশে আপনি আপনার সমস্ত সিস্টেমের তালিকা দেখতে পারবেন।&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="errata.sev.label.low">
 				<source>Low</source>
@@ -8220,7 +8220,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="channels.manage.jsp.toolbar">
 				<source>Software Channel Management</source>
-				<target>সফ্টওয়্যার চ্যানেলের পরিচালনা</target>
+				<target>সফ্টওয়্যার চ্যানেল ব্যবস্থাপনা</target>
 			</trans-unit>
 			<trans-unit id="channels.manage.jsp.header1">
 				<source>The following software channels are owned by your organization.</source>
@@ -11989,7 +11989,7 @@ Kickstart করার সময় অনুগ্রহ করে সিস্ট
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.button0.tooltip.jsp">
 				<source>Creating a cobbler system record will allow this system to be provisioned from the command line on the system itself with the 'koan' command.  This also allows you to assign Variables specific to this system's kickstart using the Variables page.</source>
-				<target>cobbler সিস্টেম রেকর্ড নির্মাণের ফলে, সংশ্লিষ্ট সিস্টেমের কমান্ড-লাইন থেকে 'koan' কমান্ড সহযোগে সিস্টেমটি প্রভিশন করা সম্ভব হবে।  উপরন্তু, এর ফলে ভেরিয়েবল শীর্ষক পৃষ্ঠার মাধ্যমে সিস্টেমের কিক-স্টার্টের জন্য প্রযোজ্য ভেরিয়েবল ধার্য করা যাবে।</target>
+				<target>cobbler সিস্টেম রেকর্ড নির্মাণের ফলে, সংশ্লিষ্ট সিস্টেমের কমান্ড-লাইন থেকে 'koan' কমান্ড সহযোগে সিস্টেমটি প্রভিশন করা সম্ভব হবে।  উপরন্তু, এর ফলে ভেরিয়েবল শীর্ষক পৃষ্ঠার মাধ্যমে সিস্টেমের kickstart-র জন্য প্রযোজ্য ভেরিয়েবল ধার্য করা যাবে।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.button1.jsp">
 				<source>Advanced Configuration</source>
@@ -12041,7 +12041,7 @@ Kickstart করার সময় অনুগ্রহ করে সিস্ট
 			</trans-unit>
 			<trans-unit id="kickstart.distro.cobbler-only.tooltip">
 				<source> Profiles that are not @@PRODUCT_NAME@@-managed are not guaranteed to register systems to @@PRODUCT_NAME@@ after kickstart. You may wish to review these kickstarts (click on the profile name to do so) to confirm whether or not your system will reappear in the @@PRODUCT_NAME@@ system list after kickstart.</source>
-				<target>@@PRODUCT_NAME@@ দ্বারা না পরিচালিত হওয়া প্রোফাইলের ক্ষেত্রে, কিক-স্টার্ট সমাপ্তির পরে @@PRODUCT_NAME@@-এ সিস্টেম নিবন্ধনের কোনো নিশ্চয়তা দেওয়া হয় না। কিক-স্টার্টের পরে @@PRODUCT_NAME@@-র সিস্টেমের তালিকার মধ্যে আপনার সিস্টেম অন্তর্ভুক্ত করা হবে কি না তা যাচাই করার জন্য কিক-স্টার্ট প্রোফাইলের নামের উপর ক্লিক করে সংশ্লিষ্ট কিক-স্টার্টটি পর্যালোচনা করুন।</target>
+				<target>@@PRODUCT_NAME@@ দ্বারা না পরিচালিত হওয়া প্রোফাইলের ক্ষেত্রে, kickstart সমাপ্তির পরে @@PRODUCT_NAME@@-এ সিস্টেম নিবন্ধনের কোনো নিশ্চয়তা দেওয়া হয় না। kickstart-র পরে @@PRODUCT_NAME@@-র সিস্টেমের তালিকার মধ্যে আপনার সিস্টেম অন্তর্ভুক্ত করা হবে কি না তা যাচাই করার জন্য kickstart প্রোফাইলের নামের উপর ক্লিক করে সংশ্লিষ্ট কিক-স্টার্টটি পর্যালোচনা করুন।</target>
 			</trans-unit>
 			<trans-unit id="kickstarts.distro.cobbler-only.tooltip">
 				<source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler edit profile' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
@@ -12361,7 +12361,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
 
 ট্রি-র পাথ, Kickstart RPM, বেস চ্যানেল ও ইনস্টলার উৎপন্ন কর্ম সর্বদা সুসংগত হওয়া আবশ্যক। অর্থাৎ এই সমস্ত ক্ষেত্রে উল্লিখিত মান একই Red Hat Enterprise Linux থেকে প্রাপ্ত হওয়া প্রয়োজন।&lt;br/&gt;&lt;br/&gt;
 
-&lt;p&gt;ডিস্ট্রিবিউশনের জন্য কার্নেল, initrd ও সংগ্রহস্থলের তথ্য ইত্যাদি বিশিষ্ট (কিন্তু rpm বিহীন) সম্পূর্ণ কিক-স্টার্ট ট্রির ক্ষেত্রে @@PRODUCT_NAME@@ সার্ভারের মধ্যে স্থানীয়রূপে অবস্থিত একটি ট্রির পাথ উল্লেখ করা আবশ্যক। apache ও tomcat ব্যবহারকারী দ্বারা এই ডিরেক্টরিটি পাঠযোগ্য হওয়া আবশ্যক।  নির্দিষ্ট ট্রি পাথের মধ্যে "./images/pxeboot/vmlinuz" অবস্থানে কার্নেল ও "./images/pxeboot/initrd.img"-এ একটি initrd ইমেজ উপস্থিত থাকা আবশ্যক। উদাহরণস্বরূপ, @@PRODUCT_NAME@@ সার্ভারের &lt;i&gt;/var/distro-trees/rhel-5-server/&lt;/i&gt;-এ কোনো মিডিয়া উপস্থিত থাকলে এটিকে ট্রি পাথ রূপে ধার্য করা হবে ও চিহ্নিত স্থানে কার্নেল ও initrd অনুসন্ধান করা হবে: &lt;i&gt;/var/distro-trees/rhel-5-server/images/pxeboot/&lt;/i&gt; &lt;/p&gt;</target>
+&lt;p&gt;ডিস্ট্রিবিউশনের জন্য কার্নেল, initrd ও সংগ্রহস্থলের তথ্য ইত্যাদি বিশিষ্ট (কিন্তু rpm বিহীন) সম্পূর্ণ kickstart ট্রির ক্ষেত্রে @@PRODUCT_NAME@@ সার্ভারের মধ্যে স্থানীয়রূপে অবস্থিত একটি ট্রির পাথ উল্লেখ করা আবশ্যক। apache ও tomcat ব্যবহারকারী দ্বারা এই ডিরেক্টরিটি পাঠযোগ্য হওয়া আবশ্যক।  নির্দিষ্ট ট্রি পাথের মধ্যে "./images/pxeboot/vmlinuz" অবস্থানে কার্নেল ও "./images/pxeboot/initrd.img"-এ একটি initrd ইমেজ উপস্থিত থাকা আবশ্যক। উদাহরণস্বরূপ, @@PRODUCT_NAME@@ সার্ভারের &lt;i&gt;/var/distro-trees/rhel-5-server/&lt;/i&gt;-এ কোনো মিডিয়া উপস্থিত থাকলে এটিকে ট্রি পাথ রূপে ধার্য করা হবে ও চিহ্নিত স্থানে কার্নেল ও initrd অনুসন্ধান করা হবে: &lt;i&gt;/var/distro-trees/rhel-5-server/images/pxeboot/&lt;/i&gt; &lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="treecreate.jsp.header2">
 				<source>Create Kickstart Distribution</source>
@@ -12567,6 +12567,10 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 				<source>Virtual System Hardware Overrides</source>
 				<target>ভার্চুয়াল সিস্টেমের হার্ডওয়্যার দ্বারা উপেক্ষিত</target>
 			</trans-unit>
+			<trans-unit id="virtualization.provision.override.jsp.goto.advanced.options">
+				<source>By default virtual guest settings like memory, cpu and storage allocations will be inherited from your kickstart profile. If you want to override these settings click on &lt;strong&gt;{0}&lt;/strong&gt; button below.</source>
+				<target>ডিফল্টরূপে, kickstart প্রোফাইলের মান অনুযায়ী ভার্চুয়াল গেস্টের মেমরি, cpu, ধারণস্থল বরাদ্দকরণ ইত্যাদি বৈশিষ্ট্য ধার্য করা হবে। এই মান পরিবর্তনের জন্য নীচে উপস্থিত &lt;strong&gt;{0}&lt;/strong&gt; বাটন ক্লিক করুন।</target>
+			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.guest_name.header">
 				<source>Guest Name:</source>
 				<target>গেস্টের নাম:</target>
@@ -12609,7 +12613,7 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 			</trans-unit>
 			<trans-unit id="virtualization.provision.override.jsp.message">
 				<source>The following fields may be left blank (in which case default values as defined in the selected kickstart profile will be used).  Each field may be set individually to override the profile's default value.</source>
-				<target>নিম্নলিখিত ক্ষেত্রগুলির মধ্যে মান পূরণ করা আবশ্যক নয় এবং নির্বাচিত কিক-স্টার্ট প্রোফাইলের মধ্যে উল্লিখিত ডিফল্ট মান প্রয়োগ করা হবে।  প্রোফাইলে উল্লিখিত ডিফল্ট মান অগ্রাহ্য করার জন্য প্রতিটি ক্ষেত্রে মান ধার্য করা যাবে।</target>
+				<target>নিম্নলিখিত ক্ষেত্রগুলির মধ্যে মান পূরণ করা আবশ্যক নয় এবং নির্বাচিত kickstart প্রোফাইলের মধ্যে উল্লিখিত ডিফল্ট মান প্রয়োগ করা হবে।  প্রোফাইলে উল্লিখিত ডিফল্ট মান অগ্রাহ্য করার জন্য প্রতিটি ক্ষেত্রে মান ধার্য করা যাবে।</target>
 			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.storage.local.message1">
 				<source>Use the virtual host system's disk space: </source>
@@ -14296,7 +14300,6 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="docsearch.free_form">
 				<source>Free Form</source>
-				<target>মুক্ত বিন্যাস</target>
 			</trans-unit>
 			<trans-unit id="docsearch.content_title">
 				<source>Content &amp; Title</source>
@@ -14328,7 +14331,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="kickstart.list.jsp.orgdefault">
 				<source>This is your organizations default kickstart profile.</source>
-				<target>এটি আপনার প্রতিষ্ঠানের ডিফল্ট কিক-স্টার্ট প্রোফাইল।</target>
+				<target>এটি আপনার প্রতিষ্ঠানের ডিফল্ট kickstart প্রোফাইল।</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.refguide">
 				<source>@@PRODUCT_NAME@@ Reference Guide</source>
@@ -14822,6 +14825,10 @@ given channel.</source>
 				<source>{0}</source>
 				<target>{0}</target>
 			</trans-unit>
+			<trans-unit id="channel.delete.jsp.toolbar">
+				<source>{0}</source>
+				<target>{0}</target>
+			</trans-unit>
 			<trans-unit id="channel.edit.jsp.basicchanneldetails">
 				<source>Basic Channel Details</source>
 				<target>চ্যানেল সংক্রান্ত মৌলিক বিবরণ</target>
@@ -14837,6 +14844,52 @@ given channel.</source>
 			<trans-unit id="channel.edit.jsp.security.gpg">
 				<source>Security: GPG</source>
 				<target>নিরাপত্তা: GPG</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.channelheader">
+				<source>Delete Channel</source>
+				<target state="needs-review-translation">চ্যানেল মুছে ফেলুন</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.introparagraph">
+				<source>Are you sure you wish to delete this channel? Packages in the channel will
+           be removed from the channel, but will remain on the server. You will be
+           given the option to delete them after the channel has been deleted. Errata
+           related to the channel will no longer be related to the channel, and may be
+           orphaned. If the channel has child channels, it cannot be deleted; the child
+           channels must be deleted first. If the channel has kickstart distributions
+           associated to it, it cannot be deleted; the kickstart distributions must be
+           dissociated from the channel or deleted first.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.arch">
+				<source>Architecture:</source>
+				<target state="needs-review-translation">আর্কিটেকচার</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.totalpackages">
+				<source>Total Packages:</source>
+				<target state="needs-review-translation">অনুরোধ করা সর্বমোট প্যাকেজ সংখ্যা:</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.systemssubscribed">
+				<source>Systems Subscribed:</source>
+				<target state="needs-review-translation">সাবস্ক্রাইব করা সিস্টেম</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsheader">
+				<source>Trusted Organizations</source>
+				<target state="needs-review-translation">প্রতিষ্ঠান নির্মাণ করুন</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsparagraph">
+				<source>Channel deletion will affect any Trusted Organizations that have systems
+            subscribed to the {0} channel.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsaffected">
+				<source>Organizations Affected:</source>
+				<target state="needs-review-translation">প্রতিষ্ঠান:</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubheader">
+				<source>Unsubscribe Systems</source>
+				<target state="needs-review-translation">সিস্টেম আন-সাবস্ক্রাইব করুন</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubparagraph">
+				<source>Unsubscribe all trusted organization systems that are subscribed to the
+            {0} channel. Subscribed systems will lose access to packages specific to this channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
@@ -14884,15 +14937,15 @@ given channel.</source>
 				<source>This channel is &lt;strong&gt;private&lt;/strong&gt; and cannot
         be accessed by any other organization.</source>
 				<target>এই চ্যানেলটি &lt;strong&gt;ব্যক্তিগত&lt;/strong&gt; হিসাবে ধার্য করা হয়েছে
-        এবং অন্য কোনো প্রতিষ্টান দ্বারা ব্যবহারযোগ্য নয়।</target>
+        এবং অন্য কোনো প্রতিষ্ঠান দ্বারা ব্যবহারযোগ্য নয়।</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.allusers">
 				<source>All users within your organization may subscribe to this channel.</source>
-				<target>আপনার প্রতিষ্ঠানের সকল ব্যবহারকারীরা এই চ্যানেলে সাবস্ক্রাইব করতে পারবেন।</target>
+				<target>আপনার প্রতিষ্ঠানের সকল ব্যবহারকারী এই চ্যানেলে সাবস্ক্রাইব করতে পারবেন।</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.selectedusers">
 				<source>Only selected users within your organization may subscribe to this channel.</source>
-				<target>আপনার প্রতিষ্ঠানের কয়েকজন নির্বাচিত ব্যবহারকারীরা এই চ্যানেলে সাবস্ক্রাইব করতে পারবেন।</target>
+				<target>আপনার প্রতিষ্ঠানের কয়েকজন নির্বাচিত ব্যবহারকারী এই চ্যানেলে সাবস্ক্রাইব করতে পারবেন।</target>
 			</trans-unit>
 			<trans-unit id="confirmprivate.jsp.title">
 				<source>Confirm Channel Sharing Modification</source>
@@ -15004,13 +15057,61 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="unknown.kickstart">
 				<source>Kickstart Not Found</source>
-				<target>কিক-স্টার্ট পাওয়া যায়নি</target>
+				<target>kickstart পাওয়া যায়নি</target>
 			</trans-unit>
 			<trans-unit id="unknown.kickstart.message">
 				<source>The requested kickstart file could not be found.
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
-				<target>অনুরোধ করা কিক-স্টার্ট ফাইলটি পাওয়া যায়নি।
-         প্রতিষ্ঠানের কোনো ডিফল্ট কিক-স্টার্টের অনুরোধ জানানো হলে অনুগ্রহ করে নিশ্চিত করুন যে সংশ্লিষ্ট কিক-স্টার্টটি "প্রতিষ্ঠানের ডিফল্ট" রূপে ধার্য করা হয়েছে।</target>
+				<target>অনুরোধ করা kickstart ফাইলটি পাওয়া যায়নি।
+         প্রতিষ্ঠানের কোনো ডিফল্ট kickstart-র অনুরোধ জানানো হলে অনুগ্রহ করে নিশ্চিত করুন যে সংশ্লিষ্ট kickstart-টি "প্রতিষ্ঠানের ডিফল্ট" রূপে ধার্য করা হয়েছে।</target>
+			</trans-unit>
+			<trans-unit id="task.status.current.db.time">
+				<source>Current DB Time</source>
+				<target state="needs-review-translation">বর্তমান-কি</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.execution">
+				<source>Last Execution Times</source>
+				<target state="needs-review-translation">স্ক্রিপ্ট সঞ্চালনের সময়কাল</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.completed">
+				<source>Last Completed Action</source>
+				<target state="needs-review-translation">সমাপ্ত কর্ম</target>
+			</trans-unit>
+			<trans-unit id="task.status.session.cleanup">
+				<source>Session Cleanup</source>
+			</trans-unit>
+			<trans-unit id="task.status.errata.queue.notif">
+				<source>Errata Notification Queue</source>
+				<target state="needs-review-translation">ত্রুটি-বিচ্যুতি সংক্রান্ত সূচনা প্রেরণ করুন</target>
+			</trans-unit>
+			<trans-unit id="task.status.errata.mail">
+				<source>Errata Notification Mail</source>
+				<target state="needs-review-translation">ত্রুটি-বিচ্যুতি সংক্রান্ত সূচনা প্রেরণ করুন</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary">
+				<source>Daily Summary Queue</source>
+				<target state="needs-review-translation">দৈনিক সারসংক্ষেপ</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary.mail">
+				<source>Daily Summary Mail</source>
+				<target state="needs-review-translation">দৈনিক সারসংক্ষেপ</target>
+			</trans-unit>
+			<trans-unit id="task.status.clean.alerts">
+				<source>Clean Current Alerts</source>
+				<target state="needs-review-translation">বর্তমান সংস্করণ</target>
+			</trans-unit>
+			<trans-unit id="task.status.sync.probe">
+				<source>Sync Probe State</source>
+				<target state="needs-review-translation">অনুসন্ধানের অবস্থা</target>
+			</trans-unit>
+			<trans-unit id="task.status.message">
+				<source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
+			</trans-unit>
+			<trans-unit id="task.status.title">
+				<source>Task Engine Status</source>
+			</trans-unit>
+			<trans-unit id="actions.jsp.pickedup">
+				<source>Picked Up</source>
 			</trans-unit>
 		</body>
 	</file>

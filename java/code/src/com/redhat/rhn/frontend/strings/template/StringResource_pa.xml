@@ -322,8 +322,7 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on @@PRODUCT_NAME@@ by following
-   the directions at https://rhn.redhat.com/help/faq/#26
+   delete your existing system profile on @@PRODUCT_NAME@@.
 
 2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
    the number of active Red Hat subscriptions associated with your
@@ -354,7 +353,7 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 
 ਪਿਛਲੇ ਦਿਨਾਂ ਵਿੱਚ ਤੁਹਾਡੇ Red Hat ਲਾਗ-ਇਨ ਅਤੇ ਖਾਤੇ ਨਾਲ
 ਹੇਠ ਦਿੱਤੇ ਸਿਸਟਮ ਸਬੰਧਿਤ ਹੋ ਗਏ ਹਨ, ਪਰ @@PRODUCT_NAME@@ ਸੇਵਾਵਾਂ ਨਾਲ
-ਇਨਟਾਇਟਲਮਿੰਟ ਨਹੀਂ ਕੀਤੇ ਜਾ ਸਕਦੇ ਹਨ।
+ਇਨਟਾਈਟਲਮੈਂਟ ਨਹੀਂ ਕੀਤੇ ਜਾ ਸਕਦੇ ਹਨ।
 
 {0}
 
@@ -362,8 +361,7 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 
 1) ਤੁਸੀਂ ਹੁਣੇ ਇੱਕ ਸਿਸਟਮ ਮੁੜ-ਇੰਸਟਾਲ ਕੀਤਾ ਹੋ ਸਕਦਾ ਹੈ ਅਤੇ ਉਸ ਨੂੰ ਇੱਕ ਮੌਜੂਦਾ, ਸਰਗਰਮ
    ਮੈਂਬਰੀ ਨਾਲ ਸਬੰਧਿਤ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਹੋ ਸਕਦੀ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਯਕੀਨੀ ਬਣਾਓ ਕਿ 
-   @@PRODUCT_NAME@@ ਤੋਂ https://rhn.redhat.com/help/faq/#26
-   ਦਿੱਤੀਆਂ ਹਦਾਇਤਾਂ ਰਾਹੀਂ ਸਿਸਟਮ ਪਰੋਫਾਇਲ ਹਟਾ ਦਿੱਤਾ ਹੈ
+   @@PRODUCT_NAME@@ ਤੋਂ ਮੌਜੂਦਾ ਸਿਸਟਮ ਪਰੋਫਾਇਲ ਹਟਾ ਦਿੱਤਾ ਹੈ
 
 2) ਤੁਹਾਡੇ ਵਲੋਂ @@PRODUCT_NAME@@ ਨਾਲ ਜੁੜੇ ਸਿਸਟਮਾਂ ਦੀ ਗਿਣਤੀ ਤੁਹਾਡੇ ਖਾਤੇ ਨਾਲ
    ਸਬੰਧਿਤ ਸਰਗਰਮ Red Hat ਮੈਂਬਰੀਆਂ ਦੀ ਗਿਣਤੀ ਵੱਧ ਗਈ ਹੋ ਸਕਦੀ ਹੈ

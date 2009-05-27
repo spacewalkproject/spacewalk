@@ -320,8 +320,7 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on @@PRODUCT_NAME@@ by following
-   the directions at https://rhn.redhat.com/help/faq/#26
+   delete your existing system profile on @@PRODUCT_NAME@@.
 
 2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
    the number of active Red Hat subscriptions associated with your
@@ -358,29 +357,29 @@ Red Hat 用戶鈞鑒：
 
 有幾項原因可能引起此問題：
 
-1) 您最近重新安裝了系統，並試圖將這系統與
-   現有、已啟動的訂閱服務相關連。請
-   確定您有從 @@PRODUCT_NAME@@ 中刪除現有的系統設定檔，方法請參閱
-   https://rhn.redhat.com/help/faq/#26
+1) 您最近重新安裝了系統，並試圖將這系統與現有、已啟動
+   的訂閱服務相關連。請確認您有從 @@PRODUCT_NAME@@ 中
+   刪除現有的系統設定檔。
 
 2) 您連接到 @@PRODUCT_NAME@@ 的系統數目超過了
    您帳號所擁有的 Red Hat 訂閱
    數。這可能是因為您的訂閱服務已經過期，或
    您需要購買一份 Red Hat 訂閱服務。
 
-   要檢查您現有 Red Hat 訂閱的有效期限，請至：
+   要檢查您現有 Red Hat 訂閱
+   的有效期限，請至：
 
    https://www.redhat.com/apps/support/
 
-   登入後請按下「檢視」，並使用連結管理您的訂閱。
+   登入後請按下「檢視」，並管理您的訂閱連結。
 
-3) 您最近安裝了 Red Hat 產品，而您的訂閱
-   碼並未成功地啟動。如果您打算試著
-   重新啟動您的訂閱，請使用以下網址：
+3) 您最近安裝了一項 Red Hat 產品，而您的訂閱
+   碼並未成功地啟動。如果您打算嘗試
+   重新啟動您的訂閱，請至以下網址：
 
    https://www.redhat.com/activate
 
-如果您有其他疑問，請聯絡 Red Hat 客服
+如果您有其它疑問，請聯絡 Red Hat 客服
 人員：
 
 http://www.redhat.com/about/contact/directory.html#custservice

@@ -1744,9 +1744,9 @@ available for this kickstart profile to function properly.
 				<source>Search strings must be longer than two characters.</source>
 				<target>搜尋字串必須多於兩個字元。</target>
 			</trans-unit>
-			<trans-unit id="packages.search.index_out_of_sync_with_db">
-				<source>Package search index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
-				<target>套件搜尋檢索和資料庫項目似乎沒有同步化。請執行「/sbin/service rhn-search cleanindex; /sbin/service rhn-search start」。</target>
+			<trans-unit id="searchserver.index_out_of_sync_with_db">
+				<source>SearchServer index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
+				<target state="needs-review-translation">套件搜尋檢索和資料庫項目似乎沒有同步化。請執行「/sbin/service rhn-search cleanindex; /sbin/service rhn-search start」。</target>
 			</trans-unit>
 			<trans-unit id="patches.installed.notavailable">
 				<source>Not Available</source>
@@ -2144,8 +2144,8 @@ user before attempting to deactivate their account.</source>
 				<target>預期登入時間：</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;注意：&lt;/strong&gt;本系統最近未登入 @@PRODUCT_NAME@@。如果系統未登入 @@PRODUCT_NAME@@，它就無法進行更新，因此這項動作不太可能會成功。&lt;br/&gt;&lt;br/&gt;請檢查系統，並確認 rhnsd 正在執行中（&lt;a href="/help/faq.pxt#15"&gt;更多資訊&lt;/a&gt;）。如果它執行失敗，請&lt;a href="/help/contact.pxt"&gt;連絡我們&lt;/a&gt;。</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running.</source>
+				<target>&lt;strong&gt;注意：&lt;/strong&gt;本系統最近未登入 @@PRODUCT_NAME@@。如果系統未登入 @@PRODUCT_NAME@@，它就無法進行更新，因此這項動作不太可能會成功。&lt;br/&gt;&lt;br/&gt;請檢查系統，並確認 rhnsd 正在運作中。</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -3508,28 +3508,27 @@ user before attempting to deactivate their account.</source>
 				<target>認證上傳完畢。@@PRODUCT_NAME@@ 已被重新啟動。</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
-				<source>Could not parse certificate file</source>
-				<target>無法解析認證檔</target>
+				<source>Could not parse certificate file, see log file for more details.</source>
+				<target state="needs-review-translation">無法解析認證檔</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.11">
 				<source>Certificate expired</source>
 				<target>認證已過期</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown @@PRODUCT_NAME@@ version</source>
-				<target>不明的 @@PRODUCT_NAME@@ 版本</target>
+				<source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
+				<target state="needs-review-translation">不明的 @@PRODUCT_NAME@@ 版本</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
-				<source>Remote activation failure</source>
-				<target>遠端啟動失敗</target>
+				<source>Remote activation failure, see log file for more details.</source>
+				<target state="needs-review-translation">遠端啟動失敗</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.30">
-				<source>Local activation failure</source>
-				<target>本機啟動失敗</target>
+				<source>Local activation failure, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.40">
-				<source>Channel population failure</source>
-				<target>頻道集結失敗</target>
+				<source>Channel population failure, see log file for more details.</source>
+				<target state="needs-review-translation">頻道集結失敗</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.80">
 				<source>No management entitlements remaining</source>
@@ -3548,8 +3547,7 @@ user before attempting to deactivate their account.</source>
 				<target>無效的 @@PRODUCT_NAME@@ 認證</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
-				<source>Unknown activation error</source>
-				<target>不明的啟動錯誤</target>
+				<source>Unknown activation error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
 				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
@@ -3560,12 +3558,7 @@ user before attempting to deactivate their account.</source>
 				<target>沒有適用於此版本的 @@PRODUCT_NAME@@ 頻道</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
-				<source>Unhandled error</source>
-				<target>未處理的錯誤</target>
-			</trans-unit>
-			<trans-unit id="bootstrap.config.error.127">
-				<source>Unhandled error</source>
-				<target>未處理的錯誤</target>
+				<source>Unhandled error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="hostname">
 				<source>@@PRODUCT_NAME@@ server hostname</source>
@@ -3602,6 +3595,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="bootstrap.config.error.17">
 				<source>Could not find GPG key</source>
 				<target>找不到 GPG 金鑰</target>
+			</trans-unit>
+			<trans-unit id="bootstrap.config.error.127">
+				<source>Unhandled error</source>
+				<target>未處理的錯誤</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.success">
 				<source>Bootstrap script successfully generated.  You can access it &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt;</source>
@@ -5194,6 +5191,13 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="message.channelcreated">
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
 				<target>頻道 &lt;strong&gt;{0}&lt;/strong&gt; 已建立。</target>
+			</trans-unit>
+			<trans-unit id="message.channeldeleted">
+				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; has been deleted.</source>
+				<target state="needs-review-translation">啟動金鑰 &lt;strong&gt;{0}&lt;/strong&gt; 已刪除。</target>
+			</trans-unit>
+			<trans-unit id="message.channel.delete.systemssubscribed">
+				<source>There are currently systems subscribed to this channel. Please confirm system channel removal by selecting the unsubscribe checkbox.</source>
 			</trans-unit>
 			<trans-unit id="message.channelupdated">
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>

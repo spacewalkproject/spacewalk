@@ -1136,7 +1136,7 @@
 			</trans-unit>
 			<trans-unit id="preferences.jsp.leadin">
 				<source>@@PRODUCT_NAME@@ offers email notifications for when errata relevant to your systems are released, as well as daily emails summarizing the events for your systems.</source>
-				<target>@@PRODUCT_NAME@@은 시스템과 관련된 에라타가 출시될 때 마다 이메일을 통해 알려드릴 뿐만 아니라 매일 시스템 이벤트가 요약된 이메일을 보내드립니다. </target>
+				<target>@@PRODUCT_NAME@@는 시스템과 관련된 에라타가 출시될 때 마다 이메일을 통해 알려드릴 뿐만 아니라 매일 시스템 이벤트가 요약된 이메일을 보내드립니다.   </target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.receivenote">
 				<source> Receive email notifications</source>
@@ -7044,8 +7044,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>아래에 나온 입력란에서 킥스타트 프로파일을 수정하실 수 있습니다. 별표(*)로 표시된 항목은 필수 입력란입니다.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdelete.jsp.summary1">
-				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its associated system and corresponding options.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
-				<target>킥스타트를 정말로 삭제하시겠습니까?&lt;strong&gt;&lt;p&gt;경고: 킥스타트를 삭제하시면 이와 관련된 시스템과 옵션이 모두 삭제됩니다.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;버튼을 한번만 클릭하시기 바랍니다: 삭제 작업이 완료될 때까지 약간의 시간이 소요될 수 있습니다.&lt;/strong&gt;&lt;/p&gt; </target>
+				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its corresponding options and scripts.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
+				<target state="needs-review-translation">킥스타트를 정말로 삭제하시겠습니까?&lt;strong&gt;&lt;p&gt;경고: 킥스타트를 삭제하시면 이와 관련된 시스템과 옵션이 모두 삭제됩니다.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;버튼을 한번만 클릭하시기 바랍니다: 삭제 작업이 완료될 때까지 약간의 시간이 소요될 수 있습니다.&lt;/strong&gt;&lt;/p&gt; </target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.summary2">
 				<source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
@@ -8049,7 +8049,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.noinactivesystems">
 				<source>&lt;strong&gt;No inactive systems.&lt;/strong&gt; &lt;p&gt;All of your systems are actively checking into @@PRODUCT_NAME@@ at this time. You can view a list of all of your systems at &lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;Systems &gt; All&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;</source>
-				<target>&lt;strong&gt;비활성화 시스템이 없습니다.&lt;/strong&gt; &lt;p&gt; 모든 시스템은 현재 @@PRODUCT_NAME@@으로 접속하고 있습니다. &lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;시스템 &gt; 모든 시스템&lt;/a&gt;&lt;/strong&gt;에서 모든 시스템의 목록을 보실 수 있습니다.&lt;/p&gt;   </target>
+				<target>&lt;strong&gt;비활성화 시스템이 없습니다.&lt;/strong&gt; &lt;p&gt; 모든 시스템은 현재 @@PRODUCT_NAME@@로 접속하고 있습니다. &lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;시스템 &gt; 모든 시스템&lt;/a&gt;&lt;/strong&gt;에서 모든 시스템의 목록을 보실 수 있습니다.&lt;/p&gt;     </target>
 			</trans-unit>
 			<trans-unit id="errata.sev.label.low">
 				<source>Low</source>
@@ -12562,6 +12562,10 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 				<source>Virtual System Hardware Overrides</source>
 				<target>가상 시스템 하드웨어 덮어쓰기 </target>
 			</trans-unit>
+			<trans-unit id="virtualization.provision.override.jsp.goto.advanced.options">
+				<source>By default virtual guest settings like memory, cpu and storage allocations will be inherited from your kickstart profile. If you want to override these settings click on &lt;strong&gt;{0}&lt;/strong&gt; button below.</source>
+				<target>메모리, cpu, 스토리지 할당과 같은 기본값 가상 게스트 설정은 킥스타트 프로파일에서 상속됩니다. 이러한 설정을 덮어쓰기하려면 아래의 &lt;strong&gt;{0}&lt;/strong&gt; 버튼을 클릭합니다.  </target>
+			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.guest_name.header">
 				<source>Guest Name:</source>
 				<target>게스트 이름: </target>
@@ -13654,7 +13658,7 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 			</trans-unit>
 			<trans-unit id="org.trust.header">
 				<source>Organizations Trusted By {0}</source>
-				<target>{0}을 통해 신뢰할 수 있는 조직  </target>
+				<target>{0}을/를 통해 신뢰할 수 있는 조직   </target>
 			</trans-unit>
 			<trans-unit id="org.login.tip">
 				<source>Between {0} and 64 characters</source>
@@ -14545,7 +14549,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.message">
 				<source>Custom system info keys allow your adminstrators to store relevant custom key/value pairs with your system profiles. Custom system info is fully {0}searchable{1}.</source>
-				<target>사용자 정의 정보 키는 관리자가 사용자의 시스템 프로파일과 함께 해당 사용자 정의 키/값 쌍을 저장하게 합니다. 사용자 정의 시스템 정보는 완전하게 {0} 검색 가능한 {1}입니다.  </target>
+				<target>사용자 정의 정보 키는 관리자가 사용자의 시스템 프로파일과 함께 해당 사용자 정의 키/값 쌍을 저장하게 합니다. 사용자 정의 시스템 정보는 완전하게 {0} 검색 가능합니다{1}.  </target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.message2">
 				<source>The following custom system info keys have been defined for your organization.</source>
@@ -14815,6 +14819,10 @@ given channel.</source>
 				<source>{0}</source>
 				<target>{0}</target>
 			</trans-unit>
+			<trans-unit id="channel.delete.jsp.toolbar">
+				<source>{0}</source>
+				<target>{0}</target>
+			</trans-unit>
 			<trans-unit id="channel.edit.jsp.basicchanneldetails">
 				<source>Basic Channel Details</source>
 				<target>기본 채널 상세 정보  </target>
@@ -14830,6 +14838,52 @@ given channel.</source>
 			<trans-unit id="channel.edit.jsp.security.gpg">
 				<source>Security: GPG</source>
 				<target>보안: GPG </target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.channelheader">
+				<source>Delete Channel</source>
+				<target state="needs-review-translation">채널 삭제</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.introparagraph">
+				<source>Are you sure you wish to delete this channel? Packages in the channel will
+           be removed from the channel, but will remain on the server. You will be
+           given the option to delete them after the channel has been deleted. Errata
+           related to the channel will no longer be related to the channel, and may be
+           orphaned. If the channel has child channels, it cannot be deleted; the child
+           channels must be deleted first. If the channel has kickstart distributions
+           associated to it, it cannot be deleted; the kickstart distributions must be
+           dissociated from the channel or deleted first.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.arch">
+				<source>Architecture:</source>
+				<target state="needs-review-translation">아키텍처 </target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.totalpackages">
+				<source>Total Packages:</source>
+				<target state="needs-review-translation">요청된 총 패키지:</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.systemssubscribed">
+				<source>Systems Subscribed:</source>
+				<target state="needs-review-translation">등록된 시스템 </target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsheader">
+				<source>Trusted Organizations</source>
+				<target state="needs-review-translation">조직 생성  </target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsparagraph">
+				<source>Channel deletion will affect any Trusted Organizations that have systems
+            subscribed to the {0} channel.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsaffected">
+				<source>Organizations Affected:</source>
+				<target state="needs-review-translation">조직: </target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubheader">
+				<source>Unsubscribe Systems</source>
+				<target state="needs-review-translation">시스템 등록 해제</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubparagraph">
+				<source>Unsubscribe all trusted organization systems that are subscribed to the
+            {0} channel. Subscribed systems will lose access to packages specific to this channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
@@ -15000,6 +15054,54 @@ given channel.</source>
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
 				<target>요청하신 킥스타트 파일을 찾을 수 없습니다.
           조직의 기본값 킥스타트를 요청하신 경우, 킥스타트가 "조직 기본값"으로 선택되었는지를 확인합니다.  </target>
+			</trans-unit>
+			<trans-unit id="task.status.current.db.time">
+				<source>Current DB Time</source>
+				<target state="needs-review-translation">현재키</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.execution">
+				<source>Last Execution Times</source>
+				<target state="needs-review-translation">스크립트 실행 시간</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.completed">
+				<source>Last Completed Action</source>
+				<target state="needs-review-translation">완료된 작업</target>
+			</trans-unit>
+			<trans-unit id="task.status.session.cleanup">
+				<source>Session Cleanup</source>
+			</trans-unit>
+			<trans-unit id="task.status.errata.queue.notif">
+				<source>Errata Notification Queue</source>
+				<target state="needs-review-translation">에라타 통지 보내기</target>
+			</trans-unit>
+			<trans-unit id="task.status.errata.mail">
+				<source>Errata Notification Mail</source>
+				<target state="needs-review-translation">에라타 통지 보내기</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary">
+				<source>Daily Summary Queue</source>
+				<target state="needs-review-translation">일별 요약</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary.mail">
+				<source>Daily Summary Mail</source>
+				<target state="needs-review-translation">일별 요약</target>
+			</trans-unit>
+			<trans-unit id="task.status.clean.alerts">
+				<source>Clean Current Alerts</source>
+				<target state="needs-review-translation">현재 버전</target>
+			</trans-unit>
+			<trans-unit id="task.status.sync.probe">
+				<source>Sync Probe State</source>
+				<target state="needs-review-translation">프로브 상태</target>
+			</trans-unit>
+			<trans-unit id="task.status.message">
+				<source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
+			</trans-unit>
+			<trans-unit id="task.status.title">
+				<source>Task Engine Status</source>
+			</trans-unit>
+			<trans-unit id="actions.jsp.pickedup">
+				<source>Picked Up</source>
 			</trans-unit>
 		</body>
 	</file>

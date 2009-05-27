@@ -290,12 +290,12 @@ Red Hat はご希望のアカウントにサブスクリプションを転送す
 
 {3}
 
-アカウント管理者 (Organization Administrator) の方へ:  
+アカウント管理者 (組織管理者) 様  
 新規ユーザーがサブスクリプションにアクセスできるようにするには、 
-Organization Administrator アカウントにあるサブスクリプションを新規ユーザーが 
-表示及び管理できるよう許可する必要があります。 これには、 Organization Administrator 
-アカウントに User Administration のエンタイトルメントがなければなりません。 
-不明な点がある場合は、 上記のリンクより担当のカスタマーサービスまでご連絡頂き、 
+ご自分のアカウントにあるサブスクリプションを新規ユーザーが 
+表示管理できるよう許可する必要があります。 これには、ご自分の
+アカウントにユーザー管理のエンタイトルメントがなければなりません。 
+不明な点がある場合は、 上記のリンクより担当のカスタマーサービスまでご連絡いただき、 
 この機能の取得を依頼してください。
 
 Red Hat をご利用頂きありがとうございます。
@@ -320,8 +320,7 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on @@PRODUCT_NAME@@ by following
-   the directions at https://rhn.redhat.com/help/faq/#26
+   delete your existing system profile on @@PRODUCT_NAME@@.
 
 2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
    the number of active Red Hat subscriptions associated with your
@@ -359,9 +358,8 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 考えられる理由は次の通りです。 
 
 1) 最近再インストールしたシステムを、既存のアクティブなサブスクリプション
-   に関連付けようとしている場合。 
-   https://rhn.redhat.com/help/faq/#26 の指示に従って @@PRODUCT_NAME@@ 
-   上にある既存のシステムプロフィールが削除されているよう確認してください。 
+   に関連付けようとしている場合。 @@PRODUCT_NAME@@ 上にある既存の
+   システムプロフィールが削除されているよう確認してください。 
 
 2) @@PRODUCT_NAME@@ に接続しているシステム数がご使用のアカウントに
    関連付けられているアクティブな Red Hat サブスクリプションの数より多い場合。

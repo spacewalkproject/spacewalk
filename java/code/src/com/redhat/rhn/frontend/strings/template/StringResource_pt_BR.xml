@@ -322,8 +322,7 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on @@PRODUCT_NAME@@ by following
-   the directions at https://rhn.redhat.com/help/faq/#26
+   delete your existing system profile on @@PRODUCT_NAME@@.
 
 2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
    the number of active Red Hat subscriptions associated with your
@@ -361,8 +360,7 @@ Há diversas possíveis razões para isto:
 
 1) Recentemente, você reinstalou um sistema e está tentando associá-lo
    a uma assinatura existente ativa. Por favor certifique-se de remover
-   seu perfil existente no @@NOME_DO_PRODUTO@@ seguindo os passos
-   descritos em https://rhn.redhat.com/help/faq/#26
+   seu perfil existente no @@NOME_DO_PRODUTO@@.
 
 2) O número de sistemas que você conectou ao @@NOME_DO_PRODUTO@@ excede
    o número de assinaturas Red Hat ativas associadas à sua conta.

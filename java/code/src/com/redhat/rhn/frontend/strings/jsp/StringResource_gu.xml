@@ -7049,8 +7049,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>કિકસ્ટાર્ટ રૂપરેખા નીચે પૂરા પાડવામાં આવેલ ફોર્મની મદદથી રૂપરેખાંકિત કરી શકાશે. ફૂદડી (*) થી ચિહ્નિત થયેલ પ્રવેશો જરૂરી છે.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdelete.jsp.summary1">
-				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its associated system and corresponding options.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
-				<target>શું તમે ખરેખર આ કિકસ્ટાર્ટ કાઢી નાંખવા માંગો છો?&lt;strong&gt;&lt;p&gt;ચેતવણી: આ કિકસ્ટાર્ટ કાઢી નાંખવાનું તેની સંકળાયેલ સિસ્ટમ અને લાગતાવળગતા વિકલ્પો કાઢી નાંખશે.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;મહેરબાની કરીને બટન પર માત્ર એક જ વાર ક્લિક કરો; કાઢી નાંખવાની પ્રક્રિયા પૂર્ણ કરવા માટે તેને થોડી ક્ષણો જ લાગશે.&lt;/strong&gt;&lt;/p&gt;</target>
+				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its corresponding options and scripts.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
+				<target state="needs-review-translation">શું તમે ખરેખર આ કિકસ્ટાર્ટ કાઢી નાંખવા માંગો છો?&lt;strong&gt;&lt;p&gt;ચેતવણી: આ કિકસ્ટાર્ટ કાઢી નાંખવાનું તેની સંકળાયેલ સિસ્ટમ અને લાગતાવળગતા વિકલ્પો કાઢી નાંખશે.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;મહેરબાની કરીને બટન પર માત્ર એક જ વાર ક્લિક કરો; કાઢી નાંખવાની પ્રક્રિયા પૂર્ણ કરવા માટે તેને થોડી ક્ષણો જ લાગશે.&lt;/strong&gt;&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.summary2">
 				<source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
@@ -12571,6 +12571,10 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 				<source>Virtual System Hardware Overrides</source>
 				<target>વર્ચ્યુઅલ સિસ્ટમ હાર્ડવેર ઉપર લખાય છે</target>
 			</trans-unit>
+			<trans-unit id="virtualization.provision.override.jsp.goto.advanced.options">
+				<source>By default virtual guest settings like memory, cpu and storage allocations will be inherited from your kickstart profile. If you want to override these settings click on &lt;strong&gt;{0}&lt;/strong&gt; button below.</source>
+				<target>મૂળભૂત રીતે વર્ચ્યુઅલ મહેમાન સુયોજનો જેવા કે મેમરી, cpu અને સંગ્રહ ફાળવણીઓ એ તમારી કિકસ્ટાર્ટ રૂપરેખા માંથી વારસો થયેલ હશે. જો નીચે &lt;strong&gt;{0}&lt;/strong&gt; બટન પર ક્લિક કરવાથી આ સુયોજનો ઉપર લખવા માટે તમે ઇચ્છતા હોય તો.</target>
+			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.guest_name.header">
 				<source>Guest Name:</source>
 				<target>મહેમાન નામ:</target>
@@ -14826,6 +14830,10 @@ given channel.</source>
 				<source>{0}</source>
 				<target>{0}</target>
 			</trans-unit>
+			<trans-unit id="channel.delete.jsp.toolbar">
+				<source>{0}</source>
+				<target>{0}</target>
+			</trans-unit>
 			<trans-unit id="channel.edit.jsp.basicchanneldetails">
 				<source>Basic Channel Details</source>
 				<target>આધાર ચેનલો વિગતો</target>
@@ -14841,6 +14849,52 @@ given channel.</source>
 			<trans-unit id="channel.edit.jsp.security.gpg">
 				<source>Security: GPG</source>
 				<target>સુરક્ષા: GPG</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.channelheader">
+				<source>Delete Channel</source>
+				<target state="needs-review-translation">ચેનલ કાઢી નાંખો</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.introparagraph">
+				<source>Are you sure you wish to delete this channel? Packages in the channel will
+           be removed from the channel, but will remain on the server. You will be
+           given the option to delete them after the channel has been deleted. Errata
+           related to the channel will no longer be related to the channel, and may be
+           orphaned. If the channel has child channels, it cannot be deleted; the child
+           channels must be deleted first. If the channel has kickstart distributions
+           associated to it, it cannot be deleted; the kickstart distributions must be
+           dissociated from the channel or deleted first.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.arch">
+				<source>Architecture:</source>
+				<target state="needs-review-translation">આર્કીટેક્ચર</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.totalpackages">
+				<source>Total Packages:</source>
+				<target state="needs-review-translation">કુલ અરજી થયેલ પેકેજો:</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.systemssubscribed">
+				<source>Systems Subscribed:</source>
+				<target state="needs-review-translation">ઉમેદવારી નોંધાવેલ સિસ્ટમો</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsheader">
+				<source>Trusted Organizations</source>
+				<target state="needs-review-translation">સંસ્થા બનાવો</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsparagraph">
+				<source>Channel deletion will affect any Trusted Organizations that have systems
+            subscribed to the {0} channel.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsaffected">
+				<source>Organizations Affected:</source>
+				<target state="needs-review-translation">સંસ્થા:</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubheader">
+				<source>Unsubscribe Systems</source>
+				<target state="needs-review-translation">ઉમેદવારી દૂર થયેલ સિસ્ટમો.</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubparagraph">
+				<source>Unsubscribe all trusted organization systems that are subscribed to the
+            {0} channel. Subscribed systems will lose access to packages specific to this channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
@@ -15014,6 +15068,54 @@ given channel.</source>
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
 				<target>સુચિત કિકસ્ટાર્ટ ફાઇલને શોધી શક્યા નહિં.
          જો તમે સંસ્થાકીય મૂળભૂત કિકસ્ટાર્ટને સૂચન કરી રહ્યા હોય તો, ખાતરી કરો કે જે કિકસ્ટાર્ટ એ "મૂળભૂત સંસ્થા" તરીકે પસંદ કરી દેવામાં આવી છે.</target>
+			</trans-unit>
+			<trans-unit id="task.status.current.db.time">
+				<source>Current DB Time</source>
+				<target state="needs-review-translation">વર્તમાન કી</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.execution">
+				<source>Last Execution Times</source>
+				<target state="needs-review-translation">સ્ક્રિપ્ટ એક્ઝેક્યુશન સમય</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.completed">
+				<source>Last Completed Action</source>
+				<target state="needs-review-translation">સમાપ્ત થયેલ ક્રિયાઓ</target>
+			</trans-unit>
+			<trans-unit id="task.status.session.cleanup">
+				<source>Session Cleanup</source>
+			</trans-unit>
+			<trans-unit id="task.status.errata.queue.notif">
+				<source>Errata Notification Queue</source>
+				<target state="needs-review-translation">ત્રુટિસૂચી સૂચન મોકલો</target>
+			</trans-unit>
+			<trans-unit id="task.status.errata.mail">
+				<source>Errata Notification Mail</source>
+				<target state="needs-review-translation">ત્રુટિસૂચી સૂચન મોકલો</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary">
+				<source>Daily Summary Queue</source>
+				<target state="needs-review-translation">દૈનિક સાર</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary.mail">
+				<source>Daily Summary Mail</source>
+				<target state="needs-review-translation">દૈનિક સાર</target>
+			</trans-unit>
+			<trans-unit id="task.status.clean.alerts">
+				<source>Clean Current Alerts</source>
+				<target state="needs-review-translation">વર્તમાન આવૃત્તિ</target>
+			</trans-unit>
+			<trans-unit id="task.status.sync.probe">
+				<source>Sync Probe State</source>
+				<target state="needs-review-translation">ચકાસણી પરિસ્થિતિ</target>
+			</trans-unit>
+			<trans-unit id="task.status.message">
+				<source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
+			</trans-unit>
+			<trans-unit id="task.status.title">
+				<source>Task Engine Status</source>
+			</trans-unit>
+			<trans-unit id="actions.jsp.pickedup">
+				<source>Picked Up</source>
 			</trans-unit>
 		</body>
 	</file>

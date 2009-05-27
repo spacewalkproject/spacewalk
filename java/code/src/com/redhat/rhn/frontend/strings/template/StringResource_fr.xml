@@ -4,7 +4,7 @@
 		<body>
 			<trans-unit id="email.verify.subject">
 				<source>@@PRODUCT_NAME@@ login Email Verification</source>
-				<target>Vérification par courrier électronique du login @@PRODUCT_NAME@@</target>
+				<target>Vérification par courrier électronique de l'identifiant @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="email.verify.body">
 				<source>Dear @@PRODUCT_NAME@@ User,
@@ -321,8 +321,7 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on @@PRODUCT_NAME@@ by following
-   the directions at https://rhn.redhat.com/help/faq/#26
+   delete your existing system profile on @@PRODUCT_NAME@@.
 
 2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
    the number of active Red Hat subscriptions associated with your
@@ -351,23 +350,21 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 				<target>
 Cher client de Red Hat,
 
-Le système suivant a été associé à votre login et votre compte
-Red Hat mais n'a pas reçu de droits d'accès aux services 
-@@PRODUCT_NAME@@.
+Le système suivant a été associé à votre identifiant et à votre compte
+Red Hat mais n'a pas reçu de droits d'accès aux services @@PRODUCT_NAME@@.
 
 {0}
 
 Il y a plusieurs raisons pour lesquelles ceci aurait pu se produire :
 
-1) Vous venez de réinstaller un système et essayer de l'associer à un
+1) Vous venez de réinstaller un système et essayez de l'associer à un
    abonnement actif existant. Veuillez vous assurer de bien supprimer
-   votre profil système existant sur @@PRODUCT_NAME@@ en suivant les
-   instructions données sur https://rhn.redhat.com/help/faq/#26
+   votre profil système existant sur @@PRODUCT_NAME@@.
 
 2) Le nombre de systèmes que vous avez connectés à @@PRODUCT_NAME@@
    dépasse le nombre d'abonnements Red Hat actifs associés à votre
-   compte. Il se peut que vos abonnements aient expirés ou que vous
-   deviez acheter un abonnement Red Hat.
+   compte. Il se peut que ceci arrive parceque vos abonnements aient expirés ou parceque vous
+   devez acheter un abonnement Red Hat.
 
    Pour vérifier les dates d'expiration de vos abonnements Red Hat
    existants, rendez-vous à l'adresse suivante :

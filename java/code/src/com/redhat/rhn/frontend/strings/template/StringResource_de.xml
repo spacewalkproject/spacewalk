@@ -325,8 +325,7 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on @@PRODUCT_NAME@@ by following
-   the directions at https://rhn.redhat.com/help/faq/#26
+   delete your existing system profile on @@PRODUCT_NAME@@.
 
 2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
    the number of active Red Hat subscriptions associated with your
@@ -355,7 +354,7 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 				<target>
 Sehr geehrter Red Hat Kunde,
 
-das folgende System wurde mit Ihrem Red Hat Login und Account
+das folgende System wurde gestern mit Ihrem Red Hat Login und Account
 verkn&amp;uuml;pft, konnte aber keine Zugangsberechtigung zu den
 @@PRODUCT_NAME@@ Diensten erhalten.
 
@@ -365,8 +364,7 @@ Daf&amp;uuml;r kann es mehrere Ursachen geben:
 
 1) Sie haben kürzlich ein System erneut installiert und versuchen, dieses
    System mit einem existierenden, aktiven Abonnement zu verknüpfen. Bitte vergewissern Sie
-   sich, dass Sie Ihr existierendes System-Profil auf dem @@PRODUCT_NAME@@ l&amp;ouml;schen,
-    indem Sie die Anweisungen unter https://rhn.redhat.com/help/faq/#26 befolgen.
+   sich, dass Sie Ihr existierendes System-Profil auf dem @@PRODUCT_NAME@@ l&amp;ouml;schen.
 
 2) Die Zahl der mit @@PRODUCT_NAME@@ verbundenen Systeme &amp;uuml;bersteigt
    die Zahl der aktiven Red Hat Abonnements, die Ihrem Account

@@ -728,7 +728,7 @@
 			</trans-unit>
 			<trans-unit id="badparam.jsp.reason1">
 				<source>An incorrect or out-of-date bookmark.</source>
-				<target>Um ítem dos favoritos incorreto ou desatualizado.</target>
+				<target>Um item dos favoritos incorreto ou desatualizado.</target>
 			</trans-unit>
 			<trans-unit id="badparam.jsp.reason2">
 				<source>An incorrect or out-of-date hyperlink.</source>
@@ -4698,11 +4698,11 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="systems.groups.jsp.summary">
 				<source>Below are all the system groups that have been added to this system. To remove a system group membership, check its checkbox and make sure you click the "{0}" button when you are finished with your changes.</source>
-				<target>Segue abaixo todos os grupos de sistemas que já foram adicionados neste sistema. Para remover um associado do grupo de sistema, selecione este ítem e tenha certeza que você clicou em "{0}" quando você terminar de realizar suas mudanças.</target>
+				<target>Segue abaixo todos os grupos de sistemas que já foram adicionados neste sistema. Para remover um associado do grupo de sistema, selecione este item e tenha certeza que você clicou em "{0}" quando você terminar de realizar suas mudanças.</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.add.jsp.summary">
 				<source>Below is a list of system groups available to this system. To join a system group, check its checkbox. Make sure you click the "{0}" button when you are finished with your changes.</source>
-				<target>Segue abaixo uma lista dos grupos de sistemas disponíveis para este sistema. Para escolher um grupo de sistema, selecione este ítem. Tenha certeza que você clicou em "{0}" quando você terminar de realizar suas mudanças.</target>
+				<target>Segue abaixo uma lista dos grupos de sistemas disponíveis para este sistema. Para escolher um grupo de sistema, selecione este item. Tenha certeza que você clicou em "{0}" quando você terminar de realizar suas mudanças.</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.add.jsp.title">
 				<source>System Group Membership</source>
@@ -4798,7 +4798,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="systemgroup.systems.summary">
 				<source>Below are all the systems that have been added to this system group. To remove a system group membership, check its checkbox and make sure you click the "{0}" button when you are finished with your changes.</source>
-				<target>Seguem todos os sistemas que foram adicionados ao grupo de sistemas. Para remover uma associação de grupo de sistema, selecione este ítem e tenha certeza que você clicou em "{0}" quando você terminar de realizar suas mudanças.</target>
+				<target>Seguem todos os sistemas que foram adicionados ao grupo de sistemas. Para remover uma associação de grupo de sistema, selecione este item e tenha certeza que você clicou em "{0}" quando você terminar de realizar suas mudanças.</target>
 			</trans-unit>
 			<trans-unit id="systemgroup.systems.summary.nonadmin">
 				<source>Below are all the systems that have been added to this system group.</source>
@@ -4818,7 +4818,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="systementitlements.jsp.para1">
 				<source>In order to get the most out of @@PRODUCT_NAME@@, each system must be &lt;strong&gt;entitled&lt;/strong&gt; to service. If a system is not entitled, you will not be allowed to perform key software management tasks for that system, such as package installs or errata updates.</source>
-				<target>A fim de usufruir ao máximo do @@NOME_DO_PRODUTO@@, cada sistema deve possuir &lt;strong&gt;direitos&lt;/strong&gt; a serviços. Se um sistema não possuir direitos a serviços, você não poderá executar tarefas importantes de gerenciamento de software para aquele sistema, tais como instalação de pacotes e atualizações de erratas. </target>
+				<target>Para que você possa usufruir ao máximo do @@NOME_DO_PRODUTO@@, cada sistema deve possuir &lt;strong&gt;direitos&lt;/strong&gt; a serviços. Se um sistema não possuir direitos a serviços, você não poderá executar tarefas importantes de gerenciamento de software para aquele sistema, tais como instalação de pacotes e atualizações de erratas. </target>
 			</trans-unit>
 			<trans-unit id="systementitlements.jsp.para2">
 				<source>A list of your profiled systems follows, with their base and add-on entitlements shown in the appropriate columns. To change entitlement levels, select the systems you wish to modify, and choose the appropriate action below.</source>
@@ -7041,8 +7041,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>Este perfil de kickstart pode ser editado usando o formulário abaixo. Os campos marcados com um asterisco (*) são obrigatórios.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdelete.jsp.summary1">
-				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its associated system and corresponding options.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
-				<target>Você tem certeza que deseja remover este Kickstart?&lt;strong&gt;&lt;p&gt;ATENÇÃO: remover este kickstart também removerá o sistema e as opções correspondentes associada a este.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Por favor clique no botão somente uma vez; o processo de remoção levará um tempo para completar.&lt;/strong&gt;&lt;/p&gt;</target>
+				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its corresponding options and scripts.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
+				<target state="needs-review-translation">Você tem certeza que deseja remover este Kickstart?&lt;strong&gt;&lt;p&gt;ATENÇÃO: remover este kickstart também removerá o sistema e as opções correspondentes associada a este.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Por favor clique no botão somente uma vez; o processo de remoção levará um tempo para completar.&lt;/strong&gt;&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.summary2">
 				<source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
@@ -8432,7 +8432,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 			</trans-unit>
 			<trans-unit id="activation-keys.jsp.no-universal-default">
 				<source>You do not currently have a universal default activation key set. To set a key as the universal default, please visit the details page of that key and check off the 'Universal Default?' checkbox.</source>
-				<target>Você não possui um conjunto de chave padrão universal atualmente. Para definir uma chave como padrão universal, viste as páginas de detalhes desta chave e selecione o ítem 'Padrão Universal?'.</target>
+				<target>Você não possui um conjunto de chave padrão universal atualmente. Para definir uma chave como padrão universal, viste as páginas de detalhes desta chave e selecione o item 'Padrão Universal?'.</target>
 			</trans-unit>
 			<trans-unit id="activation-keys.jsp.is-default-key-tip">
 				<source>This key is your organization's universal default activation key.</source>
@@ -8488,7 +8488,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 			</trans-unit>
 			<trans-unit id="activation-key.jsp.blank.auto-generator.prefix-notice">
 				<source>Leave blank for automatic key generation. Note that the prefix is an indication of the @@PRODUCT_NAME@@ organization the key is associated with.</source>
-				<target>Deixe o ítem de geração de chave automática em branco. Observe que o prefixo é uma indicação do Organizações do @@NOME_DO_PRODUTO@@ com o qual a chave estiver associada.</target>
+				<target>Deixe o item de geração de chave automática em branco. Observe que o prefixo é uma indicação do Organizações do @@NOME_DO_PRODUTO@@ com o qual a chave estiver associada.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.jsp.edit-basechannel-tooltip">
 				<source>Choose "&lt;strong&gt;{0}&lt;/strong&gt;" to allow systems to register to the default Red Hat provided channel that corresponds to their installed version of Red Hat Enterprise Linux. You may also choose particular Red Hat provided channels or custom base channels here, but please note if a system using this key is not compatible with the selected channel, it will fall back to its Red Hat default channel.</source>
@@ -8604,7 +8604,7 @@ o &lt;strong&gt;Guia de Administração de Sistemas Red Hat Enterprise Li
 			</trans-unit>
 			<trans-unit id="activation-key.groups.jsp.summary">
 				<source>Below are all the system groups that have been added to this activation key. Any system registering with this activation key will be added to the selected system groups. To remove a system group membership, check its checkbox and make sure you click the "{0}" button when you are finished with your changes.</source>
-				<target>Segue abaixo todos os grupos de sistema que já foram adicionados nesta chave de ativação. Qualquer sistema que se registre com esta chave de ativação será adicionado ao grupo de sistemas selecionado. Para se remover uma sociedade de grupo de sistema,  selecione este ítem e tenha certeza que você clicou em "{0}" quando você terminar de realizar suas mudanças.</target>
+				<target>Segue abaixo todos os grupos de sistema que já foram adicionados nesta chave de ativação. Qualquer sistema que se registre com esta chave de ativação será adicionado ao grupo de sistemas selecionado. Para se remover uma sociedade de grupo de sistema,  selecione este item e tenha certeza que você clicou em "{0}" quando você terminar de realizar suas mudanças.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.groups.add.jsp.summary">
 				<source>Below is a list of system groups available to this activation key. To join a system group, check its checkbox. Make sure you click the "{0}" button when you are finished with your changes.</source>
@@ -12564,6 +12564,10 @@ Você pode precisar executar uma sincronização do Satellite dos canais de
 				<source>Virtual System Hardware Overrides</source>
 				<target>Sobrescrição do Hardware de Sistemas Virtuais</target>
 			</trans-unit>
+			<trans-unit id="virtualization.provision.override.jsp.goto.advanced.options">
+				<source>By default virtual guest settings like memory, cpu and storage allocations will be inherited from your kickstart profile. If you want to override these settings click on &lt;strong&gt;{0}&lt;/strong&gt; button below.</source>
+				<target>Por padrão, as configurações de convidado virtual, como a memória, cpu e alocações de armazenamento, serão herdadas de seu perfil do kickstart. Se você desejar sobrescrever estas configurações, clique em &lt;strong&gt;{0}&lt;/strong&gt; abaixo.</target>
+			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.guest_name.header">
 				<source>Guest Name:</source>
 				<target>Nome do Convidado:</target>
@@ -14820,6 +14824,10 @@ given channel.</source>
 				<source>{0}</source>
 				<target>{0}</target>
 			</trans-unit>
+			<trans-unit id="channel.delete.jsp.toolbar">
+				<source>{0}</source>
+				<target>{0}</target>
+			</trans-unit>
 			<trans-unit id="channel.edit.jsp.basicchanneldetails">
 				<source>Basic Channel Details</source>
 				<target>Detalhes sobre Canais Base</target>
@@ -14835,6 +14843,52 @@ given channel.</source>
 			<trans-unit id="channel.edit.jsp.security.gpg">
 				<source>Security: GPG</source>
 				<target>Segurança: GPG</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.channelheader">
+				<source>Delete Channel</source>
+				<target state="needs-review-translation">deletar canal</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.introparagraph">
+				<source>Are you sure you wish to delete this channel? Packages in the channel will
+           be removed from the channel, but will remain on the server. You will be
+           given the option to delete them after the channel has been deleted. Errata
+           related to the channel will no longer be related to the channel, and may be
+           orphaned. If the channel has child channels, it cannot be deleted; the child
+           channels must be deleted first. If the channel has kickstart distributions
+           associated to it, it cannot be deleted; the kickstart distributions must be
+           dissociated from the channel or deleted first.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.arch">
+				<source>Architecture:</source>
+				<target state="needs-review-translation">Arquitetura</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.totalpackages">
+				<source>Total Packages:</source>
+				<target state="needs-review-translation">Total de Pacotes Requisitados:</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.systemssubscribed">
+				<source>Systems Subscribed:</source>
+				<target state="needs-review-translation">Sistemas Registrados</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsheader">
+				<source>Trusted Organizations</source>
+				<target state="needs-review-translation">Criar uma Organização</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsparagraph">
+				<source>Channel deletion will affect any Trusted Organizations that have systems
+            subscribed to the {0} channel.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsaffected">
+				<source>Organizations Affected:</source>
+				<target state="needs-review-translation">Organização:</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubheader">
+				<source>Unsubscribe Systems</source>
+				<target state="needs-review-translation">Cancelar Inscrição de Sistemas </target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubparagraph">
+				<source>Unsubscribe all trusted organization systems that are subscribed to the
+            {0} channel. Subscribed systems will lose access to packages specific to this channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
@@ -15009,6 +15063,54 @@ given channel.</source>
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
 				<target>O arquivo do kickstart solicitado não foi encontrado.
            Se você estiver solicitando um kickstart padrão organizacional, assegure-se de que um kickstart foi selecionado como "Organização Padrão".</target>
+			</trans-unit>
+			<trans-unit id="task.status.current.db.time">
+				<source>Current DB Time</source>
+				<target state="needs-review-translation">Chave Corrente</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.execution">
+				<source>Last Execution Times</source>
+				<target state="needs-review-translation">Tempo de Execução do Script</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.completed">
+				<source>Last Completed Action</source>
+				<target state="needs-review-translation">Ações Concluídas</target>
+			</trans-unit>
+			<trans-unit id="task.status.session.cleanup">
+				<source>Session Cleanup</source>
+			</trans-unit>
+			<trans-unit id="task.status.errata.queue.notif">
+				<source>Errata Notification Queue</source>
+				<target state="needs-review-translation">Enviar Notificação da Errata</target>
+			</trans-unit>
+			<trans-unit id="task.status.errata.mail">
+				<source>Errata Notification Mail</source>
+				<target state="needs-review-translation">Enviar Notificação da Errata</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary">
+				<source>Daily Summary Queue</source>
+				<target state="needs-review-translation">Sumário Diário:</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary.mail">
+				<source>Daily Summary Mail</source>
+				<target state="needs-review-translation">Sumário Diário:</target>
+			</trans-unit>
+			<trans-unit id="task.status.clean.alerts">
+				<source>Clean Current Alerts</source>
+				<target state="needs-review-translation">Versão Atual</target>
+			</trans-unit>
+			<trans-unit id="task.status.sync.probe">
+				<source>Sync Probe State</source>
+				<target state="needs-review-translation">Estado das Detecções</target>
+			</trans-unit>
+			<trans-unit id="task.status.message">
+				<source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
+			</trans-unit>
+			<trans-unit id="task.status.title">
+				<source>Task Engine Status</source>
+			</trans-unit>
+			<trans-unit id="actions.jsp.pickedup">
+				<source>Picked Up</source>
 			</trans-unit>
 		</body>
 	</file>

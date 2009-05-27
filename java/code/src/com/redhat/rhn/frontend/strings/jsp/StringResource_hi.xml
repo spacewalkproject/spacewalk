@@ -1304,7 +1304,7 @@
 			</trans-unit>
 			<trans-unit id="preferences.jsp.displaytimesas">
 				<source>Display all times as</source>
-				<target>सभी समय को इस रूप में दिखायें</target>
+				<target>सभी समय को इस रूप में दिखाएँ</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.lang">
 				<source>Interface Language</source>
@@ -3310,11 +3310,11 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="errata.edit.delete">
 				<source>Delete</source>
-				<target>मिटाएं</target>
+				<target>मिटाएँ</target>
 			</trans-unit>
 			<trans-unit id="channel.manage.patchset.delete">
 				<source>Delete</source>
-				<target>मिटाएं</target>
+				<target>मिटाएँ</target>
 			</trans-unit>
 			<trans-unit id="errata.edit.youmaypublish">
 				<source>You may now publish this erratum.</source>
@@ -3346,7 +3346,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="errata.edit.deletebug">
 				<source>Delete Bug</source>
-				<target>बग मिटाएं</target>
+				<target>बग मिटाएँ</target>
 			</trans-unit>
 			<trans-unit id="errata.edit.bugdeleted">
 				<source>Bug &lt;strong&gt;{0}&lt;/strong&gt; removed from errata &lt;strong&gt;{1}&lt;/strong&gt;.</source>
@@ -4918,7 +4918,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="system_entitlements.setToUpdateEntitled.failure">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Update&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Update&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Update&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Update&lt;/strong&gt; entitlements, you will be able to update these systems.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; सिस्टम सफलतापूर्वक &lt;strong&gt;अद्यतन&lt;/strong&gt; एंटाइटेलमेंट में में बदला गया है, लेकिन बचे &lt;strong&gt;{1}&lt;/strong&gt; सिस्टम के लिये आपके पास पर्याप्त &lt;strong&gt;अद्यतन&lt;/strong&gt; एंटाइटेलमेंट नहीं है. आप अतिरिक्त &lt;strong&gt;अद्यतन&lt;/strong&gt; एंटाइटेलमेंट &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ भंडार&lt;/strong&gt;&lt;/a&gt; पर खरीद सकते हैं. आपके पास अतिरिक्त &lt;strong&gt;अद्यतन&lt;/strong&gt; एंटाइटेलमेंट के बाद, आप इन सिस्टम के अद्यतन में समर्थ होंगे.</target>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; सिस्टम सफलतापूर्वक &lt;strong&gt;अद्यतन&lt;/strong&gt; एंटाइटेलमेंट में बदला गया है, लेकिन बचे &lt;strong&gt;{1}&lt;/strong&gt; सिस्टम के लिये आपके पास पर्याप्त &lt;strong&gt;अद्यतन&lt;/strong&gt; एंटाइटेलमेंट नहीं है. आप अतिरिक्त &lt;strong&gt;अद्यतन&lt;/strong&gt; एंटाइटेलमेंट &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ भंडार&lt;/strong&gt;&lt;/a&gt; पर खरीद सकते हैं. आपके पास अतिरिक्त &lt;strong&gt;अद्यतन&lt;/strong&gt; एंटाइटेलमेंट के बाद, आप इन सिस्टम के अद्यतन में समर्थ होंगे.</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.unentitle.success">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s)  &lt;strong&gt;Unentitled&lt;/strong&gt;.</source>
@@ -5294,15 +5294,15 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="removeconfirm.jsp.runremotecommand">
 				<source>Run Remote Command</source>
-				<target>दूरस्थ कमांड चलाएं</target>
+				<target>दूरस्थ कमांड चलाएँ</target>
 			</trans-unit>
 			<trans-unit id="upgrade.jsp.remote">
 				<source>Run Remote Command</source>
-				<target>दूरस्थ कमांड चलाएं</target>
+				<target>दूरस्थ कमांड चलाएँ</target>
 			</trans-unit>
 			<trans-unit id="installconfirm.jsp.runremotecommand">
 				<source>Run Remote Command</source>
-				<target>दूरस्थ कमांड चलाएं</target>
+				<target>दूरस्थ कमांड चलाएँ</target>
 			</trans-unit>
 			<trans-unit id="probeedit.jsp.editprobe">
 				<source>Edit System Probe</source>
@@ -5414,7 +5414,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="probdelete.jsp.deleteprobe">
 				<source>Delete Probe</source>
-				<target>जांच मिटाएं</target>
+				<target>जांच मिटाएँ</target>
 			</trans-unit>
 			<trans-unit id="scheduleremote.jsp.scheduleremotecommand">
 				<source>Schedule Remote Command</source>
@@ -7049,8 +7049,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target> यह किकस्टार्ट प्रोफाइल नीचे दिये गये प्रपत्र के प्रयोग से संपादित किया जा सकता है. तारांकित प्रविष्टि (*) जरूरी है.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdelete.jsp.summary1">
-				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its associated system and corresponding options.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
-				<target>क्या आप इस किकस्टार्ट को मिटाने के लिये निश्चित हैं?&lt;strong&gt;&lt;p&gt;चेतावनी: इस किकस्टार्ट को मिटाना इसके जुड़े सिस्टम व सहवर्ती विकल्प को हटा देगा.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;कृपया बटन सिर्फ एकबार क्लिक करें; यह विलोपन प्रक्रिया के पूरा होने में कुछ समय लेगा.&lt;/strong&gt;&lt;/p&gt;</target>
+				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its corresponding options and scripts.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
+				<target state="needs-review-translation">क्या आप इस किकस्टार्ट को मिटाने के लिये निश्चित हैं?&lt;strong&gt;&lt;p&gt;चेतावनी: इस किकस्टार्ट को मिटाना इसके जुड़े सिस्टम व सहवर्ती विकल्प को हटा देगा.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;कृपया बटन सिर्फ एकबार क्लिक करें; यह विलोपन प्रक्रिया के पूरा होने में कुछ समय लेगा.&lt;/strong&gt;&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.summary2">
 				<source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
@@ -12571,6 +12571,10 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 				<source>Virtual System Hardware Overrides</source>
 				<target>वर्चुअल सिस्टम हार्डवेयर अध्यारोहण</target>
 			</trans-unit>
+			<trans-unit id="virtualization.provision.override.jsp.goto.advanced.options">
+				<source>By default virtual guest settings like memory, cpu and storage allocations will be inherited from your kickstart profile. If you want to override these settings click on &lt;strong&gt;{0}&lt;/strong&gt; button below.</source>
+				<target>मूलभूत रूप से स्मृति, cpu और भंडारण आबंटन की तरह का अतिथि सेटिंग को आपके किकस्टार्ट प्रोफाइल से लिया जाएगा. यदि आप इन सेटिंग को अध्यारोहित करना चाहते हैं &lt;strong&gt;{0}&lt;/strong&gt; बटन पर नीचे क्लिक करें.</target>
+			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.guest_name.header">
 				<source>Guest Name:</source>
 				<target>अतिथि नाम:</target>
@@ -14827,6 +14831,10 @@ given channel.</source>
 				<source>{0}</source>
 				<target>{0}</target>
 			</trans-unit>
+			<trans-unit id="channel.delete.jsp.toolbar">
+				<source>{0}</source>
+				<target>{0}</target>
+			</trans-unit>
 			<trans-unit id="channel.edit.jsp.basicchanneldetails">
 				<source>Basic Channel Details</source>
 				<target>बेसिक चैनल विवरण</target>
@@ -14842,6 +14850,52 @@ given channel.</source>
 			<trans-unit id="channel.edit.jsp.security.gpg">
 				<source>Security: GPG</source>
 				<target>Security: GPG</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.channelheader">
+				<source>Delete Channel</source>
+				<target state="needs-review-translation">चैनल मिटाएं</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.introparagraph">
+				<source>Are you sure you wish to delete this channel? Packages in the channel will
+           be removed from the channel, but will remain on the server. You will be
+           given the option to delete them after the channel has been deleted. Errata
+           related to the channel will no longer be related to the channel, and may be
+           orphaned. If the channel has child channels, it cannot be deleted; the child
+           channels must be deleted first. If the channel has kickstart distributions
+           associated to it, it cannot be deleted; the kickstart distributions must be
+           dissociated from the channel or deleted first.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.arch">
+				<source>Architecture:</source>
+				<target state="needs-review-translation">आर्किटेक्चर</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.totalpackages">
+				<source>Total Packages:</source>
+				<target state="needs-review-translation">कुल संकुल निवेदित:</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.systemssubscribed">
+				<source>Systems Subscribed:</source>
+				<target state="needs-review-translation">सदस्यता लिया गया सिस्टम</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsheader">
+				<source>Trusted Organizations</source>
+				<target state="needs-review-translation">संगठन बनाएं</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsparagraph">
+				<source>Channel deletion will affect any Trusted Organizations that have systems
+            subscribed to the {0} channel.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsaffected">
+				<source>Organizations Affected:</source>
+				<target state="needs-review-translation">संगठन:</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubheader">
+				<source>Unsubscribe Systems</source>
+				<target state="needs-review-translation">सिस्टम की सदस्यता वापस करें.</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubparagraph">
+				<source>Unsubscribe all trusted organization systems that are subscribed to the
+            {0} channel. Subscribed systems will lose access to packages specific to this channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
@@ -15016,6 +15070,54 @@ given channel.</source>
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
 				<target>निवेदित फाइल नहीं मिला.
          यदि आप किसी संगठन के मूलभूत किकस्टार्ट के लिए निवेदन कर रहे हैं, सुनिश्चित करें कि कोई किकस्टार्ट को "संगठन मूलभूत" के रूप में चुना गया है.</target>
+			</trans-unit>
+			<trans-unit id="task.status.current.db.time">
+				<source>Current DB Time</source>
+				<target state="needs-review-translation">मौजूदा कुंजी</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.execution">
+				<source>Last Execution Times</source>
+				<target state="needs-review-translation">स्क्रिप्ट निष्पादन समय</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.completed">
+				<source>Last Completed Action</source>
+				<target state="needs-review-translation">पूर्ण क्रिया</target>
+			</trans-unit>
+			<trans-unit id="task.status.session.cleanup">
+				<source>Session Cleanup</source>
+			</trans-unit>
+			<trans-unit id="task.status.errata.queue.notif">
+				<source>Errata Notification Queue</source>
+				<target state="needs-review-translation">इरेटा अधिसूचना भेजें</target>
+			</trans-unit>
+			<trans-unit id="task.status.errata.mail">
+				<source>Errata Notification Mail</source>
+				<target state="needs-review-translation">इरेटा अधिसूचना भेजें</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary">
+				<source>Daily Summary Queue</source>
+				<target state="needs-review-translation">दैनिक सारांश</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary.mail">
+				<source>Daily Summary Mail</source>
+				<target state="needs-review-translation">दैनिक सारांश</target>
+			</trans-unit>
+			<trans-unit id="task.status.clean.alerts">
+				<source>Clean Current Alerts</source>
+				<target state="needs-review-translation">मौजूदा संस्करण</target>
+			</trans-unit>
+			<trans-unit id="task.status.sync.probe">
+				<source>Sync Probe State</source>
+				<target state="needs-review-translation">जांच स्थिति</target>
+			</trans-unit>
+			<trans-unit id="task.status.message">
+				<source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
+			</trans-unit>
+			<trans-unit id="task.status.title">
+				<source>Task Engine Status</source>
+			</trans-unit>
+			<trans-unit id="actions.jsp.pickedup">
+				<source>Picked Up</source>
 			</trans-unit>
 		</body>
 	</file>

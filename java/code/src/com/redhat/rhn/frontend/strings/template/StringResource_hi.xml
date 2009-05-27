@@ -187,7 +187,7 @@ The Red Hat login {0} has been deactivated in response to your request.
 
 Thank you for contacting Red Hat.</source>
 				<target>
-Red Hat लॉगिन {0} को आपके आग्रह की अनुक्रिया में निष्क्रिय किया जा रहा है.
+Red Hat लॉगिन {0} आपके आग्रह की अनुक्रिया में निष्क्रिय किया जा रहा है.
 
 Red Hat से संपर्क के लिये धन्यवाद.</target>
 			</trans-unit>
@@ -318,8 +318,7 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on @@PRODUCT_NAME@@ by following
-   the directions at https://rhn.redhat.com/help/faq/#26
+   delete your existing system profile on @@PRODUCT_NAME@@.
 
 2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
    the number of active Red Hat subscriptions associated with your
@@ -358,10 +357,9 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 
 1) आपने हाल में एक सिस्टम फिर अधिष्ठापित किया है और आप 
    मौजूदा सक्रिय सदस्यता के साथ सिस्टम जोड़ने का प्रयास कर रहे हैं. कृपया सुनिश्चित करें कि
-   आपने अपना मौजूदा सिस्टम प्रोफाइल Red Hat Network पर मिटा दिया है 
-   https://rhn.redhat.com/help/faq/#26 पर मौजूद दिशानिर्देश का पालन करके
+   आपने अपना मौजूदा सिस्टम प्रोफाइल @@PRODUCT_NAME@@ पर मिटा दिया है 
 
-2) सिस्टम की संख्या जिसे आपने Red Hat Network से जोड़ा है वह
+2) सिस्टम की संख्या जिसे आपने @@PRODUCT_NAME@@ से जोड़ा है वह
    आपके खाता से जुड़े सक्रिय Red Hat सदस्यता से
    ज्यादा है.  यह इसलिये कि आपकी सदस्यता खत्म हो चुकी है या
    आपको Red Hat सदस्यता लेने की जरूरत है.
@@ -371,7 +369,7 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 
    https://www.redhat.com/apps/support/
 
-   लॉगिन करें और दृश्य पर क्लिक करें और अपने सदस्यता लिंक प्रबंधित करें.
+   लॉगिन करें और दृश्य पर क्लिक करें और अपनी सदस्यता लिंक प्रबंधित करें.
 
 3) आपने हाल में एक Red Hat उत्पाद अधिष्ठापित किया है और आपकी 
    सदस्यता संख्या सफलतापूर्वक सक्रिय नहीं है. अगर आप प्रयास और अपने
@@ -384,7 +382,7 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 
 http://www.redhat.com/about/contact/directory.html#custservice
 
-Red Hat Network का प्रयोग करने के लिये धन्यवाद.</target>
+@@PRODUCT_NAME@@ का प्रयोग करने के लिये धन्यवाद.</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.summary">
 				<source>

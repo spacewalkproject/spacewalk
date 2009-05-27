@@ -5214,7 +5214,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="probedetails.jsp.noselection">
 				<source>You probably want to select at least one of 'Show graph' or 'Show event log'.</source>
-				<target>நீங்கள் குறைந்தது ஒரு 'Show graph' or 'Show event log' ஐ தேர்ந்தெடுக்க வேண்டும்.</target>
+				<target>நீங்கள் குறைந்தது ஒரு 'வரைபடம் காட்டு' அல்லது 'நிகழ்வு பதிவு காட்டு' என்பதை தேர்ந்தெடுக்க வேண்டும்.</target>
 			</trans-unit>
 			<trans-unit id="generalconfig.jsp.header1">
 				<source>@@PRODUCT_NAME@@ Configuration - Monitoring</source>
@@ -5334,7 +5334,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="upgradeconfirm.jsp.widgetsummary">
 				<source>You may schedule the package upgrades to take place as soon as possible, or no sooner than a specified time:</source>
-				<target>நீங்கள் இந்த தொகுப்பினை மேம்பாடு டுத்தலை செய்ய, சீக்கீரமாக அல்லது குறிப்பிட்ட நேரத்திற்குள் திட்டமிடலாம்</target>
+				<target>நீங்கள் இந்த தொகுப்பினை மேம்படுத்தலை செய்ய, சீக்கீரமாக அல்லது குறிப்பிட்ட நேரத்திற்குள் திட்டமிடலாம்</target>
 			</trans-unit>
 			<trans-unit id="upgrade.jsp.confirm">
 				<source>Confirm Upgrade</source>
@@ -5871,10 +5871,10 @@ organization management tools if you choose to remove this role from your login.
           your organization has a trust. The organizations checked below will be
           granted access to view and consume the content in
           &lt;strong&gt;{0}&lt;/strong&gt; channel. Organizations that are not checked below will not have access to this software channel. You can modify an organization's access to this channel below.</source>
-				<target>The organizations listed below are organizations with which
-          your organization has a trust. The organizations checked below will be
-          granted access to view and consume the content in
-          &lt;strong&gt;{0}&lt;/strong&gt; channel. Organizations that are not checked below will not have access to this software channel. You can modify an organization's access to this channel below.</target>
+				<target>கீழே பட்டியலிடப்பட்ட நிறுவனங்கள் என்பது உங்கள் நிறுவனம்
+          ஒரு நம்பகத்தை கொண்டதாகும். இந்த நிறுவனங்கள் கீழே சோதிக்கப்பட்டது
+          உள்ளடக்கத்தை பார்க்க மற்றும் எடுக்க வழங்கப்பட்ட
+          &lt;strong&gt;{0}&lt;/strong&gt; சேனலாகும். சோதிக்கப்படாத கீழேயுள்ள நிறுவங்கள் இந்த மென்பொருள் சேனலை அணுக முடியாது. நீங்கள் கீழே ஒரு சேனலை அணுக நிறுவன அணுகலை மாற்றலாம்.</target>
 			</trans-unit>
 			<trans-unit id="orgtrustdetails.jsp.header3">
 				<source>System Details</source>
@@ -6812,12 +6812,12 @@ Please note that some manual configuration of these scripts may still be require
 			<trans-unit id="kickstart.variable.jsp.summary">
 				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
         			You would then use $name within the profile to substitute in the value.</source>
-				<target>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
-        			You would then use $name within the profile to substitute in the value.</target>
+				<target>கிக்ஸ்டார்ட் மாறிகள் கிக்ஸ்டார்ட் விவரக்குறிப்புகளில் மதிப்புகளை பிரதியிட பயன்படுத்தப்படலாம்.  ஒரு மாறியை குறிப்பிட 'name=value' கீழேயுள்ள பெட்டியில் குறிப்பிடவும்.  
+        			நீங்கள் $name ஐ விவரக்குறிப்பில் மதிப்பில் பிரதியிட வேண்டும்.</target>
 			</trans-unit>
 			<trans-unit id="kickstarttree.variable.jsp.summary">
 				<source>Any variables specified below will be usable in any profile that uses this distro.  They can be overridden in each profile as well.</source>
-				<target>Any variables specified below will be usable in any profile that uses this distro.  They can be overridden in each profile as well.</target>
+				<target>கீழே குறிப்பிட்ட எந்த மாறிகளும் எந்த விவரக்குறிக்கும் பயன்படுத்தப்படும் அது இந்த விநியோகத்தை பயன்படுத்தும். அவை ஒவ்வொரு விவரக்குறிப்பிலும் நீக்கப்படும்.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virt_disk_path">
 				<source>Virtual Storage Path</source>
@@ -6825,7 +6825,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virt_disk_path.tip">
 				<source>&lt;strong&gt;Tip:&lt;/strong&gt; You may specify a file path (/var/lib/xen/images/disk), a Volume Group (VolGroup00), or a partiion (/dev/sda5).  You can also specify multiple virtual disks by comma separating the filepaths, volume group, or partition (/dev/sdb1,/devsdc1).</source>
-				<target>&lt;strong&gt;Tip:&lt;/strong&gt; You may specify a file path (/var/lib/xen/images/disk), a Volume Group (VolGroup00), or a partiion (/dev/sda5).  You can also specify multiple virtual disks by comma separating the filepaths, volume group, or partition (/dev/sdb1,/devsdc1).</target>
+				<target>&lt;strong&gt;துணுக்கு:&lt;/strong&gt; நீங்கள் ஒரு கோப்பு பாதையை (/var/lib/xen/images/disk), ஒரு தொகுதி குழு (VolGroup00), அல்லது ஒரு பகிர்வு (/dev/sda5) ஆகியவற்றை குறிப்பிட வேண்டும்.  நீங்கள் பல மெய்நிகர் வட்டுகளை அரைப்புள்ளி மூலம் பிரித்து கோப்பு பாதைர தொகுதி குழு அல்லது பகிர்வு (/dev/sdb1,/devsdc1) என குறிப்பிடலாம்.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virt_mem_kb">
 				<source>Virtual Memory (in kilobytes)</source>
@@ -6853,11 +6853,11 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstart.jsp.error.invalidvariable">
 				<source>You have specified an invalid variable: '{0}'.  Variables should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a new line.  For example: 'ip=192.168.0.1'</source>
-				<target>You have specified an invalid variable: '{0}'.  Variables should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a new line.  For example: 'ip=192.168.0.1'</target>
+				<target>நீங்கள் ஒரு தவறான மாறியை குறிப்பிட்டுள்ளீர்கள்: '{0}'.  மாறிகள் பெயர் மதிப்பு சோடிகளாகும், ஒரு '=' குறியீட்டால் பிரிக்கப்பட்டு, ஒவ்வொரு சோடியும் புதிய வரியால் பிரிக்கப்பட்டிருக்கும்.  எடுத்துக்காட்டாக: 'ip=192.168.0.1'</target>
 			</trans-unit>
 			<trans-unit id="kickstart.jsp.error.invalidoption">
 				<source>You have specified an invalid option '{0}'.  Options should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a space.  For example: 'ip=192.168.0.1 netmask=255.255.255.0'</source>
-				<target>You have specified an invalid option '{0}'.  Options should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a space.  For example: 'ip=192.168.0.1 netmask=255.255.255.0'</target>
+				<target>நீங்கள் ஒரு தவறான மாறியை குறிப்பிட்டுள்ளீர்கள்: '{0}'.  மாறிகள் பெயர் மதிப்பு சோடிகளாகும், ஒரு '=' குறியீட்டால் பிரிக்கப்பட்டு, ஒவ்வொரு சோடியும் புதிய வரியால் பிரிக்கப்பட்டிருக்கும்.  எடுத்துக்காட்டாக: 'ip=192.168.0.1 நெட்மாஸ்க்=255.255.255.0'</target>
 			</trans-unit>
 			<trans-unit id="kickstart.jsp.error.template_generation">
 				<source>There are errors in your kickstart template. Please check the &lt;a href="{0}"&gt;template errors&lt;/a&gt; to determine the problem with the template.</source>
@@ -7048,8 +7048,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>இந்த கிக்ஸ்டார்ட் விவரக்குறிப்பினை கீழே கொடுக்கப்பட்டுள்ள படிவத்தைப் பயன்படுத்தி மாற்றப்படலாம்.நட்சத்திர குறியிடப்பட்ட உள்ளீடுகள் தேவைப்படுகிறது.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdelete.jsp.summary1">
-				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its associated system and corresponding options.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
-				<target>நீங்கள் இந்த கிக்ஸ்டார்ட்டை அழிக்க வேண்டுமா?&lt;strong&gt;&lt;p&gt;எச்சரிக்கை: இந்த கிக்ஸ்டார்ட்டை அழிப்பது அது தொடர்பான கணினி மற்றும் வாய்ப்புகளையும் நீக்கும். &lt;/p&gt; &lt;/strong&gt;&lt;p&gt;&lt;strong&gt;இந்தப் பொத்தானை ஒரு முறை சொடுக்கி, அழித்தல் பணியை முடிக்கவும், அதற்கு சிறிது நேரம் எடுக்கும்.&lt;/strong&gt;&lt;/p&gt;</target>
+				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its corresponding options and scripts.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
+				<target state="needs-review-translation">நீங்கள் இந்த கிக்ஸ்டார்ட்டை அழிக்க வேண்டுமா?&lt;strong&gt;&lt;p&gt;எச்சரிக்கை: இந்த கிக்ஸ்டார்ட்டை அழிப்பது அது தொடர்பான கணினி மற்றும் வாய்ப்புகளையும் நீக்கும். &lt;/p&gt; &lt;/strong&gt;&lt;p&gt;&lt;strong&gt;இந்தப் பொத்தானை ஒரு முறை சொடுக்கி, அழித்தல் பணியை முடிக்கவும், அதற்கு சிறிது நேரம் எடுக்கும்.&lt;/strong&gt;&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.summary2">
 				<source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
@@ -7156,10 +7156,10 @@ Please note that some manual configuration of these scripts may still be require
             kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
             Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
             tab to verify the new settings.</source>
-				<target>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
-            tab to verify the new settings.</target>
+				<target>&lt;strong&gt;குறிப்பு:&lt;/strong&gt; மெய்நிகராக்க வகையை மாற்றுகிறது இது கிக்ஸ்டார்ட் விவரக்குறிப்புகள் பூட்லோடர் மற்றும் 
+           பகிர்வு விருப்பங்களாக பயனர் தனிபயனாக்குதலை மேலெழுதுகிறது. 
+            இந்த &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;பகிர்வு&lt;/a&gt; 
+            தத்தலை புதிய அமைவுகளுக்காக பார்க்கவும்.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.active">
 				<source>Active:</source>
@@ -7767,7 +7767,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="snippets.jsp.summary">
 				<source>Use kickstart snippets to store common blocks of code that can be shared across multiple kickstart profiles in @@PRODUCT_NAME@@. When you create a kickstart snippet, all kickstart profiles including that snippet will be updated accordingly.</source>
-				<target>Use kickstart snippets to store common blocks of code that can be shared across multiple kickstart profiles in @@PRODUCT_NAME@@. When you create a kickstart snippet, all kickstart profiles including that snippet will be updated accordingly.</target>
+				<target>கிக்ஸ்டாரட் ஸ்னிப்பெட்டுகளை பொதுவான குறியீடுகள் தடுப்பில் சேமிக்க அது பல் கிக்ஸ்டார்ட் விவரக்குறிப்புகில் @@PRODUCT_NAME@@ இல் பகிரப்படும். நீங்கள் ஒரு கிக்ஸ்டார்ட் ஸ்னிப்பெட்டை உருவாக்கும் போது, அனைத்து கிக்ஸ்டார்ட விவரக்குறிப்புகளும் இந்த ஸ்னிப்பெட் உட்பட அதற்கேற்ப மேம்படுத்தப்படும்.</target>
 			</trans-unit>
 			<trans-unit id="snippets.jsp.note.default">
 				<source>Default kickstart snippets are not editable.</source>
@@ -7791,11 +7791,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.copy-paste-snippet-tip">
 				<source>Copy and paste the snippet macro into your kickstart profiles to make the full snippet appear in that kickstart profile.</source>
-				<target>Copy and paste the snippet macro into your kickstart profiles to make the full snippet appear in that kickstart profile.</target>
+				<target>ஸ்னிப்பெட் மேக்ரோவை உங்கள் கிக்ஸ்டார்ட் விவரக்குறிப்புகளில் நகலெடுத்து ஒட்டி முழு ஸ்னிப்பெட்டை அதன் கிக்ஸ்டார்ட் விவரக்குறிப்பு தோன்றுகிறது.</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.warning.tip">
 				<source>Changing this snippet's name will require updating any kickstart profiles that refer to it so that they can continue to access the content of this snippet.</source>
-				<target>Changing this snippet's name will require updating any kickstart profiles that refer to it so that they can continue to access the content of this snippet.</target>
+				<target>இந்த ஸ்னிப்பெட் பெயரை மாற்ற எந்த கிக்ஸ்டார்ட் விவரக்குறிப்பையும் மேம்படுத்த தேவைப்படுகிறது இதனை தொடர இந்த ஸ்னிப்பெட் உள்ளடக்கத்தை அணுக வேண்டும்.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.path">
 				<source>File Path</source>
@@ -7803,7 +7803,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.path.tip">
 				<source>This is where the snippet resides on the @@PRODUCT_NAME@@ file system.</source>
-				<target>This is where the snippet resides on the @@PRODUCT_NAME@@ file system.</target>
+				<target>@@PRODUCT_NAME@@ கோப்பு முறைமையில் இந்த ஸ்னிப்பெட் தங்கியுள்ளது.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.header.name">
 				<source>Kickstart Snippet: {0}</source>
@@ -7819,7 +7819,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.custom.tip">
 				<source>Custom kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
-				<target>Custom kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</target>
+				<target>தனிபயன் கிக்ஸ்டாரட் ஸ்னிப்பெட்கள் &lt;strong&gt;{0}&lt;/strong&gt; நிறுவனத்தில் மட்டுமே இருக்கிறது.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default">
 				<source>Default</source>
@@ -7827,7 +7827,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default.tip">
 				<source>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
-				<target>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</target>
+				<target>முன்னிருப்பு கிக்ஸ்டார்ன் ஸ்னிப்பெட்களை அனைத்து நிறுவனங்களிலும் உள்ளன. இந்த ஸ்னிப்பெட்களை மாற்ற முடியாது.</target>
 			</trans-unit>
 			<trans-unit id="snippetedit.jsp.header2">
 				<source>Edit Snippet</source>
@@ -7871,7 +7871,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.tip1">
 				<source>The snippet name is the name of a file that will reside in this organization's snippet directory. Any standard unix file name characters are acceptable. Snippet names containing slash character or snippet names beginning with period are not allowed.</source>
-				<target>The snippet name is the name of a file that will reside in this organization's snippet directory. Any standard unix file name characters are acceptable. Snippet names containing slash character or snippet names beginning with period are not allowed.</target>
+				<target>இந்த ஸ்னிப்பெட் பெயர் என்பது ஒரு கோப்பின் பெயர் இந்த நிறுவனத்தின் ஸ்னிப்பெட் அடைவிலுள்ளதாகும். எந்த தரப்படுத்தப்பட்ட யுனிக்ஸ் கோப்பு பெயர் எழுத்துகளும் ஏற்றுக்கொள்ளக்கூடியது. ஸ்னிப்பெட் பெயர்கள் சாய்வு எழுத்து அல்லது ஸ்னிப்பெட் பெயர் காலத்தை கொண்டு தொடங்குவதை அனுமதிப்பதில்லை</target>
 			</trans-unit>
 			<trans-unit id="snippetupdate.jsp.submit">
 				<source>Update Snippet</source>
@@ -7891,7 +7891,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.warning">
 				<source>Deleting this snippet will affect any kickstart profiles that refer to it. It may break those kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
-				<target>Deleting this snippet will affect any kickstart profiles that refer to it. It may break those kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</target>
+				<target>ஸ்நிப்பெட் அழித்தால் அது ஏதாவதொரு கிக்ஸ்டார்ட் விவரக்குறிப்பை பாதிக்கும்.அது கிக்ஸ்டார்டின் விவரக்குறிப்புகளை உடைக்கிறது.இந்த ஸ்நிப்பெட்டை அழிப்பதற்கு முன் நாங்கள் கிக்ஸ்டார்ட் விவரக்குறிப்புகளை பரிந்துரைக்கிறது.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.delete">
 				<source>Confirm Snippet Delete</source>
@@ -8195,7 +8195,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="channels.popular.jsp.header1">
 				<source>The software channels listed below are considered popular (defined as having a certain number of systems subscribed).</source>
-				<target>The software channels listed below are considered popular (defined as having a certain number of systems subscribed).</target>
+				<target>கீழே பட்டியலிடப்பட்ட மென்பொருள் சேனல்களை பிரபலம் என எடுக்கப்படுகிறது (சந்தாப்படுத்தப்பட்ட கணினிகளின் எண்ணிக்கை சிலவற்றை கொண்டுள்ளது என குறிக்கப்பட்டுள்ளது).</target>
 			</trans-unit>
 			<trans-unit id="channels.popular.jsp.label0">
 				<source>Popularity</source>
@@ -8227,7 +8227,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="channels.manage.jsp.header2">
 				<source>Modify an existing software channel by selecting it from the list below, or create a new software channel. </source>
-				<target>Modify an existing software channel by selecting it from the list below, or create a new software channel. </target>
+				<target>ஒரு இருக்கும் மென்பொருள் சேனலை மாற்ற அதனை கீழே பட்டியலிட்டதிலிருந்து தேர்ந்தெடுக்கவும் அல்லது ஒரு புதிய மென்பொருள் சேனல் உருவாக்கப்படும். </target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.channel">
 				<source>create new channel</source>
@@ -8551,15 +8551,15 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="activation-key.jsp.config-auto-deploy-tooltip">
 				<source> Deploy configuration files to systems when they are registered with this activation key.</source>
-				<target> Deploy configuration files to systems when they are registered with this activation key.</target>
+				<target>இந்த செயல்படுத்தல் விசையுடன் பதிவு செய்யப்படும் போது கட்டமைப்பு கோப்புகளை கணினிகளுக்கு வரிசைப்படுத்தவும்.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.jsp.disabled-config-auto-deploy-tooltip">
 				<source> Configuration File Deployment is currently disabled. Select "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;"  to enable configuration management facilities for this activation key.</source>
-				<target> Configuration File Deployment is currently disabled. Select "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;"  to enable configuration management facilities for this activation key.</target>
+				<target>பரவலாக நடப்பிலுள்ள கட்டமைப்பு கோப்பு செயல்படுத்த முடியவில்லை. Select "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;"  இந்த செயல்பாட்டு விசையை மேலாண்மைபடுத்திகட்டமைக்க முடிகிறது.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.packages.jsp.summary">
 				<source>Any system registered with this activation key will have the packages listed below installed, if those packages are available. Package names may be listed as package name only or may include an extension to specify the desired architecture.  There should only one package name included per line.</source>
-				<target>Any system registered with this activation key will have the packages listed below installed, if those packages are available. Package names may be listed as package name only or may include an extension to specify the desired architecture.  There should only one package name included per line.</target>
+				<target>ஏதாவதொரு கணினிஇந்த செயல்பாட்டு விசையோடு பதிவுசெய்யப்பட்டு</target>
 			</trans-unit>
 			<trans-unit id="activation-key.packages.jsp.enter-names">
 				<source>Enter package names below</source>
@@ -8607,7 +8607,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="activation-keys.groups.add.jsp.noGroups">
 				<source>No system groups are available to add. You have already added all the system groups available (&lt;a href="{0}"&gt;View System Groups&lt;/a&gt;) to this activation key.</source>
-				<target>No system groups are available to add. You have already added all the system groups available (&lt;a href="{0}"&gt;View System Groups&lt;/a&gt;) to this activation key.</target>
+				<target>சேர்க்க எந்த கணினி குழுக்களும் இல்லை. இந்த செயல்படுத்தல் விசைக்கு (&lt;a href="{0}"&gt;கணினி குழுவை பார்&lt;/a&gt;) ஏற்கனவே அனைத்து கணினி குழுக்கும் சேர்க்கப்பட்டன.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.groups.jsp.summary">
 				<source>Below are all the system groups that have been added to this activation key. Any system registering with this activation key will be added to the selected system groups. To remove a system group membership, check its checkbox and make sure you click the "{0}" button when you are finished with your changes.</source>
@@ -11759,11 +11759,11 @@ any of these revisions.  Are you sure you want to do this?</source>
 			</trans-unit>
 			<trans-unit id="ssm.package.install.schedule.summary.plural">
 				<source>The {0} packages you have selected will be installed to the compatible selected systems, listed below:</source>
-				<target>The {0} packages you have selected will be installed to the compatible selected systems, listed below:</target>
+				<target>இந்த {0} தொகுப்புகளை நீங்கள் தேர்ந்தெடுத்தது கீழே பட்டியலிட்ட தேர்ந்தெடுத்த ஏற்ற கணினிகளில் நிறுவப்படும்:</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.install.schedule.summary.single">
 				<source>The {0} package you have selected will be installed to the compatible selected systems, listed below:</source>
-				<target>The {0} package you have selected will be installed to the compatible selected systems, listed below:</target>
+				<target>இந்த {0} தொகுப்பு கீழே பட்டியலிட்ட தேர்ந்தெடுக்கப்பட்ட ஏற்ற கணினிகளை நிறுவும்:</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.install.message.packageinstall">
 				<source>{0} package installation has been scheduled</source>
@@ -11993,7 +11993,7 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.button0.tooltip.jsp">
 				<source>Creating a cobbler system record will allow this system to be provisioned from the command line on the system itself with the 'koan' command.  This also allows you to assign Variables specific to this system's kickstart using the Variables page.</source>
-				<target>Creating a cobbler system record will allow this system to be provisioned from the command line on the system itself with the 'koan' command.  This also allows you to assign Variables specific to this system's kickstart using the Variables page.</target>
+				<target>ஒரு cobbler கணினி பதிவை உருவாக்குவது இந்த கணினியை 'koan' கட்டளையை கொண்டு கட்டளைவரியில் வாய்ப்பளிக்க அனுமதிக்கிறது. இது மாறிகளை மாறிகள் பக்கத்தைப் பயன்படுத்தி இந்த கணினியின் கிக்ஸ்டார்ட்டை ஒதுக்க அனுமதிக்கிறது.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.button1.jsp">
 				<source>Advanced Configuration</source>
@@ -12045,11 +12045,11 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
 			</trans-unit>
 			<trans-unit id="kickstart.distro.cobbler-only.tooltip">
 				<source> Profiles that are not @@PRODUCT_NAME@@-managed are not guaranteed to register systems to @@PRODUCT_NAME@@ after kickstart. You may wish to review these kickstarts (click on the profile name to do so) to confirm whether or not your system will reappear in the @@PRODUCT_NAME@@ system list after kickstart.</source>
-				<target> Profiles that are not @@PRODUCT_NAME@@-managed are not guaranteed to register systems to @@PRODUCT_NAME@@ after kickstart. You may wish to review these kickstarts (click on the profile name to do so) to confirm whether or not your system will reappear in the @@PRODUCT_NAME@@ system list after kickstart.</target>
+				<target>@@PRODUCT_NAME@@-மேலாண்மை செய்யாத விவரக்குறிப்புகள் கிக்ஸ்டார்டிற்கு பின் @@PRODUCT_NAME@@க்கு பதிவு செய்ய உத்தரவாதம் கொடுக்க முடியாது. நீங்கள் இந்த கிக்ஸ்டார்ட்களை மறுபார்வை செய்ய (விவரக்குறிப்பு பெயரை சொடுக்கி) உங்கள் கணினி கிக்ஸ்டார்ட செய்த பின் @@PRODUCT_NAME@@ கணினி பட்டியலில் மீண்டும் தோன்றுகிறது.</target>
 			</trans-unit>
 			<trans-unit id="kickstarts.distro.cobbler-only.tooltip">
 				<source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler edit profile' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
-				<target>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler edit profile' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</target>
+				<target>கிக்ஸ்டார்ட் விவரக்குறிப்புகள் @@PRODUCT_NAME@@ஆல் நிர்வகிக்கப்படாதது @@PRODUCT_NAME@@ UIஇல் திருத்த முடியாது. இந்த விவரக்குறிப்புகளை மாற்ற, @@PRODUCT_NAME@@ சேவையகத்தில் புகுபதிவு செய்து 'cobbler edit profile' கட்டளையை உள்ளிடவும். மேலும் தகவலுக்கு, @@PRODUCT_NAME@@ குறிப்பு கையேட்டை பார்க்கவும்.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.distro.sw_managed.jsp">
 				<source>@@PRODUCT_NAME@@ Managed?*</source>
@@ -12569,6 +12569,10 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 				<source>Virtual System Hardware Overrides</source>
 				<target>மெய்நிகர் கணினி வன்பொருள் மேலாணைகள்</target>
 			</trans-unit>
+			<trans-unit id="virtualization.provision.override.jsp.goto.advanced.options">
+				<source>By default virtual guest settings like memory, cpu and storage allocations will be inherited from your kickstart profile. If you want to override these settings click on &lt;strong&gt;{0}&lt;/strong&gt; button below.</source>
+				<target>முன்னிருப்பாக மெய்நிகர் விருந்தினர் அமைவுகளான நினைவகம், cpu மற்றும் சேமிப்பக ஒதுக்கீடுகள் கிக்ஸ்டார்ட் விவரக்குறிப்பிலிருந்து எடுக்கப்படுகிறது. நீகள் இந்த அமைவுகளை நீக்க விரும்பினால், &lt;strong&gt;{0}&lt;/strong&gt; பொத்தானை கீழே அழுத்தவும்.</target>
+			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.guest_name.header">
 				<source>Guest Name:</source>
 				<target>விருந்தினர் பெயர்:</target>
@@ -12611,7 +12615,7 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 			</trans-unit>
 			<trans-unit id="virtualization.provision.override.jsp.message">
 				<source>The following fields may be left blank (in which case default values as defined in the selected kickstart profile will be used).  Each field may be set individually to override the profile's default value.</source>
-				<target>The following fields may be left blank (in which case default values as defined in the selected kickstart profile will be used).  Each field may be set individually to override the profile's default value.</target>
+				<target>இந்த பின்வரும் புலங்கள் வெறுமையாக விடப்படலாம் (முன்னிருப்பு மதிப்புகள் தேர்ந்தெடுக்கப்பட்ட கிக்ஸ்டார்ட் விவரக்குறிப்பில் பயன்படுத்தப்படும்). ஒவ்வொரு புலமும் தனித்தனியாக அமைக்கப்பட்டு விவரக்குறிப்பின் முன்னிருப்பு மதிப்பு நீக்கப்படும். </target>
 			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.storage.local.message1">
 				<source>Use the virtual host system's disk space: </source>
@@ -13091,7 +13095,7 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 			</trans-unit>
 			<trans-unit id="login.jsp.error.message">
 				<source>This error may have been caused by an interrupted logout or by logging in from another browser tab. Please contact your satellite administrator if the problem persists.</source>
-				<target>This error may have been caused by an interrupted logout or by logging in from another browser tab. Please contact your satellite administrator if the problem persists.</target>
+				<target>இந்த பிழை தடங்கலான விடுபதிவு அல்லது வேறு உலாவி தத்தலிலிருந்து புகுபதிவு செய்வது மூலும் ஏற்பட்டிருக்கலாம். உங்கள் சேட்டிலைட் நிர்வாகியை அணுகவும்.</target>
 			</trans-unit>
 			<trans-unit id="login.jsp.error.currentlyLoggedInAs">
 				<source>Currently logged in as: {0}</source>
@@ -13865,9 +13869,9 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           possible to share content and migrate systems between these two organizations. You may add a trust by checking
           the box next to an organization (or remove a trust by unchecking it) and clicking the 'Modify Trusts' button.</source>
 				<target>
-          The organizations checked off below are trusted organizations of the {0} organization. This means that it is
-          possible to share content and migrate systems between these two organizations. You may add a trust by checking
-          the box next to an organization (or remove a trust by unchecking it) and clicking the 'Modify Trusts' button.</target>
+          இந்த நிறுவனங்கள் சரிபார்த்தது கீழே {0} நிறுவனத்தின் நம்பகமான நிறுவனங்களாகும். இதற்கு பொருள்
+          அது உள்ளடக்கம் மற்றும் இடம்பெயரும் கணினிகளுக்கிடையே இரு நிறுவனங்களை பகிரும் வாய்ப்பை கொடுக்கிறது. நீங்கள் ஒரு நம்பகத்தை
+          ஒரு நிறுவனத்திற்கு அடுத்துள்ள பெட்டியில் சேர்க்கலாம் (அல்லது சோதிக்காமல் அவற்றை நீக்கலாம்) மற்றும் 'நம்பகங்களை மாற்று' பொத்தானையும் சொடுக்கலாம்.</target>
 			</trans-unit>
 			<trans-unit id="org.trust.confirm.summary">
 				<source>
@@ -13878,12 +13882,12 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
             &lt;p/&gt;
             Please review the changes you are about to make before confirming the trust removal(s).</source>
 				<target>
-            Are you sure you want to remove the trust(s) listed below?  There are systems in the
-            {0} organization that subscribe to content provided by the organization(s) whose trust(s)
-            you are removing.  This may adversely affect those systems.  For example, those systems may
-            no longer receive security updates for content provided through the trust.
+            கீழே பட்டியலிடப்பட்ட நம்பகங்களை நீக்க வேண்டுமா?  நீங்கள் நீக்கும் நம்பக 
+            நிறுவனங்களால் வழங்கப்பட்ட {0} நிறுவனங்களை சந்தாப்படுத்த
+            கணினிகள் உள்ளன.  இது அந்த கணினிகளை பாதிக்கும்.  எடுத்துக்காட்டாக, அந்த கணினிகள்
+            இந்த நம்பகம் மூலம் பெறப்பட்ட பாதுகாப்பு மேம்படுத்தலை பெறவில்லை.
             &lt;p/&gt;
-            Please review the changes you are about to make before confirming the trust removal(s).</target>
+            நம்பகங்களை நீக்கும் முன் நீங்கள் செய்த மாற்றங்களை மறுபார்வை செய்ய உறுதி செய்யவும்.</target>
 			</trans-unit>
 			<trans-unit id="org.trust.affectedsystems.summary">
 				<source>
@@ -13892,10 +13896,10 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.</source>
 				<target>
-            The systems listed below will be affected by removing the trust relationship between 
-            the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
-            Removing this trust may adversely affect these systems.  For example, these systems may
-            no longer receive security updates for content provided through this trust.</target>
+            கீழே பட்டியலிடப்பட்ட கணினிகள் நம்பக உறவுநிலையான இந்த &lt;b&gt;{0}&lt;/b&gt; நிறுவனம் 
+             மற்றும் &lt;b&gt;{1}&lt;/b&gt; நிறுவனங்களுக்கிடையே நீக்குவதை பாதிக்கும்.
+            இந்த நம்பகத்தை நீக்குவது இந்த கணினிகளை பாதிக்கும். எடுத்துக்காட்டாக, இந்த கணினிகள் எந்த பாதுகாப்பு
+            மேம்படுத்தலையும் இந்த நம்பகம் மூலம் பெறாது.</target>
 			</trans-unit>
 			<trans-unit id="org.trust.trusts">
 				<source>Trusts</source>
@@ -14313,7 +14317,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="docsearch.jsp.pagesummary">
 				<source>Document Search will return links to pages matching your search term. </source>
-				<target>Document Search will return links to pages matching your search term. </target>
+				<target>ஆவணமாக்க தேடல் உங்கள் தேடல் சொல்லை பக்கங்களின் இணைப்பில் கொடுக்கும்.</target>
 			</trans-unit>
 			<trans-unit id="docsearch.jsp.nopages">
 				<source>No pages found.</source>
@@ -14365,7 +14369,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="help.jsp.clients">
 				<source>Documentation for setting up clients to connect to a @@PRODUCT_NAME@@ Proxy or @@PRODUCT_NAME@@ server.</source>
-				<target>Documentation for setting up clients to connect to a @@PRODUCT_NAME@@ Proxy or @@PRODUCT_NAME@@ server.</target>
+				<target>ஒரு @@PRODUCT_NAME@@ Proxy அல்லது @@PRODUCT_NAME@@ serverஉடன் கிளையன்களை இணைக்க அமைப்பதற்கான ஆவணமாக்கம்.</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.clients.title">
 				<source>Client Configuration Guide</source>
@@ -14373,7 +14377,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="help.jsp.channel">
 				<source>Documentation for the creation and maintenance of custom channels using @@PRODUCT_NAME@@.</source>
-				<target>Documentation for the creation and maintenance of custom channels using @@PRODUCT_NAME@@.</target>
+				<target>@@PRODUCT_NAME@@ஐ பயன்படுத்தி தனிபயன் சேனல்களை உருவாக்க மற்றும் பராமரிப்பதற்கான ஆவணமாக்கம்.</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.channel.title">
 				<source>Channel Management Guide</source>
@@ -14437,7 +14441,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.jsp.gpgheader">
 				<source>This channel has a GnuPG key associated with it. For a system to be able to download and install packages from this channel, you must import the key into a particular keyring. </source>
-				<target>This channel has a GnuPG key associated with it. For a system to be able to download and install packages from this channel, you must import the key into a particular keyring. </target>
+				<target>இந்த சேனல் ஒரு GnuPG விசையை கொண்டுள்ளது. ஒரு கணினிக்கு இந்த சேனலிலிருந்து தொகுப்புகளை பதிவிறக்கி நிறுவ, நீங்கள் ஒரு குறிப்பிட்ட கீரிங்கில் இந்த விசையை ஏற்ற வேண்டும். </target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.gpglocation">
 				<source>Key Location</source>
@@ -14457,7 +14461,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.remove">
 				<source>Below is the list of packages which you have selected to remove from this channel. Removing a package from this channel does not affect the systems which are subscribed to it, or the errata which are applicable to it.</source>
-				<target>Below is the list of packages which you have selected to remove from this channel. Removing a package from this channel does not affect the systems which are subscribed to it, or the errata which are applicable to it.</target>
+				<target>கீழேயுள்ளவை இந்த சேனலில் நீங்கள் சேர்க்க தேர்ந்தெடுத்த தொகுப்புகளின் பட்டியலாகும். ஒரு தொகுப்பை சேர்த்தால் தானாக இது சந்தாப்படுத்தப்பட்ட கணினிகளை அல்லது பிழைத்திருத்தங்களை பாதிக்காது.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.listmessage">
 				<source>The following packages are in this channel. To remove a package from this channel, select it here, and click 'Confirm Removal' below. To add a package to this channel, click 'add' above.</source>
@@ -14529,7 +14533,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.add.confirm.msg">
 				<source>Below is the list of packages which you have selected to add to this channel. Adding a package to this channel does not automatically affect the systems which are subscribed to it, or the errata which are applicable to it.</source>
-				<target>Below is the list of packages which you have selected to add to this channel. Adding a package to this channel does not automatically affect the systems which are subscribed to it, or the errata which are applicable to it.</target>
+				<target>கீழேயுள்ளவை இந்த சேனலில் நீங்கள் சேர்க்க தேர்ந்தெடுத்த தொகுப்புகளின் பட்டியலாகும். ஒரு தொகுப்பை சேர்த்தால் தானாக இது சந்தாப்படுத்தப்பட்ட கணினிகளை அல்லது பிழைத்திருத்தங்களை பாதிக்காது.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.listtitle">
 				<source>This channel contains the following errata:</source>
@@ -14553,7 +14557,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.message">
 				<source>Custom system info keys allow your adminstrators to store relevant custom key/value pairs with your system profiles. Custom system info is fully {0}searchable{1}.</source>
-				<target>Custom system info keys allow your adminstrators to store relevant custom key/value pairs with your system profiles. Custom system info is fully {0}searchable{1}.</target>
+				<target>தனிபயன் கணினி தகவல் விசைகள் உங்கள் நிர்வாகிகளை தொடர்புடைய தனிபயன் விசை/மதிப்பு சோடிகளை உங்கள் கணினி விவரக்குறிப்பில் அனுமதிக்கிறது. தனிபயன் கணினி தகவல் முழுவதும் {0} தேடக்கூடியது{1}.</target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.message2">
 				<source>The following custom system info keys have been defined for your organization.</source>
@@ -14823,6 +14827,10 @@ given channel.</source>
 				<source>{0}</source>
 				<target>{0}</target>
 			</trans-unit>
+			<trans-unit id="channel.delete.jsp.toolbar">
+				<source>{0}</source>
+				<target>{0}</target>
+			</trans-unit>
 			<trans-unit id="channel.edit.jsp.basicchanneldetails">
 				<source>Basic Channel Details</source>
 				<target>அடிப்படை சேனல் விவரங்கள்</target>
@@ -14838,6 +14846,52 @@ given channel.</source>
 			<trans-unit id="channel.edit.jsp.security.gpg">
 				<source>Security: GPG</source>
 				<target>பாதுகாப்பு: GPG</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.channelheader">
+				<source>Delete Channel</source>
+				<target state="needs-review-translation">தடத்தை அழித்தல்</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.introparagraph">
+				<source>Are you sure you wish to delete this channel? Packages in the channel will
+           be removed from the channel, but will remain on the server. You will be
+           given the option to delete them after the channel has been deleted. Errata
+           related to the channel will no longer be related to the channel, and may be
+           orphaned. If the channel has child channels, it cannot be deleted; the child
+           channels must be deleted first. If the channel has kickstart distributions
+           associated to it, it cannot be deleted; the kickstart distributions must be
+           dissociated from the channel or deleted first.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.arch">
+				<source>Architecture:</source>
+				<target state="needs-review-translation">வடிவமைப்பு</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.totalpackages">
+				<source>Total Packages:</source>
+				<target state="needs-review-translation">கோரப்பட்ட மொத்த தொகுப்புகள்:</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.systemssubscribed">
+				<source>Systems Subscribed:</source>
+				<target state="needs-review-translation">சந்தாப்படுத்தப்பட்ட கணினிகள்</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsheader">
+				<source>Trusted Organizations</source>
+				<target state="needs-review-translation">நிறுவனத்தை உருவாக்கு</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsparagraph">
+				<source>Channel deletion will affect any Trusted Organizations that have systems
+            subscribed to the {0} channel.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsaffected">
+				<source>Organizations Affected:</source>
+				<target state="needs-review-translation">நிறுவனம்:</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubheader">
+				<source>Unsubscribe Systems</source>
+				<target state="needs-review-translation">கணினிகளை சந்தா நீக்கவும்</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubparagraph">
+				<source>Unsubscribe all trusted organization systems that are subscribed to the
+            {0} channel. Subscribed systems will lose access to packages specific to this channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
@@ -14869,23 +14923,23 @@ given channel.</source>
 				<source>This channel is &lt;strong&gt;public&lt;/strong&gt; and may be
         accessed by any of the &lt;a href="{0}"&gt;trusted
         organizations&lt;/a&gt; trusted by this organization.</source>
-				<target>This channel is &lt;strong&gt;public&lt;/strong&gt; and may be
-        accessed by any of the &lt;a href="{0}"&gt;trusted
-        organizations&lt;/a&gt; trusted by this organization.</target>
+				<target>இந்த சேனல் &lt;strong&gt;பொதுவானது&lt;/strong&gt; மற்றும்
+        எந்த &lt;a href="{0}"&gt;நம்பகமான
+        நிறுவனங்களால்&lt;/a&gt; அணுகப்பட வேண்டும்.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.protected">
 				<source>This channel is &lt;strong&gt;protected&lt;/strong&gt; and may
         only be accessed by specific &lt;a href="{0}"&gt;trusted
         organizations&lt;/a&gt;.</source>
-				<target>This channel is &lt;strong&gt;protected&lt;/strong&gt; and may
-        only be accessed by specific &lt;a href="{0}"&gt;trusted
-        organizations&lt;/a&gt;.</target>
+				<target>இந்த சேனல் &lt;strong&gt;பாதுகாக்கப்பட்டது&lt;/strong&gt; மற்றும் குறிப்பிட்ட
+        &lt;a href="{0}"&gt;நம்பகமான
+        நிறுவனங்களால் மட்டுமே அணுகக்கூடியது&lt;/a&gt;.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.private">
 				<source>This channel is &lt;strong&gt;private&lt;/strong&gt; and cannot
         be accessed by any other organization.</source>
-				<target>This channel is &lt;strong&gt;private&lt;/strong&gt; and cannot
-        be accessed by any other organization.</target>
+				<target>இந்த சேனல் &lt;strong&gt;தனிப்பட்டது&lt;/strong&gt; மற்றும் எந்த
+        நிறுவனத்தாலும் அணுகக்கூடியதல்ல.</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.allusers">
 				<source>All users within your organization may subscribe to this channel.</source>
@@ -14918,8 +14972,8 @@ given channel.</source>
 			<trans-unit id="confirmprivate.jsp.confirmmsg.deux">
 				<source>Please review the change you are about to make before confirming
         this access removal.</source>
-				<target>Please review the change you are about to make before confirming
-        this access removal.</target>
+				<target>இந்த அணுகலை நீக்குவதற்கு முன் நீங்கள் மாற்றத்தை மறுபார்வை
+         செய்ய வேண்டும்.</target>
 			</trans-unit>
 			<trans-unit id="confirmprotected.jsp.confirmmsg">
 				<source>Are you sure you want to set this channel's access policy to
@@ -14928,20 +14982,20 @@ given channel.</source>
         Removing these organizations' access may adversely affect those systems.
         For example, they may no longer receive critical security updates to
         content provided by this channel.</source>
-				<target>Are you sure you want to set this channel's access policy to
-        being a &lt;strong&gt;protected&lt;/strong&gt; channel, note that the
-        organizations below have systems that subscribe to this channel.
-        Removing these organizations' access may adversely affect those systems.
-        For example, they may no longer receive critical security updates to
-        content provided by this channel.</target>
+				<target>இந்த சேனல் அணுகல் கொள்கையை ஒரு &lt;strong&gt;பாதுகாக்கப்பட்ட&lt;/strong&gt;
+        சேனலுக்கு அமைக்க வேண்டுமா, இந்த நிறுவனங்கள் கீழே
+        இந்த சேனலுக்கு சந்தாப்படுத்தப்பட்டுள்ளது என்பதை குறித்து கொள்ளவும்.
+        இந்த நிறுவனங்களின் அணுகலை நீக்கவதும் கணினிகளை பாதிப்படைய செய்யலாம்.
+        எடுத்துக்காட்டாக, அவை எந்த அவசியமான பாதுகாப்பு மேம்படுத்தல்களையும் உள்ளடக்கம்
+         வழங்கப்பட்ட இந்த சேனலால் பெறாமல் இருக்கலாம்.</target>
 			</trans-unit>
 			<trans-unit id="confirmprotected.jsp.confirmmsg.deux">
 				<source>You may choose to grant the organizations below access to this
         channel, or you may deny them access. You can modify access to this
         channel at any time using the 'Organizations' tab above.</source>
-				<target>You may choose to grant the organizations below access to this
-        channel, or you may deny them access. You can modify access to this
-        channel at any time using the 'Organizations' tab above.</target>
+				<target>நீங்கள் நிறுவனங்களுக்கு கீழே இந்த சேனலை அணுக தேர்ந்தெடுக்கலாம்
+        அல்லது அவற்றை அணுக மறுக்கலாம். நீஙள் இந்த சேனல் அணுகலை 
+        எந்த நேரமும் 'நிறுவனங்கள்' தத்தலை மேலே பயன்படுத்தி மாற்றலாம்.</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.software.channel">
 				<source>delete software channel</source>
@@ -14985,11 +15039,11 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.remove.message">
 				<source>Below is the list of errata associated with this channel. To remove an erratum from this channel, select it here, and click 'Remove' below.</source>
-				<target>Below is the list of errata associated with this channel. To remove an erratum from this channel, select it here, and click 'Remove' below.</target>
+				<target>இந்த சேனலுடன் தொடர்புடைய பிழைத்திருத்தங்கள் கீழே உள்ளன. ஒரு பிழைத்திருத்தத்தை இந்த சேனலிலிருந்து நீக்க, அதனை இங்கே தேர்ந்தெடுத்து, 'ரத்து' என்பதை கீழே சொடுக்கவும்.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.remove.confirmmessage">
 				<source>Click 'Confirm' below to remove these errata from your channel. Related packages will also be removed from the channel.</source>
-				<target>Click 'Confirm' below to remove these errata from your channel. Related packages will also be removed from the channel.</target>
+				<target>உங்கள் சேனலிலிருந்து இந்த பிழைத்திருத்தத்திலிருந்து நீக்க 'உறுதிப்படுத்து' என்பதை சொடுக்கவும். தொடர்புடைய தொகுப்புகளும் சேனலிலிருந்து நீக்கப்படும்.</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.remove.finalmessage">
 				<source>Successfully removed {0} errata from this channel.</source>
@@ -15001,7 +15055,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="unknown.package.msg">
 				<source>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by Red Hat Network.</source>
-				<target>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by Red Hat Network.</target>
+				<target>தவறுதலாக, நீங்கள் ஒரு தொகுப்பு பற்றி கோரிய தகவலை எங்கள் தரவுத்தளத்தில் கொண்டிருக்கவில்லை. பெரும்பாலும் இது ஒரு தனிபயன் தொகுப்பு இது கையால் நிறுவப்பட்டது அல்லது Red Hat Networkஆல் துணைபுரியாத விநியோகம் ஆகும்.</target>
 			</trans-unit>
 			<trans-unit id="unknown.kickstart">
 				<source>Kickstart Not Found</source>
@@ -15010,8 +15064,56 @@ given channel.</source>
 			<trans-unit id="unknown.kickstart.message">
 				<source>The requested kickstart file could not be found.
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
-				<target>The requested kickstart file could not be found.
-         If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</target>
+				<target>கோரப்பட்ட கிக்ஸ்டாரட் கோப்பு காணப்படவில்லை.
+        நீங்கள் ஒரு நிறுவன முன்னிருப்பு கிக்ஸ்டார்ட்டை கோரினால், ஒரு கிக்ஸ்டார்ட் "நிறுவன முன்னிருப்பாக" ஒரு கிக்ஸ்டார்ட தேர்ந்தெடுக்கப்பட்டிருக்கும்.</target>
+			</trans-unit>
+			<trans-unit id="task.status.current.db.time">
+				<source>Current DB Time</source>
+				<target state="needs-review-translation">நடப்பு விசை</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.execution">
+				<source>Last Execution Times</source>
+				<target state="needs-review-translation">உரை இயங்கும் நேரம்</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.completed">
+				<source>Last Completed Action</source>
+				<target state="needs-review-translation">முடிக்கப்பட்ட செயல்கள்</target>
+			</trans-unit>
+			<trans-unit id="task.status.session.cleanup">
+				<source>Session Cleanup</source>
+			</trans-unit>
+			<trans-unit id="task.status.errata.queue.notif">
+				<source>Errata Notification Queue</source>
+				<target state="needs-review-translation">பிழைத்திருத்தங்கள் அறிவிப்பினை அனுப்பவும்</target>
+			</trans-unit>
+			<trans-unit id="task.status.errata.mail">
+				<source>Errata Notification Mail</source>
+				<target state="needs-review-translation">பிழைத்திருத்தங்கள் அறிவிப்பினை அனுப்பவும்</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary">
+				<source>Daily Summary Queue</source>
+				<target state="needs-review-translation">தினசரி சுருக்கம்</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary.mail">
+				<source>Daily Summary Mail</source>
+				<target state="needs-review-translation">தினசரி சுருக்கம்</target>
+			</trans-unit>
+			<trans-unit id="task.status.clean.alerts">
+				<source>Clean Current Alerts</source>
+				<target state="needs-review-translation">நடப்பு பதிப்பு</target>
+			</trans-unit>
+			<trans-unit id="task.status.sync.probe">
+				<source>Sync Probe State</source>
+				<target state="needs-review-translation">ஆய்வு நிலை</target>
+			</trans-unit>
+			<trans-unit id="task.status.message">
+				<source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
+			</trans-unit>
+			<trans-unit id="task.status.title">
+				<source>Task Engine Status</source>
+			</trans-unit>
+			<trans-unit id="actions.jsp.pickedup">
+				<source>Picked Up</source>
 			</trans-unit>
 		</body>
 	</file>
