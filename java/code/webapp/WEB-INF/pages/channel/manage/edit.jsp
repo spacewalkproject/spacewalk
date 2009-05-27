@@ -37,7 +37,7 @@
             <rhn:required-field key="channel.edit.jsp.name"/>:
          </th>
          <td class="small-form">
-            <html:text property="name" maxlength="64" size="48"/>
+            <html:text property="name" maxlength="256" size="48"/>
          </td>
       </tr>
       <tr>

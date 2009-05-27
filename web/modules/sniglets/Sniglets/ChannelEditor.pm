@@ -223,9 +223,9 @@ sub channel_edit_cb {
   }
   # bugzilla: 161517 - allow _ and / in channel labels
   # bugzilla: 459827 - disallow names longer than 64 characters
-  unless ($channel_name =~ /^[a-z][\w\d\s\-\.\'\(\)\/\_]*$/i and length($channel_name) >= 6 and length($channel_name) <= 64) {
+  unless ($channel_name =~ /^[a-z][\w\d\s\-\.\'\(\)\/\_]*$/i and length($channel_name) >= 6 and length($channel_name) <= 256) {
     $pxt->push_message(local_alert => "Invalid channel name '" .
-    PXT::Utils->escapeHTML($channel_name) . "' - must be at least 6 characters long and no longer than 64 characters, begin with a letter, and contain only letters, digits, spaces, '-', ' / ', '_' and '.'");
+    PXT::Utils->escapeHTML($channel_name) . "' - must be at least 6 characters long and no longer than 256 characters, begin with a letter, and contain only letters, digits, spaces, '-', ' / ', '_' and '.'");
     $errors++;
   }
 
@@ -653,7 +653,7 @@ sub channel_edit_form {
     $subs{channel_label} .= '<br />Ex: custom-channel';
   }
   if ($editable{channel_name}) {
-    $subs{channel_name} = PXT::HTML->text(-name => 'channel_name', -value => $subs{channel_name}, -size => 48, -maxlength => 64);
+    $subs{channel_name} = PXT::HTML->text(-name => 'channel_name', -value => $subs{channel_name}, -size => 48, -maxlength => 256);
   }
   if ($editable{channel_summary}) {
     $subs{channel_summary} = PXT::HTML->text(-name => 'channel_summary', -value => $subs{channel_summary}, -size => 40, -maxlength => 500);
