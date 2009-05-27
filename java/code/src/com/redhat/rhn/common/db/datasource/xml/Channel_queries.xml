@@ -1038,6 +1038,7 @@ SELECT CP.package_id, CP.name_id, CP.evr_id, CP.package_arch_id
 		rhnPackageEvr EVR on P.evr_id = EVR.id
  WHERE ( C.id = :cid or C.parent_channel = :cid)
    AND PN.name = :name
+   AND C.label not like '%beta%'
    order by EVR.evr DESC
     </query>
 </mode>

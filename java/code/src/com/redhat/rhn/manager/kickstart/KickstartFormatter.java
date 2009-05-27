@@ -101,7 +101,7 @@ public class KickstartFormatter {
     public static final String[] UPDATE_PKG_NAMES =         
     {"pyOpenSSL", "rhnlib", "libxml2-python"};
     public static final String[] FRESH_PKG_NAMES_RHEL5 =
-    {"rhn-setup",  "yum-rhn-plugin", "rhnsd", "rhn-client-tools", "rhnlib", "rhn-check"};
+    {"rhn-setup",  "yum-rhn-plugin", "rhnsd", "rhn-client-tools", "rhn-check"};
     public static final String[] FRESH_PKG_NAMES_RHEL34 = 
     {"up2date",  "up2date-gnome"};
     public static final String[] FRESH_PKG_NAMES_RHEL2 =
@@ -765,7 +765,7 @@ public class KickstartFormatter {
             }
         }
         for (int i = 0; i < UPDATE_PKG_NAMES.length; i++) {
-            Long packageId = ChannelManager.getLatestPackageEqual(c.getId(),
+            Long packageId = ChannelManager.getLatestPackageEqualInTree(c.getId(),
                     UPDATE_PKG_NAMES[i]);
             if (packageId == null) {
                 log.debug("package:" + packageId + "not found in kickstart's channel");
