@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.7
+Version: 0.6.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -567,6 +567,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed May 27 2009 Jan Pazdziora 0.6.8-1
+- spacewalk-backend: add command-line utility spacewalk-cfg-get to
+  print config values
+
 * Tue May 26 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.7-1
 - fixing the keyError as we should be using smbios.system.uuid
   (pkilambi@redhat.com)
