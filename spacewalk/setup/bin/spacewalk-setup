@@ -1012,50 +1012,7 @@ sub populate_initial_configs {
 # check if they exist and if they do not exist, create them
 # with apache as owner
 sub mkdir_mount_points {
-  my %dirs;
-  @dirs{@_} = @_;
-  my $apache_uid;
-  my $seen_nfs = 0;
-  for my $dir (sort { length $a <=> length $b } keys %dirs) {
-    if (not -e $dir) {
-      my @parts = grep { $_ ne '' } split /\//, $dir;
-      my $path = '';
-      for my $p (@parts) {
-        $path .= "/$p";
-        if (not -e $path) {
-          mkdir $path, 0755 or die "Error creating directory [$path]: $!\n";
-	}
-      }
-    }
-    $apache_uid ||= getpwnam('apache');
-    if (not defined $apache_uid) {
-      die "Failed to retrieve uid of user apache, the user does not seem to exist.\n";
-    }
-    chown $apache_uid, -1, $dir or die "Error chowning dir [$dir] to [apache]: $!\n";
-    my @paths = $dir;
-    if (-l $paths[0]) {
-      # if the path is a symlink, we will try to restorecon
-      # the target as well
-      push @paths, "$paths[0]/.";
-    }
-    for my $path (@paths) {
-      my $type = `ls -d --scontext -- $path`;
-      if (defined $type
-        and $type =~ /^.+?:.+?:(.+?)(:|\s)/
-        and $1 eq 'nfs_t') {
-        if (not $seen_nfs) {
-          if (Spacewalk::Setup::have_selinux()) {
-            system('/usr/sbin/setsebool', '-P', 'spacewalk_nfs_mountpoint', 1);
-          }
-	  $seen_nfs = 1;
-        }
-      } else {
-        if (Spacewalk::Setup::have_selinux()) {
-          system('/sbin/restorecon', '-r', $path);
-        }
-      }
-    }
-  }
+  system('/usr/bin/spacewalk-make-mount-points', @_);
 }
 
 sub populate_final_configs {
