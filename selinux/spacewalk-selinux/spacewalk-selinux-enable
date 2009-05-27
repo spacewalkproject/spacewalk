@@ -48,6 +48,10 @@ for selinuxvariant in mls strict targeted
 /usr/sbin/setsebool -P httpd_enable_cgi 1
 /usr/sbin/setsebool -P httpd_can_network_connect 1
 
+if [ -z "$RUN_PURE" ] ; then
+	/usr/bin/spacewalk-cfg-get mount_point kickstart_mount_point | xargs /usr/bin/spacewalk-make-mount-points
+fi
+
 for postscript in $RUN_POST ; do
 	j="/usr/sbin/$postscript-enable"
 	if [ -f "$j" ] ; then
