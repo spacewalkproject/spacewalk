@@ -21,7 +21,7 @@ TOP	= ../..
 
 # Specific stuff
 SUBDIR  = satellite_tools/accounts
-SCRIPTS = md5crypt satpasswd satwho
+SCRIPTS = satpasswd satwho
 BINDIR  = /usr/bin
 include $(TOP)/Makefile.defs
 
