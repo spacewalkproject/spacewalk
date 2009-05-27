@@ -57,7 +57,7 @@ log_archive_dest
 log_archive_format
 user_dump_dest
 EOPATTERNS
-echo "compatible=9.2.0.4.0" >>$UPGRADE_PFILE
+echo "compatible=10.2.0.4.0" >>$UPGRADE_PFILE
 
 
 # upgrade database
