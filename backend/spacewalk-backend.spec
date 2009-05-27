@@ -295,6 +295,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 # config files
 %attr(750,root,apache) %dir %{rhnconf}/default
 %attr(640,root,apache) %{rhnconf}/default/rhn.conf
+%attr(755,root,root) %{_bindir}/spacewalk-cfg-get
 
 %files sql
 %defattr(-,root,root)

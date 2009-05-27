@@ -27,5 +27,16 @@ FILES	=   __init__ \
             rhnTranslate \
             RPC_Base \
             UserDictCase
+SCRIPTS = spacewalk-cfg-get
+
+BINDIR  = /usr/bin
+
+EXTRA_DIRS = $(BINDIR)
 
 include $(TOP)/Makefile.defs
+
+# install scripts
+all :: $(SCRIPTS)
+install :: $(SCRIPTS) $(PREFIX)/$(BINDIR)
+	$(INSTALL_BIN) $(SCRIPTS) $(PREFIX)/$(BINDIR)
+

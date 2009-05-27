@@ -1,0 +1,15 @@
+#!/usr/bin/python
+
+import sys
+sys.path.append("/usr/share/rhn")
+
+from common.rhnConfig import RHNOptions
+
+cfg = RHNOptions()
+cfg.parse()
+
+for i in sys.argv :
+	val = cfg.get(i)
+	if val != None :
+		print val
+
