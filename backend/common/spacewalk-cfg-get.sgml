@@ -1,0 +1,69 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY SERVER "Spacewalk Server" >
+<!ENTITY SCRIPTNAME "Spacewalk Configuration Reader" >
+<!ENTITY SCRIPTCOMMAND "spacewalk-cfg-get" >
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>&SCRIPTCOMMAND;</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 0.6</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>&SCRIPTCOMMAND;</command></RefName>
+<RefPurpose>
+Read values from &SERVER; configuration files.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>&SCRIPTCOMMAND; get  <replaceable>component</replaceable> <replaceable>key</replaceable></command> 
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <command>&SCRIPTCOMMAND; list <replaceable>component</replaceable></command>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <command>&SCRIPTCOMMAND;</command>
+        <arg>key</arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+<para>
+This script parse configuration files of &SERVER; including /etc/rhn/rhn.conf and /etc/rhn/default/* and write list of 
+one componenet or write value of some key. 
+</para>
+<para>
+Executing &SCRIPTCOMMAND; with only one parameter (e.g. &SCRIPTCOMMAND; key) is equivalent of &SCRIPTCOMMAND; get '' key
+</para> 
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>get</term>
+        <listitem>
+            <para>Display value of key in given component.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>list</term>
+        <listitem>
+            <para>List keys and values of given component.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Miroslav Suchý <email>msuchy@redhat.com</email></member>
+    <member>Jan Pazdziora Ph.D. </member>
+</simplelist>
+</RefSect1>
+</RefEntry>
