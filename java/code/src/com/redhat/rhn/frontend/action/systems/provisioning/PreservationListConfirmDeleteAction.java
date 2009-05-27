@@ -66,4 +66,10 @@ public class PreservationListConfirmDeleteAction extends BaseSetListAction {
     public RhnSetDecl getSetDecl() {
         return RhnSetDecl.FILE_LISTS;
     }
+
+    /** {@inheritDoc} */
+    protected boolean preClearSet() {
+        return false;
+    }
+
 }

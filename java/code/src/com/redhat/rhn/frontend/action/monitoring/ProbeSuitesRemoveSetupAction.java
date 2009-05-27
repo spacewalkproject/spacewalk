@@ -63,4 +63,10 @@ public class ProbeSuitesRemoveSetupAction extends BaseSetListAction {
     public RhnSetDecl getSetDecl() {
         return RhnSetDecl.PROBE_SUITES_TO_DELETE;
     }
+
+    /** {@inheritDoc} */
+    protected boolean preClearSet() {
+        return false;
+    }
+
 }
