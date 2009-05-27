@@ -51,7 +51,7 @@ class NoFreeEntitlementsError(Exception):
           self.label = label
           self.quantity = quantity
           self.message = \
-          "Error: You do not have enough unused %s entitlements in the base org. There can only be a maximum of %s used, based on your current consumption. Please un-entitle the remaining systems for the activation to proceed." % (self.label, self.quantity)
+          "Error: You do not have enough unused %s entitlements in the base org. You will need at least %s free entitlements, based on your current consumption. Please un-entitle the remaining systems for the activation to proceed." % (self.label, self.quantity)
           self.args = [self.message]
 
 def get_all_orgs():
@@ -198,7 +198,8 @@ def set_slots_from_cert(cert):
             activate_system_entitlement(org_id, db_label, quantity)
         except rhnSQL.sql_base.SQLSchemaError, e:
             if e[0] == 20290:
-                raise NoFreeEntitlementsError(db_label, quantity)
+                free_count = sys_ent_counts[(db_label, 1)] - quantity
+                raise NoFreeEntitlementsError(db_label, free_count)
             else:
                 raise
 
