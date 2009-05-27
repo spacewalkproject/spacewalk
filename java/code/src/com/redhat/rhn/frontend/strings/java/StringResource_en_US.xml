@@ -7650,6 +7650,10 @@ Follow this url to see the full list of inactive systems:
           <source>Unable to locate or access server group: &quot;{0}&quot;</source>
       </trans-unit>
 
+	  <trans-unit id="api.systemgroup.accessChangeDenied">
+          <source>Changing administrator access is not allowed for Satellite and Organization administrators.  These users are granted access by default; therefore, the following users should be removed from the input: {0}</source>
+      </trans-unit>
+
       <trans-unit id="api.system.invalidprofilelabel">
           <source>Invalid profile label specified: {0}</source>
       </trans-unit>
