@@ -61,7 +61,7 @@ public class ConfigurationValidationTest extends RhnBaseTestCase {
         assertEquals(0, ConfigurationValidation.validateContent(
                 "{@ rhn.system.foo( bar ) = blech @}", "{@", "@}").getErrors().size());
 
-        assertEquals(1, ConfigurationValidation.validateContent(
+        assertEquals(0, ConfigurationValidation.validateContent(
                 "{@ rhn.system.foo( bar- ) = blech @}", "{@", "@}").getErrors().size());
 
         assertEquals(0, ConfigurationValidation.validateContent(
