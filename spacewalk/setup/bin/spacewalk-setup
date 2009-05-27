@@ -1039,7 +1039,6 @@ sub mkdir_mount_points {
       push @paths, "$paths[0]/.";
     }
     for my $path (@paths) {
-      my $is_nfs = 0;
       my $type = `ls -d --scontext -- $path`;
       if (defined $type
         and $type =~ /^.+?:.+?:(.+?)(:|\s)/
