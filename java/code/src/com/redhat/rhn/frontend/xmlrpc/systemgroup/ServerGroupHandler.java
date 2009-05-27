@@ -23,12 +23,15 @@ import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.WrappedSQLException;
 import com.redhat.rhn.common.hibernate.LookupException;
+import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.LookupServerGroupException;
+import com.redhat.rhn.frontend.xmlrpc.ServerGroupAccessChangeException;
 import com.redhat.rhn.frontend.xmlrpc.ServerNotInGroupException;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
 import com.redhat.rhn.manager.system.ServerGroupManager;
@@ -77,8 +80,10 @@ public class ServerGroupHandler extends BaseHandler {
      * @param add a boolean to associate  or dissociate admins from the group
      * @return 1 if the operation succeed 1 Exception other wise.
      * 
-     * @xmlrpc.doc Add or remove administrators to/from the given group.
-     * Caller must be an organization administrator.
+     * @xmlrpc.doc Add or remove administrators to/from the given group. Satellite and
+     * Organization administrators are granted access to groups within their organization
+     * by default; therefore, users with those roles should not be included in the array
+     * provided. Caller must be an organization administrator.
      *
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string", "systemGroupName")
@@ -87,9 +92,29 @@ public class ServerGroupHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */    
     public int addOrRemoveAdmins(String sessionKey, String systemGroupName, 
-                                        List loginNames, boolean add) {
+                                        List<String> loginNames, boolean add) {
         User loggedInUser = getLoggedInUser(sessionKey);
         ensureSystemGroupAdmin(loggedInUser);
+
+        // Check to see if any of the users provided are Satellite or Organization
+        // admins.  If so, generate an exception.  These users are granted access
+        // by default and their access may not be changed.
+        String admins = null;
+        for (String login : loginNames) {
+            User user = UserFactory.lookupByLogin(login);
+            if ((user != null) && ((user.hasRole(RoleFactory.SAT_ADMIN) ||
+                (user.hasRole(RoleFactory.ORG_ADMIN))))) {
+                if (admins == null) {
+                    admins = new String(login);
+                }
+                else {
+                    admins += ", " + login;
+                }
+            }
+        }
+        if (admins != null) {
+            throw new ServerGroupAccessChangeException(admins);
+        }
         ServerGroupManager manager = ServerGroupManager.getInstance();
         ManagedServerGroup group = manager.lookup(systemGroupName, loggedInUser);
         
