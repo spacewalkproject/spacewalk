@@ -49,7 +49,9 @@ for selinuxvariant in mls strict targeted
 /usr/sbin/setsebool -P httpd_can_network_connect 1
 
 if [ -z "$RUN_PURE" ] ; then
-	/usr/bin/spacewalk-cfg-get mount_point kickstart_mount_point | xargs /usr/bin/spacewalk-make-mount-points
+	for dir in mount_point kickstart_mount_point; do
+                /usr/bin/spacewalk-cfg-get $dir
+        done | xargs /usr/bin/spacewalk-make-mount-points
 fi
 
 for postscript in $RUN_POST ; do
