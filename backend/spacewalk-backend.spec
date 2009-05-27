@@ -508,7 +508,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/rhn-satellite-exporter
 %attr(755,root,root) %{_bindir}/update-packages
 %attr(755,root,root) %{_bindir}/rhn-db-stats
-%attr(750,root,root) %{_bindir}/md5crypt
 %attr(750,root,root) %{_bindir}/satpasswd
 %attr(750,root,root) %{_bindir}/satwho
 %{rhnroot}/satellite_tools/SequenceServer.py*
