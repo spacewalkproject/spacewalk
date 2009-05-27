@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.6.6
+Version:        0.6.7
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -98,6 +98,10 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Wed May 27 2009 Jan Pazdziora 0.6.7-1
+- spacewalk-setup: move creation of mount points to
+  /usr/bin/spacewalk-make-mount-points
+
 * Tue May 26 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.6-1
 - 500688 - Clarify --run-updater help info in spacewalk-setup.
   (dgoodwin@redhat.com)
