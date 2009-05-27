@@ -31,6 +31,7 @@ Requires(postun): /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/semanage
 Requires:       spacewalk-config
 Requires:       spacewalk-admin
 Requires:       spacewalk-backend
+Requires:       spacewalk-setup
 Requires:       spacewalk-backend-server
 Requires:       spacewalk-certs-tools
 Requires:       oracle-instantclient-selinux
