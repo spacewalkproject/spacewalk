@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        0.6.7
+Version:        0.6.8
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -105,7 +105,7 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
-* Wed May 27 2009 Jan Pazdziora 0.6.7-1
+* Wed May 27 2009 Jan Pazdziora 0.6.8-1
 - call to spacewalk-make-mount-points and Require spacewalk-setup for that
 - add invocation of oracle-nofcontext-selinux-enable
 
