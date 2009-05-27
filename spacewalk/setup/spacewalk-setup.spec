@@ -90,6 +90,7 @@ rm -rf %{buildroot}
 %doc Changes README
 %{perl_vendorlib}/*
 %{_bindir}/spacewalk-setup
+%{_bindir}/spacewalk-make-mount-points
 %{_bindir}/cobbler-setup
 %{_mandir}/man[13]/*.[13]*
 %{_datadir}/spacewalk/*
