@@ -321,8 +321,7 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on @@PRODUCT_NAME@@ by following
-   the directions at https://rhn.redhat.com/help/faq/#26
+   delete your existing system profile on @@PRODUCT_NAME@@.
 
 2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
    the number of active Red Hat subscriptions associated with your
@@ -351,7 +350,7 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 				<target>
 Уважаемый пользователь Red Hat,
 
-Следующая система была сопоставлена вашему имени входа и
+Следующая система сопоставлена вашему имени входа и
 учетной записи Red Hat, но не получила полномочий для доступа к каким-либо
 службам @@PRODUCT_NAME@@.
 
@@ -361,8 +360,7 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 
 1) Вы недавно переустановили систему и пытаетесь сопоставить
     ее существующей активной подписке. Сначала удалите
-    существующий профиль системы в @@PRODUCT_NAME@@ согласно
-    инструкциям с https://rhn.redhat.com/help/faq/#26
+    существующий профиль системы в @@PRODUCT_NAME@@
 
 2) Число подключенных к @@PRODUCT_NAME@@ систем
    превышает число активных подписок, сопоставленных вашей
@@ -387,7 +385,7 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 
 http://www.redhat.com/about/contact/directory.html#custservice
 
-Благодарим за использование @@PRODUCT_NAME@@.</target>
+Благодарим за выбор @@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.summary">
 				<source>

@@ -322,8 +322,7 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on @@PRODUCT_NAME@@ by following
-   the directions at https://rhn.redhat.com/help/faq/#26
+   delete your existing system profile on @@PRODUCT_NAME@@.
 
 2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
    the number of active Red Hat subscriptions associated with your
@@ -362,8 +361,7 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 
 1) நீங்கள் சமீபத்தில் ஒரு கணினியை மீண்டும் நிறுவி, அதனை ஏற்கனவே இருக்கும் 
    செயலிலுள்ள சந்தாவுடன் தொடர்புப்படுத்த முயலுகிறீர்கள். ஆனால் நீங்கள் ஏற்கனவே 
-   இருக்கும் கணினி விவரக்குறிப்பினை @@PRODUCT_NAME@@இலிருந்து பின்வரும் விவரத்தின் படி 
-   அழித்து விட்டீர்களா என்பதை உறுதி செய்யவும் https://rhn.redhat.com/help/faq/#26
+   இருக்கும் கணினி விவரக்குறிப்பினை @@PRODUCT_NAME@@இலிருந்து பின்வரும் விவரத்தின் படி அழித்து விட்டீர்களா என்பதை உறுதி செய்யவும் 
 
 2) உங்கள் கணக்கில் தொடர்புடைய செயலிலுள்ள Red Hat சந்தாக்களையும் 
    தாண்டி @@PRODUCT_NAME@@இல் கணினிகள் இணைக்கப்பட்டுள்ளது  இதனால் 

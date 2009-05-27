@@ -315,8 +315,7 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on @@PRODUCT_NAME@@ by following
-   the directions at https://rhn.redhat.com/help/faq/#26
+   delete your existing system profile on @@PRODUCT_NAME@@.
 
 2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
    the number of active Red Hat subscriptions associated with your
@@ -353,9 +352,8 @@ Red Hat 고객님,
 다음 중 한가지 원인 때문인 것 같습니다:
 
 1) 최근 시스템을 재설치하신 후 기존 활성 서브스크립션을 가지고 
-   이 시스템을 연결하려고 하신 경우. https://rhn.redhat.com/help/faq/#26 에서 
-   설명된 지시 사항을 따르시어 @@PRODUCT_NAME@@에 저장된 기존 시스템 프로파일을 
-   삭제하시기 바랍니다.
+   이 시스템을 연결하려고 하신 경우. @@PRODUCT_NAME@@에 있는
+   기존 시스템 프로파일을 삭제하시기 바랍니다.
 
 2) @@PRODUCT_NAME@@에 연결된 시스템 숫자가 고객님 계정에 할당된 
    활성 Red Hat 서브스크립션 숫자를 초과한 경우. 고객님 서브스크립션이 
@@ -379,7 +377,7 @@ Red Hat 고객님,
 
 http://www.redhat.com/about/contact/directory.html#custservice
 
-@@PRODUCT_NAME@@를 이용해 주셔서 감사합니다. </target>
+@@PRODUCT_NAME@@를 이용해 주셔서 감사합니다.   </target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.summary">
 				<source>

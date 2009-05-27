@@ -319,8 +319,7 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on @@PRODUCT_NAME@@ by following
-   the directions at https://rhn.redhat.com/help/faq/#26
+   delete your existing system profile on @@PRODUCT_NAME@@.
 
 2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
    the number of active Red Hat subscriptions associated with your
@@ -349,18 +348,18 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 				<target>
 尊敬的红帽用户，
 
-以下的系统已经与您的
+昨天，以下系统已经与您的
 红帽登录和帐户关联。但它们还没有权利获得
 @@PRODUCT_NAME@@ 服务。
 
 {0}
 
-可能是以下的一个原因造成了这个问题：
+出现这种情况可能有以下几个原因：
 
 1) 您最近重新安装了一个系统并试图将其与
    一个现有的、已激活的订阅关联。请确定
-   您已经根据 https://rhn.redhat.com/help/faq/#26 中
-   介绍的方法删除了您现有的系统侧写
+   您已经在 @@PRODUCT_NAME@@ 中
+   删除了您现有的系统侧写
 
 2) 您连接到 @@PRODUCT_NAME@@ 的系统数量已经超过了
    与您帐户关联的激活的红帽订阅数量。
@@ -380,14 +379,8 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 
    https://www.redhat.com/activate
 
-关于激活订阅或获得订阅号的信息，
-请访问：
-
-   http://www.redhat.com/software/rhel/register/
-
-
-如果您有其它任何问题，请联系红帽的
-客户服务人员：
+其它问题请联络红帽客户服务代表，
+网址为：
 
 http://www.redhat.com/about/contact/directory.html#custservice
 

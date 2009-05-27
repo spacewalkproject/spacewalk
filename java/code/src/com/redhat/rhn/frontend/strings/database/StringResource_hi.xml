@@ -8,7 +8,7 @@
 			</trans-unit>
 			<trans-unit id="Picked Up">
 				<source>Picked Up</source>
-				<target>उठाया हुआ</target>
+				<target>चुना हुआ</target>
 			</trans-unit>
 			<trans-unit id="Completed">
 				<source>Completed</source>
@@ -404,7 +404,7 @@
 			</trans-unit>
 			<trans-unit id="Critical Data Dictionary Hit Ratio">
 				<source>Critical Data Dictionary Hit Ratio</source>
-				<target>गंभीर डाटा शब्दकोश हिट अनुपात</target>
+				<target>गंभीर डेटा शब्दकोश हिट अनुपात</target>
 			</trans-unit>
 			<trans-unit id="Critical Defunct Process Count">
 				<source>Critical Defunct Process Count</source>
@@ -548,7 +548,7 @@
 			</trans-unit>
 			<trans-unit id="Critical Redo Log Space Requests">
 				<source>Critical Redo Log Space Requests</source>
-				<target>गंभीर फिर से करो लॉग स्थान आग्रह</target>
+				<target>गंभीर फिर करें लॉग स्थान आग्रह</target>
 			</trans-unit>
 			<trans-unit id="Critical Request Rate">
 				<source>Critical Request Rate</source>
@@ -676,7 +676,7 @@
 			</trans-unit>
 			<trans-unit id="Database">
 				<source>Database</source>
-				<target>डाटाबेस</target>
+				<target>डेटाबेस</target>
 			</trans-unit>
 			<trans-unit id="Device">
 				<source>Device</source>
@@ -1436,7 +1436,7 @@
 			</trans-unit>
 			<trans-unit id="metrics.Get rate">
 				<source>Get rate</source>
-				<target>दर पायें</target>
+				<target>दर पाएँ</target>
 			</trans-unit>
 			<trans-unit id="metrics.High exec time">
 				<source>High exec time</source>
@@ -1484,15 +1484,15 @@
 			</trans-unit>
 			<trans-unit id="metrics.Lines">
 				<source>Lines</source>
-				<target>पंक्तियां</target>
+				<target>पंक्ति</target>
 			</trans-unit>
 			<trans-unit id="Lines">
 				<source>Lines</source>
-				<target>पंक्तियां</target>
+				<target>पंक्ति</target>
 			</trans-unit>
 			<trans-unit id="Lines">
 				<source>Lines</source>
-				<target>पंक्तियां</target>
+				<target>पंक्ति</target>
 			</trans-unit>
 			<trans-unit id="metrics.Low exec time">
 				<source>Low exec time</source>
@@ -1516,7 +1516,7 @@
 			</trans-unit>
 			<trans-unit id="metrics.Opened objects">
 				<source>Opened objects</source>
-				<target>खुली वस्तुएं</target>
+				<target>खुली वस्तु</target>
 			</trans-unit>
 			<trans-unit id="metrics.Output rate">
 				<source>Output rate</source>
@@ -1732,15 +1732,15 @@
 			</trans-unit>
 			<trans-unit id="metrics.Waiters">
 				<source>Waiters</source>
-				<target>प्रतीक्षक</target>
+				<target>वेटर</target>
 			</trans-unit>
 			<trans-unit id="Waiters">
 				<source>Waiters</source>
-				<target>प्रतीक्षक</target>
+				<target>वेटर</target>
 			</trans-unit>
 			<trans-unit id="Waiters">
 				<source>Waiters</source>
-				<target>प्रतीक्षक</target>
+				<target>वेटर</target>
 			</trans-unit>
 			<trans-unit id="metrics.Write rate">
 				<source>Write rate</source>
@@ -1896,7 +1896,7 @@
 			</trans-unit>
 			<trans-unit id="Get Rate">
 				<source>Get Rate</source>
-				<target>दर पायें</target>
+				<target>दर पाएँ</target>
 			</trans-unit>
 			<trans-unit id="High Execution Time">
 				<source>High Execution Time</source>
@@ -2324,7 +2324,7 @@
 			</trans-unit>
 			<trans-unit id="Database Accessibility">
 				<source>Database Accessibility</source>
-				<target>डाटाबेस अभिगम</target>
+				<target>डेटाबेस अभिगम</target>
 			</trans-unit>
 			<trans-unit id="Disk I/O Throughput">
 				<source>Disk I/O Throughput</source>

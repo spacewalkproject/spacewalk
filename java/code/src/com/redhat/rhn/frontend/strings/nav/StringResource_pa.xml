@@ -184,7 +184,7 @@
 			</trans-unit>
 			<trans-unit id="channel.nav.shared">
 				<source>Shared Channels</source>
-				<target>ਸਾਂਝੇ ਚੈਨਲ</target>
+				<target>ਸ਼ੇਅਰ ਚੈਨਲ</target>
 			</trans-unit>
 			<trans-unit id="channel.nav.redhat">
 				<source>Red Hat Channels</source>
@@ -340,7 +340,7 @@
 			</trans-unit>
 			<trans-unit id="nav.sdc.config.centrally_managed_files">
 				<source>Centrally-Managed Files</source>
-				<target>ਕੇਂਦਰੀ-ਪਰਬੰਧਨ ਕੀਤੀਆਂ ਫਾਇਲਾਂ</target>
+				<target>ਕੇਂਦਰੀ-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ</target>
 			</trans-unit>
 			<trans-unit id="nav.sdc.config.locally_managed_files">
 				<source>Locally-Managed Files</source>
@@ -468,7 +468,7 @@
 			</trans-unit>
 			<trans-unit id="Custom Info">
 				<source>Custom Info</source>
-				<target>ਪਸੰਦੀਦਾ ਜਾਣਕਾਰੀ</target>
+				<target>ਪਸੰਦੀਦੀ ਜਾਣਕਾਰੀ</target>
 			</trans-unit>
 			<trans-unit id="Config Files">
 				<source>Config Files</source>
@@ -476,7 +476,7 @@
 			</trans-unit>
 			<trans-unit id="Local Overrides">
 				<source>Local Overrides</source>
-				<target>ਲੋਕਲ ਅਣਡਿੱਠਾ</target>
+				<target>ਲੋਕਲ ਓਵਰਰਾਈਡ</target>
 			</trans-unit>
 			<trans-unit id="Outage Policy">
 				<source>Outage Policy</source>
@@ -488,7 +488,7 @@
 			</trans-unit>
 			<trans-unit id="Rollback">
 				<source>Rollback</source>
-				<target>ਵਾਪਿਸ</target>
+				<target>ਰੋਲਬੈਕ</target>
 			</trans-unit>
 			<trans-unit id="Supported">
 				<source>Supported</source>
@@ -544,7 +544,7 @@
 			</trans-unit>
 			<trans-unit id="Bare Metal Kickstart">
 				<source>Bare Metal Kickstart</source>
-				<target>ਤਾਜ਼ੀ ਕਿੱਕਸਟਾਰਟ</target>
+				<target>ਬੇਅਰ ਮੈਟਲ ਕਿੱਕਸਟਾਰਟ</target>
 			</trans-unit>
 			<trans-unit id="Bare Metal">
 				<source>Bare Metal</source>

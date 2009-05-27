@@ -1044,7 +1044,7 @@
 			</trans-unit>
 			<trans-unit id="message.filterby">
 				<source>Filter by {0}: </source>
-				<target>{0}으로 거르기:  </target>
+				<target>{0}로/으로 거르기:    </target>
 			</trans-unit>
 			<trans-unit id="message.filterby.multiple">
 				<source>Filter by: </source>
@@ -1743,9 +1743,9 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 				<source>Search strings must be longer than two characters.</source>
 				<target>검색 문자열을 최소한 두 글자를 넘어야합니다.</target>
 			</trans-unit>
-			<trans-unit id="packages.search.index_out_of_sync_with_db">
-				<source>Package search index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
-				<target>패키지 검색 색인 및 데이터베이스 항목이 동기화되지 않은 것 같습니다. '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'를 실행합니다. </target>
+			<trans-unit id="searchserver.index_out_of_sync_with_db">
+				<source>SearchServer index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
+				<target state="needs-review-translation">패키지 검색 색인 및 데이터베이스 항목이 동기화되지 않은 것 같습니다. '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'를 실행합니다. </target>
 			</trans-unit>
 			<trans-unit id="patches.installed.notavailable">
 				<source>Not Available</source>
@@ -2144,8 +2144,8 @@ user before attempting to deactivate their account.</source>
 				<target>예상 체크인 시간:</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;알림:&lt;/strong&gt; 이 시스템은 최근 @@PRODUCT_NAME@@에 체크인하지 않았습니다. @@PRODUCT_NAME@@에 체크인하지 않은 경우 시스템을 업데이트할 수 없기 때문에, 작업을 실패할 확률이 높습니다.&lt;br/&gt;&lt;br/&gt;시스템에서 rhnsd가 실행 중인지 확인해보십시오 (&lt;a href="/help/faq.pxt#15"&gt;자세한 정보&lt;/a&gt;). 만일 실행 중이지 않다면, &lt;a href="/help/contact.pxt"&gt;저희에게 문의하시기 바랍니다&lt;/a&gt;. </target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running.</source>
+				<target>&lt;strong&gt;알림:&lt;/strong&gt; 이 시스템은 최근 @@PRODUCT_NAME@@에 체크인하지 않았습니다. @@PRODUCT_NAME@@에 체크인하지 않은 경우 시스템을 업데이트할 수 없기 때문에, 작업을 실패할 확률이 높습니다.&lt;br/&gt;&lt;br/&gt;시스템에서 rhnsd가 실행 중인지 확인해 보십시오.  </target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -3508,28 +3508,27 @@ user before attempting to deactivate their account.</source>
 				<target>인증서를 업로드하였습니다.  @@PRODUCT_NAME@@가 다시 활성화되었습니다.  </target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
-				<source>Could not parse certificate file</source>
-				<target>인증서 파일을 구문 분석하지 못했습니다</target>
+				<source>Could not parse certificate file, see log file for more details.</source>
+				<target state="needs-review-translation">인증서 파일을 구문 분석하지 못했습니다</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.11">
 				<source>Certificate expired</source>
 				<target>만료된 인증서</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown @@PRODUCT_NAME@@ version</source>
-				<target>알 수 없는 @@PRODUCT_NAME@@ 버전  </target>
+				<source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
+				<target state="needs-review-translation">알 수 없는 @@PRODUCT_NAME@@ 버전  </target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
-				<source>Remote activation failure</source>
-				<target>원격 활성화 실패</target>
+				<source>Remote activation failure, see log file for more details.</source>
+				<target state="needs-review-translation">원격 활성화 실패</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.30">
-				<source>Local activation failure</source>
-				<target>로컬 활성화 실패</target>
+				<source>Local activation failure, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.40">
-				<source>Channel population failure</source>
-				<target>채널 채우기 실패</target>
+				<source>Channel population failure, see log file for more details.</source>
+				<target state="needs-review-translation">채널 채우기 실패</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.80">
 				<source>No management entitlements remaining</source>
@@ -3548,8 +3547,7 @@ user before attempting to deactivate their account.</source>
 				<target>잘못된 @@PRODUCT_NAME@@ 인증서  </target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
-				<source>Unknown activation error</source>
-				<target>알 수 없는 활성화 오류 </target>
+				<source>Unknown activation error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
 				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
@@ -3560,12 +3558,7 @@ user before attempting to deactivate their account.</source>
 				<target>이 버전에는 @@PRODUCT_NAME@@ 채널을 사용할 수 없음 </target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
-				<source>Unhandled error</source>
-				<target>처리할 수 없는 오류</target>
-			</trans-unit>
-			<trans-unit id="bootstrap.config.error.127">
-				<source>Unhandled error</source>
-				<target>처리할 수 없는 오류</target>
+				<source>Unhandled error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="hostname">
 				<source>@@PRODUCT_NAME@@ server hostname</source>
@@ -3602,6 +3595,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="bootstrap.config.error.17">
 				<source>Could not find GPG key</source>
 				<target>GPG 키를 찾지 못했습니다</target>
+			</trans-unit>
+			<trans-unit id="bootstrap.config.error.127">
+				<source>Unhandled error</source>
+				<target>처리할 수 없는 오류</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.success">
 				<source>Bootstrap script successfully generated.  You can access it &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt;</source>
@@ -5194,6 +5191,13 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="message.channelcreated">
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
 				<target>채널 &lt;strong&gt;{0}&lt;/strong&gt; 생성 </target>
+			</trans-unit>
+			<trans-unit id="message.channeldeleted">
+				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; has been deleted.</source>
+				<target state="needs-review-translation">&lt;strong&gt;{0}&lt;/strong&gt; 활성키가 삭제되었습니다.    </target>
+			</trans-unit>
+			<trans-unit id="message.channel.delete.systemssubscribed">
+				<source>There are currently systems subscribed to this channel. Please confirm system channel removal by selecting the unsubscribe checkbox.</source>
 			</trans-unit>
 			<trans-unit id="message.channelupdated">
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>

@@ -320,8 +320,7 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on @@PRODUCT_NAME@@ by following
-   the directions at https://rhn.redhat.com/help/faq/#26
+   delete your existing system profile on @@PRODUCT_NAME@@.
 
 2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
    the number of active Red Hat subscriptions associated with your
@@ -351,17 +350,16 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 પ્રિય Red Hat ગ્રાહક,
 
 નીચેની સિસ્ટમ જૂના દિવસોમાં તમારા Red Hat પ્રવેશ અને ખાતા સાથે
-સંકળાયેલ છે, પરંતુ @@PRODUCT_NAME@@ સેવાઓ સાથે ઉમેદવારી થયેલ
-નથી.
+સંકળાયેલ છે, પરંતુ @@PRODUCT_NAME@@ સેવાઓ સાથે ઉમેદવારી કરી
+શકાયુ નહિં.
 
 {0}
 
 આ કેવી રીતે થયું છે તેના ઘણા કારણો હોઈ શકે:
 
-૧) તમે છેલ્લે જ સિસ્ટમ પુનઃસ્થાપિત કરી હોય અને તમે સિસ્ટમને હાલની,
+૧) તમે તાજેતરમાં સિસ્ટમ પુનઃસ્થાપિત કરી હોય અને તમે સિસ્ટમને હાલની,
    સક્રિય ઉમેદવારી સાથે સાંકળવાનો પ્રયાસ કરી રહ્યા હોય. મહેરબાની કરીને ખાતરી કરો
-   કે તમે @@PRODUCT_NAME@@ પરની તમારી હાલની સિસ્ટમ રૂપરેખા કાઢી નાંખો
-   https://rhn.redhat.com/help/faq/#26 આગળની દિશાઓને અનુસરીને
+   કે તમે @@PRODUCT_NAME@@ પરની તમારી હાલની સિસ્ટમ રૂપરેખા કાઢી નાંખો.
 
 ૨) @@PRODUCT_NAME@@ સાથે તમે જોડેલ સિસ્ટમોની સંખ્યા
    તમારા ખાતા સાથે સંકળાયેલ સક્રિય Red Hat ઉમેદવારીઓની સંખ્યા કરતાં
@@ -375,7 +373,7 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 
    પ્રવેશ કરો અને તમારી ઉમેદવારીઓ જુઓ અને તેમની વ્યવસ્થા કરો કડી ક્લિક કરો.
 
-૩) તમે છેલ્લે Red Hat ઉત્પાદન સ્થાપિત કરી છે અને તમારો ઉમેદવારી ક્રમાંક સફળતાપૂર્વક
+૩) તમે તાજેતરમાં Red Hat ઉત્પાદન અને ઉમેદવારી સ્થાપિત કરી છે અને તમારો ઉમેદવારી ક્રમાંક સફળતાપૂર્વક
    સક્રિય કરાયેલ હતો નહિં. જો તમે ફરીથી પ્રયાસ કરવા માંગો અને તમારી ઉમેદવારી
    ફરીથી સક્રિય કરવા માંગો, તો મહેરબાની કરીને આની મુલાકાત લો:
 

@@ -2172,7 +2172,7 @@
 			</trans-unit>
 			<trans-unit id="eps">
 				<source>(Events per second)</source>
-				<target>(Évènements par seconde)</target>
+				<target>(Événements par seconde)</target>
 			</trans-unit>
 			<trans-unit id="celsius">
 				<source>(Degrees Celsius)</source>
@@ -2184,7 +2184,7 @@
 			</trans-unit>
 			<trans-unit id="epm">
 				<source>(Events per minute)</source>
-				<target>(Évènements par minute)</target>
+				<target>(Événements par minute)</target>
 			</trans-unit>
 			<trans-unit id="Kbps">
 				<source>(Kilobytes per second)</source>

@@ -504,7 +504,7 @@
 			</trans-unit>
 			<trans-unit id="Organization Trusts">
 				<source>Organization Trusts</source>
-				<target>Confiances de l'(des) organisation(s)</target>
+				<target>Confiances de l'organisation</target>
 			</trans-unit>
 			<trans-unit id="Quick Start Guide">
 				<source>Quick Start Guide</source>
@@ -1054,7 +1054,7 @@ utilisateur avant de supprimer son compte.</target>
 			</trans-unit>
 			<trans-unit id="message.range">
 				<source>&lt;strong id="list_min" &gt;{0}&lt;/strong&gt; - &lt;strong id="list_max"&gt;{1}&lt;/strong&gt; of &lt;strong id="list_total"&gt;{2}&lt;/strong&gt;</source>
-				<target>&lt;strong id="list_min" &gt;{0}&lt;/strong&gt; - &lt;strong id="list_max"&gt;{1}&lt;/strong&gt; of &lt;strong id="list_total"&gt;{2}&lt;/strong&gt;</target>
+				<target>&lt;strong id="list_min" &gt;{0}&lt;/strong&gt; - &lt;strong id="list_max"&gt;{1}&lt;/strong&gt; de &lt;strong id="list_total"&gt;{2}&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="message.range.withtypedescription">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; of &lt;strong&gt;{2}&lt;/strong&gt;
@@ -1068,7 +1068,7 @@ utilisateur avant de supprimer son compte.</target>
 			</trans-unit>
 			<trans-unit id="message.items.per.page">
 				<source>Display {0} items per page</source>
-				<target>Affiche {0} éléments par page</target>
+				<target>Afficher {0} éléments par page</target>
 			</trans-unit>
 			<trans-unit id="message.userCreatedIntoOrg">
 				<source>Account &lt;strong&gt;{0}&lt;/strong&gt; created, login information sent to &lt;strong&gt;{1}&lt;/strong&gt;</source>
@@ -1746,9 +1746,9 @@ les rendre disponibles pour que le profil kickstart fonctionne correctement.
 				<source>Search strings must be longer than two characters.</source>
 				<target>Les chaînes de recherche doivent contenir plus de deux caractères.</target>
 			</trans-unit>
-			<trans-unit id="packages.search.index_out_of_sync_with_db">
-				<source>Package search index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
-				<target>L'index de recherche de paquetage et les entrées de base de données ne sont plus synchronisés. Veuillez exécuter la commande suivante : /sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</target>
+			<trans-unit id="searchserver.index_out_of_sync_with_db">
+				<source>SearchServer index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
+				<target state="needs-review-translation">L'index de recherche de paquetage et les entrées de base de données ne sont plus synchronisés. Veuillez exécuter la commande suivante : /sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</target>
 			</trans-unit>
 			<trans-unit id="patches.installed.notavailable">
 				<source>Not Available</source>
@@ -2088,7 +2088,7 @@ utilisateur avant de désactiver son compte.</target>
 			</trans-unit>
 			<trans-unit id="Events">
 				<source>Events</source>
-				<target>Évènements</target>
+				<target>Événements</target>
 			</trans-unit>
 			<trans-unit id="patch.applynone">
 				<source>No patches selected.</source>
@@ -2147,8 +2147,8 @@ utilisateur avant de désactiver son compte.</target>
 				<target>Heure de connexion attendue&amp;nbsp;:</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;REMARQUE :&lt;/strong&gt; ce système ne s'est pas connecté récemment sur @@PRODUCT_NAME@@. Vu qu'un système ne peut pas être mis à jour s'il ne se connecte pas à @@PRODUCT_NAME@@, il est peu probable que cette action ne réussisse.&lt;br/&gt;&lt;br/&gt;Veuillez vérifier le système et vous assurer que rhnsd est en cours d'exécution (&lt;a href="/help/faq.pxt#15"&gt;informations supplémentaires&lt;/a&gt;). Dans le cas contraire, veuillez &lt;a href="/help/contact.pxt"&gt;nous contacter&lt;/a&gt;.</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running.</source>
+				<target>&lt;strong&gt;REMARQUE :&lt;/strong&gt; Ce système ne s'est pas connecté récemment sur @@PRODUCT_NAME@@. Vu qu'un système ne peut pas être mis à jour s'il ne se connecte pas à @@PRODUCT_NAME@@, il est peu probable que cette action ne réussisse.&lt;br/&gt;&lt;br/&gt;Veuillez vérifier le système et vous assurer que rhnsd est en cours d'exécution.</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -3511,28 +3511,27 @@ utilisateur avant de désactiver son compte.</target>
 				<target>Certificat téléchargé. @@PRODUCT_NAME@@ a été réactivé.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
-				<source>Could not parse certificate file</source>
-				<target>Impossible d'analyser le fichier de certificat</target>
+				<source>Could not parse certificate file, see log file for more details.</source>
+				<target state="needs-review-translation">Impossible d'analyser le fichier de certificat</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.11">
 				<source>Certificate expired</source>
 				<target>Certificat expiré</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown @@PRODUCT_NAME@@ version</source>
-				<target>Version de @@PRODUCT_NAME@@ inconnue</target>
+				<source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
+				<target state="needs-review-translation">Version de @@PRODUCT_NAME@@ inconnue</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
-				<source>Remote activation failure</source>
-				<target>Échec de l'activation à distance</target>
+				<source>Remote activation failure, see log file for more details.</source>
+				<target state="needs-review-translation">Échec de l'activation à distance</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.30">
-				<source>Local activation failure</source>
-				<target>Échec de l'activation locale</target>
+				<source>Local activation failure, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.40">
-				<source>Channel population failure</source>
-				<target>Échec de la population du canal</target>
+				<source>Channel population failure, see log file for more details.</source>
+				<target state="needs-review-translation">Échec de la population du canal</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.80">
 				<source>No management entitlements remaining</source>
@@ -3551,8 +3550,7 @@ utilisateur avant de désactiver son compte.</target>
 				<target>Certificat de @@PRODUCT_NAME@@ invalide</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
-				<source>Unknown activation error</source>
-				<target>Erreur d'activation inconnue.</target>
+				<source>Unknown activation error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
 				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
@@ -3563,12 +3561,7 @@ utilisateur avant de désactiver son compte.</target>
 				<target>Aucun canal de @@PRODUCT_NAME@@ disponible pour cette version</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
-				<source>Unhandled error</source>
-				<target>Erreur non traitée</target>
-			</trans-unit>
-			<trans-unit id="bootstrap.config.error.127">
-				<source>Unhandled error</source>
-				<target>Erreur non traitée</target>
+				<source>Unhandled error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="hostname">
 				<source>@@PRODUCT_NAME@@ server hostname</source>
@@ -3605,6 +3598,10 @@ utilisateur avant de désactiver son compte.</target>
 			<trans-unit id="bootstrap.config.error.17">
 				<source>Could not find GPG key</source>
 				<target>Impossible de trouver la clé GPG</target>
+			</trans-unit>
+			<trans-unit id="bootstrap.config.error.127">
+				<source>Unhandled error</source>
+				<target>Erreur non traitée</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.success">
 				<source>Bootstrap script successfully generated.  You can access it &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt;</source>
@@ -5197,6 +5194,13 @@ Suivez cet url pour obtenir la liste complète des systèmes inactifs :
 			<trans-unit id="message.channelcreated">
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
 				<target>Canal &lt;strong&gt;{0}&lt;/strong&gt; créé.</target>
+			</trans-unit>
+			<trans-unit id="message.channeldeleted">
+				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; has been deleted.</source>
+				<target state="needs-review-translation">La clé d'activation &lt;strong&gt;{0}&lt;/strong&gt; a été suprimée.</target>
+			</trans-unit>
+			<trans-unit id="message.channel.delete.systemssubscribed">
+				<source>There are currently systems subscribed to this channel. Please confirm system channel removal by selecting the unsubscribe checkbox.</source>
 			</trans-unit>
 			<trans-unit id="message.channelupdated">
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>

@@ -92,7 +92,7 @@
 			</trans-unit>
 			<trans-unit id="add-on">
 				<source>Add-On</source>
-				<target>Add-On</target>
+				<target>Zusatz</target>
 			</trans-unit>
 			<trans-unit id="virtualization_host">
 				<source>Virtualization</source>
@@ -104,7 +104,7 @@
 			</trans-unit>
 			<trans-unit id="Australia/Sydney">
 				<source>(GMT+1000) Australia (Eastern)</source>
-				<target>(GMT+1000) Australien (Eastern)</target>
+				<target>(GMT+1000) Australien (Ost)</target>
 			</trans-unit>
 			<trans-unit id="Asia/Tokyo">
 				<source>(GMT+0900) Japan</source>
@@ -112,7 +112,7 @@
 			</trans-unit>
 			<trans-unit id="Asia/Hong_Kong">
 				<source>(GMT+0800) Australia (Western)</source>
-				<target>(GMT+0800) Australien (Western)</target>
+				<target>(GMT+0800) Australien (West)</target>
 			</trans-unit>
 			<trans-unit id="Europe/Moscow">
 				<source>(GMT+0300) Russia (Moscow)</source>
@@ -120,11 +120,11 @@
 			</trans-unit>
 			<trans-unit id="Europe/Bucharest">
 				<source>(GMT+0200) Europe (Eastern)</source>
-				<target>(GMT+0200) Europa (Eastern)</target>
+				<target>(GMT+0200) Europa (Ost)</target>
 			</trans-unit>
 			<trans-unit id="Europe/Paris">
 				<source>(GMT+0100) Europe (Central)</source>
-				<target>(GMT+0100) Europa (Central)</target>
+				<target>(GMT+0100) Europa (Mittel)</target>
 			</trans-unit>
 			<trans-unit id="GMT">
 				<source>(GMT+0000) Greenwich Mean Time</source>
@@ -140,15 +140,15 @@
 			</trans-unit>
 			<trans-unit id="America/New_York">
 				<source>(GMT-0500) United States (Eastern)</source>
-				<target>(GMT-0500) USA (EST: Eastern Standard Time)</target>
+				<target>(GMT-0500) USA (Ost)</target>
 			</trans-unit>
 			<trans-unit id="America/Chicago">
 				<source>(GMT-0600) United States (Central)</source>
-				<target>(GMT-0600) USA (CST: Central Standard Time)</target>
+				<target>(GMT-0600) USA (Zentral)</target>
 			</trans-unit>
 			<trans-unit id="America/Denver">
 				<source>(GMT-0700) United States (Mountain)</source>
-				<target>(GMT-0700) USA (MST: Mountain Standard Time)</target>
+				<target>(GMT-0700) USA (Mountain)</target>
 			</trans-unit>
 			<trans-unit id="America/Los_Angeles">
 				<source>(GMT-0800) United States (Pacific)</source>
@@ -180,7 +180,7 @@
 			</trans-unit>
 			<trans-unit id="Australia/Darwin">
 				<source>(GMT+0930) Australia (Central/Darwin)</source>
-				<target>(GMT+0930) Australien (Central/Darwin)</target>
+				<target>(GMT+0930) Australien (Zentral/Darwin)</target>
 			</trans-unit>
 			<trans-unit id="Asia/Jakarta">
 				<source>(GMT+0700) Thailand</source>

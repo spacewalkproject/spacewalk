@@ -306,7 +306,7 @@ Il Red Hat Account Management Team</target>
 			</trans-unit>
 			<trans-unit id="email.unchanneledsystem.subject">
 				<source>Your Red Hat system is not able to receive service</source>
-				<target>L vostro sistema Red Hat non è in grado di ricevere i servizi</target>
+				<target>Il sistema Red Hat non è in grado di ricevere i servizi</target>
 			</trans-unit>
 			<trans-unit id="email.unchanneledsystem.body">
 				<source>
@@ -322,8 +322,7 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on @@PRODUCT_NAME@@ by following
-   the directions at https://rhn.redhat.com/help/faq/#26
+   delete your existing system profile on @@PRODUCT_NAME@@.
 
 2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
    the number of active Red Hat subscriptions associated with your
@@ -352,38 +351,37 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 				<target>
 Gentile cliente di Red Hat,
 
-Il seguente sistema è stato associato al vostro login e account di Red Hat,
+Il seguente sistema è stato associato al login e all'account di Red Hat,
 ma purtroppo non risulta aver diritto ai servizi di
 @@PRODUCT_NAME@@.
 
 {0}
 
-Questo problema si è potuto verificare per diverse ragioni:
+Questo problema si è verificato per diverse ragioni:
 
-1) Avete recentemente reinstallato un sistema e avete cercato di associare il
-   sistema stesso con una sottoscrizione esistente ed attiva. Vi preghiamo di cancellare
-   il profilo del sistema esistente su @@PRODUCT_NAME@@, seguendo le indicazioni
-   presenti su https://rhn.redhat.com/help/faq/#26
+1) Recentemente è stato reinstallato un sistema e si è cercato di associarlo
+   con una sottoscrizione esistente ed attiva. Si prega di cancellare
+   il profilo del sistema esistente su @@PRODUCT_NAME@@
 
 2) Il numero di sistemi collegati al @@PRODUCT_NAME@@ eccede il numero di
-   sottoscrizioni Red Hat attive associate con il vostro account.
-   Ciò può essere causato se le vostre sottoscrizioni risultano scadute,
-   oppure se avete bisogno di acquistare una sottoscrizione di Red Hat.
+   sottoscrizioni Red Hat attive associate con l'account.
+   Ciò può essere causato se le sottoscrizioni sono scadute,
+   oppure se bisogna acquistare una sottoscrizione di Red Hat.
 
-   Per controllare le date di scadenza delle vostre sottoscrizioni di Red Hat
-   esistenti, vi preghiamo di visitare:
+   Per controllare le date di scadenza delle sottoscrizioni di Red Hat
+   esistenti, visitare:
 
    https://www.redhat.com/apps/support/
 
-Registratevi e successivamente fate clic su Visualizza e sul link gestite le vostre
+Eseguire il login e successivamente selezionare il link Visualizza e gestisci le
  sottoscrizioni
-3) Avete recentemente installato un prodotto di Red Hat ed il vostro numero di
-   sottoscrizione non è stato attivato. Se desiderate attivare nuovamente la
-   vostra sottoscrizione, vi preghiamo di visitare:
+3) È stato recentemente installato un prodotto di Red Hat ed il numero di
+   sottoscrizione non è stato attivato. Se si desidera attivare nuovamente la
+   vostra sottoscrizione, visitare:
 
    https://www.redhat.com/activate
 
-Per ulteriori chiarimenti, vi preghiamo di contattare un rappresentante del
+Per ulteriori chiarimenti, contattare un rappresentante del
 Red Hat Customer Service su:
 
 http://www.redhat.com/about/contact/directory.html#custservice

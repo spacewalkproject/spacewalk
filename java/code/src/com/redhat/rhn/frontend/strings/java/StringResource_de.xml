@@ -280,7 +280,7 @@
 			</trans-unit>
 			<trans-unit id="Custom System Info">
 				<source>Custom System Info</source>
-				<target>Custom-System Info</target>
+				<target>Angepasste Systeminfo</target>
 			</trans-unit>
 			<trans-unit id="date">
 				<source>Date</source>
@@ -352,7 +352,7 @@
 			</trans-unit>
 			<trans-unit id="Global Config">
 				<source>Global Config</source>
-				<target>Globale Konfig</target>
+				<target>Allgemeine Konfig</target>
 			</trans-unit>
 			<trans-unit id="Go">
 				<source>Go</source>
@@ -672,19 +672,19 @@
 			</trans-unit>
 			<trans-unit id="user prefix Mr.">
 				<source>Mr.</source>
-				<target>Hr.</target>
+				<target>-</target>
 			</trans-unit>
 			<trans-unit id="user prefix Mrs.">
 				<source>Mrs.</source>
-				<target>Fr.</target>
+				<target>-</target>
 			</trans-unit>
 			<trans-unit id="user prefix Ms.">
 				<source>Ms.</source>
-				<target>Fr.</target>
+				<target>-</target>
 			</trans-unit>
 			<trans-unit id="user prefix Sr.">
 				<source>Sr.</source>
-				<target>Hr.</target>
+				<target>-</target>
 			</trans-unit>
 			<trans-unit id="user.delete">
 				<source>Deleted user &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -852,7 +852,7 @@
 			</trans-unit>
 			<trans-unit id="error.same_email">
 				<source>You must specify a different email</source>
-				<target>Sie m&amp;uuml;ssen eine andere E-Mail angeben</target>
+				<target>Sie m&amp;uuml;ssen eine andere E-Mail-Adresse angeben</target>
 			</trans-unit>
 			<trans-unit id="error.addr_empty">
 				<source>A valid email address must be entered</source>
@@ -1746,9 +1746,9 @@ f&amp;uuml;r dieses Kickstart-Profil verf&amp;uuml;gbar machen, damit es ordnung
 				<source>Search strings must be longer than two characters.</source>
 				<target>Such-Strings m&amp;uuml;ssen mehr als 2 Zeichen besitzen.</target>
 			</trans-unit>
-			<trans-unit id="packages.search.index_out_of_sync_with_db">
-				<source>Package search index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
-				<target>Der Pakete-Suchindex scheint nicht mit den Datenbankeinträgen übereinzustimmen. Bitte führen Sie Folgendes aus: '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</target>
+			<trans-unit id="searchserver.index_out_of_sync_with_db">
+				<source>SearchServer index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
+				<target state="needs-review-translation">Der Pakete-Suchindex scheint nicht mit den Datenbankeinträgen übereinzustimmen. Bitte führen Sie Folgendes aus: '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</target>
 			</trans-unit>
 			<trans-unit id="patches.installed.notavailable">
 				<source>Not Available</source>
@@ -1768,7 +1768,7 @@ f&amp;uuml;r dieses Kickstart-Profil verf&amp;uuml;gbar machen, damit es ordnung
 			</trans-unit>
 			<trans-unit id="systemsearch_custom_info">
 				<source>Custom Info</source>
-				<target>Custom-Info</target>
+				<target>Angepasste Info</target>
 			</trans-unit>
 			<trans-unit id="systemsearch_snapshot_tag">
 				<source>Snapshot Tag</source>
@@ -1916,7 +1916,7 @@ f&amp;uuml;r dieses Kickstart-Profil verf&amp;uuml;gbar machen, damit es ordnung
 			</trans-unit>
 			<trans-unit id="org.base.delete.error">
 				<source>You cannot delete the base Organization {0}</source>
-				<target>Sie k&amp;ouml;nnen die Basis-Organisation {0} nicht l&amp;ouml;schen</target>
+				<target>Sie k&amp;ouml;nnen die Basisorganisation {0} nicht l&amp;ouml;schen</target>
 			</trans-unit>
 			<trans-unit id="userdisable.error.orgadmin">
 				<source>You cannot deactivate &lt;strong&gt;another&lt;/strong&gt; organization
@@ -2147,8 +2147,8 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
 				<target>Gesch&amp;auml;tzte Anmeldezeit:</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;ANMERKUNG:&lt;/strong&gt; Dieses System hat sich in letzter Zeit nicht bei @@PRODUCT_NAME@@ angemeldet.  Da ein System nicht aktualisiert werden kann, wenn es sich nicht bei @@PRODUCT_NAME@@ anmeldet, ist es unwahrscheinlich, dass diese Aktion erfolgreich ist.&lt;br/&gt;&lt;br/&gt;&amp;Uuml;berpr&amp;uuml;fen Sie bitte das System und versichern Sie sich, dass rhnsd ausgef&amp;uuml;hrt wird (&lt;a href="/help/faq.pxt#15"&gt;Mehr Info&lt;/a&gt;).  Wenn der Daemon nicht l&amp;auml;uft, &lt;a href="/help/contact.pxt"&gt;kontaktieren Sie uns&lt;/a&gt;.</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running.</source>
+				<target>&lt;strong&gt;ANMERKUNG:&lt;/strong&gt; Dieses System hat sich in letzter Zeit nicht bei @@PRODUCT_NAME@@ angemeldet.  Da ein System nicht aktualisiert werden kann, wenn es sich nicht bei @@PRODUCT_NAME@@ anmeldet, ist es unwahrscheinlich, dass diese Aktion erfolgreich ist.&lt;br/&gt;&lt;br/&gt;&amp;Uuml;berpr&amp;uuml;fen Sie bitte das System und versichern Sie sich, dass rhnsd ausgef&amp;uuml;hrt wird.</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -2168,7 +2168,7 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
 			</trans-unit>
 			<trans-unit id="timetag.pasttense">
 				<source>ago</source>
-				<target>vor</target>
+				<target>her</target>
 			</trans-unit>
 			<trans-unit id="timetag.year">
 				<source>year</source>
@@ -3511,28 +3511,27 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
 				<target>Das Zertifikat wurde hochgeladen.  Der @@PRODUCT_NAME@@ wurde reaktiviert.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
-				<source>Could not parse certificate file</source>
-				<target>Konnte Zertifikat-Datei nicht analysieren</target>
+				<source>Could not parse certificate file, see log file for more details.</source>
+				<target state="needs-review-translation">Konnte Zertifikat-Datei nicht analysieren</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.11">
 				<source>Certificate expired</source>
 				<target>Zertifikat ist abgelaufen</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown @@PRODUCT_NAME@@ version</source>
-				<target>Unbekannte @@PRODUCT_NAME@@ Version</target>
+				<source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
+				<target state="needs-review-translation">Unbekannte @@PRODUCT_NAME@@ Version</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
-				<source>Remote activation failure</source>
-				<target>Remote-Aktivierungsfehler</target>
+				<source>Remote activation failure, see log file for more details.</source>
+				<target state="needs-review-translation">Remote-Aktivierungsfehler</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.30">
-				<source>Local activation failure</source>
-				<target>Lokaler Aktivierungsfehler</target>
+				<source>Local activation failure, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.40">
-				<source>Channel population failure</source>
-				<target>Fehler beim F&amp;uuml;llen des Channels</target>
+				<source>Channel population failure, see log file for more details.</source>
+				<target state="needs-review-translation">Fehler beim F&amp;uuml;llen des Channels</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.80">
 				<source>No management entitlements remaining</source>
@@ -3551,8 +3550,7 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
 				<target>Ung&amp;uuml;ltiges @@PRODUCT_NAME@@-Zertifikat</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
-				<source>Unknown activation error</source>
-				<target>Unbekannter Aktivierungsfehler</target>
+				<source>Unknown activation error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
 				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
@@ -3563,12 +3561,7 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
 				<target>Kein @@PRODUCT_NAME@@-Channel f&amp;uuml;r diese Version verf&amp;uuml;gbar</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
-				<source>Unhandled error</source>
-				<target>Unbehandelter Fehler</target>
-			</trans-unit>
-			<trans-unit id="bootstrap.config.error.127">
-				<source>Unhandled error</source>
-				<target>Unbehandelter Fehler</target>
+				<source>Unhandled error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="hostname">
 				<source>@@PRODUCT_NAME@@ server hostname</source>
@@ -3605,6 +3598,10 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
 			<trans-unit id="bootstrap.config.error.17">
 				<source>Could not find GPG key</source>
 				<target>Konnte GPG-Schl&amp;uuml;ssel nicht finden</target>
+			</trans-unit>
+			<trans-unit id="bootstrap.config.error.127">
+				<source>Unhandled error</source>
+				<target>Unbehandelter Fehler</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.success">
 				<source>Bootstrap script successfully generated.  You can access it &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt;</source>
@@ -4220,7 +4217,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="cloneerrata.anychannel">
 				<source>Any managed channel</source>
-				<target>Jeder beliebige verwaltete Channel</target>
+				<target>Jeden beliebigen verwalteten Channel</target>
 			</trans-unit>
 			<trans-unit id="traceback_mail">
 				<source>Email address</source>
@@ -4228,7 +4225,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.notifications.disabled">
 				<source>E-mail notifications disabled globally</source>
-				<target>E-Mail-Benachrichtigungen global deaktiviert</target>
+				<target>E-Mail-Benachrichtigungen allgemein deaktiviert</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.lock.reason">
 				<source>Manually locked</source>
@@ -4492,7 +4489,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="systems.details.virt.vcpu.exceeds.host.cpus">
 				<source>Exceeding the number of physical CPUs ({0}) on {1} may impact performance.</source>
-				<target>Das &amp;Uuml;berschreiten der Anzahl an physikalischen CPUs ({0}) auf {1} kann die Leistung beeinflussen.</target>
+				<target>Das &amp;Uuml;berschreiten der Anzahl an physischen CPUs ({0}) auf {1} kann die Leistung beeinflussen.</target>
 			</trans-unit>
 			<trans-unit id="systems.details.virt.vcpu.increase.warning">
 				<source>{1} must be shutdown if last started with less than {0} vCPUs for changes to take effect.</source>
@@ -4612,7 +4609,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="system.entitle.invalid_addon_entitlement">
 				<source>Invalid add-on entitlement [{0}] provided.No such entitlement exists.</source>
-				<target>Ung&amp;uuml;ltige Add-On-Berechtigung [{0}] angegeben. Eine solche Berechtigung existiert nicht.</target>
+				<target>Ung&amp;uuml;ltige Zusatzberechtigung [{0}] angegeben. Eine solche Berechtigung existiert nicht.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.noslots">
 				<source>There were no more {0} System Entitlements available.</source>
@@ -5184,7 +5181,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="api.channel.delete.redhat">
 				<source>Red Hat Channels cannot be deleted, only custom channels can.</source>
-				<target>Red Hat Channels können nicht gelöscht werden, nur angepasste Channels (Custom-Channels) können gelöscht werden.</target>
+				<target>Red Hat Channels können nicht gelöscht werden, nur angepasste Channels können gelöscht werden.</target>
 			</trans-unit>
 			<trans-unit id="api.channel.delete.haschild">
 				<source>This channel has child channels associated with it.  You must delete those channels first before deleting the parent.</source>
@@ -5197,6 +5194,13 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			<trans-unit id="message.channelcreated">
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
 				<target>Channel &lt;strong&gt;{0}&lt;/strong&gt; erstellt.</target>
+			</trans-unit>
+			<trans-unit id="message.channeldeleted">
+				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; has been deleted.</source>
+				<target state="needs-review-translation">Der Aktivierungsschl&amp;uuml;ssel &lt;strong&gt;{0}&lt;/strong&gt; wurde gel&amp;ouml;scht.</target>
+			</trans-unit>
+			<trans-unit id="message.channel.delete.systemssubscribed">
+				<source>There are currently systems subscribed to this channel. Please confirm system channel removal by selecting the unsubscribe checkbox.</source>
 			</trans-unit>
 			<trans-unit id="message.channelupdated">
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>

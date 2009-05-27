@@ -1032,7 +1032,7 @@
 			</trans-unit>
 			<trans-unit id="created.displayname">
 				<source>Created:</source>
-				<target>创建的：</target>
+				<target>创建时间：</target>
 			</trans-unit>
 			<trans-unit id="last_sign_in.displayname">
 				<source>Last Sign In:</source>
@@ -1300,7 +1300,7 @@
 			</trans-unit>
 			<trans-unit id="preferences.jsp.datestimes">
 				<source>Dates and times, like system checkin times, will be shown according to the selected timezone.</source>
-				<target>日期和时间（如系统的登录次时间）将会根据选择的时区时间来显示。</target>
+				<target>日期和时间（如系统的登录时间）将会根据选择的时区时间来显示。</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.displaytimesas">
 				<source>Display all times as</source>
@@ -1950,11 +1950,11 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="usercreate.stateRequired">
 				<source>(required for US or Canada)</source>
-				<target>（美国或加拿大所要求的）</target>
+				<target>（美国或加拿大要求）</target>
 			</trans-unit>
 			<trans-unit id="edit_address.jsp.staterequired">
 				<source>(required for US or Canada)</source>
-				<target>（美国或加拿大所要求的）</target>
+				<target>（美国或加拿大要求）</target>
 			</trans-unit>
 			<trans-unit id="usercreate.requiredField">
 				<source>Required Field</source>
@@ -4666,11 +4666,11 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="grouplist.jsp.intersection">
 				<source>Work With Intersection</source>
-				<target>与交集合作</target>
+				<target>工作交集</target>
 			</trans-unit>
 			<trans-unit id="grouplist.jsp.union">
 				<source>Work With Union</source>
-				<target>与并集合作</target>
+				<target>工作并集</target>
 			</trans-unit>
 			<trans-unit id="systemgroups.jsp.security">
 				<source>Security Advisories: </source>
@@ -7048,8 +7048,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>可以使用以下提供的表格编辑 kickstart 侧写。以星号（*）标注的项是必填的。</target>
 			</trans-unit>
 			<trans-unit id="kickstartdelete.jsp.summary1">
-				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its associated system and corresponding options.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
-				<target>您确认要删除这个 Kickstart 吗？&lt;strong&gt;&lt;p&gt;警告：删除这个 kickstart 将删除素有与其关联的系统和响应的选项。&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;请只点一次按钮，删除过程需要几分钟时间方可完成。&lt;/strong&gt;&lt;/p&gt;</target>
+				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its corresponding options and scripts.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
+				<target state="needs-review-translation">您确认要删除这个 Kickstart 吗？&lt;strong&gt;&lt;p&gt;警告：删除这个 kickstart 将删除素有与其关联的系统和响应的选项。&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;请只点一次按钮，删除过程需要几分钟时间方可完成。&lt;/strong&gt;&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.summary2">
 				<source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
@@ -12569,6 +12569,10 @@ kickstart 或创建一个新的 kickstart 发布前
 				<source>Virtual System Hardware Overrides</source>
 				<target>虚拟系统硬件覆盖</target>
 			</trans-unit>
+			<trans-unit id="virtualization.provision.override.jsp.goto.advanced.options">
+				<source>By default virtual guest settings like memory, cpu and storage allocations will be inherited from your kickstart profile. If you want to override these settings click on &lt;strong&gt;{0}&lt;/strong&gt; button below.</source>
+				<target>默认情况下，虚拟客户机的设置，比如内存、cpu 以及存储分配将来自您的 kickstart 侧写。如果您想要覆盖这些设置，请点击下面的 &lt;strong&gt;{0}&lt;/strong&gt; 按钮。</target>
+			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.guest_name.header">
 				<source>Guest Name:</source>
 				<target>客户机名称：</target>
@@ -14821,6 +14825,10 @@ given channel.</source>
 				<source>{0}</source>
 				<target>{0}</target>
 			</trans-unit>
+			<trans-unit id="channel.delete.jsp.toolbar">
+				<source>{0}</source>
+				<target>{0}</target>
+			</trans-unit>
 			<trans-unit id="channel.edit.jsp.basicchanneldetails">
 				<source>Basic Channel Details</source>
 				<target>基本频道详情</target>
@@ -14836,6 +14844,52 @@ given channel.</source>
 			<trans-unit id="channel.edit.jsp.security.gpg">
 				<source>Security: GPG</source>
 				<target>安全性：GPG</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.channelheader">
+				<source>Delete Channel</source>
+				<target state="needs-review-translation">删除频道</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.introparagraph">
+				<source>Are you sure you wish to delete this channel? Packages in the channel will
+           be removed from the channel, but will remain on the server. You will be
+           given the option to delete them after the channel has been deleted. Errata
+           related to the channel will no longer be related to the channel, and may be
+           orphaned. If the channel has child channels, it cannot be deleted; the child
+           channels must be deleted first. If the channel has kickstart distributions
+           associated to it, it cannot be deleted; the kickstart distributions must be
+           dissociated from the channel or deleted first.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.arch">
+				<source>Architecture:</source>
+				<target state="needs-review-translation">体系构架</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.totalpackages">
+				<source>Total Packages:</source>
+				<target state="needs-review-translation">需要的全部软件包：</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.systemssubscribed">
+				<source>Systems Subscribed:</source>
+				<target state="needs-review-translation">订阅的系统</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsheader">
+				<source>Trusted Organizations</source>
+				<target state="needs-review-translation">创建机构</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsparagraph">
+				<source>Channel deletion will affect any Trusted Organizations that have systems
+            subscribed to the {0} channel.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsaffected">
+				<source>Organizations Affected:</source>
+				<target state="needs-review-translation">机构：</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubheader">
+				<source>Unsubscribe Systems</source>
+				<target state="needs-review-translation">退订系统。</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubparagraph">
+				<source>Unsubscribe all trusted organization systems that are subscribed to the
+            {0} channel. Subscribed systems will lose access to packages specific to this channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
@@ -15009,6 +15063,54 @@ given channel.</source>
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
 				<target>没有找到要求的 kickstart 文件。
          如果您要求的是一个机构默认 kickstart，请确定将一个 kickstart 选定为"机构默认"。</target>
+			</trans-unit>
+			<trans-unit id="task.status.current.db.time">
+				<source>Current DB Time</source>
+				<target state="needs-review-translation">当前密钥</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.execution">
+				<source>Last Execution Times</source>
+				<target state="needs-review-translation">脚本执行时间</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.completed">
+				<source>Last Completed Action</source>
+				<target state="needs-review-translation">完成的动作</target>
+			</trans-unit>
+			<trans-unit id="task.status.session.cleanup">
+				<source>Session Cleanup</source>
+			</trans-unit>
+			<trans-unit id="task.status.errata.queue.notif">
+				<source>Errata Notification Queue</source>
+				<target state="needs-review-translation">发送勘误通知</target>
+			</trans-unit>
+			<trans-unit id="task.status.errata.mail">
+				<source>Errata Notification Mail</source>
+				<target state="needs-review-translation">发送勘误通知</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary">
+				<source>Daily Summary Queue</source>
+				<target state="needs-review-translation">每日总结</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary.mail">
+				<source>Daily Summary Mail</source>
+				<target state="needs-review-translation">每日总结</target>
+			</trans-unit>
+			<trans-unit id="task.status.clean.alerts">
+				<source>Clean Current Alerts</source>
+				<target state="needs-review-translation">当前的版本</target>
+			</trans-unit>
+			<trans-unit id="task.status.sync.probe">
+				<source>Sync Probe State</source>
+				<target state="needs-review-translation">探测状态</target>
+			</trans-unit>
+			<trans-unit id="task.status.message">
+				<source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
+			</trans-unit>
+			<trans-unit id="task.status.title">
+				<source>Task Engine Status</source>
+			</trans-unit>
+			<trans-unit id="actions.jsp.pickedup">
+				<source>Picked Up</source>
 			</trans-unit>
 		</body>
 	</file>

@@ -1744,9 +1744,9 @@ available for this kickstart profile to function properly.
 				<source>Search strings must be longer than two characters.</source>
 				<target>શોધ શબ્દમાળાઓ બે અક્ષરો કરતાં લાંબી હોવી જ જોઈએ.</target>
 			</trans-unit>
-			<trans-unit id="packages.search.index_out_of_sync_with_db">
-				<source>Package search index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
-				<target>પેકેજ શોધ અનુક્રમણિકા અને ડેટાબેઝ નોંધણીઓ એ સુમેળની બહાર દેખાશે. મહેરબાની કરીને '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start' ને ચલાવો</target>
+			<trans-unit id="searchserver.index_out_of_sync_with_db">
+				<source>SearchServer index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
+				<target state="needs-review-translation">પેકેજ શોધ અનુક્રમણિકા અને ડેટાબેઝ નોંધણીઓ એ સુમેળની બહાર દેખાશે. મહેરબાની કરીને '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start' ને ચલાવો</target>
 			</trans-unit>
 			<trans-unit id="patches.installed.notavailable">
 				<source>Not Available</source>
@@ -2145,8 +2145,8 @@ user before attempting to deactivate their account.</source>
 				<target>ઈચ્છિત ચકાસણી સમય:</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;નોંધ:&lt;/strong&gt; આ સિસ્ટમે છેલ્લે @@PRODUCT_NAME@@ નેટવર્કમાં ચકાસ્યું નથી.  સિસ્ટમ સુધારી શકાતી નથી તેના કારણે તે @@PRODUCT_NAME@@ માં ઘૂસી શકતું નથી, એવું લાગતું નથી કે આ ક્રિયા સફળ થશે. &lt;br/&gt;&lt;br/&gt;મહેરબાની કરીને સિસ્ટમ ચકાસો અને ખાતરી કરો કે rhnsd ચાલી રહ્યુ છે (&lt;a href="/help/faq.pxt#15"&gt;વધુ જાણકારી&lt;/a&gt;). જો તે ચાલવામાં નિષ્ફળ જાય, તો મહેરબાની કરીને &lt;a href="/help/contact.pxt"&gt;અમારો સંપર્ક કરો&lt;/a&gt;.</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running.</source>
+				<target>&lt;strong&gt;નોંધ:&lt;/strong&gt; આ સિસ્ટમે છેલ્લે @@PRODUCT_NAME@@ નેટવર્કમાં ચકાસ્યું નથી.  સિસ્ટમ સુધારી શકાતી નથી તેના કારણે તે @@PRODUCT_NAME@@ માં ઘૂસી શકતું નથી, એવું લાગતું નથી કે આ ક્રિયા સફળ થશે. &lt;br/&gt;&lt;br/&gt;મહેરબાની કરીને સિસ્ટમ ચકાસો અને ખાતરી કરો કે rhnsd ચાલી રહ્યુ છે.</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -3509,28 +3509,27 @@ user before attempting to deactivate their account.</source>
 				<target>પ્રમાણપત્ર અપલોડ થઈ ગયું.  @@PRODUCT_NAME@@ પુનઃ-સક્રિયકૃત થઈ ગયું.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
-				<source>Could not parse certificate file</source>
-				<target>પ્રમાણપત્ર ફાઈલનું પદચ્છેદન કરી શક્યા નહિં</target>
+				<source>Could not parse certificate file, see log file for more details.</source>
+				<target state="needs-review-translation">પ્રમાણપત્ર ફાઈલનું પદચ્છેદન કરી શક્યા નહિં</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.11">
 				<source>Certificate expired</source>
 				<target>પ્રમાણપત્રની સમયસમાપ્તિ</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown @@PRODUCT_NAME@@ version</source>
-				<target>અજ્ઞાત @@PRODUCT_NAME@@ આવૃત્તિ</target>
+				<source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
+				<target state="needs-review-translation">અજ્ઞાત @@PRODUCT_NAME@@ આવૃત્તિ</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
-				<source>Remote activation failure</source>
-				<target>દૂરસ્થ સક્રિયકરણ નિષ્ફળ</target>
+				<source>Remote activation failure, see log file for more details.</source>
+				<target state="needs-review-translation">દૂરસ્થ સક્રિયકરણ નિષ્ફળ</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.30">
-				<source>Local activation failure</source>
-				<target>સ્થાનિક સક્રિયકરણ નિષ્ફળ</target>
+				<source>Local activation failure, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.40">
-				<source>Channel population failure</source>
-				<target>ચેનલ સંખ્યા નિષ્ફળ</target>
+				<source>Channel population failure, see log file for more details.</source>
+				<target state="needs-review-translation">ચેનલ સંખ્યા નિષ્ફળ</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.80">
 				<source>No management entitlements remaining</source>
@@ -3549,8 +3548,7 @@ user before attempting to deactivate their account.</source>
 				<target>અયોગ્ય @@PRODUCT_NAME@@ પ્રમાણપત્ર</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
-				<source>Unknown activation error</source>
-				<target>અજ્ઞાત સક્રિયકરણ ભૂલ</target>
+				<source>Unknown activation error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
 				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
@@ -3561,12 +3559,7 @@ user before attempting to deactivate their account.</source>
 				<target>આ આવૃત્તિ માટે @@PRODUCT_NAME@@ ચેનલ ઉપલબ્ધ નથી</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
-				<source>Unhandled error</source>
-				<target>અનિયંત્રિત ભૂલ</target>
-			</trans-unit>
-			<trans-unit id="bootstrap.config.error.127">
-				<source>Unhandled error</source>
-				<target>અનિયંત્રિત ભૂલ</target>
+				<source>Unhandled error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="hostname">
 				<source>@@PRODUCT_NAME@@ server hostname</source>
@@ -3603,6 +3596,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="bootstrap.config.error.17">
 				<source>Could not find GPG key</source>
 				<target>GPG કી શોધી શક્યા નહિં</target>
+			</trans-unit>
+			<trans-unit id="bootstrap.config.error.127">
+				<source>Unhandled error</source>
+				<target>અનિયંત્રિત ભૂલ</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.success">
 				<source>Bootstrap script successfully generated.  You can access it &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt;</source>
@@ -5195,6 +5192,13 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="message.channelcreated">
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
 				<target>ચેનલ &lt;strong&gt;{0}&lt;/strong&gt; બની ગઈ.</target>
+			</trans-unit>
+			<trans-unit id="message.channeldeleted">
+				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; has been deleted.</source>
+				<target state="needs-review-translation">સક્રિયકરણ કી &lt;strong&gt;{0}&lt;/strong&gt; દૂર કરવામાં આવેલ છે.</target>
+			</trans-unit>
+			<trans-unit id="message.channel.delete.systemssubscribed">
+				<source>There are currently systems subscribed to this channel. Please confirm system channel removal by selecting the unsubscribe checkbox.</source>
 			</trans-unit>
 			<trans-unit id="message.channelupdated">
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
