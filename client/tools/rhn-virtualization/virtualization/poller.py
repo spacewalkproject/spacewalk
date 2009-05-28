@@ -65,7 +65,7 @@ def poll_hypervisor():
                'state'       : '...' }, ... }
     """
     if not libvirt: 
-        return []
+        return {}
 
     try:
         conn = libvirt.open(None)
@@ -75,7 +75,7 @@ def poll_hypervisor():
 
     if not conn:
         # No connection to hypervisor made
-        return []
+        return {}
 
     domainIDs = conn.listDomainsID()
 
