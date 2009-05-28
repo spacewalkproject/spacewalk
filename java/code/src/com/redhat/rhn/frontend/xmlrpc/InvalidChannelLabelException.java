@@ -49,7 +49,7 @@ public class InvalidChannelLabelException extends FaultException {
     }
     
     /**
-     * Creates a new indication that a given channel name is invalid and 
+     * Creates a new indication that a given channel label is invalid
      *  
      * @param labelIn  label the user attempted to give the channel
      * @param reasonIn flag indicating why the channel name is invalid; cannot be
@@ -57,6 +57,25 @@ public class InvalidChannelLabelException extends FaultException {
      */
     public InvalidChannelLabelException(String labelIn, Reason reasonIn) {
         super(1201, "invalidChannelLabel", "Invalid channel label");
+
+        this.label = labelIn;
+        this.reason = reasonIn;
+    }
+
+    /**
+     * Creates a new indication that a given channel label is invalid
+     *
+     * @param labelIn  label the user attempted to give the channel
+     * @param reasonIn flag indicating why the channel name is invalid; cannot be
+     *                 <code>null</code>
+     * @param messageIdIn the string resource message ID
+     * @param argIn an optional argument that is associated with messageId.  If there
+     * is no argument, pass in an empty string.
+     */
+    public InvalidChannelLabelException(String labelIn, Reason reasonIn,
+        String messageIdIn, String argIn) {
+
+        super(1201, "invalidChannelLabel", messageIdIn, new Object[] {argIn});
 
         this.label = labelIn;
         this.reason = reasonIn;

@@ -223,12 +223,14 @@ public class CreateChannelCommand {
         
         if (ChannelFactory.doesChannelNameExist(name)) {
             throw new InvalidChannelNameException(name,
-                InvalidChannelNameException.Reason.NAME_IN_USE);
+                InvalidChannelNameException.Reason.NAME_IN_USE,
+                "edit.channel.invalidchannelname.nameinuse", name);
         }
         
         if (ChannelFactory.doesChannelLabelExist(label)) {
             throw new InvalidChannelLabelException(label,
-                InvalidChannelLabelException.Reason.LABEL_IN_USE);
+                InvalidChannelLabelException.Reason.LABEL_IN_USE,
+                "edit.channel.invalidchannellabel.labelinuse", label);
         }
         
         ChannelArch ca = ChannelFactory.findArchByLabel(archLabel);
@@ -326,17 +328,22 @@ public class CreateChannelCommand {
         
         if (cname == null || cname.trim().length() == 0) {
             throw new InvalidChannelNameException(cname,
-                InvalidChannelNameException.Reason.IS_MISSING);
+                InvalidChannelNameException.Reason.IS_MISSING,
+                "edit.channel.invalidchannelname.missing", "");
         }
 
         if (!Pattern.compile(CHANNEL_NAME_REGEX).matcher(cname).find()) {
             throw new InvalidChannelNameException(cname,
-                InvalidChannelNameException.Reason.REGEX_FAILS);
+                InvalidChannelNameException.Reason.REGEX_FAILS,
+                "edit.channel.invalidchannelname.supportedregex", "");
         }
 
         if (cname.length() < CHANNEL_NAME_MIN_LENGTH) {
+            Integer minLength = new Integer(CreateChannelCommand.CHANNEL_NAME_MIN_LENGTH);
             throw new InvalidChannelNameException(cname,
-                InvalidChannelNameException.Reason.TOO_SHORT);
+                InvalidChannelNameException.Reason.TOO_SHORT,
+                "edit.channel.invalidchannelname.minlength",
+                minLength.toString());
         }
         
         // the perl code used to ignore case with a /i at the end of
@@ -345,7 +352,8 @@ public class CreateChannelCommand {
         if (!user.hasRole(RoleFactory.RHN_SUPERUSER) &&
             Pattern.compile(REDHAT_REGEX).matcher(cname.toLowerCase()).find()) {
             throw new InvalidChannelNameException(cname,
-                InvalidChannelNameException.Reason.RHN_CHANNEL_BAD_PERMISSIONS);
+                InvalidChannelNameException.Reason.RHN_CHANNEL_BAD_PERMISSIONS,
+                "edit.channel.invalidchannelname.redhat", "");
         }
     }
     
@@ -358,17 +366,22 @@ public class CreateChannelCommand {
         
         if (clabel == null || clabel.trim().length() == 0) {
             throw new InvalidChannelLabelException(clabel,
-                InvalidChannelLabelException.Reason.IS_MISSING);
+                InvalidChannelLabelException.Reason.IS_MISSING,
+                "edit.channel.invalidchannellabel.missing", "");
         }
 
         if (!Pattern.compile(CHANNEL_LABEL_REGEX).matcher(clabel).find()) {
             throw new InvalidChannelLabelException(clabel,
-                InvalidChannelLabelException.Reason.REGEX_FAILS);
+                InvalidChannelLabelException.Reason.REGEX_FAILS,
+                "edit.channel.invalidchannellabel.supportedregex", "");
         }
 
         if (clabel.length() < CHANNEL_LABEL_MIN_LENGTH) {
+            Integer minLength = new Integer(CreateChannelCommand.CHANNEL_LABEL_MIN_LENGTH);
             throw new InvalidChannelLabelException(clabel,
-                InvalidChannelLabelException.Reason.TOO_SHORT);
+                InvalidChannelLabelException.Reason.TOO_SHORT,
+                "edit.channel.invalidchannellabel.minlength",
+                minLength.toString());
         }
         
         // the perl code used to ignore case with a /i at the end of
@@ -377,7 +390,8 @@ public class CreateChannelCommand {
         if (!user.hasRole(RoleFactory.RHN_SUPERUSER) &&
             Pattern.compile(REDHAT_REGEX).matcher(clabel.toLowerCase()).find()) {
             throw new InvalidChannelLabelException(clabel,
-                InvalidChannelLabelException.Reason.RHN_CHANNEL_BAD_PERMISSIONS);
+                InvalidChannelLabelException.Reason.RHN_CHANNEL_BAD_PERMISSIONS,
+                "edit.channel.invalidchannellabel.redhat", "");
         }
     }
     
