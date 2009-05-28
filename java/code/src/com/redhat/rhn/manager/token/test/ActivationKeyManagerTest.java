@@ -21,15 +21,19 @@ import com.redhat.rhn.domain.config.ConfigChannelListProcessor;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
+import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.token.Token;
+import com.redhat.rhn.domain.token.TokenPackage;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ChannelTestUtils;
 import com.redhat.rhn.testing.ConfigTestUtils;
+import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.HashSet;
@@ -213,7 +217,34 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
     
     public ActivationKey createActivationKey() throws Exception {
         user.addRole(RoleFactory.ACTIVATION_KEY_ADMIN);
-        return  manager.createNewActivationKey(user, "Test");
+        return  manager.createNewActivationKey(user, TestUtils.randomString());
     }
-
+    
+    public void testVirtEnt() throws Exception {
+        UserTestUtils.addUserRole(user, RoleFactory.ACTIVATION_KEY_ADMIN);
+        UserTestUtils.addProvisioning(user.getOrg());
+        UserTestUtils.addVirtualization(user.getOrg());
+        Channel baseChannel = ChannelTestUtils.createBaseChannel(user);
+        Channel [] channels = 
+            ChannelTestUtils.setupBaseChannelForVirtualization(user, baseChannel);
+        
+        checkVirtEnt(ServerConstants.getServerGroupTypeVirtualizationEntitled(),
+                        channels[ChannelTestUtils.VIRT_INDEX],
+                        channels[ChannelTestUtils.TOOLS_INDEX]);
+        checkVirtEnt(ServerConstants.getServerGroupTypeVirtualizationPlatformEntitled(),
+                channels[ChannelTestUtils.VIRT_INDEX],
+                channels[ChannelTestUtils.TOOLS_INDEX]);
+    }
+    
+    private void checkVirtEnt(ServerGroupType sgt, 
+                Channel virt, Channel tools) throws Exception {
+        ActivationKey key = createActivationKey();
+        key.addEntitlement(sgt);
+        assertTrue(key.getChannels().contains(tools));
+        assertTrue(key.getChannels().contains(virt));
+        assertTrue(!key.getPackages().isEmpty());
+        TokenPackage pkg = key.getPackages().iterator().next();
+        assertEquals(ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME,
+                                                    pkg.getPackageName().getName());
+    }
 }

@@ -790,7 +790,7 @@ public class ChannelManager extends BaseManager {
      * @param cid Base Channel id.
      * @return the list of Channel ids which the given orgid has access to.
      */
-    public static List userAccessibleChildChannels(Long orgid, Long cid) {
+    public static List<Channel> userAccessibleChildChannels(Long orgid, Long cid) {
         return ChannelFactory.getUserAcessibleChannels(orgid, cid);
     }
     
@@ -1617,7 +1617,7 @@ public class ChannelManager extends BaseManager {
         log.debug("subscribeToChildChannelByOSProduct returning: " + foundChannel);
         return foundChannel;
     
-    }    
+    }
     
     /**
      * For the specified server, make a best-guess effort at what its base-channel 
