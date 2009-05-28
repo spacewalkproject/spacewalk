@@ -8106,6 +8106,10 @@ Follow this url to see the full list of inactive systems:
            <context context-type="sourcefile">/channels/manage/Edit</context>
          </context-group>
       </trans-unit>
+      BRAD
+      <trans-unit id="edit.channel.invalidchannelname.supportedregex">
+        <source>Channel name must begin with a letter and may contain only lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), numerals, spaces and forward slashes ('/').</source>
+      </trans-unit>
       <trans-unit id="edit.channel.invalidchannelname.redhat">
          <source>Red Hat channels require admin privileges</source>
          <context-group name="ctx">
@@ -8142,6 +8146,9 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/channels/manage/Edit</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="edit.channel.invalidchannellabel.supportedregex">
+        <source>Channel label must begin with a letter and may contain only lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and numerals.</source>
       </trans-unit>
       <trans-unit id="edit.channel.invalidchannellabel.redhat">
         <source>Red Hat channels require admin privileges</source>

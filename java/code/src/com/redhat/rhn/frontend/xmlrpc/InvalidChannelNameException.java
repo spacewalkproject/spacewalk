@@ -63,6 +63,25 @@ public class InvalidChannelNameException extends FaultException {
     }
 
     /**
+     * Creates a new indication that a given channel name is invalid.
+     *
+     * @param nameIn   name the user attempted to give the channel
+     * @param reasonIn flag indicating why the channel name is invalid; cannot be
+     *                 <code>null</code>
+     * @param messageIdIn the string resource message ID
+     * @param argIn an optional argument that is associated with messageId.  If there
+     * is no argument, pass in an empty string.
+     */
+    public InvalidChannelNameException(String nameIn, Reason reasonIn,
+        String messageIdIn, String argIn) {
+
+        super(1200, "invalidChannelName", messageIdIn, new Object[] {argIn});
+
+        this.name = nameIn;
+        this.reason = reasonIn;
+    }
+
+    /**
      * @return invalid name that caused this exception; may be <code>null</code>
      */
     public String getName() {
