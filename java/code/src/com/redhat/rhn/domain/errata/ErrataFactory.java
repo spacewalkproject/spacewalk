@@ -987,5 +987,68 @@ public class ErrataFactory extends HibernateFactory {
     }
     
 
+    /**
+     * Returns a list of ErrataOverview of Errata that match the given Package
+     * ids.
+     * @param pids Package ids whose Errata are being sought.
+     * @param org Organization to match results with
+     * @return a list of ErrataOverview of Errata that match the given Package
+     * ids.
+     */
+    public static List<ErrataOverview> searchByPackageIdsWithOrg(List pids, Org org) {
+        List<Long> orgIds = new ArrayList<Long>();
+        orgIds.add(org.getId());
+        for (Org o : org.getTrustedOrgs()) {
+            orgIds.add(o.getId());
+        }
+        Map params = new HashMap();
+        params.put("pids", pids);
+        params.put("org_ids", orgIds);
+        if (log.isDebugEnabled()) {
+            log.debug("pids = " + pids);
+            log.debug("org_ids = " + orgIds);
+        }
+        List results = singleton.listObjectsByNamedQuery(
+                "PublishedErrata.searchByPackageIdsWithOrg", params);
+        if (log.isDebugEnabled()) {
+            log.debug("Query 'PublishedErrata.searchByPackageIdsWithOrg' returned " +
+                    results.size() + " entries");
+        }
+        List<ErrataOverview> errata = new ArrayList<ErrataOverview>();
+        Long lastId = null;
+        ErrataOverview eo = null;
+        for (Object result : results) {
+            Object[] values = (Object[]) result;
+            // e.id, e.advisory, e.advisoryName, e.advisoryType, e.synopsis, e.updateDate
+            Long curId = (Long)values[0];
+
+            if (!curId.equals(lastId)) {
+                eo = new ErrataOverview();
+            }
+            eo.setId((Long)values[0]);
+            eo.setAdvisory((String)values[1]);
+            eo.setAdvisoryName((String)values[2]);
+            eo.setAdvisoryType((String)values[3]);
+            eo.setAdvisorySynopsis((String)values[4]);
+            eo.setUpdateDate((Date)values[5]);
+            eo.setIssueDate((Date)values[6]);
+            eo.addPackageName((String)values[7]);
+            if (!curId.equals(lastId)) {
+                errata.add(eo);
+                lastId = curId;
+            }
+            if (log.isDebugEnabled()) {
+                log.debug("curId = " + curId + ", lastId = " + lastId);
+                log.debug("ErrataOverview formed: " + eo.getAdvisoryName() + " for " +
+                        eo.getPackageNames());
+            }
+        }
+
+        return errata;
+    }
+
+
+
+
 }
 

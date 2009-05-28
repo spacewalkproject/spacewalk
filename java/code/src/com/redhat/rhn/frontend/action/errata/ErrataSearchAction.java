@@ -262,7 +262,7 @@ public class ErrataSearchAction extends RhnAction {
         throws XmlRpcFault, MalformedURLException {
 
         log.warn("Performing errata search");
-
+        RequestContext ctx = new RequestContext(request);
         // call search server
         XmlRpcClient client = new XmlRpcClient(Config.get().getSearchServerUrl(), true);
         String path = null;
@@ -356,7 +356,8 @@ public class ErrataSearchAction extends RhnAction {
         // to a better user experience.
         List<ErrataOverview> unsorted = new ArrayList<ErrataOverview>();
         if (OPT_PKG_NAME.equals(mode)) {
-            unsorted = ErrataManager.searchByPackageIds(ids);
+            unsorted = ErrataManager.searchByPackageIdsWithOrg(ids,
+                    ctx.getCurrentUser().getOrg());
 
         }
         else {
