@@ -17,10 +17,15 @@ package com.redhat.rhn.frontend.xmlrpc.proxy;
 import com.redhat.rhn.common.client.ClientCertificate;
 import com.redhat.rhn.common.client.ClientCertificateDigester;
 import com.redhat.rhn.common.client.InvalidCertificateException;
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
+import com.redhat.rhn.domain.monitoring.satcluster.SatCluster;
+import com.redhat.rhn.domain.monitoring.satcluster.SatClusterFactory;
+import com.redhat.rhn.domain.monitoring.satcluster.SatNode;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidProxyVersionException;
 import com.redhat.rhn.frontend.xmlrpc.MethodInvalidParamException;
@@ -37,6 +42,7 @@ import org.xml.sax.SAXException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,6 +54,65 @@ import java.util.List;
  */
 public class ProxyHandler extends BaseHandler {
     private static Logger log = Logger.getLogger(ProxyHandler.class);
+
+    /**
+     * Create Monitoring Scout for proxy.
+     * @param clientcert client certificate of the system.
+     * @return 1 on success.
+     * @return 0 if system is not proxy (scout is not created)
+     * @throws MethodInvalidParamException thrown if certificate is invalid.
+     * @since 10.7
+     *
+     * @xmlrpc.doc Create Monitoring Scout for proxy.
+     * @xmlrpc.param #param_desc("string", "systemid", "systemid file")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int createMonitoringScout(String clientcert)
+        throws MethodInvalidParamException {
+
+        StringReader rdr = new StringReader(clientcert);
+        Server server = null;
+
+        ClientCertificate cert;
+        try {
+            cert = ClientCertificateDigester.buildCertificate(rdr);
+            server = SystemManager.lookupByCert(cert);
+        }
+        catch (IOException ioe) {
+            log.error("IOException - Trying to access a system with an " +
+                    "invalid certificate", ioe);
+            throw new MethodInvalidParamException();
+        }
+        catch (SAXException se) {
+            log.error("SAXException - Trying to access a " +
+                    "system with an invalid certificate", se);
+            throw new MethodInvalidParamException();
+        }
+        catch (InvalidCertificateException e) {
+            log.error("InvalidCertificateException - Trying to access a " +
+                    "system with an invalid certificate", e);
+            throw new MethodInvalidParamException();
+        }
+        if (server.isProxy()) {
+            User owner=server.getCreator();
+
+            SatCluster scout = SatClusterFactory.createSatCluster(owner);
+            scout.setDescription(LocalizationService.getInstance().
+                        getMessage("RHN Proxy")+ " " +
+                        server.getHostname() +
+                        " (" + server.getId() + ")");
+            scout.setVip(server.getIpAddress());
+
+            SatNode node =  SatClusterFactory.createSatNode(owner, scout);
+            node.setServer(server);
+            node.setLastUpdateUser(owner.getLogin());
+            node.setLastUpdateDate(new Date());
+
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 
     /**
      * Test, if the system identified by the given client certificate, is proxy.
