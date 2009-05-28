@@ -576,15 +576,19 @@ def getRemainingSubscriptions(username, password):
     # If we've gotten this far, we're definitely looking at hosted.
     # Hosted will have to support the sending of the release, and optionally,
     # the virt_uuid.
-    if virt_uuid is not None:
+
+    if cfg['supportsSMBIOS']:
+        smbios = hardware.get_hal_smbios()
+        subs = s.registration.remaining_subscriptions(username, password, 
+                                                      arch,
+                                                      release,
+                                                      virt_uuid,
+                                                      smbios)
+    else:
         subs = s.registration.remaining_subscriptions(username, password, 
                                                       arch,
                                                       release,
                                                       virt_uuid)
-    else:
-        subs = s.registration.remaining_subscriptions(username, password, 
-                                                      arch,
-                                                      release)
 
 
     log.log_debug('Server returned %s' % subs)
