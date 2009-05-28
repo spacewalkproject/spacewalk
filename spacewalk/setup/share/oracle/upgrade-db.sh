@@ -36,6 +36,7 @@ export ORACLE_SID
 
 # modify listener
 LISTENER_ORA=network/admin/listener.ora
+[ -f $ORACLE_HOME/$LISTENER_ORA ] || \
 sed "s|\(ORACLE_HOME=.*\)|(ORACLE_HOME=$ORACLE_HOME)|" \
     $ORACLE_9I_HOME/$LISTENER_ORA >$ORACLE_HOME/$LISTENER_ORA
 
@@ -53,8 +54,6 @@ core_dump_dest
 db_domain
 db_name
 instance_name
-log_archive_dest
-log_archive_format
 user_dump_dest
 EOPATTERNS
 echo "compatible=10.2.0.4.0" >>$UPGRADE_PFILE
