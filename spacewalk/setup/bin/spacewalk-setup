@@ -42,6 +42,7 @@ use Fcntl qw(F_GETFD F_SETFD FD_CLOEXEC);
 use RHN::SatInstall;
 use RHN::SatCluster;
 use RHN::DB;
+use RHN::Utils;
 
 my $DEBUG;
 $DEBUG = 0;
@@ -1119,10 +1120,12 @@ sub setup_monitoring {
         $scout = RHN::SatCluster->lookup(-recid => 1);
   };
   if ($@) { #scout does not exist, lets create new
+        my $ip_addr = RHN::Utils::find_ip_address($answers->{'hostname'});
         my $org_id = RHN::SatInstall->get_satellite_org_id();
         $scout = new RHN::SatCluster(customer_id => $org_id,
                 description => 'RHN Monitoring Satellite',
                 last_update_user => 'installer',
+                vip => $ip_addr,
         );
         $scout->create_new();
   } else {
