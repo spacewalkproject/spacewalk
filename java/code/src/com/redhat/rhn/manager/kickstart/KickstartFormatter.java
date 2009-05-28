@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
+import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.RepoInfo;
 import com.redhat.rhn.domain.kickstart.cobbler.CobblerSnippet;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
@@ -388,8 +389,8 @@ public class KickstartFormatter {
         for (Iterator itr = ksdata.getPackageNames().iterator(); itr.hasNext();) {
             buf.append(((PackageName)itr.next()).getName() + NEWLINE);
         }
-        if (ksdata.getKickstartDefaults().
-                getVirtualizationType().getLabel().equals("para_host")) {
+        if (KickstartVirtualizationType.paraHost().equals(ksdata.getKickstartDefaults().
+                getVirtualizationType())) {
             buf.append("kernel-xen" + NEWLINE);
             buf.append("xen" + NEWLINE);
         }
