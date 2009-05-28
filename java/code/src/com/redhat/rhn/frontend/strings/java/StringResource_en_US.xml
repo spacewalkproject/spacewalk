@@ -8106,7 +8106,6 @@ Follow this url to see the full list of inactive systems:
            <context context-type="sourcefile">/channels/manage/Edit</context>
          </context-group>
       </trans-unit>
-      BRAD
       <trans-unit id="edit.channel.invalidchannelname.supportedregex">
         <source>Channel name must begin with a letter and may contain only lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), numerals, spaces and forward slashes ('/').</source>
       </trans-unit>
