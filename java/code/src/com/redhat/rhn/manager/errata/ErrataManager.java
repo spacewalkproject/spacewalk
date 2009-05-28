@@ -31,6 +31,7 @@ import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.ErrataFile;
 import com.redhat.rhn.domain.errata.ErrataFileType;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
@@ -291,6 +292,18 @@ public class ErrataManager extends BaseManager {
         return ErrataFactory.searchByPackageIds(pids);
     }
     
+    /**
+     * Returns a list of ErrataOverview whose errata contains the packages
+     * with the given pids.
+     * @param pids list of package ids whose errata are sought.
+     * @param org Organization to match results with
+     * @return a list of ErrataOverview whose errata contains the packages
+     * with the given pids.
+     */
+    public static List<ErrataOverview> searchByPackageIdsWithOrg(List pids, Org org) {
+        return ErrataFactory.searchByPackageIdsWithOrg(pids, org);
+    }
+
     /**
      * Returns a list of ErrataOverview matching the given errata ids.
      * @param eids Errata ids sought.
