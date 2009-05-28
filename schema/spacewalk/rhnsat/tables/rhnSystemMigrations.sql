@@ -20,12 +20,10 @@ create table
 rhnSystemMigrations
 (
         org_id_to       number
-                        constraint rhn_sys_mig_oidto_nn not null
                         constraint rhn_sys_mig_oidto_fk
                                 references web_customer(id)
                                 on delete set null,
         org_id_from     number
-                        constraint rhn_sys_mig_oidfrm_nn not null
                         constraint rhn_sys_mig_oidfrm_fk
                                 references web_customer(id)
                                 on delete set null,
