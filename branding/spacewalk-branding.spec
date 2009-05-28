@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.6.4
+Version:    0.6.5
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -68,6 +68,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed May 27 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.5-1
+- 500806 - limit a:hover to links only, changed to a:link:hover (jesusr@redhat.com)
+
 * Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.4-1
 - 501038 - Update css to mitigate wrapping of long org names. (jortel@redhat.com)
 
