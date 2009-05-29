@@ -46,7 +46,6 @@ sub startActions
 	my $pxtconf = new PXT::Config("web");
 	my $startMIABServices = $pxtconf->get("is_monitoring_backend");
 	my $startScoutServices = $pxtconf->get("is_monitoring_scout");
-	#my $separateWebserver = 0;
 	my $configIsInstalled;
 
 	if ( $startMIABServices or $startScoutServices ) {
@@ -66,12 +65,6 @@ sub startActions
 			$self->startModule(Notifier);
 			$self->startModule(AckProcessor);
 			$self->startModule(TSDBLocalQueue);
-			# Next is a fall-back in the event that the single apache instance proves to
-			# be instable, overburdened, etc.  Fully enabling this will require that
-			# some indication of which IP and/or port to bind to is provided somewhere.
-			#if ($separateWebserver) {
-			#	$self->startModule(Apache);
-			#}
 		} else {
 			$self->addError('Monitoring configuration not loaded - not starting MOC functions!');
 		}
