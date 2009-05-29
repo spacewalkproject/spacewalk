@@ -17,8 +17,6 @@ use TrapReceiver;
 use NOCpulse::NOCpulseini;
 use PXT::Config;
 
-
-
 sub overview
 {
 	return 'Starts up monitoring functionality.  What it starts depends on web.is_monitoring_backend and web.is_monitoring_scout in /etc/rhn/rhn.conf';
@@ -26,7 +24,7 @@ sub overview
 
 sub printStatus
 {
-        my ($self,@params) = @_;
+	my ($self,@params) = @_;
 	my $pxtconf = new PXT::Config("web");
 	if ($pxtconf->get("is_monitoring_backend")) {
 		$self->dprint(1,"   ++++ Monitoring backend functionality is enabled");
@@ -62,7 +60,7 @@ sub startActions
 		if ($configIsInstalled) {
 			# REQUIRE that NOCpulse.ini is installed, else bad stuff could happen if 
 			# MOC services start.
-      $self->startModule(GenerateNotifConfig);
+			$self->startModule(GenerateNotifConfig);
 			$self->startModule(NotifEscalator);
 			$self->startModule(NotifLauncher);
 			$self->startModule(Notifier);
