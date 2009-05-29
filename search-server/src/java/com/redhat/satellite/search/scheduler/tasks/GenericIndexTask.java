@@ -184,6 +184,8 @@ public abstract class GenericIndexTask implements Job {
             log.info("GenericIndexTask<" + super.getClass().toString() +
                     " last processed id = " + sid + ", lastRun was " + lastRun);
             retval = srvrQuery.loadList(params);
+            log.info("GenericIndexTask<" + super.getClass().toString() +
+                    " number of results returned = " + retval.size());
         }
         finally {
             srvrQuery.close();

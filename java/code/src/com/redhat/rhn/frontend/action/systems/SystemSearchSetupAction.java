@@ -168,16 +168,18 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
             helper.execute();
 
             List results = (List)request.getAttribute(getDataSetName());
+            log.info("SystemSearch results.size() = " + results.size());
             if ((results != null) && (results.size() == 1)) {
                 SystemSearchResult s =  (SystemSearchResult) results.get(0);
                 Double score = s.getScore();
+                log.info("SystemSearch s.getScore() = " + s.getScore());
                 if (score != null) {
                     /** Adding a rule so we only redirect to a specific system id
                      * when we are pretty sure the search result is what the user
                      * expects.  We are using the lucene score for this result to
                      * gauge this.
                      */
-                    if (score > 0.85) {
+                    if (score > 0.50) {
                         try {
                             response.sendRedirect(
                                     "/rhn/systems/details/Overview.do?sid=" +
