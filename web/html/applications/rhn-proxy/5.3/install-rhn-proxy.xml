@@ -625,15 +625,6 @@ fi
         <configfile acl="global_config(ssl_available);session_data_true(enable_osad)">/etc/jabberd/sm.xml</configfile>
       </deploy-configs> 
 
-      <run-script acl="session_data_true(enable_monitoring)">
-        <action-name>Enable Monitoring Services</action-name>
-        <script>
-#!/bin/sh
-
-/etc/rc.d/np.d/step MonitoringScout install
-        </script>
-      </run-script>
-
       <run-script>
         <action-name>Allow Proxy service to read Satellite Configuration</action-name>
         <script>
