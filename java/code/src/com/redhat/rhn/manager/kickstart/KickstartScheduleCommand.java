@@ -1040,6 +1040,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             retval = ProfileManager.createProfile(
                     ProfileFactory.TYPE_SYNC_PROFILE, this.user, 
                         otherServer.getBaseChannel(), pname, pname);
+            ProfileManager.copyFrom(otherServer, retval);
         }
         this.kickstartSession.setServerProfile(retval);
         KickstartFactory.saveKickstartSession(this.kickstartSession);
