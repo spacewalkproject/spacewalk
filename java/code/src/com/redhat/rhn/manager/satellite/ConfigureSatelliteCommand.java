@@ -308,20 +308,6 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
             lookupConfigMacroByName("RHN_SAT_WEB_PORT");
         setConfigMacroDefault(port, "443");
         
-        // Setup the Monitoring Service
-        e = getExecutor();
-        args.clear();
-        args.add("/usr/bin/sudo");
-        args.add("/etc/rc.d/np.d/step");
-        args.add("Monitoring");
-        args.add("install");
-        exitcode = e.execute((String[]) args.toArray(new String[0]));
-        if (exitcode != 0) {
-            String message = "Not able to execute: [" + 
-            args.toString() + "] got back exit code: " + exitcode;
-            logger.error(message);
-            throw new RuntimeException(message);
-        }
         if (logger.isDebugEnabled()) {
             logger.debug("enableMonitoring() - end");
         }
