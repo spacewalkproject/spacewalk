@@ -33,6 +33,7 @@ Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Requires:       SatConfig-general
 Requires:       NPalert
 Requires:       oracle-instantclient-selinux
+Requires:       tsdb
 
 %description
 SELinux policy module supporting Spacewalk monitoring.
