@@ -58,8 +58,7 @@ public class ProxyHandler extends BaseHandler {
     /**
      * Create Monitoring Scout for proxy.
      * @param clientcert client certificate of the system.
-     * @return 1 on success.
-     * @return 0 if system is not proxy (scout is not created)
+     * @return 1 on success, 0 if system is not proxy (scout is not created)
      * @throws MethodInvalidParamException thrown if certificate is invalid.
      * @since 10.7
      *
@@ -94,11 +93,11 @@ public class ProxyHandler extends BaseHandler {
             throw new MethodInvalidParamException();
         }
         if (server.isProxy()) {
-            User owner=server.getCreator();
+            User owner = server.getCreator();
 
             SatCluster scout = SatClusterFactory.createSatCluster(owner);
             scout.setDescription(LocalizationService.getInstance().
-                        getMessage("RHN Proxy")+ " " +
+                        getMessage("RHN Proxy") + " " +
                         server.getHostname() +
                         " (" + server.getId() + ")");
             scout.setVip(server.getIpAddress());
@@ -109,7 +108,8 @@ public class ProxyHandler extends BaseHandler {
             node.setLastUpdateDate(new Date());
 
             return 1;
-        } else {
+        }
+        else {
             return 0;
         }
     }
