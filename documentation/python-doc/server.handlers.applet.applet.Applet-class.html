@@ -34,10 +34,11 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        <a href="server-module.html">Package&nbsp;server</a> ::
-        <a href="server.handlers-module.html">Package&nbsp;handlers</a> ::
-        <a href="server.handlers.applet-module.html">Package&nbsp;applet</a> ::
-        <a href="server.handlers.applet.applet-module.html">Module&nbsp;applet</a> ::
+        server ::
+        handlers ::
+        applet ::
+        applet ::
+        Applet ::
         Class&nbsp;Applet
       </span>
     </td>
@@ -45,7 +46,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="server.handlers.applet.applet.Applet-class.html"
@@ -55,22 +56,10 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class Applet</h1><span class="codelink"><a href="server.handlers.applet.applet-pysrc.html#Applet">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class Applet</h1><p class="nomargin-top"><span class="codelink"><a href="server.handlers.applet.applet-pysrc.html#Applet">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_server_h_5" name="uml_class_diagram_for_server_h_5">
-<area shape="rect" href="server.rhnHandler%27.rhnHandler&#45;class.html#auth_system" title="server.rhnHandler&#39;.rhnHandler.auth_system" alt="" coords="160,111,339,130" />
-<area shape="rect" href="server.rhnHandler%27.rhnHandler&#45;class.html" title="server.rhnHandler&#39;.rhnHandler" alt="" coords="148,80,351,136" />
-<area shape="rect" href="server.handlers.applet.applet.Applet&#45;class.html#poll_status" title="server.handlers.applet.applet.Applet.poll_status" alt="" coords="18,186,482,204" />
-<area shape="rect" href="server.handlers.applet.applet.Applet&#45;class.html#poll_packages" title="server.handlers.applet.applet.Applet.poll_packages" alt="" coords="18,204,482,223" />
-<area shape="rect" href="server.handlers.applet.applet.Applet&#45;class.html#tie_uuid" title="server.handlers.applet.applet.Applet.tie_uuid" alt="" coords="18,223,482,242" />
-<area shape="rect" href="server.handlers.applet.applet.Applet&#45;class.html#has_base_channel" title="server.handlers.applet.applet.Applet.has_base_channel" alt="" coords="18,242,482,260" />
-<area shape="rect" href="server.handlers.applet.applet.Applet&#45;class.html#__init__" title="server.handlers.applet.applet.Applet.__init__" alt="" coords="18,260,482,279" />
-<area shape="rect" href="server.handlers.applet.applet.Applet&#45;class.html" title="server.handlers.applet.applet.Applet" alt="" coords="6,155,494,286" />
-<area shape="rect" href="common.RPC_Base%27.RPC_Base&#45;class.html#get_function" title="common.RPC_Base&#39;.RPC_Base.get_function" alt="" coords="152,36,347,55" />
-<area shape="rect" href="common.RPC_Base%27.RPC_Base&#45;class.html" title="common.RPC_Base&#39;.RPC_Base" alt="" coords="140,6,359,62" />
-</map>
-  <img src="uml_class_diagram_for_server_h_5.gif" alt='' usemap="#uml_class_diagram_for_server_h_5" ismap="ismap" class="graph-without-title" />
-</center></center>
+
+</center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -166,7 +155,7 @@
         <span class="summary-sig-arg">release</span>,
         <span class="summary-sig-arg">server_arch</span>,
         <span class="summary-sig-arg">timestamp</span>=<span class="summary-sig-default">0</span>,
-        <span class="summary-sig-arg">uuid</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span></td>
+        <span class="summary-sig-arg">uuid</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.applet.applet-pysrc.html#Applet.poll_packages">source&nbsp;code</a></span>
             
@@ -174,16 +163,6 @@
         </tr>
       </table>
       
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnHandler%27.rhnHandler-class.html">rhnHandler'.rhnHandler</a></code></b>:
-      <code><a href="server.rhnHandler%27.rhnHandler-class.html#auth_system">auth_system</a></code>
-      </p>
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.RPC_Base%27.RPC_Base-class.html">common.RPC_Base'.RPC_Base</a></code></b>:
-      <code><a href="common.RPC_Base%27.RPC_Base-class.html#get_function">get_function</a></code>
-      </p>
     </td>
   </tr>
 </table>
@@ -208,28 +187,28 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.applet.applet.Applet-class.html#_query_lookup_server" class="summary-name">_query_lookup_server</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1221544532; statement=
+        <a href="server.handlers.applet.applet.Applet-class.html#_query_lookup_server" class="summary-name" onclick="show_private();">_query_lookup_server</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
         select s.id
           from rhnServer s,
                rhnServerUuid su
          where su.uuid = :uuid
            and su.server_id = s.id
          order by modified desc
-    ">&lt;server.rhnSQL.sql_base.Statement insta<code class="variable-ellipsis">...</code></code>
+    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.applet.applet.Applet-class.html#_query_lookup_base_channel" class="summary-name">_query_lookup_base_channel</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1221544980; statement=
+        <a href="server.handlers.applet.applet.Applet-class.html#_query_lookup_base_channel" class="summary-name" onclick="show_private();">_query_lookup_base_channel</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
         select c.label
           from rhnChannel c,
                rhnServerChannel sc
          where sc.server_id = :server_id
            and sc.channel_id = c.id
            and c.parent_channel is null
-    ">&lt;server.rhnSQL.sql_base.Statement<code class="variable-ellipsis">...</code></code>
+    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -263,14 +242,14 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1221544532; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
         select s.id
           from rhnServer s,
                rhnServerUuid su
          where su.uuid = :uuid
            and su.server_id = s.id
          order by modified desc
-    
+    &quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -288,14 +267,14 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1221544980; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
         select c.label
           from rhnChannel c,
                rhnServerChannel sc
          where sc.server_id = :server_id
            and sc.channel_id = c.id
            and c.parent_channel is null
-    
+    &quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -325,10 +304,11 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:08:29 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:14 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -339,9 +319,8 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

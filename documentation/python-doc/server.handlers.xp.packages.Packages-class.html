@@ -34,10 +34,11 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        <a href="server-module.html">Package&nbsp;server</a> ::
-        <a href="server.handlers-module.html">Package&nbsp;handlers</a> ::
-        <a href="server.handlers.xp-module.html">Package&nbsp;xp</a> ::
-        <a href="server.handlers.xp.packages-module.html">Module&nbsp;packages</a> ::
+        server ::
+        handlers ::
+        xp ::
+        packages ::
+        Packages ::
         Class&nbsp;Packages
       </span>
     </td>
@@ -45,7 +46,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="server.handlers.xp.packages.Packages-class.html"
@@ -55,20 +56,10 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class Packages</h1><span class="codelink"><a href="server.handlers.xp.packages-pysrc.html#Packages">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class Packages</h1><p class="nomargin-top"><span class="codelink"><a href="server.handlers.xp.packages-pysrc.html#Packages">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_server_h_17" name="uml_class_diagram_for_server_h_17">
-<area shape="rect" href="common.RPC_Base%27.RPC_Base&#45;class.html#get_function" title="common.RPC_Base&#39;.RPC_Base.get_function" alt="" coords="123,36,317,55" />
-<area shape="rect" href="common.RPC_Base%27.RPC_Base&#45;class.html" title="common.RPC_Base&#39;.RPC_Base" alt="" coords="111,5,329,61" />
-<area shape="rect" href="server.handlers.xp.packages.Packages&#45;class.html#uploadSourcePackageInfo" title="server.handlers.xp.packages.Packages.uploadSourcePackageInfo" alt="" coords="17,111,423,129" />
-<area shape="rect" href="server.handlers.xp.packages.Packages&#45;class.html#uploadPackageInfo" title="server.handlers.xp.packages.Packages.uploadPackageInfo" alt="" coords="17,129,423,148" />
-<area shape="rect" href="server.handlers.xp.packages.Packages&#45;class.html#listMissingSourcePackages" title="server.handlers.xp.packages.Packages.listMissingSourcePackages" alt="" coords="17,148,423,167" />
-<area shape="rect" href="server.handlers.xp.packages.Packages&#45;class.html#listChannel" title="server.handlers.xp.packages.Packages.listChannel" alt="" coords="17,167,423,185" />
-<area shape="rect" href="server.handlers.xp.packages.Packages&#45;class.html#__init__" title="server.handlers.xp.packages.Packages.__init__" alt="" coords="17,185,423,204" />
-<area shape="rect" href="server.handlers.xp.packages.Packages&#45;class.html" title="server.handlers.xp.packages.Packages" alt="" coords="5,80,435,211" />
-</map>
-  <img src="uml_class_diagram_for_server_h_17.gif" alt='' usemap="#uml_class_diagram_for_server_h_17" ismap="ismap" class="graph-without-title" />
-</center></center>
+
+</center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -112,7 +103,8 @@
           <td><span class="summary-sig"><a name="uploadPackageInfo"></a><span class="summary-sig-name">uploadPackageInfo</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">login</span>,
         <span class="summary-sig-arg">password</span>,
-        <span class="summary-sig-arg">info</span>)</span></td>
+        <span class="summary-sig-arg">info</span>)</span><br />
+      Upload a collection of binary packages</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xp.packages-pysrc.html#Packages.uploadPackageInfo">source&nbsp;code</a></span>
             
@@ -131,7 +123,8 @@
           <td><span class="summary-sig"><a name="uploadSourcePackageInfo"></a><span class="summary-sig-name">uploadSourcePackageInfo</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">login</span>,
         <span class="summary-sig-arg">password</span>,
-        <span class="summary-sig-arg">info</span>)</span></td>
+        <span class="summary-sig-arg">info</span>)</span><br />
+      Upload a collection of source packages</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xp.packages-pysrc.html#Packages.uploadSourcePackageInfo">source&nbsp;code</a></span>
             
@@ -150,7 +143,8 @@
           <td><span class="summary-sig"><a name="listChannel"></a><span class="summary-sig-name">listChannel</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">channelList</span>,
         <span class="summary-sig-arg">login</span>,
-        <span class="summary-sig-arg">password</span>)</span></td>
+        <span class="summary-sig-arg">password</span>)</span><br />
+      List packages of a specified channel</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xp.packages-pysrc.html#Packages.listChannel">source&nbsp;code</a></span>
             
@@ -169,7 +163,8 @@
           <td><span class="summary-sig"><a name="listMissingSourcePackages"></a><span class="summary-sig-name">listMissingSourcePackages</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">channelList</span>,
         <span class="summary-sig-arg">username</span>,
-        <span class="summary-sig-arg">password</span>)</span></td>
+        <span class="summary-sig-arg">password</span>)</span><br />
+      List source packages for a list of channels</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xp.packages-pysrc.html#Packages.listMissingSourcePackages">source&nbsp;code</a></span>
             
@@ -177,13 +172,6 @@
         </tr>
       </table>
       
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.RPC_Base%27.RPC_Base-class.html">common.RPC_Base'.RPC_Base</a></code></b>:
-      <code><a href="common.RPC_Base%27.RPC_Base-class.html#get_function">get_function</a></code>
-      </p>
     </td>
   </tr>
 </table>
@@ -210,10 +198,11 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:08:31 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:14 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -224,9 +213,8 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

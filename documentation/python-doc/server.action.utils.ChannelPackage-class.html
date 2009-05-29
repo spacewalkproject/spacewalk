@@ -44,7 +44,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="server.action.utils.ChannelPackage-class.html"
@@ -54,9 +54,9 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class ChannelPackage</h1><span class="codelink"><a href="server.action.utils-pysrc.html#ChannelPackage">source&nbsp;code</a></span><br /><br />
-Represents a package contained in a channel that the server is 
-  subscribed to.<br /><br />
+<h1 class="epydoc">Class ChannelPackage</h1><p class="nomargin-top"><span class="codelink"><a href="server.action.utils-pysrc.html#ChannelPackage">source&nbsp;code</a></span></p>
+<p>Represents a package contained in a channel that the server is 
+  subscribed to.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -100,9 +100,8 @@ Represents a package contained in a channel that the server is
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="server.action.utils.ChannelPackage-class.html#_get_package_info" class="summary-sig-name">_get_package_info</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      &quot;Private&quot; function that retrieves info about the 
-      package.</td>
+          <td><span class="summary-sig"><a href="server.action.utils.ChannelPackage-class.html#_get_package_info" class="summary-sig-name" onclick="show_private();">_get_package_info</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      &quot;Private&quot; function that retrieves info about the package.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.utils-pysrc.html#ChannelPackage._get_package_info">source&nbsp;code</a></span>
             
@@ -119,8 +118,8 @@ Represents a package contained in a channel that the server is
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="_get_package_field_ids"></a><span class="summary-sig-name">_get_package_field_ids</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      &quot;Private&quot; function that retrieves the database id's for 
-      the name, EVR, and package architecture and sets self.name_id, 
+      &quot;Private&quot; function that retrieves the database id's for the
+      name, EVR, and package architecture and sets self.name_id, 
       self.evr_id, and self.arch_id to their values.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.utils-pysrc.html#ChannelPackage._get_package_field_ids">source&nbsp;code</a></span>
@@ -138,8 +137,8 @@ Represents a package contained in a channel that the server is
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="exists"></a><span class="summary-sig-name">exists</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Returns True if the package is available for the server according 
-      to the db, False otherwise.</td>
+      Returns True if the package is available for the server according to 
+      the db, False otherwise.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.utils-pysrc.html#ChannelPackage.exists">source&nbsp;code</a></span>
             
@@ -336,7 +335,7 @@ Represents a package contained in a channel that the server is
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="server.action.utils-pysrc.html#ChannelPackage.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
   <pre class="literalblock">
 
@@ -363,11 +362,11 @@ package_name is a string containing the name of the package
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="server.action.utils-pysrc.html#ChannelPackage._get_package_info">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  &quot;Private&quot; function that retrieves info about the package. 
+  <p>&quot;Private&quot; function that retrieves info about the package. 
   Populates self.package_info, self.id, self.version, self.release, and 
-  self.epoch.
+  self.epoch.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -396,10 +395,11 @@ package_name is a string containing the name of the package
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:08:26 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:14 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -410,9 +410,8 @@ package_name is a string containing the name of the package
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

@@ -42,7 +42,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="server.rhnChannel-module.html"
@@ -52,7 +52,7 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module rhnChannel</h1><span class="codelink"><a href="server.rhnChannel-pysrc.html">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Module rhnChannel</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnChannel-pysrc.html">source&nbsp;code</a></span></p>
 <!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -325,7 +325,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="list_channel_families"></a><span class="summary-sig-name">list_channel_families</span>(<span class="summary-sig-arg">pattern</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span></td>
+          <td><span class="summary-sig"><a name="list_channel_families"></a><span class="summary-sig-name">list_channel_families</span>(<span class="summary-sig-arg">pattern</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnChannel-pysrc.html#list_channel_families">source&nbsp;code</a></span>
             
@@ -341,7 +341,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="list_channels"></a><span class="summary-sig-name">list_channels</span>(<span class="summary-sig-arg">pattern</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span></td>
+          <td><span class="summary-sig"><a name="list_channels"></a><span class="summary-sig-name">list_channels</span>(<span class="summary-sig-arg">pattern</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnChannel-pysrc.html#list_channels">source&nbsp;code</a></span>
             
@@ -476,7 +476,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="channels_for_server"></a><span class="summary-sig-name">channels_for_server</span>(<span class="summary-sig-arg">server_id</span>)</span></td>
+          <td><span class="summary-sig"><a href="server.rhnChannel-module.html#channels_for_server" class="summary-sig-name">channels_for_server</a>(<span class="summary-sig-arg">server_id</span>)</span><br />
+      channel info list for all channels accessible by this server.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnChannel-pysrc.html#channels_for_server">source&nbsp;code</a></span>
             
@@ -512,7 +513,7 @@
           <td><span class="summary-sig"><a name="base_channel_for_rel_arch"></a><span class="summary-sig-name">base_channel_for_rel_arch</span>(<span class="summary-sig-arg">release</span>,
         <span class="summary-sig-arg">server_arch</span>,
         <span class="summary-sig-arg">org_id</span>=<span class="summary-sig-default">-1</span>,
-        <span class="summary-sig-arg">user_id</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span></td>
+        <span class="summary-sig-arg">user_id</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnChannel-pysrc.html#base_channel_for_rel_arch">source&nbsp;code</a></span>
             
@@ -532,7 +533,10 @@
         <span class="summary-sig-arg">release</span>,
         <span class="summary-sig-arg">server_arch</span>,
         <span class="summary-sig-arg">org_id</span>=<span class="summary-sig-default">-1</span>,
-        <span class="summary-sig-arg">user_id</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span></td>
+        <span class="summary-sig-arg">user_id</span>=<span class="summary-sig-default">None</span>)</span><br />
+      given a redhat-release version, release, and server arch, return a 
+      list of dicts containing the details of the channel z streams either 
+      match the version/release pair, or are greater.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnChannel-pysrc.html#base_eus_channel_for_ver_rel_arch">source&nbsp;code</a></span>
             
@@ -584,7 +588,7 @@
           <td><span class="summary-sig"><a name="channels_for_release_arch"></a><span class="summary-sig-name">channels_for_release_arch</span>(<span class="summary-sig-arg">release</span>,
         <span class="summary-sig-arg">server_arch</span>,
         <span class="summary-sig-arg">org_id</span>=<span class="summary-sig-default">-1</span>,
-        <span class="summary-sig-arg">user_id</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span></td>
+        <span class="summary-sig-arg">user_id</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnChannel-pysrc.html#channels_for_release_arch">source&nbsp;code</a></span>
             
@@ -907,8 +911,7 @@
         <span class="summary-sig-arg">version</span>,
         <span class="summary-sig-arg">server_arch</span>,
         <span class="summary-sig-arg">install_num_chan_list</span>)</span><br />
-      Attemt to subscribe a system to the channels in 
-      install_num_chan_list</td>
+      Attemt to subscribe a system to the channels in install_num_chan_list</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnChannel-pysrc.html#subscribe_child_channels">source&nbsp;code</a></span>
             
@@ -925,7 +928,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="guess_channels_for_server"></a><span class="summary-sig-name">guess_channels_for_server</span>(<span class="summary-sig-arg">server</span>,
-        <span class="summary-sig-arg">user_id</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">user_id</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">none_ok</span>=<span class="summary-sig-default">0</span>,
         <span class="summary-sig-arg">raise_exceptions</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
@@ -944,7 +947,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="subscribe_server_channels"></a><span class="summary-sig-name">subscribe_server_channels</span>(<span class="summary-sig-arg">server</span>,
-        <span class="summary-sig-arg">user_id</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">user_id</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">none_ok</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnChannel-pysrc.html#subscribe_server_channels">source&nbsp;code</a></span>
@@ -1082,7 +1085,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="make_evr"></a><span class="summary-sig-name">make_evr</span>(<span class="summary-sig-arg">nvre</span>,
-        <span class="summary-sig-arg">source</span>=<span class="summary-sig-default">0</span>)</span></td>
+        <span class="summary-sig-arg">source</span>=<span class="summary-sig-default">False</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnChannel-pysrc.html#make_evr">source&nbsp;code</a></span>
             
@@ -1132,16 +1135,16 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnChannel-module.html#_query_delete_channel_family" class="summary-name">_query_delete_channel_family</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1215598548; statement=
+        <a href="server.rhnChannel-module.html#_query_delete_channel_family" class="summary-name" onclick="show_private();">_query_delete_channel_family</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     delete from rhnChannelFamily where id = :channel_family_id
-">&lt;server.rhnSQL.sql_base.Stateme<code class="variable-ellipsis">...</code></code>
+&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnChannel-module.html#_query_get_source_packages_from_ids" class="summary-name">_query_get_source_packages_from_ids</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1215598324; statement=
+        <a href="server.rhnChannel-module.html#_query_get_source_packages_from_ids" class="summary-name" onclick="show_private();">_query_get_source_packages_from_ids</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     select srpm.name
       from rhnChannelPackage cp,
            rhnPackage p,
@@ -1149,33 +1152,33 @@
      where cp.channel_id = :channel_id
        and cp.package_id = p.id
        and p.source_rpm_id = srpm.id
-...">&lt;server.rhnSQL.sql_base.<code class="variable-ellipsis">...</code></code>
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnChannel-module.html#_query_can_subscribe" class="summary-name">_query_can_subscribe</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1215598196; statement=
+        <a href="server.rhnChannel-module.html#_query_can_subscribe" class="summary-name" onclick="show_private();">_query_can_subscribe</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
 select rhn_channel.user_role_check(:cid, wc.id, 'subscribe') as can_su\
 bscribe
   from web_contact wc
  where wc.login_uc = upper(:username)
-">&lt;server.rhnSQL.sql_base.Statement insta<code class="variable-ellipsis">...</code></code>
+&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="h_invalid_channel_title"></a><span class="summary-name">h_invalid_channel_title</span> = <code title="'System Registered but Inactive'"><code class="variable-quote">'</code><code class="variable-string">System Registered but Inactive</code><code class="variable-quote">'</code></code>
+        <a name="h_invalid_channel_title"></a><span class="summary-name">h_invalid_channel_title</span> = <code title="_(&quot;System Registered but Inactive&quot;)">_(&quot;System Registered but Inactive&quot;)</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnChannel-module.html#h_invalid_channel_message" class="summary-name">h_invalid_channel_message</a> = <code title="'''
+        <a href="server.rhnChannel-module.html#h_invalid_channel_message" class="summary-name">h_invalid_channel_message</a> = <code title="_(&quot;&quot;&quot;
 Invalid Architecture and OS release combination (%s, %s).
 Your system has been registered, but will not receive updates 
 because it is not subscribed to a channel. If you have not yet
@@ -1183,79 +1186,79 @@ activated your product for service, please visit our website at:
   
      http://www.redhat.com/apps/activate/
 
-..."><code class="variable-quote">'</code><code class="variable-string">\nInvalid Architecture and OS rel</code><code class="variable-ellipsis">...</code></code>
+...">_(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="s_invalid_channel_title"></a><span class="summary-name">s_invalid_channel_title</span> = <code title="'System Registered but Inactive'"><code class="variable-quote">'</code><code class="variable-string">System Registered but Inactive</code><code class="variable-quote">'</code></code>
+        <a name="s_invalid_channel_title"></a><span class="summary-name">s_invalid_channel_title</span> = <code title="_(&quot;System Registered but Inactive&quot;)">_(&quot;System Registered but Inactive&quot;)</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnChannel-module.html#s_invalid_channel_message" class="summary-name">s_invalid_channel_message</a> = <code title="'''
+        <a href="server.rhnChannel-module.html#s_invalid_channel_message" class="summary-name">s_invalid_channel_message</a> = <code title="_(&quot;&quot;&quot;
 Invalid Architecture and OS release combination (%s, %s).
 Your system has been registered, but will not receive updates
 because it could not be subscribed to a base channel.
 Please contact your organization administrator for assistance.
-'''"><code class="variable-quote">'</code><code class="variable-string">\nInvalid Architecture and OS rel</code><code class="variable-ellipsis">...</code></code>
+&quot;&quot;&quot;)">_(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnChannel-module.html#no_autoentitlement_message" class="summary-name">no_autoentitlement_message</a> = <code title="'''
+        <a href="server.rhnChannel-module.html#no_autoentitlement_message" class="summary-name">no_autoentitlement_message</a> = <code title="_(&quot;&quot;&quot;
   This system has been successfully registered, but is not yet entitle\
 d
   to service.  To entitle this system to service, login to the web sit\
 e at:
 
   %(entitlement_url)s
-'''"><code class="variable-quote">'</code><code class="variable-string">\n  This system has been success</code><code class="variable-ellipsis">...</code></code>
+&quot;&quot;&quot;)">_(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="no_entitlement_title"></a><span class="summary-name">no_entitlement_title</span> = <code title="'System Registered but Inactive'"><code class="variable-quote">'</code><code class="variable-string">System Registered but Inactive</code><code class="variable-quote">'</code></code>
+        <a name="no_entitlement_title"></a><span class="summary-name">no_entitlement_title</span> = <code title="_(&quot;System Registered but Inactive&quot;)">_(&quot;System Registered but Inactive&quot;)</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnChannel-module.html#no_entitlement_message" class="summary-name">no_entitlement_message</a> = <code title="'''
+        <a href="server.rhnChannel-module.html#no_entitlement_message" class="summary-name">no_entitlement_message</a> = <code title="_(&quot;&quot;&quot;
   This system has been successfully registered, but no service entitle\
 ments
   were available.  To entitle this system to service, login to the web\
  site at:
 
   %(entitlement_url)s
-'''"><code class="variable-quote">'</code><code class="variable-string">\n  This system has been successfull</code><code class="variable-ellipsis">...</code></code>
+&quot;&quot;&quot;)">_(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnChannel-module.html#subscription_count_exceeded_title" class="summary-name">subscription_count_exceeded_title</a> = <code title="'System Registered but Inactive'"><code class="variable-quote">'</code><code class="variable-string">System Registered but Ina</code><code class="variable-ellipsis">...</code></code>
+        <a href="server.rhnChannel-module.html#subscription_count_exceeded_title" class="summary-name">subscription_count_exceeded_title</a> = <code title="_(&quot;System Registered but Inactive&quot;)">_(&quot;System Registered but I<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnChannel-module.html#subscription_count_exceeded_message" class="summary-name">subscription_count_exceeded_message</a> = <code title="'''
+        <a href="server.rhnChannel-module.html#subscription_count_exceeded_message" class="summary-name">subscription_count_exceeded_message</a> = <code title="_(&quot;&quot;&quot;
   This system has been successfully registered, but the channel subscr\
 iptions
   were exhausted
-'''"><code class="variable-quote">'</code><code class="variable-string">\n  This system has bee</code><code class="variable-ellipsis">...</code></code>
+&quot;&quot;&quot;)">_(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -1277,6 +1280,29 @@ iptions
   </td>
 </tr>
 </table>
+<a name="channels_for_server"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">channels_for_server</span>(<span class="sig-arg">server_id</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnChannel-pysrc.html#channels_for_server">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>channel info list for all channels accessible by this server.</p>
+  <p>list channels a server_id is subscribed to We DO NOT want to cache 
+  this one because we depend on getting accurate information and the 
+  caching would only introduce more overhead on an otherwise very fast 
+  query</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
 <a name="isCustomChannel"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -1289,7 +1315,7 @@ iptions
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="server.rhnChannel-pysrc.html#isCustomChannel">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
   <pre class="literalblock">
 
@@ -1317,15 +1343,15 @@ Returns:    True if this is a custom channel
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="server.rhnChannel-pysrc.html#subscribe_child_channels">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
   <p>Attemt to subscribe a system to the channels in 
   install_num_chan_list</p>
   <p>Return successful channel labels, failed channel labels and unknown 
   options we couldn't look up labels for.</p>
-  There is no need to wrap this in a try, except block. 
+  <p>There is no need to wrap this in a try, except block. 
   subscribe_child_channels swallows known exceptions which is what we want.
-  Unkown exceptions will propogate up.
+  Unkown exceptions will propogate up.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -1361,9 +1387,9 @@ Returns:    True if this is a custom channel
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1215598548; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     delete from rhnChannelFamily where id = :channel_family_id
-
+&quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -1381,7 +1407,7 @@ Returns:    True if this is a custom channel
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1215598324; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     select srpm.name
       from rhnChannelPackage cp,
            rhnPackage p,
@@ -1407,12 +1433,12 @@ Returns:    True if this is a custom channel
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1215598196; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
 select rhn_channel.user_role_check(:cid, wc.id, 'subscribe') as can_su<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 bscribe
   from web_contact wc
  where wc.login_uc = upper(:username)
-
+&quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -1430,14 +1456,14 @@ bscribe
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-quote">'''</code><code class="variable-string"></code>
-<code class="variable-string">Invalid Architecture and OS release combination (%s, %s).</code>
-<code class="variable-string">Your system has been registered, but will not receive updates </code>
-<code class="variable-string">because it is not subscribed to a channel. If you have not yet</code>
-<code class="variable-string">activated your product for service, please visit our website at:</code>
-<code class="variable-string">  </code>
-<code class="variable-string">     http://www.redhat.com/apps/activate/</code>
-<code class="variable-string"></code>
+_(&quot;&quot;&quot;
+Invalid Architecture and OS release combination (%s, %s).
+Your system has been registered, but will not receive updates 
+because it is not subscribed to a channel. If you have not yet
+activated your product for service, please visit our website at:
+  
+     http://www.redhat.com/apps/activate/
+
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -1456,12 +1482,12 @@ bscribe
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-quote">'''</code><code class="variable-string"></code>
-<code class="variable-string">Invalid Architecture and OS release combination (%s, %s).</code>
-<code class="variable-string">Your system has been registered, but will not receive updates</code>
-<code class="variable-string">because it could not be subscribed to a base channel.</code>
-<code class="variable-string">Please contact your organization administrator for assistance.</code>
-<code class="variable-string"></code><code class="variable-quote">'''</code>
+_(&quot;&quot;&quot;
+Invalid Architecture and OS release combination (%s, %s).
+Your system has been registered, but will not receive updates
+because it could not be subscribed to a base channel.
+Please contact your organization administrator for assistance.
+&quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -1479,14 +1505,14 @@ bscribe
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-quote">'''</code><code class="variable-string"></code>
-<code class="variable-string">  This system has been successfully registered, but is not yet entitle</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-<code class="variable-string">d</code>
-<code class="variable-string">  to service.  To entitle this system to service, login to the web sit</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-<code class="variable-string">e at:</code>
-<code class="variable-string"></code>
-<code class="variable-string">  %(entitlement_url)s</code>
-<code class="variable-string"></code><code class="variable-quote">'''</code>
+_(&quot;&quot;&quot;
+  This system has been successfully registered, but is not yet entitle<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+d
+  to service.  To entitle this system to service, login to the web sit<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+e at:
+
+  %(entitlement_url)s
+&quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -1504,14 +1530,14 @@ bscribe
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-quote">'''</code><code class="variable-string"></code>
-<code class="variable-string">  This system has been successfully registered, but no service entitle</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-<code class="variable-string">ments</code>
-<code class="variable-string">  were available.  To entitle this system to service, login to the web</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-<code class="variable-string"> site at:</code>
-<code class="variable-string"></code>
-<code class="variable-string">  %(entitlement_url)s</code>
-<code class="variable-string"></code><code class="variable-quote">'''</code>
+_(&quot;&quot;&quot;
+  This system has been successfully registered, but no service entitle<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ments
+  were available.  To entitle this system to service, login to the web<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ site at:
+
+  %(entitlement_url)s
+&quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -1529,7 +1555,7 @@ bscribe
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-quote">'</code><code class="variable-string">System Registered but Inactive</code><code class="variable-quote">'</code>
+_(&quot;System Registered but Inactive&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -1547,11 +1573,11 @@ bscribe
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-quote">'''</code><code class="variable-string"></code>
-<code class="variable-string">  This system has been successfully registered, but the channel subscr</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-<code class="variable-string">iptions</code>
-<code class="variable-string">  were exhausted</code>
-<code class="variable-string"></code><code class="variable-quote">'''</code>
+_(&quot;&quot;&quot;
+  This system has been successfully registered, but the channel subscr<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+iptions
+  were exhausted
+&quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -1581,10 +1607,11 @@ bscribe
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:50 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:06 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -1595,9 +1622,8 @@ bscribe
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

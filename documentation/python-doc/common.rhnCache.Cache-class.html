@@ -43,7 +43,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="common.rhnCache.Cache-class.html"
@@ -53,7 +53,7 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class Cache</h1><span class="codelink"><a href="common.rhnCache-pysrc.html#Cache">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class Cache</h1><p class="nomargin-top"><span class="codelink"><a href="common.rhnCache-pysrc.html#Cache">source&nbsp;code</a></span></p>
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -79,7 +79,7 @@
         <tr>
           <td><span class="summary-sig"><a name="get"></a><span class="summary-sig-name">get</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">modified</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span></td>
+        <span class="summary-sig-arg">modified</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnCache-pysrc.html#Cache.get">source&nbsp;code</a></span>
             
@@ -98,7 +98,10 @@
           <td><span class="summary-sig"><a name="set"></a><span class="summary-sig-name">set</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">name</span>,
         <span class="summary-sig-arg">value</span>,
-        <span class="summary-sig-arg">modified</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span></td>
+        <span class="summary-sig-arg">modified</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">user</span>=<span class="summary-sig-default">'root'</span>,
+        <span class="summary-sig-arg">group</span>=<span class="summary-sig-default">'root'</span>,
+        <span class="summary-sig-arg">mode</span>=<span class="summary-sig-default">0755</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnCache-pysrc.html#Cache.set">source&nbsp;code</a></span>
             
@@ -116,7 +119,7 @@
         <tr>
           <td><span class="summary-sig"><a name="has_key"></a><span class="summary-sig-name">has_key</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">modified</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span></td>
+        <span class="summary-sig-arg">modified</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnCache-pysrc.html#Cache.has_key">source&nbsp;code</a></span>
             
@@ -151,7 +154,7 @@
         <tr>
           <td><span class="summary-sig"><a name="get_file"></a><span class="summary-sig-name">get_file</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">modified</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span></td>
+        <span class="summary-sig-arg">modified</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnCache-pysrc.html#Cache.get_file">source&nbsp;code</a></span>
             
@@ -169,7 +172,10 @@
         <tr>
           <td><span class="summary-sig"><a name="set_file"></a><span class="summary-sig-name">set_file</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">modified</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span></td>
+        <span class="summary-sig-arg">modified</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">user</span>=<span class="summary-sig-default">'root'</span>,
+        <span class="summary-sig-arg">group</span>=<span class="summary-sig-default">'root'</span>,
+        <span class="summary-sig-arg">mode</span>=<span class="summary-sig-default">0755</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnCache-pysrc.html#Cache.set_file">source&nbsp;code</a></span>
             
@@ -203,10 +209,11 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:53 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:06 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -217,9 +224,8 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

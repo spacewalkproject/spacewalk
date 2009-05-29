@@ -42,7 +42,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="server.rhnVirtualization-module.html"
@@ -52,7 +52,7 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module rhnVirtualization</h1><span class="codelink"><a href="server.rhnVirtualization-pysrc.html">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Module rhnVirtualization</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnVirtualization-pysrc.html">source&nbsp;code</a></span></p>
 <!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -193,7 +193,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="add_listener"></a><span class="summary-sig-name">add_listener</span>(<span class="summary-sig-arg">listener</span>)</span><br />
-      Allows other components of the server to listen for virtualization
+      Allows other components of the server to listen for virtualization 
       related events.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnVirtualization-pysrc.html#add_listener">source&nbsp;code</a></span>
@@ -279,7 +279,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="server.rhnVirtualization-module.html#_make_virt_action" class="summary-sig-name">_make_virt_action</a>(<span class="summary-sig-arg">event</span>,
+          <td><span class="summary-sig"><a href="server.rhnVirtualization-module.html#_make_virt_action" class="summary-sig-name" onclick="show_private();">_make_virt_action</a>(<span class="summary-sig-arg">event</span>,
         <span class="summary-sig-arg">target</span>,
         <span class="summary-sig-arg">properties</span>)</span><br />
       Construct a tuple representing a virtualization action.</td>
@@ -330,13 +330,11 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnVirtualization-module.html#CLIENT_SERVER_STATE_MAP" class="summary-name">CLIENT_SERVER_STATE_MAP</a> = <code title="{'blocked': 'running',
- 'crashed': 'crashed',
- 'nostate': 'running',
- 'paused': 'paused',
- 'running': 'running',
- 'shutdown': 'stopped',
- 'shutoff': 'stopped'}"><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">blocked</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">running</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">crashed</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">c</code><code class="variable-ellipsis">...</code></code>
+        <a href="server.rhnVirtualization-module.html#CLIENT_SERVER_STATE_MAP" class="summary-name">CLIENT_SERVER_STATE_MAP</a> = <code title="{ClientStateType.NOSTATE: ServerStateType.RUNNING, ClientStateType.RUN\
+NING: ServerStateType.RUNNING, ClientStateType.BLOCKED: ServerStateTyp\
+e.RUNNING, ClientStateType.PAUSED: ServerStateType.PAUSED, ClientState\
+Type.SHUTDOWN: ServerStateType.STOPPED, ClientStateType.SHUTOFF: Serve\
+rStateType.STOPPED, ClientStateType.CRASHED: ServerStateType.CRASHED}">{ClientStateType.NOSTATE: ServerStat<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -372,7 +370,7 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="server.rhnVirtualization-pysrc.html#_make_virt_action">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
   <pre class="literalblock">
 
@@ -426,13 +424,11 @@ Return a tuple consisting of (timestamp, event, target, properties).
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">blocked</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">running</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">crashed</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">crashed</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">nostate</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">running</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">paused</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">paused</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">running</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">running</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">shutdown</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">stopped</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">shutoff</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">stopped</code><code class="variable-quote">'</code><code class="variable-group">}</code>
+{ClientStateType.NOSTATE: ServerStateType.RUNNING, ClientStateType.RUN<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+NING: ServerStateType.RUNNING, ClientStateType.BLOCKED: ServerStateTyp<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+e.RUNNING, ClientStateType.PAUSED: ServerStateType.PAUSED, ClientState<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+Type.SHUTDOWN: ServerStateType.STOPPED, ClientStateType.SHUTOFF: Serve<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+rStateType.STOPPED, ClientStateType.CRASHED: ServerStateType.CRASHED}
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -462,10 +458,11 @@ Return a tuple consisting of (timestamp, event, target, properties).
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:51 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:06 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -476,9 +473,8 @@ Return a tuple consisting of (timestamp, event, target, properties).
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

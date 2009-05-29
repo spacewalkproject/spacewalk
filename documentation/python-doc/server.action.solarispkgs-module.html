@@ -43,7 +43,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="server.action.solarispkgs-module.html"
@@ -53,7 +53,7 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module solarispkgs</h1><span class="codelink"><a href="server.action.solarispkgs-pysrc.html">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Module solarispkgs</h1><p class="nomargin-top"><span class="codelink"><a href="server.action.solarispkgs-pysrc.html">source&nbsp;code</a></span></p>
 <!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -212,20 +212,15 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.solarispkgs-module.html#__rhnexport__" class="summary-name">__rhnexport__</a> = <code title="['install',
- 'remove',
- 'patchInstall',
- 'patchRemove',
- 'patchClusterInstall',
- 'patchClusterRemove',
- 'refresh_list']"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">install</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">remove</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">patchInstall</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">patchRe</code><code class="variable-ellipsis">...</code></code>
+        <a href="server.action.solarispkgs-module.html#__rhnexport__" class="summary-name">__rhnexport__</a> = <code title="['install', 'remove', 'patchInstall', 'patchRemove', 'patchClusterInst\
+all', 'patchClusterRemove', 'refresh_list',]">['install', 'remove', 'patchInstall', 'patchRe<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.solarispkgs-module.html#_query_install" class="summary-name">_query_install</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1221842036; statement=
+        <a href="server.action.solarispkgs-module.html#_query_install" class="summary-name" onclick="show_private();">_query_install</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     select distinct
            pn.name name,
            pe.epoch epoch,
@@ -233,14 +228,14 @@
            pe.release release,
            pa.label arch,
            c.label channel_label,
-...">&lt;server.rhnSQL.sql_base.Statement instance at<code class="variable-ellipsis">...</code></code>
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.solarispkgs-module.html#_query_remove" class="summary-name">_query_remove</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1221841972; statement=
+        <a href="server.action.solarispkgs-module.html#_query_remove" class="summary-name" onclick="show_private();">_query_remove</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     select distinct
            pn.name name,
            pe.epoch epoch,
@@ -248,7 +243,7 @@
            pe.release release,
            pa.label arch
       from rhnActionPackage ap,
-...">&lt;server.rhnSQL.sql_base.Statement instance at <code class="variable-ellipsis">...</code></code>
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -282,13 +277,8 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">install</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">remove</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">patchInstall</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">patchRemove</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">patchClusterInstall</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">patchClusterRemove</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">refresh_list</code><code class="variable-quote">'</code><code class="variable-group">]</code>
+['install', 'remove', 'patchInstall', 'patchRemove', 'patchClusterInst<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+all', 'patchClusterRemove', 'refresh_list',]
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -306,7 +296,7 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1221842036; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     select distinct
            pn.name name,
            pe.epoch epoch,
@@ -332,7 +322,7 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1221841972; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     select distinct
            pn.name name,
            pe.epoch epoch,
@@ -370,10 +360,11 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:49 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -384,9 +375,8 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>
