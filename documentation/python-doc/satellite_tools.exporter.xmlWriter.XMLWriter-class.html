@@ -44,7 +44,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="satellite_tools.exporter.xmlWriter.XMLWriter-class.html"
@@ -54,8 +54,8 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class XMLWriter</h1><span class="codelink"><a href="satellite_tools.exporter.xmlWriter-pysrc.html#XMLWriter">source&nbsp;code</a></span><br /><br />
-XML writer, UTF-8 aware<br /><br />
+<h1 class="epydoc">Class XMLWriter</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.exporter.xmlWriter-pysrc.html#XMLWriter">source&nbsp;code</a></span></p>
+<p>XML writer, UTF-8 aware</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -81,9 +81,9 @@ XML writer, UTF-8 aware<br /><br />
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">charset</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">iso-8859-1</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">encoding</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">UTF-8</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">stream</span>=<span class="summary-sig-default">sys.stdin</span>,
+        <span class="summary-sig-arg">charset</span>=<span class="summary-sig-default">&quot;iso-8859-1&quot;</span>,
+        <span class="summary-sig-arg">encoding</span>=<span class="summary-sig-default">&quot;UTF-8&quot;</span>,
+        <span class="summary-sig-arg">stream</span>=<span class="summary-sig-default">sys.stdout</span>,
         <span class="summary-sig-arg">skip_xml_decl</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.exporter.xmlWriter-pysrc.html#XMLWriter.__init__">source&nbsp;code</a></span>
@@ -119,8 +119,8 @@ XML writer, UTF-8 aware<br /><br />
         <tr>
           <td><span class="summary-sig"><a name="open_tag"></a><span class="summary-sig-name">open_tag</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">attributes</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
-        <span class="summary-sig-arg">namespace</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span><br />
+        <span class="summary-sig-arg">attributes</span>=<span class="summary-sig-default">{}</span>,
+        <span class="summary-sig-arg">namespace</span>=<span class="summary-sig-default">None</span>)</span><br />
       Opens a tag with the specified attributes</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.exporter.xmlWriter-pysrc.html#XMLWriter.open_tag">source&nbsp;code</a></span>
@@ -139,8 +139,8 @@ XML writer, UTF-8 aware<br /><br />
         <tr>
           <td><span class="summary-sig"><a name="empty_tag"></a><span class="summary-sig-name">empty_tag</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">attributes</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
-        <span class="summary-sig-arg">namespace</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span><br />
+        <span class="summary-sig-arg">attributes</span>=<span class="summary-sig-default">{}</span>,
+        <span class="summary-sig-arg">namespace</span>=<span class="summary-sig-default">None</span>)</span><br />
       Writes an empty tag with the specified attributes</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.exporter.xmlWriter-pysrc.html#XMLWriter.empty_tag">source&nbsp;code</a></span>
@@ -160,8 +160,8 @@ XML writer, UTF-8 aware<br /><br />
           <td><span class="summary-sig"><a name="_open_tag"></a><span class="summary-sig-name">_open_tag</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">empty</span>,
         <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">attributes</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
-        <span class="summary-sig-arg">namespace</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span></td>
+        <span class="summary-sig-arg">attributes</span>=<span class="summary-sig-default">{}</span>,
+        <span class="summary-sig-arg">namespace</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.exporter.xmlWriter-pysrc.html#XMLWriter._open_tag">source&nbsp;code</a></span>
             
@@ -179,7 +179,7 @@ XML writer, UTF-8 aware<br /><br />
         <tr>
           <td><span class="summary-sig"><a href="satellite_tools.exporter.xmlWriter.XMLWriter-class.html#close_tag" class="summary-sig-name">close_tag</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">namespace</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span><br />
+        <span class="summary-sig-arg">namespace</span>=<span class="summary-sig-default">None</span>)</span><br />
       Closes a previously open tag.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.exporter.xmlWriter-pysrc.html#XMLWriter.close_tag">source&nbsp;code</a></span>
@@ -196,9 +196,12 @@ XML writer, UTF-8 aware<br /><br />
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="data"></a><span class="summary-sig-name">data</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">data_string</span>)</span><br />
-      Writes the data, performing the necessary UTF-8 conversions</td>
+          <td><span class="summary-sig"><a href="satellite_tools.exporter.xmlWriter.XMLWriter-class.html#data" class="summary-sig-name">data</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">data_string</span>,
+        <span class="summary-sig-arg">max_bytes</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Writes the data, performing the necessary UTF-8 conversions max_bytes
+      is the satellite schema dependent maximum value (in bytes) which can 
+      fit in the matching table row.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.exporter.xmlWriter-pysrc.html#XMLWriter.data">source&nbsp;code</a></span>
             
@@ -279,25 +282,22 @@ XML writer, UTF-8 aware<br /><br />
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="_with_native_unicode"></a><span class="summary-name">_with_native_unicode</span> = <code title="1">1</code>
+        <a name="_with_native_unicode"></a><span class="summary-name">_with_native_unicode</span> = <code title="0">0</code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="_re"></a><span class="summary-name">_re</span> = <code title="re.compile(r'(&amp;|&lt;|&gt;|\'|&quot;|[^\t\n\r -\xff])')">re.compile(r'<code class="re-group">(</code>&amp;<code class="re-op">|</code>&lt;<code class="re-op">|</code>&gt;<code class="re-op">|</code>\'<code class="re-op">|</code>&quot;<code class="re-op">|</code><code class="re-group">[</code><code class="re-op">^</code>\t\n\r <code class="re-op">-</code>\xff<code class="re-group">]</code><code class="re-group">)</code>')</code>
+        <a name="_re"></a><span class="summary-name">_re</span> = <code title="re.compile(&quot;(&amp;|&lt;|&gt;|'|\&quot;|[^\x09\x0a\x0d\x20-\xFF])&quot;)">re.compile(&quot;(&amp;|&lt;|&gt;|'|\&quot;|[^\x09\x0a\x0d\x20-\xFF])&quot;)</code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.exporter.xmlWriter.XMLWriter-class.html#_escaped_chars" class="summary-name">_escaped_chars</a> = <code title="{'&quot;': '&amp;quot;',
- '&amp;': '&amp;amp;',
- '\'': '&amp;apos;',
- '&lt;': '&amp;lt;',
- '&gt;': '&amp;gt;'}"><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">&quot;</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&amp;quot;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">&amp;</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&amp;amp;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">\'</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&amp;apos;</code><code class="variable-quote">'</code><code class="variable-op">,</code><code class="variable-ellipsis">...</code></code>
+        <a href="satellite_tools.exporter.xmlWriter.XMLWriter-class.html#_escaped_chars" class="summary-name" onclick="show_private();">_escaped_chars</a> = <code title="{'&amp;': '&amp;amp;', '&lt;': '&amp;lt;', '&gt;': '&amp;gt;', '&quot;': '&amp;quot;', &quot;'&quot;: '&amp;apos;',\
+}">{'&amp;': '&amp;amp;', '&lt;': '&amp;lt;', '&gt;': '&amp;gt;', '&quot;':<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -328,15 +328,38 @@ XML writer, UTF-8 aware<br /><br />
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">close_tag</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">name</span>,
-        <span class="sig-arg">namespace</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span>
+        <span class="sig-arg">namespace</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="satellite_tools.exporter.xmlWriter-pysrc.html#XMLWriter.close_tag">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Closes a previously open tag. This function raises an exception if the
-  tag was not opened before, or if it's been closed already.
+  <p>Closes a previously open tag. This function raises an exception if the
+  tag was not opened before, or if it's been closed already.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="data"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">data</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">data_string</span>,
+        <span class="sig-arg">max_bytes</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="satellite_tools.exporter.xmlWriter-pysrc.html#XMLWriter.data">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Writes the data, performing the necessary UTF-8 conversions max_bytes 
+  is the satellite schema dependent maximum value (in bytes) which can fit 
+  in the matching table row. Yeah, this is very gross.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -372,11 +395,8 @@ XML writer, UTF-8 aware<br /><br />
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">&quot;</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&amp;quot;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">&amp;</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&amp;amp;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">\'</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&amp;apos;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">&lt;</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&amp;lt;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">&gt;</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&amp;gt;</code><code class="variable-quote">'</code><code class="variable-group">}</code>
+{'&amp;': '&amp;amp;', '&lt;': '&amp;lt;', '&gt;': '&amp;gt;', '&quot;': '&amp;quot;', &quot;'&quot;: '&amp;apos;',<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+}
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -406,10 +426,11 @@ XML writer, UTF-8 aware<br /><br />
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:08:10 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:11 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -420,9 +441,8 @@ XML writer, UTF-8 aware<br /><br />
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

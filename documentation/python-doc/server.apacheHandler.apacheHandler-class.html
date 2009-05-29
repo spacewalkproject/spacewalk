@@ -43,7 +43,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="server.apacheHandler.apacheHandler-class.html"
@@ -53,19 +53,13 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class apacheHandler</h1><span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class apacheHandler</h1><p class="nomargin-top"><span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_server_a_7" name="uml_class_diagram_for_server_a_7">
-<area shape="rect" href="server.apacheHandler.apacheSession&#45;class.html" title="server.apacheHandler.apacheSession" alt="" coords="53,5,171,48" />
-<area shape="rect" href="server.apacheHandler.apacheHandler&#45;class.html#headerParserHandler" title="server.apacheHandler.apacheHandler.headerParserHandler" alt="" coords="17,97,207,116" />
-<area shape="rect" href="server.apacheHandler.apacheHandler&#45;class.html#cleanupHandler" title="server.apacheHandler.apacheHandler.cleanupHandler" alt="" coords="17,116,207,135" />
-<area shape="rect" href="server.apacheHandler.apacheHandler&#45;class.html#handler" title="server.apacheHandler.apacheHandler.handler" alt="" coords="17,135,207,153" />
-<area shape="rect" href="server.apacheHandler.apacheHandler&#45;class.html#__init__" title="server.apacheHandler.apacheHandler.__init__" alt="" coords="17,153,207,172" />
-<area shape="rect" href="server.apacheHandler.apacheHandler&#45;class.html" title="server.apacheHandler.apacheHandler" alt="" coords="5,67,219,179" />
-</map>
-  <img src="uml_class_diagram_for_server_a_7.gif" alt='' usemap="#uml_class_diagram_for_server_a_7" ismap="ismap" class="graph-without-title" />
-</center></center>
+
+</center>
 <hr />
+<p>main Apache XMLRPC point of entry for the server</p>
+
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -106,7 +100,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="headerParserHandler"></a><span class="summary-sig-name">headerParserHandler</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">req</span>)</span></td>
+        <span class="summary-sig-arg">req</span>)</span><br />
+      parse the request, init database and figure out what can we call</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler.headerParserHandler">source&nbsp;code</a></span>
             
@@ -139,7 +134,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_cleanup_request_processor"></a><span class="summary-sig-name">_cleanup_request_processor</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="_cleanup_request_processor"></a><span class="summary-sig-name">_cleanup_request_processor</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Clean up the request processor</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler._cleanup_request_processor">source&nbsp;code</a></span>
             
@@ -156,7 +152,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="handler"></a><span class="summary-sig-name">handler</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">req</span>)</span></td>
+        <span class="summary-sig-arg">req</span>)</span><br />
+      main Apache handler</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler.handler">source&nbsp;code</a></span>
             
@@ -173,7 +170,9 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="cleanupHandler"></a><span class="summary-sig-name">cleanupHandler</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">req</span>)</span></td>
+        <span class="summary-sig-arg">req</span>)</span><br />
+      Clean up stuff before we close down the session when we are called 
+      from apacheServer.Cleanup()</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler.cleanupHandler">source&nbsp;code</a></span>
             
@@ -204,7 +203,7 @@
   <tr>
     <td colspan="2" class="summary">
     <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.apacheHandler.apacheSession-class.html">apacheSession</a></code></b> (private):
-      <code><a href="server.apacheHandler.apacheSession-class.html#_lang_catalog">_lang_catalog</a></code>
+      <code><a href="server.apacheHandler.apacheSession-class.html#_lang_catalog" onclick="show_private();">_lang_catalog</a></code>
       </p></div>
     </td>
   </tr>
@@ -232,10 +231,11 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:08:26 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:14 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -246,9 +246,8 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

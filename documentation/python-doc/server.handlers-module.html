@@ -42,7 +42,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="server.handlers-module.html"
@@ -52,7 +52,7 @@
   </tr>
 </table>
 <!-- ==================== PACKAGE DESCRIPTION ==================== -->
-<h1 class="epydoc">Package handlers</h1><span class="codelink"><a href="server.handlers-pysrc.html">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Package handlers</h1><p class="nomargin-top"><span class="codelink"><a href="server.handlers-pysrc.html">source&nbsp;code</a></span></p>
 <!-- ==================== SUBMODULES ==================== -->
 <a name="section-Submodules"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -72,6 +72,14 @@
 </tr>
   <tr><td class="summary">
   <ul class="nomargin">
+    <li> <strong class="uidlink"><a href="server.handlers.app-module.html">server.handlers.app</a></strong>
+    <ul>
+    <li class="private"> <strong class="uidlink"><a href="server.handlers.app.channel-module.html">server.handlers.app.channel</a></strong>    </li>
+    <li class="private"> <strong class="uidlink"><a href="server.handlers.app.comps-module.html">server.handlers.app.comps</a></strong>    </li>
+    <li class="private"> <strong class="uidlink"><a href="server.handlers.app.packages-module.html">server.handlers.app.packages</a></strong>    </li>
+    <li> <strong class="uidlink"><a href="server.handlers.app.rhn_mpm-module.html">server.handlers.app.rhn_mpm</a></strong>    </li>
+    </ul>
+    </li>
     <li> <strong class="uidlink"><a href="server.handlers.applet-module.html">server.handlers.applet</a></strong>
     <ul>
     <li class="private"> <strong class="uidlink"><a href="server.handlers.applet.applet-module.html">server.handlers.applet.applet</a></strong>    </li>
@@ -82,9 +90,29 @@
     <li class="private"> <strong class="uidlink"><a href="server.handlers.config.rhn_config_management-module.html">server.handlers.config.rhn_config_management</a></strong>    </li>
     </ul>
     </li>
-    <li class="private"> <strong class="uidlink"><a href="server.handlers.config_mgmt-module.html">server.handlers.config_mgmt</a></strong>
-    <ul class="private">
+    <li> <strong class="uidlink"><a href="server.handlers.config_mgmt-module.html">server.handlers.config_mgmt</a></strong>
+    <ul>
     <li class="private"> <strong class="uidlink"><a href="server.handlers.config_mgmt.rhn_config_management-module.html">server.handlers.config_mgmt.rhn_config_management</a></strong>    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="server.handlers.sat-module.html">server.handlers.sat</a></strong>
+    <ul>
+    <li class="private"> <strong class="uidlink"><a href="server.handlers.sat.auth-module.html">server.handlers.sat.auth</a></strong>    </li>
+    <li class="private"> <strong class="uidlink"><a href="server.handlers.sat.cert-module.html">server.handlers.sat.cert</a></strong>    </li>
+    <li class="private"> <strong class="uidlink"><a href="server.handlers.sat.get_handler-module.html">server.handlers.sat.get_handler</a></strong>    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="server.handlers.xmlrpc-module.html">server.handlers.xmlrpc</a></strong>
+    <ul>
+    <li> <strong class="uidlink"><a href="server.handlers.xmlrpc.country-module.html">server.handlers.xmlrpc.country</a></strong>    </li>
+    <li class="private"> <strong class="uidlink"><a href="server.handlers.xmlrpc.errata-module.html">server.handlers.xmlrpc.errata</a></strong>    </li>
+    <li> <strong class="uidlink"><a href="server.handlers.xmlrpc.getMethod-module.html">server.handlers.xmlrpc.getMethod</a></strong>    </li>
+    <li class="private"> <strong class="uidlink"><a href="server.handlers.xmlrpc.get_handler-module.html">server.handlers.xmlrpc.get_handler</a></strong>    </li>
+    <li class="private"> <strong class="uidlink"><a href="server.handlers.xmlrpc.proxy-module.html">server.handlers.xmlrpc.proxy</a></strong>    </li>
+    <li class="private"> <strong class="uidlink"><a href="server.handlers.xmlrpc.queue-module.html">server.handlers.xmlrpc.queue</a></strong>    </li>
+    <li class="private"> <strong class="uidlink"><a href="server.handlers.xmlrpc.registration-module.html">server.handlers.xmlrpc.registration</a></strong>    </li>
+    <li> <strong class="uidlink"><a href="server.handlers.xmlrpc.states-module.html">server.handlers.xmlrpc.states</a></strong>    </li>
+    <li class="private"> <strong class="uidlink"><a href="server.handlers.xmlrpc.up2date-module.html">server.handlers.xmlrpc.up2date</a></strong>    </li>
     </ul>
     </li>
     <li> <strong class="uidlink"><a href="server.handlers.xp-module.html">server.handlers.xp</a></strong>
@@ -120,10 +148,11 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:50 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -134,9 +163,8 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

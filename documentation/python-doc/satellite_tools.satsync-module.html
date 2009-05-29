@@ -42,7 +42,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="satellite_tools.satsync-module.html"
@@ -52,7 +52,7 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module satsync</h1><span class="codelink"><a href="satellite_tools.satsync-pysrc.html">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Module satsync</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.satsync-pysrc.html">source&nbsp;code</a></span></p>
 <!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -82,8 +82,8 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="satellite_tools.satsync.Syncer-class.html" class="summary-name">Syncer</a><br />
-      high-level sychronization/import class NOTE: there should *ONLY*
-        be one instance of this.
+      high-level sychronization/import class NOTE: there should *ONLY* be
+        one instance of this.
     </td>
   </tr>
 <tr>
@@ -134,8 +134,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="_provisioningCapableYN"></a><span class="summary-sig-name">_provisioningCapableYN</span>()</span><br />
-      1 or 0, should be sync kickstart and other provisioning data? 
-      NOTE: not currently used.</td>
+      1 or 0, should be sync kickstart and other provisioning data? NOTE: 
+      not currently used.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#_provisioningCapableYN">source&nbsp;code</a></span>
             
@@ -151,9 +151,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="satellite_tools.satsync-module.html#_verifyPkgRepMountPoint" class="summary-sig-name">_verifyPkgRepMountPoint</a>()</span><br />
-      Checks the base package repository directory tree for existance 
-      and permissions.</td>
+          <td><span class="summary-sig"><a href="satellite_tools.satsync-module.html#_verifyPkgRepMountPoint" class="summary-sig-name" onclick="show_private();">_verifyPkgRepMountPoint</a>()</span><br />
+      Checks the base package repository directory tree for existance and 
+      permissions.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#_verifyPkgRepMountPoint">source&nbsp;code</a></span>
             
@@ -170,8 +170,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="_getImportedChannels"></a><span class="summary-sig-name">_getImportedChannels</span>()</span><br />
-      Retrieves the channels already imported in the satellite's 
-      database</td>
+      Retrieves the channels already imported in the satellite's database</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#_getImportedChannels">source&nbsp;code</a></span>
             
@@ -245,14 +244,14 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satsync-module.html#_DEFAULT_RHN_ENTITLEMENT_CERT_BACKUP" class="summary-name">_DEFAULT_RHN_ENTITLEMENT_CERT_BACKUP</a> = <code title="'/etc/sysconfig/rhn/rhn-entitlement-cert.xml'">'/etc/sysconfig/rhn/rhn<code class="variable-ellipsis">...</code></code>
+        <a href="satellite_tools.satsync-module.html#_DEFAULT_RHN_ENTITLEMENT_CERT_BACKUP" class="summary-name" onclick="show_private();">_DEFAULT_RHN_ENTITLEMENT_CERT_BACKUP</a> = <code title="'/etc/sysconfig/rhn/rhn-entitlement-cert.xml'">'/etc/sysconfig/rhn/rhn<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="OPTIONS"></a><span class="summary-name">OPTIONS</span> = <code title="'server.satellite'"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></code>
+        <a name="OPTIONS"></a><span class="summary-name">OPTIONS</span> = <code title="None">None</code>
     </td>
   </tr>
 </table>
@@ -286,12 +285,12 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="satellite_tools.satsync-pysrc.html#_verifyPkgRepMountPoint">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
   <p>Checks the base package repository directory tree for existance and 
   permissions.</p>
-  Creates base dir if need be, and chowns to apache.root (required for 
-  rhnpush).
+  <p>Creates base dir if need be, and chowns to apache.root (required for 
+  rhnpush).</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -357,10 +356,11 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:49 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -371,9 +371,8 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

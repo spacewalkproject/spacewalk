@@ -43,7 +43,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="server.importlib.importLib-module.html"
@@ -53,7 +53,7 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module importLib</h1><span class="codelink"><a href="server.importlib.importLib-pysrc.html">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Module importLib</h1><p class="nomargin-top"><span class="codelink"><a href="server.importlib.importLib-pysrc.html">source&nbsp;code</a></span></p>
 <!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -83,8 +83,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="server.importlib.importLib.Item-class.html" class="summary-name">Item</a><br />
-      First level object, that stores information in a hash-like 
-        structure
+      First level object, that stores information in a hash-like structure
     </td>
   </tr>
 <tr>
@@ -539,7 +538,7 @@
         <tr>
           <td><span class="summary-sig"><a href="server.importlib.importLib-module.html#write_temp_package" class="summary-sig-name">write_temp_package</a>(<span class="summary-sig-arg">packageData</span>,
         <span class="summary-sig-arg">org_id</span>,
-        <span class="summary-sig-arg">prepend</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span><br />
+        <span class="summary-sig-arg">prepend</span>=<span class="summary-sig-default">&quot;&quot;</span>)</span><br />
       Writes the package data to a temporary file...</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.importlib.importLib-pysrc.html#write_temp_package">source&nbsp;code</a></span>
@@ -560,9 +559,9 @@
         <span class="summary-sig-arg">basedir</span>,
         <span class="summary-sig-arg">relpath</span>,
         <span class="summary-sig-arg">md5sum</span>,
-        <span class="summary-sig-arg">force</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span><br />
-      Copies the information from the file descriptor to a file Checks 
-      the file's MD5 sum, raising FileConflictErrror if it's different The 
+        <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Copies the information from the file descriptor to a file Checks the 
+      file's MD5 sum, raising FileConflictErrror if it's different The 
       force flag prevents the exception from being raised, and copies the 
       file even if the md5sum has changed</td>
           <td align="right" valign="top">
@@ -583,8 +582,8 @@
           <td><span class="summary-sig"><a name="write_package"></a><span class="summary-sig-name">write_package</span>(<span class="summary-sig-arg">packageData</span>,
         <span class="summary-sig-arg">basedir</span>,
         <span class="summary-sig-arg">org_id</span>,
-        <span class="summary-sig-arg">prepend</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">force</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span><br />
+        <span class="summary-sig-arg">prepend</span>=<span class="summary-sig-default">&quot;&quot;</span>,
+        <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">None</span>)</span><br />
       Writes the bytes in a directory structure</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.importlib.importLib-pysrc.html#write_package">source&nbsp;code</a></span>
@@ -639,12 +638,12 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">write_temp_package</span>(<span class="sig-arg">packageData</span>,
         <span class="sig-arg">org_id</span>,
-        <span class="sig-arg">prepend</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span>
+        <span class="sig-arg">prepend</span>=<span class="sig-default">&quot;&quot;</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="server.importlib.importLib-pysrc.html#write_temp_package">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
   <pre class="literalblock">
 
@@ -686,10 +685,11 @@ Returns:
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:50 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -700,9 +700,8 @@ Returns:
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

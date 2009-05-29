@@ -43,7 +43,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="xmlrpclib.Marshaller-class.html"
@@ -53,13 +53,13 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class Marshaller</h1><span class="codelink"><a href="xmlrpclib-pysrc.html#Marshaller">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class Marshaller</h1><p class="nomargin-top"><span class="codelink"><a href="xmlrpclib-pysrc.html#Marshaller">source&nbsp;code</a></span></p>
 <p>Generate an XML-RPC params chunk from a Python data structure.</p>
-  Create a Marshaller instance for each set of parameters, and use the 
+  <p>Create a Marshaller instance for each set of parameters, and use the 
   &quot;dumps&quot; method to convert your data (represented as a tuple) to
   an XML-RPC params chunk.  To write a fault response, pass a Fault 
   instance instead.  You may prefer to use the &quot;dumps&quot; module 
-  function for this purpose.<br /><br />
+  function for this purpose.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -103,7 +103,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">encoding</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">encoding</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">allow_none</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xmlrpclib-pysrc.html#Marshaller.__init__">source&nbsp;code</a></span>
@@ -143,6 +143,42 @@
         <span class="summary-sig-arg">write</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xmlrpclib-pysrc.html#Marshaller.dump_bool">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="dump_date"></a><span class="summary-sig-name">dump_date</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">value</span>,
+        <span class="summary-sig-arg">write</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="xmlrpclib-pysrc.html#Marshaller.dump_date">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="dump_datetime"></a><span class="summary-sig-name">dump_datetime</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">value</span>,
+        <span class="summary-sig-arg">write</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="xmlrpclib-pysrc.html#Marshaller.dump_datetime">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -249,7 +285,7 @@
           <td><span class="summary-sig"><a name="dump_string"></a><span class="summary-sig-name">dump_string</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">value</span>,
         <span class="summary-sig-arg">write</span>,
-        <span class="summary-sig-arg">escape</span>=<span class="summary-sig-default">&lt;function escape at 0xb7a28fb4&gt;</span>)</span></td>
+        <span class="summary-sig-arg">escape</span>=<span class="summary-sig-default">&lt;function escape at 0x1f6a398&gt;</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xmlrpclib-pysrc.html#Marshaller.dump_string">source&nbsp;code</a></span>
             
@@ -268,9 +304,27 @@
           <td><span class="summary-sig"><a name="dump_struct"></a><span class="summary-sig-name">dump_struct</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">value</span>,
         <span class="summary-sig-arg">write</span>,
-        <span class="summary-sig-arg">escape</span>=<span class="summary-sig-default">&lt;function escape at 0xb7a28fb4&gt;</span>)</span></td>
+        <span class="summary-sig-arg">escape</span>=<span class="summary-sig-default">&lt;function escape at 0x1f6a398&gt;</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xmlrpclib-pysrc.html#Marshaller.dump_struct">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="dump_time"></a><span class="summary-sig-name">dump_time</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">value</span>,
+        <span class="summary-sig-arg">write</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="xmlrpclib-pysrc.html#Marshaller.dump_time">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -287,7 +341,7 @@
           <td><span class="summary-sig"><a name="dump_unicode"></a><span class="summary-sig-name">dump_unicode</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">value</span>,
         <span class="summary-sig-arg">write</span>,
-        <span class="summary-sig-arg">escape</span>=<span class="summary-sig-default">&lt;function escape at 0xb7a28fb4&gt;</span>)</span></td>
+        <span class="summary-sig-arg">escape</span>=<span class="summary-sig-default">&lt;function escape at 0x1f6a398&gt;</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xmlrpclib-pysrc.html#Marshaller.dump_unicode">source&nbsp;code</a></span>
             
@@ -336,15 +390,15 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="xmlrpclib.Marshaller-class.html#dispatch" class="summary-name">dispatch</a> = <code title="{&lt;type 'bool'&gt;: &lt;function dump_bool at 0xb7a2dbc4&gt;,
- &lt;type 'instance'&gt;: &lt;function dump_instance at 0xb7a2dd4c&gt;,
- &lt;type 'float'&gt;: &lt;function dump_double at 0xb7a2dc34&gt;,
- &lt;type 'int'&gt;: &lt;function dump_int at 0xb7a2db8c&gt;,
- &lt;type 'list'&gt;: &lt;function dump_array at 0xb7a2dcdc&gt;,
- &lt;type 'long'&gt;: &lt;function dump_long at 0xb7a2dbfc&gt;,
- &lt;type 'dict'&gt;: &lt;function dump_struct at 0xb7a2dd14&gt;,
- &lt;type 'NoneType'&gt;: &lt;function dump_nil at 0xb7a2db54&gt;,
-..."><code class="variable-group">{</code>&lt;type 'bool'&gt;<code class="variable-op">: </code>&lt;function dump_bool at 0xb7a2dbc4&gt;<code class="variable-op">,</code><code class="variable-ellipsis">...</code></code>
+        <a href="xmlrpclib.Marshaller-class.html#dispatch" class="summary-name">dispatch</a> = <code title="{&lt;type 'bool'&gt;: &lt;function dump_bool at 0x1f70140&gt;,
+ &lt;type 'instance'&gt;: &lt;function dump_instance at 0x1f705f0&gt;,
+ &lt;type 'float'&gt;: &lt;function dump_double at 0x1f70230&gt;,
+ &lt;type 'int'&gt;: &lt;function dump_int at 0x1f700c8&gt;,
+ &lt;type 'list'&gt;: &lt;function dump_array at 0x1f70398&gt;,
+ &lt;type 'long'&gt;: &lt;function dump_long at 0x1f701b8&gt;,
+ &lt;type 'dict'&gt;: &lt;function dump_struct at 0x1f70410&gt;,
+ &lt;type 'NoneType'&gt;: &lt;function dump_nil at 0x1f70050&gt;,
+..."><code class="variable-group">{</code>&lt;type 'bool'&gt;<code class="variable-op">: </code>&lt;function dump_bool at 0x1f70140&gt;<code class="variable-op">, </code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -378,14 +432,14 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-group">{</code>&lt;type 'bool'&gt;<code class="variable-op">: </code>&lt;function dump_bool at 0xb7a2dbc4&gt;<code class="variable-op">,</code>
- &lt;type 'instance'&gt;<code class="variable-op">: </code>&lt;function dump_instance at 0xb7a2dd4c&gt;<code class="variable-op">,</code>
- &lt;type 'float'&gt;<code class="variable-op">: </code>&lt;function dump_double at 0xb7a2dc34&gt;<code class="variable-op">,</code>
- &lt;type 'int'&gt;<code class="variable-op">: </code>&lt;function dump_int at 0xb7a2db8c&gt;<code class="variable-op">,</code>
- &lt;type 'list'&gt;<code class="variable-op">: </code>&lt;function dump_array at 0xb7a2dcdc&gt;<code class="variable-op">,</code>
- &lt;type 'long'&gt;<code class="variable-op">: </code>&lt;function dump_long at 0xb7a2dbfc&gt;<code class="variable-op">,</code>
- &lt;type 'dict'&gt;<code class="variable-op">: </code>&lt;function dump_struct at 0xb7a2dd14&gt;<code class="variable-op">,</code>
- &lt;type 'NoneType'&gt;<code class="variable-op">: </code>&lt;function dump_nil at 0xb7a2db54&gt;<code class="variable-op">,</code>
+<code class="variable-group">{</code>&lt;type 'bool'&gt;<code class="variable-op">: </code>&lt;function dump_bool at 0x1f70140&gt;<code class="variable-op">,</code>
+ &lt;type 'instance'&gt;<code class="variable-op">: </code>&lt;function dump_instance at 0x1f705f0&gt;<code class="variable-op">,</code>
+ &lt;type 'float'&gt;<code class="variable-op">: </code>&lt;function dump_double at 0x1f70230&gt;<code class="variable-op">,</code>
+ &lt;type 'int'&gt;<code class="variable-op">: </code>&lt;function dump_int at 0x1f700c8&gt;<code class="variable-op">,</code>
+ &lt;type 'list'&gt;<code class="variable-op">: </code>&lt;function dump_array at 0x1f70398&gt;<code class="variable-op">,</code>
+ &lt;type 'long'&gt;<code class="variable-op">: </code>&lt;function dump_long at 0x1f701b8&gt;<code class="variable-op">,</code>
+ &lt;type 'dict'&gt;<code class="variable-op">: </code>&lt;function dump_struct at 0x1f70410&gt;<code class="variable-op">,</code>
+ &lt;type 'NoneType'&gt;<code class="variable-op">: </code>&lt;function dump_nil at 0x1f70050&gt;<code class="variable-op">,</code>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -416,10 +470,11 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:09:00 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:17 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -430,9 +485,8 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

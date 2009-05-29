@@ -43,7 +43,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="proxy.apacheHandler.apacheHandler-class.html"
@@ -53,23 +53,12 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class apacheHandler</h1><span class="codelink"><a href="proxy.apacheHandler-pysrc.html#apacheHandler">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class apacheHandler</h1><p class="nomargin-top"><span class="codelink"><a href="proxy.apacheHandler-pysrc.html#apacheHandler">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_proxy_ap" name="uml_class_diagram_for_proxy_ap">
-<area shape="rect" href="proxy.apacheHandler.apacheHandler&#45;class.html#normalize" title="convert a response to the right type for passing back to  rpclib.xmlrpclib.dumps" alt="" coords="17,36,223,55" />
-<area shape="rect" href="proxy.apacheHandler.apacheHandler&#45;class.html#headerParserHandler" title="Name&#45;munging if request came from anaconda in response to a kickstart." alt="" coords="17,55,223,73" />
-<area shape="rect" href="proxy.apacheHandler.apacheHandler&#45;class.html#cleanupHandler" title="Clean up stuff before we close down the session when we are called from  apacheServer.Cleanup()" alt="" coords="17,73,223,92" />
-<area shape="rect" href="proxy.apacheHandler.apacheHandler&#45;class.html#handler" title="Main handler to handle all requests pumped through this server." alt="" coords="17,92,223,111" />
-<area shape="rect" href="proxy.apacheHandler.apacheHandler&#45;class.html#set_component" title="proxy.apacheHandler.apacheHandler.set_component" alt="" coords="17,111,223,129" />
-<area shape="rect" href="proxy.apacheHandler.apacheHandler&#45;class.html#response" title="send the response (common code)" alt="" coords="17,129,223,148" />
-<area shape="rect" href="proxy.apacheHandler.apacheHandler&#45;class.html#__init__" title="proxy.apacheHandler.apacheHandler.__init__" alt="" coords="17,148,223,167" />
-<area shape="rect" href="proxy.apacheHandler.apacheHandler&#45;class.html#response_file" title="send a file out" alt="" coords="17,167,223,185" />
-<area shape="rect" href="proxy.apacheHandler.apacheHandler&#45;class.html" title="Main apache entry point for the proxy." alt="" coords="5,5,235,192" />
-</map>
-  <img src="uml_class_diagram_for_proxy_ap.gif" alt='' usemap="#uml_class_diagram_for_proxy_ap" ismap="ismap" class="graph-without-title" />
-</center></center>
+
+</center>
 <hr />
-Main apache entry point for the proxy.<br /><br />
+<p>Main apache entry point for the proxy.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -163,7 +152,7 @@ Main apache entry point for the proxy.<br /><br />
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="proxy.apacheHandler.apacheHandler-class.html#_transformKickstartRequest" class="summary-sig-name">_transformKickstartRequest</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="proxy.apacheHandler.apacheHandler-class.html#_transformKickstartRequest" class="summary-sig-name" onclick="show_private();">_transformKickstartRequest</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">req</span>)</span><br />
       If necessary, this routine will transform a &quot;tinified&quot; 
       anaconda- generated kickstart request into a normalized form capable 
@@ -217,9 +206,9 @@ Main apache entry point for the proxy.<br /><br />
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="proxy.apacheHandler.apacheHandler-class.html#_querySatelliteForChecksum" class="summary-sig-name">_querySatelliteForChecksum</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="proxy.apacheHandler.apacheHandler-class.html#_querySatelliteForChecksum" class="summary-sig-name" onclick="show_private();">_querySatelliteForChecksum</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">req</span>)</span><br />
-      Sends a HEAD request to the satellite for the purpose of obtaining
+      Sends a HEAD request to the satellite for the purpose of obtaining 
       the checksum for the requested resource.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="proxy.apacheHandler-pysrc.html#apacheHandler._querySatelliteForChecksum">source&nbsp;code</a></span>
@@ -236,7 +225,7 @@ Main apache entry point for the proxy.<br /><br />
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="proxy.apacheHandler.apacheHandler-class.html#_generateCacheableKickstartURI" class="summary-sig-name">_generateCacheableKickstartURI</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="proxy.apacheHandler.apacheHandler-class.html#_generateCacheableKickstartURI" class="summary-sig-name" onclick="show_private();">_generateCacheableKickstartURI</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">oldURI</span>,
         <span class="summary-sig-arg">checksum</span>)</span><br />
       This routine computes a new cacheable URI based on the old URI and the
@@ -277,8 +266,7 @@ checksum.</td>
         <tr>
           <td><span class="summary-sig"><a name="handler"></a><span class="summary-sig-name">handler</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">req</span>)</span><br />
-      Main handler to handle all requests pumped through this 
-      server.</td>
+      Main handler to handle all requests pumped through this server.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="proxy.apacheHandler-pysrc.html#apacheHandler.handler">source&nbsp;code</a></span>
             
@@ -371,7 +359,7 @@ checksum.</td>
         <tr>
           <td><span class="summary-sig"><a name="cleanupHandler"></a><span class="summary-sig-name">cleanupHandler</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">req</span>)</span><br />
-      Clean up stuff before we close down the session when we are called
+      Clean up stuff before we close down the session when we are called 
       from apacheServer.Cleanup()</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="proxy.apacheHandler-pysrc.html#apacheHandler.cleanupHandler">source&nbsp;code</a></span>
@@ -439,16 +427,16 @@ checksum.</td>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="proxy.apacheHandler-pysrc.html#apacheHandler._transformKickstartRequest">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
   <p>If necessary, this routine will transform a &quot;tinified&quot; 
   anaconda- generated kickstart request into a normalized form capable of 
   being cached effectively by squid.</p>
-  This is done by first making a HEAD request to the satellite for the 
+  <p>This is done by first making a HEAD request to the satellite for the 
   purpose of updating the kickstart progress and retrieving an MD5 sum for 
   the requested file.  We then replace the tinyURL part of the URI with the
   retrieved MD5 sum.  This effectively removes session-specific information
-  while allowing us to still cache based on the uniqueness of the file.
+  while allowing us to still cache based on the uniqueness of the file.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -466,13 +454,13 @@ checksum.</td>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="proxy.apacheHandler-pysrc.html#apacheHandler._querySatelliteForChecksum">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Sends a HEAD request to the satellite for the purpose of obtaining the
+  <p>Sends a HEAD request to the satellite for the purpose of obtaining the
   checksum for the requested resource.  A (status, checksum) tuple is 
   returned.  If status is not apache.OK, checksum will be None.  If status 
   is OK, and a checksum is not returned, the old BZ 158236 behavior will be
-  used.
+  used.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -491,7 +479,7 @@ checksum.</td>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="proxy.apacheHandler-pysrc.html#apacheHandler._generateCacheableKickstartURI">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
   <pre class="literalblock">
 
@@ -535,10 +523,11 @@ If for some reason the new URI could not be generated, return None.
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:55 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:06 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -549,9 +538,8 @@ If for some reason the new URI could not be generated, return None.
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

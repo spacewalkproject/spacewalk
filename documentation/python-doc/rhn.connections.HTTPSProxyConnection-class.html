@@ -35,7 +35,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="rhn-module.html">Package&nbsp;rhn</a> ::
-        <a href="rhn.connections-module.html">Module&nbsp;connections</a> ::
+        <a href="rhn.connections-module.html" onclick="show_private();">Module&nbsp;connections</a> ::
         Class&nbsp;HTTPSProxyConnection
       </span>
     </td>
@@ -43,7 +43,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="rhn.connections.HTTPSProxyConnection-class.html"
@@ -53,33 +53,10 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class HTTPSProxyConnection</h1><span class="codelink"><a href="rhn.connections-pysrc.html#HTTPSProxyConnection">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class HTTPSProxyConnection</h1><p class="nomargin-top"><span class="codelink"><a href="rhn.connections-pysrc.html#HTTPSProxyConnection">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_rhn_conn_5" name="uml_class_diagram_for_rhn_conn_5">
-<area shape="rect" href="javascript: void(0);" title="httplib.HTTPConnection.auto_open" alt="" coords="232,28,595,47" />
-<area shape="rect" href="javascript: void(0);" title="httplib.HTTPConnection.strict" alt="" coords="232,47,595,66" />
-<area shape="rect" href="javascript: void(0);" title="httplib.HTTPConnection.debuglevel" alt="" coords="232,66,595,84" />
-<area shape="rect" href="javascript: void(0);" title="Indicate that the last header line has been sent to the server." alt="" coords="232,87,595,106" />
-<area shape="rect" href="javascript: void(0);" title="Send a request header line to the server." alt="" coords="232,106,595,124" />
-<area shape="rect" href="javascript: void(0);" title="Send a complete request to the server." alt="" coords="232,124,595,143" />
-<area shape="rect" href="javascript: void(0);" title="httplib.HTTPConnection.set_debuglevel" alt="" coords="232,143,595,162" />
-<area shape="rect" href="javascript: void(0);" title="Send `str&#39; to the server." alt="" coords="232,162,595,180" />
-<area shape="rect" href="javascript: void(0);" title="Close the connection to the HTTP server." alt="" coords="232,180,595,199" />
-<area shape="rect" href="javascript: void(0);" title="httplib.HTTPConnection" alt="" coords="220,6,607,206" />
-<area shape="rect" href="rhn.connections.HTTPResponse&#45;class.html" title="rhn.connections.HTTPConnection.response_class" alt="" coords="266,247,562,266" />
-<area shape="rect" href="rhn.connections.HTTPConnection&#45;class.html#set_callback" title="rhn.connections.HTTPConnection.set_callback" alt="" coords="266,268,562,287" />
-<area shape="rect" href="rhn.connections.HTTPConnection&#45;class.html#set_user_agent" title="rhn.connections.HTTPConnection.set_user_agent" alt="" coords="266,287,562,306" />
-<area shape="rect" href="rhn.connections.HTTPConnection&#45;class.html#getresponse" title="Get the response from the server." alt="" coords="266,306,562,324" />
-<area shape="rect" href="rhn.connections.HTTPConnection&#45;class.html" title="rhn.connections.HTTPConnection" alt="" coords="254,224,574,331" />
-<area shape="rect" href="rhn.connections.HTTPProxyConnection&#45;class.html" title="rhn.connections.HTTPProxyConnection" alt="" coords="334,350,494,392" />
-<area shape="rect" href="rhn.connections.HTTPSProxyConnection&#45;class.html#default_port" title="rhn.connections.HTTPSProxyConnection.default_port" alt="" coords="18,434,810,452" />
-<area shape="rect" href="rhn.connections.HTTPSProxyConnection&#45;class.html#connect" title="Connect to the host and port specified in __init__." alt="" coords="18,455,810,474" />
-<area shape="rect" href="rhn.connections.HTTPSProxyConnection&#45;class.html#__init__" title="rhn.connections.HTTPSProxyConnection.__init__" alt="" coords="18,474,810,492" />
-<area shape="rect" href="rhn.connections.HTTPSProxyConnection&#45;class.html#putrequest" title="Send a request to the server." alt="" coords="18,492,810,511" />
-<area shape="rect" href="rhn.connections.HTTPSProxyConnection&#45;class.html" title="rhn.connections.HTTPSProxyConnection" alt="" coords="6,411,822,518" />
-</map>
-  <img src="uml_class_diagram_for_rhn_conn_5.gif" alt='' usemap="#uml_class_diagram_for_rhn_conn_5" ismap="ismap" class="graph-without-title" />
-</center></center>
+
+</center>
 <hr />
 <!-- ==================== NESTED CLASSES ==================== -->
 <a name="section-NestedClasses"></a>
@@ -129,13 +106,13 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="rhn.connections.HTTPSProxyConnection-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">proxy</span>,
         <span class="summary-sig-arg">host</span>,
-        <span class="summary-sig-arg">port</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">username</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">password</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">trusted_certs</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span></td>
+        <span class="summary-sig-arg">port</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">username</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">password</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">trusted_certs</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="rhn.connections-pysrc.html#HTTPSProxyConnection.__init__">source&nbsp;code</a></span>
             
@@ -151,7 +128,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="connect"></a><span class="summary-sig-name">connect</span>(<span class="summary-sig-arg">self</span>)</span><br />
+          <td><span class="summary-sig"><a href="rhn.connections.HTTPSProxyConnection-class.html#connect" class="summary-sig-name">connect</a>(<span class="summary-sig-arg">self</span>)</span><br />
       Connect to the host and port specified in __init__.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="rhn.connections-pysrc.html#HTTPSProxyConnection.connect">source&nbsp;code</a></span>
@@ -168,7 +145,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="putrequest"></a><span class="summary-sig-name">putrequest</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="rhn.connections.HTTPSProxyConnection-class.html#putrequest" class="summary-sig-name">putrequest</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">method</span>,
         <span class="summary-sig-arg">url</span>,
         <span class="summary-sig-arg">skip_host</span>=<span class="summary-sig-default">0</span>)</span><br />
@@ -188,7 +165,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_add_proxy_headers"></a><span class="summary-sig-name">_add_proxy_headers</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a href="rhn.connections.HTTPSProxyConnection-class.html#_add_proxy_headers" class="summary-sig-name" onclick="show_private();">_add_proxy_headers</a>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="rhn.connections-pysrc.html#HTTPSProxyConnection._add_proxy_headers">source&nbsp;code</a></span>
             
@@ -260,6 +237,134 @@
     </td>
   </tr>
 </table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">proxy</span>,
+        <span class="sig-arg">host</span>,
+        <span class="sig-arg">port</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">username</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">password</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">trusted_certs</span>=<span class="sig-default">None</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="rhn.connections-pysrc.html#HTTPSProxyConnection.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        httplib.HTTPConnection.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="connect"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">connect</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="rhn.connections-pysrc.html#HTTPSProxyConnection.connect">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Connect to the host and port specified in __init__.</p>
+  <dl class="fields">
+    <dt>Overrides:
+        httplib.HTTPConnection.connect
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="putrequest"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">putrequest</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">method</span>,
+        <span class="sig-arg">url</span>,
+        <span class="sig-arg">skip_host</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="rhn.connections-pysrc.html#HTTPSProxyConnection.putrequest">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Send a request to the server.
+
+`method' specifies an HTTP request method, e.g. 'GET'.
+`url' specifies the object being requested, e.g. '/index.html'.
+`skip_host' if True does not add automatically a 'Host:' header
+`skip_accept_encoding' if True does not add automatically an
+   'Accept-Encoding:' header
+
+</pre>
+  <dl class="fields">
+    <dt>Overrides:
+        httplib.HTTPConnection.putrequest
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_add_proxy_headers"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_add_proxy_headers</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="rhn.connections-pysrc.html#HTTPSProxyConnection._add_proxy_headers">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="rhn.connections.HTTPProxyConnection-class.html#_add_proxy_headers" onclick="show_private();">HTTPProxyConnection._add_proxy_headers</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -283,10 +388,11 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:57 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:07 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -297,9 +403,8 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

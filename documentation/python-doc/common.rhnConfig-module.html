@@ -42,7 +42,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="common.rhnConfig-module.html"
@@ -52,7 +52,7 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module rhnConfig</h1><span class="codelink"><a href="common.rhnConfig-pysrc.html">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Module rhnConfig</h1><p class="nomargin-top"><span class="codelink"><a href="common.rhnConfig-pysrc.html">source&nbsp;code</a></span></p>
 <!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -74,7 +74,8 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="common.rhnConfig.ConfigParserError-class.html" class="summary-name">ConfigParserError</a>
+        <a href="common.rhnConfig.ConfigParserError-class.html" class="summary-name">ConfigParserError</a><br />
+      Exception class we're using to expose fatal errors
     </td>
   </tr>
 <tr>
@@ -108,7 +109,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="warn"></a><span class="summary-sig-name">warn</span>(<span class="summary-sig-arg">*args</span>)</span></td>
+          <td><span class="summary-sig"><a name="warn"></a><span class="summary-sig-name">warn</span>(<span class="summary-sig-arg">*args</span>)</span><br />
+      Function used for debugging purposes</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnConfig-pysrc.html#warn">source&nbsp;code</a></span>
             
@@ -124,7 +126,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="parse_comps"></a><span class="summary-sig-name">parse_comps</span>(<span class="summary-sig-arg">component</span>)</span></td>
+          <td><span class="summary-sig"><a href="common.rhnConfig-module.html#parse_comps" class="summary-sig-name">parse_comps</a>(<span class="summary-sig-arg">component</span>)</span><br />
+      Splits a component name (a.b.c) into a list of tuples that can be 
+      joined together to determine a config file name Eg.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnConfig-pysrc.html#parse_comps">source&nbsp;code</a></span>
             
@@ -140,7 +144,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="parse_line"></a><span class="summary-sig-name">parse_line</span>(<span class="summary-sig-arg">line</span>)</span></td>
+          <td><span class="summary-sig"><a href="common.rhnConfig-module.html#parse_line" class="summary-sig-name">parse_line</a>(<span class="summary-sig-arg">line</span>)</span><br />
+      Parse a config line...</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnConfig-pysrc.html#parse_line">source&nbsp;code</a></span>
             
@@ -156,9 +161,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="unparse_line"></a><span class="summary-sig-name">unparse_line</span>(<span class="summary-sig-arg">component</span>,
+          <td><span class="summary-sig"><a href="common.rhnConfig-module.html#unparse_line" class="summary-sig-name">unparse_line</a>(<span class="summary-sig-arg">component</span>,
         <span class="summary-sig-arg">key</span>,
-        <span class="summary-sig-arg">value</span>)</span></td>
+        <span class="summary-sig-arg">value</span>)</span><br />
+      component needs to be in (component1, component2) notation...</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnConfig-pysrc.html#unparse_line">source&nbsp;code</a></span>
             
@@ -175,7 +181,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="parse_file"></a><span class="summary-sig-name">parse_file</span>(<span class="summary-sig-arg">file</span>,
-        <span class="summary-sig-arg">single_key</span>=<span class="summary-sig-default">0</span>)</span></td>
+        <span class="summary-sig-arg">single_key</span>=<span class="summary-sig-default">0</span>)</span><br />
+      parse a config file (read it in, parse its lines)</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnConfig-pysrc.html#parse_file">source&nbsp;code</a></span>
             
@@ -191,7 +198,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="read_file"></a><span class="summary-sig-name">read_file</span>(<span class="summary-sig-arg">file</span>)</span></td>
+          <td><span class="summary-sig"><a name="read_file"></a><span class="summary-sig-name">read_file</span>(<span class="summary-sig-arg">file</span>)</span><br />
+      reads a text config file and returns its lines in a list</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnConfig-pysrc.html#read_file">source&nbsp;code</a></span>
             
@@ -207,17 +215,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="common.rhnConfig-module.html#getAllComponents_tree" class="summary-sig-name">getAllComponents_tree</a>(<span class="summary-sig-arg">defaultDir</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span><br />
-      Figure out all components and return them in a tree-like structure
-
-{'server', {'server.app':{},
-            'server.satellite':{},
-            'server.applet':{}, 'server.bugzilla':{},
-            'server.sat':{}, 'server.xmlrpc':{}, 'server.xp':{}},
- 'web': {},
- 'tools': {}}
-
-NOTE: this was begging for recursion...</td>
+          <td><span class="summary-sig"><a href="common.rhnConfig-module.html#getAllComponents_tree" class="summary-sig-name">getAllComponents_tree</a>(<span class="summary-sig-arg">defaultDir</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Figure out all components and return them in a tree-like structure</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnConfig-pysrc.html#getAllComponents_tree">source&nbsp;code</a></span>
             
@@ -233,10 +232,10 @@ NOTE: this was begging for recursion...</td>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="getAllComponents"></a><span class="summary-sig-name">getAllComponents</span>(<span class="summary-sig-arg">defaultDir</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">compsTree</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span><br />
-      recursively flattens the results of getAllComponents_tree 
-      returning a list of all components</td>
+          <td><span class="summary-sig"><a name="getAllComponents"></a><span class="summary-sig-name">getAllComponents</span>(<span class="summary-sig-arg">defaultDir</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">compsTree</span>=<span class="summary-sig-default">None</span>)</span><br />
+      recursively flattens the results of getAllComponents_tree returning a
+      list of all components</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnConfig-pysrc.html#getAllComponents">source&nbsp;code</a></span>
             
@@ -252,7 +251,7 @@ NOTE: this was begging for recursion...</td>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="getAllComponents_tuples"></a><span class="summary-sig-name">getAllComponents_tuples</span>(<span class="summary-sig-arg">defaultDir</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span><br />
+          <td><span class="summary-sig"><a name="getAllComponents_tuples"></a><span class="summary-sig-name">getAllComponents_tuples</span>(<span class="summary-sig-arg">defaultDir</span>=<span class="summary-sig-default">None</span>)</span><br />
       returns a list of ALL components in the tuple-ified format: E.g., 
       [(), ('a',), ('a','b'), ('a','b','c'), ...]</td>
           <td align="right" valign="top">
@@ -270,9 +269,10 @@ NOTE: this was begging for recursion...</td>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="initCFG"></a><span class="summary-sig-name">initCFG</span>(<span class="summary-sig-arg">component</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">root</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span></td>
+          <td><span class="summary-sig"><a name="initCFG"></a><span class="summary-sig-name">initCFG</span>(<span class="summary-sig-arg">component</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">root</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Main entry point here</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnConfig-pysrc.html#initCFG">source&nbsp;code</a></span>
             
@@ -320,21 +320,21 @@ NOTE: this was begging for recursion...</td>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="_CONFIG_ROOT"></a><span class="summary-name">_CONFIG_ROOT</span> = <code title="'/etc/rhn'"><code class="variable-quote">'</code><code class="variable-string">/etc/rhn</code><code class="variable-quote">'</code></code>
+        <a name="_CONFIG_ROOT"></a><span class="summary-name">_CONFIG_ROOT</span> = <code title="'/etc/rhn'">'/etc/rhn'</code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="_CONFIG_FILE"></a><span class="summary-name">_CONFIG_FILE</span> = <code title="'/etc/rhn/rhn.conf'"><code class="variable-quote">'</code><code class="variable-string">/etc/rhn/rhn.conf</code><code class="variable-quote">'</code></code>
+        <a name="_CONFIG_FILE"></a><span class="summary-name">_CONFIG_FILE</span> = <code title="'%s/rhn.conf' % _CONFIG_ROOT">'%s/rhn.conf' % _CONFIG_ROOT</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="CFG"></a><span class="summary-name">CFG</span> = <code title="&lt;RHNOptions instance at -1215209364: Uninitialized&gt;">&lt;RHNOptions instance at -1215209364: Uninitialized&gt;</code>
+        <a name="CFG"></a><span class="summary-name">CFG</span> = <code title="RHNOptions()">RHNOptions()</code>
     </td>
   </tr>
 </table>
@@ -356,6 +356,75 @@ NOTE: this was begging for recursion...</td>
   </td>
 </tr>
 </table>
+<a name="parse_comps"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">parse_comps</span>(<span class="sig-arg">component</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="common.rhnConfig-pysrc.html#parse_comps">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Splits a component name (a.b.c) into a list of tuples that can be 
+  joined together to determine a config file name Eg. a.b.c --&gt; [(), 
+  ('a',), ('a','b'), ('a','b','c')]</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="parse_line"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">parse_line</span>(<span class="sig-arg">line</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="common.rhnConfig-pysrc.html#parse_line">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Parse a config line... Returns a tuple (keys, values), or (None, None)
+  if we don't care about this line</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="unparse_line"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">unparse_line</span>(<span class="sig-arg">component</span>,
+        <span class="sig-arg">key</span>,
+        <span class="sig-arg">value</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="common.rhnConfig-pysrc.html#unparse_line">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+component needs to be in (component1, component2) notation
+key is a string
+value can be a string, None, int or float ...or [value,value]
+                                          ...or (value, linenum)
+return 'comonent1.component2.key = value, value
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
 <a name="getAllComponents_tree"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -363,12 +432,12 @@ NOTE: this was begging for recursion...</td>
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">getAllComponents_tree</span>(<span class="sig-arg">defaultDir</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getAllComponents_tree</span>(<span class="sig-arg">defaultDir</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="common.rhnConfig-pysrc.html#getAllComponents_tree">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
   <pre class="literalblock">
 Figure out all components and return them in a tree-like structure
@@ -376,7 +445,7 @@ Figure out all components and return them in a tree-like structure
 {'server', {'server.app':{},
             'server.satellite':{},
             'server.applet':{}, 'server.bugzilla':{},
-            'server.sat':{}, 'server.xmlrpc':{}, 'server.xp':{}},
+            'server.iss':{}, 'server.xmlrpc':{}, 'server.xp':{}},
  'web': {},
  'tools': {}}
 
@@ -411,10 +480,11 @@ NOTE: this was begging for recursion... I avoided that like the plague
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:48 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -425,9 +495,8 @@ NOTE: this was begging for recursion... I avoided that like the plague
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

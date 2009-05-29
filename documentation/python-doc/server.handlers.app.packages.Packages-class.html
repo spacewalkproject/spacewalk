@@ -46,7 +46,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="server.handlers.app.packages.Packages-class.html"
@@ -56,29 +56,10 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class Packages</h1><span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class Packages</h1><p class="nomargin-top"><span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_server_h_3" name="uml_class_diagram_for_server_h_3">
-<area shape="rect" href="common.RPC_Base%27.RPC_Base&#45;class.html#get_function" title="common.RPC_Base&#39;.RPC_Base.get_function" alt="" coords="123,36,317,55" />
-<area shape="rect" href="common.RPC_Base%27.RPC_Base&#45;class.html" title="common.RPC_Base&#39;.RPC_Base" alt="" coords="111,6,329,62" />
-<area shape="rect" href="server.handlers.app.packages.Packages&#45;class.html#uploadPackageInfoBySession" title="server.handlers.app.packages.Packages.uploadPackageInfoBySession" alt="" coords="17,111,423,130" />
-<area shape="rect" href="server.handlers.app.packages.Packages&#45;class.html#no_op" title="server.handlers.app.packages.Packages.no_op" alt="" coords="17,130,423,148" />
-<area shape="rect" href="server.handlers.app.packages.Packages&#45;class.html#check_session" title="server.handlers.app.packages.Packages.check_session" alt="" coords="17,148,423,167" />
-<area shape="rect" href="server.handlers.app.packages.Packages&#45;class.html#getSourcePackageMD5sum" title="server.handlers.app.packages.Packages.getSourcePackageMD5sum" alt="" coords="17,167,423,186" />
-<area shape="rect" href="server.handlers.app.packages.Packages&#45;class.html#listChannelSource" title="server.handlers.app.packages.Packages.listChannelSource" alt="" coords="17,186,423,204" />
-<area shape="rect" href="server.handlers.app.packages.Packages&#45;class.html#uploadPackageInfo" title="server.handlers.app.packages.Packages.uploadPackageInfo" alt="" coords="17,204,423,223" />
-<area shape="rect" href="server.handlers.app.packages.Packages&#45;class.html#listMissingSourcePackages" title="server.handlers.app.packages.Packages.listMissingSourcePackages" alt="" coords="17,223,423,242" />
-<area shape="rect" href="server.handlers.app.packages.Packages&#45;class.html#__init__" title="server.handlers.app.packages.Packages.__init__" alt="" coords="17,242,423,260" />
-<area shape="rect" href="server.handlers.app.packages.Packages&#45;class.html#getPackageMD5sum" title="server.handlers.app.packages.Packages.getPackageMD5sum" alt="" coords="17,260,423,279" />
-<area shape="rect" href="server.handlers.app.packages.Packages&#45;class.html#uploadPackageBySession" title="server.handlers.app.packages.Packages.uploadPackageBySession" alt="" coords="17,279,423,298" />
-<area shape="rect" href="server.handlers.app.packages.Packages&#45;class.html#uploadSourcePackageInfoBySession" title="server.handlers.app.packages.Packages.uploadSourcePackageInfoBySession" alt="" coords="17,298,423,316" />
-<area shape="rect" href="server.handlers.app.packages.Packages&#45;class.html#channelPackageSubscriptionBySession" title="server.handlers.app.packages.Packages.channelPackageSubscriptionBySession" alt="" coords="17,316,423,335" />
-<area shape="rect" href="server.handlers.app.packages.Packages&#45;class.html#listChannelSourceBySession" title="server.handlers.app.packages.Packages.listChannelSourceBySession" alt="" coords="17,335,423,354" />
-<area shape="rect" href="server.handlers.app.packages.Packages&#45;class.html#getPackageMD5sumBySession" title="server.handlers.app.packages.Packages.getPackageMD5sumBySession" alt="" coords="17,372,423,391" />
-<area shape="rect" href="server.handlers.app.packages.Packages&#45;class.html" title="server.handlers.app.packages.Packages" alt="" coords="5,80,435,398" />
-</map>
-  <img src="uml_class_diagram_for_server_h_3.gif" alt='' usemap="#uml_class_diagram_for_server_h_3" ismap="ismap" class="graph-without-title" />
-</center></center>
+
+</center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -303,7 +284,8 @@
           <td><span class="summary-sig"><a name="listChannel"></a><span class="summary-sig-name">listChannel</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">channelList</span>,
         <span class="summary-sig-arg">username</span>,
-        <span class="summary-sig-arg">password</span>)</span></td>
+        <span class="summary-sig-arg">password</span>)</span><br />
+      list packages of a specified channel</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.listChannel">source&nbsp;code</a></span>
             
@@ -502,7 +484,8 @@
           <td><span class="summary-sig"><a name="uploadPackage"></a><span class="summary-sig-name">uploadPackage</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">username</span>,
         <span class="summary-sig-arg">password</span>,
-        <span class="summary-sig-arg">info</span>)</span></td>
+        <span class="summary-sig-arg">info</span>)</span><br />
+      Uploads an RPM package</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.uploadPackage">source&nbsp;code</a></span>
             
@@ -540,7 +523,8 @@
         <span class="summary-sig-arg">channels</span>,
         <span class="summary-sig-arg">org_id</span>,
         <span class="summary-sig-arg">force</span>,
-        <span class="summary-sig-arg">info</span>)</span></td>
+        <span class="summary-sig-arg">info</span>)</span><br />
+      Write the bits to a temporary file</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages._uploadPackage">source&nbsp;code</a></span>
             
@@ -559,7 +543,8 @@
           <td><span class="summary-sig"><a name="channelPackageSubscription"></a><span class="summary-sig-name">channelPackageSubscription</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">username</span>,
         <span class="summary-sig-arg">password</span>,
-        <span class="summary-sig-arg">info</span>)</span></td>
+        <span class="summary-sig-arg">info</span>)</span><br />
+      Uploads an RPM package</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.channelPackageSubscription">source&nbsp;code</a></span>
             
@@ -628,10 +613,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="getPackageMD5sum"></a><span class="summary-sig-name">getPackageMD5sum</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.handlers.app.packages.Packages-class.html#getPackageMD5sum" class="summary-sig-name">getPackageMD5sum</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">username</span>,
         <span class="summary-sig-arg">password</span>,
-        <span class="summary-sig-arg">info</span>)</span></td>
+        <span class="summary-sig-arg">info</span>)</span><br />
+      bug#177762 gives md5sum info of available packages.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.getPackageMD5sum">source&nbsp;code</a></span>
             
@@ -751,13 +737,6 @@
       
     </td>
   </tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.RPC_Base%27.RPC_Base-class.html">common.RPC_Base'.RPC_Base</a></code></b>:
-      <code><a href="common.RPC_Base%27.RPC_Base-class.html#get_function">get_function</a></code>
-      </p>
-    </td>
-  </tr>
 </table>
 <!-- ==================== CLASS VARIABLES ==================== -->
 <a name="section-ClassVariables"></a>
@@ -780,7 +759,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.app.packages.Packages-class.html#_query_count_channel_servers" class="summary-name">_query_count_channel_servers</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.handlers.app.packages.Packages-class.html#_query_count_channel_servers" class="summary-name" onclick="show_private();">_query_count_channel_servers</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
         select count(*) server_count
           from rhnServerChannel sc, 
                rhnChannel c
@@ -789,7 +768,64 @@
     &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="server.handlers.app.packages.Packages-class.html#_get_pkg_info_query" class="summary-name" onclick="show_private();">_get_pkg_info_query</a> = <code title="&quot;&quot;&quot;
+        select
+               p.md5sum md5sum,
+               p.path path
+         from
+               rhnPackageEVR pe,
+               rhnPackageName pn,
+               rhnPackage p,
+..."><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
 </table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="getPackageMD5sum"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getPackageMD5sum</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">username</span>,
+        <span class="sig-arg">password</span>,
+        <span class="sig-arg">info</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.getPackageMD5sum">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>bug#177762 gives md5sum info of available packages. also does an 
+  existance check on the filesystem.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== CLASS VARIABLE DETAILS ==================== -->
 <a name="section-ClassVariableDetails"></a>
 <table class="details" border="1" cellpadding="3"
@@ -832,6 +868,32 @@ rhnSQL.Statement(&quot;&quot;&quot;
   </dl>
 </td></tr></table>
 </div>
+<a name="_get_pkg_info_query"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_get_pkg_info_query</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+&quot;&quot;&quot;
+        select
+               p.md5sum md5sum,
+               p.path path
+         from
+               rhnPackageEVR pe,
+               rhnPackageName pn,
+               rhnPackage p,
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
 <br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
@@ -856,10 +918,11 @@ rhnSQL.Statement(&quot;&quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:08:29 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:14 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -870,9 +933,8 @@ rhnSQL.Statement(&quot;&quot;&quot;
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

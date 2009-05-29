@@ -46,7 +46,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="server.handlers.app.channel.Channel-class.html"
@@ -56,29 +56,10 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class Channel</h1><span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class Channel</h1><p class="nomargin-top"><span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_server_h" name="uml_class_diagram_for_server_h">
-<area shape="rect" href="common.RPC_Base%27.RPC_Base&#45;class.html#get_function" title="common.RPC_Base&#39;.RPC_Base.get_function" alt="" coords="327,36,521,55" />
-<area shape="rect" href="common.RPC_Base%27.RPC_Base&#45;class.html" title="common.RPC_Base&#39;.RPC_Base" alt="" coords="315,6,533,62" />
-<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#deleteChannel" title="server.handlers.app.channel.Channel.deleteChannel" alt="" coords="17,111,831,130" />
-<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#revokeChannelPermission" title="server.handlers.app.channel.Channel.revokeChannelPermission" alt="" coords="17,130,831,148" />
-<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#updateChannelMembership" title="server.handlers.app.channel.Channel.updateChannelMembership" alt="" coords="17,148,831,167" />
-<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#delKSTree" title="server.handlers.app.channel.Channel.delKSTree" alt="" coords="17,167,831,186" />
-<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#channelCreateTransaction" title="server.handlers.app.channel.Channel.channelCreateTransaction" alt="" coords="17,186,831,204" />
-<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#addKSTree" title="server.handlers.app.channel.Channel.addKSTree" alt="" coords="17,204,831,223" />
-<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#updateDist" title="server.handlers.app.channel.Channel.updateDist" alt="" coords="17,223,831,242" />
-<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#__init__" title="server.handlers.app.channel.Channel.__init__" alt="" coords="17,242,831,260" />
-<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#deleteDist" title="server.handlers.app.channel.Channel.deleteDist" alt="" coords="17,260,831,279" />
-<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#checkChannelAuthPermission" title="server.handlers.app.channel.Channel.checkChannelAuthPermission" alt="" coords="17,279,831,298" />
-<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#moveChannelDownloads" title="server.handlers.app.channel.Channel.moveChannelDownloads" alt="" coords="17,298,831,316" />
-<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#lookupChannel" title="server.handlers.app.channel.Channel.lookupChannel" alt="" coords="17,316,831,335" />
-<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#lookupChannelFamily" title="server.handlers.app.channel.Channel.lookupChannelFamily" alt="" coords="17,335,831,354" />
-<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#lookupChannelArch" title="server.handlers.app.channel.Channel.lookupChannelArch" alt="" coords="17,372,831,391" />
-<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html" title="server.handlers.app.channel.Channel" alt="" coords="5,80,843,398" />
-</map>
-  <img src="uml_class_diagram_for_server_h.gif" alt='' usemap="#uml_class_diagram_for_server_h" ismap="ismap" class="graph-without-title" />
-</center></center>
+
+</center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -533,13 +514,6 @@
       
     </td>
   </tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.RPC_Base%27.RPC_Base-class.html">common.RPC_Base'.RPC_Base</a></code></b>:
-      <code><a href="common.RPC_Base%27.RPC_Base-class.html#get_function">get_function</a></code>
-      </p>
-    </td>
-  </tr>
 </table>
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
@@ -564,10 +538,11 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:08:29 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:14 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -578,9 +553,8 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

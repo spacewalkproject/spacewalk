@@ -44,7 +44,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="server.rhnSQL.sql_base.Database-class.html"
@@ -54,29 +54,11 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class Database</h1><span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database">source&nbsp;code</a></span><br /><br />
-<center>
-<center>  <map id="uml_class_diagram_for_server_r_59" name="uml_class_diagram_for_server_r_59">
-<area shape="rect" href="server.rhnSQL.int_oracle.Database&#45;class.html" title="server.rhnSQL.int_oracle.Database" alt="" coords="51,317,205,355" />
-<area shape="rect" href="server.rhnSQL.sql_base.Database&#45;class.html#TimestampFromTicks" title="server.rhnSQL.sql_base.Database.TimestampFromTicks" alt="" coords="17,28,239,47" />
-<area shape="rect" href="server.rhnSQL.sql_base.Database&#45;class.html#function" title="Return a pointer to a callable instance for a given stored function." alt="" coords="17,49,239,68" />
-<area shape="rect" href="server.rhnSQL.sql_base.Database&#45;class.html#transaction" title="set a transaction point to which we can rollback to" alt="" coords="17,68,239,87" />
-<area shape="rect" href="server.rhnSQL.sql_base.Database&#45;class.html#rollback" title="rollback changes, optionally to a previously set transaction point" alt="" coords="17,87,239,105" />
-<area shape="rect" href="server.rhnSQL.sql_base.Database&#45;class.html#prepare" title="Prepare a SQL statement" alt="" coords="17,105,239,124" />
-<area shape="rect" href="server.rhnSQL.sql_base.Database&#45;class.html#cursor" title="return an empty Cursor object" alt="" coords="17,124,239,143" />
-<area shape="rect" href="server.rhnSQL.sql_base.Database&#45;class.html#connect" title="Opens a connection to the database" alt="" coords="17,143,239,161" />
-<area shape="rect" href="server.rhnSQL.sql_base.Database&#45;class.html#__init__" title="server.rhnSQL.sql_base.Database.__init__" alt="" coords="17,161,239,180" />
-<area shape="rect" href="server.rhnSQL.sql_base.Database&#45;class.html#commit" title="Commit changes" alt="" coords="17,180,239,199" />
-<area shape="rect" href="server.rhnSQL.sql_base.Database&#45;class.html#Date" title="Returns a Date object" alt="" coords="17,199,239,217" />
-<area shape="rect" href="server.rhnSQL.sql_base.Database&#45;class.html#close" title="Close the connection" alt="" coords="17,217,239,236" />
-<area shape="rect" href="server.rhnSQL.sql_base.Database&#45;class.html#check" title="check the connection" alt="" coords="17,236,239,255" />
-<area shape="rect" href="server.rhnSQL.sql_base.Database&#45;class.html#procedure" title="Return a pointer to a callable instance for a given stored procedure." alt="" coords="17,255,239,273" />
-<area shape="rect" href="server.rhnSQL.sql_base.Database&#45;class.html#DateFromTicks" title="Returns a Date object" alt="" coords="17,273,239,292" />
-<area shape="rect" href="server.rhnSQL.sql_base.Database&#45;class.html" title="server.rhnSQL.sql_base.Database" alt="" coords="5,5,251,299" />
-</map>
-  <img src="uml_class_diagram_for_server_r_59.gif" alt='' usemap="#uml_class_diagram_for_server_r_59" ismap="ismap" class="graph-without-title" />
-</center></center>
-<hr />
+<h1 class="epydoc">Class Database</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database">source&nbsp;code</a></span></p>
+<p>Base class for handling database operations.</p>
+  <p>Inherited from by the backend specific classes for Oracle, PostgreSQL,
+  etc.</p>
+
 <!-- ==================== NESTED CLASSES ==================== -->
 <a name="section-NestedClasses"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -98,7 +80,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnSQL.sql_base.Procedure-class.html" class="summary-name">_procedure_class</a>
+        <a href="server.rhnSQL.sql_base.Procedure-class.html" class="summary-name" onclick="show_private();">_procedure_class</a>
     </td>
   </tr>
 </table>
@@ -125,48 +107,209 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="Date"></a><span class="summary-sig-name">Date</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">year</span>,
-        <span class="summary-sig-arg">month</span>,
-        <span class="summary-sig-arg">day</span>)</span><br />
-      Returns a Date object</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.Date">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="DateFromTicks"></a><span class="summary-sig-name">DateFromTicks</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">ticks</span>)</span><br />
-      Returns a Date object</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.DateFromTicks">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
           <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">db</span>)</span></td>
+        <span class="summary-sig-arg">host</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">port</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">username</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">password</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">database</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="connect"></a><span class="summary-sig-name">connect</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">reconnect</span>=<span class="summary-sig-default">1</span>)</span><br />
+      Opens a connection to the database.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.connect">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="check_connection"></a><span class="summary-sig-name">check_connection</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Check that this connection is still valid.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.check_connection">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="prepare"></a><span class="summary-sig-name">prepare</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">sql</span>,
+        <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">0</span>)</span><br />
+      Prepare an SQL statement.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.prepare">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="commit"></a><span class="summary-sig-name">commit</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Commit changes</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.commit">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="server.rhnSQL.sql_base.Database-class.html#procedure" class="summary-sig-name">procedure</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>)</span><br />
+      Return a pointer to a callable instance for a given stored procedure.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.procedure">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="server.rhnSQL.sql_base.Database-class.html#function" class="summary-sig-name">function</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">ret_type</span>)</span><br />
+      Return a pointer to a callable instance for a given stored function.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.function">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="transaction"></a><span class="summary-sig-name">transaction</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>)</span><br />
+      set a transaction point to which we can rollback to</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.transaction">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="rollback"></a><span class="summary-sig-name">rollback</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>=<span class="summary-sig-default">None</span>)</span><br />
+      rollback changes, optionally to a previously set transaction point</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.rollback">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="check"></a><span class="summary-sig-name">check</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      check the connection</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.check">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="close"></a><span class="summary-sig-name">close</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Close the connection</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.close">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="cursor"></a><span class="summary-sig-name">cursor</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      return an empty Cursor object</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.cursor">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -215,10 +358,16 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="check"></a><span class="summary-sig-name">check</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      check the connection</td>
+          <td><span class="summary-sig"><a name="is_connected_to"></a><span class="summary-sig-name">is_connected_to</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">backend</span>,
+        <span class="summary-sig-arg">host</span>,
+        <span class="summary-sig-arg">port</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>,
+        <span class="summary-sig-arg">database</span>)</span><br />
+      Check if this database matches the given connection parameters.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.check">source&nbsp;code</a></span>
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.is_connected_to">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -232,10 +381,13 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="close"></a><span class="summary-sig-name">close</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Close the connection</td>
+          <td><span class="summary-sig"><a name="Date"></a><span class="summary-sig-name">Date</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">year</span>,
+        <span class="summary-sig-arg">month</span>,
+        <span class="summary-sig-arg">day</span>)</span><br />
+      Returns a Date object</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.close">source&nbsp;code</a></span>
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.Date">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -249,140 +401,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="commit"></a><span class="summary-sig-name">commit</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Commit changes</td>
+          <td><span class="summary-sig"><a name="DateFromTicks"></a><span class="summary-sig-name">DateFromTicks</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ticks</span>)</span><br />
+      Returns a Date object</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.commit">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="connect"></a><span class="summary-sig-name">connect</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">reconnect</span>=<span class="summary-sig-default">1</span>)</span><br />
-      Opens a connection to the database</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.connect">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="cursor"></a><span class="summary-sig-name">cursor</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      return an empty Cursor object</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.cursor">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="server.rhnSQL.sql_base.Database-class.html#function" class="summary-sig-name">function</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">ret_type</span>)</span><br />
-      Return a pointer to a callable instance for a given stored 
-      function.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.function">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="prepare"></a><span class="summary-sig-name">prepare</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">sql</span>,
-        <span class="summary-sig-arg">force_reparse</span>=<span class="summary-sig-default">0</span>)</span><br />
-      Prepare a SQL statement</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.prepare">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="server.rhnSQL.sql_base.Database-class.html#procedure" class="summary-sig-name">procedure</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">name</span>)</span><br />
-      Return a pointer to a callable instance for a given stored 
-      procedure.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.procedure">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="rollback"></a><span class="summary-sig-name">rollback</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">name</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span><br />
-      rollback changes, optionally to a previously set transaction 
-      point</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.rollback">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="transaction"></a><span class="summary-sig-name">transaction</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">name</span>)</span><br />
-      set a transaction point to which we can rollback to</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.transaction">source&nbsp;code</a></span>
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.DateFromTicks">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -412,7 +435,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="TimestampFromTicks"></a><span class="summary-name">TimestampFromTicks</span> = <code title="'server.satellite'"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></code>
+        <a name="TimestampFromTicks"></a><span class="summary-name">TimestampFromTicks</span> = <code title="None">None</code>
     </td>
   </tr>
 </table>
@@ -434,6 +457,28 @@
   </td>
 </tr>
 </table>
+<a name="procedure"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">procedure</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.procedure">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Return a pointer to a callable instance for a given stored procedure. 
+  The return value is a (possibly modified) copy of the arguments passed 
+  in. see cx_Oracle's Cursor.callproc for more details</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
 <a name="function"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -448,35 +493,14 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.function">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Return a pointer to a callable instance for a given stored function. 
-  The return value is the return value of the function. One has to properly
-  define the return type for the function, since usually the database 
-  drivers do not allow for auto-discovery. See cx_Oracle's Cursor.callfunc 
-  for more details
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="procedure"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">procedure</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">name</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Database.procedure">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </table>
-  
-  Return a pointer to a callable instance for a given stored procedure. 
-  The return value is a (possibly modified) copy of the arguments passed 
-  in. see cx_Oracle's Cursor.callproc for more details
+  <p>Return a pointer to a callable instance for a given stored 
+  function.</p>
+  <p>The return value is the return value of the function. One has to 
+  properly define the return type for the function, since usually the 
+  database drivers do not allow for auto-discovery. See cx_Oracle's 
+  Cursor.callfunc for more details.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -505,10 +529,11 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:08:54 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:16 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -519,9 +544,8 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

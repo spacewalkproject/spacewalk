@@ -43,7 +43,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="server.rhnVirtualization.EntitlementVirtualizationListener-class.html"
@@ -53,18 +53,10 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class EntitlementVirtualizationListener</h1><span class="codelink"><a href="server.rhnVirtualization-pysrc.html#EntitlementVirtualizationListener">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class EntitlementVirtualizationListener</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnVirtualization-pysrc.html#EntitlementVirtualizationListener">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_server_r_110" name="uml_class_diagram_for_server_r_110">
-<area shape="rect" href="server.rhnVirtualization.VirtualizationListener&#45;class.html#guest_discovered" title="This function is called if we detect a new guest." alt="" coords="20,36,452,55" />
-<area shape="rect" href="server.rhnVirtualization.VirtualizationListener&#45;class.html#__init__" title="server.rhnVirtualization.VirtualizationListener.__init__" alt="" coords="20,55,452,74" />
-<area shape="rect" href="server.rhnVirtualization.VirtualizationListener&#45;class.html" title="server.rhnVirtualization.VirtualizationListener" alt="" coords="8,6,464,80" />
-<area shape="rect" href="server.rhnVirtualization.EntitlementVirtualizationListener&#45;class.html#guest_registered" title="server.rhnVirtualization.EntitlementVirtualizationListener.guest_registered" alt="" coords="17,130,455,148" />
-<area shape="rect" href="server.rhnVirtualization.EntitlementVirtualizationListener&#45;class.html#guest_migrated" title="This function is called if we infer that the guest has been migrated to a different host system." alt="" coords="17,148,455,167" />
-<area shape="rect" href="server.rhnVirtualization.EntitlementVirtualizationListener&#45;class.html" title="server.rhnVirtualization.EntitlementVirtualizationListener" alt="" coords="5,99,467,174" />
-</map>
-  <img src="uml_class_diagram_for_server_r_110.gif" alt='' usemap="#uml_class_diagram_for_server_r_110" ismap="ismap" class="graph-without-title" />
-</center></center>
+
+</center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -89,7 +81,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="guest_migrated"></a><span class="summary-sig-name">guest_migrated</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.rhnVirtualization.EntitlementVirtualizationListener-class.html#guest_migrated" class="summary-sig-name">guest_migrated</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">old_host_sid</span>,
         <span class="summary-sig-arg">new_host_sid</span>,
         <span class="summary-sig-arg">guest_sid</span>,
@@ -111,7 +103,7 @@ to a different host system.</td>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="guest_registered"></a><span class="summary-sig-name">guest_registered</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.rhnVirtualization.EntitlementVirtualizationListener-class.html#guest_registered" class="summary-sig-name">guest_registered</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">host_sid</span>,
         <span class="summary-sig-arg">guest_sid</span>)</span></td>
           <td align="right" valign="top">
@@ -130,11 +122,91 @@ to a different host system.</td>
       <code><a href="server.rhnVirtualization.VirtualizationListener-class.html#guest_discovered">guest_discovered</a></code>
       </p>
     <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnVirtualization.VirtualizationListener-class.html">VirtualizationListener</a></code></b> (private):
-      <code><a href="server.rhnVirtualization.VirtualizationListener-class.html#_notify">_notify</a></code>
+      <code><a href="server.rhnVirtualization.VirtualizationListener-class.html#_notify" onclick="show_private();">_notify</a></code>
       </p></div>
     </td>
   </tr>
 </table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="guest_migrated"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">guest_migrated</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">old_host_sid</span>,
+        <span class="sig-arg">new_host_sid</span>,
+        <span class="sig-arg">guest_sid</span>,
+        <span class="sig-arg">guest_uuid</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnVirtualization-pysrc.html#EntitlementVirtualizationListener.guest_migrated">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+This function is called if we infer that the guest has been migrated
+to a different host system.
+
+    old_host_sid - The server id for the old host.
+    new_host_sid - The server id for the new host.
+    guest_sid    - The server id for the guest, if it is registered.
+    guest_uuid   - The UUID of the guest that has been migrated.
+
+</pre>
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="server.rhnVirtualization.VirtualizationListener-class.html#guest_migrated">VirtualizationListener.guest_migrated</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="guest_registered"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">guest_registered</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">host_sid</span>,
+        <span class="sig-arg">guest_sid</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnVirtualization-pysrc.html#EntitlementVirtualizationListener.guest_registered">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="server.rhnVirtualization.VirtualizationListener-class.html#guest_registered">VirtualizationListener.guest_registered</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -158,10 +230,11 @@ to a different host system.</td>
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:08:59 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:17 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -172,9 +245,8 @@ to a different host system.</td>
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

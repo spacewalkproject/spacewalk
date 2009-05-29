@@ -35,7 +35,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="rhn-module.html">Package&nbsp;rhn</a> ::
-        <a href="rhn.connections-module.html">Module&nbsp;connections</a> ::
+        <a href="rhn.connections-module.html" onclick="show_private();">Module&nbsp;connections</a> ::
         Class&nbsp;HTTPSConnection
       </span>
     </td>
@@ -43,7 +43,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="rhn.connections.HTTPSConnection-class.html"
@@ -53,32 +53,10 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class HTTPSConnection</h1><span class="codelink"><a href="rhn.connections-pysrc.html#HTTPSConnection">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class HTTPSConnection</h1><p class="nomargin-top"><span class="codelink"><a href="rhn.connections-pysrc.html#HTTPSConnection">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_rhn_conn_4" name="uml_class_diagram_for_rhn_conn_4">
-<area shape="rect" href="javascript: void(0);" title="httplib.HTTPConnection.auto_open" alt="" coords="28,28,436,47" />
-<area shape="rect" href="javascript: void(0);" title="httplib.HTTPConnection.strict" alt="" coords="28,47,436,66" />
-<area shape="rect" href="javascript: void(0);" title="httplib.HTTPConnection.debuglevel" alt="" coords="28,66,436,84" />
-<area shape="rect" href="javascript: void(0);" title="Indicate that the last header line has been sent to the server." alt="" coords="28,87,436,106" />
-<area shape="rect" href="javascript: void(0);" title="Send a request header line to the server." alt="" coords="28,106,436,124" />
-<area shape="rect" href="javascript: void(0);" title="Send a complete request to the server." alt="" coords="28,124,436,143" />
-<area shape="rect" href="javascript: void(0);" title="httplib.HTTPConnection.set_debuglevel" alt="" coords="28,143,436,162" />
-<area shape="rect" href="javascript: void(0);" title="Send `str&#39; to the server." alt="" coords="28,162,436,180" />
-<area shape="rect" href="javascript: void(0);" title="Send a request to the server." alt="" coords="28,180,436,199" />
-<area shape="rect" href="javascript: void(0);" title="Close the connection to the HTTP server." alt="" coords="28,199,436,218" />
-<area shape="rect" href="javascript: void(0);" title="httplib.HTTPConnection" alt="" coords="16,6,448,224" />
-<area shape="rect" href="rhn.connections.HTTPConnection&#45;class.html#set_callback" title="rhn.connections.HTTPConnection.set_callback" alt="" coords="84,274,380,292" />
-<area shape="rect" href="rhn.connections.HTTPConnection&#45;class.html#set_user_agent" title="rhn.connections.HTTPConnection.set_user_agent" alt="" coords="84,292,380,311" />
-<area shape="rect" href="rhn.connections.HTTPConnection&#45;class.html#getresponse" title="Get the response from the server." alt="" coords="84,311,380,330" />
-<area shape="rect" href="rhn.connections.HTTPConnection&#45;class.html" title="rhn.connections.HTTPConnection" alt="" coords="72,243,392,336" />
-<area shape="rect" href="rhn.connections.HTTPResponse&#45;class.html" title="rhn.connections.HTTPSConnection.response_class" alt="" coords="17,378,447,396" />
-<area shape="rect" href="rhn.connections.HTTPSConnection&#45;class.html#default_port" title="rhn.connections.HTTPSConnection.default_port" alt="" coords="17,396,447,415" />
-<area shape="rect" href="rhn.connections.HTTPSConnection&#45;class.html#connect" title="Connect to a host on a given (SSL) port" alt="" coords="17,418,447,436" />
-<area shape="rect" href="rhn.connections.HTTPSConnection&#45;class.html#__init__" title="rhn.connections.HTTPSConnection.__init__" alt="" coords="17,436,447,455" />
-<area shape="rect" href="rhn.connections.HTTPSConnection&#45;class.html" title="rhn.connections.HTTPSConnection" alt="" coords="5,355,459,462" />
-</map>
-  <img src="uml_class_diagram_for_rhn_conn_4.gif" alt='' usemap="#uml_class_diagram_for_rhn_conn_4" ismap="ismap" class="graph-without-title" />
-</center></center>
+
+</center>
 <hr />
 <!-- ==================== NESTED CLASSES ==================== -->
 <a name="section-NestedClasses"></a>
@@ -128,10 +106,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="rhn.connections.HTTPSConnection-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">host</span>,
-        <span class="summary-sig-arg">port</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">trusted_certs</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span></td>
+        <span class="summary-sig-arg">port</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">trusted_certs</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="rhn.connections-pysrc.html#HTTPSConnection.__init__">source&nbsp;code</a></span>
             
@@ -147,7 +125,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="connect"></a><span class="summary-sig-name">connect</span>(<span class="summary-sig-arg">self</span>)</span><br />
+          <td><span class="summary-sig"><a href="rhn.connections.HTTPSConnection-class.html#connect" class="summary-sig-name">connect</a>(<span class="summary-sig-arg">self</span>)</span><br />
       Connect to a host on a given (SSL) port</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="rhn.connections-pysrc.html#HTTPSConnection.connect">source&nbsp;code</a></span>
@@ -221,6 +199,73 @@
     </td>
   </tr>
 </table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">host</span>,
+        <span class="sig-arg">port</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">trusted_certs</span>=<span class="sig-default">None</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="rhn.connections-pysrc.html#HTTPSConnection.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        httplib.HTTPConnection.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="connect"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">connect</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="rhn.connections-pysrc.html#HTTPSConnection.connect">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Connect to a host on a given (SSL) port</p>
+  <dl class="fields">
+    <dt>Overrides:
+        httplib.HTTPConnection.connect
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -244,10 +289,11 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:57 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:07 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -258,9 +304,8 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

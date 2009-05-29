@@ -42,7 +42,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="rhn.transports-module.html"
@@ -52,8 +52,12 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module transports</h1><span class="codelink"><a href="rhn.transports-pysrc.html">source&nbsp;code</a></span><br /><br />
-<!-- ==================== CLASSES ==================== -->
+<h1 class="epydoc">Module transports</h1><p class="nomargin-top"><span class="codelink"><a href="rhn.transports-pysrc.html">source&nbsp;code</a></span></p>
+<hr />
+<div class="fields">      <p><strong>Version:</strong>
+        $Revision$
+      </p>
+</div><!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
 <table class="summary" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
@@ -164,7 +168,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="rhn.transports-module.html#_smart_total_read" class="summary-sig-name">_smart_total_read</a>(<span class="summary-sig-arg">fd</span>,
+          <td><span class="summary-sig"><a href="rhn.transports-module.html#_smart_total_read" class="summary-sig-name" onclick="show_private();">_smart_total_read</a>(<span class="summary-sig-arg">fd</span>,
         <span class="summary-sig-arg">bufferSize</span>=<span class="summary-sig-default">1024</span>,
         <span class="summary-sig-arg">max_mem_size</span>=<span class="summary-sig-default">16384</span>)</span><br />
       Tries to read data from the supplied stream, and puts the results 
@@ -187,7 +191,7 @@
           <td><span class="summary-sig"><a name="_smart_read"></a><span class="summary-sig-name">_smart_read</span>(<span class="summary-sig-arg">fd</span>,
         <span class="summary-sig-arg">amt</span>,
         <span class="summary-sig-arg">bufferSize</span>=<span class="summary-sig-default">1024</span>,
-        <span class="summary-sig-arg">progressCallback</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">progressCallback</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">max_mem_size</span>=<span class="summary-sig-default">16384</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="rhn.transports-pysrc.html#_smart_read">source&nbsp;code</a></span>
@@ -206,7 +210,7 @@
         <tr>
           <td><span class="summary-sig"><a name="lookupTransfer"></a><span class="summary-sig-name">lookupTransfer</span>(<span class="summary-sig-arg">transfer</span>,
         <span class="summary-sig-arg">strict</span>=<span class="summary-sig-default">0</span>)</span><br />
-      Given a string or numeric representation of a transfer, return the
+      Given a string or numeric representation of a transfer, return the 
       transfer code</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="rhn.transports-pysrc.html#lookupTransfer">source&nbsp;code</a></span>
@@ -225,8 +229,8 @@
         <tr>
           <td><span class="summary-sig"><a name="lookupEncoding"></a><span class="summary-sig-name">lookupEncoding</span>(<span class="summary-sig-arg">encoding</span>,
         <span class="summary-sig-arg">strict</span>=<span class="summary-sig-default">0</span>)</span><br />
-      Given a string or numeric representation of an encoding, return 
-      the encoding code</td>
+      Given a string or numeric representation of an encoding, return the 
+      encoding code</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="rhn.transports-pysrc.html#lookupEncoding">source&nbsp;code</a></span>
             
@@ -254,13 +258,6 @@
     </table>
   </td>
 </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="__version__"></a><span class="summary-name">__version__</span> = <code title="'$Revision$'"><code class="variable-quote">'</code><code class="variable-string">$Revision$</code><code class="variable-quote">'</code></code>
-    </td>
-  </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
@@ -301,11 +298,11 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="rhn.transports-pysrc.html#_smart_total_read">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Tries to read data from the supplied stream, and puts the results into
+  <p>Tries to read data from the supplied stream, and puts the results into
   a StmartIO object. The data will be in memory or in a temporary file, 
-  depending on how much it's been read Returns a SmartIO object
+  depending on how much it's been read Returns a SmartIO object</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -334,10 +331,11 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:49 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -348,9 +346,8 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

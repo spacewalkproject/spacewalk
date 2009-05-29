@@ -42,7 +42,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="server.rhnAction-module.html"
@@ -52,7 +52,7 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module rhnAction</h1><span class="codelink"><a href="server.rhnAction-pysrc.html">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Module rhnAction</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnAction-pysrc.html">source&nbsp;code</a></span></p>
 <!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -77,11 +77,11 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="schedule_action"></a><span class="summary-sig-name">schedule_action</span>(<span class="summary-sig-arg">action_type</span>,
-        <span class="summary-sig-arg">action_name</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">action_name</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">delta_time</span>=<span class="summary-sig-default">0</span>,
-        <span class="summary-sig-arg">scheduler</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">org_id</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">prerequisite</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span></td>
+        <span class="summary-sig-arg">scheduler</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">org_id</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">prerequisite</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnAction-pysrc.html#schedule_action">source&nbsp;code</a></span>
             
@@ -99,11 +99,11 @@
         <tr>
           <td><span class="summary-sig"><a name="schedule_server_action"></a><span class="summary-sig-name">schedule_server_action</span>(<span class="summary-sig-arg">server_id</span>,
         <span class="summary-sig-arg">action_type</span>,
-        <span class="summary-sig-arg">action_name</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">action_name</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">delta_time</span>=<span class="summary-sig-default">0</span>,
-        <span class="summary-sig-arg">scheduler</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">org_id</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">prerequisite</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span></td>
+        <span class="summary-sig-arg">scheduler</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">org_id</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">prerequisite</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnAction-pysrc.html#schedule_server_action">source&nbsp;code</a></span>
             
@@ -122,8 +122,8 @@
           <td><span class="summary-sig"><a name="update_server_action"></a><span class="summary-sig-name">update_server_action</span>(<span class="summary-sig-arg">server_id</span>,
         <span class="summary-sig-arg">action_id</span>,
         <span class="summary-sig-arg">status</span>,
-        <span class="summary-sig-arg">result_code</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">result_message</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span></td>
+        <span class="summary-sig-arg">result_code</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">result_message</span>=<span class="summary-sig-default">&quot;&quot;</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnAction-pysrc.html#update_server_action">source&nbsp;code</a></span>
             
@@ -158,11 +158,31 @@
         <tr>
           <td><span class="summary-sig"><a name="schedule_server_packages_update"></a><span class="summary-sig-name">schedule_server_packages_update</span>(<span class="summary-sig-arg">server_id</span>,
         <span class="summary-sig-arg">package_ids</span>,
-        <span class="summary-sig-arg">org_id</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">prerequisite</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">action_name</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">Package update</code><code class="variable-quote">'</code></span>)</span></td>
+        <span class="summary-sig-arg">org_id</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">prerequisite</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">action_name</span>=<span class="summary-sig-default">&quot;Package update&quot;</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnAction-pysrc.html#schedule_server_packages_update">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="schedule_server_packages_update_by_arch"></a><span class="summary-sig-name">schedule_server_packages_update_by_arch</span>(<span class="summary-sig-arg">server_id</span>,
+        <span class="summary-sig-arg">package_arch_ids</span>,
+        <span class="summary-sig-arg">org_id</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">prerequisite</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">action_name</span>=<span class="summary-sig-default">&quot;Package update&quot;</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnAction-pysrc.html#schedule_server_packages_update_by_arch">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -192,7 +212,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnAction-module.html#_query_lookup_action" class="summary-name">_query_lookup_action</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1217137396; statement=
+        <a href="server.rhnAction-module.html#_query_lookup_action" class="summary-name" onclick="show_private();">_query_lookup_action</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     select sa.action_id, sa.status
       from rhnServerAction sa,
          (
@@ -200,17 +220,31 @@
             from rhnAction
            start with id = :action_id
                  connect by prior id = prerequisite
-...">&lt;server.rhnSQL.sql_base.Statement insta<code class="variable-ellipsis">...</code></code>
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnAction-module.html#_query_schedule_server_packages_update" class="summary-name">_query_schedule_server_packages_update</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1217137364; statement=
+        <a href="server.rhnAction-module.html#_query_schedule_server_packages_update" class="summary-name" onclick="show_private();">_query_schedule_server_packages_update</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     insert into rhnActionPackage (id, action_id, name_id, parameter)
     values (rhn_act_p_id_seq.nextval, :action_id, :name_id, 'upgrade')
-">&lt;server.rhnSQL.sql_ba<code class="variable-ellipsis">...</code></code>
+&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="server.rhnAction-module.html#_query_schedule_server_packages_update_by_arch" class="summary-name" onclick="show_private();">_query_schedule_server_packages_update_by_arch</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+    insert into rhnActionPackage (id, action_id, name_id, package_arch\
+_id, \
+           parameter)
+    values (rhn_act_p_id_seq.nextval, :action_id, :name_id, :arch_id, \
+\
+           'upgrade')
+&quot;&quot;&quot;)">rhnSQL.Statem<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -244,7 +278,7 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1217137396; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     select sa.action_id, sa.status
       from rhnServerAction sa,
          (
@@ -270,10 +304,35 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1217137364; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     insert into rhnActionPackage (id, action_id, name_id, parameter)
     values (rhn_act_p_id_seq.nextval, :action_id, :name_id, 'upgrade')
-
+&quot;&quot;&quot;)
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_query_schedule_server_packages_update_by_arch"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_query_schedule_server_packages_update_by_arch</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+rhnSQL.Statement(&quot;&quot;&quot;
+    insert into rhnActionPackage (id, action_id, name_id, package_arch<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+_id, \
+           parameter)
+    values (rhn_act_p_id_seq.nextval, :action_id, :name_id, :arch_id, <span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+\
+           'upgrade')
+&quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -303,10 +362,11 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:50 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:06 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -317,9 +377,8 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

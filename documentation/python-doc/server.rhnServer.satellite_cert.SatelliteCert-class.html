@@ -44,7 +44,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="server.rhnServer.satellite_cert.SatelliteCert-class.html"
@@ -54,10 +54,10 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class SatelliteCert</h1><span class="codelink"><a href="server.rhnServer.satellite_cert-pysrc.html#SatelliteCert">source&nbsp;code</a></span><br /><br />
-Satellite certificate class Usage: c = SatelliteCert() 
+<h1 class="epydoc">Class SatelliteCert</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnServer.satellite_cert-pysrc.html#SatelliteCert">source&nbsp;code</a></span></p>
+<p>Satellite certificate class Usage: c = SatelliteCert() 
   c.load('&lt;rhn-cert&gt;&lt;rhn-cert-field name=&quot;owner&quot;&gt;John
-  Doe&lt;/rhn-cert-field&gt;&lt;/rhn-cert&gt;') print c.owner<br /><br />
+  Doe&lt;/rhn-cert-field&gt;&lt;/rhn-cert&gt;') print c.owner</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -198,51 +198,41 @@ Satellite certificate class Usage: c = SatelliteCert()
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.satellite_cert.SatelliteCert-class.html#fields_scalar" class="summary-name">fields_scalar</a> = <code title="['product',
- 'owner',
- 'issued',
- 'expires',
- 'slots',
- 'provisioning-slots',
- 'nonlinux-slots',
- 'monitoring-slots',
-..."><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">product</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">owner</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">issued</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">expires</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">slo</code><code class="variable-ellipsis">...</code></code>
+        <a href="server.rhnServer.satellite_cert.SatelliteCert-class.html#fields_scalar" class="summary-name">fields_scalar</a> = <code title="['product', 'owner', 'issued', 'expires', 'slots', 'provisioning-slots\
+', 'nonlinux-slots', 'monitoring-slots', 'virtualization_host', 'virtu\
+alization_host_platform', 'satellite-version', 'generation',]">['product', 'owner', 'issued', 'expires', 'slo<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.satellite_cert.SatelliteCert-class.html#fields_list" class="summary-name">fields_list</a> = <code title="{'channel-families': ChannelFamily}"><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">channel-families</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;class server.rhnServer.sat<code class="variable-ellipsis">...</code></code>
+        <a name="fields_list"></a><span class="summary-name">fields_list</span> = <code title="{'channel-families': ChannelFamily}">{'channel-families': ChannelFamily}</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="datesFormat_cert"></a><span class="summary-name">datesFormat_cert</span> = <code title="'%Y-%m-%d %H:%M:%S'"><code class="variable-quote">'</code><code class="variable-string">%Y-%m-%d %H:%M:%S</code><code class="variable-quote">'</code></code>
+        <a name="datesFormat_cert"></a><span class="summary-name">datesFormat_cert</span> = <code title="'%Y-%m-%d %H:%M:%S'">'%Y-%m-%d %H:%M:%S'</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="datesFormat_db"></a><span class="summary-name">datesFormat_db</span> = <code title="'%Y-%m-%d %H:%M:%S'"><code class="variable-quote">'</code><code class="variable-string">%Y-%m-%d %H:%M:%S</code><code class="variable-quote">'</code></code>
+        <a name="datesFormat_db"></a><span class="summary-name">datesFormat_db</span> = <code title="'%Y-%m-%d %H:%M:%S'">'%Y-%m-%d %H:%M:%S'</code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.satellite_cert.SatelliteCert-class.html#_slot_maps" class="summary-name">_slot_maps</a> = <code title="{'management': ('slots',
-                &lt;class server.rhnServer.satellite_cert.ManagementSlots\
- at 0xb789047c&gt;),
- 'monitoring': ('monitoring-slots',
-                &lt;class server.rhnServer.satellite_cert.MonitoringSlots\
- at 0xb789053c&gt;),
- 'provisioning': ('provisioning-slots',
-                  &lt;class server.rhnServer.satellite_cert.ProvisioningS\
-..."><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">management</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">slots</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;class server.rhnServer.<code class="variable-ellipsis">...</code></code>
+        <a href="server.rhnServer.satellite_cert.SatelliteCert-class.html#_slot_maps" class="summary-name" onclick="show_private();">_slot_maps</a> = <code title="{'management':('slots', ManagementSlots), 'provisioning':('provisionin\
+g-slots', ProvisioningSlots), 'monitoring':('monitoring-slots', Monito\
+ringSlots), 'virtualization':('virtualization_host', VirtualizationSlo\
+ts), 'virtualization_platform':('virtualization_host_platform', Virtua\
+lizationPlatformSlots)}">{'management':('slots', ManagementSlots), 'provis<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -276,33 +266,9 @@ Satellite certificate class Usage: c = SatelliteCert()
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">product</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">owner</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">issued</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">expires</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">slots</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">provisioning-slots</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">nonlinux-slots</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">monitoring-slots</code><code class="variable-quote">'</code><code class="variable-op">,</code>
-<code class="variable-ellipsis">...</code>
-</pre></td></tr></table>
-</dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="fields_list"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <h3 class="epydoc">fields_list</h3>
-  
-  <dl class="fields">
-  </dl>
-  <dl class="fields">
-    <dt>Value:</dt>
-      <dd><table><tr><td><pre class="variable">
-{'channel-families': ChannelFamily}
+['product', 'owner', 'issued', 'expires', 'slots', 'provisioning-slots<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+', 'nonlinux-slots', 'monitoring-slots', 'virtualization_host', 'virtu<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+alization_host_platform', 'satellite-version', 'generation',]
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -320,15 +286,11 @@ Satellite certificate class Usage: c = SatelliteCert()
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">management</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">slots</code><code class="variable-quote">'</code><code class="variable-op">,</code>
-                &lt;class server.rhnServer.satellite_cert.ManagementSlots<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
- at 0xb789047c&gt;<code class="variable-group">)</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">monitoring</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">monitoring-slots</code><code class="variable-quote">'</code><code class="variable-op">,</code>
-                &lt;class server.rhnServer.satellite_cert.MonitoringSlots<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
- at 0xb789053c&gt;<code class="variable-group">)</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">provisioning</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">provisioning-slots</code><code class="variable-quote">'</code><code class="variable-op">,</code>
-                  &lt;class server.rhnServer.satellite_cert.ProvisioningS<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-<code class="variable-ellipsis">...</code>
+{'management':('slots', ManagementSlots), 'provisioning':('provisionin<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+g-slots', ProvisioningSlots), 'monitoring':('monitoring-slots', Monito<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ringSlots), 'virtualization':('virtualization_host', VirtualizationSlo<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ts), 'virtualization_platform':('virtualization_host_platform', Virtua<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+lizationPlatformSlots)}
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -358,10 +320,11 @@ Satellite certificate class Usage: c = SatelliteCert()
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:08:56 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:17 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -372,9 +335,8 @@ Satellite certificate class Usage: c = SatelliteCert()
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

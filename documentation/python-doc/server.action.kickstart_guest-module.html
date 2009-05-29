@@ -43,7 +43,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="server.action.kickstart_guest-module.html"
@@ -53,7 +53,7 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module kickstart_guest</h1><span class="codelink"><a href="server.action.kickstart_guest-pysrc.html">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Module kickstart_guest</h1><p class="nomargin-top"><span class="codelink"><a href="server.action.kickstart_guest-pysrc.html">source&nbsp;code</a></span></p>
 <!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -146,20 +146,22 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.kickstart_guest-module.html#__rhnexport__" class="summary-name">__rhnexport__</a> = <code title="['initiate', 'schedule_virt_guest_pkg_install', 'add_tools_channel']"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">initiate</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">schedule_virt_guest_pkg_install</code><code class="variable-quote">'</code><code class="variable-ellipsis">...</code></code>
+        <a href="server.action.kickstart_guest-module.html#__rhnexport__" class="summary-name">__rhnexport__</a> = <code title="['initiate', 'schedule_virt_guest_pkg_install', 'add_tools_channel']">['initiate', 'schedule_virt_guest_pkg_install'<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.kickstart_guest-module.html#_query_initiate_guest" class="summary-name">_query_initiate_guest</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1221481364; statement=
-    select akg.mem_kb, kst.boot_image, akg.vcpus, akg.disk_gb, akg.app\
-end_string, akg.guest_name, akg.ks_session_id
-      from rhnActionKickstartGuest akg, rhnKickstartableTree kst
-     where akg.action_id = :action_id
-       and akg.kstree_id = kst.id
-">&lt;server.rhnSQL.sql_base.Statement inst<code class="variable-ellipsis">...</code></code>
+        <a href="server.action.kickstart_guest-module.html#_query_initiate_guest" class="summary-name" onclick="show_private();">_query_initiate_guest</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+ select  ksd.label as profile_name, akg.kickstart_host, kvt.label as v\
+irt_type, 
+       akg.mem_kb, akg.vcpus, akg.disk_path, akg.virt_bridge, akg.cobb\
+ler_system_name, 
+       akg.disk_gb, akg.append_string, 
+       akg.guest_name, akg.ks_session_id from rhnActionKickstartGuest \
+akg, 
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -193,7 +195,7 @@ end_string, akg.guest_name, akg.ks_session_id
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">initiate</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">schedule_virt_guest_pkg_install</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">add_tools_channel</code><code class="variable-quote">'</code><code class="variable-group">]</code>
+['initiate', 'schedule_virt_guest_pkg_install', 'add_tools_channel']
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -211,13 +213,15 @@ end_string, akg.guest_name, akg.ks_session_id
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1221481364; statement=
-    select akg.mem_kb, kst.boot_image, akg.vcpus, akg.disk_gb, akg.app<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-end_string, akg.guest_name, akg.ks_session_id
-      from rhnActionKickstartGuest akg, rhnKickstartableTree kst
-     where akg.action_id = :action_id
-       and akg.kstree_id = kst.id
-
+rhnSQL.Statement(&quot;&quot;&quot;
+ select  ksd.label as profile_name, akg.kickstart_host, kvt.label as v<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+irt_type, 
+       akg.mem_kb, akg.vcpus, akg.disk_path, akg.virt_bridge, akg.cobb<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ler_system_name, 
+       akg.disk_gb, akg.append_string, 
+       akg.guest_name, akg.ks_session_id from rhnActionKickstartGuest <span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+akg, 
+<code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -247,10 +251,11 @@ end_string, akg.guest_name, akg.ks_session_id
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:49 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -261,9 +266,8 @@ end_string, akg.guest_name, akg.ks_session_id
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

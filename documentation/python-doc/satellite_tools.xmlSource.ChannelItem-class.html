@@ -43,7 +43,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="satellite_tools.xmlSource.ChannelItem-class.html"
@@ -53,20 +53,10 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class ChannelItem</h1><span class="codelink"><a href="satellite_tools.xmlSource-pysrc.html#ChannelItem">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class ChannelItem</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.xmlSource-pysrc.html#ChannelItem">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_satellit_176" name="uml_class_diagram_for_satellit_176">
-<area shape="rect" href="satellite_tools.xmlSource.BaseItem&#45;class.html#populateFromElements" title="satellite_tools.xmlSource.BaseItem.populateFromElements" alt="" coords="17,36,287,55" />
-<area shape="rect" href="satellite_tools.xmlSource.BaseItem&#45;class.html#populate" title="satellite_tools.xmlSource.BaseItem.populate" alt="" coords="17,55,287,73" />
-<area shape="rect" href="satellite_tools.xmlSource.BaseItem&#45;class.html#populateFromAttributes" title="satellite_tools.xmlSource.BaseItem.populateFromAttributes" alt="" coords="17,73,287,92" />
-<area shape="rect" href="satellite_tools.xmlSource.BaseItem&#45;class.html" title="satellite_tools.xmlSource.BaseItem" alt="" coords="5,5,299,99" />
-<area shape="rect" href="satellite_tools.xmlSource.ChannelItem&#45;class.html#item_name" title="satellite_tools.xmlSource.ChannelItem.item_name" alt="" coords="113,140,191,159" />
-<area shape="rect" href="server.importlib.importLib.Channel&#45;class.html" title="satellite_tools.xmlSource.ChannelItem.item_class" alt="" coords="113,159,191,177" />
-<area shape="rect" href="satellite_tools.xmlSource.ChannelItem&#45;class.html#tagMap" title="satellite_tools.xmlSource.ChannelItem.tagMap" alt="" coords="113,177,191,196" />
-<area shape="rect" href="satellite_tools.xmlSource.ChannelItem&#45;class.html" title="satellite_tools.xmlSource.ChannelItem" alt="" coords="101,117,203,211" />
-</map>
-  <img src="uml_class_diagram_for_satellit_176.gif" alt='' usemap="#uml_class_diagram_for_satellit_176" ismap="ismap" class="graph-without-title" />
-</center></center>
+
+</center>
 <hr />
 <!-- ==================== NESTED CLASSES ==================== -->
 <a name="section-NestedClasses"></a>
@@ -141,22 +131,22 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="item_name"></a><span class="summary-name">item_name</span> = <code title="'rhn-channel'"><code class="variable-quote">'</code><code class="variable-string">rhn-channel</code><code class="variable-quote">'</code></code>
+        <a name="item_name"></a><span class="summary-name">item_name</span> = <code title="'rhn-channel'">'rhn-channel'</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.xmlSource.ChannelItem-class.html#tagMap" class="summary-name">tagMap</a> = <code title="{'channel-arch': 'channel_arch',
- 'channel-errata': 'errata',
- 'channel-id': 'string_channel_id',
- 'kickstartable-trees': 'kickstartable_trees',
- 'org-id': 'org_id',
- 'rhn-channel-basedir': 'basedir',
- 'rhn-channel-description': 'description',
- 'rhn-channel-errata': 'errata_timestamps',
-..."><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">channel-arch</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">channel_arch</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">channel-errata</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">e</code><code class="variable-ellipsis">...</code></code>
+        <a href="satellite_tools.xmlSource.ChannelItem-class.html#tagMap" class="summary-name">tagMap</a> = <code title="{'channel-id': 'string_channel_id', 'org-id': 'org_id', 'rhn-channel-p\
+arent-channel': 'parent_channel', 'rhn-channel-families': 'families', \
+'channel-arch': 'channel_arch', 'rhn-channel-basedir': 'basedir', 'rhn\
+-channel-name': 'name', 'rhn-channel-summary': 'summary', 'rhn-channel\
+-description': 'description', 'rhn-channel-last-modified': 'last_modif\
+ied', 'rhn-dists': 'dists', 'rhn-release': 'release', 'channel-errata'\
+: 'errata', 'kickstartable-trees': 'kickstartable_trees', 'rhn-channel\
+-errata': 'errata_timestamps', 'source-packages': 'source_packages', '\
+...">{'channel-id': 'string_channel_id', 'org-id': 'org_id<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -190,14 +180,14 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">channel-arch</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">channel_arch</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">channel-errata</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">errata</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">channel-id</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">string_channel_id</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">kickstartable-trees</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">kickstartable_trees</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">org-id</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">org_id</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">rhn-channel-basedir</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">basedir</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">rhn-channel-description</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">description</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">rhn-channel-errata</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">errata_timestamps</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+{'channel-id': 'string_channel_id', 'org-id': 'org_id', 'rhn-channel-p<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+arent-channel': 'parent_channel', 'rhn-channel-families': 'families', <span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+'channel-arch': 'channel_arch', 'rhn-channel-basedir': 'basedir', 'rhn<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+-channel-name': 'name', 'rhn-channel-summary': 'summary', 'rhn-channel<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+-description': 'description', 'rhn-channel-last-modified': 'last_modif<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ied', 'rhn-dists': 'dists', 'rhn-release': 'release', 'channel-errata'<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+: 'errata', 'kickstartable-trees': 'kickstartable_trees', 'rhn-channel<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+-errata': 'errata_timestamps', 'source-packages': 'source_packages', '<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -228,10 +218,11 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:08:21 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:13 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -242,9 +233,8 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>
