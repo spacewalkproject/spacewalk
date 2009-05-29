@@ -199,10 +199,10 @@ EOF
 		close FILE;
 		$f_in =~ s!\[\[.*?\]\]|__.*?__!$default_tablespace!g;
 		$in .= <<EOF;
-			set echo on
-			spool $logfile append
-			whenever sqlerror exit sql.sqlcode
-			select '$dir/$name' from dual;
+set echo on
+spool $logfile append
+whenever sqlerror exit sql.sqlcode
+select '$dir/$name' from dual;
 EOF
 		$in .= $f_in;
 		$in .= "commit;\n";
