@@ -53,20 +53,34 @@
            </tr>
            <tr><th><bean:message key="packagesearch.jsp.wheresearch"/></th>
              <td rowspan="2">
-               <div style="text-align: center">
-                   <input type="checkbox" name="relevant" value="yes" onclick="javascript:highlander(this);"
-                           <c:if test="${not empty relevant}">checked="checked"</c:if> />
-                   <bean:message key="packagesearch.jsp.relevant"/></div>
-               <div style="font-weight: bold; text-align: center">-or-</div>
-               <div style="text-align: center">
-                   <html:select property="channel_arch" multiple="multiple" size="5" onclick="javascript:highlander(this);">
-	                   <html:options collection="channelArches"
-	                                 property="value"
-	                                 labelProperty="display" />
-                   </html:select><br/>
-           
-               </div>
-               <div style="text-align: center"><bean:message key="packagesearch.jsp.searchwherelegend"/></div>
+                 
+                 <div style="text-align: left;">
+                    <input type="radio" name="whereCriteria" value="relevant" <c:if test="${whereCriteria eq 'relevant'}">checked</c:if> /><bean:message key="packagesearch.jsp.relevant"/>
+                 </div>
+                 <div style="text-align: left;">
+                   <input type="radio" name="whereCriteria" value="channel" <c:if test="${whereCriteria eq 'channel'}">checked</c:if> /><bean:message key="packagesearch.jsp.specificchannel"/><br/>
+                   <div style="margin-left: 30px; margin-top: 5px;">
+                     <html:select property="channel_filter">
+                         <html:options collection="allChannels"
+                                       property="id"
+                                       labelProperty="name" />
+                     </html:select><br/>
+                   </div>
+                 </div>
+                 <div style="text-align: left;">
+                    <input type="radio" name="whereCriteria" value="architecture" <c:if test="${whereCriteria eq 'architecture'}">checked</c:if> /><bean:message key="packagesearch.jsp.specificarch"/><br/>
+                    <div style="margin-left: 30px; margin-top: 5px;">
+                     <html:select property="channel_arch" multiple="multiple"
+                                  size="5" onclick="javascript:highlander(this);">
+                         <html:options collection="channelArches"
+                                       property="value"
+                                       labelProperty="display" />
+                     </html:select><br/>
+
+                     <bean:message key="packagesearch.jsp.searchwherelegend"/>
+                    </div>
+                 </div>
+                 
              </td>
            </tr>
          </table>
@@ -118,7 +132,9 @@
     <input type="hidden" name="submitted" value="true" />
     <input type="hidden" name="search_string" value="${search_string}" />
     <input type="hidden" name="view_mode" value="${view_mode}" />
-    <input type="hidden" name="relevant" value="${relevant}" />
+    <input type="hidden" name="whereCriteria" value="${whereCriteria}" />
+    <input type="hidden" name="channel_filter" value="${channel_filter}" />
+      
     <c:forEach items="${requestScope.channel_arch}" var="item">
     <input type="hidden" name="channel_arch" value="${item}" />
     </c:forEach>

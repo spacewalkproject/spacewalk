@@ -5162,7 +5162,19 @@ value for this entitlement.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="packagesearch.jsp.relevant">
-<source>Channels relevant to your systems</source>
+<source>Only channels relevant to your systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/software/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="packagesearch.jsp.specificchannel">
+<source>Specific channel you have access to</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/software/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="packagesearch.jsp.specificarch">
+<source>Packages of a specific architecture in any channel you have access to</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/software/Search</context>
         </context-group>

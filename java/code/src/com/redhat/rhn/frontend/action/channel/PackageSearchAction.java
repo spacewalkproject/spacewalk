@@ -18,7 +18,10 @@ package com.redhat.rhn.frontend.action.channel;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.ChannelArch;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageOverview;
+import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
@@ -158,16 +161,36 @@ public class PackageSearchAction extends RhnAction {
         RequestContext ctx = new RequestContext(request);
         String searchString = form.getString("search_string");
         String viewmode = form.getString("view_mode");
-        String relevant = StringUtils.defaultString(
-                            request.getParameter("relevant"));
-        String[] selectedArches = form.getStrings("channel_arch");
-        
-        if (selectedArches.length < 1) {
-            relevant = "yes";
+        String searchCriteria = request.getParameter("whereCriteria");
+        String[] selectedArches = null;
+        Long filterChannelId = null;
+        boolean relevantFlag = false;
+
+        // Default to relevant channels if no search criteria was specified
+        if (searchCriteria == null || searchCriteria.equals("")) {
+            searchCriteria = "relevant";
         }
-        
+
+        // Handle the radio button selection for channel filtering
+        if (searchCriteria.equals("relevant")) {
+            relevantFlag = true;
+        }
+        if (searchCriteria.equals("architecture")) {
+            /* The search call will function as being scoped to architectures if the arch
+               list isn't null. In order to actually get radio-button-like functionality
+               we can't rely on the arch list coming in from the form to be null; the
+               user may have selected an arch but *not* the radio button for arch. If we
+               push off retrieving the arches until we know we want to use them, we can
+               get the desired functionality described by the UI.
+              */
+            selectedArches = form.getStrings("channel_arch");
+        }
+        else if (searchCriteria.equals("channel")) {
+            String sChannelId = form.getString("channel_filter");
+            filterChannelId = Long.parseLong(sChannelId);
+        }
+
         if (viewmode.equals("")) { //first time viewing page
-            relevant = "yes";
             viewmode = PackageSearchHelper.OPT_NAME_AND_SUMMARY;
         }
         
@@ -201,21 +224,36 @@ public class PackageSearchAction extends RhnAction {
                         !archLabels.contains(arch.getLabel()));
             }
         }
-
+        
+        // Load list of available channels to select as filter
+        List allChannels =
+            ChannelManager.allChannelsTree(ctx.getLoggedInUser());
+        
         request.setAttribute("search_string", searchString);
         request.setAttribute("view_mode", viewmode);
-        request.setAttribute("relevant", relevant);
         request.setAttribute("searchOptions", searchOptions);
         request.setAttribute("channelArches", channelArches);
         request.setAttribute("channel_arch", selectedArches);
+        request.setAttribute("allChannels", allChannels);
+
+        // Default where to search criteria
+        request.setAttribute("whereCriteria", searchCriteria);
 
         if (!StringUtils.isBlank(searchString)) {
             List<PackageOverview> results =
                 PackageSearchHelper.performSearch(ctx.getWebSession().getId(),
                                          searchString,
                                          viewmode,
-                                         selectedArches);
+                                         selectedArches, relevantFlag);
+
+            // Perform any post-search logic that wasn't done by the search server
             results = removeDuplicateNames(results);
+
+            if (filterChannelId != null) {
+                User user = ctx.getLoggedInUser();
+                results = filterByChannel(user, filterChannelId, results);
+            }
+
             log.warn("GET search: " + results);
             request.setAttribute("pageList",
                     results != null ? results : Collections.EMPTY_LIST);
@@ -224,12 +262,18 @@ public class PackageSearchAction extends RhnAction {
             request.setAttribute("pageList", Collections.EMPTY_LIST);
         }
     }
-    
+
+    /**
+     * Package Search returns a list of all matching packages, this will likely
+     * include multiple packages with the same name but different version, release,
+     * epoch.  WebUI only wants a list of unique package names, so we need
+     * to strip the duplicate names while preserving order.
+     *
+     * @param pkgs packages returned from search that should be cleaned
+     * @return new list object with duplicates removed; does not change the list in place
+     */
     private List<PackageOverview> removeDuplicateNames(List<PackageOverview> pkgs) {
-        // Package Search returns a list of all matching packages, this will likely
-        // include multiple packages with the same name but different version, release,
-        // epoch.  WebUI only wants a list of unique package names, so we need
-        // to strip the duplicate names while preserving order.
+
         List<PackageOverview> result = new ArrayList<PackageOverview>();
         for (PackageOverview pkgOver : pkgs) {
             boolean addPkg = true;
@@ -244,6 +288,45 @@ public class PackageSearchAction extends RhnAction {
             }
         }
         return result;
+    }
+
+    /**
+     * Since the search server does not carry channel information, we do any channel
+     * filtering in the Java stack. This method will return a new list of packages that
+     * containing packages that are present in the given channel; others returned from
+     * the search will be removed.
+     *
+     * @param user      user making the request
+     * @param channelId channel against which the filter should be run
+     * @param pkgs      list of packages returned from the search query that should be
+     *                  filtered
+     * @return new list object with duplicates removed; does not change the list in place
+     */
+    private List<PackageOverview> filterByChannel(User user, Long channelId,
+                                                  List<PackageOverview> pkgs) {
+
+        Channel channel = ChannelManager.lookupByIdAndUser(channelId, user);
+        List<PackageDto> allPackagesList = ChannelManager.listAllPackages(channel);
+
+        // Convert the package list into a map for quicker lookup
+        Map<String, String> packageNamesMap =
+            new HashMap<String, String>(allPackagesList.size());
+
+        for (PackageDto dto : allPackagesList) {
+            String name = dto.getName();
+            packageNamesMap.put(name, name);
+        }
+
+        // Iterate results and remove if not in the channel
+        List<PackageOverview> newResult = new ArrayList<PackageOverview>();
+        for (PackageOverview pkg : pkgs) {
+            String packageName = pkg.getPackageName();
+            if (packageNamesMap.get(packageName) != null) {
+                newResult.add(pkg);
+            }
+        }
+
+        return newResult;
     }
 
     private void addOption(List options, String key, String value) {
