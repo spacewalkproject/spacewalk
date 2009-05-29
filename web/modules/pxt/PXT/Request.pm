@@ -456,8 +456,8 @@ sub cookie_jar {
     my $session_cookie = new Apache2::Cookie $self->{apr},
       -name => $self->session_cookie_name,
 	-value => $self->session->key,
-	  #-domain => PXT::Config->get("base_domain"),   
-	  # Don't set the cookie's domain, as it will cause issues since we aren't setting it in the java stack	  
+	  #-domain => PXT::Config->get("base_domain"),
+	  # Don't set the cookie's domain, as it will cause issues since we aren't setting it in the java stack
 	    @expire,
 	      @secure,
 		-path => "/";
