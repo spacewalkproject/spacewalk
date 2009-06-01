@@ -314,10 +314,9 @@ class OracleBackend(Backend):
                 'version'       : DBstring(64),
                 'release'       : DBstring(64),
                 'channel_arch_id': DBint(),
-                'channel_id'    : DBint(),
-                'is_default'    : DBstring(1)
+                'channel_id'    : DBint()
             },
-            pk          = ['product', 'version', 'release', 'channel_arch_id', 'channel_id', 'is_default'],
+            pk          = ['product', 'version', 'release', 'channel_arch_id', 'channel_id'],
             attribute   = 'release',
             defaultSeverity = 4,
         ),

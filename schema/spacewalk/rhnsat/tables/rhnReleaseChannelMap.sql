@@ -25,11 +25,7 @@ rhnReleaseChannelMap
     channel_arch_id     number
                         constraint rhn_rcm_caid_nn not null,
     channel_id          number
-                        constraint rhn_rcm_cid_nn not null,
-    is_default          char(1)
-                        constraint rhn_rcm_default_nn not null,
-                        constraint rhn_rcm_default_ck
-                            check (is_default in ('Y', 'N'))
+                        constraint rhn_rcm_cid_nn not null
 )
 	enable row movement
   ;
@@ -40,7 +36,7 @@ create index rhn_rcm_prod_ver_rel_caid_idx
   ;
 
 alter table rhnReleaseChannelMap
-add constraint rhn_rcm_pva_def_uniq
-unique (product, version, channel_arch_id, is_default)
+add constraint rhn_rcm_pvar_uniq
+unique (product, version, channel_arch_id, release)
 ;
 
