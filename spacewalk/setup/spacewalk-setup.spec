@@ -75,6 +75,7 @@ install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/oracle/
 install -m 0755 share/oracle/install-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/oracle
 install -m 0755 share/oracle/remove-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/oracle
 install -m 0755 share/oracle/upgrade-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/oracle
+install -m 0755 share/oracle/upgrade-db-10g.sh %{buildroot}/%{_datadir}/spacewalk/setup/oracle
 
 
 %check
