@@ -170,8 +170,7 @@ class ReleaseChannelMap(Information):
         'version'           : StringType,
         'release'           : StringType,
         'channel_arch_id'   : IntType,
-        'channel_id'        : IntType,
-        'is_default'        : StringType,
+        'channel_id'        : IntType
     }
 
 
