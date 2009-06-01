@@ -29,8 +29,11 @@ ORACLE_CONFIG_9I_DIR=$ORACLE_BASE/config/9.2.0
 echo "rhnsat:$ORACLE_HOME:Y" >>/etc/oratab
 
 # change env to rhnsat instance
-ORACLE_SID=rhnsat
-export ORACLE_SID
+if [ -z $ORACLE_CUSTOM_SID ]; then
+	export ORACLE_SID=rhnsat
+else
+	export ORACLE_SID=$ORACLE_CUSTOM_SID
+fi
 . oraenv
 
 
