@@ -572,6 +572,8 @@ def getRemainingSubscriptions(username, password):
     virt_uuid, virt_type = get_virt_info()
     if virt_uuid is not None:
         log.log_debug('Sending up virt_uuid: %s' % str(virt_uuid))
+    else:
+        virt_uuid = ""
 
     # If we've gotten this far, we're definitely looking at hosted.
     # Hosted will have to support the sending of the release, and optionally,
