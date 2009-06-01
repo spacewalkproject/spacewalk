@@ -177,6 +177,9 @@ public class Config {
     public static final String VIRT_PATH_DIR = "kickstart.virt_storage_path";
     private static final String DEFAULT_VIRT_PATH = "/var/lib/xen";
     public static final String VIRT_BRIDGE = "kickstart.virt_bridge";
+    public static final String VIRT_MEM = "kickstart.virt_mem_size_kb";
+    public static final String VIRT_CPU = "kickstart.virt_cpus";
+    public static final String VIRT_DISK = "kickstart.virt_disk_size_gb";
     /**
      * array of prefix in the order they should be search
      * if the given lookup string is without a namespace.
@@ -440,6 +443,18 @@ public class Config {
         return value.split(",");
     }
 
+    /**
+     * get the config entry for string s, if no value is found
+     * return the defaultValue specified.
+     *
+     * @param s string to get the value of
+     * @param defaultValue Default value if entry is not found.
+     * @return the value
+     */
+    public long getLong(String s, long defaultValue) {
+        return Long.valueOf(getString(s, String.valueOf(defaultValue)));
+    }
+    
     /**
      * get the config entry for string name
      *
@@ -791,4 +806,27 @@ public class Config {
     public String getDefaultXenVirtBridge() {
         return getString(VIRT_BRIDGE, "xenbr0");
     }
+    /**
+     * Returns the default virt disk size in GBs
+     * @return the virt disk size
+     */
+    public int getDefaultVirtDiskSize() {
+        return getInt(VIRT_DISK, 3);
+    }
+
+    /**
+     * Returns the defualt VirtMemory Size in KBs
+     * @return the memory size
+     */
+    public long getDefaultVirtMemorySize() {
+        return getLong(VIRT_MEM, 262144);
+    }
+    
+    /**
+     * Returns the default number of virt cpus
+     * @return the number of virt cpus
+     */
+    public int getDefaultVirtCpus() {
+        return getInt(VIRT_CPU, 1);
+    }    
 }
