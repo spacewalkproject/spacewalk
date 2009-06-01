@@ -1,10 +1,18 @@
 #!/bin/sh
-# Installs/creates the RHN embedded database at mountpoint /rhnsat
+# Upgrades RHN embedded database at mountpoint /rhnsat
 #
-# Copyright (c) 2002-2004, Red Hat, Inc.
-# All rights reserved.
+# Copyright (c) 2008 Red Hat, Inc.
 #
-# $Id: inst-rhnsat-db.sh,v 1.14 2008-03-17 10:54:36 mmraka Exp $
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
 
 set -x
 
