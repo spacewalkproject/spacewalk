@@ -23,6 +23,7 @@ Source9: default-createdb.tmpl
 Source10: embedded-createdb.tmpl
 Source11: rhnora.m4
 Source12: embedded-upgradedb.tmpl
+Source13: embedded-upgradedb-10g.tmpl
 License: Proprietary
 Group:   Oracle Server
 BuildArch: noarch
@@ -45,7 +46,7 @@ mkdir -p $RPM_BUILD_ROOT
 install -m755 -d $RPM_BUILD_ROOT%{oracle_admin}
 for f in %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} \
 	 %{SOURCE4} %{SOURCE5} %{SOURCE9} %{SOURCE10} %{SOURCE11} \
-	 %{SOURCE12}; do
+	 %{SOURCE12} %{SOURCE13}; do
     install -m 755 $f $RPM_BUILD_ROOT%{oracle_admin}
 done
 
