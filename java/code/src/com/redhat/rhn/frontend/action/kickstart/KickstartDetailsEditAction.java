@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.kickstart;
 
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorException;
@@ -63,9 +64,6 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
     public static final String  POST_LOG = "post_log";
     public static final String  PRE_LOG = "pre_log";
     public static final String  KS_CFG = "ksCfg";
-    
-
-
     public static final String  KERNEL_OPTIONS = "kernel_options";
     public static final String  POST_KERNEL_OPTIONS = "post_kernel_options";
 
@@ -153,16 +151,20 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
         }
         
        if (prof == null) {
-           form.set(VIRT_BRIDGE, "xenbr0");
-           form.set(VIRT_CPU, 1);
-           form.set(VIRT_DISK_SIZE, 3);
-           form.set(VIRT_MEMORY, 262144);
+           form.set(VIRT_BRIDGE, Config.get().getDefaultXenVirtBridge());
+           form.set(VIRT_CPU, Config.get().getDefaultVirtCpus());
+           form.set(VIRT_DISK_SIZE, Config.get().getDefaultVirtDiskSize());
+           form.set(VIRT_MEMORY, Config.get().getDefaultVirtMemorySize());
        }
        else {
-           setFormValueOrDefault(form, VIRT_BRIDGE, prof.getVirtBridge(), "xenbr0");
-           setFormValueOrDefault(form, VIRT_CPU, prof.getVirtCpus(), 1);
-           setFormValueOrDefault(form, VIRT_DISK_SIZE, prof.getVirtFileSize(), 3);
-           setFormValueOrDefault(form, VIRT_MEMORY, prof.getVirtRam(), 262144);  
+           setFormValueOrDefault(form, VIRT_BRIDGE, prof.getVirtBridge(), 
+                                               Config.get().getDefaultXenVirtBridge());
+           setFormValueOrDefault(form, VIRT_CPU, prof.getVirtCpus(),
+                                                   Config.get().getDefaultVirtCpus());
+           setFormValueOrDefault(form, VIRT_DISK_SIZE, prof.getVirtFileSize(),
+                                               Config.get().getDefaultVirtDiskSize());
+           setFormValueOrDefault(form, VIRT_MEMORY, prof.getVirtRam(),
+                                           Config.get().getDefaultVirtMemorySize());  
        }
 
        
