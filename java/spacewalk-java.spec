@@ -11,7 +11,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.22
+Version: 0.6.23
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -248,6 +248,33 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Mon Jun 01 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.23-1
+- 496933 - update the errata index when publishing an errata. (jesusr@redhat.com)
+- 492206 - Fixed an issue ' bad cobbler template' parsing (paji@redhat.com)
+- PackageSearchHandler apidoc cleanup (jmatthew@redhat.com)
+- 457316 - Added search for packages in a particular channel. (jason.dobies@redhat.com)
+- 502076 - Fixed kickstarting using a system profile (paji@redhat.com)
+- 487014 - SystemSearch reducing scrore threshold for a single result to
+  redirect to SDC page (jmatthew@redhat.com)
+- 501797 - no need to install Monitoring service (msuchy@redhat.com)
+- 502923 - Fixed a null pointer that occured on saving non existent xen distro. (paji@redhat.com)
+- 490960 - ErrataSearch limit returned results to current or trusted orgs (jmatthew@redhat.com)
+- remove todo indicator from code (bbuckingham@redhat.com)
+- 501358 - api - channel.software.create - update to provide more detail on
+  label/name errors (bbuckingham@redhat.com)
+- 499399 - create new api call proxy.createMonitoringScout (msuchy@redhat.com)
+- 502848 - adding hooks to better assist automation with the systems channel
+  subscription page (jsherril@redhat.com)
+- 496105 - Fix for setting up activaiton key for para-host provisioning (paji@redhat.com)
+- 498467 - A few changes related to the channel name limit increase. (jason.dobies@redhat.com)
+- 502099 - api - update systemgroup.addOrRemoveAdmins to not allow changes to
+  access for sat/org admins (bbuckingham@redhat.com)
+- Fix tests and actions broken by recent change to set clearing logic. (dgoodwin@redhat.com)
+- 472545 - update to the webui translation strings (shughes@redhat.com)
+- 502853 - improving support for CentOS by not looking only in the base channel
+  for the UPDATE pacakges (jsherril@redhat.com)
+- 501387 - adding kernel opts and post kernel opts  to distro edit/create page (jsherril@redhat.com)
+
 * Tue May 26 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.22-1
 - 500366 - ssm pkg verify - fix string in resource bundle
   (bbuckingham@redhat.com)
