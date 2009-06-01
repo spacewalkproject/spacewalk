@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.9
+Version: 0.6.10
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -112,6 +112,12 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Mon Jun 01 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.10-1
+- added java debugger options for local dev config (jesusr@redhat.com)
+- store pid file locally. (jesusr@redhat.com)
+- 487014 - SystemSearch reducing scrore threshold for a single result to
+  redirect to SDC page (jmatthew@redhat.com)
+
 * Tue May 26 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.9-1
 - 501925 - "rhn-search cleanindex" will now restart search after cleaning index
   (jmatthew@redhat.com)
