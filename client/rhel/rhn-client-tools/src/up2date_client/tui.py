@@ -1562,7 +1562,8 @@ class Tui:
 
         log.log_debug('subs is %s' % subs)
 
-        if int(subs) > 0:
+        # -1 is infinite
+        if int(subs) != 0:
             log.log_debug('we still have subscriptions %s' % str(subs))
 
             # bz442930 : Should allow registration when login and password is changed
