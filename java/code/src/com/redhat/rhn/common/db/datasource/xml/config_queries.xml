@@ -2152,6 +2152,67 @@ SELECT  CC.id, CR.revision AS config_revision,
   </elaborator>
 </mode>
 
+<mode name="upload_action_status">
+  <query params="aid">
+SELECT CFN.path,
+       CFF.name AS FAILURE_REASON
+  FROM rhnConfigFileFailure CFF,
+       rhnConfigFileName CFN,
+       rhnActionConfigFileName ACFN
+ WHERE ACFN.action_id = :aid
+   AND ACFN.config_file_name_id = CFN.id
+   AND ACFN.failure_id = CFF.id (+)
+ORDER BY CFN.path
+  </query>
+</mode>
+
+<mode name="config_action_revisions">
+  <query params="aid">
+SELECT CFN.path,
+       CR.id,
+       CR.revision,
+       ACR.id AS ACTION_REVISION_ID,
+       CFF.name AS FAILURE_REASON
+  FROM rhnConfigFileFailure CFF,
+       rhnConfigFileName CFN,
+       rhnConfigFile CF,
+       rhnConfigRevision CR,
+       rhnActionConfigRevision ACR
+ WHERE ACR.action_id = :aid
+   AND ACR.config_revision_id = CR.id
+   AND CR.config_file_id = CF.id
+   AND CF.config_file_name_id = CFN.id
+   AND ACR.failure_id = CFF.id (+)
+ORDER BY UPPER(CFN.path)
+  </query>
+</mode>
+
+<mode name="diff_action_revisions">
+  <query params="aid">
+SELECT CFN.path,
+       CR.id,
+       CR.id AS REVISION_ID,
+       CR.revision,
+       ACR.id AS ACTION_REVISION_ID,
+       CFF.name AS FAILURE_REASON,
+       ACRR.result AS DIFF,
+       rhn_config_channel.action_diff_revision_status(ACR.id) AS STATUS
+  FROM rhnConfigFileFailure CFF,
+       rhnConfigFileName CFN,
+       rhnConfigFile CF,
+       rhnConfigRevision CR,
+       rhnActionConfigRevision ACR,
+       rhnActionConfigRevisionResult ACRR
+ WHERE ACR.action_id = :aid
+   AND ACR.config_revision_id = CR.id
+   AND CR.config_file_id = CF.id
+   AND CF.config_file_name_id = CFN.id
+   AND ACRR.action_config_revision_id = ACR.id
+   AND ACR.failure_id = CFF.id (+)
+ORDER BY UPPER(CFN.path)
+  </query>
+</mode>
+
 <callable-mode name="create_new_config_channel">
   <query params="org_id_in, type_in, name_in, label_in,  description_in">
       {:channelId = call rhn_config.insert_channel( :org_id_in, :type_in, :name_in, :label_in, :description_in)}

@@ -1175,6 +1175,14 @@ SELECT  1
   </query>
 </mode>
 
-
+<mode name="errata_associated_with_action">
+  <query params="aid">
+SELECT E.id, E.advisory, E.synopsis
+  FROM rhnErrata E,
+       rhnActionErrataUpdate AEU
+ WHERE E.id = AEU.errata_id
+   AND AEU.action_id = :aid
+  </query>
+</mode>
 
 </datasource_modes>
