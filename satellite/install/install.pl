@@ -73,6 +73,17 @@ Spacewalk::Setup::upgrade_stop_services(\%opts);
 remove_obsoleted_packages(\%opts);
 
 my $have_yum = ( -f '/usr/bin/yum' ? 1 : 0 );
+if ($have_yum) {
+    # If we have yum available but are on RHEL 4, stick with up2date:
+    # NOTE: Even if the system has no redhat-release (i.e. Fedora) this regex
+    # will simply not match.
+    my $redhat_release = `rpm -q --qf='%{VERSION}' redhat-release`;
+    if ($redhat_release =~ /^4.*/) {
+        $have_yum = 0;
+        print loc("Warning: Found yum on RHEL 4, using up2date instead.\n");
+    }
+}
+
 
 my $run_updater;
 if (defined $opts{'run-updater'}) {
