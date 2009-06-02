@@ -8,8 +8,9 @@ fi
 CONNECT=$(awk '/default_db/ {split($0,a,"="); print a[2]}' /etc/rhn/rhn.conf)
 [ -n "$2" ] && CONNECT=$2
 
-sqlplus $CONNECT >& /dev/null << EOS
-spool $1
+# sqlplus ... | cat > ... is here to fool selinux, since oracle_sqlplus_t
+# cannot write just anywhere
+sqlplus $CONNECT << EOS | cat > $1
 set echo on
 set serverout on
 set pagesize 2000 linesize 145
