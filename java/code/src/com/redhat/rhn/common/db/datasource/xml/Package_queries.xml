@@ -1036,7 +1036,6 @@ SELECT  pn.name AS NAME,
             AND SPP.patch_id = full_list.id
             AND PNEVRA.id = SPP.package_nevra_id
             AND PNEVRA.name_id = SP.name_id
-            AND PNEVRA.evr_id = SP.evr_id
             AND ((PNEVRA.package_arch_id IS NULL AND SP.package_arch_id IS NULL) OR PNEVRA.package_arch_id = SP.package_arch_id)
             AND NOT EXISTS (SELECT 1
                             FROM rhnSolarisPatchedPackage SPdP
