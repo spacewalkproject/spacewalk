@@ -29,6 +29,10 @@
       <rhn-tab-url>/network/software/channels/manage/errata/clone.pxt?pxt:trap=rhn:empty_set&amp;set_label=errata_clone_actions</rhn-tab-url>
       <rhn-tab-url>/network/software/channels/manage/errata/clone_confirm.pxt</rhn-tab-url>
     </rhn-tab>
+    <rhn-tab name="Sync" acl="channel_is_clone();user_role(channel_admin);">
+      <rhn-tab-url>/rhn/channels/manage/errata/SyncErrata.do</rhn-tab-url>
+      <rhn-tab-url>/rhn/channels/manage/errata/ConfirmSyncPackages.do</rhn-tab-url>
+    </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Packages" acl="channel_exists()"  node-id="remove_channel_packages">
     <rhn-tab-url>/rhn/channels/manage/ChannelPackageMenu.do</rhn-tab-url>

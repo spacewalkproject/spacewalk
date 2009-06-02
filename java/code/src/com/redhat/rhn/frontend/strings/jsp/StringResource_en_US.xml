@@ -21302,6 +21302,31 @@ given channel.</source>
       <trans-unit id="actions.jsp.pickedup">
 		<source>Picked Up</source>
       </trans-unit>
+      <trans-unit id="header.jsp.errata.sync">
+		<source>Sync Errata</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.errata.sync.message">
+		<source>The following errata were cloned from errata that have since been updated.
+		   This page will allow you to syncronize your cloned errata to that of its original.</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.errata.sync.note">
+		<source>Packages that were omitted as part of the origianl cloning process will be included here.</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.errata.sync.listempty">
+		<source>No out of date errata were found.</source>
+      </trans-unit>
+      <trans-unit id="header.jsp.errata.sync.packagepush">
+		<source>Packages to Push</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.errata.sync.packages.message">
+		<source>The following packages will be pushed to this channel as part of the errata sync process.  Please review this list and unselect any unwanted packages.</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.errata.sync.complete">
+		<source>Sucessfully syncronized {0} errata and pushed {1} packages to channel {2}.</source>
+      </trans-unit>
+
+
+
   </body>
   </file>
 </xliff>

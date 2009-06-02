@@ -16,16 +16,15 @@ package com.redhat.rhn.manager.channel;
 
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
-import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.user.UserManager;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -57,7 +56,7 @@ public class ChannelEditor {
      * @param channel The channel to add the packages to
      * @param packageIds A list containing the ids of packages to add.
      */
-    public void addPackages(User user, Channel channel, List packageIds) {
+    public void addPackages(User user, Channel channel, Collection packageIds) {
         changePackages(user, channel, packageIds, true);
     }
     
@@ -67,7 +66,7 @@ public class ChannelEditor {
      * @param channel The channel to remove the packages from
      * @param packageIds A list containing the ids of packages to remove.
      */
-    public void removePackages(User user, Channel channel, List packageIds) {
+    public void removePackages(User user, Channel channel, Collection packageIds) {
         changePackages(user, channel, packageIds, false);
     }
     
@@ -76,7 +75,8 @@ public class ChannelEditor {
      * @param add If true, we are adding the list of packages to the channel. Otherwise,
      * remove the list of packages from the channel.
      */
-    private void changePackages(User user, Channel channel, List packageIds, boolean add) {
+    private void changePackages(User user, Channel channel,
+                                Collection packageIds, boolean add) {
         //Make sure the person adding packages is a channel admin
         if (!UserManager.verifyChannelAdmin(user, channel)) {
             StringBuffer msg = new StringBuffer("User: ");
@@ -112,27 +112,18 @@ public class ChannelEditor {
             }
         }
         
+        List<Long> existingPids = ChannelFactory.getPackageIds(channel.getId());
+
         //Loop through packages and add to channel. 
         for (Iterator itr = packageIds.iterator(); itr.hasNext();) {
             Long pid = convertObjectToLong(itr.next());
-            Package pkg = PackageManager.lookupByIdAndUser(pid, user);
-            if (pkg != null) {
-                if (add) {
-                    channel.addPackage(pkg);
-                }
-                else {
-                    channel.removePackage(pkg, user);
-                }
+            List list = new ArrayList();
+            list.add(pid);
+            if (add && !existingPids.contains(pid)) {
+                ChannelManager.addPackages(channel, list, user);
             }
-            else {
-                //throw a lookup exception
-                LocalizationService ls = LocalizationService.getInstance();
-                String msg = "The package: " + pid + " could not be found.";
-                LookupException e = new LookupException(msg);
-                e.setLocalizedTitle(ls.getMessage("lookup.jsp.title.package"));
-                e.setLocalizedReason1(ls.getMessage("lookup.jsp.reason1.package"));
-                e.setLocalizedReason2(ls.getMessage("lookup.jsp.reason2.package"));
-                throw e;
+            else if (!add) {
+                ChannelManager.removePackages(channel, list, user);
             }
         }
         
