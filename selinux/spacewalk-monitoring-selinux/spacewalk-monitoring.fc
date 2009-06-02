@@ -11,6 +11,7 @@
 /var/run/SysVStep\..* gen_context(system_u:object_r:spacewalk_monitoring_var_run_t,s0)
 
 /etc/notification(/.*)? gen_context(system_u:object_r:spacewalk_monitoring_conf_t,s0)
+/etc/NOCpulse\.ini gen_context(system_u:object_r:spacewalk_monitoring_conf_t,s0)
 
 /var/lib/nocpulse(/.*)? gen_context(system_u:object_r:spacewalk_monitoring_var_lib_t,s0)
 /var/lib/notification(/.*)? gen_context(system_u:object_r:spacewalk_monitoring_var_lib_t,s0)
