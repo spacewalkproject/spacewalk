@@ -46,6 +46,9 @@ import com.redhat.rhn.frontend.struts.RequestContext;
  * @version $Rev $
  */
 public class ListTagUtil {
+    private static final String IE_MAGIC_SNIPPET = "<!--[if IE]><input type=\"text\" " +
+            "style=\"display: none;\" disabled=\"disabled\" size=\"1\" /><![endif]-->";
+    
     private ListTagUtil() {
 
     }
@@ -628,7 +631,8 @@ public class ListTagUtil {
             ListTagUtil.write(pageContext, filterValue);
         }
         ListTagUtil.write(pageContext, "\" />");
-
+        
+        ListTagUtil.write(pageContext, IE_MAGIC_SNIPPET);
         ListTagUtil.write(pageContext,
                 "&nbsp;&nbsp;&nbsp;<input type=\"submit\"" +  "name=\""  +
                 filterName + "\"" +  "value=\"" +
