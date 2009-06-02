@@ -270,7 +270,9 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
     
     private static void fillOutErrata(Errata e, Long orgId) throws Exception {
         String name = "JAVA Test " + TestUtils.randomString();
-        e.setOrg(OrgFactory.lookupById(orgId));
+        if (orgId != null) {
+            e.setOrg(OrgFactory.lookupById(orgId));
+        }
         e.setAdvisory(name);
         e.setAdvisoryType(ErrataFactory.ERRATA_TYPE_BUG);
         e.setProduct("Red Hat Linux");
@@ -334,11 +336,7 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
        assertEquals(published.getLocallyModified(), clone.getLocallyModified());
        assertEquals(clonedAdvisoryName, clone.getAdvisoryName());
        assertEquals(clonedAdvisory, clone.getAdvisory());
-       
-       assertEquals(1, clone.getFiles().size());
-       ErrataFile ef = (ErrataFile)clone.getFiles().iterator().next();
-       assertEquals(1, ef.getPackages().size());
-       
+
        /* Create a 2nd clone and make sure that the cloning function
         * does not create a clone whose name collides with the already
         * existing clone

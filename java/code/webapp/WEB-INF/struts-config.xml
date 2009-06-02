@@ -6169,6 +6169,27 @@
        <forward name="default" path="/channels/manage/errata/Add.do" />
       </action>
 
+
+      <action path="/channels/manage/errata/SyncErrata"
+        scope="request"
+        input="/WEB-INF/pages/channel/manage/erratasync.jsp"
+        type="com.redhat.rhn.frontend.action.channel.manage.SyncErrataAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="default" path="/WEB-INF/pages/channel/manage/erratasync.jsp" />
+      <forward name="submit" path="/channels/manage/errata/ConfirmSyncPackages.do" redirect="true"/>
+      </action>
+
+      <action path="/channels/manage/errata/ConfirmSyncPackages"
+        scope="request"
+        input="/WEB-INF/pages/channel/manage/erratapackagesync.jsp"
+        type="com.redhat.rhn.frontend.action.channel.manage.SyncErrataPackagesAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="default" path="/WEB-INF/pages/channel/manage/erratapackagesync.jsp" />
+      <forward name="submit" path="/channels/manage/errata/SyncErrata.do" redirect="true"/>
+      </action>
+
+
+
    <action path="/channels/manage/errata/Errata"
         scope="request"
         type="com.redhat.rhn.frontend.action.channel.manage.ErrataIndexAction"

@@ -204,7 +204,7 @@ public class ErrataFactory extends HibernateFactory {
             published = ErrataFactory.createPublishedErrata();
         }
         
-        copyDetails(published, unpublished);
+        copyDetails(published, unpublished, false);
         
         //Save the published Errata
         save(published);
@@ -353,7 +353,7 @@ public class ErrataFactory extends HibernateFactory {
                 
         UnpublishedClonedErrata clone = new UnpublishedClonedErrata();
 
-        copyDetails(clone, e);
+        copyDetails(clone, e, true);
 
         clone.setAdvisoryName(clonedAdvisoryName);
         clone.setAdvisory(clonedAdvisory);
@@ -368,11 +368,19 @@ public class ErrataFactory extends HibernateFactory {
      * Helper method to copy the details for.
      * @param copy The object to copy into.
      * @param original The object to copy from.
+     * @param clone  set to true if this is a cloned errata, and thus
+     *      things like org or advisory name shouldn't be set
      */
-    private static void copyDetails(Errata copy, Errata original) {
+    private static void copyDetails(Errata copy, Errata original, boolean clone) {
         
         //Set the easy things first ;)
-        copy.setAdvisory(original.getAdvisory());
+
+        if (!clone) {
+            copy.setAdvisory(original.getAdvisory());
+            copy.setAdvisoryName(original.getAdvisoryName());
+            copy.setOrg(original.getOrg());
+        }
+
         copy.setAdvisoryType(original.getAdvisoryType());
         copy.setProduct(original.getProduct());
         copy.setDescription(original.getDescription());
@@ -383,11 +391,10 @@ public class ErrataFactory extends HibernateFactory {
         copy.setUpdateDate(original.getUpdateDate());
         copy.setNotes(original.getNotes());
         copy.setRefersTo(original.getRefersTo());
-        copy.setAdvisoryName(original.getAdvisoryName());
         copy.setAdvisoryRel(original.getAdvisoryRel());
         copy.setLocallyModified(original.getLocallyModified());
         copy.setLastModified(original.getLastModified());
-        copy.setOrg(original.getOrg());
+
         
         /* 
          * Copy the packages
@@ -415,39 +422,16 @@ public class ErrataFactory extends HibernateFactory {
         Iterator bugsItr = IteratorUtils.getIterator(original.getBugs());
         while (bugsItr.hasNext()) {
             Bug bugIn = (Bug) bugsItr.next();
-            Bug clone;
+            Bug cloneB;
             if (copy.isPublished()) { //we want published bugs
-                clone = ErrataManager.createNewPublishedBug(bugIn.getId(), 
+                cloneB = ErrataManager.createNewPublishedBug(bugIn.getId(),
                                                             bugIn.getSummary());
             }
             else { //we want unpublished bugs
-                clone = ErrataManager.createNewUnpublishedBug(bugIn.getId(),
+                cloneB = ErrataManager.createNewUnpublishedBug(bugIn.getId(),
                                                               bugIn.getSummary());
             }
-           copy.addBug(clone);
-        }
-              
-        /*
-         * Copy the files using the same idea as the above bug copying
-         */
-        Iterator filesItr = IteratorUtils.getIterator(original.getFiles());
-        while (filesItr.hasNext()) {
-            ErrataFile fileIn = (ErrataFile) filesItr.next();
-            ErrataFile clone;
-            Set packages = new HashSet(fileIn.getPackages());
-            if (copy.isPublished()) {
-                clone = ErrataManager.createNewPublishedErrataFile(fileIn.getFileType(),
-                                                                   fileIn.getChecksum(),
-                                                                   fileIn.getFileName(),
-                                                                   packages);
-            }
-            else {
-                clone = ErrataManager.createNewUnpublishedErrataFile(fileIn.getFileType(),
-                                                                     fileIn.getChecksum(),
-                                                                     fileIn.getFileName(),
-                                                                     packages);
-            }
-            copy.addFile(clone);
+           copy.addBug(cloneB);
         }
     }
     
@@ -1048,7 +1032,13 @@ public class ErrataFactory extends HibernateFactory {
     }
 
 
-
+    /**
+     * Sync all the errata details from one errata to another
+     * @param cloned the cloned errata that needs syncing
+     */
+    public static void syncErrataDetails(PublishedClonedErrata cloned) {
+        copyDetails(cloned, cloned.getOriginal(), true);
+    }
 
 }
 

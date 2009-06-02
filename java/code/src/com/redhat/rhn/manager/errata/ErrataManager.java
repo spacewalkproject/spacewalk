@@ -31,6 +31,7 @@ import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.ErrataFile;
 import com.redhat.rhn.domain.errata.ErrataFileType;
+import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -1237,4 +1238,19 @@ public class ErrataManager extends BaseManager {
 
        return flag;
    }
+
+    /**
+     * resync an errata, including all it's details
+     *  doesn't actually push any packages to a channel
+     * @param cloned the cloned errata needing resyncing
+     * @param user the user doign the syncing
+     */
+   public static void reSyncErrata(PublishedClonedErrata cloned, User user) {
+       if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+           throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
+       }
+       ErrataFactory.syncErrataDetails(cloned);
+   }
+
+
 }
