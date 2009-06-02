@@ -49,14 +49,14 @@ def main():
       gather(hasOpt("C", "clear"))
       exit(0)
 
-   global server, user, password, filename, ssl
+   global server, user, password, filename, ssl, bundleSize
    server = getOpt("s", "server", msg = "--server not provided")
    user = getOpt("l", "user", "--user not provided") 
    password  = getOpt("p", "password")         
    if password == None:
       password = getpass.getpass()
    if (getOpt("b", "bundle") is not None):
-      bundleSize == int(getOpt("b", "bundle")) 
+      bundleSize = int(getOpt("b", "bundle"))
 
    #did you provide a data file?  If not we need all the information
    if not hasOpt("D", "data"):
