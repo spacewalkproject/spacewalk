@@ -122,7 +122,7 @@ public class MigrationManager extends BaseManager {
         for (ManagedServerGroup group : server.getManagedGroups()) {
             List<Server> tempList = new LinkedList<Server>();
             tempList.add(server);
-            manager.removeServers(group, tempList, user);
+            manager.removeServers(group, tempList);
         }
 
         // Remove custom data values (aka System->CustomInfo)
