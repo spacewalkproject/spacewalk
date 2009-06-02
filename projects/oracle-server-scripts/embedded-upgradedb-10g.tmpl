@@ -80,7 +80,7 @@ startup
 select sysdate, 'Locking default 9i users' message from dual;
 BEGIN
  FOR item IN ( SELECT USERNAME FROM DBA_USERS WHERE USERNAME IN (
-   'DBSNMP', 'OUTLN', 'TSMSYS', 'ORACLE_OCM', 'DIP') )
+   'DBSNMP', 'OUTLN', 'TSMSYS', 'ORACLE_OCM', 'DIP') AND ACCOUNT_STATUS = 'OPEN')
  LOOP
    dbms_output.put_line('Locking and Expiring: ' || item.USERNAME);
    execute immediate 'alter user ' || item.USERNAME || ' password expire account lock' ;
