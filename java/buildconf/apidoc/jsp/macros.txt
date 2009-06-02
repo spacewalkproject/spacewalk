@@ -22,6 +22,11 @@
         <ul>
             <li>
 #end
+#macro(prop_array_begin_desc $key $desc)
+    <li>array "$key" - $desc
+        <ul>
+            <li>
+#end
 #macro(prop_array_end)
            </li>
         </ul>

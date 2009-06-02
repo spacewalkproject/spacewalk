@@ -763,6 +763,71 @@ public class ActionManager extends BaseManager {
         dr.setTotalSize(dr.size());
         return dr;
     }
+
+    /**
+     * Returns the list of errata associated with a specific action.
+     * @param aid The action id for the action in question
+     * @return Return a list containing the errata for the action.
+     */
+    public static DataResult getErrataList(Long aid) {
+        SelectMode m = ModeFactory.getMode("Errata_queries",
+                           "errata_associated_with_action");
+
+        Map params = new HashMap();
+        params.put("aid", aid);
+
+        DataResult dr = m.execute(params);
+        dr.setTotalSize(dr.size());
+        return dr;
+    }
+
+    /**
+     * Returns the list of details associated with a config file upload action.
+     * @param aid The action id for the action in question
+     * @return Return a list containing the errata for the action.
+     */
+    public static DataResult getConfigFileUploadList(Long aid) {
+        SelectMode m = ModeFactory.getMode("config_queries", "upload_action_status");
+
+        Map params = new HashMap();
+        params.put("aid", aid);
+
+        DataResult dr = m.execute(params);
+        dr.setTotalSize(dr.size());
+        return dr;
+    }
+
+    /**
+     * Returns the list of details associated with a config file deploy action.
+     * @param aid The action id for the action in question
+     * @return Return a list containing the details for the action.
+     */
+    public static DataResult getConfigFileDeployList(Long aid) {
+        SelectMode m = ModeFactory.getMode("config_queries", "config_action_revisions");
+
+        Map params = new HashMap();
+        params.put("aid", aid);
+
+        DataResult dr = m.execute(params);
+        dr.setTotalSize(dr.size());
+        return dr;
+    }
+
+    /**
+     * Returns the list of details associated with a config file diff action.
+     * @param aid The action id for the action in question
+     * @return Return a list containing the details for the action.
+     */
+    public static DataResult getConfigFileDiffList(Long aid) {
+        SelectMode m = ModeFactory.getMode("config_queries", "diff_action_revisions");
+
+        Map params = new HashMap();
+        params.put("aid", aid);
+
+        DataResult dr = m.execute(params);
+        dr.setTotalSize(dr.size());
+        return dr;
+    }
     
     /**
      * Retrieves the systems that have completed a given action
