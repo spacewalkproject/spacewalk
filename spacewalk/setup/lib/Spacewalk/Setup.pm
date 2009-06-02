@@ -728,9 +728,12 @@ sub oracle_setup_embedded_db {
     }
 
 
-    if ($opts->{'upgrade'} and need_oracle_9i_10g_upgrade()) {
+    if ($opts->{'upgrade'}) {
+		my $upgrade_script = "upgrade-db-10g.sh";
+		need_oracle_9i_10g_upgrade() and $upgrade_script = "upgrade-db.sh";
+
         printf loc(<<EOQ, DB_UPGRADE_LOG_FILE);
-** Database: Upgrading the database server to Oracle 10g:
+** Database: Upgrading the database server to latest Oracle 10g:
 ** Database: This is a long process that is logged in:
 ** Database: %s
 EOQ
@@ -740,7 +743,8 @@ EOQ
                    -err_message => "Could not upgrade database.\n",
                    -err_code => 15,
                    -system_opts => ['/sbin/runuser', 'oracle', '-c',
-                                    "ORACLE_CUSTOM_SID=$answers->{'db-sid'} " . SHARED_DIR . '/oracle/upgrade-db.sh' ]);
+                                    "ORACLE_CUSTOM_SID=$answers->{'db-sid'} " . SHARED_DIR .
+                                    '/oracle/' . $upgrade_script ]);
 
         system_or_exit(['service', 'oracle', 'restart'], 41,
                        'Could not restart oracle service');
