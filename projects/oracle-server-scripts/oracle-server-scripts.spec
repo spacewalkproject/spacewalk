@@ -9,7 +9,7 @@
 Summary: Oracle 10g Database Server Enterprise Edition scripts
 Name: oracle-server-scripts
 Version: 10.2.0
-Release: 28%{?dist}
+Release: 29%{?dist}
 Source0: oracle-home.sh
 Source1: init-params.ora
 Source2: create-db.sh
@@ -95,6 +95,8 @@ exit 0
 %{oracle_scripts}
 
 %changelog
+* Tue Jun 02 2009 Milan Zazrivec <mzazrivec@redhat.com> 10.2.0-29
+- script for 10.2.0.3 to 10.2.0.4 10g upgrade
 * Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 10.2.0-28
 - 498192 - fix PL/SQL compilation error during embedded db upgrade (mmraka@redhat.com)
 - 498192 - fix ORA-10647 during embedded db upgrade (mzazrivec@redhat.com)
