@@ -357,20 +357,29 @@ public class ServerGroupManager {
     /**
      * Dissociates a bunch of servers from a server group
      * @param sg the server group to process
-     * @param servers a collection of servers to deassociate 
+     * @param servers a collection of servers to dissociate
      * @param loggedInUser the loggedInUser needed for credentials
      */
     public void removeServers(ServerGroup sg, Collection servers, 
                                                         User loggedInUser) {
         validateAccessCredentials(loggedInUser, sg, sg.getName());
         validateAdminCredentials(loggedInUser);
+        removeServers(sg, servers);
+    }
+
+    /**
+     * Dissociates a bunch of servers from a server group.
+     * **WARNING** This method does not validate the user's access or
+     * admin credentials; therefore, it should be used with caution.
+     * @param sg the server group to process
+     * @param servers a collection of servers to dissociate
+     */
+    public void removeServers(ServerGroup sg, Collection servers) {
         for (Iterator itr = servers.iterator(); itr.hasNext();) {
             Server s = (Server) itr.next();
             SystemManager.removeServerFromServerGroup(s, sg);    
         }
-            
     }
-       
 
     /**
      * Returns the admins of a given servergroup. This list includes
