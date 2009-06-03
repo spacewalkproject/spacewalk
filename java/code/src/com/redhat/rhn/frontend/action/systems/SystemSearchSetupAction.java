@@ -16,7 +16,6 @@ package com.redhat.rhn.frontend.action.systems;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.dto.SystemSearchResult;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -55,12 +54,10 @@ import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcFault;
 
 /**
- * SystemSearchAction extends RhnAction - Class representation of the table ###TABLE###.
- * @version $Rev: 1 $
+ * Action handling the advanced system search page.
  */
 public class SystemSearchSetupAction extends RhnAction implements Listable {
-    private static Logger log = Logger.getLogger(SystemSearchSetupAction.class);
-
+    
     public static final String LIST_NAME = "pageList";
     public static final String DATA_SET = "searchResults";
     
@@ -133,6 +130,8 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
 
     private static final String FORM = "FORM";
     private static final String MAPPING = "MAPPING";
+    
+    private final Logger log = Logger.getLogger(SystemSearchSetupAction.class);
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -153,12 +152,26 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
         if (ListTagHelper.getListAction(getListName(), request) != null || 
                 (!isSubmitted(daForm) &&
                 request.getParameter(VIEW_MODE) != null)) {
+
+            String whereToSearch = daForm.getString(WHERE_TO_SEARCH);
+            Boolean invertResults = (Boolean) daForm.get(INVERT_RESULTS);
+
+            if (invertResults == null) {
+                invertResults = Boolean.FALSE;
+            }
             
             request.setAttribute(VIEW_MODE, request.getParameter(VIEW_MODE));
             request.setAttribute(SEARCH_STRING, request.getParameter(SEARCH_STRING));
+            request.setAttribute(WHERE_TO_SEARCH, whereToSearch);
+
+            if (invertResults) {
+                request.setAttribute(INVERT_RESULTS, "on");
+            }
+            else {
+                request.setAttribute(INVERT_RESULTS, "off");
+            }            
+            
             setupForm(request, daForm, request.getParameter(VIEW_MODE));
-            
-            
             
             ListRhnSetHelper helper = new ListRhnSetHelper(this, 
                                             request, RhnSetDecl.SYSTEMS);
@@ -168,7 +181,8 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
             helper.execute();
 
             List results = (List)request.getAttribute(getDataSetName());
-            log.info("SystemSearch results.size() = " + results.size());
+            log.info("SystemSearch results.size() = " +
+                (results != null ? results.size() : "null results"));
             if ((results != null) && (results.size() == 1)) {
                 SystemSearchResult s =  (SystemSearchResult) results.get(0);
                 Double score = s.getScore();
@@ -195,8 +209,7 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
             }
             return getStrutsDelegate().forwardParams(
                     mapping.findForward("default"),
-                    request.getParameterMap());
-            
+                    request.getParameterMap());            
         }
         /**
          * Else the form was submitted, so we need to parse the form and turn it into 
@@ -208,6 +221,10 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
             String whereToSearch = daForm.getString(WHERE_TO_SEARCH);
             Boolean invertResults = (Boolean) daForm.get(INVERT_RESULTS);
 
+            if (invertResults == null) {
+                invertResults = Boolean.FALSE;
+            }
+            
             setupForm(request, daForm, viewMode);
             if (whereToSearch == null || viewMode == null) {
                 throw new BadParameterException("An expected form var was null");
@@ -215,18 +232,25 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
             
             request.setAttribute(SEARCH_STRING, searchString);
             request.setAttribute(VIEW_MODE, viewMode);
-            request.setAttribute(INVERT_RESULTS, invertResults);
             request.setAttribute(WHERE_TO_SEARCH, whereToSearch);
+            
+            if (invertResults) {
+                request.setAttribute(INVERT_RESULTS, "on");
+            }
+            else {
+                request.setAttribute(INVERT_RESULTS, "off");
+            }
+            
             ActionErrors errs = new ActionErrors();
             if (viewMode.equals("systemsearch_id") ||
-                    viewMode.equals(SystemSearchHelper.CPU_MHZ_LT) ||
-                    viewMode.equals(SystemSearchHelper.CPU_MHZ_GT) ||
-                    viewMode.equals(SystemSearchHelper.RAM_LT) ||
-                    viewMode.equals(SystemSearchHelper.RAM_GT) ||
-                    viewMode.equals(SystemSearchHelper.NUM_CPUS_LT) ||
-                    viewMode.equals(SystemSearchHelper.NUM_CPUS_GT) ||
-                    viewMode.equals(SystemSearchHelper.CHECKIN) ||
-                    viewMode.equals(SystemSearchHelper.REGISTERED)) {
+                viewMode.equals(SystemSearchHelper.CPU_MHZ_LT) ||
+                viewMode.equals(SystemSearchHelper.CPU_MHZ_GT) ||
+                viewMode.equals(SystemSearchHelper.RAM_LT) ||
+                viewMode.equals(SystemSearchHelper.RAM_GT) ||
+                viewMode.equals(SystemSearchHelper.NUM_CPUS_LT) ||
+                viewMode.equals(SystemSearchHelper.NUM_CPUS_GT) ||
+                viewMode.equals(SystemSearchHelper.CHECKIN) ||
+                viewMode.equals(SystemSearchHelper.REGISTERED)) {
                      String regEx = "(\\d)*";
                      Pattern pattern = Pattern.compile(regEx);
                      Matcher matcher = pattern.matcher(searchString);
@@ -276,8 +300,6 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
         }
         
     }
-
-
     
     protected void setupForm(HttpServletRequest request, 
                              DynaActionForm form, 
@@ -314,11 +336,9 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
         request.setAttribute("optGroupsKeys", optGroupsMap.keySet());
     }
 
-
     protected DataResult performSearch(RequestContext context) {
 
         HttpServletRequest request = context.getRequest();
-        ActionMapping mapping = (ActionMapping) request.getAttribute(MAPPING);
         String searchString = context.getParam(SEARCH_STRING, false);
         String viewMode = context.getParam(VIEW_MODE, false);
         String whereToSearch = context.getParam(WHERE_TO_SEARCH, false);
@@ -390,55 +410,30 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
      * @return Returns the map.
      */
     private Map createDisplayMap(String display, String value) {
-        Map selection = new HashMap();
+        Map<String, String> selection = new HashMap<String, String>();
         selection.put("display", display);
         selection.put("value", value);
         return selection;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     public String getListName()  {
         return LIST_NAME;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     public String getDataSetName() {
         return DATA_SET;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     public  String getDecl(RequestContext context) {
         return RhnSetDecl.SYSTEMS.getLabel();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     public List getResult(RequestContext context) {
-        /*String cachedName = makeKey(context);
-        List result = (List)context.getRequest().getSession().getAttribute(cachedName);
-        if (result != null) {
-            return result;
-        }*/
-
-        /*
-        DynaActionForm daForm = (DynaActionForm) context.getRequest().getAttribute(FORM);
-        String searchString = daForm.getString(SEARCH_STRING);
-        String viewMode = daForm.getString(VIEW_MODE);
-        String whereToSearch = daForm.getString(WHERE_TO_SEARCH);
-        Boolean invertResults = (Boolean) daForm.get(INVERT_RESULTS); */
-        
         String searchString = context.getParam(SEARCH_STRING, false);
-        String viewMode = context.getParam(VIEW_MODE, false);
-        String whereToSearch = context.getParam(WHERE_TO_SEARCH, false);
-        Boolean invertResults = StringUtils.defaultString(
-                context.getParam(INVERT_RESULTS, false)).equals("on");
 
         if (!StringUtils.isBlank(searchString)) {
             log.info("SystemSearchSetupAction.getResult() calling performSearch()");
@@ -448,21 +443,7 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
         return Collections.EMPTY_LIST;
     }
 
-    private String makeKey(RequestContext context) {
-        DynaActionForm daForm = (DynaActionForm) context.getRequest().getAttribute(FORM);
-        String searchString = daForm.getString(SEARCH_STRING);
-        String viewMode = daForm.getString(VIEW_MODE);
-        String whereToSearch = daForm.getString(WHERE_TO_SEARCH);
-        Boolean invertResults = (Boolean) daForm.get(INVERT_RESULTS);
-
-        return StringUtil.toJson(new Object [] {
-                searchString, viewMode, whereToSearch, invertResults
-        });
-    }
-
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     public String getParentUrl(RequestContext context) {
         return context.getRequest().getRequestURI();
     }
