@@ -39,7 +39,6 @@ import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.user.AdminUserEditAction;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.EssentialChannelDto;
@@ -801,7 +800,8 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
          set.add(ce.getId());
          RhnSetManager.store(set);
 
-         List<PackageOverview> result = ChannelManager.listErrataPackagesForResync(cchan, user, set.getLabel());
+         List<PackageOverview> result = ChannelManager.listErrataPackagesForResync(
+                                                 cchan, user, set.getLabel());
          assertTrue(result.size() == 1);
 
          assertEquals(result.get(0).getId(), testPackage.getId());
