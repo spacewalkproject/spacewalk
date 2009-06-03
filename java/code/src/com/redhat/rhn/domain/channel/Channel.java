@@ -54,6 +54,9 @@ public class Channel extends BaseDomainHelper implements Comparable {
     private static List<String> releaseToSkipRepodata = new ArrayList<String>(Arrays
             .asList("2.1AS", "2.1ES", "2.1WS", "3AS", "3ES", "3WS", "3Desktop", "4AS",
                     "4ES", "4WS", "4Desktop"));
+    private static List<String> archesToSkipRepodata = new ArrayList<String>(Arrays
+            .asList("channel-sparc-sun-solaris", "channel-i386-sun-solaris", 
+                    "channel-sparc"));
     private String baseDir;
     private ChannelArch channelArch;
     private String description;
@@ -748,7 +751,9 @@ public class Channel extends BaseDomainHelper implements Comparable {
      */
     public boolean isChannelRepodataRequired() {
         boolean repodataRequired = false;
-        if (this.isCustom()) {
+        // generate repodata for all custom channels except solaris
+        if (this.isCustom() &&
+                !archesToSkipRepodata.contains(this.channelArch.getLabel())) {
             repodataRequired = true;
             log.debug("isChannelRepodataRequired for channel(" + this.id +
                     ") set to true because it is a custom Channel");
