@@ -573,10 +573,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         Action kickstartAction = this.scheduleKickstartAction(packageAction);
         ActionFactory.save(packageAction);
         
-        
-        this.kickstartActionId = kickstartAction.getId();
-        log.debug("** Created ksaction: " + kickstartAction.getId());
-        
         scheduleRebootAction(kickstartAction);
 
         String host = this.getKickstartServerName();
@@ -613,7 +609,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             }            
         }
 
-
         SystemRecord rec = SystemRecord.lookupById(CobblerXMLRPCHelper.getConnection(
                 this.getUser().getLogin()), this.getServer().getCobblerId());
 
@@ -625,8 +620,10 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                                                     setCobblerSystemName(rec.getName());
         }
         
-        
         ActionFactory.save(kickstartAction);
+        log.debug("** Created ksaction: " + kickstartAction.getId());
+
+        this.kickstartActionId = kickstartAction.getId();
 
         log.debug("** Done scheduling kickstart session");
         return null;
