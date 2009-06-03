@@ -44,12 +44,13 @@ sub tnscmd {
 
     my ($sendbuf) = pack("C*", @packet);
 
-    my ($tns_sock) = IO::Socket::INET->new(
+    my $tns_sock = IO::Socket::INET->new(
         PeerAddr => $hostname,
         PeerPort => $port,
         Proto => 'tcp',
         Type => SOCK_STREAM,
-        Timeout => $timeout) or return (-1, '');
+        Timeout => $timeout);
+    return (-1, '') unless $tns_sock; #could not connect
     $tns_sock->autoflush(1);
 
     my $count = length($sendbuf);
@@ -79,11 +80,11 @@ sub run {
 
     my $start= Time::HiRes::time();
     my ($code, $response)=tnscmd("(CONNECT_DATA=(COMMAND=ping))",
-        $params{'hostname'}, $params{'port'}, $params{'timeout'});
+        $params{'ip'}, $params{'port'}, $params{'timeout'});
     my $time=Time::HiRes::time()-$start;
 
     if ($code <= 0) {
-        $result->item_critical("Could not connect to host ", $params{'hostname'});
+        $result->item_critical("Could not connect to host $params{'ip'} on port $params{'port'}");
     } elsif ($response =~ /\(ERR=\d+\)/) {
         $result->context("TNS Listener");
         $result->metric_value('latency', $time, '%.3f');
