@@ -46,9 +46,6 @@ my $db_connect = RHN::SatInstall->test_db_connection();
 die "Could not connect to the database"
   unless $db_connect;
 
-print "Setting up Monitoring backend\n";
-RHN::SatInstall->setup_monitoring_sysv_step('Monitoring');
-
 my $scout_shared_key = find_scout_key();
 my $hostname = Sys::Hostname::hostname;
 
@@ -73,11 +70,6 @@ unless ($scout_shared_key) {
   else {
     $scout_shared_key = RHN::SatCluster->fetch_key($sc->recid);
   }
-}
-
-if ($opts{"enable-scout"}) {
-  print "Setting up Monitoring scout\n";
-  RHN::SatInstall->setup_monitoring_sysv_step('MonitoringScout');
 }
 
 my ($db_user, $db_pass, $db_name) = split_dsn(PXT::Config->get('default_db'));
