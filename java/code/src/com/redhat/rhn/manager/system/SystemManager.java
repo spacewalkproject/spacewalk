@@ -36,8 +36,10 @@ import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.CPU;
+import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Note;
 import com.redhat.rhn.domain.server.ProxyInfo;
 import com.redhat.rhn.domain.server.Server;
@@ -63,6 +65,7 @@ import com.redhat.rhn.frontend.xmlrpc.ProxySystemIsSatelliteException;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.channel.MultipleChannelsWithPackageException;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.user.UserManager;
@@ -1536,77 +1539,139 @@ public class SystemManager extends BaseManager {
         return result;
     }
     
-    
-    
     // Need to do some extra logic here
     // 1) Subscribe system to rhel-i386-server-vt-5 channel
     // 2) Subscribe system to rhn-tools-rhel-i386-server-5
     // 3) Schedule package install of rhn-virtualization-host
     // Return a map with errors and warnings:
     //      warnings -> list of ValidationWarnings
-    //      errors -> list of ValidationErrors (usually just one but a list just in case)
+    //      errors -> list of ValidationErrors
     private static ValidatorResult setupSystemForVirtualization(Org orgIn, Long sid) {
 
         Server server = ServerFactory.lookupById(sid);
         User user = UserFactory.findRandomOrgAdmin(orgIn);
-        Channel toolsChannel = ChannelManager.subscribeToChildChannelWithPackageName(
-                user, server, ChannelManager.TOOLS_CHANNEL_PACKAGE_NAME);
-
         ValidatorResult result = new ValidatorResult();
-        
-        // Check for RHN Tools and VT Channels in Satellite, error out if not found:
-        // Skip these checks in Spacewalk, there are no tools and virt channels here.
+
+        // If this is a Satellite, subscribe to the virt channel if possible:
         if (!Config.get().isSpacewalk()) {
-            if (toolsChannel == null) {
-                log.debug("no tools channel found");
-                result.addError(new ValidatorError("system.entitle.notoolschannel"));
-                return result;
-            }
-
-            Channel virtChannel = ChannelManager.subscribeToChildChannelByOSProduct(
-                    user, server, ChannelManager.VT_OS_PRODUCT);
-            log.debug("did we get back a virt channel: " + virtChannel);
-            // Try by package name
-            if (virtChannel == null) {
-                log.debug("Couldnt find a virt channel by OS/Product mappings, " +
-                        "trying package");
-                virtChannel = ChannelManager.subscribeToChildChannelWithPackageName(
-                        user, server, ChannelManager.VIRT_CHANNEL_PACKAGE_NAME);
-            }
-
-            // If we couldn't find a virt channel, error out. This must only be done for
-            // RHEL systems.
-            if (virtChannel == null) {
-                log.debug("no virt channel");
-                result.addError(new ValidatorError("system.entitle.novirtchannel"));
-                return result;
-            }
+            subscribeToVirtChannel(server, user, result);
         }
-        
-        // Look for the rhn-virtualization-host package and display a warning if it
-        // couldn't be found.
-        if (toolsChannel == null) {
-            result.addWarning(new ValidatorWarning("system.entitle.novirtpackage",
-                                ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME));
+
+        // Before we start looking to subscribe to a 'tools' channel for
+        // rhn-virtualization-host, check if the server already has a package by this
+        // name installed and leave it be if so.
+        InstalledPackage rhnVirtHost = PackageFactory.lookupByNameAndServer(
+                ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME, server);
+        if (rhnVirtHost != null) {
+            // System already has the package, we can stop here.
+            log.debug("System already has " +
+                    ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME + " installed.");
+            return result;
         }
         else {
-            List packageResults = ChannelManager.listLatestPackagesEqual(
-                    toolsChannel.getId(), ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME);
-            if (packageResults.size() > 0) {
-                Map row = (Map) packageResults.get(0);
-                Long nameId = (Long) row.get("name_id");
-                Long evrId = (Long) row.get("evr_id");
-                Long archId = (Long) row.get("package_arch_id");
-                ActionManager.schedulePackageInstall(
-                        user, server, nameId, evrId, archId);
+            scheduleVirtualizationHostPackageInstall(server, user, result);
+        }
+
+        return result;
+    }
+
+    /**
+     * Schedule installation of rhn-virtualization-host package.
+     *
+     * Implies that we locate a child channel with this package and automatically
+     * subscribe the system to it if possible. If multiple child channels have the package
+     * and the server is not already subscribed to one, we report the discrepancy and
+     * instruct the user to deal with this manually.
+     *
+     * @param server Server to schedule install for.
+     * @param user User performing the operation.
+     * @param result Validation result we'll be returning for the UI to render.
+     */
+    private static void scheduleVirtualizationHostPackageInstall(Server server,
+            User user, ValidatorResult result) {
+        // Now subscribe to a child channel with rhn-virtualization-host (RHN Tools in the
+        // case of Satellite) and schedule it for installation, or warn if we cannot find
+        // a child with the package:
+        Channel toolsChannel = null;
+        try {
+            toolsChannel = ChannelManager.subscribeToChildChannelWithPackageName(
+                    user, server, ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME);
+
+            // If this is a Satellite and no RHN Tools channel is available
+            // report the error, but continue:
+            if (!Config.get().isSpacewalk() && toolsChannel == null) {
+                log.warn("no tools channel found");
+                result.addWarning(new ValidatorWarning("system.entitle.notoolschannel"));
+            }
+            // If Spacewalk and no channel has the rhn-virtualization-host package,
+            // warn but allow the operation to proceed.
+            else if (toolsChannel == null) {
+                result.addWarning(new ValidatorWarning("system.entitle.novirtpackage",
+                            ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME));
             }
             else {
-                result.addWarning(new ValidatorWarning("system.entitle.novirtpackage",
-                                    ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME));
+                List packageResults = ChannelManager.listLatestPackagesEqual(
+                        toolsChannel.getId(), ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME);
+                if (packageResults.size() > 0) {
+                    Map row = (Map) packageResults.get(0);
+                    Long nameId = (Long) row.get("name_id");
+                    Long evrId = (Long) row.get("evr_id");
+                    Long archId = (Long) row.get("package_arch_id");
+                    ActionManager.schedulePackageInstall(
+                            user, server, nameId, evrId, archId);
+                }
+                else {
+                    result.addWarning(new ValidatorWarning("system.entitle.novirtpackage",
+                                        ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME));
+                }
             }
         }
-       
-        return result;
+        catch (MultipleChannelsWithPackageException e) {
+            log.warn("Found multiple child channels with package: " +
+                    ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME);
+            result.addWarning(new ValidatorWarning(
+                        "system.entitle.multiplechannelswithpackagepleaseinstall",
+                        ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME));
+        }
+    }
+
+    /**
+     * Subscribe the system to the Red Hat Virtualization channel if necessary.
+     *
+     * This method should only ever be called in Satellite.
+     *
+     * @param server Server to schedule install for.
+     * @param user User performing the operation.
+     * @param result Validation result we'll be returning for the UI to render.
+     */
+    private static void subscribeToVirtChannel(Server server, User user,
+            ValidatorResult result) {
+        Channel virtChannel = ChannelManager.subscribeToChildChannelByOSProduct(
+                user, server, ChannelManager.VT_OS_PRODUCT);
+        log.debug("virtChannel search by OS product found: " + virtChannel);
+        // Otherwise, try just searching by package name: (libvirt in this case)
+        if (virtChannel == null) {
+            log.debug("Couldnt find a virt channel by OS/Product mappings, " +
+                    "trying package");
+            try {
+                virtChannel = ChannelManager.subscribeToChildChannelWithPackageName(
+                        user, server, ChannelManager.VIRT_CHANNEL_PACKAGE_NAME);
+
+                // If we couldn't find a virt channel, warn the user but continue:
+                if (virtChannel == null) {
+                    log.warn("no virt channel");
+                    result.addWarning(new ValidatorWarning(
+                            "system.entitle.novirtchannel"));
+                }
+            }
+            catch (MultipleChannelsWithPackageException e) {
+                log.warn("Found multiple child channels with package: " +
+                        ChannelManager.VIRT_CHANNEL_PACKAGE_NAME);
+                result.addWarning(new ValidatorWarning(
+                            "system.entitle.multiplechannelswithpackage",
+                            ChannelManager.VIRT_CHANNEL_PACKAGE_NAME));
+            }
+        }
     }
     
     /**

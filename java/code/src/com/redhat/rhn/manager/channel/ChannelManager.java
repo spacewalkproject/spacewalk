@@ -1473,18 +1473,28 @@ public class ChannelManager extends BaseManager {
         params.put("package", packageName);
         params.put("org_id", org.getId());
         
-        //whittle down until we have the piece we want.
         DataResult dr = m.execute(params);
         if (dr.size() == 0) {
             return null;
         }
+        if (dr.size() > 1) {
+            List<Long> channelIds = new LinkedList<Long>();
+            for (Iterator it = dr.iterator(); it.hasNext();) {
+                channelIds.add((Long)((Map)it.next()).get("id"));
+            }
+            // Multiple channels have this package, highly unlikely we can guess which
+            // one is the right one so we'll raise an exception and let the caller
+            // decide what to do.
+            throw new MultipleChannelsWithPackageException(channelIds);
+        }
+
         Map dm = (Map)dr.get(0);
         return (Long) dm.get("id");
     }
 
     
     /**
-     * Finds the id of a child channel that contains
+     * Finds the ids of all child channels that contain
      * a package with the given name.  Will only all the child channels.
      * @param packageName The exact name of the package sought for.
      * @return The list of ids 
@@ -1526,15 +1536,38 @@ public class ChannelManager extends BaseManager {
             return null;
         }
         
-        //we know its the channel we want if it has the rhncfg package in it.
+        // We know its the channel we want if it has the package in it:
         Long bcid = current.getBaseChannel().getId();
         log.debug("found basechannel: " + bcid);
-        Long cid = ChannelManager.findChildChannelWithPackage(user.getOrg(), bcid,
-                packageName);
+
+        Long cid = null;
+
+        try {
+            cid = ChannelManager.findChildChannelWithPackage(user.getOrg(), bcid,
+                    packageName);
+        }
+        catch (MultipleChannelsWithPackageException e) {
+            // If multiple channels have the package we're looking for, see if the server
+            // already has access to one of them before raising this exception.
+            for (Long channelId : e.getChannelIds()) {
+                Channel c = ChannelManager.lookupByIdAndUser(channelId, user);
+                if (current.isSubscribed(c)) {
+                    // found a channel already subscribed
+                    cid = channelId;
+                    break;
+                }
+            }
+            if (cid == null) {
+                // Didn't find one, re-throw the exception:
+                throw e;
+            }
+        }
+
         if (cid == null) { // Didnt find it ..
             log.debug("didnt find a child channel with the package.");
             return null;
         }
+
         Channel channel = ChannelManager.lookupByIdAndUser(cid, user);
         boolean canSubscribe = false;
         

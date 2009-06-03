@@ -48,6 +48,7 @@ import com.redhat.rhn.frontend.dto.SystemsPerChannelDto;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
 import com.redhat.rhn.manager.channel.ChannelEntitlementCounter;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.channel.MultipleChannelsWithPackageException;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
@@ -556,6 +557,64 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
 
     }
     
+    public void testSubscribeToChildChannelWithPackageNameMultipleResults()
+        throws Exception {
+
+        UserTestUtils.addVirtualization(user.getOrg());
+        Server s = ServerTestUtils.createTestSystem(user);
+        Channel[] chans = ChannelTestUtils.
+            setupBaseChannelForVirtualization(s.getCreator(), s.getBaseChannel());
+        // Repeat to ensure there's multiple child channels created:
+        chans = ChannelTestUtils.
+            setupBaseChannelForVirtualization(s.getCreator(), s.getBaseChannel());
+        Config.get().setString(ChannelEntitlementCounter.class.getName(),
+                TestChannelCounter.class.getName());
+
+        int channelCountBefore = s.getChannels().size();
+        try {
+            ChannelManager.subscribeToChildChannelWithPackageName(user,
+                s, ChannelManager.TOOLS_CHANNEL_PACKAGE_NAME);
+            fail();
+        }
+        catch (MultipleChannelsWithPackageException e) {
+            // expected
+        }
+        assertEquals(channelCountBefore, s.getChannels().size());
+
+        Config.get().setString(ChannelEntitlementCounter.class.getName(),
+                ChannelEntitlementCounter.class.getName());
+
+    }
+
+    public void testSubscribeToChildChannelWithPackageNameMultipleResultsAlreadySubbed()
+        throws Exception {
+
+        UserTestUtils.addVirtualization(user.getOrg());
+        Server s = ServerTestUtils.createTestSystem(user);
+        Channel[] chans = ChannelTestUtils.
+        setupBaseChannelForVirtualization(s.getCreator(), s.getBaseChannel());
+        // Repeat to ensure there's multiple child channels created:
+        chans = ChannelTestUtils.
+        setupBaseChannelForVirtualization(s.getCreator(), s.getBaseChannel());
+        Config.get().setString(ChannelEntitlementCounter.class.getName(),
+                TestChannelCounter.class.getName());
+
+        // Subscribe to one set of the child channels but not the other, this should *not*
+        // generate the multiple channels with package exception:
+        s.addChannel(chans[0]);
+        s.addChannel(chans[1]);
+        TestUtils.saveAndReload(s);
+
+        int channelCountBefore = s.getChannels().size();
+        assertNotNull(ChannelManager.subscribeToChildChannelWithPackageName(user,
+                    s, ChannelManager.TOOLS_CHANNEL_PACKAGE_NAME));
+        assertEquals(channelCountBefore, s.getChannels().size());
+
+        Config.get().setString(ChannelEntitlementCounter.class.getName(),
+                ChannelEntitlementCounter.class.getName());
+
+    }
+
     public void testsubscribeToChildChannelByOSProduct() throws Exception {
         UserTestUtils.addVirtualization(user.getOrg()); 
         Server s = ServerTestUtils.createTestSystem(user);
