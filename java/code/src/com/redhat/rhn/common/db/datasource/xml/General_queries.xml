@@ -69,7 +69,7 @@ ORDER BY KS.label, KS.id
      AND KT.channel_id = C.id
      AND ( C.channel_arch_id = :prim_arch_id OR C.channel_arch_id = :sec_arch_id )
      AND KSD.virtualization_type = KVT.id
-     AND KVT.label not in ('auto','para_host')
+     AND KVT.label not in ('none','para_host')
 ORDER BY KS.label, KS.id
   </query>    
 </mode>
