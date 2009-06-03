@@ -62,6 +62,34 @@ install -m644 perl-API/NOCpulse/test/TestConfig.pm $RPM_BUILD_ROOT%{perl_vendorl
 install -m 755 npConfigValue $RPM_BUILD_ROOT%{_bindir}/
 
 %pre
+# change nocpulse user & group to system user & group if needed
+dirs="/home/nocpulse /opt/notification /opt/nocpulse /var/log/nocpulse /var/www/templates /var/tmp"
+
+if [ -d /home/nocpulse -a `id -u nocpulse 2> /dev/null` -ge 500 ]; then
+	if [ `id -g nocpulse` -ge 500 ]; then
+		groupmod -n nocpulse-old nocpulse
+		groupadd -r nocpulse
+		usermod -g nocpulse nocpulse
+		# chgrp of existing fs objects owned by previous nocpulse group
+		for i in $dirs; do
+			find $i -group nocpulse-old -exec chgrp nocpulse '{}' ';'
+		done
+		groupdel nocpulse-old
+	fi
+
+	# find lowest unused system uid to change nocpulse uid to
+	old_uid=`id -u nocpulse`
+	useradd -r tempnoc
+	uid=`id -u tempnoc`
+	userdel tempnoc
+	usermod -u $uid nocpulse
+
+	# chown of existing fs objects owned by previous nocpulse user
+	for i in $dirs; do
+		find $i -user $old_uid -exec chown nocpulse '{}' ';'
+	done
+fi
+
 getent group %{package_name} >/dev/null || groupadd -r %{package_name}
 getent passwd %{package_name} >/dev/null || \
 useradd -r -g %{package_name} -G apache -d %{_var}/lib/%{package_name} -c "NOCpulse user" %{package_name}
