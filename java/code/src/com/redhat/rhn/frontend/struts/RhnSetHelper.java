@@ -59,7 +59,7 @@ public class RhnSetHelper {
         this.mapping = mappingIn;
         this.forward = RhnHelper.DEFAULT_FORWARD;
         requestContext = new RequestContext(requestIn);
-        strutsDelegate = StrutsDelegateFactory.getInstance().getStrutsDelegate();
+        strutsDelegate = StrutsDelegate.getInstance();
     }
     
     /**

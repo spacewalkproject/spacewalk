@@ -59,16 +59,6 @@ import javax.servlet.http.HttpServletRequest;
 public abstract class RhnAction extends Action {
 
     public static final String SUBMITTED = "submitted";
-    
-    private StrutsDelegate strutsDelegate;
-    
-    /**
-     * Performs default initialization.
-     */
-    public RhnAction() {
-        strutsDelegate = StrutsDelegateFactory.getInstance().getStrutsDelegate();
-    }
-    
     /**
      * Returns a StrutsDelegate object.
      * 
@@ -77,7 +67,7 @@ public abstract class RhnAction extends Action {
      * @see StrutsDelegateFactory
      */
     protected StrutsDelegate getStrutsDelegate() {
-        return strutsDelegate;
+        return StrutsDelegate.getInstance();
     }
     
     /**

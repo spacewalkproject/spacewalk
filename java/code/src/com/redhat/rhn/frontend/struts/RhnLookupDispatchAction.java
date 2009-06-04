@@ -38,15 +38,6 @@ import javax.servlet.http.HttpServletResponse;
 public abstract class RhnLookupDispatchAction extends LookupDispatchAction {
     
     public static final String SUBMITTED = "submitted";
-
-    private StrutsDelegate strutsDelegate;
-    
-    /**
-     * Performs default initialization.
-     */
-    public RhnLookupDispatchAction() {
-        strutsDelegate = StrutsDelegateFactory.getInstance().getStrutsDelegate();
-    }
     
     /**
      * Returns a StrutsDelegate object.
@@ -56,7 +47,7 @@ public abstract class RhnLookupDispatchAction extends LookupDispatchAction {
      * @see StrutsDelegateFactory
      */
     protected StrutsDelegate getStrutsDelegate() {
-        return strutsDelegate;
+        return StrutsDelegate.getInstance();
     }
     
     /**

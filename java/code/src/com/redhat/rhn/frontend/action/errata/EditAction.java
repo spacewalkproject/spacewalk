@@ -14,17 +14,17 @@
  */
 package com.redhat.rhn.frontend.action.errata;
 
-import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.util.StringUtil;
-import com.redhat.rhn.domain.errata.Errata;
-import com.redhat.rhn.frontend.action.common.BadParameterException;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnValidationHelper;
-import com.redhat.rhn.frontend.struts.StrutsDelegate;
-import com.redhat.rhn.frontend.struts.StrutsDelegateFactory;
-import com.redhat.rhn.manager.errata.ErrataManager;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.lang.StringUtils;
@@ -38,17 +38,16 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.LookupDispatchAction;
 import org.hibernate.HibernateException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.util.StringUtil;
+import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.frontend.action.common.BadParameterException;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+import com.redhat.rhn.frontend.struts.StrutsDelegate;
+import com.redhat.rhn.manager.errata.ErrataManager;
 
 /**
  * EditAction
@@ -57,8 +56,7 @@ import javax.servlet.http.HttpServletResponse;
 public class EditAction extends LookupDispatchAction {
     
     private StrutsDelegate getStrutsDelegate() {
-        StrutsDelegateFactory factory = StrutsDelegateFactory.getInstance();
-        return factory.getStrutsDelegate();
+        return StrutsDelegate.getInstance();
     }
 
     /**
