@@ -427,10 +427,13 @@ class Packages(RPC_Base):
         
         if orgid == 'null':
             org_id, force = rhnPackageUpload.authenticate(username, password,
-                                                          channels=channels, null_org=1, force=force)
+                                                          channels=channels,
+                                                          null_org=1,
+                                                          force=force)
         else:
             org_id, force = rhnPackageUpload.authenticate(username, password,
-                                                          channels=channels, force=force)
+                                                          channels=channels,
+                                                          force=force)
         return self._getPackageMD5sum(org_id, pkg_infos, info)
     
     def getPackageMD5sumBySession(self, session_string, info):
@@ -500,9 +503,20 @@ class Packages(RPC_Base):
                 pkg_epoch = pkg_info['epoch']
            
             if md5sum_exists:
-                h.execute(pkg_name=pkg_info['name'], pkg_epoch=pkg_epoch, pkg_version=pkg_info['version'], pkg_rel=pkg_info['release'],pkg_arch=pkg_info['arch'], orgid = org_id,md5sum = pkg_info['md5sum'] )
+                h.execute(pkg_name=pkg_info['name'],
+                          pkg_epoch=pkg_epoch,
+                          pkg_version=pkg_info['version'],
+                          pkg_rel=pkg_info['release'],
+                          pkg_arch=pkg_info['arch'],
+                          orgid = org_id,
+                          md5sum = pkg_info['md5sum'] )
             else:
-                h.execute(pkg_name=pkg_info['name'], pkg_epoch=pkg_epoch, pkg_version=pkg_info['version'], pkg_rel=pkg_info['release'],pkg_arch=pkg_info['arch'], orgid = org_id)
+                h.execute(pkg_name=pkg_info['name'],
+                          pkg_epoch=pkg_epoch,
+                          pkg_version=pkg_info['version'],
+                          pkg_rel=pkg_info['release'],
+                          pkg_arch=pkg_info['arch'],
+                          orgid = org_id )
                 
             row = h.fetchone_dict()
             if not row:
@@ -538,10 +552,13 @@ class Packages(RPC_Base):
         
         if orgid == 'null':
             org_id, force = rhnPackageUpload.authenticate(username, password,
-                                                          channels=channels, null_org=1, force=force)
+                                                          channels=channels,
+                                                          null_org=1,
+                                                          force=force)
         else:
             org_id, force = rhnPackageUpload.authenticate(username, password,
-                                                          channels=channels, force=force)
+                                                          channels=channels,
+                                                          force=force)
         
         return self._getSourcePackageMD5sum(org_id, pkg_infos, info)
 
