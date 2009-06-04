@@ -219,94 +219,140 @@ provide a required response, default answer is used.</para>
         <listitem>
            <para>Version of &RHNPROXY; you want to activate.</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>RHN_PARENT</term>
         <listitem>
            <para>Your parent Spacewalk server.</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>TRACEBACK_EMAIL</term>
         <listitem>
            <para>Email to which tracebacks should be sent.</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>USE_SSL</term>
         <listitem>
            <para>1 if &RHNPROXY; should communicate with parent over SSL. 0 otherwise. Even if disabled, client can still use SSL to connect to &RHNPROXY;</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>CA_CHAIN</term>
         <listitem>
            <para>The CA cert used to verify the ssl connection to parent.</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>FORCE_OWN_CA</term>
         <listitem>
            <para>Do not use parent CA and force to create your own.</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>HTTP_PROXY</term>
         <listitem>
            <para>HTTP proxy in host:port format, e.g. squid.redhat.com:3128</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>HTTP_USERNAME</term>
         <listitem>
            <para>The username for an authenticated proxy.</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>HTTP_PASSWORD</term>
         <listitem>
            <para>The password to use for an authenticated proxy.</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>SSL_BUILD_DIR</term>
         <listitem>
            <para>The directory where we build SSL certificate. Default is /root/ssl-build.</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>SSL_ORG</term>
         <listitem>
            <para>Organization name to be used in SSL certificate.</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>SSL_ORGUNIT</term>
         <listitem>
            <para>Organization unit name to be used in SSL certificate.</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>SSL_COMMON</term>
         <listitem>
            <para>Common name to be used in SSL certificate.</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>SSL_CITY</term>
         <listitem>
            <para>City to be used in SSL certificate.</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>SSL_STATE</term>
         <listitem>
            <para>State to be used in SSL certificate.</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>SSL_COUNTRY</term>
         <listitem>
            <para>Two letters country code to be used in SSL certificate.</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>SSL_EMAIL</term>
         <listitem>
            <para>Email to be used in SSL certificate.</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>SSL_PASSWORD</term>
         <listitem>
            <para>Password to be used for SSL CA certificate.</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>INSTALL_MONITORING</term>
         <listitem>
            <para>Y if monitoring should be installed. Any other value means that monitoring will not be installed.</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>ENABLE_SCOUT</term>
         <listitem>
            <para>1 to enable monitoring scout, 0 otherwise.</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>MONITORING_PARENT</term>
         <listitem>
            <para>Name of the parent for your scout. Usually the same value as in RHN_PARENT.</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>MONITORING_PARENT_IP</term>
         <listitem>
            <para>IP address of MONITORING_PARENT</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>SCOUT_SHARED_KEY</term>
         <listitem>
            <para>Your scout shared key (can be found on the parent in /etc/rhn/cluster.ini as key scoutsharedkey).</para>
         </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>POPULATE_CONFIG_CHANNEL</term>
         <listitem>
            <para>Y if config chanel should be created and configuration files in that channel updated.
