@@ -126,22 +126,28 @@ public class StrutsDelegateImpl implements StrutsDelegate {
         HttpSession session = request.getSession();
 
         if ((messages == null) || messages.isEmpty()) {
+            session.removeAttribute(Globals.ERROR_KEY);
             session.removeAttribute(Globals.MESSAGE_KEY);
             return;
         }
+        String key = Globals.MESSAGE_KEY;
+        if (messages instanceof ActionErrors) {
+            key = Globals.ERROR_KEY;
+        }
+        
         ActionMessages newMessages = new ActionMessages();
         
         // Check for existing messages
         ActionMessages sessionExisting = 
-            (ActionMessages) session.getAttribute(Globals.MESSAGE_KEY);
+            (ActionMessages) session.getAttribute(key);
         
         if (sessionExisting != null) {
             newMessages.add(sessionExisting);
         }
         newMessages.add(messages);
         
-        session.setAttribute(Globals.MESSAGE_KEY, newMessages);
-        request.setAttribute(Globals.MESSAGE_KEY, newMessages);
+        session.setAttribute(key, newMessages);
+        request.setAttribute(key, newMessages);
     }
 
     /**
