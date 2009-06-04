@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.frontend.struts.test;
 
-import com.redhat.rhn.frontend.struts.StrutsDelegateImpl;
+import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.testing.RhnMockDynaActionForm;
 
 import org.apache.struts.action.ActionForward;
@@ -28,7 +28,7 @@ import junit.framework.TestCase;
  */
 public class StrutsDelegateImplTest extends TestCase {
     
-    private class StrutsDelegateImplStub extends StrutsDelegateImpl {
+    private class StrutsDelegateImplStub extends StrutsDelegate {
     }
 
     /**
@@ -44,7 +44,7 @@ public class StrutsDelegateImplTest extends TestCase {
     public final void testForwardParams() {
         ActionForward success = new ActionForward("default", "path", false);
         
-        StrutsDelegateImpl strutsDelegate = new StrutsDelegateImplStub();
+        StrutsDelegate strutsDelegate = new StrutsDelegateImplStub();
         
         ActionForward fwdWithParams = strutsDelegate.forwardParam(success, "foo", "bar");
         assertEquals(success.getName(), fwdWithParams.getName());
@@ -59,7 +59,7 @@ public class StrutsDelegateImplTest extends TestCase {
         DynaActionForm form = new RhnMockDynaActionForm();
         form.set("somevalue", value);
         
-        StrutsDelegateImpl strutsDelegate = new StrutsDelegateImplStub();
+        StrutsDelegate strutsDelegate = new StrutsDelegateImplStub();
         
         String stripped = strutsDelegate.getTextAreaValue(form, "somevalue");
         assertNotNull(stripped);

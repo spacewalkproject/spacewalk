@@ -14,17 +14,11 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage.patches;
 
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.domain.action.Action;
-import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.StrutsDelegate;
-import com.redhat.rhn.frontend.struts.StrutsDelegateFactory;
-import com.redhat.rhn.manager.action.ActionManager;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-import com.redhat.rhn.manager.system.SystemManager;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -33,11 +27,16 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.actions.LookupDispatchAction;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.StrutsDelegate;
+import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.system.SystemManager;
 
 /**
  * ErrataConfirmAction
@@ -45,9 +44,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class PatchConfirmAction extends LookupDispatchAction {
     
-    private StrutsDelegate getStrutsDelegate() {
-        StrutsDelegateFactory factory = StrutsDelegateFactory.getInstance();
-        return factory.getStrutsDelegate();
+    private StrutsDelegate getStrutsDelegate() {    
+        return StrutsDelegate.getInstance();
     }
 
     /**
