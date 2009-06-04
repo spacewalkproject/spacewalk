@@ -18,7 +18,6 @@ import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.util.OvalFileAggregator;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
@@ -48,21 +47,13 @@ import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 
 import org.apache.commons.collections.IteratorUtils;
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
-import org.jdom.JDOMException;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -91,6 +82,16 @@ public class ErrataHandler extends BaseHandler {
      *              (RHSA-2006:011) can be submitted as they are.")
      * @xmlrpc.returntype string - The OVAL metadata document in escaped XML form.
      */
+    /**
+     * The getOval method is being commented out due to bugzilla 504054.  This bug
+     * raises an issue of a null exception being generated on execution.  The method
+     * has been updated to address that exception; however, there is a larger issue at
+     * hand in that the OVAL functionality is not fully supported by the application.
+     * For example, the OVAL meta data is not synced to the database; therefore, there
+     * will never be data to return by the method.  So it is better to comment it out
+     * than to have the method that cannot return any data. :)  It is, however,
+     * desirable to support this in the future, so we don't want to lose the logic.
+     *
     public String getOval(String sessionKey, String identifier) throws IOException,
             FaultException {
         User loggedInUser = getLoggedInUser(sessionKey);
@@ -103,7 +104,6 @@ public class ErrataHandler extends BaseHandler {
                 erratas.remove(errata);
             }
         }
-            
         
         if (erratas == null) {
             throw new FaultException(-1, "errataNotFound", 
@@ -122,50 +122,52 @@ public class ErrataHandler extends BaseHandler {
                 }
             }
             files = ErrataManager.resolveOvalFiles(files);
-            if (files.size() == 0) {
-                throw new FaultException(-1, "ovalNotFound",
-                        "No OVAL files found for given errata");
-            }
-            else if (files.size() == 1) {
-                File f = (File) files.get(0);
-                if (f != null) {
-                    InputStream in = null;
-                    byte[] buf = new byte[4096];
-                    int readsize = 0;
-                    ByteArrayOutputStream accum  = new ByteArrayOutputStream();
+            if (files != null) {
+                if (files.size() == 0) {
+                    throw new FaultException(-1, "ovalNotFound",
+                            "No OVAL files found for given errata");
+                }
+                else if (files.size() == 1) {
+                    File f = (File) files.get(0);
+                    if (f != null) {
+                        InputStream in = null;
+                        byte[] buf = new byte[4096];
+                        int readsize = 0;
+                        ByteArrayOutputStream accum  = new ByteArrayOutputStream();
+                        try {
+                            in = new FileInputStream(f);
+                            while ((readsize = in.read(buf)) > -1) {
+                                accum.write(buf, 0, readsize);
+                            }
+                            retval = new String(accum.toByteArray(), "UTF-8");
+                        }
+                        finally {
+                            if (in != null) {
+                                in.close();
+                            }
+                        }
+                    }
+                }
+                else if (files.size() > 1) {
                     try {
-                        in = new FileInputStream(f);
-                        while ((readsize = in.read(buf)) > -1) {
-                            accum.write(buf, 0, readsize);
+                        OvalFileAggregator agg = new OvalFileAggregator();
+                        for (Iterator iter = files.iterator(); iter.hasNext();) {
+                            File f = (File) iter.next();
+                            if (f != null && !f.getPath().endsWith("test-5.xml")) {
+                                agg.add(f);
+                            }
                         }
-                        retval = new String(accum.toByteArray(), "UTF-8");
+                        retval = StringEscapeUtils.escapeXml(agg.finish(false));
                     }
-                    finally {
-                        if (in != null) {
-                            in.close();
-                        }
+                    catch (JDOMException e) {
+                        throw new FaultException(-1, "err_building_oval", e.getMessage());
                     }
                 }
-            }
-            else if (files.size() > 1) {
-                try {
-                    OvalFileAggregator agg = new OvalFileAggregator();
-                    for (Iterator iter = files.iterator(); iter.hasNext();) {
-                        File f = (File) iter.next();
-                        if (f != null && !f.getPath().endsWith("test-5.xml")) {
-                            agg.add(f);
-                        }
-                    }
-                    retval = StringEscapeUtils.escapeXml(agg.finish(false));
-                }
-                catch (JDOMException e) {
-                    throw new FaultException(-1, "err_building_oval", e.getMessage());
-                }
-                
             }
         }
         return retval;
     }
+    */
     
     /**
      * GetDetails - Retrieves the details for a given errata. 
