@@ -367,6 +367,8 @@ def _activateProxy_api_v3_x(options, apiVersion):
     errorCode, errorString = 0, ''
     try:
         s.proxy.activate_proxy(systemid, str(options.version))
+        if options.enable_monitoring:
+            s.proxy.create_monitoring_scout(systemid)
     except:
         errorCode, errorString = _errorHandler()
         try:
@@ -390,6 +392,40 @@ def _activateProxy_api_v3_x(options, apiVersion):
             sys.stdout.write("RHN Proxy successfully activated.\n")
     return (errorCode, errorString)
 
+def createMonitoringScout(options):
+    """ Activate MonitoringScout. 
+        Just create record on parent.
+        use activateProxy_api_v3_x method instead.
+    """
+
+    getServer(options, DEFAULT_WEBRPC_HANDLER_v3_x)
+    systemid = getSystemId()
+
+    errorCode, errorString = 0, ''
+    try:
+        s.proxy.create_monitoring_scout(systemid)
+    except:
+        errorCode, errorString = _errorHandler()
+        try:
+            raise
+        except SSL.SSL.Error:
+            # let's force a system exit for this one.
+            sys.stderr.write(errorString + '\n')
+            sys.exit(errorCode)
+        except (rpclib.Fault, Exception):
+            # let's force a slight change in messaging for this one.
+            errorString = "ERROR: upon entitlement/activation attempt: %s" % errorString
+        except (rpclib.ProtocolError, socket.error):
+            sys.stderr.write(errorString + '\n')
+            sys.exit(errorCode)
+        except:
+            errorString = "ERROR: upon activation attempt (something unexpected): %s" % errorString
+            return errorCode, errorString
+    else:
+        errorCode = 0
+        if not options.quiet:
+            sys.stdout.write("Monitoring Scout successfully created.\n")
+    return (errorCode, errorString)
 
 def activateProxy(options, apiVersion):
     """ Activate proxy. Decide how to do it upon apiVersion. Currently we 
@@ -450,6 +486,8 @@ def processCommandline():
         Option('--ca-cert',       action='store',      help="alternative SSL certificate to use, default is %s" % repr(ca_cert), default=ca_cert),
         Option('--no-ssl',        action='store_true', help='turn off SSL (not advisable), default is on.'),
         Option('--version',       action='store',      help='which X.Y version of the RHN Proxy are you upgrading to? Default is your current proxy version ('+defaultVersion+')', default=defaultVersion),
+        Option('-m', '--enable-monitoring', 
+                                    action='store_true', help='enable MonitoringScout on this proxy.'),
         Option('--deactivate',      action='store_true', help='deactivate proxy, if already activated'),
         Option('-l','--list-available-versions', action='store_true', help='print list of versions available to this system'),
         Option('--non-interactive', action='store_true', help='non-interactive mode'),
@@ -526,6 +564,19 @@ def main():
             resolveHostnamePort(options.server)
         listAvailableProxyChannels(options)
         sys.exit(0)
+
+    if options.enable_monitoring:
+        resolveHostnamePort(options.http_proxy)
+        if not options.http_proxy:
+            resolveHostnamePort(options.server)
+        errorCode, errorString = createMonitoringScout(options)
+        if errorCode != 0:
+            if not errorString:
+                errorString = ("An unknown error occured. Consult with your Red Hat representative.\n")
+            sys.stderr.write("\nThere was a problem activating Monitoring Scout:\n%s\n" % errorString)
+            sys.exit(abs(errorCode))
+        else:
+            sys.exit(0)
 
     noSslString = 'false'
     if options.no_ssl:
