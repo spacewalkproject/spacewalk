@@ -69,14 +69,7 @@ public class PackageAclHandler extends BaseHandler implements AclHandler {
      */
     public boolean aclPackageTypeCapable(Object ctx, String[] params) {
         
-        /* 495506 - Increased the logging since I can't reliably reproduce the issue.
-           I'll make this quiet again when we figure out why this incorrectly returns
-           false on the Satellite 5.3 builds.
-           jdobies, May 12, 2009
-         */
-        
         if (params.length == 0) {
-            log.warn("Incorrect number of parameters specified to ACL check");
             return false;
         }
         
@@ -88,7 +81,6 @@ public class PackageAclHandler extends BaseHandler implements AclHandler {
         Package pack = PackageManager.lookupByIdAndUser(pid, user);
         
         if (user == null || pid == null || pack == null) {
-            log.warn("Check for capability [" + cap + "] is false. Package: " + pack);
             return false;
         }
           
@@ -96,21 +88,10 @@ public class PackageAclHandler extends BaseHandler implements AclHandler {
         Map<ArchType, List<String>> capMap = PackageFactory.getPackageCapabilityMap();
         
         if (capMap.get(type) == null) {
-            log.warn("Check for capability [" + cap + "] on type [" + type +
-                     "] is false. Type not found in map. Map contents:");
-            for (ArchType typeKey : capMap.keySet()) {
-                log.warn("Type key: " + typeKey);
-            }
             return false;
         }
        
         boolean capFound = capMap.get(type).contains(cap);
-        
-        if (!capFound) {
-            log.warn("Check for capability [" + cap + "] on type [" + type + 
-                     "] is false. Capability not found in map.");
-        }
-        
         return capFound;
     }
     
