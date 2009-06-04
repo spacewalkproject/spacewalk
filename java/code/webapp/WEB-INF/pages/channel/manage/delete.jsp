@@ -179,9 +179,19 @@
         
         <div align="right">
             <hr/>
+	<c:choose>
+	<c:when test="${empty requestScope.disableDelete}">
             <html:submit property="delete_button">
                 <bean:message key="channel.delete.jsp.channelheader"/>
             </html:submit>
+	</c:when>
+	<c:otherwise>
+            <html:submit property="delete_button" disabled="true">
+                <bean:message key="channel.delete.jsp.channelheader"/>
+            </html:submit>	
+	</c:otherwise>
+	</c:choose>            
+
         </div>
         <html:hidden property="submitted" value="true"/>
         <c:if test='${not empty param.cid}'>

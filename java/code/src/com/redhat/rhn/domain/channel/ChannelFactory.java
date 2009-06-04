@@ -27,6 +27,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import com.redhat.rhn.common.db.datasource.CallableMode;
@@ -36,6 +37,7 @@ import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
+import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.user.User;
@@ -799,5 +801,18 @@ public class ChannelFactory extends HibernateFactory {
               .uniqueResult();
 
         return retval;
+    }
+    
+    /**
+     * Method to check if the channel contains any kickstart distributions
+     * associated to it.
+     * @param ch the channel to check distros on 
+     * @return true of the channels contains any distros
+     */
+    public static boolean containsDistributions(Channel ch) {
+        Criteria criteria = getSession().createCriteria(KickstartableTree.class);
+        criteria.setProjection(Projections.rowCount());
+        criteria.add(Restrictions.eq("channel", ch));
+        return (Integer)criteria.uniqueResult() > 0;
     }
 }
