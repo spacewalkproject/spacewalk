@@ -65,7 +65,9 @@ public class TaskStatusAction extends RhnAction {
 
         for (Map map : toDisplay) {
             Date date = TaskManager.getTaskExecutionTime((String) map.get(LABEL));
-            map.put(DATE, LocalizationService.getInstance().formatDate(date));
+            if (date != null) {
+                map.put(DATE, LocalizationService.getInstance().formatDate(date));
+            }
         }
 
         
