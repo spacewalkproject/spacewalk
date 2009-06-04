@@ -68,9 +68,6 @@ options:
 			RHN_PARENT.
   --monitoring-parent-ip=MONITORING_PARENT_IP
 			IP address of MONITORING_PARENT
-  --scout-shared-key=SCOUT_SHARED_KEY
-			Your scout shared key (can be found on the parent in 
-			/etc/rhn/cluster.ini as key scoutsharedkey).
   --populate-config-channel=Y
 			Y if config chanel should be created and configuration files in that channel
 			updated. Configuration channel will be named rhn_proxy_config_\${SYSTEM_ID}.		
@@ -108,7 +105,6 @@ while [ $# -ge 1 ]; do
 			--enable-scout=*) ENABLE_SCOUT=$(echo $1 | cut -d= -f2-);;
 			--monitoring-parent=*) MONITORING_PARENT_IP=$(echo $1 | cut -d= -f2-);;
 			--monitoring-parent-ip=*) MONITORING_PARENT_IP=$(echo $1 | cut -d= -f2-);;
-			--scout-shared-key=*) SCOUT_SHARED_KEY=$(echo $1 | cut -d= -f2-);;
 			--populate-config-channel=*) POPULATE_CONFIG_CHANNEL=$(echo $1 | cut -d= -f2-);;
 			*) echo Error: Invalid option $1
     esac
@@ -312,9 +308,14 @@ if [ $MONITORING -eq 0 ]; then
         default_or_input "Monitoring parent IP" MONITORING_PARENT_IP "$RESOLVED_IP"
         default_or_input "Enable monitoring scout" ENABLE_SCOUT "Y/n"
         ENABLE_SCOUT=$(yes_no $ENABLE_SCOUT)
-        MSG=$(echo -n "Your scout shared key (can be found on parent
-in $RHNCONF_DIR/cluster.ini as key scoutsharedkey)")
-        default_or_input "$MSG" SCOUT_SHARED_KEY ''
+		SCOUT_SHARED_KEY=`/usr/bin/rhn-proxy-activate --enable-monitoring \
+				--quiet \
+                --server="$RHN_PARENT" \
+                --http-proxy="$HTTP_PROXY" \
+                --http-proxy-username="$HTTP_USERNAME" \
+                --http-proxy-password="$HTTP_PASSWORD" \
+                --ca-cert="$CA_CHAIN" | \
+            awk '/\: [0-9a-f]+/  { print $4 }' `
 else
 	ENABLE_SCOUT=0
 fi
@@ -455,12 +456,6 @@ fi
 echo "Enabling Spacewalk Proxy."
 if [ $ENABLE_SCOUT -ne 0 ]; then
   MonitoringScout="MonitoringScout"
-  /usr/bin/rhn-proxy-activate --enable-monitoring \
-						--server="$RHN_PARENT" \
-                        --http-proxy="$HTTP_PROXY" \
-                        --http-proxy-username="$HTTP_USERNAME" \
-                        --http-proxy-password="$HTTP_PASSWORD" \
-                        --ca-cert="$CA_CHAIN"
 fi
 for service in squid httpd jabberd $MonitoringScout; do
   /sbin/chkconfig --add $service 

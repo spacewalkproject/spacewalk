@@ -197,12 +197,6 @@ provide a required response, default answer is used.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>--scout-shared-key=SCOUT_SHARED_KEY</term>
-        <listitem>
-            <para>Your scout shared key (can be found on the parent in /etc/rhn/cluster.ini as key scoutsharedkey).</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
         <term>--populate-config-channel=Y</term>
         <listitem>
             <para>Y if config chanel should be created and configuration files in that channel updated. Configuration channel will be named rhn_proxy_config_${SYSTEM_ID}</para>
@@ -344,12 +338,6 @@ provide a required response, default answer is used.</para>
         <term>MONITORING_PARENT_IP</term>
         <listitem>
            <para>IP address of MONITORING_PARENT</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>SCOUT_SHARED_KEY</term>
-        <listitem>
-           <para>Your scout shared key (can be found on the parent in /etc/rhn/cluster.ini as key scoutsharedkey).</para>
         </listitem>
     </varlistentry>
     <varlistentry>
