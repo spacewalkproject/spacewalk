@@ -784,4 +784,11 @@ public class Channel extends BaseDomainHelper implements Comparable {
         return repodataRequired;
     }
 
+    /**
+     * true if the channel contains any kickstartstartable distros
+     * @return true if the channel contains any distros.
+     */
+    public boolean containsDistributions() {
+        return ChannelFactory.containsDistributions(this);
+    }
 }

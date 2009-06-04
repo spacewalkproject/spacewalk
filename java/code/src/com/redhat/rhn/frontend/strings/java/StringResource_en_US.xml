@@ -8195,6 +8195,9 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="message.channel.delete.systemssubscribed">
         <source>There are currently systems subscribed to this channel. Please confirm system channel removal by selecting the unsubscribe checkbox.</source>
      </trans-unit>
+     <trans-unit id="message.channel.cannot-be-deleted.has-distros">
+        <source>There are currently kickstart distributions associated to this channel. Please disassociate or delete the kickstart distributions before proceeding to delete the channel.</source>
+     </trans-unit>     
      <trans-unit id="message.channelupdated">
         <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
      </trans-unit>

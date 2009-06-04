@@ -16,10 +16,13 @@ package com.redhat.rhn.frontend.action.channel.manage;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
 import com.redhat.rhn.common.security.PermissionException;
+import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -33,7 +36,8 @@ import com.redhat.rhn.manager.system.SystemManager;
  * @version $Revision$ 
  */
 public class DeleteChannelAction extends RhnAction {
-
+    private static final String DISABLE_DELETE = "disableDelete";
+    
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping actionMapping,
                                  ActionForm actionForm,
@@ -77,6 +81,11 @@ public class DeleteChannelAction extends RhnAction {
                     addMessage(request, e.getMessage());
                     return actionMapping.findForward("default");
                 }
+                catch (ValidatorException ve) {
+                    getStrutsDelegate().saveMessages(request, ve.getResult());
+                    request.setAttribute(DISABLE_DELETE, Boolean.TRUE);
+                    return actionMapping.findForward("default");
+                }
 
                 createSuccessMessage(request, "message.channeldeleted", channel.getName());
                 return actionMapping.findForward("success");
@@ -85,6 +94,11 @@ public class DeleteChannelAction extends RhnAction {
                 addMessage(request, "message.channel.delete.systemssubscribed");
                 return actionMapping.findForward("default");
             }
+        }
+        else if (channel.containsDistributions()) {
+            createErrorMessage(request, 
+                    "message.channel.cannot-be-deleted.has-distros", null);
+            request.setAttribute(DISABLE_DELETE, Boolean.TRUE);
         }
 
         return actionMapping.findForward("default");
