@@ -452,6 +452,12 @@ fi
 echo "Enabling Spacewalk Proxy."
 if [ $ENABLE_SCOUT -ne 0 ]; then
   MonitoringScout="MonitoringScout"
+  /usr/bin/rhn-proxy-activate --enable-monitoring \
+						--server="$RHN_PARENT" \
+                        --http-proxy="$HTTP_PROXY" \
+                        --http-proxy-username="$HTTP_USERNAME" \
+                        --http-proxy-password="$HTTP_PASSWORD" \
+                        --ca-cert="$CA_CHAIN"
 fi
 for service in squid httpd jabberd $MonitoringScout; do
   /sbin/chkconfig --add $service 
