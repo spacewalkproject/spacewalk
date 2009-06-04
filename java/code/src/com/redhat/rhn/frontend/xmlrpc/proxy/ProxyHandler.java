@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.xmlrpc.proxy;
 import com.redhat.rhn.common.client.ClientCertificate;
 import com.redhat.rhn.common.client.ClientCertificateDigester;
 import com.redhat.rhn.common.client.InvalidCertificateException;
-import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
@@ -96,8 +95,7 @@ public class ProxyHandler extends BaseHandler {
             User owner = server.getCreator();
 
             SatCluster scout = SatClusterFactory.createSatCluster(owner);
-            scout.setDescription(LocalizationService.getInstance().
-                        getMessage("RHN Proxy") + " " +
+            scout.setDescription("RHN Proxy" + " " +
                         server.getHostname() +
                         " (" + server.getId() + ")");
             scout.setVip(server.getIpAddress());
@@ -106,6 +104,9 @@ public class ProxyHandler extends BaseHandler {
             node.setServer(server);
             node.setLastUpdateUser(owner.getLogin());
             node.setLastUpdateDate(new Date());
+
+            SatClusterFactory.saveSatCluster(scout);
+            SatClusterFactory.saveSatNode(node);
 
             return 1;
         }
