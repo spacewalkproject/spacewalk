@@ -461,9 +461,7 @@ if [ $ENABLE_SCOUT -ne 0 ]; then
 fi
 for service in squid httpd jabberd $MonitoringScout; do
   /sbin/chkconfig --add $service 
-  if [ "$1" = "1" ] ; then  # first install
-      /sbin/chkconfig --level 345 $service on 
-  fi
+  /sbin/chkconfig --level 345 $service on 
 done
 /usr/sbin/rhn-proxy restart
 
