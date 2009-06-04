@@ -57,15 +57,16 @@ public class ProxyHandler extends BaseHandler {
     /**
      * Create Monitoring Scout for proxy.
      * @param clientcert client certificate of the system.
-     * @return 1 on success, 0 if system is not proxy (scout is not created)
+     * @return string - scout shared key on success, 
+     *      empty string if system is not proxy (scout is not created)
      * @throws MethodInvalidParamException thrown if certificate is invalid.
      * @since 10.7
      *
      * @xmlrpc.doc Create Monitoring Scout for proxy.
      * @xmlrpc.param #param_desc("string", "systemid", "systemid file")
-     * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.returntype string
      */
-    public int createMonitoringScout(String clientcert)
+    public String createMonitoringScout(String clientcert)
         throws MethodInvalidParamException {
 
         StringReader rdr = new StringReader(clientcert);
@@ -108,10 +109,10 @@ public class ProxyHandler extends BaseHandler {
             SatClusterFactory.saveSatCluster(scout);
             SatClusterFactory.saveSatNode(node);
 
-            return 1;
+            return node.getScoutSharedKey();
         }
         else {
-            return 0;
+            return "";
         }
     }
 
