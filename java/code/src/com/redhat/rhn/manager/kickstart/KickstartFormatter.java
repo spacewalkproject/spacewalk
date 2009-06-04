@@ -816,7 +816,7 @@ public class KickstartFormatter {
             }
             HashSet retval = new HashSet();
             for (int i = 0; i < pkglist.length; i++) {
-                Long packageId = ChannelManager.getLatestPackageEqual(c.getId(),
+                Long packageId = ChannelManager.getLatestPackageEqualInTree(c.getId(),
                         pkglist[i]);
                 if (packageId != null) {
                     Package p = PackageFactory.lookupByIdAndUser(packageId, user);
