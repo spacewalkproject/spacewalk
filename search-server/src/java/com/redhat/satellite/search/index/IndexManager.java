@@ -806,32 +806,32 @@ public class IndexManager {
     }
 
     private void initDocLocaleLookup() {
-        docLocaleLookUp.put("bn_IN", "bn");
-        docLocaleLookUp.put("de", "de");
-        docLocaleLookUp.put("en_US", "en");
-        docLocaleLookUp.put("es", "es");
-        docLocaleLookUp.put("fr", "fr");
-        docLocaleLookUp.put("gu", "gu");
-        docLocaleLookUp.put("hi", "hi");
-        docLocaleLookUp.put("it", "it");
-        docLocaleLookUp.put("ja", "ja");
-        docLocaleLookUp.put("ko", "ko");
-        docLocaleLookUp.put("pa", "pa");
-        docLocaleLookUp.put("pt_BR", "pt_br");
-        docLocaleLookUp.put("ru", "ru");
-        docLocaleLookUp.put("ta", "ta");
-        docLocaleLookUp.put("zh_CN", "zh_cn");
-        docLocaleLookUp.put("zh_TW", "zh_tw");
+        docLocaleLookUp.put("bn_IN", "bn-IN");
+        docLocaleLookUp.put("de", "de-DE");
+        docLocaleLookUp.put("en_US", "en-US");
+        docLocaleLookUp.put("es", "es-ES");
+        docLocaleLookUp.put("fr", "fr-FR");
+        docLocaleLookUp.put("gu", "gu-IN");
+        docLocaleLookUp.put("hi", "hi-IN");
+        docLocaleLookUp.put("it", "it-IT");
+        docLocaleLookUp.put("ja", "ja-JP");
+        docLocaleLookUp.put("ko", "ko-KR");
+        docLocaleLookUp.put("pa", "pa-IN");
+        docLocaleLookUp.put("pt_BR", "pt-BR");
+        docLocaleLookUp.put("ru", "ru-RU");
+        docLocaleLookUp.put("ta", "ta-IN");
+        docLocaleLookUp.put("zh_CN", "zh-CN");
+        docLocaleLookUp.put("zh_TW", "zh-TW");
         // Below exist in docs, but weren't available as a doc option from
         // satellite webui and they weren't available Locales on my machine
         // guessing at what they will look at.
-        docLocaleLookUp.put("as", "as");
-        docLocaleLookUp.put("ml", "ml");
-        docLocaleLookUp.put("mr", "mr");
-        docLocaleLookUp.put("or", "or");
-        docLocaleLookUp.put("kn", "kn");
-        docLocaleLookUp.put("si_lk", "si_lk");
-        docLocaleLookUp.put("te", "te");
+        docLocaleLookUp.put("as", "as-IN");
+        docLocaleLookUp.put("ml", "ml-IN");
+        docLocaleLookUp.put("mr", "mr-IN");
+        docLocaleLookUp.put("or", "or-IN");
+        docLocaleLookUp.put("kn", "kn-IN");
+        docLocaleLookUp.put("si_lk", "si-LK");
+        docLocaleLookUp.put("te", "te-IN");
     }
 
 }
