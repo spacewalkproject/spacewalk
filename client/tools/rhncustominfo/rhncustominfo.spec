@@ -43,6 +43,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Jun 05 2009 Brad Buckingham <bbuckingham@redhat.com> 5.3.0-1
+- Bump version to 5.3.0 (bbuckingham@redhat.com)
+- update copyright and licenses (jesusr@redhat.com)
+
 * Thu Feb 19 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.4.5-1
 - 485459 - constructed url should now point to right handler
 
