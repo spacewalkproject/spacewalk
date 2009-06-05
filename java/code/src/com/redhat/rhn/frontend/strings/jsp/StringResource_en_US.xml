@@ -10525,6 +10525,14 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     </trans-unit>
 
+    <trans-unit id="kickstart.softwaredit.tree.required">
+        <source>A kickstartable tree is required.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
+        </context-group>
+    </trans-unit>
+
+
     <trans-unit id="softwareedit.jsp.url">
         <source>Software URL</source>
         <context-group name="ctx">
