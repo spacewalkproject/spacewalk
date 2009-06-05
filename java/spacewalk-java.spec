@@ -11,7 +11,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.23
+Version: 0.6.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -248,6 +248,45 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Fri Jun 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.24-1
+- good bye StrutsDelegateImpl and StrutsDelegateFactory (paji@redhat.com)
+- 502959 - skip null date values for taskomatic status (shughes@redhat.com)
+- Fixed code that would show up even error messages as good messages in the UI
+  (paji@redhat.com)
+- 504054 - api - errata.getOval - commenting out api (bbuckingham@redhat.com)
+- 502941 - Now that 495506 is verified, removing the log message spam.
+  (jason.dobies@redhat.com)
+- Restore ChannelManager.getLatestPackageEqualInTree. (dgoodwin@redhat.com)
+- 484294 - Fix to complain a channel with distros cant be deleted.
+  (paji@redhat.com)
+- 499399 - api call proxy.createMonitoringScout now return scout shared key
+  (msuchy@redhat.com)
+- Revert "adding better support for kickstart cent, whereby we install/udpate
+  the client packages on all distros and not just RHEL-2,3,4"
+  (dgoodwin@redhat.com)
+- 499399 - save scout to db (msuchy@redhat.com)
+- 504023 - fixing repodata generation to skip solaris custom channels
+  (pkilambi@redhat.com)
+- 495594, 504012 - Fixed issue where invert flag disappeared on pagination;
+  fixed ISE when search produces no results. (jason.dobies@redhat.com)
+- 503642 - update KickstartScheduleCommand to store action id after the action
+  has been saved to the db (bbuckingham@redhat.com)
+- 502905 - fixing issue where non virt kickstarts would show up on virt
+  provisioning page (jsherril@redhat.com)
+- checkstyle fix (jsherril@redhat.com)
+- 502259 - fixing query error that prevented solaris patch clusters from being
+  installed (jsherril@redhat.com)
+- 503545 - api - system.migrateSystems - update to handle systems that are in a
+  system group (bbuckingham@redhat.com)
+- 435043 - adding errata sync page for syncing out of date errata (that have
+  been updated by red hat) (jsherril@redhat.com)
+- 502646 - Fixed list tag filter issue hitting the enter key in IE
+  (paji@redhat.com)
+- 501224 - api - enhance system.listSystemEvents to include more detail on
+  events executed (bbuckingham@redhat.com)
+- Made default virt options in a profile configurable and other anomalies
+  related to virt options (paji@redhat.com)
+
 * Mon Jun 01 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.23-1
 - 496933 - update the errata index when publishing an errata. (jesusr@redhat.com)
 - 492206 - Fixed an issue ' bad cobbler template' parsing (paji@redhat.com)
