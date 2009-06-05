@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.6.7
+Version:        0.6.8
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -100,6 +100,21 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Fri Jun 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.8-1
+- no need to enable Monitoring + MonitoringScout explicitly (mzazrivec@redhat.com)
+- Fixes to support mod_jk >= 2.2.26. (dgoodwin@redhat.com)
+- distinguish minor and major version embedded db upgrades (mzazrivec@redhat.com)
+- include new embedded db upgrade script into spec file (mzazrivec@redhat.com)
+- add 10g 10.2.0.3 -> 10.2.0.4 embedded db setup upgrade script (mzazrivec@redhat.com)
+- pass custom sid to upgrade-db.sh for embedded db upgrade (mzazrivec@redhat.com)
+- update copyright information (mzazrivec@redhat.com)
+- support embedded db upgrade with custom sid (mzazrivec@redhat.com)
+- 502475 - remove initialization of scout from perl (msuchy@redhat.com)
+- 502475 - add ip address to SatCluster and SatNode (msuchy@redhat.com)
+- restart satellite using shell script (mzazrivec@redhat.com)
+- 464189 - embedded db upgrade fixes from Goldmember (mmraka@redhat.com)
+- set compatible flag to 10.2 during embedded db upgrade (mzazrivec@redhat.com)
+
 * Wed May 27 2009 Jan Pazdziora 0.6.7-1
 - spacewalk-setup: move creation of mount points to
   /usr/bin/spacewalk-make-mount-points
