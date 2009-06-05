@@ -44,7 +44,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="server.rhnSQL.sql_base.Cursor-class.html"
@@ -54,27 +54,9 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class Cursor</h1><span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor">source&nbsp;code</a></span><br /><br />
-<center>
-<center>  <map id="uml_class_diagram_for_server_r_58" name="uml_class_diagram_for_server_r_58">
-<area shape="rect" href="server.rhnSQL.int_oracle.Cursor&#45;class.html" title="server.rhnSQL.int_oracle.Cursor" alt="" coords="115,285,253,323" />
-<area shape="rect" href="server.rhnSQL.sql_base.Cursor&#45;class.html#fetchall_tuple" title="server.rhnSQL.sql_base.Cursor.fetchall_tuple" alt="" coords="17,36,351,55" />
-<area shape="rect" href="server.rhnSQL.sql_base.Cursor&#45;class.html#fetchall" title="server.rhnSQL.sql_base.Cursor.fetchall" alt="" coords="17,55,351,73" />
-<area shape="rect" href="server.rhnSQL.sql_base.Cursor&#45;class.html#fetchone_dict" title="server.rhnSQL.sql_base.Cursor.fetchone_dict" alt="" coords="17,73,351,92" />
-<area shape="rect" href="server.rhnSQL.sql_base.Cursor&#45;class.html#executemany" title="server.rhnSQL.sql_base.Cursor.executemany" alt="" coords="17,92,351,111" />
-<area shape="rect" href="server.rhnSQL.sql_base.Cursor&#45;class.html#fetchone_tuple" title="server.rhnSQL.sql_base.Cursor.fetchone_tuple" alt="" coords="17,111,351,129" />
-<area shape="rect" href="server.rhnSQL.sql_base.Cursor&#45;class.html#fetchmany" title="server.rhnSQL.sql_base.Cursor.fetchmany" alt="" coords="17,129,351,148" />
-<area shape="rect" href="server.rhnSQL.sql_base.Cursor&#45;class.html#fetchall_dict" title="server.rhnSQL.sql_base.Cursor.fetchall_dict" alt="" coords="17,148,351,167" />
-<area shape="rect" href="server.rhnSQL.sql_base.Cursor&#45;class.html#execute" title="server.rhnSQL.sql_base.Cursor.execute" alt="" coords="17,167,351,185" />
-<area shape="rect" href="server.rhnSQL.sql_base.Cursor&#45;class.html#fetchmany_tuple" title="server.rhnSQL.sql_base.Cursor.fetchmany_tuple" alt="" coords="17,185,351,204" />
-<area shape="rect" href="server.rhnSQL.sql_base.Cursor&#45;class.html#__init__" title="server.rhnSQL.sql_base.Cursor.__init__" alt="" coords="17,204,351,223" />
-<area shape="rect" href="server.rhnSQL.sql_base.Cursor&#45;class.html#fetchone" title="server.rhnSQL.sql_base.Cursor.fetchone" alt="" coords="17,223,351,241" />
-<area shape="rect" href="server.rhnSQL.sql_base.Cursor&#45;class.html#fetchmany_dict" title="server.rhnSQL.sql_base.Cursor.fetchmany_dict" alt="" coords="17,241,351,260" />
-<area shape="rect" href="server.rhnSQL.sql_base.Cursor&#45;class.html" title="server.rhnSQL.sql_base.Cursor" alt="" coords="5,5,363,267" />
-</map>
-  <img src="uml_class_diagram_for_server_r_58.gif" alt='' usemap="#uml_class_diagram_for_server_r_58" ismap="ismap" class="graph-without-title" />
-</center></center>
-<hr />
+<h1 class="epydoc">Class Cursor</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor">source&nbsp;code</a></span></p>
+<p>A class to implement generic SQL Cursor operations.</p>
+
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -99,10 +81,63 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">dbh</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">sql</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span></td>
+        <span class="summary-sig-arg">dbh</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">sql</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_prepare_sql"></a><span class="summary-sig-name">_prepare_sql</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor._prepare_sql">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_prepare"></a><span class="summary-sig-name">_prepare</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor._prepare">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="server.rhnSQL.sql_base.Cursor-class.html#prepare" class="summary-sig-name">prepare</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">sql</span>,
+        <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Prepares the current statement.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor.prepare">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -117,8 +152,9 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="execute"></a><span class="summary-sig-name">execute</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">*args</span>,
-        <span class="summary-sig-arg">**kw</span>)</span></td>
+        <span class="summary-sig-arg">*p</span>,
+        <span class="summary-sig-arg">**kw</span>)</span><br />
+      Execute a single query.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor.execute">source&nbsp;code</a></span>
             
@@ -134,11 +170,88 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="executemany"></a><span class="summary-sig-name">executemany</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.rhnSQL.sql_base.Cursor-class.html#executemany" class="summary-sig-name">executemany</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*p</span>,
+        <span class="summary-sig-arg">**kw</span>)</span><br />
+      Execute a query multiple times with different data sets.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor.executemany">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="execute_bulk"></a><span class="summary-sig-name">execute_bulk</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dict</span>,
+        <span class="summary-sig-arg">chunk_size</span>=<span class="summary-sig-default">100</span>)</span><br />
+      Uses executemany but chops the incoming dict into chunks for each 
+      call.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor.execute_bulk">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="server.rhnSQL.sql_base.Cursor-class.html#_execute_wrapper" class="summary-sig-name" onclick="show_private();">_execute_wrapper</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">function</span>,
+        <span class="summary-sig-arg">*p</span>,
+        <span class="summary-sig-arg">**kw</span>)</span><br />
+      Database specific execute wrapper.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor._execute_wrapper">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_execute"></a><span class="summary-sig-name">_execute</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">*args</span>,
-        <span class="summary-sig-arg">**kw</span>)</span></td>
+        <span class="summary-sig-arg">**kwargs</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor.execute">source&nbsp;code</a></span>
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor._execute">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_executemany"></a><span class="summary-sig-name">_executemany</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*args</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor._executemany">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -152,92 +265,12 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="fetchall"></a><span class="summary-sig-name">fetchall</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="_execute_"></a><span class="summary-sig-name">_execute_</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">args</span>,
+        <span class="summary-sig-arg">kwargs</span>)</span><br />
+      Database specific execution of the query.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor.fetchall">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="fetchall_dict"></a><span class="summary-sig-name">fetchall_dict</span>(<span class="summary-sig-arg">self</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor.fetchall_dict">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="fetchall_tuple"></a><span class="summary-sig-name">fetchall_tuple</span>(<span class="summary-sig-arg">self</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor.fetchall_tuple">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="fetchmany"></a><span class="summary-sig-name">fetchmany</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">howmany</span>=<span class="summary-sig-default">1</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor.fetchmany">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="fetchmany_dict"></a><span class="summary-sig-name">fetchmany_dict</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">howmany</span>=<span class="summary-sig-default">1</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor.fetchmany_dict">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="fetchmany_tuple"></a><span class="summary-sig-name">fetchmany_tuple</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">howmany</span>=<span class="summary-sig-default">1</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor.fetchmany_tuple">source&nbsp;code</a></span>
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor._execute_">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -267,7 +300,25 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="fetchone_dict"></a><span class="summary-sig-name">fetchone_dict</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="fetchall"></a><span class="summary-sig-name">fetchall</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor.fetchall">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="fetchone_dict"></a><span class="summary-sig-name">fetchone_dict</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Return a dictionary for the row returned mapping column name to it's 
+      value.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor.fetchone_dict">source&nbsp;code</a></span>
             
@@ -283,9 +334,79 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="fetchone_tuple"></a><span class="summary-sig-name">fetchone_tuple</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="fetchall_dict"></a><span class="summary-sig-name">fetchall_dict</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Fetch all rows as a list of dictionaries.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor.fetchone_tuple">source&nbsp;code</a></span>
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor.fetchall_dict">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_is_sequence_type"></a><span class="summary-sig-name">_is_sequence_type</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">val</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor._is_sequence_type">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_munge_arg"></a><span class="summary-sig-name">_munge_arg</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">val</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor._munge_arg">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_unmunge_args"></a><span class="summary-sig-name">_unmunge_args</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">kw_dict</span>,
+        <span class="summary-sig-arg">modified_params</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor._unmunge_args">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_munge_args"></a><span class="summary-sig-name">_munge_args</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">kw_dict</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor._munge_args">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -294,6 +415,121 @@
     </td>
   </tr>
 </table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_cursor_cache"></a><span class="summary-name">_cursor_cache</span> = <code title="{}">{}</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="prepare"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">prepare</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">sql</span>,
+        <span class="sig-arg">force</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor.prepare">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Prepares the current statement.</p>
+  <p>Must be called prior to execute even if the underlying database driver
+  does not support an explicit prepare before execution.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="executemany"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">executemany</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">*p</span>,
+        <span class="sig-arg">**kw</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor.executemany">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Execute a query multiple times with different data sets.</p>
+  <p>Call with keyword arguments mapping to ordered lists. i.e. 
+  cursor.executemany(id=[1, 2], name=[&quot;Bill&quot;, 
+  &quot;Mary&quot;])</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_execute_wrapper"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_execute_wrapper</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">function</span>,
+        <span class="sig-arg">*p</span>,
+        <span class="sig-arg">**kw</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor._execute_wrapper">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Database specific execute wrapper. Mostly used just to catch DB 
+  exceptions and wrap them.</p>
+  <p>Must be subclasses by database specific drivers.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -317,10 +553,11 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:08:54 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:16 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -331,9 +568,8 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

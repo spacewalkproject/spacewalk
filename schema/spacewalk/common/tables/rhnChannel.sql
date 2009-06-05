@@ -30,7 +30,7 @@ CREATE TABLE rhnChannel
                                 REFERENCES rhnChannelArch (id), 
     label               VARCHAR2(128) NOT NULL, 
     basedir             VARCHAR2(256) NOT NULL, 
-    name                VARCHAR2(64) NOT NULL, 
+    name                VARCHAR2(256) NOT NULL, 
     summary             VARCHAR2(500) NOT NULL, 
     description         VARCHAR2(4000), 
     product_name_id     NUMBER 

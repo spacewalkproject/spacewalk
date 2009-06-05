@@ -28,7 +28,7 @@ img#rhnLogo {
 
 #utilityLinks {
 	float: left;
-	width: 60%;
+	width: 55%;
 	padding: 4px 0;
 	border-bottom: 1px solid #ccc;
 }
@@ -51,7 +51,7 @@ img#rhnLogo {
 	float: right;
 	text-align: center;
 	background: #eee;
-	width: 40%;
+	width: 45%;
 	background-image: url(/img/nav/utilBkgdRight.png);
 	background-position: bottom right;
 	background-repeat: no-repeat;
@@ -103,3 +103,4 @@ a#utilityCart {
 #utilityLinks a {
 	color: 			white;
 }
+

@@ -21,7 +21,7 @@
 --data for rhn_config_parameter
 
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'CommandQueue', 'dbAuthFile', '/etc/NOCpulse.SputLiteAuth', 'INTERNAL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'CommandQueue', 'exelog', '%{NPLIB}/commands/execute_commands.log', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'CommandQueue', 'exelog', '%{NPVAR}/execute_commands.log', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'CommandQueue', 'exelogLevel', '3', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'CommandQueue', 'gritchdb', '%{NPLIB}/commands/.gripes.gdbm', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'CommandQueue', 'heartbeatFile', '%{NPLIB}/commands/heartbeat', 'ALL', 'system',sysdate);

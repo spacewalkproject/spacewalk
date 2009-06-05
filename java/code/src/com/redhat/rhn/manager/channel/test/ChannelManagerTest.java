@@ -49,6 +49,7 @@ import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
 import com.redhat.rhn.manager.channel.ChannelEntitlementCounter;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
+import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
@@ -747,4 +748,65 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
 
 
     }
+
+    public void testListErrataNeedingResync() throws Exception {
+
+        user.addRole(RoleFactory.CHANNEL_ADMIN);
+
+        Channel ochan = ChannelFactoryTest.createTestChannel();
+        Channel cchan = ChannelFactoryTest.createTestClonedChannel(ochan, user);
+
+        Errata oe = ErrataFactoryTest.createTestErrata(null);
+        ochan.addErrata(oe);
+
+        List list = new ArrayList();
+        list.add(cchan.getId());
+
+         Errata ce = ErrataManager.createClone(user, oe);
+         ce = ErrataManager.publish(ce, list, user);
+
+         Package testPackage = PackageTest.createTestPackage();
+         oe.addPackage(testPackage);
+         ochan.addPackage(testPackage);
+
+         List<ErrataOverview> result = ChannelManager.listErrataNeedingResync(cchan, user);
+         assertTrue(result.size() == 1);
+         assertEquals(result.get(0).getId(), ce.getId());
+
+    }
+
+    public void testListErrataPackagesForResync() throws Exception {
+
+        user.addRole(RoleFactory.CHANNEL_ADMIN);
+
+        Channel ochan = ChannelFactoryTest.createTestChannel();
+        Channel cchan = ChannelFactoryTest.createTestClonedChannel(ochan, user);
+
+        Errata oe = ErrataFactoryTest.createTestErrata(null);
+        ochan.addErrata(oe);
+
+        List list = new ArrayList();
+        list.add(cchan.getId());
+
+         Errata ce = ErrataManager.createClone(user, oe);
+         ce = ErrataManager.publish(ce, list, user);
+
+         Package testPackage = PackageTest.createTestPackage();
+         oe.addPackage(testPackage);
+         ochan.addPackage(testPackage);
+
+         RhnSet set = RhnSetDecl.ERRATA_TO_SYNC.get(user);
+         set.clear();
+         set.add(ce.getId());
+         RhnSetManager.store(set);
+
+         List<PackageOverview> result = ChannelManager.listErrataPackagesForResync(
+                                                 cchan, user, set.getLabel());
+         assertTrue(result.size() == 1);
+
+         assertEquals(result.get(0).getId(), testPackage.getId());
+
+    }
+
+
 }

@@ -1,7 +1,7 @@
     <table class="details">
     <tr>
         <th>
-            <bean:message key="keycreate.jsp.description"/><span class="required-form-field">*</span>
+            <rhn:required-field key="keycreate.jsp.description"/>
         </th>
         <td>
             <html:text property="description" maxlength="40" size="20" disabled="true"/>

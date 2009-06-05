@@ -31,15 +31,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * ChannelPackagesAction
- * @version $Rev$
+ * Handles the validation of custom system info key data and the creation of the keys.
  */
 public class CreateCustomKeyAction extends RhnAction {
 
-
     private final String LABEL_PARAM = "label";
     private final String DESC_PARAM = "description";
-
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -54,16 +51,8 @@ public class CreateCustomKeyAction extends RhnAction {
             String label = request.getParameter(LABEL_PARAM);
             String description = request.getParameter(DESC_PARAM);
 
-
-            String error = null;
-            // if the key already exists
-            if (OrgFactory.lookupKeyByLabelAndOrg(label, user.getOrg()) != null) {
-                error = "system.customkey.error.alreadyexists";
-            }
-            //if the label is too short
-            else if (label.length() < 2 || description.length() < 2) {
-                error = "system.customkey.error.tooshort";
-            }
+            String error = validateLabelAndDescription(label, description, user);
+            
             if (error != null) {
                 request.setAttribute("old_label", label);
                 request.setAttribute("old_description", description);
@@ -83,9 +72,7 @@ public class CreateCustomKeyAction extends RhnAction {
         }
 
         return mapping.findForward("default");
-
     }
-
 
     private void bindMessage(RequestContext requestContext, String error) {
         ActionMessages msg = new ActionMessages();
@@ -95,8 +82,42 @@ public class CreateCustomKeyAction extends RhnAction {
         getStrutsDelegate().saveMessages(requestContext.getRequest(), msg);
     }
 
-
-
-
-
+    /**
+     * Validates the user specified label and descriptions are acceptable values. 
+     * 
+     * @param label       label given to the new key
+     * @param description description of the key
+     * @param user        user creating the key
+     * @return message key corresponding to the validation error if one was encountered;
+     *         <code>null</code> if the values are valid
+     */
+    private String validateLabelAndDescription(String label, String description,
+                                               User user) {
+        /* Validation proceeds according to the following:
+        
+           I.  Key does not already exist; do not allow duplicate keys
+          II.  Label is at least 2 characters long
+         III.  Description is at least 2 characters long
+          IV.  Label only contains valid characters (these need to match what is allowed
+               in a macro argument)
+         */
+        
+        String error = null;
+        
+        // I
+        if (OrgFactory.lookupKeyByLabelAndOrg(label, user.getOrg()) != null) {
+            error = "system.customkey.error.alreadyexists";
+        }
+        // II, III
+        else if (label == null || label.length() < 2 || description.length() < 2) {
+            error = "system.customkey.error.tooshort";
+        }
+        // IV
+        else if (!label.trim().matches("[\\w-]*")) {
+            error = "system.customkey.error.invalid";
+        }
+        
+        return error;
+    }
+    
 }

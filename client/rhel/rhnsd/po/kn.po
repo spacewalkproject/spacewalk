@@ -59,4 +59,3 @@ msgstr "ಹಕ್ಕು (C) %s Red Hat, Inc.\n"
 #, c-format
 msgid "Written by %s.\n"
 msgstr "ಬರೆದವರು %s. \n"
-

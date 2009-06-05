@@ -41,7 +41,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="pygettext-module.html"
@@ -51,7 +51,7 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module pygettext</h1><span class="codelink"><a href="pygettext-pysrc.html">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Module pygettext</h1><p class="nomargin-top"><span class="codelink"><a href="pygettext-pysrc.html">source&nbsp;code</a></span></p>
 <pre class="literalblock">
 
 pygettext -- Python equivalent of xgettext(1)
@@ -174,7 +174,7 @@ Options:
 
 If `inputfile' is -, standard input is read.
 
-</pre><br /><br />
+</pre>
 
 <hr />
 <div class="fields">      <p><strong>Version:</strong>
@@ -229,7 +229,7 @@ If `inputfile' is -, standard input is read.
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="usage"></a><span class="summary-sig-name">usage</span>(<span class="summary-sig-arg">code</span>,
-        <span class="summary-sig-arg">msg</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span></td>
+        <span class="summary-sig-arg">msg</span>=<span class="summary-sig-default">''</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pygettext-pysrc.html#usage">source&nbsp;code</a></span>
             
@@ -341,21 +341,21 @@ If `inputfile' is -, standard input is read.
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="default_keywords"></a><span class="summary-name">default_keywords</span> = <code title="['_']"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">_</code><code class="variable-quote">'</code><code class="variable-group">]</code></code>
+        <a name="default_keywords"></a><span class="summary-name">default_keywords</span> = <code title="['_']">['_']</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="DEFAULTKEYWORDS"></a><span class="summary-name">DEFAULTKEYWORDS</span> = <code title="'_'"><code class="variable-quote">'</code><code class="variable-string">_</code><code class="variable-quote">'</code></code>
+        <a name="DEFAULTKEYWORDS"></a><span class="summary-name">DEFAULTKEYWORDS</span> = <code title="string.join(default_keywords, ', ')">string.join(default_keywords, ', ')</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="EMPTYSTRING"></a><span class="summary-name">EMPTYSTRING</span> = <code title="''"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></code>
+        <a name="EMPTYSTRING"></a><span class="summary-name">EMPTYSTRING</span> = <code title="''">''</code>
     </td>
   </tr>
 <tr>
@@ -370,14 +370,14 @@ msgid &quot;&quot;
 msgstr &quot;&quot;
 &quot;Project-Id-Version: PACKAGE VERSION\\n&quot;
 &quot;PO-Revision-Date: %(time)s\\n&quot;
-..."><code class="variable-quote">'</code><code class="variable-string"># SOME DESCRIPTIVE TITLE.\n# Copyright (C) 2002-</code><code class="variable-ellipsis">...</code></code>
+...">'''# SOME DESCRIPTIVE TIT<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="escapes"></a><span class="summary-name">escapes</span> = <code title="[]"><code class="variable-group">[</code><code class="variable-group">]</code></code>
+        <a name="escapes"></a><span class="summary-name">escapes</span> = <code title="[]">[]</code>
     </td>
   </tr>
 </table>
@@ -411,14 +411,14 @@ msgstr &quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-quote">'''</code><code class="variable-string"># SOME DESCRIPTIVE TITLE.</code>
-<code class="variable-string"># Copyright (C) 2002-2005, Red Hat, Inc.</code>
-<code class="variable-string"># FIRST AUTHOR &lt;EMAIL@ADDRESS&gt;, YEAR.</code>
-<code class="variable-string">#</code>
-<code class="variable-string">msgid &quot;&quot;</code>
-<code class="variable-string">msgstr &quot;&quot;</code>
-<code class="variable-string">&quot;Project-Id-Version: PACKAGE VERSION\\n&quot;</code>
-<code class="variable-string">&quot;PO-Revision-Date: %(time)s\\n&quot;</code>
+'''# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2002-2005, Red Hat, Inc.
+# FIRST AUTHOR &lt;EMAIL@ADDRESS&gt;, YEAR.
+#
+msgid &quot;&quot;
+msgstr &quot;&quot;
+&quot;Project-Id-Version: PACKAGE VERSION\\n&quot;
+&quot;PO-Revision-Date: %(time)s\\n&quot;
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -449,10 +449,11 @@ msgstr &quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:49 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -463,9 +464,8 @@ msgstr &quot;&quot;
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

@@ -5162,7 +5162,19 @@ value for this entitlement.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="packagesearch.jsp.relevant">
-<source>Channels relevant to your systems</source>
+<source>Only channels relevant to your systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/software/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="packagesearch.jsp.specificchannel">
+<source>Specific channel you have access to</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/software/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="packagesearch.jsp.specificarch">
+<source>Packages of a specific architecture in any channel you have access to</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/software/Search</context>
         </context-group>
@@ -9556,7 +9568,7 @@ Please note that some manual configuration of these scripts may still be require
     </trans-unit>
 
     <trans-unit id="kickstartdelete.jsp.summary1">
-        <source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its associated system and corresponding options.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
+        <source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its corresponding options and scripts.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/KickstartDeleteSetup</context>
         </context-group>
@@ -11797,16 +11809,19 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
         </context-group>
         <trans-unit id="kickstart.jsp.virt-type.para_host">
-          <source>Para-Virtualized Host</source>
+          <source>Xen Virtualized Host</source>
         </trans-unit>
         <trans-unit id="kickstart.jsp.virt-type.qemu">
-          <source>None Or KVM Virtualized Guest</source>
+          <source>KVM Virtualized Guest</source>
+        </trans-unit>
+        <trans-unit id="kickstart.jsp.virt-type.none">
+          <source>None</source>
         </trans-unit>
         <trans-unit id="kickstart.jsp.virt-type.xenfv">
-          <source>XEN Fully-Virtualized Guest</source>
+          <source>Xen Fully-Virtualized Guest</source>
         </trans-unit>
         <trans-unit id="kickstart.jsp.virt-type.xenpv">
-          <source>XEN Para-Virtualized Guest</source>
+          <source>Xen Para-Virtualized Guest</source>
         </trans-unit>                        
      </group>
      
@@ -16082,9 +16097,9 @@ any of these revisions.  Are you sure you want to do this?</source>
          <source>Verifiable Packages</source>
        </trans-unit>
        <trans-unit id="ssm.package.verify.select.summary">
-         <source>Packages listed below may be removed from one or more systems.
+         <source>Packages listed below may be verified on one or more systems.
 
-            Select one or more and click the &lt;b&gt;Verify Selected Packages&lt;/b&gt; button to schedule package removal.
+            Select one or more and click the &lt;b&gt;Verify Selected Packages&lt;/b&gt; button to schedule package verification.
          </source>
        </trans-unit>
        <trans-unit id="ssm.package.verify.select.confirm">
@@ -17352,6 +17367,13 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
 	</context-group>
+      </trans-unit>
+      
+      <trans-unit id="virtualization.provision.override.jsp.goto.advanced.options">
+        <source>By default virtual guest settings like memory, cpu and storage allocations will be inherited from your kickstart profile. If you want to override these settings click on &lt;strong&gt;{0}&lt;/strong&gt; button below.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
+	</context-group>
       </trans-unit>      
 
       <trans-unit id="virtualization.provision.first.jsp.guest_name.header">
@@ -17431,7 +17453,13 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
 	</context-group>
       </trans-unit>      
       
-
+     <trans-unit id="virtualization.provision.override.jsp.message">
+        <source>The following fields may be left blank (in which case default values as defined in the selected kickstart profile will be used).  Each field may be set individually to override the profile's default value.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
+	</context-group>
+      </trans-unit>
+      
       <trans-unit id="virtualization.provision.first.jsp.storage.local.message1">
         <source>Use the virtual host system's disk space: </source>
         <context-group name="ctx">
@@ -20763,6 +20791,10 @@ given channel.</source>
 			<source>Packages</source>
       </trans-unit>                                
       
+     <trans-unit id="package.jsp.menu.patches">
+			<source>Patches</source>
+      </trans-unit>                                
+      
       <trans-unit id="package.jsp.menu.patchclusters">
 			<source>Patch Clusters</source>
       </trans-unit>            
@@ -20933,6 +20965,85 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
       </trans-unit>
+       <trans-unit id="channel.delete.jsp.toolbar">
+         <source>{0}</source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
+         </context-group>
+       </trans-unit>
+       <trans-unit id="channel.delete.jsp.channelheader">
+         <source>Delete Channel</source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
+         </context-group>
+       </trans-unit>
+       <trans-unit id="channel.delete.jsp.introparagraph">
+         <source>Are you sure you wish to delete this channel? Packages in the channel will
+           be removed from the channel, but will remain on the server. You will be
+           given the option to delete them after the channel has been deleted. Errata
+           related to the channel will no longer be related to the channel, and may be
+           orphaned. If the channel has child channels, it cannot be deleted; the child
+           channels must be deleted first. If the channel has kickstart distributions
+           associated to it, it cannot be deleted; the kickstart distributions must be
+           dissociated from the channel or deleted first.
+         </source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
+         </context-group>
+       </trans-unit>
+       <trans-unit id="channel.delete.jsp.arch">
+         <source>Architecture:</source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
+         </context-group>
+       </trans-unit>
+       <trans-unit id="channel.delete.jsp.totalpackages">
+         <source>Total Packages:</source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
+         </context-group>
+       </trans-unit>
+       <trans-unit id="channel.delete.jsp.systemssubscribed">
+         <source>Systems Subscribed:</source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
+         </context-group>
+       </trans-unit>
+       <trans-unit id="channel.delete.jsp.orgsheader">
+         <source>Trusted Organizations</source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
+         </context-group>
+       </trans-unit>
+       <trans-unit id="channel.delete.jsp.orgsparagraph">
+         <source>Channel deletion will affect any Trusted Organizations that have systems
+            subscribed to the {0} channel. 
+         </source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
+         </context-group>
+       </trans-unit>       
+       <trans-unit id="channel.delete.jsp.orgsaffected">
+         <source>Organizations Affected: 
+         </source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
+         </context-group>
+       </trans-unit>       
+       <trans-unit id="channel.delete.jsp.unsubheader">
+         <source>Unsubscribe Systems</source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
+         </context-group>
+       </trans-unit>
+       <trans-unit id="channel.delete.jsp.unsubparagraph">
+         <source>Unsubscribe all trusted organization systems that are subscribed to the
+            {0} channel. Subscribed systems will lose access to packages specific to this channel. 
+         </source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/channels/manage/Delete.do</context>
+         </context-group>
+       </trans-unit>       
       <trans-unit id="generic.jsp.none">
         <source>None</source>
         <context-group name="ctx">
@@ -21152,6 +21263,69 @@ given channel.</source>
          <source>The requested kickstart file could not be found.
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
      </trans-unit>
+     <trans-unit id="task.status.current.db.time">
+         <source>Current DB Time</source>
+     </trans-unit>
+     <trans-unit id="task.status.last.execution">
+         <source>Last Execution Times</source>
+     </trans-unit>
+     <trans-unit id="task.status.last.completed">
+         <source>Last Completed Action</source>
+     </trans-unit>
+     <trans-unit id="task.status.session.cleanup">
+         <source>Session Cleanup</source>
+     </trans-unit>
+     <trans-unit id="task.status.errata.queue.notif">
+         <source>Errata Notification Queue</source>
+     </trans-unit>
+     <trans-unit id="task.status.errata.mail">
+         <source>Errata Notification Mail</source>
+     </trans-unit>
+     <trans-unit id="task.status.daily.summary">
+         <source>Daily Summary Queue</source>
+     </trans-unit>
+     <trans-unit id="task.status.daily.summary.mail">
+         <source>Daily Summary Mail</source>
+     </trans-unit>
+     <trans-unit id="task.status.clean.alerts">
+         <source>Clean Current Alerts</source>
+     </trans-unit>
+     <trans-unit id="task.status.sync.probe">
+         <source>Sync Probe State</source>
+     </trans-unit>
+     <trans-unit id="task.status.message">
+         <source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
+     </trans-unit>
+     <trans-unit id="task.status.title">
+         <source>Task Engine Status</source>
+     </trans-unit>
+      <trans-unit id="actions.jsp.pickedup">
+		<source>Picked Up</source>
+      </trans-unit>
+      <trans-unit id="header.jsp.errata.sync">
+		<source>Sync Errata</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.errata.sync.message">
+		<source>The following errata were cloned from errata that have since been updated.
+		   This page will allow you to syncronize your cloned errata to that of its original.</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.errata.sync.note">
+		<source>Packages that were omitted as part of the origianl cloning process will be included here.</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.errata.sync.listempty">
+		<source>No out of date errata were found.</source>
+      </trans-unit>
+      <trans-unit id="header.jsp.errata.sync.packagepush">
+		<source>Packages to Push</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.errata.sync.packages.message">
+		<source>The following packages will be pushed to this channel as part of the errata sync process.  Please review this list and unselect any unwanted packages.</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.errata.sync.complete">
+		<source>Sucessfully syncronized {0} errata and pushed {1} packages to channel {2}.</source>
+      </trans-unit>
+
+
 
   </body>
   </file>

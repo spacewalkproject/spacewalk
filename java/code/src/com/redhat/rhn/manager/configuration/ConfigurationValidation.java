@@ -111,8 +111,8 @@ public class ConfigurationValidation {
                                         name.trim()));                    
                 }
                 
-                // Arg-content must be word and whitespace values
-                if (args != null && !args.trim().matches("[\\w\\s]*")) {
+                // Arg-content must be word, whitespace values, or hyphens
+                if (args != null && !args.trim().matches("[\\w\\s-]*")) {
                     result.addError(new ValidatorError(
                                 "configmanager.filedetails.content.bad-arg-content", 
                                 name.trim(), args.trim()));                    

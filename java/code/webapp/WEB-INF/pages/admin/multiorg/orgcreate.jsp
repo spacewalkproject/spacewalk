@@ -23,7 +23,7 @@
         <h2><bean:message key="orgdetails.jsp.header"/></h2>
 		<table class="details" align="center">
 		  <tr>
-            <th width="25%"><bean:message key="org.name.jsp"/><span class="required-form-field">*</span>:</th>
+            <th width="25%"><rhn:required-field key="org.name.jsp"/>:</th>
 		    <td><html:text property="orgName" maxlength="128" size="40" />
 		        <br>
                 <span class="small-text"><strong><bean:message key="tip" /></strong>
@@ -37,7 +37,7 @@
             <bean:message key="orgcreate.header2"/>
         </p>
 		    <tr>
-		      <th><bean:message key="desiredlogin" /><span class="required-form-field">*</span>:</th>
+		      <th><rhn:required-field key="desiredlogin"/>:</th>
 		      <td>
 		        <html:text property="login" size="15" maxlength="45"/>
 		        <br>
@@ -79,15 +79,13 @@
         </td>
       </tr>		    
 		    <tr>
-              <th><bean:message key="email" />
-               <span class="required-form-field">*</span>:</th>
+              <th><rhn:required-field key="email"/>:</th>
               <td>
                 <html:text property="email" size="45" maxlength="128"/>
               </td>
             </tr>
 		    <tr>
-              <th><bean:message key="firstNames" />
-               <span class="required-form-field">*</span>:</th>
+              <th><rhn:required-field key="firstNames"/>:</th>
                
               <td>
               <html:select property="prefix">
@@ -99,8 +97,7 @@
               </td>
             </tr>
 		    <tr>
-              <th><bean:message key="lastName" />
-               <span class="required-form-field">*</span>:</th>
+              <th><rhn:required-field key="lastName"/>:</th>
               <td>
                 <html:text property="lastName" size="45" maxlength="128"/>
               </td>

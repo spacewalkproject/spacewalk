@@ -27,11 +27,15 @@ public class PackageOverview extends BaseDto {
     private Long id;
     private String packageName;
     private String summary;
+    private String description;
     private String packageNvre;
     private String nvrea;
     private List packageChannels;
     private String packageArch;
     private String provider;
+    private String version;
+    private String epoch;
+    private String release;
 
 
     /**
@@ -87,6 +91,18 @@ public class PackageOverview extends BaseDto {
      */
     public void setId(Long idIn) {
         this.id = idIn;
+    }
+    /**
+     * @param descriptionIn The description to set.
+     */
+    public void setDescription(String descriptionIn) {
+        this.description = descriptionIn;
+    }
+    /**
+     * @return Returns the description.
+     */
+    public String getDescription() {
+        return description.trim();
     }
     /**
      * @return Returns the summary.
@@ -162,5 +178,47 @@ public class PackageOverview extends BaseDto {
      */
     public void setProvider(String providerIn) {
         this.provider = providerIn;
+    }
+
+    /**
+     * @return the version
+     */
+    public String getVersion() {
+        return version;
+    }
+
+    /**
+     * @param versionIn the version to set
+     */
+    public void setVersion(String versionIn) {
+        this.version = versionIn;
+    }
+
+    /**
+     * @return the epoch
+     */
+    public String getEpoch() {
+        return epoch;
+    }
+
+    /**
+     * @param epochIn the epoch to set
+     */
+    public void setEpoch(String epochIn) {
+        this.epoch = epochIn;
+    }
+
+    /**
+     * @return the release
+     */
+    public String getRelease() {
+        return release;
+    }
+
+    /**
+     * @param releaseIn the release to set
+     */
+    public void setRelease(String releaseIn) {
+        this.release = releaseIn;
     }
 }

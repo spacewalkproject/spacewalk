@@ -43,7 +43,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="server.rhnServer.server_lib-module.html"
@@ -53,7 +53,7 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module server_lib</h1><span class="codelink"><a href="server.rhnServer.server_lib-pysrc.html">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Module server_lib</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnServer.server_lib-pysrc.html">source&nbsp;code</a></span></p>
 <!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -128,7 +128,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="getServerID"></a><span class="summary-sig-name">getServerID</span>(<span class="summary-sig-arg">server</span>,
-        <span class="summary-sig-arg">fields</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span></td>
+        <span class="summary-sig-arg">fields</span>=<span class="summary-sig-default">[]</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_lib-pysrc.html#getServerID">source&nbsp;code</a></span>
             
@@ -162,7 +162,7 @@
         <tr>
           <td><span class="summary-sig"><a name="__create_server_group"></a><span class="summary-sig-name">__create_server_group</span>(<span class="summary-sig-arg">group_label</span>,
         <span class="summary-sig-arg">org_id</span>,
-        <span class="summary-sig-arg">maxnum</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span></td>
+        <span class="summary-sig-arg">maxnum</span>=<span class="summary-sig-default">''</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_lib-pysrc.html#__create_server_group">source&nbsp;code</a></span>
             
@@ -437,26 +437,11 @@
     </table>
   </td>
 </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="server.rhnServer.server_lib-module.html#freeloader_throttle_msg" class="summary-name">freeloader_throttle_msg</a> = <code title="'''
-     In order to provide a higher level of service to our paying
-     customers, demo accounts may not use the up2date service between
-     the hours of %(end_free_time)s and %(start_free_time)s Eastern US\
- time.
-
-     To purchase Red Hat Network service, visit:
-
-..."><code class="variable-quote">'</code><code class="variable-string">\n     In order to provide a higher</code><code class="variable-ellipsis">...</code></code>
-    </td>
-  </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_lib-module.html#_query_update_push_client_registration" class="summary-name">_query_update_push_client_registration</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1215678068; statement=
+        <a href="server.rhnServer.server_lib-module.html#_query_update_push_client_registration" class="summary-name" onclick="show_private();">_query_update_push_client_registration</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
 declare
     pragma autonomous_transaction;
 begin
@@ -464,14 +449,14 @@ begin
        set name = :name,
            shared_key = :shared_key,
            state_id = :state_id,
-...">&lt;server.rhnSQL.sql_ba<code class="variable-ellipsis">...</code></code>
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_lib-module.html#_query_update_push_client_jid" class="summary-name">_query_update_push_client_jid</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1215678036; statement=
+        <a href="server.rhnServer.server_lib-module.html#_query_update_push_client_jid" class="summary-name" onclick="show_private();">_query_update_push_client_jid</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
 declare
     pragma autonomous_transaction;
 begin
@@ -479,7 +464,7 @@ begin
        set jabber_id = :jid,
            next_action_time = NULL,
            last_ping_time = NULL
-...">&lt;server.rhnSQL.sql_base.Statem<code class="variable-ellipsis">...</code></code>
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -501,32 +486,6 @@ begin
   </td>
 </tr>
 </table>
-<a name="freeloader_throttle_msg"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <h3 class="epydoc">freeloader_throttle_msg</h3>
-  
-  <dl class="fields">
-  </dl>
-  <dl class="fields">
-    <dt>Value:</dt>
-      <dd><table><tr><td><pre class="variable">
-<code class="variable-quote">'''</code><code class="variable-string"></code>
-<code class="variable-string">     In order to provide a higher level of service to our paying</code>
-<code class="variable-string">     customers, demo accounts may not use the up2date service between</code>
-<code class="variable-string">     the hours of %(end_free_time)s and %(start_free_time)s Eastern US</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-<code class="variable-string"> time.</code>
-<code class="variable-string"></code>
-<code class="variable-string">     To purchase Red Hat Network service, visit:</code>
-<code class="variable-string"></code>
-<code class="variable-ellipsis">...</code>
-</pre></td></tr></table>
-</dd>
-  </dl>
-</td></tr></table>
-</div>
 <a name="_query_update_push_client_registration"></a>
 <div class="private">
 <table class="details" border="1" cellpadding="3"
@@ -539,7 +498,7 @@ begin
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1215678068; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
 declare
     pragma autonomous_transaction;
 begin
@@ -565,7 +524,7 @@ begin
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1215678036; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
 declare
     pragma autonomous_transaction;
 begin
@@ -603,10 +562,11 @@ begin
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:51 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:06 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -617,9 +577,8 @@ begin
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

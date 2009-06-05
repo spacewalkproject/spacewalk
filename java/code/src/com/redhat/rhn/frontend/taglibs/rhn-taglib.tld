@@ -117,7 +117,16 @@
         </attribute>
     </tag>
 
-
+    <tag>
+        <name>required-field</name>
+        <tag-class>com.redhat.rhn.frontend.taglibs.RequiredFieldTag</tag-class> 
+        <body-content>JSP</body-content>
+        <attribute>
+            <name>key</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
     <tag>
         <name>noscript</name>
         <tag-class>com.redhat.rhn.frontend.taglibs.NoScriptTag</tag-class> 

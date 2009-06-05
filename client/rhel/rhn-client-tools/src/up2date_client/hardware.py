@@ -934,7 +934,7 @@ def Hardware():
         print _("Error reading system memory information:"), sys.exc_type
         
     cfg = config.initUp2dateConfig()
-    if cfg["sendNetwork"]:
+    if not cfg["skipNetwork"]:
         # minimal networking info
         print "Network Info::"
         try:
@@ -966,7 +966,7 @@ def Hardware():
     except:
         print _("Error reading install method information:"), sys.exc_type
 
-    if cfg["sendNetwork"]:
+    if not cfg["skipNetwork"]:
         try:
             ret = read_network_interfaces()
             if ret:

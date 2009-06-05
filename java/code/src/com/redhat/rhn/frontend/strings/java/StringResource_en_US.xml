@@ -2667,8 +2667,8 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/channels/Search</context>
         </context-group>
       </trans-unit>
-     <trans-unit id="packages.search.index_out_of_sync_with_db">
-        <source>Package search index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
+     <trans-unit id="searchserver.index_out_of_sync_with_db">
+        <source>SearchServer index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/Search</context>
         </context-group>
@@ -5756,7 +5756,7 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
 
     <trans-unit id="certificate.config.error.10">
-        <source>Could not parse certificate file</source>
+        <source>Could not parse certificate file, see log file for more details.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
@@ -5770,28 +5770,28 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
 
     <trans-unit id="certificate.config.error.12">
-        <source>Unknown @@PRODUCT_NAME@@ version</source>
+        <source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
       </trans-unit>
 
     <trans-unit id="certificate.config.error.20">
-        <source>Remote activation failure</source>
+        <source>Remote activation failure, see log file for more details.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
       </trans-unit>
 
     <trans-unit id="certificate.config.error.30">
-        <source>Local activation failure</source>
+        <source>Local activation failure, see log file for more details.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
       </trans-unit>
 
     <trans-unit id="certificate.config.error.40">
-        <source>Channel population failure</source>
+        <source>Channel population failure, see log file for more details.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
@@ -5826,7 +5826,7 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
 
     <trans-unit id="certificate.config.error.85">
-        <source>Unknown activation error</source>
+        <source>Unknown activation error, see log file for more details.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
@@ -5847,7 +5847,7 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
 
     <trans-unit id="certificate.config.error.127">
-        <source>Unhandled error</source>
+        <source>Unhandled error, see log file for more details.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
@@ -7650,6 +7650,10 @@ Follow this url to see the full list of inactive systems:
           <source>Unable to locate or access server group: &quot;{0}&quot;</source>
       </trans-unit>
 
+	  <trans-unit id="api.systemgroup.accessChangeDenied">
+          <source>Changing administrator access is not allowed for Satellite and Organization administrators.  These users are granted access by default; therefore, the following users should be removed from the input: {0}</source>
+      </trans-unit>
+
       <trans-unit id="api.system.invalidprofilelabel">
           <source>Invalid profile label specified: {0}</source>
       </trans-unit>
@@ -8053,6 +8057,9 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="system.customkey.error.tooshort">
         <source>A Custom Key label and description must be at least two characters long.</source>
       </trans-unit>
+     <trans-unit id="system.customkey.error.invalid">
+        <source>A Custom Key label can only contain letters, numbers, hyphens (-), and underscores (_).</source>
+      </trans-unit>
      <trans-unit id="system.customkey.addsuccess">
         <source>Successfully added 1 custom key.</source>
       </trans-unit>
@@ -8099,6 +8106,9 @@ Follow this url to see the full list of inactive systems:
            <context context-type="sourcefile">/channels/manage/Edit</context>
          </context-group>
       </trans-unit>
+      <trans-unit id="edit.channel.invalidchannelname.supportedregex">
+        <source>Channel name must begin with a letter and may contain only lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), numerals, spaces and forward slashes ('/').</source>
+      </trans-unit>
       <trans-unit id="edit.channel.invalidchannelname.redhat">
          <source>Red Hat channels require admin privileges</source>
          <context-group name="ctx">
@@ -8135,6 +8145,9 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/channels/manage/Edit</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="edit.channel.invalidchannellabel.supportedregex">
+        <source>Channel label must begin with a letter and may contain only lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and numerals.</source>
       </trans-unit>
       <trans-unit id="edit.channel.invalidchannellabel.redhat">
         <source>Red Hat channels require admin privileges</source>
@@ -8176,6 +8189,15 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="message.channelcreated">
         <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
      </trans-unit>
+     <trans-unit id="message.channeldeleted">
+        <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; has been deleted.</source>
+     </trans-unit>
+     <trans-unit id="message.channel.delete.systemssubscribed">
+        <source>There are currently systems subscribed to this channel. Please confirm system channel removal by selecting the unsubscribe checkbox.</source>
+     </trans-unit>
+     <trans-unit id="message.channel.cannot-be-deleted.has-distros">
+        <source>There are currently kickstart distributions associated to this channel. Please disassociate or delete the kickstart distributions before proceeding to delete the channel.</source>
+     </trans-unit>     
      <trans-unit id="message.channelupdated">
         <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
      </trans-unit>

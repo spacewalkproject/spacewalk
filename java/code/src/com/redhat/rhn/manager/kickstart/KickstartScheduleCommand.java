@@ -14,6 +14,20 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.cobbler.SystemRecord;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
@@ -24,15 +38,14 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.kickstart.KickstartAction;
-import com.redhat.rhn.domain.action.kickstart.KickstartGuestAction;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
-import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.KickstartSessionState;
+import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
@@ -57,20 +70,6 @@ import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.BaseSystemOperation;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.cobbler.SystemRecord;
-
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Provides frequently used data for scheduling a kickstart
@@ -574,10 +573,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         Action kickstartAction = this.scheduleKickstartAction(packageAction);
         ActionFactory.save(packageAction);
         
-        
-        this.kickstartActionId = kickstartAction.getId();
-        log.debug("** Created ksaction: " + kickstartAction.getId());
-        
         scheduleRebootAction(kickstartAction);
 
         String host = this.getKickstartServerName();
@@ -614,21 +609,21 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             }            
         }
 
-
         SystemRecord rec = SystemRecord.lookupById(CobblerXMLRPCHelper.getConnection(
                 this.getUser().getLogin()), this.getServer().getCobblerId());
 
         //This is a really really crappy way of doing this, but i don't want to restructure
         //      the actions too much at this point :/
+        //      We only want to do this for the non-guest action
         if (kickstartAction instanceof KickstartAction) {
             ((KickstartAction) kickstartAction).getKickstartActionDetails().
                                                     setCobblerSystemName(rec.getName());
         }
-        else if (kickstartAction instanceof KickstartGuestAction) {
-            ((KickstartGuestAction) kickstartAction).getKickstartGuestActionDetails().
-                                                       setCobblerSystemName(rec.getName());
-        }
+        
         ActionFactory.save(kickstartAction);
+        log.debug("** Created ksaction: " + kickstartAction.getId());
+
+        this.kickstartActionId = kickstartAction.getId();
 
         log.debug("** Done scheduling kickstart session");
         return null;
@@ -702,7 +697,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
 
         // Create a new activation key for the target system.
 
-        ActivationKey key = createKickstartActivationKey(this.user,
+        createKickstartActivationKey(this.user,
                                      this.ksdata, 
                                      getTargetServer(),
                                      this.kickstartSession,
@@ -713,38 +708,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         
         this.createdProfile = processProfileType(this.profileType);
         log.debug("** profile created: " + createdProfile);
-        
-        // If there is already a target system, determine which channel families it had
-        // so that we can assign them to the new target system.
-        Map needCf = new HashMap();
-        if (getTargetServer() != null) {
-            Iterator i = getTargetServer().getChannels().iterator();
-            // Map of ChannelFamily IDs->Count values
-            // that tracks how many channel entitlements we need
-            while (i.hasNext()) {
-                Channel c = (Channel) i.next();
-                
-                ChannelFamily cf = c.getChannelFamily();
-                if (needCf.containsKey(cf.getId().toString())) {
-                    Integer id = (Integer) 
-                        needCf.get(cf.getId().toString());
-                    id = new Integer(id.intValue() - 1);
-                }
-                else {
-                    needCf.put(cf.getId().toString(), 
-                            new Integer(-1));
-                }
-            }
-        }
-        log.debug("** needCF computed: " + needCf);
-        
-        if (needCf.containsKey(toolsChannel.getChannelFamily().getId().toString())) {
-            Integer tools = (Integer) needCf.get(toolsChannel.
-                    getChannelFamily().getId().toString());
-            tools = new Integer(tools.intValue() + 1);
-        }
-
-        log.debug("** NeededChannelFamilies: " + needCf);
     }
 
     /**
@@ -924,6 +887,11 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         key.setDeployConfigs(deployConfigs);
         key.setUsageLimit(usageLimit);
         key.addEntitlement(ServerConstants.getServerGroupTypeProvisioningEntitled());
+        if (KickstartVirtualizationType.paraHost().
+                equals(ksdata.getKickstartDefaults().getVirtualizationType())) {
+            //we'll have to setup the key for virt
+            key.addEntitlement(ServerConstants.getServerGroupTypeVirtualizationEntitled());
+        }
         ActivationKeyFactory.save(key);
         
 
@@ -940,9 +908,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         //This can happen on a satellite that has synced a base channel
         // but not the tools child channel, or when the kickstart channel
         // is a custom channel.  See bug #201561
-        if (toolsChannel != null) {
-            key.addChannel(toolsChannel);
-        }
         if (toolsChannel != null) {
             key.addChannel(toolsChannel);
         }
@@ -963,7 +928,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             }
             key.setBaseChannel(chan);
         }
-
         log.debug("** Saving new token");
         ActivationKeyFactory.save(key);
         log.debug("** Saved new token: " + key.getId());
@@ -1073,6 +1037,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             retval = ProfileManager.createProfile(
                     ProfileFactory.TYPE_SYNC_PROFILE, this.user, 
                         otherServer.getBaseChannel(), pname, pname);
+            ProfileManager.copyFrom(otherServer, retval);
         }
         this.kickstartSession.setServerProfile(retval);
         KickstartFactory.saveKickstartSession(this.kickstartSession);

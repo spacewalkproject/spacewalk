@@ -15,7 +15,7 @@
 		<c:choose>
 			<c:when test="${deleting}">
 				<rhn:toolbar base="h1" img="/img/folder-config.png" imgAlt="config.common.dirAlt"
-					helpUrl="/rhn/help/reference/en-US/s1-sm-channels-packages.jsp">
+					helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-files-local">
 					<bean:message key="filedetails.manage_header.jspf.label"
 						arg0="${fn:escapeXml(file.configFileName.path)}" arg1="${channel.displayName}"
 						arg2="/rhn/configuration/ChannelOverview.do?ccid=${channel.id}" />
@@ -23,7 +23,7 @@
 			</c:when>
 			<c:otherwise>
 				<rhn:toolbar base="h1" img="/img/folder-config.png" imgAlt="config.common.dirAlt"
-					helpUrl="/rhn/help/reference/en-US/s1-sm-channels-packages.jsp"
+					helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-files-local"
 					deletionUrl="/rhn/configuration/file/DeleteFile.do?cfid=${file.id}"
 					deletionType="deletefile"
 					deletionAcl="config_channel_editable(${channel.id})"
@@ -39,7 +39,7 @@
 		<c:choose>
 			<c:when test="${deleting}">
 				<rhn:toolbar base="h1" img="/img/file-config.png" imgAlt="config.common.fileAlt"
-					helpUrl="/rhn/help/reference/en-US/s1-sm-channels-packages.jsp"
+					helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-files-local"
 					miscUrl="/rhn/configuration/file/FileDownload.do?crid=${file.latestConfigRevision.id}&amp;cfid=${file.id}"
 					miscImg="action-download.gif"
 					miscText="filedetails.header.jspf.download_latest"
@@ -52,7 +52,7 @@
 			</c:when>
 			<c:otherwise>
 				<rhn:toolbar base="h1" img="/img/file-config.png" imgAlt="config.common.fileAlt"
-					helpUrl="/rhn/help/reference/en-US/s1-sm-channels-packages.jsp"
+					helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-files-local"
 					deletionUrl="/rhn/configuration/file/DeleteFile.do?cfid=${file.id}"
 					deletionType="deletefile"
 					deletionAcl="config_channel_editable(${channel.id})"

@@ -57,6 +57,7 @@ public class ProbeSuitesRemoveSetupActionTest extends RhnBaseTestCase {
         sah.setupClampListBounds();
         sah.getRequest().setupAddParameter("newset", (String)null);
         sah.getRequest().setupAddParameter("returnvisit", (String) null);
+        sah.getRequest().setupAddParameter("submitted", "false");
         sah.executeAction();
         
         RhnMockHttpServletRequest request = sah.getRequest();

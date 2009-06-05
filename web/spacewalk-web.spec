@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.5
+Version: 0.6.8
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -317,6 +317,55 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Jun 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.8-1
+- 197294 - add hardware report support for CAPTURE cards (shughes@redhat.com)
+- 500709 - html error code page support for sessionless bots (shughes@redhat.com)
+- 435043 - adding errata sync page for syncing out of date errata (that have
+  been updated by red hat) (jsherril@redhat.com)
+- 501784 - fixed issue with timed out logins that required cookie deletion to
+  log in again (jsherril@redhat.com)
+- 501224 - api - enhance system.listSystemEvents to include more detail on
+  events executed (bbuckingham@redhat.com)
+- 500709 - static html for non session error pages (shughes@redhat.com)
+- 503081 - fixed /help url to to go to /rhn/help/index.do instead of about.pxt
+  (paji@redhat.com)
+- 503081 - Fixed a html redirect issue causing page to reload indefinitely on
+  IE (paji@redhat.com)
+- 501784 - fixed issue with timed out logins that required cookie deletion to
+  log in again (jsherril@redhat.com)
+- 501797 - remove /etc/rc.d/np.d/step MonitoringScout install
+  (msuchy@redhat.com)
+- 499399 - create new api call proxy.createMonitoringScout (msuchy@redhat.com)
+- 496105 - Fix for setting up activaiton key for para-host provisioning
+  (paji@redhat.com)
+- 498467 - A few changes related to the channel name limit increase.
+  (jason.dobies@redhat.com)
+
+* Tue May 26 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.7-1
+- 500429 - removed join against rhnSharedChannelView to remove dup entries
+  (shughes@redhat.com)
+- Clear selected packages when merging channel contents. (dgoodwin@redhat.com)
+- 494966 - don't allow users to clone shared channels (shughes@redhat.com)
+
+* Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.6-1
+- 501376 - api - deprecate system.applyErrata (bbuckingham@redhat.com)
+- 499667 - Implemented option 2 presented in the BZ: allow comparision of any
+  channel to *any* channel, ignore arch all together. (jason.dobies@redhat.com)
+- Fixed sorting to use javascript (paji@redhat.com)
+- 500719 - Ported delete channel page to Java; success/failure messages now
+  properly displayed on manage channels page. (jason.dobies@redhat.com)
+- 498251 - add new api proxy.listAvailableProxyChannels (msuchy@redhat.com)
+- 500499 - fixed issue where task engine times were not displayed, the old perl
+  code had been ripped out, so i converted it to java (jsherril@redhat.com)
+- 498282 - rhns-proxy-monitoring has been renamed to spacewalk-proxy-monitoring
+  (msuchy@redhat.com)
+- 497892 - create access.log on rhel5 (msuchy@redhat.com)
+- 499473 - api - added 2 new api calls to org for listing entitlements
+  (bbuckingham@redhat.com)
+- 492588 - added left outer join to include shared channels
+  (shughes@redhat.com)
+- 499377 - fix help link for proxy install (bbuckingham@redhat.com)
+
 * Wed May  6 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.5-1
 - make webui proxy installer aware of new packages spacewalk-monitoring-selinux
 - make webui proxy installer aware of new packages oracle-instantclient-selinux, oracle-nofcontext-selinux

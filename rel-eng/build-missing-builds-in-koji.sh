@@ -16,6 +16,7 @@ for tag in 0 1; do
                  }
              /Builds missing in koji/ { x=1 }' | \
 	  xargs -I replacestring awk '{print $2}' rel-eng/packages/replacestring | \
+        grep -v solaris | \
         while read package ; do
           (
             echo Building package in path $package 

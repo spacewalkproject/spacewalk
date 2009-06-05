@@ -60,4 +60,3 @@ msgstr "Copyright (C) %s Red Hat, Inc.\n"
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Écrit par %s.\n"
-

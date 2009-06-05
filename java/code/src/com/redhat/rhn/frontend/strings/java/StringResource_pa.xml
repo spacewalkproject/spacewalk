@@ -138,6 +138,14 @@
 				<source>Tip</source>
 				<target>ਟਿੱਪਣੀ</target>
 			</trans-unit>
+			<trans-unit id="Note">
+				<source>Note</source>
+				<target>ਸੂਚਨਾ</target>
+			</trans-unit>
+			<trans-unit id="Warning">
+				<source>Warning</source>
+				<target>ਚੇਤਾਵਨੀ</target>
+			</trans-unit>
 			<trans-unit id="About Spacewalk">
 				<source>About</source>
 				<target>ਇਸ ਬਾਰੇ</target>
@@ -172,7 +180,7 @@
 			</trans-unit>
 			<trans-unit id="address not filled out">
 				<source>Address not filled out</source>
-				<target>ਸਿਰਨਾਵਾਂ ਭਰਿਆ ਨਹੀਂ ਗਿਆ</target>
+				<target>ਸਿਰਨਾਵਾਂ ਨਹੀਂ ਦਿੱਤਾ</target>
 			</trans-unit>
 			<trans-unit id="Add this address">
 				<source>Add this address</source>
@@ -248,7 +256,7 @@
 			</trans-unit>
 			<trans-unit id="Client Configuration">
 				<source>Client Configuration</source>
-				<target>ਕਲਾਂਇਟ ਸੰਰਚਨਾ</target>
+				<target>ਸੈਟੇਲਾਈਟ ਸੰਰਚਨਾ</target>
 			</trans-unit>
 			<trans-unit id="Clone Errata">
 				<source>Clone Errata</source>
@@ -308,7 +316,7 @@
 			</trans-unit>
 			<trans-unit id="Errata">
 				<source>Errata</source>
-				<target>ਇੱਰਟਾ(Errata)</target>
+				<target>ਇੱਰਟਾ</target>
 			</trans-unit>
 			<trans-unit id="exception">
 				<source>Exception</source>
@@ -380,7 +388,7 @@
 			</trans-unit>
 			<trans-unit id="Magic Entitler">
 				<source>Magic Entitler</source>
-				<target>ਜਾਦੂ ਇੰਟਾਇਟਲਰ</target>
+				<target>ਜਾਦੂ ਇੰਟਾਈਟਲਰ</target>
 			</trans-unit>
 			<trans-unit id="Manage Config Channels">
 				<source>Manage Config Channels</source>
@@ -1217,7 +1225,7 @@ available for this kickstart profile to function properly.
 &lt;ul&gt;
 &lt;li&gt;
 ਕੀ ਇਸ ਕਿੱਕਸਟਾਰਟ ਪਰੋਫਾਈਲ ਦੇ ਅਧਾਰ ਚੈਨਲ ਲਈ 'rhn-tools' ਅਧੀਨ ਸਾਫਟਵੇਅਰ ਚੈਨਲ ਤੁਹਾਡੇ
-ਸੰਗਠਨ ਨੂੰ ਉਪਲੱਬਧ ਹੈ? ਜੇ ਨਹੀਂ, ਤਾਂ ਤੁਹਾਨੂੰ ਆਪਣੇ @@PRODUCT_NAME@@ ਪਰਬੰਧਕ ਤੋਂ
+ਸੰਗਠਨ ਨੂੰ ਉਪਲੱਬਧ ਹੈ? ਜੇ ਨਹੀਂ, ਤਾਂ ਤੁਹਾਨੂੰ ਆਪਣੇ @@PRODUCT_NAME@@ ਪਰਬੰਧਕ ਤੋਂ 
 'rhn-tools' ਸਾਫਟਵੇਅਰ ਚੈਨਲ ਲਈ ਇੰਟਾਈਟਲਮੈਂਟ ਬੇਨਤੀ ਭੇਜਣੀ ਪਵੇਗੀ।
 &lt;/li&gt;
 &lt;li&gt;
@@ -1307,16 +1315,16 @@ available for this kickstart profile to function properly.
 				<target>ਕਿੱਕਸਟਾਰਟ ਪਰੋਫਾਈਲ {0} ਵਿੱਚੋਂ IP ਰੇਂਜ ਹਟਾਉਣ ਦੌਰਾਨ ਇੱਕ ਗਲਤੀ ਹੋਈ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.update.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
-				<target>Cobbler ਸਨਿੱਪਟ &lt;strong&gt;{0}&lt;/strong&gt; ਸਫਲਤਾਪੂਰਕ ਅੱਪਡੇਟ ਹੋ ਗਈ।</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
+				<target>ਕਿੱਕਸਟਾਰਟ ਸਨਿੱਪਟ &lt;strong&gt;{0}&lt;/strong&gt; ਸਫਲਤਾਪੂਰਕ ਅੱਪਡੇਟ ਹੋ ਗਈ।</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.create.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
-				<target>Cobbler ਸਨਿੱਪਟ &lt;strong&gt;{0}&lt;/strong&gt; ਸਫਲਤਾਪੂਰਕ ਬਣਾਈ ਗਈ।</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
+				<target>ਕਿੱਕਸਟਾਰਟ ਸਨਿੱਪਟ &lt;strong&gt;{0}&lt;/strong&gt; ਸਫਲਤਾਪੂਰਕ ਬਣਾਈ ਗਈ।</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.delete.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
-				<target>Cobbler ਸਨਿੱਪਟ &lt;strong&gt;{0}&lt;/strong&gt; ਸਫਲਤਾਪੂਰਕ ਹਟਾਈ ਗਈ।</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
+				<target>ਕਿੱਕਸਟਾਰਟ ਸਨਿੱਪਟ &lt;strong&gt;{0}&lt;/strong&gt; ਸਫਲਤਾਪੂਰਕ ਹਟਾਈ ਗਈ।</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.couldnotdelete.message">
 				<source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -1327,12 +1335,12 @@ available for this kickstart profile to function properly.
 				<target>ਇਸ ਸਨਿੱਪਟ &lt;strong&gt;{0}&lt;/strong&gt; ਨੂੰ ਸਨਿੱਪਟ &lt;strong&gt;{1}&lt;/strong&gt; ਮੁੜ-ਨਾਂ ਦੇਣ ਵੇਲੇ ਇੱਕ ਗਲਤੀ ਆਈ ਸੀ।</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.filenameexists.message">
-				<source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; ਨਾਂ ਵਾਲੀ Cobbler ਸਨਿੱਪਟ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।</target>
+				<source>Kickstart snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; ਨਾਂ ਵਾਲੀ ਕਿੱਕਸਟਾਰਟ ਸਨਿੱਪਟ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.invalidfilename.message">
-				<source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
-				<target>ਲੋੜੀਂਦਾ Cobbler snippet ਫਾਇਲ-ਨਾਂ ਸਹੀ ਨਹੀਂ ਹੈ।  ਯੋਗ ਅੱਖਰ ਹਨ A-Z, a-z, 0-9, _ ਅਤੇ -।</target>
+				<source>The requested kickstart snippet filename is not valid. The kickstart snippet file name cannot contain slash (/) or  begin with a period(.)</source>
+				<target>ਲੋੜੀਂਦਾ ਕਿੱਕਸਟਾਰਟ ਸਨਿੱਪਟ ਫਾਇਲ-ਨਾਂ ਯੋਗ ਨਹੀਂ ਹੈ। ਕਿੱਕਸਟਾਰਟ ਸਨਿੱਪਟ ਫਾਇਲ-ਨਾਂ ਵਿੱਚ ਸਲੈਸ਼ (/) ਨਹੀਂ ਹੋਣੀ ਚਾਹੀਦੀ ਜਾਂ ਪੀਰੀਅਡ(.) ਨਾਲ ਸ਼ੁਰੂ ਨਹੀਂ ਹੋਣਾ ਚਾਹੀਦਾ।</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.snippets">
 				<source>delete snippet</source>
@@ -1738,9 +1746,9 @@ available for this kickstart profile to function properly.
 				<source>Search strings must be longer than two characters.</source>
 				<target>ਖੋਜ ਸਤਰ ਦੋ ਅੱਖਰਾਂ ਤੋਂ ਲੰਮੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।</target>
 			</trans-unit>
-			<trans-unit id="packages.search.index_out_of_sync_with_db">
-				<source>Package search index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
-				<target>ਪੈਕੇਜ ਖੋਜ ਸੂਚੀ ਅਤੇ ਡਾਟਾਬੇਸ ਐਂਟਰੀਆਂ ਸਮਕਾਲੀ ਨਹੀਂ ਹੁੰਦੀਆਂ। ਕਿਰਪਾ ਕਰਕੇ '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start' ਚਲਾਓ</target>
+			<trans-unit id="searchserver.index_out_of_sync_with_db">
+				<source>SearchServer index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
+				<target state="needs-review-translation">ਪੈਕੇਜ ਖੋਜ ਸੂਚੀ ਅਤੇ ਡਾਟਾਬੇਸ ਐਂਟਰੀਆਂ ਸਮਕਾਲੀ ਨਹੀਂ ਹੁੰਦੀਆਂ। ਕਿਰਪਾ ਕਰਕੇ '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start' ਚਲਾਓ</target>
 			</trans-unit>
 			<trans-unit id="patches.installed.notavailable">
 				<source>Not Available</source>
@@ -2139,8 +2147,8 @@ user before attempting to deactivate their account.</source>
 				<target>ਸੰਭਵ ਦਾਖਲ ਹੋਣ ਸਮਾਂ:</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;ਟਿੱਪਣੀ:&lt;/strong&gt; ਇਹ ਸਿਸਟਮ ਹਾਲੇ ਤੱਕ @@PRODUCT_NAME@@ ਵਿੱਚ ਦਾਖਲ ਨਹੀਂ ਹੋਇਆ ਹੈ।  ਕਿਉਕਿ ਇੱਕ ਸਿਸਟਮ ਦੇ @@PRODUCT_NAME@@ ਵਿੱਚ ਦਾਖਲ ਹੋਏ ਬਿਨਾਂ ਉਸ ਨੂੰ ਅੱਪਡੇਟ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ, ਇਸ ਕਰਕੇ ਸੰਭਵ ਹੈ ਕਿ ਇਹ ਕਾਰਵਾਈ ਸਫ਼ਲ ਨਾ ਹੋਵੇ।&lt;br/&gt;&lt;br/&gt;ਕਿਰਪਾ ਕਰਕੇ ਸਿਸਟਮ ਦੀ ਜਾਂਚ ਕਰੋ ਅਤੇ ਯਕੀਨੀ ਬਣਾਓ ਕਿ rhnsd ਸੇਵਾ ਚੱਲ ਰਹੀ ਹੈ (&lt;a href="/help/faq.pxt#15"&gt;ਹੋਰ ਜਾਣਕਾਰੀ&lt;/a&gt;)। ਜੇਕਰ ਇਹ ਚੱਲਣ 'ਚ ਫੇਲ ਹੈ ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ &lt;a href="/help/contact.pxt"&gt;ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ&lt;/a&gt;।</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running.</source>
+				<target>&lt;strong&gt;ਸੂਚਨਾ:&lt;/strong&gt; ਇਹ ਸਿਸਟਮ ਹਾਲੇ ਤੱਕ @@PRODUCT_NAME@@ ਵਿੱਚ ਦਾਖਲ ਨਹੀਂ ਹੋਇਆ ਹੈ।  ਕਿਉਕਿ ਇੱਕ ਸਿਸਟਮ ਦੇ @@PRODUCT_NAME@@ ਵਿੱਚ ਦਾਖਲ ਹੋਏ ਬਿਨਾਂ ਉਸ ਨੂੰ ਅੱਪਡੇਟ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ, ਇਸ ਕਰਕੇ ਸੰਭਵ ਹੈ ਕਿ ਇਹ ਕਾਰਵਾਈ ਸਫ਼ਲ ਨਾ ਹੋਵੇ।&lt;br/&gt;&lt;br/&gt;ਕਿਰਪਾ ਕਰਕੇ ਸਿਸਟਮ ਦੀ ਜਾਂਚ ਕਰੋ ਅਤੇ ਯਕੀਨੀ ਬਣਾਓ ਕਿ rhnsd ਸੇਵਾ ਚੱਲ ਰਹੀ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -3503,28 +3511,27 @@ user before attempting to deactivate their account.</source>
 				<target>ਸਰਟੀਫਿਕੇਟ ਅੱਪਲੋਡ ਕੀਤਾ ਗਿਆ ਹੈ।  @@PRODUCT_NAME@@ ਨੂੰ ਮੁੜ-ਸਰਗਰਮ ਕੀਤਾ ਗਿਆ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
-				<source>Could not parse certificate file</source>
-				<target>ਸਰਟੀਫਿਕੇਟ ਫਾਇਲ ਨੂੰ ਪਾਰਸ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ</target>
+				<source>Could not parse certificate file, see log file for more details.</source>
+				<target state="needs-review-translation">ਸਰਟੀਫਿਕੇਟ ਫਾਇਲ ਨੂੰ ਪਾਰਸ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.11">
 				<source>Certificate expired</source>
 				<target>ਸਰਟੀਫਿਕੇਟ ਦੀ ਮਿਆਦ ਖਤਮ</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown @@PRODUCT_NAME@@ version</source>
-				<target>ਅਣਜਾਣ @@PRODUCT_NAME@@ ਵਰਜਨ</target>
+				<source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
+				<target state="needs-review-translation">ਅਣਜਾਣ @@PRODUCT_NAME@@ ਵਰਜਨ</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
-				<source>Remote activation failure</source>
-				<target>ਰਿਮੋਟ ਸਰਗਰਮ ਕਰਨਾ ਅਸਫ਼ਲ</target>
+				<source>Remote activation failure, see log file for more details.</source>
+				<target state="needs-review-translation">ਰਿਮੋਟ ਸਰਗਰਮ ਕਰਨਾ ਅਸਫ਼ਲ</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.30">
-				<source>Local activation failure</source>
-				<target>ਲੋਕਲ ਸਰਗਰਮ ਕਰਨਾ ਅਸਫ਼ਲ</target>
+				<source>Local activation failure, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.40">
-				<source>Channel population failure</source>
-				<target>ਚੈਨਲ ਤਿਆਰੀ ਅਸਫ਼ਲ</target>
+				<source>Channel population failure, see log file for more details.</source>
+				<target state="needs-review-translation">ਚੈਨਲ ਤਿਆਰੀ ਅਸਫ਼ਲ</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.80">
 				<source>No management entitlements remaining</source>
@@ -3543,8 +3550,7 @@ user before attempting to deactivate their account.</source>
 				<target>ਗਲਤ @@PRODUCT_NAME@@ ਸਰਟੀਫਿਕੇਟ</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
-				<source>Unknown activation error</source>
-				<target>ਅਣਜਾਣ ਸਰਗਰਮੀ ਗਲਤੀ</target>
+				<source>Unknown activation error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
 				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
@@ -3555,12 +3561,7 @@ user before attempting to deactivate their account.</source>
 				<target>ਇਹ ਵਰਜਨ ਲਈ ਕੋਈ @@PRODUCT_NAME@@ ਚੈਨਲ ਉਪਲੱਬਧ ਨਹੀਂ</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
-				<source>Unhandled error</source>
-				<target>ਨਾ-ਸੁਧਾਰੀ ਗਲਤੀ</target>
-			</trans-unit>
-			<trans-unit id="bootstrap.config.error.127">
-				<source>Unhandled error</source>
-				<target>ਨਾ-ਸੁਧਾਰੀ ਗਲਤੀ</target>
+				<source>Unhandled error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="hostname">
 				<source>@@PRODUCT_NAME@@ server hostname</source>
@@ -3597,6 +3598,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="bootstrap.config.error.17">
 				<source>Could not find GPG key</source>
 				<target>GPG ਕੁੰਜੀ ਨਹੀਂ ਲੱਭੀ ਜਾ ਸਕੀ</target>
+			</trans-unit>
+			<trans-unit id="bootstrap.config.error.127">
+				<source>Unhandled error</source>
+				<target>ਨਾ-ਸੁਧਾਰੀ ਗਲਤੀ</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.success">
 				<source>Bootstrap script successfully generated.  You can access it &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt;</source>
@@ -5064,7 +5069,7 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="api.kickstart.ip.invalid">
 				<source>The Ip Address specified, {0}, is not valid..</source>
-				<target>ਦਿੱਤਾ ਗਿਆ Ipਐਡਰੈੱਸ, ({0}) ਗਲਤ ਹੈ..</target>
+				<target>ਦਿੱਤਾ ਗਿਆ Ip ਐਡਰੈੱਸ, ({0}) ਗਲਤ ਹੈ..</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.filelist.exists">
 				<source>A file list with label {0} already exists.</source>
@@ -5190,6 +5195,13 @@ Follow this url to see the full list of inactive systems:
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
 				<target>ਚੈਨਲ &lt;strong&gt;{0}&lt;/strong&gt; ਬਣਾਇਆ ਗਿਆ।</target>
 			</trans-unit>
+			<trans-unit id="message.channeldeleted">
+				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; has been deleted.</source>
+				<target state="needs-review-translation">ਸਰਗਰਮ ਕੁੰਜੀ &lt;strong&gt;{0}&lt;/strong&gt; ਹਟਾਈ ਗਈ ਹੈ।</target>
+			</trans-unit>
+			<trans-unit id="message.channel.delete.systemssubscribed">
+				<source>There are currently systems subscribed to this channel. Please confirm system channel removal by selecting the unsubscribe checkbox.</source>
+			</trans-unit>
 			<trans-unit id="message.channelupdated">
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
 				<target>ਚੈਨਲ &lt;strong&gt;{0}&lt;/strong&gt; ਅੱਪਡੇਟ ਕੀਤਾ ਗਿਆ।</target>
@@ -5228,17 +5240,16 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to
-syncronize kickstart distributions from Spacewalk to Cobbler.  These
-errors must be corrected for the distributions to be available for
-kickstarting systems kickstart distributions failed to sync from
-Spacewalk to Cobbler:
+The following is a list of errors gathered while Spacewalk attempts to 
+syncronize kickstart distributions from Spacewalk to Cobbler.  These 
+errors must be corrected for the distributions to be available for 
+kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
@@ -5246,16 +5257,16 @@ for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
 ਹੇਠਾਂ ਗਲਤੀਆਂ ਦੀ ਸੂਚੀ ਦਿੱਤੀ ਗਈ ਹੈ ਜੋ Spacewalk ਦੁਆਰਾ ਕਿੱਕਸਟਾਰਟ ਡਿਸਟਰੀਬਿਊਸ਼ਨਾਂ
-ਨੂੰ Spacewalk ਤੋਂ Cobbler ਨਾਲ ਸਮਕਾਲੀ ਕਰਨ ਦੌਰਾਨ ਇਕੱਠੀ ਕੀਤੀ ਗਈ ਸੀ।  ਇਹ
-ਗਲਤੀਆਂ ਠੀਕ ਕਰਨੀ ਜਰੂਰੀ ਹਨ ਤਾਂ ਜੋ ਕਿੱਕਸਟਾਰਟ ਸਿਸਟਮ ਕਿੱਕਸਟਾਰਟ ਡਿਸਟਰੀਬਿਊਸ਼ਨ
-ਦੀ Spacewalk ਤੋਂ Cobbler ਵੱਲ ਫੇਲ ਹੋਈ ਸਮਕਾਲਤਾ ਲਈ
+ਨੂੰ Spacewalk ਤੋਂ ਕਿੱਕਸਟਾਰਟ ਨਾਲ ਸਮਕਾਲੀ ਕਰਨ ਦੌਰਾਨ ਇਕੱਠੀ ਕੀਤੀ ਗਈ ਸੀ।  ਇਹ 
+ਗਲਤੀਆਂ ਠੀਕ ਕਰਨੀ ਜਰੂਰੀ ਹਨ ਤਾਂ ਜੋ ਕਿੱਕਸਟਾਰਟ ਸਿਸਟਮ ਕਿੱਕਸਟਾਰਟ ਡਿਸਟਰੀਬਿਊਸ਼ਨ 
+ਦੀ Spacewalk ਤੋਂ ਕਿੱਕਸਟਾਰਟ ਵੱਲ ਫੇਲ ਹੋਈ ਸਮਕਾਲਤਾ ਲਈ 
 ਡਿਸਟਰੀਬਿਊਸ਼ਨ ਉਪਲੱਬਧ ਹੋ:
 
 {0}
 
 ਗਲਤੀ ਵੇਰਵਾ ਵੇਖਣ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਜਾਂਚ ਕਰੋ:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 

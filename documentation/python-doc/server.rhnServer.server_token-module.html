@@ -43,7 +43,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="server.rhnServer.server_token-module.html"
@@ -53,7 +53,7 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module server_token</h1><span class="codelink"><a href="server.rhnServer.server_token-pysrc.html">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Module server_token</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnServer.server_token-pysrc.html">source&nbsp;code</a></span></p>
 <!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -76,8 +76,8 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="server.rhnServer.server_token.ActivationTokens-class.html" class="summary-name">ActivationTokens</a><br />
-      An aggregation of activation tokens, exposing important 
-        information like org_id, user_id etc in a unified manner.
+      An aggregation of activation tokens, exposing important information
+        like org_id, user_id etc in a unified manner.
     </td>
   </tr>
 <tr>
@@ -93,8 +93,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="server.rhnServer.server_token.ReRegistrationActivationToken-class.html" class="summary-name">ReRegistrationActivationToken</a><br />
-      Subclass for re-registration keys and activation keys used 
-        together.
+      Subclass for re-registration keys and activation keys used together.
     </td>
   </tr>
 </table>
@@ -355,13 +354,13 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="server.rhnServer.server_token-module.html#_validate_entitlements" class="summary-sig-name">_validate_entitlements</a>(<span class="summary-sig-arg">token_string</span>,
+          <td><span class="summary-sig"><a href="server.rhnServer.server_token-module.html#_validate_entitlements" class="summary-sig-name" onclick="show_private();">_validate_entitlements</a>(<span class="summary-sig-arg">token_string</span>,
         <span class="summary-sig-arg">rereg_ents</span>,
         <span class="summary-sig-arg">base_entitlements</span>,
         <span class="summary-sig-arg">extra_entitlements</span>,
         <span class="summary-sig-arg">remove_entitlements</span>)</span><br />
-      Perform various checks on the final list of entitlements 
-      accumulated after processing all activation keys.</td>
+      Perform various checks on the final list of entitlements accumulated 
+      after processing all activation keys.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_token-pysrc.html#_validate_entitlements">source&nbsp;code</a></span>
             
@@ -428,7 +427,7 @@
           <td><span class="summary-sig"><a name="process_token"></a><span class="summary-sig-name">process_token</span>(<span class="summary-sig-arg">server</span>,
         <span class="summary-sig-arg">server_arch</span>,
         <span class="summary-sig-arg">tokens_obj</span>,
-        <span class="summary-sig-arg">virt_type</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span></td>
+        <span class="summary-sig-arg">virt_type</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_token-pysrc.html#process_token">source&nbsp;code</a></span>
             
@@ -476,56 +475,58 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="VIRT_ENT_LABEL"></a><span class="summary-name">VIRT_ENT_LABEL</span> = <code title="'virtualization_host'"><code class="variable-quote">'</code><code class="variable-string">virtualization_host</code><code class="variable-quote">'</code></code>
+        <a name="VIRT_ENT_LABEL"></a><span class="summary-name">VIRT_ENT_LABEL</span> = <code title="'virtualization_host'">'virtualization_host'</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="VIRT_PLATFORM_ENT_LABEL"></a><span class="summary-name">VIRT_PLATFORM_ENT_LABEL</span> = <code title="'virtualization_host_platform'"><code class="variable-quote">'</code><code class="variable-string">virtualization_host_platform</code><code class="variable-quote">'</code></code>
+        <a name="VIRT_PLATFORM_ENT_LABEL"></a><span class="summary-name">VIRT_PLATFORM_ENT_LABEL</span> = <code title="'virtualization_host_platform'">'virtualization_host_platform'</code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_token-module.html#_query_token_server_groups" class="summary-name">_query_token_server_groups</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1215595092; statement=
+        <a href="server.rhnServer.server_token-module.html#_query_token_server_groups" class="summary-name" onclick="show_private();">_query_token_server_groups</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     select rtg.server_group_id, sg.name
       from rhnRegTokenGroups rtg, rhnServerGroup sg
      where rtg.token_id = :token_id
        and sg.id = rtg.server_group_id
-">&lt;server.rhnSQL.sql_base.Statement<code class="variable-ellipsis">...</code></code>
+&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_token-module.html#_query_token_packages" class="summary-name">_query_token_packages</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1215595156; statement=
-    select pn.id as name_id, pn.name
-      from rhnPackageName pn, rhnRegTokenPackages rtp
+        <a href="server.rhnServer.server_token-module.html#_query_token_packages" class="summary-name" onclick="show_private();">_query_token_packages</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+    select pn.id as name_id, pa.id as arch_id, pn.name
+      from rhnPackageName pn, rhnPackageArch pa, rhnRegTokenPackages r\
+tp
      where rtp.token_id = :token_id
        and rtp.name_id = pn.id
+       and rtp.arch_id = pa.id(+)
      order by upper(pn.name)
-">&lt;server.rhnSQL.sql_base.Statement inst<code class="variable-ellipsis">...</code></code>
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_token-module.html#_query_token_packages_insert" class="summary-name">_query_token_packages_insert</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1215598132; statement=
+        <a href="server.rhnServer.server_token-module.html#_query_token_packages_insert" class="summary-name" onclick="show_private();">_query_token_packages_insert</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     insert into rhnActionPackage (id, action_id, name_id, parameter)
     values (rhn_act_p_id_seq.nextval, :action_id, :name_id, 'upgrade')
-">&lt;server.rhnSQL.sql_base.Stateme<code class="variable-ellipsis">...</code></code>
+&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_token-module.html#_query_token_latest_revisions" class="summary-name">_query_token_latest_revisions</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1215598100; statement=
+        <a href="server.rhnServer.server_token-module.html#_query_token_latest_revisions" class="summary-name" onclick="show_private();">_query_token_latest_revisions</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     select cf.latest_config_revision_id revision_id,
            cfn.path
       from rhnConfigFileName cfn,
@@ -533,26 +534,26 @@
            rhnConfigChannelType cct,
            rhnConfigChannel cc,
            rhnServerConfigChannel scc
-...">&lt;server.rhnSQL.sql_base.Statem<code class="variable-ellipsis">...</code></code>
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_token-module.html#_query_add_revision_to_action" class="summary-name">_query_add_revision_to_action</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1215598068; statement=
+        <a href="server.rhnServer.server_token-module.html#_query_add_revision_to_action" class="summary-name" onclick="show_private();">_query_add_revision_to_action</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     insert into rhnActionConfigRevision (id, action_id, server_id, con\
 fig_revision_id)
     values (rhn_actioncr_id_seq.nextval, :action_id, :server_id, :conf\
 ig_revision_id)
-">&lt;server.rhnSQL.sql_base.Statem<code class="variable-ellipsis">...</code></code>
+&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_token-module.html#_query_token_config_channels" class="summary-name">_query_token_config_channels</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1215598036; statement=
+        <a href="server.rhnServer.server_token-module.html#_query_token_config_channels" class="summary-name" onclick="show_private();">_query_token_config_channels</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     select rtcc.config_channel_id,
            rtcc.position, cc.name
       from rhnConfigChannel cc,
@@ -560,59 +561,59 @@ ig_revision_id)
      where rtcc.token_id = :token_id
        and rtcc.config_channel_id = cc.id
     order by rtcc.position
-...">&lt;server.rhnSQL.sql_base.Stateme<code class="variable-ellipsis">...</code></code>
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_token-module.html#_query_set_server_config_channels" class="summary-name">_query_set_server_config_channels</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1215598004; statement=
+        <a href="server.rhnServer.server_token-module.html#_query_set_server_config_channels" class="summary-name" onclick="show_private();">_query_set_server_config_channels</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     insert into rhnServerConfigChannel (server_id, config_channel_id, \
 position)
     values (:server_id, :config_channel_id, :position)
-">&lt;server.rhnSQL.sql_base.St<code class="variable-ellipsis">...</code></code>
+&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_token-module.html#_query_current_config_channels" class="summary-name">_query_current_config_channels</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1215597972; statement=
+        <a href="server.rhnServer.server_token-module.html#_query_current_config_channels" class="summary-name" onclick="show_private();">_query_current_config_channels</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     select server_id, config_channel_id
       from rhnServerConfigChannel
-">&lt;server.rhnSQL.sql_base.State<code class="variable-ellipsis">...</code></code>
+&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_token-module.html#_query_server_token_used" class="summary-name">_query_server_token_used</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1215597940; statement=
+        <a href="server.rhnServer.server_token-module.html#_query_server_token_used" class="summary-name" onclick="show_private();">_query_server_token_used</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     insert into rhnServerTokenRegs (server_id, token_id)
     values (:server_id, :token_id)
-">&lt;server.rhnSQL.sql_base.Statement i<code class="variable-ellipsis">...</code></code>
+&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_token-module.html#_query_check_token_limits" class="summary-name">_query_check_token_limits</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1215597908; statement=
+        <a href="server.rhnServer.server_token-module.html#_query_check_token_limits" class="summary-name" onclick="show_private();">_query_check_token_limits</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     select
        rt.usage_limit max_nr,
        ( select count(server_id) from rhnServerTokenRegs
          where token_id = :token_id ) curr_nr
     from rhnRegToken rt
     where rt.id = :token_id
-">&lt;server.rhnSQL.sql_base.Statement <code class="variable-ellipsis">...</code></code>
+&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_token-module.html#_query_token" class="summary-name">_query_token</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1215597748; statement=
+        <a href="server.rhnServer.server_token-module.html#_query_token" class="summary-name" onclick="show_private();">_query_token</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     select rt.id as token_id,
            sgt.label as token_type,
            sgt.name as token_desc,
@@ -620,14 +621,14 @@ position)
            ak.token,
            rt.user_id,
            rt.org_id,
-...">&lt;server.rhnSQL.sql_base.Statement instance at -<code class="variable-ellipsis">...</code></code>
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_token-module.html#_query_org_default_token" class="summary-name">_query_org_default_token</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1215597716; statement=
+        <a href="server.rhnServer.server_token-module.html#_query_org_default_token" class="summary-name" onclick="show_private();">_query_org_default_token</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     select rt.id as token_id,
            sgt.label as token_type,
            sgt.name as token_desc,
@@ -635,18 +636,18 @@ position)
            ak.token,
            rt.user_id,
            rt.org_id,
-...">&lt;server.rhnSQL.sql_base.Statement i<code class="variable-ellipsis">...</code></code>
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnServer.server_token-module.html#_query_disable_token" class="summary-name">_query_disable_token</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1215594804; statement=
+        <a href="server.rhnServer.server_token-module.html#_query_disable_token" class="summary-name" onclick="show_private();">_query_disable_token</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
     update rhnRegToken
        set disabled = 1
      where id = :token_id
-">&lt;server.rhnSQL.sql_base.Statement insta<code class="variable-ellipsis">...</code></code>
+&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -684,7 +685,7 @@ position)
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="server.rhnServer.server_token-pysrc.html#_validate_entitlements">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
   <p>Perform various checks on the final list of entitlements accumulated 
   after processing all activation keys.</p>
@@ -692,7 +693,7 @@ position)
   <p>Extra/base entitlements passed in as a hash of tuples ('label', 
   'Friendly Name') mapping to None. (i.e. seems to be used as just a 
   set)</p>
-  Remove entitlements being maintained as just a list of labels.
+  <p>Remove entitlements being maintained as just a list of labels.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -728,12 +729,12 @@ position)
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1215595092; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     select rtg.server_group_id, sg.name
       from rhnRegTokenGroups rtg, rhnServerGroup sg
      where rtg.token_id = :token_id
        and sg.id = rtg.server_group_id
-
+&quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -751,13 +752,15 @@ position)
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1215595156; statement=
-    select pn.id as name_id, pn.name
-      from rhnPackageName pn, rhnRegTokenPackages rtp
+rhnSQL.Statement(&quot;&quot;&quot;
+    select pn.id as name_id, pa.id as arch_id, pn.name
+      from rhnPackageName pn, rhnPackageArch pa, rhnRegTokenPackages r<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+tp
      where rtp.token_id = :token_id
        and rtp.name_id = pn.id
+       and rtp.arch_id = pa.id(+)
      order by upper(pn.name)
-
+<code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -775,10 +778,10 @@ position)
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1215598132; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     insert into rhnActionPackage (id, action_id, name_id, parameter)
     values (rhn_act_p_id_seq.nextval, :action_id, :name_id, 'upgrade')
-
+&quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -796,7 +799,7 @@ position)
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1215598100; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     select cf.latest_config_revision_id revision_id,
            cfn.path
       from rhnConfigFileName cfn,
@@ -822,12 +825,12 @@ position)
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1215598068; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     insert into rhnActionConfigRevision (id, action_id, server_id, con<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 fig_revision_id)
     values (rhn_actioncr_id_seq.nextval, :action_id, :server_id, :conf<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 ig_revision_id)
-
+&quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -845,7 +848,7 @@ ig_revision_id)
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1215598036; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     select rtcc.config_channel_id,
            rtcc.position, cc.name
       from rhnConfigChannel cc,
@@ -871,11 +874,11 @@ ig_revision_id)
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1215598004; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     insert into rhnServerConfigChannel (server_id, config_channel_id, <span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 position)
     values (:server_id, :config_channel_id, :position)
-
+&quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -893,10 +896,10 @@ position)
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1215597972; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     select server_id, config_channel_id
       from rhnServerConfigChannel
-
+&quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -914,10 +917,10 @@ position)
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1215597940; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     insert into rhnServerTokenRegs (server_id, token_id)
     values (:server_id, :token_id)
-
+&quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -935,14 +938,14 @@ position)
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1215597908; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     select
        rt.usage_limit max_nr,
        ( select count(server_id) from rhnServerTokenRegs
          where token_id = :token_id ) curr_nr
     from rhnRegToken rt
     where rt.id = :token_id
-
+&quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -960,7 +963,7 @@ position)
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1215597748; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     select rt.id as token_id,
            sgt.label as token_type,
            sgt.name as token_desc,
@@ -986,7 +989,7 @@ position)
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1215597716; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     select rt.id as token_id,
            sgt.label as token_type,
            sgt.name as token_desc,
@@ -1012,11 +1015,11 @@ position)
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1215594804; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
     update rhnRegToken
        set disabled = 1
      where id = :token_id
-
+&quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -1046,10 +1049,11 @@ position)
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:51 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:06 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -1060,9 +1064,8 @@ position)
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

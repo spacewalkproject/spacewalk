@@ -68,7 +68,7 @@
 			</trans-unit>
 			<trans-unit id="guest.unlimited.hosts">
 				<source>Virtualization Platform Hosts</source>
-				<target>Virtualisierungs-Plattform-Hosts</target>
+				<target>Virtualisierungsplattform-Hosts</target>
 			</trans-unit>
 			<trans-unit id="guests.without.hosts">
 				<source>Guests Without Hosts</source>
@@ -208,15 +208,15 @@
 			</trans-unit>
 			<trans-unit id="config.nav.target">
 				<source>Target Systems</source>
-				<target>Ziel-Systeme</target>
+				<target>Zielsysteme</target>
 			</trans-unit>
 			<trans-unit id="configchannel.nav.systems.target">
 				<source>Target Systems</source>
-				<target>Ziel-Systeme</target>
+				<target>Zielsysteme</target>
 			</trans-unit>
 			<trans-unit id="Target Systems">
 				<source>Target Systems</source>
-				<target>Ziel-Systeme</target>
+				<target>Zielsysteme</target>
 			</trans-unit>
 			<trans-unit id="config.nav.channels">
 				<source>Configuration Channels</source>
@@ -224,7 +224,7 @@
 			</trans-unit>
 			<trans-unit id="config.nav.files">
 				<source>Configuration Files</source>
-				<target>Konfigurations-Dateien</target>
+				<target>Konfigurationsdateien</target>
 			</trans-unit>
 			<trans-unit id="config.nav.quota">
 				<source>Quota for File Storage</source>
@@ -260,11 +260,11 @@
 			</trans-unit>
 			<trans-unit id="configchannel.nav.systems.subscribed">
 				<source>Subscribed Systems</source>
-				<target>Abonnierte Systeme</target>
+				<target>Abonnierende Systeme</target>
 			</trans-unit>
 			<trans-unit id="Subscribed Systems">
 				<source>Subscribed Systems</source>
-				<target>Abonnierte Systeme</target>
+				<target>Abonnierende Systeme</target>
 			</trans-unit>
 			<trans-unit id="configfile.nav.details">
 				<source>Details</source>
@@ -288,11 +288,11 @@
 			</trans-unit>
 			<trans-unit id="configfile.nav.copy.central">
 				<source>Copy To Centrally-Managed</source>
-				<target>Zu "zentral verwaltet" kopieren</target>
+				<target>Nach "zentral verwaltet" kopieren</target>
 			</trans-unit>
 			<trans-unit id="configfile.nav.copy.local">
 				<source>Copy To Locally-Managed</source>
-				<target>Zu "lokal verwaltet" kopieren</target>
+				<target>Nach "lokal verwaltet" kopieren</target>
 			</trans-unit>
 			<trans-unit id="configfile.nav.copy.sandbox">
 				<source>Copy To System Sandbox</source>
@@ -356,15 +356,15 @@
 			</trans-unit>
 			<trans-unit id="system.detail.nav.remove">
 				<source>List / Remove</source>
-				<target>Listen / Entfernen</target>
+				<target>Auflisten / Entfernen</target>
 			</trans-unit>
 			<trans-unit id="List / Remove">
 				<source>List / Remove</source>
-				<target>Listen / Entfernen</target>
+				<target>Auflisten / Entfernen</target>
 			</trans-unit>
 			<trans-unit id="system.detail.nav.remove">
 				<source>List / Remove</source>
-				<target>Listen / Entfernen</target>
+				<target>Auflisten / Entfernen</target>
 			</trans-unit>
 			<trans-unit id="Add">
 				<source>Add</source>
@@ -452,7 +452,7 @@
 			</trans-unit>
 			<trans-unit id="List / Leave">
 				<source>List / Leave</source>
-				<target>Listen / Belassen</target>
+				<target>Auflisten / Belassen</target>
 			</trans-unit>
 			<trans-unit id="History">
 				<source>History</source>
@@ -468,7 +468,7 @@
 			</trans-unit>
 			<trans-unit id="Custom Info">
 				<source>Custom Info</source>
-				<target>Custom-Info</target>
+				<target>Angepasste Info</target>
 			</trans-unit>
 			<trans-unit id="Config Files">
 				<source>Config Files</source>
@@ -556,7 +556,7 @@
 			</trans-unit>
 			<trans-unit id="Locale">
 				<source>Locale</source>
-				<target>Ort</target>
+				<target>Locale</target>
 			</trans-unit>
 			<trans-unit id="Partitioning">
 				<source>Partitioning</source>
@@ -572,15 +572,15 @@
 			</trans-unit>
 			<trans-unit id="Package Groups">
 				<source>Package Groups</source>
-				<target>Paket-Gruppen</target>
+				<target>Paketgruppen</target>
 			</trans-unit>
 			<trans-unit id="Package Profiles">
 				<source>Package Profiles</source>
-				<target>Paket-Profile</target>
+				<target>Paketprofile</target>
 			</trans-unit>
 			<trans-unit id="Expiration Dates &amp; Purchase History">
 				<source>Expiration Dates &amp; Purchase History</source>
-				<target>Ablauftermin &amp; Kaufverlauf</target>
+				<target>Ablauftermine &amp; Kaufverlauf</target>
 			</trans-unit>
 			<trans-unit id="Purchase or Renew">
 				<source>Purchase or Renew</source>
@@ -589,10 +589,6 @@
 			<trans-unit id="Critical">
 				<source>Critical</source>
 				<target>Kritisch</target>
-			</trans-unit>
-			<trans-unit id="Warning">
-				<source>Warning</source>
-				<target>Warnung</target>
 			</trans-unit>
 			<trans-unit id="Unknown">
 				<source>Unknown</source>
@@ -652,7 +648,7 @@
 			</trans-unit>
 			<trans-unit id="Software Channel Entitlements">
 				<source>Software Channel Entitlements</source>
-				<target>Software- Channel- Berechtigungen</target>
+				<target>Software-Channel-Berechtigungen</target>
 			</trans-unit>
 			<trans-unit id="activation-keys.nav.activated_systems">
 				<source>Activated Systems</source>

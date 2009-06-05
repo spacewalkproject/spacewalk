@@ -43,7 +43,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="satellite_tools.SequenceServer.SequenceServer-class.html"
@@ -53,7 +53,7 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class SequenceServer</h1><span class="codelink"><a href="satellite_tools.SequenceServer-pysrc.html#SequenceServer">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class SequenceServer</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.SequenceServer-pysrc.html#SequenceServer">source&nbsp;code</a></span></p>
 <p>Given a sequence to serve, this class dishes them out in chunks or one
   at a time. This was written originally to reduce redundant code. Used 
   only by class Syncer.</p>
@@ -61,11 +61,11 @@
   If the processing fails, one can tell the class to only present one at a 
   time until that chunk is complete... and then resume normal 
   operations.</p>
-  For example: the sequence can be a bunch of packageIds. We try to 
+  <p>For example: the sequence can be a bunch of packageIds. We try to 
   process all data that corresponds to some chunk of those package ids. If 
   that process fails, we go back and reprocess that chunk, one at a time, 
   until it is complete (identifying precisely which package broke). Then we
-  resume processing a chunk at a time.<br /><br />
+  resume processing a chunk at a time.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -92,9 +92,9 @@
         <tr>
           <td><span class="summary-sig"><a href="satellite_tools.SequenceServer.SequenceServer-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">seq</span>,
-        <span class="summary-sig-arg">divisor</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">neverlessthan</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">nevermorethan</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span><br />
+        <span class="summary-sig-arg">divisor</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">neverlessthan</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">nevermorethan</span>=<span class="summary-sig-default">None</span>)</span><br />
       Constructor.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.SequenceServer-pysrc.html#SequenceServer.__init__">source&nbsp;code</a></span>
@@ -222,15 +222,15 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">seq</span>,
-        <span class="sig-arg">divisor</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="sig-arg">neverlessthan</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="sig-arg">nevermorethan</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span>
+        <span class="sig-arg">divisor</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">neverlessthan</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">nevermorethan</span>=<span class="sig-default">None</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="satellite_tools.SequenceServer-pysrc.html#SequenceServer.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
   <pre class="literalblock">
 Constructor.
@@ -260,10 +260,10 @@ nevermorethan - chunk-size if never more than this number.
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="satellite_tools.SequenceServer-pysrc.html#SequenceServer.getChunk">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  fetch a chunk from the sequence. Does not refresh the chunk until you 
-  self.clearChunk()
+  <p>fetch a chunk from the sequence. Does not refresh the chunk until you 
+  self.clearChunk()</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -292,10 +292,11 @@ nevermorethan - chunk-size if never more than this number.
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:59 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:09 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -306,9 +307,8 @@ nevermorethan - chunk-size if never more than this number.
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

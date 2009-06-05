@@ -32,18 +32,18 @@
                 <c:forEach items="${avail_child_channels}" var="channel">
                   <c:choose>
                     <c:when test="${not channel.subscribable}">
-                      <c:set var="disabledChannel" scope="page" value="disabled=\"true\""/>
+                      <c:set var="disabledChannel" scope="page" value="disabled=\"true\" alt=\"disabled\""/>
                     </c:when>
                     <c:otherwise>
-                      <c:set var="disabledChannel" scope="page" value=""/>
+                      <c:set var="disabledChannel" scope="page" value="alt=\"enabled\""/>
                     </c:otherwise>
                   </c:choose>
                   <li>
                     <c:if test="${channel.subscribed}">
-                      <input ${disabledChannel} name="child_channel" value="${channel.id}" checked="1" type="checkbox">
+                      <input ${disabledChannel} name="child_channel" value="${channel.id}" checked="1" type="checkbox" id="checked">
                     </c:if>
                     <c:if test="${not channel.subscribed}">
-                      <input ${disabledChannel} name="child_channel" value="${channel.id}" type="checkbox">
+                      <input ${disabledChannel} name="child_channel" value="${channel.id}" type="checkbox" id="unchecked">
                     </c:if>
                     <c:if test="${not channel.freeForGuests && system.virtualGuest}">
                       <span class="asterisk">*&nbsp;</span>

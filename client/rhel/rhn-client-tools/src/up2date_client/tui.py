@@ -1186,18 +1186,6 @@ class FinishWindow:
 
         self.setScale(3, 5)
 
-        # send smbios info to the server
-        smbiosData = hardware.get_hal_smbios()
-        try:
-            rhnreg.sendSmbiosInfo(self.systemId, smbiosData)
-        except AttributeError:
-            # Method Not Implemented, continue
-            pass
-        except:
-            log.log_exception(*sys.exc_info())
-            FatalErrorWindow(self.screen,
-                                 _("Problem sending smbios info:\n"))
-
         # maybe upload hardware profile
         if tui.includeHardware:
             try:
@@ -1424,6 +1412,11 @@ class Tui:
             self.serverURL = cfg['serverURL'][0]
         else:
             self.serverURL = cfg['serverURL']
+        
+        if self.serverType == "hosted":
+            cfg.set('sslCACert', '/usr/share/rhn/RHNS-CA-CERT')
+        else:
+            cfg.set('sslCACert', '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT') 
        
     def __del__(self):
         self.screen.finish()
@@ -1569,7 +1562,8 @@ class Tui:
 
         log.log_debug('subs is %s' % subs)
 
-        if int(subs) > 0:
+        # -1 is infinite
+        if int(subs) != 0:
             log.log_debug('we still have subscriptions %s' % str(subs))
 
             # bz442930 : Should allow registration when login and password is changed

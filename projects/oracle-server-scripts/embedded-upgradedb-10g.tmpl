@@ -1,0 +1,97 @@
+include(`rhnora.m4')
+
+--
+-- 10gR2 ver. 10.2.0.3 to 10gR2 ver. 10.2.0.4 embedded db upgrade template
+--
+
+
+spool RHNORA_CREATELOG(RHNORA_DBNAME-10g-10g-upgrade) replace
+set echo on
+set term on
+set pagesize 10000
+-- don't set serveroutput on otherwise you will get a lot of PLS-00213 errors
+--set serveroutput on
+whenever sqlerror exit failure
+whenever oserror  exit failure
+
+connect / as sysdba
+startup upgrade
+
+alter session set nls_date_format = 'YYYY-MM-DD HH24:MI:SS';
+
+-- ignore errors in oracle provided files
+whenever sqlerror continue
+
+-- do upgrade
+select sysdate, 'rdbms/admin/catupgrd.sql' script from dual;
+@?/rdbms/admin/catupgrd.sql
+
+-- show summary
+@?/rdbms/admin/utlu102s.sql
+
+-- invalidate all db objects
+select sysdate, 'Invalidating packages' message from dual;
+@?/rdbms/admin/utlirp.sql
+
+shutdown immediate
+startup restrict
+
+-- recompile all db stuff incl. java stored procs
+select sysdate, 'Recompiling packages' message from dual;
+@?/rdbms/admin/utlrp.sql
+
+whenever sqlerror exit failure
+set serveroutput on
+-- perform migration of DICTIONARY to LOCAL managed tablespaces
+begin
+  for s in (select tablespace_name from dba_tablespaces
+             where extent_management = 'DICTIONARY'
+               and tablespace_name = 'SYSTEM')
+  loop
+     for t in (select tablespace_name from dba_tablespaces
+	     where extent_management = 'DICTIONARY'
+	     and tablespace_name not in ('SYSTEM'))
+     loop
+       DBMS_SPACE_ADMIN.TABLESPACE_MIGRATE_TO_LOCAL(t.tablespace_name);
+     end loop;
+     for t in (select tablespace_name from dba_tablespaces
+                where contents='PERMANENT'
+	       and tablespace_name not in ('SYSTEM','SYSAUX'))
+     loop
+       execute immediate 'alter tablespace ' || t.tablespace_name || ' read only';
+     end loop;
+     execute immediate 'alter tablespace SYSAUX offline';
+     DBMS_SPACE_ADMIN.TABLESPACE_MIGRATE_TO_LOCAL('SYSTEM');
+     execute immediate 'alter tablespace SYSAUX online';
+     for t in (select tablespace_name from dba_tablespaces
+                where status = 'READ ONLY')
+     loop
+       execute immediate 'alter tablespace ' || t.tablespace_name || ' read write';
+     end loop;
+  end loop;
+end;
+/
+
+-- restart the instance to reinitialize the system parameters
+shutdown immediate
+startup
+
+-- lock default users from 9i
+select sysdate, 'Locking default 9i users' message from dual;
+BEGIN
+ FOR item IN ( SELECT USERNAME FROM DBA_USERS WHERE USERNAME IN (
+   'DBSNMP', 'OUTLN', 'TSMSYS', 'ORACLE_OCM', 'DIP') AND ACCOUNT_STATUS = 'OPEN')
+ LOOP
+   dbms_output.put_line('Locking and Expiring: ' || item.USERNAME);
+   execute immediate 'alter user ' || item.USERNAME || ' password expire account lock' ;
+ END LOOP;
+END;
+/
+
+-- set compatible flag
+alter system set compatible='10.2.0.4.0' scope=spfile;
+disconnect
+
+connect / as sysdba
+shutdown immediate
+

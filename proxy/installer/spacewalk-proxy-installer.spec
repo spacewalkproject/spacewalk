@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.6.7
+Version: 0.6.11
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -84,6 +84,33 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Fri Jun 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.11-1
+- 499399 - read SCOUT_SHARED_KEY value from api call
+  proxy.createMonitoringScout (msuchy@redhat.com)
+- enable services (msuchy@redhat.com)
+- 499399 - update rhn-proxy-activate man page (msuchy@redhat.com)
+- fix docbook warnings (msuchy@redhat.com)
+- 499399 - call proxy.createMonitoringScout during proxy activation
+  (msuchy@redhat.com)
+- 500151 - do not insist on presence of sslbuildir if we force own CA
+  (msuchy@redhat.com)
+- 500151 - flip the condition, so force-own-ca do what it should do
+  (msuchy@redhat.com)
+- 499789 - check for /root/ssl-build separately and fix scp command
+  (msuchy@redhat.com)
+- 502103 - fix syntax error (msuchy@redhat.com)
+
+* Tue May 19 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.10-1
+- 498251 - suggest as default proxy version latest version available on parent
+
+* Thu May 14 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.9-1
+- 497892 - create access.log on rhel5
+
+* Tue May 12 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.8-1
+- 500151 - add --force-own-ca option
+- 500215 - we need rhn-ca-openssl.cnf as well
+- 499789 - say user to create $SSL_BUILD_DIR and make $SSL_BUILD_DIR relalocatable
+
 * Mon May 11 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.7-1
 - 489607 - add command flag for every option in the answer file
 

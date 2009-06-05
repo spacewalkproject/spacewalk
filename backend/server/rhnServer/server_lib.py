@@ -37,18 +37,6 @@ class rhnSystemEntitlementException(rhnException):
 class rhnNoSystemEntitlementsException(rhnSystemEntitlementException):
     pass
 
-
-freeloader_throttle_msg = """
-     In order to provide a higher level of service to our paying
-     customers, demo accounts may not use the up2date service between
-     the hours of %(end_free_time)s and %(start_free_time)s Eastern US time.
-
-     To purchase Red Hat Network service, visit:
-
-     https://rhn.redhat.com/network/sales/index.pxt
-
-     Your account name:    %(login)s"""
-
 def use_registration_number(user, registration_number, commit=1):
     log_debug(3, registration_number)
     if registration_number is None:

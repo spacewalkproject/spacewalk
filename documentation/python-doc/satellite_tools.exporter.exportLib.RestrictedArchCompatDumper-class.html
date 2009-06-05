@@ -44,7 +44,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper-class.html"
@@ -54,29 +54,10 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class RestrictedArchCompatDumper</h1><span class="codelink"><a href="satellite_tools.exporter.exportLib-pysrc.html#RestrictedArchCompatDumper">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class RestrictedArchCompatDumper</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.exporter.exportLib-pysrc.html#RestrictedArchCompatDumper">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_satellit_38" name="uml_class_diagram_for_satellit_38">
-<area shape="rect" href="satellite_tools.exporter.exportLib.BaseArchesDumper&#45;class.html#table_name" title="satellite_tools.exporter.exportLib.BaseArchesDumper.table_name" alt="" coords="524,178,644,196" />
-<area shape="rect" href="satellite_tools.exporter.exportLib.BaseArchesDumper&#45;class.html#subelement_tag" title="satellite_tools.exporter.exportLib.BaseArchesDumper.subelement_tag" alt="" coords="524,196,644,215" />
-<area shape="rect" href="satellite_tools.exporter.exportLib.BaseArchesDumper&#45;class.html" title="satellite_tools.exporter.exportLib.BaseArchesDumper" alt="" coords="512,155,656,230" />
-<area shape="rect" href="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper&#45;class.html#set_iterator" title="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper.set_iterator" alt="" coords="324,279,844,298" />
-<area shape="rect" href="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper&#45;class.html#dump_subelement" title="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper.dump_subelement" alt="" coords="324,298,844,316" />
-<area shape="rect" href="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper&#45;class.html#__init__" title="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper.__init__" alt="" coords="324,316,844,335" />
-<area shape="rect" href="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper&#45;class.html" title="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper" alt="" coords="312,248,856,342" />
-<area shape="rect" href="satellite_tools.exporter.exportLib.ServerPackageArchCompatDumper&#45;class.html" title="satellite_tools.exporter.exportLib.ServerPackageArchCompatDumper" alt="" coords="5,360,253,398" />
-<area shape="rect" href="satellite_tools.exporter.exportLib.ServerGroupTypeServerArchCompatDumper&#45;class.html" title="satellite_tools.exporter.exportLib.ServerGroupTypeServerArchCompatDumper" alt="" coords="283,360,584,398" />
-<area shape="rect" href="satellite_tools.exporter.exportLib.ServerChannelArchCompatDumper&#45;class.html" title="satellite_tools.exporter.exportLib.ServerChannelArchCompatDumper" alt="" coords="613,360,859,398" />
-<area shape="rect" href="satellite_tools.exporter.exportLib.ChannelPackageArchCompatDumper&#45;class.html" title="satellite_tools.exporter.exportLib.ChannelPackageArchCompatDumper" alt="" coords="888,360,1147,398" />
-<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper&#45;class.html#dump" title="satellite_tools.exporter.exportLib.BaseDumper.dump" alt="" coords="404,36,764,55" />
-<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper&#45;class.html#set_attributes" title="satellite_tools.exporter.exportLib.BaseDumper.set_attributes" alt="" coords="404,55,764,74" />
-<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper&#45;class.html#set_writer" title="satellite_tools.exporter.exportLib.BaseDumper.set_writer" alt="" coords="404,74,764,92" />
-<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper&#45;class.html#timer" title="satellite_tools.exporter.exportLib.BaseDumper.timer" alt="" coords="404,92,764,111" />
-<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper&#45;class.html#get_writer" title="satellite_tools.exporter.exportLib.BaseDumper.get_writer" alt="" coords="404,111,764,130" />
-<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper&#45;class.html" title="satellite_tools.exporter.exportLib.BaseDumper" alt="" coords="392,6,776,136" />
-</map>
-  <img src="uml_class_diagram_for_satellit_38.gif" alt='' usemap="#uml_class_diagram_for_satellit_38" ismap="ismap" class="graph-without-title" />
-</center></center>
+
+</center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -101,9 +82,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">writer</span>,
-        <span class="summary-sig-arg">data_iterator</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">data_iterator</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">rpm_arch_type_only</span>=<span class="summary-sig-default">0</span>,
         <span class="summary-sig-arg">virt_filter</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
@@ -121,7 +102,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="set_iterator"></a><span class="summary-sig-name">set_iterator</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a href="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper-class.html#set_iterator" class="summary-sig-name">set_iterator</a>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.exporter.exportLib-pysrc.html#RestrictedArchCompatDumper.set_iterator">source&nbsp;code</a></span>
             
@@ -137,7 +118,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="dump_subelement"></a><span class="summary-sig-name">dump_subelement</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper-class.html#dump_subelement" class="summary-sig-name">dump_subelement</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">data</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.exporter.exportLib-pysrc.html#RestrictedArchCompatDumper.dump_subelement">source&nbsp;code</a></span>
@@ -181,21 +162,21 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="_query_rpm_arch_type_only"></a><span class="summary-name">_query_rpm_arch_type_only</span> = <code title="''"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></code>
+        <a name="_query_rpm_arch_type_only"></a><span class="summary-name">_query_rpm_arch_type_only</span> = <code title="&quot;&quot;">&quot;&quot;</code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="_query_arch_type_all"></a><span class="summary-name">_query_arch_type_all</span> = <code title="''"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></code>
+        <a name="_query_arch_type_all"></a><span class="summary-name">_query_arch_type_all</span> = <code title="&quot;&quot;">&quot;&quot;</code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="_subelement_tag"></a><span class="summary-name">_subelement_tag</span> = <code title="''"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></code>
+        <a name="_subelement_tag"></a><span class="summary-name">_subelement_tag</span> = <code title="&quot;&quot;">&quot;&quot;</code>
     </td>
   </tr>
   <tr>
@@ -207,6 +188,97 @@
     </td>
   </tr>
 </table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">writer</span>,
+        <span class="sig-arg">data_iterator</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">rpm_arch_type_only</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">virt_filter</span>=<span class="sig-default">0</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="satellite_tools.exporter.exportLib-pysrc.html#RestrictedArchCompatDumper.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#__init__">BaseDumper.__init__</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="set_iterator"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">set_iterator</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="satellite_tools.exporter.exportLib-pysrc.html#RestrictedArchCompatDumper.set_iterator">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_iterator">BaseDumper.set_iterator</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="dump_subelement"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">dump_subelement</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">data</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="satellite_tools.exporter.exportLib-pysrc.html#RestrictedArchCompatDumper.dump_subelement">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#dump_subelement">BaseDumper.dump_subelement</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -230,10 +302,11 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:08:06 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:10 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -244,9 +317,8 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

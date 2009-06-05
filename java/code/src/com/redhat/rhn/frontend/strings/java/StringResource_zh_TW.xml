@@ -138,9 +138,17 @@
 				<source>Tip</source>
 				<target>提示</target>
 			</trans-unit>
+			<trans-unit id="Note">
+				<source>Note</source>
+				<target>注意</target>
+			</trans-unit>
+			<trans-unit id="Warning">
+				<source>Warning</source>
+				<target>警告</target>
+			</trans-unit>
 			<trans-unit id="About Spacewalk">
 				<source>About</source>
-				<target>關於</target>
+				<target>相關資訊</target>
 			</trans-unit>
 			<trans-unit id="Account">
 				<source>Account</source>
@@ -1305,16 +1313,16 @@ available for this kickstart profile to function properly.
 				<target>從 kickstart 設定檔 {0} 中刪除 IP 位址範圍時，發生錯誤。請再試一次。</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.update.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
-				<target>已成功更新 Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt;。</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
+				<target>已成功更新 Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt;。</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.create.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
-				<target>已成功建立 Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt;。</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
+				<target>已成功建立 Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt;。</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.delete.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
-				<target>已成功刪除 Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt;。</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
+				<target>已成功刪除 Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt;。</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.couldnotdelete.message">
 				<source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -1325,12 +1333,12 @@ available for this kickstart profile to function properly.
 				<target>當嘗試將 snippet &lt;strong&gt;{0}&lt;/strong&gt; 重新命名為 &lt;strong&gt;{1}&lt;/strong&gt; 時發生了錯誤。</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.filenameexists.message">
-				<source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
-				<target>名稱同樣為 &lt;strong&gt;{0}&lt;/strong&gt; 的 Cobbler snippet 已存在。</target>
+				<source>Kickstart snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+				<target>名稱同樣為 &lt;strong&gt;{0}&lt;/strong&gt; 的 Kickstart snippet 已存在。</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.invalidfilename.message">
-				<source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
-				<target>請求的 Cobbler snippet 檔案名稱無效。有效字元為 A-Z、0-9、_ 和 -。</target>
+				<source>The requested kickstart snippet filename is not valid. The kickstart snippet file name cannot contain slash (/) or  begin with a period(.)</source>
+				<target>請求的 kickstart snippet 檔案名稱無效。Kickstart snippet 的檔案名稱不可包含斜線（/）或以句號作為起始（.）</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.snippets">
 				<source>delete snippet</source>
@@ -1736,9 +1744,9 @@ available for this kickstart profile to function properly.
 				<source>Search strings must be longer than two characters.</source>
 				<target>搜尋字串必須多於兩個字元。</target>
 			</trans-unit>
-			<trans-unit id="packages.search.index_out_of_sync_with_db">
-				<source>Package search index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
-				<target>套件搜尋檢索和資料庫項目似乎沒有同步化。請執行「/sbin/service rhn-search cleanindex; /sbin/service rhn-search start」。</target>
+			<trans-unit id="searchserver.index_out_of_sync_with_db">
+				<source>SearchServer index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
+				<target state="needs-review-translation">套件搜尋檢索和資料庫項目似乎沒有同步化。請執行「/sbin/service rhn-search cleanindex; /sbin/service rhn-search start」。</target>
 			</trans-unit>
 			<trans-unit id="patches.installed.notavailable">
 				<source>Not Available</source>
@@ -2136,8 +2144,8 @@ user before attempting to deactivate their account.</source>
 				<target>預期登入時間：</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;注意：&lt;/strong&gt;本系統最近未登入 @@PRODUCT_NAME@@。如果系統未登入 @@PRODUCT_NAME@@，它就無法進行更新，因此這項動作不太可能會成功。&lt;br/&gt;&lt;br/&gt;請檢查系統，並確認 rhnsd 正在執行中（&lt;a href="/help/faq.pxt#15"&gt;更多資訊&lt;/a&gt;）。如果它執行失敗，請&lt;a href="/help/contact.pxt"&gt;連絡我們&lt;/a&gt;。</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running.</source>
+				<target>&lt;strong&gt;注意：&lt;/strong&gt;本系統最近未登入 @@PRODUCT_NAME@@。如果系統未登入 @@PRODUCT_NAME@@，它就無法進行更新，因此這項動作不太可能會成功。&lt;br/&gt;&lt;br/&gt;請檢查系統，並確認 rhnsd 正在運作中。</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -3500,28 +3508,27 @@ user before attempting to deactivate their account.</source>
 				<target>認證上傳完畢。@@PRODUCT_NAME@@ 已被重新啟動。</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
-				<source>Could not parse certificate file</source>
-				<target>無法解析認證檔</target>
+				<source>Could not parse certificate file, see log file for more details.</source>
+				<target state="needs-review-translation">無法解析認證檔</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.11">
 				<source>Certificate expired</source>
 				<target>認證已過期</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown @@PRODUCT_NAME@@ version</source>
-				<target>不明的 @@PRODUCT_NAME@@ 版本</target>
+				<source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
+				<target state="needs-review-translation">不明的 @@PRODUCT_NAME@@ 版本</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
-				<source>Remote activation failure</source>
-				<target>遠端啟動失敗</target>
+				<source>Remote activation failure, see log file for more details.</source>
+				<target state="needs-review-translation">遠端啟動失敗</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.30">
-				<source>Local activation failure</source>
-				<target>本機啟動失敗</target>
+				<source>Local activation failure, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.40">
-				<source>Channel population failure</source>
-				<target>頻道集結失敗</target>
+				<source>Channel population failure, see log file for more details.</source>
+				<target state="needs-review-translation">頻道集結失敗</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.80">
 				<source>No management entitlements remaining</source>
@@ -3540,8 +3547,7 @@ user before attempting to deactivate their account.</source>
 				<target>無效的 @@PRODUCT_NAME@@ 認證</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
-				<source>Unknown activation error</source>
-				<target>不明的啟動錯誤</target>
+				<source>Unknown activation error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
 				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
@@ -3552,12 +3558,7 @@ user before attempting to deactivate their account.</source>
 				<target>沒有適用於此版本的 @@PRODUCT_NAME@@ 頻道</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
-				<source>Unhandled error</source>
-				<target>未處理的錯誤</target>
-			</trans-unit>
-			<trans-unit id="bootstrap.config.error.127">
-				<source>Unhandled error</source>
-				<target>未處理的錯誤</target>
+				<source>Unhandled error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="hostname">
 				<source>@@PRODUCT_NAME@@ server hostname</source>
@@ -3594,6 +3595,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="bootstrap.config.error.17">
 				<source>Could not find GPG key</source>
 				<target>找不到 GPG 金鑰</target>
+			</trans-unit>
+			<trans-unit id="bootstrap.config.error.127">
+				<source>Unhandled error</source>
+				<target>未處理的錯誤</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.success">
 				<source>Bootstrap script successfully generated.  You can access it &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt;</source>
@@ -5187,6 +5192,13 @@ Follow this url to see the full list of inactive systems:
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
 				<target>頻道 &lt;strong&gt;{0}&lt;/strong&gt; 已建立。</target>
 			</trans-unit>
+			<trans-unit id="message.channeldeleted">
+				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; has been deleted.</source>
+				<target state="needs-review-translation">啟動金鑰 &lt;strong&gt;{0}&lt;/strong&gt; 已刪除。</target>
+			</trans-unit>
+			<trans-unit id="message.channel.delete.systemssubscribed">
+				<source>There are currently systems subscribed to this channel. Please confirm system channel removal by selecting the unsubscribe checkbox.</source>
+			</trans-unit>
 			<trans-unit id="message.channelupdated">
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
 				<target>頻道 &lt;strong&gt;{0}&lt;/strong&gt; 已更新。</target>
@@ -5225,17 +5237,16 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to
-syncronize kickstart distributions from Spacewalk to Cobbler.  These
-errors must be corrected for the distributions to be available for
-kickstarting systems kickstart distributions failed to sync from
-Spacewalk to Cobbler:
+The following is a list of errors gathered while Spacewalk attempts to 
+syncronize kickstart distributions from Spacewalk to Cobbler.  These 
+errors must be corrected for the distributions to be available for 
+kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
@@ -5243,16 +5254,15 @@ for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
 下列為一列當 Spacewalk 嘗試將 kickstart 發行套件由 Spacewalk 同步化
-至 Cobbler 時所蒐集的錯誤之清單。這些錯誤必須先被
-修正，如此一來發行套件才可被用來 kickstart 無
-法由 Spacewalk 同步化至 Cobbler 的
-系統 kickstart 發行套件：
+至 Cobbler 時所蒐集的錯誤之清單。這些錯誤必須
+先被修正，如此一來發行套件才可被
+用來 kickstart 系統：
 
 {0}
 
 請檢查：
 
-/var/log/rhn/rhn_taskomatic_daemon.log 和
+/var/log/rhn/rhn_taskomatic_daemon.log 和 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 

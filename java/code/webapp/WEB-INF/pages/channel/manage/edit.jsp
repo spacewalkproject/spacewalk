@@ -12,7 +12,7 @@
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif"
-             deletionUrl="/network/software/channels/manage/delete_confirm.pxt?cid=${param.cid}"
+             deletionUrl="/rhn/channels/manage/Delete.do?cid=${param.cid}"
              deletionAcl="user_role(channel_admin); formvar_exists(cid)"
              deletionType="software.channel">
   <bean:message key="channel.edit.jsp.toolbar" arg0="${channel_name}"/>
@@ -34,15 +34,15 @@
    <table class="details">
       <tr>
          <th nowrap="nowrap">
-            <bean:message key="channel.edit.jsp.name"/><span class="required-form-field">*</span>:
+            <rhn:required-field key="channel.edit.jsp.name"/>:
          </th>
          <td class="small-form">
-            <html:text property="name" maxlength="64" size="48"/>
+            <html:text property="name" maxlength="256" size="48"/>
          </td>
       </tr>
       <tr>
          <th nowrap="nowrap">
-            <bean:message key="channel.edit.jsp.label"/><span class="required-form-field">*</span>:
+            <rhn:required-field key="channel.edit.jsp.label"/>:
          </th>
          <td class="small-form">
             <c:choose>
@@ -99,7 +99,7 @@
       </tr>
       <tr>
          <th nowrap="nowrap">
-            <bean:message key="channel.edit.jsp.summary"/><span class="required-form-field">*</span>:
+            <rhn:required-field key="channel.edit.jsp.summary"/>:
          </th>
          <td class="small-form">
             <html:text property="summary" maxlength="500" size="40" />

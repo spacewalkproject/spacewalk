@@ -31,6 +31,8 @@ import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.ErrataFile;
 import com.redhat.rhn.domain.errata.ErrataFileType;
+import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
@@ -61,6 +63,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import redstone.xmlrpc.XmlRpcClient;
+import redstone.xmlrpc.XmlRpcFault;
 
 /**
  * ErrataManager is the singleton class used to provide business operations
@@ -124,7 +129,7 @@ public class ErrataManager extends BaseManager {
     /**
      * Takes an unpublished errata and returns a published errata into the 
      * channels we pass in. NOTE:  This method does NOT update the errata cache for
-     * the channels.  THat is done when packages are pushed as part of the errata 
+     * the channels.  That is done when packages are pushed as part of the errata
      * publication process (which is not done here)
      * 
      * @param unpublished The errata to publish
@@ -139,6 +144,9 @@ public class ErrataManager extends BaseManager {
         
         retval = addChannelsToErrata(retval, channelIds, user);
         log.debug("publish - updateErrataCacheForChannelsAsync called");
+
+        // update the search server
+        updateSearchIndex();
         return retval;
     }
     
@@ -152,6 +160,9 @@ public class ErrataManager extends BaseManager {
         //pass on to the factory
         Errata retval = ErrataFactory.publish(unpublished);
         log.debug("publish - errata published");
+
+        // update the search server
+        updateSearchIndex();
         return retval;
     }
     
@@ -291,6 +302,18 @@ public class ErrataManager extends BaseManager {
         return ErrataFactory.searchByPackageIds(pids);
     }
     
+    /**
+     * Returns a list of ErrataOverview whose errata contains the packages
+     * with the given pids.
+     * @param pids list of package ids whose errata are sought.
+     * @param org Organization to match results with
+     * @return a list of ErrataOverview whose errata contains the packages
+     * with the given pids.
+     */
+    public static List<ErrataOverview> searchByPackageIdsWithOrg(List pids, Org org) {
+        return ErrataFactory.searchByPackageIdsWithOrg(pids, org);
+    }
+
     /**
      * Returns a list of ErrataOverview matching the given errata ids.
      * @param eids Errata ids sought.
@@ -1184,5 +1207,50 @@ public class ErrataManager extends BaseManager {
        return m.execute(params);       
    }
 
-    
+   /**
+    * update the errata search index.
+    * @return true if index was updated, false otherwise.
+    */
+   private static boolean updateSearchIndex() {
+       boolean flag = false;
+
+       try {
+           XmlRpcClient client = new XmlRpcClient(Config.get().getSearchServerUrl(), true);
+           List args = new ArrayList();
+           args.add("errata");
+           Boolean rc = (Boolean)client.invoke("admin.updateIndex", args);
+           flag =  rc.booleanValue();
+       }
+       catch (XmlRpcFault e) {
+           // right now updateIndex doesn't throw any faults.
+           log.error("Errata index not updated. Search server unavailable." +
+                   "ErrorCode = " + e.getErrorCode(), e);
+           e.printStackTrace();
+       }
+       catch (Exception e) {
+           // if the search server is down, folks will know when they
+           // attempt to search. If this call failed the errata in
+           // question won't be searchable immediately, but will get picked
+           // up the next time the search server runs the job (after being
+           // restarted.
+           log.error("Errata index not updated. Search server unavailable.", e);
+       }
+
+       return flag;
+   }
+
+    /**
+     * resync an errata, including all it's details
+     *  doesn't actually push any packages to a channel
+     * @param cloned the cloned errata needing resyncing
+     * @param user the user doign the syncing
+     */
+   public static void reSyncErrata(PublishedClonedErrata cloned, User user) {
+       if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+           throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
+       }
+       ErrataFactory.syncErrataDetails(cloned);
+   }
+
+
 }

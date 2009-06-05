@@ -451,14 +451,15 @@ public class ActivationKeyManager {
     }
     
     /**
-     * Subscribe a Server to the first child channel of its base channel that contains
+     * Subscribe an activation key to the first child channel
+     *  of its base channel that contains
      * the packagename passed in.  Returns false if it can't be subscribed.
      * 
      * @param key activationKey to be subbed
      * @param packageName to use to lookup the channel with.  
-     * @return Channel we subscribed to, null if not.
+     * @return true if subscription was successful false otherwise
      */
-    private void subscribeToChildChannelWithPackageName(
+    private boolean subscribeToChildChannelWithPackageName(
                             ActivationKey key, String packageName) {
         
         log.debug("subscribeToChildChannelWithPackageName: " + key.getId() + 
@@ -480,7 +481,7 @@ public class ActivationKeyManager {
                     packageName);
             if (cid == null) { // Didnt find it ..
                 log.debug("didnt find a child channel with the package.");
-                return;
+                return false;
             }
             cids = new LinkedList<Long>();
             cids.add(cid);
@@ -490,6 +491,7 @@ public class ActivationKeyManager {
             Channel channel = ChannelFactory.lookupById(cid);
             key.addChannel(channel);
         }
+        return !cids.isEmpty();
     }
     
     private void addConfigMgmtPackages(ActivationKey key) {
@@ -497,7 +499,6 @@ public class ActivationKeyManager {
                             PackageManager.RHNCFG_CLIENT, 
                             PackageManager.RHNCFG_ACTIONS};
         for (String name : names) {
-            PackageManager.lookupPackageName(name);
             key.addPackage(PackageManager.lookupPackageName(name), null);
         }
     }
@@ -509,10 +510,25 @@ public class ActivationKeyManager {
      * @param key the activation key to be updated.
      */
     public void setupAutoConfigDeployment(ActivationKey key) {
-        subscribeToChildChannelWithPackageName(key, 
-                    ChannelManager.TOOLS_CHANNEL_PACKAGE_NAME);
-        if (!key.getChannels().isEmpty()) {
+        if (subscribeToChildChannelWithPackageName(key, 
+                ChannelManager.TOOLS_CHANNEL_PACKAGE_NAME)) {
             addConfigMgmtPackages(key);
         }
+    }
+
+    /**
+     * Enables the activation key to be virtualization ready
+     * Adds the virt channel, the tools channel 
+     * and adds the rn-virtualization-host package
+     * @param key the activation key to be updated.
+     */
+    public void setupVirtEntitlement(ActivationKey key) {
+        if (subscribeToChildChannelWithPackageName(key, 
+                ChannelManager.TOOLS_CHANNEL_PACKAGE_NAME)) {
+            key.addPackage(PackageManager.lookupPackageName(ChannelManager.
+                    RHN_VIRT_HOST_PACKAGE_NAME), null);
+        }
+        subscribeToChildChannelWithPackageName(key, 
+                ChannelManager.VIRT_CHANNEL_PACKAGE_NAME);
     }
 }

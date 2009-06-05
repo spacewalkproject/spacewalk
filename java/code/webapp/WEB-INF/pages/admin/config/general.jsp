@@ -29,8 +29,7 @@
     <table class="details">
     <tr>
         <th>
-            <bean:message key="general.jsp.admin_email"/>
-                <span class="required-form-field">*</span>
+            <rhn:required-field key="general.jsp.admin_email"/>
         </th>
         <td>
             <html:text property="traceback_mail" size="32" />
@@ -38,8 +37,7 @@
     </tr>
     <tr>
         <th>
-            <bean:message key="general.jsp.hostname"/>
-                <span class="required-form-field">*</span>
+            <rhn:required-field key="general.jsp.hostname"/>
         </th>
         <td>
             <html:text property="server|jabber_server" size="32" />

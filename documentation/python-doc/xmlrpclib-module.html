@@ -41,7 +41,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="xmlrpclib-module.html"
@@ -51,7 +51,7 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module xmlrpclib</h1><span class="codelink"><a href="xmlrpclib-pysrc.html">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Module xmlrpclib</h1><p class="nomargin-top"><span class="codelink"><a href="xmlrpclib-pysrc.html">source&nbsp;code</a></span></p>
 <pre class="literalblock">
 
 An XML-RPC client interface for Python.
@@ -98,7 +98,7 @@ Exported functions:
   loads          Convert an XML-RPC packet to unmarshalled data plus a method
                  name (None if not present).
 
-</pre><br /><br />
+</pre>
 
 <hr />
 <div class="fields">      <p><strong>Version:</strong>
@@ -134,9 +134,8 @@ Exported functions:
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="xmlrpclib.DateTime-class.html" class="summary-name">DateTime</a><br />
-      DateTime wrapper for an ISO 8601 string or time tuple or 
-        localtime integer value to generate 'dateTime.iso8601' XML-RPC 
-        value.
+      DateTime wrapper for an ISO 8601 string or time tuple or localtime 
+        integer value to generate 'dateTime.iso8601' XML-RPC value.
     </td>
   </tr>
 <tr>
@@ -167,8 +166,7 @@ Exported functions:
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="xmlrpclib.Marshaller-class.html" class="summary-name">Marshaller</a><br />
-      Generate an XML-RPC params chunk from a Python data 
-        structure.
+      Generate an XML-RPC params chunk from a Python data structure.
     </td>
   </tr>
 <tr>
@@ -217,9 +215,6 @@ Exported functions:
     </td><td class="summary">
         <a href="xmlrpclib.ServerProxy-class.html" class="summary-name">Server</a><br />
       uri [,options] -&gt; a logical connection to an XML-RPC server
-
-uri is the connection point on the server, given as
-scheme://host/target.
     </td>
   </tr>
 <tr>
@@ -228,9 +223,6 @@ scheme://host/target.
     </td><td class="summary">
         <a href="xmlrpclib.ServerProxy-class.html" class="summary-name">ServerProxy</a><br />
       uri [,options] -&gt; a logical connection to an XML-RPC server
-
-uri is the connection point on the server, given as
-scheme://host/target.
     </td>
   </tr>
 <tr>
@@ -254,22 +246,22 @@ scheme://host/target.
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="xmlrpclib.Unmarshaller-class.html" class="summary-name">Unmarshaller</a><br />
-      Unmarshal an XML-RPC response, based on incoming XML event 
-        messages (start, data, end).
+      Unmarshal an XML-RPC response, based on incoming XML event messages
+        (start, data, end).
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="xmlrpclib._Method-class.html" class="summary-name">_Method</a>
+        <a href="xmlrpclib._Method-class.html" class="summary-name" onclick="show_private();">_Method</a>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="xmlrpclib._MultiCallMethod-class.html" class="summary-name">_MultiCallMethod</a>
+        <a href="xmlrpclib._MultiCallMethod-class.html" class="summary-name" onclick="show_private();">_MultiCallMethod</a>
     </td>
   </tr>
 </table>
@@ -328,9 +320,25 @@ scheme://host/target.
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a name="_datetime_type"></a><span class="summary-sig-name">_datetime_type</span>(<span class="summary-sig-arg">data</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="xmlrpclib-pysrc.html#_datetime_type">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a name="_decode"></a><span class="summary-sig-name">_decode</span>(<span class="summary-sig-arg">data</span>,
         <span class="summary-sig-arg">encoding</span>,
-        <span class="summary-sig-arg">is8bit</span>=<span class="summary-sig-default">&lt;built-in method search of _sre.SRE_Pattern object at 0xb79f4db0&gt;</span>)</span></td>
+        <span class="summary-sig-arg">is8bit</span>=<span class="summary-sig-default">&lt;built-in method search of _sre.SRE_Pattern object at 0x1da3d40&gt;</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xmlrpclib-pysrc.html#_decode">source&nbsp;code</a></span>
             
@@ -363,14 +371,11 @@ scheme://host/target.
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="xmlrpclib-module.html#dumps" class="summary-sig-name">dumps</a>(<span class="summary-sig-arg">params</span>,
-        <span class="summary-sig-arg">methodname</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">methodresponse</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">encoding</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">methodname</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">methodresponse</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">encoding</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">allow_none</span>=<span class="summary-sig-default">0</span>)</span><br />
-      data [,options] -&gt; marshalled data
-
-Convert an argument tuple or a Fault instance to an XML-RPC
-request (or response, if the methodresponse option is used).</td>
+      data [,options] -&gt; marshalled data</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xmlrpclib-pysrc.html#dumps">source&nbsp;code</a></span>
             
@@ -387,7 +392,7 @@ request (or response, if the methodresponse option is used).</td>
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="escape"></a><span class="summary-sig-name">escape</span>(<span class="summary-sig-arg">s</span>,
-        <span class="summary-sig-arg">replace</span>=<span class="summary-sig-default">&lt;function replace at 0xb7f1a95c&gt;</span>)</span></td>
+        <span class="summary-sig-arg">replace</span>=<span class="summary-sig-default">&lt;function replace at 0x7fed81239410&gt;</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xmlrpclib-pysrc.html#escape">source&nbsp;code</a></span>
             
@@ -399,13 +404,13 @@ request (or response, if the methodresponse option is used).</td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">parser, unmarshaller</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="xmlrpclib-module.html#getparser" class="summary-sig-name">getparser</a>()</span><br />
-      Create an instance of the fastest available parser, and attach it 
-      to an unmarshalling object.</td>
+      Create an instance of the fastest available parser, and attach it to 
+      an unmarshalling object.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xmlrpclib-pysrc.html#getparser">source&nbsp;code</a></span>
             
@@ -421,7 +426,8 @@ request (or response, if the methodresponse option is used).</td>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="xmlrpclib-module.html#loads" class="summary-sig-name">loads</a>(<span class="summary-sig-arg">data</span>)</span><br />
+          <td><span class="summary-sig"><a href="xmlrpclib-module.html#loads" class="summary-sig-name">loads</a>(<span class="summary-sig-arg">data</span>,
+        <span class="summary-sig-arg">use_datetime</span>=<span class="summary-sig-default">0</span>)</span><br />
       data -&gt; unmarshalled data, method name</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xmlrpclib-pysrc.html#loads">source&nbsp;code</a></span>
@@ -468,21 +474,21 @@ request (or response, if the methodresponse option is used).</td>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="FastMarshaller"></a><span class="summary-name">FastMarshaller</span> = <code title="'server.satellite'"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></code>
+        <a name="FastMarshaller"></a><span class="summary-name">FastMarshaller</span> = <code title="None">None</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="FastParser"></a><span class="summary-name">FastParser</span> = <code title="'server.satellite'"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></code>
+        <a name="FastParser"></a><span class="summary-name">FastParser</span> = <code title="None">None</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="FastUnmarshaller"></a><span class="summary-name">FastUnmarshaller</span> = <code title="'server.satellite'"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></code>
+        <a name="FastUnmarshaller"></a><span class="summary-name">FastUnmarshaller</span> = <code title="None">None</code>
     </td>
   </tr>
 <tr>
@@ -566,7 +572,7 @@ request (or response, if the methodresponse option is used).</td>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="SgmlopParser"></a><span class="summary-name">SgmlopParser</span> = <code title="'server.satellite'"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></code>
+        <a name="SgmlopParser"></a><span class="summary-name">SgmlopParser</span> = <code title="None">None</code>
     </td>
   </tr>
 <tr>
@@ -601,8 +607,8 @@ request (or response, if the methodresponse option is used).</td>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="xmlrpclib-module.html#WRAPPERS" class="summary-name">WRAPPERS</a> = <code title="(&lt;class xmlrpclib.DateTime at 0xb7a2ac5c&gt;,
- &lt;class xmlrpclib.Binary at 0xb7a2ac8c&gt;)"><code class="variable-group">(</code>&lt;class xmlrpclib.DateTime at 0xb7a2ac5c&gt;<code class="variable-op">, </code>&lt;class x<code class="variable-ellipsis">...</code></code>
+        <a href="xmlrpclib-module.html#WRAPPERS" class="summary-name">WRAPPERS</a> = <code title="(&lt;class xmlrpclib.DateTime at 0x1f45590&gt;,
+ &lt;class xmlrpclib.Binary at 0x1f455f0&gt;)"><code class="variable-group">(</code>&lt;class xmlrpclib.DateTime at 0x1f45590&gt;<code class="variable-op">, </code>&lt;class xm<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
@@ -639,15 +645,15 @@ request (or response, if the methodresponse option is used).</td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">dumps</span>(<span class="sig-arg">params</span>,
-        <span class="sig-arg">methodname</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="sig-arg">methodresponse</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="sig-arg">encoding</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">methodname</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">methodresponse</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">encoding</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">allow_none</span>=<span class="sig-default">0</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xmlrpclib-pysrc.html#dumps">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
   <pre class="literalblock">
 data [,options] -&gt; marshalled data
@@ -687,16 +693,12 @@ where necessary.
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xmlrpclib-pysrc.html#getparser">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Create an instance of the fastest available parser, and attach it to 
-  an unmarshalling object.  Return both objects.
+  <p>Create an instance of the fastest available parser, and attach it to 
+  an unmarshalling object.  Return both objects.</p>
   <dl class="fields">
-    <dt>Returns:</dt>
-        <dd><pre class="literalblock">
-parser, unmarshaller
-
-</pre></dd>
+    <dt>Returns: parser, unmarshaller</dt>
   </dl>
 </td></tr></table>
 </div>
@@ -707,18 +709,19 @@ parser, unmarshaller
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">loads</span>(<span class="sig-arg">data</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">loads</span>(<span class="sig-arg">data</span>,
+        <span class="sig-arg">use_datetime</span>=<span class="sig-default">0</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xmlrpclib-pysrc.html#loads">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
   <p>data -&gt; unmarshalled data, method name</p>
   <p>Convert an XML-RPC packet to unmarshalled data plus a method name 
   (None if not present).</p>
-  If the XML-RPC packet represents a fault condition, this function 
-  raises a Fault exception.
+  <p>If the XML-RPC packet represents a fault condition, this function 
+  raises a Fault exception.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -754,8 +757,8 @@ parser, unmarshaller
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-group">(</code>&lt;class xmlrpclib.DateTime at 0xb7a2ac5c&gt;<code class="variable-op">,</code>
- &lt;class xmlrpclib.Binary at 0xb7a2ac8c&gt;<code class="variable-group">)</code>
+<code class="variable-group">(</code>&lt;class xmlrpclib.DateTime at 0x1f45590&gt;<code class="variable-op">,</code>
+ &lt;class xmlrpclib.Binary at 0x1f455f0&gt;<code class="variable-group">)</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -785,10 +788,11 @@ parser, unmarshaller
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:51 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:06 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -799,9 +803,8 @@ parser, unmarshaller
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

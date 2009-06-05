@@ -31,7 +31,7 @@ Thank you for using @@PRODUCT_NAME@@.
 				<target>ਪਿਆਰੇ @@PRODUCT_NAME@@ ਉਪਭੋਗੀ,
 
 ਇਹ ਈਮੇਲ ਤੁਹਾਡੇ Red Hat ਲਾਗਇਨ ਲਈ ਤੁਹਾਡੇ ਵਲੋਂ ਦਿੱਤੇ ਗਏ
-ਈ-ਮੇਲ ਸਿਰਨਾਵੇਂ ਦੀ ਜਾਂਚ ਕਰਨ ਲਈ ਭੇਜੀ ਗਈ ਹੈ।ਤੁਹਾਡਾ Red Hat
+ਈ-ਮੇਲ ਸਿਰਨਾਵੇਂ ਦੀ ਜਾਂਚ ਕਰਨ ਲਈ ਭੇਜੀ ਗਈ ਹੈ। ਤੁਹਾਡਾ Red Hat
 ਲਾਗਿੰਨ, ਇੱਕ ਸਰਗਰਮ Red Hat ਮੈਂਬਰੀ ਦੇ ਨਾਲ, ਤੁਹਾਨੂੰ @@PRODUCT_NAME@@
 ਉੱਤੇ ਸਿਸਟਮ ਪਰਬੰਧਨ ਲਈ ਪਹੁੰਚ ਦਿੰਦਾ ਹੈ।
 
@@ -322,8 +322,7 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on @@PRODUCT_NAME@@ by following
-   the directions at https://rhn.redhat.com/help/faq/#26
+   delete your existing system profile on @@PRODUCT_NAME@@.
 
 2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
    the number of active Red Hat subscriptions associated with your
@@ -354,16 +353,15 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 
 ਪਿਛਲੇ ਦਿਨਾਂ ਵਿੱਚ ਤੁਹਾਡੇ Red Hat ਲਾਗ-ਇਨ ਅਤੇ ਖਾਤੇ ਨਾਲ
 ਹੇਠ ਦਿੱਤੇ ਸਿਸਟਮ ਸਬੰਧਿਤ ਹੋ ਗਏ ਹਨ, ਪਰ @@PRODUCT_NAME@@ ਸੇਵਾਵਾਂ ਨਾਲ
-ਇਨਟਾਇਟਲਮਿੰਟ ਨਹੀਂ ਕੀਤੇ ਜਾ ਸਕਦੇ ਹਨ।
+ਇਨਟਾਈਟਲਮੈਂਟ ਨਹੀਂ ਕੀਤੇ ਜਾ ਸਕਦੇ ਹਨ।
 
 {0}
 
 ਇਹ ਹੋਣ ਦੇ ਕਈ ਕਾਰਨ ਹੋ ਸਕਦੇ ਹਨ:
 
 1) ਤੁਸੀਂ ਹੁਣੇ ਇੱਕ ਸਿਸਟਮ ਮੁੜ-ਇੰਸਟਾਲ ਕੀਤਾ ਹੋ ਸਕਦਾ ਹੈ ਅਤੇ ਉਸ ਨੂੰ ਇੱਕ ਮੌਜੂਦਾ, ਸਰਗਰਮ
-   ਮੈਂਬਰੀ ਨਾਲ ਸਬੰਧਿਤ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਹੋ ਸਕਦੀ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਯਕੀਨੀ ਬਣਾਓ ਕਿ
-   @@PRODUCT_NAME@@ ਤੋਂ https://rhn.redhat.com/help/faq/#26
-   ਦਿੱਤੀਆਂ ਹਦਾਇਤਾਂ ਰਾਹੀਂ ਸਿਸਟਮ ਪਰੋਫਾਇਲ ਹਟਾ ਦਿੱਤਾ ਹੈ
+   ਮੈਂਬਰੀ ਨਾਲ ਸਬੰਧਿਤ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਹੋ ਸਕਦੀ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਯਕੀਨੀ ਬਣਾਓ ਕਿ 
+   @@PRODUCT_NAME@@ ਤੋਂ ਮੌਜੂਦਾ ਸਿਸਟਮ ਪਰੋਫਾਇਲ ਹਟਾ ਦਿੱਤਾ ਹੈ
 
 2) ਤੁਹਾਡੇ ਵਲੋਂ @@PRODUCT_NAME@@ ਨਾਲ ਜੁੜੇ ਸਿਸਟਮਾਂ ਦੀ ਗਿਣਤੀ ਤੁਹਾਡੇ ਖਾਤੇ ਨਾਲ
    ਸਬੰਧਿਤ ਸਰਗਰਮ Red Hat ਮੈਂਬਰੀਆਂ ਦੀ ਗਿਣਤੀ ਵੱਧ ਗਈ ਹੋ ਸਕਦੀ ਹੈ
@@ -541,7 +539,7 @@ Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
 				<target>ਇਹ ਤੁਹਾਡੇ {0} ਖਾਤੇ , {1} ਦੇ ਲਈ @@PRODUCT_NAME@@ ਹਾਲਤ ਰਿਪੋਰਟ ਹੈ।
 
-ਇਹ ਈ-ਮੇਲ ਭੇਜੀ ਗਈਹੈ, ਜਦੋਂ ਕਿ ਹੇਠ ਦਿੱਤੇ ਵਿੱਚੋਂ ਕੋਈ ਕੁਝ ਸਿਸਟਮਾਂ ਉੱਤੇਲਾਗੂ ਹੁੰਦੀ ਹੈ:
+ਇਹ ਈ-ਮੇਲ ਭੇਜੀ ਗਈਹੈ, ਜਦੋਂ ਕਿ ਹੇਠ ਦਿੱਤੇ ਵਿੱਚੋਂ ਕੋਈ ਕੁਝ ਸਿਸਟਮਾਂ ਉੱਤੇ ਲਾਗੂ ਹੁੰਦੀ ਹੈ:
 
 1.  ਸਿਸਟਮ ਇੱਕ 24-ਘੰਟਿਆਂ ਵਿੱਚ @@PRODUCT_NAME@@ ਨਾਲ ਸੰਪਰਕ ਕਰਨ ਵਿੱਚ ਅਸਫ਼ਲ ਰਿਹਾ ਹੈ।
 2.  ਸਿਸਟਮ ਨੇ ਕਾਰਵਾਈ ਸਮਾਂ-ਤਹਿ ਰਜਿਸਟਰ ਕਰਵਾਇਆ ਹੈ।
@@ -684,7 +682,7 @@ Thank you for using @@PRODUCT_NAME@@.
 
 ਇਹ ਈ-ਮੇਲ ਤੁਹਾਨੂੰ ਤੁਹਾਡੇ @@PRODUCT_NAME@@ ਸਾਰਟੀਫਿਕੇਟ ਦੀ ਮਿਆਦ ਬਾਰੇ ਭੇਜੀ ਗਈ ਹੈ ਕਿ
 ਇਹ ਤੁਹਾਡੇ ਲੋਕਲ ਸੈਟੇਲਾਈਟ {0} ਉੱਪਰ ਪੁੱਗ ਗਈ ਹੈ। {1} ਦਿਨ ਬਾਅਦ ਸਿਸਟਮ 
-ਪਰਬੰਧਨ ਸੇਵਾਵਾਂ ਜੋ ਤੁਹਾਡੇ @@PRODUCT_NAME@@ ਸਰਵਰ ਦੁਆਰਾ ਦਿੱਤੀਆਂ ਸਨ ਰੁਕ ਜਾਣਗੀਆਂ।
+ਪਰਬੰਧਨ ਸੇਵਾਵਾਂ ਜੋ ਤੁਹਾਡੇ @@PRODUCT_NAME@@ ਸਰਵਰ ਦੁਆਰਾ ਦਿੱਤੀਆਂ ਸਨ ਰੁਕ ਜਾਣਗੀਆਂ। 
 ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਅਸਲੀ Red Hat ਗਾਹਕ ਸੇਵਾ ਪ੍ਰਤੀਨਿਧੀ ਨਾਲ ਸੰਪਰਕ ਕਰੋ ਕਿ 
 ਸੈਟੇਲਾਈਟ ਸਾਰਟੀਫਿਕੇਟ ਕਿਵੇਂ ਮੁੜ ਨਵਾਂ ਕਰਨਾ ਹੈ।
 
@@ -712,7 +710,7 @@ Thank you for using @@PRODUCT_NAME@@.
 
 ਇਹ ਈ-ਮੇਲ ਤੁਹਾਨੂੰ ਤੁਹਾਡੇ @@PRODUCT_NAME@@ ਸਾਰਟੀਫਿਕੇਟ ਦੀ ਮਿਆਦ ਬਾਰੇ ਭੇਜੀ ਗਈ ਹੈ ਕਿ
 ਇਹ ਤੁਹਾਡੇ ਲੋਕਲ ਸੈਟੇਲਾਈਟ {0} ਉੱਪਰ ਪੁੱਗ ਗਈ ਹੈ। {1} ਦਿਨ ਬਾਅਦ ਸਿਸਟਮ 
-ਪਰਬੰਧਨ ਸੇਵਾਵਾਂ ਜੋ ਤੁਹਾਡੇ @@PRODUCT_NAME@@ ਸਰਵਰ ਦੁਆਰਾ ਦਿੱਤੀਆਂ ਸਨ ਰੁਕ ਜਾਣਗੀਆਂ।
+ਪਰਬੰਧਨ ਸੇਵਾਵਾਂ ਜੋ ਤੁਹਾਡੇ @@PRODUCT_NAME@@ ਸਰਵਰ ਦੁਆਰਾ ਦਿੱਤੀਆਂ ਸਨ ਰੁਕ ਜਾਣਗੀਆਂ। 
 ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਅਸਲੀ Red Hat ਗਾਹਕ ਸੇਵਾ ਪ੍ਰਤੀਨਿਧੀ ਨਾਲ ਸੰਪਰਕ ਕਰੋ ਕਿ 
 ਸੈਟੇਲਾਈਟ ਸਾਰਟੀਫਿਕੇਟ ਕਿਵੇਂ ਮੁੜ ਨਵਾਂ ਕਰਨਾ ਹੈ।
 

@@ -4,7 +4,7 @@
 		<body>
 			<trans-unit id="Queued">
 				<source>Queued</source>
-				<target>进入队列</target>
+				<target>排队的</target>
 			</trans-unit>
 			<trans-unit id="Picked Up">
 				<source>Picked Up</source>
@@ -12,11 +12,11 @@
 			</trans-unit>
 			<trans-unit id="Completed">
 				<source>Completed</source>
-				<target>完成</target>
+				<target>完成的</target>
 			</trans-unit>
 			<trans-unit id="Failed">
 				<source>Failed</source>
-				<target>失败</target>
+				<target>失败的</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Update Entitled Servers">
 				<source>Update</source>
@@ -48,15 +48,15 @@
 			</trans-unit>
 			<trans-unit id="Spacewalk Provisioning Entitled Servers">
 				<source>Provisioning</source>
-				<target>供应</target>
+				<target>Provisioning</target>
 			</trans-unit>
 			<trans-unit id="provisioning_entitled">
 				<source>Provisioning</source>
-				<target>供应</target>
+				<target>Provisioning</target>
 			</trans-unit>
 			<trans-unit id="provisioning_entitled">
 				<source>Provisioning</source>
-				<target>供应</target>
+				<target>Provisioning</target>
 			</trans-unit>
 			<trans-unit id="Non-Linux Entitled Servers">
 				<source>Non-Linux</source>
@@ -92,7 +92,7 @@
 			</trans-unit>
 			<trans-unit id="add-on">
 				<source>Add-On</source>
-				<target>添加</target>
+				<target>附加</target>
 			</trans-unit>
 			<trans-unit id="virtualization_host">
 				<source>Virtualization</source>
@@ -312,11 +312,11 @@
 			</trans-unit>
 			<trans-unit id="Command name">
 				<source>Command name</source>
-				<target>命令名</target>
+				<target>命令名称</target>
 			</trans-unit>
 			<trans-unit id="Count process groups">
 				<source>Count process groups</source>
-				<target>进程组数</target>
+				<target>进程组群计数</target>
 			</trans-unit>
 			<trans-unit id="Critical 1 min">
 				<source>Critical 1 min</source>
@@ -356,7 +356,7 @@
 			</trans-unit>
 			<trans-unit id="Critical Buffer Cache Hit Ratio">
 				<source>Critical Buffer Cache Hit Ratio</source>
-				<target>Critical 缓冲区缓存点中率</target>
+				<target>Critical 缓冲区缓存点击率</target>
 			</trans-unit>
 			<trans-unit id="Critical CLOSE_WAIT Connections">
 				<source>Critical CLOSE_WAIT Connections</source>
@@ -364,15 +364,15 @@
 			</trans-unit>
 			<trans-unit id="Critical CPU Load 1-Min Ave">
 				<source>Critical CPU Load 1-Min Ave</source>
-				<target>Critical CPU 负载1分钟平均值</target>
+				<target>Critical CPU 负载 1 分钟平均值</target>
 			</trans-unit>
 			<trans-unit id="Critical CPU Load 15-Min Ave">
 				<source>Critical CPU Load 15-Min Ave</source>
-				<target>Critical CPU 负载15分钟平均值</target>
+				<target>Critical CPU 负载 15 分钟平均值</target>
 			</trans-unit>
 			<trans-unit id="Critical CPU Load 5-Min Ave">
 				<source>Critical CPU Load 5-Min Ave</source>
-				<target>Critical CPU 负载5分钟平均值</target>
+				<target>Critical CPU 负载 5 分钟平均值</target>
 			</trans-unit>
 			<trans-unit id="Critical CPU Pct Used">
 				<source>Critical CPU Pct Used</source>

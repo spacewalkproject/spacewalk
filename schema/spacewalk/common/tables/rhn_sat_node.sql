@@ -50,7 +50,7 @@ CREATE INDEX rhn_sat_node_scid_idx
     TABLESPACE [[64k_tbs]]
     NOLOGGING;
 
-CREATE INDEX rhn_sat_node_sid_idx
+CREATE UNIQUE INDEX rhn_sat_node_sid_idx
     ON rhn_sat_node (server_id)
     TABLESPACE [[64k_tbs]]
     NOLOGGING;

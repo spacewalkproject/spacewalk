@@ -223,9 +223,9 @@ sub channel_edit_cb {
   }
   # bugzilla: 161517 - allow _ and / in channel labels
   # bugzilla: 459827 - disallow names longer than 64 characters
-  unless ($channel_name =~ /^[a-z][\w\d\s\-\.\'\(\)\/\_]*$/i and length($channel_name) >= 6 and length($channel_name) <= 64) {
+  unless ($channel_name =~ /^[a-z][\w\d\s\-\.\'\(\)\/\_]*$/i and length($channel_name) >= 6 and length($channel_name) <= 256) {
     $pxt->push_message(local_alert => "Invalid channel name '" .
-    PXT::Utils->escapeHTML($channel_name) . "' - must be at least 6 characters long and no longer than 64 characters, begin with a letter, and contain only letters, digits, spaces, '-', ' / ', '_' and '.'");
+    PXT::Utils->escapeHTML($channel_name) . "' - must be at least 6 characters long and no longer than 256 characters, begin with a letter, and contain only letters, digits, spaces, '-', ' / ', '_' and '.'");
     $errors++;
   }
 
@@ -438,7 +438,6 @@ sub build_clone_channel_details_form {
   my $subscribable = $ds->execute_query(-u_id => $pxt->user->id, -org_id => $pxt->user->org_id);
   my %perm_map = map { ($_->{ID}, 1) }
     grep { $_->{HAS_PERM} } @{$subscribable};
-
   @channel_list = grep { $perm_map{$_->{ID}} } @channel_list;
 
   my $clone_id = $pxt->dirty_param('clone_from') || 0;
@@ -453,7 +452,9 @@ sub build_clone_channel_details_form {
 							label => 'clone_from');
 
   my @my_channels = grep {$_->{CHANNEL_ORG_ID} and $_->{CHANNEL_ORG_ID} == $pxt->user->org_id} @channel_list;
-  my @other_channels = grep { not ($_->{CHANNEL_ORG_ID} and $_->{CHANNEL_ORG_ID} == $pxt->user->org_id) } @channel_list;
+##  my @other_channels = grep { not ($_->{CHANNEL_ORG_ID} and $_->{CHANNEL_ORG_ID} == $pxt->user->org_id) } @channel_list;
+  ##bugzilla
+  my @other_channels = grep { not ($_->{CHANNEL_ORG_ID}) } @channel_list;
 
   my @options = ( { NAME => 'My Channels', ID => 'my_channels', DEPTH => 1, OPTGROUP => 1 },
 		 @my_channels,
@@ -652,7 +653,7 @@ sub channel_edit_form {
     $subs{channel_label} .= '<br />Ex: custom-channel';
   }
   if ($editable{channel_name}) {
-    $subs{channel_name} = PXT::HTML->text(-name => 'channel_name', -value => $subs{channel_name}, -size => 48, -maxlength => 64);
+    $subs{channel_name} = PXT::HTML->text(-name => 'channel_name', -value => $subs{channel_name}, -size => 48, -maxlength => 256);
   }
   if ($editable{channel_summary}) {
     $subs{channel_summary} = PXT::HTML->text(-name => 'channel_summary', -value => $subs{channel_summary}, -size => 40, -maxlength => 500);
@@ -711,7 +712,7 @@ sub channel_select_options {
   my %perm_map = map { ('channel_' . $_->{ID}, 1) }
     grep { $_->{HAS_PERM} } @{$subscribable};
 
-  if ($mode eq 'channel_manager' or $mode eq 'compare_channels' or
+  if ($mode eq 'channel_manager' or
       $mode eq 'channel_patchset_manager' or $mode eq 'channel_patch_manager') {
     throw "param cid needed but not provided"
       unless $cid;
@@ -746,6 +747,18 @@ sub channel_select_options {
       @org_channels = grep { $perm_map{$_->[1]} } @org_channels;
       push @channel_list, @org_channels;
     }
+  }
+  elsif ($mode eq 'compare_channels') {
+      my @org_channels = RHN::Channel->channels_owned_by_org($pxt->user->org_id);
+      my @rh_channels = RHN::Channel->channels_owned_by_org('NULL');
+
+      @org_channels = grep { $perm_map{$_->[1]} } @org_channels;
+      @rh_channels = grep { $perm_map{$_->[1]} } @rh_channels;
+
+      push @channel_list, ([ 'My Channels', 'my_channels', 'optgroup' ],
+                           @org_channels,
+                           [ 'Red Hat Channels', 'redhat_channels', 'optgroup' ],
+                           @rh_channels);
   }
   elsif ($mode eq 'errata_manager') {
     @channel_list = ([ 'All managed packages', 'any_channel' ]);
@@ -866,6 +879,11 @@ sub channel_sync_prompt {
 
   my %s = (target_channel => sprintf("<strong>%s</strong>", $target->label),
 	   source_channel => sprintf("<strong>%s</strong>", $source->label));
+
+  # Clear the packages for merge set to remove any old selections:
+  my $set = RHN::Set->lookup(-label => 'packages_for_merge', -uid => $pxt->user->id);
+  $set->empty;
+  $set->commit;
 
   return PXT::Utils->perform_substitutions($params{__block__}, \%s);
 }

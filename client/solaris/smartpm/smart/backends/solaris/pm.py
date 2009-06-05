@@ -60,12 +60,12 @@ def solinstall(adminfile, path, pkg, prog=None):
                     raise UnzipException("patch %s not in a zip file: %s" % \
                                              (pkg.name, path))
 
-                cmdstr = "unzip %s -u -d %s" % (path, tdir)
+                cmdstr = "unzip -u %s -d %s" % (path, tdir)
                 ret, x = commands.getstatusoutput(cmdstr)
 
                 if ret != 0:
-                    raise UnzipException("patch %s: unzip of %s failed" % \
-                                             (pkg.name, path))
+                    raise UnzipException("patch %s: unzip of %s into %s failed: %s" % \
+                                             (pkg.name, path, tdir, x))
 
                 zf = zipfile.ZipFile(path)
                 pd = zf.namelist()[0].split('/')[0]

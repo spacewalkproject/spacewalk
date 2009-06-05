@@ -152,7 +152,7 @@
     </activity>
 
     <collect-data description="Enable Monitoring Proxy"
-     acl="org_entitlement(rhn_monitor); package_available(rhns-proxy-monitoring); global_config(satellite); global_config(is_monitoring_backend)">
+     acl="org_entitlement(rhn_monitor); package_available(spacewalk-proxy-monitoring); global_config(satellite); global_config(is_monitoring_backend)">
 
       <header>
 Would you like to enable Monitoring Proxy functionality on this system?
@@ -624,15 +624,6 @@ fi
         <configfile acl="global_config(ssl_available);session_data_true(enable_osad)">/etc/jabberd/c2s.xml</configfile>
         <configfile acl="global_config(ssl_available);session_data_true(enable_osad)">/etc/jabberd/sm.xml</configfile>
       </deploy-configs> 
-
-      <run-script acl="session_data_true(enable_monitoring)">
-        <action-name>Enable Monitoring Services</action-name>
-        <script>
-#!/bin/sh
-
-/etc/rc.d/np.d/step MonitoringScout install
-        </script>
-      </run-script>
 
       <run-script>
         <action-name>Allow Proxy service to read Satellite Configuration</action-name>

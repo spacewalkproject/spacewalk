@@ -34,8 +34,8 @@ import java.util.Map;
  */
 public class ApiDoclet {
     
-    private static final   String XMLRPC_DOC = "@xmlrpc.doc"; 
-    private static final  String XMLRPC_PARAM = "@xmlrpc.param";
+    private static final String XMLRPC_DOC = "@xmlrpc.doc";
+    private static final String XMLRPC_PARAM = "@xmlrpc.param";
     private static final String XMLRPC_RETURN = "@xmlrpc.returntype";
     private static final String XMLRPC_NAMESPACE = "@xmlrpc.namespace";
     private static final String XMLRPC_IGNORE = "@xmlrpc.ignore";

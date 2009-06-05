@@ -26,6 +26,10 @@
       <rhn-tab-url>/network/software/channels/manage/errata/clone.pxt</rhn-tab-url>
       <rhn-tab-url>/network/software/channels/manage/errata/clone_confirm.pxt</rhn-tab-url>
     </rhn-tab>
+    <rhn-tab name="Sync" acl="channel_is_clone();user_role(channel_admin);" node-id="sync_errata">
+      <rhn-tab-url>/rhn/channels/manage/errata/SyncErrata.do</rhn-tab-url>
+      <rhn-tab-url>/rhn/channels/manage/errata/ConfirmSyncPackages.do</rhn-tab-url>
+    </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Packages" acl="channel_exists()">
     <rhn-tab-url>/rhn/channels/manage/ChannelPackageMenu.do</rhn-tab-url>

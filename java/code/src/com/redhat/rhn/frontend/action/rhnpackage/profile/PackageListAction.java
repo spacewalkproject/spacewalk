@@ -25,12 +25,12 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.redhat.rhn.domain.rhnpackage.profile.Profile;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
-import com.redhat.rhn.domain.rhnpackage.profile.Profile;
 import com.redhat.rhn.manager.profile.ProfileManager;
 
 /**
@@ -63,7 +63,7 @@ public class PackageListAction extends RhnAction implements Listable {
 
         Map params = new HashMap();
         params.put(RequestContext.PRID, context.getRequiredParam(RequestContext.PRID));
-        ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
+        ListHelper helper = new ListHelper(this, request, params);
         helper.setDataSetName(DATA_SET);
         helper.execute();
 

@@ -53,7 +53,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
     public static final String VIRTUAL_BRIDGE = "virtBridge";
     public static final String VIRTUAL_FILE_PATH = "diskPath";
     public static final String LOCAL_STORAGE_MB = "localStorageMegabytes";
-    
+    public static final String PROFILE = "profile";
     
     public static final String GUEST_NAME = "guestName";
     public static final int MIN_NAME_SIZE = 4;
@@ -78,7 +78,6 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         if (StringUtils.isEmpty(form.getString(LOCAL_STORAGE_MB))) {
                 form.set(LOCAL_STORAGE_MB, "");
         }
-        
 
         return super.runFirst(mapping, form, ctx, response, step);
     }
@@ -86,10 +85,40 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
     /**
      * {@inheritDoc}
      */
+    @Override
     public ActionForward runSecond(ActionMapping mapping, DynaActionForm form, 
             RequestContext ctx, HttpServletResponse response, 
             WizardStep step) throws Exception {        
-
+        if (!validateFirstSelections(form, ctx)) {            
+            return runFirst(mapping, form, ctx, response, step);
+        }
+        ActionErrors errors = validateInput(form);
+        if (!errors.isEmpty()) {
+            addErrors(ctx.getRequest(), errors);
+            //saveMessages(ctx.getRequest(), errors);
+            return runFirst(mapping, form, ctx, response, step);
+        }
+        Profile pf = getCobblerProfile(ctx);
+        if (StringUtils.isEmpty(form.getString(VIRTUAL_FILE_PATH))) {
+            form.set(VIRTUAL_FILE_PATH, ProvisionVirtualInstanceCommand.
+                                makeDefaultVirtPath(form.getString(GUEST_NAME)));
+        }
+        if (StringUtils.isEmpty(form.getString(MEMORY_ALLOCATION))) {
+            form.set(MEMORY_ALLOCATION, String.valueOf(pf.getVirtRam()));
+        }
+        
+        if (StringUtils.isEmpty(form.getString(VIRTUAL_CPUS))) {
+            form.set(VIRTUAL_CPUS, String.valueOf(pf.getVirtCpus()));
+        }
+        
+        if (StringUtils.isEmpty(form.getString(LOCAL_STORAGE_MB))) {
+            form.set(LOCAL_STORAGE_MB, String.valueOf(pf.getVirtFileSize()));
+        }
+        
+        if (StringUtils.isEmpty(form.getString(VIRTUAL_BRIDGE))) {
+            form.set(VIRTUAL_BRIDGE, String.valueOf(pf.getVirtBridge()));
+        }
+        
         return super.runSecond(mapping, form, ctx, response, step);
     }
 
@@ -178,14 +207,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         else {
             cmd.setVirtBridge(this.getCobblerProfile(ctx).getVirtBridge());
         }
-        
-        if (!StringUtils.isEmpty(form.getString(VIRTUAL_FILE_PATH))) {
-            cmd.setFilePath(form.getString(VIRTUAL_FILE_PATH));
-        }
-        else {
-            cmd.setFilePath(this.getCobblerProfile(ctx).getVirtPath());
-        }
-                
+        cmd.setFilePath(form.getString(VIRTUAL_FILE_PATH));
         storeProxyInfo(form, ctx, cmd);
         // Store the new KickstartSession to the DB.
         ValidatorError ve = cmd.store();
@@ -270,21 +292,26 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
      * @param context the request context
      * @return the cobbler profile
      */
-    public Profile getCobblerProfile(RequestContext context) {
-        return (Profile) context.getRequest().getAttribute("profile");
+    private Profile getCobblerProfile(RequestContext context) {
+        if (context.getRequest().getAttribute(PROFILE) == null) {
+            String cobblerId = (String) context.getRequest().getAttribute(
+                                                    RequestContext.COBBLER_ID);
+            User user = context.getLoggedInUser();
+            Profile cobblerProfile = org.cobbler.Profile.lookupById(
+                    CobblerXMLRPCHelper.getConnection(user), cobblerId);
+            context.getRequest().setAttribute(PROFILE, cobblerProfile);
+        }
+        return (Profile) context.getRequest().getAttribute(PROFILE);
     }
     
     @Override
     protected ProvisionVirtualInstanceCommand getScheduleCommand(DynaActionForm form,
             RequestContext ctx, Date scheduleTime, String host) {
-        String cobblerId = form.getString(RequestContext.COBBLER_ID);
+        Profile cobblerProfile = getCobblerProfile(ctx);
         User user = ctx.getLoggedInUser();
         ProvisionVirtualInstanceCommand cmd;
         KickstartData data = KickstartFactory.
-                lookupKickstartDataByCobblerIdAndOrg(user.getOrg(), cobblerId);
-        Profile cobblerProfile = org.cobbler.Profile.lookupById(
-                CobblerXMLRPCHelper.getConnection(user), cobblerId);        
-        ctx.getRequest().setAttribute("profile", cobblerProfile);
+                lookupKickstartDataByCobblerIdAndOrg(user.getOrg(), cobblerProfile.getId());
         
         if (data != null) {
             cmd = 

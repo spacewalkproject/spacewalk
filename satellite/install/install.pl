@@ -73,6 +73,17 @@ Spacewalk::Setup::upgrade_stop_services(\%opts);
 remove_obsoleted_packages(\%opts);
 
 my $have_yum = ( -f '/usr/bin/yum' ? 1 : 0 );
+if ($have_yum) {
+    # If we have yum available but are on RHEL 4, stick with up2date:
+    # NOTE: Even if the system has no redhat-release (i.e. Fedora) this regex
+    # will simply not match.
+    my $redhat_release = `rpm -q --qf='%{VERSION}' redhat-release`;
+    if ($redhat_release =~ /^4.*/) {
+        $have_yum = 0;
+        print loc("Warning: Found yum on RHEL 4, using up2date instead.\n");
+    }
+}
+
 
 my $run_updater;
 if (defined $opts{'run-updater'}) {
@@ -171,12 +182,13 @@ EOQ
     if (have_semodule()) {	# we have modular SELinux policy (RHEL 5)
       if (getenforce() eq 'Disabled') {		# we should use it
         print loc(<<EOH);
-SELinux should be in Permissive or Enforcing mode for your RHN Satellite
-to install and function properly.  Run /usr/sbin/getenforce to see your
-current mode.  If you are certain that you are not in Disabled mode or
-you want to install in Disabled anyway, re-run the installer with the
-flag --skip-selinux-test.  Please see the documentation for steps needed
-to enable SELinux post install.
+Red Hat recommends SELinux be configured in either Permissive or Enforcing
+mode for your RHN Satellite installation.  Run /usr/sbin/getenforce to see your
+current mode.  If you wish to run in Disabled mode, re-run the installer with
+the flag --skip-selinux-test.  When you install while SELinux is disabled and
+want to enable SELinux later, run /usr/sbin/spacewalk-selinux-enable once
+you've enabled SELinux, to run the post-installation steps which would
+otherwise be run by the installer.
 EOH
         exit 3;
       }
@@ -835,10 +847,12 @@ sub get_arches_for_needed_rpms {
 
 sub up2date_command_for_arch {
   my ($needed_rpms, $arch) = @_;
+  my $system_arch = `uname -i`;
+  chomp $system_arch;
   if ($arch eq '') {
     my @pkgs = sort grep { not /\./ } keys %$needed_rpms;
     if (@pkgs) {
-      return ('up2date', '-i', @pkgs);
+      return ('up2date', "--arch=$system_arch", '--arch=noarch', '-i', @pkgs);
     }
   } else {
     my @pkgs = sort map { s/\..*$//; $_ } grep { /\.$arch$/ } keys %$needed_rpms;
@@ -874,7 +888,10 @@ EOF
 
 sub purge_needed_rpms {
   my $needed_rpms = shift;
+  my $system_arch = `uname -i`;
+  chomp $system_arch;
   my @anyarch_pkgs = grep { not /\./ } keys %$needed_rpms;
+  @anyarch_pkgs = map { ($_ . ".noarch", $_ . ".$system_arch") } @anyarch_pkgs;
   my @somearch_pkgs = grep { /\./ } keys %$needed_rpms;
   my @installed_needed_rpms = grep { not /\s/ }
     map { chomp; $_ }
@@ -1000,96 +1017,4 @@ sub get_product_name {
   return "$productName";
 }
 
-
-__END__
-
-=head1 NAME
-
-install.pl - RHN Satellite Installer
-
-=head1 SYNOPSIS
-
-install.pl [options]
-
-=head1 OPTIONS
-
-=over 8
-
-=item B<--help>
-
-Print this help message.
-
-=item B<--answer-file=<filename>>
-
-Indicates the location of an answer file to be use for answering questions asked during the installation process.  See answers.txt for an example.
-
-=item B<--non-interactive>
-
-For use only with --answer-file.  If the --answer-file doesn't provide a required response, exit instead of prompting the user.
-
-=item B<--re-register>
-
-Register the system with RHN, even if it is already registered.
-
-=item B<--disconnected>
-
-Install the satellite in disconnected mode.
-
-=item B<--clear-db>
-
-Clear any pre-existing database schema before installing.  This will destroy any data in the Satellite database and re-create empty Satellite schema.
-
-=item B<--skip-system-version-test>
-
-Do not test the Red Hat Enterprise Linux version before installing.
-
-=item B<--skip-selinux-test>
-
-Do not check if SELinux is enabled. RHN Satellite is supported with Enforcing SELinux with targeted policy on RHEL 5. On RHEL 4, Enforcing is not supported.
-
-=item B<--skip-fqdn-test>
-
-Do not verify that the system has a valid hostname.  RHN Satellite requires that the hostname be properly set during installation.  Using this option may result in a Satellite server that is not fully functional.
-
-=item B<--skip-db-install>
-
-Do not install the embedded database.  This option may be useful if you are re-installing the satellite, and do not want to clear the database.
-
-=item B<--skip-db-diskspace-check>
-
-Do not check to make sure there is enough free disk space to install the embedded database.
-
-=item B<--skip-db-population>
-
-Do not populate the database schema.
-
-=item B<--skip-gpg-key-import>
-
-Do not import Red Hat's GPG key.
-
-=item B<--skip-ssl-cert-generation>
-
-Do not generate the SSL certificates for the Satellite.
-
-=item B<--upgrade>
-
-Only runs necessary steps for a Satellite upgrade.
-
-=item B<--skip-services-check>
-
-Proceed with upgrade if services are already stopped.
-
-=item B<--run-updater>
-
-Do not ask and install needed packages from RHN, provided the system is registered.
-
-=item B<--run-updater=no>
-
-Stop when there are needed packages missing, do not ask.
-
-=back
-
-=head1 DESCRIPTION
-
-B<This program> will install the RHN Satellite server.  See the RHN Satellite Installation Guide for more details.
 

@@ -260,11 +260,11 @@
 			</trans-unit>
 			<trans-unit id="configchannel.nav.systems.subscribed">
 				<source>Subscribed Systems</source>
-				<target>সাবস্ক্রাইব করা তালিকা</target>
+				<target>সাবস্ক্রাইব করা সিস্টেম</target>
 			</trans-unit>
 			<trans-unit id="Subscribed Systems">
 				<source>Subscribed Systems</source>
-				<target>সাবস্ক্রাইব করা তালিকা</target>
+				<target>সাবস্ক্রাইব করা সিস্টেম</target>
 			</trans-unit>
 			<trans-unit id="configfile.nav.details">
 				<source>Details</source>
@@ -332,7 +332,7 @@
 			</trans-unit>
 			<trans-unit id="nav.sdc.config.list_unsubscribe_channels">
 				<source>List/Unsubscribe from Channels</source>
-				<target>চ্যানেলের তালিকা নির্মাণ অথবা আন-সাবস্ক্রাইব করুন</target>
+				<target>তালিকা নির্মাণ অথবা চ্যানেল থেকে আন-সাবস্ক্রাইব করুন</target>
 			</trans-unit>
 			<trans-unit id="nav.sdc.config.rank_channels">
 				<source>View/Modify Rankings</source>
@@ -589,10 +589,6 @@
 			<trans-unit id="Critical">
 				<source>Critical</source>
 				<target>গুরুতর</target>
-			</trans-unit>
-			<trans-unit id="Warning">
-				<source>Warning</source>
-				<target>সতর্কতামূলক</target>
 			</trans-unit>
 			<trans-unit id="Unknown">
 				<source>Unknown</source>

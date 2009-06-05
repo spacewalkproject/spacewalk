@@ -47,6 +47,7 @@ public class ProbeSuiteListSetupActionTest extends RhnBaseTestCase {
         for (int i = 0; i < 5; i++) {
             ProbeSuiteTest.createTestProbeSuite(user);
         }
+        sah.getRequest().setupAddParameter("submitted", "false");
         sah.setupClampListBounds();
         sah.executeAction();
         RhnMockHttpServletRequest request = sah.getRequest();

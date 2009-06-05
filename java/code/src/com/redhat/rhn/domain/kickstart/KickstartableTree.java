@@ -175,7 +175,10 @@ public class KickstartableTree extends BaseDomainHelper {
     /**
      * Get the default download location for this KickstartableTree.
      * 
-     * eg: http://rlx-3-10.rhndev.redhat.com/rhn/kickstart/ks-rhel-i386-as-4
+     * eg: /rhn/kickstart/ks-rhel-i386-as-4
+     *
+     * NOTE: the default path does not include a host.
+     *  We append the host if it starts with a '/'
      * 
      * @param host used to Kickstart from
      * @return String url
@@ -196,9 +199,6 @@ public class KickstartableTree extends BaseDomainHelper {
             }
             else {
                 StringBuilder buf = new StringBuilder();
-                if (host != null && host.length() > 0) {
-                    buf.append("http://").append(host);
-                }
                 if (!defaultLocation.startsWith("/")) {
                     buf.append("/");
                 }
@@ -267,6 +267,9 @@ public class KickstartableTree extends BaseDomainHelper {
         if (arch.equals("channel-s390") || arch.endsWith("channel-s390x")) {
             return StringUtil.addPath(getAbsolutePath(), "/images/kernel.img");
         }
+        else if (arch.equals("channel-ppc")) {
+            return StringUtil.addPath(getAbsolutePath(), "/ppc/ppc64/vmlinuz");
+        }
         else {
             return StringUtil.addPath(getAbsolutePath(), "/images/pxeboot/vmlinuz");
         }
@@ -282,6 +285,9 @@ public class KickstartableTree extends BaseDomainHelper {
         String arch = this.getChannel().getChannelArch().getLabel();
         if (arch.equals("channel-s390") || arch.endsWith("channel-s390x")) {
             return StringUtil.addPath(getAbsolutePath(), "/images/initrd.img");
+        }
+        else if (arch.equals("channel-ppc")) {
+            return StringUtil.addPath(getAbsolutePath(), "/ppc/ppc64/ramdisk.image.gz");
         }
         else {
             return StringUtil.addPath(getAbsolutePath(), "/images/pxeboot/initrd.img");

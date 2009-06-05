@@ -301,7 +301,6 @@ public class PackageFactory extends HibernateFactory {
         return singleton.listObjectsByNamedQuery("Package.lookupFromSet", params);
 
     }
-
     /**
      * Returns PackageOverviews from a search.
      * @param pids List of package ids returned from search server.
@@ -309,6 +308,17 @@ public class PackageFactory extends HibernateFactory {
      * @return PackageOverviews from a search.
      */
     public static List<PackageOverview> packageSearch(List pids, List archLabels) {
+        return packageSearch(pids, archLabels, true);
+    }
+    /**
+     * Returns PackageOverviews from a search.
+     * @param pids List of package ids returned from search server.
+     * @param archLabels List of channel arch labels.
+     * @param relevantFlag if set will only return packages relevant to subscribed channels
+     * @return PackageOverviews from a search.
+     */
+    public static List<PackageOverview> packageSearch(List pids, List archLabels,
+            boolean relevantFlag) {
         List results = null;
         Map params = new HashMap();
         params.put("pids", pids);
@@ -317,8 +327,13 @@ public class PackageFactory extends HibernateFactory {
             results = singleton.listObjectsByNamedQuery("Package.searchByIdAndArches",
                     params);
         }
+        else if (relevantFlag) {
+            results =
+                singleton.listObjectsByNamedQuery("Package.relevantSearchById", params);
+        }
         else {
-            results = singleton.listObjectsByNamedQuery("Package.searchById", params);
+            results =
+                singleton.listObjectsByNamedQuery("Package.searchById", params);
         }
         List<PackageOverview> realResults = new ArrayList<PackageOverview>();
         for (Object result : results) {
@@ -327,6 +342,11 @@ public class PackageFactory extends HibernateFactory {
             po.setId((Long) values[0]);
             po.setPackageName((String) values[1]);
             po.setSummary((String) values[2]);
+            po.setPackageArch((String)values[3]);
+            po.setDescription((String) values[4]);
+            po.setEpoch((String) values[5]);
+            po.setVersion((String) values[6]);
+            po.setRelease((String) values[7]);
             realResults.add(po);
         }
 

@@ -158,7 +158,6 @@ public class Config {
     
     public static final String TAKE_SNAPSHOTS = "enable_snapshots";
 
-
     /**
      * The default maximum size for config revisions,  (128 K)
      */
@@ -174,6 +173,13 @@ public class Config {
     public static final String KICKSTART_COBBLER_DIR = "kickstart.cobbler.dir"; 
     public static final String COBBLER_SNIPPETS_DIR = "cobbler.snippets.dir";
     private static final String DEFAULT_COBBLER_SNIPPET_DIR = "/var/lib/cobbler/snippets";
+    
+    public static final String VIRT_PATH_DIR = "kickstart.virt_storage_path";
+    private static final String DEFAULT_VIRT_PATH = "/var/lib/xen";
+    public static final String VIRT_BRIDGE = "kickstart.virt_bridge";
+    public static final String VIRT_MEM = "kickstart.virt_mem_size_kb";
+    public static final String VIRT_CPU = "kickstart.virt_cpus";
+    public static final String VIRT_DISK = "kickstart.virt_disk_size_gb";
     /**
      * array of prefix in the order they should be search
      * if the given lookup string is without a namespace.
@@ -437,6 +443,18 @@ public class Config {
         return value.split(",");
     }
 
+    /**
+     * get the config entry for string s, if no value is found
+     * return the defaultValue specified.
+     *
+     * @param s string to get the value of
+     * @param defaultValue Default value if entry is not found.
+     * @return the value
+     */
+    public long getLong(String s, long defaultValue) {
+        return Long.valueOf(getString(s, String.valueOf(defaultValue)));
+    }
+    
     /**
      * get the config entry for string name
      *
@@ -756,8 +774,7 @@ public class Config {
      * @return the dir which has the kickstarts
      */
     public String getKickstartConfigDir() {
-        return Config.get().getString(KICKSTART_COBBLER_DIR,
-                                            "/var/lib/rhn/kickstarts/");
+        return getString(KICKSTART_COBBLER_DIR, "/var/lib/rhn/kickstarts/");
     }
     
     /**
@@ -770,6 +787,46 @@ public class Config {
      * @return the dir which has the kickstarts cobbler snippets
      */
     public String getCobblerSnippetsDir() {
-        return Config.get().getString(COBBLER_SNIPPETS_DIR, DEFAULT_COBBLER_SNIPPET_DIR);
+        return getString(COBBLER_SNIPPETS_DIR, DEFAULT_COBBLER_SNIPPET_DIR);
     }
+    
+    /**
+     * Returns the base directory where the virt artifacts will be stored.
+     * This information is used while setting up system records and so on..
+     * @return the virt path..
+     */
+    public File getVirtPath() {
+        return new File(getString(VIRT_PATH_DIR, DEFAULT_VIRT_PATH));
+    }
+    
+    /**
+     * Returns the default value for the xen virt bridge
+     * @return  the value for virt bridge.
+     */
+    public String getDefaultXenVirtBridge() {
+        return getString(VIRT_BRIDGE, "xenbr0");
+    }
+    /**
+     * Returns the default virt disk size in GBs
+     * @return the virt disk size
+     */
+    public int getDefaultVirtDiskSize() {
+        return getInt(VIRT_DISK, 3);
+    }
+
+    /**
+     * Returns the defualt VirtMemory Size in KBs
+     * @return the memory size
+     */
+    public long getDefaultVirtMemorySize() {
+        return getLong(VIRT_MEM, 262144);
+    }
+    
+    /**
+     * Returns the default number of virt cpus
+     * @return the number of virt cpus
+     */
+    public int getDefaultVirtCpus() {
+        return getInt(VIRT_CPU, 1);
+    }    
 }

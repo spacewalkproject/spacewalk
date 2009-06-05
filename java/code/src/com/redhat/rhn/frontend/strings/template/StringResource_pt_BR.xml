@@ -322,8 +322,7 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on @@PRODUCT_NAME@@ by following
-   the directions at https://rhn.redhat.com/help/faq/#26
+   delete your existing system profile on @@PRODUCT_NAME@@.
 
 2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
    the number of active Red Hat subscriptions associated with your
@@ -361,8 +360,7 @@ Há diversas possíveis razões para isto:
 
 1) Recentemente, você reinstalou um sistema e está tentando associá-lo
    a uma assinatura existente ativa. Por favor certifique-se de remover
-   seu perfil existente no @@NOME_DO_PRODUTO@@ seguindo os passos
-   descritos em https://rhn.redhat.com/help/faq/#26
+   seu perfil existente no @@NOME_DO_PRODUTO@@.
 
 2) O número de sistemas que você conectou ao @@NOME_DO_PRODUTO@@ excede
    o número de assinaturas Red Hat ativas associadas à sua conta.
@@ -680,7 +678,7 @@ Prezado Usuário do @@NOME_DO_PRODUTO@@,
 
 Este e-mail está sendo enviado para lhe informar que o seu Certificado do @@NOME_DO_PRODUTO@@
 seu Satellite {0} local está vencido. Após {1} dia(s) os serviços 
-de gerenciamento de sistemas oferecidos pelo seu @@NOME_DO_PRODUTO@@ irão se tornar inacessíveis.
+de gerenciamento de sistemas oferecidos pelo seu @@NOME_DO_PRODUTO@@ irão se tornar inacessíveis. 
 Por favor contate o seu Representante regional de Serviços ao Cliente da Red Hat para informações 
 sobre como renovar o seu Certificado do @@NOME_DO_PRODUTO@@.
 
@@ -706,7 +704,7 @@ Thank you for using @@PRODUCT_NAME@@.
 				<target>
 Prezado Usuário do @@NOME_DO_PRODUTO@@,
 
-Este e-mail está sendo enviado para lhe informar que o seu Certificado do @@NOME_DO_PRODUTO@@
+Este e-mail está sendo enviado para lhe informar que o seu Certificado do @@NOME_DO_PRODUTO@@ 
 do seu Satellite local {0} venceu. Os serviços de gerenciamento de sistemas ficarão inacessíveis até que 
 o seu certificado seja renovado. Por favor contate o seu Representante regional de Serviços ao Cliente 
 da Red Hat para informações sobre como renovar o seu Certificado do @@NOME_DO_PRODUTO@@.

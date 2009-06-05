@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.6.4
+Version:        0.6.8
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -62,6 +62,7 @@ install -m 0644 share/ssl.conf.2 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/ssl.conf.3 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/ssl.conf.4 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/ssl.conf.5 %{buildroot}/%{_datadir}/spacewalk/setup/
+install -m 0644 share/ssl.conf.6 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/old-jvm-list %{buildroot}/%{_datadir}/spacewalk/setup/
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/upgrade
@@ -76,6 +77,7 @@ install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/oracle/
 install -m 0755 share/oracle/install-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/oracle
 install -m 0755 share/oracle/remove-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/oracle
 install -m 0755 share/oracle/upgrade-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/oracle
+install -m 0755 share/oracle/upgrade-db-10g.sh %{buildroot}/%{_datadir}/spacewalk/setup/oracle
 
 
 %check
@@ -91,6 +93,7 @@ rm -rf %{buildroot}
 %doc Changes README
 %{perl_vendorlib}/*
 %{_bindir}/spacewalk-setup
+%{_bindir}/spacewalk-make-mount-points
 %{_bindir}/cobbler-setup
 %{_mandir}/man[13]/*.[13]*
 %{_datadir}/spacewalk/*
@@ -98,6 +101,34 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Fri Jun 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.8-1
+- no need to enable Monitoring + MonitoringScout explicitly (mzazrivec@redhat.com)
+- Fixes to support mod_jk >= 2.2.26. (dgoodwin@redhat.com)
+- distinguish minor and major version embedded db upgrades (mzazrivec@redhat.com)
+- include new embedded db upgrade script into spec file (mzazrivec@redhat.com)
+- add 10g 10.2.0.3 -> 10.2.0.4 embedded db setup upgrade script (mzazrivec@redhat.com)
+- pass custom sid to upgrade-db.sh for embedded db upgrade (mzazrivec@redhat.com)
+- update copyright information (mzazrivec@redhat.com)
+- support embedded db upgrade with custom sid (mzazrivec@redhat.com)
+- 502475 - remove initialization of scout from perl (msuchy@redhat.com)
+- 502475 - add ip address to SatCluster and SatNode (msuchy@redhat.com)
+- restart satellite using shell script (mzazrivec@redhat.com)
+- 464189 - embedded db upgrade fixes from Goldmember (mmraka@redhat.com)
+- set compatible flag to 10.2 during embedded db upgrade (mzazrivec@redhat.com)
+
+* Wed May 27 2009 Jan Pazdziora 0.6.7-1
+- spacewalk-setup: move creation of mount points to
+  /usr/bin/spacewalk-make-mount-points
+
+* Tue May 26 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.6-1
+- 500688 - Clarify --run-updater help info in spacewalk-setup.
+  (dgoodwin@redhat.com)
+
+* Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.5-1
+- 499901 - made cobbler sync run along with cobbler setup (paji@redhat.com)
+- Make SELinux documentation in Spacewalk::Setup more up-to-date. (jpazdziora@redhat.com)
+- Bump up version in Spacewalk/Setup.pm. (jpazdziora@redhat.com)
+
 * Wed May 06 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.4-1
 - no need to enable notification anymore (mzazrivec@redhat.com)
 

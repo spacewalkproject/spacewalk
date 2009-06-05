@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.6.4
+Version: 0.6.5
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -58,6 +58,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_sysconfdir}/rhn/satellite-httpd/conf/startup.pl
 %config(noreplace) %{_sysconfdir}/rhn/satellite-httpd/conf/rhn/rhn_monitoring.conf
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/zz-spacewalk-www.conf
+%config(noreplace) %{_sysconfdir}/httpd/conf.d/00-spacewalk-mod_jk.conf
 %config(noreplace) %{_sysconfdir}/rhn/satellite-httpd/conf/workers.properties
 %config(noreplace) %{_sysconfdir}/webapp-keyring.gpg
 %config(noreplace) %{_var}/lib/cobbler/kickstarts/spacewalk-sample.ks
@@ -113,6 +114,10 @@ fi
 
 
 %changelog
+* Mon May 18 2009 Mike McCune <mmccune@gmail.com> 0.6.5-1
+- 496104 - need to make the regexes for the rewrites a bit more flexible
+  (mmccune@gmail.com)
+
 * Wed Apr 29 2009 Jan Pazdziora 0.6.4-1
 - Require httpd, we need the apache group for %files
 

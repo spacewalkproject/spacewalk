@@ -90,6 +90,7 @@ public class ProbeSuiteSystemsEditActionTest extends RhnBaseTestCase {
         
         sah.getRequest().setupAddParameter("newset", (String)null);
         sah.getRequest().setupAddParameter("returnvisit", (String)null);
+        sah.getRequest().setupAddParameter("submitted", "false");
         sah.getRequest().setupAddParameter("items_on_page", (String)null);
     }
     

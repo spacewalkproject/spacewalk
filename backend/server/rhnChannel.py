@@ -1075,6 +1075,11 @@ def base_channel_for_rel_arch(release, server_arch, org_id=-1,
 
 def base_eus_channel_for_ver_rel_arch(version, release, server_arch,
                                       org_id=-1, user_id=None):
+    """
+    given a redhat-release version, release, and server arch, return a list
+    of dicts containing the details of the channel z streams either match the
+    version/release pair, or are greater.
+    """
 
     log_debug(4, version, release, server_arch, org_id, user_id)
 
@@ -1082,8 +1087,7 @@ def base_eus_channel_for_ver_rel_arch(version, release, server_arch,
         select c.id,
                c.label,
                c.name,
-               rcm.is_default,
-               c.receiving_updates
+               rcm.release
         from
             rhnChannelPermissions cp,
             rhnChannel c,
@@ -1092,7 +1096,6 @@ def base_eus_channel_for_ver_rel_arch(version, release, server_arch,
             rhnReleaseChannelMap rcm
         where
                 rcm.version = :version
-            and rcm.release = :release
             and scac.server_arch_id = sa.id
             and sa.label = :server_arch
             and scac.channel_arch_id = rcm.channel_arch_id
@@ -1104,18 +1107,43 @@ def base_eus_channel_for_ver_rel_arch(version, release, server_arch,
     """
 
     eus_channels_prepared = rhnSQL.prepare(eus_channels_query)
-    eus_channels_prepared.execute(release = release,
-                                  version = version,
+    eus_channels_prepared.execute(version = version,
                                   server_arch = server_arch,
                                   user_id = user_id,
                                   org_id = org_id)
 
-    eus_channels = eus_channels_prepared.fetchall_dict()
+    channels = []
+    while True:
+        channel = eus_channels_prepared.fetchone_dict()
+        if channel is None:
+            break
 
-    log_debug(4, "EUS Channels are: %s" % str(eus_channels))
+        # the release part of redhat-release for rhel 4 is like
+        # 6.1 or 7; we just look at the first digit.
+        # for rhel 5 and up it's the full release number of rhel, followed by
+        # the true release number of the rpm, like 5.0.0.9 (for the 9th
+        # version of the redhat-release rpm, for RHEL GA)
+        db_release = channel['release']
+        if version in ['4AS', '4ES']:
+            parts = 1
+        else:
+            parts = 3
 
-    return eus_channels
-   
+        server_rel = '.'.join(release.split('.')[:parts])
+        channel_rel = '.'.join(db_release.split('.')[:parts])
+
+        # XXX we're no longer using the is_default column from the db
+        if rpm.labelCompare(('0', server_rel, '0'),
+                ('0', channel_rel, '0')) == 0:
+            channel['is_default'] = 'Y'
+            channels.append(channel)
+        if rpm.labelCompare(('0', server_rel, '0'),
+                ('0', channel_rel, '0')) < 0:
+            channel['is_default'] = 'N'
+            channels.append(channel)
+
+    return channels
+
 
 def get_channel_for_release_arch(release, server_arch):
     log_debug(3, release, server_arch)

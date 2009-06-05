@@ -138,6 +138,14 @@
 				<source>Tip</source>
 				<target>துணுக்கு</target>
 			</trans-unit>
+			<trans-unit id="Note">
+				<source>Note</source>
+				<target>குறிப்பு</target>
+			</trans-unit>
+			<trans-unit id="Warning">
+				<source>Warning</source>
+				<target>எச்சரிக்கை</target>
+			</trans-unit>
 			<trans-unit id="About Spacewalk">
 				<source>About</source>
 				<target>பற்றி</target>
@@ -228,7 +236,7 @@
 			</trans-unit>
 			<trans-unit id="frontend.actions.channels.manager.create">
 				<source>Create Software Channel</source>
-				<target state="needs-review-translation">மென்பொருள் தடங்களை மேலாண்மை செய்யவும்</target>
+				<target>மென்பொருள் தடங்களை உருவாக்கு செய்யவும்</target>
 			</trans-unit>
 			<trans-unit id="Software Channel Entitlements">
 				<source>Software Channel Entitlements</source>
@@ -340,7 +348,7 @@
 			</trans-unit>
 			<trans-unit id="Get Spacewalk Software">
 				<source>Get @@PRODUCT_NAME@@ Software</source>
-				<target>Get @@PRODUCT_NAME@@ Software</target>
+				<target>@@PRODUCT_NAME@@ மென்பொருள் பெறு</target>
 			</trans-unit>
 			<trans-unit id="Global Config">
 				<source>Global Config</source>
@@ -400,13 +408,15 @@
 			</trans-unit>
 			<trans-unit id="Management Spacewalk Guide">
 				<source>Management @@PRODUCT_NAME@@ Guide</source>
+				<target>மேலாண்மை @@PRODUCT_NAME@@ கையேடு</target>
 			</trans-unit>
 			<trans-unit id="Management Spacewalk">
 				<source>Management @@PRODUCT_NAME@@</source>
+				<target>மேலாண்மை @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Management Spacewalk Release Notes">
 				<source>Management @@PRODUCT_NAME@@ Release Notes</source>
-				<target>Management @@PRODUCT_NAME@@ Release Notes</target>
+				<target>மேலாண்மை @@PRODUCT_NAME@@ வெளியீட்டு அறிக்கை</target>
 			</trans-unit>
 			<trans-unit id="Manage Software Channels">
 				<source>Manage Software Channels</source>
@@ -526,10 +536,11 @@
 			</trans-unit>
 			<trans-unit id="Spacewalk Management Tools">
 				<source>@@PRODUCT_NAME@@ Management Tools</source>
-				<target>@@PRODUCT_NAME@@ Management Tools</target>
+				<target>@@PRODUCT_NAME@@ மேலாண்மை கருவிகள்</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Login">
 				<source>@@PRODUCT_NAME@@ Login</source>
+				<target>@@PRODUCT_NAME@@ உட்புகுதல்</target>
 			</trans-unit>
 			<trans-unit id="Create Login">
 				<source>Create Login</source>
@@ -537,7 +548,7 @@
 			</trans-unit>
 			<trans-unit id="Spacewalk Support Tools">
 				<source>@@PRODUCT_NAME@@ Support Tools</source>
-				<target>@@PRODUCT_NAME@@ Support Tools</target>
+				<target>@@PRODUCT_NAME@@ சேவை கருவிகள்</target>
 			</trans-unit>
 			<trans-unit id="Schedule">
 				<source>Schedule</source>
@@ -701,7 +712,7 @@
 			</trans-unit>
 			<trans-unit id="user.satadmin.add">
 				<source>Added Satellite Administrator role to {0}</source>
-				<target state="needs-review-translation">சேட்டிலைட் நிர்வாகி</target>
+				<target>{0}க்கு சேட்டிலைட் நிர்வாக பங்குடன் சேர்க்கப்படுகிறது</target>
 			</trans-unit>
 			<trans-unit id="user.deleteadmin">
 				<source>You cannot delete &lt;strong&gt;another&lt;/strong&gt; organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
@@ -761,15 +772,15 @@
 			</trans-unit>
 			<trans-unit id="Satellite Administrators">
 				<source>@@PRODUCT_NAME@@ Administrators</source>
-				<target>@@PRODUCT_NAME@@ Administrators</target>
+				<target>@@PRODUCT_NAME@@ நிர்வாகிகள்</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Administrators">
 				<source>@@PRODUCT_NAME@@ Administrators</source>
-				<target>@@PRODUCT_NAME@@ Administrators</target>
+				<target>@@PRODUCT_NAME@@ நிர்வாகிகள்</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Super Users">
 				<source>@@PRODUCT_NAME@@ Super Users</source>
-				<target>@@PRODUCT_NAME@@ Super Users</target>
+				<target>@@PRODUCT_NAME@@ சூப்பர் பயனர்கள்</target>
 			</trans-unit>
 			<trans-unit id="System Group Administrators">
 				<source>System Group Administrators</source>
@@ -777,7 +788,7 @@
 			</trans-unit>
 			<trans-unit id="for Org">
 				<source> for Org </source>
-				<target> for Org </target>
+				<target>Org க்கு</target>
 			</trans-unit>
 			<trans-unit id="username">
 				<source>Username</source>
@@ -1079,11 +1090,11 @@
 			</trans-unit>
 			<trans-unit id="illegal-access-exception">
 				<source>IllegalAccessException calling {0} ("{1}"): {2}</source>
-				<target>IllegalAccessException calling {0} ("{1}"): {2}</target>
+				<target>IllegalAccessException அழைப்பு {0} ("{1}"): {2}</target>
 			</trans-unit>
 			<trans-unit id="invocation-target-exception">
 				<source>IllegalInvocationException calling {0} ("{1}"): {2}</source>
-				<target>IllegalInvocationException calling {0} ("{1}"): {2}</target>
+				<target>IllegalInvocationException அழைப்பு {0} ("{1}"): {2}</target>
 			</trans-unit>
 			<trans-unit id="no notes">
 				<source>(none)</source>
@@ -1179,7 +1190,7 @@
 			</trans-unit>
 			<trans-unit id="kickstart.invalidchannel.message">
 				<source>The following packages are not available in any of the channels associated to this kickstart profile: {0}. In order for all kickstart functionality to work correctly, these packages should be present in at least one channel associated to this profile.</source>
-				<target state="needs-review-translation">இந்த கிக்ஸ்டார்ட் விவரக்குறிப்பு ஒரு அடிப்படை தடத்தைப் பயன்படுத்துவது தொகுப்புகளை தொலைக்கிறது. அனைத்து கிக்ஸ்டார்ட் செயல்பாடுகளும் சரியாக வேலை செய்யும் விதமாக, பின்வரும் தொகுப்பு கிக்ஸ்டார்ட் அடிப்படை தடத்தில் இருக்க வேண்டும்: {0}</target>
+				<target>இந்த கிக்ஸ்டார்ட் விவரக்குறிப்பு ஒரு அடிப்படை தடத்தைப் பயன்படுத்துவது தொகுப்புகளை தொலைக்கிறது. {0} அனைத்து கிக்ஸ்டார்ட் செயல்பாடுகளும் சரியாக வேலை செய்யும் விதமாக, பின்வரும் தொகுப்பு கிக்ஸ்டார்ட் அடிப்படை தடத்தில் இருக்க வேண்டும்: </target>
 			</trans-unit>
 			<trans-unit id="kickstart.invalidchannel.satmessage">
 				<source>&lt;div style="text-align: left;"&gt;
@@ -1207,19 +1218,20 @@ available for this kickstart profile to function properly.
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;</source>
-				<target state="needs-review-translation">&lt;div style="text-align: left;"&gt;
+				<target>&lt;div style="text-align: left;"&gt;
 &lt;p&gt;இந்த சிக்கலை தீர்க்க, பின்வருவனவற்றை சரி பார்க்கவும்:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 உங்கள் நிறுவனத்தில் கிக்ஸ்டார்ட் விவரக்குறிப்பின் அடிப்படை தடத்தின் 
-'rhn-tools' சேய் மென்பொருள் தடம் உள்ளதா? இல்லையெனில், நீங்கள் 'rhn-tools'
-மென்பொருள் தடத்தை உங்கள் சேட்டிலைட் நிர்வாகியிடம் இருந்து கோர வேண்டும்.
+'rhn-tools' சேய் மென்பொருள் தடம் உள்ளதா? இல்லையெனில், கோர வேண்டும் 
+உரிம 'rhn-tools' மென்பொருள் தட @@PRODUCT_NAME@@ நிர்வாகியிடம் இருந்து கோர வேண்டும்.
 &lt;/li&gt;
 &lt;li&gt;
 இந்த கிக்ஸ்டார்ட் விவரக்குறிப்பின் அடிப்படை தடத்தின் 'rhn-tools' சேய் தடம்
-உங்கள் சேட்டிலைட்டில் உள்ளதா என சரி பார்க்கவும். அது இல்லையெனில்
+உங்கள் @@PRODUCT_NAME@@.  உள்ளதா என சரி பார்க்கவும். அது இல்லையெனில்
 உங்கள் சேட்டிலைட் நிர்வாகியை அணுகி ஒரு satellite-sync ஐ rhn-tools தடத்திற்கு கோரி
-மீண்டும் முயற்சிக்கவும். &lt;/li&gt;
+மீண்டும் முயற்சிக்கவும். 
+&lt;/li&gt;
 &lt;li&gt;
 rhn-kickstart* தொகுப்புகள் இந்த கிக்ஸ்டார்ட்டுக்கு தொடர்புடைய கிக்ஸ்டார்ட் 
 அடிப்படை தடங்களில் 'rhn-tools' தடத்திற்கு உள்ளதா என சரி பார்க்கவும். அவ்வாறு இல்லையெனில்
@@ -1278,6 +1290,7 @@ rhn-kickstart* தொகுப்புகள் இந்த கிக்ஸ்
 			</trans-unit>
 			<trans-unit id="kickstart.options.url.note">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Default @@PRODUCT_NAME@@ kickstart URLs are stored with just the file path, allowing @@PRODUCT_NAME@@ to know when to dynamically adjust the hostname in the URL rendered in the kickstart file. (for proxies, etc) You may customize this value by changing it to a fully qualified URL, which will appear in the kickstart file as is.</source>
+				<target>&lt;strong&gt;குறிப்பு:&lt;/strong&gt; முன்னிருப்பு @@PRODUCT_NAME@@ கிக்ஸ்டார்ட் URLகளை கோப்பு பாதையுடன் சேமிக்கப்பட்டு, @@PRODUCT_NAME@@ மாறும் ஒழுங்குப்படுத்தலை URL கிக்ஸ்டார்ட் கோப்பு கொடுக்க அனுமதிக்கிறது. (ப்ராக்ஸிகளுக்கு, முதலிய) நீங்கள் இந்த மதிப்பை தனிபயனாக்க அதன் முழுவதும் தகுதியுடைய URL, கிக்ஸ்டார்ட் கோப்பில் இதுபோல தோன்றுகிறது.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.iprange_add.success">
 				<source>Successfully added IP Range to Kickstart Profile {0}</source>
@@ -1300,33 +1313,36 @@ rhn-kickstart* தொகுப்புகள் இந்த கிக்ஸ்
 				<target>கிக்ஸ்டார்ட் விவரக்குறிப்பு {0} வில் ஐபி வரையறையை அழிப்பதில் பிழை ஏற்பட்டுள்ளது. மீண்டும் முயற்சி செய்யவும்.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.update.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
-				<target state="needs-review-translation">விசை வெற்றிகரமாக அழிக்கப்பட்டது.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
+				<target>கிக்ஸ்டார்ட் ஸ்னிப்பெட் &lt;strong&gt;{0}&lt;/strong&gt; வெற்றிகரமாக மேம்படுத்தப்பட்டது.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.create.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
-				<target state="needs-review-translation">விசை வெற்றிகரமாக அழிக்கப்பட்டது.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
+				<target>கிக்ஸ்டார்ட் ஸ்னிப்பெட் &lt;strong&gt;{0}&lt;/strong&gt; வெற்றிகரமாக உருவாக்கப்பட்டது.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.delete.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
-				<target state="needs-review-translation">விசை வெற்றிகரமாக அழிக்கப்பட்டது.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
+				<target>கிக்ஸ்டார்ட் ஸ்னிப்பெட் &lt;strong&gt;{0}&lt;/strong&gt; வெற்றிகரமாக அழிக்கபடுத்தப்பட்டது.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.couldnotdelete.message">
 				<source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
+				<target>ஸ்னெப்பெட்டை &lt;strong&gt;{0}&lt;/strong&gt; அழித்துக் கொண்டிருக்கும் போது பிழை ஏற்படுகிறது.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.rename-error">
 				<source>An error occurred when attempting to rename the snippet &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;.</source>
-				<target state="needs-review-translation">&lt;strong&gt;{0}&lt;/strong&gt; ஆனது &lt;strong&gt;{1}&lt;/strong&gt; ஆக மாற்றப்பட்டது என்பதை குறித்து கொள்ளவும்.</target>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; ஆனது &lt;strong&gt;{1}&lt;/strong&gt; ஆக மறுபெயரிட்ட போது பிழை ஏற்பட்டது.ு கொள்ளவும்.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.filenameexists.message">
-				<source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
-				<target state="needs-review-translation">அந்த பெயரிலுள்ள உரை ஏற்கனவே உள்ளது</target>
+				<source>Kickstart snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+				<target>கிக்ஸ்டார்ட் ஸ்னெப்பெடின் &lt;strong&gt;{0}&lt;/strong&gt; அந்த பெயர் ஏற்கனவே உள்ளது.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.invalidfilename.message">
-				<source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
+				<source>The requested kickstart snippet filename is not valid. The kickstart snippet file name cannot contain slash (/) or  begin with a period(.)</source>
+				<target>தேவைப்படும் கிக்ஸ்டார்ட் கோப்புபெயர் தவறானதாகும். கிக்ஸ்டார்ட் கோப்புபெயர் ஸலாஷை பெற்றிருக்கவில்லை (/) அல்லது  ஒரு பகுதியுடன் தொடர்கிறது(.)</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.snippets">
 				<source>delete snippet</source>
+				<target>சினெப்பட்டை அழிக்கவும்</target>
 			</trans-unit>
 			<trans-unit id="kickstart.iprange.url">
 				<source>New systems can be kickstarted based upon their ip address by appending &lt;code&gt;{0}&lt;/code&gt; to the kernel parameters for a kickstart install.</source>
@@ -1394,7 +1410,7 @@ rhn-kickstart* தொகுப்புகள் இந்த கிக்ஸ்
 			</trans-unit>
 			<trans-unit id="rhnsd.configure">
 				<source>@@PRODUCT_NAME@@ Daemon Configuration</source>
-				<target>@@PRODUCT_NAME@@ Daemon Configuration</target>
+				<target>@@PRODUCT_NAME@@ டீமான் கட்டமைப்பு</target>
 			</trans-unit>
 			<trans-unit id="packages.verify">
 				<source>Verify deployed packages</source>
@@ -1450,9 +1466,11 @@ rhn-kickstart* தொகுப்புகள் இந்த கிக்ஸ்
 			</trans-unit>
 			<trans-unit id="erratasearch.error.parse.startdate">
 				<source>Unable to parse start date, please re-enter in format yyyy-mm-dd.</source>
+				<target>துவக்க நாளை பகுக்க முடியவில்லை, மறு உட்புகு இந்த வடிவில் yyyy-mm-dd செல்லவும்.</target>
 			</trans-unit>
 			<trans-unit id="erratasearch.error.parse.enddate">
 				<source>Unable to parse end date, please re-enter in format yyyy-mm-dd.</source>
+				<target>முடிவு நாளை பகுக்க முடியவில்லை, மறு உட்புகு இந்த வடிவில் yyyy-mm-dd செல்லவும்.</target>
 			</trans-unit>
 			<trans-unit id="patchremoveconfirm.schedule">
 				<source>Patch removal has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
@@ -1496,7 +1514,7 @@ rhn-kickstart* தொகுப்புகள் இந்த கிக்ஸ்
 			</trans-unit>
 			<trans-unit id="satellite_admin">
 				<source>@@PRODUCT_NAME@@ Administrator</source>
-				<target>@@PRODUCT_NAME@@ Administrator</target>
+				<target>@@PRODUCT_NAME@@ நிர்வாகி</target>
 			</trans-unit>
 			<trans-unit id="org_applicant">
 				<source>Organization Applicant</source>
@@ -1508,6 +1526,7 @@ rhn-kickstart* தொகுப்புகள் இந்த கிக்ஸ்
 			</trans-unit>
 			<trans-unit id="rhn_superuser">
 				<source>@@PRODUCT_NAME@@ Superuser</source>
+				<target>@@PRODUCT_NAME@@ சூப்பர்பயனர்</target>
 			</trans-unit>
 			<trans-unit id="coma_admin">
 				<source>Coma CMS Administrator</source>
@@ -1523,7 +1542,7 @@ rhn-kickstart* தொகுப்புகள் இந்த கிக்ஸ்
 			</trans-unit>
 			<trans-unit id="rhn_support">
 				<source>@@PRODUCT_NAME@@ Support Administrator</source>
-				<target>@@PRODUCT_NAME@@ Support Administrator</target>
+				<target>@@PRODUCT_NAME@@ சேவை நிர்வாகி</target>
 			</trans-unit>
 			<trans-unit id="config_admin">
 				<source>Configuration Administrator</source>
@@ -1619,6 +1638,7 @@ rhn-kickstart* தொகுப்புகள் இந்த கிக்ஸ்
 			</trans-unit>
 			<trans-unit id="toolbar.work.with.group">
 				<source>work with group</source>
+				<target>குழுவுடன் பணி</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.errata">
 				<source>delete errata</source>
@@ -1714,6 +1734,7 @@ rhn-kickstart* தொகுப்புகள் இந்த கிக்ஸ்
 			</trans-unit>
 			<trans-unit id="packages.search.index_files_missing">
 				<source>Index files missing from search-server.  Assuming data exists in database, indexes can be regenerated by running: /etc/init.d/rhn-search cleanindex, then restart rhn-search</source>
+				<target>சுட்டி கோப்புகள் ணேவையக தேடலில் இருந்து விடுபடுகிறது.  தரவுத்தளத்திலிருந்து தரவுகளை பெற்றுள்ளது, சுட்டி மீண்டும்துவங்கி இயங்குகிறது: /etc/init.d/rhn-search cleanindex, பின்பு மீண்டும் துவக்கி rhn-தேடவும்</target>
 			</trans-unit>
 			<trans-unit id="packages.search.could_not_execute_query">
 				<source>Could not execute query '{0}'.</source>
@@ -1723,8 +1744,9 @@ rhn-kickstart* தொகுப்புகள் இந்த கிக்ஸ்
 				<source>Search strings must be longer than two characters.</source>
 				<target>தேட வேண்டிய சரங்கள் இரண்டு எழுத்துக்களை விட பெரியதாக இருக்க வேண்டும்.</target>
 			</trans-unit>
-			<trans-unit id="packages.search.index_out_of_sync_with_db">
-				<source>Package search index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
+			<trans-unit id="searchserver.index_out_of_sync_with_db">
+				<source>SearchServer index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
+				<target state="needs-review-translation">ஒருங்கிணைப்பில் சுட்டி மற்றும் தரவுதளம் போன்ற மொத்தத்தையும் தொகுப்பில் தேடவும். இவற்றை இயக்கி'/sbin/service rhn-search cleanindex; /sbin/சேவை rhn-துவக்கி தேடு'</target>
 			</trans-unit>
 			<trans-unit id="patches.installed.notavailable">
 				<source>Not Available</source>
@@ -1780,11 +1802,11 @@ rhn-kickstart* தொகுப்புகள் இந்த கிக்ஸ்
 			</trans-unit>
 			<trans-unit id="systemsearch_num_of_cpus_lt">
 				<source>Number of CPUs Less Than</source>
-				<target state="needs-review-translation">CPU MHz குறைபட்சம்</target>
+				<target>CPU குறைபட்ச எண்</target>
 			</trans-unit>
 			<trans-unit id="systemsearch_num_of_cpus_gt">
 				<source>Number of CPUs Greater Than</source>
-				<target state="needs-review-translation">CPU Mhz அதிகபட்சம்</target>
+				<target>CPU அதிகபட்ச எண்</target>
 			</trans-unit>
 			<trans-unit id="systemsearch_ram_lt">
 				<source>RAM Less Than</source>
@@ -1860,6 +1882,7 @@ rhn-kickstart* தொகுப்புகள் இந்த கிக்ஸ்
 			</trans-unit>
 			<trans-unit id="systemsearch_running_kernel">
 				<source>Running Kernel</source>
+				<target>இயங்கும் கெர்னல்</target>
 			</trans-unit>
 			<trans-unit id="systemsearch.jsp.location">
 				<source>Location</source>
@@ -2115,15 +2138,15 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="timetag.current">
 				<source>Current @@PRODUCT_NAME@@ time:</source>
-				<target>Current @@PRODUCT_NAME@@ time:</target>
+				<target>நடப்பு @@PRODUCT_NAME@@ நேரம்:</target>
 			</trans-unit>
 			<trans-unit id="timetag.expected">
 				<source>Expected check-in time:</source>
 				<target>எதிர்பார்க்கப்பட்ட உட்புகும் நேரம்</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target state="needs-review-translation">&lt;strong&gt;குறிப்பு:&lt;/strong&gt; இந்த கணினி சமீபத்தில் Red Hat Networkஐ சோதிக்கவில்லை.   RHNஐ சோதிக்கவில்லையெனில் கணினியை மேம்படுத்த இயலாது, இது அதுபோல அல்லாமல் இந்த செயல் வெற்றி பெற்றது.&lt;br/&gt;&lt;br/&gt;rhnsd இயங்குகிறதா என்பதை சரிபார்க்கவும்   அது இயங்கவில்லை எனில்(&lt;a href="/help/faq.pxt#15"&gt;மேலும் விவரங்களுக்கு&lt;/a&gt;). &lt;a href="/help/contact.pxt"&gt;எங்களை தொடர்பு கொள்ளவும்&lt;/a&gt;.</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running.</source>
+				<target>&lt;strong&gt;குறிப்பு:&lt;/strong&gt; இந்த கணினி சமீபத்தில் @@PRODUCT_NAME@@ஐ சோதிக்கவில்லை.   @@PRODUCT_NAME@@ஐ சோதிக்கவில்லையெனில் கணினியை மேம்படுத்த இயலாது, இது அதுபோல அல்லாமல் இந்த செயல் வெற்றி பெற்றது.&lt;br/&gt;&lt;br/&gt;rhnsd இயங்குகிறதா என்பதை சரிபார்க்கவும்.</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -2203,7 +2226,7 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="message.patchsetinstall">
 				<source>Installation of patch cluster &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
-				<target state="needs-review-translation">பின்னிணைப்பு கொத்து நிறுவல் &lt;a href="/network/software/packages/details.pxt?pid={0}"&gt;{1}&lt;/a&gt; திட்டமிடப்பட்டது &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;&lt;/a&gt;.</target>
+				<target>பின்னிணைப்பு கொத்து நிறுவல் &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; திட்டமிடப்பட்டது &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;&lt;/a&gt;.</target>
 			</trans-unit>
 			<trans-unit id="message.packageinstall">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; package install has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;.</source>
@@ -2323,6 +2346,7 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="Admin">
 				<source>Admin</source>
+				<target>நிர்வாகம்</target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">
 				<source>{0} Filters(s) expired.  These changes may take up to 5 minutes to take effect.</source>
@@ -2366,7 +2390,7 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="message.hardwarerefresh">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
-				<target state="needs-review-translation">&lt;strong&gt;குறிப்பு:&lt;/strong&gt; Red Hat Network &lt;strong&gt;{2}&lt;/strong&gt;க்கு தொகுப்பு விவரக்குறிப்பு ஒருங்கிணைப்பிற்கு முன் ஒரு வன்பொருள் மேம்படுத்தலுக்கு  &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;திட்டமிடப்பட்டது.&lt;/a&gt;&lt;/strong&gt; கணினி தொகுப்புகளை ஒப்பிட இது தேவைப்படுகிறது.</target>
+				<target>&lt;strong&gt;குறிப்பு:&lt;/strong&gt; @@PRODUCT_NAME@@ &lt;strong&gt;{2}&lt;/strong&gt;க்கு தொகுப்பு விவரக்குறிப்பு ஒருங்கிணைப்பிற்கு முன் ஒரு வன்பொருள் மேம்படுத்தலுக்கு  &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;திட்டமிடப்பட்டது.&lt;/a&gt;&lt;/strong&gt; கணினி தொகுப்புகளை ஒப்பிட இது தேவைப்படுகிறது.</target>
 			</trans-unit>
 			<trans-unit id="filterCreate.success">
 				<source>The filter {0} was successfully created</source>
@@ -2586,6 +2610,7 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="CD">
 				<source>CONGO, The Democratic Republic of the</source>
+				<target>காங்கே, மக்களாட்சி குடியரசு</target>
 			</trans-unit>
 			<trans-unit id="CF">
 				<source>Central African Republic</source>
@@ -2849,6 +2874,7 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="IM">
 				<source>Isle of Man</source>
+				<target>இஸ்லே ஆஃப் மேன்</target>
 			</trans-unit>
 			<trans-unit id="IN">
 				<source>India</source>
@@ -2876,6 +2902,7 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="JE">
 				<source>Jersey</source>
+				<target>ஜெர்சி</target>
 			</trans-unit>
 			<trans-unit id="JM">
 				<source>Jamaica</source>
@@ -3159,6 +3186,7 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="PS">
 				<source>Palestinian Territory, Occupied</source>
+				<target>கைப்பற்றப்பட்ட பாலஸ்தீன பிரதேசம்</target>
 			</trans-unit>
 			<trans-unit id="PT">
 				<source>Portugal</source>
@@ -3302,6 +3330,7 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="TL">
 				<source>Timor-Leste</source>
+				<target>தைமோர்-லெஸ்டி</target>
 			</trans-unit>
 			<trans-unit id="TM">
 				<source>Turkmenistan</source>
@@ -3461,7 +3490,7 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="message.firstusercreated">
 				<source>You have created your first user for the @@PRODUCT_NAME@@ Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
-				<target state="needs-review-translation">நீங்கள் RHN சேட்டிலைட் சேவையின் முதல் பயனரை உருவாக்கிவிட்டீர்கள்.  கூடுதல் கட்டமைப்பினை முடிவு செய்ய &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;இங்கு சொடுக்கவும்&lt;/strong&gt;&lt;/a&gt;</target>
+				<target>நீங்கள் @@PRODUCT_NAME@@ சேவையின் முதல் பயனரை உருவாக்கிவிட்டீர்கள்.  கூடுதல் கட்டமைப்பினை முடிவு செய்ய &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;இங்கு சொடுக்கவும்&lt;/strong&gt;&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="satellite.expired">
 				<source>Your satellite certificate has expired.  Please contact Red Hat for a new certificate.</source>
@@ -3480,27 +3509,27 @@ user before attempting to deactivate their account.</source>
 				<target>சான்றிதழ் ஏற்றப்பட்டது. @@PRODUCT_NAME@@ மீண்டும் செயல்படுத்தப்பட்டது.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
-				<source>Could not parse certificate file</source>
-				<target>சான்றிதழ் கோப்பினை அலகிட முடியாது</target>
+				<source>Could not parse certificate file, see log file for more details.</source>
+				<target state="needs-review-translation">சான்றிதழ் கோப்பினை அலகிட முடியாது</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.11">
 				<source>Certificate expired</source>
 				<target>சான்றிதழ் முடிவுற்றது</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown @@PRODUCT_NAME@@ version</source>
+				<source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
+				<target state="needs-review-translation">தெரியாத @@PRODUCT_NAME@@ பதிப்பு</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
-				<source>Remote activation failure</source>
-				<target>தொலை செயல்படுத்தல் செயலிழக்கப்பட்டது</target>
+				<source>Remote activation failure, see log file for more details.</source>
+				<target state="needs-review-translation">தொலை செயல்படுத்தல் செயலிழக்கப்பட்டது</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.30">
-				<source>Local activation failure</source>
-				<target>உள்ளமை செயல்படுத்தல் செயலிழக்கப்பட்டது</target>
+				<source>Local activation failure, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.40">
-				<source>Channel population failure</source>
-				<target>தட தொகை செயலிழக்கப்பட்டது</target>
+				<source>Channel population failure, see log file for more details.</source>
+				<target state="needs-review-translation">தட தொகை செயலிழக்கப்பட்டது</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.80">
 				<source>No management entitlements remaining</source>
@@ -3508,6 +3537,7 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.82">
 				<source>@@PRODUCT_NAME@@ channel not found</source>
+				<target>@@PRODUCT_NAME@@ சேனல் காணப்படவில்லை</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.83">
 				<source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
@@ -3518,27 +3548,22 @@ user before attempting to deactivate their account.</source>
 				<target>தவறான @@PRODUCT_NAME@@ சான்றிதழ்</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
-				<source>Unknown activation error</source>
-				<target>தெரியாத செயல்படுத்தும் பிழை</target>
+				<source>Unknown activation error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
 				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
-				<target state="needs-review-translation">சேட்டிலைட் மூல சேவையகத்தில் அடிப்படை தடம் எதுவும் கொண்டிருக்கவில்லை</target>
+				<target>@@PRODUCT_NAME@@ மூல சேவையகத்தில் அடிப்படை தடம் எதுவும் கொண்டிருக்கவில்லை</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.87">
 				<source>No @@PRODUCT_NAME@@ channel available for this version</source>
 				<target>இந்தப் பதிப்புக்கு @@PRODUCT_NAME@@ தடம் எதுவுமில்லை</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
-				<source>Unhandled error</source>
-				<target>கையாள முடியாத பிழை</target>
-			</trans-unit>
-			<trans-unit id="bootstrap.config.error.127">
-				<source>Unhandled error</source>
-				<target>கையாள முடியாத பிழை</target>
+				<source>Unhandled error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="hostname">
 				<source>@@PRODUCT_NAME@@ server hostname</source>
+				<target>@@PRODUCT_NAME@@ சேவையக புரவலபெயர்</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.error.10">
 				<source>A script with that name already exists</source>
@@ -3572,6 +3597,10 @@ user before attempting to deactivate their account.</source>
 				<source>Could not find GPG key</source>
 				<target>GPG விசைகளை காணவில்லை</target>
 			</trans-unit>
+			<trans-unit id="bootstrap.config.error.127">
+				<source>Unhandled error</source>
+				<target>கையாள முடியாத பிழை</target>
+			</trans-unit>
 			<trans-unit id="bootstrap.config.success">
 				<source>Bootstrap script successfully generated.  You can access it &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt;</source>
 				<target>பூட்ஸ்க்ராப் உரை வெற்றிகரமாக உருவாக்கப்பட்டது.  நீங்கள் &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt;ல் அணுகலாம்</target>
@@ -3586,7 +3615,7 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="restart.config.success">
 				<source>@@PRODUCT_NAME@@ restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
-				<target state="needs-review-translation">சேட்டிலைட் மீண்டும் தொடங்கப்படுகிறது. இந்தப் பக்கம் 5 நிமிடங்களில் புதுப்பிக்கப்படாவிட்டால் &lt;a href="/rhn/YourRhn.do"&gt;இங்கு&lt;/a&gt; சொடுக்கி கைமுறையாக புதுப்பிக்கவும்.</target>
+				<target>@@PRODUCT_NAME@@ மீண்டும் தொடங்கப்படுகிறது. இந்தப் பக்கம் 5 நிமிடங்களில் புதுப்பிக்கப்படாவிட்டால் &lt;a href="/rhn/YourRhn.do"&gt;இங்கு&lt;/a&gt; சொடுக்கி கைமுறையாக புதுப்பிக்கவும்.</target>
 			</trans-unit>
 			<trans-unit id="restart.config.norestart">
 				<source>Please confirm you want to restart the @@PRODUCT_NAME@@ by checking the box in the form below.</source>
@@ -3598,7 +3627,7 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="scout.default.name">
 				<source>@@PRODUCT_NAME@@ Monitoring Scout</source>
-				<target>@@PRODUCT_NAME@@ Monitoring Scout</target>
+				<target>@@PRODUCT_NAME@@ கண்காணிக்கும் ஸ்கௌட்</target>
 			</trans-unit>
 			<trans-unit id="Panic Destination">
 				<source>Panic Destination</source>
@@ -3810,6 +3839,7 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.requires.older.gpgkey">
 				<source>System {0} is scheduled to be kickstarted to an older version of Red Hat Enterprise Linux, it will require the GPG key for the older release.  &lt;br/&gt; Please install this key, example: &lt;strong&gt; rpm --import  /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-former &lt;/strong&gt; </source>
+				<target>கணினி {0} ஒரு பழைய Red Hat Enterprise Linux பதிப்பை கிக்ஸ்டார்ட் செய்ய திட்டமிடப்பட்டுள்ளது, இதற்கு GPG விசை பழைய வெளியீட்டிற்கு தேவைப்படுகிறது.  &lt;br/&gt; இந்த விசையை நிறுவவும் எடுத்துக்காட்டாக: &lt;strong&gt; rpm --import  /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-former &lt;/strong&gt; </target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.success">
 				<source>System Kickstart scheduled for {0}</source>
@@ -3817,9 +3847,11 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cobblercreate">
 				<source>System record created for {0} in Cobbler.  This will allow you to kickstart this system using the {1} profile from {0}'s terminal with the usage of the 'koan' command.</source>
+				<target>காப்லரில் கணினி {0} காக உருவாக்குகிறது.  இது உங்கள் கணினியை கிக்ஸ்டார்டை பயன்படுத்தி {1} விவரக்குறிப்பை {0}'கள் முணைய'koan' கட்டளையை பயன்பாட்டோடு பயன்படுகிறது.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.schedule.success">
 				<source>System Kickstart scheduled for {0}. Please check the system console for status information.</source>
+				<target>கணினி கிக்ஸ்டார்ட் {0}காக திட்டமிடப்படுகிறது.கணினியின் நிலை தகவலை சரிபார்க்கவும்.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.noprofiles">
 				<source>No profiles found that are compatible with this System.  Either you haven't created any Kickstart Profiles or this system does not have a Base Channel.</source>
@@ -3831,15 +3863,15 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nosubs">
 				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
-				<target state="needs-review-translation">இந்த கணினியின் நடப்பு அடிப்படை தடத்திற்கு RHN வாய்ப்பளித்தல் தடத்தில் சந்தாக்கள் மீதம் எதுவும் இல்லை.</target>
+				<target>இந்த கணினியின் நடப்பு அடிப்படை தடத்திற்கு @@PRODUCT_NAME@@ வாய்ப்பளித்தல் தடத்தில் சந்தாக்கள் மீதம் எதுவும் இல்லை.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe">
 				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
-				<target state="needs-review-translation">இந்த கணினியின் நடப்பு அடிப்படை தடத்திற்கு RHN வாய்ப்பளித்தல் தடத்தில் சந்தாக்கள் மீதம் எதுவும் இல்லை.</target>
+				<target>இந்த கணினியின் நடப்பு அடிப்படை தடத்திற்கு @@PRODUCT_NAME@@ வாய்ப்பளித்தல் தடத்தில் சந்தாக்கள் மீதம் எதுவும் இல்லை.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nopackage">
 				<source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>
-				<target state="needs-review-translation">இந்த கணினியின் நடப்பு அடிப்படை தட மற்றும் விருப்பமான இலக்கு தடம் {0} ஐ வழங்கியுள்ள  தேவையான RHN வாய்ப்பளிக்கும் தொகுப்புகளை காண முடியவில்லை.</target>
+				<target>இந்த கணினியின் நடப்பு அடிப்படை தட மற்றும் விருப்பமான இலக்கு தடம் {0} ஐ வழங்கியுள்ள  தேவையான @@PRODUCT_NAME@@ வாய்ப்பளிக்கும் தொகுப்புகளை காண முடியவில்லை.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe.channel">
 				<source>You have no remaining subscriptions to the channel {0} for this system's current base channel.</source>
@@ -3859,6 +3891,7 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="kickstart.session.notoolschannel">
 				<source>Could not look up the @@PRODUCT_NAME@@ Tools channel for {1}.</source>
+				<target>@@PRODUCT_NAME@@ தடம் {1}கான கருவிகளை பார்க்க முடியவில்லை.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.newtokennote">
 				<source>Kickstart re-activation key for {0}.</source>
@@ -3874,7 +3907,7 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="kickstart.state.guesttimedout">
 				<source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
-				<target state="needs-review-translation">விருந்தினர் கணினி சேட்டிலைட்டுடன் கடந்த {0} நிமடங்கள் வரை தொடர்பில் இல்லை. வன்பொருளால் நிறுவல் பணி மெதுவாக இருக்கும் அல்லது முடிக்கப்பட்டிருக்கும். &lt;p/&gt;நீங்கள் இதனை &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; ஐ புரவலன் கணினியில் இயக்குவது மூலம் பழுது நீக்கம் செய்யலாம். இந்த கட்டளை உங்கள் விருந்தினர் உரை பணியகத்தில் இணைக்கும், அது உங்கள் விருந்திறர் கணினி நிறுவல் நிலை பற்றிய கூடுதல் தகவலை கொடுக்கும்.</target>
+				<target>விருந்தினர் கணினி @@PRODUCT_NAME@@உடன் கடந்த {0} நிமடங்கள் வரை தொடர்பில் இல்லை. வன்பொருளால் நிறுவல் பணி மெதுவாக இருக்கும் அல்லது முடிக்கப்பட்டிருக்கும். &lt;p/&gt;நீங்கள் இதனை &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; ஐ புரவலன் கணினியில் இயக்குவது மூலம் பழுது நீக்கம் செய்யலாம். இந்த கட்டளை உங்கள் விருந்தினர் உரை பணியகத்தில் இணைக்கும், அது உங்கள் விருந்திறர் கணினி நிறுவல் நிலை பற்றிய கூடுதல் தகவலை கொடுக்கும்.</target>
 			</trans-unit>
 			<trans-unit id="tree.edit.success">
 				<source>Kickstart Distribution Updated</source>
@@ -3894,9 +3927,11 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="kickstart.tree.invalidkernel">
 				<source>The kernel could not be found at the specified location: {0}</source>
+				<target>குறிப்பிட்ட இடத்தில் கெர்னல் காணப்படவில்லை: {0}</target>
 			</trans-unit>
 			<trans-unit id="kickstart.tree.invalidinitrd">
 				<source>The initrd could not be found at the specified location: {0}</source>
+				<target>குறிப்பிட்ட இடத்தில் initrd காணப்படவில்லை: {0}</target>
 			</trans-unit>
 			<trans-unit id="kickstart.tree.inuse">
 				<source>The Kickstart Distribution you have chosen to delete is in use.  Please delete or change the Distribution for Kickstart Profiles using this Distribution.</source>
@@ -3920,6 +3955,7 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="activation-key.java.invalid_chars">
 				<source>Activation key label &lt;strong&gt;{0}&lt;/strong&gt; has one or more of the following invalid characters &lt;strong&gt;{1}&lt;/strong&gt;. Please remove these characters from the label.</source>
+				<target>செயல்படுத்தல் விசை லேபிள் &lt;strong&gt;{0}&lt;/strong&gt; ஒன்று அல்லது பல தவறான எழுத்துக்கள் &lt;strong&gt;{1}&lt;/strong&gt;ஐ கொண்டுள்ளது. இந்த எழுத்துக்களை லேபிளிலிருந்து நீக்கவும்.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.java.exists">
 				<source>An activation key with label &lt;strong&gt;{0}&lt;/strong&gt; is already taken. Please choose a different label.</source>
@@ -3943,12 +3979,15 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="system.sdc.missing.config_deploy1">
 				<source>This system does not yet have configuration deployment capability. Configuration deployment requires that particular software is installed and enabled on your system.</source>
+				<target>இந்த கணினி இதுவரை கட்டமைப்பு வரிசைப்படுத்தல் திறனை கொண்டிருக்கவில்லை. கட்டமைப்பு வரிசைப்படுத்தலுக்கு குறிப்பிட்ட மென்பொருளை நிறுவி உங்கள் கணினியில் செயல்படுத்தப்படுத்த தேவைப்படுத்துகிறது.</target>
 			</trans-unit>
 			<trans-unit id="system.sdc.missing.config_deploy2">
 				<source>You may ensure that configuration deployment capability will be enabled on this system by selecting this system in the  &lt;a href={0}&gt;{1}&lt;/a&gt; screen and then clicking "{2}"</source>
+				<target>நீங்கள் கட்டமைப்பு வரிசைப்படுத்தல் திறன் இந்த கணினியில் செயல்படுத்த இந்த கணனியை தேர்ந்தெடுப்பது மூலம் &lt;a href={0}&gt;{1}&lt;/a&gt; திலையில் உறுதிப்படுத்தி பின் "{2}"ஐ சொடுக்கவும்</target>
 			</trans-unit>
 			<trans-unit id="system.sdc.config_enablement.client">
 				<source>Also be certain that configuration management is enabled on this system by running the following commands:.</source>
+				<target>இந்த கணினியில் பின்வரும் கட்டளைகளை இயக்கி கட்டமைப்பு மேலாண்மை செயல்படுகிறது:.</target>
 			</trans-unit>
 			<trans-unit id="system.sdc.addtossm">
 				<source>System added to the System Set Manager.</source>
@@ -4228,7 +4267,7 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="sdc.config.deploy.failure">
 				<source>All file and/or directory ({0}) deployments failed. [&lt;a href="{1}"&gt;View Details&lt;/a&gt;]</source>
-				<target state="needs-review-translation">அனைத்து கோப்பு மற்றும் அடைவுகளை ({0}) வரிசைப்படுத்த முடியவில்லை. [&lt;a href={1}"&gt;விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
+				<target>அனைத்து கோப்பு மற்றும் அடைவுகளை ({0}) வரிசைப்படுத்த முடியவில்லை. [&lt;a href={1}"&gt;விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.deploy.success">
 				<source>All files and/or directories ({0}) were successfully deployed. [&lt;a href="{1}"&gt;View Details&lt;/a&gt;]</source>
@@ -4244,55 +4283,55 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_0">
 				<source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target state="needs-review-translation">{0} இல் 1 கோப்பு RHN-மேலாண்மை செய்யப்பட்ட கோப்புகள் அல்லது அடைவுடன் வெற்றிகரமாக ஒப்பிடப்பட்டது. [&lt;a href="{1}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
+				<target>{0} இல் 1 கோப்பு @@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகள் அல்லது அடைவுடன் வெற்றிகரமாக ஒப்பிடப்பட்டது. [&lt;a href="{1}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_0">
 				<source>{0} of {1} files on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target state="needs-review-translation">{1}இல் {0} கோப்புகள் கணினியில் வெற்றிகரமாக RHN-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{2}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
+				<target>{1}இல் {0} கோப்புகள் கணினியில் வெற்றிகரமாக @@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{2}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_1">
 				<source>{0} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target state="needs-review-translation">{1}இல் {0} அடைவு கணினியில் வெற்றிகரமாக RHN-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{1}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
+				<target>{1}இல் {0} அடைவு கணினியில் வெற்றிகரமாக @@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{1}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_2">
 				<source>{0} of {1} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target state="needs-review-translation">{1}இல் {0} அடைவுகள் கணினியில் வெற்றிகரமாக RHN-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டன. [&lt;a href="{2}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
+				<target>{1}இல் {0} அடைவுகள் கணினியில் வெற்றிகரமாக @@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டன. [&lt;a href="{2}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_1">
 				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target state="needs-review-translation">{1}இல் {0} கோப்பு மற்றும் 1 இல் {1} அடைவு கணினியில் வெற்றிகரமாக RHN-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{2}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
+				<target>{1}இல் {0} கோப்பு மற்றும் 1 இல் {1} அடைவு கணினியில் வெற்றிகரமாக @@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{2}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_2">
 				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target state="needs-review-translation">{1}இல் {0} கோப்பு மற்றும் {2} இல் {1} அடைவுகள் கணினியில் வெற்றிகரமாக RHN-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{3}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
+				<target>{1}இல் {0} கோப்பு மற்றும் {2} இல் {1} அடைவுகள் கணினியில் வெற்றிகரமாக @@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{3}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
 				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target state="needs-review-translation">{1}இல் {0} கோப்புகள் மற்றும் {2} இல் {1} அடைவுகள் கணினியில் வெற்றிகரமாக RHN-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{3}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
+				<target>{1}இல் {0} கோப்புகள் மற்றும் {2} இல் {1} அடைவுகள் கணினியில் வெற்றிகரமாக @@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{3}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
 				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target state="needs-review-translation">{1}இல் {0} கோப்புகள் மற்றும் {2} இல் {1} அடைவுகள் கணினியில் வெற்றிகரமாக RHN-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{3}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
+				<target>{1}இல் {0} கோப்புகள் மற்றும் {2} இல் {1} அடைவுகள் கணினியில் வெற்றிகரமாக @@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{3}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
 				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target state="needs-review-translation">{1}இல் {0} கோப்புகள் மற்றும் {2} இல் {1} அடைவுகள் கணினியில் வெற்றிகரமாக RHN-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{3}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
+				<target>{1}இல் {0} கோப்புகள் மற்றும் {2} இல் {1} அடைவுகள் கணினியில் வெற்றிகரமாக @@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{3}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
 				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target state="needs-review-translation">{1}இல் {0} கோப்புகள் மற்றும் {2} இல் {1} அடைவுகள் கணினியில் வெற்றிகரமாக RHN-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{3}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
+				<target>{1}இல் {0} கோப்புகள் மற்றும் {2} இல் {1} அடைவுகள் கணினியில் வெற்றிகரமாக @@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{3}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_0">
 				<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
-				<target state="needs-review-translation">RHN-மேலாண்மை செய்யப்பட்ட கோப்புகளிலிருந்து இருக்கும் கணினியில் எந்த கோப்புகளும் வேறுபடவில்லை.</target>
+				<target>@@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகளிலிருந்து இருக்கும் கணினியில் எந்த கோப்புகளும் வேறுபடவில்லை.</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_1">
 				<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>
-				<target state="needs-review-translation">RHN-மேலாண்மை செய்யப்பட்ட கோப்புகளிலிருந்து கணினியில் 1 இல் 1 கோப்பு வேறுபடுகிறது.</target>
+				<target>@@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகளிலிருந்து கணினியில் 1 இல் 1 கோப்பு வேறுபடுகிறது.</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_2">
 				<source>{0} of {1} files on the system differed from the @@PRODUCT_NAME@@-Managed files.</source>
-				<target state="needs-review-translation">RHN-மேலாண்மை செய்யப்பட்ட கோப்புகளிலிருந்து கணினியில் {1} இல் {0} கோப்பு வேறுபடுகிறது.</target>
+				<target>@@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகளிலிருந்து கணினியில் {1} இல் {0} கோப்பு வேறுபடுகிறது.</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.time.message">
 				<source>{0} by {1}</source>
@@ -4456,10 +4495,11 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="systems.details.virt.memory.warning">
 				<source>{0} must be shutdown for max memory settings to take effect.</source>
-				<target state="needs-review-translation">{0}க்கு அதிகபட்ச நினைவக அமைவுகள் வர மறுதுவக்கம் செய்ய வேண்டும்.</target>
+				<target>{0}க்கு அதிகபட்ச நினைவக அமைவுகள் வர கணினியை நிறுத்த வேண்டும்.வேண்டும்.</target>
 			</trans-unit>
 			<trans-unit id="systems.details.virt.memory.check.host">
 				<source>Ensure the host system has sufficient free memory if increasing guest memory allocation. Otherwise the guest may refuse to boot the next time it is started.</source>
+				<target>புரவல கணினி போதுமான விருந்தின ஒதுக்கீட்டு நினைவகத்தை பெற்றுள்ளது. இல்லையெனில் விருந்தினர் பூட் அடுத்த முறை துவங்குவதற்கு முன்னே மறுத்தும் என்று விடுவர்.</target>
 			</trans-unit>
 			<trans-unit id="virtualsystems.none">
 				<source>No virtual systems selected.</source>
@@ -4503,6 +4543,7 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="selinux.java.invalid_mode">
 				<source>Invalid SE Linux mode "{0}" specified. Valid values are {1}.</source>
+				<target>தவறான SE Linux தொகுதி "{0}" குறிப்பிடப்படுகிறது. சரியான மதிப்புகளாவன {1}.</target>
 			</trans-unit>
 			<trans-unit id="softwareEntitlementSubs.successMessage">
 				<source>Updated entitlement count for '{0}'</source>
@@ -4514,11 +4555,11 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="orgsystemsubs.invalid">
 				<source>Entitlement modification must be a valid number for {0}.</source>
-				<target state="needs-review-translation">வாய்ப்பளித்தல் ஒரு முறையான எண்ணாகும்.</target>
+				<target>{0} உரிமம் மாற்றங்களுக்கு ஒரு சரியான எண் இருக்க வேண்டும்.</target>
 			</trans-unit>
 			<trans-unit id="orgsoftwaresubs.invalid">
 				<source>Entitlement modification must be a valid number for {0}.</source>
-				<target state="needs-review-translation">வாய்ப்பளித்தல் ஒரு முறையான எண்ணாகும்.</target>
+				<target>{0} உரிமம் மாற்றங்களுக்கு ஒரு சரியான எண் இருக்க வேண்டும்.</target>
 			</trans-unit>
 			<trans-unit id="multiorg.delete.org.button">
 				<source>Delete Selected Organizations</source>
@@ -4542,7 +4583,7 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="system.entitle.notoolschannel">
 				<source>Could not automatically subscribe the system to the @@PRODUCT_NAME@@ Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
-				<target state="needs-review-translation">Red Hat Network கருவிகள் தடத்திற்கு கணினியை தானாக சந்தாப்படுத்த முடியாது. இந்த தடம் மெய்நிகராக்கத்திற்கான தொகுப்புகளை கொண்டுள்ளது. இதற்கு காரணம் குறைவான தட உரிமங்களே ஆகும்.</target>
+				<target>@@PRODUCT_NAME@@ கருவிகள் தடத்திற்கு கணினியை தானாக சந்தாப்படுத்த முடியாது. இந்த தடம் மெய்நிகராக்கத்திற்கான தொகுப்புகளை கொண்டுள்ளது. இதற்கு காரணம் குறைவான தட உரிமங்களே ஆகும்.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtchannel">
 				<source>Could not automatically subscribe the system to the RHEL Virtualization Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
@@ -4550,6 +4591,7 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtpackage">
 				<source>Could not find a channel with the {0} package. This package is required to manage virtual guests with @@PRODUCT_NAME@@.</source>
+				<target>{0} தொகுப்பை சேனலுடன் காணப்படவில்லை. இந்த தொகுப்புகள் மெய்நிகர் விருந்தினரை @@PRODUCT_NAME@@ மேலாண்மை படுத்த தேவைப்படுகிறது.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyentitled">
 				<source>The system already has the {0} entitlement.</source>
@@ -4557,7 +4599,7 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="system.entitle.addedvirtualization">
 				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="{0}"&gt;here&lt;/a&gt; for more info.</source>
-				<target state="needs-review-translation">நீங்கள் ஒரு மெய்நிகராக்க உரிமத்தை கணினிக்கு சேர்த்து, நாம் மெய்நிகர் விருந்தினர்களை அது மேலாண்மை செய்கிறதா என்பதை உறுதிப்படுத்த வேண்டும். மேலும் தகவலுக்கு &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;இங்கு&lt;/a&gt; பார்க்கவும்.</target>
+				<target>நீங்கள் ஒரு மெய்நிகராக்க உரிமத்தை கணினிக்கு சேர்த்து, நாம் மெய்நிகர் விருந்தினர்களை அது மேலாண்மை செய்கிறதா என்பதை உறுதிப்படுத்த வேண்டும். மேலும் தகவலுக்கு &lt;a href="{0}"&gt;இங்கு&lt;/a&gt; பார்க்கவும்.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyvirt">
 				<source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>
@@ -4585,10 +4627,11 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="system.runningkernel.unknown">
 				<source>Unkown</source>
+				<target>தெரியாத</target>
 			</trans-unit>
 			<trans-unit id="api.invalidargs">
 				<source>Invalid argument(s): {0}</source>
-				<target state="needs-review-translation">முறையற்ற மதிப்பு</target>
+				<target>முறையற்ற மதிப்பு(கள்): {0}</target>
 			</trans-unit>
 			<trans-unit id="api.action.nosuchaction">
 				<source>No such action: {0}</source>
@@ -4600,23 +4643,27 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="api.org.migrationtosameorg">
 				<source>User cannot migrate a system where the origination and destination organizations are the same.  Org Id: {0}, System Id: {1}.</source>
+				<target>பயனர் ஒரு கணினியை நிர்வாக மற்றும் இலக்கு நிர்வாகம் ஒரே மாதிரியாக உள்ள போது மாற்ற முடியாது.  நிர்வாக குறியீடு: {0}, கணினி குறியீடு: {1}.</target>
 			</trans-unit>
 			<trans-unit id="api.org.nosuchorg">
 				<source>No such organization: {0}</source>
-				<target state="needs-review-translation">செயல் ஒன்றுமில்லை: {0}</target>
+				<target>இது போன்ற நிர்வாகம் இல்லை: {0}</target>
 			</trans-unit>
 			<trans-unit id="api.org.notintrust">
 				<source>Organization {0} is not defined in trust.</source>
-				<target state="needs-review-translation">நிறுவனம் {0} தனி பெயரால் மேம்படுத்தப்படவில்லை.</target>
+				<target>நிறுவனம் {0} தனி பெயரால் வரையறுக்க முடியவில்லை.</target>
 			</trans-unit>
 			<trans-unit id="api.org.sysnotintrust">
 				<source>System {0} is member of organization {1} which is not defined in the destination organization's trust.</source>
+				<target>கணினி {0} என்பது நிறுவனம் {1}இன் உறுப்பினர் இது இலக்கு நிறுவன நம்பகத்துடன் குறிப்பிடப்படவில்லை.</target>
 			</trans-unit>
 			<trans-unit id="api.org.notpermittedbyorg">
 				<source>User in organization {0} is not allowed to retrieve or modify {1} properties in organization {2}.</source>
+				<target>நிறுவனம் {0}இல் உள்ள பயனர் {1} தன்மைகளை நிறுவனம் {2}இல் எடுக்க அல்லது மாற்ற அனுமதிக்கப்படவில்லை.</target>
 			</trans-unit>
 			<trans-unit id="api.org.cannotperformonsatelliteorg">
 				<source>Cannot perform this operation on the satellite organization. (Org ID 1)</source>
+				<target>சேட்டிலைட் நிர்வாக செயல்பாட்டில் இதை நடத்த முடியவில்லை. (Org ID 1)</target>
 			</trans-unit>
 			<trans-unit id="api.errata.invaliderrata">
 				<source>Invalid errata: {0}</source>
@@ -4636,7 +4683,7 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="api.system.invalidsnapshot">
 				<source>Invalid snapshot specified: {0}</source>
-				<target state="needs-review-translation">தவறான ஆர்ச் குறிப்பீடு: {0}</target>
+				<target>தவறான ஸ்னாப்ஸார்ட் குறிப்பீடு: {0}</target>
 			</trans-unit>
 			<trans-unit id="api.systemgroup.lookupServerGroup">
 				<source>Unable to locate or access server group: "{0}"</source>
@@ -4644,7 +4691,7 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="api.system.invalidprofilelabel">
 				<source>Invalid profile label specified: {0}</source>
-				<target state="needs-review-translation">தவறான ஆர்ச் குறிப்பீடு: {0}</target>
+				<target>தவறான விவர லேபல்்ச் குறிப்பீடு: {0}</target>
 			</trans-unit>
 			<trans-unit id="api.systemgroup.serverNotInGroup">
 				<source>The specified server is not a member of the specified group</source>
@@ -4656,6 +4703,7 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="api.errata.invalidadvisoryrelease">
 				<source>Invalid advisory release, "{0}". Maximum value is {1}.</source>
+				<target>தவறான அறிவிப்பு வெளியீடு , "{0}". அதிகபட்ச மதிப்பு {1}.</target>
 			</trans-unit>
 			<trans-unit id="api.errata.nochannelsselected">
 				<source>You are trying to publish an errata but have not selected any channels to publish to.  Errata must be published to at least one channel.</source>
@@ -4663,12 +4711,15 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="api.package.download.toolarge">
 				<source>The requested file is too large to download over XMLRPC.</source>
+				<target>தேவைப்படும் கோப்பு XMLRPC லுடன் பதிவிறக்க மிக நீளமானதாக உள்ளது.</target>
 			</trans-unit>
 			<trans-unit id="api.package.download.ioerror">
 				<source>There was a general IO Error, check permissions on the requested file.</source>
+				<target>பொதுவான IO பிழை இருக்கிறது, தேவைப்படும் கோப்பின் அனுமதியை சரிபார்க்கவும்.</target>
 			</trans-unit>
 			<trans-unit id="api.channel.access.invalidaccessvalue">
 				<source>Access value, "{0}". Please use one of the following: "public", "private", or "protected".</source>
+				<target>ஏற்றுக் கொள்ளக்கூடிய மதிப்பு, "{0}". பின்வருவனவற்றை பயன்படுத்தவும்: "பொது", "தனிப்பட்ட", அல்லது "பாதுகாக்கப்பட்டது".</target>
 			</trans-unit>
 			<trans-unit id="api.channel.software.channelsubscription">
 				<source>Unable to subscribe this system to the requested channel: "{0}"</source>
@@ -4680,6 +4731,7 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="api.channel.invalidchannellist">
 				<source>The channel list provided is invalid.  It must contain a list of channel labels or ids, but not a mixture of both.</source>
+				<target>சேனல் பட்டியல்தவறானதாக உள்ளது.  இது சேனல் லேபல் பட்டியல்களையும் அல்லது ஐடிஸ் போன்றவற்றை கொண்டுள்ளது, ஆனால் இரண்டின் கலவைகள் இல்லை.</target>
 			</trans-unit>
 			<trans-unit id="channel.invalidchannelarch">
 				<source>The channel arch specified ({0}) is invalid.</source>
@@ -4691,7 +4743,7 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="api.channel.invalidchannelaccess">
 				<source>The channel access ({0}) is not allowed for this operation.</source>
-				<target state="needs-review-translation">தட ஆர்ச் குறிக்கப்பட்டது ({0}) தவறானதாகும்.</target>
+				<target>இந்த செயல்பாட்டிற்கு ({0}) சேனலை அனுமதிக்கவில்லை.</target>
 			</trans-unit>
 			<trans-unit id="Certificate Administrators">
 				<source>Certificate Administrators</source>
@@ -4715,19 +4767,19 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="api.package.provider.invalidKeyType">
 				<source>The package key type specified ({0}) is invalid.</source>
-				<target state="needs-review-translation">தொகுப்பு ஆர்ச் குறிக்கப்பட்டது ({0}) தவறானதாகும்.</target>
+				<target>குறிப்பிடப்பட்ட தொகுப்பு விசை ({0}) தவறானதாகும்.</target>
 			</trans-unit>
 			<trans-unit id="api.package.provider.invalidKey">
 				<source>The package key specified ({0}) is invalid.</source>
-				<target state="needs-review-translation">தொகுப்பு ஆர்ச் குறிக்கப்பட்டது ({0}) தவறானதாகும்.</target>
+				<target>குறிப்பிடப்பட்ட தொகுப்பு விசை {கப்பட்டது ({0}) தவறானதாகும்.</target>
 			</trans-unit>
 			<trans-unit id="api.package.provider.duplicateKey">
 				<source>The package key specified ({0}) already exists.</source>
-				<target state="needs-review-translation">தட லேபிள் குறிக்கப்பட்டது "{0}" ஏற்கனவே உள்ளது</target>
+				<target>குறிப்பிடப்பட்ட தொகுப்பு விசை ({0}) ஏற்கனவே உள்ளது.</target>
 			</trans-unit>
 			<trans-unit id="api.package.provider.invalidProvider">
 				<source>The package provider specified ({0}) is  invalid.</source>
-				<target state="needs-review-translation">தொகுப்பு ஆர்ச் குறிக்கப்பட்டது ({0}) தவறானதாகும்.</target>
+				<target>குறிப்பிடப்பட்ட தொகுப்பினை ({0}) வழங்குவது  தவறானது.</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.invalidvirttype">
 				<source>Invalid virtualization type: {0}</source>
@@ -4759,11 +4811,11 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="org.entitlements.system.toomany">
 				<source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
-				<target state="needs-review-translation">நீங்க்ள {0} அதிகமான உரிமங்களை கொடுக்க முயற்சிக்கிறீர்கள். எனவே நீங்கள் குறைவான மதிப்பு அல்லது {1} க்கு சமமான மதிப்பை கொடுக்கவும்</target>
+				<target>நீங்க்ள {0} அதிகமான உரிமங்களை கொடுக்க முயற்சிக்கிறீர்கள். எனவே நீங்கள் குறைவான மதிப்பு அல்லது {1} க்கு சமமான மதிப்பை கொடுக்கவும்</target>
 			</trans-unit>
 			<trans-unit id="org.entitlements.software.toomany">
 				<source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
-				<target state="needs-review-translation">நீங்க்ள {0} அதிகமான உரிமங்களை கொடுக்க முயற்சிக்கிறீர்கள். எனவே நீங்கள் குறைவான மதிப்பு அல்லது {1} க்கு சமமான மதிப்பை கொடுக்கவும்</target>
+				<target>நீங்க்ள {0} அதிகமான உரிமங்களை கொடுக்க முயற்சிக்கிறீர்கள். எனவே நீங்கள் குறைவான மதிப்பு அல்லது {1} க்கு சமமான மதிப்பை கொடுக்கவும்</target>
 			</trans-unit>
 			<trans-unit id="org.entitlements.syssoft.success">
 				<source>Entitlements successfully updated.</source>
@@ -4771,7 +4823,7 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="org.entitlements.software.proposedwarning">
 				<source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
-				<target state="needs-review-translation">எச்சரிக்கை: நீங்கள் கூறிய உரிம ஒதுக்கீடு {0}க்கு {1} நிறுவனத்தில் பயன்படுத்திய உரிமங்களை விட அதிகமாக தேவைப்படுகிறது. எனவே நீங்கள் கூறிய ஒதுக்கீட்டை அதற்கேற்றாற் போல மாற்றவும்.</target>
+				<target>எச்சரிக்கை: நீங்கள் கூறிய உரிம ஒதுக்கீடு {0}க்கு {1} நிறுவனத்தில் பயன்படுத்திய உரிமங்களை விட அதிகமாக தேவைப்படுகிறது. எனவே நீங்கள் கூறிய ஒதுக்கீட்டை அதற்கேற்றாற் போல மாற்றவும்.</target>
 			</trans-unit>
 			<trans-unit id="securityErrata">
 				<source>Security Errata</source>
@@ -4851,13 +4903,15 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="serverName">
 				<source>Server Name</source>
-				<target state="needs-review-translation">கணினி பெயர்</target>
+				<target>சேவையக பெயர்</target>
 			</trans-unit>
 			<trans-unit id="matchingField">
 				<source>Matching Field Name</source>
+				<target>பொருந்தும் புலப் பெயர்</target>
 			</trans-unit>
 			<trans-unit id="matchingFieldValue">
 				<source>Matching Field Value</source>
+				<target>பொருந்தும் புல மதிப்பு</target>
 			</trans-unit>
 			<trans-unit id="listtag.note">
 				<source>Note:</source>
@@ -4921,6 +4975,7 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="frontend.actions.channels.manager.add.success">
 				<source>Succesfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
+				<target>{1} தொகுப்பு(களை) வெற்றிகரமாக சேர்த்து {0} பிழைத்திருத்தங்களை சேனல் {2}க்கு க்ளோன் செய்ய திட்டமிடப்பட்டது.  இந்த க்ளோன் செய்யப்பட்ட பிழைத்திருத்தம் சேனலில் தோன்றி சில நிமிடங்களுக்குள் செயல்படுத்தப்பட வேண்டும்.</target>
 			</trans-unit>
 			<trans-unit id="frontend.actions.channels.manager.add.clone">
 				<source>"Clone"</source>
@@ -4980,196 +5035,244 @@ url பின்பற்றி செயலிழக்கப்பட்ட �
 			</trans-unit>
 			<trans-unit id="permission.configadmin.needed">
 				<source>The requested function requires a Configuration Admin or Organizational Admin role.</source>
+				<target>கோரப்பட்ட செயல்பாட்டிற்கு ஒரு கட்டமைப்பு நிர்வாகம் அல்லது அமைப்பு நிர்வாக பங்கு தேவைப்படுகிறது.</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.invalidscripttype">
 				<source>Only script types of "pre" and "post" are allowed for kickstarts.</source>
+				<target>ஸ்கிரிப்ட் வகைகள் "pre" and "post" மட்டுமே கிக்ஸ்டார்ட்டுக்காக அனுமதிக்கிறது.</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.invalidscript">
 				<source>You have specified an invalid kickstart script.</source>
+				<target>குறிப்பிடப்பட்ட தவறான கிக்ஸ்டார்ட் ஸ்கிரிப்ட்டை நீங்கள் பெற்றிருக்கிறீர்கள்.</target>
 			</trans-unit>
 			<trans-unit id="package.remove.cant.rollback">
 				<source>One or more of the packages you have selected for removal below are not contained in
 			a software channel that this system is subscribed to.  If you choose to continue with the removal
 			you will not be able to rollback this system to this snapshot or any prior snapshot.</source>
+				<target>ஒனைறு அல்லது மேற்பட்ட தொகுப்புகளை நீங்கள் கீழிருந்து நீக்குவதற்கு தேர்ந்தெடுத்தவைதொடர்வதில்லை
+			ஒரு மென்பொருள் சேனலை இந்த கணினிக்கு சந்தாபடுத்தவும்.  நீக்குவதுடன்தொடர்வதற்கு நீங்கள் தேர்ந்தெடுத்தால்
+			இந்த கணினியை ஸ்நாப்ஸூட் செய்து ரோல்பேக் செய்ய இயலவில்லை அல்லது மற்ற ஸ்நாப்ஸூட்.</target>
 			</trans-unit>
 			<trans-unit id="list.filter.iprange">
 				<source>Single Ip Address</source>
-				<target state="needs-review-translation">சரக்கு முகவரி</target>
+				<target>ஒற்றை ஐபி முகவரி</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.iprange.duplicate">
 				<source>The Ip Range specified, {0}, conflicts with an existing Ip Range.</source>
+				<target>இந்த Ip வரம்பு குறிப்பிட்டது, {0}, இருக்கும் ஒரு வரம்புடன் முரண்படுகிறது.</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.iprange.invalid">
 				<source>The Ip Range specified, {0}, is not a valid Ip Range.</source>
-				<target state="needs-review-translation">தொகுப்பு ஆர்ச் குறிக்கப்பட்டது ({0}) தவறானதாகும்.</target>
+				<target>எஉறிப்பிடப்பட்ட Ip வரம்பு, {0}, சரியான Ip வரம்பு இல்லை.</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.ip.invalid">
 				<source>The Ip Address specified, {0}, is not valid..</source>
-				<target state="needs-review-translation">தொகுப்பு ஆர்ச் குறிக்கப்பட்டது ({0}) தவறானதாகும்.</target>
+				<target> Ip முகவரி குறிப்பிட்டதுd, {0},சரியானதில்லைd..</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.filelist.exists">
 				<source>A file list with label {0} already exists.</source>
-				<target state="needs-review-translation">அந்த பெயரிலுள்ள உரை ஏற்கனவே உள்ளது</target>
+				<target>கோப்புடன் கூடிய லேபல் {0} ஏற்கனவே உள்ளது.</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.filelist.notfound">
 				<source>A file list with label {0} could not be found.</source>
+				<target>ஒரு லேபில் உடன் கூடிய கோப்பு {0} காணப்படவில்லை.</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.keys.exists">
 				<source>The specified key conflicts with an existing key.</source>
+				<target>குறிப்பிட்ட விசை ஒரு இருக்கும் விசையுடன் முரண்படுகிறது.</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.keys.delete">
 				<source>The specified key cannot be deleted.</source>
+				<target>குறிப்பிட்ட விசை அழிக்கப்பட முடியவில்லை.</target>
 			</trans-unit>
 			<trans-unit id="Compare">
 				<source>Compare</source>
-				<target state="needs-review-translation">நிறுவனம்</target>
+				<target>ஒப்பிடு</target>
 			</trans-unit>
 			<trans-unit id="system.customkey.error.alreadyexists">
 				<source>A Custom Key with this label already exists.</source>
-				<target state="needs-review-translation">அந்த பெயரிலுள்ள உரை ஏற்கனவே உள்ளது</target>
+				<target>தனிபயன் விசையுடன் லேபல் ஏற்கனவே உள்ளது.</target>
 			</trans-unit>
 			<trans-unit id="system.customkey.error.tooshort">
 				<source>A Custom Key label and description must be at least two characters long.</source>
-				<target state="needs-review-translation">விருந்தினர் பெயர் {0} எழுத்துக்களை கொண்டிருக்க வேண்டும்.</target>
+				<target>தனிபயன் விசை லேபல் மற்றும் விளக்கம் போன்றவை இரண்டு0} எழுத்துக்களை கொண்டிருக்க வேண்டும்.</target>
 			</trans-unit>
 			<trans-unit id="system.customkey.addsuccess">
 				<source>Successfully added 1 custom key.</source>
-				<target state="needs-review-translation">{0} தடங்களுக்கு வெற்றிகரமாக கோப்பு நகலெடுக்கப்பட்டது.</target>
+				<target>தனிபயன் விசை 1 வெற்றிகரமாக சேர்க்கப்பட்டது.</target>
 			</trans-unit>
 			<trans-unit id="channel.java.package.deletesuccess">
 				<source>Successfully deleted {0} packages.</source>
-				<target state="needs-review-translation">{0} தடங்களுக்கு வெற்றிகரமாக கோப்பு நகலெடுக்கப்பட்டது.</target>
+				<target>{0} தொகுப்புகள் வெற்றிகரமாக அழிக்கப்பட்டது.</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.invalidkickstartinstalltype">
 				<source>Invalid kickstart install type: {0}.</source>
-				<target state="needs-review-translation">முறையற்ற கிக்ஸ்டார்ட் லேபிள்: {0}</target>
+				<target>தவறான கிக்ஸ்டார்ட் வகையினை நிறுவு: {0}</target>
 			</trans-unit>
 			<trans-unit id="edit.channel.invalidgpgfp">
 				<source>Invalid GPG Fingerprint</source>
-				<target state="needs-review-translation">முறையற்ற மதிப்பு</target>
+				<target>தவறான GPG பிங்கர்பிரின்ட்</target>
 			</trans-unit>
 			<trans-unit id="edit.channel.invalidgpgkey">
 				<source>Invalid GPG Key Id</source>
+				<target>தவறான GPG விசை குறியீடு</target>
 			</trans-unit>
 			<trans-unit id="edit.channel.invalidgpgurl">
 				<source>Invalid GPG Url</source>
+				<target>தவறான GPG Url</target>
 			</trans-unit>
 			<trans-unit id="edit.channel.invalidchannelname">
 				<source>Invalid Channel Name</source>
-				<target state="needs-review-translation">முறையற்ற உரை பெயர்</target>
+				<target>முறையற்ற சேனல் பெயர்</target>
 			</trans-unit>
 			<trans-unit id="edit.channel.invalidchannelname.missing">
 				<source>Channel name must be specified</source>
+				<target>சேனல் பெயர் குறிப்பிடப்பட வேண்டும்</target>
 			</trans-unit>
 			<trans-unit id="edit.channel.invalidchannelname.regex">
 				<source>Invalid channel name, please see the format described below</source>
+				<target>தவறான சேனல் பெயர், கீழே விவரிக்கப்பட்ட வடிவத்தை பார்க்கவும்</target>
 			</trans-unit>
 			<trans-unit id="edit.channel.invalidchannelname.redhat">
 				<source>Red Hat channels require admin privileges</source>
+				<target>ரெட் ஹேட் சேனல்களுக்கு நிர்வாக முன்னுரிமைகள் தேவைப்படுகிறது</target>
 			</trans-unit>
 			<trans-unit id="edit.channel.invalidchannellabel.redhat">
 				<source>Red Hat channels require admin privileges</source>
+				<target>ரெட் ஹேட் சேனல்களுக்கு நிர்வாக முன்னுரிமைகள் தேவைப்படுகிறது</target>
 			</trans-unit>
 			<trans-unit id="edit.channel.invalidchannelname.minlength">
 				<source>Channel name must be at least {0} characters long</source>
-				<target state="needs-review-translation">விருந்தினர் பெயர் {0} எழுத்துக்களை கொண்டிருக்க வேண்டும்.</target>
+				<target>சேனல் பெயர் {0} எழுத்துக்களை கொண்டிருக்க வேண்டும்.</target>
 			</trans-unit>
 			<trans-unit id="edit.channel.invalidchannelname.nameinuse">
 				<source>The channel name '{0}' is already in use, please enter a different name</source>
-				<target state="needs-review-translation">{0} ஏற்கனவே பயனில் உள்ளது. வேறு விவரக்குறிப்பு பெயரை உள்ளிடவும்.</target>
+				<target>சேனல் பெயர் '{0}' ஏற்கனவே பயனில் உள்ளது. வேறு விவரக்குறிப்பு பெயரை உள்ளிடவும்.</target>
 			</trans-unit>
 			<trans-unit id="edit.channel.invalidchannellabel">
 				<source>Invalid Channel Label</source>
-				<target state="needs-review-translation">தட லேபிள்கள்</target>
+				<target>தவறான சேனல் லேபிள்</target>
 			</trans-unit>
 			<trans-unit id="edit.channel.invalidchannellabel.missing">
 				<source>Channel label must be specified</source>
+				<target>சேனல் லேபல் குறிப்பிடப்பட வேண்டும்</target>
 			</trans-unit>
 			<trans-unit id="edit.channel.invalidchannellabel.regex">
 				<source>Invalid channel label, please see the format described below</source>
+				<target>தவறான சேனல் லேபிள், கீழே உள்ள வடிவத்தை பார்க்கவும்</target>
 			</trans-unit>
 			<trans-unit id="edit.channel.invalidchannellabel.minlength">
 				<source>Channel label must be at least {0} characters long</source>
-				<target state="needs-review-translation">{0} எழுத்துக்களை கடவுச்சொல் கொண்டிருக்க வேண்டும்.</target>
+				<target>{0} சேனல் லேபல் எழுத்துக்களை கொண்டிருக்க வேண்டும்.</target>
 			</trans-unit>
 			<trans-unit id="edit.channel.invalidchannellabel.labelinuse">
 				<source>The channel label '{0}' is already in use, please enter a different name</source>
-				<target state="needs-review-translation">{0} ஏற்கனவே பயனில் உள்ளது. வேறு விவரக்குறிப்பு பெயரை உள்ளிடவும்.</target>
+				<target>சேனல் லேபல் '{0}' ஏற்கனவே பயனில் உள்ளது. வேறு விவரக்குறிப்பு பெயரை உள்ளிடவும்.</target>
 			</trans-unit>
 			<trans-unit id="edit.channel.invalidchannelsummary">
 				<source>Invalid Channel Summary</source>
-				<target state="needs-review-translation">பெயர் மற்றும் சுருக்கம்</target>
+				<target>தவறான சேனல் சுருக்கம்</target>
 			</trans-unit>
 			<trans-unit id="distribution.tree.exists">
 				<source>A distribution already exists with the name '{0}'.  Please select another name.</source>
+				<target>வழங்குதல் ஏற்கனவே இந்த பெயரில் து '{ உள்ளது0}'வேறொரு பெயரை தேர்ந்தெடுக்கவும்ame.</target>
 			</trans-unit>
 			<trans-unit id="api.channel.delete.redhat">
 				<source>Red Hat Channels cannot be deleted, only custom channels can.</source>
+				<target>Red Hat சேனல்களை அழிக்க முடியாது, தனிபயன் சேனல்களை மட்டுமே முடியும்.</target>
 			</trans-unit>
 			<trans-unit id="api.channel.delete.haschild">
 				<source>This channel has child channels associated with it.  You must delete those channels first before deleting the parent.</source>
+				<target>இந்த சேனல் சேய் சேனலைக் கொண்டுள்ளது.  பெற்றோர் சேனலை அழிப்பதற்கு முன் அவற்றை நீங்கள் அழிக்க வேண்டும்.</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.tree.notfound">
 				<source>The kickstart tree could not be found.  You may not have access to requested tree.</source>
+				<target>கிக்ஸ்டார்ட் டிரீ காணப்படவில்லை.  ட்ரீயை செயல்படுத்த முடியவில்லை.</target>
 			</trans-unit>
 			<trans-unit id="message.channelcreated">
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
-				<target state="needs-review-translation">ஆய்வு &lt;strong&gt;{0}&lt;/strong&gt; உருவாக்கப்பட்டது.</target>
+				<target>சேனல் &lt;strong&gt;{0}&lt;/strong&gt; உருவாக்கப்பட்டது.</target>
+			</trans-unit>
+			<trans-unit id="message.channeldeleted">
+				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; has been deleted.</source>
+				<target state="needs-review-translation">செயல்படுத்தல் விசை &lt;strong&gt;{0}&lt;/strong&gt; அழிக்கப்பட்டது.</target>
+			</trans-unit>
+			<trans-unit id="message.channel.delete.systemssubscribed">
+				<source>There are currently systems subscribed to this channel. Please confirm system channel removal by selecting the unsubscribe checkbox.</source>
 			</trans-unit>
 			<trans-unit id="message.channelupdated">
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
-				<target state="needs-review-translation">கணினி ஆய்வு &lt;strong&gt;{0}&lt;/strong&gt; மேம்படுத்தப்பட்டது.</target>
+				<target>சேனல் &lt;strong&gt;{0}&lt;/strong&gt; மேம்படுத்தப்பட்டது.</target>
 			</trans-unit>
 			<trans-unit id="message.channelsubscribers">
 				<source>Per-User subscription restrictions may be applied in the Subscribers tab</source>
+				<target>சந்தாதாரர்கள் தத்தலில் பயனருக்கான சந்தா தடைகள் செயல்படுத்தப்படும்</target>
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.profile.invalidvirt">
 				<source>Para-Virtualization is unsupported with the selected kickstart tree or distribution.</source>
+				<target>பகுதி மெய்நிகராக்கம் தேர்ந்தெடுக்கப்பட்ட கிக்ஸ்டார்ட் கிளையுடன் அல்லது விநியோகத்துடன் துணைபுரியவில்லை.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.profile.invalidtreeforvirt">
 				<source>You have selected a distribution or kickstart tree that is incompatible with the currently selected virtualization type.  Please either select a different distribution, or change the selected Virtualization Type of this profile before trying to set the distribution.</source>
+				<target>நீங்கள் ஒரு தேர்ந்தெடுக்கப்பட்ட விநியோகம் அல்லது நடப்பிலுள்ள தேர்ந்தெடுக்கப்பட்ட மெய்நிகர் வகை கிக்ஸ்டார்டுடன் பொருத்தமில்லாமலிருக்கிறது.  பல்வேறான விநியோகம் ஒன்றைதேர்ந்தெடுக்கவும், அல்லது விநியோகத்திற்கு முன்னே தேர்ந்தெடுக்கப்பட்ட மெய்நிகர் வகையின் விவரக்குறிப்பை அமைக்கவும்.</target>
 			</trans-unit>
 			<trans-unit id="snapshots.childchannel">
 				<source>Child Channels Updated</source>
-				<target state="needs-review-translation">சேய் தட சந்தாக்கள் மேம்படுத்தப்பட்டன.</target>
+				<target>சேய் சேனல்கள் மேம்படுத்தப்பட்டன.</target>
 			</trans-unit>
 			<trans-unit id="snapshots.basechannel">
 				<source>Base Channel Updated</source>
-				<target state="needs-review-translation">கணினியின் அடிப்படை தடம் மேம்படுத்தப்பட்டது.</target>
+				<target>அடிப்படை சேனல் மேம்படுத்தப்பட்டது.</target>
 			</trans-unit>
 			<trans-unit id="snapshots.entitlements">
 				<source>Entitlements Updated</source>
-				<target state="needs-review-translation">உரிமங்கள்</target>
+				<target>உரிமங்கள் மேம்படுத்தப்பட்டன</target>
 			</trans-unit>
 			<trans-unit id="errata.updates.noncritical">
 				<source>Non-Critical</source>
+				<target>அவசியமில்லாத</target>
 			</trans-unit>
 			<trans-unit id="snapshots.configchannel">
 				<source>Configuration Channels Updated</source>
-				<target state="needs-review-translation">கட்டமைப்பு தடப் பெயர்</target>
+				<target>கட்டமைப்பு சேனல்கள் மேம்படுத்தப்பட்டன</target>
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to
-syncronize kickstart distributions from Spacewalk to Cobbler.  These
-errors must be corrected for the distributions to be available for
-kickstarting systems kickstart distributions failed to sync from
-Spacewalk to Cobbler:
+The following is a list of errors gathered while Spacewalk attempts to 
+syncronize kickstart distributions from Spacewalk to Cobbler.  These 
+errors must be corrected for the distributions to be available for 
+kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
 for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
+				<target>
+பிழைகள் ஒன்றுசேர்ந்துள்ள பின்வரும் பட்டியலில் ஒத்திசைக்கப்பட்ட கிக்ஸ்டார்ட்டின் ஸ்பேஸ்வாகிலிருந்து 
+காப்பளர் வரை விநியோப்படுகிறது.  இந்த 
+கிக்ஸ்டார்ட் கணினியில் உள்ள விநியோகப் பிழைகளை சரிபடுத்துகிறது 
+kickstarting systems:
+
+{0}
+
+சரிபார்க்கவும்:
+
+/var/log/rhn/rhn_taskomatic_daemon.log மற்றும் 
+/var/log/tomcat5/catalina.out
+/var/log/cobbler/cobbler.log
+
+விவரிக்கப்பட்ட கூடுதல் பிழைகள்.  கிக்ஸ்டார்டுடைய பிழைகளை மறுதீர்வு செய்வதில் பிழையானால்
+கிக்ஸ்டார்டிங்கு மரம் பயன்படாது.</target>
 			</trans-unit>
 			<trans-unit id="errata.delete.msg">
 				<source>Successfully deleted {0} errata.</source>
-				<target state="needs-review-translation">{0} தடங்களுக்கு வெற்றிகரமாக கோப்பு நகலெடுக்கப்பட்டது.</target>
+				<target>{0} பிழை வெற்றிகரமாக அழிக்கப்பட்டது. </target>
 			</trans-unit>
 		</body>
 	</file>

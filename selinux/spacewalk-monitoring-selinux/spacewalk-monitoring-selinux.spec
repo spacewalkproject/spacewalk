@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        0.6.5
+Version:        0.6.8
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -33,6 +33,7 @@ Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Requires:       SatConfig-general
 Requires:       NPalert
 Requires:       oracle-instantclient-selinux
+Requires:       tsdb
 
 %description
 SELinux policy module supporting Spacewalk monitoring.
@@ -102,6 +103,17 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue May 26 2009 Jan Pazdziora 0.6.8-1
+- 498941 - allow monitoring to connect to ftp
+- 498930 - allow monitoring to do rpc
+- 498458 - allow monitoring to run df
+
+* Tue May 12 2009 Jan Pazdziora 0.6.7-1
+- 498936 - allow monitoring to run ssh probe (connect to sshd port)
+
+* Tue May 12 2009 Jan Pazdziora 0.6.6-1
+- 498053 - allow monitoring to read MySQL's files and connect to database
+
 * Mon May 11 2009 Jan Pazdziora 0.6.5-1
 - Move Requires of oracle-instantclient-selinux from
   spacewalk(-proxy)-monitoring to spacewalk-monitoring-selinux

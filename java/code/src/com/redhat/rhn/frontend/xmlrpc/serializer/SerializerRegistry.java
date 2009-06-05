@@ -108,6 +108,7 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(PackageKeySerializer.class);
         SERIALIZER_CLASSES.add(PackageProviderSerializer.class);
         SERIALIZER_CLASSES.add(PackageDtoSerializer.class);
+        SERIALIZER_CLASSES.add(PackageOverviewSerializer.class);
     }
     
     /**

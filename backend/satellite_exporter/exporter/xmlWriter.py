@@ -19,6 +19,8 @@
 import re
 import sys
 
+from common import log_error
+
 class XMLWriter:
     """
     XML writer, UTF-8 aware
@@ -103,15 +105,28 @@ class XMLWriter:
         self.data(name)
         self.stream.write(">")
 
-    def data(self, data_string):
-        "Writes the data, performing the necessary UTF-8 conversions"
+    def data(self, data_string, max_bytes=None):
+        """
+        Writes the data, performing the necessary UTF-8 conversions
+        max_bytes is the satellite schema dependent maximum value (in bytes)
+        which can fit in the matching table row. Yeah, this is very gross.
+        """
         if data_string is None:
             data_string = ""
         else:
             data_string = str(data_string)
 
-        data_string = self._re.sub(self._sub_function, data_string)
-        self.stream.write(self._convert(data_string))
+        converted = self._convert(data_string)
+        if max_bytes is not None and len(converted) > max_bytes:
+            # we're too large. operate on the unconverted string
+            # so that we remove whole characters, even though it may be
+            # too many.
+            log_error("Truncating field to fit in satellite schema. "
+                    "First 30 bytes are:", converted[:30])
+            extra = max_bytes - len(converted)
+            converted = self._convert(data_string[:extra])
+        data_string = self._re.sub(self._sub_function, converted)
+        self.stream.write(data_string)
 
     # Helper functions
 

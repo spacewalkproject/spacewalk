@@ -28,13 +28,16 @@ import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.manager.BasePersistOperation;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 
+import org.cobbler.Distro;
 import org.cobbler.XmlRpcException;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -48,6 +51,8 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
     protected KickstartableTree tree;
     private static final String EMPTY_STRING = "";
     public static final String KICKSTART_CAPABILITY = "rhn.kickstart.boot_image";
+    private String postKernelOptions = "";
+    private String kernelOptions = "";
     
     /**
      * Constructor
@@ -81,6 +86,17 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
         // Sync to cobbler
         try {
             getCobblerCommand().store();
+
+            Distro distro = Distro.lookupById(CobblerXMLRPCHelper.getConnection(
+                    this.getUser()), tree.getCobblerId());
+
+            Map kOpts = distro.getKernelOptions();
+            distro.setKernelOptions(getKernelOptions());
+            distro.setKernelPostOptions(getPostKernelOptions());
+
+            distro.save();
+
+
         }
         catch (XmlRpcException xe) {
             HibernateFactory.rollbackTransaction();
@@ -256,4 +272,36 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
      * @return CobblerCommand instance.
      */
     protected abstract CobblerCommand getCobblerCommand();
+
+
+    /**
+     * @return Returns the postKernelOptions.
+     */
+    public String getPostKernelOptions() {
+        return postKernelOptions;
+    }
+
+
+    /**
+     * @param postKernelOptionsIn The postKernelOptions to set.
+     */
+    public void setPostKernelOptions(String postKernelOptionsIn) {
+        postKernelOptions = postKernelOptionsIn;
+    }
+
+
+    /**
+     * @return Returns the kernelOptions.
+     */
+    public String getKernelOptions() {
+        return kernelOptions;
+    }
+
+
+    /**
+     * @param kernelOptionsIn The kernelOptions to set.
+     */
+    public void setKernelOptions(String kernelOptionsIn) {
+        kernelOptions = kernelOptionsIn;
+    }
 }

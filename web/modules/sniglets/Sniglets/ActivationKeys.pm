@@ -142,7 +142,6 @@ sub good_token_channels {
   #filter out channels which have a parent that isn't in this list.
   my %available = map { ($_->{ID}, 1) } @channel_list;
   @channel_list = grep { not defined $_->{PARENT_CHANNEL} or $available{$_->{PARENT_CHANNEL}} } @channel_list;
-
   return @channel_list;
 }
 sub create_token {

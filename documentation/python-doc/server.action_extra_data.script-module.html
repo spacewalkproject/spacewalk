@@ -43,7 +43,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="server.action_extra_data.script-module.html"
@@ -53,7 +53,7 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module script</h1><span class="codelink"><a href="server.action_extra_data.script-pysrc.html">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Module script</h1><p class="nomargin-top"><span class="codelink"><a href="server.action_extra_data.script-pysrc.html">source&nbsp;code</a></span></p>
 <!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -79,7 +79,7 @@
         <tr>
           <td><span class="summary-sig"><a name="run"></a><span class="summary-sig-name">run</span>(<span class="summary-sig-arg">server_id</span>,
         <span class="summary-sig-arg">action_id</span>,
-        <span class="summary-sig-arg">data</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span></td>
+        <span class="summary-sig-arg">data</span>=<span class="summary-sig-default">{}</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action_extra_data.script-pysrc.html#run">source&nbsp;code</a></span>
             
@@ -111,27 +111,27 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="__rhnexport__"></a><span class="summary-name">__rhnexport__</span> = <code title="['run']"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">run</code><code class="variable-quote">'</code><code class="variable-group">]</code></code>
+        <a name="__rhnexport__"></a><span class="summary-name">__rhnexport__</span> = <code title="['run']">['run']</code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action_extra_data.script-module.html#_query_clear_output" class="summary-name">_query_clear_output</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1217340916; statement=
+        <a href="server.action_extra_data.script-module.html#_query_clear_output" class="summary-name" onclick="show_private();">_query_clear_output</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
 delete from rhnServerActionScriptResult
  where server_id = :server_id
    and action_script_id = (
      select id from rhnActionScript where action_id = :action_id
    )
-">&lt;server.rhnSQL.sql_base.Statement instan<code class="variable-ellipsis">...</code></code>
+&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action_extra_data.script-module.html#_query_initial_store" class="summary-name">_query_initial_store</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1217340660; statement=
+        <a href="server.action_extra_data.script-module.html#_query_initial_store" class="summary-name" onclick="show_private();">_query_initial_store</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
 insert into rhnServerActionScriptResult (
     server_id,
     action_script_id,
@@ -139,21 +139,21 @@ insert into rhnServerActionScriptResult (
     start_date,
     stop_date,
     return_code
-...">&lt;server.rhnSQL.sql_base.Statement insta<code class="variable-ellipsis">...</code></code>
+...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action_extra_data.script-module.html#_query_get_output_row" class="summary-name">_query_get_output_row</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1217340884; statement=
+        <a href="server.action_extra_data.script-module.html#_query_get_output_row" class="summary-name" onclick="show_private();">_query_get_output_row</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
 select asr.output
   from rhnServerActionScriptResult asr,
        rhnActionScript ascript
  where ascript.action_id = :action_id
    and asr.server_id = :server_id
    and asr.action_script_id = ascript.id
-">&lt;server.rhnSQL.sql_base.Statement inst<code class="variable-ellipsis">...</code></code>
+&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -187,13 +187,13 @@ select asr.output
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1217340916; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
 delete from rhnServerActionScriptResult
  where server_id = :server_id
    and action_script_id = (
      select id from rhnActionScript where action_id = :action_id
    )
-
+&quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -211,7 +211,7 @@ delete from rhnServerActionScriptResult
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1217340660; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
 insert into rhnServerActionScriptResult (
     server_id,
     action_script_id,
@@ -237,14 +237,14 @@ insert into rhnServerActionScriptResult (
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&lt;server.rhnSQL.sql_base.Statement instance at -1217340884; statement=
+rhnSQL.Statement(&quot;&quot;&quot;
 select asr.output
   from rhnServerActionScriptResult asr,
        rhnActionScript ascript
  where ascript.action_id = :action_id
    and asr.server_id = :server_id
    and asr.action_script_id = ascript.id
-
+&quot;&quot;&quot;)
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -274,10 +274,11 @@ select asr.output
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:49 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -288,9 +289,8 @@ select asr.output
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

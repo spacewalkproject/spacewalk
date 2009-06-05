@@ -42,7 +42,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="satellite_tools.rhn_ssl_dbstore-module.html"
@@ -52,7 +52,7 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module rhn_ssl_dbstore</h1><span class="codelink"><a href="satellite_tools.rhn_ssl_dbstore-pysrc.html">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Module rhn_ssl_dbstore</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.rhn_ssl_dbstore-pysrc.html">source&nbsp;code</a></span></p>
 <!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -76,9 +76,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="satellite_tools.rhn_ssl_dbstore-module.html#fetchTraceback" class="summary-sig-name">fetchTraceback</a>(<span class="summary-sig-arg">method</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">req</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">extra</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span><br />
+          <td><span class="summary-sig"><a href="satellite_tools.rhn_ssl_dbstore-module.html#fetchTraceback" class="summary-sig-name">fetchTraceback</a>(<span class="summary-sig-arg">method</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">req</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">extra</span>=<span class="summary-sig-default">None</span>)</span><br />
       a cheat for snagging just the string value of a Traceback
 NOTE: this tool may be needed for RHN Satellite 3.2 as well,
       which doesn't have a fetchTraceback.</td>
@@ -147,7 +147,7 @@ NOTE: this tool may be needed for RHN Satellite 3.2 as well,
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="DEFAULT_TRUSTED_CERT"></a><span class="summary-name">DEFAULT_TRUSTED_CERT</span> = <code title="'RHN-ORG-TRUSTED-SSL-CERT'"><code class="variable-quote">'</code><code class="variable-string">RHN-ORG-TRUSTED-SSL-CERT</code><code class="variable-quote">'</code></code>
+        <a name="DEFAULT_TRUSTED_CERT"></a><span class="summary-name">DEFAULT_TRUSTED_CERT</span> = <code title="'RHN-ORG-TRUSTED-SSL-CERT'">'RHN-ORG-TRUSTED-SSL-CERT'</code>
     </td>
   </tr>
 </table>
@@ -176,14 +176,14 @@ NOTE: this tool may be needed for RHN Satellite 3.2 as well,
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">fetchTraceback</span>(<span class="sig-arg">method</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="sig-arg">req</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
-        <span class="sig-arg">extra</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">fetchTraceback</span>(<span class="sig-arg">method</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">req</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">extra</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="satellite_tools.rhn_ssl_dbstore-pysrc.html#fetchTraceback">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
   <pre class="literalblock">
 a cheat for snagging just the string value of a Traceback
@@ -208,11 +208,11 @@ NOTE: this tool may be needed for RHN Satellite 3.2 as well,
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="satellite_tools.rhn_ssl_dbstore-pysrc.html#main">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  main routine 10  CA certificate not found 11  DB initialization 
+  <p>main routine 10  CA certificate not found 11  DB initialization 
   failure 12  no Organization ID. Something very bad is going on. 13  
-  Couldn't insert the certificate for whatever reason.
+  Couldn't insert the certificate for whatever reason.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -241,10 +241,11 @@ NOTE: this tool may be needed for RHN Satellite 3.2 as well,
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:49 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -255,9 +256,8 @@ NOTE: this tool may be needed for RHN Satellite 3.2 as well,
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

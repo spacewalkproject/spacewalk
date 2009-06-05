@@ -1,21 +1,15 @@
 Name: spacewalk-proxy-docs
 Summary: Spacewalk Proxy Server Documentation
 Group: Applications/Internet
-License: GPLv2
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd proxy/proxy-docs
-# make test-srpm
+License: Open Publication
 URL:     https://fedorahosted.org/spacewalk
-Source0: %{name}-%{version}.tar.gz
-Version: 0.4.1
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Version: 0.6.2
 Release: 1%{?dist}
-BuildRoot: %{_tmppath}/%{name}-root-%(%{__id_u} -n)
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Obsoletes: rhns-proxy-docs < 5.3.0
-
-%define docdir %{_defaultdocdir}/rhns-proxy-%{version}
+Provides: rhns-proxy-docs = 5.3.0
 
 %description
 This package includes the installation/configuration guide,
@@ -26,25 +20,35 @@ and Enterprise User Reference guides.
 %prep
 %setup -q
 
+%build
+#nothing to do here
+
 %install
-# want to install the documentation in a versioned directory
-install -m 755 -d $RPM_BUILD_ROOT%{docdir}
-install -m 644 squid.conf.sample $RPM_BUILD_ROOT%{docdir}/squid.conf.sample
-install -m 644 *.pdf $RPM_BUILD_ROOT%{docdir}/
-install -m 644 LICENSE $RPM_BUILD_ROOT%{docdir}/
+rm -rf $RPM_BUILD_ROOT
+install -m 755 -d $RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%dir %{docdir}
-%{docdir}/*.pdf
-%{docdir}/LICENSE
-%{docdir}/squid.conf.sample
+%doc *.pdf
+%doc LICENSE
+%doc squid.conf.sample
 
 # $Id: proxy.spec,v 1.290 2007/08/08 07:03:05 msuchy Exp $
 %changelog
+* Wed May 20 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.2-1
+- clarify the license. It is Open Publication instead of GPLv2
+
+* Thu May 14 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.1-1
+- 497892 - create access.log on rhel5
+- point source0 to fedorahosted.org
+- provide versioned Provides: to Obsolete:
+- make rpmlint happy
+- change buildroot to recommended value
+- marking documentation files as %%doc
+
 * Tue Dec  9 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.1-1
 - fixed Obsoletes: rhns-* < 5.3.0
 

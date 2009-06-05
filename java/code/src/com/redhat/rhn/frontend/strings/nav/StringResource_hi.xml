@@ -52,7 +52,7 @@
 			</trans-unit>
 			<trans-unit id="action.nav.backout">
 				<source>Back Out Patches</source>
-				<target>पैच को निकालें</target>
+				<target>पैच निकालें</target>
 			</trans-unit>
 			<trans-unit id="action.nav.install">
 				<source>Install Patches</source>
@@ -240,7 +240,7 @@
 			</trans-unit>
 			<trans-unit id="configchannel.nav.list">
 				<source>List/Remove Files</source>
-				<target>फाइल सूचीबद्ध करें/हटायें</target>
+				<target>फाइल सूचीबद्ध करें/हटाएँ</target>
 			</trans-unit>
 			<trans-unit id="configchannel.nav.add">
 				<source>Add Files</source>
@@ -348,7 +348,7 @@
 			</trans-unit>
 			<trans-unit id="nav.sdc.config.sandbox_managed_files">
 				<source>Local Sandbox</source>
-				<target>स्थानीय सेंडबॉक्स</target>
+				<target>स्थानीय सैंडबॉक्स</target>
 			</trans-unit>
 			<trans-unit id="system.detail.nav.list">
 				<source>List</source>
@@ -484,7 +484,7 @@
 			</trans-unit>
 			<trans-unit id="Join">
 				<source>Join</source>
-				<target>शामिल होएं</target>
+				<target>शामिल होएँ</target>
 			</trans-unit>
 			<trans-unit id="Rollback">
 				<source>Rollback</source>
@@ -589,10 +589,6 @@
 			<trans-unit id="Critical">
 				<source>Critical</source>
 				<target>नाजुक</target>
-			</trans-unit>
-			<trans-unit id="Warning">
-				<source>Warning</source>
-				<target>चेतावनी दे रहा है</target>
 			</trans-unit>
 			<trans-unit id="Unknown">
 				<source>Unknown</source>

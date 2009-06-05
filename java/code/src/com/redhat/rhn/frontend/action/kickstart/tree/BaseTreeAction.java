@@ -47,6 +47,8 @@ public abstract class BaseTreeAction extends BaseEditAction {
     public static final String NOINSTALLTYPES = "noinstalltypes";
     public static final String RHN_KICKSTART = "rhnkickstart";
     public static final String HIDE_SUBMIT = "hidesubmit";
+    public static final String KERNEL_OPTS = "kernelopts";
+    public static final String POST_KERNEL_OPTS = "postkernelopts";
 
     protected void processRequestAttributes(RequestContext rctx, PersistOperation opr) {
         BaseTreeEditOperation bte = (BaseTreeEditOperation) opr;
@@ -100,6 +102,10 @@ public abstract class BaseTreeAction extends BaseEditAction {
         KickstartInstallType type = KickstartFactory.
             lookupKickstartInstallTypeByLabel(form.getString(INSTALL_TYPE));
         bte.setInstallType(type);
+
+        bte.setKernelOptions(form.getString(KERNEL_OPTS));
+        bte.setPostKernelOptions(form.getString(POST_KERNEL_OPTS));
+
         return null;
         
     }

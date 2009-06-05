@@ -26,12 +26,14 @@ import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.util.MethodUtil;
+import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.channel.ChannelVersion;
+import com.redhat.rhn.domain.channel.ClonedChannel;
 import com.redhat.rhn.domain.channel.DistChannelMap;
 import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
 import com.redhat.rhn.domain.channel.ProductName;
@@ -641,6 +643,17 @@ public class ChannelManager extends BaseManager {
         DataResult dr = makeDataResult(params, params, lc, m);
         return dr;
     }
+    /**
+     * Returns a list of packages whose ids match those from the given list.
+     * @param pids The ids of the package list.
+     * @param archLabels Channel arch labels.
+     * @param relevantFlag if set will only return packages relevant to subscribed channels
+     * @return list of packages
+     */
+    public static List<PackageOverview> packageSearch(List pids, List archLabels,
+            boolean relevantFlag) {
+        return PackageFactory.packageSearch(pids, archLabels, relevantFlag);
+    }
     
     /**
      * Returns a list of packages whose ids match those from the given list.
@@ -779,7 +792,7 @@ public class ChannelManager extends BaseManager {
      * @param cid Base Channel id.
      * @return the list of Channel ids which the given orgid has access to.
      */
-    public static List userAccessibleChildChannels(Long orgid, Long cid) {
+    public static List<Channel> userAccessibleChildChannels(Long orgid, Long cid) {
         return ChannelFactory.getUserAcessibleChannels(orgid, cid);
     }
     
@@ -893,6 +906,11 @@ public class ChannelManager extends BaseManager {
                 throw new PermissionException(
                         LocalizationService.getInstance().getMessage(
                                 "api.channel.delete.haschild"));              
+            }
+            if (toRemove.containsDistributions()) {
+                ValidatorException.raiseException(
+                        "message.channel.cannot-be-deleted.has-distros");
+                
             }
             ChannelManager.queueChannelChange(label, 
                     user.getLogin(), "java::deleteChannel");
@@ -1369,16 +1387,17 @@ public class ChannelManager extends BaseManager {
     }
     
     /**
-     * Get the id of latest packages located in the channel tree
-     * where channelId is a parent
+     * Get the id of latest packages located in the channel tree where channelId
+     * is a parent
      *
      * @param channelId to lookup package against
      * @param packageName to check
      * @return List containing Maps of "CP.package_id, CP.name_id, CP.evr_id"
      */
-    public static Long getLatestPackageEqualInTree(Long channelId, String packageName) {
+    public static Long getLatestPackageEqualInTree(Long channelId,
+            String packageName) {
         SelectMode m = ModeFactory.getMode("Channel_queries",
-            "latest_package_equal_in_tree");
+                "latest_package_equal_in_tree");
         Map params = new HashMap();
         params.put("cid", channelId);
         params.put("name", packageName);
@@ -1389,7 +1408,6 @@ public class ChannelManager extends BaseManager {
         }
         return null;
     }
-
 
     /**
      * List the latest packages equal in the passed in Channel and name
@@ -1606,7 +1624,7 @@ public class ChannelManager extends BaseManager {
         log.debug("subscribeToChildChannelByOSProduct returning: " + foundChannel);
         return foundChannel;
     
-    }    
+    }
     
     /**
      * For the specified server, make a best-guess effort at what its base-channel 
@@ -2495,6 +2513,42 @@ public class ChannelManager extends BaseManager {
     }
 
     /**
+     * Remove packages from a channel very quickly
+     * @param chan the channel
+     * @param packageIds list of package ids
+     * @param user the user doing the removing
+     */
+    public static void addPackages(Channel chan, List<Long> packageIds, User user) {
+
+        if (!UserManager.verifyChannelAdmin(user, chan)) {
+            StringBuffer msg = new StringBuffer("User: ");
+            msg.append(user.getLogin());
+            msg.append(" does not have channel admin access to channel: ");
+            msg.append(chan.getLabel());
+
+            LocalizationService ls = LocalizationService.getInstance();
+            PermissionException pex = new PermissionException(msg.toString());
+            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.channel"));
+            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.channel"));
+            throw pex;
+        }
+
+        Map params = new HashMap();
+        params.put("cid", chan.getId());
+
+        WriteMode m = ModeFactory.getWriteMode("Channel_queries", "add_channel_package");
+        for (Long pid : packageIds) {
+            params.put("pid", pid);
+            m.executeUpdate(params);
+        }
+
+
+        HibernateFactory.getSession().refresh(chan);
+
+    }
+
+
+    /**
      * Remove a set of erratas from a channel
      *      and remove associated packages
      * @param chan The channel to remove from
@@ -2540,6 +2594,60 @@ public class ChannelManager extends BaseManager {
         SelectMode mode = ModeFactory.getMode(
                 "Channel_queries", "channel_errata_packages");
         return (List<PackageDto>) mode.execute(params);
+    }
+
+    /**
+     * List errata that is within a channel that needs to be resynced
+     *  This is determined by the packages in the channel
+     *
+     * @param c the channel
+     * @param user the user
+     * @return list of errataOverview objects that need to be resynced
+     */
+    public static List listErrataNeedingResync(Channel c, User user) {
+        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+            throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
+        }
+
+        if (c.isCloned()) {
+            Map params = new HashMap();
+            params.put("cid", c.getId());
+            ClonedChannel cc = (ClonedChannel) c;
+            params.put("ocid", cc.getOriginal().getId());
+            SelectMode m = ModeFactory.getMode("Errata_queries",
+                                        "list_errata_needing_sync");
+            return m.execute(params);
+        }
+        else {
+            return Collections.EMPTY_LIST;
+        }
+    }
+
+    /**
+     * List errata packages that need to be resynced
+     * @param c the channel to look for packages in
+     * @param user the user doing it
+     * @param setLabel the set of errata to base the package off of
+     * @return the list of PackageOverview objects
+     */
+    public static List listErrataPackagesForResync(Channel c, User user, String setLabel) {
+        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+            throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
+        }
+
+        if (c.isCloned()) {
+            Map params = new HashMap();
+            params.put("cid", c.getId());
+            params.put("set_label", setLabel);
+            ClonedChannel cc = (ClonedChannel) c;
+            params.put("ocid", cc.getOriginal().getId());
+            SelectMode m = ModeFactory.getMode("Errata_queries",
+                    "list_packages_needing_sync_from_set");
+            return m.execute(params);
+        }
+        else {
+            return Collections.EMPTY_LIST;
+        }
     }
 
 }

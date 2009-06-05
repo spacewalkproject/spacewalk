@@ -16,10 +16,12 @@ package com.redhat.rhn.frontend.action.kickstart.tree;
 
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.PersistOperation;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.kickstart.tree.BaseTreeEditOperation;
 import com.redhat.rhn.manager.kickstart.tree.TreeEditOperation;
 
 import org.apache.struts.action.DynaActionForm;
+import org.cobbler.Distro;
 
 /**
  * TreeEditAction
@@ -67,6 +69,13 @@ public class TreeEditAction extends BaseTreeAction {
         form.set(CHANNEL_ID, bte.getTree().getChannel().getId());
         form.set(LABEL, bte.getTree().getLabel());
         form.set(INSTALL_TYPE, bte.getTree().getInstallType().getLabel());
+
+
+        Distro distro = Distro.lookupById(CobblerXMLRPCHelper.getConnection(
+                bte.getUser()), bte.getTree().getCobblerId());
+        form.set(KERNEL_OPTS, distro.getKernelOptionsString());
+        form.set(POST_KERNEL_OPTS, distro.getKernelPostOptionsString());
+
     }
 
 }

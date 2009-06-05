@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
+import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.RepoInfo;
 import com.redhat.rhn.domain.kickstart.cobbler.CobblerSnippet;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
@@ -100,15 +101,13 @@ public class KickstartFormatter {
         NEWLINE;
     public static final String[] UPDATE_PKG_NAMES =         
     {"pyOpenSSL", "rhnlib", "libxml2-python"};
-    public static final String[] FRESH_PKG_NAMES_RHEL5 =
-    {"rhn-setup",  "yum-rhn-plugin", "rhnsd", "rhn-client-tools", "rhnlib", "rhn-check"};
     public static final String[] FRESH_PKG_NAMES_RHEL34 = 
     {"up2date",  "up2date-gnome"};
     public static final String[] FRESH_PKG_NAMES_RHEL2 =
     {"rhn_register", "up2date", "rhn_register-gnome", "up2date-gnome"};
     private static final String UPDATE_OPT_PATH = "/tmp/rhn_rpms/optional/";
     private static final String UPDATE_CMD = "rpm -Uvh --replacepkgs --replacefiles ";
-    private static final String FRESH_CMD = "rpm -Uvh /tmp/rhn_rpms/*rpm";
+    private static final String FRESH_CMD = "rpm -Fvh /tmp/rhn_rpms/*rpm";
     private static final String IMPORT_RHN_KEY5 = 
         "rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release";
     private static final String IMPORT_RHN_KEY34 = 
@@ -388,8 +387,8 @@ public class KickstartFormatter {
         for (Iterator itr = ksdata.getPackageNames().iterator(); itr.hasNext();) {
             buf.append(((PackageName)itr.next()).getName() + NEWLINE);
         }
-        if (ksdata.getKickstartDefaults().
-                getVirtualizationType().getLabel().equals("para_host")) {
+        if (KickstartVirtualizationType.paraHost().equals(ksdata.getKickstartDefaults().
+                getVirtualizationType())) {
             buf.append("kernel-xen" + NEWLINE);
             buf.append("xen" + NEWLINE);
         }
@@ -765,7 +764,7 @@ public class KickstartFormatter {
             }
         }
         for (int i = 0; i < UPDATE_PKG_NAMES.length; i++) {
-            Long packageId = ChannelManager.getLatestPackageEqual(c.getId(),
+            Long packageId = ChannelManager.getLatestPackageEqualInTree(c.getId(),
                     UPDATE_PKG_NAMES[i]);
             if (packageId == null) {
                 log.debug("package:" + packageId + "not found in kickstart's channel");
@@ -814,9 +813,6 @@ public class KickstartFormatter {
             } 
             else if (ksdata.isRhel3() || ksdata.isRhel4()) {
                 pkglist = FRESH_PKG_NAMES_RHEL34;
-            }
-            else {
-                pkglist = FRESH_PKG_NAMES_RHEL5;
             }
             HashSet retval = new HashSet();
             for (int i = 0; i < pkglist.length; i++) {

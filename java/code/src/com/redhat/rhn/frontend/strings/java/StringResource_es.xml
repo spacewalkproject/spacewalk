@@ -138,6 +138,14 @@
 				<source>Tip</source>
 				<target>Consejo</target>
 			</trans-unit>
+			<trans-unit id="Note">
+				<source>Note</source>
+				<target>Nota</target>
+			</trans-unit>
+			<trans-unit id="Warning">
+				<source>Warning</source>
+				<target>Advertencia</target>
+			</trans-unit>
 			<trans-unit id="About Spacewalk">
 				<source>About</source>
 				<target>Acerca de</target>
@@ -252,7 +260,7 @@
 			</trans-unit>
 			<trans-unit id="Clone Errata">
 				<source>Clone Errata</source>
-				<target>Clonar erratas</target>
+				<target>Clonar errata</target>
 			</trans-unit>
 			<trans-unit id="Completed Actions">
 				<source>Completed Actions</source>
@@ -304,11 +312,11 @@
 			</trans-unit>
 			<trans-unit id="Edit this address">
 				<source>Edit this address</source>
-				<target>Editar esta dirección</target>
+				<target>Modificar esta dirección</target>
 			</trans-unit>
 			<trans-unit id="Errata">
 				<source>Errata</source>
-				<target>Erratas</target>
+				<target>Errata</target>
 			</trans-unit>
 			<trans-unit id="exception">
 				<source>Exception</source>
@@ -364,7 +372,7 @@
 			</trans-unit>
 			<trans-unit id="IP Ranges">
 				<source>IP Ranges</source>
-				<target>Rangos IP</target>
+				<target>Valores IP</target>
 			</trans-unit>
 			<trans-unit id="Kickstart">
 				<source>Kickstart</source>
@@ -376,7 +384,7 @@
 			</trans-unit>
 			<trans-unit id="Lookup Login/Password">
 				<source>Lookup Login/Password</source>
-				<target>Buscar Login/Contraseña</target>
+				<target>Buscar Nombre de usuario/Contraseña</target>
 			</trans-unit>
 			<trans-unit id="Magic Entitler">
 				<source>Magic Entitler</source>
@@ -388,7 +396,7 @@
 			</trans-unit>
 			<trans-unit id="Manage Errata">
 				<source>Manage Errata</source>
-				<target>Administrar erratas</target>
+				<target>Administrar errata</target>
 			</trans-unit>
 			<trans-unit id="Manage Files">
 				<source>Manage Files</source>
@@ -476,7 +484,7 @@
 			</trans-unit>
 			<trans-unit id="Proxy Guide">
 				<source>Proxy Guide</source>
-				<target>Manual Proxy</target>
+				<target>Manual de Proxy</target>
 			</trans-unit>
 			<trans-unit id="Proxy">
 				<source>Proxy</source>
@@ -532,15 +540,15 @@
 			</trans-unit>
 			<trans-unit id="Spacewalk Login">
 				<source>@@PRODUCT_NAME@@ Login</source>
-				<target>Inicio de @@PRODUCT_NAME@@</target>
+				<target>Cuenta de @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Create Login">
 				<source>Create Login</source>
-				<target>Crear login</target>
+				<target>Crear nombre de usuario</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Support Tools">
 				<source>@@PRODUCT_NAME@@ Support Tools</source>
-				<target>Herramientas de soporte de @@PRODUCT_NAME@@</target>
+				<target>Herramientas de apoyo de @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Schedule">
 				<source>Schedule</source>
@@ -560,7 +568,7 @@
 			</trans-unit>
 			<trans-unit id="Session Tracer">
 				<source>Session Tracer</source>
-				<target>Rastrear sesiones</target>
+				<target>Rastreador de sesiones</target>
 			</trans-unit>
 			<trans-unit id="Sign In">
 				<source>Sign In</source>
@@ -580,7 +588,7 @@
 			</trans-unit>
 			<trans-unit id="String Manager">
 				<source>String Manager</source>
-				<target>Administrador de cadenas</target>
+				<target>Gestor de cadenas</target>
 			</trans-unit>
 			<trans-unit id="Subscription">
 				<source>Subscription</source>
@@ -656,7 +664,7 @@
 			</trans-unit>
 			<trans-unit id="user prefix Hr.">
 				<source>Hr.</source>
-				<target>Hr.</target>
+				<target>Sr.</target>
 			</trans-unit>
 			<trans-unit id="user prefix Miss">
 				<source>Miss</source>
@@ -680,7 +688,7 @@
 			</trans-unit>
 			<trans-unit id="user.delete">
 				<source>Deleted user &lt;strong&gt;{0}&lt;/strong&gt;.</source>
-				<target>Usuario eliminado &lt;strong&gt;{0}&lt;/strong&gt;.</target>
+				<target>Usuario borrado &lt;strong&gt;{0}&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="user.disable">
 				<source>Deactivated user &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -708,7 +716,7 @@
 			</trans-unit>
 			<trans-unit id="user.deleteadmin">
 				<source>You cannot delete &lt;strong&gt;another&lt;/strong&gt; organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
-				<target>No puede borrar &lt;strong&gt;otro&lt;/strong&gt; administrador de la organización. Por favor remueva el rol de 'Administrador de la organización' de este usuario antes de intentar desactivar esta cuenta.</target>
+				<target>No puede borrar &lt;strong&gt;otro&lt;/strong&gt; administrador de la organización. Por favor borre el rol de 'Administrador de la organización' de este usuario antes de intentar desactivar esta cuenta.</target>
 			</trans-unit>
 			<trans-unit id="Users/Servers">
 				<source>Users/Servers</source>
@@ -780,7 +788,7 @@
 			</trans-unit>
 			<trans-unit id="for Org">
 				<source> for Org </source>
-				<target>por Org</target>
+				<target>por Org.</target>
 			</trans-unit>
 			<trans-unit id="username">
 				<source>Username</source>
@@ -792,11 +800,11 @@
 			</trans-unit>
 			<trans-unit id="desiredlogin">
 				<source>Desired Login</source>
-				<target>Login deseado</target>
+				<target>Nombre de usuario deseado</target>
 			</trans-unit>
 			<trans-unit id="login">
 				<source>Desired Login</source>
-				<target>Login deseado</target>
+				<target>Nombre de usuario deseado</target>
 			</trans-unit>
 			<trans-unit id="desiredpass">
 				<source>Desired Password</source>
@@ -824,19 +832,19 @@
 			</trans-unit>
 			<trans-unit id="error.invalid_login">
 				<source>Either the password or username is incorrect.</source>
-				<target>La contraseña o el nombre de usuarios es incorrecto.</target>
+				<target>La contraseña o el nombre de usuario es incorrecto.</target>
 			</trans-unit>
 			<trans-unit id="error.org_already_taken">
 				<source>That organization name is already taken; please choose another.</source>
-				<target>Este nombre para la organización ya ha sido usado, por favor escoja otro.</target>
+				<target>Este nombre de organización ya existe, por favor escoja otro.</target>
 			</trans-unit>
 			<trans-unit id="error.login_already_taken">
 				<source>That username is already taken; please choose another.</source>
-				<target>El nombre de usuario ya ha sido usado, por favor escoja otro.</target>
+				<target>Ese nombre de usuario ya existe, por favor escoja otro.</target>
 			</trans-unit>
 			<trans-unit id="/rhn/">
 				<source>That username is already taken; please choose another.</source>
-				<target>El nombre de usuario ya ha sido usado, por favor escoja otro.</target>
+				<target>Ese nombre de usuario ya existe, por favor escoja otro.</target>
 			</trans-unit>
 			<trans-unit id="error.link_problem">
 				<source>There is a problem with the link you have been sent. Please contact customer support.</source>
@@ -860,11 +868,11 @@
 			</trans-unit>
 			<trans-unit id="error.minlogin">
 				<source>Logins must be no shorter than {0} characters.</source>
-				<target>El login no debe tener menos de {0} caracteres.</target>
+				<target>El nombre de usuario no debe tener menos de {0} caracteres.</target>
 			</trans-unit>
 			<trans-unit id="error.maxlogin">
 				<source>The desired login you requested is too long. Please enter a shorter desired login and try again.</source>
-				<target>El login que ha solicitado es demasiado largo. Por favor introduzca un login más corto e inténtelo de nuevo.</target>
+				<target>El nombre de usuario solicitado es demasiado largo. Por favor introduzca un nombre de usuario más corto e intente de nuevo.</target>
 			</trans-unit>
 			<trans-unit id="error.minpassword">
 				<source>Passwords must be at least {0} characters.</source>
@@ -872,11 +880,11 @@
 			</trans-unit>
 			<trans-unit id="error.invalidpasswordcharacters">
 				<source>Password contains tab or newline characters.</source>
-				<target>La contraseña contiene caracteres tabuladores o quiebres de línea.</target>
+				<target>La contraseña contiene caracteres de tabulación o de nueva línea.</target>
 			</trans-unit>
 			<trans-unit id="error.maxpassword">
 				<source>The password you requested is too long. Please enter a shorter password and try again.</source>
-				<target>La contraseña que ha solicitado es demasiado larga. Por favor introduzca una contraseña más corta e inténtelo de nuevo.</target>
+				<target>La contraseña que ha solicitado es demasiado larga. Por favor introduzca una contraseña más corta e intente de nuevo.</target>
 			</trans-unit>
 			<trans-unit id="error.password_mismatch">
 				<source>Passwords do not match.</source>
@@ -996,11 +1004,11 @@
 			</trans-unit>
 			<trans-unit id="address_record">
 				<source>Address Record:</source>
-				<target>Expediente de la dirección:</target>
+				<target>Registro de dirección:</target>
 			</trans-unit>
 			<trans-unit id="message.defaultSystemGroups">
 				<source>Default system groups updated for &lt;strong&gt;{0}&lt;/strong&gt;</source>
-				<target>Los grupos de sistemas por defecto fuero actualizados para &lt;strong&gt;{0}&lt;/strong&gt;</target>
+				<target>Los grupos de sistemas por defecto fueron actualizados para &lt;strong&gt;{0}&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="message.preferencesModified">
 				<source>Preferences modified</source>
@@ -1036,11 +1044,11 @@
 			</trans-unit>
 			<trans-unit id="message.filterby">
 				<source>Filter by {0}: </source>
-				<target>Filtrar según {0}: </target>
+				<target>Filtrar por {0}: </target>
 			</trans-unit>
 			<trans-unit id="message.filterby.multiple">
 				<source>Filter by: </source>
-				<target>Filtrar según: </target>
+				<target>Filtrar por: </target>
 			</trans-unit>
 			<trans-unit id="message.range">
 				<source>&lt;strong id="list_min" &gt;{0}&lt;/strong&gt; - &lt;strong id="list_max"&gt;{1}&lt;/strong&gt; of &lt;strong id="list_total"&gt;{2}&lt;/strong&gt;</source>
@@ -1062,7 +1070,7 @@
 			</trans-unit>
 			<trans-unit id="message.userCreatedIntoOrg">
 				<source>Account &lt;strong&gt;{0}&lt;/strong&gt; created, login information sent to &lt;strong&gt;{1}&lt;/strong&gt;</source>
-				<target>Cuenta &lt;strong&gt;{0}&lt;/strong&gt; creada, la información de login fue enviada a &lt;strong&gt;{1}&lt;/strong&gt;</target>
+				<target>Cuenta &lt;strong&gt;{0}&lt;/strong&gt; creada, la información de nombre de usuario fue enviada a &lt;strong&gt;{1}&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="bad-class">
 				<source>Class does not implement AclHandler: {0}</source>
@@ -1070,7 +1078,7 @@
 			</trans-unit>
 			<trans-unit id="bad-signature">
 				<source>Bad ACL handler method [{0}]. ACL handler methods must have the following signature (may be static or non-static), with no declared exceptions: public aclXXXX(Object, String[])</source>
-				<target>Mal método manejador ACL [{0}]. Los métodos de manejador ACL deben tener la siguiente firma (puede ser estática o no estática), sin excepciones declaradas: public aclXXXX(Object, String[])</target>
+				<target>Mal método de manejador ACL [{0}]. Los métodos de manejador ACL deben tener la siguiente firma (puede ser estática o no estática), sin excepciones declaradas: public aclXXXX(Object, String[])</target>
 			</trans-unit>
 			<trans-unit id="bad-syntax">
 				<source>Could not parse ACL statement: "{0}"</source>
@@ -1110,7 +1118,7 @@
 			</trans-unit>
 			<trans-unit id="errata.update">
 				<source>Errata Update</source>
-				<target>Actualización de Erratas</target>
+				<target>Actualización de Errata</target>
 			</trans-unit>
 			<trans-unit id="up2date_config.get">
 				<source>Get server up2date config</source>
@@ -1150,19 +1158,19 @@
 			</trans-unit>
 			<trans-unit id="configfiles.upload">
 				<source>Import config file data from system</source>
-				<target>Importar los datos del archivo de configuración desde el sistema</target>
+				<target>Importar los datos del archivo de configuración del sistema</target>
 			</trans-unit>
 			<trans-unit id="configfiles.deploy">
 				<source>Deploy config files to system</source>
-				<target>Implementar los archivos de configuración en el sistema</target>
+				<target>Implementar los archivos de configuración al sistema</target>
 			</trans-unit>
 			<trans-unit id="configfiles.verify">
 				<source>Verify deployed config files</source>
-				<target>Verificar la implementación de los archivos de configuración</target>
+				<target>Verificar implementación de archivos de configuración</target>
 			</trans-unit>
 			<trans-unit id="configfiles.diff">
 				<source>Show differences between profiled config files and deployed config files</source>
-				<target>Mostrar las diferencias entre los archivos de configuración en el perfil y aquellos implementados</target>
+				<target>Mostrar las diferencias entre los archivos de configuración perfilados y los implementados</target>
 			</trans-unit>
 			<trans-unit id="config.actionnote">
 				<source>&lt;a href="{0}"&gt;Revision {1}&lt;/a&gt; of {2} from &lt;a href="{3}"&gt;{4}&lt;/a&gt;</source>
@@ -1174,7 +1182,7 @@
 			</trans-unit>
 			<trans-unit id="config.upload.channels">
 				<source>Destination Configuration Channels:</source>
-				<target>Canal de configuración de destino:</target>
+				<target>Canales de configuración de destino:</target>
 			</trans-unit>
 			<trans-unit id="config.upload.filenames">
 				<source>Files for Upload:</source>
@@ -1230,7 +1238,7 @@ disponibles en el canal de 'rhn-tools' del canal base de kickstart. Si no lo est
 necesitará hacerlos disponibles para que este perfil de kickstart funcione correctamente.
 &lt;/li&gt;
 &lt;li&gt;
-¿Están disponibles los paquetes listados anteriormente en este canal de base kickstart? Si no lo están, necesitará hacerlos disponibles
+¿Están disponibles los paquetes listados anteriormente en este canal de base kickstart? Si no lo están, necesitará hacerlos disponibles 
 para que este perfil de kickstart funcione correctamente.
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -1254,7 +1262,7 @@ para que este perfil de kickstart funcione correctamente.
 			</trans-unit>
 			<trans-unit id="kickstart.error.invalidlabel">
 				<source>Your selected kickstart label is invalid, it must be at least {0} characters and only contain the following characters : A-Z, a-z, 0-9, _, - </source>
-				<target>Su etiqueta kickstart seleccionada no es válida, debe tener al menos {0} caracteres y solo puede tener los siguientes caracteres: A-Z, a-z, 0-9, _, - </target>
+				<target>La etiqueta kickstart seleccionada no es válida, debe tener al menos {0} caracteres y solo puede tener los siguientes caracteres: A-Z, a-z, 0-9, _, - </target>
 			</trans-unit>
 			<trans-unit id="kickstart.error.labelexists">
 				<source>Kickstart label already exists. Please choose a unique kickstart label.</source>
@@ -1262,7 +1270,7 @@ para que este perfil de kickstart funcione correctamente.
 			</trans-unit>
 			<trans-unit id="kickstart.details.success">
 				<source>Kickstart details successfully updated.</source>
-				<target>La información del perfil kickstart fue exitosamente actualizada</target>
+				<target>La información de Kickstart fue actualizada con éxito.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.details.nolabel">
 				<source>Kickstart profile label is required.</source>
@@ -1270,15 +1278,15 @@ para que este perfil de kickstart funcione correctamente.
 			</trans-unit>
 			<trans-unit id="kickstart.delete.success">
 				<source>Kickstart was deleted successfully.</source>
-				<target>El Kickstart fue borrado exitosamente.</target>
+				<target>Kickstart fue borrado con éxito.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.delete.failure">
 				<source>Kickstart {0} could not be deleted, try again on your next login.</source>
-				<target>Kickstart {0} no pudo ser borrado, inténtelo nuevamente en la próxima sesión.</target>
+				<target>Kickstart {0} no pudo ser borrado, intente nuevamente en la próxima sesión.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.options.success">
 				<source>Kickstart advanced options successfully updated.</source>
-				<target>Las opciones avanzadas de Kickstart fueron actualizadas correctamente.</target>
+				<target>Opciones avanzadas de Kickstart fueron actualizadas con éxito.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.options.url.note">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Default @@PRODUCT_NAME@@ kickstart URLs are stored with just the file path, allowing @@PRODUCT_NAME@@ to know when to dynamically adjust the hostname in the URL rendered in the kickstart file. (for proxies, etc) You may customize this value by changing it to a fully qualified URL, which will appear in the kickstart file as is.</source>
@@ -1286,7 +1294,7 @@ para que este perfil de kickstart funcione correctamente.
 			</trans-unit>
 			<trans-unit id="kickstart.iprange_add.success">
 				<source>Successfully added IP Range to Kickstart Profile {0}</source>
-				<target>Se añadió exitosamente el rango IP al perfil Kickstart {0}</target>
+				<target>Se añadió con éxito el rango IP al perfil Kickstart {0}</target>
 			</trans-unit>
 			<trans-unit id="kickstart.iprange_conflict.failure">
 				<source>Error: The IP range you entered conflicts with another IP range. Please choose a different IP range.</source>
@@ -1298,23 +1306,23 @@ para que este perfil de kickstart funcione correctamente.
 			</trans-unit>
 			<trans-unit id="kickstart.iprange_delete.success">
 				<source>Successfully deleted IP Range from Kickstart Profile {0}</source>
-				<target>Se borró exitosamente el rango IP del perfil Kickstart {0}</target>
+				<target>Borrado con éxito el valor IP del perfil Kickstart {0}</target>
 			</trans-unit>
 			<trans-unit id="kickstart.iprange_delete.failure">
 				<source>There was an error deleting the IP Range from Kickstart Profile {0}. Please try again.</source>
 				<target>Hubo un error al tratar de borrar el rango IP del perfil Kickstart {0}. Por favor inténtelo nuevamente.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.update.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
-				<target>Fragmento de Cobbler &lt;strong&gt;{0}&lt;/strong&gt; actualizado satisfactoriamente.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
+				<target>Fragmento Kickstart &lt;strong&gt;{0}&lt;/strong&gt; actualizado con éxito.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.create.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
-				<target>Fragmento de Cobbler &lt;strong&gt;{0}&lt;/strong&gt; creado satisfactoriamente.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
+				<target>Fragmento de Cobbler &lt;strong&gt;{0}&lt;/strong&gt; creado con éxito.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.delete.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
-				<target>Fragmento de Cobbler &lt;strong&gt;{0}&lt;/strong&gt; creado satisfactoriamente.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
+				<target>Fragmento de Cobbler &lt;strong&gt;{0}&lt;/strong&gt; borrado con éxito.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.couldnotdelete.message">
 				<source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -1325,12 +1333,12 @@ para que este perfil de kickstart funcione correctamente.
 				<target>Se presentó un error al tratar de renombrar el fragmento &lt;strong&gt;{0}&lt;/strong&gt; a &lt;strong&gt;{1}&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.filenameexists.message">
-				<source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
-				<target>Ya existe un fragmento de Cobbler con el nombre &lt;strong&gt;{0}&lt;/strong&gt;</target>
+				<source>Kickstart snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+				<target>El fragmento Kickstart con el nombre &lt;strong&gt;{0}&lt;/strong&gt; ya existe.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.invalidfilename.message">
-				<source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
-				<target>El nombre de archivo del fragmento de Cobbler solicitado no es válido. Los caracteres válidos son A-Z, a-z, 0-9, _ y -.</target>
+				<source>The requested kickstart snippet filename is not valid. The kickstart snippet file name cannot contain slash (/) or  begin with a period(.)</source>
+				<target>El nombre de archivo del fragmento kickstart solicitado no es válido. El nombre de archivo del fragmento Kickstart no puede contener barra oblicua (/) ni comenzar por punto(.) </target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.snippets">
 				<source>delete snippet</source>
@@ -1338,7 +1346,7 @@ para que este perfil de kickstart funcione correctamente.
 			</trans-unit>
 			<trans-unit id="kickstart.iprange.url">
 				<source>New systems can be kickstarted based upon their ip address by appending &lt;code&gt;{0}&lt;/code&gt; to the kernel parameters for a kickstart install.</source>
-				<target>Los nuevos sistemas pueden recibir una instalación kickstart a través de sus direcciones IP, añadiendo &lt;code&gt;{0}&lt;/code&gt; a los parámetros del kernel para una instalación kickstart.</target>
+				<target>Nuevos sistemas pueden iniciar una instalación a través de kickstart basados en su dirección IP, añadiendo &lt;code&gt;{0}&lt;/code&gt; a los parámetros del kernel.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.partition.duplicate">
 				<source>Only one {0} partition is allowed.</source>
@@ -1346,15 +1354,15 @@ para que este perfil de kickstart funcione correctamente.
 			</trans-unit>
 			<trans-unit id="kickstart.partition.invalid">
 				<source>Invalid partition value removed: &lt;strong&gt;{0}&lt;/strong&gt;. Please verify the input values and resubmit.</source>
-				<target>Valor de partición inválido removido: &lt;strong&gt;{0}&lt;/strong&gt; Por favor verifique el valor de entrada y envíelo nuevamente.</target>
+				<target>Valor de partición inválido eliminado: &lt;strong&gt;{0}&lt;/strong&gt; Por favor verifique el valor de entrada y envíelo nuevamente.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.partition.success">
 				<source>Kickstart profile options updated successfully.</source>
-				<target>Las opciones del perfil Kickstart fueron exitosamente actualizadas.</target>
+				<target>Las opciones del perfil Kickstart fueron actualizadas correctamente.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.edit.pkgs.updated">
 				<source>Kickstart profile package groups updated successfully.</source>
-				<target>Los grupos de paquetes del perfil Kickstart fueron exitosamente actualizados.</target>
+				<target>Los grupos de paquetes del perfil Kickstart fueron actualizados correctamente.</target>
 			</trans-unit>
 			<trans-unit id="activation.schedule_pkg_install">
 				<source>Schedule a package install for activation key</source>
@@ -1366,7 +1374,7 @@ para que este perfil de kickstart funcione correctamente.
 			</trans-unit>
 			<trans-unit id="configfiles.mtime_upload">
 				<source>Upload config file data based upon mtime to server</source>
-				<target>Cargar al servidor los datos del archivo de configuración de acuerdo a mtime</target>
+				<target>Cargar al servidor los datos del archivo de configuración basados en mtime</target>
 			</trans-unit>
 			<trans-unit id="solarispkgs.install">
 				<source>Solaris Package Install</source>
@@ -1426,11 +1434,11 @@ para que este perfil de kickstart funcione correctamente.
 			</trans-unit>
 			<trans-unit id="action.completelink">
 				<source>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} system&lt;/a&gt;&lt;/strong&gt; successfully completed this action.&lt;br/&gt;&lt;br/&gt;</source>
-				<target>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} sistema&lt;/a&gt;&lt;/strong&gt; completó esta acción exitosamente.&lt;br/&gt;&lt;br/&gt;</target>
+				<target>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} sistema&lt;/a&gt;&lt;/strong&gt; completó esta acción con éxito.&lt;br/&gt;&lt;br/&gt;</target>
 			</trans-unit>
 			<trans-unit id="action.completelink.plural">
 				<source>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} systems&lt;/a&gt;&lt;/strong&gt; successfully completed this action.&lt;br/&gt;&lt;br/&gt;</source>
-				<target>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} sistemas&lt;/a&gt;&lt;/strong&gt; completaron esta acción exitosamente.&lt;br/&gt;&lt;br/&gt;</target>
+				<target>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} sistemas&lt;/a&gt;&lt;/strong&gt; completaron esta acción con éxito.&lt;br/&gt;&lt;br/&gt;</target>
 			</trans-unit>
 			<trans-unit id="action.name">
 				<source>Errata Update: {0} - {1}</source>
@@ -1486,7 +1494,7 @@ para que este perfil de kickstart funcione correctamente.
 			</trans-unit>
 			<trans-unit id="Remove Packages">
 				<source>Remove Packages</source>
-				<target>Remover paquetes</target>
+				<target>Eliminar paquetes</target>
 			</trans-unit>
 			<trans-unit id="Update Packages">
 				<source>Update Packages</source>
@@ -1494,7 +1502,7 @@ para que este perfil de kickstart funcione correctamente.
 			</trans-unit>
 			<trans-unit id="message.actionrescheduled">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; successfully rescheduled.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; reprogramada exitosamente.</target>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; re-programada con éxito.</target>
 			</trans-unit>
 			<trans-unit id="cert_admin">
 				<source>Certificate Administrator</source>
@@ -1698,7 +1706,7 @@ para que este perfil de kickstart funcione correctamente.
 			</trans-unit>
 			<trans-unit id="packages.search.free_form">
 				<source>Free form</source>
-				<target>Forma libre</target>
+				<target>Formato libre</target>
 			</trans-unit>
 			<trans-unit id="packages.search.chooseone">
 				<source>You must choose to search relevant channels or at least one architecture</source>
@@ -1714,7 +1722,7 @@ para que este perfil de kickstart funcione correctamente.
 			</trans-unit>
 			<trans-unit id="packages.search.use_free_form">
 				<source>Searching by fields can ONLY be done with Free Form search.</source>
-				<target>La búsqueda por campos sólo puede hacerse con una búsqueda de forma libre.</target>
+				<target>La búsqueda por campos SÓLO puede hacerse en formato libre.</target>
 			</trans-unit>
 			<trans-unit id="packages.search.connection_error">
 				<source>Could not connect to search server.</source>
@@ -1736,9 +1744,9 @@ para que este perfil de kickstart funcione correctamente.
 				<source>Search strings must be longer than two characters.</source>
 				<target>Las cadenas de búsqueda deben tener más de dos caracteres.</target>
 			</trans-unit>
-			<trans-unit id="packages.search.index_out_of_sync_with_db">
-				<source>Package search index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
-				<target>El índice de búsqueda de paquetes y entradas de base de datos parecen estar sincronizados. Por favor ejecute '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</target>
+			<trans-unit id="searchserver.index_out_of_sync_with_db">
+				<source>SearchServer index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
+				<target state="needs-review-translation">El índice de búsqueda de paquetes y entradas de base de datos parecen estar sincronizados. Por favor ejecute '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</target>
 			</trans-unit>
 			<trans-unit id="patches.installed.notavailable">
 				<source>Not Available</source>
@@ -1913,7 +1921,7 @@ para que este perfil de kickstart funcione correctamente.
 administrator. Please remove the 'Organization Administrator' role from this
 user before attempting to deactivate their account.</source>
 				<target>No puede desactivar &lt;strong&gt;otro&lt;/strong&gt; administrador de
-la organización. Por favor remueva el rol de 'Administrador de la organización'
+la organización. Por favor elimine el rol de 'Administrador de la organización'
 de este usuario antes de intentar desactivar esta cuenta.</target>
 			</trans-unit>
 			<trans-unit id="userdisable.error.userdisabled">
@@ -1950,11 +1958,11 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 			</trans-unit>
 			<trans-unit id="enable.confirmed">
 				<source>{0} user successfully reactivated.</source>
-				<target>{0} usuario reactivado satisfactoriamente.</target>
+				<target>{0} usuario reactivado con éxito.</target>
 			</trans-unit>
 			<trans-unit id="enable.confirmed.plural">
 				<source>{0} users successfully reactivated.</source>
-				<target>{0} usuarios reactivados satisfactoriamente.</target>
+				<target>{0} usuarios reactivados correctamente.</target>
 			</trans-unit>
 			<trans-unit id="errata.applynone">
 				<source>No errata selected.</source>
@@ -2066,11 +2074,11 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 			</trans-unit>
 			<trans-unit id="Remove">
 				<source>Remove</source>
-				<target>Remover</target>
+				<target>Eliminar</target>
 			</trans-unit>
 			<trans-unit id="message.actionremove">
 				<source>Remove</source>
-				<target>Remover</target>
+				<target>Eliminar</target>
 			</trans-unit>
 			<trans-unit id="Groups">
 				<source>Groups</source>
@@ -2137,8 +2145,8 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 				<target>Tiempo de conexión esperado:</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;NOTA:&lt;/strong&gt; este sistema no se ha conectado con @@PRODUCT_NAME@@recientemente. Ya que un sistema no puede ser actualizado si no se conecta con @@PRODUCT_NAME@@, es poco probable que esta acción sea exitosa. &lt;br/&gt;&lt;br/&gt;Por favor revise el sistema y asegúrese de que rhnsd está siendo ejecutado (&lt;a href="/help/faq.pxt#15"&gt;más información&lt;/a&gt;). Si la ejecución está fallando, por favor &lt;a href="/help/contact.pxt"&gt;contáctenos&lt;/a&gt;.</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running.</source>
+				<target>&lt;strong&gt;NOTA:&lt;/strong&gt; este sistema no se ha conectado con @@PRODUCT_NAME@@recientemente. Ya que un sistema no puede ser actualizado si no se conecta con @@PRODUCT_NAME@@, es poco probable que esta acción sea exitosa. &lt;br/&gt;&lt;br/&gt;Por favor revise el sistema y asegúrese de que rhnsd esté siendo ejecutado.</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -2230,7 +2238,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 			</trans-unit>
 			<trans-unit id="message.packagerefresh">
 				<source>You have successfully scheduled a &lt;a href="/rhn/schedule/ActionDetails.do?aid={0}"&gt;package profile refresh&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt;.</source>
-				<target>Ha programado exitosamente una &lt;a href="/rhn/schedule/ActionDetails.do?aid={0}"&gt;actualización del perfil de paquetes&lt;/a&gt; para &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt;.</target>
+				<target>Ha programado correctamente una &lt;a href="/rhn/schedule/ActionDetails.do?aid={0}"&gt;actualización del perfil de paquetes&lt;/a&gt; para &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt;.</target>
 			</trans-unit>
 			<trans-unit id="Probe Suites">
 				<source>Probe Suites</source>
@@ -2274,7 +2282,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 			</trans-unit>
 			<trans-unit id="probesuites.jsp.selectasuite">
 				<source>No Probe Suites selected.  Please select a Probe Suite from the list and try again.</source>
-				<target>Ningún conjunto de sondeos seleccionado. Por favor seleccione un conjunto de sondeos de la lista e inténtelo de nuevo.</target>
+				<target>Ningún conjunto de sondeos seleccionado. Por favor seleccione un conjunto de sondeos de la lista e intente de nuevo.</target>
 			</trans-unit>
 			<trans-unit id="probesuites.jsp.suitesdeleted">
 				<source>{0} Probe Suite(s) deleted.</source>
@@ -2378,7 +2386,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 			</trans-unit>
 			<trans-unit id="message.syncpackages">
 				<source>You have successfully &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a package profile sync for &lt;strong&gt;{2}&lt;/strong&gt; from &lt;strong&gt;{3}&lt;/strong&gt;.</source>
-				<target>Usted ha &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;programado&lt;/a&gt;&lt;/strong&gt; exitosamente una sincronización del perfil de paquetes para &lt;strong&gt;{2}&lt;/strong&gt; de &lt;strong&gt;{3}&lt;/strong&gt;.</target>
+				<target>Ha &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;programado&lt;/a&gt;&lt;/strong&gt; correctamente una sincronización del perfil de paquetes para &lt;strong&gt;{2}&lt;/strong&gt; de &lt;strong&gt;{3}&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="message.hardwarerefresh">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
@@ -2386,11 +2394,11 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 			</trans-unit>
 			<trans-unit id="filterCreate.success">
 				<source>The filter {0} was successfully created</source>
-				<target>El filtro {0} fue creado exitosamente.</target>
+				<target>El filtro {0} fue creado con éxito.</target>
 			</trans-unit>
 			<trans-unit id="filterEdit.success">
 				<source>The filter {0} was successfully changed</source>
-				<target>El filtro {0} fue cambiado exitosamente.</target>
+				<target>El filtro {0} fue cambiado con éxito.</target>
 			</trans-unit>
 			<trans-unit id="message.nopackagestosync">
 				<source>There are no packages to sync.</source>
@@ -2850,7 +2858,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 			</trans-unit>
 			<trans-unit id="HT">
 				<source>Haiti</source>
-				<target>Haiti</target>
+				<target>Haití</target>
 			</trans-unit>
 			<trans-unit id="HU">
 				<source>Hungary</source>
@@ -3462,7 +3470,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 			</trans-unit>
 			<trans-unit id="method.nametaken">
 				<source>Notification Method with name '{0}' is already in use.  Please choose a different name.</source>
-				<target>El método de notificación {0} ya está en uso. Por favor introduzca un nombre diferente.</target>
+				<target>El método de notificación {0} ya existe. Por favor elija un nombre diferente.</target>
 			</trans-unit>
 			<trans-unit id="Certificate">
 				<source>Certificate</source>
@@ -3501,28 +3509,27 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 				<target>El certificado ha sido cargado. @@PRODUCT_NAME@@ ha sido reactivado.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
-				<source>Could not parse certificate file</source>
-				<target>No se pudo analizar el archivo de certificado.</target>
+				<source>Could not parse certificate file, see log file for more details.</source>
+				<target state="needs-review-translation">No se pudo analizar el archivo de certificado.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.11">
 				<source>Certificate expired</source>
 				<target>Certificado vencido</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown @@PRODUCT_NAME@@ version</source>
-				<target>Versión de @@PRODUCT_NAME@@ desconocida</target>
+				<source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
+				<target state="needs-review-translation">Versión de @@PRODUCT_NAME@@ desconocida</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
-				<source>Remote activation failure</source>
-				<target>Activación remota fallida</target>
+				<source>Remote activation failure, see log file for more details.</source>
+				<target state="needs-review-translation">Activación remota fallida</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.30">
-				<source>Local activation failure</source>
-				<target>Activación local fallida</target>
+				<source>Local activation failure, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.40">
-				<source>Channel population failure</source>
-				<target>Población de canales fallido</target>
+				<source>Channel population failure, see log file for more details.</source>
+				<target state="needs-review-translation">Llenado de canal fallido</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.80">
 				<source>No management entitlements remaining</source>
@@ -3541,8 +3548,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 				<target>Certificado de @@PRODUCT_NAME@@ inválido</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
-				<source>Unknown activation error</source>
-				<target>Error de activación desconocido</target>
+				<source>Unknown activation error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
 				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
@@ -3553,12 +3559,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 				<target>No hay canales de @@PRODUCT_NAME@@ disponibles para esta versión</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
-				<source>Unhandled error</source>
-				<target>Error no controlado</target>
-			</trans-unit>
-			<trans-unit id="bootstrap.config.error.127">
-				<source>Unhandled error</source>
-				<target>Error no controlado</target>
+				<source>Unhandled error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="hostname">
 				<source>@@PRODUCT_NAME@@ server hostname</source>
@@ -3596,9 +3597,13 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 				<source>Could not find GPG key</source>
 				<target>No se pudo encontrar la llave GPG</target>
 			</trans-unit>
+			<trans-unit id="bootstrap.config.error.127">
+				<source>Unhandled error</source>
+				<target>Error no controlado</target>
+			</trans-unit>
 			<trans-unit id="bootstrap.config.success">
 				<source>Bootstrap script successfully generated.  You can access it &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt;</source>
-				<target>El script Bootstrap fue generado correctamente. Puede acceder a él en &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt;</target>
+				<target>El script Bootstrap fue generado con éxito. Puede acceder a él en &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="restart.config.error">
 				<source>There was an error restarting the satellite.  It can be manually restarted from the console by issuing the command: &lt;strong&gt;/usr/sbin/service rhn-satellite restart&lt;/strong&gt;.  Please contact support for more information.</source>
@@ -3646,7 +3651,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 			</trans-unit>
 			<trans-unit id="cryptokey.delete.success">
 				<source>Key deleted successfully.</source>
-				<target>La llave fue borrada exitosamente.</target>
+				<target>La llave fue borrada con éxito.</target>
 			</trans-unit>
 			<trans-unit id="crypto.key.descinuse">
 				<source>This description is already in use.  Please type a new description for this key.</source>
@@ -3662,7 +3667,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 			</trans-unit>
 			<trans-unit id="emptyselectionerror">
 				<source>There was no selection. Please make your selection and try again.</source>
-				<target>No se ha seleccionado nada. Por favor realice su selección e inténtelo de nuevo.</target>
+				<target>No se ha seleccionado nada. Por favor seleccione e intente de nuevo.</target>
 			</trans-unit>
 			<trans-unit id="nocripterror">
 				<source>Please enable Javascript or use a Javascript enabled browsr before proceeding with this action.</source>
@@ -3698,7 +3703,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 			</trans-unit>
 			<trans-unit id="kickstart_activation_keys.removed">
 				<source>{0} Activation Key(s) removed.</source>
-				<target>{0} Llave(s) de activación removida(s).</target>
+				<target>{0} Llave(s) de activación eliminada(s).</target>
 			</trans-unit>
 			<trans-unit id="file_lists.added">
 				<source>{0} File Preservation List(s) added.</source>
@@ -3706,7 +3711,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 			</trans-unit>
 			<trans-unit id="file_lists.removed">
 				<source>{0} File Preservation List(s) removed.</source>
-				<target>{0} Lista(s) de preservación de archivos removida(s).</target>
+				<target>{0} Lista(s) de preservación de archivos eliminada(s).</target>
 			</trans-unit>
 			<trans-unit id="package_profiles.added">
 				<source>{0} Package Profile(s) added.</source>
@@ -3714,7 +3719,7 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 			</trans-unit>
 			<trans-unit id="package_profiles.removed">
 				<source>{0} Package Profile(s) removed.</source>
-				<target>{0} Perfil(es) de paquetes removidos.</target>
+				<target>{0} Perfil(es) de paquetes eliminados.</target>
 			</trans-unit>
 			<trans-unit id="taskomatic.msg.awolservers">
 				<source>Systems Not Checking In:
@@ -3758,7 +3763,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="kickstart.software.success">
 				<source>Kickstart Operating System selection successfully updated.</source>
-				<target>La selección del sistema operativo para Kickstart fue actualizada exitosamente.</target>
+				<target>La selección del sistema operativo para Kickstart fue actualizada correctamente.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.software.notree">
 				<source>The specified base channel and kickstart tree was not found.</source>
@@ -3770,11 +3775,11 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="gpgssl_keys.removed">
 				<source>{0} Key(s) removed.</source>
-				<target>{0} Llave(s) de activación removida(s).</target>
+				<target>{0} Llave(s) de activación eliminada(s).</target>
 			</trans-unit>
 			<trans-unit id="kickstart.script.success">
 				<source>Kickstart Script successfully updated.</source>
-				<target>El script Kickstart fue actualizado exitosamente.</target>
+				<target>El script Kickstart fue actualizado correctamente.</target>
 			</trans-unit>
 			<trans-unit id="language">
 				<source>Language</source>
@@ -3802,11 +3807,11 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="tree.delete.success">
 				<source>Kickstart Distribution deleted successfully.</source>
-				<target>Distribución Kickstart fue borrada exitosamente.</target>
+				<target>Distribución Kickstart fue borrada con éxito.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.troubleshooting.validation.kernelparams.too_long">
 				<source>Extra kernel parameters can be no longer than 128 characters.</source>
-				<target>Los parámetros extras del kernel no pueden tener más de 128 caracteres.</target>
+				<target>Los parámetros adicionales del kernel no pueden tener más de 128 caracteres.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.locale.success">
 				<source>Kickstart locale options updated.</source>
@@ -3822,7 +3827,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="kickstart.clone.success">
 				<source>Kickstart cloned successfully.  You are now editing the cloned Kickstart.</source>
-				<target>Kickstart clonado exitosamente. Ahora está editando el kickstart clonado.</target>
+				<target>Kickstart clonado con éxito. Ahora está editando el kickstart clonado.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session_cancel.success">
 				<source>Kickstart canceled.</source>
@@ -3902,7 +3907,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="kickstart.state.guesttimedout">
 				<source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
-				<target>El sistema huésped no se ha comunicado con @@PRODUCT_NAME@@ en los últimos {0} minutos. El proceso de instalación podría estar progresando lentamente debido a limitaciones de hardware o quizá se ha detenido. &lt;p/&gt; Puede observar si hay algún error si ejecuta &lt;em&gt;consola virsh&lt;strong&gt;nombre_del_huésped&lt;/strong%gt;&lt;/em&gt; en el sistema anfitrión. Este comando le permitirá conectarse a la consola de texto del huésped mientras la instalación está en progreso, con lo cual se puede obtener información adicional sobre el estado de la instalación del sistema huésped.</target>
+				<target>El sistema huésped no se ha comunicado con @@PRODUCT_NAME@@ en los últimos {0} minutos. El proceso de instalación podría estar progresando lentamente debido a limitaciones de hardware o quizá se ha detenido. &lt;p/&gt;Puede observar si hay algún error si ejecuta &lt;em&gt;consola virsh&lt;strong&gt;nombre_del_huésped&lt;/strong%gt;&lt;/em&gt; en el sistema anfitrión. Este comando le permitirá conectarse a la consola de texto del huésped mientras la instalación está en progreso, con lo cual se puede obtener información adicional sobre el estado de la instalación del sistema huésped.</target>
 			</trans-unit>
 			<trans-unit id="tree.edit.success">
 				<source>Kickstart Distribution Updated</source>
@@ -3950,7 +3955,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="activation-key.java.invalid_chars">
 				<source>Activation key label &lt;strong&gt;{0}&lt;/strong&gt; has one or more of the following invalid characters &lt;strong&gt;{1}&lt;/strong&gt;. Please remove these characters from the label.</source>
-				<target>La etiqueta de llave de activación &lt;strong&gt;{0}&lt;/strong&gt; tiene uno o más de los siguientes caracteres inválidos &lt;strong&gt;{1}&lt;/strong&gt;. Por favor remueva estos caracteres de la etiqueta.</target>
+				<target>La etiqueta de llave de activación &lt;strong&gt;{0}&lt;/strong&gt; tiene uno o más de los siguientes caracteres inválidos &lt;strong&gt;{1}&lt;/strong&gt;. Por favor elimine estos caracteres de la etiqueta.</target>
 			</trans-unit>
 			<trans-unit id="activation-key.java.exists">
 				<source>An activation key with label &lt;strong&gt;{0}&lt;/strong&gt; is already taken. Please choose a different label.</source>
@@ -3978,7 +3983,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="system.sdc.missing.config_deploy2">
 				<source>You may ensure that configuration deployment capability will be enabled on this system by selecting this system in the  &lt;a href={0}&gt;{1}&lt;/a&gt; screen and then clicking "{2}"</source>
-				<target>Puede asegurarse de que la capacidad de implementación de configuración será activada en este sistema al seleccionar este sistema en la pantalla &lt;a href={0}&gt;{1}&lt;/a&gt; y hacer clic en "{2}"</target>
+				<target>Puede asegurarse de que la capacidad de implementación de configuración será activada en este sistema al seleccionar este sistema en la pantalla  &lt;a href={0}&gt;{1}&lt;/a&gt; y hacer clic en "{2}"</target>
 			</trans-unit>
 			<trans-unit id="system.sdc.config_enablement.client">
 				<source>Also be certain that configuration management is enabled on this system by running the following commands:.</source>
@@ -3990,7 +3995,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="system.sdc.removefromssm">
 				<source>System removed from the System Set Manager.</source>
-				<target>Sistema removido del Gestor de grupos de sistemas (SSM).</target>
+				<target>Sistema eliminado del Gestor de grupos de sistemas (SSM).</target>
 			</trans-unit>
 			<trans-unit id="usageLimit">
 				<source>Usage Limit</source>
@@ -4038,7 +4043,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="config_revisions.success">
 				<source>{0} revisions were deleted successfully.</source>
-				<target>{0} revisiones fueron borradas exitosamente.</target>
+				<target>{0} revisiones fueron borradas con éxito.</target>
 			</trans-unit>
 			<trans-unit id="config_revisions.failure.singular">
 				<source>1 revision deletion failed.</source>
@@ -4046,11 +4051,11 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="config_revisions.success.singular">
 				<source>1 revision was deleted successfully.</source>
-				<target>1 revisión borrada satisfactoriamente.</target>
+				<target>1 revisión borrada con éxito.</target>
 			</trans-unit>
 			<trans-unit id="config_files.setFilesToRemove.success">
 				<source>{0} configuration file(s) successfully deleted.</source>
-				<target>{0} archivo(s) de configuración borrados satisfactoriamente.</target>
+				<target>{0} archivo(s) de configuración borrados con éxito.</target>
 			</trans-unit>
 			<trans-unit id="config_files.setFilesToRemove.failure">
 				<source>{0} file deletion(s) failed.</source>
@@ -4062,7 +4067,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="config_subscribed_systems.unsubscribeSystems.success">
 				<source>Successfully unsubscribed {0} system(s).</source>
-				<target>Cancelación exitosa de suscripciones a {0} sistema(s).</target>
+				<target>Cancelación con éxito de suscripciones a {0} sistema(s).</target>
 			</trans-unit>
 			<trans-unit id="config_target_systems.subscribeSystems.failure">
 				<source>Failed to subscribe {0} system(s).</source>
@@ -4070,7 +4075,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="config_target_systems.subscribeSystems.success">
 				<source>Successfully subscribed {0} system(s).</source>
-				<target>{0} sistema(s) suscrito(s) satisfactoriamente.</target>
+				<target>{0} sistema(s) suscrito(s) con éxito.</target>
 			</trans-unit>
 			<trans-unit id="config_channels.failure">
 				<source>Failed to copy file to {0} channels.</source>
@@ -4078,7 +4083,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="config_channels.success">
 				<source>Successfully copied file to {0} channels.</source>
-				<target>Archivo copiado satisfactoriamente a {0} canales.</target>
+				<target>Archivo copiado con éxito a {0} canales.</target>
 			</trans-unit>
 			<trans-unit id="config_channel_name.local">
 				<source>local override for {0}</source>
@@ -4102,31 +4107,31 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="schedulediff.ssm.success">
 				<source>Configuration Comparison Action scheduled successfully for &lt;strong&gt;1 system&lt;/strong&gt;.</source>
-				<target>Programación exitosa de una acción de comparación de configuración para &lt;strong&gt;1 sistema&lt;/strong&gt;.</target>
+				<target>Acción de comparación de configuración programada con éxito para &lt;strong&gt;1 sistema&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="schedulediff.ssm.successes">
 				<source>Configuration Comparison Action scheduled successfully for &lt;strong&gt;{0} systems&lt;/strong&gt;.</source>
-				<target>Programación exitosa de una acción de comparación de configuración para &lt;strong&gt;{0} sistemas&lt;/strong&gt;.</target>
+				<target>Acción de comparación de configuración programada con éxito para &lt;strong&gt;{0} sistemas&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="schedulediff.ssm.failure">
 				<source>Failed to schedule Configuration Comparison Action</source>
-				<target>Programación de una acción de comparación de configuración falló.</target>
+				<target>Acción de comparación de configuración programada falló.</target>
 			</trans-unit>
 			<trans-unit id="scheduledeploy.ssm.success">
 				<source>Configuration Deploy Action scheduled successfully for &lt;strong&gt;1 system&lt;/strong&gt;.</source>
-				<target>Programación exitosa de una acción de implementación de configuración para &lt;strong&gt;1 sistema&lt;/strong&gt;.</target>
+				<target>Acción de implementación de configuración programada con éxito para &lt;strong&gt;1 sistema&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="scheduledeploy.ssm.successes">
 				<source>Configuration Deploy Action scheduled successfully for &lt;strong&gt;{0} systems&lt;/strong&gt;.</source>
-				<target>Programación exitosa de una acción de implementación de configuración para &lt;strong&gt;{0} sistemas&lt;/strong&gt;.</target>
+				<target>Acción de implementación de configuración programada con éxito para &lt;strong&gt;{0} sistemas&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="unsubscribe.ssm.success">
 				<source>&lt;strong&gt;1 system&lt;/strong&gt; successfully unsubscribed from configuration channels.</source>
-				<target>Cancelación exitosa de suscripción a canales de configuración para &lt;strong&gt;1 sistema&lt;/strong&gt;.</target>
+				<target>Suscripción a canales de configuración para &lt;strong&gt;1 sistema&lt;/strong&gt; cancelada con éxito.</target>
 			</trans-unit>
 			<trans-unit id="unsubscribe.ssm.successes">
 				<source>&lt;strong&gt;{0} systems&lt;/strong&gt; successfully unsubscribed from configuration channels.</source>
-				<target>Cancelación exitosa de suscripción a canales de configuración para &lt;strong&gt;{0} sistemas&lt;/strong&gt;.</target>
+				<target>Suscripción a canales de configuración para &lt;strong&gt;{0} sistemas&lt;/strong&gt; cancelada con éxito.</target>
 			</trans-unit>
 			<trans-unit id="cofName">
 				<source>Configuration channel name</source>
@@ -4194,11 +4199,11 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="configdiff.schedule.success">
 				<source>&lt;a href="{0}"&gt;Configuration file compare action&lt;/a&gt; scheduled successfully for {1} systems.</source>
-				<target>Se programó la &lt;a href="{0}"&gt;acción de comparación de archivos de configuración&lt;/a&gt; para sistemas {1}.</target>
+				<target>Se programó con éxito la &lt;a href="{0}"&gt;acción de comparación de archivos de configuración&lt;/a&gt; para sistemas {1}.</target>
 			</trans-unit>
 			<trans-unit id="configdiff.schedule.success.singular">
 				<source>&lt;a href="{0}"&gt;Configuration file compare action&lt;/a&gt; scheduled successfully for {1} system.</source>
-				<target>Se programó una &lt;a href="{0}"&gt;acción de comparación de archivos de configuración&lt;/a&gt; para sistema {1}.</target>
+				<target>Se programó con éxito la &lt;a href="{0}"&gt;acción de comparación de archivos de configuración&lt;/a&gt; para sistema {1}.</target>
 			</trans-unit>
 			<trans-unit id="configdiff.schedule.error">
 				<source>Failed to schedule configuration file compare action</source>
@@ -4266,7 +4271,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="sdc.config.deploy.success">
 				<source>All files and/or directories ({0}) were successfully deployed. [&lt;a href="{1}"&gt;View Details&lt;/a&gt;]</source>
-				<target>Todos los archivos y/o directorios ({0}) fueron implementados satisfactoriamente. [&lt;a href="{1}"&gt;Ver información&lt;/a&gt;]</target>
+				<target>Todos los archivos y/o directorios ({0}) fueron implementados correctamente. [&lt;a href="{1}"&gt;Ver información&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.noaction">
 				<source>No system comparisons completed. [&lt;a href="{0}"&gt;Schedule System Comparison&lt;/a&gt;]</source>
@@ -4278,43 +4283,43 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_0">
 				<source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de 1 archivo en el sistema ha sido comparado satisfactoriamente con los archivos y directorios de @@PRODUCT_NAME@@. [&lt;a href="{1}"&gt;Ver detalles&lt;/a&gt;]</target>
+				<target>{0} de 1 archivo en el sistema ha sido comparado correctamente con los archivos y directorios de @@PRODUCT_NAME@@. [&lt;a href="{1}"&gt;Ver detalles&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_0">
 				<source>{0} of {1} files on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de {1} archivos en el sistema han sido comparados satisfactoriamente con los archivos y directorios de @@PRODUCT_NAME@@ . [&lt;a href="{2}"&gt;Ver detalles&lt;/a&gt;]</target>
+				<target>{0} de {1} archivos en el sistema han sido comparados correctamente con los archivos y directorios de @@PRODUCT_NAME@@ . [&lt;a href="{2}"&gt;Ver detalles&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_1">
 				<source>{0} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de 1 directorio en el sistema ha sido comparado satisfactoriamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{1}"&gt;Ver detalles&lt;/a&gt;]</target>
+				<target>{0} de 1 directorio en el sistema ha sido comparado correctamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{1}"&gt;Ver detalles&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_2">
 				<source>{0} of {1} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de {1} directorios en el sistema han sido comparados satisfactoriamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{2}"&gt;Ver detalles&lt;/a&gt;]</target>
+				<target>{0} de {1} directorios en el sistema han sido comparados correctamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{2}"&gt;Ver detalles&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_1">
 				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de 1 archivo y {1} de 1 directorio en el sistema ha sido comparado satisfactoriamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{2}"&gt;Ver detalles&lt;/a&gt;]</target>
+				<target>{0} de 1 archivo y {1} de 1 directorio en el sistema ha sido comparado correctamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{2}"&gt;Ver detalles&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_2">
 				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de 1 archivo y {1} de {2} directorios en el sistema han sido comparados satisfactoriamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt;Ver detalles&lt;/a&gt;]</target>
+				<target>{0} de 1 archivo y {1} de {2} directorios en el sistema han sido comparados correctamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt;Ver detalles&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
 				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de {1} archivos y {2} de 1 directorio en el sistema han sido comparados satisfactoriamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt;Ver detalles&lt;/a&gt;]</target>
+				<target>{0} de {1} archivos y {2} de 1 directorio en el sistema han sido comparados correctamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt;Ver detalles&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
 				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de {1} archivos y {2} de 1 directorio en el sistema han sido comparados satisfactoriamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt;Ver detalles&lt;/a&gt;]</target>
+				<target>{0} de {1} archivos y {2} de 1 directorio en el sistema han sido comparados correctamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt;Ver detalles&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
 				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de {1} archivos y {2} de 1 directorio en el sistema han sido comparados satisfactoriamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt;Ver detalles&lt;/a&gt;]</target>
+				<target>{0} de {1} archivos y {2} de 1 directorio en el sistema han sido comparados correctamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt;Ver detalles&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
 				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de {1} archivos y {2} de 1 directorio en el sistema han sido comparados satisfactoriamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt;Ver detalles&lt;/a&gt;]</target>
+				<target>{0} de {1} archivos y {2} de 1 directorio en el sistema han sido comparados correctamente con los archivos y directorios administrados de @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt;Ver detalles&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_0">
 				<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
@@ -4562,7 +4567,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="message.org_name_updated">
 				<source>Organization {0} was successfully updated.</source>
-				<target>La organización {0} fue actualizada satisfactoriamente.</target>
+				<target>La organización {0} fue actualizada con éxito.</target>
 			</trans-unit>
 			<trans-unit id="message.org_name_not_updated">
 				<source>Organization {0} was not updated due to identical name.</source>
@@ -4570,7 +4575,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="message.org_deleted">
 				<source>Organization {0} was successfully deleted.</source>
-				<target>La organización {0} fue borrada satisfactoriamente.</target>
+				<target>La organización {0} fue borrada con éxito.</target>
 			</trans-unit>
 			<trans-unit id="config.error.file-exists">
 				<source>A file named "{0}" already exists in this channel.</source>
@@ -4702,7 +4707,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="api.errata.nochannelsselected">
 				<source>You are trying to publish an errata but have not selected any channels to publish to.  Errata must be published to at least one channel.</source>
-				<target>Está intentando publicar una errata pero no ha seleccionado ningún canal en dónde publicarla. La errata debe ser publicada en al menos un canal.</target>
+				<target>Está intentando publicar una errata, pero no ha seleccionado ningún canal en dónde publicarla. La errata debe ser publicada en al menos un canal.</target>
 			</trans-unit>
 			<trans-unit id="api.package.download.toolarge">
 				<source>The requested file is too large to download over XMLRPC.</source>
@@ -4782,7 +4787,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="org.create.success">
 				<source>Organization {0} created successfully</source>
-				<target>La organización {0} fue creada satisfactoriamente</target>
+				<target>La organización {0} fue creada con éxito</target>
 			</trans-unit>
 			<trans-unit id="orgName">
 				<source>Organization Name</source>
@@ -4802,7 +4807,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="api.errata.missingerrataaction">
 				<source>A required errata attribute ({0}) was missing.</source>
-				<target>Falta un atributo requerido de la errata ({0}).</target>
+				<target>Falta un atributo requerido de errata ({0}).</target>
 			</trans-unit>
 			<trans-unit id="org.entitlements.system.toomany">
 				<source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
@@ -4814,11 +4819,11 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="org.entitlements.syssoft.success">
 				<source>Entitlements successfully updated.</source>
-				<target>Derechos actualizados satisfactoriamente.</target>
+				<target>Derechos actualizados con éxito.</target>
 			</trans-unit>
 			<trans-unit id="org.entitlements.software.proposedwarning">
 				<source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
-				<target>Advertencia: Su asignación propuesta de {0} proporciona menos derechos que los que están en uso actualmente en la organización {1}. Por favor ajuste su asignación propuesta a no menos que la cantidad de derechos actualmente en uso.</target>
+				<target>Advertencia: La asignación propuesta de {0} proporciona menos derechos que los que están en uso en la organización {1}. Por favor ajuste su asignación propuesta a no menos que la cantidad de derechos actualmente en uso.</target>
 			</trans-unit>
 			<trans-unit id="securityErrata">
 				<source>Security Errata</source>
@@ -4858,15 +4863,15 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="userLogin">
 				<source>User Login</source>
-				<target>Cuenta de usuario</target>
+				<target>Nombre de usuario</target>
 			</trans-unit>
 			<trans-unit id="userLastName">
 				<source>User Last Name</source>
-				<target>Apellido del usuario</target>
+				<target>Apellido</target>
 			</trans-unit>
 			<trans-unit id="userFirstName">
 				<source>User First Name</source>
-				<target>Nombre del usuario</target>
+				<target>Nombre</target>
 			</trans-unit>
 			<trans-unit id="roleNames">
 				<source>Role Names</source>
@@ -4878,11 +4883,11 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="changedByFirstName">
 				<source>Changed by First Name</source>
-				<target>Cambio según el nombre</target>
+				<target>Cambiar por nombre</target>
 			</trans-unit>
 			<trans-unit id="changedByLastName">
 				<source>Changed by Last Name</source>
-				<target>Cambio según el apellido</target>
+				<target>Cambiar por apellido</target>
 			</trans-unit>
 			<trans-unit id="changeDate">
 				<source>Change Date</source>
@@ -4946,7 +4951,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="frontend.actions.systems.virt.invalidcpuvalue">
 				<source>Virtual CPUs must be set to a positive value greater than 0 and less than {0}.</source>
-				<target>Las CPU virtuales deben establecerse a un entero positivo superior a 0 e inferior a {0}.</target>
+				<target>Las CPU virtuales deben establecerse a un valor positivo superior a 0 e inferior a {0}.</target>
 			</trans-unit>
 			<trans-unit id="frontend.actions.systems.virt.invalidstoragevalue">
 				<source>Storage must be set to a value greater than 0.</source>
@@ -4958,7 +4963,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="frontend.actions.channels.manager.add.viewErrata">
 				<source>View Associated Errata</source>
-				<target>Ver erratas asociadas</target>
+				<target>Ver errata asociada</target>
 			</trans-unit>
 			<trans-unit id="frontend.actions.channels.manager.add.selectArch">
 				<source>Select Architectures</source>
@@ -5014,7 +5019,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="channel.manage.patchset.deleteconfirm">
 				<source>{0} patch cluster(s) have been removed from this channel</source>
-				<target>{0} racimos de parches han sido removidos de este canal</target>
+				<target>{0} racimos de parches han sido eliminados de este canal</target>
 			</trans-unit>
 			<trans-unit id="frontend.xmlrpc.channels.software.merge.permsfailure">
 				<source>You do not have sufficient permissions to merge packages into channel {0}</source>
@@ -5034,7 +5039,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="api.kickstart.invalidscripttype">
 				<source>Only script types of "pre" and "post" are allowed for kickstarts.</source>
-				<target>Solamente tipos de scripts "pre" y "post" son permitidos para kickstarts.</target>
+				<target>Solamente tipos de scripts "pre" y "post" son permitidos para kickstart.</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.invalidscript">
 				<source>You have specified an invalid kickstart script.</source>
@@ -5094,11 +5099,11 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="system.customkey.addsuccess">
 				<source>Successfully added 1 custom key.</source>
-				<target>Satisfactoriamente agregada 1 llave personalizada.</target>
+				<target>Agregada con éxito 1 llave personalizada.</target>
 			</trans-unit>
 			<trans-unit id="channel.java.package.deletesuccess">
 				<source>Successfully deleted {0} packages.</source>
-				<target>{0} paquetes satisfactoriamente borrados.</target>
+				<target>{0} paquetes correctamente borrados.</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.invalidkickstartinstalltype">
 				<source>Invalid kickstart install type: {0}.</source>
@@ -5142,7 +5147,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="edit.channel.invalidchannelname.nameinuse">
 				<source>The channel name '{0}' is already in use, please enter a different name</source>
-				<target>El nombre de canal {0} ya está en uso. Por favor introduzca un nombre diferente.</target>
+				<target>El nombre de canal {0} ya existe. Por favor introduzca un nombre diferente.</target>
 			</trans-unit>
 			<trans-unit id="edit.channel.invalidchannellabel">
 				<source>Invalid Channel Label</source>
@@ -5162,7 +5167,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="edit.channel.invalidchannellabel.labelinuse">
 				<source>The channel label '{0}' is already in use, please enter a different name</source>
-				<target>Etiqueta de canal {0} ya está en uso, por favor introduzca un nombre diferente</target>
+				<target>La etiqueta de canal {0} ya existe, por favor introduzca un nombre diferente</target>
 			</trans-unit>
 			<trans-unit id="edit.channel.invalidchannelsummary">
 				<source>Invalid Channel Summary</source>
@@ -5170,7 +5175,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="distribution.tree.exists">
 				<source>A distribution already exists with the name '{0}'.  Please select another name.</source>
-				<target>Una distribución ya existe con el nombre de '{0}'. Por favor seleccione otro nombre.</target>
+				<target>Una distribución ya existe con el nombre '{0}'. Por favor seleccione otro nombre.</target>
 			</trans-unit>
 			<trans-unit id="api.channel.delete.redhat">
 				<source>Red Hat Channels cannot be deleted, only custom channels can.</source>
@@ -5188,6 +5193,13 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
 				<target>Canal &lt;strong&gt;{0}&lt;/strong&gt; creado.</target>
 			</trans-unit>
+			<trans-unit id="message.channeldeleted">
+				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; has been deleted.</source>
+				<target state="needs-review-translation">La llave de activación &lt;strong&gt;{0}&lt;/strong&gt; ha sido borrada.</target>
+			</trans-unit>
+			<trans-unit id="message.channel.delete.systemssubscribed">
+				<source>There are currently systems subscribed to this channel. Please confirm system channel removal by selecting the unsubscribe checkbox.</source>
+			</trans-unit>
 			<trans-unit id="message.channelupdated">
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
 				<target>Canal &lt;strong&gt;{0}&lt;/strong&gt; actualizado.</target>
@@ -5198,7 +5210,7 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.profile.invalidvirt">
 				<source>Para-Virtualization is unsupported with the selected kickstart tree or distribution.</source>
-				<target>La para-virtualización no es soportada con el árbol kickstart o distribución seleccionados.</target>
+				<target>La para-virtualización es incompatible con el árbol kickstart o distribución seleccionados.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.profile.invalidtreeforvirt">
 				<source>You have selected a distribution or kickstart tree that is incompatible with the currently selected virtualization type.  Please either select a different distribution, or change the selected Virtualization Type of this profile before trying to set the distribution.</source>
@@ -5226,43 +5238,40 @@ Vaya a esta dirección para ver la lista completa de sistemas inactivos:
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to
-syncronize kickstart distributions from Spacewalk to Cobbler.  These
-errors must be corrected for the distributions to be available for
-kickstarting systems kickstart distributions failed to sync from
-Spacewalk to Cobbler:
+The following is a list of errors gathered while Spacewalk attempts to 
+syncronize kickstart distributions from Spacewalk to Cobbler.  These 
+errors must be corrected for the distributions to be available for 
+kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
 for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
-La siguiente es una lista de errores recogidos mientras Spacewalk intenta
-sincronizar distribuciones kickstart desde Spacewalk a Cobbler.  Estos
-errores se deben corregir para que las distribuciones estén disponibles porque
-el inicio de sistemas de distribuciones kickstart falló en la sincronización de
-Spacewalk a Cobbler:
+La siguiente es una lista de errores recogidos mientras Spacewalk intenta 
+sincronizar distribuciones kickstart desde Spacewalk a Cobbler.  Estos 
+errores se deben corregir para que las distribuciones estén disponibles para los sistemas que estén iniciando una instalación con kickstart:
 
 {0}
 
 Por favor revise:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
-para mayor información sobre errores.  Si no resuelve los errores del árbol de kickstart
+para mayor información sobre errores.  Si no resuelve los errores el árbol de kickstart
 no será útil para iniciar una instalación a través de kickstart.</target>
 			</trans-unit>
 			<trans-unit id="errata.delete.msg">
 				<source>Successfully deleted {0} errata.</source>
-				<target>{0} errata borrada satisfactoriamente.</target>
+				<target>{0} errata borrada con éxito.</target>
 			</trans-unit>
 		</body>
 	</file>

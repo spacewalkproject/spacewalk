@@ -111,7 +111,7 @@ sub parse_options {
 
   my $usage = loc("usage: %s %s\n",
 		  $0,
-		  "[ --help ] [ --answer-file=<filename> ] [ --non-interactive ] [ --skip-system-version-test ] [ --skip-selinux-test ] [ --skip-fqdn-test ] [ --skip-db-install ] [ --skip-db-diskspace-check ] [ --skip-db-population ] [ --skip-gpg-key-import ] [ --skip-ssl-cert-generation ] [--skip-ssl-vhost-setup] [ --skip-services-check ] [ --clear-db ] [ --re-register ] [ --disconnected ] [ --upgrade ] [ --run-updater[=no]] [--run-cobbler]");
+		  "[ --help ] [ --answer-file=<filename> ] [ --non-interactive ] [ --skip-system-version-test ] [ --skip-selinux-test ] [ --skip-fqdn-test ] [ --skip-db-install ] [ --skip-db-diskspace-check ] [ --skip-db-population ] [ --skip-gpg-key-import ] [ --skip-ssl-cert-generation ] [--skip-ssl-vhost-setup] [ --skip-services-check ] [ --clear-db ] [ --re-register ] [ --disconnected ] [ --upgrade ] [ --run-updater=<yes|no>] [--run-cobbler]");
 
   # Terminate if any errors were encountered parsing the command line args:
   my %opts;
@@ -910,9 +910,12 @@ sub oracle_setup_embedded_db {
     }
 
 
-    if ($opts->{'upgrade'} and need_oracle_9i_10g_upgrade()) {
+    if ($opts->{'upgrade'}) {
+		my $upgrade_script = "upgrade-db-10g.sh";
+		need_oracle_9i_10g_upgrade() and $upgrade_script = "upgrade-db.sh";
+
         printf loc(<<EOQ, DB_UPGRADE_LOG_FILE);
-** Database: Upgrading the database server to Oracle 10g:
+** Database: Upgrading the database server to latest Oracle 10g:
 ** Database: This is a long process that is logged in:
 ** Database: %s
 EOQ
@@ -922,7 +925,8 @@ EOQ
                    -err_message => "Could not upgrade database.\n",
                    -err_code => 15,
                    -system_opts => ['/sbin/runuser', 'oracle', '-c',
-                                    SHARED_DIR . '/oracle' .  '/upgrade-db.sh' ]);
+                                    "ORACLE_CUSTOM_SID=$answers->{'db-sid'} " . SHARED_DIR .
+                                    '/oracle/' . $upgrade_script ]);
 
         system_or_exit(['service', 'oracle', 'restart'], 41,
                        'Could not restart oracle service');
@@ -1553,14 +1557,9 @@ Only runs necessary steps for a Satellite upgrade.
 
 Proceed with upgrade if services are already stopped.
 
-=item B<--run-updater>
+=item B<--run-updater=<yes|no>>
 
-Do not ask and install needed packages from RHN, provided the system is
-registered.
-
-=item B<--run-updater=no>
-
-Stop when there are needed packages missing, do not ask.
+Set to 'yes' to automatically install needed packages from RHN, provided the system is registered. Set to 'no' to terminate the installer if any needed packages are missing.
 
 =back
 

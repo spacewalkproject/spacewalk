@@ -62,7 +62,7 @@ function refreshNotifFields() {
     </tr>
     </c:if>
     <tr>
-      <th><bean:message key="probeedit.jsp.description" /><span class="required-form-field">*</span>:</th>
+      <th><rhn:required-field key="probeedit.jsp.description"/>:</th>
       <td colspan="3"><html:text property="description" maxlength="100" size="50" /></td>
     </tr>
     <tr>

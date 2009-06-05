@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.xmlrpc.system;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -35,6 +36,7 @@ import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.client.ClientCertificate;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorError;
@@ -1645,26 +1647,251 @@ public class SystemHandler extends BaseHandler {
      * @param sessionKey The sessionKey containing the logged in user
      * @param sid The id of the server you are wanting to lookup 
      * @return Returns an array of maps representing a system
-     * @since 10.3
+     * @since 10.8
      * 
-     * @xmlrpc.doc List all system events for given server. This is *all* events for the 
-     * server since it was registered.  This may require the caller to
+     * @xmlrpc.doc List all system events for given server. This includes *all* events
+     * for the server since it was registered.  This may require the caller to
      * filter the results to fetch the specific events they are looking for.
      *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId") - ID of system.
      * @xmlrpc.returntype 
      *  #array()
-     *    $ServerActionSerializer
+     *      #struct("action")
+     *          #prop_desc("int", "failed_count", "Number of times action failed.")
+     *          #prop_desc("string", "modified", "Date modified. (Deprecated by
+     *                     modified_date)")
+     *          #prop_desc($date, "modified_date", "Date modified.")
+     *          #prop_desc("string", "created", "Date created. (Deprecated by
+     *                     created_date)")
+     *          #prop_desc($date, "created_date", "Date created.")
+     *          #prop("string", "action_type")
+     *          #prop_desc("int", "successful_count",
+     *                     "Number of times action was successful.")
+     *          #prop_desc("string", "earliest_action", "Earliest date this action
+     *                     will occur.")
+     *          #prop_desc("int", "archived", "If this action is archived. (1 or 0)")
+     *          #prop("string", "scheduler_user")
+     *          #prop_desc("string", "prerequisite", "Pre-requisite action. (optional)")
+     *          #prop_desc("string", "name", "Name of this action.")
+     *          #prop_desc("int", "id", "Id of this action.")
+     *          #prop_desc("string", "version", "Version of action.")
+     *          #prop_desc("string", "completion_time", "The date/time the event was
+     *                     completed. Format ->YYYY-MM-dd hh:mm:ss.ms
+     *                     Eg ->2007-06-04 13:58:13.0. (optional)
+     *                     (Deprecated by completed_date)")
+     *          #prop_desc($date, "completed_date", "The date/time the event was completed.
+     *                     (optional)")
+     *          #prop_desc("string", "pickup_time", "The date/time the action was picked
+     *                     up. Format ->YYYY-MM-dd hh:mm:ss.ms
+     *                     Eg ->2007-06-04 13:58:13.0. (optional)
+     *                     (Deprecated by pickup_date)")
+     *          #prop_desc($date, "pickup_date", "The date/time the action was picked up.
+     *                     (optional)")
+     *          #prop_desc("string", "result_msg", "The result string after the action
+     *                     executes at the client machine. (optional)")
+     *          #prop_array_begin_desc("additional_info", "This array contains additional
+     *              information for the event, if available.")
+     *              #struct("info")
+     *                  #prop_desc("string", "detail", "The detail provided depends on the
+     *                  specific event.  For example, for a package event, this will be the
+     *                  package name, for an errata event, this will be the advisory name
+     *                  and synopsis, for a config file event, this will be path and
+     *                  optional revision information...etc.")
+     *                  #prop_desc("string", "result", "The result (if included) depends
+     *                  on the specific event.  For example, for a package or errata event,
+     *                  no result is included, for a config file event, the result might
+     *                  include an error (if one occurred, such as the file was missing)
+     *                  or in the case of a config file comparison it might include the
+     *                  differenes found.")
+     *              #struct_end()
+     *          #prop_array_end()
+     *      #struct_end()
      *  #array_end()
      */
-    public List<ServerAction> listSystemEvents(String sessionKey, Integer sid) {
+    public List listSystemEvents(String sessionKey, Integer sid) {
+
         List retval = new LinkedList();
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
         
-        return ActionFactory.listServerActionsForServer(server);
+        List<ServerAction> sActions = ActionFactory.listServerActionsForServer(server);
+
+        // In order to support bug 501224, this method is being updated to populate
+        // the result vs having the serializer do so.  The reason is that in order to
+        // support this bug, we want to be able to return some additional detail for the
+        // various events in the system history; however, those details are stored in
+        // different database tables depending upon the event type.  This includes
+        // information like, the specific errata applied, pkgs installed/removed/
+        // upgraded/verified, config files uploaded, deployed or compared...etc.
+
+        List<Map> results = new ArrayList<Map>();
+        for (ServerAction sAction : sActions) {
+
+            Map result = new HashMap();
+
+            Action action = sAction.getParentAction();
+
+            if (action.getFailedCount() != null) {
+                result.put("failed_count", action.getFailedCount());
+            }
+            if (action.getActionType().getName() != null) {
+                result.put("action_type", action.getActionType().getName());
+            }
+            if (action.getSuccessfulCount() != null) {
+                result.put("successful_count", action.getSuccessfulCount());
+            }
+            if (action.getEarliestAction() != null) {
+                result.put("earliest_action", action.getEarliestAction().toString());
+            }
+            if (action.getArchived() != null) {
+                result.put("archived", action.getArchived());
+            }
+            if (action.getSchedulerUser().getLogin() != null) {
+                result.put("scheduler_user", action.getSchedulerUser().getLogin());
+            }
+            if (action.getPrerequisite() != null) {
+                result.put("prerequisite", action.getPrerequisite());
+            }
+            if (action.getName() != null) {
+                result.put("name", action.getName());
+            }
+            if (action.getId() != null) {
+                result.put("id", action.getId());
+            }
+            if (action.getVersion() != null) {
+                result.put("version", action.getVersion().toString());
+            }
+
+            if (sAction.getCompletionTime() != null) {
+                result.put("completion_time", sAction.getCompletionTime().toString());
+            }
+            if (sAction.getPickupTime() != null) {
+                result.put("pickup_time", sAction.getPickupTime().toString());
+            }
+            if (sAction.getModified() != null) {
+                result.put("modified", sAction.getModified().toString());
+                result.put("modified_date", sAction.getModified());
+            }
+            if (sAction.getCreated() != null) {
+                result.put("created", sAction.getCreated().toString());
+                result.put("created_date", sAction.getCreated());
+            }
+            if (sAction.getCompletionTime() != null) {
+                result.put("completed_date", sAction.getCompletionTime());
+            }
+            if (sAction.getPickupTime() != null) {
+                result.put("pickup_date", sAction.getPickupTime());
+            }
+            if (sAction.getResultMsg() != null) {
+                result.put("result_msg", sAction.getResultMsg());
+            }
+
+            // depending on the event type, we need to retrieve additional information
+            // and store that information in the result
+            ActionType type = action.getActionType();
+            List<Map<String, String>> additionalInfo = new ArrayList<Map<String, String>>();
+
+            if (type.equals(ActionFactory.TYPE_PACKAGES_REMOVE) ||
+                type.equals(ActionFactory.TYPE_PACKAGES_UPDATE) ||
+                type.equals(ActionFactory.TYPE_PACKAGES_VERIFY)) {
+
+                // retrieve the list of package names associated with the action...
+
+                DataResult pkgs = ActionManager.getPackageList(action.getId(), null);
+                for (Iterator itr = pkgs.iterator(); itr.hasNext();) {
+                    Map pkg = (Map) itr.next();
+                    String detail = (String) pkg.get("nvre");
+
+                    Map<String, String> info = new HashMap<String, String>();
+                    info.put("detail", detail);
+                    additionalInfo.add(info);
+                }
+            }
+            else if (type.equals(ActionFactory.TYPE_ERRATA)) {
+
+                // retrieve the errata that were associated with the action...
+                DataResult errata = ActionManager.getErrataList(action.getId());
+                for (Iterator itr = errata.iterator(); itr.hasNext();) {
+                    Map erratum = (Map) itr.next();
+                    String detail = (String) erratum.get("advisory");
+                    detail += " (" + (String) erratum.get("synopsis") + ")";
+
+                    Map<String, String> info = new HashMap<String, String>();
+                    info.put("detail", detail);
+                    additionalInfo.add(info);
+                }
+            }
+            else if (type.equals(ActionFactory.TYPE_CONFIGFILES_UPLOAD) ||
+                     type.equals(ActionFactory.TYPE_CONFIGFILES_MTIME_UPLOAD)) {
+
+                // retrieve the details associated with the action...
+                DataResult files = ActionManager.getConfigFileUploadList(action.getId());
+                for (Iterator itr = files.iterator(); itr.hasNext();) {
+                    Map file = (Map) itr.next();
+
+                    Map<String, String> info = new HashMap<String, String>();
+                    info.put("detail", (String) file.get("path"));
+                    String error = (String) file.get("failure_reason");
+                    if (error != null) {
+                        info.put("result", error);
+                    }
+                    additionalInfo.add(info);
+                }
+            }
+            else if (type.equals(ActionFactory.TYPE_CONFIGFILES_DEPLOY)) {
+
+                // retrieve the details associated with the action...
+                DataResult files = ActionManager.getConfigFileDeployList(action.getId());
+                for (Iterator itr = files.iterator(); itr.hasNext();) {
+                    Map file = (Map) itr.next();
+
+                    Map<String, String> info = new HashMap<String, String>();
+                    String path = (String) file.get("path");
+                    path += " (rev. " + (Long) file.get("revision") + ")";
+                    info.put("detail", path);
+                    String error = (String) file.get("failure_reason");
+                    if (error != null) {
+                        info.put("result", error);
+                    }
+                    additionalInfo.add(info);
+                }
+            }
+            else if (type.equals(ActionFactory.TYPE_CONFIGFILES_DIFF)) {
+
+                // retrieve the details associated with the action...
+                DataResult files = ActionManager.getConfigFileDiffList(action.getId());
+                for (Iterator itr = files.iterator(); itr.hasNext();) {
+                    Map file = (Map) itr.next();
+
+                    Map<String, String> info = new HashMap<String, String>();
+                    String path = (String) file.get("path");
+                    path += " (rev. " + (Long) file.get("revision") + ")";
+                    info.put("detail", path);
+
+                    String error = (String) file.get("failure_reason");
+                    if (error != null) {
+                        info.put("result", error);
+                    }
+                    else {
+                        // if there wasn't an error, check to see if there was a difference
+                        // detected...
+                        Blob blob = (Blob) file.get("diff");
+                        if (blob != null) {
+                            String diff = HibernateFactory.blobToString(blob);
+                            info.put("result", diff);
+                        }
+                    }
+                    additionalInfo.add(info);
+                }
+            }
+            if (additionalInfo.size() > 0) {
+                result.put("additional_info", additionalInfo);
+            }
+            results.add(result);
+        }
+        return results;
     }
 
     /**
@@ -2224,32 +2451,54 @@ public class SystemHandler extends BaseHandler {
     }
     
     /**
-     * Apply errata updates to a system.
+     * Schedules an action to apply errata updates to a system.
      * @param sessionKey The user's session key.
      * @param sid ID of the server
      * @param errataIds List of errata IDs to apply (as Integers)
      * @return 1 if successful, exception thrown otherwise
+     * @deprecated being replaced by system.scheduleApplyErrata(string sessionKey,
+     * int serverId, array[int errataId])
      *
-     * @xmlrpc.doc Apply errata updates to a system.
+     * @xmlrpc.doc Schedules an action to apply errata updates to a system.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param  #array_single("int", "errataId")
      * @xmlrpc.returntype #return_int_success()
      */
     public int applyErrata(String sessionKey, Integer sid, List errataIds) {
+        scheduleApplyErrata(sessionKey, sid, errataIds);
+        return 1;
+    }
+
+    /**
+     * Schedules an action to apply errata updates to a system.
+     * @param sessionKey The user's session key.
+     * @param sid ID of the server
+     * @param errataIds List of errata IDs to apply (as Integers)
+     * @return 1 if successful, exception thrown otherwise
+     * @since 10.6
+     *
+     * @xmlrpc.doc Schedules an action to apply errata updates to a system.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param  #array_single("int", "errataId")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int scheduleApplyErrata(String sessionKey, Integer sid, List errataIds) {
         applyErrataHelper(sessionKey, sid, errataIds, null);
         return 1;
     }
     
     /**
-     * Apply errata updates to a system at a specified time.
+     * Schedules an action to apply errata updates to a system at a specified time.
      * @param sessionKey The user's session key.
      * @param sid ID of the server
      * @param errataIds List of errata IDs to apply (as Integers)
      * @param earliestOccurrence Earliest occurrence of the errata update
      * @return 1 if successful, exception thrown otherwise
      *
-     * @xmlrpc.doc Apply errata updates to a system.
+     * @xmlrpc.doc Schedules an action to apply errata updates to a system at a
+     * given date/time.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #array_single("int", "errataId")
@@ -2679,9 +2928,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #param("dateTime.iso8601",  "earliestOccurrence")
-     * @xmlrpc.returntype #return_int_success()
-     * @xmlrpc.returntype #param_desc("int",
-     *  "Id of the action scheduled, exception thrown otherwise")
+     * @xmlrpc.returntype int - ID of the action scheduled, otherwise exception thrown
+     * on error
      */
     public int schedulePackageRefresh(String sessionKey, Integer sid, 
             Date earliestOccurrence) {

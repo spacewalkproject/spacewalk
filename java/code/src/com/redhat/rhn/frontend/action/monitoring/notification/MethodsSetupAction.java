@@ -42,6 +42,10 @@ public class MethodsSetupAction extends BaseSetListAction {
     public RhnSetDecl getSetDecl() {
         return RhnSetDecl.METHODS_IN_ORG;
     }
-
+    
+    /** {@inheritDoc} */
+    protected boolean preClearSet() {
+        return false;
+    }
 
 }

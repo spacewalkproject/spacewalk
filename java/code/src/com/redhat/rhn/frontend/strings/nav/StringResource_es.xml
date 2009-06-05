@@ -4,19 +4,19 @@
 		<body>
 			<trans-unit id="common.nav.overview">
 				<source>Overview</source>
-				<target>Sinopsis</target>
+				<target>Visión General</target>
 			</trans-unit>
 			<trans-unit id="configchannel.nav.overview">
 				<source>Overview</source>
-				<target>Sinopsis</target>
+				<target>Visión General</target>
 			</trans-unit>
 			<trans-unit id="nav.sdc.config.overview">
 				<source>Overview</source>
-				<target>Sinopsis</target>
+				<target>Visión General</target>
 			</trans-unit>
 			<trans-unit id="nav.sdc.config.overview">
 				<source>Overview</source>
-				<target>Sinopsis</target>
+				<target>Visión General</target>
 			</trans-unit>
 			<trans-unit id="common.nav.systems">
 				<source>Systems</source>
@@ -28,23 +28,23 @@
 			</trans-unit>
 			<trans-unit id="users.nav.all">
 				<source>All</source>
-				<target>Todo</target>
+				<target>Todos</target>
 			</trans-unit>
 			<trans-unit id="system.nav.all">
 				<source>All</source>
-				<target>Todo</target>
+				<target>Todos</target>
 			</trans-unit>
 			<trans-unit id="ssm.nav.status.all">
 				<source>All</source>
-				<target>Todo</target>
+				<target>Todos</target>
 			</trans-unit>
 			<trans-unit id="users.nav.active">
 				<source>Active</source>
-				<target>Activo</target>
+				<target>Activos</target>
 			</trans-unit>
 			<trans-unit id="users.nav.disabled">
 				<source>Deactivated</source>
-				<target>Desactivado</target>
+				<target>Desactivados</target>
 			</trans-unit>
 			<trans-unit id="User">
 				<source>User</source>
@@ -72,7 +72,7 @@
 			</trans-unit>
 			<trans-unit id="guests.without.hosts">
 				<source>Guests Without Hosts</source>
-				<target>Huésped sin anfitrión</target>
+				<target>Huéspedes sin anfitriones</target>
 			</trans-unit>
 			<trans-unit id="Virtualization">
 				<source>Virtualization</source>
@@ -80,7 +80,7 @@
 			</trans-unit>
 			<trans-unit id="Virtual Systems">
 				<source>Virtual Systems</source>
-				<target>Sistema virtual</target>
+				<target>Sistemas virtuales</target>
 			</trans-unit>
 			<trans-unit id="system.nav.outofdate">
 				<source>Out of Date</source>
@@ -200,7 +200,7 @@
 			</trans-unit>
 			<trans-unit id="channel.nav.retired">
 				<source>Retired channels</source>
-				<target>Canales fuera de servicio</target>
+				<target>Canales jubilados</target>
 			</trans-unit>
 			<trans-unit id="config.nav.managed">
 				<source>Managed Systems</source>
@@ -496,7 +496,7 @@
 			</trans-unit>
 			<trans-unit id="Retired">
 				<source>Retired</source>
-				<target>Fuera de servicio</target>
+				<target>Jubilados</target>
 			</trans-unit>
 			<trans-unit id="Connection">
 				<source>Connection</source>
@@ -589,10 +589,6 @@
 			<trans-unit id="Critical">
 				<source>Critical</source>
 				<target>Crítico</target>
-			</trans-unit>
-			<trans-unit id="Warning">
-				<source>Warning</source>
-				<target>Advertencia</target>
 			</trans-unit>
 			<trans-unit id="Unknown">
 				<source>Unknown</source>

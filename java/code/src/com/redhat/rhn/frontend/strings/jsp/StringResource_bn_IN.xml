@@ -628,7 +628,7 @@
 			</trans-unit>
 			<trans-unit id="permission.jsp.title.userlist">
 				<source>Cannot display user list.</source>
-				<target>ব্যবহারকারীর তালিকা প্রদর্শন করা সম্ভব নয়।</target>
+				<target>ব্যবহারকারীদের তালিকা প্রদর্শন করা সম্ভব নয়।</target>
 			</trans-unit>
 			<trans-unit id="permission.jsp.title.lookupuser">
 				<source>Cannot view user information.</source>
@@ -1116,7 +1116,7 @@
 			</trans-unit>
 			<trans-unit id="login.jsp.list3">
 				<source>Provisioning: System snapshots, integrated kickstarts, configuration management and more.</source>
-				<target>প্রভিশনিং: সিস্টেমের স্ন্যাপশট, পূর্ণাঙ্গ কিকস্টার্ট, কনফিগারেশন পরিচালনা প্রভৃতি।</target>
+				<target>প্রভিশনিং: সিস্টেমের স্ন্যাপশট, পূর্ণাঙ্গ kickstart, কনফিগারেশন পরিচালনা প্রভৃতি।</target>
 			</trans-unit>
 			<trans-unit id="login.jsp.learnmore">
 				<source>Learn more about RHN now</source>
@@ -1664,7 +1664,7 @@
 			</trans-unit>
 			<trans-unit id="system-legend.jsp.kickstarting">
 				<source>Kickstarting</source>
-				<target>কিকস্টার্ট প্রণালী</target>
+				<target>kickstart প্রণালী</target>
 			</trans-unit>
 			<trans-unit id="system-legend.jsp.pending">
 				<source>Pending Actions</source>
@@ -1793,7 +1793,7 @@
 			<trans-unit id="disableself.jsp.message">
 				<source>You may deactivate your @@PRODUCT_NAME@@ account below. &lt;b&gt;This will remove your ability
 to log into @@PRODUCT_NAME@@.&lt;/b&gt;</source>
-				<target>নিম্নলিখিত স্থানে আপনি আপনার @@PRODUCT_NAME@@ অ্যাকাউন্ট নিষ্ক্রিয় করতে সক্ষম হবেন। &lt;b&gt;এর ফলে
+				<target>নিম্নলিখিত স্থানে আপনি আপনার @@PRODUCT_NAME@@ অ্যাকাউন্ট নিষ্ক্রিয় করতে সক্ষম হবেন। &lt;b&gt;এর ফলে 
 আপনি @@PRODUCT_NAME@@-এ লগ-ইন করা যাবে না।&lt;/b&gt;</target>
 			</trans-unit>
 			<trans-unit id="disableself.jsp.message2">
@@ -3330,7 +3330,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 			</trans-unit>
 			<trans-unit id="errata.edit.sendnotification">
 				<source>Send Notification</source>
-				<target>বার্তা প্রেরিত হয়েছে</target>
+				<target>সূচিত করুন</target>
 			</trans-unit>
 			<trans-unit id="errata.edit.youmaynotify">
 				<source>You can send an email notification of this erratum.</source>
@@ -4179,6 +4179,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="erratasearch.jsp.whatsearch.tip">
 				<source>Use 'all fields' to search synopsis, description, topic, or solution.</source>
+				<target>সারসংক্ষেপ, বিবরণ, প্রসঙ্গ ও সমাধান অনুসন্ধানের জন্য 'সকল ক্ষেত্র' মানটি প্রয়োগ করুন।</target>
 			</trans-unit>
 			<trans-unit id="erratasearch.jsp.types_to_search">
 				<source>Types of Errata to Search:.</source>
@@ -4230,15 +4231,15 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="erratalist.jsp.cloneerrata">
 				<source>Clone Errata</source>
-				<target>ত্রুটি-বিচ্যুতির প্রতিলপি</target>
+				<target>ত্রুটি-বিচ্যুতির প্রতিলিপি</target>
 			</trans-unit>
 			<trans-unit id="cloneerrata.jsp.cloneerrata">
 				<source>Clone Errata</source>
-				<target>ত্রুটি-বিচ্যুতির প্রতিলপি</target>
+				<target>ত্রুটি-বিচ্যুতির প্রতিলিপি</target>
 			</trans-unit>
 			<trans-unit id="list.jsp.errata.clone">
 				<source>Clone Errata</source>
-				<target>ত্রুটি-বিচ্যুতির প্রতিলপি</target>
+				<target>ত্রুটি-বিচ্যুতির প্রতিলিপি</target>
 			</trans-unit>
 			<trans-unit id="deleteconfirm.jsp.pagesummary">
 				<source>Are you sure you wish to delete these errata?</source>
@@ -4534,7 +4535,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="systemlist.jsp.kickstart">
 				<source>Kickstart in progress</source>
-				<target>কিকস্টার্ট কর্ম চলছে</target>
+				<target>kickstart কর্ম চলছে</target>
 			</trans-unit>
 			<trans-unit id="systemlist.jsp.virthost">
 				<source>Virtual Host</source>
@@ -4562,7 +4563,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="systemlist.jsp.critical">
 				<source>Critical updates available</source>
-				<target>গুরুত্র আপডেট উপলব্ধ রয়েছে</target>
+				<target>গুরুতর আপডেট উপলব্ধ রয়েছে</target>
 			</trans-unit>
 			<trans-unit id="systemlist.jsp.updates">
 				<source>Updates available</source>
@@ -4690,20 +4691,23 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="systems.groups.jsp.noGroups">
 				<source>No System Groups. To add System Groups this system, please visit the &lt;a href="{0}"&gt;{1}&lt;/a&gt; tab.</source>
+				<target>কোনো সিস্টেম দল নেই। এই সিস্টেমের ক্ষেত্রে কোনো সিস্টেম দল যোগ করার জন্য &lt;a href="{0}"&gt;{1}&lt;/a&gt; ট্যাবে চলুন।</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.add.jsp.noGroups">
 				<source>No system groups are available to add. You have already added all the system groups available (&lt;a href="{0}"&gt;View System Groups&lt;/a&gt;) to this system.</source>
+				<target>যোগ করার জন্য কোনো সিস্টেম দল উপলব্ধ। সকল উপস্থিত সিস্টেম দল (&lt;a href="{0}"&gt;সিস্টেম দল প্রদর্শন&lt;/a&gt;) এই সিস্টেমের জন্য পূর্বেই যোগ করা হয়েছে।</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.jsp.summary.nonadmin">
 				<source>Below are all the system groups that have been added to this system.</source>
+				<target>এই সিস্টেমে যোগ করা সকল সিস্টেম দলের তালিকা নীচে উপস্থিত করা হয়েছে।</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.jsp.summary">
 				<source>Below are all the system groups that have been added to this system. To remove a system group membership, check its checkbox and make sure you click the "{0}" button when you are finished with your changes.</source>
-				<target state="needs-review-translation">চিহ্নিত সিস্টেমের জন্য উপলব্ধ কনফিগারেশন চ্যানেলের তালিকা নীচে উপস্থিত করা হয়েছে। কোনো চ্যানেলে সাবস্ক্রাইব করার জন্য সংশ্লিষ্ট চেকবক্স নির্বাচন করুন। সব পরিবর্তন সমাপ্ত করে অনুগ্রহ করে "এগিয়ে চলুন" শীর্ষক বাটনটি ক্লিক করুন।</target>
+				<target>চিহ্নিত সিস্টেমে যোগ করা সকল সিস্টেম দলের তালিকা নীচে উপস্থিত করা হয়েছে। কোনো সিস্টেম দলের সদস্যতা বাতিল করার জন্য সংশ্লিষ্ট চেকবক্স নির্বাচন করুন। সব পরিবর্তন সমাপ্ত করে অনুগ্রহ করে "{0}" শীর্ষক বাটনটি ক্লিক করুন।</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.add.jsp.summary">
 				<source>Below is a list of system groups available to this system. To join a system group, check its checkbox. Make sure you click the "{0}" button when you are finished with your changes.</source>
-				<target state="needs-review-translation">চিহ্নিত সিস্টেমের জন্য উপলব্ধ কনফিগারেশন চ্যানেলের তালিকা নীচে উপস্থিত করা হয়েছে। কোনো চ্যানেলে সাবস্ক্রাইব করার জন্য সংশ্লিষ্ট চেকবক্স নির্বাচন করুন। সব পরিবর্তন সমাপ্ত করে অনুগ্রহ করে "এগিয়ে চলুন" শীর্ষক বাটনটি ক্লিক করুন।</target>
+				<target>চিহ্নিত সিস্টেমের জন্য উপলব্ধ সিস্টেম দলের তালিকা নীচে উপস্থিত করা হয়েছে। কোনো সিস্টেম দলে যোগ করার জন্য সংশ্লিষ্ট চেকবক্স নির্বাচন করুন। সব পরিবর্তন সমাপ্ত করে অনুগ্রহ করে "{0}" শীর্ষক বাটনটি ক্লিক করুন।</target>
 			</trans-unit>
 			<trans-unit id="systems.groups.add.jsp.title">
 				<source>System Group Membership</source>
@@ -4799,7 +4803,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="systemgroup.systems.summary">
 				<source>Below are all the systems that have been added to this system group. To remove a system group membership, check its checkbox and make sure you click the "{0}" button when you are finished with your changes.</source>
-				<target state="needs-review-translation">চিহ্নিত সিস্টেমের জন্য উপলব্ধ কনফিগারেশন চ্যানেলের তালিকা নীচে উপস্থিত করা হয়েছে। কোনো চ্যানেলে সাবস্ক্রাইব করার জন্য সংশ্লিষ্ট চেকবক্স নির্বাচন করুন। সব পরিবর্তন সমাপ্ত করে অনুগ্রহ করে "এগিয়ে চলুন" শীর্ষক বাটনটি ক্লিক করুন।</target>
+				<target>চিহ্নিত সিস্টেম দলেরম ধ্যে সংযোজন করা সকল সিস্টেমের তালিকা নীচে উপস্থিত করা হয়েছে। কোনো সিস্টেম দলের সদস্যতা বাতিল করার জন্য সংশ্লিষ্ট চেকবক্স নির্বাচন করুন। সব পরিবর্তন সমাপ্ত করে অনুগ্রহ করে "{0}" শীর্ষক বাটনটি ক্লিক করুন।</target>
 			</trans-unit>
 			<trans-unit id="systemgroup.systems.summary.nonadmin">
 				<source>Below are all the systems that have been added to this system group.</source>
@@ -5868,6 +5872,10 @@ organization management tools if you choose to remove this role from your login.
           your organization has a trust. The organizations checked below will be
           granted access to view and consume the content in
           &lt;strong&gt;{0}&lt;/strong&gt; channel. Organizations that are not checked below will not have access to this software channel. You can modify an organization's access to this channel below.</source>
+				<target>নিম্নলিখিত প্রতিষ্ঠানগুলির সাথে আপনার প্রতিষ্ঠানের
+          বিশ্বাসের সম্পর্ক স্থাপিত হয়েছে। নীচে নির্বাচিত প্রতিষ্ঠানগুলির জন্য
+          &lt;strong&gt;{0}&lt;/strong&gt; চ্যানেল উপস্থিত সামগ্রী
+          পরিদর্শন ও ব্যবহারের অনুমতি প্রদান করা হবে। নীচে নির্বাচন না করা প্রতিষ্ঠানগুলির ক্ষেত্রে এই সফ্টওয়্যার চ্যানেল ব্যবহারের কোনো অনুমতি প্রদান করা হবে না। এই চ্যানেলের ব্যবহারের উদ্দেশ্যে কোনো প্রতিষ্ঠানের ব্যবহারাধিকার নীচে ধার্য করা যাবে।</target>
 			</trans-unit>
 			<trans-unit id="orgtrustdetails.jsp.header3">
 				<source>System Details</source>
@@ -5875,6 +5883,7 @@ organization management tools if you choose to remove this role from your login.
 			</trans-unit>
 			<trans-unit id="orgtrustdetails.jsp.trusted">
 				<source>Trusted Since</source>
+				<target>বিশ্বাসের সম্পর্ক স্থাপনা কাল</target>
 			</trans-unit>
 			<trans-unit id="orgtrustdetails.jsp.channelsprovided">
 				<source>Channels Provided to your Organization</source>
@@ -5886,9 +5895,11 @@ organization management tools if you choose to remove this role from your login.
 			</trans-unit>
 			<trans-unit id="orgtrust.jsp.channelconsume.summary">
 				<source>Below is a list of channels your organization is sharing with &lt;strong&gt;{0}&lt;/strong&gt;. This list also shows how many packages are in each channel and how many systems in that organization are consuming from these shared channels. If you would like to modify how many of these channels are shared, click on the channel's name for more details. </source>
+				<target>নিম্নলিখিত চ্যানেলগুলি &lt;strong&gt;{0}&lt;/strong&gt;-র সাথে যৌথরূপে ব্যবহার করা হচ্ছে। প্রতিটি চ্যানেলের মধ্যে উপস্থিত প্যাকেজের সংখ্যা ও প্রতিষ্ঠানের মধ্যে কতগুলি সিস্টেম দ্বারা এই চ্যানেলগুলির যৌথ ব্যবহার করা হচ্ছে তাও এই তালিকায় প্রদর্শন করা হয়। যৌথ ব্যবহারের উদ্দেশ্যে চ্যানেলের সংখ্যা পরিবর্তন করার উদ্দেশ্যে, চ্যানেলের বিবরণ প্রাপ্ত করার জন্য চ্যানেলের নামের উপর ক্লিক করুন। </target>
 			</trans-unit>
 			<trans-unit id="orgtrust.jsp.channelprovide.summary">
 				<source>Below is a list of channels that organization &lt;strong&gt;{0}&lt;/strong&gt; has shared with your organization, also showing how many packages are in each channel and how many systems in your organization are consuming from these shared channels. </source>
+				<target>নিম্নলিখিত চ্যানেলগুলি &lt;strong&gt;{0}&lt;/strong&gt; দ্বারা আপনার সাথে যৌথ ব্যবহারের উদ্দেশ্যে উপলব্ধ করা হচ্ছে। উপরন্তু, প্রতিটি চ্যানেলের মধ্যে উপস্থিত প্যাকেজ ও আপনার প্রতিষ্ঠান কতটি সিস্টেম দ্বারা এইগুলি ব্যবহার করা হচ্ছেও তাও এই তালিকা উল্লেখ করা হয়।</target>
 			</trans-unit>
 			<trans-unit id="orgtrustdetails.jsp.sysmigratedto">
 				<source>Systems Migrated to Your Organization</source>
@@ -6701,6 +6712,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="cobbler.jsp.synced">
 				<source>Cobbler Sync action was successfully executed. Look at /var/log/cobbler/*.log for more information</source>
+				<target>Cobbler Sync কর্ম সাফল্যের সাতে সঞ্চালিত হয়েছে। অধিক বিবরণের জন্য /var/log/cobbler/*.log দেখুন।</target>
 			</trans-unit>
 			<trans-unit id="cobbler.jsp.summary1">
 				<source>Setup your @@PRODUCT_NAME@@ Cobbler settings below.</source>
@@ -6708,6 +6720,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="cobbler.jsp.summary2">
 				<source>Cobbler sync is used to repair or rebuild the contents /tftpboot or /var/www/cobbler when manual modification of cobbler has occured.</source>
+				<target>কোনো কারণবস্ত ব্যবহারকারী দ্বারা cobbler পরিবর্তিত হলে Cobbler sync সহযোগে /tftpboot অথবা /var/www/cobbler-র তথ্য সংশোধন অথবা পুনরায় গঠন করা হয়।</target>
 			</trans-unit>
 			<trans-unit id="cobbler.jsp.summary3">
 				<source>For more information refer to the 'cobbler' man page.</source>
@@ -6798,11 +6811,14 @@ Please note that some manual configuration of these scripts may still be require
 				<target>ভেরিয়েবল আপডেট করুন</target>
 			</trans-unit>
 			<trans-unit id="kickstart.variable.jsp.summary">
-				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
-				You would then use $name within the profile to substitute in the value.</source>
+				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+        			You would then use $name within the profile to substitute in the value.</source>
+				<target>kickstart ভেরিয়েবল ব্যবহার করে kickstart প্রোফাইলের মধ্যে মান পরিবর্তন করা যাবে।  নতুন ভেরিয়েবল ধার্য করার জন্য 'নাম=মান' বিন্যাসে নিম্নলিখিত বাক্স প্রয়োজনীয় তথ্য সংযোজন করুন।  
+        			প্রোফাইলের মধ্যে $name প্রয়োগ করে সংশ্লিষ্ট মান স্থাপন করা যাবে।</target>
 			</trans-unit>
 			<trans-unit id="kickstarttree.variable.jsp.summary">
 				<source>Any variables specified below will be usable in any profile that uses this distro.  They can be overridden in each profile as well.</source>
+				<target>এই ডিস্ট্রো ব্যবহারকারী যে কোনো প্রোফাইল দ্বারা নিম্নলিখিত ভেরিয়েবলগুলি ব্যবহার করা সম্ভব হবে।  প্রতিটি প্রোফাইলের জন্য এইগুলি অগ্রাহ্য করা যাবে।</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virt_disk_path">
 				<source>Virtual Storage Path</source>
@@ -6810,6 +6826,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virt_disk_path.tip">
 				<source>&lt;strong&gt;Tip:&lt;/strong&gt; You may specify a file path (/var/lib/xen/images/disk), a Volume Group (VolGroup00), or a partiion (/dev/sda5).  You can also specify multiple virtual disks by comma separating the filepaths, volume group, or partition (/dev/sdb1,/devsdc1).</source>
+				<target>&lt;strong&gt;উপদেশ:&lt;/strong&gt; ফাইলের পাথ (/var/lib/xen/images/disk), ভলিউম গ্রুপ (VolGroup00), অথবা পার্টিশন (/dev/sda5) নির্ধারণ করা যাবে।  ফাইলের পাথ, ভলিউম গ্রুপ অথবা পার্টিশনের নামগুলি কমা চিহ্ন দ্বারা বিভাজন করে একাধিক ভার্চুয়াল ডিস্ক নির্ধারণ করা যাবে (/dev/sdb1,/devsdc1)।</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virt_mem_kb">
 				<source>Virtual Memory (in kilobytes)</source>
@@ -6837,12 +6854,15 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstart.jsp.error.invalidvariable">
 				<source>You have specified an invalid variable: '{0}'.  Variables should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a new line.  For example: 'ip=192.168.0.1'</source>
+				<target>অবৈধ ভেরিয়েবল নির্ধারণ করা হয়েছে: '{0}'।  ভেরিয়েবলের ক্ষেত্রে '=' চিহ্ন দ্বারা বিভাজন করে নাম ও মানের জুটি উল্লেখ করা আবশ্যক ও প্রতিটি জুটি একটি নতুন পংক্তিতে উপস্থিত থাকা আবশ্যক।  উদাহরণস্বরপ: 'ip=192.168.0.1'</target>
 			</trans-unit>
 			<trans-unit id="kickstart.jsp.error.invalidoption">
 				<source>You have specified an invalid option '{0}'.  Options should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a space.  For example: 'ip=192.168.0.1 netmask=255.255.255.0'</source>
+				<target>অবৈধ বিকল্প নির্ধারণ করা হয়েছে: '{0}'।  ভেরিয়েবলের ক্ষেত্রে '=' চিহ্ন দ্বারা বিভাজন করে নাম ও মানের জুটি উল্লেখ করা আবশ্যক ও প্রতিটি জুটি একটি নতুন পংক্তিতে উপস্থিত থাকা আবশ্যক।  উদাহরণস্বরপ: 'ip=192.168.0.1'</target>
 			</trans-unit>
 			<trans-unit id="kickstart.jsp.error.template_generation">
 				<source>There are errors in your kickstart template. Please check the &lt;a href="{0}"&gt;template errors&lt;/a&gt; to determine the problem with the template.</source>
+				<target>kickstart টেমপ্লেটের মধ্যে ত্রুটি উপস্থিত রয়েছে ও সমস্যা সনাক্ত করার জন্য অনুগ্রহ করে &lt;a href="{0}"&gt;টেমপ্লেট সংক্রান্ত ত্রুটি&lt;/a&gt; পরীক্ষা করুন।</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.kernel_options">
 				<source>Kernel Options</source>
@@ -6934,7 +6954,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartoverview.jsp.uploadksfile">
 				<source>Upload a New Kickstart File</source>
-				<target>একটি নতুন কিক-স্টার্ট ফাইল আপলোড করুন</target>
+				<target>একটি নতুন kickstart ফাইল আপলোড করুন</target>
 			</trans-unit>
 			<trans-unit id="kickstartoverview.jsp.cloneksprofile">
 				<source>Clone a Kickstart Profile</source>
@@ -6994,6 +7014,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.kscfg.msg">
 				<source>If selected, ks.cfg and all %include fragments will be copied to /root.</source>
+				<target>নির্বাচিত হলে, ks.cfg ও %include-র সকল অংশগুলি /root-এ কপি করা হবে।</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.header1">
 				<source>Kickstart: {0}</source>
@@ -7028,8 +7049,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target> নীচে উল্লিখিত ফর্মের সাহায্যে kickstart প্রোফাইল সম্পাদন করা সম্ভব। তারাচিহ্ন দ্বারা নির্দেশিত মানগুলি উল্লেখ করা আবশ্যক।</target>
 			</trans-unit>
 			<trans-unit id="kickstartdelete.jsp.summary1">
-				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its associated system and corresponding options.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
-				<target>আপনি কি নিশ্চিতরূপে চিহ্নিত Kickstart মুছে ফেলতে ইচ্ছুক?&lt;strong&gt;&lt;p&gt;সতর্কবাণী: এই kickstart মুছে ফেলা হলে সংযুক্ত সিস্টেম ও সংশ্লিষ্ট বিকল্প মুছে যাবে।&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;অনুগ্রহ করে বাটনের উপর শুধুমাত্র একবার টিপুন; অপসারণ কর্মে সম্পন্ন করতে কিছু সময় ব্যয় হবে।&lt;/strong&gt;&lt;/p&gt;</target>
+				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its corresponding options and scripts.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
+				<target state="needs-review-translation">আপনি কি নিশ্চিতরূপে চিহ্নিত Kickstart মুছে ফেলতে ইচ্ছুক?&lt;strong&gt;&lt;p&gt;সতর্কবাণী: এই kickstart মুছে ফেলা হলে সংযুক্ত সিস্টেম ও সংশ্লিষ্ট বিকল্প মুছে যাবে।&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;অনুগ্রহ করে বাটনের উপর শুধুমাত্র একবার টিপুন; অপসারণ কর্মে সম্পন্ন করতে কিছু সময় ব্যয় হবে।&lt;/strong&gt;&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.summary2">
 				<source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
@@ -7133,9 +7154,13 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations.
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
+            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
+            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
             tab to verify the new settings.</source>
+				<target>&lt;strong&gt;উল্লেখ্য:&lt;/strong&gt; Virtualization Type পরিবর্তন করা হলে kickstart প্রোফাইলের বুট-লোডার ও
+             পার্টিশন সংক্রান্ত বিকল্প পরিবর্তনের প্রয়োজন দেখা দিতে পারে। এর ফলে ব্যবহারকারী দ্বারা স্থাপিত স্বনির্ধারিত বৈশিষ্ট্যগুলি মুছে যেতে পারে। 
+            নতুন বৈশিষ্ট্যগুলি যাচাই করার জন্য অনুগ্র করে &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;পার্টিশন বিন্যাস&lt;/a&gt; 
+            শীর্ষক ট্যাবটি দেখুন।</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.active">
 				<source>Active:</source>
@@ -7179,6 +7204,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstart.advanced.jsp.para1">
 				<source>Each kickstart file you upload to satellite will need a label so that you can refer to it later - please choose a label for this kickstart and enter it below. Entries marked with an asterisk (*) are required.</source>
+				<target>satellite-র মধ্যে আপলোড করা প্রতিটি kickstart ফাইল পৃথকরূপে সনাক্ত করার উদ্দেশ্যে একটি লেবেল ধার্য করা আবশ্যক - অনুগ্রহ করে এই kickstart ফাইলের জন্য একটি লেবেল নীচে উল্লেখ করুন। তারা চিহ্ন সহযোগে (*) চিহ্নিত মান উল্লেখ করা আবশ্যক।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.advanced.jsp.uploadtab">
 				<source>File to Upload</source>
@@ -7186,7 +7212,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstart.advanced.filedetails.jsp.tip.edit">
 				<source> Alternatively, you can upload a new version in the '{0}' section below and select '{1}'.</source>
-				<target state="needs-review-translation">&lt;strong&gt;উপদেশ:&lt;/strong&gt; বিকল্প হিসাবে, উপরোক্ত 'Manage Revisions' ট্যাব থেকে পরিমার্জিত সংস্করণ আপলোড করা যাবে।</target>
+				<target> বিকল্প হিসাবে, নীচে উল্লিখিত '{0}' বিভাগে পরিমার্জিত সংস্করণ আপলোড করে '{1}' নির্বাচন করা যাবে।</target>
 			</trans-unit>
 			<trans-unit id="kickstartdatadelete.jsp.confirmdelete">
 				<source>Delete Kickstart</source>
@@ -7438,7 +7464,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="preservation_list.jsp.summary">
 				<source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
-				<target state="needs-review-translation">কোনো kickstart কর্ম সমাপনের পরে পুনরায় স্থাপনের উদ্দেশ্যে চিহ্নিত ফাইলগুলির নাম ফাইল সংরক্ষণ তালিকায় উল্লিখিত হয়। Kickstart প্রোফাইলের মধ্যে ফাইল সংরক্ষণ তালিকা উল্লেখ করা যাবে। এই বিষয়ে অধিক জানতে &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN রেফারেন্স গাইড&lt;/a&gt; পড়ুন। আপনার প্রতিষ্ঠানের জন্য নিম্নলিখিত ফাইল সংরক্ষণ তালিকা নির্মিত হয়েছে :</target>
+				<target>কোনো kickstart কর্ম সমাপনের পরে পুনরায় স্থাপনের উদ্দেশ্যে চিহ্নিত ফাইলগুলির নাম ফাইল সংরক্ষণ তালিকায় উল্লিখিত হয়। Kickstart প্রোফাইলের মধ্যে ফাইল সংরক্ষণ তালিকা উল্লেখ করা যাবে। এই বিষয়ে অধিক জানতে &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_new" &gt;RHN রেফারেন্স গাইড&lt;/a&gt; পড়ুন। আপনার প্রতিষ্ঠানের জন্য নিম্নলিখিত ফাইল সংরক্ষণ তালিকা নির্মিত হয়েছে :</target>
 			</trans-unit>
 			<trans-unit id="preservationlistdeleteconfirm.jsp.summary">
 				<source>Are you sure you want to delete the selected File List(s)?  &lt;strong&gt;WARNING: Deleting the selected File List(s) will delete all its associated files.&lt;/strong&gt;</source>
@@ -7530,7 +7556,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="preservation_edit.jsp.summary">
 				<source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.</source>
-				<target state="needs-review-translation">এই তালিকায় উপস্থিত সমস্ত ফাইল ও ডিরেক্টরি kickstart সমাপনের পরে অপরিবর্তিত রাখা হবে। প্রতিটি ফাইল অথবা ডিরেক্টরি উল্লেখ করার জন্য পৃথক পংক্তি ব্যবহার করুন।&lt;br/&gt;তালিকার সর্বোচ্চ মাপ &lt;strong&gt;১ মেগাবাইট&lt;/strong&gt;-র মধ্যে সীমিত রাখা আবশ্যক। অধিক বিবরণের জন্য &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN রেফারেন্স গাইড&lt;/a&gt; পড়ুন।</target>
+				<target>এই তালিকায় উপস্থিত সমস্ত ফাইল ও ডিরেক্টরি kickstart সমাপনের পরে অপরিবর্তিত রাখা হবে। প্রতিটি ফাইল অথবা ডিরেক্টরি উল্লেখ করার জন্য পৃথক পংক্তি ব্যবহার করুন।&lt;br/&gt;তালিকার সর্বোচ্চ মাপ &lt;strong&gt;১ মেগাবাইট&lt;/strong&gt;-র মধ্যে সীমিত রাখা আবশ্যক। অধিক বিবরণের জন্য &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_new" &gt;RHN রেফারেন্স গাইড&lt;/a&gt; পড়ুন।</target>
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.summary1">
 				<source>You can modify the software this kickstart profile will deploy below.</source>
@@ -7574,6 +7600,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.repos-tooltip">
 				<source>Selected Repositories will be available in the &lt;strong&gt;%packages &lt;/strong&gt; section of the kickstart file.</source>
+				<target>নির্বাচিত সংগ্রহস্থলগুলি kickstart ফাইলের &lt;strong&gt;%packages &lt;/strong&gt; বিভাগে উপলব্ধ থাকবে।</target>
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.tip1">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; New file location must be the root of an install tree (for the operating system version above) on either an http or ftp server.&lt;/span&gt;</source>
@@ -7581,7 +7608,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.warning">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Warning:&lt;/strong&gt; If any activation keys are associated with this kickstart profile(under the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;activation keys tab&lt;/a&gt;). the child channel subscriptions above will be overridden. In that situation please use an activation key to specify child channel subscriptions.&lt;/span&gt;</source>
-				<target state="needs-review-translation">&lt;span class="small-text"&gt;&lt;strong&gt;সতর্কবাণী:&lt;/strong&gt; এই kickstart প্রোফাইলের সাথে কোনো অ্যাক্টিভেশন-কি যুক্ত থাকলে (&lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;অ্যাক্টিভেশন-কি ট্যাব&lt;/a&gt;-র অধীন) উপরোক্ত চাইল্ড চ্যানেল সাবস্ক্রিপশনগুলি উপেক্ষা করা হবে।  এই ক্ষেত্রে চাইল্ড চ্যানেল সাবস্ক্রিপশনের জন্য অনুগ্রহ করে একটি অ্যাক্টিভেশন-কি ব্যবহার করুন।&lt;/span&gt;</target>
+				<target>&lt;span class="small-text"&gt;&lt;strong&gt;সতর্কবাণী:&lt;/strong&gt; এই kickstart প্রোফাইলের সাথে কোনো অ্যাক্টিভেশন-কি যুক্ত থাকলে (&lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;অ্যাক্টিভেশন-কি ট্যাব&lt;/a&gt;-র অধীন) উপরোক্ত চাইল্ড চ্যানেল সাবস্ক্রিপশনগুলি উপেক্ষা করা হবে।  এই ক্ষেত্রে চাইল্ড চ্যানেল সাবস্ক্রিপশনের জন্য অনুগ্রহ করে একটি অ্যাক্টিভেশন-কি ব্যবহার করুন।&lt;/span&gt;</target>
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.tip2">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; If your systems are connected through an @@PRODUCT_NAME@@ Proxy, you may place the installation tree in  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; on the Proxy.</source>
@@ -7631,7 +7658,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
   এই সময়ে নেটওয়ার্ক ব্যবহার করার জন্য IP ঠিকানা ব্যবহার করা আবশ্যক (name পরিসেবা এই সময়ে কনফিগার করা হয় না)। Kickstart প্রি-স্ক্রিপ্ট সম্পর্কে জানতে 
 &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/strong&gt; পড়ুন।
 &lt;br/&gt;&lt;br/&gt;
-চিহ্নিত kickstart-র পোস্ট-স্ক্রিপ্ট অংশ আপনি নীচে পরিবর্তন করতে পারবেন। @@PRODUCT_NAME@@ সংক্রান্ত কমান্ডগুলি প্রথমে নির্বাহিত হবে (উদাহরণস্বরূপ esystem registration to @@PRODUCT_NAME@@)।
+চিহ্নিত kickstart-র পোস্ট-স্ক্রিপ্ট অংশ আপনি নীচে পরিবর্তন করতে পারবেন। @@PRODUCT_NAME@@ সংক্রান্ত কমান্ডগুলি প্রথমে নির্বাহিত হবে (উদাহরণস্বরূপ esystem registration to @@PRODUCT_NAME@@)।  
 এর পরে, নন-chroot পোস্ট-স্ক্রিপ্ট অংশ চালিত হবে এবং সর্বশেষ পোস্ট-স্ক্রিপ্ট অংশ নির্বাহিত হবে। Kickstart-র পোস্ট-স্ক্রিপ্ট অংশ সম্বন্ধে অধিক জানতে অনুগ্রহ করে
 &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide&lt;/strong&gt; পড়ুন।</target>
 			</trans-unit>
@@ -7658,6 +7685,14 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			<trans-unit id="kickstart.script.nochroot">
 				<source>nochroot</source>
 				<target>nochroot</target>
+			</trans-unit>
+			<trans-unit id="kickstart.script.template">
+				<source>Template</source>
+				<target>টেমপ্লেট</target>
+			</trans-unit>
+			<trans-unit id="kickstart.script.template.tip">
+				<source>Enable this to enable templating on this script using cobbler.</source>
+				<target>cobbler সহযোগে এই স্ক্রিপ্টের জন্য টেমপ্লেট নির্মাণ ব্যবস্থা প্রয়োগ করা জন্য এটি সক্রিয় করুন।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.script.tip3">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This specifies when the script gets ran (before or after kickstart).&lt;/span&gt;</source>
@@ -7732,11 +7767,12 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>Kickstart স্নিপেট</target>
 			</trans-unit>
 			<trans-unit id="snippets.jsp.summary">
-				<source>Use Kickstart Snippets to store common blocks of code that can be shared across multiple Kickstart profiles in @@PRODUCT_NAME@@. When you create a Kickstart Snippet, all Kickstart profiles including that snippet will be updated accordingly.</source>
+				<source>Use kickstart snippets to store common blocks of code that can be shared across multiple kickstart profiles in @@PRODUCT_NAME@@. When you create a kickstart snippet, all kickstart profiles including that snippet will be updated accordingly.</source>
+				<target>@@PRODUCT_NAME@@-র মধ্যে উপস্থিত একাধিক kickstart প্রোফাইলে ব্যবহারযোগ্য কোডের অংশবিশেষ kickstart স্নিপেট রূপে সংরক্ষণ করুন। kickstart স্নিপেট নির্মাণ করে ব্যবহার করা হলে, সংশ্লিষ্ট kickstart স্নিপেট প্রয়োগকারী সকল kickstart প্রোফাইল যথাযতভাবে আপডেট করা হবে।</target>
 			</trans-unit>
 			<trans-unit id="snippets.jsp.note.default">
-				<source>default kickstart snippets are not editable.</source>
-				<target state="needs-review-translation">নিম্নলিখিত kickstart ডিস্ট্রিবিউশনগুলি উপস্থিত রয়েছে।</target>
+				<source>Default kickstart snippets are not editable.</source>
+				<target>ডিফল্ট kickstart স্নিপেটগুলি সম্পাদনযোগ্য নয়।</target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.snippets">
 				<source>create new snippet</source>
@@ -7751,14 +7787,16 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>স্নিপেট ম্যাক্রো</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.jsp.nosnippets">
-				<source>No Cobbler snippets found.</source>
-				<target>কোনো Cobbler স্নিপেট পাওয়া যায়নি।</target>
+				<source>No kickstart snippets found.</source>
+				<target>কোনো kickstart স্নিপেট পাওয়া যায়নি।</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.copy-paste-snippet-tip">
-				<source>Copy and paste the snippet macro into your Kickstart profiles to make the full snippet appear in that Kickstart profile.</source>
+				<source>Copy and paste the snippet macro into your kickstart profiles to make the full snippet appear in that kickstart profile.</source>
+				<target>kickstart প্রোফাইলের মধ্যে সম্পূর্ণ স্নিপেট উপলব্ধ করার জন্য স্নিপেট ম্যাক্রো কপি করে kickstart প্রোফাইলের মধ্যে পেস্ট করুন।</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.warning.tip">
 				<source>Changing this snippet's name will require updating any kickstart profiles that refer to it so that they can continue to access the content of this snippet.</source>
+				<target>স্নিপেটের নাম পরিবর্তন করার পরে এটির মধ্যে উপস্থিত তথ্যের ব্যবহারে বিঘ্ন সৃষ্টি না করার জন্য এই স্নিপেট প্রয়োগকারী সকল kickstart প্রোফাইল আপডেট করা আবশ্যক।</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.path">
 				<source>File Path</source>
@@ -7766,6 +7804,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.path.tip">
 				<source>This is where the snippet resides on the @@PRODUCT_NAME@@ file system.</source>
+				<target>@@PRODUCT_NAME@@ ফাইল সিস্টেমের এই অবস্থানে এই স্নিপেটটি উপস্থিত থাকে।</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.header.name">
 				<source>Kickstart Snippet: {0}</source>
@@ -7773,76 +7812,95 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.type">
 				<source>Snippet Type</source>
-				<target state="needs-review-translation">স্ক্রিপ্টের ধরন</target>
+				<target>স্নিপেটের ধরন</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.custom">
 				<source>Custom</source>
 				<target>স্বনির্ধারিত</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.custom.tip">
-				<source>Custom Kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
+				<source>Custom kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
+				<target>স্বনির্ধারিত kickstart স্নিপেটগুলি শুধুমাত্র &lt;strong&gt;{0}&lt;/strong&gt; প্রতিষ্ঠানের ক্ষেত্রে উপলব্ধ থাকবে।</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default">
 				<source>Default</source>
-				<target state="needs-review-translation">ডিফল্টরূপে SSL</target>
+				<target>ডিফল্ট</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default.tip">
-				<source>Default Kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
+				<source>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
+				<target>ডিফল্ট kickstart স্নিপেটগুলি সকল প্রতিষ্ঠানের ব্যবহারের জন্য উপলব্ধ থাকবে। এই স্নিপেটগুলি পরিবর্তন করা যাবে না।</target>
 			</trans-unit>
 			<trans-unit id="snippetedit.jsp.header2">
 				<source>Edit Snippet</source>
-				<target state="needs-review-translation">তালিকা সম্পাদনা করুন</target>
+				<target>স্নিপেট সম্পাদনা করুন</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.toolbar">
 				<source>Create New Snippet</source>
-				<target state="needs-review-translation">নতুন প্রতিষ্ঠান নির্মাণ করুন</target>
+				<target>নতুন স্নিপেট নির্মাণ করুন</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.summary">
-				<source>Snippets can be shared between Kickstart Profiles</source>
-				<target state="needs-review-translation">নতুন Kickstart প্রোফাইল নির্মাণ করুন</target>
+				<source>Snippets can be shared between kickstart profiles</source>
+				<target>একাধিক kickstart প্রোফাইল দ্বারা স্নিপেট যৌথরূপে ব্যবহার করা যাবে</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.header2">
 				<source>Create Snippet</source>
-				<target state="needs-review-translation">তালিকা নির্মাণ করুন</target>
+				<target>স্নিপেট নির্মাণ করুন</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.submit">
+				<source>Create Snippet</source>
+				<target>স্নিপেট নির্মাণ করুন</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.header2">
+				<source>Create Snippet</source>
+				<target>স্নিপেট নির্মাণ করুন</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.submit">
+				<source>Create Snippet</source>
+				<target>স্নিপেট নির্মাণ করুন</target>
+			</trans-unit>
+			<trans-unit id="snippetdetails.jsp.header2">
+				<source>Snippet Details</source>
+				<target>স্নিপেট সংক্রান্ত বিবরণ</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.contents">
 				<source>Contents</source>
-				<target state="needs-review-translation">ফাইলের বিষয়বস্তু</target>
+				<target>বিষয়বস্তু</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.contents.header">
 				<source>Kickstart Snippet Contents</source>
-				<target state="needs-review-translation">Kickstart স্ক্রিপ্টের বিবরণ</target>
+				<target>kickstart স্নিপেটের মধ্যে অন্তর্ভুক্ত সামগ্রী</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.tip1">
-				<source>Avoid spaces in the snippet name.</source>
-				<target>স্নিপেটের নামের মধ্যে শূণ্যস্থান অন্তর্ভুক্ত না করা বাঞ্ছনীয়।</target>
+				<source>The snippet name is the name of a file that will reside in this organization's snippet directory. Any standard unix file name characters are acceptable. Snippet names containing slash character or snippet names beginning with period are not allowed.</source>
+				<target>এই প্রতিষ্ঠানের স্নিপেট ডিরেক্টরির মধ্যে উপস্থিত ফাইলটির নাম স্নিপেটের নামের ক্ষেত্রে প্রয়োগ করা হবে। unix ফাইলের নামে ব্যবহৃত প্রমিত অক্ষরগুলি এই ক্ষেত্রে গ্রহণযোগ্য। স্নিপেটের নামের প্রারম্ভে বিন্দু চিহ্ন ও নামের কোনো স্থানে স্ল্যাশ চিহ্ন অন্তর্ভুক্ত রাখা যাবে না।</target>
 			</trans-unit>
-			<trans-unit id="snippetcreate.jsp.submit">
+			<trans-unit id="snippetupdate.jsp.submit">
 				<source>Update Snippet</source>
 				<target>স্নিপেট আপডেট করুন</target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.toolbar">
 				<source>Delete Snippet Confirmation</source>
-				<target state="needs-review-translation">কি অপসারণের নিশ্চায়ন</target>
+				<target>স্নিপেট অপসারণের নিশ্চায়ন</target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.header2">
 				<source>Deleting Snippet</source>
-				<target state="needs-review-translation">কি মুছে ফেলা হচ্ছে</target>
+				<target>স্নিপেট মুছে ফেলা হচ্ছে</target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.summary">
-				<source>Are you sure you want to delete this Snippet permanently?</source>
-				<target state="needs-review-translation">আপনি কি নিশ্চিতরূপে এই কনফিগ চ্যানেল মুছে ফেলতে ইচ্ছুক?</target>
+				<source>Are you sure you want to delete this snippet permanently?</source>
+				<target>আপনি কি নিশ্চিতরূপে এই স্নিপেটটি স্থায়ীভাবে মুছে ফেলতে ইচ্ছুক?</target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.warning">
-				<source>Deleting this snippet will affect any kickstart profiles that refere to it. It may break kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
+				<source>Deleting this snippet will affect any kickstart profiles that refer to it. It may break those kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
+				<target>এই স্নিপেট মুছে ফেলা হলে, এটি প্রয়োগকারী kickstart প্রোফাইলগুলি প্রভাবিত হবে ও ক্ষতিগ্রস্ত হওয়ার সম্ভাবনা রয়েছে। স্নিপেট মুছে ফেলার পূর্বে সকল kickstart প্রোফাইলের সাথে এর সম্পর্ক বিচ্ছিন্ন করা বাঞ্ছনীয়।</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.delete">
 				<source>Confirm Snippet Delete</source>
-				<target state="needs-review-translation">ফাইল অপসারণ কর্মের নিশ্চায়ন</target>
+				<target>স্নিপেট অপসারণ কর্মের নিশ্চায়ণ</target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.deletesnippet">
 				<source>Delete Snippet</source>
-				<target state="needs-review-translation">ফাইল মুছে ফেলুন</target>
+				<target>স্নিপেট মুছে ফেলুন</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.bullet.alttag">
 				<source>Bullet Item</source>
@@ -7850,7 +7908,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.nolists">
 				<source>No lists are currently enabled on the "Overview" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Overview &gt; Your Preferences &gt; "Overview" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
-				<target state="needs-review-translation">"আপনার RHN" পৃষ্ঠায় বর্তমানে কোনো তালিকা সক্রিয় অবস্থায় নেই। আপনি এই মান &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Your RHN &gt; Your Preferences &gt; "আপনার RHN"-র প্রারম্ভিক পৃষ্ঠায়&lt;/a&gt;&lt;/strong&gt; পরিবর্তন করতে পারবেন।</target>
+				<target>"সারসংক্ষেপ" পৃষ্ঠায় বর্তমানে কোনো তালিকা সক্রিয় অবস্থায় নেই। আপনি এই মান &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;সারসংক্ষেপ &gt; পছন্দসই মান &gt; "সারসংক্ষেপ"-র প্রারম্ভিক পৃষ্ঠায়&lt;/a&gt;&lt;/strong&gt; পরিবর্তন করতে পারবেন।</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.user">
 				<source>User</source>
@@ -7878,11 +7936,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar">
 				<source>Overview</source>
-				<target state="needs-review-translation">ব্যবহারকারীদের সংক্রান্ত সংক্ষিপ্ত বিবরণ</target>
+				<target>সারসংক্ষেপ</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.menu.overview">
 				<source>Overview</source>
-				<target state="needs-review-translation">ব্যবহারকারীদের সংক্রান্ত সংক্ষিপ্ত বিবরণ</target>
+				<target>সারসংক্ষেপ</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar.img.alt">
 				<source>Home Icon</source>
@@ -7998,7 +8056,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.noinactivesystems">
 				<source>&lt;strong&gt;No inactive systems.&lt;/strong&gt; &lt;p&gt;All of your systems are actively checking into @@PRODUCT_NAME@@ at this time. You can view a list of all of your systems at &lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;Systems &gt; All&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;</source>
-				<target>&lt;strong&gt;নিষ্ক্রিয় অবস্থায় কোনো সিস্টেম নেই।&lt;/strong&gt; &lt;p&gt;বর্তমানে আপনার নিবন্ধিত সমস্ত সিস্টেম @@PRODUCT_NAME@@-র সাথে যোগাযোগ করছে। &lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;Systems &gt; All&lt;/a&gt;&lt;/strong&gt;'এ আপনি আপনার সমস্ত সিস্টেমের তালিকা দেখতে পারবেন।&lt;/p&gt;</target>
+				<target>&lt;strong&gt;নিষ্ক্রিয় অবস্থায় কোনো সিস্টেম নেই।&lt;/strong&gt; &lt;p&gt;বর্তমানে আপনার নিবন্ধিত সমস্ত সিস্টেম @@PRODUCT_NAME@@-র সাথে যোগাযোগ করছে। &lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;সিস্টেম &gt; সমস্ত&lt;/a&gt;&lt;/strong&gt; শীর্ষক অংশে আপনি আপনার সমস্ত সিস্টেমের তালিকা দেখতে পারবেন।&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="errata.sev.label.low">
 				<source>Low</source>
@@ -8038,7 +8096,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.task.manage_subscriptions">
 				<source>&lt;strong&gt;Manage Entitlements and Subscriptions&lt;/strong&gt;:</source>
-				<target state="needs-review-translation">&lt;strong&gt;এনটাইটেলমেন্ট&lt;/strong&gt; &amp;amp; &lt;strong&gt;সাবস্ক্রিপশন&lt;/strong&gt; পরিচালন ব্যবস্থা</target>
+				<target>&lt;strong&gt;এনটাইটেলমেন্ট ও সাবস্ক্রিপশন পরিচালন ব্যবস্থা&lt;/strong&gt;:</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.tasks.activationkeys">
 				<source>Manage &lt;strong&gt;Activation Keys&lt;/strong&gt;</source>
@@ -8126,18 +8184,19 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="channels.redhat.jsp.header1">
 				<source>The software channels listed below are Red Hat channels or child channels of Red Hat Channels.</source>
-				<target state="needs-review-translation">নিম্নলিখিত সফ্টওয়্যার চ্যানেলগুলি সাবস্ক্রিপশন-ভিত্তিক চ্যানেল এবং আপনার প্রতিষ্ঠানের দ্বারা এগুলি ব্যবহারের অনুমতি ক্রয় করা হয়েছে।</target>
+				<target>নিম্নলিখিত সফ্টওয়্যার চ্যানেলগুলি Red Hat চ্যানেল অথবা Red Hat চ্যানেলের চাইল্ড চ্যানেল।</target>
 			</trans-unit>
 			<trans-unit id="channels.shared.jsp.header1">
 				<source>The software channels listed below my be shared by your organization.</source>
-				<target state="needs-review-translation">নিম্নলিখিত সফ্টওয়্যার চ্যানেলগুলি সাবস্ক্রিপশন-ভিত্তিক চ্যানেল এবং আপনার প্রতিষ্ঠানের দ্বারা এগুলি ব্যবহারের অনুমতি ক্রয় করা হয়েছে।</target>
+				<target>নিম্নলিখিত সফ্টওয়্যার চ্যানেলগুলি যৌথ ব্যবহারের জন্য আপনার প্রতিষ্ঠান দ্বারা উপলব্ধ করা যাবে।</target>
 			</trans-unit>
 			<trans-unit id="channels.custom.jsp.header1">
 				<source>The software channels listed below belong to your organization.</source>
-				<target state="needs-review-translation">নিম্নলিখিত সফ্টওয়্যার চ্যানেলগুলি সাবস্ক্রিপশন-ভিত্তিক চ্যানেল এবং আপনার প্রতিষ্ঠানের দ্বারা এগুলি ব্যবহারের অনুমতি ক্রয় করা হয়েছে।</target>
+				<target>নিম্নলিখিত সফ্টওয়্যার চ্যানেলগুলি আপনার প্রতিষ্ঠানের মালিকানাধীন।</target>
 			</trans-unit>
 			<trans-unit id="channels.popular.jsp.header1">
 				<source>The software channels listed below are considered popular (defined as having a certain number of systems subscribed).</source>
+				<target>নিম্নলিখিত সফ্টওয়্যার চ্যানেলগুলি জনপ্রিয় চ্যানেল রূপে চিহ্নিত করা হয়েছে (সুনির্দিষ্ট সংখ্যাক সাবস্ক্রাইব করা সিস্টেমের কারণে)।</target>
 			</trans-unit>
 			<trans-unit id="channels.popular.jsp.label0">
 				<source>Popularity</source>
@@ -8145,11 +8204,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="channels.popular.jsp.label1">
 				<source>Display channels with at least</source>
-				<target state="needs-review-translation">সময় প্রদর্শনের বিন্যাস</target>
+				<target>অন্তত</target>
 			</trans-unit>
 			<trans-unit id="channels.popular.jsp.label2">
 				<source> systems subscribed below.</source>
-				<target state="needs-review-translation">সাবস্ক্রাইব করা কোনো সিস্টেম নেই</target>
+				<target> সংখ্যক সিস্টেম সাবস্ক্রাইব করা চ্যানেল প্রদর্শন করা হবে।</target>
 			</trans-unit>
 			<trans-unit id="channels.retired.jsp.toolbar">
 				<source>Retired Software Channel List</source>
@@ -8161,22 +8220,23 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="channels.manage.jsp.toolbar">
 				<source>Software Channel Management</source>
-				<target state="needs-review-translation">সফ্টওয়্যার চ্যানেলের এন্টাইটেলমেন্ট</target>
+				<target>সফ্টওয়্যার চ্যানেল ব্যবস্থাপনা</target>
 			</trans-unit>
 			<trans-unit id="channels.manage.jsp.header1">
 				<source>The following software channels are owned by your organization.</source>
-				<target state="needs-review-translation">নিম্নলিখিত সফ্টওয়্যার চ্যানেলগুলি সাবস্ক্রিপশন-ভিত্তিক চ্যানেল এবং আপনার প্রতিষ্ঠানের দ্বারা এগুলি ব্যবহারের অনুমতি ক্রয় করা হয়েছে।</target>
+				<target>নিম্নলিখিত সফ্টওয়্যার চ্যানেলগুলি আপনার প্রতিষ্ঠানের মালিকানাধীন।</target>
 			</trans-unit>
 			<trans-unit id="channels.manage.jsp.header2">
 				<source>Modify an existing software channel by selecting it from the list below, or create a new software channel. </source>
+				<target>পরিবর্তন করার উদ্দেশ্যে নিম্নলিখিত তালিকা থেকে একটি সফ্টওয়্যার চ্যানেল নির্বাচন করুন অথবা একটি নতুন সফ্টওয়্যার চ্যানেল নির্মাণ করুন। </target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.channel">
 				<source>create new channel</source>
-				<target state="needs-review-translation">নতুন কনফিগ চ্যানেল নির্মাণ করুন</target>
+				<target>নতুন চ্যানেল নির্মাণ করুন</target>
 			</trans-unit>
 			<trans-unit id="toolbar.clone.channel">
 				<source>clone channel</source>
-				<target state="needs-review-translation">চ্যানেল মুছে ফেলুন</target>
+				<target>চ্যানেল ক্লোন করুন</target>
 			</trans-unit>
 			<trans-unit id="kickstart.troubleshooting.jsp.header1">
 				<source>Troubleshooting</source>
@@ -8200,7 +8260,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="kickstart.troubleshooting.jsp.nonchrootpost">
 				<source>Log non-chroot post script actions</source>
-				<target state="needs-review-translation">chroot-বিহীন পোস্ট-স্ক্রিপ্টের বিষয়বস্তু</target>
+				<target>chroot-বিহীন পোস্ট-স্ক্রিপ্টের কর্মের লগ</target>
 			</trans-unit>
 			<trans-unit id="kickstart.troubleshooting.jsp.verboseup2date">
 				<source>Enable debugging in up2date/yum</source>
@@ -8300,19 +8360,19 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="kickstart.jsp.virt-type.para_host">
 				<source>Para-Virtualized Host</source>
-				<target state="needs-review-translation">ভার্চুয়াল হোস্ট</target>
+				<target>প্যারা-ভার্চুয়ালাইজড হোস্ট</target>
 			</trans-unit>
 			<trans-unit id="kickstart.jsp.virt-type.qemu">
 				<source>None Or KVM Virtualized Guest</source>
-				<target state="needs-review-translation">ভার্চুয়াল গেস্ট</target>
+				<target>শূণ্য অথবা KVM ভার্চুয়ালাইজড গেস্ট</target>
 			</trans-unit>
 			<trans-unit id="kickstart.jsp.virt-type.xenfv">
 				<source>XEN Fully-Virtualized Guest</source>
-				<target state="needs-review-translation">ভার্চুয়াল গেস্ট</target>
+				<target>XEN সম্পূর্ণ ভার্চুয়ালাইজড গেস্ট</target>
 			</trans-unit>
 			<trans-unit id="kickstart.jsp.virt-type.xenpv">
 				<source>XEN Para-Virtualized Guest</source>
-				<target state="needs-review-translation">ভার্চুয়াল গেস্ট</target>
+				<target>XEN প্যারা-ভার্চুয়ালাইজড গেস্ট</target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.activationkeys">
 				<source>create new key</source>
@@ -8464,7 +8524,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="activation-key.details.jsp.title">
 				<source>Activation Key Details</source>
-				<target state="needs-review-translation">অ্যাক্টিভেশন-কি</target>
+				<target>অ্যাক্টিভেশন-কি সংক্রান্ত বিবরণ</target>
 			</trans-unit>
 			<trans-unit id="activation-key.jsp.delete-key">
 				<source>Delete Activation Key</source>
@@ -8488,40 +8548,43 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="activation-key.jsp.enable-config-auto-deploy">
 				<source>Configuration File Deployment</source>
-				<target state="needs-review-translation">সর্বশেষ কনফিগারেশন স্থাপনা</target>
+				<target>কনফিগারেশন ফাইল স্থাপনা</target>
 			</trans-unit>
 			<trans-unit id="activation-key.jsp.config-auto-deploy-tooltip">
 				<source> Deploy configuration files to systems when they are registered with this activation key.</source>
+				<target> এই অ্যাক্টিভেশন-কি সহযোগে সিস্টেম নিবন্ধিত হলে সেগুলির মধ্যে কনফিগারেশন ফাইল স্থাপন করা হবে।</target>
 			</trans-unit>
 			<trans-unit id="activation-key.jsp.disabled-config-auto-deploy-tooltip">
 				<source> Configuration File Deployment is currently disabled. Select "&lt;strong&gt;{0}&lt;/strong&gt;" under "&lt;strong&gt;{1}&lt;/strong&gt;"  to enable configuration management facilities for this activation key.</source>
+				<target> কনফিগারেশন ফাইল স্থাপনা ব্যবস্থা বর্তমানে নিষ্ক্রিয় করা আছে। এই অ্যাক্টিভেশন-কির জন্য কনফিগারেশন পরিচালনা ব্যবস্থা সক্রিয় করার জন্য Select  under "&lt;strong&gt;{1}&lt;/strong&gt;"-র অধীন "&lt;strong&gt;{0}&lt;/strong&gt;" নির্বাচন করুন।</target>
 			</trans-unit>
 			<trans-unit id="activation-key.packages.jsp.summary">
 				<source>Any system registered with this activation key will have the packages listed below installed, if those packages are available. Package names may be listed as package name only or may include an extension to specify the desired architecture.  There should only one package name included per line.</source>
+				<target>নিম্নলিখিত প্যাকেজগুলি উপলব্ধ থাকলে চিহ্নিত অ্যাক্টিভেশন-কি সহযোগে নিবন্ধিত সকল সিস্টেমগুলির মধ্যে সপগুলি ইনস্টল করা হবে। প্যাকেজের নামের ক্ষেত্রে শুধুমাত্র নাম অথবা আর্কিটেকচার উল্লেখকারী অতিরিক্ত অংশও উপস্থিত থাকতে পারে। প্রতিটি প্যাকেজের জন্য একটি নতুন পংক্তি ব্যবহার করা আবশ্যক।</target>
 			</trans-unit>
 			<trans-unit id="activation-key.packages.jsp.enter-names">
 				<source>Enter package names below</source>
-				<target state="needs-review-translation">প্যাকেজ কর্মের পশ্চাত</target>
+				<target>প্যাকেজের নাম নীচে লিখুন</target>
 			</trans-unit>
 			<trans-unit id="activation-keys.config.jsp.noChannels">
 				<source>No configuration channels. To subscribe this activation key to a configuration channel, please visit the &lt;a href="{0}"&gt;Subscribe to Channels&lt;/a&gt; tab.</source>
-				<target state="needs-review-translation">কোনো কনফিগারেশন চ্যানেল উপস্থিত নেই। এই সিস্টেমটি কোনো কনফিগারেশন চ্যানেলে সাবস্ক্রাইব করার জন্য অনুগ্রহ করে &lt;a href="{0}"&gt;চ্যানেলে সাবস্ক্রাইব করুন&lt;/a&gt; ট্যাবটি দেখুন।</target>
+				<target>কোনো কনফিগারেশন চ্যানেল উপস্থিত নেই। এই অ্যাক্টিভেশন-কিটি কোনো কনফিগারেশন চ্যানেলে সাবস্ক্রাইব করার জন্য অনুগ্রহ করে &lt;a href="{0}"&gt;চ্যানেলে সাবস্ক্রাইব করুন&lt;/a&gt; ট্যাবটি দেখুন।</target>
 			</trans-unit>
 			<trans-unit id="activation-keys.config.subscriptions.jsp.noChannels">
 				<source>No configuration channels are available for subscription. You have already subscribed this activation key to all available channels (&lt;a href="{0}"&gt;view subscribed channels&lt;/a&gt;).</source>
-				<target state="needs-review-translation"> সাবস্ক্রিপশনের জন্য কোনো কনফিগারেশন চ্যানেল উপস্থিত নেই। সম্ভবত আপনার সিস্টেমেটি সব উপলব্ধ চ্যানেলে সাবস্ক্রাইব করা হয়েছে (&lt;a href="{0}"&gt;সাবস্ক্রাইব করা চ্যানেল প্রদর্শন&lt;/a&gt;) অথবা উপলব্ধ কোনো চ্যানেল প্রত্যক্ষ করার উদ্দেশ্যে আপনার যথাযত অনুমতি উপস্থিত নেই।</target>
+				<target>সাবস্ক্রিপশনের জন্য কোনো কনফিগারেশন চ্যানেল উপস্থিত নেই। সম্ভবত আপনার অ্যাক্টিভেশন-কি সব উপলব্ধ চ্যানেলে সাবস্ক্রাইব করা হয়েছে (&lt;a href="{0}"&gt;সাবস্ক্রাইব করা চ্যানেল প্রদর্শন&lt;/a&gt;)।</target>
 			</trans-unit>
 			<trans-unit id="activation-key.config.jsp.para1">
 				<source>Below are all the centrally-managed configuration channels to which this activation key is subscribed. They are in priority order with the highest-ranked channels appearing first in the list.</source>
-				<target state="needs-review-translation">বর্তমান সিস্টেমটি যে সমস্ত কেন্দ্রিয়রূপে পরিচালিত কনফিগারেশন চ্যানেলে সাবস্ক্রাইব করা হয়েছে সেগুলি নীচে তালিকাভুক্ত করা হয়েছে। এই তালিকায় সর্বোচ্চ গুরুত্বসম্পন্ন চ্যানেলটি শীর্ষে রয়েছে।</target>
+				<target>বর্তমান অ্যাক্টিভেশন-কি যে সমস্ত কেন্দ্রিয়রূপে পরিচালিত কনফিগারেশন চ্যানেলে সাবস্ক্রাইব করা হয়েছে সেগুলি নীচে তালিকাভুক্ত করা হয়েছে। এই তালিকায় সর্বোচ্চ গুরুত্বসম্পন্ন চ্যানেলটি শীর্ষে রয়েছে।</target>
 			</trans-unit>
 			<trans-unit id="activation-key.config.subscriptions.jsp.para1">
 				<source>Below is a list of configuration channels available to this activation key. To subscribe to a channel, check its checkbox. Make sure you click the "{0}" button when you are finished with your changes.</source>
-				<target state="needs-review-translation">চিহ্নিত সিস্টেমের জন্য উপলব্ধ কনফিগারেশন চ্যানেলের তালিকা নীচে উপস্থিত করা হয়েছে। কোনো চ্যানেলে সাবস্ক্রাইব করার জন্য সংশ্লিষ্ট চেকবক্স নির্বাচন করুন। সব পরিবর্তন সমাপ্ত করে অনুগ্রহ করে "এগিয়ে চলুন" শীর্ষক বাটনটি ক্লিক করুন।</target>
+				<target>চিহ্নিত অ্যাক্টিভেশন-কির জন্য উপলব্ধ কনফিগারেশন চ্যানেলের তালিকা নীচে উপস্থিত করা হয়েছে। কোনো চ্যানেলে সাবস্ক্রাইব করার জন্য সংশ্লিষ্ট চেকবক্স নির্বাচন করুন। সব পরিবর্তন সমাপ্ত করে অনুগ্রহ করে "{0}" শীর্ষক বাটনটি ক্লিক করুন।</target>
 			</trans-unit>
 			<trans-unit id="activation-keys.config.rank.jsp.para1">
 				<source>This activation key is subscribed to the configuration channels listed below in order from highest to lowest rank. Files from a particular channel will override files with the same filepath and name from channels below it.</source>
-				<target state="needs-review-translation">বর্তমান সিস্টেমটি নীচে তালিকাভুক্ত কনফিগারেশন চ্যানেলে সাবস্ক্রাইব করা হয়েছে। চ্যানেলগুলি উচ্চ থেকে নিম্ন গুরুত্ব অনুসারে সাজানো হয়েছে। কোনো নির্দিষ্ট চ্যানেলে উপস্থিত ফাইল দ্বারা চ্যানেল অনুক্রমে সংশ্লিষ্ট চ্যানেলের নীচে উপস্থিত চ্যানেলের একই ফাইল-পাথ বিশিষ্ট ফাইল উপেক্ষা করা হবে।</target>
+				<target>বর্তমান অ্যাক্টিবেশন-কি নীচে তালিকাভুক্ত কনফিগারেশন চ্যানেলে সাবস্ক্রাইব করা হয়েছে। চ্যানেলগুলি উচ্চ থেকে নিম্ন গুরুত্ব অনুসারে সাজানো হয়েছে। কোনো নির্দিষ্ট চ্যানেলে উপস্থিত ফাইল দ্বারা চ্যানেল অনুক্রমে সংশ্লিষ্ট চ্যানেলের নীচে উপস্থিত চ্যানেলের একই ফাইল-পাথ বিশিষ্ট ফাইল উপেক্ষা করা হবে।</target>
 			</trans-unit>
 			<trans-unit id="activation-keys.config.rank.jsp.para2">
 				<source>To modify the respective rankings of the subscribed channels, you may select one channel at a time to move up or down using the arrow buttons below. After you have completed the ranking process, you will need to click on "{0}" below to confirm the channel subscriptions and ordering.</source>
@@ -8541,47 +8604,51 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="activation-keys.groups.jsp.noGroups">
 				<source>No System Groups. To add System Groups this activation key, please visit the &lt;a href="{0}"&gt;{1}&lt;/a&gt; tab.</source>
+				<target>কোনো সিস্টেম দল উপস্থিত নেই। এই অ্যাক্টিভেশন-কির জন্য সিস্টেম দল যোগ করার জন্য অনুগ্রহ করে &lt;a href="{0}"&gt;{1}&lt;/a&gt; ট্যাব পরিদর্শন করুন।</target>
 			</trans-unit>
 			<trans-unit id="activation-keys.groups.add.jsp.noGroups">
 				<source>No system groups are available to add. You have already added all the system groups available (&lt;a href="{0}"&gt;View System Groups&lt;/a&gt;) to this activation key.</source>
+				<target>যোগ করার জন্য কোনো সিস্টেম দল উপলব্ধ। সকল উপস্থিত সিস্টেম দল (&lt;a href="{0}"&gt;সিস্টেম দল প্রদর্শন&lt;/a&gt;) এই অ্যাক্টিভেশন-কির জন্য পূর্বেই যোগ করা হয়েছে।</target>
 			</trans-unit>
 			<trans-unit id="activation-key.groups.jsp.summary">
 				<source>Below are all the system groups that have been added to this activation key. Any system registering with this activation key will be added to the selected system groups. To remove a system group membership, check its checkbox and make sure you click the "{0}" button when you are finished with your changes.</source>
-				<target state="needs-review-translation">চিহ্নিত সিস্টেমের জন্য উপলব্ধ কনফিগারেশন চ্যানেলের তালিকা নীচে উপস্থিত করা হয়েছে। কোনো চ্যানেলে সাবস্ক্রাইব করার জন্য সংশ্লিষ্ট চেকবক্স নির্বাচন করুন। সব পরিবর্তন সমাপ্ত করে অনুগ্রহ করে "এগিয়ে চলুন" শীর্ষক বাটনটি ক্লিক করুন।</target>
+				<target>চিহ্নিত অ্যাক্টিভেশন-কির সাথে যুক্ত সিস্টেম দলের তালিকা নীচে উপস্থিত করা হয়েছে। এই অ্যাক্টিভেশন-কি সহযোগে নিবন্ধিত সিস্টেমগুলি নির্বাচিত সিস্টেম দলের মধ্যে যোগ করা হবে। কোনো সিস্টেম দলের সদস্যতা বাতিল করার জন্য সংশ্লিষ্ট চেকবক্স নির্বাচন করুন ও সব পরিবর্তন সমাপ্ত করে অনুগ্রহ করে "{0}" শীর্ষক বাটনটি ক্লিক করুন।</target>
 			</trans-unit>
 			<trans-unit id="activation-key.groups.add.jsp.summary">
 				<source>Below is a list of system groups available to this activation key. To join a system group, check its checkbox. Make sure you click the "{0}" button when you are finished with your changes.</source>
-				<target state="needs-review-translation">চিহ্নিত সিস্টেমের জন্য উপলব্ধ কনফিগারেশন চ্যানেলের তালিকা নীচে উপস্থিত করা হয়েছে। কোনো চ্যানেলে সাবস্ক্রাইব করার জন্য সংশ্লিষ্ট চেকবক্স নির্বাচন করুন। সব পরিবর্তন সমাপ্ত করে অনুগ্রহ করে "এগিয়ে চলুন" শীর্ষক বাটনটি ক্লিক করুন।</target>
+				<target>চিহ্নিত অ্যাক্টিভেশন-কির জন্য উপলব্ধ সিস্টেম দলের তালিকা নীচে উপস্থিত করা হয়েছে। কোনো সিস্টেম দলে সাবস্ক্রাইব করার জন্য সংশ্লিষ্ট চেকবক্স নির্বাচন করুন। সব পরিবর্তন সমাপ্ত করে অনুগ্রহ করে "{0}" শীর্ষক বাটনটি ক্লিক করুন।</target>
 			</trans-unit>
 			<trans-unit id="activation-key.systems.para1">
 				<source>Below are all the systems that have been registered with this activation key.</source>
+				<target>এই অ্যাক্টিভেশন-কি সহযোগে নিবন্ধিত সকল সিস্টেমগুলি নীচে তালিকাভুক্ত করা হয়েছে।</target>
 			</trans-unit>
 			<trans-unit id="profile.list.header">
 				<source>Stored Profiles</source>
-				<target state="needs-review-translation">সংরক্ষিত প্রোফাইল নির্মাণ</target>
+				<target>সংরক্ষিত প্রোফাইল</target>
 			</trans-unit>
 			<trans-unit id="profile.list.header.alt">
 				<source>Profile Icon</source>
-				<target state="needs-review-translation">শুধুমাত্র প্রোফাইল</target>
+				<target>প্রোফাইলের আইকন</target>
 			</trans-unit>
 			<trans-unit id="profile.list.summary">
 				<source>The following stored profiles exist within your organization. To create a stored profile from a system, go to the Packages view for that system.</source>
+				<target>আপনার প্রতিষ্ঠানের মধ্যে নিম্নলিখিত সংরক্ষিত প্রোফাইলগুলি উপস্থিত রয়েছে। কোনো সিস্টেম থেকে সংরক্ষিত প্রোফাইল নির্মাণের জন্য সংশ্লিষ্ট সিস্টেমের প্যাকেজ শীর্ষক প্রদর্শনক্ষেত্রে চলুন।</target>
 			</trans-unit>
 			<trans-unit id="profile.list.noprofiles">
 				<source>No stored profiles.</source>
-				<target state="needs-review-translation">কোনো Kickstart প্রোফাইল উপস্থিত নেই</target>
+				<target>কোনো সংরক্ষিত প্রোফাইল উপস্থিত নেই</target>
 			</trans-unit>
 			<trans-unit id="profile.details.toolbar">
 				<source>Stored Profile: </source>
-				<target state="needs-review-translation">সংরক্ষিত প্রোফাইল নির্মাণ</target>
+				<target>সংরক্ষিত প্রোফাইল: </target>
 			</trans-unit>
 			<trans-unit id="profile.details.summary">
 				<source>Edit the profile below.</source>
-				<target state="needs-review-translation">Kickstart প্রোফাইলের লেবেল</target>
+				<target>নিম্নলিখিত প্রোফাইল সম্পাদনা করুন।</target>
 			</trans-unit>
 			<trans-unit id="profile.packagelist.summary">
 				<source>The following packages are associated with this stored profile.</source>
-				<target state="needs-review-translation">এই কর্মের সাথে নিম্নলিখিত প্যাকেজগুলি সংযুক্ত রয়েছে:</target>
+				<target>এই সংরক্ষিত প্রোফাইলের সাথে নিম্নলিখিত প্যাকেজগুলি সংযুক্ত রয়েছে:</target>
 			</trans-unit>
 			<trans-unit id="system.common.systemAlt">
 				<source>system</source>
@@ -10042,7 +10109,7 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
 			</trans-unit>
 			<trans-unit id="toolbar.delete.org">
 				<source>delete organization</source>
-				<target state="needs-review-translation">প্রতিষ্ঠান মুছে ফেলুন</target>
+				<target>প্রতিষ্ঠান মুছে ফেলুন</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.deletefile">
 				<source>delete this file</source>
@@ -10226,11 +10293,11 @@ You can, however, download this file.</source>
 			</trans-unit>
 			<trans-unit id="filedetails.properties.jspf.uid">
 				<source>User name &lt;span class=required-form-field&gt;*&lt;/span&gt;:</source>
-				<target state="needs-review-translation">পদবি &lt;span class="required-form-field"&gt;*&lt;/span&gt;:</target>
+				<target>ব্যবহারকারীর নাম &lt;span class=required-form-field&gt;*&lt;/span&gt;:</target>
 			</trans-unit>
 			<trans-unit id="filedetails.properties.jspf.gid">
 				<source>Group name &lt;span class=required-form-field&gt;*&lt;/span&gt;:</source>
-				<target state="needs-review-translation">নাম&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</target>
+				<target>দলের নাম &lt;span class=required-form-field&gt;*&lt;/span&gt;:</target>
 			</trans-unit>
 			<trans-unit id="deletefile.jsp.header2">
 				<source>Delete Configuration File</source>
@@ -11616,19 +11683,19 @@ any of these revisions.  Are you sure you want to do this?</source>
 			</trans-unit>
 			<trans-unit id="ssm.operations.viewlog.header">
 				<source>Tasks Log</source>
-				<target state="needs-review-translation">কর্ম</target>
+				<target>কর্মের লগ</target>
 			</trans-unit>
 			<trans-unit id="ssm.operations.viewlog.started">
 				<source>Started</source>
-				<target state="needs-review-translation">অবস্থা</target>
+				<target>আরম্ভ</target>
 			</trans-unit>
 			<trans-unit id="ssm.operations.viewlog.progress">
 				<source>Percent Complete</source>
-				<target state="needs-review-translation">কর্ম সমাপ্ত হয়েছে</target>
+				<target>শতাংশ অনুযায়ী কর্ম সমাপ্তির পরিমাণ</target>
 			</trans-unit>
 			<trans-unit id="ssm.operations.viewlog.servers">
 				<source>Servers</source>
-				<target state="needs-review-translation">প্রোক্সি সার্ভার</target>
+				<target>সার্ভার</target>
 			</trans-unit>
 			<trans-unit id="ssm.operations.viewlog.inprogress">
 				<source>In Progress</source>
@@ -11636,23 +11703,27 @@ any of these revisions.  Are you sure you want to do this?</source>
 			</trans-unit>
 			<trans-unit id="ssm.operations.viewlog.empty">
 				<source>No tasks match the given criteria</source>
+				<target>উল্লিখিত মান অনুযায়ী কোনো কর্ম পাওয়া যায়নি</target>
 			</trans-unit>
 			<trans-unit id="ssm.operations.viewlog.emptyservers">
 				<source>No servers associated with this task</source>
-				<target state="needs-review-translation">এই চ্যানেলের সাথে কোনো প্যাচ সংকলন উপলব্ধ নেই।</target>
+				<target>এই কর্মের সাথে কোনো সার্ভার যুক্ত নয়</target>
 			</trans-unit>
 			<trans-unit id="ssm.operations.inprogress.summary">
 				<source>The following tasks are currently taking place. Click on a task's description to see more details.</source>
+				<target>নিম্নলিখিত কাজগুলি বর্তমান সঞ্চালিত হচ্ছে। বিবরণ জানার জন্য সংশ্লিষ্ট কর্মের উপর ক্লিক করুন।</target>
 			</trans-unit>
 			<trans-unit id="ssm.operations.all.summary">
 				<source>The following lists all tasks performed against servers in the SSM. Click on an task's description to see more details.</source>
+				<target>SSM-র মধ্যে উপস্থিত সার্ভারের জন্য সঞ্চালিত সকল কর্মগুলি নীচে তালিকাভুক্ত করা হয়েছে। বিবরণ জানার জন্য সংশ্লিষ্ট কর্মের উপর ক্লিক করুন।</target>
 			</trans-unit>
 			<trans-unit id="ssm.operations.completed.summary">
 				<source>The following lists all tasks that have finished running. Click on an task's description to see more details.</source>
+				<target>নিম্নলিখিত সকল কর্মগুলির সঞ্চালনা সমাপ্ত হয়েছে। বিবরণ জানার জন্য সংশ্লিষ্ট কর্মের উপর ক্লিক করুন।</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.header">
 				<source>Package Operations</source>
-				<target state="needs-review-translation">প্যাকেজ পরীক্ষণ কর্ম নিশ্চায়ন</target>
+				<target>প্যাকেজ সংক্রান্ত কর্ম</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.summary">
 				<source>You may perform the following actions upon the selected systems:</source>
@@ -11660,89 +11731,95 @@ any of these revisions.  Are you sure you want to do this?</source>
 			</trans-unit>
 			<trans-unit id="ssm.package.install">
 				<source>Install new packages</source>
-				<target state="needs-review-translation">নতুন প্যাকেজ ইনস্টলেশন</target>
+				<target>নতুন প্যাকেজ ইনস্টল করুন</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.upgrade">
 				<source>Upgrade existing packages</source>
-				<target state="needs-review-translation">প্যাকেজ আপগ্রেড করুন</target>
+				<target>উপস্থিত প্যাকেজ আপগ্রেড করুন</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.remove">
 				<source>Remove existing packages</source>
-				<target state="needs-review-translation">প্যাকেজ অপসারণ করুন</target>
+				<target>উপস্থিত প্যাকেজ অপসারণ করুন</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.verify">
 				<source>Verify existing packages</source>
-				<target state="needs-review-translation">ফাইল ও প্যাকেজ পরীক্ষণ</target>
+				<target>উপস্থিত প্যাকেজ পরীক্ষা করুন</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.install.selectchannel.summary">
 				<source>First, select the channel containing the packages to be installed upon the selected systems.</source>
-				<target state="needs-review-translation">এই সিস্টেমে নিম্নলিখিত প্যাকেজগুলি ইনস্টল করা সম্ভব।</target>
+				<target>প্রথমে, নির্বাচিত সিস্টেমের মধ্যে ইনস্টলেশনের জন্য চিহ্নিত প্যাকেজ ধারণকারী চ্যানেলটি বাছাই করুন।</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.install.selectpackages.header">
 				<source>Select Packages To Install</source>
-				<target state="needs-review-translation">প্যাকেজ ইনস্টল কর্মের সময় নির্ধারণ</target>
+				<target>ইনস্টল করার জন্য প্যাকেজ নির্বাচন করুন</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.install.selectpackages.summary">
 				<source>Now select the packages to be installed upon the selected systems.</source>
-				<target state="needs-review-translation">এই সিস্টেমে নিম্নলিখিত প্যাকেজগুলি ইনস্টল করা সম্ভব।</target>
+				<target>এর পরে, নির্বাচিত সিস্টেমে ইনস্টল করার জন্য প্যাকেজ বাছাই করুন।</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.install.schedule.summary.plural">
 				<source>The {0} packages you have selected will be installed to the compatible selected systems, listed below:</source>
+				<target>নীচে উল্লিখিত নির্বাচিত সুসংগত সিস্টেমগুলির মধ্যে ইনস্টল করার উদ্দেশ্যে {0}-টি প্যাকেজ বাছাই করা হয়েছে:</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.install.schedule.summary.single">
 				<source>The {0} package you have selected will be installed to the compatible selected systems, listed below:</source>
+				<target>নীচে উল্লিখিত নির্বাচিত সুসংগত সিস্টেমগুলির মধ্যে ইনস্টল করার উদ্দেশ্যে {0}-টি প্যাকেজ বাছাই করা হয়েছে:</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.install.message.packageinstall">
 				<source>{0} package installation has been scheduled</source>
-				<target state="needs-review-translation">বর্তমানে অসমাপ্ত প্যাকেজ ইনস্টলেশন।</target>
+				<target>{0}-টি প্যাকেজ ইনস্টলেশন কর্মের সময় নির্ধারণ করা হয়েছে</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.install.message.packageinstalls">
 				<source>{0} package installations have been scheduled</source>
-				<target state="needs-review-translation">বর্তমানে অসমাপ্ত প্যাকেজ ইনস্টলেশন।</target>
+				<target>{0}-টি প্যাকেজ ইনস্টলেশন কর্মের সময় নির্ধারণ করা হয়েছে</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.remove.select.header">
 				<source>Package Removal</source>
-				<target state="needs-review-translation">প্যাকেজ অপসারণ কর্ম নিশ্চিত করুন</target>
+				<target>প্যাকেজ অপসারণ কর্ম</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.remove.select.summary">
 				<source>Packages listed below may be removed from one or more systems.
 
              Select one or more and click the &lt;b&gt;Remove Selected Packages&lt;/b&gt; button to schedule package removal.</source>
+				<target>নীচে উল্লিখিত প্যাকেজগুলি এক অথবা একাধিক সিস্টেম থেকে মুছে ফেলা হতে পারে।
+
+             এক অথবা অধিক প্যাকেজ নির্বাচন করে &lt;b&gt;নির্বাচিত প্যাকেজ অপসারণ&lt;/b&gt; শীর্ষক বাটন ক্লিক করে প্যাকেজ অপসারণের কর্ম নির্ধারণ করুন।</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.remove.select.confirm">
 				<source>Remove Selected Packages</source>
-				<target state="needs-review-translation">নির্বাচিত ফাইল মুছে ফেলুন</target>
+				<target>নির্বাচিত প্যাকেজ মুছে ফেলুন</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.remove.schedule.summary">
 				<source>Below is a list of the packages that will be removed, on a per system basis.</source>
+				<target>প্রত্যেকটি সিস্টেম অনুযায়ী, নিম্নলিখিত প্যাকেজগুলি অপসারিত হবে।</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.remove.schedule.packages">
 				<source>Packages to Remove</source>
-				<target state="needs-review-translation">নাম অনুসারে প্যাকেজ</target>
+				<target>অপসারণের জন্য চিহ্নিত প্যাকেজ</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.remove.schedule.toomanypackages">
 				<source>Package list truncated</source>
-				<target state="needs-review-translation">প্রভাবিত প্যাকেজ</target>
+				<target>প্যাকেজের তালিকা ছাটাই করা হয়েছে</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.upgrade.schedule.toomanypackages">
 				<source>Package list truncated</source>
-				<target state="needs-review-translation">প্রভাবিত প্যাকেজ</target>
+				<target>প্যাকেজের তালিকা ছাটাই করা হয়েছে</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.verify.schedule.toomanypackages">
 				<source>Package list truncated</source>
-				<target state="needs-review-translation">প্রভাবিত প্যাকেজ</target>
+				<target>প্যাকেজের তালিকা ছাটাই করা হয়েছে</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.remove.schedule.toomanypackages">
 				<source>Package list truncated</source>
-				<target state="needs-review-translation">প্রভাবিত প্যাকেজ</target>
+				<target>প্যাকেজের তালিকা ছাটাই করা হয়েছে</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.upgrade.schedule.toomanypackages">
 				<source>Package list truncated</source>
-				<target state="needs-review-translation">প্রভাবিত প্যাকেজ</target>
+				<target>প্যাকেজের তালিকা ছাটাই করা হয়েছে</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.verify.schedule.toomanypackages">
 				<source>Package list truncated</source>
-				<target state="needs-review-translation">প্রভাবিত প্যাকেজ</target>
+				<target>প্যাকেজের তালিকা ছাটাই করা হয়েছে</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.remove.message.packageremoval">
 				<source>{0} package removal has been scheduled</source>
@@ -11754,22 +11831,23 @@ any of these revisions.  Are you sure you want to do this?</source>
 			</trans-unit>
 			<trans-unit id="ssm.package.upgrade.select.header">
 				<source>Select Packages to Upgrade</source>
-				<target state="needs-review-translation">প্যাকেজ আপগ্রেড কর্মের সময় নির্ধারণ</target>
+				<target>আপগ্রেড করার জন্য প্যাকেজ নির্বাচন করুন</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.upgrade.select.summary">
 				<source>Select the packages to be upgraded. Only those systems to which the package updates apply will receive the updates.</source>
+				<target>আপগ্রেড করার উদ্দেশ্যে প্যাকেজ নির্বাচন করুন। শুধুমাত্র প্রভাবিত সিস্টেমগুলির ক্ষেত্রে প্যাকেজ আপডেট প্রয়োগ করা হবে।</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.upgrade.select.confirm">
 				<source>Upgrade Selected Packages</source>
-				<target state="needs-review-translation">প্যাকেজ আপগ্রেড করুন</target>
+				<target>নির্বাচিত প্যাকেজ আপগ্রেড করুন</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.upgrade.message.packageupgrade">
 				<source>Package upgrades scheduled</source>
-				<target state="needs-review-translation">সমস্ত আপডেটের জন্য সময় নির্ধানরণ করা হয়েছে</target>
+				<target>প্যাকেজ আপগ্রেডের কর্ম নির্ধারণ করুন</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.upgrade.schedule.packages">
 				<source>Package to Upgrade</source>
-				<target state="needs-review-translation">প্যাকেজ আপডেট কর্ম নিশ্চায়ন</target>
+				<target>আপগ্রেড করার জন্য চিহ্নিত প্যাকেজ</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.verify.select.summary">
 				<source>Packages listed below may be removed from one or more systems.
@@ -11778,10 +11856,11 @@ any of these revisions.  Are you sure you want to do this?</source>
 			</trans-unit>
 			<trans-unit id="ssm.package.verify.schedule.summary">
 				<source>Below is a list of the packages that will be verified, on a per system basis.</source>
+				<target>প্রত্যেকটি সিস্টেম অনুযায়ী, নিম্নলিখিত প্যাকেজগুলি যাচাই করা হবে।</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.verify.schedule.packages">
 				<source>Packages to Verify</source>
-				<target state="needs-review-translation">নাম অনুসারে প্যাকেজ</target>
+				<target>যাচাইয়ের জন্য চিহ্নিত প্যাকেজ</target>
 			</trans-unit>
 			<trans-unit id="ssm.package.verify.message.packageverification">
 				<source>{0} package verification has been scheduled</source>
@@ -11906,10 +11985,11 @@ Kickstart করার সময় অনুগ্রহ করে সিস্ট
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.button0.jsp">
 				<source>Create Cobbler System Record</source>
-				<target state="needs-review-translation">সিস্টেম প্রোফাইল নির্মাণ</target>
+				<target>Cobbler সিস্টেম রেকর্ড নির্মাণ করুন</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.button0.tooltip.jsp">
 				<source>Creating a cobbler system record will allow this system to be provisioned from the command line on the system itself with the 'koan' command.  This also allows you to assign Variables specific to this system's kickstart using the Variables page.</source>
+				<target>cobbler সিস্টেম রেকর্ড নির্মাণের ফলে, সংশ্লিষ্ট সিস্টেমের কমান্ড-লাইন থেকে 'koan' কমান্ড সহযোগে সিস্টেমটি প্রভিশন করা সম্ভব হবে।  উপরন্তু, এর ফলে ভেরিয়েবল শীর্ষক পৃষ্ঠার মাধ্যমে সিস্টেমের kickstart-র জন্য প্রযোজ্য ভেরিয়েবল ধার্য করা যাবে।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.button1.jsp">
 				<source>Advanced Configuration</source>
@@ -11957,13 +12037,15 @@ Kickstart করার সময় অনুগ্রহ করে সিস্ট
 			</trans-unit>
 			<trans-unit id="kickstart.channel.virtDisk.jsp">
 				<source>Disk Size</source>
-				<target state="needs-review-translation">ফাইলের মাপ</target>
+				<target>ডিস্কের মাপ</target>
 			</trans-unit>
 			<trans-unit id="kickstart.distro.cobbler-only.tooltip">
 				<source> Profiles that are not @@PRODUCT_NAME@@-managed are not guaranteed to register systems to @@PRODUCT_NAME@@ after kickstart. You may wish to review these kickstarts (click on the profile name to do so) to confirm whether or not your system will reappear in the @@PRODUCT_NAME@@ system list after kickstart.</source>
+				<target>@@PRODUCT_NAME@@ দ্বারা না পরিচালিত হওয়া প্রোফাইলের ক্ষেত্রে, kickstart সমাপ্তির পরে @@PRODUCT_NAME@@-এ সিস্টেম নিবন্ধনের কোনো নিশ্চয়তা দেওয়া হয় না। kickstart-র পরে @@PRODUCT_NAME@@-র সিস্টেমের তালিকার মধ্যে আপনার সিস্টেম অন্তর্ভুক্ত করা হবে কি না তা যাচাই করার জন্য kickstart প্রোফাইলের নামের উপর ক্লিক করে সংশ্লিষ্ট কিক-স্টার্টটি পর্যালোচনা করুন।</target>
 			</trans-unit>
 			<trans-unit id="kickstarts.distro.cobbler-only.tooltip">
 				<source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler edit profile' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
+				<target>@@PRODUCT_NAME@@ দ্বারা না পরিচালিত হওয়া প্রোফাইলগুলি @@PRODUCT_NAME@@ ইউজার ইন্টারফেসের মধ্যে পরিবর্তন করা সম্ভব নয়। এই প্রোফাইলগুলি পরিবর্তনের জন্য @@PRODUCT_NAME@@-এ লগ-ইন করে 'cobbler edit profile' কমান্ডটি সঞ্চালনা করুন। অধিক বিবরণের জন্য @@PRODUCT_NAME@@ Reference Guide পড়ুন।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.distro.sw_managed.jsp">
 				<source>@@PRODUCT_NAME@@ Managed?*</source>
@@ -11971,7 +12053,7 @@ Kickstart করার সময় অনুগ্রহ করে সিস্ট
 			</trans-unit>
 			<trans-unit id="kickstart.distro.label.jsp">
 				<source>Distribution</source>
-				<target state="needs-review-translation">ডিস্ট্রিবিউশনের লেবেল</target>
+				<target>ডিস্ট্রিবিউশন</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.heading4.jsp">
 				<source>Advanced Kickstart Configuration</source>
@@ -12063,7 +12145,7 @@ Kickstart করার সময় অনুগ্রহ করে সিস্ট
 			</trans-unit>
 			<trans-unit id="kickstart.session_status.jsp.warning">
 				<source>Warning:</source>
-				<target state="needs-review-translation">সতর্কতামূলক</target>
+				<target>সতর্কবার্তা:</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session_status.jsp.progress">
 				<source>Kickstart Progress</source>
@@ -12123,7 +12205,7 @@ Kickstart করার সময় অনুগ্রহ করে সিস্ট
 			</trans-unit>
 			<trans-unit id="kickstart.session_status.jsp.status_profile">
 				<source>Sync system to &lt;a href="/rhn/profiles/Details.do?prid={0}"&gt;package profile&lt;/a&gt;</source>
-				<target state="needs-review-translation">&lt;a href="/network/profiles/details.pxt?prid={0}"&gt;package profile&lt;/a&gt; অনুসারে সিস্টেম সুসংগত করুন</target>
+				<target>&lt;a href="/rhn/profiles/Details.do?prid={0}"&gt;প্যাকেজ প্রোফাইল&lt;/a&gt; অনুসারে সিস্টেম সুসংগত করুন</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session_status.jsp.status_config">
 				<source>Deploy configuration files</source>
@@ -12273,11 +12355,13 @@ The Distribution Label field should contain only letters, numbers, hyphens, peri
 The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should always match. This generally means that the versions for each field should be from the same version of Red Hat Enterprise Linux.&lt;br/&gt;&lt;br/&gt;
 
 &lt;p&gt;The Tree Path must be a local disk path on your @@PRODUCT_NAME@@ server containing the entire kickstart tree for a distribution include kernel, initrd, and repo information, but excluding any rpms. This directory should be readable by the apache and tomcat users.  From within the specified tree path, a kernel should be available at "./images/pxeboot/vmlinuz" and an initrd image should be available at "./images/pxeboot/initrd.img". For instance, if you have media located on the @@PRODUCT_NAME@@ server at: &lt;i&gt;/var/distro-trees/rhel-5-server/&lt;/i&gt; you would specify that path as your Tree Path value which would check for a kernel and initrd here: &lt;i&gt;/var/distro-trees/rhel-5-server/images/pxeboot/&lt;/i&gt; &lt;/p&gt;</source>
-				<target state="needs-review-translation">Kickstart করার যোগ্য ডিস্ট্রিবিউশন নির্মাণের জন্য নিম্নলিখিত বিবরণ জানা আবশ্যক। বহিস্থিত অবস্থান হিসাবে ডিস্ট্রিবিউশন ট্রি-র মূল অবস্থান বৈধ URL রূপে উল্লেখ করা আবশ্যক।  Kickstart RPM হিসাবে kickstart স্থাপনার স্ক্রিপ্ট ধারণকারী rpm-র নাম চিহ্নিত করুন।  @@PRODUCT_NAME@@-র দ্বারা উপলব্ধ এই RPMগুলি @@PRODUCT_NAME@@ Tools চাইল্ড চ্যানেলের মধ্যে উপস্থিত থাকে।&lt;br/&gt;&lt;br/&gt;
+				<target>Kickstart করার যোগ্য ডিস্ট্রিবিউশন নির্মাণের জন্য নিম্নলিখিত বিবরণ জানা আবশ্যক। @@PRODUCT_NAME@@ সার্ভারের মধ্যে উপস্থিত ইনস্টেলশন-ট্রি পাথে অবস্থানের জন্য বৈধ পাথ উল্লেখ করা আবশ্যক।  Kickstart RPM হিসাবে kickstart স্থাপনার স্ক্রিপ্ট ধারণকারী rpm-র নাম চিহ্নিত করুন।  @@PRODUCT_NAME@@-র দ্বারা উপলব্ধ এই RPMগুলি @@PRODUCT_NAME@@ Tools চাইল্ড চ্যানেলের মধ্যে উপস্থিত থাকে।&lt;br/&gt;&lt;br/&gt;
 
 ডিস্ট্রিবিউশন লেবেল ক্ষেত্রে শুধুমাত্র অক্ষর, সংখ্যা, হাইফেন, বিরাম চিহ্ন (ফুল স্টপ) ও আন্ডারস্কোর প্রয়োগ করা যাবে। এই ক্ষেত্রে অন্তত ৪ অক্ষর বিশিষ্ট মান লেখা আবশ্যক।&lt;br/&gt;&lt;br/&gt;
 
-বহিস্থিত অবস্থান, Kickstart RPM, বেস চ্যানেল ও ইনস্টলার উৎপন্ন কর্ম সর্বদা সুসংগত হওয়া আবশ্যক। অর্থাৎ এই সমস্ত ক্ষেত্রে উল্লিখিত মান একই Red Hat Enterprise Linux থেকে প্রাপ্ত হওয়া প্রয়োজন।&lt;br/&gt;</target>
+ট্রি-র পাথ, Kickstart RPM, বেস চ্যানেল ও ইনস্টলার উৎপন্ন কর্ম সর্বদা সুসংগত হওয়া আবশ্যক। অর্থাৎ এই সমস্ত ক্ষেত্রে উল্লিখিত মান একই Red Hat Enterprise Linux থেকে প্রাপ্ত হওয়া প্রয়োজন।&lt;br/&gt;&lt;br/&gt;
+
+&lt;p&gt;ডিস্ট্রিবিউশনের জন্য কার্নেল, initrd ও সংগ্রহস্থলের তথ্য ইত্যাদি বিশিষ্ট (কিন্তু rpm বিহীন) সম্পূর্ণ kickstart ট্রির ক্ষেত্রে @@PRODUCT_NAME@@ সার্ভারের মধ্যে স্থানীয়রূপে অবস্থিত একটি ট্রির পাথ উল্লেখ করা আবশ্যক। apache ও tomcat ব্যবহারকারী দ্বারা এই ডিরেক্টরিটি পাঠযোগ্য হওয়া আবশ্যক।  নির্দিষ্ট ট্রি পাথের মধ্যে "./images/pxeboot/vmlinuz" অবস্থানে কার্নেল ও "./images/pxeboot/initrd.img"-এ একটি initrd ইমেজ উপস্থিত থাকা আবশ্যক। উদাহরণস্বরূপ, @@PRODUCT_NAME@@ সার্ভারের &lt;i&gt;/var/distro-trees/rhel-5-server/&lt;/i&gt;-এ কোনো মিডিয়া উপস্থিত থাকলে এটিকে ট্রি পাথ রূপে ধার্য করা হবে ও চিহ্নিত স্থানে কার্নেল ও initrd অনুসন্ধান করা হবে: &lt;i&gt;/var/distro-trees/rhel-5-server/images/pxeboot/&lt;/i&gt; &lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="treecreate.jsp.header2">
 				<source>Create Kickstart Distribution</source>
@@ -12301,7 +12385,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
 			</trans-unit>
 			<trans-unit id="tree-form.jspf.location">
 				<source>Tree Path:</source>
-				<target state="needs-review-translation">ফাইলের পাথ:</target>
+				<target>ট্রির পাথ:</target>
 			</trans-unit>
 			<trans-unit id="tree-form.jspf.bootimage">
 				<source>Kickstart rpm</source>
@@ -12322,7 +12406,7 @@ need to perform a satellite sync of the @@PRODUCT_NAME@@ Tools channels before
 performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;</source>
 				<target> &lt;strong&gt; কোনো Kickstart RPM পাওয়া যায়নি।  প্রতিটি ঊর্ধ্বস্থ চ্যানেলের ক্ষেত্রে
 এই RPM গুলি @@PRODUCT_NAME@@ Tools চ্যানেলের মধ্যে উপস্থিত থাকে।  Kickstart
-করার পূর্বে অথবা নতুন kickstart ডিস্ট্রিবিউশন নির্মাণের আগে @@PRODUCT_NAME@@ Tools
+করার পূর্বে অথবা নতুন kickstart ডিস্ট্রিবিউশন নির্মাণের আগে @@PRODUCT_NAME@@ Tools 
 চ্যানেলের জন্য satellite sync করার প্রয়োজন দেখা দিতে পারে।&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="tree-form.jspf.noinstalltypes">
@@ -12469,7 +12553,7 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.header1">
 				<source>Select a Kickstart Profile</source>
-				<target state="needs-review-translation">Kickstart প্রোফাইল নির্বাচন</target>
+				<target>Kickstart প্রোফাইল নির্বাচন করুন</target>
 			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.summary1">
 				<source>Please fill out the form below to create a new virtual system to be hosted on &lt;img src="/img/rhn-listicon-system.gif"&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;</source>
@@ -12477,11 +12561,15 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.header2">
 				<source>Define the Virtual System</source>
-				<target state="needs-review-translation">নতুন ভার্চুয়াল সিস্টেম নির্মাণ করুন</target>
+				<target>ভার্চুয়াল সিস্টেম ব্যাখ্যা করুন</target>
 			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.header3">
 				<source>Virtual System Hardware Overrides</source>
-				<target state="needs-review-translation">ভার্চুয়াল সিস্টেমের হার্ডওয়্যার কনফিগারেশন</target>
+				<target>ভার্চুয়াল সিস্টেমের হার্ডওয়্যার দ্বারা উপেক্ষিত</target>
+			</trans-unit>
+			<trans-unit id="virtualization.provision.override.jsp.goto.advanced.options">
+				<source>By default virtual guest settings like memory, cpu and storage allocations will be inherited from your kickstart profile. If you want to override these settings click on &lt;strong&gt;{0}&lt;/strong&gt; button below.</source>
+				<target>ডিফল্টরূপে, kickstart প্রোফাইলের মান অনুযায়ী ভার্চুয়াল গেস্টের মেমরি, cpu, ধারণস্থল বরাদ্দকরণ ইত্যাদি বৈশিষ্ট্য ধার্য করা হবে। এই মান পরিবর্তনের জন্য নীচে উপস্থিত &lt;strong&gt;{0}&lt;/strong&gt; বাটন ক্লিক করুন।</target>
 			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.guest_name.header">
 				<source>Guest Name:</source>
@@ -12525,6 +12613,7 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 			</trans-unit>
 			<trans-unit id="virtualization.provision.override.jsp.message">
 				<source>The following fields may be left blank (in which case default values as defined in the selected kickstart profile will be used).  Each field may be set individually to override the profile's default value.</source>
+				<target>নিম্নলিখিত ক্ষেত্রগুলির মধ্যে মান পূরণ করা আবশ্যক নয় এবং নির্বাচিত kickstart প্রোফাইলের মধ্যে উল্লিখিত ডিফল্ট মান প্রয়োগ করা হবে।  প্রোফাইলে উল্লিখিত ডিফল্ট মান অগ্রাহ্য করার জন্য প্রতিটি ক্ষেত্রে মান ধার্য করা যাবে।</target>
 			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.storage.local.message1">
 				<source>Use the virtual host system's disk space: </source>
@@ -12532,7 +12621,7 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.storage.local.gigabytes">
 				<source>gigabytes.</source>
-				<target state="needs-review-translation">মেগাবাইট</target>
+				<target>গিগাবাই।</target>
 			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.storage.nfs.message1">
 				<source>Use an NFS mount:</source>
@@ -12866,12 +12955,17 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 				<source>Building</source>
 				<target>ভবন</target>
 			</trans-unit>
+			<trans-unit id="sdc.details.overview.updatesavailable">
+				<source>Software Updates Available</source>
+				<target>সফ্টওয়্যার আপডেট উপলব্ধ রয়েছে</target>
+			</trans-unit>
 			<trans-unit id="sdc.details.overview.updates.critical">
 				<source>&lt;strong&gt;&lt;a href="{0}"&gt;Critical: &lt;/a&gt;&lt;/strong&gt; {1}</source>
-				<target state="needs-review-translation">&lt;strong&gt;অনুপস্থিত ফাইল:&lt;/strong&gt; {0}</target>
+				<target>&lt;strong&gt;&lt;a href="{0}"&gt;গুরুতর: &lt;/a&gt;&lt;/strong&gt; {1}</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.updates.noncritical">
 				<source>&lt;strong&gt;&lt;a href="{0}"&gt;Non-Critical: &lt;/a&gt;&lt;/strong&gt; {1}</source>
+				<target>&lt;strong&gt;&lt;a href="{0}"&gt;গুরুতর না: &lt;/a&gt;&lt;/strong&gt; {1}</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.updates.packages">
 				<source>&lt;strong&gt;&lt;a href="{0}"&gt;Packages: &lt;/a&gt;&lt;/strong&gt; {1}</source>
@@ -12995,13 +13089,15 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 			</trans-unit>
 			<trans-unit id="login.jsp.error.header">
 				<source>Login Error</source>
-				<target state="needs-review-translation">কোনো ত্রুটি নেই।</target>
+				<target>লগ-ইন সংক্রান্ত ত্রুটি</target>
 			</trans-unit>
 			<trans-unit id="login.jsp.error.message">
 				<source>This error may have been caused by an interrupted logout or by logging in from another browser tab. Please contact your satellite administrator if the problem persists.</source>
+				<target>লগ-আউটের সময় বিঘ্ন সৃষ্টি হওয়া ফলে অথবা অন্য কোনো ব্রাউজার ট্যাব থেকে লগ-ইন করার ফলে এই ত্রুটি দেখা দেওয়ার সম্ভাবনা রয়েছে। সমস্যা না মিটলেআপনার satellite অ্যাডমিনিস্ট্রেটরের সাথে যোগাযোগ করুন।</target>
 			</trans-unit>
 			<trans-unit id="login.jsp.error.currentlyLoggedInAs">
 				<source>Currently logged in as: {0}</source>
+				<target>বর্তমান লগ-ইনের জন্য ব্যবহৃত অ্যাকাউন্ট: {0}</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.header">
 				<source>@@PRODUCT_NAME@@ Outage Policy</source>
@@ -13013,8 +13109,8 @@ advantages of a registered account. We strive to maintain 100% uptime
 for your @@PRODUCT_NAME@@ service, but must also periodically perform maintenance
 tasks to upgrade functionality, fix reported bugs, and improve
 performance.</source>
-				<target>@@PRODUCT_NAME@@-এ আপনার প্রবেশাধিকার ও নিবন্ধিত অ্যাকাউন্টের
-সুযোগ সুবিধা উপলব্ধ করাই আমাদের সর্বাধিক গুরুত্বপূর্ণ দ্বায়িত্ব। @@PRODUCT_NAME@@ পরিসেবা
+				<target>@@PRODUCT_NAME@@-এ আপনার প্রবেশাধিকার ও নিবন্ধিত অ্যাকাউন্টের 
+সুযোগ সুবিধা উপলব্ধ করাই আমাদের সর্বাধিক গুরুত্বপূর্ণ দ্বায়িত্ব। @@PRODUCT_NAME@@ পরিসেবা 
 প্রতিনিয়ত ১০০% সময় আমরা বহাল রাখার প্রচেষ্টা করে থাকি কিন্তু মাঝে মধ্যে 
 বাগ সংশোধন, উন্নয়ণ কর্ম ও কর্মক্ষমতা বৃদ্ধি প্রভৃতির জন্য রক্ষণাবেক্ষণ কর্ম 
 করা প্রয়োজন হয়ে পড়ে।</target>
@@ -13030,11 +13126,11 @@ necessarily use every one of these windows to perform maintenance, we recommend 
 enterprise develop business practices that allow this period of downtime for your @@PRODUCT_NAME@@ solution.
 Red Hat will always attempt to inform at least one week in advance through the email outage
 list (see below) about this scheduled downtime whenever possible.</source>
-				<target>Red Hat-র পক্ষ থেকে @@PRODUCT_NAME@@ রক্ষণাবেক্ষণের জন্য প্রতি মঙ্গলবার
+				<target>Red Hat-র পক্ষ থেকে @@PRODUCT_NAME@@ রক্ষণাবেক্ষণের জন্য প্রতি মঙ্গলবার 
 রাত ৯টা-ভোর ৩টে, পূর্ব যুক্তরাষ্ট্র সময় (রাত ১টা-সকাল ৭টা UTC) ধার্য করা হয়েছে। সাধারণত প্রতি 
-মঙ্গলবার রক্ষণাবেক্ষণ কর্ম না করা হলেও Red Hat-র পক্ষ থেকে আপনার @@PRODUCT_NAME@@ ব্যবস্থা এই সময়ে ব্যবহার না করার
+মঙ্গলবার রক্ষণাবেক্ষণ কর্ম না করা হলেও Red Hat-র পক্ষ থেকে আপনার @@PRODUCT_NAME@@ ব্যবস্থা এই সময়ে ব্যবহার না করার 
 জন্য আপনার প্রতিষ্ঠানের কর্মধারা নির্ধারণ করার বিশেষ অনুরোধ জানানো হচ্ছে। 
-Red Hat-র পক্ষ থেকে সর্বদা পূর্বনির্ধারিত কর্ম-অবকাশ সম্পর্কে অন্তত এক সপ্তাহ
+Red Hat-র পক্ষ থেকে সর্বদা পূর্বনির্ধারিত কর্ম-অবকাশ সম্পর্কে অন্তত এক সপ্তাহ 
 পূর্বে ই-মেইল আউটেজ লিস্টের (নীচে দেখুন) মাধ্যমে সূচনা প্রদানের প্রচেষ্টা করা হবে।</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.unscheduled-header">
@@ -13165,7 +13261,7 @@ The software channels listed below have ISO images available for products which 
 &lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;wget -c 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;For more information on how to use Red Hat ISOs, check the &lt;a href="http://www.redhat.com/download/howto_download.html" target="new"&gt;How To Download&lt;/a&gt; page.&lt;/p&gt;</source>
-				<target state="needs-review-translation">
+				<target>
 &lt;p&gt;ISO ইমেজ ডাউনলোড করার জন্য &lt;strong&gt;curl&lt;/strong&gt; ব্যবহার করা বাঞ্ছনীয়। curl উপলব্ধ না থাকলে এবং @@PRODUCT_NAME@@ ব্যবহার করা হলে শেল প্রম্পটে "up2date curl" (Enterprise Linux 4 অথবা নিম্ন সংস্করণ) অথবা "yum curl" (Enterprise Linux 5 অথবা ঊর্ধ্বতন সংস্করণ) কমান্ড প্রয়োগ করে তা ইনস্টল করুন।&lt;/p&gt;
 
 &lt;p&gt;curl ইনস্টল করা হলে, ISO-র URL-টি কাট করে শেল প্রম্পটে curl কমান্ডের সাথে তা পেস্ট করে প্রয়োগ করুন। উদাহরণ:&lt;/p&gt;
@@ -13176,9 +13272,9 @@ The software channels listed below have ISO images available for products which 
 
 &lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;curl -C - -o 'myfilename.iso' 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;সেশান অনুমদোনের তথ্য উপস্থিত থাকার ফলে URL-টি অত্যন্ত লম্বা। উদ্ধৃতি চিহ্নগুলি অন্তর্ভুক্ত করা আবশ্যক। '&lt;strong&gt;&lt;code&gt;-C -&lt;/code&gt;&lt;/strong&gt;' বিকল্পের প্রয়োগের ফলে ডাউনলোড বিঘ্নিত হলে (নেটওয়ার্ক সংযোগ বিচ্ছিন্ন হলে প্রভৃতি) তা পুনরাম্ভ করা যাবে। '&lt;strong&gt;&lt;code&gt;-O&lt;/code&gt;&lt;/strong&gt;' (শূণ্য নয়, অক্ষর 'O') বিকল্পটি ব্যবহার করা হলে RHN সার্ভারে ব্যবহৃত নাম সহযোগে ফাইলটি সংরক্ষণ করা হবে।&lt;/p&gt;
+&lt;p&gt;সেশান অনুমোদনের তথ্য উপস্থিত থাকার ফলে URL-টি অত্যন্ত লম্বা। উদ্ধৃতি চিহ্নগুলি অন্তর্ভুক্ত করা আবশ্যক। '&lt;strong&gt;&lt;code&gt;-C -&lt;/code&gt;&lt;/strong&gt;' বিকল্পের প্রয়োগের ফলে ডাউনলোড বিঘ্নিত হলে (নেটওয়ার্ক সংযোগ বিচ্ছিন্ন হলে প্রভৃতি) তা পুনরাম্ভ করা যাবে। '&lt;strong&gt;&lt;code&gt;-O&lt;/code&gt;&lt;/strong&gt;' (শূণ্য নয়, অক্ষর 'O') বিকল্পটি ব্যবহার করা হলে @@PRODUCT_NAME@@ সার্ভারে ব্যবহৃত নাম সহযোগে ফাইলটি সংরক্ষণ করা হবে।&lt;/p&gt;
 
-&lt;p&gt;ISO ফাইল প্রাপ্ত করার জন্য wget ব্যবহার করা যাবে। curl উপলব্ধ না থাকলে এবং RHN ব্যবহার করা হলে কমান্ড-লাইনে "up2date wget" (Enterprise Linux 4 অথবা নিম্ন সংস্করণ) or "yum wget" (Enterprise Linux 5 অথবা ঊর্ধ্বতন সংস্করণ) কমান্ড প্রয়োগ করে তা ইনস্টল করুন।&lt;/p&gt;
+&lt;p&gt;ISO ফাইল প্রাপ্ত করার জন্য wget ব্যবহার করা যাবে। curl উপলব্ধ না থাকলে এবং @@PRODUCT_NAME@@ ব্যবহার করা হলে কমান্ড-লাইনে "up2date wget" (Enterprise Linux 4 অথবা নিম্ন সংস্করণ) অথবা "yum wget" (Enterprise Linux 5 অথবা ঊর্ধ্বতন সংস্করণ) কমান্ড প্রয়োগ করে তা ইনস্টল করুন।&lt;/p&gt;
 
 &lt;p&gt;wget ইনস্টল করা হলে, ISO-র URL-টি কাট করে শেল প্রম্পটে wget কমান্ডের সাথে তা পেস্ট করে প্রয়োগ করুন। উদাহরণ::&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;wget -c 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
@@ -13565,11 +13661,11 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 			</trans-unit>
 			<trans-unit id="org.channels.trusted.protection">
 				<source>No trusted organizations available</source>
-				<target state="needs-review-translation">কোনে অ্যাক্টিভেশন-কি উপলব্ধ নেই</target>
+				<target>কোনো বিশ্বস্ত প্রতিষ্ঠান উপলব্ধ নেই</target>
 			</trans-unit>
 			<trans-unit id="org.trust.header">
 				<source>Organizations Trusted By {0}</source>
-				<target state="needs-review-translation">প্রতিষ্ঠান দ্বারা ব্যবহৃত</target>
+				<target>{0} দ্বারা বিশ্বস্ত প্রতিষ্ঠান</target>
 			</trans-unit>
 			<trans-unit id="org.login.tip">
 				<source>Between {0} and 64 characters</source>
@@ -13770,6 +13866,10 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           The organizations checked off below are trusted organizations of the {0} organization. This means that it is
           possible to share content and migrate systems between these two organizations. You may add a trust by checking
           the box next to an organization (or remove a trust by unchecking it) and clicking the 'Modify Trusts' button.</source>
+				<target>
+          নীচে চিহ্নিত প্রতিষ্ঠানগুলির সাথে {0} প্রতিষ্ঠানের বিশ্বাসের সম্পর্ক স্থাপিত রয়েছে।
+          এর ফলে, এই প্রতিষ্ঠানগুলির মধ্যে উপস্থিত সামগ্রী যৌথরূপে ব্যবহার করা যাবে ও সিস্টেম মাইগ্রেট করা যাবে। প্রতিষ্ঠানের নামের পাশে উপস্থিত চেকবক্সে
+          ক্লিক করে 'বিশ্বাসের সম্পর্ক পরিবর্তন' শীর্ষক বাটন টিপে বিশ্বাসের সম্পর্ক স্থাপন করুন (সম্পর্ক বাতিল করার জন্য চেকবক্স থেকে নির্বাচন মুছে ফেলুন)।</target>
 			</trans-unit>
 			<trans-unit id="org.trust.confirm.summary">
 				<source>
@@ -13779,17 +13879,28 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
             no longer receive security updates for content provided through the trust.
             &lt;p/&gt;
             Please review the changes you are about to make before confirming the trust removal(s).</source>
+				<target>
+            আপনি কি নিশ্চিতরূপে নিম্নলিখিত বিশ্বাসের সম্পর্কগুলি মুছে ফেলতে ইচ্ছুক?  অপসারণের জন্য চিহ্নিত প্রতিষ্ঠানগুলি দ্বারা উপলব্ধ সামগ্রী ব্যবহারের উদ্দেশ্যে {0} প্রতিষ্ঠানের কিছু সিস্টেম,সাবস্ক্রাইব করা হয়েছে।
+            এর ফলে এই সিস্টেমেগুলির উপর বিরূপ প্রভাব সৃষ্টি হবে। উদাহরণস্বরূপ, বিশ্বস্ত সম্পর্কের ফলে উপলব্ধ সামগ্রীগুলির জন্য
+            নিরাপত্তা বিষয়ক আপডেটগুলি এই সিস্টেমগুলি দ্বারা প্রাপ্ত না হতে পারে।
+            &lt;p/&gt;
+            বিশ্বাসের সম্পর্ক বাতিল করার পূর্বে অনুগ্রহ করে পরিবর্তনগুলি নিশ্চিত করুন।</target>
 			</trans-unit>
 			<trans-unit id="org.trust.affectedsystems.summary">
 				<source>
-            The systems listed below will be affected by removing the trust relationship between
+            The systems listed below will be affected by removing the trust relationship between 
             the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.</source>
+				<target>
+            &lt;b&gt;{0}&lt;/b&gt; ও &lt;b&gt;{1}&lt;/b&gt; প্রতিষ্ঠানের মধ্যে বিশ্বাসের সম্পর্ক বাতিল করা হলে 
+            নিম্নলিখিত সিস্টেমগুলি প্রভাবিত হবে ও 
+            বিরূপ প্রতিক্রিয়া সৃষ্টি হতে পারে।  উদাহরণস্বরূপ, বিশ্বস্ত সম্পর্কের ফলে উপলব্ধ সামগ্রীগুলির জন্য
+            নিরাপত্তা বিষয়ক আপডেটগুলি এই সিস্টেমগুলি দ্বারা প্রাপ্ত না হতে পারে।</target>
 			</trans-unit>
 			<trans-unit id="org.trust.trusts">
 				<source>Trusts</source>
-				<target state="needs-review-translation">গেস্ট</target>
+				<target>বিশ্বাসের সম্পর্ক</target>
 			</trans-unit>
 			<trans-unit id="org.trust.trust?">
 				<source>Trust?</source>
@@ -13797,10 +13908,11 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
 			</trans-unit>
 			<trans-unit id="org.trust.empty">
 				<source>No Other Organizations</source>
-				<target state="needs-review-translation">প্রতিষ্ঠান অনুপস্থিত।</target>
+				<target>অন্য কোনো প্রতিষ্ঠান অনুপস্থিত</target>
 			</trans-unit>
 			<trans-unit id="org.trust.modify">
 				<source>Modify Trusts</source>
+				<target>বিশ্বাসের সম্পর্ক পরিবর্তন করুন</target>
 			</trans-unit>
 			<trans-unit id="org.trust.systems.affected">
 				<source>Systems Affected</source>
@@ -13816,10 +13928,11 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
 			</trans-unit>
 			<trans-unit id="org.trust.no.systems.affected">
 				<source>No Systems Affected</source>
-				<target state="needs-review-translation">প্রভাবিত সিস্টেম</target>
+				<target>কোনো সিস্টেম প্রভাবিত হয়নি</target>
 			</trans-unit>
 			<trans-unit id="org.trust.updated">
 				<source>The {0} organization's trusts have been updated.</source>
+				<target>{0} প্রতিষ্ঠানের বিশ্বাসের সম্পর্ক আপডেট করা হয়েছে।</target>
 			</trans-unit>
 			<trans-unit id="ssmchildsubs.jsp.subscribe">
 				<source>Subscribe</source>
@@ -13866,9 +13979,10 @@ Below is a list of channels in your organization.
 &lt;li&gt;To unsubscribe selected systems from a channel, check Unsubscribed for that channel.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;strong&gt;Note:&lt;/strong&gt; attempts to assign a system to an incompatible channel will fail.</source>
-				<target state="needs-review-translation">
+				<target>
 আপনার প্রতিষ্ঠানে উপলব্ধ চ্যানেলের তালিকা নীচে প্রদর্শন করা হয়েছে।
 &lt;ul&gt;
+&lt;li&gt;চ্যানেলে কোনো পরিবর্তন না করতে হলে, সংশ্লিষ্ট চ্যানেলের ক্ষেত্রে 'কিছু করা হবে না' নির্বাচন করুন।&lt;/li&gt;
 &lt;li&gt;নির্বাচিত সিস্টেমগুলি কোনো চ্যানেলে সাবস্ক্রাইব করার জন্য সংশ্লিষ্ট চ্যানেলের পাশে উপস্থিত 'সাবস্ক্রাইব করা' শীর্ষক বাক্স নির্বাচন করুন।&lt;/li&gt;
 &lt;li&gt;নির্বাচিত সিস্টেমগুলি কোনো চ্যানেল থেকে আন-সাবস্ক্রাইব করার জন্য সংশ্লিষ্ট চ্যানেলের পাশে উপস্থিত 'সাবস্ক্রাইব করা' শীর্ষক বাক্স থেকে নির্বাচন মুছে ফেলুন।&lt;/li&gt;
 &lt;/ul&gt;
@@ -14074,7 +14188,7 @@ As a Channel Administrator, you may change the base channels your systems are su
 			</trans-unit>
 			<trans-unit id="kickstartoptions.jsp.customoptionsnote">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Invalid custom options can cause kickstarts to fail.</source>
-				<target state="needs-review-translation">&lt;strong&gt;উল্লেখ্য:&lt;/strong&gt; স্বনির্ধারিত বিকল্প বৈধ না হলে kickstart বিফল হতে পারে।</target>
+				<target>&lt;strong&gt;উল্লেখ্য:&lt;/strong&gt; স্বনির্ধারিত বিকল্প বৈধ না হলে kickstart বিফল হতে পারে।</target>
 			</trans-unit>
 			<trans-unit id="kickstartoptions.jsp.customoptionstip">
 				<source>&lt;strong&gt;Tip:&lt;/strong&gt; The max size of each line is 2048 characters.</source>
@@ -14182,30 +14296,30 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="docsearch.content">
 				<source>Content</source>
-				<target state="needs-review-translation">ফাইলের বিষয়বস্তু</target>
+				<target>বিষয়বস্তু</target>
 			</trans-unit>
 			<trans-unit id="docsearch.free_form">
 				<source>Free Form</source>
-				<target state="needs-review-translation">অনুসন্ধান করা হবে:</target>
 			</trans-unit>
 			<trans-unit id="docsearch.content_title">
 				<source>Content &amp; Title</source>
-				<target state="needs-review-translation">এনটাইটেলমেন্টবিহীন</target>
+				<target>বিষয়বস্তু ও শিরোনাম</target>
 			</trans-unit>
 			<trans-unit id="docsearch.title">
 				<source>Title</source>
-				<target state="needs-review-translation">সময়</target>
+				<target>শিরোনাম</target>
 			</trans-unit>
 			<trans-unit id="docsearch.jsp.toolbar">
 				<source>Document Search</source>
-				<target state="needs-review-translation">নথিপত্র</target>
+				<target>নথিপত্র অনুসন্ধান</target>
 			</trans-unit>
 			<trans-unit id="docsearch.jsp.pagesummary">
 				<source>Document Search will return links to pages matching your search term. </source>
+				<target>অনুসন্ধান করা পংক্তি অনুযায়ী, নথিপত্র অনুসন্ধান ব্যবস্থা দ্বারা প্রয়োজনীয় পৃষ্ঠাগুলি উপস্থিত করা হবে। </target>
 			</trans-unit>
 			<trans-unit id="docsearch.jsp.nopages">
 				<source>No pages found.</source>
-				<target state="needs-review-translation">কোনো প্রোব পাওয়া যায়নি।</target>
+				<target>কোনো পেজ পাওয়া যায়নি।</target>
 			</trans-unit>
 			<trans-unit id="docsearch.jsp.pagelink">
 				<source>Page Link</source>
@@ -14217,7 +14331,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="kickstart.list.jsp.orgdefault">
 				<source>This is your organizations default kickstart profile.</source>
-				<target state="needs-review-translation">&lt;strong&gt;উল্লেখ্য:&lt;/strong&gt; স্বনির্ধারিত বিকল্প বৈধ না হলে kickstart বিফল হতে পারে।</target>
+				<target>এটি আপনার প্রতিষ্ঠানের ডিফল্ট kickstart প্রোফাইল।</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.refguide">
 				<source>@@PRODUCT_NAME@@ Reference Guide</source>
@@ -14225,11 +14339,11 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="help.jsp.helpdesk">
 				<source>Welcome to the Help Desk</source>
-				<target state="needs-review-translation">Red Hat Network-এ আপনাকে স্বাগতম</target>
+				<target>সহায়তা কেন্দ্রে আপনাকে স্বাগতম</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.translation">
 				<source>(Translations available)</source>
-				<target state="needs-review-translation">কোনে অ্যাক্টিভেশন-কি উপলব্ধ নেই</target>
+				<target>(অনুবাদ উপলব্ধ রয়েছে)</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.detailed">
 				<source>Detailed instructions for using RHN service.</source>
@@ -14237,6 +14351,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="help.jsp.install">
 				<source>Detailed information regarding @@PRODUCT_NAME@@ server and its installation. </source>
+				<target>@@PRODUCT_NAME@@ সার্ভার ও এটি ইনস্টলেশনের প্রক্রিয়া সম্পর্কে বিস্তারিত বিবরণ। </target>
 			</trans-unit>
 			<trans-unit id="help.jsp.install.title">
 				<source>@@PRODUCT_NAME@@ Installation Guide</source>
@@ -14248,21 +14363,23 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="help.jsp.proxy.title">
 				<source>Proxy Guide</source>
-				<target state="needs-review-translation">উপলব্ধকারী</target>
+				<target>Proxy সহায়িকা</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.clients">
 				<source>Documentation for setting up clients to connect to a @@PRODUCT_NAME@@ Proxy or @@PRODUCT_NAME@@ server.</source>
+				<target>@@PRODUCT_NAME@@ Proxy অথবা @@PRODUCT_NAME@@ সার্ভারের সাথে সংযোগ স্থাপনের উদ্দেশ্যে ক্লায়েন্ট প্রস্তুতির প্রক্রিয়া সম্পর্কে নতিপত্র।</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.clients.title">
 				<source>Client Configuration Guide</source>
-				<target state="needs-review-translation">কনফিগারেশন ফাইল নির্মাণ করুন</target>
+				<target>ক্লায়েন্ট কনফিগারেশন সহায়িকা</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.channel">
 				<source>Documentation for the creation and maintenance of custom channels using @@PRODUCT_NAME@@.</source>
+				<target>@@PRODUCT_NAME@@ সহযোগে স্বনির্ধারিত চ্যানেল নির্মাণ ও পরিচালনা সংক্রান্ত নতিপত্র।</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.channel.title">
 				<source>Channel Management Guide</source>
-				<target state="needs-review-translation">চ্যানেল পরিচালনা সংক্রান্ত অনুমতি</target>
+				<target>চ্যানেল পরিচালনা সহায়িকা</target>
 			</trans-unit>
 			<trans-unit id="help.jsp.release.title">
 				<source>@@PRODUCT_NAME@@ Release Notes</source>
@@ -14274,7 +14391,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="iprange.emptylist">
 				<source>No Ip Ranges Found</source>
-				<target state="needs-review-translation">কোনো প্রোব পাওয়া যায়নি।</target>
+				<target>কোনো IP সীমা পাওয়া যায়নি</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.emptylist">
 				<source>This channel contains no packages.</source>
@@ -14286,35 +14403,35 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="package.jsp.provider">
 				<source>Content Provider</source>
-				<target state="needs-review-translation">বর্তমান উপলব্ধকারী</target>
+				<target>তথ্য উপলব্ধকারী</target>
 			</trans-unit>
 			<trans-unit id="provider">
 				<source>Content Provider</source>
-				<target state="needs-review-translation">বর্তমান উপলব্ধকারী</target>
+				<target>তথ্য উপলব্ধকারী</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.globallysub">
 				<source> If checked, all users in your organization may subscribe to this channel.</source>
-				<target state="needs-review-translation">বর্তমানে এই চ্যানেলে কোনো সিস্টেম সাবস্ক্রাইব করা হয়নি।</target>
+				<target> নির্বাচিত হলে, আপনার প্রতিষ্ঠানের সকল ব্যবহারকারীরা এই চ্যানেলে সাবস্ক্রাইব করতে পারবেন।</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.globallysubtitle">
 				<source>Globally Subscribable</source>
-				<target state="needs-review-translation">সার্বজনীনরূপে সাবস্ক্রাইব করার যোগ্য</target>
+				<target>সার্বজনীনরূপে সাবস্ক্রাইব করার যোগ্য</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.systemssubsribed">
 				<source>Systems Subscribed</source>
-				<target state="needs-review-translation">সাবস্ক্রাইব করা সিস্টেম*</target>
+				<target>সাবস্ক্রাইব করা সিস্টেম</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.parentchannel">
 				<source>Parent Channel</source>
-				<target state="needs-review-translation">ঊর্ধ্বস্থ চ্যানেল উল্লেখকারী বাটন</target>
+				<target>ঊর্ধ্বতন চ্যানেল</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.parent">
 				<source>Parent Channel</source>
-				<target state="needs-review-translation">ঊর্ধ্বস্থ চ্যানেল উল্লেখকারী বাটন</target>
+				<target>ঊর্ধ্বতন চ্যানেল</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.chanent">
 				<source>Channel Entitlement Name</source>
-				<target state="needs-review-translation">চ্যানেল এনটাইটেলমেন্ট</target>
+				<target>চ্যানেল এনটাইটেলমেন্টের নাম</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.gpgtitle">
 				<source>GPG Public Key</source>
@@ -14322,14 +14439,15 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.jsp.gpgheader">
 				<source>This channel has a GnuPG key associated with it. For a system to be able to download and install packages from this channel, you must import the key into a particular keyring. </source>
+				<target>এই চ্যানেলের সাথে একটি GnuPG-কি যুক্ত রয়েছে। এই চ্যানেল থেকে প্যাকেজ ডাউনলোড করে সিস্টেমে ইনস্টল করার জন্য একটি সুনির্দিষ্ট কি-রিংয়ের মধ্যে এই কি ইম্পোর্ট করা আবশ্যক।</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.gpglocation">
 				<source>Key Location</source>
-				<target state="needs-review-translation">ফাইলের অবস্থান</target>
+				<target>কি-র অবস্থান</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.gpgid">
 				<source>Key Id</source>
-				<target state="needs-review-translation">কি</target>
+				<target>কি-র Id</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.gpgfp">
 				<source>Key Fingerprint</source>
@@ -14337,44 +14455,47 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.jsp.gpgfooter">
 				<source>Once you have downloaded the key file, you must import it to your RPM keyring using the command "rpm --import /path/to/gpg_key.txt".</source>
+				<target>কি-ফাইল ডাউনলোড করার পরে "rpm --import /path/to/gpg_key.txt" কমান্ড প্রয়োগ করে তা আপনার সিস্টেমের RPM কি-রিংয়ের মধ্যে ইম্পোর্ট করুন।</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.remove">
 				<source>Below is the list of packages which you have selected to remove from this channel. Removing a package from this channel does not affect the systems which are subscribed to it, or the errata which are applicable to it.</source>
+				<target>নিম্নলিখিত প্যাকেজগুলি এই চ্যানেল থেকে অপসারণের জন্য চিহ্নিত করা হয়েছে। এই প্যাকেজগুলি মুছে ফেলা হলে এই চ্যানেলে সাবস্ক্রাইব করা সিস্টেম ও এই চ্যানেলর জন্য প্রযোজ্য ত্রুটি-বিচ্যুতি প্রভাবিত হবে না।</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.listmessage">
 				<source>The following packages are in this channel. To remove a package from this channel, select it here, and click 'Confirm Removal' below. To add a package to this channel, click 'add' above.</source>
-				<target state="needs-review-translation">নিম্নলিখিত প্যাকেজগুলি এই ত্রুটি-বিচ্যুতির তথ্যের সাথে যুক্ত। প্যাকেজগুলি এই ত্রুটি-বিচ্যুতের তথ্য থেকে মুছে ফেলার জন্য সেগুলি নির্বাচন করে নীচে অবস্থিত 'প্যাকেজ অপসারণ' ক্লিক করুন। ত্রুটি-বিচ্যুতির তথ্যের সাথে প্যাকেজ যুক্ত করতে উপরে অবস্থিত 'যোগ করুন' ক্লিক করুন।</target>
+				<target>নিম্নলিখিত প্যাকেজগুলি এই চ্যানেলের মধ্যে উপস্থিত। প্যাকেজগুলি এই চ্যানেল থেকে মুছে ফেলার জন্য সেগুলি নির্বাচন করে নীচে অবস্থিত 'প্যাকেজ অপসারণ' ক্লিক করুন। চ্যানেলের মধ্যে প্যাকেজ যুক্ত করতে হলে, উপরে অবস্থিত 'যোগ করুন' ক্লিক করুন।</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.details.title">
 				<source>Details</source>
-				<target state="needs-review-translation">ব্যবহারকারী সংক্রান্ত বিবরণ</target>
+				<target>বিবরণ</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.menu.details">
 				<source>Details</source>
-				<target state="needs-review-translation">ব্যবহারকারী সংক্রান্ত বিবরণ</target>
+				<target>বিবরণ</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.removesuccess">
 				<source>{0} package(s) removed from channel {1}</source>
+				<target>{1} চ্যানেল থেকে {0}-টি প্যাকেজ অপসারিত হয়েছে</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.removebutton">
 				<source>Confirm Removal</source>
-				<target state="needs-review-translation">প্যাকেজ অপসারণ কর্ম নিশ্চিত করুন</target>
+				<target>অপসারণ কর্ম নিশ্চিত করুন</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.confirmremove">
 				<source>Confirm Removal</source>
-				<target state="needs-review-translation">প্যাকেজ অপসারণ কর্ম নিশ্চিত করুন</target>
+				<target>অপসারণ কর্ম নিশ্চিত করুন</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.confirmbutton">
 				<source>Remove</source>
-				<target state="needs-review-translation">তালিকা নির্মাণ/অপসারণ</target>
+				<target>অপসারণ করুন</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.menu.list">
 				<source>List / Remove Packages</source>
-				<target state="needs-review-translation">ইনস্টল করা প্যাকেজের তালিকা নির্মাণ / অপসারণ</target>
+				<target>প্যাকেজের তালিকা নির্মাণ / অপসারণ</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.menu.compare">
 				<source>Compare Packages</source>
-				<target state="needs-review-translation">প্যাকেজ আপডেট করুন</target>
+				<target>প্যাকেজের তুলনামূলক পরীক্ষা</target>
 			</trans-unit>
 			<trans-unit id="nvrea">
 				<source>nvrea</source>
@@ -14382,230 +14503,247 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.viewpackages">
 				<source>View Packages</source>
-				<target state="needs-review-translation">প্যাকেজ</target>
+				<target>প্যাকেজ প্রদর্শন করুন</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.addsuccess">
 				<source>{0} package(s) added to channel {1}</source>
-				<target state="needs-review-translation">{0} সিস্টেম '{1}' চ্যানেলে সাবস্ক্রাইব করতে বিফল হয়েছে</target>
+				<target>{1} চ্যানেলে {0} প্যাকেজ যোগ করা হয়েছে</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.addbutton">
 				<source>Add Package(s)</source>
-				<target state="needs-review-translation">প্যাকেজ যোগ করুন</target>
+				<target>প্যাকেজ যোগ করুন</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.addconfirmbutton">
 				<source>Confirm Addition</source>
-				<target state="needs-review-translation">প্যাকেজ যোগ করার কর্ম নিশ্চায়ন</target>
+				<target>সংযোজন নিশ্চায়ণ</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.addemptylist">
 				<source>No packages found for this critera.</source>
-				<target state="needs-review-translation">আপনার উল্লিখিত মান অনুযায়ী কোনো ইমেজ পাওয়া যায়নি।</target>
+				<target>আপনার উল্লিখিত মান অনুযায়ী কোনো প্যাকেজ পাওয়া যায়নি।</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.addmessage">
 				<source>Below is the list of packages you can add to this channel. The "Channel" select box allows you to restrict the set of available packages. To add a package to this channel, select it here, and click 'Add Packages' below.
 
 			Only packages of a compatible arch will be shown</source>
-				<target state="needs-review-translation">নিম্নলিখিত তালিকায় উল্লিখিত প্যাকেজগুলি এই ত্রুটি-বিচ্যুতির তথ্যের সাথে যুক্ত করা সম্ভব। "প্রদর্শন" নির্বাচন বাক্সের সাহায্যে আপনি উপলব্ধ প্যাকেজের সংখ্যা সীমাবদ্ধ করতে সক্ষম হবেন। এই ত্রুটি-বিচ্যুতির মধ্যে প্যাকেজ যোগ করতে হলে সেগুলি নির্বাচন করে নীচে অবস্থিত 'প্যাকেজ যোগ করুন' ক্লিক করুন।</target>
+				<target>নিম্নলিখিত তালিকায় উল্লিখিত প্যাকেজগুলি এই চ্যানেলের মধ্যে যোগ করা সম্ভব। "চ্যানেল" নির্বাচন বাক্সের সাহায্যে আপনি উপলব্ধ প্যাকেজের সংখ্যা সীমাবদ্ধ করতে সক্ষম হবেন। এই চ্যানেলের মধ্যে প্যাকেজ যোগ করতে হলে সেগুলি নির্বাচন করে নীচে
+
+			অবস্থিত 'প্যাকেজ যোগ করুন' ক্লিক করুন।</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.add.confirm.msg">
 				<source>Below is the list of packages which you have selected to add to this channel. Adding a package to this channel does not automatically affect the systems which are subscribed to it, or the errata which are applicable to it.</source>
+				<target>নিম্নলিখিত প্যাকেজগুলি এই চ্যানেলে সংযোজনের জন্য চিহ্নিত করা হয়েছে। এই চ্যানেলের মধ্যে প্যাকেজ সংযোজন করা হলে চ্যানেলে সাবস্ক্রাইব করা সিস্টেম ও এই চ্যানেলর জন্য প্রযোজ্য ত্রুটি-বিচ্যুতি প্রভাবিত হবে না।</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.listtitle">
 				<source>This channel contains the following errata:</source>
+				<target>এই চ্যানেলের মধ্যে নিম্নলিখিত ত্রুটি-বিচ্যুতি উপস্থিত রয়েছে:</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.emptylist">
 				<source>This channel contains no errata.</source>
+				<target>এই চ্যানেলের মধ্যে কোনো ত্রুটি-বিচ্যুতি উপস্থিত নেই।</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.package.list">
 				<source>Channel Packages.</source>
-				<target state="needs-review-translation">প্যাকেজ দেখা সম্ভব নয়।</target>
+				<target>চ্যানেলের প্যাকেজ</target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.title">
 				<source>Custom System Info Keys</source>
-				<target state="needs-review-translation">সিস্টেম সংক্রান্ত তথ্য</target>
+				<target>স্বনির্ধারিত সিস্টেম তথ্যের কি</target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.empty">
 				<source>No Custom Info Keys Found</source>
+				<target>কোনো স্বনির্ধারিত তথ্যের কি পাওয়া যায়নি</target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.message">
 				<source>Custom system info keys allow your adminstrators to store relevant custom key/value pairs with your system profiles. Custom system info is fully {0}searchable{1}.</source>
+				<target>স্বনির্ধারিত সিস্টেম তথ্যের কি সহযোগে অ্যাডমিনিস্ট্রেটররা আপনার সিস্টেম প্রোফাইলের জন্য প্রযোজ্য স্বনির্ধারিত কি/মানের জুটি সংরক্ষণ করতে পারবেন। স্বনির্ধারিত সিস্টেমের তথ্য সম্পূর্ণ রূপে{0} অনুসন্ধানযোগ্য{1}।</target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.message2">
 				<source>The following custom system info keys have been defined for your organization.</source>
-				<target state="needs-review-translation">আপনার প্রতিষ্ঠানের ব্যবহারের জন্য নিম্নলিখিত অ্যাক্টিভেশন-কিগুলি নির্মাণ করা হয়েছে।</target>
+				<target>আপনার প্রতিষ্ঠানের ব্যবহারের জন্য নিম্নলিখিত স্বনির্ধারিত সিস্টেম তথ্যের কি নির্মাণ করা হয়েছে।</target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.keylabel">
 				<source>Key Label</source>
-				<target state="needs-review-translation">লেবেল</target>
+				<target>কি-র লেবেল</target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.systemcount">
 				<source>Systems With Value</source>
-				<target state="needs-review-translation">এনটাইটেল করা সিস্টেম</target>
+				<target>মান সহ সিস্টেম</target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.createtitle">
 				<source>Create Custom Info Key</source>
-				<target state="needs-review-translation">স্বনির্ধারিত ত্রুটি-বিচ্যুতি নির্মাণ করুন</target>
+				<target>স্বনির্ধারিত তথ্যের কি নির্মাণ করুন</target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.createmsg">
 				<source>Define infomation about this key below.</source>
+				<target>চিহ্নিত কি সম্পর্কে নীচে বিস্তারিত লিখুন।</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.manage.package.title">
 				<source>Package Management</source>
-				<target state="needs-review-translation">ত্রুটি-বিচ্যুতি পরিচালনা</target>
+				<target>প্যাকেজ পরিচালনা</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.manage.package.message">
 				<source>You may delete packages owned by your organization. The "view packages in channels" select box allows you to restrict the set of packages you will view. To delete a package, check the box next to it and click 'Confirm Deletion', below.</source>
-				<target state="needs-review-translation">নিম্নলিখিত তালিকায় উল্লিখিত প্যাকেজগুলি এই ত্রুটি-বিচ্যুতির তথ্যের সাথে যুক্ত করা সম্ভব। "প্রদর্শন" নির্বাচন বাক্সের সাহায্যে আপনি উপলব্ধ প্যাকেজের সংখ্যা সীমাবদ্ধ করতে সক্ষম হবেন। এই ত্রুটি-বিচ্যুতির মধ্যে প্যাকেজ যোগ করতে হলে সেগুলি নির্বাচন করে নীচে অবস্থিত 'প্যাকেজ যোগ করুন' ক্লিক করুন।</target>
+				<target>আপনার প্রতিষ্ঠানের মালিকানাধীন প্যাকেজগুলি মুছে ফেলা যাবে। "চ্যানেল" নির্বাচন বাক্সের সাহায্যে আপনি উপলব্ধ প্যাকেজের সংখ্যা সীমাবদ্ধ করতে সক্ষম হবেন। কোনো প্যাকেজ মুছে ফেলে হলে, পার্শ্ববর্তী চেকবক্স নির্বাচন করে নীচে অবস্থিত 'অপসারণ কর্ম নিশ্চায়ণ' ক্লিক করুন।</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.manage.package.subtitle">
 				<source>Package List</source>
-				<target state="needs-review-translation">প্যাকেজ</target>
+				<target>প্যাকেজের তালিকা</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.manage.package.confirmbutton">
 				<source>Confirm Deletion</source>
-				<target state="needs-review-translation">ব্যবহারকারী অপসারণ কর্ম নিশ্চায়ন</target>
+				<target>অপসারণ কর্ম নিশ্চায়ণ</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.manage.package.delete">
 				<source>Delete Package(s)</source>
-				<target state="needs-review-translation">প্রযোজ্য প্যাকেজ</target>
+				<target>প্যাকেজ মুছে ফেলুন</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.manage.package.remove.message">
 				<source>Are you certain you want to delete these packages?
 
 			This process can take several seconds. Be patient and do not click the button below more than once.</source>
+				<target>আপনি কি নিশ্চিতরূপে এই প্যাকেজগুলি মুছে ফেলতে ইচ্ছুক?
+
+			এই প্রক্রিয়া সমাপ্ত হলে বেশ কিছু সেকেন্ড ব্যয় হতে পারে। অনুগ্রহ করে অপেক্ষা করুন ও নীচের বাটনটি একবারের বেশি ক্লিক করবেন না।</target>
 			</trans-unit>
 			<trans-unit id="baddownload.jsp.title">
 				<source>File Download Failed</source>
-				<target state="needs-review-translation">ফাইল ডাউনলোড করুন</target>
+				<target>ফাইল ডাউনলোড করতে ব্যর্থ</target>
 			</trans-unit>
 			<trans-unit id="baddownload.jsp.summary">
 				<source>The file you requested could not be downloaded, likely due to one of the following reasons:</source>
-				<target state="needs-review-translation">নিম্নলিখিত সম্ভাব্য যে কোনো একটি কারণের ফলে অনুরোধ করার CSV ফাইলটি এক্সপোর্ট করা যায়নি:</target>
+				<target>নিম্নলিখিত সম্ভাব্য যে কোনো একটি কারণের ফলে অনুরোধ করার ফাইলটি ডাউনলোড করা যায়নি:</target>
 			</trans-unit>
 			<trans-unit id="baddownload.jsp.reason1">
 				<source>The url has expired.</source>
+				<target>url-র মেয়াদ উত্তীর্ণ হয়েছে।</target>
 			</trans-unit>
 			<trans-unit id="baddownload.jsp.reason2">
 				<source>The url has been modified.</source>
+				<target>url-টি পরিবর্তিত হয়েছে।</target>
 			</trans-unit>
 			<trans-unit id="baddownload.jsp.reason3">
 				<source>The @@PRODUCT_NAME@@ server does not have read permissions on the specified file.</source>
+				<target>@@PRODUCT_NAME@@ সার্ভারের ক্ষেত্রে চিহ্নিত ফাইল পড়ার উদ্দেশ্যে পর্যাপ্ত অনুমতি উপস্থিত নেই।</target>
 			</trans-unit>
 			<trans-unit id="baddownload.jsp.retry">
 				<source>Please revisit the page you recieved this url from to recieve a new one.</source>
+				<target>নতুন url প্রাপ্ত করার জন্য অনুগ্রহ করে url উপলব্ধকারী পৃষ্ঠায় প্রত্যাবর্তন করুন।</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.arch">
 				<source>Package Architecture</source>
-				<target state="needs-review-translation">আর্কিটেকচার</target>
+				<target>প্যাকেজের আর্কিটেকচার</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.availarch">
 				<source>Available Architectures</source>
-				<target state="needs-review-translation">উপলব্ধ ট্রি</target>
+				<target>উপলব্ধ আর্কিটেকচার</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.availfrom">
 				<source>Available From</source>
-				<target state="needs-review-translation">উপলব্ধ</target>
+				<target>উপলব্ধ ফর্ম</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.vendor">
 				<source>Vendor</source>
-				<target state="needs-review-translation">প্রাপক</target>
+				<target>বিক্রেতা</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.packagesize">
 				<source>Package Size</source>
-				<target state="needs-review-translation">প্যাকেজ </target>
+				<target>প্যাকেজের মাপ</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.payloadsize">
 				<source>Payload Size</source>
-				<target state="needs-review-translation">ফাইল আপলোড করুন</target>
+				<target>পে-লোডের মাপ</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.patchinfo">
 				<source>Patch Info</source>
-				<target state="needs-review-translation">প্যাচের নাম</target>
+				<target>প্যাচের তথ্য</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.buildhost">
 				<source>Build Host</source>
-				<target state="needs-review-translation">ভার্চুয়াল হোস্ট</target>
+				<target>বিল্ড হোস্ট</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.builddate">
 				<source>Build Date</source>
+				<target>বিল্ডের তারিখ</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.license">
 				<source>License</source>
+				<target>লাইসেন্স</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.group">
 				<source>Package Group</source>
-				<target state="needs-review-translation">প্যাকেজ </target>
+				<target>প্যাকেজ সংকলন</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.rpmversion">
 				<source>Rpm Version</source>
-				<target state="needs-review-translation">সংস্করণ</target>
+				<target>Rpm সংস্করণ</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.md5sum">
 				<source>MD5Sum</source>
-				<target state="needs-review-translation">MD5 Sum:</target>
+				<target>MD5Sum</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.path">
 				<source>File System Path</source>
-				<target state="needs-review-translation">সিস্টেমে ব্যর্থ</target>
+				<target>ফাইল সিস্টেমের পাথ</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.download">
 				<source>Download</source>
-				<target state="needs-review-translation">ডাউনলোড করুন</target>
+				<target>ডাউনলোড করুন</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.readmedownload">
 				<source>Download</source>
-				<target state="needs-review-translation">ডাউনলোড করুন</target>
+				<target>ডাউনলোড করুন</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.source">
 				<source>Source Package</source>
-				<target state="needs-review-translation">কোনো প্যাকেজ নেই।</target>
+				<target>সোর্স প্যাকেজ</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.missingfile">
 				<source>Missing File</source>
-				<target state="needs-review-translation">অনুপস্থিত প্যাকেজ</target>
+				<target>অনুপস্থিত ফাইল</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.unavailable">
 				<source>File Unavailable</source>
-				<target state="needs-review-translation">উপলব্ধ</target>
+				<target>ফাইল উপলব্ধ নয়</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.sunosrelease">
 				<source>SunOs Release</source>
-				<target state="needs-review-translation">অপারেটিং সিস্টেমের রিলিজ সংখ্যা</target>
+				<target>SunOs রিলিজ</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.solarisrelease">
 				<source>Solaris Release</source>
-				<target state="needs-review-translation">অপারেটিং সিস্টেমের রিলিজ সংখ্যা</target>
+				<target>Solaris রিলিজ</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.readme">
 				<source>Readme</source>
-				<target state="needs-review-translation">সঠিক নাম</target>
+				<target>Readme</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.menu.filelist">
 				<source>File List</source>
-				<target state="needs-review-translation">ফাইল তালিকা মুছে ফেলুন</target>
+				<target>ফাইল তালিকা</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.menu.changelog">
 				<source>Change Log</source>
-				<target state="needs-review-translation">পরিবর্তন</target>
+				<target>Change Log</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.menu.map">
 				<source>Package Map</source>
-				<target state="needs-review-translation">প্যাকেজ </target>
+				<target>প্যাকেজের ম্যাপ</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.menu.deps">
 				<source>Dependencies</source>
-				<target state="needs-review-translation">রেফারেন্স</target>
+				<target>নির্ভরতা</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.menu.newversions">
 				<source>New Versions</source>
-				<target state="needs-review-translation">সংস্করণ</target>
+				<target>নতুন সংস্করণ</target>
 			</trans-unit>
 			<trans-unit id="package.jsp.menu.patchedsystems">
 				<source>Patched Systems</source>
-				<target state="needs-review-translation">সিস্টেমে ব্যর্থ</target>
+				<target>প্যাচ করা সিস্টেম </target>
 			</trans-unit>
 			<trans-unit id="package.jsp.menu.installedsystems">
 				<source>Installed Systems</source>
-				<target state="needs-review-translation">সিস্টেমে ব্যর্থ</target>
+				<target>ইনস্টল করা সিস্টেম</target>
 			</trans-unit>
 			<trans-unit id="layout.jsp.productname">
 				<source>@@PRODUCT_NAME@@</source>
@@ -14617,6 +14755,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="layout.jsp.vendor.title">
 				<source>Visit http://spacewalk.redhat.com/ for more information</source>
+				<target>অধিক তথ্যের জন্য http://spacewalk.redhat.com/ পরিদর্শন করুন</target>
 			</trans-unit>
 			<trans-unit id="layout.jsp.vendor.website">
 				<source>http://spacewalk.redhat.com/</source>
@@ -14624,117 +14763,193 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.parentarch">
 				<source>Parent Channel Architecture</source>
-				<target state="needs-review-translation">ঊর্ধ্বস্থ চ্যানেল উল্লেখকারী বাটন</target>
+				<target>ঊর্ধ্বস্থ চ্যানেলের আর্কিটেকচার</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.summary">
 				<source>Channel Summary</source>
-				<target state="needs-review-translation">দৈনিক সারসংক্ষেপ</target>
+				<target>চ্যানেলের সারসংক্ষেপ</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.description">
 				<source>Channel Description</source>
-				<target state="needs-review-translation">চ্যানেলের সাবস্ক্রিপশন</target>
+				<target>চ্যানেলের বিবরণ</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.maintainername">
 				<source>Maintainer Name</source>
-				<target state="needs-review-translation">চ্যানেলের নাম</target>
+				<target>মেইন্টেনারের নাম</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.maintainercontactinfo">
 				<source>Maintainer Contact Information</source>
-				<target state="needs-review-translation">চ্যানেল সংক্রান্ত তথ্য</target>
+				<target>মেইন্টেনারের যোগাযোগের ঠিকানা</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.emailaddress">
 				<source>Email Address</source>
-				<target state="needs-review-translation">ই-মেইল ঠিকানা পরিবর্তন</target>
+				<target>ই-মেইল ঠিকানা</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.phonenumber">
 				<source>Phone Number</source>
+				<target>দূরভাষ</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.supportpolicy">
 				<source>Support Policy</source>
+				<target>সহায়তার নিয়মাবলী</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.perusersub">
 				<source>Per-User Subscription Restrictions</source>
-				<target state="needs-review-translation">চ্যানেল সাবস্ক্রিপশন সংক্রান্ত অনুমতি</target>
+				<target>প্রতি ব্যবহারকারীর সাবস্ক্রিপশন সংক্রান্ত অনুমতি</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.orgsharing">
 				<source>Organization Sharing</source>
-				<target state="needs-review-translation">প্রতিষ্ঠান দ্বারা ব্যবহৃত</target>
+				<target>প্রতিষ্ঠানের মধ্যে যৌথ ব্যবহার</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.gpgkeyurl">
 				<source>GPG key URL</source>
+				<target>GPG-কি URL</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.gpgkeyid">
 				<source>GPG key ID</source>
+				<target>GPG-কির ID</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.gpgkeyfingerprint">
 				<source>GPG key Fingerprint</source>
+				<target>GPG-কি ফিংগারপ্রিন্ট</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.createchannel">
 				<source>Create Channel</source>
-				<target state="needs-review-translation">কনফিগ চ্যানেল নির্মাণ করুন</target>
+				<target>চ্যানেল নির্মাণ করুন</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.editchannel">
 				<source>Update Channel</source>
-				<target state="needs-review-translation">চ্যানেল আপডেট করুন</target>
+				<target>চ্যানেল আপডেট করুন</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.toolbar">
 				<source>{0}</source>
-				<target state="needs-review-translation">rev {0}</target>
+				<target>{0}</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.toolbar">
+				<source>{0}</source>
+				<target>{0}</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.basicchanneldetails">
 				<source>Basic Channel Details</source>
-				<target state="needs-review-translation">বেস চ্যানেল</target>
+				<target>চ্যানেল সংক্রান্ত মৌলিক বিবরণ</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.contactsupportinfo">
 				<source>Contact/Support Information</source>
-				<target state="needs-review-translation">অ্যাকাউন্ট সংক্রান্ত তথ্য:</target>
+				<target>যোগাযোগ/সহায়তা সংক্রান্ত তথ্য</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.channelaccesscontrol">
 				<source>Channel Access Control</source>
+				<target>চ্যানেল ব্যবহারাধিকার নিয়ন্ত্রণ</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.security.gpg">
 				<source>Security: GPG</source>
-				<target state="needs-review-translation">নিরাপত্তা</target>
+				<target>নিরাপত্তা: GPG</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.channelheader">
+				<source>Delete Channel</source>
+				<target state="needs-review-translation">চ্যানেল মুছে ফেলুন</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.introparagraph">
+				<source>Are you sure you wish to delete this channel? Packages in the channel will
+           be removed from the channel, but will remain on the server. You will be
+           given the option to delete them after the channel has been deleted. Errata
+           related to the channel will no longer be related to the channel, and may be
+           orphaned. If the channel has child channels, it cannot be deleted; the child
+           channels must be deleted first. If the channel has kickstart distributions
+           associated to it, it cannot be deleted; the kickstart distributions must be
+           dissociated from the channel or deleted first.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.arch">
+				<source>Architecture:</source>
+				<target state="needs-review-translation">আর্কিটেকচার</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.totalpackages">
+				<source>Total Packages:</source>
+				<target state="needs-review-translation">অনুরোধ করা সর্বমোট প্যাকেজ সংখ্যা:</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.systemssubscribed">
+				<source>Systems Subscribed:</source>
+				<target state="needs-review-translation">সাবস্ক্রাইব করা সিস্টেম</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsheader">
+				<source>Trusted Organizations</source>
+				<target state="needs-review-translation">প্রতিষ্ঠান নির্মাণ করুন</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsparagraph">
+				<source>Channel deletion will affect any Trusted Organizations that have systems
+            subscribed to the {0} channel.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsaffected">
+				<source>Organizations Affected:</source>
+				<target state="needs-review-translation">প্রতিষ্ঠান:</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubheader">
+				<source>Unsubscribe Systems</source>
+				<target state="needs-review-translation">সিস্টেম আন-সাবস্ক্রাইব করুন</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubparagraph">
+				<source>Unsubscribe all trusted organization systems that are subscribed to the
+            {0} channel. Subscribed systems will lose access to packages specific to this channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Channel name and label are required. They each must be at least 6
         characters in length. Labels must begin with a letter, contain only
         lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
         numerals. Channel name may also contain spaces and forward slashes
         ('/').
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Channel summary is also required.</source>
+				<target>এই পৃষ্ঠায় সফ্টওয়্যার চ্যানেল নির্মাণ অথবা সম্পাদনা করুন।
+        &lt;p/&gt; 
+        উর্ধ্বতন চ্যানেলের ক্ষেত্রে 'শূণ্য' ধার্য করা হলে, চ্যানেলটি বেস চ্যানেল রূপে চিহ্নিত হবে।
+        অন্যথা, চ্যানেলটি নির্ধারিত ঊর্ধ্বতন চ্যানেলের চাইল্ড চ্যানেল রূপে ধার্য করা হবে।
+        &lt;p/&gt; 
+        চ্যানেলের নাম ও লেবেল উল্লেখ করা আবশ্যক। দুটির ক্ষেত্রেই অন্তত ৬-টি অক্ষর
+        ব্যবহার করা আবশ্যক। লেবেলের প্রারম্ভ একটি অক্ষর থাকার আবশ্যক ও শুধুমাত্র
+        ছোট হরফের অক্ষর, হাইফেন ('-'), বিন্দু ('.'), আন্ডার-স্কোর ('_'), ও
+        সংখ্যা ব্যবহার করা যাবে। চ্যানেলের নামের মধ্যে শূণ্যস্থান ও ফরওয়ার্ড স্ল্যাশ ('/') চিহ্নও ব্যবহার 
+        করা যাবে।
+        &lt;p/&gt; 
+        চ্যানেলের সার-সংক্ষেপ উল্লেখ করাও আবশ্যক।</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.public">
 				<source>This channel is &lt;strong&gt;public&lt;/strong&gt; and may be
         accessed by any of the &lt;a href="{0}"&gt;trusted
         organizations&lt;/a&gt; trusted by this organization.</source>
+				<target>এই চ্যানেলটি &lt;strong&gt;সার্বজনীন&lt;/strong&gt; হিসাবে ধার্য করা হয়েছে
+        এবং এই প্রতিষ্ঠান দ্বারা চিহ্নিত যে কোনো &lt;a href="{0}"&gt;বিশ্বস্ত
+        প্রতিষ্ঠান&lt;/a&gt; দ্বারা ব্যবহারযোগ্য।</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.protected">
 				<source>This channel is &lt;strong&gt;protected&lt;/strong&gt; and may
         only be accessed by specific &lt;a href="{0}"&gt;trusted
         organizations&lt;/a&gt;.</source>
+				<target>এই চ্যানেলটি &lt;strong&gt;সংরক্ষিত&lt;/strong&gt; হিসাবে ধার্য করা হয়েছে
+        এবং এই প্রতিষ্ঠান দ্বারা চিহ্নিত কিছু সুনির্দিষ্ট &lt;a href="{0}"&gt;বিশ্বস্ত
+        প্রতিষ্ঠান&lt;/a&gt; দ্বারা ব্যবহারযোগ্য।</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.private">
 				<source>This channel is &lt;strong&gt;private&lt;/strong&gt; and cannot
         be accessed by any other organization.</source>
+				<target>এই চ্যানেলটি &lt;strong&gt;ব্যক্তিগত&lt;/strong&gt; হিসাবে ধার্য করা হয়েছে
+        এবং অন্য কোনো প্রতিষ্ঠান দ্বারা ব্যবহারযোগ্য নয়।</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.allusers">
 				<source>All users within your organization may subscribe to this channel.</source>
-				<target state="needs-review-translation">বর্তমানে এই চ্যানেলে কোনো সিস্টেম সাবস্ক্রাইব করা হয়নি।</target>
+				<target>আপনার প্রতিষ্ঠানের সকল ব্যবহারকারী এই চ্যানেলে সাবস্ক্রাইব করতে পারবেন।</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.selectedusers">
 				<source>Only selected users within your organization may subscribe to this channel.</source>
-				<target state="needs-review-translation">বর্তমানে এই চ্যানেলে কোনো সিস্টেম সাবস্ক্রাইব করা হয়নি।</target>
+				<target>আপনার প্রতিষ্ঠানের কয়েকজন নির্বাচিত ব্যবহারকারী এই চ্যানেলে সাবস্ক্রাইব করতে পারবেন।</target>
 			</trans-unit>
 			<trans-unit id="confirmprivate.jsp.title">
 				<source>Confirm Channel Sharing Modification</source>
-				<target state="needs-review-translation">Satellite অ্যাডমিনিস্ট্রেটর পরিবর্তন নিশ্চিত করুন</target>
+				<target>চ্যানেলের যৌথ ব্যবহার সম্পর্কে চিহ্নিত পরিবর্তন নিশ্চিত করুন</target>
 			</trans-unit>
 			<trans-unit id="confirmprivate.jsp.confirmmsg">
 				<source>Are you sure you want to set this channel to
@@ -14744,10 +14959,19 @@ given channel.</source>
         this channel may adversely affect those systems. For example, those
         systems may no longer receive critical security updates to content
         provided by this channel.</source>
+				<target>আপনি কি নিশ্চিতরূপে এই চ্যানেলটিকে &lt;strong&gt;ব্যক্তিগত&lt;/strong&gt; রূপে ধার্য করে
+        শুধুমাত্র আপনার প্রতিষ্ঠানের সিস্টেমগুলি দ্বারা ব্যবহারের জন্য উপলব্ধ
+        করতে ইচ্ছুক? নীচে উল্লিখিত অন্যান্য প্রতিষ্ঠানের মধ্যে উপস্থিত সিস্টেম দ্বারাও
+        এই চ্যানেলের সামগ্রী ব্যবহৃত হয় এবং এই চ্যানেল ব্যবহারের অধিকার খারিজ করলে
+        এই সিস্টেমগুলি প্রভাবিত হতে পারে। উদাহরণস্বরূপ,এর ফলে
+        এই চ্যানেল দ্বারা উপলব্ধ সামগ্রীগুলির জন্য
+        নিরাপত্তা বিষয়ক আপডেটগুলি এই সিস্টেমগুলি দ্বারা প্রাপ্ত না হতে পারে।</target>
 			</trans-unit>
 			<trans-unit id="confirmprivate.jsp.confirmmsg.deux">
 				<source>Please review the change you are about to make before confirming
         this access removal.</source>
+				<target>ব্যবহারাধিকার খারিজ করার পূর্বে অনুগ্রহ করে সকল
+        পরিবর্তন পর্যালোচনা করুন।</target>
 			</trans-unit>
 			<trans-unit id="confirmprotected.jsp.confirmmsg">
 				<source>Are you sure you want to set this channel's access policy to
@@ -14756,46 +14980,56 @@ given channel.</source>
         Removing these organizations' access may adversely affect those systems.
         For example, they may no longer receive critical security updates to
         content provided by this channel.</source>
+				<target>আপনি কি নিশ্চিতরূপে এই চ্যানেলটিকে &lt;strong&gt;সংরক্ষিত&lt;/strong&gt; রূপে ধার্য করতে ইচ্ছুক?
+        উল্লেখ্য, নীচে উল্লিখিত প্রতিষ্ঠানের মধ্যে উপস্থিত সিস্টেম দ্বারাও এই চ্যানেলে
+         সাবস্ক্রাইব করা হয়েছে। এই প্রতিষ্ঠানগুলির ব্যবহারের অধিকার খারিজ করলে
+        এই সিস্টেমগুলি প্রভাবিত হতে পারে। উদাহরণস্বরূপ,এর ফলে
+        এই চ্যানেল দ্বারা উপলব্ধ সামগ্রীগুলির জন্য নিরাপত্তা বিষয়ক
+        আপডেটগুলি এই সিস্টেমগুলি দ্বারা প্রাপ্ত না হতে পারে।</target>
 			</trans-unit>
 			<trans-unit id="confirmprotected.jsp.confirmmsg.deux">
 				<source>You may choose to grant the organizations below access to this
         channel, or you may deny them access. You can modify access to this
         channel at any time using the 'Organizations' tab above.</source>
+				<target>নীচে উল্লিখিত প্রতিষ্ঠানগুলির জন্য এই চ্যানেল ব্যবহারের অধিকার প্রদান
+        অথবা প্রত্যাখ্যান করা যাবে। উপরে উপস্থিত 'প্রতিষ্ঠান' ট্যাবের সাহায্যে
+        এই চ্যানেলের অধিকার পরিবর্তন করা যাবে।</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.software.channel">
 				<source>delete software channel</source>
-				<target state="needs-review-translation">চ্যানেল মুছে ফেলুন</target>
+				<target>সফ্টওয়্যার চ্যানেল মুছে ফেলুন</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.channel">
 				<source>delete software channel</source>
-				<target state="needs-review-translation">চ্যানেল মুছে ফেলুন</target>
+				<target>সফ্টওয়্যার চ্যানেল মুছে ফেলুন</target>
 			</trans-unit>
 			<trans-unit id="button.denyaccess.confirm">
 				<source>Deny Access and Confirm</source>
+				<target>ব্যবহারাধিকার প্রত্যাখ্যান করে নিশ্চিত করুন</target>
 			</trans-unit>
 			<trans-unit id="button.grantaccess.confirm">
 				<source>Grant Access and Confirm</source>
-				<target state="needs-review-translation">পাসওয়ার্ড নিশ্চায়ন</target>
+				<target>ব্যবহারকাধিকার প্রদান করে নিশ্চিত করা হবে</target>
 			</trans-unit>
 			<trans-unit id="button.search">
 				<source>Search</source>
-				<target state="needs-review-translation">অনুসন্ধান</target>
+				<target>অনুসন্ধান</target>
 			</trans-unit>
 			<trans-unit id="header.jsp.errata.add">
 				<source>Add Errata</source>
-				<target state="needs-review-translation">ত্রুটি-বিচ্যুতি সংযোজন</target>
+				<target>ত্রুটি-বিচ্যুতি সংযোজন</target>
 			</trans-unit>
 			<trans-unit id="list.jsp.errata.add">
 				<source>Add Errata</source>
-				<target state="needs-review-translation">ত্রুটি-বিচ্যুতি সংযোজন</target>
+				<target>ত্রুটি-বিচ্যুতি সংযোজন</target>
 			</trans-unit>
 			<trans-unit id="list.jsp.errata.listremove">
 				<source>List/Remove Errata</source>
-				<target state="needs-review-translation">তালিকা নির্মাণ/অপসারণ</target>
+				<target>ত্রুটি-বিচ্যুতির তালিকা নির্মাণ/অপসারণ</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.listempty">
 				<source>There are no errata associated with this channel.</source>
-				<target state="needs-review-translation">এই চ্যানেলের সাথে কোনো প্যাচ সংকলন উপলব্ধ নেই।</target>
+				<target>এই চ্যানেলের সাথে কোনো ত্রুটি-বিচ্যুতি যুক্ত নেই।</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.remove">
 				<source>Remove Errata</source>
@@ -14803,28 +15037,81 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.remove.message">
 				<source>Below is the list of errata associated with this channel. To remove an erratum from this channel, select it here, and click 'Remove' below.</source>
+				<target>নিম্নলিখিত ত্রুটি-বিচ্যুতিরগুলি এই চ্যানেলের সাথে যুক্ত। কোনো ত্রুটি-বিচ্যুতি মুছে ফেলার জন্য সেটি এইখানে নির্বাচন করে 'মুছে ফেলুন' ক্লিক করুন।</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.remove.confirmmessage">
 				<source>Click 'Confirm' below to remove these errata from your channel. Related packages will also be removed from the channel.</source>
+				<target>চ্যানেল থেকে ত্রুটি-বিচ্যুতিগুলি মুছে ফেলার জন্য 'নিশ্চিত করুন' ক্লিক করুন। এর সাথে যুক্ত প্যাকেজগুলিও চ্যানেল থেকে সরিয়ে ফেলা হবে।</target>
 			</trans-unit>
 			<trans-unit id="channel.jsp.errata.remove.finalmessage">
 				<source>Successfully removed {0} errata from this channel.</source>
-				<target state="needs-review-translation">ফাইলটি সাফল্যের সাথে 1 চ্যানেলে কপি করা হয়েছে।</target>
+				<target>এই চ্যানেল থেকে সাফল্যের সাথে {0}-টি ত্রুটি-বিচ্যুতি মুছে ফেলা হয়েছে।</target>
 			</trans-unit>
 			<trans-unit id="unknown.package">
 				<source>Unknown Package</source>
-				<target state="needs-review-translation">প্যাকেজ ডাউনলোড করুন</target>
+				<target>অজানা প্যাকেজ</target>
 			</trans-unit>
 			<trans-unit id="unknown.package.msg">
 				<source>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by Red Hat Network.</source>
+				<target>দুঃখিত, আপনার অনুরোধ করা প্যাকেজ সম্পর্কে কোনো তথ্য আমাদের ডাটাবেসের মধ্যে উপস্থিত নেই। সম্ভবত, আপনার ইনস্টল করা এটি কোনো স্বনির্ধারিত প্যাকেজ অথবা Red Hat Network দ্বারা সমর্থন না করা কোনো ডিস্ট্রিবিউশন থেকে প্রাপ্ত হয়েছে।</target>
 			</trans-unit>
 			<trans-unit id="unknown.kickstart">
 				<source>Kickstart Not Found</source>
-				<target state="needs-review-translation">Kickstart সংক্রান্ত কর্ম</target>
+				<target>kickstart পাওয়া যায়নি</target>
 			</trans-unit>
 			<trans-unit id="unknown.kickstart.message">
 				<source>The requested kickstart file could not be found.
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
+				<target>অনুরোধ করা kickstart ফাইলটি পাওয়া যায়নি।
+         প্রতিষ্ঠানের কোনো ডিফল্ট kickstart-র অনুরোধ জানানো হলে অনুগ্রহ করে নিশ্চিত করুন যে সংশ্লিষ্ট kickstart-টি "প্রতিষ্ঠানের ডিফল্ট" রূপে ধার্য করা হয়েছে।</target>
+			</trans-unit>
+			<trans-unit id="task.status.current.db.time">
+				<source>Current DB Time</source>
+				<target state="needs-review-translation">বর্তমান-কি</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.execution">
+				<source>Last Execution Times</source>
+				<target state="needs-review-translation">স্ক্রিপ্ট সঞ্চালনের সময়কাল</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.completed">
+				<source>Last Completed Action</source>
+				<target state="needs-review-translation">সমাপ্ত কর্ম</target>
+			</trans-unit>
+			<trans-unit id="task.status.session.cleanup">
+				<source>Session Cleanup</source>
+			</trans-unit>
+			<trans-unit id="task.status.errata.queue.notif">
+				<source>Errata Notification Queue</source>
+				<target state="needs-review-translation">ত্রুটি-বিচ্যুতি সংক্রান্ত সূচনা প্রেরণ করুন</target>
+			</trans-unit>
+			<trans-unit id="task.status.errata.mail">
+				<source>Errata Notification Mail</source>
+				<target state="needs-review-translation">ত্রুটি-বিচ্যুতি সংক্রান্ত সূচনা প্রেরণ করুন</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary">
+				<source>Daily Summary Queue</source>
+				<target state="needs-review-translation">দৈনিক সারসংক্ষেপ</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary.mail">
+				<source>Daily Summary Mail</source>
+				<target state="needs-review-translation">দৈনিক সারসংক্ষেপ</target>
+			</trans-unit>
+			<trans-unit id="task.status.clean.alerts">
+				<source>Clean Current Alerts</source>
+				<target state="needs-review-translation">বর্তমান সংস্করণ</target>
+			</trans-unit>
+			<trans-unit id="task.status.sync.probe">
+				<source>Sync Probe State</source>
+				<target state="needs-review-translation">অনুসন্ধানের অবস্থা</target>
+			</trans-unit>
+			<trans-unit id="task.status.message">
+				<source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
+			</trans-unit>
+			<trans-unit id="task.status.title">
+				<source>Task Engine Status</source>
+			</trans-unit>
+			<trans-unit id="actions.jsp.pickedup">
+				<source>Picked Up</source>
 			</trans-unit>
 		</body>
 	</file>

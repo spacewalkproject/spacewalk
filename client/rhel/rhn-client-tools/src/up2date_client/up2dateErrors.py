@@ -526,6 +526,14 @@ class PasswordMaxLengthError(Error):
     def __repr__(self):
         return self.errmsg
 
+class ServerUnavailableError(Error):
+    def __init__(self, msg):
+        self.errmsg = msg
+
+    def __repr__(self):
+        return self.errmsg
+
+
 class InsuffMgmntEntsError(RhnServerException):
     def __init__(self, msg ):
         self.errmsg = self.changeExplanation(msg)

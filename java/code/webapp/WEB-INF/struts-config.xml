@@ -255,6 +255,7 @@
             <form-property name="search_string" type="java.lang.String"/>
             <form-property name="view_mode" type="java.lang.String"/>
             <form-property name="channel_arch" type="java.lang.String[]"/>
+            <form-property name="channel_filter" type="java.lang.String"/>
             <form-property name="filter_value" type="java.lang.String"/>
             <form-property name="prev_filter_value" type="java.lang.String"/>
             <form-property name="relevant" type="java.lang.String" />
@@ -781,6 +782,8 @@
             <form-property name="bootimage" type="java.lang.String"/>
             <form-property name="channelid" type="java.lang.Long"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
+            <form-property name="kernelopts" type="java.lang.String"/>
+            <form-property name="postkernelopts" type="java.lang.String"/>
         </form-bean>
         
         <form-bean name="treeDeleteForm"
@@ -794,7 +797,7 @@
         </form-bean>
                 
         <form-bean name="cobblerSnippetsForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+                   type="com.redhat.rhn.frontend.struts.ContentsForm">
             <form-property name="name" type="java.lang.String" />
             <form-property name="oldName" type="java.lang.String" />
             <form-property name="contents" type="java.lang.String" />
@@ -840,7 +843,13 @@
             <form-property name="gpg_key_id" type="java.lang.String" />
             <form-property name="gpg_key_fingerprint" type="java.lang.String" />
         </form-bean>
-		
+
+       <form-bean name="channelDeleteForm" 
+           type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+           <form-property name="cid" type="java.lang.Long"/>
+           <form-property name="submitted" type="java.lang.Boolean"/>
+       </form-bean>
+       
 	<!-- ConfigChannel forms -->
     <form-bean name="channelOverviewForm"
       type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
@@ -6160,6 +6169,27 @@
        <forward name="default" path="/channels/manage/errata/Add.do" />
       </action>
 
+
+      <action path="/channels/manage/errata/SyncErrata"
+        scope="request"
+        input="/WEB-INF/pages/channel/manage/erratasync.jsp"
+        type="com.redhat.rhn.frontend.action.channel.manage.SyncErrataAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="default" path="/WEB-INF/pages/channel/manage/erratasync.jsp" />
+      <forward name="submit" path="/channels/manage/errata/ConfirmSyncPackages.do" redirect="true"/>
+      </action>
+
+      <action path="/channels/manage/errata/ConfirmSyncPackages"
+        scope="request"
+        input="/WEB-INF/pages/channel/manage/erratapackagesync.jsp"
+        type="com.redhat.rhn.frontend.action.channel.manage.SyncErrataPackagesAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="default" path="/WEB-INF/pages/channel/manage/erratapackagesync.jsp" />
+      <forward name="submit" path="/channels/manage/errata/SyncErrata.do" redirect="true"/>
+      </action>
+
+
+
    <action path="/channels/manage/errata/Errata"
         scope="request"
         type="com.redhat.rhn.frontend.action.channel.manage.ErrataIndexAction"
@@ -6212,6 +6242,15 @@
            type="com.redhat.rhn.frontend.action.channel.manage.ManageChannelsAction"
            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <forward name="default" path="/WEB-INF/pages/channel/manage/manage.jsp"/> 
+   </action>
+     
+   <action path="/channels/manage/Delete"
+           scope="request"
+           name="channelDeleteForm"
+           type="com.redhat.rhn.frontend.action.channel.manage.DeleteChannelAction"
+           className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="default" path="/WEB-INF/pages/channel/manage/delete.jsp"/> 
+      <forward name="success" path="/channels/manage/Manage.do"/> 
    </action>
      
    <action path="/channels/manage/Edit"
@@ -6473,7 +6512,20 @@
                  path="/WEB-INF/pages/ssm/packageverifyschedule.jsp" />
         <forward name="confirm"
                  path="/ssm/Packages.do"/>
-     </action>                                          
+     </action>
+
+
+
+     <action path="/admin/TaskStatus"
+         scope="request"
+         name="datePickerForm"
+         input="/WEB-INF/pages/admin/taskStatus.jsp"
+         type="com.redhat.rhn.frontend.action.satellite.TaskStatusAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/admin/taskStatus.jsp" />
+        <forward name="confirm"
+                 path="/ssm/Packages.do"/>
+     </action>
     
   </action-mappings>
 

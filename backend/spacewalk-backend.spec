@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.5
+Version: 0.6.10
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -194,6 +194,7 @@ Summary: Red Hat Network Services Satellite Tools
 Group: Applications/Internet
 Requires: %{name}-xmlrpc = %{version}-%{release}
 Requires: %{name}-app = %{version}-%{release}
+Requires: %{name}
 Requires: spacewalk-certs-tools
 Requires: spacewalk-admin >= 0.1.1-0
 Requires: python-gzipstream
@@ -294,6 +295,8 @@ rm -f %{rhnconf}/rhnSecret.py*
 # config files
 %attr(750,root,apache) %dir %{rhnconf}/default
 %attr(640,root,apache) %{rhnconf}/default/rhn.conf
+%attr(755,root,root) %{_bindir}/spacewalk-cfg-get
+%{_mandir}/man8/spacewalk-cfg-get.8.gz
 
 %files sql
 %defattr(-,root,root)
@@ -505,7 +508,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/rhn-satellite-exporter
 %attr(755,root,root) %{_bindir}/update-packages
 %attr(755,root,root) %{_bindir}/rhn-db-stats
-%attr(750,root,root) %{_bindir}/md5crypt
 %attr(750,root,root) %{_bindir}/satpasswd
 %attr(750,root,root) %{_bindir}/satwho
 %{rhnroot}/satellite_tools/SequenceServer.py*
@@ -538,6 +540,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/rhn-satellite-activate.8*
 %{_mandir}/man8/rhn-schema-version.8*
 %{_mandir}/man8/rhn-ssl-dbstore.8*
+%{_mandir}/man8/rhn-db-stats.8*
 %{_mandir}/man8/satellite-sync.8*
 %{_mandir}/man8/spacewalk-debug.8*
 %{_mandir}/man8/satpasswd.8*
@@ -565,6 +568,46 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed May 27 2009 Brad Buckingham <bbuckingham@redhat.com> 0.6.10-1
+- 309601 - removing md5crypt from spacewalk-backend-tools
+  (bbuckingham@redhat.com)
+
+* Wed May 27 2009 Jan Pazdziora 0.6.9-1
+- spacewalk-backend: add command-line utility spacewalk-cfg-get to
+  print config values
+
+* Tue May 26 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.7-1
+- fixing the keyError as we should be using smbios.system.uuid
+  (pkilambi@redhat.com)
+- 495778 - process UTF-8 input. (jpazdziora@redhat.com)
+- 491831 - fix detection if monitoring is enabled (msuchy@redhat.com)
+- make variables attributes of instance and not class itself
+  (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- make attributes real attributes and not global variables (msuchy@redhat.com)
+
+* Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.6-1
+- 485698 - manual page: fix --db option syntax (mzazrivec@redhat.com)
+- 469219 - Adding the permissions ability to our caching mechanism. (pkilambi@redhat.com)
+- simplifying the previos commit even more. All we need to check here is if the
+  hostename is in the allowed list or not. Jus this one line should accomplish
+  that (pkilambi@redhat.com)
+- list.pop is causing some unexpected behavior causing to retain the popped
+  list in memory and failing the subsequent compares as the list is not being
+  garbage collected looks like. very weird behavior and causes the slave check
+  ins to fail with ISS not allowed errors. This should resolve the issue as we
+  dont modify the list object in place (pkilambi@redhat.com)
+- 500168 - fixed virt guest install was marked complete when it was not (jsherril@redhat.com)
+- 486526 - use getent instead of grep /etc/{passwd|group} (mzazrivec@redhat.com)
+- 439042 - Another pass at conveying a better error message (pkilambi@redhat.com)
+- 499560 - sysexit trap is overriding the error codes returned by the
+  businesslogic with 0. removing the catch so the exit codes propogate all the
+  way through when exporter fails. (pkilambi@redhat.com)
+- 477703 - Adding the size limit changes to disk dumper as well (pkilambi@redhat.com)
+- 477703 - Porting changes from hosted to limit the size of the data being
+  exported slave satellite is pulling content from master (pkilambi@redhat.com)
+- Basic support for detecting a KVM/QEMU guest on registration (jbowes@redhat.com)
+
 * Mon May 11 2009 Brad Buckingham <bbuckingham@redhat.com> 0.6.5-1
 - 309601 - updating satpasswd/satwho to pull db info from rhn.conf
   (bbuckingham@redhat.com)

@@ -23,7 +23,7 @@ import sys
 import types
 import os
 import popen2
-
+import os.path
 from koan.app import Koan
 
 SHADOW      = "/tmp/ks-tree-shadow"
@@ -91,13 +91,22 @@ def initiate(kickstart_host, base, extra_append, static_device=None, system_reco
     
     return (0, "Kickstart initiate succeeded", error_messages)
 
+
+class VirtDiskPathExistsError(Exception):
+    def __init__(self, disk_path):
+        self.value = disk_path
+    def __str__(self):
+        return "Virt Disk Path %s already exists on the host system. Please provide another disk path for the virt guest and reschedule your guest kickstart." % self.value
+
+
 def initiate_guest(kickstart_host, cobbler_system_name, virt_type, name, mem_kb,
                    vcpus, disk_gb, virt_bridge, disk_path, extra_append, log_notify_handler=None):
 
     error_messages = {}
     success = 0
-
     try:
+        if os.path.exists(disk_path):
+            raise VirtDiskPathExistsError(disk_path)
         k = Koan()
         k.list_items          = False
         k.server              = kickstart_host
@@ -118,14 +127,12 @@ def initiate_guest(kickstart_host, cobbler_system_name, virt_type, name, mem_kb,
         k.add_reinstall_entry = None
         k.kopts_override      = None
         k.run()
-
     except Exception, e:
         (xa, xb, tb) = sys.exc_info()
-        try:
-            getattr(e,"from_koan")
+        if  hasattr(e,"from_koan") and len(str(e)) > 1:
             error_messages['koan'] = str(e)[1:-1]
             print str(e)[1:-1] # nice exception, no traceback needed
-        except:
+        else:
             print xa
             print xb
             print string.join(traceback.format_list(traceback.extract_tb(tb)))
@@ -133,9 +140,6 @@ def initiate_guest(kickstart_host, cobbler_system_name, virt_type, name, mem_kb,
         return (1, "Virtual kickstart failed. Koan error.", error_messages)
 
     return (0, "Virtual kickstart initiate succeeded", error_messages)
-
-
-
 
 def create_new_rd(initrd, preserve_files=[]):
     """

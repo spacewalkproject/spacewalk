@@ -15,6 +15,7 @@
 
 package com.redhat.rhn.frontend.taglibs.list.helper;
 
+import com.redhat.rhn.frontend.dto.BaseDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.Selectable;
@@ -24,6 +25,7 @@ import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -86,6 +88,7 @@ abstract class ListSetHelper extends ListHelper {
     private boolean dispatched = false;
     private boolean ignoreEmptySelection = false;
     private boolean willClearSet = true;
+    private boolean preSelectAll = false;
     
     private Set initSet = Collections.EMPTY_SET; 
     /**
@@ -138,8 +141,8 @@ abstract class ListSetHelper extends ListHelper {
         if (!context.isSubmitted() && alphaBarPressed == null && willClearSet) {
             clear();
             add(getPreSelected());
-        }        
-        
+        }
+
         if (request.getParameter(RequestContext.DISPATCH) != null) {
             // if its one of the Dispatch actions handle it..            
             update();
@@ -161,6 +164,16 @@ abstract class ListSetHelper extends ListHelper {
         
         List dataSet = getDataSet();
         
+
+        if (!context.isSubmitted() && alphaBarPressed == null && preSelectAll) {
+            Set selSet = new HashSet();
+            for (BaseDto bdto : (List<BaseDto>) dataSet) {
+                selSet.add(bdto.getId());
+            }
+            add(selSet);
+        }
+
+
         // if its a list action update the set and the selections
         if (ListTagHelper.getListAction(getListName(), request) != null) {
             execute(dataSet);
@@ -288,6 +301,22 @@ abstract class ListSetHelper extends ListHelper {
      */
     public void setWillClearSet(boolean willClearSetIn) {
         this.willClearSet = willClearSetIn;
+    }
+
+
+    /**
+     * @return Returns the preSelectAll.
+     */
+    public boolean isPreSelectAll() {
+        return preSelectAll;
+    }
+
+
+    /**
+     * @param preSelectAllIn The preSelectAll to set.
+     */
+    public void setPreSelectAll(boolean preSelectAllIn) {
+        this.preSelectAll = preSelectAllIn;
     }
 
 }

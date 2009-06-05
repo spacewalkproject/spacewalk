@@ -54,6 +54,9 @@ public class Channel extends BaseDomainHelper implements Comparable {
     private static List<String> releaseToSkipRepodata = new ArrayList<String>(Arrays
             .asList("2.1AS", "2.1ES", "2.1WS", "3AS", "3ES", "3WS", "3Desktop", "4AS",
                     "4ES", "4WS", "4Desktop"));
+    private static List<String> archesToSkipRepodata = new ArrayList<String>(Arrays
+            .asList("channel-sparc-sun-solaris", "channel-i386-sun-solaris", 
+                    "channel-sparc"));
     private String baseDir;
     private ChannelArch channelArch;
     private String description;
@@ -387,6 +390,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     /**
      * Adds a single package to the channel
      * @param packageIn The package to add
+     * @deprecated
      */
     public void addPackage(Package packageIn) {
         if (!getChannelArch().isCompatible(packageIn.getPackageArch())) {
@@ -395,6 +399,22 @@ public class Channel extends BaseDomainHelper implements Comparable {
         }
         packages.add(packageIn);
     }
+
+    /**
+     * Adds a single package to the channel
+     * @param packageIn The package to add
+     * @param user the user doign the add
+     */
+    public void addPackage(Package packageIn, User user) {
+        if (!getChannelArch().isCompatible(packageIn.getPackageArch())) {
+            throw new IncompatibleArchException(packageIn.getPackageArch(),
+                    getChannelArch());
+        }
+        List<Long> list = new ArrayList<Long>();
+        list.add(packageIn.getId());
+        ChannelManager.addPackages(this, list, user);
+    }
+
 
     /**
      * Removes a single package from the channel
@@ -445,6 +465,18 @@ public class Channel extends BaseDomainHelper implements Comparable {
      */
     public Set<Org> getTrustedOrgs() {
         return this.trustedOrgs;
+    }
+
+    /**
+     * @return number of trusted organizations that have access to this channel
+     */
+    public int getTrustedOrgsCount() {
+        if (trustedOrgs != null) {
+            return trustedOrgs.size();
+        }
+        else {
+            return 0;
+        }
     }
 
     /**
@@ -719,7 +751,9 @@ public class Channel extends BaseDomainHelper implements Comparable {
      */
     public boolean isChannelRepodataRequired() {
         boolean repodataRequired = false;
-        if (this.isCustom()) {
+        // generate repodata for all custom channels except solaris
+        if (this.isCustom() &&
+                !archesToSkipRepodata.contains(this.channelArch.getLabel())) {
             repodataRequired = true;
             log.debug("isChannelRepodataRequired for channel(" + this.id +
                     ") set to true because it is a custom Channel");
@@ -750,4 +784,11 @@ public class Channel extends BaseDomainHelper implements Comparable {
         return repodataRequired;
     }
 
+    /**
+     * true if the channel contains any kickstartstartable distros
+     * @return true if the channel contains any distros.
+     */
+    public boolean containsDistributions() {
+        return ChannelFactory.containsDistributions(this);
+    }
 }

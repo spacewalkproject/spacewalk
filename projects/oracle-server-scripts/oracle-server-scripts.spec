@@ -9,7 +9,7 @@
 Summary: Oracle 10g Database Server Enterprise Edition scripts
 Name: oracle-server-scripts
 Version: 10.2.0
-Release: 27%{?dist}
+Release: 29%{?dist}
 Source0: oracle-home.sh
 Source1: init-params.ora
 Source2: create-db.sh
@@ -23,6 +23,7 @@ Source9: default-createdb.tmpl
 Source10: embedded-createdb.tmpl
 Source11: rhnora.m4
 Source12: embedded-upgradedb.tmpl
+Source13: embedded-upgradedb-10g.tmpl
 License: Proprietary
 Group:   Oracle Server
 BuildArch: noarch
@@ -45,7 +46,7 @@ mkdir -p $RPM_BUILD_ROOT
 install -m755 -d $RPM_BUILD_ROOT%{oracle_admin}
 for f in %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} \
 	 %{SOURCE4} %{SOURCE5} %{SOURCE9} %{SOURCE10} %{SOURCE11} \
-	 %{SOURCE12}; do
+	 %{SOURCE12} %{SOURCE13}; do
     install -m 755 $f $RPM_BUILD_ROOT%{oracle_admin}
 done
 
@@ -94,6 +95,12 @@ exit 0
 %{oracle_scripts}
 
 %changelog
+* Tue Jun 02 2009 Milan Zazrivec <mzazrivec@redhat.com> 10.2.0-29
+- script for 10.2.0.3 to 10.2.0.4 10g upgrade
+* Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 10.2.0-28
+- 498192 - fix PL/SQL compilation error during embedded db upgrade (mmraka@redhat.com)
+- 498192 - fix ORA-10647 during embedded db upgrade (mzazrivec@redhat.com)
+
 * Mon May 11 2009 Michael Mraka <michael.mraka@redhat.com> 10.2.0-27
 - fixed 'plan_table does not exist' during upgrade
 - 498192 - fix compilation error during embedded db upgrade

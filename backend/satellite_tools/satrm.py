@@ -278,9 +278,6 @@ def _delete_rpms(packageIds):
     if not packageIds:
         return
 
-    for pid in packageIds:
-        h.execute(package_id = pid)
-
     references = [
         'rhnChannelPackage', 
         'rhnErrataPackage', 

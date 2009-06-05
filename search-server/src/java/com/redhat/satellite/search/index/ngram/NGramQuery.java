@@ -60,11 +60,16 @@ public class NGramQuery extends BooleanQuery {
      * Forms a BooleanQuery with each term in the original PhraseQuery OR'd.
      * Note:  Assumes that each term has already been tokenized into a ngram, 
      * this method will not re-tokenize terms.
+     * @param useMust controls if BooleanClause.Occur SHOULD or MUST is used.
      */
-    public NGramQuery(PhraseQuery pq) {
+    public NGramQuery(PhraseQuery pq, boolean useMust) {
         Term[] terms = pq.getTerms();
         for (int i = 0; i < terms.length; i++) {
-            add(new TermQuery(terms[i]), BooleanClause.Occur.SHOULD);
+            BooleanClause.Occur occur = BooleanClause.Occur.SHOULD;
+            if (useMust) {
+                occur = BooleanClause.Occur.MUST;
+            }
+            add(new TermQuery(terms[i]), occur);
         }
     }
 

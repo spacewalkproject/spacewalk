@@ -21,7 +21,6 @@ CREATE TABLE rhnReleaseChannelMap
     release          VARCHAR2(64) NOT NULL, 
     channel_arch_id  NUMBER NOT NULL, 
     channel_id       NUMBER NOT NULL, 
-    is_default       CHAR(1) NOT NULL, 
 
     CONSTRAINT rhn_rcm_default_ck
         CHECK (is_default in ( 'Y' , 'N' )),

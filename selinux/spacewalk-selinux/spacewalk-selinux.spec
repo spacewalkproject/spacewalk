@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        0.6.4
+Version:        0.6.8
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -31,6 +31,7 @@ Requires(postun): /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/semanage
 Requires:       spacewalk-config
 Requires:       spacewalk-admin
 Requires:       spacewalk-backend
+Requires:       spacewalk-setup
 Requires:       spacewalk-backend-server
 Requires:       spacewalk-certs-tools
 Requires:       oracle-instantclient-selinux
@@ -91,7 +92,6 @@ if [ $1 -eq 0 ]; then
       /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
         && /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} || :
     done
-  /usr/sbin/semanage port -d -t cobbler_port_t -p tcp 25152 || :
 fi
 
 /sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl %{_sbindir}/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn \
@@ -105,6 +105,16 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Wed May 27 2009 Jan Pazdziora 0.6.8-1
+- call to spacewalk-make-mount-points and Require spacewalk-setup for that
+- add invocation of oracle-nofcontext-selinux-enable
+
+* Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.6-1
+- spacewalk-selinux-enable: do not print the Running ... message when run in %%post. (jpazdziora@redhat.com)
+
+* Mon May 18 2009 Jan Pazdziora 0.6.5-1
+- spacewalk-selinux: remove cobbler_port_t definition and any references to it
+
 * Mon May 11 2009 Jan Pazdziora 0.6.4-1
 - spacewalk-selinux-enable: add invocation of other -selinux-enable scripts
 - only run them if --run-pure is not specified

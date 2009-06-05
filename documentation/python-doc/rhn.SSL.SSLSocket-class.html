@@ -35,7 +35,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="rhn-module.html">Package&nbsp;rhn</a> ::
-        <a href="rhn.SSL-module.html">Module&nbsp;SSL</a> ::
+        <a href="rhn.SSL-module.html" onclick="show_private();">Module&nbsp;SSL</a> ::
         Class&nbsp;SSLSocket
       </span>
     </td>
@@ -43,7 +43,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="rhn.SSL.SSLSocket-class.html"
@@ -53,9 +53,9 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class SSLSocket</h1><span class="codelink"><a href="rhn.SSL-pysrc.html#SSLSocket">source&nbsp;code</a></span><br /><br />
-Class that wraps a pyOpenSSL Connection object, adding more 
-  methods<br /><br />
+<h1 class="epydoc">Class SSLSocket</h1><p class="nomargin-top"><span class="codelink"><a href="rhn.SSL-pysrc.html#SSLSocket">source&nbsp;code</a></span></p>
+<p>Class that wraps a pyOpenSSL Connection object, adding more 
+  methods</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -82,7 +82,7 @@ Class that wraps a pyOpenSSL Connection object, adding more
         <tr>
           <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">socket</span>,
-        <span class="summary-sig-arg">trusted_certs</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span></td>
+        <span class="summary-sig-arg">trusted_certs</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="rhn.SSL-pysrc.html#SSLSocket.__init__">source&nbsp;code</a></span>
             
@@ -136,7 +136,7 @@ Class that wraps a pyOpenSSL Connection object, adding more
         <tr>
           <td><span class="summary-sig"><a name="makefile"></a><span class="summary-sig-name">makefile</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">mode</span>,
-        <span class="summary-sig-arg">bufsize</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span><br />
+        <span class="summary-sig-arg">bufsize</span>=<span class="summary-sig-default">None</span>)</span><br />
       Returns self, since we are a file-like object already</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="rhn.SSL-pysrc.html#SSLSocket.makefile">source&nbsp;code</a></span>
@@ -271,7 +271,7 @@ Class that wraps a pyOpenSSL Connection object, adding more
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="read"></a><span class="summary-sig-name">read</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">amt</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span><br />
+        <span class="summary-sig-arg">amt</span>=<span class="summary-sig-default">None</span>)</span><br />
       Reads up to amt bytes from the SSL connection.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="rhn.SSL-pysrc.html#SSLSocket.read">source&nbsp;code</a></span>
@@ -378,7 +378,7 @@ Class that wraps a pyOpenSSL Connection object, adding more
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="readline"></a><span class="summary-sig-name">readline</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">length</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span><br />
+        <span class="summary-sig-arg">length</span>=<span class="summary-sig-default">None</span>)</span><br />
       Reads a single line (up to `length' characters long) from the SSL 
       connection.</td>
           <td align="right" valign="top">
@@ -414,10 +414,11 @@ Class that wraps a pyOpenSSL Connection object, adding more
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:56 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:07 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -428,9 +429,8 @@ Class that wraps a pyOpenSSL Connection object, adding more
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

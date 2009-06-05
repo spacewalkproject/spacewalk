@@ -1136,7 +1136,7 @@
 			</trans-unit>
 			<trans-unit id="preferences.jsp.leadin">
 				<source>@@PRODUCT_NAME@@ offers email notifications for when errata relevant to your systems are released, as well as daily emails summarizing the events for your systems.</source>
-				<target>@@PRODUCT_NAME@@은 시스템과 관련된 에라타가 출시될 때 마다 이메일을 통해 알려드릴 뿐만 아니라 매일 시스템 이벤트가 요약된 이메일을 보내드립니다. </target>
+				<target>@@PRODUCT_NAME@@는 시스템과 관련된 에라타가 출시될 때 마다 이메일을 통해 알려드릴 뿐만 아니라 매일 시스템 이벤트가 요약된 이메일을 보내드립니다.   </target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.receivenote">
 				<source> Receive email notifications</source>
@@ -1793,7 +1793,7 @@
 			<trans-unit id="disableself.jsp.message">
 				<source>You may deactivate your @@PRODUCT_NAME@@ account below. &lt;b&gt;This will remove your ability
 to log into @@PRODUCT_NAME@@.&lt;/b&gt;</source>
-				<target>@@PRODUCT_NAME@@ 계정을 비활성화하실 수 있습니다.&lt;b&gt;계정을 비활성화하시면,
+				<target>@@PRODUCT_NAME@@ 계정을 비활성화하실 수 있습니다.&lt;b&gt;계정을 비활성화하시면, 
 @@PRODUCT_NAME@@에 로그인할 수 없게됩니다.&lt;/b&gt; </target>
 			</trans-unit>
 			<trans-unit id="disableself.jsp.message2">
@@ -5863,7 +5863,7 @@ organization management tools if you choose to remove this role from your login.
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.orgaccess.header">
 				<source>Trusted Organization Access to Channel Content</source>
-				<target>채널 콘텐츠로 신뢰할 수 있는 조직의 접근   </target>
+				<target>채널 컨텐츠로 신뢰할 수 있는 조직의 접근      </target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.orgaccess.summary">
 				<source>The organizations listed below are organizations with which
@@ -5871,9 +5871,9 @@ organization management tools if you choose to remove this role from your login.
           granted access to view and consume the content in
           &lt;strong&gt;{0}&lt;/strong&gt; channel. Organizations that are not checked below will not have access to this software channel. You can modify an organization's access to this channel below.</source>
 				<target>아래에는 신뢰성 있는 조직이 있는 조직 목록이 나열되어 있습니다.
-아래에 표시된 조직은 &lt;strong&gt;{0}&lt;/strong&gt; 채널에 있는 컨텐츠를
+아래에 표시된 조직은 &lt;strong&gt;{0}&lt;/strong&gt; 채널에 있는 내용을
  검색 및 사용할 수 있는 액세스 권한을 갖게 됩니다.
- 아래에 표시되지 않은 조직은 이러한 소프트웨어 채널에 액세스할 수 없습니다. 이러한 채널로의 조직의 액세스를 다음에서 변경할 수 있습니다.   </target>
+ 아래에 표시되지 않은 조직은 이러한 소프트웨어 채널에 액세스할 수 없습니다. 이러한 채널로의 조직의 액세스를 다음에서 변경할 수 있습니다.    </target>
 			</trans-unit>
 			<trans-unit id="orgtrustdetails.jsp.header3">
 				<source>System Details</source>
@@ -6491,9 +6491,9 @@ the following tabs in the left navigation menu:</source>
 provided by each entitlement. On a per-entitlement basis, 
 you can allocate entitlements for any particular entitlement across all 
 organizations on your @@PRODUCT_NAME@@ here as well.</source>
-				<target>@@PRODUCT_NAME@@에 있는 서브스크립션을 관리합니다. 각각의 인타이틀먼트에서 제공하는 액세스가 무엇인지를
+				<target>@@PRODUCT_NAME@@에 있는 서브스크립션을 관리합니다. 각각의 인타이틀먼트에서 제공하는 액세스가 무엇인지를 
 살펴보실 수 도 있습니다. 각각의 인타이틀먼트에 기반하여, 
-여기서 @@PRODUCT_NAME@@에 있는 모든 조직에 걸쳐 특정 인타이틀먼트에 대한 인타이틀먼트를
+여기서 @@PRODUCT_NAME@@에 있는 모든 조직에 걸쳐 특정 인타이틀먼트에 대한 인타이틀먼트를 
 할당하실 수 있습니다.      </target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.link2">
@@ -6715,7 +6715,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="cobbler.jsp.summary2">
 				<source>Cobbler sync is used to repair or rebuild the contents /tftpboot or /var/www/cobbler when manual modification of cobbler has occured.</source>
-				<target>cobbler가 수동으로 변경되었을 경우 Cobbler 동기화를 사용하여 /tftpboot 또는 /var/www/cobbler 컨텐츠를 복구하거나 다시 작성합니다.    </target>
+				<target>cobbler가 수동으로 변경되었을 경우 Cobbler 동기화를 사용하여 /tftpboot 또는 /var/www/cobbler 내용을 복구하거나 다시 작성합니다.     </target>
 			</trans-unit>
 			<trans-unit id="cobbler.jsp.summary3">
 				<source>For more information refer to the 'cobbler' man page.</source>
@@ -6806,10 +6806,10 @@ Please note that some manual configuration of these scripts may still be require
 				<target>업데이트 변수 </target>
 			</trans-unit>
 			<trans-unit id="kickstart.variable.jsp.summary">
-				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
-				You would then use $name within the profile to substitute in the value.</source>
-				<target>킥스타트 변수를 사용하여 킥스타트 프로파일로 값을 대체할 수 있습니다. 변수를 정의하려면 'name=value'를 아래의 란에 추가합니다.
-				그 후 프로파일에 $name을 사용하여 값을 대체할 수 있습니다.  </target>
+				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+        			You would then use $name within the profile to substitute in the value.</source>
+				<target>킥스타트 변수를 사용하여 킥스타트 프로파일로 값을 대체할 수 있습니다. 변수를 정의하려면 'name=value'를 아래의 란에 추가합니다.  
+        			그 후 프로파일에 $name을 사용하여 값을 대체할 수 있습니다.  </target>
 			</trans-unit>
 			<trans-unit id="kickstarttree.variable.jsp.summary">
 				<source>Any variables specified below will be usable in any profile that uses this distro.  They can be overridden in each profile as well.</source>
@@ -7044,8 +7044,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>아래에 나온 입력란에서 킥스타트 프로파일을 수정하실 수 있습니다. 별표(*)로 표시된 항목은 필수 입력란입니다.</target>
 			</trans-unit>
 			<trans-unit id="kickstartdelete.jsp.summary1">
-				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its associated system and corresponding options.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
-				<target>킥스타트를 정말로 삭제하시겠습니까?&lt;strong&gt;&lt;p&gt;경고: 킥스타트를 삭제하시면 이와 관련된 시스템과 옵션이 모두 삭제됩니다.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;버튼을 한번만 클릭하시기 바랍니다: 삭제 작업이 완료될 때까지 약간의 시간이 소요될 수 있습니다.&lt;/strong&gt;&lt;/p&gt; </target>
+				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its corresponding options and scripts.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
+				<target state="needs-review-translation">킥스타트를 정말로 삭제하시겠습니까?&lt;strong&gt;&lt;p&gt;경고: 킥스타트를 삭제하시면 이와 관련된 시스템과 옵션이 모두 삭제됩니다.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;버튼을 한번만 클릭하시기 바랍니다: 삭제 작업이 완료될 때까지 약간의 시간이 소요될 수 있습니다.&lt;/strong&gt;&lt;/p&gt; </target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.summary2">
 				<source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
@@ -7149,12 +7149,12 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations.
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
+            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
+            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
             tab to verify the new settings.</source>
 				<target>&lt;strong&gt;알림:&lt;/strong&gt; 가상화 유형을 변경하면 킥스타트 프로파일의
  부트로더 및 파티션 옵션을 변경해야 할 수 도 있으므로, 사용자 정의 내용을 덮어쓰기합니다.
-&lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;파티션&lt;/a&gt;
+&lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;파티션&lt;/a&gt; 
  탭을 선택하여 새 설정 사항을 확인하십시오.   </target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.active">
@@ -7649,10 +7649,10 @@ kickstart pre scripts, please refer to the &lt;strong&gt;Red Hat Enterprise Linu
 You can also edit the post script for this kickstart below.  First, commands related to @@PRODUCT_NAME@@ will automatically be performed (for example, esystem registration to @@PRODUCT_NAME@@).
 Next, the non-chroot post script will be executed, and finally the post script will be executed.  For more details on kickstart post scripts, please refer to
 the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/strong&gt;</source>
-				<target>이 킥스타트의 사전 설치 스크립트와 사후 설치 스크립트를 아래에서 수정하실 수 있습니다.킥스타트 사전 설치 스크립트는 시스템 상에서 킥스타트 파일이 읽혀진 이후 즉시 실행됩니다.
+				<target>이 킥스타트의 사전 설치 스크립트와 사후 설치 스크립트를 아래에서 수정하실 수 있습니다.킥스타트 사전 설치 스크립트는 시스템 상에서 킥스타트 파일이 읽혀진 이후 즉시 실행됩니다.  
 이 부분에서 네트워크 접속이 가능하지만, IP 주소를 사용하셔야만 합니다 (이 시점에서는 아직 name 서비스가 설정되지 않았기 때문입니다).  킥스타트 사전 설치 스크립트에 대한 보다 상세한 정보는 &lt;strong&gt;Red Hat Enterprise Linux 시스템 관리 가이드&lt;/strong&gt;에서 참조하시기 바랍니다.
 &lt;br/&gt;&lt;br/&gt;
-아래에서 이 킥스타트의 사후 설치 스크립트도 수정하실 수 있습니다.  우선 @@PRODUCT_NAME@@과 관련된 명령이 자동으로 실행될 것입니다 (예, @@PRODUCT_NAME@@에 시스템 등록).
+아래에서 이 킥스타트의 사후 설치 스크립트도 수정하실 수 있습니다.  우선 @@PRODUCT_NAME@@과 관련된 명령이 자동으로 실행될 것입니다 (예, @@PRODUCT_NAME@@에 시스템 등록).  
 다음으로 비-chroot 사후 설치 스크립트가 실행되고, 마지막으로 사후 설치 스크립트가 실행됩니다.  킥스타트 사후 설치 스크립트와 관련된 보다 자세한 정보는 &lt;strong&gt;Red Hat Enterprise Linux 시스템 관리 가이드&lt;/strong&gt;에서 참조하시기 바랍니다.  </target>
 			</trans-unit>
 			<trans-unit id="kickstart.script.langheader">
@@ -7678,6 +7678,14 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			<trans-unit id="kickstart.script.nochroot">
 				<source>nochroot</source>
 				<target>nochroot</target>
+			</trans-unit>
+			<trans-unit id="kickstart.script.template">
+				<source>Template</source>
+				<target>템플릿 </target>
+			</trans-unit>
+			<trans-unit id="kickstart.script.template.tip">
+				<source>Enable this to enable templating on this script using cobbler.</source>
+				<target>cobbler를 사용하여 스크립트에 있는 템플릿을 사용하기 위해 이를 활성화합니다.  </target>
 			</trans-unit>
 			<trans-unit id="kickstart.script.tip3">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This specifies when the script gets ran (before or after kickstart).&lt;/span&gt;</source>
@@ -7752,12 +7760,12 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>킥스타트 Snippets </target>
 			</trans-unit>
 			<trans-unit id="snippets.jsp.summary">
-				<source>Use Kickstart Snippets to store common blocks of code that can be shared across multiple Kickstart profiles in @@PRODUCT_NAME@@. When you create a Kickstart Snippet, all Kickstart profiles including that snippet will be updated accordingly.</source>
-				<target>킥스타트 Snippets를 사용하여 @@PRODUCT_NAME@@ 내의 여러 킥스타트 프로파일에 걸쳐 공유할 수 있는 코드의 일반 블록을 저장합니다. 킥스타트 Snippet을 생성할 때 snippet이 포함된 모든 킥스타트 프로파일은 업데이트됩니다.   </target>
+				<source>Use kickstart snippets to store common blocks of code that can be shared across multiple kickstart profiles in @@PRODUCT_NAME@@. When you create a kickstart snippet, all kickstart profiles including that snippet will be updated accordingly.</source>
+				<target>킥스타트 Snippets를 사용하여 @@PRODUCT_NAME@@ 내의 여러 킥스타트 프로파일에 걸쳐 공유할 수 있는 코드의 일반 블록을 저장합니다. 킥스타트 Snippet을 생성할 때 snippet이 포함된 모든 킥스타트 프로파일은 업데이트됩니다.    </target>
 			</trans-unit>
 			<trans-unit id="snippets.jsp.note.default">
-				<source>default kickstart snippets are not editable.</source>
-				<target>기본값 킥스타트 snippets는 편집할 수 없습니다.  </target>
+				<source>Default kickstart snippets are not editable.</source>
+				<target>기본값 킥스타트 snippets는 편집할 수 없습니다.   </target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.snippets">
 				<source>create new snippet</source>
@@ -7772,16 +7780,16 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>Snippet 매크로 </target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.jsp.nosnippets">
-				<source>No Cobbler snippets found.</source>
-				<target>Cobbler snippets을 찾을 수 없습니다. </target>
+				<source>No kickstart snippets found.</source>
+				<target>킥스타트 snippets을 찾을 수 없습니다.  </target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.copy-paste-snippet-tip">
-				<source>Copy and paste the snippet macro into your Kickstart profiles to make the full snippet appear in that Kickstart profile.</source>
-				<target>snippet 매크로를 킥스타트 프로파일로 복사 및 붙이기 하여 킥스타트 프로파일에 전체 snippet이 나타나게 합니다.  </target>
+				<source>Copy and paste the snippet macro into your kickstart profiles to make the full snippet appear in that kickstart profile.</source>
+				<target>snippet 매크로를 킥스타트 프로파일로 복사 및 붙이기하여 킥스타트 프로파일에 전체 snippet이 나타나게 합니다.     </target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.warning.tip">
 				<source>Changing this snippet's name will require updating any kickstart profiles that refer to it so that they can continue to access the content of this snippet.</source>
-				<target>snippet의 이름을 변경하면 이를 참조하는 킥스타트 프로파일을 업데이트하여 snippet의 컨텐츠에 지속적으로 액세스할 수 있도록 해야 합니다.   </target>
+				<target>snippet의 이름을 변경하면 이를 참조하는 킥스타트 프로파일을 업데이트하여 snippet의 내용에 지속적으로 액세스할 수 있도록 해야 합니다.    </target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.path">
 				<source>File Path</source>
@@ -7804,16 +7812,16 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>사용자 정의  </target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.custom.tip">
-				<source>Custom Kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
-				<target>사용자 정의 킥스타트 snippets은 &lt;strong&gt;{0}&lt;/strong&gt; 조직에서만 사용할 수 있습니다.  </target>
+				<source>Custom kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
+				<target>사용자 정의 킥스타트 snippets은 &lt;strong&gt;{0}&lt;/strong&gt; 조직에서만 사용할 수 있습니다.   </target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default">
 				<source>Default</source>
 				<target>기본값  </target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default.tip">
-				<source>Default Kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
-				<target>기본값 킥스타트 snippets은 모든 조직에서 사용할 수 있습니다. 이러한 snippets은 수정할 수 없습니다.  </target>
+				<source>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
+				<target>기본값 킥스타트 snippets은 모든 조직에서 사용할 수 있습니다. 이러한 snippets은 수정할 수 없습니다.   </target>
 			</trans-unit>
 			<trans-unit id="snippetedit.jsp.header2">
 				<source>Edit Snippet</source>
@@ -7824,26 +7832,42 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>새 Snippet 생성   </target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.summary">
-				<source>Snippets can be shared between Kickstart Profiles</source>
-				<target>Snippet은 킥스타트 프로파일 간에 공유될 수 있습니다 </target>
+				<source>Snippets can be shared between kickstart profiles</source>
+				<target>Snippet은 킥스타트 프로파일 사이에서 공유될 수 있습니다   </target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.header2">
 				<source>Create Snippet</source>
 				<target>Snippet 생성 </target>
 			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.submit">
+				<source>Create Snippet</source>
+				<target>Snippet 생성 </target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.header2">
+				<source>Create Snippet</source>
+				<target>Snippet 생성 </target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.submit">
+				<source>Create Snippet</source>
+				<target>Snippet 생성 </target>
+			</trans-unit>
+			<trans-unit id="snippetdetails.jsp.header2">
+				<source>Snippet Details</source>
+				<target>Snippet 상세 정보 </target>
+			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.contents">
 				<source>Contents</source>
-				<target>컨텐츠   </target>
+				<target>내용    </target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.contents.header">
 				<source>Kickstart Snippet Contents</source>
-				<target>킥스타트 Snippet 컨텐츠 </target>
+				<target>킥스타트 Snippet 내용  </target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.tip1">
-				<source>Avoid spaces in the snippet name.</source>
-				<target>snippet 이름에 빈 칸을 두지 않습니다.  </target>
+				<source>The snippet name is the name of a file that will reside in this organization's snippet directory. Any standard unix file name characters are acceptable. Snippet names containing slash character or snippet names beginning with period are not allowed.</source>
+				<target>Snippet이름은 조직의 Snippet 디렉토리에 있는 파일의 이름입니다. 표준 unix 파일 이름의 모든 문자를 사용할 수 있습니다. Snippet 이름에 슬래시를 사용할 수 없으며 snippet 이름을 마침표로 시작할 수 없습니다.       </target>
 			</trans-unit>
-			<trans-unit id="snippetcreate.jsp.submit">
+			<trans-unit id="snippetupdate.jsp.submit">
 				<source>Update Snippet</source>
 				<target>Snippet 업데이트   </target>
 			</trans-unit>
@@ -7856,12 +7880,12 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>Snippet 삭제 중  </target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.summary">
-				<source>Are you sure you want to delete this Snippet permanently?</source>
-				<target>Snippet을 영구적으로 삭제하시겠습니까?  </target>
+				<source>Are you sure you want to delete this snippet permanently?</source>
+				<target>Snippet을 영구적으로 삭제하시겠습니까?    </target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.warning">
-				<source>Deleting this snippet will affect any kickstart profiles that refere to it. It may break kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
-				<target>snippet을 삭제하면 이를 참조하는 킥스타트 프로파일에 영향을 미칩니다. 이는 킥스타트 프로파일을 손상시킬 수 있습니다. snippet을 삭제하기 전 이에 의존하는 킥스타트 프로파일이 없는 지를 확인할 것을 권장합니다.   </target>
+				<source>Deleting this snippet will affect any kickstart profiles that refer to it. It may break those kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
+				<target>snippet을 삭제하면 이를 참조하는 킥스타트 프로파일에 영향을 미칩니다. 이는 킥스타트 프로파일을 손상시킬 수 있습니다. snippet을 삭제하기 전 이에 의존하는 킥스타트 프로파일이 없는 지를 확인할 것을 권장합니다.    </target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.delete">
 				<source>Confirm Snippet Delete</source>
@@ -7885,7 +7909,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.age">
 				<source>Age</source>
-				<target>나이</target>
+				<target>경과 시간 </target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.allupdates">
 				<source>All Updates</source>
@@ -8025,7 +8049,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.noinactivesystems">
 				<source>&lt;strong&gt;No inactive systems.&lt;/strong&gt; &lt;p&gt;All of your systems are actively checking into @@PRODUCT_NAME@@ at this time. You can view a list of all of your systems at &lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;Systems &gt; All&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;</source>
-				<target>&lt;strong&gt;비활성화 시스템이 없습니다.&lt;/strong&gt; &lt;p&gt; 모든 시스템은 현재 @@PRODUCT_NAME@@으로 접속하고 있습니다. &lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;시스템 &gt; 모든 시스템&lt;/a&gt;&lt;/strong&gt;에서 모든 시스템의 목록을 보실 수 있습니다.&lt;/p&gt;   </target>
+				<target>&lt;strong&gt;비활성화 시스템이 없습니다.&lt;/strong&gt; &lt;p&gt; 모든 시스템은 현재 @@PRODUCT_NAME@@로 접속하고 있습니다. &lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;시스템 &gt; 모든 시스템&lt;/a&gt;&lt;/strong&gt;에서 모든 시스템의 목록을 보실 수 있습니다.&lt;/p&gt;     </target>
 			</trans-unit>
 			<trans-unit id="errata.sev.label.low">
 				<source>Low</source>
@@ -8141,7 +8165,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="channels.header.hostedonly">
 				<source>You can also &lt;strong&gt;download ISO images&lt;/strong&gt; of channel content on the &lt;a href="/rhn/software/downloads/SupportedISOs.do"&gt;&lt;strong&gt;Download Software&lt;/strong&gt;&lt;/a&gt; page.</source>
-				<target>&lt;a href="/rhn/software/downloads/SupportedISOs.do"&gt;&lt;strong&gt;소프트웨어 다운로드&lt;/strong&gt;&lt;/a&gt; 페이지에서 채널 컨텐트의 &lt;strong&gt;ISO 이미지를 다운로드&lt;/strong&gt; 받으실 수 있습니다.</target>
+				<target>&lt;a href="/rhn/software/downloads/SupportedISOs.do"&gt;&lt;strong&gt;소프트웨어 다운로드&lt;/strong&gt;&lt;/a&gt; 페이지에서 채널 컨텐츠의 &lt;strong&gt;ISO 이미지를 다운로드&lt;/strong&gt; 받으실 수 있습니다.                                                           </target>
 			</trans-unit>
 			<trans-unit id="channels.all.jsp.toolbar">
 				<source>Full Software Channel List</source>
@@ -9679,7 +9703,7 @@ but are not subscribed to {0}.</source>
 			</trans-unit>
 			<trans-unit id="addfiles.create.jspf.content-name">
 				<source>File Contents:</source>
-				<target>파일 컨텐트:</target>
+				<target>파일 내용: </target>
 			</trans-unit>
 			<trans-unit id="addfiles.jsp.type-name">
 				<source>File Type:</source>
@@ -10178,7 +10202,7 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
 			</trans-unit>
 			<trans-unit id="filedetails.contents.jspf.header2">
 				<source>File Contents</source>
-				<target>파일 컨텐트</target>
+				<target>파일 내용 </target>
 			</trans-unit>
 			<trans-unit id="contents.jspf.upload">
 				<source>Upload New Revision of File</source>
@@ -11749,7 +11773,7 @@ any of these revisions.  Are you sure you want to do this?</source>
 				<source>Packages listed below may be removed from one or more systems.
 
              Select one or more and click the &lt;b&gt;Remove Selected Packages&lt;/b&gt; button to schedule package removal.</source>
-				<target>아래의 패키지를 1 개 이상의 시스템에서 삭제할 수있습니다.
+				<target>아래의 패키지를 1 개 이상의 시스템에서 삭제할 수있습니다. 
 
              1 개 이상의 패키지를 선택하고 &lt;b&gt;선택한 패키지 삭제&lt;/b&gt; 버튼을 클릭하여 패키지 제거를 스케줄합니다. </target>
 			</trans-unit>
@@ -11821,7 +11845,7 @@ any of these revisions.  Are you sure you want to do this?</source>
 				<source>Packages listed below may be removed from one or more systems.
 
             Select one or more and click the &lt;b&gt;Verify Selected Packages&lt;/b&gt; button to schedule package removal.</source>
-				<target>아래의 패키지를 1 개 이상의 시스템에서 삭제할 수 있습니다.
+				<target>아래의 패키지를 1 개 이상의 시스템에서 삭제할 수 있습니다. 
 
              1 개 이상의 패키지를 선택하고 &lt;b&gt;선택한 패키지 확인&lt;/b&gt; 버튼을 클릭하여 패키지 제거를 스케줄합니다.  </target>
 			</trans-unit>
@@ -11880,7 +11904,7 @@ below.  &lt;strong&gt;Note&lt;/strong&gt;: This list will
 only show package profiles that were made against the same
 Base Channel chosen on the
 &lt;a href="/rhn/kickstart/KickstartSoftwareEdit.do?ksid={0}"&gt;Operating System&lt;/a&gt; page.</source>
-				<target>아래에서 패키지 프로파일을 선택하여, 킥스타트 중인 시스템을 @@PRODUCT_NAME@@에 등록된
+				<target>아래에서 패키지 프로파일을 선택하여, 킥스타트 중인 시스템을 @@PRODUCT_NAME@@에 등록된 
 시스템의 패키지 프로파일에 동기화시킬 수 있습니다.  &lt;strong&gt;알림&lt;/strong&gt;: 이 목록은 
 &lt;a href="/rhn/kickstart/KickstartSoftwareEdit.do?ksid={0}"&gt;운영 체제&lt;/a&gt; 페이지에서 
 선택된 동일한 기본 채널에 대해 생성된 패키지 프로파일만 보여줍니다.  </target>
@@ -12376,8 +12400,8 @@ the @@PRODUCT_NAME@@ Tools channels for each supported parent channel.  You may
 need to perform a satellite sync of the @@PRODUCT_NAME@@ Tools channels before
 performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;</source>
 				<target> &lt;strong&gt;킥스타트 RPM을 찾을 수 없습니다. 이 RPM은 지원되는 부모 채널의
-@@PRODUCT_NAME@@ 도구 채널에 위치합니다. 새로운 킥스타트 배포판의 생성 혹은
-킥스타트를 수행하시기 전에 @@PRODUCT_NAME@@ 도구 채널의 satellite 동기화를 수행하시기
+@@PRODUCT_NAME@@ 도구 채널에 위치합니다. 새로운 킥스타트 배포판의 생성 혹은 
+킥스타트를 수행하시기 전에 @@PRODUCT_NAME@@ 도구 채널의 satellite 동기화를 수행하시기 
 바랍니다.&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="tree-form.jspf.noinstalltypes">
@@ -12537,6 +12561,10 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 			<trans-unit id="virtualization.provision.first.jsp.header3">
 				<source>Virtual System Hardware Overrides</source>
 				<target>가상 시스템 하드웨어 덮어쓰기 </target>
+			</trans-unit>
+			<trans-unit id="virtualization.provision.override.jsp.goto.advanced.options">
+				<source>By default virtual guest settings like memory, cpu and storage allocations will be inherited from your kickstart profile. If you want to override these settings click on &lt;strong&gt;{0}&lt;/strong&gt; button below.</source>
+				<target>메모리, cpu, 스토리지 할당과 같은 기본값 가상 게스트 설정은 킥스타트 프로파일에서 상속됩니다. 이러한 설정을 덮어쓰기하려면 아래의 &lt;strong&gt;{0}&lt;/strong&gt; 버튼을 클릭합니다.  </target>
 			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.guest_name.header">
 				<source>Guest Name:</source>
@@ -12922,6 +12950,10 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 				<source>Building</source>
 				<target>빌딩</target>
 			</trans-unit>
+			<trans-unit id="sdc.details.overview.updatesavailable">
+				<source>Software Updates Available</source>
+				<target>소프트웨어 업데이트 가능 </target>
+			</trans-unit>
 			<trans-unit id="sdc.details.overview.updates.critical">
 				<source>&lt;strong&gt;&lt;a href="{0}"&gt;Critical: &lt;/a&gt;&lt;/strong&gt; {1}</source>
 				<target>&lt;strong&gt;&lt;a href="{0}"&gt;중요: &lt;/a&gt;&lt;/strong&gt; {1} </target>
@@ -13072,8 +13104,8 @@ advantages of a registered account. We strive to maintain 100% uptime
 for your @@PRODUCT_NAME@@ service, but must also periodically perform maintenance
 tasks to upgrade functionality, fix reported bugs, and improve
 performance.</source>
-				<target>저희는 @@PRODUCT_NAME@@로의 액세스와 등록된 계정의 혜택을 최우선으로 합니다.
-사용자의  @@PRODUCT_NAME@@ 서비스에 대한 100% 가동 유지를 위해 노력하고 있으며,
+				<target>저희는 @@PRODUCT_NAME@@로의 액세스와 등록된 계정의 혜택을 최우선으로 합니다. 
+사용자의  @@PRODUCT_NAME@@ 서비스에 대한 100% 가동 유지를 위해 노력하고 있으며, 
 지속적으로 기능을 업그레이드하기 위한 작업의 실행은 물론, 버그 수정, 성능 
 개선을 위해 노력하고 있습니다.   </target>
 			</trans-unit>
@@ -13088,9 +13120,9 @@ necessarily use every one of these windows to perform maintenance, we recommend 
 enterprise develop business practices that allow this period of downtime for your @@PRODUCT_NAME@@ solution.
 Red Hat will always attempt to inform at least one week in advance through the email outage
 list (see below) about this scheduled downtime whenever possible.</source>
-				<target>Red Hat은 매주 화요일 9pm에서 3am까지, 미국 동부시로는 (1am-7am UTC)에
-@@PRODUCT_NAME@@ 관리를 예약합니다. Red Hat은 관리를 위해 모든 윈도우를
-사용하지 않더라도 사용자의 @@PRODUCT_NAME@@ 솔루션을 위해 서비스 비가동시간을 허용하여 기업 경영을 향상시킬 것을 권장합니다.
+				<target>Red Hat은 매주 화요일 9pm에서 3am까지, 미국 동부시로는 (1am-7am UTC)에 
+@@PRODUCT_NAME@@ 관리를 예약합니다. Red Hat은 관리를 위해 모든 윈도우를 
+사용하지 않더라도 사용자의 @@PRODUCT_NAME@@ 솔루션을 위해 서비스 비가동시간을 허용하여 기업 경영을 향상시킬 것을 권장합니다. 
 Red Hat은 최소 1주 전에 Email Outage List (아래 참조) 메일링 리스트를 통하여 
 스케줄된 서비스 비가동시간에 관해 통보해드립니다.       </target>
 			</trans-unit>
@@ -13130,7 +13162,7 @@ This email list will provide you with periodic updates about our
 scheduled downtime maintenance activities, and will also serve as the
 emailing list that Red Hat will use in the case of Unscheduled and
 Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage List&lt;/a&gt;.</source>
-				<target>모든 @@PRODUCT_NAME@@ 사용자는 Email Outage List 메일링 리스트 옵션에 가입할 것을
+				<target>모든 @@PRODUCT_NAME@@ 사용자는 Email Outage List 메일링 리스트 옵션에 가입할 것을 
 권장합니다. 이 메일링 리스트는 스케줄된 서비스 비가동시간에 관해 
 정기적으로 업데이트해 드리며, 스케줄되지 않은 긴급 보수 윈도우와 같은 
 경우가 발생했을 경우 Red Hat은 이러한 메일링 리스트를 사용하여 통보해 
@@ -13626,7 +13658,7 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 			</trans-unit>
 			<trans-unit id="org.trust.header">
 				<source>Organizations Trusted By {0}</source>
-				<target>{0}을 통해 신뢰할 수 있는 조직  </target>
+				<target>{0}을/를 통해 신뢰할 수 있는 조직   </target>
 			</trans-unit>
 			<trans-unit id="org.login.tip">
 				<source>Between {0} and 64 characters</source>
@@ -13829,7 +13861,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
 				<target>
            아래의 접속 해제된 조직은 {0} 조직의 신뢰할 수 있는 조직입니다.
            즉, 조직 사이에서 컨텐츠를 공유하고 시스템을 이전할 수 있습니다.
-           조직 옆의 상자를 선택하여 신뢰성을 추가 (또는 이를 선택 해제하여 신뢰성을 제거)하고 '신뢰성 수정' 버튼을 클릭합니다.    </target>
+           조직 옆의 상자를 선택하여 신뢰 관계를 추가 (또는 이를 선택 해제하여 신뢰 관계를 제거)하고 '신뢰 관계 수정' 버튼을 클릭합니다.     </target>
 			</trans-unit>
 			<trans-unit id="org.trust.confirm.summary">
 				<source>
@@ -13849,7 +13881,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
 			</trans-unit>
 			<trans-unit id="org.trust.affectedsystems.summary">
 				<source>
-            The systems listed below will be affected by removing the trust relationship between
+            The systems listed below will be affected by removing the trust relationship between 
             the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.</source>
@@ -14257,7 +14289,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="docsearch.content">
 				<source>Content</source>
-				<target>컨텐트 </target>
+				<target>내용 </target>
 			</trans-unit>
 			<trans-unit id="docsearch.free_form">
 				<source>Free Form</source>
@@ -14265,7 +14297,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="docsearch.content_title">
 				<source>Content &amp; Title</source>
-				<target>컨텐츠 &amp; 제목  </target>
+				<target>내용 &amp; 제목   </target>
 			</trans-unit>
 			<trans-unit id="docsearch.title">
 				<source>Title</source>
@@ -14517,7 +14549,7 @@ given channel.</source>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.message">
 				<source>Custom system info keys allow your adminstrators to store relevant custom key/value pairs with your system profiles. Custom system info is fully {0}searchable{1}.</source>
-				<target>사용자 정의 정보 키는 관리자가 사용자의 시스템 프로파일과 함께 해당 사용자 정의 키/값 쌍을 저장하게 합니다. 사용자 정의 시스템 정보는 완전하게 {0} 검색 가능한 {1}입니다.  </target>
+				<target>사용자 정의 정보 키는 관리자가 사용자의 시스템 프로파일과 함께 해당 사용자 정의 키/값 쌍을 저장하게 합니다. 사용자 정의 시스템 정보는 완전하게 {0} 검색 가능합니다{1}.  </target>
 			</trans-unit>
 			<trans-unit id="system.jsp.customkey.message2">
 				<source>The following custom system info keys have been defined for your organization.</source>
@@ -14787,6 +14819,10 @@ given channel.</source>
 				<source>{0}</source>
 				<target>{0}</target>
 			</trans-unit>
+			<trans-unit id="channel.delete.jsp.toolbar">
+				<source>{0}</source>
+				<target>{0}</target>
+			</trans-unit>
 			<trans-unit id="channel.edit.jsp.basicchanneldetails">
 				<source>Basic Channel Details</source>
 				<target>기본 채널 상세 정보  </target>
@@ -14803,29 +14839,75 @@ given channel.</source>
 				<source>Security: GPG</source>
 				<target>보안: GPG </target>
 			</trans-unit>
+			<trans-unit id="channel.delete.jsp.channelheader">
+				<source>Delete Channel</source>
+				<target state="needs-review-translation">채널 삭제</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.introparagraph">
+				<source>Are you sure you wish to delete this channel? Packages in the channel will
+           be removed from the channel, but will remain on the server. You will be
+           given the option to delete them after the channel has been deleted. Errata
+           related to the channel will no longer be related to the channel, and may be
+           orphaned. If the channel has child channels, it cannot be deleted; the child
+           channels must be deleted first. If the channel has kickstart distributions
+           associated to it, it cannot be deleted; the kickstart distributions must be
+           dissociated from the channel or deleted first.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.arch">
+				<source>Architecture:</source>
+				<target state="needs-review-translation">아키텍처 </target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.totalpackages">
+				<source>Total Packages:</source>
+				<target state="needs-review-translation">요청된 총 패키지:</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.systemssubscribed">
+				<source>Systems Subscribed:</source>
+				<target state="needs-review-translation">등록된 시스템 </target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsheader">
+				<source>Trusted Organizations</source>
+				<target state="needs-review-translation">조직 생성  </target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsparagraph">
+				<source>Channel deletion will affect any Trusted Organizations that have systems
+            subscribed to the {0} channel.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsaffected">
+				<source>Organizations Affected:</source>
+				<target state="needs-review-translation">조직: </target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubheader">
+				<source>Unsubscribe Systems</source>
+				<target state="needs-review-translation">시스템 등록 해제</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubparagraph">
+				<source>Unsubscribe all trusted organization systems that are subscribed to the
+            {0} channel. Subscribed systems will lose access to packages specific to this channel.</source>
+			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Channel name and label are required. They each must be at least 6
         characters in length. Labels must begin with a letter, contain only
         lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
         numerals. Channel name may also contain spaces and forward slashes
         ('/').
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Channel summary is also required.</source>
 				<target>이 페이지에서 소프트웨어 채널을 만들거나 편집합니다.
-         &lt;p/&gt;
+         &lt;p/&gt; 
          부모 채널이 'none'으로 설정되어 있을 경우, 채널은 기본 채널이 됩니다.
-         그렇지 않을 경우, 채널은 지정된 채널의 자식 채널이 됩니다.
-         &lt;p/&gt;
+         그렇지 않을 경우, 채널은 지정된 채널의 자식 채널이 됩니다. 
+         &lt;p/&gt; 
          채널 이름 및 레이블이 필요합니다. 채널 이름 및 레이블은 최소 6 자리
           문자로 되어야 합니다. 레이블은 문자로 시작하여야 하며,
           소문자, 하이픈 ('-'), 마침표 ('.'), 밑줄 ('_'), 숫자로만 되어 있어야 합니다.
          채널 이름에는 빈 칸이나 슬래시 ('/')를 사용할 수 있습니다.
-        &lt;p/&gt;
+        &lt;p/&gt; 
          채널 요약 내용도 필요합니다.  </target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.public">
@@ -14840,7 +14922,7 @@ given channel.</source>
 				<source>This channel is &lt;strong&gt;protected&lt;/strong&gt; and may
         only be accessed by specific &lt;a href="{0}"&gt;trusted
         organizations&lt;/a&gt;.</source>
-				<target>이 채널은 &lt;strong&gt;보안&lt;/strong&gt;되므로,
+				<target>이 채널은 &lt;strong&gt;보안&lt;/strong&gt;되므로, 
          특정의 &lt;a href="{0}"&gt;신뢰되는
          조직&lt;/a&gt;만이 액세스할 수 있습니다.  </target>
 			</trans-unit>
@@ -14870,10 +14952,10 @@ given channel.</source>
         this channel may adversely affect those systems. For example, those
         systems may no longer receive critical security updates to content
         provided by this channel.</source>
-				<target>정말로 이 채널을 &lt;strong&gt;비공개&lt;/strong&gt;로 설정하여
+				<target>정말로 이 채널을 &lt;strong&gt;비공개&lt;/strong&gt;로 설정하여 
          조직에 있는 시스템만이 접근할 수 있게 하시겠습니까?
          이 채널이 제공하는 컨텐츠에 등록한 다른 조직에 있는
-         시스템은 다음과 같습니다. 이 채널의 액세스를 제거하면,
+         시스템은 다음과 같습니다. 이 채널의 액세스를 제거하면, 
          채널에 의해 제공되는 컨텐츠에 대해 더이상 중요 보안 업데이트를 받을 수 없게 되는등
          시스템에 악영향을 미칠 수있습니다.  </target>
 			</trans-unit>
@@ -14972,6 +15054,54 @@ given channel.</source>
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
 				<target>요청하신 킥스타트 파일을 찾을 수 없습니다.
           조직의 기본값 킥스타트를 요청하신 경우, 킥스타트가 "조직 기본값"으로 선택되었는지를 확인합니다.  </target>
+			</trans-unit>
+			<trans-unit id="task.status.current.db.time">
+				<source>Current DB Time</source>
+				<target state="needs-review-translation">현재키</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.execution">
+				<source>Last Execution Times</source>
+				<target state="needs-review-translation">스크립트 실행 시간</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.completed">
+				<source>Last Completed Action</source>
+				<target state="needs-review-translation">완료된 작업</target>
+			</trans-unit>
+			<trans-unit id="task.status.session.cleanup">
+				<source>Session Cleanup</source>
+			</trans-unit>
+			<trans-unit id="task.status.errata.queue.notif">
+				<source>Errata Notification Queue</source>
+				<target state="needs-review-translation">에라타 통지 보내기</target>
+			</trans-unit>
+			<trans-unit id="task.status.errata.mail">
+				<source>Errata Notification Mail</source>
+				<target state="needs-review-translation">에라타 통지 보내기</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary">
+				<source>Daily Summary Queue</source>
+				<target state="needs-review-translation">일별 요약</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary.mail">
+				<source>Daily Summary Mail</source>
+				<target state="needs-review-translation">일별 요약</target>
+			</trans-unit>
+			<trans-unit id="task.status.clean.alerts">
+				<source>Clean Current Alerts</source>
+				<target state="needs-review-translation">현재 버전</target>
+			</trans-unit>
+			<trans-unit id="task.status.sync.probe">
+				<source>Sync Probe State</source>
+				<target state="needs-review-translation">프로브 상태</target>
+			</trans-unit>
+			<trans-unit id="task.status.message">
+				<source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
+			</trans-unit>
+			<trans-unit id="task.status.title">
+				<source>Task Engine Status</source>
+			</trans-unit>
+			<trans-unit id="actions.jsp.pickedup">
+				<source>Picked Up</source>
 			</trans-unit>
 		</body>
 	</file>

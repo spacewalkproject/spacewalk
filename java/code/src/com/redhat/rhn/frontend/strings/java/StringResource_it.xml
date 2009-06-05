@@ -138,6 +138,14 @@
 				<source>Tip</source>
 				<target>Suggerimento</target>
 			</trans-unit>
+			<trans-unit id="Note">
+				<source>Note</source>
+				<target>Nota Bene</target>
+			</trans-unit>
+			<trans-unit id="Warning">
+				<source>Warning</source>
+				<target>Avvertenza</target>
+			</trans-unit>
 			<trans-unit id="About Spacewalk">
 				<source>About</source>
 				<target>Su</target>
@@ -336,7 +344,7 @@
 			</trans-unit>
 			<trans-unit id="File Preservation">
 				<source>File Preservation</source>
-				<target>Conservazione del file</target>
+				<target>Conservazione dei file</target>
 			</trans-unit>
 			<trans-unit id="Get Spacewalk Software">
 				<source>Get @@PRODUCT_NAME@@ Software</source>
@@ -636,7 +644,7 @@
 			</trans-unit>
 			<trans-unit id="Unix Release Notes">
 				<source>Unix Release Notes</source>
-				<target>Unix Release Notes</target>
+				<target>Note di rilascio di Unix</target>
 			</trans-unit>
 			<trans-unit id="Unpublished">
 				<source>Unpublished</source>
@@ -656,7 +664,7 @@
 			</trans-unit>
 			<trans-unit id="user prefix Hr.">
 				<source>Hr.</source>
-				<target>Hr.</target>
+				<target>-</target>
 			</trans-unit>
 			<trans-unit id="user prefix Miss">
 				<source>Miss</source>
@@ -672,11 +680,11 @@
 			</trans-unit>
 			<trans-unit id="user prefix Ms.">
 				<source>Ms.</source>
-				<target>Sig.ra</target>
+				<target>-</target>
 			</trans-unit>
 			<trans-unit id="user prefix Sr.">
 				<source>Sr.</source>
-				<target>Sr.</target>
+				<target>-</target>
 			</trans-unit>
 			<trans-unit id="user.delete">
 				<source>Deleted user &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -1036,11 +1044,11 @@
 			</trans-unit>
 			<trans-unit id="message.filterby">
 				<source>Filter by {0}: </source>
-				<target>Filtrato da {0}: </target>
+				<target>Filtra per {0}: </target>
 			</trans-unit>
 			<trans-unit id="message.filterby.multiple">
 				<source>Filter by: </source>
-				<target>Filtrato da: </target>
+				<target>Filtra per: </target>
 			</trans-unit>
 			<trans-unit id="message.range">
 				<source>&lt;strong id="list_min" &gt;{0}&lt;/strong&gt; - &lt;strong id="list_max"&gt;{1}&lt;/strong&gt; of &lt;strong id="list_total"&gt;{2}&lt;/strong&gt;</source>
@@ -1305,16 +1313,16 @@ per un corretto funzionamento di questo profilo kickstart.
 				<target>Si è verificato un errore durante la cancellazione dell'IP Range dal Profilo Kickstart {0}. Vi preghiamo di riprovare.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.update.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
-				<target>Snippet &lt;strong&gt;{0}&lt;/strong&gt; di Cobbler aggiornato con successo.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
+				<target>Snippet kickstart &lt;strong&gt;{0}&lt;/strong&gt; aggiornato con successo.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.create.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
-				<target>Snippet &lt;strong&gt;{0}&lt;/strong&gt; di Cobbler creato con successo.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
+				<target>Snippet kickstart &lt;strong&gt;{0}&lt;/strong&gt; creato con successo.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.delete.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
-				<target>Snippet &lt;strong&gt;{0}&lt;/strong&gt; di Cobbler cancellato con successo.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
+				<target>Snippet kickstart &lt;strong&gt;{0}&lt;/strong&gt; cancellato con successo.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.couldnotdelete.message">
 				<source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -1325,12 +1333,12 @@ per un corretto funzionamento di questo profilo kickstart.
 				<target>Si è verificato un errore durante il tentativo di rinominare lo snippet &lt;strong&gt;{0}&lt;/strong&gt; in &lt;strong&gt;{1}&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.filenameexists.message">
-				<source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
-				<target>Uno snippet di cobbler con il nome &lt;strong&gt;{0}&lt;/strong&gt; è già esistente.</target>
+				<source>Kickstart snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+				<target>Uno snippet kickstart con il nome &lt;strong&gt;{0}&lt;/strong&gt; è già esistente.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.invalidfilename.message">
-				<source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
-				<target>Il filename dello snippet di Cobbler richiesto non è valido.  I caratteri validi sono A-Z, a-z, 0-9, _ e -.</target>
+				<source>The requested kickstart snippet filename is not valid. The kickstart snippet file name cannot contain slash (/) or  begin with a period(.)</source>
+				<target>Il nome del file di snippet kickstart non è valido. Il nome non può contenere caratteri slash (/) o iniziare con un punto (.)</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.snippets">
 				<source>delete snippet</source>
@@ -1694,7 +1702,7 @@ per un corretto funzionamento di questo profilo kickstart.
 			</trans-unit>
 			<trans-unit id="packages.search.name_and_desc">
 				<source>Name and Description</source>
-				<target>Nomee Descrizione</target>
+				<target>Nome e Descrizione</target>
 			</trans-unit>
 			<trans-unit id="packages.search.free_form">
 				<source>Free form</source>
@@ -1736,9 +1744,9 @@ per un corretto funzionamento di questo profilo kickstart.
 				<source>Search strings must be longer than two characters.</source>
 				<target>Le stringhe di ricerca devono avere più du due caratteri.</target>
 			</trans-unit>
-			<trans-unit id="packages.search.index_out_of_sync_with_db">
-				<source>Package search index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
-				<target>L'indice di ricerca dei pacchetti e le voci del database non appaiono sincronizzati. Si prega di eseguire '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</target>
+			<trans-unit id="searchserver.index_out_of_sync_with_db">
+				<source>SearchServer index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
+				<target state="needs-review-translation">L'indice di ricerca dei pacchetti e le voci del database non appaiono sincronizzati. Si prega di eseguire '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</target>
 			</trans-unit>
 			<trans-unit id="patches.installed.notavailable">
 				<source>Not Available</source>
@@ -2137,8 +2145,8 @@ utente prima di disabilitare l'account in questione.</target>
 				<target>Orario di collegamento previsto:</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;NOTA:&lt;/strong&gt; Questo sistema non ha eseguito recentemente alcun collegamento all'interno di @@PRODUCT_NAME@@. Poichè un sistema non sarà in grado di essere aggiornato se lo stesso non esegue un collegamento con @@PRODUCT_NAME@@, molto probabilmente tale operazione non avrà successo. &lt;br/&gt;&lt;br/&gt;Si prega di controllare il sistema e di assicurare che rhnsd sia in esecuzione (&lt;a href="/help/faq.pxt#15"&gt;maggiori informazioni&lt;/a&gt;). Se esso non risulta, per qualsiasi motivo, in esecuzione, vi preghiamo di &lt;a href="/help/contact.pxt"&gt;contattarci&lt;/a&gt;.</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running.</source>
+				<target>&lt;strong&gt;NOTA:&lt;/strong&gt; Questo sistema non ha eseguito ultimamente alcun checkin all'interno di @@PRODUCT_NAME@@. Poichè un sistema non sarà in grado di essere aggiornato se lo stesso non esegue un checkin con @@PRODUCT_NAME@@, molto probabilmente tale operazione non avrà successo. &lt;br/&gt;&lt;br/&gt;Si prega di controllare il sistema e di assicurare che rhnsd sia in esecuzione.</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -3501,28 +3509,27 @@ utente prima di disabilitare l'account in questione.</target>
 				<target>Certificato caricato.  @@PRODUCT_NAME@@ è stato riattivato.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
-				<source>Could not parse certificate file</source>
-				<target>Impossibile analizzare il file del certificato</target>
+				<source>Could not parse certificate file, see log file for more details.</source>
+				<target state="needs-review-translation">Impossibile analizzare il file del certificato</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.11">
 				<source>Certificate expired</source>
 				<target>Certificato scaduto</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown @@PRODUCT_NAME@@ version</source>
-				<target>Versione di @@PRODUCT_NAME@@ sconosciuta</target>
+				<source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
+				<target state="needs-review-translation">Versione di @@PRODUCT_NAME@@ sconosciuta</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
-				<source>Remote activation failure</source>
-				<target>Errore Attivazione remota</target>
+				<source>Remote activation failure, see log file for more details.</source>
+				<target state="needs-review-translation">Errore Attivazione remota</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.30">
-				<source>Local activation failure</source>
-				<target>Errore Attivazione locale</target>
+				<source>Local activation failure, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.40">
-				<source>Channel population failure</source>
-				<target>Errore della Popolazione Canale</target>
+				<source>Channel population failure, see log file for more details.</source>
+				<target state="needs-review-translation">Errore della Popolazione Canale</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.80">
 				<source>No management entitlements remaining</source>
@@ -3541,8 +3548,7 @@ utente prima di disabilitare l'account in questione.</target>
 				<target>Certificato @@PRODUCT_NAME@@ invalido</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
-				<source>Unknown activation error</source>
-				<target>Errore di attivazione sconosciuto</target>
+				<source>Unknown activation error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
 				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
@@ -3553,12 +3559,7 @@ utente prima di disabilitare l'account in questione.</target>
 				<target>Nessun canale @@PRODUCT_NAME@@ disponibile per questa versione</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
-				<source>Unhandled error</source>
-				<target>Errore non gestito</target>
-			</trans-unit>
-			<trans-unit id="bootstrap.config.error.127">
-				<source>Unhandled error</source>
-				<target>Errore non gestito</target>
+				<source>Unhandled error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="hostname">
 				<source>@@PRODUCT_NAME@@ server hostname</source>
@@ -3595,6 +3596,10 @@ utente prima di disabilitare l'account in questione.</target>
 			<trans-unit id="bootstrap.config.error.17">
 				<source>Could not find GPG key</source>
 				<target>Impossibile trovare la chiave GPG</target>
+			</trans-unit>
+			<trans-unit id="bootstrap.config.error.127">
+				<source>Unhandled error</source>
+				<target>Errore non gestito</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.success">
 				<source>Bootstrap script successfully generated.  You can access it &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt;</source>
@@ -5188,6 +5193,13 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
 				<target>Canale &lt;strong&gt;{0}&lt;/strong&gt; creato.</target>
 			</trans-unit>
+			<trans-unit id="message.channeldeleted">
+				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; has been deleted.</source>
+				<target state="needs-review-translation">La chiave di attivazione &lt;strong&gt;{0}&lt;/strong&gt; è stata cancellata.</target>
+			</trans-unit>
+			<trans-unit id="message.channel.delete.systemssubscribed">
+				<source>There are currently systems subscribed to this channel. Please confirm system channel removal by selecting the unsubscribe checkbox.</source>
+			</trans-unit>
 			<trans-unit id="message.channelupdated">
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
 				<target>Canale &lt;strong&gt;{0}&lt;/strong&gt; aggiornato.</target>
@@ -5226,17 +5238,16 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to
-syncronize kickstart distributions from Spacewalk to Cobbler.  These
-errors must be corrected for the distributions to be available for
-kickstarting systems kickstart distributions failed to sync from
-Spacewalk to Cobbler:
+The following is a list of errors gathered while Spacewalk attempts to 
+syncronize kickstart distributions from Spacewalk to Cobbler.  These 
+errors must be corrected for the distributions to be available for 
+kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
@@ -5244,16 +5255,13 @@ for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
 Di seguito viene riportato un elenco di errori presenti durante il tentativo di Spacewalk
-di sincronizzare le distribuzioni kickstart da Spacewalk a Cobbler.  Questi errori
-devono essere corretti per poter rendere le distribuzioni disponibili ai sistemi interessati per
-l'esecuzione di kickstart delle distribuzioni che non hanno eseguito la sincronizzazione da
-Spacewalk a Cobbler:
+di sincronizzare le distribuzioni kickstart da Spacewalk a Cobbler.  Per rendere disponibili queste distribuzioni per l'esecuzione di kickstart, è necessario correggere questi errori:
 
 {0}
 
 Si prega di controllare:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 

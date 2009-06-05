@@ -4,4 +4,4 @@ This is a small set of tools for working with Satellite user accounts. Included 
 
 2.   satpasswd.  Sets a password for a satellite user.  Especially good if you've locked yourself out of your satellite admin account ;-)
 
-3.   md5crypt.   A re-write of grub-md5-crypt that accepts --stdin; used by satpasswd.
+3.   md5crypt.   A re-write of grub-md5-crypt that accepts --stdin.  This script was initially used by satpasswd; however, it has since been replaced by using openssl.

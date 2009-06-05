@@ -74,6 +74,7 @@ public class FilterListSetupActionTest extends RhnBaseTestCase {
         }
         sah.setupClampListBounds();
         sah.getRequest().setupAddParameter("active", "false");
+        sah.getRequest().setupAddParameter("submitted", "false");
         sah.getRequest().setupAddParameter("newset", (String)null);
         sah.getRequest().setupAddParameter("returnvisit", (String) null);
         sah.executeAction();

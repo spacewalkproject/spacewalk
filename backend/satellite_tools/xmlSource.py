@@ -629,8 +629,7 @@ class ReleaseItem(BaseItem):
     item_name = 'rhn-release'
     item_class = importLib.ReleaseChannelMap
     tagMap = {
-        'channel-arch'              : 'channel_arch',
-	'is-default'                : 'is_default',
+        'channel-arch'              : 'channel_arch'
     }
 addItem(ReleaseItem)
 

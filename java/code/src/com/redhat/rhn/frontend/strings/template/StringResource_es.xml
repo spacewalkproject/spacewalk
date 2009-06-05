@@ -4,7 +4,7 @@
 		<body>
 			<trans-unit id="email.verify.subject">
 				<source>@@PRODUCT_NAME@@ login Email Verification</source>
-				<target>Verificación de correo-e de @@PRODUCT_NAME@@ login</target>
+				<target>Verificación de correo-e de nombre de usuario de @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="email.verify.body">
 				<source>Dear @@PRODUCT_NAME@@ User,
@@ -31,18 +31,18 @@ Thank you for using @@PRODUCT_NAME@@.
 				<target>Estimado usuario de @@PRODUCT_NAME@@,
 
 Este correo-e es enviado con el fin de validar la dirección de correo-e
-que usted ha proporcionado para obtener un login en Red Hat. 
-Su Red Hat login, junto con una suscripción activa de Red Hat,
+que usted ha proporcionado para obtener un nombre de usuario en Red Hat. 
+Su nombre de usuario de Red Hat, junto con una suscripción activa de Red Hat,
 le brinda acceso a las funciones de administración de sistemas
 a través de @@PRODUCT_NAME@@.
 
 Para garantizar la seguridad de la información de la cuenta asociada
-con su Red Hat login, por favor haga clic en el enlace proporcionado
+con su nombre de usuario de Red Hat, por favor haga clic en el enlace proporcionado
 a continuación, y verifique que la información de correo-e sea la correcta.
-Si no confirma su dirección de correo-e, su Red Hat login será
+Si no confirma su dirección de correo-e, su nombre de usuario de Red Hat será
 al final desactivado.
 
-Para confirmar su dirección de correo-e, por favor visite la siguiente URL:
+Para confirmar su dirección de correo-e, por favor visite la siguiente la URL:
 
 {0}
 
@@ -74,11 +74,11 @@ Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
 				<target>Hola,
 
-Un Red Hat login ha sido creado para usted por {0} {1}. Su Red Hat
-login, junto con una suscripción activa de Red Hat, le brindan acceso a
+Un nombre de usuario de Red Hat ha sido creado para usted por {0} {1}. Su nombre de usuario de Red Hat
+, junto con una suscripción activa de Red Hat, le brindan acceso a
  las funciones de administración de sistemas de @@PRODUCT_NAME@@.
 
-Red Hat login: {2}
+Nombre de usuario de Red Hat: {2}
 Contraseña: {3}
 Correo-e: {4}
 
@@ -108,11 +108,11 @@ Thank you for using @@PRODUCT_NAME@@.
 {4}</source>
 				<target>Hola,
 
-Un Red Hat login ha sido creado para usted. Su Red Hat
-login, junto con una suscripción activa de Red Hat, le brindan acceso a
+Un nombre de usuario de Red Hat ha sido creado para usted. Su nombre de usuario de Red Hat
+, junto con una suscripción activa de Red Hat, le brindan acceso a
  las funciones de administración de sistemas de @@PRODUCT_NAME@@.
 
-Red Hat login: {0}
+Nombre de usuario de Red Hat: {0}
 Contraseña: {1}
 Correo-e: {2}
 
@@ -139,11 +139,11 @@ Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
 				<target>Hola,
 
-Un Red Hat login ha sido creado para usted por {0} {1}. Su Red Hat
-login, junto con una suscripción activa de Red Hat, le brindan acceso a
+Un nombre de usuario de Red Hat ha sido creado para usted por {0} {1}. Su nombre de usuario de Red Hat
+, junto con una suscripción activa de Red Hat, le brindan acceso a
  las funciones de administración de sistemas de @@PRODUCT_NAME@@.
 
-Red Hat login: {2}
+Nombre de usuario de Red Hat: {2}
 Correo-e: {4}
 
 {5}
@@ -175,7 +175,7 @@ Un nuevo usuario ha sido añadido a su cuenta.
 
 {0}
 
-Para ver todos los usuario activos y los Red Hat login asociados con sus cuentas,
+Para ver todos los usuario activos y los nombre de usuarios de Red Hat asociados con sus cuentas,
 por favor visite:
 
 {1}
@@ -193,13 +193,13 @@ The Red Hat login {0} has been deactivated in response to your request.
 
 Thank you for contacting Red Hat.</source>
 				<target>
-El Red Hat login {0} ha sido desactivado en respuesta a su solicitud.
+El nombre de usuario de Red Hat {0} ha sido desactivado en respuesta a su solicitud.
 
 Gracias por contactar Red Hat.</target>
 			</trans-unit>
 			<trans-unit id="email.newuser.bala.subject">
 				<source>Red Hat login creation request</source>
-				<target>Solicitud de creación de un Red Hat login</target>
+				<target>Solicitud de creación de un nombre de usuario de Red Hat</target>
 			</trans-unit>
 			<trans-unit id="email.newuser.bala.footer">
 				<source>
@@ -261,7 +261,7 @@ Thank you for choosing Red Hat.
 Sincerely,
 Red Hat Account Management Team</source>
 				<target>
-Estimado usuario de Red Hat,
+Estimado usuario de Red Hat:
 
 Usted ha sido recientemente nombrado en una orden de adquisición de suscripciones
 de Red Hat. Estas suscripciones están disponibles en la siguiente cuenta:
@@ -269,23 +269,23 @@ de Red Hat. Estas suscripciones están disponibles en la siguiente cuenta:
   Nombre de usuario: {0}
   Número de cuenta: {1}
 
-Haga clic en el enlace dado a continuación para crear un nuevo Red Hat Login
+Haga clic en el enlace dado a continuación para crear un nuevo nombre de usuario de Red Hat
 para esta cuenta y obtener acceso a sus suscripciones:
 
 {2}
 
 Si usted no es el administrador técnico que utilizará los servicios adquiridos con la 
 suscripción de Red Hat, por favor envíe este correo-e al usuario apropiado dentro de
-su organización.  Si este usuario no tiene un Login en Red Hat, se puede crear un
-nuevo login haciendo clic en el enlace superior.
+su organización.  Si este usuario no tiene un nombre de usuario en Red Hat, puede crear un
+nuevo nombre de usuario haciendo clic en el enlace superior.
 
-Si ya tiene un login y está conectado a la cuenta arriba mencionada, no se
-requerirá ninguna acción. Puede encontrar el número de cuenta de un Red
-Hat Login existente si va a la siguiente página:
+Si ya tiene un nombre de usuario y está conectado a la cuenta arriba mencionada, no se
+requerirá ninguna acción. Puede encontrar el número de cuenta de un nombre de usuario de Red
+Hat existente en la siguiente página:
 
 http://www.redhat.com/support/
 
-Si ya tiene un Red Hat Login conectado a una cuenta diferente de la cuenta
+Si ya tiene un nombre de usuario de Red Hat conectado a una cuenta diferente a la
 listada en este correo-e y desea utilizar esa cuenta para administrar estas
 suscripciones, Red Hat puede transferirlas a la cuenta deseada. Por favor
 contacte a su representante de servicio al cliente Red Hat en su región utilizando
@@ -323,8 +323,7 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on @@PRODUCT_NAME@@ by following
-   the directions at https://rhn.redhat.com/help/faq/#26
+   delete your existing system profile on @@PRODUCT_NAME@@.
 
 2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
    the number of active Red Hat subscriptions associated with your
@@ -351,9 +350,9 @@ http://www.redhat.com/about/contact/directory.html#custservice
 
 Thank you for using @@PRODUCT_NAME@@.</source>
 				<target>
-Estimado cliente de Red Hat,
+Estimado cliente de Red Hat:
 
-El siguiente sistema ha sido asociado con su Red Hat login y
+El siguiente sistema ha sido asociado con su nombre de usuario de Red Hat y
 con su cuenta en los últimos días, pero no pudo recibir los derechos
 a los servicios de @@PRODUCT_NAME@@
 
@@ -361,15 +360,14 @@ a los servicios de @@PRODUCT_NAME@@
 
 Hay varias razones que pudieron causar esta anomalía:
 
-1) Usted ha reinstalado un sistema y está intentando asociar
+1) Usted ha reinstalado recientemente un sistema y está intentando asociar
    el sistema con una suscripción activa ya existente. Por favor asegúrese
-   de borrar su perfil de sistema existente en @@PRODUCT_NAME@@ siguiendo
-   las instrucciones en https://rhn.redhat.com/help/faq/#26
+   de borrar su perfil de sistema existente en @@PRODUCT_NAME@@.
 
 2) El número de sistemas que usted ha conectado a @@PRODUCT_NAME@@ excede
    el número de suscripciones activas de Red Hat asociadas con su
    cuenta.  Esto puede ser debido a que su suscripción ha expirado
-   o a que necesita obtener una suscripción de Red Hat.
+   o a que necesita adquirir una suscripción de Red Hat.
 
    Para revisar la fecha de vencimiento de sus suscripciones de Red Hat
 existentes, por favor visite:
@@ -379,8 +377,8 @@ existentes, por favor visite:
    Inicie una sesión y haga clic en el enlace Ver y administrar sus suscripciones.
 
 3) Usted instaló recientemente un producto de Red Hat y su número
-   de suscripción no fue activado satisfactoriamente. Si desea intentar
-   activar su suscripción de nuevo, por favor visite:
+   de suscripción no fue activado satisfactoriamente. Si desea reintentar
+   activar su suscripción, por favor visite:
 
    https://www.redhat.com/activate
 
@@ -589,15 +587,15 @@ Thank you for using @@PRODUCT_NAME@@.
 Estimado usuario de @@PRODUCT_NAME@@,
 
 Este correo es enviado con el fin de validar la dirección de correo-e
-que usted ha proporcionado para obtener un Red Hat login.
-Su Red Hat login, junto con una suscripción activa de Red Hat,
+que usted ha proporcionado para obtener un nombre de usuario de Red Hat.
+Su nombre de usuario de Red Hat, junto con una suscripción activa de Red Hat,
 le brinda acceso a las funciones de administración de sistemas
 a través de @@PRODUCT_NAME@@.
 
 Para garantizar la seguridad de la información de la cuenta asociada
-con su Red Hat login, por favor haga clic en el enlace proporcionado
+con su nombre de usuario de Red Hat, por favor haga clic en el enlace proporcionado
 a continuación y verifique que la información de correo-e sea la correcta.
-Si no confirma su dirección de correo-e, su Red Hat login será
+Si no confirma su dirección de correo-e, su nombre de usuario de Red Hat será
 eventualmente desactivado.
 
  Para confirmar su dirección de correo-e, por favor visite la siguiente URL:
@@ -610,7 +608,7 @@ Gracias por utilizar @@PRODUCT_NAME@@.
 			</trans-unit>
 			<trans-unit id="email.verification.notice.subject">
 				<source>Red Hat login Email Verification</source>
-				<target>Verificación de correo-e de Red Hat login</target>
+				<target>Verificación de correo-e de nombre de usuario de Red Hat</target>
 			</trans-unit>
 			<trans-unit id="email.verification.warning.body">
 				<source>
@@ -641,19 +639,19 @@ Thank you for using @@PRODUCT_NAME@@.
 Estimado usuario de @@PRODUCT_NAME@@,
 
 Este correo es enviado con el fin de validar la dirección de correo-e
-que usted ha proporcionado para obtener un login en Red Hat. 
-Su Red Hat login, junto con una suscripción activa de Red Hat,
+que usted ha proporcionado para obtener un nombre de usuario en Red Hat. 
+Su nombre de usuario de Red Hat, junto con una suscripción activa de Red Hat,
 le brinda acceso a las funciones de administración de sistemas
 a través de @@PRODUCT_NAME@@.
 
 Para asegurar la seguridad de la información de la cuenta asociada
-con su Red Hat login, por favor haga clic en el enlace proporcionado
+con su nombre de usuario de Red Hat, por favor haga clic en el enlace proporcionado
 a continuación y verifique que la información de correo-e sea la correcta.
-Si no confirma su dirección de correo-e, su Red Hat login será
+Si no confirma su dirección de correo-e, su nombre de usuario de Red Hat será
 al final desactivado.
 
 Por favor observe que este es un aviso final. Si no hace clic en esta URL
-en los siguientes dos días, su Red Hat login será desactivado.
+en los siguientes dos días, su nombre de usuario de Red Hat será desactivado.
 
 Para confirmar su dirección de correo-e, por favor visite la siguiente URL:
 
@@ -665,7 +663,7 @@ Gracias por usar @@PRODUCT_NAME@@.
 			</trans-unit>
 			<trans-unit id="email.verification.warning.subject">
 				<source>Red Hat Login Email Verification, Final Notice</source>
-				<target>Verificación de correo-e de Red Hat login, último aviso</target>
+				<target>Verificación de correo-e de nombre de usuario de Red Hat, último aviso</target>
 			</trans-unit>
 			<trans-unit id="email.satellitecert.graceperiod.subject">
 				<source>Red Hat @@PRODUCT_NAME@@ Server Certificate expiration warning</source>

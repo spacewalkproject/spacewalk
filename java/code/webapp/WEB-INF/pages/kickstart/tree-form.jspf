@@ -1,19 +1,19 @@
       <html:hidden property="refreshForm" styleId="refreshForm" value="false"/>
       <table class="details">
           <tr>
-            <th><bean:message key="tree-form.jspf.label" /><span class="required-form-field">*</span>:</th>
+            <th><rhn:required-field key="tree-form.jspf.label"/>:</th>
             <td>
               <html:text property="label" maxlength="64" size="64" />
             </td>
           </tr>
           <tr>
-            <th><bean:message key="tree-form.jspf.location" /><span class="required-form-field">*</span>:</th>
+            <th><rhn:required-field key="tree-form.jspf.location"/>:</th>
             <td>
               <html:text property="basepath" maxlength="256" size="64" />
             </td>
           </tr>
           <tr>
-            <th><bean:message key="softwareedit.jsp.basechannel" /><span class="required-form-field">*</span>:</th>
+            <th><rhn:required-field key="softwareedit.jsp.basechannel"/>:</th>
             <td>
               <c:if test="${requestScope.nochannels != 'true'}">
                 <html:select property="channelid" onchange="refresh('dist-tree-form');">
@@ -27,7 +27,7 @@
           </tr>
           <c:if test="${requestScope.nochannels != 'true'}">
             <tr>
-              <th><bean:message key="tree-form.jspf.installer" /><span class="required-form-field">*</span>:</th>
+              <th><rhn:required-field key="tree-form.jspf.installer"/>:</th>
               <td>
                 <c:choose>
                     <c:when test="${requestScope.noinstalltypes == 'true'}">
@@ -43,5 +43,20 @@
                 </c:choose>
               </td>
             </tr>
+
+            <tr>
+              <th><bean:message key="kickstartdetails.jsp.kernel_options"/>:</th>
+              <td>
+               <html:text property="kernelopts" maxlength="256" size="64" />
+              </td>
+            </tr>
+
+             <tr>
+              <th><bean:message key="kickstartdetails.jsp.post_kernel_options"/>:</th>
+              <td>
+               <html:text property="postkernelopts" maxlength="256" size="64" />
+              </td>
+            </tr>
+
           </c:if>          
       </table>

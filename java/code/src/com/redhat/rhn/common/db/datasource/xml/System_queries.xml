@@ -169,6 +169,28 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
   <elaborator name="system_overview" />
 </mode>
 
+<mode name="count_systems_subscribed_to_channel">
+  <query params="org_id, cid, user_id">
+SELECT COUNT(S.id) AS count 
+  FROM rhnServerChannel SC,
+       rhnServer S
+ WHERE S.org_id = :org_id
+   AND S.id = SC.server_id
+   AND SC.channel_id = :cid
+   AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+  </query>
+</mode>
+
+<mode name="count_systems_subscribed_to_channel_not_in_org">
+  <query params="org_id, cid">
+SELECT COUNT(S.id) AS count 
+  FROM rhnServerChannel SC,
+       rhnServer S
+ WHERE S.org_id != :org_id
+   AND S.id = SC.server_id
+   AND SC.channel_id = :cid
+  </query>
+</mode>
 
 <mode name="systems_subscribed_to_channel">
   <query params="org_id, cid, user_id">

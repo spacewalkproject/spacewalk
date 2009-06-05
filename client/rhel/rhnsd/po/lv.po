@@ -59,4 +59,3 @@ msgstr "Kopēšanas tiesības (C) %s Red Hat, Inc.\n"
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Autors %s.\n"
-

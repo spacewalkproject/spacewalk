@@ -4,25 +4,20 @@
           
          <tr>
             <th><bean:message key="kickstartdetails.jsp.virt_mem_kb"/>:</th>
-            <td><html:text property="virt_mem_kb" maxlength="16" size="16" /></td>
+            <td><html:text property="virt_mem_kb" size="10" /></td>
           </tr>
                     
          <tr>
             <th><bean:message key="kickstartdetails.jsp.virt_cpus"/>:</th>
-            <td><html:text property="virt_cpus" maxlength="5" size="5" /></td>
+            <td><html:text property="virt_cpus" size="10" /></td>
           </tr>
          <tr>
-            <th><bean:message key="kickstartdetails.jsp.virt_disk_path"/>:</th>
-            <td><html:text property="virt_disk_path" maxlength="64" size="32" /></td>
-          </tr>          
-          
-         <tr>
             <th><bean:message key="kickstartdetails.jsp.virt_disk_size"/>:</th>
-            <td><html:text property="virt_disk_size" maxlength="5" size="5" /></td>
+            <td><html:text property="virt_disk_size" size="10" /></td>
           </tr>
           
         <tr>
             <th><bean:message key="kickstartdetails.jsp.virt_bridge"/>:</th>
-            <td><html:text property="virt_bridge" maxlength="5" size="5" /></td>
+            <td><html:text property="virt_bridge"  size="10" /></td>
           </tr>          
           

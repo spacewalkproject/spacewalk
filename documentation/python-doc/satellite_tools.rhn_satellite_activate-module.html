@@ -42,7 +42,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="satellite_tools.rhn_satellite_activate-module.html"
@@ -52,7 +52,7 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module rhn_satellite_activate</h1><span class="codelink"><a href="satellite_tools.rhn_satellite_activate-pysrc.html">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Module rhn_satellite_activate</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.rhn_satellite_activate-pysrc.html">source&nbsp;code</a></span></p>
 <!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -74,6 +74,13 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
+        <a href="satellite_tools.rhn_satellite_activate.TimeoutException-class.html" class="summary-name">TimeoutException</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
         <a href="satellite_tools.rhn_satellite_activate.CaCertInsertionError-class.html" class="summary-name">CaCertInsertionError</a><br />
       raise when fail to insert CA cert into the local database
     </td>
@@ -83,8 +90,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="satellite_tools.rhn_satellite_activate.genServerCertError-class.html" class="summary-name">genServerCertError</a><br />
-      Raise when we fail to properly generate a httpd server 
-        certificate
+      Raise when we fail to properly generate a httpd server certificate
     </td>
   </tr>
 <tr>
@@ -92,8 +98,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="satellite_tools.rhn_satellite_activate.SatCertNoFreeEntitlementsException-class.html" class="summary-name">SatCertNoFreeEntitlementsException</a><br />
-      Raise when no free entitlements are available during 
-        activation
+      Raise when no free entitlements are available during activation
     </td>
   </tr>
 <tr>
@@ -313,7 +318,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="satellite_tools.rhn_satellite_activate-module.html#activateSatellite_local" class="summary-sig-name">activateSatellite_local</a>(<span class="summary-sig-arg">options</span>)</span><br />
-      o validate (i.e., verify) an RHN Satellite...</td>
+      o validate (i.e., verify) an RHN Satellite
+o pushes that cert into the local database</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.rhn_satellite_activate-pysrc.html#activateSatellite_local">source&nbsp;code</a></span>
             
@@ -346,10 +352,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="satellite_tools.rhn_satellite_activate-module.html#activateSatellite_remote" class="summary-sig-name">activateSatellite_remote</a>(<span class="summary-sig-arg">options</span>)</span><br />
-      activate/entitle this product on the remote RHN servers
-
-NOTE: validateSatCert calls validate-sat-cert.pl which will activate
-      the satellite as well.</td>
+      activate/entitle this product on the remote RHN servers</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.rhn_satellite_activate-pysrc.html#activateSatellite_remote">source&nbsp;code</a></span>
             
@@ -417,7 +420,15 @@ NOTE: validateSatCert calls validate-sat-cert.pl which will activate
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="satellite_tools.rhn_satellite_activate-module.html#main" class="summary-sig-name">main</a>()</span><br />
-      main routine...</td>
+      main routine
+1    general failure
+10   general sanity check failure (to include a remedial cert
+     version check)
+11   expired!
+12   certificate version fails remedially
+20   remote activation failure (general, and really unknown why)
+30   local activation failure
+40   channel population failure</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.rhn_satellite_activate-pysrc.html#main">source&nbsp;code</a></span>
             
@@ -449,42 +460,42 @@ NOTE: validateSatCert calls validate-sat-cert.pl which will activate
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="PRODUCT_NAME"></a><span class="summary-name">PRODUCT_NAME</span> = <code title="'RHN Management Satellite'"><code class="variable-quote">'</code><code class="variable-string">RHN Management Satellite</code><code class="variable-quote">'</code></code>
+        <a name="PRODUCT_NAME"></a><span class="summary-name">PRODUCT_NAME</span> = <code title="'RHN Management Satellite'">'RHN Management Satellite'</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="DEFAULT_SYSTEMID_LOCATION"></a><span class="summary-name">DEFAULT_SYSTEMID_LOCATION</span> = <code title="'/etc/sysconfig/rhn/systemid'"><code class="variable-quote">'</code><code class="variable-string">/etc/sysconfig/rhn/systemid</code><code class="variable-quote">'</code></code>
+        <a name="DEFAULT_SYSTEMID_LOCATION"></a><span class="summary-name">DEFAULT_SYSTEMID_LOCATION</span> = <code title="'/etc/sysconfig/rhn/systemid'">'/etc/sysconfig/rhn/systemid'</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.rhn_satellite_activate-module.html#DEFAULT_RHN_CERT_LOCATION" class="summary-name">DEFAULT_RHN_CERT_LOCATION</a> = <code title="'/etc/sysconfig/rhn/rhn-entitlement-cert.xml'"><code class="variable-quote">'</code><code class="variable-string">/etc/sysconfig/rhn/rhn-entitlemen</code><code class="variable-ellipsis">...</code></code>
+        <a href="satellite_tools.rhn_satellite_activate-module.html#DEFAULT_RHN_CERT_LOCATION" class="summary-name">DEFAULT_RHN_CERT_LOCATION</a> = <code title="'/etc/sysconfig/rhn/rhn-entitlement-cert.xml'">'/etc/sysconfig/rhn/rhn-entitlemen<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="DEFAULT_WEB_HANDLER"></a><span class="summary-name">DEFAULT_WEB_HANDLER</span> = <code title="'/rpc/api'"><code class="variable-quote">'</code><code class="variable-string">/rpc/api</code><code class="variable-quote">'</code></code>
+        <a name="DEFAULT_WEB_HANDLER"></a><span class="summary-name">DEFAULT_WEB_HANDLER</span> = <code title="'/rpc/api'">'/rpc/api'</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="DEFAULT_WEBAPP_GPG_KEY_RING"></a><span class="summary-name">DEFAULT_WEBAPP_GPG_KEY_RING</span> = <code title="'/etc/webapp-keyring.gpg'"><code class="variable-quote">'</code><code class="variable-string">/etc/webapp-keyring.gpg</code><code class="variable-quote">'</code></code>
+        <a name="DEFAULT_WEBAPP_GPG_KEY_RING"></a><span class="summary-name">DEFAULT_WEBAPP_GPG_KEY_RING</span> = <code title="&quot;/etc/webapp-keyring.gpg&quot;">&quot;/etc/webapp-keyring.gpg&quot;</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="DEFAULT_CONFIG_FILE"></a><span class="summary-name">DEFAULT_CONFIG_FILE</span> = <code title="'/etc/rhn/rhn.conf'"><code class="variable-quote">'</code><code class="variable-string">/etc/rhn/rhn.conf</code><code class="variable-quote">'</code></code>
+        <a name="DEFAULT_CONFIG_FILE"></a><span class="summary-name">DEFAULT_CONFIG_FILE</span> = <code title="&quot;/etc/rhn/rhn.conf&quot;">&quot;/etc/rhn/rhn.conf&quot;</code>
     </td>
   </tr>
 </table>
@@ -518,10 +529,10 @@ NOTE: validateSatCert calls validate-sat-cert.pl which will activate
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="satellite_tools.rhn_satellite_activate-pysrc.html#openGzippedFile">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Open a file for reading. File may or may not be a gzipped file. 
-  Returns a file object.
+  <p>Open a file for reading. File may or may not be a gzipped file. 
+  Returns a file object.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -544,11 +555,11 @@ NOTE: validateSatCert calls validate-sat-cert.pl which will activate
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="satellite_tools.rhn_satellite_activate-pysrc.html#getXmlrpcServer">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Return an XML-RPC Server connection object; no ssl if 
+  <p>Return an XML-RPC Server connection object; no ssl if 
   sslCertPath==None. May return rpclib.Fault, rpclib.ProtocolError, or 
-  socket.error.
+  socket.error.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -566,11 +577,11 @@ NOTE: validateSatCert calls validate-sat-cert.pl which will activate
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="satellite_tools.rhn_satellite_activate-pysrc.html#validateSatCert">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  validating (i.e., verifing sanity of) this product. Calls 
+  <p>validating (i.e., verifing sanity of) this product. Calls 
   validate-sat-cert.pl I.e., makes sure the product Certificate is a sane 
-  certificate
+  certificate</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -587,7 +598,7 @@ NOTE: validateSatCert calls validate-sat-cert.pl which will activate
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="satellite_tools.rhn_satellite_activate-pysrc.html#activateSatellite_local">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
   <pre class="literalblock">
 o validate (i.e., verify) an RHN Satellite
@@ -615,7 +626,7 @@ Assumptions:
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="satellite_tools.rhn_satellite_activate-pysrc.html#activateSatellite_remote">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
   <pre class="literalblock">
 activate/entitle this product on the remote RHN servers
@@ -642,7 +653,7 @@ NOTE: validateSatCert calls validate-sat-cert.pl which will activate
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="satellite_tools.rhn_satellite_activate-pysrc.html#main">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
   <pre class="literalblock">
 main routine
@@ -706,7 +717,7 @@ FIXME - need to redo how we process error codes - very manual
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-quote">'</code><code class="variable-string">/etc/sysconfig/rhn/rhn-entitlement-cert.xml</code><code class="variable-quote">'</code>
+'/etc/sysconfig/rhn/rhn-entitlement-cert.xml'
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -736,10 +747,11 @@ FIXME - need to redo how we process error codes - very manual
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:49 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -750,9 +762,8 @@ FIXME - need to redo how we process error codes - very manual
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

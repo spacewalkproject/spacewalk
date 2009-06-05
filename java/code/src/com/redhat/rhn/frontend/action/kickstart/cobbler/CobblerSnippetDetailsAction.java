@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.kickstart.cobbler;
 
 import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.domain.kickstart.cobbler.CobblerSnippet;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -23,11 +24,13 @@ import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 
 import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,7 +50,10 @@ public class CobblerSnippetDetailsAction extends RhnAction {
     public static final String CONTENTS = "contents";
     public static final String CREATE_MODE = "create_mode";
     public static final String SNIPPET = "snippet";
-    
+
+    private static final String VALIDATION_XSD =
+                "/com/redhat/rhn/frontend/action/kickstart/" +
+                        "cobbler/validation/cobblerSnippetsForm.xsd";    
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                   ActionForm formIn,
@@ -59,10 +65,13 @@ public class CobblerSnippetDetailsAction extends RhnAction {
         request.setAttribute(mapping.getParameter(), Boolean.TRUE);
         
         if (ctx.isSubmitted()) {
-            ActionErrors errors = RhnValidationHelper.validateDynaActionForm(
-                    this, form);
-            if (!errors.isEmpty()) {
-                getStrutsDelegate().saveMessages(request, errors);
+            
+            
+            ValidatorResult result = RhnValidationHelper.validate(this.getClass(), 
+                            makeValidationMap(form), null, 
+                                VALIDATION_XSD);
+            if (!result.isEmpty()) {
+                getStrutsDelegate().saveMessages(request, result);
                 RhnValidationHelper.setFailedValidation(request);
             }
             else {
@@ -90,6 +99,14 @@ public class CobblerSnippetDetailsAction extends RhnAction {
         }
         setup(request, form);    
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }
+
+    private Map makeValidationMap(DynaActionForm form) {
+        Map map = new HashMap();
+        map.put(NAME, form.getString(NAME));
+        map.put(OLD_NAME, form.getString(OLD_NAME));
+        map.put(CONTENTS, form.getString(CONTENTS));
+        return map;
     }
 
     

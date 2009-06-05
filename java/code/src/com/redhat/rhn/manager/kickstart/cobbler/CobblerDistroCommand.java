@@ -92,14 +92,14 @@ public class CobblerDistroCommand extends CobblerCommand {
             xen.setKernel(tree.getKernelXenPath());
             xen.setInitrd(tree.getInitrdXenPath());
             xen.setKsMeta(ksmeta);
+            xen.save();   
         }
         if (nonXen != null) {
             nonXen.setInitrd(tree.getInitrdPath());
             nonXen.setKernel(tree.getKernelPath());
             nonXen.setKsMeta(ksmeta);
+            nonXen.save();
         }
-        xen.save();
-        nonXen.save();
     }
 
 

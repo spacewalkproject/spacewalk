@@ -243,6 +243,30 @@
     </table>
 </rhn-server-device>
 
+<rhn-server-device class="CAPTURE">
+    <h2>CAPTURE</h2>
+
+    <table class="list" width="90%" cellspacing="0">
+      <thead>
+      <tr>
+        <th width="40%">Description</th>
+        <th width="10%">Bus</th>
+        <th width="25%">Vendor</th>
+        <th width="25%">Driver</th>
+      </tr>
+      </thead>
+
+<rhn-device-data>
+      <tr class="{row_class}">
+        <td class="first-column">{capture_description}</td>
+        <td>{capture_bus}</td>
+        <td>{capture_vendorstring}</td>
+        <td class="last-column">{capture_driver}</td>
+      </tr>
+</rhn-device-data>
+    </table>
+</rhn-server-device>
+
 <rhn-server-device class="OTHER">
     <h2>Misc</h2>
 

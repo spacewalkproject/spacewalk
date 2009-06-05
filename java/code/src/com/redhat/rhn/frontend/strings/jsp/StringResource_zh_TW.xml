@@ -748,7 +748,7 @@
 			</trans-unit>
 			<trans-unit id="404.jsp.reason1">
 				<source>If you typed this address into your browser, double-check the spelling and capitalization. The address you are copying may also be outdated.</source>
-				<target>如果您在瀏覽器中輸入這位址，請確認拼字與大小寫是否正確。您複製的網址可能會是過時的。</target>
+				<target>如果您在瀏覽器中輸入這位址，請確認拼字與大小寫是否正確。您所複製的網址可能已無效。</target>
 			</trans-unit>
 			<trans-unit id="404.jsp.reason2">
 				<source>If you followed a link to reach '{0},' the link may be incorrect or outdated.  Click on the back button in your browser to try a different link, or use the top (or left) navigation bars to find the page you are looking for.</source>
@@ -760,7 +760,7 @@
 			</trans-unit>
 			<trans-unit id="404.jsp.reason4">
 				<source>If you feel you've reached this page in error, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt; with details of how you received this message.</source>
-				<target>如果您覺得您以錯誤方式連上本網頁，請 &lt;a href="/help/contact.pxt"&gt;連絡我們&lt;/a&gt;，詳述您是怎麼收到本訊息的。</target>
+				<target>如果您覺得您以錯誤方式連上本網頁，請 &lt;a href="/help/contact.pxt"&gt;連絡我們&lt;/a&gt;，並詳述您是如何收到本訊息的。</target>
 			</trans-unit>
 			<trans-unit id="500.jsp.imgAlt">
 				<source>error</source>
@@ -4574,7 +4574,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="systemlist.jsp.probeunknown">
 				<source>Unknown probes</source>
-				<target>未知的偵測</target>
+				<target>不明的偵測</target>
 			</trans-unit>
 			<trans-unit id="systemlist.jsp.probepending">
 				<source>Pending probes</source>
@@ -5018,7 +5018,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="system_entitlements.unknown.error">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) failed to add an entitlement.  This was caused by an unknown error.  Please contact support.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統無法增加一項權利。  這是因為一個未知的錯誤所導致的。  請聯絡服務人員。</target>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統無法增加一項權利。這是因為一項不明的錯誤所導致的。請聯絡服務人員。</target>
 			</trans-unit>
 			<trans-unit id="search.alt.img">
 				<source>Search Icon</source>
@@ -6807,10 +6807,10 @@ Please note that some manual configuration of these scripts may still be require
 				<target>更新變數</target>
 			</trans-unit>
 			<trans-unit id="kickstart.variable.jsp.summary">
-				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.
-				You would then use $name within the profile to substitute in the value.</source>
+				<source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+        			You would then use $name within the profile to substitute in the value.</source>
 				<target>Kickstart 變數可被使用來將數值帶入 kickstart 設定檔中。若要定義某個變數，請將「name=value」新增至下列方塊中。
-				接著您便需在設定檔中使用 $name 來將該數值帶入。</target>
+        			接著您便需在設定檔中使用 $name 來將該數值帶入。</target>
 			</trans-unit>
 			<trans-unit id="kickstarttree.variable.jsp.summary">
 				<source>Any variables specified below will be usable in any profile that uses this distro.  They can be overridden in each profile as well.</source>
@@ -7045,8 +7045,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>您可以用以下表單修改 kickstart 設定檔。標示為星號（*）的欄位是必填的欄位。</target>
 			</trans-unit>
 			<trans-unit id="kickstartdelete.jsp.summary1">
-				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its associated system and corresponding options.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
-				<target>您確定要刪除這個 kickstart？&lt;strong&gt;&lt;p&gt;警告：刪除這個 kickstart 會移除相關系統與選項。&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;請按下按鈕一次；刪除過程會花上一點時間。&lt;/strong&gt;&lt;/p&gt;</target>
+				<source>Are you sure you want to delete this Kickstart?&lt;strong&gt;&lt;p&gt;WARNING: deleting this kickstart will remove its corresponding options and scripts.&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once; it will take a few moments for the deletion process to complete.&lt;/strong&gt;&lt;/p&gt;</source>
+				<target state="needs-review-translation">您確定要刪除這個 kickstart？&lt;strong&gt;&lt;p&gt;警告：刪除這個 kickstart 會移除相關系統與選項。&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;請按下按鈕一次；刪除過程會花上一點時間。&lt;/strong&gt;&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.summary2">
 				<source>&lt;span class="small-text"&gt; The Organization Default Profile setting can be used with manually-created or bare-metal kickstart files.  Select this option to indicate which profile in your Organization is used when the URL from &lt;a href="{0}" target="_new" &gt; &lt;strong&gt; this link &lt;/strong&gt; &lt;/a&gt; is specified in the &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; section of your kickstart file.  The link will not work unless an Organization Default is specified.&lt;/span&gt;</source>
@@ -7150,12 +7150,12 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.virtTypeChangeWarning">
 				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Changing the Virtualization Type may require changes to the
-            kickstart profile's bootloader and partition options, potentially overwriting user customizations.
-            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt;
+            kickstart profile's bootloader and partition options, potentially overwriting user customizations. 
+            Please visit the &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;Partitioning&lt;/a&gt; 
             tab to verify the new settings.</source>
 				<target>&lt;strong&gt;請注意：&lt;/strong&gt;若要更改虛擬化類型，您可能需要修改
             kickstart 設定檔的 bootloader 和分割區選項，並將用戶自訂化覆寫。
-            請至 &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;磁碟分割&lt;/a&gt;
+            請至 &lt;a href="/rhn/kickstart/KickstartPartitionEdit.do?ksid={0}"&gt;磁碟分割&lt;/a&gt; 
             分頁來驗證新的設定。</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.active">
@@ -7682,6 +7682,14 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<source>nochroot</source>
 				<target>nochroot</target>
 			</trans-unit>
+			<trans-unit id="kickstart.script.template">
+				<source>Template</source>
+				<target>範本</target>
+			</trans-unit>
+			<trans-unit id="kickstart.script.template.tip">
+				<source>Enable this to enable templating on this script using cobbler.</source>
+				<target>啟用此選項以透過使用 cobbler 來在此 script 上啟用範本功能。</target>
+			</trans-unit>
 			<trans-unit id="kickstart.script.tip3">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This specifies when the script gets ran (before or after kickstart).&lt;/span&gt;</source>
 				<target>&lt;span class="small-text"&gt;&lt;strong&gt;提示：&lt;/strong&gt;這會指定 script 的執行時間（kickstart 之前或之後）。&lt;/span&gt;</target>
@@ -7755,11 +7763,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>Kickstart Snippet</target>
 			</trans-unit>
 			<trans-unit id="snippets.jsp.summary">
-				<source>Use Kickstart Snippets to store common blocks of code that can be shared across multiple Kickstart profiles in @@PRODUCT_NAME@@. When you create a Kickstart Snippet, all Kickstart profiles including that snippet will be updated accordingly.</source>
-				<target>使用 Kickstart Snippet 來儲存某個可共享於 @@PRODUCT_NAME@@ 中多個 Kickstart 設定檔之間的通用程式碼區塊。當您建立一個 Kickstart Snippet 時，所有 Kickstart 設定檔包括 snippet 都會被相應地更新。</target>
+				<source>Use kickstart snippets to store common blocks of code that can be shared across multiple kickstart profiles in @@PRODUCT_NAME@@. When you create a kickstart snippet, all kickstart profiles including that snippet will be updated accordingly.</source>
+				<target>使用 kickstart snippet 來儲存某個可共享於 @@PRODUCT_NAME@@ 中多個 kickstart 設定檔之間的通用程式碼區塊。當您建立一個 kickstart snippet 時，所有 kickstart 設定檔，包括該 snippet 都會被相應地更新。</target>
 			</trans-unit>
 			<trans-unit id="snippets.jsp.note.default">
-				<source>default kickstart snippets are not editable.</source>
+				<source>Default kickstart snippets are not editable.</source>
 				<target>預設的 kickstart snippet 無法被編輯。</target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.snippets">
@@ -7775,12 +7783,12 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>Snippet 巨集</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.jsp.nosnippets">
-				<source>No Cobbler snippets found.</source>
-				<target>沒有發現 Cobbler snippet。</target>
+				<source>No kickstart snippets found.</source>
+				<target>沒有發現 kickstart snippet。</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.copy-paste-snippet-tip">
-				<source>Copy and paste the snippet macro into your Kickstart profiles to make the full snippet appear in that Kickstart profile.</source>
-				<target>請複製 snippet 巨集並將其貼入您的 Kickstart 設定檔中來使完整的 snippet 出現在該 Kickstart 設定檔中。</target>
+				<source>Copy and paste the snippet macro into your kickstart profiles to make the full snippet appear in that kickstart profile.</source>
+				<target>請複製 snippet 巨集並將其貼入您的 kickstart 設定檔中來使完整的 snippet 出現在該 kickstart 設定檔中。</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.warning.tip">
 				<source>Changing this snippet's name will require updating any kickstart profiles that refer to it so that they can continue to access the content of this snippet.</source>
@@ -7807,16 +7815,16 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>自訂</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.custom.tip">
-				<source>Custom Kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
-				<target>只有 &lt;strong&gt;{0}&lt;/strong&gt; 組織可使用自訂的 Kickstart snippet。</target>
+				<source>Custom kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
+				<target>只有 &lt;strong&gt;{0}&lt;/strong&gt; 組織可使用自訂的 kickstart snippet。</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default">
 				<source>Default</source>
 				<target>預設值</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.default.tip">
-				<source>Default Kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
-				<target>所有組織都可使用預設的 Kickstart snippet。這些 snippet 無法被修改。</target>
+				<source>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
+				<target>所有組織都可使用預設的 kickstart snippet。這些 snippet 無法被修改。</target>
 			</trans-unit>
 			<trans-unit id="snippetedit.jsp.header2">
 				<source>Edit Snippet</source>
@@ -7827,12 +7835,28 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>建立新的 Snippet</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.summary">
-				<source>Snippets can be shared between Kickstart Profiles</source>
+				<source>Snippets can be shared between kickstart profiles</source>
 				<target>Snippet 可共享於 kickstart 設定檔之間</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.header2">
 				<source>Create Snippet</source>
 				<target>建立 Snippet</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.submit">
+				<source>Create Snippet</source>
+				<target>建立 Snippet</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.header2">
+				<source>Create Snippet</source>
+				<target>建立 Snippet</target>
+			</trans-unit>
+			<trans-unit id="snippetcreate.jsp.submit">
+				<source>Create Snippet</source>
+				<target>建立 Snippet</target>
+			</trans-unit>
+			<trans-unit id="snippetdetails.jsp.header2">
+				<source>Snippet Details</source>
+				<target>Snippet 的詳細資料</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.contents">
 				<source>Contents</source>
@@ -7843,10 +7867,10 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>Kickstart Snippet 內容</target>
 			</trans-unit>
 			<trans-unit id="snippetcreate.jsp.tip1">
-				<source>Avoid spaces in the snippet name.</source>
-				<target>避免在 snippet 名稱中使用空格。</target>
+				<source>The snippet name is the name of a file that will reside in this organization's snippet directory. Any standard unix file name characters are acceptable. Snippet names containing slash character or snippet names beginning with period are not allowed.</source>
+				<target>Snippet 的名稱為將會是駐存於此組織的 snippet 目錄中的檔案之名稱。任何標準的 unix 檔案名稱字元都可被接受。Snippet 名稱不可包含斜線字元或是以句號作為起始。</target>
 			</trans-unit>
-			<trans-unit id="snippetcreate.jsp.submit">
+			<trans-unit id="snippetupdate.jsp.submit">
 				<source>Update Snippet</source>
 				<target>更新 Snippet</target>
 			</trans-unit>
@@ -7859,11 +7883,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>刪除 Snippet</target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.summary">
-				<source>Are you sure you want to delete this Snippet permanently?</source>
-				<target>您確定要永久刪除此 Snippet 嗎？</target>
+				<source>Are you sure you want to delete this snippet permanently?</source>
+				<target>您確定要永久刪除此 snippet 嗎？</target>
 			</trans-unit>
 			<trans-unit id="snippetdelete.jsp.warning">
-				<source>Deleting this snippet will affect any kickstart profiles that refere to it. It may break kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
+				<source>Deleting this snippet will affect any kickstart profiles that refer to it. It may break those kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
 				<target>刪除此 snippet 將會影響所有參照它的 kickstart 設定檔。這可能會損毀 kickstart 設定檔。我們建議您在刪除此 snippet 之前先確認沒有任何依賴它的 kickstart 設定檔。</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.delete">
@@ -7980,7 +8004,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.actions.unknown">
 				<source>Action Status Unknown</source>
-				<target>未知的動作狀態</target>
+				<target>不明的動作狀態</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.noactions">
 				<source>&lt;strong&gt;No recently scheduled actions.&lt;/strong&gt; &lt;p&gt;You have scheduled no actions within the past thirty days. You may view a list of past completed actions at &lt;strong&gt;&lt;a href="/rhn/schedule/CompletedActions.do" &gt; Schedule &gt; Completed Actions&lt;/a&gt;&lt;/strong&gt; and a list of past failed actions at &lt;strong&gt;&lt;a href="/rhn/schedule/FailedActions.do" &gt; Schedule &gt; Failed Actions&lt;/a&gt;&lt;/strong&gt;. &lt;/p&gt;</source>
@@ -10110,7 +10134,7 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
 			</trans-unit>
 			<trans-unit id="filedetails.details.jspf.modifiedBy-unknown">
 				<source>{0} by unknown user</source>
-				<target>由未知使用者 {0}</target>
+				<target>由不明使用者 {0}</target>
 			</trans-unit>
 			<trans-unit id="filedetails.details.jspf.modified-name">
 				<source>Last Modified:</source>
@@ -10266,11 +10290,11 @@ You can, however, download this file.</source>
 			</trans-unit>
 			<trans-unit id="filedetails.properties.jspf.uid">
 				<source>User name &lt;span class=required-form-field&gt;*&lt;/span&gt;:</source>
-				<target>用戶名稱&lt;span class=required-form-field&gt;*&lt;/span&gt;：</target>
+				<target>用戶名稱 &lt;span class=required-form-field&gt;*&lt;/span&gt;：</target>
 			</trans-unit>
 			<trans-unit id="filedetails.properties.jspf.gid">
 				<source>Group name &lt;span class=required-form-field&gt;*&lt;/span&gt;:</source>
-				<target>群組名稱&lt;span class=required-form-field&gt;*&lt;/span&gt;：</target>
+				<target>群組名稱 &lt;span class=required-form-field&gt;*&lt;/span&gt;：</target>
 			</trans-unit>
 			<trans-unit id="deletefile.jsp.header2">
 				<source>Delete Configuration File</source>
@@ -12543,6 +12567,10 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 				<source>Virtual System Hardware Overrides</source>
 				<target>虛擬系統的硬體置換</target>
 			</trans-unit>
+			<trans-unit id="virtualization.provision.override.jsp.goto.advanced.options">
+				<source>By default virtual guest settings like memory, cpu and storage allocations will be inherited from your kickstart profile. If you want to override these settings click on &lt;strong&gt;{0}&lt;/strong&gt; button below.</source>
+				<target>就預設值，虛擬客座端設定（例如記憶體、CPU 和儲存配置）將會繼承您的 kickstart 設定檔。若您希望覆寫這些設定，請點選下方的 &lt;strong&gt;{0}&lt;/strong&gt; 按鈕。</target>
+			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.guest_name.header">
 				<source>Guest Name:</source>
 				<target>客座名稱：</target>
@@ -12927,6 +12955,10 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 				<source>Building</source>
 				<target>建築物</target>
 			</trans-unit>
+			<trans-unit id="sdc.details.overview.updatesavailable">
+				<source>Software Updates Available</source>
+				<target>可用的軟體更新</target>
+			</trans-unit>
 			<trans-unit id="sdc.details.overview.updates.critical">
 				<source>&lt;strong&gt;&lt;a href="{0}"&gt;Critical: &lt;/a&gt;&lt;/strong&gt; {1}</source>
 				<target>&lt;strong&gt;&lt;a href="{0}"&gt;重大：&lt;/a&gt;&lt;/strong&gt; {1}</target>
@@ -12961,7 +12993,7 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.unknown">
 				<source>unknown</source>
-				<target>未知</target>
+				<target>不明</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet.activated">
 				<source>Activated</source>
@@ -13545,7 +13577,7 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.guestsofunknown">
 				<source>Guests of Known Unknown Hosts</source>
-				<target>已知或未知主機的客座</target>
+				<target>已知或不明主機的客座</target>
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.guestsofnonredhat">
 				<source>Guests of Non-Red Hat Virtualization Hosts</source>
@@ -13557,7 +13589,7 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.unknownnote">
 				<source>If the host of a guest system above is listed as an unknown and you would like to free the physical entitlements the guest consumes please make sure that:</source>
-				<target>假如以上列出的客座系統的主機被列為未知，而您想要空出此客座所耗費的實體權利，請確認：</target>
+				<target>假如以上列出的客座系統的主機被列為不明，而您想要空出此客座所耗費的實體權利，請確認：</target>
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.unknownnote1">
 				<source>The host system of your guest is registered to @@PRODUCT_NAME@@</source>
@@ -13851,7 +13883,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
 			</trans-unit>
 			<trans-unit id="org.trust.affectedsystems.summary">
 				<source>
-            The systems listed below will be affected by removing the trust relationship between
+            The systems listed below will be affected by removing the trust relationship between 
             the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
             Removing this trust may adversely affect these systems.  For example, these systems may
             no longer receive security updates for content provided through this trust.</source>
@@ -14788,6 +14820,10 @@ given channel.</source>
 				<source>{0}</source>
 				<target>{0}</target>
 			</trans-unit>
+			<trans-unit id="channel.delete.jsp.toolbar">
+				<source>{0}</source>
+				<target>{0}</target>
+			</trans-unit>
 			<trans-unit id="channel.edit.jsp.basicchanneldetails">
 				<source>Basic Channel Details</source>
 				<target>基礎頻道詳細資訊</target>
@@ -14804,30 +14840,76 @@ given channel.</source>
 				<source>Security: GPG</source>
 				<target>安全性：GPG</target>
 			</trans-unit>
+			<trans-unit id="channel.delete.jsp.channelheader">
+				<source>Delete Channel</source>
+				<target state="needs-review-translation">刪除頻道</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.introparagraph">
+				<source>Are you sure you wish to delete this channel? Packages in the channel will
+           be removed from the channel, but will remain on the server. You will be
+           given the option to delete them after the channel has been deleted. Errata
+           related to the channel will no longer be related to the channel, and may be
+           orphaned. If the channel has child channels, it cannot be deleted; the child
+           channels must be deleted first. If the channel has kickstart distributions
+           associated to it, it cannot be deleted; the kickstart distributions must be
+           dissociated from the channel or deleted first.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.arch">
+				<source>Architecture:</source>
+				<target state="needs-review-translation">架構</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.totalpackages">
+				<source>Total Packages:</source>
+				<target state="needs-review-translation">所有要求的套件：</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.systemssubscribed">
+				<source>Systems Subscribed:</source>
+				<target state="needs-review-translation">已訂閱的系統</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsheader">
+				<source>Trusted Organizations</source>
+				<target state="needs-review-translation">建立組織</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsparagraph">
+				<source>Channel deletion will affect any Trusted Organizations that have systems
+            subscribed to the {0} channel.</source>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.orgsaffected">
+				<source>Organizations Affected:</source>
+				<target state="needs-review-translation">組織：</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubheader">
+				<source>Unsubscribe Systems</source>
+				<target state="needs-review-translation">將系統解除訂閱。</target>
+			</trans-unit>
+			<trans-unit id="channel.delete.jsp.unsubparagraph">
+				<source>Unsubscribe all trusted organization systems that are subscribed to the
+            {0} channel. Subscribed systems will lose access to packages specific to this channel.</source>
+			</trans-unit>
 			<trans-unit id="channel.edit.jsp.introparagraph">
 				<source>Create or edit software channels from this page.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         If the parent channel is set to 'none', the channel is a base channel.
         Otherwise, the channel is a child of the specified channel.
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Channel name and label are required. They each must be at least 6
         characters in length. Labels must begin with a letter, contain only
         lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
         numerals. Channel name may also contain spaces and forward slashes
         ('/').
-        &lt;p/&gt;
+        &lt;p/&gt; 
         Channel summary is also required.</source>
 				<target>請由此網頁建立或編輯軟體頻道。
-        &lt;p/&gt;
+        &lt;p/&gt; 
         若父頻道被設為「none」的話，頻道就會是基礎頻道。
         否則，頻道將會是個特定頻道的子頻道。
-        &lt;p/&gt;
+        &lt;p/&gt; 
         需要頻道名稱和標籤。它們的長度至少必須為 6 個
         字元。標籤必須以一個字母作為起始，並且只包含
         小寫字母、連字符號（「-」）、句號（「.」）、下劃線（「_」）以及
         數字。頻道名稱也能包含空格和正斜線
         （「/」）。
-        &lt;p/&gt;
+        &lt;p/&gt; 
         頻道摘要也是必要的。</target>
 			</trans-unit>
 			<trans-unit id="channel.edit.jsp.public">
@@ -14977,6 +15059,54 @@ given channel.</source>
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
 				<target>找不到您請求的 kickstart 檔案。
          若您正在請求一個組織的預設 kickstart，請確認有個 kickstart 已被選擇來作為「組織預設值」。</target>
+			</trans-unit>
+			<trans-unit id="task.status.current.db.time">
+				<source>Current DB Time</source>
+				<target state="needs-review-translation">目前的金鑰</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.execution">
+				<source>Last Execution Times</source>
+				<target state="needs-review-translation">Script 的執行時間</target>
+			</trans-unit>
+			<trans-unit id="task.status.last.completed">
+				<source>Last Completed Action</source>
+				<target state="needs-review-translation">已完成的動作</target>
+			</trans-unit>
+			<trans-unit id="task.status.session.cleanup">
+				<source>Session Cleanup</source>
+			</trans-unit>
+			<trans-unit id="task.status.errata.queue.notif">
+				<source>Errata Notification Queue</source>
+				<target state="needs-review-translation">發送勘誤通知</target>
+			</trans-unit>
+			<trans-unit id="task.status.errata.mail">
+				<source>Errata Notification Mail</source>
+				<target state="needs-review-translation">發送勘誤通知</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary">
+				<source>Daily Summary Queue</source>
+				<target state="needs-review-translation">日常摘要</target>
+			</trans-unit>
+			<trans-unit id="task.status.daily.summary.mail">
+				<source>Daily Summary Mail</source>
+				<target state="needs-review-translation">日常摘要</target>
+			</trans-unit>
+			<trans-unit id="task.status.clean.alerts">
+				<source>Clean Current Alerts</source>
+				<target state="needs-review-translation">目前的版本</target>
+			</trans-unit>
+			<trans-unit id="task.status.sync.probe">
+				<source>Sync Probe State</source>
+				<target state="needs-review-translation">偵測狀態</target>
+			</trans-unit>
+			<trans-unit id="task.status.message">
+				<source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
+			</trans-unit>
+			<trans-unit id="task.status.title">
+				<source>Task Engine Status</source>
+			</trans-unit>
+			<trans-unit id="actions.jsp.pickedup">
+				<source>Picked Up</source>
 			</trans-unit>
 		</body>
 	</file>

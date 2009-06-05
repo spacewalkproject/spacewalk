@@ -1,200 +1,67 @@
-Red Hat Network Services
-Use and Subscription Agreement
+Open Publication License
+v1.0, 8 June 1999
 
-Red Hat Network is an Internet solution for managing one or more Red
-Hat Linux systems (the "Service").  This Red Hat Network Use and
-Subscription Agreement (the "Agreement") is between Red Hat,
-Inc. ("Red Hat") and all users of, and subcribers to, the Service
-("you" or "Customer").
 
-PLEASE READ THIS AGREEMENT CAREFULLY BEFORE USING OR SUBSCRIBING TO
-THE SERVICE OR PROFILING, REGISTERING OR ENTITLING A SYSTEM WITH THE
-SERVICE.  BY USING OR SUBSCRIBING TO THE SERVICE, OR BY PROFILING,
-REGISTERING OR ENTITLING A SYSTEM WITH THE SERVICE, YOU SIGNIFY YOUR
-ASSENT TO THIS AGREEMENT.  IF YOU ARE ACTING ON BEHALF OF AN ENTITY,
-THEN YOU REPRESENT THAT YOU HAVE THE AUTHORITY TO ENTER INTO THIS
-AGREEMENT ON BEHALF OF THAT ENTITY.  IF YOU DO NOT ACCEPT THE TERMS OF
-THIS AGREEMENT, THEN PLEASE DO NOT ACCESS, USE OR SUBSCRIBE TO THE
-SERVICE AND DO NOT PROFILE, REGISTER OR ENTITLE A SYSTEM WITH OR FOR
-THE SERVICE.
+I. REQUIREMENTS ON BOTH UNMODIFIED AND MODIFIED VERSIONS
 
-1. Use and Subscription Conditions
+The Open Publication works may be reproduced and distributed in whole or in part, in any medium physical or electronic, provided that the terms of this license are adhered to, and that this license or an incorporation of it by reference (with any options elected by the author(s) and/or publisher) is displayed in the reproduction.
 
-You must be at least thirteen (13) years old to use, or entitle a
-system with, the Service.
+Proper form for an incorporation by reference is as follows:
 
-Red Hat reserves the right to modify the Service at any time and for
-any reason or no reason.
+    Copyright (c) <year> by <author's name or designee>. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, vX.Y or later (the latest version is presently available at http://www.opencontent.org/openpub/).
 
-2. Password and Security
+The reference must be immediately followed with any options elected by the author(s) and/or publisher of the document (see section VI).
 
-Customer will create a username, password, and account designation at
-the time Customer subscribes for Service. It is the Customer's duty to
-keep this user information confidential.  Customer must notify Red Hat
-immediately upon discovering any unauthorized use of Customer's
-account.  Customer must purchase a subscription for a system to
-entitle such system to receive Service. The Service may be used only
-for the benefit of the Customer and only for the systems with
-subscriptions.  Customer may not use one subscription for Services for
-more than one system concurrently.  Any unauthorized use of the
-Service will be deemed to be a material breach of this Agreement.
+Commercial redistribution of Open Publication-licensed material is permitted.
 
-3. End User License Agreement
+Any publication in standard (paper) book form shall require the citation of the original publisher and author. The publisher and author's names shall appear on all outer surfaces of the book. On all outer surfaces of the book the original publisher's name shall be as large as the title of the work and cited as possessive with respect to the title.
 
-All of the software programs provided by means of the Red Hat Network
-(the "Software Programs") are individually written and copyrighted,
-and are subject to individual end user license agreements (each, a
-"EULA") that are applicable to the Software Programs.  You agree to
-review, and that you are subject to, each such EULA.  Most of the
-EULAs permit you to copy, modify and redistribute the Software
-Programs, in both source code and binary code forms.  Nothing in this
-Agreement limits your rights under, or grants you rights that
-supercede, any applicable EULA.
 
-4. Provision Applicable to Proxy Server or Satellite
+II. COPYRIGHT
 
-If Customer subscribes to Red Hat Network Proxy Server or Red Hat
-Network Satellite ("Proxy Server or Satellite"), then Red Hat will
-provide the Service to Customer by means of one or more designated
-servers owned or leased by Customer, approved by Red Hat and located
-at Customer's site (the "Servers").  To provide Proxy Server or
-Satellite, the Red Hat Network Proxy Server and/or the Satellite code
-(the "RHN Code") will be installed onto the Servers solely for the
-purpose of allowing Customer to receive the Service during the period
-that the Customer subscribes to Service (the "Subscription Period").
-Customer may use the RHN Code only on the Servers and, upon Red Hat's
-written approval, on one additional server for backup purposes.
-Customer may use the RHN Code only to receive the Services for systems
-for which Customer has purchased a subscription for Service.  Customer
-may not use the RHN Code for any other purpose.  Customer may not
-transfer or assign the RHN Code or any media containing the RHN Code.
-Customer may not modify, copy, make derivative works of, distribute,
-reverse engineer, decompile or export the RHN Code.  During the
-Subscription Period, Customer agrees that Red Hat shall have such
-electronic or physical access to the Servers as Red Hat reasonably
-requests to enable Red Hat to deliver the Service and to update or
-enhance the RHN Code as Red Hat deems necessary, in its sole
-discretion.
+The copyright to each Open Publication is owned by its author(s) or designee.
 
-During the Subscription Period and for one year thereafter, Red Hat
-will have the right to audit Customer's facilities and records upon
-reasonable notice during regular business hours in order to confirm
-compliance with this Agreement.  In the event that such audit reveals
-that Customer has breached this Agreement, Customer will pay Red Hat's
-reasonable audit expenses, immediately destroy all unauthorized copies
-of the RHN Code and pay the appropriate subscription fee for the
-period of the violation.
 
-The RHN Code and any physical media containing the RHN Code and all
-intellectual property rights contained therein, and all copies thereof
-made by Customer (if authorized by Red Hat) are the exclusive property
-of Red Hat and a valuable trade secret of Red Hat.  Upon termination
-of the Subscription Period, Customer immediately will return to
-destroy all copies of the RHN Code in its possession (including any
-RHN Code installed on the Servers).  The RHN Code (and any media
-containing the RHN Code) is the confidential property of Red Hat and
-Customer shall not use or disclose any information regarding the RHN
-Code, except as permitted by this Agreement.
+III. SCOPE OF LICENSE
 
-5. Warranty and Limitation of Liability
+The following license terms apply to all Open Publication works, unless otherwise explicitly stated in the document.
 
-Warranty
+Mere aggregation of Open Publication works or a portion of an Open Publication work with other works or programs on the same media shall not cause this license to apply to those other works. The aggregate work shall contain a notice specifying the inclusion of the Open Publication material and appropriate copyright notice.
 
-Except as specifically stated in this Agreement, the Service, any
-Software Program provided by means of the Service, the Proxy Server,
-Satellite or the RHN Code are provided and licensed "AS IS" WITH OUT
-WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT
-LIMITED TO THE IMPLIED WARRANTY OF MERCHANTABILITY, NON-INFRINGEMENT
-AND FITNESS FOR A PARTICULAR PURPOSE.  RED HAT DOES NOT GUARANTEE THAT
-THE USE OF SERVICE, THE SOFTWARE PROGRAMS, THE PROXY SERVER, SATELLITE
-OR THE RHN CODE WILL BE UNINTERRUPTED OR ERROR FREE.
+SEVERABILITY. If any part of this license is found to be unenforceable in any jurisdiction, the remaining portions of the license remain in force.
 
-Limitation of Liability
+NO WARRANTY. Open Publication works are licensed and provided "as is" without warranty of any kind, express or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose or a warranty of non-infringement.
 
-To the maximum extent permitted by applicable law, IN NO EVENT WILL
-RED HAT BE LIABLE TO YOU FOR ANY DAMAGES, WHETHER IN TORT OR IN
-CONTRACT, INCLUDING LOST PROFITS, LOST SAVINGS OR OTHER INCIDENTIAL OR
-CONSEQUENTIAL DAMAGES ARISING OUT OF (A) THE SERVICE, THE SOFTWARE
-PROGRAMS, THE PROXY SERVER, SATELLITE OR THE RHN CODE, (B) ANY
-INTERRUPTION OF USE OF THE SERVICE, THE SOFTWARE PROGRAMS, THE PROXY
-SERVER, SATELLITE OR THE RHN CODE OR (C) FOR LOSS, INACCURACY OR
-CORRUPTION OF DATA, EVEN IF RED HAT HAS BEEN ADVISED OF THE
-POSSIBILITY OF SUCH DAMAGES.  RED HAT'S LIABILITY HEREUNDER SHALL BE
-LIMITED TO DIRECT DAMAGES IN THE MAXIMUM AMOUNT THAT CUSTOMER PAID TO
-RED HAT FOR THE SERVICES FOR ONE YEAR.
 
-6. Payment Obligations Applicable to Subscribers
+IV. REQUIREMENTS ON MODIFIED WORKS
 
-If Customer has purchased a subscription to the Service, then 
-Customer agreesto the terms of this Section 6 of this Agreement:
+All modified versions of documents covered by this license, including translations, anthologies, compilations and partial documents, must meet the following requirements:
 
-All fees are stated, and must be paid in, United States Dollars.  All
-fees are exclusive of any foreign, federal, state or local sales,
-excise, use or similar taxes.  Customer agrees to pay all such taxes,
-when applicable, regardless of whether such taxes appear on an
-original invoice or are later levied (excluding any taxes levied
-solely on the income of Red Hat).  Any renewal of this Agreement will
-be at Red Hat's list prices in effect at the time of the renewal.  All
-payments are non-refundable.
+   1. The modified version must be labeled as such.
+   2. The person making the modifications must be identified and the modifications dated.
+   3. Acknowledgement of the original author and publisher if applicable must be retained according to normal academic citation practices.
+   4. The location of the original unmodified document must be identified.
+   5. The original author's (or authors') name(s) may not be used to assert or imply endorsement of the resulting document without the original author's (or authors') permission. 
 
-Customer agrees to provide Red Hat with accurate and complete billing
-information (including legal name, address, telephone number, and
-billing or credit information).  Customer will report to Red Hat all
-changes to this information within thirty (30) days of the change.
-Customer shall direct any questions regarding its account to Red Hat's
-customer service department.  All charges are considered valid unless
-disputed within sixty (60) days of the billing date.  Adjustments will
-not be made for charges that are more than 60 days old.  Red Hat
-reserves the right to suspend or cancel Service for non-payment.  Red
-Hat is not responsible for Customer's credit card or debit card fees
-or expenses.  In the event that the Service is purchased through a
-reseller rather than directly through Red Hat, the Customer's Service
-will be suspended if the reseller fails to pay all amounts due to Red
-Hat.
 
-7. Confidentiality of Data
+V. GOOD-PRACTICE RECOMMENDATIONS
 
-Red Hat will comply with its security and privacy policy as it exists
-from time to time.
+In addition to the requirements of this license, it is requested from and strongly recommended of redistributors that:
 
-8. Term of this Agreement and Modification of Services
+   1. If you are distributing Open Publication works on hardcopy or CD-ROM, you provide email notification to the authors of your intent to redistribute at least thirty days before your manuscript or media freeze, to give the authors time to provide updated documents. This notification should describe modifications, if any, made to the document.
+   2. All substantive modifications (including deletions) be either clearly marked up in the document or else described in an attachment to the document.
+   3. Finally, while it is not mandatory under this license, it is considered good form to offer a free copy of any hardcopy and CD-ROM expression of an Open Publication-licensed work to its author(s). 
 
-This Agreement is effective until terminated by either party in
-accordance with this Agreement.
 
-Customer may terminate this Agreement at any time by providing notice
-of termination in writing to Red Hat by registered or certified mail,
-return receipt requested, to the following address: Red Hat, Inc.,
-Customer Service, 1801 Varsity Drive, Raleigh, North Carolina 27606 or
-by calling Customer Service at (888) REDHAT1.  You may not terminate
-Services or this Agreement by email.
+VI. LICENSE OPTIONS
 
-Red Hat may terminate this Agreement, use of the Service, the Proxy
-Service or password access to the Service at any time without prior
-notice, if Red Hat in its sole discretion determines that there has
-been a violation of this Agreement, applicable policies or failure to
-pay charges when due.  Red Hat may terminate this Agreement at any
-time by providing notice of termination to you in any reasonable
-manner.
+The author(s) and/or publisher of an Open Publication-licensed document may elect certain options by appending language to the reference to or copy of the license. These options are considered part of the license instance and must be included with the license (or its incorporation by reference) in derived works.
 
-Sections 3 through 9 of this Agreement shall survive any termination
-of this Agreement.
+A. To prohibit distribution of substantively modified versions without the explicit permission of the author(s). "Substantive modification" is defined as a change to the semantic content of the document, and excludes mere changes in format or typographical corrections.
 
-RED HAT RESERVES THE RIGHT TO MODIFY THE SERVICE AT ANY TIME AND FOR
-ANY REASON OR NO REASON.
+To accomplish this, add the phrase `Distribution of substantively modified versions of this document is prohibited without the explicit permission of the copyright holder.' to the license reference or copy.
 
-9. General
+B. To prohibit any publication of this work or derivative works in whole or in part in standard (paper) book form for commercial purposes unless prior permission is obtained from the copyright holder.
 
-This Agreement is governed by North Carolina law without regard to its
-conflict of laws provisions.  Customer consents to the jurisdication
-of the federal and state courts of the State of North Carolina with
-respect to any disputes or issues arising out of this Agreement.  This
-Agreement constitutes the entire agreement of the parties with respect
-to the subject matter hereof.  This Agreement and the Services may not
-be transferred or assigned without the prior written consent of Red
-Hat.  The unenforceabity of any provision of this Agreement shall not
-effect the remaining provisions of this Agreement. Red Hat reserves
-the right to amend or modify this Agreement at any time and in any
-manner by providing reasonable notice to the Customer.  Customer
-agrees that reasonable notice may be provided by posting on Red Hat's
-web site, the Customer's start pages, email or other written notice.
+To accomplish this, add the phrase 'Distribution of the work or derivative of the work in any standard (paper) book form is prohibited unless prior permission is obtained from the copyright holder.' to the license reference or copy.
+

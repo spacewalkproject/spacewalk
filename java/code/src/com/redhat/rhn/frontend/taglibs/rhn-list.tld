@@ -213,6 +213,36 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
   </tag> 
+  <tag>
+    <name>radiocolumn</name>
+    <tag-class>com.redhat.rhn.frontend.taglibs.list.RadioColumnTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <name>styleclass</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>width</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+     <attribute>
+      <name>headerclass</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+	<attribute>
+      <name>headerkey</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute> 
+    <attribute>
+       <name>value</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag> 
 	<tag>
 		<name>csv</name>
 		<tag-class>com.redhat.rhn.frontend.taglibs.list.CSVTag</tag-class>

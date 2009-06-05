@@ -51,21 +51,24 @@ set serveroutput on
 -- perform migration of DICTIONARY to LOCAL managed tablespaces
 begin
   for t in (select tablespace_name from dba_tablespaces
-	     where extent_management = 'DICTIONARY')
+	     where extent_management = 'DICTIONARY'
+	     and tablespace_name not in ('SYSTEM'))
   loop
     DBMS_SPACE_ADMIN.TABLESPACE_MIGRATE_TO_LOCAL(t.tablespace_name);
   end loop;
   for t in (select tablespace_name from dba_tablespaces
              where contents='PERMANENT'
-	       and tablespace_name not in ('SYSTEM'))
+	       and tablespace_name not in ('SYSTEM','SYSAUX'))
   loop
-    execute immediate 'alter tablespace ' || t.tablespace_name || ' offline';
+    execute immediate 'alter tablespace ' || t.tablespace_name || ' read only';
   end loop;
+  execute immediate 'alter tablespace SYSAUX offline';
   DBMS_SPACE_ADMIN.TABLESPACE_MIGRATE_TO_LOCAL('SYSTEM');
+  execute immediate 'alter tablespace SYSAUX online';
   for t in (select tablespace_name from dba_tablespaces
-             where status = 'OFFLINE')
+             where status = 'READ ONLY')
   loop
-    execute immediate 'alter tablespace ' || t.tablespace_name || ' online';
+    execute immediate 'alter tablespace ' || t.tablespace_name || ' read write';
   end loop;
 end;
 /

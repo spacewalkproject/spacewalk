@@ -32,7 +32,9 @@ import java.util.Set;
  * @version $Rev$
  */
 public class ChannelTestUtils {
-
+    public static final int VIRT_INDEX = 1; 
+    public static final int TOOLS_INDEX = 0;
+    
     private ChannelTestUtils() {
     }
     
@@ -108,12 +110,12 @@ public class ChannelTestUtils {
         ChannelTestUtils.addDistMapToChannel(rhelVirt, ChannelManager.VT_OS_PRODUCT,
                 TestUtils.randomString());
 
-        //PackageManagerTest.addPackageToChannel(
-        //        ChannelManager.VIRT_CHANNEL_PACKAGE_NAME, rhelVirt);
+        PackageManagerTest.addPackageToChannel(
+                ChannelManager.VIRT_CHANNEL_PACKAGE_NAME, rhelVirt);
         
         Channel[] retval = new Channel[2];
-        retval[0] = rhnTools;
-        retval[1] = rhelVirt;
+        retval[TOOLS_INDEX] = rhnTools;
+        retval[VIRT_INDEX] = rhelVirt;
         return retval;
     }
 

@@ -59,19 +59,17 @@ class ConfigParserError(Exception):
 
 class RHNOptions:
 
-    # Static state variables
-    __component = None
-    # Defaults for each option, keyed on tuples
-    __defaults = {}
-    # Parsed config file, keyed on tuples
-    __parsedConfig = {}
-    # Dictionary used as a cache (to avoid looking up options all over the
-    # place). Keyed on strings (component names)
-    __configs = {}
-    # Last modification date for the config file
-    __timestamp = 0
-
     def __init__(self, component=None, root=None, file=None):
+        self.__component = None
+        # Defaults for each option, keyed on tuples
+        self.__defaults = {}
+        # Parsed config file, keyed on tuples
+        self.__parsedConfig = {}
+        # Dictionary used as a cache (to avoid looking up options all over the
+        # place). Keyed on strings (component names)
+        self.__configs = {}
+        # Last modification date for the config file
+        self.__timestamp = 0
         # NOTE: root: root directory location of config files.
         self._init(component, root, file)
 
@@ -91,7 +89,7 @@ class RHNOptions:
     def setComponent(self, comp):
         if not comp:
             comp = ()
-        RHNOptions.__component = comp
+        self.__component = comp
 
     def getComponent(self):
         return self.__component
@@ -101,7 +99,7 @@ class RHNOptions:
             self.__configs.has_key(self.__component)
 
     def modifiedYN(self):
-        #"returns last modified time diff if rhn.conf has changed."
+        """returns last modified time diff if rhn.conf has changed."""
 
         try:
             si = os.stat(self.file)
@@ -111,13 +109,13 @@ class RHNOptions:
         lm = si[stat.ST_MTIME]
         # should always be positive, but a non-zero result is still
         # indication that the file has changed.
-        return lm-RHNOptions.__timestamp
+        return lm-self.__timestamp
 
     def updateLastModified(self, timeDiff=None):
-        #"update the last modified time of the rhn.conf file.
+        """ update the last modified time of the rhn.conf file. """
         if timeDiff is None:
             timeDiff = self.modifiedYN()
-        RHNOptions.__timestamp = RHNOptions.__timestamp + timeDiff
+        self.__timestamp = self.__timestamp + timeDiff
 
     def parse(self):
         """
@@ -141,15 +139,16 @@ class RHNOptions:
 
         # Now that we parsed the defaults, we parse the multi-key
         # self.file configuration (ie, /etc/rhn/rhn.conf)
-        RHNOptions.__parsedConfig = parse_file(self.file)
+        self.__parsedConfig = parse_file(self.file)
 
         # And now generate and cache the current component
         self.__merge()
 
     def _parseDefaults(self, allCompsYN=0):
-        # Parsing of the /etc/rhn/default/*.conf (or equivalent)
-        # Make sure we have all the needed default config files loaded
-        # We store the defaults in a dictionary, keyed on the component tuple
+        """ Parsing of the /etc/rhn/default/*.conf (or equivalent)
+        Make sure we have all the needed default config files loaded
+        We store the defaults in a dictionary, keyed on the component tuple
+        """
         comps = parse_comps(self.__component)
         if allCompsYN:
             comps = getAllComponents_tuples()
@@ -203,20 +202,20 @@ class RHNOptions:
     __setitem__ = set
 
     def writeConfig(self, userConfigDict, commentDict={}, stream=None):
-        #"""given dictionaries in these formats:
-        #     config dictionary:
-        #       { component.component.key: value, ...}
-        #          ***OR***
-        #       { (comp0, comp1): {key: value}, ...}
-        #
-        #     comment dictionary:
-        #       { component.component.key: comment string, ...}
-        #
-        #Compare to defaults. If different, write to file, if not,
-        #leave as is. Comments are written to the file as well.
-        #
-        #NOTE: *DESTRUCTIVE* will overwrite file always.
-        #"""
+        """given dictionaries in these formats:
+             config dictionary:
+               { component.component.key: value, ...}
+                  ***OR***
+               { (comp0, comp1): {key: value}, ...}
+        
+             comment dictionary:
+               { component.component.key: comment string, ...}
+        
+        Compare to defaults. If different, write to file, if not,
+        leave as is. Comments are written to the file as well.
+        
+        NOTE: *DESTRUCTIVE* will overwrite file always.
+        """
         if stream is None:
             stream = open(self.file, 'wb')
         _dict = {}
@@ -265,11 +264,11 @@ class RHNOptions:
         return diffDict
 
     def diffConfig(self, configDict):
-        #"""given configDict in this format:
-        #       { (component0, component1) : {key: value}, ...}
-        #diff the settings against the defaults and return a dict of those
-        #that are truly different (removing the ones that == the defaults).
-        #"""
+        """given configDict in this format:
+               { (component0, component1) : {key: value}, ...}
+        diff the settings against the defaults and return a dict of those
+        that are truly different (removing the ones that == the defaults).
+        """
         savedComponent = self.__component
 
         # prep the diff dictionary
@@ -285,7 +284,7 @@ class RHNOptions:
 
         # examine all the components and keys
         for comp in unique:
-            RHNOptions.__component = string.join(comp, '.')
+            self.__component = string.join(comp, '.')
             self._parseDefaults(allCompsYN=0)
             if self.__defaults.has_key(comp):
                 for k in configDict[comp].keys():
@@ -311,7 +310,7 @@ class RHNOptions:
                 continue
 
         # restore the component and return the result
-        RHNOptions.__component = savedComponent
+        self.__component = savedComponent
         return diffDict
 
     def show(self):
@@ -327,16 +326,16 @@ class RHNOptions:
     ### polymorphic methods
 
     def __getattr__(self, key):
-        #"""fetch option you want in a self.DEBUG kind of syntax
-        #   (can force component selection)
-        #
-        #e.g.: say for example we have an option proxy.debug = 5
-        #      stored in the dictionary. proxy just says that only proxy
-        #      can access this option. So for this exmple,
-        #      RHNOptions.__component is proxy.
-        #       cfg = RHNOptions("proxy")
-        #       print cfg.DEBUG ---> yields 5
-        #"""
+        """fetch option you want in a self.DEBUG kind of syntax
+           (can force component selection)
+        
+        e.g.: say for example we have an option proxy.debug = 5
+              stored in the dictionary. proxy just says that only proxy
+              can access this option. So for this exmple,
+              self.__component is proxy.
+               cfg = RHNOptions("proxy")
+               print cfg.DEBUG ---> yields 5
+        """
         self.__check()
         if not self.__configs[self.__component].has_key(key):
             raise AttributeError(key)
@@ -400,35 +399,35 @@ class RHNOptions:
     ### protected/test methods
 
     def _getDefaults(self):
-        #"""returns the __defaults dict (dictionary of parsed defaults).
-        #"""
+        """returns the __defaults dict (dictionary of parsed defaults).
+        """
         self.__check()
-        return RHNOptions.__defaults
+        return self.__defaults
 
     def _getParsedConfig(self):
-        #"""returns the __parsedConfig dict (dictionary of parsed
-        #   /etc/rhn/rhn.conf file).
-        #"""
+        """returns the __parsedConfig dict (dictionary of parsed
+           /etc/rhn/rhn.conf file).
+        """
         self.__check()
-        return RHNOptions.__parsedConfig
+        return self.__parsedConfig
 
     def _getConfigs(self):
-        #"""returns the __configs dict (dictionary of the merged options
-        #   keyed by component.
-        #"""
+        """returns the __configs dict (dictionary of the merged options
+           keyed by component.
+        """
         self.__check()
-        return RHNOptions.__configs
+        return self.__configs
 
     def _showall(self):
         from pprint import pprint
         print "__defaults: dictionary of parsed defaults."
-        pprint(RHNOptions.__defaults)
+        pprint(self.__defaults)
         print
         print "__parsedConfig: dictionary of parsed /etc/rhn/rhn.conf file."
-        pprint(RHNOptions.__parsedConfig)
+        pprint(self.__parsedConfig)
         print
         print "__configs: dictionary of the merged options keyed by component."
-        pprint(RHNOptions.__configs)
+        pprint(self.__configs)
 
 
 def parse_comps(component):
@@ -519,11 +518,12 @@ def parse_line(line):
 
 
 def unparse_line(component, key, value):
-    # component needs to be in (component1, component2) notation
-    # key is a string
-    # value can be a string, None, int or float ...or [value,value]
-    #                                           ...or (value, linenum)
-    # return 'comonent1.component2.key = value, value
+    """ component needs to be in (component1, component2) notation
+     key is a string
+     value can be a string, None, int or float ...or [value,value]
+                                               ...or (value, linenum)
+     return 'comonent1.component2.key = value, value
+    """
     varSeparator = '.'
     optSeparator = ','
 

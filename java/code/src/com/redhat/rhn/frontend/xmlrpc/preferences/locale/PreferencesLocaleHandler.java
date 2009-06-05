@@ -51,7 +51,7 @@ public class PreferencesLocaleHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("int", "tzid" "Timezone ID. (from listTimeZones)")
      * @xmlrpc.returntype #return_int_success() 
      */
-    public int setTimeZone(String sessionKey, String login, int tzid) {
+    public int setTimeZone(String sessionKey, String login, Integer tzid) {
         List tzs = UserManager.lookupAllTimeZones();
         Object o = CollectionUtils.find(tzs, new TzPredicate(tzid));
         if (o == null) {

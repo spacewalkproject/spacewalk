@@ -131,13 +131,36 @@ public class IndexManager {
      */
     public List<Result> search(String indexName, String query, String lang)
             throws IndexingException, QueryParseException {
+        return search(indexName, query, lang, false);
+    }
+
+    /**
+     * Query a index
+     *
+     * @param indexName name of the index
+     * @param query search query
+     * @param lang language
+     * @param isFineGrained
+     *      true:   will limit results, less are returned but they are closer
+     *              to the search query, useful for advanced/free form queries
+     *
+     *      false:  will allow queries to be more flexible returning words
+     *              which are spelled similarly
+     *
+     * @return list of hits
+     * @throws IndexingException if there is a problem indexing the content.
+     * @throws QueryParseException
+     */
+    public List<Result> search(String indexName, String query, String lang,
+            boolean isFineGrained)
+            throws IndexingException, QueryParseException {
         IndexSearcher searcher = null;
         IndexReader reader = null;
         List<Result> retval = null;
         try {
             reader = getIndexReader(indexName, lang);
             searcher = getIndexSearcher(indexName, lang);
-            QueryParser qp = getQueryParser(indexName, lang);
+            QueryParser qp = getQueryParser(indexName, lang, isFineGrained);
             Query q = qp.parse(query);
             if (log.isDebugEnabled()) {
                 log.debug("Original query was: " + query);
@@ -358,9 +381,11 @@ public class IndexManager {
         return retval;
     }
     
-    private QueryParser getQueryParser(String indexName, String lang) {
+    private QueryParser getQueryParser(String indexName, String lang,
+            boolean isFineGrained) {
         if (log.isDebugEnabled()) {
-            log.debug("getQueryParser(" + indexName + ", " + lang + ")");
+            log.debug("getQueryParser(" + indexName + ", " + lang + ", " +
+                    isFineGrained + ")");
         }
         QueryParser qp;
         Analyzer analyzer = getAnalyzer(indexName, lang);
@@ -368,7 +393,7 @@ public class IndexManager {
             qp = new QueryParser("content", analyzer);
         } 
         else {
-            qp = new NGramQueryParser("name", analyzer);
+            qp = new NGramQueryParser("name", analyzer, isFineGrained);
         }
         qp.setDateResolution(DateTools.Resolution.MINUTE);
         return qp;
@@ -699,7 +724,9 @@ public class IndexManager {
                 NGramAnalyzer(min_ngram, max_ngram));
         analyzer.addAnalyzer("id", new KeywordAnalyzer());
         analyzer.addAnalyzer("arch", new KeywordAnalyzer());
+        analyzer.addAnalyzer("epoch", new KeywordAnalyzer());
         analyzer.addAnalyzer("version", new KeywordAnalyzer());
+        analyzer.addAnalyzer("release", new KeywordAnalyzer());
         analyzer.addAnalyzer("filename", new KeywordAnalyzer());
         return analyzer;
     }

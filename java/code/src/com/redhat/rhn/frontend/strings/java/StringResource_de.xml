@@ -138,6 +138,14 @@
 				<source>Tip</source>
 				<target>Tipp</target>
 			</trans-unit>
+			<trans-unit id="Note">
+				<source>Note</source>
+				<target>Anmerkung</target>
+			</trans-unit>
+			<trans-unit id="Warning">
+				<source>Warning</source>
+				<target>Warnung</target>
+			</trans-unit>
 			<trans-unit id="About Spacewalk">
 				<source>About</source>
 				<target>Info</target>
@@ -272,7 +280,7 @@
 			</trans-unit>
 			<trans-unit id="Custom System Info">
 				<source>Custom System Info</source>
-				<target>Custom-System Info</target>
+				<target>Angepasste Systeminfo</target>
 			</trans-unit>
 			<trans-unit id="date">
 				<source>Date</source>
@@ -344,7 +352,7 @@
 			</trans-unit>
 			<trans-unit id="Global Config">
 				<source>Global Config</source>
-				<target>Globale Konfig</target>
+				<target>Allgemeine Konfig</target>
 			</trans-unit>
 			<trans-unit id="Go">
 				<source>Go</source>
@@ -664,19 +672,19 @@
 			</trans-unit>
 			<trans-unit id="user prefix Mr.">
 				<source>Mr.</source>
-				<target>Hr.</target>
+				<target>-</target>
 			</trans-unit>
 			<trans-unit id="user prefix Mrs.">
 				<source>Mrs.</source>
-				<target>Fr.</target>
+				<target>-</target>
 			</trans-unit>
 			<trans-unit id="user prefix Ms.">
 				<source>Ms.</source>
-				<target>Fr.</target>
+				<target>-</target>
 			</trans-unit>
 			<trans-unit id="user prefix Sr.">
 				<source>Sr.</source>
-				<target>Hr.</target>
+				<target>-</target>
 			</trans-unit>
 			<trans-unit id="user.delete">
 				<source>Deleted user &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -844,7 +852,7 @@
 			</trans-unit>
 			<trans-unit id="error.same_email">
 				<source>You must specify a different email</source>
-				<target>Sie m&amp;uuml;ssen eine andere E-Mail angeben</target>
+				<target>Sie m&amp;uuml;ssen eine andere E-Mail-Adresse angeben</target>
 			</trans-unit>
 			<trans-unit id="error.addr_empty">
 				<source>A valid email address must be entered</source>
@@ -1307,16 +1315,16 @@ f&amp;uuml;r dieses Kickstart-Profil verf&amp;uuml;gbar machen, damit es ordnung
 				<target>Es gab einen Fehler beim L&amp;ouml;schen des IP-Bereichs vom Kickstart-Profil {0}. Bitte probieren Sie es noch einmal.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.update.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
-				<target>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; wurde erfolgreich aktualisiert.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
+				<target>Kickstart Snippet &lt;strong&gt;{0}&lt;/strong&gt; wurde erfolgreich aktualisiert.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.create.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
-				<target>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; wurde erfolgreich erstellt.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
+				<target>Kickstart Snippet &lt;strong&gt;{0}&lt;/strong&gt; wurde erfolgreich erstellt.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.delete.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
-				<target>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; wurde erfolgreich erstellt.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
+				<target>Kickstart Snippet &lt;strong&gt;{0}&lt;/strong&gt; wurde erfolgreich gelöscht.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.couldnotdelete.message">
 				<source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -1327,12 +1335,12 @@ f&amp;uuml;r dieses Kickstart-Profil verf&amp;uuml;gbar machen, damit es ordnung
 				<target>Ein Fehler trat auf beim Versuch, das Snippet &lt;strong&gt;{0}&lt;/strong&gt; umzubenennen in &lt;strong&gt;{1}&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.filenameexists.message">
-				<source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
-				<target>Cobbler Snippet mit dem Namen &lt;strong&gt;{0}&lt;/strong&gt; existiert bereits.</target>
+				<source>Kickstart snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+				<target>Kickstart Snippet mit dem Namen &lt;strong&gt;{0}&lt;/strong&gt; existiert bereits.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.invalidfilename.message">
-				<source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
-				<target>Der angegebene Cobbler Snippet Dateiname ist ungültig. Gültige Zeichen sind A-Z, a-z, 0-9, _ und -.</target>
+				<source>The requested kickstart snippet filename is not valid. The kickstart snippet file name cannot contain slash (/) or  begin with a period(.)</source>
+				<target>Der angeforderte Kickstart Snippet Dateiname ist ungültig. Der Kickstart Snippet Dateiname darf keine Schrägstriche (/) enthalten oder mit einem Punkt (.) beginnen.u</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.snippets">
 				<source>delete snippet</source>
@@ -1738,9 +1746,9 @@ f&amp;uuml;r dieses Kickstart-Profil verf&amp;uuml;gbar machen, damit es ordnung
 				<source>Search strings must be longer than two characters.</source>
 				<target>Such-Strings m&amp;uuml;ssen mehr als 2 Zeichen besitzen.</target>
 			</trans-unit>
-			<trans-unit id="packages.search.index_out_of_sync_with_db">
-				<source>Package search index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
-				<target>Der Pakete-Suchindex scheint nicht mit den Datenbankeinträgen übereinzustimmen. Bitte führen Sie Folgendes aus: '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</target>
+			<trans-unit id="searchserver.index_out_of_sync_with_db">
+				<source>SearchServer index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
+				<target state="needs-review-translation">Der Pakete-Suchindex scheint nicht mit den Datenbankeinträgen übereinzustimmen. Bitte führen Sie Folgendes aus: '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</target>
 			</trans-unit>
 			<trans-unit id="patches.installed.notavailable">
 				<source>Not Available</source>
@@ -1760,7 +1768,7 @@ f&amp;uuml;r dieses Kickstart-Profil verf&amp;uuml;gbar machen, damit es ordnung
 			</trans-unit>
 			<trans-unit id="systemsearch_custom_info">
 				<source>Custom Info</source>
-				<target>Custom-Info</target>
+				<target>Angepasste Info</target>
 			</trans-unit>
 			<trans-unit id="systemsearch_snapshot_tag">
 				<source>Snapshot Tag</source>
@@ -1908,7 +1916,7 @@ f&amp;uuml;r dieses Kickstart-Profil verf&amp;uuml;gbar machen, damit es ordnung
 			</trans-unit>
 			<trans-unit id="org.base.delete.error">
 				<source>You cannot delete the base Organization {0}</source>
-				<target>Sie k&amp;ouml;nnen die Basis-Organisation {0} nicht l&amp;ouml;schen</target>
+				<target>Sie k&amp;ouml;nnen die Basisorganisation {0} nicht l&amp;ouml;schen</target>
 			</trans-unit>
 			<trans-unit id="userdisable.error.orgadmin">
 				<source>You cannot deactivate &lt;strong&gt;another&lt;/strong&gt; organization
@@ -2139,8 +2147,8 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
 				<target>Gesch&amp;auml;tzte Anmeldezeit:</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;ANMERKUNG:&lt;/strong&gt; Dieses System hat sich in letzter Zeit nicht bei @@PRODUCT_NAME@@ angemeldet.  Da ein System nicht aktualisiert werden kann, wenn es sich nicht bei @@PRODUCT_NAME@@ anmeldet, ist es unwahrscheinlich, dass diese Aktion erfolgreich ist.&lt;br/&gt;&lt;br/&gt;&amp;Uuml;berpr&amp;uuml;fen Sie bitte das System und versichern Sie sich, dass rhnsd ausgef&amp;uuml;hrt wird (&lt;a href="/help/faq.pxt#15"&gt;Mehr Info&lt;/a&gt;).  Wenn der Daemon nicht l&amp;auml;uft, &lt;a href="/help/contact.pxt"&gt;kontaktieren Sie uns&lt;/a&gt;.</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running.</source>
+				<target>&lt;strong&gt;ANMERKUNG:&lt;/strong&gt; Dieses System hat sich in letzter Zeit nicht bei @@PRODUCT_NAME@@ angemeldet.  Da ein System nicht aktualisiert werden kann, wenn es sich nicht bei @@PRODUCT_NAME@@ anmeldet, ist es unwahrscheinlich, dass diese Aktion erfolgreich ist.&lt;br/&gt;&lt;br/&gt;&amp;Uuml;berpr&amp;uuml;fen Sie bitte das System und versichern Sie sich, dass rhnsd ausgef&amp;uuml;hrt wird.</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -2160,7 +2168,7 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
 			</trans-unit>
 			<trans-unit id="timetag.pasttense">
 				<source>ago</source>
-				<target>vor</target>
+				<target>her</target>
 			</trans-unit>
 			<trans-unit id="timetag.year">
 				<source>year</source>
@@ -3503,28 +3511,27 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
 				<target>Das Zertifikat wurde hochgeladen.  Der @@PRODUCT_NAME@@ wurde reaktiviert.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
-				<source>Could not parse certificate file</source>
-				<target>Konnte Zertifikat-Datei nicht analysieren</target>
+				<source>Could not parse certificate file, see log file for more details.</source>
+				<target state="needs-review-translation">Konnte Zertifikat-Datei nicht analysieren</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.11">
 				<source>Certificate expired</source>
 				<target>Zertifikat ist abgelaufen</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown @@PRODUCT_NAME@@ version</source>
-				<target>Unbekannte @@PRODUCT_NAME@@ Version</target>
+				<source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
+				<target state="needs-review-translation">Unbekannte @@PRODUCT_NAME@@ Version</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
-				<source>Remote activation failure</source>
-				<target>Remote-Aktivierungsfehler</target>
+				<source>Remote activation failure, see log file for more details.</source>
+				<target state="needs-review-translation">Remote-Aktivierungsfehler</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.30">
-				<source>Local activation failure</source>
-				<target>Lokaler Aktivierungsfehler</target>
+				<source>Local activation failure, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.40">
-				<source>Channel population failure</source>
-				<target>Fehler beim F&amp;uuml;llen des Channels</target>
+				<source>Channel population failure, see log file for more details.</source>
+				<target state="needs-review-translation">Fehler beim F&amp;uuml;llen des Channels</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.80">
 				<source>No management entitlements remaining</source>
@@ -3543,8 +3550,7 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
 				<target>Ung&amp;uuml;ltiges @@PRODUCT_NAME@@-Zertifikat</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
-				<source>Unknown activation error</source>
-				<target>Unbekannter Aktivierungsfehler</target>
+				<source>Unknown activation error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
 				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
@@ -3555,12 +3561,7 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
 				<target>Kein @@PRODUCT_NAME@@-Channel f&amp;uuml;r diese Version verf&amp;uuml;gbar</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
-				<source>Unhandled error</source>
-				<target>Unbehandelter Fehler</target>
-			</trans-unit>
-			<trans-unit id="bootstrap.config.error.127">
-				<source>Unhandled error</source>
-				<target>Unbehandelter Fehler</target>
+				<source>Unhandled error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="hostname">
 				<source>@@PRODUCT_NAME@@ server hostname</source>
@@ -3597,6 +3598,10 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
 			<trans-unit id="bootstrap.config.error.17">
 				<source>Could not find GPG key</source>
 				<target>Konnte GPG-Schl&amp;uuml;ssel nicht finden</target>
+			</trans-unit>
+			<trans-unit id="bootstrap.config.error.127">
+				<source>Unhandled error</source>
+				<target>Unbehandelter Fehler</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.success">
 				<source>Bootstrap script successfully generated.  You can access it &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt;</source>
@@ -4212,7 +4217,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="cloneerrata.anychannel">
 				<source>Any managed channel</source>
-				<target>Jeder beliebige verwaltete Channel</target>
+				<target>Jeden beliebigen verwalteten Channel</target>
 			</trans-unit>
 			<trans-unit id="traceback_mail">
 				<source>Email address</source>
@@ -4220,7 +4225,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.notifications.disabled">
 				<source>E-mail notifications disabled globally</source>
-				<target>E-Mail- Benachrichtigungen global deaktiviert</target>
+				<target>E-Mail-Benachrichtigungen allgemein deaktiviert</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.lock.reason">
 				<source>Manually locked</source>
@@ -4340,7 +4345,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="config.files_0_dirs_0_url">
 				<source>No files or directories. &lt;a href="{0}"&gt; Add&lt;/a&gt;</source>
-				<target>Keine Dateien oder Verzeichnisse. &lt;a href="{0}"&gt;Hinzuf&amp;uuml;gen&lt;/a&gt;</target>
+				<target>Keine Dateien oder Verzeichnisse. &lt;a href="{0}"&gt; Hinzuf&amp;uuml;gen&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="config.files_0_dirs_0">
 				<source>No files or directories.</source>
@@ -4436,7 +4441,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="systems.details.virt.guest.virt.start">
 				<source>Start</source>
-				<target>Start</target>
+				<target>Starten</target>
 			</trans-unit>
 			<trans-unit id="systems.details.virt.guest.virt.suspend">
 				<source>Suspend</source>
@@ -4484,11 +4489,11 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="systems.details.virt.vcpu.exceeds.host.cpus">
 				<source>Exceeding the number of physical CPUs ({0}) on {1} may impact performance.</source>
-				<target>Das &amp;Uuml;berschreiten der Anzahl an physikalischen CPUs ({0}) auf {1} kann die Leistung beeinflussen.</target>
+				<target>Das &amp;Uuml;berschreiten der Anzahl an physischen CPUs ({0}) auf {1} kann die Leistung beeinflussen.</target>
 			</trans-unit>
 			<trans-unit id="systems.details.virt.vcpu.increase.warning">
 				<source>{1} must be shutdown if last started with less than {0} vCPUs for changes to take effect.</source>
-				<target>{1} muss heruntergefahren werden, falls zuletzt mit weniger als {0} vCPUs gestartet, damit die &amp;Auml;nderungen wirksam werden.</target>
+				<target>{1} ben&amp;ouml;tigt einen Neustart, falls zuletzt mit weniger als {0} vCPUs gestartet, damit die &amp;Auml;nderungen wirksam werden.</target>
 			</trans-unit>
 			<trans-unit id="systems.details.virt.memory.warning">
 				<source>{0} must be shutdown for max memory settings to take effect.</source>
@@ -4496,7 +4501,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="systems.details.virt.memory.check.host">
 				<source>Ensure the host system has sufficient free memory if increasing guest memory allocation. Otherwise the guest may refuse to boot the next time it is started.</source>
-				<target>Stellen Sie sicher, dass das Host-System über ausreichend freien Speicher verfügt, wenn Sie die Zuweisung von Gastspeicher erhöhen. Andernfalls kann der Gast ggf. nicht Booten, wenn er das nächste mal gestartet wird.</target>
+				<target>Stellen Sie sicher, dass das Host-System über ausreichend freien Speicher verfügt, wenn Sie die Zuweisung von Gastspeicher erhöhen. Andernfalls kann der Gast ggf. nicht hochfahren, wenn er das nächste mal gestartet wird.</target>
 			</trans-unit>
 			<trans-unit id="virtualsystems.none">
 				<source>No virtual systems selected.</source>
@@ -4604,7 +4609,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="system.entitle.invalid_addon_entitlement">
 				<source>Invalid add-on entitlement [{0}] provided.No such entitlement exists.</source>
-				<target>Ung&amp;uuml;ltige Add-On-Berechtigung [{0}] angegeben. Eine solche Berechtigung existiert nicht.</target>
+				<target>Ung&amp;uuml;ltige Zusatzberechtigung [{0}] angegeben. Eine solche Berechtigung existiert nicht.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.noslots">
 				<source>There were no more {0} System Entitlements available.</source>
@@ -4616,7 +4621,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="system.entitle.no-add.solaris-slots">
 				<source>{0} entitlements cannot be added to solaris machines</source>
-				<target>{0} Berechtigungen k&amp;ouml;nnen zu keinen Solaris-Maschinen hinzugef&amp;uuml;gt werden</target>
+				<target>{0} Berechtigungen k&amp;ouml;nnen nicht zu Solaris-Maschinen hinzugef&amp;uuml;gt werden</target>
 			</trans-unit>
 			<trans-unit id="system.invalidsystem">
 				<source>Invalid system</source>
@@ -4664,7 +4669,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="api.errata.invaliderrata">
 				<source>Invalid errata: {0}</source>
-				<target>Ung&amp;uuml;ltige Errata: {0}</target>
+				<target>Ung&amp;uuml;ltiges Erratum: {0}</target>
 			</trans-unit>
 			<trans-unit id="api.package.invalidpackage">
 				<source>Invalid package: {0}</source>
@@ -4672,7 +4677,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="api.errata.duplicateerrata">
 				<source>Errata already exists with advisory {0}</source>
-				<target>Erratum existiert bereits f&amp;uuml;r das Advisory {0}</target>
+				<target>Erratum existiert bereits f&amp;uuml;r den Hinweis {0}</target>
 			</trans-unit>
 			<trans-unit id="api.system.invalidarch">
 				<source>Invalid arch specified: {0}</source>
@@ -4764,19 +4769,19 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="api.package.provider.invalidKeyType">
 				<source>The package key type specified ({0}) is invalid.</source>
-				<target>Der angegebene Paket-Schlüsseltyp ({0}) ist ung&amp;uuml;ltig.</target>
+				<target>Der angegebene Paketschlüsseltyp ({0}) ist ung&amp;uuml;ltig.</target>
 			</trans-unit>
 			<trans-unit id="api.package.provider.invalidKey">
 				<source>The package key specified ({0}) is invalid.</source>
-				<target>Der angegebene Paket-Schlüssel ({0}) ist ung&amp;uuml;ltig.</target>
+				<target>Der angegebene Paketschlüssel ({0}) ist ung&amp;uuml;ltig.</target>
 			</trans-unit>
 			<trans-unit id="api.package.provider.duplicateKey">
 				<source>The package key specified ({0}) already exists.</source>
-				<target>Der angegebene Paket-Schlüssel ({0}) existiert bereits.</target>
+				<target>Der angegebene Paketschlüssel ({0}) existiert bereits.</target>
 			</trans-unit>
 			<trans-unit id="api.package.provider.invalidProvider">
 				<source>The package provider specified ({0}) is  invalid.</source>
-				<target>Der angegebene Paket-Anbieter ({0}) ist ung&amp;uuml;ltig.</target>
+				<target>Der angegebene Paketanbieter ({0}) ist ung&amp;uuml;ltig.</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.invalidvirttype">
 				<source>Invalid virtualization type: {0}</source>
@@ -4800,7 +4805,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="api.package.invalidpackagearch">
 				<source>The package arch specified ({0}) is invalid.</source>
-				<target>Die angegebene Paket-Architektur ({0}) ist ung&amp;uuml;ltig.</target>
+				<target>Die angegebene Paketarchitektur ({0}) ist ung&amp;uuml;ltig.</target>
 			</trans-unit>
 			<trans-unit id="api.errata.missingerrataaction">
 				<source>A required errata attribute ({0}) was missing.</source>
@@ -4844,7 +4849,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="org.entitlements.system.defaultorg">
 				<source>You are not allowed to update entitlements in the Default Org.  These entitlements are determined by your satellite certificate file.</source>
-				<target>Sie d&amp;uuml;rfen keine Berechtigungen in der Default-Org aktualisieren.  Diese Berechtigungen werden durch die Zertifikat-Datei Ihres Satellite bestimmt.</target>
+				<target>Sie d&amp;uuml;rfen keine Berechtigungen in der Standard-Org aktualisieren.  Diese Berechtigungen werden durch die Zertifikat-Datei Ihres Satellite bestimmt.</target>
 			</trans-unit>
 			<trans-unit id="groupAdmins">
 				<source>Group Admins</source>
@@ -4872,7 +4877,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="roleNames">
 				<source>Role Names</source>
-				<target>Funktionsnamen</target>
+				<target>Rollennamen</target>
 			</trans-unit>
 			<trans-unit id="lastLoggedIn">
 				<source>Last Logged In</source>
@@ -4896,7 +4901,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="entitlementLevel">
 				<source>Entitlement Level</source>
-				<target>Berechtigungs- Level</target>
+				<target>Berechtigungs-Level</target>
 			</trans-unit>
 			<trans-unit id="serverName">
 				<source>Server Name</source>
@@ -4916,7 +4921,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="listtag.listfiltered">
 				<source> This list is filtered.  </source>
-				<target> Diese Liste wird gefiltert.  </target>
+				<target> Diese Liste ist gefiltert.  </target>
 			</trans-unit>
 			<trans-unit id="listtag.clearfilter">
 				<source>Clear filter </source>
@@ -4928,11 +4933,11 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="listtag.filteredmessage">
 				<source>The list of {0} item(s) below is filtered.</source>
-				<target>Die Liste mit {0} Element(en) ist gefiltert.</target>
+				<target>Die unten aufgef&amp;uuml;hrte Liste mit {0} Element(en) ist gefiltert.</target>
 			</trans-unit>
 			<trans-unit id="listtag.all_items_in_filter">
 				<source>The list below is not filtered, because the term you entered to filter by, '&lt;strong&gt;{0}&lt;/strong&gt;', returned matches for every item in the list. Try to filter by a more unique term.</source>
-				<target>Die unten aufgef&amp;uuml;hrte Liste wird nicht gefiltert, da der von Ihnen eingegebene Ausdruck, '&lt;strong&gt;{0}&lt;/strong&gt;', nach dem gefiltert werden sollte, Treffer f&amp;uuml;r jedes Element in der Liste zur&amp;uuml;ckgegeben hat. Versuchen Sie, nach einem etwas eindeutigeren Ausdruck zu filtern.</target>
+				<target>Die unten aufgef&amp;uuml;hrte Liste ist nicht gefiltert, da der von Ihnen eingegebene Ausdruck, '&lt;strong&gt;{0}&lt;/strong&gt;', nach dem gefiltert werden sollte, Treffer f&amp;uuml;r jedes Element in der Liste zur&amp;uuml;ckgegeben hat. Versuchen Sie, nach einem eindeutigeren Ausdruck zu filtern.</target>
 			</trans-unit>
 			<trans-unit id="listtag.filteredmessageempty">
 				<source>The empty list below is filtered.</source>
@@ -4968,7 +4973,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="frontend.actions.channels.manager.add.customizePackages">
 				<source>Customize Package Arch Selection</source>
-				<target>Auswahl der Auswahl der Architektur der Pakete anpassen</target>
+				<target>Auswahl der Paketarchitektur anpassen</target>
 			</trans-unit>
 			<trans-unit id="frontend.actions.channels.manager.add.success">
 				<source>Succesfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
@@ -5024,7 +5029,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="probeparam.passnomatch">
 				<source>The Password and Password Confirm did not match.</source>
-				<target>Das Passw&amp;ouml;r und die Best&amp;auml;tigung desselben stimmen nicht &amp;uuml;berein.</target>
+				<target>Das Passwort und die Best&amp;auml;tigung desselben stimmen nicht &amp;uuml;berein.</target>
 			</trans-unit>
 			<trans-unit id="Password_confirm">
 				<source>Password Confirm</source>
@@ -5036,7 +5041,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="api.kickstart.invalidscripttype">
 				<source>Only script types of "pre" and "post" are allowed for kickstarts.</source>
-				<target>Ausschließlich die Skript-Typen "pre" und "post" sind für Kickstarts erlaubt.</target>
+				<target>Ausschließlich die Skripttypen "pre" und "post" sind für Kickstarts erlaubt.</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.invalidscript">
 				<source>You have specified an invalid kickstart script.</source>
@@ -5176,11 +5181,11 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="api.channel.delete.redhat">
 				<source>Red Hat Channels cannot be deleted, only custom channels can.</source>
-				<target>Red Hat Channels können nicht gelöscht werden, nur angepasste Channels (Custom-Channels) können gelöscht werden.</target>
+				<target>Red Hat Channels können nicht gelöscht werden, nur angepasste Channels können gelöscht werden.</target>
 			</trans-unit>
 			<trans-unit id="api.channel.delete.haschild">
 				<source>This channel has child channels associated with it.  You must delete those channels first before deleting the parent.</source>
-				<target>Dieser Channel besitzt untergeordnete Sub-Channels.  Sie müssen zunächst diese Channels löschen, bevor Sie den übergeordneten Channel löschen können.</target>
+				<target>Dieser Channel besitzt untergeordnete Sub-Channels.  Sie müssen zunächst diese Channels löschen, bevor Sie den übergeordneten Channel ("Parent") löschen können.</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.tree.notfound">
 				<source>The kickstart tree could not be found.  You may not have access to requested tree.</source>
@@ -5189,6 +5194,13 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			<trans-unit id="message.channelcreated">
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
 				<target>Channel &lt;strong&gt;{0}&lt;/strong&gt; erstellt.</target>
+			</trans-unit>
+			<trans-unit id="message.channeldeleted">
+				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; has been deleted.</source>
+				<target state="needs-review-translation">Der Aktivierungsschl&amp;uuml;ssel &lt;strong&gt;{0}&lt;/strong&gt; wurde gel&amp;ouml;scht.</target>
+			</trans-unit>
+			<trans-unit id="message.channel.delete.systemssubscribed">
+				<source>There are currently systems subscribed to this channel. Please confirm system channel removal by selecting the unsubscribe checkbox.</source>
 			</trans-unit>
 			<trans-unit id="message.channelupdated">
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
@@ -5228,39 +5240,37 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste inaktiver Sys
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to
-syncronize kickstart distributions from Spacewalk to Cobbler.  These
-errors must be corrected for the distributions to be available for
-kickstarting systems kickstart distributions failed to sync from
-Spacewalk to Cobbler:
+The following is a list of errors gathered while Spacewalk attempts to 
+syncronize kickstart distributions from Spacewalk to Cobbler.  These 
+errors must be corrected for the distributions to be available for 
+kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
 for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
-Im Folgenden sehen Sie eine Liste auftretender Fehler während
+Im Folgenden sehen Sie eine Liste auftretender Fehler während 
 Spacewalk versucht, Kickstart-Distributionen von Spacewalk nach Cobbler
 zu synchronisieren.  Diese Fehler müssen behoben werden, damit die
-Distributionen verfügbar werden für Systeme, die einen Kickstart einer Distribution
-durchführen wollen, die nicht von Spacewalk nach Cobbler synchronisiert wurden:
+Distributionen für kickstartende Systeme verfügbar werden:
 
 {0}
 
 Bitte überprüfen Sie:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
 für detailliertere Fehler.  Falls Sie die Fehler nicht beheben, wird der
-Kickstart-Baum nicht für Kickstarts brauchbar sein.</target>
+Kickstart-Baum nicht für Kickstarts nutzbar sein.</target>
 			</trans-unit>
 			<trans-unit id="errata.delete.msg">
 				<source>Successfully deleted {0} errata.</source>

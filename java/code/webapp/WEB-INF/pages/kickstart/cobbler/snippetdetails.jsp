@@ -44,12 +44,12 @@
 
 
 <div>
-    <html:form action="${url}" enctype="multipart/form-data">
+    <html:form action="${url}">
     <rhn:submitted/>
 	<table class="details">
     <tr>
         <th>
-            <bean:message key="cobbler.snippet.name"/><span class="required-form-field">*</span>
+        	<rhn:required-field key = "cobbler.snippet.name"/>
         </th>
         <td>
         		<html:text property="name"/>
@@ -96,7 +96,7 @@
     <table  class="details"> 
     <tr>    
         <th>
-            <bean:message key="snippetcreate.jsp.contents"/><span class="required-form-field">*</span>
+        	<rhn:required-field key="snippetcreate.jsp.contents"/>
         </th>
         <td>
          	<html:textarea property="contents" rows="24" cols="80" styleId="contents"/>

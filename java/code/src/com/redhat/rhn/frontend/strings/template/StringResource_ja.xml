@@ -290,12 +290,12 @@ Red Hat はご希望のアカウントにサブスクリプションを転送す
 
 {3}
 
-アカウント管理者 (Organization Administrator) の方へ:  
+アカウント管理者 (組織管理者) 様  
 新規ユーザーがサブスクリプションにアクセスできるようにするには、 
-Organization Administrator アカウントにあるサブスクリプションを新規ユーザーが 
-表示及び管理できるよう許可する必要があります。 これには、 Organization Administrator 
-アカウントに User Administration のエンタイトルメントがなければなりません。 
-不明な点がある場合は、 上記のリンクより担当のカスタマーサービスまでご連絡頂き、 
+ご自分のアカウントにあるサブスクリプションを新規ユーザーが 
+表示管理できるよう許可する必要があります。 これには、ご自分の
+アカウントにユーザー管理のエンタイトルメントがなければなりません。 
+不明な点がある場合は、 上記のリンクより担当のカスタマーサービスまでご連絡いただき、 
 この機能の取得を依頼してください。
 
 Red Hat をご利用頂きありがとうございます。
@@ -320,8 +320,7 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on @@PRODUCT_NAME@@ by following
-   the directions at https://rhn.redhat.com/help/faq/#26
+   delete your existing system profile on @@PRODUCT_NAME@@.
 
 2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
    the number of active Red Hat subscriptions associated with your
@@ -350,18 +349,17 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 				<target>
 お客様各位
 
-以下のシステムは以前よりお客様の Red Hat ログインとアカウントに
-関連付けられていますが、 @@PRODUCT_NAME@@ 各種サービスを
-使用することができませんでした。
+以下のシステムは以前よりお客様の Red Hat ログインとアカウントに 
+関連付けられていますが、 @@PRODUCT_NAME@@ 各種サービスを 
+使用することができませんでした。 
 
 {0}
 
-考えられる理由は次の通りです。
+考えられる理由は次の通りです。 
 
 1) 最近再インストールしたシステムを、既存のアクティブなサブスクリプション
-   に関連付けようとしている場合。
-   https://rhn.redhat.com/help/faq/#26 の指示に従って @@PRODUCT_NAME@@
-   上にある既存のシステムプロフィールが削除されているよう確認してください。
+   に関連付けようとしている場合。 @@PRODUCT_NAME@@ 上にある既存の
+   システムプロフィールが削除されているよう確認してください。 
 
 2) @@PRODUCT_NAME@@ に接続しているシステム数がご使用のアカウントに
    関連付けられているアクティブな Red Hat サブスクリプションの数より多い場合。
@@ -375,9 +373,9 @@ Thank you for using @@PRODUCT_NAME@@.</source>
 
    ログインして表示 (View) をクリックし、 サブスクリプションリンクを確認します。 
 
-3) 最近、Red Hat 製品をインストールし、サブスクリプション番号が正常に
-   アクティブにならなかった場合。 サブスクリプションをアクティブにするには
-   次をご覧ください。
+3) 最近、Red Hat 製品をインストールし、サブスクリプション番号が正常に 
+   アクティブにならなかった場合。 サブスクリプションをアクティブにするには 
+   次をご覧ください。 
 
    https://www.redhat.com/activate
 
@@ -443,7 +441,7 @@ root になり「up2date -p」(RHEL 4 とそれ以下)、あるいは「rhn-prof
 There is 1 affected system registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
 				<target>
-「概要」に登録されているシステムの 1 台が影響を受けました
+「概要」に登録されているシステムの 1 台が影響を受けました 
 (明示的にエラータ警報を有効にしているシステムのみ表示されます)。</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.numsystems">
@@ -451,7 +449,7 @@ which you have explicitly enabled Errata Alerts are shown).</source>
 There are {0} affected systems registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
 				<target>
-「概要」に登録されているシステムの {0} 台が影響を受けました。
+「概要」に登録されているシステムの {0} 台が影響を受けました。 
 (明示的にエラータ警報を有効にしているシステムのみ表示されます)。</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.affected">
@@ -475,8 +473,8 @@ You may address the issues outlined in this advisory in two ways:
 
 本アドバイザリに記載されている問題に対して 2 通りの方法で対処することができます。
 
-     - 以下の場所にある一覧から選択するサーバーのサーバー名をクリックし、
-       そのサーバーに対してエラータ更新をスケジュールします。
+     - 以下の場所にある一覧から選択するサーバーのサーバー名をクリックし、 
+       そのサーバーに対してエラータ更新をスケジュールします。 
            {1}
 
      - 影響を受けた各サーバー上で更新エージェントを実行します。</target>
@@ -499,13 +497,13 @@ click the "Details" tab.
 				<target>
 通知設定の変更
 ---------------------------------
-エラータ警報の設定をグローバルに有効または無効にするには、 @@PRODUCT_NAME@@ に
-ログインして「概要」/「アカウント」より「個人設定」タブを選択します。
+エラータ警報の設定をグローバルに有効または無効にするには、 @@PRODUCT_NAME@@ に 
+ログインして「概要」/「アカウント」より「個人設定」タブを選択します。 
 
         URL: {0}
 
-また、 「システム一覧」からシステムを個別に選択してシステムごとに通知を
-有効または無効にすることもできます。 各システムの表示より「詳細」タブをクリック
+また、 「システム一覧」からシステムを個別に選択してシステムごとに通知を 
+有効または無効にすることもできます。 各システムの表示より「詳細」タブをクリック 
 します。
 
 {1}
@@ -550,7 +548,7 @@ Thank you for using @@PRODUCT_NAME@@.
 
 本メールを無効にする方法は以下を参照してください。
 
-https://{4}/rhn/help/reference/en/s1-sm-your-rhn.jsp
+https://{4}/rhn/help/reference/en/s1-sm-your-rhn.jsp 
 
 
 @@PRODUCT_NAME@@ をご利用頂きありがとうございます。
@@ -590,7 +588,7 @@ Thank you for using @@PRODUCT_NAME@@.
 Red Hat ログインに関連付けられているアカウント情報の安全性を確保するため、
 以下のリンクをクリックして登録された電子メールアドレスに誤りがないかご確認
 ください。 電子メールアドレスのご確認を頂かない場合、Red Hat ログインは最終的
-に無効となります。
+に無効となります。 
 
 次の URL にて電子メールアドレスをご確認ください。
 
@@ -632,15 +630,15 @@ Thank you for using @@PRODUCT_NAME@@.
 				<target>
 @@PRODUCT_NAME@@ ユーザー様
 
-この電子メールは、入力された Red Hat ログイン用の電子メール
+この電子メールは、入力された Red Hat ログイン用の電子メール 
 アドレスを確認する目的で送信されています。 ご使用の Red Hat ログインを 
 アクティブな Red Hat サブスクリプションと合わせてご使用頂くことで、 
-@@PRODUCT_NAME@@ によるシステム管理機能をご利用頂けます。
+@@PRODUCT_NAME@@ によるシステム管理機能をご利用頂けます。 
 
 Red Hat ログインに関連付けられているアカウント情報の安全性を確保するため、
 以下のリンクをクリックして登録された電子メールアドレスに誤りがないかご確認
 ください。 電子メールアドレスのご確認を頂かない場合、Red Hat ログインは最終的
-に無効となります。
+に無効となります。 
 
 本メールは最終通知となりますのでご注意ください。 以下の URL を 2日以内に 
 クリックして頂かないとご使用の Red Hat ログインは無効になります。 
@@ -676,8 +674,8 @@ Thank you for using @@PRODUCT_NAME@@.
 				<target>
 @@PRODUCT_NAME@@ ユーザー様
 
-このメールは、 ご使用の @@PRODUCT_NAME@@ 証明書がローカルのサテライト {0} 上で失効していることを
-お知らせするために送信されています。 {1} 日後に、@@PRODUCT_NAME@@ Server で提供されている
+このメールは、 ご使用の @@PRODUCT_NAME@@ 証明書がローカルのサテライト {0} 上で失効していることを 
+お知らせするために送信されています。 {1} 日後に、@@PRODUCT_NAME@@ Server で提供されている 
 システム管理サービスにアクセスできなくなります。 
 @@PRODUCT_NAME@@ 証明書の更新方法に関しては、担当地域の Red Hat カスタマーサービスまでご連絡ください。
 
@@ -703,7 +701,7 @@ Thank you for using @@PRODUCT_NAME@@.
 				<target>
 @@PRODUCT_NAME@@ ユーザー様
 
-このメールは、 ご使用の @@PRODUCT_NAME@@ 証明書がローカルのサテライト {0} 上で失効していることを
+このメールは、 ご使用の @@PRODUCT_NAME@@ 証明書がローカルのサテライト {0} 上で失効していることを 
 お知らせするために送信されています。 この証明書が更新されるまで、 システム管理サービスはアクセスできなくなります。 
 @@PRODUCT_NAME@@ 証明書の更新方法に関しては、担当地域の Red Hat カスタマーサービスまでご連絡ください。
 

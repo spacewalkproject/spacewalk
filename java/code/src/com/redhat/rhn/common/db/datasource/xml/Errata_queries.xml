@@ -545,28 +545,6 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
 </mode>
 
 <mode name="find_packages_for_errata_set_with_assoc" class="com.redhat.rhn.frontend.dto.PackageOverview">
-  <query params="custom_cid, uid, set">
-	select distinct P.id, PN.name package_name, PA.label as package_arch,
-		EVR.version
-       || '-' || EVR.release || (CASE WHEN EVR.epoch IS NULL THEN '' ELSE ':' || EVR.epoch END)
-         package_nvre,
-         P.summary
-    from
-        rhnSet S inner join
-        rhnErrata E on S.element = E.id inner join
-        rhnErrataPackage EP on E.id = EP.errata_id inner join
-        rhnPackage P on P.id = EP.package_id inner join
-        rhnPackageArch PA on PA.id = P.package_arch_id inner join
-        rhnPackageEvr EVR on Evr.id = P.evr_id inner join
-	rhnChannelPackage CP on CP.package_id = P.id inner join
-	rhnPackageName PN on  PN.id = P.name_id
-    where S.label = :set
-		 and S.user_id = :uid
-         and CP.channel_id = :custom_cid
-  </query>
-</mode>
-
-<mode name="find_packages_for_errata_set_with_assoc" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="src_cid, uid, set">
 	select distinct P.id, PN.name package_name, PA.label as package_arch,
 		EVR.version
@@ -1196,6 +1174,67 @@ SELECT  1
   </query>
 </mode>
 
+<mode name="errata_associated_with_action">
+  <query params="aid">
+SELECT E.id, E.advisory, E.synopsis
+  FROM rhnErrata E,
+       rhnActionErrataUpdate AEU
+ WHERE E.id = AEU.errata_id
+   AND AEU.action_id = :aid
+  </query>
+</mode>
 
+
+
+<mode name="list_errata_needing_sync" class="com.redhat.rhn.frontend.dto.ErrataOverview">
+  <query params="cid, ocid">
+	select distinct E.id, E.advisory_name, E.advisory, E.advisory_type, E.synopsis as advisory_synopsis, E.update_date
+		from rhnChannelErrata CE inner join
+		     rhnErrataPackage EP on CE.errata_id = EP.errata_id inner join
+		     rhnErrataCloned EC on EC.original_id = CE.errata_id inner join
+		     rhnChannelErrata CE2 on CE2.errata_id = EC.id inner join
+		     rhnErrata E on E.id = EC.id
+		where CE.channel_id = :ocid  --original
+			and CE2.channel_id = :cid --clone
+			and Ep.package_id in (select CP.package_id
+								from rhnChannelPackage CP
+								    where
+								CP.channel_id = :ocid  --original
+								and CP.package_id not in (select CP2.package_id
+														  from rhnChannelPackage CP2
+														  where CP2.channel_id = :cid))  --clone
+  </query>
+</mode>
+
+<mode name="list_packages_needing_sync_from_set" class="com.redhat.rhn.frontend.dto.PackageOverview">
+  <query params="set_label, ocid, cid">
+	select P.id id, PN.name || '-' || PE.version
+       || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)
+       || '-' || PA.label nvrea,
+       P.summary
+		from rhnPackage P inner join
+			rhnPackageArch PA on P.package_arch_id = PA.id inner join
+			rhnPackageEVR PE on P.evr_id = PE.id inner join
+			rhnPackageName PN on PN.id = P.name_id inner join
+			rhnErrataPackage EP on EP.package_id = P.id inner join
+			rhnErrataCloned EC on EC.original_id = EP.errata_id inner join
+			rhnChannelPackage CP on CP.package_id = P.id
+	where CP.channel_id = :ocid
+		  and EC.id in ( select element
+							from rhnSet S
+							where S.label = :set_label)
+		  and P.id not in ( select CP2.package_id
+								from rhnChannelPackage CP2
+								where CP2.channel_id = :cid)
+  </query>
+</mode>
+
+<mode name="list_channel_errata_ids">
+  <query params="cid">
+		select  CE.errata_id as id
+		from rhnChannelErrata CE
+		where CE.channel_id = :cid
+  </query>
+</mode>
 
 </datasource_modes>

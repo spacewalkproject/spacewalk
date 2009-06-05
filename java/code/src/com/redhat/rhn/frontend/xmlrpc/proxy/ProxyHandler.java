@@ -17,7 +17,14 @@ package com.redhat.rhn.frontend.xmlrpc.proxy;
 import com.redhat.rhn.common.client.ClientCertificate;
 import com.redhat.rhn.common.client.ClientCertificateDigester;
 import com.redhat.rhn.common.client.InvalidCertificateException;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFamily;
+import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
+import com.redhat.rhn.domain.monitoring.satcluster.SatCluster;
+import com.redhat.rhn.domain.monitoring.satcluster.SatClusterFactory;
+import com.redhat.rhn.domain.monitoring.satcluster.SatNode;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidProxyVersionException;
 import com.redhat.rhn.frontend.xmlrpc.MethodInvalidParamException;
@@ -33,6 +40,9 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * ProxyHandler
@@ -43,6 +53,68 @@ import java.io.StringReader;
  */
 public class ProxyHandler extends BaseHandler {
     private static Logger log = Logger.getLogger(ProxyHandler.class);
+
+    /**
+     * Create Monitoring Scout for proxy.
+     * @param clientcert client certificate of the system.
+     * @return string - scout shared key on success, 
+     *      empty string if system is not proxy (scout is not created)
+     * @throws MethodInvalidParamException thrown if certificate is invalid.
+     * @since 10.7
+     *
+     * @xmlrpc.doc Create Monitoring Scout for proxy.
+     * @xmlrpc.param #param_desc("string", "systemid", "systemid file")
+     * @xmlrpc.returntype string
+     */
+    public String createMonitoringScout(String clientcert)
+        throws MethodInvalidParamException {
+
+        StringReader rdr = new StringReader(clientcert);
+        Server server = null;
+
+        ClientCertificate cert;
+        try {
+            cert = ClientCertificateDigester.buildCertificate(rdr);
+            server = SystemManager.lookupByCert(cert);
+        }
+        catch (IOException ioe) {
+            log.error("IOException - Trying to access a system with an " +
+                    "invalid certificate", ioe);
+            throw new MethodInvalidParamException();
+        }
+        catch (SAXException se) {
+            log.error("SAXException - Trying to access a " +
+                    "system with an invalid certificate", se);
+            throw new MethodInvalidParamException();
+        }
+        catch (InvalidCertificateException e) {
+            log.error("InvalidCertificateException - Trying to access a " +
+                    "system with an invalid certificate", e);
+            throw new MethodInvalidParamException();
+        }
+        if (server.isProxy()) {
+            User owner = server.getCreator();
+
+            SatCluster scout = SatClusterFactory.createSatCluster(owner);
+            scout.setDescription("RHN Proxy" + " " +
+                        server.getHostname() +
+                        " (" + server.getId() + ")");
+            scout.setVip(server.getIpAddress());
+
+            SatNode node =  SatClusterFactory.createSatNode(owner, scout);
+            node.setServer(server);
+            node.setLastUpdateUser(owner.getLogin());
+            node.setLastUpdateDate(new Date());
+
+            SatClusterFactory.saveSatCluster(scout);
+            SatClusterFactory.saveSatNode(node);
+
+            return node.getScoutSharedKey();
+        }
+        else {
+            return "";
+        }
+    }
 
     /**
      * Test, if the system identified by the given client certificate, is proxy.
@@ -187,5 +259,62 @@ public class ProxyHandler extends BaseHandler {
         }
 
         return 0;
+    }
+
+    /**
+     * List available version of proxy channel for the system.
+     * @param clientcert client certificate of the system.
+     * @return 1 if the deactivation succeeded, 0 otherwise.
+     * @since 10.5
+     *
+     * @xmlrpc.doc List available version of proxy channel for system 
+     * identified by the given client certificate i.e. systemid file.
+     * @xmlrpc.param #param_desc("string", "systemid", "systemid file")
+     * @xmlrpc.returntype  #array_single ("string", "version")
+     */
+    public List<String> listAvailableProxyChannels(String clientcert) {
+
+        StringReader rdr = new StringReader(clientcert);
+        Server server = null;
+        try {
+            ClientCertificate cert = ClientCertificateDigester.buildCertificate(rdr);
+            server = SystemManager.lookupByCert(cert);
+        }
+        catch (InvalidCertificateException e) {
+            log.error("Trying to access a system with an invalid certificate", e);
+            throw new MethodInvalidParamException();
+        }
+        catch (IOException e) {
+            log.error("Problem reading certificate", e);
+        }
+        catch (SAXException e) {
+            log.error("Problem parsing certificate", e);
+        }
+        if (server == null) {
+            return null;
+        }
+
+        ChannelFamily proxyFamily = ChannelFamilyFactory
+            .lookupByLabel(ChannelFamilyFactory
+                .PROXY_CHANNEL_FAMILY_LABEL,
+                null);
+
+        if (proxyFamily == null ||
+                proxyFamily.getChannels() == null ||
+                proxyFamily.getChannels().isEmpty()) {
+            return null;
+        }
+
+        List<String> returnList = new ArrayList<String>();
+        /* We search for a proxy channel whose parent channel is our server's basechannel.
+         * This will be the channel we attempt to subscribe the server to.
+         */
+        for (Channel proxyChan : proxyFamily.getChannels()) {
+            if (proxyChan.getProduct() != null &&
+                proxyChan.getParentChannel().equals(server.getBaseChannel())) {
+                returnList.add(proxyChan.getProduct().getVersion());
+            }
+        }
+        return returnList;
     }
 }

@@ -4,7 +4,6 @@ require {
 	type initrc_t;
 	type java_t;
 	type devpts_t;
-	type sbin_t;
 	type initrc_exec_t;
 	type nscd_var_run_t;
 	type oracle_port_t;
@@ -15,6 +14,9 @@ require {
 	type httpd_t;
 	type httpd_sys_script_t;
 	type port_t;
+	type mysqld_etc_t;
+	type mysqld_port_t;
+	type ssh_port_t;
 }
 
 type spacewalk_monitoring_t;
@@ -59,7 +61,6 @@ allow spacewalk_monitoring_t devpts_t:dir search;
 
 corecmd_search_sbin(spacewalk_monitoring_t)
 corecmd_search_bin(spacewalk_monitoring_t)
-allow spacewalk_monitoring_t sbin_t:lnk_file read;
 allow spacewalk_monitoring_t initrc_exec_t:file getattr;
 
 allow spacewalk_monitoring_t spacewalk_monitoring_lock_t:file manage_file_perms;
@@ -80,6 +81,7 @@ allow spacewalk_monitoring_t self:fifo_file rw_file_perms;
 
 corecmd_exec_shell(spacewalk_monitoring_t)
 corecmd_exec_bin(spacewalk_monitoring_t)
+corecmd_exec_sbin(spacewalk_monitoring_t)
 
 kernel_read_system_state(spacewalk_monitoring_t)
 
@@ -115,7 +117,7 @@ allow spacewalk_monitoring_t http_port_t:tcp_socket name_connect;
 read_files_pattern(httpd_t, spacewalk_monitoring_conf_t, spacewalk_monitoring_conf_t)
 
 allow httpd_sys_script_t spacewalk_monitoring_conf_t:file { read ioctl getattr };
-allow httpd_sys_script_t node_t:udp_socket node_bind;
+corenet_udp_bind_all_nodes(httpd_sys_script_t)
 
 auth_dontaudit_read_shadow(spacewalk_monitoring_t)
 
@@ -141,3 +143,20 @@ allow spacewalk_monitoring_t httpd_t:process signull;
 
 manage_dirs_pattern(spacewalk_monitoring_t, spacewalk_monitoring_log_t, spacewalk_monitoring_log_t)
 manage_lnk_files_pattern(spacewalk_monitoring_t, spacewalk_monitoring_log_t, spacewalk_monitoring_log_t)
+
+allow spacewalk_monitoring_t mysqld_etc_t:file { read getattr };
+allow spacewalk_monitoring_t mysqld_port_t:tcp_socket name_connect;
+allow spacewalk_monitoring_t usr_t:file { read getattr };
+
+allow spacewalk_monitoring_t ssh_port_t:tcp_socket name_connect;
+
+files_read_etc_runtime_files(spacewalk_monitoring_t)
+files_search_all(spacewalk_monitoring_t)
+fs_getattr_all_fs(spacewalk_monitoring_t)
+
+corenet_tcp_bind_all_rpc_ports(spacewalk_monitoring_t)
+corenet_udp_bind_all_rpc_ports(spacewalk_monitoring_t)
+corenet_tcp_bind_all_nodes(spacewalk_monitoring_t)
+corenet_udp_bind_all_nodes(spacewalk_monitoring_t)
+
+corenet_tcp_connect_ftp_port(spacewalk_monitoring_t)

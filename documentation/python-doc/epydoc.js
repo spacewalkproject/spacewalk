@@ -7,43 +7,57 @@ function toggle_private() {
         for(var i=0; i<elts.length; i++) {
           if (elts[i].className == "privatelink") {
             cmd = elts[i].innerHTML;
-            elts[i].innerHTML = ((cmd=="show private")?"hide private":
-                                                       "show private");
+            elts[i].innerHTML = ((cmd && cmd.substr(0,4)=="show")?
+                                    "hide&nbsp;private":"show&nbsp;private");
           }
         }
         // Update all DIVs containing private objects.
         var elts = document.getElementsByTagName("div");
         for(var i=0; i<elts.length; i++) {
           if (elts[i].className == "private") {
-            elts[i].style.display = ((cmd=="hide private")?"none":"block");
+            elts[i].style.display = ((cmd && cmd.substr(0,4)=="hide")?"none":"block");
+          }
+          else if (elts[i].className == "public") {
+            elts[i].style.display = ((cmd && cmd.substr(0,4)=="hide")?"block":"none");
           }
         }
-        // Update all table rowss containing private objects.  Note, we
+        // Update all table rows containing private objects.  Note, we
         // use "" instead of "block" becaue IE & firefox disagree on what
         // this should be (block vs table-row), and "" just gives the
         // default for both browsers.
         var elts = document.getElementsByTagName("tr");
         for(var i=0; i<elts.length; i++) {
           if (elts[i].className == "private") {
-            elts[i].style.display = ((cmd=="hide private")?"none":"");
+            elts[i].style.display = ((cmd && cmd.substr(0,4)=="hide")?"none":"");
           }
         }
         // Update all list items containing private objects.
         var elts = document.getElementsByTagName("li");
         for(var i=0; i<elts.length; i++) {
           if (elts[i].className == "private") {
-            elts[i].style.display = ((cmd=="hide private")?"none":"list-item");
+            elts[i].style.display = ((cmd && cmd.substr(0,4)=="hide")?
+                                        "none":"");
           }
         }
         // Update all list items containing private objects.
         var elts = document.getElementsByTagName("ul");
         for(var i=0; i<elts.length; i++) {
           if (elts[i].className == "private") {
-            elts[i].style.display = ((cmd=="hide private")?"none":"block");
+            elts[i].style.display = ((cmd && cmd.substr(0,4)=="hide")?"none":"block");
           }
         }
         // Set a cookie to remember the current option.
         document.cookie = "EpydocPrivate="+cmd;
+      }
+function show_private() {
+        var elts = document.getElementsByTagName("a");
+        for(var i=0; i<elts.length; i++) {
+          if (elts[i].className == "privatelink") {
+            cmd = elts[i].innerHTML;
+            if (cmd && cmd.substr(0,4)=="show")
+                toggle_private();
+          }
+        }
       }
 function getCookie(name) {
         var dc = document.cookie;
@@ -65,7 +79,7 @@ function setFrame(url1, url2) {
       }
 function checkCookie() {
         var cmd=getCookie("EpydocPrivate");
-        if (cmd!="show private" && location.href.indexOf("#_") < 0)
+        if (cmd && cmd.substr(0,4)!="show" && location.href.indexOf("#_") < 0)
             toggle_private();
       }
 function toggleCallGraph(id) {
@@ -94,7 +108,7 @@ function collapse(id) {
   var elt = document.getElementById(id+"-expanded-linenums");
   if (elt) elt.style.display = "none";
   var elt = document.getElementById(id+"-collapsed-linenums");
-  if (elt) { elt.innerHTML = "<br/>"; elt.style.display="block"; }
+  if (elt) { elt.innerHTML = "<br />"; elt.style.display="block"; }
   var elt = document.getElementById(id+"-toggle");
   if (elt) { elt.innerHTML = "+"; }
   var elt = document.getElementById(id+"-collapsed");

@@ -168,11 +168,11 @@
 			</trans-unit>
 			<trans-unit id="ssm.nav.status.inprogress">
 				<source>In Progress</source>
-				<target>進行中　●</target>
+				<target>進行中</target>
 			</trans-unit>
 			<trans-unit id="ssm.nav.status.completed">
 				<source>Completed</source>
-				<target>完了　●</target>
+				<target>完了</target>
 			</trans-unit>
 			<trans-unit id="channel.nav.relevant">
 				<source>Relevant channels</source>
@@ -192,7 +192,7 @@
 			</trans-unit>
 			<trans-unit id="channel.nav.popular">
 				<source>Popular Channels</source>
-				<target>利用が多いチャンネル　●</target>
+				<target>利用が多いチャンネル</target>
 			</trans-unit>
 			<trans-unit id="channel.nav.custom">
 				<source>My Channels</source>
@@ -416,7 +416,7 @@
 			</trans-unit>
 			<trans-unit id="Spacewalk Configuration">
 				<source>@@PRODUCT_NAME@@ Configuration</source>
-				<target>@@PRODUCT_NAME@@ 設定　●</target>
+				<target>@@PRODUCT_NAME@@ 設定</target>
 			</trans-unit>
 			<trans-unit id="Remote Command">
 				<source>Remote Command</source>
@@ -520,11 +520,11 @@
 			</trans-unit>
 			<trans-unit id="kickstart.tree.edit.nav">
 				<source>Edit</source>
-				<target>編集　●</target>
+				<target>編集</target>
 			</trans-unit>
 			<trans-unit id="kickstart.variable.nav">
 				<source>Variables</source>
-				<target>変数　●</target>
+				<target>変数</target>
 			</trans-unit>
 			<trans-unit id="System Details">
 				<source>System Details</source>
@@ -590,10 +590,6 @@
 				<source>Critical</source>
 				<target>重大</target>
 			</trans-unit>
-			<trans-unit id="Warning">
-				<source>Warning</source>
-				<target>警告</target>
-			</trans-unit>
 			<trans-unit id="Unknown">
 				<source>Unknown</source>
 				<target>不明</target>
@@ -604,7 +600,7 @@
 			</trans-unit>
 			<trans-unit id="Admins">
 				<source>Admins</source>
-				<target>管理者　●</target>
+				<target>管理者</target>
 			</trans-unit>
 			<trans-unit id="Managers">
 				<source>Managers</source>
@@ -628,15 +624,15 @@
 			</trans-unit>
 			<trans-unit id="Trusts">
 				<source>Trusts</source>
-				<target>信頼　●</target>
+				<target>信頼</target>
 			</trans-unit>
 			<trans-unit id="Channels Consumed">
 				<source>Channels Consumed</source>
-				<target>使用済チャンネル　●</target>
+				<target>使用済チャンネル</target>
 			</trans-unit>
 			<trans-unit id="Channels Provided">
 				<source>Channels Provided</source>
-				<target>提供チャンネル　●</target>
+				<target>提供チャンネル</target>
 			</trans-unit>
 			<trans-unit id="Subscriptions">
 				<source>Subscriptions</source>

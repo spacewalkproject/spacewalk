@@ -16,11 +16,11 @@
 
 CREATE TABLE rhnSystemMigrations
 (
-    org_id_to    NUMBER NOT NULL 
+    org_id_to    NUMBER
                      CONSTRAINT rhn_sys_mig_oidto_fk
                          REFERENCES web_customer (id) 
                          ON DELETE SET NULL, 
-    org_id_from  NUMBER NOT NULL 
+    org_id_from  NUMBER
                      CONSTRAINT rhn_sys_mig_oidfrm_fk
                          REFERENCES web_customer (id) 
                          ON DELETE SET NULL, 

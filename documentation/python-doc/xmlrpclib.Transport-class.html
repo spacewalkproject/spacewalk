@@ -43,7 +43,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="xmlrpclib.Transport-class.html"
@@ -53,30 +53,12 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class Transport</h1><span class="codelink"><a href="xmlrpclib-pysrc.html#Transport">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class Transport</h1><p class="nomargin-top"><span class="codelink"><a href="xmlrpclib-pysrc.html#Transport">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_xmlrpcli_6" name="uml_class_diagram_for_xmlrpcli_6">
-<area shape="rect" href="rhn.transports.Transport&#45;class.html" title="rhn.transports.Transport" alt="" coords="155,243,334,280" />
-<area shape="rect" href="rhn.transports.ProxyTransport&#45;class.html" title="rhn.transports.ProxyTransport" alt="" coords="19,299,232,336" />
-<area shape="rect" href="rhn.transports.SafeTransport&#45;class.html" title="rhn.transports.SafeTransport" alt="" coords="262,299,467,336" />
-<area shape="rect" href="xmlrpclib.SafeTransport&#45;class.html" title="Handles an HTTPS transaction to an XML&#45;RPC server." alt="" coords="363,243,483,280" />
-<area shape="rect" href="rhn.transports.SafeProxyTransport&#45;class.html" title="rhn.transports.SafeProxyTransport" alt="" coords="6,355,246,392" />
-<area shape="rect" href="xmlrpclib.Transport&#45;class.html#user_agent" title="xmlrpclib.Transport.user_agent" alt="" coords="170,28,498,47" />
-<area shape="rect" href="xmlrpclib.Transport&#45;class.html#make_connection" title="xmlrpclib.Transport.make_connection" alt="" coords="170,49,498,68" />
-<area shape="rect" href="xmlrpclib.Transport&#45;class.html#get_host_info" title="xmlrpclib.Transport.get_host_info" alt="" coords="170,68,498,87" />
-<area shape="rect" href="xmlrpclib.Transport&#45;class.html#send_request" title="xmlrpclib.Transport.send_request" alt="" coords="170,87,498,105" />
-<area shape="rect" href="xmlrpclib.Transport&#45;class.html#request" title="xmlrpclib.Transport.request" alt="" coords="170,105,498,124" />
-<area shape="rect" href="xmlrpclib.Transport&#45;class.html#send_content" title="xmlrpclib.Transport.send_content" alt="" coords="170,124,498,143" />
-<area shape="rect" href="xmlrpclib.Transport&#45;class.html#send_host" title="xmlrpclib.Transport.send_host" alt="" coords="170,143,498,161" />
-<area shape="rect" href="xmlrpclib.Transport&#45;class.html#getparser" title="xmlrpclib.Transport.getparser" alt="" coords="170,161,498,180" />
-<area shape="rect" href="xmlrpclib.Transport&#45;class.html#parse_response" title="xmlrpclib.Transport.parse_response" alt="" coords="170,180,498,199" />
-<area shape="rect" href="xmlrpclib.Transport&#45;class.html#send_user_agent" title="xmlrpclib.Transport.send_user_agent" alt="" coords="170,199,498,217" />
-<area shape="rect" href="xmlrpclib.Transport&#45;class.html" title="Handles an HTTP transaction to an XML&#45;RPC server." alt="" coords="158,5,510,224" />
-</map>
-  <img src="uml_class_diagram_for_xmlrpcli_6.gif" alt='' usemap="#uml_class_diagram_for_xmlrpcli_6" ismap="ismap" class="graph-without-title" />
-</center></center>
+
+</center>
 <hr />
-Handles an HTTP transaction to an XML-RPC server.<br /><br />
+<p>Handles an HTTP transaction to an XML-RPC server.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -95,6 +77,23 @@ Handles an HTTP transaction to an XML-RPC server.<br /><br />
     </table>
   </td>
 </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">use_datetime</span>=<span class="summary-sig-default">0</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="xmlrpclib-pysrc.html#Transport.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
@@ -321,10 +320,11 @@ Handles an HTTP transaction to an XML-RPC server.<br /><br />
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:09:01 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:17 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -335,9 +335,8 @@ Handles an HTTP transaction to an XML-RPC server.<br /><br />
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

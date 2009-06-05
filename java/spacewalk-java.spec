@@ -5,13 +5,13 @@
 %define cobdirsnippets  %{_localstatedir}/lib/rhn/kickstarts/snippets
 %define appdir          %{_localstatedir}/lib/tomcat5/webapps
 %define jardir          %{_localstatedir}/lib/tomcat5/webapps/rhn/WEB-INF/lib
-%define jars antlr asm bcel c3p0 cglib commons-beanutils commons-cli commons-codec commons-digester commons-discovery commons-el commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard xalan-j2 xerces-j2 xml-commons-apis commons-collections postgresql-jdbc
+%define jars antlr asm bcel c3p0 cglib commons-beanutils commons-cli commons-codec commons-digester commons-discovery commons-el commons-io commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard xalan-j2 xerces-j2 xml-commons-apis commons-collections postgresql-jdbc
 
 Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.16
+Version: 0.6.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -79,6 +79,7 @@ BuildRequires: jakarta-commons-collections
 BuildRequires: jakarta-commons-discovery
 BuildRequires: jakarta-commons-el
 BuildRequires: jakarta-commons-fileupload
+BuildRequires: jakarta-commons-io
 BuildRequires: jakarta-commons-validator
 BuildRequires: jakarta-taglibs-standard
 BuildRequires: jasper5
@@ -249,6 +250,167 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Fri Jun 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.24-1
+- good bye StrutsDelegateImpl and StrutsDelegateFactory (paji@redhat.com)
+- 502959 - skip null date values for taskomatic status (shughes@redhat.com)
+- Fixed code that would show up even error messages as good messages in the UI
+  (paji@redhat.com)
+- 504054 - api - errata.getOval - commenting out api (bbuckingham@redhat.com)
+- 502941 - Now that 495506 is verified, removing the log message spam.
+  (jason.dobies@redhat.com)
+- Restore ChannelManager.getLatestPackageEqualInTree. (dgoodwin@redhat.com)
+- 484294 - Fix to complain a channel with distros cant be deleted.
+  (paji@redhat.com)
+- 499399 - api call proxy.createMonitoringScout now return scout shared key
+  (msuchy@redhat.com)
+- Revert "adding better support for kickstart cent, whereby we install/udpate
+  the client packages on all distros and not just RHEL-2,3,4"
+  (dgoodwin@redhat.com)
+- 499399 - save scout to db (msuchy@redhat.com)
+- 504023 - fixing repodata generation to skip solaris custom channels
+  (pkilambi@redhat.com)
+- 495594, 504012 - Fixed issue where invert flag disappeared on pagination;
+  fixed ISE when search produces no results. (jason.dobies@redhat.com)
+- 503642 - update KickstartScheduleCommand to store action id after the action
+  has been saved to the db (bbuckingham@redhat.com)
+- 502905 - fixing issue where non virt kickstarts would show up on virt
+  provisioning page (jsherril@redhat.com)
+- checkstyle fix (jsherril@redhat.com)
+- 502259 - fixing query error that prevented solaris patch clusters from being
+  installed (jsherril@redhat.com)
+- 503545 - api - system.migrateSystems - update to handle systems that are in a
+  system group (bbuckingham@redhat.com)
+- 435043 - adding errata sync page for syncing out of date errata (that have
+  been updated by red hat) (jsherril@redhat.com)
+- 502646 - Fixed list tag filter issue hitting the enter key in IE
+  (paji@redhat.com)
+- 501224 - api - enhance system.listSystemEvents to include more detail on
+  events executed (bbuckingham@redhat.com)
+- Made default virt options in a profile configurable and other anomalies
+  related to virt options (paji@redhat.com)
+
+* Mon Jun 01 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.23-1
+- 496933 - update the errata index when publishing an errata. (jesusr@redhat.com)
+- 492206 - Fixed an issue ' bad cobbler template' parsing (paji@redhat.com)
+- PackageSearchHandler apidoc cleanup (jmatthew@redhat.com)
+- 457316 - Added search for packages in a particular channel. (jason.dobies@redhat.com)
+- 502076 - Fixed kickstarting using a system profile (paji@redhat.com)
+- 487014 - SystemSearch reducing scrore threshold for a single result to
+  redirect to SDC page (jmatthew@redhat.com)
+- 501797 - no need to install Monitoring service (msuchy@redhat.com)
+- 502923 - Fixed a null pointer that occured on saving non existent xen distro. (paji@redhat.com)
+- 490960 - ErrataSearch limit returned results to current or trusted orgs (jmatthew@redhat.com)
+- remove todo indicator from code (bbuckingham@redhat.com)
+- 501358 - api - channel.software.create - update to provide more detail on
+  label/name errors (bbuckingham@redhat.com)
+- 499399 - create new api call proxy.createMonitoringScout (msuchy@redhat.com)
+- 502848 - adding hooks to better assist automation with the systems channel
+  subscription page (jsherril@redhat.com)
+- 496105 - Fix for setting up activaiton key for para-host provisioning (paji@redhat.com)
+- 498467 - A few changes related to the channel name limit increase. (jason.dobies@redhat.com)
+- 502099 - api - update systemgroup.addOrRemoveAdmins to not allow changes to
+  access for sat/org admins (bbuckingham@redhat.com)
+- Fix tests and actions broken by recent change to set clearing logic. (dgoodwin@redhat.com)
+- 472545 - update to the webui translation strings (shughes@redhat.com)
+- 502853 - improving support for CentOS by not looking only in the base channel
+  for the UPDATE pacakges (jsherril@redhat.com)
+- 501387 - adding kernel opts and post kernel opts  to distro edit/create page (jsherril@redhat.com)
+
+* Tue May 26 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.22-1
+- 500366 - ssm pkg verify - fix string in resource bundle
+  (bbuckingham@redhat.com)
+- 501389 - splitting up virt types none and kvm guests, as well as improving
+  virt type names (jsherril@redhat.com)
+- 500444 - Clear system set when beginning a new config deploy pageflow.
+  (dgoodwin@redhat.com)
+- 492902 - Updated a config target systems query to include unprovisioned
+  machines (paji@redhat.com)
+- 502146 - Added validation to custom system info key label to line up with
+  macro argument validation. (jason.dobies@redhat.com)
+- 502186 - Added missing resource key for solaris patches
+  (jason.dobies@redhat.com)
+- adding missing slash on paths (jsherril@redhat.com)
+- 502068 - having cobbler distro create/edit/sync use correct kernel and initrd
+  for ppc distros (jsherril@redhat.com)
+- 457350 - adding api for package search with activation key
+  (jmatthew@redhat.com)
+
+* Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.21-1
+- cleanup duplicate changelog entry
+- 501837 - api - doc - update channel.software.listAllPackages / listAllPackagesByDate returns
+  (bbuckingham@redhat.com)
+- 500501 - improving message displayed when trying to delete a kickstart (jsherril@redhat.com)
+
+* Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.17-1
+- Added a comment to the spec (paji@redhat.com)
+- 496254 - now requires commons-io (because of fileupload) (paji@redhat.com)
+- 457350 - added api for advanced search filtered by channel (jmatthew@redhat.com)
+- 501376 - deprecate system.applyErrata (bbuckingham@redhat.com)
+- 457350 - added package search apis to match functionality webui provides (jmatthew@redhat.com)
+- 501077 - preferences.locale.setTimeZone - fix signature (bbuckingham@redhat.com)
+- 501392 - system.schedulePackageRefresh - fix return docs (bbuckingham@redhat.com)
+- fixing issue introduced by the recent rewrite of the profile list on
+  provisioning wizard pages (jsherril@redhat.com)
+- 501065 - fixing issue where guest provisioning would fail if host had a
+  system record (jsherril@redhat.com)
+- Fixed a null check while sorting for '' attributes (paji@redhat.com)
+- changing download file processing to look in a distro path, if the file is an
+  rpm and it is not in the channel (jsherril@redhat.com)
+- Fixed sorting to use javascript (paji@redhat.com)
+- 500895 - allowing creation of kickstart variables with spaces (jsherril@redhat.com)
+- 500719 - Ported delete channel page to Java; success/failure messages now
+  properly displayed on manage channels page. (jason.dobies@redhat.com)
+- 498251 - add new api proxy.listAvailableProxyChannels (msuchy@redhat.com)
+- 497404 - Ported KS schedule page to new list tag (paji@redhat.com)
+- SearchServer - refactoring package search-server interactions into a helper class (jmatthew@redhat.com)
+- SearchServer - fixes free-form search for Documentation Search (jmatthew@redhat.com)
+- SearchServer - Fixing "free form" search.  Adding a boolean flag which when passed (jmatthew@redhat.com)
+- Added a Radio Column tag to be used with the New List Tag (paji@redhat.com)
+- 251920 - fixed small issue where errata status message after being picked up
+  (but before finishing) was still showing as pending (jsherril@redhat.com)
+- 501074 - fixing issue where ks profile url option was being generated with
+  the entire hostname and not just the path (jsherril@redhat.com)
+- checkstyle fix, and changing dates to be localized (jsherril@redhat.com)
+- 500499 - fixed issue where task engine times were not displayed, the old perl
+  code had been ripped out, so i converted it to java (jsherril@redhat.com)
+- 491361 - Added note to error messages to check the log for error messages. (jason.dobies@redhat.com)
+- 500891 - fixed an unescaped string on snippets delete confirm page (paji@redhat.com)
+- 500887 -Fix to not escape contents in cobbler snippet detials page (paji@redhat.com)
+- 5/14 update of webui translation strings (shughes@redhat.com)
+- 500727 - Just noticed this was flagged as NOTABUG since we don't want to
+  allow this functionality, so removing checkbox. (jason.dobies@redhat.com)
+- 491361 - Added ability to pass the --ignore-version-mismatch flag to the
+  certificate upload page. (jason.dobies@redhat.com)
+- 489902 - add help link to Systems->ActivationKeys (bbuckingham@redhat.com)
+- 489902 - fix broken help link on ManageSoftwareChannels pg (bbuckingham@redhat.com)
+- Fixed unit tests (paji@redhat.com)
+- 432412 - update context help link for Config Mgmt page (bbuckingham@redhat.com)
+- 497424 - Slight redesign of the KS Virt UI to deal with duplicate virt paths (paji@redhat.com)
+- 500160 - fix precision on org trust details page for date (shughes@redhat.com)
+- Fixed incorrect message key (jason.dobies@redhat.com)
+- 499980 - Clear the set after adding the packages in case the user hits the
+  back button and tries to submit it twice. (jason.dobies@redhat.com)
+- 500482 - deprecate kickstart.listKickstartableTrees (bbuckingham@redhat.com)
+- 500147 - update update errata list/remove to use advisoryName vs advisory (bbuckingham@redhat.com)
+- checkstyle fix (jsherril@redhat.com)
+- fixing issue where kickstart file was not written during Cobbler Profile creation (jsherril@redhat.com)
+- 500415 - api - deprecating errata.listByDate (bbuckingham@redhat.com)
+- 495506 - Added temporary verbose logging in case of failed ACL checks for
+  package details page to debug this issue in the next QA build; will remove
+  afterwards. (jason.dobies@redhat.com)
+- 497119 - channel changes - update to use hibernate refresh vs reload (bbuckingham@redhat.com)
+- major cleanup of build files: reformat, remove old targets, etc. (jesusr@redhat.com)
+- removing duplicate query and fixing small issue with errata add page (jsherril@redhat.com)
+- Added new 'rhn:required-field' tag to help with displayed required fields in UI. (paji@redhat.com)
+- 494930 - distros of the same label cannot exist in 2 different orgs fixed (jsherril@redhat.com)
+- 500169 - changing cobbler path doesn't change distro kernel and initrd paths (jsherril@redhat.com)
+- 472545 - updated  translations strings for java webui (shughes@redhat.com)
+- 499537 - removing references to faq links (shughes@redhat.com)
+- 499515 - fix ISEs with Solaris patch install/remove and cluster install (bbuckingham@redhat.com)
+- Fixed a compile error that occured with 1.5 compilers (paji@redhat.com)
+- 499473 - api - added 2 new api calls to org for listing entitlements (bbuckingham@redhat.com)
+- 499508 - Removed Run Remote Command buttons from package install/upgrade (jason.dobies@redhat.com)
+
 * Thu May 07 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.16-1
 - remove @Override for java 1.5 builds (jesusr@redhat.com)
 

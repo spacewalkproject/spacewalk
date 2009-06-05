@@ -54,7 +54,10 @@ class rpmPackage(IncompletePackage):
                     val = gmtime(val)
             elif val:
                 # Convert to strings
-                val = str(val)
+                if isinstance(val, unicode):
+                    val = unicode.encode(val, 'utf-8')
+                else:
+                    val = str(val)
             elif val == []:
                 val = None
             self[f] = val
@@ -190,7 +193,7 @@ class rpmBinaryPackage(Package, rpmPackage):
 
         # Now create the array of objects
         self[tag] = []
-        unique_objs = []
+        unique_deps = []
         for i in range(itemcount):
             hash = {}
             for k, v in fix.items():
@@ -204,18 +207,22 @@ class rpmBinaryPackage(Package, rpmPackage):
                     hash[k] = v[i]
             # Create a file 
             obj = Class()
-            # Fedora 10+ rpms have duplicate deps,
+            # Fedora 10+ rpms have duplicate provides deps,
             # Lets clean em up before db inserts.
-            if tag in ['requires', 'provides', 'obsoletes']:
-                if len(hash['name']) and hash['name'] not in unique_objs:
-                    unique_objs.append(hash['name'])
+            if tag == 'provides':
+                if not len(hash['name']):
+                    continue
+                dep_nv = hash['name'] + hash['version']
+
+                if dep_nv not in unique_deps:
+                    unique_deps.append(dep_nv)
                     obj.populate(hash)
                     self[tag].append(obj)
                 else:
                     # duplicate dep, ignore
                     continue
             else:
-                # conflict could be a file, lets process as usual
+                # requires, conflicts, obsoletes lets process as usual
                 obj.populate(hash)
                 self[tag].append(obj)
 

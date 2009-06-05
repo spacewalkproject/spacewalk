@@ -4,7 +4,7 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.11
+Version: 2.5.12
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -52,6 +52,15 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 2.5.12-1
+- merging additional spec changes and minor edits from svn (pkilambi@redhat.com)
+- 499860 Ability to define location for the temporary transport file
+  descriptors, uses /tmp by default (pkilambi@redhat.com)
+- use tempfile to create transport objects instead of an ugly loop (pkilambi@redhat.com)
+
+* Fri May  8 2009 Pradeep Kilambi <pkilambi@redhat.com> 2.2.7-2
+Resolves: #489920 #484245 #489921 #492638 #499858 #499860
+
 * Wed May 06 2009 jesus m. rodriguez <jesusr@redhat.com> 2.5.11-1
 - fixing the rpc version checks (pkilambi@redhat.com)
 - 492638, 489921, 484245 - Adding redirect support to rhnlib for rhel-5 clients
@@ -71,6 +80,9 @@ rm -rf $RPM_BUILD_ROOT
 
 * Wed Jan 21 2009 Pradeep Kilambi <pkilambi@redhat.com> 2.5.6-1
 - Remove usage of version and sources files.
+
+* Tue Sep 16 2008 Pradeep Kilambi <pkilambi@redhat.com> - 2.2.6-2
+Resolves: #211394 #250303 
 
 * Fri Jun 20 2008 Devan Goodwin <dgoodwin@redhat.com> - 2.2.5-5
 - Updating for Fedora 9.

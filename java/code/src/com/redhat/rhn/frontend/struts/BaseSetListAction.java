@@ -20,10 +20,15 @@ import com.redhat.rhn.domain.rhnset.RhnSetFactory;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
 import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
 import java.util.Collections;
 import java.util.Iterator;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * BaseSetListAction - extension of BaseListAction that includes necessary
@@ -104,4 +109,38 @@ public abstract class BaseSetListAction extends BaseListAction {
                                                     ActionForm form) {
         return Collections.EMPTY_LIST.iterator();
     }
+
+    /**
+     * Should we clear the RhnSet for this action when beginning a new request? (i.e.
+     * *NOT* a form submission)
+     *
+     * Default behavior is to clear the set to prevent stale selections from appearing.
+     * Sub-classes can override this method if this is not desired.
+     *
+     * @return true to clear the RhnSet when starting a new pageflow, false otherwise.
+     */
+    protected boolean preClearSet() {
+        return true;
+    }
+
+    /** {@inheritDoc} */
+    public ActionForward execute(ActionMapping mapping,
+                                 ActionForm formIn,
+                                 HttpServletRequest request,
+                                 HttpServletResponse response) {
+
+        RequestContext requestContext = new RequestContext(request);
+
+        // Clear the set of systems if this is a new request, prevents stale
+        // selections from hanging around if the user didn't complete their previous
+        // attempt:
+        if (!requestContext.isSubmitted() && preClearSet()) {
+            RhnSet set = getSetDecl().get(requestContext.getCurrentUser());
+            set.clear();
+            RhnSetFactory.save(set);
+        }
+
+        return super.execute(mapping, formIn, request, response);
+    }
+
 }

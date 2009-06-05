@@ -46,11 +46,11 @@ function refresh() {
             <td colspan="2"><bean:message key="kickstart.jsp.create.wizard.first.heading1" /></td>
         </tr>
         <tr>
-            <th width="10%"><bean:message key="kickstart.jsp.create.wizard.kickstart.profile.label" /><span class="required-form-field">*</span>:</th>
+            <th width="10%"><rhn:required-field key="kickstart.jsp.create.wizard.kickstart.profile.label"/>:</th>
             <td><html:text property="kickstartLabel" size="40" maxlength="80" /></td>
         </tr>
         <tr>
-            <th width="10%"><bean:message key="softwareedit.jsp.basechannel" /><span class="required-form-field">*</span>:</th>
+            <th width="10%"><rhn:required-field key="softwareedit.jsp.basechannel"/>:</th>
             <td>
                 <c:choose>
                   <c:when test="${nochannels == null}">
@@ -65,7 +65,7 @@ function refresh() {
             </td>
         </tr>
         <tr>
-            <th width="10%"><bean:message key="kickstart.jsp.create.wizard.kstree.label" /><span class="required-form-field">*</span>:</th>
+            <th width="10%"><rhn:required-field key="kickstart.jsp.create.wizard.kstree.label"/>:</th>
             <td>
                   <c:choose>
                     <c:when test="${notrees == null}">

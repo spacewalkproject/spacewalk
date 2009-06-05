@@ -15,15 +15,18 @@
 
 package com.redhat.rhn.frontend.action.channel;
 
-import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.ChannelArch;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageOverview;
+import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.frontend.xmlrpc.SearchServerIndexException;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -37,19 +40,15 @@ import org.apache.struts.action.DynaActionForm;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import redstone.xmlrpc.XmlRpcClient;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcFault;
       
@@ -59,11 +58,6 @@ import redstone.xmlrpc.XmlRpcFault;
  */
 public class PackageSearchAction extends RhnAction {
     private static Logger log = Logger.getLogger(PackageSearchAction.class);
-
-    private static final String OPT_FREE_FORM = "search_free_form";
-    private static final String OPT_NAME_AND_DESC = "search_name_and_description";
-    private static final String OPT_NAME_AND_SUMMARY = "search_name_and_summary";
-    private static final String OPT_NAME_ONLY = "search_name";
     /** List of channel arches we don't really support any more. */
     private static final String[] EXCLUDE_ARCH_LABELS = {"channel-sparc",
                                                          "channel-alpha",
@@ -128,10 +122,10 @@ public class PackageSearchAction extends RhnAction {
             errors.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("packages.search.use_free_form"));
         }
-        catch (PackageSearchActionException pe) {
-            log.error("Exception caught: " +  pe.getMessage());
+        catch (SearchServerIndexException se) {
+            log.error("Exception caught: " +  se.getMessage());
             errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage(pe.getMessageKey()));
+                    new ActionMessage("searchserver.index_out_of_sync_with_db"));
         }
 
         // keep all params except submitted, in order for the new list
@@ -162,30 +156,54 @@ public class PackageSearchAction extends RhnAction {
     }
     
     private void setupForm(HttpServletRequest request, DynaActionForm form)
-        throws MalformedURLException, XmlRpcFault, PackageSearchActionException {
+        throws MalformedURLException, XmlRpcFault, SearchServerIndexException {
 
         RequestContext ctx = new RequestContext(request);
         String searchString = form.getString("search_string");
         String viewmode = form.getString("view_mode");
-        String relevant = StringUtils.defaultString(
-                            request.getParameter("relevant"));
-        String[] selectedArches = form.getStrings("channel_arch");
-        
-        if (selectedArches.length < 1) {
-            relevant = "yes";
+        String searchCriteria = request.getParameter("whereCriteria");
+        String[] selectedArches = null;
+        Long filterChannelId = null;
+        boolean relevantFlag = false;
+
+        // Default to relevant channels if no search criteria was specified
+        if (searchCriteria == null || searchCriteria.equals("")) {
+            searchCriteria = "relevant";
         }
-        
+
+        // Handle the radio button selection for channel filtering
+        if (searchCriteria.equals("relevant")) {
+            relevantFlag = true;
+        }
+        if (searchCriteria.equals("architecture")) {
+            /* The search call will function as being scoped to architectures if the arch
+               list isn't null. In order to actually get radio-button-like functionality
+               we can't rely on the arch list coming in from the form to be null; the
+               user may have selected an arch but *not* the radio button for arch. If we
+               push off retrieving the arches until we know we want to use them, we can
+               get the desired functionality described by the UI.
+              */
+            selectedArches = form.getStrings("channel_arch");
+        }
+        else if (searchCriteria.equals("channel")) {
+            String sChannelId = form.getString("channel_filter");
+            filterChannelId = Long.parseLong(sChannelId);
+        }
+
         if (viewmode.equals("")) { //first time viewing page
-            relevant = "yes";
-            viewmode = OPT_NAME_AND_SUMMARY;
+            viewmode = PackageSearchHelper.OPT_NAME_AND_SUMMARY;
         }
         
         List searchOptions = new ArrayList();
         // setup the option list for select box (view_mode).
-        addOption(searchOptions, "packages.search.free_form", OPT_FREE_FORM);
-        addOption(searchOptions, "packages.search.name", OPT_NAME_ONLY);
-        addOption(searchOptions, "packages.search.name_and_desc", OPT_NAME_AND_DESC);
-        addOption(searchOptions, "packages.search.both", OPT_NAME_AND_SUMMARY);
+        addOption(searchOptions, "packages.search.free_form", 
+                PackageSearchHelper.OPT_FREE_FORM);
+        addOption(searchOptions, "packages.search.name", 
+                PackageSearchHelper.OPT_NAME_ONLY);
+        addOption(searchOptions, "packages.search.name_and_desc", 
+                PackageSearchHelper.OPT_NAME_AND_DESC);
+        addOption(searchOptions, "packages.search.both", 
+                PackageSearchHelper.OPT_NAME_AND_SUMMARY);
         
         List channelArches = new ArrayList();
         List<ChannelArch> arches = ChannelManager.getChannelArchitectures();
@@ -206,19 +224,36 @@ public class PackageSearchAction extends RhnAction {
                         !archLabels.contains(arch.getLabel()));
             }
         }
-
+        
+        // Load list of available channels to select as filter
+        List allChannels =
+            ChannelManager.allChannelsTree(ctx.getLoggedInUser());
+        
         request.setAttribute("search_string", searchString);
         request.setAttribute("view_mode", viewmode);
-        request.setAttribute("relevant", relevant);
         request.setAttribute("searchOptions", searchOptions);
         request.setAttribute("channelArches", channelArches);
         request.setAttribute("channel_arch", selectedArches);
+        request.setAttribute("allChannels", allChannels);
+
+        // Default where to search criteria
+        request.setAttribute("whereCriteria", searchCriteria);
 
         if (!StringUtils.isBlank(searchString)) {
-            List results = performSearch(ctx.getWebSession().getId(),
+            List<PackageOverview> results =
+                PackageSearchHelper.performSearch(ctx.getWebSession().getId(),
                                          searchString,
                                          viewmode,
-                                         selectedArches);
+                                         selectedArches, relevantFlag);
+
+            // Perform any post-search logic that wasn't done by the search server
+            results = removeDuplicateNames(results);
+
+            if (filterChannelId != null) {
+                User user = ctx.getLoggedInUser();
+                results = filterByChannel(user, filterChannelId, results);
+            }
+
             log.warn("GET search: " + results);
             request.setAttribute("pageList",
                     results != null ? results : Collections.EMPTY_LIST);
@@ -227,153 +262,73 @@ public class PackageSearchAction extends RhnAction {
             request.setAttribute("pageList", Collections.EMPTY_LIST);
         }
     }
-    
-    private List performSearch(Long sessionId, String searchString,
-                               String mode, String[] selectedArches)
-        throws XmlRpcFault, MalformedURLException, PackageSearchActionException {
 
-        log.warn("Performing pkg search");
+    /**
+     * Package Search returns a list of all matching packages, this will likely
+     * include multiple packages with the same name but different version, release,
+     * epoch.  WebUI only wants a list of unique package names, so we need
+     * to strip the duplicate names while preserving order.
+     *
+     * @param pkgs packages returned from search that should be cleaned
+     * @return new list object with duplicates removed; does not change the list in place
+     */
+    private List<PackageOverview> removeDuplicateNames(List<PackageOverview> pkgs) {
 
-        List<String> pkgArchLabels = 
-            ChannelManager.listCompatiblePackageArches(selectedArches);
-
-        // call search server
-        XmlRpcClient client = new XmlRpcClient(Config.get().getSearchServerUrl(), true);
-        List args = new ArrayList();
-        args.add(sessionId);
-        args.add("package");
-        args.add(preprocessSearchString(searchString, mode, pkgArchLabels));
-        List results = (List)client.invoke("index.search", args);
-
-        if (log.isDebugEnabled()) {
-            log.debug("results = [" + results + "]");
-        }
-
-        if (results.isEmpty()) {
-            return Collections.EMPTY_LIST;
-        }
-
-        // need to make the search server results usable by database
-        // so we can get the actual results we are to display to the user.
-        // also save the items into a Map for lookup later.
-        
-        List<Long> pids = new ArrayList<Long>();
-        Map<String, Integer> lookupmap = new HashMap<String, Integer>();
-        // do it in reverse because the search server can return more than one
-        // record for a given package name, but that means if we don't go
-        // in reverse we risk getting the wrong rank in the lookupmap.
-        // for example, [{id:125,name:gtk},{id:127,name:gtk}{id:200,name:kernel}]
-        // if we go forward we end up with gtk:1 and kernel:2 but we wanted
-        // kernel:2, gtk:0.
-        for (int x = results.size() - 1; x >= 0; x--) {
-            Map item = (Map) results.get(x);
-            lookupmap.put((String)item.get("name"), x);
-            Long pid = new Long((String)item.get("id"));
-            pids.add(pid);
-        }
-        
-        // The database does not maintain the order of the where clause.
-        // In order to maintain the ranking from the search server, we
-        // need to reorder the database results to match. This will lead
-        // to a better user experience.
-        List<PackageOverview> unsorted = ChannelManager.packageSearch(pids,
-                new ArrayList<String>(Arrays.asList(selectedArches)));
-        List<PackageOverview> ordered = new LinkedList<PackageOverview>();
-        
-        // we need to use the package names to determine the mapping order
-        // because the id in PackageOverview is that of a PackageName while
-        // the id from the search server is the Package id.
-        for (PackageOverview po : unsorted) {
-            if (log.isDebugEnabled()) {
-                log.debug("Processing po: " + po.getPackageName() + " id: " + po.getId());
-            }
-            Object objIdx = lookupmap.get(po.getPackageName());
-            if (objIdx == null) {
-                String msgKey = "packages.search.index_out_of_sync_with_db";
-                LocalizationService li = LocalizationService.getInstance();
-                String localizedMsg = li.getMessage(msgKey);
-                throw new PackageSearchActionException(localizedMsg, msgKey);
-            }
-            int idx = (Integer)objIdx;
-            if (ordered.isEmpty()) {
-                ordered.add(po);
-                continue;
-            }
-
-            boolean added = false;
-            for (ListIterator itr = ordered.listIterator(); itr.hasNext();) {
-                PackageOverview curpo = (PackageOverview) itr.next();
-                int curidx = lookupmap.get(curpo.getPackageName());
-                if (idx <= curidx) {
-                    itr.previous();
-                    itr.add(po);
-                    added = true;
+        List<PackageOverview> result = new ArrayList<PackageOverview>();
+        for (PackageOverview pkgOver : pkgs) {
+            boolean addPkg = true;
+            for (PackageOverview temp : result) {
+                if (StringUtils.equals(temp.getPackageName(), pkgOver.getPackageName())) {
+                    addPkg = false;
                     break;
                 }
             }
-            
-            if (!added) {
-                ordered.add(po);
+            if (addPkg) {
+                result.add(pkgOver);
             }
         }
-
-        return ordered;
+        return result;
     }
-    
-    private String preprocessSearchString(String searchstring,
-                                          String mode,
-                                          List<String> arches) {
 
-        if (!OPT_FREE_FORM.equals(mode) && searchstring.indexOf(':') > 0) {
-            throw new ValidatorException("Can't use free form and field search.");
+    /**
+     * Since the search server does not carry channel information, we do any channel
+     * filtering in the Java stack. This method will return a new list of packages that
+     * containing packages that are present in the given channel; others returned from
+     * the search will be removed.
+     *
+     * @param user      user making the request
+     * @param channelId channel against which the filter should be run
+     * @param pkgs      list of packages returned from the search query that should be
+     *                  filtered
+     * @return new list object with duplicates removed; does not change the list in place
+     */
+    private List<PackageOverview> filterByChannel(User user, Long channelId,
+                                                  List<PackageOverview> pkgs) {
+
+        Channel channel = ChannelManager.lookupByIdAndUser(channelId, user);
+        List<PackageDto> allPackagesList = ChannelManager.listAllPackages(channel);
+
+        // Convert the package list into a map for quicker lookup
+        Map<String, String> packageNamesMap =
+            new HashMap<String, String>(allPackagesList.size());
+
+        for (PackageDto dto : allPackagesList) {
+            String name = dto.getName();
+            packageNamesMap.put(name, name);
         }
-        
-        StringBuffer buf = new StringBuffer(searchstring.length());
-        String[] tokens = searchstring.split(" ");
-        for (String s : tokens) {
-            if (s.trim().equalsIgnoreCase("AND") ||
-                s.trim().equalsIgnoreCase("OR") ||
-                s.trim().equalsIgnoreCase("NOT")) {
 
-                s = s.toUpperCase();
+        // Iterate results and remove if not in the channel
+        List<PackageOverview> newResult = new ArrayList<PackageOverview>();
+        for (PackageOverview pkg : pkgs) {
+            String packageName = pkg.getPackageName();
+            if (packageNamesMap.get(packageName) != null) {
+                newResult.add(pkg);
             }
-              
-            buf.append(s);
-            buf.append(" ");
-        }
-        
-        // if we're passing in arches let's add them to the query
-        StringBuffer archBuf = new StringBuffer();
-        if (arches != null && !arches.isEmpty()) {
-            archBuf.append(" AND (");
-            for (String s : arches) {
-                archBuf.append("arch:");
-                archBuf.append(s);
-                archBuf.append(" ");
-            }
-            archBuf.append(")");
         }
 
-        String query = buf.toString().trim();
-        // when searching the name field, we also want to include the filename
-        // field in case the user passed in version number.
-        if (OPT_NAME_AND_SUMMARY.equals(mode)) {
-            return "(name:(" + query + ") summary:(" + query +
-                   ") filename:(" + query + "))" + archBuf.toString();
-        }
-        else if (OPT_NAME_AND_DESC.equals(mode)) {
-            return "(name:(" + query + ") description:(" + query +
-                   ") filename:(" + query + "))" + archBuf.toString();
-        }
-        else if (OPT_NAME_ONLY.equals(mode)) {
-            return "(name:(" + query + ") filename:(" + query + "))" +
-                   archBuf.toString();
-        }
-        
-        // OPT_FREE_FORM send as is.
-        return buf.toString();
+        return newResult;
     }
-    
+
     private void addOption(List options, String key, String value) {
         addOption(options, key, value, false);
     }

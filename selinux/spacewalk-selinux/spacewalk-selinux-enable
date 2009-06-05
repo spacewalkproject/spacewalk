@@ -19,7 +19,7 @@ while [ -n "$1" ] ; do
 done
 
 if [ -z "$RUN_PURE" ] ; then
-	RUN_PRE="oracle-instantclient-selinux oracle-instantclient-sqlplus-selinux"
+	RUN_PRE="oracle-nofcontext-selinux oracle-instantclient-selinux oracle-instantclient-sqlplus-selinux"
 	RUN_POST="oracle-rhnsat-selinux oracle-xe-selinux spacewalk-monitoring-selinux jabberd-selinux osa-dispatcher-selinux"
 fi
 
@@ -31,7 +31,9 @@ for prescript in $RUN_PRE ; do
 	fi
 done
 
-echo "Running $0"
+if [ -z "$RUN_PURE" ] ; then
+	echo "Running $0"
+fi
 
 # Install SELinux policy modules
 for selinuxvariant in mls strict targeted
@@ -40,13 +42,17 @@ for selinuxvariant in mls strict targeted
 		&& /usr/sbin/semodule -s ${selinuxvariant} -i /usr/share/selinux/${selinuxvariant}/spacewalk.pp || :
   done
 
-/usr/sbin/semanage port -a -t cobbler_port_t -p tcp 25152 || :
-
 /sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl /usr/sbin/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn \
 	/usr/bin/rhn-sudo-ssl-tool /usr/bin/rhn-sudo-load-ssl-cert
 
 /usr/sbin/setsebool -P httpd_enable_cgi 1
 /usr/sbin/setsebool -P httpd_can_network_connect 1
+
+if [ -z "$RUN_PURE" ] ; then
+	for dir in mount_point kickstart_mount_point; do
+                /usr/bin/spacewalk-cfg-get $dir
+        done | xargs /usr/bin/spacewalk-make-mount-points
+fi
 
 for postscript in $RUN_POST ; do
 	j="/usr/sbin/$postscript-enable"

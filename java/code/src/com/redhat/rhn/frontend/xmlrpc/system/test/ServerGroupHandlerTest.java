@@ -26,6 +26,8 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.frontend.xmlrpc.ServerGroupAccessChangeException;
 import com.redhat.rhn.frontend.xmlrpc.ServerNotInGroupException;
 import com.redhat.rhn.frontend.xmlrpc.systemgroup.ServerGroupHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
@@ -133,6 +135,42 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         assertFalse(manager.canAccess(newbie, group));
         admins = handler.listAdministrators(adminKey, group.getName());        
         assertFalse(admins.contains(newbie));
+
+        // verify that neither an org or sat admin may have their
+        // group access changed
+        User orgAdmin = UserTestUtils.findNewUser("orgAdmin", "newOrg", true);
+        assertTrue(orgAdmin.hasRole(RoleFactory.ORG_ADMIN));
+        assertFalse(orgAdmin.hasRole(RoleFactory.SAT_ADMIN));
+        UserFactory.save(orgAdmin);
+
+        addOrRemoveAnAdmin(group, orgAdmin, true);
+        addOrRemoveAnAdmin(group, orgAdmin, false);
+
+        User satAdmin = UserTestUtils.findNewUser("satAdmin", "newOrg", false);
+        satAdmin.addRole(RoleFactory.SAT_ADMIN);
+        assertTrue(satAdmin.hasRole(RoleFactory.SAT_ADMIN));
+        assertFalse(satAdmin.hasRole(RoleFactory.ORG_ADMIN));
+
+        addOrRemoveAnAdmin(group, satAdmin, true);
+        addOrRemoveAnAdmin(group, satAdmin, false);
+    }
+
+    private void addOrRemoveAnAdmin(ServerGroup group, User user, boolean add) {
+        List<String> logins = new ArrayList<String>();
+        logins.add(user.getLogin());
+
+        try {
+            handler.addOrRemoveAdmins(adminKey, group.getName(), logins, false);
+            if (user.hasRole(RoleFactory.SAT_ADMIN)) {
+                fail("Allowed changing admin access for a satellite admin.  add=" + add);
+            }
+            else if (user.hasRole(RoleFactory.ORG_ADMIN)) {
+                fail("Allowed changing admin access for an org admin.  add=" + add);
+            }
+        }
+        catch (ServerGroupAccessChangeException e) {
+            //Cool cannot change access permissions for an sat/org admin.
+        }
     }
     
     public void testListGroupsWithNoAssociatedAdmins() {

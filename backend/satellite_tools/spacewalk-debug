@@ -179,13 +179,13 @@ fi
 # /etc/passwd
 if [ -f /etc/passwd ] ; then
 	echo "    * copying apache, oracle, tomcat, nocpulse entries from /etc/passwd"
-	egrep "apache|tomcat|oracle|nocpulse" /etc/passwd > $DIR/conf/passwd
+	getent passwd apache tomcat oracle nocpulse > $DIR/conf/passwd
 fi
 
 # /etc/group
 if [ -f /etc/group ] ; then
 	echo "    * copying apache, oracle, tomcat, nocpulse entries from /etc/group"
-	egrep "apache|tomcat|oracle|nocpulse" /etc/group > $DIR/conf/group
+	getent group apache tomcat oracle nocpulse dba > $DIR/conf/group
 fi
 
 echo "    * querying RPM database (versioning of Spacewalk, etc.)"

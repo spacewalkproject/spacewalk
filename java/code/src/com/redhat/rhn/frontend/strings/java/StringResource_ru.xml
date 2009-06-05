@@ -138,6 +138,14 @@
 				<source>Tip</source>
 				<target>Совет</target>
 			</trans-unit>
+			<trans-unit id="Note">
+				<source>Note</source>
+				<target>Замечание</target>
+			</trans-unit>
+			<trans-unit id="Warning">
+				<source>Warning</source>
+				<target>Внимание</target>
+			</trans-unit>
 			<trans-unit id="About Spacewalk">
 				<source>About</source>
 				<target>О программе</target>
@@ -1308,16 +1316,16 @@ available for this kickstart profile to function properly.
 				<target>Ошибка удаления диапазона IP из профиля кикстарта {0}. Повторите попытку.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.update.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
-				<target>Фрагмент Cobbler &lt;strong&gt;{0}&lt;/strong&gt; обновлен успешно.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
+				<target>Фрагмент кикстарта &lt;strong&gt;{0}&lt;/strong&gt; обновлен успешно.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.create.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
-				<target>Фрагмент Cobbler &lt;strong&gt;{0}&lt;/strong&gt; создан успешно.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
+				<target>Фрагмент кикстарта &lt;strong&gt;{0}&lt;/strong&gt; создан успешно.</target>
 			</trans-unit>
 			<trans-unit id="cobblersnippet.delete.success">
-				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
-				<target>Фрагмент Cobbler &lt;strong&gt;{0}&lt;/strong&gt; удален успешно.</target>
+				<source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
+				<target>Фрагмент кикстарта &lt;strong&gt;{0}&lt;/strong&gt; удален успешно.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.couldnotdelete.message">
 				<source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -1328,12 +1336,12 @@ available for this kickstart profile to function properly.
 				<target>Ошибка при попытке изменения имени фрагмента с &lt;strong&gt;{0}&lt;/strong&gt; на &lt;strong&gt;{1}&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.filenameexists.message">
-				<source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
-				<target>Фрагмент Cobbler с именем &lt;strong&gt;{0}&lt;/strong&gt; уже существует.</target>
+				<source>Kickstart snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+				<target>Фрагмент кикстарта с именем &lt;strong&gt;{0}&lt;/strong&gt; уже существует.</target>
 			</trans-unit>
 			<trans-unit id="cobbler.snippet.invalidfilename.message">
-				<source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
-				<target>Недопустимое имя файла фрагмента Cobbler. Имя файла может содержать символы A-Z, a-z, 0-9, _ и -.</target>
+				<source>The requested kickstart snippet filename is not valid. The kickstart snippet file name cannot contain slash (/) or  begin with a period(.)</source>
+				<target>Недопустимое имя файла запрошенного фрагмента кикстарта. Имя файла не должно включать символ / и не может начинаться с точки.</target>
 			</trans-unit>
 			<trans-unit id="toolbar.delete.snippets">
 				<source>delete snippet</source>
@@ -1739,9 +1747,9 @@ available for this kickstart profile to function properly.
 				<source>Search strings must be longer than two characters.</source>
 				<target>Строки поиска должны содержать не меньше 2 символов.</target>
 			</trans-unit>
-			<trans-unit id="packages.search.index_out_of_sync_with_db">
-				<source>Package search index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
-				<target>Индекс поиска пакетов не соответствует записям в базе данных. Для синхронизации выполните '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</target>
+			<trans-unit id="searchserver.index_out_of_sync_with_db">
+				<source>SearchServer index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
+				<target state="needs-review-translation">Индекс поиска пакетов не соответствует записям в базе данных. Для синхронизации выполните '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</target>
 			</trans-unit>
 			<trans-unit id="patches.installed.notavailable">
 				<source>Not Available</source>
@@ -2140,8 +2148,8 @@ user before attempting to deactivate their account.</source>
 				<target>Ожидаемое время проверки:</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;ЗАМЕЧАНИЕ:&lt;/strong&gt; Эта система не заходила в @@PRODUCT_NAME@@ в последнее время. Поскольку система не может быть обновлена, если она не заходит в @@PRODUCT_NAME@@, возможно, это действие не будет завершено успешно.&lt;br/&gt;&lt;br/&gt;Проверьте систему и убедитесь что rhnsd запущен (&lt;a href="/help/faq.pxt#15"&gt;подробнее&lt;/a&gt;).Если выполнение неудачно, &lt;a href="/help/contact.pxt"&gt;свяжитесь с нами&lt;/a&gt;.</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running.</source>
+				<target>&lt;strong&gt;ЗАМЕЧАНИЕ:&lt;/strong&gt; Эта система не заходила в @@PRODUCT_NAME@@ в последнее время. Поскольку система не может быть обновлена, если она не заходит в @@PRODUCT_NAME@@, возможно, это действие не будет завершено успешно.&lt;br/&gt;&lt;br/&gt;Проверьте систему и убедитесь что rhnsd выполняется.</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -3504,28 +3512,27 @@ user before attempting to deactivate their account.</source>
 				<target>Сертификат загружен. Произведена реактивация @@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
-				<source>Could not parse certificate file</source>
-				<target>Невозможно разобрать файл сертификата</target>
+				<source>Could not parse certificate file, see log file for more details.</source>
+				<target state="needs-review-translation">Невозможно разобрать файл сертификата</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.11">
 				<source>Certificate expired</source>
 				<target>Устаревший сертификат</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown @@PRODUCT_NAME@@ version</source>
-				<target>Неизвестная версия @@PRODUCT_NAME@@</target>
+				<source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
+				<target state="needs-review-translation">Неизвестная версия @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
-				<source>Remote activation failure</source>
-				<target>Сбой удалённой активации</target>
+				<source>Remote activation failure, see log file for more details.</source>
+				<target state="needs-review-translation">Сбой удалённой активации</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.30">
-				<source>Local activation failure</source>
-				<target>Сбой локальной активации</target>
+				<source>Local activation failure, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.40">
-				<source>Channel population failure</source>
-				<target>Сбой заполнения канала</target>
+				<source>Channel population failure, see log file for more details.</source>
+				<target state="needs-review-translation">Сбой заполнения канала</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.80">
 				<source>No management entitlements remaining</source>
@@ -3544,8 +3551,7 @@ user before attempting to deactivate their account.</source>
 				<target>Неверный сертификат @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
-				<source>Unknown activation error</source>
-				<target>Неизвестная ошибка активации</target>
+				<source>Unknown activation error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
 				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
@@ -3556,12 +3562,7 @@ user before attempting to deactivate their account.</source>
 				<target>Нет доступных для этой версии каналов @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
-				<source>Unhandled error</source>
-				<target>Необрабатываемая ошибка</target>
-			</trans-unit>
-			<trans-unit id="bootstrap.config.error.127">
-				<source>Unhandled error</source>
-				<target>Необрабатываемая ошибка</target>
+				<source>Unhandled error, see log file for more details.</source>
 			</trans-unit>
 			<trans-unit id="hostname">
 				<source>@@PRODUCT_NAME@@ server hostname</source>
@@ -3598,6 +3599,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="bootstrap.config.error.17">
 				<source>Could not find GPG key</source>
 				<target>Не найден ключ GPG</target>
+			</trans-unit>
+			<trans-unit id="bootstrap.config.error.127">
+				<source>Unhandled error</source>
+				<target>Необрабатываемая ошибка</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.success">
 				<source>Bootstrap script successfully generated.  You can access it &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt;</source>
@@ -5191,6 +5196,13 @@ Follow this url to see the full list of inactive systems:
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
 				<target>Создан канал &lt;strong&gt;{0}&lt;/strong&gt;.</target>
 			</trans-unit>
+			<trans-unit id="message.channeldeleted">
+				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; has been deleted.</source>
+				<target state="needs-review-translation">Ключ активации &lt;strong&gt;{0}&lt;/strong&gt; удален.</target>
+			</trans-unit>
+			<trans-unit id="message.channel.delete.systemssubscribed">
+				<source>There are currently systems subscribed to this channel. Please confirm system channel removal by selecting the unsubscribe checkbox.</source>
+			</trans-unit>
 			<trans-unit id="message.channelupdated">
 				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
 				<target>Обновлён канал &lt;strong&gt;{0}&lt;/strong&gt;.</target>
@@ -5229,17 +5241,16 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="kickstart.cobbler.distro.syncfail">
 				<source>
-The following is a list of errors gathered while Spacewalk attempts to
-syncronize kickstart distributions from Spacewalk to Cobbler.  These
-errors must be corrected for the distributions to be available for
-kickstarting systems kickstart distributions failed to sync from
-Spacewalk to Cobbler:
+The following is a list of errors gathered while Spacewalk attempts to 
+syncronize kickstart distributions from Spacewalk to Cobbler.  These 
+errors must be corrected for the distributions to be available for 
+kickstarting systems:
 
 {0}
 
 Please check:
 
-/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/rhn/rhn_taskomatic_daemon.log and 
 /var/log/tomcat5/catalina.out
 /var/log/cobbler/cobbler.log
 
@@ -5247,13 +5258,13 @@ for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.</source>
 				<target>
 Далее приведен список ошибок, которые были получены в процессе попытки
-синхронизации дистрибутивов кикстарта между Spacewalk и Cobbler.
+синхронизации дистрибутивов кикстарта между Spacewalk и Cobbler. 
 Эти ошибки необходимо исправить, чтобы обеспечить доступ систем
 к дистрибутивам.
 
 {0}
 
-Пожалуйста, убедитесь в отсутствии ошибок в
+Пожалуйста, проверьте
 
 /var/log/rhn/rhn_taskomatic_daemon.log
 /var/log/tomcat5/catalina.out

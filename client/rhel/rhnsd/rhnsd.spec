@@ -58,6 +58,13 @@ rm -fr $RPM_BUILD_ROOT
 %{_mandir}/man8/rhnsd.8*
 
 %changelog
+* Wed Jun  3 2009 Pradeep Kilambi <pkilambi@redhat.com> 4.7.0-3
+- Resolves:  #243699 -fixing error code for unknown command to rhnsd init script
+
+* Mon May 11 2009 Pradeep Kilambi <pkilambi@redhat.com> 4.7.0-2
+- Updated translations.
+- Resolves:  #243699
+  
 * Tue Jan 27 2009 Miroslav Suchý <msuchy@redhat.com> 4.5.9-1
 - rebuild
 

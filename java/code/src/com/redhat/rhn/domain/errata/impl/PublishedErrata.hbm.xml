@@ -149,6 +149,30 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <return-scalar column="name" type="string" />
     </sql-query>
 
+    <sql-query name="PublishedErrata.searchByPackageIdsWithOrg">
+        <![CDATA[select distinct e.id, e.advisory, e.advisory_name as advisoryName, e.advisory_type as advisoryType, e.synopsis as advisorySynopsis,
+                        e.update_date as updateDate, e.issue_date as issueDate, pn.name
+                   from rhnErrata e,
+                        rhnErrataPackage ep,
+                        rhnPackage p,
+                        rhnPackageName pn
+                  where e.id = ep.errata_id
+                    and p.id = ep.package_id
+                    and p.name_id = pn.id
+                    and ep.package_id IN (:pids)
+                    and e.org_id IN (:org_ids)
+                  order by e.id]]>
+        <return-scalar column="id" type="long" />
+        <return-scalar column="advisory" type="string" />
+        <return-scalar column="advisoryName" type="string" />
+        <return-scalar column="advisoryType" type="string" />
+        <return-scalar column="advisorySynopsis" type="string" />
+        <return-scalar column="updateDate" type="timestamp" />
+        <return-scalar column="issueDate" type="timestamp" />
+        <return-scalar column="name" type="string" />
+    </sql-query>
+
+
   	<sql-query name="PublishedErrata.lookupFromSet">
         <![CDATA[SELECT {e.*}
 			from rhnErrata e left join 

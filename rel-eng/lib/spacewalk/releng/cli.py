@@ -129,6 +129,7 @@ class CLI:
         print("   tag      - Tag package releases.")
         print("   build    - Build packages.")
         print("   report   - Display various reports on the repo.")
+        print("   init     - Initialize directory for use by tito.")
 
 
 
@@ -177,9 +178,9 @@ class BaseCliModule(object):
         filename = os.path.join(rel_eng_dir, GLOBAL_BUILD_PROPS_FILENAME)
         if not os.path.exists(filename):
             # HACK: Try the old filename location, pre-tito rename:
-            filename = os.path.join(rel_eng_dir, "global.build.py.props")
-            if not os.path.exists(filename):
-                error_out("Unable to locate branch configuration: %s" %
+            oldfilename = os.path.join(rel_eng_dir, "global.build.py.props")
+            if not os.path.exists(oldfilename):
+                error_out("Unable to locate branch configuration: %s\nPlease run 'tito init'" %
                         filename)
         config = ConfigParser.ConfigParser()
         config.read(filename)
@@ -452,6 +453,43 @@ class TagModule(BaseCliModule):
 
 
 
+class InitModule(BaseCliModule):
+    """ CLI Module for initializing a project for use with tito. """
+
+    def __init__(self):
+        BaseCliModule.__init__(self)
+        usage = "usage: %prog init [options]"
+        self.parser = OptionParser(usage)
+
+        self._add_common_options()
+
+    def main(self):
+        # DO NOT CALL BaseCliModule.main(self)
+        # we are initializing tito to work in this module and
+        # calling main will result in a configuration error.
+
+        rel_eng_dir = os.path.join(find_git_root(), "rel-eng")
+        filename = os.path.join(rel_eng_dir, GLOBAL_BUILD_PROPS_FILENAME)
+        if not os.path.exists(filename):
+            if not os.path.exists(rel_eng_dir):
+                commands.getoutput("mkdir -p %s" % rel_eng_dir)
+
+            # write out tito.props
+            out_f = open(filename, 'w')
+            out_f.write("[globalconfig]\n")
+            out_f.write("default_builder = spacewalk.releng.builder.Builder\n")
+            out_f.write("default_tagger = spacewalk.releng.tagger.VersionTagger\n")
+            out_f.close()
+
+            commands.getoutput('git commit -m "Initialized to use tito. "')
+
+        pkg_dir = os.path.join(rel_eng_dir, "packages")
+        if not os.path.exists(pkg_dir):
+            commands.getoutput("mkdir -p %s" % pkg_dir)
+
+        print("Initialized tito in %s" % rel_eng_dir)
+
+
 class ReportModule(BaseCliModule):
     """ CLI Module For Various Reports. """
 
@@ -587,5 +625,6 @@ CLI_MODULES = {
     "build": BuildModule,
     "tag": TagModule,
     "report": ReportModule,
+    "init": InitModule
 }
 

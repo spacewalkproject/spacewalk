@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 
+<!--
+  Spacewalk build file, please indent 2 spaces. NO TABS!
+-->
 <project name="RHN" default="all" basedir=".">
   <import file="buildconf/build-props.xml" />
   <import file="buildconf/build-taskdefs.xml" />
@@ -7,118 +10,9 @@
   <import file="buildconf/build-webapp.xml" />
 
   <target name= "build-all" depends="clean, create-webapp-dir, all"/>
+
   <target name="prepare" depends="init-taskdefs">
         <mkdir dir="${build.dir}/src"/>
-  </target>
-
-  <!-- Build/Deploy rpm targets -->
-  <target name="-check-buildroot">
-    <available file="${buildroot}" type="dir" property="buildroot.present"/>
-    <fail unless="buildroot.present" message="BUILDROOT NOT FOUND: ${buildroot}"/>
-  </target>
-
-  <target name="-cvs-update"
-          depends="-check-buildroot">
-    <mkdir dir="${report.dir}"/>
-    <echo message="Updating CVS Checkout for: ${buildroot}" level="info" />
-    <echo message="CVS Update report available in ${report.dir}/cvs-update.out" level="info" />
-    <cvs command="update -dP"
-         dest="${buildroot}"
-         failonerror="true"
-         cvsRsh="ssh"
-         cvsroot=":ext:@cvs.devel.redhat.com:/cvs/rhn"
-         output="${report.dir}/cvs-update.out"/>
-  </target>
-
-  <target name="deploy-rpm"
-          depends="-cvs-update"
-          description="Deploys the latest rpm for spacewalk-java to server specified.">
-
-    <echo message="Deploying: ${rpmname}" level="info" />
-
-<!--
-./dist-rpm-sh - -host rlx-2-10.rhndev.redhat.com playpen-java-3AS/RPMS/rhn-java-sat
-playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
--->
-    <exec failonerror="true"
-          executable="${buildroot}/dist-rpm.sh"
-          dir="${buildroot}"
-           output="${report.dir}/deploy-rpm.out">
-      <arg value="--host" />
-      <arg value="rhnjava.back-webdev.redhat.com" />
-      <arg value="playpen-java-3AS/RPMS/rhn-java-sat" />
-      <arg value="playpen-java-3AS/RPMS/rhn-java-config-sat" />
-      <arg value="playpen-java-3AS/RPMS/rhn-java-lib-sat" />
-    </exec>
-
-    <!-- update taskomatic -->
-    <exec failonerror="true"
-          executable="${buildroot}/dist-rpm.sh"
-          dir="${buildroot}"
-           output="${report.dir}/deploy-rpm.out">
-      <arg value="--host" />
-      <arg value="scripts.back-webdev.redhat.com" />
-      <arg value="playpen-java-3AS/RPMS/taskomatic-sat" />
-      <arg value="playpen-java-3AS/RPMS/rhn-java-config-sat" />
-      <arg value="playpen-java-3AS/RPMS/rhn-java-lib-sat" />
-    </exec>
-  </target>
-
-  <target name="build-rpm"
-          depends="-cvs-update"
-          description="Runs the RHN build script to build the spacewalk-java rpm.">
-
-    <!-- Make sure build script is there -->
-    <available file="${buildroot}/build" type="file" property="build.present"/>
-    <fail unless="build.present" message="FILE NOT FOUND: ${buildroot}/build"/>
-
-    <!-- Start the build process -->
-    <echo message="Building spacewalk-java rpm" level="info" />
-    <echo message="Build report available in ${report.dir}/build-rpm.out" level="info" />
-    <echo message="This may take a few minutes..." level="info" />
-    <exec dir="${buildroot}" executable="${buildroot}/build"
-          failonerror="true" output="${report.dir}/build-rpm.out"
-          resultproperty="build.result">
-      <env key="CVSROOT" value=":ext:@cvs.devel.redhat.com:/cvs/rhn"/>
-      <env key="CVS_RSH" value="ssh"/>
-      <arg value="--java-devel"/>
-      <arg value="spacewalk-java"/>
-    </exec>
-  </target>
-
-  <target name="commit-rpm" description="Commit the rpms to build system">
-    <echo message="Committing RPM" level="info" />
-    <echo message="Commit report available in ${report.dir}/commit.out" level="info" />
-    <echo message="This may take a few minutes..." level="info" />
-    <exec dir="${buildroot}"
-          executable="make"
-          failonerror="true"
-          output="${report.dir}/commit.out">
-      <env key="CVSROOT" value=":ext:@cvs.devel.redhat.com:/cvs/rhn"/>
-      <env key="CVS_RSH" value="ssh"/>
-      <arg value="commit"/>
-    </exec>
-  </target>
-
-  <target name="promote-to-satellite" depends="build-rpm"
-          description="Promotes the spacewalk-java rpms to the satellite collections (uses RHN promote script in CVS)">
-
-    <!-- Make sure promote script is there -->
-    <available file="${buildroot}/promote" type="file" property="promote.present"/>
-    <fail unless="promote.present" message="FILE NOT FOUND: ${buildroot}/promote"/>
-
-    <echo message="Promoting spacewalk-java* to satellite-5.1-4AS" level="info" />
-    <exec dir="${buildroot}" executable="${buildroot}/promote"
-          failonerror="true" output="${report.dir}/promote-rpm.out"
-          resultproperty="promote.result">
-      <arg value="java-devel"/> <!-- from collection -->
-      <arg value="satellite-5.1-4AS"/> <!-- to collection -->
-      <!-- packages -->
-      <arg value="spacewalk-java"/>
-      <arg value="spacewalk-java-lib"/>
-      <arg value="spacewalk-java-config"/>
-      <arg value="spacewalk-taskomatic"/>
-    </exec>
   </target>
 
   <target name="boot-deps" unless="installbuild">
@@ -152,22 +46,23 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
     <copy toDir="${run-external.lib.dir}" overwrite="true">
       <fileset dir="${rhn-home}/buildconf/tempjars">
           <include name="**/*.jar" />
-          <include name="**/*.properties" />          
+          <include name="**/*.properties" />
       </fileset>
     </copy>
     </target>
-    
-    <!-- Generates Eclipse classpath   -->
+
+  <!-- Generates Eclipse classpath   -->
   <target name="gen-eclipse" depends="link-jars"
-				description = "Generates eclipse .classpath file">
+          description = "Generates eclipse .classpath file">
       <exec executable="${basedir}/scripts/gen-eclipse.py"
         output="${basedir}/.classpath" >
         <arg value="${eclipse.lib.dirs}:${rhn-home}/buildconf/tempjars:${env.JAVA_HOME}/lib/tools.jar" />
-	    <arg value="${eclipse.libsrc.dirs}" />
+        <arg value="${eclipse.libsrc.dirs}" />
     </exec>
   </target>
 
-  <target name="missingstrings" description="prints out a report with untranslated strings.">
+  <target name="missingstrings"
+          description="prints out a report with untranslated strings.">
     <mkdir dir="${report.dir}" />
     <exec executable="${basedir}/scripts/missingstrings.sh"
           output="${report.dir}/missingstrings.txt"
@@ -178,11 +73,11 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
   <target name="test-deps">
     <condition property="missing-deps">
       <not>
-	<and>
-	  <available file="${build.lib.dir}" type="dir" />
-	  <available file="${run.lib.dir}" type="dir" />
-	  <available file="${test.lib.dir}" type="dir" />
-	</and>
+        <and>
+          <available file="${build.lib.dir}" type="dir" />
+          <available file="${run.lib.dir}" type="dir" />
+          <available file="${test.lib.dir}" type="dir" />
+        </and>
       </not>
     </condition>
   </target>
@@ -200,7 +95,9 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
     </copy>
 
     <emma enabled="true">
-      <report sourcepath="${build.dir}/src-copy" sort="+block,+name,+method,+class" metrics="method:70,block:80,line:80,class:100">
+      <report sourcepath="${build.dir}/src-copy"
+              sort="+block,+name,+method,+class"
+              metrics="method:70,block:80,line:80,class:100">
         <infileset dir="${rhn-home}" includes="*.em, *.ec" />
         <!-- txt outfile="${report.dir}/emma.txt"
              depth="package"
@@ -228,7 +125,8 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
     </exec>
   </target>
 
-  <target name="init" depends="resolve,link-jars,init-taskdefs, set-default-config-dir">
+  <target name="init"
+          depends="resolve,link-jars,init-taskdefs, set-default-config-dir">
     <tstamp />
   </target>
 
@@ -245,38 +143,34 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
 
   <target name="cctarget"
           depends="init-cc,all,cc-test,test-report,coverage-report,comment-ratio-report,apidoc-jsp,jspcompile,javadoc"
-	      description="Target called by cruisecontrol process">
-  	<!-- parallel>
-    <antcall target="test-report" />
-    <antcall target="coverage-report" />
-    <antcall target="comment-ratio-report" />
-  	</parallel -->
+          description="Target called by cruisecontrol process">
   </target>
 
-	<target name="cc-test" depends ="set-cc-config-dir, test"/>
+  <target name="cc-test" depends ="set-cc-config-dir, test"/>
 
-	<target name="set-default-config-dir">
-		<property name="rhn.config.dir" value="/etc/rhn" />
-	</target>
+  <target name="set-default-config-dir">
+    <property name="rhn.config.dir" value="/etc/rhn" />
+  </target>
 
-	<target name="set-cc-config-dir">
-	  	<property name="rhn.config.dir" value="${rhn-home}/buildconf/builder/config/satellite" />
-	</target>	
+  <target name="set-cc-config-dir">
+    <property name="rhn.config.dir"
+              value="${rhn-home}/buildconf/builder/config/satellite" />
+  </target>
 
   <target name="testdebug">
-	<property name="debug"
+    <property name="debug"
               value="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"/>
     <antcall target="dotest" />
   </target>
 
   <target name="test">
-        <property name="debug" value=""/>
-        <antcall target="dotest"/>
+    <property name="debug" value=""/>
+    <antcall target="dotest"/>
   </target>
-	  		
+
   <target name="dotest"
-      description="Run the tests (use -Dtestsubsystem=&lt;subsystem&gt; or -Dtestcase=&lt;testcase&gt;)"
-      depends="set-default-config-dir,compile-main,init-tests,invoke-tests-testcase,invoke-tests-subsystem,invoke-tests-all" >
+          description="Run the tests (use -Dtestsubsystem=&lt;subsystem&gt; or -Dtestcase=&lt;testcase&gt;)"
+          depends="set-default-config-dir,compile-main,init-tests,invoke-tests-testcase,invoke-tests-subsystem,invoke-tests-all" >
 
     <fail if="junit_test_failure" message="One or more tests failed" />
   </target>
@@ -286,16 +180,14 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
           classname="${classname}"
           failonerror="true" >
           <classpath>
-              <pathelement path="${build.dir}/classes" />
-              <path refid="alljars"/>
+            <pathelement path="${build.dir}/classes" />
+            <path refid="alljars"/>
           </classpath>
-          <!-- arg value="${rhn.checkout.dir}" />
-          <arg value="${report.dir}/explainplan/explain.txt" / -->
     </java>
   </target>
 
   <target name="test-report" depends="init-tests"
-    description="Pretty-print the results of a previous test run.">
+          description="Pretty-print the results of a previous test run.">
     <junitreport todir="${testresults.dir}">
       <fileset dir="${testresults.dir}">
         <include name="TEST-*.xml"/>
@@ -321,77 +213,71 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
     </delete>
     <delete>
       <fileset defaultexcludes="no" dir="${rhn-home}">
-          <include name="**/*~" />
-          <include name="velocity.log*" />
-          <include name="coverage.ec" />
-          <include name="coverage.em" />
+        <include name="**/*~" />
+        <include name="velocity.log*" />
+        <include name="coverage.ec" />
+        <include name="coverage.em" />
       </fileset>
     </delete>
   </target>
 
- <target name="apidoc-singlepage" description="Generate the api for jsps" depends="init">
-        <property name="doclet.class" value="SinglePageDoclet" />
-        <property name="template.dir" value="singlepage" />
-         <antcall target="apidoc" />
-</target>
+  <target name="apidoc-singlepage" description="Generate the api for jsps" depends="init">
+    <property name="doclet.class" value="SinglePageDoclet" />
+    <property name="template.dir" value="singlepage" />
+    <antcall target="apidoc" />
+  </target>
 
+  <target name="apidoc-jsp" description="Generate the api for jsps" depends="init">
+    <property name="doclet.class" value="JSPDoclet" />
+    <property name="template.dir" value="jsp" />
+    <antcall target="apidoc" />
+  </target>
 
- <target name="apidoc-jsp" description="Generate the api for jsps" depends="init">
-	<property name="doclet.class" value="JSPDoclet" />	
-	<property name="template.dir" value="jsp" />
-	 <antcall target="apidoc" />
- </target>
+  <target name="apidoc-list" description="Generate the api for jsps" depends="init">
+    <property name="doclet.class" value="ListDoclet" />
+    <property name="template.dir" value="list" />
+    <antcall target="apidoc" />
+  </target>
 
- <target name="apidoc-list" description="Generate the api for jsps" depends="init">
-        <property name="doclet.class" value="ListDoclet" />
-        <property name="template.dir" value="list" />
-         <antcall target="apidoc" />
- </target>
+  <target name="apidoc-html" description="Generate the api for jsps" depends="init">
+    <property name="doclet.class" value="HtmlDoclet" />
+    <property name="template.dir" value="html" />
+    <antcall target="apidoc" />
+  </target>
 
+  <target name="apidoc" description="Generate the api documentation" depends="init">
+    <path id="javadocpath">
+    <path refid="buildjars" />
+      <pathelement location="build/classes" />
+    </path>
 
- <target name="apidoc-html" description="Generate the api for jsps" depends="init">
-        <property name="doclet.class" value="HtmlDoclet" />
-	<property name="template.dir" value="html" />
-         <antcall target="apidoc" />
- </target>
+    <mkdir dir="${report.dir}/apidocs" />
+    <mkdir dir="${report.dir}/apidocs/${template.dir}/" />
+    <mkdir dir="${report.dir}/apidocs/${template.dir}/handlers/" />
+    <javadoc doclet="com.redhat.rhn.internal.doclet.${doclet.class}" docletpathref="javadocpath" classpathref="buildjars" sourcepath="code/src" additionalparam="-quiet">
+      <fileset dir="code" >
+        <include name="**/src/com/redhat/rhn/frontend/xmlrpc/**/*Handler.java" />
+        <include name="**/src/com/redhat/rhn/frontend/xmlrpc/serializer/*Serializer.java" />
+        <include name="**/src/com/redhat/rhn/domain/config/xmlrpc/serializer/*Serializer.java" />
+      </fileset>
+      <excludepackage name="**/*" />
+    </javadoc>
 
+  </target>
 
- <target name="apidoc" description="Generate the api documentation" depends="init">
-	<path id="javadocpath">
-	    <path refid="buildjars" />
-	    <pathelement location="build/classes" />
-	 </path>
+  <target name="enforce" description="Check actions" depends="init">
+    <path id="javadocpath">
+      <path refid="buildjars" />
+      <pathelement location="build/classes" />
+    </path>
 
-	<mkdir dir="${report.dir}/apidocs" />
-	<mkdir dir="${report.dir}/apidocs/${template.dir}/" />	
-	 <mkdir dir="${report.dir}/apidocs/${template.dir}/handlers/" />
-	<javadoc doclet="com.redhat.rhn.internal.doclet.${doclet.class}" docletpathref="javadocpath" classpathref="buildjars" sourcepath="code/src" additionalparam="-quiet">
- 	      <fileset dir="code" > 
-		
-        	<include  name="**/src/com/redhat/rhn/frontend/xmlrpc/**/*Handler.java" />
-		<include  name="**/src/com/redhat/rhn/frontend/xmlrpc/serializer/*Serializer.java" />
-		<include  name="**/src/com/redhat/rhn/domain/config/xmlrpc/serializer/*Serializer.java" /> 
-	     </fileset>
-	    <excludepackage name="**/*" />
-	</javadoc>
-
-</target>
-
-<target name="enforce" description="Check actions" depends="init">
-        <path id="javadocpath">
-            <path refid="buildjars" />
-            <pathelement location="build/classes" />
-         </path>
-
-        <javadoc doclet="com.redhat.rhn.internal.doclet.EnforcementDoclet" docletpathref="javadocpath" classpathref="buildjars" sourcepath="code/src" access="private" additionalparam="-quiet">
-	     <fileset dir="code" >
-                <include  name="**/src/com/redhat/rhn/frontend/action/**/*.java" />
-             </fileset>
-            <excludepackage name="**/*" />
-        </javadoc>
-
-</target>
-
+    <javadoc doclet="com.redhat.rhn.internal.doclet.EnforcementDoclet" docletpathref="javadocpath" classpathref="buildjars" sourcepath="code/src" access="private" additionalparam="-quiet">
+      <fileset dir="code" >
+        <include  name="**/src/com/redhat/rhn/frontend/action/**/*.java" />
+      </fileset>
+      <excludepackage name="**/*" />
+    </javadoc>
+  </target>
 
   <target name="javadoc" description="Generate the java-doc" depends="init">
     <javadoc destdir="${report.dir}/javadoc" author="true" version="true"
@@ -423,15 +309,15 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
   </target>
 
   <target name="javadoc-deploy" description="Locally deploy javadocs"
-	  depends="javadoc">
+          depends="javadoc">
     <delete quiet="true">
       <fileset dir="${javadoc.deploydir}"
-	       includes="**/*.html"
-	       followsymlinks="false"/>
+               includes="**/*.html"
+               followsymlinks="false"/>
     </delete>
     <copy todir="${javadoc.deploydir}">
       <fileset dir="${report.dir}/javadoc"
-	       includes="**/*.html" />
+               includes="**/*.html" />
     </copy>
   </target>
 
@@ -471,18 +357,19 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
       <formatter type="plain" />
       <formatter type="xml" toFile="${report.dir}/checkstyle_report_test.xml" />
     </checkstyle>
-     <antcall target="enforce" />
+    <antcall target="enforce" />
   </target>
 
-    <target name="init-pack">
-        <mkdir dir="${build.dir}/webapp" />
-    </target>
+  <target name="init-pack">
+    <mkdir dir="${build.dir}/webapp" />
+  </target>
 
-    <target name="pack" depends="init,init-pack,pack-megajar,pack-webapp"
-            description="Create jars and copy descriptors" />
+  <target name="pack" depends="init,init-pack,pack-megajar,pack-webapp"
+          description="Create jars and copy descriptors" />
 
-    <target name="pack-all" depends="init,init-pack,pack-megajar,pack-playpen,pack-webapp"
-            description="Create jars and copy descriptors" />
+  <target name="pack-all"
+          depends="init,init-pack,pack-megajar,pack-playpen,pack-webapp"
+          description="Create jars and copy descriptors" />
 
   <target name="instrument" depends="init-taskdefs" if="ccbuild">
     <emma enabled="true">
@@ -513,7 +400,7 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
 
   <!-- ============== Compile tasks ================== -->
   <target name="compile" depends="init, compile-main, compile-notests"
-      description="Compile source" />
+          description="Compile source" />
 
   <target name="compile-playpen" depends="init,compile-main"
           description="Compile playpen source">
@@ -554,7 +441,9 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
            classpathref="buildjars" >
     </javac>
   </target>
+
   <target name="compile-main" depends="do-compile-main, setup-log4j"/>
+
   <target name="do-compile-main" depends="link-jars,prepare"
           description="Compile the main codebase" unless="installbuild">
     <mkdir dir="${build.dir}/classes" />
@@ -570,7 +459,7 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
            memoryMaximumSize="256m"
            classpathref="buildjars" >
       <src>
-      	<path location="${build.dir}/src" />
+        <path location="${build.dir}/src" />
         <path location="code/src" />
         <path location="code/scripts/src" />
       </src>
@@ -583,24 +472,24 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
          <exclude name="**/log4j.properties" />
       </fileset>
     </copy>
- </target>
+  </target>
 
+  <target name ="setup-log4j" >
+    <property name="dest.log4j" location = "${build.dir}/classes/log4j.properties"/>
+    <if>
+      <available file="${custom.log4j}"/>
+      <then>
+        <copy tofile="${dest.log4j}" file="${custom.log4j}"/>
+      </then>
+      <else>
+        <copy tofile="${dest.log4j}" file="${src.dir}/src/log4j.properties"/>
+      </else>
+    </if>
+  </target>
 
- <target name ="setup-log4j" >
-     <property name="dest.log4j" location = "${build.dir}/classes/log4j.properties"/>
-     <if>
-         <available file="${custom.log4j}"/>
-         <then>
-             <copy tofile="${dest.log4j}" file="${custom.log4j}"/>
-         </then>
-         <else>
-             <copy tofile="${dest.log4j}" file="${src.dir}/src/log4j.properties"/>
-         </else>
-     </if> 
- </target>
-  
   <target name="compile-notests" depends="link-jars,prepare"
-          description="compiles the main codebase without testcases" if="installbuild">
+          description="compiles the main codebase without testcases"
+          if="installbuild">
     <mkdir dir="${build.dir}/classes" />
     <javac destdir="${build.dir}/classes"
            optimize="off"
@@ -614,7 +503,7 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
            memoryMaximumSize="256m"
            classpathref="alljars" >
       <src>
-      	<path location="${build.dir}/src" />
+        <path location="${build.dir}/src" />
         <path location="code/src" />
         <path location="code/scripts/src" />
       </src>
@@ -667,7 +556,7 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
 
   <target name="check-testcase" depends="check-testcase-name" if="testcase"
       unless="valid.testcase">
-    <fail message="Invalid testcase name: ${testcase}.  Class name must look like .*Test"/>
+    <fail message="Invalid testcase name: ${testcase}. Class name must look like .*Test"/>
   </target>
 
   <!-- ================= Invoke tests ==================== -->
@@ -681,19 +570,20 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
 
   <target name="invoke-tests-subsystem" if="testsubsystem">
     <property name="testcaseorsubsystem" value="true" />
-    <run-junit include="**/${testsubsystem}/**/test/*Test.class" banner="all tests in ${testsubsystem} subsystem"
-        testbuilddir="${build.dir}/classes"
-        classpathid="tests.runpath" reportdir="${testresults.dir}"
-        debug="${debug}" />
+    <run-junit include="**/${testsubsystem}/**/test/*Test.class"
+                banner="all tests in ${testsubsystem} subsystem"
+                testbuilddir="${build.dir}/classes"
+                classpathid="tests.runpath" reportdir="${testresults.dir}"
+                debug="${debug}" />
   </target>
 
   <target name="invoke-tests-all" unless="testcaseorsubsystem">
     <antcall target="checkstyle" />
-    <run-junit include="**/test/*Test.class" 
+    <run-junit include="**/test/*Test.class"
                banner="all tests"
-               testbuilddir="${build.dir}/classes" 
+               testbuilddir="${build.dir}/classes"
                exclude="**/AuthenticationServiceTest.class"
-               classpathid="tests.runpath" 
+               classpathid="tests.runpath"
                reportdir="${testresults.dir}"/>
   </target>
 
@@ -735,9 +625,6 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
   </target>
 
   <!-- =================== Packaging Tasks ======================= -->
-  <target name="demo-init">
-  </target>
-
   <target name="megajar-init">
     <mkdir dir="${run.lib.dir}" />
   </target>
@@ -746,8 +633,8 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
     <delete file="${megajar.jar}" />
     <jar destfile="${megajar.jar}">
       <fileset dir="${build.dir}/classes">
-	<!-- internal is not for publication; tlds go in META-INF;
-	     html go as javadoc elsewhere -->
+        <!-- internal is not for publication; tlds go in META-INF;
+             html go as javadoc elsewhere -->
         <exclude name="**/internal/**" />
         <exclude name="**/*.tld" />
         <exclude name="**/*.html" />
@@ -760,7 +647,7 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
       <!-- ugh, we can't flatten this like we would with a <copy> tag
            or use a mapper, alas -->
       <metainf dir="${build.dir}/classes/com/redhat/rhn/frontend/taglibs">
-	<include name="*.tld" />
+        <include name="*.tld" />
       </metainf>
     </jar>
   </target>
@@ -768,23 +655,23 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
   <target name="pack-playpen" depends="compile-playpen" />
 
   <target name="pack-webapp" depends="compile">
-      <war destfile="${rhn.war}" webxml="${src.dir}/webapp/WEB-INF/web.xml">
-        <fileset dir="${src.dir}/webapp">
-            <exclude name="WEB-INF/web.xml"/>
-            <exclude name="help/**" unless="includehelp"/>
-        </fileset>
-        <classes dir="${build.dir}/classes">
-            <include name="log4j.properties" />
-        </classes>
-    	<lib dir="${run.lib.dir}">
-    		<include name="rhn.jar"/>
-    	</lib>
-        <lib dir="${run-external.lib.dir}">
-            <!-- Don't want the Oracle drivers which use JNI in the war. -->
-            <exclude name="**/ojdbc*" />
-            <exclude name="**/oracle-jdbc*" />
-            <exclude name="**/servlet*" />
-        </lib>
+    <war destfile="${rhn.war}" webxml="${src.dir}/webapp/WEB-INF/web.xml">
+      <fileset dir="${src.dir}/webapp">
+        <exclude name="WEB-INF/web.xml"/>
+        <exclude name="help/**" unless="includehelp"/>
+      </fileset>
+      <classes dir="${build.dir}/classes">
+        <include name="log4j.properties" />
+      </classes>
+      <lib dir="${run.lib.dir}">
+        <include name="rhn.jar"/>
+      </lib>
+      <lib dir="${run-external.lib.dir}">
+        <!-- Don't want the Oracle drivers which use JNI in the war. -->
+        <exclude name="**/ojdbc*" />
+        <exclude name="**/oracle-jdbc*" />
+        <exclude name="**/servlet*" />
+      </lib>
     </war>
   </target>
 
@@ -828,7 +715,6 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
     <mkdir dir="${playpen.testresults.dir}" />
   </target>
 
-
   <target name="compile-playpen-tests" depends="init-playpen-tests,compile-playpen"
           description="Compile playpen tests">
     <javac destdir="${playpen.testclasses.dir}"
@@ -851,9 +737,9 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
   </target>
 
   <target name="test-playpen"
-      description="Run the tests (use -Dtestsubsystem=&lt;subsystem&gt; or -Dtestcase=&lt;testcase&gt;)"
-      depends="compile-playpen,compile-playpen-tests,init-playpen-tests,invoke-playpen-testcase,invoke-playpen-subsystem,invoke-playpen-all" >
-      <fail if="junit_test_failure" message="One or more tests failed" />
+          description="Run the tests (use -Dtestsubsystem=&lt;subsystem&gt; or -Dtestcase=&lt;testcase&gt;)"
+          depends="compile-playpen,compile-playpen-tests,init-playpen-tests,invoke-playpen-testcase,invoke-playpen-subsystem,invoke-playpen-all" >
+    <fail if="junit_test_failure" message="One or more tests failed" />
   </target>
 
   <!-- ================= Invoke tests ==================== -->
@@ -877,7 +763,8 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
        classpathid="playpen.tests.runpath" reportdir="${playpen.testresults.dir}"/>
   </target>
 
-  <target name="install" depends="init-install,init,compile-notests,pack,apidoc-jsp,jspcompile"
+  <target name="install"
+          depends="init-install,init,compile-notests,pack,apidoc-jsp,jspcompile"
           description="Install the webapp to the directory specified by $prefix">
     <delete dir="${prefix}/var/lib/tomcat5/webapps/rhn" />
     <delete dir="${prefix}/usr/share/rhn/lib" />
@@ -898,10 +785,10 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
           toDir="${prefix}/var/lib/tomcat5/webapps/rhn/apidoc"
           overwrite="true" />
 
-	<copy file="${build.dir}/reports/apidocs/jsp/scripts.jsp"
+    <copy file="${build.dir}/reports/apidocs/jsp/scripts.jsp"
           toDir="${prefix}/var/lib/tomcat5/webapps/rhn/apidoc"
-          overwrite="true" />  	
-	
+          overwrite="true" />
+
     <copy toDir="${prefix}/var/lib/tomcat5/webapps/rhn/apidoc/handlers/">
         <fileset dir="${report.dir}/apidocs/jsp/handlers/" />
     </copy>
@@ -938,8 +825,10 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
       </fileset>
     </copy>
 
-    <!-- delete the symlinks for the jars that break the webapp.  Basically
-    these are the oracle jars and the servlet jar.  -->
+    <!--
+     - delete the symlinks for the jars that break the webapp.  Basically
+     - these are the oracle jars and the servlet jar.
+     -->
     <delete>
       <fileset dir="${prefix}/var/lib/tomcat5/webapps/rhn/WEB-INF/lib">
         <include name="**/ojdbc*" />
@@ -951,7 +840,7 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
   </target>
 
   <target name="make-eclipse-project" depends = "gen-eclipse"
-			description="Configures this checkout as an eclipse project.">
+          description="Configures this checkout as an eclipse project.">
     <copy toDir="${rhn-home}" overwrite="false">
       <fileset dir="${rhn-home}/conf/eclipse/">
         <include name=".project" />
@@ -967,26 +856,16 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
       <echo message="in the head for some comic relief." />
   </target>
 
-  <!-- findbugs
-
-  <target name="findbugs" depends="compile">
-      <findbugs home="${findbugs.home}" output="xml" outputFile="output.txt">
-          <class location="${build.dir}/classes" />
-          <auxClasspath refid="alljars" />
-          <sourcePath path="${src.dir}" />
-      </findbugs>
-  </target>
-  -->
-
   <target name="resolve" depends="resolve-ivy,resolve-local" />
 
   <target name="resolve-local" if="installbuild">
     <mkdir dir="${build.lib.dir}" />
     <mkdir dir="${test.lib.dir}" />
     <mkdir dir="${run-external.lib.dir}" />
-    <jpackage-deps jars="${install.build.jar.dependencies}" dir="${build.lib.dir}" />
-    <!-- jpackage-deps jars="${install.test.jar.dependencies}" dir="${test.lib.dir}"/ -->
-    <jpackage-deps jars="${install.run.jar.dependencies}" dir="${run-external.lib.dir}"/>
+    <jpackage-deps jars="${install.build.jar.dependencies}"
+                   dir="${build.lib.dir}" />
+    <jpackage-deps jars="${install.run.jar.dependencies}"
+                   dir="${run-external.lib.dir}"/>
     <copy toDir="${build.lib.dir}" overwrite="true">
       <fileset dir="${rhn-home}/buildconf/tempjars">
           <include name="**/*.jar" />
@@ -998,17 +877,20 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
   <target name="resolve-ivy" description="retrieve dependencies with ivy"
           depends="boot-deps,init-ivy" unless="installbuild">
 
-     <!-- properties set here to show we are overriding default ivy values -->
+    <!-- properties set here to show we are overriding default ivy values -->
 
-     <!-- local directory -->
-     <property name="ivy.default.ivy.user.dir" value="${user.home}/.ivy/rhn"/>
-     <property name="ivy.local.default.artifact.pattern" value="[artifact]-[revision].[ext]" />
-     <!-- public directory -->
-     <property name="ivy.ivyrep.default.ivy.root" value="${ivyserver}/ivy/" />
-     <property name="ivy.ivyrep.default.artifact.root" value="${ivyserver}/ivy/" />
-     <property name="ivy.ivyrep.default.artifact.pattern" value="[artifact]-[revision].[ext]" />
+    <!-- local directory -->
+    <property name="ivy.default.ivy.user.dir" value="${user.home}/.ivy/rhn"/>
+    <property name="ivy.local.default.artifact.pattern"
+              value="[artifact]-[revision].[ext]" />
+    <!-- public directory -->
+    <property name="ivy.ivyrep.default.ivy.root" value="${ivyserver}/ivy/" />
+    <property name="ivy.ivyrep.default.artifact.root"
+              value="${ivyserver}/ivy/" />
+    <property name="ivy.ivyrep.default.artifact.pattern"
+              value="[artifact]-[revision].[ext]" />
 
-     <ivy-retrieve/>
- </target>
+    <ivy-retrieve/>
+  </target>
 
 </project>

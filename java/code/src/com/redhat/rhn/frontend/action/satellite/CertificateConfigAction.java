@@ -65,6 +65,10 @@ public class CertificateConfigAction extends BaseConfigAction {
             } 
             else {
                 cmd.setCertificateText(certString);
+
+                String ignoreMismatch = request.getParameter("ignoreMismatch");
+                cmd.setIgnoreVersionMismatch(ignoreMismatch != null);
+
                 ValidatorError[] verrors = cmd.storeConfiguration();
                 if (verrors != null) {
                     ActionErrors errors = 

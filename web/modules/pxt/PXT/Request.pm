@@ -437,7 +437,7 @@ sub cookie_jar {
   @secure = (-secure => 1)
     if $self->ssl_available;
 
-  my $timeout = PXT::Config->get("session_cookie_lifetime");
+  my $timeout = PXT::Config->get("session_database_lifetime");
 
   my @expire;
   @expire = (-expires => $timeout)
@@ -456,7 +456,8 @@ sub cookie_jar {
     my $session_cookie = new Apache2::Cookie $self->{apr},
       -name => $self->session_cookie_name,
 	-value => $self->session->key,
-	  -domain => PXT::Config->get("base_domain"),
+	  #-domain => PXT::Config->get("base_domain"),
+	  # Don't set the cookie's domain, as it will cause issues since we aren't setting it in the java stack
 	    @expire,
 	      @secure,
 		-path => "/";

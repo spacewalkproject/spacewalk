@@ -26,7 +26,7 @@ from struct import pack
 from stat import ST_MTIME
 from errno import EEXIST
 
-from rhnLib import timestamp
+from rhnLib import timestamp, makedirs, setPermsPath
 import rhn_posix
 import rhn_fcntl
 
@@ -77,10 +77,11 @@ def get(name, modified = None, raw = None, compressed=None, missing_is_null=1):
     return cache.get(name, modified)
 
     
-def set(name, value, modified = None, raw = None, compressed=None):
+def set(name, value, modified = None, raw = None, compressed=None, \
+        user='root', group='root', mode=0755):
     cache = __get_cache(raw, compressed)
 
-    cache.set(name, value, modified)
+    cache.set(name, value, modified, user, group, mode)
     
 def has_key(name, modified = None):
     cache = Cache()
@@ -109,7 +110,7 @@ class UnreadableFileError(Exception):
 # If the file is already there, it is truncated
 # otherwise, all the directories up to it are created and the file is created
 # as well
-def _safe_create(fname):
+def _safe_create(fname, user, group, mode):
     # There can be race conditions between the moment we check for the file
     # existence and when we actually create it, so retry if something fails
     tries = 5
@@ -128,7 +129,8 @@ def _safe_create(fname):
         dirname = os.path.dirname(fname)
         if not os.path.isdir(dirname):
             try:
-                os.makedirs(dirname, 0755)
+                #os.makedirs(dirname, 0755)
+                makedirs(dirname, mode, user, group)
             except OSError, e:
                 # There is a window between the moment we check the disk and
                 # the one we try to create the directory
@@ -157,6 +159,7 @@ def _safe_create(fname):
             # Pass exception through
             raise
         # If we got here, the file is created, so break out of the loop
+        setPermsPath(fname, user, group, mode)
         return fd
 
     # Ran out of tries; something is fishy
@@ -167,14 +170,15 @@ def _safe_create(fname):
 
 class LockedFile(object):
 
-    def __init__(self, name, modified = None):
+    def __init__(self, name, modified = None, user='root', group='root', \
+                 mode=0755):
         if modified:
             self.modified = timestamp(modified)
         else:
             self.modified = None
         
         self.fname = _fname(name)
-        self.fd = self.get_fd(name)
+        self.fd = self.get_fd(name, user, group, mode)
 
         self.closed = False
 
@@ -196,7 +200,7 @@ class LockedFile(object):
 
 class ReadLockedFile(LockedFile):
 
-    def get_fd(self, name):
+    def get_fd(self, name, user, group, mode):
         if not os.access(self.fname, os.R_OK):
             raise KeyError(name)
         fd = open(self.fname, "r")
@@ -215,9 +219,9 @@ class ReadLockedFile(LockedFile):
 
 class WriteLockedFile(LockedFile):
 
-    def get_fd(self, name):
+    def get_fd(self, name, user, group, mode):
         try:
-            fd = _safe_create(self.fname)
+            fd = _safe_create(self.fname, user, group, mode)
         except UnreadableFileError:
             raise OSError, "cache entry exists, but is not accessible: %s" % \
                 name
@@ -244,8 +248,9 @@ class Cache:
 
         return s
 
-    def set(self, name, value, modified = None):
-        fd = self.set_file(name, modified)
+    def set(self, name, value, modified = None, user='root', group='root',\
+            mode=0755):
+        fd = self.set_file(name, modified, user, group, mode)
 
         fd.write(value)
         fd.close()
@@ -276,8 +281,9 @@ class Cache:
         fd = ReadLockedFile(name, modified)
         return fd
 
-    def set_file(self, name, modified = None):
-        fd = WriteLockedFile(name, modified)
+    def set_file(self, name, modified = None, user='root', group='root', \
+                 mode=0755):
+        fd = WriteLockedFile(name, modified, user, group, mode)
         return fd
 
 
@@ -314,10 +320,11 @@ class CompressedCache:
 
         return value
     
-    def set(self, name, value, modified = None):
+    def set(self, name, value, modified = None, user='root', group='root', \
+            mode=0755):
         # Since most of the data is kept in memory anyway, don't bother to
         # write it to a temp file at this point
-        f = self.set_file(name, modified)
+        f = self.set_file(name, modified, user, group, mode)
         f.write(value)
         f.close()
 
@@ -331,8 +338,9 @@ class CompressedCache:
         compressed_file = self.cache.get_file(name, modified)
         return ClosingZipFile('r', compressed_file)
 
-    def set_file(self, name, modified = None):
-        io = self.cache.set_file(name, modified)
+    def set_file(self, name, modified = None, user='root', group='root', \
+                 mode=0755):
+        io = self.cache.set_file(name, modified, user, group, mode)
 
         f = ClosingZipFile('w', io)
         return f
@@ -349,9 +357,10 @@ class ObjectCache:
         except cPickle.UnpicklingError:
             raise KeyError(name)
     
-    def set(self, name, value, modified = None):
+    def set(self, name, value, modified = None, user='root', group='root',\
+            mode=0755):
         pickled = cPickle.dumps(value, -1)
-        self.cache.set(name, pickled, modified)
+        self.cache.set(name, pickled, modified, user, group, mode)
 
     def has_key(self, name, modified = None):
         return self.cache.has_key(name, modified)
@@ -375,8 +384,9 @@ class NullCache:
         except KeyError:
             return None
 
-    def set(self, name, value, modified = None):
-        self.cache.set(name, value, modified)
+    def set(self, name, value, modified = None, user='root', group='root', \
+            mode=0755):
+        self.cache.set(name, value, modified, user, group, mode)
 
     def has_key(self, name, modified = None):
         return self.cache.has_key(name, modified)
@@ -390,5 +400,6 @@ class NullCache:
         except KeyError:
             return None
 
-    def set_file(self, name, modified = None):
-        return self.cache.set_file(name, modified)
+    def set_file(self, name, modified = None, user='root', group='root', \
+                 mode=0755):
+        return self.cache.set_file(name, modified, user, group, mode)

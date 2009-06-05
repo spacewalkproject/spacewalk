@@ -115,6 +115,11 @@ def init_hook(conduit):
             str(e))
         rhn_enabled = False
         return
+    except up2dateErrors.ServerUnavailableError:
+        conduit.error(0, _("Server is Unavailable temporarily. Please try again later.") + "\n" +
+            RHN_DISABLED)
+        rhn_enabled = False
+        return
 
     if not login_info:
         conduit.error(0, _("This system is not registered with RHN.") + "\n" +
@@ -298,16 +303,13 @@ class RhnRepo(YumRepository):
                 return self._noExceptionWrappingGet(url, relative, local,
                     start, end, copy_local, checkfunc, text, reget, cache)
             except URLGrabError, e:
-                if e.errno == 14 and e.code == 401:
-                    try:
-                        up2dateAuth.updateLoginInfo()
-                    except up2dateErrors.RhnServerException, e:
-                        raise yum.Errors.RepoError(str(e))
-           
-                    return self._noExceptionWrappingGet(url, relative, local,
-                        start, end, copy_local, checkfunc, text, reget, cache)
-                else:
-                    raise e
+                try:
+                    up2dateAuth.updateLoginInfo()
+                except up2dateErrors.RhnServerException, e:
+                    raise yum.Errors.RepoError(str(e))
+
+                return self._noExceptionWrappingGet(url, relative, local,
+                    start, end, copy_local, checkfunc, text, reget, cache)
 
         except URLGrabError, e:
             raise yum.Errors.RepoError, \

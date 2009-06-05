@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.6.5
+Version:        0.6.8
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,20 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue May 26 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.8-1
+- 501389 - splitting up virt types none and kvm guests, as well as improving
+  virt type names (jsherril@redhat.com)
+
+* Mon May 25 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.7-1
+- 502476 - rhn_sat_node should have uniq constraint on column server_id
+
+* Mon May 18 2009 Jan Pazdziora 0.6.6-1
+- spacewalk-schema-upgrade: add support for reference files
+- 498467 - Forgot to update the create scripts with the new column length
+  (jason.dobies@redhat.com)
+- Merge branch 'bugs' (jason.dobies@redhat.com)
+- 498467 - Increased size of channel name column (jason.dobies@redhat.com)
+
 * Wed May 06 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.5-1
 - 499046 - making it so that pre/post scripts can be templatized or not,
   defaulting to not (jsherril@redhat.com)

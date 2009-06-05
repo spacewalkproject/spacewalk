@@ -42,7 +42,7 @@
       <table cellpadding="0" cellspacing="0">
         <!-- hide/show private -->
         <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
-    onclick="toggle_private();">hide private</a>]</span></td></tr>
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
             >]&nbsp;|&nbsp;<a href="server.apacheAuth-module.html"
@@ -52,7 +52,7 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module apacheAuth</h1><span class="codelink"><a href="server.apacheAuth-pysrc.html">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Module apacheAuth</h1><p class="nomargin-top"><span class="codelink"><a href="server.apacheAuth-pysrc.html">source&nbsp;code</a></span></p>
 <!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -76,7 +76,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="splitProxyAuthToken"></a><span class="summary-sig-name">splitProxyAuthToken</span>(<span class="summary-sig-arg">token</span>)</span></td>
+          <td><span class="summary-sig"><a name="splitProxyAuthToken"></a><span class="summary-sig-name">splitProxyAuthToken</span>(<span class="summary-sig-arg">token</span>)</span><br />
+      given a token:hostname, split it into a token-list, hostname</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.apacheAuth-pysrc.html#splitProxyAuthToken">source&nbsp;code</a></span>
             
@@ -92,7 +93,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_verifyProxyAuthToken"></a><span class="summary-sig-name">_verifyProxyAuthToken</span>(<span class="summary-sig-arg">auth_token</span>)</span></td>
+          <td><span class="summary-sig"><a href="server.apacheAuth-module.html#_verifyProxyAuthToken" class="summary-sig-name" onclick="show_private();">_verifyProxyAuthToken</a>(<span class="summary-sig-arg">auth_token</span>)</span><br />
+      verifies the validity of a proxy auth token</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.apacheAuth-pysrc.html#_verifyProxyAuthToken">source&nbsp;code</a></span>
             
@@ -108,7 +110,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="auth_proxy"></a><span class="summary-sig-name">auth_proxy</span>()</span></td>
+          <td><span class="summary-sig"><a href="server.apacheAuth-module.html#auth_proxy" class="summary-sig-name">auth_proxy</a>()</span><br />
+      Authenticates a proxy carrying a clients request.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.apacheAuth-pysrc.html#auth_proxy">source&nbsp;code</a></span>
             
@@ -124,7 +127,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="auth_client"></a><span class="summary-sig-name">auth_client</span>()</span></td>
+          <td><span class="summary-sig"><a name="auth_client"></a><span class="summary-sig-name">auth_client</span>()</span><br />
+      Authenticates a request from a client For an unsigned request, this 
+      function returns 0 (request should be coming from a client).</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.apacheAuth-pysrc.html#auth_client">source&nbsp;code</a></span>
             
@@ -135,6 +140,67 @@
     </td>
   </tr>
 </table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="_verifyProxyAuthToken"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_verifyProxyAuthToken</span>(<span class="sig-arg">auth_token</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.apacheAuth-pysrc.html#_verifyProxyAuthToken">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>verifies the validity of a proxy auth token</p>
+  <p>NOTE: X-RHN-Proxy-Auth described in proxy/broker/rhnProxyAuth.py</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="auth_proxy"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">auth_proxy</span>()</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.apacheAuth-pysrc.html#auth_proxy">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Authenticates a proxy carrying a clients request. For a valid or 
+  unsigned request, this function returns 1 (OK), otherwise it raises 
+  rhnFault</p>
+  <p>NOTE: X-RHN-Proxy-Auth described in proxy/broker/rhnProxyAuth.py</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -158,10 +224,11 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:50 2008
+    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -172,9 +239,8 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

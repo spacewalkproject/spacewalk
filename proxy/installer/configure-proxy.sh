@@ -32,12 +32,16 @@ options:
 			to Spacewalk Proxy Server.
   --ca-chain=CA_CHAIN
 			The CA cert used to verify the ssl connection to parent.
+  --force-own-ca
+			Do not use parent CA and force to create your own.
   --http-proxy=HTTP_PROXY
 			HTTP proxy in host:port format, e.g. squid.redhat.com:3128
   --http-username=HTTP_USERNAME
 			The username for an authenticated proxy.
   --http-password=HTTP_PASSWORD
 			The password to use for an authenticated proxy.
+  --ssl-build-dir=SSL_BUILD_DIR
+			The directory where we build SSL certificate. Default is /root/ssl-build
   --ssl-org=SSL_ORG
 			Organization name to be used in SSL certificate.
   --ssl-orgunit=SSL_ORGUNIT
@@ -64,9 +68,6 @@ options:
 			RHN_PARENT.
   --monitoring-parent-ip=MONITORING_PARENT_IP
 			IP address of MONITORING_PARENT
-  --scout-shared-key=SCOUT_SHARED_KEY
-			Your scout shared key (can be found on the parent in 
-			/etc/rhn/cluster.ini as key scoutsharedkey).
   --populate-config-channel=Y
 			Y if config chanel should be created and configuration files in that channel
 			updated. Configuration channel will be named rhn_proxy_config_\${SYSTEM_ID}.		
@@ -87,9 +88,11 @@ while [ $# -ge 1 ]; do
 			--traceback-email=*) TRACEBACK_EMAIL=$(echo $1 | cut -d= -f2-);;
 			--use-ssl=*) USE_SSL=$(echo $1 | cut -d= -f2-);;
 			--ca-chain=*) CA_CHAIN=$(echo $1 | cut -d= -f2-);;
+			--force-own-ca) FORCE_OWN_CA=1;;
 			--http-proxy=*) HTTP_PROXY=$(echo $1 | cut -d= -f2-);;
 			--http-username=*) HTTP_USERNAME=$(echo $1 | cut -d= -f2-);;
 			--http-password=*) HTTP_PASSWORD=$(echo $1 | cut -d= -f2-);;
+			--ssl-build-dir=*) SSL_BUILD_DIR=$(echo $1 | cut -d= -f2-);;
 			--ssl-org=*) SSL_ORG=$(echo $1 | cut -d= -f2-);;
 			--ssl-orgunit=*) SSL_ORGUNIT=$(echo $1 | cut -d= -f2-);;
 			--ssl-common=*) SSL_COMMON=$(echo $1 | cut -d= -f2-);;
@@ -102,7 +105,6 @@ while [ $# -ge 1 ]; do
 			--enable-scout=*) ENABLE_SCOUT=$(echo $1 | cut -d= -f2-);;
 			--monitoring-parent=*) MONITORING_PARENT_IP=$(echo $1 | cut -d= -f2-);;
 			--monitoring-parent-ip=*) MONITORING_PARENT_IP=$(echo $1 | cut -d= -f2-);;
-			--scout-shared-key=*) SCOUT_SHARED_KEY=$(echo $1 | cut -d= -f2-);;
 			--populate-config-channel=*) POPULATE_CONFIG_CHANNEL=$(echo $1 | cut -d= -f2-);;
 			*) echo Error: Invalid option $1
     esac
@@ -187,7 +189,11 @@ SYSTEM_ID=$(/usr/bin/xsltproc /usr/share/rhn/get_system_id.xslt $SYSCONFIG_DIR/s
 DIR=/usr/share/doc/proxy/conf-template
 HOSTNAME=$(hostname)
 
-default_or_input "Proxy version to activate" VERSION $(rpm -q --queryformat %{version} spacewalk-proxy-installer|cut -d. -f1-2)
+SSL_BUILD_DIR=${SSL_BUILD_DIR:-/root/ssl-build}
+if ! [ -d $SSL_BUILD_DIR ] && [ 0$FORCE_OWN_CA -eq 0 ]; then
+	echo "Error: ssl build directory $SSL_BUILD_DIR do not exist. Please create this directory."
+	exit 1
+fi
 
 default_or_input "RHN Parent" RHN_PARENT $(awk -F= '/serverURL=/ {split($2, a, "/")} END { print a[3]}' $SYSCONFIG_DIR/up2date)
 
@@ -199,6 +205,8 @@ if [ "$RHN_PARENT" == "rhn.redhat.com" ]; then
 WARNING
 fi
 
+default_or_input "Proxy version to activate" VERSION $(rhn-proxy-activate --server=$RHN_PARENT --list-available-versions |sort|tail -n1)
+
 default_or_input "Traceback email" TRACEBACK_EMAIL ''
 
 default_or_input "Use SSL" USE_SSL 'Y/n'
@@ -206,11 +214,13 @@ USE_SSL=$(yes_no $USE_SSL)
 
 default_or_input "CA Chain" CA_CHAIN $(awk -F'[=;]' '/sslCACert=/ {a=$2} END { print a}' $SYSCONFIG_DIR/up2date)
 
-if [ "$RHN_PARENT" != "xmlrpc.rhn.redhat.com" -a ! -f /root/ssl-build/RHN-ORG-PRIVATE-SSL-KEY ] && ! diff $CA_CHAIN /root/ssl-build/RHN-ORG-TRUSTED-SSL-KEY &>/dev/null; then
+if [ 0$FORCE_OWN_CA -eq 0 ] && \
+	[ "$RHN_PARENT" != "xmlrpc.rhn.redhat.com" -a ! -f /root/ssl-build/RHN-ORG-PRIVATE-SSL-KEY ] && \
+	! diff $CA_CHAIN /root/ssl-build/RHN-ORG-TRUSTED-SSL-KEY &>/dev/null; then
 	cat <<CA_KEYS
 Please do copy your CA key and public certificate from $RHN_PARENT to 
 /root/ssl-build directory. You may want to execute this command:
- scp 'root@$RHN_PARENT:/root/ssl-build/RHN-ORG-{PRIVATE-SSL-KEY,TRUSTED-SSL-CERT}' /root/ssl-build
+ scp 'root@$RHN_PARENT:/root/ssl-build/{RHN-ORG-PRIVATE-SSL-KEY,RHN-ORG-TRUSTED-SSL-CERT,rhn-ca-openssl.cnf}' $SSL_BUILD_DIR
 CA_KEYS
 	exit 1
 fi
@@ -298,9 +308,14 @@ if [ $MONITORING -eq 0 ]; then
         default_or_input "Monitoring parent IP" MONITORING_PARENT_IP "$RESOLVED_IP"
         default_or_input "Enable monitoring scout" ENABLE_SCOUT "Y/n"
         ENABLE_SCOUT=$(yes_no $ENABLE_SCOUT)
-        MSG=$(echo -n "Your scout shared key (can be found on parent
-in $RHNCONF_DIR/cluster.ini as key scoutsharedkey)")
-        default_or_input "$MSG" SCOUT_SHARED_KEY ''
+		SCOUT_SHARED_KEY=`/usr/bin/rhn-proxy-activate --enable-monitoring \
+				--quiet \
+                --server="$RHN_PARENT" \
+                --http-proxy="$HTTP_PROXY" \
+                --http-proxy-username="$HTTP_USERNAME" \
+                --http-proxy-password="$HTTP_PASSWORD" \
+                --ca-cert="$CA_CHAIN" | \
+            awk '/\: [0-9a-f]+/  { print $4 }' `
 else
 	ENABLE_SCOUT=0
 fi
@@ -351,7 +366,7 @@ echo "ProxyPassReverse /cobbler $PROTO://$RHN_PARENT/cobbler" >> $HTTPDCONFD_DIR
 
 
 # lets do SSL stuff
-SSL_BUILD_DIR="/root/ssl-build"
+SSL_BUILD_DIR=${SSL_BUILD_DIR:-"/root/ssl-build"}
 
 if [ -n "$SSL_PASSWORD" ] ; then
         # use SSL_PASSWORD if already set
@@ -378,7 +393,7 @@ else
 	echo "Using CA key at $SSL_BUILD_DIR/RHN-ORG-PRIVATE-SSL-KEY."
 fi
 
-RPM_CA=$(grep noarch $SSL_BUILD_DIR/latest.txt)
+RPM_CA=$(grep noarch $SSL_BUILD_DIR/latest.txt 2>/dev/null)
 
 if [ ! -f $SSL_BUILD_DIR/$RPM_CA ]; then
 	echo "Generating distributable RPM for CA public certificate:"
@@ -444,9 +459,7 @@ if [ $ENABLE_SCOUT -ne 0 ]; then
 fi
 for service in squid httpd jabberd $MonitoringScout; do
   /sbin/chkconfig --add $service 
-  if [ "$1" = "1" ] ; then  # first install
-      /sbin/chkconfig --level 345 $service on 
-  fi
+  /sbin/chkconfig --level 345 $service on 
 done
 /usr/sbin/rhn-proxy restart
 

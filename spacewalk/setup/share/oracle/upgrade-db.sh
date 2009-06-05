@@ -1,10 +1,18 @@
 #!/bin/sh
-# Installs/creates the RHN embedded database at mountpoint /rhnsat
+# Upgrades RHN embedded database at mountpoint /rhnsat
 #
-# Copyright (c) 2002-2004, Red Hat, Inc.
-# All rights reserved.
+# Copyright (c) 2008 Red Hat, Inc.
 #
-# $Id: inst-rhnsat-db.sh,v 1.14 2008-03-17 10:54:36 mmraka Exp $
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
 
 set -x
 
@@ -29,13 +37,17 @@ ORACLE_CONFIG_9I_DIR=$ORACLE_BASE/config/9.2.0
 echo "rhnsat:$ORACLE_HOME:Y" >>/etc/oratab
 
 # change env to rhnsat instance
-ORACLE_SID=rhnsat
-export ORACLE_SID
+if [ -z $ORACLE_CUSTOM_SID ]; then
+	export ORACLE_SID=rhnsat
+else
+	export ORACLE_SID=$ORACLE_CUSTOM_SID
+fi
 . oraenv
 
 
 # modify listener
 LISTENER_ORA=network/admin/listener.ora
+[ -f $ORACLE_HOME/$LISTENER_ORA ] || \
 sed "s|\(ORACLE_HOME=.*\)|(ORACLE_HOME=$ORACLE_HOME)|" \
     $ORACLE_9I_HOME/$LISTENER_ORA >$ORACLE_HOME/$LISTENER_ORA
 
@@ -53,11 +65,9 @@ core_dump_dest
 db_domain
 db_name
 instance_name
-log_archive_dest
-log_archive_format
 user_dump_dest
 EOPATTERNS
-echo "compatible=9.2.0.4.0" >>$UPGRADE_PFILE
+echo "compatible=10.2.0.4.0" >>$UPGRADE_PFILE
 
 
 # upgrade database

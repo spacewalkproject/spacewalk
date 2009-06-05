@@ -9,6 +9,8 @@ cache_mem 400 MB
 maximum_object_size 200 MB
 cache_dir ufs /var/spool/squid 15000 32 256
 
+access_log /var/log/squid/access.log squid
+
 cache_replacement_policy heap LFUDA
 memory_replacement_policy heap GDSF
 

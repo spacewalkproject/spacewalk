@@ -37,6 +37,22 @@ import org.apache.log4j.Logger;
 public class NGramQueryParser extends QueryParser {
     
     private static Logger log = Logger.getLogger(NGramQueryParser.class);
+    private boolean useMust = false;
+    /**
+     * Constructor
+     * @param f field name
+     * @param a analyzer
+     * @param useMustIn boolean option set to true when doing a Free Form or
+     * advanced search, it will force each NGramQuery to be constructed using
+     * the BooleanClause.Occur.MUST.  This narrows returned search results and
+     * is not recommended for regular searches which want spelling variances
+     * to be tolerated.
+     */
+    public NGramQueryParser(String f, Analyzer a, boolean useMustIn) {
+        super(f, a);
+        this.setDateResolution(DateTools.Resolution.DAY);
+        this.useMust = useMustIn;
+    }
     
     /**
      * Constructor
@@ -47,7 +63,23 @@ public class NGramQueryParser extends QueryParser {
         super(f, a);
         this.setDateResolution(DateTools.Resolution.DAY);
     }
-   
+
+    /**
+     *
+     * @return value for useMust
+     */
+    public boolean getUseMust() {
+        return useMust;
+    }
+
+    /**
+     *
+     * @param value for useMust
+     */
+    public void setUseMust(boolean value) {
+        useMust = value;
+    }
+
     protected Query getFieldQuery(String defaultField, 
             String queryText) throws ParseException {
         Query orig = super.getFieldQuery(defaultField, queryText);
@@ -62,7 +94,7 @@ public class NGramQueryParser extends QueryParser {
          * ngrams together to form a BooleanQuery.
          */
         PhraseQuery pq = (PhraseQuery)orig;
-        return new NGramQuery(pq);
+        return new NGramQuery(pq, useMust);
     }
     
     /**

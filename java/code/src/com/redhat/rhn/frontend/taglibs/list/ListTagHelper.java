@@ -115,7 +115,38 @@ public class ListTagHelper {
             return Integer.parseInt(page);
         }
     }
+    
+    /**
+     * Returns the value of the selected radio button
+     * Applicable if you are using RadioColumnTag (rl:radiocolumn)
+     * @param listName name of list
+     * @param request active HttpServletRequest
+     * @return string of the selected radio button or null
+     */
+    public static String getRadioSelection(String listName, HttpServletRequest request) {
+        String uniqueName = TagHelper.generateUniqueName(listName);
+        return RadioColumnTag.getRadioValue(request, uniqueName);
+    }
 
+    /**
+     * Given a list and a value the following method preselects
+     * a value in the list. 
+     * Applicable if you are using RadioColumnTag (rl:radiocolumn)
+     * So for example if you have a list of items and you have a
+     * selection key that uniquely identifies your item
+     * and you want that selected, you 'd call this method to 
+     * preselect it...
+     * @param listName name of the list
+     * @param selectionKey the selection key uniquely identifying
+     *               the item to be selected.
+     * @param request the active http request.
+     */
+    public static void selectRadioValue(String listName, String selectionKey,
+                            HttpServletRequest request) {
+        String uniqueName = TagHelper.generateUniqueName(listName);
+        RadioColumnTag.bindDefaultValue(request, uniqueName, selectionKey);
+    }    
+    
     /**
      * Returns the values of all selected checkboxes
      * @param listName name of list

@@ -293,6 +293,7 @@ class ChooseServerPage:
         if self.hostedButton.get_active():
             up2dateConfig.set('serverURL', 
                               'https://xmlrpc.rhn.redhat.com/XMLRPC')
+            up2dateConfig.set('sslCACert', '/usr/share/rhn/RHNS-CA-CERT')
             serverType = 'hosted'
         else:
             customServer = self.chooseServerXml.get_widget(
@@ -307,6 +308,7 @@ class ChooseServerPage:
             # If they changed the value, write it back to the config file.
             if customServer != self.server:
                 up2dateConfig.set('serverURL', customServer)
+            up2dateConfig.set('sslCACert', '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT')
             serverType = 'satellite'    
             
         
@@ -1072,17 +1074,6 @@ class CreateProfilePage:
         if ret:
             return ret
         pwin.setProgress(3, 6)
- 
-        # send smbios info to the server
-        pwin.setStatusLabel(_("Sending smbios information"))
-        smbiosData = hardware.get_hal_smbios()
-        try:
-            rhnreg.sendSmbiosInfo(self.systemId, smbiosData)
-        except AttributeError:
-            # Method Not Implemented on server, continue
-            pass
-        except:
-            pwin.setStatusLabel(_("Problem sending smbios information."))
 
         # maybe upload hardware profile
         if self.sendHardware:
