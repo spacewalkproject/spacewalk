@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.6.8
+Version:        0.6.9
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -52,6 +52,19 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Fri Jun 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.9-1
+- 503243 - Dropping the is_default column as we now determine the default in
+  the app code based on the compatible eus channel instead of jus the default.
+  (pkilambi@redhat.com)
+- no need to add whitespace to upgrade script (mzazrivec@redhat.com)
+- monitoring log files belong to /var/log/nocpulse (mzazrivec@redhat.com)
+- 502641 - renaming upgrade script to 119-rhnSystemMigrations.sql
+  (bbuckingham@redhat.com)
+- 502641 - rhnSystemMigrations remove not null constraints from to/from org ids
+  (bbuckingham@redhat.com)
+- 498467 - A few changes related to the channel name limit increase.
+  (jason.dobies@redhat.com)
+
 * Tue May 26 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.8-1
 - 501389 - splitting up virt types none and kvm guests, as well as improving
   virt type names (jsherril@redhat.com)
