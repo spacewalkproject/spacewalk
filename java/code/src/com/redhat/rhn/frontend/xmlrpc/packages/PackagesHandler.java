@@ -501,7 +501,8 @@ public class PackagesHandler extends BaseHandler {
     
     
     /**
-     * Find a package by it's NVREA
+     * Lookup the details for packages with the given name, version,
+     * release, architecture label, and (optionally) epoch.
      * @param sessionKey The sessionKey for the logged in used
      * @param name - name of the package to search for
      * @param version - version of the package to search for
@@ -513,7 +514,7 @@ public class PackagesHandler extends BaseHandler {
      * @param archLabel the arch to search for
      * @return the Package object requested
      * 
-     * @xmlrpc.doc Lookup the details for the package with the given name, version,
+     * @xmlrpc.doc Lookup the details for packages with the given name, version,
      *          release, architecture label, and (optionally) epoch.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string", "name")
@@ -526,7 +527,9 @@ public class PackagesHandler extends BaseHandler {
      *          NVRA combination, it will be returned.  (Empty string is recommended.)")
      * @xmlrpc.param #param("string", "archLabel")
      * @xmlrpc.returntype
-     *   $PackageSerializer
+     *   #array()
+     *     $PackageSerializer
+     *   #array_end()
      */
     public List<Package> findByNvrea(String sessionKey, String name, String version, 
             String release, String epoch, String archLabel) {
