@@ -70,8 +70,7 @@ sub user_has_access_to_servergroup_acl_test {
 
 sub need_first_user {
     my $pxt = shift;
-    my $foo = not (PXT::Config->get('satellite') and not RHN::User->satellite_has_users() and not $pxt->user);
-    warn "returning " . $foo;
+    my $foo = not RHN::User->satellite_has_users();
     return $foo;
 }
 
