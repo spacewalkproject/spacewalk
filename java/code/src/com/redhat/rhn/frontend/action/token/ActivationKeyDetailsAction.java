@@ -218,10 +218,10 @@ public class ActivationKeyDetailsAction extends RhnAction {
         if (StringUtils.isBlank(newKey)) {
             newKey = ActivationKeyFactory.generateKey(); 
         }
-        newKey = ActivationKey.makePrefix(key.getOrg()) + newKey;        
+        newKey = ActivationKey.makePrefix(key.getOrg()) + newKey;
         String enteredKey = form.getString(KEY);
         if (!enteredKey.equals(key.getKey()) && !newKey.equals(key.getKey())) {
-            manager.changeKey(newKey, key);
+            manager.changeKey(newKey, key, user);
             if (!StringUtils.isBlank(enteredKey) && 
                         !enteredKey.equals(key.getKey())) {
                 addToMessage(msg, "activation-key.java.org_prefixed", 

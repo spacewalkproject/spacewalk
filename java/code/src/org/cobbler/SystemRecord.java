@@ -15,6 +15,7 @@
 
 package org.cobbler;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -77,6 +78,25 @@ public class SystemRecord extends CobblerObject {
     public static SystemRecord lookupById(CobblerConnection client, String id) {
         return handleLookup(client, lookupDataMapById(client, id, "find_system"));
     }    
+
+    /**
+     * List all SystemRecords associated with a particular profile
+     * @param client the xmlrpc client
+     * @param profileName the profile name (Cobbler profile name)
+     * @return the List of SystemRecords
+     */
+    public static List<SystemRecord> listByAssociatedProfile(CobblerConnection client,
+                                                                    String profileName) {
+        List<SystemRecord> toReturn = new ArrayList<SystemRecord>();
+        List<Map<String, Object>> maps =  lookupDataMapsByCriteria(
+                        client, PROFILE, profileName, "find_system");
+
+        for (Map map : maps) {
+            toReturn.add(handleLookup(client, map));
+        }
+        return toReturn;
+    }
+
 
     private static SystemRecord handleLookup(CobblerConnection client, Map sysMap) {
         if (sysMap != null) {

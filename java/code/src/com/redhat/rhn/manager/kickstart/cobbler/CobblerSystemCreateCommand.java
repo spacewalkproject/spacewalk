@@ -19,6 +19,8 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.token.ActivationKey;
+import com.redhat.rhn.domain.token.ActivationKeyFactory;
+import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
@@ -80,8 +82,10 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      * @param serverIn profile we want to create in cobbler
      * @param cobblerProfileName the name of the cobbler profile 
      * to associate with system
+     * @param ksData the kickstart data to associate the system with
      */
-    public CobblerSystemCreateCommand(Server serverIn, String cobblerProfileName) {
+    public CobblerSystemCreateCommand(Server serverIn, String cobblerProfileName,
+                                                            KickstartData ksData) {
         super(serverIn.getCreator());
         this.server = serverIn;
         this.mediaPath = null;
@@ -90,7 +94,16 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         ActivationKey key = ActivationKeyManager.getInstance().
                     createNewReActivationKey(server.getCreator(), server, note);
         log.debug("created reactivation key: " + key.getKey());
-        this.activationKeys = key.getKey();
+        String keys = key.getKey();
+        if (ksData != null) {
+            for (Token token : ksData.getDefaultRegTokens()) {
+                ActivationKey keyTmp = ActivationKeyFactory.lookupByToken(token);
+                if (keyTmp != null) {
+                    keys += "," + keyTmp.getKey();
+                }
+            }
+        }
+        this.activationKeys = keys;
     }
     
 

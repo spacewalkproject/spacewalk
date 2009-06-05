@@ -14,13 +14,17 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
+import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.token.TokenFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
+
+import org.cobbler.Profile;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -42,36 +46,48 @@ public class KickstartActivationKeysCommand extends BaseKickstartCommand {
      * Removes default regtokens from the kickstart profile.
      * @param ids The ids of the regtokens to remove.
     */
-    public void removeTokensByIds(ArrayList ids) {
-        Iterator toRemoveIter = ids.iterator();
+    public void removeTokensByIds(ArrayList<Long> ids) {
+        Set<String> keysToRemove = new HashSet<String>();
 
-        while (toRemoveIter.hasNext()) {
-            Long id = (Long) toRemoveIter.next();
-
-            Iterator tokensIter = this.getKickstartData().getDefaultRegTokens().iterator();
-
-            while (tokensIter.hasNext()) {
-                Token token = (Token) tokensIter.next();
-
+        for (Long id : ids) {
+            Set<Token> tokenSetCopy = new HashSet<Token>();
+            tokenSetCopy.addAll(this.getKickstartData().getDefaultRegTokens());
+            for (Token token : tokenSetCopy) {
                 if (token.getId() == id) {
-                    tokensIter.remove();
+                    this.getKickstartData().getDefaultRegTokens().remove(token);
+                    keysToRemove.add(ActivationKeyFactory.lookupByToken(token).getKey());
                 }
             }
         }
+
+        Profile prof = Profile.lookupById(
+                CobblerXMLRPCHelper.getConnection(this.getUser()),
+                this.getKickstartData().getCobblerId());
+        if (prof != null) {
+            prof.syncRedHatManagementKeys(keysToRemove, Collections.EMPTY_SET);
+        }
+        prof.save();
     }
 
     /** 
      * Adds default regtokens from the kickstart profile.
      * @param ids The ids of the regtokens to add.
     */
-    public void addTokensByIds(ArrayList ids) {
-        Iterator toAddIter = ids.iterator();
+    public void addTokensByIds(ArrayList<Long> ids) {
+        Set<String> keysToAdd = new HashSet<String>();
 
-        while (toAddIter.hasNext()) {
-            Long id = (Long) toAddIter.next();
-            
-            this.getKickstartData().addDefaultRegToken(TokenFactory.lookupById(id));
+        for (Long id : ids) {
+            Token token = TokenFactory.lookupById(id);
+            this.getKickstartData().addDefaultRegToken(token);
+            keysToAdd.add(ActivationKeyFactory.lookupByToken(token).getKey());
         }
+        Profile prof = Profile.lookupById(
+                CobblerXMLRPCHelper.getConnection(this.getUser()),
+                this.getKickstartData().getCobblerId());
+        if (prof != null) {
+            prof.syncRedHatManagementKeys(Collections.EMPTY_SET, keysToAdd);
+        }
+        prof.save();
     }
 
     /**

@@ -45,7 +45,7 @@ public class ActivationKeyDeleteConfirmAction extends RhnAction {
         if (context.isSubmitted() && context.wasDispatched(DELETE_KEY)) {
             String [] params = {key.getNote()};
             ActivationKeyManager manager = ActivationKeyManager.getInstance();
-            manager.remove(key);
+            manager.remove(key, context.getLoggedInUser());
             getStrutsDelegate().saveMessage(DELETED_MESSAGE_KEY, params, request);
             return mapping.findForward("success");
         }

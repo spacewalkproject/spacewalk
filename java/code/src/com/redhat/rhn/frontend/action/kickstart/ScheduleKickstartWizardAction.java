@@ -430,8 +430,12 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         log.debug("Creating cobbler system record");
         org.cobbler.Profile profile = org.cobbler.Profile.lookupById(
                 CobblerXMLRPCHelper.getConnection(user), cobblerId);
+
+        KickstartData data = KickstartFactory.lookupKickstartDataByCobblerIdAndOrg(
+                    user.getOrg(), profile.getUid());
+
         CobblerSystemCreateCommand cmd = new CobblerSystemCreateCommand(server,
-                profile.getName());
+                profile.getName(), data);
         cmd.store();
         log.debug("cobbler system record created.");
         String[] args = new String[2];
