@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.7
+Version: 0.6.8
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -317,6 +317,30 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Jun 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.8-1
+- 197294 - add hardware report support for CAPTURE cards (shughes@redhat.com)
+- 500709 - html error code page support for sessionless bots (shughes@redhat.com)
+- 435043 - adding errata sync page for syncing out of date errata (that have
+  been updated by red hat) (jsherril@redhat.com)
+- 501784 - fixed issue with timed out logins that required cookie deletion to
+  log in again (jsherril@redhat.com)
+- 501224 - api - enhance system.listSystemEvents to include more detail on
+  events executed (bbuckingham@redhat.com)
+- 500709 - static html for non session error pages (shughes@redhat.com)
+- 503081 - fixed /help url to to go to /rhn/help/index.do instead of about.pxt
+  (paji@redhat.com)
+- 503081 - Fixed a html redirect issue causing page to reload indefinitely on
+  IE (paji@redhat.com)
+- 501784 - fixed issue with timed out logins that required cookie deletion to
+  log in again (jsherril@redhat.com)
+- 501797 - remove /etc/rc.d/np.d/step MonitoringScout install
+  (msuchy@redhat.com)
+- 499399 - create new api call proxy.createMonitoringScout (msuchy@redhat.com)
+- 496105 - Fix for setting up activaiton key for para-host provisioning
+  (paji@redhat.com)
+- 498467 - A few changes related to the channel name limit increase.
+  (jason.dobies@redhat.com)
+
 * Tue May 26 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.7-1
 - 500429 - removed join against rhnSharedChannelView to remove dup entries
   (shughes@redhat.com)
