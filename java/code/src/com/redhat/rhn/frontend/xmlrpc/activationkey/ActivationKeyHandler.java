@@ -258,7 +258,7 @@ public class ActivationKeyHandler extends BaseHandler {
     public int delete(String sessionKey, String key) {
         User user = getLoggedInUser(sessionKey);
         ActivationKey activationKey = lookupKey(key, user);
-        ActivationKeyManager.getInstance().remove(activationKey);
+        ActivationKeyManager.getInstance().remove(activationKey, user);
         return 1;
     }    
 

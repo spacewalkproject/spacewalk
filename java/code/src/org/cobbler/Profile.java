@@ -17,6 +17,7 @@ package org.cobbler;
 
 import org.apache.log4j.Logger;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +49,7 @@ public class Profile extends CobblerObject {
     private static final String VIRT_FILE_SIZE = "virt_file_size";
     private static final String VIRT_RAM = "virt_ram";
     private static final String DISTRO = "distro";    
-    private static final String REDHAT_KEY = "redhat_management_key";
+
 
     private Profile(CobblerConnection clientIn) {
         client = clientIn;
@@ -89,6 +90,9 @@ public class Profile extends CobblerObject {
      * @return the profile matching the given uid or null
      */
     public static Profile lookupById(CobblerConnection client, String id) {
+        if (id == null) {
+            return null;
+        }
         return handleLookup(client, lookupDataMapById(client, id, 
                                         "find_profile"));
     }
@@ -377,21 +381,13 @@ public class Profile extends CobblerObject {
           setDistro(distroIn.getName());
       }
 
-
       /**
       * @param name the Distr name
       */
       public void  setDistro(String name) {
           modify(DISTRO, name);
       }
-      
-      /**
-       * @param key the red hat activation key
-       */
-      public void setRedHatManagementKey(String key) {
-          modify(REDHAT_KEY, key);
-      }
-      
+
       /**
        * Generates the kickstart text and returns that
        * @return the generated kickstart text
@@ -399,4 +395,19 @@ public class Profile extends CobblerObject {
       public String generateKickstart() {
           return (String)client.invokeTokenMethod("generate_kickstart", getName());
       }
+
+      /**
+       *
+       * {@inheritDoc}
+       */
+      public void syncRedHatManagementKeys(Collection<String> keysToRemove,
+                                                  Collection<String> keysToAdd) {
+          super.syncRedHatManagementKeys(keysToRemove, keysToAdd);
+          for (SystemRecord record :
+                      SystemRecord.listByAssociatedProfile(client, this.getName())) {
+              record.syncRedHatManagementKeys(keysToRemove, keysToAdd);
+              record.save();
+          }
+      }
+
 }

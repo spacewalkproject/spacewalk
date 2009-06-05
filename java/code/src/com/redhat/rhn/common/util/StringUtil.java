@@ -25,6 +25,7 @@ import org.stringtree.json.JSONReader;
 import org.stringtree.json.JSONWriter;
 
 import java.net.URLEncoder;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -351,7 +352,7 @@ public class StringUtil {
      * @param inputList The List of Strings to join
      * @return The joined String
      */
-    public static String join(String separator, List inputList) {
+    public static String join(String separator, Collection inputList) {
         Iterator itty = inputList.iterator();
 
         return join(separator, itty);

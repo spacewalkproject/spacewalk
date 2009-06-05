@@ -46,10 +46,12 @@ public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
      * @param serverIn to create in cobbler
      * @param cobblerProfileName to use
      * @param guestNameIn the guest name to create
+     * @param ksData the kickstart data to associate
+     *      system with
      */
     public CobblerVirtualSystemCommand(Server serverIn,
-            String cobblerProfileName, String guestNameIn) {
-        super(serverIn, cobblerProfileName);
+            String cobblerProfileName, String guestNameIn, KickstartData ksData) {
+        super(serverIn, cobblerProfileName, ksData);
         guestName = guestNameIn;
     }
 

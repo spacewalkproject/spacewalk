@@ -1466,7 +1466,8 @@ public class ActionManager extends BaseManager {
         Profile cProfile = Profile.lookupById(CobblerXMLRPCHelper.getConnection(
            pcmd.getUser()), pcmd.getKsdata().getCobblerId());
         CobblerVirtualSystemCommand vcmd = new CobblerVirtualSystemCommand(
-                pcmd.getServer(), cProfile.getName(), pcmd.getGuestName());
+                pcmd.getServer(), cProfile.getName(), pcmd.getGuestName(),
+                pcmd.getKsdata());
         kad.setCobblerSystemName(vcmd.getCobblerSystemRecordName());
 
         kad.setKickstartHost(pcmd.getKickstartServerName());

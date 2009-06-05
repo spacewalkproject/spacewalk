@@ -18,6 +18,7 @@ import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.server.Server;
@@ -29,8 +30,11 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
+
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * ActivationKeyFactory
@@ -113,12 +117,18 @@ public class ActivationKeyFactory extends HibernateFactory {
         else {
             validateKeyName(key.trim());
         }
+
         keyToUse = ActivationKey.makePrefix(user.getOrg()) + keyToUse.trim();
         
+        if (server != null) {
+            keyToUse = "re-" + keyToUse;
+        }
+
         newKey.setKey(keyToUse);
         newKey.setCreator(user);
         newKey.setOrg(user.getOrg());
         newKey.setServer(server);
+
         if (StringUtils.isBlank(note)) {
             note = DEFAULT_DESCRIPTION;
         }
@@ -245,6 +255,18 @@ public class ActivationKeyFactory extends HibernateFactory {
             singleton.removeObject(key);    
         }
         
+    }
+
+    /**
+     * List all kickstarts associated with an activation key
+     * @param key the key to look for associations with
+     * @return list of kickstartData objects
+     */
+    public static List<KickstartData> listAssociatedKickstarts(ActivationKey key) {
+        Map params = new HashMap();
+        params.put("token", key.getToken());
+        return singleton.listObjectsByNamedQuery("ActivationKey.listAssociatedKickstarts",
+                                                                                    params);
     }
 
 

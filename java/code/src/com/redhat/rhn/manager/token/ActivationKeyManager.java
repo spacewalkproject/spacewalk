@@ -25,6 +25,7 @@ import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.entitlement.Entitlement;
+import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
@@ -39,17 +40,22 @@ import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.cobbler.Profile;
 import org.hibernate.Session;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * ActivationKeyManager
@@ -128,26 +134,6 @@ public class ActivationKeyManager {
         return createNewReActivationKey(user, server, "", note, new Long(0), null, 
                 false, null);
     }
-
-    /**
-     * Create a new Re-ActivationKey object for a given user, server, and note. 
-     * @param user The user creating the activation key
-     * @param server the server to create the key for
-     * @param key Key to use, empty string to have one auto-generated
-     * @param note A note about the activation key
-     * @param usageLimit Usage limit for the activation key
-     * @param baseChannel Base channel for the activation key
-     * @param universalDefault Whether or not this key should be set as the universal 
-     *        default.
-     * @return Returns a newly created and filled out Activationkey
-     */
-    public ActivationKey createNewReActivationKey(User user, Server server, 
-            String key, String note, Long usageLimit, Channel baseChannel, 
-            boolean universalDefault) {
-        return createNewReActivationKey(user, server, key, note, usageLimit, baseChannel, 
-                universalDefault, null);
-    }
-    
     
     /**
      * Create a new Re-ActivationKey object for a given user, server, and note. 
@@ -393,8 +379,10 @@ public class ActivationKeyManager {
      * was generated implies that the user credentials have been 
      * verified...
      * @param key the key to remove
+     * @param user TODO
      */
-    public void remove(ActivationKey key) {
+    public void remove(ActivationKey key, User user) {
+        changeCobblerProfileKey(key, key.getKey(), "", user);
         ActivationKeyFactory.removeKey(key);
     }
     
@@ -436,9 +424,11 @@ public class ActivationKeyManager {
      * and activation key after edit by prepending its org_id to it.
      * @param newKey the key to rename to 
      * @param key the key object to be renamed
+     * @param user TODO
      */
-    public void changeKey(String newKey, ActivationKey key) {
+    public void changeKey(String newKey, ActivationKey key, User user) {
         newKey = newKey.trim();
+        String oldKey = key.getKey();
         if (!newKey.equals(key.getKey())) {
             ActivationKeyFactory.validateKeyName(newKey);
             WriteMode m = ModeFactory.getWriteMode("General_queries", 
@@ -448,8 +438,38 @@ public class ActivationKeyManager {
             params.put("new_key", newKey);
             m.executeUpdate(params);    
         }
+        changeCobblerProfileKey(key, oldKey, newKey, user);
+
+    }
+
+
+    /**
+     * helper method to change an activation keys' key.
+     *  This loops through all associated kickstart profiles and makes
+     *  the change in cobbler
+     */
+    private static void changeCobblerProfileKey(ActivationKey key, String oldKey, String newKey,
+                                                                            User user) {
+        List<KickstartData> kss = ActivationKeyFactory.listAssociatedKickstarts(key);
+        for (KickstartData ks : kss) {
+            if (ks.getCobblerId() != null) {
+                Profile prof = Profile.lookupById(CobblerXMLRPCHelper.getConnection(user),
+                                                                    ks.getCobblerId());
+                Set oldSet = new HashSet();
+                if (!StringUtils.isEmpty(oldKey)) {
+                    oldSet.add(oldKey);
+                }
+                Set newSet = new HashSet();
+                if (!StringUtils.isEmpty(newKey)) {
+                    newSet.add(newKey);
+                }
+                prof.syncRedHatManagementKeys(oldSet, newSet);
+                prof.save();
+            }
+        }
     }
     
+
     /**
      * Subscribe an activation key to the first child channel
      *  of its base channel that contains
