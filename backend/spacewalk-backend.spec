@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.10
+Version: 0.6.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -568,6 +568,26 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Jun 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.11-1
+- fixing duplicate entries in repogen tables and other clean aup
+  (pkilambi@redhat.com)
+- add rhn-db-stats manual page (mzazrivec@redhat.com)
+- allow rhn-db-stats to write to arbitrary location with running selinux
+  (mzazrivec@redhat.com)
+- Fixes to support mod_jk >= 2.2.26. (dgoodwin@redhat.com)
+- 503243 - Dropping the is_default column as we now determine the default in
+  the app code based on the compatible eus channel instead of jus the default.
+  (pkilambi@redhat.com)
+- Show all available eus channels during registration (jbowes@redhat.com)
+- removing some unused hosted stuff (pkilambi@redhat.com)
+- removing leftover code after a removed query (jsherril@redhat.com)
+- 498517 fixing the error message to show the needed free entitlements for the
+  activation to proceed (pkilambi@redhat.com)
+- 502060 - The uniquify filter for deps is causing missing deps in repodata gen
+  as we should be looking into the name + version instead of just name. Also
+  since the f10+ rpms have issues with only duplicate provides, lets process
+  the rest of the capabilities. (pkilambi@redhat.com)
+
 * Wed May 27 2009 Brad Buckingham <bbuckingham@redhat.com> 0.6.10-1
 - 309601 - removing md5crypt from spacewalk-backend-tools
   (bbuckingham@redhat.com)
