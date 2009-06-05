@@ -22,10 +22,8 @@ CREATE TABLE rhnReleaseChannelMap
     channel_arch_id  NUMBER NOT NULL, 
     channel_id       NUMBER NOT NULL, 
 
-    CONSTRAINT rhn_rcm_default_ck
-        CHECK (is_default in ( 'Y' , 'N' )),
     CONSTRAINT rhn_rcm_pva_def_uniq
-        UNIQUE (product, version, channel_arch_id, is_default)
+        UNIQUE (product, version, channel_arch_id)
 )
 ENABLE ROW MOVEMENT
 ;
