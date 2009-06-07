@@ -1,5 +1,6 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<html:errors/>
 <html:messages id="message" message="true">
   <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
 </html:messages>

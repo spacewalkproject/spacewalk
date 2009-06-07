@@ -11,6 +11,7 @@
 
 <body onLoad="onLoadStuff(3); showAllRows();">  
 
+<html:errors/>
 <html:messages id="message" message="true">
   <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
 </html:messages>

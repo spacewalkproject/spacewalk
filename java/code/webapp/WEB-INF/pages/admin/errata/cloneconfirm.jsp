@@ -4,10 +4,12 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 
 <html:html xhtml="true">
+<html:errors/>
 <html:messages id="message" message="true">
     <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
 </html:messages>
 <body>
+<html:errors/>
 <html:messages id="message" message="true">
     <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
 </html:messages>
