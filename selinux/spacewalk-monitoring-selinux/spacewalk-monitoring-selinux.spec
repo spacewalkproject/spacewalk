@@ -34,6 +34,7 @@ Requires:       SatConfig-general
 Requires:       NPalert
 Requires:       oracle-instantclient-selinux
 Requires:       tsdb
+Requires:       perl-NOCpulse-Scheduler
 
 %description
 SELinux policy module supporting Spacewalk monitoring.
