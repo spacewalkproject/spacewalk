@@ -849,8 +849,7 @@ SELECT  C.id, C.name, C.label, 1 AS IS_CUSTOM
         where
             rcm.version = :version
             and rcm.channel_arch_id = :channel_arch_id
-            and rcm.channel_id = c.id
-            and rcm.is_default = 'Y'
+            and rcm.channel_id = c.id            
             and cp.org_id = :org_id
             and pn.id = c.product_name_id
             and pn.label = :product_name_label
