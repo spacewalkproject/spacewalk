@@ -448,8 +448,8 @@ public class ActivationKeyManager {
      *  This loops through all associated kickstart profiles and makes
      *  the change in cobbler
      */
-    private static void changeCobblerProfileKey(ActivationKey key, String oldKey, String newKey,
-                                                                            User user) {
+    private static void changeCobblerProfileKey(ActivationKey key, 
+                                    String oldKey, String newKey, User user) {
         List<KickstartData> kss = ActivationKeyFactory.listAssociatedKickstarts(key);
         for (KickstartData ks : kss) {
             if (ks.getCobblerId() != null) {
