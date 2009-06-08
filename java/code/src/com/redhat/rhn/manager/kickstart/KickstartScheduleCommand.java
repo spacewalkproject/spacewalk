@@ -950,17 +950,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             return "";
         }
         StringBuilder retval = new StringBuilder();
-        
-        retval.append("ks=");
-        if (this.proxyHost != null) {
-            retval.append(kickstartSession.getUrl(this.proxyHost, 
-                    this.scheduleDate));
-        }
-        else {
-            retval.append(kickstartSession.getUrl(this.kickstartServerName, 
-                    this.scheduleDate));
-        }            
-    
+
         String extraParams = " ksdevice=eth0";
         /** Some examples:
         dhcp:eth0 , dhcp:eth2, static:10.1.4.75

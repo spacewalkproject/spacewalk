@@ -40,8 +40,8 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
     
     private static Logger log = Logger.getLogger(CobblerProfileCommand.class);
 
-    private Map kernelOptions;
-    private Map postKernelOptions;
+    private String kernelOptions;
+    private String postKernelOptions;
     
     
     protected KickstartData ksData;
@@ -147,7 +147,7 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
     /**
      * @param kernelOptionsIn The kernelOptions to set.
      */
-    public void setKernelOptions(Map kernelOptionsIn) {
+    public void setKernelOptions(String kernelOptionsIn) {
         this.kernelOptions = kernelOptionsIn;
     }
 
@@ -156,7 +156,7 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
     /**
      * @param postKernelOptionsIn The postKernelOptions to set.
      */
-    public void setPostKernelOptions(Map postKernelOptionsIn) {
+    public void setPostKernelOptions(String postKernelOptionsIn) {
         this.postKernelOptions = postKernelOptionsIn;
     }
 

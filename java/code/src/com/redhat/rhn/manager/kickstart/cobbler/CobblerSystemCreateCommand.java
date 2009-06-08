@@ -14,9 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler;
 
-import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.common.validator.ValidatorError;
-import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
@@ -33,7 +31,6 @@ import org.cobbler.SystemRecord;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -243,33 +240,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
             invokeXMLRPC("modify_system", handle, "server",
                     "", xmlRpcToken);
         }
-        try {
-            if (!StringUtils.isBlank(kernelOptions)) {
-                invokeXMLRPC("modify_system", handle, "kopts",
-                        StringUtil.convertOptionsToMap(
-                                kernelOptions, "kickstart.jsp.error.invalidoption", " "),
-                                xmlRpcToken);
-            }
-            else {
-                invokeXMLRPC("modify_system", handle, "kopts",
-                        Collections.EMPTY_MAP, xmlRpcToken);
-            }
-    
-            if (!StringUtils.isBlank(postKernelOptions)) {
-                invokeXMLRPC("modify_system", handle, "kopts-post",
-                        StringUtil.convertOptionsToMap(
-                                postKernelOptions,
-                                "kickstart.jsp.error.invalidoption", " "),
-                                xmlRpcToken);
-            }
-            else {
-                invokeXMLRPC("modify_system", handle, "kopts-post",
-                            Collections.EMPTY_MAP, xmlRpcToken);
-            }        
-        }
-        catch (ValidatorException ve) {
-            return ve.getResult().getErrors().get(0);
-        }
+
         // Setup the kickstart metadata so the URLs and activation key are setup
         Map ksmeta = new HashMap();
         if (!StringUtils.isBlank(mediaPath)) {
@@ -292,6 +263,11 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
             cSystem = getSystemMapByName();
         }
         server.setCobblerId((String)cSystem.get("uid"));        
+        SystemRecord record = SystemRecord.lookupById(getCobblerConnection(),
+                server.getCobblerId());
+        record.setKernelOptions(kernelOptions);
+        record.setKernelPostOptions(postKernelOptions);
+        record.save();
         return null;
     }
 
