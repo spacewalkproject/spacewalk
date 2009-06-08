@@ -171,13 +171,7 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
      */
     public static Distro getCobblerDistroForVirtType(KickstartableTree tree, 
             KickstartVirtualizationType virtType, User user) {
-        CobblerConnection con;
-        if (user == null) {
-             con = CobblerXMLRPCHelper.getAutomatedConnection();
-        }
-        else {
-             con = CobblerXMLRPCHelper.getConnection(user);
-        }
+        CobblerConnection con = getCobblerConnection(user);
         if (virtType.equals(KickstartFactory.VIRT_TYPE_XEN_PV)) {
             if (tree.getCobblerXenId() == null) {
                 return null;

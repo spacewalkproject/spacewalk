@@ -14,7 +14,9 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler;
 
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
@@ -31,6 +33,7 @@ import org.cobbler.SystemRecord;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -52,6 +55,8 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     private String profileName;
     private String activationKeys;
     private String kickstartHost;
+    private String kernelOptions;
+    private String postKernelOptions;
     
     /**
      * Constructor
@@ -230,7 +235,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         }
 
 
-        if (!StringUtils.isEmpty(getKickstartHost())) {
+        if (!StringUtils.isBlank(getKickstartHost())) {
             invokeXMLRPC("modify_system", handle, "server",
                                 getKickstartHost(), xmlRpcToken);
         }
@@ -238,9 +243,33 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
             invokeXMLRPC("modify_system", handle, "server",
                     "", xmlRpcToken);
         }
-
-
-        
+        try {
+            if (!StringUtils.isBlank(kernelOptions)) {
+                invokeXMLRPC("modify_system", handle, "kopts",
+                        StringUtil.convertOptionsToMap(
+                                kernelOptions, "kickstart.jsp.error.invalidoption", " "),
+                                xmlRpcToken);
+            }
+            else {
+                invokeXMLRPC("modify_system", handle, "kopts",
+                        Collections.EMPTY_MAP, xmlRpcToken);
+            }
+    
+            if (!StringUtils.isBlank(postKernelOptions)) {
+                invokeXMLRPC("modify_system", handle, "kopts-post",
+                        StringUtil.convertOptionsToMap(
+                                postKernelOptions,
+                                "kickstart.jsp.error.invalidoption", " "),
+                                xmlRpcToken);
+            }
+            else {
+                invokeXMLRPC("modify_system", handle, "kopts-post",
+                            Collections.EMPTY_MAP, xmlRpcToken);
+            }        
+        }
+        catch (ValidatorException ve) {
+            return ve.getResult().getErrors().get(0);
+        }
         // Setup the kickstart metadata so the URLs and activation key are setup
         Map ksmeta = new HashMap();
         if (!StringUtils.isBlank(mediaPath)) {
@@ -257,13 +286,12 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         invokeXMLRPC("modify_system", Arrays.asList(args));
         
         invokeXMLRPC("save_system", handle, xmlRpcToken);
-        
         Map cSystem = getSystemMapByMac();
         // Virt system records have no mac/interfaces setup so we search on name
         if (cSystem == null) {
             cSystem = getSystemMapByName();
         }
-        server.setCobblerId((String)cSystem.get("uid"));
+        server.setCobblerId((String)cSystem.get("uid"));        
         return null;
     }
 
@@ -323,5 +351,18 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     public void setKickstartHost(String kickstartHostIn) {
         this.kickstartHost = kickstartHostIn;
     }
-  
+
+    /**
+     * @param kernelOptionsIn The kernelOptions to set.
+     */
+    public void setKernelOptions(String kernelOptionsIn) {
+        this.kernelOptions = kernelOptionsIn;
+    }
+    
+    /**
+     * @param postKernelOptionsIn The postKernelOptions to set.
+     */
+    public void setPostKernelOptions(String postKernelOptionsIn) {
+        this.postKernelOptions = postKernelOptionsIn;
+    }    
 }

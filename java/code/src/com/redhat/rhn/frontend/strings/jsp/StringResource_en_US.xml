@@ -10889,9 +10889,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
     <trans-unit id="cobbler.snippet.type">
         <source>Snippet Type</source>
     </trans-unit>    
-    <trans-unit id="cobbler.snippet.custom">
-        <source>Custom</source>
-    </trans-unit>
     <trans-unit id="cobbler.snippet.custom.tip">
         <source>Custom kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
     </trans-unit>
@@ -16396,81 +16393,56 @@ the &lt;a href=&quot;/rhn/kickstart/ActivationKeysList.do?ksid={0}&quot;&gt;Acti
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
         </context-group>
-    </trans-unit>    
-    <trans-unit id="kickstart.schedule.heading4.jsp">
-        <source>Advanced Kickstart Configuration</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
-        </context-group>
     </trans-unit>
-    <trans-unit id="kickstart.schedule.bootloader.jsp">
-        <source>Bootloader</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
-        </context-group>
-    </trans-unit>
-    <trans-unit id="kickstart.schedule.kernel.params.jsp">
-        <source>Extra Kernel&lt;br /&gt;Parameters</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
-        </context-group>
-    </trans-unit>
-    <trans-unit id="kickstart.schedule.system.profile.jsp">
-        <source>@@PRODUCT_NAME@@ System&lt;br /&gt;Profile</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
-        </context-group>
-    </trans-unit>
-    <trans-unit id="kickstart.schedule.sync.pkg.profile.jsp">
-        <source>Sync Package&lt;br /&gt;Profile</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
-        </context-group>
-    </trans-unit>
-    <trans-unit id="kickstart.schedule.system.profile.option1.jsp">
-        <source>Use this system's existing @@PRODUCT_NAME@@ Profile</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
-        </context-group>
-    </trans-unit>
-    <trans-unit id="kickstart.schedule.system.profile.virt.option1.jsp">
-        <source>Use the default guest profile</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
-        </context-group>
-    </trans-unit>
-    <trans-unit id="kickstart.schedule.system.profile.option2.jsp">
-        <source>Use an activation key (select below):</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
-        </context-group>
-    </trans-unit>
-    <trans-unit id="kickstart.schedule.sync.pkg.profile.option1.jsp">
-        <source>With system's existing package profile</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
-        </context-group>
-    </trans-unit>
-    <trans-unit id="kickstart.schedule.sync.pkg.profile.option2.jsp">
-        <source>With Package Profile</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
-        </context-group>
-    </trans-unit>
-    <trans-unit id="kickstart.schedule.sync.pkg.profile.option3.jsp">
-        <source>With System Profile</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
-        </context-group>
-    </trans-unit>
-    <trans-unit id="kickstart.schedule.sync.pkg.profile.option4.jsp">
-        <source>Do not sync package profile</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
-        </context-group>
-    </trans-unit>
-
-
+    
+    <!--KS schedule pages -->
+	<group>
+	    <context-group name="ctx">
+	        <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
+	    </context-group>
+	    <trans-unit id="kickstart.schedule.heading4.jsp">
+	        <source>Advanced Kickstart Configuration</source>
+	    </trans-unit>
+	    <trans-unit id="kickstart.schedule.bootloader.jsp">
+	        <source>Bootloader</source>
+	    </trans-unit>
+	    <trans-unit id="kickstart.schedule.kernel.options.distro">
+	        <source>&lt;strong&gt;As specified by Kickstart Distribution&lt;/strong&gt;({0})</source>
+	    </trans-unit>
+	    <trans-unit id="kickstart.schedule.kernel.options.profile">
+	        <source>&lt;strong&gt;As specified by Kickstart Profile&lt;/strong&gt;({0})</source>
+	    </trans-unit>
+	    <trans-unit id="kickstart.schedule.kernel.options.custom.tip">
+	        <source>If you would not like any kernel options, select '{0}' and leave the form field blank.</source>
+	    </trans-unit>
+	    <trans-unit id="kickstart.schedule.system.profile.jsp">
+	        <source>@@PRODUCT_NAME@@ System&lt;br /&gt;Profile</source>
+	    </trans-unit>
+	    <trans-unit id="kickstart.schedule.sync.pkg.profile.jsp">
+	        <source>Sync Package&lt;br /&gt;Profile</source>
+	    </trans-unit>
+	    <trans-unit id="kickstart.schedule.system.profile.option1.jsp">
+	        <source>Use this system's existing @@PRODUCT_NAME@@ Profile</source>
+	    </trans-unit>
+	    <trans-unit id="kickstart.schedule.system.profile.virt.option1.jsp">
+	        <source>Use the default guest profile</source>
+	    </trans-unit>
+	    <trans-unit id="kickstart.schedule.system.profile.option2.jsp">
+	        <source>Use an activation key (select below):</source>
+	    </trans-unit>
+	    <trans-unit id="kickstart.schedule.sync.pkg.profile.option1.jsp">
+	        <source>With system's existing package profile</source>
+	    </trans-unit>
+	    <trans-unit id="kickstart.schedule.sync.pkg.profile.option2.jsp">
+	        <source>With Package Profile</source>
+	    </trans-unit>
+	    <trans-unit id="kickstart.schedule.sync.pkg.profile.option3.jsp">
+	        <source>With System Profile</source>
+	    </trans-unit>
+	    <trans-unit id="kickstart.schedule.sync.pkg.profile.option4.jsp">
+	        <source>Do not sync package profile</source>
+	    </trans-unit>
+	</group>
 
     <trans-unit id="kickstart.scriptdelete.jsp.header2">
 <source>Confirm Kickstart Script Deletion</source>

@@ -119,7 +119,7 @@ public abstract class KickstartVariableAction extends RhnAction {
             
             CobblerObject cobj = getCobblerObject(cId, ctx.getLoggedInUser());
             cobj.setKsMeta(StringUtil.convertOptionsToMap((String)form.get(VARIABLES), 
-                    "kickstart.jsp.error.invalidvariable"));
+                    "kickstart.jsp.error.invalidvariable", "\n"));
             cobj.save();
             
             return null;
