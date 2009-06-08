@@ -950,8 +950,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             return "";
         }
         StringBuilder retval = new StringBuilder();
-
-        String extraParams = " ksdevice=eth0";
+        String kOptions = StringUtils.defaultString(kernelOptions);
         /** Some examples:
         dhcp:eth0 , dhcp:eth2, static:10.1.4.75
         static:146.108.30.184, static:auto, static:eth0
@@ -960,27 +959,30 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             staticDevice = this.getKsdata().getStaticDevice();
             if (staticDevice.indexOf("dhcp:") >= 0) {
                 // Get rid of the dhcp:
-                extraParams = " ksdevice=" + staticDevice.substring(
+                String params = " ksdevice=" + staticDevice.substring(
                         staticDevice.indexOf("dhcp:") + "dhcp:".length());
-                log.debug("extraParams: " + extraParams);
+                if (!kOptions.contains("ksdevice=eth0")) {
+                    retval.append(" ksdevice=eth0 ");
+                }
+                
+                if (!kOptions.contains(params)) {
+                    retval.append(params);
+                }
                 staticDevice = "";
             }
             else if (staticDevice.indexOf("static:") >= 0) {
                 // Get rid of the static:
                 staticDevice = staticDevice.substring(
                         staticDevice.indexOf("static:") + "static:".length());
-                extraParams = "";
+                
+            }
+            else {
+                if (!kOptions.contains("ksdevice=eth0")) {
+                    retval.append("ksdevice=eth0");
+                }
             }
         }
-        if (!StringUtils.isBlank(kernelOptions)) {
-            extraParams = extraParams + " " + this.kernelOptions;
-        }
-        retval.append(extraParams);
-        
-        log.debug("extraParams: " + extraParams);
-        log.debug("staticDevice: " + staticDevice);
-        log.debug("retval: " + retval);
-        
+        retval.append(" ").append(kOptions);
         return retval.toString();
     }
 

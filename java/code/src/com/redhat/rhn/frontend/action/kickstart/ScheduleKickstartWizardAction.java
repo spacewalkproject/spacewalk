@@ -47,6 +47,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.cobbler.CobblerConnection;
 import org.cobbler.Distro;
+import org.cobbler.SystemRecord;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -95,6 +96,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
     public static final String HOST_SID = "hostSid";
     public static final String VIRT_HOST_IS_REGISTERED = "virtHostIsRegistered";
 
+    public static final String TARGET_PROFILE_TYPE = "targetProfileType";
     /**
      * {@inheritDoc}
      */
@@ -293,10 +295,15 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             form.set(USE_EXISTING_PROFILE, Boolean.TRUE.toString());
         }
         
+        if (StringUtils.isEmpty(form.getString(TARGET_PROFILE_TYPE))) {
+            form.set(TARGET_PROFILE_TYPE, 
+                        KickstartScheduleCommand.TARGET_PROFILE_TYPE_EXISTING);
+        }
+        
         if (StringUtils.isEmpty(form.getString(KERNEL_PARAMS_TYPE))) {
             form.set(KERNEL_PARAMS_TYPE, KERNEL_PARAMS_DISTRO);
         }
-        
+
         if (StringUtils.isEmpty(form.getString(POST_KERNEL_PARAMS_TYPE))) {
             form.set(POST_KERNEL_PARAMS_TYPE, KERNEL_PARAMS_DISTRO);
         }
@@ -330,7 +337,20 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                                     profile.getKernelOptionsString());
             ctx.getRequest().setAttribute("profile_post_kernel_params",
                                         profile.getKernelPostOptionsString());
-
+            if (cmd.getServer().getCobblerId() != null) {
+                SystemRecord rec = SystemRecord.
+                        lookupById(con, cmd.getServer().getCobblerId());
+                if (rec != null && profile.getName().equals(rec.getProfile())) {
+                    if (StringUtils.isBlank(form.getString(KERNEL_PARAMS_TYPE))) {
+                        form.set(KERNEL_PARAMS_TYPE, KERNEL_PARAMS_CUSTOM);
+                        form.set(KERNEL_PARAMS, rec.getKernelOptionsString());
+                    }
+                    if (StringUtils.isBlank(form.getString(POST_KERNEL_PARAMS_TYPE))) {
+                        form.set(POST_KERNEL_PARAMS_TYPE, KERNEL_PARAMS_CUSTOM);
+                        form.set(POST_KERNEL_PARAMS, rec.getKernelPostOptionsString());
+                    }
+                }
+            }
         }
     }
 
@@ -437,7 +457,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                  * through advanced config and there is no package profile to
                  * sync in the kickstart profile
                  */
-                cmd.setProfileType(form.getString("targetProfileType"));
+                cmd.setProfileType(form.getString(TARGET_PROFILE_TYPE));
                 cmd.setServerProfileId((Long) form.get("targetProfile"));
                 cmd.setProfileId((Long) form.get("targetProfile"));
             }
