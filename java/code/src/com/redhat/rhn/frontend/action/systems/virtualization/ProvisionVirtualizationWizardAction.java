@@ -119,6 +119,10 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
             form.set(VIRTUAL_BRIDGE, String.valueOf(pf.getVirtBridge()));
         }
         
+        if (StringUtils.isEmpty(form.getString(TARGET_PROFILE_TYPE))) {
+            form.set(TARGET_PROFILE_TYPE, 
+                        KickstartScheduleCommand.TARGET_PROFILE_TYPE_NONE);
+        }        
         return super.runSecond(mapping, form, ctx, response, step);
     }
 

@@ -1,0 +1,41 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+
+      <tr>
+        <th width="10%"><bean:message key="kickstart.schedule.sync.pkg.profile.jsp" />:</th>
+        <td>
+        <c:if test="${not empty regularKS}">
+          <html:radio styleId="syncExisting" value="existing" property="targetProfileType"
+          				 onclick="form.syncPackageSelect.disabled = true; form.syncSystemSelect.disabled = true;">
+              <bean:message key="kickstart.schedule.sync.pkg.profile.option1.jsp" />
+          </html:radio><br /><br />
+          </c:if>
+              <html:radio styleId="syncPackage"
+              	 onclick="form.syncPackageSelect.disabled = false; form.syncSystemSelect.disabled = true;" 
+              	 value="package" property="targetProfileType" disabled="${syncPackageDisabled}">
+              <bean:message key="kickstart.schedule.sync.pkg.profile.option2.jsp" />
+            </html:radio>:&nbsp;&nbsp;
+            <html:select styleId="syncPackageSelect" property="targetProfile"
+            	 disabled= "${kickstartScheduleWizardForm.map.targetProfileType ne &quot;package&quot;}">
+              <html:optionsCollection property="syncPackages" 
+                label="name" value="id"/>
+            </html:select>
+          <br /><br />
+          <html:radio styleId="syncSystem" value="system" property="targetProfileType" 
+          		onclick="form.syncPackageSelect.disabled = true; form.syncSystemSelect.disabled = false;" 
+          		disabled="${syncSystemDisabled}">
+                <bean:message key="kickstart.schedule.sync.pkg.profile.option3.jsp" />
+            </html:radio>:&nbsp;&nbsp;
+              <html:select styleId="syncSystemSelect" property="targetProfile"
+              	disabled= "${kickstartScheduleWizardForm.map.targetProfileType ne &quot;system&quot;}"> 
+                <html:optionsCollection property="syncSystems" 
+                  label="name" value="id"/>
+              </html:select>
+            <br /><br />                    
+          <html:radio styleId="syncNone" value="none" property="targetProfileType"
+          	 onclick="form.syncPackageSelect.disabled = true; form.syncSystemSelect.disabled = true;">
+          	 <bean:message key="kickstart.schedule.sync.pkg.profile.option4.jsp" /></html:radio><br />	          
+        </td>
+      </tr>

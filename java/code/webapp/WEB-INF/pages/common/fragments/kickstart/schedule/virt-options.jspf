@@ -1,0 +1,52 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+
+    <h2><bean:message key="virtualization.provision.first.jsp.header3" /></h2>
+    	<bean:message key="virtualization.provision.override.jsp.message" />
+    	<br/><br/>
+    <table class="details">
+      <tr>
+        <th><bean:message key="virtualization.provision.first.jsp.memory_allocation.header"/></th>
+        <td>
+          <html:text property="memoryAllocation" maxlength="12" size="6" styleId="memoryAllocationId"/>
+          <bean:message key="virtualization.provision.first.jsp.memory_allocation.message2" 
+          						arg0="${system.ramString}" arg1="${system.id}" arg2="${system.name}"/>
+        </td>
+      </tr>
+      <tr>
+        <th><bean:message key="virtualization.provision.first.jsp.virtual_cpus.header" /></th>
+        <td>
+          <html:text property="virtualCpus" maxlength="2" size="2" styleId="virtualCpusId"/>
+          <br/>
+          <bean:message key="virtualization.provision.first.jsp.virtual_cpus.tip1" arg0="32"/>
+        </td>
+      </tr>
+      <tr>
+        <th><bean:message key="virtualization.provision.first.jsp.storage"/></th>
+        <td>
+            <bean:message key="virtualization.provision.first.jsp.storage.local.message1"/>
+            <html:text styleId="localStorageMegabytesId" property="localStorageMegabytes" 
+            					maxlength="20" size="6"/>
+            <bean:message key="virtualization.provision.first.jsp.storage.local.gigabytes"/>
+        </td>
+      </tr>    
+      <tr>
+        <th><bean:message key="kickstartdetails.jsp.virt_bridge"/>:</th>
+        <td>
+            <html:text  property="virtBridge" maxlength="20" size="6" styleId="virtBridgeId"/>
+            <bean:message key="virtualization.provision.first.jsp.virt_bridge.example"/>
+            
+        </td>
+      </tr>        
+      <tr>
+        <th><bean:message key="kickstartdetails.jsp.virt_disk_path"/>:</th>
+        <td>
+            <html:text  property="diskPath" maxlength="64" size="20" styleId="diskPathId"/>
+            <br/>
+            <bean:message key="kickstartdetails.jsp.virt_disk_path.tip"/>
+            <br/><br/>
+        </td>
+      </tr>         
+    </table>
