@@ -253,6 +253,10 @@ public abstract class CobblerCommand {
     }
     
     protected CobblerConnection getCobblerConnection() {
+        return getCobblerConnection(user);
+    }
+    
+    protected static CobblerConnection getCobblerConnection(User user) {
         if (user == null) {
             return CobblerXMLRPCHelper.getAutomatedConnection();
         }

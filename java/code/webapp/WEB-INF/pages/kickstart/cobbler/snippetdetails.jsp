@@ -85,7 +85,7 @@
             <bean:message key="cobbler.snippet.type"/>:
         </th>
         <td>
-				<bean:message key="cobbler.snippet.custom"/><br/>
+				<bean:message key="Custom"/><br/>
             <rhn:tooltip><bean:message key="cobbler.snippet.custom.tip" 
             			arg0="${requestScope.org}"/></rhn:tooltip>	
         </td>

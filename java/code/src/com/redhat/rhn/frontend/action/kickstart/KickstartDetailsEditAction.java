@@ -291,9 +291,10 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
                                             DynaActionForm form, User user) {
         CobblerProfileEditCommand cmd = new CobblerProfileEditCommand(ksdata, user);
         cmd.setKernelOptions(StringUtil.convertOptionsToMap(
-                form.getString(KERNEL_OPTIONS), "kickstart.jsp.error.invalidvariable"));
+                form.getString(KERNEL_OPTIONS), "kickstart.jsp.error.invalidoption", " "));
         cmd.setPostKernelOptions(StringUtil.convertOptionsToMap(
-                form.getString(POST_KERNEL_OPTIONS), "kickstart.jsp.error.invalidoption"));
+                form.getString(POST_KERNEL_OPTIONS), 
+                                        "kickstart.jsp.error.invalidoption", " "));
         cmd.store();
 
         CobblerXMLRPCHelper helper = new CobblerXMLRPCHelper();
