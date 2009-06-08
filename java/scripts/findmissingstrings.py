@@ -1,5 +1,10 @@
 #!/usr/bin/python
-import elementtree.ElementTree as et
+
+try:
+    import elementtree.ElementTree as et
+except:
+    import xml.etree.ElementTree as et
+
 import os
 
 skip = ["emptyspace.jsp"]
