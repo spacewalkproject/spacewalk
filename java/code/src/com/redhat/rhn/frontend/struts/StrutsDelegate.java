@@ -167,14 +167,11 @@ public class StrutsDelegate {
         HttpSession session = request.getSession();
 
         if ((messages == null) || messages.isEmpty()) {
-            session.removeAttribute(Globals.ERROR_KEY);
             session.removeAttribute(Globals.MESSAGE_KEY);
             return;
         }
         String key = Globals.MESSAGE_KEY;
-        if (messages instanceof ActionErrors) {
-            key = Globals.ERROR_KEY;
-        }
+
         
         ActionMessages newMessages = new ActionMessages();
         
