@@ -80,8 +80,6 @@ public class UpdateChannelCommand extends CreateChannelCommand {
 
         // need to save before calling stored proc below
         ChannelFactory.save(c);
-        
-        ChannelFactory.refreshNewestPackageCache(c, WEB_CHANNEL_CREATED);
 
         return c;
     }
