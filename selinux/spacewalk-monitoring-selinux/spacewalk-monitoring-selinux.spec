@@ -30,11 +30,41 @@ Requires:       selinux-policy >= %{selinux_policyver}
 %endif
 Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/selinuxenabled
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
-Requires:       SatConfig-general
-Requires:       NPalert
 Requires:       oracle-instantclient-selinux
-Requires:       tsdb
+Requires:       nocpulse-common
+Requires:       nocpulse-db-perl
+Requires:       eventReceivers
+Requires:       MessageQueue
+Requires:       NOCpulsePlugins
+Requires:       NPalert
+Requires:       perl-NOCpulse-CLAC
+Requires:       perl-NOCpulse-Debug
+Requires:       perl-NOCpulse-Gritch
+Requires:       perl-NOCpulse-Object
+Requires:       perl-NOCpulse-OracleDB
+Requires:       perl-NOCpulse-PersistentConnection
+Requires:       perl-NOCpulse-Probe
+Requires:       perl-NOCpulse-ProcessPool
 Requires:       perl-NOCpulse-Scheduler
+Requires:       perl-NOCpulse-SetID
+Requires:       perl-NOCpulse-Utils
+Requires:       ProgAGoGo
+Requires:       SatConfig-bootstrap
+Requires:       SatConfig-bootstrap-server
+Requires:       SatConfig-cluster
+Requires:       SatConfig-dbsynch
+Requires:       SatConfig-general
+Requires:       SatConfig-generator
+Requires:       SatConfig-installer
+Requires:       SatConfig-spread
+Requires:       scdb
+Requires:       SNMPAlerts
+Requires:       SputLite-client
+Requires:       SputLite-server
+Requires:       ssl_bridge
+Requires:       status_log_acceptor
+Requires:       tsdb
+
 
 %description
 SELinux policy module supporting Spacewalk monitoring.
