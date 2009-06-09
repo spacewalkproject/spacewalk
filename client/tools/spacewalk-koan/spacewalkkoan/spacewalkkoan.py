@@ -136,7 +136,7 @@ def initiate_guest(kickstart_host, cobbler_system_name, virt_type, name, mem_kb,
             print xa
             print xb
             print string.join(traceback.format_list(traceback.extract_tb(tb)))
-            error_messages['koan'] = string.join(traceback.format_list(traceback.extract_tb(tb)))
+            error_messages['koan'] = xb.get_error_message() + ' ' + string.join(traceback.format_list(traceback.extract_tb(tb)))
         return (1, "Virtual kickstart failed. Koan error.", error_messages)
 
     return (0, "Virtual kickstart initiate succeeded", error_messages)
