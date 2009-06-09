@@ -235,6 +235,7 @@ public class PackageSearchAction extends RhnAction {
         request.setAttribute("channelArches", channelArches);
         request.setAttribute("channel_arch", selectedArches);
         request.setAttribute("allChannels", allChannels);
+        request.setAttribute("channel_filter", form.getString("channel_filter"));
 
         // Default where to search criteria
         request.setAttribute("whereCriteria", searchCriteria);
