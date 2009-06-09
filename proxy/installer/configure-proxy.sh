@@ -191,7 +191,7 @@ HOSTNAME=$(hostname)
 
 SSL_BUILD_DIR=${SSL_BUILD_DIR:-/root/ssl-build}
 if ! [ -d $SSL_BUILD_DIR ] && [ 0$FORCE_OWN_CA -eq 0 ]; then
-	echo "Error: ssl build directory $SSL_BUILD_DIR do not exist. Please create this directory."
+	echo "Error: ssl build directory $SSL_BUILD_DIR does not exist. Please create this directory."
 	exit 1
 fi
 
