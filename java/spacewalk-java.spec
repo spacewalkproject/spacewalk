@@ -29,6 +29,7 @@ Requires: java-devel >= 0:1.6.0
 Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-codec
 Requires: jakarta-commons-cli
+Requires: jakarta-commons-io
 Requires: jakarta-commons-logging
 Requires: jakarta-taglibs-standard
 Requires: jasper5
@@ -49,6 +50,7 @@ Requires: sitemesh
 Requires: stringtree-json
 Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
+Requires: spacewalk-branding
 Requires: jpackage-utils >= 0:1.5
 Requires: cobbler >= 1.4.3
 BuildRequires: ant
