@@ -107,14 +107,14 @@ install -p -m 644 SELinux/%{modulename}-nofcontext.if \
 # Hardlink identical policy module packages together
 /usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
 
-# Install oracle-nofcontext-selinux-enable which will be called in %post
+# Install oracle-nofcontext-selinux-enable which will be called in %posttrans
 install -d %{buildroot}%{_sbindir}
 install -p -m 755 SELinux/oracle-nofcontext-selinux-enable %{buildroot}%{_sbindir}/oracle-nofcontext-selinux-enable
 
 %clean
 rm -rf %{buildroot}
 
-%post
+%posttrans
 # Install SELinux policy modules
 for selinuxvariant in %{selinux_variants}
   do
@@ -132,7 +132,7 @@ test ${SEPORT_STATUS} -lt 1 && semanage port -a -t oracle_port_t -p tcp 1521 || 
 /sbin/restorecon -R -v /etc || :
 /sbin/restorecon -R -v /var/tmp || :
 
-%post -n oracle-nofcontext-selinux
+%posttrans -n oracle-nofcontext-selinux
 if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/oracle-nofcontext-selinux-enable
 fi

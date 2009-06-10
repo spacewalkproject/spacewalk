@@ -108,7 +108,7 @@ install -p -m 755 %{name}-enable %{buildroot}%{_sbindir}/%{name}-enable
 %clean
 rm -rf %{buildroot}
 
-%post
+%posttrans
 if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/%{name}-enable
 fi

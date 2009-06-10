@@ -68,7 +68,7 @@ EOS
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post
+%posttrans
 if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/%{name}-enable
 fi
