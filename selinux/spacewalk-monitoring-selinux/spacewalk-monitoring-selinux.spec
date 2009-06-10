@@ -153,7 +153,7 @@ fi
 - 499189 - spacewalk-selinux is not needed, do not Require it
 
 * Mon Apr 27 2009 Jan Pazdziora <jpazdziora@redhat.com> 0.6.3-1
-- move the %post SELinux activation to /usr/sbin/spacewalk-monitoring-selinux-enable
+- move the %%post SELinux activation to /usr/sbin/spacewalk-monitoring-selinux-enable
 - use src.rpm packaging with single Source0
 
 * Thu Apr 09 2009 Jan Pazdziora 0.6.2-1
