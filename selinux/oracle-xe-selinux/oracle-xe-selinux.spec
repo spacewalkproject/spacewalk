@@ -5,8 +5,8 @@
 %define modulename oracle-xe
 
 Name:            oracle-xe-selinux
-Version:         10.2
-Release:         10%{?dist}
+Version:         10.3
+Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
 License:         GPLv2+
@@ -128,6 +128,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 10.3-1
+- 498611 - run restorecon in %posttrans
+
 * Wed Apr 29 2009 Jan Pazdziora 10.2-10
 - move the %post SELinux activation to /usr/sbin/oracle-xe-enable
 
