@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.6.2
+Version: 0.6.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -288,6 +288,9 @@ fi
 
 
 %changelog
+* Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.3-1
+- 503187 - set MaxRequestsPerChild to 200 (Proxy CLI)
+
 * Wed May  6 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.2-1
 - 493428 - require spacewalk-proxy-selinux so we can run in permissive mode
 
