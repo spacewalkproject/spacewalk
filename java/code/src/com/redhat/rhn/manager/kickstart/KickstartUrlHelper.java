@@ -44,7 +44,7 @@ public class KickstartUrlHelper {
     public static final String COBBLER_URL_BASE_PATH = "/cblr/svc/op/ks/profile/"; 
     public static final String KS_DIST = "/ks/dist";
     public static final String KS_CFG = "/ks/cfg";
-    public static final String COBBLER_SERVER_VARIABLE = "@@http_server@@";
+    public static final String COBBLER_SERVER_VARIABLE = "$http_server";
     public static final String COBBLER_MEDIA_VARIABLE = "media_path";
     private KickstartData ksData;
     private String host;
@@ -225,11 +225,11 @@ public class KickstartUrlHelper {
     /**
      * Get the cobbler style --url:
      * 
-     * http://@@http_server@@/$media_url
+     * http://$http_server/$media_url
      * 
      * To be filled out by cobbler.  not spacewalk.
      * 
-     * @return String url , cobbler style: http://@@http_server@@/$media_url 
+     * @return String url , cobbler style: http://$http_server/$media_url
      */
     public String getCobblerMediaUrl() {
         StringBuilder url = new StringBuilder();

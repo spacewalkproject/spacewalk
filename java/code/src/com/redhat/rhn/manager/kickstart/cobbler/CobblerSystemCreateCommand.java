@@ -124,15 +124,30 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     }    
   
     protected String lookupExisting() {
-        Map sysmap = getSystemMapByMac();
-        if (sysmap != null) {
-            log.debug("getSystemHandleByMAC.found match.");
-            String sysname = (String) sysmap.get("name");
+        String sysname = null;
+        if (server.getCobblerId() != null) {
+            SystemRecord rec;
+            rec = SystemRecord.lookupById(CobblerXMLRPCHelper.getConnection(user),
+                    server.getCobblerId());
+            if (rec != null) {
+                sysname = rec.getName();
+            }
+        }
+        //lookup by ID failed, so lets try by mac
+        if (sysname == null) {
+            Map sysmap = getSystemMapByMac();
+            if (sysmap != null) {
+                log.debug("getSystemHandleByMAC.found match.");
+                sysname = (String) sysmap.get("name");
+            }
+        }
+        if (sysname != null) {
             String handle = (String) invokeXMLRPC("get_system_handle",
                     sysname, xmlRpcToken);
             log.debug("getSystemHandleByMAC.returning handle: " + handle);
             return handle;
         }
+
         return null;
     }
     
@@ -211,13 +226,11 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                                      xmlRpcToken);
         }
         
-        if (this.server.getNetworkInterfaces() == null ||
-                this.server.getNetworkInterfaces().isEmpty()) {
-            return new ValidatorError("kickstart.no.network.error");
+        if (this.server.getNetworkInterfaces() != null &&
+                !this.server.getNetworkInterfaces().isEmpty()) {
+            processNetworkInterfaces(handle, xmlRpcToken, server);
         }
 
-        processNetworkInterfaces(handle, xmlRpcToken, server);
-        
         Object[] args = new String[]{handle, "profile", 
                 profileName, xmlRpcToken};
         invokeXMLRPC("modify_system", Arrays.asList(args));

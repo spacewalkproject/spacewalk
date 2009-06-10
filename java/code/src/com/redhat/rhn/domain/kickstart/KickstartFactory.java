@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
+import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.commons.lang.StringUtils;
@@ -355,8 +356,8 @@ public class KickstartFactory extends HibernateFactory {
         }
         else {
             log.debug("saveKickstartData wizard.  use object");
-            KickstartFormatter formatter = new KickstartFormatter("@@http_server@@", 
-                    ksdataIn, ksession);
+            KickstartFormatter formatter = new KickstartFormatter(
+                    KickstartUrlHelper.COBBLER_SERVER_VARIABLE, ksdataIn, ksession);
             fileData = formatter.getFileData();
         }
         // Escape the dollar signs
