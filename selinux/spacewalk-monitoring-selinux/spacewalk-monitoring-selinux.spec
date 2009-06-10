@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        0.6.8
+Version:        0.6.9
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -134,7 +134,7 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
-* Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com>
+* Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.9-1
 - 504649 - give /var/tmp/escalator.state context of spacewalk_monitoring_var_lib_t
 - 498611 - Require all monitoring packages so the files already exist when we run restorecon
 - 498611 - Require perl-NOCpulse-Scheduler so /var/lib/nocpulse/NPkernel.out already exist when we run restorecon
