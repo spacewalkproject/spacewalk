@@ -19,8 +19,8 @@
 %endif
 
 Name:            oracle-selinux
-Version:         0.1
-Release:         23.8%{?obtag}%{?dist}%{?repo}
+Version:         0.2
+Release:         1%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -185,6 +185,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 0.2-1
+- 498611 - run restorecon in %posttrans
+
 * Wed Apr 29 2009 Jan Pazdziora 0.1-23.8
 - fix the name of the SELinux enabling script
 
