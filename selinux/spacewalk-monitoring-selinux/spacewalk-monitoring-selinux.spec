@@ -134,6 +134,14 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com>
+- 504649 - give /var/tmp/escalator.state context of spacewalk_monitoring_var_lib_t
+- 498611 - Require all monitoring packages so the files already exist when we run restorecon
+- 498611 - Require perl-NOCpulse-Scheduler so /var/lib/nocpulse/NPkernel.out already exist when we run restorecon
+- spacewalk_monitoring_conf_t for /etc/NOCpulse.ini (mzazrivec@redhat.com)
+- 501546 - Require tsdb so that /var/log/nocpulse/TSDBLocalQueue already exists when we run restorecon (jpazdziora@redhat.com)
+- 500330 - allow httpd_sys_script_t to bind to loopback as well (jpazdziora@redhat.com)
+
 * Tue May 26 2009 Jan Pazdziora 0.6.8-1
 - 498941 - allow monitoring to connect to ftp
 - 498930 - allow monitoring to do rpc
