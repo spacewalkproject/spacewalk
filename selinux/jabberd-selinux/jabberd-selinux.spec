@@ -7,7 +7,7 @@
 %define modulename jabber
 
 Name:           jabberd-selinux
-Version:        1.4.3
+Version:        1.4.4
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting jabberd
 
@@ -98,6 +98,9 @@ rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 1.4.4-1
+- 498611 - run restorecon in %posttrans
+
 * Mon Apr 27 2009 Jan Pazdziora 1.4.3-1
 - move the %post SELinux activation to /usr/sbin/jabberd-selinux-enable
 - use src.rpm packaging with single Source0
