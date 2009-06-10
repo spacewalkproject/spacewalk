@@ -175,7 +175,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         KickstartData k = createKickstartWithOptions(user.getOrg());
         KickstartWizardHelper wcmd = new KickstartWizardHelper(user);
         wcmd.createCommand("url", 
-                "--url http://@@http_server@@/$" + 
+                "--url http://" + KickstartUrlHelper.COBBLER_SERVER_VARIABLE + "/$" +
                 KickstartUrlHelper.COBBLER_MEDIA_VARIABLE, k);
 
         KickstartFactory.saveKickstartData(k);
@@ -553,7 +553,8 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         KickstartCommand option = new KickstartCommand();        
         option.setCommandName(optionName);
         option.setArguments
-        ("--url http://@@http_server@@/kickstart/dist/ks-rhel-i386-as-3/");
+        ("--url http://" + KickstartUrlHelper.COBBLER_SERVER_VARIABLE +
+                "/kickstart/dist/ks-rhel-i386-as-3/");
         option.setKickstartData(k);
         option.setCreated(created);
         option.setModified(modified);
