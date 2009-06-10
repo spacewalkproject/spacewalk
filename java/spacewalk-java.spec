@@ -11,7 +11,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.25
+Version: 0.6.26
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -250,6 +250,16 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Wed Jun 10 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.26-1
+- 504806 - Added missing channel_filter attribute that was being lost during
+  pagination. (jason.dobies@redhat.com)
+- 487014 - SystemSearch remove score requirement to redirect to SDC on 1 result
+  (jmatthew@redhat.com)
+- 490770 - Skip and warn if multiple virt channels are found.
+  (dgoodwin@redhat.com)
+- 503801 - update channel details edit to not refresh package cache
+  (bbuckingham@redhat.com)
+
 * Tue Jun 09 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.25-1
 - 470991 - spacewalk-java requires jakarta-commons-io and spacewalk-branding.
   (jesusr@redhat.com)
