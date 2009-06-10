@@ -101,13 +101,13 @@
       </trans-unit>
       <!--# Struts Validator Error Messages-->
       <trans-unit id="errors.header">
-<source>&lt;div class="local-alert"&gt;&lt;ul&gt;</source>
+<source>&lt;div class="site-alert"&gt;&lt;ul&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">All pages</context>
         </context-group>
       </trans-unit>
       <trans-unit id="errors.footer">
-<source>&lt;/ul&gt;&lt;br /&gt;&lt;/div&gt;</source>
+<source>&lt;/ul&gt;&lt;/div&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">All pages</context>
         </context-group>
