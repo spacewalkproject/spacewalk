@@ -980,17 +980,12 @@ public class ErrataFactory extends HibernateFactory {
      * ids.
      */
     public static List<ErrataOverview> searchByPackageIdsWithOrg(List pids, Org org) {
-        List<Long> orgIds = new ArrayList<Long>();
-        orgIds.add(org.getId());
-        for (Org o : org.getTrustedOrgs()) {
-            orgIds.add(o.getId());
-        }
         Map params = new HashMap();
         params.put("pids", pids);
-        params.put("org_ids", orgIds);
+        params.put("org_id", org.getId());
         if (log.isDebugEnabled()) {
+            log.debug("org_id = " + org.getId());
             log.debug("pids = " + pids);
-            log.debug("org_ids = " + orgIds);
         }
         List results = singleton.listObjectsByNamedQuery(
                 "PublishedErrata.searchByPackageIdsWithOrg", params);
