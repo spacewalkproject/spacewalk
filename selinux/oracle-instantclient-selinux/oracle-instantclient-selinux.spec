@@ -82,7 +82,7 @@ if [ $1 -eq 0 ]; then
 	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
 fi
 
-%post -n oracle-instantclient-sqlplus-selinux
+%posttrans -n oracle-instantclient-sqlplus-selinux
 if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/oracle-instantclient-sqlplus-selinux-enable
 fi
