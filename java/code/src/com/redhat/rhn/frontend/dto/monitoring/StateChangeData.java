@@ -15,7 +15,6 @@
 package com.redhat.rhn.frontend.dto.monitoring;
 
 import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.frontend.dto.BaseDto;
 
 import java.sql.Timestamp;
@@ -29,17 +28,7 @@ public class StateChangeData extends BaseDto {
     private String oId; 
     private String data;
     private Long entryTime;
-
-    /** copies StateChangeData object and html escapes its data
-     *  @param scd StateChangeData object to be copied
-     */
-    public void createHtmlEscapedCopy(StateChangeData scd) {
-        oId = scd.oId;
-        entryTime = scd.entryTime;
-        data = StringUtil.htmlifyText(scd.data);
-        setSelected(scd.isSelected());
-    }
-
+    
     /**
      * @return Returns the oId.
      */
