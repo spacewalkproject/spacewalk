@@ -44,6 +44,7 @@ import com.redhat.rhn.common.util.ServletExportHandler;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.frontend.dto.UserOverview;
+import com.redhat.rhn.frontend.dto.monitoring.StateChangeData;
 import com.redhat.rhn.frontend.html.HtmlTag;
 import com.redhat.rhn.frontend.listview.AlphaBar;
 import com.redhat.rhn.frontend.listview.PaginationUtil;
@@ -1268,7 +1269,19 @@ public class ListDisplayTag extends BodyTagSupport {
                 columnCount = 0;
                 Object next = iterator.next();
                 out.println(getTrElement(next));
-                pageContext.setAttribute("current", next);
+
+		/* escape monitoring data (can include html)
+		 * just before displaying */
+                if (next.getClass() == StateChangeData.class) {
+                    StateChangeData scd = new StateChangeData();
+		    /* we do not want to have real data escaped
+		     * (further used f.e. for CSV generation)
+		     * that's why we escape copy of data only */
+                    scd.createHtmlEscapedCopy((StateChangeData)next);
+                    pageContext.setAttribute("current", scd);
+                } else {
+                    pageContext.setAttribute("current", next);
+                }
                 return EVAL_BODY_AGAIN;
             }
             
