@@ -122,11 +122,9 @@ WHERE EC.server_id in
   <query params="channel_id">
 INSERT INTO rhnServerNeededCache
         (server_id, package_id, errata_id)
-            (SELECT DISTINCT  SNV.server_id, SNV.package_id, SNV.errata_id
-                FROM rhnServerNeededView SNV,
-                     rhnServerChannel SC
-                WHERE SNV.server_id = SC.server_id
-                  AND SC.channel_id = :channel_id)
+            (SELECT DISTINCT SNV.server_id, SNV.package_id, SNV.errata_id
+                FROM rhnServerNeededView SNV
+                WHERE SNV.channel_id = :channel_id)
   </query>
 </write-mode>
 

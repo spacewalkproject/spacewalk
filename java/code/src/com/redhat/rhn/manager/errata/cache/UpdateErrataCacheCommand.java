@@ -115,6 +115,8 @@ public class UpdateErrataCacheCommand {
         }
         catch (Exception e) {
             log.error("Problem updating cache for server", e);
+            HibernateFactory.rollbackTransaction();
+            
         }
         finally {
             if (commit) {
@@ -152,6 +154,7 @@ public class UpdateErrataCacheCommand {
         }
         catch (Exception e) {
             log.error("Problem updating cache for servers in channel for errata", e);
+            HibernateFactory.rollbackTransaction();
         }
         finally {
             handleTransaction();
@@ -174,6 +177,7 @@ public class UpdateErrataCacheCommand {
         }
         catch (Exception e) {
             log.error("Problem updating cache for servers in channel", e);
+            HibernateFactory.rollbackTransaction();
         }
         finally {
             handleTransaction();
