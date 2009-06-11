@@ -28,18 +28,9 @@ import java.util.StringTokenizer;
 public class StateChangeData extends BaseDto {
     private String oId; 
     private String data;
+    private String htmlifiedData;
     private Long entryTime;
-
-    /** copies StateChangeData object and html escapes its data
-     *  @param scd StateChangeData object to be copied
-     */
-    public void createHtmlEscapedCopy(StateChangeData scd) {
-        oId = scd.oId;
-        entryTime = scd.entryTime;
-        data = StringUtil.htmlifyText(scd.data);
-        setSelected(scd.isSelected());
-    }
-
+    
     /**
      * @return Returns the oId.
      */
@@ -64,6 +55,7 @@ public class StateChangeData extends BaseDto {
      */
     public void setData(String dataIn) {
         this.data = dataIn;
+        this.htmlifiedData = StringUtil.htmlifyText(dataIn);
     }
 
     /**
@@ -103,6 +95,18 @@ public class StateChangeData extends BaseDto {
         }
         String message = data.substring(data.indexOf(" ") + 1);
         return message;
+    }
+    
+    /**
+     * The htmlifiedMessage is the latter half of the "htmlified DATA" field:
+     * @return Returns the htmlified message.
+     */
+    public String getHtmlifiedMessage() {
+        if (htmlifiedData == null) {
+                return null;
+            }
+            String message = htmlifiedData.substring(htmlifiedData.indexOf(" ") + 1);
+            return message;
     }
 
     /**
