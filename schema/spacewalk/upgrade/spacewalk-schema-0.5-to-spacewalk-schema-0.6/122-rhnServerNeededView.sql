@@ -16,6 +16,7 @@
 
 -- A view that displays an uncached version of rhnServerNeededCache
 
+
 CREATE OR REPLACE VIEW
 rhnServerNeededView
 (
