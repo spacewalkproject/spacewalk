@@ -908,7 +908,10 @@ class ExporterMain:
         #This was taken straight from satsync.py.
         try:
             rhnSQL.initDB(CFG.DEFAULT_DB)
-        except (SQLError, SQLSchemaError, SQLConnectError), e:
+        except SQLConnectError:
+            print 'SQLERROR: There was an error connecting to the Database.'
+            sys.exit(-1)
+        except (SQLError, SQLSchemaError), e:
             # An SQL error is fatal... crash and burn
             tbOut = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbOut, with_locals=1)
