@@ -6,7 +6,7 @@
 
 Name:            oracle-rhnsat-selinux
 Version:         10.2
-Release:         11%{?dist}
+Release:         12%{?dist}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -103,6 +103,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu Jun 11 2009 Miroslav Suchy <msuchy@redhat.com> 10.2-12
+- return version down to 10.2
+
 * Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 10.3-1
 - 498611 - run restorecon in %posttrans
 
