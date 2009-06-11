@@ -306,9 +306,15 @@ public class KickstartFormatter {
      */
     private String adjustUrlHost(KickstartCommand command) {
         String argVal = command.getArguments();
-        String urlLocation = argVal.substring("--url ".length());
-        // KickstartUrlHelper urlHelper = new KickstartUrlHelper(this.ksdata,
-        //        this.ksHost);
+
+        String urlLocation;
+        if (argVal.startsWith("--url")) {
+          urlLocation = argVal.substring("--url ".length());
+        }
+        else {
+          urlLocation = argVal;
+        }
+
         KickstartUrlHelper urlHelper = new KickstartUrlHelper(this.ksdata);
         
         log.debug("Got URL : " + command.getArguments());
