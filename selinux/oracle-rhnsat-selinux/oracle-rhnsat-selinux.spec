@@ -5,8 +5,8 @@
 %define modulename oracle-rhnsat
 
 Name:            oracle-rhnsat-selinux
-Version:         10.3
-Release:         1%{?dist}
+Version:         10.2
+Release:         11%{?dist}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+

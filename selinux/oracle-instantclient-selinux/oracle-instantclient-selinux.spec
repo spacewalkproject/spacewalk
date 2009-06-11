@@ -1,7 +1,7 @@
 
 Name:		oracle-instantclient-selinux
-Version:	10.3
-Release:	1%{?dist}
+Version:	10.2
+Release:	13%{?dist}
 Summary:	SELinux support for Oracle Instant Client
 Group:		System Environment/Base
 License:	GPLv2+
