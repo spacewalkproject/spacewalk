@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.dto.monitoring;
 
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.frontend.dto.BaseDto;
 
 import java.sql.Timestamp;
@@ -27,6 +28,7 @@ import java.util.StringTokenizer;
 public class StateChangeData extends BaseDto {
     private String oId; 
     private String data;
+    private String htmlifiedData;
     private Long entryTime;
     
     /**
@@ -53,6 +55,7 @@ public class StateChangeData extends BaseDto {
      */
     public void setData(String dataIn) {
         this.data = dataIn;
+        this.htmlifiedData = StringUtil.htmlifyText(dataIn);
     }
 
     /**
@@ -92,6 +95,18 @@ public class StateChangeData extends BaseDto {
         }
         String message = data.substring(data.indexOf(" ") + 1);
         return message;
+    }
+    
+    /**
+     * The htmlifiedMessage is the latter half of the "htmlified DATA" field:
+     * @return Returns the htmlified message.
+     */
+    public String getHtmlifiedMessage() {
+        if (htmlifiedData == null) {
+                return null;
+            }
+            String message = htmlifiedData.substring(htmlifiedData.indexOf(" ") + 1);
+            return message;
     }
 
     /**
