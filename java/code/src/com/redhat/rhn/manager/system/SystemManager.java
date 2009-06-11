@@ -1296,15 +1296,6 @@ public class SystemManager extends BaseManager {
     public static Server deactivateProxy(Server server) {
         Long sid = server.getId();
 
-        Set channels = server.getChannels();
-        for (Iterator itr = channels.iterator(); itr.hasNext();) {
-            Channel c = (Channel)itr.next();
-            ChannelFamily cf = c.getChannelFamily();
-            if (cf.getLabel().equals("rhn-proxy")) {
-                SystemManager.unsubscribeServerFromChannel(server, c);
-            }
-        }
-        
         Map params = new HashMap();
         params.put("server_id", sid);
 
@@ -1323,6 +1314,16 @@ public class SystemManager extends BaseManager {
         // for it to work....
         HibernateFactory.getSession().refresh(server);
         ServerFactory.deproxify(server);
+
+        Set channels = server.getChannels();
+        for (Iterator itr = channels.iterator(); itr.hasNext();) {
+            Channel c = (Channel)itr.next();
+            ChannelFamily cf = c.getChannelFamily();
+            if (cf.getLabel().equals("rhn-proxy")) {
+                SystemManager.unsubscribeServerFromChannel(server, c);
+            }
+        }
+
         return server;
     }
     
