@@ -122,7 +122,7 @@
           ${current.state}
       </rhn:column>
       <rhn:column header="probedetails.jsp.message">
-          ${current.message}
+          ${current.htmlifiedMessage}
       </rhn:column>
       </rhn:listdisplay>
     </rhn:list>
