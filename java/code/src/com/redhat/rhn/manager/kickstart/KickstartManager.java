@@ -79,7 +79,7 @@ public class KickstartManager extends BaseManager {
         }
         catch (DownloadException de) {
             ValidatorException.raiseException("kickstart.jsp.error.template_generation",
-                                        KickstartUrlHelper.getCobblerProfileUrl(ksdata));
+                                        KickstartUrlHelper.getFileDowloadPageUrl(ksdata));
         }
     }    
 }
