@@ -34,6 +34,18 @@ def copy(src, dest):
             shutil.copy(join(dest,basename(src)), join(dest,basename(src)) + ".old")
     shutil.copy(src, dest)
 
+def ask_yes_no(question, default_val = None):
+    if default_val and default_val.lower() == 'y':
+        default_val = 'y'
+    else:
+        default_val = 'n'
+
+    ans = raw_input(question + " (y/n, default = '%s')?" % default_val)
+    if not ans:
+        return default_val == 'y'
+
+    return ans.lower() == 'y'
+
 def gen_template(template, answers, output):
 	t = Template(file=template, searchList=answers)
 	open(output,"w").write(t.respond())
@@ -55,7 +67,12 @@ def main():
     if not m.search(conf_lines):
         system ("echo 'cobbler.host = %s' >> %s " % (answers['server'],
                                         common.rhnConfig._CONFIG_FILE))
+    q = "Cobbler requires tftp and xinetd services be turned on for PXE provisioning functionality. Enable these services"  
+    if ask_yes_no(q, 'y'):
+        system("chkconfig tftp on")
+        system('chkconfig xinetd on')
     system("cobbler sync")
+
     
 if __name__=="__main__":
     main()
