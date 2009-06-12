@@ -35,6 +35,7 @@ import com.redhat.rhn.frontend.xmlrpc.activationkey.ActivationKeyAlreadyExistsEx
 import com.redhat.rhn.frontend.xmlrpc.activationkey.ActivationKeyHandler;
 import com.redhat.rhn.frontend.xmlrpc.serializer.ActivationKeySerializer;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
+import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
 import com.redhat.rhn.testing.ChannelTestUtils;
 import com.redhat.rhn.testing.ConfigTestUtils;
@@ -61,8 +62,8 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
     private static final List<String> KEY_ENTITLEMENTS;
     static {
         KEY_ENTITLEMENTS = new LinkedList<String>();
-        KEY_ENTITLEMENTS.add("provisioning_entitled");
-        KEY_ENTITLEMENTS.add("virtualization_host");
+        KEY_ENTITLEMENTS.add(EntitlementManager.PROVISIONING_ENTITLED);
+        KEY_ENTITLEMENTS.add(EntitlementManager.VIRTUALIZATION_ENTITLED);
     }
     
     private Channel baseChannel;
@@ -96,8 +97,10 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
     }
     
     public void testCreateWithBlankChannelAndUnlimitedUsageLimit() throws Exception {
+        List <String> ents = new ArrayList<String>(1);
+        ents.add(EntitlementManager.PROVISIONING_ENTITLED);
         String key = keyHandler.create(adminKey, "", KEY_DESCRIPTION, null, 
-                                KEY_ENTITLEMENTS, Boolean.TRUE);
+                                ents, Boolean.TRUE);
         assertTrue(key.length() > 0);
         ActivationKey activationKey = ActivationKeyManager.getInstance().
                 lookupByKey(key, admin);
