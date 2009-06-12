@@ -7,31 +7,31 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnSnapshot
 (
-    id         NUMBER NOT NULL 
-                   CONSTRAINT rhn_snapshot_id_pk PRIMARY KEY 
-                   USING INDEX TABLESPACE [[8m_tbs]], 
-    org_id     NUMBER NOT NULL 
+    id         NUMBER NOT NULL
+                   CONSTRAINT rhn_snapshot_id_pk PRIMARY KEY
+                   USING INDEX TABLESPACE [[8m_tbs]],
+    org_id     NUMBER NOT NULL
                    CONSTRAINT rhn_snapshot_oid_fk
-                       REFERENCES web_customer (id), 
-    invalid    NUMBER 
+                       REFERENCES web_customer (id),
+    invalid    NUMBER
                    CONSTRAINT rhn_snapshot_invalid_fk
-                       REFERENCES rhnSnapshotInvalidReason (id), 
-    reason     VARCHAR2(4000) NOT NULL, 
-    server_id  NUMBER NOT NULL 
+                       REFERENCES rhnSnapshotInvalidReason (id),
+    reason     VARCHAR2(4000) NOT NULL,
+    server_id  NUMBER NOT NULL
                    CONSTRAINT rhn_snapshot_sid_fk
-                       REFERENCES rhnServer (id), 
-    created    DATE 
-                   DEFAULT (sysdate) NOT NULL, 
-    modified   DATE 
+                       REFERENCES rhnServer (id),
+    created    DATE
+                   DEFAULT (sysdate) NOT NULL,
+    modified   DATE
                    DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

@@ -7,27 +7,27 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnPackageRequires
 (
-    package_id     NUMBER NOT NULL 
+    package_id     NUMBER NOT NULL
                        CONSTRAINT rhn_pkg_requires_package_fk
-                           REFERENCES rhnPackage (id) 
-                           ON DELETE CASCADE, 
-    capability_id  NUMBER NOT NULL 
+                           REFERENCES rhnPackage (id)
+                           ON DELETE CASCADE,
+    capability_id  NUMBER NOT NULL
                        CONSTRAINT rhn_pkg_requires_capability_fk
-                           REFERENCES rhnPackageCapability (id), 
-    sense          NUMBER 
-                       DEFAULT (0) NOT NULL, 
-    created        DATE 
-                       DEFAULT (sysdate) NOT NULL, 
-    modified       DATE 
+                           REFERENCES rhnPackageCapability (id),
+    sense          NUMBER
+                       DEFAULT (0) NOT NULL,
+    created        DATE
+                       DEFAULT (sysdate) NOT NULL,
+    modified       DATE
                        DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

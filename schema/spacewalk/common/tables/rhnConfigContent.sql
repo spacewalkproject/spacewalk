@@ -7,28 +7,28 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnConfigContent
 (
-    id         NUMBER NOT NULL 
-                   CONSTRAINT rhn_confcontent_id_pk PRIMARY KEY 
-                   USING INDEX TABLESPACE [[2m_tbs]], 
-    contents   BLOB, 
-    file_size  NUMBER, 
-    md5sum     VARCHAR2(64) NOT NULL, 
-    is_binary  CHAR(1) 
-                   DEFAULT ('N') NOT NULL 
+    id         NUMBER NOT NULL
+                   CONSTRAINT rhn_confcontent_id_pk PRIMARY KEY
+                   USING INDEX TABLESPACE [[2m_tbs]],
+    contents   BLOB,
+    file_size  NUMBER,
+    md5sum     VARCHAR2(64) NOT NULL,
+    is_binary  CHAR(1)
+                   DEFAULT ('N') NOT NULL
                    CONSTRAINT rhn_confcontent_isbin_ck
-                       CHECK (is_binary in ( 'Y' , 'N' )), 
-    created    DATE 
-                   DEFAULT (sysdate) NOT NULL, 
-    modified   DATE 
+                       CHECK (is_binary in ( 'Y' , 'N' )),
+    created    DATE
+                   DEFAULT (sysdate) NOT NULL,
+    modified   DATE
                    DEFAULT (sysdate) NOT NULL
 )
 TABLESPACE [[blob]]

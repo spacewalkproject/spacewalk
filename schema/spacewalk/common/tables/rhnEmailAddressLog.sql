@@ -7,22 +7,22 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnEmailAddressLog
 (
-    user_id  NUMBER NOT NULL 
+    user_id  NUMBER NOT NULL
                  CONSTRAINT rhn_eaddresslog_uid_fk
-                     REFERENCES web_contact (id) 
-                     ON DELETE CASCADE, 
-    address  VARCHAR2(128) NOT NULL, 
-    reason   VARCHAR2(4000), 
-    created  DATE 
+                     REFERENCES web_contact (id)
+                     ON DELETE CASCADE,
+    address  VARCHAR2(128) NOT NULL,
+    reason   VARCHAR2(4000),
+    created  DATE
                  DEFAULT (sysdate) NOT NULL
 )
 TABLESPACE [[8m_data_tbs]]

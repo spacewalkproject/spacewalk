@@ -7,26 +7,26 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnServerNetwork
 (
-    id         NUMBER NOT NULL 
-                   CONSTRAINT rhn_servernetwork_id_pk PRIMARY KEY 
-                   USING INDEX TABLESPACE [[4m_tbs]], 
-    server_id  NUMBER NOT NULL 
+    id         NUMBER NOT NULL
+                   CONSTRAINT rhn_servernetwork_id_pk PRIMARY KEY
+                   USING INDEX TABLESPACE [[4m_tbs]],
+    server_id  NUMBER NOT NULL
                    CONSTRAINT rhn_servernetwork_sid_fk
-                       REFERENCES rhnServer (id), 
-    hostname   VARCHAR2(128), 
-    ipaddr     CHAR(16), 
-    created    DATE 
-                   DEFAULT (sysdate) NOT NULL, 
-    modified   DATE 
+                       REFERENCES rhnServer (id),
+    hostname   VARCHAR2(128),
+    ipaddr     CHAR(16),
+    created    DATE
+                   DEFAULT (sysdate) NOT NULL,
+    modified   DATE
                    DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

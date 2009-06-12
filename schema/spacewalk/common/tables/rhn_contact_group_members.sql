@@ -7,29 +7,29 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_contact_group_members
 (
-    contact_group_id          NUMBER NOT NULL 
+    contact_group_id          NUMBER NOT NULL
                                   CONSTRAINT rhn_cntgm_cgid_fk
-                                      REFERENCES rhn_contact_groups (recid) 
-                                      ON DELETE CASCADE, 
-    order_number              NUMBER NOT NULL, 
-    member_contact_method_id  NUMBER 
+                                      REFERENCES rhn_contact_groups (recid)
+                                      ON DELETE CASCADE,
+    order_number              NUMBER NOT NULL,
+    member_contact_method_id  NUMBER
                                   CONSTRAINT rhn_cntgm_mcmid_fk
-                                      REFERENCES rhn_contact_methods (recid) 
-                                      ON DELETE CASCADE, 
-    member_contact_group_id   NUMBER 
+                                      REFERENCES rhn_contact_methods (recid)
+                                      ON DELETE CASCADE,
+    member_contact_group_id   NUMBER
                                   CONSTRAINT rhn_cntgm_mcgid_fk
-                                      REFERENCES rhn_contact_groups (recid) 
-                                      ON DELETE CASCADE, 
-    last_update_user          VARCHAR2(40) NOT NULL, 
+                                      REFERENCES rhn_contact_groups (recid)
+                                      ON DELETE CASCADE,
+    last_update_user          VARCHAR2(40) NOT NULL,
     last_update_date          DATE NOT NULL
 )
 ENABLE ROW MOVEMENT

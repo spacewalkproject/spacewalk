@@ -7,23 +7,23 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnRegTokenConfigChannels
 (
-    token_id           NUMBER NOT NULL 
+    token_id           NUMBER NOT NULL
                            CONSTRAINT rhn_regtok_confchan_tid_fk
-                               REFERENCES rhnRegToken (id) 
-                               ON DELETE CASCADE, 
-    config_channel_id  NUMBER NOT NULL 
+                               REFERENCES rhnRegToken (id)
+                               ON DELETE CASCADE,
+    config_channel_id  NUMBER NOT NULL
                            CONSTRAINT rhn_regtok_confchan_ccid_fk
-                               REFERENCES rhnConfigChannel (id) 
-                               ON DELETE CASCADE, 
+                               REFERENCES rhnConfigChannel (id)
+                               ON DELETE CASCADE,
     position           NUMBER NOT NULL
 )
 ENABLE ROW MOVEMENT

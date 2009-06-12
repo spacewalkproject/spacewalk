@@ -7,32 +7,32 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_contact_groups
 (
-    recid                   NUMBER NOT NULL 
-                                CONSTRAINT rhn_cntgp_recid_pk PRIMARY KEY 
-                                USING INDEX TABLESPACE [[2m_tbs]] 
+    recid                   NUMBER NOT NULL
+                                CONSTRAINT rhn_cntgp_recid_pk PRIMARY KEY
+                                USING INDEX TABLESPACE [[2m_tbs]]
                                 CONSTRAINT rhn_cntgp_recid_notzero
-                                    CHECK (recid > 0), 
-    contact_group_name      VARCHAR2(30) NOT NULL, 
-    customer_id             NUMBER NOT NULL, 
-    strategy_id             NUMBER NOT NULL, 
-    ack_wait                NUMBER NOT NULL 
+                                    CHECK (recid > 0),
+    contact_group_name      VARCHAR2(30) NOT NULL,
+    customer_id             NUMBER NOT NULL,
+    strategy_id             NUMBER NOT NULL,
+    ack_wait                NUMBER NOT NULL
                                 CONSTRAINT rhn_cntgp_ack_wait_ck
-                                    CHECK (ack_wait < 20160), 
-    rotate_first            CHAR(1) NOT NULL 
+                                    CHECK (ack_wait < 20160),
+    rotate_first            CHAR(1) NOT NULL
                                 CONSTRAINT rhn_cntgp_rotate_f_ck
-                                    CHECK (rotate_first in ( '0' , '1' )), 
-    last_update_user        VARCHAR2(40) NOT NULL, 
-    last_update_date        DATE NOT NULL, 
-    notification_format_id  NUMBER 
+                                    CHECK (rotate_first in ( '0' , '1' )),
+    last_update_user        VARCHAR2(40) NOT NULL,
+    last_update_date        DATE NOT NULL,
+    notification_format_id  NUMBER
                                 DEFAULT (4) NOT NULL
 )
 ENABLE ROW MOVEMENT

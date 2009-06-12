@@ -7,29 +7,29 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnSatelliteInfo
 (
-    server_id          NUMBER NOT NULL 
+    server_id          NUMBER NOT NULL
                            CONSTRAINT rhn_satellite_info_sid_fk
-                               REFERENCES rhnServer (id), 
-    evr_id             NUMBER 
+                               REFERENCES rhnServer (id),
+    evr_id             NUMBER
                            CONSTRAINT rhn_satellite_info_eid_fk
-                               REFERENCES rhnPackageEVR (id), 
-    cert               BLOB NOT NULL, 
-    product            VARCHAR2(256) NOT NULL, 
-    owner              VARCHAR2(256) NOT NULL, 
-    issued_string      VARCHAR2(256), 
-    expiration_string  VARCHAR2(256), 
-    created            DATE 
-                           DEFAULT (sysdate) NOT NULL, 
-    modified           DATE 
+                               REFERENCES rhnPackageEVR (id),
+    cert               BLOB NOT NULL,
+    product            VARCHAR2(256) NOT NULL,
+    owner              VARCHAR2(256) NOT NULL,
+    issued_string      VARCHAR2(256),
+    expiration_string  VARCHAR2(256),
+    created            DATE
+                           DEFAULT (sysdate) NOT NULL,
+    modified           DATE
                            DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

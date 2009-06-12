@@ -7,18 +7,18 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_command_center_state
 (
-    cust_admin_access_allowed  CHAR(1) NOT NULL, 
-    reason                     VARCHAR2(2000) NOT NULL, 
-    last_update_user           VARCHAR2(40) NOT NULL, 
+    cust_admin_access_allowed  CHAR(1) NOT NULL,
+    reason                     VARCHAR2(2000) NOT NULL,
+    last_update_user           VARCHAR2(40) NOT NULL,
     last_update_date           DATE NOT NULL
 )
 ENABLE ROW MOVEMENT

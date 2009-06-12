@@ -7,22 +7,22 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_config_macro
 (
-    environment       VARCHAR2(255) NOT NULL, 
-    name              VARCHAR2(255) NOT NULL, 
-    definition        VARCHAR2(255), 
-    description       VARCHAR2(255), 
-    editable          CHAR(1) 
-                          DEFAULT (0) NOT NULL, 
-    last_update_user  VARCHAR2(40), 
+    environment       VARCHAR2(255) NOT NULL,
+    name              VARCHAR2(255) NOT NULL,
+    definition        VARCHAR2(255),
+    description       VARCHAR2(255),
+    editable          CHAR(1)
+                          DEFAULT (0) NOT NULL,
+    last_update_user  VARCHAR2(40),
     last_update_date  DATE
 )
 ENABLE ROW MOVEMENT

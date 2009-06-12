@@ -7,24 +7,24 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnSGTypeVirtSubLevel
 (
-    server_group_type_id  NUMBER NOT NULL 
+    server_group_type_id  NUMBER NOT NULL
                               CONSTRAINT rhn_sgtvsl_sgtid_fk
-                                  REFERENCES rhnServerGroupType (id), 
-    virt_sub_level_id     NUMBER NOT NULL 
+                                  REFERENCES rhnServerGroupType (id),
+    virt_sub_level_id     NUMBER NOT NULL
                               CONSTRAINT rhn_sgtvsl_vslid_fk
-                                  REFERENCES rhnVirtSubLevel (id), 
-    created               DATE 
-                              DEFAULT (sysdate) NOT NULL, 
-    modified              DATE 
+                                  REFERENCES rhnVirtSubLevel (id),
+    created               DATE
+                              DEFAULT (sysdate) NOT NULL,
+    modified              DATE
                               DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

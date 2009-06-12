@@ -7,55 +7,55 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnServer
 (
-    id                  NUMBER NOT NULL 
-                            CONSTRAINT rhn_server_id_pk PRIMARY KEY 
-                            USING INDEX TABLESPACE [[4m_tbs]], 
-    org_id              NUMBER NOT NULL 
+    id                  NUMBER NOT NULL
+                            CONSTRAINT rhn_server_id_pk PRIMARY KEY
+                            USING INDEX TABLESPACE [[4m_tbs]],
+    org_id              NUMBER NOT NULL
                             CONSTRAINT rhn_server_oid_fk
-                                REFERENCES web_customer (id) 
-                                ON DELETE CASCADE, 
-    digital_server_id   VARCHAR2(64) NOT NULL, 
-    server_arch_id      NUMBER NOT NULL 
+                                REFERENCES web_customer (id)
+                                ON DELETE CASCADE,
+    digital_server_id   VARCHAR2(64) NOT NULL,
+    server_arch_id      NUMBER NOT NULL
                             CONSTRAINT rhn_server_said_fk
-                                REFERENCES rhnServerArch (id), 
-    os                  VARCHAR2(64) NOT NULL, 
-    release             VARCHAR2(64) NOT NULL, 
-    name                VARCHAR2(128), 
-    description         VARCHAR2(256), 
-    info                VARCHAR2(128), 
-    secret              VARCHAR2(32) NOT NULL, 
-    creator_id          NUMBER 
+                                REFERENCES rhnServerArch (id),
+    os                  VARCHAR2(64) NOT NULL,
+    release             VARCHAR2(64) NOT NULL,
+    name                VARCHAR2(128),
+    description         VARCHAR2(256),
+    info                VARCHAR2(128),
+    secret              VARCHAR2(32) NOT NULL,
+    creator_id          NUMBER
                             CONSTRAINT rhn_server_creator_fk
-                                REFERENCES web_contact (id) 
-                                ON DELETE SET NULL, 
-    auto_deliver        CHAR(1) 
-                            DEFAULT ('N') NOT NULL 
+                                REFERENCES web_contact (id)
+                                ON DELETE SET NULL,
+    auto_deliver        CHAR(1)
+                            DEFAULT ('N') NOT NULL
                             CONSTRAINT rhn_server_deliver_ck
-                                CHECK (auto_deliver in ( 'Y' , 'N' )), 
-    auto_update         CHAR(1) 
-                            DEFAULT ('N') NOT NULL 
+                                CHECK (auto_deliver in ( 'Y' , 'N' )),
+    auto_update         CHAR(1)
+                            DEFAULT ('N') NOT NULL
                             CONSTRAINT rhn_server_update_ck
-                                CHECK (auto_update in ( 'Y' , 'N' )), 
-    running_kernel      VARCHAR2(64), 
-    last_boot           NUMBER 
-                            DEFAULT (0) NOT NULL, 
-    provision_state_id  NUMBER 
+                                CHECK (auto_update in ( 'Y' , 'N' )),
+    running_kernel      VARCHAR2(64),
+    last_boot           NUMBER
+                            DEFAULT (0) NOT NULL,
+    provision_state_id  NUMBER
                             CONSTRAINT rhn_server_psid_fk
-                                REFERENCES rhnProvisionState (id), 
-    channels_changed    DATE, 
-    cobbler_id          VARCHAR2(64), 
-    created             DATE 
-                            DEFAULT (sysdate) NOT NULL, 
-    modified            DATE 
+                                REFERENCES rhnProvisionState (id),
+    channels_changed    DATE,
+    cobbler_id          VARCHAR2(64),
+    created             DATE
+                            DEFAULT (sysdate) NOT NULL,
+    modified            DATE
                             DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

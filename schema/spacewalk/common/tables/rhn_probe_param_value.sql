@@ -7,20 +7,20 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_probe_param_value
 (
-    probe_id          NUMBER NOT NULL, 
-    command_id        NUMBER NOT NULL, 
-    param_name        VARCHAR2(40) NOT NULL, 
-    value             VARCHAR2(1024), 
-    last_update_user  VARCHAR2(40), 
+    probe_id          NUMBER NOT NULL,
+    command_id        NUMBER NOT NULL,
+    param_name        VARCHAR2(40) NOT NULL,
+    value             VARCHAR2(1024),
+    last_update_user  VARCHAR2(40),
     last_update_date  DATE
 )
 ENABLE ROW MOVEMENT
@@ -37,11 +37,11 @@ ALTER TABLE rhn_probe_param_value
 
 ALTER TABLE rhn_probe_param_value
     ADD CONSTRAINT rhn_ppval_chkpb_probe_id_fk FOREIGN KEY (probe_id)
-    REFERENCES rhn_probe (recid) 
+    REFERENCES rhn_probe (recid)
         ON DELETE CASCADE;
 
 ALTER TABLE rhn_probe_param_value
     ADD CONSTRAINT rhn_ppval_cmd_id_parm_nm_fk FOREIGN KEY (command_id, param_name)
-    REFERENCES rhn_command_parameter (command_id, param_name) 
+    REFERENCES rhn_command_parameter (command_id, param_name)
         ON DELETE CASCADE;
 

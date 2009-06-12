@@ -7,36 +7,36 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnActionKickstartGuest
 (
-    id                   NUMBER NOT NULL, 
-    action_id            NUMBER NOT NULL 
+    id                   NUMBER NOT NULL,
+    action_id            NUMBER NOT NULL
                              CONSTRAINT rhn_actionks_xenguest_aid_fk
-                                 REFERENCES rhnAction (id) 
-                                 ON DELETE CASCADE, 
-    append_string        VARCHAR2(1024), 
-    ks_session_id        NUMBER 
+                                 REFERENCES rhnAction (id)
+                                 ON DELETE CASCADE,
+    append_string        VARCHAR2(1024),
+    ks_session_id        NUMBER
                              CONSTRAINT rhn_actionks_xenguest_ksid_fk
-                                 REFERENCES rhnKickstartSession (id) 
-                                 ON DELETE CASCADE, 
-    guest_name           VARCHAR2(256), 
-    mem_kb               NUMBER, 
-    vcpus                NUMBER, 
-    disk_gb              NUMBER, 
-    cobbler_system_name  VARCHAR2(256), 
-    disk_path            VARCHAR2(256), 
-    virt_bridge          VARCHAR2(256), 
-    kickstart_host       VARCHAR2(256), 
-    created              DATE 
-                             DEFAULT (sysdate) NOT NULL, 
-    modified             DATE 
+                                 REFERENCES rhnKickstartSession (id)
+                                 ON DELETE CASCADE,
+    guest_name           VARCHAR2(256),
+    mem_kb               NUMBER,
+    vcpus                NUMBER,
+    disk_gb              NUMBER,
+    cobbler_system_name  VARCHAR2(256),
+    disk_path            VARCHAR2(256),
+    virt_bridge          VARCHAR2(256),
+    kickstart_host       VARCHAR2(256),
+    created              DATE
+                             DEFAULT (sysdate) NOT NULL,
+    modified             DATE
                              DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

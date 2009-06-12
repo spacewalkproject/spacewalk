@@ -7,30 +7,30 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnBlacklistObsoletes
 (
-    name_id          NUMBER NOT NULL 
+    name_id          NUMBER NOT NULL
                          CONSTRAINT rhn_bl_obs_nid_fk
-                             REFERENCES rhnPackageName (id), 
-    evr_id           NUMBER NOT NULL 
+                             REFERENCES rhnPackageName (id),
+    evr_id           NUMBER NOT NULL
                          CONSTRAINT rhn_bl_obs_eid_fk
-                             REFERENCES rhnPackageEVR (id), 
-    package_arch_id  NUMBER NOT NULL 
+                             REFERENCES rhnPackageEVR (id),
+    package_arch_id  NUMBER NOT NULL
                          CONSTRAINT rhn_bl_obs_paid_fk
-                             REFERENCES rhnPackageArch (id), 
-    ignore_name_id   NUMBER NOT NULL 
+                             REFERENCES rhnPackageArch (id),
+    ignore_name_id   NUMBER NOT NULL
                          CONSTRAINT rhn_bl_obs_inid_fk
-                             REFERENCES rhnPackageName (id), 
-    created          DATE 
-                         DEFAULT (sysdate) NOT NULL, 
-    modified         DATE 
+                             REFERENCES rhnPackageName (id),
+    created          DATE
+                         DEFAULT (sysdate) NOT NULL,
+    modified         DATE
                          DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

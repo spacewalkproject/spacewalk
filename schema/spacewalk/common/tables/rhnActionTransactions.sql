@@ -7,26 +7,26 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnActionTransactions
 (
-    action_id      NUMBER NOT NULL 
+    action_id      NUMBER NOT NULL
                        CONSTRAINT rhn_at_aid_fk
-                           REFERENCES rhnAction (id) 
-                           ON DELETE CASCADE, 
-    from_trans_id  NUMBER NOT NULL 
+                           REFERENCES rhnAction (id)
+                           ON DELETE CASCADE,
+    from_trans_id  NUMBER NOT NULL
                        CONSTRAINT rhn_at_ftid_fk
-                           REFERENCES rhnTransaction (id) 
-                           ON DELETE CASCADE, 
-    to_trans_id    NUMBER NOT NULL 
+                           REFERENCES rhnTransaction (id)
+                           ON DELETE CASCADE,
+    to_trans_id    NUMBER NOT NULL
                        CONSTRAINT rhn_at_ttid_fk
-                           REFERENCES rhnTransaction (id) 
+                           REFERENCES rhnTransaction (id)
                            ON DELETE CASCADE
 )
 ENABLE ROW MOVEMENT

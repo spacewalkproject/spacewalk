@@ -7,34 +7,34 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_sat_cluster
 (
-    recid                 NUMBER NOT NULL 
-                              CONSTRAINT rhn_satcl_recid_pk PRIMARY KEY 
-                              USING INDEX TABLESPACE [[2m_tbs]], 
-    target_type           VARCHAR2(10) 
-                              DEFAULT ('cluster') NOT NULL 
+    recid                 NUMBER NOT NULL
+                              CONSTRAINT rhn_satcl_recid_pk PRIMARY KEY
+                              USING INDEX TABLESPACE [[2m_tbs]],
+    target_type           VARCHAR2(10)
+                              DEFAULT ('cluster') NOT NULL
                               CONSTRAINT rhn_satcl_target_type_ck
-                                  CHECK (target_type in ( 'cluster' )), 
-    customer_id           NUMBER NOT NULL, 
-    description           VARCHAR2(255) NOT NULL, 
-    last_update_user      VARCHAR2(40), 
-    last_update_date      DATE, 
-    physical_location_id  NUMBER NOT NULL, 
-    public_key            VARCHAR2(2000), 
-    vip                   VARCHAR2(15), 
-    deployed              CHAR(1) 
-                              DEFAULT ('0') NOT NULL 
+                                  CHECK (target_type in ( 'cluster' )),
+    customer_id           NUMBER NOT NULL,
+    description           VARCHAR2(255) NOT NULL,
+    last_update_user      VARCHAR2(40),
+    last_update_date      DATE,
+    physical_location_id  NUMBER NOT NULL,
+    public_key            VARCHAR2(2000),
+    vip                   VARCHAR2(15),
+    deployed              CHAR(1)
+                              DEFAULT ('0') NOT NULL
                               CONSTRAINT rhn_satcl_deployed_ck
-                                  CHECK (deployed in ( '0' , '1' )), 
-    pem_public_key        VARCHAR2(2000), 
+                                  CHECK (deployed in ( '0' , '1' )),
+    pem_public_key        VARCHAR2(2000),
     pem_public_key_hash   VARCHAR2(20)
 )
 ENABLE ROW MOVEMENT
@@ -48,7 +48,7 @@ CREATE INDEX rhn_satcl_cid_idx
 
 ALTER TABLE rhn_sat_cluster
     ADD CONSTRAINT rhn_satcl_cmdtg_recid_tar_fk FOREIGN KEY (recid, target_type)
-    REFERENCES rhn_command_target (recid, target_type) 
+    REFERENCES rhn_command_target (recid, target_type)
         ON DELETE CASCADE;
 
 ALTER TABLE rhn_sat_cluster

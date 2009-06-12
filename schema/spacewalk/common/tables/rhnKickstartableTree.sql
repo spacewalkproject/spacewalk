@@ -7,40 +7,40 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnKickstartableTree
 (
-    id              NUMBER NOT NULL, 
-    org_id          NUMBER 
+    id              NUMBER NOT NULL,
+    org_id          NUMBER
                         CONSTRAINT rhn_kstree_oid_fk
-                            REFERENCES web_customer (id) 
-                            ON DELETE CASCADE, 
-    label           VARCHAR2(64) NOT NULL, 
-    base_path       VARCHAR2(256) NOT NULL, 
-    channel_id      NUMBER NOT NULL 
+                            REFERENCES web_customer (id)
+                            ON DELETE CASCADE,
+    label           VARCHAR2(64) NOT NULL,
+    base_path       VARCHAR2(256) NOT NULL,
+    channel_id      NUMBER NOT NULL
                         CONSTRAINT rhn_kstree_cid_fk
-                            REFERENCES rhnChannel (id), 
-    cobbler_id      VARCHAR2(64), 
-    cobbler_xen_id  VARCHAR2(64), 
-    boot_image      VARCHAR2(128) 
-                        DEFAULT ('spacewalk-koan'), 
-    kstree_type     NUMBER NOT NULL 
+                            REFERENCES rhnChannel (id),
+    cobbler_id      VARCHAR2(64),
+    cobbler_xen_id  VARCHAR2(64),
+    boot_image      VARCHAR2(128)
+                        DEFAULT ('spacewalk-koan'),
+    kstree_type     NUMBER NOT NULL
                         CONSTRAINT rhn_kstree_kstreetype_fk
-                            REFERENCES rhnKSTreeType (id), 
-    install_type    NUMBER NOT NULL 
+                            REFERENCES rhnKSTreeType (id),
+    install_type    NUMBER NOT NULL
                         CONSTRAINT rhn_kstree_it_fk
-                            REFERENCES rhnKSInstallType (id), 
-    last_modified   DATE 
-                        DEFAULT (sysdate) NOT NULL, 
-    created         DATE 
-                        DEFAULT (sysdate) NOT NULL, 
-    modified        DATE 
+                            REFERENCES rhnKSInstallType (id),
+    last_modified   DATE
+                        DEFAULT (sysdate) NOT NULL,
+    created         DATE
+                        DEFAULT (sysdate) NOT NULL,
+    modified        DATE
                         DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

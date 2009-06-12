@@ -7,17 +7,17 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_command_queue_params
 (
-    instance_id  NUMBER NOT NULL, 
-    ord          NUMBER NOT NULL, 
+    instance_id  NUMBER NOT NULL,
+    ord          NUMBER NOT NULL,
     value        VARCHAR2(1024)
 )
 ENABLE ROW MOVEMENT
@@ -34,6 +34,6 @@ ALTER TABLE rhn_command_queue_params
 
 ALTER TABLE rhn_command_queue_params
     ADD CONSTRAINT rhn_cqprm_cqins_instance_id_fk FOREIGN KEY (instance_id)
-    REFERENCES rhn_command_queue_instances (recid) 
+    REFERENCES rhn_command_queue_instances (recid)
         ON DELETE CASCADE;
 

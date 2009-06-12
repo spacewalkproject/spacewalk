@@ -7,20 +7,20 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnFAQClass
 (
-    id        NUMBER NOT NULL 
-                  CONSTRAINT rhn_faq_class_id_pk PRIMARY KEY 
-                  USING INDEX TABLESPACE [[64k_tbs]], 
-    name      VARCHAR2(128), 
-    label     VARCHAR2(32) NOT NULL, 
+    id        NUMBER NOT NULL
+                  CONSTRAINT rhn_faq_class_id_pk PRIMARY KEY
+                  USING INDEX TABLESPACE [[64k_tbs]],
+    name      VARCHAR2(128),
+    label     VARCHAR2(32) NOT NULL,
     ordering  NUMBER NOT NULL
 )
 ENABLE ROW MOVEMENT

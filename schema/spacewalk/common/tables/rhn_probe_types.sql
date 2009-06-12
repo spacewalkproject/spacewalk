@@ -7,18 +7,18 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_probe_types
 (
-    probe_type        VARCHAR2(20) NOT NULL 
-                          CONSTRAINT rhn_prbtp_probe_type_pk PRIMARY KEY 
-                          USING INDEX TABLESPACE [[64k_tbs]], 
+    probe_type        VARCHAR2(20) NOT NULL
+                          CONSTRAINT rhn_prbtp_probe_type_pk PRIMARY KEY
+                          USING INDEX TABLESPACE [[64k_tbs]],
     type_description  VARCHAR2(200) NOT NULL
 )
 ENABLE ROW MOVEMENT

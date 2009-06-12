@@ -7,32 +7,32 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnAppInstallSession
 (
-    id            NUMBER NOT NULL, 
-    instance_id   NUMBER NOT NULL 
+    id            NUMBER NOT NULL,
+    instance_id   NUMBER NOT NULL
                       CONSTRAINT rhn_appinst_session_iid_fk
-                          REFERENCES rhnAppInstallInstance (id) 
-                          ON DELETE CASCADE, 
-    md5sum        VARCHAR2(64), 
-    process_name  VARCHAR2(32), 
-    step_number   NUMBER, 
-    user_id       NUMBER NOT NULL 
+                          REFERENCES rhnAppInstallInstance (id)
+                          ON DELETE CASCADE,
+    md5sum        VARCHAR2(64),
+    process_name  VARCHAR2(32),
+    step_number   NUMBER,
+    user_id       NUMBER NOT NULL
                       CONSTRAINT rhn_appinst_session_uid_fk
-                          REFERENCES web_contact (id), 
-    server_id     NUMBER NOT NULL 
+                          REFERENCES web_contact (id),
+    server_id     NUMBER NOT NULL
                       CONSTRAINT rhn_appinst_session_sid_fk
-                          REFERENCES rhnServer (id), 
-    created       DATE 
-                      DEFAULT (sysdate) NOT NULL, 
-    modified      DATE 
+                          REFERENCES rhnServer (id),
+    created       DATE
+                      DEFAULT (sysdate) NOT NULL,
+    modified      DATE
                       DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

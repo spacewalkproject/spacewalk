@@ -7,29 +7,29 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnActionConfigChannel
 (
-    action_id          NUMBER NOT NULL 
+    action_id          NUMBER NOT NULL
                            CONSTRAINT rhn_actioncc_aid_fk
-                               REFERENCES rhnAction (id) 
-                               ON DELETE CASCADE, 
-    server_id          NUMBER NOT NULL 
+                               REFERENCES rhnAction (id)
+                               ON DELETE CASCADE,
+    server_id          NUMBER NOT NULL
                            CONSTRAINT rhn_actioncc_sid_fk
-                               REFERENCES rhnServer (id), 
-    config_channel_id  NUMBER NOT NULL 
+                               REFERENCES rhnServer (id),
+    config_channel_id  NUMBER NOT NULL
                            CONSTRAINT rhn_actioncc_ccid_fk
-                               REFERENCES rhnConfigChannel (id) 
-                               ON DELETE CASCADE, 
-    created            DATE 
-                           DEFAULT (sysdate) NOT NULL, 
-    modified           DATE 
+                               REFERENCES rhnConfigChannel (id)
+                               ON DELETE CASCADE,
+    created            DATE
+                           DEFAULT (sysdate) NOT NULL,
+    modified           DATE
                            DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT
@@ -49,6 +49,6 @@ CREATE INDEX rhn_act_cc_ccid_aid_sid_idx
 
 ALTER TABLE rhnActionConfigChannel
     ADD CONSTRAINT rhn_actioncc_sid_aid_fk FOREIGN KEY (server_id, action_id)
-    REFERENCES rhnServerAction (server_id, action_id) 
+    REFERENCES rhnServerAction (server_id, action_id)
         ON DELETE CASCADE;
 

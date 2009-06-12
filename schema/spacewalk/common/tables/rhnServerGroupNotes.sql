@@ -7,31 +7,31 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnServerGroupNotes
 (
-    id               NUMBER NOT NULL 
-                         CONSTRAINT rhn_servergrp_note_id_pk PRIMARY KEY 
-                         USING INDEX TABLESPACE [[64k_tbs]], 
-    creator          NUMBER 
+    id               NUMBER NOT NULL
+                         CONSTRAINT rhn_servergrp_note_id_pk PRIMARY KEY
+                         USING INDEX TABLESPACE [[64k_tbs]],
+    creator          NUMBER
                          CONSTRAINT rhn_servergrp_note_creator_fk
-                             REFERENCES web_contact (id) 
-                             ON DELETE SET NULL, 
-    server_group_id  NUMBER NOT NULL 
+                             REFERENCES web_contact (id)
+                             ON DELETE SET NULL,
+    server_group_id  NUMBER NOT NULL
                          CONSTRAINT rhn_servergrp_note_fk
-                             REFERENCES rhnServerGroup (id) 
-                             ON DELETE CASCADE, 
-    subject          VARCHAR2(80) NOT NULL, 
-    note             VARCHAR2(4000) NOT NULL, 
-    created          DATE 
-                         DEFAULT (sysdate) NOT NULL, 
-    modified         DATE 
+                             REFERENCES rhnServerGroup (id)
+                             ON DELETE CASCADE,
+    subject          VARCHAR2(80) NOT NULL,
+    note             VARCHAR2(4000) NOT NULL,
+    created          DATE
+                         DEFAULT (sysdate) NOT NULL,
+    modified         DATE
                          DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

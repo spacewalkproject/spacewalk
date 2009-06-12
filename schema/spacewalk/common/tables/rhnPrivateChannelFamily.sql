@@ -7,28 +7,28 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnPrivateChannelFamily
 (
-    channel_family_id  NUMBER NOT NULL 
+    channel_family_id  NUMBER NOT NULL
                            CONSTRAINT rhn_privcf_cfid_fk
-                               REFERENCES rhnChannelFamily (id), 
-    org_id             NUMBER NOT NULL 
+                               REFERENCES rhnChannelFamily (id),
+    org_id             NUMBER NOT NULL
                            CONSTRAINT rhn_privcf_oid_fk
-                               REFERENCES web_customer (id) 
-                               ON DELETE CASCADE, 
-    max_members        NUMBER, 
-    current_members    NUMBER 
-                           DEFAULT (0) NOT NULL, 
-    created            DATE 
-                           DEFAULT (sysdate) NOT NULL, 
-    modified           DATE 
+                               REFERENCES web_customer (id)
+                               ON DELETE CASCADE,
+    max_members        NUMBER,
+    current_members    NUMBER
+                           DEFAULT (0) NOT NULL,
+    created            DATE
+                           DEFAULT (sysdate) NOT NULL,
+    modified           DATE
                            DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

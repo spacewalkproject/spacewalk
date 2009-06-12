@@ -7,26 +7,26 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnFileDownload
 (
-    file_id       NUMBER NOT NULL 
+    file_id       NUMBER NOT NULL
                       CONSTRAINT rhn_filedl_fid_fk
-                          REFERENCES rhnFile (id), 
-    location      VARCHAR2(2000) NOT NULL, 
-    token         VARCHAR2(48), 
-    requestor_ip  VARCHAR2(15) NOT NULL, 
-    start_time    DATE 
-                      DEFAULT (sysdate) NOT NULL, 
-    user_id       NUMBER 
+                          REFERENCES rhnFile (id),
+    location      VARCHAR2(2000) NOT NULL,
+    token         VARCHAR2(48),
+    requestor_ip  VARCHAR2(15) NOT NULL,
+    start_time    DATE
+                      DEFAULT (sysdate) NOT NULL,
+    user_id       NUMBER
                       CONSTRAINT rhn_filedl_uid_fk
-                          REFERENCES web_contact (id) 
+                          REFERENCES web_contact (id)
                           ON DELETE SET NULL
 )
 ENABLE ROW MOVEMENT

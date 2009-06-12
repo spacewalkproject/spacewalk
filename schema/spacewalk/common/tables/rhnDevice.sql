@@ -7,37 +7,37 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnDevice
 (
-    id           NUMBER NOT NULL 
-                     CONSTRAINT rhn_device_id_pk PRIMARY KEY 
-                     USING INDEX TABLESPACE [[32m_tbs]], 
-    server_id    NUMBER NOT NULL 
+    id           NUMBER NOT NULL
+                     CONSTRAINT rhn_device_id_pk PRIMARY KEY
+                     USING INDEX TABLESPACE [[32m_tbs]],
+    server_id    NUMBER NOT NULL
                      CONSTRAINT rhn_device_sid_fk
-                         REFERENCES rhnServer (id) 
-                         ON DELETE CASCADE, 
-    class        VARCHAR2(16), 
-    bus          VARCHAR2(16), 
-    detached     NUMBER, 
-    device       VARCHAR2(16), 
-    driver       VARCHAR2(256), 
-    description  VARCHAR2(256), 
-    pcitype      NUMBER 
-                     DEFAULT (-1), 
-    prop1        VARCHAR2(256), 
-    prop2        VARCHAR2(256), 
-    prop3        VARCHAR2(256), 
-    prop4        VARCHAR2(256), 
-    created      DATE 
-                     DEFAULT (sysdate) NOT NULL, 
-    modified     DATE 
+                         REFERENCES rhnServer (id)
+                         ON DELETE CASCADE,
+    class        VARCHAR2(16),
+    bus          VARCHAR2(16),
+    detached     NUMBER,
+    device       VARCHAR2(16),
+    driver       VARCHAR2(256),
+    description  VARCHAR2(256),
+    pcitype      NUMBER
+                     DEFAULT (-1),
+    prop1        VARCHAR2(256),
+    prop2        VARCHAR2(256),
+    prop3        VARCHAR2(256),
+    prop4        VARCHAR2(256),
+    created      DATE
+                     DEFAULT (sysdate) NOT NULL,
+    modified     DATE
                      DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

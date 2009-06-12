@@ -7,38 +7,38 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnPackageFile
 (
-    package_id     NUMBER NOT NULL 
+    package_id     NUMBER NOT NULL
                        CONSTRAINT rhn_package_file_pid_fk
-                           REFERENCES rhnPackage (id) 
-                           ON DELETE CASCADE, 
-    capability_id  NUMBER NOT NULL 
+                           REFERENCES rhnPackage (id)
+                           ON DELETE CASCADE,
+    capability_id  NUMBER NOT NULL
                        CONSTRAINT rhn_package_file_cid_fk
-                           REFERENCES rhnPackageCapability (id), 
-    device         NUMBER NOT NULL, 
-    inode          NUMBER NOT NULL, 
-    file_mode      NUMBER NOT NULL, 
-    username       VARCHAR2(32) NOT NULL, 
-    groupname      VARCHAR2(32) NOT NULL, 
-    rdev           NUMBER NOT NULL, 
-    file_size      NUMBER NOT NULL, 
-    mtime          DATE NOT NULL, 
-    md5            VARCHAR2(32), 
-    linkto         VARCHAR2(256), 
-    flags          NUMBER NOT NULL, 
-    verifyflags    NUMBER NOT NULL, 
-    lang           VARCHAR2(32), 
-    created        DATE 
-                       DEFAULT (sysdate) NOT NULL, 
-    modified       DATE 
+                           REFERENCES rhnPackageCapability (id),
+    device         NUMBER NOT NULL,
+    inode          NUMBER NOT NULL,
+    file_mode      NUMBER NOT NULL,
+    username       VARCHAR2(32) NOT NULL,
+    groupname      VARCHAR2(32) NOT NULL,
+    rdev           NUMBER NOT NULL,
+    file_size      NUMBER NOT NULL,
+    mtime          DATE NOT NULL,
+    md5            VARCHAR2(32),
+    linkto         VARCHAR2(256),
+    flags          NUMBER NOT NULL,
+    verifyflags    NUMBER NOT NULL,
+    lang           VARCHAR2(32),
+    created        DATE
+                       DEFAULT (sysdate) NOT NULL,
+    modified       DATE
                        DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

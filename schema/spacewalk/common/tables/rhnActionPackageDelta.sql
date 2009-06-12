@@ -7,22 +7,22 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnActionPackageDelta
 (
-    action_id         NUMBER NOT NULL 
+    action_id         NUMBER NOT NULL
                           CONSTRAINT rhn_act_pd_aid_fk
-                              REFERENCES rhnAction (id) 
-                              ON DELETE CASCADE, 
-    package_delta_id  NUMBER NOT NULL 
+                              REFERENCES rhnAction (id)
+                              ON DELETE CASCADE,
+    package_delta_id  NUMBER NOT NULL
                           CONSTRAINT rhn_act_pd_pdid_fk
-                              REFERENCES rhnPackageDelta (id) 
+                              REFERENCES rhnPackageDelta (id)
                               ON DELETE CASCADE
 )
 ENABLE ROW MOVEMENT

@@ -7,31 +7,31 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnVirtualInstanceInfo
 (
-    name           VARCHAR2(128), 
-    instance_id    NUMBER NOT NULL 
+    name           VARCHAR2(128),
+    instance_id    NUMBER NOT NULL
                        CONSTRAINT rhn_vii_viid_fk
-                           REFERENCES rhnVirtualInstance (id) 
-                           ON DELETE CASCADE, 
-    instance_type  NUMBER NOT NULL 
+                           REFERENCES rhnVirtualInstance (id)
+                           ON DELETE CASCADE,
+    instance_type  NUMBER NOT NULL
                        CONSTRAINT rhn_vii_it_fk
-                           REFERENCES rhnVirtualInstanceType (id), 
-    memory_size_k  NUMBER, 
-    vcpus          NUMBER, 
-    state          NUMBER NOT NULL 
+                           REFERENCES rhnVirtualInstanceType (id),
+    memory_size_k  NUMBER,
+    vcpus          NUMBER,
+    state          NUMBER NOT NULL
                        CONSTRAINT rhn_vii_state_fk
-                           REFERENCES rhnVirtualInstanceState (id), 
-    created        DATE 
-                       DEFAULT (sysdate) NOT NULL, 
-    modified       DATE 
+                           REFERENCES rhnVirtualInstanceState (id),
+    created        DATE
+                       DEFAULT (sysdate) NOT NULL,
+    modified       DATE
                        DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

@@ -7,35 +7,35 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnKickstartSessionHistory
 (
-    id                    NUMBER NOT NULL 
-                              CONSTRAINT rhn_ks_sessionhist_id_pk PRIMARY KEY 
-                              USING INDEX TABLESPACE [[8m_tbs]], 
-    kickstart_session_id  NUMBER NOT NULL 
+    id                    NUMBER NOT NULL
+                              CONSTRAINT rhn_ks_sessionhist_id_pk PRIMARY KEY
+                              USING INDEX TABLESPACE [[8m_tbs]],
+    kickstart_session_id  NUMBER NOT NULL
                               CONSTRAINT rhn_ks_sessionhist_ksid_fk
-                                  REFERENCES rhnKickstartSession (id) 
-                                  ON DELETE CASCADE, 
-    action_id             NUMBER 
+                                  REFERENCES rhnKickstartSession (id)
+                                  ON DELETE CASCADE,
+    action_id             NUMBER
                               CONSTRAINT rhn_ks_sessionhist_aid_fk
-                                  REFERENCES rhnAction (id) 
-                                  ON DELETE SET NULL, 
-    state_id              NUMBER NOT NULL 
+                                  REFERENCES rhnAction (id)
+                                  ON DELETE SET NULL,
+    state_id              NUMBER NOT NULL
                               CONSTRAINT rhn_ks_sessionhist_stat_fk
-                                  REFERENCES rhnKickstartSessionState (id), 
-    time                  DATE 
-                              DEFAULT (sysdate) NOT NULL, 
-    message               VARCHAR2(4000), 
-    created               DATE 
-                              DEFAULT (sysdate) NOT NULL, 
-    modified              DATE 
+                                  REFERENCES rhnKickstartSessionState (id),
+    time                  DATE
+                              DEFAULT (sysdate) NOT NULL,
+    message               VARCHAR2(4000),
+    created               DATE
+                              DEFAULT (sysdate) NOT NULL,
+    modified              DATE
                               DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

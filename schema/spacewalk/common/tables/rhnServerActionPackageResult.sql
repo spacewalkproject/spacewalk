@@ -7,28 +7,28 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnServerActionPackageResult
 (
-    server_id          NUMBER NOT NULL 
+    server_id          NUMBER NOT NULL
                            CONSTRAINT rhn_sap_result_sid_fk
-                               REFERENCES rhnServer (id), 
-    action_package_id  NUMBER NOT NULL 
+                               REFERENCES rhnServer (id),
+    action_package_id  NUMBER NOT NULL
                            CONSTRAINT rhn_sap_result_apid_fk
-                               REFERENCES rhnActionPackage (id) 
-                               ON DELETE CASCADE, 
-    result_code        NUMBER NOT NULL, 
-    stdout             BLOB, 
-    stderr             BLOB, 
-    created            DATE 
-                           DEFAULT (sysdate) NOT NULL, 
-    modified           DATE 
+                               REFERENCES rhnActionPackage (id)
+                               ON DELETE CASCADE,
+    result_code        NUMBER NOT NULL,
+    stdout             BLOB,
+    stderr             BLOB,
+    created            DATE
+                           DEFAULT (sysdate) NOT NULL,
+    modified           DATE
                            DEFAULT (sysdate) NOT NULL
 )
 TABLESPACE [[blob]]

@@ -7,19 +7,19 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_redirect_types
 (
-    name         VARCHAR2(20) NOT NULL 
-                     CONSTRAINT rhn_rdrtp_name_pk PRIMARY KEY 
-                     USING INDEX TABLESPACE [[64k_tbs]], 
-    description  VARCHAR2(255), 
+    name         VARCHAR2(20) NOT NULL
+                     CONSTRAINT rhn_rdrtp_name_pk PRIMARY KEY
+                     USING INDEX TABLESPACE [[64k_tbs]],
+    description  VARCHAR2(255),
     long_name    VARCHAR2(80)
 )
 ENABLE ROW MOVEMENT

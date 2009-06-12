@@ -7,23 +7,23 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnTinyURL
 (
-    token    VARCHAR2(64) NOT NULL, 
-    url      VARCHAR2(512) NOT NULL, 
-    enabled  VARCHAR2(1) NOT NULL 
+    token    VARCHAR2(64) NOT NULL,
+    url      VARCHAR2(512) NOT NULL,
+    enabled  VARCHAR2(1) NOT NULL
                  CONSTRAINT rhn_tu_enabled_ck
-                     CHECK (enabled in ( 'Y' , 'N' )), 
-    created  DATE 
-                 DEFAULT (sysdate) NOT NULL, 
-    expires  DATE 
+                     CHECK (enabled in ( 'Y' , 'N' )),
+    created  DATE
+                 DEFAULT (sysdate) NOT NULL,
+    expires  DATE
                  DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

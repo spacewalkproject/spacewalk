@@ -7,18 +7,18 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_service_probe_origins
 (
-    service_probe_id  NUMBER NOT NULL, 
-    origin_probe_id   NUMBER, 
-    decoupled         CHAR(1) 
+    service_probe_id  NUMBER NOT NULL,
+    origin_probe_id   NUMBER,
+    decoupled         CHAR(1)
                           DEFAULT ('0') NOT NULL
 )
 ENABLE ROW MOVEMENT
@@ -39,11 +39,11 @@ ALTER TABLE rhn_service_probe_origins
 
 ALTER TABLE rhn_service_probe_origins
     ADD CONSTRAINT rhn_srvpo_chkpb_orig_pr_id_fk FOREIGN KEY (origin_probe_id)
-    REFERENCES rhn_check_suite_probe (probe_id) 
+    REFERENCES rhn_check_suite_probe (probe_id)
         ON DELETE CASCADE;
 
 ALTER TABLE rhn_service_probe_origins
     ADD CONSTRAINT rhn_srvpo_pr_serv_pr_fk FOREIGN KEY (service_probe_id)
-    REFERENCES rhn_probe (recid) 
+    REFERENCES rhn_probe (recid)
         ON DELETE CASCADE;
 

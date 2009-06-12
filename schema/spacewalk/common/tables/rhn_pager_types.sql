@@ -7,20 +7,20 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_pager_types
 (
-    recid            NUMBER NOT NULL 
-                         CONSTRAINT rhn_pgrtp_recid_pk PRIMARY KEY 
-                         USING INDEX TABLESPACE [[2m_tbs]] 
+    recid            NUMBER NOT NULL
+                         CONSTRAINT rhn_pgrtp_recid_pk PRIMARY KEY
+                         USING INDEX TABLESPACE [[2m_tbs]]
                          CONSTRAINT rhn_pgrtp_recid_ck
-                             CHECK (recid > 0), 
+                             CHECK (recid > 0),
     pager_type_name  VARCHAR2(50)
 )
 ENABLE ROW MOVEMENT

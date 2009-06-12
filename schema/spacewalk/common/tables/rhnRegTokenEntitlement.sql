@@ -7,22 +7,22 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnRegTokenEntitlement
 (
-    reg_token_id          NUMBER NOT NULL 
+    reg_token_id          NUMBER NOT NULL
                               CONSTRAINT rhn_reg_tok_ent_rtid_fk
-                                  REFERENCES rhnRegToken (id) 
-                                  ON DELETE CASCADE, 
-    server_group_type_id  NUMBER NOT NULL 
+                                  REFERENCES rhnRegToken (id)
+                                  ON DELETE CASCADE,
+    server_group_type_id  NUMBER NOT NULL
                               CONSTRAINT rhn_reg_tok_ent_sgtid_fk
-                                  REFERENCES rhnServerGroupType (id) 
+                                  REFERENCES rhnServerGroupType (id)
                                   ON DELETE CASCADE
 )
 ENABLE ROW MOVEMENT

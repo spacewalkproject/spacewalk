@@ -7,29 +7,29 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnServerMessage
 (
-    server_id     NUMBER NOT NULL 
+    server_id     NUMBER NOT NULL
                       CONSTRAINT rhn_sm_server_id_fk
-                          REFERENCES rhnServer (id), 
-    message_id    NUMBER NOT NULL 
+                          REFERENCES rhnServer (id),
+    message_id    NUMBER NOT NULL
                       CONSTRAINT rhn_sm_message_id_fk
-                          REFERENCES rhnMessage (id) 
-                          ON DELETE CASCADE, 
-    server_event  NUMBER 
+                          REFERENCES rhnMessage (id)
+                          ON DELETE CASCADE,
+    server_event  NUMBER
                       CONSTRAINT rhn_sm_se_fk
-                          REFERENCES rhnServerEvent (id) 
-                          ON DELETE CASCADE, 
-    created       DATE 
-                      DEFAULT (sysdate) NOT NULL, 
-    modified      DATE 
+                          REFERENCES rhnServerEvent (id)
+                          ON DELETE CASCADE,
+    created       DATE
+                      DEFAULT (sysdate) NOT NULL,
+    modified      DATE
                       DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

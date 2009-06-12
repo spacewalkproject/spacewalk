@@ -7,23 +7,23 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_check_probe
 (
-    probe_id        NUMBER NOT NULL 
-                        CONSTRAINT rhn_chkpb_probe_id_pk PRIMARY KEY 
-                        USING INDEX TABLESPACE [[4m_tbs]], 
-    probe_type      VARCHAR2(12) 
-                        DEFAULT ('check') NOT NULL 
+    probe_id        NUMBER NOT NULL
+                        CONSTRAINT rhn_chkpb_probe_id_pk PRIMARY KEY
+                        USING INDEX TABLESPACE [[4m_tbs]],
+    probe_type      VARCHAR2(12)
+                        DEFAULT ('check') NOT NULL
                         CONSTRAINT chkpb_probe_type_ck
-                            CHECK (probe_type = 'check'), 
-    host_id         NUMBER NOT NULL, 
+                            CHECK (probe_type = 'check'),
+    host_id         NUMBER NOT NULL,
     sat_cluster_id  NUMBER NOT NULL
 )
 ENABLE ROW MOVEMENT
@@ -49,11 +49,11 @@ ALTER TABLE rhn_check_probe
 
 ALTER TABLE rhn_check_probe
     ADD CONSTRAINT rhn_chkpb_recid_probe_typ_fk FOREIGN KEY (probe_id, probe_type)
-    REFERENCES rhn_probe (recid, probe_type) 
+    REFERENCES rhn_probe (recid, probe_type)
         ON DELETE CASCADE;
 
 ALTER TABLE rhn_check_probe
     ADD CONSTRAINT rhn_chkpb_satcl_sat_cl_id_fk FOREIGN KEY (sat_cluster_id)
-    REFERENCES rhn_sat_cluster (recid) 
+    REFERENCES rhn_sat_cluster (recid)
         ON DELETE CASCADE;
 

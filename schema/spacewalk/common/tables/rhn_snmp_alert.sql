@@ -7,35 +7,35 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_snmp_alert
 (
-    recid              NUMBER NOT NULL 
-                           CONSTRAINT rhn_snmpa_recid_pk PRIMARY KEY 
-                           USING INDEX TABLESPACE [[2m_tbs]], 
-    sender_cluster_id  NUMBER NOT NULL, 
-    dest_ip            VARCHAR2(255) NOT NULL, 
-    dest_port          NUMBER NOT NULL, 
-    date_generated     DATE, 
-    date_submitted     DATE, 
-    command_name       VARCHAR2(255), 
-    notif_type         NUMBER, 
-    op_center          VARCHAR2(255), 
-    notif_url          VARCHAR2(255), 
-    os_name            VARCHAR2(128), 
-    message            VARCHAR2(2000), 
-    probe_id           NUMBER, 
-    host_ip            VARCHAR2(255), 
-    severity           NUMBER, 
-    command_id         NUMBER, 
-    probe_class        NUMBER, 
-    host_name          VARCHAR2(255), 
+    recid              NUMBER NOT NULL
+                           CONSTRAINT rhn_snmpa_recid_pk PRIMARY KEY
+                           USING INDEX TABLESPACE [[2m_tbs]],
+    sender_cluster_id  NUMBER NOT NULL,
+    dest_ip            VARCHAR2(255) NOT NULL,
+    dest_port          NUMBER NOT NULL,
+    date_generated     DATE,
+    date_submitted     DATE,
+    command_name       VARCHAR2(255),
+    notif_type         NUMBER,
+    op_center          VARCHAR2(255),
+    notif_url          VARCHAR2(255),
+    os_name            VARCHAR2(128),
+    message            VARCHAR2(2000),
+    probe_id           NUMBER,
+    host_ip            VARCHAR2(255),
+    severity           NUMBER,
+    command_id         NUMBER,
+    probe_class        NUMBER,
+    host_name          VARCHAR2(255),
     support_center     VARCHAR2(255)
 )
 ENABLE ROW MOVEMENT

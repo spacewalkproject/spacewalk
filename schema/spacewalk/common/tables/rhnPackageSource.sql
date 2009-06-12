@@ -7,43 +7,43 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnPackageSource
 (
-    id             NUMBER NOT NULL 
-                       CONSTRAINT rhn_pkgsrc_id_pk PRIMARY KEY 
-                       USING INDEX TABLESPACE [[64k_tbs]], 
-    org_id         NUMBER 
+    id             NUMBER NOT NULL
+                       CONSTRAINT rhn_pkgsrc_id_pk PRIMARY KEY
+                       USING INDEX TABLESPACE [[64k_tbs]],
+    org_id         NUMBER
                        CONSTRAINT rhn_pkgsrc_oid_fk
-                           REFERENCES web_customer (id) 
-                           ON DELETE CASCADE, 
-    source_rpm_id  NUMBER NOT NULL 
+                           REFERENCES web_customer (id)
+                           ON DELETE CASCADE,
+    source_rpm_id  NUMBER NOT NULL
                        CONSTRAINT rhn_pkgsrc_srid_fk
-                           REFERENCES rhnSourceRPM (id), 
-    package_group  NUMBER NOT NULL 
+                           REFERENCES rhnSourceRPM (id),
+    package_group  NUMBER NOT NULL
                        CONSTRAINT rhn_pkgsrc_group_fk
-                           REFERENCES rhnPackageGroup (id), 
-    rpm_version    VARCHAR2(16) NOT NULL, 
-    payload_size   NUMBER NOT NULL, 
-    build_host     VARCHAR2(256) NOT NULL, 
-    build_time     DATE NOT NULL, 
-    sigmd5         VARCHAR2(64) NOT NULL, 
-    vendor         VARCHAR2(64) NOT NULL, 
-    cookie         VARCHAR2(128) NOT NULL, 
-    path           VARCHAR2(1000), 
-    md5sum         VARCHAR2(64) NOT NULL, 
-    package_size   NUMBER NOT NULL, 
-    last_modified  DATE 
-                       DEFAULT (sysdate) NOT NULL, 
-    created        DATE 
-                       DEFAULT (sysdate) NOT NULL, 
-    modified       DATE 
+                           REFERENCES rhnPackageGroup (id),
+    rpm_version    VARCHAR2(16) NOT NULL,
+    payload_size   NUMBER NOT NULL,
+    build_host     VARCHAR2(256) NOT NULL,
+    build_time     DATE NOT NULL,
+    sigmd5         VARCHAR2(64) NOT NULL,
+    vendor         VARCHAR2(64) NOT NULL,
+    cookie         VARCHAR2(128) NOT NULL,
+    path           VARCHAR2(1000),
+    md5sum         VARCHAR2(64) NOT NULL,
+    package_size   NUMBER NOT NULL,
+    last_modified  DATE
+                       DEFAULT (sysdate) NOT NULL,
+    created        DATE
+                       DEFAULT (sysdate) NOT NULL,
+    modified       DATE
                        DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

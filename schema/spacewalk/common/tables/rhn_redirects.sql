@@ -7,39 +7,39 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_redirects
 (
-    recid                NUMBER NOT NULL 
-                             CONSTRAINT rhn_rdrct_recid_pk PRIMARY KEY 
-                             USING INDEX TABLESPACE [[8m_tbs]], 
-    customer_id          NUMBER, 
-    contact_id           NUMBER, 
-    redirect_type        VARCHAR2(20) NOT NULL, 
-    description          VARCHAR2(25), 
-    reason               VARCHAR2(2000), 
-    expiration           DATE NOT NULL, 
-    last_update_user     VARCHAR2(40), 
-    last_update_date     DATE, 
-    start_date           DATE NOT NULL, 
-    recurring            NUMBER 
-                             DEFAULT (0) NOT NULL 
+    recid                NUMBER NOT NULL
+                             CONSTRAINT rhn_rdrct_recid_pk PRIMARY KEY
+                             USING INDEX TABLESPACE [[8m_tbs]],
+    customer_id          NUMBER,
+    contact_id           NUMBER,
+    redirect_type        VARCHAR2(20) NOT NULL,
+    description          VARCHAR2(25),
+    reason               VARCHAR2(2000),
+    expiration           DATE NOT NULL,
+    last_update_user     VARCHAR2(40),
+    last_update_date     DATE,
+    start_date           DATE NOT NULL,
+    recurring            NUMBER
+                             DEFAULT (0) NOT NULL
                              CONSTRAINT RHN_RDRCT_RECUR_VALID
-                                 CHECK (recurring in ( 0 , 1 )), 
-    recurring_frequency  NUMBER 
-                             DEFAULT (2) 
+                                 CHECK (recurring in ( 0 , 1 )),
+    recurring_frequency  NUMBER
+                             DEFAULT (2)
                              CONSTRAINT RHN_RDRCT_RECUR_FREQ_VALID
-                                 CHECK (recurring_frequency in ( 2 , 3 , 6 )), 
-    recurring_duration   NUMBER 
-                             DEFAULT (0), 
-    recurring_dur_type   NUMBER 
-                             DEFAULT (12) 
+                                 CHECK (recurring_frequency in ( 2 , 3 , 6 )),
+    recurring_duration   NUMBER
+                             DEFAULT (0),
+    recurring_dur_type   NUMBER
+                             DEFAULT (12)
                              CONSTRAINT rhn_rdrct_rec_dtype_valid
                                  CHECK (recurring_dur_type in ( 12 , 11 , 5 , 3 , 1 ))
 )
@@ -63,7 +63,7 @@ CREATE INDEX rhn_rdrct_cid_idx
 CREATE SEQUENCE rhn_redirects_recid_seq;
 
 ALTER TABLE rhn_redirects
-    ADD 
+    ADD
     CONSTRAINT rhn_rdrct_start_lte_expir
         CHECK (start_date <= expiration);
 

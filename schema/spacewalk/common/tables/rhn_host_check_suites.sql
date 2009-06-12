@@ -7,16 +7,16 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_host_check_suites
 (
-    host_probe_id  NUMBER NOT NULL, 
+    host_probe_id  NUMBER NOT NULL,
     suite_id       NUMBER NOT NULL
 )
 ENABLE ROW MOVEMENT
@@ -33,11 +33,11 @@ ALTER TABLE rhn_host_check_suites
 
 ALTER TABLE rhn_host_check_suites
     ADD CONSTRAINT rhn_hstck_cksut_suite_id_fk FOREIGN KEY (suite_id)
-    REFERENCES rhn_check_suites (recid) 
+    REFERENCES rhn_check_suites (recid)
         ON DELETE CASCADE;
 
 ALTER TABLE rhn_host_check_suites
     ADD CONSTRAINT rhn_hstck_hstpb_probe_id_fk FOREIGN KEY (host_probe_id)
-    REFERENCES rhn_host_probe (probe_id) 
+    REFERENCES rhn_host_probe (probe_id)
         ON DELETE CASCADE;
 

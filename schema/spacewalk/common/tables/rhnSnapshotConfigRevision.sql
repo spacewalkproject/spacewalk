@@ -7,25 +7,25 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnSnapshotConfigRevision
 (
-    snapshot_id         NUMBER NOT NULL 
+    snapshot_id         NUMBER NOT NULL
                             CONSTRAINT rhn_snapshotcr_sid_fk
-                                REFERENCES rhnSnapshot (id) 
-                                ON DELETE CASCADE, 
-    config_revision_id  NUMBER NOT NULL 
+                                REFERENCES rhnSnapshot (id)
+                                ON DELETE CASCADE,
+    config_revision_id  NUMBER NOT NULL
                             CONSTRAINT rhn_snapshotcr_crid_fk
-                                REFERENCES rhnConfigRevision (id), 
-    created             DATE 
-                            DEFAULT (sysdate) NOT NULL, 
-    modified            DATE 
+                                REFERENCES rhnConfigRevision (id),
+    created             DATE
+                            DEFAULT (sysdate) NOT NULL,
+    modified            DATE
                             DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

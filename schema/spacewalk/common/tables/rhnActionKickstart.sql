@@ -7,27 +7,27 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnActionKickstart
 (
-    id                  NUMBER NOT NULL, 
-    action_id           NUMBER NOT NULL 
+    id                  NUMBER NOT NULL,
+    action_id           NUMBER NOT NULL
                             CONSTRAINT rhn_actionks_aid_fk
-                                REFERENCES rhnAction (id) 
-                                ON DELETE CASCADE, 
-    append_string       VARCHAR2(1024), 
-    kickstart_host      VARCHAR2(256), 
-    static_device       VARCHAR2(32), 
+                                REFERENCES rhnAction (id)
+                                ON DELETE CASCADE,
+    append_string       VARCHAR2(1024),
+    kickstart_host      VARCHAR2(256),
+    static_device       VARCHAR2(32),
     cobbler_system_name VARCHAR2(256),
-    created             DATE 
-                            DEFAULT (sysdate) NOT NULL, 
-    modified            DATE 
+    created             DATE
+                            DEFAULT (sysdate) NOT NULL,
+    modified            DATE
                             DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

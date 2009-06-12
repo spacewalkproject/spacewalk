@@ -7,33 +7,33 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnServerCustomDataValue
 (
-    server_id         NUMBER NOT NULL 
+    server_id         NUMBER NOT NULL
                           CONSTRAINT rhn_scdv_sid_fk
-                              REFERENCES rhnServer (id), 
-    key_id            NUMBER NOT NULL 
+                              REFERENCES rhnServer (id),
+    key_id            NUMBER NOT NULL
                           CONSTRAINT rhn_scdv_kid_fk
-                              REFERENCES rhnCustomDataKey (id), 
-    value             VARCHAR2(4000), 
-    created_by        NUMBER 
+                              REFERENCES rhnCustomDataKey (id),
+    value             VARCHAR2(4000),
+    created_by        NUMBER
                           CONSTRAINT rhn_scdv_cb_fk
-                              REFERENCES web_contact (id) 
-                              ON DELETE SET NULL, 
-    last_modified_by  NUMBER 
+                              REFERENCES web_contact (id)
+                              ON DELETE SET NULL,
+    last_modified_by  NUMBER
                           CONSTRAINT rhn_scdv_lmb_fk
-                              REFERENCES web_contact (id) 
-                              ON DELETE SET NULL, 
-    created           DATE 
-                          DEFAULT (sysdate) NOT NULL, 
-    modified          DATE 
+                              REFERENCES web_contact (id)
+                              ON DELETE SET NULL,
+    created           DATE
+                          DEFAULT (sysdate) NOT NULL,
+    modified          DATE
                           DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

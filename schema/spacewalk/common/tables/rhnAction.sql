@@ -7,44 +7,44 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnAction
 (
-    id               NUMBER NOT NULL 
-                         CONSTRAINT rhn_action_pk PRIMARY KEY 
-                         USING INDEX TABLESPACE [[4m_tbs]], 
-    org_id           NUMBER NOT NULL 
+    id               NUMBER NOT NULL
+                         CONSTRAINT rhn_action_pk PRIMARY KEY
+                         USING INDEX TABLESPACE [[4m_tbs]],
+    org_id           NUMBER NOT NULL
                          CONSTRAINT rhn_action_oid_fk
-                             REFERENCES web_customer (id) 
-                             ON DELETE CASCADE, 
-    action_type      NUMBER NOT NULL 
+                             REFERENCES web_customer (id)
+                             ON DELETE CASCADE,
+    action_type      NUMBER NOT NULL
                          CONSTRAINT rhn_action_at_fk
-                             REFERENCES rhnActionType (id), 
-    name             VARCHAR2(128), 
-    scheduler        NUMBER 
+                             REFERENCES rhnActionType (id),
+    name             VARCHAR2(128),
+    scheduler        NUMBER
                          CONSTRAINT rhn_action_scheduler_fk
-                             REFERENCES web_contact (id) 
-                             ON DELETE SET NULL, 
-    earliest_action  DATE NOT NULL, 
-    version          NUMBER 
-                         DEFAULT (0) NOT NULL, 
-    archived         NUMBER 
-                         DEFAULT (0) NOT NULL 
+                             REFERENCES web_contact (id)
+                             ON DELETE SET NULL,
+    earliest_action  DATE NOT NULL,
+    version          NUMBER
+                         DEFAULT (0) NOT NULL,
+    archived         NUMBER
+                         DEFAULT (0) NOT NULL
                          CONSTRAINT rhn_action_archived_ck
-                             CHECK (archived in ( 0 , 1 )), 
-    prerequisite     NUMBER 
+                             CHECK (archived in ( 0 , 1 )),
+    prerequisite     NUMBER
                          CONSTRAINT rhn_action_prereq_fk
-                             REFERENCES rhnAction (id) 
-                             ON DELETE CASCADE, 
-    created          DATE 
-                         DEFAULT (sysdate) NOT NULL, 
-    modified         DATE 
+                             REFERENCES rhnAction (id)
+                             ON DELETE CASCADE,
+    created          DATE
+                         DEFAULT (sysdate) NOT NULL,
+    modified         DATE
                          DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

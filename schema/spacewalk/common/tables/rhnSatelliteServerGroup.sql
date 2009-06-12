@@ -7,26 +7,26 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnSatelliteServerGroup
 (
-    server_id          NUMBER NOT NULL 
+    server_id          NUMBER NOT NULL
                            CONSTRAINT rhn_satsg_sid_fk
-                               REFERENCES rhnSatelliteInfo (server_id) 
-                               ON DELETE CASCADE, 
-    server_group_type  NUMBER NOT NULL 
+                               REFERENCES rhnSatelliteInfo (server_id)
+                               ON DELETE CASCADE,
+    server_group_type  NUMBER NOT NULL
                            CONSTRAINT rhn_satsg_sgtype_fk
-                               REFERENCES rhnServerGroupType (id), 
-    max_members        NUMBER, 
-    created            DATE 
-                           DEFAULT (sysdate) NOT NULL, 
-    modified           DATE 
+                               REFERENCES rhnServerGroupType (id),
+    max_members        NUMBER,
+    created            DATE
+                           DEFAULT (sysdate) NOT NULL,
+    modified           DATE
                            DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

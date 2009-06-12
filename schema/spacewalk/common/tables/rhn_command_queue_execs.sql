@@ -7,24 +7,24 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_command_queue_execs
 (
-    instance_id       NUMBER NOT NULL, 
-    netsaint_id       NUMBER NOT NULL, 
-    date_accepted     DATE, 
-    date_executed     DATE, 
-    exit_status       NUMBER, 
-    execution_time    NUMBER, 
-    stdout            VARCHAR2(4000), 
-    stderr            VARCHAR2(4000), 
-    last_update_date  DATE, 
+    instance_id       NUMBER NOT NULL,
+    netsaint_id       NUMBER NOT NULL,
+    date_accepted     DATE,
+    date_executed     DATE,
+    exit_status       NUMBER,
+    execution_time    NUMBER,
+    stdout            VARCHAR2(4000),
+    stderr            VARCHAR2(4000),
+    last_update_date  DATE,
     target_type       VARCHAR2(10) NOT NULL
 )
 ENABLE ROW MOVEMENT
@@ -52,11 +52,11 @@ ALTER TABLE rhn_command_queue_execs
 
 ALTER TABLE rhn_command_queue_execs
     ADD CONSTRAINT rhn_cqexe_cqins_inst_id_fk FOREIGN KEY (instance_id)
-    REFERENCES rhn_command_queue_instances (recid) 
+    REFERENCES rhn_command_queue_instances (recid)
         ON DELETE CASCADE;
 
 ALTER TABLE rhn_command_queue_execs
     ADD CONSTRAINT rhn_cqexe_satcl_nsaint_id_fk FOREIGN KEY (netsaint_id, target_type)
-    REFERENCES rhn_command_target (recid, target_type) 
+    REFERENCES rhn_command_target (recid, target_type)
         ON DELETE CASCADE;
 

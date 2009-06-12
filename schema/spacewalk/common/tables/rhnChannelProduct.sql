@@ -7,27 +7,27 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnChannelProduct
 (
-    id        NUMBER NOT NULL 
-                  CONSTRAINT rhn_channelprod_id_pk PRIMARY KEY 
-                  USING INDEX TABLESPACE [[64k_tbs]], 
-    product   VARCHAR2(256) NOT NULL, 
-    version   VARCHAR2(64) NOT NULL, 
-    beta      CHAR(1) 
-                  DEFAULT ('N') NOT NULL 
+    id        NUMBER NOT NULL
+                  CONSTRAINT rhn_channelprod_id_pk PRIMARY KEY
+                  USING INDEX TABLESPACE [[64k_tbs]],
+    product   VARCHAR2(256) NOT NULL,
+    version   VARCHAR2(64) NOT NULL,
+    beta      CHAR(1)
+                  DEFAULT ('N') NOT NULL
                   CONSTRAINT rhn_channelprod_beta_ck
-                      CHECK (beta in ( 'Y' , 'N' )), 
-    created   DATE 
-                  DEFAULT (sysdate) NOT NULL, 
-    modified  DATE 
+                      CHECK (beta in ( 'Y' , 'N' )),
+    created   DATE
+                  DEFAULT (sysdate) NOT NULL,
+    modified  DATE
                   DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

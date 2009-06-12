@@ -7,31 +7,31 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnConfigFile
 (
-    id                         NUMBER NOT NULL 
-                                   CONSTRAINT rhn_conffile_id_pk PRIMARY KEY 
-                                   USING INDEX TABLESPACE [[2m_tbs]], 
-    config_channel_id          NUMBER NOT NULL 
+    id                         NUMBER NOT NULL
+                                   CONSTRAINT rhn_conffile_id_pk PRIMARY KEY
+                                   USING INDEX TABLESPACE [[2m_tbs]],
+    config_channel_id          NUMBER NOT NULL
                                    CONSTRAINT rhn_conffile_ccid_fk
-                                       REFERENCES rhnConfigChannel (id), 
-    config_file_name_id        NUMBER NOT NULL 
+                                       REFERENCES rhnConfigChannel (id),
+    config_file_name_id        NUMBER NOT NULL
                                    CONSTRAINT rhn_conffile_cfnid_fk
-                                       REFERENCES rhnConfigFileName (id), 
-    latest_config_revision_id  NUMBER, 
-    state_id                   NUMBER NOT NULL 
+                                       REFERENCES rhnConfigFileName (id),
+    latest_config_revision_id  NUMBER,
+    state_id                   NUMBER NOT NULL
                                    CONSTRAINT rhn_conffile_sid_fk
-                                       REFERENCES rhnConfigFileState (id), 
-    created                    DATE 
-                                   DEFAULT (sysdate) NOT NULL, 
-    modified                   DATE 
+                                       REFERENCES rhnConfigFileState (id),
+    created                    DATE
+                                   DEFAULT (sysdate) NOT NULL,
+    modified                   DATE
                                    DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

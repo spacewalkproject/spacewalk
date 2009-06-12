@@ -7,26 +7,26 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnKickstartDefaultRegToken
 (
-    kickstart_id  NUMBER NOT NULL 
+    kickstart_id  NUMBER NOT NULL
                       CONSTRAINT rhn_ksdrt_ksid_fk
-                          REFERENCES rhnKSData (id) 
-                          ON DELETE CASCADE, 
-    regtoken_id   NUMBER NOT NULL 
+                          REFERENCES rhnKSData (id)
+                          ON DELETE CASCADE,
+    regtoken_id   NUMBER NOT NULL
                       CONSTRAINT rhn_ksdrt_rtid_fk
-                          REFERENCES rhnRegToken (id) 
-                          ON DELETE CASCADE, 
-    created       DATE 
-                      DEFAULT (sysdate) NOT NULL, 
-    modified      DATE 
+                          REFERENCES rhnRegToken (id)
+                          ON DELETE CASCADE,
+    created       DATE
+                      DEFAULT (sysdate) NOT NULL,
+    modified      DATE
                       DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

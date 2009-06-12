@@ -7,37 +7,37 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnKickstartScript
 (
-    id            NUMBER NOT NULL, 
-    kickstart_id  NUMBER NOT NULL 
+    id            NUMBER NOT NULL,
+    kickstart_id  NUMBER NOT NULL
                       CONSTRAINT rhn_ksscript_ksid_fk
-                          REFERENCES rhnKSData (id) 
-                          ON DELETE CASCADE, 
-    position      NUMBER NOT NULL, 
-    script_type   VARCHAR2(4) NOT NULL 
+                          REFERENCES rhnKSData (id)
+                          ON DELETE CASCADE,
+    position      NUMBER NOT NULL,
+    script_type   VARCHAR2(4) NOT NULL
                       CONSTRAINT rhn_ksscript_st_ck
-                          CHECK (script_type in ( 'pre' , 'post' )), 
-    chroot        CHAR(1) 
-                      DEFAULT ('Y') NOT NULL 
+                          CHECK (script_type in ( 'pre' , 'post' )),
+    chroot        CHAR(1)
+                      DEFAULT ('Y') NOT NULL
                       CONSTRAINT rhn_ksscript_chroot_ck
-                          CHECK (chroot in ( 'Y' , 'N' )), 
+                          CHECK (chroot in ( 'Y' , 'N' )),
     raw_script    CHAR(1)
                       DEFAULT ('Y') NOT NULL
                       CONSTRAINT rhn_ksscript_rawscript_ck
                           CHECK (raw_script in ('Y','N')),
-    interpreter   VARCHAR2(80), 
-    data          BLOB, 
-    created       DATE 
-                      DEFAULT (sysdate) NOT NULL, 
-    modified      DATE 
+    interpreter   VARCHAR2(80),
+    data          BLOB,
+    created       DATE
+                      DEFAULT (sysdate) NOT NULL,
+    modified      DATE
                       DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

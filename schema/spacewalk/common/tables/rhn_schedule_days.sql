@@ -7,31 +7,31 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_schedule_days
 (
-    recid             NUMBER NOT NULL 
-                          CONSTRAINT rhn_schdy_recid_pk PRIMARY KEY 
-                          USING INDEX TABLESPACE [[2m_tbs]] 
+    recid             NUMBER NOT NULL
+                          CONSTRAINT rhn_schdy_recid_pk PRIMARY KEY
+                          USING INDEX TABLESPACE [[2m_tbs]]
                           CONSTRAINT rhn_schdy_recid_ck
-                              CHECK (recid > 0), 
-    schedule_id       NUMBER, 
-    ord               NUMBER, 
-    start_1           DATE, 
-    end_1             DATE, 
-    start_2           DATE, 
-    end_2             DATE, 
-    start_3           DATE, 
-    end_3             DATE, 
-    start_4           DATE, 
-    end_4             DATE, 
-    last_update_user  VARCHAR2(40), 
+                              CHECK (recid > 0),
+    schedule_id       NUMBER,
+    ord               NUMBER,
+    start_1           DATE,
+    end_1             DATE,
+    start_2           DATE,
+    end_2             DATE,
+    start_3           DATE,
+    end_3             DATE,
+    start_4           DATE,
+    end_4             DATE,
+    last_update_user  VARCHAR2(40),
     last_update_date  VARCHAR2(40)
 )
 ENABLE ROW MOVEMENT
@@ -47,6 +47,6 @@ CREATE SEQUENCE rhn_schedule_days_recid_seq;
 
 ALTER TABLE rhn_schedule_days
     ADD CONSTRAINT rhn_schdy_sched_schedule_id_fk FOREIGN KEY (schedule_id)
-    REFERENCES rhn_schedules (recid) 
+    REFERENCES rhn_schedules (recid)
         ON DELETE CASCADE;
 

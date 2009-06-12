@@ -7,26 +7,26 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnPackageKey
 (
-    id           NUMBER NOT NULL, 
-    key_id       VARCHAR2(64) NOT NULL, 
-    key_type_id  NUMBER NOT NULL 
+    id           NUMBER NOT NULL,
+    key_id       VARCHAR2(64) NOT NULL,
+    key_type_id  NUMBER NOT NULL
                      CONSTRAINT rhn_pkey_type_id_prid_fk
-                         REFERENCES rhnPackageKeyType (id), 
-    provider_id  NUMBER 
+                         REFERENCES rhnPackageKeyType (id),
+    provider_id  NUMBER
                      CONSTRAINT rhn_pkey_prid_fk
-                         REFERENCES rhnPackageProvider (id), 
-    created      DATE 
-                     DEFAULT (sysdate) NOT NULL, 
-    modified     DATE 
+                         REFERENCES rhnPackageProvider (id),
+    created      DATE
+                     DEFAULT (sysdate) NOT NULL,
+    modified     DATE
                      DEFAULT (sysdate) NOT NULL
 )
 ;

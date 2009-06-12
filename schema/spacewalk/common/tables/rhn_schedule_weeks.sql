@@ -7,24 +7,24 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_schedule_weeks
 (
-    recid                  NUMBER NOT NULL 
-                               CONSTRAINT rhn_schwk_recid_pk PRIMARY KEY 
-                               USING INDEX TABLESPACE [[2m_tbs]] 
+    recid                  NUMBER NOT NULL
+                               CONSTRAINT rhn_schwk_recid_pk PRIMARY KEY
+                               USING INDEX TABLESPACE [[2m_tbs]]
                                CONSTRAINT rhn_schwk_recid_ck
-                                   CHECK (recid > 0), 
-    schedule_id            NUMBER NOT NULL, 
-    component_schedule_id  NUMBER, 
-    ord                    NUMBER, 
-    last_update_user       VARCHAR2(40), 
+                                   CHECK (recid > 0),
+    schedule_id            NUMBER NOT NULL,
+    component_schedule_id  NUMBER,
+    ord                    NUMBER,
+    last_update_user       VARCHAR2(40),
     last_update_date       DATE
 )
 ENABLE ROW MOVEMENT
@@ -48,6 +48,6 @@ ALTER TABLE rhn_schedule_weeks
 
 ALTER TABLE rhn_schedule_weeks
     ADD CONSTRAINT rhn_schwk_sched_sched_id_fk FOREIGN KEY (schedule_id)
-    REFERENCES rhn_schedules (recid) 
+    REFERENCES rhn_schedules (recid)
         ON DELETE CASCADE;
 

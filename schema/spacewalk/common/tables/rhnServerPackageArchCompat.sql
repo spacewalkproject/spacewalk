@@ -7,25 +7,25 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnServerPackageArchCompat
 (
-    server_arch_id   NUMBER NOT NULL 
+    server_arch_id   NUMBER NOT NULL
                          CONSTRAINT rhn_sp_ac_said_fk
-                             REFERENCES rhnServerArch (id), 
-    package_arch_id  NUMBER NOT NULL 
+                             REFERENCES rhnServerArch (id),
+    package_arch_id  NUMBER NOT NULL
                          CONSTRAINT rhn_sp_ac_paid_fk
-                             REFERENCES rhnPackageArch (id), 
-    preference       NUMBER NOT NULL, 
-    created          DATE 
-                         DEFAULT (sysdate) NOT NULL, 
-    modified         DATE 
+                             REFERENCES rhnPackageArch (id),
+    preference       NUMBER NOT NULL,
+    created          DATE
+                         DEFAULT (sysdate) NOT NULL,
+    modified         DATE
                          DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT
@@ -43,6 +43,6 @@ ALTER TABLE rhnServerPackageArchCompat
     ADD CONSTRAINT rhn_sp_ac_said_paid_uq UNIQUE (server_arch_id, package_arch_id);
 
 ALTER TABLE rhnServerPackageArchCompat
-    ADD CONSTRAINT rhn_sp_ac_pref_said_uq UNIQUE (preference, server_arch_id) 
+    ADD CONSTRAINT rhn_sp_ac_pref_said_uq UNIQUE (preference, server_arch_id)
     USING INDEX TABLESPACE [[64k_tbs]];
 

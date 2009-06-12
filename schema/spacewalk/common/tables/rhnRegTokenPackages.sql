@@ -7,28 +7,28 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnRegTokenPackages
 (
-    id        NUMBER NOT NULL 
-                  CONSTRAINT rhn_reg_tok_pkg_id_pk PRIMARY KEY, 
-    token_id  NUMBER NOT NULL 
+    id        NUMBER NOT NULL
+                  CONSTRAINT rhn_reg_tok_pkg_id_pk PRIMARY KEY,
+    token_id  NUMBER NOT NULL
                   CONSTRAINT rhn_reg_tok_pkg_id_fk
-                      REFERENCES rhnRegToken (id) 
-                      ON DELETE CASCADE, 
-    name_id   NUMBER NOT NULL 
+                      REFERENCES rhnRegToken (id)
+                      ON DELETE CASCADE,
+    name_id   NUMBER NOT NULL
                   CONSTRAINT rhn_reg_tok_pkg_sgs_fk
-                      REFERENCES rhnPackageName (id) 
-                      ON DELETE CASCADE, 
-    arch_id   NUMBER 
+                      REFERENCES rhnPackageName (id)
+                      ON DELETE CASCADE,
+    arch_id   NUMBER
                   CONSTRAINT rhn_reg_tok_pkg_aid_fk
-                      REFERENCES rhnPackageArch (id) 
+                      REFERENCES rhnPackageArch (id)
                       ON DELETE CASCADE
 )
 ENABLE ROW MOVEMENT

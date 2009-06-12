@@ -7,26 +7,26 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnAppInstallSessionData
 (
-    id          NUMBER NOT NULL, 
-    session_id  NUMBER NOT NULL 
+    id          NUMBER NOT NULL,
+    session_id  NUMBER NOT NULL
                     CONSTRAINT rhn_appinst_sdata_sid_fk
-                        REFERENCES rhnAppInstallSession (id) 
-                        ON DELETE CASCADE, 
-    key         VARCHAR2(64) NOT NULL, 
-    value       VARCHAR2(2048), 
-    extra_data  BLOB, 
-    created     DATE 
-                    DEFAULT (sysdate) NOT NULL, 
-    modified    DATE 
+                        REFERENCES rhnAppInstallSession (id)
+                        ON DELETE CASCADE,
+    key         VARCHAR2(64) NOT NULL,
+    value       VARCHAR2(2048),
+    extra_data  BLOB,
+    created     DATE
+                    DEFAULT (sysdate) NOT NULL,
+    modified    DATE
                     DEFAULT (sysdate) NOT NULL
 )
 TABLESPACE [[blob]]

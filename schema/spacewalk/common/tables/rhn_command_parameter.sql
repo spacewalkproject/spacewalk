@@ -7,35 +7,35 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_command_parameter
 (
-    command_id             NUMBER NOT NULL, 
-    param_name             VARCHAR2(40) NOT NULL, 
-    param_type             VARCHAR2(10) 
-                               DEFAULT ('config') NOT NULL, 
-    data_type_name         VARCHAR2(10) NOT NULL, 
-    description            VARCHAR2(80) NOT NULL, 
-    mandatory              CHAR(1) 
-                               DEFAULT ('0') NOT NULL, 
-    default_value          VARCHAR2(1024), 
-    min_value              NUMBER, 
-    max_value              NUMBER, 
-    field_order            NUMBER NOT NULL, 
-    field_widget_name      VARCHAR2(20) NOT NULL, 
-    field_visible_length   NUMBER, 
-    field_maximum_length   NUMBER, 
-    field_visible          CHAR(1) 
-                               DEFAULT ('1') NOT NULL, 
-    default_value_visible  CHAR(1) 
-                               DEFAULT ('1') NOT NULL, 
-    last_update_user       VARCHAR2(40), 
+    command_id             NUMBER NOT NULL,
+    param_name             VARCHAR2(40) NOT NULL,
+    param_type             VARCHAR2(10)
+                               DEFAULT ('config') NOT NULL,
+    data_type_name         VARCHAR2(10) NOT NULL,
+    description            VARCHAR2(80) NOT NULL,
+    mandatory              CHAR(1)
+                               DEFAULT ('0') NOT NULL,
+    default_value          VARCHAR2(1024),
+    min_value              NUMBER,
+    max_value              NUMBER,
+    field_order            NUMBER NOT NULL,
+    field_widget_name      VARCHAR2(20) NOT NULL,
+    field_visible_length   NUMBER,
+    field_maximum_length   NUMBER,
+    field_visible          CHAR(1)
+                               DEFAULT ('1') NOT NULL,
+    default_value_visible  CHAR(1)
+                               DEFAULT ('1') NOT NULL,
+    last_update_user       VARCHAR2(40),
     last_update_date       DATE
 )
 ENABLE ROW MOVEMENT
@@ -68,7 +68,7 @@ ALTER TABLE rhn_command_parameter
 
 ALTER TABLE rhn_command_parameter
     ADD CONSTRAINT rhn_cparm_cmd_command_id_fk FOREIGN KEY (command_id)
-    REFERENCES rhn_command (recid) 
+    REFERENCES rhn_command (recid)
         ON DELETE CASCADE;
 
 ALTER TABLE rhn_command_parameter

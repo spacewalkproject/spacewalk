@@ -7,35 +7,35 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_deployed_probe
 (
-    recid                          NUMBER NOT NULL 
-                                       CONSTRAINT rhn_dprob_recid_pk PRIMARY KEY 
-                                       USING INDEX TABLESPACE [[8m_tbs]], 
-    probe_type                     VARCHAR2(15) NOT NULL, 
-    description                    VARCHAR2(255), 
-    customer_id                    NUMBER NOT NULL, 
-    command_id                     NUMBER NOT NULL, 
-    contact_group_id               NUMBER, 
-    os_id                          NUMBER, 
-    notify_critical                CHAR(1), 
-    notify_warning                 CHAR(1), 
-    notify_recovery                CHAR(1), 
-    notify_unknown                 CHAR(1), 
-    notification_interval_minutes  NUMBER NOT NULL, 
-    check_interval_minutes         NUMBER NOT NULL, 
-    retry_interval_minutes         NUMBER NOT NULL, 
-    max_attempts                   NUMBER, 
-    sat_cluster_id                 NUMBER, 
-    parent_probe_id                NUMBER, 
-    last_update_user               VARCHAR2(40), 
+    recid                          NUMBER NOT NULL
+                                       CONSTRAINT rhn_dprob_recid_pk PRIMARY KEY
+                                       USING INDEX TABLESPACE [[8m_tbs]],
+    probe_type                     VARCHAR2(15) NOT NULL,
+    description                    VARCHAR2(255),
+    customer_id                    NUMBER NOT NULL,
+    command_id                     NUMBER NOT NULL,
+    contact_group_id               NUMBER,
+    os_id                          NUMBER,
+    notify_critical                CHAR(1),
+    notify_warning                 CHAR(1),
+    notify_recovery                CHAR(1),
+    notify_unknown                 CHAR(1),
+    notification_interval_minutes  NUMBER NOT NULL,
+    check_interval_minutes         NUMBER NOT NULL,
+    retry_interval_minutes         NUMBER NOT NULL,
+    max_attempts                   NUMBER,
+    sat_cluster_id                 NUMBER,
+    parent_probe_id                NUMBER,
+    last_update_user               VARCHAR2(40),
     last_update_date               DATE
 )
 ENABLE ROW MOVEMENT

@@ -7,23 +7,23 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_multi_scout_threshold
 (
-    probe_id                        NUMBER NOT NULL 
-                                        CONSTRAINT rhn_msthr_probe_id_pk PRIMARY KEY 
-                                        USING INDEX TABLESPACE [[2m_tbs]], 
-    scout_warning_threshold_is_all  CHAR(1) 
-                                        DEFAULT ('1') NOT NULL, 
-    scout_crit_threshold_is_all     CHAR(1) 
-                                        DEFAULT ('1') NOT NULL, 
-    scout_warning_threshold         NUMBER, 
+    probe_id                        NUMBER NOT NULL
+                                        CONSTRAINT rhn_msthr_probe_id_pk PRIMARY KEY
+                                        USING INDEX TABLESPACE [[2m_tbs]],
+    scout_warning_threshold_is_all  CHAR(1)
+                                        DEFAULT ('1') NOT NULL,
+    scout_crit_threshold_is_all     CHAR(1)
+                                        DEFAULT ('1') NOT NULL,
+    scout_warning_threshold         NUMBER,
     scout_critical_threshold        NUMBER
 )
 ENABLE ROW MOVEMENT

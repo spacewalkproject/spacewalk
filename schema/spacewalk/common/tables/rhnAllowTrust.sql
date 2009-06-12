@@ -7,30 +7,30 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnAllowTrust
 (
-    org_id          NUMBER NOT NULL 
+    org_id          NUMBER NOT NULL
                         CONSTRAINT rhn_allow_trust_oid_fk
-                            REFERENCES web_customer (id) 
-                            ON DELETE CASCADE, 
-    channel_flag    CHAR(1) 
-                        DEFAULT ('N') NOT NULL 
+                            REFERENCES web_customer (id)
+                            ON DELETE CASCADE,
+    channel_flag    CHAR(1)
+                        DEFAULT ('N') NOT NULL
                         CONSTRAINT rhn_allow_trust_channelflg_ck
-                            CHECK (channel_flag in ( 'N' , 'Y' )), 
-    migration_flag  CHAR(1) 
-                        DEFAULT ('N') NOT NULL 
+                            CHECK (channel_flag in ( 'N' , 'Y' )),
+    migration_flag  CHAR(1)
+                        DEFAULT ('N') NOT NULL
                         CONSTRAINT rhn_allow_trust_migrflg_ck
-                            CHECK (migration_flag in ( 'N' , 'Y' )), 
-    created         DATE 
-                        DEFAULT (sysdate) NOT NULL, 
-    modified        DATE 
+                            CHECK (migration_flag in ( 'N' , 'Y' )),
+    created         DATE
+                        DEFAULT (sysdate) NOT NULL,
+    modified        DATE
                         DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

@@ -7,20 +7,20 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnVisibleObjects
 (
-    pxt_session_id  NUMBER NOT NULL, 
-    object_id       NUMBER NOT NULL, 
-    object_type     VARCHAR2(40) NOT NULL, 
+    pxt_session_id  NUMBER NOT NULL,
+    object_id       NUMBER NOT NULL,
+    object_type     VARCHAR2(40) NOT NULL,
     CONSTRAINT rhn_vis_objs_sess_fk FOREIGN KEY (pxt_session_id)
-        REFERENCES PXTSessions (id) 
+        REFERENCES PXTSessions (id)
             ON DELETE CASCADE
 )
 ENABLE ROW MOVEMENT

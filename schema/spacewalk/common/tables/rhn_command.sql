@@ -7,33 +7,33 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_command
 (
-    recid                NUMBER NOT NULL 
-                             CONSTRAINT rhn_cmmnd_recid_pk PRIMARY KEY 
-                             USING INDEX TABLESPACE [[2m_tbs]], 
-    name                 VARCHAR2(40) NOT NULL, 
-    description          VARCHAR2(80) NOT NULL, 
-    group_name           VARCHAR2(40), 
-    allowed_in_suite     CHAR(1) 
-                             DEFAULT ('1') NOT NULL, 
-    command_class        VARCHAR2(255) 
-                             DEFAULT ('/var/lib/nocpulse/libexec/plugin') NOT NULL, 
-    enabled              CHAR(1) 
-                             DEFAULT ('1') NOT NULL, 
-    for_host_probe       CHAR(1) 
-                             DEFAULT ('0') NOT NULL, 
-    last_update_user     VARCHAR2(40), 
-    last_update_date     DATE, 
-    system_requirements  VARCHAR2(40), 
-    version_support      VARCHAR2(1024), 
+    recid                NUMBER NOT NULL
+                             CONSTRAINT rhn_cmmnd_recid_pk PRIMARY KEY
+                             USING INDEX TABLESPACE [[2m_tbs]],
+    name                 VARCHAR2(40) NOT NULL,
+    description          VARCHAR2(80) NOT NULL,
+    group_name           VARCHAR2(40),
+    allowed_in_suite     CHAR(1)
+                             DEFAULT ('1') NOT NULL,
+    command_class        VARCHAR2(255)
+                             DEFAULT ('/var/lib/nocpulse/libexec/plugin') NOT NULL,
+    enabled              CHAR(1)
+                             DEFAULT ('1') NOT NULL,
+    for_host_probe       CHAR(1)
+                             DEFAULT ('0') NOT NULL,
+    last_update_user     VARCHAR2(40),
+    last_update_date     DATE,
+    system_requirements  VARCHAR2(40),
+    version_support      VARCHAR2(1024),
     help_url             VARCHAR2(1024)
 )
 ENABLE ROW MOVEMENT
@@ -70,6 +70,6 @@ ALTER TABLE rhn_command
 
 ALTER TABLE rhn_command
     ADD CONSTRAINT rhn_cmmnd_sys_reqs_fk FOREIGN KEY (system_requirements)
-    REFERENCES rhn_command_requirements (name) 
+    REFERENCES rhn_command_requirements (name)
         ON DELETE CASCADE;
 

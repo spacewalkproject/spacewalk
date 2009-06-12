@@ -7,29 +7,29 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnChannelPermission
 (
-    channel_id  NUMBER NOT NULL 
+    channel_id  NUMBER NOT NULL
                     CONSTRAINT rhn_cperm_cidffk
-                        REFERENCES rhnChannel (id) 
-                        ON DELETE CASCADE, 
-    user_id     NUMBER NOT NULL 
+                        REFERENCES rhnChannel (id)
+                        ON DELETE CASCADE,
+    user_id     NUMBER NOT NULL
                     CONSTRAINT rhn_cperm_uid_fk
-                        REFERENCES web_contact (id) 
-                        ON DELETE CASCADE, 
-    role_id     NUMBER NOT NULL 
+                        REFERENCES web_contact (id)
+                        ON DELETE CASCADE,
+    role_id     NUMBER NOT NULL
                     CONSTRAINT rhn_cperm_rid_fk
-                        REFERENCES rhnChannelPermissionRole (id), 
-    created     DATE 
-                    DEFAULT (sysdate) NOT NULL, 
-    modified    DATE 
+                        REFERENCES rhnChannelPermissionRole (id),
+    created     DATE
+                    DEFAULT (sysdate) NOT NULL,
+    modified    DATE
                     DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

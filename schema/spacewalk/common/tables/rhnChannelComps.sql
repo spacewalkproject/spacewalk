@@ -7,27 +7,27 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnChannelComps
 (
-    id                 NUMBER NOT NULL 
-                           CONSTRAINT rhn_channelcomps_id_pk PRIMARY KEY, 
-    channel_id         NUMBER NOT NULL 
+    id                 NUMBER NOT NULL
+                           CONSTRAINT rhn_channelcomps_id_pk PRIMARY KEY,
+    channel_id         NUMBER NOT NULL
                            CONSTRAINT rhn_channelcomps_cid_fk
-                               REFERENCES rhnChannel (id) 
-                               ON DELETE CASCADE, 
-    relative_filename  VARCHAR2(256) NOT NULL, 
-    last_modified      DATE 
-                           DEFAULT (sysdate) NOT NULL, 
-    created            DATE 
-                           DEFAULT (sysdate) NOT NULL, 
-    modified           DATE 
+                               REFERENCES rhnChannel (id)
+                               ON DELETE CASCADE,
+    relative_filename  VARCHAR2(256) NOT NULL,
+    last_modified      DATE
+                           DEFAULT (sysdate) NOT NULL,
+    created            DATE
+                           DEFAULT (sysdate) NOT NULL,
+    modified           DATE
                            DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

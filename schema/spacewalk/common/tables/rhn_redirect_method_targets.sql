@@ -7,16 +7,16 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_redirect_method_targets
 (
-    redirect_id        NUMBER NOT NULL, 
+    redirect_id        NUMBER NOT NULL,
     contact_method_id  NUMBER NOT NULL
 )
 ENABLE ROW MOVEMENT
@@ -41,11 +41,11 @@ ALTER TABLE rhn_redirect_method_targets
 
 ALTER TABLE rhn_redirect_method_targets
     ADD CONSTRAINT rhn_rdrmt_cmeth_redirect_id_fk FOREIGN KEY (contact_method_id)
-    REFERENCES rhn_contact_methods (recid) 
+    REFERENCES rhn_contact_methods (recid)
         ON DELETE CASCADE;
 
 ALTER TABLE rhn_redirect_method_targets
     ADD CONSTRAINT rhn_rdrmt_rdrct_redirect_id_fk FOREIGN KEY (redirect_id)
-    REFERENCES rhn_redirects (recid) 
+    REFERENCES rhn_redirects (recid)
         ON DELETE CASCADE;
 

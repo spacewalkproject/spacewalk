@@ -7,32 +7,32 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_satellite_state
 (
-    satellite_id          NUMBER NOT NULL 
-                              CONSTRAINT rhn_satst_sat_id_pk PRIMARY KEY 
-                              USING INDEX TABLESPACE [[2m_tbs]], 
-    last_check            DATE, 
-    probe_count           NUMBER, 
-    pct_ok                NUMBER, 
-    pct_warning           NUMBER, 
-    pct_critical          NUMBER, 
-    pct_unknown           NUMBER, 
-    pct_pending           NUMBER, 
-    recent_state_changes  NUMBER, 
-    imminent_probes       NUMBER, 
-    max_exec_time         NUMBER, 
-    min_exec_time         NUMBER, 
-    avg_exec_time         NUMBER, 
-    max_latency           NUMBER, 
-    min_latency           NUMBER, 
+    satellite_id          NUMBER NOT NULL
+                              CONSTRAINT rhn_satst_sat_id_pk PRIMARY KEY
+                              USING INDEX TABLESPACE [[2m_tbs]],
+    last_check            DATE,
+    probe_count           NUMBER,
+    pct_ok                NUMBER,
+    pct_warning           NUMBER,
+    pct_critical          NUMBER,
+    pct_unknown           NUMBER,
+    pct_pending           NUMBER,
+    recent_state_changes  NUMBER,
+    imminent_probes       NUMBER,
+    max_exec_time         NUMBER,
+    min_exec_time         NUMBER,
+    avg_exec_time         NUMBER,
+    max_latency           NUMBER,
+    min_latency           NUMBER,
     avg_latency           NUMBER
 )
 ENABLE ROW MOVEMENT

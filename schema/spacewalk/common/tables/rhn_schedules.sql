@@ -7,25 +7,25 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_schedules
 (
-    recid             NUMBER NOT NULL 
-                          CONSTRAINT rhn_sched_recid_pk PRIMARY KEY 
-                          USING INDEX TABLESPACE [[2m_tbs]] 
+    recid             NUMBER NOT NULL
+                          CONSTRAINT rhn_sched_recid_pk PRIMARY KEY
+                          USING INDEX TABLESPACE [[2m_tbs]]
                           CONSTRAINT rhn_sched_recid_ck
-                              CHECK (recid > 0), 
-    schedule_type_id  NUMBER NOT NULL, 
-    description       VARCHAR2(40) 
-                          DEFAULT ('unknown') NOT NULL, 
-    last_update_user  VARCHAR2(40), 
-    last_update_date  DATE, 
+                              CHECK (recid > 0),
+    schedule_type_id  NUMBER NOT NULL,
+    description       VARCHAR2(40)
+                          DEFAULT ('unknown') NOT NULL,
+    last_update_user  VARCHAR2(40),
+    last_update_date  DATE,
     customer_id       NUMBER
 )
 ENABLE ROW MOVEMENT

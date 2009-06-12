@@ -7,35 +7,35 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnActionConfigRevision
 (
-    id                  NUMBER NOT NULL 
-                            CONSTRAINT rhn_actioncr_id_pk PRIMARY KEY 
-                            USING INDEX TABLESPACE [[2m_tbs]], 
-    action_id           NUMBER NOT NULL 
+    id                  NUMBER NOT NULL
+                            CONSTRAINT rhn_actioncr_id_pk PRIMARY KEY
+                            USING INDEX TABLESPACE [[2m_tbs]],
+    action_id           NUMBER NOT NULL
                             CONSTRAINT rhn_actioncr_aid_fk
-                                REFERENCES rhnAction (id) 
-                                ON DELETE CASCADE, 
-    server_id           NUMBER NOT NULL 
+                                REFERENCES rhnAction (id)
+                                ON DELETE CASCADE,
+    server_id           NUMBER NOT NULL
                             CONSTRAINT rhn_actioncr_sid_fk
-                                REFERENCES rhnServer (id), 
-    config_revision_id  NUMBER NOT NULL 
+                                REFERENCES rhnServer (id),
+    config_revision_id  NUMBER NOT NULL
                             CONSTRAINT rhn_actioncr_crid_fk
-                                REFERENCES rhnConfigRevision (id) 
-                                ON DELETE CASCADE, 
-    failure_id          NUMBER 
+                                REFERENCES rhnConfigRevision (id)
+                                ON DELETE CASCADE,
+    failure_id          NUMBER
                             CONSTRAINT rhn_actioncr_failid_fk
-                                REFERENCES rhnConfigFileFailure (id), 
-    created             DATE 
-                            DEFAULT (sysdate) NOT NULL, 
-    modified            DATE 
+                                REFERENCES rhnConfigFileFailure (id),
+    created             DATE
+                            DEFAULT (sysdate) NOT NULL,
+    modified            DATE
                             DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

@@ -7,33 +7,33 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnDownloads
 (
-    id                 NUMBER NOT NULL 
-                           CONSTRAINT rhn_dl_id_pk PRIMARY KEY, 
-    channel_family_id  NUMBER NOT NULL 
+    id                 NUMBER NOT NULL
+                           CONSTRAINT rhn_dl_id_pk PRIMARY KEY,
+    channel_family_id  NUMBER NOT NULL
                            CONSTRAINT rhn_dl_cfid_fk
-                               REFERENCES rhnChannelFamily (id), 
-    file_id            NUMBER NOT NULL 
+                               REFERENCES rhnChannelFamily (id),
+    file_id            NUMBER NOT NULL
                            CONSTRAINT rhn_dl_fid_fk
-                               REFERENCES rhnFile (id), 
-    name               VARCHAR2(128) NOT NULL, 
-    category           VARCHAR2(128) NOT NULL, 
-    ordering           NUMBER NOT NULL, 
-    download_type      NUMBER 
+                               REFERENCES rhnFile (id),
+    name               VARCHAR2(128) NOT NULL,
+    category           VARCHAR2(128) NOT NULL,
+    ordering           NUMBER NOT NULL,
+    download_type      NUMBER
                            CONSTRAINT rhn_dl_dltype_fk
-                               REFERENCES rhnDownloadType (id), 
-    created            DATE 
-                           DEFAULT (sysdate) NOT NULL, 
-    modified           DATE 
-                           DEFAULT (sysdate) NOT NULL, 
+                               REFERENCES rhnDownloadType (id),
+    created            DATE
+                           DEFAULT (sysdate) NOT NULL,
+    modified           DATE
+                           DEFAULT (sysdate) NOT NULL,
     release_notes_url  VARCHAR2(512)
 )
 ENABLE ROW MOVEMENT

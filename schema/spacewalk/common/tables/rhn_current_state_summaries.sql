@@ -7,19 +7,19 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhn_current_state_summaries
 (
-    customer_id  NUMBER NOT NULL, 
-    template_id  VARCHAR2(10) NOT NULL, 
-    state        VARCHAR2(20) NOT NULL, 
-    state_count  NUMBER, 
+    customer_id  NUMBER NOT NULL,
+    template_id  VARCHAR2(10) NOT NULL,
+    state        VARCHAR2(20) NOT NULL,
+    state_count  NUMBER,
     last_check   DATE
 )
 ENABLE ROW MOVEMENT

@@ -7,33 +7,33 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnActionPackage
 (
-    id               NUMBER NOT NULL 
-                         CONSTRAINT rhn_act_p_id_pk PRIMARY KEY 
-                         USING INDEX TABLESPACE [[8m_tbs]], 
-    action_id        NUMBER NOT NULL 
+    id               NUMBER NOT NULL
+                         CONSTRAINT rhn_act_p_id_pk PRIMARY KEY
+                         USING INDEX TABLESPACE [[8m_tbs]],
+    action_id        NUMBER NOT NULL
                          CONSTRAINT rhn_act_p_act_fk
-                             REFERENCES rhnAction (id) 
-                             ON DELETE CASCADE, 
-    parameter        VARCHAR2(128) 
-                         DEFAULT ('upgrade') NOT NULL 
+                             REFERENCES rhnAction (id)
+                             ON DELETE CASCADE,
+    parameter        VARCHAR2(128)
+                         DEFAULT ('upgrade') NOT NULL
                          CONSTRAINT rhn_act_p_param_ck
-                             CHECK (parameter IN ( 'upgrade' , 'install' , 'remove' , 'downgrade' )), 
-    name_id          NUMBER NOT NULL 
+                             CHECK (parameter IN ( 'upgrade' , 'install' , 'remove' , 'downgrade' )),
+    name_id          NUMBER NOT NULL
                          CONSTRAINT rhn_act_p_name_fk
-                             REFERENCES rhnPackageName (id), 
-    evr_id           NUMBER 
+                             REFERENCES rhnPackageName (id),
+    evr_id           NUMBER
                          CONSTRAINT rhn_act_p_evr_fk
-                             REFERENCES rhnPackageEvr (id), 
-    package_arch_id  NUMBER 
+                             REFERENCES rhnPackageEvr (id),
+    package_arch_id  NUMBER
                          CONSTRAINT rhn_act_p_paid_fk
                              REFERENCES rhnPackageArch (id)
 )

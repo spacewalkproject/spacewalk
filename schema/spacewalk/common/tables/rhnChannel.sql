@@ -7,57 +7,57 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnChannel
 (
-    id                  NUMBER NOT NULL 
-                            CONSTRAINT rhn_channel_id_pk PRIMARY KEY 
-                            USING INDEX TABLESPACE [[64k_tbs]], 
-    parent_channel      NUMBER 
+    id                  NUMBER NOT NULL
+                            CONSTRAINT rhn_channel_id_pk PRIMARY KEY
+                            USING INDEX TABLESPACE [[64k_tbs]],
+    parent_channel      NUMBER
                             CONSTRAINT rhn_channel_parent_ch_fk
-                                REFERENCES rhnChannel (id), 
-    org_id              NUMBER 
+                                REFERENCES rhnChannel (id),
+    org_id              NUMBER
                             CONSTRAINT rhn_channel_org_fk
-                                REFERENCES web_customer (id), 
-    channel_arch_id     NUMBER NOT NULL 
+                                REFERENCES web_customer (id),
+    channel_arch_id     NUMBER NOT NULL
                             CONSTRAINT rhn_channel_caid_fk
-                                REFERENCES rhnChannelArch (id), 
-    label               VARCHAR2(128) NOT NULL, 
-    basedir             VARCHAR2(256) NOT NULL, 
-    name                VARCHAR2(256) NOT NULL, 
-    summary             VARCHAR2(500) NOT NULL, 
-    description         VARCHAR2(4000), 
-    product_name_id     NUMBER 
+                                REFERENCES rhnChannelArch (id),
+    label               VARCHAR2(128) NOT NULL,
+    basedir             VARCHAR2(256) NOT NULL,
+    name                VARCHAR2(256) NOT NULL,
+    summary             VARCHAR2(500) NOT NULL,
+    description         VARCHAR2(4000),
+    product_name_id     NUMBER
                             CONSTRAINT rhn_channel_product_name_ch_fk
-                                REFERENCES rhnProductName (id), 
-    gpg_key_url         VARCHAR2(256), 
-    gpg_key_id          VARCHAR2(14), 
-    gpg_key_fp          VARCHAR2(50), 
-    end_of_life         DATE, 
-    receiving_updates   CHAR(1) 
-                            DEFAULT ('Y') NOT NULL 
+                                REFERENCES rhnProductName (id),
+    gpg_key_url         VARCHAR2(256),
+    gpg_key_id          VARCHAR2(14),
+    gpg_key_fp          VARCHAR2(50),
+    end_of_life         DATE,
+    receiving_updates   CHAR(1)
+                            DEFAULT ('Y') NOT NULL
                             CONSTRAINT rhn_channel_ru_ck
-                                CHECK (receiving_updates in ( 'Y' , 'N' )), 
-    last_modified       DATE 
-                            DEFAULT (sysdate) NOT NULL, 
-    channel_product_id  NUMBER 
+                                CHECK (receiving_updates in ( 'Y' , 'N' )),
+    last_modified       DATE
+                            DEFAULT (sysdate) NOT NULL,
+    channel_product_id  NUMBER
                             CONSTRAINT rhn_channel_cpid_fk
-                                REFERENCES rhnChannelProduct (id), 
-    channel_access      VARCHAR2(10) 
-                            DEFAULT ('private'), 
-    maint_name          VARCHAR2(128), 
-    maint_email         VARCHAR2(128), 
-    maint_phone         VARCHAR2(128), 
-    support_policy      VARCHAR2(256), 
-    created             DATE 
-                            DEFAULT (sysdate) NOT NULL, 
-    modified            DATE 
+                                REFERENCES rhnChannelProduct (id),
+    channel_access      VARCHAR2(10)
+                            DEFAULT ('private'),
+    maint_name          VARCHAR2(128),
+    maint_email         VARCHAR2(128),
+    maint_phone         VARCHAR2(128),
+    support_policy      VARCHAR2(256),
+    created             DATE
+                            DEFAULT (sysdate) NOT NULL,
+    modified            DATE
                             DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT

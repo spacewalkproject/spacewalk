@@ -7,31 +7,31 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 
 
 CREATE TABLE rhnSavedSearch
 (
-    id              NUMBER NOT NULL, 
-    web_contact_id  NUMBER NOT NULL 
+    id              NUMBER NOT NULL,
+    web_contact_id  NUMBER NOT NULL
                         CONSTRAINT rhn_savedsearch_wcid_fk
-                            REFERENCES web_contact (id) 
-                            ON DELETE CASCADE, 
-    name            VARCHAR2(16) NOT NULL, 
-    type            NUMBER NOT NULL 
+                            REFERENCES web_contact (id)
+                            ON DELETE CASCADE,
+    name            VARCHAR2(16) NOT NULL,
+    type            NUMBER NOT NULL
                         CONSTRAINT rhn_savedsearch_type_fk
-                            REFERENCES rhnSavedSearchType (id), 
-    search_string   VARCHAR2(4000) NOT NULL, 
-    search_set      VARCHAR2(16) NOT NULL 
+                            REFERENCES rhnSavedSearchType (id),
+    search_string   VARCHAR2(4000) NOT NULL,
+    search_set      VARCHAR2(16) NOT NULL
                         CONSTRAINT rhn_savedsearch_sset_ck
-                            CHECK (search_set in ( 'all' , 'system_list' )), 
-    search_field    VARCHAR2(128) NOT NULL, 
-    invert          CHAR 
-                        DEFAULT ('N') NOT NULL 
+                            CHECK (search_set in ( 'all' , 'system_list' )),
+    search_field    VARCHAR2(128) NOT NULL,
+    invert          CHAR
+                        DEFAULT ('N') NOT NULL
                         CONSTRAINT rhn_savedsearch_invert_ck
                             CHECK (invert in ( 'Y' , 'N' ))
 )
