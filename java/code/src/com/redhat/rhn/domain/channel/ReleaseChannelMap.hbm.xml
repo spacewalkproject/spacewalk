@@ -32,7 +32,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="ReleaseChannelMap.findDefaultForChannel">
         <![CDATA[
             from com.redhat.rhn.domain.channel.ReleaseChannelMap as r where 
-                r.channel = :channel and isDefault = 'Y'
+                r.channel = :channel
         ]]>
     </query>
     

@@ -636,8 +636,13 @@ public class ChannelFactory extends HibernateFactory {
         
         Map params = new HashMap();
         params.put("channel", channel);
-        return (ReleaseChannelMap)singleton.lookupObjectByNamedQuery(
+        List<ReleaseChannelMap> list = singleton.listObjectsByNamedQuery(
                 "ReleaseChannelMap.findDefaultForChannel", params);
+        if (list.isEmpty()) {
+            return null;
+        }
+        Collections.sort(list);
+        return list.get(0);
     }
     
     /**
