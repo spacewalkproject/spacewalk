@@ -41,8 +41,9 @@ class RetryServer(rpclib.Server):
             except rpclib.Fault:
                 raise
             except httplib.BadStatusLine:
-                raise up2dateErrors.ServerUnavailableError(
-                      "Server Unavailable. Please try later.") 
+                stdoutMsgCallback(
+                      _("Error: Server Unavailable. Please try later."))
+                sys.exit(-1)
             except:
                 server = self.serverList.next()
                 if server == None:
@@ -287,8 +288,6 @@ def doCall(method, *args, **kwargs):
             attempt_count = attempt_count + 1
         
         if attempt_count > attempts:
-            print "busted2"
-            print method
             raise up2dateErrors.CommunicationError("The data returned from the server was incomplete")
 
     return ret
