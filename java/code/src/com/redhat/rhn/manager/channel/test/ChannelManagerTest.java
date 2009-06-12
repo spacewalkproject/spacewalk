@@ -350,7 +350,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
     }
     
     public static void createReleaseChannelMap(Channel channel, String product, 
-            String version, String release, char isDefault) {
+            String version, String release) {
 
         ReleaseChannelMap rcm = new ReleaseChannelMap();
         rcm.setChannel(channel);
@@ -366,7 +366,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         String version = "5Server";
         String release = "5.0.0";
         ChannelManagerTest.createReleaseChannelMap(base1, "MAP_OS", version, 
-                release, 'Y');
+                release);
         
         ReleaseChannelMap rcm = ChannelManager.lookupDefaultReleaseChannelMapForChannel(
                 base1);
@@ -380,6 +380,8 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         String release = "5.0.0";
         s = ServerTestUtils.addRedhatReleasePackageToServer(user, s, version, release);
 
+        String release2 = "5.2.0";
+        String release3 = "5.3.0";
         // Create some base channels and corresponding entries in rhnReleaseChannelMap:
         Channel base1 = ChannelFactoryTest.createBaseChannel(user);
         Channel base2 = ChannelFactoryTest.createBaseChannel(user);
@@ -390,9 +392,9 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         ChannelFactoryTest.createBaseChannel(user);
         
         ChannelManagerTest.createReleaseChannelMap(base1, 
-                ChannelManager.RHEL_PRODUCT_NAME, version, release, 'N');
+                ChannelManager.RHEL_PRODUCT_NAME, version, release2);
         ChannelManagerTest.createReleaseChannelMap(base2, 
-                ChannelManager.RHEL_PRODUCT_NAME, version, release, 'N');
+                ChannelManager.RHEL_PRODUCT_NAME, version, release3);
         
         List<EssentialChannelDto> channels = ChannelManager.listBaseChannelsForSystem(
                 user, s);
@@ -410,18 +412,16 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         // Create some base channels and corresponding entries in rhnReleaseChannelMap:
         Channel base1 = ChannelFactoryTest.createBaseChannel(user);
         Channel base2 = ChannelFactoryTest.createBaseChannel(user);
-        // not sure why we create this third one, but I'll leave it here.
-        // jesusr 2007/11/15
         ChannelFactoryTest.createBaseChannel(user);
+        
         ChannelManagerTest.createReleaseChannelMap(base1, 
-                ChannelManager.RHEL_PRODUCT_NAME, version, release, 'N');
+                ChannelManager.RHEL_PRODUCT_NAME, version, "5.0.1");
         ChannelManagerTest.createReleaseChannelMap(base2, 
-                ChannelManager.RHEL_PRODUCT_NAME, version, release, 'N');
+                ChannelManager.RHEL_PRODUCT_NAME, version, "5.0.2");
         
         List<EssentialChannelDto> channels = ChannelManager.
             listBaseEusChannelsByVersionReleaseAndChannelArch(user, version, release, 
                     base1.getChannelArch().getId());
-        
         assertTrue(channels.size() >= 2);
     }
     
@@ -440,9 +440,9 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         // jesusr 2007/11/15
         ChannelFactoryTest.createBaseChannel(user);
         ChannelManagerTest.createReleaseChannelMap(base1, 
-                ChannelManager.RHEL_PRODUCT_NAME, version, release, 'N');
+                ChannelManager.RHEL_PRODUCT_NAME, version, release);
         ChannelManagerTest.createReleaseChannelMap(base2, 
-                ChannelManager.RHEL_PRODUCT_NAME, version, release2, 'Y');
+                ChannelManager.RHEL_PRODUCT_NAME, version, release2);
         
         EssentialChannelDto channel = ChannelManager.
             lookupLatestEusChannelForRhelVersion(user, version, 
@@ -462,14 +462,14 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         Channel base1 = ChannelFactoryTest.createBaseChannel(user);
         Channel base2 = ChannelFactoryTest.createBaseChannel(user);
         ChannelManagerTest.createReleaseChannelMap(base1, TEST_OS, version, 
-                release, 'N');
+                release);
         ChannelManagerTest.createReleaseChannelMap(base2, TEST_OS, version, 
-                release2, 'N');
+                release2);
         
         EssentialChannelDto channel = ChannelManager.
             lookupLatestEusChannelForRhelVersion(user, version, 
                     base1.getChannelArch().getId());
-        assertNull(channel);
+        assertEquals(base2.getId(), channel.getId());
     }
     
     public void testIsChannelFree() throws Exception {
