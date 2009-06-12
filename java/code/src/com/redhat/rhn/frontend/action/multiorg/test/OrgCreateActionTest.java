@@ -51,7 +51,7 @@ public class OrgCreateActionTest extends RhnMockStrutsTestCase {
         actionPerform();
         String[] errors =  {"errors.required", "errors.required", 
                 "errors.required", "errors.required", "errors.required", "errors.required"};
-        verifyActionMessages(errors);
+        verifyActionErrors(errors);
     }
     
     public void testCreateDupeUser() throws Exception {
@@ -69,7 +69,7 @@ public class OrgCreateActionTest extends RhnMockStrutsTestCase {
         addRequestParameter("prefix", "Mr.");
         setRequestPathInfo("/admin/multiorg/OrgCreate");
         actionPerform();
-        verifyActionMessage("error.login_already_taken");
+        verifyActionErrors(new String[]{"error.login_already_taken"});
     }
     
 }
