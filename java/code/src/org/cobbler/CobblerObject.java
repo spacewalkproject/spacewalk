@@ -366,6 +366,10 @@ public abstract class CobblerObject {
     private Map<String, Object> parseKernelOpts(String kernelOpts) {
         Map<String, Object> toRet = new HashMap<String, Object>();
 
+        if (StringUtils.isEmpty(kernelOpts)) {
+            return toRet;
+        }
+
         String[] options = StringUtils.split(kernelOpts);
         for (String option : options) {
             String[] split = option.split("=");
