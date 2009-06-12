@@ -22,7 +22,7 @@ import string
 import re
 import sys
 
-from common import rhnFault, rhn_rpm
+from common import rhnFault, rhn_rpm, CFG
 from server import rhnSQL, rhnChannel, taskomatic
 from importLib import Diff, Package, IncompletePackage, Erratum, \
         AlreadyUploadedError, InvalidPackageError, TransactionError, \
@@ -684,6 +684,11 @@ class Backend:
     def processPackages(self, packages, uploadForce=0, ignoreUploaded=0,
                 forceVerify=0, transactional=0):
         # Insert/update the packages
+
+        tbs = self.tables['rhnPackage']
+        if CFG.ENABLE_NVREA:
+            # Add md5sum as a primarykey if nevra is enabled
+            tbs.pk.append('md5sum')
 
         childTables = {
             'rhnPackageProvides':   'package_id', 
