@@ -90,7 +90,7 @@ public class KickstartPartitionActionTest extends RhnMockStrutsTestCase {
         assertTrue(formval.length() > 0);
         
         String[] keys = {"kickstart.partition.duplicate"};
-        verifyActionMessages(keys);
+        verifyActionErrors(keys);
     }
     
     public void testMultipleSwapsSubmit() throws Exception {

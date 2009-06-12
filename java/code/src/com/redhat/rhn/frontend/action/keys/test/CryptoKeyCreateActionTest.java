@@ -50,7 +50,7 @@ public class CryptoKeyCreateActionTest extends RhnMockStrutsTestCase {
         actionPerform();
         assertNotNull(request.getAttribute(CryptoKeyCreateAction.KEY));
         String[] keys = {"crypto.key.nokey"};
-        verifyActionMessages(keys);
+        verifyActionErrors(keys);
     }
 
     public void testEdit() throws Exception {
@@ -67,7 +67,7 @@ public class CryptoKeyCreateActionTest extends RhnMockStrutsTestCase {
                 key.getId().toString());
         actionPerform();
         String[] keys = {"crypto.key.nokey"};
-        verifyActionMessages(keys);
+        verifyActionErrors(keys);
     }
 }
 
