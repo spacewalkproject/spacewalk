@@ -2300,11 +2300,8 @@ public class ChannelManager extends BaseManager {
         if (dr.size() == 0) {
             return null;
         }
-        else if (dr.size() > 1) {
-            throw new LookupException(
-                    "Found multiple default EUS channels for RHEL version.");
-        }
-        return (EssentialChannelDto)dr.get(0);
+        Collections.sort(dr);
+        return (EssentialChannelDto) dr.get(dr.size() - 1);
     }
     
     /**

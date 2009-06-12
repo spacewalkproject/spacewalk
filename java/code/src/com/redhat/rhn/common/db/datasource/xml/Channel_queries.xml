@@ -840,6 +840,7 @@ SELECT  C.id, C.name, C.label, 1 AS IS_CUSTOM
         select unique c.id,
                c.label,
                c.name,
+               rcm.release,
                0 AS IS_CUSTOM
         from
             rhnChannelPermissions cp,

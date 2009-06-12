@@ -21,13 +21,15 @@ import com.redhat.rhn.domain.channel.Channel;
  * EssentialChannelDto
  * @version $Rev$
  */
-public class EssentialChannelDto extends BaseDto {
+public class EssentialChannelDto extends BaseDto 
+        implements Comparable<EssentialChannelDto> {
 
     private Long id;
     private Long ownerId;
     private String name;
     private String label;
     private boolean isCustom;
+    private String release;
     
     /**
      * Constructor
@@ -46,6 +48,22 @@ public class EssentialChannelDto extends BaseDto {
         setLabel(c.getLabel());
     }
     
+    /**
+     * get release
+     * @return the release
+     */
+    public String getRelease() {
+        return release;
+    }
+
+    /**
+     * set release
+     * @param releaseIn the release
+     */
+    public void setRelease(String releaseIn) {
+        this.release = releaseIn;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -131,6 +149,15 @@ public class EssentialChannelDto extends BaseDto {
      */
     public void setOwnerId(Long ownerIdIn) {
         this.ownerId = ownerIdIn;
+    }
+
+    /**
+     * compare to another EssentialChannelDto
+     * @param o the other object
+     * @return the compare
+     */
+    public int compareTo(EssentialChannelDto o) {
+        return this.getRelease().compareTo(o.getRelease());
     }
 
 }
