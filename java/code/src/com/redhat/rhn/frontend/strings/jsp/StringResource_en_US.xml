@@ -17432,14 +17432,7 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
 	</context-group>
       </trans-unit>      
-      
-     <trans-unit id="virtualization.provision.override.jsp.message">
-        <source>The following fields may be left blank (in which case default values as defined in the selected kickstart profile will be used).  Each field may be set individually to override the profile's default value.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
-	</context-group>
-      </trans-unit>
-      
+            
       <trans-unit id="virtualization.provision.first.jsp.storage.local.message1">
         <source>Use the virtual host system's disk space: </source>
         <context-group name="ctx">

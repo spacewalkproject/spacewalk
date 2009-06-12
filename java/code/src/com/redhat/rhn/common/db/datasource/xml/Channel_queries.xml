@@ -817,17 +817,15 @@ SELECT  C.id, C.name, C.label, 1 AS IS_CUSTOM
                c.name,
                0 AS IS_CUSTOM
         from
-            rhnChannelPermissions cp,
-            rhnChannel c,
-            rhnReleaseChannelMap rcm,
-            rhnProductName pn
+            rhnChannelPermissions cp 
+            	inner join rhnChannel c on cp.channel_id = c.id
+            	inner join rhnReleaseChannelMap rcm on rcm.channel_id = c.id  
+            	inner join rhnProductName pn on pn.id = c.product_name_id  
         where
             rcm.release = :release
             and rcm.version = :version
             and rcm.channel_arch_id = :channel_arch_id
-            and rcm.channel_id = c.id
             and cp.org_id = :org_id
-            and pn.id = c.product_name_id
             and pn.label = :product_name_label
             and rhn_channel.loose_user_role_check(c.id, :user_id,
                                                      'subscribe') = 1
