@@ -31,7 +31,6 @@ public class ReleaseChannelMap implements Serializable {
     private String release;
     private ChannelArch channelArch;
     private Channel channel;
-    private char isDefault; // 'Y' or 'N'
     
     /**
      * @return Returns the product.
@@ -104,20 +103,6 @@ public class ReleaseChannelMap implements Serializable {
     }
     
     /**
-     * @return Returns the isDefault.
-     */
-    public char getIsDefault() {
-        return isDefault;
-    }
-    
-    /**
-     * @param isDefaultIn The isDefault to set.
-     */
-    public void setIsDefault(char isDefaultIn) {
-        this.isDefault = isDefaultIn;
-    }
-    
-    /**
      * {@inheritDoc}
      */
     public boolean equals(final Object other) {
@@ -129,7 +114,6 @@ public class ReleaseChannelMap implements Serializable {
             append(getRelease(), castOther.getRelease()).
             append(getVersion(), castOther.getVersion()).
             append(getChannelArch(), castOther.getChannelArch()).
-            append(getIsDefault(), castOther.getIsDefault()).
             append(getChannel(), castOther.getChannel()).isEquals();
     }
 

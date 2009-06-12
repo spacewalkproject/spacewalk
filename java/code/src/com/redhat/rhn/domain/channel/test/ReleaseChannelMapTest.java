@@ -38,7 +38,6 @@ public class ReleaseChannelMapTest extends BaseTestCaseWithUser {
         rcm.setProduct(PRODUCT);
         rcm.setVersion(VERSION);
         rcm.setRelease(RELEASE);
-        rcm.setIsDefault('N');
         TestUtils.saveAndReload(rcm);
     }
 

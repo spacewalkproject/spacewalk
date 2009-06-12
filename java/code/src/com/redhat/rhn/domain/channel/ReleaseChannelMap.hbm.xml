@@ -25,8 +25,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             class="com.redhat.rhn.domain.channel.Channel"
             column="channel_id"/>
             
-        <key-property name="isDefault" type="character" column="is_default"/> 
-
         </composite-id>
         
     </class>

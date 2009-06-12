@@ -358,7 +358,6 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         rcm.setProduct(product);
         rcm.setVersion(version);
         rcm.setRelease(release);
-        rcm.setIsDefault(isDefault);
         TestUtils.saveAndReload(rcm);
     }
     
