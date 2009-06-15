@@ -113,7 +113,7 @@ fi
 
 %changelog
 * Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.9-1
-- 498611 - run restorecon in %posttrans
+- 498611 - run restorecon in %%posttrans
 
 * Wed May 27 2009 Jan Pazdziora 0.6.8-1
 - call to spacewalk-make-mount-points and Require spacewalk-setup for that
@@ -128,7 +128,7 @@ fi
 * Mon May 11 2009 Jan Pazdziora 0.6.4-1
 - spacewalk-selinux-enable: add invocation of other -selinux-enable scripts
 - only run them if --run-pure is not specified
-- use spacewalk-selinux-enable --run-pure in %post
+- use spacewalk-selinux-enable --run-pure in %%post
 - spacewalk-selinux-enable: fix indentation to use tabelators
 
 * Mon May 11 2009 Jan Pazdziora 0.6.3-1
@@ -136,7 +136,7 @@ fi
 
 * Wed Apr 29 2009 Jan Pazdziora 0.6.2-1
 - fix type (double Source0)
-- amend %changelog
+- amend %%changelog
 
 * Fri Apr 24 2009 Jan Pazdziora 0.6.1-1
 - move the %post SELinux activation to /usr/sbin/spacewalk-selinux-enable

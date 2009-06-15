@@ -148,7 +148,7 @@ fi
 - spacewalk_monitoring_conf_t for /etc/NOCpulse.ini (mzazrivec@redhat.com)
 - 501546 - Require tsdb so that /var/log/nocpulse/TSDBLocalQueue already exists when we run restorecon (jpazdziora@redhat.com)
 - 500330 - allow httpd_sys_script_t to bind to loopback as well (jpazdziora@redhat.com)
-- 498611 - run restorecon in %posttrans
+- 498611 - run restorecon in %%posttrans
 
 * Tue May 26 2009 Jan Pazdziora 0.6.8-1
 - 498941 - allow monitoring to connect to ftp

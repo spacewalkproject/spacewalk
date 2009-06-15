@@ -234,10 +234,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 # $Id$
 %changelog
 * Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 5.9.12-1
-498611 - run restorecon in %posttrans
+- 498611 - run restorecon in %%posttrans
 
 * Wed Apr 29 2009 Jan Pazdziora 5.9.11-1
-- move the %post SELinux activation to
+- move the %%post SELinux activation to
   /usr/sbin/osa-dispatcher-selinux-enable
 
 * Fri Mar 27 2009 jesus m. rodriguez <jesusr@redhat.com> 5.9.10-1

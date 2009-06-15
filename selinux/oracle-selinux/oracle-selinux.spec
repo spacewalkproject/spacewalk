@@ -203,13 +203,13 @@ fi
 
 %changelog
 * Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 0.2-1
-- 498611 - run restorecon in %posttrans
+- 498611 - run restorecon in %%posttrans
 
 * Wed Apr 29 2009 Jan Pazdziora 0.1-23.8
 - fix the name of the SELinux enabling script
 
 * Tue Apr 28 2009 Jan Pazdziora 0.1-23.7
-- move the %post SELinux activation of -nofcontext package to
+- move the %%post SELinux activation of -nofcontext package to
   /usr/sbin/oracle-nofcontext-selinux-enable
 
 * Thu Mar 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.1-23.6

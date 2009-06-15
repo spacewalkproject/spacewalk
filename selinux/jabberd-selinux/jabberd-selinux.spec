@@ -106,10 +106,10 @@ rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
 
 %changelog
 * Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 1.4.4-1
-- 498611 - run restorecon in %posttrans
+- 498611 - run restorecon in %%posttrans
 
 * Mon Apr 27 2009 Jan Pazdziora 1.4.3-1
-- move the %post SELinux activation to /usr/sbin/jabberd-selinux-enable
+- move the %%post SELinux activation to /usr/sbin/jabberd-selinux-enable
 - use src.rpm packaging with single Source0
 - bump version up to 1.4.3, to allow 1.4.2 to be used by Satellite 5.3.0
 

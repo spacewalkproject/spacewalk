@@ -141,10 +141,10 @@ fi
 - return version down to 10.2
 
 * Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 10.3-1
-- 498611 - run restorecon in %posttrans
+- 498611 - run restorecon in %%posttrans
 
 * Wed Apr 29 2009 Jan Pazdziora 10.2-10
-- move the %post SELinux activation to /usr/sbin/oracle-xe-enable
+- move the %%post SELinux activation to /usr/sbin/oracle-xe-enable
 
 * Tue Feb 10 2009 Jan Pazdziora 10.2-9
 - added textrel_shlib_t to libdbcfg10.so

@@ -107,7 +107,7 @@ fi
 
 %changelog
 * Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.3-1
-- 498611 - run restorecon in %posttrans
+- 498611 - run restorecon in %%posttrans
 
 * Mon Apr 27 2009 Jan Pazdziora 0.6.2-1
 - move the %post SELinux activation to /usr/sbin/spacewalk-proxy-selinux-enable
