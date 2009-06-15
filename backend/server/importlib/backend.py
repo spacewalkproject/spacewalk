@@ -2015,7 +2015,14 @@ def _buildExternalValue(dict, entry, tableObj):
 def computeDiff(hash1, hash2, diffHash, diffobj, prefix=None):
     # Compare if the key-values of hash1 are a subset of hash2's
     difference = 0
+    ignore_keys = ['last_modified']
+
     for k, v in hash1.items():
+        if k in ignore_keys:
+            # Dont decide the diff based on last_modified
+            # as this obviously wont match due to our db
+            # other triggers.
+            continue
         if hash2[k] == v:
             # Same values
             continue
