@@ -2176,6 +2176,7 @@ sub build_remote_command_form {
 				  label => 'script',
 				  rows => 8,
 				  cols => 80,
+                                  wrap => 'off',
 				  default => "#!/bin/sh\n",
 				  requires => { response => 1 },
 				});
