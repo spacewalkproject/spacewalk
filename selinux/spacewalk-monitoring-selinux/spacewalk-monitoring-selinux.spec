@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        0.6.10
+Version:        0.6.11
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -141,6 +141,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.11-1
+- 498611 - run "semodule -i" in %%post and restorecon in %%posttrans
+
 * Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.10-1
 - 504649 - give /var/tmp/escalator.state context of spacewalk_monitoring_var_lib_t
 - 498611 - Require all monitoring packages so the files already exist when we run restorecon
