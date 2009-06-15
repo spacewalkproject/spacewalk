@@ -97,9 +97,18 @@ elif [ $ORACLE_UID -ge 500 ] ; then
     exit 1
 fi
 
-%posttrans
+%post
 if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/%{name}-enable
+fi
+
+%posttrans
+#this may be safely remove when BZ 505066 is fixed
+if /usr/sbin/selinuxenabled ; then
+  # Relabel oracle-xe-univ's files
+  rpm -ql oracle-xe-univ | xargs -n 100 /sbin/restorecon -Rivv
+  # Fix up additional directories, not owned by oracle-xe-univ
+  /sbin/restorecon -Rivv %extra_restorecon
 fi
 
 %postun

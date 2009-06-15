@@ -114,7 +114,7 @@ install -p -m 755 SELinux/oracle-nofcontext-selinux-enable %{buildroot}%{_sbindi
 %clean
 rm -rf %{buildroot}
 
-%posttrans
+%post
 # Install SELinux policy modules
 for selinuxvariant in %{selinux_variants}
   do
@@ -132,9 +132,26 @@ test ${SEPORT_STATUS} -lt 1 && semanage port -a -t oracle_port_t -p tcp 1521 || 
 /sbin/restorecon -R -v /etc || :
 /sbin/restorecon -R -v /var/tmp || :
 
-%posttrans -n oracle-nofcontext-selinux
+%posttrans
+#this may be safely removed when BZ 505066 is fixed
+if /usr/sbin/selinuxenabled ; then
+  # Fix up non-standard file contexts
+  /sbin/restorecon -R -v %{oracle_base} || :
+  /sbin/restorecon -R -v /u0? || :
+  /sbin/restorecon -R -v /etc || :
+  /sbin/restorecon -R -v /var/tmp || :
+fi
+
+%post -n oracle-nofcontext-selinux
 if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/oracle-nofcontext-selinux-enable
+fi
+
+%posttrans -n oracle-nofcontext-selinux
+if /usr/sbin/selinuxenabled ; then
+  # add an oracle port if it does not already exist
+  SEPORT_STATUS=`semanage port -l | grep -c ^oracle`
+  test ${SEPORT_STATUS} -lt 1 && semanage port -a -t oracle_port_t -p tcp 1521 || :
 fi
 
 %postun

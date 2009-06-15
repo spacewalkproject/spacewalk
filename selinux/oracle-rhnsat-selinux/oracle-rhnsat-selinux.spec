@@ -74,9 +74,18 @@ install -p -m 755 %{name}-%{version}/%{name}-enable %{buildroot}%{_sbindir}/%{na
 %clean
 rm -rf %{buildroot}
 
-%posttrans
+%post
 if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/%{name}-enable
+fi
+
+%posttrans
+#this may be safely removed when BZ 505066 is fixed
+if /usr/sbin/selinuxenabled ; then
+  # Fix up oracle-server-arch files
+  rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 /sbin/restorecon -Riv
+  # Fix up database files
+  /sbin/restorecon -rvi /rhnsat /var/tmp/.oracle || :
 fi
 
 %postun

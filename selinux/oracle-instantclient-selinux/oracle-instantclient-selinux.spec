@@ -68,9 +68,15 @@ EOS
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%posttrans
+%post
 if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/%{name}-enable
+fi
+
+%posttrans
+#this may be safely remove when BZ 505066 is fixed
+if /usr/sbin/selinuxenabled ; then
+	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
 fi
 
 %postun
@@ -82,9 +88,15 @@ if [ $1 -eq 0 ]; then
 	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
 fi
 
-%posttrans -n oracle-instantclient-sqlplus-selinux
+%post -n oracle-instantclient-sqlplus-selinux
 if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/oracle-instantclient-sqlplus-selinux-enable
+fi
+
+%posttrans -n oracle-instantclient-sqlplus-selinux
+#this may be safely remove when BZ 505066 is fixed
+if /usr/sbin/selinuxenabled ; then
+	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
 fi
 
 %postun -n oracle-instantclient-sqlplus-selinux

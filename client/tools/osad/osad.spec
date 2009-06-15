@@ -156,9 +156,16 @@ if [ $1 = 0 ]; then
 fi
 
 %if %{include_selinux_package}
-%posttrans -n osa-dispatcher-selinux
+%post -n osa-dispatcher-selinux
 if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/osa-dispatcher-selinux-enable
+fi
+
+%posttrans -n osa-dispatcher-selinux
+#this may be safely remove when BZ 505066 is fixed
+if /usr/sbin/selinuxenabled ; then
+  rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
+  /sbin/restorecon -vvi /var/log/rhn/osa-dispatcher.log
 fi
 
 %postun -n osa-dispatcher-selinux
