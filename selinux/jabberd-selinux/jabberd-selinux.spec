@@ -7,7 +7,7 @@
 %define modulename jabber
 
 Name:           jabberd-selinux
-Version:        1.4.4
+Version:        1.4.5
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting jabberd
 
@@ -105,6 +105,9 @@ rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 1.4.5-1
+- 498611 - run "semodule -i" in %%post and restorecon in %%posttrans
+
 * Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 1.4.4-1
 - 498611 - run restorecon in %%posttrans
 
