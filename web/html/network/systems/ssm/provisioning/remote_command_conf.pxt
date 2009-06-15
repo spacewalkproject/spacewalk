@@ -30,7 +30,7 @@
   </tr>
   <tr>
     <th>Script:</th>
-    <td><pre>{formvar:script}</pre></td>
+    <td><textarea cols="80" rows="8" readonly wrap="off">{formvar:script}</textarea></td>
   </tr>
 </table>
 </pxt-formvar>
