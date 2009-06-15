@@ -108,9 +108,16 @@ install -p -m 755 %{name}-enable %{buildroot}%{_sbindir}/%{name}-enable
 %clean
 rm -rf %{buildroot}
 
-%posttrans
+%post
 if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/%{name}-enable
+fi
+
+%posttrans
+#this may be safely remove when BZ 505066 is fixed
+if /usr/sbin/selinuxenabled ; then
+  /sbin/restorecon -rv /etc/rc.d/np.d /etc/notification /var/lib/nocpulse /var/lib/notification /var/log/nocpulse
+  /sbin/restorecon -rvi /var/log/SysVStep.* /var/run/SysVStep.*
 fi
 
 %postun

@@ -76,9 +76,14 @@ install -p -m 755 %{name}-enable %{buildroot}%{_sbindir}/%{name}-enable
 %clean
 rm -rf %{buildroot}
 
-%posttrans
+%post
 if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/%{name}-enable
+fi
+
+%posttrans
+if /usr/sbin/selinuxenabled ; then
+  /sbin/restorecon -rvvi /var/log/rhn /var/cache/rhn/proxy-auth /var/spool/rhn-proxy
 fi
 
 %postun

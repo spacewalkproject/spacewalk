@@ -70,9 +70,16 @@ install -p -m 755 %{name}-enable %{buildroot}%{_sbindir}/%{name}-enable
 %clean
 rm -rf %{buildroot}
 
-%posttrans
+%post
 if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/%{name}-enable
+fi
+
+%posttrans
+#this may be safely remove when BZ 505066 is fixed
+if /usr/sbin/selinuxenabled ; then
+  rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
+  /sbin/restorecon -ri /var/run/jabberd || :
 fi
 
 %postun

@@ -79,9 +79,16 @@ install -p -m 755 %{name}-enable %{buildroot}%{_sbindir}/%{name}-enable
 %clean
 rm -rf %{buildroot}
 
-%posttrans
+%post
 if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/%{name}-enable --run-pure
+fi
+
+%posttrans
+#this may be safely remove when BZ 505066 is fixed
+if /usr/sbin/selinuxenabled ; then
+  /sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl /usr/sbin/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn \
+        /usr/bin/rhn-sudo-ssl-tool /usr/bin/rhn-sudo-load-ssl-cert
 fi
 
 %postun
