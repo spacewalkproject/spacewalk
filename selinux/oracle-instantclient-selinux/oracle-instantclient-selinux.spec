@@ -1,7 +1,7 @@
 
 Name:		oracle-instantclient-selinux
 Version:	10.2
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	SELinux support for Oracle Instant Client
 Group:		System Environment/Base
 License:	GPLv2+
@@ -114,6 +114,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-instantclient-sqlplus-selinux-enable
 
 %changelog
+* Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 10.2-15
+- 498611 - run "semodule -i" in %%post and restorecon in %%posttrans
+
 * Thu Jun 11 2009 Miroslav Suchy <msuchy@redhat.com> 10.2-14
 - return version down to 10.2
 
