@@ -367,7 +367,8 @@ SSL_BUILD_DIR=${SSL_BUILD_DIR:-"/root/ssl-build"}
 
 if [ -n "$SSL_PASSWORD" ] ; then
         # use SSL_PASSWORD if already set
-        RHNSSLTOOLPWD="--password '$SSL_PASSWORD'"
+        RHN_SSL_TOOL_PASSWORD_OPTION="--password"
+		RHN_SSL_TOOL_PASSWORD="$SSL_PASSWORD"
 elif [ "$INTERACTIVE" = "0" ] ; then
         # non-interactive mode but no SSL_PASSWORD :(
         config_error 4 "Please define SSL_PASSWORD."
@@ -384,7 +385,7 @@ if [ ! -f $SSL_BUILD_DIR/RHN-ORG-PRIVATE-SSL-KEY ]; then
                 --set-org="$SSL_ORG" \
                 --set-org-unit="$SSL_ORGUNIT" \
                 --set-email="$SSL_EMAIL" \
-                $RHNSSLTOOLPWD
+                $RHN_SSL_TOOL_PASSWORD_OPTION $RHN_SSL_TOOL_PASSWORD
 	config_error $? "CA certificate generation failed!"
 else
 	echo "Using CA key at $SSL_BUILD_DIR/RHN-ORG-PRIVATE-SSL-KEY."
@@ -414,7 +415,7 @@ echo "Generating SSL key and public certificate:"
                 --set-org="$SSL_ORG" \
                 --set-org-unit="$SSL_ORGUNIT" \
                 --set-email="$SSL_EMAIL" \
-                $RHNSSLTOOLPWD
+                $RHN_SSL_TOOL_PASSWORD_OPTION $RHN_SSL_TOOL_PASSWORD
 config_error $? "SSL key generation failed!"
 
 echo "Installing SSL certificate for Apache and Jabberd:"
