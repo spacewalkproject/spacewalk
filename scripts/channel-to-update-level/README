@@ -1,7 +1,7 @@
 Create channel to update level
  	by Justin Sherrill (jsherril@redhat.com)
 
-This script can create a channel to a specific update level (i.e. RHEL4u3) or upgrade an existing channel to a higher update level on an RHN Satellite.
+This script can create a channel to a specific update level (i.e. RHEL4u3) or upgrade an existing channel to a higher update level on an RHN Satellite or Spacewalk server.
 
 For help, simply run ./create-channel-update --help
 
@@ -22,6 +22,18 @@ Add the extra's channel as a child channel of 'my-stable-channel':
 ./create-channel-update  -l admin -s myserver.example.com -v 4 -u u4 -r AS -a i386 -e extras  -p my-stable-channel
 
 
+Skip List
+---------
+
+If you would like to create a channel at a specific version with the exception of certain packages (kernel, bash, etc..)
+   simply create a file ('skiplist.txt') and with the names of the packages such as:
+
+kernel
+kernel-smp
+bash
+
+then simply pass the  '--skiplist=skiplist.txt' option when running the command.  All packages from the specified release will
+	be copied to the channel except for those in the skip list.
 
 
 In addition to the script, you should find in this directory:
@@ -31,6 +43,10 @@ README  - This file
 
 Changelog:
 -----------
+6/14/09 - 2.1 
+- Reimplemented option parsing
+- adding --clone option for when creating channel
+- added --skiplist option for a package skiplist
 
 03/06/09 - 2.0-beta
 - Rewrite in python, supporting command line arguments.  
