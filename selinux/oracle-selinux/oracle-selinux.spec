@@ -19,7 +19,7 @@
 %endif
 
 Name:            oracle-selinux
-Version:         0.2
+Version:         0.3
 Release:         1%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
@@ -202,6 +202,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 0.3-1
+- 498611 - run "semodule -i" in %%post and restorecon in %%posttrans
+
 * Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 0.2-1
 - 498611 - run restorecon in %%posttrans
 
