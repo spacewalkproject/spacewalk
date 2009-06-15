@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.12
+Version: 5.9.13
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -233,8 +233,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
-* Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 5.9.12-1
+* Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 5.9.13-1
 - 498611 - run restorecon in %%posttrans
+- 498611 - run "semodule -i" in %%post and restorecon in %%posttrans
 
 * Wed Apr 29 2009 Jan Pazdziora 5.9.11-1
 - move the %%post SELinux activation to
