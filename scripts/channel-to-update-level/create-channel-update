@@ -61,6 +61,7 @@ def get_args():
    parser.add_option("-d", "--destChannel", action="store", dest="dest_channel", help='the label of the destintation channel to push the packages to (will be created if not existing)')
    parser.add_option("-P", "--parentChannel", action="store", dest="parent_channel", default="", help='if specified, and --destChannel does not exist, --destChannel will be created with this parent')
    parser.add_option("-L", "--clone", action="store_true", dest="clone", default=False, help='if creating destChannel, clone it from the source channel, before adding packages (Satellite 5.1 or newer required)')
+   parser.add_option("-K", "--skiplist", action="store", dest="skiplist", help="a filename with a list of package names to ignore when adding to the destination channel")
    parser.add_option("-g", "--gather", action="store_true", dest="gather", default=False , help='used to gather data files, generally not useful to most people')
    parser.add_option("-b", "--bundle", action="store", dest="bundle", default='50', help='if you are getting "502 proxy" errors, try using a smaller value (default 50)')
 
@@ -161,10 +162,15 @@ def main():
    if clone and client.api.getVersion() < 5.1:
       print "--clone cannot be used with a Satellite version older than 5.1"
    auth = client.auth.login(user, password)
-   populate(client, auth, srcChanLabel, newChannelLabel, filename, parent, clear)
+
+   skiplist = []
+   if options.skiplist:
+      skiplist = read_skip_list(options.skiplist)
+  
+   populate(client, auth, srcChanLabel, newChannelLabel, filename, parent, clear, skiplist=skiplist)
 
 
-def populate(client, auth, srcChannel, newChannel, filename, parent, clear):
+def populate(client, auth, srcChannel, newChannel, filename, parent, clear, skiplist=[]):
      
    chanList = client.channel.listSoftwareChannels(auth)
   
@@ -209,19 +215,25 @@ def populate(client, auth, srcChannel, newChannel, filename, parent, clear):
    fileList = map(str.strip, open(DATA_DIR + filename).readlines())
    fileList.sort()
    pack_num = 0
+   skip_num = 0
    ids_to_add = []
 
    print(str(len(fileList)) + " packages in source file to push.")  
    
    #for each filename, go through the src package list and find the package id
    for rpm in fileList:
-      nvre_to_push = splitFilename(rpm) 
+      nvre_to_push = splitFilename(rpm)
       for src_pack in existing_packs:
          if (nvre_to_push == splitPackage(src_pack)):
+            if src_pack['name'] in skiplist:
+               skip_num = skip_num + 1
+               continue
             pack_num = pack_num + 1
             ids_to_add.append(getPackageAttr(src_pack, 'id'))
             break
    print("Pushing " + str(pack_num) + " packages, please wait.")
+   if len(skiplist) > 0:
+      print("Skipping " + str(skip_num) + " packages based off of skip list")
 
    while len(ids_to_add) > 0:
       print '%d of %d' % (pack_num-len(ids_to_add), pack_num),
@@ -235,7 +247,13 @@ def populate(client, auth, srcChannel, newChannel, filename, parent, clear):
    print("Sucessfully pushed " + str(pack_num) + " packages out of "+ str(len(fileList)))
 
 
-
+def read_skip_list(filename):
+   if not os.path.exists(filename):
+      print("Specified skip list " + filename + " does not exist!")
+      sys.exit(1)
+   nameList = map(str.strip, open(filename).readlines())
+   print nameList
+   return nameList
 
 def clearChannel(label, packages, client, auth):
       ids_to_remove = []
