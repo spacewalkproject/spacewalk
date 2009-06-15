@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.6.3
+Version: 0.6.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -288,6 +288,9 @@ fi
 
 
 %changelog
+* Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.4-1
+- 503187 - close tag
+
 * Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.3-1
 - 503187 - set MaxRequestsPerChild to 200 (Proxy CLI)
 
