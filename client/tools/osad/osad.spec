@@ -156,7 +156,7 @@ if [ $1 = 0 ]; then
 fi
 
 %if %{include_selinux_package}
-%post -n osa-dispatcher-selinux
+%posttrans -n osa-dispatcher-selinux
 if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/osa-dispatcher-selinux-enable
 fi
