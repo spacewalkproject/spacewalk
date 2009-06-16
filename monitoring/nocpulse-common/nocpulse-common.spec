@@ -65,8 +65,8 @@ install -m 755 npConfigValue $RPM_BUILD_ROOT%{_bindir}/
 # change nocpulse user & group to system user & group if needed
 dirs="/home/nocpulse /opt/notification /opt/nocpulse /var/log/nocpulse /var/www/templates /var/tmp"
 
-if [ -d /home/nocpulse -a `id -u nocpulse 2> /dev/null` -ge 500 ]; then
-	if [ `id -g nocpulse` -ge 500 ]; then
+if [ -d /home/nocpulse -a 0`id -u nocpulse 2> /dev/null` -ge 500 ]; then
+	if [ 0`id -g nocpulse` -ge 500 ]; then
 		groupmod -n nocpulse-old nocpulse
 		groupadd -r nocpulse
 		usermod -g nocpulse nocpulse
