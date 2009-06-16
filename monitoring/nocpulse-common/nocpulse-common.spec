@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.1.14
+Version:      2.1.15
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -136,6 +136,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Jun 16 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.15-1
+- fix problem when nocpulse user do not exist
+
 * Wed Jun 03 2009 Milan Zazrivec <mzazrivec@redhat.com> 2.1.14-1
 - switch nocpulse to a system user if needed
 
