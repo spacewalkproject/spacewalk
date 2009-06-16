@@ -5,7 +5,7 @@ Name: rhn-kickstart
 Group: System Environment/Kernel
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Version: 0.2.2
+Version: 5.3.0
 Release: 1%{?dist}
 BuildArch: noarch
 BuildRequires: python
