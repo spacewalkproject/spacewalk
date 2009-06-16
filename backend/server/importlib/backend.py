@@ -1122,16 +1122,10 @@ class Backend:
 
     def processChannelProduct(self, channel):
         """ Associate product with channel """
-        # this should be probably done for others products as well
-        # well this is just temporary workaround
-        # can be safely removed when BZ 412201 is fixed
-        if channel['product_name'] == 'proxy':
-	    m = re.match(r'Red Hat Network Proxy \(v(\d+.\d+) .+\)', channel['name'])
-            channel['channel_product'] = channel['product_name']
-            channel['channel_product_version'] = m.group(1)
-            channel['channel_product_beta'] = 'N'
-        # end of safe remove in future
 
+        channel['channel_product'] = channel['product_name']
+        channel['channel_product_version'] = channel['product_version']
+        channel['channel_product_beta'] = channel['product_beta']
         channel['channel_product_id'] = self.lookupChannelProduct(channel)
 
         statement = self.dbmodule.prepare("""

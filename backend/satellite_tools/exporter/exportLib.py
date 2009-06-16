@@ -222,6 +222,13 @@ class _ChannelDumper(BaseRowDumper):
         arr.append(SimpleDumper(self._writer, 'rhn-channel-last-modified', 
             _dbtime2timestamp(self._row['last_modified']))
         )
+        channel_product_details = self._get_channel_product_details()
+        arr.append(SimpleDumper(self._writer, 'rhn-channel-product-name',
+            channel_product_details[0]))
+        arr.append(SimpleDumper(self._writer, 'rhn-channel-product-version',
+            channel_product_details[1]))
+        arr.append(SimpleDumper(self._writer, 'rhn-channel-product-beta',
+            channel_product_details[2]))
 
         h = rhnSQL.prepare(self._query_channel_families)
         h.execute(channel_id=channel_id)
@@ -305,6 +312,34 @@ class _ChannelDumper(BaseRowDumper):
         ks_trees = map(lambda x: x['label'], h.fetchall_dict() or [])
         ks_trees.sort()
         return ks_trees
+
+    _query_get_channel_product_details = rhnSQL.Statement("""
+        select cp.product as name,
+               cp.version as version,
+               cp.beta
+        from rhnChannel c,
+             rhnChannelProduct cp
+        where c.id = :channel_id
+          and c.channel_product_id = cp.id
+    """)
+
+    def _get_channel_product_details(self):
+        """
+        Export rhnChannelProduct table content through ChannelDumper
+
+        return a tuple containing (product name, product version, beta status)
+        or (None, None, None) if the information is missing
+        """
+
+        channel_id = self._row['id']
+
+        h = rhnSQL.prepare(self._query_get_channel_product_details)
+        h.execute(channel_id=channel_id)
+        row = h.fetchone_dict()
+        if not row:
+            return (None, None, None)
+        else:
+            return (row['name'], row['version'], row['beta'])
 
 class ChannelSourcePackagesDumper(BaseDumper):
     # Dumps the erratum id and the last modified for an erratum in this
