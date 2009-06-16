@@ -162,6 +162,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Jun 16 2009 Brad Buckingham <bbuckingham@redhat.com> 5.3.0-1
+- bumping version (bbuckingham@redhat.com)
+- 470335 - Fixed the name error where the class was not called from cPickle
+  (pkilambi@redhat.com)
+
 * Fri May 01 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.2-1
 - wrap long description lines (msuchy@redhat.com)
 - point URL to fedorahosted.org (msuchy@redhat.com)
