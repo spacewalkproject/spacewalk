@@ -107,6 +107,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Jun 16 2009 Brad Buckingham <bbuckingham@redhat.com> 5.3.0-1
+- bumping version (bbuckingham@redhat.com)
+
 * Thu Jan 22 2009 Dennis Gilmore <dennis@ausil.us> 0.2.2-1
 - BuildRequires python
 
