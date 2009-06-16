@@ -162,6 +162,12 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Jun 16 2009 Brad Buckingham <bbuckingham@redhat.com> 5.4.0-1
+- bumping version (bbuckingham@redhat.com)
+- 502902 - If xend is not running instead of returning an empty list return an
+  empty dict and let the registration and profile sync warn instead of failing
+  (pkilambi@redhat.com)
+
 * Tue May 26 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.1-1
 - 470335 - Fixed the name error where the class was not called from cPickle
   (pkilambi@redhat.com)
