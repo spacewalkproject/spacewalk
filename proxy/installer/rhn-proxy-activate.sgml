@@ -65,6 +65,7 @@
 <para>
     Without any command specified, this script will activate Spacewalk Proxy.
     For other possibility see COMMANDS section.
+</para>
 </RefSect1>
 
 <RefSect1><Title>COMMANDS</Title>
@@ -81,6 +82,7 @@
             <para>List available versions of RHN Proxy on parent.</para>
         </listitem>
     </varlistentry>
+</variablelist>
 </RefSect1>
 
 <RefSect1><Title>Options</Title>
