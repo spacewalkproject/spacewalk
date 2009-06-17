@@ -781,10 +781,11 @@ SELECT  C.id, C.name, C.label, 1 AS IS_CUSTOM
 
 <mode name="base_eus_channels_by_version_release_server_arch"
      class="com.redhat.rhn.frontend.dto.EssentialChannelDto">
-  <query params="product_name_label, version, release, server_arch, user_id, org_id">
+  <query params="product_name_label, version, server_arch, user_id, org_id">
         select unique c.id,
                c.label,
                c.name,
+               rcm.release,
                0 AS IS_CUSTOM
         from
             rhnChannelPermissions cp,
@@ -794,41 +795,18 @@ SELECT  C.id, C.name, C.label, 1 AS IS_CUSTOM
             rhnReleaseChannelMap rcm,
             rhnProductName pn
         where
-            rcm.release >= :release
-            and rcm.version = :version
+            rcm.version = :version
             and scac.server_arch_id = sa.id
             and sa.label = :server_arch
             and scac.channel_arch_id = rcm.channel_arch_id
             and rcm.channel_id = c.id
+            and cp.channel_id = c.id
             and cp.org_id = :org_id
             and pn.id = c.product_name_id
             and pn.label = :product_name_label
             and rhn_channel.loose_user_role_check(c.id, :user_id,
                                                      'subscribe') = 1
         order by c.name
-  </query>
-</mode>
-
-<mode name="base_eus_channels_by_version_release_channel_arch"
-     class="com.redhat.rhn.frontend.dto.EssentialChannelDto">
-  <query params="product_name_label, version, release, channel_arch_id, user_id, org_id">
-        select unique c.id,
-               c.label,
-               c.name,
-               0 AS IS_CUSTOM
-        from
-            rhnChannelPermissions cp 
-            	inner join rhnChannel c on cp.channel_id = c.id
-            	inner join rhnReleaseChannelMap rcm on rcm.channel_id = c.id  
-            	inner join rhnProductName pn on pn.id = c.product_name_id  
-        where
-            rcm.release = :release
-            and rcm.version = :version
-            and rcm.channel_arch_id = :channel_arch_id
-            and cp.org_id = :org_id
-            and pn.label = :product_name_label
-            and rhn_channel.loose_user_role_check(c.id, :user_id,
-                                                     'subscribe') = 1
   </query>
 </mode>
 
@@ -848,7 +826,8 @@ SELECT  C.id, C.name, C.label, 1 AS IS_CUSTOM
         where
             rcm.version = :version
             and rcm.channel_arch_id = :channel_arch_id
-            and rcm.channel_id = c.id            
+            and rcm.channel_id = c.id
+            and cp.channel_id = c.id
             and cp.org_id = :org_id
             and pn.id = c.product_name_id
             and pn.label = :product_name_label
@@ -1023,6 +1002,21 @@ SELECT CP.package_id, CP.name_id, CP.evr_id, CP.package_arch_id
  WHERE CP.channel_id = :cid
    AND CP.name_id = PN.id
    AND PN.name = :name
+    </query>
+</mode>
+
+<mode name="latest_package_equal_in_tree">
+    <query params="cid, name">
+SELECT CP.package_id, CP.name_id, CP.evr_id, CP.package_arch_id
+  FROM rhnPackageName PN inner join
+               rhnChannelNewestPackage CP on CP.name_id = PN.id inner join
+               rhnChannel C on C.id = Cp.channel_id  inner join
+               rhnPackage P on P.id = CP.package_id inner join
+               rhnPackageEvr EVR on P.evr_id = EVR.id
+ WHERE ( C.id = :cid or C.parent_channel = :cid)
+   AND PN.name = :name
+   AND C.label not like '%beta%'
+   order by EVR.evr DESC
     </query>
 </mode>
 
