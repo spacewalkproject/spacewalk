@@ -20,7 +20,6 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.action.channel.BaseChannelTreeAction;
 import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -39,8 +38,8 @@ public class ChannelProvideAction extends BaseChannelTreeAction {
         
         Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);
         //grab the trusted org id passed in
-        Org provideOrg = OrgFactory.lookupById(oid);        
-        User user = UserFactory.findRandomOrgAdmin(provideOrg);
+        Org provideOrg = OrgFactory.lookupById(oid);
+        User user = requestContext.getCurrentUser();
         Org org = requestContext.getCurrentUser().getOrg();
         
         /* reverse thinking here, the providing org becomes the supply org for query
