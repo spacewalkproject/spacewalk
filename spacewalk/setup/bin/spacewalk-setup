@@ -243,7 +243,21 @@ sub remove_old_jvm {
 sub setup_cobbler {
   my $opts = shift;
   my $answers = shift;
-  my $status = system(COBBLER_COMMAND);
+  if ($opts{'enable-tftp'}) {
+    $answers{'enable-tftp'} = $opts{'enable-tftp'};
+  }  
+  if ($answers{'enable-tftp'} =~ /^[Yy]/ ) {
+      system(COBBLER_COMMAND . " --enable-tftp=yes");
+  }
+  elsif ($answers{'enable-tftp'}) {
+      system(COBBLER_COMMAND . " --enable-tftp=no");
+  }
+  elsif ($opts{"non-interactive"}) {
+      system(COBBLER_COMMAND . " --enable-tftp=yes");
+  }
+  else {
+      system(COBBLER_COMMAND);
+  }  
 }
 
 sub setup_admin_email {
