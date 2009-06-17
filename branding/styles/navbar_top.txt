@@ -15,9 +15,7 @@ class="navPipe">|</span> <a href="rhn/">Documentation</a></p>
          <span class="label">User:</span> <a
 href="/rhn/account/UserDetails.do">[login]</a><span
 class="navPipe">|</span>
-        <span class="label">Organization:</span> <a
-href="/rhn/admin/multiorg/OrgDetails.do?oid=[oid]">[org]</a><span
-class="navPipe">|</span>
+        <span class="label">Organization:</span> <a>[org]</a><span class="navPipe">|</span>
 <a href="/rhn/account/UserPreferences.do">Preferences</a><span
 class="navPipe">|</span><a href="/rhn/Logout.do"><span>Sign Out</span></a>
 
