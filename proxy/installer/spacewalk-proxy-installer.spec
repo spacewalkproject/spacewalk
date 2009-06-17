@@ -42,6 +42,10 @@ Run configure-proxy.sh after installation to configure proxy.
 /usr/bin/gzip rhn-proxy-activate.8
 /usr/bin/docbook2man configure-proxy.sh.sgml
 /usr/bin/gzip configure-proxy.sh.8
+# default access_log is already set on RHEL4
+%if 0%{?rhel} == 4
+perl -i -pe 's/access_log \S+ squid//;' squid.conf
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
