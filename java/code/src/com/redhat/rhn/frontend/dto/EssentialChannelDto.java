@@ -21,8 +21,7 @@ import com.redhat.rhn.domain.channel.Channel;
  * EssentialChannelDto
  * @version $Rev$
  */
-public class EssentialChannelDto extends BaseDto 
-        implements Comparable<EssentialChannelDto> {
+public class EssentialChannelDto extends BaseDto {
 
     private Long id;
     private Long ownerId;
@@ -149,15 +148,6 @@ public class EssentialChannelDto extends BaseDto
      */
     public void setOwnerId(Long ownerIdIn) {
         this.ownerId = ownerIdIn;
-    }
-
-    /**
-     * compare to another EssentialChannelDto
-     * @param o the other object
-     * @return the compare
-     */
-    public int compareTo(EssentialChannelDto o) {
-        return this.getRelease().compareTo(o.getRelease());
     }
 
 }
