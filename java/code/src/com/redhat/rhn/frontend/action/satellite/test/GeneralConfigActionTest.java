@@ -103,7 +103,10 @@ public class GeneralConfigActionTest extends RhnMockStrutsTestCase {
         assertEquals("testuser@redhat.com", Config.get().getString("traceback_mail"));
         assertEquals("testbox", Config.get().getString("server.jabber_server"));
         
-        verifyActionMessages(new String[] {"config.restartrequired"});
+        
+        // The 2 errors are from the 1st actionPerform()
+        verifyActionMessages(new String[] {"config.restartrequired", 
+                "errors.required", "errors.required"});
         
 
         Config.get().setBoolean(TEST_CONFIG_BOOLEAN, new Boolean(origValue).toString());
