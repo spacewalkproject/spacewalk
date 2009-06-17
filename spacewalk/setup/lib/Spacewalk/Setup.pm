@@ -103,12 +103,13 @@ sub parse_options {
 		    "non-interactive",
 		    "upgrade",
 		    "run-updater:s",
-            "run-cobbler"
+            "run-cobbler",
+            "enable-tftp:s",
 		   );
 
   my $usage = loc("usage: %s %s\n",
 		  $0,
-		  "[ --help ] [ --answer-file=<filename> ] [ --non-interactive ] [ --skip-system-version-test ] [ --skip-selinux-test ] [ --skip-fqdn-test ] [ --skip-db-install ] [ --skip-db-diskspace-check ] [ --skip-db-population ] [ --skip-gpg-key-import ] [ --skip-ssl-cert-generation ] [--skip-ssl-vhost-setup] [ --skip-services-check ] [ --clear-db ] [ --re-register ] [ --disconnected ] [ --upgrade ] [ --run-updater=<yes|no>] [--run-cobbler]");
+		  "[ --help ] [ --answer-file=<filename> ] [ --non-interactive ] [ --skip-system-version-test ] [ --skip-selinux-test ] [ --skip-fqdn-test ] [ --skip-db-install ] [ --skip-db-diskspace-check ] [ --skip-db-population ] [ --skip-gpg-key-import ] [ --skip-ssl-cert-generation ] [--skip-ssl-vhost-setup] [ --skip-services-check ] [ --clear-db ] [ --re-register ] [ --disconnected ] [ --upgrade ] [ --run-updater=<yes|no>] [--run-cobbler] [ --enable-tftp=<yes|no>]" );
 
   # Terminate if any errors were encountered parsing the command line args:
   my %opts;
@@ -1400,6 +1401,14 @@ Proceed with upgrade if services are already stopped.
 =item B<--run-updater=<yes|no>>
 
 Set to 'yes' to automatically install needed packages from RHN, provided the system is registered. Set to 'no' to terminate the installer if any needed packages are missing.
+
+=item B<--run-cobbler>
+
+Only runs the necessary steps to setup cobbler
+
+=item B<--enable-tftp=<yes|no>>
+
+Set to 'yes' to automatically enable tftp and xinetd services needed for Cobbler PXE provisioning functionality. Set to 'no' if you do not want the installer to enable these services.
 
 =back
 
