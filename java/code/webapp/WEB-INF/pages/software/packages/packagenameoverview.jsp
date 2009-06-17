@@ -40,6 +40,7 @@
     </rl:list>
     <input type="hidden" name="package_name" value="${param.package_name}" />
     <input type="hidden" name="search_subscribed_channels" value="${param.search_subscribed_channels}" />
+    <input type="hidden" name="channel_filter" value="${param.channel_filter}" />
     <c:forEach items="${paramValues.channel_arch}" var="item">
     <input type="hidden" name="channel_arch" value="${item}" />
     </c:forEach>

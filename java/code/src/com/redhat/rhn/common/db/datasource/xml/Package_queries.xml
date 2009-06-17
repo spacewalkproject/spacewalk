@@ -1581,6 +1581,44 @@ ORDER BY CHANNEL_NAME DESC, EVR DESC
 </query>
 </mode>
 
+<mode name="packages_by_name_cid">
+<query params="package_name, org_id, channel_id">
+<!-- This uses an inline view to filter away the PE.evr since
+     DBD Oracle can't handle an Oracle object in the return results of a
+     query.
+-->
+
+SELECT NVREA, PACKAGE_ID, CHANNEL_NAME, CHANNEL_ID
+  FROM (SELECT DISTINCT
+               PE.evr AS EVR,
+               PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+               C.name AS CHANNEL_NAME,
+               P.ID AS PACKAGE_ID,
+               C.id AS CHANNEL_ID
+          FROM rhnPackageArch PA,
+               rhnChannel C,
+               rhnPackageName PN,
+               rhnPackageEVR PE,
+               rhnPackage P,
+               rhnChannelPackage CP,
+               rhnAvailableChannels AC
+         WHERE AC.org_id = :org_id
+           AND PN.name = :package_name
+           AND CP.channel_id = :channel_id
+           AND PN.id = P.name_id
+           AND PE.id = P.evr_id
+           AND AC.channel_id = CP.channel_id
+           AND P.id = CP.package_id
+           AND C.id = AC.channel_id
+           AND PA.id = P.package_arch_id
+        )
+ORDER BY CHANNEL_NAME DESC, EVR DESC
+</query>
+</mode>
+
+
+
+
 <mode name="patchsets_in_channel" class="com.redhat.rhn.frontend.dto.PatchSetOverview">
   <query params="cid">
 SELECT P.id AS ID,
