@@ -520,7 +520,8 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 <mode name="trust_channel_consume" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
 	<query params="org_id, org_id2, user_id">
 	SELECT DISTINCT V.id, 
-	       V.name, 
+	       V.name,
+	        0 as accessible,
                V.parent_channel as parent_id,
                (SELECT COUNT(P.package_id)
                 FROM rhnChannelPackage P
