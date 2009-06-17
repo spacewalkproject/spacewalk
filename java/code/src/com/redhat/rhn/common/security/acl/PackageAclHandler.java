@@ -24,8 +24,9 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 
@@ -62,10 +63,11 @@ public class PackageAclHandler extends BaseHandler implements AclHandler {
     }
     
     /**
-     * Is the package of a certain type
-     * @param ctx Context Map to pass in
-     * @param params Parameters to use to fetch from Context
-     * @return true if the only param matches the package's arch type 
+     * Tests to determine if the requested package is capable with the given ACLs.
+     * 
+     * @param ctx context map describing the request
+     * @param params Parameters to use to fetch from context
+     * @return true if the the package passes the ACL 
      */
     public boolean aclPackageTypeCapable(Object ctx, String[] params) {
         
@@ -85,13 +87,16 @@ public class PackageAclHandler extends BaseHandler implements AclHandler {
         }
           
         ArchType type = pack.getPackageArch().getArchType();
-        Map<ArchType, List<String>> capMap = PackageFactory.getPackageCapabilityMap();
+        String archTypeLabel = type.getLabel();
+        Map<String, Set<String>> capMap = PackageFactory.getPackageCapabilityMap();
         
-        if (capMap.get(type) == null) {
+        if (capMap.get(archTypeLabel) == null) {
             return false;
         }
-       
-        boolean capFound = capMap.get(type).contains(cap);
+
+        Set<String> capabilities = capMap.get(archTypeLabel);
+
+        boolean capFound = capabilities.contains(cap);
         return capFound;
     }
     

@@ -36,6 +36,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 
 /**
  * PackageFactory
@@ -48,12 +50,11 @@ public class PackageFactory extends HibernateFactory {
 
     public static final PackageKeyType PACKAGE_KEY_TYPE_GPG = lookupKeyTypeByLabel("gpg");
 
-    public static final ArchType ARCH_TYPE_RPM = lookupArchTypeByLabel("rpm");
-    public static final ArchType ARCH_TYPE_SYSV = lookupArchTypeByLabel("sysv-solaris");
-    public static final ArchType ARCH_TYPE_TAR = lookupArchTypeByLabel("tar");
-    public static final ArchType ARCH_TYPE_PATCH = lookupArchTypeByLabel("solaris-patch");
-    public static final ArchType ARCH_TYPE_PATCH_CLUSTER = lookupArchTypeByLabel(
-            "solaris-patch-cluster");
+    public static final String ARCH_TYPE_RPM = "rpm";
+    public static final String ARCH_TYPE_SYSV = "sysv-solaris";
+    public static final String ARCH_TYPE_TAR = "tar";
+    public static final String ARCH_TYPE_PATCH = "solaris-patch";
+    public static final String ARCH_TYPE_PATCH_CLUSTER = "solaris-patch-cluster";
 
     private PackageFactory() {
         super();
@@ -412,15 +413,16 @@ public class PackageFactory extends HibernateFactory {
     }
 
     /**
-     * Provides a mapping of arch types to lists of capabilities From the if
-     * statement mess in package_type_capable of Package.pm This should really
-     * be in the DB, but it's not :{ and it needs to be ported from perl
-     * @return the map of ArchType -> List of capabilities
+     * Provides a mapping of arch type labels to sets of capabilities (ported from the if
+     * statement mess in package_type_capable of Package.pm). This should really
+     * be in the DB, but it's not :{ and it needs to be ported from perl.
+     * 
+     * @return the map of arch label -> set of capabilities
      */
-    public static Map<ArchType, List<String>> getPackageCapabilityMap() {
-        Map<ArchType, List<String>> map = new HashMap<ArchType, List<String>>();
+    public static Map<String, Set<String>> getPackageCapabilityMap() {
+        Map<String, Set<String>> map = new HashMap<String, Set<String>>();
 
-        List<String> rpmCaps = new ArrayList<String>();
+        Set<String> rpmCaps = new HashSet<String>();
         rpmCaps.add("dependencies");
         rpmCaps.add("change_log");
         rpmCaps.add("file_list");
@@ -429,17 +431,17 @@ public class PackageFactory extends HibernateFactory {
         rpmCaps.add("rpm");
         map.put(PackageFactory.ARCH_TYPE_RPM, rpmCaps);
 
-        List<String> patchCaps = new ArrayList<String>();
+        Set<String> patchCaps = new HashSet<String>();
         patchCaps.add("dependencies");
         patchCaps.add("solaris_patch");
         patchCaps.add("remove");
         map.put(PackageFactory.ARCH_TYPE_PATCH, patchCaps);
 
-        List<String> patchSetCaps = new ArrayList<String>();
+        Set<String> patchSetCaps = new HashSet<String>();
         patchSetCaps.add("solaris_patchset");
         map.put(PackageFactory.ARCH_TYPE_PATCH_CLUSTER, patchSetCaps);
 
-        List<String> sysVCaps = new ArrayList<String>();
+        Set<String> sysVCaps = new HashSet<String>();
         sysVCaps.add("deploy_answer_file");
         sysVCaps.add("remove");
         sysVCaps.add("package_map");
