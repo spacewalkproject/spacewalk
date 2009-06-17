@@ -526,9 +526,9 @@ public class ChannelManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Channel_queries", "trust_channel_consume");
         
         Map params = new HashMap();        
-        params.put("org_id", org.getId());
+        params.put("org_id", trustOrg.getId());
         params.put("user_id", user.getId());
-        params.put("org_id2", trustOrg.getId());        
+        params.put("org_id2", org.getId());
         DataResult dr = makeDataResult(params, params, lc, m);
         return dr;
     }
