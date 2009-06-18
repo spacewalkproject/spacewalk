@@ -651,7 +651,6 @@ sub oracle_setup_db {
     my $answers = shift;
 
     oracle_upgrade_setup_oratab($opts);
-    oracle_upgrade_start_db($opts);
 
     print loc("* Setting up Oracle environment.\n");
 
