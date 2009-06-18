@@ -10,13 +10,13 @@
 			<th><bean:message key="deploy.jsp.deploy-name" /></th>
 			<td><bean:message key="deploy.jsp.deploy" arg0="${revision.revision}"
 				arg1="/rhn/configuration/file/FileDetails.do?cfid=${file.id}&crid=${revision.id}"
-				arg2="${system}"
+				arg2="${system}"	
 				arg3="/rhn/systems/details/configuration/Overview.do?system_detail_navi_node=selected_configfiles&sid=${sid}" /></td>
 		</tr>
 		<tr>
 			<th><bean:message key="deploy.jsp.latest-name" /></th>
 			<td><c:choose>
-				<c:when test="${lastDeploy!=null}">
+				<c:when test="${not empty lastDeploy}">
 					<bean:message key="deploy.jsp.latest"
 						arg0="${lastDeploy.configRevision.revision}"
 						arg1="/rhn/configuration/file/FileDetails.do?cfid=${lastDeploy.fileId}&crid=${lastDeploy.revId}"
@@ -34,6 +34,8 @@
 	</table>
 	<div class="small-text"><bean:message key="deploylocal.jspf.tip.local"
 		arg0="/rhn/configuration/file/CopyFileCentral.do?cfid=${file.id}&crid=${revision.id}" /></div>
+	<c:choose>
+		<c:when test="${requestScope.deployable}">
     <p><bean:message key="deploy.jsp.widgetsummary" /></p>
     <table class="schedule-action-interface" align="center">
     <tr>
@@ -59,5 +61,14 @@
     <hr />
     <div align="right"><html:submit property="dispatch">
     <bean:message key="deploy.jsp.deploybutton" />
-  </html:submit></div>
+  </html:submit></div>			
+		</c:when>
+		<c:otherwise>
+	            <p><strong><bean:message key="system.sdc.missing.config_deploy1"/></strong></p>
+	            <p><strong><bean:message key="system.sdc.missing.config_deploy2" 
+	            		arg0="/rhn/configuration/system/TargetSystems.do"
+	            		arg1="${rhn:localize('targetsystems.jsp.toolbar')}"
+	            		arg2="${rhn:localize('targetsystems.jsp.enable')}"/></strong></p>		
+		</c:otherwise>
+	</c:choose>
 </html:form>

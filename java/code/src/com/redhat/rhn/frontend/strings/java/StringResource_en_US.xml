@@ -6559,8 +6559,7 @@ Follow this url to see the full list of inactive systems:
      </trans-unit>
      <trans-unit id="key">
          <source>Key</source>
-     </trans-unit>     
-
+     </trans-unit>
    </group>
 
       <trans-unit id="file_size.b">

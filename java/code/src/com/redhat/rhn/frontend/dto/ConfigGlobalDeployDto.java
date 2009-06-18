@@ -30,7 +30,24 @@ public class ConfigGlobalDeployDto extends BaseDto {
     private String name;
     private Long outrankedCount;
     private Long overrideCount;
+    private boolean deployable;
     
+    /**
+     * @return true if deployable, as in config capable + featured
+     */
+    public boolean isDeployable() {
+        return deployable;
+    }
+
+    
+    /**
+     * set true if ht efile is deployable.
+     * @param deployableIn true if deployable 
+     */
+    public void setDeployable(Integer deployableIn) {
+        this.deployable = Integer.valueOf(1).equals(deployableIn);
+    }
+
     /**
      * @return system-id of the system whose deploy-state is the rest of the Dto data
      */
@@ -138,6 +155,11 @@ public class ConfigGlobalDeployDto extends BaseDto {
      * {@inheritDoc}
      */
     public boolean isSelectable() {
-        return (getOutrankedCount().intValue() == 0 && getOverrideCount().intValue() == 0);
+        return getOutrankedCount().intValue() == 0 && 
+                    getOverrideCount().intValue() == 0 && isDeployable();
     }
+    
+    
+    
+    
 }

@@ -318,7 +318,18 @@
         </trans-unit>
         <trans-unit id="lookup.servergroup.title">
           <source>We're sorry, but the system group could not be found.</source>
+        </trans-unit>
+        <trans-unit id="missing_capabilities.jsp.header">
+          <source>Missing Capabilities</source>
         </trans-unit>        
+        <trans-unit id="missing_capabilities.jsp.title">
+          <source>An operation could not be completed on a system due to a missing capability.</source>
+        </trans-unit>
+        
+        <trans-unit id="missing_capabilities.jsp.summary">
+          <source>The server &lt;strong&gt;&lt;a href=&quot;{0}&quot;&gt;{1}&lt;/a&gt;&lt;/strong&gt; does not have the &lt;strong&gt;{2}&lt;/strong&gt; client capability. Please enable the capability before proceeding with the operation.</source>
+        </trans-unit>
+                
         <trans-unit id="lookup.jsp.summary">
           <source>This error may have occurred in one of three ways:</source>
         </trans-unit>
@@ -13483,6 +13494,15 @@ Tip: If you would like to deploy this file to a system not in this list, you'll 
 		  </context>
         </context-group>
      </trans-unit>
+     
+     <trans-unit id="deployglobal.jspf.not_deployable">
+<source>These systems do not yet have configuration deployment capability. Configuration deployment requires that particular software is installed and enabled on your system. You may ensure that configuration deployment capability will be enabled on these systems by selecting them in the  &lt;a href={0}&gt;{1}&lt;/a&gt; screen and then clicking &quot;{2}&quot;</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/RevisionDeploy.do</context>
+	    </context-group>
+     </trans-unit>
+     
+          
      <trans-unit id="deployglobal.jspf.tip.orgadmin">
 <source>You may grant provisioning entitlements &lt;a href="{0}"&gt;here&lt;/a&gt;.</source>
         <context-group name="ctx">
