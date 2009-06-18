@@ -19,8 +19,8 @@
 %endif
 
 Name:            oracle-selinux
-Version:         0.3
-Release:         1%{?obtag}%{?dist}%{?repo}
+Version:         0.1
+Release:         23.9%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -205,6 +205,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Thu Jun 18 2009 Jan Pazdziora <jpazdziora@redhat.com> 0.1-23.9
+- 505606 - Require at least selinux-policy 2.4.6-80
+- do semodule -l first to see if we have the store
+
 * Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 0.3-1
 - 498611 - run "semodule -i" in %%post and restorecon in %%posttrans
 
