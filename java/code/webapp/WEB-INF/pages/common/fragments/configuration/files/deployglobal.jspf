@@ -24,7 +24,7 @@
 		<rhn:listdisplay filterBy="system.common.systemName" set="${requestScope.set}">
       		<rhn:set value="${current.id}" disabled="${not current.selectable}"/>
 			<rhn:column header="globaldeploy.jsp.systemName-header">
-        	  <cfg:system id="${current.id}" name="${current.name}" />
+        	  <cfg:system id="${current.id}" name="${current.name}" /><c:if test="${not current.deployable}">*</c:if>
     		</rhn:column>
 
 			<rhn:column header="globaldeploy.jsp.overridden-header">
@@ -53,6 +53,13 @@
     		</rhn:column>
 		</rhn:listdisplay>
 	</rhn:list>
+	<br/>
+	
+	<div class="small-text">*  <bean:message key="deployglobal.jspf.not_deployable" 	 
+	           		arg0="/rhn/configuration/system/TargetSystems.do"
+	            		arg1="${rhn:localize('targetsystems.jsp.toolbar')}"
+	            		arg2="${rhn:localize('targetsystems.jsp.enable')}"/>
+	</div>
 	<br />
 	<div class="small-text"><bean:message key="deploy.jsp.tip.global-1" /></div>
 	<br />

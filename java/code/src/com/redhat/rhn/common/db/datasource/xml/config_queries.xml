@@ -1691,7 +1691,6 @@ WHERE CCT.id = CC.confchan_type_id
     	        WHERE SCC2.server_id = S.id
            			  AND CCT2.label = 'local_override'
 		              AND CF2.config_file_name_id = :cfnid) as OVERRIDE_COUNT,
-		              
               (SELECT count(CC2.id) 
                 FROM rhnConfigChannel CC2
     	             inner join rhnConfigChannelType CCT2 on CC2.confchan_type_id = CCT2.id
@@ -1704,17 +1703,29 @@ WHERE CCT.id = CC.confchan_type_id
 			          AND SCC.position &lt; SCC2.position
 					  AND CC2.id =:ccid 
 					  AND CCT2.label = 'normal'
-                 AND CF2.config_file_name_id = :cfnid) as OUTRANKED_COUNT
-		  FROM rhnServer S, 
-		       rhnServerConfigChannel SCC,
-			   rhnUserServerPerms USP
+                 AND CF2.config_file_name_id = :cfnid) as OUTRANKED_COUNT,
+            NVL((select 1 from rhnClientCapability CCap
+            				inner join rhnClientCapabilityName CCN on  CCap.capability_name_id = CCN.id
+            		where  CCN.name = 'configfiles.deploy'
+            			AND  CCap.server_id = S.id
+            			AND EXISTS (select 1 from rhnServerFeaturesView SFV 
+            					where SFV.server_id = s.id	AND SFV.label = 'ftr_config')
+            		),0) as DEPLOYABLE
+		  FROM rhnServer S
+		       inner join rhnServerConfigChannel SCC on S.id = SCC.server_id
+			   inner join rhnUserServerPerms USP on USP.server_id = S.id
 		 WHERE rhn_config_channel.get_user_chan_access(:ccid, :user_id) = 1
 		   AND SCC.config_channel_id = :ccid
-		   AND S.id = SCC.server_id
-		   AND USP.server_id = S.id
 		   AND USP.user_id = :user_id
 		 ORDER BY S.NAME
 	</query>
+	
+	
+
+
+ 
+ 	
+	
 	<!-- no elaborator. The counts are decided in the driving query because
 	     they are needed for select all.  bleah -->
 </mode>	
@@ -1727,15 +1738,18 @@ WHERE CCT.id = CC.confchan_type_id
 		class="com.redhat.rhn.frontend.dto.ConfigGlobalDeployDto">
 	<query params="ccid,set_label,user_id">
 		SELECT S.ID, S.NAME
-		  FROM rhnServer S,
-		       rhnServerConfigChannel SCC,
-			   rhnSet ST
+		  FROM rhnServer S 
+		       inner join rhnServerConfigChannel SCC on S.id = SCC.server_id
+			   inner join rhnSet ST on ST.element = S.id
+	           inner join rhnClientCapability CCap on CCap.server_id = S.id
+	           inner join rhnClientCapabilityName CCN on  CCap.capability_name_id = CCN.id
+	           inner join rhnServerFeaturesView SFV on SFV.server_id = s.id			     
 		 WHERE rhn_config_channel.get_user_chan_access(:ccid, :user_id) = 1
 		   AND ST.user_id = :user_id
    		   AND ST.label = :set_label
-   		   AND ST.element = S.id
 		   AND SCC.config_channel_id = :ccid
-		   AND S.id = SCC.server_id
+     	   AND CCN.name = 'configfiles,deploy'
+           AND SFV.label = 'ftr_config'		   
 		 ORDER BY S.NAME
 	</query>
 	<elaborator params="cfnid,ccid">

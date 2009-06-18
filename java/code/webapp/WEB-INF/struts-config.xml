@@ -1004,6 +1004,9 @@
     <exception type="com.redhat.rhn.frontend.xmlrpc.NoSuchKickstartException"
       path="/WEB-INF/pages/common/errors/nosuchkickstart.jsp" key="date"
       handler="com.redhat.rhn.common.errors.NoSuchKickstartExceptionHandler"/>
+	<exception type="com.redhat.rhn.manager.MissingCapabilityException"
+      path="/WEB-INF/pages/common/errors/missingcapability.jsp" key="date"
+      handler="com.redhat.rhn.common.errors.SatelliteExceptionHandler"/>
   </global-exceptions>
 
   <!-- 
