@@ -107,7 +107,7 @@ if [ `getent passwd nocpulse|awk -F ':' '{ print $6 }'` = "/home/nocpulse" ]; th
   mv /home/nocpulse/.ssh/* %{_var}/lib/%{package_name}/.ssh
   mv /home/nocpulse/.bash* /home/nocpulse/var/*.db \
      /home/nocpulse/var/scheduler.xml /home/nocpulse/var/events.frozen \
-     %{_var}/lib/%{package_name}
+     %{_var}/lib/%{package_name} 2>/dev/null
   # archive of log files into /var/log/nocpulse
   mv /home/nocpulse/var/archives/* \
      %{_var}/log/%{package_name} 2> /dev/null
