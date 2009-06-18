@@ -274,8 +274,11 @@ sub isRunning
 sub startStep
 {
 	my $self = shift();
+	$is_not_subsystem = -f '/etc/rc.d/init.d/'.ref($self);
 	if ((! $self->isStarted) || $self->get_force) {
+		print "\t" unless $is_not_subsystem;
 		print "Starting ", $self->get_name, " ...  ";
+		print "\n" if $is_not_subsystem;
 		if ($self->get_force) {
 			$self->clearStopActions;
 		}
@@ -288,7 +291,7 @@ sub startStep
 		} else {
 			print "[ OK ]\n";
 		}
-		if (-f '/etc/rc.d/init.d/'.ref($self))  {
+		if ($is_not_subsystem)  {
 			# This is for RH "rc" script - won't kill if this isn't here
 			open(FILE,'>/var/lock/subsys/'.ref($self));
 			print FILE 'running';
@@ -305,8 +308,11 @@ sub startStep
 sub stopStep
 {
 	my $self = shift();
+	$is_not_subsystem = -f '/etc/rc.d/init.d/'.ref($self);
 	if ($self->isStarted || $self->get_force) {
+		print "\t" unless $is_not_subsystem;
 		print 'Stopping ', $self->get_name, " ...  ";
+		print "\n" if $is_not_subsystem;
 		$self->clearLastActionErrors;
 		$self->stopActions;
 		$self->set_lastAction('stop');
@@ -316,7 +322,7 @@ sub stopStep
 		} else {
 			print "[ OK ]\n";
 		}
-		if ( -f '/var/lock/subsys/'.ref($self)) {
+		if ($is_not_subsystem) {
 			# This is for RH "rc" script - won't kill if this isn't here
 			unlink('/var/lock/subsys/'.ref($self));
 		}
