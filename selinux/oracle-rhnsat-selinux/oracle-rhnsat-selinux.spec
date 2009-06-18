@@ -21,6 +21,9 @@ BuildArch:       noarch
 %if "%{selinux_policyver}" != ""
 Requires:         selinux-policy >= %{selinux_policyver}
 %endif
+%if 0%{?rhel} == 5
+Requires:        selinux-policy >= 2.4.6-80
+%endif
 Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/selinuxenabled
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Requires:         oracle-server >= 10.2.0.3
