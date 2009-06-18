@@ -51,13 +51,8 @@ sub startActions
 	my $configIsInstalled;
 
 	if ( $startMIABServices or $startScoutServices ) {
-		$configIsInstalled = $self->addStatusModule(InstallSoftwareConfig);
 
-		if (! $configIsInstalled) {
-			$configIsInstalled = $self->startModule(InstallSoftwareConfig);
-		}
-
-		if (! $configIsInstalled ) {
+		if (!($configIsInstalled = $self->startModule(InstallSoftwareConfig))) {
 			$self->addError("Monitoring configuration load failed");
 		}
 	}
