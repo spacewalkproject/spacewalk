@@ -17,6 +17,7 @@ package com.redhat.rhn.manager.download;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.rhnpackage.PackageSource;
 import com.redhat.rhn.domain.rhnpackage.Patch;
 import com.redhat.rhn.domain.rhnpackage.PatchSet;
 import com.redhat.rhn.domain.user.User;
@@ -83,12 +84,14 @@ public class DownloadManager extends BaseManager {
      * Get a download path that is used to download a srpm.
      *  The url will be in the form of 
      *  /download/SHA1_TOKEN/EXPIRE_TIME/userId/packId/filename.rpm
-     * @param pack the package
+     * @param pkg the package
+     * @param src the package source
      * @param user the user
      * @return the path/url
      */
-    public static String getPackageSourceDownloadPath(Package pack, User user) {
-        return getDownloadPath(pack.getId(), pack.getFile(), user, 
+    public static String getPackageSourceDownloadPath(Package pkg,
+                                        PackageSource src, User user) {
+        return getDownloadPath(pkg.getId(), src.getFile(), user,
                 DownloadManager.DOWNLOAD_TYPE_SOURCE);
     }    
     

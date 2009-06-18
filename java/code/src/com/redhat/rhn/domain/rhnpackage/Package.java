@@ -128,20 +128,6 @@ public class Package extends BaseDomainHelper {
     }
 
     /**
-     * Retrieves the file portion of the path. For example, if
-     * path=/foo/bar/baz.rpm, getFile() would return 'baz.rpm'.
-     * @return Returns the file portion of the path.
-     */
-    public String getSourceFile() {
-        String[] parts = StringUtils.split(getSourcePath(), '/');
-        if (parts != null && parts.length > 0) {
-            return parts[parts.length - 1];
-        }
-
-        return null;
-    }
-
-    /**
      * @return Returns the buildHost.
      */
     public String getBuildHost() {
@@ -435,20 +421,6 @@ public class Package extends BaseDomainHelper {
      */
     public void setRpmVersion(String r) {
         this.rpmVersion = r;
-    }
-
-    /**
-     * @return Returns the sourcePath.
-     */
-    public String getSourcePath() {
-        return sourcePath;
-    }
-
-    /**
-     * @param s The sourcePath to set.
-     */
-    public void setSourcePath(String s) {
-        this.sourcePath = s;
     }
 
     /**

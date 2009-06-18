@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.rhnpackage;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
+import com.redhat.rhn.domain.rhnpackage.PackageSource;
 import com.redhat.rhn.domain.rhnpackage.Patch;
 import com.redhat.rhn.domain.rhnpackage.PatchSet;
 import com.redhat.rhn.domain.user.User;
@@ -33,6 +34,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -89,9 +91,12 @@ public class PackageDetailsAction extends RhnAction {
                         DownloadManager.getPackageDownloadPath(pkg, user));
             }
 
-            if (DownloadManager.isFileAvailable(pkg.getSourcePath())) {
+            List<PackageSource> src = PackageFactory.lookupPackageSources(pkg);
+
+            if (!src.isEmpty() && DownloadManager.isFileAvailable(src.get(0).getPath())) {
                 request.setAttribute("srpm_url",
-                        DownloadManager.getPackageSourceDownloadPath(pkg, user));
+                   DownloadManager.getPackageSourceDownloadPath(pkg, src.get(0), user));
+                request.setAttribute("srpm_path", src.get(0).getFile());
             }
 
             request.setAttribute("pack", pkg);
