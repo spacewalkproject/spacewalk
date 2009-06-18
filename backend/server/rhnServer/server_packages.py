@@ -415,11 +415,16 @@ def processPackageKeyAssociations(header, md5sum):
     lookup_pkgid_sql.execute(md5sum = md5sum)
     pkg_id = lookup_pkgid_sql.fetchall_dict()
 
+    if not pkg_id:
+        # No package to associate, continue with next
+        return
+
     sigkeys = rhn_rpm.RPM_Header(header).signatures
     key_id = None #_key_ids(sigkeys)[0]
     for sig in sigkeys:
         if sig['signature_type'] == 'gpg':
             key_id = sig['key_id']
+
     if not key_id:
         # package is not signed, skip gpg key insertion
         return
