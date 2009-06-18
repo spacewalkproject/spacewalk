@@ -43,7 +43,7 @@ client = None
 
 def get_args():
    global parser
-   parser = OptionParser(usage="""./create-channel-update  -u USER  -s SERVER [-p PASSWORD]  -v VERSION -r RELEASE
+   parser = OptionParser(usage="""./create-channel-update  -l USER  -s SERVER [-p PASSWORD]  -v VERSION -r RELEASE
                 -u UPDATE -a ARCH -e EXTRA  [ -D DATAFILE]  [-c SRCCHAN] -d DESTCHAN [-P PARENT]
                 [-C | --clear] [-n | --nossl]""")
    parser.add_option("-n", "--nossl", action="store_false", dest="ssl", default=True, help="disables the use of SSL when connecting to the server")
