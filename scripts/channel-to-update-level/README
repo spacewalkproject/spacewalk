@@ -43,6 +43,9 @@ README  - This file
 
 Changelog:
 -----------
+6/18/09 - 2.1.1
+- couple of fixes regarding bundlesize and data file options
+
 6/14/09 - 2.1 
 - Reimplemented option parsing
 - adding --clone option for when creating channel
