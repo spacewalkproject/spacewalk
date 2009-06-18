@@ -1748,7 +1748,7 @@ WHERE CCT.id = CC.confchan_type_id
 		   AND ST.user_id = :user_id
    		   AND ST.label = :set_label
 		   AND SCC.config_channel_id = :ccid
-     	   AND CCN.name = 'configfiles,deploy'
+     	   AND CCN.name = 'configfiles.deploy'
            AND SFV.label = 'ftr_config'		   
 		 ORDER BY S.NAME
 	</query>
