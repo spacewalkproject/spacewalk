@@ -296,7 +296,7 @@ sub startStep
 		}
 		return $self->hasErrors;
 	} else {
-		print "[ FAIL ]\n";
+		print "Starting ", $self->get_name, " ...  [ ALREADY RUNNING ]\n" if ($self->get_name != 'InstallSoftwareConfig');
 		$self->dprint(1,'ALREADY RUNNING');
 		return 1;
 	}
@@ -322,7 +322,7 @@ sub stopStep
 		}
 		return $self->hasErrors;
 	} else {
-		print "[ FAIL ]\n";
+		print "Stopping ", $self->get_name, " ...  [ ALREADY STOPPED ]\n" if ($self->get_name != 'InstallSoftwareConfig');
 		$self->dprint(1,'ALREADY STOPPED');
 		return 1;
 	}
