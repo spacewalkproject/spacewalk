@@ -7,7 +7,7 @@
 %define modulename spacewalk-proxy
 
 Name:           spacewalk-proxy-selinux
-Version:        0.6.4
+Version:        0.6.5
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Proxy
 
@@ -109,6 +109,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu Jun 18 2009 Jan Pazdziora 0.6.5-1
+- 505606 - Require at least selinux-policy 2.4.6-80
+
 * Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.4-1
 - 498611 - run "semodule -i" in %%post and restorecon in %%posttrans
 
