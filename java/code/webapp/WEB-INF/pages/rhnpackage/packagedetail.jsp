@@ -189,7 +189,7 @@
       	</th>
       	<td>
         	<c:if test="${srpm_url !=  null}">
-        		<a href="${srpm_url}">${pack.sourceFile}</a>
+			<a href="${srpm_url}">${srpm_path}</a>
         	</c:if>
         	<c:if test="${srpm_url eq null}">
         		<div style="font-weight: bold;">  
