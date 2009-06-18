@@ -160,9 +160,9 @@ public class FilterActionTest extends RhnBaseTestCase {
         ah.getForm().set(FilterCreateAction.DESCRIPTION, "");
         ah.getForm().set(FilterCreateAction.RECURRING_DURATION, "");
         ah.executeAction();
-        assertNotNull(ah.getRequest().getSession().getAttribute(Globals.MESSAGE_KEY));
+        assertNotNull(ah.getRequest().getSession().getAttribute(Globals.ERROR_KEY));
         ActionMessages messages = (ActionMessages)
-            ah.getRequest().getSession().getAttribute(Globals.MESSAGE_KEY);
+            ah.getRequest().getSession().getAttribute(Globals.ERROR_KEY);
         assertEquals(1, messages.size());
         assertEquals("", ah.getForm().get(FilterCreateAction.DESCRIPTION));
 
@@ -170,7 +170,7 @@ public class FilterActionTest extends RhnBaseTestCase {
         ah.getForm().set(FilterCreateAction.RECURRING, Boolean.TRUE);
         ah.executeAction();
         messages = (ActionMessages)
-            ah.getRequest().getSession().getAttribute(Globals.MESSAGE_KEY);
+            ah.getRequest().getSession().getAttribute(Globals.ERROR_KEY);
         assertEquals(2, messages.size());
 
 

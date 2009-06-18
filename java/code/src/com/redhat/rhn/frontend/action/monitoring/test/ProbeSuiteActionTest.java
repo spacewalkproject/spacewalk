@@ -92,7 +92,7 @@ public class ProbeSuiteActionTest extends RhnBaseTestCase {
         ActionForward af = ah.executeAction();
         assertEquals("default", af.getName());
         ActionMessages messages = (ActionMessages) 
-            ah.getRequest().getSession().getAttribute(Globals.MESSAGE_KEY);
+            ah.getRequest().getSession().getAttribute(Globals.ERROR_KEY);
         assertEquals(1, messages.size());
         
     }
