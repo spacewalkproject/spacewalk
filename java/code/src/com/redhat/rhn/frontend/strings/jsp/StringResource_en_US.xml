@@ -416,7 +416,7 @@
         </trans-unit>
 
         <trans-unit id="lookup.jsp.reason3">
-          <source>You've found an error in our site.  Please help us by filling out &lt;a href="/help/contact.pxt"&gt;this form&lt;/a&gt; with details of how you received this message.</source>
+          <source>You've found an error in our site.</source>
         </trans-unit>
       </group>
 
