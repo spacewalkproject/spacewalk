@@ -53,6 +53,12 @@ Requires: spacewalk-java-lib
 Requires: spacewalk-branding
 Requires: jpackage-utils >= 0:1.5
 Requires: cobbler >= 1.4.3
+# 470991 - need to require these packages simply for cleanup purposes.
+# the proper fix is to factor out the taskomatic code from rhn.jar so that
+# we would not require these 3 packages: concurrent, quartz, tanukiwrapper
+Requires: concurrent
+Requires: quartz
+Requires: tanukiwrapper
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
 BuildRequires: java-devel >= 1.6.0
