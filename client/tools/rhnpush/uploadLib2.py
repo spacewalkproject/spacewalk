@@ -16,12 +16,26 @@
 # system imports
 import os
 import sys
-import md5
 import rhn_mpm
 import string
 import fnmatch
 import getpass
 import rhnpush_cache
+
+try:
+    import hashlib
+except ImportError:
+    import md5
+    class hashlib:
+        @staticmethod
+        def new(checksum):
+            # Add sha1 if needed.
+            if checksum == 'md5':
+                return md5.new()
+            # if not md5 or sha1, its invalid
+            if checksum not in ['md5', 'sha1']:
+                raise ValueError, "Incompatible checksum type"
+
 try:
     from rhn import rpclib
     Binary = rpclib.xmlrpclib.Binary
@@ -560,7 +574,7 @@ def computeMD5sum(filename=None, f=None):
     else:
         fd = f
         fd.seek(0, 0)
-    md5sum = md5.new()
+    md5sum = hashlib.new('md5')
     while 1:
         buf = fd.read(BUFFER_SIZE)
         if not buf:
