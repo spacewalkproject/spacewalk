@@ -311,7 +311,7 @@ def getFileMD5(filename=None, fd=None, file=None, buffer_size=None):
         f = open(filename, "r")
     # Rewind it
     f.seek(0, 0)
-    m = md5.new()
+    m = hashlib.new('md5')
     while 1:
         buffer = f.read(buffer_size)
         if not buffer:
