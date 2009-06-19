@@ -132,7 +132,10 @@ class PollerStateCache:
                 # state instead.
                 self._log_debug("Error occurred while loading state: %s" % \
                                     str(pe))
-    
+            except EOFError:
+                self._log_debug("Unexpected EOF. Probably an empty file.")
+                cache_file.close()
+
             cache_file.close()
     
         if state:
