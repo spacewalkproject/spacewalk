@@ -6,12 +6,6 @@
 <html:xhtml/>
 <html>
 <body>
-
-<html:errors />
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <rhn:toolbar base="h1" img="/img/rhn-icon-info.gif" imgAlt="system.common.kickstartAlt"
 	 	deletionUrl="/rhn/keys/CryptoKeyDelete.do?key_id=${cryptoKey.id}"
      	deletionType="CryptoKeyDelete">

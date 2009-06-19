@@ -8,9 +8,6 @@
 <body>
 
 <%@ include file="/WEB-INF/pages/common/fragments/configuration/files/header.jspf" %>
-
-<html:errors />
-
 <h2><bean:message key="comparerevision.jsp.header"/></h2>
 
 <div class="page-summary">

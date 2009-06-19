@@ -10,13 +10,7 @@
 <script type="text/javascript" src="/javascript/highlander.js"></script>
 </head>
 <body>
-
-  <html:messages id="message" message="true">
-    <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-  </html:messages>
-
-  <html:errors />
-  <rhn:toolbar base="h1" img="/img/rhn-icon-search.gif" imgAlt="packagesearch.jsp.imgAlt"
+<rhn:toolbar base="h1" img="/img/rhn-icon-search.gif" imgAlt="packagesearch.jsp.imgAlt"
                helpUrl="/rhn/help/reference/en-US/s1-sm-channels-packages.jsp#s2-sm-software-search">
     <bean:message key="packagesearch.jsp.toolbar"/>
   </rhn:toolbar>

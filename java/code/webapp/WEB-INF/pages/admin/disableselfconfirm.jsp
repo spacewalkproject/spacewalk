@@ -5,15 +5,10 @@
 <html:xhtml/>
 <html>
 <body>
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <rhn:toolbar base="h1" img="/img/rhn-icon-users.gif">
 <bean:message key="disableselfconfirm.jsp.warning_question" />
 </rhn:toolbar>
-<html:errors />
-    <div class="page-summary">
+<div class="page-summary">
         <p>
           <bean:message key="disableselfconfirm.jsp.warning" />
         </p>

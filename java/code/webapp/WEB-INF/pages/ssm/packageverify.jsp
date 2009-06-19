@@ -8,9 +8,6 @@
 <html>
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
-
-<html:errors/>
-
 <h2>
     <bean:message key="ssm.package.verify.select.header"/>
 </h2>

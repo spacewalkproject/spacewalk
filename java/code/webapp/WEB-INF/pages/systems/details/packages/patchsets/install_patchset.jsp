@@ -7,11 +7,6 @@
 <html>
 
 <body>
-
-  <html:messages id="message" message="true">
-    <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-  </html:messages>
-
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
   <h2>
@@ -31,9 +26,7 @@
       <td><pre>${package.description}</pre></td>
     </tr>
   </table>
-
-  <html:errors />
-  <form method="POST" name="install_patchset" action="/rhn/systems/details/packages/patchsets/InstallPatchSetSubmit.do">
+<form method="POST" name="install_patchset" action="/rhn/systems/details/packages/patchsets/InstallPatchSetSubmit.do">
     <input type="hidden" name="sid" value="${param.sid}" />
     <input type="hidden" name="pid" value="${param.pid}" />
 

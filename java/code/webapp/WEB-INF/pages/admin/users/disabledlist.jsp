@@ -10,12 +10,6 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-
-<html:errors/>
-<html:messages id="message" message="true">
-    <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <rhn:toolbar base="h1" img="/img/rhn-icon-users.gif" imgAlt="users.jsp.imgAlt"
  helpUrl="/rhn/help/reference/en-US/s1-sm-users.jsp#s2-sm-users-deactivated"
  creationUrl="/rhn/users/CreateUser.do?account_type=into_org" 

@@ -9,12 +9,7 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-
-  <html:messages id="message" message="true">
-    <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-  </html:messages>
-	
-  <rhn:toolbar base="h1" img="/img/rhn-icon-errata.gif" imgAlt="errata.common.errataAlt"
+<rhn:toolbar base="h1" img="/img/rhn-icon-errata.gif" imgAlt="errata.common.errataAlt"
 	           helpUrl="/rhn/help/channel-mgmt/en-US/channel-mgmt-Custom_Errata_Management-Managed_Errata_Details.jsp"
 	           deletionUrl="/rhn/errata/manage/Delete.do?eid=${param.eid}"
                deletionType="errata">
@@ -60,11 +55,7 @@
   <div class="page-summary">
     <p><bean:message key="errata.edit.instructions" /></p>
   </div>
-
-
-  <html:errors />
-
-  <table class="details">
+<table class="details">
     <tr>
       <th nowrap="nowrap">
         <bean:message key="errata.create.jsp.synopsis"/>

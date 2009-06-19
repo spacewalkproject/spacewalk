@@ -10,14 +10,6 @@
   <script src="/javascript/channel_tree.js" type="text/javascript"></script>
 </head>
 <body onLoad="onLoadStuff(1);">
-
-<html:errors />
-<html:messages id="message" message="true">
-	<rhn:messages>
-		<c:out escapeXml="false" value="${message}" />
-	</rhn:messages>
-</html:messages>
-
 <h1><img src="/img/rhn-icon-cd.gif" alt="compact disc" /><bean:message key="common.download.header"/> <rhn-help href="s1-sm-channels-packages.html#S2-SM-CHANNEL-ISO"/></h1>
 
 <p><strong><bean:message key="isodownload.hosted-only.warn"/></strong></p>

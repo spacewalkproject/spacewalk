@@ -12,12 +12,6 @@
 <body>
 
 <%@ include file="/WEB-INF/pages/common/fragments/errata/errata-header.jspf" %>
-
-<html:errors/>
-<html:messages id="message" message="true">
-    <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <h2>
   <img src="/img/rhn-icon-system.gif" alt="<bean:message key='system.common.systemAlt' />" />
   <bean:message key="affectedsystems.jsp.header"/>

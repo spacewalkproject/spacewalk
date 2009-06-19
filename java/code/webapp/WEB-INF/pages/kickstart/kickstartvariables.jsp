@@ -5,24 +5,14 @@
 
 <html:html xhtml="true">
 <body>
-<html:errors />
-
-
-
-
-
-
- <rhn:require acl="is_ks_raw(${ksid})" mixins="com.redhat.rhn.common.security.acl.KickstartAclHandler">
+<rhn:require acl="is_ks_raw(${ksid})" mixins="com.redhat.rhn.common.security.acl.KickstartAclHandler">
 	<%@ include file="/WEB-INF/pages/common/fragments/kickstart/advanced/header.jspf"%>
  </rhn:require>
    
  
  
   <rhn:require acl="is_ks_not_raw(${ksid})" mixins="com.redhat.rhn.common.security.acl.KickstartAclHandler">
-  	<html:messages id="message" message="true">
-		  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-		</html:messages>
-  	<%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
+<%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
 
 	  <rhn:dialogmenu mindepth="0" maxdepth="1" 
 	    definition="/WEB-INF/nav/kickstart_details.xml" 

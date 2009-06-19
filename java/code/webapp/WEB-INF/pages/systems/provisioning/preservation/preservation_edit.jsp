@@ -6,12 +6,6 @@
 <html:xhtml/>
 <html>
 <body>
-
-<html:errors />
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif" imgAlt="system.common.kickstartAlt"
                deletionUrl="/rhn/systems/provisioning/preservation/PreservationListDeleteSingle.do?file_list_id=${fileList.id}"
                deletionType="filelist">

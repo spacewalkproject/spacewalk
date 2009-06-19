@@ -2,10 +2,6 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
-<html:errors />
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
 <rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif"
                imgAlt="system.common.kickstartAlt"
                deletionUrl="/rhn/kickstart/KickstartDeleteAdvanced.do?ksid=${ksdata.id}"

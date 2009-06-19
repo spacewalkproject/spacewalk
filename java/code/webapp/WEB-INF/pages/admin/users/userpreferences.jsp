@@ -6,8 +6,6 @@
 <body>
 
 <%@ include file="/WEB-INF/pages/common/fragments/user/user-header.jspf" %>
-
-<html:errors />
 <html:form action="/users/PrefSubmit">
 <%@ include file="/WEB-INF/pages/common/fragments/user/preferences.jspf" %>
 </html:form>

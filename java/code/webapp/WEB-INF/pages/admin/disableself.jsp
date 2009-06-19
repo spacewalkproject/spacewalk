@@ -5,15 +5,10 @@
 <html:xhtml/>
 <html>
 <body>
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <rhn:toolbar base="h1" img="/img/rhn-icon-users.gif" imgAlt="users.jsp.imgAlt">
 <bean:message key="disableself.jsp.account_deactivation" />
 </rhn:toolbar>
-<html:errors />
-    <div class="page-summary">
+<div class="page-summary">
         <p>
           <bean:message key="disableself.jsp.message" />
         </p>

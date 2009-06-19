@@ -8,12 +8,6 @@
 <html:xhtml/>
 <html>
 <body>
-
-<html:errors />
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <rhn:toolbar base="h1" img="/img/rhn-config_files.gif" imgAlt="config.common.filesAlt"
  helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-files-central">
   <bean:message key="globalfilelist.jsp.toolbar"/>

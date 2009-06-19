@@ -7,14 +7,7 @@
 
 <html:html xhtml="true">
 <body>
-
-<html:errors />
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
-
- <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_header.jspf" %>
+<%@ include file="/WEB-INF/pages/common/fragments/channel/channel_header.jspf" %>
 <BR>
 
 <h2><bean:message key="channel.edit.jsp.basicchanneldetails"/></h2>

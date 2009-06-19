@@ -7,13 +7,6 @@
 <html>
 
 <body>
-
-<html:messages id="message" message="true">
-    <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
-<html:errors />
-
 <%@ include file="/WEB-INF/pages/common/fragments/profile/header.jspf" %>
 
 <h2><bean:message key="deleteconfirm.jsp.confirmprofiledeletion"/></h2>

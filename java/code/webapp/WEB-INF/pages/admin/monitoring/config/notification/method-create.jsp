@@ -8,12 +8,6 @@
 <body>
 
 <%@ include file="/WEB-INF/pages/common/fragments/user/user-header.jspf" %>
-
-<html:errors />
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <h2><bean:message key="method-create.jsp.header2"/></h2>
 
 <div>

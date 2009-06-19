@@ -9,9 +9,6 @@
 <html>
 <head></head>
 <body>
-
-<html:errors />
-
 <%@ include file="/WEB-INF/pages/common/fragments/configuration/files/header.jspf"%>
 
 <h2><bean:message key="deleterev.jsp.header2" /></h2>

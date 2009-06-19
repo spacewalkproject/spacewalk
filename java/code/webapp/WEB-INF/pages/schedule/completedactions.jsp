@@ -8,13 +8,7 @@
 <html:xhtml/>
 <html>
 <body>
-
-  <html:errors/>
-<html:messages id="message" message="true">
-    <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-  </html:messages>
-  
-  <rhn:toolbar base="h1" img="/img/rhn-icon-schedule_computer.gif"
+<rhn:toolbar base="h1" img="/img/rhn-icon-schedule_computer.gif"
   			   imgAlt="actions.jsp.imgAlt"
                helpUrl="/rhn/help/reference/en-US/s1-sm-actions.jsp#s2-sm-action-comp">
     <bean:message key="completedactions.jsp.completed_actions"/>

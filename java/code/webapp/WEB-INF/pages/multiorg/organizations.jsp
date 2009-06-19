@@ -7,12 +7,6 @@
 <html>
 <body>
 
-<html:errors />
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
-<html:errors />
 <c:set var="pageList" value="${requestScope.pageList}" />
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-org.gif" >

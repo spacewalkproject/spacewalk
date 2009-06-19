@@ -18,9 +18,6 @@ function setStep(stepName) {
   </head>
 
   <body>
-
-<html:errors />
-
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
    <br/>

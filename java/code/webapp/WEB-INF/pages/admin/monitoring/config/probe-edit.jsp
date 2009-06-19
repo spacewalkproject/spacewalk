@@ -31,8 +31,6 @@ function refreshNotifFields() {
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <h2><bean:message key="probe-edit.jsp.header2"/></h2>
-
-<html:errors />
 <html:form action="/monitoring/config/ProbeSuiteProbeEdit" method="POST">
   <table class="details">
     <tr>

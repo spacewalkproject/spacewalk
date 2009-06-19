@@ -30,9 +30,6 @@
 <body>
 
 <%@ include file="/WEB-INF/pages/common/fragments/configuration/files/header.jspf" %>
-
-<html:errors />
-
 <h2>
   <bean:message key="diff.jsp.header" />
 </h2>

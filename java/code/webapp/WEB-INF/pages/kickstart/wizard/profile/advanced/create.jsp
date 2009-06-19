@@ -7,10 +7,6 @@
 <meta http-equiv="Pragma" content="no-cache" />
 </head>
 <body>
-<html:errors />
-<html:messages id="message" message="true">
-	<rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
 <rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif"
                imgAlt="system.common.kickstartAlt">
   <bean:message key ="kickstart.advanced.jsp.create"/>

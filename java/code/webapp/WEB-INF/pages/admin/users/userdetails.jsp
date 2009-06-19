@@ -10,8 +10,6 @@
 <body>
 
 <%@ include file="/WEB-INF/pages/common/fragments/user/user-header.jspf" %>
-
-<html:errors />
 <html:form action="/users/UserDetailsSubmit?uid=${user.id}">
 
  <h2><bean:message key="userdetails.jsp.header"/></h2>

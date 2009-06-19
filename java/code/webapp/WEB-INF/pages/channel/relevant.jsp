@@ -16,15 +16,7 @@ function showFiltered() {
 </script>
 </head>
 
-<body onLoad="onLoadStuff(3); showFiltered();"> 
-
-
-
-<html:errors/>
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
+<body onLoad="onLoadStuff(3); showFiltered();">
 <rhn:toolbar base="h1" img="/img/rhn-icon-software.gif" imgAlt="channels.overview.toolbar.imgAlt">
   <bean:message key="channels.relevant.jsp.toolbar"/>
 </rhn:toolbar>

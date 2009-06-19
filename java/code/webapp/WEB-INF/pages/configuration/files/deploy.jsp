@@ -7,9 +7,6 @@
 <html:xhtml/>
 <html>
 <body>
-
-<html:errors />
-
 <%@ include file="/WEB-INF/pages/common/fragments/configuration/files/header.jspf"%>
 
 <h2><bean:message key="deploy.jsp.header2"/></h2>

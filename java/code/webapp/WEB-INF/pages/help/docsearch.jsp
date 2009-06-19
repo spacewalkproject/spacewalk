@@ -10,13 +10,7 @@
 <script type="text/javascript" src="/javascript/highlander.js"></script>
 </head>
 <body>
-
-  <html:messages id="message" message="true">
-    <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-  </html:messages>
-
-  <html:errors />
-  <rhn:toolbar base="h1" img="/img/rhn-icon-search.gif" imgAlt="docsearch.jsp.imgAlt"
+<rhn:toolbar base="h1" img="/img/rhn-icon-search.gif" imgAlt="docsearch.jsp.imgAlt"
                helpUrl="">
     <bean:message key="docsearch.jsp.toolbar"/>
   </rhn:toolbar>

@@ -5,12 +5,6 @@
 
 <html>
 <body>
-
-<html:errors/>
-<html:messages id="message" message="true">
-    <rhn:messages><c:out escapeXml="false" value="${message}"/></rhn:messages>
-</html:messages>
-
 <rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif">
     <bean:message key="channel.delete.jsp.toolbar" arg0="${channel.name}"/>
 </rhn:toolbar>

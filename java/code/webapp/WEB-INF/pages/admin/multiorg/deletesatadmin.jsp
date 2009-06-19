@@ -7,12 +7,6 @@
 <html>
 
 <body>
-
-<html:errors/>
-<html:messages id="message" message="true">
-    <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <h2><bean:message key="deleteconfirm.jsp.confirmsatadminrole"/></h2>
 
 <div class="page-summary">

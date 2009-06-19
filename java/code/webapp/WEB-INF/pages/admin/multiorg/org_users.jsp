@@ -6,12 +6,6 @@
 
 <html>
 <body>
-
-<html:errors />
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <c:choose>
 <c:when test="${param.oid != 1}">
 <rhn:toolbar base="h1" img="/img/rhn-icon-org.gif"
@@ -46,9 +40,6 @@
    <bean:message key="org.users.summary" arg0="${orgName}" />
 </p>
 </div>
-
-<html:errors />
-
 <c:set var="pageList" value="${requestScope.pageList}" />
 
 <div>
