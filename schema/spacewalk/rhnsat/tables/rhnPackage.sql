@@ -54,8 +54,11 @@ rhnPackage
 	source_rpm_id	number
 			constraint rhn_package_srcrpmid_fk
 				references rhnSourceRPM(id),
-        md5sum          varchar2(64)
+        checksum        varchar2(64)
 			constraint rhn_package_md5_nn not null,
+        checksum_id     number
+                        constraint rhn_pkg_checksum_id_fk
+                                references rhnPackageChecksum(id),
         vendor          varchar2(64)
 			constraint rhn_package_vendor_nn not null,
         payload_format  varchar2(32),

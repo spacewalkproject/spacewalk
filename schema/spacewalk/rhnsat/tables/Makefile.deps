@@ -156,7 +156,8 @@ rhnOrgStateTransitions	:: rhnOrgAvailableStates
 rhnOrgQuota		:: web_customer
 
 rhnPackage		:: rhnPackageName rhnPackageEVR rhnPackageArch \
-			   rhnPackageGroup rhnSourceRPM web_customer
+			   rhnPackageGroup rhnSourceRPM web_customer \
+                           rhnPackageChecksum
 rhnPackageArch		:: rhnArchType			
 rhnPackageArch_data	:: lookup_arch_type
 rhnPackageDeltaElement	:: rhnPackageDelta rhnTransactionPackage
@@ -169,6 +170,7 @@ rhnPackageKey		:: rhnPackageKeyType rhnPackageProvider
 rhnPackageKey_data	:: rhnPackageKey rhnPackageProvider lookup_package_provider lookup_package_key_type rhnPackageKeyType_data rhnPackageProvider_data
 rhnPackageProvider_data	:: rhnPackageProvider 
 rhnPackageKeyType_data	:: rhnPackageKeyType
+rhnPackageChecksum_data :: rhnPackageChecksum 
 rhnPackageObsoletes	:: rhnPackage rhnPackageCapability
 rhnPackageNEVRA		:: rhnPackageName rhnPackageEVR rhnPackageArch
 rhnPackageProvides	:: rhnPackage rhnPackageCapability
