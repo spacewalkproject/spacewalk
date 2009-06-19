@@ -89,7 +89,7 @@ rhnPackage
 create sequence rhn_package_id_seq;
 
 create unique index rhn_package_md5_oid_uq
-	on rhnPackage(md5sum, org_id)
+	on rhnPackage(checksum, org_id)
         tablespace [[2m_tbs]]
   ;
 
