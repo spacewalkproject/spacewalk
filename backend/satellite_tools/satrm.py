@@ -24,6 +24,12 @@ from optparse import Option, OptionParser
 from common import CFG, initCFG, initLOG, log_debug, log_error
 from server import rhnSQL
 
+UNSUPPORTED_WARN = """
+NOTE: This method is not maintained or supported by Red Hat but can be
+used if necessary precautions are taken. A database backup before removal
+is recommended.
+"""
+
 options_table = [
     Option("-v", "--verbose",       action="count", 
         help="Increase verbosity"),
@@ -39,6 +45,8 @@ options_table = [
 
 
 def main():
+    print UNSUPPORTED_WARN
+
     global options_table
     parser = OptionParser(option_list=options_table)
 
