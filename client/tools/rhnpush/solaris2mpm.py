@@ -15,7 +15,6 @@
 
 
 import copy
-import md5
 import optparse
 import os
 import re
@@ -25,6 +24,20 @@ import string
 import sys
 import traceback
 import time
+
+try:
+    import hashlib
+except ImportError:
+    import md5
+    class hashlib:
+        @staticmethod
+        def new(checksum):
+            # Add sha1 if needed.
+            if checksum == 'md5':
+                return md5.new()
+            # if not md5 or sha1, its invalid
+            if checksum not in ['md5', 'sha1']:
+                raise ValueError, "Incompatible checksum type"
 
 import rhn_mpm
 
@@ -664,7 +677,8 @@ def md5sum_for_stream(data_stream):
     """Calcualte the md5sum for a datastream and return it in a utf8 friendly
     format"""
 
-    md5obj = md5.new(data_stream.read())
+    md5obj = hashlib.new('md5')
+    md5obj.update(data_stream.read())
     data_stream.seek(0)
 
     return md5obj.hexdigest()
