@@ -23,7 +23,7 @@ class ActionDeps:
             'source-packages'           : [''],
             'errata'                    : [''],
             'kickstarts'                : [''],
-            'rpms'                      : ['short'],
+            'rpms'                      : [''],
 #            'srpms'                     : ['channels'],
             'channels'                  : ['channel-families'],
             'channel-families'          : ['blacklists'],
