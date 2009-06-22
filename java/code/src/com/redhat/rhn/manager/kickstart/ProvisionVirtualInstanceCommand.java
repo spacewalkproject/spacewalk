@@ -39,6 +39,7 @@ import org.cobbler.Profile;
 
 import java.io.File;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -273,13 +274,19 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
      */
     public DataResult<? extends KickstartDto> getKickstartProfiles() {
         DataResult<? extends KickstartDto> result =  super.getKickstartProfiles();
-        for (KickstartDto dto : result) {
+        for (Iterator<? extends KickstartDto> itr = result.iterator(); itr.hasNext();) {
+            KickstartDto dto  = itr.next();
             Profile prf = Profile.lookupById(
                     CobblerXMLRPCHelper.getConnection(this.getUser()), dto.getCobblerId());
-            dto.setVirtBridge(prf.getVirtBridge());
-            dto.setVirtCpus(prf.getVirtCpus());
-            dto.setVirtMemory(prf.getVirtRam());
-            dto.setVirtSpace(prf.getVirtFileSize());
+            if (prf != null) {
+                dto.setVirtBridge(prf.getVirtBridge());
+                dto.setVirtCpus(prf.getVirtCpus());
+                dto.setVirtMemory(prf.getVirtRam());
+                dto.setVirtSpace(prf.getVirtFileSize());
+            }
+            else {
+                itr.remove();
+            }
         }
         return result;
     }
