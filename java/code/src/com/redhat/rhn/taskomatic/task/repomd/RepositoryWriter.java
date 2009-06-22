@@ -81,7 +81,6 @@ public class RepositoryWriter {
         log.info("Channel Modified Date:" + channel.getLastModified());
         return !fileModifiedDate.equals(channel.getLastModified());
     }
-
     /**
      * 
      * @param channel channelinfo for repomd file creation

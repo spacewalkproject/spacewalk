@@ -67,13 +67,16 @@ import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.org.OrgManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
+import com.redhat.rhn.taskomatic.task.TaskConstants;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.sql.Timestamp;
 import java.sql.Types;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -2712,6 +2715,40 @@ public class ChannelManager extends BaseManager {
         else {
             return Collections.EMPTY_LIST;
         }
+    }
+
+    /**
+     * Check the status of the cache repo data
+     * @param channel the channel to look for status
+     * @return repodata status
+     */
+    public static boolean isChannelLabelInProgress(String channel) {
+        SelectMode selector = ModeFactory.getMode(TaskConstants.MODE_NAME,
+                TaskConstants.TASK_QUERY_REPOMD_DETAILS_QUERY);
+        Map<Object, Object> params = new HashMap<Object, Object>();
+        params.put("channel_label", channel);
+        return (selector.execute(params).size() > 0);
+    }
+
+    /**
+     * get the last build date on repodata per channel
+     * @param channel the channel to look for repodata build date
+     * @return last repo build date
+     */
+    public static String getRepoLastBuild(Channel channel) {
+        String  pathPrefix = Config.get().getString(Config.REPOMD_PATH_PREFIX,
+        "rhn/repodata");
+        String mountPoint = Config.get().getString(Config.REPOMD_CACHE_MOUNT_POINT, "/pub");
+        File theFile = new File(mountPoint + File.separator + pathPrefix +
+                File.separator + channel.getLabel() + File.separator +
+                "repomd.xml");
+        Date fileModifiedDateIn = new Date(theFile.lastModified());
+        // the file Modified date should be getting set when the file
+        // is moved into the correct location.
+        log.info("File Modified Date:" + fileModifiedDateIn);
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String fileModifiedDate = formatter.format(fileModifiedDateIn);
+        return fileModifiedDate;
     }
 
 }

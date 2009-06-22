@@ -74,12 +74,40 @@
         </td>
       </tr>
       <tr>
+        <th><bean:message key="channel.jsp.chanent"/>:</th>
+        <td><c:out value="${channel.channelFamily.name}" /></td>
+      </tr>
+      <tr>
         <th><bean:message key="channelfiles.jsp.lastmod"/>:</th>
         <td><c:out value="${channel.lastModified}" /></td>
       </tr>
       <tr>
-        <th><bean:message key="channel.jsp.chanent"/>:</th>
-        <td><c:out value="${channel.channelFamily.name}" /></td>
+        <th><bean:message key="channel.jsp.repolastbuild"/>:</th>
+        <td>
+        <c:choose>
+              <c:when test="${repo_last_build != null}">
+		        <c:out value="${repo_last_build}" /></td>
+              </c:when>
+              <c:otherwise>
+                <span class="no-details">(none)</span>
+              </c:otherwise>
+        </c:choose>
+      </tr>
+      <tr>
+        <th><bean:message key="channel.jsp.repodata"/>:</th>
+        <td>
+           <c:if test="${repo_status ==  null}">
+               <span class="no-details">(none)</span>
+           </c:if>
+           <c:choose>
+               <c:when test="${repo_status == true}">
+                  <bean:message key="channel.jsp.repodata.inProgress"/>
+               </c:when>
+               <c:otherwise>
+                    <bean:message key="channel.jsp.repodata.completed"/>
+               </c:otherwise>
+           </c:choose>
+        </td>
       </tr>
       <tr>
         <th><bean:message key="header.jsp.packages"/>:</th>
