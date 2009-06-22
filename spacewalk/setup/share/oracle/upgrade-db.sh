@@ -33,15 +33,18 @@ ORACLE_CONFIG_DIR=$ORACLE_BASE/config/10.2.0
 ORACLE_CONFIG_9I_DIR=$ORACLE_BASE/config/9.2.0
 
 
-# add rhnsat entry to oratab
-echo "rhnsat:$ORACLE_HOME:Y" >>/etc/oratab
-
 # change env to rhnsat instance
 if [ -z $ORACLE_CUSTOM_SID ]; then
 	export ORACLE_SID=rhnsat
 else
 	export ORACLE_SID=$ORACLE_CUSTOM_SID
 fi
+
+
+# In case the oratab entry for embedded database does not exist, create it
+grep -q "^$ORACLE_SID:.*$" /etc/oratab || echo "$ORACLE_SID:$ORACLE_HOME:Y" >> /etc/oratab
+
+
 . oraenv
 
 
