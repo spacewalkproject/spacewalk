@@ -93,8 +93,7 @@ public class PermissionException extends RhnRuntimeException  {
                 new Object[] {minutes, loginUrl});
         
         //The third reason gives a way to report bugs in the site.
-        String contactUrl = "/help/contact.pxt";
-        addReason(ol, "permission.jsp.summary.acl.reason3", new Object[] {contactUrl});
+        addReason(ol, "permission.jsp.summary.acl.reason3", null);
         
         //You need cookies to view our site.
         addReason(ol, "permission.jsp.summary.acl.reason4", null);

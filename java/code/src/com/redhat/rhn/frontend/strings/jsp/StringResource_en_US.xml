@@ -572,7 +572,7 @@
       </trans-unit>
 
       <trans-unit id="badparam.jsp.reason4">
-<source>You've found an error in our site.  Please help us by filling out &lt;a href="/help/contact.pxt"&gt;this form&lt;/a&gt; with details of how you received this message.</source>
+<source>You've found an error in our site.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Bad Parameter error page</context>
         </context-group>
@@ -625,7 +625,7 @@
       </trans-unit>
 
       <trans-unit id="404.jsp.reason4">
-<source>If you feel you've reached this page in error, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt; with details of how you received this message.</source>
+<source>If you feel you've reached this page in error, please contact us with details of how you received this message.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
         </context-group>
@@ -653,7 +653,7 @@
       </trans-unit>
 
       <trans-unit id="500.jsp.message">
-<source>Please help us correct this problem by &lt;a href="/help/contact.pxt"&gt;contacting us&lt;/a&gt; with details of how you received this message.</source>
+<source>Please help us correct this problem by contacting us with details of how you received this message.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">500 error page</context>
         </context-group>
@@ -18286,7 +18286,7 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
       </trans-unit>
 
       <trans-unit id="service.jsp.message">
-<source>Please help us correct this problem by &lt;a href="/help/contact.pxt"&gt;contacting us&lt;/a&gt; with details of how you received this message.</source>
+<source>Please help us correct this problem by contacting us with details of how you received this message.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">service error page</context>
         </context-group>
