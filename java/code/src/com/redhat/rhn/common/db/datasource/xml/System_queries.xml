@@ -1536,6 +1536,15 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
     </query>
 </mode>
 
+<mode name="list_installed_packages_for_name">
+    <query params="sid, name">
+        SELECT SP.name_id, SP.evr_id, SP.PACKAGE_ARCH_ID as arch_id
+        from rhnServerPackage SP inner join
+			rhnPackageName PN on SP.name_id = PN.id
+        where    SP.server_id = :sid
+		AND  PN.name = :name
+    </query>
+</mode>
 
 
 </datasource_modes>
