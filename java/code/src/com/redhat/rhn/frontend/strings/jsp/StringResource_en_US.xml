@@ -21317,6 +21317,18 @@ given channel.</source>
       <trans-unit id="channel.jsp.errata.sync.complete">
 		<source>Sucessfully syncronized {0} errata and pushed {1} packages to channel {2}.</source>
       </trans-unit>
+      <trans-unit id="channel.jsp.repodata">
+		<source>Repo Cache Status</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.repodata.completed">
+		<source> Completed </source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.repodata.inProgress">
+		<source> In Progress </source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.repolastbuild">
+		<source>Last Repo Build</source>
+      </trans-unit>
 
 
 

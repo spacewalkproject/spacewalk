@@ -365,7 +365,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/repomd/view.py*
 
 # the cache
-%attr(750,apache,root) %dir %{_var}/cache/rhn
+%attr(750,apache,apache) %dir %{_var}/cache/rhn
 # config files
 %attr(640,root,apache) %{rhnconf}/default/rhn_server.conf
 # main httpd config
