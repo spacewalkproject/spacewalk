@@ -69,8 +69,9 @@ exit 0
 
 %post
 # set ORACLE_HOME
-echo "embedded:%{oracle_home}:N" >>/etc/oratab \
-  || echo "Unable add 'embedded:%{oracle_home}:N' entry to /etc/oratab" >&2
+grep -q "embedded:%{oracle_home}:N" /etc/oratab || \
+echo "embedded:%{oracle_home}:N" >> /etc/oratab || \
+echo "Unable to add 'embedded:%{oracle_home}:N' entry to /etc/oratab" >&2
 
 # setup environment for oracle user
 [ -f %{oracle_base}/.bash_profile ] \
