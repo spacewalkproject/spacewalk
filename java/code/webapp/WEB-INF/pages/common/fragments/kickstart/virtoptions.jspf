@@ -3,8 +3,8 @@
 
           
          <tr>
-            <th><bean:message key="kickstartdetails.jsp.virt_mem_kb"/>:</th>
-            <td><html:text property="virt_mem_kb" size="10" /></td>
+            <th><bean:message key="kickstartdetails.jsp.virt_mem_mb"/>:</th>
+            <td><html:text property="virt_mem_mb" size="10" /></td>
           </tr>
                     
          <tr>

@@ -177,7 +177,7 @@ public class Config {
     public static final String VIRT_PATH_DIR = "kickstart.virt_storage_path";
     private static final String DEFAULT_VIRT_PATH = "/var/lib/xen";
     public static final String VIRT_BRIDGE = "kickstart.virt_bridge";
-    public static final String VIRT_MEM = "kickstart.virt_mem_size_kb";
+    public static final String VIRT_MEM = "kickstart.virt_mem_size_mb";
     public static final String VIRT_CPU = "kickstart.virt_cpus";
     public static final String VIRT_DISK = "kickstart.virt_disk_size_gb";
     /**
@@ -441,18 +441,6 @@ public class Config {
         }
 
         return value.split(",");
-    }
-
-    /**
-     * get the config entry for string s, if no value is found
-     * return the defaultValue specified.
-     *
-     * @param s string to get the value of
-     * @param defaultValue Default value if entry is not found.
-     * @return the value
-     */
-    public long getLong(String s, long defaultValue) {
-        return Long.valueOf(getString(s, String.valueOf(defaultValue)));
     }
     
     /**
@@ -815,11 +803,11 @@ public class Config {
     }
 
     /**
-     * Returns the defualt VirtMemory Size in KBs
+     * Returns the defualt VirtMemory Size in MBs
      * @return the memory size
      */
-    public long getDefaultVirtMemorySize() {
-        return getLong(VIRT_MEM, 262144);
+    public int getDefaultVirtMemorySize() {
+        return getInt(VIRT_MEM, 256);
     }
     
     /**

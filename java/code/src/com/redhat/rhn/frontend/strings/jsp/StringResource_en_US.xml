@@ -9215,8 +9215,8 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     </trans-unit>        
     
-    <trans-unit id="kickstartdetails.jsp.virt_mem_kb">
-        <source>Virtual Memory (in kilobytes)</source>
+    <trans-unit id="kickstartdetails.jsp.virt_mem_mb">
+        <source>Virtual Memory (in MB)</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>

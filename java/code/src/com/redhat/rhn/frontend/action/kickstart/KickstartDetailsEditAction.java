@@ -73,7 +73,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
     public static final String IS_VIRT = "is_virt";
     public static final String VIRT_CPU = "virt_cpus";
     public static final String VIRT_DISK_SIZE = "virt_disk_size";
-    public static final String VIRT_MEMORY = "virt_mem_kb";
+    public static final String VIRT_MEMORY = "virt_mem_mb";
     public static final String VIRT_BRIDGE = "virt_bridge";
     public static final String VIRT_PATH = "virt_disk_path";
     
