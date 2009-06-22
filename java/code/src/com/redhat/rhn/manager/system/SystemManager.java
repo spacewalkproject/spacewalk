@@ -2553,4 +2553,22 @@ public class SystemManager extends BaseManager {
         params.put("sid", sid);
         return m.execute(params);
     }
+
+    /**
+     * List all of the installed packages with the given name
+     * @param packageName the package name
+     * @param server the server
+     * @return list of maps with name_id, evr_id and arch_id
+     */
+    public static List<Map<String, Long>> listInstalledPackage(
+                                    String packageName, Server server) {
+        SelectMode m = ModeFactory.getMode("System_queries",
+                "list_installed_packages_for_name");
+        Map params = new HashMap();
+        params.put("sid", server.getId());
+        params.put("name", packageName);
+        return m.execute(params);
+    }
+
+
 }

@@ -38,6 +38,8 @@ import com.redhat.rhn.domain.org.test.CustomDataKeyTest;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
+import com.redhat.rhn.domain.rhnpackage.PackageFactory;
+import com.redhat.rhn.domain.rhnpackage.test.PackageEvrFactoryTest;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
@@ -47,6 +49,7 @@ import com.redhat.rhn.domain.server.CustomDataValue;
 import com.redhat.rhn.domain.server.Device;
 import com.redhat.rhn.domain.server.Dmi;
 import com.redhat.rhn.domain.server.EntitlementServerGroup;
+import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Location;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Network;
@@ -73,6 +76,7 @@ import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
@@ -92,10 +96,12 @@ import org.hibernate.Session;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * SystemManagerTest
@@ -1301,4 +1307,30 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertTrue(errata.size() == 1);
         assertTrue(SystemManager.hasUnscheduledErrata(user, server.getId()));
     }
+
+    public void testListInstalledPackage() throws Exception {
+        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        Server s = ServerFactoryTest.createTestServer(user);
+
+        List<Map<String, Long>> list = SystemManager.listInstalledPackage("kernel", s);
+        assertTrue(list.isEmpty());
+
+        InstalledPackage p = new InstalledPackage();
+        p.setArch(PackageFactory.lookupPackageArchByLabel("x86_64"));
+        p.setName(PackageManager.lookupPackageName("kernel"));
+        p.setEvr(PackageEvrFactoryTest.createTestPackageEvr());
+        p.setServer(s);
+        Set set = new HashSet();
+        set.add(p);
+        s.setPackages(set);
+
+        ServerFactory.save(s);
+
+        list = SystemManager.listInstalledPackage("kernel", s);
+        assertTrue(list.size() == 1);
+        assertEquals(list.get(0).get("name_id"), p.getName().getId());
+        assertEquals(list.get(0).get("evr_id"), p.getEvr().getId());
+
+    }
+
 }

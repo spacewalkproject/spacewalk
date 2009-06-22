@@ -118,6 +118,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     public static final String TARGET_PROFILE_TYPE_SYSTEM = "system";
     public static final String TARGET_PROFILE_TYPE_NONE = "none";    
     
+    public static final String PACKAGE_TO_REMOVE = "rhn-kickstart-virtualization";
+
     
     private User user;
     private KickstartData ksdata;
@@ -553,12 +555,23 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         Server hostServer  = getHostServer();
         log.debug("** Server we are operating on: " + hostServer);
 
-        // Install packages on the host server.
 
+        //rhn-kickstart-virtualization conflicts with this package, so we have to
+        //  remove it
+        List<Map<String, Long>> installed = SystemManager.listInstalledPackage(
+                                                PACKAGE_TO_REMOVE, hostServer);
+        Action removal = null;
+        if (!installed.isEmpty()) {
+            removal = ActionManager.schedulePackageRemoval(user, hostServer,
+                        installed, scheduleDate);
+        }
+
+        // Install packages on the host server.
         log.debug("** Creating packageAction");
         Action packageAction = 
             ActionManager.schedulePackageInstall(
                 this.user, hostServer, this.packagesToInstall, scheduleDate);
+        packageAction.setPrerequisite(removal);
         log.debug("** Created packageAction ? " + packageAction.getId());
 
         // Make sure we fail all existing sessions for this server since
