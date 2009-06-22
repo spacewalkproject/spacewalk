@@ -567,7 +567,7 @@
             <form-property name="kernel_options" type="java.lang.String"/>
             <form-property name="post_kernel_options" type="java.lang.String"/>
  			<form-property name="virt_disk_path" type="java.lang.String"/>
- 			<form-property name="virt_mem_kb"  type="java.lang.Integer"/>
+ 			<form-property name="virt_mem_mb"  type="java.lang.Integer"/>
  			<form-property name="virt_cpus"  type="java.lang.Integer"/>
  			<form-property name="virt_disk_size"  type="java.lang.Integer"/>
  			<form-property name="virt_bridge" type="java.lang.String"/>
@@ -689,7 +689,7 @@
             <form-property name="kernel_options" type="java.lang.String"/>
             <form-property name="post_kernel_options" type="java.lang.String"/> 
 			<form-property name="virt_disk_path" type="java.lang.String"/>
- 			<form-property name="virt_mem_kb"  type="java.lang.Integer"/>
+ 			<form-property name="virt_mem_mb"  type="java.lang.Integer"/>
  			<form-property name="virt_cpus"  type="java.lang.Integer"/>
  			<form-property name="virt_disk_size"  type="java.lang.Integer"/>
  			<form-property name="virt_bridge" type="java.lang.String"/>                        
