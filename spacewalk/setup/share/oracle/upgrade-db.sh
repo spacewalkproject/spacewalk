@@ -19,6 +19,27 @@ set -x
 # exit if anything fails
 set -e
 
+DB_NAME="rhnsat"
+DB_USER="rhnsat"
+
+if [ ${#} -gt 0 ]; then
+   while [ -n "$1" ] ; do
+       case $1 in
+       -d | --db | --database )
+           shift
+           DB_NAME=$1
+           ;;
+       -u | --user* )
+           shift
+           DB_USER=$1
+           ;;
+       * )
+           exit -1
+           ;;
+       esac
+       shift
+   done
+fi
 
 # set oracle environment to embedded server
 ORAENV_ASK=NO
@@ -32,14 +53,8 @@ ORACLE_ADMIN_9I_DIR=$ORACLE_BASE/admin/9.2.0
 ORACLE_CONFIG_DIR=$ORACLE_BASE/config/10.2.0
 ORACLE_CONFIG_9I_DIR=$ORACLE_BASE/config/9.2.0
 
-
 # change env to rhnsat instance
-if [ -z $ORACLE_CUSTOM_SID ]; then
-	export ORACLE_SID=rhnsat
-else
-	export ORACLE_SID=$ORACLE_CUSTOM_SID
-fi
-
+export ORACLE_SID=$DB_NAME
 
 # In case the oratab entry for embedded database does not exist, create it
 grep -q "^$ORACLE_SID:.*$" /etc/oratab || echo "$ORACLE_SID:$ORACLE_HOME:Y" >> /etc/oratab
@@ -79,7 +94,7 @@ m4 $UPGRADE_TMPL -I$ORACLE_ADMIN_DIR \
    --define RHNORA_DBNAME=$ORACLE_SID \
    --define RHNORA_LOG_PATH=/rhnsat/admin/rhnsat/logs \
    --define RHNORA_DATA_PATH=/rhnsat/data/rhnsat \
-   --define RHNORA_DB_USER=rhnsat \
+   --define RHNORA_DB_USER=$DB_USER \
    | $ORACLE_HOME/bin/sqlplus /nolog
 
 set +x
