@@ -1132,6 +1132,7 @@ class Backend:
             UPDATE rhnChannel
                SET channel_product_id = :channel_product_id
              WHERE id = :id
+               AND channel_product_id <> :channel_product_id
         """)
 
         statement.execute(id = channel.id,
@@ -2009,7 +2010,7 @@ def _buildExternalValue(dict, entry, tableObj):
 def computeDiff(hash1, hash2, diffHash, diffobj, prefix=None):
     # Compare if the key-values of hash1 are a subset of hash2's
     difference = 0
-    ignore_keys = ['last_modified']
+    ignore_keys = ['last_modified', 'channel_product_id']
 
     for k, v in hash1.items():
         if k in ignore_keys:
