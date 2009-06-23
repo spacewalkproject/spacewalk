@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
-
+<%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <html:xhtml/>
 <html>
     <head>
@@ -113,19 +113,27 @@
   </c:if>
   <c:if test="${requestScope.show_log}">
     <h2><bean:message key="probedetails.jsp.eventlog"/></h2>
-    <rhn:list pageList="${requestScope.pageList}" noDataText="probedetails.jsp.noevents">
-      <rhn:listdisplay exportColumns="entryDate,state,message">
-      <rhn:column header="probedetails.jsp.timestamp">
-          ${current.entryDate}
-      </rhn:column>
-      <rhn:column header="probedetails.jsp.state">
-          ${current.state}
-      </rhn:column>
-      <rhn:column header="probedetails.jsp.message">
-          ${current.htmlifiedMessage}
-      </rhn:column>
-      </rhn:listdisplay>
-    </rhn:list>
+<rl:listset name="probeSet">
+<!-- Start of active probes list -->
+<rl:list width="100%"
+         emptykey="probedetails.jsp.noevents">
+	<!-- Timestamp column -->
+	<rl:column bound="true"
+			   attr="entryDate"
+	           headerkey="probedetails.jsp.timestamp"
+	           styleclass="first-column"/>
+	<!-- state column -->
+	<rl:column bound="true"
+			   attr="state"
+	           headerkey="probedetails.jsp.state"/>
+	<!-- message column -->
+	<rl:column bound="true"
+			   attr="htmlifiedMessage"
+	           headerkey="probedetails.jsp.message"
+	           styleclass="last-column"/>
+</rl:list>
+<rl:csv	exportColumns="entryDate,state,message"/>
+</rl:listset>
   </c:if>
   <c:if test="${requestScope.show_graph  ne true && requestScope.show_log ne true}">
     <bean:message key="probedetails.jsp.noselection"/>
