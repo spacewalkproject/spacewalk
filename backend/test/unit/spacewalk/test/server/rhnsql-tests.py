@@ -15,9 +15,12 @@
 
 """
 Pure unit tests for components of rhnSQL.
+
+NOTE: Not hitting the database here!
 """
 
 import unittest
+import spacewalk.test.setpath
 
 from server import rhnSQL
 from server.rhnSQL.driver_postgresql import convert_named_query_params
@@ -58,14 +61,3 @@ class RhnSQLTests(unittest.TestCase):
         self.assertEquals([2, 4], param_index['b'])
 
 
-
-
-
-def suite():
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(RhnSQLTests))
-    return suite
-
-
-if __name__ == "__main__":
-    unittest.main(defaultTest="suite")
