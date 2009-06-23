@@ -75,7 +75,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
         VALUES (channel_family_id_val, user_id_in, server_id_in);
     END$$ language plpgsql;
 
-    CREATE OR REPLACE FUNCTION subscribe_server(server_id_in IN NUMERIC, channel_id_in NUMERIC, immediate_in NUMERIC default 1, user_id_in in numeric default null) returns void
+    CREATE OR REPLACE FUNCTION subscribe_server(server_id_in IN NUMERIC, channel_id_in NUMERIC, immediate_in NUMERIC default 1, user_id_in in numeric default null, recalcfamily_in NUMERIC default 1) returns void
     AS $$
     declare
         channel_parent_val      rhnChannel.parent_channel%TYPE;
@@ -178,8 +178,10 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
             );
             UPDATE rhnServer SET channels_changed = current_timestamp WHERE id = server_id_in;
             INSERT INTO rhnServerChannel (server_id, channel_id) VALUES (server_id_in, channel_id_in);
-
-            perform rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val);
+			IF recalcfamily_in > 0
+			THEN
+                perform rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val);
+			END IF;
             perform queue_server(server_id_in, immediate_in);
         ELSE
             perform rhn_exception.raise_exception('channel_family_no_subscriptions');
@@ -723,7 +725,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
     declare
         current_members_count numeric := 0;
     begin
-        select  count(sc.server_id)
+        select  count(distinct sc.server_id)
         into    current_members_count
         from    rhnChannelFamilyMembers cfm,
                 rhnServerChannel sc,
@@ -1058,7 +1060,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
     RETURNS numeric
     AS $$
     declare
-         channel_name varchar(64);
+         channel_name varchar(256);
          priority numeric;
          end_of_life_val timestamptz;
          org_id_val numeric;
