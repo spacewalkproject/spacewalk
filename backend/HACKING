@@ -1,13 +1,10 @@
 Before running the backend unit tests you'll need to do the following:
 
- * Install python-nose.
+ * yum install python-nose python-pgsql
  * export SPACEWALK_GIT=~/src/spacewalk
    * Adjust accordingly to point to the top level of your spacewalk git clone.
    * Probably wise to add to your ~/.bashrc or equivalent.
 
 To run the pure unit tests (no disk/network/db access):
 
-    nosetests test/unit/
-
-To run the non-pure unit tests, you'll need a ~/.spacewalk-dev.conf.
-See test/spacewalk-dev.conf.sample for a starting point.
+    nosetests -s test/unit/
