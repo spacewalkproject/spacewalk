@@ -637,7 +637,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
         assertNotNull(kad);
         assertEquals(kad, kad2);
 
-        assertEquals("256", kad.getMemory().toString());
+        assertEquals("256", kad.getMemMb().toString());
         assertEquals("2", kad.getVcpus().toString());
         assertEquals("testGuest1", kad.getGuestName());
         assertEquals("2", kad.getDiskGb().toString());
