@@ -154,7 +154,7 @@ public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
         if (error == null) {
             KickstartGuestAction action = (KickstartGuestAction) getScheduledAction();
             KickstartGuestActionDetails details = action.getKickstartGuestActionDetails();
-            setupVirtAttributes(details.getMemory().intValue(),
+            setupVirtAttributes(details.getMemMb().intValue(),
                             details.getDiskGb().intValue(),
                             details.getVcpus().intValue(),
                             details.getDiskPath());

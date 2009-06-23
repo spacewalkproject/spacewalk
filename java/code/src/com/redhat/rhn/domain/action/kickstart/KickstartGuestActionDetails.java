@@ -65,14 +65,14 @@ public class KickstartGuestActionDetails extends BaseKickstartActionDetails {
     /**
      * @return Returns the mem in MB
      */
-    public Long getMemory() {
+    public Long getMemMb() {
         return memMb;
     }
 
     /**
      * @param memMbIn the memory in MB
      */
-    public void setMemory(Long memMbIn) {
+    public void setMemMb(Long memMbIn) {
         this.memMb = memMbIn;
     }
 
