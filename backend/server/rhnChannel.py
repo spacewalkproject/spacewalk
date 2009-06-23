@@ -16,6 +16,7 @@
 
 import time
 import string
+import rpm
 from rhn.rpclib import xmlrpclib
 
 from types import IntType, ListType, DictType
