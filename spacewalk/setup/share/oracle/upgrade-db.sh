@@ -56,12 +56,15 @@ ORACLE_CONFIG_9I_DIR=$ORACLE_BASE/config/9.2.0
 # change env to rhnsat instance
 export ORACLE_SID=$DB_NAME
 
-# In case the oratab entry for embedded database does not exist, create it
-grep -q "^$ORACLE_SID:.*$" /etc/oratab || echo "$ORACLE_SID:$ORACLE_HOME:Y" >> /etc/oratab
-
+# If the record for satellite database exists, substitute it with new value.
+# Otherwise create a new record.
+if grep -q "^$ORACLE_SID:.*$" /etc/oratab; then
+	sed -i "s;^$ORACLE_SID:.*$;$ORACLE_SID:$ORACLE_HOME:Y;" /etc/oratab
+else
+	echo "$ORACLE_SID:$ORACLE_HOME:Y" >> /etc/oratab
+fi
 
 . oraenv
-
 
 # modify listener
 LISTENER_ORA=network/admin/listener.ora

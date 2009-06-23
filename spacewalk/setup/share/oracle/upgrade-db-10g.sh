@@ -51,6 +51,14 @@ ORACLE_CONFIG_DIR=$ORACLE_BASE/config/10.2.0
 export ORACLE_SID=$DB_NAME
 . oraenv
 
+# If the record for satellite database exists, substitute it with new value.
+# Otherwise create a new record.
+if grep -q "^$ORACLE_SID:.*$" /etc/oratab; then
+	sed -i "s;^$ORACLE_SID:.*$;$ORACLE_SID:$ORACLE_HOME:Y;" /etc/oratab
+else
+	echo "$ORACLE_SID:$ORACLE_HOME:Y" >> /etc/oratab
+fi
+
 # upgrade database
 UPGRADE_TMPL=$ORACLE_ADMIN_DIR/embedded-upgradedb-10g.tmpl
 m4 $UPGRADE_TMPL -I$ORACLE_ADMIN_DIR \
