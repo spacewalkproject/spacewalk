@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.11
+Version: 5.9.14
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -76,6 +76,9 @@ Requires: spacewalk-selinux
 
 %if "%{selinux_policyver}" != ""
 Requires: selinux-policy >= %{selinux_policyver}
+%endif
+%if 0%{?rhel} == 5
+Requires:        selinux-policy >= 2.4.6-114
 %endif
 Requires(post): /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/selinuxenabled
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
@@ -161,6 +164,13 @@ if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/osa-dispatcher-selinux-enable
 fi
 
+%posttrans -n osa-dispatcher-selinux
+#this may be safely remove when BZ 505066 is fixed
+if /usr/sbin/selinuxenabled ; then
+  rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
+  /sbin/restorecon -vvi /var/log/rhn/osa-dispatcher.log
+fi
+
 %postun -n osa-dispatcher-selinux
 # Clean up after package removal
 if [ $1 -eq 0 ]; then
@@ -226,8 +236,15 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
+* Thu Jun 18 2009 Jan Pazdziora 5.9.14-1
+- 505606 - Require at least selinux-policy 2.4.6-114
+
+* Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 5.9.13-1
+- 498611 - run restorecon in %%posttrans
+- 498611 - run "semodule -i" in %%post and restorecon in %%posttrans
+
 * Wed Apr 29 2009 Jan Pazdziora 5.9.11-1
-- move the %post SELinux activation to
+- move the %%post SELinux activation to
   /usr/sbin/osa-dispatcher-selinux-enable
 
 * Fri Mar 27 2009 jesus m. rodriguez <jesusr@redhat.com> 5.9.10-1

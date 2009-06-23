@@ -77,7 +77,7 @@ public class MethodActionTest extends RhnMockStrutsTestCase {
         addRequestParameter(RhnAction.SUBMITTED, "true");
         executeSubmit("/WEB-INF/pages/admin/" +
                 "monitoring/config/notification/method-create.jsp");
-        verifyActionMessages(new String[] {"method.nametaken"});
+        verifyActionErrors(new String[] {"method.nametaken"});
     }    
     
     public Method executeSubmit(String expectedFwd) throws Exception {

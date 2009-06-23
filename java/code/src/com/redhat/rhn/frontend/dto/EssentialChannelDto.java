@@ -28,6 +28,7 @@ public class EssentialChannelDto extends BaseDto {
     private String name;
     private String label;
     private boolean isCustom;
+    private String release;
     
     /**
      * Constructor
@@ -46,6 +47,22 @@ public class EssentialChannelDto extends BaseDto {
         setLabel(c.getLabel());
     }
     
+    /**
+     * get release
+     * @return the release
+     */
+    public String getRelease() {
+        return release;
+    }
+
+    /**
+     * set release
+     * @param releaseIn the release
+     */
+    public void setRelease(String releaseIn) {
+        this.release = releaseIn;
+    }
+
     /**
      * {@inheritDoc}
      */

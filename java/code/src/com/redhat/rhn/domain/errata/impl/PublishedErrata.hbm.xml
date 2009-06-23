@@ -155,12 +155,16 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                    from rhnErrata e,
                         rhnErrataPackage ep,
                         rhnPackage p,
-                        rhnPackageName pn
+                        rhnPackageName pn,
+                        rhnAvailableChannels ac,
+                        rhnChannelErrata ce
                   where e.id = ep.errata_id
                     and p.id = ep.package_id
                     and p.name_id = pn.id
                     and ep.package_id IN (:pids)
-                    and e.org_id IN (:org_ids)
+                    and e.id = ce.errata_id
+                    and ce.channel_id = ac.channel_id
+                    and ac.org_id = :org_id
                   order by e.id]]>
         <return-scalar column="id" type="long" />
         <return-scalar column="advisory" type="string" />

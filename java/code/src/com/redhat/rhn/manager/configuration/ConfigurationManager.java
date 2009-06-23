@@ -42,6 +42,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ConfigChannelDto;
 import com.redhat.rhn.frontend.dto.ConfigFileDto;
 import com.redhat.rhn.frontend.dto.ConfigFileNameDto;
+import com.redhat.rhn.frontend.dto.ConfigGlobalDeployDto;
 import com.redhat.rhn.frontend.dto.ConfigSystemDto;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.BaseManager;
@@ -516,6 +517,7 @@ public class ConfigurationManager extends BaseManager {
         DataResult dr = makeDataResult(params, elabParams, pc, m);
         return dr;
     }
+    
     
     /**
      * Lists the file names to which the given server is subscribed
@@ -1924,7 +1926,7 @@ public class ConfigurationManager extends BaseManager {
      * @param pc paging control for UI control
      * @return list of ConfigGlobalDeployDtos
      */
-    public DataResult listGlobalFileDeployInfo(
+    public DataResult<ConfigGlobalDeployDto> listGlobalFileDeployInfo(
             User usr, ConfigChannel cc, 
             ConfigFile cf, PageControl pc) {
         return listGlobalFileDeployInfo(usr, cc, cf, pc, null);
@@ -1941,7 +1943,7 @@ public class ConfigurationManager extends BaseManager {
      * @param setLabel label of limiting set, or NULL if not set-limited
      * @return DataResult of ConfigGlobalDeployDtos
      */
-    public DataResult listGlobalFileDeployInfo(
+    public DataResult<ConfigGlobalDeployDto> listGlobalFileDeployInfo(
             User usr, ConfigChannel cc, 
             ConfigFile cf, PageControl pc,
             String setLabel) {

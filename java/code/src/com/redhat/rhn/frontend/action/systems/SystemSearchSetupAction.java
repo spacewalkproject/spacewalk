@@ -185,31 +185,20 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
                 (results != null ? results.size() : "null results"));
             if ((results != null) && (results.size() == 1)) {
                 SystemSearchResult s =  (SystemSearchResult) results.get(0);
-                Double score = s.getScore();
-                log.info("SystemSearch s.getScore() = " + s.getScore());
-                if (score != null) {
-                    /** Adding a rule so we only redirect to a specific system id
-                     * when we are pretty sure the search result is what the user
-                     * expects.  We are using the lucene score for this result to
-                     * gauge this.
-                     */
-                    if (score > 0.50) {
-                        try {
-                            response.sendRedirect(
-                                    "/rhn/systems/details/Overview.do?sid=" +
-                                        s.getId().toString());
-                            return null;
-                        }
-                        catch (IOException ioe) {
-                            throw new RuntimeException(
-                                    "Exception while trying to redirect: " + ioe);
-                        }
-                    }
+                try {
+                    response.sendRedirect(
+                            "/rhn/systems/details/Overview.do?sid=" +
+                            s.getId().toString());
+                    return null;
+                }
+                catch (IOException ioe) {
+                    throw new RuntimeException(
+                            "Exception while trying to redirect: " + ioe);
                 }
             }
             return getStrutsDelegate().forwardParams(
                     mapping.findForward("default"),
-                    request.getParameterMap());            
+                    request.getParameterMap());
         }
         /**
          * Else the form was submitted, so we need to parse the form and turn it into 

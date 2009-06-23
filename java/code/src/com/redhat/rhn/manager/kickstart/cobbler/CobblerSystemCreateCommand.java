@@ -19,6 +19,8 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.token.ActivationKey;
+import com.redhat.rhn.domain.token.ActivationKeyFactory;
+import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
@@ -50,6 +52,8 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     private String profileName;
     private String activationKeys;
     private String kickstartHost;
+    private String kernelOptions;
+    private String postKernelOptions;
     
     /**
      * Constructor
@@ -80,8 +84,10 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      * @param serverIn profile we want to create in cobbler
      * @param cobblerProfileName the name of the cobbler profile 
      * to associate with system
+     * @param ksData the kickstart data to associate the system with
      */
-    public CobblerSystemCreateCommand(Server serverIn, String cobblerProfileName) {
+    public CobblerSystemCreateCommand(Server serverIn, String cobblerProfileName,
+                                                            KickstartData ksData) {
         super(serverIn.getCreator());
         this.server = serverIn;
         this.mediaPath = null;
@@ -90,7 +96,16 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         ActivationKey key = ActivationKeyManager.getInstance().
                     createNewReActivationKey(server.getCreator(), server, note);
         log.debug("created reactivation key: " + key.getKey());
-        this.activationKeys = key.getKey();
+        String keys = key.getKey();
+        if (ksData != null) {
+            for (Token token : ksData.getDefaultRegTokens()) {
+                ActivationKey keyTmp = ActivationKeyFactory.lookupByToken(token);
+                if (keyTmp != null) {
+                    keys += "," + keyTmp.getKey();
+                }
+            }
+        }
+        this.activationKeys = keys;
     }
     
 
@@ -109,15 +124,30 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     }    
   
     protected String lookupExisting() {
-        Map sysmap = getSystemMapByMac();
-        if (sysmap != null) {
-            log.debug("getSystemHandleByMAC.found match.");
-            String sysname = (String) sysmap.get("name");
+        String sysname = null;
+        if (server.getCobblerId() != null) {
+            SystemRecord rec;
+            rec = SystemRecord.lookupById(CobblerXMLRPCHelper.getConnection(user),
+                    server.getCobblerId());
+            if (rec != null) {
+                sysname = rec.getName();
+            }
+        }
+        //lookup by ID failed, so lets try by mac
+        if (sysname == null) {
+            Map sysmap = getSystemMapByMac();
+            if (sysmap != null) {
+                log.debug("getSystemHandleByMAC.found match.");
+                sysname = (String) sysmap.get("name");
+            }
+        }
+        if (sysname != null) {
             String handle = (String) invokeXMLRPC("get_system_handle",
                     sysname, xmlRpcToken);
             log.debug("getSystemHandleByMAC.returning handle: " + handle);
             return handle;
         }
+
         return null;
     }
     
@@ -196,13 +226,11 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                                      xmlRpcToken);
         }
         
-        if (this.server.getNetworkInterfaces() == null ||
-                this.server.getNetworkInterfaces().isEmpty()) {
-            return new ValidatorError("kickstart.no.network.error");
+        if (this.server.getNetworkInterfaces() != null &&
+                !this.server.getNetworkInterfaces().isEmpty()) {
+            processNetworkInterfaces(handle, xmlRpcToken, server);
         }
 
-        processNetworkInterfaces(handle, xmlRpcToken, server);
-        
         Object[] args = new String[]{handle, "profile", 
                 profileName, xmlRpcToken};
         invokeXMLRPC("modify_system", Arrays.asList(args));
@@ -217,7 +245,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         }
 
 
-        if (!StringUtils.isEmpty(getKickstartHost())) {
+        if (!StringUtils.isBlank(getKickstartHost())) {
             invokeXMLRPC("modify_system", handle, "server",
                                 getKickstartHost(), xmlRpcToken);
         }
@@ -226,8 +254,6 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                     "", xmlRpcToken);
         }
 
-
-        
         // Setup the kickstart metadata so the URLs and activation key are setup
         Map ksmeta = new HashMap();
         if (!StringUtils.isBlank(mediaPath)) {
@@ -244,13 +270,17 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         invokeXMLRPC("modify_system", Arrays.asList(args));
         
         invokeXMLRPC("save_system", handle, xmlRpcToken);
-        
         Map cSystem = getSystemMapByMac();
         // Virt system records have no mac/interfaces setup so we search on name
         if (cSystem == null) {
             cSystem = getSystemMapByName();
         }
-        server.setCobblerId((String)cSystem.get("uid"));
+        server.setCobblerId((String)cSystem.get("uid"));        
+        SystemRecord record = SystemRecord.lookupById(getCobblerConnection(),
+                server.getCobblerId());
+        record.setKernelOptions(kernelOptions);
+        record.setKernelPostOptions(postKernelOptions);
+        record.save();
         return null;
     }
 
@@ -310,5 +340,18 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     public void setKickstartHost(String kickstartHostIn) {
         this.kickstartHost = kickstartHostIn;
     }
-  
+
+    /**
+     * @param kernelOptionsIn The kernelOptions to set.
+     */
+    public void setKernelOptions(String kernelOptionsIn) {
+        this.kernelOptions = kernelOptionsIn;
+    }
+    
+    /**
+     * @param postKernelOptionsIn The postKernelOptions to set.
+     */
+    public void setPostKernelOptions(String postKernelOptionsIn) {
+        this.postKernelOptions = postKernelOptionsIn;
+    }    
 }

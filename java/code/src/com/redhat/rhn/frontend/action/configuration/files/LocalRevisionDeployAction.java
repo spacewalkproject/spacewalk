@@ -55,6 +55,7 @@ public class LocalRevisionDeployAction extends RhnAction {
     public static final String SYSTEM      = "system";
     public static final String SYSTEM_ID   = "sid";
     public static final String LAST_DEPLOY = "lastDeploy";
+    public static final String DEPLOYABLE = "deployable";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm form,
@@ -77,6 +78,9 @@ public class LocalRevisionDeployAction extends RhnAction {
 
         if (cr != null) {
             Server srv = findServer(request, cr);
+            if (ConfigurationManager.getInstance().isConfigEnabled(srv, usr)) {
+                request.setAttribute(DEPLOYABLE, Boolean.TRUE);
+            }
             if (isSubmitted(dForm)) {
                 submitDeploy(dForm, cr, srv, usr);
                 success(request);

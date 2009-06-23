@@ -56,7 +56,7 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
         ActivationKey key = manager.createNewActivationKey(user, "Test");
         ActivationKey temp = manager.lookupByKey(key.getKey(), user);
         assertNotNull(temp);
-        manager.remove(temp);
+        manager.remove(temp, user);
         try {
             temp = manager.lookupByKey(key.getKey(), user);
             String msg = "NUll lookup failed, because this object should exist!";
@@ -197,7 +197,7 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
         
         final ActivationKey key2 = manager.createNewReActivationKey(user, server,
                                                 keyName, note, usageLimit, 
-                                                baseChannel, true);
+                                                baseChannel, true, null);
         
         
         temp = (ActivationKey)reload(key2);

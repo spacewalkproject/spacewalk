@@ -25,6 +25,7 @@ import org.stringtree.json.JSONReader;
 import org.stringtree.json.JSONWriter;
 
 import java.net.URLEncoder;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -351,7 +352,7 @@ public class StringUtil {
      * @param inputList The List of Strings to join
      * @return The joined String
      */
-    public static String join(String separator, List inputList) {
+    public static String join(String separator, Collection inputList) {
         Iterator itty = inputList.iterator();
 
         return join(separator, itty);
@@ -709,22 +710,24 @@ public class StringUtil {
     }
 
     /**
-     * Convert a string of options (name value pairs seperated by '=', where the
-     * pairs are seperated by whitespace), into a map.
+     * Convert a string of options (name value pairs separated by '=', where the
+     * pairs are seperated by 'separator'), into a map.
      * @param options the string of options
      * @param errorKey the localization key of the error message to throw if we
      * can't parse it correctly
+     * @param separator the separator the separates different name value pairs 
      * @return a map containing name value pairs of options
      * @throws ValidatorException if there isn't an '=' sign seperating the
      * pairs
      */
-    public static Map convertOptionsToMap(String options, String errorKey)
+    public static Map convertOptionsToMap(String options, String errorKey,
+                                                                String separator)
         throws ValidatorException {
         Map<String, String> toReturn = new HashMap<String, String>();
-        StringTokenizer token = new StringTokenizer(options, "\n");
+        StringTokenizer token = new StringTokenizer(options, separator);
         while (token.hasMoreElements()) {
             String option = token.nextToken();
-            if (option.trim().length() > 0) { //Skip blank lines
+            if (!StringUtils.isBlank(option)) { //Skip blank lines
                 String[] args = option.split("=");
                 if (args.length != 2) {
                     ValidatorException.raiseException(errorKey, option);

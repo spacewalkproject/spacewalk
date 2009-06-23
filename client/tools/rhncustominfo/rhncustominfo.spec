@@ -3,7 +3,7 @@ Summary: set and list custom values for RHN-enabled machines
 Group: RHN/Client
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.4.6
+Version: 5.4.0
 Release: 1%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Jun 16 2009 Brad Buckingham <bbuckingham@redhat.com> 5.4.0-1
+- bumping version (bbuckingham@redhat.com)
+
 * Thu Apr 23 2009 jesus m. rodriguez <jesusr@redhat.com> 0.4.6-1
 - update copyright and licenses (jesusr@redhat.com)
 

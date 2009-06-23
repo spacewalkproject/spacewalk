@@ -88,7 +88,7 @@ print "Deploying config\n";
 Spacewalk::Setup::satcon_deploy();
 
 print "Restarting satellite services\n";
-RHN::SatInstall->restart_satellite(-delay => 1);
+system("/usr/sbin/rhn-satellite", "restart");
 
 print "Done\n";
 

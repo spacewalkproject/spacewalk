@@ -20,7 +20,7 @@
 
 Name:            oracle-selinux
 Version:         0.1
-Release:         23.8%{?obtag}%{?dist}%{?repo}
+Release:         23.9%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -48,6 +48,9 @@ Summary:         SELinux policy module supporting Oracle, without file contexts
 Group:           System Environment/Base
 %if "%{selinux_policyver}" != ""
 Requires:         selinux-policy >= %{selinux_policyver}
+%endif
+%if 0%{?rhel} == 5
+Requires:        selinux-policy >= 2.4.6-80
 %endif
 Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/selinuxenabled
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
@@ -107,7 +110,7 @@ install -p -m 644 SELinux/%{modulename}-nofcontext.if \
 # Hardlink identical policy module packages together
 /usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
 
-# Install oracle-nofcontext-selinux-enable which will be called in %post
+# Install oracle-nofcontext-selinux-enable which will be called in %posttrans
 install -d %{buildroot}%{_sbindir}
 install -p -m 755 SELinux/oracle-nofcontext-selinux-enable %{buildroot}%{_sbindir}/oracle-nofcontext-selinux-enable
 
@@ -132,9 +135,26 @@ test ${SEPORT_STATUS} -lt 1 && semanage port -a -t oracle_port_t -p tcp 1521 || 
 /sbin/restorecon -R -v /etc || :
 /sbin/restorecon -R -v /var/tmp || :
 
+%posttrans
+#this may be safely removed when BZ 505066 is fixed
+if /usr/sbin/selinuxenabled ; then
+  # Fix up non-standard file contexts
+  /sbin/restorecon -R -v %{oracle_base} || :
+  /sbin/restorecon -R -v /u0? || :
+  /sbin/restorecon -R -v /etc || :
+  /sbin/restorecon -R -v /var/tmp || :
+fi
+
 %post -n oracle-nofcontext-selinux
 if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/oracle-nofcontext-selinux-enable
+fi
+
+%posttrans -n oracle-nofcontext-selinux
+if /usr/sbin/selinuxenabled ; then
+  # add an oracle port if it does not already exist
+  SEPORT_STATUS=`semanage port -l | grep -c ^oracle`
+  test ${SEPORT_STATUS} -lt 1 && semanage port -a -t oracle_port_t -p tcp 1521 || :
 fi
 
 %postun
@@ -185,11 +205,21 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Thu Jun 18 2009 Jan Pazdziora <jpazdziora@redhat.com> 0.1-23.9
+- 505606 - Require at least selinux-policy 2.4.6-80
+- do semodule -l first to see if we have the store
+
+* Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 0.3-1
+- 498611 - run "semodule -i" in %%post and restorecon in %%posttrans
+
+* Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 0.2-1
+- 498611 - run restorecon in %%posttrans
+
 * Wed Apr 29 2009 Jan Pazdziora 0.1-23.8
 - fix the name of the SELinux enabling script
 
 * Tue Apr 28 2009 Jan Pazdziora 0.1-23.7
-- move the %post SELinux activation of -nofcontext package to
+- move the %%post SELinux activation of -nofcontext package to
   /usr/sbin/oracle-nofcontext-selinux-enable
 
 * Thu Mar 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.1-23.6

@@ -61,7 +61,10 @@ function setStep(stepName) {
         <!--Store form variables obtained from previous page -->
         <input type="hidden" name="targetProfileType" value="${form.targetProfileType}"/>
         <input type="hidden" name="targetProfile" value="${form.targetProfile}" />
-
+        
+        <input type="hidden" name="postKernelParamsType" value="${form.postKernelParamsType}" />
+        <input type="hidden" name="postKernelParams" value="${form.postKernelParams}" />
+        <input type="hidden" name="kernelParamsType" value="${form.kernelParamsType}" />
         <input type="hidden" name="kernelParams" value="${form.kernelParams}" />
         
         <!-- Store useful id fields-->

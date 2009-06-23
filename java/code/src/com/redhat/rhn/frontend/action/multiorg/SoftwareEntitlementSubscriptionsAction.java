@@ -37,7 +37,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -125,13 +124,6 @@ public class SoftwareEntitlementSubscriptionsAction extends RhnAction {
         
         List<OrgSoftwareEntitlementDto> entitlementUsage = 
                         ChannelManager.listEntitlementsForAllOrgsWithEmptyOrgs(cf, user);
-        for (Iterator <OrgSoftwareEntitlementDto> itr = 
-                                        entitlementUsage.iterator(); itr.hasNext();) {
-            OrgSoftwareEntitlementDto dto = itr.next();
-            if (satelliteOrg.equals(dto.getOrg())) {
-                itr.remove();
-            }
-        }
         
         ChannelOverview satelliteOrgOverview = ChannelManager.getEntitlement(
                 satelliteOrg.getId(), cf.getId());

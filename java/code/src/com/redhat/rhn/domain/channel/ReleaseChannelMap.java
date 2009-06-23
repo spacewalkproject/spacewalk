@@ -14,24 +14,30 @@
  */
 package com.redhat.rhn.domain.channel;
 
+import org.apache.commons.collections.ComparatorUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+import com.redhat.rhn.common.util.DynamicComparator;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 
 /**
  * ReleaseChannelMap
  * @version $Rev$
  */
-public class ReleaseChannelMap implements Serializable {
+public class ReleaseChannelMap implements Serializable, 
+                               Comparable<ReleaseChannelMap> {
 
     private String product;
     private String version;
     private String release;
     private ChannelArch channelArch;
     private Channel channel;
-    private char isDefault; // 'Y' or 'N'
     
     /**
      * @return Returns the product.
@@ -104,20 +110,6 @@ public class ReleaseChannelMap implements Serializable {
     }
     
     /**
-     * @return Returns the isDefault.
-     */
-    public char getIsDefault() {
-        return isDefault;
-    }
-    
-    /**
-     * @param isDefaultIn The isDefault to set.
-     */
-    public void setIsDefault(char isDefaultIn) {
-        this.isDefault = isDefaultIn;
-    }
-    
-    /**
      * {@inheritDoc}
      */
     public boolean equals(final Object other) {
@@ -129,7 +121,6 @@ public class ReleaseChannelMap implements Serializable {
             append(getRelease(), castOther.getRelease()).
             append(getVersion(), castOther.getVersion()).
             append(getChannelArch(), castOther.getChannelArch()).
-            append(getIsDefault(), castOther.getIsDefault()).
             append(getChannel(), castOther.getChannel()).isEquals();
     }
 
@@ -139,6 +130,25 @@ public class ReleaseChannelMap implements Serializable {
     public int hashCode() {
         return new HashCodeBuilder().append(getProduct()).append(getVersion()).append(
                 getRelease()).append(getChannelArch()).append(getChannel()).toHashCode();
+    }
+
+    /**
+     * compare to ReleaseChannelMap
+     * @param o the other object
+     * @return the compare return
+     */
+    public int compareTo(ReleaseChannelMap o) {
+        List<Comparator> compar = new ArrayList<Comparator>();
+        
+        compar.add(new DynamicComparator("channel", true));
+        compar.add(new DynamicComparator("channelArch", true));
+        compar.add(new DynamicComparator("product", true));
+        compar.add(new DynamicComparator("version", true));
+        compar.add(new DynamicComparator("release", true));
+        
+        Comparator com = ComparatorUtils.chainedComparator(
+                                (Comparator[]) compar.toArray());
+        return com.compare(this, o);
     }
     
 }

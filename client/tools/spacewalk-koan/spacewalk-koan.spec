@@ -10,7 +10,7 @@ URL:            https://fedorahosted.org/spacewalk
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch:      noarch
 BuildRequires:  python
-Requires:       python >= 2.3
+Requires:       python >= 1.5
 Requires:       koan >= 1.4.3
 
 Provides: rhn.kickstart.boot_image = 5.3.0
@@ -18,7 +18,7 @@ Provides: rhn-kickstart = 5.3.0
 Conflicts: rhn-kickstart < 5.3.0
 
 # If this is rhel 4 or less we need up2date.
-%if 0%{?rhel} && 0%{?rhel} < 5
+%if 0%{?rhel} < 5
 Requires: up2date
 %else
 Requires: rhn-check

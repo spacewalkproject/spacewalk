@@ -147,6 +147,7 @@ public class MockConnection extends CobblerConnection {
         profile.put("kernel_options", new HashMap());
         profile.put("kernel_options_post", new HashMap());
         profile.put("ks_meta", new HashMap());
+        profile.put("redhat_management_key", "");
         return key;
     }
     //distros
@@ -200,6 +201,7 @@ public class MockConnection extends CobblerConnection {
         distro.put("kernel_options", new HashMap());
         distro.put("kernel_options_post", new HashMap());
         distro.put("ks_meta", new HashMap());
+        distro.put("redhat_management_key", "");
         return key;
     }
     //System
@@ -241,6 +243,7 @@ public class MockConnection extends CobblerConnection {
         systems.add(profile);
         systemMap.put(key, profile);
         profile.put("ks_meta", new HashMap());
+        profile.put("redhat_management_key", "");
         return key;
     }
     else {

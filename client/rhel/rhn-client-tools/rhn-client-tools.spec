@@ -204,6 +204,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Fri Jun  5 2009 Pradeep Kilambi <pkilambi@redhat.com>
+- Resolves: #504296
+ 
 * Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 0.4.27-1
 - new build (pkilambi@redhat.com)
 - 501316 - chnaging the network switch to always send network info by default

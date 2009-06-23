@@ -205,6 +205,9 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
         KickstartableTree tree =  KickstartFactory.lookupKickstartTreeByIdAndOrg(
                 (Long) form.get(TREE), 
                 ctx.getLoggedInUser().getOrg());
+        if (tree == null) {
+            return new ValidatorError("kickstart.softwaredit.tree.required");
+        }
         
         Distro distro = CobblerProfileCommand.getCobblerDistroForVirtType(tree, 
                 cmdIn.getKickstartData().getKickstartDefaults().getVirtualizationType(),

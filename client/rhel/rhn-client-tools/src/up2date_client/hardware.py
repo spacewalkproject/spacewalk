@@ -936,7 +936,6 @@ def Hardware():
     cfg = config.initUp2dateConfig()
     if not cfg["skipNetwork"]:
         # minimal networking info
-        print "Network Info::"
         try:
             ret = read_network()
             if ret: 

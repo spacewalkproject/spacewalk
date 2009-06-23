@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        0.6.8
+Version:        0.6.11
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -25,6 +25,9 @@ BuildArch:      noarch
 
 %if "%{selinux_policyver}" != ""
 Requires:       selinux-policy >= %{selinux_policyver}
+%endif
+%if 0%{?rhel} == 5
+Requires:        selinux-policy >= 2.4.6-80
 %endif
 Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/setsebool, /usr/sbin/semanage, /usr/sbin/selinuxenabled
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/semanage
@@ -72,7 +75,7 @@ install -p -m 644 %{modulename}.if \
 # Hardlink identical policy module packages together
 /usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
 
-# Install spacewalk-selinux-enable which will be called in %post
+# Install spacewalk-selinux-enable which will be called in %posttrans
 install -d %{buildroot}%{_sbindir}
 install -p -m 755 %{name}-enable %{buildroot}%{_sbindir}/%{name}-enable
 
@@ -82,6 +85,13 @@ rm -rf %{buildroot}
 %post
 if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/%{name}-enable --run-pure
+fi
+
+%posttrans
+#this may be safely remove when BZ 505066 is fixed
+if /usr/sbin/selinuxenabled ; then
+  /sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl /usr/sbin/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn \
+        /usr/bin/rhn-sudo-ssl-tool /usr/bin/rhn-sudo-load-ssl-cert
 fi
 
 %postun
@@ -105,6 +115,15 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu Jun 18 2009 Jan Pazdziora 0.6.11-1
+- 505606 - Require at least selinux-policy 2.4.6-80
+
+* Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.10-1
+- 498611 - run "semodule -i" in %%post and restorecon in %%posttrans
+
+* Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.9-1
+- 498611 - run restorecon in %%posttrans
+
 * Wed May 27 2009 Jan Pazdziora 0.6.8-1
 - call to spacewalk-make-mount-points and Require spacewalk-setup for that
 - add invocation of oracle-nofcontext-selinux-enable
@@ -118,7 +137,7 @@ fi
 * Mon May 11 2009 Jan Pazdziora 0.6.4-1
 - spacewalk-selinux-enable: add invocation of other -selinux-enable scripts
 - only run them if --run-pure is not specified
-- use spacewalk-selinux-enable --run-pure in %post
+- use spacewalk-selinux-enable --run-pure in %%post
 - spacewalk-selinux-enable: fix indentation to use tabelators
 
 * Mon May 11 2009 Jan Pazdziora 0.6.3-1
@@ -126,7 +145,7 @@ fi
 
 * Wed Apr 29 2009 Jan Pazdziora 0.6.2-1
 - fix type (double Source0)
-- amend %changelog
+- amend %%changelog
 
 * Fri Apr 24 2009 Jan Pazdziora 0.6.1-1
 - move the %post SELinux activation to /usr/sbin/spacewalk-selinux-enable

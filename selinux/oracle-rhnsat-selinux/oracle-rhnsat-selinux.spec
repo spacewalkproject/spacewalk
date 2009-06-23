@@ -6,7 +6,7 @@
 
 Name:            oracle-rhnsat-selinux
 Version:         10.2
-Release:         11%{?dist}
+Release:         14%{?dist}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -20,6 +20,9 @@ BuildArch:       noarch
 
 %if "%{selinux_policyver}" != ""
 Requires:         selinux-policy >= %{selinux_policyver}
+%endif
+%if 0%{?rhel} == 5
+Requires:        selinux-policy >= 2.4.6-80
 %endif
 Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/selinuxenabled
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
@@ -79,6 +82,15 @@ if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/%{name}-enable
 fi
 
+%posttrans
+#this may be safely removed when BZ 505066 is fixed
+if /usr/sbin/selinuxenabled ; then
+  # Fix up oracle-server-arch files
+  rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 /sbin/restorecon -Riv
+  # Fix up database files
+  /sbin/restorecon -rvi /rhnsat /var/tmp/.oracle || :
+fi
+
 %postun
 # Clean up after package removal
 if [ $1 -eq 0 ]; then
@@ -103,8 +115,21 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu Jun 18 2009 Jan Pazdziora 10.2-14
+- 505606 - Require at least selinux-policy 2.4.6-80
+- do semodule -l first to see if we have the store
+
+* Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 10.2-13
+- 498611 - run "semodule -i" in %%post and restorecon in %%posttrans
+
+* Thu Jun 11 2009 Miroslav Suchy <msuchy@redhat.com> 10.2-12
+- return version down to 10.2
+
+* Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 10.3-1
+- 498611 - run restorecon in %%posttrans
+
 * Wed Apr 29 2009 Jan Pazdziora 10.2-11
-- move the %post SELinux activation to /usr/sbin/oracle-rhnsat-enable
+- move the %%post SELinux activation to /usr/sbin/oracle-rhnsat-enable
 
 * Mon Mar 16 2009 Jan Pazdziora 10.2-10
 - 489377 - allow sqlplus and lsnrctl to use NIS

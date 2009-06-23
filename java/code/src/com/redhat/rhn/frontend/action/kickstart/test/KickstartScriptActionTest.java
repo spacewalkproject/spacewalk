@@ -61,7 +61,7 @@ public class KickstartScriptActionTest extends BaseKickstartEditTestCase {
         setRequestPathInfo("/kickstart/KickstartScriptCreate");
         actionPerform();
         String[] keys = {"kickstart.script.toolarge"};
-        verifyActionMessages(keys);
+        verifyActionErrors(keys);
         
         contents = RandomStringUtils.randomAscii(50000);
         addRequestParameter(KickstartScriptCreateAction.CONTENTS, 

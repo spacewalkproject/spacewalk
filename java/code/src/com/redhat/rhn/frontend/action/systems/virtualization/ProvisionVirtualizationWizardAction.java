@@ -119,6 +119,10 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
             form.set(VIRTUAL_BRIDGE, String.valueOf(pf.getVirtBridge()));
         }
         
+        if (StringUtils.isEmpty(form.getString(TARGET_PROFILE_TYPE))) {
+            form.set(TARGET_PROFILE_TYPE, 
+                        KickstartScheduleCommand.TARGET_PROFILE_TYPE_NONE);
+        }        
         return super.runSecond(mapping, form, ctx, response, step);
     }
 
@@ -168,7 +172,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
             cmd.setActivationKeyId((Long) form.get(ACTIVATION_KEY));
         }
         
-        cmd.setKernelParams(form.getString(KERNEL_PARAMS));
+        cmd.setKernelOptions(form.getString(KERNEL_PARAMS));
                                     
         cmd.setProfileType(form.getString("targetProfileType"));
         cmd.setServerProfileId((Long) form.get("targetProfile"));

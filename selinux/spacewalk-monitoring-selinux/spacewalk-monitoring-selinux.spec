@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        0.6.8
+Version:        0.6.12
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -28,12 +28,46 @@ BuildArch:      noarch
 %if "%{selinux_policyver}" != ""
 Requires:       selinux-policy >= %{selinux_policyver}
 %endif
+%if 0%{?rhel} == 5
+Requires:        selinux-policy >= 2.4.6-80
+%endif
 Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/selinuxenabled
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
-Requires:       SatConfig-general
-Requires:       NPalert
 Requires:       oracle-instantclient-selinux
+Requires:       nocpulse-common
+Requires:       nocpulse-db-perl
+Requires:       eventReceivers
+Requires:       MessageQueue
+Requires:       NOCpulsePlugins
+Requires:       NPalert
+Requires:       perl-NOCpulse-CLAC
+Requires:       perl-NOCpulse-Debug
+Requires:       perl-NOCpulse-Gritch
+Requires:       perl-NOCpulse-Object
+Requires:       perl-NOCpulse-OracleDB
+Requires:       perl-NOCpulse-PersistentConnection
+Requires:       perl-NOCpulse-Probe
+Requires:       perl-NOCpulse-ProcessPool
+Requires:       perl-NOCpulse-Scheduler
+Requires:       perl-NOCpulse-SetID
+Requires:       perl-NOCpulse-Utils
+Requires:       ProgAGoGo
+Requires:       SatConfig-bootstrap
+Requires:       SatConfig-bootstrap-server
+Requires:       SatConfig-cluster
+Requires:       SatConfig-dbsynch
+Requires:       SatConfig-general
+Requires:       SatConfig-generator
+Requires:       SatConfig-installer
+Requires:       SatConfig-spread
+Requires:       scdb
+Requires:       SNMPAlerts
+Requires:       SputLite-client
+Requires:       SputLite-server
+Requires:       ssl_bridge
+Requires:       status_log_acceptor
 Requires:       tsdb
+
 
 %description
 SELinux policy module supporting Spacewalk monitoring.
@@ -82,6 +116,13 @@ if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/%{name}-enable
 fi
 
+%posttrans
+#this may be safely remove when BZ 505066 is fixed
+if /usr/sbin/selinuxenabled ; then
+  /sbin/restorecon -rv /etc/rc.d/np.d /etc/notification /var/lib/nocpulse /var/lib/notification /var/log/nocpulse
+  /sbin/restorecon -rvi /var/log/SysVStep.* /var/run/SysVStep.*
+fi
+
 %postun
 # Clean up after package removal
 if [ $1 -eq 0 ]; then
@@ -103,6 +144,21 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu Jun 18 2009 Jan Pazdziora 0.6.12-1
+- 505606 - Require at least selinux-policy 2.4.6-80
+
+* Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.11-1
+- 498611 - run "semodule -i" in %%post and restorecon in %%posttrans
+
+* Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.10-1
+- 504649 - give /var/tmp/escalator.state context of spacewalk_monitoring_var_lib_t
+- 498611 - Require all monitoring packages so the files already exist when we run restorecon
+- 498611 - Require perl-NOCpulse-Scheduler so /var/lib/nocpulse/NPkernel.out already exist when we run restorecon
+- spacewalk_monitoring_conf_t for /etc/NOCpulse.ini (mzazrivec@redhat.com)
+- 501546 - Require tsdb so that /var/log/nocpulse/TSDBLocalQueue already exists when we run restorecon (jpazdziora@redhat.com)
+- 500330 - allow httpd_sys_script_t to bind to loopback as well (jpazdziora@redhat.com)
+- 498611 - run restorecon in %%posttrans
+
 * Tue May 26 2009 Jan Pazdziora 0.6.8-1
 - 498941 - allow monitoring to connect to ftp
 - 498930 - allow monitoring to do rpc
@@ -122,7 +178,7 @@ fi
 - 499189 - spacewalk-selinux is not needed, do not Require it
 
 * Mon Apr 27 2009 Jan Pazdziora <jpazdziora@redhat.com> 0.6.3-1
-- move the %post SELinux activation to /usr/sbin/spacewalk-monitoring-selinux-enable
+- move the %%post SELinux activation to /usr/sbin/spacewalk-monitoring-selinux-enable
 - use src.rpm packaging with single Source0
 
 * Thu Apr 09 2009 Jan Pazdziora 0.6.2-1

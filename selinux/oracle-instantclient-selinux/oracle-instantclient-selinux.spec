@@ -1,7 +1,7 @@
 
 Name:		oracle-instantclient-selinux
 Version:	10.2
-Release:	13%{?dist}
+Release:	15%{?dist}
 Summary:	SELinux support for Oracle Instant Client
 Group:		System Environment/Base
 License:	GPLv2+
@@ -73,6 +73,12 @@ if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/%{name}-enable
 fi
 
+%posttrans
+#this may be safely remove when BZ 505066 is fixed
+if /usr/sbin/selinuxenabled ; then
+	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
+fi
+
 %postun
 if [ $1 -eq 0 ]; then
 	for i in %used_libs ; do
@@ -85,6 +91,12 @@ fi
 %post -n oracle-instantclient-sqlplus-selinux
 if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/oracle-instantclient-sqlplus-selinux-enable
+fi
+
+%posttrans -n oracle-instantclient-sqlplus-selinux
+#this may be safely remove when BZ 505066 is fixed
+if /usr/sbin/selinuxenabled ; then
+	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
 fi
 
 %postun -n oracle-instantclient-sqlplus-selinux
@@ -102,6 +114,15 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-instantclient-sqlplus-selinux-enable
 
 %changelog
+* Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 10.2-15
+- 498611 - run "semodule -i" in %%post and restorecon in %%posttrans
+
+* Thu Jun 11 2009 Miroslav Suchy <msuchy@redhat.com> 10.2-14
+- return version down to 10.2
+
+* Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 10.3-1
+- 498611 - run restorecon in %%posttrans
+
 * Tue May 26 2009 Jan Pazdziora 10.2-13
 - oracle-instantclient-selinux: use the correct
 	oracle-instantclient-sqlplus-selinux-enable script name
@@ -116,7 +137,7 @@ fi
 - Require oracle-instantclient-sqlplus
 
 * Wed Apr 29 2009 Jan Pazdziora 10.2-9
-- move the %post SELinux activation to
+- move the %%post SELinux activation to
   /usr/sbin/oracle-instantclient-selinux-enable
 
 * Tue Mar 24 2009 Jan Pazdziora 10.2-8

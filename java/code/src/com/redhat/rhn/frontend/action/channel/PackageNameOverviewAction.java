@@ -21,6 +21,7 @@ import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -37,12 +38,14 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class PackageNameOverviewAction extends RhnAction {
+    private static Logger log = Logger.getLogger(PackageNameOverviewAction.class);
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm form, 
             HttpServletRequest request, HttpServletResponse response) {
         String pkgName = request.getParameter("package_name");
         String subscribedChannels = request.getParameter("search_subscribed_channels");
+        String channelFilter = request.getParameter("channel_filter");
         String[] channelArches = request.getParameterValues("channel_arch");
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         
@@ -50,9 +53,23 @@ public class PackageNameOverviewAction extends RhnAction {
         User user = ctx.getLoggedInUser();
 
         List dr = Collections.EMPTY_LIST;
-        if (!StringUtils.isEmpty(subscribedChannels)) {
+        if (StringUtils.equals(subscribedChannels, "yes")) {
             dr = PackageManager.lookupPackageNameOverview(
                     user.getOrg(), pkgName);
+        }
+        else if (!StringUtils.isEmpty(channelFilter) &&
+                StringUtils.equals(subscribedChannels, "no") &&
+                channelArches == null) {
+            Long filterChannelId = null;
+            try {
+                filterChannelId = Long.parseLong(channelFilter);
+                dr = PackageManager.lookupPackageNameOverviewInChannel(user.getOrg(),
+                        pkgName, filterChannelId);
+            }
+            catch (NumberFormatException e) {
+                log.warn("Exception caught, unable to parse channel ID: " + channelFilter);
+                dr = Collections.EMPTY_LIST;
+            }
         }
         else if (channelArches != null && channelArches.length > 0) {
             dr = PackageManager.lookupPackageNameOverview(

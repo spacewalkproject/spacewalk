@@ -15,13 +15,12 @@ from xmlrpclib import Server
 import string
 import os
 from os import path
+from optparse import OptionParser
 
 
 DATA_DIR = "./data/"
 GATHER_DIR = "/mnt/engarchive2/released/"
 
-miniOps = "nChgs:u:p:b:v:l:r:a:u:e:d:c:D:P:"
-fullOps = ["nossl", "clear", "help", "gather", "server=", "user=", "password=", "bundle=", "version=", "release=", "arch=", "update=", "extra=", "sourceChannel=", "destChannel=", "data=", "parent="]
 
 versions = ( "5", "4", "3", "2.1" );
 releases = ( "AS", "ES", "WS", "Server", "Client", "Desktop");
@@ -31,68 +30,130 @@ subrepos = ("VT", "Cluster", "ClusterStorage", "Workstation"); #RHEL 5 yum repos
 extras = ("Extras", "Supplementary"); #things shipped on other cds
 
 
-bundleSize = 50
+bundleSize = None
 server = None
 user = None
 password = None
 filename = None
 ssl = True
-
+parser = None
+clone = False
 
 client = None
 
+def get_args():
+   global parser
+   parser = OptionParser(usage="""./create-channel-update  -l USER  -s SERVER [-p PASSWORD]  -v VERSION -r RELEASE
+                -u UPDATE -a ARCH -e EXTRA  [ -D DATAFILE]  [-c SRCCHAN] -d DESTCHAN [-P PARENT]
+                [-C | --clear] [-n | --nossl]""")
+   parser.add_option("-n", "--nossl", action="store_false", dest="ssl", default=True, help="disables the use of SSL when connecting to the server")
+   parser.add_option("-C", "--clear", action="store_true", dest="clear_channel", help="remove all channel packages from the channel before adding")
+   parser.add_option("-s", "--server", action="store", dest="server", help="the server to connect to (i.e.  hostname.domain.com)")
+   parser.add_option("-l", "--user", action="store", dest="user", help="the user to connect as")
+   parser.add_option("-p", "--password", action="store", dest="password", help="the password to use for the connection (if not specified, will be prompted for)")
+   parser.add_option("-v", "--version", action="store", dest="version", help='the version to use (i.e.' + string.join(versions, ', ') +')')
+   parser.add_option("-r", "--release", action="store", dest="release", help='the release to use (i.e. ' + string.join(releases, ', ') + ')')
+   parser.add_option("-a", "--arch", action="store", dest="arch", help='the arch to use (i.e. ' + string.join(arches, ', ') + ')')
+   parser.add_option("-u", "--update", action="store", dest="update_level", help='the update level to use (i.e. ' + string.join(updates, ', ')  + ')')
+   parser.add_option("-e", "--extra", action="store", dest="extra", help='the child channel/repo to use (i.e. ' + string.join(extras, ', ') + ')')
+   parser.add_option("-D", "--data", action="store", dest="data", help='a data file to use, may use this instead of version, release, update, arch,  and extra')
+   parser.add_option("-c", "--sourceChannel", action="store", dest="source_channel", help=' the channel to pull packages from (will be auto detected if not provided)')
+   parser.add_option("-d", "--destChannel", action="store", dest="dest_channel", help='the label of the destintation channel to push the packages to (will be created if not existing)')
+   parser.add_option("-P", "--parentChannel", action="store", dest="parent_channel", default="", help='if specified, and --destChannel does not exist, --destChannel will be created with this parent')
+   parser.add_option("-L", "--clone", action="store_true", dest="clone", default=False, help='if creating destChannel, clone it from the source channel, before adding packages (Satellite 5.1 or newer required)')
+   parser.add_option("-K", "--skiplist", action="store", dest="skiplist", help="a filename with a list of package names to ignore when adding to the destination channel")
+   parser.add_option("-g", "--gather", action="store_true", dest="gather", default=False , help='used to gather data files, generally not useful to most people')
+   parser.add_option("-b", "--bundle", action="store", dest="bundle", type='int', default='50', help='if you are getting "502 proxy" errors, try using a smaller value (default 50)')
+
+   return parser.parse_args()
+
+def validate_options(options):
+   error = False
+
+
+   if not options.server:
+      error = True
+      print "--server must be specified"
+
+   if not options.user:
+      error = True
+      print "--user must be specified"
+
+
+   if not options.data:
+      if not options.version:
+         error = True
+         print "--version must be specified"
+      if not options.release:
+         error = True
+         print "--release must be specified"
+      if not options.arch:
+         error = True
+         print "--arch must be specified"
+      if not options.update_level:
+         error = True
+         print "--update must be specified"
+
+
+   if  not options.dest_channel:
+      error = True
+      print "--destChannel must be specified"
+
+   if error:
+      sys.exit(1)
+
 def main():
-   if hasOpt("h", "help"):
-      help()
-      exit(0)
-   if hasOpt("g", "gather"):
-      gather(hasOpt("C", "clear"))
+
+
+   (options, args) = get_args()
+
+
+   if options.gather:
+      gather(False)
       exit(0)
 
-   global server, user, password, filename, ssl, bundleSize
-   server = getOpt("s", "server", msg = "--server not provided")
-   user = getOpt("l", "user", "--user not provided") 
-   password  = getOpt("p", "password")         
+   validate_options(options)
+
+   global server, user, password, filename, ssl, bundleSize, clone
+   server = options.server
+   user = options.user
+   password  = options.password
    if password == None:
       password = getpass.getpass()
-   if (getOpt("b", "bundle") is not None):
-      bundleSize = int(getOpt("b", "bundle"))
+   bundleSize = options.bundle
 
    #did you provide a data file?  If not we need all the information
-   if not hasOpt("D", "data"):
-      version = getOpt("v", "version", "--version must be specified")
-      release = getOpt("r", "release", "--release must be speciifed")
-      update = getOpt("u", "update", "--update must be specified")
-      arch = getOpt("a", "arch", "--arch must be specified")
-      extra = getOpt("e", "extra")
-      filename = getFileName(version,update, release, arch, extra)  
+   if options.data == None:
+      version = options.version
+      release = options.release
+      update = options.update_level
+      arch = options.arch
+      extra = options.extra
+      filename = getFileName(version,update, release, arch, extra)
+      fullpath = DATA_DIR + filename
    else:
-      filename = path.split(getOpt('D', 'data'))[1]
+      filename = os.path.basename(options.data)
+      fullpath = options.data
       version, release, update, arch, extra = parseDataFilename(filename)   
 
-   if hasOpt("n", "nossl"):
-      ssl = False
+   ssl = options.ssl
+   clear = options.clear_channel
 
-   clear = 0
-   if hasOpt("C", "clear"):
-      clear = 1
-
-   if not os.path.exists(DATA_DIR + filename):
+   if not os.path.exists(fullpath):
       print "Error: data file '" + filename + "' does not exist"
       exit(1)
 
-   parent = ""
-   if hasOpt("P", "parent"):
-       parent = getOpt("P", "parent");
+   parent = options.parent_channel
+   clone = options.clone
 
-
-   newChannelLabel = getOpt("d", "destChannel", "--destChannel must be specified")
+   newChannelLabel = options.dest_channel
    newChannelLabel = newChannelLabel.lower()
-   srcChanLabel = getOpt("c", "sourceChannel")
+   srcChanLabel = options.source_channel
    if (srcChanLabel == None):
-      print "You have not specified a source channel, we will try to figure it out"
+      print "You have not specified a source channel, we will try to determine it from inputs"
       srcChanLabel = findSrcChan(version, release, arch, extra) 
-   
+   srcChanLabel = srcChanLabel.lower()
+
    print("Trying with source channel: " + srcChanLabel)
 
    #now lets login to the server
@@ -100,11 +161,18 @@ def main():
    if ssl:
       proto = proto + "s"
    client = Server(proto + "://" + server + "/rpc/api")
-   auth = client.auth.login(user, password) 
-   populate(client, auth, srcChanLabel, newChannelLabel, filename, parent, clear)
+   if clone and client.api.getVersion() < 5.1:
+      print "--clone cannot be used with a Satellite version older than 5.1"
+   auth = client.auth.login(user, password)
+
+   skiplist = []
+   if options.skiplist:
+      skiplist = read_skip_list(options.skiplist)
+  
+   populate(client, auth, srcChanLabel, newChannelLabel, filename, parent, clear, skiplist=skiplist)
 
 
-def populate(client, auth, srcChannel, newChannel, filename, parent, clear):
+def populate(client, auth, srcChannel, newChannel, filename, parent, clear, skiplist=[]):
      
    chanList = client.channel.listSoftwareChannels(auth)
   
@@ -125,12 +193,18 @@ def populate(client, auth, srcChannel, newChannel, filename, parent, clear):
       print("Error: Source Channel '" + srcChannel + "' could not be found.")
       exit(1)
    if new_label == None:
-      print("Creating " + newChannel + " with arch " + arch_label)
-      if parent == '':
-         print("Creating base channel, " + newChannel + ", with arch " + arch_label)
-      else:
-         print("Creating child channel" + newChannel + " with arch " + arch_label + " with parent " + parent)
-      client.channel.software.create(auth, newChannel, newChannel, newChannel, getArchLabel(arch_label, client, auth), parent) 
+      if not clone:
+         print("Creating channel, " + newChannel + ", with arch " + arch_label),
+         client.channel.software.create(auth, newChannel, newChannel, newChannel, getArchLabel(arch_label, client, auth), parent)
+      if clone:
+          print("Cloning channel " + srcChannel + " to " + newChannel),
+          details_map = { 'name':newChannel, 'label':newChannel, 'summary':newChannel }
+          if parent:
+             details_map['parent_label'] = parent
+          client.channel.software.clone(auth, srcChannel, details_map, True)
+
+      if parent:
+         print("with parent " + parent)
    else:
       print("Reusing " + newChannel+ " as destination channel")
    existing_packs = client.channel.software.listAllPackages(auth, srcChannel)
@@ -143,19 +217,25 @@ def populate(client, auth, srcChannel, newChannel, filename, parent, clear):
    fileList = map(str.strip, open(DATA_DIR + filename).readlines())
    fileList.sort()
    pack_num = 0
+   skip_num = 0
    ids_to_add = []
 
    print(str(len(fileList)) + " packages in source file to push.")  
    
    #for each filename, go through the src package list and find the package id
    for rpm in fileList:
-      nvre_to_push = splitFilename(rpm) 
+      nvre_to_push = splitFilename(rpm)
       for src_pack in existing_packs:
          if (nvre_to_push == splitPackage(src_pack)):
+            if src_pack['name'] in skiplist:
+               skip_num = skip_num + 1
+               continue
             pack_num = pack_num + 1
             ids_to_add.append(getPackageAttr(src_pack, 'id'))
             break
    print("Pushing " + str(pack_num) + " packages, please wait.")
+   if len(skiplist) > 0:
+      print("Skipping " + str(skip_num) + " packages based off of skip list")
 
    while len(ids_to_add) > 0:
       print '%d of %d' % (pack_num-len(ids_to_add), pack_num),
@@ -169,7 +249,13 @@ def populate(client, auth, srcChannel, newChannel, filename, parent, clear):
    print("Sucessfully pushed " + str(pack_num) + " packages out of "+ str(len(fileList)))
 
 
-
+def read_skip_list(filename):
+   if not os.path.exists(filename):
+      print("Specified skip list " + filename + " does not exist!")
+      sys.exit(1)
+   nameList = map(str.strip, open(filename).readlines())
+   print nameList
+   return nameList
 
 def clearChannel(label, packages, client, auth):
       ids_to_remove = []
@@ -247,9 +333,9 @@ def findSrcChan(version, release, arch, extra = None):
    else:  #else we do, so lets process that
       low_extra = extra.lower()
       if low_extra == "extra":
-          return  "rhel-%s-%s-%s-%s" % (arch, low_release, low_extra, version) 
+          return  "rhel-%s-%s-%s-%s" % (arch, low_release, version, low_extra)
       else:
-          return "rhel-%s-%s-%s-%s" % (arch, low_release, version ,low_extra ) 
+          return "rhel-%s-%s-%s-%s" % (arch, low_release, low_extra, version )
 
 #this function has no real use outside of red hat
 def gather(clear):
@@ -291,88 +377,14 @@ def saveRpmList(directory, filename):
 
 def getFileName(version, update, release, arch, additional=None):
    if additional == None:
-    return "%s-%s-%s-%s" % (version, update.upper(), release.upper(), arch)
+    return "%s-%s-%s-%s" % (version, update.lower(), release.lower(), arch)
    else:
-      return "%s-%s-%s-%s-%s" % (version, update.upper(), release.upper(), arch, additional.capitalize())
-
-def hasOpt(mini, full):
-   opt, arg = getopt.getopt(sys.argv[1:], miniOps, fullOps)
-   for o, a in opt:
-      if o in ("-" + mini, "--" + full):
-         return 1
-   return False
-
-def getOpt(mini, full, msg = None):
-   opt, arg = getopt.getopt(sys.argv[1:], miniOps, fullOps)
-   for o, a in opt:
-      if o in ("-" + mini, "--" + full):
-         return a
-   if msg != None:
-      error(msg)
-   return None
+      return "%s-%s-%s-%s-%s" % (version, update.lower(), release.lower(), arch, additional.capitalize())
 
 
 def help():
    usage()
    print """
-Common Options
---------------
-
-\t  --nossl | -n
-		disables the use of SSL when connecting to the server
-
-\t  --clear | -C
-		remove all channel packages from the channel before adding
-
-\t  --server=<SERVER> | -s <SERVER>
-		the server to connect to (i.e.  hostname.domain.com)
-
-\t  --user=<USER> | -l <USER>
-		the user to connect as
-
-\t  --password=<PASSWORD> | -p <PASSWORD>
-		the password to use for the connection (if not specified, will be prompted for)
-
-\t  --version=<VERSION> | -v <VERSION>
-		the version to use (i.e. "5", "4", "3", "2.1" )
-
-\t  --release=<RELEASE> | -r <RELEASE>
-		the release to use (i.e. "AS", "ES", "WS", "Server", "Client", "Desktop")
-
-\t  --arch=<ARCH> | -a <ARCH>
-		the arch to use (i.e.  "i386",  "ia64",  "ppc",  "s390",  "s390x",  "x86_64")
-
-\t  --update=<UPDATE> | -u <UPDATE>
-		the update level to use (i.e. "GOLD", "U1", "U2", "U3", "U4", "U5", "U6", "U7", "U8", "U9")
-
-\t  --extra=<EXTRA> | -e <EXTRA>
-		the child channel/repo to use (i.e. "VT", "Cluster", "ClusterStorage", "Workstation", "Extras", "Supplementary")
-
-\t  --data=<DATAFILE> | -D <DATAFILE>
-		a data file to use, may use this instead of version, release, update, arch,  and extra
-
-\t  --sourceChannel=<SRCCHAN> | -c <SRCCHAN>
-		the channel to pull packages from (will be auto detected if not provided)
-
-\t  --destChannel=<DESTCHAN> | -d <DESTCHAN>
-		the label of the destintation channel to push the packages to (will be created if not existing)
-
-\t  --parent=<PARENT> | -P LABEL
-		if specified, and --destChannel does not exist, --destChannel will be created with this parent
-
-\t  --help | -h
-
-
-Lesser Used Options
--------------------
-
-\t  --gather | -g
-		used to gather data files, generally not useful to most people
-
-\t  --bundle=<BUNDLE> | -b <BUNDLE>
-		if you are getting '502 proxy' errors, try using a smaller value (default 50)
-
-
 Examples
 -------
 
@@ -391,16 +403,8 @@ Add the extra's channel as a child channel of 'my-stable-channel':
 
 def error(msg):
    print msg
-   usage()
    exit(-1)
 
-def usage():
-   print """
-./create-channel-update --help
-./create-channel-update  -u USER  -s SERVER [-p PASSWORD]  -v VERSION -r RELEASE 
-		-u UPDATE -a ARCH -e EXTRA  [ -D DATAFILE]  [-c SRCCHAN] -d DESTCHAN [-P PARENT]  
-		[-C | --clear] [-n | --nossl]
-"""
 
 if __name__ == "__main__":
     main()

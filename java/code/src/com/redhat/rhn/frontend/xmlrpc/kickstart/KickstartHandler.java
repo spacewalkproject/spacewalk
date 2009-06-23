@@ -107,8 +107,8 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "profileLabel", "Label for the new
      * kickstart profile.")
-     * @xmlrpc.param #param_desc("string", "virtualizationType", "para_host, qemu, xenfv
-     * or xenpv.")
+     * @xmlrpc.param #param_desc("string", "virtualizationType", "none, para_host,
+     * qemu, xenfv or xenpv.")
      * @xmlrpc.param #param_desc("string", "kickstartableTreeLabel", "Label of a
      * kickstartable tree to associate the new profile with.")
      * @xmlrpc.param #param_desc("string", "kickstartFileContents", "Contents of
@@ -144,8 +144,8 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "profileLabel", "Label for the new
      * kickstart profile.")
-     * @xmlrpc.param #param_desc("string", "virtualizationType", "para_host, qemu, xenfv
-     * or xenpv.")
+     * @xmlrpc.param #param_desc("string", "virtualizationType", "none, para_host,
+     * qemu, xenfv or xenpv.")
      * @xmlrpc.param #param_desc("string", "kickstartableTreeLabel", "Label of a
      * kickstartable tree to associate the new profile with.")
      * @xmlrpc.param #param_desc("string", "kickstartHost", "Kickstart hostname
@@ -203,8 +203,8 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "profileLabel" "Label for the new
      * kickstart profile.")
-     * @xmlrpc.param #param_desc("string", "virtualizationType", "para_host, qemu, xenfv
-     * or xenpv.")
+     * @xmlrpc.param #param_desc("string", "virtualizationType", "none, para_host,
+     * qemu, xenfv or xenpv.")
      * @xmlrpc.param #param_desc("string", "kickstartableTreeLabel", "Label of a
      * kickstartable tree to associate the new profile with.")
      * @xmlrpc.param #param_desc("string", "kickstartHost", "Kickstart hostname
@@ -257,8 +257,8 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "profileLabel", "Label for the new
      * kickstart profile.")
-     * @xmlrpc.param #param_desc("string", "virtualizationType", "para_host, qemu, xenfv
-     * or xenpv.")
+     * @xmlrpc.param #param_desc("string", "virtualizationType", "none, para_host,
+     * qemu, xenfv or xenpv.")
      * @xmlrpc.param #param_desc("string", "kickstartableTreeLabel", "Label of a
      * kickstartable tree to associate the new profile with.")
      * @xmlrpc.param #param_desc("boolean", "downloadUrl", "Download URL, or
@@ -458,8 +458,8 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "profileLabel", "Label for the new
      * kickstart profile.")
-     * @xmlrpc.param #param_desc("string", "virtualizationType", "para_host, qemu, xenfv
-     * or xenpv.")
+     * @xmlrpc.param #param_desc("string", "virtualizationType", "none, para_host,
+     * qemu, xenfv or xenpv.")
      * @xmlrpc.param #param_desc("string", "kickstartableTreeLabel", "Label of a
      * kickstartable tree to associate the new profile with.")
      * @xmlrpc.param #param_desc("string", "kickstartFileContents", "Contents of

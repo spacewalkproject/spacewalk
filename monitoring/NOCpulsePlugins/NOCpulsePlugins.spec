@@ -1,5 +1,5 @@
 Name:         NOCpulsePlugins
-Version: 	  2.208.9
+Version: 	  2.208.10
 Release:      1%{?dist}
 Summary:      NOCpulse authored Plugins
 URL:          https://fedorahosted.org/spacewalk
@@ -65,6 +65,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 2.208.10-1
+- 502595 - use ip instead of hostname
+
 * Tue May 26 2009 Miroslav Suchý <msuchy@redhat.com> 2.208.9-1
 - 474279 - rewrite TNSping probe (take 2)
 

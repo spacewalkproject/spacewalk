@@ -11,7 +11,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.24
+Version: 0.6.26
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -29,6 +29,7 @@ Requires: java-devel >= 0:1.6.0
 Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-codec
 Requires: jakarta-commons-cli
+Requires: jakarta-commons-io
 Requires: jakarta-commons-logging
 Requires: jakarta-taglibs-standard
 Requires: jasper5
@@ -49,6 +50,7 @@ Requires: sitemesh
 Requires: stringtree-json
 Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
+Requires: spacewalk-branding
 Requires: jpackage-utils >= 0:1.5
 Requires: postgresql-jdbc
 Requires: cobbler >= 1.6.3
@@ -250,6 +252,39 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Wed Jun 10 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.26-1
+- 504806 - Added missing channel_filter attribute that was being lost during
+  pagination. (jason.dobies@redhat.com)
+- 487014 - SystemSearch remove score requirement to redirect to SDC on 1 result
+  (jmatthew@redhat.com)
+- 490770 - Skip and warn if multiple virt channels are found.
+  (dgoodwin@redhat.com)
+- 503801 - update channel details edit to not refresh package cache
+  (bbuckingham@redhat.com)
+
+* Tue Jun 09 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.25-1
+- 470991 - spacewalk-java requires jakarta-commons-io and spacewalk-branding.
+  (jesusr@redhat.com)
+- 501388 - Fixed the guest provisioning side of things also to conform to the
+  new UI (paji@redhat.com)
+- 501388 - fixing kernel options on profile and scheduling pages to use newer
+  CobblerObject based parsing (jsherril@redhat.com)
+- 504652 - remove default column from rhnchanneldist map query
+  (shughes@redhat.com)
+- Update for python 2.5+ (jmatthew@redhat.com)
+- 501388 - kernel options and post kernel options redesign (paji@redhat.com)
+- Fix to include html:errors wherever html:messages is used so that errors can
+  be reported. (paji@redhat.com)
+- 504049 - adding functionality to keep the  cobbler profile and system records
+  redhat managemnet keys in line with whats set in the Kickstart Profile on
+  satellite (jsherril@redhat.com)
+- 499471 - list default org in subscription list (shughes@redhat.com)
+- 504014 - Fix to show an error message on No Kicktstart tree on KS OS page
+  (paji@redhat.com)
+- 504227 - apidoc - kickstart handler - add 'none' as a supported virt type
+  (bbuckingham@redhat.com)
+- 500505 - apidoc - packages.findByNvrea - update docs (bbuckingham@redhat.com)
+
 * Fri Jun 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.24-1
 - good bye StrutsDelegateImpl and StrutsDelegateFactory (paji@redhat.com)
 - 502959 - skip null date values for taskomatic status (shughes@redhat.com)

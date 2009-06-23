@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.1.14
+Version:      2.1.15
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -65,8 +65,8 @@ install -m 755 npConfigValue $RPM_BUILD_ROOT%{_bindir}/
 # change nocpulse user & group to system user & group if needed
 dirs="/home/nocpulse /opt/notification /opt/nocpulse /var/log/nocpulse /var/www/templates /var/tmp"
 
-if [ -d /home/nocpulse -a `id -u nocpulse 2> /dev/null` -ge 500 ]; then
-	if [ `id -g nocpulse` -ge 500 ]; then
+if [ -d /home/nocpulse -a 0`id -u nocpulse 2> /dev/null` -ge 500 ]; then
+	if [ 0`id -g nocpulse` -ge 500 ]; then
 		groupmod -n nocpulse-old nocpulse
 		groupadd -r nocpulse
 		usermod -g nocpulse nocpulse
@@ -107,9 +107,9 @@ if [ `getent passwd nocpulse|awk -F ':' '{ print $6 }'` = "/home/nocpulse" ]; th
   mv /home/nocpulse/.ssh/* %{_var}/lib/%{package_name}/.ssh
   mv /home/nocpulse/.bash* /home/nocpulse/var/*.db \
      /home/nocpulse/var/scheduler.xml /home/nocpulse/var/events.frozen \
-     %{_var}/lib/%{package_name}
-  # log files into /var/log/nocpulse
-  mv /home/nocpulse/var/*.log /home/nocpulse/var/archives/* \
+     %{_var}/lib/%{package_name} 2>/dev/null
+  # archive of log files into /var/log/nocpulse
+  mv /home/nocpulse/var/archives/* \
      %{_var}/log/%{package_name} 2> /dev/null
 fi
 
@@ -136,6 +136,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Jun 16 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.15-1
+- fix problem when nocpulse user do not exist
+
 * Wed Jun 03 2009 Milan Zazrivec <mzazrivec@redhat.com> 2.1.14-1
 - switch nocpulse to a system user if needed
 

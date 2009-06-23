@@ -98,6 +98,15 @@ public class ChannelManager extends BaseManager {
     public static final String QRY_ROLE_MANAGE = "manage";
     public static final String QRY_ROLE_SUBSCRIBE = "subscribe";
     
+    // Valid RHEL 4 EUS Channel Versions (from rhnReleaseChannelMap):
+    public static final Set<String> RHEL4_EUS_VERSIONS;
+    static {
+        RHEL4_EUS_VERSIONS = new HashSet<String>();
+        RHEL4_EUS_VERSIONS.add("4AS");
+        RHEL4_EUS_VERSIONS.add("4ES");
+    }
+
+
     // Product name (also sometimes referred to as OS) is unfortunately very
     // convoluted. For RHEL, in rhnDistChannelMap is appears as "Red Hat Linux", in
     // rhnReleaseChannelMap it is "RHEL AS", and in rhnProductName it's label is "rhel".
@@ -254,8 +263,6 @@ public class ChannelManager extends BaseManager {
         }        
         return ret;
     }
-    
-    
     
     /**
      * Returns a list channel entitlements for all orgs.
@@ -519,9 +526,9 @@ public class ChannelManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Channel_queries", "trust_channel_consume");
         
         Map params = new HashMap();        
-        params.put("org_id", org.getId());
+        params.put("org_id", trustOrg.getId());
         params.put("user_id", user.getId());
-        params.put("org_id2", trustOrg.getId());        
+        params.put("org_id2", org.getId());
         DataResult dr = makeDataResult(params, params, lc, m);
         return dr;
     }
@@ -1473,18 +1480,28 @@ public class ChannelManager extends BaseManager {
         params.put("package", packageName);
         params.put("org_id", org.getId());
         
-        //whittle down until we have the piece we want.
         DataResult dr = m.execute(params);
         if (dr.size() == 0) {
             return null;
         }
+        if (dr.size() > 1) {
+            List<Long> channelIds = new LinkedList<Long>();
+            for (Iterator it = dr.iterator(); it.hasNext();) {
+                channelIds.add((Long)((Map)it.next()).get("id"));
+            }
+            // Multiple channels have this package, highly unlikely we can guess which
+            // one is the right one so we'll raise an exception and let the caller
+            // decide what to do.
+            throw new MultipleChannelsWithPackageException(channelIds);
+        }
+
         Map dm = (Map)dr.get(0);
         return (Long) dm.get("id");
     }
 
     
     /**
-     * Finds the id of a child channel that contains
+     * Finds the ids of all child channels that contain
      * a package with the given name.  Will only all the child channels.
      * @param packageName The exact name of the package sought for.
      * @return The list of ids 
@@ -1526,15 +1543,38 @@ public class ChannelManager extends BaseManager {
             return null;
         }
         
-        //we know its the channel we want if it has the rhncfg package in it.
+        // We know its the channel we want if it has the package in it:
         Long bcid = current.getBaseChannel().getId();
         log.debug("found basechannel: " + bcid);
-        Long cid = ChannelManager.findChildChannelWithPackage(user.getOrg(), bcid,
-                packageName);
+
+        Long cid = null;
+
+        try {
+            cid = ChannelManager.findChildChannelWithPackage(user.getOrg(), bcid,
+                    packageName);
+        }
+        catch (MultipleChannelsWithPackageException e) {
+            // If multiple channels have the package we're looking for, see if the server
+            // already has access to one of them before raising this exception.
+            for (Long channelId : e.getChannelIds()) {
+                Channel c = ChannelManager.lookupByIdAndUser(channelId, user);
+                if (current.isSubscribed(c)) {
+                    // found a channel already subscribed
+                    cid = channelId;
+                    break;
+                }
+            }
+            if (cid == null) {
+                // Didn't find one, re-throw the exception:
+                throw e;
+            }
+        }
+
         if (cid == null) { // Didnt find it ..
             log.debug("didnt find a child channel with the package.");
             return null;
         }
+
         Channel channel = ChannelManager.lookupByIdAndUser(cid, user);
         boolean canSubscribe = false;
         
@@ -1656,11 +1696,33 @@ public class ChannelManager extends BaseManager {
      * Convert redhat-release release values to those that are stored in the
      * rhnReleaseChannelMap table.
      *
-     * @param originalRelease Original package evr release.
+     * RHEL 4 release samples: 7.6, 8, 9
+     * RHEL 5 release samples: 5.1.0.1, 5.2.0.2, 5.3.0.3
+     *
+     * RHEL 4 must be treated specially, if the release is X.Y, we only wish to look at
+     * the X portion.
+     *
+     * For RHEL 5 and presumably all future releases, we only look at the W.X.Y portion of
+     * W.X.Y.Z.
+     *
+     * @param rhelVersion RHEL version we're comparing release for. (5Server, 4AS, 4ES)
+     * @param originalRelease Original package release.
      * @return Release version for rhnReleaseChannelMap.
      */
-    public static String normalizeRhelReleaseForMapping(String originalRelease) {
+    public static String normalizeRhelReleaseForMapping(String rhelVersion,
+            String originalRelease) {
+
         String [] tokens = originalRelease.split("\\.");
+
+        if (RHEL4_EUS_VERSIONS.contains(rhelVersion)) {
+            if (tokens.length <= 1) {
+                return originalRelease;
+            }
+            else {
+                return tokens[0];
+            }
+        }
+
         if (tokens.length <= 3) {
             return originalRelease;
         }
@@ -1919,8 +1981,6 @@ public class ChannelManager extends BaseManager {
             return false;
         }
         
-        log.debug("isDefaultBaseChannel()");
-        log.debug("   version = " + version);
         Channel defaultBaseChan = getDefaultBaseChannel(version, 
             baseChan.getChannelArch());
         if (defaultBaseChan == null) {
@@ -2081,10 +2141,11 @@ public class ChannelManager extends BaseManager {
             // that ALL entries in that table for the product/version/channel arch
             // are valid replacement base channels:
             if (isDefaultBaseChannel(inChan, version)) {
+                log.debug("inChan is default base channel");
                 EssentialChannelDto latestEus = lookupLatestEusChannelForRhelVersion(u, 
                         version, inChan.getChannelArch().getId());
                 if (latestEus != null) {
-                    log.debug("inChan is default channel, including latest EUS channel: " + 
+                    log.debug("Including latest EUS channel: " +
                             latestEus.getLabel());
                     eusBaseChans.add(latestEus);
                 }
@@ -2106,8 +2167,11 @@ public class ChannelManager extends BaseManager {
                 // First make sure to add the default base channel, EUS systems should
                 // always be able to upgrade to the mainline RHEL release for their 
                 // version:
+                log.debug("Looking up default base channel for:");
+                log.debug("  version = " + version);
+                log.debug("  channelArch = " + channelArch);
                 Channel defaultBaseChan = getDefaultBaseChannel(version, channelArch);
-                log.debug("Adding default base channel: " + defaultBaseChan.getLabel());
+                log.debug("Adding default base channel: " + defaultBaseChan);
                 retval.add(channelToEssentialChannelDto(defaultBaseChan, false));
 
                 eusBaseChans = listBaseEusChannelsByVersionReleaseAndChannelArch(
@@ -2178,6 +2242,10 @@ public class ChannelManager extends BaseManager {
      * Lookup the EUS base channels suitable for the given version, release, and 
      * server arch.
      * 
+     * NOTE: Release not actually used in the database query, must filter manually
+     * in application code due to some very specific requirements on how it must
+     * be compared. See normalizeRhelReleaseForMapping for more info.
+     *
      * @param user User performing the query.
      * @param version RHEL version.
      * @param release RHEL version release.
@@ -2187,32 +2255,45 @@ public class ChannelManager extends BaseManager {
     public static List<EssentialChannelDto> 
         listBaseEusChannelsByVersionReleaseAndServerArch(User user, 
             String version, String release, String serverArch) {
-        
+
         log.debug("listBaseEusChannelsByVersionReleaseAndServerArch()");
-        SelectMode m = ModeFactory.getMode("Channel_queries", 
-                    "base_eus_channels_by_version_release_server_arch");
-        release = normalizeRhelReleaseForMapping(release);
-        Map params = new HashMap();
-        params.put("user_id", user.getId());
-        params.put("org_id", user.getOrg().getId());
         log.debug("   version = " + version);
         log.debug("   release = " + release);
         log.debug("   serverArch = " + serverArch);
+        SelectMode m = ModeFactory.getMode("Channel_queries", 
+                    "base_eus_channels_by_version_release_server_arch");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("org_id", user.getOrg().getId());
         params.put("product_name_label", RHEL_PRODUCT_NAME);
         params.put("version", version);
-        params.put("release", release);
         params.put("server_arch", serverArch);
-        DataResult dr  = makeDataResult(params, new HashMap(), null, m);
-        return dr;
+        DataResult<EssentialChannelDto> dr  = makeDataResult(params, new HashMap(),
+                null, m);
+
+        List<EssentialChannelDto> result = new LinkedList<EssentialChannelDto>();
+        EusReleaseComparator comparator = new EusReleaseComparator(version);
+        for (EssentialChannelDto dto : dr) {
+            log.debug(dto.getId());
+            if (comparator.compare(dto.getRelease(), release) >= 0) {
+                result.add(dto);
+            }
+        }
+
+        return result;
     }
     
     /**
      * Lookup the EUS base channels suitable for the given version, release, and 
      * channel arch.
      * 
+     * NOTE: Release not actually used in the database query, must filter manually
+     * in application code due to some very specific requirements on how it must
+     * be compared. See normalizeRhelReleaseForMapping for more info.
+     *
      * @param user User performing the query.
      * @param version RHEL version.
-     * @param release RHEL version release.
+     * @param release RHEL release.
      * @param channelArchId Channel arch.
      * @return List of EssentialChannelDto's.
      */
@@ -2222,8 +2303,7 @@ public class ChannelManager extends BaseManager {
         
         log.debug("listBaseEusChannelsByVersionReleaseAndChannelArch()");
         SelectMode m = ModeFactory.getMode("Channel_queries", 
-                    "base_eus_channels_by_version_release_channel_arch");
-        release = normalizeRhelReleaseForMapping(release);
+                    "base_eus_channels_by_version_channel_arch");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
@@ -2232,16 +2312,25 @@ public class ChannelManager extends BaseManager {
         log.debug("   channelArch = " + channelArchId);
         params.put("product_name_label", RHEL_PRODUCT_NAME);
         params.put("version", version);
-        params.put("release", release);
         params.put("channel_arch_id", channelArchId);
-        DataResult dr  = makeDataResult(params, new HashMap(), null, m);
-        return dr;
+        DataResult<EssentialChannelDto> dr  = makeDataResult(params, new HashMap(),
+                null, m);
+
+        List<EssentialChannelDto> result = new LinkedList<EssentialChannelDto>();
+        EusReleaseComparator comparator = new EusReleaseComparator(version);
+        for (EssentialChannelDto dto : dr) {
+            if (comparator.compare(dto.getRelease(), release) > 0) {
+                result.add(dto);
+            }
+        }
+
+        return result;
     }
     
     /**
-     * Lookup the latest EUS base channel for the given version and server arch. Uses the
-     * is_default column of rhnReleaseChannelMap to locate the latest release. If no
-     * entry exists, null will be returned.
+     * Lookup the latest EUS base channel for the given version and server arch.
+     *
+     * Sorts based on the release column. null will be returned if none found.
      * 
      * @param user User performing the query.
      * @param rhelVersion RHEL version.
@@ -2263,15 +2352,13 @@ public class ChannelManager extends BaseManager {
         params.put("product_name_label", RHEL_PRODUCT_NAME);
         params.put("version", rhelVersion);
         params.put("channel_arch_id", channelArchId);
-        DataResult dr  = makeDataResult(params, new HashMap(), null, m);
+        DataResult<EssentialChannelDto> dr  = makeDataResult(params, new HashMap(),
+                null, m);
         if (dr.size() == 0) {
             return null;
         }
-        else if (dr.size() > 1) {
-            throw new LookupException(
-                    "Found multiple default EUS channels for RHEL version.");
-        }
-        return (EssentialChannelDto)dr.get(0);
+        Collections.sort(dr, new EusReleaseComparator(rhelVersion));
+        return (EssentialChannelDto) dr.get(dr.size() - 1);
     }
     
     /**

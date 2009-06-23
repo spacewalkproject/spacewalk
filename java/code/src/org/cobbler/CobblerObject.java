@@ -15,12 +15,18 @@
 
 package org.cobbler;
 
+import com.redhat.rhn.common.util.StringUtil;
+
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -34,7 +40,7 @@ public abstract class CobblerObject {
     protected static final String OWNERS = "owners";
     protected static final String CTIME = "ctime";
     protected static final String KERNEL_OPTIONS_POST = "kernel_options_post";
-    protected static final String SET_KERNEL_OPTIONS_POST = "kopts-post";
+    protected static final String SET_KERNEL_OPTIONS_POST = "kopts_post";
     protected static final String DEPTH = "depth";
     protected static final String KERNEL_OPTIONS = "kernel_options";
     protected static final String SET_KERNEL_OPTIONS = "kopts";
@@ -46,6 +52,8 @@ public abstract class CobblerObject {
     protected static final String MGMT_CLASSES = "mgmt_classes";
     protected static final String TEMPLATE_FILES = "template_files";
     protected static final String UID = "uid";
+    protected static final String PROFILE = "profile";
+    private static final String REDHAT_KEY = "redhat_management_key";
     
     protected String handle;
     protected Map<String, Object> dataMap = new HashMap<String, Object>();
@@ -63,21 +71,39 @@ public abstract class CobblerObject {
      */
     protected static Map<String, Object> lookupDataMapById(CobblerConnection client, 
                              String id, String findMethod) {
-        if (id == null) {
-            return null;
-        }
 
-        Map<String, String> criteria  = new HashMap<String, String>();
-        criteria.put(UID, id);
-        List<Map<String, Object>> objects = (List<Map<String, Object>>)
-                                client.invokeTokenMethod(findMethod, criteria);
+        List<Map<String, Object>> objects = lookupDataMapsByCriteria(client,
+                                                            UID, id, findMethod);
         if (!objects.isEmpty()) {
             return objects.get(0);
         }
         return null;
 
     }
+
+    /**
+     * look up data maps by a certain criteria
+     * @param client the xmlrpc client
+     * @param critera (i.e. uid profile, etc..)
+     * @param value the value of the criteria
+     * @param findMethod the find method to use (find_system, find_profile)
+     * @return List of maps
+     */
+    protected static List<Map<String, Object>> lookupDataMapsByCriteria(
+            CobblerConnection client, String critera, String value, String findMethod) {
+        if (value == null) {
+            return null;
+        }
+
+        Map<String, String> criteria  = new HashMap<String, String>();
+        criteria.put(critera, value);
+        List<Map<String, Object>> objects = (List<Map<String, Object>>)
+                                client.invokeTokenMethod(findMethod, criteria);
+        return objects;
+
+    }
     
+
     /**
      * Helper method used by all cobbler objects to 
      * return a Map of themselves by name.
@@ -340,6 +366,10 @@ public abstract class CobblerObject {
     private Map<String, Object> parseKernelOpts(String kernelOpts) {
         Map<String, Object> toRet = new HashMap<String, Object>();
 
+        if (StringUtils.isEmpty(kernelOpts)) {
+            return toRet;
+        }
+
         String[] options = StringUtils.split(kernelOpts);
         for (String option : options) {
             String[] split = option.split("=");
@@ -419,4 +449,51 @@ public abstract class CobblerObject {
     public String toString() {
         return "DataMap = " + dataMap;
     }
+
+    /**
+     * @param key the red hat activation key
+     */
+    public void setRedHatManagementKey(String key) {
+        modify(REDHAT_KEY, key);
+    }
+
+    /**
+     * @param keys the red hat activation keys in a set
+     */
+    public void setRedHatManagementKey(Set<String> keys) {
+        modify(REDHAT_KEY, StringUtil.join(",", keys));
+    }
+
+    /**
+     * get the red hat management key
+     * @return returns the red hat key as a string
+     */
+    public String getRedHatManagementKey() {
+        return (String) dataMap.get(REDHAT_KEY);
+    }
+
+    /**
+     * get the redhate management key as a Set of keys
+     * @return returns the red hat key as a string
+     */
+    public Set<String> getRedHatManagementKeySet() {
+        String[] sets = ((String) dataMap.get(REDHAT_KEY)).split(",");
+        Set set = new HashSet();
+        set.addAll(Arrays.asList(sets));
+        return set;
+    }
+
+    /**
+     * remove the specified keys from the key set and add the specified set
+     * @param keysToRemove list of tokens to remove
+     * @param keysToAdd list of tokens to add
+     */
+    public void syncRedHatManagementKeys(Collection<String> keysToRemove,
+                                            Collection<String> keysToAdd) {
+        Set keySet = getRedHatManagementKeySet();
+        keySet.removeAll(keysToRemove);
+        keySet.addAll(keysToAdd);
+        setRedHatManagementKey(keySet);
+    }
+
 }

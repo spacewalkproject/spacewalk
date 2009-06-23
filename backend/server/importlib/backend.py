@@ -22,7 +22,7 @@ import string
 import re
 import sys
 
-from common import rhnFault, rhn_rpm
+from common import rhnFault, rhn_rpm, CFG
 from server import rhnSQL, rhnChannel, taskomatic
 from importLib import Diff, Package, IncompletePackage, Erratum, \
         AlreadyUploadedError, InvalidPackageError, TransactionError, \
@@ -689,6 +689,11 @@ class Backend:
                 forceVerify=0, transactional=0):
         # Insert/update the packages
 
+        tbs = self.tables['rhnPackage']
+        if CFG.ENABLE_NVREA:
+            # Add md5sum as a primarykey if nevra is enabled
+            tbs.pk.append('md5sum')
+
         childTables = {
             'rhnPackageProvides':   'package_id', 
             'rhnPackageRequires':   'package_id',
@@ -1121,16 +1126,10 @@ class Backend:
 
     def processChannelProduct(self, channel):
         """ Associate product with channel """
-        # this should be probably done for others products as well
-        # well this is just temporary workaround
-        # can be safely removed when BZ 412201 is fixed
-        if channel['product_name'] == 'proxy':
-	    m = re.match(r'Red Hat Network Proxy \(v(\d+.\d+) .+\)', channel['name'])
-            channel['channel_product'] = channel['product_name']
-            channel['channel_product_version'] = m.group(1)
-            channel['channel_product_beta'] = 'N'
-        # end of safe remove in future
 
+        channel['channel_product'] = channel['product_name']
+        channel['channel_product_version'] = channel['product_version']
+        channel['channel_product_beta'] = channel['product_beta']
         channel['channel_product_id'] = self.lookupChannelProduct(channel)
 
         statement = self.dbmodule.prepare("""
@@ -2014,7 +2013,14 @@ def _buildExternalValue(dict, entry, tableObj):
 def computeDiff(hash1, hash2, diffHash, diffobj, prefix=None):
     # Compare if the key-values of hash1 are a subset of hash2's
     difference = 0
+    ignore_keys = ['last_modified']
+
     for k, v in hash1.items():
+        if k in ignore_keys:
+            # Dont decide the diff based on last_modified
+            # as this obviously wont match due to our db
+            # other triggers.
+            continue
         if hash2[k] == v:
             # Same values
             continue

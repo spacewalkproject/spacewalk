@@ -394,12 +394,8 @@ public class ActionManager extends BaseManager {
             if (ActionFactory.TYPE_CONFIGFILES_DEPLOY.equals(type) &&
                        !SystemManager.clientCapable(server.getId(),
                                     SystemManager.CAP_CONFIGFILES_DEPLOY)) {
-                String msg = "Missing Client Capability -> " + 
-                                    SystemManager.CAP_CONFIGFILES_DEPLOY +
-                                    " for the server [" + server + "]. The server" +
-                                     " will be unable to deploy config files " +
-                                       "until this capability is provided.";
-                throw new MissingCapabilityException(msg);
+                throw new MissingCapabilityException(
+                        SystemManager.CAP_CONFIGFILES_DEPLOY, server);
             }
             ActionFactory.addServerToAction(server.getId(), a);
         
@@ -1293,7 +1289,7 @@ public class ActionManager extends BaseManager {
             Server srvr, String name, ScriptActionDetails script, Date earliest) {
         
         if (!SystemManager.clientCapable(srvr.getId(), "script.run")) {
-            throw new MissingCapabilityException("script.run");
+            throw new MissingCapabilityException("script.run", srvr);
         }
         
         if (!SystemManager.hasEntitlement(srvr.getId(), EntitlementManager.PROVISIONING)) {
@@ -1466,7 +1462,8 @@ public class ActionManager extends BaseManager {
         Profile cProfile = Profile.lookupById(CobblerXMLRPCHelper.getConnection(
            pcmd.getUser()), pcmd.getKsdata().getCobblerId());
         CobblerVirtualSystemCommand vcmd = new CobblerVirtualSystemCommand(
-                pcmd.getServer(), cProfile.getName(), pcmd.getGuestName());
+                pcmd.getServer(), cProfile.getName(), pcmd.getGuestName(),
+                pcmd.getKsdata());
         kad.setCobblerSystemName(vcmd.getCobblerSystemRecordName());
 
         kad.setKickstartHost(pcmd.getKickstartServerName());

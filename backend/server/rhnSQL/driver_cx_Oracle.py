@@ -117,6 +117,9 @@ class Cursor(sql_base.Cursor):
             elif 20000 <= errno <= 20999: # error codes we know we raise as schema errors
                 raise apply(sql_base.SQLSchemaError, ret)
             raise apply(sql_base.SQLError, ret)
+        except ValueError:
+            # this is not good.Let the user know
+            raise
         else:
             self.reparsed = 0 # reset the reparsed counter
         # Munge back the values
@@ -152,7 +155,7 @@ class Cursor(sql_base.Cursor):
         if not kwargs:
             return 0
         # Compute number of values
-        max_array_size = 100
+        max_array_size = 25
         i = kwargs.itervalues()
         firstval = i.next()
         array_size = len(firstval)

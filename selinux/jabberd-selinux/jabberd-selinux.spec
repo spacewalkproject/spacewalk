@@ -7,7 +7,7 @@
 %define modulename jabber
 
 Name:           jabberd-selinux
-Version:        1.4.3
+Version:        1.4.6
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting jabberd
 
@@ -23,6 +23,9 @@ BuildArch:      noarch
 
 %if "%{selinux_policyver}" != ""
 Requires:       selinux-policy >= %{selinux_policyver}
+%endif
+%if 0%{?rhel} == 5
+Requires:        selinux-policy >= 2.4.6-114
 %endif
 Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/setsebool, /usr/sbin/selinuxenabled
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
@@ -63,7 +66,7 @@ install -p -m 644 %{modulename}.if \
 # Hardlink identical policy module packages together
 /usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
 
-# Install jabberd-selinux-enable which will be called in %post
+# Install jabberd-selinux-enable which will be called in %posttrans
 install -d %{buildroot}%{_sbindir}
 install -p -m 755 %{name}-enable %{buildroot}%{_sbindir}/%{name}-enable
 
@@ -73,6 +76,13 @@ rm -rf %{buildroot}
 %post
 if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/%{name}-enable
+fi
+
+%posttrans
+#this may be safely remove when BZ 505066 is fixed
+if /usr/sbin/selinuxenabled ; then
+  rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
+  /sbin/restorecon -ri /var/run/jabberd || :
 fi
 
 %postun
@@ -98,8 +108,17 @@ rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu Jun 18 2009 Jan Pazdziora 1.4.6-1
+- 505606 - Require at least selinux-policy 2.4.6-114
+
+* Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 1.4.5-1
+- 498611 - run "semodule -i" in %%post and restorecon in %%posttrans
+
+* Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 1.4.4-1
+- 498611 - run restorecon in %%posttrans
+
 * Mon Apr 27 2009 Jan Pazdziora 1.4.3-1
-- move the %post SELinux activation to /usr/sbin/jabberd-selinux-enable
+- move the %%post SELinux activation to /usr/sbin/jabberd-selinux-enable
 - use src.rpm packaging with single Source0
 - bump version up to 1.4.3, to allow 1.4.2 to be used by Satellite 5.3.0
 

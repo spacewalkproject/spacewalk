@@ -28,6 +28,7 @@ import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
+import com.redhat.rhn.domain.rhnpackage.PackageSource;
 import com.redhat.rhn.domain.rhnpackage.Patch;
 import com.redhat.rhn.domain.rhnpackage.PatchSet;
 import com.redhat.rhn.domain.user.User;
@@ -419,10 +420,13 @@ public class DownloadFile extends DownloadAction {
             }
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_SOURCE)) {
                 Package pack = PackageFactory.lookupByIdAndOrg(fileId, user.getOrg());
-                path = Config.get().getString(Config.MOUNT_POINT) + "/" + 
-                    pack.getSourcePath();
-                return getStreamForBinary(path);
-            }        
+                List<PackageSource> src = PackageFactory.lookupPackageSources(pack);
+                if (!src.isEmpty()) {
+                    path = Config.get().getString(Config.MOUNT_POINT) + "/" +
+                        src.get(0).getPath();
+                    return getStreamForBinary(path);
+                }
+            }
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_PATCH_README)) {
                 Patch patch = (Patch) PackageFactory.lookupByIdAndOrg(fileId, 
                         user.getOrg());

@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action;
 import com.redhat.rhn.common.util.ServletUtils;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.channel.PackageSearchAction;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.action.systems.SystemSearchSetupAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -98,6 +99,7 @@ public class SearchAction extends RhnAction {
                 HashMap attributes = new HashMap();
                 attributes.put("view_mode", "search_name_and_summary");
                 attributes.put(SystemSearchSetupAction.SEARCH_STRING, searchString);
+                attributes.put(PackageSearchAction.WHERE_CRITERIA, "architecture");
                 
                 // select all the arches to make a better search
                 List<String> defaultArches = new ArrayList<String>();

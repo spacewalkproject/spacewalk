@@ -72,26 +72,11 @@ public class DocResult extends Result {
         if (urlIn.startsWith("file:")) {
             // Translate file:// to a usable URL
             String prefix = "/rhn/help";
-            String patternA = "docs/guides";
-            String patternB = "docs/release-notes";
-            int index = urlIn.indexOf(patternA);
+            int index = urlIn.indexOf(prefix);
             if (index > 0) {
-                // For case of "..../docs/guides/..." remove the doc/guides
-                // only keep the end portion of the URL
-                String end = urlIn.substring(index + patternA.length());
-                urlIn = prefix + end;
-            }
-            else {
-                // For case of ".../docs/release-notes" we will keep the
-                //"release-notes" path in the URL
-                index = urlIn.indexOf(patternB);
-                if (index > 0) {
-                    String end = urlIn.substring(index + "docs".length());
-                    urlIn = prefix + end;
-                }
+                urlIn = urlIn.substring(index);
             }
         }
-        
         this.url = urlIn;
     }
 

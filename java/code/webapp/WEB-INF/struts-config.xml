@@ -729,11 +729,14 @@
             <form-property name="scheduleAsap" type="java.lang.String" />
             <form-property name="scheduleDate" type="java.util.Date" />
             <form-property name="nextAction" type="java.lang.String" />
-            <form-property name="kernelParams" type="java.lang.String" />
             <form-property name="useExistingProfile" type="java.lang.String" />
             <form-property name="proxyHost" type="java.lang.String" />
             <form-property name="activationKeys" type="java.util.List" />
             <form-property name="activationKey" type="java.lang.Long" />
+            <form-property name="kernelParamsType" type="java.lang.String" />
+            <form-property name="kernelParams" type="java.lang.String" />
+            <form-property name="postKernelParamsType" type="java.lang.String" />
+            <form-property name="postKernelParams" type="java.lang.String" />            
             <form-property name="targetProfileType" type="java.lang.String" />
             <form-property name="targetProfile" type="java.lang.Long" />
             <form-property name="syncPackages" type="java.util.List" />
@@ -1001,6 +1004,9 @@
     <exception type="com.redhat.rhn.frontend.xmlrpc.NoSuchKickstartException"
       path="/WEB-INF/pages/common/errors/nosuchkickstart.jsp" key="date"
       handler="com.redhat.rhn.common.errors.NoSuchKickstartExceptionHandler"/>
+	<exception type="com.redhat.rhn.manager.MissingCapabilityException"
+      path="/WEB-INF/pages/common/errors/missingcapability.jsp" key="date"
+      handler="com.redhat.rhn.common.errors.SatelliteExceptionHandler"/>
   </global-exceptions>
 
   <!-- 

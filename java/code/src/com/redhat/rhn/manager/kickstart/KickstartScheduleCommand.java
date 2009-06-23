@@ -14,20 +14,6 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.cobbler.SystemRecord;
-
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
@@ -70,6 +56,20 @@ import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.BaseSystemOperation;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.cobbler.SystemRecord;
+
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Provides frequently used data for scheduling a kickstart
@@ -141,8 +141,10 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     private Profile createdProfile;
     // Static device
     private String staticDevice;
-    // extra kernel params set in the UI
-    private String kernelParams;
+
+    private String kernelOptions;
+    private String postKernelOptions;    
+    
     
     // The server who serves the kickstarts
     private String kickstartServerName;
@@ -593,6 +595,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                         getKickstartMediaPath(kickstartSession),
                         tokenList);
             cmd.setKickstartHost(host);
+            cmd.setKernelOptions(getExtraOptions());
+            cmd.setPostKernelOptions(postKernelOptions);
             ValidatorError cobblerError = cmd.store();
             if (cobblerError != null) {
                 return cobblerError;
@@ -603,6 +607,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                 new CobblerSystemCreateCommand(user, 
                         server, cobblerProfileLabel);
             cmd.setKickstartHost(host);
+            cmd.setKernelOptions(kernelOptions);
+            cmd.setPostKernelOptions(postKernelOptions);            
             ValidatorError cobblerError = cmd.store();
             if (cobblerError != null) {
                 return cobblerError;
@@ -943,18 +949,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         if (isCobblerOnly()) {
             return "";
         }
-        StringBuffer retval = new StringBuffer();
-        retval.append("ks=");
-        if (this.proxyHost != null) {
-            retval.append(kickstartSession.getUrl(this.proxyHost, 
-                    this.scheduleDate));
-        }
-        else {
-            retval.append(kickstartSession.getUrl(this.kickstartServerName, 
-                    this.scheduleDate));
-        }
-
-        String extraParams = new String(" ksdevice=eth0");
+        StringBuilder retval = new StringBuilder();
+        String kOptions = StringUtils.defaultString(kernelOptions);
         /** Some examples:
         dhcp:eth0 , dhcp:eth2, static:10.1.4.75
         static:146.108.30.184, static:auto, static:eth0
@@ -963,30 +959,30 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             staticDevice = this.getKsdata().getStaticDevice();
             if (staticDevice.indexOf("dhcp:") >= 0) {
                 // Get rid of the dhcp:
-                extraParams = " ksdevice=" + staticDevice.substring(
+                String params = " ksdevice=" + staticDevice.substring(
                         staticDevice.indexOf("dhcp:") + "dhcp:".length());
-                log.debug("extraParams: " + extraParams);
+                if (!kOptions.contains("ksdevice=eth0")) {
+                    retval.append(" ksdevice=eth0 ");
+                }
+                
+                if (!kOptions.contains(params)) {
+                    retval.append(params);
+                }
                 staticDevice = "";
             }
             else if (staticDevice.indexOf("static:") >= 0) {
                 // Get rid of the static:
                 staticDevice = staticDevice.substring(
                         staticDevice.indexOf("static:") + "static:".length());
-                extraParams = "";
+                
+            }
+            else {
+                if (!kOptions.contains("ksdevice=eth0")) {
+                    retval.append("ksdevice=eth0");
+                }
             }
         }
-        if (this.kernelParams != null) {
-            extraParams = extraParams + " " + this.kernelParams;
-        }
-        if (this.getKsdata().getKernelParams() != null) {
-            extraParams = extraParams + " " + this.getKsdata().getKernelParams(); 
-        }
-        retval.append(extraParams);
-        
-        log.debug("extraParams: " + extraParams);
-        log.debug("staticDevice: " + staticDevice);
-        log.debug("retval: " + retval);
-        
+        retval.append(" ").append(kOptions);
         return retval.toString();
     }
 
@@ -1419,22 +1415,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         return createdProfile;
     }
 
-    
-    /**
-     * @return Returns the kernelParams.
-     */
-    public String getKernelParams() {
-        return kernelParams;
-    }
-
-    
-    /**
-     * @param kernelParamsIn The kernelParams to set.
-     */
-    public void setKernelParams(String kernelParamsIn) {
-        this.kernelParams = kernelParamsIn;
-    }
-
     /**
      * Set the activationkey id to use
      * @param idIn to add to the Kickstart
@@ -1550,4 +1530,18 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     public boolean isCobblerOnly() {
         return cobblerOnly;
     }
+    
+    /**
+     * @param kernelOptionsIn The kernelOptions to set.
+     */
+    public void setKernelOptions(String kernelOptionsIn) {
+        this.kernelOptions = kernelOptionsIn;
+    }
+    
+    /**
+     * @param postKernelOptionsIn The postKernelOptions to set.
+     */
+    public void setPostKernelOptions(String postKernelOptionsIn) {
+        this.postKernelOptions = postKernelOptionsIn;
+    }    
 }

@@ -6,7 +6,7 @@
 
 Name:            oracle-xe-selinux
 Version:         10.2
-Release:         10%{?dist}
+Release:         12%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
 License:         GPLv2+
@@ -78,7 +78,7 @@ install -p -m 644 %{name}-%{version}/%{modulename}.if \
 # Hardlink identical policy module packages together
 /usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
 
-# Install oracle-xe-selinux-enable which will be called in %post
+# Install oracle-xe-selinux-enable which will be called in %posttrans
 install -d %{buildroot}%{_sbindir}
 install -p -m 755 %{name}-%{version}/%{name}-enable %{buildroot}%{_sbindir}/%{name}-enable
 
@@ -100,6 +100,15 @@ fi
 %post
 if /usr/sbin/selinuxenabled ; then
    %{_sbindir}/%{name}-enable
+fi
+
+%posttrans
+#this may be safely remove when BZ 505066 is fixed
+if /usr/sbin/selinuxenabled ; then
+  # Relabel oracle-xe-univ's files
+  rpm -ql oracle-xe-univ | xargs -n 100 /sbin/restorecon -Rivv
+  # Fix up additional directories, not owned by oracle-xe-univ
+  /sbin/restorecon -Rivv %extra_restorecon
 fi
 
 %postun
@@ -128,8 +137,17 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 10.2-12
+- 498611 - run "semodule -i" in %%post and restorecon in %%posttrans
+
+* Thu Jun 11 2009 Miroslav Suchy <msuchy@redhat.com> 10.2-11
+- return version down to 10.2
+
+* Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 10.3-1
+- 498611 - run restorecon in %%posttrans
+
 * Wed Apr 29 2009 Jan Pazdziora 10.2-10
-- move the %post SELinux activation to /usr/sbin/oracle-xe-enable
+- move the %%post SELinux activation to /usr/sbin/oracle-xe-enable
 
 * Tue Feb 10 2009 Jan Pazdziora 10.2-9
 - added textrel_shlib_t to libdbcfg10.so

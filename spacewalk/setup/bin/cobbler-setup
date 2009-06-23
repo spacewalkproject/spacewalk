@@ -7,6 +7,7 @@ from os.path import exists, join, dirname, basename, isdir, isfile
 from os import system
 import sys
 import re
+import optparse
 
 sys.path.append('/usr/share/rhn')
 import common
@@ -34,11 +35,40 @@ def copy(src, dest):
             shutil.copy(join(dest,basename(src)), join(dest,basename(src)) + ".old")
     shutil.copy(src, dest)
 
+def ask_yes_no(question, default_val = None):
+    if default_val and default_val.lower() == 'y':
+        default_val = 'y'
+    else:
+        default_val = 'n'
+
+    ans = raw_input(question + " (y/n, default = '%s')?" % default_val)
+    if not ans:
+        return default_val == 'y'
+
+    return ans.lower() == 'y'
+
+def setup_pxe_services(options):
+    enable = "yes" == options.tftp
+    if not options.tftp:
+        q = "Cobbler requires tftp and xinetd services be turned on for PXE provisioning functionality. Enable these services"  
+        enable = ask_yes_no(q, 'y')
+    if enable:
+        system("chkconfig tftp on")
+        system('chkconfig xinetd on')
+
 def gen_template(template, answers, output):
 	t = Template(file=template, searchList=answers)
 	open(output,"w").write(t.respond())
 
+def setup_options(parser):
+    parser.add_option("-t", "--enable-tftp", dest="tftp", type="choice", choices=["yes","no"],
+                  help="Enables tftp and xinetd services required for Cobbler PXE provisioning functionality (yes or no)")
+
+
 def main():
+    parser = optparse.OptionParser()
+    setup_options(parser)
+    options, args = parser.parse_args()
     answers = dict(loadFile(DEFAULTS))
     answers['server'] = gethostname()
     answers['next_server'] = answers['server']
@@ -55,7 +85,9 @@ def main():
     if not m.search(conf_lines):
         system ("echo 'cobbler.host = %s' >> %s " % (answers['server'],
                                         common.rhnConfig._CONFIG_FILE))
+    setup_pxe_services(options)    
     system("cobbler sync")
+
     
 if __name__=="__main__":
     main()

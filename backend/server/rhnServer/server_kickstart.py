@@ -664,6 +664,10 @@ def terminate_kickstart_sessions(server_id):
 
 # Fetches the package profile from the kickstart session
 def get_kisckstart_session_package_profile(kickstart_session_id):
+    # NOTE: We're filtering out rhnlib in this query as it's manually
+    # upgraded anyhow in kickstart post scripts, and it appears the
+    # database might not yet know it's there when we attempt to
+    # sync with the package profile.
     h = rhnSQL.prepare("""
         select pn.name, pe.version, pe.release, pe.epoch, pa.label
           from rhnKickstartSession ks,
@@ -676,6 +680,7 @@ def get_kisckstart_session_package_profile(kickstart_session_id):
            and spp.name_id = pn.id
            and spp.evr_id = pe.id
            and spp.package_arch_id = pa.id
+           and pn.name != 'rhnlib'
     """)
     h.execute(kickstart_session_id=kickstart_session_id)
     return _packages_from_cursor(h)

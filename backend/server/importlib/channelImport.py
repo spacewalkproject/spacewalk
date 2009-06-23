@@ -179,7 +179,7 @@ class ChannelImport(Import):
                 continue
 
             if (channel.has_key('channel_product') and channel['channel_product']) \
-                or (channel.has_key('product_name') and channel['product_name'] == 'proxy'):
+                or (channel.has_key('product_name') and channel['product_name']):
                 self.backend.processChannelProduct(channel)
 
         # Sometimes we may want to turn commits off

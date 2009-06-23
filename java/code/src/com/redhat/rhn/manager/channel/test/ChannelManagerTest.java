@@ -48,6 +48,8 @@ import com.redhat.rhn.frontend.dto.SystemsPerChannelDto;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
 import com.redhat.rhn.manager.channel.ChannelEntitlementCounter;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.channel.EusReleaseComparator;
+import com.redhat.rhn.manager.channel.MultipleChannelsWithPackageException;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
@@ -306,7 +308,8 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
 
         found = false;
         Date date = new Date();
-        errata = ChannelManager.listErrata(c, new Date(date.getTime() - 1000), null, user);
+        errata = ChannelManager.listErrata(c, new Date(date.getTime() - 100000),
+                null, user);
         for (ErrataOverview eo : errata) {
             if (eo.getId().equals(e.getId())) {
                 found = true;
@@ -315,7 +318,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         assertTrue(found);
 
         found = false;
-        errata = ChannelManager.listErrata(c, new Date(date.getTime() - 1000),
+        errata = ChannelManager.listErrata(c, new Date(date.getTime() - 100000),
                                     new Date(date.getTime() + 5000000), user);
         for (ErrataOverview eo : errata) {
             if (eo.getId().equals(e.getId())) {
@@ -349,7 +352,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
     }
     
     public static void createReleaseChannelMap(Channel channel, String product, 
-            String version, String release, char isDefault) {
+            String version, String release) {
 
         ReleaseChannelMap rcm = new ReleaseChannelMap();
         rcm.setChannel(channel);
@@ -357,7 +360,6 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         rcm.setProduct(product);
         rcm.setVersion(version);
         rcm.setRelease(release);
-        rcm.setIsDefault(isDefault);
         TestUtils.saveAndReload(rcm);
     }
     
@@ -366,7 +368,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         String version = "5Server";
         String release = "5.0.0";
         ChannelManagerTest.createReleaseChannelMap(base1, "MAP_OS", version, 
-                release, 'Y');
+                release);
         
         ReleaseChannelMap rcm = ChannelManager.lookupDefaultReleaseChannelMapForChannel(
                 base1);
@@ -380,6 +382,8 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         String release = "5.0.0";
         s = ServerTestUtils.addRedhatReleasePackageToServer(user, s, version, release);
 
+        String release2 = "5.2.0";
+        String release3 = "5.3.0";
         // Create some base channels and corresponding entries in rhnReleaseChannelMap:
         Channel base1 = ChannelFactoryTest.createBaseChannel(user);
         Channel base2 = ChannelFactoryTest.createBaseChannel(user);
@@ -390,9 +394,9 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         ChannelFactoryTest.createBaseChannel(user);
         
         ChannelManagerTest.createReleaseChannelMap(base1, 
-                ChannelManager.RHEL_PRODUCT_NAME, version, release, 'N');
+                ChannelManager.RHEL_PRODUCT_NAME, version, release2);
         ChannelManagerTest.createReleaseChannelMap(base2, 
-                ChannelManager.RHEL_PRODUCT_NAME, version, release, 'N');
+                ChannelManager.RHEL_PRODUCT_NAME, version, release3);
         
         List<EssentialChannelDto> channels = ChannelManager.listBaseChannelsForSystem(
                 user, s);
@@ -401,75 +405,136 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
     }
     
     public void testListBaseEusChannelsByVersionReleaseAndChannelArch() throws Exception {
-        Server s = ServerTestUtils.createTestSystem(user);
         String version = "5Server";
-        String release = "5.0.0";
-        
-        s = ServerTestUtils.addRedhatReleasePackageToServer(user, s, version, release);
         
         // Create some base channels and corresponding entries in rhnReleaseChannelMap:
-        Channel base1 = ChannelFactoryTest.createBaseChannel(user);
-        Channel base2 = ChannelFactoryTest.createBaseChannel(user);
-        // not sure why we create this third one, but I'll leave it here.
-        // jesusr 2007/11/15
+        Channel rhel50 = ChannelFactoryTest.createBaseChannel(user);
+        Channel rhel51 = ChannelFactoryTest.createBaseChannel(user);
+        Channel rhel52 = ChannelFactoryTest.createBaseChannel(user);
+        Channel rhel53 = ChannelFactoryTest.createBaseChannel(user);
+        Channel rhel6 = ChannelFactoryTest.createBaseChannel(user);
+        Channel rhel4 = ChannelFactoryTest.createBaseChannel(user);
         ChannelFactoryTest.createBaseChannel(user);
-        ChannelManagerTest.createReleaseChannelMap(base1, 
-                ChannelManager.RHEL_PRODUCT_NAME, version, release, 'N');
-        ChannelManagerTest.createReleaseChannelMap(base2, 
-                ChannelManager.RHEL_PRODUCT_NAME, version, release, 'N');
         
+        ChannelManagerTest.createReleaseChannelMap(rhel50,
+                ChannelManager.RHEL_PRODUCT_NAME, version, "5.0.0.0");
+        ChannelManagerTest.createReleaseChannelMap(rhel51,
+                ChannelManager.RHEL_PRODUCT_NAME, version, "5.1.0.1");
+        ChannelManagerTest.createReleaseChannelMap(rhel52,
+                ChannelManager.RHEL_PRODUCT_NAME, version, "5.2.0.2");
+        ChannelManagerTest.createReleaseChannelMap(rhel53,
+                ChannelManager.RHEL_PRODUCT_NAME, version, "5.3.0.3");
+        ChannelManagerTest.createReleaseChannelMap(rhel6,
+                ChannelManager.RHEL_PRODUCT_NAME, "6Server", "6.0.0.0");
+        ChannelManagerTest.createReleaseChannelMap(rhel4,
+                ChannelManager.RHEL_PRODUCT_NAME, "4AS", "4.6.0");
+
+        // For a system with 5.0 already, they should only see RHEL 5 EUS channels
+        // with a higher or equal release.
         List<EssentialChannelDto> channels = ChannelManager.
-            listBaseEusChannelsByVersionReleaseAndChannelArch(user, version, release, 
-                    base1.getChannelArch().getId());
-        
+            listBaseEusChannelsByVersionReleaseAndChannelArch(user, version, "5.1.0.1",
+                    rhel51.getChannelArch().getId());
         assertTrue(channels.size() >= 2);
+
+        Set<Long> returnedIds = new HashSet<Long>();
+        for (EssentialChannelDto c : channels) {
+            returnedIds.add(c.getId());
+        }
+
+        assertFalse(returnedIds.contains(rhel50.getId()));
+        assertFalse(returnedIds.contains(rhel51.getId()));
+        assertTrue(returnedIds.contains(rhel52.getId()));
+        assertTrue(returnedIds.contains(rhel53.getId()));
+        assertFalse(returnedIds.contains(rhel6.getId()));
+        assertFalse(returnedIds.contains(rhel4.getId()));
     }
     
-    public void testLookupLatestEusChannelForRhelVersion() throws Exception {
-        Server s = ServerTestUtils.createTestSystem(user);
-        String version = "5Server";
-        String release = "5.0.0";
-        String release2 = "5.0.1";
-        
-        s = ServerTestUtils.addRedhatReleasePackageToServer(user, s, version, release);
+    public void testLookupLatestEusChannelForRhel5() throws Exception {
+        String el5version = "5Server";
+        String release500 = "5.0.0";
+        String release520 = "5.2.0.2";
+        String release530 = "5.3.0.3";
         
         // Create some base channels and corresponding entries in rhnReleaseChannelMap:
-        Channel base1 = ChannelFactoryTest.createBaseChannel(user);
-        Channel base2 = ChannelFactoryTest.createBaseChannel(user);
-        // not sure why we create this third one, but I'll leave it here.
-        // jesusr 2007/11/15
-        ChannelFactoryTest.createBaseChannel(user);
-        ChannelManagerTest.createReleaseChannelMap(base1, 
-                ChannelManager.RHEL_PRODUCT_NAME, version, release, 'N');
-        ChannelManagerTest.createReleaseChannelMap(base2, 
-                ChannelManager.RHEL_PRODUCT_NAME, version, release2, 'Y');
+        Channel rhel500Chan = ChannelFactoryTest.createBaseChannel(user);
+        Channel rhel530Chan = ChannelFactoryTest.createBaseChannel(user);
+        Channel rhel520Chan = ChannelFactoryTest.createBaseChannel(user);
+
+        // Creating these in a random order to make sure most recent isn't also
+        // most recently created and accidentally getting returned.
+        ChannelManagerTest.createReleaseChannelMap(rhel500Chan,
+                ChannelManager.RHEL_PRODUCT_NAME, el5version, release500);
+        ChannelManagerTest.createReleaseChannelMap(rhel530Chan,
+                ChannelManager.RHEL_PRODUCT_NAME, el5version, release530);
+        ChannelManagerTest.createReleaseChannelMap(rhel520Chan,
+                ChannelManager.RHEL_PRODUCT_NAME, el5version, release520);
         
         EssentialChannelDto channel = ChannelManager.
-            lookupLatestEusChannelForRhelVersion(user, version, 
-                    base1.getChannelArch().getId());
-        assertEquals(base2.getId().longValue(), channel.getId().longValue());
+            lookupLatestEusChannelForRhelVersion(user, el5version,
+                    rhel500Chan.getChannelArch().getId());
+        assertEquals(rhel530Chan.getId().longValue(), channel.getId().longValue());
     }
     
+    // Test the problem with string version comparisons is being handled:
+    public void testLookupLatestEusChannelForRhel5WeirdVersionCompare() throws Exception {
+        String el5version = "5Server";
+        String release5310 = "5.3.10.0"; // should appear as most recent
+        String release539 = "5.3.9.0";
+        
+        // Create some base channels and corresponding entries in rhnReleaseChannelMap:
+        Channel rhel5310Chan = ChannelFactoryTest.createBaseChannel(user);
+        Channel rhel539Chan = ChannelFactoryTest.createBaseChannel(user);
+
+        // Creating these in a random order to make sure most recent isn't also
+        // most recently created and accidentally getting returned.
+        ChannelManagerTest.createReleaseChannelMap(rhel5310Chan,
+                ChannelManager.RHEL_PRODUCT_NAME, el5version, release5310);
+        ChannelManagerTest.createReleaseChannelMap(rhel539Chan,
+                ChannelManager.RHEL_PRODUCT_NAME, el5version, release539);
+        
+        EssentialChannelDto channel = ChannelManager.
+            lookupLatestEusChannelForRhelVersion(user, el5version,
+                    rhel5310Chan.getChannelArch().getId());
+        assertEquals(rhel5310Chan.getId().longValue(), channel.getId().longValue());
+    }
+
     public void testLookupLatestEusChannelForRhelVersionNoneFound() throws Exception {
-        Server s = ServerTestUtils.createTestSystem(user);
-        String version = "5Server";
-        String release = "5.0.0";
-        String release2 = "5.0.1";
-        
-        s = ServerTestUtils.addRedhatReleasePackageToServer(user, s, version, release);
-        
         // Create some base channels and corresponding entries in rhnReleaseChannelMap:
         Channel base1 = ChannelFactoryTest.createBaseChannel(user);
         Channel base2 = ChannelFactoryTest.createBaseChannel(user);
-        ChannelManagerTest.createReleaseChannelMap(base1, TEST_OS, version, 
-                release, 'N');
-        ChannelManagerTest.createReleaseChannelMap(base2, TEST_OS, version, 
-                release2, 'N');
+        // Fake some EUS channels for RHEL 6, which should not appear in results:
+        ChannelManagerTest.createReleaseChannelMap(base1, TEST_OS, "6Server",
+                "6.0.0.0");
+        ChannelManagerTest.createReleaseChannelMap(base2, TEST_OS, "6Server",
+                "6.1.0.1");
         
+        // Should find nothing:
         EssentialChannelDto channel = ChannelManager.
-            lookupLatestEusChannelForRhelVersion(user, version, 
+            lookupLatestEusChannelForRhelVersion(user, "5Server",
                     base1.getChannelArch().getId());
         assertNull(channel);
+    }
+
+    public void testEusReleaseCmpRhel4() {
+        EusReleaseComparator comparator = new EusReleaseComparator("4AS");
+        assertEquals(0, comparator.compare("4.6", "4"));
+        assertEquals(0, comparator.compare("4.6", "4.2"));
+        assertEquals(1, comparator.compare("9", "8"));
+        assertEquals(-1, comparator.compare("8", "9"));
+        assertEquals(-1, comparator.compare("8.7", "9.5"));
+        assertEquals(-1, comparator.compare("8.7", "10.10"));
+    }
+
+    public void testEusReleaseCmpRhel5() {
+        EusReleaseComparator comparator = new EusReleaseComparator("5Server");
+        assertEquals(0, comparator.compare("5.3.0.1", "5.3.0.5"));
+        assertEquals(0, comparator.compare("5.3.0.1", "5.3.0.10"));
+        assertEquals(0, comparator.compare("5.3.0", "5.3.0"));
+        assertEquals(1, comparator.compare("5.3.1.1", "5.3.0.10"));
+        assertEquals(1, comparator.compare("5.4.1", "5.3.0.10"));
+        assertEquals(-1, comparator.compare("5.0.0.0", "5.3.0.3"));
+        assertEquals(-1, comparator.compare("5.0.9.0", "5.0.10.0"));
+        assertEquals(-1, comparator.compare("5.0.9.0", "5.0.10.0"));
     }
     
     public void testIsChannelFree() throws Exception {
@@ -556,6 +621,64 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
 
     }
     
+    public void testSubscribeToChildChannelWithPackageNameMultipleResults()
+        throws Exception {
+
+        UserTestUtils.addVirtualization(user.getOrg());
+        Server s = ServerTestUtils.createTestSystem(user);
+        Channel[] chans = ChannelTestUtils.
+            setupBaseChannelForVirtualization(s.getCreator(), s.getBaseChannel());
+        // Repeat to ensure there's multiple child channels created:
+        chans = ChannelTestUtils.
+            setupBaseChannelForVirtualization(s.getCreator(), s.getBaseChannel());
+        Config.get().setString(ChannelEntitlementCounter.class.getName(),
+                TestChannelCounter.class.getName());
+
+        int channelCountBefore = s.getChannels().size();
+        try {
+            ChannelManager.subscribeToChildChannelWithPackageName(user,
+                s, ChannelManager.TOOLS_CHANNEL_PACKAGE_NAME);
+            fail();
+        }
+        catch (MultipleChannelsWithPackageException e) {
+            // expected
+        }
+        assertEquals(channelCountBefore, s.getChannels().size());
+
+        Config.get().setString(ChannelEntitlementCounter.class.getName(),
+                ChannelEntitlementCounter.class.getName());
+
+    }
+
+    public void testSubscribeToChildChannelWithPackageNameMultipleResultsAlreadySubbed()
+        throws Exception {
+
+        UserTestUtils.addVirtualization(user.getOrg());
+        Server s = ServerTestUtils.createTestSystem(user);
+        Channel[] chans = ChannelTestUtils.
+        setupBaseChannelForVirtualization(s.getCreator(), s.getBaseChannel());
+        // Repeat to ensure there's multiple child channels created:
+        chans = ChannelTestUtils.
+        setupBaseChannelForVirtualization(s.getCreator(), s.getBaseChannel());
+        Config.get().setString(ChannelEntitlementCounter.class.getName(),
+                TestChannelCounter.class.getName());
+
+        // Subscribe to one set of the child channels but not the other, this should *not*
+        // generate the multiple channels with package exception:
+        s.addChannel(chans[0]);
+        s.addChannel(chans[1]);
+        TestUtils.saveAndReload(s);
+
+        int channelCountBefore = s.getChannels().size();
+        assertNotNull(ChannelManager.subscribeToChildChannelWithPackageName(user,
+                    s, ChannelManager.TOOLS_CHANNEL_PACKAGE_NAME));
+        assertEquals(channelCountBefore, s.getChannels().size());
+
+        Config.get().setString(ChannelEntitlementCounter.class.getName(),
+                ChannelEntitlementCounter.class.getName());
+
+    }
+
     public void testsubscribeToChildChannelByOSProduct() throws Exception {
         UserTestUtils.addVirtualization(user.getOrg()); 
         Server s = ServerTestUtils.createTestSystem(user);
@@ -627,9 +750,14 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
     }
     
     public void testNormalizeRhelReleaseForMapping() {
-        assertEquals("5.0.0", ChannelManager.normalizeRhelReleaseForMapping("5.0.0.9"));
-        assertEquals("4.6", ChannelManager.normalizeRhelReleaseForMapping("4.6"));
-        assertEquals("3", ChannelManager.normalizeRhelReleaseForMapping("3"));
+        assertEquals("4", ChannelManager.normalizeRhelReleaseForMapping("4AS", "4.6"));
+        assertEquals("4", ChannelManager.normalizeRhelReleaseForMapping("4AS", "4.6.9"));
+        assertEquals("3", ChannelManager.normalizeRhelReleaseForMapping("4AS", "3"));
+
+        assertEquals("4.6.9", ChannelManager.normalizeRhelReleaseForMapping("5Server",
+                "4.6.9"));
+        assertEquals("5.0.0", ChannelManager.normalizeRhelReleaseForMapping("5Server",
+        "5.0.0.9"));
     }
     
     public void testPackageSearch() {

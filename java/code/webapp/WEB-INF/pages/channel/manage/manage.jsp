@@ -42,24 +42,41 @@
                     <img style="margin-left: 4px;"
                          src="/img/channel_child_node.gif"
                          alt="<bean:message
-                         key='channels.childchannel.alt' />"/>
+                         key='channels.childchannel.alt' />"/>                    
+                    <c:if test="${current.org_id !=  null}">
                     <html:link href="/rhn/channels/manage/Edit.do?cid=${current.id}">
                         ${current.name}
                     </html:link>
+                    </c:if>
+                    <c:if test="${current.org_id eq  null}">                    
+                        ${current.name}                    
+                    </c:if>                    
                 </c:when>
                 <c:otherwise>
+                    <c:if test="${current.org_id !=  null}">
                     <html:link href="/rhn/channels/manage/Edit.do?cid=${current.id}">
                         ${current.name}
                     </html:link>
+                    </c:if>
+                    <c:if test="${current.org_id eq null}">                  
+                        ${current.name}                  
+                    </c:if>
+                    
                 </c:otherwise>
             </c:choose>
         </rl:column>
 
         <rl:column styleclass="last-column"
                    headerkey="channels.overview.packages">
+            <c:if test="${current.org_id !=  null}">
             <html:link href="/rhn/channels/manage/ChannelPackages.do?cid=${current.id}">
                 ${current.package_count}
             </html:link>
+            </c:if>
+            <c:if test="${current.org_id eq  null}">            
+                ${current.package_count}            
+            </c:if>
+            
         </rl:column>
 
 

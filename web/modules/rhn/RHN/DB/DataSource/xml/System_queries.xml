@@ -1264,7 +1264,6 @@ SELECT S.id,
                   AND SPP.patch_id = :pid
                   AND PNEVRA.id = SPP.package_nevra_id
                   AND PNEVRA.name_id = SP.name_id
-                  AND PNEVRA.evr_id = SP.evr_id
                   AND NOT EXISTS (SELECT 1
                                     FROM rhnSolarisPatchedPackage SPdP
                                    WHERE SPdP.server_id = S.id

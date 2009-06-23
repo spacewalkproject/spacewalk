@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.6.11
+Version: 0.6.15
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -42,6 +42,10 @@ Run configure-proxy.sh after installation to configure proxy.
 /usr/bin/gzip rhn-proxy-activate.8
 /usr/bin/docbook2man configure-proxy.sh.sgml
 /usr/bin/gzip configure-proxy.sh.8
+# default access_log is already set on RHEL4
+%if 0%{?rhel} == 4
+perl -i -pe 's/access_log \S+ squid//;' squid.conf
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -84,6 +88,20 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Wed Jun 17 2009 Michael Mraka <michael.mraka@redhat.com> 0.6.15-1
+- fixed sgml errors in %%build
+- removed access_log directive on RHEL4
+
+* Tue Jun 16 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.14-1
+- 499399 - print scout shared key on output
+
+* Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.13-1
+- 505325 - pass two parameters as two parameters
+
+* Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.12-1
+- runtime error - global name 's' is not defined
+- 504660 - fix typo in message
+
 * Fri Jun 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.11-1
 - 499399 - read SCOUT_SHARED_KEY value from api call
   proxy.createMonitoringScout (msuchy@redhat.com)

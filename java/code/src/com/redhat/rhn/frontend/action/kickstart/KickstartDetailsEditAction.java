@@ -16,7 +16,6 @@ package com.redhat.rhn.frontend.action.kickstart;
 
 
 import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -144,10 +143,8 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
         Profile prof = Profile.lookupById(helper.getConnection(ctx.getLoggedInUser()), 
                 data.getCobblerId());
         if (prof != null) {
-            form.set(KERNEL_OPTIONS, StringUtil.convertMapToString(
-                    prof.getKernelOptions(), " "));
-            form.set(POST_KERNEL_OPTIONS, StringUtil.convertMapToString(
-                    prof.getKernelPostOptions(), " "));
+            form.set(KERNEL_OPTIONS, prof.getKernelOptionsString());
+            form.set(POST_KERNEL_OPTIONS, prof.getKernelPostOptionsString());
         }
         
        if (prof == null) {
@@ -290,10 +287,10 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
     public static void processCobblerFormValues(KickstartData ksdata, 
                                             DynaActionForm form, User user) {
         CobblerProfileEditCommand cmd = new CobblerProfileEditCommand(ksdata, user);
-        cmd.setKernelOptions(StringUtil.convertOptionsToMap(
-                form.getString(KERNEL_OPTIONS), "kickstart.jsp.error.invalidvariable"));
-        cmd.setPostKernelOptions(StringUtil.convertOptionsToMap(
-                form.getString(POST_KERNEL_OPTIONS), "kickstart.jsp.error.invalidoption"));
+
+        cmd.setKernelOptions(StringUtils.defaultString(form.getString(KERNEL_OPTIONS)));
+        cmd.setPostKernelOptions(StringUtils.defaultString(
+                            form.getString(POST_KERNEL_OPTIONS)));
         cmd.store();
 
         CobblerXMLRPCHelper helper = new CobblerXMLRPCHelper();

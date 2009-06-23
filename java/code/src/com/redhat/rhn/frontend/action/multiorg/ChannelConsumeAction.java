@@ -20,6 +20,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.action.channel.BaseChannelTreeAction;
 import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -39,8 +40,10 @@ public class ChannelConsumeAction extends BaseChannelTreeAction {
         Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);
         //grab the trusted org id passed in
         Org trustOrg = OrgFactory.lookupById(oid);
-        User user = requestContext.getCurrentUser();
-        Org org = user.getOrg();
+        //User user = requestContext.getCurrentUser();
+        User user = UserFactory.findRandomOrgAdmin(trustOrg);
+        //Org org = user.getOrg();
+        Org org = requestContext.getCurrentUser().getOrg();
 
         return ChannelManager.trustChannelConsume(org, trustOrg, user, lc);
     }

@@ -131,3 +131,8 @@ rhnSharedChannelView             :: rhnChannel rhnChannelTrust rhnTrustedOrgs
 rhnSharedChannelTreeView         :: rhnSharedChannelView
 rhnUserActionOverview            :: rhnActionStatus rhnUserServerPerms rhnServerAction \
                                     rhnActionOverview 
+rhnServerNeededView              :: rhnPackage rhnServerPackageArchCompat \
+                                    rhnPackageEVR rhnServerPackage \
+                                    rhnChannelPackage rhnServerChannel \
+                                    rhnServer rhnErrataPackage \
+                                    rhnChannelErrata

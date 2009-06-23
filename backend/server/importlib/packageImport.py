@@ -22,6 +22,7 @@ from importLib import GenericPackageImport, IncompletePackage, Package, \
     Import, InvalidArchError, InvalidChannelError, \
     IncompatibleArchError
 from server import taskomatic
+from common import CFG
 
 class ChannelPackageSubscription(GenericPackageImport):
     def __init__(self, batch, backend, caller=None, strict=0):
@@ -69,12 +70,21 @@ class ChannelPackageSubscription(GenericPackageImport):
             if package.ignored:
                 continue
             self._postprocessPackageNEVRA(package)
-            nevrao = (
-                package['name_id'],
-                package['evr_id'],
-                package['package_arch_id'],
-                package['org_id'],
-                package['md5sum'])
+            if not CFG.ENABLE_NVREA:
+                # nvrea disabled, skip md5sum
+                nevrao = (
+                    package['name_id'],
+                    package['evr_id'],
+                    package['package_arch_id'],
+                    package['org_id'])
+            else:
+                # As nvrea is enabled uniquify based on md5sum
+                nevrao = (
+                    package['name_id'],
+                    package['evr_id'],
+                    package['package_arch_id'],
+                    package['org_id'],
+                    package['md5sum'])
 
             if not uniqdict.has_key(nevrao):
                 # Uniquify the channel names

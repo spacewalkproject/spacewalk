@@ -398,12 +398,13 @@ def createMonitoringScout(options):
         use activateProxy_api_v3_x method instead.
     """
 
-    getServer(options, DEFAULT_WEBRPC_HANDLER_v3_x)
+    s = getServer(options, DEFAULT_WEBRPC_HANDLER_v3_x)
     systemid = getSystemId()
 
     errorCode, errorString = 0, ''
     try:
-        s.proxy.create_monitoring_scout(systemid)
+        ssk = s.proxy.create_monitoring_scout(systemid)
+        print "Scout shared key: %s" % ssk
     except:
         errorCode, errorString = _errorHandler()
         try:

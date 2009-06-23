@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.multiorg;
 
-import java.util.Iterator;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -86,13 +85,7 @@ public class SystemEntitlementOrgsAction extends RhnAction {
         DataList<Map> result =
             OrgManager.allOrgsSingleEntitlementWithEmptyOrgs(entitlementLabel);
         Org satelliteOrg = OrgFactory.getSatelliteOrg();
-        for (Iterator<Map> itr = result.iterator(); itr.hasNext();) {
-            Map row = itr.next();
-            if (satelliteOrg.getId().equals(row.get("orgid"))) {
-                itr.remove();
-                break;
-            }
-        }
+
         request.setAttribute("egntname", entitlementLabel);
         request.setAttribute("enthuman", e.getHumanReadableLabel());
         request.setAttribute("pageList", result);

@@ -17,73 +17,39 @@ package com.redhat.rhn.manager;
 import com.redhat.rhn.common.RhnRuntimeException;
 import com.redhat.rhn.domain.server.Server;
 
-import java.util.List;
-
 /**
  * MissingCapabilityException
  * @version $Rev$
  */
 public class MissingCapabilityException extends RhnRuntimeException {
     
-    private List<Server> servers;
+    /**
+     * Comment for <code>serialVersionUID</code>
+     */
+    private static final long serialVersionUID = 1569955542059271165L;
+    private Server server;
     private String  capability;
-    /**
-     * 
-     */
-    public MissingCapabilityException() {
-        super();
-    }
-
-    /**
-     * @param msg An error message
-     */
-    public MissingCapabilityException(String msg) {
-        super(msg);
-    }
-
-    /**
-     * @param t The Throwable to wrap
-     */
-    public MissingCapabilityException(Throwable t) {
-        super(t);
-    }
-
-    /**
-     * @param msg An error message
-     * @param t The Throwable to wrap
-     */
-    public MissingCapabilityException(String msg, Throwable t) {
-        super(msg, t);
-    }
     
     /**
      * Constructor for exception on missing capability on a bunch of servers.
      * @param missingCapability the missing capability. 
-     * @param incapableServers the servers missing the capaibility 
+     * @param incapableServer the server missing the capaibility 
      */
     public MissingCapabilityException(String missingCapability,
-                                    List<Server> incapableServers) {
+                                    Server incapableServer) {
         
-        this(makeMessage(missingCapability, incapableServers));
-        servers = incapableServers;
+        
+        server = incapableServer;
         capability = missingCapability;
     }
     
-    private static String makeMessage(String missingCapability,
-                            List<Server> incapableServers) {
-        return "Missing Client Capability -> " +  missingCapability +
-        " for the server [" + incapableServers + "]. The server" +
-        " will be unable to deploy config files " +
-          "until this capability is provided.";
-    }
-
     
     /**
-     * @return the list of servers missing the given capability
+     * @return the servers missing the given capability
      *          or null if none exist.
      */
-    public List<Server> getServers() {
-        return servers;
+    public Server getServer() {
+        return server;
     }
 
     

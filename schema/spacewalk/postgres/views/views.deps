@@ -44,9 +44,3 @@ rhnVisServerGroupOverview        :: rhnErrata rhnServerNeededPackageCache \
                                     rhnUserManagedServerGroups \
                                     rhnServerGroupMembers rhnVisibleServerGroup
 rhnWebContactEnabled             :: rhnWebContactDisabled
-rhnServerNeededView              :: rhnPackage rhnServerPackageArchCompat \
-                                    rhnPackageEVR rhnServerPackage \
-                                    rhnChannelPackage rhnServerChannel \
-                                    rhnServer rhnErrataPackage \
-                                    rhnChannelErrata
-

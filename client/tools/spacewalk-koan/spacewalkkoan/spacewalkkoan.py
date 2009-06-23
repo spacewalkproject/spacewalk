@@ -41,11 +41,11 @@ def initiate(kickstart_host, base, extra_append, static_device=None, system_reco
     
     try:
         k = Koan()
-        k.list_items          = False
+        k.list_items          = 0
         k.server              = kickstart_host
-        k.is_virt             = False
-        k.is_replace          = True
-        k.is_display          = False
+        k.is_virt             = 0
+        k.is_replace          = 1
+        k.is_display          = 0
 	k.profile             = None
 
         if system_record != "":
@@ -58,7 +58,7 @@ def initiate(kickstart_host, base, extra_append, static_device=None, system_reco
         k.virt_path           = None
         k.virt_type           = None
         k.virt_bridge         = None
-        k.no_gfx              = True
+        k.no_gfx              = 1
         k.add_reinstall_entry = None
         k.kopts_override      = None
         k.use_kexec           = None
@@ -108,22 +108,22 @@ def initiate_guest(kickstart_host, cobbler_system_name, virt_type, name, mem_kb,
         if os.path.exists(disk_path):
             raise VirtDiskPathExistsError(disk_path)
         k = Koan()
-        k.list_items          = False
+        k.list_items          = 0
         k.server              = kickstart_host
-        k.is_virt             = True
-        k.is_replace          = False
-        k.is_display          = False
+        k.is_virt             = 1
+        k.is_replace          = 0
+        k.is_display          = 0
         k.port                = 443
         k.profile             = None
         k.system              = cobbler_system_name
-        k.should_poll         = False
+        k.should_poll         = 0
         k.image               = None
         k.live_cd             = None
         k.virt_name           = name
         k.virt_path           = disk_path
         k.virt_type           = virt_type
         k.virt_bridge         = virt_bridge
-        k.no_gfx              = True
+        k.no_gfx              = 1
         k.add_reinstall_entry = None
         k.kopts_override      = None
         k.run()
@@ -136,7 +136,7 @@ def initiate_guest(kickstart_host, cobbler_system_name, virt_type, name, mem_kb,
             print xa
             print xb
             print string.join(traceback.format_list(traceback.extract_tb(tb)))
-            error_messages['koan'] = string.join(traceback.format_list(traceback.extract_tb(tb)))
+            error_messages['koan'] = xb.get_error_message() + ' ' + string.join(traceback.format_list(traceback.extract_tb(tb)))
         return (1, "Virtual kickstart failed. Koan error.", error_messages)
 
     return (0, "Virtual kickstart initiate succeeded", error_messages)

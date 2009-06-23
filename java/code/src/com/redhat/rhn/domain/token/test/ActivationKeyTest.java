@@ -140,7 +140,7 @@ public class ActivationKeyTest extends BaseTestCaseWithUser {
             (user, keyName, "Cool Duplicate", null, null, false);
         assertEquals(ActivationKey.makePrefix(user.getOrg()) + keyName.trim(), k.getKey());
         String newKey = keyName + " FOO  ";
-        manager.changeKey(newKey , k);
+        manager.changeKey(newKey , k, user);
         assertNotNull(ActivationKey.makePrefix(user.getOrg()) + newKey.trim());
     }
 

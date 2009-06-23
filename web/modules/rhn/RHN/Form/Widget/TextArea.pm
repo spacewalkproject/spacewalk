@@ -24,7 +24,8 @@ use RHN::Form::Widget;
 our @ISA = qw/RHN::Form::Widget/;
 
 my %valid_fields = (rows => undef,
-		    cols => undef);
+		    cols => undef,
+                    wrap => undef);
 
 sub valid_fields { return (shift->SUPER::valid_fields(), %valid_fields) }
 
@@ -52,13 +53,25 @@ sub cols {
   return $self->{cols};
 }
 
+sub wrap {
+  my $self = shift;
+  my $wrap = shift;
+
+  if (defined $wrap) {
+    $self->{wrap} = $wrap;
+  }
+
+  return $self->{wrap};
+}
+
 sub render {
   my $self = shift;
 
   my $ret = PXT::HTML->textarea(-name => $self->label,
 				-value => PXT::Utils->escapeHTML($self->value || $self->default || ''),
 				-cols => $self->cols,
-				-rows => $self->rows);
+				-rows => $self->rows,
+                                -wrap => $self->wrap);
 
   return $ret;
 }

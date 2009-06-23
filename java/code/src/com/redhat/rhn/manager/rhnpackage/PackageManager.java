@@ -931,7 +931,29 @@ public class PackageManager extends BaseManager {
             return m.execute(params);
         }
     }
-    
+
+    /**
+     * Returns package metadata for all packages named 'packageName' and exist
+     * in passed in channelID if the ORG has access..
+     * @param org The users Org.
+     * @param packageName Name of package being sought.
+     * @param channelID Id of the channel to lookup package in
+     *
+     * @return package metadata for all packages named 'packageName' and exist
+     * in the channels which which the orgId is subscribed.
+     */
+    public static DataResult lookupPackageNameOverviewInChannel(Org org, String packageName,
+            Long channelID) {
+        Map params = new HashMap();
+        params.put("org_id", org.getId());
+        params.put("package_name", packageName);
+        params.put("channel_id", channelID);
+
+        SelectMode m = ModeFactory.getMode(
+                "Package_queries", "packages_by_name_cid");
+        return m.execute(params);
+    }
+
     /**
      * list patch sets for a specific channel
      * @param cid the channel id

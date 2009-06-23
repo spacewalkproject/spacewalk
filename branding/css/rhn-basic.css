@@ -116,7 +116,7 @@ a:link, a:visited {
         color: #06c;
         }
 
-a:link:hover {
+a:link:hover, a:visited:hover, a:active:hover {
         text-decoration: underline !important;
         }
 

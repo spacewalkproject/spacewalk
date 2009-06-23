@@ -63,6 +63,7 @@ public class PackageSearchAction extends RhnAction {
                                                          "channel-alpha",
                                                          "channel-iSeries",
                                                          "channel-pSeries"};
+    public static final String WHERE_CRITERIA = "whereCriteria";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm formIn, 
@@ -161,7 +162,7 @@ public class PackageSearchAction extends RhnAction {
         RequestContext ctx = new RequestContext(request);
         String searchString = form.getString("search_string");
         String viewmode = form.getString("view_mode");
-        String searchCriteria = request.getParameter("whereCriteria");
+        String searchCriteria = request.getParameter(WHERE_CRITERIA);
         String[] selectedArches = null;
         Long filterChannelId = null;
         boolean relevantFlag = false;
@@ -235,6 +236,8 @@ public class PackageSearchAction extends RhnAction {
         request.setAttribute("channelArches", channelArches);
         request.setAttribute("channel_arch", selectedArches);
         request.setAttribute("allChannels", allChannels);
+        request.setAttribute("channel_filter", form.getString("channel_filter"));
+        request.setAttribute("relevant", relevantFlag ? "yes" : "no");
 
         // Default where to search criteria
         request.setAttribute("whereCriteria", searchCriteria);

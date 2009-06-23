@@ -1413,10 +1413,13 @@ class Tui:
         else:
             self.serverURL = cfg['serverURL']
         
-        if self.serverType == "hosted":
-            cfg.set('sslCACert', '/usr/share/rhn/RHNS-CA-CERT')
-        else:
-            cfg.set('sslCACert', '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT') 
+        if not cfg['sslCACert']:
+            # Always use the path from the cert if available, else set to 
+            # default location
+            if self.serverType == "hosted":
+                cfg.set('sslCACert', '/usr/share/rhn/RHNS-CA-CERT')
+            else:
+                cfg.set('sslCACert', '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT') 
        
     def __del__(self):
         self.screen.finish()
