@@ -205,7 +205,9 @@ if [ "$RHN_PARENT" == "rhn.redhat.com" ]; then
 WARNING
 fi
 
-default_or_input "Proxy version to activate" VERSION $(rhn-proxy-activate --server=$RHN_PARENT --list-available-versions |sort|tail -n1)
+VERSION_FROM_PARENT=$(rhn-proxy-activate --server=$RHN_PARENT --list-available-versions 2>/dev/null|sort|tail -n1)
+VERSION_FROM_RPM=$(rpm -q --queryformat %{version} spacewalk-proxy-installer|cut -d. -f1-2)
+default_or_input "Proxy version to activate" VERSION ${VERSION_FROM_PARENT:-$VERSION_FROM_RPM}
 
 default_or_input "Traceback email" TRACEBACK_EMAIL ''
 
