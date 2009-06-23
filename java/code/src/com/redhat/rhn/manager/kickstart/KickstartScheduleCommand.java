@@ -610,6 +610,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             cmd.setKickstartHost(host);
             cmd.setKernelOptions(getExtraOptions());
             cmd.setPostKernelOptions(postKernelOptions);
+            cmd.setScheduledAction(kickstartAction);
             ValidatorError cobblerError = cmd.store();
             if (cobblerError != null) {
                 return cobblerError;
@@ -621,13 +622,13 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                         server, cobblerProfileLabel);
             cmd.setKickstartHost(host);
             cmd.setKernelOptions(kernelOptions);
-            cmd.setPostKernelOptions(postKernelOptions);            
+            cmd.setPostKernelOptions(postKernelOptions);
+            cmd.setScheduledAction(kickstartAction);
             ValidatorError cobblerError = cmd.store();
             if (cobblerError != null) {
                 return cobblerError;
             }            
         }
-
         SystemRecord rec = SystemRecord.lookupById(CobblerXMLRPCHelper.getConnection(
                 this.getUser().getLogin()), this.getServer().getCobblerId());
 
@@ -1556,5 +1557,5 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      */
     public void setPostKernelOptions(String postKernelOptionsIn) {
         this.postKernelOptions = postKernelOptionsIn;
-    }    
+    }
 }
