@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
@@ -46,7 +47,7 @@ import java.util.Set;
 public class CobblerSystemCreateCommand extends CobblerCommand {
 
     private static Logger log = Logger.getLogger(CobblerSystemCreateCommand.class);
-    
+    private Action scheduledAction;
     private Server server;
     private String mediaPath;
     private String profileName;
@@ -353,5 +354,17 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      */
     public void setPostKernelOptions(String postKernelOptionsIn) {
         this.postKernelOptions = postKernelOptionsIn;
-    }    
+    }
+
+    /**
+     * Set the scheduled action associated to this command.
+     * @param kickstartAction ks action associated to this command
+     */
+    public void setScheduledAction(Action kickstartAction) {
+        scheduledAction = kickstartAction;
+    }
+    
+    protected Action getScheduledAction() {
+        return scheduledAction;
+    }
 }

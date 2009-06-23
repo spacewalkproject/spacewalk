@@ -23,7 +23,7 @@ public class KickstartGuestActionDetails extends BaseKickstartActionDetails {
 
     private Long kickstartSessionId;
     private String guestName;
-    private Long memKb;
+    private Long memMb;
     private Long vcpus;
     private Long diskGb;
     private String virtBridge;
@@ -63,17 +63,17 @@ public class KickstartGuestActionDetails extends BaseKickstartActionDetails {
     }
 
     /**
-     * @return Returns the memKb
+     * @return Returns the mem in MB
      */
-    public Long getMemKb() {
-        return memKb;
+    public Long getMemory() {
+        return memMb;
     }
 
     /**
-     * @param memKbIn the memKb to set.
+     * @param memMbIn the memory in MB
      */
-    public void setMemKb(Long memKbIn) {
-        this.memKb = memKbIn;
+    public void setMemory(Long memMbIn) {
+        this.memMb = memMbIn;
     }
 
     /**
