@@ -74,7 +74,7 @@ public class KickstartManager extends BaseManager {
             String text = renderKickstart(ksdata);
             if (text.contains("Traceback (most recent call last):")) {
                 ValidatorException.raiseException("kickstart.jsp.error.template_generation",
-                        KickstartUrlHelper.getCobblerProfileUrl(ksdata));
+                        KickstartUrlHelper.getFileDowloadPageUrl(ksdata));
             }
         }
         catch (DownloadException de) {
