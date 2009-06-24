@@ -904,9 +904,9 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         // Now create ActivationKey
         ActivationKey key = ActivationKeyManager.getInstance().
                                 createNewReActivationKey(creator, server, note, session);
+        key.addEntitlement(ServerConstants.getServerGroupTypeProvisioningEntitled());
         key.setDeployConfigs(deployConfigs);
         key.setUsageLimit(usageLimit);
-        key.addEntitlement(ServerConstants.getServerGroupTypeProvisioningEntitled());
         if (KickstartVirtualizationType.paraHost().
                 equals(ksdata.getKickstartDefaults().getVirtualizationType())) {
             //we'll have to setup the key for virt
