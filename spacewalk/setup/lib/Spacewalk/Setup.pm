@@ -728,9 +728,9 @@ EOQ
                    -err_message => "Could not upgrade database.\n",
                    -err_code => 15,
                    -system_opts => ['/sbin/runuser', 'oracle', '-c',
-                                    SHARED_DIR . '/oracle/' . $upgrade_script . \
-                                    " --db " . $answers->{'db-sid'} . \
-                                    " --user " . $answers->{'db-user'}]);
+                                    SHARED_DIR . '/oracle/' . $upgrade_script .
+                                    " --db $answers->{'db-sid'}" .
+                                    " --user $answers->{'db-user'}"]);
 
         system_or_exit(['service', 'oracle', 'restart'], 41,
                        'Could not restart oracle service');
