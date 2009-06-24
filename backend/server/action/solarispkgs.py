@@ -123,11 +123,11 @@ patchClusterInstall = install
 patchClusterRemove = remove
 
 def refresh_list(serverId, actionId):
-    #"""Call the equivalent of up2date -p.
-    #
-    # I.e. update the list of a client's installed packages known by
-    # Red Hat's DB.
-    #"""
+    """ Call the equivalent of up2date -p.
+    
+        I.e. update the list of a client's installed packages known by
+        Red Hat's DB.
+    """
     log_debug(3)
     return None
 
