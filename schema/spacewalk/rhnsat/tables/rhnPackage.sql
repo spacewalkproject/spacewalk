@@ -54,11 +54,10 @@ rhnPackage
 	source_rpm_id	number
 			constraint rhn_package_srcrpmid_fk
 				references rhnSourceRPM(id),
-        checksum        varchar2(64)
+        md5sum          varchar2(64)
 			constraint rhn_package_md5_nn not null,
-        checksum_id     number
-                        constraint rhn_pkg_checksum_id_fk
-                                references rhnPackageChecksum(id),
+        sha256          varchar2(256)
+			constraint rhn_package_sha256_nn not null,
         vendor          varchar2(64)
 			constraint rhn_package_vendor_nn not null,
         payload_format  varchar2(32),
@@ -89,7 +88,7 @@ rhnPackage
 create sequence rhn_package_id_seq;
 
 create unique index rhn_package_md5_oid_uq
-	on rhnPackage(checksum, org_id)
+	on rhnPackage(md5sum, org_id)
         tablespace [[2m_tbs]]
   ;
 
