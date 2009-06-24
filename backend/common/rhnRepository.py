@@ -30,9 +30,10 @@ from rhnLib import rfc822time
 from rhnException import rhnException, rhnFault
 from RPC_Base import RPC_Base
 
-# Shared repository class, inherited by both the proxy and server specific
-# Repository classes.
 class Repository(RPC_Base):
+    """ Shared repository class, inherited by both the proxy and server specific
+        Repository classes.
+    """
     def __init__(self, channelName = None):
         log_debug(2, channelName)
         RPC_Base.__init__(self)
@@ -52,28 +53,28 @@ class Repository(RPC_Base):
         self.channelName = None
         self.functions = None
 
-    # Returns the path to a package.
     def getPackagePath(self, pkgFilename, redirect=0):
-        #"""OVERLOAD this in server and proxy rhnRepository.
-        #   I.e.: they construct the path differently.
-        #"""
+        """Returns the path to a package.
+           OVERLOAD this in server and proxy rhnRepository.
+           I.e.: they construct the path differently.
+        """
         raise rhnException("This function should be overloaded.")
 
     def getPackagePathNVRA(self, nvra):
-        #"""OVERLOAD this in server and proxy rhnRepository.
-        #   I.e.: they construct the path differently.
-        #"""
+        """OVERLOAD this in server and proxy rhnRepository.
+           I.e.: they construct the path differently.
+        """
         raise rhnException("This function should be overloaded.")
 
-    # Returns the path to a package.
     def getSourcePackagePath(self, pkgFilename):
-        #"""OVERLOAD this in server and proxy rhnRepository.
-        #   I.e.: they construct the path differently.
-        #"""
+        """Returns the path to a package.
+           OVERLOAD this in server and proxy rhnRepository.
+           I.e.: they construct the path differently.
+        """
         raise rhnException("This function should be overloaded.")
 
-    # Get rpm package. 
     def getPackage(self, pkgFilename, *args):
+        """ Get rpm package. """
         log_debug(3, pkgFilename)
         if args:
             pkg_spec = [pkgFilename] + list(args)
@@ -103,16 +104,16 @@ class Repository(RPC_Base):
             redirectsSupported = transport_cap == 'follow-redirects=2'
 
         if redirectsSupported:
-	    log_debug(3, "Client supports redirects.")
-	    filePath = self.getPackagePath(pkg_spec, 1)			
-	else:
+            log_debug(3, "Client supports redirects.")
+	        filePath = self.getPackagePath(pkg_spec, 1)			
+        else:
             #older clients just return the hosted url and download the package
-	    filePath = self.getPackagePath(pkg_spec)
+            filePath = self.getPackagePath(pkg_spec)
         
-	return self._getFile(filePath)
+        return self._getFile(filePath)
 
-    # Get srpm packrge.
     def getPackageSource(self, pkgFilename):
+        """ Get srpm packrge. """
         log_debug(3, pkgFilename)
         # Sanity check:
         l = string.split(pkgFilename, '.')
@@ -123,10 +124,11 @@ class Repository(RPC_Base):
         filePath = self.getSourcePackagePath(pkgFilename)
         return self._getFile(filePath)
     
-    # Get rpm header.
-    # XXX: stock 8.0 clients could not compress headers, we need to either
-    # change the function name, or version the protocol
     def getPackageHeader(self, pkgFilename):
+        """ Get rpm header.
+            XXX: stock 8.0 clients could not compress headers, we need to either
+            change the function name, or version the protocol
+        """
         log_debug(3, pkgFilename)
         pkg = string.split(pkgFilename, '.')
         # Basic sanity checks:
@@ -148,12 +150,11 @@ class Repository(RPC_Base):
 
     # --- PRIVATE METHODS ---
 
-    # Returns xmlrpclib file object to any file given a path to it.
     def _getFile(self, filePath):
-        #'''
-        #IN:  filePath: path to any file.
-        #OUT: XMLed rpm or source rpm, or an xmlrpc file object.
-        #'''
+        """ Returns xmlrpclib file object to any file given a path to it.
+            IN:  filePath: path to any file.
+            OUT: XMLed rpm or source rpm, or an xmlrpc file object.
+        """
         log_debug(3, filePath)
         features = self._fileFeatures(filePath)
         filePath = features['path']
@@ -162,9 +163,10 @@ class Repository(RPC_Base):
         self._set_last_modified(lastModified)
         return rpclib.File(open(filePath, "rb"), length, name=filePath)
 
-    # Utility function to extract a header from an rpm.
-    # If stat_info was already passed, don't re-stat the file
     def _getHeaderFromFile(self, filePath, stat_info=None):
+        """ Utility function to extract a header from an rpm.
+            If stat_info was already passed, don't re-stat the file
+        """
         log_debug(3, filePath)
         if stat_info:
             s = stat_info
@@ -218,8 +220,8 @@ class Repository(RPC_Base):
             transport[str(k)] = str(v)
         return transport
 
-    # From a filepath, construct a dictionary of file features.
     def _fileFeatures(self, filePath):
+        """ From a filepath, construct a dictionary of file features. """
         log_debug(3, filePath)
         if not filePath:
             raise rhnFault(17, "While looking for file: `%s'"
