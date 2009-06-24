@@ -807,7 +807,7 @@ public class Config {
      * @return the memory size
      */
     public int getDefaultVirtMemorySize() {
-        return getInt(VIRT_MEM, 256);
+        return getInt(VIRT_MEM, 512);
     }
     
     /**
