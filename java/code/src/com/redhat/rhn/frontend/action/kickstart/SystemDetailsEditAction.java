@@ -275,7 +275,7 @@ public class SystemDetailsEditAction extends RhnAction {
             SystemDetailsCommand command) {
         command.enableConfigManagement(BooleanUtils.toBoolean(form
                 .getString("configManagement")));
-        command.enableConfigManagement(BooleanUtils.toBoolean(form
+        command.enableRemoteCommands(BooleanUtils.toBoolean(form
                 .getString("remoteCommands")));
 
     }
