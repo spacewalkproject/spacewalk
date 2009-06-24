@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.6.5
+Version: 0.6.6
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -54,6 +54,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %{prepdir}%{_sysconfdir}/tomcat5
+%config(noreplace) %{_sysconfdir}/tomcat5/server.xml
 %attr(0755,root,root) %{_sysconfdir}/rhn/satellite-httpd/conf/satidmap.pl
 %attr(0755,root,root) %{_sysconfdir}/rhn/satellite-httpd/conf/startup.pl
 %config(noreplace) %{_sysconfdir}/rhn/satellite-httpd/conf/rhn/rhn_monitoring.conf
@@ -114,6 +115,9 @@ fi
 
 
 %changelog
+* Wed Jun 24 2009 John Matthews <jmatthew@redhat.com>  0.6.6-1
+- 507679 - Added custom server.xml to force UTF8 encoding of GET parameters in tomcat
+
 * Mon May 18 2009 Mike McCune <mmccune@gmail.com> 0.6.5-1
 - 496104 - need to make the regexes for the rewrites a bit more flexible
   (mmccune@gmail.com)
