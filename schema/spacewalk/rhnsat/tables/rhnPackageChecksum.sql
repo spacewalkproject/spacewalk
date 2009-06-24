@@ -20,23 +20,24 @@
 create table
 rhnPackageChecksum
 (
-        id              number
-                        constraint rhn_pkgchecksum_type_id_nn not null,
-        name           varchar2(128)
-                        constraint rhn_pkgchecksum_type_name_nn not null
+        package_id      number
+                        constraint rhn_pkgcs_nn not null
+                        constraint rhn_pkgcs_id_fk
+                                references rhnPackage(id),
+        md5sum          varchar2(64)
+                        constraint rhn_pkgcs_md5_nn not null,
+        sha256          varchar2(128)
+                        constraint rhn_pkgcs_sha256_nn not null
 )
         enable row movement
   ;
 
-create sequence rhn_package_checksum_id_seq start with 100;       
+create index rhn_pkg_id_n_idx
+        on rhnPackageChecksum (package_id, md5sum, sha256)
+        tablespace [[64k_tbs]];
 
-create index rhn_pkg_checksum_id_n_idx
-        on rhnPackageChecksum (id, name )
-        tablespace [[64k_tbs]]
-  ;
-
-alter table rhnPackageChecksum add constraint rhn_pkg_checksum_id_pk primary key (id);
-alter table rhnPackageChecksum add constraint rhn_pkg_checksum_name_uq unique ( name );
+alter table rhnPackageChecksum add constraint rhn_pkgcs_id_pk primary key ( package_id);
+alter table rhnPackageChecksum add constraint rhn_pkgcs_id_uq unique ( package_id, md5sum, sha256 );
 
 --
 -- Revision 1.1  2009/06/19 00:37:16  pkilambi
