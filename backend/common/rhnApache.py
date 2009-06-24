@@ -33,18 +33,15 @@ from rhnLog import log_debug
 from rhnLog import log_error
 from rhnTranslate import cat
 
-
-# Shared rhnApache class: rhnApache classes in proxy and server inherit this
-#                         class.
-
-
 class rhnApache:
+    """ Shared rhnApache class: rhnApache classes in proxy and server inherit 
+        this class. 
+    
+        Shared apache handler code: headerParserHandler,
+                                handler (defined in class that inherits this),
+                                cleanupHandler.
+    """
     _lang_catalog = "common"
-    #"""
-    #Shared apache handler code: headerParserHandler,
-    #                            handler (defined in class that inherits this),
-    #                            cleanupHandler.
-    #"""
 
     def __init__(self):
         self.lang = "C"
@@ -127,7 +124,7 @@ class rhnApache:
         return apache.OK
 
     def _set_proxy_info(self, req):
-        # RHN Proxy stuff:
+        """ RHN Proxy stuff. """
         proxyVersion = 'X-RHN-Proxy-Version'
         if req.headers_in.has_key(proxyVersion):
             self.proxyVersion = req.headers_in[proxyVersion]
@@ -141,7 +138,7 @@ class rhnApache:
         return apache.OK
 
     def _set_lang(self, req):
-        # determine what language the client prefers
+        """ determine what language the client prefers """
         if req.headers_in.has_key("Accept-Language"):
             # RFC 2616 #3.10: case insensitive
             lang = string.lower(req.headers_in["Accept-Language"])
@@ -241,10 +238,9 @@ class rhnApache:
         return string.join(cat.getlangs(), "; ")
 
     def _setSessionToken(self, headers):
-        #"""
-        #Pushes token into rhnFlags. If doesn't exist, returns None.
-        #Pull session token out of the headers and into rhnFlags.
-        #"""
+        """ Pushes token into rhnFlags. If doesn't exist, returns None.
+            Pull session token out of the headers and into rhnFlags.
+        """
         log_debug(3)
         token = UserDictCase()
         if headers.has_key('X-RHN-Server-Id'):
