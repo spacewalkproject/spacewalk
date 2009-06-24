@@ -54,7 +54,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %{prepdir}%{_sysconfdir}/tomcat5
-%config(noreplace) %{_sysconfdir}/tomcat5/server.xml
 %attr(0755,root,root) %{_sysconfdir}/rhn/satellite-httpd/conf/satidmap.pl
 %attr(0755,root,root) %{_sysconfdir}/rhn/satellite-httpd/conf/startup.pl
 %config(noreplace) %{_sysconfdir}/rhn/satellite-httpd/conf/rhn/rhn_monitoring.conf
