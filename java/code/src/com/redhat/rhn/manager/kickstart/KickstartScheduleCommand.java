@@ -975,11 +975,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                 // Get rid of the dhcp:
                 String params = " ksdevice=" + staticDevice.substring(
                         staticDevice.indexOf("dhcp:") + "dhcp:".length());
-                if (!kOptions.contains("ksdevice=eth0")) {
-                    retval.append(" ksdevice=eth0 ");
-                }
-                
-                if (!kOptions.contains(params)) {
+                if (!kOptions.contains("ksdevice")) {
                     retval.append(params);
                 }
                 staticDevice = "";
@@ -991,7 +987,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                 
             }
             else {
-                if (!kOptions.contains("ksdevice=eth0")) {
+                if (!kOptions.contains("ksdevice")) {
                     retval.append("ksdevice=eth0");
                 }
             }
