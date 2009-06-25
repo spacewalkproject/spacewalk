@@ -17,7 +17,6 @@ package com.redhat.rhn.domain.role;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 /**
@@ -54,19 +53,12 @@ public class RoleFactory extends HibernateFactory {
      * @return the Role with the given id.
      */
     public static Role lookupById(Long id) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            return (Role) session.getNamedQuery("Role.findById")
-                                           .setString("id", id.toString())
-                                           //Retrieve from cache if there
-                                           .setCacheable(true)
-                                           .uniqueResult();
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-        return null;
+        Session session = HibernateFactory.getSession();
+        return (Role) session.getNamedQuery("Role.findById")
+                                       .setString("id", id.toString())
+                                       //Retrieve from cache if there
+                                       .setCacheable(true)
+                                       .uniqueResult();
     }
     
     /**
@@ -75,19 +67,12 @@ public class RoleFactory extends HibernateFactory {
      * @return statetype whose name matches the given name.
      */
     public static Role lookupByLabel(String name) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            return (Role) session.getNamedQuery("Role.findByLabel")
-                                           .setString("label", name)
-                                           //Retrieve from cache if there
-                                           .setCacheable(true)
-                                           .uniqueResult();
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-        return null;
+        Session session = HibernateFactory.getSession();
+        return (Role) session.getNamedQuery("Role.findByLabel")
+                                       .setString("label", name)
+                                       //Retrieve from cache if there
+                                       .setCacheable(true)
+                                       .uniqueResult();
     }
 
     /**

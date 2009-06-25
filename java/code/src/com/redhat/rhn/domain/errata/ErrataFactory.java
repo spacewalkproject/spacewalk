@@ -601,22 +601,15 @@ public class ErrataFactory extends HibernateFactory {
      * @return the Errata found
      */
     public static Errata lookupById(Long id) {
-        Session session = null;
-        try {
-            //Look for published Errata first
-            session = HibernateFactory.getSession();
-            Errata errata = (Errata) session.get(PublishedErrata.class, id);
+        //Look for published Errata first
+        Session session = HibernateFactory.getSession();
+        Errata errata = (Errata) session.get(PublishedErrata.class, id);
 
-            //If we nothing was found, look for it in the Unpublished Errata table...
-            if (errata == null) {
-                errata = (Errata) session.get(UnpublishedErrata.class, id);
-            }
-            return errata;
+        //If we nothing was found, look for it in the Unpublished Errata table...
+        if (errata == null) {
+            errata = (Errata) session.get(UnpublishedErrata.class, id);
         }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-        return null;
+        return errata;
     }
 
     /**

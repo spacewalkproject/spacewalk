@@ -19,7 +19,6 @@ import com.redhat.rhn.domain.org.Org;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Order;
@@ -82,19 +81,12 @@ public class TaskFactory extends HibernateFactory {
      * @return Returns the task that matches all three parameters or null.
      */
     public static Task lookup(Org org, String name, Long data) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            return (Task) session.getNamedQuery("Task.lookup")
-                                     .setString("name", name)
-                                       .setLong("data", data.longValue())
-                                     .setEntity("org", org)
-                                     .uniqueResult();
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-        return null;
+        Session session = HibernateFactory.getSession();
+        return (Task) session.getNamedQuery("Task.lookup")
+                                 .setString("name", name)
+                                   .setLong("data", data.longValue())
+                                 .setEntity("org", org)
+                                 .uniqueResult();
     }
     
     /**
@@ -103,18 +95,11 @@ public class TaskFactory extends HibernateFactory {
      * @return Returns a list of task objects
      */
     public static List getTaskListByChannel(Org org) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            return session.getNamedQuery("Task.lookupByOrgAndName")
-                          .setEntity("org", org)
-                          .setString("name", "update_errata_cache_by_channel")
-                          .list();
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-        return null;
+        Session session = HibernateFactory.getSession();
+        return session.getNamedQuery("Task.lookupByOrgAndName")
+                      .setEntity("org", org)
+                      .setString("name", "update_errata_cache_by_channel")
+                      .list();
     }
     
     /**

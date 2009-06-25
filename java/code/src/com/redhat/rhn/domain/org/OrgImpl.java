@@ -29,7 +29,6 @@ import java.util.Set;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import com.redhat.rhn.common.db.datasource.CallableMode;
@@ -444,22 +443,15 @@ public class OrgImpl extends BaseDomainHelper implements Org {
 
     /** {@inheritDoc} */
     public int numActiveOrgAdmins() {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            List list = session.getNamedQuery("Org.numOfOrgAdmins")
-                    .setParameter("org_id", this.getId())
-                    // Retrieve from cache if there
-                    .list();
-            if (list != null) {
-                return list.size();
-            }
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
+        Session session = HibernateFactory.getSession();
+        List list = session.getNamedQuery("Org.numOfOrgAdmins")
+                .setParameter("org_id", this.getId())
+                // Retrieve from cache if there
+                .list();
+        if (list != null) {
+            return list.size();
         }
         return 0;
-
     }
 
     /**

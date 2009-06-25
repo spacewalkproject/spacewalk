@@ -22,7 +22,6 @@ import java.util.List;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
@@ -50,17 +49,10 @@ public class SatClusterFactory extends HibernateFactory {
     }
     
     private static PhysicalLocation lookupPhysicalLocation(Long id) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            PhysicalLocation u = (PhysicalLocation)
-                session.get(PhysicalLocation.class, id);
-            return u;
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-        return null;
+        Session session = HibernateFactory.getSession();
+        PhysicalLocation u = (PhysicalLocation)
+            session.get(PhysicalLocation.class, id);
+        return u;
     }
 
     /**

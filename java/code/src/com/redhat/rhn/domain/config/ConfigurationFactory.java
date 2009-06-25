@@ -26,7 +26,6 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -318,16 +317,9 @@ public class ConfigurationFactory extends HibernateFactory {
      * @return the ConfigChannel found or null if not found.
      */
     public static ConfigChannel lookupConfigChannelById(Long id) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            ConfigChannel c = (ConfigChannel)session.get(ConfigChannel.class, id);
-            return c;
-        } 
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-        return null;
+        Session session = HibernateFactory.getSession();
+        ConfigChannel c = (ConfigChannel)session.get(ConfigChannel.class, id);
+        return c;
     }
 
     /**
@@ -341,37 +333,24 @@ public class ConfigurationFactory extends HibernateFactory {
     public static ConfigChannel lookupConfigChannelByLabel(String label,
                                                             Org org,
                                                           ConfigChannelType cct) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            ConfigChannel c = (ConfigChannel) session.createCriteria(ConfigChannel.class).
-                            add(Restrictions.eq("org", org)).
-                            add(Restrictions.eq("label", label)).
-                            add(Restrictions.eq("configChannelType", cct)).
-                            uniqueResult();
-            return c;
-        } 
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-        return null;
+        Session session = HibernateFactory.getSession();
+        ConfigChannel c = (ConfigChannel) session.createCriteria(ConfigChannel.class).
+                        add(Restrictions.eq("org", org)).
+                        add(Restrictions.eq("label", label)).
+                        add(Restrictions.eq("configChannelType", cct)).
+                        uniqueResult();
+        return c;
     }    
+
     /**
      * Lookup a ConfigFile by its id
      * @param id The identifier for the ConfigFile
      * @return the ConfigFile found or null if not found.
      */
     public static ConfigFile lookupConfigFileById(Long id) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            ConfigFile c = (ConfigFile)session.get(ConfigFile.class, id);
-            return c;
-        } 
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-        return null;
+        Session session = HibernateFactory.getSession();
+        ConfigFile c = (ConfigFile)session.get(ConfigFile.class, id);
+        return c;
     }
     
     /**
@@ -381,24 +360,16 @@ public class ConfigurationFactory extends HibernateFactory {
      * @return the ConfigFile found or null if not found.
      */
     public static ConfigFile lookupConfigFileByChannelAndName(Long channel, Long name) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            return (ConfigFile) 
-                session.getNamedQuery("ConfigFile.findByChannelAndName")
-                        .setLong("channel_id", channel.longValue())
-                        .setLong("name_id", name.longValue())
-                        .setLong("state_id", ConfigFileState.normal().
-                                                        getId().longValue())
-                        //Retrieve from cache if there
-                        .setCacheable(true)
-                        .uniqueResult();
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-
-        return null;
+        Session session = HibernateFactory.getSession();
+        return (ConfigFile)
+            session.getNamedQuery("ConfigFile.findByChannelAndName")
+                    .setLong("channel_id", channel.longValue())
+                    .setLong("name_id", name.longValue())
+                    .setLong("state_id", ConfigFileState.normal().
+                                                    getId().longValue())
+                    //Retrieve from cache if there
+                    .setCacheable(true)
+                    .uniqueResult();
     }
     
     /**
@@ -407,16 +378,9 @@ public class ConfigurationFactory extends HibernateFactory {
      * @return The sought for ConfigRevision or null if not found.
      */
     public static ConfigRevision lookupConfigRevisionById(Long id) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            ConfigRevision a = (ConfigRevision)session.get(ConfigRevision.class, id);
-            return a;
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-        return null;
+        Session session = HibernateFactory.getSession();
+        ConfigRevision a = (ConfigRevision)session.get(ConfigRevision.class, id);
+        return a;
     }
     
     /**
@@ -425,16 +389,9 @@ public class ConfigurationFactory extends HibernateFactory {
      * @return The sought for ConfigInfo or null if not found.
      */
     public static ConfigInfo lookupConfigInfoById(Long id) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            ConfigInfo c = (ConfigInfo)session.get(ConfigInfo.class, id);
-            return c;
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-        return null;
+        Session session = HibernateFactory.getSession();
+        ConfigInfo c = (ConfigInfo)session.get(ConfigInfo.class, id);
+        return c;
     }
     
     /**
@@ -443,16 +400,9 @@ public class ConfigurationFactory extends HibernateFactory {
      * @return The sought for ConfigFileName or null if not found.
      */
     public static ConfigFileName lookupConfigFileNameById(Long id) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            ConfigFileName c = (ConfigFileName)session.get(ConfigFileName.class, id);
-            return c;
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-        return null;
+        Session session = HibernateFactory.getSession();
+        ConfigFileName c = (ConfigFileName)session.get(ConfigFileName.class, id);
+        return c;
     }
     
     
@@ -465,21 +415,13 @@ public class ConfigurationFactory extends HibernateFactory {
      * @return A sought for ConfigChannelType or null
      */
      static ConfigChannelType lookupConfigChannelTypeByLabel(String label) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            return (ConfigChannelType) 
-                session.getNamedQuery("ConfigChannelType.findByLabel")
-                                            .setString("label", label)
-                                            //Retrieve from cache if there
-                                            .setCacheable(true)
-                                            .uniqueResult();
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-
-        return null;
+        Session session = HibernateFactory.getSession();
+        return (ConfigChannelType)
+            session.getNamedQuery("ConfigChannelType.findByLabel")
+                                        .setString("label", label)
+                                        //Retrieve from cache if there
+                                        .setCacheable(true)
+                                        .uniqueResult();
     }
     
     /**
@@ -491,20 +433,12 @@ public class ConfigurationFactory extends HibernateFactory {
      * @return A sought for ConfigFileState or null
      */
     static ConfigFileState lookupConfigFileStateByLabel(String label) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            return (ConfigFileState)session.getNamedQuery("ConfigFileState.findByLabel")
-                                           .setString("label", label)
-                                           //Retrieve from cache if there
-                                           .setCacheable(true)
-                                           .uniqueResult();
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-
-        return null;
+        Session session = HibernateFactory.getSession();
+        return (ConfigFileState)session.getNamedQuery("ConfigFileState.findByLabel")
+                                       .setString("label", label)
+                                       //Retrieve from cache if there
+                                       .setCacheable(true)
+                                       .uniqueResult();
     }
     
     /**
@@ -513,21 +447,14 @@ public class ConfigurationFactory extends HibernateFactory {
      * @return config filetype object
      */
     static ConfigFileType lookupConfigFileTypeByLabel(String label) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            return (ConfigFileType)session.getNamedQuery("ConfigFileType.findByLabel")
-                                           .setString("label", label)
-                                           //Retrieve from cache if there
-                                           .setCacheable(true)
-                                           .uniqueResult();
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-
-        return null;
+        Session session = HibernateFactory.getSession();
+        return (ConfigFileType)session.getNamedQuery("ConfigFileType.findByLabel")
+                                       .setString("label", label)
+                                       //Retrieve from cache if there
+                                       .setCacheable(true)
+                                       .uniqueResult();
     }
+
     /**
      * Return a <code>ConfigInfo</code> for the username, groupname, and
      * file mode given. If no corresponding entry exists yet in the database, one will be

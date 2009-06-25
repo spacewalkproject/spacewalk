@@ -31,7 +31,6 @@ import com.redhat.rhn.manager.system.UpdateBaseChannelCommand;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import java.sql.Types;
@@ -69,19 +68,12 @@ public class ServerFactory extends HibernateFactory {
             return null;
         }
 
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            return (CustomDataValue) session.getNamedQuery(
-                    "CustomDataValue.findByServerAndKey").setEntity("server",
-                    server).setEntity("key", key)
-            // Retrieve from cache if there
-                    .setCacheable(true).uniqueResult();
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-        return null;
+        Session session = HibernateFactory.getSession();
+        return (CustomDataValue) session.getNamedQuery(
+                "CustomDataValue.findByServerAndKey").setEntity("server",
+                server).setEntity("key", key)
+        // Retrieve from cache if there
+                .setCacheable(true).uniqueResult();
     }
 
     /**
@@ -325,19 +317,11 @@ public class ServerFactory extends HibernateFactory {
      * @return The ServerArch
      */
     public static ServerArch lookupServerArchByLabel(String label) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            return (ServerArch) session.getNamedQuery("ServerArch.findByLabel")
-                    .setString("label", label)
-                    // Retrieve from cache if there
-                    .setCacheable(true).uniqueResult();
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-
-        return null;
+        Session session = HibernateFactory.getSession();
+        return (ServerArch) session.getNamedQuery("ServerArch.findByLabel")
+                .setString("label", label)
+                // Retrieve from cache if there
+                .setCacheable(true).uniqueResult();
     }
 
     /**
@@ -346,19 +330,11 @@ public class ServerFactory extends HibernateFactory {
      * @return The CPUArch
      */
     public static CPUArch lookupCPUArchByName(String name) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            return (CPUArch) session.getNamedQuery("CPUArch.findByName")
-                    .setString("name", name)
-                    // Retrieve from cache if there
-                    .setCacheable(true).uniqueResult();
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-
-        return null;
+        Session session = HibernateFactory.getSession();
+        return (CPUArch) session.getNamedQuery("CPUArch.findByName")
+                .setString("name", name)
+                // Retrieve from cache if there
+                .setCacheable(true).uniqueResult();
     }
 
     /**
