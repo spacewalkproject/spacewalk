@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.8
+Version: 0.6.9
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -317,6 +317,19 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.6.9-1
+- 506154 - Added "wrap" option to textarea widget. Set to off for remote
+  command script editing page. (jason.dobies@redhat.com)
+- 501933 - Changed the script rendering to wrap in a readonly textarea.
+  (jason.dobies@redhat.com)
+- 505315 - checking in missing file from previous commit (jsherril@redhat.com)
+- 505315 - fixing issue where cobbler provisioning couldnt occur through a 5.3
+  proxy if installed through the webui (jsherril@redhat.com)
+- 502259 - fixing issue where systems would not show up on applicable systems
+  page of patches (jsherril@redhat.com)
+- 504327 - fixing acl for chcecking needed install tab (shughes@redhat.com)
+- 503187 - set MaxRequestsPerChild to 200 (WebUI installer) (msuchy@redhat.com)
+
 * Fri Jun 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.8-1
 - 197294 - add hardware report support for CAPTURE cards (shughes@redhat.com)
 - 500709 - html error code page support for sessionless bots (shughes@redhat.com)
