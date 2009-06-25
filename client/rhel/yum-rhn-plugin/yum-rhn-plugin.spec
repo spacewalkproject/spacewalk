@@ -1,7 +1,7 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
 Source: %{name}-%{version}.tar.gz
-Version: 0.5.5
+Version: 0.5.6
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -59,6 +59,12 @@ make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RP
 
 
 %changelog
+* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.5.6-1
+- yum operations are not getting redirected as the GET requested is formed at
+  the plugin level and not through rhnlib. (pkilambi@redhat.com)
+- 467866 - Raise a more cleaner message if clients end up getting badStatusLine
+  error due to 502 proxy errors (pkilambi@redhat.com)
+
 * Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.5-1
 - merging additional spec changes and minor edits from svn (pkilambi@redhat.com)
 - 467866 - catch the BadStatusLine and let use know that the server is
