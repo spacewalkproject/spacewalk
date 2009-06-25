@@ -21,6 +21,7 @@ import string
 import fnmatch
 import getpass
 import rhnpush_cache
+import struct
 
 try:
     import hashlib
