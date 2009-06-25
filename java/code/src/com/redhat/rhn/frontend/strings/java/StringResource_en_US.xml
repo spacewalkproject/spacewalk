@@ -8139,6 +8139,12 @@ Follow this url to see the full list of inactive systems:
            <context context-type="sourcefile">/channels/manage/Edit</context>
          </context-group>
       </trans-unit>
+      <trans-unit id="edit.channel.invalidchannelname.maxlength">
+         <source>Channel name can not exceed {0} characters long</source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/channels/manage/Edit</context>
+         </context-group>
+      </trans-unit>
       <trans-unit id="edit.channel.invalidchannelname.nameinuse">
          <source>The channel name '{0}' is already in use, please enter a different name</source>
          <context-group name="ctx">

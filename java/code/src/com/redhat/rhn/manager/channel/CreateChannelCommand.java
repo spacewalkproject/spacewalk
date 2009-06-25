@@ -36,6 +36,7 @@ import java.util.regex.Pattern;
 public class CreateChannelCommand {
 
     public static final int CHANNEL_NAME_MIN_LENGTH = 6;
+    public static final int CHANNEL_NAME_MAX_LENGTH = 64;
     public static final int CHANNEL_LABEL_MIN_LENGTH = 6;
 
     protected static final String CHANNEL_NAME_REGEX =
@@ -346,6 +347,15 @@ public class CreateChannelCommand {
                 minLength.toString());
         }
         
+        if (cname.length() > CHANNEL_NAME_MAX_LENGTH) {
+            System.out.println("YIIIIIIIIIIIKES");
+            Integer maxLength = new Integer(CreateChannelCommand.CHANNEL_NAME_MAX_LENGTH);
+            throw new InvalidChannelNameException(cname,
+                InvalidChannelNameException.Reason.TOO_LONG,
+                "edit.channel.invalidchannelname.maxlength",
+                maxLength.toString());
+        }
+
         // the perl code used to ignore case with a /i at the end of
         // the regex, so we toLowerCase() the channel name to make it
         // work the same.
