@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.6.4
+Version: 0.6.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -288,6 +288,10 @@ fi
 
 
 %changelog
+* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.6.5-1
+- change comments to docstrings (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+
 * Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.4-1
 - 503187 - close tag
 
