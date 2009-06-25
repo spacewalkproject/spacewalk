@@ -270,7 +270,6 @@ def get_header(file, fildes=None, source=None):
         raise UploadError("Unexpected RPM package type")
     return h
 
-
 def get_header_byte_range(package_file):
     """
     Return the start and end bytes of the rpm header object.
