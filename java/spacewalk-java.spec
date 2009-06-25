@@ -11,7 +11,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.26
+Version: 0.6.27
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -250,6 +250,95 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.6.27-1
+- Remove catch/log return null of HibernateExceptions. (dgoodwin@redhat.com)
+- Fix server migration when source org has > 1000 org admins.
+  (dgoodwin@redhat.com)
+- Fix to make sure kernel param entries don;t get duplicated (paji@redhat.com)
+- 492206 - Fixed kickstart template error (paji@redhat.com)
+- 507533 - added catch around unhandled exception for pkg in mutiple channels
+  (shughes@redhat.com)
+- 507862 - Fixed an ise that occured when config deploy was selected on a
+  profile (paji@redhat.com)
+- 507863 - fixing issue where enabling remote commands would not be saved
+  (jsherril@redhat.com)
+- 507888 - Set the default virt mem value to 512 instead of 256
+  (paji@redhat.com)
+- hopeflly fixing unit test (jsherril@redhat.com)
+- Fixed a unit test (paji@redhat.com)
+- 506702 - Converted probe details page to use the new list to get the correct
+  csv (paji@redhat.com)
+- Fixed a nitpick that memory didnt sya memMb (paji@redhat.com)
+- 507097 - Fixed guest provisioning virt settings (paji@redhat.com)
+- Adding repodata details for a given channel to channelDetails page.
+  (pkilambi@redhat.com)
+- 506816 - fixing issue where virt hosts that begin to use sat 5.3 could not
+  install spacewalk-koan (jsherril@redhat.com)
+- 506693 - removed more contact.pxt references (shughes@redhat.com)
+- 507046 & 507048 - Fixed a couple of cobbler issues (paji@redhat.com)
+- Added a fix to master to ignore profiles that have not yet been synced to
+  cobbler.. (paji@redhat.com)
+- Fix for html:errors and html:messages to be consitently viewed in the UI
+  (paji@redhat.com)
+- 506726 - do not allow links for null org channel management
+  (shughes@redhat.com)
+- 506705 - removed invalid rhn require tag (shughes@redhat.com)
+- 506693 - remove contact.pxt link from 404 message (shughes@redhat.com)
+- 506509 - Fixed an ssm query.. Accidental typo.. (paji@redhat.com)
+- 506509 - Fixed ISE on Config Deploy pages (paji@redhat.com)
+- Checkstyle fix. (dgoodwin@redhat.com)
+- 506608 - fixing issue where source packages could not be downloaded from the
+  package details page (jsherril@redhat.com)
+- Fix monitoring action unit tests. (dgoodwin@redhat.com)
+- Attempt to fix ChannelManagerTest.testListErrata. (dgoodwin@redhat.com)
+- 506342 - fix system count for consumed channel sharing (shughes@redhat.com)
+- 506341 - fix system count for provided shared channels (shughes@redhat.com)
+- 495406 - Changed package arch lookup for ACLs to use arch labels instead of
+  hibernate objects. (jason.dobies@redhat.com)
+- 506489 - remove the link associated with the org name present in the UI
+  header (bbuckingham@redhat.com)
+- Adding missed EusReleaseComparator file. (dgoodwin@redhat.com)
+- 506492, 506139 - PackageSearch default quick search to searching all arches &
+  fix no result if systems aren't registered (jmatthew@redhat.com)
+- 506296 - Repair EUS logic after removal of is_default column.
+  (dgoodwin@redhat.com)
+- 506144 - apidoc - packages.search - adding missing files to return value
+  (bbuckingham@redhat.com)
+- fix unit test cases (shughes@redhat.com)
+- removed a duplicate string resources entry (paji@redhat.com)
+- Fix some of the failing EUS unit tests. (dgoodwin@redhat.com)
+- 505616 - Fixing the eus logic that gets the latest and the default eus
+  channels to not depend on is_default column. Thanks to jsherril for his help
+  on this. (pkilambi@redhat.com)
+- Fixed a set of unit tests which owere looking for ActtionMessagess instead of
+  ActionErrors (paji@redhat.com)
+- Unit test fix (paji@redhat.com)
+- Fixed unit test: was looking for errors as part of action messages
+  (jason.dobies@redhat.com)
+- Remove hibernate mappings for rhnReleaseChannelMap is_default column.
+  (dgoodwin@redhat.com)
+- unit test fix (jsherril@redhat.com)
+- unit test fix (jsherril@redhat.com)
+- 431673 - reworking rhnServerNeededView for performance fixes.
+  (mmccune@gmail.com)
+- 505170 - api - proxy.deactivateProxy - was generating internal exception
+  (bbuckingham@redhat.com)
+- 505327 - fixing url parse for advanced kickstart options (shughes@redhat.com)
+- 498650 - HTML escape monitoring data before displaying. (dgoodwin@redhat.com)
+- Revert "498650 - html escape of monitoring data before displaying on the
+  WEBUI" (dgoodwin@redhat.com)
+- 498650 - html escape of monitoring data before displaying on the WEBUI
+  (tlestach@redhat.com)
+- 492206 - Fixed cobbler error url to point to KS file download page which has
+  better info on cheetah stacktrace (paji@redhat.com)
+- 505188 - fixing issues causing rhel2.1 provisioning to not work
+  (jsherril@redhat.com)
+- 490960 - ErrataSearch, fix for multiorg channel permissions
+  (jmatthew@redhat.com)
+- fix to shwo the correct error message css (paji@redhat.com)
+- 504804 - Need to stuff the relevant flag back into the request so it's used
+  in the package name URLs. (jason.dobies@redhat.com)
+
 * Wed Jun 10 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.26-1
 - 504806 - Added missing channel_filter attribute that was being lost during
   pagination. (jason.dobies@redhat.com)
