@@ -37,7 +37,7 @@ BUFFER_SIZE = 65536
 HEADERS_PER_CALL = 25
 
 
-class UploadClass:
+class UploadClass(uploadLib.UploadClass):
     """ Functionality for an uploading tool """
 
 
