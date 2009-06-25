@@ -106,7 +106,7 @@ class Repository(RPC_Base):
 
         if redirectsSupported:
             log_debug(3, "Client supports redirects.")
-	        filePath = self.getPackagePath(pkg_spec, 1)			
+	    filePath = self.getPackagePath(pkg_spec, 1)	
         else:
             #older clients just return the hosted url and download the package
             filePath = self.getPackagePath(pkg_spec)
