@@ -11,7 +11,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.27
+Version: 0.6.28
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -250,7 +250,7 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
-* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.6.27-1
+* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.6.28-1
 - Remove catch/log return null of HibernateExceptions. (dgoodwin@redhat.com)
 - Fix server migration when source org has > 1000 org admins.
   (dgoodwin@redhat.com)
