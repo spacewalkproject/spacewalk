@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.11
+Version: 0.6.12
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -568,6 +568,62 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.6.12-1
+- change comments to docstrings (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- 499723 - accept follow-redirects with value greater then 2
+  (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- 507867 - Schedule repo gen once the channel package associations is complete
+  (pkilambi@redhat.com)
+- 505680 - channel_product_id is computed based on the name, product and
+  version so it will not match the cache as cache is always None. Also dont
+  update the channel_product_id uless the id is different from whats being
+  updated (pkilambi@redhat.com)
+- Update HACKING file for backend test instructions. (dgoodwin@redhat.com)
+- Integrate some PostgreSQL rhnSQL driver unit tests. (dgoodwin@redhat.com)
+- First cut of a unit test framework for Python backend. (dgoodwin@redhat.com)
+- 507593 - fixing eus registration tracebacks (pkilambi@redhat.com)
+- Adding repodata details for a given channel to channelDetails page.
+  (pkilambi@redhat.com)
+- Revert "503090 - Exclude rhnlib from kickstart profile sync."
+  (dgoodwin@redhat.com)
+- remove short package dependency on rpms. User might wanna skip the rpms and
+  still import metadata. (pkilambi@redhat.com)
+- 422611 - Warn that satrm.py is not a supported script. (dgoodwin@redhat.com)
+- fixing the unsubscriptable object error when package is not yet in rhnPackage
+  table (pkilambi@redhat.com)
+- 506264 - This commit includes: (pkilambi@redhat.com)
+- 505680 - When satsync tries to do an import it compares whats in cache to db
+  and tries to import only new content, but since the last_modified date always
+  differ we end up updating the rhnChannel table even when there is nothing to
+  sync. Adding last_modified to ignore keys list so that we dont decide the
+  diff based on this field. We still continue to compare the rest of the
+  fields. (pkilambi@redhat.com)
+- 495790 - force uploading a package ends up with duplicate entries in
+  rhnPackage table. This is because we use md5sum along with name, evr, package
+  arch and org as a primary key while deciding whether to perform an insert or
+  an update. Since the solaris packages had same nvrea and org and different
+  md5 sums it was doing an insert instead of update on the existing row. Fixed
+  the schema wrapper to only use md5sum as a primary key if nvrea feature is
+  enabled. Also fixed the package uniquifies to use md5sum only for nvrea.
+  (pkilambi@redhat.com)
+- Catch the systemExit and preserve the error code. Also fixing the traceback
+  issue when db is not accessible (pkilambi@redhat.com)
+- removing bugzilla handler specific tests (pkilambi@redhat.com)
+- 502581 - splitting the data to smaller chunks to please cx_oracle to avoid
+  throwing array too big errors (pkilambi@redhat.com)
+- 503090 - Exclude rhnlib from kickstart profile sync. (dgoodwin@redhat.com)
+
 * Fri Jun 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.11-1
 - fixing duplicate entries in repogen tables and other clean aup
   (pkilambi@redhat.com)
