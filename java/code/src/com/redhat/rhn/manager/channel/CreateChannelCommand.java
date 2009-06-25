@@ -348,7 +348,6 @@ public class CreateChannelCommand {
         }
         
         if (cname.length() > CHANNEL_NAME_MAX_LENGTH) {
-            System.out.println("YIIIIIIIIIIIKES");
             Integer maxLength = new Integer(CreateChannelCommand.CHANNEL_NAME_MAX_LENGTH);
             throw new InvalidChannelNameException(cname,
                 InvalidChannelNameException.Reason.TOO_LONG,
