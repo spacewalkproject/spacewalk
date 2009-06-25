@@ -186,7 +186,11 @@ public class MigrationManager extends BaseManager {
      * @param server Server to be migrated.
      */
     public static void updateAdminRelationships(Org fromOrg, Org toOrg, Server server) {
-        
+        // TODO: In some scenarios this appears to be somewhat slow, for an org with
+        // around a thousand org admins and a dozen or so servers, this can take about a
+        // minute to run. Probably a much more efficient way to do this. (i.e. delete
+        // from rhnUserServerPerms where server_id = blah. Add a huge number of servers to
+        // the mix and it could take quite some time.
         for (User admin : fromOrg.getActiveOrgAdmins()) {
             admin.removeServer(server);
             UserFactory.save(admin);
