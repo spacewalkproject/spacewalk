@@ -14,7 +14,6 @@
 # in this software or its documentation.
 #
 
-
 # system imports
 import os
 import sys
@@ -36,13 +35,8 @@ from rhnpush import uploadLib
 BUFFER_SIZE = 65536
 HEADERS_PER_CALL = 25
 
-
 class UploadClass(uploadLib.UploadClass):
     """ Functionality for an uploading tool """
-
-
-
-
 
     def list(self):
         # set the URL
@@ -79,9 +73,6 @@ class UploadClass(uploadLib.UploadClass):
             return self.get_missing_source_packages()
 
         return self.get_newest_binary_packages()
-
-        
-
 
     def copyonly(self):
         # Set the forcing factor
@@ -185,8 +176,6 @@ class UploadClass(uploadLib.UploadClass):
                     # Per-package post actions
                     self.processPackage(p, filename)
 
-
-
 def _processFile(filename, relativeDir=None, source=None, nosig=None):
     """ Processes a file
         Returns a hash containing:
@@ -248,12 +237,6 @@ def _processFile(filename, relativeDir=None, source=None, nosig=None):
             os.path.basename(filename))
     hash['nvrea'] = tuple(lh)
     return hash
-
-
-
-
-
-
 
 # returns a header from a package file on disk.
 def get_header(file, fildes=None, source=None):
