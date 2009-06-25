@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.6.9
+Version:        0.6.10
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -52,6 +52,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Jun 25 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.6.10-1
+- 506272 - insert sub4v rows only if they do not exist
+- 431673 - reworking rhnServerNeededView for performance fixes.
+  (mmccune@gmail.com)
+- 492588 - Provide for shared child channels with non-shared parent channels
+  (jortel@redhat.com)
+
 * Fri Jun 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.9-1
 - 503243 - Dropping the is_default column as we now determine the default in
   the app code based on the compatible eus channel instead of jus the default.
