@@ -9,7 +9,7 @@
 Summary: Oracle 10g Database Server Enterprise Edition scripts
 Name: oracle-server-scripts
 Version: 10.2.0
-Release: 29%{?dist}
+Release: 30%{?dist}
 Source0: oracle-home.sh
 Source1: init-params.ora
 Source2: create-db.sh
@@ -99,6 +99,12 @@ exit 0
 %{oracle_scripts}
 
 %changelog
+* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 10.2.0-30
+- handle existing embedded entries in /etc/oratab during install
+  (mzazrivec@redhat.com)
+- create embedded db entry only if it does not exist (mzazrivec@redhat.com)
+- We use 10.2.0.4 embedded db now (mzazrivec@redhat.com)
+
 * Tue Jun 02 2009 Milan Zazrivec <mzazrivec@redhat.com> 10.2.0-29
 - script for 10.2.0.3 to 10.2.0.4 10g upgrade
 * Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 10.2.0-28
