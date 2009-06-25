@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.13
+Version: 0.6.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -568,7 +568,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
-* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.6.13-1
+* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.6.14-1
 - change comments to docstrings (msuchy@redhat.com)
 - change comments to docstrings (msuchy@redhat.com)
 - change comments to docstrings (msuchy@redhat.com)
