@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.6.5
+Version:    0.6.6
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -68,6 +68,13 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.6.6-1
+- 506489 - remove the link associated with the org name present in the UI
+  header (bbuckingham@redhat.com)
+- 505101 - update css so that links are underlined when hovering
+  (bbuckingham@redhat.com)
+- fix to shwo the correct error message css (paji@redhat.com)
+
 * Wed May 27 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.5-1
 - 500806 - limit a:hover to links only, changed to a:link:hover (jesusr@redhat.com)
 
