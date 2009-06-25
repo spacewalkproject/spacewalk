@@ -42,6 +42,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -207,22 +208,41 @@ public  class UserFactory extends HibernateFactory {
 
 
     /**
-     * Get users by their ids
+     * Get users by their ids.
+     *
+     * If the incoming list has more than 1000 entries, we'll chop it up and run several
+     * queries, re-assembling the results in application code. This is to accommodate
+     * Oracle's ORA-01795 error "maximum number of expressions in a list is 1000".
+     *
      * @param ids the ids to lookup for
      * @return the list of com.redhat.rhn.domain.User objects found
      */
-    public static List lookupByIds(Collection ids) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            Query query = session.getNamedQuery("User.findByIds")
-                                 .setParameterList("userIds", ids);
-            return query.list();
+    public static List lookupByIds(Collection<Long> ids) {
+        if (ids.size() < 1000) {
+            return realLookupByIds(ids);
         }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
+
+        List<User> results = new LinkedList<User>();
+        List<Long> blockOfIds = new LinkedList<Long>();
+        for (Long uid : ids) {
+            blockOfIds.add(uid);
+            if (blockOfIds.size() == 999) {
+                results.addAll(realLookupByIds(blockOfIds));
+                blockOfIds = new LinkedList<Long>();
+            }
         }
-        return null;
+        // Deal with the remainder:
+        if (blockOfIds.size() > 0) {
+            results.addAll(realLookupByIds(blockOfIds));
+        }
+        return results;
+    }
+
+    private static List<User> realLookupByIds(Collection<Long> ids) {
+        Session session = HibernateFactory.getSession();
+        Query query = session.getNamedQuery("User.findByIds")
+                             .setParameterList("userIds", ids);
+        return query.list();
     }
 
     /**

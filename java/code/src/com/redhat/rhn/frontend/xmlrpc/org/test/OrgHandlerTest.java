@@ -640,6 +640,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         OrgFactory.save(newOrgAdmin.getOrg());
 
         Server server = ServerTestUtils.createTestSystem(admin);
+        assertNotNull(server.getOrg());
         List<Integer> servers = new LinkedList<Integer>();
         servers.add(new Integer(server.getId().intValue()));
         // Actual migration is tested internally, just make sure the API call doesn't
