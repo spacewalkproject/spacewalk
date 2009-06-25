@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.0
+Version:        5.4.1
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -162,6 +162,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Jun 25 2009 Brad Buckingham <bbuckingham@redhat.com> 5.4.1-1
+- 470335 - Fixing EOF error when poller tries to pickle dump the data to cache
+  file. (pkilambi@redhat.com)
+
 * Tue Jun 16 2009 Brad Buckingham <bbuckingham@redhat.com> 5.4.0-1
 - bumping version (bbuckingham@redhat.com)
 - 502902 - If xend is not running instead of returning an empty list return an
