@@ -469,6 +469,12 @@ public class EditChannelAction extends RhnAction implements Listable {
                             CreateChannelCommand.CHANNEL_NAME_MIN_LENGTH));
                 break;
             
+            case TOO_LONG:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("edit.channel.invalidchannelname.maxlength",
+                            CreateChannelCommand.CHANNEL_NAME_MAX_LENGTH));
+                break;
+
             case NAME_IN_USE:
                 errors.add(ActionMessages.GLOBAL_MESSAGE,
                         new ActionMessage("edit.channel.invalidchannelname.nameinuse",
