@@ -1,7 +1,7 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
 Source: %{name}-%{version}.tar.gz
-Version: 0.5.6
+Version: 0.5.7
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -60,6 +60,9 @@ make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RP
 
 
 %changelog
+* Fri Jun 26 2009 John Matthews <jmatthew@redhat.com> 0.5.7-1
+- yum-rhn-plugin requires m2crypto
+
 * Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.5.6-1
 - yum operations are not getting redirected as the GET requested is formed at
   the plugin level and not through rhnlib. (pkilambi@redhat.com)
