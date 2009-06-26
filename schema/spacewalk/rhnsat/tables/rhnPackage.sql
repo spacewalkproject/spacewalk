@@ -54,10 +54,6 @@ rhnPackage
 	source_rpm_id	number
 			constraint rhn_package_srcrpmid_fk
 				references rhnSourceRPM(id),
-        md5sum          varchar2(64)
-			constraint rhn_package_md5_nn not null,
-        sha256          varchar2(256)
-			constraint rhn_package_sha256_nn not null,
         vendor          varchar2(64)
 			constraint rhn_package_vendor_nn not null,
         payload_format  varchar2(32),
@@ -86,11 +82,6 @@ rhnPackage
   ;
 
 create sequence rhn_package_id_seq;
-
-create unique index rhn_package_md5_oid_uq
-	on rhnPackage(md5sum, org_id)
-        tablespace [[2m_tbs]]
-  ;
 
 create index rhn_package_oid_id_idx
 	on rhnPackage(org_id, id)

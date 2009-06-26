@@ -1,6 +1,6 @@
 
-alter table rhnPackage add sha256 VARCHAR(128)
-CONSTRAINT rhn_package_sha256_nn not null;
+drop index rhn_package_md5_oid_uq;
+alter table rhnPackage drop column md5sum;
 
 show errors
 
