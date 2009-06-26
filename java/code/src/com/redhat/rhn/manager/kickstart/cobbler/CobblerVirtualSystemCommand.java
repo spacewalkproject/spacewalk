@@ -91,7 +91,7 @@ public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
      */
     @Override
     public String getCobblerSystemRecordName() {
-        return super.getCobblerSystemRecordName() + ":" + guestName;
+        return super.getCobblerSystemRecordName() + ":" + guestName.replace(' ', '_');
     }
 
     @Override

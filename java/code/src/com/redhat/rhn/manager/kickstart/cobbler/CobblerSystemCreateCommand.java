@@ -298,7 +298,8 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      * @return String name of cobbler system record. 
      */
     public String getCobblerSystemRecordName() {
-        return this.server.getName() + ":" + 
+        String name = this.server.getName().replace(' ', '_');
+        return name + ":" +
             this.server.getOrg().getId();
     }
     
