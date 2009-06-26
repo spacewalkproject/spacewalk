@@ -12,8 +12,6 @@ insert into rhnChecksumType (id, label, description) values
 insert into rhnChecksumType (id, label, description) values
             (rhn_checksum_id_seq.nextval, 'sha512', 'sha512' );
 
-commit;
-
 --
 --
 -- Revision 1.1  2009/06/26 11:00:17  pkilambi

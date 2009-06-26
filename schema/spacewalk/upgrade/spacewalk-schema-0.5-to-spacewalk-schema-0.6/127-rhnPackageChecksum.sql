@@ -40,7 +40,6 @@ create index rhn_pkgcsum_id_n_idx
 
 alter table rhnPackageChecksum add constraint rhn_pkgcs_id_pk primary key ( package_id);
 alter table rhnPackageChecksum add constraint rhn_pkgcs_id_uq unique ( package_id, checksum_type_id);
-
 --
 -- Revision 1.1  2009/06/26 10:37:16  pkilambi
 -- 

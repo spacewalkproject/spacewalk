@@ -45,7 +45,7 @@ rhnPackageFile
 			constraint rhn_package_file_size_nn not null,
 	mtime		date
 			constraint rhn_package_file_mtime_nn not null,
-	md5		varchar2(32),
+	checksum	varchar2(128),
 	linkto		varchar2(256),
 	flags		number
 			constraint rhn_package_file_flags_nn not null,
