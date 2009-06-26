@@ -11555,7 +11555,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       </trans-unit>  
       
       <trans-unit id="channels.shared.jsp.header1">
-        <source>The software channels listed below my be shared by your organization.</source>
+        <source>The software channels listed below may be shared by your organization.</source>
       </trans-unit>        
       
       <trans-unit id="channels.custom.jsp.header1">
