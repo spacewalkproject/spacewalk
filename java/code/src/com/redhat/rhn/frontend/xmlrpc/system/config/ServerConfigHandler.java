@@ -37,6 +37,7 @@ import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.configchannel.XmlRpcConfigChannelHelper;
 import com.redhat.rhn.frontend.xmlrpc.serializer.ConfigFileNameDtoSerializer;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
+import com.redhat.rhn.manager.MissingCapabilityException;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 
 
@@ -318,7 +319,13 @@ public class ServerConfigHandler extends BaseHandler {
             servers.add(helper.lookupServer(loggedInUser, sid));
         }
         ConfigurationManager manager = ConfigurationManager.getInstance();
-        manager.deployConfiguration(loggedInUser, servers, date);
+        try {
+            manager.deployConfiguration(loggedInUser, servers, date);
+        }
+        catch (MissingCapabilityException e) {
+            throw new com.redhat.rhn.frontend.xmlrpc.MissingCapabilityException(
+                e.getCapability(), e.getServer());
+        }
         return 1;
     }
     
