@@ -95,6 +95,7 @@ public class ServerFactory extends HibernateFactory {
      */
     public static void removeCustomDataValue(Server server, CustomDataKey key) {
         CustomDataValue value = server.getCustomDataValue(key);
+        server.getCustomDataValues().remove(value);
         if (value != null) {
             singleton.removeObject(value);
         }

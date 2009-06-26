@@ -92,7 +92,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     private Ram ram;
     private Dmi dmi;
     private Set networkInterfaces;
-    private Set customDataValues;
+    private Set<CustomDataValue> customDataValues;
     private Set channels;
     private List configChannels = Collections.EMPTY_LIST;
     private Set localChannels = new HashSet();
@@ -994,7 +994,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     /**
      * @return Returns the customDataValues.
      */
-    public Set getCustomDataValues() {
+    public Set<CustomDataValue> getCustomDataValues() {
         return customDataValues;
     }
     
