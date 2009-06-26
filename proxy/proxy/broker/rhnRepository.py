@@ -242,8 +242,7 @@ def listPackages(function, channel, version):
 
 
 def computePackagePath(nvrea, source=0, prepend=""):
-     """ Finds the appropriate path, prepending something if necessary """
-
+    """ Finds the appropriate path, prepending something if necessary """
     name = nvrea[0]
     release = nvrea[2]
 
