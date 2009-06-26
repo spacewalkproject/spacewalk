@@ -15,6 +15,7 @@ BuildRequires: gettext
 
 Requires: yum >= 3.0-5.3
 Requires: rhn-client-tools >= 0.4.19
+Requires: m2crypto
 
 # Not really, but for upgrades we need these
 Requires: rhn-setup
