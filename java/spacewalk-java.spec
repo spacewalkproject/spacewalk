@@ -3,6 +3,7 @@
 %define cobprofdirup    %{_localstatedir}/lib/rhn/kickstarts/upload
 %define cobprofdirwiz   %{_localstatedir}/lib/rhn/kickstarts/wizard
 %define cobdirsnippets  %{_localstatedir}/lib/rhn/kickstarts/snippets
+%define realcobsnippetsdir  %{_localstatedir}/lib/cobbler/snippets
 %define appdir          %{_localstatedir}/lib/tomcat5/webapps
 %define jardir          %{_localstatedir}/lib/tomcat5/webapps/rhn/WEB-INF/lib
 %define jars antlr asm bcel c3p0 cglib commons-beanutils commons-cli commons-codec commons-digester commons-discovery commons-el commons-io commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard xalan-j2 xerces-j2 xml-commons-apis commons-collections
@@ -202,16 +203,14 @@ install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn.jar $RPM_BUILD_ROOT/%{_datad
 install -m 644 conf/log4j.properties.taskomatic $RPM_BUILD_ROOT/%{_datadir}/rhn/classes/log4j.properties
 ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT/%{_bindir}/taskomaticd
 ln -s -f %{_javadir}/ojdbc14.jar $RPM_BUILD_ROOT%{jardir}/ojdbc14.jar
-
+mkdir -p $RPM_BUILD_ROOT/%{realcobsnippetsdir}
+ln -s -f  %{cobdirsnippets} $RPM_BUILD_ROOT/%{realcobsnippetsdir}/spacewalk
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%postun
-rm -f /var/lib/cobbler/snippets/spacewalk
-
-%post
-ln -s -f %{cobdirsnippets} /var/lib/cobbler/snippets/spacewalk 
+%pre
+rm -f %{realcobsnippetsdir}/spacewalk
 
 %post -n spacewalk-taskomatic
 # This adds the proper /etc/rc*.d links for the script
@@ -232,6 +231,7 @@ fi
 %dir %{cobdirsnippets}
 %{appdir}/*
 %config(noreplace) %{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
+%{realcobsnippetsdir}/spacewalk
 
 %files -n spacewalk-taskomatic
 %attr(755, root, root) %{_initrddir}/taskomatic
@@ -497,6 +497,7 @@ fi
   code had been ripped out, so i converted it to java (jsherril@redhat.com)
 - 491361 - Added note to error messages to check the log for error messages. (jason.dobies@redhat.com)
 - 500891 - fixed an unescaped string on snippets delete confirm page (paji@redhat.com)
+dually.rdu.redhat.com,10.11.228.46 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAt3L3QI0h+nKNrRIrd/Qj/l2aaPAtSk1O7smalVJZYLx8JCwmYLd+XzWc9b951l6zevxMIHfHRFjA2EwoJWKVzffNE/91RVs9jQ3M5289YX5VZbu6g/9PZ6gj5JG7EN+Q6h29iDhJ/LBrZb62ytXru+jBGMcoBoZggQ+nAtjZstZcOwlIOZ0ldLMJycsWV2aKXwhbVgowtE/evPuF+lF68Z4Fdfi/ScznuF7mQlHAnxQNEQCQojjqf37fgW8dQENIxoaFOJXOFjeW57X2HIgz0XX3ux3kgtGgmKvQanVRpISnUBnlEEXtDvYxO73mlTen+eS+wbyhF0Wkpg3OEWaTOQ==
 - 500887 -Fix to not escape contents in cobbler snippet detials page (paji@redhat.com)
 - 5/14 update of webui translation strings (shughes@redhat.com)
 - 500727 - Just noticed this was flagged as NOTABUG since we don't want to
