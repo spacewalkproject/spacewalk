@@ -3,6 +3,7 @@
 %define cobprofdirup    %{_localstatedir}/lib/rhn/kickstarts/upload
 %define cobprofdirwiz   %{_localstatedir}/lib/rhn/kickstarts/wizard
 %define cobdirsnippets  %{_localstatedir}/lib/rhn/kickstarts/snippets
+%define realcobsnippetsdir  %{_localstatedir}/lib/cobbler/snippets
 %define appdir          %{_localstatedir}/lib/tomcat5/webapps
 %define jardir          %{_localstatedir}/lib/tomcat5/webapps/rhn/WEB-INF/lib
 %define jars antlr asm bcel c3p0 cglib commons-beanutils commons-cli commons-codec commons-digester commons-discovery commons-el commons-io commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard xalan-j2 xerces-j2 xml-commons-apis commons-collections
@@ -208,16 +209,14 @@ install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn.jar $RPM_BUILD_ROOT/%{_datad
 install -m 644 conf/log4j.properties.taskomatic $RPM_BUILD_ROOT/%{_datadir}/rhn/classes/log4j.properties
 ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT/%{_bindir}/taskomaticd
 ln -s -f %{_javadir}/ojdbc14.jar $RPM_BUILD_ROOT%{jardir}/ojdbc14.jar
-
+mkdir -p $RPM_BUILD_ROOT/%{realcobsnippetsdir}
+ln -s -f  %{cobdirsnippets} $RPM_BUILD_ROOT/%{realcobsnippetsdir}/spacewalk
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%postun
-rm -f /var/lib/cobbler/snippets/spacewalk
-
-%post
-ln -s -f %{cobdirsnippets} /var/lib/cobbler/snippets/spacewalk 
+%pre
+rm -f %{realcobsnippetsdir}/spacewalk
 
 %post -n spacewalk-taskomatic
 # This adds the proper /etc/rc*.d links for the script
@@ -238,6 +237,7 @@ fi
 %dir %{cobdirsnippets}
 %{appdir}/*
 %config(noreplace) %{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
+%{realcobsnippetsdir}/spacewalk
 
 %files -n spacewalk-taskomatic
 %attr(755, root, root) %{_initrddir}/taskomatic
