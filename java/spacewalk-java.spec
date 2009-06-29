@@ -203,7 +203,7 @@ install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn.jar $RPM_BUILD_ROOT/%{_datad
 install -m 644 conf/log4j.properties.taskomatic $RPM_BUILD_ROOT/%{_datadir}/rhn/classes/log4j.properties
 ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT/%{_bindir}/taskomaticd
 ln -s -f %{_javadir}/ojdbc14.jar $RPM_BUILD_ROOT%{jardir}/ojdbc14.jar
-mkdir -p $RPM_BUILD_ROOT/%{realcobsnippetsdir}
+install -d -m 755 $RPM_BUILD_ROOT/%{realcobsnippetsdir}
 ln -s -f  %{cobdirsnippets} $RPM_BUILD_ROOT/%{realcobsnippetsdir}/spacewalk
 
 %clean
@@ -497,7 +497,6 @@ fi
   code had been ripped out, so i converted it to java (jsherril@redhat.com)
 - 491361 - Added note to error messages to check the log for error messages. (jason.dobies@redhat.com)
 - 500891 - fixed an unescaped string on snippets delete confirm page (paji@redhat.com)
-dually.rdu.redhat.com,10.11.228.46 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAt3L3QI0h+nKNrRIrd/Qj/l2aaPAtSk1O7smalVJZYLx8JCwmYLd+XzWc9b951l6zevxMIHfHRFjA2EwoJWKVzffNE/91RVs9jQ3M5289YX5VZbu6g/9PZ6gj5JG7EN+Q6h29iDhJ/LBrZb62ytXru+jBGMcoBoZggQ+nAtjZstZcOwlIOZ0ldLMJycsWV2aKXwhbVgowtE/evPuF+lF68Z4Fdfi/ScznuF7mQlHAnxQNEQCQojjqf37fgW8dQENIxoaFOJXOFjeW57X2HIgz0XX3ux3kgtGgmKvQanVRpISnUBnlEEXtDvYxO73mlTen+eS+wbyhF0Wkpg3OEWaTOQ==
 - 500887 -Fix to not escape contents in cobbler snippet detials page (paji@redhat.com)
 - 5/14 update of webui translation strings (shughes@redhat.com)
 - 500727 - Just noticed this was flagged as NOTABUG since we don't want to
