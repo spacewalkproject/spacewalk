@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.6.6
+Version:    0.6.7
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -68,6 +68,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Jun 30 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.7-1
+- 508710 - make bar on top of page wider, so we do not get empty space on wider displays
+
 * Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.6.6-1
 - 506489 - remove the link associated with the org name present in the UI
   header (bbuckingham@redhat.com)
