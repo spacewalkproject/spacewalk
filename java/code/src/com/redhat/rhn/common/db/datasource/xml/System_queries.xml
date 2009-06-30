@@ -36,6 +36,24 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
   <elaborator name="system_overview" />
 </mode>
 
+<!-- system_feature(ftr_kickstart); not is_solaris() -->
+<mode name="ssm_kickstartable" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="user_id">
+SELECT  S.id,
+       S.name 
+  FROM rhnServer S
+       inner join rhnSet ST on S.id = ST.element
+       inner join rhnUserServerPerms USP on USP.server_id = S.id
+ WHERE USP.user_id = :user_id
+   AND ST.user_id = :user_id
+   AND ST.label = 'system_list'
+   AND EXISTS(SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = ST.element AND SFV.label = 'ftr_kickstart')
+   AND USP.server_id = S.id
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
 
 <mode name="ssm_remote_commandable">
   <query params="user_id">

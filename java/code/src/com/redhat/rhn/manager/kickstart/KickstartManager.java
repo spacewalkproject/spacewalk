@@ -15,11 +15,20 @@
 package com.redhat.rhn.manager.kickstart;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.util.download.DownloadException;
 import com.redhat.rhn.common.util.download.DownloadUtils;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.manager.BaseManager;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 
@@ -81,5 +90,18 @@ public class KickstartManager extends BaseManager {
             ValidatorException.raiseException("kickstart.jsp.error.template_generation",
                                         KickstartUrlHelper.getFileDowloadPageUrl(ksdata));
         }
-    }    
+    }  
+    
+    /**
+     * returns a list of systems in SSM
+     * that are kickstartable
+     * @param user the user for access info
+     * @return the list of kickstartable systems 
+     */
+    public DataResult<SystemOverview> kickstartableSystemsInSsm(User user) {
+        SelectMode m = ModeFactory.getMode("System_queries", "ssm_kickstartable");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        return makeDataResult(params, Collections.EMPTY_MAP, null, m);
+    }
 }

@@ -4603,6 +4603,28 @@
         <forward name="deleted" path="/profiles/List.do" redirect="true" />
     </action>
 
+ 	<!-- Kickstart Pages  SSM -->
+ 	<action path="/ssm/kickstart/KickstartableSystems"
+        scope="request"
+        input="/WEB-INF/pages/kickstart/ssm/kickstartablesystems.jsp"
+        type="com.redhat.rhn.frontend.action.kickstart.ssm.SsmKickstartableSystemsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/kickstart/ssm/kickstartablesystems.jsp"/>
+        <forward name="success"
+                 path="/ssm/kickstart/Schedule.do"/>
+    </action>
+ 	 <action path="/ssm/kickstart/Schedule"
+        scope="request"
+        input="/WEB-INF/pages/kickstart/ssm/schedule.jsp"
+        type="com.redhat.rhn.frontend.action.kickstart.ssm.SsmKSScheduleAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/kickstart/ssm/schedule.jsp"/>
+    </action>
+
  	<!-- Kickstart Pages  -->
  
     <action path="/kickstart/Kickstarts"
