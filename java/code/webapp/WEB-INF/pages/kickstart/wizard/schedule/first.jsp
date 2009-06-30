@@ -115,24 +115,8 @@ function setStep(stepName) {
         </p>
         </c:if>
         <c:if test="${requestScope.hasProfiles == 'true'}">    
-          <h2>
-            <img src="/img/rhn-icon-schedule.gif"
-                 alt="<bean:message key='system.common.scheduleAlt' />" />
-            <bean:message key="kickstart.schedule.heading3.jsp" />
-          </h2>
-          <table width="50%">
-            <tr>
-              <td><input type="radio" name="scheduleAsap" value="true" id="scheduleAsap"/><bean:message key="kickstart.schedule.heading3.option1.jsp" /></td>
-            </tr>
-            <tr>
-              <td><input type="radio" name="scheduleAsap" value="false" id="scheduleDate" /><bean:message key="kickstart.schedule.heading3.option2.jsp" /><br /><br />
-                  <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-                    <jsp:param name="widget" value="date"/>
-                  </jsp:include>
-              </td>
-            </tr>
-          </table>
-          <hr />
+		 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/schedule-options.jspf" %>
+          
           <table width="100%">
             <tr>
               <td align="right">
