@@ -152,14 +152,14 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
         if (!type.equals(KickstartVirtualizationType.paraHost()) &&
                 !type.equals(KickstartVirtualizationType.none())) {
            if (prof == null) {
-               form.set(VIRT_BRIDGE, Config.get().getDefaultXenVirtBridge());
+               form.set(VIRT_BRIDGE, data.getDefaultVirtBridge());
                form.set(VIRT_CPU, Config.get().getDefaultVirtCpus());
                form.set(VIRT_DISK_SIZE, Config.get().getDefaultVirtDiskSize());
                form.set(VIRT_MEMORY, Config.get().getDefaultVirtMemorySize());
            }
            else {
                setFormValueOrDefault(form, VIRT_BRIDGE, prof.getVirtBridge(), 
-                                                   Config.get().getDefaultXenVirtBridge());
+                       data.getDefaultVirtBridge());
                setFormValueOrDefault(form, VIRT_CPU, prof.getVirtCpus(),
                                                        Config.get().getDefaultVirtCpus());
                setFormValueOrDefault(form, VIRT_DISK_SIZE, prof.getVirtFileSize(),

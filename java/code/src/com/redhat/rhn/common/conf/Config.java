@@ -794,6 +794,16 @@ public class Config {
     public String getDefaultXenVirtBridge() {
         return getString(VIRT_BRIDGE, "xenbr0");
     }
+    
+    /**
+     * Returns the default value for the xen virt bridge
+     * @return  the value for virt bridge.
+     */
+    public String getDefaultKVMVirtBridge() {
+        return getString(VIRT_BRIDGE, "virbr0");
+    }
+
+    
     /**
      * Returns the default virt disk size in GBs
      * @return the virt disk size
