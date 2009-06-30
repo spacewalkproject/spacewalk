@@ -2,6 +2,8 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+<%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
+
 
 <html:html xhtml="true">
 <body>
@@ -25,34 +27,31 @@
   </p>
 <c:set var="pageList" value="${requestScope.pageList}" />
 
-    <form method="post" name="rhn_list" action="/rhn/kickstart/KickstartPackageProfileEditSubmit.do">
-      <rhn:submitted />
-      <rhn:list pageList="${pageList}" noDataText="kickstart.packageprofiles.jsp.noprofiles">
-          
-  <rhn:listdisplay   set="${requestScope.set}" hiddenvars="${requestScope.newset}">
-    <rhn:set type="radio" value="${current.id}" buttons="false"/>
+<rl:listset name="profiles" >
+  <rl:list emptykey="kickstart.packageprofiles.jsp.noprofiles">
+		<rl:decorator name = "PageSizeDecorator"/>
+		<rl:radiocolumn value="${current.id}" styleclass="first-column" useDefault='false'/>
 
-        <rhn:column header="kickstart.packageprofiles.jsp.description">
+        <rl:column headerkey="kickstart.packageprofiles.jsp.description" filterattr="name">
             ${current.name}
-        </rhn:column>
-      </rhn:listdisplay>      
-      </rhn:list>
-<p>  
-<bean:message key="kickstart.packageprofiles.jsp.tip" arg0="${ksdata.id}"/>
-</p>
-<hr />
-<input type="hidden" name="ksid" value="<c:out value="${param.ksid}"/>" />
-<div align="right">
-  <html:submit property="dispatch">
-    <bean:message key="kickstart.packageprofile.jsp.clear"/>
-  </html:submit> 
-  <html:submit property="dispatch">
-    <bean:message key="kickstart.packageprofile.jsp.submit"/>
-  </html:submit>
+        </rl:column>
+        </rl:list>
+		<p>
+		<bean:message key="kickstart.packageprofiles.jsp.tip" arg0="${ksdata.id}"/>
+		</p>
+		<hr />
+		<input type="hidden" name="ksid" value="<c:out value="${param.ksid}"/>" />
+		<div align="right">
+		  <html:submit property="dispatch">
+		    <bean:message key="kickstart.packageprofile.jsp.clear"/>
+		  </html:submit>
+		  <html:submit property="dispatch">
+		    <bean:message key="kickstart.packageprofile.jsp.submit"/>
+		  </html:submit>
 
-</div>
-
-    </form>
+		</div>
+		<rhn:submitted />
+	</rl:listset>
 </div>
 
 </body>

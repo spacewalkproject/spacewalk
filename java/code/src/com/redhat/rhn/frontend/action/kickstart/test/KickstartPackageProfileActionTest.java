@@ -19,7 +19,7 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
 import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.frontend.action.kickstart.KickstartPackageProfileSubmitAction;
+import com.redhat.rhn.frontend.action.kickstart.KickstartPackageProfileSetupAction;
 import com.redhat.rhn.frontend.dto.ProfileDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.profile.test.ProfileManagerTest;
@@ -61,7 +61,7 @@ public class KickstartPackageProfileActionTest extends RhnMockStrutsTestCase {
         user.addRole(RoleFactory.ORG_ADMIN);
         Profile p = ProfileManagerTest.createProfileWithServer(user);
         addSelectedItem(p.getId());
-        addDispatchCall(KickstartPackageProfileSubmitAction.UPDATE_METHOD);
+        addDispatchCall(KickstartPackageProfileSetupAction.UPDATE_METHOD);
         setRequestPathInfo("/kickstart/KickstartPackageProfileEditSubmit");
         actionPerform();
         // Gotta make sure we can update the profile to the same entry twice
