@@ -58,19 +58,6 @@ function setStep(stepName) {
 <c:set var="form" value="${kickstartScheduleWizardForm.map}"/>
 
 <rl:listset name="wizard-form">
-        <!--Store form variables obtained from previous page -->
-        <input type="hidden" name="targetProfileType" value="${form.targetProfileType}"/>
-        <input type="hidden" name="targetProfile" value="${form.targetProfile}" />
-        
-        <input type="hidden" name="postKernelParamsType" value="${form.postKernelParamsType}" />
-        <input type="hidden" name="postKernelParams" value="${form.postKernelParams}" />
-        <input type="hidden" name="kernelParamsType" value="${form.kernelParamsType}" />
-        <input type="hidden" name="kernelParams" value="${form.kernelParams}" />
-        
-        <!-- Store useful id fields-->
-        <input type="hidden" name="wizardStep" value="first" id="wizard-step" />    
-        <input type="hidden" name="cobbler_id" value="${form.cobbler_id}" id="cobbler_id" />
-        <input type="hidden" name="sid" value="${form.sid}" />
 		<rl:list width="100%" emptykey = "kickstart.schedule.no.profiles.jsp" alphabarcolumn="label">
 			<rl:decorator name = "PageSizeDecorator"/>        
         	<rl:radiocolumn value="${current.cobblerId}" styleclass="first-column"/>
@@ -95,38 +82,8 @@ function setStep(stepName) {
          	</rl:column>
     	</rl:list>     	    
     	<rhn:tooltip>* - <bean:message key="kickstart.distro.cobbler-only.tooltip"/></rhn:tooltip>
-        <c:if test="${requestScope.hasProxies == 'true'}">    
-        <h2>
-          <img src="/img/rhn-icon-proxy.gif"
-               alt="<bean:message key='system.common.proxyAlt' />" />
-          <bean:message key="kickstart.schedule.heading.proxy.jsp"/>
-        </h2>
-        <p>
-        <bean:message key="kickstart.schedule.msg.proxy.jsp"/>
-        </p>
-        <p>
-        <select name="proxyHost">
-			<c:forEach var="proxy" items="${proxies}">
-  			  <option <c:if test="${proxy.value eq proxyHost}">selected="selected"</c:if> value='${proxy.value}'>${proxy.label}</option>
-			</c:forEach>
-		</select>
-        <br />
-        <bean:message key="kickstart.schedule.tip.proxy.jsp"/>
-        </p>
-        </c:if>
-        <c:if test="${requestScope.hasProfiles == 'true'}">    
-		 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/schedule-options.jspf" %>
-          
-          <table width="100%">
-            <tr>
-              <td align="right">
-	        <input type="button" value="<bean:message key="kickstart.schedule.button0.jsp" />" onclick="setStep('fourth');this.form.submit();" />
-                <input type="button" value="<bean:message key="kickstart.schedule.button1.jsp" />" onclick="setStep('second');this.form.submit();" />
-                <input type="button" value="<bean:message key="kickstart.schedule.button2.jsp" />" onclick="setStep('third');this.form.submit();" />
-              </td>
-            </tr>
-          </table>
-        </c:if>
+    	<c:set var="regularKS" value="true"/>
+    	<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/schedule-options.jspf" %>
 	</rl:listset>
     </div>
 </c:if>

@@ -2,7 +2,50 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+        <!--Store form variables obtained from previous page -->
+        <input type="hidden" name="targetProfileType" value="${form.targetProfileType}"/>
+        <input type="hidden" name="targetProfile" value="${form.targetProfile}" />
 
+        <input type="hidden" name="postKernelParamsType" value="${form.postKernelParamsType}" />
+        <input type="hidden" name="postKernelParams" value="${form.postKernelParams}" />
+        <input type="hidden" name="kernelParamsType" value="${form.kernelParamsType}" />
+        <input type="hidden" name="kernelParams" value="${form.kernelParams}" />
+
+        <!-- Store useful id fields-->
+        <input type="hidden" name="wizardStep" value="first" id="wizard-step" />
+        <input type="hidden" name="cobbler_id" value="${form.cobbler_id}" id="cobbler_id" />
+        <input type="hidden" name="sid" value="${form.sid}" />
+
+        <c:if test="${empty regularKS}">
+            <!-- Store guest provisioning info  -->
+	        <input type="hidden" name="memoryAllocation" value="${form.memoryAllocation}" />
+	        <input type="hidden" name="virtualCpus" value="${form.virtualCpus}" />
+	        <input type="hidden" name="localStorageMegabytes" value="${form.localStorageMegabytes}" />
+	        <input type="hidden" name="diskPath" value="${form.diskPath}" />
+        </c:if>
+
+        <c:if test="${requestScope.hasProxies == 'true'}">
+        <h2>
+          <img src="/img/rhn-icon-proxy.gif"
+               alt="<bean:message key='system.common.proxyAlt' />" />
+          <bean:message key="kickstart.schedule.heading.proxy.jsp"/>
+        </h2>
+        <p>
+        <bean:message key="kickstart.schedule.msg.proxy.jsp"/>
+        </p>
+        <p>
+        <select name="proxyHost">
+			<c:forEach var="proxy" items="${proxies}">
+				<option 
+				<c:if test="${proxy.value == param.proxyHost}">selected="selected"</c:if> 
+				value='${proxy.value}'>${proxy.label}</option>
+			</c:forEach>
+		</select>
+        <br />
+        <bean:message key="kickstart.schedule.tip.proxy.jsp"/>
+        </p>
+        </c:if>
+        <c:if test="${requestScope.hasProfiles == 'true'}">
           <h2>
             <img src="/img/rhn-icon-schedule.gif"
                  alt="<bean:message key='system.common.scheduleAlt' />" />
@@ -32,3 +75,17 @@
             </tr>     
           </table>
           <hr />
+          <table width="100%">
+            <tr>
+              <td align="right">
+              <c:if test="${not empty regularKS}">
+                <input type="button" 
+                	value="<bean:message key="kickstart.schedule.button0.jsp" />" 
+                	onclick="setStep('fourth');this.form.submit();" />
+			  </c:if>
+                <input type="button" value="<bean:message key="kickstart.schedule.button1.jsp" />" onclick="setStep('second');this.form.submit();" />
+                <input type="button" value="<bean:message key="kickstart.schedule.button2.jsp" />" onclick="setStep('third');this.form.submit();" />
+              </td>
+            </tr>
+          </table>
+        </c:if>          
