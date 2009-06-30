@@ -1,7 +1,15 @@
-
-
-
-          
+          <tr>
+            <th><bean:message key="kickstartdetails.jsp.virtualization_type" /></th>
+            <td colspan="2" align="left">
+              <html:select property="virtualizationTypeLabel" onchange="this.form.submit();return true;">
+                <html:optionsCollection property="virtualizationTypes" label="formattedName" value="label"/>
+              </html:select><br/>
+			<c:if test="${not ksdata.rawData}">
+            	  <span class="small-text"><bean:message key="kickstartdetails.jsp.virtTypeChangeWarning" arg0="${ksdata.id}"/></span>
+			</c:if>
+            </td>
+          </tr>
+<c:if test="${not empty requestScope.is_virt}">
          <tr>
             <th><bean:message key="kickstartdetails.jsp.virt_mem_mb"/>:</th>
             <td><html:text property="virt_mem_mb" size="10" /></td>
@@ -19,5 +27,6 @@
         <tr>
             <th><bean:message key="kickstartdetails.jsp.virt_bridge"/>:</th>
             <td><html:text property="virt_bridge"  size="10" /></td>
-          </tr>          
+         </tr>
           
+</c:if>
