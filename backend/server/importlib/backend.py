@@ -686,9 +686,9 @@ class Backend:
         # Insert/update the packages
 
         tbs = self.tables['rhnPackage']
-        if CFG.ENABLE_NVREA:
+        #if CFG.ENABLE_NVREA:
             # Add md5sum as a primarykey if nevra is enabled
-            tbs.pk.append('md5sum')
+        #    tbs.pk.append('md5sum')
 
         childTables = {
             'rhnPackageProvides':   'package_id', 
@@ -1132,6 +1132,7 @@ class Backend:
             UPDATE rhnChannel
                SET channel_product_id = :channel_product_id
              WHERE id = :id
+               AND channel_product_id <> :channel_product_id
         """)
 
         statement.execute(id = channel.id,
@@ -1209,7 +1210,20 @@ class Backend:
                           beta = channel['channel_product_beta'])
 
         return id
-                                          
+    
+    def processPackageChecksum(self, packages):
+        sql_checksum = self.dbmodule.prepare("""
+            insert into rhnPackageChecksum
+                (package_id, checksum_type_id, checksum)
+            values (:package_id, :checksum_type_id, :checksum)
+        """)
+        for package in packages:
+            #TODO: replace checksum_type_id once exporter sets it
+            sql_checksum.execute(package_id = package.id,
+                                 checksum_type_id= 1,
+                                 checksum = package['md5sum'])
+         
+                              
     def subscribeToChannels(self, packages, strict=0):
         hash = {
             'package_id' : [], 
@@ -1796,10 +1810,11 @@ class Backend:
                  pe.evr.release release,
                  pa.label arch,
                  p.org_id,
-                 p.md5sum
+                 pc.checksum as md5sum
             from rhnChannel c, 
                  rhnChannelPackage cp,
                  rhnPackage p,
+                 rhnPackageChecksum pc,
                  rhnPackageName pn,
                  rhnPackageEVR pe,
                  rhnPackageArch pa
@@ -1807,6 +1822,7 @@ class Backend:
                  and p.package_arch_id = pa.id
                  and cp.channel_id = c.id
                  and cp.package_id = p.id
+                 and pc.package_id = p.id
                  and p.name_id = pn.id
                  and p.evr_id = pe.id
         """
@@ -2009,7 +2025,7 @@ def _buildExternalValue(dict, entry, tableObj):
 def computeDiff(hash1, hash2, diffHash, diffobj, prefix=None):
     # Compare if the key-values of hash1 are a subset of hash2's
     difference = 0
-    ignore_keys = ['last_modified']
+    ignore_keys = ['last_modified', 'channel_product_id']
 
     for k, v in hash1.items():
         if k in ignore_keys:

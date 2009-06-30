@@ -79,6 +79,17 @@ class OracleBackend(Backend):
             pk          = ['package_id', 'name', 'text', 'time'],
             attribute   = 'changelog',
         ),
+
+        Table('rhnPackageChecksum',
+            fields      = {
+                'package_id'        : DBint(),
+                'checksum_type_id'  : DBint(),
+                'checksum'          : DBstring(128)
+            },
+            pk          = ['package_id', 'checksum_type_id'],
+            attribute   = 'checksum',
+        ),
+
         Table('rhnPackageFile',
             fields      = {
                 'package_id'    : DBint(),
@@ -91,7 +102,7 @@ class OracleBackend(Backend):
                 'rdev'          : DBint(),
                 'file_size'     : DBint(),
                 'mtime'         : DBdateTime(),
-                'md5'           : DBstring(32),
+                'checksum'           : DBstring(32),
                 'linkto'        : DBstring(256),
                 'flags'         : DBint(),
                 'verifyflags'   : DBint(),
@@ -102,7 +113,7 @@ class OracleBackend(Backend):
             severityHash = {
                 'mtime'         : 0,
                 'file_size'     : 4,
-                'md5'           : 4,
+                'checksum'           : 4,
             },
         ),
         Table('rhnPackage',
@@ -121,7 +132,7 @@ class OracleBackend(Backend):
                 'build_host'    : DBstring(256), 
                 'build_time'    : DBdateTime(),
                 'source_rpm_id' : DBint(),
-                'md5sum'        : DBstring(64), 
+                #'md5sum'        : DBstring(64), 
                 'vendor'        : DBstring(64), 
                 'payload_format': DBstring(32), 
                 'path'          : DBstring(1000), 
@@ -135,7 +146,7 @@ class OracleBackend(Backend):
             nullable    = ['org_id'],
             severityHash = {
                 'path'          : 1,
-                'md5sum'        : 2,
+                #'md5sum'        : 2,
                 'package_size'  : 2,
                 'build_time'    : 3,
                 'build_host'    : 3,

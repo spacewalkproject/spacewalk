@@ -830,15 +830,17 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         self._diff_packages()
 
     _query_compare_packages = """
-        select p.id, p.md5sum, p.path, p.package_size,
+        select p.id, pc.checksum md5sum, p.path, p.package_size,
                TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
-          from rhnPackage p
+          from rhnPackage p,
+               rhnPackageChecksum pc
          where p.name_id = lookup_package_name(:name)
            and p.evr_id = lookup_evr(:epoch, :version, :release)
            and p.package_arch_id = lookup_package_arch(:arch)
            and (p.org_id = :org_id or
                (p.org_id is null and :org_id is null))
-           and p.md5sum =: md5sum
+           and pc.package_id = p.id
+           and pc.checksum =: md5sum
     """
     # XXX the "is null" condition will have to change in multiorg satellites
     def _diff_packages(self):
