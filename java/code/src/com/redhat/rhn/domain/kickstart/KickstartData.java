@@ -1483,4 +1483,19 @@ public class KickstartData {
         this.kickstartType = kickstartTypeIn;
     }
     
+    /**
+     * Get the default virt bridge for this KickstartData object.
+     * 
+     * @return String virt bridge (xenbr0, virbr0)
+     */
+    public String getDefaultVirtBridge() {
+        if (this.getKickstartDefaults().getVirtualizationType().getLabel()
+                .equals(KickstartVirtualizationType.KVM_FULLYVIRT)) {
+            return Config.get().getDefaultKVMVirtBridge();
+        } 
+        else {
+            return Config.get().getDefaultXenVirtBridge();
+        }
+    }
+    
 }
