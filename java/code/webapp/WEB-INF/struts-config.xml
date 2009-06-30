@@ -5160,17 +5160,10 @@
         scope="request"
         input="/WEB-INF/pages/kickstart/packageprofiles.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.KickstartPackageProfileSetupAction">
-        <forward name="default"
-                 path="/WEB-INF/pages/kickstart/packageprofiles.jsp"/>
-    </action>
-
-    <action path="/kickstart/KickstartPackageProfileEditSubmit"
-        scope="request"
-        input="/WEB-INF/pages/kickstart/packageprofiles.jsp"
-        type="com.redhat.rhn.frontend.action.kickstart.KickstartPackageProfileSubmitAction"
-        parameter="dispatch">
-        <forward name="default"
-                 path="/kickstart/KickstartPackageProfileEdit.do"/>
+         <forward name="default"
+		path="/WEB-INF/pages/kickstart/packageprofiles.jsp" />
+         <forward name="success"
+                 path="/kickstart/KickstartPackageProfileEdit.do" redirect="true"/>
     </action>
 
     <action path="/kickstart/DownloadLog"
