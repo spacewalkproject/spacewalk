@@ -1128,11 +1128,15 @@ class Backend:
         channel['channel_product_beta'] = channel['product_beta']
         channel['channel_product_id'] = self.lookupChannelProduct(channel)
 
+        if not channel['channel_product_id']:
+            # If no channel product dont update
+            return
         statement = self.dbmodule.prepare("""
             UPDATE rhnChannel
                SET channel_product_id = :channel_product_id
              WHERE id = :id
-               AND channel_product_id <> :channel_product_id
+               AND (channel_product_id is NULL 
+                OR channel_product_id <> :channel_product_id)
         """)
 
         statement.execute(id = channel.id,
