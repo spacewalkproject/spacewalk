@@ -175,7 +175,7 @@ public class Config {
     private static final String DEFAULT_COBBLER_SNIPPET_DIR = "/var/lib/cobbler/snippets";
     
     public static final String VIRT_PATH_DIR = "kickstart.virt_storage_path";
-    private static final String DEFAULT_VIRT_PATH = "/var/lib/xen";
+    private static final String DEFAULT_VIRT_PATH = "/var/lib/libvirt/images";
     public static final String VIRT_BRIDGE = "kickstart.virt_bridge";
     public static final String VIRT_MEM = "kickstart.virt_mem_size_mb";
     public static final String VIRT_CPU = "kickstart.virt_cpus";
@@ -786,7 +786,7 @@ public class Config {
     public File getVirtPath() {
         return new File(getString(VIRT_PATH_DIR, DEFAULT_VIRT_PATH));
     }
-    
+
     /**
      * Returns the default value for the xen virt bridge
      * @return  the value for virt bridge.
