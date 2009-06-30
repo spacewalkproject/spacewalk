@@ -40,6 +40,7 @@ import com.redhat.rhn.frontend.dto.SystemSearchResult;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.taglibs.list.decorators.PageSizeDecorator;
 import com.redhat.rhn.manager.BaseManager;
+import com.redhat.rhn.manager.SatManager;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.log4j.Logger;
@@ -450,6 +451,16 @@ public class UserManager extends BaseManager {
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.deleteuser"));
             throw pex;
         }
+
+        // Do not allow deletion of the last Satellite Administrator:
+        User toDelete = UserFactory.lookupById(loggedInUser, targetUid);
+        if (toDelete.hasRole(RoleFactory.SAT_ADMIN)) {
+            if (SatManager.getActiveSatAdmins().size() == 1) {
+                log.warn("Cannot delete the last Satellite Administrator");
+                throw new DeleteSatAdminException(toDelete);
+            }
+        }
+
         CallableMode m = ModeFactory.getCallableMode("User_queries",
                 "delete_user");
         Map inParams = new HashMap();
