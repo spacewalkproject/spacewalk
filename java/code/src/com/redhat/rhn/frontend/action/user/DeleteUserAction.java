@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.acl.AclManager;
+import com.redhat.rhn.manager.user.DeleteSatAdminException;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.struts.action.ActionErrors;
@@ -83,7 +84,20 @@ public class DeleteUserAction extends RhnAction {
             return getStrutsDelegate().forwardParams(mapping.findForward("failure"), 
                     params);
         }
-        UserManager.deleteUser(loggedInUser, uid);
+
+        try {
+            UserManager.deleteUser(loggedInUser, uid);
+        }
+        catch (DeleteSatAdminException e) {
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("user.cannot.delete.last.sat.admin"));
+            Map params = new HashMap();
+            params.put("uid", uid);
+            addErrors(request, errors);
+            return getStrutsDelegate().forwardParams(mapping.findForward("failure"),
+                    params);
+        }
+
         ActionMessages msg = new ActionMessages();
         msg.add(ActionMessages.GLOBAL_MESSAGE, 
                 new ActionMessage("user.delete", user.getLogin()));

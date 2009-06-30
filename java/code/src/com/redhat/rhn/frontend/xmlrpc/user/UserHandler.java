@@ -14,6 +14,10 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.user;
 
+import com.redhat.rhn.frontend.xmlrpc.DeleteUserException;
+
+import com.redhat.rhn.manager.user.DeleteSatAdminException;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -535,7 +539,13 @@ public class UserHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         ensureOrgAdmin(loggedInUser);
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(loggedInUser, login);
-        UserManager.deleteUser(loggedInUser, target.getId());
+
+        try {
+            UserManager.deleteUser(loggedInUser, target.getId());
+        }
+        catch (DeleteSatAdminException e) {
+            throw new DeleteUserException("user.cannot.delete.last.sat.admin");
+        }
         
         return 1;
     }
