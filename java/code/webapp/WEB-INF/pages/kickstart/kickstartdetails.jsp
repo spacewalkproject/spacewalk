@@ -32,20 +32,9 @@
             <td><strong><c:out value="${ksdata.kickstartDefaults.kstree.channel.name}"/></strong> 
             <a href="/rhn/kickstart/KickstartSoftwareEdit.do?ksid=${ksdata.id}">(<bean:message key="kickstartdetails.jsp.changeos"/>)</a></td>
           </tr>
-          <tr>
-            <th><bean:message key="kickstartdetails.jsp.virtualization_type" /></th>
-            <td colspan="2" align="left">
-              <html:select property="virtualizationTypeLabel">
-                <html:optionsCollection property="virtualizationTypes" label="formattedName" value="label" />
-              </html:select><br/>
-              <span class="small-text"><bean:message key="kickstartdetails.jsp.virtTypeChangeWarning" arg0="${ksdata.id}"/></span>
-            </td>
-          </tr>
           
-          
-          <c:if test="${is_virt}">
-          	 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/virtoptions.jspf" %>
-          </c:if> 
+		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/virtoptions.jspf" %>
+           
           
           
           

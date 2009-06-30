@@ -146,29 +146,29 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
             form.set(KERNEL_OPTIONS, prof.getKernelOptionsString());
             form.set(POST_KERNEL_OPTIONS, prof.getKernelPostOptionsString());
         }
-        
-       if (prof == null) {
-           form.set(VIRT_BRIDGE, Config.get().getDefaultXenVirtBridge());
-           form.set(VIRT_CPU, Config.get().getDefaultVirtCpus());
-           form.set(VIRT_DISK_SIZE, Config.get().getDefaultVirtDiskSize());
-           form.set(VIRT_MEMORY, Config.get().getDefaultVirtMemorySize());
-       }
-       else {
-           setFormValueOrDefault(form, VIRT_BRIDGE, prof.getVirtBridge(), 
-                                               Config.get().getDefaultXenVirtBridge());
-           setFormValueOrDefault(form, VIRT_CPU, prof.getVirtCpus(),
-                                                   Config.get().getDefaultVirtCpus());
-           setFormValueOrDefault(form, VIRT_DISK_SIZE, prof.getVirtFileSize(),
-                                               Config.get().getDefaultVirtDiskSize());
-           setFormValueOrDefault(form, VIRT_MEMORY, prof.getVirtRam(),
-                                           Config.get().getDefaultVirtMemorySize());  
-       }
-
-       
-       //Should we show virt options?
-       ctx.getRequest().setAttribute(IS_VIRT, !data.getKickstartDefaults().
-                   getVirtualizationType().equals(KickstartFactory.VIRT_TYPE_PV_HOST));
-
+        KickstartVirtualizationType type = data.getKickstartDefaults().
+                                                    getVirtualizationType();
+        //Should we show virt options?
+        if (!type.equals(KickstartVirtualizationType.paraHost()) &&
+                !type.equals(KickstartVirtualizationType.none())) {
+           if (prof == null) {
+               form.set(VIRT_BRIDGE, Config.get().getDefaultXenVirtBridge());
+               form.set(VIRT_CPU, Config.get().getDefaultVirtCpus());
+               form.set(VIRT_DISK_SIZE, Config.get().getDefaultVirtDiskSize());
+               form.set(VIRT_MEMORY, Config.get().getDefaultVirtMemorySize());
+           }
+           else {
+               setFormValueOrDefault(form, VIRT_BRIDGE, prof.getVirtBridge(), 
+                                                   Config.get().getDefaultXenVirtBridge());
+               setFormValueOrDefault(form, VIRT_CPU, prof.getVirtCpus(),
+                                                       Config.get().getDefaultVirtCpus());
+               setFormValueOrDefault(form, VIRT_DISK_SIZE, prof.getVirtFileSize(),
+                                                   Config.get().getDefaultVirtDiskSize());
+               setFormValueOrDefault(form, VIRT_MEMORY, prof.getVirtRam(),
+                                               Config.get().getDefaultVirtMemorySize());  
+           }
+           ctx.getRequest().setAttribute(IS_VIRT, Boolean.TRUE);    
+        }
     }
     
     
