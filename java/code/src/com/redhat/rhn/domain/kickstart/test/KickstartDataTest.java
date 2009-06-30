@@ -759,15 +759,17 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
     }
 
     public void testDefaultBridge() throws Exception {
-    	KickstartData k = createKickstartWithChannel(user.getOrg());
-    	k.getKickstartDefaults().
-    		setVirtualizationType(KickstartVirtualizationType.kvmGuest());
-    	
-    	assertTrue(k.getDefaultVirtBridge().equals(Config.get().getDefaultKVMVirtBridge()));
-    	
-    	k.getKickstartDefaults().
-    		setVirtualizationType(KickstartVirtualizationType.xenPV());
-    	
-    	assertTrue(k.getDefaultVirtBridge().equals(Config.get().getDefaultXenVirtBridge()));
+        KickstartData k = createKickstartWithChannel(user.getOrg());
+        k.getKickstartDefaults().setVirtualizationType(
+                KickstartVirtualizationType.kvmGuest());
+
+        assertTrue(k.getDefaultVirtBridge().equals(
+                Config.get().getDefaultKVMVirtBridge()));
+
+        k.getKickstartDefaults().setVirtualizationType(
+                KickstartVirtualizationType.xenPV());
+
+        assertTrue(k.getDefaultVirtBridge().equals(
+                Config.get().getDefaultXenVirtBridge()));
     }
 }
