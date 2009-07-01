@@ -14,15 +14,15 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.kickstart.profile.software.test;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.ArrayList;
-
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.software.SoftwareHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * SoftwareHandlerTest

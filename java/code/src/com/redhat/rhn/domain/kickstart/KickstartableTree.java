@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.domain.kickstart;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.channel.Channel;
@@ -250,7 +250,7 @@ public class KickstartableTree extends BaseDomainHelper {
         if (isRhnTree()) {
             //redhat channel append the mount point to 
             //base path...
-            return Config.get().getKickstartMountPoint() + getBasePath();
+            return ConfigDefaults.get().getKickstartMountPoint() + getBasePath();
         }
         //its a base channel return the 
         return getBasePath();

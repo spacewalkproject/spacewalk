@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
@@ -76,9 +76,9 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
         prof.setKsMeta(meta);
         KickstartFactory.saveKickstartData(this.ksData);
         prof.setVirtBridge(this.ksData.getDefaultVirtBridge());
-        prof.setVirtCpus(Config.get().getDefaultVirtCpus());
-        prof.setVirtRam(Config.get().getDefaultVirtMemorySize());
-        prof.setVirtFileSize(Config.get().getDefaultVirtDiskSize());
+        prof.setVirtCpus(ConfigDefaults.get().getDefaultVirtCpus());
+        prof.setVirtRam(ConfigDefaults.get().getDefaultVirtMemorySize());
+        prof.setVirtFileSize(ConfigDefaults.get().getDefaultVirtDiskSize());
         prof.setKickstart(this.ksData.getCobblerFileName());    
         prof.save();
                 

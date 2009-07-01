@@ -20,6 +20,7 @@ package com.redhat.rhn.common.security;
 
 import com.redhat.rhn.common.RhnRuntimeException;
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.frontend.html.HtmlTag;
@@ -86,7 +87,7 @@ public class PermissionException extends RhnRuntimeException  {
         addReason(ol, "permission.jsp.summary.acl.reason1", null);
         
         //The second reason gives the minutes for a login session to expire.
-        int seconds = Config.get().getInt(Config.WEB_SESSION_DATABASE_LIFETIME);
+        int seconds = Config.get().getInt(ConfigDefaults.WEB_SESSION_DATABASE_LIFETIME);
         Integer minutes = new Integer(seconds / 60);
         String loginUrl = "/";
         addReason(ol, "permission.jsp.summary.acl.reason2",

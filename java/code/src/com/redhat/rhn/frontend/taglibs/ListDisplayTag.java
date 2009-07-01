@@ -15,6 +15,23 @@
 
 package com.redhat.rhn.frontend.taglibs;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.util.CSVWriter;
+import com.redhat.rhn.common.util.DynamicComparator;
+import com.redhat.rhn.common.util.ExportWriter;
+import com.redhat.rhn.common.util.ServletExportHandler;
+import com.redhat.rhn.common.util.StringUtil;
+import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.frontend.dto.UserOverview;
+import com.redhat.rhn.frontend.html.HtmlTag;
+import com.redhat.rhn.frontend.listview.AlphaBar;
+import com.redhat.rhn.frontend.listview.PaginationUtil;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.manager.acl.AclManager;
+
+import org.apache.commons.lang.StringUtils;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Arrays;
@@ -32,23 +49,6 @@ import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTagSupport;
-
-import org.apache.commons.lang.StringUtils;
-
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.util.CSVWriter;
-import com.redhat.rhn.common.util.DynamicComparator;
-import com.redhat.rhn.common.util.ExportWriter;
-import com.redhat.rhn.common.util.ServletExportHandler;
-import com.redhat.rhn.common.util.StringUtil;
-import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.frontend.dto.UserOverview;
-import com.redhat.rhn.frontend.html.HtmlTag;
-import com.redhat.rhn.frontend.listview.AlphaBar;
-import com.redhat.rhn.frontend.listview.PaginationUtil;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.manager.acl.AclManager;
 
 /**
  * The ListDisplayTag defines the structure of the ListView.  This tag iterates

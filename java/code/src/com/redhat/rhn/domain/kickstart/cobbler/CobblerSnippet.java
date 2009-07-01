@@ -15,7 +15,7 @@
 
 package com.redhat.rhn.domain.kickstart.cobbler;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.FileUtils;
 import com.redhat.rhn.common.validator.ValidatorException;
@@ -42,7 +42,7 @@ public class CobblerSnippet implements Comparable {
      * @return the cobbler snippets dir
      */
     public static File getCobblerSnippetsDir() {
-        File fl = new File(Config.get().getCobblerSnippetsDir());
+        File fl = new File(ConfigDefaults.get().getCobblerSnippetsDir());
         return fl;
     }
 

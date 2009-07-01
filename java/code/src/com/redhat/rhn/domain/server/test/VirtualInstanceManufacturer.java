@@ -15,8 +15,8 @@
 package com.redhat.rhn.domain.server.test;
 
 import com.redhat.rhn.domain.server.VirtualInstance;
-import com.redhat.rhn.domain.server.VirtualInstanceState;
 import com.redhat.rhn.domain.server.VirtualInstanceFactory;
+import com.redhat.rhn.domain.server.VirtualInstanceState;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.testing.TestUtils;
 

@@ -14,6 +14,16 @@
  */
 package com.redhat.rhn.frontend.servlets;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.struts.StrutsDelegate;
+
+import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+
 import java.io.IOException;
 
 import javax.servlet.Filter;
@@ -24,16 +34,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-
-import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.struts.StrutsDelegate;
 
 /**
  * EnvironmentFilter
@@ -76,7 +76,7 @@ public class EnvironmentFilter implements Filter {
                                                 (HttpServletResponse)response,
                                                 hreq);
         
-        boolean sslAvail = Config.get().isSSLAvailable();
+        boolean sslAvail = ConfigDefaults.get().isSSLAvailable();
 
         // There are a list of pages that don't require SSL, that list should
         // be called out here.

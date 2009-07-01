@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.common;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.common.util.FileUtils;
 import com.redhat.rhn.common.util.MD5Sum;
@@ -287,7 +288,7 @@ public class DownloadFile extends DownloadAction {
                 log.debug("getStreamInfo KICKSTART type, path: " + path);
             }
             String diskPath = null;
-            String kickstartMount = Config.get().getString(Config.MOUNT_POINT);
+            String kickstartMount = Config.get().getString(ConfigDefaults.MOUNT_POINT);
             String fileName;
             KickstartSession ksession = (KickstartSession) params.get(SESSION);
             KickstartSessionState newState = null;
@@ -304,7 +305,6 @@ public class DownloadFile extends DownloadAction {
                 log.debug("Tree isnt rooted at /var/satellite, lets just use basepath");
                 kickstartMount = "";
             }
-
             // Searching for RPM
             if (path.endsWith(".rpm")) {
                 String[] split = StringUtils.split(path, '/');
@@ -315,7 +315,7 @@ public class DownloadFile extends DownloadAction {
                 Channel channel = tree.getChannel();
                 rpmPackage = ChannelFactory.lookupPackageByFilename(channel, fileName); 
                 if (rpmPackage != null) {
-                    diskPath = Config.get().getString(Config.MOUNT_POINT) + "/" + 
+                    diskPath = Config.get().getString(ConfigDefaults.MOUNT_POINT) + "/" + 
                         rpmPackage.getPath();
                     if (log.isDebugEnabled()) {
                         log.debug("found package :: diskPath path: " + diskPath);
@@ -329,7 +329,6 @@ public class DownloadFile extends DownloadAction {
                     }
                 }
             }
-
             // either it's not an rpm, or we didn't find it in the channel
             // check for dir pings, virt manager or install, bz #345721
             if (diskPath == null) {
@@ -358,11 +357,9 @@ public class DownloadFile extends DownloadAction {
                 }
                 
             }
-            
             if (log.isDebugEnabled()) {
                 log.debug("Final path before returning getStreamForBinary(): " + diskPath);
             }
-            
             if (log.isDebugEnabled()) {
                 Enumeration e = request.getHeaderNames();
                 while (e.hasMoreElements()) {
@@ -374,7 +371,6 @@ public class DownloadFile extends DownloadAction {
                 log.debug("Method is HEAD .. serving checksum");
                 return manualServeChecksum(response, diskPath);
             }
-            
             else if (request.getHeader("Range") != null) {
                 log.debug("range detected.  serving chunk of file");
                 String range = request.getHeader("Range");
@@ -398,15 +394,14 @@ public class DownloadFile extends DownloadAction {
             }
             log.debug("returning getStreamForBinary");
 
-             File actualFile = new File(diskPath);
-
-             Date mtime = new Date(actualFile.lastModified());
-             SimpleDateFormat formatter = new SimpleDateFormat(
-             "EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US);
-             formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-             response.addHeader("last-modified", formatter.format(mtime));
-             response.addHeader("Content-Length", String.valueOf(actualFile.length()));
-             log.debug("added last-modified and content-length values");
+            File actualFile = new File(diskPath);
+            Date mtime = new Date(actualFile.lastModified());
+            SimpleDateFormat formatter = new SimpleDateFormat(
+                    "EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US);
+            formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+            response.addHeader("last-modified", formatter.format(mtime));
+            response.addHeader("Content-Length", String.valueOf(actualFile.length()));
+            log.debug("added last-modified and content-length values");
             return getStreamForBinary(diskPath);
         }
         else {
@@ -415,14 +410,15 @@ public class DownloadFile extends DownloadAction {
             User user = UserFactory.lookupById(userid);
             if (type.equals(DownloadManager.DOWNLOAD_TYPE_PACKAGE)) {
                 Package pack = PackageFactory.lookupByIdAndOrg(fileId, user.getOrg());
-                path = Config.get().getString(Config.MOUNT_POINT) + "/" + pack.getPath();
+                path = Config.get().getString(ConfigDefaults.MOUNT_POINT) + 
+                    "/" + pack.getPath();
                 return getStreamForBinary(path);
             }
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_SOURCE)) {
                 Package pack = PackageFactory.lookupByIdAndOrg(fileId, user.getOrg());
                 List<PackageSource> src = PackageFactory.lookupPackageSources(pack);
                 if (!src.isEmpty()) {
-                    path = Config.get().getString(Config.MOUNT_POINT) + "/" +
+                    path = Config.get().getString(ConfigDefaults.MOUNT_POINT) + "/" +
                         src.get(0).getPath();
                     return getStreamForBinary(path);
                 }

@@ -14,14 +14,14 @@
  */
 package com.redhat.rhn.frontend.action.kickstart;
 
-import java.util.Locale;
-import java.util.Map;
-
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartIpRangeDto;
 import com.redhat.rhn.frontend.taglibs.list.BaseListFilter;
 import com.redhat.rhn.manager.kickstart.IpAddress;
 import com.redhat.rhn.manager.kickstart.IpAddressRange;
+
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * KickstartIpRangeFilter

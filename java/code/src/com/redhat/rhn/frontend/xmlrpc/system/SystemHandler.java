@@ -14,27 +14,10 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.system;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.sql.Blob;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.client.ClientCertificate;
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.LookupException;
@@ -105,12 +88,12 @@ import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.ProfileNameTooLongException;
 import com.redhat.rhn.frontend.xmlrpc.ProfileNameTooShortException;
 import com.redhat.rhn.frontend.xmlrpc.ProfileNoBaseChannelException;
+import com.redhat.rhn.frontend.xmlrpc.RhnXmlRpcServer;
 import com.redhat.rhn.frontend.xmlrpc.SystemIdInstantiationException;
 import com.redhat.rhn.frontend.xmlrpc.SystemsNotDeletedException;
 import com.redhat.rhn.frontend.xmlrpc.UndefinedCustomFieldsException;
 import com.redhat.rhn.frontend.xmlrpc.UnrecognizedCountryException;
 import com.redhat.rhn.frontend.xmlrpc.user.XmlRpcUserHelper;
-import com.redhat.rhn.frontend.xmlrpc.RhnXmlRpcServer;
 import com.redhat.rhn.manager.MissingCapabilityException;
 import com.redhat.rhn.manager.MissingEntitlementException;
 import com.redhat.rhn.manager.action.ActionManager;
@@ -128,6 +111,24 @@ import com.redhat.rhn.manager.system.UpdateChildChannelsCommand;
 import com.redhat.rhn.manager.system.VirtualizationActionCommand;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
 import com.redhat.rhn.manager.user.UserManager;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.sql.Blob;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * SystemHandler
@@ -2131,7 +2132,7 @@ public class SystemHandler extends BaseHandler {
      */
     private boolean isSystemInactive(SystemOverview so) {
         Long threshold = new Long(Config.get().getInt(
-                Config.SYSTEM_CHECKIN_THRESHOLD, 1));
+                ConfigDefaults.SYSTEM_CHECKIN_THRESHOLD, 1));
         if (so.getLastCheckinDaysAgo().compareTo(threshold) == 1) {
             return true;
         }

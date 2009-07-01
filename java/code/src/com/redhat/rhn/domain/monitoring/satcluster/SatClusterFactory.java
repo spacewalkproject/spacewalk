@@ -14,20 +14,20 @@
  */
 package com.redhat.rhn.domain.monitoring.satcluster;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.util.MD5Crypt;
+import com.redhat.rhn.domain.user.User;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
-import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.common.util.MD5Crypt;
-import com.redhat.rhn.domain.user.User;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * SatClusterFactory - the singleton class used to fetch and store

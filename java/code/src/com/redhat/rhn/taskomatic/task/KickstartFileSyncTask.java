@@ -15,6 +15,7 @@
 package com.redhat.rhn.taskomatic.task;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
@@ -64,7 +65,7 @@ public class KickstartFileSyncTask extends SingleThreadedTestableTask {
         
         
         CobblerConnection cc = CobblerXMLRPCHelper.getConnection(
-                Config.get().getString(Config.COBBLER_AUTOMATED_USER));
+                Config.get().getString(ConfigDefaults.COBBLER_AUTOMATED_USER));
         
         List<KickstartData> kickstarts = KickstartFactory.listAllKickstartData();
         for (KickstartData ks : kickstarts) {

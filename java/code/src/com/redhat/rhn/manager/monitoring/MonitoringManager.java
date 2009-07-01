@@ -14,8 +14,41 @@
  */
 package com.redhat.rhn.manager.monitoring;
 
-import java.sql.Timestamp;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.SelectMode;
+import com.redhat.rhn.domain.monitoring.MonitoringConstants;
+import com.redhat.rhn.domain.monitoring.MonitoringFactory;
+import com.redhat.rhn.domain.monitoring.Probe;
+import com.redhat.rhn.domain.monitoring.ServerProbe;
+import com.redhat.rhn.domain.monitoring.TemplateProbe;
+import com.redhat.rhn.domain.monitoring.command.Command;
+import com.redhat.rhn.domain.monitoring.command.CommandGroup;
+import com.redhat.rhn.domain.monitoring.config.ConfigMacro;
+import com.redhat.rhn.domain.monitoring.config.MonitoringConfigFactory;
+import com.redhat.rhn.domain.monitoring.notification.Filter;
+import com.redhat.rhn.domain.monitoring.notification.NotificationFactory;
+import com.redhat.rhn.domain.monitoring.satcluster.SatCluster;
+import com.redhat.rhn.domain.monitoring.satcluster.SatClusterFactory;
+import com.redhat.rhn.domain.monitoring.suite.ProbeSuite;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.org.OrgFactory;
+import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerConstants;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.SystemOverview;
+import com.redhat.rhn.frontend.dto.monitoring.ServerProbeDto;
+import com.redhat.rhn.frontend.dto.monitoring.TimeSeriesData;
+import com.redhat.rhn.frontend.listview.PageControl;
+import com.redhat.rhn.manager.BaseManager;
+import com.redhat.rhn.manager.satellite.SystemCommandExecutor;
+import com.redhat.rhn.manager.system.SystemManager;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -25,57 +58,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.SelectMode;
-
-import com.redhat.rhn.domain.monitoring.MonitoringConstants;
-import com.redhat.rhn.domain.monitoring.MonitoringFactory;
-import com.redhat.rhn.domain.monitoring.Probe;
-import com.redhat.rhn.domain.monitoring.ServerProbe;
-import com.redhat.rhn.domain.monitoring.TemplateProbe;
-
-import com.redhat.rhn.domain.monitoring.command.Command;
-import com.redhat.rhn.domain.monitoring.command.CommandGroup;
-
-import com.redhat.rhn.domain.monitoring.config.ConfigMacro;
-import com.redhat.rhn.domain.monitoring.config.MonitoringConfigFactory;
-
-import com.redhat.rhn.domain.monitoring.notification.Filter;
-import com.redhat.rhn.domain.monitoring.notification.NotificationFactory;
-
-import com.redhat.rhn.domain.monitoring.satcluster.SatCluster;
-import com.redhat.rhn.domain.monitoring.satcluster.SatClusterFactory;
-
-import com.redhat.rhn.domain.monitoring.suite.ProbeSuite;
-
-import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.org.OrgFactory;
-
-import com.redhat.rhn.domain.role.RoleFactory;
-
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerConstants;
-
-import com.redhat.rhn.domain.user.User;
-
-import com.redhat.rhn.frontend.dto.SystemOverview;
-
-import com.redhat.rhn.frontend.dto.monitoring.ServerProbeDto;
-import com.redhat.rhn.frontend.dto.monitoring.TimeSeriesData;
-
-import com.redhat.rhn.frontend.listview.PageControl;
-
-import com.redhat.rhn.manager.BaseManager;
-
-import com.redhat.rhn.manager.satellite.SystemCommandExecutor;
-
-import com.redhat.rhn.manager.system.SystemManager;
-
-import org.apache.commons.lang.StringUtils;
-
-import org.apache.log4j.Logger;
 
 /**
  * MonitoringManager

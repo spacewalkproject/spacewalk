@@ -14,21 +14,21 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.system.search;
 
-import java.net.MalformedURLException;
-import java.util.Collections;
-import java.util.List;
-
-import org.apache.log4j.Logger;
-
-import redstone.xmlrpc.XmlRpcException;
-import redstone.xmlrpc.XmlRpcFault;
-
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.FaultException;
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.frontend.action.systems.SystemSearchHelper;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.SearchServerCommException;
 import com.redhat.rhn.frontend.xmlrpc.SearchServerQueryException;
+
+import org.apache.log4j.Logger;
+
+import java.net.MalformedURLException;
+import java.util.Collections;
+import java.util.List;
+
+import redstone.xmlrpc.XmlRpcException;
+import redstone.xmlrpc.XmlRpcFault;
 
 /**
  * SystemSearchHandler

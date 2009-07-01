@@ -15,6 +15,7 @@
 package com.redhat.rhn.domain.kickstart;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.common.FileList;
@@ -1282,7 +1283,7 @@ public class KickstartData {
      * @return String kickstart package like auto-kickstart-ks-rhel-i386-as-4
      */
     public String getKickstartPackageName() {
-        return Config.get().getKickstartPackageName();
+        return ConfigDefaults.get().getKickstartPackageName();
 
     }
 
@@ -1381,7 +1382,8 @@ public class KickstartData {
         if (getCobblerId() != null) {
             Profile prof = Profile.lookupById(
                    CobblerXMLRPCHelper.getConnection(
-                   Config.get().getString(Config.COBBLER_AUTOMATED_USER)), getCobblerId());
+                   Config.get().getString(ConfigDefaults.COBBLER_AUTOMATED_USER)), 
+                       getCobblerId());
             if (prof != null && !StringUtils.isBlank(prof.getKickstart())) {
                 return prof.getKickstart();
             }
@@ -1491,10 +1493,10 @@ public class KickstartData {
     public String getDefaultVirtBridge() {
         if (this.getKickstartDefaults().getVirtualizationType().getLabel()
                 .equals(KickstartVirtualizationType.KVM_FULLYVIRT)) {
-            return Config.get().getDefaultKVMVirtBridge();
+            return ConfigDefaults.get().getDefaultKVMVirtBridge();
         } 
         else {
-            return Config.get().getDefaultXenVirtBridge();
+            return ConfigDefaults.get().getDefaultXenVirtBridge();
         }
     }
     

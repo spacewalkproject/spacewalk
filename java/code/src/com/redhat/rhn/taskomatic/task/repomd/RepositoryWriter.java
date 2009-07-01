@@ -14,6 +14,15 @@
  */
 package com.redhat.rhn.taskomatic.task.repomd;
 
+import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.util.StringUtil;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ClonedChannel;
+import com.redhat.rhn.frontend.dto.PackageDto;
+
+import org.apache.log4j.Logger;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,17 +35,9 @@ import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
-
-import org.apache.log4j.Logger;
-
-import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.frontend.dto.PackageDto;
-import com.redhat.rhn.common.util.StringUtil;
-import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.domain.channel.ClonedChannel;
 
 /**
  * 
@@ -213,7 +214,7 @@ public class RepositoryWriter {
      */
     private RepomdIndexData loadCompsFile(Channel channel) {
         String relativeFilename;
-        String compsMount = Config.get().getString(Config.MOUNT_POINT);
+        String compsMount = Config.get().getString(ConfigDefaults.MOUNT_POINT);
  
         if (channel.getComps() == null) {
             relativeFilename = getCompsFilePath(channel);

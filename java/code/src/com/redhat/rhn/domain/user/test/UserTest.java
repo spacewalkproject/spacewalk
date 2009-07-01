@@ -15,29 +15,24 @@
 
 package com.redhat.rhn.domain.user.test;
 
-import java.util.Date;
-import java.util.Set;
-
 import com.redhat.rhn.common.conf.Config;
-
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.util.MD5Crypt;
-
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
-
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.role.RoleFactory;
-
 import com.redhat.rhn.domain.server.Server;
-
 import com.redhat.rhn.domain.user.Address;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
-
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
+
+import java.util.Date;
+import java.util.Set;
 
 /** JUnit test case for the User
  *  class.
@@ -127,7 +122,7 @@ public class UserTest extends RhnBaseTestCase {
         assertNotNull(usr.getOrg());
 
         usr.setPassword(foo);
-        boolean encrypt = Config.get().getBoolean(Config.WEB_ENCRYPTED_PASSWORDS);
+        boolean encrypt = Config.get().getBoolean(ConfigDefaults.WEB_ENCRYPTED_PASSWORDS);
         if (encrypt) {
             assertEquals(MD5Crypt.crypt("foo", usr.getPassword()), usr.getPassword());
         }

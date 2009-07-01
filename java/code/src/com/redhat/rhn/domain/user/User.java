@@ -15,14 +15,12 @@
 
 package com.redhat.rhn.domain.user;
 
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.role.Role;
+import com.redhat.rhn.domain.server.Server;
+
 import java.util.Date;
 import java.util.Set;
-
-import com.redhat.rhn.domain.org.Org;
-
-import com.redhat.rhn.domain.role.Role;
-
-import com.redhat.rhn.domain.server.Server;
 
 /**
  * Class User that reflects the DB representation of web_contact

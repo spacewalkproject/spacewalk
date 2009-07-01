@@ -16,13 +16,13 @@ package com.redhat.rhn.frontend.dto;
 
 import com.redhat.rhn.common.localization.LocalizationService;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * PackageListItem

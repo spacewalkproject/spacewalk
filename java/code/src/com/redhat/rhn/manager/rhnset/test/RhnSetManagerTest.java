@@ -15,8 +15,8 @@
 package com.redhat.rhn.manager.rhnset.test;
 
 import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
+import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.UserTestUtils;

@@ -15,7 +15,7 @@
 package com.redhat.rhn.frontend.action.kickstart;
 
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -153,19 +153,19 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
                 !type.equals(KickstartVirtualizationType.none())) {
            if (prof == null) {
                form.set(VIRT_BRIDGE, data.getDefaultVirtBridge());
-               form.set(VIRT_CPU, Config.get().getDefaultVirtCpus());
-               form.set(VIRT_DISK_SIZE, Config.get().getDefaultVirtDiskSize());
-               form.set(VIRT_MEMORY, Config.get().getDefaultVirtMemorySize());
+               form.set(VIRT_CPU, ConfigDefaults.get().getDefaultVirtCpus());
+               form.set(VIRT_DISK_SIZE, ConfigDefaults.get().getDefaultVirtDiskSize());
+               form.set(VIRT_MEMORY, ConfigDefaults.get().getDefaultVirtMemorySize());
            }
            else {
                setFormValueOrDefault(form, VIRT_BRIDGE, prof.getVirtBridge(), 
                        data.getDefaultVirtBridge());
                setFormValueOrDefault(form, VIRT_CPU, prof.getVirtCpus(),
-                                                       Config.get().getDefaultVirtCpus());
+                       ConfigDefaults.get().getDefaultVirtCpus());
                setFormValueOrDefault(form, VIRT_DISK_SIZE, prof.getVirtFileSize(),
-                                                   Config.get().getDefaultVirtDiskSize());
+                       ConfigDefaults.get().getDefaultVirtDiskSize());
                setFormValueOrDefault(form, VIRT_MEMORY, prof.getVirtRam(),
-                                               Config.get().getDefaultVirtMemorySize());  
+                       ConfigDefaults.get().getDefaultVirtMemorySize());  
            }
            ctx.getRequest().setAttribute(IS_VIRT, Boolean.TRUE);    
         }

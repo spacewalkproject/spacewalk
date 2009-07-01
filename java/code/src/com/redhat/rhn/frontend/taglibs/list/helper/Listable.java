@@ -15,8 +15,9 @@
 
 package com.redhat.rhn.frontend.taglibs.list.helper;
 
-import java.util.List;
 import com.redhat.rhn.frontend.struts.RequestContext;
+
+import java.util.List;
 
 /**
  * Interface used to tie an action into ListTag 3.0 (known for a while as "new List Tag").

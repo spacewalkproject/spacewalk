@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.configuration.sdc;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
@@ -25,6 +23,8 @@ import com.redhat.rhn.frontend.struts.BaseSetListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * ChannelListAction,  for configuration in sdc

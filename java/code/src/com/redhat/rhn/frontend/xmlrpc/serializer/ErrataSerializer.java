@@ -14,14 +14,12 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
+
 import java.io.IOException;
 import java.io.Writer;
-
-import com.redhat.rhn.common.localization.LocalizationService;
-
-import com.redhat.rhn.domain.errata.Errata;
-
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;

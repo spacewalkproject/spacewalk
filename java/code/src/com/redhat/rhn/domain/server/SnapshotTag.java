@@ -14,12 +14,12 @@
  */
 package com.redhat.rhn.domain.server;
 
-import java.util.Set;
+import com.redhat.rhn.domain.BaseDomainHelper;
+import com.redhat.rhn.domain.org.Org;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import com.redhat.rhn.domain.BaseDomainHelper;
-import com.redhat.rhn.domain.org.Org;
+import java.util.Set;
 
 /**
  * CPU

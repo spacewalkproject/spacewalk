@@ -14,15 +14,15 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.schedule;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.manager.action.ActionManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ScheduleHandler

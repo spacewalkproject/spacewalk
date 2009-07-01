@@ -17,8 +17,8 @@ package com.redhat.rhn.common.translation.test;
 
 import com.redhat.rhn.common.translation.Translations;
 
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
 public class TestTranslations extends Translations {
 

@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.systems.virtualization.test;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -68,7 +68,7 @@ public class ProvisionVirtualizationWizardActionTest extends RhnMockStrutsTestCa
         s.addChannel(c);
         
         PackageManagerTest.addPackageToSystemAndChannel(
-                Config.get().getKickstartPackageName(), s, c);
+                ConfigDefaults.get().getKickstartPackageName(), s, c);
         TestUtils.saveAndFlush(s);
         TestUtils.saveAndFlush(c);
         

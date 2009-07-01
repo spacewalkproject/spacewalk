@@ -16,6 +16,7 @@
 package com.redhat.rhn.manager.session.test;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.util.TimeUtils;
 import com.redhat.rhn.domain.session.InvalidSessionIdException;
@@ -35,7 +36,7 @@ public class SessionManagerTest extends RhnBaseTestCase {
     public void testLifetimeValue() throws Exception {
         long lifetime = SessionManager.lifetimeValue();
         long duration = Long.parseLong(Config.get().getString(
-                Config.WEB_SESSION_DATABASE_LIFETIME));
+                ConfigDefaults.WEB_SESSION_DATABASE_LIFETIME));
         assertEquals(lifetime, duration);
     }
 

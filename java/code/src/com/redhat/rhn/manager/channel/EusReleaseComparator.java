@@ -16,12 +16,11 @@
 package com.redhat.rhn.manager.channel;
 
 import com.redhat.rhn.common.util.RpmVersionComparator;
-
 import com.redhat.rhn.frontend.dto.EssentialChannelDto;
 
-import java.util.Comparator;
-
 import org.apache.commons.lang.StringUtils;
+
+import java.util.Comparator;
 
 /**
  * EusReleaseComparator

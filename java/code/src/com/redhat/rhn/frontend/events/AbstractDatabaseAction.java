@@ -14,11 +14,12 @@
  */
 package com.redhat.rhn.frontend.events;
 
-import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.common.messaging.MessageAction;
+
+import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
 
 /**
  * Base action for any action that communicates with the database. This class will

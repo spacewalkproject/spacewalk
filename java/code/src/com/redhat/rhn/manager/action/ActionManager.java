@@ -70,6 +70,7 @@ import com.redhat.rhn.manager.system.SystemManager;
 import org.apache.log4j.Logger;
 import org.cobbler.Profile;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -79,7 +80,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.ArrayList;
 
 /**
  * ActionManager - the singleton class used to provide Business Operations

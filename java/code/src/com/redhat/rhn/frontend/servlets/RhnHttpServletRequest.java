@@ -14,6 +14,10 @@
  */
 package com.redhat.rhn.frontend.servlets;
 
+import com.redhat.rhn.frontend.context.Context;
+
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Enumeration;
@@ -23,10 +27,6 @@ import java.util.Vector;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
-
-import com.redhat.rhn.frontend.context.Context;
 
 /**
  * RhnHttpServletRequest

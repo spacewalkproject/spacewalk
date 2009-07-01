@@ -15,6 +15,7 @@
 package com.redhat.rhn.domain.kickstart.test;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.util.FileUtils;
 import com.redhat.rhn.common.util.MD5Crypt;
@@ -88,8 +89,9 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
     public static void setupTestConfiguration() throws IOException {
         Config.get().setString(CobblerXMLRPCHelper.class.getName(),
                 MockXMLRPCInvoker.class.getName());
-        Config.get().setString(Config.KICKSTART_COBBLER_DIR, "/tmp/kickstart/");
-        Config.get().setString(Config.COBBLER_SNIPPETS_DIR, "/tmp/kickstart/snippets");
+        Config.get().setString(ConfigDefaults.KICKSTART_COBBLER_DIR, "/tmp/kickstart/");
+        Config.get().setString(ConfigDefaults.COBBLER_SNIPPETS_DIR, 
+                "/tmp/kickstart/snippets");
         Config.get().setString(CobblerConnection.class.getName(),
                 MockConnection.class.getName());
         createKickstartDirs();
@@ -98,9 +100,9 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
     }
     
     public static void createKickstartDirs() throws IOException {
-        createDirIfNotExists(new File(Config.get().getKickstartConfigDir() +
+        createDirIfNotExists(new File(ConfigDefaults.get().getKickstartConfigDir() +
                                                  "/" + KickstartData.WIZARD_DIR));
-        createDirIfNotExists(new File(Config.get().getKickstartConfigDir() +
+        createDirIfNotExists(new File(ConfigDefaults.get().getKickstartConfigDir() +
                                         "/" + KickstartData.RAW_DIR));
         createDirIfNotExists(CobblerSnippet.getSpacewalkSnippetsDir());
     }
@@ -393,7 +395,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
            addPackages(c, KickstartFormatter.FRESH_PKG_NAMES_RHEL34);
        }
        PackageManagerTest.addPackageToChannel(
-               Config.get().getKickstartPackageName() + "testy", c);
+               ConfigDefaults.get().getKickstartPackageName() + "testy", c);
        PackageManagerTest.addPackageToChannel(
                KickstartData.LEGACY_KICKSTART_PACKAGE_NAME +
                    KickstartableTreeTest.TEST_BOOT_PATH, c);
@@ -764,12 +766,12 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
                 KickstartVirtualizationType.kvmGuest());
 
         assertTrue(k.getDefaultVirtBridge().equals(
-                Config.get().getDefaultKVMVirtBridge()));
+                ConfigDefaults.get().getDefaultKVMVirtBridge()));
 
         k.getKickstartDefaults().setVirtualizationType(
                 KickstartVirtualizationType.xenPV());
 
         assertTrue(k.getDefaultVirtBridge().equals(
-                Config.get().getDefaultXenVirtBridge()));
+                ConfigDefaults.get().getDefaultXenVirtBridge()));
     }
 }

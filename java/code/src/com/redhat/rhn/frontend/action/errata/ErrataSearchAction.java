@@ -14,13 +14,13 @@
  */
 package com.redhat.rhn.frontend.action.errata;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.DatePicker;
+import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.frontend.action.common.DateRangePicker;
 import com.redhat.rhn.frontend.action.common.DateRangePicker.DatePickerResults;
-import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -264,7 +264,8 @@ public class ErrataSearchAction extends RhnAction {
         log.warn("Performing errata search");
         RequestContext ctx = new RequestContext(request);
         // call search server
-        XmlRpcClient client = new XmlRpcClient(Config.get().getSearchServerUrl(), true);
+        XmlRpcClient client = new XmlRpcClient(
+                ConfigDefaults.get().getSearchServerUrl(), true);
         String path = null;
         List args = new ArrayList();
         args.add(sessionId);

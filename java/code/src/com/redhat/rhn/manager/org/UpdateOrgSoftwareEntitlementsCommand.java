@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.manager.org;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.validator.ValidatorError;
@@ -79,7 +79,7 @@ public class UpdateOrgSoftwareEntitlementsCommand {
             orgCur = new Long(0);
         }
      
-        if (orgCur > this.newTotal && !Config.get().forceUnentitlement()) { 
+        if (orgCur > this.newTotal && !ConfigDefaults.get().forceUnentitlement()) { 
             retval = false;
         }        
         return retval;

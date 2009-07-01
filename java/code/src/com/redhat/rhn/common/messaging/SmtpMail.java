@@ -16,6 +16,7 @@
 package com.redhat.rhn.common.messaging;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -63,8 +64,8 @@ public class SmtpMail implements Mail {
             Config.get().getStringArray("web.restrict_mail_domains");
         
         Config c = Config.get();
-        smtpHost = c.getString(Config.WEB_SMTP_SERVER, "localhost");
-        String from = c.getString(Config.WEB_DEFAULT_MAIL_FROM);
+        smtpHost = c.getString(ConfigDefaults.WEB_SMTP_SERVER, "localhost");
+        String from = c.getString(ConfigDefaults.WEB_DEFAULT_MAIL_FROM);
 
         // Get system properties
         Properties props = System.getProperties();

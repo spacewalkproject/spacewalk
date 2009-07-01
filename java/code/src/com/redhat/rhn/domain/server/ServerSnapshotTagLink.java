@@ -14,12 +14,12 @@
  */
 package com.redhat.rhn.domain.server;
 
-import java.io.Serializable;
+import com.redhat.rhn.domain.BaseDomainHelper;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import com.redhat.rhn.domain.BaseDomainHelper;
+import java.io.Serializable;
 
 /**
  * 

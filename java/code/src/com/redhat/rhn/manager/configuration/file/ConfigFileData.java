@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.configuration.file;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorException;
@@ -56,7 +57,7 @@ public abstract class ConfigFileData {
     public static final String DEFAULT_CONFIG_DELIM_START = "{|";
     public static final String DEFAULT_CONFIG_DELIM_END = "|}";
     public static final long MAX_FILE_SIZE = Config.get().
-                                    getInt(Config.CONFIG_REVISION_MAX_SIZE);
+                                    getInt(ConfigDefaults.CONFIG_REVISION_MAX_SIZE);
     private static final String DEFAULT_MACRO_START = Config.get().
                                             getString("web.config_delim_start", 
                                                             DEFAULT_CONFIG_DELIM_START); 

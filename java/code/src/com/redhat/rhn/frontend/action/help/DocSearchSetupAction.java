@@ -14,6 +14,25 @@
  */
 package com.redhat.rhn.frontend.action.help;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.frontend.context.Context;
+import com.redhat.rhn.frontend.dto.HelpDocumentOverview;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import org.apache.struts.action.DynaActionForm;
+
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,28 +45,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-import org.apache.struts.action.DynaActionForm;
-
 import redstone.xmlrpc.XmlRpcClient;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcFault;
-
-import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.validator.ValidatorException;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
-import com.redhat.rhn.frontend.context.Context;
-import com.redhat.rhn.frontend.dto.HelpDocumentOverview;
 
 /**
  * DocSearchSetupAction
@@ -184,7 +184,8 @@ public class DocSearchSetupAction extends RhnAction {
         log.debug("Performing doc search");
 
         // call search server
-        XmlRpcClient client = new XmlRpcClient(Config.get().getSearchServerUrl(), true);
+        XmlRpcClient client = new XmlRpcClient(
+                ConfigDefaults.get().getSearchServerUrl(), true);
         List args = new ArrayList();
         args.add(sessionId);
         args.add("docs");

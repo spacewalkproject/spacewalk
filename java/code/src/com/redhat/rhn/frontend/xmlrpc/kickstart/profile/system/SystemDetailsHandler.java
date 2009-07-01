@@ -15,32 +15,32 @@
 
 package com.redhat.rhn.frontend.xmlrpc.kickstart.profile.system;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.List;
-import java.util.ArrayList;
-
 import com.redhat.rhn.FaultException;
+import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.common.CommonFactory;
 import com.redhat.rhn.domain.common.FileList;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
-import com.redhat.rhn.domain.kickstart.SELinuxMode;
-import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartData;
-import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.SELinuxMode;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.FileListNotFoundException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidLocaleCodeException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.XmlRpcKickstartHelper;
+import com.redhat.rhn.manager.kickstart.KickstartCryptoKeyCommand;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartLocaleCommand;
-import com.redhat.rhn.manager.kickstart.SystemDetailsCommand;
-import com.redhat.rhn.manager.kickstart.KickstartCryptoKeyCommand;
 import com.redhat.rhn.manager.kickstart.KickstartPartitionCommand;
-import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.manager.kickstart.SystemDetailsCommand;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
 * SystemDetailsHandler

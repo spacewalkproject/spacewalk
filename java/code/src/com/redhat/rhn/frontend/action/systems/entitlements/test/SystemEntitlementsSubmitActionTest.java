@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.systems.entitlements.test;
 
-import java.util.Iterator;
-
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.server.EntitlementServerGroup;
@@ -34,6 +32,8 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.ServerGroupTestUtils;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
+
+import java.util.Iterator;
 
 /**
  * 

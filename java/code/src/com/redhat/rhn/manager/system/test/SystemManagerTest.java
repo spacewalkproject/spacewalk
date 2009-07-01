@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.manager.system.test;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.WriteMode;
@@ -53,13 +53,13 @@ import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Location;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Network;
+import com.redhat.rhn.domain.server.Note;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.server.VirtualInstance;
-import com.redhat.rhn.domain.server.Note;
 import com.redhat.rhn.domain.server.test.CPUTest;
 import com.redhat.rhn.domain.server.test.CustomDataValueTest;
 import com.redhat.rhn.domain.server.test.DeviceTest;
@@ -533,7 +533,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         // Test stuff!
         assertTrue(server.hasEntitlement(EntitlementManager.VIRTUALIZATION));
         assertTrue(server.getChannels().contains(rhnTools));
-        if (!Config.get().isSpacewalk()) {
+        if (!ConfigDefaults.get().isSpacewalk()) {
             assertTrue(server.getChannels().contains(rhelVirt));
         }
         

@@ -14,13 +14,13 @@
  */
 package com.redhat.rhn.domain.channel;
 
-import java.io.Serializable;
-import java.util.Date;
+import com.redhat.rhn.domain.org.Org;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import com.redhat.rhn.domain.org.Org;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * PrivateChannelFamily - Class representation of the table rhnPrivateChannelFamily.
