@@ -1645,6 +1645,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 chunk = ss.getChunk()
                 item_count = len(chunk)
                 batch = self._get_cached_package_batch(chunk)
+                # check to make sure the orgs exported are valid
                 _validate_package_org(batch)
                 try:
                     sync_handlers.import_packages(batch)
@@ -1689,6 +1690,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                     uq_packages[pid] = package
 
         uq_pkg_data = uq_packages.values()
+        # check to make sure the orgs exported are valid
         _validate_package_org(uq_pkg_data)
         try:
             if OPTIONS.mount_point:
@@ -1997,14 +1999,16 @@ def _verifyPkgRepMountPoint():
         sys.exit(26)
 
 def _validate_package_org(batch):
+    """Validate the orgids associated with packages.
+     If its redhat channel default to Null org
+     If custom channel and org is specified use that.
+     If custom and package org is not valid default to org 1
+    """
     orgid = OPTIONS.orgid or None
     orgs = map(lambda a: a['id'], satCerts.get_all_orgs())
-    #if orgid is not None and orgid not in orgs:
-    #    orgid = 1
     for pkg in batch:
         if pkg['org_id'] is not None and pkg['org_id'] not in orgs:
             orgid = 1
-        print "Default ORG ID",orgid
         if orgid is not None and pkg['org_id'] is not None and \
             pkg['org_id'] != orgid:
             pkg['org_id'] = orgid
