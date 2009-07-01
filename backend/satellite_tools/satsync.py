@@ -876,6 +876,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
                 if OPTIONS.orgid is not None:
                     nevra['org_id'] = OPTIONS.orgid
+                    package['org_id'] = OPTIONS.orgid
                 else:
                     nevra['org_id'] = package['org_id']
 
@@ -1644,6 +1645,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 chunk = ss.getChunk()
                 item_count = len(chunk)
                 batch = self._get_cached_package_batch(chunk)
+                _validate_package_org(batch)
                 try:
                     sync_handlers.import_packages(batch)
                 except (SQLError, SQLSchemaError, SQLConnectError), e:
@@ -1686,12 +1688,13 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                     package['channels'] = [channel_obj]
                     uq_packages[pid] = package
 
+        uq_pkg_data = uq_packages.values()
+        _validate_package_org(uq_pkg_data)
         try:
             if OPTIONS.mount_point:
-                importer = sync_handlers.link_channel_packages(uq_packages.values(), strict=0)
+                importer = sync_handlers.link_channel_packages(uq_pkg_data, strict=0)
             else:
-                importer = sync_handlers.link_channel_packages(uq_packages.values())
-                
+                importer = sync_handlers.link_channel_packages(uq_pkg_data)                
         except (SQLError, SQLSchemaError, SQLConnectError), e:
             tbOut = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbOut, with_locals=1)
@@ -1992,6 +1995,19 @@ def _verifyPkgRepMountPoint():
     if not os.path.exists(rhnLib.cleanupAbsPath(CFG.MOUNT_POINT+'/'+CFG.PREPENDED_DIR)):
         log(-1, "ERROR: server.mount_point not set in the configuration file")
         sys.exit(26)
+
+def _validate_package_org(batch):
+    orgid = OPTIONS.orgid or None
+    orgs = map(lambda a: a['id'], satCerts.get_all_orgs())
+    #if orgid is not None and orgid not in orgs:
+    #    orgid = 1
+    for pkg in batch:
+        if pkg['org_id'] is not None and pkg['org_id'] not in orgs:
+            orgid = 1
+        print "Default ORG ID",orgid
+        if orgid is not None and pkg['org_id'] is not None and \
+            pkg['org_id'] != orgid:
+            pkg['org_id'] = orgid
 
 
 def _getImportedChannels():
