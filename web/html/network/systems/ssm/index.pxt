@@ -102,7 +102,7 @@
 		alt="Provisioning" /></td>
 		<th>Provisioning:</th>
                 <td>
-                  <a href="/network/systems/ssm/provisioning/kickstart.pxt">Kickstart</a> systems <br />
+                  <a href="/rhn/systems/ssm/kickstart/KickstartableSystems.do">Kickstart</a> systems <br />
                   <a href="/network/systems/ssm/provisioning/tag_systems.pxt">Tag</a> systems for <a href="/network/systems/ssm/provisioning/rollback.pxt">snapshot rollback</a><br />
                   Run <a href="/network/systems/ssm/provisioning/remote_command.pxt">remote commands</a><br />
                 </td>

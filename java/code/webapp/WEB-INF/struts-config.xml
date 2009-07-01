@@ -4604,7 +4604,7 @@
     </action>
 
  	<!-- Kickstart Pages  SSM -->
- 	<action path="/ssm/kickstart/KickstartableSystems"
+ 	<action path="/systems/ssm/kickstart/KickstartableSystems"
         scope="request"
         input="/WEB-INF/pages/kickstart/ssm/kickstartablesystems.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.ssm.SsmKickstartableSystemsAction"
@@ -4613,13 +4613,13 @@
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/ssm/kickstartablesystems.jsp"/>
         <forward name="scheduleByIp"
-                 path="/ssm/kickstart/ScheduleByIp.do"
+                 path="/systems/ssm/kickstart/ScheduleByIp.do"
                  redirect= "true"/>
 		<forward name="scheduleByProfile"
-                 path="/ssm/kickstart/ScheduleByProfile.do" 
+                 path="/systems/ssm/kickstart/ScheduleByProfile.do" 
                  redirect= "true"/>                 
     </action>
- 	 <action path="/ssm/kickstart/ScheduleByProfile"
+ 	 <action path="/systems/ssm/kickstart/ScheduleByProfile"
  	 	name ="datePickerForm"
         scope="request"
         input="/WEB-INF/pages/kickstart/ssm/schedule.jsp"
@@ -4630,10 +4630,10 @@
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/ssm/schedule.jsp"/>
         <forward name="success" redirect= "true"
-                 path="/ssm/kickstart/KickstartableSystems.do"/>                 
+                 path="/systems/ssm/kickstart/KickstartableSystems.do"/>                 
     </action>
 
- 	 <action path="/ssm/kickstart/ScheduleByIp"
+ 	 <action path="/systems/ssm/kickstart/ScheduleByIp"
  	 	name ="datePickerForm"
         scope="request"
         input="/WEB-INF/pages/kickstart/ssm/schedule.jsp"
@@ -4644,7 +4644,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/ssm/schedule.jsp"/>
         <forward name="success" redirect= "true"
-                 path="/ssm/kickstart/KickstartableSystems.do"/>                 
+                 path="/systems/ssm/kickstart/KickstartableSystems.do"/>                 
     </action>
 
  	<!-- Kickstart Pages  -->

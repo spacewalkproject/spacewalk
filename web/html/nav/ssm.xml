@@ -89,8 +89,11 @@
 	  <rhn-tab name="Enable Configuration" url="/rhn/systems/ssm/config/Enable.do" />
 	</rhn-tab>
 
-        <rhn-tab name="Provisioning" acl="org_entitlement(rhn_provisioning)" url="/network/systems/ssm/provisioning/kickstart.pxt">
-          <rhn-tab name="Kickstart" url="/network/systems/ssm/provisioning/kickstart.pxt" />
+        <rhn-tab name="Provisioning" acl="org_entitlement(rhn_provisioning)" url="/rhn/systems/ssm/kickstart/KickstartableSystems.do">
+          <rhn-tab name="Kickstart" url="/rhn/systems/ssm/kickstart/KickstartableSystems.do" >
+          	<rhn-tab-url>/rhn/systems/ssm/kickstart/ScheduleByProfile.do</rhn-tab-url>
+          	<rhn-tab-url>/rhn/systems/ssm/kickstart/ScheduleByIp.do</rhn-tab-url>
+          </rhn-tab>
           <rhn-tab name="Tag Systems" url="/network/systems/ssm/provisioning/tag_systems.pxt" />
           <rhn-tab name="Rollback" url="/network/systems/ssm/provisioning/rollback.pxt">
             <rhn-tab-url>/network/systems/ssm/provisioning/rollback_by_tag_conf.pxt</rhn-tab-url>
