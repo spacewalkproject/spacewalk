@@ -24,15 +24,18 @@ import com.redhat.rhn.common.util.download.DownloadUtils;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
-import com.redhat.rhn.domain.kickstart.KickstartIpRange;
-import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.server.NetworkInterface;
+import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.SystemOverview;
+import com.redhat.rhn.frontend.dto.kickstart.KickstartIpRangeDto;
 import com.redhat.rhn.manager.BaseManager;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -130,4 +133,79 @@ public class KickstartManager extends BaseManager {
             throw new PermissionException(RoleFactory.CONFIG_ADMIN);
         }
     }
+
+
+    /**
+     * Find a kickstart profile for a given server by searching by IP addresses
+     * @param server the server to find the ksdata for
+     * @return the kickstartData or 'null' if nothing found
+     */
+    public static KickstartData findProfileForServersNetwork(Server server) {
+        KickstartData ks = null;
+        /*
+         * So first get the IP address for eth0 and see if there's
+         *  A kickstart that corresponds to it
+         */
+        NetworkInterface nic = server.getNetworkInterface("eth0");
+        if (nic != null && isPublicIpAddress(nic.getIpaddr())) {
+            IpAddress ip = new IpAddress(nic.getIpaddr());
+            ks = findProfileForIpAddress(ip, server.getOrg());
+        }
+        /*
+         * If there wasn't, then lets just take the first good ip address we can find
+         */
+        if (ks == null) {
+            for (NetworkInterface tmp : server.getNetworkInterfaces()) {
+                if (isPublicIpAddress(tmp.getIpaddr())) {
+                    IpAddress ip = new IpAddress(tmp.getIpaddr());
+                    ks = findProfileForIpAddress(ip, server.getOrg());
+                    if (ks != null) {
+                        break;
+                    }
+                }
+            }
+        }
+        return ks;
+    }
+
+    private static boolean isPublicIpAddress(String ip) {
+        return !(ip.equals("127.0.0.1") || ip.equals("0.0.0.0") || ip.equals(""));
+    }
+
+    /**
+     * Finds the profile which is a best fit.
+     * @param clientIpIn IpAddress to search ip ranges for
+     * @param orgIn Org coming in from the url
+     * @return best KickstartData Profile
+     */
+    public static KickstartData findProfileForIpAddress(IpAddress clientIpIn, Org orgIn) {
+        DataResult ipRanges = null;
+        SelectMode mode = ModeFactory.getMode("General_queries",
+            "org_ks_ip_ranges_for_ip");
+        Map params = new HashMap();
+        params.put("org_id", orgIn.getId().toString());
+        params.put("ip", clientIpIn.getLongNumber().toString());
+        ipRanges = mode.execute(params);
+
+        IpAddressRange bestRange = null;
+
+        // find innermost range and return profile
+        for (Iterator itr = ipRanges.iterator(); itr.hasNext();) {
+            KickstartIpRangeDto range = (KickstartIpRangeDto)itr.next();
+            IpAddressRange iprange = new IpAddressRange(range.getMin().longValue(),
+                    range.getMax().longValue(),
+                    range.getId().longValue());
+            //seed range if null
+            bestRange = (bestRange == null) ? iprange : bestRange;
+            if (iprange.isSubset(bestRange)) {
+                bestRange = iprange;
+            }
+        }
+
+        return (bestRange == null) ? KickstartFactory.lookupOrgDefault(orgIn) :
+            KickstartFactory.lookupKickstartDataByIdAndOrg(orgIn, bestRange.getKsid());
+    }
+
+
+
 }

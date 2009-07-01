@@ -151,7 +151,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     // The server who serves the kickstarts
     private String kickstartServerName;
     // The id of the action scheduled to perform the kickstart
-    private Long kickstartActionId;
+    private Action scheduledAction;
 
     /**
      * Constructor for a kickstart where the host and the target are the same system.
@@ -301,36 +301,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
 
         this.setKickstartServerName(kickstartServerNameIn);
     }
-    /**
-     * Creates the Kickstart Sechdule command that works with a cobbler  only
-     *  kickstart where the host and the target may or may *not* be
-     * the same system.  If the target system does not yet exist, selectedTargetServer
-     * should be null.  To be used when you want to call the store() method.
-     * 
-     * @param selectedHostServer server to host the kickstart
-     * @param selectedTargetServer server to be kickstarted
-     * @param label cobbler only profile label.
-     * @param userIn user performing the kickstart
-     * @param scheduleDateIn Date to schedule the KS.
-     * @param kickstartServerNameIn the name of the server who is serving the kickstart
-     * @return the created cobbler only profile aware kickstartScheduleCommand
-     */
-    public static KickstartScheduleCommand createCobblerScheduleCommand(
-                                            Long selectedHostServer, 
-                                            Long selectedTargetServer,
-                                            String label, 
-                                            User userIn, 
-                                            Date scheduleDateIn, 
-                                            String kickstartServerNameIn) {
-        
-        KickstartScheduleCommand cmd = new KickstartScheduleCommand(selectedHostServer,
-                        selectedTargetServer, (KickstartData)null, 
-                        userIn, scheduleDateIn, kickstartServerNameIn);
-        cmd.cobblerProfileLabel = label;
-        cmd.cobblerOnly =  true;
-        return cmd;
-        
-    }
+
     
     /**
      * Creates the Kickstart Sechdule command that works with a cobbler  only
@@ -350,8 +321,12 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                                         User userIn, 
                                         Date scheduleDateIn, 
                                         String kickstartServerNameIn) {
-        return createCobblerScheduleCommand(selectedHostServer, selectedHostServer, label, 
-                                        userIn, scheduleDateIn, kickstartServerNameIn);
+        KickstartScheduleCommand cmd = new KickstartScheduleCommand(selectedHostServer,
+                selectedHostServer, (KickstartData)null,
+                userIn, scheduleDateIn, kickstartServerNameIn);
+                cmd.cobblerProfileLabel = label;
+                cmd.cobblerOnly =  true;
+                return cmd;
     }
 
 
@@ -510,8 +485,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     /**
      * @return Returns the id of the action scheduled to perform the kickstart.
      */
-    public Long getKickstartActionId() {
-        return this.kickstartActionId;
+    public Action getScheduledAction() {
+        return this.scheduledAction;
     }
  
     /**
@@ -643,7 +618,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         ActionFactory.save(kickstartAction);
         log.debug("** Created ksaction: " + kickstartAction.getId());
 
-        this.kickstartActionId = kickstartAction.getId();
+        this.scheduledAction = kickstartAction;
 
         log.debug("** Done scheduling kickstart session");
         return null;
