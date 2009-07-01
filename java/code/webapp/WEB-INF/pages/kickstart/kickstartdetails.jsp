@@ -77,12 +77,12 @@
           </tr>
           <tr>
             <th><bean:message key="kickstartdetails.jsp.kernel_options"/></th>
-            <td><html:text property="kernel_options" maxlength="64" size="32" /></td>
+            <td><html:text property="kernel_options" maxlength="1024" size="32" /></td>
           </tr>                 
           
          <tr>
             <th><bean:message key="kickstartdetails.jsp.post_kernel_options"/></th>
-            <td><html:text property="post_kernel_options" maxlength="64" size="32" /></td>
+            <td><html:text property="post_kernel_options" maxlength="1024" size="32" /></td>
           </tr>
                       
           <tr>
