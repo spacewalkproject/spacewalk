@@ -635,10 +635,10 @@ SELECT P.id, P.summary, PP.name as provider
 SELECT  distinct pn.name AS NAME,
         pn.name || '-' || full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS NVRE,
         pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) || '|' || full_list.arch_id AS ID_COMBO,
-        full_list.arch_name as ARCH
+        full_list.arch_label as ARCH
   FROM  (
          SELECT  p.name_id name_id, max(pe.evr) evr,
-                 pa.name as arch_name, pa.id as arch_id
+                 pa.label as arch_label, pa.id as arch_id
            FROM  rhnPackageEVR PE, rhnPackage P,
                  rhnChannelPackage CP, rhnServerChannel SC,
                  rhnPackageArch PA
@@ -647,7 +647,7 @@ SELECT  distinct pn.name AS NAME,
             AND  cp.package_id = p.id
             AND  p.evr_id = pe.id
             AND  p.package_arch_id = pa.id
-       GROUP BY  p.name_id, pa.name, pa.id
+       GROUP BY  p.name_id, pa.label, pa.id
        ) full_list,
        rhnPackageName pn
      INNER JOIN rhnPackage PKG ON pkg.name_id = pn.id
