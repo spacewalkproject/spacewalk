@@ -74,6 +74,7 @@
 		  					arg0 = "${rhn:localize('kickstart.advanced.jsp.uploadtab')}"
 		  					arg1 = "${rhn:localize(requestScope.uploadKey)}"
 		  					/></rhn:tooltip>
+            <rhn:tooltip><bean:message key="kickstart.advanced.filedetails.jsp.tip.copypaste"/></rhn:tooltip>
 		  </td>
 		</tr>
        </table>

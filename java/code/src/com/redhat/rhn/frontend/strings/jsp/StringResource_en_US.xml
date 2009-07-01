@@ -9834,7 +9834,10 @@ Please note that some manual configuration of these scripts may still be require
 	  </trans-unit>
 	  <trans-unit id="kickstart.advanced.filedetails.jsp.tip.edit">
 	    <source> Alternatively, you can upload a new version in the '{0}' section below and select '{1}'.</source>
-	   </trans-unit>	  
+	   </trans-unit>
+      <trans-unit id="kickstart.advanced.filedetails.jsp.tip.copypaste">
+        <source> If you wish to re-use an existing Kickstart Profile we recommend you copy-paste the template from /var/lib/rhn/kickstarts instead of from your browser.  This will ensure that the template variables will be preserved and the registration process will work properly after the kickstart.</source>
+       </trans-unit>      
 	</group>
     <trans-unit id="kickstartdatadelete.jsp.confirmdelete">
         <source>Delete Kickstart</source>
