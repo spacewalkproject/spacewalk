@@ -197,14 +197,17 @@ def import_channels(channels, orgid=None):
         # finally if the orgs differ so we might wanna use
         # requested org's channel-family. 
         orgs = map(lambda a: a['id'], satCerts.get_all_orgs())
-        if c_obj['org_id'] is not None and c_obj['org_id'] not in orgs:
+        if not orgid and c_obj['org_id'] is not None and \
+            c_obj['org_id'] not in orgs:
             #If the src org is not present default to org 1
-            orgid = str(1)
-        if orgid is not None and c_obj['org_id'] is not None and \
-            c_obj['org_id'] != orgid:
+            #orgid = 1
+            c_obj['org_id'] = 1
+        else:
             c_obj['org_id'] = orgid
+        #Only set the channel family if its a custom channel
+        if c_obj['org_id'] is not None and c_obj['org_id'] != orgid:
             for family in c_obj['families']:
-                family['label'] = 'private-channel-family-' + c_obj['org_id']
+                family['label'] = 'private-channel-family-' + str(c_obj['org_id'])
 
         batch.append(c_obj)
 
