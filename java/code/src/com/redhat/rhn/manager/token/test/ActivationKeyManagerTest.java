@@ -69,6 +69,11 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
     public void testDeployConfig() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.ACTIVATION_KEY_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
+        
+        //need a tools channel for config deploy
+        Channel base = ChannelTestUtils.createBaseChannel(user);
+        ChannelTestUtils.setupBaseChannelForVirtualization(user, base);
+        
         ActivationKey key = createActivationKey();
         //Create a config channel
         ConfigChannel cc = ConfigTestUtils.createConfigChannel(user.getOrg());
@@ -85,6 +90,12 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
         UserTestUtils.addUserRole(user, RoleFactory.ACTIVATION_KEY_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
         ActivationKey key = createActivationKey();
+        
+        //need a tools channel for config deploy
+        Channel base = ChannelTestUtils.createBaseChannel(user);
+        ChannelTestUtils.setupBaseChannelForVirtualization(user, base);
+        
+        
         try {
             key.setDeployConfigs(true);
             fail("Permission exception not raised");
