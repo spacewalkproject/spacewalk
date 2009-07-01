@@ -113,7 +113,7 @@ class ChannelPackageSubscription(GenericPackageImport):
     def submit(self):
         self.backend.lookupPackages(self.batch)
 
-        self.backend.processPackageChecksum(self.batch)
+        #self.backend.processPackageChecksum(self.batch)
         try:
             affected_channels = self.backend.subscribeToChannels(self.batch, 
                 strict=self._strict_subscription)
@@ -270,6 +270,14 @@ class PackageImport(ChannelPackageSubscription):
         changelogs.sort(lambda a, b: cmp(b['time'], a['time']) or 
             cmp(a['name'], b['name']))
         package['changelog'] = changelogs
+
+        checksums = {}
+        for checksum in package['checksum']:
+            self.backend.lookup_checksum_type(package['checksum'])
+            key = (checksum['checksum_type_id'], checksum['checksum'])
+            checksums[key] = checksum
+        package['checksum'] = checksums
+
 
         if 'solaris_patch_set' in package:
             if package.arch.startswith("sparc"):

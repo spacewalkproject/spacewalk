@@ -923,15 +923,17 @@ class ShortPackagesDumper(CachedDumper, exportLib.ShortPackagesDumper):
                 pe.evr.release release, 
                 pe.evr.epoch epoch, 
                 pa.label package_arch,
-                p.md5sum,
+                pcs.checksum as md5sum,
                 p.package_size,
                 TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
             from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe, 
-                rhnPackageArch pa
+                rhnPackageArch pa,
+                rhnPackageChecksum pcs
             where p.id = :package_id 
             and p.name_id = pn.id
             and p.evr_id = pe.id
             and p.package_arch_id = pa.id
+            and pcs.package_id = p.id
         """)
         CachedDumper.__init__(self, writer, statement=h, params=packages)
 
@@ -965,7 +967,7 @@ class PackagesDumper(CachedDumper, exportLib.PackagesDumper):
                 p.build_host, 
                 TO_CHAR(p.build_time, 'YYYYMMDDHH24MISS') build_time,
                 sr.name source_rpm, 
-                p.md5sum,
+                pcs.checksum as md5sum,
                 p.vendor,
                 p.payload_format, 
                 p.compat, 
@@ -976,13 +978,15 @@ class PackagesDumper(CachedDumper, exportLib.PackagesDumper):
                 p.cookie,
                 TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
             from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe, 
-                rhnPackageArch pa, rhnPackageGroup pg, rhnSourceRPM sr
+                rhnPackageArch pa, rhnPackageGroup pg, rhnSourceRPM sr,
+                rhnPackageChecksum pcs
             where p.id = :package_id 
             and p.name_id = pn.id
             and p.evr_id = pe.id
             and p.package_arch_id = pa.id
             and p.package_group = pg.id
             and p.source_rpm_id = sr.id
+            and pcs.package_id = p.id
         """)
         CachedDumper.__init__(self, writer, statement=h, params=packages)
 

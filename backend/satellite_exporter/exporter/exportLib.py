@@ -557,7 +557,6 @@ class PackagesDumper(BaseDumper):
                 p.build_host,
                 TO_CHAR(p.build_time, 'YYYYMMDDHH24MISS') build_time,
                 sr.name source_rpm,
-                p.md5sum,
                 p.vendor,
                 p.payload_format,
                 p.compat,
@@ -566,14 +565,17 @@ class PackagesDumper(BaseDumper):
                 p.cookie,
                 p.header_start,
                 p.header_end,
+                pcs.checksum as md5sum,
                 TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
-            from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe,
-                rhnPackageArch pa, rhnPackageGroup pg, rhnSourceRPM sr
+            from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe, 
+                rhnPackageArch pa, rhnPackageGroup pg, rhnSourceRPM sr,
+                rhnPackageChecksum pcs
             where p.name_id = pn.id
             and p.evr_id = pe.id
             and p.package_arch_id = pa.id
             and p.package_group = pg.id
             and p.source_rpm_id = sr.id
+            and pcs.package_id = p.id
             and p.path is not null
             and rownum < 3
         """)
@@ -590,8 +592,8 @@ class _PackageDumper(BaseRowDumper):
 
     def set_attributes(self):
         attrs = ["name", "version", "release", "package_arch",
-            "package_group", "rpm_version", "package_size", "payload_size",
-            "build_host", "source_rpm", "md5sum", "payload_format",
+            "package_group", "rpm_version", "package_size", "payload_size", 
+            "build_host", "source_rpm", "md5sum", "payload_format", 
             "compat", "cookie"]
         attrdict = {
             'id'            : "rhn-package-%s" % self._row['id'],
@@ -627,6 +629,18 @@ class _PackageDumper(BaseRowDumper):
         """)
         h.execute(package_id = self._row['id'])
         arr.append(_ChangelogDumper(self._writer, data_iterator=h))
+        
+        # checksum
+        h = rhnSQL.prepare("""
+            select cst.label, pcs.checksum
+              from rhnPackageChecksum pcs,
+                   rhnChecksumType cst
+             where pcs.package_id = :package_id
+               and pcs.checksum_type_id = cst.id
+        """)
+        h.execute(package_id = self._row['id'])
+        arr.append(_PackageChecksumDumper(self._writer, data_iterator=h))
+
 
         # Dependency information
         mappings = [
@@ -657,7 +671,8 @@ class _PackageDumper(BaseRowDumper):
                 pc.name, pf.device, pf.inode, pf.file_mode, pf.username,
                 pf.groupname, pf.rdev, pf.file_size,
                 TO_CHAR(mtime, 'YYYYMMDDHH24MISS') mtime,
-                pf.md5, pf.linkto, pf.flags, pf.verifyflags, pf.lang
+                pf.checksum, 
+                pf.linkto, pf.flags, pf.verifyflags, pf.lang
             from rhnPackageFile pf, rhnPackageCapability pc
             where pf.capability_id = pc.id
             and pf.package_id = :package_id
@@ -683,14 +698,16 @@ class ShortPackagesDumper(BaseDumper):
                 pe.evr.release release,
                 pe.evr.epoch epoch,
                 pa.label package_arch,
-                p.md5sum,
+                pcs.checksum as md5sum,
                 TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
-            from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe,
-                rhnPackageArch pa
+            from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe, 
+                rhnPackageArch pa,
+                rhnPackageChecksum pcs
             where p.name_id = pn.id
             and p.evr_id = pe.id
             and p.package_arch_id = pa.id
             and p.path is not null
+            and pcs.package_id = p.id
             and rownum < 3
         """)
         h.execute()
@@ -699,8 +716,8 @@ class ShortPackagesDumper(BaseDumper):
     def dump_subelement(self, data):
         attributes = {}
         attrs = [
-            "id", "name", "version", "release", "epoch",
-            "package_arch", "md5sum", "package_size",
+            "id", "name", "version", "release", "epoch", 
+            "package_arch",  "package_size", "md5sum"
         ]
         for attr in attrs:
             attributes[attr.replace('_', '-')] = data[attr]
@@ -801,13 +818,24 @@ class _DependencyDumper(BaseDumper):
         })
         d.dump()
 
+class _PackageChecksumDumper(BaseDumper):
+    tag_name = 'rhn-package-checksum'
+
+    def dump_subelement(self, data):
+        data['checksum_type'] = data['label'] or ""
+        data['checksum'] = data['checksum'] or ""
+        d = EmptyDumper(self._writer, 'rhn-package-checksum',
+            attributes=data)
+        d.dump()
+
+
 ## Files
 class _PackageFilesDumper(BaseDumper):
     tag_name = 'rhn-package-files'
 
     def dump_subelement(self, data):
         data['mtime'] = _dbtime2timestamp(data['mtime'])
-        data['md5'] = data['md5'] or ""
+        data['checksum'] = data['checksum'] or ""
         data['linkto'] = data['linkto'] or ""
         data['lang'] = data['lang'] or ""
         d = EmptyDumper(self._writer, 'rhn-package-file',

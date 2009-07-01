@@ -540,6 +540,16 @@ class Backend:
         return self._lookup_in_table('rhnKSInstallType',
             'rhn_ksinstalltype_id_seq', hash)
 
+    def lookup_checksum_type(self, checksums):
+        sql = "select id from rhnChecksumType where label = :ctype"
+        h = self.dbmodule.prepare(sql)
+        for checksum in checksums:
+            h.execute(ctype = checksum['checksum_type'])
+            row =  h.fetchone_dict()
+            if row:
+                checksum['checksum_type_id'] = row['id']
+
+
     def _lookup_in_table(self, table_name, sequence_name, hash):
         t = self.dbmodule.Table(table_name, 'label')
         seq = self.dbmodule.Sequence(sequence_name)
@@ -697,6 +707,7 @@ class Backend:
             'rhnPackageObsoletes':  'package_id', 
             'rhnPackageFile':       'package_id',
             'rhnPackageChangeLog':  'package_id',
+            'rhnpackageChecksum' :  'package_id',
         }
 
         solarisChildTables = {

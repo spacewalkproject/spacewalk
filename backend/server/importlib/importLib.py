@@ -262,7 +262,7 @@ class ChangeLog(Item):
 
 class Checksum(Information):
     attributeTypes = {
-        'checksum_type_id' : StringType,
+        'checksum_type'     : StringType,
         'checksum'          : StringType,
     }
 
@@ -348,7 +348,7 @@ class Package(IncompletePackage):
         'obsoletes'         : [Dependency],
         'changelog'         : [ChangeLog],
         'channels'          : [StringType],
-        #'checksum'          : [Checksum],
+        'checksum'          : [Checksum],
     }
     def __init__(self):
         # Inherit from IncompletePackage

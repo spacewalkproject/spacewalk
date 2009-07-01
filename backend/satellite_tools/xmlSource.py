@@ -517,6 +517,7 @@ class PackageItem(IncompletePackageItem):
         'rhn-package-conflicts'     : 'conflicts',
         'rhn-package-obsoletes'     : 'obsoletes',
         'rhn-package-changelog'     : 'changelog',
+        'rhn-package-checksum'      : 'checksum',
     }
     tagMap.update(IncompletePackageItem.tagMap)
 addItem(PackageItem)
@@ -555,6 +556,16 @@ class ChangelogItem(BaseItem):
         'rhn-package-changelog-entry-time'  : 'time',
     }
 addItem(ChangelogItem)
+
+class ChecksumItem(BaseItem):
+    item_name = 'rhn-package-checksum'
+    item_class = importLib.Checksum
+    tagMap = {
+        'checksum_type'  : 'checksum_type',
+        'checksum'  : 'checksum',
+    }
+addItem(ChecksumItem)
+
 
 class ProvidesItem(BaseItem):
     item_name = 'rhn-package-provides-entry'
@@ -600,7 +611,7 @@ class FileItem(BaseItem):
         'rhn-package-file-rdev'     : 'rdev',
         'rhn-package-file-file_size': 'file_size',
         'rhn-package-file-mtime'    : 'mtime',
-        'rhn-package-file-md5'      : 'md5',
+        'rhn-package-file-md5'      : 'checksum',
         'rhn-package-file-linkto'   : 'linkto',
         'rhn-package-file-flags'    : 'flags',
         'rhn-package-file-verifyflags': 'verifyflags',
