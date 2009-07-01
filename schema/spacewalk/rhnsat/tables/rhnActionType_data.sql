@@ -53,7 +53,7 @@ insert into rhnActionType values (31, 'solarispkgs.refresh_list', 'Solaris Packa
 insert into rhnActionType values (32, 'rhnsd.configure', 'Spacewalk Daemon Configuration','N','N');
 insert into rhnActionType values (33, 'packages.verify', 'Verify deployed packages','N','N');
 insert into rhnActionType values (34, 'rhn_applet.use_satellite', 'Allows for rhn-applet use with an Spacewalk','N','N');
-insert into rhnActionType values (35, 'kickstart_guest.initiate', 'Initiate a kickstart for a Xen guest.','N','Y');
+insert into rhnActionType values (35, 'kickstart_guest.initiate', 'Initiate a kickstart for a virtual guest.','N','Y');
 insert into rhnActionType values (36, 'virt.shutdown', 'Shuts down a Xen domain.', 'N', 'N');
 insert into rhnActionType values (37, 'virt.start', 'Starts up a Xen domain.', 'N', 'N');
 insert into rhnActionType values (38, 'virt.suspend', 'Suspends a Xen domain.', 'N', 'N');
