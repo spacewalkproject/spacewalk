@@ -4623,6 +4623,8 @@
         <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/ssm/schedule.jsp"/>
+        <forward name="success"
+                 path="/ssm/kickstart/KickstartableSystems.do"/>                 
     </action>
 
  	<!-- Kickstart Pages  -->
