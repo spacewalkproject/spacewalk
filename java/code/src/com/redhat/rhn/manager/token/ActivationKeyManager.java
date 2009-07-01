@@ -492,7 +492,7 @@ public class ActivationKeyManager {
          */
         List <Long> cids;
         if (key.getBaseChannel() == null) {
-            cids = ChannelManager.findChildChannelsWithPackage(packageName);
+            cids = ChannelManager.findChildChannelsWithPackage(packageName, key.getOrg());
         }
         else {
             //we know its the channel we want if it has the rhncfg package in it.
