@@ -36,6 +36,6 @@
             <br /><br />                    
           <html:radio styleId="syncNone" value="none" property="targetProfileType"
           	 onclick="form.syncPackageSelect.disabled = true; form.syncSystemSelect.disabled = true;">
-          	 <bean:message key="kickstart.schedule.sync.pkg.profile.option4.jsp" /></html:radio><br />	          
+          	 <bean:message key="kickstart.schedule.sync.pkg.profile.option4.jsp" /></html:radio><br />
         </td>
       </tr>

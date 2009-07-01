@@ -414,4 +414,19 @@ public class KickstartLister extends BaseManager {
             }
         }
     }
+    
+    /**
+     * Returns a list of all the kickstart profiles
+     *  available to the user
+     *  Spacewalk Managed + Cobbler Only profiles
+     * @param user the user object needed to get access to cobbler 
+     * @return a list of cobbler profiles or empty list.
+     */
+    public List <KickstartDto> listProfilesForSsm(User user) {
+        List <KickstartDto> ret = new LinkedList<KickstartDto>();
+        ret.addAll(kickstartsInOrg(user.getOrg(), null));
+        ret.addAll(listCobblerProfiles(user));
+        return ret;
+    }
+    
 }

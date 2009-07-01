@@ -23,28 +23,8 @@
 	        <input type="hidden" name="localStorageMegabytes" value="${form.localStorageMegabytes}" />
 	        <input type="hidden" name="diskPath" value="${form.diskPath}" />
         </c:if>
+		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/proxy-options.jspf" %>
 
-        <c:if test="${requestScope.hasProxies == 'true'}">
-        <h2>
-          <img src="/img/rhn-icon-proxy.gif"
-               alt="<bean:message key='system.common.proxyAlt' />" />
-          <bean:message key="kickstart.schedule.heading.proxy.jsp"/>
-        </h2>
-        <p>
-        <bean:message key="kickstart.schedule.msg.proxy.jsp"/>
-        </p>
-        <p>
-        <select name="proxyHost">
-			<c:forEach var="proxy" items="${proxies}">
-				<option 
-				<c:if test="${proxy.value == param.proxyHost}">selected="selected"</c:if> 
-				value='${proxy.value}'>${proxy.label}</option>
-			</c:forEach>
-		</select>
-        <br />
-        <bean:message key="kickstart.schedule.tip.proxy.jsp"/>
-        </p>
-        </c:if>
         <c:if test="${requestScope.hasProfiles == 'true'}">
 		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/schedule-options.jspf" %>
           <table width="100%">

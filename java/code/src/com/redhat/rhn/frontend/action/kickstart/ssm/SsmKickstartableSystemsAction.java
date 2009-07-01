@@ -21,6 +21,7 @@ import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
+import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.manager.kickstart.KickstartManager;
 
 import org.apache.struts.action.ActionForm;
@@ -39,12 +40,20 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SsmKickstartableSystemsAction extends RhnAction implements Listable {
     private static final String DISABLE_RANGES = "disableRanges";
+    private static final String DISABLE_PROFILES = "disableProfiles";
     /**
      * ${@inheritDoc}
      */
     public ActionForward execute(ActionMapping mapping, ActionForm form, 
             HttpServletRequest request, HttpServletResponse response) throws Exception {
         RequestContext context = new RequestContext(request);
+        if (context.wasDispatched("ssm.config.subscribe.jsp.continue")) {
+            if (Boolean.TRUE.toString().equals(request.getParameter("scheduleManual"))) {
+                return mapping.findForward("scheduleByProfile");
+            }
+            return mapping.findForward("scheduleByIp");
+        }
+        
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
         
@@ -53,6 +62,13 @@ public class SsmKickstartableSystemsAction extends RhnAction implements Listable
         if (range.isEmpty()) {
             request.setAttribute(DISABLE_RANGES, Boolean.TRUE);
         }
+        List profiles = KickstartLister.getInstance().
+                        listProfilesForSsm(context.getLoggedInUser());
+
+        if (profiles.isEmpty()) {
+            request.setAttribute(DISABLE_PROFILES, Boolean.TRUE);
+            
+        }        
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 

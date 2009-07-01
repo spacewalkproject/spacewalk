@@ -429,20 +429,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
 
     /**
      * 
-     * @return list of proxies for org
-     */
-    public DataResult getProxies() {
-        DataResult retval = null;
-        SelectMode mode = ModeFactory.getMode("System_queries", 
-                "org_proxy_servers");
-        Map params = new HashMap();
-        params.put("org_id", this.user.getOrg().getId().toString());
-        retval = mode.execute(params);
-        return retval;
-    }
-    
-    /**
-     * 
      * @return primary proxy for server
      */
     public String getPrimaryProxy() {

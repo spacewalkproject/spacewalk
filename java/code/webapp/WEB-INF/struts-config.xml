@@ -4613,11 +4613,14 @@
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/ssm/kickstartablesystems.jsp"/>
         <forward name="scheduleByIp"
-                 path="/ssm/kickstart/ScheduleByIp.do"/>
+                 path="/ssm/kickstart/ScheduleByIp.do"
+                 redirect= "true"/>
 		<forward name="scheduleByProfile"
-                 path="/ssm/kickstart/ScheduleByProfile.do"/>                 
+                 path="/ssm/kickstart/ScheduleByProfile.do" 
+                 redirect= "true"/>                 
     </action>
  	 <action path="/ssm/kickstart/ScheduleByProfile"
+ 	 	name ="datePickerForm"
         scope="request"
         input="/WEB-INF/pages/kickstart/ssm/schedule.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.ssm.SsmKSScheduleAction"
@@ -4626,11 +4629,12 @@
         <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/ssm/schedule.jsp"/>
-        <forward name="success"
+        <forward name="success" redirect= "true"
                  path="/ssm/kickstart/KickstartableSystems.do"/>                 
     </action>
 
  	 <action path="/ssm/kickstart/ScheduleByIp"
+ 	 	name ="datePickerForm"
         scope="request"
         input="/WEB-INF/pages/kickstart/ssm/schedule.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.ssm.SsmKSScheduleAction"
@@ -4639,7 +4643,7 @@
         <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/ssm/schedule.jsp"/>
-        <forward name="success"
+        <forward name="success" redirect= "true"
                  path="/ssm/kickstart/KickstartableSystems.do"/>                 
     </action>
 

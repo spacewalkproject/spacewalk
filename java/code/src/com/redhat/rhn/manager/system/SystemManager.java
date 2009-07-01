@@ -54,6 +54,7 @@ import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.CustomDataKeyOverview;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.HardwareDeviceDto;
+import com.redhat.rhn.frontend.dto.OrgProxyServer;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartSessionDto;
 import com.redhat.rhn.frontend.listview.ListControl;
@@ -2569,6 +2570,19 @@ public class SystemManager extends BaseManager {
         params.put("name", packageName);
         return m.execute(params);
     }
-
-
+    
+    /**
+     * returns a List proxies available in the given org 
+     * @param org needed for org information
+     * @return list of proxies for org
+     */
+    public static DataResult<OrgProxyServer> listProxies(Org org) {
+        DataResult retval = null;
+        SelectMode mode = ModeFactory.getMode("System_queries", 
+                "org_proxy_servers");
+        Map params = new HashMap();
+        params.put("org_id", org.getId());
+        retval = mode.execute(params);
+        return retval;
+    }
 }

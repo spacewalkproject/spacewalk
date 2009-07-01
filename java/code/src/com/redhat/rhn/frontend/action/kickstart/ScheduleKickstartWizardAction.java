@@ -45,12 +45,12 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
+import org.apache.struts.util.LabelValueBean;
 import org.cobbler.CobblerConnection;
 import org.cobbler.Distro;
 import org.cobbler.SystemRecord;
 
 import java.lang.reflect.Method;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -151,23 +151,32 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         }
 
     }
+    
 
-    private List getProxies(KickstartScheduleCommand cmd) {
-        List proxies = cmd.getProxies();
-        if (proxies == null) {
-            return Collections.EMPTY_LIST;
+    /**
+     * Sets up the proxy information for the wizard. 
+     * its public in this class because we reuse this in SSM 
+     * and only this class knows how to format the name nicely.
+     * @param ctx the request context needed for user info and
+     *                   things to bind to the request
+     */
+    public static void setupProxyInfo(RequestContext ctx) {
+        List<OrgProxyServer> proxies = SystemManager.
+                        listProxies(ctx.getLoggedInUser().getOrg());
+        if (proxies != null && proxies.size() > 0) {
+            List<LabelValueBean> formatted = new LinkedList<LabelValueBean>();
+    
+            formatted.add(lvl10n("kickstart.schedule.default.proxy.jsp", ""));
+            for (OrgProxyServer serv : proxies) {
+                formatted.add(lv(serv.getName() + " (" + serv.getCheckin() + ")",
+                        serv.getId().toString()));
+            }
+            ctx.getRequest().setAttribute(HAS_PROXIES, Boolean.TRUE.toString());
+            ctx.getRequest().setAttribute(PROXIES, formatted);
         }
-
-        List formatted = new LinkedList();
-
-        formatted.add(lvl10n("kickstart.schedule.default.proxy.jsp", ""));
-        for (Iterator itr = proxies.iterator(); itr.hasNext();) {
-            OrgProxyServer serv = (OrgProxyServer) itr.next();
-
-            formatted.add(lv(serv.getName() + " (" + serv.getCheckin() + ")",
-                    serv.getId().toString()));
+        else {
+            ctx.getRequest().setAttribute(HAS_PROXIES, Boolean.FALSE.toString());
         }
-        return formatted;
     }
 
     /**
@@ -212,26 +221,15 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
 
         addRequestAttributes(ctx, cmd, form);
         checkForKickstart(form, cmd, ctx);
-        List proxies = getProxies(cmd);
-        if (proxies != null && proxies.size() > 0) {
-            ctx.getRequest().setAttribute(HAS_PROXIES, Boolean.TRUE.toString());
-            ctx.getRequest().setAttribute(PROXIES, proxies);
-            if (form.get(PROXY_HOST) == null) {
-                form.set(PROXY_HOST, "");
-            }
+        setupProxyInfo(ctx);
+        if (StringUtils.isBlank(form.getString(PROXY_HOST))) {
+            form.set(PROXY_HOST, "");
         }
-        else {
-            ctx.getRequest()
-                    .setAttribute(HAS_PROXIES, Boolean.FALSE.toString());
-        }
-
         // create and prepopulate the date picker.
-        DatePicker picker = getStrutsDelegate().prepopulateDatePicker(
+        getStrutsDelegate().prepopulateDatePicker(
                 ctx.getRequest(), form, "date", DatePicker.YEAR_RANGE_POSITIVE);
 
         SdcHelper.ssmCheck(ctx.getRequest(), system.getId(), user);
-        ctx.getRequest().setAttribute("date", picker);
-
         Map params = new HashMap<String, String>();
         params.put(RequestContext.SID, sid);
         ListHelper helper = new ListHelper(new Profiles(), ctx.getRequest(),
@@ -292,12 +290,12 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         ctx.getRequest().setAttribute(SYNC_SYSTEM_DISABLED, syncSystemDisabled);
 
         if (StringUtils.isEmpty(form.getString(USE_EXISTING_PROFILE))) {
-            form.set(USE_EXISTING_PROFILE, Boolean.TRUE.toString());
+            form.set(USE_EXISTING_PROFILE, Boolean.FALSE.toString());
         }
         
         if (StringUtils.isEmpty(form.getString(TARGET_PROFILE_TYPE))) {
             form.set(TARGET_PROFILE_TYPE, 
-                        KickstartScheduleCommand.TARGET_PROFILE_TYPE_EXISTING);
+                        KickstartScheduleCommand.TARGET_PROFILE_TYPE_NONE);
         }
         
         if (StringUtils.isEmpty(form.getString(KERNEL_PARAMS_TYPE))) {

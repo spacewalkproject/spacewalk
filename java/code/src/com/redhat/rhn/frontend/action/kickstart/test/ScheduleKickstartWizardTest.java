@@ -43,6 +43,7 @@ import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.manager.kickstart.KickstartScheduleCommand;
 import com.redhat.rhn.manager.profile.test.ProfileManagerTest;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
+import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
@@ -106,8 +107,7 @@ public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
         proxy.addNetwork(NetworkTest.createNetworkInstance());
         ServerFactory.save(proxy);
         TestUtils.flushAndEvict(proxy);
-        KickstartScheduleCommand cmd = new KickstartScheduleCommand(s.getId(), user);
-        assertTrue(cmd.getProxies().size() == 1);
+        assertTrue(SystemManager.listProxies(user.getOrg()).size() == 1);
         return proxy;
     }
 
