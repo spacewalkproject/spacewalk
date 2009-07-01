@@ -2007,10 +2007,11 @@ def _validate_package_org(batch):
     orgid = OPTIONS.orgid or None
     orgs = map(lambda a: a['id'], satCerts.get_all_orgs())
     for pkg in batch:
-        if pkg['org_id'] is not None and pkg['org_id'] not in orgs:
-            orgid = 1
-        if orgid is not None and pkg['org_id'] is not None and \
-            pkg['org_id'] != orgid:
+        if not OPTIONS.orgid and pkg['org_id'] is not None and \
+            pkg['org_id'] not in orgs:
+
+            pkg['org_id'] = 1
+        else:
             pkg['org_id'] = orgid
 
 
