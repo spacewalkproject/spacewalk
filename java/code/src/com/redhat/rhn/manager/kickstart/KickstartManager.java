@@ -18,16 +18,21 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
+import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.util.download.DownloadException;
 import com.redhat.rhn.common.util.download.DownloadUtils;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartIpRange;
+import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.manager.BaseManager;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -103,5 +108,18 @@ public class KickstartManager extends BaseManager {
         Map params = new HashMap();
         params.put("user_id", user.getId());
         return makeDataResult(params, Collections.EMPTY_MAP, null, m);
+    }
+    
+    /**
+     * returns a list of IP ranges accessible to the
+     * user
+     * @param user the current user needed for org information 
+     * @return the the list of ip ranges accessible to the user.
+     */
+    public List<KickstartIpRange> listIpRanges(User user) {
+        if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
+            throw new PermissionException(RoleFactory.CONFIG_ADMIN);
+        }
+        return KickstartFactory.lookupRangeByOrg(user.getOrg()); 
     }
 }

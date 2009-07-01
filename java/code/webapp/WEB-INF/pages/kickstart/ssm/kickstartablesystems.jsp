@@ -38,18 +38,10 @@
 		<!-- Base Channel Column -->
 		<rl:column sortable="false" 
 				   bound="false"
-		           headerkey="systemlist.jsp.channel"  >
+		           headerkey="systemlist.jsp.channel" 
+		           styleclass="last-column" >
            <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_list_fragment.jspf" %>
 		</rl:column>
-		
-		<!-- Entitlement Column -->
-		<rl:column sortable="false" 
-				   bound="false"
-		           headerkey="systemlist.jsp.entitlement" 
-		           styleclass="last-column center"
-		           headerclass="thin-column">       		           
-                      <c:out value="${current.entitlementLevel}" escapeXml="false"/>
-		</rl:column>		
 	</rl:list>
 <h2><bean:message key="ssm.kickstartable-systems.jsp.systems"/></h2>
     <p><bean:message key="ssm.kickstartable-systems.jsp.systems.summary"/></p>
@@ -85,8 +77,8 @@
             </rhn:tooltip>
         <br /><br />
 		<input type="radio" name="scheduleManual" value="false" id="ipId" 
-				onclick="form.distroId.disabled = true;"
-			<c:if test="${empty distros or param.scheduleManual =='false'}">checked="checked" </c:if> />
+				onclick="form.distroId.disabled = true;" <c:if test="${empty distros or not empty disableRanges}">disabled="true"</c:if>
+			<c:if test="${param.scheduleManual =='false'}">checked="checked" </c:if> />
 			<strong><bean:message key="ssm.kickstartable-systems.jsp.ip-summary"/></strong>
 		<br/>
 			<rhn:tooltip>

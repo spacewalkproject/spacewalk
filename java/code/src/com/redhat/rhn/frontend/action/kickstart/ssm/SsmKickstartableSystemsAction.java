@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.kickstart.ssm;
 
+import com.redhat.rhn.domain.kickstart.KickstartIpRange;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -41,6 +42,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SsmKickstartableSystemsAction extends RhnAction implements Listable {
     private static final String DISTROS = "distros";
     private static final String DISTRO = "distro";
+    private static final String DISABLE_RANGES = "disableRanges";
     /**
      * ${@inheritDoc}
      */
@@ -55,6 +57,12 @@ public class SsmKickstartableSystemsAction extends RhnAction implements Listable
         if (trees != null && !trees.isEmpty()) {
             request.setAttribute(DISTROS, trees);
             request.setAttribute(DISTRO, trees.get(0).getId());
+        }
+        
+        List <KickstartIpRange> range = KickstartManager.getInstance().
+                                    listIpRanges(context.getLoggedInUser()); 
+        if (range.isEmpty()) {
+            request.setAttribute(DISABLE_RANGES, Boolean.TRUE);
         }
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
