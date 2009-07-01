@@ -9,15 +9,100 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-        <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
-<c:set var="noUpdates" value="true"/>
-<c:set var="notSelectable" value="true"/>
-<c:set var="noMonitoring" value="true"/>
-<c:set var="noErrata" value="true"/>
-<c:set var="noPackages" value="true"/>
-
+<%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
+<h2><bean:message key="ssm.kickstartable-systems.jsp.title"/></h2>
+  <div class="page-summary">
+    <p>
+    <bean:message key="ssm.kickstartable-systems.jsp.summary"/>
+    </p>
+  </div>
+  
 <rl:listset name="systemListSet" legend="system">
-    <%@ include file="/WEB-INF/pages/common/fragments/systems/system_listdisplay.jspf" %>
+	<rl:list 
+		emptykey="nosystems.message"
+		alphabarcolumn="name"	
+		filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter"
+		>
+   	    <rl:decorator name="ElaborationDecorator"/>
+		<rl:decorator name="PageSizeDecorator"/>		
+		
+		<rl:column sortable="true" 
+				   bound="false"
+		           headerkey="systemlist.jsp.system" 
+		           sortattr="name" 
+		           styleclass="first-column"
+		           defaultsort="asc">
+			<%@ include file="/WEB-INF/pages/common/fragments/systems/system_list_fragment.jspf" %>
+		</rl:column>
+		
+		<!-- Base Channel Column -->
+		<rl:column sortable="false" 
+				   bound="false"
+		           headerkey="systemlist.jsp.channel"  >
+           <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_list_fragment.jspf" %>
+		</rl:column>
+		
+		<!-- Entitlement Column -->
+		<rl:column sortable="false" 
+				   bound="false"
+		           headerkey="systemlist.jsp.entitlement" 
+		           styleclass="last-column center"
+		           headerclass="thin-column">       		           
+                      <c:out value="${current.entitlementLevel}" escapeXml="false"/>
+		</rl:column>		
+	</rl:list>
+<h2><bean:message key="ssm.kickstartable-systems.jsp.systems"/></h2>
+    <p><bean:message key="ssm.kickstartable-systems.jsp.systems.summary"/></p>
+
+<table class="details">
+    <tr>
+        <th>
+            <bean:message key="ssm.kickstartable-systems.jsp.distribution"/>:
+        </th>
+        <td>
+        
+		<input type="radio" name="scheduleManual" value="true" id="manual" 
+				onclick="form.distroId.disabled = false;" <c:if test="${empty distros}">disabled="true"</c:if>
+			<c:if test="${not empty distros and empty param.scheduleManual or param.scheduleManual =='true' }">checked="checked" </c:if> />
+			<strong><bean:message key="ssm.kickstartable-systems.jsp.manual-summary"/>:<strong>
+		<br/>
+		<c:choose>
+			<c:when test="${empty distros}"><strong><bean:message key="ssm.kickstartable-systems.jsp.notrees"/><strong></c:when>
+			<c:otherwise>
+        <select name="distro" id="distroId" <c:if test="${empty distros or param.scheduleManual == 'false'}">disabled="true"</c:if> />
+			<c:forEach var="dist" items="${distros}">
+				<option 
+				<c:if test="${dist.id == distro}">selected="selected"</c:if> 
+				value='${dist.id}'>${dist.label}</option>
+			</c:forEach>
+		</select>			
+			</c:otherwise>
+		</c:choose>
+
+        <br />
+			<rhn:tooltip>
+	            <bean:message key="ssm.kickstartable-systems.jsp.distribution-tooltip"/>
+            </rhn:tooltip>
+        <br /><br />
+		<input type="radio" name="scheduleManual" value="false" id="ipId" 
+				onclick="form.distroId.disabled = true;"
+			<c:if test="${empty distros or param.scheduleManual =='false'}">checked="checked" </c:if> />
+			<strong><bean:message key="ssm.kickstartable-systems.jsp.ip-summary"/></strong>
+		<br/>
+			<rhn:tooltip>
+	            <bean:message key="ssm.kickstartable-systems.jsp.distribution-tooltip"/>
+            </rhn:tooltip>
+        </td>
+    </tr>
+</table>    
+<div align="right">
+<hr />
+<input type="submit" name="dispatch" value="${rhn:localize('ssm.config.subscribe.jsp.continue')}"/>
+</div>
+<rhn:submitted/>
+</div>
+
 </rl:listset>
+
 </body>
 </html>

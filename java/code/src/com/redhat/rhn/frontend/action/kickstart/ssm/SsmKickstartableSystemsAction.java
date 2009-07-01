@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.kickstart.ssm;
 
+import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -21,6 +22,7 @@ import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.kickstart.KickstartManager;
+import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -37,25 +39,25 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class SsmKickstartableSystemsAction extends RhnAction implements Listable {
-
+    private static final String DISTROS = "distros";
+    private static final String DISTRO = "distro";
     /**
      * ${@inheritDoc}
      */
     public ActionForward execute(ActionMapping mapping, ActionForm form, 
             HttpServletRequest request, HttpServletResponse response) throws Exception {
+        RequestContext context = new RequestContext(request);
         ListHelper helper = new ListHelper(this, request);
-        helper.setDataSetName(getDataSetName());
         helper.execute();
+        KickstartWizardHelper wiz = new 
+                    KickstartWizardHelper(context.getLoggedInUser());
+        List <KickstartableTree> trees = wiz.getKickstartableTrees();
+        if (trees != null && !trees.isEmpty()) {
+            request.setAttribute(DISTROS, trees);
+            request.setAttribute(DISTRO, trees.get(0).getId());
+        }
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
-
-    /**
-     * ${@inheritDoc}
-     */
-    public String getDataSetName() {
-        return "pageList";
-    }
-
 
     /**
      * ${@inheritDoc}
@@ -64,5 +66,4 @@ public class SsmKickstartableSystemsAction extends RhnAction implements Listable
         User user = context.getLoggedInUser();
         return KickstartManager.getInstance().kickstartableSystemsInSsm(user);
     }
-    
 }
