@@ -76,7 +76,15 @@ sub appinstall_start {
  
   if ($version) {
     my $condensed_version = condensed_proxy_version($pxt, $version);
-    $subst{"link"} = "/rhn/help/proxy/rhn${condensed_version}/en-US/ap-guiinstall.jsp";
+    if ( grep {$condensed_version eq $_} qw/400 410 415 420 511 520/) {
+      $subst{"link"} = "/rhn/help/proxy/rhn${condensed_version}/en/s1-installation-install-config.jsp";
+    }
+    elsif ( grep {$condensed_version eq $_} qw/530/) {
+      $subst{"link"} = "/rhn/help/proxy/rhn${condensed_version}/en-US/s1-installation-install-config.jsp";
+    }
+    else {
+      $subst{"link"} = "s1-installation-install-config.jsp";
+    }
   } else {
     $subst{"link"} = "s1-installation-install-config.html";
   }
@@ -157,7 +165,6 @@ EOQ
 </ul>
 <p>
   You must satisfy all the requirements before installing {app_get_name} {app_get_version}.
-  See the <a href="{doc_link}">{app_get_name} Documentation</a> for more details
 </p>
 <p>
   You should also ensure that the necessary actions are allowed on the
