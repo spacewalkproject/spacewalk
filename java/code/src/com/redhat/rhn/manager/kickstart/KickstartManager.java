@@ -117,9 +117,17 @@ public class KickstartManager extends BaseManager {
      * @return the the list of ip ranges accessible to the user.
      */
     public List<KickstartIpRange> listIpRanges(User user) {
+        ensureConfigAdmin(user);
+        return KickstartFactory.lookupRangeByOrg(user.getOrg()); 
+    }
+
+    /**
+     * ensure that the user is a config admin throw perm exception other wise
+     * @param user user object
+     */
+    private void ensureConfigAdmin(User user) {
         if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
             throw new PermissionException(RoleFactory.CONFIG_ADMIN);
         }
-        return KickstartFactory.lookupRangeByOrg(user.getOrg()); 
     }
 }

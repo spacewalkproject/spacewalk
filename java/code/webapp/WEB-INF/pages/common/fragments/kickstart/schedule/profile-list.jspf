@@ -1,0 +1,29 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
+
+		<rl:list width="100%" emptykey = "kickstart.schedule.no.profiles.jsp" alphabarcolumn="label">
+			<rl:decorator name = "PageSizeDecorator"/>        
+        	<rl:radiocolumn value="${current.cobblerId}" styleclass="first-column"/>
+         	<rl:column headerkey="kickstartranges.jsp.profile" filterattr="label" sortable="true" sortattr="label">
+         		<a href="${current.cobblerUrl}">${fn:escapeXml(current.label)}</a>	
+         	</rl:column>
+         	
+         	<rl:column headerkey="kickstart.distro.label.jsp"  sortable="true" sortattr="treeLabel">
+         		<c:out value="${current.treeLabel}"/>	
+         	</rl:column>
+         	
+         	<rl:column headerkey="kickstart.distro.sw_managed.jsp" sortable="true" sortattr="cobbler"
+         		  styleclass="last-column">
+                	<c:choose>
+	                    <c:when test="${current.cobbler}">
+	                    	<img src="/img/rhn-listicon-error.gif">
+	                    </c:when>
+						<c:otherwise>
+							<img src="/img/rhn-listicon-checked.gif">
+                    	</c:otherwise>
+                    </c:choose>
+         	</rl:column>
+    	</rl:list>     	    
+    	<rhn:tooltip>* - <bean:message key="kickstart.distro.cobbler-only.tooltip"/></rhn:tooltip>

@@ -53,31 +53,12 @@
         </th>
         <td>
         
-		<input type="radio" name="scheduleManual" value="true" id="manual" 
-				onclick="form.distroId.disabled = false;" <c:if test="${empty distros}">disabled="true"</c:if>
-			<c:if test="${not empty distros and empty param.scheduleManual or param.scheduleManual =='true' }">checked="checked" </c:if> />
+		<input type="radio" name="scheduleManual" value="true" 
+			<c:if test="${empty param.scheduleManual or param.scheduleManual =='true' }">checked="checked" </c:if> />
 			<strong><bean:message key="ssm.kickstartable-systems.jsp.manual-summary"/>:<strong>
 		<br/>
-		<c:choose>
-			<c:when test="${empty distros}"><strong><bean:message key="ssm.kickstartable-systems.jsp.notrees"/><strong></c:when>
-			<c:otherwise>
-        <select name="distro" id="distroId" <c:if test="${empty distros or param.scheduleManual == 'false'}">disabled="true"</c:if> />
-			<c:forEach var="dist" items="${distros}">
-				<option 
-				<c:if test="${dist.id == distro}">selected="selected"</c:if> 
-				value='${dist.id}'>${dist.label}</option>
-			</c:forEach>
-		</select>			
-			</c:otherwise>
-		</c:choose>
-
-        <br />
-			<rhn:tooltip>
-	            <bean:message key="ssm.kickstartable-systems.jsp.distribution-tooltip"/>
-            </rhn:tooltip>
-        <br /><br />
 		<input type="radio" name="scheduleManual" value="false" id="ipId" 
-				onclick="form.distroId.disabled = true;" <c:if test="${empty distros or not empty disableRanges}">disabled="true"</c:if>
+				<c:if test="${not empty disableRanges}">disabled="true"</c:if>
 			<c:if test="${param.scheduleManual =='false'}">checked="checked" </c:if> />
 			<strong><bean:message key="ssm.kickstartable-systems.jsp.ip-summary"/></strong>
 		<br/>
