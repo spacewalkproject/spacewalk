@@ -283,126 +283,7 @@ public class DownloadFile extends DownloadAction {
         Map params = (Map) request.getAttribute(PARAMS);
         String type = (String) params.get(TYPE);
         if (type.equals(DownloadManager.DOWNLOAD_TYPE_KICKSTART)) {
-            path = (String) params.get(FILENAME);
-            if (log.isDebugEnabled()) {
-                log.debug("getStreamInfo KICKSTART type, path: " + path);
-            }
-            String diskPath = null;
-            String kickstartMount = Config.get().getString(ConfigDefaults.MOUNT_POINT);
-            String fileName;
-            KickstartSession ksession = (KickstartSession) params.get(SESSION);
-            KickstartSessionState newState = null;
-            KickstartableTree tree = (KickstartableTree) params.get(TREE);
-            Package rpmPackage;
-            if (tree.getBasePath().indexOf(kickstartMount) == 0) {
-                log.debug("Trimming mount because tree is" +
-                    " explicitly rooted to the mount point");
-                kickstartMount = "";
-            }
-            // If the tree is rooted somewhere other than 
-            // /var/satellite then no need to prepend it.
-            if (tree.getBasePath().startsWith("/")) {
-                log.debug("Tree isnt rooted at /var/satellite, lets just use basepath");
-                kickstartMount = "";
-            }
-            // Searching for RPM
-            if (path.endsWith(".rpm")) {
-                String[] split = StringUtils.split(path, '/');
-                fileName = split[split.length - 1];
-                if (log.isDebugEnabled()) {
-                    log.debug("RPM filename: " + fileName);
-                }
-                Channel channel = tree.getChannel();
-                rpmPackage = ChannelFactory.lookupPackageByFilename(channel, fileName); 
-                if (rpmPackage != null) {
-                    diskPath = Config.get().getString(ConfigDefaults.MOUNT_POINT) + "/" + 
-                        rpmPackage.getPath();
-                    if (log.isDebugEnabled()) {
-                        log.debug("found package :: diskPath path: " + diskPath);
-                    }
-                    newState = KickstartFactory.
-                        lookupSessionStateByLabel(KickstartSessionState.IN_PROGRESS);
-                }
-                else {
-                    if (log.isDebugEnabled()) {
-                        log.debug("Package was not in channel, looking in distro path.");
-                    }
-                }
-            }
-            // either it's not an rpm, or we didn't find it in the channel
-            // check for dir pings, virt manager or install, bz #345721
-            if (diskPath == null) {
-                // my $dp = File::Spec->catfile($kickstart_mount, $tree->base_path, $path);
-                diskPath = kickstartMount + "/" + tree.getBasePath() + path;
-                if (log.isDebugEnabled()) {
-                    log.debug("DirCheck path: " + diskPath);
-                }
-                File actualFile = new File(diskPath);
-                if (actualFile.exists() && actualFile.isDirectory()) {
-                    log.debug("Directory hit.  just return 200");
-                    response.setContentLength(0);
-                    response.setStatus(HttpServletResponse.SC_OK);
-                    return getStreamForText("".getBytes());
-                }
-                else if (actualFile.exists()) {
-                    log.debug("Looks like it is an actual file and it exists.");
-                    newState = KickstartFactory.
-                        lookupSessionStateByLabel(KickstartSessionState.STARTED);
-                    
-                }
-                else {
-                    log.error(diskPath + " Not Found .. 404!");
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND);
-                    return getStreamForText("".getBytes());
-                }
-                
-            }
-            if (log.isDebugEnabled()) {
-                log.debug("Final path before returning getStreamForBinary(): " + diskPath);
-            }
-            if (log.isDebugEnabled()) {
-                Enumeration e = request.getHeaderNames();
-                while (e.hasMoreElements()) {
-                    String name = (String) e.nextElement();
-                    log.debug("header: [" + name + "]: " + request.getHeader(name)); 
-                }
-            }
-            if (request.getMethod().equals("HEAD")) {
-                log.debug("Method is HEAD .. serving checksum");
-                return manualServeChecksum(response, diskPath);
-            }
-            else if (request.getHeader("Range") != null) {
-                log.debug("range detected.  serving chunk of file");
-                String range = request.getHeader("Range");
-                return manualServeByteRange(request, response, diskPath, range);
-            }
-            // Update kickstart session
-            if (ksession != null) {
-                ksession.setState(newState);
-                if (ksession.getPackageFetchCount() == null) {
-                    ksession.setPackageFetchCount(new Long(0));
-                }
-                if (ksession.getState().getLabel().equals(
-                        KickstartSessionState.IN_PROGRESS)) {
-                    log.debug("Incrementing counter.");
-                    ksession.setPackageFetchCount(
-                            ksession.getPackageFetchCount().longValue() + 1);
-                    ksession.setLastFileRequest(path);
-                }
-                log.debug("Saving session.");
-                KickstartFactory.saveKickstartSession(ksession);
-            }
-            log.debug("returning getStreamForBinary");
-
-            File actualFile = new File(diskPath);
-            Date mtime = new Date(actualFile.lastModified());
-            SimpleDateFormat formatter = new SimpleDateFormat(
-                    "EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US);
-            formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-            response.addHeader("last-modified", formatter.format(mtime));
-            response.addHeader("Content-Length", String.valueOf(actualFile.length()));
-            log.debug("added last-modified and content-length values");
-            return getStreamForBinary(diskPath);
+            return getStreamInfoKickstart(mapping, form, request, response, path);
         }
         else {
             Long fileId = (Long) params.get(FILEID);
@@ -441,6 +322,133 @@ public class DownloadFile extends DownloadAction {
         throw new UnknownDownloadTypeException("The specified download type " + type + 
                 " is not currently supported");
 
+    }
+    
+    private StreamInfo getStreamInfoKickstart(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response, 
+                String path) throws Exception {
+        
+        Map params = (Map) request.getAttribute(PARAMS);
+        path = (String) params.get(FILENAME);
+        if (log.isDebugEnabled()) {
+            log.debug("getStreamInfo KICKSTART type, path: " + path);
+        }
+        String diskPath = null;
+        String kickstartMount = Config.get().getString(ConfigDefaults.MOUNT_POINT);
+        String fileName;
+        KickstartSession ksession = (KickstartSession) params.get(SESSION);
+        KickstartSessionState newState = null;
+        KickstartableTree tree = (KickstartableTree) params.get(TREE);
+        Package rpmPackage;
+        if (tree.getBasePath().indexOf(kickstartMount) == 0) {
+            log.debug("Trimming mount because tree is" +
+                " explicitly rooted to the mount point");
+            kickstartMount = "";
+        }
+        // If the tree is rooted somewhere other than 
+        // /var/satellite then no need to prepend it.
+        if (tree.getBasePath().startsWith("/")) {
+            log.debug("Tree isnt rooted at /var/satellite, lets just use basepath");
+            kickstartMount = "";
+        }
+        // Searching for RPM
+        if (path.endsWith(".rpm")) {
+            String[] split = StringUtils.split(path, '/');
+            fileName = split[split.length - 1];
+            if (log.isDebugEnabled()) {
+                log.debug("RPM filename: " + fileName);
+            }
+            Channel channel = tree.getChannel();
+            rpmPackage = ChannelFactory.lookupPackageByFilename(channel, fileName); 
+            if (rpmPackage != null) {
+                diskPath = Config.get().getString(ConfigDefaults.MOUNT_POINT) + "/" + 
+                    rpmPackage.getPath();
+                if (log.isDebugEnabled()) {
+                    log.debug("found package :: diskPath path: " + diskPath);
+                }
+                newState = KickstartFactory.
+                    lookupSessionStateByLabel(KickstartSessionState.IN_PROGRESS);
+            }
+            else {
+                if (log.isDebugEnabled()) {
+                    log.debug("Package was not in channel, looking in distro path.");
+                }
+            }
+        }
+        // either it's not an rpm, or we didn't find it in the channel
+        // check for dir pings, virt manager or install, bz #345721
+        if (diskPath == null) {
+            // my $dp = File::Spec->catfile($kickstart_mount, $tree->base_path, $path);
+            diskPath = kickstartMount + "/" + tree.getBasePath() + path;
+            if (log.isDebugEnabled()) {
+                log.debug("DirCheck path: " + diskPath);
+            }
+            File actualFile = new File(diskPath);
+            if (actualFile.exists() && actualFile.isDirectory()) {
+                log.debug("Directory hit.  just return 200");
+                response.setContentLength(0);
+                response.setStatus(HttpServletResponse.SC_OK);
+                return getStreamForText("".getBytes());
+            }
+            else if (actualFile.exists()) {
+                log.debug("Looks like it is an actual file and it exists.");
+                newState = KickstartFactory.
+                    lookupSessionStateByLabel(KickstartSessionState.STARTED);
+                
+            }
+            else {
+                log.error(diskPath + " Not Found .. 404!");
+                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                return getStreamForText("".getBytes());
+            }
+            
+        }
+        if (log.isDebugEnabled()) {
+            log.debug("Final path before returning getStreamForBinary(): " + diskPath);
+        }
+        if (log.isDebugEnabled()) {
+            Enumeration e = request.getHeaderNames();
+            while (e.hasMoreElements()) {
+                String name = (String) e.nextElement();
+                log.debug("header: [" + name + "]: " + request.getHeader(name)); 
+            }
+        }
+        if (request.getMethod().equals("HEAD")) {
+            log.debug("Method is HEAD .. serving checksum");
+            return manualServeChecksum(response, diskPath);
+        }
+        else if (request.getHeader("Range") != null) {
+            log.debug("range detected.  serving chunk of file");
+            String range = request.getHeader("Range");
+            return manualServeByteRange(request, response, diskPath, range);
+        }
+        // Update kickstart session
+        if (ksession != null) {
+            ksession.setState(newState);
+            if (ksession.getPackageFetchCount() == null) {
+                ksession.setPackageFetchCount(new Long(0));
+            }
+            if (ksession.getState().getLabel().equals(
+                    KickstartSessionState.IN_PROGRESS)) {
+                log.debug("Incrementing counter.");
+                ksession.setPackageFetchCount(
+                        ksession.getPackageFetchCount().longValue() + 1);
+                ksession.setLastFileRequest(path);
+            }
+            log.debug("Saving session.");
+            KickstartFactory.saveKickstartSession(ksession);
+        }
+        log.debug("returning getStreamForBinary");
+
+        File actualFile = new File(diskPath);
+        Date mtime = new Date(actualFile.lastModified());
+        SimpleDateFormat formatter = new SimpleDateFormat(
+                "EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US);
+        formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+        response.addHeader("last-modified", formatter.format(mtime));
+        response.addHeader("Content-Length", String.valueOf(actualFile.length()));
+        log.debug("added last-modified and content-length values");
+        return getStreamForBinary(diskPath);
     }
     
     private StreamInfo getStreamForText(byte[] text) {
