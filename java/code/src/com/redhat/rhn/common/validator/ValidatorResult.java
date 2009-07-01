@@ -14,8 +14,8 @@
  */
 package com.redhat.rhn.common.validator;
 
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * <p>

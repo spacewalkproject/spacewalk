@@ -15,20 +15,20 @@
 
 package com.redhat.rhn.frontend.action.renderers;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.listview.PageControl;
+import com.redhat.rhn.frontend.struts.RequestContext;
 
 import org.apache.commons.lang.StringUtils;
 import org.directwebremoting.WebContext;
 import org.directwebremoting.WebContextFactory;
 
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.listview.PageControl;
-import com.redhat.rhn.frontend.struts.RequestContext;
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Simple implementation of a fragment renderer which automates 

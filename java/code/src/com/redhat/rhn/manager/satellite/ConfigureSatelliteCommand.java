@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.satellite;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.monitoring.config.ConfigMacro;
@@ -121,40 +122,42 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
         }
 
         Executor e = getExecutor();
-        if (keysToBeUpdated.contains(Config.WEB_IS_MONITORING_BACKEND)) {
-            boolean backend = Config.get().getBoolean(Config.WEB_IS_MONITORING_BACKEND);
+        if (keysToBeUpdated.contains(ConfigDefaults.WEB_IS_MONITORING_BACKEND)) {
+            boolean backend = Config.get().getBoolean(
+                    ConfigDefaults.WEB_IS_MONITORING_BACKEND);
             if (backend) {
                 enableMonitoring();
             } 
         }
-        if (keysToBeUpdated.contains(Config.WEB_IS_MONITORING_SCOUT)) {
-            boolean scout = Config.get().getBoolean(Config.WEB_IS_MONITORING_SCOUT);
+        if (keysToBeUpdated.contains(ConfigDefaults.WEB_IS_MONITORING_SCOUT)) {
+            boolean scout = Config.get().getBoolean(ConfigDefaults.WEB_IS_MONITORING_SCOUT);
             if (scout) {
                 enableMonitoringScout();
             }
         }
         
-        if (keysToBeUpdated.contains(Config.JABBER_SERVER)) {
+        if (keysToBeUpdated.contains(ConfigDefaults.JABBER_SERVER)) {
             updateHostname();
             
             // if hostname changes, we must update
             // osa-dispatcher.server_jabber as well
             this.updateString("osa-dispatcher.jabber_server", 
-                                                    Config.get().getHostname());
+                    ConfigDefaults.get().getHostname());
         }
         
-        if (keysToBeUpdated.contains(Config.MOUNT_POINT)) {
-            this.updateString(Config.KICKSTART_MOUNT_POINT, 
-                    Config.get().getString(Config.MOUNT_POINT));
+        if (keysToBeUpdated.contains(ConfigDefaults.MOUNT_POINT)) {
+            this.updateString(ConfigDefaults.KICKSTART_MOUNT_POINT, 
+                    Config.get().getString(ConfigDefaults.MOUNT_POINT));
         }
         
-        if (keysToBeUpdated.contains(Config.DISCONNECTED) && 
-                !Config.get().getBoolean(Config.DISCONNECTED)) {
+        if (keysToBeUpdated.contains(ConfigDefaults.DISCONNECTED) && 
+                !Config.get().getBoolean(ConfigDefaults.DISCONNECTED)) {
             //if there isn't already a value set for the satellite parent (We don't want to 
             // overwrite a custom value.)
-            if (Config.get().getString(Config.SATELLITE_PARENT) == null || 
-                    Config.get().getString(Config.SATELLITE_PARENT).length() == 0) {
-                this.updateString(Config.SATELLITE_PARENT, Config.DEFAULT_SAT_PARENT);
+            if (Config.get().getString(ConfigDefaults.SATELLITE_PARENT) == null || 
+                    Config.get().getString(ConfigDefaults.SATELLITE_PARENT).length() == 0) {
+                this.updateString(ConfigDefaults.SATELLITE_PARENT, 
+                        ConfigDefaults.DEFAULT_SAT_PARENT);
             }
         }
         
@@ -229,7 +232,8 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
             SatClusterFactory.saveSatNode(node);
             
             // Set the scout shared key so it can be stored out to disk.
-            Config.get().setString(Config.WEB_SCOUT_SHARED_KEY, node.getScoutSharedKey());
+            Config.get().setString(ConfigDefaults.WEB_SCOUT_SHARED_KEY, 
+                    node.getScoutSharedKey());
             ModifyMethodCommand mmc = new ModifyMethodCommand(getUser());
             mmc.setType(NotificationFactory.TYPE_EMAIL);
             mmc.setEmail(getUser().getEmail());
@@ -285,7 +289,7 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
         setConfigMacroDefault(cmmail, "localhost");
         ConfigMacro cmdom = MonitoringConfigFactory.
             lookupConfigMacroByName("MDOM");
-        setConfigMacroDefault(cmdom, Config.get().getHostname());
+        setConfigMacroDefault(cmdom, ConfigDefaults.get().getHostname());
         ConfigMacro dbname = MonitoringConfigFactory.
             lookupConfigMacroByName("RHN_DB_NAME");
         setConfigMacroDefault(dbname, MonitoringConfigFactory.getDatabaseName());
@@ -300,7 +304,7 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
         setConfigMacroDefault(dbowner, MonitoringConfigFactory.getDatabaseUsername());
         ConfigMacro sathostname = MonitoringConfigFactory.
             lookupConfigMacroByName("RHN_SAT_HOSTNAME");
-        setConfigMacroDefault(sathostname, Config.get().getHostname());
+        setConfigMacroDefault(sathostname, ConfigDefaults.get().getHostname());
         ConfigMacro xproto = MonitoringConfigFactory.
             lookupConfigMacroByName("XPROTO");
         setConfigMacroDefault(xproto, "https");
@@ -336,7 +340,7 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
     private void updateHostname() {
         ConfigMacro sathostname = MonitoringConfigFactory.
                            lookupConfigMacroByName("RHN_SAT_HOSTNAME");
-        setConfigMacro(sathostname, Config.get().getHostname());
+        setConfigMacro(sathostname, ConfigDefaults.get().getHostname());
     }
     
     /**

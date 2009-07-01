@@ -14,11 +14,12 @@
  */
 package com.redhat.rhn.frontend.action.ssm;
 
-import java.util.List;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
+
+import java.util.List;
 
 /** @version $Revision$ */
 public class ViewCompletedLogAction extends BaseViewLogAction {

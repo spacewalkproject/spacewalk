@@ -20,13 +20,13 @@ import com.redhat.rhn.domain.user.StateChange;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.action.user.EnableConfirmSetupAction;
+import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
+import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
-import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
-import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 
 import org.apache.struts.action.ActionForward;
 

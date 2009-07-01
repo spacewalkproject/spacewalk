@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.integration;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerLoginCommand;
 
@@ -91,9 +92,9 @@ public class IntegrationService {
         
         //Handle the taskomatic case (Where we can't rely on the tokenStore since it's
         //  a completely different VM)
-        if (login.equals(Config.get().getString(Config.COBBLER_AUTOMATED_USER))) {
+        if (login.equals(Config.get().getString(ConfigDefaults.COBBLER_AUTOMATED_USER))) {
             
-            passwd = Config.get().getString(Config.WEB_SESSION_SECRET_1);
+            passwd = Config.get().getString(ConfigDefaults.WEB_SESSION_SECRET_1);
         }
         else {
             String md5random = SessionSwap.computeMD5Hash(
@@ -138,10 +139,10 @@ public class IntegrationService {
      */
     public boolean checkRandomToken(String login, String encodedRandom) {
         
-        if (login.equals(Config.get().getString(Config.COBBLER_AUTOMATED_USER))) {
+        if (login.equals(Config.get().getString(ConfigDefaults.COBBLER_AUTOMATED_USER))) {
             log.debug("checkRandomToken called with taskomatic user!");
             return encodedRandom.equals(
-                    Config.get().getString(Config.WEB_SESSION_SECRET_1));
+                    Config.get().getString(ConfigDefaults.WEB_SESSION_SECRET_1));
         }
         
         log.debug("checkRandomToken called with username: " + login);

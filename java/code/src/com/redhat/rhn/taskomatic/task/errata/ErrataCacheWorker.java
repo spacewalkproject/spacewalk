@@ -14,12 +14,6 @@
  */
 package com.redhat.rhn.taskomatic.task.errata;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.log4j.Logger;
-
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
@@ -27,6 +21,12 @@ import com.redhat.rhn.domain.task.Task;
 import com.redhat.rhn.manager.errata.cache.UpdateErrataCacheCommand;
 import com.redhat.rhn.taskomatic.task.threaded.QueueWorker;
 import com.redhat.rhn.taskomatic.task.threaded.TaskQueue;
+
+import org.apache.log4j.Logger;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Performs errata cache recalc for a given server or channel

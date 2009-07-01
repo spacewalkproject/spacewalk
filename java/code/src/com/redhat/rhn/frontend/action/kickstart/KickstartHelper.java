@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.kickstart;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
@@ -320,7 +320,7 @@ public class KickstartHelper {
             return firstProxy;
         }
         else {
-            return Config.get().getCobblerHost();
+            return ConfigDefaults.get().getCobblerHost();
         }
     }
 

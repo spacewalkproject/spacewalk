@@ -14,12 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.channel.org;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
@@ -37,6 +31,12 @@ import com.redhat.rhn.frontend.xmlrpc.OrgNotInTrustException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.org.OrgManager;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * ChannelOrgHandler

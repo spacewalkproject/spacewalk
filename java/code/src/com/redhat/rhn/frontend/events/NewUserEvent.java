@@ -16,6 +16,7 @@
 package com.redhat.rhn.frontend.events;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.domain.org.OrgFactory;
@@ -80,7 +81,7 @@ public class NewUserEvent extends BaseEvent implements EventMessage  {
         //create url for new user
         Config c = Config.get();
         StringBuffer url = new StringBuffer();
-        if (c.isSSLAvailable()) {
+        if (ConfigDefaults.get().isSSLAvailable()) {
             url.append("https://");
         }
         else {
@@ -92,7 +93,7 @@ public class NewUserEvent extends BaseEvent implements EventMessage  {
         else {
             url.append(domain);
         }
-        if (c.getString("base_port") != null && !c.isSSLAvailable()) {
+        if (c.getString("base_port") != null && !ConfigDefaults.get().isSSLAvailable()) {
             url.append(":");
             url.append(c.getString("base_port"));
         }

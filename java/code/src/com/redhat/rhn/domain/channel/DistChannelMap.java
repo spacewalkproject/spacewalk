@@ -16,9 +16,9 @@ package com.redhat.rhn.domain.channel;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.io.Serializable;
-import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * DistChannelMap - Class representation of the table rhnDistChannelMap.

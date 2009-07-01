@@ -14,11 +14,6 @@
  */
 package com.redhat.rhn.common.security.acl.test;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.WriteMode;
@@ -40,6 +35,11 @@ import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * AccessTest

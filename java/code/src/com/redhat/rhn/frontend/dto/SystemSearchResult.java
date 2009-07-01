@@ -14,12 +14,12 @@
  */
 package com.redhat.rhn.frontend.dto;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Calendar;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.Calendar;
 
 
 /**

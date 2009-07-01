@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.satellite.test;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.monitoring.config.ConfigMacro;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
@@ -89,7 +90,8 @@ public class MonitoringConfigActionTest extends RhnBaseTestCase {
         // If this is in HOSTED, dont run the test
 
         ah.getForm().set(MonitoringConfigAction.SUBMITTED, new Boolean(true));
-        boolean oldScoutValue = Config.get().getBoolean(Config.WEB_IS_MONITORING_SCOUT);
+        boolean oldScoutValue = Config.get().getBoolean(
+                ConfigDefaults.WEB_IS_MONITORING_SCOUT);
         ah.getForm().set(MonitoringConfigAction.IS_MONITORING_SCOUT, 
                 new Boolean(!oldScoutValue));
         User user = ah.getUser();
@@ -115,7 +117,7 @@ public class MonitoringConfigActionTest extends RhnBaseTestCase {
         ActionForward af = ah.executeAction();
         assertTrue(restartCalled);
         assertEquals(!oldScoutValue, 
-                Config.get().getBoolean(Config.WEB_IS_MONITORING_SCOUT));
+                Config.get().getBoolean(ConfigDefaults.WEB_IS_MONITORING_SCOUT));
         assertEquals("default", af.getName());
         assertNotNull(ah.getRequest().getAttribute("configList"));
 
@@ -134,7 +136,7 @@ public class MonitoringConfigActionTest extends RhnBaseTestCase {
         }        
         assertTrue(changed);
         assertTrue(TestUtils.validateUIMessage(ah, "monitoring.services.restarted"));
-        Config.get().setBoolean(Config.WEB_IS_MONITORING_SCOUT, 
+        Config.get().setBoolean(ConfigDefaults.WEB_IS_MONITORING_SCOUT, 
                 new Boolean(oldScoutValue).toString());
     }
     
@@ -143,7 +145,7 @@ public class MonitoringConfigActionTest extends RhnBaseTestCase {
         ah.getForm().set(MonitoringConfigAction.SUBMITTED, new Boolean(true));
         ah.getForm().set(MonitoringConfigAction.IS_MONITORING_SCOUT, 
                 new Boolean(Config.get().getBoolean(
-                        Config.WEB_IS_MONITORING_SCOUT)));
+                        ConfigDefaults.WEB_IS_MONITORING_SCOUT)));
         setupExpectedProperties(ah);
         ah.executeAction();
         assertTrue(TestUtils.validateUIMessage(ah, "monitoring.services.novalueschanged"));

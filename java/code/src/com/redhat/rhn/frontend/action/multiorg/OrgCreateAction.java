@@ -14,16 +14,8 @@
  */
 package com.redhat.rhn.frontend.action.multiorg;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
-
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.frontend.action.user.UserActionHelper;
@@ -31,6 +23,15 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.org.CreateOrgCommand;
+
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -53,7 +54,7 @@ public class OrgCreateAction extends RhnAction {
          * If we are a sat and we have setup pam authentication already, display the
          * checkbox and instructions
          */
-        String pamAuthService = Config.get().getString(Config.WEB_PAM_AUTH_SERVICE);
+        String pamAuthService = Config.get().getString(ConfigDefaults.WEB_PAM_AUTH_SERVICE);
         if (pamAuthService != null && pamAuthService.trim().length() > 0) {
             request.setAttribute("displaypamcheckbox", "true");
         }

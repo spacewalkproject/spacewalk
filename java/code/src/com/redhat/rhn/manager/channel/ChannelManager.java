@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.channel;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.db.datasource.DataResult;
@@ -840,7 +841,7 @@ public class ChannelManager extends BaseManager {
         if (proxyFamily == null || 
                     proxyFamily.getChannels() == null ||
                         proxyFamily.getChannels().isEmpty()) {
-            if (!Config.get().isSpacewalk()) {
+            if (!ConfigDefaults.get().isSpacewalk()) {
                 throw new ProxyChannelNotFoundException();
             }
             return null;
@@ -857,7 +858,7 @@ public class ChannelManager extends BaseManager {
                 return proxyChan;
             }
         }
-        if (!Config.get().isSpacewalk()) {
+        if (!ConfigDefaults.get().isSpacewalk()) {
             throw new ProxyChannelNotFoundException();
         }
         
@@ -1912,7 +1913,7 @@ public class ChannelManager extends BaseManager {
             
             // Search for rhn-kickstart package name:
             kspackages = ChannelManager.listLatestPackagesEqual(child.getId(), 
-                    Config.get().getKickstartPackageName());
+                    ConfigDefaults.get().getKickstartPackageName());
             if (kspackages.size() > 0) {
                 return child;
             }
@@ -2762,9 +2763,10 @@ public class ChannelManager extends BaseManager {
      * @return last repo build date
      */
     public static String getRepoLastBuild(Channel channel) {
-        String  pathPrefix = Config.get().getString(Config.REPOMD_PATH_PREFIX,
+        String  pathPrefix = Config.get().getString(ConfigDefaults.REPOMD_PATH_PREFIX,
         "rhn/repodata");
-        String mountPoint = Config.get().getString(Config.REPOMD_CACHE_MOUNT_POINT, "/pub");
+        String mountPoint = Config.get().getString(ConfigDefaults.REPOMD_CACHE_MOUNT_POINT, 
+                "/pub");
         File theFile = new File(mountPoint + File.separator + pathPrefix +
                 File.separator + channel.getLabel() + File.separator +
                 "repomd.xml");

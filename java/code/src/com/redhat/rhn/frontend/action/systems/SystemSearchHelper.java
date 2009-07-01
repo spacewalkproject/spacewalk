@@ -15,12 +15,12 @@
 package com.redhat.rhn.frontend.action.systems;
 
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.validator.ValidatorException;
-import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.session.WebSession;
 import com.redhat.rhn.domain.user.User;
@@ -206,7 +206,8 @@ public class SystemSearchHelper {
 
         log.info("Performing system search: index = " + index + ", query = " +
                 query);
-        XmlRpcClient client = new XmlRpcClient(Config.get().getSearchServerUrl(), true);
+        XmlRpcClient client = new XmlRpcClient(
+                ConfigDefaults.get().getSearchServerUrl(), true);
         List args = new ArrayList();
         args.add(sessionId);
         args.add(index);

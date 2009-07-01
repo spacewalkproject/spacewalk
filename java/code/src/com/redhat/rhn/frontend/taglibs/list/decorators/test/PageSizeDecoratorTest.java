@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.taglibs.list.decorators.test;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.frontend.taglibs.list.decorators.PageSizeDecorator;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 
@@ -43,13 +44,13 @@ public class PageSizeDecoratorTest extends RhnBaseTestCase {
         custom.add(88);
         custom.add(99);
         custom.add(300);
-        Config.get().setString(Config.PAGE_SIZES, 
+        Config.get().setString(ConfigDefaults.PAGE_SIZES, 
                         StringUtils.join(custom.iterator(), ", "));
         assertEquals(custom, PageSizeDecorator.getPageSizes());
         
         assertTrue(custom.contains(PageSizeDecorator.getDefaultPageSize()));
         
-        Config.get().setString(Config.DEFAULT_PAGE_SIZE, 
+        Config.get().setString(ConfigDefaults.DEFAULT_PAGE_SIZE, 
                                 String.valueOf(custom.get(4) - 5));
         assertTrue(custom.contains(PageSizeDecorator.getDefaultPageSize()));
         assertEquals((Integer)custom.get(3),

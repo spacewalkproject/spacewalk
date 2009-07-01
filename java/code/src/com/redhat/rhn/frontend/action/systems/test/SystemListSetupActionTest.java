@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.systems.test;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -83,7 +84,7 @@ public class SystemListSetupActionTest extends RhnMockStrutsTestCase {
         }
         assertTrue(isThere);
 
-        int secondsOld = Config.get().getInt(Config.SYSTEM_CHECKIN_THRESHOLD) *
+        int secondsOld = Config.get().getInt(ConfigDefaults.SYSTEM_CHECKIN_THRESHOLD) *
                          86400000 + 50000000;
         //awol
         Date now = new Date();

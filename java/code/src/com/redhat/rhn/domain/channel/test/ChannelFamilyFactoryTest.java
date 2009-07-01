@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.domain.channel.test;
 
-import java.util.List;
-
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.channel.PrivateChannelFamily;
@@ -24,6 +22,8 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
+
+import java.util.List;
 
 /**
  * ChannelFamilyFactoryTest

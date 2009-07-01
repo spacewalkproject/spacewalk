@@ -14,11 +14,6 @@
  */
 package com.redhat.rhn.manager.org;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.monitoring.MonitoringFactory;
 import com.redhat.rhn.domain.monitoring.Probe;
@@ -44,6 +39,11 @@ import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * MigrationManager

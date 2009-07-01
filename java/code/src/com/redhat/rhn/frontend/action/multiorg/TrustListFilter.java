@@ -14,11 +14,11 @@
  */
 package com.redhat.rhn.frontend.action.multiorg;
 
-import java.util.Locale;
-import java.util.Map;
-
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.frontend.taglibs.list.BaseListFilter;
+
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * UserListFilter

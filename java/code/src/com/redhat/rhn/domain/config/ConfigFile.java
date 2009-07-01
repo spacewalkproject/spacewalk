@@ -15,6 +15,7 @@
 package com.redhat.rhn.domain.config;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.BaseDomainHelper;
 
 /**
@@ -113,7 +114,7 @@ public class ConfigFile extends BaseDomainHelper {
      * @return config file size in bytes
      */
     public static int getMaxFileSize() {
-        return Config.get().getInt(Config.CONFIG_REVISION_MAX_SIZE,
-                                Config.DEFAULT_CONFIG_REVISION_MAX_SIZE);
+        return Config.get().getInt(ConfigDefaults.CONFIG_REVISION_MAX_SIZE,
+                ConfigDefaults.DEFAULT_CONFIG_REVISION_MAX_SIZE);
     }
 }

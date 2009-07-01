@@ -14,19 +14,19 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.kickstart.filepreservation;
 
-import java.util.List;
-
 import com.redhat.rhn.FaultException;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.domain.common.CommonFactory;
+import com.redhat.rhn.domain.common.FileList;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.FileListAlreadyExistsException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchUserException;
-import com.redhat.rhn.domain.common.FileList;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.common.CommonFactory;
 import com.redhat.rhn.manager.common.CreateFileListCommand;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
-import com.redhat.rhn.common.db.datasource.DataResult;
+
+import java.util.List;
 
 /**
  * @xmlrpc.namespace kickstart.filepreservation

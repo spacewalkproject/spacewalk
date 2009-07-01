@@ -14,13 +14,13 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.system.custominfo.test;
 
-import java.util.Iterator;
-
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.frontend.dto.CustomDataKeyOverview;
 import com.redhat.rhn.frontend.xmlrpc.system.custominfo.CustomInfoHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.manager.system.SystemManager;
+
+import java.util.Iterator;
 
 /**
  * CustomInfoHandlerTest

@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.kickstart;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -138,7 +139,7 @@ public class KickstartFormatter {
         "cp -f /tmp/ks-pre.log /mnt/sysimage/root/" + NEWLINE;
     private static final String RHN_TRACE = "set -x" + NEWLINE;
     private static final String XMLRPC_HOST = 
-        Config.get().getString(Config.KICKSTART_HOST, "xmlrpc.rhn.redhat.com");
+        Config.get().getString(ConfigDefaults.KICKSTART_HOST, "xmlrpc.rhn.redhat.com");
     
     private static final String VIRT_HOST_GRUB_FIX = 
         "sed -i.backup 's/default=[0-9]*/default=0/' /boot/grub/grub.conf" + NEWLINE;

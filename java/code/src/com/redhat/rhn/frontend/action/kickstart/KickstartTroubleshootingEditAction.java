@@ -18,8 +18,8 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.kickstart.BaseKickstartCommand;
 import com.redhat.rhn.manager.kickstart.KickstartTroubleshootingCommand;
-import org.apache.commons.lang.BooleanUtils;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.struts.action.DynaActionForm;
 
 import java.util.ArrayList;

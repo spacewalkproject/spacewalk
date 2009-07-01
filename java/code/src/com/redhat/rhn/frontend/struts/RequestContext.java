@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.struts;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -492,7 +493,7 @@ public class RequestContext {
     // TODO Write unit tests for getWebSessionCookieName()
     public String getWebSessionCookieName() {
         Config c = Config.get();
-        int personality = c.getInt(Config.WEB_ALLOW_PXT_PERSONALITIES);
+        int personality = c.getInt(ConfigDefaults.WEB_ALLOW_PXT_PERSONALITIES);
         if (personality > 0) {
             String[] name = StringUtils.split(request.getServerName(), '.');
 
@@ -524,7 +525,7 @@ public class RequestContext {
         cookie.setDomain(request.getServerName());
         cookie.setPath("/");
         cookie.setMaxAge(timeout);
-        cookie.setSecure(Config.get().isSSLAvailable());
+        cookie.setSecure(ConfigDefaults.get().isSSLAvailable());
 
         return cookie;
     }

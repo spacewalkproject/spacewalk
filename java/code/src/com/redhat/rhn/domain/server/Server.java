@@ -15,6 +15,7 @@
 package com.redhat.rhn.domain.server;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.Identifiable;
 import com.redhat.rhn.domain.channel.Channel;
@@ -1510,7 +1511,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public boolean isInactive() {
         Date lastCheckin = this.getLastCheckin();
         long millisInDay = (1000 * 60 * 60 * 24);
-        long threshold = Config.get().getInt(Config.SYSTEM_CHECKIN_THRESHOLD, 1);
+        long threshold = Config.get().getInt(ConfigDefaults.SYSTEM_CHECKIN_THRESHOLD, 1);
         Date yesterday = new Timestamp(System.currentTimeMillis() - 
                 (millisInDay * threshold));
         return lastCheckin.before(yesterday);

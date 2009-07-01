@@ -14,12 +14,12 @@
  */
 package com.redhat.rhn.taskomatic.task.repomd;
 
-import java.io.IOException;
-import java.io.Writer;
-
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
 import org.xml.sax.SAXException;
+
+import java.io.IOException;
+import java.io.Writer;
 
 /**
  * 

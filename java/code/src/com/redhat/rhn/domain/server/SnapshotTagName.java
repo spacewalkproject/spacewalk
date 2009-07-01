@@ -14,9 +14,9 @@
  */
 package com.redhat.rhn.domain.server;
 
-import org.apache.commons.lang.builder.HashCodeBuilder;
-
 import com.redhat.rhn.domain.BaseDomainHelper;
+
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * CPU

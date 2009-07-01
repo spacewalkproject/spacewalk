@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
@@ -333,7 +333,7 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
      * @return the virt path.
      */
     public static String makeDefaultVirtPath(String name) {
-        File virtPathDir = Config.get().getVirtPath();
+        File virtPathDir = ConfigDefaults.get().getVirtPath();
         File virtPath = new File(virtPathDir, name.replace(' ', '-'));
         return virtPath.getAbsolutePath();
     }

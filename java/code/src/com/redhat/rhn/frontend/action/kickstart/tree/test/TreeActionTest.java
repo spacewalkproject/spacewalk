@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.kickstart.tree.test;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -119,7 +119,7 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
         Channel rhel5BaseChan = ChannelTestUtils.createTestChannel(user);
         Channel rhel5ToolsChan = ChannelTestUtils.createChildChannel(user, rhel5BaseChan);
         PackageManagerTest.addKickstartPackageToChannel(
-                Config.get().getKickstartPackageName(), rhel5ToolsChan);
+                ConfigDefaults.get().getKickstartPackageName(), rhel5ToolsChan);
         return rhel5BaseChan;
     }
 

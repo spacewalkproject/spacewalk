@@ -14,11 +14,7 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.org.test;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.org.Org;
@@ -50,6 +46,10 @@ import com.redhat.rhn.manager.org.OrgManager;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class OrgHandlerTest extends BaseHandlerTestCase {
     
@@ -220,7 +220,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
 
     public void testListSoftwareEntitlements() throws Exception {
         // Spacewalk servers have no software entitlements:
-        if (Config.get().isSpacewalk()) {
+        if (ConfigDefaults.get().isSpacewalk()) {
             return;
         }
 
@@ -285,7 +285,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         assertNotNull(ents);
 
         // Spacewalk servers have no software entitlements:
-        if (Config.get().isSpacewalk()) {
+        if (ConfigDefaults.get().isSpacewalk()) {
             return;
         }
 
@@ -334,7 +334,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
     
     public void testSetSoftwareEntitlements() throws Exception {
         // Spacewalk servers have no software entitlements:
-        if (Config.get().isSpacewalk()) {
+        if (ConfigDefaults.get().isSpacewalk()) {
             return;
         }
 
@@ -380,7 +380,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
 
     public void testSetSoftwareEntitlementsNoSuchOrgOrFamily() throws Exception {
         // Spacewalk servers have no software entitlements:
-        if (Config.get().isSpacewalk()) {
+        if (ConfigDefaults.get().isSpacewalk()) {
             return;
         }
 
@@ -432,7 +432,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
 
     public void testSetSoftwareEntitlementsDefaultOrg() throws Exception {
         // Spacewalk servers have no software entitlements:
-        if (Config.get().isSpacewalk()) {
+        if (ConfigDefaults.get().isSpacewalk()) {
             return;
         }
 

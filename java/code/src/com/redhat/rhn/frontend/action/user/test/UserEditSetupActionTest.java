@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.user.test;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
@@ -79,7 +80,8 @@ public class UserEditSetupActionTest extends RhnBaseTestCase {
             assertTrue(sah.getRequest().getAttribute("user") instanceof User);
     
             //If we have pam setup where we're testing, make sure displaypam was set
-            String pamAuthService = Config.get().getString(Config.WEB_PAM_AUTH_SERVICE);
+            String pamAuthService = Config.get().getString(
+                    ConfigDefaults.WEB_PAM_AUTH_SERVICE);
             if (pamAuthService != null && pamAuthService.trim().length() > 0) {
                 assertNotNull(sah.getRequest().getAttribute("displaypam"));
             }

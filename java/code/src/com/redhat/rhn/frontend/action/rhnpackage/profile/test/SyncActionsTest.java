@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage.profile.test;
 
-import java.util.Set;
-
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
@@ -32,6 +30,8 @@ import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
+
+import java.util.Set;
 
 /**
  * @author mmccune

@@ -17,33 +17,33 @@ package com.redhat.rhn.frontend.action.user;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
+import com.redhat.rhn.common.security.user.StateChangeException;
+import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.UserOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
 import com.redhat.rhn.frontend.struts.RhnListSetHelper;
-import com.redhat.rhn.manager.user.UserManager;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
-import com.redhat.rhn.frontend.dto.UserOverview;
-import com.redhat.rhn.common.security.user.StateChangeException;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.user.UserManager;
 
-import org.apache.struts.action.ActionMessages;
-import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionErrors;
-
-import java.util.Iterator;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 
 import java.util.Collections;
+import java.util.Iterator;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * EnableConfirmSetupAction

@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.integration.IntegrationService;
@@ -93,13 +93,13 @@ public class CobblerXMLRPCHelper implements XMLRPCInvoker {
             IntegrationService.get().getAuthToken(userName);
         return (CobblerConnection)MethodUtil.getClassFromConfig(
                                 CobblerConnection.class.getName(),
-                                Config.get().getCobblerServerUrl(), token);
+                                ConfigDefaults.get().getCobblerServerUrl(), token);
     }
     
     private static String getCobblerUrl() {
         CobblerConnection conn = (CobblerConnection)MethodUtil.getClassFromConfig(
                 CobblerConnection.class.getName(),
-                Config.get().getCobblerServerUrl());
+                ConfigDefaults.get().getCobblerServerUrl());
         return conn.getUrl();    
     }
     
@@ -109,6 +109,6 @@ public class CobblerXMLRPCHelper implements XMLRPCInvoker {
      * @return the cobbler connection..
      */
     public static CobblerConnection getAutomatedConnection() {
-        return getConnection(Config.get().getCobblerAutomatedUser());
+        return getConnection(ConfigDefaults.get().getCobblerAutomatedUser());
     }
 }

@@ -15,6 +15,7 @@
 package com.redhat.rhn.common.security.acl;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.org.OrgEntitlementType;
 import com.redhat.rhn.domain.user.User;
 
@@ -37,7 +38,7 @@ public abstract class BaseHandler implements AclHandler {
     protected boolean checkMonitoring(User user) {
         OrgEntitlementType monType = new OrgEntitlementType("rhn_monitor");
         boolean retval = (user.getOrg().hasEntitlement(monType) &&
-                Config.get().getBoolean(Config.WEB_IS_MONITORING_BACKEND));
+                Config.get().getBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND));
         return retval;
     }
     

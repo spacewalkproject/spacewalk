@@ -14,10 +14,11 @@
  */
 package com.redhat.rhn.frontend.events;
 
-import java.util.List;
 import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.channel.ssm.ChannelActionDAO;
+
+import java.util.List;
 
 /**
  * Event fired to carry the information necessary to perform subscription changes

@@ -14,19 +14,20 @@
  */
 package com.redhat.rhn.manager.ssm.test;
 
-import java.util.Map;
 import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.server.test.ServerFactoryTest;
-import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
-import com.redhat.rhn.manager.ssm.SsmOperationManager;
-import com.redhat.rhn.manager.ssm.SsmOperationStatus;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.test.ServerFactoryTest;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
+import com.redhat.rhn.manager.ssm.SsmOperationManager;
+import com.redhat.rhn.manager.ssm.SsmOperationStatus;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
+
+import java.util.Map;
 
 /**
  * @version $Revision$

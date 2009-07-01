@@ -14,13 +14,13 @@
  */
 package com.redhat.rhn.taskomatic.task.threaded;
 
-import java.util.List;
-
 import EDU.oswego.cs.dl.util.concurrent.Channel;
 import EDU.oswego.cs.dl.util.concurrent.LinkedQueue;
 import EDU.oswego.cs.dl.util.concurrent.PooledExecutor;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+
+import java.util.List;
 
 /**
  * Generic threaded queue suitable for use wherever Taskomatic

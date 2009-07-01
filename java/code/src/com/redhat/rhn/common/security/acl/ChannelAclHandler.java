@@ -14,10 +14,6 @@
  */
 package com.redhat.rhn.common.security.acl;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
@@ -26,6 +22,10 @@ import com.redhat.rhn.domain.channel.ChannelVersion;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.user.UserManager;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 
 /**

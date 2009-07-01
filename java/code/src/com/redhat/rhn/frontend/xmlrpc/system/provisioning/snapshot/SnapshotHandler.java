@@ -14,12 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.system.provisioning.snapshot;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.rhnpackage.PackageNevra;
 import com.redhat.rhn.domain.server.Server;
@@ -31,6 +25,12 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidArgsException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSnapshotException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * SnapshotHandler

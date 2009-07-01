@@ -14,11 +14,11 @@
  */
 package com.redhat.rhn.frontend.action.systems.sdc;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 

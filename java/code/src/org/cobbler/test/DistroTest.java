@@ -15,8 +15,8 @@
 
 package org.cobbler.test;
 
-import org.cobbler.Distro;
 import org.cobbler.CobblerConnection;
+import org.cobbler.Distro;
 
 import java.util.HashMap;
 

@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.user.test;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.user.UpdateUserCommand;
 import com.redhat.rhn.testing.RhnBaseTestCase;
@@ -134,7 +135,7 @@ public class UpdateUserCommandTest extends RhnBaseTestCase {
         assertNotNull(user);
         
         // can't do this if we've encrypted the passwords
-        if (!Config.get().getBoolean(Config.WEB_ENCRYPTED_PASSWORDS)) {
+        if (!Config.get().getBoolean(ConfigDefaults.WEB_ENCRYPTED_PASSWORDS)) {
             String savedPassword = user.getPassword();
             user.setPassword(password);
             assertEquals(savedPassword, user.getPassword());

@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.taskomatic.task.repomd;
 
+import com.redhat.rhn.common.util.StringUtil;
+
 import java.io.Closeable;
 import java.io.Flushable;
 import java.io.IOException;
@@ -22,8 +24,6 @@ import java.security.DigestOutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.zip.GZIPOutputStream;
-
-import com.redhat.rhn.common.util.StringUtil;
 
 /**
  * 

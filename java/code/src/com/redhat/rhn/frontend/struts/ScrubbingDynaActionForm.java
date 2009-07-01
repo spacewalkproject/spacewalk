@@ -14,13 +14,13 @@
  */
 package com.redhat.rhn.frontend.struts;
 
+import org.apache.struts.action.DynaActionForm;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.struts.action.DynaActionForm;
 
 /**
  * A DynaActionForm which knows how to scrub its input for malicious content.

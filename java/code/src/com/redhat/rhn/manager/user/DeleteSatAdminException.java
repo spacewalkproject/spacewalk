@@ -15,7 +15,6 @@
 package com.redhat.rhn.manager.user;
 
 import com.redhat.rhn.common.RhnRuntimeException;
-
 import com.redhat.rhn.domain.user.User;
 
 /**

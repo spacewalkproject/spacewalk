@@ -15,6 +15,7 @@
 package com.redhat.rhn.common.validator;
 
 import com.redhat.rhn.common.localization.LocalizationService;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
 

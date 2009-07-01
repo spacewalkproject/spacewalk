@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.satellite;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -58,7 +59,8 @@ public class GeneralConfigAction extends BaseConfigAction {
         "mount_point"};
     
     private static final String[] BOOLEAN_CONFIG_ARRAY = {"web.ssl_available",
-        "web.enable_solaris_support", Config.DISCONNECTED, "web.is_monitoring_backend"};
+        "web.enable_solaris_support", ConfigDefaults.DISCONNECTED, 
+            "web.is_monitoring_backend"};
     
     private static final List COMBO_LIST = new LinkedList();
     static {

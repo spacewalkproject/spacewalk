@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.manager.system;
 
-import org.apache.log4j.Logger;
-
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.security.PermissionException;
@@ -26,6 +24,8 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.manager.channel.ChannelManager;
+
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;

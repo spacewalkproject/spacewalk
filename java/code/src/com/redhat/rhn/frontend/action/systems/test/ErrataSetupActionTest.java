@@ -16,12 +16,12 @@ package com.redhat.rhn.frontend.action.systems.test;
 
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
+import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
-import com.redhat.rhn.domain.rhnpackage.Package;
 
 import java.util.Iterator;
 

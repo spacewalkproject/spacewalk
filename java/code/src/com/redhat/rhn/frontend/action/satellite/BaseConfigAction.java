@@ -18,9 +18,9 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.satellite.SatelliteConfigurator;
 
-import org.apache.log4j.Logger;
-
 import net.sf.cglib.core.ReflectUtils;
+
+import org.apache.log4j.Logger;
 
 /**
  * BaseConfigAction - contains common methods for Struts Actions needing to

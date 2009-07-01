@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart.test;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.action.ActionFactory;
@@ -361,7 +361,7 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
                 user, new Date(), "rhn.webdev.redhat.com");
 
         PackageManagerTest.addPackageToSystemAndChannel(
-                Config.get().getKickstartPackageName(), server, c);
+                ConfigDefaults.get().getKickstartPackageName(), server, c);
         // ksdata.getKsdefault().getKstree().setChannel(c);
 
         cmd.setActivationType(activationType);        

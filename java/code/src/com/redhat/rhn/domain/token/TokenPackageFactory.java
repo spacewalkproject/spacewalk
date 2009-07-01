@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.domain.token;
 
-import java.util.List;
-
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
@@ -23,6 +21,8 @@ import com.redhat.rhn.domain.rhnpackage.PackageName;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+
+import java.util.List;
 
 /**
  * TokenPackageFactory

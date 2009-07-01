@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.util.download.DownloadException;
 import com.redhat.rhn.common.util.download.DownloadUtils;
 import com.redhat.rhn.common.validator.ValidatorException;
@@ -50,7 +50,7 @@ public class KickstartManager extends BaseManager {
         String retval = renderKickstart(data);
         // Search/replacing all instances of cobbler host with host
         // we pass in, for use with rhn proxy.
-        retval = retval.replaceAll(Config.get().getCobblerHost(), host);
+        retval = retval.replaceAll(ConfigDefaults.get().getCobblerHost(), host);
         return retval;    
     }
     
