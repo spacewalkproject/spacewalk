@@ -83,7 +83,7 @@ function setStep(stepName) {
     	</rl:list>     	    
     	<rhn:tooltip>* - <bean:message key="kickstart.distro.cobbler-only.tooltip"/></rhn:tooltip>
     	<c:set var="regularKS" value="true"/>
-    	<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/schedule-options.jspf" %>
+    	<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/ks-wizard.jspf" %>
 	</rl:listset>
     </div>
 </c:if>
