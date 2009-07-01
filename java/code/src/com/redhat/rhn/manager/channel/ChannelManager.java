@@ -1507,12 +1507,15 @@ public class ChannelManager extends BaseManager {
      * Finds the ids of all child channels that contain
      * a package with the given name.  Will only all the child channels.
      * @param packageName The exact name of the package sought for.
+     * @param org the org this is in
      * @return The list of ids 
      */
-    public static List<Long> findChildChannelsWithPackage(String packageName) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", "channels_with_package");
+    public static List<Long> findChildChannelsWithPackage(String packageName, Org org) {
+        SelectMode m = ModeFactory.getMode("Channel_queries",
+                        "child_channels_with_package");
         Map params = new HashMap();
         params.put("package", packageName);
+        params.put("org_id", org.getId());
         
         //whittle down until we have the piece we want.
         DataResult<Map<String, Long>> dr  = m.execute(params);
