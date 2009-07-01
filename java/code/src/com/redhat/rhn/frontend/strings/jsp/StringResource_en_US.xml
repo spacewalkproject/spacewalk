@@ -16427,10 +16427,10 @@ the &lt;a href=&quot;/rhn/kickstart/ActivationKeysList.do?ksid={0}&quot;&gt;Acti
 	        <source>Bootloader</source>
 	    </trans-unit>
 	    <trans-unit id="kickstart.schedule.kernel.options.distro">
-	        <source>&lt;strong&gt;As specified by Kickstart Distribution&lt;/strong&gt;({0})</source>
+	        <source>&lt;strong&gt;As specified by Kickstart Distribution&lt;/strong&gt;</source>
 	    </trans-unit>
 	    <trans-unit id="kickstart.schedule.kernel.options.profile">
-	        <source>&lt;strong&gt;As specified by Kickstart Profile&lt;/strong&gt;({0})</source>
+	        <source>&lt;strong&gt;As specified by Kickstart Profile&lt;/strong&gt;</source>
 	    </trans-unit>
 	    <trans-unit id="kickstart.schedule.kernel.options.custom.tip">
 	        <source>If you would not like any kernel options, select '{0}' and leave the form field blank.</source>

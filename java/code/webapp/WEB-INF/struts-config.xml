@@ -4620,7 +4620,7 @@
                  redirect= "true"/>                 
     </action>
  	 <action path="/systems/ssm/kickstart/ScheduleByProfile"
- 	 	name ="datePickerForm"
+ 	 	name ="kickstartScheduleWizardForm"
         scope="request"
         input="/WEB-INF/pages/kickstart/ssm/schedule.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.ssm.SsmKSScheduleAction"
@@ -4634,7 +4634,7 @@
     </action>
 
  	 <action path="/systems/ssm/kickstart/ScheduleByIp"
- 	 	name ="datePickerForm"
+ 	 	name ="kickstartScheduleWizardForm"
         scope="request"
         input="/WEB-INF/pages/kickstart/ssm/schedule.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.ssm.SsmKSScheduleAction"
