@@ -46,13 +46,13 @@ def initiate(kickstart_host, base, extra_append, static_device=None, system_reco
         k.is_virt             = 0
         k.is_replace          = 1
         k.is_display          = 0
-	k.profile             = None
+        k.profile             = None
 
         if system_record != "":
            k.system          = system_record
         else:
            k.system          = None
-	k.port                = 443
+        k.port                = 443
         k.image               = None
         k.live_cd             = None
         k.virt_path           = None
@@ -147,26 +147,25 @@ def create_new_rd(initrd, preserve_files=[]):
     (err_code, err_string, dict) if problems were found
     """
     if not initrd:
-	return (3, "Kickstart create new init failed: initrd not found: %s" %
+        return (3, "Kickstart create new init failed: initrd not found: %s" %
             initrd, {})
 
-    if preserve_files:
-	# quota should be configurable from the UI
-	quota = 1000000
-	# lame naming below to use /tmp/ks-tres-shadow 2X
-	# but needed to get it here the ks.cfg expects it
-	preserve_shadow = SHADOW + SHADOW
-	# new FileCopier class handles the dirty work of getting the 
-	# preserved file set copied w/ all permissions, owners, etc
-	# kept intact and in the correct location 
-	c = FileCopier(preserve_files, preserve_shadow, quota=quota)
-        try:
-	    c.copy()
-        except QuotaExceeded:
-	    return (3, "Quota of %s bytes exceeded" % quota, {})
+    # quota should be configurable from the UI
+    quota = 1000000
+    # lame naming below to use /tmp/ks-tres-shadow 2X
+    # but needed to get it here the ks.cfg expects it
+    preserve_shadow = SHADOW + SHADOW
+    # new FileCopier class handles the dirty work of getting the 
+    # preserved file set copied w/ all permissions, owners, etc
+    # kept intact and in the correct location 
+    c = FileCopier(preserve_files, preserve_shadow, quota=quota)
+    try:
+        c.copy()
+    except QuotaExceeded:
+        return (3, "Quota of %s bytes exceeded" % quota, {})
 
     (status, stdout, stderr) = my_popen([
-        "/usr/sbin/merge-rd.sh", initrd, initrd + ".merged", SHADOW])
+        "/usr/sbin/merge-rd.sh", initrd, initrd, SHADOW])
     if status:
         return (status, 'Error creating the new RAM disk',
             _build_error(status, stdout, stderr))
