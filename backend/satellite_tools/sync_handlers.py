@@ -182,7 +182,7 @@ def get_channel_handler():
 def import_channels(channels, orgid=None):
     collection = ChannelCollection()
     batch = []
-
+    import satCerts
     for c in channels:
         try:
             timestamp = collection.get_channel_timestamp(c)
@@ -196,6 +196,10 @@ def import_channels(channels, orgid=None):
         # make sure the org from the export is not null org,
         # finally if the orgs differ so we might wanna use
         # requested org's channel-family. 
+        orgs = map(lambda a: a['id'], satCerts.get_all_orgs())
+        if c_obj['org_id'] is not None and c_obj['org_id'] not in orgs:
+            #If the src org is not present default to org 1
+            orgid = str(1)
         if orgid is not None and c_obj['org_id'] is not None and \
             c_obj['org_id'] != orgid:
             c_obj['org_id'] = orgid
