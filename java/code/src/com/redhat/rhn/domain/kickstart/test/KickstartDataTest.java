@@ -293,6 +293,11 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
                 .lookupKickstartDataByIdAndOrg(user.getOrg(), ksd.getId()));
         assertNull(lookupById(user.getOrg(), ksd.getId()));
         assertNull(lookupByLabel(ksd.getLabel()));
+        
+        String path = ksd.getCobblerFileName();
+        File f = new File(path);
+        assertFalse(f.exists());
+        
     }
     
     public void testChildChannels() throws Exception {
