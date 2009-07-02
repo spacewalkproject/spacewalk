@@ -11550,7 +11550,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       </trans-unit>
 
       <trans-unit id="channels.all.jsp.header1">
-        <source>The software channels listed below are &lt;strong&gt;all of the channels&lt;/strong&gt; that your organization &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt;is entitled to&lt;/a&gt; and are currently supported by Red Hat.</source>
+        <source>The software channels listed below are &lt;strong&gt;all of the channels&lt;/strong&gt; that your organization has access to.</source>
       </trans-unit>
       
       <trans-unit id="channels.redhat.jsp.header1">
