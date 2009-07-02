@@ -101,8 +101,9 @@ class Repository(RPC_Base):
             # Must be a client.  We'll determine the redirect capability via
             # the x-rhn-transport-capability header instead.
             transport_cap = rhnFlags.get('x-rhn-transport-capability')
-            transport_cap_list = transport_cap.split('=')
-            redirectsSupported = transport_cap_list[0] == 'follow-redirects' and transport_cap_list[1] >= 2
+            if transport_cap :
+                transport_cap_list = transport_cap.split('=')
+                redirectsSupported = transport_cap_list[0] == 'follow-redirects' and transport_cap_list[1] >= 2
 
         if redirectsSupported:
             log_debug(3, "Client supports redirects.")
