@@ -34,6 +34,7 @@
 			</c:forEach>
 		</select>              
           <br /><br />
+          <c:if test="${empty noSystemProfile}">
           <!--- System profile sync-->
 		<input type="radio" name="targetProfileType" value="system" 
 				onclick="form.syncPackageSelect.disabled = true; form.syncSystemSelect.disabled = false;"
@@ -53,6 +54,7 @@
 			</c:forEach>
 		</select>           
             <br /><br />
+		</c:if>            
 		<input type="radio" name="targetProfileType" value="none" 
 				onclick="form.syncPackageSelect.disabled = true; form.syncSystemSelect.disabled = true;"
 				 id="syncNone"

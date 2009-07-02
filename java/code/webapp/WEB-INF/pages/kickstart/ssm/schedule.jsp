@@ -37,6 +37,8 @@
     </div>
 <c:set var="regularKS" value="true"/>
 <c:set var="form" value="${kickstartScheduleWizardForm.map}"/>
+<c:set var="noSystemProfile" value="true"/>
+
 <rl:listset name="form">
 		<c:if test="${empty requestScope.isIP}">
 		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/profile-list.jspf" %>

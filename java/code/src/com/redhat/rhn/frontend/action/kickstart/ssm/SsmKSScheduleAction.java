@@ -21,8 +21,6 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.common.DateRangePicker;
-import com.redhat.rhn.frontend.action.common.DateRangePicker.DatePickerResults;
 import com.redhat.rhn.frontend.action.kickstart.ScheduleKickstartWizardAction;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -35,7 +33,7 @@ import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.manager.kickstart.KickstartManager;
 import com.redhat.rhn.manager.kickstart.SSMScheduleCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
-import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.manager.profile.ProfileManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
@@ -44,7 +42,6 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.cobbler.Profile;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -66,11 +63,11 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
     /**
      * ${@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, ActionForm form, 
+    public ActionForward execute(ActionMapping mapping, ActionForm formIn, 
             HttpServletRequest request, HttpServletResponse response) throws Exception {
         RequestContext context = new RequestContext(request);
         User user = context.getLoggedInUser();
-        
+        DynaActionForm form = (DynaActionForm)formIn;
         if ("ip".equals(mapping.getParameter())) {
             request.setAttribute(SCHEDULE_TYPE_IP, Boolean.TRUE);
         }
@@ -82,9 +79,11 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
         ScheduleKickstartWizardAction.setupProxyInfo(context);
+        form.set(ScheduleKickstartWizardAction.SYNCH_PACKAGES, 
+                    ProfileManager.listProfileOverviews(user.getOrg().getId()));
         // create and prepopulate the date picker.
         getStrutsDelegate().prepopulateDatePicker(
-                request, (DynaActionForm)form, "date", DatePicker.YEAR_RANGE_POSITIVE);
+                request, form, "date", DatePicker.YEAR_RANGE_POSITIVE);
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
     
@@ -161,5 +160,5 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
         }
         return profiles;
     }
-    
+
 }
