@@ -4623,7 +4623,7 @@
         type="com.redhat.rhn.frontend.action.kickstart.ssm.SsmKSScheduleAction"
         parameter="profile"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
+        <set-property property="acls" value="org_entitlement(rhn_provisioning);"/>
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/ssm/schedule.jsp"/>
         <forward name="success" redirect= "true"
@@ -4637,7 +4637,7 @@
         type="com.redhat.rhn.frontend.action.kickstart.ssm.SsmKSScheduleAction"
         parameter="ip"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
+        <set-property property="acls" value="org_entitlement(rhn_provisioning);"/>
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/ssm/schedule.jsp"/>
         <forward name="success" redirect= "true"
@@ -4651,7 +4651,7 @@
         input="/WEB-INF/pages/kickstart/kickstarts.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.KickstartsSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
+        <set-property property="acls" value="org_entitlement(rhn_provisioning);"/>
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/kickstarts.jsp"/>
     </action>
