@@ -43,7 +43,7 @@ for selinuxvariant in mls strict targeted
   done
 
 /sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl /usr/sbin/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn \
-	/usr/bin/rhn-sudo-ssl-tool /usr/bin/rhn-sudo-load-ssl-cert
+	/usr/bin/rhn-sudo-ssl-tool /usr/bin/rhn-sudo-load-ssl-cert /var/www/html/pub
 
 /usr/sbin/setsebool -P httpd_enable_cgi 1
 /usr/sbin/setsebool -P httpd_can_network_connect 1
