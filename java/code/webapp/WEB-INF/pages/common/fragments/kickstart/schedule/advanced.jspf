@@ -25,7 +25,7 @@ function setStep(stepName) {
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <h2><img src="/img/icon_kickstart_session-medium.gif" /><bean:message key="kickstart.schedule.heading4.jsp" /></h2>
-
+<c:set var="form" value="${kickstartScheduleWizardForm.map}"/>
 <html:form method="POST" action="${actionUrl}" styleId="wizard-form">
     <html:hidden property="wizardStep" value="third" styleId="wizard-step" />
     <html:hidden property="scheduleAsap" />

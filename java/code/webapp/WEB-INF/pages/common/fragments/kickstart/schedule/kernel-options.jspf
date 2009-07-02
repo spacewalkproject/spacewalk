@@ -34,7 +34,7 @@
           
 		  <html:radio value="custom" property="kernelParamsType" onclick="form.kernelParamsId.disabled = false;">
               <strong><bean:message key="Custom" /></strong>
-          </html:radio>: &nbsp;&nbsp;<html:text styleId = "kernelParamsId" property="kernelParams" onkeydown="return blockEnter(event)" disabled= "${kickstartScheduleWizardForm.map.kernelParamsType ne &quot;custom&quot;}" /><br /><br />
+          </html:radio>: &nbsp;&nbsp;<html:text styleId = "kernelParamsId" property="kernelParams" onkeydown="return blockEnter(event)" disabled= "${form.kernelParamsType ne &quot;custom&quot;}" /><br /><br />
           <rhn:tooltip><bean:message key="kickstart.schedule.kernel.options.custom.tip" arg0="${rhn:localize('Custom')}"/></rhn:tooltip>                  
         </td>
       </tr>
@@ -59,7 +59,7 @@
               <strong><bean:message key="Custom" /></strong>
           </html:radio>: &nbsp;&nbsp;<html:text styleId = "postKernelParamsId" 
           		property="postKernelParams" 
-          		onkeydown="return blockEnter(event)" disabled= "${kickstartScheduleWizardForm.map.postKernelParamsType ne &quot;custom&quot;}"/><br /><br />                  
+          		onkeydown="return blockEnter(event)" disabled= "${form.postKernelParamsType ne &quot;custom&quot;}"/><br /><br />                  
            <rhn:tooltip><bean:message key="kickstart.schedule.kernel.options.custom.tip" arg0="${rhn:localize('Custom')}"/></rhn:tooltip>
         </td>
         

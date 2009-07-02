@@ -7,35 +7,57 @@
         <th width="10%"><bean:message key="kickstart.schedule.sync.pkg.profile.jsp" />:</th>
         <td>
         <c:if test="${not empty regularKS}">
-          <html:radio styleId="syncExisting" value="existing" property="targetProfileType"
-          				 onclick="form.syncPackageSelect.disabled = true; form.syncSystemSelect.disabled = true;">
+			<input type="radio" name="targetProfileType" value="existing" 
+				onclick="form.syncPackageSelect.disabled = true; form.syncSystemSelect.disabled = true;" 
+				id="syncExisting"
+				<c:if test="${form.targetProfileType == 'existing'}">checked="checked"</c:if>
+				 />
               <bean:message key="kickstart.schedule.sync.pkg.profile.option1.jsp" />
-          </html:radio><br /><br />
-          </c:if>
-              <html:radio styleId="syncPackage"
-              	 onclick="form.syncPackageSelect.disabled = false; form.syncSystemSelect.disabled = true;" 
-              	 value="package" property="targetProfileType" disabled="${syncPackageDisabled}">
-              <bean:message key="kickstart.schedule.sync.pkg.profile.option2.jsp" />
-            </html:radio>:&nbsp;&nbsp;
-            <html:select styleId="syncPackageSelect" property="targetProfile"
-            	 disabled= "${kickstartScheduleWizardForm.map.targetProfileType ne &quot;package&quot;}">
-              <html:optionsCollection property="syncPackages" 
-                label="name" value="id"/>
-            </html:select>
           <br /><br />
-          <html:radio styleId="syncSystem" value="system" property="targetProfileType" 
-          		onclick="form.syncPackageSelect.disabled = true; form.syncSystemSelect.disabled = false;" 
-          		disabled="${syncSystemDisabled}">
-                <bean:message key="kickstart.schedule.sync.pkg.profile.option3.jsp" />
-            </html:radio>:&nbsp;&nbsp;
-              <html:select styleId="syncSystemSelect" property="targetProfile"
-              	disabled= "${kickstartScheduleWizardForm.map.targetProfileType ne &quot;system&quot;}"> 
-                <html:optionsCollection property="syncSystems" 
-                  label="name" value="id"/>
-              </html:select>
-            <br /><br />                    
-          <html:radio styleId="syncNone" value="none" property="targetProfileType"
-          	 onclick="form.syncPackageSelect.disabled = true; form.syncSystemSelect.disabled = true;">
-          	 <bean:message key="kickstart.schedule.sync.pkg.profile.option4.jsp" /></html:radio><br />
+          </c:if>
+			
+		<input type="radio" name="targetProfileType" value="package" 
+				onclick="form.syncPackageSelect.disabled = false; form.syncSystemSelect.disabled = true;"
+				 id="syncPackage"
+				<c:if test="${form.targetProfileType == 'package'}">checked="checked"</c:if>
+				<c:if test="${syncPackageDisabled or empty form.syncPackages}">disabled="true"</c:if> 
+				  />			
+              <bean:message key="kickstart.schedule.sync.pkg.profile.option2.jsp" />:&nbsp;&nbsp;
+              
+        <select name="targetProfile" id="syncPackageSelect"
+        		<c:if test="${form.targetProfileType ne 'package' or empty form.syncPackages}">disabled="true"</c:if>
+        		>
+			<c:forEach var="package" items="${form.syncPackages}">
+				<option 
+				<c:if test="${package.id == form.targetProfile}">selected="selected"</c:if> 
+				value='${package.id}'>${package.name}</option>
+			</c:forEach>
+		</select>              
+          <br /><br />
+          <!--- System profile sync-->
+		<input type="radio" name="targetProfileType" value="system" 
+				onclick="form.syncPackageSelect.disabled = true; form.syncSystemSelect.disabled = false;"
+				 id="syncSystem"
+				<c:if test="${form.targetProfileType == 'system'}">checked="checked"</c:if>
+				<c:if test="${syncSystemDisabled or empty form.syncSystems}">disabled="true"</c:if> 
+				  />			
+<bean:message key="kickstart.schedule.sync.pkg.profile.option3.jsp" />:&nbsp;&nbsp;
+              
+        <select name="targetProfile" id="syncSystemSelect"
+        		<c:if test="${form.targetProfileType ne 'system' or empty form.syncSystems}">disabled="true"</c:if>
+        		>
+			<c:forEach var="system" items="${form.syncSystems}">
+				<option 
+				<c:if test="${system.id == form.targetProfile}">selected="selected"</c:if> 
+				value='${system.id}'>${system.name}</option>
+			</c:forEach>
+		</select>           
+            <br /><br />
+		<input type="radio" name="targetProfileType" value="none" 
+				onclick="form.syncPackageSelect.disabled = true; form.syncSystemSelect.disabled = true;"
+				 id="syncNone"
+				<c:if test="${empty form.targetProfileType or form.targetProfileType == 'none'}">checked="checked"</c:if>
+				  />			
+<bean:message key="kickstart.schedule.sync.pkg.profile.option4.jsp" /><br />
         </td>
       </tr>
