@@ -368,10 +368,10 @@ ORDER BY UPPER(PN.name)
      will be the name -->
 
 SELECT DISTINCT
-       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label nvre,
+       PN.name || '-' || PE.evr.as_vre_simple() AS nvre,
        PN.id || '|' || CNP.evr_id || '|' || PA.id AS id_combo,
        (SELECT MAX(summary) FROM rhnPackage P WHERE P.id = CNP.package_id) SUMMARY,
-       PA.name as arch
+       PA.label as arch
   FROM rhnPackageName PN,
        rhnPackageEVR PE,
        rhnPackageArch PA,
@@ -454,7 +454,7 @@ SELECT PN.id || '|' || SPE.id AS ID_COMBO,
 <mode name="packages_from_server_set" class="com.redhat.rhn.frontend.dto.SsmRemovePackageListItem">
   <query params="user_id, set_label">
 SELECT   PN.ID || '|' || PE.ID || '|' || PA.ID AS id_combo,
-         PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label nvre,
+         PN.name || '-' || PE.evr.as_vre_simple() AS nvre,
          PA.label AS arch,
          X.num_systems AS num_systems
     FROM rhnPackageName PN,
