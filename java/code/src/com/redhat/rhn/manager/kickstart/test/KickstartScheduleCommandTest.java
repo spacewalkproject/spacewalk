@@ -364,10 +364,6 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         PackageManagerTest.addPackageToSystemAndChannel(
                 Config.get().getKickstartPackageName(), server, c);
         // ksdata.getKsdefault().getKstree().setChannel(c);
-
-        cmd.setActivationType(activationType);        
-
-        cmd.setActivationKeyIds(activationKeyIds);
         cmd.setProfileType(profileType);
         cmd.setServerProfileId(otherServerId);
         cmd.setProfileId(profileId);

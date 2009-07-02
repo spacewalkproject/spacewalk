@@ -44,6 +44,7 @@ import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
+import com.redhat.rhn.frontend.dto.ProfileDto;
 import com.redhat.rhn.frontend.dto.ServerPath;
 import com.redhat.rhn.frontend.dto.kickstart.CobblerProfileDto;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
@@ -128,9 +129,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     private KickstartSession kickstartSession;
     private Date scheduleDate;
     private List packagesToInstall;
-    private String activationType;
     private String profileType;    
-    private Set activationKeyIds;
     private String proxyHost;
     private Server targetServer;
     
@@ -336,8 +335,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
 
         log.debug("Initializing with selectedHostServerId=" + selectedHostServerId +
                   ", selectedTargetServerId=" + selectedTargetServerId);
-
-        this.setActivationType(ACTIVATION_TYPE_EXISTING);
         this.setPackagesToInstall(new LinkedList());
 
         // There must always be a host server present.
@@ -461,11 +458,15 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      *
      * @return DataResult list
      */
-    public DataResult getProfiles() {
-        DataResult profiles = ProfileManager.compatibleWithChannel(
-                this.ksdata.getKickstartDefaults().getKstree().getChannel(),
-                user.getOrg(), null);
-        return profiles;
+    public List<ProfileDto> getProfiles() {
+        if (!isCobblerOnly()) {
+            List<ProfileDto> profiles = ProfileManager.compatibleWithChannel(
+                    this.ksdata.getKickstartDefaults().getKstree().getChannel(),
+                    user.getOrg(), null);
+            return profiles;            
+        }
+        return Collections.EMPTY_LIST;
+
     }
  
     /**
@@ -1246,25 +1247,17 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         return null;
     }
     
-
-    
-    /**
-     * Get the list of possible Activation keys to chose from
-     * @return DataResult of 
-     */
-    public DataResult getActivationKeys() {
-        return KickstartLister.getInstance().
-            getActivationKeysInOrg(this.user.getOrg(), null);
-    }
-
     /**
      * Get the list of compatible systems you could sync to
      * @return DataResult of System DTOs
      */
-    public DataResult getCompatibleSystems() {
-        DataResult dr = SystemManager.systemsSubscribedToChannel(
-                this.getKsdata().getKickstartDefaults().getKstree().getChannel(), user);
-        return dr;
+    public List getCompatibleSystems() {
+        if (!isCobblerOnly()) {
+            DataResult dr = SystemManager.systemsSubscribedToChannel(
+                    this.getKsdata().getKickstartDefaults().getKstree().getChannel(), user);
+            return dr;            
+        }
+        return Collections.EMPTY_LIST;
     }
 
     
@@ -1283,23 +1276,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         this.packagesToInstall = packagesToInstallIn;
     }
 
-    
-    /**
-     * @return Returns the activationType.
-     */
-    public String getActivationType() {
-        return activationType;
-    }
-
-    
-    /**
-     * @param activationTypeIn The activationType to set.
-     */
-    public void setActivationType(String activationTypeIn) {
-        this.activationType = activationTypeIn;
-    }
-
-    
     /**
      * @return Returns the profileType.
      */
@@ -1314,22 +1290,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     public void setProfileType(String profileTypeIn) {
         this.profileType = profileTypeIn;
     }        
-    
-    /**
-     * @return Returns the activationKeyIds.
-     */
-    public Set getActivationKeyIds() {
-        return activationKeyIds;
-    }
-
-    
-    /**
-     * @param activationKeyIdsIn The activationKeyIds to set.
-     */
-    public void setActivationKeyIds(Set activationKeyIdsIn) {
-        this.activationKeyIds = activationKeyIdsIn;
-    }
-
     
     /**
      * @return Returns the kickstartSession.
@@ -1386,18 +1346,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         return createdProfile;
     }
 
-    /**
-     * Set the activationkey id to use
-     * @param idIn to add to the Kickstart
-     */
-    public void setActivationKeyId(Long idIn) {
-        if (this.activationKeyIds == null) {
-            this.activationKeyIds = new HashSet();
-        }
-        this.activationKeyIds.add(idIn);
-        
-    }
-    
     /**
      * 
      * @param serverIn Proxy Host to set for this ks session

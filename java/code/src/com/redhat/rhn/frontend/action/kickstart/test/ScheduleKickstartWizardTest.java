@@ -36,7 +36,6 @@ import com.redhat.rhn.domain.token.TokenFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.kickstart.ScheduleKickstartWizardAction;
 import com.redhat.rhn.frontend.context.Context;
-import com.redhat.rhn.frontend.dto.ActivationKeyDto;
 import com.redhat.rhn.frontend.dto.ProfileDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
@@ -165,8 +164,6 @@ public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
         assertNotNull(request.getAttribute(RequestContext.SYSTEM));
         verifyFormList(ScheduleKickstartWizardAction.SYNCH_PACKAGES, 
                 ProfileDto.class);
-        verifyFormList(ScheduleKickstartWizardAction.ACTIVATION_KEYS,
-                ActivationKeyDto.class);
         verifyFormList(ScheduleKickstartWizardAction.SYNCH_SYSTEMS,
                 HashMap.class);
     }

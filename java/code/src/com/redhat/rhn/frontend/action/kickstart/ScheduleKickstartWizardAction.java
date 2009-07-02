@@ -38,7 +38,6 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemCreateCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.system.SystemManager;
 
-import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
@@ -47,6 +46,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.util.LabelValueBean;
 import org.cobbler.CobblerConnection;
+import org.cobbler.CobblerObject;
 import org.cobbler.Distro;
 import org.cobbler.SystemRecord;
 
@@ -58,6 +58,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -74,7 +75,6 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             .getLogger(ScheduleKickstartWizardAction.class);
 
     public static final String SYNCH_PACKAGES = "syncPackages";
-    public static final String ACTIVATION_KEYS = "activationKeys";
     public static final String SYNCH_SYSTEMS = "syncSystems";
     public static final String HAS_PROFILES = "hasProfiles";
     public static final String HAS_PROXIES = "hasProxies";
@@ -86,16 +86,13 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
     public static final String KERNEL_PARAMS_DISTRO = "distro";
     public static final String KERNEL_PARAMS_PROFILE = "profile";
     public static final String KERNEL_PARAMS_CUSTOM = "custom";
-    
+    private static final String COBBLER_ONLY_PROFILE = "cobblerOnlyProfile";
     public static final String POST_KERNEL_PARAMS = "postKernelParams";
     public static final String POST_KERNEL_PARAMS_TYPE = "postKernelParamsType";
     public static final String PROXY_HOST = "proxyHost";
-    public static final String USE_EXISTING_PROFILE = "useExistingProfile";
-    public static final String ACTIVATION_KEY = "activationKey";
     public static final String IS_VIRTUAL_GUEST = "isVirtualGuest";
     public static final String HOST_SID = "hostSid";
     public static final String VIRT_HOST_IS_REGISTERED = "virtHostIsRegistered";
-
     public static final String TARGET_PROFILE_TYPE = "targetProfileType";
     /**
      * {@inheritDoc}
@@ -149,7 +146,6 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             }
             return profiles;
         }
-
     }
     
 
@@ -269,33 +265,33 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
 
         checkForKickstart(form, cmd, ctx);
         addRequestAttributes(ctx, cmd, form);
-        form.set(ACTIVATION_KEYS, cmd.getActivationKeys());
-        DataResult packageProfiles = cmd.getProfiles();
-        form.set(SYNCH_PACKAGES, packageProfiles);
-        DataResult systemProfiles = cmd.getCompatibleSystems();
-        form.set(SYNCH_SYSTEMS, systemProfiles);
-
-        // Disable the package/system sync radio buttons if no profiles are
-        // available:
-        String syncPackageDisabled = "false";
-        if (packageProfiles.size() == 0) {
-            syncPackageDisabled = "true";
+        if (!cmd.isCobblerOnly()) {
+            List packageProfiles = cmd.getProfiles();
+            form.set(SYNCH_PACKAGES, packageProfiles);
+            List systemProfiles = cmd.getCompatibleSystems();
+            form.set(SYNCH_SYSTEMS, systemProfiles);
+    
+            // Disable the package/system sync radio buttons if no profiles are
+            // available:
+            String syncPackageDisabled = "false";
+            if (packageProfiles.size() == 0) {
+                syncPackageDisabled = "true";
+            }
+            String syncSystemDisabled = "false";
+            if (systemProfiles.size() == 0) {
+                syncSystemDisabled = "true";
+            }
+            ctx.getRequest()
+                    .setAttribute(SYNC_PACKAGE_DISABED, syncPackageDisabled);
+            ctx.getRequest().setAttribute(SYNC_SYSTEM_DISABLED, syncSystemDisabled);
+    
+            if (StringUtils.isEmpty(form.getString(TARGET_PROFILE_TYPE))) {
+                form.set(TARGET_PROFILE_TYPE, 
+                            KickstartScheduleCommand.TARGET_PROFILE_TYPE_NONE);
+            }
         }
-        String syncSystemDisabled = "false";
-        if (systemProfiles.size() == 0) {
-            syncSystemDisabled = "true";
-        }
-        ctx.getRequest()
-                .setAttribute(SYNC_PACKAGE_DISABED, syncPackageDisabled);
-        ctx.getRequest().setAttribute(SYNC_SYSTEM_DISABLED, syncSystemDisabled);
-
-        if (StringUtils.isEmpty(form.getString(USE_EXISTING_PROFILE))) {
-            form.set(USE_EXISTING_PROFILE, Boolean.FALSE.toString());
-        }
-        
-        if (StringUtils.isEmpty(form.getString(TARGET_PROFILE_TYPE))) {
-            form.set(TARGET_PROFILE_TYPE, 
-                        KickstartScheduleCommand.TARGET_PROFILE_TYPE_NONE);
+        else {
+            ctx.getRequest().setAttribute(COBBLER_ONLY_PROFILE, Boolean.TRUE);
         }
         
         if (StringUtils.isEmpty(form.getString(KERNEL_PARAMS_TYPE))) {
@@ -384,59 +380,12 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         KickstartHelper helper = new KickstartHelper(ctx.getRequest());
         KickstartScheduleCommand cmd = getScheduleCommand(form, ctx,
                 scheduleTime, helper.getKickstartHost());
-        
-        CobblerConnection con  = CobblerXMLRPCHelper.
-                            getConnection(ctx.getLoggedInUser());
-        
-        String type = form.getString(KERNEL_PARAMS_TYPE);
-        if (KERNEL_PARAMS_CUSTOM.equals(type)) {
-            cmd.setKernelOptions(form.getString(KERNEL_PARAMS));
-        }
-        else if (KERNEL_PARAMS_DISTRO.equals(type)) {
-            Distro distro = Distro.
-                    lookupById(con, cmd.getKsdata().getTree().getCobblerId());
-            cmd.setKernelOptions(distro.getKernelOptionsString());
-        }
-        else {
-            org.cobbler.Profile profile = org.cobbler.Profile.
-                                        lookupById(con, cmd.getKsdata().getCobblerId());
-            cmd.setKernelOptions(profile.getKernelOptionsString());
-        }
-        
-        type = form.getString(POST_KERNEL_PARAMS_TYPE);
-        if (KERNEL_PARAMS_CUSTOM.equals(type)) {
-            cmd.setPostKernelOptions(form.getString(POST_KERNEL_PARAMS));
-        }
-        else if (KERNEL_PARAMS_DISTRO.equals(type)) {
-            Distro distro = Distro.
-                    lookupById(con, cmd.getKsdata().getTree().getCobblerId());
-            cmd.setPostKernelOptions(distro.getKernelPostOptionsString());
-        }
-        else {
-            org.cobbler.Profile profile = org.cobbler.Profile.
-                                        lookupById(con, cmd.getKsdata().getCobblerId());
-            cmd.setPostKernelOptions(profile.getKernelPostOptionsString());
-        }
-        
-        
-        boolean advancedConfig = false;
-        // if existing profile is not set then actions froms from normal config
-        // page
-        if (StringUtils.isEmpty(form.getString(USE_EXISTING_PROFILE))) {
-            form.set(USE_EXISTING_PROFILE, Boolean.TRUE.toString());
-        }
-        else {
-            advancedConfig = true;
-        }
 
-        if (BooleanUtils.toBoolean(form.getString(USE_EXISTING_PROFILE))) {
-            cmd
-                    .setActivationType(KickstartScheduleCommand.ACTIVATION_TYPE_EXISTING);
-        }
-        else {
-            cmd.setActivationType(KickstartScheduleCommand.ACTIVATION_TYPE_KEY);
-            cmd.setActivationKeyId((Long) form.get(ACTIVATION_KEY));
-        }
+        cmd.setKernelOptions(parseKernelOptions(form, ctx.getRequest(), 
+                            form.getString(RequestContext.COBBLER_ID), false));
+        cmd.setPostKernelOptions(parseKernelOptions(form, ctx.getRequest(), 
+                            form.getString(RequestContext.COBBLER_ID), true));
+        
         if (!cmd.isCobblerOnly()) {
             // now setup system/package profiles for kickstart to sync
             Profile pkgProfile = cmd.getKsdata().getKickstartDefaults()
@@ -445,7 +394,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
 
             // if user did not override package profile, then grab from ks
             // profile if avail
-            if (!advancedConfig && packageProfileId != null) {
+            if (packageProfileId != null) {
                 cmd.setProfileId(packageProfileId);
                 cmd.setProfileType(KickstartScheduleCommand.TARGET_PROFILE_TYPE_PACKAGE);
             }
@@ -622,5 +571,46 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             User currentUser) {
         return new KickstartScheduleCommand(sid, currentUser);
     }
+    
+    /**
+     * Parses the kernel options or Post kernel options
+     * from the given form. Called after the advanced options page
+     * is typically set..  
+     *  This is a handy method used in both SSM and SDC KS scheduling.    
+     * @param form the kickstartScheduleWizardForm that holds the form fields. 
+     * @param request the servlet request
+     * @param profileCobblerId the cobbler profile id
+     * @param isPost true if caller is interested in getting the
+     *              post kernel options and not the pre. 
+     * @return the kernel options selected by the user.
+     */
+    public static String parseKernelOptions(DynaActionForm form,
+                                                HttpServletRequest request,
+                                                String profileCobblerId,
+                                                boolean isPost) {
+        RequestContext context = new RequestContext(request);
+        
+        CobblerConnection con  = CobblerXMLRPCHelper.
+                            getConnection(context.getLoggedInUser());
+        String typeKey = !isPost ? KERNEL_PARAMS_TYPE : POST_KERNEL_PARAMS_TYPE;
+        String customKey = !isPost ? KERNEL_PARAMS : POST_KERNEL_PARAMS;
+        String type = form.getString(typeKey);
+        if (KERNEL_PARAMS_CUSTOM.equals(type)) {
+            return form.getString(customKey);
+        }
+        org.cobbler.Profile profile = org.cobbler.Profile.lookupById(con,
+                profileCobblerId);
+        CobblerObject ret = profile;
+        
+        if (KERNEL_PARAMS_DISTRO.equals(type)) {
+            ret = profile.getDistro();
+        }
+        if (!isPost) {
+            return ret.getKernelOptionsString();    
+        }
+        else {
+            return ret.getKernelPostOptionsString();
+        }
 
+    }
 }
