@@ -688,7 +688,8 @@ class Backend:
         tbs = self.tables['rhnPackage']
         if CFG.ENABLE_NVREA:
             # Add md5sum as a primarykey if nevra is enabled
-            tbs.pk.append('md5sum')
+            if 'md5sum' not in tbs.pk:
+                tbs.pk.append('md5sum')
 
         childTables = {
             'rhnPackageProvides':   'package_id', 
