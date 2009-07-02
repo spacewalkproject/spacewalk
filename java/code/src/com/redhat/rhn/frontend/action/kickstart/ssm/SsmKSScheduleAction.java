@@ -15,14 +15,21 @@
 package com.redhat.rhn.frontend.action.kickstart.ssm;
 
 import com.redhat.rhn.common.util.DatePicker;
+import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.common.DateRangePicker;
+import com.redhat.rhn.frontend.action.common.DateRangePicker.DatePickerResults;
 import com.redhat.rhn.frontend.action.kickstart.ScheduleKickstartWizardAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
+import com.redhat.rhn.manager.kickstart.KickstartManager;
+import com.redhat.rhn.manager.kickstart.SSMScheduleCommand;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -54,6 +61,11 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
         RequestContext context = new RequestContext(request);
         User user = context.getLoggedInUser();
         
+        
+        if (context.wasDispatched("kickstart.schedule.button2.jsp")) {
+            schedule(request, form, context);
+        }
+        
         if ("ip".equals(mapping.getParameter())) {
             request.setAttribute(SCHEDULE_TYPE_IP, Boolean.TRUE);
         }
@@ -67,6 +79,36 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
                 request, (DynaActionForm)form, "date", DatePicker.YEAR_RANGE_POSITIVE);
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
+    
+    
+    private void schedule(HttpServletRequest request, ActionForm form, RequestContext context) {        
+        SSMScheduleCommand com  = null;
+        User user = context.getLoggedInUser();
+        
+        
+        DynaActionForm dynaForm = (DynaActionForm) form;
+        DatePicker picker = getStrutsDelegate().prepopulateDatePicker(context.getRequest(),
+                dynaForm, "date", DatePicker.YEAR_RANGE_POSITIVE);
+        
+
+        
+        if (isIP(request)) {
+            com = SSMScheduleCommand.initCommandForIPKickstart(user, 
+                  KickstartManager.getInstance().kickstartableSystemsInSsm(user), 
+                  picker.getDate(), "");
+        }
+        else {
+            ListHelper helper = new ListHelper(this, request);
+            String cobblerId = ListTagHelper.getRadioSelection(helper.getListName(),
+                    request);
+            KickstartData data = KickstartFactory.lookupKickstartDataByCobblerIdAndOrg(
+                                user.getOrg(), cobblerId);
+            
+        }
+        
+    }
+    
+    
     /**
      * {@inheritDoc}
      */

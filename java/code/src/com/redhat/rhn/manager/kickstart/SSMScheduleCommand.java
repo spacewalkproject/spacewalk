@@ -96,21 +96,28 @@ public class SSMScheduleCommand {
         isCobblerOnly = true;
     }    
     
+    
+    private SSMScheduleCommand() {
+        
+    }
+    
     /**
-     * Constructor for SSMScheduleCommand when were using IP ADDRESS 
+     * Get a SSMScheduleCommand when were using IP ADDRESS 
      *  base kickstarting
      * @param userIn the user
      * @param systemsIn List of SystemOverview's to provision
      * @param dateIn the date to schedule it for
      * @param kickstartHostIn the kickstart hostname (proxy's or satellite's)
      */
-    public SSMScheduleCommand(User userIn, List<SystemOverview> systemsIn, Date dateIn, 
-            String kickstartHostIn) {
-        user = userIn;
-        systems = systemsIn;
-        scheduleDate = dateIn;
-        kickstartServerName = kickstartHostIn;
-        isIpBasedKs = true;
+    public static SSMScheduleCommand initCommandForIPKickstart(User userIn, 
+            List<SystemOverview> systemsIn, Date dateIn, String kickstartHostIn) {
+        SSMScheduleCommand com = new SSMScheduleCommand();
+        com.user = userIn;
+        com.systems = systemsIn;
+        com.scheduleDate = dateIn;
+        com.kickstartServerName = kickstartHostIn;
+        com.isIpBasedKs = true;
+        return com;
     }    
     
     
