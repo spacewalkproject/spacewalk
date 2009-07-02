@@ -15,12 +15,14 @@
 package com.redhat.rhn.frontend.action.kickstart.ssm;
 
 import com.redhat.rhn.common.util.DatePicker;
+import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.DateRangePicker;
 import com.redhat.rhn.frontend.action.common.DateRangePicker.DatePickerResults;
 import com.redhat.rhn.frontend.action.kickstart.ScheduleKickstartWizardAction;
+import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -30,11 +32,13 @@ import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.manager.kickstart.KickstartManager;
 import com.redhat.rhn.manager.kickstart.SSMScheduleCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
+import org.cobbler.Profile;
 
 import java.util.List;
 
@@ -90,12 +94,12 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(context.getRequest(),
                 dynaForm, "date", DatePicker.YEAR_RANGE_POSITIVE);
         
-
+        List<SystemOverview> systems = 
+            KickstartManager.getInstance().kickstartableSystemsInSsm(user);
         
         if (isIP(request)) {
             com = SSMScheduleCommand.initCommandForIPKickstart(user, 
-                  KickstartManager.getInstance().kickstartableSystemsInSsm(user), 
-                  picker.getDate(), "");
+                    systems, picker.getDate());
         }
         else {
             ListHelper helper = new ListHelper(this, request);
@@ -103,8 +107,17 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
                     request);
             KickstartData data = KickstartFactory.lookupKickstartDataByCobblerIdAndOrg(
                                 user.getOrg(), cobblerId);
-            
+            if (data == null) {
+                Profile prof = Profile.lookupById(CobblerXMLRPCHelper.getConnection(user), 
+                        cobblerId);
+                com = new SSMScheduleCommand(user, systems, picker.getDate(), prof.getName());
+            }
+            else {
+                com = new SSMScheduleCommand(user, systems, picker.getDate(), data);
+            }
         }
+        
+        List<ValidatorError> errors = com.store();
         
     }
     

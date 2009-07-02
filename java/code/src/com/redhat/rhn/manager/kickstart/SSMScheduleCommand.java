@@ -38,7 +38,6 @@ public class SSMScheduleCommand {
     // Required attributes
     private User user;
     private Date scheduleDate;
-    private String kickstartServerName;
     private List<SystemOverview> systems;
     private boolean isCobblerOnly = false;
     private boolean isIpBasedKs = false;
@@ -54,6 +53,7 @@ public class SSMScheduleCommand {
 
     private String kernelOptions;
     private String postKernelOptions;    
+    private Server proxy;
     
     private List<Action> scheduledActions =  new ArrayList<Action>();
 
@@ -65,15 +65,13 @@ public class SSMScheduleCommand {
      * @param userIn the user
      * @param systemsIn List of SystemOverview's to provision
      * @param dateIn the date to schedule it for
-     * @param kickstartHostIn the kickstart hostname (proxy's or satellite's)
      * @param ksdataIn the kickstartData
      */
     public SSMScheduleCommand(User userIn, List<SystemOverview> systemsIn, Date dateIn, 
-                                         String kickstartHostIn, KickstartData ksdataIn) {
+                                         KickstartData ksdataIn) {
         user = userIn;
         systems = systemsIn;
         scheduleDate = dateIn;
-        kickstartServerName = kickstartHostIn;
         ksdata = ksdataIn;
     }
     
@@ -83,15 +81,13 @@ public class SSMScheduleCommand {
      * @param userIn the user
      * @param systemsIn List of SystemOverview's to provision
      * @param dateIn the date to schedule it for
-     * @param kickstartHostIn the kickstart hostname (proxy's or satellite's)
      * @param cobblerProfileNameIn the cobbler  profile's name 
      */
     public SSMScheduleCommand(User userIn, List<SystemOverview> systemsIn, Date dateIn, 
-            String kickstartHostIn, String cobblerProfileNameIn) {
+            String cobblerProfileNameIn) {
         user = userIn;
         systems = systemsIn;
         scheduleDate = dateIn;
-        kickstartServerName = kickstartHostIn;
         cobblerProfileName = cobblerProfileNameIn;
         isCobblerOnly = true;
     }    
@@ -107,15 +103,13 @@ public class SSMScheduleCommand {
      * @param userIn the user
      * @param systemsIn List of SystemOverview's to provision
      * @param dateIn the date to schedule it for
-     * @param kickstartHostIn the kickstart hostname (proxy's or satellite's)
      */
     public static SSMScheduleCommand initCommandForIPKickstart(User userIn, 
-            List<SystemOverview> systemsIn, Date dateIn, String kickstartHostIn) {
+            List<SystemOverview> systemsIn, Date dateIn) {
         SSMScheduleCommand com = new SSMScheduleCommand();
         com.user = userIn;
         com.systems = systemsIn;
         com.scheduleDate = dateIn;
-        com.kickstartServerName = kickstartHostIn;
         com.isIpBasedKs = true;
         return com;
     }    
@@ -195,11 +189,11 @@ public class SSMScheduleCommand {
         KickstartScheduleCommand com;
         if (isCobblerOnly) {
             com = KickstartScheduleCommand.createCobblerScheduleCommand(sid, 
-                    cobblerProfileName, user, scheduleDate, kickstartServerName);
+                    cobblerProfileName, user, scheduleDate, null);
         }
         else {
             com =  new KickstartScheduleCommand(sid, uniqueKs, user, scheduleDate, 
-                    kickstartServerName);
+                    null);
         }
         
         com.setKernelOptions(kernelOptions);
@@ -207,10 +201,19 @@ public class SSMScheduleCommand {
         com.setProfileType(profileType);
         com.setProfileId(packageProfileId);
         com.setServerProfileId(serverProfileId);
+        com.setProxy(proxy);
         ValidatorError error = com.store();
         
         this.scheduledActions.add(com.getScheduledAction());
         return error;
+    }
+
+    
+    /**
+     * @param proxyIn The proxy to set.
+     */
+    public void setProxy(Server proxyIn) {
+        this.proxy = proxyIn;
     }
 
     
