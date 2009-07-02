@@ -279,44 +279,51 @@ if [ $? -ne 0 ]; then
 	config_error 2 "Installation of package spacewalk-proxy-management failed."
 fi
 
-rpm -q spacewalk-proxy-monitoring >/dev/null
-MONITORING=$?
-if [ $MONITORING -ne 0 ]; then
-        echo "You do not have monitoring installed. Do you want to install it?"
+if [ "$RHN_PARENT" == "xmlrpc.rhn.redhat.com" ]; then
+    #skip monitoring part for hosted
+    MONITORING=1
+    ENABLE_SCOUT=0
+else
+    rpm -q spacewalk-proxy-monitoring >/dev/null
+    MONITORING=$?
+    if [ $MONITORING -ne 0 ]; then
+        echo "You do not have monitoring installed."
+		echo "Do you want to install monitoring scout?"
 
         default_or_input "Will run '$YUM_OR_UPDATE spacewalk-proxy-monitoring'." INSTALL_MONITORING 'Y/n'
         INSTALL_MONITORING=$(yes_no $INSTALL_MONITORING)
-	if [ "$INSTALL_MONITORING" = "1" ]; then
-	        $YUM_OR_UPDATE spacewalk-proxy-monitoring
-	        MONITORING=$?
-	fi
-else
-	$YUM_OR_UPDATE spacewalk-proxy-monitoring
-    # check if package install successfully
-    rpm -q spacewalk-proxy-monitoring >/dev/null
-    if [ $? -ne 0 ]; then
-        config_error 3 "Installation of package spacewalk-proxy-monitoring failed."
+        if [ "$INSTALL_MONITORING" = "1" ]; then
+            $YUM_OR_UPDATE spacewalk-proxy-monitoring
+            MONITORING=$?
+        fi
+    else
+        $YUM_OR_UPDATE spacewalk-proxy-monitoring
+        # check if package install successfully
+        rpm -q spacewalk-proxy-monitoring >/dev/null
+        if [ $? -ne 0 ]; then
+            config_error 3 "Installation of package spacewalk-proxy-monitoring failed."
+        fi
     fi
-fi
-if [ $MONITORING -eq 0 ]; then
-	#here we configure monitoring
-	#and with cluster.ini
-	echo "Configuring monitoring."
+    if [ $MONITORING -eq 0 ]; then
+        #here we configure monitoring
+        #and with cluster.ini
+        echo "Configuring monitoring."
         default_or_input "Monitoring parent" MONITORING_PARENT "$RHN_PARENT"
         RESOLVED_IP=$(/usr/bin/getent hosts $RHN_PARENT | cut -f1 -d' ')
         default_or_input "Monitoring parent IP" MONITORING_PARENT_IP "$RESOLVED_IP"
         default_or_input "Enable monitoring scout" ENABLE_SCOUT "Y/n"
         ENABLE_SCOUT=$(yes_no $ENABLE_SCOUT)
-		SCOUT_SHARED_KEY=`/usr/bin/rhn-proxy-activate --enable-monitoring \
-				--quiet \
+        SCOUT_SHARED_KEY=`/usr/bin/rhn-proxy-activate --enable-monitoring \
+                --quiet \
                 --server="$RHN_PARENT" \
                 --http-proxy="$HTTP_PROXY" \
                 --http-proxy-username="$HTTP_USERNAME" \
                 --http-proxy-password="$HTTP_PASSWORD" \
                 --ca-cert="$CA_CHAIN" | \
             awk '/\: [0-9a-f]+/  { print $4 }' `
-else
-	ENABLE_SCOUT=0
+    else
+	    ENABLE_SCOUT=0
+    fi
 fi
 
 # size of squid disk cache will be 60% of free space on /var/spool/squid
