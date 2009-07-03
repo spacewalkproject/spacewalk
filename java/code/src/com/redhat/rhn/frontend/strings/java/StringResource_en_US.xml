@@ -363,6 +363,12 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Audit">
+<source>Audit</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Channel Management">
 <source>Channel Management</source>
         <context-group name="ctx">
@@ -775,6 +781,12 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
       </trans-unit>
       <trans-unit id="Relevant">
 <source>Relevant</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Reviews">
+<source>Reviews</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>

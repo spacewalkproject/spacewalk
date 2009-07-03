@@ -195,6 +195,28 @@
             <form-property name="filter_value" type="java.lang.String"/>
             <form-property name="prev_filter_value" type="java.lang.String"/>
         </form-bean>
+        <form-bean name="auditSearchForm"
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+            <form-property name="machine" type="java.lang.String" />
+            <form-property name="startMilli" type="java.lang.Long" />
+            <form-property name="endMilli" type="java.lang.Long" />
+            <form-property name="autypes" type="java.lang.String[]" />
+            <form-property name="seqno" type="java.lang.Long" />
+            <form-property name="unreviewable" type="java.lang.Boolean" />
+            <form-property name="parseDates" type="java.lang.Boolean" />
+            <form-property name="start_year" type="java.lang.Integer" />
+            <form-property name="start_month" type="java.lang.Integer" />
+            <form-property name="start_day" type="java.lang.Integer" />
+            <form-property name="start_hour" type="java.lang.Integer" />
+            <form-property name="start_minute" type="java.lang.Integer" />
+            <form-property name="start_am_pm" type="java.lang.Integer" />
+            <form-property name="end_year" type="java.lang.Integer" />
+            <form-property name="end_month" type="java.lang.Integer" />
+            <form-property name="end_day" type="java.lang.Integer" />
+            <form-property name="end_hour" type="java.lang.Integer" />
+            <form-property name="end_minute" type="java.lang.Integer" />
+            <form-property name="end_am_pm" type="java.lang.Integer" />
+        </form-bean>
         <form-bean name="errataSearchForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="search_string" type="java.lang.String"/>
@@ -1020,6 +1042,7 @@
     <forward name="logout" path="/Logout.do" redirect="true" />
     <forward name="relogin" path="/ReLogin.do" />
     <forward name="user" path="/users/ActiveList.do" redirect="true" />
+    <forward name="audit" path="/audit/Overview.do" redirect="true" />
     <forward name="errata" path="/errata/Overview.do" redirect="true" />
     <forward name="systems" path="/systems/Overview.do" redirect="true" />
     <forward name="schedule" path="/schedule/PendingActions.do" redirect="true" />
@@ -1691,6 +1714,31 @@
                      path="/schedule/InProgressSystems.do" redirect="true" />
             <forward name="noSystemsLeft"
                      path="/schedule/PendingActions.do" redirect="true" />
+    </action>
+
+    <!-- ===== AUDIT ===== -->
+    <action path="/audit/Search"
+        name="auditSearchForm"
+        scope="request"
+        input="/WEB-INF/pages/audit/auditsearch.jsp"
+        type="com.redhat.rhn.frontend.action.audit.AuditSearchAction">
+        <forward name="default" path="/WEB-INF/pages/audit/auditsearch.jsp"/>
+        <forward name="view" path="/WEB-INF/pages/audit/auditview.jsp"/>
+    </action>
+
+    <action path="/audit/Overview"
+        scope="request"
+        input="/WEB-INF/pages/audit/overview.jsp"
+        type="com.redhat.rhn.frontend.action.audit.AuditAction">
+        <forward name="default" path="/WEB-INF/pages/audit/overview.jsp"/>
+    </action>
+
+    <action path="/audit/Machine"
+        scope="request"
+        input="/WEB-INF/pages/audit/machine.jsp"
+        type="com.redhat.rhn.frontend.action.audit.AuditMachineAction">
+        <forward name="default" path="/WEB-INF/pages/audit/machine.jsp"/>
+        <forward name="success" path="/audit/Machine.do" redirect="true"/>
     </action>
 
     <!-- ===== ERRATA ===== -->
