@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.15
+Version: 0.6.16
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -568,6 +568,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Jul  3 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.16-1
+- 509516 - failure to check for non-existant header (Mark Chappell <m.d.chappell@bath.ac.uk>)
+- 509444 - remove delete action system from virt page (Shannon Hughes <shughes@redhat.com>)
+- 509371 - SSM->Install,Remove,Verify - minor fixes to Package Name and Arch (Brad Buckingham <bbuckingham@redhat.com>)
+
 * Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.6.15-1
 - change comments to docstrings (msuchy@redhat.com)
 - change comments to docstrings (msuchy@redhat.com)
