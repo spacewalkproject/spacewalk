@@ -42,6 +42,7 @@ Obsoletes: rhns-proxy < 5.3.0
 Obsoletes: rhns-proxy-management < 5.3.0
 BuildRequires: /usr/bin/docbook2man
 Obsoletes: rhns-proxy-tools < 5.3.0
+Provides: rhns-proxy-tools = 5.3.0
 Obsoletes: spacewalk-proxy-tools < 0.5.3
 Provides: spacewalk-proxy-tools = %{version}
 
