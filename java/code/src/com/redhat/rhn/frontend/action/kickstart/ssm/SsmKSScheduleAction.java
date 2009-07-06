@@ -113,7 +113,7 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
             KickstartManager.getInstance().kickstartableSystemsInSsm(user);
         
         if (isIP(request)) {
-            com = SSMScheduleCommand.initCommandForIPKickstart(user, 
+            com = SSMScheduleCommand.initIPKickstart(user, 
                     systems, picker.getDate());
         }
         else {
@@ -125,11 +125,11 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
             if (data == null) {
                 Profile prof = Profile.lookupById(CobblerXMLRPCHelper.getConnection(user), 
                         cobblerId);
-                com = new SSMScheduleCommand(user, systems, picker.getDate(), 
-                        prof.getName());
+                com = SSMScheduleCommand.initCobblerOnly(user, systems,
+                                                picker.getDate(), prof.getName());
             }
             else {
-                com = new SSMScheduleCommand(user, systems, picker.getDate(), data);
+                com = SSMScheduleCommand.init(user, systems, picker.getDate(), data);
             }
         }
         

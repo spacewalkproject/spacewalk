@@ -36,9 +36,6 @@ import java.util.List;
  * @version $Rev$
  */
 public class SSMScheduleCommand {
-
-    
-    
     // Required attributes
     private User user;
     private Date scheduleDate;
@@ -57,15 +54,17 @@ public class SSMScheduleCommand {
     private Server proxy;
     
     private List<Action> scheduledActions =  new ArrayList<Action>();
-
-    
     private String kernelParamType;
     private String customKernelParams;
     
     private String postKernelParamType;
     private String customPostKernelParams;
     
-    
+    private SSMScheduleCommand(User userIn, List<SystemOverview> systemsIn, Date dateIn) {
+        user = userIn;
+        systems = systemsIn;
+        scheduleDate = dateIn;
+    }
     
     /**
      * Constructor for SSMScheduleCommand when we've selected a kickstart
@@ -74,13 +73,15 @@ public class SSMScheduleCommand {
      * @param systemsIn List of SystemOverview's to provision
      * @param dateIn the date to schedule it for
      * @param ksdataIn the kickstartData
+     * @return the SSMScheduleCommand
      */
-    public SSMScheduleCommand(User userIn, List<SystemOverview> systemsIn, Date dateIn, 
-                                         KickstartData ksdataIn) {
-        user = userIn;
-        systems = systemsIn;
-        scheduleDate = dateIn;
-        ksdata = ksdataIn;
+    public static SSMScheduleCommand init(User userIn, 
+                                    List<SystemOverview> systemsIn, 
+                                    Date dateIn, 
+                                    KickstartData ksdataIn) {
+        SSMScheduleCommand command = new SSMScheduleCommand(userIn, systemsIn, dateIn);
+        command.ksdata = ksdataIn;
+        return command;
     }
     
     /**
@@ -89,21 +90,17 @@ public class SSMScheduleCommand {
      * @param userIn the user
      * @param systemsIn List of SystemOverview's to provision
      * @param dateIn the date to schedule it for
-     * @param cobblerProfileNameIn the cobbler  profile's name 
+     * @param cobblerProfileNameIn the cobbler  profile's name
+     * @return the SSMScheduleCommand
      */
-    public SSMScheduleCommand(User userIn, List<SystemOverview> systemsIn, Date dateIn, 
-            String cobblerProfileNameIn) {
-        user = userIn;
-        systems = systemsIn;
-        scheduleDate = dateIn;
-        cobblerProfileName = cobblerProfileNameIn;
-        isCobblerOnly = true;
+    public static  SSMScheduleCommand initCobblerOnly(User userIn, 
+                                    List<SystemOverview> systemsIn, Date dateIn, 
+                                    String cobblerProfileNameIn) {
+        SSMScheduleCommand command = new SSMScheduleCommand(userIn, systemsIn, dateIn);
+        command.cobblerProfileName = cobblerProfileNameIn;
+        command.isCobblerOnly = true;
+        return command;
     }    
-    
-    
-    private SSMScheduleCommand() {
-        
-    }
     
     /**
      * Get a SSMScheduleCommand when were using IP ADDRESS 
@@ -113,16 +110,12 @@ public class SSMScheduleCommand {
      * @param dateIn the date to schedule it for
      * @return the SSMScheduleCommand
      */
-    public static SSMScheduleCommand initCommandForIPKickstart(User userIn, 
+    public static SSMScheduleCommand initIPKickstart(User userIn, 
             List<SystemOverview> systemsIn, Date dateIn) {
-        SSMScheduleCommand com = new SSMScheduleCommand();
-        com.user = userIn;
-        com.systems = systemsIn;
-        com.scheduleDate = dateIn;
+        SSMScheduleCommand com = new SSMScheduleCommand(userIn, systemsIn, dateIn);
         com.isIpBasedKs = true;
         return com;
     }    
-    
     
     
     /**
@@ -169,8 +162,6 @@ public class SSMScheduleCommand {
         }
         return errors;
     }
-
-
     
     private ValidatorError scheduleSystem(Long sid) {
         
@@ -259,10 +250,5 @@ public class SSMScheduleCommand {
      */
     public void setCustomPostKernelParams(String customPostKernelParamsIn) {
         this.customPostKernelParams = customPostKernelParamsIn;
-    }
-
-
-
-    
-    
+    }   
 }
