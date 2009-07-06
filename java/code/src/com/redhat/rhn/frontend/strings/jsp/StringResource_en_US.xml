@@ -9152,6 +9152,9 @@ Please note that some manual configuration of these scripts may still be require
 		<trans-unit id="ssm.kickstart.schedule.heading2.text.jsp">
           <source>Please select the kickstart profile you'd like to use to kickstart the selected systems.</source>
         </trans-unit>
+		<trans-unit id="ssm.kickstart.schedule.ip.heading2.text.jsp">
+          <source>The kickstart profile will be automatically selected for each system based upon its network configuration.  If no match is found, the organizational default profile will be used if set.</source>
+        </trans-unit>
 		<trans-unit id="ssm.kickstart.schedule.proxy.jsp.summary">
           <source>You may choose to use an @@PRODUCT_NAME@@ Proxy to access the files necessary for kickstart. The selected systems will be registered to the @@PRODUCT_NAME@@ Proxy selected below after its kickstart has completed..</source>
         </trans-unit>

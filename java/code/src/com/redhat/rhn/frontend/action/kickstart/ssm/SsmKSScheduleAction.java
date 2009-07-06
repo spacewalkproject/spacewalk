@@ -134,7 +134,7 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
         }
         
         
-        String proxyId = (String) request.getAttribute(
+        String proxyId = (String) dynaForm.getString(
                 ScheduleKickstartWizardAction.PROXY_HOST);
         if (!StringUtils.isEmpty(proxyId)) {
             Server proxy = ServerFactory.lookupById(Long.parseLong(proxyId));

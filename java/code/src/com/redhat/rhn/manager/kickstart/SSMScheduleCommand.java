@@ -183,6 +183,13 @@ public class SSMScheduleCommand {
             uniqueKs = KickstartManager.getInstance().findProfileForServersNetwork(ser);
         }
         
+        if (uniqueKs == null && !isCobblerOnly) {
+            //an IP Range was not found for the ip address of this system
+            //   and no org default was set.  In the future maybe we should handle this
+            //   but for now, we'll just move on
+            return null;
+        }
+
         KickstartScheduleCommand com;
         if (isCobblerOnly) {
             com = KickstartScheduleCommand.createCobblerScheduleCommand(sid, 

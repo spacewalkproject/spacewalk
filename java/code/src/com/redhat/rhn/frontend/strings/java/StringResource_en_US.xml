@@ -8260,7 +8260,7 @@ Follow this url to see the full list of inactive systems:
         <source>Configuration Channels Updated</source>
      </trans-unit>
      <trans-unit id="ssm.provision.scheduled">
-        <source>Successfully scheduled {0} systems for provisioning.</source>
+        <source>Successfully scheduled {0} system(s) for provisioning.</source>
      </trans-unit>     
      <trans-unit id="kickstart.cobbler.distro.syncfail">
         <source>

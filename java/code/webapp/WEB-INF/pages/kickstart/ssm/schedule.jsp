@@ -19,14 +19,27 @@
     <p>
         <bean:message key="ssm.kickstart.schedule.heading1.text.jsp" />
     </p>
+
     <h2><bean:message key="kickstart.schedule.heading2.jsp" /></h2>
     </div>
 
+
     <div class="page-summary">
     <p>
-        <bean:message key="ssm.kickstart.schedule.heading2.text.jsp" />
+
+	    <c:if test="${empty requestScope.isIP}">
+	        <bean:message key="ssm.kickstart.schedule.heading2.text.jsp" />
+        </c:if>
+	    <c:if test="${not empty requestScope.isIP}">
+	        <bean:message key="ssm.kickstart.schedule.ip.heading2.text.jsp" />
+        </c:if>
+
     </p>
     </div>
+
+
+
+
 <c:set var="regularKS" value="true"/>
 <c:set var="form" value="${kickstartScheduleWizardForm.map}"/>
 <c:set var="noSystemProfile" value="true"/>
