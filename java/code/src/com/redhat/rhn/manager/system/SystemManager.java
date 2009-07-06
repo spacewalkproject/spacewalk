@@ -2369,7 +2369,7 @@ public class SystemManager extends BaseManager {
         "systems_subscribed_to_channel_size");
         Map params = new HashMap();
         params.put("user_id", user.getId());
-        params.put("org_id", user.getId());
+        params.put("org_id", user.getOrg().getId());
         params.put("cid", cid);
         DataResult toReturn = m.execute(params);
         return (Long) ((HashMap)toReturn.get(0)).get("count");
