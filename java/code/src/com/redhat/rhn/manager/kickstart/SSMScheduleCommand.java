@@ -24,7 +24,6 @@ import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.system.SystemManager;
 
-import org.cobbler.CobblerConnection;
 import org.cobbler.Profile;
 
 import java.util.ArrayList;
@@ -112,6 +111,7 @@ public class SSMScheduleCommand {
      * @param userIn the user
      * @param systemsIn List of SystemOverview's to provision
      * @param dateIn the date to schedule it for
+     * @return the SSMScheduleCommand
      */
     public static SSMScheduleCommand initCommandForIPKickstart(User userIn, 
             List<SystemOverview> systemsIn, Date dateIn) {
