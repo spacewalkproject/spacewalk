@@ -57,7 +57,7 @@
 		<input type="radio" name="scheduleManual" value="true"
 			<c:if test="${not empty disableProfiles}">disabled="true"</c:if> 
 			<c:if test="${empty param.scheduleManual or param.scheduleManual =='true' }">checked="checked" </c:if> />
-			<strong><bean:message key="ssm.kickstartable-systems.jsp.manual-summary"/><strong>
+			<strong><bean:message key="ssm.kickstartable-systems.jsp.manual-summary"/></strong>
 		<br/>
 		<input type="radio" name="scheduleManual" value="false" id="ipId" 
 				<c:if test="${not empty disableProfiles or not empty disableRanges}">disabled="true"</c:if>
