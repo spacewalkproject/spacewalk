@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.kickstart.ssm;
 
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.server.Server;
@@ -39,6 +40,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 import org.cobbler.Profile;
 
@@ -73,7 +76,15 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
         }
         
         if (context.wasDispatched("kickstart.schedule.button2.jsp")) {
-            schedule(request, form, context);
+            List list = schedule(request, form, context);
+            
+            ActionMessages msg = new ActionMessages();
+            String[] params = {list.size() + ""};
+            msg.add(ActionMessages.GLOBAL_MESSAGE, 
+                    new ActionMessage("ssm.provision.scheduled", 
+                            params));
+            getStrutsDelegate().saveMessages(context.getRequest(), msg);
+            return mapping.findForward("success");
         }
         
         ListHelper helper = new ListHelper(this, request);
@@ -88,7 +99,8 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
     }
     
     
-    private void schedule(HttpServletRequest request, ActionForm form, RequestContext context) {        
+    private List<Action> schedule(HttpServletRequest request, ActionForm form, 
+                                            RequestContext context) {
         SSMScheduleCommand com  = null;
         User user = context.getLoggedInUser();
         
@@ -96,7 +108,7 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
         DynaActionForm dynaForm = (DynaActionForm) form;
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(context.getRequest(),
                 dynaForm, "date", DatePicker.YEAR_RANGE_POSITIVE);
-        
+                
         List<SystemOverview> systems = 
             KickstartManager.getInstance().kickstartableSystemsInSsm(user);
         
@@ -113,7 +125,8 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
             if (data == null) {
                 Profile prof = Profile.lookupById(CobblerXMLRPCHelper.getConnection(user), 
                         cobblerId);
-                com = new SSMScheduleCommand(user, systems, picker.getDate(), prof.getName());
+                com = new SSMScheduleCommand(user, systems, picker.getDate(), 
+                        prof.getName());
             }
             else {
                 com = new SSMScheduleCommand(user, systems, picker.getDate(), data);
@@ -121,7 +134,8 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
         }
         
         
-        String proxyId = (String) request.getAttribute(ScheduleKickstartWizardAction.PROXY_HOST);
+        String proxyId = (String) request.getAttribute(
+                ScheduleKickstartWizardAction.PROXY_HOST);
         if (!StringUtils.isEmpty(proxyId)) {
             Server proxy = ServerFactory.lookupById(Long.parseLong(proxyId));
             com.setProxy(proxy);
@@ -131,11 +145,20 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
         com.setServerProfileId((Long) dynaForm.get("targetProfile"));
         com.setPackageProfileId((Long) dynaForm.get("targetProfile"));
         
+        //do kernel params
+        com.setKernelParamType(dynaForm.getString(
+                ScheduleKickstartWizardAction.KERNEL_PARAMS_TYPE));
+        com.setCustomKernelParams(dynaForm.getString(
+                ScheduleKickstartWizardAction.KERNEL_PARAMS));
         
-        
+        //do post kernel params
+        com.setPostKernelParamType(dynaForm.getString(
+                ScheduleKickstartWizardAction.POST_KERNEL_PARAMS_TYPE));
+        com.setCustomPostKernelParams(dynaForm.getString(
+                ScheduleKickstartWizardAction.POST_KERNEL_PARAMS));
         
         List<ValidatorError> errors = com.store();
-        
+        return com.getScheduledActions();        
     }
     
     

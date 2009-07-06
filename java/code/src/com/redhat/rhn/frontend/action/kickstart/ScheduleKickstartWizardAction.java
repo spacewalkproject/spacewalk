@@ -589,20 +589,42 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                                                 String profileCobblerId,
                                                 boolean isPost) {
         RequestContext context = new RequestContext(request);
-        
-        CobblerConnection con  = CobblerXMLRPCHelper.
-                            getConnection(context.getLoggedInUser());
         String typeKey = !isPost ? KERNEL_PARAMS_TYPE : POST_KERNEL_PARAMS_TYPE;
         String customKey = !isPost ? KERNEL_PARAMS : POST_KERNEL_PARAMS;
         String type = form.getString(typeKey);
-        if (KERNEL_PARAMS_CUSTOM.equals(type)) {
-            return form.getString(customKey);
+        
+        return parseKernelOptions(form.getString(customKey), type, profileCobblerId, 
+                                            isPost, context.getCurrentUser());
+    }
+    
+    
+    /**
+     * Parses the kernel options or Post kernel options
+     * from the given set of params
+     *  This is a handy method used in both SSM and SDC KS scheduling.    
+     * @param customOptions the kickstartScheduleWizardForm that holds the form fields. 
+     * @param paramsType  either KERNEL_PARAMS_CUSTOM _DISTRO or _PROFILE
+     * @param cobblerId the cobbler profile id
+     * @param isPost true if caller is interested in getting the
+     *              post kernel options and not the pre. 
+     * @param user the user doing the request             
+     * @return the kernel options selected by the user.
+     */
+    public static String parseKernelOptions(String customOptions,
+                                                String paramsType,
+                                                String cobblerId,
+                                                boolean isPost, User user) {
+        
+        CobblerConnection con  = CobblerXMLRPCHelper.
+                            getConnection(user);
+        if (KERNEL_PARAMS_CUSTOM.equals(paramsType)) {
+            return customOptions;
         }
         org.cobbler.Profile profile = org.cobbler.Profile.lookupById(con,
-                profileCobblerId);
+                cobblerId);
         CobblerObject ret = profile;
         
-        if (KERNEL_PARAMS_DISTRO.equals(type)) {
+        if (KERNEL_PARAMS_DISTRO.equals(paramsType)) {
             ret = profile.getDistro();
         }
         if (!isPost) {
@@ -613,4 +635,5 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         }
 
     }
+    
 }

@@ -19,8 +19,13 @@ import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.kickstart.ScheduleKickstartWizardAction;
 import com.redhat.rhn.frontend.dto.SystemOverview;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.system.SystemManager;
+
+import org.cobbler.CobblerConnection;
+import org.cobbler.Profile;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,13 +55,17 @@ public class SSMScheduleCommand {
     private Long packageProfileId;
     private Long serverProfileId;
 
-
-    private String kernelOptions;
-    private String postKernelOptions;    
     private Server proxy;
     
     private List<Action> scheduledActions =  new ArrayList<Action>();
 
+    
+    private String kernelParamType;
+    private String customKernelParams;
+    
+    private String postKernelParamType;
+    private String customPostKernelParams;
+    
     
     
     /**
@@ -138,20 +147,6 @@ public class SSMScheduleCommand {
     }
     
     /**
-     * @param kernelOptionsIn The kernelOptions to set.
-     */
-    public void setKernelOptions(String kernelOptionsIn) {
-        this.kernelOptions = kernelOptionsIn;
-    }
-
-    /**
-     * @param postKernelOptionsIn The postKernelOptions to set.
-     */
-    public void setPostKernelOptions(String postKernelOptionsIn) {
-        this.postKernelOptions = postKernelOptionsIn;
-    }
-
-    /**
      * @return Returns the storedActions.
      */
     public List<Action> getScheduledActions() {
@@ -180,6 +175,8 @@ public class SSMScheduleCommand {
     private ValidatorError scheduleSystem(Long sid) {
         
         KickstartData uniqueKs = ksdata;
+        String profileId = "";
+        
         
         if (isIpBasedKs) {
             Server ser = SystemManager.lookupByIdAndUser(sid, user);
@@ -190,14 +187,23 @@ public class SSMScheduleCommand {
         if (isCobblerOnly) {
             com = KickstartScheduleCommand.createCobblerScheduleCommand(sid, 
                     cobblerProfileName, user, scheduleDate, null);
+            Profile prof = Profile.lookupById(CobblerXMLRPCHelper.getConnection(user), 
+                    cobblerProfileName);
+            profileId = prof.getId();
         }
         else {
             com =  new KickstartScheduleCommand(sid, uniqueKs, user, scheduleDate, 
                     null);
+            
+            profileId = uniqueKs.getCobblerId();
         }
         
-        com.setKernelOptions(kernelOptions);
-        com.setPostKernelOptions(postKernelOptions);
+        
+        
+        com.setKernelOptions(ScheduleKickstartWizardAction.parseKernelOptions(
+                         customKernelParams, kernelParamType, profileId, false, user));
+        com.setPostKernelOptions(ScheduleKickstartWizardAction.parseKernelOptions(
+                customPostKernelParams, postKernelParamType, profileId, true, user));
         com.setProfileType(profileType);
         com.setProfileId(packageProfileId);
         com.setServerProfileId(serverProfileId);
@@ -216,5 +222,40 @@ public class SSMScheduleCommand {
         this.proxy = proxyIn;
     }
 
+
+    /**
+     * @param kernelParamTypeIn The kernelParamType to set.
+     */
+    public void setKernelParamType(String kernelParamTypeIn) {
+        this.kernelParamType = kernelParamTypeIn;
+    }
+
+    
+    /**
+     * @param customKernelParamsIn The customKernelParams to set.
+     */
+    public void setCustomKernelParams(String customKernelParamsIn) {
+        this.customKernelParams = customKernelParamsIn;
+    }
+
+    
+    /**
+     * @param postKernelParamTypeIn The postKernelParamType to set.
+     */
+    public void setPostKernelParamType(String postKernelParamTypeIn) {
+        this.postKernelParamType = postKernelParamTypeIn;
+    }
+
+    
+    /**
+     * @param customPostKernelParamsIn The customPostKernelParams to set.
+     */
+    public void setCustomPostKernelParams(String customPostKernelParamsIn) {
+        this.customPostKernelParams = customPostKernelParamsIn;
+    }
+
+
+
+    
     
 }
