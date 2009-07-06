@@ -25,5 +25,9 @@
                     	</c:otherwise>
                     </c:choose>
          	</rl:column>
-    	</rl:list>     	    
-    	<rhn:tooltip>* - <bean:message key="kickstart.distro.cobbler-only.tooltip"/></rhn:tooltip>
+    	</rl:list>
+    	<c:choose>
+    		<c:when test="${not empty cobbler_only_tooltip}"><rhn:tooltip>* - <bean:message key="${cobbler_only_tooltip}"/></rhn:tooltip> </c:when>
+    		<c:otherwise><rhn:tooltip>* - <bean:message key="kickstart.distro.cobbler-only.tooltip"/></rhn:tooltip> </c:otherwise>
+    	</c:choose>
+    	

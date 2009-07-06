@@ -9,14 +9,6 @@
 <html>
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
-<h2><bean:message key="ssm.kickstartable-systems.jsp.title"/></h2>
-  <div class="page-summary">
-    <p>
-    <bean:message key="ssm.kickstartable-systems.jsp.summary"/>
-    </p>
-  </div>
-
-<br />
 <h2>
   <img src="/img/icon_kickstart_session-medium.gif"
        alt="<bean:message key='system.common.kickstartAlt' />" />
@@ -38,6 +30,8 @@
 <c:set var="regularKS" value="true"/>
 <c:set var="form" value="${kickstartScheduleWizardForm.map}"/>
 <c:set var="noSystemProfile" value="true"/>
+<c:set var="cobbler_only_tooltip" value="ssm.kickstart.distro.cobbler-only.tooltip"/>
+<c:set var="proxy_summary_key" value="ssm.kickstart.schedule.proxy.jsp.summary"/>
 
 <rl:listset name="form">
 		<c:if test="${empty requestScope.isIP}">
@@ -45,9 +39,7 @@
 		</c:if>
 		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/proxy-options.jspf" %>
 		<br/>
-		<h2>
-          <bean:message key="ssm.kickstart.schedule.advanced.options"/>
-        </h2>
+<h2><img src="/img/icon_kickstart_session-medium.gif" /><bean:message key="kickstart.schedule.heading4.jsp" /></h2>		
 		<table class="details">
       <tr>
         <th width="10%"><bean:message key="kickstartdetails.jsp.kernel_options" />:</th>

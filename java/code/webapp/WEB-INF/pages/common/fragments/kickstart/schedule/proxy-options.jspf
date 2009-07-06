@@ -9,8 +9,8 @@
           <bean:message key="kickstart.schedule.heading.proxy.jsp"/>
         </h2>
         <c:choose>
-        <c:when test="${empty proxyMessageKey}"><p><bean:message key="kickstart.schedule.msg.proxy.jsp"/></p></c:when>
-        <c:otherwise><p><bean:message key="${proxyMessageKey}"/></p></c:otherwise>
+        <c:when test="${empty proxy_summary_key}"><p><bean:message key="kickstart.schedule.msg.proxy.jsp"/></p></c:when>
+        <c:otherwise><p><bean:message key="${proxy_summary_key}"/></p></c:otherwise>
 
         </c:choose>
         <p>
