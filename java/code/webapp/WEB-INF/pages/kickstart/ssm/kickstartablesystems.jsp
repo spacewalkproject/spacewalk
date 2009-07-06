@@ -49,23 +49,22 @@
 <table class="details">
     <tr>
         <th>
-            <bean:message key="ssm.kickstartable-systems.jsp.distribution"/>:
+            <bean:message key="ssm.kickstartable-systems.jsp.type"/>:
         </th>
         <td>
         
 		<input type="radio" name="scheduleManual" value="true"
 			<c:if test="${not empty disableProfiles}">disabled="true"</c:if> 
 			<c:if test="${empty param.scheduleManual or param.scheduleManual =='true' }">checked="checked" </c:if> />
-			<strong><bean:message key="ssm.kickstartable-systems.jsp.manual-summary"/>:<strong>
+			<strong><bean:message key="ssm.kickstartable-systems.jsp.manual-summary"/><strong>
 		<br/>
 		<input type="radio" name="scheduleManual" value="false" id="ipId" 
 				<c:if test="${not empty disableProfiles or not empty disableRanges}">disabled="true"</c:if>
 			<c:if test="${param.scheduleManual =='false'}">checked="checked" </c:if> />
-			<strong><bean:message key="ssm.kickstartable-systems.jsp.ip-summary"/></strong>
+			<strong><bean:message key="ssm.kickstartable-systems.jsp.ip-summary"/>*</strong>
 		<br/>
-			<rhn:tooltip>
-	            <bean:message key="ssm.kickstartable-systems.jsp.distribution-tooltip"/>
-            </rhn:tooltip>
+			
+			<rhn:tooltip>* <bean:message key="ssm.kickstartable-systems.jsp.ip-tooltip"/></rhn:tooltip>
         </td>
     </tr>
 </table>    

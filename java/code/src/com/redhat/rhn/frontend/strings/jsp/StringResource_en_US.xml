@@ -9111,6 +9111,36 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     </trans-unit>
 
+	<!--  SSM Kickstart -->
+    <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/kickstart/KickstartableSystems.do</context>
+        </context-group>
+        <trans-unit id="ssm.kickstartable-systems.jsp.title">
+          <source>Kickstartable Systems</source>
+        </trans-unit>
+		<trans-unit id="ssm.kickstartable-systems.jsp.summary">
+          <source>Below are the systems in you selected systems list that are kickstartable using @@PRODUCT_NAME@@.</source>
+        </trans-unit>
+        <trans-unit id="ssm.kickstartable-systems.jsp.systems">
+          <source>Kickstart Selected Systems</source>
+        </trans-unit>
+        <trans-unit id="ssm.kickstartable-systems.jsp.systems.summary">
+          <source>You may kickstart the selected systems.</source>
+        </trans-unit>
+        <trans-unit id="ssm.kickstartable-systems.jsp.type">
+          <source>Kickstartable Type</source>
+        </trans-unit>
+        <trans-unit id="ssm.kickstartable-systems.jsp.manual-summary">
+          <source>Select kickstart profile.</source>
+        </trans-unit>
+        <trans-unit id="ssm.kickstartable-systems.jsp.ip-summary">
+          <source>Kickstart by IP Address.</source>
+        </trans-unit>
+        <trans-unit id="ssm.kickstartable-systems.jsp.ip-tooltip">
+          <source>If there is no organization default profile specified for this organization, a kickstart will not get scheduled for systems that do not fall under an ip range.</source>
+        </trans-unit>
+    </group>
     <!-- Kickstart -->
 
     <trans-unit id="partitions">
