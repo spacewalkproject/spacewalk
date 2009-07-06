@@ -426,6 +426,7 @@ public class KickstartLister extends BaseManager {
         List <KickstartDto> ret = new LinkedList<KickstartDto>();
         ret.addAll(kickstartsInOrg(user.getOrg(), null));
         ret.addAll(listCobblerProfiles(user));
+        setKickstartUrls(ret, user);
         return ret;
     }
     

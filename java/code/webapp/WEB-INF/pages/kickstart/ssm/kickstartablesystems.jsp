@@ -43,6 +43,7 @@
            <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_list_fragment.jspf" %>
 		</rl:column>
 	</rl:list>
+<c:if test="${empty disableSystems}">	
 <h2><bean:message key="ssm.kickstartable-systems.jsp.systems"/></h2>
     <p><bean:message key="ssm.kickstartable-systems.jsp.systems.summary"/></p>
 
@@ -74,6 +75,7 @@
 		<c:if test="${not empty disableProfiles}">disabled="true"</c:if>
 	/>
 </div>
+</c:if>
 <rhn:submitted/>
 </rl:listset>
 

@@ -41,6 +41,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SsmKickstartableSystemsAction extends RhnAction implements Listable {
     private static final String DISABLE_RANGES = "disableRanges";
     private static final String DISABLE_PROFILES = "disableProfiles";
+    private static final String DISABLE_SYSTEMS = "disableSystems";
     /**
      * ${@inheritDoc}
      */
@@ -77,6 +78,10 @@ public class SsmKickstartableSystemsAction extends RhnAction implements Listable
      */
     public List getResult(RequestContext context) {
         User user = context.getLoggedInUser();
-        return KickstartManager.getInstance().kickstartableSystemsInSsm(user);
+        List ret = KickstartManager.getInstance().kickstartableSystemsInSsm(user);
+        if (ret.isEmpty()) {
+            context.getRequest().setAttribute(DISABLE_SYSTEMS, Boolean.TRUE);
+        }
+        return ret;
     }
 }
