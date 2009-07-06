@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.6.6
+Version: 0.6.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -289,6 +289,10 @@ fi
 
 
 %changelog
+* Mon Jul 06 2009 John Matthews <jmatthew@redhat.com> 0.6.7-1
+- 509522 - remove conflicts and put provides to spacewalk-proxy-management
+  (msuchy@redhat.com)
+
 * Fri Jun 26 2009 John Matthews <jmatthew@redhat.com> 0.6.6-1
 - fix build error
 
