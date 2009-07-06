@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.1.15
+Version: 0.1.16
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -49,6 +49,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Mon Jul 06 2009 John Matthews <jmatthew@redhat.com> 0.1.16-1
+- 508956 - fixing file preservation to actually use updated initrd.img
+  (mmccune@gibson.pdx.redhat.com)
+
 * Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.1.15-1
 - fixing spacewalk-koan spec file to build for 2.1 properly
   (jsherril@redhat.com)
