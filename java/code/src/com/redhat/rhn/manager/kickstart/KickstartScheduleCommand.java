@@ -536,11 +536,13 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         packageAction.setPrerequisite(removal);
         log.debug("** Created packageAction ? " + packageAction.getId());
 
+        
+        log.debug("** Cancelling existing sessions.");  
+        cancelExistingSessions();
+        
         // Make sure we fail all existing sessions for this server since
         // we are scheduling a new one
         if (!cobblerOnly) {
-            log.debug("** Cancelling existing sessions.");  
-            cancelExistingSessions();
             kickstartSession = this.setupKickstartSession(packageAction);
             KickstartData data = getKsdata();
             if (!data.isRawData()) {

@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -206,6 +207,14 @@ public class SSMScheduleCommand {
         com.setProfileId(packageProfileId);
         com.setServerProfileId(serverProfileId);
         com.setProxy(proxy);
+        if (proxy == null) {
+            com.setKickstartServerName(Config.get().getCobblerHost());
+        }
+        else {
+            com.setKickstartServerName(proxy.getHostname());
+        }
+        
+        
         ValidatorError error = com.store();
         
         this.scheduledActions.add(com.getScheduledAction());
