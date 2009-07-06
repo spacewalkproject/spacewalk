@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.6.11
+Version:        0.6.12
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -52,6 +52,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Jul 06 2009 John Matthews <jmatthew@redhat.com> 0.6.12-1
+- 509029 - schema/upgrade - update the text used for action type =
+  kickstart_guest.initiate (bbuckingham@redhat.com)
+
 * Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.6.11-1
 - rebuild 
 
