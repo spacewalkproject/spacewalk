@@ -388,6 +388,7 @@ ORDER BY UPPER(NVRE)
   <query params="sid">
 SELECT  PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO,
         PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+        PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
         PN.name AS name,
         PE.version,
         PE.release,
@@ -634,6 +635,7 @@ SELECT P.id, P.summary, PP.name as provider
   <query params="sid">
 SELECT  distinct pn.name AS NAME,
         pn.name || '-' || full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS NVRE,
+        pn.name || '-' || full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) || '.' || full_list.arch_label AS NVREA,
         pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) || '|' || full_list.arch_id AS ID_COMBO,
         full_list.arch_label as ARCH
   FROM  (

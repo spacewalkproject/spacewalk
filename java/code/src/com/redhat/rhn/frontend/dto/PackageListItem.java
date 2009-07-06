@@ -433,14 +433,19 @@ public class PackageListItem extends IdComboDto {
         return this.getName() + "-" + e + "-" + v + "-" + r + "-" + a;
     }
 
-
     /**
      * {@inheritDoc}
      */
     @Override
     public String getSelectionKey() {
-        return getIdCombo() + "~*~" + getNvre(); 
+        if (getNvrea() != null) {
+            return getIdCombo() + "~*~" + getNvrea();
+        }
+        else {
+            return getIdCombo() + "~*~" + getNvre();
+        }
     }
+    
     /**
      * Returns a map of the keys used in this Package List . 
      * @return a map.
