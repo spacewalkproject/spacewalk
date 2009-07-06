@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.29
+Version: 0.6.30
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -250,6 +250,56 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Mon Jul 06 2009 John Matthews <jmatthew@redhat.com> 0.6.30-1
+- 509444 - remove delete action system from virt page (shughes@redhat.com)
+- 509371 - SSM->Install,Remove,Verify - minor fixes to Package Name and Arch
+  (bbuckingham@redhat.com)
+- 509411 - make sure we delete the ks template when we delete a profile
+  (mmccune@gibson.pdx.redhat.com)
+- 509364 - fix SSM->Upgrade arch that being listed (bbuckingham@redhat.com)
+- 509376 - add Shared Channels to side navigation of Channels tab
+  (bbuckingham@redhat.com)
+- 509270 - clarify text on Channels -> All Channels page
+  (bbuckingham@redhat.com)
+- 509019 - adding tooltip on howto copypaste (mmccune@gibson.pdx.redhat.com)
+- 509221 - System->Package->Install incorrectly using arch name vs label
+  (bbuckingham@redhat.com)
+- 509213 - fixed channel provider column, don't link red hat inc
+  (shughes@redhat.com)
+- 509027 - kickstart profile edit - update length of supported kernel and post
+  kernel options (bbuckingham@redhat.com)
+- 509011 - apidoc - kickstart.deleteProfile - update kslabel description
+  (bbuckingham@redhat.com)
+- refactor config constants to their own class with statics and methods.
+  (mmccune@gibson.pdx.redhat.com)
+- 509037 - fixing issue where looking for packages in child channels would
+  result in base channels (jsherril@redhat.com)
+- 508790 - switch to /var/lib/libvirt/images for our default path
+  (mmccune@gibson.pdx.redhat.com)
+- 508966 - fixed issue where could not set package profile for a kickstart,
+  rewrote to new list tag (jsherril@redhat.com)
+- 508789 - Block deletion of last remaining Satellite Administrator.
+  (dgoodwin@redhat.com)
+- Bumping timeout on Message Queue Test. (dgoodwin@redhat.com)
+- 508962 - Fixed KS software edit page to hide repo section if tree is not rhel
+  5 (paji@redhat.com)
+- 508790 - use virbr0 for KVM guest defaults (mmccune@gibson.pdx.redhat.com)
+- 508705 - Fixed KS details page to hide virt options if virt type is none
+  (paji@redhat.com)
+- 508885 - fixed ks schedule pages to remember proxy host (paji@redhat.com)
+- Made the radio button in schedule ks page choose scheduleAsap by default
+  (paji@redhat.com)
+- 508736 - Corrected spec to properly  set the cobbler/snippets/spacewalk
+  symlink (paji@redhat.com)
+- 508141 - api - system.config.deployAll updated w/ better exception when
+  system not config capable (bbuckingham@redhat.com)
+- 508323 - fixing issue with creating cobbler system records with spaces (which
+  would fail) (jsherril@redhat.com)
+- 508220 - fixed channel sharing syntax error on english side
+  (shughes@redhat.com)
+- Fix API call to remove server custom data value. (dgoodwin@redhat.com)
+- ErrataSearch, add "synopsis" to ALL_FIELDS (jmatthew@redhat.com)
+
 * Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.6.29-1
 - Remove catch/log return null of HibernateExceptions. (dgoodwin@redhat.com)
 - Fix server migration when source org has > 1000 org admins.
