@@ -168,7 +168,8 @@ public class KickstartHelper {
             else if (mode.equals(IP_RANGE)) {
                 log.debug("Ip_range mode");
                 IpAddress clientIp = new IpAddress(remoteAddr);       
-                ksdata = KickstartManager.findProfileForIpAddress(clientIp, org);
+                ksdata = KickstartManager.getInstance().findProfileForIpAddress(
+                        clientIp, org);
             }
             else if (mode.equals(ORG_DEFAULT)) {
                 //process org_default

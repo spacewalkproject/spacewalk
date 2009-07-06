@@ -180,7 +180,7 @@ public class SSMScheduleCommand {
         
         if (isIpBasedKs) {
             Server ser = SystemManager.lookupByIdAndUser(sid, user);
-            uniqueKs = KickstartManager.findProfileForServersNetwork(ser);
+            uniqueKs = KickstartManager.getInstance().findProfileForServersNetwork(ser);
         }
         
         KickstartScheduleCommand com;

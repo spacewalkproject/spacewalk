@@ -128,7 +128,7 @@ public class KickstartManager extends BaseManager {
      * @param server the server to find the ksdata for
      * @return the kickstartData or 'null' if nothing found
      */
-    public static KickstartData findProfileForServersNetwork(Server server) {
+    public KickstartData findProfileForServersNetwork(Server server) {
         KickstartData ks = null;
         /*
          * So first get the IP address for eth0 and see if there's
@@ -156,7 +156,7 @@ public class KickstartManager extends BaseManager {
         return ks;
     }
 
-    private static boolean isPublicIpAddress(String ip) {
+    private boolean isPublicIpAddress(String ip) {
         return !(ip.equals("127.0.0.1") || ip.equals("0.0.0.0") || ip.equals(""));
     }
 
@@ -166,7 +166,7 @@ public class KickstartManager extends BaseManager {
      * @param orgIn Org coming in from the url
      * @return best KickstartData Profile
      */
-    public static KickstartData findProfileForIpAddress(IpAddress clientIpIn, Org orgIn) {
+    public KickstartData findProfileForIpAddress(IpAddress clientIpIn, Org orgIn) {
         DataResult ipRanges = null;
         SelectMode mode = ModeFactory.getMode("General_queries",
             "org_ks_ip_ranges_for_ip");
