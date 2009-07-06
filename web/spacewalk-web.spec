@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.9
+Version: 0.6.10
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -317,6 +317,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Jul 06 2009 John Matthews <jmatthew@redhat.com> 0.6.10-1
+- 509376 - add Shared Channels to side navigation of Channels tab
+  (bbuckingham@redhat.com)
+- 508859 - fixed proxy documenation links (shughes@redhat.com)
+
 * Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.6.9-1
 - 506154 - Added "wrap" option to textarea widget. Set to off for remote
   command script editing page. (jason.dobies@redhat.com)
