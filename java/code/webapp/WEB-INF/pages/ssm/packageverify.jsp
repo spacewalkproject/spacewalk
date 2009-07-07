@@ -35,7 +35,7 @@
                              styleclass="first-column"/>
 
         <rl:column headerkey="packagelist.jsp.packagename" bound="false"
-                   sortattr="nvre" sortable="true" filterattr="name">
+                   sortattr="nvre" sortable="true" filterattr="nvre">
             <c:out value="${current.nvre}" escapeXml="false"/>
         </rl:column>
 
