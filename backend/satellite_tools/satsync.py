@@ -1784,6 +1784,14 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         if OPTIONS.orgid is not None:
             erratum['org_id'] = OPTIONS.orgid
 
+        # Now fix channels
+        # Associate errata to only channels that are being synced
+        channels = []
+        for ch in erratum['channels']:
+            if ch['label'] in OPTIONS.channel:
+               channels.append(ch)
+        erratum['channels'] = channels
+
         # Now fix the files
         for errata_file in (erratum['files'] or []):
             errata_file_package = errata_file.get('package')
