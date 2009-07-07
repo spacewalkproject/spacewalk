@@ -354,6 +354,7 @@ public class StrutsDelegate {
         else if (form.getMap().containsKey(DatePicker.USE_DATE)) {
             form.set(DatePicker.USE_DATE, Boolean.FALSE);
         }
+        request.setAttribute(name, p);
         //give back the date picker
         return p;
     }

@@ -729,10 +729,7 @@
             <form-property name="scheduleAsap" type="java.lang.String" />
             <form-property name="scheduleDate" type="java.util.Date" />
             <form-property name="nextAction" type="java.lang.String" />
-            <form-property name="useExistingProfile" type="java.lang.String" />
             <form-property name="proxyHost" type="java.lang.String" />
-            <form-property name="activationKeys" type="java.util.List" />
-            <form-property name="activationKey" type="java.lang.Long" />
             <form-property name="kernelParamsType" type="java.lang.String" />
             <form-property name="kernelParams" type="java.lang.String" />
             <form-property name="postKernelParamsType" type="java.lang.String" />
@@ -4603,6 +4600,50 @@
         <forward name="deleted" path="/profiles/List.do" redirect="true" />
     </action>
 
+	<!-- Kickstart Pages  SSM -->
+	<action path="/systems/ssm/kickstart/KickstartableSystems"
+        scope="request"
+        input="/WEB-INF/pages/kickstart/ssm/kickstartablesystems.jsp"
+        type="com.redhat.rhn.frontend.action.kickstart.ssm.SsmKickstartableSystemsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/kickstart/ssm/kickstartablesystems.jsp"/>
+        <forward name="scheduleByIp"
+                 path="/systems/ssm/kickstart/ScheduleByIp.do"
+                 redirect= "true"/>
+		<forward name="scheduleByProfile"
+                 path="/systems/ssm/kickstart/ScheduleByProfile.do"
+                 redirect= "true"/>
+    </action>
+	 <action path="/systems/ssm/kickstart/ScheduleByProfile"
+		name ="kickstartScheduleWizardForm"
+        scope="request"
+        input="/WEB-INF/pages/kickstart/ssm/schedule.jsp"
+        type="com.redhat.rhn.frontend.action.kickstart.ssm.SsmKSScheduleAction"
+        parameter="profile"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_entitlement(rhn_provisioning);"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/kickstart/ssm/schedule.jsp"/>
+        <forward name="success" redirect= "true"
+                 path="/systems/ssm/kickstart/KickstartableSystems.do"/>
+    </action>
+
+	 <action path="/systems/ssm/kickstart/ScheduleByIp"
+		name ="kickstartScheduleWizardForm"
+        scope="request"
+        input="/WEB-INF/pages/kickstart/ssm/schedule.jsp"
+        type="com.redhat.rhn.frontend.action.kickstart.ssm.SsmKSScheduleAction"
+        parameter="ip"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_entitlement(rhn_provisioning);"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/kickstart/ssm/schedule.jsp"/>
+        <forward name="success" redirect= "true"
+                 path="/systems/ssm/kickstart/KickstartableSystems.do"/>
+    </action>
+
  	<!-- Kickstart Pages  -->
  
     <action path="/kickstart/Kickstarts"
@@ -4610,7 +4651,7 @@
         input="/WEB-INF/pages/kickstart/kickstarts.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.KickstartsSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
+        <set-property property="acls" value="org_entitlement(rhn_provisioning);"/>
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/kickstarts.jsp"/>
     </action>

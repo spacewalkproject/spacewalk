@@ -56,34 +56,10 @@ function setStep(stepName) {
     </p>
 
 <c:set var="form" value="${kickstartScheduleWizardForm.map}"/>
-
+<c:set var="regularKS" value="true"/>
 <rl:listset name="wizard-form">
-		<rl:list width="100%" emptykey = "kickstart.schedule.no.profiles.jsp" alphabarcolumn="label">
-			<rl:decorator name = "PageSizeDecorator"/>        
-        	<rl:radiocolumn value="${current.cobblerId}" styleclass="first-column"/>
-         	<rl:column headerkey="kickstartranges.jsp.profile" filterattr="label" sortable="true" sortattr="label">
-         		<a href="${current.cobblerUrl}">${fn:escapeXml(current.label)}</a>	
-         	</rl:column>
-         	
-         	<rl:column headerkey="kickstart.distro.label.jsp"  sortable="true" sortattr="treeLabel">
-         		<c:out value="${current.treeLabel}"/>	
-         	</rl:column>
-         	
-         	<rl:column headerkey="kickstart.distro.sw_managed.jsp" sortable="true" sortattr="cobbler"
-         		  styleclass="last-column">
-                	<c:choose>
-	                    <c:when test="${current.cobbler}">
-	                    	<img src="/img/rhn-listicon-error.gif">
-	                    </c:when>
-						<c:otherwise>
-							<img src="/img/rhn-listicon-checked.gif">
-                    	</c:otherwise>
-                    </c:choose>
-         	</rl:column>
-    	</rl:list>     	    
-    	<rhn:tooltip>* - <bean:message key="kickstart.distro.cobbler-only.tooltip"/></rhn:tooltip>
-    	<c:set var="regularKS" value="true"/>
-    	<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/schedule-options.jspf" %>
+		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/profile-list.jspf" %>
+	<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/ks-wizard.jspf" %>
 	</rl:listset>
     </div>
 </c:if>

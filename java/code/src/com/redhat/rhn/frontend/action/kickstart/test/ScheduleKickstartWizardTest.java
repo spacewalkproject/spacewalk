@@ -36,13 +36,13 @@ import com.redhat.rhn.domain.token.TokenFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.kickstart.ScheduleKickstartWizardAction;
 import com.redhat.rhn.frontend.context.Context;
-import com.redhat.rhn.frontend.dto.ActivationKeyDto;
 import com.redhat.rhn.frontend.dto.ProfileDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.manager.kickstart.KickstartScheduleCommand;
 import com.redhat.rhn.manager.profile.test.ProfileManagerTest;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
+import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
@@ -106,8 +106,7 @@ public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
         proxy.addNetwork(NetworkTest.createNetworkInstance());
         ServerFactory.save(proxy);
         TestUtils.flushAndEvict(proxy);
-        KickstartScheduleCommand cmd = new KickstartScheduleCommand(s.getId(), user);
-        assertTrue(cmd.getProxies().size() == 1);
+        assertTrue(SystemManager.listProxies(user.getOrg()).size() == 1);
         return proxy;
     }
 
@@ -165,8 +164,6 @@ public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
         assertNotNull(request.getAttribute(RequestContext.SYSTEM));
         verifyFormList(ScheduleKickstartWizardAction.SYNCH_PACKAGES, 
                 ProfileDto.class);
-        verifyFormList(ScheduleKickstartWizardAction.ACTIVATION_KEYS,
-                ActivationKeyDto.class);
         verifyFormList(ScheduleKickstartWizardAction.SYNCH_SYSTEMS,
                 HashMap.class);
     }

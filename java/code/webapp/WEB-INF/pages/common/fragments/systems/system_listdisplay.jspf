@@ -50,6 +50,7 @@
     <%@ include file="monitoring_status_systems.jspf" %>
 		</c:if>
 
+		<c:if test = "${empty noErrata}">
 		<!-- errata Column -->
 		<rl:column sortable="false" 
 				   bound="false"
@@ -65,7 +66,8 @@
 		        	</c:otherwise>
 		        </c:choose> 
 		</rl:column>
-
+	    </c:if>
+	   <c:if test = "${empty noPackages}">
 		<!-- Packages Column -->
 		<rl:column sortable="false" 
 				   bound="false"
@@ -82,7 +84,7 @@
 		        	</c:otherwise>
 		        </c:choose>   		           
 		</rl:column>
-		
+		</c:if>
 		
 		<!-- Name Channel Column -->
 		<rl:column sortable="true" 
@@ -112,8 +114,9 @@
 	
 	
 	</rl:list>
+	<c:if test = "${empty noCsv}">
 	<rl:csv dataset="pageList"
 	        name="systemList"
 	        exportColumns="name,id,securityErrata,bugErrata,enhancementErrata,outdatedPackages,lastCheckin,entitlement"/>
-	
+	</c:if>
 	<rhn:submitted/>

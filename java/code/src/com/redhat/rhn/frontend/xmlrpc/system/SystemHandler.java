@@ -1968,7 +1968,7 @@ public class SystemHandler extends BaseHandler {
             throw new FaultException(-2, "provisionError",
                              LocalizationService.getInstance().getMessage(ve.getKey()));
         }
-        return cmd.getKickstartActionId().intValue();
+        return cmd.getScheduledAction().getId().intValue();
     }
 
     /**
@@ -2021,7 +2021,7 @@ public class SystemHandler extends BaseHandler {
             throw new FaultException(-2, "provisionError",
                              LocalizationService.getInstance().getMessage(ve.getKey()));
         }
-        return cmd.getKickstartActionId().intValue();
+        return cmd.getScheduledAction().getId().intValue();
     }
 
 

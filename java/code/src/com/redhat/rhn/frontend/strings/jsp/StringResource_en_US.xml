@@ -9111,6 +9111,57 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     </trans-unit>
 
+	<!--  SSM Kickstart -->
+    <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/kickstart/KickstartableSystems.do</context>
+        </context-group>
+        <trans-unit id="ssm.kickstartable-systems.jsp.title">
+          <source>Kickstartable Systems</source>
+        </trans-unit>
+		<trans-unit id="ssm.kickstartable-systems.jsp.summary">
+          <source>Below are the systems in you selected systems list that are kickstartable using @@PRODUCT_NAME@@.</source>
+        </trans-unit>
+        <trans-unit id="ssm.kickstartable-systems.jsp.systems">
+          <source>Kickstart Selected Systems</source>
+        </trans-unit>
+        <trans-unit id="ssm.kickstartable-systems.jsp.systems.summary">
+          <source>You may kickstart the selected systems.</source>
+        </trans-unit>
+        <trans-unit id="ssm.kickstartable-systems.jsp.type">
+          <source>Kickstartable Type</source>
+        </trans-unit>
+        <trans-unit id="ssm.kickstartable-systems.jsp.manual-summary">
+          <source>Select kickstart profile.</source>
+        </trans-unit>
+        <trans-unit id="ssm.kickstartable-systems.jsp.ip-summary">
+          <source>Kickstart by IP Address.</source>
+        </trans-unit>
+        <trans-unit id="ssm.kickstartable-systems.jsp.ip-tooltip">
+          <source>If there is no organization default profile specified for this organization, a kickstart will not get scheduled for systems that do not fall under an ip range.</source>
+        </trans-unit>
+    </group>
+    <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/kickstart/ScheduleByProfile.do</context>
+          <context context-type="sourcefile">/rhn/systems/ssm/kickstart/ScheduleByIp.do</context>
+        </context-group>
+        <trans-unit id="ssm.kickstart.schedule.heading1.text.jsp">
+          <source> Schedule kickstart actions for the the selected systems. These actions will re-install the selected systems using the kickstart options specified.</source>
+        </trans-unit>
+		<trans-unit id="ssm.kickstart.schedule.heading2.text.jsp">
+          <source>Please select the kickstart profile you'd like to use to kickstart the selected systems.</source>
+        </trans-unit>
+		<trans-unit id="ssm.kickstart.schedule.ip.heading2.text.jsp">
+          <source>The kickstart profile will be automatically selected for each system based upon its network configuration.  If no match is found, the organizational default profile will be used if set.</source>
+        </trans-unit>
+		<trans-unit id="ssm.kickstart.schedule.proxy.jsp.summary">
+          <source>You may choose to use an @@PRODUCT_NAME@@ Proxy to access the files necessary for kickstart. The selected systems will be registered to the @@PRODUCT_NAME@@ Proxy selected below after its kickstart has completed..</source>
+        </trans-unit>
+		<trans-unit id="ssm.kickstart.distro.cobbler-only.tooltip">
+		<source> Profiles that are not @@PRODUCT_NAME@@-managed are not guaranteed to register systems to @@PRODUCT_NAME@@ after kickstart. You may wish to review these kickstarts (click on the profile name to do so) to confirm whether or not the selected systems will reappear in the @@PRODUCT_NAME@@ system list after kickstart.</source>
+	</trans-unit>
+    </group>
     <!-- Kickstart -->
 
     <trans-unit id="partitions">
@@ -16430,10 +16481,10 @@ the &lt;a href=&quot;/rhn/kickstart/ActivationKeysList.do?ksid={0}&quot;&gt;Acti
 	        <source>Bootloader</source>
 	    </trans-unit>
 	    <trans-unit id="kickstart.schedule.kernel.options.distro">
-	        <source>&lt;strong&gt;As specified by Kickstart Distribution&lt;/strong&gt;({0})</source>
+	        <source>&lt;strong&gt;As specified by Kickstart Distribution&lt;/strong&gt;</source>
 	    </trans-unit>
 	    <trans-unit id="kickstart.schedule.kernel.options.profile">
-	        <source>&lt;strong&gt;As specified by Kickstart Profile&lt;/strong&gt;({0})</source>
+	        <source>&lt;strong&gt;As specified by Kickstart Profile&lt;/strong&gt;</source>
 	    </trans-unit>
 	    <trans-unit id="kickstart.schedule.kernel.options.custom.tip">
 	        <source>If you would not like any kernel options, select '{0}' and leave the form field blank.</source>
