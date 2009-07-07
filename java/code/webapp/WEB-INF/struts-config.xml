@@ -3613,6 +3613,7 @@
         <forward name="submit"
                  path="/systems/details/packages/profiles/SyncProfiles.do"
                  redirect="true" />
+        <forward name="error" path="/systems/details/packages/profiles/CompareProfiles.do" redirect="true" />
     </action>
 
     <action path="/systems/details/packages/profiles/CompareProfilesSubmit"
@@ -3638,6 +3639,7 @@
         <forward name="submit"
                  path="/systems/details/packages/profiles/SyncSystems.do"
                  redirect="true" />
+        <forward name="error" path="/systems/details/packages/profiles/CompareSystems.do" redirect="true" />
     </action>
 
     <action path="/systems/details/packages/profiles/CompareSystemsSubmit"
