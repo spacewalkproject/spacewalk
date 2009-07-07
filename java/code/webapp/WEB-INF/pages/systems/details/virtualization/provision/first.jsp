@@ -62,7 +62,7 @@ function setStep(stepName) {
     	<bean:message key="virtualization.provision.override.jsp.goto.advanced.options"
     								 arg0="${rhn:localize('kickstart.schedule.button1.jsp')}"/>
     	<br/><br/>
-<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/schedule-options.jspf" %>
+	<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/ks-wizard.jspf" %>
 </rl:listset>
 </div>
 

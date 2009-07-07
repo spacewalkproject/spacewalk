@@ -44,6 +44,7 @@ import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
+import com.redhat.rhn.frontend.dto.ProfileDto;
 import com.redhat.rhn.frontend.dto.ServerPath;
 import com.redhat.rhn.frontend.dto.kickstart.CobblerProfileDto;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
@@ -128,9 +129,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     private KickstartSession kickstartSession;
     private Date scheduleDate;
     private List packagesToInstall;
-    private String activationType;
     private String profileType;    
-    private Set activationKeyIds;
     private String proxyHost;
     private Server targetServer;
     
@@ -151,7 +150,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     // The server who serves the kickstarts
     private String kickstartServerName;
     // The id of the action scheduled to perform the kickstart
-    private Long kickstartActionId;
+    private Action scheduledAction;
 
     /**
      * Constructor for a kickstart where the host and the target are the same system.
@@ -301,36 +300,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
 
         this.setKickstartServerName(kickstartServerNameIn);
     }
-    /**
-     * Creates the Kickstart Sechdule command that works with a cobbler  only
-     *  kickstart where the host and the target may or may *not* be
-     * the same system.  If the target system does not yet exist, selectedTargetServer
-     * should be null.  To be used when you want to call the store() method.
-     * 
-     * @param selectedHostServer server to host the kickstart
-     * @param selectedTargetServer server to be kickstarted
-     * @param label cobbler only profile label.
-     * @param userIn user performing the kickstart
-     * @param scheduleDateIn Date to schedule the KS.
-     * @param kickstartServerNameIn the name of the server who is serving the kickstart
-     * @return the created cobbler only profile aware kickstartScheduleCommand
-     */
-    public static KickstartScheduleCommand createCobblerScheduleCommand(
-                                            Long selectedHostServer, 
-                                            Long selectedTargetServer,
-                                            String label, 
-                                            User userIn, 
-                                            Date scheduleDateIn, 
-                                            String kickstartServerNameIn) {
-        
-        KickstartScheduleCommand cmd = new KickstartScheduleCommand(selectedHostServer,
-                        selectedTargetServer, (KickstartData)null, 
-                        userIn, scheduleDateIn, kickstartServerNameIn);
-        cmd.cobblerProfileLabel = label;
-        cmd.cobblerOnly =  true;
-        return cmd;
-        
-    }
+
     
     /**
      * Creates the Kickstart Sechdule command that works with a cobbler  only
@@ -350,8 +320,12 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                                         User userIn, 
                                         Date scheduleDateIn, 
                                         String kickstartServerNameIn) {
-        return createCobblerScheduleCommand(selectedHostServer, selectedHostServer, label, 
-                                        userIn, scheduleDateIn, kickstartServerNameIn);
+        KickstartScheduleCommand cmd = new KickstartScheduleCommand(selectedHostServer,
+                selectedHostServer, (KickstartData)null,
+                userIn, scheduleDateIn, kickstartServerNameIn);
+                cmd.cobblerProfileLabel = label;
+                cmd.cobblerOnly =  true;
+                return cmd;
     }
 
 
@@ -361,8 +335,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
 
         log.debug("Initializing with selectedHostServerId=" + selectedHostServerId +
                   ", selectedTargetServerId=" + selectedTargetServerId);
-
-        this.setActivationType(ACTIVATION_TYPE_EXISTING);
         this.setPackagesToInstall(new LinkedList());
 
         // There must always be a host server present.
@@ -454,20 +426,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
 
     /**
      * 
-     * @return list of proxies for org
-     */
-    public DataResult getProxies() {
-        DataResult retval = null;
-        SelectMode mode = ModeFactory.getMode("System_queries", 
-                "org_proxy_servers");
-        Map params = new HashMap();
-        params.put("org_id", this.user.getOrg().getId().toString());
-        retval = mode.execute(params);
-        return retval;
-    }
-    
-    /**
-     * 
      * @return primary proxy for server
      */
     public String getPrimaryProxy() {
@@ -500,18 +458,22 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      *
      * @return DataResult list
      */
-    public DataResult getProfiles() {
-        DataResult profiles = ProfileManager.compatibleWithChannel(
-                this.ksdata.getKickstartDefaults().getKstree().getChannel(),
-                user.getOrg(), null);
-        return profiles;
+    public List<ProfileDto> getProfiles() {
+        if (!isCobblerOnly()) {
+            List<ProfileDto> profiles = ProfileManager.compatibleWithChannel(
+                    this.ksdata.getKickstartDefaults().getKstree().getChannel(),
+                    user.getOrg(), null);
+            return profiles;
+        }
+        return Collections.EMPTY_LIST;
+
     }
  
     /**
      * @return Returns the id of the action scheduled to perform the kickstart.
      */
-    public Long getKickstartActionId() {
-        return this.kickstartActionId;
+    public Action getScheduledAction() {
+        return this.scheduledAction;
     }
  
     /**
@@ -574,11 +536,13 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         packageAction.setPrerequisite(removal);
         log.debug("** Created packageAction ? " + packageAction.getId());
 
+
+        log.debug("** Cancelling existing sessions.");
+        cancelExistingSessions();
+
         // Make sure we fail all existing sessions for this server since
         // we are scheduling a new one
         if (!cobblerOnly) {
-            log.debug("** Cancelling existing sessions.");  
-            cancelExistingSessions();
             kickstartSession = this.setupKickstartSession(packageAction);
             KickstartData data = getKsdata();
             if (!data.isRawData()) {
@@ -643,7 +607,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         ActionFactory.save(kickstartAction);
         log.debug("** Created ksaction: " + kickstartAction.getId());
 
-        this.kickstartActionId = kickstartAction.getId();
+        this.scheduledAction = kickstartAction;
 
         log.debug("** Done scheduling kickstart session");
         return null;
@@ -1285,25 +1249,17 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         return null;
     }
     
-
-    
-    /**
-     * Get the list of possible Activation keys to chose from
-     * @return DataResult of 
-     */
-    public DataResult getActivationKeys() {
-        return KickstartLister.getInstance().
-            getActivationKeysInOrg(this.user.getOrg(), null);
-    }
-
     /**
      * Get the list of compatible systems you could sync to
      * @return DataResult of System DTOs
      */
-    public DataResult getCompatibleSystems() {
-        DataResult dr = SystemManager.systemsSubscribedToChannel(
-                this.getKsdata().getKickstartDefaults().getKstree().getChannel(), user);
-        return dr;
+    public List getCompatibleSystems() {
+        if (!isCobblerOnly()) {
+            DataResult dr = SystemManager.systemsSubscribedToChannel(
+                    this.getKsdata().getKickstartDefaults().getKstree().getChannel(), user);
+            return dr;
+        }
+        return Collections.EMPTY_LIST;
     }
 
     
@@ -1322,23 +1278,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         this.packagesToInstall = packagesToInstallIn;
     }
 
-    
-    /**
-     * @return Returns the activationType.
-     */
-    public String getActivationType() {
-        return activationType;
-    }
-
-    
-    /**
-     * @param activationTypeIn The activationType to set.
-     */
-    public void setActivationType(String activationTypeIn) {
-        this.activationType = activationTypeIn;
-    }
-
-    
     /**
      * @return Returns the profileType.
      */
@@ -1353,22 +1292,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     public void setProfileType(String profileTypeIn) {
         this.profileType = profileTypeIn;
     }        
-    
-    /**
-     * @return Returns the activationKeyIds.
-     */
-    public Set getActivationKeyIds() {
-        return activationKeyIds;
-    }
-
-    
-    /**
-     * @param activationKeyIdsIn The activationKeyIds to set.
-     */
-    public void setActivationKeyIds(Set activationKeyIdsIn) {
-        this.activationKeyIds = activationKeyIdsIn;
-    }
-
     
     /**
      * @return Returns the kickstartSession.
@@ -1425,18 +1348,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         return createdProfile;
     }
 
-    /**
-     * Set the activationkey id to use
-     * @param idIn to add to the Kickstart
-     */
-    public void setActivationKeyId(Long idIn) {
-        if (this.activationKeyIds == null) {
-            this.activationKeyIds = new HashSet();
-        }
-        this.activationKeyIds.add(idIn);
-        
-    }
-    
     /**
      * 
      * @param serverIn Proxy Host to set for this ks session

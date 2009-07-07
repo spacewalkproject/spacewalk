@@ -28,7 +28,6 @@ import com.redhat.rhn.manager.kickstart.KickstartScheduleCommand;
 import com.redhat.rhn.manager.kickstart.ProvisionVirtualInstanceCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
-import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForward;
@@ -155,22 +154,6 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         
         ProvisionVirtualInstanceCommand cmd = getScheduleCommand(form,
                                 ctx, scheduleTime, helper.getKickstartHost());
-        
-        if (StringUtils.isEmpty(form.getString(USE_EXISTING_PROFILE))) {
-            form.set(USE_EXISTING_PROFILE, Boolean.TRUE.toString());
-        }
-
-        boolean useExistingProfile = 
-            BooleanUtils.toBoolean(form.getString(USE_EXISTING_PROFILE));
-        if (useExistingProfile) {
-            cmd.setActivationType(
-                KickstartScheduleCommand.ACTIVATION_TYPE_EXISTING);
-        }
-        else {
-            cmd.setActivationType(
-                KickstartScheduleCommand.ACTIVATION_TYPE_KEY);
-            cmd.setActivationKeyId((Long) form.get(ACTIVATION_KEY));
-        }
         
         cmd.setKernelOptions(form.getString(KERNEL_PARAMS));
                                     

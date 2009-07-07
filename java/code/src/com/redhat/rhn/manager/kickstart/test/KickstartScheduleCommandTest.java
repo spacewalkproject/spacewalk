@@ -47,6 +47,7 @@ import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.kickstart.KickstartScheduleCommand;
 import com.redhat.rhn.manager.profile.ProfileManager;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
+import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.testing.TestUtils;
 
 import java.util.Date;
@@ -185,8 +186,8 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
                 KickstartScheduleCommand.ACTIVATION_TYPE_EXISTING, server,
                 ksdata, profileType, activationKeyIds, otherServerId, profileId);
         assertNull(cmd.store());
-        assertNotNull(cmd.getProxies());
-        assertEquals(0, cmd.getProxies().size());
+        assertNotNull(SystemManager.listProxies(user.getOrg()));
+        assertEquals(0, SystemManager.listProxies(user.getOrg()));
     }
 
     public void testCommandPackageProfile() throws Exception {
@@ -363,10 +364,6 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         PackageManagerTest.addPackageToSystemAndChannel(
                 ConfigDefaults.get().getKickstartPackageName(), server, c);
         // ksdata.getKsdefault().getKstree().setChannel(c);
-
-        cmd.setActivationType(activationType);        
-
-        cmd.setActivationKeyIds(activationKeyIds);
         cmd.setProfileType(profileType);
         cmd.setServerProfileId(otherServerId);
         cmd.setProfileId(profileId);

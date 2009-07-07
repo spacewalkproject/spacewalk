@@ -730,7 +730,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     /**
      * @return Returns the networks
      */
-    public Set getNetworks() {
+    public Set<Network> getNetworks() {
         return networks;
     }
     
@@ -1686,4 +1686,20 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public void setIgnoreEntitlementsForMigration(Boolean ignoreIn) {
         this.ignoreEntitlementsForMigration = ignoreIn;
     }
+
+    /**
+     * Get the NetworkInteface with the given name (i.e. eth0)
+     * @param ifName the interface name (i.e. eth0)
+     * @return the NetworkInterface, otherwise null
+     */
+    public NetworkInterface getNetworkInterface(String ifName) {
+        for (NetworkInterface nic : getNetworkInterfaces()) {
+            if (nic.getName().equals(ifName)) {
+                return nic;
+            }
+        }
+        return null;
+    }
+
+
 }
