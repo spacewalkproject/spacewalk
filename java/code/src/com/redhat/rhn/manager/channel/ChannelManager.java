@@ -2770,6 +2770,10 @@ public class ChannelManager extends BaseManager {
         File theFile = new File(mountPoint + File.separator + pathPrefix +
                 File.separator + channel.getLabel() + File.separator +
                 "repomd.xml");
+        if (!theFile.exists()) {
+            // No repo file, dont bother computing build date
+            return null;
+        }
         Date fileModifiedDateIn = new Date(theFile.lastModified());
         // the file Modified date should be getting set when the file
         // is moved into the correct location.
