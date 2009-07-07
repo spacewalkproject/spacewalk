@@ -14,6 +14,20 @@
  */
 package com.redhat.rhn.frontend.action.multiorg;
 
+import java.util.Iterator;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
+
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
@@ -28,19 +42,6 @@ import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.org.OrgManager;
 import com.redhat.rhn.manager.org.UpdateOrgSoftwareEntitlementsCommand;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
-
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -125,6 +126,14 @@ public class SoftwareEntitlementSubscriptionsAction extends RhnAction {
         List<OrgSoftwareEntitlementDto> entitlementUsage = 
                         ChannelManager.listEntitlementsForAllOrgsWithEmptyOrgs(cf, user);
         
+        for (Iterator <OrgSoftwareEntitlementDto> itr =
+            entitlementUsage.iterator(); itr.hasNext();) {
+            OrgSoftwareEntitlementDto dto = itr.next();
+            if (satelliteOrg.equals(dto.getOrg())) {
+                itr.remove();
+            }
+        }
+
         ChannelOverview satelliteOrgOverview = ChannelManager.getEntitlement(
                 satelliteOrg.getId(), cf.getId());
         if (satelliteOrgOverview == null) {
@@ -146,10 +155,14 @@ public class SoftwareEntitlementSubscriptionsAction extends RhnAction {
         Long entitlementsCurrentMembers = new Long(0);
         Long entitlementRatio = new Long(0);
         Long orgRatio = new Long(0);
-        Long entitledOrgs = new Long(0);                
-        Long orgCount = OrgManager.getTotalOrgCount(user);
-                        
-        for (ChannelOverview co : channelOverviews) {        
+        Long entitledOrgs = new Long(0);
+        // don't include default org
+        Long orgCount = OrgManager.getTotalOrgCount(user) - 1;
+
+        for (ChannelOverview co : channelOverviews) {
+            if (co.getOrgId().equals(satelliteOrg.getId())) {
+                continue;
+            }
             entitlementsCurrentMembers += co.getCurrentMembers();
 
             entitlementsMaxMembers += co.getMaxMembers();

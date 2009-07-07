@@ -4600,7 +4600,7 @@ deducted from the default organization.</source>
       </trans-unit>
       <trans-unit id="softwareEntitlementSubs.systemWideCounts.totaltip">
 <source>&lt;strong&gt;Tip:&lt;/strong&gt; This total corresponds to your @@PRODUCT_NAME@@ certificate's
-value for this entitlement.</source>
+value for this entitlement, excluding the default organization's consumption.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
@@ -19692,7 +19692,7 @@ this entitlement.</source>
       </trans-unit>
       <trans-unit id="entitlementorgs.tip_allocated">
 <source>&lt;strong&gt;Tip:&lt;/strong&gt; This total corresponds to your @@PRODUCT_NAME@@ certificate's
-value for this entitlement.</source>
+value for this entitlement, excluding the default organization's consumption.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
         </context-group>
