@@ -76,6 +76,11 @@ public class CompareSystemSetupAction extends RhnAction {
             }
             else {
                 RhnHelper.handleEmptySelection(request);
+                Map params = new HashMap();
+                params.put(RequestContext.SID, sid.toString());
+                params.put(RequestContext.SID1, sid1.toString());
+                return getStrutsDelegate().forwardParams(
+                        mapping.findForward("error"), params);
             }
         }   
         DataResult dataSet = getDataResult(requestContext);
