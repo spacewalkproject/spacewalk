@@ -19206,7 +19206,7 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
     </trans-unit>
       
       <trans-unit id="org.trust.header">
-        <source>Organizations Trusted By {0}</source>
+        <source>Organizations Trusted By {0} ({1})</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/multiorg/Organizations.do</context>
         </context-group>
