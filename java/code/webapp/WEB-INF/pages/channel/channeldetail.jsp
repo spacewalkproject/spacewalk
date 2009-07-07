@@ -103,7 +103,7 @@
                <c:when test="${repo_status == true}">
                   <bean:message key="channel.jsp.repodata.inProgress"/>
                </c:when>
-               <c:when test="${repo_status == false && repo_last_build != null}>
+               <c:when test="${repo_status == false && repo_last_build != null}">
                     <bean:message key="channel.jsp.repodata.completed"/>
                </c:when>
                <c:otherwise>
