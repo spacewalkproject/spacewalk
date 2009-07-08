@@ -223,7 +223,6 @@ public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
         
         // TODO Figure out why this is breaking on digdug
         //assertNotNull(KickstartFactory.lookupKickstartSessionByServer(s.getId()));
-        verifyFormValue("useExistingProfile", Boolean.TRUE.toString());
         if (addProxy && proxy != null) {
             verifyFormValue(ScheduleKickstartWizardAction.PROXY_HOST, 
                     proxy.getId().toString());
