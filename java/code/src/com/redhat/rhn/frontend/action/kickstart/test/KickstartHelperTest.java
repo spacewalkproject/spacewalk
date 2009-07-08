@@ -19,11 +19,15 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartInstallType;
+import com.redhat.rhn.domain.kickstart.KickstartIpRange;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartSessionTest;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.NetworkInterface;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.action.kickstart.KickstartHelper;
 import com.redhat.rhn.frontend.servlets.RhnHttpServletRequest;
@@ -86,20 +90,28 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
         assertNull(options.get("session"));
     }
     
-    public void testIpRangeLabel() {
+    public void testIpRangeLabel() throws Exception{
+   
+
+        KickstartIpRange range = new KickstartIpRange();
+        range.setMaxString("127.0.0.2");
+        range.setMinString("127.0.0.1");
+        range.setKsdata(ksdata);
+        range.setOrg(user.getOrg());
+        ksdata.getIps().add(range);
+
         // URL:
         String url = "http://rhn.redhat.com/ks/cfg/org/" + 
             user.getOrg().getId().toString() +
                 "/mode/ip_range";
         request.setAttribute(RequestContext.REQUESTED_URI, url);
-        helper = new KickstartHelper(request) {
-            protected KickstartData findBestFitProfile(IpAddress clientIpIn, Org orgIn) {
-                return ksdata;
-            }
-        };
+        helper = new KickstartHelper(request);
         Map options = helper.parseKickstartUrl(url);
-        assertNotNull(options.get("ksdata"));
+        
+        assertEquals(ksdata, options.get("ksdata"));
         //  This is the key test
+        
+        
         assertNotNull(options.get("session"));
     }
     
