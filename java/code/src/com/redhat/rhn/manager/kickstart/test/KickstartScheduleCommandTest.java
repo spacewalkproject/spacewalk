@@ -187,7 +187,7 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
                 ksdata, profileType, activationKeyIds, otherServerId, profileId);
         assertNull(cmd.store());
         assertNotNull(SystemManager.listProxies(user.getOrg()));
-        assertEquals(0, SystemManager.listProxies(user.getOrg()));
+        assertEquals(0, SystemManager.listProxies(user.getOrg()).size());
     }
 
     public void testCommandPackageProfile() throws Exception {
