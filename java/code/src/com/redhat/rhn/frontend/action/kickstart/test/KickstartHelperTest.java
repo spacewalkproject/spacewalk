@@ -23,16 +23,11 @@ import com.redhat.rhn.domain.kickstart.KickstartIpRange;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartSessionTest;
-import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.domain.server.NetworkInterface;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.action.kickstart.KickstartHelper;
 import com.redhat.rhn.frontend.servlets.RhnHttpServletRequest;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.manager.kickstart.IpAddress;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ChannelTestUtils;
@@ -90,7 +85,7 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
         assertNull(options.get("session"));
     }
     
-    public void testIpRangeLabel() throws Exception{
+    public void testIpRangeLabel() throws Exception {
    
 
         KickstartIpRange range = new KickstartIpRange();
