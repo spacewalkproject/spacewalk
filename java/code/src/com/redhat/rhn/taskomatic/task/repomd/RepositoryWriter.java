@@ -254,7 +254,7 @@ public class RepositoryWriter {
             return null;
         }
 
-        Date timeStamp = new Date(compsFile.lastModified() * 1000);
+        Date timeStamp = new Date(compsFile.lastModified());
 
         return new RepomdIndexData(StringUtil.getHexString(digestStream
                 .getMessageDigest().digest()), null, timeStamp);
