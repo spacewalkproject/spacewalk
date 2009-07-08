@@ -157,10 +157,15 @@ def _is_host_domain():
     This function returns true if this system is currently a host domain.  
     Simply having virtualization enabled is sufficient.
 
-    We can figure out if Xen is running by checking for the existence of 
-    /proc/xen.
+    We can figure out if Xen/Qemu is running by checking for the type
     """
-    return os.path.exists('/proc/xen') and libvirt
+    if not libvirt:
+        # No libvirt, dont bother with the rest
+        return False
+    conn = libvirt.open(None)
+    if conn and conn.getType() in ['Xen', 'QEMU']:
+        return True
+    return False
 
 def _fetch_host_uuid():
     """
