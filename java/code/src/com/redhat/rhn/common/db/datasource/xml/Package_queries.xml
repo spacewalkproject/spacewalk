@@ -745,59 +745,48 @@ ORDER BY  UPPER(PN.name)
    
 <mode name="system_upgradable_package_list" class="com.redhat.rhn.frontend.dto.UpgradablePackageListItem">
   <query params="sid">
-SELECT  pn.id AS id,
-        pn.name AS name,
-        pn.name ||'-'|| full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS nvre,
-        pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release)|| '|' || full_list.arch_id AS id_combo
+SELECT  PN.id AS id,
+        PN.id AS name_id,
+        lookup_evr(latest.evr.epoch, latest.evr.version, latest.evr.release) AS evr_id,
+        latest.arch_id AS arch_id,
+        latest.evr.epoch AS epoch,
+        latest.evr.version AS version,
+        latest.evr.release AS release,
+        PN.name AS name,
+        PN.name ||'-'|| latest.evr.version || '-' || latest.evr.release || DECODE(latest.evr.epoch, NULL, '', ':' || latest.evr.epoch) || (CASE WHEN latest.arch_id IS NULL THEN '' ELSE '.' || latest.arch_label END) AS nvrea,
+        PN.name || '-' || PE.evr.as_vre_simple() || (CASE WHEN SP.package_arch_id IS NULL THEN '' ELSE '.' || PA.label END) AS installed_package,
+        PN.id || '|' || lookup_evr(latest.evr.epoch, latest.evr.version, latest.evr.release)|| '|' || latest.arch_id AS id_combo
   FROM  rhnPackageName PN,
+        rhnServerPackage SP
+        INNER JOIN rhnPackageEVR PE on SP.evr_id = PE.id
+        LEFT JOIN rhnPackageArch PA on SP.package_arch_id = PA.id,
         (
          SELECT  SOP.package_name_id AS name_id, MAX(PE.evr) evr, 
-                 SP.package_arch_id as arch_id
-           FROM  rhnPackageEVR PE, rhnServerOutdatedPackages SOP
+                 SP.package_arch_id as arch_id, PA.label as arch_label
+           FROM  rhnServerOutdatedPackages SOP
                  INNER JOIN rhnServerPackage SP on SP.server_id = SOP.server_id
+                 INNER JOIN rhnPackageEVR PE on SOP.package_evr_id = PE.id
+                 LEFT JOIN rhnPackageArch PA on PA.id = SP.package_arch_id
           WHERE  SOP.server_id = :sid
             AND  SOP.package_name_id = SP.name_id
-            AND  SOP.package_evr_id = PE.id
-       GROUP BY  SOP.package_name_id, SP.package_arch_id
-         ) full_list
- WHERE  full_list.name_id = PN.id
+       GROUP BY  SOP.package_name_id, SP.package_arch_id, PA.label
+       ) latest
+ WHERE  latest.name_id = PN.id
+   AND  SP.server_id = :sid
+   AND  SP.name_id = PN.id
+   AND  (SP.package_arch_id IS NULL OR SP.package_arch_id = latest.arch_id)
 ORDER BY  UPPER(PN.name)
   </query>
-  <elaborator params="sid" multiple="t">
-SELECT  PN.id AS id,
-        PN.id as name_id,
-        pn.name ||'-'|| full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS nvre,
-        lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) AS evr_id,
-        PN.name || '-' || SPE.evr.as_vre_simple() AS installed,
-        full_list.server_id SERVER_ID,
-        full_list.errata_id ERRATA_ID,
-        full_list.errata_advisory ERRATA_ADVISORY,
-        full_list.evr.epoch EPOCH,
-        full_list.evr.version VERSION,
-        full_list.evr.release RELEASE,
-        E.advisory_type ERRATA_ADVISORY_TYPE
-  FROM  rhnErrata E,
-        rhnPackageName PN,
-        rhnPackageEVR PE,
-        rhnPackageEVR SPE,
-        rhnServerPackage SP,
-        (
-         SELECT  SOP.package_name_id name_id, MAX(peD.evr) evr,
-                 SOP.server_id server_id, SOP.errata_id errata_id, 
-                 SOP.errata_advisory errata_advisory
-           FROM  rhnPackageEVR PED, rhnServerOutdatedPackages SOP
-          WHERE  SOP.server_id = :sid
-            AND  SOP.package_evr_id = PED.id
-       GROUP BY  SOP.package_name_id, SOP.server_id, SOP.errata_id, SOP.errata_advisory
-         ) full_list
- WHERE  PN.id IN (%s)
-   AND  PN.id = full_list.name_id
-   AND  full_list.errata_id = E.id (+)
-   AND  PE.id = lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release)
-   AND  SP.name_id = PN.id
-   AND  SP.server_id = :sid
-   AND  SPE.id = SP.evr_id
-   AND  SPE.evr &lt; PE.evr
+  <elaborator multiple="t" params="sid">
+  SELECT  PN.id AS id,
+          SOP.errata_id AS errata_id,
+          SOP.errata_advisory AS errata_advisory,
+          E.advisory_type AS errata_advisory_type
+    FROM  rhnServerOutdatedPackages SOP
+          INNER JOIN rhnPackageName PN on SOP.package_name_id = PN.id
+          INNER JOIN rhnErrata E on SOP.errata_id = E.id
+   WHERE  PN.id IN (%s)
+     AND  SOP.server_id = :sid
   </elaborator>
 </mode>
 
