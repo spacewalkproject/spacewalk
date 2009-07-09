@@ -168,6 +168,8 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
         Set<PackageListItem> allPackages = new HashSet<PackageListItem>();
         List<Server> allServers = new ArrayList<Server>(result.size());
         
+        // NOTE: We are removing packages only from the servers that have it installed
+        // here:
         for (Iterator it = result.iterator(); it.hasNext();) {
         
             // Add action for each package found in the elaborator
