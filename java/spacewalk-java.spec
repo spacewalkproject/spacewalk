@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.30
+Version: 0.6.31
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -250,6 +250,39 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu Jul 09 2009 John Matthews <jmatthew@redhat.com> 0.6.31-1
+- 510122 -  ErrataSearch now filters results so it won't display errata from a
+  non-sharing Org (jmatthew@redhat.com)
+- 509589 - fixing ise on single default org sys ent page (shughes@redhat.com)
+- 509215 - update SDC packages->upgrade to show pkg arch when available
+  (bbuckingham@redhat.com)
+- checkstyle (jsherril@redhat.com)
+- 510334 - Fix the comps.xml timestamp in repomd.xml to compute the timestamp
+  value correctly. (pkilambi@redhat.com)
+- 510146 - Fix 2002-08 to 2002-09 copyright in non-English resource bundles.
+  (dgoodwin@redhat.com)
+- 510146 - Update copyright years from 2002-08 to 2002-09.
+  (dgoodwin@redhat.com)
+- 509268 - Fixed incorrect filterattr values (jason.dobies@redhat.com)
+- 509589 - clean up software and system entitlement subscription pages
+  (shughes@redhat.com)
+- 496174 - removing usage of rhnPrivateErrataMail view and tuning query
+  (mmccune@redhat.com)
+- 508931 - bumping taskomatic default max memory to 512 and min to 256 to avoid
+  OutOfMemoryError's on s390 (pkilambi@redhat.com)
+- fix prads oops (shughes@redhat.com)
+- 509911 - Dont compute date if the file is missing that way we dont show 1969
+  for last build. Also changing the jsp logic to only show as complete if both
+  last build and status are not null (pkilambi@redhat.com)
+- 509394 - update System/Profile comparison to not display duplicate error
+  messages (bbuckingham@redhat.com)
+- 508980 - converting SSM kickstart to java (jsherril@redhat.com)
+- small request to add orgid for pkilambi (shughes@redhat.com)
+- 509457 - incorrectly using user id twice in channel query
+  (shughes@redhat.com)
+- 509377 - confirmation pgs for Pkg Install & Remove updated to include pkg
+  arch (bbuckingham@redhat.com)
+
 * Mon Jul 06 2009 John Matthews <jmatthew@redhat.com> 0.6.30-1
 - 509444 - remove delete action system from virt page (shughes@redhat.com)
 - 509371 - SSM->Install,Remove,Verify - minor fixes to Package Name and Arch
