@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.10
+Version: 0.6.11
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -317,6 +317,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Jul 09 2009 John Matthews <jmatthew@redhat.com> 0.6.11-1
+- 510146 - Update copyright years from 2002-08 to 2002-09.
+  (dgoodwin@redhat.com)
+- 508980 - converting SSM kickstart to java (jsherril@redhat.com)
+
 * Mon Jul 06 2009 John Matthews <jmatthew@redhat.com> 0.6.10-1
 - 509376 - add Shared Channels to side navigation of Channels tab
   (bbuckingham@redhat.com)
