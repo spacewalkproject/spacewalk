@@ -893,11 +893,13 @@ public class ErrataFactory extends HibernateFactory {
     /**
      * Returns a list of ErrataOverview that match the given errata ids.
      * @param eids Errata ids.
+     * @param org Organization to match results with
      * @return a list of ErrataOverview that match the given errata ids.
      */
-    public static List<ErrataOverview> search(List eids) {
+    public static List<ErrataOverview> search(List eids, Org org) {
         Map params = new HashMap();
         params.put("eids", eids);
+        params.put("org_id", org.getId());
         List results = singleton.listObjectsByNamedQuery(
                 "PublishedErrata.searchById", params);
         List<ErrataOverview> errata = new ArrayList<ErrataOverview>();
