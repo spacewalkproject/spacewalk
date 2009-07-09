@@ -19496,6 +19496,13 @@ as reflected in this @@PRODUCT_NAME@@'s certificate.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
       </trans-unit>
+
+      <trans-unit id="sys_entitlements.noentorgs">
+        <source>No organizations have this entitlement</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
+        </context-group>
+      </trans-unit>
       
       <trans-unit id="kickstart.cryptokey.description">
 <source>Description</source>

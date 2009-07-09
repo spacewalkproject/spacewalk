@@ -107,12 +107,27 @@ public class SystemEntitlementOrgsAction extends RhnAction {
 
         //Calculate System Wide Sat usage 
         Long orgCount = OrgManager.getTotalOrgCount(user) - 1;
+        Long maxEnt = new Long(0);
+        Long curEnt = new Long(0);
+        Long alloc = new Long(0);
+
         DataList satEntCounts = OrgManager.getSatEntitlementUsage(entitlementLabel);
         Map row = (Map) satEntCounts.get(0);
-        Long maxEnt = ((Long) row.get("total")).longValue();
-        Long curEnt = ((Long) row.get("curr")).longValue();
-        Long alloc = ((Long) row.get("alloc")).longValue();
-        Long ratio = alloc * 100 / orgCount;
+
+        if (row.get("total") != null) {
+          maxEnt = ((Long) row.get("total")).longValue();
+        }
+        if (row.get("curr") != null) {
+          curEnt = ((Long) row.get("curr")).longValue();
+        }
+        if (row.get("alloc") != null) {
+          alloc = ((Long) row.get("alloc")).longValue();
+        }
+
+        Long ratio = new Long(0);
+        if (orgCount != 0) {
+          ratio = alloc * 100 / orgCount;
+        }
 
         request.setAttribute("maxEnt", maxEnt);
         request.setAttribute("curEnt", curEnt);
