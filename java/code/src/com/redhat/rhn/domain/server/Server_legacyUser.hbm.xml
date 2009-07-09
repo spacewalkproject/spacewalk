@@ -176,6 +176,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.server.Server as s where s.id = :sid and ORG_ID = :orgId]]>
     </query>
 
+    <query name="Server.findByIdsAndOrgId">
+        <![CDATA[from com.redhat.rhn.domain.server.Server as s where ORG_ID = :orgId and s.id in (:serverIds)]]>
+    </query>
 
     <sql-query name="Server.findVirtPlatformHostsByOrg">
         <![CDATA[select   s.id as id, s.name as name, count(vi.id) as count 

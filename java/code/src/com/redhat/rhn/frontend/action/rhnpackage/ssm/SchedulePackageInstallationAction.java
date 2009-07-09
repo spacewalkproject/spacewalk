@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
 import com.redhat.rhn.frontend.dto.EssentialServerDto;
@@ -31,6 +32,8 @@ import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.system.SystemManager;
+
+import java.util.LinkedList;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -149,11 +152,11 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
         // Create one action for all servers to which the packages are installed
         List<EssentialServerDto> servers = getResult(context);
         List<Server> actionServers = new ArrayList<Server>(servers.size());
+        List<Long> serverIds = new LinkedList<Long>();
         for (EssentialServerDto dto : servers) {
-            Long sid = dto.getId();
-            Server server = SystemManager.lookupByIdAndUser(sid, user);
-            actionServers.add(server);
+            serverIds.add(dto.getId());
         }
+        actionServers.addAll(ServerFactory.lookupByIdsAndUser(serverIds, user));
         
         ActionManager.schedulePackageInstall(user, actionServers,
             packageListData, earliest);
