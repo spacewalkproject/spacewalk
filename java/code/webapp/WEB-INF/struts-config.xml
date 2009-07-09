@@ -6487,7 +6487,7 @@
        <forward name="default"
                 path="/WEB-INF/pages/ssm/packageinstallschedule.jsp" />
        <forward name="confirm"
-                path="/ssm/Packages.do" />
+                path="/ssm/ViewLog.do" />
     </action>
 
      <!-- SSM Package Remove Pages -->

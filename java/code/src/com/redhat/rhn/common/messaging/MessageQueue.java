@@ -30,6 +30,8 @@ import com.redhat.rhn.frontend.events.TraceBackAction;
 import com.redhat.rhn.frontend.events.TraceBackEvent;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheAction;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
+import com.redhat.rhn.frontend.events.SsmPackageInstallAction;
+import com.redhat.rhn.frontend.events.SsmPackageInstallEvent;
 
 import org.apache.log4j.Logger;
 
@@ -251,11 +253,15 @@ public class MessageQueue {
         RestartSatelliteAction ra = new RestartSatelliteAction();
         MessageQueue.registerAction(ra, RestartSatelliteEvent.class);
         
-        // Used to allow SSM operations to be run asynchronously
+        // Used to allow SSM child channel changes to be run asynchronously
         SsmChangeChannelSubscriptionsAction sccsa =
             new SsmChangeChannelSubscriptionsAction();
         MessageQueue.registerAction(sccsa, SsmChangeChannelSubscriptionsEvent.class);
-        
+
+        // Used to allow SSM package installs to be run asynchronously
+        SsmPackageInstallAction ssmPackageInstallAction = new SsmPackageInstallAction();
+        MessageQueue.registerAction(ssmPackageInstallAction, SsmPackageInstallEvent.class);
+
         //Clone Errata into a channel
         CloneErrataAction cea = new CloneErrataAction();
         MessageQueue.registerAction(cea, CloneErrataEvent.class);
