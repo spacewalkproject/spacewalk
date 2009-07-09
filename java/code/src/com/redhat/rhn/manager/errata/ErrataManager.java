@@ -318,10 +318,11 @@ public class ErrataManager extends BaseManager {
     /**
      * Returns a list of ErrataOverview matching the given errata ids.
      * @param eids Errata ids sought.
+     * @param org Organization to match results with
      * @return a list of ErrataOverview matching the given errata ids.
      */
-    public static List<ErrataOverview> search(List eids) {
-        return ErrataFactory.search(eids);
+    public static List<ErrataOverview> search(List eids, Org org) {
+        return ErrataFactory.search(eids, org);
     }
     
     /**
