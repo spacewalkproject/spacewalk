@@ -16,10 +16,8 @@ package com.redhat.rhn.frontend.events;
 
 import java.util.Date;
 import java.util.Set;
-import java.util.List;
 import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.dto.EssentialServerDto;
 
 /**
  * Event fired to carry the information necessary to schedule package installations
@@ -30,21 +28,22 @@ public class SsmPackageInstallEvent implements EventMessage {
     private User user;
     private Date earliest;
     private Set<String> packages;
-    private List<EssentialServerDto> servers;
+    private Long channelId;
 
     /**
      * Creates a new event to install a set of packages on systems in the SSM.
      *
-     * @param userIn     user making the changes; cannot be <code>null</code>
-     * @param earliestIn earliest time to perform the installation; can be <code>null</code>
-     * @param packagesIn set of package IDs being installed; cannot be <code>null</code>
-     * @param serversIn  set of server data to install the packages on;
-     *                   cannot be <code>null</code>
+     * @param userIn      user making the changes; cannot be <code>null</code>
+     * @param earliestIn  earliest time to perform the installation;
+     *                    can be <code>null</code>
+     * @param packagesIn  set of package IDs being installed; cannot be <code>null</code>
+     * @param channelIdIn identifies the channel the packages are installed from;
+     *                    cannot be <code>null</code>
      */
     public SsmPackageInstallEvent(User userIn,
                                   Date earliestIn,
                                   Set<String> packagesIn,
-                                  List<EssentialServerDto> serversIn) {
+                                  Long channelIdIn) {
         if (userIn == null) {
             throw new IllegalArgumentException("userIn cannot be null");
         }
@@ -53,14 +52,15 @@ public class SsmPackageInstallEvent implements EventMessage {
             throw new IllegalArgumentException("packagesIn cannot be null");
         }
 
-        if (serversIn == null) {
-            throw new IllegalArgumentException("serversIn cannot be null");
+        if (channelIdIn == null) {
+            throw new IllegalArgumentException("channelIdIn cannot be null");
         }
+
 
         this.user = userIn;
         this.earliest = earliestIn;
         this.packages = packagesIn;
-        this.servers = serversIn;
+        this.channelId = channelIdIn;
     }
 
     /**
@@ -87,8 +87,8 @@ public class SsmPackageInstallEvent implements EventMessage {
     /**
      * @return will not be <code>null</code>
      */
-    public List<EssentialServerDto> getServers() {
-        return servers;
+    public Long getChannelId() {
+        return channelId;
     }
 
     /** {@inheritDoc} */
@@ -99,6 +99,6 @@ public class SsmPackageInstallEvent implements EventMessage {
     /** {@inheritDoc} */
     public String toString() {
         return "SsmPackageInstallEvent[User: " + user.getLogin() + ", Package Count: " +
-            packages.size() + ", Server Count: " + servers.size() +  "]";
+            packages.size() + ", Channel ID: " + channelId +  "]";
     }
 }

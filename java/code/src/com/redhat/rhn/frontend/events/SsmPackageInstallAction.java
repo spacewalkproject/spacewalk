@@ -24,11 +24,13 @@ import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.dto.EssentialServerDto;
+import com.redhat.rhn.frontend.action.SetLabels;
 
 /**
  * Schedules package installations on systems in the SSM. 
@@ -60,7 +62,11 @@ public class SsmPackageInstallAction extends AbstractDatabaseAction {
         User user = event.getUser();
         Date earliest = event.getEarliest();
         Set<String> data = event.getPackages();
-        List<EssentialServerDto> servers = event.getServers();
+        Long channelId = event.getChannelId();
+
+        List<EssentialServerDto> servers =
+            SystemManager.systemsSubscribedToChannelInSet(channelId, user,
+                SetLabels.SYSTEM_LIST);
 
         // Convert the package list to domain objects
         List<PackageListItem> packageListItems =

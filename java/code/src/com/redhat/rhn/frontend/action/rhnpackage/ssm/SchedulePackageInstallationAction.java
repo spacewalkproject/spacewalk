@@ -31,7 +31,6 @@ import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
-import com.redhat.rhn.frontend.dto.EssentialServerDto;
 import com.redhat.rhn.frontend.events.SsmPackageInstallEvent;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -66,30 +65,29 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
             if (requestContext.wasDispatched("installconfirm.jsp.confirm")) {
 
                 StrutsDelegate strutsDelegate = getStrutsDelegate();
-                
+
+                // Load data from the web components
                 User user = requestContext.getLoggedInUser();
                 Date earliest = getStrutsDelegate().readDatePicker(
                     (DynaActionForm) actionForm, "date", DatePicker.YEAR_RANGE_POSITIVE);
+                Long cid = requestContext.getRequiredParam(RequestContext.CID);
 
-                // Load the package and server lists
                 String packagesDecl = request.getParameter("packagesDecl");
 
                 Set<String> data = SessionSetHelper.lookupAndBind(request, packagesDecl);
-                int numPackages = data.size();
-
-                List<EssentialServerDto> servers = getResult(requestContext);
 
                 // Remove the packages from session once we have the above handle on them
                 SessionSetHelper.obliterate(request, packagesDecl);
 
                 // Fire off the request on the message queue
                 SsmPackageInstallEvent event =
-                    new SsmPackageInstallEvent(user, earliest, data, servers);
+                    new SsmPackageInstallEvent(user, earliest, data, cid);
                 MessageQueue.publish(event);
 
                 ActionMessages msgs = new ActionMessages();
 
                 // Check to determine to display single or plural confirmation message
+                int numPackages = data.size();
                 LocalizationService l10n = LocalizationService.getInstance();
                 if (numPackages == 1) {
                     msgs.add(ActionMessages.GLOBAL_MESSAGE,
