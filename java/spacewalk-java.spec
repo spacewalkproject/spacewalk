@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.31
+Version: 0.6.32
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -250,7 +250,7 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
-* Thu Jul 09 2009 John Matthews <jmatthew@redhat.com> 0.6.31-1
+* Thu Jul 09 2009 John Matthews <jmatthew@redhat.com> 0.6.32-1
 - 510122 -  ErrataSearch now filters results so it won't display errata from a
   non-sharing Org (jmatthew@redhat.com)
 - 509589 - fixing ise on single default org sys ent page (shughes@redhat.com)
