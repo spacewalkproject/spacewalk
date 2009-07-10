@@ -19,3 +19,35 @@
 update rhnActionType
 set name = 'Initiate a kickstart for a virtual guest.'
 where label = 'kickstart_guest.initiate';
+
+update rhnActionType
+set name = 'Shuts down a virtual domain.'
+where label = 'virt.shutdown';
+
+update rhnActionType
+set name = 'Starts up a virtual domain.'
+where label = 'virt.start';
+
+update rhnActionType
+set name = 'Suspends a virtual domain.'
+where label = 'virt.suspend';
+
+update rhnActionType
+set name = 'Resumes a virtual domain.'
+where label = 'virt.resume';
+
+update rhnActionType
+set name = 'Reboots a virtual domain.'
+where label = 'virt.reboot';
+
+update rhnActionType
+set name = 'Destroys a virtual domain.'
+where label = 'virt.destroy';
+
+update rhnActionType
+set name = 'Sets the maximum memory usage for a virtual domain.'
+where label = 'virt.setMemory';
+
+update rhnActionType
+set name = 'Sets the Vcpu usage for a virtual domain.'
+where label = 'virt.setVCPUs';
