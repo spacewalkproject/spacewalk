@@ -23,6 +23,7 @@ import java.util.LinkedList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import com.redhat.rhn.common.messaging.EventMessage;
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
@@ -47,9 +48,11 @@ public class SsmInstallPackagesAction extends AbstractDatabaseAction {
         User user = event.getUser();
 
         // Log the action has been created
+        LocalizationService ls = LocalizationService.getInstance();
+        String operationMessage = ls.getMessage("ssm.package.install.operationname");
         long operationId =
             SsmOperationManager.createOperation(user,
-                "Package Installation", RhnSetDecl.SYSTEMS.getLabel());
+                operationMessage, RhnSetDecl.SYSTEMS.getLabel());
 
         try {
             scheduleInstalls(event);
