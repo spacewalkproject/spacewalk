@@ -55,7 +55,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Handles the display and capture of scheduling package removals for systems in the SSM.
  *
- * @version $Revision$
  */
 public class SchedulePackageRemoveAction extends RhnListAction implements Listable {
 
@@ -143,12 +142,12 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
         Date earliest = getStrutsDelegate().readDatePicker((DynaActionForm) formIn,
             "date", DatePicker.YEAR_RANGE_POSITIVE);
 
-        log.debug("Getting package removal results.");
+        log.debug("Getting package removal data.");
         // Parse through all of the results        
         DataResult result = (DataResult) getResult(context); 
         result.elaborate();
 
-        log.debug("Publishing package removal event.");
+        log.debug("Publishing schedule package remove event to message queue.");
         SsmRemovePackagesEvent event = new SsmRemovePackagesEvent(user.getId(), earliest,
                 result);
         MessageQueue.publish(event);

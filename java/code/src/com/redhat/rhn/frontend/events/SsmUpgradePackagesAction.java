@@ -46,16 +46,15 @@ import org.apache.log4j.Logger;
 /**
  * Handles removing packages from servers in the SSM.
  *
- * @see com.redhat.rhn.frontend.events.SsmRemovePackagesEvent
- * @version $Revision$
+ * @see com.redhat.rhn.frontend.events.SsmUpgradePackagesEvent
  */
-public class SsmRemovePackagesAction extends AbstractDatabaseAction {
-    private static Logger log = Logger.getLogger(SsmRemovePackagesAction.class);
+public class SsmUpgradePackagesAction extends AbstractDatabaseAction {
+    private static Logger log = Logger.getLogger(SsmUpgradePackagesAction.class);
 
     /** {@inheritDoc} */
     protected void doExecute(EventMessage msg) {
-        log.debug("Executing package removals.");
-        SsmRemovePackagesEvent event = (SsmRemovePackagesEvent) msg;
+        log.debug("Executing package upgrades.");
+        SsmUpgradePackagesEvent event = (SsmUpgradePackagesEvent) msg;
 
         DataResult result = event.getResult();
         User user = UserFactory.lookupById(event.getUserId());
@@ -63,22 +62,8 @@ public class SsmRemovePackagesAction extends AbstractDatabaseAction {
 
         LocalizationService ls = LocalizationService.getInstance();
         long operationId = SsmOperationManager.createOperation(user,
-            ls.getMessage("ssm.package.remove.operationname"), null);
+            ls.getMessage("ssm.package.upgrade.operationname"), null);
         int numPackages = 0;
-
-        /* 443500 - The following was changed to be able to stuff all of the package
-           removals into a single action. The schedule package removal page will display
-           a fine grained mapping of server to package removed (taking into account to
-           only show packages that exist on the server).
-
-           However, there is no issue in requesting a client delete a package it doesn't
-           have. So when we create the action, populate it with all packages and for
-           every server to which any package removal applies. This will let us keep all
-           of the removals coupled under a single scheduled action and won't cause an
-           issue on the client when the scheduled removals are picked up.
-
-           jdobies, Apr 8, 2009
-         */
 
         // The package collection is a set to prevent duplciates when keeping a running
         // total of all packages selected
@@ -88,7 +73,7 @@ public class SsmRemovePackagesAction extends AbstractDatabaseAction {
         List<Long> allServerIds = new LinkedList<Long>();
 
         // Iterate the data, which is essentially each unique package/server combination
-        // to remove. Note that this is only for servers that we have marked as having the
+        // to upgrade. Note that this is only for servers that we have marked as having the
         // package installed.
         log.debug("Iterating data.");
         for (Iterator it = result.iterator(); it.hasNext();) {
@@ -98,30 +83,25 @@ public class SsmRemovePackagesAction extends AbstractDatabaseAction {
 
             // Load the server
             Long sid = (Long)data.get("id");
-            allServerIds.add(sid);
+            Server server = ServerFactory.lookupByIdAndOrg(sid, user.getOrg());
 
             // Get the packages out of the elaborator
             List elabList = (List) data.get("elaborator0");
-            numPackages += elabList.size();
 
+            List<PackageListItem> items = new ArrayList<PackageListItem>(elabList.size());
             for (Iterator elabIt = elabList.iterator(); elabIt.hasNext();) {
                 Map elabData = (Map) elabIt.next();
                 String idCombo = (String) elabData.get("id_combo");
                 PackageListItem item = PackageListItem.parse(idCombo);
-                allPackages.add(item);
+                items.add(item);
             }
+
+            // Convert to list of maps
+            List<Map<String, Long>> packageListData = PackageListItem.toKeyMaps(items);
+
+            // Create the action
+            ActionManager.schedulePackageUpgrade(user, server, packageListData, earliest);
         }
-
-        List<Server> allServers = new ArrayList<Server>(result.size());
-        allServers.addAll(ServerFactory.lookupByIdsAndUser(allServerIds, user));
-
-        log.debug("Converting data to maps.");
-        List<PackageListItem> allPackagesList = new ArrayList<PackageListItem>(allPackages);
-        List<Map<String, Long>> packageListData =
-            PackageListItem.toKeyMaps(allPackagesList);
-
-        log.debug("Scheduling package removals.");
-        ActionManager.schedulePackageRemoval(user, allServers, packageListData, earliest);
         log.debug("Done.");
     }
 

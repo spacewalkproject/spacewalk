@@ -17,6 +17,8 @@ package com.redhat.rhn.common.messaging;
 
 import com.redhat.rhn.frontend.events.SsmRemovePackagesAction;
 import com.redhat.rhn.frontend.events.SsmRemovePackagesEvent;
+import com.redhat.rhn.frontend.events.SsmUpgradePackagesAction;
+import com.redhat.rhn.frontend.events.SsmUpgradePackagesEvent;
 
 import EDU.oswego.cs.dl.util.concurrent.Channel;
 import EDU.oswego.cs.dl.util.concurrent.LinkedQueue;
@@ -49,7 +51,6 @@ import java.util.Map;
 /**
  * A class that passes messages from the sender to an action class
  *
- * @version $Rev$
  */
 public class MessageQueue {
 
@@ -272,6 +273,9 @@ public class MessageQueue {
 
         SsmVerifyPackagesAction ssmVpa = new SsmVerifyPackagesAction();
         MessageQueue.registerAction(ssmVpa, SsmVerifyPackagesEvent.class);
+
+        SsmUpgradePackagesAction ssmUpa = new SsmUpgradePackagesAction();
+        MessageQueue.registerAction(ssmUpa, SsmUpgradePackagesEvent.class);
 
         //Clone Errata into a channel
         CloneErrataAction cea = new CloneErrataAction();
