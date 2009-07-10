@@ -23,7 +23,7 @@ import com.redhat.rhn.domain.user.User;
  * Event fired to carry the information necessary to schedule package installations
  * on systems in the SSM. 
  */
-public class SsmPackageInstallEvent implements EventMessage {
+public class SsmInstallPackagesEvent implements EventMessage {
 
     private User user;
     private Date earliest;
@@ -40,7 +40,7 @@ public class SsmPackageInstallEvent implements EventMessage {
      * @param channelIdIn identifies the channel the packages are installed from;
      *                    cannot be <code>null</code>
      */
-    public SsmPackageInstallEvent(User userIn,
+    public SsmInstallPackagesEvent(User userIn,
                                   Date earliestIn,
                                   Set<String> packagesIn,
                                   Long channelIdIn) {

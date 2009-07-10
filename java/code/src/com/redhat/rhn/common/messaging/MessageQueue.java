@@ -33,8 +33,8 @@ import com.redhat.rhn.frontend.events.TraceBackAction;
 import com.redhat.rhn.frontend.events.TraceBackEvent;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheAction;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
-import com.redhat.rhn.frontend.events.SsmPackageInstallAction;
-import com.redhat.rhn.frontend.events.SsmPackageInstallEvent;
+import com.redhat.rhn.frontend.events.SsmInstallPackagesAction;
+import com.redhat.rhn.frontend.events.SsmInstallPackagesEvent;
 
 import org.apache.log4j.Logger;
 
@@ -262,8 +262,8 @@ public class MessageQueue {
         MessageQueue.registerAction(sccsa, SsmChangeChannelSubscriptionsEvent.class);
 
         // Used to allow SSM package installs to be run asynchronously
-        SsmPackageInstallAction ssmPackageInstallAction = new SsmPackageInstallAction();
-        MessageQueue.registerAction(ssmPackageInstallAction, SsmPackageInstallEvent.class);
+        SsmInstallPackagesAction ssmPackageInstallAction = new SsmInstallPackagesAction();
+        MessageQueue.registerAction(ssmPackageInstallAction, SsmInstallPackagesEvent.class);
         
         SsmRemovePackagesAction ssmRpa = new SsmRemovePackagesAction();
         MessageQueue.registerAction(ssmRpa, SsmRemovePackagesEvent.class);

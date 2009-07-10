@@ -37,12 +37,12 @@ import com.redhat.rhn.frontend.action.SetLabels;
 /**
  * Schedules package installations on systems in the SSM. 
  */
-public class SsmPackageInstallAction extends AbstractDatabaseAction {
+public class SsmInstallPackagesAction extends AbstractDatabaseAction {
 
     private final Log log = LogFactory.getLog(this.getClass());
 
     protected void doExecute(EventMessage msg) {
-        SsmPackageInstallEvent event = (SsmPackageInstallEvent) msg;
+        SsmInstallPackagesEvent event = (SsmInstallPackagesEvent) msg;
 
         User user = event.getUser();
 
@@ -64,7 +64,7 @@ public class SsmPackageInstallAction extends AbstractDatabaseAction {
         }
     }
 
-    private void scheduleInstalls(SsmPackageInstallEvent event) {
+    private void scheduleInstalls(SsmInstallPackagesEvent event) {
 
         User user = event.getUser();
         Date earliest = event.getEarliest();

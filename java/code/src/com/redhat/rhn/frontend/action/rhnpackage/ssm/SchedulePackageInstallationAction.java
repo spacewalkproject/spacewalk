@@ -31,7 +31,7 @@ import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
-import com.redhat.rhn.frontend.events.SsmPackageInstallEvent;
+import com.redhat.rhn.frontend.events.SsmInstallPackagesEvent;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
@@ -80,8 +80,8 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
                 SessionSetHelper.obliterate(request, packagesDecl);
 
                 // Fire off the request on the message queue
-                SsmPackageInstallEvent event =
-                    new SsmPackageInstallEvent(user, earliest, data, cid);
+                SsmInstallPackagesEvent event =
+                    new SsmInstallPackagesEvent(user, earliest, data, cid);
                 MessageQueue.publish(event);
 
                 ActionMessages msgs = new ActionMessages();
