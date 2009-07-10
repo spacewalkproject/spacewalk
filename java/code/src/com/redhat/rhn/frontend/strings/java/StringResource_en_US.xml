@@ -8262,6 +8262,9 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="ssm.provision.scheduled">
         <source>Successfully scheduled {0} system(s) for provisioning.</source>
      </trans-unit>
+     <trans-unit id="ssm.package.verify.operationname">
+        <source>Schedule Package Verifications</source>
+     </trans-unit>
      <trans-unit id="kickstart.cobbler.distro.syncfail">
         <source>
 The following is a list of errors gathered while Spacewalk attempts to 

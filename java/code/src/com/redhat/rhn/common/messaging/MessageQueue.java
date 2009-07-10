@@ -35,6 +35,8 @@ import com.redhat.rhn.frontend.events.UpdateErrataCacheAction;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
 import com.redhat.rhn.frontend.events.SsmInstallPackagesAction;
 import com.redhat.rhn.frontend.events.SsmInstallPackagesEvent;
+import com.redhat.rhn.frontend.events.SsmVerifyPackagesAction;
+import com.redhat.rhn.frontend.events.SsmVerifyPackagesEvent;
 
 import org.apache.log4j.Logger;
 
@@ -267,6 +269,9 @@ public class MessageQueue {
         
         SsmRemovePackagesAction ssmRpa = new SsmRemovePackagesAction();
         MessageQueue.registerAction(ssmRpa, SsmRemovePackagesEvent.class);
+
+        SsmVerifyPackagesAction ssmVpa = new SsmVerifyPackagesAction();
+        MessageQueue.registerAction(ssmVpa, SsmVerifyPackagesEvent.class);
 
         //Clone Errata into a channel
         CloneErrataAction cea = new CloneErrataAction();

@@ -6553,10 +6553,8 @@
         <forward name="default"
                  path="/WEB-INF/pages/ssm/packageverifyschedule.jsp" />
         <forward name="confirm"
-                 path="/ssm/Packages.do"/>
+                 path="/ssm/ViewLog.do"/>
      </action>
-
-
 
      <action path="/admin/TaskStatus"
          scope="request"
