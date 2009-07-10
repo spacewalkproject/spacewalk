@@ -6509,7 +6509,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/ssm/packageremoveschedule.jsp" />
         <forward name="confirm"
-                 path="/ssm/Packages.do"/>
+                 path="/ssm/ViewLog.do"/>
      </action>
      
      <!-- SSM Package Upgrade Pages -->
@@ -6531,7 +6531,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/ssm/packageupgradeschedule.jsp" />
         <forward name="confirm"
-                 path="/ssm/Packages.do"/>
+                 path="/ssm/ViewLog.do"/>
      </action>                                          
     
      <!-- SSM Package Verify Pages -->
