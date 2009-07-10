@@ -89,16 +89,8 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
                 // Check to determine to display single or plural confirmation message
                 int numPackages = data.size();
                 LocalizationService l10n = LocalizationService.getInstance();
-                if (numPackages == 1) {
-                    msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                        new ActionMessage("ssm.package.install.message.packageinstall",
-                                          l10n.formatNumber(numPackages)));
-                }
-                else {
-                    msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                        new ActionMessage("ssm.package.install.message.packageinstalls",
-                                          l10n.formatNumber(numPackages)));
-                }
+                msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("ssm.package.install.message.packageinstalls"));
                 strutsDelegate.saveMessages(request, msgs);
 
                 return actionMapping.findForward("confirm");
