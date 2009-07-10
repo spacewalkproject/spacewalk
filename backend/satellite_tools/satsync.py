@@ -1787,12 +1787,18 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         # Now fix channels
         # Associate errata to only channels that are being synced
         # Do this only if command line has channels specified.
+        channels = []
         if OPTIONS.channel:
-            channels = []
             for ch in erratum['channels']:
                 if ch['label'] in OPTIONS.channel:
                     channels.append(ch)
-            erratum['channels'] = channels
+        else:
+            # Compare with already imported channels
+            imported_channels = _getImportedChannels()
+            for ch in erratum['channels']:
+                if ch['label'] in OPTIONS.channel:
+                    channels.append(ch)
+        erratum['channels'] = channels
 
         # Now fix the files
         for errata_file in (erratum['files'] or []):
