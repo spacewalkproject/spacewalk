@@ -35,29 +35,6 @@ from virtualization.util          import dehyphenize_uuid, \
 ###############################################################################
 
 CONFIG_DIR = '/etc/sysconfig/rhn/virt'
-STANDARD_CONFIG_TEMPLATE = """
-    <domain type='xen'>
-        <name>%(name)s</name>
-        <bootloader>/usr/bin/pygrub</bootloader>
-        <memory>%(mem_kb)s</memory>
-        <vcpu>%(vcpus)s</vcpu>
-        <uuid>%(uuid)s</uuid>
-        <on_reboot>restart</on_reboot>
-        <on_poweroff>destroy</on_poweroff>
-        <on_crash>preserve</on_crash>
-        <devices>
-            <disk type='file'>
-                <source file='%(disk)s'/>
-                <target dev='xvda'/>
-            </disk>
-            <interface type='bridge'>
-                <source bridge='xenbr0'/>
-                <mac address='%(mac)s'/>
-                <script path='/etc/xen/scripts/vif-bridge'/>
-            </interface>
-        </devices>
-    </domain>
-"""
 
 ###############################################################################
 # Classes
@@ -67,6 +44,10 @@ class DomainDirectory:
 
     def __init__(self):
         self.__path = CONFIG_DIR
+        self.conn = libvirt.open(None)
+        if not self.conn:
+            raise VirtualizationException, \
+                  "Failed to open connection to hypervisor."
 
     def get_config_path(self, uuid):
         cfg_filename = "%s.xml" % uuid
@@ -87,29 +68,12 @@ class DomainDirectory:
         """
         return DomainConfig(self.__path, uuid)
 
-    def create_standard_config(self, uuid, name, mem_kb, vcpus, disk, mac):
-        # First, populate the XML with the appropriate values.
-        boot_params = { 'name'       : name,
-                        'mem_kb'     : mem_kb,
-                        'vcpus'      : vcpus,
-                        'uuid'       : hyphenize_uuid(uuid),
-                        'disk'       : disk,
-                        'mac'        : mac }
-
-        xml = STANDARD_CONFIG_TEMPLATE % boot_params
-
-        self.__write_xml_file(uuid, xml)
-
     def save_unknown_domain_configs(self, domain_uuids):
         """
         This function saves the configuration for any domains whose UUIDs are
         passed in the domain_uuids list.  If the UUID is already known, it is
         skipped.
         """
-        conn = libvirt.open(None)
-        if not conn:
-            raise VirtualizationException, \
-                  "Failed to open connection to hypervisor."
         
         for uuid in domain_uuids:
 
@@ -124,7 +88,7 @@ class DomainDirectory:
     
                 # Lookup the domain by its uuid.
                 try:
-                    domain = conn.lookupByUUID(uuid_as_num)
+                    domain = self.conn.lookupByUUID(uuid_as_num)
                 except libvirt.libvirtError, lve:
                     raise VirtualizationException, \
                           "Failed to obtain handle to domain %s: %s" % \
@@ -144,7 +108,7 @@ class DomainDirectory:
                 if not new_config.isInstallerConfig():
 
                     # Now we'll reformat the configuration object so that it's
-                    # valid the next time this domain runs.
+                    # valid the next time this domain runs..
                     self.__fixup_config_for_restart(new_config)
     
                     # The config is now prepared.  Save it and move on to the 
@@ -178,6 +142,15 @@ class DomainDirectory:
                 - If it does not, ensure there is a <bootloader> section or
                   add one if needed.
         """
+        # Remove the domain ID from the XML.  This is a runtime value that 
+        # should not be assigned statically.
+        if config.hasConfigItem(DomainConfig.DOMAIN_ID):
+            config.removeConfigItem(DomainConfig.DOMAIN_ID)
+
+        if self.conn.getType() == 'QEMU':
+            # Dont worry about bootloader if its kvm
+            return
+
         boot_images_exist = 0
 
         if config.hasConfigItem(DomainConfig.KERNEL_PATH) and \
@@ -198,10 +171,6 @@ class DomainDirectory:
             if not config.hasConfigItem(DomainConfig.BOOTLOADER):
                 config.setConfigItem(DomainConfig.BOOTLOADER, "/usr/bin/pygrub")
 
-        # Remove the domain ID from the XML.  This is a runtime value that 
-        # should not be assigned statically.
-        if config.hasConfigItem(DomainConfig.DOMAIN_ID):
-            config.removeConfigItem(DomainConfig.DOMAIN_ID)
             
     def __write_xml_file(self, uuid, xml):
         cfg_pathname = self.get_config_path(uuid)
