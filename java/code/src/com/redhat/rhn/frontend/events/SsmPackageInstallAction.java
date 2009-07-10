@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Date;
 import java.util.LinkedList;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
 import com.redhat.rhn.manager.action.ActionManager;
@@ -37,6 +39,8 @@ import com.redhat.rhn.frontend.action.SetLabels;
  */
 public class SsmPackageInstallAction extends AbstractDatabaseAction {
 
+    private final Log log = LogFactory.getLog(this.getClass());
+
     protected void doExecute(EventMessage msg) {
         SsmPackageInstallEvent event = (SsmPackageInstallEvent) msg;
 
@@ -49,6 +53,9 @@ public class SsmPackageInstallAction extends AbstractDatabaseAction {
 
         try {
             scheduleInstalls(event);
+        }
+        catch (Exception e) {
+            log.error("Error scheduling package installations for event " + event, e);
         }
         finally {
             // This should stay in the finally block so the operation is
