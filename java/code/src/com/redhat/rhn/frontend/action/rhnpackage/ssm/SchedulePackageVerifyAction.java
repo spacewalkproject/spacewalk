@@ -96,16 +96,8 @@ public class SchedulePackageVerifyAction extends RhnAction implements Listable {
                 // Check to determine to display single or plural confirmation message
                 ActionMessages msgs = new ActionMessages();
                 LocalizationService l10n = LocalizationService.getInstance();
-                if (numPackages == 1) {
-                    msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                        new ActionMessage("ssm.package.verify.message.packageverification",
-                            l10n.formatNumber(numPackages)));
-                }
-                else {
-                    msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                        new ActionMessage("ssm.package.verify.message.packageverifications",
-                            l10n.formatNumber(numPackages)));
-                }
+                msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("ssm.package.verify.message.packageverifications"));
                 strutsDelegate.saveMessages(request, msgs);
 
                 return actionMapping.findForward("confirm");

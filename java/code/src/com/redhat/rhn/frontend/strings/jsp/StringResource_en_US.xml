@@ -16204,11 +16204,8 @@ any of these revisions.  Are you sure you want to do this?</source>
        <trans-unit id="ssm.package.verify.schedule.toomanypackages">
          <source>Package list truncated</source>
        </trans-unit>
-       <trans-unit id="ssm.package.verify.message.packageverification">
-          <source>{0} package verification has been scheduled</source>
-       </trans-unit>
        <trans-unit id="ssm.package.verify.message.packageverifications">
-          <source>{0} package verifications have been scheduled</source>
+          <source>Package verifications are being scheduled, it may take several minutes for this to complete.</source>
        </trans-unit>
    </group>
        
