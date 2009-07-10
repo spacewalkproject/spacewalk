@@ -15,6 +15,9 @@
 
 package com.redhat.rhn.common.messaging;
 
+import com.redhat.rhn.frontend.events.SsmRemovePackagesAction;
+import com.redhat.rhn.frontend.events.SsmRemovePackagesEvent;
+
 import EDU.oswego.cs.dl.util.concurrent.Channel;
 import EDU.oswego.cs.dl.util.concurrent.LinkedQueue;
 
@@ -261,6 +264,9 @@ public class MessageQueue {
         // Used to allow SSM package installs to be run asynchronously
         SsmPackageInstallAction ssmPackageInstallAction = new SsmPackageInstallAction();
         MessageQueue.registerAction(ssmPackageInstallAction, SsmPackageInstallEvent.class);
+        
+        SsmRemovePackagesAction ssmRpa = new SsmRemovePackagesAction();
+        MessageQueue.registerAction(ssmRpa, SsmRemovePackagesEvent.class);
 
         //Clone Errata into a channel
         CloneErrataAction cea = new CloneErrataAction();
