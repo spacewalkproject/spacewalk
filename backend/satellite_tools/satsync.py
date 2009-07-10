@@ -1796,7 +1796,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             # Compare with already imported channels
             imported_channels = _getImportedChannels()
             for ch in erratum['channels']:
-                if ch['label'] in OPTIONS.channel:
+                if ch['label'] in imported_channels:
                     channels.append(ch)
         erratum['channels'] = channels
 
