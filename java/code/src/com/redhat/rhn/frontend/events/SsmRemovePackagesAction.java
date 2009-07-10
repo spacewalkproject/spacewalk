@@ -19,6 +19,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.messaging.EventMessage;
 
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerFactory;
 
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
@@ -27,12 +28,11 @@ import com.redhat.rhn.frontend.dto.PackageListItem;
 
 import com.redhat.rhn.manager.action.ActionManager;
 
-import com.redhat.rhn.manager.system.SystemManager;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -76,11 +76,14 @@ public class SsmRemovePackagesAction extends AbstractDatabaseAction {
         // The package collection is a set to prevent duplciates when keeping a running
         // total of all packages selected
         Set<PackageListItem> allPackages = new HashSet<PackageListItem>();
-        List<Server> allServers = new ArrayList<Server>(result.size());
 
+        // Looking up all the server objects in Hibernate was *brutally* slow here:
+        List<Long> allServerIds = new LinkedList<Long>();
+
+        // Iterate the data, which is essentially each unique package/server combination
+        // to remove. Note that this is only for servers that we have marked as having the
+        // package installed.
         log.debug("Iterating data.");
-        // NOTE: We are removing packages only from the servers that have it installed
-        // here:
         for (Iterator it = result.iterator(); it.hasNext();) {
 
             // Add action for each package found in the elaborator
@@ -88,8 +91,7 @@ public class SsmRemovePackagesAction extends AbstractDatabaseAction {
 
             // Load the server
             Long sid = (Long)data.get("id");
-            Server server = SystemManager.lookupByIdAndUser(sid, user);
-            allServers.add(server);
+            allServerIds.add(sid);
 
             // Get the packages out of the elaborator
             List elabList = (List) data.get("elaborator0");
@@ -103,18 +105,17 @@ public class SsmRemovePackagesAction extends AbstractDatabaseAction {
             }
         }
 
+        List<Server> allServers = new ArrayList<Server>(result.size());
+        allServers.addAll(ServerFactory.lookupByIdsAndUser(allServerIds, user));
+
         log.debug("Converting data to maps.");
-        // Convert to list of maps
         List<PackageListItem> allPackagesList = new ArrayList<PackageListItem>(allPackages);
         List<Map<String, Long>> packageListData =
             PackageListItem.toKeyMaps(allPackagesList);
 
         log.debug("Scheduling package removals.");
-        // Create the action
         ActionManager.schedulePackageRemoval(user, allServers, packageListData, earliest);
-
-
-
+        log.debug("Done.");
     }
 
 }
