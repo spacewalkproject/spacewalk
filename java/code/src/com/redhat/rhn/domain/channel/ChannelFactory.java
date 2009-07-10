@@ -14,22 +14,6 @@
  */
 package com.redhat.rhn.domain.channel;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.criterion.CriteriaSpecification;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
-
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
@@ -43,6 +27,22 @@ import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.channel.ChannelManager;
 
+import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * ChannelFactory
  * @version $Rev$
@@ -51,6 +51,9 @@ public class ChannelFactory extends HibernateFactory {
     
     private static ChannelFactory singleton = new ChannelFactory();
     private static Logger log = Logger.getLogger(ChannelFactory.class);
+    
+    public static final ContentSourceType CONTENT_SOURCE_TYPE_YUM = 
+                            ChannelFactory.lookupContentSourceType("yum");
     
     private ChannelFactory() {
         super();
@@ -110,6 +113,19 @@ public class ChannelFactory extends HibernateFactory {
                                        "Channel.findByLabelAndUserId", params);
     }    
     
+    
+    /**
+     * Lookup a content source type by label
+     * @param label the label to lookup
+     * @return the ContentSourceType
+     */
+    public static ContentSourceType lookupContentSourceType(String label) {
+        Map params = new HashMap();
+        params.put("label", label);
+        return (ContentSourceType) singleton.lookupObjectByNamedQuery(
+                "ContentSourceType.findByLabel", params);
+    }
+    
     /**
      * Retrieve a list of channel ids associated with the labels provided
      * @param labelsIn the labels to search for
@@ -129,7 +145,16 @@ public class ChannelFactory extends HibernateFactory {
     public static void save(Channel c) {
         singleton.saveObject(c);
     }
-
+    
+    /**
+     * Insert or Update a content source.
+     * @param c content source to be stored in database.
+     */
+    public static void save(ContentSource c) {
+        singleton.saveObject(c);
+    }    
+    
+    
     /**
      * Remove a Channel from the DB
      * @param c Action to be removed from database.

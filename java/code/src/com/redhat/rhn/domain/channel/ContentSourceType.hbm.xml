@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.channel.ContentSourceType" 
+        table="rhnContentSourceType" mutable="false">
+        <cache usage="read-only"/>
+        <id name="id" type="long" column="id">
+            <meta attribute="scope-set">protected</meta>
+            <generator class="sequence">
+                <param name="sequence">rhn_content_source_type_id_seq</param>
+            </generator>
+        </id>
+  
+        <property name="label" type="string" column="label"/>
+        <property name="created" type="date" column="created"/>
+        <property name="modified" type="date" column="modified"/>
+   
+    </class>
+
+
+    <query name="ContentSourceType.findByLabel">
+        <![CDATA[from com.redhat.rhn.domain.channel.ContentSourceType as c where c.label = :label]]>
+    </query>
+</hibernate-mapping>

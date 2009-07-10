@@ -24,6 +24,7 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.system.IncompatibleArchException;
 import com.redhat.rhn.manager.system.SystemManager;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -84,7 +85,9 @@ public class Channel extends BaseDomainHelper implements Comparable {
     private String maintainerEmail;
     private String maintainerPhone;
     private String supportPolicy;
-
+    private Set<ContentSource> contentSources = new HashSet();
+    
+    
     /**
      * @param orgIn what org you want to know if it is globally subscribable in
      * @return Returns whether or not this channel is globally subscribable.
@@ -791,4 +794,46 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public boolean containsDistributions() {
         return ChannelFactory.containsDistributions(this);
     }
+    
+    /**
+     * @return Returns the contentSources.
+     */
+    public Set<ContentSource> getContentSources() {
+        return contentSources;
+    }
+
+    
+    /**
+     * @param contentSourcesIn The contentSources to set.
+     */
+    public void setContentSources(Set<ContentSource> contentSourcesIn) {
+        this.contentSources = contentSourcesIn;
+    }
+    
+    /**
+     * Set the yum content source, if one is already set, it will be replaced
+     *   if null or '' is passed in, all content sources will be removed.
+     * @param url  the url of the yum repo
+     */
+    public void setYumContentSource(String url) {
+        if (StringUtils.isEmpty(url)) {
+            if (!this.getContentSources().isEmpty()) {
+                this.getContentSources().clear();
+            }
+        }
+        else {
+            if (this.getContentSources().isEmpty()) {
+                ContentSource cs = new ContentSource();
+                cs.setChannel(this);
+                cs.setSourceUrl(url);
+                cs.setType(ChannelFactory.CONTENT_SOURCE_TYPE_YUM);
+                this.getContentSources().add(cs);
+            }
+            else {
+                this.getContentSources().iterator().next().setSourceUrl(url);
+            }
+        }
+        ChannelFactory.save(this);
+    }
+    
 }

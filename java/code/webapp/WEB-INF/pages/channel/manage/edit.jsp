@@ -108,6 +108,27 @@
          </td>
       </tr>
    </table>
+   
+   
+   <h2><bean:message key="channel.edit.jsp.yumrepo"/></h2>
+   <table class="details">   
+   	<tr>
+   		<th> 
+   			 <bean:message key="channel.edit.jsp.repourl"/>:
+   		</th>
+   		<td>
+   			<html:text property="yum_repo" maxlength="512" size="60" />
+   		</td>
+   	</tr>
+   	<tr>
+   		<th>
+   			<bean:message key="channel.edit.jsp.lastsynced"/>:
+   		</th>
+   		<td>
+   			<c:out value='${last_sync}'/>
+   		</td>
+   	</tr>   
+   </table>
 
    <h2><bean:message key="channel.edit.jsp.contactsupportinfo"/></h2>
    <table class="details">

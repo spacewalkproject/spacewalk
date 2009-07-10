@@ -66,7 +66,10 @@ public class CreateChannelCommand {
     protected String maintainerPhone;
     protected String supportPolicy;
     protected String access = Channel.PRIVATE;
+    protected String yumUrl;
     
+    
+
     /**
      * default constructor.
      */
@@ -265,6 +268,8 @@ public class CreateChannelCommand {
         
         ChannelFactory.refreshNewestPackageCache(c, WEB_CHANNEL_CREATED);
 
+        c.setYumContentSource(yumUrl);
+        
         return c;
     }
 
@@ -411,4 +416,12 @@ public class CreateChannelCommand {
             throw new InvalidGPGUrlException();
         }
     }
+    
+    /**
+     * @param yumUrlIn The yumUrl to set.
+     */
+    public void setYumUrl(String yumUrlIn) {
+        this.yumUrl = yumUrlIn;
+    }
+    
 }

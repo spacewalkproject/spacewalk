@@ -63,6 +63,14 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 column="channel_family_id"/>
         </set>
         
+        <set name="contentSources" lazy="true" table="rhnChannelContentSource" 
+	     cascade="all-delete-orphan" inverse="true">
+            <key column="channel_id"/>
+            <one-to-many 
+                class="com.redhat.rhn.domain.channel.ContentSource" />
+        </set>        
+        
+        
         <set name="trustedOrgs" lazy="true" table="rhnChannelTrust" 
          cascade="save-update">
             <key column="channel_id"/>

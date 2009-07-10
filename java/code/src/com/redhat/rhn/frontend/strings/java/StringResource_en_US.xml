@@ -8243,6 +8243,9 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="snapshots.configchannel">
         <source>Configuration Channels Updated</source>
      </trans-unit>
+     <trans-unit id="channel.edit.repo.neversynced">
+        <source>This repo has never been synced.</source>
+     </trans-unit>     
      <trans-unit id="kickstart.cobbler.distro.syncfail">
         <source>
 The following is a list of errors gathered while Spacewalk attempts to 

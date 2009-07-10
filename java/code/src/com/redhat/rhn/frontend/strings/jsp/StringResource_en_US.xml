@@ -21329,9 +21329,15 @@ given channel.</source>
       <trans-unit id="channel.jsp.repolastbuild">
 		<source>Last Repo Build</source>
       </trans-unit>
-
-
-
+      <trans-unit id="channel.edit.jsp.yumrepo">
+		<source>Associated Yum Repository</source>
+      </trans-unit>     
+      <trans-unit id="channel.edit.jsp.repourl">
+		<source>Repository URL</source>
+      </trans-unit>   
+      <trans-unit id="channel.edit.jsp.lastsynced">
+		<source>Last Sync Time</source>
+      </trans-unit>                
   </body>
   </file>
 </xliff>

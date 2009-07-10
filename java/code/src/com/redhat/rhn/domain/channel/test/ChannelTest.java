@@ -18,6 +18,7 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
+import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.domain.rhnpackage.Package;
@@ -175,4 +176,17 @@ public class ChannelTest extends BaseTestCaseWithUser {
         }
 
     }
+    
+    public void testContentSource() throws Exception {
+        Channel c = ChannelFactoryTest.createTestChannel(user);
+        ContentSource cs = new ContentSource();
+        cs.setSourceUrl("fake url");
+        cs.setChannel(c);
+        cs.setType(ChannelFactory.CONTENT_SOURCE_TYPE_YUM);
+        c.getContentSources().add(cs);
+        c = (Channel) TestUtils.saveAndReload(c);
+        assertNotEmpty(c.getContentSources());
+    }
+    
+    
 }

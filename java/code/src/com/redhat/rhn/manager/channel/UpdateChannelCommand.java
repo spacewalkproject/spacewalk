@@ -77,6 +77,10 @@ public class UpdateChannelCommand extends CreateChannelCommand {
         c.setMaintainerEmail(maintainerEmail);
         c.setMaintainerPhone(maintainerPhone);
         c.setSupportPolicy(supportPolicy);
+        
+        
+        c.setYumContentSource(yumUrl);
+        
 
         // need to save before calling stored proc below
         ChannelFactory.save(c);
