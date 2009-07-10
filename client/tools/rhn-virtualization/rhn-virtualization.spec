@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.2
+Version:        5.4.3
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -162,6 +162,13 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Jul 10 2009 Pradeep Kilambi <pkilambi@redhat.com> 5.4.3-1
+- 510606 - Fix rhn-virtualization package to work with kvm guests. This commit
+  includes fixes for > > - Guest start - We assume pygrub for any guest. This
+  fails for kvm as it the emulates the BIOS loading the first sector of the
+  boot disk and running from there. So we dont need to probe the kernel and
+  ramdisk. (pkilambi@redhat.com)
+
 * Thu Jul 09 2009 John Matthews <jmatthew@redhat.com> 5.4.2-1
 - 509602 - Fixing the is_host_domain to check both xen or kvm by virt type on
   libvirt connection instead of ugly file checks. This should fix the guest
