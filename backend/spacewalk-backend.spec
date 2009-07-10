@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.17
+Version: 0.6.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -568,6 +568,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Jul 10 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.18-1
+- If not commandline options given, compare the erratum channels to the already
+  imported ones (pkilambi@redhat.com)
+- If not commandline options given, compare the erratum channels to the already
+  imported ones (pkilambi@redhat.com)
+- compute the channel filtering only if a channel is specified in the
+  commandline. If not, use the default (pkilambi@redhat.com)
+
 * Thu Jul 09 2009 John Matthews <jmatthew@redhat.com> 0.6.17-1
 - Only include the channels that are being synced to each errata. This will
   help taskomatic not spam users with irrelevant errata mails
