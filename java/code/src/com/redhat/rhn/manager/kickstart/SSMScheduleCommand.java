@@ -53,7 +53,8 @@ public class SSMScheduleCommand {
     private Long serverProfileId;
 
     private Server proxy;
-
+    private boolean isDhcp = true;
+    private String networkInterface;
     private List<Action> scheduledActions =  new ArrayList<Action>();
     private String kernelParamType;
     private String customKernelParams;
@@ -207,6 +208,7 @@ public class SSMScheduleCommand {
         com.setProfileId(packageProfileId);
         com.setServerProfileId(serverProfileId);
         com.setProxy(proxy);
+        com.setNetworkDevice(isDhcp, networkInterface);
         if (proxy == null) {
             com.setKickstartServerName(ConfigDefaults.get().getCobblerHost());
         }
@@ -260,4 +262,14 @@ public class SSMScheduleCommand {
     public void setCustomPostKernelParams(String customPostKernelParamsIn) {
         this.customPostKernelParams = customPostKernelParamsIn;
     }
+
+    /**
+     * @param dhcp true if this is a dc
+     * @param networkInterfaceIn The staticDevice to set.
+     */
+    public void setNetworkDevice(boolean dhcp, String networkInterfaceIn) {
+        isDhcp = dhcp;
+        networkInterface = networkInterfaceIn;
+    }
+
 }

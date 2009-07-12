@@ -50,10 +50,12 @@
 		<c:if test="${empty requestScope.isIP}">
 		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/profile-list.jspf" %>
 		</c:if>
-		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/proxy-options.jspf" %>
+		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/proxy-options.jspf" %>		
 		<br/>
+		
 <h2><img src="/img/icon_kickstart_session-medium.gif" /><bean:message key="kickstart.schedule.heading4.jsp" /></h2>
 		<table class="details">
+		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/network-options.jspf" %>
       <tr>
         <th width="10%"><bean:message key="kickstartdetails.jsp.kernel_options" />:</th>
         <td>

@@ -1,0 +1,56 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+      <tr>
+        <th><bean:message key="kickstart.netconn.jsp.label" />:</th>
+        <td>
+		<input type="radio" name="networkTypeDhcp" value="true"
+				onclick="form.dhcpNetworkId.disabled = false; form.staticNetworkId.disabled = true;"
+				<c:if test="${form.networkTypeDhcp or empty form.networkTypeDhcp}">checked="checked"</c:if>
+				  />
+              <bean:message key="kickstart.netconn.dhcp.jsp.label"/>&nbsp;
+		<c:choose>
+		<c:when test="${empty requestScope.networkInterfaces}">
+        <input type="text" name="networkInterface" id="dhcpNetworkId" size="4" maxlength="10"
+			<c:if test="${not form.networkTypeDhcp}">disabled="true"</c:if>
+			 value="${form.networkInterface}"/>
+		</c:when>
+		<c:otherwise>
+		<select name="networkInterface" id="dhcpNetworkId"
+			<c:if test="${not form.networkTypeDhcp}">disabled="true"</c:if>
+			>
+			<c:forEach var="nic" items="${requestScope.networkInterfaces}">
+				<option
+				<c:if test="${nic.name == form.networkInterface}">selected="selected"</c:if>
+				value='${nic.name}'>${nic.name}</option>
+			</c:forEach>
+		</select>
+		</c:otherwise>
+		</c:choose>
+		<br />
+		<input type="radio" name="networkTypeDhcp" value="false"
+				onclick="form.staticNetworkId.disabled = false;form.dhcpNetworkId.disabled = true;"
+				<c:if test="${not form.networkTypeDhcp}">checked="checked"</c:if>
+				  />
+              <bean:message key="kickstart.netconn.static.jsp.label"/>&nbsp;
+		<c:choose>
+		<c:when test="${empty requestScope.networkInterfaces}">
+        <input type="text" name="networkInterface" id="staticNetworkId" size="4" maxlength="10"
+                       <c:if test="${form.networkTypeDhcp}">disabled="true"</c:if>
+                        value="${form.networkInterface}"/>
+		</c:when>
+		<c:otherwise>
+		<select name="networkInterface" id="staticNetworkId"
+			<c:if test="${form.networkTypeDhcp}">disabled="true"</c:if>
+			>
+			<c:forEach var="nic" items="${requestScope.networkInterfaces}">
+				<option
+				<c:if test="${nic.name == form.networkInterface}">selected="selected"</c:if>
+				value='${nic.name}'>${nic.name}</option>
+			</c:forEach>
+		</select>
+		</c:otherwise>
+		</c:choose>
+        </td>
+      </tr>

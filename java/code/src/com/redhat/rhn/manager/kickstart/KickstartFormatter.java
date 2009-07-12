@@ -150,7 +150,20 @@ public class KickstartFormatter {
     private static final String CHDIR_OPT_RPMS = "cd /tmp/rhn_rpms/optional ";
     private static final String CHDIR_RPMS = "cd /tmp/rhn_rpms";
     private static final String REDHAT_MGMT_SERVER = "$redhat_management_server";
-
+    public static final String STATIC_NETWORK_VAR = "static_network";
+    private static final String STATIC_NETWORK_COMMAND = "network --bootproto static" +
+                                                 " " + "--device %s --ip %s" +
+                                                 " " + "--gateway %s" +
+                                                 " " + "--nameserver %s" +
+                                                 " " + "--netmask %s" +
+                                                 " " + "--hostname %s";
+    private static final String NETWORK_STRING = 
+                                    "#if $varExists('%s')" + NEWLINE +
+                                        "$%s" + NEWLINE +
+                                   "#else" + NEWLINE +
+                                        "%s" + NEWLINE +
+                                   "#end if" + NEWLINE;
+    
     private boolean seenNoChroot = false;
     private KickstartData ksdata;
     private String ksHost;
@@ -255,8 +268,8 @@ public class KickstartFormatter {
      * 
      * @return string containing kickstart commands 
      */
-    private StringBuffer getCommands() {        
-        StringBuffer commands = new StringBuffer();        
+    private String getCommands() {        
+        StringBuilder commands = new StringBuilder();        
         LinkedList l = new LinkedList(this.ksdata.getCommands());
         Collections.sort(l);
         for (Iterator itr = l.iterator(); itr.hasNext();) {
@@ -282,6 +295,11 @@ public class KickstartFormatter {
             else if ("custom".equals(cname)) {
                 commands.append(command.getArguments() + NEWLINE);
             }
+            else if ("network".equals(cname)) {
+                commands.append(String.format(NETWORK_STRING, STATIC_NETWORK_VAR,
+                        STATIC_NETWORK_VAR,
+                            cname + SPACE + command.getArguments()));
+            }
             else {
                 String argVal = command.getArguments();
                 // some commands don't require an arg and are null in db
@@ -294,9 +312,29 @@ public class KickstartFormatter {
             }
         }
         
-        return commands;
+        return commands.toString();
     }
-
+    
+    /**
+     * Returns the network line for static networks
+     * network --bootproto static --device $DEVICE --ip $IPADDR 
+     * --gateway $GATEWAY --nameserver $NAMESERVER
+     *  --netmask $NETMASK --hostname $HOSTNAME 
+     * @param device the network interface name (eth0)
+     * @param ip the ip address of the interface
+     * @param gateway the gateway information of the card
+     * @param nameServer the nameserver information
+     * @param netmask the netmask information
+     * @param hostName the host name information
+     * @return the network* lne for a static host
+     */
+    public static String makeStaticNetworkCommand(String device,
+                            String ip, String gateway, 
+                            String nameServer, String netmask, String hostName) {
+        return String.format(STATIC_NETWORK_COMMAND, device, ip,
+                                gateway, nameServer, netmask, hostName);
+    }
+    
     /**
      * Adjust the URL hostname if necessary. Hostnames are stored in the db as relative
      * paths if the user selects to use the default URL. When rendered we need to swap

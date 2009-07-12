@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
@@ -36,6 +37,7 @@ import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
 import com.redhat.rhn.domain.rhnpackage.profile.ProfileFactory;
+import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
@@ -107,21 +109,17 @@ import java.util.Set;
 public class KickstartScheduleCommand extends BaseSystemOperation {
     
     private static Logger log = Logger.getLogger(KickstartScheduleCommand.class);
-    
+    public  static final String DHCP_NETWORK_TYPE = "dhcp";
+    public static final String STATIC_NETWORK_TYPE = "static";    
     // up2date is required to be 2.9.0
     public static final String UP2DATE_VERSION = "2.9.0";
-    
-    public static final String ACTIVATION_TYPE_KEY = "activationKey";
-    public static final String ACTIVATION_TYPE_EXISTING = "existingProfile";
-    
     public static final String TARGET_PROFILE_TYPE_EXISTING = "existing";
     public static final String TARGET_PROFILE_TYPE_PACKAGE = "package";
     public static final String TARGET_PROFILE_TYPE_SYSTEM = "system";
     public static final String TARGET_PROFILE_TYPE_NONE = "none";    
     
     public static final String PACKAGE_TO_REMOVE = "rhn-kickstart-virtualization";
-
-    
+     
     private User user;
     private KickstartData ksdata;
     protected String cobblerProfileLabel;
@@ -141,7 +139,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     // Profile created from this KS
     private Profile createdProfile;
     // Static device
-    private String staticDevice;
+    private String networkInterface;
+    private boolean isDhcp;
 
     private String kernelOptions;
     private String postKernelOptions;    
@@ -353,7 +352,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         }
 
         this.setUser(userIn);
-        this.setStaticDevice("");        
+        networkInterface = "";
     }
     
 
@@ -763,7 +762,9 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         if (prereqAction != null) {
             ksAction.setPrerequisite(prereqAction);
         }
-        ksAction.getKickstartActionDetails().setStaticDevice(this.getStaticDevice());
+        if (!isDhcp) {
+            ksAction.getKickstartActionDetails().setStaticDevice(networkInterface);
+        }
         return ksAction;
     }
 
@@ -797,6 +798,10 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      * @return Returns a ValidatorError, if any errors occur
      */
     public ValidatorError doValidation() {
+        ValidatorError error = validateNetworkInterface();
+        if (error != null) {
+            return error;
+        }
         if (isCobblerOnly()) {
             return null;
         }
@@ -811,7 +816,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         
         // Check that we have a valid ks package
         log.debug("** Checking validkspackage");
-        ValidatorError error = validateKickstartPackage(); 
+        error = validateKickstartPackage(); 
         if (error != null) {
             return error;
         }
@@ -925,7 +930,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      */
     public String getExtraOptions() {
         if (isCobblerOnly()) {
-            return "";
+            return StringUtils.defaultString(kernelOptions);
         }
         StringBuilder retval = new StringBuilder();
         String kOptions = StringUtils.defaultString(kernelOptions);
@@ -933,28 +938,18 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         dhcp:eth0 , dhcp:eth2, static:10.1.4.75
         static:146.108.30.184, static:auto, static:eth0
          */
-        if (this.getKsdata().getStaticDevice() != null) {
-            staticDevice = this.getKsdata().getStaticDevice();
-            if (staticDevice.indexOf("dhcp:") >= 0) {
+        if (!StringUtils.isBlank(networkInterface)) {
+            if (isDhcp) {
                 // Get rid of the dhcp:
-                String params = " ksdevice=" + staticDevice.substring(
-                        staticDevice.indexOf("dhcp:") + "dhcp:".length());
+                String params = " ksdevice=" + networkInterface;
                 if (!kOptions.contains("ksdevice")) {
                     retval.append(params);
                 }
-                staticDevice = "";
             }
-            else if (staticDevice.indexOf("static:") >= 0) {
-                // Get rid of the static:
-                staticDevice = staticDevice.substring(
-                        staticDevice.indexOf("static:") + "static:".length());
-                
-            }
-            else {
-                if (!kOptions.contains("ksdevice")) {
-                    retval.append("ksdevice=eth0");
-                }
-            }
+        }
+        else if (!kOptions.contains("ksdevice")) {
+            retval.append("ksdevice=" + 
+                    ConfigDefaults.get().getDefaultKickstartNetworkInterface());
         }
         retval.append(" ").append(kOptions);
         return retval.toString();
@@ -1387,20 +1382,14 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     public void setKickstartServerName(String kickstartServerNameIn) {
         this.kickstartServerName = kickstartServerNameIn;
     }
-
-    /**
-     * @return Returns the staticDevice.
-     */
-    public String getStaticDevice() {
-        return staticDevice;
-    }
-
     
     /**
-     * @param staticDeviceIn The staticDevice to set.
+     * @param dhcp true if this is a dc
+     * @param networkInterfaceIn The staticDevice to set.
      */
-    public void setStaticDevice(String staticDeviceIn) {
-        this.staticDevice = staticDeviceIn;
+    public void setNetworkDevice(boolean dhcp, String networkInterfaceIn) {
+        isDhcp = dhcp;
+        networkInterface = networkInterfaceIn;
     }
 
     /**
@@ -1464,5 +1453,22 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      */
     public void setPostKernelOptions(String postKernelOptionsIn) {
         this.postKernelOptions = postKernelOptionsIn;
+    }
+    
+    private ValidatorError validateNetworkInterface() {
+        boolean nicAvailable = false;
+        if (!StringUtils.isEmpty(networkInterface)) {
+            for (NetworkInterface nic : server.getNetworkInterfaces()) {
+                if (networkInterface.equals(nic.getName())) {
+                    nicAvailable = true;
+                    break;
+                }
+            }
+        }
+        if (!nicAvailable) {
+            return new ValidatorError("kickstart.schedule.nosuchdevice", 
+                                            server.getName(), networkInterface);
+        }
+        return null;
     }
 }

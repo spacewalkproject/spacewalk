@@ -69,15 +69,6 @@ boolean staticIfDisabled = Boolean.valueOf(
     <html:hidden property="submitted" />
     <html:hidden property="pwdChanged" styleId="pwdChanged" />
     <h2><bean:message key="kickstart.systemdetails.jsp.header1"/></h2>
-    <table class="details" width="80%">
-      <tr>
-        <th width="10%"><bean:message key="kickstart.netconn.jsp.label" />:</th>
-        <td>
-            <html:radio styleId="dhcpRadio" property="networkType" value="dhcp" onclick="toggleIFText(this);" /><bean:message key="kickstart.netconn.dhcp.jsp.label"/>&nbsp;<html:text size="4" maxlength="10" property="dhcpNetworkIf" styleId="dhcpNetworkIf" disabled="<%= dhcpIfDisabled%>" /><br />
-            <html:radio styleId="staticRadio" property="networkType" value="static" onclick="toggleIFText(this);" /><bean:message key="kickstart.netconn.static.jsp.label"/>&nbsp;<html:text size="4" maxlength="10" property="staticNetworkIf" styleId="staticNetworkIf" disabled="<%= staticIfDisabled%>" />
-        </td>
-      </tr>      
-    </table>
     <c:if test="${not ksdata.legacyKickstart}">
       <h2><bean:message key="kickstart.systemdetails.jsp.header2"/></h2>
       <table class="details">

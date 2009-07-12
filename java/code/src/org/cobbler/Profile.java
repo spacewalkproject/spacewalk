@@ -342,13 +342,6 @@ public class Profile extends CobblerObject {
       }
 
       /**
-      * @param nameServersIn the NameServers
-      */
-      public void  setNameServers(String nameServersIn) {
-          modify(NAME_SERVERS, nameServersIn);
-      }
-
-      /**
       * @param enableMenuIn the EnableMenu
       */
       public void  setEnableMenu(boolean enableMenuIn) {

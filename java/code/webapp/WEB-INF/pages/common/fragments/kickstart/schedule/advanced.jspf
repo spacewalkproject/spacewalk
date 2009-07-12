@@ -40,6 +40,9 @@ function setStep(stepName) {
     <html:hidden property="guestName" />
     <html:hidden property="proxyHost" />
     <table class="details">
+    <c:if test="${not empty regularKS}">
+    <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/network-options.jspf" %>
+    </c:if>
       <%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/kernel-options.jspf" %>
       <c:if test="${empty requestScope.cobblerOnlyProfile}" >
 	<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/profile-sync.jspf" %>

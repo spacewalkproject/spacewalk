@@ -387,8 +387,8 @@ public abstract class CobblerObject {
     /**
      * @return the kernelMeta
      */
-    public Map<String, Object> getKsMeta() {
-        return (Map<String, Object>)dataMap.get(KS_META);
+    public Map<String, String> getKsMeta() {
+        return (Map<String, String>)dataMap.get(KS_META);
     }
 
     

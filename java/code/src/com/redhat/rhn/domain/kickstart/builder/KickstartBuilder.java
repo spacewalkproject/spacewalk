@@ -352,7 +352,6 @@ public class KickstartBuilder {
         if (ksdata.getPackageNames() == null) {
             ksdata.setPackageNames(new ArrayList<PackageName>());
         }
-        ksdata.setStaticDevice("dhcp:eth0");
         
         buildCommands(ksdata, parser.getOptionLines(), tree, kickstartHost);
         buildPackages(ksdata, parser.getPackageLines());
@@ -536,7 +535,6 @@ public class KickstartBuilder {
         }
         PackageName pn = cmd.findPackageName("@ Base");
         ksdata.getPackageNames().add(pn);
-        ksdata.setStaticDevice("dhcp:eth0");
         cmd.store(ksdata);
         return ksdata;
 

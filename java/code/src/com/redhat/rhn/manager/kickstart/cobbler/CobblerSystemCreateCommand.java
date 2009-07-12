@@ -55,7 +55,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     private String kickstartHost;
     private String kernelOptions;
     private String postKernelOptions;
-    
+
     /**
      * Constructor
      * @param userIn who is requesting the sync
@@ -281,6 +281,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                 server.getCobblerId());
         record.setKernelOptions(kernelOptions);
         record.setKernelPostOptions(postKernelOptions);
+        
         record.save();
         return null;
     }
@@ -309,7 +310,13 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         Map inet = new HashMap();
         for (NetworkInterface n : serverIn.getNetworkInterfaces()) {
             if (!n.getHwaddr().equals("00:00:00:00:00:00")) {
-                    inet.put("macaddress-" + n.getName(), n.getHwaddr());
+                inet.put("macaddress-" + n.getName(), n.getHwaddr());
+                if (!StringUtils.isBlank(n.getIpaddr())) {
+                    inet.put("ipaddress-" + n.getName(), n.getIpaddr());
+                }
+                if (!StringUtils.isBlank(n.getNetmask())) {
+                    inet.put("subnet-" + n.getName(), n.getNetmask());
+                }
             }
         }
         log.debug("Networks: " + inet);

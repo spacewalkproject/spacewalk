@@ -24,8 +24,6 @@ import com.redhat.rhn.domain.kickstart.KickstartDefaults;
 import com.redhat.rhn.domain.kickstart.SELinuxMode;
 import com.redhat.rhn.domain.user.User;
 
-import org.apache.commons.lang.StringUtils;
-
 import java.util.Date;
 
 /**
@@ -34,10 +32,6 @@ import java.util.Date;
  * @version $Rev $
  */
 public class SystemDetailsCommand extends BaseKickstartCommand {
-
-    public  static final String DHCP_NETWORK_TYPE = "dhcp";
-    public static final String STATIC_NETWORK_TYPE = "static";
-
     /**
      * constructor
      * @param ksidIn kickstart id
@@ -69,57 +63,6 @@ public class SystemDetailsCommand extends BaseKickstartCommand {
         cmd.setKickstartData(ksdata);
         ksdata.removeCommand(KickstartData.SELINUX_MODE_COMMAND, false);
         ksdata.getCommands().add(cmd);
-    }
-    
-    /**
-     * Sets the static device information of a ks profile.
-     * @param interfaceName the network interface name
-     * @param isDhcp true of its a dhcp network type
-     */
-    public void setNetworkDevice(String interfaceName, boolean isDhcp) {
-        if (StringUtils.isBlank(interfaceName)) {
-            ValidatorException.raiseException(
-                "kickstart.systemdetails.missing.netdevice.jsp.error");
-        }
-        if (isDhcp) {
-            ksdata.setStaticDevice(DHCP_NETWORK_TYPE + ":" + interfaceName);    
-        }
-        else {
-            ksdata.setStaticDevice(STATIC_NETWORK_TYPE + ":" + interfaceName);
-        }
-    }
-
-    /**
-     * Retrieve the network interface (e.g. eth0) based on the value stored in the
-     * kickstart data staticDevice (e.g. dhcp:eth0).
-     * @return the network interface
-     */
-    public String getNetworkInterface() {
-        String device = new String();
-        String staticDevice = ksdata.getStaticDevice();
-        if (staticDevice != null) {
-            int breakpos = staticDevice.indexOf(":");
-            if ((breakpos + 1) < staticDevice.length()) {
-                device = staticDevice.substring(breakpos + 1);
-            }
-        }
-        return device;
-    }
-    
-    /**
-     * Retrieve the network type (dhcp or static) based on the value stored in the
-     * kickstart data staticDevice (e.g. dhcp:eth0).
-     * @return the network type (dhcp or static)
-     */
-    public String getNetworkType() {
-        String networkType = new String();
-        String staticDevice = ksdata.getStaticDevice();
-        if (staticDevice != null) {
-            int breakpos = staticDevice.indexOf(":");
-            networkType = staticDevice.substring(0, breakpos);
-            networkType = networkType.trim().toLowerCase();
-        }
-        return networkType;
     }
     
     /**

@@ -730,6 +730,9 @@
             <form-property name="scheduleDate" type="java.util.Date" />
             <form-property name="nextAction" type="java.lang.String" />
             <form-property name="proxyHost" type="java.lang.String" />
+            <!--  Advanced Options Page -->
+            <form-property name="networkTypeDhcp" type="java.lang.Boolean" />
+            <form-property name="networkInterface" type="java.lang.String" />
             <form-property name="kernelParamsType" type="java.lang.String" />
             <form-property name="kernelParams" type="java.lang.String" />
             <form-property name="postKernelParamsType" type="java.lang.String" />
