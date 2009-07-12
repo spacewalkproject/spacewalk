@@ -610,9 +610,6 @@
                   type="com.redhat.rhn.frontend.struts.PasswordForm">
             <form-property name="ksid" type="java.lang.Long" />
             <form-property name="kickstart" type="com.redhat.rhn.domain.kickstart.KickstartData" />
-            <form-property name="networkType" type="java.lang.String" />
-            <form-property name="dhcpNetworkIf" type="java.lang.String" />
-            <form-property name="staticNetworkIf" type="java.lang.String" />
             <form-property name="selinuxMode" type="java.lang.String" />
             <form-property name="configManagement" type="java.lang.String" />
             <form-property name="remoteCommands" type="java.lang.String" />
