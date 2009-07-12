@@ -50,13 +50,6 @@ import javax.servlet.http.HttpServletResponse;
 public class SystemDetailsEditAction extends RhnAction {
 
     public static final String SE_LINUX_PARAM = "selinuxMode";
-
-    public static final String DHCP_NETWORK_TYPE = "dhcp";
-    public static final String NETWORK_TYPE_FORM_VAR = "networkType";
-    public static final String DHCP_IF_FORM_VAR = "dhcpNetworkIf";
-    private static final String STATIC_IF_FORM_VAR = "staticNetworkIf";
-    private static final String DHCP_IF_DISABLED_PARAM = "dhcpIfDisabled";
-    private static final String STATIC_IF_DISABLED_PARAM = "staticIfDisabled";
     private static final String PWD_CHANGED_PARAM = "pwdChanged";
 
     /**
@@ -108,7 +101,6 @@ public class SystemDetailsEditAction extends RhnAction {
         RequestContext ctx = new RequestContext(request);
         KickstartData ksdata = lookupKickstart(ctx, dynaForm);
         prepareForm(dynaForm, ksdata, ctx);
-        setNetworkIfState(dynaForm, request);
         request.setAttribute(RequestContext.KICKSTART, ksdata);
         return mapping.findForward("display");
     }
@@ -134,8 +126,6 @@ public class SystemDetailsEditAction extends RhnAction {
             dynaForm.set("rootPassword", null);
             dynaForm.set("rootPasswordConfirm", null);
         }        
-
-        setNetworkIfState(dynaForm, request);
 
         try {
             transferEdits(dynaForm, ksdata, ctx);
@@ -164,25 +154,6 @@ public class SystemDetailsEditAction extends RhnAction {
                 .getRequiredParam(RequestContext.KICKSTART_ID), ctx
                 .getCurrentUser());
         return cmd.getKickstartData();
-    }
-
-    private void setNetworkIfState(DynaActionForm dynaForm,
-            HttpServletRequest request) {
-        String networkType = dynaForm.getString(NETWORK_TYPE_FORM_VAR);
-        if (networkType != null) {
-            if (networkType.equals(DHCP_NETWORK_TYPE)) {
-                request.setAttribute(DHCP_IF_DISABLED_PARAM, Boolean.FALSE
-                        .toString());
-                request.setAttribute(STATIC_IF_DISABLED_PARAM, Boolean.TRUE
-                        .toString());
-            }
-            else {
-                request.setAttribute(DHCP_IF_DISABLED_PARAM, Boolean.TRUE
-                        .toString());
-                request.setAttribute(STATIC_IF_DISABLED_PARAM, Boolean.FALSE
-                        .toString());
-            }
-        }
     }
 
     private void transferEdits(DynaActionForm form, KickstartData ksdata,

@@ -1456,18 +1456,18 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     }
     
     private ValidatorError validateNetworkInterface() {
-        boolean nicAvailable = false;
         if (!StringUtils.isEmpty(networkInterface)) {
+            boolean nicAvailable = false;
             for (NetworkInterface nic : server.getNetworkInterfaces()) {
                 if (networkInterface.equals(nic.getName())) {
                     nicAvailable = true;
                     break;
                 }
             }
-        }
-        if (!nicAvailable) {
-            return new ValidatorError("kickstart.schedule.nosuchdevice", 
-                                            server.getName(), networkInterface);
+            if (!nicAvailable) {
+                return new ValidatorError("kickstart.schedule.nosuchdevice", 
+                                                server.getName(), networkInterface);
+            }
         }
         return null;
     }
