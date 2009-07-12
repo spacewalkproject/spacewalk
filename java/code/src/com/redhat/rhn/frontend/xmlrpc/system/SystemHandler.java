@@ -16,6 +16,8 @@ package com.redhat.rhn.frontend.xmlrpc.system;
 
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.client.ClientCertificate;
+import com.redhat.rhn.common.client.ClientCertificateDigester;
+import com.redhat.rhn.common.client.InvalidCertificateException;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
@@ -79,6 +81,7 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidErrataException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidProfileLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidSystemException;
+import com.redhat.rhn.frontend.xmlrpc.MethodInvalidParamException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchActionException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException;
@@ -100,6 +103,7 @@ import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.errata.ErrataManager;
+import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartScheduleCommand;
 import com.redhat.rhn.manager.kickstart.ProvisionVirtualInstanceCommand;
 import com.redhat.rhn.manager.profile.ProfileManager;
@@ -114,7 +118,11 @@ import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.cobbler.SystemRecord;
+import org.xml.sax.SAXException;
 
+import java.io.IOException;
+import java.io.StringReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Blob;
@@ -3996,5 +4004,68 @@ public class SystemHandler extends BaseHandler {
             throw new NoSuchChannelException();
         }
         return channel;
+    }
+
+    /**
+     * Method to setup the static network configuration for a given server
+     * This is used by spacewalkkoan if the user selects static networking option
+     * in the advanced configuration section during provisioning.
+     * It basically adds $static_network variable to the cobbler system record
+     * which gets rendered during the kickstart.
+     * @param clientcert the client certificate or the system id file
+     * @param data a map holding the network details like ip, gateway, 
+     *              name servers, ip, netmask and hostname.
+     * 
+     * @return 1 on success exception otherwise.
+     * 
+     * @xmlrpc.ignore Since this API is for internal integration between services and
+     * is not useful to external users of the API, the typical XMLRPC API documentation
+     * is not being included.
+     */
+    public int setupStaticNetwork(String clientcert, Map<String, Object> data) {
+        StringReader rdr = new StringReader(clientcert);
+        Server server = null;
+
+        ClientCertificate cert;
+        try {
+            cert = ClientCertificateDigester.buildCertificate(rdr);
+            server = SystemManager.lookupByCert(cert);
+            if (server == null) {
+                throw new NoSuchSystemException();
+            }
+        }
+        catch (IOException ioe) {
+            log.error("IOException - Trying to access a system with an " +
+                    "invalid certificate", ioe);
+            throw new MethodInvalidParamException();
+        }
+        catch (SAXException se) {
+            log.error("SAXException - Trying to access a " +
+                    "system with an invalid certificate", se);
+            throw new MethodInvalidParamException();
+        }
+        catch (InvalidCertificateException e) {
+            log.error("InvalidCertificateException - Trying to access a " +
+                    "system with an invalid certificate", e);
+            throw new MethodInvalidParamException();
+        }
+        SystemRecord rec = server.getCobblerObject(null);
+        if (rec == null) {
+            throw new NoSuchSystemException();
+        }
+        
+        String device = (String)data.get("device");
+        String gateway = (String)data.get("gateway");
+        List<String> nameservers = (List<String>)data.get("nameservers");
+        String ip = (String)data.get("ip");
+        String netmask = (String)data.get("netmask");
+        String hostName = (String)data.get("hostname");
+        String command = KickstartFormatter.makeStaticNetworkCommand(device, ip, gateway, 
+                                                  nameservers.get(0), netmask, hostName);
+        Map<String, String> meta = rec.getKsMeta();
+        meta.put(KickstartFormatter.STATIC_NETWORK_VAR, command);
+        rec.setKsMeta(meta);
+        rec.save();
+        return 1;
     }
 }

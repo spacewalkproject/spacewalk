@@ -141,6 +141,7 @@ public class ConfigDefaults {
     public static final String VIRT_MEM = "kickstart.virt_mem_size_mb";
     public static final String VIRT_CPU = "kickstart.virt_cpus";
     public static final String VIRT_DISK = "kickstart.virt_disk_size_gb";
+    public static final String KICKSTART_NETWORK_INTERFACE = "kickstart.default_interface";
 
     private ConfigDefaults() {
     }
@@ -376,6 +377,13 @@ public class ConfigDefaults {
         return Config.get().getString("cobbler.host", "localhost");
     }
     
+    /**
+     * Returns the default network interface for a kickstart profile
+     * @return the network interface
+     */
+    public String getDefaultKickstartNetworkInterface() {
+        return Config.get().getString(KICKSTART_NETWORK_INTERFACE, "eth0");
+    }
 
     /**
      * Return true if this is a Spacewalk instance. (as opposed to Satellite)
@@ -387,5 +395,6 @@ public class ConfigDefaults {
         }
         return false;
     }
-
+    
+    
 }

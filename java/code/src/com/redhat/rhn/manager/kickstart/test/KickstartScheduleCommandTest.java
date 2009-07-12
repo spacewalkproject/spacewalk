@@ -40,7 +40,6 @@ import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
-import com.redhat.rhn.domain.token.test.ActivationKeyTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartChannelDto;
 import com.redhat.rhn.manager.action.ActionManager;
@@ -51,7 +50,6 @@ import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.testing.TestUtils;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -66,7 +64,6 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
     private Long otherServerId;
     private Long profileId;
     private String profileType;
-    private Set activationKeyIds;
     
     /**
      * {@inheritDoc}
@@ -81,7 +78,6 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         server.addChannel(c);
         
         KickstartDataTest.addKickstartPackagesToChannel(c, false);
-        ksdata.setStaticDevice("static:10.1.4.75");
         ksdata.setKernelParams("someparam=asdf");
         ksdata.getTree().setChannel(server.getBaseChannel());
         KickstartSession ksession = KickstartSessionTest.
@@ -102,17 +98,13 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
     }
     
     public void testCommandActKey() throws Exception {
-        ActivationKey key = ActivationKeyTest.createTestActivationKey(user, server);
-        activationKeyIds = new HashSet();
-        activationKeyIds.add(key.getId());
         Server otherServer = ServerFactoryTest.createTestServer(user, true, 
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         otherServer.addChannel(ChannelFactoryTest.createTestChannel(user));
         otherServerId = otherServer.getId();
         profileType = KickstartScheduleCommand.TARGET_PROFILE_TYPE_SYSTEM;
         KickstartScheduleCommand cmd = testCommandExecution(
-                KickstartScheduleCommand.ACTIVATION_TYPE_KEY, server, 
-                ksdata, profileType, activationKeyIds, otherServerId, profileId);
+                server, ksdata, profileType, otherServerId, profileId);
         assertNotNull(cmd.getCreatedProfile());
     }
     
@@ -159,22 +151,18 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
     public void testCommandExisting() throws Exception {
         profileType = KickstartScheduleCommand.TARGET_PROFILE_TYPE_EXISTING;
         KickstartScheduleCommand cmd = testCommandExecution(
-                KickstartScheduleCommand.ACTIVATION_TYPE_EXISTING, 
-                server, ksdata, profileType, 
-                activationKeyIds, otherServerId, profileId);
+                                server, ksdata, profileType, 
+                otherServerId, profileId);
         assertNotNull(cmd.getCreatedProfile());
     }
     
     public void testCommandNoProfileSynch() throws Exception {
-        testCommandExecution(KickstartScheduleCommand.ACTIVATION_TYPE_EXISTING, 
-                server, ksdata, profileType, 
-                activationKeyIds, otherServerId, profileId);
+        testCommandExecution(server, ksdata, profileType, otherServerId, profileId);
     }
 
     public void testCommandProxyKs() throws Exception {
-        KickstartScheduleCommand cmd = testCommandExecution(
-                KickstartScheduleCommand.ACTIVATION_TYPE_EXISTING, server,
-                ksdata, profileType, activationKeyIds, otherServerId, profileId);
+        KickstartScheduleCommand cmd = testCommandExecution(server,
+                ksdata, profileType, otherServerId, profileId);
         Server proxy = ServerFactoryTest.createTestServer(user, true, 
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         cmd.setProxy(proxy);
@@ -182,9 +170,8 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
     }
 
     public void testGetProxies() throws Exception {
-        KickstartScheduleCommand cmd = testCommandExecution(
-                KickstartScheduleCommand.ACTIVATION_TYPE_EXISTING, server,
-                ksdata, profileType, activationKeyIds, otherServerId, profileId);
+        KickstartScheduleCommand cmd = testCommandExecution(server,
+                ksdata, profileType, otherServerId, profileId);
         assertNull(cmd.store());
         assertNotNull(SystemManager.listProxies(user.getOrg()));
         assertEquals(0, SystemManager.listProxies(user.getOrg()).size());
@@ -195,9 +182,8 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         String desc = "test profile " + TestUtils.randomString();
         profileId = ProfileManager.createProfile(ProfileFactory.TYPE_SYNC_PROFILE,
                 user, ChannelFactoryTest.createTestChannel(user), desc , desc).getId();
-        KickstartScheduleCommand cmd = testCommandExecution(
-                KickstartScheduleCommand.ACTIVATION_TYPE_EXISTING, server,
-                ksdata, profileType, activationKeyIds, otherServerId, profileId);
+        KickstartScheduleCommand cmd = testCommandExecution(server,
+                ksdata, profileType, otherServerId, profileId);
         assertNotNull(cmd.getCreatedProfile());
         assertNotNull(cmd.getKickstartSession().getServerProfile());
         assertEquals(profileId, cmd.getKickstartSession().getServerProfile().getId());
@@ -262,9 +248,7 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         
         profileType = KickstartScheduleCommand.TARGET_PROFILE_TYPE_EXISTING;
         KickstartScheduleCommand cmd = testCommandExecution(
-                KickstartScheduleCommand.ACTIVATION_TYPE_EXISTING, 
-                server, ksdata, profileType, 
-                activationKeyIds, otherServerId, profileId);
+                server, ksdata, profileType, otherServerId, profileId);
         ActivationKey key = ActivationKeyFactory.
             lookupByKickstartSession(cmd.getKickstartSession());
         assertEquals(1, 1);
@@ -298,9 +282,7 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         profileType = KickstartScheduleCommand.TARGET_PROFILE_TYPE_EXISTING;
 
         KickstartScheduleCommand cmd = testCommandExecution(
-                KickstartScheduleCommand.ACTIVATION_TYPE_EXISTING, 
-                server, ksdata, profileType, 
-                activationKeyIds, otherServerId, profileId);
+                server, ksdata, profileType, otherServerId, profileId);
         ActivationKey key = ActivationKeyFactory.
             lookupByKickstartSession(cmd.getKickstartSession());
         assertTrue(key.getChannels().size() == 2);
@@ -329,8 +311,7 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
     public static KickstartScheduleCommand scheduleAKickstart(Server server, 
             KickstartData ksdata) throws Exception {
         ksdata.getTree().setChannel(server.getBaseChannel());
-        return testCommandExecution(KickstartScheduleCommand.ACTIVATION_TYPE_EXISTING, 
-                server, ksdata, null, null, null, null);
+        return testCommandExecution(server, ksdata, null, null, null);
     }
 
     public static void setupChannelForKickstarting(Channel c, User user) throws Exception {
@@ -349,9 +330,9 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
     
     // Like the number of params on this one?  Nice eh?  At least its private and
     // in test code :-)
-    private static KickstartScheduleCommand testCommandExecution(String activationType, 
+    private static KickstartScheduleCommand testCommandExecution(
             Server server, KickstartData ksdata, String profileType, 
-            Set activationKeyIds, Long otherServerId, Long profileId) 
+            Long otherServerId, Long profileId) 
         throws Exception {
         User user = server.getCreator();
         user.addRole(RoleFactory.ORG_ADMIN);

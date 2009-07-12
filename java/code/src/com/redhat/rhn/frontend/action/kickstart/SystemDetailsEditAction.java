@@ -190,7 +190,6 @@ public class SystemDetailsEditAction extends RhnAction {
         SystemDetailsCommand command = new SystemDetailsCommand(ksdata, ctx
                 .getLoggedInUser());
 
-        transferNetworkEdits(form, command);
         transferRootPasswordEdits(form, command);
         if (!ksdata.isLegacyKickstart()) {
             command.setMode(SELinuxMode.lookup(form.getString(SE_LINUX_PARAM)));
@@ -201,7 +200,6 @@ public class SystemDetailsEditAction extends RhnAction {
 
     private void prepareForm(DynaActionForm dynaForm, KickstartData ksdata,
             RequestContext ctx) {
-        prepareNetworkConfig(dynaForm, ksdata);
         prepareSELinuxConfig(dynaForm, ksdata);
         prepareFlags(dynaForm, ksdata);
         dynaForm.set("submitted", Boolean.TRUE);
@@ -212,25 +210,6 @@ public class SystemDetailsEditAction extends RhnAction {
         dynaForm.set(SE_LINUX_PARAM, ksdata.getSELinuxMode().getValue());
     }
 
-    private void prepareNetworkConfig(DynaActionForm dynaForm,
-            KickstartData ksdata) {
-        String staticDevice = ksdata.getStaticDevice();
-        if (staticDevice != null) {
-            int breakpos = staticDevice.indexOf(":");
-            String networkType = staticDevice.substring(0, breakpos);
-            networkType = networkType.trim().toLowerCase();
-            dynaForm.set(NETWORK_TYPE_FORM_VAR, networkType);
-            if ((breakpos + 1) < staticDevice.length()) {
-                String device = staticDevice.substring(breakpos + 1);
-                if (networkType.equals(DHCP_NETWORK_TYPE)) {
-                    dynaForm.set(DHCP_IF_FORM_VAR, device);
-                }
-                else {
-                    dynaForm.set(STATIC_IF_FORM_VAR, device);
-                }
-            }
-        }
-    }
 
     private void prepareFlags(DynaActionForm dynaForm, KickstartData ksdata) {
         if (ksdata.isConfigManageable()) {
@@ -245,21 +224,6 @@ public class SystemDetailsEditAction extends RhnAction {
         else {
             dynaForm.set("remoteCommands", null);
         }
-    }
-
-    private void transferNetworkEdits(DynaActionForm form,
-            SystemDetailsCommand command) {
-        String networkType = form.getString(NETWORK_TYPE_FORM_VAR);
-        String interfaceName = null;
-        if (networkType.equals(DHCP_NETWORK_TYPE)) {
-            interfaceName = form.getString(DHCP_IF_FORM_VAR);
-            form.set(STATIC_IF_FORM_VAR, "");
-        }
-        else {
-            interfaceName = form.getString(STATIC_IF_FORM_VAR);
-            form.set(DHCP_IF_FORM_VAR, "");
-        }
-        command.setNetworkDevice(interfaceName, networkType.equals(DHCP_NETWORK_TYPE));
     }
 
     private void transferRootPasswordEdits(DynaActionForm form,

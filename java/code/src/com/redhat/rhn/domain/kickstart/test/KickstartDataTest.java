@@ -470,7 +470,6 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         k.addScript(KickstartScriptTest.createPreInterpreter(k));
         k.addScript(KickstartScriptTest.createPostInterpreter(k));
         
-        k.setStaticDevice(STATIC_DEV);
         k.setKernelParams(KERNEL_PARAMS);
 
         k.addPackageName(pn);
@@ -689,7 +688,6 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         assertEquals(k.getBootloaderType(), cloned.getBootloaderType());
         assertEquals(k.getInstallType(), cloned.getInstallType());
         assertEquals(k.getKernelParams(), cloned.getKernelParams());
-        assertEquals(k.getStaticDevice(), cloned.getStaticDevice());
         assertEquals(k.isActive(), cloned.isActive());
         assertEquals(k.isOrgDefault(), cloned.isOrgDefault());
         assertEquals(k.getOrg(), cloned.getOrg());

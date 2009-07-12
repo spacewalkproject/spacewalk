@@ -33,7 +33,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="kernelParams" column="kernel_params"  type="string" length="128" />
         <property name="nonChrootPost" column="nonchrootpost" not-null="false" type="yes_no" />
         <property name="verboseUp2date" column="verboseup2date" not-null="false" type="yes_no" />
-        <property name="staticDevice" column="static_device"  type="string" length="32" />
         <property name="cobblerId" column="cobbler_id"  type="string" length="64" />
         <list name="packageNames" table="rhnKickstartPackage" lazy="true">
           <key column="kickstart_id"/>

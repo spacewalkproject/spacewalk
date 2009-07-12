@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.kickstart;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.DatePicker;
@@ -22,6 +23,7 @@ import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
+import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.systems.sdc.SdcHelper;
@@ -94,6 +96,9 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
     public static final String HOST_SID = "hostSid";
     public static final String VIRT_HOST_IS_REGISTERED = "virtHostIsRegistered";
     public static final String TARGET_PROFILE_TYPE = "targetProfileType";
+    public static final String NETWORK_TYPE_DHCP = "networkTypeDhcp";
+    public static final String NETWORK_INTERFACE = "networkInterface";
+    public static final String NETWORK_INTERFACES = "networkInterfaces";
     /**
      * {@inheritDoc}
      */
@@ -175,6 +180,39 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         }
     }
 
+    private void setupNetworkInfo(DynaActionForm form, 
+                    RequestContext context, KickstartScheduleCommand cmd) {
+        Server server = cmd.getServer();
+        List<NetworkInterface> nics = new LinkedList<NetworkInterface>
+                                                (server.getNetworkInterfaces());
+        for (Iterator<NetworkInterface> itr = nics.iterator(); itr.hasNext();) {
+            NetworkInterface nic = itr.next();
+            if (nic.isDisabled() || "127.0.0.1".equals(nic.getIpaddr())) {
+                itr.remove();
+            }
+        }
+        context.getRequest().setAttribute(NETWORK_INTERFACES, nics);
+        if (form.get(NETWORK_TYPE_DHCP) == null) {
+            form.set(NETWORK_TYPE_DHCP, Boolean.TRUE);
+        }
+
+        if (StringUtils.isBlank(form.getString(NETWORK_INTERFACE))) {
+            String defaultInterface = ConfigDefaults.get().
+                            getDefaultKickstartNetworkInterface();
+            for (NetworkInterface nic : nics) {
+                if (nic.getName().equals(defaultInterface)) {
+                    form.set(NETWORK_INTERFACE, ConfigDefaults.get().
+                            getDefaultKickstartNetworkInterface());
+                }
+            }
+            if (StringUtils.isBlank(form.getString(NETWORK_INTERFACE))) {
+                form.set(NETWORK_INTERFACE, server.
+                            findPrimaryNetworkInterface().getName());
+            }
+
+        }        
+    }
+    
     /**
      * The first step in the wizard
      * @param mapping ActionMapping for struts
@@ -346,6 +384,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                 }
             }
         }
+        setupNetworkInfo(form, ctx, cmd);
     }
 
     
@@ -380,7 +419,9 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         KickstartHelper helper = new KickstartHelper(ctx.getRequest());
         KickstartScheduleCommand cmd = getScheduleCommand(form, ctx,
                 scheduleTime, helper.getKickstartHost());
-
+        
+        cmd.setNetworkDevice(Boolean.TRUE.equals(form.get(NETWORK_TYPE_DHCP)),
+                                            form.getString(NETWORK_INTERFACE));
         cmd.setKernelOptions(parseKernelOptions(form, ctx.getRequest(),
                             form.getString(RequestContext.COBBLER_ID), false));
         cmd.setPostKernelOptions(parseKernelOptions(form, ctx.getRequest(),
@@ -635,5 +676,4 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         }
 
     }
-
 }

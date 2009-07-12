@@ -27,7 +27,8 @@ import java.util.Set;
  */
 
 public class SystemRecord extends CobblerObject {
-    
+    private static final String NAME_SERVERS = "name_servers";
+    private static final String GATEWAY = "gateway";
     private static final String PROFILE = "profile";
     private static final String VIRT_BRIDGE = "virt_bridge";
     private static final String VIRT_CPUS = "virt_cpus";
@@ -36,9 +37,8 @@ public class SystemRecord extends CobblerObject {
     private static final String VIRT_FILE_SIZE = "virt_file_size";
     private static final String VIRT_RAM = "virt_ram";
     private static final String NETBOOT_ENABLED = "netboot_enabled";
-
     public static final String REDHAT_MGMT_SERVER = "redhat_management_server";
-
+    
     private SystemRecord(CobblerConnection clientIn) {
         client = clientIn;
     }
@@ -301,5 +301,19 @@ public class SystemRecord extends CobblerObject {
        */
       public void enableNetboot(boolean enable) {
           modify(NETBOOT_ENABLED, enable);
+      }
+
+      /**
+       * @param nameServersIn the NameServers
+       */
+      public void  setNameServers(String nameServersIn) {
+          modify(NAME_SERVERS, nameServersIn);
+      }
+   
+      /**
+       * @param gateway the Gateway
+       */
+      public void  setGateway(String gateway) {
+          modify(GATEWAY, gateway);
       }
 }

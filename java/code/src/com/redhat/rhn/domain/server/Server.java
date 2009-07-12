@@ -32,14 +32,18 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.log4j.Logger;
+import org.cobbler.CobblerConnection;
+import org.cobbler.SystemRecord;
 
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -1701,5 +1705,27 @@ public class Server extends BaseDomainHelper implements Identifiable {
         return null;
     }
 
+    /**
+     * Returns the cobbler object associated to 
+     * to this server.
+     * @param user the user object needed for connection,
+     *              enter null if you want to use the 
+     *              automated connection as provided by
+     *              taskomatic.
+     * @return the SystemRecord associated to this server
+     */
+    public SystemRecord getCobblerObject(User user) {
+        if (StringUtils.isBlank(getCobblerId())) {
+            return null;
+        }
+        CobblerConnection con;
+        if (user == null) {
+            con = CobblerXMLRPCHelper.getAutomatedConnection();
+        }
+        else {
+            con = CobblerXMLRPCHelper.getConnection(user);
+        }
+        return SystemRecord.lookupById(con, getCobblerId());
+    }
 
 }

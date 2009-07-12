@@ -10041,7 +10041,7 @@ Please note that some manual configuration of these scripts may still be require
   </trans-unit>
 
   <trans-unit id="kickstart.netconn.jsp.label">
-    <source>Kickstart &lt;br /&gt;Network &lt;br /&gt;Connection</source>
+    <source>Network Connection</source>
     <context-group name="ctx">
       <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
     </context-group>
@@ -10062,7 +10062,7 @@ Please note that some manual configuration of these scripts may still be require
   </trans-unit>
 
   <trans-unit id="kickstart.netconn.static.jsp.label">
-    <source>Use static IP from interface</source>
+    <source>Use static interface</source>
     <context-group name="ctx">
       <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
     </context-group>

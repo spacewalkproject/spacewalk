@@ -10,6 +10,9 @@
         <input type="hidden" name="postKernelParams" value="${form.postKernelParams}" />
         <input type="hidden" name="kernelParamsType" value="${form.kernelParamsType}" />
         <input type="hidden" name="kernelParams" value="${form.kernelParams}" />
+        
+        <input type="hidden" name="networkTypeDhcp" value="${form.networkTypeDhcp}" />
+        <input type="hidden" name="networkInterface" value="${form.networkInterface}" />
 
         <!-- Store useful id fields-->
         <input type="hidden" name="wizardStep" value="first" id="wizard-step" />

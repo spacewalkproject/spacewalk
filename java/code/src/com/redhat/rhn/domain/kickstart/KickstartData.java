@@ -30,6 +30,7 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.cobbler.CobblerConnection;
 import org.cobbler.Profile;
 
 import java.util.ArrayList;
@@ -68,7 +69,6 @@ public class KickstartData {
     private String kernelParams;    
     private Boolean nonChrootPost;
     private Boolean verboseUp2date;
-    private String staticDevice;
     private String cobblerId;
 
     private Set cryptoKeys;
@@ -300,23 +300,6 @@ public class KickstartData {
     public void setKernelParams(String kernelParamsIn) {
         this.kernelParams = kernelParamsIn;
     }
-
-    /** 
-     * Getter for staticDevice 
-     * @return String to get
-    */
-    public String getStaticDevice() {
-        return this.staticDevice;
-    }
-
-    /** 
-     * Setter for staticDevice 
-     * @param staticDeviceIn to set
-    */
-    public void setStaticDevice(String staticDeviceIn) {
-        this.staticDevice = staticDeviceIn;
-    }
-
     
     /**
      * @return the cryptoKeys
@@ -1230,8 +1213,6 @@ public class KickstartData {
                 cloned.addScript(ksscloned);   
             }
         }
-
-        cloned.setStaticDevice(this.getStaticDevice());
     }
     
     // Helper method to copy KickstartCommands
@@ -1499,5 +1480,27 @@ public class KickstartData {
             return ConfigDefaults.get().getDefaultXenVirtBridge();
         }
     }
-    
+
+    /**
+     * Returns the cobbler object associated to 
+     * to this profile.
+     * @param user the user object needed for connection,
+     *              enter null if you want to use the 
+     *              automated connection as provided by
+     *              taskomatic.
+     * @return the Profile associated to this ks data
+     */
+    public Profile getCobblerObject(User user) {
+        if (StringUtils.isBlank(getCobblerId())) {
+            return null;
+        }
+        CobblerConnection con;
+        if (user == null) {
+            con = CobblerXMLRPCHelper.getAutomatedConnection();
+        }
+        else {
+            con = CobblerXMLRPCHelper.getConnection(user);
+        }
+        return Profile.lookupById(con, getCobblerId());
+    }
 }
