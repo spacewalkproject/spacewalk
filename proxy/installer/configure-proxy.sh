@@ -205,13 +205,6 @@ if [ "$RHN_PARENT" == "rhn.redhat.com" ]; then
 WARNING
 fi
 
-default_or_input "Proxy version to activate" VERSION $(rhn-proxy-activate --server=$RHN_PARENT --list-available-versions |sort|tail -n1)
-
-default_or_input "Traceback email" TRACEBACK_EMAIL ''
-
-default_or_input "Use SSL" USE_SSL 'Y/n'
-USE_SSL=$(yes_no $USE_SSL)
-
 default_or_input "CA Chain" CA_CHAIN $(awk -F'[=;]' '/sslCACert=/ {a=$2} END { print a}' $SYSCONFIG_DIR/up2date)
 
 if [ 0$FORCE_OWN_CA -eq 0 ] && \
@@ -229,6 +222,13 @@ if ! /sbin/runuser nobody -s /bin/sh --command="[ -r $CA_CHAIN ]" ; then
 	echo Error: File $CA_CHAIN is not readable by nobody user.
 	exit 1
 fi
+
+default_or_input "Proxy version to activate" VERSION $(rhn-proxy-activate --server=$RHN_PARENT --list-available-versions |sort|tail -n1)
+
+default_or_input "Traceback email" TRACEBACK_EMAIL ''
+
+default_or_input "Use SSL" USE_SSL 'Y/n'
+USE_SSL=$(yes_no $USE_SSL)
 
 default_or_input "HTTP Proxy" HTTP_PROXY ''
 
