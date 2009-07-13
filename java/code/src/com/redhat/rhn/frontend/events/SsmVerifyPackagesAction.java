@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.events;
 
+import com.redhat.rhn.domain.user.UserFactory;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.List;
@@ -43,7 +45,7 @@ public class SsmVerifyPackagesAction extends AbstractDatabaseAction {
     protected void doExecute(EventMessage msg) {
         SsmVerifyPackagesEvent event = (SsmVerifyPackagesEvent) msg;
 
-        User user = event.getUser();
+        User user = UserFactory.lookupById(event.getUserId());
 
         // Log the action has been created
         LocalizationService ls = LocalizationService.getInstance();
@@ -53,7 +55,7 @@ public class SsmVerifyPackagesAction extends AbstractDatabaseAction {
                 RhnSetDecl.SYSTEMS.getLabel());
 
         try {
-            scheduleVerifications(event);
+            scheduleVerifications(event, user);
         }
         catch (Exception e) {
             log.error("Error scheduling package installations for event " + event, e);
@@ -66,9 +68,8 @@ public class SsmVerifyPackagesAction extends AbstractDatabaseAction {
         
     }
 
-    private void scheduleVerifications(SsmVerifyPackagesEvent event) {
+    private void scheduleVerifications(SsmVerifyPackagesEvent event, User user) {
 
-        User user = event.getUser();
         Date earliest = event.getEarliest();
         DataResult result = event.getResult();
 

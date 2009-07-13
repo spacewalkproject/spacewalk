@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.events;
 import java.util.Date;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.messaging.EventMessage;
-import com.redhat.rhn.domain.user.User;
 
 /**
  * Event carrying information necessary to schedule package verifications on systems
@@ -25,37 +24,37 @@ import com.redhat.rhn.domain.user.User;
  */
 public class SsmVerifyPackagesEvent implements EventMessage {
 
-    private User user;
+    private Long userId;
     private Date earliest;
     private DataResult result;
 
     /**
      * Creates a new event to trigger the action over the message queue.
      *
-     * @param userIn     user making the request; cannot be <code>null</code>
+     * @param userIdIn     user making the request; cannot be <code>null</code>
      * @param earliestIn used for scheduling the verification in the future;
      *                   may be <code>null</code>
      * @param resultIn   data describing the systems and packages to verify
      *                   cannot be <code>null</code>
      */
-    public SsmVerifyPackagesEvent(User userIn, Date earliestIn, DataResult resultIn) {
+    public SsmVerifyPackagesEvent(Long userIdIn, Date earliestIn, DataResult resultIn) {
 
-        if (userIn == null) {
-            throw new IllegalArgumentException("userIn cannot be null");
+        if (userIdIn == null) {
+            throw new IllegalArgumentException("userIdIn cannot be null");
         }
 
         if (resultIn == null) {
             throw new IllegalArgumentException("resultIn cannot be null");
         }
 
-        this.user = userIn;
+        this.userId = userIdIn;
         this.earliest = earliestIn;
         this.result = resultIn;
     }
 
     /** @return will not be <code>null</code> */
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
     /** @return may be <code>null</code> */
@@ -75,6 +74,6 @@ public class SsmVerifyPackagesEvent implements EventMessage {
 
     /** {@inheritDoc} */
     public String toString() {
-        return "SsmPackageVerifyEvent[User: " + user.getLogin() + "]";
+        return "SsmPackageVerifyEvent[UserId: " + userId + "]";
     }
 }

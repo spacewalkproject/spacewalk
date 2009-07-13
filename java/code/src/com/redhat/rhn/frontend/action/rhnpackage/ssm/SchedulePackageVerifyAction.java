@@ -90,7 +90,7 @@ public class SchedulePackageVerifyAction extends RhnAction implements Listable {
                     RhnSetDecl.SSM_VERIFY_PACKAGES_LIST.getLabel());
 
                 SsmVerifyPackagesEvent event =
-                    new SsmVerifyPackagesEvent(user, earliest, result);
+                    new SsmVerifyPackagesEvent(user.getId(), earliest, result);
                 MessageQueue.publish(event);
 
                 // Check to determine to display single or plural confirmation message
