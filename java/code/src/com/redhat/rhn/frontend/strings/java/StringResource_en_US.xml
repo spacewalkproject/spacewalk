@@ -8265,6 +8265,9 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="ssm.package.install.operationname">
         <source>Schedule Package Installations</source>
      </trans-unit>
+     <trans-unit id="ssm.package.upgrade.operationname">
+        <source>Schedule Package Upgrades</source>
+     </trans-unit>
      <trans-unit id="ssm.package.verify.operationname">
         <source>Schedule Package Verifications</source>
      </trans-unit>
