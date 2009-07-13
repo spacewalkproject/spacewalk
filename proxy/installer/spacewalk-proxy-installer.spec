@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.6.18
+Version: 0.6.19
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -87,6 +87,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Mon Jul 13 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.19-1
+- 509450 - install our jabberd ssl cert during proxy installation
+
 * Mon Jul 06 2009 John Matthews <jmatthew@redhat.com> 0.6.18-1
 - 509522 - remove conflicts and put provides to spacewalk-proxy-management
   (msuchy@redhat.com)
