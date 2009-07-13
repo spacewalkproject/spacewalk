@@ -698,12 +698,7 @@ class Backend:
         tbs = self.tables['rhnPackage']
         #if CFG.ENABLE_NVREA:
             # Add md5sum as a primarykey if nevra is enabled
-<<<<<<< HEAD:backend/server/importlib/backend.py
         #    tbs.pk.append('md5sum')
-=======
-            if 'md5sum' not in tbs.pk:
-                tbs.pk.append('md5sum')
->>>>>>> master:backend/server/importlib/backend.py
 
         childTables = {
             'rhnPackageProvides':   'package_id', 
@@ -1151,12 +1146,8 @@ class Backend:
             UPDATE rhnChannel
                SET channel_product_id = :channel_product_id
              WHERE id = :id
-<<<<<<< HEAD:backend/server/importlib/backend.py
-               AND channel_product_id <> :channel_product_id
-=======
                AND (channel_product_id is NULL 
                 OR channel_product_id <> :channel_product_id)
->>>>>>> master:backend/server/importlib/backend.py
         """)
 
         statement.execute(id = channel.id,
