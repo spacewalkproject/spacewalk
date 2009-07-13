@@ -141,6 +141,7 @@ WHERE    1=1
 AND      sgt.id = sg.group_type
 AND      sgt.label = :label
 AND      sg.max_members > 0
+AND      sg.org_id != 1
   </query>
 </mode>
 
