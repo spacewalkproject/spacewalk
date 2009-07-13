@@ -69,6 +69,7 @@ public class SsmInstallPackagesAction extends AbstractDatabaseAction {
 
     private void scheduleInstalls(SsmInstallPackagesEvent event) {
 
+        log.debug("Scheduling package installations.");
         User user = event.getUser();
         Date earliest = event.getEarliest();
         Set<String> data = event.getPackages();
@@ -95,10 +96,14 @@ public class SsmInstallPackagesAction extends AbstractDatabaseAction {
         for (EssentialServerDto dto : servers) {
             serverIds.add(dto.getId());
         }
+        log.debug("Looking up server objects.");
         actionServers.addAll(ServerFactory.lookupByIdsAndUser(serverIds, user));
+        log.debug("Scheduling actions.");
+        
 
         ActionManager.schedulePackageInstall(user, actionServers,
             packageListData, earliest);
+        log.debug("Done scheduling package installations.");
         
     }
 }
