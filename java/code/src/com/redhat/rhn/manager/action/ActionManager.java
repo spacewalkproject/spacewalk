@@ -1154,6 +1154,19 @@ public class ActionManager extends BaseManager {
     }
 
     /**
+     * Schedules one or more package upgrade actions for the given servers.
+     * Note: package upgrade = package install
+     * @param scheduler User scheduling the action.
+     * @param srvr list of servers on which the action affects.
+     * @param pkgs The set of packages to be removed.
+     * @param earliestAction Date of earliest action to be executed
+     */
+    public static void schedulePackageUpgrades(User scheduler,
+            List<Server> srvr, List<Map<String, Long>> pkgs, Date earliestAction) {
+        schedulePackageInstall(scheduler, srvr, pkgs, earliestAction);
+    }
+
+    /**
      * Schedules one or more package upgrade actions for the given server.
      * Note: package upgrade = package install
      * @param scheduler User scheduling the action.

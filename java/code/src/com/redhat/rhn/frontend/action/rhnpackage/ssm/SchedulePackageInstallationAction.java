@@ -14,14 +14,24 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage.ssm;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import org.apache.struts.action.DynaActionForm;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.util.DatePicker;
-import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
-import com.redhat.rhn.frontend.dto.EssentialServerDto;
-import com.redhat.rhn.frontend.dto.PackageListItem;
+import com.redhat.rhn.frontend.events.SsmInstallPackagesEvent;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
@@ -29,30 +39,11 @@ import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
-import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.system.SystemManager;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-import org.apache.struts.action.DynaActionForm;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * SSM action that handles prompting the user for when to install the package as well
  * as creating the action when the user confirms the creation.
- *
- * @version $Revision$
  */
 public class SchedulePackageInstallationAction extends RhnListAction implements Listable {
 
@@ -72,7 +63,37 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
 
         if (request.getParameter("dispatch") != null) {
             if (requestContext.wasDispatched("installconfirm.jsp.confirm")) {
-                return executePackageAction(actionMapping, actionForm, request, response);
+
+                StrutsDelegate strutsDelegate = getStrutsDelegate();
+
+                // Load data from the web components
+                User user = requestContext.getLoggedInUser();
+                Date earliest = getStrutsDelegate().readDatePicker(
+                    (DynaActionForm) actionForm, "date", DatePicker.YEAR_RANGE_POSITIVE);
+                Long cid = requestContext.getRequiredParam(RequestContext.CID);
+
+                String packagesDecl = request.getParameter("packagesDecl");
+
+                Set<String> data = SessionSetHelper.lookupAndBind(request, packagesDecl);
+
+                // Remove the packages from session once we have the above handle on them
+                SessionSetHelper.obliterate(request, packagesDecl);
+
+                // Fire off the request on the message queue
+                SsmInstallPackagesEvent event =
+                    new SsmInstallPackagesEvent(user.getId(), earliest, data, cid);
+                MessageQueue.publish(event);
+
+                ActionMessages msgs = new ActionMessages();
+
+                // Check to determine to display single or plural confirmation message
+                int numPackages = data.size();
+                LocalizationService l10n = LocalizationService.getInstance();
+                msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("ssm.package.install.message.packageinstalls"));
+                strutsDelegate.saveMessages(request, msgs);
+
+                return actionMapping.findForward("confirm");
             }
 
         }
@@ -101,83 +122,6 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
             SystemManager.systemsSubscribedToChannelInSet(cid, user, SetLabels.SYSTEM_LIST);
 
         return dataResult;
-    }
-
-    /**
-     * Creates the package installation action.
-     * <p/>
-     * Note: this can probably be removed in place of the code in
-     * BaseSystemPackagesConfirmAction. I rewrote most of the logic for now since I don't
-     * yet have a good plan for refactoring that method to support multiple servers.
-     *
-     * @param mapping  struts mapping
-     * @param formIn   struts form
-     * @param request  HTTP request
-     * @param response HTTP response
-     * @return
-     */
-    private ActionForward executePackageAction(ActionMapping mapping,
-                                               ActionForm formIn,
-                                               HttpServletRequest request,
-                                               HttpServletResponse response) {
-
-        RequestContext context = new RequestContext(request);
-        StrutsDelegate strutsDelegate = getStrutsDelegate();
-        User user = context.getLoggedInUser();
-
-        // Load the package list
-        String packagesDecl = request.getParameter("packagesDecl");
-
-        Set<String> data = SessionSetHelper.lookupAndBind(request, packagesDecl);
-        int numPackages = data.size();
-
-        // Convert the package list to domain objects
-        List<PackageListItem> packageListItems =
-            new ArrayList<PackageListItem>(numPackages);
-        for (String key : data) {
-            packageListItems.add(PackageListItem.parse(key));
-        }
-
-        // Convert to list of maps
-        List<Map<String, Long>> packageListData =
-            PackageListItem.toKeyMaps(packageListItems);
-
-       // Load the date selected by the user
-        Date earliest = getStrutsDelegate().readDatePicker((DynaActionForm) formIn,
-            "date", DatePicker.YEAR_RANGE_POSITIVE);
-
-        // Create one action for all servers to which the packages are installed
-        List<EssentialServerDto> servers = getResult(context);
-        List<Server> actionServers = new ArrayList<Server>(servers.size());
-        for (EssentialServerDto dto : servers) {
-            Long sid = dto.getId();
-            Server server = SystemManager.lookupByIdAndUser(sid, user);
-            actionServers.add(server);
-        }
-        
-        ActionManager.schedulePackageInstall(user, actionServers,
-            packageListData, earliest);
-        
-        // Remove the packages from session
-        SessionSetHelper.obliterate(request, packagesDecl);
-
-        ActionMessages msgs = new ActionMessages();
-
-        // Check to determine to display single or plural confirmation message
-        LocalizationService l10n = LocalizationService.getInstance();
-        if (numPackages == 1) {
-            msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                new ActionMessage("ssm.package.install.message.packageinstall",
-                                  l10n.formatNumber(numPackages)));
-        }
-        else {
-            msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                new ActionMessage("ssm.package.install.message.packageinstalls",
-                                  l10n.formatNumber(numPackages)));
-        }
-        strutsDelegate.saveMessages(request, msgs);
-
-        return mapping.findForward("confirm");
     }
 
 }
