@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.4.27
+Version: 0.6.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -204,6 +204,26 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Fri Jun 26 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.1-1
+- code cleanup - there is no usage of md5 in this code
+- bump up version to 0.6
+
+* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.4.28-1
+- 503090 - Fix missing packages reported during rhnreg_ks.
+  (dgoodwin@redhat.com)
+- 467866 - Raise a more cleaner message if clients end up getting badStatusLine
+  error due to 502 proxy errors (pkilambi@redhat.com)
+- 504292 - fix the registration gui and tui to honor the ssl cert paths
+  specified in the config. Set the paths to default locations only if the user
+  hasn't explicitly defined it. (pkilambi@redhat.com)
+- 504296 - removing debug statements from hardware probing
+  (pkilambi@redhat.com)
+- Support infinite available entitlements in TUI registration
+  (jbowes@redhat.com)
+- account for virt_uuid is None case (pkilambi@redhat.com)
+- Send smbios data to remaining_subscriptions during registration
+  (jbowes@redhat.com)
+
 * Fri Jun  5 2009 Pradeep Kilambi <pkilambi@redhat.com>
 - Resolves: #504296
  

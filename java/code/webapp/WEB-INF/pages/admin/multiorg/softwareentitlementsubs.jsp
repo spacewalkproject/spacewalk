@@ -11,11 +11,6 @@
 </head>
 
 <body onload="onLoadStuff(4);">
-
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif"
 	miscUrl="${url}"
 	miscAcl="user_role(org_admin)"
@@ -32,9 +27,6 @@
 <h2><bean:message key="softwareEntitlementSubs.viewModifyCounts.header"/></h2>
 
 <bean:message key="softwareEntitlementSubs.viewModifyCounts.description" arg0="${channelFamily.name}"/>
-
-<html:errors />
-
 <rl:listset name="orgSet">
 
     <!-- Reuse the form opened by the list tag -->

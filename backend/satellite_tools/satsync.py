@@ -878,6 +878,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
                 if OPTIONS.orgid is not None:
                     nevra['org_id'] = OPTIONS.orgid
+                    package['org_id'] = OPTIONS.orgid
                 else:
                     nevra['org_id'] = package['org_id']
 
@@ -1646,6 +1647,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 chunk = ss.getChunk()
                 item_count = len(chunk)
                 batch = self._get_cached_package_batch(chunk)
+                # check to make sure the orgs exported are valid
+                _validate_package_org(batch)
                 try:
                     sync_handlers.import_packages(batch)
                 except (SQLError, SQLSchemaError, SQLConnectError), e:
@@ -1688,12 +1691,14 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                     package['channels'] = [channel_obj]
                     uq_packages[pid] = package
 
+        uq_pkg_data = uq_packages.values()
+        # check to make sure the orgs exported are valid
+        _validate_package_org(uq_pkg_data)
         try:
             if OPTIONS.mount_point:
-                importer = sync_handlers.link_channel_packages(uq_packages.values(), strict=0)
+                importer = sync_handlers.link_channel_packages(uq_pkg_data, strict=0)
             else:
-                importer = sync_handlers.link_channel_packages(uq_packages.values())
-                
+                importer = sync_handlers.link_channel_packages(uq_pkg_data)                
         except (SQLError, SQLSchemaError, SQLConnectError), e:
             tbOut = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbOut, with_locals=1)
@@ -1780,6 +1785,22 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
         if OPTIONS.orgid is not None:
             erratum['org_id'] = OPTIONS.orgid
+
+        # Now fix channels
+        # Associate errata to only channels that are being synced
+        # Do this only if command line has channels specified.
+        channels = []
+        if OPTIONS.channel:
+            for ch in erratum['channels']:
+                if ch['label'] in OPTIONS.channel:
+                    channels.append(ch)
+        else:
+            # Compare with already imported channels
+            imported_channels = _getImportedChannels()
+            for ch in erratum['channels']:
+                if ch['label'] in imported_channels:
+                    channels.append(ch)
+        erratum['channels'] = channels
 
         # Now fix the files
         for errata_file in (erratum['files'] or []):
@@ -1995,6 +2016,22 @@ def _verifyPkgRepMountPoint():
         log(-1, "ERROR: server.mount_point not set in the configuration file")
         sys.exit(26)
 
+def _validate_package_org(batch):
+    """Validate the orgids associated with packages.
+     If its redhat channel default to Null org
+     If custom channel and org is specified use that.
+     If custom and package org is not valid default to org 1
+    """
+    orgid = OPTIONS.orgid or None
+    orgs = map(lambda a: a['id'], satCerts.get_all_orgs())
+    for pkg in batch:
+        if not OPTIONS.orgid and pkg['org_id'] is not None and \
+            pkg['org_id'] not in orgs:
+
+            pkg['org_id'] = 1
+        else:
+            pkg['org_id'] = orgid
+
 
 def _getImportedChannels():
     "Retrieves the channels already imported in the satellite's database"
@@ -2131,7 +2168,8 @@ def processCommandline():
         CFG.set("ISS_PARENT", None)
     else:
         CFG.set("ISS_PARENT", OPTIONS.iss_parent or CFG.ISS_PARENT)
-        CFG.set("ISS_CA_CHAIN", OPTIONS.ca_cert or CFG.CA_CHAIN)
+        CFG.set("ISS_CA_CHAIN", OPTIONS.ca_cert or CFG.ISS_CA_CHAIN or CFG.CA_CHAIN)
+
     CFG.set("HTTP_PROXY", OPTIONS.http_proxy or CFG.HTTP_PROXY)
     CFG.set("HTTP_PROXY_USERNAME", OPTIONS.http_proxy_username or CFG.HTTP_PROXY_USERNAME)
     CFG.set("HTTP_PROXY_PASSWORD", OPTIONS.http_proxy_password or CFG.HTTP_PROXY_PASSWORD)

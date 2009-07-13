@@ -27,11 +27,6 @@ import select
 import urlparse
 
 
-###############
-### FUNCTIONS
-###############
-
-
 def setHeaderValue(mp_table, name, values):
     """
     Function that correctly sets headers in an Apache-like table
@@ -642,14 +637,3 @@ def createPath(path, user='apache', group='root', chmod=0755, logging=1):
             # Changing permissions failed; ignore the error
             sys.stderr.write("Changing owner for %s failed\n" % path)
 
-def _test_parseUrl():
-    print 'Testing parseUrl:'
-    print '(addressing scheme, network location, path,'
-    print ' parameters, query, fragment identifier)'
-    print parseUrl('')
-    print parseUrl('somehostname')
-    print parseUrl('http://somehostname')
-    print parseUrl('https://somehostname')
-    print parseUrl('https://somehostname:123')
-    print parseUrl('https://somehostname:123/ABCDE')
-    print

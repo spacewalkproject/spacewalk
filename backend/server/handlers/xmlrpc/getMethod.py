@@ -32,9 +32,7 @@ class GetMethodException(Exception):
 
 
 def sanity(methodNameComps):
-    #"""
-    # Verifies if all the components have proper names
-    #"""
+    """ Verifies if all the components have proper names."""
     # Allowed characters in each string
     alpha = string.lowercase + string.uppercase 
     allowedChars = alpha + string.digits + '_'
@@ -52,10 +50,9 @@ def sanity(methodNameComps):
 
 
 def getMethod(methodName, abspath, baseClass):
-    #"""
-    #Retreive method given methodName, path to base of tree, and class/module
-    #route/label.
-    #"""
+    """ Retreive method given methodName, path to base of tree, and class/module
+        route/label.
+    """
     # First split the method name
     methodNameComps = string.split(baseClass, '.') + string.split(methodName, '.')  
     # Sanity checks

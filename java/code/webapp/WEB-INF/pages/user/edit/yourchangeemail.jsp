@@ -5,13 +5,6 @@
 <html:xhtml/>
 <html>
 <body>
-
-
-<html:messages id="message" message="true">
-    <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
-
 <rhn:toolbar base="h1" img="/img/rhn-icon-users.gif"
                  helpUrl="/rhn/help/reference/en-US/s1-sm-your-rhn.jsp#s2-sm-your-rhn-account"
                  imgAlt="users.jsp.imgAlt">
@@ -21,9 +14,6 @@
 <p>
 ${pageinstructions}
 </p>
-
-<html:errors />
-
 <html:form action="/account/ChangeEmailSubmit">
   <html:text property="email" size="32" />
   <html:submit value="${button_label}" />

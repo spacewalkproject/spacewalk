@@ -50,6 +50,8 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public static final String PUBLIC = "public";
     public static final String PROTECTED = "protected";
     public static final String PRIVATE = "private";
+    private static final String CHECKSUM_SHA_1 = "SHA1";
+    private static final String CHECKSUM_SHA_256 = "SHA-256";
 
     private static List<String> releaseToSkipRepodata = new ArrayList<String>(Arrays
             .asList("2.1AS", "2.1ES", "2.1WS", "3AS", "3ES", "3WS", "3Desktop", "4AS",
@@ -57,6 +59,8 @@ public class Channel extends BaseDomainHelper implements Comparable {
     private static List<String> archesToSkipRepodata = new ArrayList<String>(Arrays
             .asList("channel-sparc-sun-solaris", "channel-i386-sun-solaris", 
                     "channel-sparc"));
+    private static List<String> sha1compatiblechannels = new ArrayList<String>(Arrays
+            .asList("5Server", "5Client"));
     private String baseDir;
     private ChannelArch channelArch;
     private String description;
@@ -790,5 +794,31 @@ public class Channel extends BaseDomainHelper implements Comparable {
      */
     public boolean containsDistributions() {
         return ChannelFactory.containsDistributions(this);
+    }
+
+    /**
+     * get the compatible checksum type to be used for repomd.xml
+     * based on channel release. If its RHEL-5 we use sha1
+     * anything newer will be sha256.
+     * @return checksumType
+     */
+    public String getChecksumType() {
+        Channel toConsider = this;
+        while (toConsider.getParentChannel() != null) {
+            toConsider = toConsider.getParentChannel();
+        }
+        DistChannelMap channelDist = ChannelFactory.lookupDistChannelMap(toConsider);
+        if (channelDist != null) {
+            String release = channelDist.getRelease();
+            // If channle or parent is RHEL-5 use sha1, else use sha256
+            if (sha1compatiblechannels.contains(release)) {
+                return CHECKSUM_SHA_1;
+            }
+            else {
+                return CHECKSUM_SHA_256;
+            }
+        }
+        // default to sha256
+        return CHECKSUM_SHA_256;
     }
 }

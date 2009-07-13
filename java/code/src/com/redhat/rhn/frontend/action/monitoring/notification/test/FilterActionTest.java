@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.monitoring.notification.test;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.monitoring.MonitoringFactory;
 import com.redhat.rhn.domain.monitoring.ServerProbe;
@@ -71,8 +71,8 @@ public class FilterActionTest extends RhnBaseTestCase {
 
     public void enableMonitoring() throws Exception {
         ConfigureSatelliteCommand cmd = new ConfigureSatelliteCommand(user);
-        cmd.updateBoolean(Config.WEB_IS_MONITORING_BACKEND, true);
-        cmd.updateBoolean(Config.WEB_IS_MONITORING_BACKEND, true);
+        cmd.updateBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, true);
+        cmd.updateBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, true);
         
     }
     

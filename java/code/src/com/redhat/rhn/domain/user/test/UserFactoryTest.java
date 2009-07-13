@@ -15,24 +15,12 @@
 
 package com.redhat.rhn.domain.user.test;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-
 import com.redhat.rhn.common.localization.LocalizationService;
-
 import com.redhat.rhn.domain.org.Org;
-
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
-
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
-
 import com.redhat.rhn.domain.user.Address;
 import com.redhat.rhn.domain.user.RhnTimeZone;
 import com.redhat.rhn.domain.user.State;
@@ -41,15 +29,19 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.domain.user.UserServerPreference;
 import com.redhat.rhn.domain.user.UserServerPreferenceId;
-
 import com.redhat.rhn.manager.user.UserManager;
-
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestStatics;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
 import org.hibernate.Session;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /** JUnit test case for the User
  *  class.

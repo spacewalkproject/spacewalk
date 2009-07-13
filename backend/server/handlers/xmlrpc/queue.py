@@ -32,12 +32,11 @@ from server.rhnServer import server_kickstart
 
 import getMethod
 
-#
-# XMLRPC queue functions that we will provide for the outside world
-#
 class Queue(rhnHandler):
-    # Add a list of functions we are willing to server out
+    """ XMLRPC queue functions that we will provide for the outside world. """
+
     def __init__(self):
+        """ Add a list of functions we are willing to server out. """
         rhnHandler.__init__(self)
         self.functions.append('get')
         self.functions.append('length')
@@ -51,9 +50,9 @@ class Queue(rhnHandler):
             },
         }
 
-    # Fetches old queued actions for the client version 1
     def __getV1(self, action):
-	log_debug(3, self.server_id)
+        """ Fetches old queued actions for the client version 1. """
+        log_debug(3, self.server_id)
         actionId = action['id']
         method = action["method"]
         if method == 'packages.update':
@@ -70,9 +69,9 @@ class Queue(rhnHandler):
         # all good
         return {'id': actionId, 'version': 1, 'action': xml}
 
-    # Fetches queued actions for the clients version 2+
     def __getV2(self, action):
-	log_debug(3, self.server_id)
+        """ Fetches queued actions for the clients version 2+. """
+        log_debug(3, self.server_id)
         # Get the root dir of this install
         rootDir = rhnFlags.get("RootDir")
         if not rootDir:
@@ -102,16 +101,17 @@ class Queue(rhnHandler):
             'version'   : action['version'],
         }
     
-
-    # update the runnng kernel and the last boot values for this
-    # server from the status dictionary passed on queue checkin
     def __update_status(self, status):
-        # record last running kernel and uptime.  only update
-        # last_boot if it has changed by more than five minutes.  we
-        # don't know the timezone the server is in. or even if its
-        # clock is right, but we do know it can properly track seconds
-        # since it rebooted, and use our own clocks to keep proper
-        # track of the actual time
+        """ Update the runnng kernel and the last boot values for this
+            server from the status dictionary passed on queue checkin.
+
+            Record last running kernel and uptime.  Only update
+            last_boot if it has changed by more than five minutes. We
+            don't know the timezone the server is in. or even if its
+            clock is right, but we do know it can properly track seconds
+             since it rebooted, and use our own clocks to keep proper
+            track of the actual time.
+        """
         
         if status.has_key('uname'):
             kernelver = status['uname'][2]
@@ -142,7 +142,7 @@ class Queue(rhnHandler):
     def __should_snapshot(self):
         log_debug(4, self.server_id, "determining whether to snapshot...")
 
-	entitlements = self.server.check_entitlement()
+        entitlements = self.server.check_entitlement()
         if not entitlements.has_key("provisioning_entitled"):
             return 0
 
@@ -217,7 +217,7 @@ class Queue(rhnHandler):
         else:
             self.update_checkin = 1
         self.auth_system(system_id)
-	log_debug(1, self.server_id, version,
+        log_debug(1, self.server_id, version,
                   "checkins %s" % ["disabled", "enabled"][self.update_checkin]) 
         if status:
             self.__update_status(status)
@@ -321,30 +321,29 @@ class Queue(rhnHandler):
 
         return ret
 
-    # submit the results of a queue run
     def submit(self, system_id, action_id, result, message="", data={}):
-        #"""
-        # maps old and new rhn_check behavior to new database status codes
-        #
-        # The new API uses 4 slightly different status codes than the
-        # old client does.  This function will "hopefully" sensibly
-        # map them.  Old methodology:
-        #   -rhn_check retrieves an action from the top of the action queue.
-        #   -It attempts to execute the desired action and returns either
-        #       (a) 0   -- presumed successful.
-        #       (b) rhnFault object -- presumed failed
-        #       (c) some other non-fault object -- *assumed* successful.
-        #   -Regardless of result code, action is marked as "executed"
-        #
-        # We try to make a smarter status selection (i.e. failed||completed).
-        #
-        # For reference:
-        # New DB status codes:      Old DB status codes: 
-        #       0: Queued               0: queued
-        #       1: Picked Up            1: picked up
-        #       2: Completed            2: executed
-        #       3: Failed               3: completed
-        #"""
+        """ Submit the results of a queue run.
+            Maps old and new rhn_check behavior to new database status codes
+
+            The new API uses 4 slightly different status codes than the
+            old client does.  This function will "hopefully" sensibly
+            map them.  Old methodology:
+               -rhn_check retrieves an action from the top of the action queue.
+               -It attempts to execute the desired action and returns either
+                   (a) 0   -- presumed successful.
+                   (b) rhnFault object -- presumed failed
+                   (c) some other non-fault object -- *assumed* successful.
+               -Regardless of result code, action is marked as "executed"
+
+            We try to make a smarter status selection (i.e. failed||completed).
+
+            For reference:
+            New DB status codes:      Old DB status codes: 
+                  0: Queued               0: queued
+                  1: Picked Up            1: picked up
+                  2: Completed            2: executed
+                  3: Failed               3: completed
+        """
         if type(action_id) is not IntType:
             # Convert it to int
             try:
@@ -428,11 +427,12 @@ class Queue(rhnHandler):
         rhnSQL.commit()
         return 0
 
-    # Convert whatever the client sends as a result code into a status in the
-    # database format
-    # This is more complicated, since some of the client's result codes have
-    # to be marked as successes
     def status_for_action_type_code(self, action_type, rcode):
+        """ Convert whatever the client sends as a result code into a status in the
+            database format
+            This is more complicated, since some of the client's result codes have
+            to be marked as successes.
+        """
         log_debug(4, action_type, rcode)
         if rcode == 0:
             # Completed
@@ -474,8 +474,8 @@ class Queue(rhnHandler):
         result = method(self.server_id, action_id, data=data)
         return result
 
-    # return the queue length for a certain server
     def length(self, system_id):
+        """ Return the queue length for a certain server. """
         # Authenticate the system certificate
         self.auth_system(system_id)
         log_debug(1, self.server_id)
@@ -496,18 +496,17 @@ class Queue(rhnHandler):
 
     ### PRIVATE methods
 
-    # update the status of an action
     def __update_action(self, action_id, status,
                            resultCode = None, message = ""):
+        """ Update the status of an action. """
         log_debug(4, action_id, status, resultCode, message)
         rhnAction.update_server_action(server_id=self.server_id,
             action_id=action_id, status=status, 
             result_code=resultCode, result_message=message)
         return 0
     
-    
-    # Old client errata retrieval
     def __errataUpdate(self, actionId):
+        """ Old client errata retrieval. """
         log_debug(3, self.server_id, actionId)
         # get the names of the packages associated with each errata and
         # look them up in channels subscribed to by the server and select
@@ -564,8 +563,8 @@ class Queue(rhnHandler):
         xml = xmlrpclib.dumps((packages,), methodname='client.update_packages')
         return xml
 
-    # Old client package retrieval
     def __packageUpdate(self, actionId):
+        """ Old client package retrieval. """
         log_debug(3, self.server_id, actionId)
         # The SQL query is a union of:
         # - packages with a specific EVR

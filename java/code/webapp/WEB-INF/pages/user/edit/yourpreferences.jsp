@@ -8,16 +8,11 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <rhn:toolbar base="h1" img="/img/rhn-icon-preferences.gif"
  helpUrl="/rhn/help/reference/en-US/s1-sm-your-rhn.jsp#s2-sm-your-rhn-prefs"
  imgAlt="preferences.jsp.alt">
 <bean:message key="Your Preferences"/>
 </rhn:toolbar>
-<html:errors />
 <html:form action="/account/PrefSubmit">
 <%@ include file="/WEB-INF/pages/common/fragments/user/preferences.jspf" %>
 </html:form>

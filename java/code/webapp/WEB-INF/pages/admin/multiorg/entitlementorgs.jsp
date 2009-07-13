@@ -15,12 +15,6 @@ function setOrgClicked(target) {
 </script>
 </head>
 <body>
-
-<html:errors />
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif"
  miscUrl="${url}"
  miscAcl="user_role(org_admin)"
@@ -47,7 +41,7 @@ imgAlt="users.jsp.imgAlt">
              name="pageList"
              filter="com.redhat.rhn.frontend.action.multiorg.SystemEntitlementOrgsFilter"
              styleclass="list"             
-             emptykey="sys_entitlements.noentitlements">    
+             emptykey="sys_entitlements.noentorgs">
         <rl:column bound="false"
             sortable="false"
             headerkey="entitlementorgs.orgname"

@@ -17,8 +17,6 @@
   </rhn:toolbar>
 
 <h2><bean:message key="probe-create.jsp.header2"/></h2>
-
-<html:errors />
 <html:form action="/monitoring/config/ProbeSuiteProbeCreate" method="POST">
     <c:set var="withSatCluster" value="false"/>
     <%@ include file="/WEB-INF/pages/common/fragments/probes/create-form-body.jspf" %>

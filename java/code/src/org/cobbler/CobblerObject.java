@@ -387,8 +387,8 @@ public abstract class CobblerObject {
     /**
      * @return the kernelMeta
      */
-    public Map<String, Object> getKsMeta() {
-        return (Map<String, Object>)dataMap.get(KS_META);
+    public Map<String, String> getKsMeta() {
+        return (Map<String, String>)dataMap.get(KS_META);
     }
 
     
@@ -477,7 +477,8 @@ public abstract class CobblerObject {
      * @return returns the red hat key as a string
      */
     public Set<String> getRedHatManagementKeySet() {
-        String[] sets = ((String) dataMap.get(REDHAT_KEY)).split(",");
+        String keys = StringUtils.defaultString(getRedHatManagementKey());
+        String[] sets = (keys).split(",");
         Set set = new HashSet();
         set.addAll(Arrays.asList(sets));
         return set;

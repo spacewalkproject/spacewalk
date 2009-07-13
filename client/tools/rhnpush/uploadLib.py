@@ -494,14 +494,13 @@ class UploadClass:
         
 
 def _processFile(filename, relativeDir=None, source=None, nosig=None):
-    """ Processes a file
-        Returns a hash containing:
-          header
-          packageSize
-          md5sum
-          relativePath
-          nvrea
-     """
+    # Processes a file
+    # Returns a hash containing:
+    #   header
+    #   packageSize
+    #   md5sum
+    #   relativePath
+    #   nvrea
 
     # Is this a file?
     if not os.access(filename, os.R_OK):
@@ -522,7 +521,7 @@ def _processFile(filename, relativeDir=None, source=None, nosig=None):
     f.close()
     if h is None:
         raise UploadError("%s is not a valid RPM file" % filename)
-
+    
     if nosig is None and not h.is_signed():
         raise UploadError("ERROR: %s: unsigned rpm (use --nosig to force)"
             % filename)

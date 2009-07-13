@@ -14,6 +14,9 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler;
 
+import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.domain.action.kickstart.KickstartGuestAction;
+import com.redhat.rhn.domain.action.kickstart.KickstartGuestActionDetails;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
@@ -88,7 +91,7 @@ public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
      */
     @Override
     public String getCobblerSystemRecordName() {
-        return super.getCobblerSystemRecordName() + ":" + guestName;
+        return super.getCobblerSystemRecordName() + ":" + guestName.replace(' ', '_');
     }
 
     @Override
@@ -120,5 +123,43 @@ public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
         }
     }
 
+    
+    /**
+     * Updates the cobbler virt attributes based on 
+     * params provided
+     * @param memoryMB the memory in MB
+     * @param diskSizeGb the diskSize in GB
+     * @param vcpus the number of cpus
+     * @param diskPath the disk path of the virt image.
+     */
+    protected void setupVirtAttributes(int memoryMB, int diskSizeGb,
+            int vcpus, String diskPath) {
+        SystemRecord rec = SystemRecord.lookupByName(
+                CobblerXMLRPCHelper.getConnection(user), getCobblerSystemRecordName());
+        if (rec != null) {
+            rec.setVirtRam(memoryMB);
+            rec.setVirtFileSize(diskSizeGb);
+            rec.setVirtCpus(vcpus);
+            rec.setVirtPath(diskPath);
+            rec.save();                
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ValidatorError store() {
+        ValidatorError error = super.store();
+        if (error == null) {
+            KickstartGuestAction action = (KickstartGuestAction) getScheduledAction();
+            KickstartGuestActionDetails details = action.getKickstartGuestActionDetails();
+            setupVirtAttributes(details.getMemMb().intValue(),
+                            details.getDiskGb().intValue(),
+                            details.getVcpus().intValue(),
+                            details.getDiskPath());
+        }
+        return error;
+    }
   
 }

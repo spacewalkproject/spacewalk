@@ -16,6 +16,7 @@
 package com.redhat.rhn.domain.user.legacy;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.domain.BaseDomainHelper;
@@ -163,7 +164,7 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
          * password before setting it. Otherwise, just
          * set it.
          */
-        if (Config.get().getBoolean(Config.WEB_ENCRYPTED_PASSWORDS)) {
+        if (Config.get().getBoolean(ConfigDefaults.WEB_ENCRYPTED_PASSWORDS)) {
             this.password = MD5Crypt.crypt(passwordIn);
         }
         else {
@@ -256,7 +257,7 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
 
     /** {@inheritDoc} */
     public boolean authenticate(String thePassword) {
-        String pamAuthService = Config.get().getString(Config.WEB_PAM_AUTH_SERVICE);
+        String pamAuthService = Config.get().getString(ConfigDefaults.WEB_PAM_AUTH_SERVICE);
         boolean result = false;
         /*
          * If we have a valid pamAuthService and the user uses pam authentication,
@@ -278,7 +279,7 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
              * a straight clear-text comparison.
              */
             boolean useEncrPasswds =
-                Config.get().getBoolean(Config.WEB_ENCRYPTED_PASSWORDS);
+                Config.get().getBoolean(ConfigDefaults.WEB_ENCRYPTED_PASSWORDS);
             if (useEncrPasswds) {
                 result = MD5Crypt.crypt(thePassword, password).equals(password);
             }
@@ -925,7 +926,7 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
             * password before setting it. Otherwise, just
             * set it.
             */
-            if (Config.get().getBoolean(Config.WEB_ENCRYPTED_PASSWORDS)) {
+            if (Config.get().getBoolean(ConfigDefaults.WEB_ENCRYPTED_PASSWORDS)) {
                 password = MD5Crypt.crypt(passwordIn);
             }
             else {

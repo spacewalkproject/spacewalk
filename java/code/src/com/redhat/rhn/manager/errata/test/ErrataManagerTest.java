@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.LookupException;
+import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.errata.Bug;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
@@ -40,6 +41,7 @@ import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.test.ErrataCacheManagerTest;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
+import com.redhat.rhn.testing.ChannelTestUtils;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
@@ -142,10 +144,11 @@ public class ErrataManagerTest extends RhnBaseTestCase {
     }
     
     public void testSearch() throws Exception {
-        Package p = PackageTest.createTestPackage();
         // errata search is done by the search-server. The search
         // in ErrataManager is to load ErrataOverview objects from
         // the results of the search-server searches.
+        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        Package p = PackageTest.createTestPackage();
         Errata e = ErrataManager.createNewErrata();
         assertTrue(e instanceof UnpublishedErrata);
         e.setAdvisory("ZEUS-2007");
@@ -158,12 +161,14 @@ public class ErrataManagerTest extends RhnBaseTestCase {
         e.setIssueDate(new Date());
         e.setUpdateDate(e.getIssueDate());
         e.addPackage(p);
-        e = ErrataManager.publish(e);
-        assertTrue(e instanceof PublishedErrata);
-        
+
+        Channel baseChannel = ChannelTestUtils.createBaseChannel(user);
+        Errata publish = ErrataFactory.publishToChannel(e, baseChannel, user);
+        assertTrue(publish instanceof PublishedErrata);
+
         List eids = new ArrayList();
-        eids.add(e.getId());
-        List<ErrataOverview> eos = ErrataManager.search(eids);
+        eids.add(publish.getId());
+        List<ErrataOverview> eos = ErrataManager.search(eids, user.getOrg());
         assertNotNull(eos);
         assertEquals(1, eos.size());
     }

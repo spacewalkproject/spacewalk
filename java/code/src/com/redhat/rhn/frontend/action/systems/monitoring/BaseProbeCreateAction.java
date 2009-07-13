@@ -14,6 +14,26 @@
  */
 package com.redhat.rhn.frontend.action.systems.monitoring;
 
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.monitoring.MonitoringFactory;
+import com.redhat.rhn.domain.monitoring.Probe;
+import com.redhat.rhn.domain.monitoring.command.Command;
+import com.redhat.rhn.domain.monitoring.command.CommandGroup;
+import com.redhat.rhn.domain.monitoring.satcluster.SatClusterFactory;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.manager.monitoring.ModifyProbeCommand;
+import com.redhat.rhn.manager.monitoring.MonitoringManager;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
+import org.apache.commons.lang.StringUtils;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
+import org.apache.struts.util.LabelValueBean;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -26,26 +46,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Transformer;
-import org.apache.commons.lang.StringUtils;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
-import org.apache.struts.util.LabelValueBean;
-
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.domain.monitoring.MonitoringFactory;
-import com.redhat.rhn.domain.monitoring.Probe;
-import com.redhat.rhn.domain.monitoring.command.Command;
-import com.redhat.rhn.domain.monitoring.command.CommandGroup;
-import com.redhat.rhn.domain.monitoring.satcluster.SatClusterFactory;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.manager.monitoring.ModifyProbeCommand;
-import com.redhat.rhn.manager.monitoring.MonitoringManager;
 
 /**
  * BaseProbeCreateAction

@@ -6,9 +6,6 @@
 <html:xhtml/>
 <html>
 <body>
-
-<html:errors />
-
 <%@ include
 	file="/WEB-INF/pages/common/fragments/configuration/channel/details-header.jspf"%>
 

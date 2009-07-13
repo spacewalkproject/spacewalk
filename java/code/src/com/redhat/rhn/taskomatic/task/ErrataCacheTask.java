@@ -14,14 +14,14 @@
  */
 package com.redhat.rhn.taskomatic.task;
 
-import org.apache.log4j.Logger;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.taskomatic.task.errata.ErrataCacheDriver;
 import com.redhat.rhn.taskomatic.task.threaded.TaskQueue;
 import com.redhat.rhn.taskomatic.task.threaded.TaskQueueFactory;
+
+import org.apache.log4j.Logger;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 
 /**
  * ErrataCacheTask

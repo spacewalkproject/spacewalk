@@ -299,8 +299,8 @@ class IncompleteLimitInfo(SolveDependenciesError):
 class MakeEvrError(SolveDependenciesError):
     pass
 
-# Now run one of those queries and return the results
 def __single_query(server_id, deps, query):
+    """ Now run one of those queries and return the results. """
     ret = {}
     # first prepare the statement
     h = rhnSQL.prepare(query)
@@ -310,8 +310,8 @@ def __single_query(server_id, deps, query):
         ret[dep] = map(lambda a: a[:4], data)
     return ret
 
-#Run one of the queries and return the results along with the arch.
 def __single_query_with_arch_and_id(server_id, deps, query):
+    """ Run one of the queries and return the results along with the arch. """
     ret = {}
     h = rhnSQL.prepare(query)
     for dep in deps:
@@ -320,9 +320,10 @@ def __single_query_with_arch_and_id(server_id, deps, query):
         ret[dep] = map(lambda a: a[:6], data)
     return ret
 
-# IN: 'e:name-version-release' or 'name-version-release:e'
-# OUT: {'name':name, 'version':version, 'release':release, 'epoch':epoch }
 def make_evr(nvre):
+    """ IN: 'e:name-version-release' or 'name-version-release:e'
+        OUT: {'name':name, 'version':version, 'release':release, 'epoch':epoch }
+    """
     epoch = ''
     name = ''
     version = ''
@@ -398,28 +399,26 @@ def find_by_files_all(server_id, deps):
     log_debug(4, server_id, deps)
     return __single_query(server_id, deps, __files_all_sql)
 
-
-
-#This version of solve_dependencies allows the caller to get all of the packages that solve a dependency and limit
-#the packages that are returned to those that match the criteria defined by limit_operator and limit. This version
-#of the function also returns the architecture label of the package[s] that get returned.
-#
-#limit_operator can be any of: '<', '<=', '==', '>=', or '>'.
-#limit is a a string of the format [epoch:]name-version-release
-#deps is a list of filenames that the packages that are returned must provide.
-#version is the version of the client that is calling the function.
 def solve_dependencies_with_limits(server_id, deps, version, all = 0, limit_operator=None, limit = None):
+    """ This version of solve_dependencies allows the caller to get all of the packages that solve a dependency and limit
+        the packages that are returned to those that match the criteria defined by limit_operator and limit. This version
+        of the function also returns the architecture label of the package[s] that get returned.
 
-    #Indexes for the tuple
-    #entry_index = 0
-    #preference_index = 1
+        limit_operator can be any of: '<', '<=', '==', '>=', or '>'.
+        limit is a a string of the format [epoch:]name-version-release
+        deps is a list of filenames that the packages that are returned must provide.
+        version is the version of the client that is calling the function.
 
-    #Indexes for the list of package fields.
-    #name_index = 0
-    #version_index = 1
-    #release_index = 2
-    #epoch_index = 3
+        Indexes for the tuple
+        entry_index = 0
+        preference_index = 1
 
+        Indexes for the list of package fields.
+        name_index = 0
+        version_index = 1
+        release_index = 2
+        epoch_index = 3
+    """
     #Containers used while the packages get categorized, sorted, and filtered.
     packages_all = {}
     package_list = []
@@ -562,27 +561,28 @@ def solve_dependencies_with_limits(server_id, deps, version, all = 0, limit_oper
             result.append(r)
     return result
 
-#Does the same thing as solve_dependencies, but also returns the architecture label with the package info.
-#IN: 
-#   server_id := id info of the server
-#   deps := list of filenames that are needed by the caller
-#   version := version of the client
-#
-#OUT:
-#   Dictionary with key values being the filnames in deps and the values being a list of lists of package info.
-#   Example :=  {'filename1'    :   [['name', 'version', 'release', 'epoch', 'architecture'], 
-#                                    ['name2', 'version2', 'release2', 'epoch2', 'architecture2']]}    
 def solve_dependencies_arch(server_id, deps, version):
-    #Indexes for the tuple stored as the value in dict
-    #entry_index = 0
-    #preference_index = 1
+    """ Does the same thing as solve_dependencies, but also returns the architecture label with the package info.
+        IN:
+           server_id := id info of the server
+           deps := list of filenames that are needed by the caller
+           version := version of the client
 
-    #indexes for the list nvre
-    #name_index = 0
-    #version_index = 1
-    #release_index = 2
-    #epoch_index = 3
-    
+        OUT:
+           Dictionary with key values being the filnames in deps and the values being a list of lists of package info.
+           Example :=  {'filename1'    :   [['name', 'version', 'release', 'epoch', 'architecture'],
+                                            ['name2', 'version2', 'release2', 'epoch2', 'architecture2']]}
+
+        Indexes for the tuple stored as the value in dict
+        entry_index = 0
+        preference_index = 1
+
+        indexes for the list nvre
+        name_index = 0
+        version_index = 1
+        release_index = 2
+        epoch_index = 3
+    """
     #list of the keys to the values in each row of the recordset.
     nvre = ['name', 'version', 'release', 'epoch', 'arch']
 
@@ -666,17 +666,18 @@ def solve_dependencies_arch(server_id, deps, version):
             result.append(r)
     return result
 
-#the unchanged version of solve_dependencies. 
-#IN: 
-#   server_id := id info of the server
-#   deps := list of filenames that are needed by the caller
-#   version := version of the client
-#
-#OUT:
-#   Dictionary with key values being the filnames in deps and the values being a list of lists of package info.
-#   Example :=  {'filename1'    :   [['name', 'version', 'release', 'epoch'], 
-#                                    ['name2', 'version2', 'release2', 'epoch2']]}    
 def solve_dependencies(server_id, deps, version):
+    """ The unchanged version of solve_dependencies. 
+        IN: 
+           server_id := id info of the server
+           deps := list of filenames that are needed by the caller
+           version := version of the client
+
+        OUT:
+           Dictionary with key values being the filnames in deps and the values being a list of lists of package info.
+           Example :=  {'filename1'    :   [['name', 'version', 'release', 'epoch'], 
+                                            ['name2', 'version2', 'release2', 'epoch2']]}    
+    """
     # first, uniquify deps
     deplist = []
     for dep in deps:
@@ -749,10 +750,10 @@ def solve_dependencies(server_id, deps, version):
 
 
 
-#Intended to be passed to a list object's sort().
-#In: {'epoch': 'value', 'version':'value', 'release':'value'}
 def cmp_evr(pkg1, pkg2):
-
+    """ Intended to be passed to a list object's sort().
+        In: {'epoch': 'value', 'version':'value', 'release':'value'}
+    """
     pkg1_epoch = pkg1['epoch']
     pkg1_version = pkg1['version']
     pkg1_release = pkg1['release']
@@ -774,13 +775,14 @@ def cmp_evr(pkg1, pkg2):
     return rpm.labelCompare((pkg1_epoch, pkg1_version, pkg1_release),
                              (pkg2_epoch, pkg2_version, pkg2_release))
 
-#Check to see if evr is within the limit.
-#IN: evr = { 'epoch' : value, 'version':value, 'release':value }
-#    operator can be any of: '<', '<=', '==', '>=', '>'
-#    limit = { 'epoch' : value, 'version':value, 'release':value }
-#OUT: 
-#   1 or 0
 def test_evr(evr, operator, limit):
+    """ Check to see if evr is within the limit.
+        IN: evr = { 'epoch' : value, 'version':value, 'release':value }
+            operator can be any of: '<', '<=', '==', '>=', '>'
+            limit = { 'epoch' : value, 'version':value, 'release':value }
+        OUT: 
+           1 or 0
+    """
     good_operators = ['<', '<=', '==', '>=', '>']
 
     if not operator in good_operators:

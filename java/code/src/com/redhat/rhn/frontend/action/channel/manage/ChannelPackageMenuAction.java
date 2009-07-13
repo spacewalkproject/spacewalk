@@ -35,8 +35,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ChannelPackageMenuAction extends RhnAction {
 
-
-
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
@@ -45,7 +43,6 @@ public class ChannelPackageMenuAction extends RhnAction {
 
         RequestContext requestContext = new RequestContext(request);
         User user =  requestContext.getLoggedInUser();
-
 
         long cid = requestContext.getRequiredParam("cid");
 
@@ -57,13 +54,8 @@ public class ChannelPackageMenuAction extends RhnAction {
 
         request.setAttribute("channel_name", chan.getName());
         request.setAttribute("channel", chan);
+        request.setAttribute("cid", cid);
 
         return mapping.findForward("default");
-
     }
-
-
-
-
-
 }

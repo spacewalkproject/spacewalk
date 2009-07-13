@@ -14,20 +14,19 @@
  */
 package com.redhat.rhn.domain.monitoring.satcluster;
 
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.util.MD5Crypt;
+import com.redhat.rhn.domain.user.User;
+
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-
-import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.common.util.MD5Crypt;
-import com.redhat.rhn.domain.user.User;
 
 /**
  * SatClusterFactory - the singleton class used to fetch and store
@@ -50,17 +49,10 @@ public class SatClusterFactory extends HibernateFactory {
     }
     
     private static PhysicalLocation lookupPhysicalLocation(Long id) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            PhysicalLocation u = (PhysicalLocation)
-                session.get(PhysicalLocation.class, id);
-            return u;
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-        return null;
+        Session session = HibernateFactory.getSession();
+        PhysicalLocation u = (PhysicalLocation)
+            session.get(PhysicalLocation.class, id);
+        return u;
     }
 
     /**

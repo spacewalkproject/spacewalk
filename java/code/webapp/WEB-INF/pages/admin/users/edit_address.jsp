@@ -8,8 +8,6 @@
 <body>
 
 <%@ include file="/WEB-INF/pages/common/fragments/user/user-header.jspf" %>
-
-<html:errors />
 <html:form action="/users/EditAddressSubmit">
 <html:hidden property="type"/>
 <h2><bean:message key="message.Update"/> ${editAddressForm.map.typedisplay}</h2>

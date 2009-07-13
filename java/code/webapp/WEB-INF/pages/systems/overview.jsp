@@ -10,12 +10,6 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-
-<html:errors/>
-<html:messages id="message" message="true">
-    <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <rhn:toolbar base="h1" img="/img/rhn-icon-system.gif" imgAlt="overview.jsp.alt"
  helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-overview">
   <bean:message key="overview.jsp.header"/>

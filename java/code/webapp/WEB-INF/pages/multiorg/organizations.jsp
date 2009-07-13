@@ -7,19 +7,13 @@
 <html>
 <body>
 
-<html:errors />
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
-<html:errors />
 <c:set var="pageList" value="${requestScope.pageList}" />
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-org.gif" >
   <bean:message key="organizations.jsp.toolbar"/>
 </rhn:toolbar>
 
-<h2><bean:message key="org.trust.header" arg0="${orgName}"/></h2>
+<h2><bean:message key="org.trust.header" arg0="${orgName}" arg1="${orgId}"/></h2>
 
 <div>
 <rl:listset name="orgListSet">

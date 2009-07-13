@@ -7,9 +7,6 @@
 <body>
 
 <%@ include file="/WEB-INF/pages/common/fragments/profile/header.jspf" %>
-
-<html:errors />
-
 <div>
     <html:form action="/profiles/Details">
 

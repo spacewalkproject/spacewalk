@@ -15,6 +15,7 @@
 package com.redhat.rhn.taskomatic.core;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.conf.ConfigException;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.messaging.MessageQueue;
@@ -143,13 +144,13 @@ public class SchedulerKernel {
         }
         
         // get the default tasks first
-        String[] jobs = config.getStringArray(Config.TASKOMATIC_DEFAULT_TASKS);
+        String[] jobs = config.getStringArray(ConfigDefaults.TASKOMATIC_DEFAULT_TASKS);
         if (jobs != null && jobs.length > 0) {
             jobImpls.addAll(Arrays.asList(jobs));
         }
         
         // get other tasks
-        String[] addlJobs = config.getStringArray(Config.TASKOMATIC_TASKS);
+        String[] addlJobs = config.getStringArray(ConfigDefaults.TASKOMATIC_TASKS);
         if (addlJobs != null && addlJobs.length > 0) {
             jobImpls.addAll(Arrays.asList(addlJobs));
         }

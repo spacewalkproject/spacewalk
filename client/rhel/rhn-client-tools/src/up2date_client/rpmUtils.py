@@ -163,6 +163,8 @@ def getInstalledPackageList(msgCallback = None, progressCallback = None,
             cookie = h['cookie']
             if arch and cookie:
                 pkg_list.append([name, version, release, epoch, arch, cookie])
+            elif arch:
+                pkg_list.append([name, version, release, epoch, arch])
         else:
             pkg_list.append([name, version, release, epoch])
 

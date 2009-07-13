@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.errata.test;
 
-import java.util.Iterator;
-
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
@@ -28,6 +26,8 @@ import com.redhat.rhn.frontend.dto.OwnedErrata;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+
+import java.util.Iterator;
 
 /**
  * DeleteConfirmSetupActionTest

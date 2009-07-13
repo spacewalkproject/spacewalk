@@ -14,14 +14,14 @@
  */
 package com.redhat.rhn.domain.rhnpackage.test;
 
-import java.util.Date;
-
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PatchSet;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
+
+import java.util.Date;
 
 /**
  * PatchSetTest

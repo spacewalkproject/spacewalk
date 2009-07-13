@@ -8,11 +8,6 @@
 
 <html>
 <body>
-<html:errors />
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <rhn:toolbar base="h1" img="/img/rhn-config_central.gif"
 	imgAlt="config.common.globalAlt"
 	helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-channels">

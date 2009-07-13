@@ -14,10 +14,10 @@
  */
 package com.redhat.rhn.domain.channel;
 
+import com.redhat.rhn.frontend.struts.Selectable;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.redhat.rhn.frontend.struts.Selectable;
 
 /**
  * 

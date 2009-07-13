@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: %{name}-%{version}.tar.gz
 Url: http://rhn.redhat.com
 Name: rhnsd
-Version: 4.5.9
+Version: 4.5.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -43,7 +43,7 @@ fi
 
 %postun
 if [ "$1" -ge "1" ]; then
-    /etc/rc.d/init.d/rhnsd condrestart >/dev/null 2>&1
+    /etc/rc.d/init.d/rhnsd condrestart >/dev/null 2>&1 || :
 fi
 
 %clean
@@ -58,6 +58,14 @@ rm -fr $RPM_BUILD_ROOT
 %{_mandir}/man8/rhnsd.8*
 
 %changelog
+* Tue Jul  7 2009 Pradeep Kilambi <pkilambi@redhat.com>
+- Resolves: #503719 - fix for postun scriptlet error
+
+* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 4.5.10-1
+- 243699: fixing the error code when unknown command is used with rhnsd init
+  (pkilambi@redhat.com)
+- updateing translations for rhnsd (pkilambi@redhat.com)
+
 * Wed Jun  3 2009 Pradeep Kilambi <pkilambi@redhat.com> 4.7.0-3
 - Resolves:  #243699 -fixing error code for unknown command to rhnsd init script
 

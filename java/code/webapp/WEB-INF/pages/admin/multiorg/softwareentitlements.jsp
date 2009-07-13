@@ -8,12 +8,6 @@
 <head>
 </head>
 <body>
-
-<html:errors />
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif"
 	miscUrl="${url}"
 	miscAcl="user_role(org_admin)"

@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.manager.monitoring.test;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.monitoring.MonitoringConstants;
 import com.redhat.rhn.domain.monitoring.Probe;
 import com.redhat.rhn.domain.monitoring.ServerProbe;
@@ -44,7 +44,7 @@ public class ModifyProbeCommandTest extends BaseTestCaseWithUser {
 
     
     public void testCreateForProbeSuite() throws Exception {
-        if (!Config.get().isMonitoringBackend()) {
+        if (!ConfigDefaults.get().isMonitoringBackend()) {
             return;
         }
         ProbeSuite ps = ProbeSuiteTest.createTestProbeSuite(user);
@@ -97,7 +97,7 @@ public class ModifyProbeCommandTest extends BaseTestCaseWithUser {
     }
 
     public void testCreateServerProbe() throws Exception {
-        if (!Config.get().isMonitoringBackend()) {
+        if (!ConfigDefaults.get().isMonitoringBackend()) {
             return;
         }
         Command c = MonitoringConstants.getCommandCheckTCP();
@@ -146,7 +146,7 @@ public class ModifyProbeCommandTest extends BaseTestCaseWithUser {
      * @throws Exception 
      */
     public void testCreateEmptyServerProbe() throws Exception {
-        if (!Config.get().isMonitoringBackend()) {
+        if (!ConfigDefaults.get().isMonitoringBackend()) {
             return;
         }
         Command c = MonitoringConstants.getCommandCheckTCP();

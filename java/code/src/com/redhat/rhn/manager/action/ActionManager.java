@@ -70,6 +70,7 @@ import com.redhat.rhn.manager.system.SystemManager;
 import org.apache.log4j.Logger;
 import org.cobbler.Profile;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -79,7 +80,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.ArrayList;
 
 /**
  * ActionManager - the singleton class used to provide Business Operations
@@ -1154,6 +1154,19 @@ public class ActionManager extends BaseManager {
     }
 
     /**
+     * Schedules one or more package upgrade actions for the given servers.
+     * Note: package upgrade = package install
+     * @param scheduler User scheduling the action.
+     * @param srvr list of servers on which the action affects.
+     * @param pkgs The set of packages to be removed.
+     * @param earliestAction Date of earliest action to be executed
+     */
+    public static void schedulePackageUpgrades(User scheduler,
+            List<Server> srvr, List<Map<String, Long>> pkgs, Date earliestAction) {
+        schedulePackageInstall(scheduler, srvr, pkgs, earliestAction);
+    }
+
+    /**
      * Schedules one or more package upgrade actions for the given server.
      * Note: package upgrade = package install
      * @param scheduler User scheduling the action.
@@ -1452,7 +1465,7 @@ public class ActionManager extends BaseManager {
         kad.setParentAction(ksAction);
         
         kad.setDiskGb(pcmd.getLocalStorageSize());
-        kad.setMemKb(pcmd.getMemoryAllocation().longValue() * 1024);
+        kad.setMemMb(pcmd.getMemoryAllocation().longValue());
         kad.setVirtBridge(pcmd.getVirtBridge());
         kad.setDiskPath(pcmd.getFilePath());
         kad.setVcpus(new Long(pcmd.getVirtualCpus()));

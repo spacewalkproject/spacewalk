@@ -15,6 +15,7 @@
 package com.redhat.rhn.taskomatic.task;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
@@ -246,14 +247,14 @@ public class ErrataMailer extends SingleThreadedTestableTask {
         //Build the hostname with protocol. Used to create urls for the email.
         String host;
         //The protocol from configuration.
-        if (Config.get().isSSLAvailable()) {
+        if (ConfigDefaults.get().isSSLAvailable()) {
             host = "https://";
         }
         else {
             host = "http://";
         }
         //Add the hostname
-        host = host + Config.get().getHostname();
+        host = host + ConfigDefaults.get().getHostname();
         
         //Build the email body
         body.append(getEmailBodySummary(errata, host));

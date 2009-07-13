@@ -4,8 +4,6 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <html:html xhtml="true">
 <body>
-
-<html:errors />
 <%@ include file="/WEB-INF/pages/common/fragments/activationkeys/common-header.jspf" %>
 
 <c:import url="/WEB-INF/pages/common/fragments/activationkeys/details.jspf">

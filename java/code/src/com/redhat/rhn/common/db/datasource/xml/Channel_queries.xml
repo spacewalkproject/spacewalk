@@ -1046,14 +1046,19 @@ SELECT  DISTINCT C.id
     </query>
 </mode>
 
-<mode name="channels_with_package">
-    <query params="package">
+<mode name="child_channels_with_package">
+    <query params="package, org_id">
 SELECT  DISTINCT CP.channel_id as id
-  FROM  rhnChannelPackage CP 
+  FROM  rhnChannelPackage CP
   inner join  rhnPackage P on CP.package_id = P.id 
   inner join  rhnPackageName PN on P.name_id = PN.id
+  inner join  rhnChannel C on C.id = CP.channel_id
+  inner join rhnAvailableChannels AC on AC.channel_id = C.id
  WHERE  
-  PN.name = :package
+  PN.name = :package and
+  C.parent_channel is not null and
+  AC.org_id = :org_id
+
     </query>
 </mode>
     

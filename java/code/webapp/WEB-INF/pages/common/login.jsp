@@ -9,12 +9,6 @@
     <meta name="decorator" content="layout_equals" />
 </head>
 <body onLoad="formFocus('loginForm', 'username')">
-
-<html:errors/>
-<html:messages id="message" message="true">
-    <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <c:if test="${requestScope.hasExpired != 'true'}">
 <div id="contentLeft">
   <div class="clearBox">

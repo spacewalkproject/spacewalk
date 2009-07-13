@@ -76,9 +76,12 @@ public class PackageSerializer implements XmlRpcCustomSerializer {
         
         String provider = LocalizationService.getInstance().getMessage(
                 "channel.jsp.gpgunknown");
-        for (PackageKey key : pack.getPackageKeys()) {
-            if (key.getType().equals(PackageFactory.PACKAGE_KEY_TYPE_GPG)) {
+        if (pack.getPackageKeys() != null) {
+            for (PackageKey key : pack.getPackageKeys()) {
+                if (key.getType().equals(PackageFactory.PACKAGE_KEY_TYPE_GPG) &&
+                    key.getProvider() != null) {
                     provider = key.getProvider().getName();
+                }
             }
         }
         helper.add("provider", provider); 

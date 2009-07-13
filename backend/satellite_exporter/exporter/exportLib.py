@@ -544,6 +544,7 @@ class PackagesDumper(BaseDumper):
             select
                 p.id,
                 pn.name,
+                p.org_id,
                 pe.evr.version version,
                 pe.evr.release release,
                 pe.evr.epoch epoch,
@@ -592,9 +593,9 @@ class _PackageDumper(BaseRowDumper):
 
     def set_attributes(self):
         attrs = ["name", "version", "release", "package_arch",
-            "package_group", "rpm_version", "package_size", "payload_size", 
-            "build_host", "source_rpm", "md5sum", "payload_format", 
-            "compat", "cookie"]
+            "package_group", "rpm_version", "package_size", "payload_size",
+            "build_host", "source_rpm", "md5sum", "payload_format",
+            "compat", "cookie", "org_id"]
         attrdict = {
             'id'            : "rhn-package-%s" % self._row['id'],
             'epoch'         : self._row['epoch'] or "",
@@ -698,7 +699,12 @@ class ShortPackagesDumper(BaseDumper):
                 pe.evr.release release,
                 pe.evr.epoch epoch,
                 pa.label package_arch,
+<<<<<<< HEAD:backend/satellite_exporter/exporter/exportLib.py
                 pcs.checksum as md5sum,
+=======
+                p.md5sum,
+                p.org_id,
+>>>>>>> master:backend/satellite_exporter/exporter/exportLib.py
                 TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
             from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe, 
                 rhnPackageArch pa,
@@ -716,8 +722,13 @@ class ShortPackagesDumper(BaseDumper):
     def dump_subelement(self, data):
         attributes = {}
         attrs = [
+<<<<<<< HEAD:backend/satellite_exporter/exporter/exportLib.py
             "id", "name", "version", "release", "epoch", 
             "package_arch",  "package_size", "md5sum"
+=======
+            "id", "name", "version", "release", "epoch",
+            "package_arch", "md5sum", "package_size", "org_id",
+>>>>>>> master:backend/satellite_exporter/exporter/exportLib.py
         ]
         for attr in attrs:
             attributes[attr.replace('_', '-')] = data[attr]

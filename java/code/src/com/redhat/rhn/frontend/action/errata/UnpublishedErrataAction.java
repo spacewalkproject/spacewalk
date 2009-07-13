@@ -14,20 +14,23 @@
  */
 package com.redhat.rhn.frontend.action.errata;
 
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
+import com.redhat.rhn.manager.errata.ErrataManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+
+import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionForm;
-import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-import com.redhat.rhn.manager.errata.ErrataManager;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.common.db.datasource.DataResult;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /** @version $Revision$ */
 public class UnpublishedErrataAction extends RhnAction implements Listable {

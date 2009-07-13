@@ -14,11 +14,6 @@
  */
 package com.redhat.rhn.manager.org;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.monitoring.MonitoringFactory;
 import com.redhat.rhn.domain.monitoring.Probe;
@@ -44,6 +39,11 @@ import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * MigrationManager
@@ -186,7 +186,11 @@ public class MigrationManager extends BaseManager {
      * @param server Server to be migrated.
      */
     public static void updateAdminRelationships(Org fromOrg, Org toOrg, Server server) {
-        
+        // TODO: In some scenarios this appears to be somewhat slow, for an org with
+        // around a thousand org admins and a dozen or so servers, this can take about a
+        // minute to run. Probably a much more efficient way to do this. (i.e. delete
+        // from rhnUserServerPerms where server_id = blah. Add a huge number of servers to
+        // the mix and it could take quite some time.
         for (User admin : fromOrg.getActiveOrgAdmins()) {
             admin.removeServer(server);
             UserFactory.save(admin);

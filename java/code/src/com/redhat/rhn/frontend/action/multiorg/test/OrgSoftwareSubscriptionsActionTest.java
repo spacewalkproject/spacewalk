@@ -14,9 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.multiorg.test;
 
-import java.util.Iterator;
-import java.util.List;
-
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.test.ChannelFamilyFactoryTest;
 import com.redhat.rhn.domain.org.OrgFactory;
@@ -25,6 +22,9 @@ import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * OrgSoftwareSubscriptionsActionTest

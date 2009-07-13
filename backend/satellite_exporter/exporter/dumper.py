@@ -772,6 +772,7 @@ class ShortPackagesDumper(CachedDumper, exportLib.ShortPackagesDumper):
         h = rhnSQL.prepare("""
             select
                 p.id,
+                p.org_id,
                 pn.name,
                 pe.evr.version version,
                 pe.evr.release release,
@@ -807,6 +808,7 @@ class PackagesDumper(CachedDumper, exportLib.PackagesDumper):
             select
                 p.id,
                 pn.name,
+                p.org_id,
                 pe.evr.version version,
                 pe.evr.release release,
                 pe.evr.epoch epoch,

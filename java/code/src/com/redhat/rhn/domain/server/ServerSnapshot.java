@@ -14,18 +14,18 @@
  */
 package com.redhat.rhn.domain.server;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import org.apache.commons.lang.builder.HashCodeBuilder;
-
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.PackageNevra;
+
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 

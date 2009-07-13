@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -70,7 +70,7 @@ public abstract class CobblerCommand {
      */
     public CobblerCommand() {
         xmlRpcToken = IntegrationService.get().getAuthToken(
-                Config.get().getCobblerAutomatedUser());
+                ConfigDefaults.get().getCobblerAutomatedUser());
         log.debug("Unauthenticated Cobbler call");
         // We abstract this fetch of the class so a test class
         // can override the invoker with a mock xmlrpc invoker. 
@@ -153,7 +153,7 @@ public abstract class CobblerCommand {
             return label.replace(' ', '_');
         }
         String format = "%s--%s";
-        String kickstartConfigDir = Config.get().getKickstartConfigDir();
+        String kickstartConfigDir = ConfigDefaults.get().getKickstartConfigDir();
         String fileName = String.format(format, label.replace(' ', '_'), org.getId()); 
         String retval = kickstartConfigDir + fileName + ".cfg";
         return retval;         

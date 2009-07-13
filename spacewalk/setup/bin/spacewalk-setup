@@ -246,7 +246,7 @@ sub setup_cobbler {
   if ($opts{'enable-tftp'}) {
     $answers{'enable-tftp'} = $opts{'enable-tftp'};
   }  
-  if ($answers{'enable-tftp'} =~ /^[Yy]/ ) {
+  if ($answers{'enable-tftp'} and $answers{'enable-tftp'} =~ /^[Yy]/ ) {
       system(COBBLER_COMMAND . " --enable-tftp=yes");
   }
   elsif ($answers{'enable-tftp'}) {

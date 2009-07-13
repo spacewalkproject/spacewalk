@@ -14,11 +14,10 @@
  */
 package com.redhat.rhn.frontend.struts.wizard;
 
-import org.apache.log4j.Logger;
-
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 
+import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;

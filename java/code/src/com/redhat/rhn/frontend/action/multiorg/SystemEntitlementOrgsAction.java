@@ -14,9 +14,12 @@
  */
 package com.redhat.rhn.frontend.action.multiorg;
 
+import java.util.Iterator;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
@@ -24,6 +27,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
+
 import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.entitlement.Entitlement;
@@ -86,6 +90,15 @@ public class SystemEntitlementOrgsAction extends RhnAction {
             OrgManager.allOrgsSingleEntitlementWithEmptyOrgs(entitlementLabel);
         Org satelliteOrg = OrgFactory.getSatelliteOrg();
 
+        //remove default org
+        for (Iterator<Map> itr = result.iterator(); itr.hasNext();) {
+            Map row = itr.next();
+            if (satelliteOrg.getId().equals(row.get("orgid"))) {
+                itr.remove();
+                break;
+            }
+        }
+
         request.setAttribute("egntname", entitlementLabel);
         request.setAttribute("enthuman", e.getHumanReadableLabel());
         request.setAttribute("pageList", result);
@@ -93,13 +106,28 @@ public class SystemEntitlementOrgsAction extends RhnAction {
             "?label=" + entitlementLabel);
 
         //Calculate System Wide Sat usage 
-        Long orgCount = OrgManager.getTotalOrgCount(user);
+        Long orgCount = OrgManager.getTotalOrgCount(user) - 1;
+        Long maxEnt = new Long(0);
+        Long curEnt = new Long(0);
+        Long alloc = new Long(0);
+
         DataList satEntCounts = OrgManager.getSatEntitlementUsage(entitlementLabel);
         Map row = (Map) satEntCounts.get(0);
-        Long maxEnt = ((Long) row.get("total")).longValue();
-        Long curEnt = ((Long) row.get("curr")).longValue();
-        Long alloc = ((Long) row.get("alloc")).longValue();
-        Long ratio = alloc * 100 / orgCount;
+
+        if (row.get("total") != null) {
+          maxEnt = ((Long) row.get("total")).longValue();
+        }
+        if (row.get("curr") != null) {
+          curEnt = ((Long) row.get("curr")).longValue();
+        }
+        if (row.get("alloc") != null) {
+          alloc = ((Long) row.get("alloc")).longValue();
+        }
+
+        Long ratio = new Long(0);
+        if (orgCount != 0) {
+          ratio = alloc * 100 / orgCount;
+        }
 
         request.setAttribute("maxEnt", maxEnt);
         request.setAttribute("curEnt", curEnt);

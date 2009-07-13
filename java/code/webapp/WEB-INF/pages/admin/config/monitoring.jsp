@@ -6,13 +6,7 @@
 <html:xhtml/>
 <html>
 <body>
-
-<html:errors />
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
-  <rhn:toolbar base="h1" img="/img/rhn-config_management.gif"
+<rhn:toolbar base="h1" img="/img/rhn-config_management.gif"
 	           helpUrl="">
     <bean:message key="generalconfig.jsp.header1"/>
   </rhn:toolbar>

@@ -14,9 +14,6 @@
  */
 package com.redhat.rhn.domain.org.test;
 
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 import com.redhat.rhn.domain.org.SystemMigration;
 import com.redhat.rhn.domain.org.SystemMigrationFactory;
 import com.redhat.rhn.domain.server.Server;
@@ -25,6 +22,10 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
+
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * SystemMigrationFactoryTest

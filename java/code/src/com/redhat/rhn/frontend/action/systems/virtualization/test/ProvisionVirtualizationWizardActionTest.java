@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.systems.virtualization.test;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -32,7 +32,6 @@ import com.redhat.rhn.domain.token.TokenFactory;
 import com.redhat.rhn.frontend.action.kickstart.ScheduleKickstartWizardAction;
 import com.redhat.rhn.frontend.action.kickstart.test.ScheduleKickstartWizardTest;
 import com.redhat.rhn.frontend.action.systems.virtualization.ProvisionVirtualizationWizardAction;
-import com.redhat.rhn.frontend.dto.ActivationKeyDto;
 import com.redhat.rhn.frontend.dto.ProfileDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.kickstart.KickstartScheduleCommand;
@@ -68,7 +67,7 @@ public class ProvisionVirtualizationWizardActionTest extends RhnMockStrutsTestCa
         s.addChannel(c);
         
         PackageManagerTest.addPackageToSystemAndChannel(
-                Config.get().getKickstartPackageName(), s, c);
+                ConfigDefaults.get().getKickstartPackageName(), s, c);
         TestUtils.saveAndFlush(s);
         TestUtils.saveAndFlush(c);
         
@@ -120,8 +119,6 @@ public class ProvisionVirtualizationWizardActionTest extends RhnMockStrutsTestCa
         assertNotNull(request.getAttribute(RequestContext.SYSTEM));
         verifyFormList(ScheduleKickstartWizardAction.SYNCH_PACKAGES, 
                 ProfileDto.class);
-        verifyFormList(ScheduleKickstartWizardAction.ACTIVATION_KEYS,
-                ActivationKeyDto.class);
         verifyFormList(ScheduleKickstartWizardAction.SYNCH_SYSTEMS,
                 HashMap.class);
         
@@ -179,8 +176,6 @@ public class ProvisionVirtualizationWizardActionTest extends RhnMockStrutsTestCa
                 "/systems/details/kickstart/SessionStatus.do?sid=" + s.getId());
         
         assertNotNull(KickstartFactory.lookupKickstartSessionByServer(s.getId()));
-        verifyFormValue("useExistingProfile", Boolean.TRUE.toString());
-        
         if (addProxy && proxy != null) {
             verifyFormValue(ScheduleKickstartWizardAction.PROXY_HOST, 
                     proxy.getId().toString());

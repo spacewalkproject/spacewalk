@@ -15,7 +15,7 @@
 
 package com.redhat.rhn.manager.monitoring.test;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.WriteMode;
@@ -76,7 +76,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
      */
     public void setUp() throws Exception {
         user = UserTestUtils.findNewUser("testUser", "testOrg");
-        if (Config.get().isMonitoringBackend()) {
+        if (ConfigDefaults.get().isMonitoringBackend()) {
             probe = (ServerProbe) MonitoringFactoryTest.createTestProbe(user);
         }
     }
@@ -84,7 +84,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
     public void testGetTimeSeriesData() throws Exception {
 
         // If this is in HOSTED, dont run the test
-        if (!Config.get().isMonitoringBackend()) {
+        if (!ConfigDefaults.get().isMonitoringBackend()) {
             return;
         }
 
@@ -110,7 +110,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
 
     public void testGetTimeSeriesList() throws Exception {
         // If this is in HOSTED, dont run the test
-        if (!Config.get().isMonitoringBackend()) {
+        if (!ConfigDefaults.get().isMonitoringBackend()) {
             return;
         }
         Timestamp etime = addTimeSeriesDataToProbe(user, probe);
@@ -244,7 +244,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
 
     public void testStateChange() throws Exception {
         // If this is in HOSTED, dont run the test
-        if (!Config.get().isMonitoringBackend()) {
+        if (!ConfigDefaults.get().isMonitoringBackend()) {
             return;
         }
         String dateString1 = "Nov 1, 2000 6:00 PM";
@@ -277,7 +277,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
 
     public void testStoreProbe() throws Exception {
         // If this is in HOSTED, dont run the test
-        if (!Config.get().isMonitoringBackend()) {
+        if (!ConfigDefaults.get().isMonitoringBackend()) {
             return;
         }
         String changeDesc = probe.getDescription() + TestUtils.randomString();
@@ -291,7 +291,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
 
     public void testGetConfigMacros() {
         // If this is in HOSTED, dont run the test
-        if (!Config.get().isMonitoringBackend()) {
+        if (!ConfigDefaults.get().isMonitoringBackend()) {
             return;
         }
 
@@ -328,7 +328,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
 
     public void testDeleteProbe() throws Exception {
         // If this is in HOSTED, dont run the test
-        if (!Config.get().isMonitoringBackend()) {
+        if (!ConfigDefaults.get().isMonitoringBackend()) {
             return;
         }
         Long id = probe.getId();
@@ -352,7 +352,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
 
     public void testAddServerToSuite() throws Exception {
         // If this is in HOSTED, dont run the test
-        if (!Config.get().isMonitoringBackend()) {
+        if (!ConfigDefaults.get().isMonitoringBackend()) {
             return;
         }
         ProbeSuite suite = ProbeSuiteTest.createTestProbeSuite(user);
@@ -368,7 +368,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
     
     public void testServersToSuite() throws Exception {
         
-        if (!Config.get().isMonitoringBackend()) {
+        if (!ConfigDefaults.get().isMonitoringBackend()) {
             return;
         }
         ProbeSuite probeSuite = ProbeSuiteTest.createTestProbeSuite(user);
@@ -411,7 +411,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
     }
 
     public void testDetachProbes() throws Exception {
-        if (!Config.get().isMonitoringBackend()) {
+        if (!ConfigDefaults.get().isMonitoringBackend()) {
             return;
         }
         ProbeSuite probeSuite = ProbeSuiteTest.createTestProbeSuite(user);
@@ -459,7 +459,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
     }
     
     public void testGetProbeCountsByState() throws Exception {
-        if (!Config.get().isMonitoringBackend()) {
+        if (!ConfigDefaults.get().isMonitoringBackend()) {
             return;
         }
         for (int i = 0; i < 5; i++) {
@@ -472,7 +472,7 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
     }
 
     public void testGetProbesByState() throws Exception {
-        if (!Config.get().isMonitoringBackend()) {
+        if (!ConfigDefaults.get().isMonitoringBackend()) {
             return;
         }
         for (int i = 0; i < 5; i++) {
@@ -485,12 +485,11 @@ public class MonitoringManagerTest extends RhnBaseTestCase {
             listProbesByState(user, MonitoringConstants.PROBE_STATE_CRITICAL, null);
         assertTrue("not enough returned: " + critprobes.size(), critprobes.size() >= 1);
         ServerProbeDto row = (ServerProbeDto) allprobes.get(0);
-        System.out.println("\n\n\nStatestring: " + row.getStateString());
         assertNotNull(row.getStateString());
     }
     
     public void testListProbeStateSummary() throws Exception {
-        if (!Config.get().isMonitoringBackend()) {
+        if (!ConfigDefaults.get().isMonitoringBackend()) {
             return;
         }
         for (int i = 0; i < 5; i++) {

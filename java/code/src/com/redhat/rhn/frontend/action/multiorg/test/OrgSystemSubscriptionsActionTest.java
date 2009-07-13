@@ -14,12 +14,12 @@
  */
 package com.redhat.rhn.frontend.action.multiorg.test;
 
-import org.apache.struts.action.DynaActionForm;
-
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+
+import org.apache.struts.action.DynaActionForm;
 
 /**
  * OrgSubscriptionsActionTest

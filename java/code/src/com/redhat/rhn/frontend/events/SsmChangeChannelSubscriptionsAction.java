@@ -14,13 +14,14 @@
  */
 package com.redhat.rhn.frontend.events;
 
-import java.util.List;
 import com.redhat.rhn.common.messaging.EventMessage;
-import com.redhat.rhn.frontend.action.channel.ssm.ChannelActionDAO;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.manager.ssm.SsmOperationManager;
-import com.redhat.rhn.manager.ssm.SsmManager;
+import com.redhat.rhn.frontend.action.channel.ssm.ChannelActionDAO;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.ssm.SsmManager;
+import com.redhat.rhn.manager.ssm.SsmOperationManager;
+
+import java.util.List;
 
 /**
  * Handles performing subscription changes for servers in the SSM.

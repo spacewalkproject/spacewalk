@@ -36,7 +36,6 @@ import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -125,29 +124,6 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         assertFalse(remoteCommands);
     }    
     
-    public void testNetworkConnection() throws Exception {
-        KickstartData profile = createProfile();
-        String interfaceName = "eth0";
-        handler.setNetworkConnection(adminKey, profile.getLabel(), true, interfaceName);
-        
-        Map<String, Object> connection = new HashMap<String, Object>();
-        connection = handler.getNetworkConnection(adminKey, profile.getLabel());
-        
-        assertTrue(connection.containsKey("interface_name"));
-        assertTrue(connection.containsKey("is_dhcp"));
-        assertEquals(interfaceName, connection.get("interface_name"));
-        // connection type is dhcp
-        assertEquals(new Integer(1), connection.get("is_dhcp"));
-               
-        handler.setNetworkConnection(adminKey, profile.getLabel(), false, interfaceName);
-        connection = handler.getNetworkConnection(adminKey, profile.getLabel());
-        
-        assertTrue(connection.containsKey("interface_name"));
-        assertTrue(connection.containsKey("is_dhcp"));
-        assertEquals(interfaceName, connection.get("interface_name"));
-        // connection type is static
-        assertEquals(new Integer(0), connection.get("is_dhcp"));
-    }
     
     public void testGetLocale() throws Exception {
         

@@ -103,6 +103,7 @@ public class InvalidChannelNameException extends FaultException {
     public enum Reason {
         REGEX_FAILS,
         TOO_SHORT,
+        TOO_LONG,
         IS_MISSING,
         NAME_IN_USE,
         RHN_CHANNEL_BAD_PERMISSIONS

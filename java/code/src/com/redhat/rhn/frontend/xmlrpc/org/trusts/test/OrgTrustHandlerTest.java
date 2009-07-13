@@ -14,10 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.org.trusts.test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
@@ -38,6 +34,10 @@ import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * OrgTrustHandlerTest

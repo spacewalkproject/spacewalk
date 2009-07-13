@@ -460,12 +460,47 @@ ORDER BY next_action DESC
    <query params="errata_id,org_id, channel_id">
   INSERT INTO rhnPaidErrataTempCache
     (user_id, server_id, errata_id)
-  SELECT DISTINCT PEM.user_id, PEM.server_id, :errata_id
-    FROM rhnPrivateErrataMail PEM, rhnServerChannel SC
-   WHERE PEM.server_id = SC.server_id
-	 AND SC.channel_id = :channel_id
-	 AND PEM.errata_id = :errata_id
-     AND PEM.org_id = :org_id
+SELECT DISTINCT USP.user_id,
+     S.id as server_id,
+     :errata_id
+FROM
+    rhnPackage P
+    inner join rhnPackageEVR P_EVR on P_EVR.id = P.evr_id
+    inner join rhnPackageEVR SP_EVR on SP_EVR.evr &lt; P_EVR.evr  
+    inner join rhnServerPackage SP on SP.name_id = P.name_id 
+               and SP.evr_id = SP_EVR.id
+               AND SP.evr_id != P.evr_id
+    inner join rhnServer S on SP.server_id = S.id
+    inner join rhnServerPackageArchCompat SPAC on spac.server_arch_id = s.server_arch_id 
+               AND p.package_arch_id = spac.package_arch_id
+    inner join rhnServerChannel SC on SC.server_id = S.id 
+    inner join rhnUserServerPerms USP on USP.server_id = S.id
+    inner join web_user_personal_info WPI on WPI.web_user_id = USP.user_id
+    inner join rhnUserInfo UI on UI.user_id = USP.user_id
+    inner join rhnChannelPackage CP on CP.package_id = P.id 
+               and SC.channel_id = CP.channel_id
+    inner join rhnErrataPackage EP on EP.package_id = P.id
+                   AND EXISTS 
+                   (SELECT 1 from rhnChannelErrata CE where ce.channel_id = SC.channel_id
+                    AND CE.errata_id = EP.errata_id) 
+    where SP_EVR.evr = (SELECT MAX(PE.evr) FROM rhnServerPackage SP2, rhnPackageEvr PE 
+                       WHERE PE.id = SP2.evr_id AND SP2.server_id = SP.server_id AND 
+                        SP2.name_id = SP.name_id)    
+    and not exists (
+      select   usprefs.server_id 
+               from  rhnUserServerPrefs usprefs
+         where usprefs.user_id = USP.user_id
+               and sc.server_id = usprefs.server_id 
+               and usprefs.name = 'receive_notifications'
+   )
+   and ui.email_notify = 1
+   and not exists ( select 1
+                      from rhnWebContactDisabled wcd
+                     where wcd.id = USP.user_id )
+   and WPI.email is not null
+   AND SC.channel_id = :channel_id
+   AND S.org_id = :org_id
+   AND EP.errata_id = :errata_id
    </query>
 </write-mode>
 

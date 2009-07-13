@@ -14,10 +14,10 @@
  */
 package com.redhat.rhn.frontend.dto;
 
+import com.redhat.rhn.domain.org.Org;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.redhat.rhn.domain.org.Org;
 
 /**
  * @version $Rev: 101893 $

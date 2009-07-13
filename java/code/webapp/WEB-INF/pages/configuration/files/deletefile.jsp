@@ -7,9 +7,6 @@
 <html>
 <head></head>
 <body>
-
-<html:errors />
-
 <%@ include file="/WEB-INF/pages/common/fragments/configuration/files/manage_header.jspf"%>
 
 <h2><bean:message key="deletefile.jsp.header2" /></h2>

@@ -10,19 +10,12 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-
-<html:messages id="message" message="true">
-    <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <rhn:toolbar base="h1" img="/img/rhn-icon-users.gif" imgAlt="users.jsp.imgAlt"
  helpUrl="/rhn/help/reference/en-US/s1-sm-users.jsp#s2-sm-user-active"
  creationUrl="/rhn/users/CreateUser.do?account_type=into_org" 
  creationType="user">
   <bean:message key="activelist.jsp.title"/>
 </rhn:toolbar>
-
-<html:errors />
 <c:set var="pageList" value="${requestScope.pageList}" />
 
 <rl:listset name="userListSet">

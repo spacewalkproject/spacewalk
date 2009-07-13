@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.6.5
+Version: 0.6.8
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -114,6 +114,12 @@ fi
 
 
 %changelog
+* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.6.8-1
+- Fix mod_jk failure to load. (dgoodwin@redhat.com)
+
+* Wed Jun 24 2009 John Matthews <jmatthew@redhat.com> 0.6.7-1
+- 507679 - Added custom server.xml to force UTF8 encoding of GET parameters in tomcat
+
 * Mon May 18 2009 Mike McCune <mmccune@gmail.com> 0.6.5-1
 - 496104 - need to make the regexes for the rewrites a bit more flexible
   (mmccune@gmail.com)

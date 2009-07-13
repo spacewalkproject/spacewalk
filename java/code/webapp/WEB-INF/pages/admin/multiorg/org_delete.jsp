@@ -6,12 +6,6 @@
 
 <html>
 <body>
-
-<html:errors />
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <rhn:toolbar base="h1" img="/img/rhn-icon-org.gif">
   <bean:message key="orgdelete.jsp.header1" arg0="${orgName}"/>
 </rhn:toolbar>

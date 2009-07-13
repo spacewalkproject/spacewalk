@@ -25,9 +25,7 @@
 		<p><bean:message key="common.config.rank.jsp.warning.noscript"/></p>
 	</noscript>  				
 </div>
-    
-	<html:errors />
-	<html:form method="POST" 
+<html:form method="POST" 
                action="/systems/ssm/config/Rank.do" 
                styleId="ranksForm">
 		<h2><bean:message key="sdc.config.rank.jsp.subscribed_channels"/></h2>               

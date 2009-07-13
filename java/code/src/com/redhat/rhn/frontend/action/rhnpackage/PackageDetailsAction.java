@@ -83,7 +83,7 @@ public class PackageDetailsAction extends RhnAction {
             }
             else {
                 request.setAttribute("type", "rpm");
-                request.setAttribute(PACKAGE_NAME, pkg.getFile());
+                request.setAttribute(PACKAGE_NAME, pkg.getFilename());
             }
 
             if (DownloadManager.isFileAvailable(pkg.getPath())) {

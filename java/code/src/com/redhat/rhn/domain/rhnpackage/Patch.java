@@ -14,11 +14,11 @@
  */
 package com.redhat.rhn.domain.rhnpackage;
 
+import com.redhat.rhn.domain.solaris.PatchType;
+
 import java.sql.Blob;
 import java.util.Date;
 import java.util.Set;
-
-import com.redhat.rhn.domain.solaris.PatchType;
 
 /**
  * 

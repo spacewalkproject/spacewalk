@@ -15,6 +15,7 @@
 package com.redhat.rhn.common.security.acl.test;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.security.acl.Acl;
 import com.redhat.rhn.common.security.acl.MonitoringAclHandler;
 import com.redhat.rhn.domain.org.OrgFactory;
@@ -46,17 +47,17 @@ public class MonitoringAclHandlerTest extends RhnBaseTestCase {
         
         user.getOrg().getEntitlements()
             .add(OrgFactory.lookupEntitlementByLabel("rhn_monitor"));
-        String orig = c.getString(Config.WEB_IS_MONITORING_BACKEND);
-        c.setBoolean(Config.WEB_IS_MONITORING_BACKEND, "1");
+        String orig = c.getString(ConfigDefaults.WEB_IS_MONITORING_BACKEND);
+        c.setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, "1");
         assertFalse(acl.evalAcl(context, "show_monitoring()"));
         
         user.addRole(RoleFactory.MONITORING_ADMIN);
         assertTrue(acl.evalAcl(context, "show_monitoring()"));
         
-        c.setBoolean(Config.WEB_IS_MONITORING_BACKEND, "0");
+        c.setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, "0");
         assertFalse(acl.evalAcl(context, "show_monitoring()"));
         
-        c.setBoolean(Config.WEB_IS_MONITORING_BACKEND, orig);
+        c.setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, orig);
     }
 
     public void testOrgHasScouts() throws Exception {
@@ -71,14 +72,14 @@ public class MonitoringAclHandlerTest extends RhnBaseTestCase {
         UserTestUtils.addMonitoring(user.getOrg());
         context.put("user", user);
         
-        String orig = c.getString(Config.WEB_IS_MONITORING_BACKEND);
-        c.setBoolean(Config.WEB_IS_MONITORING_BACKEND, "1");
+        String orig = c.getString(ConfigDefaults.WEB_IS_MONITORING_BACKEND);
+        c.setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, "1");
         assertTrue(acl.evalAcl(context, "org_has_scouts()"));
         
-        c.setBoolean(Config.WEB_IS_MONITORING_BACKEND, "0");
+        c.setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, "0");
         assertFalse(acl.evalAcl(context, "org_has_scouts()"));
         
-        c.setBoolean(Config.WEB_IS_MONITORING_BACKEND, orig);
+        c.setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, orig);
     }
     
     

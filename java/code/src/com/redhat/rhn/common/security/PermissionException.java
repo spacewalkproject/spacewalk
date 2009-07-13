@@ -20,6 +20,7 @@ package com.redhat.rhn.common.security;
 
 import com.redhat.rhn.common.RhnRuntimeException;
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.frontend.html.HtmlTag;
@@ -86,15 +87,14 @@ public class PermissionException extends RhnRuntimeException  {
         addReason(ol, "permission.jsp.summary.acl.reason1", null);
         
         //The second reason gives the minutes for a login session to expire.
-        int seconds = Config.get().getInt(Config.WEB_SESSION_DATABASE_LIFETIME);
+        int seconds = Config.get().getInt(ConfigDefaults.WEB_SESSION_DATABASE_LIFETIME);
         Integer minutes = new Integer(seconds / 60);
         String loginUrl = "/";
         addReason(ol, "permission.jsp.summary.acl.reason2",
                 new Object[] {minutes, loginUrl});
         
         //The third reason gives a way to report bugs in the site.
-        String contactUrl = "/help/contact.pxt";
-        addReason(ol, "permission.jsp.summary.acl.reason3", new Object[] {contactUrl});
+        addReason(ol, "permission.jsp.summary.acl.reason3", null);
         
         //You need cookies to view our site.
         addReason(ol, "permission.jsp.summary.acl.reason4", null);

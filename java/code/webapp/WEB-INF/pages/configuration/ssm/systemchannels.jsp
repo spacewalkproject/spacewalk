@@ -7,9 +7,6 @@
 <html>
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
-
-<html:errors />
-
 <h2>
   <img src="/img/rhn-config_channels.gif" alt='<bean:message key="config.common.channelsAlt" />' />
   <bean:message key="ssmsystemchannels.jsp.header" />

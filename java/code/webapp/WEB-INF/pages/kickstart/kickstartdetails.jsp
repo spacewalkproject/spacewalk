@@ -5,12 +5,6 @@
 
 <html:html xhtml="true">
 <body>
-
-<html:errors />
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/kickstart-toolbar.jspf" %>
 
 <rhn:dialogmenu mindepth="0" maxdepth="1" 
@@ -38,20 +32,9 @@
             <td><strong><c:out value="${ksdata.kickstartDefaults.kstree.channel.name}"/></strong> 
             <a href="/rhn/kickstart/KickstartSoftwareEdit.do?ksid=${ksdata.id}">(<bean:message key="kickstartdetails.jsp.changeos"/>)</a></td>
           </tr>
-          <tr>
-            <th><bean:message key="kickstartdetails.jsp.virtualization_type" /></th>
-            <td colspan="2" align="left">
-              <html:select property="virtualizationTypeLabel">
-                <html:optionsCollection property="virtualizationTypes" label="formattedName" value="label" />
-              </html:select><br/>
-              <span class="small-text"><bean:message key="kickstartdetails.jsp.virtTypeChangeWarning" arg0="${ksdata.id}"/></span>
-            </td>
-          </tr>
           
-          
-          <c:if test="${is_virt}">
-          	 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/virtoptions.jspf" %>
-          </c:if> 
+		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/virtoptions.jspf" %>
+           
           
           
           
@@ -88,12 +71,12 @@
           </tr>
           <tr>
             <th><bean:message key="kickstartdetails.jsp.kernel_options"/></th>
-            <td><html:text property="kernel_options" maxlength="64" size="32" /></td>
+            <td><html:text property="kernel_options" maxlength="1024" size="32" /></td>
           </tr>                 
           
          <tr>
             <th><bean:message key="kickstartdetails.jsp.post_kernel_options"/></th>
-            <td><html:text property="post_kernel_options" maxlength="64" size="32" /></td>
+            <td><html:text property="post_kernel_options" maxlength="1024" size="32" /></td>
           </tr>
                       
           <tr>

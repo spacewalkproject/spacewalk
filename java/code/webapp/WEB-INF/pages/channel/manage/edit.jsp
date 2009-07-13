@@ -5,12 +5,6 @@
 
 <html>
 <body>
-
-<html:errors />
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif"
              deletionUrl="/rhn/channels/manage/Delete.do?cid=${param.cid}"
              deletionAcl="user_role(channel_admin); formvar_exists(cid)"

@@ -205,13 +205,6 @@ if [ "$RHN_PARENT" == "rhn.redhat.com" ]; then
 WARNING
 fi
 
-default_or_input "Proxy version to activate" VERSION $(rhn-proxy-activate --server=$RHN_PARENT --list-available-versions |sort|tail -n1)
-
-default_or_input "Traceback email" TRACEBACK_EMAIL ''
-
-default_or_input "Use SSL" USE_SSL 'Y/n'
-USE_SSL=$(yes_no $USE_SSL)
-
 default_or_input "CA Chain" CA_CHAIN $(awk -F'[=;]' '/sslCACert=/ {a=$2} END { print a}' $SYSCONFIG_DIR/up2date)
 
 if [ 0$FORCE_OWN_CA -eq 0 ] && \
@@ -229,6 +222,16 @@ if ! /sbin/runuser nobody -s /bin/sh --command="[ -r $CA_CHAIN ]" ; then
 	echo Error: File $CA_CHAIN is not readable by nobody user.
 	exit 1
 fi
+
+VERSION_FROM_PARENT=$(rhn-proxy-activate --server=$RHN_PARENT --list-available-versions 2>/dev/null|sort|tail -n1)
+VERSION_FROM_RPM=$(rpm -q --queryformat %{version} spacewalk-proxy-installer|cut -d. -f1-2)
+default_or_input "Proxy version to activate" VERSION ${VERSION_FROM_PARENT:-$VERSION_FROM_RPM}
+
+default_or_input "Traceback email" TRACEBACK_EMAIL ''
+
+default_or_input "Use SSL" USE_SSL 'Y/n'
+USE_SSL=$(yes_no $USE_SSL)
+
 
 default_or_input "HTTP Proxy" HTTP_PROXY ''
 
@@ -279,45 +282,51 @@ if [ $? -ne 0 ]; then
 	config_error 2 "Installation of package spacewalk-proxy-management failed."
 fi
 
-rpm -q spacewalk-proxy-monitoring >/dev/null
-MONITORING=$?
-if [ $MONITORING -ne 0 ]; then
+if [ "$RHN_PARENT" == "xmlrpc.rhn.redhat.com" ]; then
+    #skip monitoring part for hosted
+    MONITORING=1
+    ENABLE_SCOUT=0
+else
+    rpm -q spacewalk-proxy-monitoring >/dev/null
+    MONITORING=$?
+    if [ $MONITORING -ne 0 ]; then
         echo "You do not have monitoring installed."
 		echo "Do you want to install monitoring scout?"
 
         default_or_input "Will run '$YUM_OR_UPDATE spacewalk-proxy-monitoring'." INSTALL_MONITORING 'Y/n'
         INSTALL_MONITORING=$(yes_no $INSTALL_MONITORING)
-	if [ "$INSTALL_MONITORING" = "1" ]; then
-	        $YUM_OR_UPDATE spacewalk-proxy-monitoring
-	        MONITORING=$?
-	fi
-else
-	$YUM_OR_UPDATE spacewalk-proxy-monitoring
-    # check if package install successfully
-    rpm -q spacewalk-proxy-monitoring >/dev/null
-    if [ $? -ne 0 ]; then
-        config_error 3 "Installation of package spacewalk-proxy-monitoring failed."
+        if [ "$INSTALL_MONITORING" = "1" ]; then
+            $YUM_OR_UPDATE spacewalk-proxy-monitoring
+            MONITORING=$?
+        fi
+    else
+        $YUM_OR_UPDATE spacewalk-proxy-monitoring
+        # check if package install successfully
+        rpm -q spacewalk-proxy-monitoring >/dev/null
+        if [ $? -ne 0 ]; then
+            config_error 3 "Installation of package spacewalk-proxy-monitoring failed."
+        fi
     fi
-fi
-if [ $MONITORING -eq 0 ]; then
-	#here we configure monitoring
-	#and with cluster.ini
-	echo "Configuring monitoring."
+    if [ $MONITORING -eq 0 ]; then
+        #here we configure monitoring
+        #and with cluster.ini
+        echo "Configuring monitoring."
         default_or_input "Monitoring parent" MONITORING_PARENT "$RHN_PARENT"
         RESOLVED_IP=$(/usr/bin/getent hosts $RHN_PARENT | cut -f1 -d' ')
         default_or_input "Monitoring parent IP" MONITORING_PARENT_IP "$RESOLVED_IP"
         default_or_input "Enable monitoring scout" ENABLE_SCOUT "Y/n"
         ENABLE_SCOUT=$(yes_no $ENABLE_SCOUT)
-		SCOUT_SHARED_KEY=`/usr/bin/rhn-proxy-activate --enable-monitoring \
-				--quiet \
+        SCOUT_SHARED_KEY=`/usr/bin/rhn-proxy-activate --enable-monitoring \
+                --quiet \
                 --server="$RHN_PARENT" \
                 --http-proxy="$HTTP_PROXY" \
                 --http-proxy-username="$HTTP_USERNAME" \
                 --http-proxy-password="$HTTP_PASSWORD" \
                 --ca-cert="$CA_CHAIN" | \
             awk '/\: [0-9a-f]+/  { print $4 }' `
-else
-	ENABLE_SCOUT=0
+    else
+	    ENABLE_SCOUT=0
+    fi
 fi
 
 # size of squid disk cache will be 60% of free space on /var/spool/squid
@@ -326,6 +335,7 @@ fi
 # / 1024 is to get value in MB
 SQUID_SIZE=$(df -P /var/spool/squid | awk '{a=$4} END {printf("%d", a * 60 / 100 / 1024)}')
 
+ln -sf /etc/pki/spacewalk/jabberd/server.pem /etc/jabberd/server.pem
 sed "s/\${session.hostname\}/$HOSTNAME/g"  < $DIR/c2s.xml  > $JABBERD_DIR/c2s.xml
 sed "s/\${session.hostname\}/$HOSTNAME/g"  < $DIR/sm.xml   > $JABBERD_DIR/sm.xml
 sed "s|cache_dir ufs /var/spool/squid 15000 16 256|cache_dir ufs /var/spool/squid $SQUID_SIZE 16 256|g" \

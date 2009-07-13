@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.errata.test;
 
-import java.util.HashSet;
-
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.domain.rhnpackage.Package;
@@ -37,6 +35,8 @@ import com.redhat.rhn.testing.TestUtils;
 
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
+import java.util.HashSet;
 
 /**
  * RemovePackagesActionTest

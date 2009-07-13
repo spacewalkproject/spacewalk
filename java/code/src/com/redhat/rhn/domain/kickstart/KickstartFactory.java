@@ -31,6 +31,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -376,13 +377,19 @@ public class KickstartFactory extends HibernateFactory {
         else {
             log.debug("No ks meta for this profile.");
         }
-        String path = ksdataIn.getCobblerFileName();
-        if (p != null && p.getKickstart() != null) { 
-            path = p.getKickstart();
-        }
+        String path = getKickstartTemplatePath(ksdataIn, p);
+        log.debug("writing ks file to : " + path);
         FileUtils.writeStringToFile(fileData, path);
     } 
     
+    private static String getKickstartTemplatePath(KickstartData ksdata, Profile p) { 
+        String path = ksdata.getCobblerFileName();
+        if (p != null && p.getKickstart() != null) { 
+            path = p.getKickstart();
+        }
+        return path;
+    }
+
     /**
      * 
      * @param ksdataIn Kickstart Data to be stored in db
@@ -396,6 +403,14 @@ public class KickstartFactory extends HibernateFactory {
      * @return number of tuples affected by delete
      */
     public static int removeKickstartData(KickstartData ksdataIn) {
+        Profile p = Profile.lookupById(CobblerXMLRPCHelper.getAutomatedConnection(),
+                ksdataIn.getCobblerId());
+        String path = getKickstartTemplatePath(ksdataIn, p);
+        File file = new File(path);
+        if (file.exists()) {
+            log.debug("deleting : " + path);
+            file.delete();
+        }
         return singleton.removeObject(ksdataIn);
     }
 
@@ -455,7 +470,7 @@ public class KickstartFactory extends HibernateFactory {
      * @param org who owns the Kickstart Range
      * @return List of Kickstart Ip Ranges if found
      */
-    public static List lookupRangeByOrg(Org org) {
+    public static List<KickstartIpRange> lookupRangeByOrg(Org org) {
         Session session = null;
         session = HibernateFactory.getSession();
         return session.getNamedQuery("KickstartIpRange.lookupByOrg")

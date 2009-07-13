@@ -8,10 +8,7 @@
 <html>
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
-
-<html:errors />
-
-  <h2>
+<h2>
     <bean:message key="basesub.jsp.header" />
   </h2>
 

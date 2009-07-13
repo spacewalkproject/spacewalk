@@ -14,18 +14,18 @@
  */
 package com.redhat.rhn.taskomatic.task.repomd;
 
-import java.io.Writer;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Iterator;
-
-import org.xml.sax.SAXException;
-
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.errata.Bug;
 import com.redhat.rhn.domain.errata.Cve;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.rhnpackage.Package;
+
+import org.xml.sax.SAXException;
+
+import java.io.Writer;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Iterator;
 
 /**
  * UpdateInfo.xml writer class

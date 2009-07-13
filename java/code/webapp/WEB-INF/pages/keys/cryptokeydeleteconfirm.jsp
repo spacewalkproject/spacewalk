@@ -6,12 +6,6 @@
 <html:xhtml/>
 <html>
 <body>
-
-<html:errors />
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif" imgAlt="kickstarts.alt.img">
 	<bean:message key="keydelete.jsp.toolbar"/>
 </rhn:toolbar>

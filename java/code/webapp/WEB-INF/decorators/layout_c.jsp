@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
@@ -32,6 +33,10 @@
 
             </td>
             <td class="page-content">
+            <html:errors/>
+			<html:messages id="message" message="true">
+				<rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
+			</html:messages>
               <decorator:body />
             </td>
           </tr>

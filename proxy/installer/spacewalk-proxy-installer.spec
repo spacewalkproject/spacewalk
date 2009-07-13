@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.6.15
+Version: 0.6.19
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -19,7 +19,6 @@ Requires: glibc-common
 Requires: chkconfig
 Requires: libxslt
 BuildRequires: /usr/bin/docbook2man
-Conflicts: rhns-proxy-tools < 5.3.0
 Obsoletes: proxy-installer < 5.3.0
 Provides: proxy-installer = 5.3.0
 
@@ -88,6 +87,19 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Mon Jul 13 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.19-1
+- 509450 - install our jabberd ssl cert during proxy installation
+
+* Mon Jul 06 2009 John Matthews <jmatthew@redhat.com> 0.6.18-1
+- 509522 - remove conflicts and put provides to spacewalk-proxy-management
+  (msuchy@redhat.com)
+
+* Thu Jul  2 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.17-1
+- 509417 - do not bother with monitoring if our parent is hosted
+
+* Tue Jun 23 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.16-1
+- suggest sane default value of proxy for spacewalk too
+
 * Wed Jun 17 2009 Michael Mraka <michael.mraka@redhat.com> 0.6.15-1
 - fixed sgml errors in %%build
 - removed access_log directive on RHEL4

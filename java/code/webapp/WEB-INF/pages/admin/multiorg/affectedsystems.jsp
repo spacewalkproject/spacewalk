@@ -6,12 +6,6 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html"%>
 <html>
 <body>
-<html:errors />
-<html:messages id="message" message="true">
-<rhn:messages>
-   <c:out escapeXml="false" value="${message}" />
-</rhn:messages>
-</html:messages>
 <rhn:toolbar
    base="h1"
    img="/img/rhn-icon-org.gif"

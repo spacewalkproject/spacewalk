@@ -7,14 +7,6 @@
 <html:xhtml/>
 <html>
 <body>
-
-<html:errors />
-<html:messages id="message" message="true">
-	<rhn:messages>
-		<c:out escapeXml="false" value="${message}" />
-	</rhn:messages>
-</html:messages>
-
 <h1><img src="/img/rhn-icon-cd.gif" alt="compact disc" /><bean:message key="common.download.header"/> <rhn-help href="s1-sm-channels-packages.html#S2-SM-CHANNEL-ISO"/></h1>
 
 <p>

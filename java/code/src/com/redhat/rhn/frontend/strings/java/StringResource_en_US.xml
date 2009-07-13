@@ -1085,6 +1085,13 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
       
+      <trans-unit id="user.cannot.delete.last.sat.admin">
+<source>Cannot delete the last remaining satellite administrator.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/DeleteUser</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="Users/Servers">
 <source>Users/Servers</source>
         <context-group name="ctx">
@@ -6349,7 +6356,14 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
       </trans-unit>
-        
+
+      <trans-unit id="kickstart.schedule.nosuchdevice">
+        <source>System &lt;strong&gt; {0} &lt;/strong&gt; cannot be kickstarted because it does not have a &lt;strong&gt; {1} &lt;/strong&gt; network device.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
+        </context-group>
+      </trans-unit>
+      
       <trans-unit id="kickstart.schedule.nosubs">
         <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
         <context-group name="ctx">
@@ -7676,7 +7690,10 @@ Follow this url to see the full list of inactive systems:
           <source>Invalid profile label specified: {0}</source>
       </trans-unit>
 
-		
+      <trans-unit id="api.system.missingCapabilities">
+          <source>The server {0} does not have the {1} client capability. Please enable the capability before proceeding with the operation.</source>
+      </trans-unit>
+
       <trans-unit id="api.systemgroup.serverNotInGroup">
           <source>The specified server is not a member of the specified group</source>
       </trans-unit>
@@ -8139,6 +8156,12 @@ Follow this url to see the full list of inactive systems:
            <context context-type="sourcefile">/channels/manage/Edit</context>
          </context-group>
       </trans-unit>
+      <trans-unit id="edit.channel.invalidchannelname.maxlength">
+         <source>Channel name can not exceed {0} characters long</source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/channels/manage/Edit</context>
+         </context-group>
+      </trans-unit>
       <trans-unit id="edit.channel.invalidchannelname.nameinuse">
          <source>The channel name '{0}' is already in use, please enter a different name</source>
          <context-group name="ctx">
@@ -8242,6 +8265,18 @@ Follow this url to see the full list of inactive systems:
      </trans-unit>
      <trans-unit id="snapshots.configchannel">
         <source>Configuration Channels Updated</source>
+     </trans-unit>
+     <trans-unit id="ssm.provision.scheduled">
+        <source>Successfully scheduled {0} system(s) for provisioning.</source>
+     </trans-unit>
+     <trans-unit id="ssm.package.install.operationname">
+        <source>Schedule Package Installations</source>
+     </trans-unit>
+     <trans-unit id="ssm.package.upgrade.operationname">
+        <source>Schedule Package Upgrades</source>
+     </trans-unit>
+     <trans-unit id="ssm.package.verify.operationname">
+        <source>Schedule Package Verifications</source>
      </trans-unit>
      <trans-unit id="kickstart.cobbler.distro.syncfail">
         <source>

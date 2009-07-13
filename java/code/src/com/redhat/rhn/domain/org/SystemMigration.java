@@ -14,14 +14,14 @@
  */
 package com.redhat.rhn.domain.org;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import com.redhat.rhn.domain.server.Server;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Class representation of the rhnSystemMigrations table

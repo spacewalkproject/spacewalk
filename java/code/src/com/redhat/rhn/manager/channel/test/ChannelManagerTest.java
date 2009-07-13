@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.channel.test;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
@@ -571,7 +572,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         Channel base = ChannelTestUtils.createTestChannel(user);
         Channel tools = ChannelTestUtils.createChildChannel(user, base);
         PackageManagerTest.addKickstartPackageToChannel(
-                Config.get().getKickstartPackageName(), tools);
+                ConfigDefaults.get().getKickstartPackageName(), tools);
         
         Channel lookup = ChannelManager.getToolsChannel(base, user);
         assertEquals(tools.getId(), lookup.getId());

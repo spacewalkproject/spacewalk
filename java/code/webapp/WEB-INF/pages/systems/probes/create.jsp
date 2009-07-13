@@ -16,8 +16,6 @@
 <rhn:toolbar base="h2" img="/img/rhn-icon-system.gif">
  <bean:message key="probeedit.jsp.editprobe" />
 </rhn:toolbar>
-
-<html:errors />
 <html:form action="/systems/details/probes/ProbeCreate" method="POST">
   <c:set var="withSatCluster" value="true"/>
   <%@ include file="/WEB-INF/pages/common/fragments/probes/create-form-body.jspf" %>

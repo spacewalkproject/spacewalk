@@ -15,8 +15,9 @@
 package com.redhat.rhn.domain.entitlement;
 
 import com.redhat.rhn.common.localization.LocalizationService;
-import org.apache.commons.lang.builder.ToStringBuilder;
+
 import org.apache.commons.lang.builder.CompareToBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * Entitlements

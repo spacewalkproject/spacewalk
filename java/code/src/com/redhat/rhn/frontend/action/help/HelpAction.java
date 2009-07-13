@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.help;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -42,37 +43,37 @@ public class HelpAction extends RhnAction {
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getLoggedInUser();
 
-        String doc = Config.get().getString(Config.DOC_REFERENCE_GUIDE);
+        String doc = Config.get().getString(ConfigDefaults.DOC_REFERENCE_GUIDE);
         if (doc != null && doc.trim().length() > 0) {
             request.setAttribute("reference_guide", doc);
         }
 
-        doc = Config.get().getString(Config.DOC_INSTALL_GUIDE);
+        doc = Config.get().getString(ConfigDefaults.DOC_INSTALL_GUIDE);
         if (doc != null && doc.trim().length() > 0) {
             request.setAttribute("install_guide", doc);
         }
 
-        doc = Config.get().getString(Config.DOC_PROXY_GUIDE);
+        doc = Config.get().getString(ConfigDefaults.DOC_PROXY_GUIDE);
         if (doc != null && doc.trim().length() > 0) {
             request.setAttribute("proxy_guide", doc);
         }
 
-        doc = Config.get().getString(Config.DOC_CLIENT_CONFIG_GUIDE);
+        doc = Config.get().getString(ConfigDefaults.DOC_CLIENT_CONFIG_GUIDE);
         if (doc != null && doc.trim().length() > 0) {
             request.setAttribute("client_config_guide", doc);
         }
 
-        doc = Config.get().getString(Config.DOC_CHANNEL_MGMT_GUIDE);
+        doc = Config.get().getString(ConfigDefaults.DOC_CHANNEL_MGMT_GUIDE);
         if (doc != null && doc.trim().length() > 0) {
             request.setAttribute("channel_mgmt_guide", doc);
         }
 
-        doc = Config.get().getString(Config.DOC_RELEASE_NOTES);
+        doc = Config.get().getString(ConfigDefaults.DOC_RELEASE_NOTES);
         if (doc != null && doc.trim().length() > 0) {
             request.setAttribute("release_notes", doc);
         }
 
-        doc = Config.get().getString(Config.DOC_PROXY_RELEASE_NOTES);
+        doc = Config.get().getString(ConfigDefaults.DOC_PROXY_RELEASE_NOTES);
         if (doc != null && doc.trim().length() > 0) {
             request.setAttribute("proxy_release_notes", doc);
         }

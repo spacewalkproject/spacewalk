@@ -123,6 +123,7 @@ class ChannelPackageSubscription(GenericPackageImport):
         self.compute_affected_channels(affected_channels)
         self.backend.update_newest_package_cache(caller=self.caller, 
             affected_channels=self.affected_channel_packages)
+        # Now that channel is updated, schedule the repo generation
         taskomatic.add_to_repodata_queue_for_channel_package_subscription(
                 self.affected_channels, self.batch, self.caller)
         self.backend.commit()

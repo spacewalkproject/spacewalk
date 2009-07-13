@@ -75,13 +75,12 @@ class Packages(RPC_Base):
         self.functions.append('getSourcePackageMD5sum')
         self.functions.append('getSourcePackageMD5sumBySession')
         
-    ###This is so the client can tell if the satellite supports session tokens or not
     def no_op(self):
+        """ This is so the client can tell if the satellite supports session tokens or not. """
         return 1
 
-    ###uploadPackageInfo###
-    # upload a collection of binary packages
     def uploadPackageInfo(self, username, password, info):
+        """ Upload a collection of binary packages. """
         log_debug(5, username, info)
         authobj = auth(username, password)
         return self._uploadPackageInfo(authobj, info)
@@ -104,9 +103,8 @@ class Packages(RPC_Base):
         return uploadPackages(info, force=force, 
             caller="server.app.uploadPackageInfo")
     
-    ###uploadSourcePackageInfo###
-    # same stuff, but for source packages
     def uploadSourcePackageInfo(self, username, password, info):
+        """ Upload a collection of source packages. """
         log_debug(5, username, info)
         authobj = auth(username, password)
         return self._uploadSourcePackageInfo(authobj, info)
@@ -143,8 +141,7 @@ class Packages(RPC_Base):
 
 
     def listChannel(self, channelList, username, password):
-        """list packages of a specified channel
-        """
+        """ List packages of a specified channel. """
         log_debug(5, channelList, username)
         authobj = auth(username, password)
         return self._listChannel(authobj, channelList)
@@ -158,11 +155,11 @@ class Packages(RPC_Base):
         authobj.authzChannels(channelList)
         return listChannels(channelList)
 
-    
-    #12/22/05 wregglej 173287 This is a new function that takes in the username
-    #and password and returns a session string if they are correct. It raises a
-    #rhnFault if the user/pass combo is not acceptable.
     def login(self, username, password):
+        """ This function that takes in the username
+            and password and returns a session string if they are correct. It raises a
+            rhnFault if the user/pass combo is not acceptable.
+        """ 
         log_debug(5, username)
         user = rhnUser.search(username)
         if not user or not user.check_password(password):
@@ -170,10 +167,8 @@ class Packages(RPC_Base):
         session = user.create_session()
         return session.get_session()
 
-
-    #12/22/05 wregglej 173287 Checks a session string to make sure it is authentic
-    #expired.
     def check_session(self, session):
+        """ Checks a session string to make sure it is authentic expired. """
         try:
             user = rhnUser.session_reload(session)
         except (rhnSession.InvalidSessionError, rhnSession.ExpiredSessionError):
@@ -188,20 +183,20 @@ class Packages(RPC_Base):
             return 0
         return 1
     
-    #12/22/05 wregglej 173287 rhnpush's --extended-test will call this function.
     def test_new_login(self, username, password, session=None):
+        """ rhnpush's --extended-test will call this function. """
         log_debug(5, "testing new login")
         return self.login(username, password)
 
-    #12/22/05 wregglej 173287 rhnpush's --extended-test will call this function.
     def test_check_session(self, session):
+        """ rhnpush's --extended-test will call this function. """
         log_debug(5, "testing check session")
         return self.check_session(session)
 
 
     ###listMissingSourcePackages###
     def listMissingSourcePackages(self, channelList, username, password):
-        #"list source packages for a list of channels"
+        """ List source packages for a list of channels. """
         log_debug(5, channelList, username)
         authobj = auth(username, password)
         return self._listMissingSourcePackages(authobj, channelList)
@@ -254,8 +249,7 @@ class Packages(RPC_Base):
 
 
     def uploadPackage(self, username, password, info):
-        """Uploads an RPM package
-        """
+        """ Uploads an RPM package. """
         log_debug(3)
 
         channels = info.get('channels', [])
@@ -300,8 +294,7 @@ class Packages(RPC_Base):
 
     
     def channelPackageSubscription(self, username, password, info):
-        """Uploads an RPM package
-        """
+        """ Uploads an RPM package. """
         log_debug(3)
         authobj = auth(username, password)
         return self._channelPackageSubscription(authobj, info)
@@ -541,8 +534,7 @@ class Packages(RPC_Base):
         return row_list                
 
     def getSourcePackageMD5sum(self, username, password, info):
-        #"""Uploads an RPM package
-        #"""
+        """ Uploads an RPM package """
         log_debug(3)
         
         pkg_infos = info.get('packages')
@@ -584,9 +576,11 @@ class Packages(RPC_Base):
 
         return self._getSourcePackageMD5sum(org_id, pkg_infos, info)
     
-    #pkilambi:bug#177762 gives md5sum info of available source packages.
-    #also does an existance check on the filesystem.
     def _getSourcePackageMD5sum(self, org_id, pkg_infos, info):
+        """ Gives md5sum info of available source packages.
+            Also does an existance check on the filesystem.
+        """
+
         log_debug(3)
 
         statement = """
@@ -637,8 +631,7 @@ class Packages(RPC_Base):
     
     # Helper functions
     def _getSourcePackageInfo(self, source_rpm_id):
-        #"""get dictionary containing source package information.
-        #"""
+        """ Get dictionary containing source package information. """
         log_debug(4, source_rpm_id)
         statement = """
             select
@@ -667,13 +660,13 @@ class Packages(RPC_Base):
         return row
  
 def auth(login, password):
-    # Authorize this user
+    """ Authorize this user. """
     authobj = UserAuth()
     authobj.auth(login, password)
     return authobj
 
-#wregglej 12/21/05 Authenticate based on a session
 def auth_session(session_string):
+    """ Authenticate based on a session. """
     authobj = UserAuth()
     authobj.auth_session(session_string)
     return authobj

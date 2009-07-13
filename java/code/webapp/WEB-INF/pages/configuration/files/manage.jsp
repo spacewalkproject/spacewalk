@@ -9,9 +9,6 @@
 <body>
 
 <%@ include file="/WEB-INF/pages/common/fragments/configuration/files/manage_header.jspf" %>
-
-<html:errors />
-
 <form method="post" name="rhn_list"
 	action="/rhn/configuration/file/ManageRevisionSubmit.do?cfid=${file.id}">
 	<rhn:list pageList="${requestScope.pageList}"

@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.channel;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.xmlrpc.SearchServerIndexException;
@@ -94,7 +94,8 @@ public class PackageSearchHelper {
         }
 
         // call search server
-        XmlRpcClient client = new XmlRpcClient(Config.get().getSearchServerUrl(), true);
+        XmlRpcClient client = new XmlRpcClient(
+                ConfigDefaults.get().getSearchServerUrl(), true);
         List args = new ArrayList();
         args.add(sessionId);
         args.add("package");

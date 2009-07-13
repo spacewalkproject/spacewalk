@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.multiorg;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
@@ -25,6 +23,8 @@ import com.redhat.rhn.frontend.action.channel.BaseChannelTreeAction;
 import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.channel.ChannelManager;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * AllChannelTreeSetupAction

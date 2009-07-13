@@ -14,8 +14,12 @@
  */
 package com.redhat.rhn.frontend.action.systems.provisioning.kickstart;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.kickstart.KickstartVariableAction;
+import com.redhat.rhn.frontend.action.systems.sdc.SdcHelper;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -24,12 +28,8 @@ import org.apache.struts.action.DynaActionForm;
 import org.cobbler.CobblerObject;
 import org.cobbler.SystemRecord;
 
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.kickstart.KickstartVariableAction;
-import com.redhat.rhn.frontend.action.systems.sdc.SdcHelper;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**

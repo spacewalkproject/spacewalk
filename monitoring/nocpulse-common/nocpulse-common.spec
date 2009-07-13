@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.1.15
+Version:      2.1.16
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -136,6 +136,10 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 2.1.16-1
+- don't print error when files to be moved don't exist (mzazrivec@redhat.com)
+- Don't to migrate log files from /home/nocpulse/var (mzazrivec@redhat.com)
+
 * Tue Jun 16 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.15-1
 - fix problem when nocpulse user do not exist
 

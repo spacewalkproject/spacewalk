@@ -182,7 +182,8 @@ def get_channel_handler():
 def import_channels(channels, orgid=None):
     collection = ChannelCollection()
     batch = []
-
+    import satCerts
+    orgs = map(lambda a: a['id'], satCerts.get_all_orgs())
     for c in channels:
         try:
             timestamp = collection.get_channel_timestamp(c)
@@ -195,12 +196,20 @@ def import_channels(channels, orgid=None):
         # Check to see if we're asked to sync to an orgid,
         # make sure the org from the export is not null org,
         # finally if the orgs differ so we might wanna use
-        # requested org's channel-family. 
+        # requested org's channel-family.
+        # TODO: Move these checks somewhere more appropriate
+        if not orgid and c_obj['org_id'] is not None and \
+            c_obj['org_id'] not in orgs:
+            #If the src org is not present default to org 1
+            orgid = 1
+        
         if orgid is not None and c_obj['org_id'] is not None and \
             c_obj['org_id'] != orgid:
+            #Only set the channel family if its a custom channel
             c_obj['org_id'] = orgid
             for family in c_obj['families']:
-                family['label'] = 'private-channel-family-' + c_obj['org_id']
+                family['label'] = 'private-channel-family-' + \
+                                           str(c_obj['org_id'])
 
         batch.append(c_obj)
 

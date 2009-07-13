@@ -29,11 +29,6 @@ function refresh() {
 </head>
 
 <body>
-
-<html:errors />
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
 <br />
 <div>
   <html:form styleId="wizard-form" method="post" action="/kickstart/CreateProfileWizard.do">

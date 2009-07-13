@@ -16,35 +16,24 @@ package com.redhat.rhn.domain.token.test;
 
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.Channel;
-
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
-
 import com.redhat.rhn.domain.entitlement.Entitlement;
-
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
-
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartSessionTest;
-
 import com.redhat.rhn.domain.role.RoleFactory;
-
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupType;
-
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
-
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
-
 import com.redhat.rhn.domain.user.User;
-
 import com.redhat.rhn.manager.token.ActivationKeyManager;
-
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ServerGroupTestUtils;
 import com.redhat.rhn.testing.TestUtils;
