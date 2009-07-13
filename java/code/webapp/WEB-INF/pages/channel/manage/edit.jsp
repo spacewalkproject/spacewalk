@@ -120,14 +120,24 @@
    			<html:text property="yum_repo" maxlength="512" size="60" />
    		</td>
    	</tr>
+   	 <c:if test='${not empty param.cid}'>
+	   	<tr>
+	   		<th>
+	   			<bean:message key="channel.edit.jsp.lastsynced"/>:
+	   		</th>
+	   		<td>
+	   			<c:out value='${last_sync}'/>
+	   		</td>
+	   	</tr>   
+	  </c:if>
    	<tr>
-   		<th>
-   			<bean:message key="channel.edit.jsp.lastsynced"/>:
+   		<th> 
+   			 <bean:message key="channel.edit.jsp.sync"/>:
    		</th>
    		<td>
-   			<c:out value='${last_sync}'/>
+   			<html:checkbox property="sync_repo" />
    		</td>
-   	</tr>   
+   	</tr>	  
    </table>
 
    <h2><bean:message key="channel.edit.jsp.contactsupportinfo"/></h2>
