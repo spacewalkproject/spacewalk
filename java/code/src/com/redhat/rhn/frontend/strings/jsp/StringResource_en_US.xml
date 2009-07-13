@@ -16068,12 +16068,8 @@ any of these revisions.  Are you sure you want to do this?</source>
            <source>The {0} package you have selected will be installed to the compatible selected systems, listed below:</source>
         </trans-unit>
 
-        <trans-unit id="ssm.package.install.message.packageinstall">
-           <source>{0} package installation has been scheduled</source>
-        </trans-unit>
-
         <trans-unit id="ssm.package.install.message.packageinstalls">
-           <source>{0} package installations have been scheduled</source>
+            <source>Package installations are being scheduled, it may take several minutes for this to complete.</source>
         </trans-unit>
 
      </group>
@@ -16117,11 +16113,11 @@ any of these revisions.  Are you sure you want to do this?</source>
         <trans-unit id="ssm.package.remove.schedule.toomanypackages">
           <source>Package list truncated</source>
         </trans-unit>
-        <trans-unit id="ssm.package.remove.message.packageremoval">
-           <source>{0} package removal has been scheduled</source>
-        </trans-unit>
         <trans-unit id="ssm.package.remove.message.packageremovals">
-           <source>{0} package removals have been scheduled</source>
+           <source>Package removals are being scheduled, it may take several minutes for this to complete. </source>
+        </trans-unit>
+        <trans-unit id="ssm.package.remove.operationname">
+           <source>Schedule Package Removals</source>
         </trans-unit>
     </group>
        
@@ -16147,6 +16143,9 @@ any of these revisions.  Are you sure you want to do this?</source>
        <trans-unit id="ssm.package.upgrade.select.advisory">
          <source>Advisory</source>
        </trans-unit>
+        <trans-unit id="ssm.package.upgrade.operationname">
+           <source>Schedule Package Upgrades</source>
+        </trans-unit>
    </group>
     
     <!-- ssm/packageupgradeschedule.jsp -->
@@ -16156,7 +16155,7 @@ any of these revisions.  Are you sure you want to do this?</source>
        </context-group>
 
        <trans-unit id="ssm.package.upgrade.message.packageupgrade">
-         <source>Package upgrades scheduled</source>
+         <source>Package upgrades are being scheduled, it may take several minutes for this to complete. </source>
        </trans-unit>
        <trans-unit id="ssm.package.upgrade.schedule.toomanypackages">
          <source>Package list truncated</source>
@@ -16205,11 +16204,8 @@ any of these revisions.  Are you sure you want to do this?</source>
        <trans-unit id="ssm.package.verify.schedule.toomanypackages">
          <source>Package list truncated</source>
        </trans-unit>
-       <trans-unit id="ssm.package.verify.message.packageverification">
-          <source>{0} package verification has been scheduled</source>
-       </trans-unit>
        <trans-unit id="ssm.package.verify.message.packageverifications">
-          <source>{0} package verifications have been scheduled</source>
+          <source>Package verifications are being scheduled, it may take several minutes for this to complete.</source>
        </trans-unit>
    </group>
        

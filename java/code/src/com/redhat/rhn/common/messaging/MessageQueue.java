@@ -15,6 +15,11 @@
 
 package com.redhat.rhn.common.messaging;
 
+import com.redhat.rhn.frontend.events.SsmRemovePackagesAction;
+import com.redhat.rhn.frontend.events.SsmRemovePackagesEvent;
+import com.redhat.rhn.frontend.events.SsmUpgradePackagesAction;
+import com.redhat.rhn.frontend.events.SsmUpgradePackagesEvent;
+
 import EDU.oswego.cs.dl.util.concurrent.Channel;
 import EDU.oswego.cs.dl.util.concurrent.LinkedQueue;
 
@@ -30,6 +35,10 @@ import com.redhat.rhn.frontend.events.TraceBackAction;
 import com.redhat.rhn.frontend.events.TraceBackEvent;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheAction;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
+import com.redhat.rhn.frontend.events.SsmInstallPackagesAction;
+import com.redhat.rhn.frontend.events.SsmInstallPackagesEvent;
+import com.redhat.rhn.frontend.events.SsmVerifyPackagesAction;
+import com.redhat.rhn.frontend.events.SsmVerifyPackagesEvent;
 
 import org.apache.log4j.Logger;
 
@@ -42,7 +51,6 @@ import java.util.Map;
 /**
  * A class that passes messages from the sender to an action class
  *
- * @version $Rev$
  */
 public class MessageQueue {
 
@@ -251,11 +259,24 @@ public class MessageQueue {
         RestartSatelliteAction ra = new RestartSatelliteAction();
         MessageQueue.registerAction(ra, RestartSatelliteEvent.class);
         
-        // Used to allow SSM operations to be run asynchronously
+        // Used to allow SSM child channel changes to be run asynchronously
         SsmChangeChannelSubscriptionsAction sccsa =
             new SsmChangeChannelSubscriptionsAction();
         MessageQueue.registerAction(sccsa, SsmChangeChannelSubscriptionsEvent.class);
-        
+
+        // Used to allow SSM package installs to be run asynchronously
+        SsmInstallPackagesAction ssmPackageInstallAction = new SsmInstallPackagesAction();
+        MessageQueue.registerAction(ssmPackageInstallAction, SsmInstallPackagesEvent.class);
+
+        SsmRemovePackagesAction ssmRpa = new SsmRemovePackagesAction();
+        MessageQueue.registerAction(ssmRpa, SsmRemovePackagesEvent.class);
+
+        SsmVerifyPackagesAction ssmVpa = new SsmVerifyPackagesAction();
+        MessageQueue.registerAction(ssmVpa, SsmVerifyPackagesEvent.class);
+
+        SsmUpgradePackagesAction ssmUpa = new SsmUpgradePackagesAction();
+        MessageQueue.registerAction(ssmUpa, SsmUpgradePackagesEvent.class);
+
         //Clone Errata into a channel
         CloneErrataAction cea = new CloneErrataAction();
         MessageQueue.registerAction(cea, CloneErrataEvent.class);
