@@ -119,7 +119,7 @@ public class RepomdIndexWriter {
             handler.endElement("location");
 
             attr.clear();
-            attr.addAttribute("type", "sha");
+            attr.addAttribute("type", data.getType());
             handler.startElement("checksum", attr);
             handler.addCharacters(data.getChecksum());
             handler.endElement("checksum");
@@ -127,7 +127,7 @@ public class RepomdIndexWriter {
             // this can be null for group info, since it is uncompressed
             if (data.getOpenChecksum() != null) {
                 attr.clear();
-                attr.addAttribute("type", "sha");
+                attr.addAttribute("type", data.getType());
                 handler.startElement("open-checksum", attr);
                 handler.addCharacters(data.getOpenChecksum());
                 handler.endElement("open-checksum");

@@ -40,14 +40,15 @@ public class CompressingDigestOutputWriter extends OutputStream implements
     /**
      * 
      * @param stream The stream to compress
+     * @param checksumtype checksum type
      */
-    public CompressingDigestOutputWriter(OutputStream stream) {
+    public CompressingDigestOutputWriter(OutputStream stream, String checksumtype) {
         try {
             compressedDigestStream = new DigestOutputStream(stream,
-                    MessageDigest.getInstance("SHA1"));
+                    MessageDigest.getInstance(checksumtype));
             compressedStream = new GZIPOutputStream(compressedDigestStream);
             uncompressedDigestStream = new DigestOutputStream(compressedStream,
-                    MessageDigest.getInstance("SHA1"));
+                    MessageDigest.getInstance(checksumtype));
         }
         catch (NoSuchAlgorithmException nsae) {
             // XXX fatal runtime exception

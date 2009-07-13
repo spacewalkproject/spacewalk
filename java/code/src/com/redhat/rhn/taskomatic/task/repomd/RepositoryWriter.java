@@ -55,6 +55,7 @@ public class RepositoryWriter {
     private Logger log = Logger.getLogger(RepositoryWriter.class);
     private String pathPrefix;
     private String mountPoint;
+    private String checksumtype;
 
     /**
      * Constructor takes in pathprefix and mountpoint
@@ -102,13 +103,16 @@ public class RepositoryWriter {
         CompressingDigestOutputWriter filelistsFile;
         CompressingDigestOutputWriter otherFile;
 
+        // Get compatible checksumType
+        this.checksumtype = channel.getChecksumType();
+
         try {
             primaryFile = new CompressingDigestOutputWriter(
-                    new FileOutputStream(prefix + PRIMARY_FILE));
+                    new FileOutputStream(prefix + PRIMARY_FILE), this.checksumtype);
             filelistsFile = new CompressingDigestOutputWriter(
-                    new FileOutputStream(prefix + FILELISTS_FILE));
+                    new FileOutputStream(prefix + FILELISTS_FILE), this.checksumtype);
             otherFile = new CompressingDigestOutputWriter(new FileOutputStream(
-                    prefix + OTHER_FILE));
+                    prefix + OTHER_FILE), this.checksumtype);
         }
         catch (IOException e) {
             throw new RepomdRuntimeException(e);
@@ -173,9 +177,17 @@ public class RepositoryWriter {
 
         log.info("Starting updateinfo generation for '" + channel.getLabel() +
                 '"');
-        RepomdIndexData updateinfoData = generateUpdateinfo(channel, prefix);
+        RepomdIndexData updateinfoData = generateUpdateinfo(channel, prefix, 
+                this.checksumtype);
 
         RepomdIndexData groupsData = loadCompsFile(channel);
+
+        //Set the type so yum can read and perform checksum
+        primaryData.setType(this.checksumtype);
+        filelistsData.setType(this.checksumtype);
+        otherData.setType(this.checksumtype);
+        updateinfoData.setType(this.checksumtype);
+        groupsData.setType(this.checksumtype);
 
         FileWriter indexFile;
 
@@ -238,7 +250,7 @@ public class RepositoryWriter {
         DigestInputStream digestStream;
         try {
             digestStream = new DigestInputStream(stream, MessageDigest
-                    .getInstance("SHA1"));
+                    .getInstance(this.checksumtype));
         }
         catch (NoSuchAlgorithmException nsae) {
             throw new RepomdRuntimeException(nsae);
@@ -316,9 +328,11 @@ public class RepositoryWriter {
      * Generates update info for given channel
      * @param channel channel info
      * @param prefix repodata file prefix
+     * @param checksumtype checksum type
      * @return repodata index
      */
-    private RepomdIndexData generateUpdateinfo(Channel channel, String prefix) {
+    private RepomdIndexData generateUpdateinfo(Channel channel, String prefix, 
+            String checksumtypeIn) {
 
         if (channel.getErratas().size() == 0) {
             return null;
@@ -327,7 +341,7 @@ public class RepositoryWriter {
         CompressingDigestOutputWriter updateinfoFile;
         try {
             updateinfoFile = new CompressingDigestOutputWriter(
-                    new FileOutputStream(prefix + UPDATEINFO_FILE));
+                    new FileOutputStream(prefix + UPDATEINFO_FILE), checksumtypeIn);
         }
         catch (FileNotFoundException e) {
             throw new RepomdRuntimeException(e);
