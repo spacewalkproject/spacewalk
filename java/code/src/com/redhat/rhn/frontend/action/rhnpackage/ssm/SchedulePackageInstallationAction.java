@@ -81,7 +81,7 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
 
                 // Fire off the request on the message queue
                 SsmInstallPackagesEvent event =
-                    new SsmInstallPackagesEvent(user, earliest, data, cid);
+                    new SsmInstallPackagesEvent(user.getId(), earliest, data, cid);
                 MessageQueue.publish(event);
 
                 ActionMessages msgs = new ActionMessages();

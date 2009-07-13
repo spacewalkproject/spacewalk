@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.events;
 import java.util.Date;
 import java.util.Set;
 import com.redhat.rhn.common.messaging.EventMessage;
-import com.redhat.rhn.domain.user.User;
 
 /**
  * Event fired to carry the information necessary to schedule package installations
@@ -25,7 +24,7 @@ import com.redhat.rhn.domain.user.User;
  */
 public class SsmInstallPackagesEvent implements EventMessage {
 
-    private User user;
+    private Long userId;
     private Date earliest;
     private Set<String> packages;
     private Long channelId;
@@ -33,19 +32,19 @@ public class SsmInstallPackagesEvent implements EventMessage {
     /**
      * Creates a new event to install a set of packages on systems in the SSM.
      *
-     * @param userIn      user making the changes; cannot be <code>null</code>
+     * @param userIdIn      user making the changes; cannot be <code>null</code>
      * @param earliestIn  earliest time to perform the installation;
      *                    can be <code>null</code>
      * @param packagesIn  set of package IDs being installed; cannot be <code>null</code>
      * @param channelIdIn identifies the channel the packages are installed from;
      *                    cannot be <code>null</code>
      */
-    public SsmInstallPackagesEvent(User userIn,
+    public SsmInstallPackagesEvent(Long userIdIn,
                                   Date earliestIn,
                                   Set<String> packagesIn,
                                   Long channelIdIn) {
-        if (userIn == null) {
-            throw new IllegalArgumentException("userIn cannot be null");
+        if (userIdIn == null) {
+            throw new IllegalArgumentException("userIdIn cannot be null");
         }
 
         if (packagesIn == null) {
@@ -57,7 +56,7 @@ public class SsmInstallPackagesEvent implements EventMessage {
         }
 
 
-        this.user = userIn;
+        this.userId = userIdIn;
         this.earliest = earliestIn;
         this.packages = packagesIn;
         this.channelId = channelIdIn;
@@ -66,8 +65,8 @@ public class SsmInstallPackagesEvent implements EventMessage {
     /**
      * @return will not be <code>null</code>
      */
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
     /**
@@ -98,7 +97,7 @@ public class SsmInstallPackagesEvent implements EventMessage {
 
     /** {@inheritDoc} */
     public String toString() {
-        return "SsmPackageInstallEvent[User: " + user.getLogin() + ", Package Count: " +
+        return "SsmPackageInstallEvent[User: " + userId + ", Package Count: " +
             packages.size() + ", Channel ID: " + channelId +  "]";
     }
 }

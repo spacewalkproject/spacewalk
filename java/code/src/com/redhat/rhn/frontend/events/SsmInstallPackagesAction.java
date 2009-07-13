@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.events;
 
+import com.redhat.rhn.domain.user.UserFactory;
+
 import java.util.Set;
 import java.util.List;
 import java.util.ArrayList;
@@ -45,7 +47,7 @@ public class SsmInstallPackagesAction extends AbstractDatabaseAction {
     protected void doExecute(EventMessage msg) {
         SsmInstallPackagesEvent event = (SsmInstallPackagesEvent) msg;
 
-        User user = event.getUser();
+        User user = UserFactory.lookupById(event.getUserId());
 
         // Log the action has been created
         LocalizationService ls = LocalizationService.getInstance();
@@ -55,7 +57,7 @@ public class SsmInstallPackagesAction extends AbstractDatabaseAction {
                 operationMessage, RhnSetDecl.SYSTEMS.getLabel());
 
         try {
-            scheduleInstalls(event);
+            scheduleInstalls(event, user);
         }
         catch (Exception e) {
             log.error("Error scheduling package installations for event " + event, e);
@@ -67,10 +69,9 @@ public class SsmInstallPackagesAction extends AbstractDatabaseAction {
         }
     }
 
-    private void scheduleInstalls(SsmInstallPackagesEvent event) {
+    private void scheduleInstalls(SsmInstallPackagesEvent event, User user) {
 
         log.debug("Scheduling package installations.");
-        User user = event.getUser();
         Date earliest = event.getEarliest();
         Set<String> data = event.getPackages();
         Long channelId = event.getChannelId();
