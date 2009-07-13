@@ -19,6 +19,8 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.messaging.EventMessage;
 
 import java.util.Date;
+import java.util.Map;
+import java.util.List;
 
 /**
  * Event fired to carry the information necessary to upgrade packages on servers in the
@@ -31,6 +33,7 @@ public class SsmUpgradePackagesEvent implements EventMessage {
     private Long userId;
     private Date earliest;
     private DataResult result;
+    private List<Map<String, Long>> packageListItems;
 
     /**
      * Creates a new SSM upgrade packages event.
@@ -38,11 +41,14 @@ public class SsmUpgradePackagesEvent implements EventMessage {
      * @param userIdIn ID of user scheduling this action.
      * @param earliestIn Earliest data action can be picked up.
      * @param resultIn Complex map of which packages we're upgrading on which servers.
+     * @param listIn packages to upgrade
      */
-    public SsmUpgradePackagesEvent(Long userIdIn, Date earliestIn, DataResult resultIn) {
+    public SsmUpgradePackagesEvent(Long userIdIn, Date earliestIn,
+                                   DataResult resultIn, List<Map<String, Long>> listIn) {
         userId = userIdIn;
         earliest = earliestIn;
         result = resultIn;
+        packageListItems = listIn;
     }
 
     /** {@inheritDoc} */
@@ -82,5 +88,13 @@ public class SsmUpgradePackagesEvent implements EventMessage {
         return this.result;
     }
 
+    /**
+     * Gets the packages to upgrade.
+     *
+     * @return list suitable for scheduling upgrade actions
+     */
+    public List<Map<String, Long>> getPackageListItems() {
+        return packageListItems;
+    }
 }
 

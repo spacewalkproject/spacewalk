@@ -21,6 +21,7 @@ import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
+import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 
@@ -52,6 +53,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -177,13 +179,25 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
             "date", DatePicker.YEAR_RANGE_POSITIVE);
                 
         log.debug("Getting package upgrade data.");
-        // Parse through all of the results
         DataResult result = (DataResult) getResult(context); 
-        result.elaborate();
 
+        RhnSet packageSet = RhnSetDecl.SSM_UPGRADE_PACKAGES_LIST.get(user);
+        Set<RhnSetElement> packageElements = packageSet.getElements();
+
+        List<Map<String, Long>> packageListItems =
+            new ArrayList<Map<String, Long>>(packageElements.size());
+        for (RhnSetElement packageElement : packageElements) {
+            Map<String, Long> keyMap = new HashMap<String, Long>();
+            keyMap.put("name_id", packageElement.getElement());
+            keyMap.put("evr_id", packageElement.getElementTwo());
+            keyMap.put("arch_id", packageElement.getElementThree());
+
+            packageListItems.add(keyMap);
+        }
+        
         log.debug("Publishing schedule package upgrade event to message queue.");
         SsmUpgradePackagesEvent event = new SsmUpgradePackagesEvent(user.getId(), earliest,
-                result);
+                result, packageListItems);
         MessageQueue.publish(event);
 
         // Remove the packages from session and the DB
