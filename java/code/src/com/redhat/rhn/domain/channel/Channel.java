@@ -810,8 +810,8 @@ public class Channel extends BaseDomainHelper implements Comparable {
         DistChannelMap channelDist = ChannelFactory.lookupDistChannelMap(toConsider);
         if (channelDist != null) {
             String release = channelDist.getRelease();
-            // If channle or parent is RHEL-5 use sha1, else use sha256
-            if (sha1compatiblechannels.contains(release)) {
+            // If channel or parent is RHEL-5 use sha1, else use sha256
+            if (toConsider.isCustom() || sha1compatiblechannels.contains(release)) {
                 return CHECKSUM_SHA_1;
             }
             else {
