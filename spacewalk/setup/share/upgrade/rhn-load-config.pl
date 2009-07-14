@@ -122,7 +122,7 @@ RHN::SatInstall->write_config(\%config_opts,
 
 
 Spacewalk::Setup::satcon_deploy();
-s
+
 print "Done\n";
 
 exit 0;
