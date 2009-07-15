@@ -1,0 +1,142 @@
+#!/usr/bin/perl
+use strict;
+#
+# Copyright (c) 2009 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
+
+use Data::Dumper;
+use Getopt::Long;
+use Frontier::Client;
+use Term::ReadKey;
+
+#set defaults;
+my ($server, $user, $password)= ('', '', '');
+my $login=1;
+
+GetOptions("server=s" => \$server,
+        "login!" => \$login,
+        "user:s" => \$user,
+        "password:s" => \$password,
+        );
+
+if (not $server) {
+        print "Error: No server specified.\n";
+        exit 1;
+}
+
+# read username if not given on command line
+if ((not $user) and $login) {
+        print "Enter username: ";
+        $user = ReadLine 0;
+        chomp $user;
+        print "\n";
+}
+
+# read password if not given on command line
+if ((not $password) and $login) {
+        print "Enter your password: ";
+        ReadMode 'noecho';
+        $password = ReadLine 0;
+        chomp $password;
+        ReadMode 'normal';
+        print "\n";
+}
+
+my $client = new Frontier::Client(url => "http://$server/rpc/api");
+
+my $session;
+if ($login) {
+        $session = $client->call('auth.login', $user, $password);
+        if (not $session) {
+                print "Error: Log in failed.\n";
+                exit 2;
+        }
+}
+
+my @params;
+while (my $param = shift @ARGV) {
+        if ($param eq '%session%') {
+                $param = $session;
+        } elsif ( $param =~ '%file:(.*)%') {
+                open F, $1 or die "Error: Could not open $1";
+                $param = join('', <F>);
+                close F;
+        }
+        push @params, $param;
+}
+
+my $data = $client->call(@params);
+
+print Data::Dumper->Dump([$data], ["result"]);
+
+if ($login) {
+        $client->call('auth.logout', $session);
+}
+
+=pod
+
+=head1 NAME
+
+spacewalk-api - Call Spacawalk API from command line.
+
+=head1 SYNOPSIS
+
+spacewalk-api [OPTIONS] --server=spacewalk.domain.com FUNCTION [PARAM1 PARAM2 ...]
+
+=head1 DESCRIPTION
+
+spacewalk-api interact with the Spacewalk server and expose its API layer.
+
+FUNCTION is api method you wish to call and is followed by its parameters.
+There is few special substitution available:
+
+%session% 
+        Is replaced with sessionid. If you use --nologin option, then it is replaced by empty string.
+
+%file:/some/file% 
+        Is replaced by content of given file.
+
+=head1 OPTIONS
+
+--server
+        URL of your Spacewalk server.
+
+--login
+--nologin
+        If we should log in or not. Default is to log in.
+
+--user
+        Name of user to log in.
+
+--password
+        If you do not specify this and unless --nologin is specified, you will be prompted for your password.
+
+=head1 EXAMPLES
+
+  spacewalk-api --server=spacewalk.com --nologin api.systemVersion
+
+  spacewalk-api --server=spacewalk.com --user=foo --password=bar channel.listAllChannels "%session%"
+
+  spacewalk-api --server=spacewalk.com --nologin proxy.isProxy '%file:/etc/sysconfig/rhn/systemid%'
+
+=head1 AUTHOR
+
+Miroslav Suchý <msuchy@redhat.com> 
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (c) 2009 Red Hat, Inc.
+Released under GNU General Public License, version 2 (GPLv2).
+
+=cut
