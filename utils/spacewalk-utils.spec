@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	0.6.4
+Version:	0.6.5
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -54,6 +54,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 15 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.5-1
+- add spacewalk-api script, which can interact with API from command line
+
 * Mon May 11 2009 Brad Buckingham <bbuckingham@redhat.com> 0.6.4-1
 - 500173 - update migrate-system-profile to import scripts from utils vs
   spacewalk_tools (bbuckingham@redhat.com)
