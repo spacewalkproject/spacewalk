@@ -516,7 +516,7 @@ def _processFile(filename, relativeDir=None, source=None, nosig=None):
     size = os.path.getsize(filename)
     # Open the file
     f = open(filename, "r")
-    digest = computeMD5sum(None, f)
+    digest = computeChecksum(None, f)
     # Rewind the file
     f.seek(0, 0)
     # Read the header
@@ -547,7 +547,7 @@ def _processFile(filename, relativeDir=None, source=None, nosig=None):
 
     # Build the header hash to be sent
     hash = { 'header' : Binary(h.unload()),
-            'md5sum' : digest,
+            'md5sum' : digest['md5'],
             'packageSize' : size,
             'header_start' : header_start,
             'header_end' : header_end}
@@ -576,7 +576,7 @@ def _processBatch(batch, relativeDir, source, verbose, nosig=None):
         headersList.append(hash)
     return sentPackages, headersList
 
-def computeMD5sum(filename=None, f=None):
+def computeChecksum(filename=None, f=None):
     if f is None:
         fd = open(filename, "r")
     else:
@@ -590,7 +590,7 @@ def computeMD5sum(filename=None, f=None):
         md5sum.update(buf)
     if not f:
         fd.close()
-    return string.join(map(lambda x: "%02x" % ord(x), md5sum.digest()), '')
+    return {'md5' : string.join(map(lambda x: "%02x" % ord(x), md5sum.digest()), '') }
 
 
 def readStdin():

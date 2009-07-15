@@ -389,12 +389,12 @@ class UploadClass(uploadLib.UploadClass):
                     self.warn(2, "ERROR: %s: No such file or directory available" % pkg)
                     continue
                 
-                digest = uploadLib.computeMD5sum(None, payload_stream)
+                digest = uploadLib.computeChecksum(None, payload_stream)
                 f.close()
                 
             for t in range(0, tries):
                 try:
-                    ret = self.package(pkg, digest)
+                    ret = self.package(pkg, digest['md5'])
                     if ret is None:
                         raise UploadError()
 
@@ -493,8 +493,9 @@ class UploadClass(uploadLib.UploadClass):
                     self.die(-1, "ERROR: %s: No such file or directory available" % pkg)
                 self.warn(2, "ERROR: %s: No such file or directory available" % pkg)
                 continue
-                        
-            digest_hash[pkg_key] =  uploadLib.computeMD5sum(None, payload_stream)
+
+            digest = uploadLib.computeChecksum(None, payload_stream)                        
+            digest_hash[pkg_key] = digest['md5']
             f.close()
             
             for tag in ('name', 'version', 'release', 'epoch', 'arch'):
