@@ -25,16 +25,20 @@ import struct
 
 try:
     import hashlib
+    _available_checksums = set(['md5', 'sha1', 'sha256', 'sha512'])
 except ImportError:
     import md5
+    import sha
+    _available_checksums = set(['md5', 'sha1'])
     class hashlib:
         @staticmethod
         def new(checksum):
-            # Add sha1 if needed.
             if checksum == 'md5':
                 return md5.new()
+            elif checksum == 'sha1':
+                return sha.new()
             # if not md5 or sha1, its invalid
-            if checksum not in ['md5', 'sha1']:
+            else checksum not in ['md5', 'sha1']:
                 raise ValueError, "Incompatible checksum type"
 
 try:
