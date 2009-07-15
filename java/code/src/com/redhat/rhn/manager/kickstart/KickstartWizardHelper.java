@@ -62,7 +62,7 @@ public class KickstartWizardHelper {
      * @return list of KickstartableTrees
      */
     public List getKickstartableTrees() {
-        return KickstartFactory.lookupKickstartTreesByOrg(currentUser.getOrg());
+        return KickstartFactory.lookupAccessibleTreesByOrg(currentUser.getOrg());
     }
 
     /**

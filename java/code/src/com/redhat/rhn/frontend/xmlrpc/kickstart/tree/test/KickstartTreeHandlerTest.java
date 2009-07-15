@@ -60,7 +60,7 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
     public void testCreateKickstartableTree() throws Exception {
         String label = TestUtils.randomString();
         List trees = KickstartFactory.
-            lookupKickstartTreesByOrg(admin.getOrg());
+            lookupAccessibleTreesByOrg(admin.getOrg());
         int origCount = 0;
         if (trees != null) {
             origCount = trees.size();
@@ -70,7 +70,7 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
                 "http://localhost/ks", 
                 baseChan.getLabel(), KickstartInstallType.RHEL_5);
         assertTrue(origCount + 1 == KickstartFactory.
-                lookupKickstartTreesByOrg(admin.getOrg()).size());
+                lookupAccessibleTreesByOrg(admin.getOrg()).size());
     }
     
     public void testEditKickstartableTree() throws Exception {
