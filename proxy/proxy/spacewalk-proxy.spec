@@ -119,6 +119,7 @@ Requires: spacewalk-backend
 Requires: rhnlib
 Requires: python-optik
 Requires: rhnpush
+Requires: python-hashlib
 BuildRequires: /usr/bin/docbook2man
 Obsoletes: rhn_package_manager < 5.3.0
 Obsoletes: rhns-proxy-package-manager < 5.3.0
