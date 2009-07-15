@@ -16464,7 +16464,7 @@ the &lt;a href=&quot;/rhn/kickstart/ActivationKeysList.do?ksid={0}&quot;&gt;Acti
             <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
         </context-group>
     </trans-unit>
-    
+
     <!--KS schedule pages -->
 	<group>
 	    <context-group name="ctx">
@@ -16775,34 +16775,31 @@ the &lt;a href=&quot;/rhn/kickstart/ActivationKeysList.do?ksid={0}&quot;&gt;Acti
             <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionCancel.do</context>
         </context-group>
     </trans-unit>
-
-    <trans-unit id="kickstart.kickstartable_distributions.jsp">
-        <source>Kickstartable Distributions</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/ViewTrees.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="kickstart.kickstartable_distributions_text.jsp">
-        <source>The following kickstart distributions are available.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/ViewTrees.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="kickstart.kickstartable_distro_create_new.jsp">
-        <source>create new distribution</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/ViewTrees.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="kickstart.distributions.jsp.nolists">
-        <source>No kickstartable distributions available.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/ViewTrees.do</context>
-        </context-group>
-    </trans-unit>
+<!-- KS Distributions List Page -->
+   	<group>
+	    <context-group name="ctx">
+	        <context context-type="sourcefile">/rhn/kickstart/ViewTrees.do</context>
+	    </context-group>
+	    <trans-unit id="kickstart.distributions.jsp.nolists">
+	        <source>No kickstartable distributions available.</source>
+	    </trans-unit>
+	    <trans-unit id="kickstart.kickstartable_distro_create_new.jsp">
+	        <source>create new distribution</source>
+	    </trans-unit>
+	    <trans-unit id="kickstart.kickstartable_distributions.jsp">
+	        <source>Kickstartable Distributions</source>
+	    </trans-unit>
+	    <trans-unit id="kickstart.kickstartable_distributions_text.jsp">
+	        <source>The following kickstart distributions are available.</source>
+	    </trans-unit>
+	    <trans-unit id="kickstarts.distro.is-valid.tooltip">
+	        <source>Kickstart distributions may be invalid due wrong or non existent base path to the kernel or initrd image. To make your custom distribution valid please select the distribution and modify its base path appropriately.</source>
+	    </trans-unit>
+	    <trans-unit id="kickstart.distro.is-valid.jsp">
+	        <source>Valid?*</source>
+	    </trans-unit>
+    </group>    
+    
     <trans-unit id="preferences.jsp.lang.bn_IN">
         <source>Bengali</source>
         <context-group name="ctx">

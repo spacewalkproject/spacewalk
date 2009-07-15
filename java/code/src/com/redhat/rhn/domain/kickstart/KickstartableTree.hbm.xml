@@ -78,11 +78,14 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         		order by k.label]]>    
     </query>
     
-    <query name="KickstartableTree.findByOrg">
+    <query name="KickstartableTree.findAccessibleToOrg">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
         		where k.org = :org_id or k.org is null order by k.label]]>
     </query>
-    
+    <query name="KickstartableTree.findByOrg">
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
+        		where k.org.id = :org_id order by k.label]]>
+    </query>    
     <query name="KickstartableTree.findAll">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
         		]]>
