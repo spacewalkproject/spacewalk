@@ -15,7 +15,9 @@
 package com.redhat.rhn.domain.server;
 
 import com.redhat.rhn.domain.BaseDomainHelper;
+import com.redhat.rhn.manager.kickstart.IpAddress;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -184,4 +186,28 @@ public class NetworkInterface extends BaseDomainHelper implements
     }
     
     
+    private boolean isIpValid() {
+        try {
+            IpAddress ip = new IpAddress(this.getIpaddr());
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
+
+    private boolean isMacValid() {
+        return !(StringUtils.isEmpty(this.getHwaddr()) ||
+                this.getHwaddr().equals("00:00:00:00:00:00") ||
+                this.getHwaddr().equals("fe:ff:ff:ff:ff:ff"));
+    }
+
+    /**
+     * Returns if this network interface is valid and should be used
+     * @return true if valid, else false
+     */
+    public boolean isValid() {
+        return isIpValid() && isMacValid();
+    }
+
 }

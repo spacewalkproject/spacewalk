@@ -157,11 +157,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         List macs = new LinkedList();
         for (NetworkInterface n : server.getNetworkInterfaces()) {
             // Skip localhost and non real interfaces
-            if (n.getHwaddr() == null ||
-                n.getHwaddr().equals("00:00:00:00:00:00") ||
-                n.getHwaddr().equals("fe:ff:ff:ff:ff:ff") ||
-                n.getIpaddr() == null ||
-                n.getIpaddr().equals("127.0.0.1")) {
+            if (!n.isValid()) {
                 log.debug("Skipping.  not a real interface");
             }
             else {
@@ -309,7 +305,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
             Server serverIn) {
         Map inet = new HashMap();
         for (NetworkInterface n : serverIn.getNetworkInterfaces()) {
-            if (!n.getHwaddr().equals("00:00:00:00:00:00")) {
+            if (n.isValid()) {
                 inet.put("macaddress-" + n.getName(), n.getHwaddr());
                 if (!StringUtils.isBlank(n.getIpaddr())) {
                     inet.put("ipaddress-" + n.getName(), n.getIpaddr());
