@@ -71,7 +71,9 @@ public abstract class CobblerObject {
      */
     protected static Map<String, Object> lookupDataMapById(CobblerConnection client, 
                              String id, String findMethod) {
-
+        if (id == null) {
+            return null;
+        }
         List<Map<String, Object>> objects = lookupDataMapsByCriteria(client,
                                                             UID, id, findMethod);
         if (!objects.isEmpty()) {
