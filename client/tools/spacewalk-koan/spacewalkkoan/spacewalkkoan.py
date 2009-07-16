@@ -47,10 +47,10 @@ def find_host_name():
     return execute("hostname")[0]
 
 def find_netmask(device):
-    return execute("ifconfig $DEVICE | perl -lne '/Mask:([\d.]+)/ and print $1'")[0]
+    return execute("ifconfig %s | perl -lne '/Mask:([\d.]+)/ and print $1'" % device)[0]
 
 def find_ip(device):
-    return execute("ifconfig $DEVICE | perl -lne '/inet addr:([\d.]+)/ and print $1'")[0]
+    return execute("ifconfig %s | perl -lne '/inet addr:([\d.]+)/ and print $1'" % device)[0]
 
 def find_name_servers():
     servers = execute("cat /etc/resolv.conf | perl -lne '/^nameserver\s+(\S+)$/ and print $1'")
