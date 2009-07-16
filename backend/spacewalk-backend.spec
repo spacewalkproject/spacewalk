@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.18
+Version: 0.6.19
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -568,6 +568,17 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Jul 16 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.19-1
+- 512236 - the org id checks were defaulting to None in custom channel cases
+  instead of 1. Also the metadata sting frommaster is a string None so we need
+  to check for the string. This should fix both custom and null org content in
+  iss case. hosted syncs should work as usual. (pkilambi@redhat.com)
+- Return config channels sorted highest to lowest priority.
+  (dgoodwin@redhat.com)
+- 511116 - changing updatePackages to change the permissions on the kickstart
+  trees in the same way we do for packages within /var/satellite
+  (jsherril@redhat.com)
+
 * Fri Jul 10 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.18-1
 - If not commandline options given, compare the erratum channels to the already
   imported ones (pkilambi@redhat.com)
