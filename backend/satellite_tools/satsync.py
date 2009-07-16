@@ -874,7 +874,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 for t in nvrea_keys:
                     nevra[t] = package[t] or ""
 
-                if OPTIONS.orgid is not None:
+                if OPTIONS.orgid is not None and \
+                    package['org_id'] is not None:
                     nevra['org_id'] = OPTIONS.orgid
                     package['org_id'] = OPTIONS.orgid
                 else:
@@ -1442,7 +1443,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         for ks, timestamp in missing_kickstarts:
             ksobj = coll.get_item(ks, timestamp=timestamp)
             assert ksobj is not None
-            if OPTIONS.orgid is not None:
+            if OPTIONS.orgid is not None and \
+                ksobj['org_id'] is not None:
                 ksobj['org_id'] = OPTIONS.orgid
             batch.append(ksobj)
 
@@ -1690,8 +1692,6 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                     uq_packages[pid] = package
 
         uq_pkg_data = uq_packages.values()
-        # check to make sure the orgs exported are valid
-        _validate_package_org(uq_pkg_data)
         try:
             if OPTIONS.mount_point:
                 importer = sync_handlers.link_channel_packages(uq_pkg_data, strict=0)
@@ -1781,7 +1781,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
         erratum['packages'] = packages
 
-        if OPTIONS.orgid is not None:
+        if OPTIONS.orgid is not None and \
+            erratum['org_id'] is not None:
             erratum['org_id'] = OPTIONS.orgid
 
         # Now fix channels
@@ -2023,13 +2024,15 @@ def _validate_package_org(batch):
     orgid = OPTIONS.orgid or None
     orgs = map(lambda a: a['id'], satCerts.get_all_orgs())
     for pkg in batch:
-        if not OPTIONS.orgid and pkg['org_id'] is not None and \
-            pkg['org_id'] not in orgs:
-
-            pkg['org_id'] = 1
-        else:
+        if not pkg['org_id'] or pkg['org_id'] == 'None':
+            # default to Null so do nothing
+            pkg['org_id'] = None
+        elif orgid:
+            # if options.orgid specified use it
             pkg['org_id'] = orgid
-
+        elif pkg['org_id'] not in orgs:
+            # org from server is not valid
+            pkg['org_id'] = 1
 
 def _getImportedChannels():
     "Retrieves the channels already imported in the satellite's database"
