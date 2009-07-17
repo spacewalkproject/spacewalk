@@ -577,20 +577,34 @@ def _processBatch(batch, relativeDir, source, verbose, nosig=None):
     return sentPackages, headersList
 
 def computeChecksum(filename=None, f=None):
+    """ Compute checksum of file.
+        If f (file handler) is given, then content is read from this file handle.
+        Otherwise from file filename.
+        Returns has where key is name of checksum type and value is digest.
+        MD5 is always computed, SHA256 only if hashlib is installed.
+    """
     if f is None:
         fd = open(filename, "r")
     else:
         fd = f
         fd.seek(0, 0)
     md5sum = hashlib.new('md5')
+    sha256_available = 'sha256' in _available_checksums;
+    if sha256_available:
+        sha256sum hashlib.new('sha256')
     while 1:
         buf = fd.read(BUFFER_SIZE)
         if not buf:
             break
         md5sum.update(buf)
+        if sha256_available:
+            sha256sum.update(buf)
     if not f:
         fd.close()
-    return {'md5' : string.join(map(lambda x: "%02x" % ord(x), md5sum.digest()), '') }
+    result = {'md5' : string.join(map(lambda x: "%02x" % ord(x), md5sum.digest()), '') }
+    if sha256_available:
+        result['sha256'] = string.join(map(lambda x: "%02x" % ord(x), sha256sum.digest()), '') }
+    return result
 
 
 def readStdin():
