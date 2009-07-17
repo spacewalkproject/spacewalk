@@ -14,6 +14,15 @@
  */
 package com.redhat.rhn.domain.rhnpackage;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.channel.Channel;
@@ -21,15 +30,6 @@ import com.redhat.rhn.domain.errata.impl.PublishedErrata;
 import com.redhat.rhn.domain.errata.impl.UnpublishedErrata;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rpm.SourceRpm;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
-
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Package
@@ -662,9 +662,20 @@ public class Package extends BaseDomainHelper {
     public String getFilename() {
         String pkgFile = getFile();
         if (pkgFile == null) {
-            pkgFile = getPackageName().getName() + "-" + getPackageEvr().getVersion() +
-                    "-" + getPackageEvr().getRelease() + "." +
-                    getPackageArch().getArchType().getLabel() + ".rpm";
+            StringBuffer buf = new StringBuffer();
+            buf.append(getPackageName().getName());
+            buf.append("-");
+            buf.append(getPackageEvr().getVersion());
+            buf.append("-");
+            buf.append(getPackageEvr().getRelease());
+            buf.append(".");
+            if (getPackageEvr().getEpoch() != null) {
+                buf.append(getPackageEvr().getEpoch() + ".");
+            }
+            buf.append(getPackageArch().getLabel());
+            buf.append(".");
+            buf.append(getPackageArch().getArchType().getLabel());
+            pkgFile = buf.toString();
         }
         return pkgFile;
     }
