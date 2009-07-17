@@ -498,13 +498,14 @@ class UploadClass:
         
 
 def _processFile(filename, relativeDir=None, source=None, nosig=None):
-    # Processes a file
-    # Returns a hash containing:
-    #   header
-    #   packageSize
-    #   md5sum
-    #   relativePath
-    #   nvrea
+    """ Processes a file
+        Returns a hash containing:
+            header
+            packageSize
+            md5sum (optionaly sha256sum and other xxxsum)
+            relativePath
+            nvrea
+    """
 
     # Is this a file?
     if not os.access(filename, os.R_OK):
@@ -547,10 +548,13 @@ def _processFile(filename, relativeDir=None, source=None, nosig=None):
 
     # Build the header hash to be sent
     hash = { 'header' : Binary(h.unload()),
-            'md5sum' : digest['md5'],
             'packageSize' : size,
             'header_start' : header_start,
             'header_end' : header_end}
+    # add checksum, at least md5sum is always present
+    # adding sum sufix since we used 'md5sum' historically 
+    for checksum in digest.keys():
+        hash[checksum+'sum'] = digest[checksum]
     if relativeDir:
         # Append the relative dir too
         hash["relativePath"] = "%s/%s" % (relativeDir,
