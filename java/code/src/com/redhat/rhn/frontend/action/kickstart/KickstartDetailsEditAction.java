@@ -77,7 +77,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
     public static final String VIRT_BRIDGE = "virt_bridge";
     public static final String VIRT_PATH = "virt_disk_path";
     
-        
+    public static final String INVALID = "invalid";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -86,7 +86,6 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
                                   HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
         KickstartData data = context.lookupAndBindKickstartData();
-        
                 
         if (data.isRawData()) {
             return getStrutsDelegate().forwardParam(
@@ -104,6 +103,11 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
             DynaActionForm form, BaseKickstartCommand cmdIn) {
         KickstartEditCommand cmd = (KickstartEditCommand) cmdIn;
         form.set(LABEL, cmd.getLabel());
+        if (!cmdIn.getKickstartData().isValid()) {
+            ctx.getRequest().setAttribute(INVALID, Boolean.TRUE);
+            return;
+        }
+        
         form.set(COMMENTS, cmd.getComments());
         form.set(ACTIVE, cmd.getActive());
         form.set(ORG_DEFAULT, cmd.getKickstartData().isOrgDefault());
@@ -325,6 +329,5 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
             RhnValidationHelper.setFailedValidation(context.getRequest());
             strutsDelegate.saveMessages(context.getRequest(), ve.getResult());          
         }
-
-    }    
+    }
 }

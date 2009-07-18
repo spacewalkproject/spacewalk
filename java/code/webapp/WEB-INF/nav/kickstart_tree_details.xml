@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <rhn-navi-tree label="kickstart_tree" invisible="1" formvar="kstid" title-depth="1"
-				acl_mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+				acl_mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler,com.redhat.rhn.common.security.acl.KickstartAclHandler">
 	<rhn-tab name="kickstart.tree.edit.nav"  acl="user_role(config_admin)">
 	  	<rhn-tab-url>/rhn/kickstart/TreeEdit.do</rhn-tab-url>
 	</rhn-tab>
-    <rhn-tab name="kickstart.variable.nav" acl="user_role(config_admin)">
+    <rhn-tab name="kickstart.variable.nav" acl="user_role(config_admin); tree_is_synced()">
       <rhn-tab-url>/rhn/kickstart/tree/EditVariables.do</rhn-tab-url>
     </rhn-tab>	
 </rhn-navi-tree>

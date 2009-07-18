@@ -102,6 +102,10 @@ public class MockConnection extends CobblerConnection {
         return random();
     }
     
+    if (name.startsWith("modify_") && "ksmeta".equals(args[1])) {
+        args[1] = "ks_meta";
+    }
+    
     //profiles:
     if ("get_profiles".equals(name)) {
         return profiles;

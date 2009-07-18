@@ -37,7 +37,7 @@
       		<rl:column bound="false" headerkey="softwareedit.jsp.basechannel"  sortattr="channel">
 				${current.channel.name}
       		</rl:column>
-            <rl:column headerkey="kickstart.distro.is-valid.jsp" sortattr="valid" styleclass="last-column">
+            <rl:column headertext="${rhn:localize('kickstart.distro.is-valid.jsp')}?*" sortattr="valid" styleclass="last-column">
             	<c:choose>
                     <c:when test="${current.valid}">
                     	<img src="/img/rhn-listicon-checked.gif">

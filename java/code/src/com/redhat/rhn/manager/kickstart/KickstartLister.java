@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ActivationKeyDto;
@@ -88,10 +89,21 @@ public class KickstartLister extends BaseManager {
         Map params = new HashMap();
         params.put("org_id", orgIn.getId());
         Map elabParams = new HashMap();
-        DataResult returnDataResult = makeDataResult(params, elabParams, pc, m);
+        DataResult<KickstartDto> returnDataResult = makeDataResult(params,
+                                                            elabParams, pc, m);
         if (logger.isDebugEnabled()) {
             logger.debug("kickstartsInOrg(Org, PageControl) - end - return value=" +
                     returnDataResult);
+        }
+
+        Set<Long> ids = new HashSet<Long>();
+        List<KickstartableTree> trees = KickstartManager.getInstance().
+                        removeInvalid(KickstartFactory.lookupAccessibleTreesByOrg(orgIn));
+        for (KickstartableTree tree : trees) {
+            ids.add(tree.getId());
+        }
+        for (KickstartDto dto : returnDataResult) {
+            dto.setValid(ids.contains(dto.getKstreeId()));
         }
         return returnDataResult;
     }

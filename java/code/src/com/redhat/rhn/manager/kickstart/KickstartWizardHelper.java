@@ -26,7 +26,6 @@ import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCreateCommand;
 
 import org.apache.log4j.Logger;
@@ -36,7 +35,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -62,7 +60,9 @@ public class KickstartWizardHelper {
      * @return list of KickstartableTrees
      */
     public List getKickstartableTrees() {
-        return KickstartFactory.lookupAccessibleTreesByOrg(currentUser.getOrg());
+        return KickstartManager.getInstance().
+                removeInvalid(KickstartFactory.
+                        lookupAccessibleTreesByOrg(currentUser.getOrg()));
     }
 
     /**
@@ -128,36 +128,11 @@ public class KickstartWizardHelper {
      * @param channelId base channel
      * @return list of KickstartableTree instances
      */
-    public List getTrees(Long channelId) {
-        List trees = KickstartFactory.lookupKickstartableTrees(channelId, 
-                currentUser.getOrg());
-        // Now we filter out an 
-        List retval = new LinkedList();
-        CobblerDistroCommand cmd = new CobblerDistroCommand(currentUser);
-        
-        List<Map> distros = cmd.getCobblerDistros();
-        for (int i = 0; i < trees.size(); i++) {
-            KickstartableTree tree = (KickstartableTree) trees.get(i);
-            boolean hasCobblerDistro = false;
-            for (Map row : distros) {
-                log.debug("getDistroMap.ROW: " + row);
-                String uid = (String) row.get("uid");
-                if (uid.equals(tree.getCobblerId())) {
-                    log.debug("tree [" + tree.getLabel() + 
-                            "] has a cobbler distro.  Display it.");
-                    hasCobblerDistro = true;
-                }
-            }
-            if (hasCobblerDistro) {
-                retval.add(tree);
-            }
-            else {
-                log.error("This Kickstart tree " +
-                        "does not have an associated " +
-                        "cobbler distro: " + tree.getLabel());
-            }
-        }
-        return retval;  
+    public List<KickstartableTree> getTrees(Long channelId) {
+        return KickstartManager.getInstance().
+                        removeInvalid(KickstartFactory.
+                                    lookupKickstartableTrees(channelId,
+                                            currentUser.getOrg()));
     }    
 
     /**

@@ -24,6 +24,7 @@ import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartIpRange;
+import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
@@ -35,6 +36,7 @@ import com.redhat.rhn.manager.BaseManager;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -88,10 +90,13 @@ public class KickstartManager extends BaseManager {
      */
     public void validateKickstartFile(KickstartData ksdata) {
         try {
-            String text = renderKickstart(ksdata);
-            if (text.contains("Traceback (most recent call last):")) {
-                ValidatorException.raiseException("kickstart.jsp.error.template_generation",
-                        KickstartUrlHelper.getFileDowloadPageUrl(ksdata));
+            if (ksdata.isValid()) {
+                String text = renderKickstart(ksdata);
+                if (text.contains("Traceback (most recent call last):")) {
+                    ValidatorException.
+                        raiseException("kickstart.jsp.error.template_generation",
+                            KickstartUrlHelper.getFileDowloadPageUrl(ksdata));
+                }
             }
         }
         catch (DownloadException de) {
@@ -195,5 +200,20 @@ public class KickstartManager extends BaseManager {
     }
 
 
-
+    /**
+     * Accept a list of trees and only return those 
+     * that are valid, as in they pass the isValid method
+     * @param trees the input list
+     * @return List of KickstartableTree objects
+     */
+    public List<KickstartableTree> removeInvalid(List<KickstartableTree> trees) {
+        List<KickstartableTree> ret = new LinkedList<KickstartableTree>(trees);
+        for (Iterator<KickstartableTree> itr = ret.iterator(); itr.hasNext();) {
+            KickstartableTree tree = itr.next();
+            if (!tree.isValid()) {
+                itr.remove();
+            }
+        }
+        return ret;
+    }
 }

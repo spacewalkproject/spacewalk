@@ -36,8 +36,6 @@ import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import java.util.Map;
-
 /**
  * CobblerCommandTest
  */
@@ -94,9 +92,8 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         CobblerProfileCreateCommand cmd = new CobblerProfileCreateCommand(
                 ksdata, user);
         assertNull(cmd.store());
-        Map profile = cmd.getProfileMap();
-        assertNotNull(profile);
-        assertNotNull(profile.get("name"));
+        assertNotNull(ksdata.getCobblerObject(user));
+        assertNotNull(ksdata.getCobblerObject(user).getName());
     }
 
     public void testProfileEdit() throws Exception {
@@ -111,9 +108,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         String newName = "some-new-name-" + System.currentTimeMillis();
         ksdata.setLabel(newName);
         assertNull(pec.store());
-        Map profile = pec.getProfileMap(); 
-        String profileName = (String) profile.get("name"); 
-        assertNotNull(profileName);
+        assertNotNull(ksdata.getCobblerObject(user).getName());
     }
 
     public void testProfileDelete() throws Exception {
@@ -123,16 +118,16 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
 
         CobblerProfileDeleteCommand cmd = new CobblerProfileDeleteCommand(ksdata, user);
         assertNull(cmd.store());
-        assertTrue(cmd.getProfileMap().isEmpty());
+        assertNull(ksdata.getCobblerObject(user));
     }
 
     public void testDistroCreate() throws Exception {
         CobblerDistroCreateCommand cmd = new 
             CobblerDistroCreateCommand(ksdata.getTree(), user);
         assertNull(cmd.store());
-        assertNotNull(cmd.getDistroMap());
-        Map ksmeta = (Map) cmd.getDistroMap().get("ksmeta");
-        assertNotNull(ksmeta.get(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE));
+        assertNotNull(ksdata.getTree().getCobblerObject(user));
+        assertNotNull(ksdata.getTree().getCobblerObject(user).
+                getKsMeta().get(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE));
     }
 
     
@@ -148,9 +143,8 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         String newName = TestUtils.randomString();
         ksdata.getKickstartDefaults().getKstree().setLabel(newName);
         assertNull(cmd.store());
-        Map distro = cmd.getDistroMap(); 
-        String distroName = (String) distro.get("name"); 
-        assertNotNull(distroName);
+        assertNotNull(ksdata.getTree().getCobblerObject(user));
+        assertNotNull(ksdata.getTree().getCobblerObject(user).getName());
     }
     
     public void testLogin() throws Exception {

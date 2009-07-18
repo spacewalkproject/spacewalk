@@ -67,16 +67,6 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
         this.ksData = ksDataIn;
     }
     
-
-    /**
-     * Get the Cobbler profile associated with this KickstartData
-     * @return Map of Cobbler profile fields.
-     */
-    public Map getProfileMap() {
-        return lookupCobblerProfile(this.ksData);
-    }
-    
-    
     protected void updateCobblerFields(Profile profile) {
         profile.setDistro(getDistroForKickstart());
         if (kernelOptions != null) {

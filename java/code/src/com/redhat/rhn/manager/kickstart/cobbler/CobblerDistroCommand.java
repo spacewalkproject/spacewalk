@@ -63,22 +63,12 @@ public class CobblerDistroCommand extends CobblerCommand {
     }
 
     /**
-     * Get the distribution associated with the current KickstartData
-     * @return Map of cobbler distro fields.
-     */
-    public Map getDistroMap() {
-        log.debug("getDistroMap()");
-        return lookupCobblerDistro(this.tree);
-    }
-    
-    /**
      * Copy cobbler fields that shouldn't change in cobbler
      */
     protected void updateCobblerFields() {
         CobblerConnection con = CobblerXMLRPCHelper.getConnection(user.getLogin());
         Distro nonXen = Distro.lookupById(con, tree.getCobblerId());
         Distro xen = Distro.lookupById(con, tree.getCobblerXenId());
-
 
         Map ksmeta = new HashMap();
         KickstartUrlHelper helper = new KickstartUrlHelper(this.tree);

@@ -4,13 +4,13 @@
 	<rhn-tab name="Details"  acl="user_role(config_admin)">
 	  	<rhn-tab-url>/rhn/kickstart/AdvancedModeEdit.do</rhn-tab-url>
 	</rhn-tab>
-    <rhn-tab name="Bare Metal Kickstart">
+    <rhn-tab name="Bare Metal Kickstart"  acl="user_role(config_admin);profile_is_valid()">
       <rhn-tab-url>/rhn/kickstart/KickstartIpRangeEditAdvanced.do</rhn-tab-url>
     </rhn-tab>	
-	<rhn-tab name="kickstart.variable.nav"  acl="user_role(config_admin)">
+	<rhn-tab name="kickstart.variable.nav"  acl="user_role(config_admin);profile_is_valid()">
 		<rhn-tab-url>/rhn/kickstart/EditVariables.do</rhn-tab-url>
 	</rhn-tab>  
-	<rhn-tab name="Kickstart File"  acl="user_role(config_admin)">
+	<rhn-tab name="Kickstart File"  acl="user_role(config_admin);profile_is_valid()">
 		<rhn-tab-url>/rhn/kickstart/KickstartFileDownloadAdvanced.do</rhn-tab-url>
 	</rhn-tab>
 

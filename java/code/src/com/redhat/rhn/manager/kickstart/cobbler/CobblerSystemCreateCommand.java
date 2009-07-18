@@ -71,7 +71,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         this.server = serverIn;
         this.mediaPath = mediaPathIn;
         if (ksDataIn != null) {
-            profileName = (String)lookupCobblerProfile(ksDataIn).get("name");
+            profileName = ksDataIn.getCobblerObject(user).getName();
         }
         else {
             throw new NullPointerException("ksDataIn cant be null");

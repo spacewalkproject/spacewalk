@@ -3038,7 +3038,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
         </context-group>
       </trans-unit>
-                                             schedu
       <trans-unit id="packagelist.jsp.nopackages">
 <source>No packages.</source>
         <context-group name="ctx">
@@ -9863,6 +9862,33 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
     </trans-unit>
+ 
+    <trans-unit id="kickstartdetails.invalid.jsp.summary">
+        <source>The distribution associated to this kickstart profile is invalid. </source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
+        </context-group>
+    </trans-unit>
+
+    <trans-unit id="kickstartdetails.invalid.jsp.summary-option1">
+        <source>To enable operations available to this kickstart profile, you may correct the distribution(&lt;strong&gt;{0}&lt;/strong&gt;) by visiting the &lt;a href = &quot;{1}&quot;&gt;Kickstart Distribution Details&lt;/a&gt; page.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
+        </context-group>
+    </trans-unit>    
+    
+<trans-unit id="kickstartdetails.invalid.jsp.summary-option2">
+        <source> Alternatively you may associate a different distribution to this kickstart profile by visiting the &lt;a href = &quot;{0}&quot;&gt;Kickstart Operating System Details&lt;/a&gt; page.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
+        </context-group>
+    </trans-unit>
+<trans-unit id="kickstartdetails.advanced.invalid.jsp.summary-option2">
+        <source> Alternatively you may associate a different distribution to this kickstart profile by selecting a distribution and choosing '{0}'.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
+        </context-group>
+    </trans-unit>        
     <trans-unit id="kickstartoptions.jsp.updatekickstart">
         <source>Update Kickstart</source>
         <context-group name="ctx">
@@ -16455,16 +16481,22 @@ the &lt;a href=&quot;/rhn/kickstart/ActivationKeysList.do?ksid={0}&quot;&gt;Acti
 	<trans-unit id="kickstart.distro.sw_managed.jsp">
         <source>@@PRODUCT_NAME@@ Managed?*</source>
         <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
+            <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-    </trans-unit>     
+    </trans-unit>
     <trans-unit id="kickstart.distro.label.jsp">
         <source>Distribution</source>
         <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
+            <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
     </trans-unit>
 
+ 	<trans-unit id="kickstarts.profile.is-valid.tooltip">
+        <source>Kickstart profiles may be associated to an invalid kickstart distribution. To make a kickstart profile valid please select the profile and modify its distribution appropriately.</source>
+       <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
+       </context-group>	        
+    </trans-unit>
     <!--KS schedule pages -->
 	<group>
 	    <context-group name="ctx">
@@ -16796,7 +16828,7 @@ the &lt;a href=&quot;/rhn/kickstart/ActivationKeysList.do?ksid={0}&quot;&gt;Acti
 	        <source>Kickstart distributions may be invalid due wrong or non existent base path to the kernel or initrd image. To make your custom distribution valid please select the distribution and modify its base path appropriately.</source>
 	    </trans-unit>
 	    <trans-unit id="kickstart.distro.is-valid.jsp">
-	        <source>Valid?*</source>
+	        <source>Valid</source>
 	    </trans-unit>
     </group>    
     
@@ -20363,23 +20395,33 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="docsearch.content">
           <source>Content</source>
+          <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/Search</context>
+          </context-group>
       </trans-unit>
       <trans-unit id="docsearch.free_form">
           <source>Free Form</source>
+          <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/Search</context>
+          </context-group>
       </trans-unit>
       <trans-unit id="docsearch.content_title">
           <source>Content &amp; Title</source>
+          <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/Search</context>
+          </context-group>
       </trans-unit>
       <trans-unit id="docsearch.title">
           <source>Title</source>
+          <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/Search</context>
+          </context-group>
       </trans-unit>
       <trans-unit id="docsearch.jsp.summary">
           <source>Summary</source>
+          <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/Search</context>
+          </context-group>
       </trans-unit>
       <trans-unit id="docsearch.jsp.imgAlt">
         <source>search</source>
