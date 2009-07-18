@@ -45,8 +45,6 @@ import java.util.List;
  */
 public class TreeActionTest extends RhnMockStrutsTestCase {
     
-    private static final String BASE_PATH = "http://rhn.redhat.com/somepath";
-    
     public void testCreateNonSubmit() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
         UserTestUtils.addProvisioning(user.getOrg());
@@ -93,7 +91,8 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
         // Set fields on the form to verify values are saved after a refresh:
         String ksDistLabel = "somelabel" + TestUtils.randomString();
         addRequestParameter(TreeCreateAction.LABEL, ksDistLabel);
-        addRequestParameter(TreeCreateAction.BASE_PATH, BASE_PATH);
+        addRequestParameter(TreeCreateAction.BASE_PATH, 
+                    KickstartableTreeTest.KICKSTART_TREE_PATH.getAbsolutePath());
        
         // Choose the RHEL 5 base channel so we can verify the package list is updated:
         addRequestParameter(TreeCreateAction.CHANNEL_ID, rhel5BaseChan.getId().toString());
@@ -102,7 +101,8 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
         
         // Verify that things are as they should be after a refresh:
         verifyFormValue(TreeCreateAction.LABEL, ksDistLabel);
-        verifyFormValue(TreeCreateAction.BASE_PATH, BASE_PATH);
+        verifyFormValue(TreeCreateAction.BASE_PATH,
+                        KickstartableTreeTest.KICKSTART_TREE_PATH.getAbsolutePath());
         verifyFormValue(TreeCreateAction.CHANNEL_ID, rhel5BaseChan.getId());
 
     }
@@ -203,7 +203,8 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
 
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         setRequestPathInfo(path);
-        addRequestParameter(TreeCreateAction.BASE_PATH, BASE_PATH);
+        addRequestParameter(TreeCreateAction.BASE_PATH,
+                KickstartableTreeTest.KICKSTART_TREE_PATH.getAbsolutePath());
         addRequestParameter(TreeCreateAction.CHANNEL_ID, 
                 c.getId().toString());
         addRequestParameter(TreeCreateAction.LABEL, newLabel);

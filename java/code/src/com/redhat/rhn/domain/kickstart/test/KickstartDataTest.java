@@ -69,7 +69,6 @@ import org.cobbler.test.MockConnection;
 import org.hibernate.Session;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -86,12 +85,20 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
     private static final String STATIC_DEV = "dhcp:eth0";
     private static final String KERNEL_PARAMS = "ide0=ata66";
     
-    public static void setupTestConfiguration() throws IOException {
+    
+    public static void setupTestConfiguration() throws Exception {
         Config.get().setString(CobblerXMLRPCHelper.class.getName(),
                 MockXMLRPCInvoker.class.getName());
         Config.get().setString(ConfigDefaults.KICKSTART_COBBLER_DIR, "/tmp/kickstart/");
         Config.get().setString(ConfigDefaults.COBBLER_SNIPPETS_DIR, 
                 "/tmp/kickstart/snippets");
+        Config.get().setString(ConfigDefaults.MOUNT_POINT, "/tmp/kickstart/mount_point");
+        createDirIfNotExists(new File("/tmp/kickstart/mount_point"));
+       
+        Config.get().setString(ConfigDefaults.KICKSTART_MOUNT_POINT,
+                                                    "/tmp/kickstart/kickstart_mount_point");
+        createDirIfNotExists(new File("/tmp/kickstart/kickstart_mount_point"));
+        
         Config.get().setString(CobblerConnection.class.getName(),
                 MockConnection.class.getName());
         createKickstartDirs();
@@ -99,30 +106,14 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
 
     }
     
-    public static void createKickstartDirs() throws IOException {
+    public static void createKickstartDirs() throws Exception {
         createDirIfNotExists(new File(ConfigDefaults.get().getKickstartConfigDir() +
                                                  "/" + KickstartData.WIZARD_DIR));
         createDirIfNotExists(new File(ConfigDefaults.get().getKickstartConfigDir() +
                                         "/" + KickstartData.RAW_DIR));
         createDirIfNotExists(CobblerSnippet.getSpacewalkSnippetsDir());
+        KickstartableTreeTest.createKickstartTreeItems();
     }
-    
-    private static void createDirIfNotExists(File dir) throws IOException {
-        String error = 
-                "Could not create the following directory:[" + dir.getPath() +
-                    "] . Please create that directory before proceeding with the tests"; 
-        if (dir.exists() && !dir.isDirectory()) {
-            if (!dir.renameTo(new File(dir.getPath() + ".bak")) &&
-                         !dir.delete()) {
-                throw new RuntimeException(error);
-            }
-        }
-        
-        if (!dir.exists() && !dir.mkdirs()) {
-            throw new RuntimeException(error);
-        }
-    }
-    
     
     public static void createCobblerObjects(KickstartData k) {
         Distro d = Distro.lookupById(CobblerXMLRPCHelper.getConnection("test"),
