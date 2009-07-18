@@ -26,6 +26,8 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.text.DateFormat;
@@ -266,5 +268,19 @@ public abstract class RhnBaseTestCase extends TestCase {
         log.setLevel(Level.ERROR);
     }
 
-
+    protected static void createDirIfNotExists(File dir) throws IOException {
+        String error = 
+                "Could not create the following directory:[" + dir.getPath() +
+                    "] . Please create that directory before proceeding with the tests"; 
+        if (dir.exists() && !dir.isDirectory()) {
+            if (!dir.renameTo(new File(dir.getPath() + ".bak")) &&
+                         !dir.delete()) {
+                throw new RuntimeException(error);
+            }
+        }
+        
+        if (!dir.exists() && !dir.mkdirs()) {
+            throw new RuntimeException(error);
+        }
+    }
 }
