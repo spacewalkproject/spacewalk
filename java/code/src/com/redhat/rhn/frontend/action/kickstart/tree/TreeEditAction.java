@@ -14,14 +14,17 @@
  */
 package com.redhat.rhn.frontend.action.kickstart.tree;
 
+import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.PersistOperation;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.kickstart.tree.BaseTreeEditOperation;
 import com.redhat.rhn.manager.kickstart.tree.TreeEditOperation;
 
 import org.apache.struts.action.DynaActionForm;
 import org.cobbler.Distro;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * TreeEditAction
@@ -35,8 +38,10 @@ public class TreeEditAction extends BaseTreeAction {
     protected void processRequestAttributes(RequestContext rctx, PersistOperation opr) {
         BaseTreeEditOperation bte = (BaseTreeEditOperation) opr;
         rctx.getRequest().setAttribute(RequestContext.KSTREE, bte.getTree());
-                
         super.processRequestAttributes(rctx, opr);
+        if (!rctx.isSubmitted()) {
+            checkDistroValidity(rctx.getRequest(), bte);
+        }
     }
 
     /**
@@ -69,13 +74,25 @@ public class TreeEditAction extends BaseTreeAction {
         form.set(CHANNEL_ID, bte.getTree().getChannel().getId());
         form.set(LABEL, bte.getTree().getLabel());
         form.set(INSTALL_TYPE, bte.getTree().getInstallType().getLabel());
-
-
-        Distro distro = Distro.lookupById(CobblerXMLRPCHelper.getConnection(
-                bte.getUser()), bte.getTree().getCobblerId());
-        form.set(KERNEL_OPTS, distro.getKernelOptionsString());
-        form.set(POST_KERNEL_OPTS, distro.getKernelPostOptionsString());
-
+        Distro distro = bte.getTree().getCobblerObject(bte.getUser());
+        if (distro != null) {
+            form.set(KERNEL_OPTS, distro.getKernelOptionsString());
+            form.set(POST_KERNEL_OPTS, distro.getKernelPostOptionsString());
+        }
     }
 
+    private void checkDistroValidity(HttpServletRequest request,
+                                        BaseTreeEditOperation bte) {
+        try {
+            bte.validateBasePath();
+            if (!bte.getTree().isValid()) {
+                ValidatorResult result = new ValidatorResult();
+                result.addError("tree.edit.invalid_tree");
+                getStrutsDelegate().saveMessages(request, result);
+            }
+        }
+        catch (ValidatorException ve) {
+            getStrutsDelegate().saveMessages(request, ve.getResult());
+        }
+    }
 }

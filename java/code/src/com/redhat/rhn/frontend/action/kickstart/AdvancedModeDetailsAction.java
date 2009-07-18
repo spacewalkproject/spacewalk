@@ -18,6 +18,7 @@ package com.redhat.rhn.frontend.action.kickstart;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.common.validator.ValidatorResult;
+import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartRawData;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
@@ -94,13 +95,44 @@ public class AdvancedModeDetailsAction extends RhnAction {
         if (!context.isSubmitted()) {
             setup(context, form);
         }
+        else if (!isCreateMode(request) && !getKsData(context).isValid()) {
+            return submitInvalid(context, form, mapping);
+        }
         else {
             return submit(context, form, mapping);
         }
         
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
-    
+    private ActionForward submitInvalid(RequestContext context,
+            DynaActionForm form, ActionMapping mapping) {
+        try {
+            KickstartData data = getKsData(context);
+            User user  = context.getLoggedInUser();
+            KickstartBuilder builder = new KickstartBuilder(user);
+            KickstartWizardHelper cmd = new KickstartWizardHelper(user);
+            KickstartableTree tree = cmd.getKickstartableTree(
+                                        (Long)form.get(KSTREE_ID_PARAM));
+            builder.update(data, data.getLabel(), tree,
+                    data.getKickstartDefaults().getVirtualizationType().getLabel());
+            return getStrutsDelegate().forwardParam(mapping.findForward("success"),
+                                    RequestContext.KICKSTART_ID, data.getId().toString());
+        }
+        catch (ValidatorException ve) {
+            RhnValidationHelper.setFailedValidation(context.getRequest());
+            getStrutsDelegate().saveMessages(context.getRequest(), ve.getResult());
+            setup(context, form);
+            if (!isCreateMode(context.getRequest())) {
+                KickstartRawData ks = getKsData(context);
+                return getStrutsDelegate().forwardParam(mapping.
+                                    findForward(RhnHelper.DEFAULT_FORWARD),
+                        RequestContext.KICKSTART_ID,
+                        ks.getId().toString());
+            }
+            return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+        }
+    }
+
     private ActionForward submit(RequestContext context, 
                         DynaActionForm form, ActionMapping mapping) {
         try {
@@ -156,6 +188,11 @@ public class AdvancedModeDetailsAction extends RhnAction {
         loadVirtualizationTypes(cmd, form, context);
         if (!isCreateMode(context.getRequest())) {
             KickstartRawData data = getKsData(context);
+            if (!data.isValid()) {
+                context.getRequest().setAttribute(KickstartDetailsEditAction.INVALID,
+                                                                            Boolean.TRUE);
+                return;
+            }
             form.set(KICKSTART_LABEL_PARAM, data.getLabel());
             form.set(CONTENTS, data.getData());
             KickstartFileDownloadCommand dcmd = new KickstartFileDownloadCommand(
@@ -222,7 +259,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
         return Boolean.TRUE.equals(request.getAttribute(CREATE_MODE));
     }
     
-    private void  validateInput(DynaActionForm form,  
+    private void validateInput(DynaActionForm form,
                                     RequestContext context) {
         String label = form.getString(KICKSTART_LABEL_PARAM);
         KickstartBuilder builder = new KickstartBuilder(context.getLoggedInUser());

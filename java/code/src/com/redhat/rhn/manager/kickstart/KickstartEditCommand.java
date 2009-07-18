@@ -288,8 +288,8 @@ public class KickstartEditCommand extends BaseKickstartCommand {
      * @return list of KickstartableTree instances
      */
     public List getTrees(Long channelId, Org org) {
-        return KickstartFactory.lookupKickstartableTrees(channelId, 
-                org);
+        return KickstartManager.getInstance().
+            removeInvalid(KickstartFactory.lookupKickstartableTrees(channelId, org));
     }
 
     /**

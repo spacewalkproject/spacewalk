@@ -18,6 +18,7 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.cobbler.CobblerConnection;
 import org.cobbler.Distro;
@@ -50,8 +51,12 @@ public class CobblerDistroDeleteCommand extends CobblerDistroCommand {
      */
     @Override
     public ValidatorError store() {
-        CobblerConnection con = CobblerXMLRPCHelper.getConnection(user);
+        //Upgrade Scenario where a cobbler id will be null
+        if (StringUtils.isBlank(tree.getCobblerId())) {
+            return null;
+        }
         
+        CobblerConnection con = CobblerXMLRPCHelper.getConnection(user);
         Distro dis = Distro.lookupById(con, tree.getCobblerId());
         
         if (dis == null) {

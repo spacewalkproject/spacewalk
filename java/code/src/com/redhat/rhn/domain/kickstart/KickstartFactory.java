@@ -567,8 +567,9 @@ public class KickstartFactory extends HibernateFactory {
         setLong("org_id", org.getId().longValue()).
         list();            
         return retval;
-    }    
-    
+    }
+
+
     /**
      * Fetch all trees for an org, these include
      * trees where org_id is null or org_id = org.id
@@ -578,7 +579,7 @@ public class KickstartFactory extends HibernateFactory {
     public static List <KickstartableTree> lookupAccessibleTreesByOrg(Org org) {
         Session session = null;
         List retval = null;
-        String query = "KickstartableTree.findAccesibleToOrg";
+        String query = "KickstartableTree.findAccessibleToOrg";
         session = HibernateFactory.getSession();
         retval = session.getNamedQuery(query).
         setLong("org_id", org.getId().longValue())
