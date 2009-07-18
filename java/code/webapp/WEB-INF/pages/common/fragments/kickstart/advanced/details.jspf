@@ -122,7 +122,7 @@
             <th><rhn:required-field key="kickstart.jsp.create.wizard.kstree.label"/>:</th>
             <td>
                   <c:choose>
-                    <c:when test="${notrees == null}">
+                    <c:when test="${empty notrees}">
                       <html:select property="kstreeId">
                        <html:optionsCollection property="kstrees" label="label" value="id" />
                       </html:select>
@@ -133,15 +133,19 @@
                   </c:choose>
             </td>
         </tr>
+	</table>        
+        <c:if test="${empty notrees}">
     <div align="right">
-    </table>
-		<hr />
+    	<hr />
+		
 		<html:submit property="dispatch">
 			<bean:message key="${param.action_key}"/>
 		</html:submit>
+		
 		</div>
 		<rhn:submitted/>
 		<input type="hidden" name="ksid" value="${param.ksid}"/>
+		</c:if>
   </html:form>
   </c:when>
   </c:choose>
