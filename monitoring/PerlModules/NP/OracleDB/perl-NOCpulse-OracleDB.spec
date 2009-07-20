@@ -7,7 +7,7 @@ Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires: perl(NOCpulse::Debug) perl(NOCpulse::Config) perl(NOCpulse::Utils::XML) perl(NOCpulse::Object)
-BuildRequires: perl(DBD::Oracle) perl(DBI) perl(ExtUtils::MakeMaker)
+BuildRequires: perl(DBI) perl(ExtUtils::MakeMaker)
 Group:        Development/Libraries
 License:      GPLv2
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
