@@ -135,8 +135,10 @@ public class ConfigDefaults {
     public static final String COBBLER_SNIPPETS_DIR = "cobbler.snippets.dir";
     private static final String DEFAULT_COBBLER_SNIPPET_DIR = "/var/lib/cobbler/snippets";
     
-    public static final String VIRT_PATH_DIR = "kickstart.virt_storage_path";
-    private static final String DEFAULT_VIRT_PATH = "/var/lib/libvirt/images";
+    public static final String KVM_VIRT_PATH_DIR = "kickstart.virt_storage_path_kvm";
+    public static final String XEN_VIRT_PATH_DIR = "kickstart.virt_storage_path_xen";
+    private static final String DEFAULT_XEN_VIRT_PATH = "/var/lib/xen/images";
+    private static final String DEFAULT_KVM_VIRT_PATH = "/var/lib/libvirt/images";
     public static final String VIRT_BRIDGE = "kickstart.virt_bridge";
     public static final String VIRT_MEM = "kickstart.virt_mem_size_mb";
     public static final String VIRT_CPU = "kickstart.virt_cpus";
@@ -246,10 +248,13 @@ public class ConfigDefaults {
     /**
      * Returns the base directory where the virt artifacts will be stored.
      * This information is used while setting up system records and so on..
+     * @param xen true if the virt path required is for a xen virt type.
      * @return the virt path..
      */
-    public File getVirtPath() {
-        return new File(Config.get().getString(VIRT_PATH_DIR, DEFAULT_VIRT_PATH));
+    public File getVirtPath(boolean xen) {
+        String virtPath = xen ? XEN_VIRT_PATH_DIR : KVM_VIRT_PATH_DIR;
+        String defaultVirtPath = xen ? DEFAULT_XEN_VIRT_PATH : DEFAULT_KVM_VIRT_PATH;
+        return new File(Config.get().getString(virtPath, defaultVirtPath));
     }
 
     /**
