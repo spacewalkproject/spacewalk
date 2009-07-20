@@ -1,6 +1,6 @@
 %define release_name Alpha
 Name:           spacewalk
-Version:        0.6.1
+Version:        0.6.2
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -92,6 +92,9 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
+* Mon Jul 20 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.2-1
+- Disabling spacewalk selinux support temporarily. (dgoodwin@redhat.com)
+
 * Fri Apr 17 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.1-1
 - bump Versions to 0.6.0 (jesusr@redhat.com)
 
