@@ -404,6 +404,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                     log.debug("got back from DB: " + retval);
                 }
                 KickstartLister.getInstance().setKickstartUrls(retval, user);
+                KickstartLister.getInstance().pruneInvalid(user, retval);
+                retval.setTotalSize(retval.size());
             }
         }
         

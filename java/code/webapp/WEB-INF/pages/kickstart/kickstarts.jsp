@@ -67,7 +67,7 @@
                 <rl:column headerkey="kickstart.distro.label.jsp" sortattr="treeLabel">
                     <c:out value="${current.treeLabel}"/>
                 </rl:column>      		
-            <rl:column headerkey="kickstart.distro.sw_managed.jsp" sortattr="cobbler">
+            <rl:column headerkey="kickstart.distro.sw_managed.jsp" sortattr="cobbler"  styleclass="last-column">
             	<c:choose>
                     <c:when test="${current.cobbler}">
                     	<img src="/img/rhn-listicon-error.gif">
@@ -77,17 +77,7 @@
                 	</c:otherwise>
                 </c:choose>
             </rl:column>
-			<rl:column headertext="${rhn:localize('kickstart.distro.is-valid.jsp')}?***" sortattr="valid" styleclass="last-column">
-				<c:choose>
-                    <c:when test="${current.valid}">
-                    	<img src="/img/rhn-listicon-checked.gif">
-                    </c:when>
-					<c:otherwise>
-						<img src="/img/rhn-listicon-error.gif">
-                	</c:otherwise>
-                </c:choose>
-            </rl:column>            
-       </rl:list>
+         </rl:list>
        
       </rl:listset>
 </div>
@@ -95,8 +85,6 @@
   <c:if test="${not empty requestScope.orgDefaultExists}">
   	<p><rhn:tooltip>** - <bean:message key="kickstart.list.jsp.orgdefault"/></rhn:tooltip></p>
   </c:if>
-  <p><rhn:tooltip>***-<bean:message key="kickstarts.profile.is-valid.tooltip"/></rhn:tooltip></p>
-
 </body>
 </html:html>
 
