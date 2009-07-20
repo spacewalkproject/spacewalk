@@ -141,7 +141,7 @@ default_or_input () {
 
 yes_no() {
         case "$1" in
-                Y|y|Y/n|n/Y)
+                Y|y|Y/n|n/Y|1)
                         echo 1
                         ;;
                 *)
