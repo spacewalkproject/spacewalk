@@ -62,10 +62,10 @@ Requires:       spacewalk-monitoring
 # Requires:       rhn_solaris_bootstrap_5_1_0_3
 
 # SELinux
-Requires:       spacewalk-selinux
-Requires:       jabberd-selinux
-Requires:       osa-dispatcher-selinux
-Requires:       spacewalk-monitoring-selinux
+#Requires:       spacewalk-selinux
+#Requires:       jabberd-selinux
+#Requires:       osa-dispatcher-selinux
+#Requires:       spacewalk-monitoring-selinux
 
 
 %description
