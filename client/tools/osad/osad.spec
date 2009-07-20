@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.15
+Version: 5.9.16
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -237,6 +237,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
+* Mon Jul 20 2009 Devan Goodwin <dgoodwin@redhat.com> 5.9.16-1
+- Add osad BuildRequires for python-devel. (dgoodwin@redhat.com)
+
 * Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 5.9.15-1
 - 508064 - fix osad installation errors on client (mzazrivec@redhat.com)
 
