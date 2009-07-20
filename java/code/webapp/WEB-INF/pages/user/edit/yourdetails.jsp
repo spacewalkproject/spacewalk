@@ -9,10 +9,6 @@
         <meta name="page-decorator" content="none" />
     </head>
 <body>
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <rhn:toolbar base="h1" img="/img/rhn-icon-users.gif"
  helpUrl="/rhn/help/reference/en-US/s1-sm-your-rhn.jsp#s2-sm-your-rhn-account"
  imgAlt="users.jsp.imgAlt">
@@ -25,7 +21,6 @@
 
 </div>
 <h2><bean:message key="details.jsp.personal_info" /></h2>
-<html:errors />
 <html:form action="/account/UserDetailsSubmit">
 
  <table class="details" align="center">

@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.satellite;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
@@ -95,7 +96,7 @@ public class BootstrapConfigAction extends BaseConfigAction {
             }
         }
         else {
-            form.set(HOSTNAME, Config.get().getString(Config.JABBER_SERVER));
+            form.set(HOSTNAME, Config.get().getString(ConfigDefaults.JABBER_SERVER));
             form.set(SSL_CERT, DEFAULT_CERT_PATH);
             form.set(ENABLE_SSL, Boolean.TRUE);
             form.set(ENABLE_GPG, Boolean.TRUE);

@@ -32,7 +32,7 @@ import java.util.Map;
 public class CobblerDistroCreateCommand extends CobblerDistroCommand {
     
     private static Logger log = Logger.getLogger(CobblerDistroCreateCommand.class);
-    
+    private boolean syncProfiles;
     /**
      * Constructor
      * @param ksTreeIn to sync
@@ -51,6 +51,20 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
         super(ksTreeIn, userIn);
     }
 
+    /**
+     * Constructor
+     * @param ksTreeIn to sync
+     * @param userIn - user wanting to sync with cobbler
+     * @param syncProfilesIn - true if you want the distro command
+     *                          to run a CobblerProfileSync
+     *                          when storing.
+     */
+    public CobblerDistroCreateCommand(KickstartableTree ksTreeIn,
+            User userIn, boolean syncProfilesIn) {
+        this(ksTreeIn, userIn);
+        syncProfiles = syncProfilesIn;
+    }
+    
      /**
      * Save the Cobbler profile to cobbler.
      * @return ValidatorError if there was a problem
@@ -78,6 +92,11 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
                 tree.getCobblerXenDistroName(), tree.getKernelXenPath(), 
                 tree.getInitrdXenPath(), ksmeta); 
             tree.setCobblerXenId(distroXen.getUid());
+        }
+        
+        if (syncProfiles) {
+            CobblerProfileSyncCommand syncer = new CobblerProfileSyncCommand();
+            syncer.store();
         }
         return null;
     }

@@ -74,32 +74,16 @@ public class KickstartSystemDetailsTest extends BaseKickstartEditTestCase {
         actionPerform();
         verifyNoActionErrors();        
     }
-    
-    public void testEditNetworkErr() throws Exception {
-        setupForDisplay(ksdata);
-        addRequestParameter("submitted", "true");
-        addRequestParameter("networkType", "dhcp");
-        addRequestParameter("rootPassword", "blahblah");
-        addRequestParameter("rootPasswordConfirm", "blahblah");
-        addRequestParameter("pwdChanged", "true");
-        actionPerform();
-        String[] errMessages = {"kickstart.systemdetails.missing.netdevice.jsp.error"};
-        verifyActionErrors(errMessages);
-    }
-    
+
     public void testEditNetworkSuccess() throws Exception {
         setupForEdit(ksdata);
         addRequestParameter("selinuxMode", "permissive");
-        addRequestParameter("networkType", "dhcp");
-        addRequestParameter("dhcpNetworkIf", "eth0");
         addRequestParameter("rootPassword", "blahblah");
         addRequestParameter("rootPasswordConfirm", "blahblah");
         addRequestParameter("pwdChanged", "true");
         actionPerform();
-        verifyFormValue("dhcpNetworkIf", "eth0");
         verifyNoActionErrors();
     }
-    
     
     public void testRHEL3Execute() throws Exception {
         ksdata.getKickstartDefaults().getKstree().
@@ -110,10 +94,6 @@ public class KickstartSystemDetailsTest extends BaseKickstartEditTestCase {
 
         setRequestPathInfo("/kickstart/SystemDetailsEdit");
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
-        addRequestParameter(SystemDetailsEditAction.NETWORK_TYPE_FORM_VAR, 
-                SystemDetailsEditAction.DHCP_NETWORK_TYPE);
-        addRequestParameter(SystemDetailsEditAction.DHCP_IF_FORM_VAR, 
-                "eth0");
         addRequestParameter(SystemDetailsEditAction.SE_LINUX_PARAM, 
                 SELinuxMode.ENFORCING.getValue());
         actionPerform();
@@ -132,10 +112,6 @@ public class KickstartSystemDetailsTest extends BaseKickstartEditTestCase {
         assertNotNull(ksdata.getCommand("selinux"));
         setRequestPathInfo("/kickstart/SystemDetailsEdit");
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
-        addRequestParameter(SystemDetailsEditAction.NETWORK_TYPE_FORM_VAR, 
-                SystemDetailsEditAction.DHCP_NETWORK_TYPE);
-        addRequestParameter(SystemDetailsEditAction.DHCP_IF_FORM_VAR, 
-                "eth0");
         addRequestParameter(SystemDetailsEditAction.SE_LINUX_PARAM, 
                 SELinuxMode.ENFORCING.getValue());
         actionPerform();
@@ -153,8 +129,6 @@ public class KickstartSystemDetailsTest extends BaseKickstartEditTestCase {
     
     private void setupForEdit(KickstartData k) throws Exception {
         setupForDisplay(k);
-        addRequestParameter("submitted", "true");     
-        addRequestParameter("networkType", "dhcp");
-        addRequestParameter("dhcpNetworkIf", "eth0");                        
+        addRequestParameter("submitted", "true");                        
     }
 }

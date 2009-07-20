@@ -17,7 +17,6 @@ package com.redhat.rhn.domain.satellite;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
 
 /**
  * SatelliteFactory
@@ -44,16 +43,10 @@ public class CertificateFactory extends HibernateFactory {
      * @return the newest versiono of the satellite's certificate
      */
     public static SatelliteCertificate lookupNewestCertificate() {
-        try {
-            return (SatelliteCertificate) singleton.lookupObjectByNamedQuery(
-                    "SatelliteCertificate.lookupNewestCertificate",
-                    null,
-                    false);
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-        return null;
+        return (SatelliteCertificate) singleton.lookupObjectByNamedQuery(
+                "SatelliteCertificate.lookupNewestCertificate",
+                null,
+                false);
     }
 
 }

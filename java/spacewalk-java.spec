@@ -3,6 +3,7 @@
 %define cobprofdirup    %{_localstatedir}/lib/rhn/kickstarts/upload
 %define cobprofdirwiz   %{_localstatedir}/lib/rhn/kickstarts/wizard
 %define cobdirsnippets  %{_localstatedir}/lib/rhn/kickstarts/snippets
+%define realcobsnippetsdir  %{_localstatedir}/lib/cobbler/snippets
 %define appdir          %{_localstatedir}/lib/tomcat5/webapps
 %define jardir          %{_localstatedir}/lib/tomcat5/webapps/rhn/WEB-INF/lib
 %define jars antlr asm bcel c3p0 cglib commons-beanutils commons-cli commons-codec commons-digester commons-discovery commons-el commons-io commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard xalan-j2 xerces-j2 xml-commons-apis commons-collections postgresql-jdbc
@@ -11,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.26
+Version: 0.6.32
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -204,16 +205,14 @@ install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn.jar $RPM_BUILD_ROOT/%{_datad
 install -m 644 conf/log4j.properties.taskomatic $RPM_BUILD_ROOT/%{_datadir}/rhn/classes/log4j.properties
 ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT/%{_bindir}/taskomaticd
 ln -s -f %{_javadir}/ojdbc14.jar $RPM_BUILD_ROOT%{jardir}/ojdbc14.jar
-
+install -d -m 755 $RPM_BUILD_ROOT/%{realcobsnippetsdir}
+ln -s -f  %{cobdirsnippets} $RPM_BUILD_ROOT/%{realcobsnippetsdir}/spacewalk
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%postun
-rm -f /var/lib/cobbler/snippets/spacewalk
-
-%post
-ln -s -f %{cobdirsnippets} /var/lib/cobbler/snippets/spacewalk 
+%pre
+rm -f %{realcobsnippetsdir}/spacewalk
 
 %post -n spacewalk-taskomatic
 # This adds the proper /etc/rc*.d links for the script
@@ -234,6 +233,7 @@ fi
 %dir %{cobdirsnippets}
 %{appdir}/*
 %config(noreplace) %{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
+%{realcobsnippetsdir}/spacewalk
 
 %files -n spacewalk-taskomatic
 %attr(755, root, root) %{_initrddir}/taskomatic
@@ -252,6 +252,178 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu Jul 09 2009 John Matthews <jmatthew@redhat.com> 0.6.32-1
+- 510122 -  ErrataSearch now filters results so it won't display errata from a
+  non-sharing Org (jmatthew@redhat.com)
+- 509589 - fixing ise on single default org sys ent page (shughes@redhat.com)
+- 509215 - update SDC packages->upgrade to show pkg arch when available
+  (bbuckingham@redhat.com)
+- checkstyle (jsherril@redhat.com)
+- 510334 - Fix the comps.xml timestamp in repomd.xml to compute the timestamp
+  value correctly. (pkilambi@redhat.com)
+- 510146 - Fix 2002-08 to 2002-09 copyright in non-English resource bundles.
+  (dgoodwin@redhat.com)
+- 510146 - Update copyright years from 2002-08 to 2002-09.
+  (dgoodwin@redhat.com)
+- 509268 - Fixed incorrect filterattr values (jason.dobies@redhat.com)
+- 509589 - clean up software and system entitlement subscription pages
+  (shughes@redhat.com)
+- 496174 - removing usage of rhnPrivateErrataMail view and tuning query
+  (mmccune@redhat.com)
+- 508931 - bumping taskomatic default max memory to 512 and min to 256 to avoid
+  OutOfMemoryError's on s390 (pkilambi@redhat.com)
+- fix prads oops (shughes@redhat.com)
+- 509911 - Dont compute date if the file is missing that way we dont show 1969
+  for last build. Also changing the jsp logic to only show as complete if both
+  last build and status are not null (pkilambi@redhat.com)
+- 509394 - update System/Profile comparison to not display duplicate error
+  messages (bbuckingham@redhat.com)
+- 508980 - converting SSM kickstart to java (jsherril@redhat.com)
+- small request to add orgid for pkilambi (shughes@redhat.com)
+- 509457 - incorrectly using user id twice in channel query
+  (shughes@redhat.com)
+- 509377 - confirmation pgs for Pkg Install & Remove updated to include pkg
+  arch (bbuckingham@redhat.com)
+
+* Mon Jul 06 2009 John Matthews <jmatthew@redhat.com> 0.6.30-1
+- 509444 - remove delete action system from virt page (shughes@redhat.com)
+- 509371 - SSM->Install,Remove,Verify - minor fixes to Package Name and Arch
+  (bbuckingham@redhat.com)
+- 509411 - make sure we delete the ks template when we delete a profile
+  (mmccune@gibson.pdx.redhat.com)
+- 509364 - fix SSM->Upgrade arch that being listed (bbuckingham@redhat.com)
+- 509376 - add Shared Channels to side navigation of Channels tab
+  (bbuckingham@redhat.com)
+- 509270 - clarify text on Channels -> All Channels page
+  (bbuckingham@redhat.com)
+- 509019 - adding tooltip on howto copypaste (mmccune@gibson.pdx.redhat.com)
+- 509221 - System->Package->Install incorrectly using arch name vs label
+  (bbuckingham@redhat.com)
+- 509213 - fixed channel provider column, don't link red hat inc
+  (shughes@redhat.com)
+- 509027 - kickstart profile edit - update length of supported kernel and post
+  kernel options (bbuckingham@redhat.com)
+- 509011 - apidoc - kickstart.deleteProfile - update kslabel description
+  (bbuckingham@redhat.com)
+- refactor config constants to their own class with statics and methods.
+  (mmccune@gibson.pdx.redhat.com)
+- 509037 - fixing issue where looking for packages in child channels would
+  result in base channels (jsherril@redhat.com)
+- 508790 - switch to /var/lib/libvirt/images for our default path
+  (mmccune@gibson.pdx.redhat.com)
+- 508966 - fixed issue where could not set package profile for a kickstart,
+  rewrote to new list tag (jsherril@redhat.com)
+- 508789 - Block deletion of last remaining Satellite Administrator.
+  (dgoodwin@redhat.com)
+- Bumping timeout on Message Queue Test. (dgoodwin@redhat.com)
+- 508962 - Fixed KS software edit page to hide repo section if tree is not rhel
+  5 (paji@redhat.com)
+- 508790 - use virbr0 for KVM guest defaults (mmccune@gibson.pdx.redhat.com)
+- 508705 - Fixed KS details page to hide virt options if virt type is none
+  (paji@redhat.com)
+- 508885 - fixed ks schedule pages to remember proxy host (paji@redhat.com)
+- Made the radio button in schedule ks page choose scheduleAsap by default
+  (paji@redhat.com)
+- 508736 - Corrected spec to properly  set the cobbler/snippets/spacewalk
+  symlink (paji@redhat.com)
+- 508141 - api - system.config.deployAll updated w/ better exception when
+  system not config capable (bbuckingham@redhat.com)
+- 508323 - fixing issue with creating cobbler system records with spaces (which
+  would fail) (jsherril@redhat.com)
+- 508220 - fixed channel sharing syntax error on english side
+  (shughes@redhat.com)
+- Fix API call to remove server custom data value. (dgoodwin@redhat.com)
+- ErrataSearch, add "synopsis" to ALL_FIELDS (jmatthew@redhat.com)
+
+* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.6.29-1
+- Remove catch/log return null of HibernateExceptions. (dgoodwin@redhat.com)
+- Fix server migration when source org has > 1000 org admins.
+  (dgoodwin@redhat.com)
+- Fix to make sure kernel param entries don;t get duplicated (paji@redhat.com)
+- 492206 - Fixed kickstart template error (paji@redhat.com)
+- 507533 - added catch around unhandled exception for pkg in mutiple channels
+  (shughes@redhat.com)
+- 507862 - Fixed an ise that occured when config deploy was selected on a
+  profile (paji@redhat.com)
+- 507863 - fixing issue where enabling remote commands would not be saved
+  (jsherril@redhat.com)
+- 507888 - Set the default virt mem value to 512 instead of 256
+  (paji@redhat.com)
+- hopeflly fixing unit test (jsherril@redhat.com)
+- Fixed a unit test (paji@redhat.com)
+- 506702 - Converted probe details page to use the new list to get the correct
+  csv (paji@redhat.com)
+- Fixed a nitpick that memory didnt sya memMb (paji@redhat.com)
+- 507097 - Fixed guest provisioning virt settings (paji@redhat.com)
+- Adding repodata details for a given channel to channelDetails page.
+  (pkilambi@redhat.com)
+- 506816 - fixing issue where virt hosts that begin to use sat 5.3 could not
+  install spacewalk-koan (jsherril@redhat.com)
+- 506693 - removed more contact.pxt references (shughes@redhat.com)
+- 507046 & 507048 - Fixed a couple of cobbler issues (paji@redhat.com)
+- Added a fix to master to ignore profiles that have not yet been synced to
+  cobbler.. (paji@redhat.com)
+- Fix for html:errors and html:messages to be consitently viewed in the UI
+  (paji@redhat.com)
+- 506726 - do not allow links for null org channel management
+  (shughes@redhat.com)
+- 506705 - removed invalid rhn require tag (shughes@redhat.com)
+- 506693 - remove contact.pxt link from 404 message (shughes@redhat.com)
+- 506509 - Fixed an ssm query.. Accidental typo.. (paji@redhat.com)
+- 506509 - Fixed ISE on Config Deploy pages (paji@redhat.com)
+- Checkstyle fix. (dgoodwin@redhat.com)
+- 506608 - fixing issue where source packages could not be downloaded from the
+  package details page (jsherril@redhat.com)
+- Fix monitoring action unit tests. (dgoodwin@redhat.com)
+- Attempt to fix ChannelManagerTest.testListErrata. (dgoodwin@redhat.com)
+- 506342 - fix system count for consumed channel sharing (shughes@redhat.com)
+- 506341 - fix system count for provided shared channels (shughes@redhat.com)
+- 495406 - Changed package arch lookup for ACLs to use arch labels instead of
+  hibernate objects. (jason.dobies@redhat.com)
+- 506489 - remove the link associated with the org name present in the UI
+  header (bbuckingham@redhat.com)
+- Adding missed EusReleaseComparator file. (dgoodwin@redhat.com)
+- 506492, 506139 - PackageSearch default quick search to searching all arches &
+  fix no result if systems aren't registered (jmatthew@redhat.com)
+- 506296 - Repair EUS logic after removal of is_default column.
+  (dgoodwin@redhat.com)
+- 506144 - apidoc - packages.search - adding missing files to return value
+  (bbuckingham@redhat.com)
+- fix unit test cases (shughes@redhat.com)
+- removed a duplicate string resources entry (paji@redhat.com)
+- Fix some of the failing EUS unit tests. (dgoodwin@redhat.com)
+- 505616 - Fixing the eus logic that gets the latest and the default eus
+  channels to not depend on is_default column. Thanks to jsherril for his help
+  on this. (pkilambi@redhat.com)
+- Fixed a set of unit tests which owere looking for ActtionMessagess instead of
+  ActionErrors (paji@redhat.com)
+- Unit test fix (paji@redhat.com)
+- Fixed unit test: was looking for errors as part of action messages
+  (jason.dobies@redhat.com)
+- Remove hibernate mappings for rhnReleaseChannelMap is_default column.
+  (dgoodwin@redhat.com)
+- unit test fix (jsherril@redhat.com)
+- unit test fix (jsherril@redhat.com)
+- 431673 - reworking rhnServerNeededView for performance fixes.
+  (mmccune@gmail.com)
+- 505170 - api - proxy.deactivateProxy - was generating internal exception
+  (bbuckingham@redhat.com)
+- 505327 - fixing url parse for advanced kickstart options (shughes@redhat.com)
+- 498650 - HTML escape monitoring data before displaying. (dgoodwin@redhat.com)
+- Revert "498650 - html escape of monitoring data before displaying on the
+  WEBUI" (dgoodwin@redhat.com)
+- 498650 - html escape of monitoring data before displaying on the WEBUI
+  (tlestach@redhat.com)
+- 492206 - Fixed cobbler error url to point to KS file download page which has
+  better info on cheetah stacktrace (paji@redhat.com)
+- 505188 - fixing issues causing rhel2.1 provisioning to not work
+  (jsherril@redhat.com)
+- 490960 - ErrataSearch, fix for multiorg channel permissions
+  (jmatthew@redhat.com)
+- fix to shwo the correct error message css (paji@redhat.com)
+- 504804 - Need to stuff the relevant flag back into the request so it's used
+  in the package name URLs. (jason.dobies@redhat.com)
+
 * Wed Jun 10 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.26-1
 - 504806 - Added missing channel_filter attribute that was being lost during
   pagination. (jason.dobies@redhat.com)

@@ -1,4 +1,3 @@
-#!/usr/bin/python
 #
 # Copyright (c) 2008 Red Hat, Inc.
 #
@@ -52,7 +51,7 @@ class Session:
             range(1, 5))
 
     def get_secrets(self):
-        # Validates the secrets from teh config file
+        # Validates the secrets from the config file
         secrets = self._get_secrets()
         if len(secrets) != len(filter(None, secrets)):
             # the list of secrets has unset items

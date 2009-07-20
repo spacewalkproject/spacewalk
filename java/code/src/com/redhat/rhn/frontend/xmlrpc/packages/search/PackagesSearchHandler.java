@@ -35,15 +35,14 @@ import com.redhat.rhn.manager.token.ActivationKeyManager;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import redstone.xmlrpc.XmlRpcFault;
-
-
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import redstone.xmlrpc.XmlRpcFault;
 
 
 /**

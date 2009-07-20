@@ -19,7 +19,6 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import java.sql.Types;
@@ -86,16 +85,9 @@ public class PackageEvrFactory {
      * @return the PackageEvr found
      */
     public static PackageEvr lookupPackageEvrById(Long id) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            return (PackageEvr) session.getNamedQuery("PackageEvr.findById").setString(
-                    "id", id.toString()).uniqueResult();
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception (PackageEvr): " + he.toString());
-        }
-        return null;
+        Session session = HibernateFactory.getSession();
+        return (PackageEvr) session.getNamedQuery("PackageEvr.findById").setString(
+                "id", id.toString()).uniqueResult();
     }
 
 }

@@ -10,8 +10,6 @@
 </head>
 
 <body>
-
-<html:errors />
 <%@ include file="/WEB-INF/pages/common/fragments/activationkeys/common-header.jspf" %>
 
 <html:form action="/activationkeys/packages/Packages">

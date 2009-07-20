@@ -81,7 +81,13 @@ public class ChannelDetailsAction extends RhnAction {
         request.setAttribute("pack_size", ChannelFactory.getPackageCount(chan));
         request.setAttribute("globally", chan.isGloballySubscribable(user.getOrg()));
         request.setAttribute("channel", chan);
-
+        //Check if the channel needed repodata, 
+        // if so get the status and last build info
+        if (chan.isChannelRepodataRequired()) {
+            request.setAttribute("repo_status",
+                    ChannelManager.isChannelLabelInProgress(chan.getLabel()));
+            request.setAttribute("repo_last_build", ChannelManager.getRepoLastBuild(chan));
+        }
         // turn on the right radio button
         if (chan.isGloballySubscribable(user.getOrg())) {
             form.set("global", "all");

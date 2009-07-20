@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.10
+Version: 0.6.11
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -112,6 +112,12 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.6.11-1
+- 487014 - SystemSearch remove score requirement to redirect to SDC on 1 result
+  (jmatthew@redhat.com)
+- DocumentationSearch fixing returned links so they are relative and update for
+  segment dir (jmatthew@redhat.com)
+
 * Mon Jun 01 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.10-1
 - added java debugger options for local dev config (jesusr@redhat.com)
 - store pid file locally. (jesusr@redhat.com)

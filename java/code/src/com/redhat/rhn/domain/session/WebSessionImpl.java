@@ -14,11 +14,11 @@
  */
 package com.redhat.rhn.domain.session;
 
-import org.apache.log4j.Logger;
-
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.session.SessionManager;
+
+import org.apache.log4j.Logger;
 
 /**
  * A web session 

@@ -14,18 +14,20 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.kickstart.keys.test;
 
-import java.util.List;
+import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.test.CryptoTest;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.CryptoKeyDto;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.keys.CryptoKeysHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.frontend.xmlrpc.test.XmlRpcTestUtils;
-import com.redhat.rhn.frontend.dto.CryptoKeyDto;
 import com.redhat.rhn.testing.UserTestUtils;
-import com.redhat.rhn.common.util.MD5Crypt;
+
 import org.apache.commons.lang.RandomStringUtils;
+
+import java.util.List;
 
 /**
  * Test cases for the {@link CryptoKeysHandler}.

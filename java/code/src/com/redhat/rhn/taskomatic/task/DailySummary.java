@@ -15,6 +15,7 @@
 package com.redhat.rhn.taskomatic.task;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
@@ -187,7 +188,7 @@ public class DailySummary extends SingleThreadedTestableTask {
         Map params = new HashMap();
         params.put("user_id", uid);
         params.put("checkin_threshold",
-                Config.get().getInteger(Config.SYSTEM_CHECKIN_THRESHOLD));
+                Config.get().getInteger(ConfigDefaults.SYSTEM_CHECKIN_THRESHOLD));
         
         return m.execute(params);
     }
@@ -276,7 +277,7 @@ public class DailySummary extends SingleThreadedTestableTask {
         
         //Lastly, create the url for the link in the email.
         StringBuffer url = new StringBuffer();
-        if (Config.get().getBoolean(Config.SSL_AVAILABLE)) {
+        if (Config.get().getBoolean(ConfigDefaults.SSL_AVAILABLE)) {
             url.append("https://");
         }
         else {
@@ -383,6 +384,6 @@ public class DailySummary extends SingleThreadedTestableTask {
     }
     
     private String getHostname() {
-        return Config.get().getHostname();
+        return ConfigDefaults.get().getHostname();
     }
 }

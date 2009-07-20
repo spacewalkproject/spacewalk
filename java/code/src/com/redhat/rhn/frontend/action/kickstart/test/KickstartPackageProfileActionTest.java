@@ -19,8 +19,7 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
 import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.frontend.action.kickstart.KickstartPackageProfileSubmitAction;
-import com.redhat.rhn.frontend.dto.ProfileDto;
+import com.redhat.rhn.frontend.action.kickstart.KickstartPackageProfileSetupAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.profile.test.ProfileManagerTest;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
@@ -52,21 +51,21 @@ public class KickstartPackageProfileActionTest extends RhnMockStrutsTestCase {
         user.addRole(RoleFactory.ORG_ADMIN);
         setRequestPathInfo("/kickstart/KickstartPackageProfileEdit");
         actionPerform();
-        verifyPageList(ProfileDto.class);
-        assertNotNull(request.getAttribute(RequestContext.KICKSTART));
+        assertNotNull(request.getParameter(RequestContext.KICKSTART_ID));
     }
     
     public void testSubmit() throws Exception {
         assertNull(ksdata.getKickstartDefaults().getProfile());
         user.addRole(RoleFactory.ORG_ADMIN);
         Profile p = ProfileManagerTest.createProfileWithServer(user);
-        addSelectedItem(p.getId());
-        addDispatchCall(KickstartPackageProfileSubmitAction.UPDATE_METHOD);
-        setRequestPathInfo("/kickstart/KickstartPackageProfileEditSubmit");
+        ksdata.getKickstartDefaults().setProfile(p);
+        addDispatchCall(KickstartPackageProfileSetupAction.CLEAR_METHOD);
+        setRequestPathInfo("/kickstart/KickstartPackageProfileEdit");
         actionPerform();
         // Gotta make sure we can update the profile to the same entry twice
         actionPerform();
-        assertNotNull(ksdata.getKickstartDefaults().getProfile());
+        ksdata = (KickstartData) TestUtils.reload(ksdata);
+        assertNull(ksdata.getKickstartDefaults().getProfile());
         setRequestPathInfo("/kickstart/KickstartPackageProfileEdit");
         // Need to test that the SetupAction works after we 
         // add the profile to the Kickstart

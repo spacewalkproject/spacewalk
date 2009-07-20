@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.servlets;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.manager.session.SessionManager;
 
 import org.apache.commons.lang.StringUtils;
@@ -71,7 +72,7 @@ public class PxtCookieManager {
         // pxtCookie.setDomain(request.getServerName());
         pxtCookie.setMaxAge(timeout);
         pxtCookie.setPath(DEFAULT_PATH);
-        pxtCookie.setSecure(Config.get().isSSLAvailable());
+        pxtCookie.setSecure(ConfigDefaults.get().isSSLAvailable());
         
         return pxtCookie;
     }
@@ -112,7 +113,7 @@ public class PxtCookieManager {
      */
     protected String getCookieName(HttpServletRequest request) {
         Config c = Config.get();
-        int personality = c.getInt(Config.WEB_ALLOW_PXT_PERSONALITIES);
+        int personality = c.getInt(ConfigDefaults.WEB_ALLOW_PXT_PERSONALITIES);
         
         if (personality > 0) {
             String[] name = StringUtils.split(request.getServerName(), '.');

@@ -15,12 +15,12 @@
 
 package com.redhat.rhn.frontend.struts;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 /**

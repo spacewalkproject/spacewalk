@@ -14,9 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.schedule.test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
@@ -28,6 +25,9 @@ import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.frontend.xmlrpc.schedule.ScheduleHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.manager.action.ActionManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ScheduleHandlerTest extends BaseHandlerTestCase {
 

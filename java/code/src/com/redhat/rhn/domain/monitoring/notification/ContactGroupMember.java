@@ -14,10 +14,11 @@
  */
 package com.redhat.rhn.domain.monitoring.notification;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 import java.io.Serializable;
 import java.util.Date;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.EqualsBuilder;
 
 /**
  * ContactGroupMember - Class representation of the table rhn_contact_group_members.

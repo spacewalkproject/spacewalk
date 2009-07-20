@@ -14,13 +14,9 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.systemgroup;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.WrappedSQLException;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -35,6 +31,11 @@ import com.redhat.rhn.frontend.xmlrpc.ServerGroupAccessChangeException;
 import com.redhat.rhn.frontend.xmlrpc.ServerNotInGroupException;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
 import com.redhat.rhn.manager.system.ServerGroupManager;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -411,7 +412,7 @@ public class ServerGroupHandler extends BaseHandler {
         User loggedInUser =  getLoggedInUser(sessionKey);
         ServerGroup sg = lookup(systemGroupName, loggedInUser);
         Long threshold = new Long(Config.get().getInt(
-                Config.SYSTEM_CHECKIN_THRESHOLD));
+                ConfigDefaults.SYSTEM_CHECKIN_THRESHOLD));
         return ServerGroupManager.getInstance().listActiveServers(sg, threshold);
         
     }
@@ -461,7 +462,7 @@ public class ServerGroupHandler extends BaseHandler {
     public List<Long> listInactiveSystemsInGroup(String sessionKey, 
             String systemGroupName) {
         Long threshold = new Long(Config.get().getInt(
-                Config.SYSTEM_CHECKIN_THRESHOLD));
+                ConfigDefaults.SYSTEM_CHECKIN_THRESHOLD));
         return listInactiveSystemsInGroup(sessionKey, systemGroupName, 
                 threshold.intValue());
     }

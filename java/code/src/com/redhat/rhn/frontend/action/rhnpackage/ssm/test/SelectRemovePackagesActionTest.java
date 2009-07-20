@@ -14,11 +14,11 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage.ssm.test;
 
-import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
+import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
+import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 
 /**
  * @version $Revision$

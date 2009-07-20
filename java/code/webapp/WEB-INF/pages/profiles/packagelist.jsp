@@ -8,9 +8,6 @@
 <body>
 
 <%@ include file="/WEB-INF/pages/common/fragments/profile/header.jspf" %>
-
-<html:errors />
-
 <div class="page-summary">
     <p><bean:message key="profile.packagelist.summary"/></p>
 </div>

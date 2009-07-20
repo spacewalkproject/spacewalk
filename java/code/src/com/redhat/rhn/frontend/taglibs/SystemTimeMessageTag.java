@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.taglibs;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.server.Server;
@@ -75,7 +76,7 @@ public class SystemTimeMessageTag extends TagSupport {
         long checkInAgo = now.getTime() - lastCheckIn.getTime();
         Long days = new Long((((checkInAgo / 1000) / 60) / 60) / 24);
         boolean awol = days.intValue() > 
-                       Config.get().getInt(Config.SYSTEM_CHECKIN_THRESHOLD);
+                       Config.get().getInt(ConfigDefaults.SYSTEM_CHECKIN_THRESHOLD);
         
         retval.append("<table border=\"0\" cellspacing=\"0\" cellpadding=\"6\">");
         

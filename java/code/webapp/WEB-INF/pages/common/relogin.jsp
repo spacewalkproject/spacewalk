@@ -10,11 +10,6 @@
 <body onLoad="formFocus('loginForm', 'username')">
 
 <rhn:require acl="not user_authenticated()">
-
-<html:errors/>
-<html:messages id="message" message="true">
-    <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
 <c:if test="${requestScope.hasExpired != 'true'}">
      <h1><bean:message key="relogin.jsp.pleasesignin"/></h1>
                

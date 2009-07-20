@@ -31,6 +31,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -376,13 +377,19 @@ public class KickstartFactory extends HibernateFactory {
         else {
             log.debug("No ks meta for this profile.");
         }
-        String path = ksdataIn.getCobblerFileName();
-        if (p != null && p.getKickstart() != null) { 
-            path = p.getKickstart();
-        }
+        String path = getKickstartTemplatePath(ksdataIn, p);
+        log.debug("writing ks file to : " + path);
         FileUtils.writeStringToFile(fileData, path);
     } 
     
+    private static String getKickstartTemplatePath(KickstartData ksdata, Profile p) { 
+        String path = ksdata.getCobblerFileName();
+        if (p != null && p.getKickstart() != null) { 
+            path = p.getKickstart();
+        }
+        return path;
+    }
+
     /**
      * 
      * @param ksdataIn Kickstart Data to be stored in db
@@ -396,6 +403,14 @@ public class KickstartFactory extends HibernateFactory {
      * @return number of tuples affected by delete
      */
     public static int removeKickstartData(KickstartData ksdataIn) {
+        Profile p = Profile.lookupById(CobblerXMLRPCHelper.getAutomatedConnection(),
+                ksdataIn.getCobblerId());
+        String path = getKickstartTemplatePath(ksdataIn, p);
+        File file = new File(path);
+        if (file.exists()) {
+            log.debug("deleting : " + path);
+            file.delete();
+        }
         return singleton.removeObject(ksdataIn);
     }
 
@@ -455,7 +470,7 @@ public class KickstartFactory extends HibernateFactory {
      * @param org who owns the Kickstart Range
      * @return List of Kickstart Ip Ranges if found
      */
-    public static List lookupRangeByOrg(Org org) {
+    public static List<KickstartIpRange> lookupRangeByOrg(Org org) {
         Session session = null;
         session = HibernateFactory.getSession();
         return session.getNamedQuery("KickstartIpRange.lookupByOrg")
@@ -552,17 +567,19 @@ public class KickstartFactory extends HibernateFactory {
         setLong("org_id", org.getId().longValue()).
         list();            
         return retval;
-    }    
-    
+    }
+
+
     /**
-     * Fetch all trees for an org
+     * Fetch all trees for an org, these include
+     * trees where org_id is null or org_id = org.id
      * @param org owning org
      * @return list of KickstartableTrees
      */
-    public static List <KickstartableTree> lookupKickstartTreesByOrg(Org org) {
+    public static List <KickstartableTree> lookupAccessibleTreesByOrg(Org org) {
         Session session = null;
         List retval = null;
-        String query = "KickstartableTree.findByOrg";
+        String query = "KickstartableTree.findAccessibleToOrg";
         session = HibernateFactory.getSession();
         retval = session.getNamedQuery(query).
         setLong("org_id", org.getId().longValue())
@@ -570,6 +587,18 @@ public class KickstartFactory extends HibernateFactory {
         .setCacheable(true).list();            
         return retval;        
     }
+
+    /**
+     * Return a list of KickstartableTree objects in the Org
+     * @param org to lookup by
+     * @return List of KickstartableTree objects if found
+     */    
+    public static List<KickstartableTree> listTreesByOrg(Org org) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("org_id", org.getId());
+        return singleton.listObjectsByNamedQuery(
+                    "KickstartableTree.findByOrg", params, true);
+    }    
     
     /**
      * list all kickstart trees stored in the satellite
@@ -579,10 +608,8 @@ public class KickstartFactory extends HibernateFactory {
         Session session = null;
         List retval = null;
         String query = "KickstartableTree.findAll";
-        return singleton.listObjectsByNamedQuery(query, new HashMap());
+        return singleton.listObjectsByNamedQuery(query, Collections.EMPTY_MAP, true);
     }
-    
-    
     
     /**
      * Lookup KickstartableTree by tree id and org id
@@ -853,19 +880,6 @@ public class KickstartFactory extends HibernateFactory {
     }
 
     /**
-     * Lookup a list of KickstartData objects by the Org
-     * Useful for finding KickstartData objects that are in a org
-     * @param org to lookup by
-     * @return List of KickstartData objects if found
-     */    
-    public static List<KickstartData> listKickstartDataByOrg(Org org) {
-        Session session = getSession();
-        Criteria c = session.createCriteria(KickstartData.class);
-        c.add(Restrictions.eq("org", org));
-        return c.list();
-    }
-    
-    /**
      * Lookup a list of all KickstartData objects located on the Satellite
      *  Should not be used by much.  Ignores org!
      * @return List of KickstartData objects if found
@@ -885,7 +899,6 @@ public class KickstartFactory extends HibernateFactory {
      */
     public static KickstartData lookupOrgDefault(Org org) {
         Session session = HibernateFactory.getSession();
-        
         return (KickstartData) session
             .getNamedQuery("KickstartData.findOrgDefault")
             .setEntity("org", org)
@@ -1010,6 +1023,4 @@ public class KickstartFactory extends HibernateFactory {
         Session session = HibernateFactory.getSession();
         return (List<KickstartableTree>) session.getNamedQuery(query).list();
     }
-    
-    
 }

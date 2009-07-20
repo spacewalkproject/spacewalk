@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        0.6.11
+Version:        0.6.12
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -115,6 +115,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu Jul  2 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.12-1
+- 509369 - run restorecon for /var/www/html/pub since its content is not owned by any package
+
 * Thu Jun 18 2009 Jan Pazdziora 0.6.11-1
 - 505606 - Require at least selinux-policy 2.4.6-80
 

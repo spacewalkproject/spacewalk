@@ -572,7 +572,7 @@
       </trans-unit>
 
       <trans-unit id="badparam.jsp.reason4">
-<source>You've found an error in our site.  Please help us by filling out &lt;a href="/help/contact.pxt"&gt;this form&lt;/a&gt; with details of how you received this message.</source>
+<source>You've found an error in our site.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Bad Parameter error page</context>
         </context-group>
@@ -625,7 +625,7 @@
       </trans-unit>
 
       <trans-unit id="404.jsp.reason4">
-<source>If you feel you've reached this page in error, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt; with details of how you received this message.</source>
+<source>If you feel you've reached this page in error, please contact us with details of how you received this message.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
         </context-group>
@@ -653,7 +653,7 @@
       </trans-unit>
 
       <trans-unit id="500.jsp.message">
-<source>Please help us correct this problem by &lt;a href="/help/contact.pxt"&gt;contacting us&lt;/a&gt; with details of how you received this message.</source>
+<source>Please help us correct this problem by contacting us with details of how you received this message.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">500 error page</context>
         </context-group>
@@ -1422,7 +1422,7 @@
       </trans-unit>
       <!-- footer.jsp -->
       <trans-unit id="footer.jsp.copyright">
-<source>Copyright &amp;#169; 2002-08 Red Hat, Inc. All rights reserved.</source>
+<source>Copyright &amp;#169; 2002-09 Red Hat, Inc. All rights reserved.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/footer.jsp</context>
         </context-group>
@@ -3038,7 +3038,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
         </context-group>
       </trans-unit>
-                                             schedu
       <trans-unit id="packagelist.jsp.nopackages">
 <source>No packages.</source>
         <context-group name="ctx">
@@ -4600,7 +4599,7 @@ deducted from the default organization.</source>
       </trans-unit>
       <trans-unit id="softwareEntitlementSubs.systemWideCounts.totaltip">
 <source>&lt;strong&gt;Tip:&lt;/strong&gt; This total corresponds to your @@PRODUCT_NAME@@ certificate's
-value for this entitlement.</source>
+value for this entitlement, excluding the default organization's consumption.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
@@ -9111,6 +9110,57 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     </trans-unit>
 
+	<!--  SSM Kickstart -->
+    <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/kickstart/KickstartableSystems.do</context>
+        </context-group>
+        <trans-unit id="ssm.kickstartable-systems.jsp.title">
+          <source>Kickstartable Systems</source>
+        </trans-unit>
+		<trans-unit id="ssm.kickstartable-systems.jsp.summary">
+          <source>Below are the systems in you selected systems list that are kickstartable using @@PRODUCT_NAME@@.</source>
+        </trans-unit>
+        <trans-unit id="ssm.kickstartable-systems.jsp.systems">
+          <source>Kickstart Selected Systems</source>
+        </trans-unit>
+        <trans-unit id="ssm.kickstartable-systems.jsp.systems.summary">
+          <source>You may kickstart the selected systems.</source>
+        </trans-unit>
+        <trans-unit id="ssm.kickstartable-systems.jsp.type">
+          <source>Kickstartable Type</source>
+        </trans-unit>
+        <trans-unit id="ssm.kickstartable-systems.jsp.manual-summary">
+          <source>Select kickstart profile.</source>
+        </trans-unit>
+        <trans-unit id="ssm.kickstartable-systems.jsp.ip-summary">
+          <source>Kickstart by IP Address.</source>
+        </trans-unit>
+        <trans-unit id="ssm.kickstartable-systems.jsp.ip-tooltip">
+          <source>If there is no organization default profile specified for this organization, a kickstart will not get scheduled for systems that do not fall under an ip range.</source>
+        </trans-unit>
+    </group>
+    <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/kickstart/ScheduleByProfile.do</context>
+          <context context-type="sourcefile">/rhn/systems/ssm/kickstart/ScheduleByIp.do</context>
+        </context-group>
+        <trans-unit id="ssm.kickstart.schedule.heading1.text.jsp">
+          <source> Schedule kickstart actions for the the selected systems. These actions will re-install the selected systems using the kickstart options specified.</source>
+        </trans-unit>
+		<trans-unit id="ssm.kickstart.schedule.heading2.text.jsp">
+          <source>Please select the kickstart profile you'd like to use to kickstart the selected systems.</source>
+        </trans-unit>
+		<trans-unit id="ssm.kickstart.schedule.ip.heading2.text.jsp">
+          <source>The kickstart profile will be automatically selected for each system based upon its network configuration.  If no match is found, the organizational default profile will be used if set.</source>
+        </trans-unit>
+		<trans-unit id="ssm.kickstart.schedule.proxy.jsp.summary">
+          <source>You may choose to use an @@PRODUCT_NAME@@ Proxy to access the files necessary for kickstart. The selected systems will be registered to the @@PRODUCT_NAME@@ Proxy selected below after its kickstart has completed..</source>
+        </trans-unit>
+		<trans-unit id="ssm.kickstart.distro.cobbler-only.tooltip">
+		<source> Profiles that are not @@PRODUCT_NAME@@-managed are not guaranteed to register systems to @@PRODUCT_NAME@@ after kickstart. You may wish to review these kickstarts (click on the profile name to do so) to confirm whether or not the selected systems will reappear in the @@PRODUCT_NAME@@ system list after kickstart.</source>
+	</trans-unit>
+    </group>
     <!-- Kickstart -->
 
     <trans-unit id="partitions">
@@ -9215,8 +9265,8 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     </trans-unit>        
     
-    <trans-unit id="kickstartdetails.jsp.virt_mem_kb">
-        <source>Virtual Memory (in kilobytes)</source>
+    <trans-unit id="kickstartdetails.jsp.virt_mem_mb">
+        <source>Virtual Memory (in MB)</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
@@ -9812,6 +9862,33 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
     </trans-unit>
+ 
+    <trans-unit id="kickstartdetails.invalid.jsp.summary">
+        <source>The distribution associated to this kickstart profile is invalid. </source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
+        </context-group>
+    </trans-unit>
+
+    <trans-unit id="kickstartdetails.invalid.jsp.summary-option1">
+        <source>To enable operations available to this kickstart profile, you may correct the distribution(&lt;strong&gt;{0}&lt;/strong&gt;) by visiting the &lt;a href = &quot;{1}&quot;&gt;Kickstart Distribution Details&lt;/a&gt; page.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
+        </context-group>
+    </trans-unit>    
+    
+<trans-unit id="kickstartdetails.invalid.jsp.summary-option2">
+        <source> Alternatively you may associate a different distribution to this kickstart profile by visiting the &lt;a href = &quot;{0}&quot;&gt;Kickstart Operating System Details&lt;/a&gt; page.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
+        </context-group>
+    </trans-unit>
+<trans-unit id="kickstartdetails.advanced.invalid.jsp.summary-option2">
+        <source> Alternatively you may associate a different distribution to this kickstart profile by selecting a distribution and choosing '{0}'.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
+        </context-group>
+    </trans-unit>        
     <trans-unit id="kickstartoptions.jsp.updatekickstart">
         <source>Update Kickstart</source>
         <context-group name="ctx">
@@ -9834,7 +9911,10 @@ Please note that some manual configuration of these scripts may still be require
 	  </trans-unit>
 	  <trans-unit id="kickstart.advanced.filedetails.jsp.tip.edit">
 	    <source> Alternatively, you can upload a new version in the '{0}' section below and select '{1}'.</source>
-	   </trans-unit>	  
+	   </trans-unit>
+      <trans-unit id="kickstart.advanced.filedetails.jsp.tip.copypaste">
+        <source> If you wish to re-use an existing Kickstart Profile we recommend you copy-paste the template from /var/lib/rhn/kickstarts instead of from your browser.  This will ensure that the template variables will be preserved and the registration process will work properly after the kickstart.</source>
+       </trans-unit>      
 	</group>
     <trans-unit id="kickstartdatadelete.jsp.confirmdelete">
         <source>Delete Kickstart</source>
@@ -9987,7 +10067,7 @@ Please note that some manual configuration of these scripts may still be require
   </trans-unit>
 
   <trans-unit id="kickstart.netconn.jsp.label">
-    <source>Kickstart &lt;br /&gt;Network &lt;br /&gt;Connection</source>
+    <source>Network Connection</source>
     <context-group name="ctx">
       <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
     </context-group>
@@ -10008,7 +10088,7 @@ Please note that some manual configuration of these scripts may still be require
   </trans-unit>
 
   <trans-unit id="kickstart.netconn.static.jsp.label">
-    <source>Use static IP from interface</source>
+    <source>Use static interface</source>
     <context-group name="ctx">
       <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
     </context-group>
@@ -11547,7 +11627,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       </trans-unit>
 
       <trans-unit id="channels.all.jsp.header1">
-        <source>The software channels listed below are &lt;strong&gt;all of the channels&lt;/strong&gt; that your organization &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt;is entitled to&lt;/a&gt; and are currently supported by Red Hat.</source>
+        <source>The software channels listed below are &lt;strong&gt;all of the channels&lt;/strong&gt; that your organization has access to.</source>
       </trans-unit>
       
       <trans-unit id="channels.redhat.jsp.header1">
@@ -11555,7 +11635,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       </trans-unit>  
       
       <trans-unit id="channels.shared.jsp.header1">
-        <source>The software channels listed below my be shared by your organization.</source>
+        <source>The software channels listed below may be shared by your organization.</source>
       </trans-unit>        
       
       <trans-unit id="channels.custom.jsp.header1">
@@ -16014,12 +16094,8 @@ any of these revisions.  Are you sure you want to do this?</source>
            <source>The {0} package you have selected will be installed to the compatible selected systems, listed below:</source>
         </trans-unit>
 
-        <trans-unit id="ssm.package.install.message.packageinstall">
-           <source>{0} package installation has been scheduled</source>
-        </trans-unit>
-
         <trans-unit id="ssm.package.install.message.packageinstalls">
-           <source>{0} package installations have been scheduled</source>
+            <source>Package installations are being scheduled, it may take several minutes for this to complete.</source>
         </trans-unit>
 
      </group>
@@ -16063,11 +16139,11 @@ any of these revisions.  Are you sure you want to do this?</source>
         <trans-unit id="ssm.package.remove.schedule.toomanypackages">
           <source>Package list truncated</source>
         </trans-unit>
-        <trans-unit id="ssm.package.remove.message.packageremoval">
-           <source>{0} package removal has been scheduled</source>
-        </trans-unit>
         <trans-unit id="ssm.package.remove.message.packageremovals">
-           <source>{0} package removals have been scheduled</source>
+           <source>Package removals are being scheduled, it may take several minutes for this to complete. </source>
+        </trans-unit>
+        <trans-unit id="ssm.package.remove.operationname">
+           <source>Schedule Package Removals</source>
         </trans-unit>
     </group>
        
@@ -16093,6 +16169,9 @@ any of these revisions.  Are you sure you want to do this?</source>
        <trans-unit id="ssm.package.upgrade.select.advisory">
          <source>Advisory</source>
        </trans-unit>
+        <trans-unit id="ssm.package.upgrade.operationname">
+           <source>Schedule Package Upgrades</source>
+        </trans-unit>
    </group>
     
     <!-- ssm/packageupgradeschedule.jsp -->
@@ -16102,7 +16181,7 @@ any of these revisions.  Are you sure you want to do this?</source>
        </context-group>
 
        <trans-unit id="ssm.package.upgrade.message.packageupgrade">
-         <source>Package upgrades scheduled</source>
+         <source>Package upgrades are being scheduled, it may take several minutes for this to complete. </source>
        </trans-unit>
        <trans-unit id="ssm.package.upgrade.schedule.toomanypackages">
          <source>Package list truncated</source>
@@ -16151,11 +16230,8 @@ any of these revisions.  Are you sure you want to do this?</source>
        <trans-unit id="ssm.package.verify.schedule.toomanypackages">
          <source>Package list truncated</source>
        </trans-unit>
-       <trans-unit id="ssm.package.verify.message.packageverification">
-          <source>{0} package verification has been scheduled</source>
-       </trans-unit>
        <trans-unit id="ssm.package.verify.message.packageverifications">
-          <source>{0} package verifications have been scheduled</source>
+          <source>Package verifications are being scheduled, it may take several minutes for this to complete.</source>
        </trans-unit>
    </group>
        
@@ -16405,16 +16481,22 @@ the &lt;a href=&quot;/rhn/kickstart/ActivationKeysList.do?ksid={0}&quot;&gt;Acti
 	<trans-unit id="kickstart.distro.sw_managed.jsp">
         <source>@@PRODUCT_NAME@@ Managed?*</source>
         <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
+            <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-    </trans-unit>     
+    </trans-unit>
     <trans-unit id="kickstart.distro.label.jsp">
         <source>Distribution</source>
         <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
+            <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
     </trans-unit>
-    
+
+ 	<trans-unit id="kickstarts.profile.is-valid.tooltip">
+        <source>Kickstart profiles may be associated to an invalid kickstart distribution. To make a kickstart profile valid please select the profile and modify its distribution appropriately.</source>
+       <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
+       </context-group>	        
+    </trans-unit>
     <!--KS schedule pages -->
 	<group>
 	    <context-group name="ctx">
@@ -16427,10 +16509,10 @@ the &lt;a href=&quot;/rhn/kickstart/ActivationKeysList.do?ksid={0}&quot;&gt;Acti
 	        <source>Bootloader</source>
 	    </trans-unit>
 	    <trans-unit id="kickstart.schedule.kernel.options.distro">
-	        <source>&lt;strong&gt;As specified by Kickstart Distribution&lt;/strong&gt;({0})</source>
+	        <source>&lt;strong&gt;As specified by Kickstart Distribution&lt;/strong&gt;</source>
 	    </trans-unit>
 	    <trans-unit id="kickstart.schedule.kernel.options.profile">
-	        <source>&lt;strong&gt;As specified by Kickstart Profile&lt;/strong&gt;({0})</source>
+	        <source>&lt;strong&gt;As specified by Kickstart Profile&lt;/strong&gt;</source>
 	    </trans-unit>
 	    <trans-unit id="kickstart.schedule.kernel.options.custom.tip">
 	        <source>If you would not like any kernel options, select '{0}' and leave the form field blank.</source>
@@ -16725,34 +16807,31 @@ the &lt;a href=&quot;/rhn/kickstart/ActivationKeysList.do?ksid={0}&quot;&gt;Acti
             <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionCancel.do</context>
         </context-group>
     </trans-unit>
-
-    <trans-unit id="kickstart.kickstartable_distributions.jsp">
-        <source>Kickstartable Distributions</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/ViewTrees.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="kickstart.kickstartable_distributions_text.jsp">
-        <source>The following kickstart distributions are available.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/ViewTrees.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="kickstart.kickstartable_distro_create_new.jsp">
-        <source>create new distribution</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/ViewTrees.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="kickstart.distributions.jsp.nolists">
-        <source>No kickstartable distributions available.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/ViewTrees.do</context>
-        </context-group>
-    </trans-unit>
+<!-- KS Distributions List Page -->
+   	<group>
+	    <context-group name="ctx">
+	        <context context-type="sourcefile">/rhn/kickstart/ViewTrees.do</context>
+	    </context-group>
+	    <trans-unit id="kickstart.distributions.jsp.nolists">
+	        <source>No kickstartable distributions available.</source>
+	    </trans-unit>
+	    <trans-unit id="kickstart.kickstartable_distro_create_new.jsp">
+	        <source>create new distribution</source>
+	    </trans-unit>
+	    <trans-unit id="kickstart.kickstartable_distributions.jsp">
+	        <source>Kickstartable Distributions</source>
+	    </trans-unit>
+	    <trans-unit id="kickstart.kickstartable_distributions_text.jsp">
+	        <source>The following kickstart distributions are available.</source>
+	    </trans-unit>
+	    <trans-unit id="kickstarts.distro.is-valid.tooltip">
+	        <source>Kickstart distributions may be invalid due wrong or non existent base path to the kernel or initrd image. To make your custom distribution valid please select the distribution and modify its base path appropriately.</source>
+	    </trans-unit>
+	    <trans-unit id="kickstart.distro.is-valid.jsp">
+	        <source>Valid</source>
+	    </trans-unit>
+    </group>    
+    
     <trans-unit id="preferences.jsp.lang.bn_IN">
         <source>Bengali</source>
         <context-group name="ctx">
@@ -18286,7 +18365,7 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
       </trans-unit>
 
       <trans-unit id="service.jsp.message">
-<source>Please help us correct this problem by &lt;a href="/help/contact.pxt"&gt;contacting us&lt;/a&gt; with details of how you received this message.</source>
+<source>Please help us correct this problem by contacting us with details of how you received this message.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">service error page</context>
         </context-group>
@@ -19203,7 +19282,7 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
     </trans-unit>
       
       <trans-unit id="org.trust.header">
-        <source>Organizations Trusted By {0}</source>
+        <source>Organizations Trusted By {0} ({1})</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/multiorg/Organizations.do</context>
         </context-group>
@@ -19442,6 +19521,13 @@ as reflected in this @@PRODUCT_NAME@@'s certificate.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
         </context-group>
       </trans-unit>
+
+      <trans-unit id="sys_entitlements.noentorgs">
+        <source>No organizations have this entitlement</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlements.do</context>
+        </context-group>
+      </trans-unit>
       
       <trans-unit id="kickstart.cryptokey.description">
 <source>Description</source>
@@ -19638,7 +19724,7 @@ this entitlement.</source>
       </trans-unit>
       <trans-unit id="entitlementorgs.tip_allocated">
 <source>&lt;strong&gt;Tip:&lt;/strong&gt; This total corresponds to your @@PRODUCT_NAME@@ certificate's
-value for this entitlement.</source>
+value for this entitlement, excluding the default organization's consumption.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SystemEntitlementOrgs</context>
         </context-group>
@@ -20309,23 +20395,33 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="docsearch.content">
           <source>Content</source>
+          <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/Search</context>
+          </context-group>
       </trans-unit>
       <trans-unit id="docsearch.free_form">
           <source>Free Form</source>
+          <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/Search</context>
+          </context-group>
       </trans-unit>
       <trans-unit id="docsearch.content_title">
           <source>Content &amp; Title</source>
+          <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/Search</context>
+          </context-group>
       </trans-unit>
       <trans-unit id="docsearch.title">
           <source>Title</source>
+          <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/Search</context>
+          </context-group>
       </trans-unit>
       <trans-unit id="docsearch.jsp.summary">
           <source>Summary</source>
+          <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/Search</context>
+          </context-group>
       </trans-unit>
       <trans-unit id="docsearch.jsp.imgAlt">
         <source>search</source>
@@ -21316,6 +21412,18 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.errata.sync.complete">
 		<source>Sucessfully syncronized {0} errata and pushed {1} packages to channel {2}.</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.repodata">
+		<source>Repo Cache Status</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.repodata.completed">
+		<source> Completed </source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.repodata.inProgress">
+		<source> In Progress </source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.repolastbuild">
+		<source>Last Repo Build</source>
       </trans-unit>
 
 

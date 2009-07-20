@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.6.8
+Version:        0.6.9
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,20 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Thu Jun 25 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.6.9-1
+- no in-place editing of /etc/oratab under oracle user (mzazrivec@redhat.com)
+- remove extraneous backslash characters (mzazrivec@redhat.com)
+- update records in /etc/oratab in db upgrade scripts (mzazrivec@redhat.com)
+- 507338 - Fixed a spacewalk setup glitch where we not checkking for a null
+  value.. (paji@redhat.com)
+- support for db upgrade with custom user set (mzazrivec@redhat.com)
+- set new embedded db oratab entry only if it does not exist
+  (mzazrivec@redhat.com)
+- restart the satellite using shell script (mzazrivec@redhat.com)
+- Do not start embedded db during upgrade (mzazrivec@redhat.com)
+- 506405 - fixed cobbler-setup for non-interactive installs (paji@redhat.com)
+- 499889 - Modified cobbler-setup to turn on tftp and xinetd (paji@redhat.com)
+
 * Fri Jun 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.8-1
 - no need to enable Monitoring + MonitoringScout explicitly (mzazrivec@redhat.com)
 - Fixes to support mod_jk >= 2.2.26. (dgoodwin@redhat.com)

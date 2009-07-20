@@ -692,7 +692,8 @@ class Backend:
         tbs = self.tables['rhnPackage']
         if CFG.ENABLE_NVREA:
             # Add md5sum as a primarykey if nevra is enabled
-            tbs.pk.append('md5sum')
+            if 'md5sum' not in tbs.pk:
+                tbs.pk.append('md5sum')
 
         childTables = {
             'rhnPackageProvides':   'package_id', 
@@ -1132,10 +1133,15 @@ class Backend:
         channel['channel_product_beta'] = channel['product_beta']
         channel['channel_product_id'] = self.lookupChannelProduct(channel)
 
+        if not channel['channel_product_id']:
+            # If no channel product dont update
+            return
         statement = self.dbmodule.prepare("""
             UPDATE rhnChannel
                SET channel_product_id = :channel_product_id
              WHERE id = :id
+               AND (channel_product_id is NULL 
+                OR channel_product_id <> :channel_product_id)
         """)
 
         statement.execute(id = channel.id,
@@ -2013,7 +2019,7 @@ def _buildExternalValue(dict, entry, tableObj):
 def computeDiff(hash1, hash2, diffHash, diffobj, prefix=None):
     # Compare if the key-values of hash1 are a subset of hash2's
     difference = 0
-    ignore_keys = ['last_modified']
+    ignore_keys = ['last_modified', 'channel_product_id']
 
     for k, v in hash1.items():
         if k in ignore_keys:

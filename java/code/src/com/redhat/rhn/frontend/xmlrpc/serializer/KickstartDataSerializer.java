@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.xmlrpc.serializer;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
-
 import java.io.IOException;
 import java.io.Writer;
 
@@ -64,7 +63,6 @@ public class KickstartDataSerializer implements XmlRpcCustomSerializer {
         helper.add("kernelParams", kd.getKernelParams());
         helper.add("nonChrootPost", kd.getNonChrootPost());
         helper.add("verboseUp2date", kd.getVerboseUp2date());
-        helper.add("staticDevice", kd.getStaticDevice());
         helper.add("packageNames", kd.getPackageNames());
         helper.add("commands", kd.getCommands());
         helper.add("defaultRegTokens", kd.getDefaultRegTokens());

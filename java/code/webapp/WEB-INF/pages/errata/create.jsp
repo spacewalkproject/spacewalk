@@ -9,12 +9,7 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-
-  <html:messages id="message" message="true">
-    <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-  </html:messages>
-	
-  <rhn:toolbar base="h1" img="/img/rhn-icon-errata.gif" imgAlt="errata.common.errataAlt"
+<rhn:toolbar base="h1" img="/img/rhn-icon-errata.gif" imgAlt="errata.common.errataAlt"
 	           helpUrl="/rhn/help/channel-mgmt/en-US/channel-mgmt-Custom_Errata_Management-Creating_and_Editing_Errata.jsp">
     <bean:message key="erratalist.jsp.erratamgmt"/>
   </rhn:toolbar>
@@ -24,10 +19,7 @@
   <div class="page-summary">
     <p><bean:message key="errata.create.jsp.instructions" /></p>
   </div>
-
-
-  <html:errors />
-  <html:form action="/errata/manage/CreateSubmit">
+<html:form action="/errata/manage/CreateSubmit">
 
   <table class="details">
     <tr>

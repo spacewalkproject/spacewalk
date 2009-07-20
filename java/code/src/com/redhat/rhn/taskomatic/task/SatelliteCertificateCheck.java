@@ -15,6 +15,7 @@
 package com.redhat.rhn.taskomatic.task;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.Mail;
 import com.redhat.rhn.common.messaging.SmtpMail;
@@ -47,7 +48,7 @@ public class SatelliteCertificateCheck extends SingleThreadedTask {
         if (man.isSatelliteCertExpired()) {
            sendMessage(ls.getMessage("email.satellitecert.expired.subject"), 
                        ls.getMessage("email.satellitecert.expired.body", 
-                                     Config.get().getHostname()));
+                               ConfigDefaults.get().getHostname()));
         }
         else if (man.isSatelliteCertInGracePeriod()) {
             long daysUntilExpiration = (man.getGracePeriodEndDate().getTime()  - 
@@ -55,7 +56,7 @@ public class SatelliteCertificateCheck extends SingleThreadedTask {
                     86400000;
             
             Object[] args = new String[2];
-            args[0] = Config.get().getHostname();
+            args[0] = ConfigDefaults.get().getHostname();
             args[1] = new Long(daysUntilExpiration).toString();
             sendMessage(ls.getMessage("email.satellitecert.graceperiod.subject"), 
                         ls.getMessage("email.satellitecert.graceperiod.body", args));

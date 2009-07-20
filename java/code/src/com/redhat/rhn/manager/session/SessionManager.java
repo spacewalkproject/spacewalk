@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.session;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.security.HMAC;
 import com.redhat.rhn.common.util.TimeUtils;
@@ -61,7 +62,8 @@ public class SessionManager extends BaseManager {
      * @return the lifetime in seconds of the Session.
      */
     public static long lifetimeValue() {
-        return Long.parseLong(Config.get().getString(Config.WEB_SESSION_DATABASE_LIFETIME));
+        return Long.parseLong(Config.get().getString(ConfigDefaults.
+                WEB_SESSION_DATABASE_LIFETIME));
     }
 
     /**
@@ -133,15 +135,15 @@ public class SessionManager extends BaseManager {
                                                "MessageDigest object");
         }
 
-        msgDigest.update(c.getString(Config.WEB_SESSION_SECRET_1).getBytes());
+        msgDigest.update(c.getString(ConfigDefaults.WEB_SESSION_SECRET_1).getBytes());
         msgDigest.update(":".getBytes());
-        msgDigest.update(c.getString(Config.WEB_SESSION_SECRET_2).getBytes());
+        msgDigest.update(c.getString(ConfigDefaults.WEB_SESSION_SECRET_2).getBytes());
         msgDigest.update(":".getBytes());
         msgDigest.update(data.getBytes());
         msgDigest.update(":".getBytes());
-        msgDigest.update(c.getString(Config.WEB_SESSION_SECRET_3).getBytes());
+        msgDigest.update(c.getString(ConfigDefaults.WEB_SESSION_SECRET_3).getBytes());
         msgDigest.update(":".getBytes());
-        msgDigest.update(c.getString(Config.WEB_SESSION_SECRET_4).getBytes());
+        msgDigest.update(c.getString(ConfigDefaults.WEB_SESSION_SECRET_4).getBytes());
 
         return HMAC.byteArrayToHex(msgDigest.digest());
     }

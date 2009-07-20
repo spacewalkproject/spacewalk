@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
@@ -39,6 +39,7 @@ import org.cobbler.Profile;
 
 import java.io.File;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -66,9 +67,7 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
      */
     public ProvisionVirtualInstanceCommand(Long selectedServer, User userIn) {
         super(selectedServer, null, (KickstartData)null, userIn, null, null);
-        this.setActivationType(ACTIVATION_TYPE_EXISTING);
         this.setPackagesToInstall(new LinkedList());
-        this.setStaticDevice("");        
     }
     
     /**
@@ -273,13 +272,19 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
      */
     public DataResult<? extends KickstartDto> getKickstartProfiles() {
         DataResult<? extends KickstartDto> result =  super.getKickstartProfiles();
-        for (KickstartDto dto : result) {
+        for (Iterator<? extends KickstartDto> itr = result.iterator(); itr.hasNext();) {
+            KickstartDto dto  = itr.next();
             Profile prf = Profile.lookupById(
                     CobblerXMLRPCHelper.getConnection(this.getUser()), dto.getCobblerId());
-            dto.setVirtBridge(prf.getVirtBridge());
-            dto.setVirtCpus(prf.getVirtCpus());
-            dto.setVirtMemory(prf.getVirtRam());
-            dto.setVirtSpace(prf.getVirtFileSize());
+            if (prf != null) {
+                dto.setVirtBridge(prf.getVirtBridge());
+                dto.setVirtCpus(prf.getVirtCpus());
+                dto.setVirtMemory(prf.getVirtRam());
+                dto.setVirtSpace(prf.getVirtFileSize());
+            }
+            else {
+                itr.remove();
+            }
         }
         return result;
     }
@@ -326,7 +331,7 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
      * @return the virt path.
      */
     public static String makeDefaultVirtPath(String name) {
-        File virtPathDir = Config.get().getVirtPath();
+        File virtPathDir = ConfigDefaults.get().getVirtPath();
         File virtPath = new File(virtPathDir, name.replace(' ', '-'));
         return virtPath.getAbsolutePath();
     }

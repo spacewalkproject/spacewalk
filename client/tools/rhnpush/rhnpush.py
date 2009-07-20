@@ -46,7 +46,7 @@ except ImportError:
     from optik import Option, OptionParser
 from rhn import rpclib
 
-import uploadLib2
+import uploadLib
 import rhnpush_v2
 
 # Global settings
@@ -153,7 +153,7 @@ def main():
 if __name__ == "__main__":
     sys.exit(main())
 
-class UploadClass(uploadLib2.UploadClass):
+class UploadClass(uploadLib.UploadClass):
     def setURL(self):
         server = self.options.server
         if server is None:
@@ -253,7 +253,7 @@ class UploadClass(uploadLib2.UploadClass):
         print test_set_server_str % test_set_server
 
     def _test_connect(self):
-        auth_ret = uploadLib2.call(self.server.packages.test_login, self.username, self.password )
+        auth_ret = uploadLib.call(self.server.packages.test_login, self.username, self.password )
         if auth_ret == 1:
             test_auth = "Passed"
         else:
@@ -389,7 +389,7 @@ class UploadClass(uploadLib2.UploadClass):
                     self.warn(2, "ERROR: %s: No such file or directory available" % pkg)
                     continue
                 
-                digest = uploadLib2.computeMD5sum(None, payload_stream)
+                digest = uploadLib.computeMD5sum(None, payload_stream)
                 f.close()
                 
             for t in range(0, tries):
@@ -458,10 +458,10 @@ class UploadClass(uploadLib2.UploadClass):
             if self.new_sat_test():
                 #12/22/05 wregglej 173287  Changed the XMLRPC function to the new session-based one.
                 self.authenticate()
-                uploadLib2.call(self.server.packages.channelPackageSubscriptionBySession,
+                uploadLib.call(self.server.packages.channelPackageSubscriptionBySession,
                                 self.session.getSessionString(), info)
             else:
-                uploadLib2.call(self.server.packages.channelPackageSubscription, self.username,
+                uploadLib.call(self.server.packages.channelPackageSubscription, self.username,
                                 self.password, info)
         return 0
 
@@ -494,7 +494,7 @@ class UploadClass(uploadLib2.UploadClass):
                 self.warn(2, "ERROR: %s: No such file or directory available" % pkg)
                 continue
                         
-            digest_hash[pkg_key] =  uploadLib2.computeMD5sum(None, payload_stream)
+            digest_hash[pkg_key] =  uploadLib.computeMD5sum(None, payload_stream)
             f.close()
             
             for tag in ('name', 'version', 'release', 'epoch', 'arch'):
@@ -532,17 +532,17 @@ class UploadClass(uploadLib2.UploadClass):
                 #computing md5sum and other info is expensive process and session
                 #could have expired.Make sure its re-authenticated.
                 self.authenticate()
-                md5data = uploadLib2.getPackageMD5sumBySession(self.server, self.session.getSessionString(), info)
+                md5data = uploadLib.getPackageMD5sumBySession(self.server, self.session.getSessionString(), info)
             else:
-                md5data = uploadLib2.getPackageMD5sum(self.server, self.username, self.password, info)
+                md5data = uploadLib.getPackageMD5sum(self.server, self.username, self.password, info)
         else:
             if self.new_sat_test():
                 #computing md5sum and other info is expensive process and session
                 #could have expired.Make sure its re-authenticated.
                 self.authenticate()
-                md5data = uploadLib2.getSourcePackageMD5sumBySession(self.server, self.session.getSessionString(), info)
+                md5data = uploadLib.getSourcePackageMD5sumBySession(self.server, self.session.getSessionString(), info)
             else:
-                md5data = uploadLib2.getSourcePackageMD5sum(self.server, self.username, self.password, info)
+                md5data = uploadLib.getSourcePackageMD5sum(self.server, self.username, self.password, info)
                 
         return (md5data, pkg_hash, digest_hash)
 
@@ -553,8 +553,8 @@ class UploadClass(uploadLib2.UploadClass):
             self.die(-1, "Could not read file %s" % package)
 
         try:
-            h = uploadLib2.get_header(package, source=self.options.source)
-        except uploadLib2.InvalidPackageError, e:
+            h = uploadLib.get_header(package, source=self.options.source)
+        except uploadLib.InvalidPackageError, e:
             # GS: MALFORMED PACKAGE
             print "Unable to load package", package
             return None
@@ -670,10 +670,10 @@ class UploadClass(uploadLib2.UploadClass):
         #2/3/06 wregglej 173287 Added check to see if we can use session tokens.
         if self.new_sat_test():
             #12/22/05 wregglej 173287 Changed the XMLRPC call to the session-based version.
-            retval = uploadLib2.call(self.server.packages.uploadPackageBySession, self.session.getSessionString(), 
+            retval = uploadLib.call(self.server.packages.uploadPackageBySession, self.session.getSessionString(), 
                                     hash)
         else:
-            retval = uploadLib2.call(self.server.packages.uploadPackage, self.username, self.password, hash)
+            retval = uploadLib.call(self.server.packages.uploadPackage, self.username, self.password, hash)
 
         if retval == 0:
             # OK

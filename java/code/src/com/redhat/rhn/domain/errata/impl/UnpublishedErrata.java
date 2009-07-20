@@ -17,8 +17,8 @@ package com.redhat.rhn.domain.errata.impl;
 import com.redhat.rhn.common.security.errata.PublishedOnlyException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.errata.AbstractErrata;
-import com.redhat.rhn.domain.errata.Keyword;
 import com.redhat.rhn.domain.errata.Cve;
+import com.redhat.rhn.domain.errata.Keyword;
 
 import java.util.Date;
 import java.util.HashSet;

@@ -7,8 +7,6 @@
 <body>
 
 <%@ include file="/WEB-INF/pages/common/fragments/user/user-header.jspf" %>
-
-<html:errors />
 <html:form action="/users/LocalePreferences">
 <%@ include file="/WEB-INF/pages/common/fragments/user/localepreferences.jspf" %>
 </html:form>

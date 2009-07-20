@@ -14,22 +14,43 @@
  */
 package com.redhat.rhn.frontend.action.kickstart;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.frontend.listview.PageControl;
-import com.redhat.rhn.frontend.struts.BaseListAction;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.manager.kickstart.KickstartLister;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Handles listing of kickstart distributions
  * 
  * @version $Rev $
  */
-public class ViewTreesAction extends BaseListAction {
-
-    protected DataResult getDataResult(RequestContext rctx, PageControl pc) {
-        return KickstartLister.getInstance().kickstartTreesInOrg(
-                rctx.getCurrentUser().getOrg(), pc);
+public class ViewTreesAction extends RhnAction implements Listable {
+    /**
+     * ${@inheritDoc}
+     */
+    public ActionForward execute(ActionMapping mapping, ActionForm form, 
+            HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ListHelper helper = new ListHelper(this, request);
+        helper.execute();
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List getResult(RequestContext contextIn) {
+        return KickstartFactory.listTreesByOrg(contextIn.getLoggedInUser().getOrg());
     }
 
 }

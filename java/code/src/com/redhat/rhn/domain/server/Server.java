@@ -15,6 +15,7 @@
 package com.redhat.rhn.domain.server;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.Identifiable;
 import com.redhat.rhn.domain.channel.Channel;
@@ -31,14 +32,18 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.log4j.Logger;
+import org.cobbler.CobblerConnection;
+import org.cobbler.SystemRecord;
 
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -92,7 +97,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     private Ram ram;
     private Dmi dmi;
     private Set networkInterfaces;
-    private Set customDataValues;
+    private Set<CustomDataValue> customDataValues;
     private Set channels;
     private List configChannels = Collections.EMPTY_LIST;
     private Set localChannels = new HashSet();
@@ -729,7 +734,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     /**
      * @return Returns the networks
      */
-    public Set getNetworks() {
+    public Set<Network> getNetworks() {
         return networks;
     }
     
@@ -994,7 +999,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     /**
      * @return Returns the customDataValues.
      */
-    public Set getCustomDataValues() {
+    public Set<CustomDataValue> getCustomDataValues() {
         return customDataValues;
     }
     
@@ -1510,7 +1515,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public boolean isInactive() {
         Date lastCheckin = this.getLastCheckin();
         long millisInDay = (1000 * 60 * 60 * 24);
-        long threshold = Config.get().getInt(Config.SYSTEM_CHECKIN_THRESHOLD, 1);
+        long threshold = Config.get().getInt(ConfigDefaults.SYSTEM_CHECKIN_THRESHOLD, 1);
         Date yesterday = new Timestamp(System.currentTimeMillis() - 
                 (millisInDay * threshold));
         return lastCheckin.before(yesterday);
@@ -1685,4 +1690,42 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public void setIgnoreEntitlementsForMigration(Boolean ignoreIn) {
         this.ignoreEntitlementsForMigration = ignoreIn;
     }
+
+    /**
+     * Get the NetworkInteface with the given name (i.e. eth0)
+     * @param ifName the interface name (i.e. eth0)
+     * @return the NetworkInterface, otherwise null
+     */
+    public NetworkInterface getNetworkInterface(String ifName) {
+        for (NetworkInterface nic : getNetworkInterfaces()) {
+            if (nic.getName().equals(ifName)) {
+                return nic;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns the cobbler object associated to 
+     * to this server.
+     * @param user the user object needed for connection,
+     *              enter null if you want to use the 
+     *              automated connection as provided by
+     *              taskomatic.
+     * @return the SystemRecord associated to this server
+     */
+    public SystemRecord getCobblerObject(User user) {
+        if (StringUtils.isBlank(getCobblerId())) {
+            return null;
+        }
+        CobblerConnection con;
+        if (user == null) {
+            con = CobblerXMLRPCHelper.getAutomatedConnection();
+        }
+        else {
+            con = CobblerXMLRPCHelper.getConnection(user);
+        }
+        return SystemRecord.lookupById(con, getCobblerId());
+    }
+
 }

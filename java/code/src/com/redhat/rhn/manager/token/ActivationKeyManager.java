@@ -39,6 +39,7 @@ import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.channel.MultipleChannelsWithPackageException;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
@@ -491,14 +492,22 @@ public class ActivationKeyManager {
          */
         List <Long> cids;
         if (key.getBaseChannel() == null) {
-            cids = ChannelManager.findChildChannelsWithPackage(packageName);
+            cids = ChannelManager.findChildChannelsWithPackage(packageName, key.getOrg());
         }
         else {
             //we know its the channel we want if it has the rhncfg package in it.
             Long bcid = key.getBaseChannel().getId();
             log.debug("found basechannel: " + bcid);
-            Long cid = ChannelManager.findChildChannelWithPackage(key.getOrg(), bcid,
+            Long cid;
+            try {
+              cid = ChannelManager.findChildChannelWithPackage(key.getOrg(), bcid,
                     packageName);
+            }
+            catch (MultipleChannelsWithPackageException mcwpe) {
+                log.debug("can not subscribe due to multiple channels have package " +
+                        packageName);
+                return false;
+            }
             if (cid == null) { // Didnt find it ..
                 log.debug("didnt find a child channel with the package.");
                 return false;

@@ -4,13 +4,6 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <html:html xhtml="true">
 <body>
-
-<html:errors />
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
-
 <rhn:toolbar base="h1" img="/img/rhn-icon-keyring.gif" 
 			imgAlt="activation-keys.common.alt"
 			helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-systems-activation-keys"

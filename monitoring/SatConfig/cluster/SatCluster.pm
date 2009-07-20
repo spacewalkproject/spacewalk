@@ -48,13 +48,17 @@ sub initialize
 		print FILE "[garbage]\n";
 		close(FILE);
 	}
-	$config = Config::IniFiles->new(-file=>$self->get_configFilename);
-	$self->set_config($config);
-	$self->set_id($self->configValueOf('id'));
-	$self->set_nodeId($self->configValueOf('nodeId'));
-	$self->set_description($self->configValueOf('description'));
-	$self->set_customerId($self->configValueOf('customerId'));
-	$self->set_npIP($self->configValueOf('npIP'));
+    # notice that FILE must not exist
+    # (nocpulse user has no write access in /etc/nocpulse)
+    if ( -f $self->get_configFilename) {
+        $config = Config::IniFiles->new(-file=>$self->get_configFilename);
+        $self->set_config($config);
+        $self->set_id($self->configValueOf('id'));
+        $self->set_nodeId($self->configValueOf('nodeId'));
+        $self->set_description($self->configValueOf('description'));
+        $self->set_customerId($self->configValueOf('customerId'));
+        $self->set_npIP($self->configValueOf('npIP'));
+    }
 	return $self;
 }
 

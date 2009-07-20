@@ -15,6 +15,7 @@
 package com.redhat.rhn.common.localization;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
@@ -96,7 +97,7 @@ public class LocalizationService {
 
         // Get the list of configured classnames from the config file.
         String[] packages = Config.get().getStringArray(
-                Config.WEB_L10N_RESOURCEBUNDLES);
+                ConfigDefaults.WEB_L10N_RESOURCEBUNDLES);
         for (int i = 0; i < packages.length; i++) {
             addKeysToMap(packages[i]);
         }
@@ -537,7 +538,7 @@ public class LocalizationService {
         List validCountries = new LinkedList(Arrays.asList(Locale
                 .getISOCountries()));
         String[] excluded = Config.get().getStringArray(
-                Config.WEB_EXCLUDED_COUNTRIES);
+                ConfigDefaults.WEB_EXCLUDED_COUNTRIES);
         if (excluded != null) {
             validCountries.removeAll(new LinkedList(Arrays.asList(excluded)));
         }

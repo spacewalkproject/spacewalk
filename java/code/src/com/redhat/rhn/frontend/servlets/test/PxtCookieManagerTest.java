@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.servlets.test;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.frontend.servlets.PxtCookieManager;
 import com.redhat.rhn.manager.session.SessionManager;
 
@@ -64,7 +65,7 @@ public class PxtCookieManagerTest extends MockObjectTestCase {
         
         manager = new PxtCookieManager();
         
-        pxtPersonalities = Config.get().getInt(Config.WEB_ALLOW_PXT_PERSONALITIES);
+        pxtPersonalities = Config.get().getInt(ConfigDefaults.WEB_ALLOW_PXT_PERSONALITIES);
         
         pxtSessionId = new Long(2658447890L);
         
@@ -77,7 +78,7 @@ public class PxtCookieManagerTest extends MockObjectTestCase {
     }
     
     protected void tearDown() throws Exception {
-        Config.get().setString(Config.WEB_ALLOW_PXT_PERSONALITIES, 
+        Config.get().setString(ConfigDefaults.WEB_ALLOW_PXT_PERSONALITIES, 
                 Integer.toString(pxtPersonalities));
         
         super.tearDown();
@@ -101,7 +102,7 @@ public class PxtCookieManagerTest extends MockObjectTestCase {
     }
     
     public final void testGetPxtCookieWhenPxtCookieIsPresentWithPxtPersonalities() {
-        Config.get().setString(Config.WEB_ALLOW_PXT_PERSONALITIES, "1");
+        Config.get().setString(ConfigDefaults.WEB_ALLOW_PXT_PERSONALITIES, "1");
         
         Cookie[] cookies = new Cookie[] {
                 new Cookie("cookie-1", "one"),
@@ -116,7 +117,7 @@ public class PxtCookieManagerTest extends MockObjectTestCase {
     }
     
     public final void testGetPxtCookieWhenPxtCookieIsPresentWithoutPxtPersonalities() {
-        Config.get().setString(Config.WEB_ALLOW_PXT_PERSONALITIES, "0");
+        Config.get().setString(ConfigDefaults.WEB_ALLOW_PXT_PERSONALITIES, "0");
         
         Cookie[] cookies = new Cookie[] {
                 new Cookie("cookie-1", "one"),
@@ -131,7 +132,7 @@ public class PxtCookieManagerTest extends MockObjectTestCase {
     }
     
     public final void testCreatePxtCookieSetNameWithPxtPersonalities() {
-        Config.get().setString(Config.WEB_ALLOW_PXT_PERSONALITIES, "1");
+        Config.get().setString(ConfigDefaults.WEB_ALLOW_PXT_PERSONALITIES, "1");
         
         Cookie pxtCookie = manager.createPxtCookie(pxtSessionId, getRequest(), TIMEOUT);
         
@@ -140,7 +141,7 @@ public class PxtCookieManagerTest extends MockObjectTestCase {
     }
 
     public final void testCreatePxtCookieSetsNameWithoutPxtPersonalities() {
-        Config.get().setString(Config.WEB_ALLOW_PXT_PERSONALITIES, "0");
+        Config.get().setString(ConfigDefaults.WEB_ALLOW_PXT_PERSONALITIES, "0");
         
         Cookie pxtCookie = manager.createPxtCookie(pxtSessionId, getRequest(), TIMEOUT);
         
@@ -173,7 +174,7 @@ public class PxtCookieManagerTest extends MockObjectTestCase {
     }
     
     public final void testCreatePxtCookieSetsSecure() {
-        boolean expected = Config.get().isSSLAvailable();
+        boolean expected = ConfigDefaults.get().isSSLAvailable();
         
         Cookie pxtCookie = manager.createPxtCookie(pxtSessionId, getRequest(), TIMEOUT);
         

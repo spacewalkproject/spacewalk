@@ -601,22 +601,15 @@ public class ErrataFactory extends HibernateFactory {
      * @return the Errata found
      */
     public static Errata lookupById(Long id) {
-        Session session = null;
-        try {
-            //Look for published Errata first
-            session = HibernateFactory.getSession();
-            Errata errata = (Errata) session.get(PublishedErrata.class, id);
+        //Look for published Errata first
+        Session session = HibernateFactory.getSession();
+        Errata errata = (Errata) session.get(PublishedErrata.class, id);
 
-            //If we nothing was found, look for it in the Unpublished Errata table...
-            if (errata == null) {
-                errata = (Errata) session.get(UnpublishedErrata.class, id);
-            }
-            return errata;
+        //If we nothing was found, look for it in the Unpublished Errata table...
+        if (errata == null) {
+            errata = (Errata) session.get(UnpublishedErrata.class, id);
         }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-        return null;
+        return errata;
     }
 
     /**
@@ -893,11 +886,13 @@ public class ErrataFactory extends HibernateFactory {
     /**
      * Returns a list of ErrataOverview that match the given errata ids.
      * @param eids Errata ids.
+     * @param org Organization to match results with
      * @return a list of ErrataOverview that match the given errata ids.
      */
-    public static List<ErrataOverview> search(List eids) {
+    public static List<ErrataOverview> search(List eids, Org org) {
         Map params = new HashMap();
         params.put("eids", eids);
+        params.put("org_id", org.getId());
         List results = singleton.listObjectsByNamedQuery(
                 "PublishedErrata.searchById", params);
         List<ErrataOverview> errata = new ArrayList<ErrataOverview>();

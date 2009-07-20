@@ -14,8 +14,6 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <h2><bean:message key="probdelete.jsp.header"/></h2>
-
-<html:errors />
 <html:form action="/systems/details/probes/ProbeDelete" method="POST">
 
     <p><bean:message key="probdelete.jsp.p1"/></p>

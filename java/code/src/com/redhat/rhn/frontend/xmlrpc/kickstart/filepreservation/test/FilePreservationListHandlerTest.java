@@ -14,16 +14,16 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.kickstart.filepreservation.test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.redhat.rhn.frontend.xmlrpc.kickstart.filepreservation.FilePreservationListHandler;
-import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
-import com.redhat.rhn.frontend.dto.FilePreservationDto;
-import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.common.CommonFactory;
 import com.redhat.rhn.domain.common.FileList;
+import com.redhat.rhn.frontend.dto.FilePreservationDto;
+import com.redhat.rhn.frontend.xmlrpc.kickstart.filepreservation.FilePreservationListHandler;
+import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
+import com.redhat.rhn.manager.kickstart.KickstartLister;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Test cases for the {@link FilePreservationListHandler}.

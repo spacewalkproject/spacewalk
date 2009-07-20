@@ -15,6 +15,7 @@
 package com.redhat.rhn.domain.kickstart.test;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.util.FileUtils;
 import com.redhat.rhn.common.util.MD5Crypt;
@@ -68,7 +69,6 @@ import org.cobbler.test.MockConnection;
 import org.hibernate.Session;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -85,11 +85,20 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
     private static final String STATIC_DEV = "dhcp:eth0";
     private static final String KERNEL_PARAMS = "ide0=ata66";
     
-    public static void setupTestConfiguration() throws IOException {
+    
+    public static void setupTestConfiguration() throws Exception {
         Config.get().setString(CobblerXMLRPCHelper.class.getName(),
                 MockXMLRPCInvoker.class.getName());
-        Config.get().setString(Config.KICKSTART_COBBLER_DIR, "/tmp/kickstart/");
-        Config.get().setString(Config.COBBLER_SNIPPETS_DIR, "/tmp/kickstart/snippets");
+        Config.get().setString(ConfigDefaults.KICKSTART_COBBLER_DIR, "/tmp/kickstart/");
+        Config.get().setString(ConfigDefaults.COBBLER_SNIPPETS_DIR, 
+                "/tmp/kickstart/snippets");
+        Config.get().setString(ConfigDefaults.MOUNT_POINT, "/tmp/kickstart/mount_point");
+        createDirIfNotExists(new File("/tmp/kickstart/mount_point"));
+       
+        Config.get().setString(ConfigDefaults.KICKSTART_MOUNT_POINT,
+                                                    "/tmp/kickstart/kickstart_mount_point");
+        createDirIfNotExists(new File("/tmp/kickstart/kickstart_mount_point"));
+        
         Config.get().setString(CobblerConnection.class.getName(),
                 MockConnection.class.getName());
         createKickstartDirs();
@@ -97,30 +106,14 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
 
     }
     
-    public static void createKickstartDirs() throws IOException {
-        createDirIfNotExists(new File(Config.get().getKickstartConfigDir() +
+    public static void createKickstartDirs() throws Exception {
+        createDirIfNotExists(new File(ConfigDefaults.get().getKickstartConfigDir() +
                                                  "/" + KickstartData.WIZARD_DIR));
-        createDirIfNotExists(new File(Config.get().getKickstartConfigDir() +
+        createDirIfNotExists(new File(ConfigDefaults.get().getKickstartConfigDir() +
                                         "/" + KickstartData.RAW_DIR));
         createDirIfNotExists(CobblerSnippet.getSpacewalkSnippetsDir());
+        KickstartableTreeTest.createKickstartTreeItems();
     }
-    
-    private static void createDirIfNotExists(File dir) throws IOException {
-        String error = 
-                "Could not create the following directory:[" + dir.getPath() +
-                    "] . Please create that directory before proceeding with the tests"; 
-        if (dir.exists() && !dir.isDirectory()) {
-            if (!dir.renameTo(new File(dir.getPath() + ".bak")) &&
-                         !dir.delete()) {
-                throw new RuntimeException(error);
-            }
-        }
-        
-        if (!dir.exists() && !dir.mkdirs()) {
-            throw new RuntimeException(error);
-        }
-    }
-    
     
     public static void createCobblerObjects(KickstartData k) {
         Distro d = Distro.lookupById(CobblerXMLRPCHelper.getConnection("test"),
@@ -291,6 +284,11 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
                 .lookupKickstartDataByIdAndOrg(user.getOrg(), ksd.getId()));
         assertNull(lookupById(user.getOrg(), ksd.getId()));
         assertNull(lookupByLabel(ksd.getLabel()));
+        
+        String path = ksd.getCobblerFileName();
+        File f = new File(path);
+        assertFalse(f.exists());
+        
     }
     
     public void testChildChannels() throws Exception {
@@ -393,7 +391,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
            addPackages(c, KickstartFormatter.FRESH_PKG_NAMES_RHEL34);
        }
        PackageManagerTest.addPackageToChannel(
-               Config.get().getKickstartPackageName() + "testy", c);
+               ConfigDefaults.get().getKickstartPackageName() + "testy", c);
        PackageManagerTest.addPackageToChannel(
                KickstartData.LEGACY_KICKSTART_PACKAGE_NAME +
                    KickstartableTreeTest.TEST_BOOT_PATH, c);
@@ -463,7 +461,6 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         k.addScript(KickstartScriptTest.createPreInterpreter(k));
         k.addScript(KickstartScriptTest.createPostInterpreter(k));
         
-        k.setStaticDevice(STATIC_DEV);
         k.setKernelParams(KERNEL_PARAMS);
 
         k.addPackageName(pn);
@@ -682,7 +679,6 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         assertEquals(k.getBootloaderType(), cloned.getBootloaderType());
         assertEquals(k.getInstallType(), cloned.getInstallType());
         assertEquals(k.getKernelParams(), cloned.getKernelParams());
-        assertEquals(k.getStaticDevice(), cloned.getStaticDevice());
         assertEquals(k.isActive(), cloned.isActive());
         assertEquals(k.isOrgDefault(), cloned.isOrgDefault());
         assertEquals(k.getOrg(), cloned.getOrg());
@@ -756,5 +752,20 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
                 lookupKickstartInstallTypeByLabel("fedora_9"));
         assertTrue(k.isRhel5OrGreater());
         assertFalse(k.isRhel5());
+    }
+
+    public void testDefaultBridge() throws Exception {
+        KickstartData k = createKickstartWithChannel(user.getOrg());
+        k.getKickstartDefaults().setVirtualizationType(
+                KickstartVirtualizationType.kvmGuest());
+
+        assertTrue(k.getDefaultVirtBridge().equals(
+                ConfigDefaults.get().getDefaultKVMVirtBridge()));
+
+        k.getKickstartDefaults().setVirtualizationType(
+                KickstartVirtualizationType.xenPV());
+
+        assertTrue(k.getDefaultVirtBridge().equals(
+                ConfigDefaults.get().getDefaultXenVirtBridge()));
     }
 }

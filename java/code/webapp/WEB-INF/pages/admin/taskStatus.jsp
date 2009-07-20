@@ -6,13 +6,7 @@
 <html:xhtml/>
 <html>
 <body>
-
-<html:errors />
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
-  <rhn:toolbar base="h1" img="/img/rhn-icon-your_rhn.gif"
+<rhn:toolbar base="h1" img="/img/rhn-icon-your_rhn.gif"
 	           helpUrl="">
     <bean:message key="task.status.title"/>
   </rhn:toolbar>

@@ -6,11 +6,6 @@
 
 <html:html xhtml="true">
 <body>
-
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <rhn:toolbar base="h1" img="/img/rhn-icon-search.gif"
                        helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-search"
                        imgAlt="search.alt.img">
@@ -20,9 +15,7 @@
   <p><bean:message key="systemsearch.jsp.summary"/></p>
   
   <p><bean:message key="erratasearch.jsp.instructions"/></p>
-  
-  <html:errors />
-  <html:form action="/systems/Search.do">
+<html:form action="/systems/Search.do">
   
 <div class="search-choices">
 	<div class="search-choices-group">

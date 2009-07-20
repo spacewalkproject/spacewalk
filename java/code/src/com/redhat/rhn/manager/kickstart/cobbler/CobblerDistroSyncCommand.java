@@ -72,6 +72,12 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
         List<KickstartableTree> unSynced = KickstartFactory.listUnsyncedKickstartTrees();
         String err;
         for (KickstartableTree tree : unSynced) {
+
+            if (!tree.isValid()) {
+                log.warn("Could not sync tree " + tree.getLabel());
+                continue;
+            }
+
             Distro distro = Distro.lookupByName(
                     CobblerXMLRPCHelper.getAutomatedConnection(), 
                     tree.getCobblerDistroName());

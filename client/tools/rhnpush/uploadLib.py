@@ -16,28 +16,47 @@
 # system imports
 import os
 import sys
-import md5
+import rhn_mpm
 import string
 import fnmatch
 import getpass
+import rhnpush_cache
 
-from rhn import rpclib
-Binary = rpclib.xmlrpclib.Binary
-Output = rpclib.transports.Output
+try:
+    import hashlib
+except ImportError:
+    import md5
+    class hashlib:
+        @staticmethod
+        def new(checksum):
+            # Add sha1 if needed.
+            if checksum == 'md5':
+                return md5.new()
+            # if not md5 or sha1, its invalid
+            if checksum not in ['md5', 'sha1']:
+                raise ValueError, "Incompatible checksum type"
 
-# RHN imports
-from common import rhn_rpm
-
+try:
+    from rhn import rpclib
+    Binary = rpclib.xmlrpclib.Binary
+    Output = rpclib.transports.Output
+except ImportError:
+    # old-style xmlrpclib library
+    import xmlrpclib
+    rpclib = xmlrpclib
+    Binary = rpclib.Binary
+    import cgiwrap
+    Output = cgiwrap.Output
 
 # Buffer size we use for copying
 BUFFER_SIZE = 65536
 HEADERS_PER_CALL = 25
 
-
 # Exception class
 class UploadError(Exception):
     pass
 
+InvalidPackageError = rhn_mpm.InvalidPackageError
 
 class ServerFault(Exception):
     def __init__(self, faultCode=None, faultString="", faultExplanation=""):
@@ -48,9 +67,8 @@ class ServerFault(Exception):
 
 
 class UploadClass:
-
-    """ Functionality for an uploading tool """
-
+    """Functionality for an uploading tool
+    """
     def __init__(self, options, files=None):
         #CmdlineClass.__init__(self, table, argsDescription, aliasing)
         self.options = options
@@ -62,6 +80,7 @@ class UploadClass:
         self.ca_chain = None
         self.force = None
         self.files = files or []
+        self.new_sat = None
 
     def warn(self, verbose, *args):
         if self.options.verbose >= verbose:
@@ -69,6 +88,7 @@ class UploadClass:
 
     def die(self, errcode, *args):
         apply(ReportError, args)
+        #pkilambi:bug#176358:this should exit with error code
         sys.exit(errcode)
 
     def setURL(self):
@@ -130,9 +150,12 @@ class UploadClass:
         self.relativeDir = None
 
     def directory(self):
-        # Set the args (pretend we read them from the command line)
         self.warn(2, "Uploading files from directory", self.options.dir)
-        self.files = listdir(self.options.dir)
+
+        for file in listdir(self.options.dir):
+            # only add packages
+            if file[-3:] in ("rpm", "mpm"):
+                self.files.append(file)
 
     def filter_excludes(self):
         if not self.options.exclude:
@@ -147,7 +170,7 @@ class UploadClass:
 
     def readStdin(self):
         self.warn(1, "Reading package names from stdin")
-        self.files = readStdin()
+        self.files = self.files + readStdin()
 
     def list(self):
         # set the URL
@@ -155,16 +178,26 @@ class UploadClass:
         # set the channels
         self.setChannels()
         # set the username and password
-        self.setUsernamePassword()
+        #self.setUsernamePassword()
         # set the server
         self.setServer()
 
+        #XXX
+        self.authenticate()
+
         if self.options.source:
-            self.die(1, "Listing source rpms not supported")
+            if self.new_sat_test():
+                list = listChannelSourceBySession(self.server, self.session.getSessionString(), self.channels)
+            else:
+                list = listChannelSource(self.server, self.username, self.password, self.channels)
+            #self.die(1, "Listing source rpms not supported")
         else:
             # List the channel's contents
-            list = listChannel(self.server, self.username, self.password,
-                self.channels)
+            if self.new_sat_test():
+                list = listChannelBySession(self.server, self.session.getSessionString(), self.channels)
+            else:
+                list = listChannel(self.server, self.username, self.password, self.channels)
+
         for p in list:
             print p[:6]
 
@@ -174,9 +207,12 @@ class UploadClass:
         # set the channels
         self.setChannels()
         # set the username and password
-        self.setUsernamePassword()
+        #self.setUsernamePassword()
         # set the server
         self.setServer()
+
+        #XXX
+        self.authenticate()
         
         sources = self.options.source
 
@@ -203,7 +239,9 @@ class UploadClass:
                 continue
             skip_rpm = 0
             for local_nvrea in same_names_hash.keys():
-                ret = packageCompare(local_nvrea, nvrea)
+                # XXX is_mpm should be set accordingly
+                ret = packageCompare(local_nvrea, nvrea,
+                    is_mpm=0)
                 if ret == 0 and local_nvrea[4] == nvrea[4]:
                     # Weird case, we've already compared the two
                     skip_rpm = 1
@@ -227,8 +265,10 @@ class UploadClass:
             same_names_hash[nvrea] = filename
 
         # Now get the list from the server
-        pkglist = listChannel(self.server, self.username, self.password,
-            self.channels)
+        if self.new_sat_test():
+            pkglist = listChannelBySession(self.server, self.session.getSessionString(), self.channels)
+        else:
+            pkglist = listChannel(self.server, self.username, self.password, self.channels)
 
         for p in pkglist:
             name = p[0]
@@ -243,7 +283,9 @@ class UploadClass:
                 continue
 
             for local_nvrea in same_names_hash.keys():
-                ret = packageCompare(local_nvrea, remote_nvrea)
+                # XXX is_mpm sould be set accordingly
+                ret = packageCompare(local_nvrea, remote_nvrea,
+                    is_mpm=0)
                 if ret < 0:
                     # The remote package is newer than the local one
                     del same_names_hash[local_nvrea]
@@ -268,8 +310,10 @@ class UploadClass:
             localPackagesHash[os.path.basename(filename)] = filename
         
         # Now get the list from the server
-        pkglist = listMissingSourcePackages(self.server, self.username, 
-            self.password, self.channels)
+        if self.new_sat_test():
+            pkglist = listMissingSourcePackagesBySession(self.server, self.session.getSessionString(), self.channels)
+        else:
+            pkglist = listMissingSourcePackages(self.server, self.username, self.password, self.channels)
 
         to_push = []
         for pkg in pkglist:
@@ -301,16 +345,19 @@ class UploadClass:
         self.setURL()
         # set the channels
         self.setNoChannels()
-        # set the username and password
-        self.setUsernamePassword()
+
         # set the server
         self.setServer()
-
+        
+        #XXX
+        self.authenticate()
+        
         source = self.options.source
+        file_list = self.files[:]        
 
-        while self.files:
-            chunk = self.files[:self.count]
-            del self.files[:self.count]
+        while file_list:
+            chunk = file_list[:self.count]
+            del file_list[:self.count]
             uploadedPackages, headersList = _processBatch(chunk,
                 relativeDir=self.relativeDir, source=self.options.source, 
                 verbose=self.options.verbose, nosig=self.options.nosig)
@@ -337,11 +384,21 @@ class UploadClass:
                     ReportError("\t\t%s" % p)
 
             if source:
-                method = self.server.packages.uploadSourcePackageInfo
+                if self.new_sat_test():
+                    method = self.server.packages.uploadSourcePackageInfoBySession
+                else:
+                    method = self.server.packages.uploadSourcePackageInfo
             else:
-                method = self.server.packages.uploadPackageInfo
+                if self.new_sat_test():
+                    method = self.server.packages.uploadPackageInfoBySession
+                else:
+                    method = self.server.packages.uploadPackageInfo
 
-            ret = call(method, self.username, self.password, hash)
+            if self.new_sat_test():
+                ret = call(method, self.session.getSessionString(), hash)
+            else:
+                ret = call(method, self.username, self.password, hash)
+
             if ret is None:
                self.die(-1, "Upload attempt failed")
 
@@ -369,16 +426,80 @@ class UploadClass:
     def processPackage(self, package, filename):
         pass
 
+    #12/22/05 wregglej 173287 This calls the XMLRPC function that checks whether or not the
+    #current session is still valid.
+    def checkSession(self, session):
+        return call(self.server.packages.check_session, session)
+
+    #12/22/05 wregglej 173287 Reads the cached session string from ~/.rhnpushcache and 
+    #configures a session object with it.
+    def readSession(self):
+        try:
+            self.session = rhnpush_cache.RHNPushSession()
+            self.session.readSession()
+        except Exception, e:
+            self.session = None
+
+    #12/22/05 wregglej 173287 Writes the session to ~/.rhnpushcache and configures makes sure the
+    #session object is configured with it.
+    def writeSession(self, session):
+        if self.session:
+            self.session.setSessionString(session)
+        else:
+            self.session = rhnpush_cache.RHNPushSession()
+            self.session.setSessionString(session)
+      
+        if not self.options.no_cache:
+            self.session.writeSession()
+
+    #12/22 wregglej 173287 The actual authenication process. It reads in the session, checks the sessions validity,
+    #and will prompt the user for their username and password if there's something wrong with their session string.
+    #After they've entered their username/password, they are passed to the new XMLRPC call 'login', which will 
+    #verify the user/pass and return a new session string if they are correct.
+    #Need to fix this up so there's less repeated code.
+    # 2008-09-26 mmraka - 461701: if --username is set use always username/password
+    # and generate new session
+    def authenticate(self):
+        #Only use the session token stuff if we're talking to a sat that supports session-token authentication.
+        if self.new_sat_test():
+            self.readSession()
+            if self.session and not self.options.new_cache and self.options.username == self.username:
+                chksession = self.checkSession(self.session.getSessionString())
+                if not chksession:
+                    self.setUsernamePassword()
+                    sessstr = call(self.server.packages.login, self.username, self.password)
+                    self.writeSession(sessstr)
+            else:
+                self.setUsernamePassword()
+                sessstr = call(self.server.packages.login, self.username, self.password)
+                self.writeSession(sessstr)
+        else:
+            self.setUsernamePassword()
+
+    #1/3/06 wregglej 173287 rhnpush needs to work against older satellites, so we need a way to see if they can handle
+    #session token authentication
+    def new_sat_test(self):
+        if self.new_sat is None:
+            if self.options.no_session_caching:
+                self.new_sat = 0 
+            else:
+                self.new_sat = 1
+                try:
+                    self.server.packages.no_op()
+                except:
+                    self.new_sat = 0
+        return self.new_sat     
+ 
+        
 
 def _processFile(filename, relativeDir=None, source=None, nosig=None):
-    """ Processes a file
-        Returns a hash containing:
-          header
-          packageSize
-          md5sum
-          relativePath
-          nvrea
-     """
+    # Processes a file
+    # Returns a hash containing:
+    #   header
+    #   packageSize
+    #   md5sum
+    #   relativePath
+    #   nvrea
 
     # Is this a file?
     if not os.access(filename, os.R_OK):
@@ -398,7 +519,7 @@ def _processFile(filename, relativeDir=None, source=None, nosig=None):
     f.close()
     if h is None:
         raise UploadError("%s is not a valid RPM file" % filename)
-
+    
     if nosig is None and not h.is_signed():
         raise UploadError("ERROR: %s: unsigned rpm (use --nosig to force)"
             % filename)
@@ -453,7 +574,7 @@ def computeMD5sum(filename=None, f=None):
     else:
         fd = f
         fd.seek(0, 0)
-    md5sum = md5.new()
+    md5sum = hashlib.new('md5')
     while 1:
         buf = fd.read(BUFFER_SIZE)
         if not buf:
@@ -502,12 +623,13 @@ def getUsernamePassword(cmdlineUsername, cmdlinePassword):
             break
 
     # Now read the password
-    try:
-        password = getpass.getpass("Red Hat Network password: ")
-    except KeyboardInterrupt:
-        tty.write("\n")
-        sys.exit(0)
-    tty.close()
+    while not password:
+        try:
+            password = getpass.getpass("Red Hat Network password: ")
+        except KeyboardInterrupt:
+            tty.write("\n")
+            sys.exit(0)
+        tty.close()
     return username, password
 
 
@@ -550,13 +672,36 @@ def parseXMLRPCfault(fault):
         faultCode = -faultCode
     return ServerFault(faultCode, "", fault.faultString)
 
-
 def listChannel(server, username, password, channels):
     return call(server.packages.listChannel, channels, username, password)
 
+def listChannelBySession(server, session_string, channels): 
+    return call(server.packages.listChannelBySession, channels, session_string)
+
+def listChannelSource(server, username, password, channels):
+    return call(server.packages.listChannelSource, channels, username, password)
+
+def listChannelSourceBySession(server, session_string, channels):
+    return call(server.packages.listChannelSourceBySession, channels, session_string)
+
 def listMissingSourcePackages(server, username, password, channels):
-    return call(server.packages.listMissingSourcePackages, channels,
-        username, password)
+    return call(server.packages.listMissingSourcePackages, channels, username, password)
+
+def listMissingSourcePackagesBySession(server, session_string, channels):
+    return call(server.packages.listMissingSourcePackagesBySession, channels, session_string)
+
+def getPackageMD5sumBySession(server, session_string, info):
+    return call(server.packages.getPackageMD5sumBySession, session_string, info)
+
+def getSourcePackageMD5sumBySession(server, session_string, info):
+    return call(server.packages.getSourcePackageMD5sumBySession, session_string, info)
+
+def getPackageMD5sum(server, username, password, info):
+    return call(server.packages.getPackageMD5sum, username, password, info)
+
+def getSourcePackageMD5sum(server, username, password, info):
+    return call(server.packages.getSourcePackageMD5sum, username, password, info)
+
 
 def getServer(uri, proxy=None, username=None, password=None, ca_chain=None):
     s = rpclib.Server(uri, proxy=proxy, username=username, password=password)
@@ -566,7 +711,7 @@ def getServer(uri, proxy=None, username=None, password=None, ca_chain=None):
 
 
 # compare two package [n,v,r,e] tuples
-def packageCompare(pkg1, pkg2):
+def packageCompare(pkg1, pkg2, is_mpm=None):
     if pkg1[0] != pkg2[0]:
         raise ValueError("You should only compare packages with the same name")
     packages = []
@@ -578,24 +723,26 @@ def packageCompare(pkg1, pkg2):
             e = str(e)
         evr = (e, str(pkg[1]), str(pkg[2]))
         packages.append(evr)
-    return rhn_rpm.labelCompare(packages[0], packages[1])
+    if is_mpm:
+        func = rhn_mpm.labelCompare
+    else:
+        import rhn_rpm
+        func = rhn_rpm.labelCompare
+    return func(packages[0], packages[1])
 
 
 # returns a header from a package file on disk.
 def get_header(file, fildes=None, source=None):
-    # rhn_rpm.get_package_header will choose the right thing to do - open the
+    # rhn_mpm.get_package_header will choose the right thing to do - open the
     # file or use the provided open file descriptor)
-    try:
-        h = rhn_rpm.get_package_header(filename=file, fd=fildes)
-    except rhn_rpm.InvalidPackageError:
-        raise UploadError("Package is invalid")
+    h = rhn_mpm.get_package_header(filename=file, fd=fildes)
+        
     # Verify that this is indeed a binary/source. xor magic
     # xor doesn't work with None values, so compare the negated values - the
     # results are identical
     if (not source) ^ (not h.is_source):
         raise UploadError("Unexpected RPM package type")
     return h
-
 
 def ReportError(*args):
     sys.stderr.write(string.join(map(str, args)) + "\n")

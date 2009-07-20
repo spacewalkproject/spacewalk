@@ -52,6 +52,7 @@ ORDER BY UPPER(C.name)
      AND ( C.channel_arch_id = :prim_arch_id OR C.channel_arch_id = :sec_arch_id )
      AND (   KVT.label != 'xenpv'
           OR KVT.label IS NULL)
+     AND KS.cobbler_id IS NOT NULL
 ORDER BY KS.label, KS.id
   </query>    
 </mode>
@@ -70,6 +71,7 @@ ORDER BY KS.label, KS.id
      AND ( C.channel_arch_id = :prim_arch_id OR C.channel_arch_id = :sec_arch_id )
      AND KSD.virtualization_type = KVT.id
      AND KVT.label not in ('none','para_host')
+     AND KS.cobbler_id IS NOT NULL
 ORDER BY KS.label, KS.id
   </query>    
 </mode>

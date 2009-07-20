@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.errata.cache;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.action.errata.ErrataAction;
@@ -60,7 +61,7 @@ public class UpdateErrataCacheCommand {
      */
     public void updateErrataCache(Long orgId) {
         int threshold = Config.get().getInt(
-                Config.ERRATA_CACHE_COMPUTE_THRESHOLD);
+                ConfigDefaults.ERRATA_CACHE_COMPUTE_THRESHOLD);
         
         Org org = OrgFactory.lookupById(orgId);
         

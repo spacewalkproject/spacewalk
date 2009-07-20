@@ -16,13 +16,13 @@ package com.redhat.rhn.frontend.dto;
 
 import com.redhat.rhn.common.localization.LocalizationService;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * PackageListItem
@@ -433,14 +433,19 @@ public class PackageListItem extends IdComboDto {
         return this.getName() + "-" + e + "-" + v + "-" + r + "-" + a;
     }
 
-
     /**
      * {@inheritDoc}
      */
     @Override
     public String getSelectionKey() {
-        return getIdCombo() + "~*~" + getNvre(); 
+        if (getNvrea() != null) {
+            return getIdCombo() + "~*~" + getNvrea();
+        }
+        else {
+            return getIdCombo() + "~*~" + getNvre();
+        }
     }
+    
     /**
      * Returns a map of the keys used in this Package List . 
      * @return a map.

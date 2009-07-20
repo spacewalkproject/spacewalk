@@ -8,9 +8,6 @@
 <body>
 
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
-
-<html:errors />
-
 <h2>
   <img src="/img/rhn-config_files.gif" alt='<bean:message key="ssmdiff.jsp.imgAlt" />' />
   <bean:message key="summary.jsp.toolbar"/>

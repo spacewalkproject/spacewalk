@@ -14,8 +14,9 @@
  */
 package com.redhat.rhn.domain.common;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import com.redhat.rhn.domain.BaseDomainHelper;
+
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * ArchType

@@ -10,9 +10,6 @@
 <body>
 
 <%@ include file="/WEB-INF/pages/common/fragments/configuration/files/header.jspf" %>
-
-<html:errors />
-
 <h2><bean:message key="comparefile.jsp.header"/></h2>
 
 <div class="page-summary">

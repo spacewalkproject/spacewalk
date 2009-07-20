@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.satellite.test;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.monitoring.config.ConfigMacro;
 import com.redhat.rhn.domain.monitoring.config.DbEnvironment;
@@ -109,7 +110,7 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
     }    
    
     public void testEnableMonitoring() throws Exception {
-        Config.get().setBoolean(Config.WEB_IS_MONITORING_BACKEND, 
+        Config.get().setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, 
                 Boolean.FALSE.toString());
         
         // Delete the Scout so we can have the script re-set it up.
@@ -150,9 +151,9 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
                 return new TestExecutor();
             }
         };
-        cmd.updateBoolean(Config.WEB_IS_MONITORING_BACKEND, Boolean.TRUE);
+        cmd.updateBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, Boolean.TRUE);
         assertNull(cmd.storeConfiguration());
-        assertTrue(Config.get().getBoolean(Config.WEB_IS_MONITORING_BACKEND));
+        assertTrue(Config.get().getBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND));
         Long uid = user.getId();
         flushAndEvict(user.getOrg());
         flushAndEvict(user);
@@ -164,7 +165,7 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
         db = (DbEnvironment) TestUtils.lookupTestObject(
             "from com.redhat.rhn.domain.monitoring.config.DbEnvironment");
         assertNotSame(randomString, db.getDbName());
-        assertNotNull(Config.get().getString(Config.WEB_SCOUT_SHARED_KEY));
+        assertNotNull(Config.get().getString(ConfigDefaults.WEB_SCOUT_SHARED_KEY));
         ConfigMacro cm = MonitoringConfigFactory.lookupConfigMacroByName("MAIL_MX");
         assertFalse(cm.getDefinition().startsWith("**"));
         assertFalse(cm.getDefinition().endsWith("**"));
@@ -180,17 +181,17 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
                 return new TestExecutor();
             }
         };
-        cmd.updateBoolean(Config.WEB_IS_MONITORING_BACKEND, Boolean.TRUE);
+        cmd.updateBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, Boolean.TRUE);
         assertNull(cmd.storeConfiguration());
-        assertTrue(Config.get().getBoolean(Config.WEB_IS_MONITORING_BACKEND));
+        assertTrue(Config.get().getBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND));
         
         cmd = new ConfigureSatelliteCommand(user) {
             protected Executor getExecutor() {
                 return new TestExecutor();
             }
         };
-        cmd.updateBoolean(Config.WEB_IS_MONITORING_BACKEND, Boolean.FALSE);
-        assertFalse(Config.get().getBoolean(Config.WEB_IS_MONITORING_BACKEND));
+        cmd.updateBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, Boolean.FALSE);
+        assertFalse(Config.get().getBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND));
     }
     
     public void testEnableMonitoringScout() throws Exception {
@@ -199,9 +200,9 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
                 return new TestExecutor();
             }
         };
-        cmd.updateBoolean(Config.WEB_IS_MONITORING_SCOUT, Boolean.TRUE);
+        cmd.updateBoolean(ConfigDefaults.WEB_IS_MONITORING_SCOUT, Boolean.TRUE);
         assertNull(cmd.storeConfiguration());
-        assertTrue(Config.get().getBoolean(Config.WEB_IS_MONITORING_SCOUT));
+        assertTrue(Config.get().getBoolean(ConfigDefaults.WEB_IS_MONITORING_SCOUT));
     }
 
     public void testUpdateHostname() throws Exception {
@@ -212,7 +213,7 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
             }
         };
         
-        cmd.updateString(Config.JABBER_SERVER, "test.hostname.jabber");
+        cmd.updateString(ConfigDefaults.JABBER_SERVER, "test.hostname.jabber");
         ValidatorError[] verrors = cmd.storeConfiguration();
         ConfigMacro sathostname = MonitoringConfigFactory.
                            lookupConfigMacroByName("RHN_SAT_HOSTNAME");
@@ -230,11 +231,11 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
         };
         
         String testmount = "/tmp/mount/point";
-        cmd.updateString(Config.MOUNT_POINT, testmount);
+        cmd.updateString(ConfigDefaults.MOUNT_POINT, testmount);
         ValidatorError[] verrors = cmd.storeConfiguration();
         assertNull(verrors);
         assertEquals(testmount, 
-                Config.get().getString(Config.KICKSTART_MOUNT_POINT));
+                Config.get().getString(ConfigDefaults.KICKSTART_MOUNT_POINT));
     }
     
     public void testRoles() throws Exception {

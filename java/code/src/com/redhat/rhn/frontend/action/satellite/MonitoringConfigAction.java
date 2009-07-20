@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.satellite;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.monitoring.config.ConfigMacro;
@@ -97,7 +98,7 @@ public class MonitoringConfigAction extends BaseConfigAction {
         
         if (isSubmitted(form)) {            
             ConfigureSatelliteCommand csc = (ConfigureSatelliteCommand) getCommand(user);
-            csc.updateBoolean(Config.WEB_IS_MONITORING_SCOUT, 
+            csc.updateBoolean(ConfigDefaults.WEB_IS_MONITORING_SCOUT, 
                     (Boolean) form.get(IS_MONITORING_SCOUT));
             if (csc.getKeysToBeUpdated().size() > 0) {
                 valuesChanged = true;
@@ -121,7 +122,8 @@ public class MonitoringConfigAction extends BaseConfigAction {
         } 
         else {
             form.set(IS_MONITORING_SCOUT, 
-                    new Boolean(Config.get().getBoolean(Config.WEB_IS_MONITORING_SCOUT)));
+                    new Boolean(Config.get().getBoolean(
+                            ConfigDefaults.WEB_IS_MONITORING_SCOUT)));
         }
         
         req.setAttribute("configList", nameDescVals);

@@ -14,12 +14,26 @@
 #
 
 import os
-import md5
 import socket
 import string
 import base64
 import urllib
 import urlparse
+
+try:
+    import hashlib
+except ImportError:
+    import md5
+    class hashlib:
+        @staticmethod
+        def new(checksum):
+            # Add sha1 if needed.
+            if checksum == 'md5':
+                return md5.new()
+            # if not md5 or sha1, its invalid
+            if checksum not in ['md5', 'sha1']:
+                raise ValueError, "Incompatible checksum type"
+
 
 from types import ListType, TupleType, IntType
 
@@ -297,7 +311,7 @@ def getFileMD5(filename=None, fd=None, file=None, buffer_size=None):
         f = open(filename, "r")
     # Rewind it
     f.seek(0, 0)
-    m = md5.new()
+    m = hashlib.new('md5')
     while 1:
         buffer = f.read(buffer_size)
         if not buffer:

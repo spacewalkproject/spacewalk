@@ -8,5 +8,5 @@ for selinuxvariant in mls strict targeted
         /usr/share/selinux/${selinuxvariant}/spacewalk-proxy.pp || :
   done
 
-/sbin/restorecon -rvvi /var/log/rhn /var/cache/rhn/proxy-auth /var/spool/rhn-proxy
+/sbin/restorecon -rvvi /var/log/rhn /var/cache/rhn/proxy-auth /var/spool/rhn-proxy /var/www/html/pub
 

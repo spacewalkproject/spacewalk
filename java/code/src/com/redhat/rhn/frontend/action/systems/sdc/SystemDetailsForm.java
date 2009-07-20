@@ -14,13 +14,13 @@
  */
 package com.redhat.rhn.frontend.action.systems.sdc;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm;
 
 import org.apache.commons.lang.ArrayUtils;
 
-import com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 

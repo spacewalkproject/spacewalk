@@ -120,12 +120,25 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                   order by e.issueDate
                 ]]>
     </query>
-    <query name="PublishedErrata.searchById">
-        <![CDATA[select distinct e.id, e.advisory, e.advisoryName, e.advisoryType, e.synopsis, e.updateDate, e.issueDate
-        		from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
+    <sql-query name="PublishedErrata.searchById">
+        <![CDATA[select distinct e.id, e.advisory, e.advisory_name as advisoryName,
+                    e.advisory_type as advisoryType, e.synopsis as advisorySynopsis,
+                    e.update_date as updateDate, e.issue_date as issueDate
+                from rhnErrata e, rhnChannelErrata CE
                 where e.id IN (:eids)
+                  and CE.errata_id = e.id
+                  and CE.channel_id IN(SELECT channel_id
+                           FROM rhnAvailableChannels
+                           WHERE org_id = :org_id)
                 ]]>    
-    </query>
+        <return-scalar column="id" type="long" />
+        <return-scalar column="advisory" type="string" />
+        <return-scalar column="advisoryName" type="string" />
+        <return-scalar column="advisoryType" type="string" />
+        <return-scalar column="advisorySynopsis" type="string" />
+        <return-scalar column="updateDate" type="timestamp" />
+        <return-scalar column="issueDate" type="timestamp" />
+    </sql-query>
 
     <sql-query name="PublishedErrata.searchByPackageIds">
         <![CDATA[select distinct e.id, e.advisory, e.advisory_name as advisoryName, e.advisory_type as advisoryType, e.synopsis as advisorySynopsis,

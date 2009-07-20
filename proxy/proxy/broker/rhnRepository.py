@@ -44,9 +44,7 @@ class NotLocalError(Exception):
     pass
 
 
-# Class to access rhn-proxy's local package repository.
 class Repository(rhnRepository.Repository):
-    
     """ Proxy local package repository lookup and manipulation code. """
 
     def __init__(self,
@@ -82,10 +80,10 @@ class Repository(rhnRepository.Repository):
         # If the file name has parameters, it's a different kind of package.
         # Determine the architecture requested so we can construct an 
         # appropriate filename.
-	if type(pkgFilename) == types.ListType:
+        if type(pkgFilename) == types.ListType:
             arch = pkgFilename[3]
             if isSolarisArch(arch):
-	        pkgFilename = "%s-%s-%s.%s.pkg" % \
+                pkgFilename = "%s-%s-%s.%s.pkg" % \
                     (pkgFilename[0], 
                      pkgFilename[1], 
                      pkgFilename[2], 
@@ -151,15 +149,15 @@ class Repository(rhnRepository.Repository):
         return filePath
 
     def _cacheObj(self, fileName, version, dataProducer, params=None):
-        #""" The real workhorse for all flavors of listall
-        #    It tries to pull data out of a file; if it doesn't work,
-        #    it calls the data producer with the specified params to generate
-        #    the data, which is also cached.
-        #
-        #    Returns a string from a cache file or, if the cache file is not
-        #    there, calls dataProducer to generate the object and caches the
-        #    results
-        #"""
+        """ The real workhorse for all flavors of listall
+            It tries to pull data out of a file; if it doesn't work,
+            it calls the data producer with the specified params to generate
+            the data, which is also cached.
+
+            Returns a string from a cache file or, if the cache file is not
+            there, calls dataProducer to generate the object and caches the
+            results
+        """
 
         log_debug(4, fileName, version, params)
         fileDir = self._getPkgListDir()
@@ -182,12 +180,12 @@ class Repository(rhnRepository.Repository):
         return stringObject
 
     def _getPkgListDir(self):
-        #""" Creates and returns the directory for cached lists of packages.
-        #    Used by _cacheObj.
-        #
-        #    XXX: Problem exists here. If PKG_LIST_DIR can't be created
-        #    due to ownership... this is bad... need to fix.
-        #"""
+        """ Creates and returns the directory for cached lists of packages.
+            Used by _cacheObj.
+
+            XXX: Problem exists here. If PKG_LIST_DIR can't be created
+            due to ownership... this is bad... need to fix.
+        """
 
         log_debug(3, PKG_LIST_DIR)
         if not os.access(PKG_LIST_DIR, os.R_OK | os.X_OK):
@@ -195,7 +193,7 @@ class Repository(rhnRepository.Repository):
         return PKG_LIST_DIR
 
     def __channelPackageMapping(self):
-        #""" fetch package list on behalf of the client """
+        """ fetch package list on behalf of the client """
 
         log_debug(6, self.rhnParentXMLRPC, self.httpProxy, self.httpProxyUsername, self.httpProxyPassword)
         log_debug(6, self.clientInfo)
@@ -233,7 +231,7 @@ def isSolarisArch(arch):
     return arch.find("solaris") != -1
 
 def listPackages(function, channel, version):
-    #""" Generates a list of objects by calling the function """
+    """ Generates a list of objects by calling the function """
 
     try:
         return function(channel, version)
@@ -244,8 +242,7 @@ def listPackages(function, channel, version):
 
 
 def computePackagePath(nvrea, source=0, prepend=""):
-    # """ Finds the appropriate path, prepending something if necessary """
-
+    """ Finds the appropriate path, prepending something if necessary """
     name = nvrea[0]
     release = nvrea[2]
 
@@ -274,9 +271,9 @@ def computePackagePath(nvrea, source=0, prepend=""):
 # reg exp for splitting package names.
 re_rpmName = re.compile("^(.*)-([^-]*)-([^-]*)$")
 def parseRPMName(pkgName):
-    #""" IN:  Package string in, n-n-n-v.v.v-r.r_r, format.
-    #    OUT: Four strings (in a list): name, release, version, epoch.
-    #"""
+    """ IN:  Package string in, n-n-n-v.v.v-r.r_r, format.
+        OUT: Four strings (in a list): name, release, version, epoch.
+    """
 
     reg = re_rpmName.match(pkgName)
     if reg == None:
@@ -292,7 +289,7 @@ def parseRPMName(pkgName):
 
 
 def cache(stringObject, dir, filename, version):
-    #""" Caches stringObject into a file and removes older files """
+    """ Caches stringObject into a file and removes older files """
 
     # The directory should be readable, writable, seekable
     if not os.access(dir, os.R_OK | os.W_OK | os.X_OK):
@@ -332,6 +329,4 @@ def cache(stringObject, dir, filename, version):
         if _file < filePath:
             # Older than this
             os.unlink(_file)
-
-#-------------------------------------------------------------------------------
 

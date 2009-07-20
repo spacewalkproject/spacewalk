@@ -15,17 +15,17 @@
 
 package com.redhat.rhn.taskomatic.task.repomd;
 
-import java.io.Writer;
-import java.util.Iterator;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.rhnpackage.PackageEvr;
+import com.redhat.rhn.frontend.dto.PackageDto;
+import com.redhat.rhn.taskomatic.task.TaskConstants;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
-import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.rhnpackage.PackageEvr;
-import com.redhat.rhn.frontend.dto.PackageDto;
-import com.redhat.rhn.taskomatic.task.TaskConstants;
+import java.io.Writer;
+import java.util.Iterator;
 
 /**
  * Primary.xml writer class

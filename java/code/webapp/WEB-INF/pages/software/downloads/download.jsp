@@ -9,12 +9,6 @@
   <script src="/javascript/iso_download.js" type="text/javascript"> </script>
 </head>
 <body>
-<html:errors />
-<html:messages id="message" message="true">
-	<rhn:messages>
-		<c:out escapeXml="false" value="${message}" />
-	</rhn:messages>
-</html:messages>
 <rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif"  imgAlt="common.download.channelAlt">
 <c:choose>
   <c:when test="${empty channel}"> 

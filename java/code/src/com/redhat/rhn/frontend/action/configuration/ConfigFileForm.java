@@ -14,14 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.configuration;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.text.DecimalFormat;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.struts.upload.FormFile;
-
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.common.validator.ValidatorError;
@@ -41,6 +33,14 @@ import com.redhat.rhn.manager.configuration.file.BinaryFileData;
 import com.redhat.rhn.manager.configuration.file.ConfigFileData;
 import com.redhat.rhn.manager.configuration.file.DirectoryData;
 import com.redhat.rhn.manager.configuration.file.TextFileData;
+
+import org.apache.struts.upload.FormFile;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.text.DecimalFormat;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * ConfigFileForm

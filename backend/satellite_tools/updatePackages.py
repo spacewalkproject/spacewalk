@@ -75,6 +75,7 @@ def main():
     process_package_data()
 
     rhnSQL.commit()
+    process_kickstart_trees()
     sys.stderr.write("Transaction Committed! \n")
 
 def get_new_pkg_path(nvrea, org_id, prepend="", omit_epoch=None,
@@ -187,6 +188,11 @@ def process_package_data():
     # All done, proceed to commit
     if verbose: print " Skipping %s packages, paths not found" % len(skip_list)
     return
+
+def process_kickstart_trees():
+    for root,dirs,files in os.walk(CFG.MOUNT_POINT + "/rhn/"):
+        for name in files:
+            os.chmod(root + '/' + name, 0644)
 
 
 if __name__ == '__main__':

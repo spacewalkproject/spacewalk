@@ -7,12 +7,6 @@
 
 <html:html xhtml="true">
 <body>
-
-<html:errors />
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif"
                creationUrl="/rhn/kickstart/CreateProfileWizard.do"
                creationType="kickstart"
@@ -30,12 +24,9 @@
       	<rl:list dataset="pageList" name="ksList" emptykey="kickstart.jsp.nokickstarts" 
       			alphabarcolumn="label"
                 filter="com.redhat.rhn.frontend.action.kickstart.KickstartProfileFilter">      			
-                     
         	<rl:decorator name="ElaborationDecorator"/>
       		<rl:decorator name="PageSizeDecorator"/>
-            		
-
-          	<rl:column sortable="true" 
+			<rl:column
           		bound="false" 
           		headerkey="kickstart.jsp.label" 
           		sortattr="label" 
@@ -57,7 +48,7 @@
 		            **
 		          </c:if>
       		</rl:column>  	      
-      		<rl:column sortable="true" bound="false" headerkey="kickstart.jsp.active"  sortattr="active">
+      		<rl:column  bound="false" headerkey="kickstart.jsp.active"  sortattr="active">
 	      		<c:if test="${current.active}">
 	            <img src="/img/rhn-listicon-ok.gif" alt="<bean:message key="kickstart.jsp.active"/>" 
 	            									title="<bean:message key="kickstart.jsp.active"/>"/>
@@ -67,10 +58,10 @@
 	            									   title="<bean:message key="kickstart.jsp.inactive"/>"/>
 	          </c:if>          
       		</rl:column>
-                <rl:column headerkey="kickstart.distro.label.jsp">
+                <rl:column headerkey="kickstart.distro.label.jsp" sortattr="treeLabel">
                     <c:out value="${current.treeLabel}"/>
                 </rl:column>      		
-            <rl:column headerkey="kickstart.distro.sw_managed.jsp"  styleclass="last-column">
+            <rl:column headerkey="kickstart.distro.sw_managed.jsp" sortattr="cobbler">
             	<c:choose>
                     <c:when test="${current.cobbler}">
                     	<img src="/img/rhn-listicon-error.gif">
@@ -80,6 +71,16 @@
                 	</c:otherwise>
                 </c:choose>
             </rl:column>
+			<rl:column headertext="${rhn:localize('kickstart.distro.is-valid.jsp')}?***" sortattr="valid" styleclass="last-column">
+				<c:choose>
+                    <c:when test="${current.valid}">
+                    	<img src="/img/rhn-listicon-checked.gif">
+                    </c:when>
+					<c:otherwise>
+						<img src="/img/rhn-listicon-error.gif">
+                	</c:otherwise>
+                </c:choose>
+            </rl:column>            
        </rl:list>
        
       </rl:listset>
@@ -88,6 +89,7 @@
   <c:if test="${not empty requestScope.orgDefaultExists}">
   	<p><rhn:tooltip>** - <bean:message key="kickstart.list.jsp.orgdefault"/></rhn:tooltip></p>
   </c:if>
+  <p><rhn:tooltip>***-<bean:message key="kickstarts.profile.is-valid.tooltip"/></rhn:tooltip></p>
 
 </body>
 </html:html>

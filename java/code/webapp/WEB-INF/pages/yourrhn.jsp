@@ -37,12 +37,6 @@
 <script type="text/javascript" src="/javascript/render.js"></script>
 </head>
 <body>
-
-<html:errors/>
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <rhn:toolbar base="h1" img="/img/rhn-icon-your_rhn.gif" imgAlt="yourrhn.jsp.toolbar.img.alt"
              helpUrl="/rhn/help/reference/en-US/s1-sm-your-rhn.jsp">
   <bean:message key="yourrhn.jsp.toolbar"/>

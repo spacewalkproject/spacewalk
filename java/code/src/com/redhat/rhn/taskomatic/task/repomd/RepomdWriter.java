@@ -14,11 +14,12 @@
  */
 package com.redhat.rhn.taskomatic.task.repomd;
 
-import java.io.IOException;
-import java.io.Writer;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.HashMap;
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.SelectMode;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.frontend.dto.PackageDto;
+import com.redhat.rhn.taskomatic.task.TaskConstants;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -26,12 +27,11 @@ import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
 import org.xml.sax.SAXException;
 
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.SelectMode;
-import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.rhnpackage.Package;
-import com.redhat.rhn.frontend.dto.PackageDto;
-import com.redhat.rhn.taskomatic.task.TaskConstants;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * 

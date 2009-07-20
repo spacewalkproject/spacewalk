@@ -15,6 +15,14 @@
 
 package com.redhat.rhn.frontend.taglibs.list;
 
+import com.redhat.rhn.common.util.DynamicComparator;
+import com.redhat.rhn.common.util.MethodUtil;
+import com.redhat.rhn.common.util.StringUtil;
+import com.redhat.rhn.frontend.html.HtmlTag;
+import com.redhat.rhn.frontend.struts.RequestContext;
+
+import org.apache.commons.lang.StringUtils;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -27,14 +35,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
-
-import org.apache.commons.lang.StringUtils;
-
-import com.redhat.rhn.common.util.DynamicComparator;
-import com.redhat.rhn.common.util.MethodUtil;
-import com.redhat.rhn.common.util.StringUtil;
-import com.redhat.rhn.frontend.html.HtmlTag;
-import com.redhat.rhn.frontend.struts.RequestContext;
 
 /**
  * Provides a bunch of helper methods to make working with lists easier from a 

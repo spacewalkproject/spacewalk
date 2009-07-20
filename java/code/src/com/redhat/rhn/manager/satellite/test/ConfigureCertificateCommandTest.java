@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.satellite.test;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.manager.satellite.ConfigureCertificateCommand;
 import com.redhat.rhn.manager.satellite.Executor;
@@ -29,9 +30,10 @@ public class ConfigureCertificateCommandTest extends BaseTestCaseWithUser {
     private ConfigureCertificateCommand cmd;
     
     public void testCreateCommand() throws Exception {
-        String originalConfig = Config.get().getString(Config.SATELLITE_PARENT);
+        String originalConfig = Config.get().getString(ConfigDefaults.SATELLITE_PARENT);
 
-        Config.get().setString(Config.SATELLITE_PARENT, "satellite.webqa.redhat.com");
+        Config.get().setString(ConfigDefaults.SATELLITE_PARENT, 
+                "satellite.webqa.redhat.com");
         user.addRole(RoleFactory.SAT_ADMIN);
         cmd = new ConfigureCertificateCommand(user) {
             protected Executor getExecutor() {
@@ -46,16 +48,17 @@ public class ConfigureCertificateCommandTest extends BaseTestCaseWithUser {
         assertNull(cmd.storeConfiguration());
         
         if (originalConfig == null) {
-            Config.get().setString(Config.SATELLITE_PARENT, "");
+            Config.get().setString(ConfigDefaults.SATELLITE_PARENT, "");
         } 
         else {
-            Config.get().setString(Config.SATELLITE_PARENT, originalConfig);
+            Config.get().setString(ConfigDefaults.SATELLITE_PARENT, originalConfig);
         }
     }
     
     public void testCreateCommandIgnoreMismatch() throws Exception {
-        String originalConfig = Config.get().getString(Config.SATELLITE_PARENT);
-        Config.get().setString(Config.SATELLITE_PARENT, "satellite.webqa.redhat.com");
+        String originalConfig = Config.get().getString(ConfigDefaults.SATELLITE_PARENT);
+        Config.get().setString(ConfigDefaults.SATELLITE_PARENT, 
+                "satellite.webqa.redhat.com");
         user.addRole(RoleFactory.SAT_ADMIN);
         cmd = new ConfigureCertificateCommand(user) {
             protected Executor getExecutor() {
@@ -73,10 +76,10 @@ public class ConfigureCertificateCommandTest extends BaseTestCaseWithUser {
         assertNotNull(cmd.getCertificateText());
         assertNull(cmd.storeConfiguration());
         if (originalConfig == null) {
-            Config.get().setString(Config.SATELLITE_PARENT, "");
+            Config.get().setString(ConfigDefaults.SATELLITE_PARENT, "");
         } 
         else {
-            Config.get().setString(Config.SATELLITE_PARENT, originalConfig);
+            Config.get().setString(ConfigDefaults.SATELLITE_PARENT, originalConfig);
         }
     }
     

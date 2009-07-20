@@ -10,7 +10,6 @@
 <head>
 </head>
 <body>
-<html:errors />
 <%@ include
 	file="/WEB-INF/pages/common/fragments/configuration/channel/details-header.jspf"%>
 <div class="left-column">

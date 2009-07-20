@@ -29,8 +29,6 @@ function refreshNotifFields() {
     deletionType="probe">
  <bean:message key="probeedit.jsp.editprobe" />
 </rhn:toolbar>
-
-<html:errors />
 <html:form action="/systems/details/probes/ProbeEdit" method="POST">
   <table class="details">
     <tr>

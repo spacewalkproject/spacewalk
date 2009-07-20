@@ -16,7 +16,7 @@
 """
 Database specific tests for rhnSQL drivers.
 
-These tests require a database connection, usually configured in a 
+These tests require a database connection, usually configured in a
 rhntests-*.py script.
 """
 
@@ -32,7 +32,7 @@ TEST_NAMES = ["Bill", "Susan", "Joe"]
 TEST_NUMS = [900.12, 600.49, 34.98]
 
 class RhnSQLDatabaseTests(unittest.TestCase):
-    """ 
+    """
     Database connection tests that can be run against any supported database.
     """
 

@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.configuration.sdc;
 
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.server.Server;
@@ -25,7 +26,6 @@ import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.system.SystemManager;
-import com.redhat.rhn.common.localization.LocalizationService;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;

@@ -288,6 +288,8 @@ class RhnRepo(YumRepository):
                 raise yum.Errors.RepoError(error)
             
             self.http_headers[header] = li[header]
+        # Set the redirect flag
+        self.http_headers['X-RHN-Transport-Capability'] = "follow-redirects=3"
 
     # Override the 'private' __get method so we can do our auth stuff.
     def _getFile(self, url=None, relative=None, local=None,

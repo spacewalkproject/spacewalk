@@ -8,9 +8,6 @@
 <html>
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
-
-<html:errors/>
-
 <h2>
     <bean:message key="ssm.package.verify.select.header"/>
 </h2>
@@ -35,7 +32,7 @@
                              styleclass="first-column"/>
 
         <rl:column headerkey="packagelist.jsp.packagename" bound="false"
-                   sortattr="nvre" sortable="true" filterattr="name">
+                   sortattr="nvre" sortable="true" filterattr="nvre">
             <c:out value="${current.nvre}" escapeXml="false"/>
         </rl:column>
 

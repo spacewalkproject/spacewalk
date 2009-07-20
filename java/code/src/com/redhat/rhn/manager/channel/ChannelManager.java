@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.channel;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.db.datasource.DataResult;
@@ -67,13 +68,16 @@ import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.org.OrgManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
+import com.redhat.rhn.taskomatic.task.TaskConstants;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.sql.Timestamp;
 import java.sql.Types;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -837,7 +841,7 @@ public class ChannelManager extends BaseManager {
         if (proxyFamily == null || 
                     proxyFamily.getChannels() == null ||
                         proxyFamily.getChannels().isEmpty()) {
-            if (!Config.get().isSpacewalk()) {
+            if (!ConfigDefaults.get().isSpacewalk()) {
                 throw new ProxyChannelNotFoundException();
             }
             return null;
@@ -854,7 +858,7 @@ public class ChannelManager extends BaseManager {
                 return proxyChan;
             }
         }
-        if (!Config.get().isSpacewalk()) {
+        if (!ConfigDefaults.get().isSpacewalk()) {
             throw new ProxyChannelNotFoundException();
         }
         
@@ -1504,12 +1508,15 @@ public class ChannelManager extends BaseManager {
      * Finds the ids of all child channels that contain
      * a package with the given name.  Will only all the child channels.
      * @param packageName The exact name of the package sought for.
+     * @param org the org this is in
      * @return The list of ids 
      */
-    public static List<Long> findChildChannelsWithPackage(String packageName) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", "channels_with_package");
+    public static List<Long> findChildChannelsWithPackage(String packageName, Org org) {
+        SelectMode m = ModeFactory.getMode("Channel_queries",
+                        "child_channels_with_package");
         Map params = new HashMap();
         params.put("package", packageName);
+        params.put("org_id", org.getId());
         
         //whittle down until we have the piece we want.
         DataResult<Map<String, Long>> dr  = m.execute(params);
@@ -1906,7 +1913,7 @@ public class ChannelManager extends BaseManager {
             
             // Search for rhn-kickstart package name:
             kspackages = ChannelManager.listLatestPackagesEqual(child.getId(), 
-                    Config.get().getKickstartPackageName());
+                    ConfigDefaults.get().getKickstartPackageName());
             if (kspackages.size() > 0) {
                 return child;
             }
@@ -2735,6 +2742,45 @@ public class ChannelManager extends BaseManager {
         else {
             return Collections.EMPTY_LIST;
         }
+    }
+
+    /**
+     * Check the status of the cache repo data
+     * @param channel the channel to look for status
+     * @return repodata status
+     */
+    public static boolean isChannelLabelInProgress(String channel) {
+        SelectMode selector = ModeFactory.getMode(TaskConstants.MODE_NAME,
+                TaskConstants.TASK_QUERY_REPOMD_DETAILS_QUERY);
+        Map<Object, Object> params = new HashMap<Object, Object>();
+        params.put("channel_label", channel);
+        return (selector.execute(params).size() > 0);
+    }
+
+    /**
+     * get the last build date on repodata per channel
+     * @param channel the channel to look for repodata build date
+     * @return last repo build date
+     */
+    public static String getRepoLastBuild(Channel channel) {
+        String  pathPrefix = Config.get().getString(ConfigDefaults.REPOMD_PATH_PREFIX,
+        "rhn/repodata");
+        String mountPoint = Config.get().getString(ConfigDefaults.REPOMD_CACHE_MOUNT_POINT, 
+                "/pub");
+        File theFile = new File(mountPoint + File.separator + pathPrefix +
+                File.separator + channel.getLabel() + File.separator +
+                "repomd.xml");
+        if (!theFile.exists()) {
+            // No repo file, dont bother computing build date
+            return null;
+        }
+        Date fileModifiedDateIn = new Date(theFile.lastModified());
+        // the file Modified date should be getting set when the file
+        // is moved into the correct location.
+        log.info("File Modified Date:" + fileModifiedDateIn);
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String fileModifiedDate = formatter.format(fileModifiedDateIn);
+        return fileModifiedDate;
     }
 
 }

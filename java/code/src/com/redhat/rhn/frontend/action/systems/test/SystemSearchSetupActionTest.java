@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.systems.test;
 
-import org.apache.struts.action.DynaActionForm;
-
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.server.Server;
@@ -25,6 +23,8 @@ import com.redhat.rhn.frontend.action.systems.SystemSearchSetupAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+
+import org.apache.struts.action.DynaActionForm;
 
 /**
  * SystemSearchActionTest

@@ -243,7 +243,7 @@ sub setup_cobbler {
   if ($opts{'enable-tftp'}) {
     $answers{'enable-tftp'} = $opts{'enable-tftp'};
   }  
-  if ($answers{'enable-tftp'} =~ /^[Yy]/ ) {
+  if ($answers{'enable-tftp'} and $answers{'enable-tftp'} =~ /^[Yy]/ ) {
       system(COBBLER_COMMAND . " --enable-tftp=yes");
   }
   elsif ($answers{'enable-tftp'}) {
@@ -961,44 +961,41 @@ sub populate_initial_configs {
 
     my %config_opts =
     (
-        mount_point => $answers->{'mount-point'} || '/var/satellite',
-        kickstart_mount_point => $answers->{'kickstart-mount-point'} || $answers->{'mount-point'} || '/var/satellite',
-        serverDOTsatelliteDOThttp_proxy => $answers->{'rhn-http-proxy'} || '',
-        serverDOTsatelliteDOThttp_proxy_username => $answers->{'rhn-http-proxy-username'} || '',
-        serverDOTsatelliteDOThttp_proxy_password => $answers->{'rhn-http-proxy-password'} || '',
-        webDOTis_monitoring_backend => 0,
-        webDOTis_monitoring_scout => 0,
-        webDOTenable_solaris_support => 0,
-        jabberDOThostname => $answers->{hostname},
-        osadispatcherDOTosa_ssl_cert => '/var/www/html/pub/RHN-ORG-TRUSTED-SSL-CERT',
-        encrypted_passwords => 1,
-        default_db => sprintf('%s/%s@%s', @{$answers}{qw/db-user db-password db-sid/}),
-        db_backend => $answers->{'db-backend'},
-        db_user => $answers->{'db-user'},
-        db_password => $answers->{'db-password'},
-        db_sid => $answers->{'db-sid'},
-        db_host => $answers->{'db-host'},
-        db_port => $answers->{'db-port'},
-        hibernate_dialect => $hibernate_dialect,
-        hibernate_driver => $hibernate_driver,
-        hibernate_url => $hibernate_url,
-        traceback_mail => $answers->{'admin-email'},
-        jabberDOTusername => 'rhn-dispatcher-sat',
-        jabberDOTpassword => 'rhn-dispatcher-' . random_password(6),
-        serverDOTsatelliteDOTca_chain => '/usr/share/rhn/RHNS-CA-CERT',
-        serverDOTnls_lang => 'english.' . $charset,
-        server_secret_key => generate_secret(),
-        webDOTssl_available => $opts->{'skip-ssl-cert-generation'} ? 0 : 1,
-        monitoringDOTdbname => $answers->{'db-sid'},
-        monitoringDOTusername => $answers->{'db-user'},
-        monitoringDOTpassword => $answers->{'db-password'},
-        monitoringDOTsmonDOTaddr => '127.0.0.1',
-        monitoringDOTsmonDOTfqdn => 'localhost',
-        monitoringDOTsmonDOTtestaddr => '127.0.0.1',
-        monitoringDOTsmonDOTtestfqdn => 'localhost',
-        monitoringDOTorahome => '/opt/oracle',
-        monitoringDOTdbd => 'Oracle',
-        monitoringDOTscout_shared_key => '', # blank for now.
+     mount_point => $answers->{'mount-point'} || '/var/satellite',
+     kickstart_mount_point => $answers->{'kickstart-mount-point'} || $answers->{'mount-point'} || '/var/satellite',
+     serverDOTsatelliteDOThttp_proxy => $answers->{'rhn-http-proxy'} || '',
+     serverDOTsatelliteDOThttp_proxy_username => $answers->{'rhn-http-proxy-username'} || '',
+     serverDOTsatelliteDOThttp_proxy_password => $answers->{'rhn-http-proxy-password'} || '',
+     webDOTis_monitoring_backend => 0,
+     webDOTis_monitoring_scout => 0,
+     webDOTenable_solaris_support => 0,
+     jabberDOThostname => $answers->{hostname},
+     osadispatcherDOTosa_ssl_cert => '/var/www/html/pub/RHN-ORG-TRUSTED-SSL-CERT',
+     encrypted_passwords => 1,
+     default_db => sprintf('%s/%s@%s', @{$answers}{qw/db-user db-password db-sid/}),
+     db_user => $answers->{'db-user'},
+     db_password => $answers->{'db-password'},
+     db_sid => $answers->{'db-sid'},
+     db_host => $answers->{'db-host'},
+     db_port => $answers->{'db-port'},
+     traceback_mail => $answers->{'admin-email'},
+     jabberDOTusername => 'rhn-dispatcher-sat',
+     jabberDOTpassword => 'rhn-dispatcher-' . random_password(6),
+     serverDOTsatelliteDOTca_chain => '/usr/share/rhn/RHNS-CA-CERT',
+     serverDOTnls_lang => 'english.' . $nls_database_paramaters{NLS_CHARACTERSET},
+     server_secret_key => generate_secret(),
+     webDOTssl_available => $opts->{'skip-ssl-cert-generation'} ? 0 : 1,
+     monitoringDOTdbname => $answers->{'db-sid'},
+     monitoringDOTusername => $answers->{'db-user'},
+     monitoringDOTpassword => $answers->{'db-password'},
+     monitoringDOTsmonDOTaddr => '127.0.0.1',
+     monitoringDOTsmonDOTfqdn => 'localhost',
+     monitoringDOTsmonDOTtestaddr => '127.0.0.1',
+     monitoringDOTsmonDOTtestfqdn => 'localhost',
+     monitoringDOTorahome => '/opt/oracle',
+     monitoringDOTdbd => 'Oracle',
+     monitoringDOTscout_shared_key => '', # blank for now.
+     cobblerDOThost => $answers->{hostname}
     );
 
     for ($config_opts{'db_password'}) {

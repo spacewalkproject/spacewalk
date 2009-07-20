@@ -14,9 +14,9 @@
  */
 package com.redhat.rhn.taskomatic.task.threaded;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
+
+import java.util.List;
 
 /**
  * "Driver" for a work queue of worker threads

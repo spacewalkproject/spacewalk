@@ -32,6 +32,7 @@ public class UpgradablePackageListItem extends PackageListItem {
     private List errataAdvisory = new ArrayList();
     private List errataAdvisoryType = new ArrayList();;
     private Set installed;
+    private String installedPackage = new String();
 
     /**
      * @return Returns the installed.
@@ -46,6 +47,18 @@ public class UpgradablePackageListItem extends PackageListItem {
         this.installed = new HashSet(installedIn);
     }
 
+    /**
+     * @return Returns the installed package.
+     */
+    public String getInstalledPackage() {
+        return installedPackage;
+    }
+    /**
+     * @param installedPackageIn The installed package.
+     */
+    public void setInstalledPackage(String installedPackageIn) {
+        this.installedPackage = installedPackageIn;
+    }
 
     /**
      * @return Returns the serverId.

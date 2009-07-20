@@ -40,10 +40,7 @@
       </td>
     </tr>
   </table>
-  
-  <html:errors />
-  
-  <h2><bean:message key="sdcimportfile.jsp.existing"/></h2>
+<h2><bean:message key="sdcimportfile.jsp.existing"/></h2>
   <p><bean:message key="sdcimportfile.jsp.oldsummary"
                    arg0="${system.name}"/></p>
   

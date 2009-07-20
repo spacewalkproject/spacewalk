@@ -14,13 +14,14 @@
  */
 package com.redhat.rhn.frontend.action.errata;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.DatePicker;
+import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.frontend.action.common.DateRangePicker;
 import com.redhat.rhn.frontend.action.common.DateRangePicker.DatePickerResults;
-import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -263,8 +264,10 @@ public class ErrataSearchAction extends RhnAction {
 
         log.warn("Performing errata search");
         RequestContext ctx = new RequestContext(request);
+        Org org = ctx.getCurrentUser().getOrg();
         // call search server
-        XmlRpcClient client = new XmlRpcClient(Config.get().getSearchServerUrl(), true);
+        XmlRpcClient client = new XmlRpcClient(
+                ConfigDefaults.get().getSearchServerUrl(), true);
         String path = null;
         List args = new ArrayList();
         args.add(sessionId);
@@ -361,7 +364,7 @@ public class ErrataSearchAction extends RhnAction {
 
         }
         else {
-            unsorted = fleshOutErrataOverview(ids);
+            unsorted = fleshOutErrataOverview(ids, org);
         }
 
         if (OPT_CVE.equals(mode)) {
@@ -499,7 +502,7 @@ public class ErrataSearchAction extends RhnAction {
 
 
 
-    private List<ErrataOverview> fleshOutErrataOverview(List<Long> idsIn) {
+    private List<ErrataOverview> fleshOutErrataOverview(List<Long> idsIn, Org org) {
         // Chunk the work to avoid issue with Oracle not liking
         // an input parameter list to contain more than 1000 entries.
         // issue most commonly seen with issue date range search
@@ -516,7 +519,7 @@ public class ErrataSearchAction extends RhnAction {
                 log.warn("Processing 0 size chunkIDs....something seems wrong.");
                 break;
             }
-            List<ErrataOverview> temp = ErrataManager.search(chunkIDs);
+            List<ErrataOverview> temp = ErrataManager.search(chunkIDs, org);
             unsorted.addAll(temp);
             toIndex += chunkCount;
             recordsRead += chunkIDs.size();
@@ -559,7 +562,7 @@ public class ErrataSearchAction extends RhnAction {
             query = escapeSpecialChars(query);
             return "(description:(" + query + ") topic:(" + query + ") solution:(" +
                 query + ") notes:(" + query + ") product:(" + query + ")" +
-                " advisoryName:(" + query + "))";
+                " advisoryName:(" + query + ") synopsis:(" + query + "))";
         }
         else if (OPT_ADVISORY.equals(mode)) {
             query = escapeSpecialChars(query);

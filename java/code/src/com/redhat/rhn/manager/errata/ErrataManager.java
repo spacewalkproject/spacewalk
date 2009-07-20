@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.errata;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
@@ -317,10 +318,11 @@ public class ErrataManager extends BaseManager {
     /**
      * Returns a list of ErrataOverview matching the given errata ids.
      * @param eids Errata ids sought.
+     * @param org Organization to match results with
      * @return a list of ErrataOverview matching the given errata ids.
      */
-    public static List<ErrataOverview> search(List eids) {
-        return ErrataFactory.search(eids);
+    public static List<ErrataOverview> search(List eids, Org org) {
+        return ErrataFactory.search(eids, org);
     }
     
     /**
@@ -1215,7 +1217,8 @@ public class ErrataManager extends BaseManager {
        boolean flag = false;
 
        try {
-           XmlRpcClient client = new XmlRpcClient(Config.get().getSearchServerUrl(), true);
+           XmlRpcClient client = new XmlRpcClient(
+                   ConfigDefaults.get().getSearchServerUrl(), true);
            List args = new ArrayList();
            args.add("errata");
            Boolean rc = (Boolean)client.invoke("admin.updateIndex", args);

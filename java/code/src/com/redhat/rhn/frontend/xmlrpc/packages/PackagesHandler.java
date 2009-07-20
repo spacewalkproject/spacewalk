@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.xmlrpc.packages;
 
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.rhnpackage.ChangeLogEntry;
@@ -587,7 +588,8 @@ public class PackagesHandler extends BaseHandler {
     public byte[] getPackage(String sessionKey, Integer pid) throws IOException {
         User loggedInUser = getLoggedInUser(sessionKey);
         Package pkg = lookupPackage(loggedInUser, pid);
-        String path = Config.get().getString(Config.MOUNT_POINT) + "/" +  pkg.getPath();
+        String path = Config.get().getString(ConfigDefaults.MOUNT_POINT) + "/" +  
+            pkg.getPath();
         File file = new File(path);
         
         if (file.length() > Integer.MAX_VALUE) {

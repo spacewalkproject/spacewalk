@@ -12,12 +12,6 @@
         <meta name="page-decorator" content="none" />
     </head>
 <body>
-
-<html:errors />
-<html:messages id="message" message="true">
-  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
-</html:messages>
-
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 <rhn:toolbar base="h2" img="/img/rhn-icon-system.gif" helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s4-sm-system-details-probes"

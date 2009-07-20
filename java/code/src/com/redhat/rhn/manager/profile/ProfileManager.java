@@ -36,6 +36,7 @@ import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.dto.PackageMetadata;
+import com.redhat.rhn.frontend.dto.ProfileOverviewDto;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.MissingEntitlementException;
@@ -1252,7 +1253,7 @@ public class ProfileManager extends BaseManager {
      * @param orgId The id of the org the profiles are associated with.
      * @return DataResult of ProfileOverviewDto
      */
-    public static DataResult listProfileOverviews(Long orgId) {
+    public static DataResult<ProfileOverviewDto> listProfileOverviews(Long orgId) {
 
         SelectMode m = ModeFactory.getMode("profile_queries", "profile_overview");
 

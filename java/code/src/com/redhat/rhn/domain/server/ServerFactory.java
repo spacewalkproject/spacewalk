@@ -29,9 +29,11 @@ import com.redhat.rhn.frontend.xmlrpc.ChannelSubscriptionException;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.UpdateBaseChannelCommand;
 
+import java.util.LinkedList;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import java.sql.Types;
@@ -69,19 +71,12 @@ public class ServerFactory extends HibernateFactory {
             return null;
         }
 
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            return (CustomDataValue) session.getNamedQuery(
-                    "CustomDataValue.findByServerAndKey").setEntity("server",
-                    server).setEntity("key", key)
-            // Retrieve from cache if there
-                    .setCacheable(true).uniqueResult();
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-        return null;
+        Session session = HibernateFactory.getSession();
+        return (CustomDataValue) session.getNamedQuery(
+                "CustomDataValue.findByServerAndKey").setEntity("server",
+                server).setEntity("key", key)
+        // Retrieve from cache if there
+                .setCacheable(true).uniqueResult();
     }
 
     /**
@@ -103,6 +98,7 @@ public class ServerFactory extends HibernateFactory {
      */
     public static void removeCustomDataValue(Server server, CustomDataKey key) {
         CustomDataValue value = server.getCustomDataValue(key);
+        server.getCustomDataValues().remove(value);
         if (value != null) {
             singleton.removeObject(value);
         }
@@ -220,6 +216,43 @@ public class ServerFactory extends HibernateFactory {
     }
 
     /**
+     * Looks up server objects from the given list of server IDs.
+     *
+     * If more than 1000 servers are present in the list we'll split it into
+     * chunks as this can cause problems on Oracle.
+     *
+     * @param serverIds List of server IDs.
+     * @param user who wants to lookup the Server
+     * @return list of server objects
+     */
+    public static List<Server> lookupByIdsAndUser(List<Long> serverIds, User user) {
+        Session session = HibernateFactory.getSession();
+        Query query = session.getNamedQuery("Server.findByIdsAndOrgId")
+                             .setParameter("orgId", user.getOrg().getId());
+        if (serverIds.size() < 1000) {
+            query.setParameterList("serverIds", serverIds);
+            return query.list();
+        }
+
+        List<Server> results = new LinkedList<Server>();
+        List<Long> blockOfIds = new LinkedList<Long>();
+        for (Long sid : serverIds) {
+            blockOfIds.add(sid);
+            if (blockOfIds.size() == 999) {
+                query.setParameterList("serverIds", blockOfIds);
+                results.addAll(query.list());
+                blockOfIds = new LinkedList<Long>();
+            }
+        }
+        // Deal with the remainder:
+        if (blockOfIds.size() > 0) {
+            query.setParameterList("serverIds", blockOfIds);
+            results.addAll(query.list());
+        }
+        return results;
+    }
+
+    /**
      * Lookup a Server by their id
      * @param id the id to search for
      * @return the Server found
@@ -325,19 +358,11 @@ public class ServerFactory extends HibernateFactory {
      * @return The ServerArch
      */
     public static ServerArch lookupServerArchByLabel(String label) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            return (ServerArch) session.getNamedQuery("ServerArch.findByLabel")
-                    .setString("label", label)
-                    // Retrieve from cache if there
-                    .setCacheable(true).uniqueResult();
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-
-        return null;
+        Session session = HibernateFactory.getSession();
+        return (ServerArch) session.getNamedQuery("ServerArch.findByLabel")
+                .setString("label", label)
+                // Retrieve from cache if there
+                .setCacheable(true).uniqueResult();
     }
 
     /**
@@ -346,19 +371,11 @@ public class ServerFactory extends HibernateFactory {
      * @return The CPUArch
      */
     public static CPUArch lookupCPUArchByName(String name) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            return (CPUArch) session.getNamedQuery("CPUArch.findByName")
-                    .setString("name", name)
-                    // Retrieve from cache if there
-                    .setCacheable(true).uniqueResult();
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-
-        return null;
+        Session session = HibernateFactory.getSession();
+        return (CPUArch) session.getNamedQuery("CPUArch.findByName")
+                .setString("name", name)
+                // Retrieve from cache if there
+                .setCacheable(true).uniqueResult();
     }
 
     /**

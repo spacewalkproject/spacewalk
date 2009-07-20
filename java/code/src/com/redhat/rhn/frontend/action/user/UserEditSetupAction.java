@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.user;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -104,7 +105,8 @@ public class UserEditSetupAction extends RhnAction {
         request.setAttribute("self", new Boolean(loggedInUser.equals(targetUser)));
 
         //Should we display the pam checkbox?
-        String pamAuthService = Config.get().getString(Config.WEB_PAM_AUTH_SERVICE);
+        String pamAuthService = Config.get().getString(
+                ConfigDefaults.WEB_PAM_AUTH_SERVICE);
         if (pamAuthService != null && pamAuthService.trim().length() > 0) {
             request.setAttribute("displaypam", "true");
             form.set("usepam", new Boolean(targetUser.getUsePamAuthentication()));

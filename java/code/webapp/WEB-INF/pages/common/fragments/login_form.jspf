@@ -1,6 +1,5 @@
     <div class="formrow">
-      <html:errors />
-      <span class="label"><bean:message key="login.jsp.redhatlogin"/></span>
+<span class="label"><bean:message key="login.jsp.redhatlogin"/></span>
       <span class="formfield"><html:text tabindex="2" property="username" size="10" maxlength="64"/></span>
     </div>
 

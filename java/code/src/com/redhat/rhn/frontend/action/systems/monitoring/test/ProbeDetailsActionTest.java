@@ -29,6 +29,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.systems.monitoring.ProbeDetailsAction;
 import com.redhat.rhn.frontend.context.Context;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.manager.monitoring.test.MonitoringManagerTest;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
@@ -143,8 +144,8 @@ public class ProbeDetailsActionTest extends RhnBaseTestCase {
         assertNotNull(ah.getForm().get(ProbeDetailsAction.METRICS));
         
         // Graph and Event log
-        assertNotNull(ah.getRequest().getAttribute("pageList"));
-        DataResult dr = (DataResult) ah.getRequest().getAttribute("pageList");
+        assertNotNull(ah.getRequest().getAttribute(ListHelper.LIST));
+        DataResult dr = (DataResult) ah.getRequest().getAttribute(ListHelper.LIST);
         assertTrue(dr.size() > 0);
         assertTrue(dr.getTotalSize() > 0);
         assertEquals(1, dr.getStart());

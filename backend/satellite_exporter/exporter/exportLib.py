@@ -544,6 +544,7 @@ class PackagesDumper(BaseDumper):
             select
                 p.id,
                 pn.name,
+                p.org_id,
                 pe.evr.version version,
                 pe.evr.release release,
                 pe.evr.epoch epoch,
@@ -592,7 +593,7 @@ class _PackageDumper(BaseRowDumper):
         attrs = ["name", "version", "release", "package_arch",
             "package_group", "rpm_version", "package_size", "payload_size",
             "build_host", "source_rpm", "md5sum", "payload_format",
-            "compat", "cookie"]
+            "compat", "cookie", "org_id"]
         attrdict = {
             'id'            : "rhn-package-%s" % self._row['id'],
             'epoch'         : self._row['epoch'] or "",
@@ -684,6 +685,7 @@ class ShortPackagesDumper(BaseDumper):
                 pe.evr.epoch epoch,
                 pa.label package_arch,
                 p.md5sum,
+                p.org_id,
                 TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
             from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe,
                 rhnPackageArch pa
@@ -700,7 +702,7 @@ class ShortPackagesDumper(BaseDumper):
         attributes = {}
         attrs = [
             "id", "name", "version", "release", "epoch",
-            "package_arch", "md5sum", "package_size",
+            "package_arch", "md5sum", "package_size", "org_id",
         ]
         for attr in attrs:
             attributes[attr.replace('_', '-')] = data[attr]

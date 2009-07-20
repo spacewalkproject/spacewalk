@@ -613,7 +613,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
                                                 kickstartHost);
         
         command.setGuestName("testGuest1");
-        command.setMemoryAllocation(262144L);
+        command.setMemoryAllocation(256L);
         command.setLocalStorageSize(2L);
         command.setVirtualCpus(2L);
         command.setKickstartSession(ksSession);
@@ -637,7 +637,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
         assertNotNull(kad);
         assertEquals(kad, kad2);
 
-        assertEquals("268435456", kad.getMemKb().toString());
+        assertEquals("256", kad.getMemMb().toString());
         assertEquals("2", kad.getVcpus().toString());
         assertEquals("testGuest1", kad.getGuestName());
         assertEquals("2", kad.getDiskGb().toString());

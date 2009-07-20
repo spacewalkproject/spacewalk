@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-OracleDB
-Version: 	  1.28.13
+Version: 	  1.28.14
 Release:      1%{?dist}
 Summary:      Perl modules for NOCpulse Oracle database access
 URL:          https://fedorahosted.org/spacewalk
@@ -7,7 +7,7 @@ Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires: perl(NOCpulse::Debug) perl(NOCpulse::Config) perl(NOCpulse::Utils::XML) perl(NOCpulse::Object)
-BuildRequires: perl(DBD::Oracle) perl(DBI) perl(ExtUtils::MakeMaker)
+BuildRequires: perl(DBI) perl(ExtUtils::MakeMaker)
 Group:        Development/Libraries
 License:      GPLv2
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -47,6 +47,10 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/*
 
 %changelog
+* Mon Jul 20 2009 Devan Goodwin <dgoodwin@redhat.com> 1.28.14-1
+- Dropping unecessary perl-NOCpulse-OracleDB build requires.
+  (dgoodwin@redhat.com)
+
 * Mon May 11 2009 Miroslav Suchý <msuchy@redhat.com> 1.28.13-1
 - 499568 - allow LoadOneFrom to accept binded params
 

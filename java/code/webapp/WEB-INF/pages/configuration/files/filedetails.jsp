@@ -10,9 +10,6 @@
 <head>
 </head>
 <body>
-
-<html:errors />
-
 <%@ include file="/WEB-INF/pages/common/fragments/configuration/files/header.jspf"%>
 
 <html:form action="/configuration/file/FileDetails.do?cfid=${file.id}&amp;crid=${revision.id}">

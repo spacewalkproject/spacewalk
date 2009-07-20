@@ -8,8 +8,6 @@
 
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
-
-<html:errors />
 <h2><bean:message key="create.jsp.createstoredprofile"/></h2>
 
 <div class="page-summary">
