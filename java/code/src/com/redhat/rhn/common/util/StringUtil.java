@@ -747,7 +747,7 @@ public class StringUtil {
      * @param seperator the seperator to seperate the pairs with
      * @return the formatted string
      */
-    public static String convertMapToString(Map<String, String> map, String seperator) {
+    public static String convertMapToString(Map<String, Object> map, String seperator) {
 
         StringBuilder string = new StringBuilder();
         for (Object key : map.keySet()) {
