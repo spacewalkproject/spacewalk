@@ -65,6 +65,7 @@ import sync_handlers
 
 _DEFAULT_SYSTEMID_PATH = '/etc/sysconfig/rhn/systemid'
 _DEFAULT_RHN_ENTITLEMENT_CERT_BACKUP = '/etc/sysconfig/rhn/rhn-entitlement-cert.xml'
+DEFAULT_ORG = 1
 
 # the option object is used everywhere in this module... make it a
 # global so we don't have to pass it to everyone.
@@ -874,10 +875,9 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 for t in nvrea_keys:
                     nevra[t] = package[t] or ""
 
-                if OPTIONS.orgid is not None and \
-                    package['org_id'] is not None:
-                    nevra['org_id'] = OPTIONS.orgid
-                    package['org_id'] = OPTIONS.orgid
+                if package['org_id'] is not None:
+                    nevra['org_id'] = OPTIONS.orgid or DEFAULT_ORG
+                    package['org_id'] = OPTIONS.orgid  or DEFAULT_ORG
                 else:
                     nevra['org_id'] = package['org_id']
 
@@ -959,8 +959,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         md5sum = package['md5sum']
         package_size = package['package_size']
 
-        if OPTIONS.orgid is not None:
-            orgid = OPTIONS.orgid
+        if package['org_id'] is not None:
+            orgid = OPTIONS.orgid or DEFAULT_ORG
         else:
             orgid = package['org_id']
 
@@ -1443,9 +1443,9 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         for ks, timestamp in missing_kickstarts:
             ksobj = coll.get_item(ks, timestamp=timestamp)
             assert ksobj is not None
-            if OPTIONS.orgid is not None and \
-                ksobj['org_id'] is not None:
-                ksobj['org_id'] = OPTIONS.orgid
+
+            if ksobj['org_id'] is not None:
+                ksobj['org_id'] = OPTIONS.orgid or DEFAULT_ORG
             batch.append(ksobj)
 
         importer = sync_handlers.import_kickstarts(batch)
@@ -1692,6 +1692,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                     uq_packages[pid] = package
 
         uq_pkg_data = uq_packages.values()
+        # check to make sure the orgs exported are valid
+        _validate_package_org(uq_pkg_data)
         try:
             if OPTIONS.mount_point:
                 importer = sync_handlers.link_channel_packages(uq_pkg_data, strict=0)
@@ -1781,9 +1783,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
         erratum['packages'] = packages
 
-        if OPTIONS.orgid is not None and \
-            erratum['org_id'] is not None:
-            erratum['org_id'] = OPTIONS.orgid
+        if erratum['org_id'] is not None:
+            erratum['org_id'] = OPTIONS.orgid or DEFAULT_ORG
 
         # Now fix channels
         # Associate errata to only channels that are being synced
@@ -2030,9 +2031,9 @@ def _validate_package_org(batch):
         elif orgid:
             # if options.orgid specified use it
             pkg['org_id'] = orgid
-        elif pkg['org_id'] not in orgs:
+        else:
             # org from server is not valid
-            pkg['org_id'] = 1
+            pkg['org_id'] = DEFAULT_ORG
 
 def _getImportedChannels():
     "Retrieves the channels already imported in the satellite's database"
