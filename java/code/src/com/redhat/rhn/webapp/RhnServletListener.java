@@ -16,6 +16,7 @@ package com.redhat.rhn.webapp;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.messaging.MessageQueue;
+import com.redhat.rhn.manager.satellite.UpgradeCommand;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -109,6 +110,17 @@ public class RhnServletListener implements ServletContextListener {
         
         startHibernate();
         logStart("Hibernate");
+        
+        log.debug("Starting upgrade check");
+        executeUpgradeStep();
+    }
+
+    private void executeUpgradeStep() {
+        log.debug("calling UpgradeCommand.");
+        UpgradeCommand cmd = new UpgradeCommand();
+        cmd.store();
+        log.debug("UpgradeCommand done.");
+        
     }
 
     /** {@inheritDoc} */
