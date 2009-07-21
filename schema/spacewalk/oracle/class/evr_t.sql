@@ -61,21 +61,3 @@ end;
 /
 show errors
 
-create or replace function evr_t_as_vre( a evr_t )
-  return varchar2
-is
-begin
-        return a.as_vre;
-end;
-/
-show errors
-
-create or replace function evr_t_as_vre_simple( a evr_t )
-  return VARCHAR2
-is
-begin
-    return a.as_vre_simple;
-end;
-/
-show errors
-
