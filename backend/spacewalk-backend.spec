@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.20
+Version: 0.6.21
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -568,6 +568,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Jul 21 2009 John Matthews <jmatthew@redhat.com> 0.6.21-1
+- 512936 - Changing the custom channel rule to always defalt to org 1 for
+  custom channels unless --org option is used. This will avoid the confusion of
+  putting the channel is some random org on slaves. (pkilambi@redhat.com)
+
 * Tue Jul 21 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.20-1
 - 512960 - check for the proper attr name on rpm for header reading
   (jbowes@redhat.com)
