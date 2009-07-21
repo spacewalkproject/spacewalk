@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.32
+Version: 0.6.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -250,6 +250,38 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Tue Jul 21 2009 John Matthews <jmatthew@redhat.com> 0.6.33-1
+- 512679 - Fix to guess a sensible default virt path for Xen/KVM virt type
+  (paji@redhat.com)
+- 510785 - Removed the 'valid' column from the ks profiles list
+  (paji@redhat.com)
+- 512396 - Cobbler's KS meta can store ints while our code was expecting them
+  to be all  strings (paji@redhat.com)
+- Fixed unit tests (paji@redhat.com)
+- 510785 - Handled an edge case where there are NO valid trees available in KS
+  raw mode.. (paji@redhat.com)
+- 510785 - Major commit to deal with KS/Distro upgrade scenarios
+  (paji@redhat.com)
+- 509409 - rewrote package file naming when pushed from proxy
+  (shughes@redhat.com)
+- 510785 - modifying query to now show profiles on provisioning schedule pages
+  if the profiles cobbler id is null (jsherril@redhat.com)
+- 512224 - improving handling of invalid network interfaces when adding them to
+  cobbler (jsherril@redhat.com)
+- 510785 - updating cobbler sync tasks to ignore kickstarts and trees when the
+  tree is not able to be synced to cobbler (jsherril@redhat.com)
+- 511963 - fixing issue where changing distro  from non-para virt to paravirt
+  would not update cobbler objects correctly (or vice-versa)
+  (jsherril@redhat.com)
+- 510785 - Initial stab on the Invalid KS Distro Base Path issue.
+  (paji@redhat.com)
+- 508331 - sha256 checksum support for yum repo generation stuff through
+  taskomatic. (pkilambi@redhat.com)
+- 510329 - Fix SSM package operations UI timeout. (dgoodwin@redhat.com)
+- 509589 - fix for org counts (shughes@redhat.com)
+- 510299 - Big commit to get static networking to work (paji@redhat.com)
+- 509409 - correct package display for rhn_package_manager (shughes@redhat.com)
+
 * Thu Jul 09 2009 John Matthews <jmatthew@redhat.com> 0.6.32-1
 - 510122 -  ErrataSearch now filters results so it won't display errata from a
   non-sharing Org (jmatthew@redhat.com)
