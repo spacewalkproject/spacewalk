@@ -33,4 +33,13 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             and task_data = :data and earliest = :earliest]]>
 	</query>
 
+    <sql-query name="Task.lookupByNameLike">
+      <![CDATA[SELECT {t.*}
+          FROM rhnTaskQueue {t}
+             WHERE t.task_name like :namelike                
+        ]]>
+    <return alias="t" class="com.redhat.rhn.domain.task.Task" />
+    </sql-query>
+	
+
 </hibernate-mapping>

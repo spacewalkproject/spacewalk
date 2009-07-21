@@ -25,12 +25,12 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.frontend.dto.ErrataCacheDto;
+import com.redhat.rhn.manager.BaseTransactionCommand;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,7 +43,7 @@ import java.util.Map;
  * UpdateErrataCacheCommand
  * @version $Rev$
  */
-public class UpdateErrataCacheCommand {
+public class UpdateErrataCacheCommand extends BaseTransactionCommand {
     private static Logger log = Logger
             .getLogger(UpdateErrataCacheCommand.class);
     
@@ -51,6 +51,7 @@ public class UpdateErrataCacheCommand {
      * Default constructor
      */
     public UpdateErrataCacheCommand() {
+        super(log);
     }
     
     /**
@@ -279,42 +280,6 @@ public class UpdateErrataCacheCommand {
         }
         return retval;
         
-    }
-
-    protected void handleTransaction() {
-        boolean committed = false;
-
-        try {
-            HibernateFactory.commitTransaction();
-            committed = true;
-
-            if (log.isDebugEnabled()) {
-                log.debug("Transaction committed");
-            }
-        }
-        catch (HibernateException e) {
-            log.error("Rolling back transaction", e);
-        }
-        finally {
-            try {
-                if (!committed) {
-                    try {
-                        if (log.isDebugEnabled()) {
-                            log.debug("Rolling back transaction");
-                        }
-                        HibernateFactory.rollbackTransaction();
-                    }
-                    catch (HibernateException e) {
-                        final String msg = "Additional error during rollback";
-                        log.warn(msg, e);
-                    }
-                }
-            } 
-            finally {
-                // cleanup the session
-                HibernateFactory.closeSession();
-            }
-        }
     }
     
     private void processServer(Long serverId, Org org) {
