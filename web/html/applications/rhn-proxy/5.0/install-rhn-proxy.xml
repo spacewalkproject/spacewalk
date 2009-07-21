@@ -552,6 +552,11 @@ Would you like to enable Monitoring Proxy functionality on this system?
 			    template="httpd/rhn_proxy.conf" mode="640" username="root" groupname="apache"/>
     </activity>
 
+    <activity description="Generate /etc/httpd/conf/cobbler-proxy.conf config file">
+      <generate-config-file target-config-channel="rhn_proxy_config_${system.id}" path="/etc/httpd/conf/cobbler-proxy.conf"
+                           template="httpd/cobbler-proxy.conf" mode="640" username="root" groupname="apache"/>
+    </activity>
+
     <activity description="Generate /etc/jabberd/c2s.xml config file"
 	      acl="global_config(ssl_available);session_data_true(enable_osad)">
       <generate-config-file target-config-channel="rhn_proxy_config_${system.id}" path="/etc/jabberd/c2s.xml"
@@ -606,6 +611,7 @@ fi
         <configfile>/etc/squid/squid.conf</configfile>
         <configfile>/etc/httpd/conf/httpd.conf</configfile>
         <configfile>/etc/httpd/conf/rhn_proxy.conf</configfile>
+        <configfile>/etc/httpd/conf/cobbler-proxy.conf</configfile>
         <configfile acl="global_config(ssl_available) or not global_config(satellite)">/etc/httpd/conf/ssl.crt/server.crt</configfile>
         <configfile acl="global_config(ssl_available) or not global_config(satellite)">/etc/httpd/conf/ssl.csr/server.csr</configfile>
         <configfile acl="global_config(ssl_available) or not global_config(satellite)">/etc/httpd/conf/ssl.key/server.key</configfile>
