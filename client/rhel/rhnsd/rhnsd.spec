@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: %{name}-%{version}.tar.gz
 Url: http://rhn.redhat.com
 Name: rhnsd
-Version: 4.5.10
+Version: 4.5.11
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -58,6 +58,9 @@ rm -fr $RPM_BUILD_ROOT
 %{_mandir}/man8/rhnsd.8*
 
 %changelog
+* Tue Jul 21 2009 John Matthews <jmatthew@redhat.com> 4.5.11-1
+- #503719 - fix for postun scriptlet error (pkilambi@redhat.com)
+
 * Tue Jul  7 2009 Pradeep Kilambi <pkilambi@redhat.com>
 - Resolves: #503719 - fix for postun scriptlet error
 
