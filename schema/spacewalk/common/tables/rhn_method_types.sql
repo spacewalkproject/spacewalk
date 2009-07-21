@@ -16,13 +16,13 @@
 
 CREATE TABLE rhn_method_types
 (
-    recid                   NUMBER NOT NULL
+    recid                   NUMBER(12) NOT NULL
                                 CONSTRAINT rhn_mthtp_recid_pk PRIMARY KEY
                                 USING INDEX TABLESPACE [[64k_tbs]]
                                 CONSTRAINT rhn_mthtp_recid_ck
                                     CHECK (recid > 0),
     method_type_name        VARCHAR2(20),
-    notification_format_id  NUMBER
+    notification_format_id  NUMBER(12)
                                 DEFAULT (4) NOT NULL
 )
 ENABLE ROW MOVEMENT

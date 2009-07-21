@@ -16,25 +16,25 @@
 
 CREATE TABLE rhn_snmp_alert
 (
-    recid              NUMBER NOT NULL
+    recid              NUMBER(12) NOT NULL
                            CONSTRAINT rhn_snmpa_recid_pk PRIMARY KEY
                            USING INDEX TABLESPACE [[2m_tbs]],
-    sender_cluster_id  NUMBER NOT NULL,
+    sender_cluster_id  NUMBER(12) NOT NULL,
     dest_ip            VARCHAR2(255) NOT NULL,
-    dest_port          NUMBER NOT NULL,
+    dest_port          NUMBER(5) NOT NULL,
     date_generated     DATE,
     date_submitted     DATE,
     command_name       VARCHAR2(255),
-    notif_type         NUMBER,
+    notif_type         NUMBER(5),
     op_center          VARCHAR2(255),
     notif_url          VARCHAR2(255),
     os_name            VARCHAR2(128),
     message            VARCHAR2(2000),
-    probe_id           NUMBER,
+    probe_id           NUMBER(12),
     host_ip            VARCHAR2(255),
-    severity           NUMBER,
-    command_id         NUMBER,
-    probe_class        NUMBER,
+    severity           NUMBER(5),
+    command_id         NUMBER(12),
+    probe_class        NUMBER(5),
     host_name          VARCHAR2(255),
     support_center     VARCHAR2(255)
 )

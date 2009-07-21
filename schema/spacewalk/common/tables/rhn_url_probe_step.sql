@@ -16,11 +16,11 @@
 
 CREATE TABLE rhn_url_probe_step
 (
-    recid              NUMBER NOT NULL
+    recid              NUMBER(12) NOT NULL
                            CONSTRAINT rhn_urlps_recid_pk PRIMARY KEY
                            USING INDEX TABLESPACE [[2m_tbs]],
-    url_probe_id       NUMBER NOT NULL,
-    step_number        NUMBER NOT NULL,
+    url_probe_id       NUMBER(12) NOT NULL,
+    step_number        NUMBER(3) NOT NULL,
     description        VARCHAR2(255),
     url                VARCHAR2(2000) NOT NULL,
     protocol_method    VARCHAR2(12) NOT NULL,
@@ -36,40 +36,40 @@ CREATE TABLE rhn_url_probe_step
     vpattern           VARCHAR2(255),
     post_content       VARCHAR2(4000),
     post_content_type  VARCHAR2(255),
-    connect_warn       NUMBER
+    connect_warn       NUMBER(10,3)
                            DEFAULT (0) NOT NULL,
-    connect_crit       NUMBER
+    connect_crit       NUMBER(10,3)
                            DEFAULT (0) NOT NULL,
-    latency_warn       NUMBER
+    latency_warn       NUMBER(10,3)
                            DEFAULT (0) NOT NULL,
-    latency_crit       NUMBER
+    latency_crit       NUMBER(10,3)
                            DEFAULT (0) NOT NULL,
-    dns_warn           NUMBER
+    dns_warn           NUMBER(10,3)
                            DEFAULT (0) NOT NULL,
-    dns_crit           NUMBER
+    dns_crit           NUMBER(10,3)
                            DEFAULT (0) NOT NULL,
-    total_warn         NUMBER
+    total_warn         NUMBER(10,3)
                            DEFAULT (0) NOT NULL,
-    total_crit         NUMBER
+    total_crit         NUMBER(10,3)
                            DEFAULT (0) NOT NULL,
-    trans_warn         NUMBER
+    trans_warn         NUMBER(12)
                            DEFAULT (0) NOT NULL,
-    trans_crit         NUMBER
+    trans_crit         NUMBER(12)
                            DEFAULT (0) NOT NULL,
-    through_warn       NUMBER
+    through_warn       NUMBER(12)
                            DEFAULT (0) NOT NULL,
-    through_crit       NUMBER
+    through_crit       NUMBER(12)
                            DEFAULT (0) NOT NULL,
     cookie_key         VARCHAR2(255),
     cookie_value       VARCHAR2(255),
     cookie_path        VARCHAR2(255),
     cookie_domain      VARCHAR2(255),
-    cookie_port        NUMBER,
+    cookie_port        NUMBER(5),
     cookie_secure      CHAR(1)
                            DEFAULT (0) NOT NULL
                            CONSTRAINT rhn_urlps_cookie_sec_ck
                                CHECK (cookie_secure in ( '0' , '1' )),
-    cookie_maxage      NUMBER
+    cookie_maxage      NUMBER(9)
 )
 ENABLE ROW MOVEMENT
 ;

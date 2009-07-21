@@ -16,11 +16,11 @@
 
 CREATE TABLE rhn_command_target
 (
-    recid        NUMBER NOT NULL,
+    recid        NUMBER(12) NOT NULL,
     target_type  VARCHAR2(10) NOT NULL
                      CONSTRAINT cmdtg_target_type_ck
                          CHECK (target_type in ( 'cluster' , 'node' )),
-    customer_id  NUMBER NOT NULL
+    customer_id  NUMBER(12) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

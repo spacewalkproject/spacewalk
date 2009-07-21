@@ -16,24 +16,24 @@
 
 CREATE TABLE rhn_satellite_state
 (
-    satellite_id          NUMBER NOT NULL
+    satellite_id          NUMBER(12) NOT NULL
                               CONSTRAINT rhn_satst_sat_id_pk PRIMARY KEY
                               USING INDEX TABLESPACE [[2m_tbs]],
     last_check            DATE,
-    probe_count           NUMBER,
-    pct_ok                NUMBER,
-    pct_warning           NUMBER,
-    pct_critical          NUMBER,
-    pct_unknown           NUMBER,
-    pct_pending           NUMBER,
-    recent_state_changes  NUMBER,
-    imminent_probes       NUMBER,
-    max_exec_time         NUMBER,
-    min_exec_time         NUMBER,
-    avg_exec_time         NUMBER,
-    max_latency           NUMBER,
-    min_latency           NUMBER,
-    avg_latency           NUMBER
+    probe_count           NUMBER(10),
+    pct_ok                NUMBER(10,2),
+    pct_warning           NUMBER(10,2),
+    pct_critical          NUMBER(10,2),
+    pct_unknown           NUMBER(10,2),
+    pct_pending           NUMBER(10,2),
+    recent_state_changes  NUMBER(10),
+    imminent_probes       NUMBER(10),
+    max_exec_time         NUMBER(10,2),
+    min_exec_time         NUMBER(10,2),
+    avg_exec_time         NUMBER(10,2),
+    max_latency           NUMBER(10,2),
+    min_latency           NUMBER(10,2),
+    avg_latency           NUMBER(10,2)
 )
 ENABLE ROW MOVEMENT
 ;

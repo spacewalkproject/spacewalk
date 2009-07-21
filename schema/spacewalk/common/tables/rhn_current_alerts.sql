@@ -16,27 +16,27 @@
 
 CREATE TABLE rhn_current_alerts
 (
-    recid               NUMBER NOT NULL
+    recid               NUMBER(12) NOT NULL
                             CONSTRAINT rhn_alrts_recid_pk PRIMARY KEY
                             USING INDEX TABLESPACE [[128m_tbs]],
     date_submitted      DATE,
     last_server_change  DATE,
     date_completed      DATE
                             DEFAULT (to_date('31-12-9999', 'dd-mm-yyyy')),
-    original_server     NUMBER,
-    current_server      NUMBER,
+    original_server     NUMBER(12),
+    current_server      NUMBER(12),
     tel_args            VARCHAR2(2200),
     message             VARCHAR2(2000),
     ticket_id           VARCHAR2(80),
     destination_name    VARCHAR2(50),
-    escalation_level    NUMBER
+    escalation_level    NUMBER(2)
                             DEFAULT (0),
-    host_probe_id       NUMBER,
+    host_probe_id       NUMBER(12),
     host_state          VARCHAR2(255),
-    service_probe_id    NUMBER,
+    service_probe_id    NUMBER(12),
     service_state       VARCHAR2(255),
-    customer_id         NUMBER NOT NULL,
-    netsaint_id         NUMBER,
+    customer_id         NUMBER(12) NOT NULL,
+    netsaint_id         NUMBER(12),
     probe_type          VARCHAR2(20)
                             DEFAULT ('none'),
     in_progress         CHAR(1)

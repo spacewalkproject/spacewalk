@@ -16,7 +16,7 @@
 
 CREATE TABLE rhn_os
 (
-    recid    NUMBER NOT NULL
+    recid    NUMBER(12) NOT NULL
                  CONSTRAINT rhn_os000_recid_pk PRIMARY KEY
                  USING INDEX TABLESPACE [[64k_tbs]],
     os_name  VARCHAR2(128)

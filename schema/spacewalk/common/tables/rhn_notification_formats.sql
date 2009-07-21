@@ -16,15 +16,15 @@
 
 CREATE TABLE rhn_notification_formats
 (
-    recid               NUMBER NOT NULL
+    recid               NUMBER(12) NOT NULL
                             CONSTRAINT rhn_ntfmt_recid_pk PRIMARY KEY
                             USING INDEX TABLESPACE [[64k_tbs]],
-    customer_id         NUMBER,
+    customer_id         NUMBER(12),
     description         VARCHAR2(255) NOT NULL,
     subject_format      VARCHAR2(4000),
     body_format         VARCHAR2(4000) NOT NULL,
-    max_subject_length  NUMBER,
-    max_body_length     NUMBER
+    max_subject_length  NUMBER(12),
+    max_body_length     NUMBER(12)
                             DEFAULT (1920) NOT NULL,
     reply_format        VARCHAR2(4000)
 )

@@ -16,7 +16,7 @@
 
 CREATE TABLE rhn_command_parameter
 (
-    command_id             NUMBER NOT NULL,
+    command_id             NUMBER(12) NOT NULL,
     param_name             VARCHAR2(40) NOT NULL,
     param_type             VARCHAR2(10)
                                DEFAULT ('config') NOT NULL,

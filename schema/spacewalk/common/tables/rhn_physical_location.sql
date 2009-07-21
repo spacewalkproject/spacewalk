@@ -16,7 +16,7 @@
 
 CREATE TABLE rhn_physical_location
 (
-    recid             NUMBER NOT NULL
+    recid             NUMBER(12) NOT NULL
                           CONSTRAINT rhn_phslc_recid_pk PRIMARY KEY
                           USING INDEX TABLESPACE [[2m_tbs]],
     location_name     VARCHAR2(40),
@@ -30,7 +30,7 @@ CREATE TABLE rhn_physical_location
     deleted           CHAR(1),
     last_update_user  VARCHAR2(40),
     last_update_date  DATE,
-    customer_id       NUMBER
+    customer_id       NUMBER(12)
                           DEFAULT (999) NOT NULL
 )
 ENABLE ROW MOVEMENT

@@ -16,8 +16,8 @@
 
 CREATE TABLE rhn_probe_state
 (
-    probe_id    NUMBER NOT NULL,
-    scout_id    NUMBER NOT NULL,
+    probe_id    NUMBER(12) NOT NULL,
+    scout_id    NUMBER(12) NOT NULL,
     state       VARCHAR2(20),
     output      VARCHAR2(4000),
     last_check  DATE

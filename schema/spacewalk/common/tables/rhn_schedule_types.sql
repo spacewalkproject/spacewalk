@@ -16,7 +16,7 @@
 
 CREATE TABLE rhn_schedule_types
 (
-    recid        NUMBER NOT NULL
+    recid        NUMBER(12) NOT NULL
                      CONSTRAINT rhn_schtp_recid_pk PRIMARY KEY
                      USING INDEX TABLESPACE [[64k_tbs]]
                      CONSTRAINT rhn_schtp_recid_ck

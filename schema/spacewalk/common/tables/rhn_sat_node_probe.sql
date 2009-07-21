@@ -16,14 +16,14 @@
 
 CREATE TABLE rhn_sat_node_probe
 (
-    probe_id     NUMBER NOT NULL
+    probe_id     NUMBER(12) NOT NULL
                      CONSTRAINT rhn_sndpb_probe_id_pk PRIMARY KEY
                      USING INDEX TABLESPACE [[2m_tbs]],
     probe_type   VARCHAR2(12)
                      DEFAULT ('satnode') NOT NULL
                      CONSTRAINT rhn_sndpb_probe_type_ck
                          CHECK (probe_type = 'satnode'),
-    sat_node_id  NUMBER NOT NULL
+    sat_node_id  NUMBER(12) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

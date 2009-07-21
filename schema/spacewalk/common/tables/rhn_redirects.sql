@@ -16,11 +16,11 @@
 
 CREATE TABLE rhn_redirects
 (
-    recid                NUMBER NOT NULL
+    recid                NUMBER(12) NOT NULL
                              CONSTRAINT rhn_rdrct_recid_pk PRIMARY KEY
                              USING INDEX TABLESPACE [[8m_tbs]],
-    customer_id          NUMBER,
-    contact_id           NUMBER,
+    customer_id          NUMBER(12),
+    contact_id           NUMBER(12),
     redirect_type        VARCHAR2(20) NOT NULL,
     description          VARCHAR2(25),
     reason               VARCHAR2(2000),
@@ -28,17 +28,17 @@ CREATE TABLE rhn_redirects
     last_update_user     VARCHAR2(40),
     last_update_date     DATE,
     start_date           DATE NOT NULL,
-    recurring            NUMBER
+    recurring            NUMBER(12)
                              DEFAULT (0) NOT NULL
                              CONSTRAINT RHN_RDRCT_RECUR_VALID
                                  CHECK (recurring in ( 0 , 1 )),
-    recurring_frequency  NUMBER
+    recurring_frequency  NUMBER(12)
                              DEFAULT (2)
                              CONSTRAINT RHN_RDRCT_RECUR_FREQ_VALID
                                  CHECK (recurring_frequency in ( 2 , 3 , 6 )),
-    recurring_duration   NUMBER
+    recurring_duration   NUMBER(12)
                              DEFAULT (0),
-    recurring_dur_type   NUMBER
+    recurring_dur_type   NUMBER(12)
                              DEFAULT (12)
                              CONSTRAINT rhn_rdrct_rec_dtype_valid
                                  CHECK (recurring_dur_type in ( 12 , 11 , 5 , 3 , 1 ))

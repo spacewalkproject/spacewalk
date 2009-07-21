@@ -16,13 +16,13 @@
 
 CREATE TABLE rhn_command_queue_instances_bk
 (
-    recid             NUMBER NOT NULL,
-    command_id        NUMBER NOT NULL,
+    recid             NUMBER(12) NOT NULL,
+    command_id        NUMBER(12) NOT NULL,
     notes             VARCHAR2(2000),
     date_submitted    DATE NOT NULL,
     expiration_date   DATE NOT NULL,
     notify_email      VARCHAR2(50),
-    timeout           NUMBER,
+    timeout           NUMBER(5),
     last_update_user  VARCHAR2(40),
     last_update_date  DATE
 )

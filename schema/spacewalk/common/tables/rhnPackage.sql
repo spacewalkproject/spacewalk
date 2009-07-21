@@ -48,7 +48,7 @@ CREATE TABLE rhnPackage
     md5sum           VARCHAR2(64) NOT NULL,
     vendor           VARCHAR2(64) NOT NULL,
     payload_format   VARCHAR2(32),
-    compat           NUMBER
+    compat           NUMBER(1)
                          DEFAULT (0)
                          CONSTRAINT rhn_package_compat_check
                              CHECK (compat in ( 1 , 0 )),

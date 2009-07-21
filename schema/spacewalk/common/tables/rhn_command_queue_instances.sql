@@ -16,15 +16,15 @@
 
 CREATE TABLE rhn_command_queue_instances
 (
-    recid             NUMBER NOT NULL
+    recid             NUMBER(12) NOT NULL
                           CONSTRAINT rhn_cqins_recid_pk PRIMARY KEY
                           USING INDEX TABLESPACE [[4m_tbs]],
-    command_id        NUMBER NOT NULL,
+    command_id        NUMBER(12) NOT NULL,
     notes             VARCHAR2(2000),
     date_submitted    DATE NOT NULL,
     expiration_date   DATE NOT NULL,
     notify_email      VARCHAR2(50),
-    timeout           NUMBER,
+    timeout           NUMBER(5),
     last_update_user  VARCHAR2(40),
     last_update_date  DATE
 )

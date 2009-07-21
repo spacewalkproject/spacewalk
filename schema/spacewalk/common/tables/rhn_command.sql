@@ -16,7 +16,7 @@
 
 CREATE TABLE rhn_command
 (
-    recid                NUMBER NOT NULL
+    recid                NUMBER(12) NOT NULL
                              CONSTRAINT rhn_cmmnd_recid_pk PRIMARY KEY
                              USING INDEX TABLESPACE [[2m_tbs]],
     name                 VARCHAR2(40) NOT NULL,

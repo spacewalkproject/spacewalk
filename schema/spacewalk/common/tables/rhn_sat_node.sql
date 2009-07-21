@@ -16,7 +16,7 @@
 
 CREATE TABLE rhn_sat_node
 (
-    recid                  NUMBER NOT NULL
+    recid                  NUMBER(12) NOT NULL
                                CONSTRAINT rhn_satnd_recid_pk PRIMARY KEY
                                USING INDEX TABLESPACE [[2m_tbs]],
     server_id              NUMBER
@@ -29,14 +29,14 @@ CREATE TABLE rhn_sat_node
     last_update_user       VARCHAR2(40),
     last_update_date       DATE,
     mac_address            VARCHAR2(17) NOT NULL,
-    max_concurrent_checks  NUMBER,
-    sat_cluster_id         NUMBER NOT NULL,
+    max_concurrent_checks  NUMBER(4),
+    sat_cluster_id         NUMBER(12) NOT NULL,
     ip                     VARCHAR2(15),
-    sched_log_level        NUMBER
+    sched_log_level        NUMBER(4)
                                DEFAULT (0) NOT NULL,
-    sput_log_level         NUMBER
+    sput_log_level         NUMBER(4)
                                DEFAULT (0) NOT NULL,
-    dq_log_level           NUMBER
+    dq_log_level           NUMBER(4)
                                DEFAULT (0) NOT NULL,
     scout_shared_key       VARCHAR2(64) NOT NULL
 )

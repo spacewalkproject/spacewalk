@@ -16,18 +16,18 @@
 
 CREATE TABLE rhn_sat_cluster
 (
-    recid                 NUMBER NOT NULL
+    recid                 NUMBER(12) NOT NULL
                               CONSTRAINT rhn_satcl_recid_pk PRIMARY KEY
                               USING INDEX TABLESPACE [[2m_tbs]],
     target_type           VARCHAR2(10)
                               DEFAULT ('cluster') NOT NULL
                               CONSTRAINT rhn_satcl_target_type_ck
                                   CHECK (target_type in ( 'cluster' )),
-    customer_id           NUMBER NOT NULL,
+    customer_id           NUMBER(12) NOT NULL,
     description           VARCHAR2(255) NOT NULL,
     last_update_user      VARCHAR2(40),
     last_update_date      DATE,
-    physical_location_id  NUMBER NOT NULL,
+    physical_location_id  NUMBER(12) NOT NULL,
     public_key            VARCHAR2(2000),
     vip                   VARCHAR2(15),
     deployed              CHAR(1)

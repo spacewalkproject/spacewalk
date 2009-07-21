@@ -16,10 +16,10 @@
 
 CREATE TABLE rhn_schedule_days_norm
 (
-    schedule_id  NUMBER,
-    ord          NUMBER,
-    start_int    NUMBER,
-    end_int      NUMBER
+    schedule_id  NUMBER(12),
+    ord          NUMBER(3),
+    start_int    NUMBER(12),
+    end_int      NUMBER(12)
 )
 ENABLE ROW MOVEMENT
 ;

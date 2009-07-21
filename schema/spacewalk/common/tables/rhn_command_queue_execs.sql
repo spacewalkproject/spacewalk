@@ -16,12 +16,12 @@
 
 CREATE TABLE rhn_command_queue_execs
 (
-    instance_id       NUMBER NOT NULL,
-    netsaint_id       NUMBER NOT NULL,
+    instance_id       NUMBER(12) NOT NULL,
+    netsaint_id       NUMBER(12) NOT NULL,
     date_accepted     DATE,
     date_executed     DATE,
-    exit_status       NUMBER,
-    execution_time    NUMBER,
+    exit_status       NUMBER(5),
+    execution_time    NUMBER(10,6),
     stdout            VARCHAR2(4000),
     stderr            VARCHAR2(4000),
     last_update_date  DATE,

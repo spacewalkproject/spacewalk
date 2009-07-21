@@ -16,7 +16,7 @@
 
 CREATE TABLE rhn_strategies
 (
-    recid             NUMBER NOT NULL
+    recid             NUMBER(12) NOT NULL
                           CONSTRAINT rhn_strat_recid_pk PRIMARY KEY
                           USING INDEX TABLESPACE [[64k_tbs]]
                           CONSTRAINT rhn_strat_recid_ck

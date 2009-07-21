@@ -16,10 +16,10 @@
 
 CREATE TABLE rhn_check_suites
 (
-    recid             NUMBER NOT NULL
+    recid             NUMBER(12) NOT NULL
                           CONSTRAINT rhn_cksut_recid_pk PRIMARY KEY
                           USING INDEX TABLESPACE [[2m_tbs]],
-    customer_id       NUMBER NOT NULL,
+    customer_id       NUMBER(12) NOT NULL,
     suite_name        VARCHAR2(40) NOT NULL,
     description       VARCHAR2(255),
     last_update_user  VARCHAR2(40) NOT NULL,

@@ -16,17 +16,17 @@
 
 CREATE TABLE rhn_schedules
 (
-    recid             NUMBER NOT NULL
+    recid             NUMBER(12) NOT NULL
                           CONSTRAINT rhn_sched_recid_pk PRIMARY KEY
                           USING INDEX TABLESPACE [[2m_tbs]]
                           CONSTRAINT rhn_sched_recid_ck
                               CHECK (recid > 0),
-    schedule_type_id  NUMBER NOT NULL,
+    schedule_type_id  NUMBER(12) NOT NULL,
     description       VARCHAR2(40)
                           DEFAULT ('unknown') NOT NULL,
     last_update_user  VARCHAR2(40),
     last_update_date  DATE,
-    customer_id       NUMBER
+    customer_id       NUMBER(12)
 )
 ENABLE ROW MOVEMENT
 ;

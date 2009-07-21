@@ -16,7 +16,7 @@
 
 CREATE TABLE rhn_redirect_email_targets
 (
-    redirect_id    NUMBER NOT NULL,
+    redirect_id    NUMBER(12) NOT NULL,
     email_address  VARCHAR2(255) NOT NULL
 )
 ENABLE ROW MOVEMENT

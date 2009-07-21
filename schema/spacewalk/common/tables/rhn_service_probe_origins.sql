@@ -16,8 +16,8 @@
 
 CREATE TABLE rhn_service_probe_origins
 (
-    service_probe_id  NUMBER NOT NULL,
-    origin_probe_id   NUMBER,
+    service_probe_id  NUMBER(12) NOT NULL,
+    origin_probe_id   NUMBER(12),
     decoupled         CHAR(1)
                           DEFAULT ('0') NOT NULL
 )

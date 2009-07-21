@@ -16,7 +16,7 @@
 
 CREATE TABLE rhn_pager_types
 (
-    recid            NUMBER NOT NULL
+    recid            NUMBER(12) NOT NULL
                          CONSTRAINT rhn_pgrtp_recid_pk PRIMARY KEY
                          USING INDEX TABLESPACE [[2m_tbs]]
                          CONSTRAINT rhn_pgrtp_recid_ck

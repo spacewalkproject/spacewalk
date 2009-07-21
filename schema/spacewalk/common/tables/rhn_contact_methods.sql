@@ -16,19 +16,19 @@
 
 CREATE TABLE rhn_contact_methods
 (
-    recid                      NUMBER NOT NULL
+    recid                      NUMBER(12) NOT NULL
                                    CONSTRAINT rhn_cmeth_recid_pk PRIMARY KEY
                                    USING INDEX TABLESPACE [[2m_tbs]]
                                    CONSTRAINT rhn_cmeth_recid_notzero
                                        CHECK (recid > 0),
     method_name                VARCHAR2(20),
-    contact_id                 NUMBER NOT NULL,
-    schedule_id                NUMBER,
-    method_type_id             NUMBER NOT NULL,
-    pager_type_id              NUMBER,
+    contact_id                 NUMBER(12) NOT NULL,
+    schedule_id                NUMBER(12),
+    method_type_id             NUMBER(12) NOT NULL,
+    pager_type_id              NUMBER(12),
     pager_pin                  VARCHAR2(20),
     pager_email                VARCHAR2(50),
-    pager_max_message_length   NUMBER
+    pager_max_message_length   NUMBER(6)
                                    CONSTRAINT rhn_cmeth_pgr_length_limit
                                        CHECK (pager_max_message_length between 10 and 1920),
     pager_split_long_messages  CHAR(1),
@@ -37,10 +37,10 @@ CREATE TABLE rhn_contact_methods
     last_update_user           VARCHAR2(40),
     last_update_date           DATE,
     snmp_host                  VARCHAR2(255),
-    snmp_port                  NUMBER,
-    notification_format_id     NUMBER
+    snmp_port                  NUMBER(5),
+    notification_format_id     NUMBER(12)
                                    DEFAULT (4) NOT NULL,
-    sender_sat_cluster_id      NUMBER
+    sender_sat_cluster_id      NUMBER(12)
 )
 ENABLE ROW MOVEMENT
 ;

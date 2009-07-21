@@ -16,10 +16,10 @@
 
 CREATE TABLE rhn_current_state_summaries
 (
-    customer_id  NUMBER NOT NULL,
+    customer_id  NUMBER(12)_ NOT NULL,
     template_id  VARCHAR2(10) NOT NULL,
     state        VARCHAR2(20) NOT NULL,
-    state_count  NUMBER,
+    state_count  NUMBER(9),
     last_check   DATE
 )
 ENABLE ROW MOVEMENT

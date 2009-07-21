@@ -16,8 +16,8 @@
 
 CREATE TABLE rhn_host_check_suites
 (
-    host_probe_id  NUMBER NOT NULL,
-    suite_id       NUMBER NOT NULL
+    host_probe_id  NUMBER(12) NOT NULL,
+    suite_id       NUMBER(12) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

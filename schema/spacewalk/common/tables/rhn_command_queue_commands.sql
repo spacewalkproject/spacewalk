@@ -16,7 +16,7 @@
 
 CREATE TABLE rhn_command_queue_commands
 (
-    recid             NUMBER NOT NULL
+    recid             NUMBER(12) NOT NULL
                           CONSTRAINT rhn_cqcmd_recid_pk PRIMARY KEY
                           USING INDEX TABLESPACE [[2m_tbs]],
     description       VARCHAR2(40) NOT NULL,

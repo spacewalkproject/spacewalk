@@ -16,7 +16,7 @@
 
 CREATE TABLE rhn_command_queue_sessions
 (
-    contact_id        NUMBER NOT NULL,
+    contact_id        NUMBER(12) NOT NULL,
     session_id        VARCHAR2(255),
     expiration_date   DATE,
     last_update_user  VARCHAR2(40),

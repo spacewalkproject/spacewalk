@@ -16,14 +16,14 @@
 
 CREATE TABLE rhn_check_suite_probe
 (
-    probe_id        NUMBER NOT NULL
+    probe_id        NUMBER(12) NOT NULL
                         CONSTRAINT rhn_ckspb_probe_id_pk PRIMARY KEY
                         USING INDEX TABLESPACE [[4m_tbs]],
     probe_type      VARCHAR2(12)
                         DEFAULT ('suite') NOT NULL
                         CONSTRAINT rhn_ckspb_probe_type_ck
                             CHECK (probe_type = 'suite'),
-    check_suite_id  NUMBER NOT NULL
+    check_suite_id  NUMBER(12) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

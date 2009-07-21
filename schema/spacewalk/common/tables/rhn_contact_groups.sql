@@ -16,15 +16,15 @@
 
 CREATE TABLE rhn_contact_groups
 (
-    recid                   NUMBER NOT NULL
+    recid                   NUMBER(12) NOT NULL
                                 CONSTRAINT rhn_cntgp_recid_pk PRIMARY KEY
                                 USING INDEX TABLESPACE [[2m_tbs]]
                                 CONSTRAINT rhn_cntgp_recid_notzero
                                     CHECK (recid > 0),
     contact_group_name      VARCHAR2(30) NOT NULL,
-    customer_id             NUMBER NOT NULL,
-    strategy_id             NUMBER NOT NULL,
-    ack_wait                NUMBER NOT NULL
+    customer_id             NUMBER(12) NOT NULL,
+    strategy_id             NUMBER(12) NOT NULL,
+    ack_wait                NUMBER(4) NOT NULL
                                 CONSTRAINT rhn_cntgp_ack_wait_ck
                                     CHECK (ack_wait < 20160),
     rotate_first            CHAR(1) NOT NULL
@@ -32,7 +32,7 @@ CREATE TABLE rhn_contact_groups
                                     CHECK (rotate_first in ( '0' , '1' )),
     last_update_user        VARCHAR2(40) NOT NULL,
     last_update_date        DATE NOT NULL,
-    notification_format_id  NUMBER
+    notification_format_id  NUMBER(12)
                                 DEFAULT (4) NOT NULL
 )
 ENABLE ROW MOVEMENT

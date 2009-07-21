@@ -16,14 +16,14 @@
 
 CREATE TABLE rhn_sat_cluster_probe
 (
-    probe_id        NUMBER NOT NULL
+    probe_id        NUMBER(12) NOT NULL
                         CONSTRAINT rhn_sclpb_probe_id_pk PRIMARY KEY
                         USING INDEX TABLESPACE [[2m_tbs]],
     probe_type      VARCHAR2(12)
                         DEFAULT ('satcluster') NOT NULL
                         CONSTRAINT rhn_sclpb_probe_type_ck
                             CHECK (probe_type = 'satcluster'),
-    sat_cluster_id  NUMBER NOT NULL
+    sat_cluster_id  NUMBER(12) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

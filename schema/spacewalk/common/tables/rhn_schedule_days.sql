@@ -16,13 +16,13 @@
 
 CREATE TABLE rhn_schedule_days
 (
-    recid             NUMBER NOT NULL
+    recid             NUMBER(12) NOT NULL
                           CONSTRAINT rhn_schdy_recid_pk PRIMARY KEY
                           USING INDEX TABLESPACE [[2m_tbs]]
                           CONSTRAINT rhn_schdy_recid_ck
                               CHECK (recid > 0),
-    schedule_id       NUMBER,
-    ord               NUMBER,
+    schedule_id       NUMBER(12),
+    ord               NUMBER(3),
     start_1           DATE,
     end_1             DATE,
     start_2           DATE,

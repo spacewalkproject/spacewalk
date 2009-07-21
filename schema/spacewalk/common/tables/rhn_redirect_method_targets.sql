@@ -16,8 +16,8 @@
 
 CREATE TABLE rhn_redirect_method_targets
 (
-    redirect_id        NUMBER NOT NULL,
-    contact_method_id  NUMBER NOT NULL
+    redirect_id        NUMBER(12) NOT NULL,
+    contact_method_id  NUMBER(12) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

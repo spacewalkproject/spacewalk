@@ -16,15 +16,15 @@
 
 CREATE TABLE rhn_multi_scout_threshold
 (
-    probe_id                        NUMBER NOT NULL
+    probe_id                        NUMBER(12) NOT NULL
                                         CONSTRAINT rhn_msthr_probe_id_pk PRIMARY KEY
                                         USING INDEX TABLESPACE [[2m_tbs]],
     scout_warning_threshold_is_all  CHAR(1)
                                         DEFAULT ('1') NOT NULL,
     scout_crit_threshold_is_all     CHAR(1)
                                         DEFAULT ('1') NOT NULL,
-    scout_warning_threshold         NUMBER,
-    scout_critical_threshold        NUMBER
+    scout_warning_threshold         NUMBER(12),
+    scout_critical_threshold        NUMBER(12)
 )
 ENABLE ROW MOVEMENT
 ;

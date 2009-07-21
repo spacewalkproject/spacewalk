@@ -16,22 +16,22 @@
 
 CREATE TABLE rhn_probe
 (
-    recid                          NUMBER NOT NULL
+    recid                          NUMBER(12) NOT NULL
                                        CONSTRAINT rhn_probe_recid_pk PRIMARY KEY
                                        USING INDEX TABLESPACE [[8m_tbs]],
     probe_type                     VARCHAR2(15) NOT NULL,
     description                    VARCHAR2(255) NOT NULL,
-    customer_id                    NUMBER NOT NULL,
-    command_id                     NUMBER NOT NULL,
-    contact_group_id               NUMBER,
+    customer_id                    NUMBER(12) NOT NULL,
+    command_id                     NUMBER(16) NOT NULL,
+    contact_group_id               NUMBER(12),
     notify_critical                CHAR(1),
     notify_warning                 CHAR(1),
     notify_unknown                 CHAR(1),
     notify_recovery                CHAR(1),
-    notification_interval_minutes  NUMBER NOT NULL,
-    check_interval_minutes         NUMBER NOT NULL,
-    retry_interval_minutes         NUMBER NOT NULL,
-    max_attempts                   NUMBER,
+    notification_interval_minutes  NUMBER(16) NOT NULL,
+    check_interval_minutes         NUMBER(16) NOT NULL,
+    retry_interval_minutes         NUMBER(16) NOT NULL,
+    max_attempts                   NUMBER(16),
     last_update_user               VARCHAR2(40),
     last_update_date               DATE
 )

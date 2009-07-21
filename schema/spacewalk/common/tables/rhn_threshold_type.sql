@@ -20,7 +20,7 @@ CREATE TABLE rhn_threshold_type
                           CONSTRAINT rhn_trtyp_name_pk PRIMARY KEY
                           USING INDEX TABLESPACE [[64k_tbs]],
     description       VARCHAR2(80) NOT NULL,
-    ordinal           NUMBER NOT NULL,
+    ordinal           NUMBER(3) NOT NULL,
     last_update_user  VARCHAR2(40),
     last_update_date  DATE
 )

@@ -16,7 +16,7 @@
 
 CREATE TABLE rhn_notifservers
 (
-    recid  NUMBER NOT NULL
+    recid  NUMBER(12) NOT NULL
                CONSTRAINT rhn_notsv_recid_pk PRIMARY KEY
                USING INDEX TABLESPACE [[64k_tbs]],
     name   VARCHAR2(255)

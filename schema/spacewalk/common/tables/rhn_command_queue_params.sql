@@ -16,8 +16,8 @@
 
 CREATE TABLE rhn_command_queue_params
 (
-    instance_id  NUMBER NOT NULL,
-    ord          NUMBER NOT NULL,
+    instance_id  NUMBER(12) NOT NULL,
+    ord          NUMBER(3) NOT NULL,
     value        VARCHAR2(1024)
 )
 ENABLE ROW MOVEMENT

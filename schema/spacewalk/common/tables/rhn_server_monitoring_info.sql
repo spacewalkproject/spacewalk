@@ -16,10 +16,10 @@
 
 CREATE TABLE rhn_server_monitoring_info
 (
-    recid  NUMBER NOT NULL
+    recid  NUMBER(12) NOT NULL
                CONSTRAINT rhn_host_recid_pk PRIMARY KEY
                USING INDEX TABLESPACE [[4m_tbs]],
-    os_id  NUMBER
+    os_id  NUMBER(12)
 )
 ENABLE ROW MOVEMENT
 ;

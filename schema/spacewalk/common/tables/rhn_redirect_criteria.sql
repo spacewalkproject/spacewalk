@@ -16,10 +16,10 @@
 
 CREATE TABLE rhn_redirect_criteria
 (
-    recid        NUMBER NOT NULL
+    recid        NUMBER(12) NOT NULL
                      CONSTRAINT rhn_rdrcr_recid_pk PRIMARY KEY
                      USING INDEX TABLESPACE [[4m_tbs]],
-    redirect_id  NUMBER NOT NULL,
+    redirect_id  NUMBER(12) NOT NULL,
     match_param  VARCHAR2(255) NOT NULL,
     match_value  VARCHAR2(255),
     inverted     CHAR(1)

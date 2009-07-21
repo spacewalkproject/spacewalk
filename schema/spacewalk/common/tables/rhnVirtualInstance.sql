@@ -26,7 +26,7 @@ CREATE TABLE rhnVirtualInstance
                            CONSTRAINT rhn_vi_vsi_fk
                                REFERENCES rhnServer (id),
     uuid               VARCHAR2(128),
-    confirmed          NUMBER
+    confirmed          NUMBER(1)
                            DEFAULT (1) NOT NULL,
     created            DATE
                            DEFAULT (sysdate) NOT NULL,

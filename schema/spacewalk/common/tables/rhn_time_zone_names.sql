@@ -16,12 +16,12 @@
 
 CREATE TABLE rhn_time_zone_names
 (
-    recid               NUMBER NOT NULL,
+    recid               NUMBER(12) NOT NULL,
     java_id             VARCHAR2(40) NOT NULL
                             CONSTRAINT rhn_tznms_java_id_pk PRIMARY KEY
                             USING INDEX TABLESPACE [[64k_tbs]],
     display_name        VARCHAR2(60) NOT NULL,
-    gmt_offset_minutes  NUMBER NOT NULL,
+    gmt_offset_minutes  NUMBER(4) NOT NULL,
     use_daylight_time   CHAR(1) NOT NULL,
     last_update_user    VARCHAR2(40),
     last_update_date    DATE

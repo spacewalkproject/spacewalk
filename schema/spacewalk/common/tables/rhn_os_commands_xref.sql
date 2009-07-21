@@ -16,8 +16,8 @@
 
 CREATE TABLE rhn_os_commands_xref
 (
-    os_id        NUMBER NOT NULL,
-    commands_id  NUMBER NOT NULL
+    os_id        NUMBER(12) NOT NULL,
+    commands_id  NUMBER(12) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

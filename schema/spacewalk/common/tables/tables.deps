@@ -104,7 +104,6 @@ rhnErrataRelationship          :: rhnRelationshipType rhnErrata
 rhnErrataRelationshipTmp       :: rhnRelationshipType rhnErrataTmp rhnErrata
 rhnErrataClonedTmp             :: rhnErrataTmp
 rhnErrataTmp                   :: web_customer
-rhnFAQ                         :: rhnFAQClass
 rhnFile                        :: web_customer
 rhnFileLocation                :: rhnFile
 rhnGrailComponents             :: rhnUserGroupType
