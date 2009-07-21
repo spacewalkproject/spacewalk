@@ -14,7 +14,7 @@
 Summary:      Spacewalk monitoring
 Name:         spacewalk-monitoring
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      0.6.5
+Version:      0.6.6
 Release:      1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
@@ -123,7 +123,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
-* Tue Jul 21 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.5-1
+* Tue Jul 21 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.6-1
 - Disabling requires on spacewalk-monitoring-selinux. (temporary)
   (dgoodwin@redhat.com)
 
