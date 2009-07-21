@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.6.7
+Version: 0.6.8
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -289,6 +289,10 @@ fi
 
 
 %changelog
+* Tue Jul 21 2009 John Matthews <jmatthew@redhat.com> 0.6.8-1
+- 503187 - rewrite old config during upgrade, old file will be saved as
+  .rpmorig (msuchy@redhat.com)
+
 * Mon Jul 06 2009 John Matthews <jmatthew@redhat.com> 0.6.7-1
 - 509522 - remove conflicts and put provides to spacewalk-proxy-management
   (msuchy@redhat.com)
