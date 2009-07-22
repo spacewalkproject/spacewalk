@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.16
+Version: 5.9.17
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -241,6 +241,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
+* Wed Jul 22 2009 Devan Goodwin <dgoodwin@redhat.com> 5.9.17-1
+- Disable osad selinux for Fedora 11. (dgoodwin@redhat.com)
+
 * Mon Jul 20 2009 Devan Goodwin <dgoodwin@redhat.com> 5.9.16-1
 - Add osad BuildRequires for python-devel. (dgoodwin@redhat.com)
 
