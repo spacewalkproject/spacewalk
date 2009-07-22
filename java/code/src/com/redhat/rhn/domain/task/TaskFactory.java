@@ -19,10 +19,12 @@ import com.redhat.rhn.domain.org.Org;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Order;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -64,6 +66,33 @@ public class TaskFactory extends HibernateFactory {
         save(t); //store the task to the db
         return t;
     }
+    
+    /**
+     * 
+     * @param name
+     * @return
+     */
+    public static List<Task> listTasks(String name) {
+        Session session = null;
+        try {
+            session = HibernateFactory.getSession();
+            return session.getNamedQuery("Task.listTasksByName")
+                                     .setString("name", name).list();
+        }
+        catch (HibernateException he) {
+            log.error("Hibernate exception: " + he.toString());
+        }
+        return Collections.EMPTY_LIST;
+    }
+    
+    /**
+     * 
+     * @param task
+     */
+    public static void removeTask(Task task) {
+        TaskFactory.getSession().delete(task);
+    }
+    
     
     /**
      * Saves the object to the db

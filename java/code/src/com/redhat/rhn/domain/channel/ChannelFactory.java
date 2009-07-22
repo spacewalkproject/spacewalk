@@ -120,6 +120,19 @@ public class ChannelFactory extends HibernateFactory {
     }
     
     /**
+     * Lookup a content source  by id
+     * @param id the id to lookup
+     * @return the ContentSource
+     */
+    public static ContentSource lookupContentSource(Long id) {
+        Map params = new HashMap();
+        params.put("id", id);
+        return (ContentSource) singleton.lookupObjectByNamedQuery(
+                "ContentSource.findById", params);
+    }
+    
+    
+    /**
      * Retrieve a list of channel ids associated with the labels provided
      * @param labelsIn the labels to search for
      * @return list of channel ids

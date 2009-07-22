@@ -21431,6 +21431,12 @@ given channel.</source>
       <trans-unit id="channel.edit.jsp.repourl">
 		<source>Repository URL</source>
       </trans-unit>   
+      <trans-unit id="channel.edit.jsp.repolabel">
+		<source>Label</source>
+      </trans-unit>         
+      <trans-unit id="edit.channel.invalidrepolabel.missing">
+		<source>A repo label is required if providing a yum repository url.</source>
+      </trans-unit>      
       <trans-unit id="channel.edit.jsp.lastsynced">
 		<source>Last Sync Time</source>
       </trans-unit>             

@@ -838,6 +838,7 @@
             <form-property name="maintainer_phone" type="java.lang.String" />
             <form-property name="support_policy" type="java.lang.String" />
             <form-property name="yum_repo" type="java.lang.String" />
+            <form-property name="repo_label" type="java.lang.String" />
             <form-property name="sync_repo" type="java.lang.Boolean" />
             <form-property name="per_user_subscriptions" type="java.lang.String" />
             <form-property name="org_sharing" type="java.lang.String" />

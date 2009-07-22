@@ -334,6 +334,7 @@ public class EditChannelAction extends RhnAction implements Listable {
         ucc.setSupportPolicy((String)form.get("support_policy"));
         ucc.setAccess((String)form.get("org_sharing"));
         ucc.setYumUrl((String) form.getString("yum_repo"));
+        ucc.setRepoLabel((String) form.getString("repo_label"));
 
         String parent = (String)form.get("parent");
         if (parent == null || parent.equals("")) {
@@ -405,6 +406,7 @@ public class EditChannelAction extends RhnAction implements Listable {
         ccc.setSupportPolicy((String)form.get("support_policy"));
         ccc.setAccess((String)form.get("org_sharing"));
         ccc.setYumUrl((String) form.getString("yum_repo"));
+        ccc.setRepoLabel((String) form.getString("repo_label"));
 
         String parent = (String)form.get("parent");
         if (parent == null || parent.equals("")) {
@@ -570,11 +572,13 @@ public class EditChannelAction extends RhnAction implements Listable {
 
             if (c.getContentSources().isEmpty()) {
                 form.set("yum_repo", "");
+                form.set("repo_label", "");
                 request.setAttribute("last_sync", "");
             }
             else {
                 ContentSource cs = c.getContentSources().iterator().next();
                 form.set("yum_repo", cs.getSourceUrl());
+                form.set("repo_label", cs.getLabel());
                 String lastSync = LocalizationService.getInstance().getMessage(
                         "channel.edit.repo.neversynced");
                 if (cs.getLastSynced() != null) {

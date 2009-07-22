@@ -29,7 +29,24 @@ public class ContentSource extends BaseDomainHelper {
     private ContentSourceType type;
     private String sourceUrl;
     private Date lastSynced;
+    private String label;
 
+
+    
+    /**
+     * @return Returns the label.
+     */
+    public String getLabel() {
+        return label;
+    }
+
+    
+    /**
+     * @param labelIn The label to set.
+     */
+    public void setLabel(String labelIn) {
+        this.label = labelIn;
+    }
 
     /**
      * @return Returns the id.

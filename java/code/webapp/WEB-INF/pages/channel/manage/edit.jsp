@@ -117,7 +117,7 @@
    			 <bean:message key="channel.edit.jsp.repourl"/>:
    		</th>
    		<td>
-   			<html:text property="yum_repo" maxlength="512" size="60" />
+   			<html:text property="yum_repo" maxlength="512" size="64" />
    		</td>
    	</tr>
    	 <c:if test='${not empty param.cid}'>
@@ -130,6 +130,14 @@
 	   		</td>
 	   	</tr>   
 	  </c:if>
+   	<tr>
+   		<th> 
+   			 <bean:message key="channel.edit.jsp.repolabel"/>:
+   		</th>
+   		<td>
+   			<html:text property="repo_label" maxlength="64" size="20" />
+   		</td>
+   	</tr>	  	  
    	<tr>
    		<th> 
    			 <bean:message key="channel.edit.jsp.sync"/>:

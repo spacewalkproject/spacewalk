@@ -32,6 +32,14 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             where org_id = :org_id and task_name = :name
             and task_data = :data and earliest = :earliest]]>
 	</query>
+	
+    <query name="Task.listTasksByName">
+        <![CDATA[from com.redhat.rhn.domain.task.Task as t 
+                where t.name = :name]]>
+    </query>	
+	
+	
+	
 
     <sql-query name="Task.lookupByNameLike">
       <![CDATA[SELECT {t.*}

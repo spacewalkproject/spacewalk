@@ -79,7 +79,7 @@ public class UpdateChannelCommand extends CreateChannelCommand {
         c.setSupportPolicy(supportPolicy);
         
         
-        c.setYumContentSource(yumUrl);
+        c.setYumContentSource(yumUrl, repoLabel);
         
 
         // need to save before calling stored proc below

@@ -819,7 +819,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
      *   if null or '' is passed in, all content sources will be removed.
      * @param url  the url of the yum repo
      */
-    public void setYumContentSource(String url) {
+    public void setYumContentSource(String url, String labelIn) {
         if (StringUtils.isEmpty(url)) {
             if (!this.getContentSources().isEmpty()) {
                 this.getContentSources().clear();
@@ -830,11 +830,14 @@ public class Channel extends BaseDomainHelper implements Comparable {
                 ContentSource cs = new ContentSource();
                 cs.setChannel(this);
                 cs.setSourceUrl(url);
+                cs.setLabel(labelIn);
                 cs.setType(ChannelFactory.CONTENT_SOURCE_TYPE_YUM);
                 this.getContentSources().add(cs);
             }
             else {
-                this.getContentSources().iterator().next().setSourceUrl(url);
+                ContentSource cs = this.getContentSources().iterator().next();
+                cs.setSourceUrl(url);
+                cs.setLabel(labelIn);
             }
         }
         ChannelFactory.save(this);
