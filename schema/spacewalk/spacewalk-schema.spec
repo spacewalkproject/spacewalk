@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.6.13
+Version:        0.6.14
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Jul 22 2009 John Matthews <jmatthew@redhat.com> 0.6.14-1
+- 512814 - tickle the upgrade logic (mmccune@redhat.com)
+
 * Thu Jul 16 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.13-1
 - 512104 - add sshbannerignore parametr to existing probes which use ssh
 
