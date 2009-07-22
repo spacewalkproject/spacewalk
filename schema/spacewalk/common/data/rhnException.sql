@@ -42,7 +42,7 @@ insert into rhnException values (-20238, 'channel_unsubscribe_no_family','Attemp
 insert into rhnException values (-20239, 'arch_not_found','Architecture could not be found');
 
 insert into rhnException values (-20240, 'channel_consent_no_license','No license agreement exists for that channel');
-insert into rhnException values (-20241, 'channel_subscribe_no_consent','Channel requires consent to license for subscription');
+insert into rhnException values (-20241, 'channel_subscrib_no_consent','Channel requires consent to license for subscription');
 
 insert into rhnException values (-20242, 'channel_arch_not_found','Channel architecture could not be found');
 insert into rhnException values (-20243, 'package_arch_not_found','Package architecture could not be found');
@@ -87,7 +87,7 @@ insert into rhnException values (-20278, 'webreg_duplicate', 'Registration numbe
 insert into rhnException values (-20279, 'webreg_not_active', 'Registration number is not active');
 insert into rhnException values (-20280, 'webreg_sync_error', 'Error synchronizing, xxrh_oai_wrapper.sync_registration_uber');
 insert into rhnException values (-20281, 'webreg_not_found', 'Registration number does not exist');
-insert into rhnException values (-20282, 'webreg_unknown_error', 'Unknown error during web registration');
+insert into rhnException values (-20282, 'webreg_unkown_error', 'Unknown error during web registration');
 insert into rhnException values (-20283, 'invalid_feature', 'The specified feature does not exist');
 insert into rhnException values (-20284, 'invalid_base_entitlement', 'The base entitlement is not valid for adding on other entitlements'); 
 insert into rhnException values (-20285, 'invalid_addon_entitlement', 'The addon entitlement is not valid for adding onto other entitlements'); 

@@ -14,6 +14,66 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
+"""
+Blend is a tool used to sort and combine .sql files as defined by the arguments
+and the contents of the .deps files.  Files with an extension of (.sql|.pkb|.pks)
+are dependancy sorted as defined by the (optional) .deps files contained within each
+subdirectory.  The initial ordering is the natural alphabetical (directory) ordering.
+The secondary ordering is based on dependancies.
+
+DEPENDENCY FILES (.deps)
+-------------------------------------------------------------------------------
+
+Terms:
+  namespace - A root directory.
+              May be: (.|class|types|tables|views|procs|packages)
+              where (.) represents the current namesapce.
+
+  qname     - A qualified name.
+              May be: [namespace/]basename[.ext].  When the namespace
+              is not specified, the name is unqualified and resolved
+              using the "path".  Using the extension is only necessary
+              when more then (1) file exists in a given namespace with
+              the same name but with different extensions.
+
+Format:
+
+  path = {namespace}([\s,]+{namespace})*
+
+  {qname} :: {qname}([\s,]+{qname})*
+
+Examples:
+
+  path = . tables packages"
+
+  rhnSharedChannelView :: rhnChannel procs/lookup_functions \
+                          rhn_channel.pks
+
+  Assuming the current namespace (or directory) is /views.
+  The table dependency "rhnChannel" is unqualifed and would be searched
+  for in the following order:
+    1st. views/rhnChannel
+    2nd. tables/rhnChannel
+    3rd. packages/rhnChannel
+  However, lookup_functions dependency is qualified by namespace so the
+  path will not be used.
+  The package header dependency "rhn_channel.pks" is unqualifed and but has
+  an extension and would be searched for in the following order:
+    1st. views/rhn_channel.pks
+    2nd. tables/rhn_channel.pks
+    3rd. packages/rhn_channel.pks
+
+Lines may be joined by (\).
+
+SPECIAL FILES
+
+start.sql - If found in the root current directory, the contents of this file is
+            inserted at the beginning of the output.
+
+end.sql -   If found in the root current directory, the contents of this file is
+            appended to the end of the output.
+"""
+
 import sys, os, re
 from getopt import getopt, GetoptError
 
@@ -294,6 +354,7 @@ class Writer:
         self.start(output)
         for p in sorted:
             self.copy(p, output)
+        self.end(output)
             
     def copy(self, path, output):
         f = open(path)
@@ -313,6 +374,13 @@ class Writer:
     def start(self, output):
         if os.path.exists('start.sql'):
             f = open('start.sql')
+            content = f.read()
+            output.write(content)
+            f.close()
+            
+    def end(self, output):
+        if os.path.exists('end.sql'):
+            f = open('end.sql')
             content = f.read()
             output.write(content)
             f.close()
