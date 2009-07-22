@@ -32,6 +32,8 @@ rhnChannelContentSource
                                 references rhnContentSourceType(id),
         source_url      varchar2(512)
                         constraint rhn_ccs_url_nn not null,
+        label           varchar2(64)
+                        constraint rhn_ccs_l_nn not null,
         last_synced     date, 
         created         date default(sysdate)
                         constraint rhn_ccs_cre_nn not null,
