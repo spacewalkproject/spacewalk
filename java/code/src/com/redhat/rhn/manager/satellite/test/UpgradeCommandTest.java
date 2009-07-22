@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.satellite.test;
 
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
@@ -52,8 +53,8 @@ public class UpgradeCommandTest extends BaseTestCaseWithUser {
             KickstartFactory.lookupDefaultKickstartSessionForKickstartData(ksd);
         assertNotNull(ksession);
         
-        assertNull(TaskFactory.getTaskListByNameLike(
-                UpgradeCommand.UPGRADE_KS_PROFILES));
-        
+        l = TaskFactory.getTaskListByNameLike(
+                UpgradeCommand.UPGRADE_KS_PROFILES);
+        assertTrue((l == null || l.isEmpty()));
     }
 }
