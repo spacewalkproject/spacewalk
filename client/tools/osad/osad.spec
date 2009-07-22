@@ -54,10 +54,14 @@ OSA dispatcher get message from Spacewalk server that some command is need
 to execute on client. The message is transported via jabber protocol to OSAD
 agent.
 
+%define include_selinux_package 1
+
 %if 0%{?rhel} && 0%{?rhel} <= 4
 %define include_selinux_package 0
-%else
-%define include_selinux_package 1
+%endif
+
+%if 0%{?fedora} == 11
+%define include_selinux_package 0
 %endif
 
 %if %{include_selinux_package}
