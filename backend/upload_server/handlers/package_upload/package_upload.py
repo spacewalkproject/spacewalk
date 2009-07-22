@@ -23,12 +23,12 @@ import os
 from mod_python import apache
 
 from common import CFG, log_debug, log_error, rhnFault, rhnFlags
-from server import rhnPackageUpload
+from server import rhnPackageUpload, basePackageUpload
 from server.rhnLib import get_package_path
 
-class PackageUpload(rhnPackageUpload.BasePackageUpload):
+class PackageUpload(basePackageUpload.BasePackageUpload):
     def headerParserHandler(self, req):
-        ret = rhnPackageUpload.BasePackageUpload.headerParserHandler(self, req)
+        ret = basePackageUpload.BasePackageUpload.headerParserHandler(self, req)
         if ret != apache.OK:
             return ret
 
@@ -60,7 +60,7 @@ class PackageUpload(rhnPackageUpload.BasePackageUpload):
         return apache.OK
             
     def handler(self, req):
-        ret = rhnPackageUpload.BasePackageUpload.handler(self, req)
+        ret = basePackageUpload.BasePackageUpload.handler(self, req)
         if ret != apache.OK:
             return ret
 

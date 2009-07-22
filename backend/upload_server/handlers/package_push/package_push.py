@@ -26,11 +26,11 @@ from mod_python import apache
 from rhn import rpclib
 
 from common import CFG, log_debug, log_error, rhnFault, rhnFlags
-from server import rhnPackageUpload, rhnSQL
+from server import rhnPackageUpload, rhnSQL, basePackageUpload
 
-class PackagePush(rhnPackageUpload.BasePackageUpload):
+class PackagePush(basePackageUpload.BasePackageUpload):
     def __init__(self, req):
-        rhnPackageUpload.BasePackageUpload.__init__(self, req)
+        basePackageUpload.BasePackageUpload.__init__(self, req)
         self.required_fields.extend([
             'Auth',
             'Force',
@@ -43,7 +43,7 @@ class PackagePush(rhnPackageUpload.BasePackageUpload):
         self.force = None
         
     def headerParserHandler(self, req):
-        ret = rhnPackageUpload.BasePackageUpload.headerParserHandler(self, req)
+        ret = basePackageUpload.BasePackageUpload.headerParserHandler(self, req)
         # Optional headers
         maps = [['Null-Org', 'null_org'], ['Packaging', 'packaging']]
         for hn, sn in maps:
@@ -108,7 +108,7 @@ class PackagePush(rhnPackageUpload.BasePackageUpload):
 
 
     def handler(self, req):
-        ret = rhnPackageUpload.BasePackageUpload.handler(self, req)
+        ret = basePackageUpload.BasePackageUpload.handler(self, req)
         if ret != apache.OK:
             return ret
 
