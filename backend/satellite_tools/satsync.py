@@ -1004,7 +1004,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                         # file is modified too; re-download
                         m_fs_packages.append((package_id, final_path))
 
-        if (l_timestamp == db_timestamp and md5sum == db_md5sum and
+        if (l_timestamp <= db_timestamp and md5sum == db_md5sum and
             package_size == db_package_size and final_path == db_path):
             # Same package
             return
