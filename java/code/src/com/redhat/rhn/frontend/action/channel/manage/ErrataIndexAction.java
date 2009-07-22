@@ -14,18 +14,18 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnListAction;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *

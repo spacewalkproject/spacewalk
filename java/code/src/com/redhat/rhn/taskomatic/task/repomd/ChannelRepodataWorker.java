@@ -15,17 +15,19 @@
 package com.redhat.rhn.taskomatic.task.repomd;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.taskomatic.task.TaskConstants;
 import com.redhat.rhn.taskomatic.task.threaded.QueueWorker;
 import com.redhat.rhn.taskomatic.task.threaded.TaskQueue;
-import com.redhat.rhn.taskomatic.task.TaskConstants;
 
 import org.apache.log4j.Logger;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,9 +53,10 @@ public class ChannelRepodataWorker implements QueueWorker {
      */
     public ChannelRepodataWorker(Map workItem, Logger parentLogger) {
         logger = parentLogger;
-        String prefixPath = Config.get().getString(Config.REPOMD_PATH_PREFIX,
+        String prefixPath = Config.get().getString(ConfigDefaults.REPOMD_PATH_PREFIX,
                 "rhn/repodata");
-        String mountPoint = Config.get().getString(Config.REPOMD_CACHE_MOUNT_POINT, "/pub");
+        String mountPoint = 
+            Config.get().getString(ConfigDefaults.REPOMD_CACHE_MOUNT_POINT, "/pub");
         channelLabelToProcess = (String) workItem.get("channel_label");
         repoWriter = new RepositoryWriter(prefixPath, mountPoint);
         logger.info("Creating ChannelRepodataWorker with prefixPath(" + prefixPath +

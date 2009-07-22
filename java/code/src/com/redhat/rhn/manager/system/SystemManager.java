@@ -17,6 +17,7 @@ package com.redhat.rhn.manager.system;
 import com.redhat.rhn.common.client.ClientCertificate;
 import com.redhat.rhn.common.client.InvalidCertificateException;
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.CachedStatement;
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataResult;
@@ -54,6 +55,7 @@ import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.CustomDataKeyOverview;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.HardwareDeviceDto;
+import com.redhat.rhn.frontend.dto.OrgProxyServer;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartSessionDto;
 import com.redhat.rhn.frontend.listview.ListControl;
@@ -132,7 +134,7 @@ public class SystemManager extends BaseManager {
      */
     public static void snapshotServer(Server server, String reason) {
 
-        if (!Config.get().getBoolean(Config.TAKE_SNAPSHOTS)) {
+        if (!Config.get().getBoolean(ConfigDefaults.TAKE_SNAPSHOTS)) {
             return;
         }
 
@@ -392,7 +394,7 @@ public class SystemManager extends BaseManager {
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
-        params.put("checkin_threshold", new Integer(Config.get().getInt(Config
+        params.put("checkin_threshold", new Integer(Config.get().getInt(ConfigDefaults
                 .SYSTEM_CHECKIN_THRESHOLD)));
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, pc, m);
@@ -478,7 +480,7 @@ public class SystemManager extends BaseManager {
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
-        params.put("checkin_threshold", new Integer(Config.get().getInt(Config
+        params.put("checkin_threshold", new Integer(Config.get().getInt(ConfigDefaults
                 .SYSTEM_CHECKIN_THRESHOLD)));
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, pc, m);
@@ -1392,7 +1394,7 @@ public class SystemManager extends BaseManager {
         info.setServer(server);
         info.setVersion(null, version, "1");
         server.setProxyInfo(info);
-        if (Config.get().getBoolean(Config.WEB_SUBSCRIBE_PROXY_CHANNEL)) {
+        if (Config.get().getBoolean(ConfigDefaults.WEB_SUBSCRIBE_PROXY_CHANNEL)) {
             Channel proxyChannel = ChannelManager.getProxyChannelByVersion(
                     version, server);
             if (proxyChannel != null) {
@@ -1554,7 +1556,7 @@ public class SystemManager extends BaseManager {
         ValidatorResult result = new ValidatorResult();
 
         // If this is a Satellite, subscribe to the virt channel if possible:
-        if (!Config.get().isSpacewalk()) {
+        if (!ConfigDefaults.get().isSpacewalk()) {
             subscribeToVirtChannel(server, user, result);
         }
 
@@ -1600,7 +1602,7 @@ public class SystemManager extends BaseManager {
 
             // If this is a Satellite and no RHN Tools channel is available
             // report the error, but continue:
-            if (!Config.get().isSpacewalk() && toolsChannel == null) {
+            if (!ConfigDefaults.get().isSpacewalk() && toolsChannel == null) {
                 log.warn("no tools channel found");
                 result.addWarning(new ValidatorWarning("system.entitle.notoolschannel"));
             }
@@ -2368,7 +2370,7 @@ public class SystemManager extends BaseManager {
         "systems_subscribed_to_channel_size");
         Map params = new HashMap();
         params.put("user_id", user.getId());
-        params.put("org_id", user.getId());
+        params.put("org_id", user.getOrg().getId());
         params.put("cid", cid);
         DataResult toReturn = m.execute(params);
         return (Long) ((HashMap)toReturn.get(0)).get("count");
@@ -2570,5 +2572,18 @@ public class SystemManager extends BaseManager {
         return m.execute(params);
     }
 
-
+    /**
+     * returns a List proxies available in the given org
+     * @param org needed for org information
+     * @return list of proxies for org
+     */
+    public static DataResult<OrgProxyServer> listProxies(Org org) {
+        DataResult retval = null;
+        SelectMode mode = ModeFactory.getMode("System_queries",
+                "org_proxy_servers");
+        Map params = new HashMap();
+        params.put("org_id", org.getId());
+        retval = mode.execute(params);
+        return retval;
+    }
 }

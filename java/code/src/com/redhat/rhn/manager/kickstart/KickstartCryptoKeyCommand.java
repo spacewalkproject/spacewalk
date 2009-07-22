@@ -16,8 +16,8 @@ package com.redhat.rhn.manager.kickstart;
 
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
-import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.user.User;
 
 import java.util.Collections;
 import java.util.Iterator;

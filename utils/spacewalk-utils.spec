@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	0.6.4
+Version:	0.6.5
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -16,6 +16,7 @@ BuildRequires:  /usr/bin/docbook2man
 BuildRequires:  docbook-utils
 
 Requires:       python, rpm-python
+Requires:		perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Generic utilities that may be run against a Spacewalk server.  This package
@@ -44,17 +45,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%attr(755,root,root) %{_bindir}/sw-system-snapshot
-%attr(755,root,root) %{_bindir}/migrate-system-profile
+%attr(755,root,root) %{_bindir}/*
 %dir %{rhnroot}/utils
 %{rhnroot}/utils/__init__.py*
 %{rhnroot}/utils/systemSnapshot.py*
 %{rhnroot}/utils/migrateSystemProfile.py*
-%{_mandir}/man8/sw-system-snapshot.8*
-%{_mandir}/man8/migrate-system-profile.8*
+%{_mandir}/man8/*
 
 
 %changelog
+* Wed Jul 15 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.5-1
+- add spacewalk-api script, which can interact with API from command line
+
 * Mon May 11 2009 Brad Buckingham <bbuckingham@redhat.com> 0.6.4-1
 - 500173 - update migrate-system-profile to import scripts from utils vs
   spacewalk_tools (bbuckingham@redhat.com)

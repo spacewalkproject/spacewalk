@@ -19,8 +19,7 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
-
-import java.util.Map;
+import org.cobbler.Profile;
 
 /**
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
@@ -48,16 +47,12 @@ public class CobblerProfileDeleteCommand extends CobblerProfileCommand {
     @Override
     public ValidatorError store() {
         // No need to delete if it doesnt exist in cobbler
-        Map profile = this.getProfileMap();
-        if (profile == null || profile.isEmpty()) {
+        Profile profile = ksData.getCobblerObject(user);
+        if (profile == null) {
             log.warn("No cobbler profile associated with this Profile.");
             return null;
         }
-        
-        Boolean rc = (Boolean) invokeXMLRPC("remove_profile", 
-                profile.get("name"), xmlRpcToken);
-        log.debug("RC: " + rc);
-        if (rc == null || !rc.booleanValue()) {
+        if (!profile.remove()) {
             return new ValidatorError("cobbler.profile.remove_failed");
         }
         invokeCobblerUpdate();

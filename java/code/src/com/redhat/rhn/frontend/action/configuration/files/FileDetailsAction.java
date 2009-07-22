@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.configuration.files;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.config.ConfigRevision;
@@ -127,8 +128,8 @@ public class FileDetailsAction extends RhnAction {
         
         request.setAttribute(MAX_SIZE, 
                 StringUtil.displayFileSize(
-                        Config.get().getInt(Config.CONFIG_REVISION_MAX_SIZE,
-                                Config.DEFAULT_CONFIG_REVISION_MAX_SIZE)));
+                        Config.get().getInt(ConfigDefaults.CONFIG_REVISION_MAX_SIZE,
+                                ConfigDefaults.DEFAULT_CONFIG_REVISION_MAX_SIZE)));
         request.setAttribute(MAX_EDIT_SIZE,
                 StringUtil.displayFileSize(ConfigFileForm.MAX_EDITABLE_SIZE));
         

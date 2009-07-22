@@ -303,7 +303,7 @@ class XML_Dumper:
     """)
 
     def _cache_channel_packages_short(self, channel_id, key, last_modified):
-        # Caches the short package entries for channel_id
+        """ Caches the short package entries for channel_id """
         # Create a temporary file
         temp_stream = tempfile.TemporaryFile()
         # Always compress the result
@@ -333,9 +333,10 @@ class XML_Dumper:
         return self._normalize_compressed_stream(temp_stream)
         
     def _normalize_compressed_stream(self, stream):
-        # Given a compressed stream, will either return the stream, or will
-        # decompress it and return it, depending on the compression level
-        # self.compress_level
+        """ Given a compressed stream, will either return the stream, or will
+            decompress it and return it, depending on the compression level
+            self.compress_level
+        """
         stream.seek(0, 0)
         if self.compress_level:
             # Output should be compressed; nothing else to to
@@ -526,20 +527,20 @@ class XML_Dumper:
         return result
 
 class SatelliteDumper(exportLib.SatelliteDumper):
-    # Overriding with our own version
     def set_attributes(self):
+        """ Overriding with our own version """
         attributes = exportLib.SatelliteDumper.set_attributes(self)
         attributes['version'] = CFG.XML_DUMP_VERSION
         attributes['generation'] = CFG.SAT_CERT_GENERATION
         return attributes
 
-    
-# A query iterator successively applies the list of params as execute() to the
-# statement that was passed in, and presents the union of the result sets as a
-# single result set.
-# Params is a list of dictionaries that would fill the named bound variables
-# from the statement
 class QueryIterator:
+    """ A query iterator successively applies the list of params as execute() to the
+        statement that was passed in, and presents the union of the result sets as a
+        single result set.
+        Params is a list of dictionaries that would fill the named bound variables
+        from the statement.
+    """
     def __init__(self, statement, params):
         self._statement = statement
         self._params = params
@@ -581,12 +582,13 @@ class QueryIterator:
             return None
         apply(self._statement.execute, (), self._params[self._params_pos])
         
-# This class will attempt to retrieve information, either from the database or
-# from a local cache
-#
-# Note that we expect at most one result set per database query - this can be
-# easily fixed if we need more
 class CachedQueryIterator:
+    """ This class will attempt to retrieve information, either from the database or
+        from a local cache.
+
+        Note that we expect at most one result set per database query - this can be
+        easily fixed if we need more.
+    """
     def __init__(self, statement, params, cache_get):
         self._statement = statement
         # XXX params has to be a list of hashes, containing at least a
@@ -632,8 +634,9 @@ class CachedQueryIterator:
         apply(self._statement.execute, (), params)
 
     def close(self):
-        # Make sure we remove references to these objects, or circular
-        # references can occur
+        """ Make sure we remove references to these objects, or circular
+            references can occur.
+        """
         log_debug(3, "Closing the iterator")
         self._statement = None
         self._cache_get = None
@@ -649,7 +652,7 @@ class CachedDumper(exportLib.BaseDumper):
         log_debug(1, "Use database cache", self.use_database_cache)
 
     def _get_last_modified(self, params):
-        # To be overwritten
+        """ To be overwritten. """
         return params['last_modified']
 
     def _get_key(self, params):
@@ -676,7 +679,7 @@ class CachedDumper(exportLib.BaseDumper):
             compressed=1)
 
     def _dump_subelement(self, data):
-        # To be overridden in subclasses
+        """ To be overridden in subclasses. """
         pass
         
     def dump_subelement(self, data):
@@ -1097,13 +1100,14 @@ class KickstartableTreesDumper(CachedDumper, exportLib.KickstartableTreesDumper)
         log_debug(6, data)
         return exportLib.KickstartableTreesDumper.dump_subelement(self, data)
 
-# This looks complicated; it returns the (integer part of)
-# obj_id, modulo factor
-# The string is left padded with as many 0 chars as necessary to 
-# match factor
-# XXX This is copied from satellite_tools.diskImportLib.hashPackageID - 
-# should figure out a way to share it -- misa
 def hash_object_id(obj_id, factor):
+    """ This looks complicated; it returns the (integer part of)
+        obj_id, modulo factor
+        The string is left padded with as many 0 chars as necessary to 
+        match factor
+        XXX This is copied from satellite_tools.diskImportLib.hashPackageID - 
+        should figure out a way to share it -- misa
+    """
     # Make sure obj_id is a string
     obj_id = str(obj_id)
     format = int(math.ceil(math.log10(factor)))

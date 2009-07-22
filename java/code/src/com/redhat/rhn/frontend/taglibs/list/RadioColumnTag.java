@@ -45,6 +45,7 @@ public class RadioColumnTag extends TagSupport {
     private String valueExpr;
     private String headerStyle;
     private String headerKey;
+    private boolean useDefault = true;
 
     /**
      * Sets the column width
@@ -135,7 +136,7 @@ public class RadioColumnTag extends TagSupport {
         radio.setAttribute("type", "radio");
         radio.setAttribute("name", getRadioName(listName));
         radio.setAttribute("value", value);
-        if (StringUtils.isBlank(getRadioValue())) {
+        if (StringUtils.isBlank(getRadioValue()) && useDefault) {
             pageContext.getRequest().setAttribute(getRadioName(listName), value);
         }
         if (isSelected()) {
@@ -228,5 +229,21 @@ public class RadioColumnTag extends TagSupport {
         styleClass = null;
         width = "20px";
         headerStyle = null;
+    }
+
+
+    /**
+     * @return Returns the setDefault.
+     */
+    public boolean isUseDefault() {
+        return useDefault;
+    }
+
+
+    /**
+     * @param setDefaultIn The setDefault to set.
+     */
+    public void setUseDefault(boolean setDefaultIn) {
+        this.useDefault = setDefaultIn;
     }
 }

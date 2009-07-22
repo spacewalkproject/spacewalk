@@ -33,17 +33,16 @@ from server import rhnChannel, rhnHandler, rhnPackage, rhnDependency,\
     rhnCapability
 from server.rhnServer import server_route
 
-#
-# Up2date Class - xml-rpc Server Functions that we will provide for the
-#                 outside world.
 class Up2date(rhnHandler):
+    """ xml-rpc Server Functions that we will provide for the outside world.
+    """
     def __init__(self):
-        #"""Up2date Class Constructor
-        #
-        #   o Initializes inherited class.
-        #   o Appends the functions available to the outside world in the
-        #     rhnHandler list.
-        #"""
+        """ Up2date Class Constructor
+
+           o Initializes inherited class.
+           o Appends the functions available to the outside world in the
+             rhnHandler list.
+        """
         rhnHandler.__init__(self)
         # Function list inherited from rhnHandler
         # This action garners control of what is available to the client.
@@ -68,13 +67,12 @@ class Up2date(rhnHandler):
         self.functions.append('solveDependencies_arch')
         self.functions.append('solveDependencies_with_limits')
     
-
-    # Clients v2+
-    # Log in routine.
     def login(self, system_id, extra_data={}):
-        #"""Return a dictionary of session token/channel information.
-        #   Also sets this information in the headers.
-        #"""
+        """ Clients v2+
+            Log in routine.
+            Return a dictionary of session token/channel information.
+            Also sets this information in the headers.
+        """
         log_debug(5, system_id)
         # Authenticate the system certificate. We need the user record
         # to generate the tokens
@@ -146,8 +144,8 @@ class Up2date(rhnHandler):
         return loginDict
 
 
-    # Clients v2+
     def listChannels(self, system_id):
+        """ Clients v2+ """
         log_debug(5, system_id)
         # Stuff the action in the headers:
         transport = rhnFlags.get('outputTransportOptions')
@@ -160,8 +158,8 @@ class Up2date(rhnHandler):
         return channelList
 
 
-    # Clients v2+
     def subscribeChannels(self, system_id, channelNames, username, passwd):
+        """ Clients v2+ """
         log_debug(5, system_id, channelNames, username, passwd)
         # Stuff the action in the headers:
         transport = rhnFlags.get('outputTransportOptions')
@@ -176,8 +174,8 @@ class Up2date(rhnHandler):
         return 0
 
 
-    # Clients v2+
     def unsubscribeChannels(self, system_id, channelNames, username, passwd):
+        """ Clients v2+ """
         log_debug(3)
         # Stuff the action in the headers:
         transport = rhnFlags.get('outputTransportOptions')
@@ -192,12 +190,12 @@ class Up2date(rhnHandler):
         return 0
 
 
-    # Clients v1-
-    # Package listing in [[n,v,r,e],...] format.
     def listall(self, system_id):
-        #"""
-        # NOTE: format weirdness: epoch returned is either an integer or ''.
-        #"""
+        """ Clients v1-
+            Package listing in [[n,v,r,e],...] format.
+        
+            NOTE: format weirdness: epoch returned is either an integer or ''.
+        """
         log_debug(5, system_id)
         # Authenticate the system certificate
         self.auth_system(system_id)
@@ -209,13 +207,13 @@ class Up2date(rhnHandler):
         # and now call into rhnChannel to find the data
         return rhnChannel.list_packages_for_server(self.server_id)
 
-    # Clients v1-
-    # Package listing in [[n,v,r,e,s],...] format.
     def listall_size(self, system_id):
-        #"""
-        # NOTE: format weirdness: epoch returned is either an integer or ''.
-        #                         size is an integer.
-        #"""
+        """ Clients v1-
+            Package listing in [[n,v,r,e,s],...] format.
+
+            NOTE: format weirdness: epoch returned is either an integer or ''.
+                                 size is an integer.
+        """
         log_debug(5, system_id)
         # Authenticate the system certificate
         self.auth_system(system_id)
@@ -228,16 +226,16 @@ class Up2date(rhnHandler):
         return rhnChannel.list_packages_for_server(self.server_id,
                                                    need_size = 1)
 
-    # Clients v1-
     def header(self, system_id, pkgList):
-        #"""
-        #IN:  system_id: ....
-        #     a package identifier (or a list of them)
-        #        [n,v,r,e] or
-        #        [[n,v,r,e],...]
-        #OUT: If Proxy:
-        #     If Client:
-        #"""
+        """ Clients v1-
+
+            IN:  system_id: ....
+                  a package identifier (or a list of them)
+                    [n,v,r,e] or
+                    [[n,v,r,e],...]
+            OUT: If Proxy:
+                If Client:
+        """
         log_debug(5, system_id, pkgList)
         if type(pkgList) not in (ListType, TupleType) or not len(pkgList):
             log_error("Invalid package list spec", type(pkgList),
@@ -287,9 +285,10 @@ class Up2date(rhnHandler):
         return rpmHeaders
 
 
-    # Clients v1-
-    # Get rpm package.
     def package(self, system_id, package):
+        """ Clients v1-
+            Get rpm package.
+        """
         log_debug(5, "Begin", package)
 
         # Have package in canonical form
@@ -312,9 +311,10 @@ class Up2date(rhnHandler):
         return rpclib.File(open(filePath, "r"), name=filePath)
 
 
-    # Clients v1-
-    # Get a source rpm package.
     def source_package(self, system_id, package):
+        """ Clients v1-
+            Get a source rpm package.
+        """
         log_debug(5, "Begin", package)
 
         # Have package in canonical form
@@ -337,11 +337,11 @@ class Up2date(rhnHandler):
         return rpclib.File(open(filePath, "r"), name=filePath)
 
 
-    # Clients v1-
-    # Get a source rpm package by its human readable filename.
     def source_package_by_name(self, system_id, filename):
-        #"""Just like source_package, but we get a package by filename.
-        #"""
+        """ Clients v1-
+            Get a source rpm package by its human readable filename.
+            Just like source_package, but we get a package by filename.
+        """
         log_debug(5, "Begin", filename)
 
         # Authenticate the system certificate and set the QoS data
@@ -361,58 +361,57 @@ class Up2date(rhnHandler):
         return rpclib.File(open(filePath, "r"), name=filePath)
 
 
-    # Clients v1-
-    # Solve dependencies for a given dependency problem list.
     def solvedep(self, system_id, deps):
-        #"""
-        #IN:  a dependency problem list: [name, name, name, ...]
-        #RET: a package list: [[n,v,r,e],[n,v,r,e],...] That solves the
-        #     dependencies.
-        #"""
+        """ Clients v1-
+            Solve dependencies for a given dependency problem list.
+            IN:  a dependency problem list: [name, name, name, ...]
+            RET: a package list: [[n,v,r,e],[n,v,r,e],...] That solves the
+                 dependencies.
+        """
         log_debug(4, system_id)
         return self.__solveDep(system_id, deps, action = "solvedep",
                                clientVersion = 1)
 
 
-    # Clients v2+
-    # Solve dependencies for a given dependency problem list (newer version)
     def solveDependencies(self, system_id, deps):
-        #"""
-        #IN:  a dependency problem list: [name, name, name, ...]
-        #RET: a hash {name: [[n, v, r, e], [n, v, r, e], ...], ...}
-        #"""
+        """ Clients v2+
+            Solve dependencies for a given dependency problem list (newer version)
+            IN:  a dependency problem list: [name, name, name, ...]
+            RET: a hash {name: [[n, v, r, e], [n, v, r, e], ...], ...}
+        """
         log_debug(4, system_id)
         return self.__solveDep(system_id, deps, action = "solvedep",
                                clientVersion = 2)
 
-    #Does the same thing as solve_dependencies, but also returns the architecture label with the
-    #package info.
     def solveDependencies_arch(self, system_id, deps):
-        #"""
-        #IN:  a dependency problem list: [name, name, name, ...]
-        #RET: a hash {name: [[n, v, r, e, a], [n, v, r, e, a], ...], ...}
-        #"""
+        """ Does the same thing as solve_dependencies, but also returns the architecture label with the
+            package info.
+            IN:  a dependency problem list: [name, name, name, ...]
+            RET: a hash {name: [[n, v, r, e, a], [n, v, r, e, a], ...], ...}
+        """
         log_debug(4, system_id)
         return self.__solveDep_arch(system_id, deps, action = "solvedep",
                                clientVersion = 2)
 
-    #This version of solve_dependencies allows the caller to get all of the packages that solve a
-    #dependency and limit the packages that are returned to those that match the criteria defined
-    #by limit_operator and limit. This version of the function also returns the architecture label
-    #of the package[s] that get returned.
-    #
-    #limit_operator can be any of: '<', '<=', '==', '>=', or '>'.
-    #limit is a a string of the format [epoch:]name-version-release
-    #deps is a list of filenames that the packages that are returned must provide.
-    #version is the version of the client that is calling the function.
     def solveDependencies_with_limits(self, system_id, deps, all=0, limit_operator = None, limit = None):
+        """ This version of solve_dependencies allows the caller to get all of the packages that solve a
+            dependency and limit the packages that are returned to those that match the criteria defined
+            by limit_operator and limit. This version of the function also returns the architecture label
+            of the package[s] that get returned.
+
+            limit_operator can be any of: '<', '<=', '==', '>=', or '>'.
+            limit is a a string of the format [epoch:]name-version-release
+            deps is a list of filenames that the packages that are returned must provide.
+            version is the version of the client that is calling the function.
+        """
         log_debug(4, system_id)
         return self.__solveDep_with_limits( system_id, deps, action = "solvedep", 
             clientVersion = 2, all=all, limit_operator=limit_operator, limit=limit)
 
-    # Clients v2+
-    # Add a history log for a performed action
     def history(self, system_id, summary, body = ""):
+        """ Clients v2+
+            Add a history log for a performed action
+        """
         log_debug(5, system_id, summary, body)
         # Authenticate the system certificate
         server = self.auth_system(system_id)
@@ -430,9 +429,10 @@ class Up2date(rhnHandler):
     # --- PRIVATE METHODS ---
 
     def __solveDep(self, system_id, deps, action, clientVersion):
-        # Response for clients:
-        #    version 1: list
-        #    version 2: hash
+        """ Response for clients:
+                version 1: list
+                version 2: hash
+        """
         log_debug(5, system_id, deps, action, clientVersion)
         faultString = _("Invalid value %s (%s)")
         if type(deps) not in (ListType, TupleType):
@@ -460,9 +460,10 @@ class Up2date(rhnHandler):
         return result
 
     def __solveDep_arch(self, system_id, deps, action, clientVersion):
-        # Response for clients:
-        #    version 1: list
-        #    version 2: hash
+        """ Response for clients:
+                version 1: list
+                version 2: hash
+        """
         log_debug(5, system_id, deps, action, clientVersion)
         faultString = _("Invalid value %s (%s)")
         if type(deps) not in (ListType, TupleType):
@@ -491,9 +492,10 @@ class Up2date(rhnHandler):
 
 
     def __solveDep_with_limits(self, system_id, deps, action, clientVersion, all=0, limit_operator=None, limit=None):
-        # Response for clients:
-        #    version 1: list
-        #    version 2: hash
+        """ Response for clients:
+                version 1: list
+                version 2: hash
+        """
         log_debug(5, system_id, deps, action, clientVersion)
         faultString = _("Invalid value %s (%s)")
         if type(deps) not in (ListType, TupleType):
@@ -520,14 +522,15 @@ class Up2date(rhnHandler):
         transport['X-RHN-Action'] = action
         return result
 
-# Check for a package spec correctness
-# Each package should be a list or a tuple of three or four members,
-# name, version, release, [epoch]
-# in case of lack of epoch we assume "" string
-# WARNING: we need to make sure we bound ALL values as strings because
-# the lack of epoch is suggested by the empty string (''), which is going
-# to cause problems if epoch gets bound as an integer
 def check_package_spec(package):
+    """ Check for a package spec correctness
+        Each package should be a list or a tuple of three or four members,
+        name, version, release, [epoch]
+        in case of lack of epoch we assume "" string
+        WARNING: we need to make sure we bound ALL values as strings because
+        the lack of epoch is suggested by the empty string (''), which is going
+        to cause problems if epoch gets bound as an integer.
+    """
     # This one checks for sane values for name, version, release
     def __check_Int_String(name, value, package = package):
         if type(value) not in (StringType, IntType):
@@ -564,23 +567,20 @@ def check_package_spec(package):
     return [name, version, release, epoch]
 
 
-# A class to handle the site selection...
 class Servers(rhnHandler):
+    """ A class to handle the site selection... """
     def __init__(self):
-        #"""Servers Class Constructor
-        #"""
+        """Servers Class Constructor. """
         rhnHandler.__init__(self)
         self.functions.append('get')
         self.functions.append('list')
 
-    # older funtion that can be a noop
     def get(self, *junk):
+        """ Older funtion that can be a noop. """
         return []
 
-    # Available servers the client can connect to
     def list(self, systemid=None):
-        #"""Returns a list of available servers the client can connect to
-        #"""
+        """ Returns a list of available servers the client can connect to. """
         servers_list = [
             {
                 'server'        :   'xmlrpc.rhn.redhat.com',

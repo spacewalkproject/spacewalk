@@ -15,7 +15,7 @@
 package com.redhat.rhn.frontend.action.kickstart;
 
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -77,7 +77,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
     public static final String VIRT_BRIDGE = "virt_bridge";
     public static final String VIRT_PATH = "virt_disk_path";
     
-        
+    public static final String INVALID = "invalid";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -86,7 +86,6 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
                                   HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
         KickstartData data = context.lookupAndBindKickstartData();
-        
                 
         if (data.isRawData()) {
             return getStrutsDelegate().forwardParam(
@@ -104,6 +103,11 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
             DynaActionForm form, BaseKickstartCommand cmdIn) {
         KickstartEditCommand cmd = (KickstartEditCommand) cmdIn;
         form.set(LABEL, cmd.getLabel());
+        if (!cmdIn.getKickstartData().isValid()) {
+            ctx.getRequest().setAttribute(INVALID, Boolean.TRUE);
+            return;
+        }
+        
         form.set(COMMENTS, cmd.getComments());
         form.set(ACTIVE, cmd.getActive());
         form.set(ORG_DEFAULT, cmd.getKickstartData().isOrgDefault());
@@ -146,29 +150,29 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
             form.set(KERNEL_OPTIONS, prof.getKernelOptionsString());
             form.set(POST_KERNEL_OPTIONS, prof.getKernelPostOptionsString());
         }
-        
-       if (prof == null) {
-           form.set(VIRT_BRIDGE, Config.get().getDefaultXenVirtBridge());
-           form.set(VIRT_CPU, Config.get().getDefaultVirtCpus());
-           form.set(VIRT_DISK_SIZE, Config.get().getDefaultVirtDiskSize());
-           form.set(VIRT_MEMORY, Config.get().getDefaultVirtMemorySize());
-       }
-       else {
-           setFormValueOrDefault(form, VIRT_BRIDGE, prof.getVirtBridge(), 
-                                               Config.get().getDefaultXenVirtBridge());
-           setFormValueOrDefault(form, VIRT_CPU, prof.getVirtCpus(),
-                                                   Config.get().getDefaultVirtCpus());
-           setFormValueOrDefault(form, VIRT_DISK_SIZE, prof.getVirtFileSize(),
-                                               Config.get().getDefaultVirtDiskSize());
-           setFormValueOrDefault(form, VIRT_MEMORY, prof.getVirtRam(),
-                                           Config.get().getDefaultVirtMemorySize());  
-       }
-
-       
-       //Should we show virt options?
-       ctx.getRequest().setAttribute(IS_VIRT, !data.getKickstartDefaults().
-                   getVirtualizationType().equals(KickstartFactory.VIRT_TYPE_PV_HOST));
-
+        KickstartVirtualizationType type = data.getKickstartDefaults().
+                                                    getVirtualizationType();
+        //Should we show virt options?
+        if (!type.equals(KickstartVirtualizationType.paraHost()) &&
+                !type.equals(KickstartVirtualizationType.none())) {
+           if (prof == null) {
+               form.set(VIRT_BRIDGE, data.getDefaultVirtBridge());
+               form.set(VIRT_CPU, ConfigDefaults.get().getDefaultVirtCpus());
+               form.set(VIRT_DISK_SIZE, ConfigDefaults.get().getDefaultVirtDiskSize());
+               form.set(VIRT_MEMORY, ConfigDefaults.get().getDefaultVirtMemorySize());
+           }
+           else {
+               setFormValueOrDefault(form, VIRT_BRIDGE, prof.getVirtBridge(), 
+                       data.getDefaultVirtBridge());
+               setFormValueOrDefault(form, VIRT_CPU, prof.getVirtCpus(),
+                       ConfigDefaults.get().getDefaultVirtCpus());
+               setFormValueOrDefault(form, VIRT_DISK_SIZE, prof.getVirtFileSize(),
+                       ConfigDefaults.get().getDefaultVirtDiskSize());
+               setFormValueOrDefault(form, VIRT_MEMORY, prof.getVirtRam(),
+                       ConfigDefaults.get().getDefaultVirtMemorySize());  
+           }
+           ctx.getRequest().setAttribute(IS_VIRT, Boolean.TRUE);    
+        }
     }
     
     
@@ -325,6 +329,5 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
             RhnValidationHelper.setFailedValidation(context.getRequest());
             strutsDelegate.saveMessages(context.getRequest(), ve.getResult());          
         }
-
-    }    
+    }
 }

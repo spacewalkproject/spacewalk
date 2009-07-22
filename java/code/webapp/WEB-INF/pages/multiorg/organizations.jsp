@@ -13,7 +13,7 @@
   <bean:message key="organizations.jsp.toolbar"/>
 </rhn:toolbar>
 
-<h2><bean:message key="org.trust.header" arg0="${orgName}"/></h2>
+<h2><bean:message key="org.trust.header" arg0="${orgName}" arg1="${orgId}"/></h2>
 
 <div>
 <rl:listset name="orgListSet">

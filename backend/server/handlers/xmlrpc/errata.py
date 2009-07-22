@@ -23,8 +23,8 @@ from common import rhnFault, rhnFlags, log_debug, log_error
 from server.rhnLib import parseRPMName
 from server import rhnSQL, rhnHandler, rhnCapability
 
-# Errata class --- retrieve (via xmlrpc) package errata.
 class Errata(rhnHandler):
+    """ Errata class --- retrieve (via xmlrpc) package errata. """
     def __init__(self):
         rhnHandler.__init__(self)
         # Exposed Errata functions:
@@ -33,17 +33,15 @@ class Errata(rhnHandler):
         self.functions.append('getPackageErratum') # Clients v2+
         self.functions.append('getErrataInfo')     # clients v2+
         
-    # Clients v1-
-    # Get errata for a package given "n-v-r" format
     def GetByPackage(self, pkg, osRel):
-        #"""
-        #IN:  pkg:   "n-v-r" (old client call)
-        #            or [n,v,r]
-        #     osRel: OS release
-        #RET: a hash by errata that applies to this package
-        #     (ie, newer packages are available). We also limit the scope
-        #     for a particular osRel.
-        #"""
+        """ Clients v1- Get errata for a package given "n-v-r" format
+            IN:  pkg:   "n-v-r" (old client call)
+                        or [n,v,r]
+                 osRel: OS release
+            RET: a hash by errata that applies to this package
+                 (ie, newer packages are available). We also limit the scope
+                 for a particular osRel.
+        """
         if type(pkg) == type(''): # Old client support.
             pkg = parseRPMName(pkg)
         log_debug(1, pkg, osRel)
@@ -104,14 +102,13 @@ class Errata(rhnHandler):
             ret.append(row)
         return ret
 
-    # Clients v2+
-    # Get errata for a package given [n,v,r,e,a,...] format
     def getPackageErratum(self, system_id, pkg):
-        #"""
-        #Sing-along: You say erratum(sing), I say errata(pl)! :)
-        #IN:  pkg:   [n,v,r,e,s,a,ch,...]
-        #RET: a hash by errata that applies to this package
-        #"""
+        """ Clients v2+ - Get errata for a package given [n,v,r,e,a,...] format
+
+            Sing-along: You say erratum(sing), I say errata(pl)! :)
+            IN:  pkg:   [n,v,r,e,s,a,ch,...]
+            RET: a hash by errata that applies to this package
+        """
         log_debug(5, system_id, pkg)
         if type(pkg) != type([]) or len(pkg) < 7:
             log_error("Got invalid package specification: %s" % str(pkg))

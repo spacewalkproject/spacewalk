@@ -983,6 +983,7 @@ sub populate_initial_configs {
      monitoringDOTorahome => '/opt/oracle',
      monitoringDOTdbd => 'Oracle',
      monitoringDOTscout_shared_key => '', # blank for now.
+     cobblerDOThost => $answers->{hostname}
     );
 
   for ($config_opts{'db_password'}) {

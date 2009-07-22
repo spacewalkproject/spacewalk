@@ -16,6 +16,7 @@
 package com.redhat.rhn.common.security;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -112,15 +113,15 @@ public class SessionSwap {
         Config c = Config.get();
         StringBuffer swapKey = new StringBuffer(20);
         
-        swapKey.append(c.getString(Config.WEB_SESSION_SWAP_SECRET_1));
+        swapKey.append(c.getString(ConfigDefaults.WEB_SESSION_SWAP_SECRET_1));
         swapKey.append(":");
-        swapKey.append(c.getString(Config.WEB_SESSION_SWAP_SECRET_2));
+        swapKey.append(c.getString(ConfigDefaults.WEB_SESSION_SWAP_SECRET_2));
         swapKey.append(":");
         swapKey.append(data);
         swapKey.append(":");
-        swapKey.append(c.getString(Config.WEB_SESSION_SWAP_SECRET_3));
+        swapKey.append(c.getString(ConfigDefaults.WEB_SESSION_SWAP_SECRET_3));
         swapKey.append(":");
-        swapKey.append(c.getString(Config.WEB_SESSION_SWAP_SECRET_4));
+        swapKey.append(c.getString(ConfigDefaults.WEB_SESSION_SWAP_SECRET_4));
         return computeMD5Hash(swapKey.toString());
     }
     
@@ -163,10 +164,10 @@ public class SessionSwap {
                 log.debug("val : " + tmp);
             }
         }
-        swapKey.append(c.getString(Config.WEB_SESSION_SWAP_SECRET_4));
-        swapKey.append(c.getString(Config.WEB_SESSION_SWAP_SECRET_3));
-        swapKey.append(c.getString(Config.WEB_SESSION_SWAP_SECRET_2));
-        swapKey.append(c.getString(Config.WEB_SESSION_SWAP_SECRET_1));
+        swapKey.append(c.getString(ConfigDefaults.WEB_SESSION_SWAP_SECRET_4));
+        swapKey.append(c.getString(ConfigDefaults.WEB_SESSION_SWAP_SECRET_3));
+        swapKey.append(c.getString(ConfigDefaults.WEB_SESSION_SWAP_SECRET_2));
+        swapKey.append(c.getString(ConfigDefaults.WEB_SESSION_SWAP_SECRET_1));
         
         String joinedText = StringUtils.join(text.iterator(), "\0");
         

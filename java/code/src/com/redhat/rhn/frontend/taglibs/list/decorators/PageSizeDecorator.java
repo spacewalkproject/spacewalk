@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.frontend.taglibs.list.decorators;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.frontend.html.HtmlTag;
 import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
@@ -148,7 +148,7 @@ public class PageSizeDecorator extends BaseListDecorator {
      * @return the defaut page size.
      */
     public static int getDefaultPageSize() {
-        String sizeStr = Config.get().getDefaultPageSize();
+        String sizeStr = ConfigDefaults.get().getDefaultPageSize();
         int size = DEFAULT_PAGE_SIZE;
         try {
             if (!StringUtils.isBlank(sizeStr)) {
@@ -157,7 +157,7 @@ public class PageSizeDecorator extends BaseListDecorator {
         }
         catch (NumberFormatException nfe) {
             logger.warn("Number format exception encountered while parsing " +
-                                    Config.DEFAULT_PAGE_SIZE + "=" + sizeStr);
+                    ConfigDefaults.DEFAULT_PAGE_SIZE + "=" + sizeStr);
             size = DEFAULT_PAGE_SIZE;
         }
         
@@ -189,7 +189,7 @@ public class PageSizeDecorator extends BaseListDecorator {
      * @return the list of page sizes..
      */
     public static List<Integer> getPageSizes() {
-        String pageSizes = Config.get().getPageSizes();
+        String pageSizes = ConfigDefaults.get().getPageSizes();
         String [] sizes = pageSizes.split("\\,");
         if (StringUtils.isBlank(pageSizes) || sizes == null || sizes.length == 0) {
             return PAGE_SIZE;
@@ -204,7 +204,7 @@ public class PageSizeDecorator extends BaseListDecorator {
         }
         catch (NumberFormatException nfe) {
             logger.warn("Number format exception encountered while parsing " + 
-                                                Config.PAGE_SIZES + "=" + pageSizes);
+                    ConfigDefaults.PAGE_SIZES + "=" + pageSizes);
             return Collections.EMPTY_LIST;
         }
     }

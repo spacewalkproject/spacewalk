@@ -12,16 +12,13 @@
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <h2><bean:message key="kickstartdetails.jsp.header2"/></h2>
-
-
-
 <div>
+<c:choose><c:when test="${empty requestScope.invalid}">
     <bean:message key="kickstartdetails.jsp.summary1"/>
     <html:form method="post" action="/kickstart/KickstartDetailsEdit.do">
       <html:hidden property="ksid" value="${ksdata.id}"/>
       <html:hidden property="submitted" value="true"/>
       <table class="details">
-
           <tr>
             <th><rhn:required-field key="kickstartdetails.jsp.label"/>:</th>
             <td><html:text property="label" maxlength="64" size="32" /><br/> 
@@ -32,23 +29,9 @@
             <td><strong><c:out value="${ksdata.kickstartDefaults.kstree.channel.name}"/></strong> 
             <a href="/rhn/kickstart/KickstartSoftwareEdit.do?ksid=${ksdata.id}">(<bean:message key="kickstartdetails.jsp.changeos"/>)</a></td>
           </tr>
-          <tr>
-            <th><bean:message key="kickstartdetails.jsp.virtualization_type" /></th>
-            <td colspan="2" align="left">
-              <html:select property="virtualizationTypeLabel">
-                <html:optionsCollection property="virtualizationTypes" label="formattedName" value="label" />
-              </html:select><br/>
-              <span class="small-text"><bean:message key="kickstartdetails.jsp.virtTypeChangeWarning" arg0="${ksdata.id}"/></span>
-            </td>
-          </tr>
           
-          
-          <c:if test="${is_virt}">
-          	 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/virtoptions.jspf" %>
-          </c:if> 
-          
-          
-          
+		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/virtoptions.jspf" %>
+           
           <tr>
             <th><bean:message key="kickstartdetails.jsp.active"/></th>
             <td>
@@ -82,12 +65,12 @@
           </tr>
           <tr>
             <th><bean:message key="kickstartdetails.jsp.kernel_options"/></th>
-            <td><html:text property="kernel_options" maxlength="64" size="32" /></td>
+            <td><html:text property="kernel_options" maxlength="1024" size="32" /></td>
           </tr>                 
           
          <tr>
             <th><bean:message key="kickstartdetails.jsp.post_kernel_options"/></th>
-            <td><html:text property="post_kernel_options" maxlength="64" size="32" /></td>
+            <td><html:text property="post_kernel_options" maxlength="1024" size="32" /></td>
           </tr>
                       
           <tr>
@@ -100,6 +83,16 @@
           </tr>
       </table>
     </html:form>
+    </c:when>
+    <c:otherwise>
+    <p><bean:message key="kickstartdetails.invalid.jsp.summary"/>
+		<bean:message key="kickstartdetails.invalid.jsp.summary-option1"
+				 arg0="${ksdata.tree.label}"
+				 arg1="/rhn/kickstart/TreeEdit.do?kstid=${ksdata.tree.id}"/></p>
+        <p><bean:message key="kickstartdetails.invalid.jsp.summary-option2"
+				arg0="/rhn/kickstart/KickstartSoftwareEdit.do?ksid=${ksdata.id}"/></p>
+    </c:otherwise>
+    </c:choose>
 </div>
 
 </body>

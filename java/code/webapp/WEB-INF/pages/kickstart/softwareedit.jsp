@@ -101,10 +101,11 @@ function reloadForm(ctl) {
 				</c:choose>
             </td>
           </tr>
+          <c:if test = "${not empty kickstartSoftwareForm.map.possibleRepos}">
           <tr>
             <th><bean:message key="softwareedit.jsp.repos" />:</th>
             <td>
-	<c:if test = "${not empty kickstartSoftwareForm.map.possibleRepos}">		
+			
       <c:forEach items="${kickstartSoftwareForm.map.possibleRepos}" var="item">
     		<html:multibox property="selectedRepos" disabled="${item.disabled}">
     	  		${item.value}
@@ -112,10 +113,10 @@ function reloadForm(ctl) {
     		${item.label}
     		<br />
     	</c:forEach>
-    </c:if><br/><rhn:tooltip key="softwareedit.jsp.repos-tooltip"/>            
+    <br/><rhn:tooltip key="softwareedit.jsp.repos-tooltip"/>            
             </td>
           </tr>
-          
+         </c:if> 
           <tr>          
             <td align="right" colspan="2"><html:submit><bean:message key="kickstartdetails.jsp.updatekickstart"/></html:submit></td>
           </tr>

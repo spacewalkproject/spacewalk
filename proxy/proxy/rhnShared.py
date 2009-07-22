@@ -167,7 +167,7 @@ class SharedHandler:
         return apply(conn_class, (), params)
 
     def _parse_url(self, url):
-        # Returns scheme, host, port, path
+        """ Returns scheme, host, port, path. """
         scheme, netloc, path, params, query, frag = rhnLib.parseUrl(url)
         host, port = urllib.splitnport(netloc)
         if (port <= 0):
@@ -217,7 +217,7 @@ class SharedHandler:
         return self._handleServerResponse(status)
 
     def _handleServerResponse(self, status):
-	""" This method can be overridden by subclasses who want to handle server
+        """ This method can be overridden by subclasses who want to handle server
             responses in their own way.  By default, we will wrap all the headers up
             and send them back to the client with an error status.  This method
             should return apache.OK if everything went according to plan.
@@ -284,7 +284,7 @@ class SharedHandler:
     # --- PROTECTED METHODS ---
 
     def _getHeaders(self, req):
-        #""" Copy the incoming headers. """
+        """ Copy the incoming headers. """
 
         hdrs = UserDictCase()
         for k in req.headers_in.keys():
@@ -425,6 +425,4 @@ class SharedHandler:
                     buf = fromResponse.read(CFG.BUFFER_SIZE)
                 except IOError:
                     buf = 0
-
-#===============================================================================
 

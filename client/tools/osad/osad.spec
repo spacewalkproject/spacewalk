@@ -9,10 +9,11 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.14
+Version: 5.9.17
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
+BuildRequires: python-devel
 Requires: python
 Requires: rhnlib >= 1.8-3
 Requires: jabberpy
@@ -53,10 +54,14 @@ OSA dispatcher get message from Spacewalk server that some command is need
 to execute on client. The message is transported via jabber protocol to OSAD
 agent.
 
+%define include_selinux_package 1
+
 %if 0%{?rhel} && 0%{?rhel} <= 4
 %define include_selinux_package 0
-%else
-%define include_selinux_package 1
+%endif
+
+%if 0%{?fedora} == 11
+%define include_selinux_package 0
 %endif
 
 %if %{include_selinux_package}
@@ -198,7 +203,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 %{rhnroot}/osad/osad_config.py*
 %{rhnroot}/osad/rhn_log.py*
 %{rhnroot}/osad/rhnLockfile.py*
-%attr(755,-,-) %{rhnroot}/osad/rhn_fcntl.py*
+%attr(755,root,root) %{rhnroot}/osad/rhn_fcntl.py*
 %config(noreplace) %{_sysconfdir}/sysconfig/rhn/osad.conf
 %config(noreplace) %attr(600,root,root) %{_sysconfdir}/sysconfig/rhn/osad-auth.conf
 %config(noreplace) %{client_caps_dir}/*
@@ -236,6 +241,15 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
+* Wed Jul 22 2009 Devan Goodwin <dgoodwin@redhat.com> 5.9.17-1
+- Disable osad selinux for Fedora 11. (dgoodwin@redhat.com)
+
+* Mon Jul 20 2009 Devan Goodwin <dgoodwin@redhat.com> 5.9.16-1
+- Add osad BuildRequires for python-devel. (dgoodwin@redhat.com)
+
+* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 5.9.15-1
+- 508064 - fix osad installation errors on client (mzazrivec@redhat.com)
+
 * Thu Jun 18 2009 Jan Pazdziora 5.9.14-1
 - 505606 - Require at least selinux-policy 2.4.6-114
 

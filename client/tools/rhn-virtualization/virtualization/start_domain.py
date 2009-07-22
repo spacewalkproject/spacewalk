@@ -41,7 +41,10 @@ def start_domain(uuid):
     # Load the configuration file for this UUID.
     domain = DomainDirectory()
     config = domain.load_config(uuid)
-    
+
+    # Connect to the hypervisor.
+    connection = libvirt.open(None)
+
     # We will attempt to determine if the domain is configured to use a 
     # bootloader.  If not, we'll have to explicitly use the kernel and initrd 
     # data provided in the config to start the domain.
@@ -49,11 +52,11 @@ def start_domain(uuid):
         config.getConfigItem(DomainConfig.BOOTLOADER)
     except DomainConfigError, dce:
         # No bootloader tag present.  Use pygrub to extract the kernel from
-        # the disk image.
-        _prepare_guest_kernel_and_ramdisk(config)
-
-    # Connect to the hypervisor.
-    connection = libvirt.open(None)
+        # the disk image if its Xen. For fully virt we dont have pygrub, it
+        # directly emulates the BIOS loading the first sector of the boot disk.
+        if connection.getType() == 'Xen':
+            # This uses pygrub which comes only with xen 
+            _prepare_guest_kernel_and_ramdisk(config)
 
     # Now, we'll restart the instance, this time using the re-create XML.
     try:

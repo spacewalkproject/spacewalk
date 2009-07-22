@@ -461,17 +461,9 @@ public class ActionFactory extends HibernateFactory {
      * @return the Action found
      */
     public static Action lookupById(Long id) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            Action a = (Action)session.get(Action.class, id);
-            return a;
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-            throw new HibernateRuntimeException(
-                "HibernateException while trying to lookup Action", he);
-        }
+        Session session = HibernateFactory.getSession();
+        Action a = (Action)session.get(Action.class, id);
+        return a;
     }
 
     /**
@@ -525,19 +517,11 @@ public class ActionFactory extends HibernateFactory {
      */
     public static ConfigRevisionAction 
                     lookupConfigRevisionAction(Long id) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            ConfigRevisionAction c = (ConfigRevisionAction) session.
-                                                get(ConfigRevisionAction.class,
-                                                           id);
-            return c;
-        } 
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString(), he);
-       
-        }
-        return null;
+
+        Session session = HibernateFactory.getSession();
+        ConfigRevisionAction c = (ConfigRevisionAction) session.
+            get(ConfigRevisionAction.class, id);
+        return c;
     }
     
     /**

@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
+import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
@@ -30,7 +31,6 @@ import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
-import com.redhat.rhn.domain.rhnpackage.Package;
 
 /**
  * ErrataActionTest

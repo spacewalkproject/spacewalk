@@ -19,6 +19,8 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileDeleteCommand;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * BaseKickstartDeleteCommand 
  * @version $Rev$
@@ -43,12 +45,12 @@ public class KickstartDeleteCommand extends KickstartEditCommand {
         if (deleted == 0) {
             return new ValidatorError("kickstart.delete.error");
         }
-        else {
+        else if (!StringUtils.isBlank(getKickstartData().getCobblerId())) {
             CobblerProfileDeleteCommand cmd = 
                 new CobblerProfileDeleteCommand(getKickstartData(), this.getUser());
             cmd.store();
-            return null;
         }
+        return null;
     }
 
 }

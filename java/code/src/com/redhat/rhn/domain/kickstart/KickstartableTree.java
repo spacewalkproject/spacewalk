@@ -14,12 +14,18 @@
  */
 package com.redhat.rhn.domain.kickstart;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
+
+import org.apache.commons.lang.StringUtils;
+import org.cobbler.CobblerConnection;
+import org.cobbler.Distro;
 
 import java.io.File;
 import java.util.Date;
@@ -250,7 +256,7 @@ public class KickstartableTree extends BaseDomainHelper {
         if (isRhnTree()) {
             //redhat channel append the mount point to 
             //base path...
-            return Config.get().getKickstartMountPoint() + getBasePath();
+            return ConfigDefaults.get().getKickstartMountPoint() + getBasePath();
         }
         //its a base channel return the 
         return getBasePath();
@@ -357,4 +363,40 @@ public class KickstartableTree extends BaseDomainHelper {
         return kernel.exists();
     }
     
+    /**
+     * Returns the cobbler object associated to 
+     * to this tree.
+     * @param user the user object needed for connection,
+     *              enter null if you want to use the 
+     *              automated connection as provided by
+     *              taskomatic.
+     * @return the Distro associated to this tree
+     */
+    public Distro getCobblerObject(User user) {
+        if (StringUtils.isBlank(getCobblerId())) {
+            return null;
+        }
+        CobblerConnection con;
+        if (user == null) {
+            con = CobblerXMLRPCHelper.getAutomatedConnection();
+        }
+        else {
+            con = CobblerXMLRPCHelper.getConnection(user);
+        }
+        return Distro.lookupById(con, getCobblerId());
+    }
+    
+    private boolean pathExists(String path) {
+        return new File(path).exists();
+    }
+    
+    /**
+     * Returns true if both the kernel path and initrd paths exist
+     * and cobbler id is not null for this distribution.
+     * @return true if this is a valid distro.
+     */
+    public boolean isValid() {
+        return !StringUtils.isBlank(getCobblerId()) && 
+                    pathExists(getInitrdPath()) && pathExists(getKernelPath()); 
+    }
 }

@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.user;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.Role;
@@ -92,7 +93,7 @@ public class AdminUserEditAction extends UserEditActionHelper {
          * accordingly. (we don't want to set this field if it wasn't displayed or if the
          * user doesn't have access to set this attribute)
          */
-        String pamAuthService = Config.get().getString(Config.WEB_PAM_AUTH_SERVICE);
+        String pamAuthService = Config.get().getString(ConfigDefaults.WEB_PAM_AUTH_SERVICE);
         if (pamAuthService != null && 
                 pamAuthService.trim().length() > 0 && 
                 loggedInUser.hasRole(RoleFactory.ORG_ADMIN)) {

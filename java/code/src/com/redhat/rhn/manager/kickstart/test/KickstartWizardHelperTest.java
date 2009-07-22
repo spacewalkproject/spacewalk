@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.kickstart.test;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
@@ -29,9 +30,9 @@ public class KickstartWizardHelperTest extends BaseTestCaseWithUser {
 
     public void testVirtTypes() {
         KickstartWizardHelper helper = new KickstartWizardHelper(user);
-        String origConfig = Config.get().getString(Config.PRODUCT_NAME);
-        Config.get().setString(Config.PRODUCT_NAME, Config.SPACEWALK);
-        assertTrue(Config.get().isSpacewalk());
+        String origConfig = Config.get().getString(ConfigDefaults.PRODUCT_NAME);
+        Config.get().setString(ConfigDefaults.PRODUCT_NAME, ConfigDefaults.SPACEWALK);
+        assertTrue(ConfigDefaults.get().isSpacewalk());
         List types = helper.getVirtualizationTypes();
         assertNotNull(types);
         boolean found = false;
@@ -44,7 +45,7 @@ public class KickstartWizardHelperTest extends BaseTestCaseWithUser {
         assertTrue(found);
         found = false;
                 
-        Config.get().setString(Config.PRODUCT_NAME, origConfig);
+        Config.get().setString(ConfigDefaults.PRODUCT_NAME, origConfig);
     }
     
 }

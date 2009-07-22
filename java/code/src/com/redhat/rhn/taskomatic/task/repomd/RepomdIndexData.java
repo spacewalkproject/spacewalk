@@ -26,6 +26,7 @@ public class RepomdIndexData {
     private String checksum;
     private String openChecksum;
     private Date timestamp;
+    private String type;
 
     /**
      * 
@@ -37,6 +38,27 @@ public class RepomdIndexData {
         this.checksum = checksumIn;
         this.openChecksum = openChecksumIn;
         this.timestamp = timestampIn;
+    }
+
+    /**
+     * 
+     * @return checksum type
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * This is specifically for type value in repomd.xml
+     * @param typeIn checksum type
+     */
+    public void setType(String typeIn) {
+        if (typeIn == "SHA1") {
+            this.type = "sha";
+        }
+        else if (typeIn == "SHA-256") {
+            this.type = "sha256";
+        }
     }
 
     /**

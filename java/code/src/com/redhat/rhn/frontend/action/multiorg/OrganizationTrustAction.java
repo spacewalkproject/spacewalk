@@ -14,13 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.multiorg;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
 import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.TrustedOrgDto;
@@ -28,6 +21,13 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.org.OrgManager;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -46,9 +46,11 @@ public class OrganizationTrustAction extends RhnAction {
         RequestContext requestContext = new RequestContext(request);        
         User user = requestContext.getLoggedInUser();
         String name = user.getOrg().getName();
+        String orgid = user.getOrg().getId().toString();
         DataList<TrustedOrgDto> result = OrgManager.trustedOrgs(user);
                         
         request.setAttribute("orgName", name);
+        request.setAttribute("orgId", orgid);
         request.setAttribute(ListTagHelper.PAGE_LIST, result);       
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
                 

@@ -15,32 +15,32 @@
 
 package com.redhat.rhn.frontend.xmlrpc.kickstart.profile.system;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.List;
-import java.util.ArrayList;
-
 import com.redhat.rhn.FaultException;
+import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.common.CommonFactory;
 import com.redhat.rhn.domain.common.FileList;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
-import com.redhat.rhn.domain.kickstart.SELinuxMode;
-import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartData;
-import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.SELinuxMode;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.FileListNotFoundException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidLocaleCodeException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.XmlRpcKickstartHelper;
+import com.redhat.rhn.manager.kickstart.KickstartCryptoKeyCommand;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartLocaleCommand;
-import com.redhat.rhn.manager.kickstart.SystemDetailsCommand;
-import com.redhat.rhn.manager.kickstart.KickstartCryptoKeyCommand;
 import com.redhat.rhn.manager.kickstart.KickstartPartitionCommand;
-import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.manager.kickstart.SystemDetailsCommand;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
 * SystemDetailsHandler
@@ -239,79 +239,6 @@ public class SystemDetailsHandler extends BaseHandler {
         ensureConfigAdmin(user);
         SystemDetailsCommand command  = getSystemDetailsCommand(ksLabel, user);
         command.setMode(SELinuxMode.lookup(enforcingMode));
-        return setRemoteCommandsFlag(sessionKey, ksLabel, true);
-    }
-
-    /**
-     * Retrieves the network connection properties of a kickstart profile.
-     * @param sessionKey the session key
-     * @param ksLabel the ks profile label
-     * @return map containing the network connection properties.
-     * 
-     * @xmlrpc.doc Retrieves the network connection properties of a kickstart profile.
-     * @xmlrpc.param #session_key() 
-     * @xmlrpc.param #param_desc("string", "ksLabel","the kickstart profile label")
-     * @xmlrpc.returntype
-     *     #struct("network connection info")
-     *         #prop("int", "is_dhcp")
-     *             #options()
-     *                 #item_desc ("1", "the type of network connection is dhcp")
-     *                 #item_desc ("0", "the type of network connection is static")
-     *             #options_end()
-     *         #prop_desc("string", "interface_name", "name of the network interface- 
-     *             eg: eth0")
-     *     #struct_end()
-     */
-    public Map getNetworkConnection(String sessionKey, String ksLabel) {
-        User user = getLoggedInUser(sessionKey);
-        ensureConfigAdmin(user);
-        SystemDetailsCommand command  = getSystemDetailsCommand(ksLabel, user);
-        
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("interface_name", command.getNetworkInterface());
-        if (command.getNetworkType().equals(SystemDetailsCommand.DHCP_NETWORK_TYPE)) {
-            map.put("is_dhcp", new Integer(1));
-        }
-        else if (command.getNetworkType().equals(
-            SystemDetailsCommand.STATIC_NETWORK_TYPE)) {
-            map.put("is_dhcp", new Integer(0));
-        }
-        return map;
-    }
-    
-    /**
-     * Sets the network device property of a kickstart profile 
-     * so that a system created using this profile will be have 
-     * the appropriate network device associated to it.
-     * @param sessionKey the session key
-     * @param ksLabel the ks profile label
-     * @param isDhcp true if the network device uses DHCP
-     * @param interfaceName network interface name
-     * @return 1 on success
-     * 
-     * @xmlrpc.doc Sets the network device property of a kickstart profile 
-     * so that a system created using this profile will be have 
-     * the appropriate network device associated to it.
-     * @xmlrpc.param #session_key() 
-     * @xmlrpc.param #param_desc("string", "ksLabel","the kickstart profile label")
-     * @xmlrpc.param #param("int", "isDhcp")
-     *      #options()
-     *          #item_desc ("1", 
-     *          "to set the network type of the connection type to dhcp")
-     *          #item_desc ("0", 
-     *          "to set the network type of the connection type to static device")
-     *      #options_end()
-     * @xmlrpc.param #param_desc("string", "interfaceName",
-     *                           "name of the network interface- eg:- eth0")
-     * @xmlrpc.returntype #return_int_success()
-     */
-    public int setNetworkConnection(String sessionKey, String ksLabel, 
-                                            boolean isDhcp, String interfaceName) {
-        User user = getLoggedInUser(sessionKey);
-        ensureConfigAdmin(user);
-        SystemDetailsCommand command  = getSystemDetailsCommand(ksLabel, user);
-        
-        command.setNetworkDevice(interfaceName, isDhcp);
         return setRemoteCommandsFlag(sessionKey, ksLabel, true);
     }
  

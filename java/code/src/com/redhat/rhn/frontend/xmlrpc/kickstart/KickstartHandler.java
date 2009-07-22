@@ -378,8 +378,8 @@ public class KickstartHandler extends BaseHandler {
      * 
      * @xmlrpc.doc Delete a kickstart profile
      * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "ksLabel", "The kickstart label of
-     * the ip range you want to remove")
+     * @xmlrpc.param #param_desc("string", "ksLabel", "The label of
+     * the kickstart profile you want to remove")
      * @xmlrpc.returntype int - 1 on successful deletion, 0 if kickstart wasn't found
      *  or couldn't be deleted.
      */    

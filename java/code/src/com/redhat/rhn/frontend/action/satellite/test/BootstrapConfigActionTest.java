@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.satellite.test;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.action.satellite.BootstrapConfigAction;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -41,10 +42,10 @@ public class BootstrapConfigActionTest extends RhnMockStrutsTestCase {
     }
 
     public void testNonSubmitExecute() throws Exception {
-        String expectedHostname = Config.get().getString(Config.JABBER_SERVER);
+        String expectedHostname = Config.get().getString(ConfigDefaults.JABBER_SERVER);
         if (expectedHostname == null) {
             expectedHostname = "localhost";
-            Config.get().setString(Config.JABBER_SERVER, expectedHostname);
+            Config.get().setString(ConfigDefaults.JABBER_SERVER, expectedHostname);
         }
         addRequestParameter(RhnAction.SUBMITTED, Boolean.FALSE.toString());
         setRequestPathInfo("/admin/config/BootstrapConfig");
@@ -71,10 +72,10 @@ public class BootstrapConfigActionTest extends RhnMockStrutsTestCase {
     
     public void testSubmitExecute() throws Exception {
         
-        String expectedHostname = Config.get().getString(Config.JABBER_SERVER);
+        String expectedHostname = Config.get().getString(ConfigDefaults.JABBER_SERVER);
         if (expectedHostname == null) {
             expectedHostname = "localhost";
-            Config.get().setString(Config.JABBER_SERVER, expectedHostname);
+            Config.get().setString(ConfigDefaults.JABBER_SERVER, expectedHostname);
         }
         
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());

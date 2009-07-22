@@ -14,24 +14,27 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage.ssm;
 
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Set;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionForm;
-import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.common.db.datasource.DataResult;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @version $Revision$

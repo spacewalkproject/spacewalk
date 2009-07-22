@@ -14,10 +14,10 @@
  */
 package com.redhat.rhn.domain.channel;
 
+import com.redhat.rhn.domain.kickstart.KickstartInstallType;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import com.redhat.rhn.domain.kickstart.KickstartInstallType;
 
 /**
  * Simple enum class to represent the RHEL version of a channel.

@@ -15,13 +15,13 @@
 
 package com.redhat.rhn.frontend.action.renderers;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.system.SystemManager;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Renders YourRhn fragment for system groups

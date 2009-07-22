@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.user;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
@@ -70,7 +71,7 @@ public class CreateUserSetupAction extends RhnAction {
         * If we are a sat and we have setup pam authentication already, display the
         * checkbox and instructions
         */
-        String pamAuthService = Config.get().getString(Config.WEB_PAM_AUTH_SERVICE);
+        String pamAuthService = Config.get().getString(ConfigDefaults.WEB_PAM_AUTH_SERVICE);
         if (pamAuthService != null && pamAuthService.trim().length() > 0) {
             request.setAttribute("displaypamcheckbox", "true");
         }

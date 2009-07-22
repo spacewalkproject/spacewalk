@@ -14,13 +14,7 @@
  */
 package com.redhat.rhn.manager.org.test;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.monitoring.MonitoringConstants;
@@ -49,6 +43,11 @@ import com.redhat.rhn.testing.ConfigTestUtils;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * MigrationManagerTest

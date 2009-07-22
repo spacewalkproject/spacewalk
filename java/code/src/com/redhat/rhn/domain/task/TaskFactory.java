@@ -19,7 +19,6 @@ import com.redhat.rhn.domain.org.Org;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Order;
@@ -75,6 +74,16 @@ public class TaskFactory extends HibernateFactory {
     }
     
     /**
+     * Remove a completed Task from the queue.
+     * 
+     * @param taskIn to remove
+     */
+    public static void remove(Task taskIn) {
+        singleton.removeObject(taskIn);
+    }
+    
+    
+    /**
      * Lookups up a task.
      * @param org The org containing the task
      * @param name The name of the task
@@ -82,19 +91,12 @@ public class TaskFactory extends HibernateFactory {
      * @return Returns the task that matches all three parameters or null.
      */
     public static Task lookup(Org org, String name, Long data) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            return (Task) session.getNamedQuery("Task.lookup")
-                                     .setString("name", name)
-                                       .setLong("data", data.longValue())
-                                     .setEntity("org", org)
-                                     .uniqueResult();
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-        return null;
+        Session session = HibernateFactory.getSession();
+        return (Task) session.getNamedQuery("Task.lookup")
+                                 .setString("name", name)
+                                   .setLong("data", data.longValue())
+                                 .setEntity("org", org)
+                                 .uniqueResult();
     }
     
     /**
@@ -103,18 +105,11 @@ public class TaskFactory extends HibernateFactory {
      * @return Returns a list of task objects
      */
     public static List getTaskListByChannel(Org org) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            return session.getNamedQuery("Task.lookupByOrgAndName")
-                          .setEntity("org", org)
-                          .setString("name", "update_errata_cache_by_channel")
-                          .list();
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-        return null;
+        Session session = HibernateFactory.getSession();
+        return session.getNamedQuery("Task.lookupByOrgAndName")
+                      .setEntity("org", org)
+                      .setString("name", "update_errata_cache_by_channel")
+                      .list();
     }
     
     /**
@@ -140,5 +135,16 @@ public class TaskFactory extends HibernateFactory {
         }
 
         return c.list();
+    }
+
+    /**
+     * Lookup a list of Tasks who's name start with passed in param
+     * @param nameIn to lookup
+     * @return List of Tasks or null if not found.
+     */
+    public static List getTaskListByNameLike(String nameIn) {
+        return HibernateFactory.getSession().getNamedQuery("Task.lookupByNameLike")
+          .setString("namelike", nameIn + "%")
+          .list();
     }
 }

@@ -14,19 +14,18 @@
  */
 package com.redhat.rhn.manager.rhnset;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.redhat.rhn.common.util.Asserts;
+import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
 import com.redhat.rhn.frontend.action.monitoring.ProbeSuiteHelper;
 
-import com.redhat.rhn.domain.channel.Channel;
-
 import org.apache.commons.lang.builder.HashCodeBuilder;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The declaration of an {@link RhnSet}. This combines the name of the set with

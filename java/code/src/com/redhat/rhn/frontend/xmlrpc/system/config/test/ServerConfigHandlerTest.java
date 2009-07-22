@@ -73,9 +73,7 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
         // gcc1 only 
         Server srv1 = ServerFactoryTest.createTestServer(regular, true,
                     ServerConstants.getServerGroupTypeProvisioningEntitled());
-        SystemManagerTest.giveCapability(srv1.getId(), 
-                SystemManager.CAP_CONFIGFILES_DEPLOY, ver);
-        
+
         srv1.subscribe(gcc1);
         srv1.subscribe(gcc2);
         
@@ -108,7 +106,22 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
         // System 1 - both g1f1 and g1f2 should deploy here
         List<Number> systems  = new ArrayList<Number>();
         systems.add(srv1.getId());
-        Date date = new Date(); 
+        Date date = new Date();
+
+        try {
+            // validate that system must have config deployment capability
+            // in order to deploy config files... (e.g. rhncfg* pkgs installed)
+            handler.deployAll(regularKey, systems, date);
+
+            fail("Shouldn't be permitted to deploy without config deploy capability.");
+        }
+        catch (Exception e) {
+            // Success
+        }
+
+        SystemManagerTest.giveCapability(srv1.getId(),
+                SystemManager.CAP_CONFIGFILES_DEPLOY, ver);
+
         handler.deployAll(regularKey, systems, date);
         
         DataResult<ScheduledAction> actions = ActionManager.

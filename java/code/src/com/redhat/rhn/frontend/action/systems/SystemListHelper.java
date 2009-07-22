@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.systems;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
@@ -170,7 +171,7 @@ public class SystemListHelper {
 
     private static boolean checkinOverdue(SystemOverview systemData) {
         Long threshold = new Long(Config.get().getInt(
-                Config.SYSTEM_CHECKIN_THRESHOLD));
+                ConfigDefaults.SYSTEM_CHECKIN_THRESHOLD));
 
         if (systemData.getLastCheckinDaysAgo() != null &&
             systemData.getLastCheckinDaysAgo().compareTo(threshold) > 0) {

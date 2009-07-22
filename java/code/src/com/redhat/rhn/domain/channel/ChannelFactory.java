@@ -73,16 +73,9 @@ public class ChannelFactory extends HibernateFactory {
      * @return the Channel found
      */
     public static Channel lookupById(Long id) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            Channel c = (Channel) session.get(Channel.class, id);
-            return c;
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-        return null;
+        Session session = HibernateFactory.getSession();
+        Channel c = (Channel) session.get(Channel.class, id);
+        return c;
     }
     
     /**

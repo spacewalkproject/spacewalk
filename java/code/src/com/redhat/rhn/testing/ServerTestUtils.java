@@ -14,13 +14,21 @@
  */
 package com.redhat.rhn.testing;
 
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.WriteMode;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
-import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
+import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Server;
@@ -30,26 +38,19 @@ import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.server.test.VirtualInstanceManufacturer;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.errata.Errata;
-import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
-import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
-import com.redhat.rhn.manager.rhnpackage.PackageManager;
-import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
-import com.redhat.rhn.manager.rhnset.RhnSetManager;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-import com.redhat.rhn.common.db.datasource.WriteMode;
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
+import com.redhat.rhn.manager.system.SystemManager;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Map;
-import java.util.HashMap;
 import org.hibernate.Session;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 
 /**

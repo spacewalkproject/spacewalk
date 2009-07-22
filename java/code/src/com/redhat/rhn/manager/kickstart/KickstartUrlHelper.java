@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.domain.common.CommonFactory;
 import com.redhat.rhn.domain.common.TinyUrl;
@@ -329,7 +329,7 @@ public class KickstartUrlHelper {
         Profile prof = Profile.lookupById(
                 CobblerXMLRPCHelper.getAutomatedConnection(), 
                         data.getCobblerId());      
-        return "http://" + Config.get().getCobblerHost() + COBBLER_URL_BASE_PATH + 
+        return "http://" + ConfigDefaults.get().getCobblerHost() + COBBLER_URL_BASE_PATH + 
                     prof.getName();
     }
     

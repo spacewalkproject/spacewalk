@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.11
+Version: 0.6.22
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -568,6 +568,104 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Jul 22 2009 John Matthews <jmatthew@redhat.com> 0.6.22-1
+- 511283 - Package compare between db and cache should see if the db is newer
+  than cache and only then import the content. (pkilambi@redhat.com)
+
+* Tue Jul 21 2009 John Matthews <jmatthew@redhat.com> 0.6.21-1
+- 512936 - Changing the custom channel rule to always defalt to org 1 for
+  custom channels unless --org option is used. This will avoid the confusion of
+  putting the channel is some random org on slaves. (pkilambi@redhat.com)
+
+* Tue Jul 21 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.20-1
+- 512960 - check for the proper attr name on rpm for header reading
+  (jbowes@redhat.com)
+
+* Thu Jul 16 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.19-1
+- 512236 - the org id checks were defaulting to None in custom channel cases
+  instead of 1. Also the metadata sting frommaster is a string None so we need
+  to check for the string. This should fix both custom and null org content in
+  iss case. hosted syncs should work as usual. (pkilambi@redhat.com)
+- Return config channels sorted highest to lowest priority.
+  (dgoodwin@redhat.com)
+- 511116 - changing updatePackages to change the permissions on the kickstart
+  trees in the same way we do for packages within /var/satellite
+  (jsherril@redhat.com)
+
+* Fri Jul 10 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.18-1
+- If not commandline options given, compare the erratum channels to the already
+  imported ones (pkilambi@redhat.com)
+- If not commandline options given, compare the erratum channels to the already
+  imported ones (pkilambi@redhat.com)
+- compute the channel filtering only if a channel is specified in the
+  commandline. If not, use the default (pkilambi@redhat.com)
+
+* Thu Jul 09 2009 John Matthews <jmatthew@redhat.com> 0.6.17-1
+- Only include the channels that are being synced to each errata. This will
+  help taskomatic not spam users with irrelevant errata mails
+  (pkilambi@redhat.com)
+
+* Fri Jul  3 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.16-1
+- 509516 - failure to check for non-existant header (Mark Chappell <m.d.chappell@bath.ac.uk>)
+- 509444 - remove delete action system from virt page (Shannon Hughes <shughes@redhat.com>)
+- 509371 - SSM->Install,Remove,Verify - minor fixes to Package Name and Arch (Brad Buckingham <bbuckingham@redhat.com>)
+
+* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.6.15-1
+- change comments to docstrings (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- 499723 - accept follow-redirects with value greater then 2
+  (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+- 507867 - Schedule repo gen once the channel package associations is complete
+  (pkilambi@redhat.com)
+- 505680 - channel_product_id is computed based on the name, product and
+  version so it will not match the cache as cache is always None. Also dont
+  update the channel_product_id uless the id is different from whats being
+  updated (pkilambi@redhat.com)
+- Update HACKING file for backend test instructions. (dgoodwin@redhat.com)
+- Integrate some PostgreSQL rhnSQL driver unit tests. (dgoodwin@redhat.com)
+- First cut of a unit test framework for Python backend. (dgoodwin@redhat.com)
+- 507593 - fixing eus registration tracebacks (pkilambi@redhat.com)
+- Adding repodata details for a given channel to channelDetails page.
+  (pkilambi@redhat.com)
+- Revert "503090 - Exclude rhnlib from kickstart profile sync."
+  (dgoodwin@redhat.com)
+- remove short package dependency on rpms. User might wanna skip the rpms and
+  still import metadata. (pkilambi@redhat.com)
+- 422611 - Warn that satrm.py is not a supported script. (dgoodwin@redhat.com)
+- fixing the unsubscriptable object error when package is not yet in rhnPackage
+  table (pkilambi@redhat.com)
+- 506264 - This commit includes: (pkilambi@redhat.com)
+- 505680 - When satsync tries to do an import it compares whats in cache to db
+  and tries to import only new content, but since the last_modified date always
+  differ we end up updating the rhnChannel table even when there is nothing to
+  sync. Adding last_modified to ignore keys list so that we dont decide the
+  diff based on this field. We still continue to compare the rest of the
+  fields. (pkilambi@redhat.com)
+- 495790 - force uploading a package ends up with duplicate entries in
+  rhnPackage table. This is because we use md5sum along with name, evr, package
+  arch and org as a primary key while deciding whether to perform an insert or
+  an update. Since the solaris packages had same nvrea and org and different
+  md5 sums it was doing an insert instead of update on the existing row. Fixed
+  the schema wrapper to only use md5sum as a primary key if nvrea feature is
+  enabled. Also fixed the package uniquifies to use md5sum only for nvrea.
+  (pkilambi@redhat.com)
+- Catch the systemExit and preserve the error code. Also fixing the traceback
+  issue when db is not accessible (pkilambi@redhat.com)
+- removing bugzilla handler specific tests (pkilambi@redhat.com)
+- 502581 - splitting the data to smaller chunks to please cx_oracle to avoid
+  throwing array too big errors (pkilambi@redhat.com)
+- 503090 - Exclude rhnlib from kickstart profile sync. (dgoodwin@redhat.com)
+
 * Fri Jun 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.11-1
 - fixing duplicate entries in repogen tables and other clean aup
   (pkilambi@redhat.com)

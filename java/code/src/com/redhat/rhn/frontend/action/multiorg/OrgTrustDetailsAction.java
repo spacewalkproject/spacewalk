@@ -14,13 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.multiorg;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
@@ -28,6 +21,13 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.org.OrgManager;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Overview Action for the Configuration top level.

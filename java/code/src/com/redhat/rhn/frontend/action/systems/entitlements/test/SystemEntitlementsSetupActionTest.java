@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.systems.entitlements.test;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -183,7 +184,7 @@ public class SystemEntitlementsSetupActionTest extends RhnMockStrutsTestCase {
         user.addRole(RoleFactory.ORG_ADMIN);
         user.getOrg().getEntitlements().add(
             OrgFactory.lookupEntitlementByLabel("rhn_monitor"));
-        Config.get().setBoolean(Config.WEB_IS_MONITORING_BACKEND, "1");
+        Config.get().setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, "1");
     }
     
    

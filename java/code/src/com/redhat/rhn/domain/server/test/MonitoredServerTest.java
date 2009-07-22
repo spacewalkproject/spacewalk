@@ -14,10 +14,6 @@
  */
 package com.redhat.rhn.domain.server.test;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
 import com.redhat.rhn.domain.monitoring.MonitoringConstants;
 import com.redhat.rhn.domain.monitoring.MonitoringFactory;
 import com.redhat.rhn.domain.monitoring.ProbeState;
@@ -28,6 +24,10 @@ import com.redhat.rhn.domain.monitoring.suite.test.ProbeSuiteTest;
 import com.redhat.rhn.domain.server.MonitoredServer;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
+
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * CPUTest

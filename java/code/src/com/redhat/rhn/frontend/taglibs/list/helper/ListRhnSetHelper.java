@@ -14,19 +14,22 @@
  */
 package com.redhat.rhn.frontend.taglibs.list.helper;
 
+import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnListSetHelper;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
+
+import org.apache.commons.collections.CollectionUtils;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
-import org.apache.commons.collections.CollectionUtils;
-import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnListSetHelper;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
 /**
  * Used in creating rhnSet backed actions that tie into the "new" list tag (i.e. in the

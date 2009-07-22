@@ -42,6 +42,10 @@ public class IpAddress {
      */
     public IpAddress(String ipIn) {
         this();
+        if (StringUtils.isEmpty(ipIn)) {
+            throw new InvalidIpAddressException(StringUtils.defaultString(ipIn));
+        }
+
         String [] soctets = StringUtils.split(ipIn, ".");
         if (soctets.length == 4) {
             try {      

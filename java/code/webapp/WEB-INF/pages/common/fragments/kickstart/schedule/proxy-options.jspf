@@ -1,0 +1,27 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+        <c:if test="${not empty proxies}">
+        <h2>
+          <img src="/img/rhn-icon-proxy.gif"
+               alt="<bean:message key='system.common.proxyAlt' />" />
+          <bean:message key="kickstart.schedule.heading.proxy.jsp"/>
+        </h2>
+        <c:choose>
+        <c:when test="${empty proxy_summary_key}"><p><bean:message key="kickstart.schedule.msg.proxy.jsp"/></p></c:when>
+        <c:otherwise><p><bean:message key="${proxy_summary_key}"/></p></c:otherwise>
+
+        </c:choose>
+        <p>
+        <select name="proxyHost">
+			<c:forEach var="proxy" items="${proxies}">
+				<option
+				<c:if test="${proxy.value == param.proxyHost}">selected="selected"</c:if>
+				value='${proxy.value}'>${proxy.label}</option>
+			</c:forEach>
+		</select>
+        <br />
+        <bean:message key="kickstart.schedule.tip.proxy.jsp"/>
+        </p>
+        </c:if>

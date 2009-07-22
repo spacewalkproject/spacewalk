@@ -89,16 +89,19 @@
       <tr>
         <th><bean:message key="channel.jsp.repodata"/>:</th>
         <td>
-           <c:if test="${repo_status ==  null}">
-               <span class="no-details">(none)</span>
-           </c:if>
            <c:choose>
+               <c:when test="${repo_status ==  null}">
+               <span class="no-details">(none)</span>
+               </c:when>
                <c:when test="${repo_status == true}">
                   <bean:message key="channel.jsp.repodata.inProgress"/>
                </c:when>
-               <c:otherwise>
+               <c:when test="${repo_status == false && repo_last_build != null}">
                     <bean:message key="channel.jsp.repodata.completed"/>
-               </c:otherwise>
+               </c:when>
+               <c:otherwise>
+                <span class="no-details">(none)</span>
+              </c:otherwise>
            </c:choose>
         </td>
       </tr>

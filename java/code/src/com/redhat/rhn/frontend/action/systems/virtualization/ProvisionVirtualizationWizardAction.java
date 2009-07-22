@@ -28,7 +28,6 @@ import com.redhat.rhn.manager.kickstart.KickstartScheduleCommand;
 import com.redhat.rhn.manager.kickstart.ProvisionVirtualInstanceCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
-import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForward;
@@ -53,7 +52,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
     public static final String VIRTUAL_BRIDGE = "virtBridge";
     public static final String VIRTUAL_FILE_PATH = "diskPath";
     public static final String LOCAL_STORAGE_MB = "localStorageMegabytes";
-    public static final String PROFILE = "profile";
+    public static final String PROFILE = "cobbler_profile";
     
     public static final String GUEST_NAME = "guestName";
     public static final int MIN_NAME_SIZE = 4;
@@ -98,10 +97,14 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
             //saveMessages(ctx.getRequest(), errors);
             return runFirst(mapping, form, ctx, response, step);
         }
+        ActionForward forward = super.runSecond(mapping, form, ctx, response, step);
+        
         Profile pf = getCobblerProfile(ctx);
+        KickstartData ksdata = ctx.lookupAndBindKickstartData();
         if (StringUtils.isEmpty(form.getString(VIRTUAL_FILE_PATH))) {
             form.set(VIRTUAL_FILE_PATH, ProvisionVirtualInstanceCommand.
-                                makeDefaultVirtPath(form.getString(GUEST_NAME)));
+                                makeDefaultVirtPath(form.getString(GUEST_NAME),
+                         ksdata.getKickstartDefaults().getVirtualizationType()));
         }
         if (StringUtils.isEmpty(form.getString(MEMORY_ALLOCATION))) {
             form.set(MEMORY_ALLOCATION, String.valueOf(pf.getVirtRam()));
@@ -123,7 +126,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
             form.set(TARGET_PROFILE_TYPE, 
                         KickstartScheduleCommand.TARGET_PROFILE_TYPE_NONE);
         }        
-        return super.runSecond(mapping, form, ctx, response, step);
+        return forward;
     }
 
     /**
@@ -155,22 +158,6 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         
         ProvisionVirtualInstanceCommand cmd = getScheduleCommand(form,
                                 ctx, scheduleTime, helper.getKickstartHost());
-        
-        if (StringUtils.isEmpty(form.getString(USE_EXISTING_PROFILE))) {
-            form.set(USE_EXISTING_PROFILE, Boolean.TRUE.toString());
-        }
-
-        boolean useExistingProfile = 
-            BooleanUtils.toBoolean(form.getString(USE_EXISTING_PROFILE));
-        if (useExistingProfile) {
-            cmd.setActivationType(
-                KickstartScheduleCommand.ACTIVATION_TYPE_EXISTING);
-        }
-        else {
-            cmd.setActivationType(
-                KickstartScheduleCommand.ACTIVATION_TYPE_KEY);
-            cmd.setActivationKeyId((Long) form.get(ACTIVATION_KEY));
-        }
         
         cmd.setKernelOptions(form.getString(KERNEL_PARAMS));
                                     

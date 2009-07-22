@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.6.4
+Version: 0.6.8
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -42,6 +42,7 @@ Obsoletes: rhns-proxy < 5.3.0
 Obsoletes: rhns-proxy-management < 5.3.0
 BuildRequires: /usr/bin/docbook2man
 Obsoletes: rhns-proxy-tools < 5.3.0
+Provides: rhns-proxy-tools = 5.3.0
 Obsoletes: spacewalk-proxy-tools < 0.5.3
 Provides: spacewalk-proxy-tools = %{version}
 
@@ -260,7 +261,7 @@ fi
 %attr(640,root,apache) %config %{rhnconf}/rhn.conf
 %attr(750,root,apache) %dir %{rhnconf}/default
 %attr(640,root,apache) %{rhnconf}/default/rhn_proxy.conf
-%attr(640,root,apache) %config(noreplace) %{httpdconf}/rhn_proxy.conf
+%attr(640,root,apache) %config %{httpdconf}/rhn_proxy.conf
 # the cache
 %attr(750,apache,root) %dir %{_var}/cache/rhn
 %attr(750,apache,root) %dir %{_var}/cache/rhn/proxy-auth
@@ -288,6 +289,21 @@ fi
 
 
 %changelog
+* Tue Jul 21 2009 John Matthews <jmatthew@redhat.com> 0.6.8-1
+- 503187 - rewrite old config during upgrade, old file will be saved as
+  .rpmorig (msuchy@redhat.com)
+
+* Mon Jul 06 2009 John Matthews <jmatthew@redhat.com> 0.6.7-1
+- 509522 - remove conflicts and put provides to spacewalk-proxy-management
+  (msuchy@redhat.com)
+
+* Fri Jun 26 2009 John Matthews <jmatthew@redhat.com> 0.6.6-1
+- fix build error
+
+* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.6.5-1
+- change comments to docstrings (msuchy@redhat.com)
+- change comments to docstrings (msuchy@redhat.com)
+
 * Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.4-1
 - 503187 - close tag
 

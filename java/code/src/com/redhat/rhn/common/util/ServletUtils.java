@@ -17,6 +17,8 @@ package com.redhat.rhn.common.util;
 
 import com.redhat.rhn.common.RhnRuntimeException;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -27,7 +29,6 @@ import java.util.Map;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * A simple class that assists with Servlet-related activities

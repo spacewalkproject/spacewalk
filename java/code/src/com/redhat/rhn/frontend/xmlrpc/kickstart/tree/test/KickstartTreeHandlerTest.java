@@ -27,6 +27,7 @@ import com.redhat.rhn.frontend.xmlrpc.kickstart.tree.KickstartTreeHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -60,26 +61,26 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
     public void testCreateKickstartableTree() throws Exception {
         String label = TestUtils.randomString();
         List trees = KickstartFactory.
-            lookupKickstartTreesByOrg(admin.getOrg());
+            lookupAccessibleTreesByOrg(admin.getOrg());
         int origCount = 0;
         if (trees != null) {
             origCount = trees.size();
         }
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin);
         handler.create(adminKey, label, 
-                "http://localhost/ks", 
+                KickstartableTreeTest.KICKSTART_TREE_PATH.getAbsolutePath(), 
                 baseChan.getLabel(), KickstartInstallType.RHEL_5);
         assertTrue(origCount + 1 == KickstartFactory.
-                lookupKickstartTreesByOrg(admin.getOrg()).size());
+                lookupAccessibleTreesByOrg(admin.getOrg()).size());
     }
     
     public void testEditKickstartableTree() throws Exception {
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);
-        String newBase = "/tmp/new-base-path";
+        String newBase = "/tmp/kickstart/new-base-path";
+        KickstartableTreeTest.createKickstartTreeItems(new File(newBase));
         Channel newChan = ChannelFactoryTest.createTestChannel(admin);
-        
         handler.update(adminKey, testTree.getLabel(), 
                 newBase, newChan.getLabel(), 
                 testTree.getInstallType().getLabel());

@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.xmlrpc;
 
 import com.redhat.rhn.FaultException;
+import com.redhat.rhn.domain.server.Server;
 
 /**
  * MissingCapabilityException
@@ -40,4 +41,13 @@ public class MissingCapabilityException extends FaultException {
         super(2401, "missingCapability" , "Missing capability");
     }
 
+    /**
+     * Constructor for exception on missing capability on a server.
+     * @param missingCapability the missing capability.
+     * @param incapableServer the server missing the capability
+     */
+    public MissingCapabilityException(String missingCapability, Server incapableServer) {
+        super(2401, "missingCapability", "api.system.missingCapabilities",
+            new Object[] {incapableServer.getHostname(), missingCapability});
+    }
 }

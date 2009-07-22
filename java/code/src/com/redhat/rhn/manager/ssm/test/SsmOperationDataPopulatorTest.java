@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.manager.ssm.test;
 
-import java.util.ArrayList;
-import java.util.List;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.server.Server;
@@ -26,6 +24,9 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
 import com.redhat.rhn.testing.RhnBaseTestCase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Populates the database with sample SSM operation log entries, used primarily for

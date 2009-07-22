@@ -14,10 +14,10 @@
  */
 package com.redhat.rhn.domain.server;
 
+import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
-import com.redhat.rhn.domain.rhnpackage.Package;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;

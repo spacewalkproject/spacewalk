@@ -24,9 +24,66 @@ import types
 import os
 import popen2
 import os.path
+import tempfile
+import xmlrpclib
+import pprint
 from koan.app import Koan
 
 SHADOW      = "/tmp/ks-tree-shadow"
+
+def execute(cmd):
+    tmp = tempfile.mktemp()
+    status = os.system(cmd + " > " + tmp)
+    data = open(tmp).readlines()
+    ret = []
+    for l in data: 
+        ret.append(string.strip(l))
+    if status == 0:
+        return ret
+    msg = """Error executing command:\n %s\noutput:\n%s"""
+    raise Exception(msg % (cmd, string.join(response,"\n")))
+
+def find_host_name():
+    return execute("hostname")[0]
+
+def find_netmask(device):
+    return execute("ifconfig %s | perl -lne '/Mask:([\d.]+)/ and print $1'" % device)[0]
+
+def find_ip(device):
+    return execute("ifconfig %s | perl -lne '/inet addr:([\d.]+)/ and print $1'" % device)[0]
+
+def find_name_servers():
+    servers = execute("cat /etc/resolv.conf | perl -lne '/^nameserver\s+(\S+)$/ and print $1'")
+    ret = []
+    for s in servers:
+        if s != "127.0.0.1":
+            ret.append(s)
+    return ret
+
+def find_gateway():
+    response = execute("route -n | grep '^0.0.0.0' | awk  '{print $2}'")
+    return response[0]
+
+def getSystemId():
+    path = "/etc/sysconfig/rhn/systemid"
+    if not os.access(path, os.R_OK):
+        return None
+    return open(path, "r").read()
+
+def update_static_device_records(kickstart_host, static_device):
+    client = xmlrpclib.Server("https://" + kickstart_host + "/rpc/api")
+    data = {"gateway": find_gateway(),\
+            "nameservers": find_name_servers(),\
+            "hostname": find_host_name(),\
+            "device" :  static_device,\
+            "ip": find_ip(static_device),\
+            "netmask": find_netmask(static_device)}
+    msg = """Unable to retrieve the '%s' information needed to update static network configuration information.
+             Details:\n %s"""
+    for key, value in data.items():
+        if not value:
+            raise Exception(msg % (key, pprint.pformat(data)))
+    client.system.setup_static_network(getSystemId(), data)
 
 def initiate(kickstart_host, base, extra_append, static_device=None, system_record="", preserve_files=[]):
 
@@ -40,19 +97,22 @@ def initiate(kickstart_host, base, extra_append, static_device=None, system_reco
     print "Preserve files! : %s"  % preserve_files
     
     try:
+        if static_device: 
+            update_static_device_records(kickstart_host, static_device)
+
         k = Koan()
         k.list_items          = 0
         k.server              = kickstart_host
         k.is_virt             = 0
         k.is_replace          = 1
         k.is_display          = 0
-	k.profile             = None
+        k.profile             = None
 
         if system_record != "":
            k.system          = system_record
         else:
            k.system          = None
-	k.port                = 443
+        k.port                = 443
         k.image               = None
         k.live_cd             = None
         k.virt_path           = None
@@ -62,7 +122,9 @@ def initiate(kickstart_host, base, extra_append, static_device=None, system_reco
         k.add_reinstall_entry = None
         k.kopts_override      = None
         k.use_kexec           = None
-        k.embed_kickstart     = None
+        k.embed_kickstart     =  None
+        if static_device:
+            k.embed_kickstart = 1
         k.run()
 
     except Exception, e:
@@ -147,26 +209,25 @@ def create_new_rd(initrd, preserve_files=[]):
     (err_code, err_string, dict) if problems were found
     """
     if not initrd:
-	return (3, "Kickstart create new init failed: initrd not found: %s" %
+        return (3, "Kickstart create new init failed: initrd not found: %s" %
             initrd, {})
 
-    if preserve_files:
-	# quota should be configurable from the UI
-	quota = 1000000
-	# lame naming below to use /tmp/ks-tres-shadow 2X
-	# but needed to get it here the ks.cfg expects it
-	preserve_shadow = SHADOW + SHADOW
-	# new FileCopier class handles the dirty work of getting the 
-	# preserved file set copied w/ all permissions, owners, etc
-	# kept intact and in the correct location 
-	c = FileCopier(preserve_files, preserve_shadow, quota=quota)
-        try:
-	    c.copy()
-        except QuotaExceeded:
-	    return (3, "Quota of %s bytes exceeded" % quota, {})
+    # quota should be configurable from the UI
+    quota = 1000000
+    # lame naming below to use /tmp/ks-tres-shadow 2X
+    # but needed to get it here the ks.cfg expects it
+    preserve_shadow = SHADOW + SHADOW
+    # new FileCopier class handles the dirty work of getting the 
+    # preserved file set copied w/ all permissions, owners, etc
+    # kept intact and in the correct location 
+    c = FileCopier(preserve_files, preserve_shadow, quota=quota)
+    try:
+        c.copy()
+    except QuotaExceeded:
+        return (3, "Quota of %s bytes exceeded" % quota, {})
 
     (status, stdout, stderr) = my_popen([
-        "/usr/sbin/merge-rd.sh", initrd, initrd + ".merged", SHADOW])
+        "/usr/sbin/merge-rd.sh", initrd, initrd, SHADOW])
     if status:
         return (status, 'Error creating the new RAM disk',
             _build_error(status, stdout, stderr))

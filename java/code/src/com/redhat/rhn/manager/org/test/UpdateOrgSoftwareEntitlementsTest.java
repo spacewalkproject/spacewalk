@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.manager.org.test;
 
-import java.util.Iterator;
-
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.PrivateChannelFamily;
 import com.redhat.rhn.domain.channel.test.ChannelFamilyFactoryTest;
@@ -24,6 +22,8 @@ import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.org.UpdateOrgSoftwareEntitlementsCommand;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.TestUtils;
+
+import java.util.Iterator;
 
 
 /**

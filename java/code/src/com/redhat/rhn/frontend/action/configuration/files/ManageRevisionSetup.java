@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.configuration.files;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.config.ConfigFile;
@@ -40,8 +41,8 @@ public class ManageRevisionSetup extends BaseSetListAction {
     }
     
     protected void processRequestAttributes(RequestContext rctxIn) {
-        int max = Config.get().getInt(Config.CONFIG_REVISION_MAX_SIZE,
-                Config.DEFAULT_CONFIG_REVISION_MAX_SIZE);
+        int max = Config.get().getInt(ConfigDefaults.CONFIG_REVISION_MAX_SIZE,
+                ConfigDefaults.DEFAULT_CONFIG_REVISION_MAX_SIZE);
         
         rctxIn.getRequest().setAttribute("max_size",
                 StringUtil.displayFileSize(max));

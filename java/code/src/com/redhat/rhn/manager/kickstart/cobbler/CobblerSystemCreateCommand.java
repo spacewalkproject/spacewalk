@@ -55,7 +55,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     private String kickstartHost;
     private String kernelOptions;
     private String postKernelOptions;
-    
+
     /**
      * Constructor
      * @param userIn who is requesting the sync
@@ -71,7 +71,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         this.server = serverIn;
         this.mediaPath = mediaPathIn;
         if (ksDataIn != null) {
-            profileName = (String)lookupCobblerProfile(ksDataIn).get("name");
+            profileName = ksDataIn.getCobblerObject(user).getName();
         }
         else {
             throw new NullPointerException("ksDataIn cant be null");
@@ -157,11 +157,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         List macs = new LinkedList();
         for (NetworkInterface n : server.getNetworkInterfaces()) {
             // Skip localhost and non real interfaces
-            if (n.getHwaddr() == null ||
-                n.getHwaddr().equals("00:00:00:00:00:00") ||
-                n.getHwaddr().equals("fe:ff:ff:ff:ff:ff") ||
-                n.getIpaddr() == null ||
-                n.getIpaddr().equals("127.0.0.1")) {
+            if (!n.isValid()) {
                 log.debug("Skipping.  not a real interface");
             }
             else {
@@ -281,6 +277,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                 server.getCobblerId());
         record.setKernelOptions(kernelOptions);
         record.setKernelPostOptions(postKernelOptions);
+        
         record.save();
         return null;
     }
@@ -298,7 +295,8 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      * @return String name of cobbler system record. 
      */
     public String getCobblerSystemRecordName() {
-        return this.server.getName() + ":" + 
+        String name = this.server.getName().replace(' ', '_');
+        return name + ":" +
             this.server.getOrg().getId();
     }
     
@@ -307,8 +305,14 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
             Server serverIn) {
         Map inet = new HashMap();
         for (NetworkInterface n : serverIn.getNetworkInterfaces()) {
-            if (!n.getHwaddr().equals("00:00:00:00:00:00")) {
-                    inet.put("macaddress-" + n.getName(), n.getHwaddr());
+            if (n.isValid()) {
+                inet.put("macaddress-" + n.getName(), n.getHwaddr());
+                if (!StringUtils.isBlank(n.getIpaddr())) {
+                    inet.put("ipaddress-" + n.getName(), n.getIpaddr());
+                }
+                if (!StringUtils.isBlank(n.getNetmask())) {
+                    inet.put("subnet-" + n.getName(), n.getNetmask());
+                }
             }
         }
         log.debug("Networks: " + inet);

@@ -7,7 +7,6 @@ $VERSION = (split(/\s+/, q$Id: OracleDB.pm,v 1.3 2005-07-06 20:51:40 nhansen Exp
 
 use strict;
 use DBI;
-use DBD::Oracle;
 use NOCpulse::Debug;
 use NOCpulse::Config;
 

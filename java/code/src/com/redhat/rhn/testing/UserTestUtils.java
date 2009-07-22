@@ -15,10 +15,6 @@
 
 package com.redhat.rhn.testing;
 
-import java.util.Set;
-
-import junit.framework.Assert;
-
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.monitoring.satcluster.SatCluster;
@@ -34,6 +30,10 @@ import com.redhat.rhn.domain.user.Address;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.user.UserManager;
+
+import java.util.Set;
+
+import junit.framework.Assert;
 
 /**
  * A class that allows us to easily create test users.

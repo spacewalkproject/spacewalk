@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.1.14
+Version: 0.1.17
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -49,6 +49,24 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Tue Jul 21 2009 John Matthews <jmatthew@redhat.com> 0.1.17-1
+- 510299 - static ks fix. (paji@redhat.com)
+- 510299 - Big commit to get static networking to work (paji@redhat.com)
+
+* Mon Jul 06 2009 John Matthews <jmatthew@redhat.com> 0.1.16-1
+- 508956 - fixing file preservation to actually use updated initrd.img
+  (mmccune@gibson.pdx.redhat.com)
+
+* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.1.15-1
+- fixing spacewalk-koan spec file to build for 2.1 properly
+  (jsherril@redhat.com)
+- 497571 - switching to python 1.5 requires since we have to support 2.1
+  (mmccune@gmail.com)
+- 497571 - switch from True/False to 0/1 to support rhel 2.1 and
+  (mmccune@gmail.com)
+- 503996 - Added some information on the error message to the status returned
+  to the server. (jason.dobies@redhat.com)
+
 * Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 0.1.14-1
 - 497424 - Slight redesign of the KS Virt UI to deal with duplicate virt paths (paji@redhat.com)
 

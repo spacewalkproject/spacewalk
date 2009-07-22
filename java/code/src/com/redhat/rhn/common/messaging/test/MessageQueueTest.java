@@ -227,7 +227,7 @@ public class MessageQueueTest extends RhnBaseTestCase {
             if (count > 25) {
                 break;
             }
-            Thread.sleep(100);
+            Thread.sleep(500);
         }
         if (matchingValue) {
             assertTrue(wasReceived);

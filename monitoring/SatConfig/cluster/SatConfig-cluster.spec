@@ -1,6 +1,6 @@
 %define sysv_dir       %{_sysconfdir}/rc.d/np.d
 Name:         SatConfig-cluster
-Version:      1.54.5
+Version:      1.54.6
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - cluster information
 URL:          https://fedorahosted.org/spacewalk
@@ -57,6 +57,10 @@ install -m 644 SatCluster.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 1.54.6-1
+- 490783 - preventing to read a config file, that must not exist
+  (tlestach@redhat.com)
+
 * Thu Apr 23 2009 jesus m. rodriguez <jesusr@redhat.com> 1.54.5-1
 - change Source0 to point to fedorahosted.org (msuchy@redhat.com)
 

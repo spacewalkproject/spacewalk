@@ -28,7 +28,7 @@
          width="100%"        
          name="packageList"
          emptykey="packagelist.jsp.nopackages"
-         alphabarcolumn="nvre">
+         alphabarcolumn="nvrea">
  			<rl:decorator name="PageSizeDecorator"/>
  			<rl:decorator name="ElaborationDecorator"/>
  		<rl:decorator name="SelectableDecorator"/>
@@ -38,17 +38,15 @@
 	 			styleclass="first-column"/>
 
 		  <rl:column headerkey="upgradable.jsp.latest" bound="false"
-		  	sortattr="nvre"
-		  	sortable="true" filterattr="nvre">
+			sortattr="nvrea"
+			sortable="true" filterattr="nvrea">
 		  	
 		      <a href="/rhn/software/packages/Details.do?sid=${param.sid}&amp;id_combo=${current.idCombo}">
-		        ${current.nvre}</a>
+		        ${current.nvrea}</a>
 		  </rl:column>
 		  
 		  <rl:column headerkey="upgradable.jsp.installed" bound="false">
-		      <c:forEach items="${current.installed}" var="package">
-		        ${package} <br/>
-		      </c:forEach>		  	
+		      ${current.installedPackage}
 		  </rl:column>
 		  
     <rl:column headerkey="upgradable.jsp.errata" styleclass="last-column">

@@ -1088,7 +1088,8 @@ def base_eus_channel_for_ver_rel_arch(version, release, server_arch,
         select c.id,
                c.label,
                c.name,
-               rcm.release
+               rcm.release,
+               c.receiving_updates
         from
             rhnChannelPermissions cp,
             rhnChannel c,

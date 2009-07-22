@@ -14,13 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.Channel;
@@ -29,6 +22,13 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.system.SystemManager;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Handles the page display and actual deletion of a software channel. 

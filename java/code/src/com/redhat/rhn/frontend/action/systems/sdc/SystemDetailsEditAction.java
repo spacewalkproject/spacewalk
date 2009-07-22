@@ -14,6 +14,35 @@
  */
 package com.redhat.rhn.frontend.action.systems.sdc;
 
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.common.validator.ValidatorResult;
+import com.redhat.rhn.common.validator.ValidatorWarning;
+import com.redhat.rhn.domain.entitlement.Entitlement;
+import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.Location;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserServerPreferenceId;
+import com.redhat.rhn.frontend.dto.EntitlementDto;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.entitlement.EntitlementManager;
+import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.manager.user.UserManager;
+
+import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
+import org.apache.struts.util.LabelValueBean;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -25,49 +54,6 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.redhat.rhn.common.localization.LocalizationService;
-
-import com.redhat.rhn.common.validator.ValidatorError;
-import com.redhat.rhn.common.validator.ValidatorResult;
-import com.redhat.rhn.common.validator.ValidatorWarning;
-
-import com.redhat.rhn.domain.entitlement.Entitlement;
-import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
-
-import com.redhat.rhn.domain.org.Org;
-
-import com.redhat.rhn.domain.role.RoleFactory;
-
-import com.redhat.rhn.domain.server.Location;
-import com.redhat.rhn.domain.server.Server;
-
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.user.UserServerPreferenceId;
-
-import com.redhat.rhn.frontend.dto.EntitlementDto;
-
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.struts.RhnValidationHelper;
-
-import com.redhat.rhn.manager.action.ActionManager;
-
-import com.redhat.rhn.manager.entitlement.EntitlementManager;
-
-import com.redhat.rhn.manager.system.SystemManager;
-
-import com.redhat.rhn.manager.user.UserManager;
-
-import org.apache.log4j.Logger;
-
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
-
-import org.apache.struts.util.LabelValueBean;
 
 /**
  * SystemDetailsEditAction

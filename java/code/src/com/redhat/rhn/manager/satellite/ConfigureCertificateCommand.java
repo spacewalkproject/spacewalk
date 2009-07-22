@@ -14,17 +14,19 @@
  */
 package com.redhat.rhn.manager.satellite;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.domain.user.User;
+
+import org.apache.commons.lang.RandomStringUtils;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.lang.RandomStringUtils;
-import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.validator.ValidatorError;
-import com.redhat.rhn.domain.user.User;
 
 /**
  * Updates the satellite certificate using the <code>rhn-satellite-activate</code>
@@ -71,7 +73,7 @@ public class ConfigureCertificateCommand
         args.add("/usr/bin/rhn-satellite-activate");
         args.add("--rhn-cert");
         args.add(getCertificateFileName());
-        if (Config.get().isDisconnected()) {
+        if (ConfigDefaults.get().isDisconnected()) {
             args.add("--disconnected");
         }
         if (ignoreVersionMismatch) {

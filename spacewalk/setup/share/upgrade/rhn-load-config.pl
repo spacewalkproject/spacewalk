@@ -115,10 +115,8 @@ if ($already_monitoring)  {
 
 my %nls_database_paramaters = RHN::SatInstall->get_nls_database_parameters();
 $config_opts{serverDOTnls_lang} = 'english.' . $nls_database_paramaters{NLS_CHARACTERSET};
-
+$config_opts{cobblerDOThost} = Sys::Hostname::hostname;
 print "Writing configuration\n";
-
-
 RHN::SatInstall->write_config(\%config_opts,
 			      '/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf');
 

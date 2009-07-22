@@ -14,22 +14,24 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage.ssm.test;
 
-import java.util.Map;
-import java.util.HashMap;
-import junit.framework.TestCase;
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerFactory;
-import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.testing.ServerTestUtils;
-import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-import com.redhat.rhn.common.db.datasource.WriteMode;
-import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
+import com.redhat.rhn.testing.ServerTestUtils;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import junit.framework.TestCase;
 
 /**
  * @version $Revision$

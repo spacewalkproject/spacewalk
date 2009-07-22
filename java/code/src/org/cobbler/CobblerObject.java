@@ -71,7 +71,9 @@ public abstract class CobblerObject {
      */
     protected static Map<String, Object> lookupDataMapById(CobblerConnection client, 
                              String id, String findMethod) {
-
+        if (id == null) {
+            return null;
+        }
         List<Map<String, Object>> objects = lookupDataMapsByCriteria(client,
                                                             UID, id, findMethod);
         if (!objects.isEmpty()) {
@@ -395,7 +397,7 @@ public abstract class CobblerObject {
     /**
      * @param kernelMetaIn the kernelMeta to set
      */
-    public void setKsMeta(Map<String, String> kernelMetaIn) {
+    public void setKsMeta(Map<String, ? extends Object> kernelMetaIn) {
         modify(SET_KS_META, kernelMetaIn);
     }
 
@@ -477,7 +479,8 @@ public abstract class CobblerObject {
      * @return returns the red hat key as a string
      */
     public Set<String> getRedHatManagementKeySet() {
-        String[] sets = ((String) dataMap.get(REDHAT_KEY)).split(",");
+        String keys = StringUtils.defaultString(getRedHatManagementKey());
+        String[] sets = (keys).split(",");
         Set set = new HashSet();
         set.addAll(Arrays.asList(sets));
         return set;

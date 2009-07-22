@@ -14,20 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.activationkey;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.hibernate.NonUniqueObjectException;
-
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.validator.ValidatorError;
@@ -59,6 +45,20 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.hibernate.NonUniqueObjectException;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * ActivationKeyHandler

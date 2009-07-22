@@ -59,7 +59,8 @@ export ORACLE_SID=$DB_NAME
 # If the record for satellite database exists, substitute it with new value.
 # Otherwise create a new record.
 if grep -q "^$ORACLE_SID:.*$" /etc/oratab; then
-	sed -i "s;^$ORACLE_SID:.*$;$ORACLE_SID:$ORACLE_HOME:Y;" /etc/oratab
+	oratab=$(sed "s;^$ORACLE_SID:.*$;$ORACLE_SID:$ORACLE_HOME:Y;" /etc/oratab)
+	echo "$oratab" > /etc/oratab
 else
 	echo "$ORACLE_SID:$ORACLE_HOME:Y" >> /etc/oratab
 fi

@@ -14,11 +14,6 @@
  */
 package com.redhat.rhn.taskomatic.task.entitlement;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.log4j.Logger;
-
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
@@ -26,6 +21,11 @@ import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.taskomatic.task.threaded.QueueWorker;
 import com.redhat.rhn.taskomatic.task.threaded.TaskQueue;
+
+import org.apache.log4j.Logger;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Performs an entitlement recalc for a single org

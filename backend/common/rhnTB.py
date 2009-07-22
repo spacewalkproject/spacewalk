@@ -35,8 +35,8 @@ hostname = socket.gethostname()
 # avoid a huge flood of mail requests.
 QUIET_MAIL = None
 
-# Dump the environment.
 def print_env(fd = sys.stderr):
+    """ Dump the environment. """
     dct = os.environ
     fd.write("\nEnvironment for PID=%d on exception:\n" % os.getpid())
     el = dct.keys()
@@ -45,9 +45,10 @@ def print_env(fd = sys.stderr):
         fd.write("%s = %s\n" % (k, dct[k]))
 
  
-# Dump a listing of all local variables and their value for better debugging
-# chance.
 def print_locals(fd = sys.stderr, tb = None):
+    """ Dump a listing of all local variables and their value for better debugging
+        chance.
+    """
     if tb is None:
         tb = sys.exc_info()[2]
     stack = []
@@ -82,9 +83,9 @@ def print_locals(fd = sys.stderr, tb = None):
 
 
 def print_req(req, fd = sys.stderr):
-    #""" get some debugging information about the current exception for sending
-    #    out when we raise an exception
-    #"""
+    """ get some debugging information about the current exception for sending
+        out when we raise an exception
+    """
 
     fd.write("Request object information:\n")
     fd.write("URI: %s\n" % req.unparsed_uri)
@@ -100,9 +101,9 @@ def print_req(req, fd = sys.stderr):
 
 def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
               extra = None, severity="notification", with_locals=0):
-    #""" Reports an traceback error and optionally sends mail about it.
-    #    NOTE: extra = extra text information.
-    #"""
+    """ Reports an traceback error and optionally sends mail about it.
+        NOTE: extra = extra text information.
+    """
 
     global QUIET_MAIL
 
@@ -176,15 +177,16 @@ def Traceback(method = None, req = None, mail = 1, ostream = sys.stderr,
 
 
 def fetchTraceback(method=None, req=None, extra=None, with_locals=0):
-    #""" a cheat for snagging just the string value of a Traceback """
+    """ a cheat for snagging just the string value of a Traceback """
     exc = StringIO()
     Traceback(method=method, req=req, mail=0, ostream=exc, extra=extra,
               severity=None, with_locals=with_locals)
     return exc.getvalue()
 
-#The SecurityList is a list of strings that are censored out of a debug email.
-#Right now it's only used for censoring traceback emails.
 class SecurityList:
+    """ The SecurityList is a list of strings that are censored out of a debug email.
+        Right now it's only used for censoring traceback emails.
+    """
     _flag_string = "security-list"
     def __init__(self):
         # We store the security list in the global flags. This way, we don't
@@ -201,25 +203,25 @@ class SecurityList:
     def check(self, obj):
         return obj in self.sec
 
-#Returns the list of strings to be censored.
 def get_seclist():
+    """ Returns the list of strings to be censored. """
     return SecurityList().sec
 
-#Remove all instances of the strings in seclist.sec from strval
 def censor_string(strval):
+    """ Remove all instances of the strings in seclist.sec from strval """
     censorlist = get_seclist()
     for c in censorlist:
         #Censor it with a fixed length string. This way the length of the hidden string isn't revealed.
         strval = string.replace(strval, c, "<CENSORED!>")
     return strval
 
-#Adds a string to seclist.sec, but only if it's not already there.
 def add_to_seclist(obj):
+    """ Adds a string to seclist.sec, but only if it's not already there. """
     seclist = SecurityList()
     if not seclist.check(obj):
         seclist.add(obj)
 
-#Checks whether a string is in seclist.sec or not. Returns True or False.
 def check_with_seclist(obj):
+    """ Checks whether a string is in seclist.sec or not. Returns True or False. """
     seclist = SecurityList()
     return seclist.check(obj)       

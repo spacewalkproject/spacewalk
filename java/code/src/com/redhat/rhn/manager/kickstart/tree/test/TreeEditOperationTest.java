@@ -43,7 +43,7 @@ public class TreeEditOperationTest extends BaseTestCaseWithUser {
         KickstartableTree tree = KickstartableTreeTest.
             createTestKickstartableTree(ChannelFactoryTest.createTestChannel(user));
         TreeEditOperation cmd = new TreeEditOperation(tree.getId(), user);
-        cmd.setBasePath("http://somepath.redhat.com/");
+        cmd.setBasePath(KickstartableTreeTest.KICKSTART_TREE_PATH.getAbsolutePath());
         assertNotNull(cmd.getTree());
         String nlabel = "newlabel" + TestUtils.randomString();
         cmd.setLabel(nlabel);
@@ -58,7 +58,7 @@ public class TreeEditOperationTest extends BaseTestCaseWithUser {
             createTestKickstartableTree(ChannelFactoryTest.createTestChannel(user));
         Long tid = tree.getId();
         TreeEditOperation cmd = new TreeEditOperation(tid, user);
-        cmd.setBasePath("http://somepath.redhat.com/");
+        cmd.setBasePath(KickstartableTreeTest.KICKSTART_TREE_PATH.getAbsolutePath());
         assertNull(cmd.store());
         flushAndEvict(cmd.getTree());
 
@@ -105,7 +105,7 @@ public class TreeEditOperationTest extends BaseTestCaseWithUser {
     private void setTreeParamsAndStore(BaseTreeEditOperation cmd) throws Exception {
         cmd.setInstallType(KickstartFactory.
                       lookupKickstartInstallTypeByLabel("rhel_4"));
-        cmd.setBasePath("http://rhn.redhat.com/sometree");
+        cmd.setBasePath(KickstartableTreeTest.KICKSTART_TREE_PATH.getAbsolutePath());
         cmd.setChannel(ChannelFactoryTest.createTestChannel(user));
         cmd.setLabel("some_label" + TestUtils.randomString());
         assertNotNull(cmd.getUser());

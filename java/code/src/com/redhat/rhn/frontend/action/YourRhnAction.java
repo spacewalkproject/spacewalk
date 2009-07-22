@@ -14,20 +14,6 @@
  */
 package com.redhat.rhn.frontend.action;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
 import com.redhat.rhn.domain.user.Pane;
 import com.redhat.rhn.domain.user.PaneFactory;
 import com.redhat.rhn.domain.user.User;
@@ -44,6 +30,20 @@ import com.redhat.rhn.frontend.action.renderers.WarningProbesRenderer;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * YourRhnAction

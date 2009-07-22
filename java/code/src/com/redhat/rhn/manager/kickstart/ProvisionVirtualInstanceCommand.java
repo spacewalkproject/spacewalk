@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.action.kickstart.KickstartGuestAction;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
+import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
@@ -67,9 +68,7 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
      */
     public ProvisionVirtualInstanceCommand(Long selectedServer, User userIn) {
         super(selectedServer, null, (KickstartData)null, userIn, null, null);
-        this.setActivationType(ACTIVATION_TYPE_EXISTING);
         this.setPackagesToInstall(new LinkedList());
-        this.setStaticDevice("");        
     }
     
     /**
@@ -306,7 +305,8 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     public void setFilePath(String filePathIn) {
         this.filePath = filePathIn;
         if (StringUtils.isBlank(filePath)) {
-            filePath = makeDefaultVirtPath(getGuestName());
+            filePath = makeDefaultVirtPath(getGuestName(),
+                    getKsdata().getKickstartDefaults().getVirtualizationType());
         }
     }
 
@@ -329,11 +329,16 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     /**
      * Method to set up the default virt path where the guset will be stored
      * based on the guest name.
-     * @param name the name of the guest 
+     * @param name the name of the guest
+     * @param type virtualization type to determine the virt paths
+     *             its different for xen/kvm 
      * @return the virt path.
      */
-    public static String makeDefaultVirtPath(String name) {
-        File virtPathDir = Config.get().getVirtPath();
+    public static String makeDefaultVirtPath(String name,
+                                KickstartVirtualizationType type) {
+        File virtPathDir =  ConfigDefaults.get().getVirtPath(
+                            KickstartVirtualizationType.xenPV().equals(type) ||
+                                KickstartVirtualizationType.xenFV().equals(type));
         File virtPath = new File(virtPathDir, name.replace(' ', '-'));
         return virtPath.getAbsolutePath();
     }

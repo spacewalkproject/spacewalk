@@ -71,7 +71,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
         String fieldChanged = form.getString("fieldChanged");
         KickstartEditCommand cmd = (KickstartEditCommand) cmdIn;
         KickstartableTree tree = cmd.getKickstartData().getKickstartDefaults().getKstree();
-        KickstartHelper kshelper = new KickstartHelper(ctx.getRequest());
+        KickstartableTree selectedTree;
         List trees = null;
         Long incomingChannelId = (Long) form.get(CHANNEL);
         Long channelId = incomingChannelId;
@@ -88,6 +88,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
                     ctx.getCurrentUser().getOrg());
             }
             setupUrl(ctx, form, kstree);
+            selectedTree = kstree;
         }
         else {
             if (form.get(CHANNEL) != null) {
@@ -104,12 +105,14 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
                     ctx.getCurrentUser().getOrg());
             }
             setupUrl(ctx, form, kstree);
+            selectedTree = kstree;
         }
         if (fieldChanged.equals("kstree")) {
             KickstartableTree kstree = 
                 KickstartFactory.lookupKickstartTreeByIdAndOrg((Long) form.get(TREE),
                     ctx.getCurrentUser().getOrg());
             setupUrl(ctx, form, kstree);
+            selectedTree = kstree;
         }
         ctx.getRequest().setAttribute(TREES, trees);
         if (trees == null || trees.size() == 0) {
@@ -143,7 +146,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
         if (form.getString(URL) == null) {
             ctx.getRequest().setAttribute("nourl", "true");
         }
-        setupRepos(ctx, form, cmd.getKickstartData());
+        setupRepos(ctx, form, cmd.getKickstartData(), selectedTree);
     }
 
     private void setupChildChannels(RequestContext ctx, Long channelId, 
@@ -244,21 +247,27 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
     }
 
     private void setupRepos(RequestContext context, 
-            DynaActionForm form, KickstartData ksdata) {
-        List <LabelValueEnabledBean> repos = new LinkedList<LabelValueEnabledBean>();
-        for (String name : RepoInfo.getStandardRepos().keySet()) {
-            repos.add(lve(name, name, false));
+            DynaActionForm form, KickstartData ksdata, 
+            KickstartableTree tree) {
+        
+        if (tree != null && !tree.getInstallType().isRhel2() &&
+                !tree.getInstallType().isRhel3() &&
+                !tree.getInstallType().isRhel4()) {
+            List <LabelValueEnabledBean> repos = new LinkedList<LabelValueEnabledBean>();
+            for (String name : RepoInfo.getStandardRepos().keySet()) {
+                repos.add(lve(name, name, false));
+            }
+            form.set(POSSIBLE_REPOS, (LabelValueEnabledBean[])
+                            repos.toArray(new LabelValueEnabledBean[0]));
+            Set<RepoInfo> selected = ksdata.getRepoInfos();
+            String [] items = new String[selected.size()];
+            int i = 0;
+            for (RepoInfo repo : selected) {
+                items[i] = repo.getName();
+                i++;
+            }
+            form.set(SELECTED_REPOS, items);            
         }
-        form.set(POSSIBLE_REPOS, (LabelValueEnabledBean[])
-                        repos.toArray(new LabelValueEnabledBean[0]));
-        Set<RepoInfo> selected = ksdata.getRepoInfos();
-        String [] items = new String[selected.size()];
-        int i = 0;
-        for (RepoInfo repo : selected) {
-            items[i] = repo.getName();
-            i++;
-        }
-        form.set(SELECTED_REPOS, items);
     }
     
     /**

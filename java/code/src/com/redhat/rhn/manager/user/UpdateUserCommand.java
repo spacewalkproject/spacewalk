@@ -14,6 +14,11 @@
  */
 package com.redhat.rhn.manager.user;
 
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.user.User;
+
+import org.apache.commons.lang.StringUtils;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,11 +26,6 @@ import java.util.regex.Pattern;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-
-import org.apache.commons.lang.StringUtils;
-
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.domain.user.User;
 
 /**
  * UpdateUserCommand

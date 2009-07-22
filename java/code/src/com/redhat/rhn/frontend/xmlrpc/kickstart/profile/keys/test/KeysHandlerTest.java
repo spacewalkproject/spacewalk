@@ -15,8 +15,6 @@
 
 package com.redhat.rhn.frontend.xmlrpc.kickstart.profile.keys.test;
 
-import java.util.List;
-
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
@@ -24,6 +22,8 @@ import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.keys.KeysHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
+
+import java.util.List;
 
 /**
  *  Test cases for the KeysHandler.

@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.download;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageSource;
@@ -56,7 +57,7 @@ public class DownloadManager extends BaseManager {
 
         //If the package is on our list of non-expiring packages, then generate
         //   a non-expiring URL
-        List packs = Config.get().getList(Config.NON_EXPIRABLE_PACKAGE_URLS);
+        List packs = Config.get().getList(ConfigDefaults.NON_EXPIRABLE_PACKAGE_URLS);
         if (packs != null && packs.contains(pack.getPackageName().getName())) {
             return getNonExpiringDownloadPath(pack.getId(), pack.getFile(), user,
                     DownloadManager.DOWNLOAD_TYPE_PACKAGE);
@@ -133,9 +134,10 @@ public class DownloadManager extends BaseManager {
     private static String getDownloadPath(Long fileId, String filename, 
             User user, String type) {
         Long time = 0L;
-        if (Config.get().getInt(Config.DOWNLOAD_URL_LIFETIME) > 0) {
+        if (Config.get().getInt(ConfigDefaults.DOWNLOAD_URL_LIFETIME) > 0) {
             Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.MINUTE, Config.get().getInt(Config.DOWNLOAD_URL_LIFETIME));
+            cal.add(Calendar.MINUTE, Config.get().getInt(
+                    ConfigDefaults.DOWNLOAD_URL_LIFETIME));
             time = cal.getTimeInMillis();
         }
 
@@ -184,7 +186,7 @@ public class DownloadManager extends BaseManager {
      * @return true if available, false otherwise
      */
     public static boolean isFileAvailable(String path) {
-        String file = Config.get().getString(Config.MOUNT_POINT) + "/" + path;
+        String file = Config.get().getString(ConfigDefaults.MOUNT_POINT) + "/" + path;
         return new File(file).exists();
     }    
     

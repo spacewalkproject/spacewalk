@@ -24,12 +24,9 @@
       	<rl:list dataset="pageList" name="ksList" emptykey="kickstart.jsp.nokickstarts" 
       			alphabarcolumn="label"
                 filter="com.redhat.rhn.frontend.action.kickstart.KickstartProfileFilter">      			
-                     
         	<rl:decorator name="ElaborationDecorator"/>
       		<rl:decorator name="PageSizeDecorator"/>
-            		
-
-          	<rl:column sortable="true" 
+			<rl:column
           		bound="false" 
           		headerkey="kickstart.jsp.label" 
           		sortattr="label" 
@@ -51,7 +48,7 @@
 		            **
 		          </c:if>
       		</rl:column>  	      
-      		<rl:column sortable="true" bound="false" headerkey="kickstart.jsp.active"  sortattr="active">
+      		<rl:column  bound="false" headerkey="kickstart.jsp.active"  sortattr="active">
 	      		<c:if test="${current.active}">
 	            <img src="/img/rhn-listicon-ok.gif" alt="<bean:message key="kickstart.jsp.active"/>" 
 	            									title="<bean:message key="kickstart.jsp.active"/>"/>
@@ -61,10 +58,10 @@
 	            									   title="<bean:message key="kickstart.jsp.inactive"/>"/>
 	          </c:if>          
       		</rl:column>
-                <rl:column headerkey="kickstart.distro.label.jsp">
+                <rl:column headerkey="kickstart.distro.label.jsp" sortattr="treeLabel">
                     <c:out value="${current.treeLabel}"/>
                 </rl:column>      		
-            <rl:column headerkey="kickstart.distro.sw_managed.jsp"  styleclass="last-column">
+            <rl:column headerkey="kickstart.distro.sw_managed.jsp" sortattr="cobbler"  styleclass="last-column">
             	<c:choose>
                     <c:when test="${current.cobbler}">
                     	<img src="/img/rhn-listicon-error.gif">
@@ -74,7 +71,7 @@
                 	</c:otherwise>
                 </c:choose>
             </rl:column>
-       </rl:list>
+         </rl:list>
        
       </rl:listset>
 </div>
@@ -82,7 +79,6 @@
   <c:if test="${not empty requestScope.orgDefaultExists}">
   	<p><rhn:tooltip>** - <bean:message key="kickstart.list.jsp.orgdefault"/></rhn:tooltip></p>
   </c:if>
-
 </body>
 </html:html>
 

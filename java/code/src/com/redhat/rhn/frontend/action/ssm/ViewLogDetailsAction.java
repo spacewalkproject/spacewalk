@@ -14,22 +14,25 @@
  */
 package com.redhat.rhn.frontend.action.ssm;
 
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.struts.RhnListAction;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
+import com.redhat.rhn.manager.ssm.SsmOperationManager;
+
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnListAction;
-import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
-import com.redhat.rhn.manager.ssm.SsmOperationManager;
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.domain.user.User;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Loads the data for a particular SSM operation (identified by its ID in 

@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.6.9
+Version:        0.6.14
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -52,6 +52,26 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Jul 22 2009 John Matthews <jmatthew@redhat.com> 0.6.14-1
+- 512814 - tickle the upgrade logic (mmccune@redhat.com)
+
+* Thu Jul 16 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.13-1
+- 512104 - add sshbannerignore parametr to existing probes which use ssh
+
+* Mon Jul 06 2009 John Matthews <jmatthew@redhat.com> 0.6.12-1
+- 509029 - schema/upgrade - update the text used for action type =
+  kickstart_guest.initiate (bbuckingham@redhat.com)
+
+* Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.6.11-1
+- rebuild 
+
+* Thu Jun 25 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.6.10-1
+- 506272 - insert sub4v rows only if they do not exist
+- 431673 - reworking rhnServerNeededView for performance fixes.
+  (mmccune@gmail.com)
+- 492588 - Provide for shared child channels with non-shared parent channels
+  (jortel@redhat.com)
+
 * Fri Jun 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.9-1
 - 503243 - Dropping the is_default column as we now determine the default in
   the app code based on the compatible eus channel instead of jus the default.

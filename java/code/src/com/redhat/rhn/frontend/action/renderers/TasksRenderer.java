@@ -15,10 +15,10 @@
 
 package com.redhat.rhn.frontend.action.renderers;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.listview.PageControl;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Renders YourRhn fragment for tasks

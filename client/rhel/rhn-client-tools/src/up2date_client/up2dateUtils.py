@@ -11,7 +11,6 @@ import os
 import sys
 import rpm
 import string
-import md5
 
 import up2dateErrors
 import transaction

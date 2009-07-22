@@ -15,13 +15,13 @@
 
 package com.redhat.rhn.frontend.action.renderers;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.errata.ErrataManager;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Renders YourRhn fragment for latest errata

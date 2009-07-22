@@ -14,9 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.kickstart.profile.software;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -28,6 +25,9 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.XmlRpcKickstartHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * SoftwareHandler

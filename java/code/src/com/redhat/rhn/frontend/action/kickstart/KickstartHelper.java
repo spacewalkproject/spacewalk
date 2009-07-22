@@ -14,10 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.kickstart;
 
-import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.SelectMode;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.domain.channel.Channel;
@@ -26,11 +23,10 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.dto.kickstart.KickstartIpRangeDto;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.IpAddress;
-import com.redhat.rhn.manager.kickstart.IpAddressRange;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
+import com.redhat.rhn.manager.kickstart.KickstartManager;
 import com.redhat.rhn.manager.kickstart.KickstartSessionCreateCommand;
 import com.redhat.rhn.manager.kickstart.KickstartSessionUpdateCommand;
 
@@ -172,7 +168,8 @@ public class KickstartHelper {
             else if (mode.equals(IP_RANGE)) {
                 log.debug("Ip_range mode");
                 IpAddress clientIp = new IpAddress(remoteAddr);       
-                ksdata = findBestFitProfile(clientIp, org);
+                ksdata = KickstartManager.getInstance().findProfileForIpAddress(
+                        clientIp, org);
             }
             else if (mode.equals(ORG_DEFAULT)) {
                 //process org_default
@@ -241,42 +238,6 @@ public class KickstartHelper {
         return remoteAddr;
     }
     
-    /**
-     * Finds the profile which is a best fit.
-     * @param clientIpIn IpAddress to search ip ranges for
-     * @param orgIn Org coming in from the url
-     * @return best KickstartData Profile
-     */
-    protected KickstartData findBestFitProfile(IpAddress clientIpIn, Org orgIn) {
-        DataResult ipRanges = null;        
-        SelectMode mode = ModeFactory.getMode("General_queries", 
-            "org_ks_ip_ranges_for_ip");
-        Map params = new HashMap();
-        params.put("org_id", orgIn.getId().toString());
-        params.put("ip", clientIpIn.getLongNumber().toString());        
-        ipRanges = mode.execute(params);
-        
-        IpAddressRange bestRange = null;
-        
-        log.debug("ipranges.size: " + ipRanges.size());
-        
-        // find innermost range and return profile
-        for (Iterator itr = ipRanges.iterator(); itr.hasNext();) {
-            KickstartIpRangeDto range = (KickstartIpRangeDto)itr.next();
-            IpAddressRange iprange = new IpAddressRange(range.getMin().longValue(),
-                    range.getMax().longValue(), 
-                    range.getId().longValue());            
-            //seed range if null
-            bestRange = (bestRange == null) ? iprange : bestRange;            
-            if (iprange.isSubset(bestRange)) {
-                log.debug("found a range");
-                bestRange = iprange;
-            }                       
-        }        
-        
-        return (bestRange == null) ? getOrgDefaultProfile(orgIn) : 
-            KickstartFactory.lookupKickstartDataByIdAndOrg(orgIn, bestRange.getKsid());
-    }
     
     /**
      * 
@@ -320,7 +281,7 @@ public class KickstartHelper {
             return firstProxy;
         }
         else {
-            return Config.get().getCobblerHost();
+            return ConfigDefaults.get().getCobblerHost();
         }
     }
 

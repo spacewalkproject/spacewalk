@@ -18,9 +18,9 @@ import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
 import com.redhat.rhn.frontend.taglibs.list.TagHelper;
+import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForward;

@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.servlets.test;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.frontend.servlets.EnvironmentFilter;
 
 import org.apache.struts.Globals;
@@ -40,14 +41,14 @@ public class EnvironmentFilterTest extends BaseFilterTst {
         filter.init(null);
         
         Config c = Config.get();
-        Boolean origValue = new Boolean(c.isSSLAvailable());
-        c.setBoolean(Config.SSL_AVAILABLE, Boolean.TRUE.toString());
+        Boolean origValue = new Boolean(ConfigDefaults.get().isSSLAvailable());
+        c.setBoolean(ConfigDefaults.SSL_AVAILABLE, Boolean.TRUE.toString());
         try {
             filter.doFilter(request, response, chain);
         }
         finally {
             // Revert back
-            c.setBoolean(Config.SSL_AVAILABLE, origValue.toString());
+            c.setBoolean(ConfigDefaults.SSL_AVAILABLE, origValue.toString());
         }
         // Check that we got the expected redirect.
         String expectedRedir = "https://mymachine.rhndev.redhat.com/rhn/Login.do";
@@ -71,19 +72,19 @@ public class EnvironmentFilterTest extends BaseFilterTst {
     
     public void testAddAMessage() throws Exception {
         Config c = Config.get();
-        boolean origValue = c.isSSLAvailable();
+        boolean origValue = ConfigDefaults.get().isSSLAvailable();
         EnvironmentFilter filter = new EnvironmentFilter();
         filter.init(null);
         request.setupAddParameter("message", "some.key.to.localize");
         request.setupAddParameter("messagep1", "param value");
         request.setupAddParameter("messagep2", "param value");
         request.setupAddParameter("messagep3", "param value");
-        c.setBoolean(Config.SSL_AVAILABLE, Boolean.FALSE.toString());
+        c.setBoolean(ConfigDefaults.SSL_AVAILABLE, Boolean.FALSE.toString());
         try {
             filter.doFilter(request, response, chain);
         }
         finally {
-            c.setBoolean(Config.SSL_AVAILABLE, String.valueOf(origValue));    
+            c.setBoolean(ConfigDefaults.SSL_AVAILABLE, String.valueOf(origValue));    
         }
         
         assertNotNull(request.getAttribute(Globals.MESSAGE_KEY));

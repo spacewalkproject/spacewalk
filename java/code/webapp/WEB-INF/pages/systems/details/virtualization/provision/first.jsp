@@ -31,20 +31,6 @@ function setStep(stepName) {
 <div>
 <c:set var="form" value="${kickstartScheduleWizardForm.map}"/>
 <rl:listset name="wizard-form">
-        <!--Store form variables obtained from previous page -->
-        <input type="hidden" name="targetProfileType" value="${form.targetProfileType}"/>
-        <input type="hidden" name="targetProfile" value="${form.targetProfile}" />
-        <input type="hidden" name="kernelParams" value="${form.kernelParams}" />
-        <input type="hidden" name="memoryAllocation" value="${form.memoryAllocation}" />
-        <input type="hidden" name="virtualCpus" value="${form.virtualCpus}" />
-        <input type="hidden" name="localStorageMegabytes" value="${form.localStorageMegabytes}" />
-        <input type="hidden" name="diskPath" value="${form.diskPath}" />
-                
-        <!-- Store useful id fields-->
-        <input type="hidden" name="wizardStep" value="first" id="wizard-step" />    
-        <input type="hidden" name="cobbler_id" value="${form.cobbler_id}" id="cobbler_id" />
-        <input type="hidden" name="sid" value="${form.sid}" />
-
 	<rl:list width="100%" emptykey = "virtualization.provision.first.jsp.no.profiles" alphabarcolumn="label">
 			<rl:decorator name = "PageSizeDecorator"/>        
         	<rl:radiocolumn value="${current.cobblerId}" styleclass="first-column"/>
@@ -59,8 +45,6 @@ function setStep(stepName) {
     </rl:list>
 	
 	<h2><bean:message key="virtualization.provision.first.jsp.header2" /></h2>
-	
-	
     <table class="details">
       <tr>
         <th><rhn:required-field key="virtualization.provision.first.jsp.guest_name.header"/></th>
@@ -78,50 +62,9 @@ function setStep(stepName) {
     	<bean:message key="virtualization.provision.override.jsp.goto.advanced.options"
     								 arg0="${rhn:localize('kickstart.schedule.button1.jsp')}"/>
     	<br/><br/>
-
-    <c:if test="${requestScope.hasProxies == 'true'}">    
-    <h2><img src="/img/rhn-icon-proxy.gif"/><bean:message key="kickstart.schedule.heading.proxy.jsp"/></h2>
-    <p>
-    <bean:message key="kickstart.schedule.msg.proxy.jsp"/>
-    </p>
-    <p>
-        <select name="proxyHost">
-			<c:forEach var="proxy" items="${proxies}">
-  			  <option <c:if test="${proxy.value eq proxyHost}">selected="selected"</c:if> value='${proxy.value}'>${proxy.label}</option>
-			</c:forEach>
-		</select>
-    <br />
-    <bean:message key="kickstart.schedule.tip.proxy.jsp"/>
-    </p>
-    </c:if>
-    <c:if test="${requestScope.hasProfiles == 'true'}">    
-      <h2><img src="/img/rhn-icon-schedule.gif" /><bean:message key="kickstart.schedule.heading3.jsp" /></h2>
-          <table width="50%">
-            <tr>
-              <td><input type="radio" name="scheduleAsap" value="true" id="scheduleAsap"/><bean:message key="kickstart.schedule.heading3.option1.jsp" /></td>
-            </tr>
-            <tr>
-              <td><input type="radio" name="scheduleAsap" value="false" id="scheduleDate" /><bean:message key="kickstart.schedule.heading3.option2.jsp" /><br /><br />
-                  <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-                    <jsp:param name="widget" value="date"/>
-                  </jsp:include>
-              </td>
-            </tr>
-          </table>
-      <hr />
-	  <table width="100%">
-	    <tr>
-	      <td align="right">
-	        <input type="button" value="<bean:message key="kickstart.schedule.button1.jsp" />" onclick="setStep('second');this.form.submit();" />
-            <input type="button" value="<bean:message key="kickstart.schedule.button2.jsp" />" onclick="setStep('third');this.form.submit();" />
-	      </td>
-	    </tr>
-	  </table>
-    </c:if>
-    </div>
+	<%@ include file="/WEB-INF/pages/common/fragments/kickstart/schedule/ks-wizard.jspf" %>
 </rl:listset>
 </div>
 
 </body>
 </html>
-

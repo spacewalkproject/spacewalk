@@ -25,7 +25,6 @@ import org.apache.commons.lang.StringUtils;
  * @version $Rev: 50942 $
  */
 public class KickstartDto extends BaseDto {
-
     private Long id;
     private Long orgId;
     private Long kstreeId;

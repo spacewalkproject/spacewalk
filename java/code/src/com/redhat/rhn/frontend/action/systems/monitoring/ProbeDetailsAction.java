@@ -26,6 +26,8 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.frontend.action.common.DateRangePicker;
 import com.redhat.rhn.frontend.action.common.DateRangePicker.DatePickerResults;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
 
 import org.apache.commons.lang.BooleanUtils;
@@ -41,6 +43,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,7 +56,7 @@ import javax.servlet.http.HttpServletResponse;
  * 
  * @version $Rev$
  */
-public class ProbeDetailsAction extends BaseProbeAction {
+public class ProbeDetailsAction extends BaseProbeAction implements Listable {
 
     public static final String IS_SUITE_PROBE = "is_suite_probe";
     public static final String SHOW_LOG = "show_log";
@@ -164,7 +167,9 @@ public class ProbeDetailsAction extends BaseProbeAction {
                     MonitoringManager.getInstance().getProbeStateChangeData(probe, 
                             new Timestamp(dates.getStart().getCalendar().getTimeInMillis()),
                             new Timestamp(dates.getEnd().getCalendar().getTimeInMillis()));
-                req.setAttribute("pageList", dr);
+                req.setAttribute(ListHelper.LIST, dr);
+                ListHelper helper = new ListHelper(this, req);
+                helper.execute();
             }
         } 
         
@@ -201,6 +206,14 @@ public class ProbeDetailsAction extends BaseProbeAction {
         req.setAttribute(SHOW_GRAPH, Boolean.valueOf(showGraph));
         req.setAttribute(SHOW_LOG, Boolean.valueOf(showLog));
         return mapping.findForward("default");
+    }
+
+    /**
+     * part of the Listable interface
+     * {@inheritDoc}
+     */
+    public List getResult(RequestContext context) {
+        return (List)context.getRequest().getAttribute(ListHelper.LIST);
     }
 
 }

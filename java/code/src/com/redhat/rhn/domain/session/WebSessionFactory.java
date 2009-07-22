@@ -18,7 +18,6 @@ import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -60,18 +59,8 @@ public class WebSessionFactory extends HibernateFactory {
      * @return the Session found
      */
     public static WebSession lookupById(Long id) {
-
-        Session session = null;
-        
-        try {
-            session = HibernateFactory.getSession();
-            return (WebSession)session.get(WebSessionImpl.class, id);
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
-
-        return null;
+        Session session = HibernateFactory.getSession();
+        return (WebSession)session.get(WebSessionImpl.class, id);
     }
 
     /**
@@ -98,15 +87,10 @@ public class WebSessionFactory extends HibernateFactory {
      * @param user the user whose sessions are to be purged.
      */
     public static void purgeUserSessions(User user) {
-        try {
-            Session session = HibernateFactory.getSession();
-            Query query = session.getNamedQuery("WebSession.deleteByUserId");
-            query.setParameter("user_id", user.getId());
-            query.executeUpdate();
-        }
-        catch (HibernateException he) {
-            log.error("Hibernate exception: " + he.toString());
-        }
+        Session session = HibernateFactory.getSession();
+        Query query = session.getNamedQuery("WebSession.deleteByUserId");
+        query.setParameter("user_id", user.getId());
+        query.executeUpdate();
     }
 }
 

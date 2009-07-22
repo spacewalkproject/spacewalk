@@ -65,6 +65,7 @@ public class ColumnTag extends BodyTagSupport {
      */
     public void setSortattr(String sortAttr) {
         sortAttribute = sortAttr;
+        sortable = true;
     }
 
     /**

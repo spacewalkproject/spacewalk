@@ -14,12 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.org.trusts;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.org.Org;
@@ -34,6 +28,12 @@ import com.redhat.rhn.frontend.xmlrpc.OrgNotInTrustException;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.org.OrgManager;
 import com.redhat.rhn.manager.system.SystemManager;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * OrgTrustsHandler

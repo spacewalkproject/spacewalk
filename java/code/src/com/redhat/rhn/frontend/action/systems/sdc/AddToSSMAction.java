@@ -14,18 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.systems.sdc;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
@@ -36,6 +24,18 @@ import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.system.SystemManager;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * SystemOverviewAction

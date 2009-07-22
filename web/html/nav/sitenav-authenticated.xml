@@ -97,7 +97,9 @@
       <rhn-tab-directory>/network/software/channels</rhn-tab-directory>
       <rhn-tab name="All Channels" url="/rhn/software/channels/All.do"/>
       <rhn-tab name="Red Hat Channels" url="/rhn/software/channels/RedHat.do"/>
-      <rhn-tab name="Custom Channels" url="/rhn/software/channels/Custom.do"/>
+      <rhn-tab name="Popular Channels" url="/rhn/software/channels/Popular.do"/>
+      <rhn-tab name="My Channels" url="/rhn/software/channels/Custom.do"/>
+      <rhn-tab name="Shared Channels" url="/rhn/software/channels/Shared.do"/>
       <rhn-tab name="Retired Channels" url="/rhn/software/channels/Retired.do"/>
     </rhn-tab>
     <rhn-tab name="Package Search" url="/rhn/channels/software/Search.do">

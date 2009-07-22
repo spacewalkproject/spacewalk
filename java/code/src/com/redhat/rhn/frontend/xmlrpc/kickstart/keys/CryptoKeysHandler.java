@@ -14,18 +14,19 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.kickstart.keys;
 
-import java.util.List;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchUserException;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.manager.kickstart.crypto.CreateCryptoKeyCommand;
 import com.redhat.rhn.manager.kickstart.crypto.DeleteCryptoKeyCommand;
 import com.redhat.rhn.manager.kickstart.crypto.EditCryptoKeyCommand;
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.validator.ValidatorError;
+
+import java.util.List;
 
 /**
  * @xmlrpc.namespace kickstart.keys

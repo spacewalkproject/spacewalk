@@ -7,12 +7,12 @@ NAME := spacewalk-utils
 SUBDIR  = utils
 
 FILES	= __init__ systemSnapshot migrateSystemProfile
-SCRIPTS = sw-system-snapshot migrate-system-profile
+SCRIPTS = sw-system-snapshot migrate-system-profile spacewalk-api
 
 DOCBOOK = $(wildcard /usr/bin/docbook2man)
 
 SGMLS	= $(wildcard *.sgml)
-MANS	= $(patsubst %.sgml,%.8,$(SGMLS))
+MANS	= $(patsubst %.sgml,%.8,$(SGMLS) )
 
 BINDIR	= /usr/bin
 MANDIR	?= /usr/man
@@ -29,8 +29,9 @@ install :: $(SCRIPTS) $(PREFIX)/$(BINDIR)
 ifneq ($(DOCBOOK),)
 # install man pages
 all	:: $(MANS)
+	pod2man --section=8 spacewalk-api spacewalk-api.8
 install :: $(MANS) $(PREFIX)/$(MANDIR)
-	$(INSTALL_DATA) $(MANS) $(PREFIX)/$(MANDIR)/man8
+	$(INSTALL_DATA) $(MANS) spacewalk-api.8* $(PREFIX)/$(MANDIR)/man8
 endif
 
 %.new : %

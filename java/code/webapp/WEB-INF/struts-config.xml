@@ -610,9 +610,6 @@
                   type="com.redhat.rhn.frontend.struts.PasswordForm">
             <form-property name="ksid" type="java.lang.Long" />
             <form-property name="kickstart" type="com.redhat.rhn.domain.kickstart.KickstartData" />
-            <form-property name="networkType" type="java.lang.String" />
-            <form-property name="dhcpNetworkIf" type="java.lang.String" />
-            <form-property name="staticNetworkIf" type="java.lang.String" />
             <form-property name="selinuxMode" type="java.lang.String" />
             <form-property name="configManagement" type="java.lang.String" />
             <form-property name="remoteCommands" type="java.lang.String" />
@@ -729,10 +726,10 @@
             <form-property name="scheduleAsap" type="java.lang.String" />
             <form-property name="scheduleDate" type="java.util.Date" />
             <form-property name="nextAction" type="java.lang.String" />
-            <form-property name="useExistingProfile" type="java.lang.String" />
             <form-property name="proxyHost" type="java.lang.String" />
-            <form-property name="activationKeys" type="java.util.List" />
-            <form-property name="activationKey" type="java.lang.Long" />
+            <!--  Advanced Options Page -->
+            <form-property name="networkTypeDhcp" type="java.lang.Boolean" />
+            <form-property name="networkInterface" type="java.lang.String" />
             <form-property name="kernelParamsType" type="java.lang.String" />
             <form-property name="kernelParams" type="java.lang.String" />
             <form-property name="postKernelParamsType" type="java.lang.String" />
@@ -3618,6 +3615,7 @@
         <forward name="submit"
                  path="/systems/details/packages/profiles/SyncProfiles.do"
                  redirect="true" />
+        <forward name="error" path="/systems/details/packages/profiles/CompareProfiles.do" redirect="true" />
     </action>
 
     <action path="/systems/details/packages/profiles/CompareProfilesSubmit"
@@ -3643,6 +3641,7 @@
         <forward name="submit"
                  path="/systems/details/packages/profiles/SyncSystems.do"
                  redirect="true" />
+        <forward name="error" path="/systems/details/packages/profiles/CompareSystems.do" redirect="true" />
     </action>
 
     <action path="/systems/details/packages/profiles/CompareSystemsSubmit"
@@ -4605,6 +4604,50 @@
         <forward name="deleted" path="/profiles/List.do" redirect="true" />
     </action>
 
+	<!-- Kickstart Pages  SSM -->
+	<action path="/systems/ssm/kickstart/KickstartableSystems"
+        scope="request"
+        input="/WEB-INF/pages/kickstart/ssm/kickstartablesystems.jsp"
+        type="com.redhat.rhn.frontend.action.kickstart.ssm.SsmKickstartableSystemsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/kickstart/ssm/kickstartablesystems.jsp"/>
+        <forward name="scheduleByIp"
+                 path="/systems/ssm/kickstart/ScheduleByIp.do"
+                 redirect= "true"/>
+		<forward name="scheduleByProfile"
+                 path="/systems/ssm/kickstart/ScheduleByProfile.do"
+                 redirect= "true"/>
+    </action>
+	 <action path="/systems/ssm/kickstart/ScheduleByProfile"
+		name ="kickstartScheduleWizardForm"
+        scope="request"
+        input="/WEB-INF/pages/kickstart/ssm/schedule.jsp"
+        type="com.redhat.rhn.frontend.action.kickstart.ssm.SsmKSScheduleAction"
+        parameter="profile"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_entitlement(rhn_provisioning);"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/kickstart/ssm/schedule.jsp"/>
+        <forward name="success" redirect= "true"
+                 path="/systems/ssm/kickstart/KickstartableSystems.do"/>
+    </action>
+
+	 <action path="/systems/ssm/kickstart/ScheduleByIp"
+		name ="kickstartScheduleWizardForm"
+        scope="request"
+        input="/WEB-INF/pages/kickstart/ssm/schedule.jsp"
+        type="com.redhat.rhn.frontend.action.kickstart.ssm.SsmKSScheduleAction"
+        parameter="ip"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_entitlement(rhn_provisioning);"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/kickstart/ssm/schedule.jsp"/>
+        <forward name="success" redirect= "true"
+                 path="/systems/ssm/kickstart/KickstartableSystems.do"/>
+    </action>
+
  	<!-- Kickstart Pages  -->
  
     <action path="/kickstart/Kickstarts"
@@ -4612,7 +4655,7 @@
         input="/WEB-INF/pages/kickstart/kickstarts.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.KickstartsSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
+        <set-property property="acls" value="org_entitlement(rhn_provisioning);"/>
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/kickstarts.jsp"/>
     </action>
@@ -5162,17 +5205,10 @@
         scope="request"
         input="/WEB-INF/pages/kickstart/packageprofiles.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.KickstartPackageProfileSetupAction">
-        <forward name="default"
-                 path="/WEB-INF/pages/kickstart/packageprofiles.jsp"/>
-    </action>
-
-    <action path="/kickstart/KickstartPackageProfileEditSubmit"
-        scope="request"
-        input="/WEB-INF/pages/kickstart/packageprofiles.jsp"
-        type="com.redhat.rhn.frontend.action.kickstart.KickstartPackageProfileSubmitAction"
-        parameter="dispatch">
-        <forward name="default"
-                 path="/kickstart/KickstartPackageProfileEdit.do"/>
+         <forward name="default"
+		path="/WEB-INF/pages/kickstart/packageprofiles.jsp" />
+         <forward name="success"
+                 path="/kickstart/KickstartPackageProfileEdit.do" redirect="true"/>
     </action>
 
     <action path="/kickstart/DownloadLog"
@@ -6453,7 +6489,7 @@
        <forward name="default"
                 path="/WEB-INF/pages/ssm/packageinstallschedule.jsp" />
        <forward name="confirm"
-                path="/ssm/Packages.do" />
+                path="/ssm/ViewLog.do" />
     </action>
 
      <!-- SSM Package Remove Pages -->
@@ -6475,7 +6511,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/ssm/packageremoveschedule.jsp" />
         <forward name="confirm"
-                 path="/ssm/Packages.do"/>
+                 path="/ssm/ViewLog.do"/>
      </action>
      
      <!-- SSM Package Upgrade Pages -->
@@ -6497,7 +6533,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/ssm/packageupgradeschedule.jsp" />
         <forward name="confirm"
-                 path="/ssm/Packages.do"/>
+                 path="/ssm/ViewLog.do"/>
      </action>                                          
     
      <!-- SSM Package Verify Pages -->
@@ -6519,10 +6555,8 @@
         <forward name="default"
                  path="/WEB-INF/pages/ssm/packageverifyschedule.jsp" />
         <forward name="confirm"
-                 path="/ssm/Packages.do"/>
+                 path="/ssm/ViewLog.do"/>
      </action>
-
-
 
      <action path="/admin/TaskStatus"
          scope="request"

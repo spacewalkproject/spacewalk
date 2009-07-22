@@ -14,34 +14,28 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.kickstart.profile;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.Map;
-import java.util.SortedSet;
-import java.util.Iterator;
-import java.util.Arrays;
-import java.util.TreeSet;
-
 import com.redhat.rhn.FaultException;
-import com.redhat.rhn.common.util.MD5Crypt;
-import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
+import com.redhat.rhn.common.util.MD5Crypt;
+import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
+import com.redhat.rhn.domain.kickstart.KickstartCommandName;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartDefaults;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
-import com.redhat.rhn.domain.kickstart.KickstartCommandName;
 import com.redhat.rhn.domain.kickstart.KickstartIpRange;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.rhnpackage.PackageName;
+import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter;
+import com.redhat.rhn.frontend.dto.kickstart.KickstartOptionValue;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidKickstartScriptException;
@@ -49,21 +43,26 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidScriptTypeException;
 import com.redhat.rhn.frontend.xmlrpc.IpRangeConflictException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.ValidationException;
+import com.redhat.rhn.frontend.xmlrpc.kickstart.NoSuchKickstartTreeException;
+import com.redhat.rhn.frontend.xmlrpc.kickstart.XmlRpcKickstartHelper;
+import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.keys.KeysHandler;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.IpAddress;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
 import com.redhat.rhn.manager.kickstart.KickstartOptionsCommand;
-import com.redhat.rhn.domain.token.ActivationKey;
-import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.rhnpackage.PackageName;
-import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.frontend.dto.kickstart.KickstartOptionValue;
-import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.keys.KeysHandler;
 
-import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter;
-import com.redhat.rhn.frontend.xmlrpc.kickstart.NoSuchKickstartTreeException;
-import com.redhat.rhn.frontend.xmlrpc.kickstart.XmlRpcKickstartHelper;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * ProfileHandler

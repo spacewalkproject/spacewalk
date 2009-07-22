@@ -14,13 +14,14 @@
  */
 package com.redhat.rhn.domain.org;
 
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.domain.server.Server;
+
+import org.apache.log4j.Logger;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.log4j.Logger;
-import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.domain.server.Server;
 
  /** 
   * A small wrapper around hibernate files to remove some of the complexities

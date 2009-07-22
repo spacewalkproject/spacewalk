@@ -1,6 +1,6 @@
 %define release_name Alpha
 Name:           spacewalk
-Version:        0.6.1
+Version:        0.6.3
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -62,10 +62,13 @@ Requires:       spacewalk-monitoring
 # Requires:       rhn_solaris_bootstrap_5_1_0_3
 
 # SELinux
+%if 0%{?fedora} == 11
+%else
 Requires:       spacewalk-selinux
 Requires:       jabberd-selinux
 Requires:       osa-dispatcher-selinux
 Requires:       spacewalk-monitoring-selinux
+%endif
 
 
 %description
@@ -92,6 +95,12 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
+* Wed Jul 22 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.3-1
+- Re-enable selinux for everything but Fedora 11. (dgoodwin@redhat.com)
+
+* Mon Jul 20 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.2-1
+- Disabling spacewalk selinux support temporarily. (dgoodwin@redhat.com)
+
 * Fri Apr 17 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.1-1
 - bump Versions to 0.6.0 (jesusr@redhat.com)
 
