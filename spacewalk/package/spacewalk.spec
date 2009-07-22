@@ -62,10 +62,13 @@ Requires:       spacewalk-monitoring
 # Requires:       rhn_solaris_bootstrap_5_1_0_3
 
 # SELinux
-#Requires:       spacewalk-selinux
-#Requires:       jabberd-selinux
-#Requires:       osa-dispatcher-selinux
-#Requires:       spacewalk-monitoring-selinux
+%if 0%{?fedora} == 11
+%else
+Requires:       spacewalk-selinux
+Requires:       jabberd-selinux
+Requires:       osa-dispatcher-selinux
+Requires:       spacewalk-monitoring-selinux
+%endif
 
 
 %description
