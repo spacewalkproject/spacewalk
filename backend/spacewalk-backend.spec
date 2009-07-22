@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.21
+Version: 0.6.22
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -568,6 +568,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Jul 22 2009 John Matthews <jmatthew@redhat.com> 0.6.22-1
+- 511283 - Package compare between db and cache should see if the db is newer
+  than cache and only then import the content. (pkilambi@redhat.com)
+
 * Tue Jul 21 2009 John Matthews <jmatthew@redhat.com> 0.6.21-1
 - 512936 - Changing the custom channel rule to always defalt to org 1 for
   custom channels unless --org option is used. This will avoid the confusion of
