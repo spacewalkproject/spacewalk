@@ -66,6 +66,18 @@ if __name__ == '__main__':
 	try:
 		initCFG('server')
 		rhnSQL.initDB(options.db)
+
+		h = rhnSQL.prepare("""
+			select rhnserver.id as server_id, rhnserver.name as profile_name
+			from rhnserver
+			order by server_id
+		""")
+		h.execute()
+		row = h.fetchone()
+		while row != None:
+			print row
+			row = h.fetchone()
+
 	except KeyboardInterrupt:
 		systemExit(-1, "\nUser interrupted process.")
 	except (rhnSQL.SQLError, rhnSQL.SQLSchemaError, rhnSQL.SQLConnectError), e:
