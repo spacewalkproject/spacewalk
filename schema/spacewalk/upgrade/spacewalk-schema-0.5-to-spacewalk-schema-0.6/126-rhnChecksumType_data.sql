@@ -18,9 +18,9 @@
 
 
 insert into rhnChecksumType (id, label, description) values
-            (rhn_checksum_id_seq.nextval, 'md5', 'md5sum' );
+            (rhn_checksum_id_seq.nextval, 'md5', 'md5' );
 insert into rhnChecksumType (id, label, description) values
-            (rhn_checksum_id_seq.nextval, 'sha1', 'sha1' );
+            (rhn_checksum_id_seq.nextval, 'sha1', 'sha' );
 insert into rhnChecksumType (id, label, description) values
             (rhn_checksum_id_seq.nextval, 'sha-256', 'sha256' );
 insert into rhnChecksumType (id, label, description) values
