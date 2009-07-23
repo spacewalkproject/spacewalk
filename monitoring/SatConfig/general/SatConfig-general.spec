@@ -22,7 +22,7 @@ to make a monitoring work.
 %setup -q
 
 %build
-#nothing to do here
+pod2man --section=8 NOCpulse-ini NOCpulse-ini.8
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -40,6 +40,7 @@ install -m 755 validateConfiguration $RPM_BUILD_ROOT%sysv_dir
 install -m 755 pip $RPM_BUILD_ROOT%sysv_dir
 install -m 444 SysV.ini $RPM_BUILD_ROOT%sysv_dir
 ln -s ../../rc.d/np.d/hbResource $RPM_BUILD_ROOT%hb_res_dir/ClusterLeader
+install -D -m 644 NOCpulse-ini.8 $RPM_BUILD_ROOT%{_mandir}/man8/NOCpulse-ini.8
 
 %files
 %defattr(-,root,root,-)
@@ -56,6 +57,7 @@ ln -s ../../rc.d/np.d/hbResource $RPM_BUILD_ROOT%hb_res_dir/ClusterLeader
 %sysv_dir/SysV.ini
 %hb_res_dir/*
 %doc 1-STARTUP_SEQUENCE 2-COMMANDS_OVERVIEW 3-CONFIGURATION 4-DEVELOPMENT 5-STEPS_LEGEND
+%{_mandir}/man8/NOCpulse-ini.8.*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
