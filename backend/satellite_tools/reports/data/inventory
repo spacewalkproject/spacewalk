@@ -3,7 +3,8 @@
 		rhnservernetwork.hostname, trim(rhnservernetwork.ipaddr) as ip_address,
 		( select login from web_contact where rhnserver.creator_id = web_contact.id ) as registered_by,
 		to_char(rhnserver.created, 'YYYY-MM-DD HH24:MI:SS') as registration_time,
-		( select to_char(checkin, 'YYYY-MM-DD HH24:MI:SS') from rhnserverinfo where rhnserver.id = server_id ) as last_checkin_time
+		( select to_char(checkin, 'YYYY-MM-DD HH24:MI:SS') from rhnserverinfo where rhnserver.id = server_id ) as last_checkin_time,
+		running_kernel as kernel_version
 	from rhnserver,
 		(
 		select server_id, hostname, ipaddr
