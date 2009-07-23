@@ -70,19 +70,16 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
     public ValidatorError store() {
         //First are there any profiles within spacewalk that aren't within cobbler
         List<KickstartData> profiles = KickstartFactory.listAllKickstartData();
-
-        
         Map<String, Map> profileNames = getModifiedProfileNames();
         for (KickstartData profile : profiles) {
             if (!profileNames.containsKey(profile.getCobblerId())) {
                 createProfile(profile);
-                profile.setModified(new Date());
             }
         }
-        
-
-        log.debug(profiles);
-        log.debug(profileNames);
+        if (log.isDebugEnabled()) {
+            log.debug(profiles);
+            log.debug(profileNames);
+        }
         //Are there any profiles on cobbler that have changed     
         for (KickstartData profile : profiles) {
             if (profileNames.containsKey(profile.getCobblerId())) {
@@ -103,6 +100,7 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
     private void createProfile(KickstartData profile) {
         CobblerProfileCreateCommand creator = new CobblerProfileCreateCommand(profile);
         creator.store();
+        profile.setModified(new Date());
     }
 
     
