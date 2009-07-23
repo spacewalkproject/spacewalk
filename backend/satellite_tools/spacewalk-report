@@ -74,7 +74,10 @@ if __name__ == '__main__':
 			initCFG('server')
 			rhnSQL.initDB(options.db)
 
-			report = reports.report(sys.argv[1])
+			try:
+				report = reports.report(sys.argv[1])
+			except(reports.spacewalk_unknown_report):
+				systemExit(-4, 'Unknown report [%s].' % sys.argv[1])
 			writer = csv.writer(sys.stdout)
 
 			h = rhnSQL.prepare(report.sql)

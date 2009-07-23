@@ -15,7 +15,10 @@ class report:
 		self._load(full_path)
 
 	def _load(self, full_path):
-		fd = open(full_path, 'r')
+		try:
+			fd = open(full_path, 'r')
+		except (IOError):
+			raise spacewalk_unknown_report
 		tag = None
 		value = ''
 		re_comment = re.compile('^\s*#')
@@ -47,6 +50,9 @@ class report:
 		else:
 			raise spacewalk_report_unknown_tag_exception(tag)
 
+
+class spacewalk_unknown_report(Exception):
+	pass
 
 class spacewalk_report_unknown_tag_exception(Exception):
 	pass
