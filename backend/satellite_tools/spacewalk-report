@@ -26,6 +26,7 @@ def systemExit(code, msgs=None):
 try:
 	import os
 	import csv
+	from optparse import Option, OptionParser
 except KeyboardInterrupt:
 	systemExit(-1, "\nUser interrupted process.")
 
@@ -47,10 +48,6 @@ except KeyboardInterrupt:
 
 def processCommandline():
 	""" process the commandline """
-	try:
-		from optparse import Option, OptionParser
-	except KeyboardInterrupt:
-		systemExit(-1, "\nUser interrupted process.")
 	optionsTable = [
 		Option('--db', action='store', type="string",
 			help='alternative database string (username/password@sid);' \
@@ -67,19 +64,43 @@ def processCommandline():
 
 	return options
 
+def processCommandlineReport(report):
+	""" process the commandline options for one report """
+
+	optionsTable = [
+		Option('--fields', action='store_true',
+			help='show fields of the report'),
+		]
+	optionParserReport = OptionParser(
+		usage="options for report %s" % report,
+		option_list=optionsTable,
+		)
+	options, args = optionParserReport.parse_args()
+
+	return options
+
 
 if __name__ == '__main__':
 	options = processCommandline()
 
 	try:
 		if len(sys.argv) > 1:
+			report_name = sys.argv[1]
+			report_options = processCommandlineReport(report_name)
+
+			try:
+				report = reports.report(report_name)
+			except(reports.spacewalk_unknown_report):
+				systemExit(-4, 'Unknown report [%s].' % report_name)
+
+			if report_options.fields:
+				for c in report.columns:
+					print c
+				sys.exit(0)
+
 			initCFG('server')
 			rhnSQL.initDB(options.db)
 
-			try:
-				report = reports.report(sys.argv[1])
-			except(reports.spacewalk_unknown_report):
-				systemExit(-4, 'Unknown report [%s].' % sys.argv[1])
 			writer = csv.writer(sys.stdout)
 
 			h = rhnSQL.prepare(report.sql)
