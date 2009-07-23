@@ -535,6 +535,8 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/disk_dumper/iss_actions.py*
 %{rhnroot}/satellite_tools/disk_dumper/dumper.py*
 %{rhnroot}/satellite_tools/disk_dumper/string_buffer.py*
+%{_prefix}/share/spacewalk/reports.py*
+%{_prefix}/share/spacewalk/reports/data/*
 %config %attr(644,root,apache) %{rhnconf}/default/rhn_server_iss.conf
 %{_mandir}/man8/rhn-satellite-exporter.8*
 %{_mandir}/man8/rhn-charsets.8*

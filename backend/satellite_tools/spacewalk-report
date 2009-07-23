@@ -35,6 +35,9 @@ _LIBPATH = "/usr/share/rhn"
 if _LIBPATH not in sys.path:
 	sys.path.append(_LIBPATH)
 
+sys.path.append('/usr/share/spacewalk')
+import reports
+
 try:
 	from server import rhnSQL
 	from common import initCFG
@@ -67,27 +70,11 @@ if __name__ == '__main__':
 	try:
 		initCFG('server')
 		rhnSQL.initDB(options.db)
+
+		report = reports.report(sys.argv[1])
 		writer = csv.writer(sys.stdout)
 
-		h = rhnSQL.prepare("""
-			select rhnserver.id as server_id, rhnserver.name as profile_name,
-				rhnservernetwork.hostname, trim(rhnservernetwork.ipaddr) as ip_address,
-				( select login from web_contact where rhnserver.creator_id = web_contact.id ) as registered_by,
-				to_char(rhnserver.created, 'YYYY-MM-DD HH24:MI:SS') as registration_time,
-				( select to_char(checkin, 'YYYY-MM-DD HH24:MI:SS') from rhnserverinfo where rhnserver.id = server_id ) as last_checkin_time
-			from rhnserver,
-				(
-				select server_id, hostname, ipaddr
-				from rhnservernetwork
-				where id in (
-					select min(id)
-					from rhnservernetwork
-					group by server_id
-					)
-				) rhnservernetwork
-			where rhnserver.id = rhnservernetwork.server_id (+)
-			order by server_id
-		""")
+		h = rhnSQL.prepare(report.sql)
 		h.execute()
 		writer.writerow(map(lambda x: x[0].lower(), h.description))
 		row = h.fetchone()

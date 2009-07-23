@@ -19,6 +19,12 @@ SCRIPTS = satellite-sync spacewalk-debug\
 	  rhn-ssl-dbstore update-packages rhn-db-stats \
 	  spacewalk-report
 
+SPACEWALK_SUBDIRS = reports reports/data
+
+SPACEWALK_FILES	= reports
+
+SPACEWALK_REPORT_FILES	= reports/data
+
 # check if we can build man pages
 DOCBOOK = $(wildcard /usr/bin/docbook2man)
 
@@ -40,6 +46,8 @@ include $(TOP)/Makefile.defs
 all :: $(SCRIPTS)
 install :: $(SCRIPTS) $(PREFIX)/$(BINDIR)
 	$(INSTALL_BIN) $(SCRIPTS) $(PREFIX)/$(BINDIR)
+	$(INSTALL_DIR) $(addprefix $(PREFIX)$(SPACEWALK_ROOT)/, $(SPACEWALK_SUBDIRS))
+	$(INSTALL_DATA) $(SPACEWALK_REPORT_FILES)/* $(PREFIX)$(SPACEWALK_ROOT)/reports/data
 
 ifneq ($(DOCBOOK),)
 # install man pages
