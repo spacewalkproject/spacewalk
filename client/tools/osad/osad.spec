@@ -17,7 +17,6 @@ BuildRequires: python-devel
 Requires: python
 Requires: rhnlib >= 1.8-3
 Requires: jabberpy
-Requires: python-optik
 # This should have been required by rhnlib
 Requires: PyXML
 %if "%{pythongen}" == "1.5"
