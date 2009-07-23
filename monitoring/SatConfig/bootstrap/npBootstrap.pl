@@ -23,6 +23,7 @@ my $soapbox = new NOCpulse::Gritch('/var/lib/nocpulse/npBootstrap.db');
 # get the scout_shared_key formt he /etc/rhn/cluster.ini file
 my $cluster_config = NOCpulse::Config->new('/etc/rhn/cluster.ini');
 my $ssk=$cluster_config->get('', 'scoutsharedkey');
+my $notify_scout_start = $cluster_config->get('', 'notify_scout_start');
 
 my $gritchMsg;
 if (!$ssk) {
@@ -106,7 +107,7 @@ if ($res->is_success) {
      unlink($llnsFile);
    }
    # Send notification that the sat may have been rebooted.
-   $soapbox->gritch('RHN Monitoring Scout started', $gritchMsg);
+   $soapbox->gritch('RHN Monitoring Scout started', $gritchMsg) if ($notify_scout_start);
 
 } else {
    # Send notification that the sat may have been rebooted.
