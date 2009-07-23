@@ -75,6 +75,7 @@ if __name__ == '__main__':
 			order by server_id
 		""")
 		h.execute()
+		writer.writerow(map(lambda x: x[0].lower(), h.description))
 		row = h.fetchone()
 		while row != None:
 			writer.writerow(row)
