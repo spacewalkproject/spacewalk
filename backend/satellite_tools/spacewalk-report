@@ -70,8 +70,19 @@ if __name__ == '__main__':
 		writer = csv.writer(sys.stdout)
 
 		h = rhnSQL.prepare("""
-			select rhnserver.id as server_id, rhnserver.name as profile_name
-			from rhnserver
+			select rhnserver.id as server_id, rhnserver.name as profile_name,
+				rhnservernetwork.hostname, trim(rhnservernetwork.ipaddr) as ip_address
+			from rhnserver,
+				(
+				select server_id, hostname, ipaddr
+				from rhnservernetwork
+				where id in (
+					select min(id)
+					from rhnservernetwork
+					group by server_id
+					)
+				) rhnservernetwork
+			where rhnserver.id = rhnservernetwork.server_id (+)
 			order by server_id
 		""")
 		h.execute()
