@@ -871,7 +871,7 @@ public class KickstartFactory extends HibernateFactory {
      * @param tree to lookup by
      * @return List of KickstartData objects if found
      */
-    public static List lookupKickstartDatasByTree(KickstartableTree tree) {
+    public static List<KickstartData> lookupKickstartDatasByTree(KickstartableTree tree) {
         String query = "KickstartData.lookupByTreeId";
         Session session = HibernateFactory.getSession();
         return session.getNamedQuery(query)
@@ -1023,4 +1023,5 @@ public class KickstartFactory extends HibernateFactory {
         Session session = HibernateFactory.getSession();
         return (List<KickstartableTree>) session.getNamedQuery(query).list();
     }
+
 }

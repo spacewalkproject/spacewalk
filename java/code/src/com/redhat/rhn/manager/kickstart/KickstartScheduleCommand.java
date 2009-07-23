@@ -576,6 +576,9 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             cmd.setKernelOptions(getExtraOptions());
             cmd.setPostKernelOptions(postKernelOptions);
             cmd.setScheduledAction(kickstartAction);
+            if (!isDhcp) {
+                cmd.setStaticNetwork(networkInterface);
+            }
             ValidatorError cobblerError = cmd.store();
             if (cobblerError != null) {
                 return cobblerError;
@@ -589,6 +592,9 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             cmd.setKernelOptions(kernelOptions);
             cmd.setPostKernelOptions(postKernelOptions);
             cmd.setScheduledAction(kickstartAction);
+            if (!isDhcp) {
+                cmd.setStaticNetwork(networkInterface);
+            }
             ValidatorError cobblerError = cmd.store();
             if (cobblerError != null) {
                 return cobblerError;

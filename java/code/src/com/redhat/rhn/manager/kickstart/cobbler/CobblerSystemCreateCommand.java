@@ -55,6 +55,14 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     private String kickstartHost;
     private String kernelOptions;
     private String postKernelOptions;
+    private String staticNetwork;
+
+    /**
+     * @param staticNetworkIn The staticNetwork to set.
+     */
+    public void setStaticNetwork(String staticNetworkIn) {
+        staticNetwork = staticNetworkIn;
+    }
 
     /**
      * Constructor
@@ -312,6 +320,10 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                 }
                 if (!StringUtils.isBlank(n.getNetmask())) {
                     inet.put("subnet-" + n.getName(), n.getNetmask());
+                }
+                if (!StringUtils.isBlank(staticNetwork) &&
+                        n.getName().equals(staticNetwork)) {
+                    inet.put("static-" + n.getName(), Boolean.TRUE);
                 }
             }
         }

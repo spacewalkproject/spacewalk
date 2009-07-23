@@ -27,6 +27,7 @@ import java.util.Set;
  */
 
 public class SystemRecord extends CobblerObject {
+    private static final String HOSTNAME = "hostname";
     private static final String NAME_SERVERS = "name_servers";
     private static final String GATEWAY = "gateway";
     private static final String PROFILE = "profile";
@@ -306,7 +307,7 @@ public class SystemRecord extends CobblerObject {
       /**
        * @param nameServersIn the NameServers
        */
-      public void  setNameServers(String nameServersIn) {
+      public void  setNameServers(List<String> nameServersIn) {
           modify(NAME_SERVERS, nameServersIn);
       }
    
@@ -315,5 +316,11 @@ public class SystemRecord extends CobblerObject {
        */
       public void  setGateway(String gateway) {
           modify(GATEWAY, gateway);
+      }
+      /**
+       * @param hostname the hostname
+       */
+      public void  setHostName(String hostname) {
+          modify(HOSTNAME, hostname);
       }
 }
