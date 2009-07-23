@@ -12,23 +12,15 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation.
 --
+--
+--
+--
 
+--create special host synonyms for monitoring backend code to function as is
 
-CREATE TABLE rhnReleaseChannelMap
-(
-    product          VARCHAR2(64) NOT NULL,
-    version          VARCHAR2(64) NOT NULL,
-    release          VARCHAR2(64) NOT NULL,
-    channel_arch_id  NUMBER NOT NULL,
-    channel_id       NUMBER NOT NULL
-)
-ENABLE ROW MOVEMENT
-;
+create or replace synonym host for rhn_host_monitoring;
 
-CREATE INDEX rhn_rcm_prod_ver_rel_caid_idx
-    ON rhnReleaseChannelMap (product, version, release, channel_arch_id)
-    TABLESPACE [[64k_tbs]];
-
-ALTER TABLE rhnReleaseChannelMap
-    ADD CONSTRAINT rhn_rcm_pva_def_uniq
-    UNIQUE (product, version, channel_arch_id, release);
+--
+--Revision 1.1  2004/07/16 15:35:00  kja
+--Bug 126465 -- fix synonyms for monitoring views.
+--

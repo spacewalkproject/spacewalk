@@ -12,23 +12,17 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation.
 --
+--
+--
+--
+--
 
+create or replace synonym probe for rhn_probe;
+create or replace synonym probes_recid_seq for rhn_probes_recid_seq;
 
-CREATE TABLE rhnReleaseChannelMap
-(
-    product          VARCHAR2(64) NOT NULL,
-    version          VARCHAR2(64) NOT NULL,
-    release          VARCHAR2(64) NOT NULL,
-    channel_arch_id  NUMBER NOT NULL,
-    channel_id       NUMBER NOT NULL
-)
-ENABLE ROW MOVEMENT
-;
+--
+--
+-- Revision 1.1  2004/06/22 21:15:08  nhansen
+-- bug none: make probe synonyms available on satellites
+--
 
-CREATE INDEX rhn_rcm_prod_ver_rel_caid_idx
-    ON rhnReleaseChannelMap (product, version, release, channel_arch_id)
-    TABLESPACE [[64k_tbs]];
-
-ALTER TABLE rhnReleaseChannelMap
-    ADD CONSTRAINT rhn_rcm_pva_def_uniq
-    UNIQUE (product, version, channel_arch_id, release);

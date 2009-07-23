@@ -36,13 +36,14 @@ CREATE INDEX rhn_channelclone_fcid_tcid_idx
     ON rhnChannelCloned (original_id, id)
     TABLESPACE [[2m_tbs]];
 
-CREATE INDEX rhn_channelclone_tcid_fcid_idx
-    ON rhnChannelCloned (id, original_id)
-    TABLESPACE [[2m_tbs]];
-
 ALTER TABLE rhnChannelCloned
     ADD CONSTRAINT rhn_channelclone_fcid_tcid_uq UNIQUE (original_id, id);
 
 ALTER TABLE rhnChannelCloned
     ADD CONSTRAINT rhn_channelclone_id_pk PRIMARY KEY (id);
+
+CREATE INDEX rhn_channelclone_tcid_fcid_idx
+    ON rhnChannelCloned (id, original_id)
+    TABLESPACE [[2m_tbs]];
+
 

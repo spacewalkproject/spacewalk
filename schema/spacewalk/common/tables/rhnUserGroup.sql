@@ -34,8 +34,7 @@ CREATE TABLE rhnUserGroup
     created          DATE
                          DEFAULT (sysdate) NOT NULL,
     modified         DATE
-                         DEFAULT (sysdate) NOT NULL,
-    CONSTRAINT rhn_ug_oid_gt_uq UNIQUE (org_id, group_type)
+                         DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;
@@ -62,4 +61,8 @@ CREATE INDEX rhn_ug_org_id_type_idx
 CREATE INDEX rhn_ug_org_id_gtype_idx
     ON rhnUserGroup (org_id, group_type, id)
     TABLESPACE [[8m_tbs]];
+
+ALTER TABLE rhnUserGroup
+ADD CONSTRAINT rhn_ug_oid_gt_uq
+UNIQUE (org_id, group_type);
 

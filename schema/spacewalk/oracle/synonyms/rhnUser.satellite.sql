@@ -12,23 +12,16 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation.
 --
+--
+--
+--
+-- EXCLUDE: production
+--
+-- create the synonym for rhnUser on the satellite
 
+create synonym rhnUser for web_contact;
 
-CREATE TABLE rhnReleaseChannelMap
-(
-    product          VARCHAR2(64) NOT NULL,
-    version          VARCHAR2(64) NOT NULL,
-    release          VARCHAR2(64) NOT NULL,
-    channel_arch_id  NUMBER NOT NULL,
-    channel_id       NUMBER NOT NULL
-)
-ENABLE ROW MOVEMENT
-;
-
-CREATE INDEX rhn_rcm_prod_ver_rel_caid_idx
-    ON rhnReleaseChannelMap (product, version, release, channel_arch_id)
-    TABLESPACE [[64k_tbs]];
-
-ALTER TABLE rhnReleaseChannelMap
-    ADD CONSTRAINT rhn_rcm_pva_def_uniq
-    UNIQUE (product, version, channel_arch_id, release);
+--
+-- Revision 1.1  2002/05/10 15:36:46  pjones
+-- synonyms are now handles like everything else.
+--

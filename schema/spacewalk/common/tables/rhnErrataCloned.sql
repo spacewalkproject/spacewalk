@@ -36,13 +36,12 @@ CREATE INDEX rhn_errataclone_feid_teid_idx
     ON rhnErrataCloned (original_id, id)
     TABLESPACE [[2m_tbs]];
 
-CREATE INDEX rhn_errataclone_teid_feid_idx
-    ON rhnErrataCloned (id, original_id)
-    TABLESPACE [[2m_tbs]];
-
 ALTER TABLE rhnErrataCloned
     ADD CONSTRAINT rhn_errataclone_feid_teid_uq UNIQUE (original_id, id);
 
 ALTER TABLE rhnErrataCloned
     ADD CONSTRAINT rhn_errataclone_id_pk PRIMARY KEY (id);
 
+CREATE INDEX rhn_errataclone_teid_feid_idx
+    ON rhnErrataCloned (id, original_id)
+    TABLESPACE [[2m_tbs]];
