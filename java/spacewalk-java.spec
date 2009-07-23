@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.34
+Version: 0.6.35
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -250,6 +250,11 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu Jul 23 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.35-1
+-  Sha256 support for channel creation: (pkilambi@redhat.com)
+- checkstyle (mmccune@redhat.com)
+- 512814 - unit test fix (mmccune@redhat.com)
+
 * Wed Jul 22 2009 John Matthews <jmatthew@redhat.com> 0.6.34-1
 - 512814 - adding spot to add 'upgrade' logic to our startup of tomact.
   (mmccune@redhat.com)
