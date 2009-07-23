@@ -8,7 +8,8 @@
 		( select count(distinct rhnpackage.name_id) from rhnpackage, rhnserverneededpackagecache
 			where rhnserver.id = rhnserverneededpackagecache.server_id
 				and rhnserverneededpackagecache.package_id = rhnpackage.id ) as packages_out_of_date,
-		( select count(*) from rhnServerErrataTypeView where rhnserver.id = server_id ) as errata_out_of_date
+		( select count(*) from rhnServerErrataTypeView where rhnserver.id = server_id ) as errata_out_of_date,
+		rhnchannel.name as software_channel
 	from rhnserver,
 		(
 		select server_id, hostname, ipaddr
@@ -18,7 +19,10 @@
 			from rhnservernetwork
 			group by server_id
 			)
-		) rhnservernetwork
+		) rhnservernetwork,
+		rhnserverchannel, rhnchannel
 	where rhnserver.id = rhnservernetwork.server_id (+)
-	order by server_id
+		and rhnserver.id = rhnserverchannel.server_id (+)
+		and rhnserverchannel.channel_id = rhnchannel.id (+)
+	order by server_id, rhnchannel.parent_channel nulls first, rhnchannel.id
 
