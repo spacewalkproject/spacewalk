@@ -67,7 +67,10 @@ sub save {
     $@ = "Couldn't open $filename: $!";
     return undef;
   }
-  print $fh $data;
+  print $fh <<WARNING, $data;
+# You should not edit this file directly. All changes will be lost after 
+# Monitoring restart. Please use script NOCpulse-ini.
+WARNING
   $fh->close();
   # Be sure to make the file world-readable!
   chmod(0644, $filename) or die "Couldn't chmod $filename: $!";
