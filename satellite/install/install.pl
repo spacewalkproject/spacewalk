@@ -535,6 +535,9 @@ sub remove_obsoleted_packages {
     my @pkgs = ('rhn-apache', 'rhn-modpython', 'rhn-modssl', 'rhn-modperl',
                 'perl-libapreq', 'bouncycastle-jdk1.4',
                 'quartz-oracle', 'jaf', 'jta');
+	# If we're about to install xml-commons-jaxp-apis from ISO (on RHEL-4), we need to
+	# remove xml-commons-apis first (dependency problems).
+	push(@pkgs, 'xml-commons-apis') if glob('Satellite/xml-commons-jaxp-apis*');
     for my $pkg (@pkgs) {
       if (system_debug('rpm', '-q', $pkg) == 0) {
         system_debug('rpm', '-ev', '--nodeps', $pkg);
