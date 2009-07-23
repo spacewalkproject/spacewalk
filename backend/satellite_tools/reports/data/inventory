@@ -1,4 +1,20 @@
-	
+
+columns:
+
+	server_id
+	profile_name
+	hostname
+	ip_address
+	registered_by
+	registration_time
+	last_checkin_time
+	kernel_version
+	packages_out_of_date
+	errata_out_of_date
+	software_channel
+
+sql:
+
 	select rhnserver.id as server_id, rhnserver.name as profile_name,
 		rhnservernetwork.hostname, trim(rhnservernetwork.ipaddr) as ip_address,
 		( select login from web_contact where rhnserver.creator_id = web_contact.id ) as registered_by,

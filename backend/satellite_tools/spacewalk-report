@@ -79,7 +79,13 @@ if __name__ == '__main__':
 
 			h = rhnSQL.prepare(report.sql)
 			h.execute()
-			writer.writerow(map(lambda x: x[0].lower(), h.description))
+
+			db_columns = map(lambda x: x[0].lower(), h.description)
+			if db_columns != report.columns:
+				systemExit(-3, \
+					"Columns in report spec and in the database do not match:\nexpected %s\n     got %s" % ( report.columns, db_columns ))
+			writer.writerow(report.columns)
+
 			row = h.fetchone()
 			while row != None:
 				writer.writerow(row)
