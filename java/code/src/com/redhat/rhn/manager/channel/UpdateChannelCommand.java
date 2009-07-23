@@ -17,6 +17,7 @@ package com.redhat.rhn.manager.channel;
 
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.common.ChecksumType;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelNameException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidParentChannelException;
@@ -63,6 +64,15 @@ public class UpdateChannelCommand extends CreateChannelCommand {
         if (ChannelFactory.findArchByLabel(archLabel) == null) {
             throw new IllegalArgumentException("Invalid architecture label");
         }
+        
+        ChecksumType ct = ChannelFactory.findChecksumByLabel(checksum);
+        
+        if (!ct.getLabel().equals(c.getChecksum().getLabel()) && c.getPackageCount() > 0) {
+            // schedule repo re generation if the checksum type changed 
+            // and the channel has packages
+            ChannelManager.queueChannelChange(c.getLabel(), 
+                    "java::updateChannelCommon", null);
+        }
 
         c.setName(name);
         c.setSummary(summary);
@@ -72,6 +82,7 @@ public class UpdateChannelCommand extends CreateChannelCommand {
         c.setGPGKeyId(gpgKeyId);
         c.setGPGKeyUrl(gpgKeyUrl);
         c.setGPGKeyFp(gpgKeyFp);
+        c.setChecksum(ct);
         c.setAccess(access);
         c.setMaintainerName(maintainerName);
         c.setMaintainerEmail(maintainerEmail);

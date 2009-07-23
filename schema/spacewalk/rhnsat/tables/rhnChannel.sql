@@ -49,6 +49,8 @@ rhnChannel
 	gpg_key_id	varchar2(14),
 	gpg_key_fp	varchar2(50),
 	end_of_life     date,
+    checksum_type_id number constraint rhn_channel_checksum_fk
+                                 references rhnChecksumType(id), 
     receiving_updates  char(1)
                        default 'Y'
                        constraint rhn_channel_ru_nn not null

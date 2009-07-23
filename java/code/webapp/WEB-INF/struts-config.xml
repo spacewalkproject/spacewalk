@@ -842,6 +842,7 @@
             <form-property name="gpg_key_url" type="java.lang.String" />
             <form-property name="gpg_key_id" type="java.lang.String" />
             <form-property name="gpg_key_fingerprint" type="java.lang.String" />
+            <form-property name="checksum" type="java.lang.String" />
         </form-bean>
 
        <form-bean name="channelDeleteForm" 

@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.channel.ClonedChannel;
 import com.redhat.rhn.domain.channel.ProductName;
+import com.redhat.rhn.domain.common.ChecksumType;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
@@ -382,7 +383,22 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
                 fileNameChild);
         assertNotNull(lookedUpChild);
         assertEquals(cp.getId(), lookedUpChild.getId());
-        
-        
+                
     }
+    
+    public void testfindChecksumByLabel() {
+        assertNull("Checksum found for null label",
+                ChannelFactory.findChecksumByLabel(null));
+        assertNull("Checksum found for invalid label",
+                ChannelFactory.findChecksumByLabel("some-invalid_checksum"));
+        
+        ChecksumType ct = ChannelFactory.findChecksumByLabel("sha-256");
+        assertNotNull(ct);
+        assertEquals("sha-256", ct.getLabel());
+        
+        ChecksumType ct2 = ChannelFactory.findChecksumByLabel("sha1");
+        assertNotNull(ct2);
+        assertEquals("sha1", ct2.getLabel());
+    }
+
 }
