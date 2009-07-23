@@ -21,7 +21,7 @@ CREATE TABLE rhnSet
                            REFERENCES web_contact (id)
                            ON DELETE CASCADE,
     label          VARCHAR2(32) NOT NULL,
-    element        NUMBER,
+    element        NUMBER NOT NULL,
     element_two    NUMBER,
     element_three  NUMBER,
     CONSTRAINT rhn_set_user_label_elem_unq UNIQUE (user_id, label, element, element_two, element_three)
