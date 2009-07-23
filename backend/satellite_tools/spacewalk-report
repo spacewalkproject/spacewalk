@@ -63,6 +63,8 @@ def processCommandline():
 	optionParser.disable_interspersed_args()
 	options, args = optionParser.parse_args()
 
+	sys.argv[1:] = args
+
 	return options
 
 
