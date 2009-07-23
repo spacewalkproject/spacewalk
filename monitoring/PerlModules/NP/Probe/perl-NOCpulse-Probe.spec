@@ -2,7 +2,7 @@ Name:         perl-NOCpulse-Probe
 Summary:      Probe execution framework
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.183.8
+Version:      1.183.9
 Release:      1%{?dist}
 BuildArch:    noarch
 Group:        Development/Libraries
@@ -70,7 +70,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
-* Thu Jul 23 2009 Miroslav Suchý <msuchy@redhat.com> 1.183.8-1
+* Thu Jul 23 2009 Miroslav Suchý <msuchy@redhat.com> 1.183.9-1
 - 512749 -  fix path to file during man page generation
 
 * Wed Apr 15 2009 Devan Goodwin <dgoodwin@redhat.com> 1.183.7-1
