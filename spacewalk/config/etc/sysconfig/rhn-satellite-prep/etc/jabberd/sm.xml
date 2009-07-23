@@ -69,7 +69,7 @@
   <!-- Storage database configuration -->
   <storage>
     <!-- Dynamic storage modules path -->
-    <path>/usr/lib/jabberd</path>
+    <path>@@jabberDOTlibdir@@</path>
 
     <!-- By default, we use the MySQL driver for all storage -->
     <driver>db</driver>
@@ -326,7 +326,7 @@
        doing. -->
   <modules>
     <!-- Dynamic sm modules path -->
-    <path>/usr/lib/jabberd</path>
+    <path>@@jabberDOTlibdir@@</path>
 
     <!-- sess-start. The modules in this chain are called when a session
          is first started (usually on request by c2s as part of the
