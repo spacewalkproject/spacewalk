@@ -57,7 +57,9 @@ def processCommandline():
 				+ ' default is default_db from /etc/rhn/rhn.conf'),
 	]
 
-	optionParser = OptionParser(option_list=optionsTable)
+	optionParser = OptionParser( \
+		usage="usage: %s [options] [report_name [report_options]]" % sys.argv[0], \
+		option_list=optionsTable)
 	optionParser.disable_interspersed_args()
 	options, args = optionParser.parse_args()
 
@@ -68,19 +70,23 @@ if __name__ == '__main__':
 	options = processCommandline()
 
 	try:
-		initCFG('server')
-		rhnSQL.initDB(options.db)
+		if len(sys.argv) > 1:
+			initCFG('server')
+			rhnSQL.initDB(options.db)
 
-		report = reports.report(sys.argv[1])
-		writer = csv.writer(sys.stdout)
+			report = reports.report(sys.argv[1])
+			writer = csv.writer(sys.stdout)
 
-		h = rhnSQL.prepare(report.sql)
-		h.execute()
-		writer.writerow(map(lambda x: x[0].lower(), h.description))
-		row = h.fetchone()
-		while row != None:
-			writer.writerow(row)
+			h = rhnSQL.prepare(report.sql)
+			h.execute()
+			writer.writerow(map(lambda x: x[0].lower(), h.description))
 			row = h.fetchone()
+			while row != None:
+				writer.writerow(row)
+				row = h.fetchone()
+		else:
+			for r in reports.available_reports():
+				print r
 
 	except KeyboardInterrupt:
 		systemExit(-1, "\nUser interrupted process.")
