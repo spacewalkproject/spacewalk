@@ -1464,7 +1464,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     }
     
     private ValidatorError validateNetworkInterface() {
-        if (!StringUtils.isEmpty(networkInterface)) {
+        if (!StringUtils.isEmpty(networkInterface) &&
+                        !(isDhcp && "link".equals(networkInterface))) {
             boolean nicAvailable = false;
             for (NetworkInterface nic : server.getNetworkInterfaces()) {
                 if (networkInterface.equals(nic.getName())) {

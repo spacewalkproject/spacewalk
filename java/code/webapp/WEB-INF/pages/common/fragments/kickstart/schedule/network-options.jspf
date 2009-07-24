@@ -11,7 +11,7 @@
 				  />
               <bean:message key="kickstart.netconn.dhcp.jsp.label"/>&nbsp;
 		<c:choose>
-		<c:when test="${empty requestScope.networkInterfaces}">
+		<c:when test="${empty requestScope.dhcpNetworkInterfaces}">
         <input type="text" name="networkInterface" id="dhcpNetworkId" size="4" maxlength="10"
 			<c:if test="${not form.networkTypeDhcp}">disabled="true"</c:if>
 			 value="${form.networkInterface}"/>
@@ -20,7 +20,7 @@
 		<select name="networkInterface" id="dhcpNetworkId"
 			<c:if test="${not form.networkTypeDhcp}">disabled="true"</c:if>
 			>
-			<c:forEach var="nic" items="${requestScope.networkInterfaces}">
+			<c:forEach var="nic" items="${requestScope.dhcpNetworkInterfaces}">
 				<option
 				<c:if test="${nic.name == form.networkInterface}">selected="selected"</c:if>
 				value='${nic.name}'>${nic.name}</option>
@@ -35,7 +35,7 @@
 				  />
               <bean:message key="kickstart.netconn.static.jsp.label"/>&nbsp;
 		<c:choose>
-		<c:when test="${empty requestScope.networkInterfaces}">
+		<c:when test="${empty requestScope.staticNetworkInterfaces}">
         <input type="text" name="networkInterface" id="staticNetworkId" size="4" maxlength="10"
                        <c:if test="${form.networkTypeDhcp}">disabled="true"</c:if>
                         value="${form.networkInterface}"/>
@@ -44,7 +44,7 @@
 		<select name="networkInterface" id="staticNetworkId"
 			<c:if test="${form.networkTypeDhcp}">disabled="true"</c:if>
 			>
-			<c:forEach var="nic" items="${requestScope.networkInterfaces}">
+			<c:forEach var="nic" items="${requestScope.staticNetworkInterfaces}">
 				<option
 				<c:if test="${nic.name == form.networkInterface}">selected="selected"</c:if>
 				value='${nic.name}'>${nic.name}</option>
