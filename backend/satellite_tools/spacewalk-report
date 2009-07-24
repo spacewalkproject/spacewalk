@@ -49,6 +49,8 @@ except KeyboardInterrupt:
 def processCommandline():
 	""" process the commandline """
 	optionsTable = [
+		Option('--multival-on-rows', action='store_true', dest='multivalonrows',
+			help='if there are multiple values for certain field, repeat the rows'),
 		Option('--db', action='store', type="string",
 			help='alternative database string (username/password@sid);' \
 				+ ' default is default_db from /etc/rhn/rhn.conf'),
@@ -112,10 +114,40 @@ if __name__ == '__main__':
 					"Columns in report spec and in the database do not match:\nexpected %s\n     got %s" % ( report.columns, db_columns ))
 			writer.writerow(report.columns)
 
+			multival_keys = sorted(report.multival_columns_stop + report.multival_columns_reverted.keys())
+
 			row = h.fetchone()
+			prevrow = None
+			outrow = None
 			while row != None:
-				writer.writerow(row)
+				if options.multivalonrows:
+					writer.writerow(row)
+					row = h.fetchone()
+					continue
+
+				if outrow == None:
+					outrow = [ x for x in row ]
+				else:
+					go = True
+					for m in multival_keys:
+						if prevrow[m] != row[m]:
+							if m in report.multival_columns_reverted:
+								for v in report.multival_columns_reverted[m]:
+									outrow[v] = str(outrow[v]) + ';' + str(row[v])
+									go = False
+									break
+							else:
+								break
+						if not go:
+							break
+
+					if go:
+						writer.writerow(outrow)
+						outrow = [ x for x in row ]
+				prevrow = row
 				row = h.fetchone()
+			if outrow != None:
+				writer.writerow(outrow)
 		else:
 			for r in reports.available_reports():
 				print r

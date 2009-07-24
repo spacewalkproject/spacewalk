@@ -13,6 +13,11 @@ columns:
 	errata_out_of_date
 	software_channel
 
+multival_columns:
+
+	server_id
+	software_channel : software_channel
+
 sql:
 
 	select rhnserver.id as server_id, rhnserver.name as profile_name,
