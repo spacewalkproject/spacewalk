@@ -74,8 +74,9 @@ def processCommandlineReport(report):
 	""" process the commandline options for one report """
 
 	optionsTable = [
-		Option('--fields', action='store_true',
-			help='show fields of the report'),
+		Option('--list-fields', action='store_true',
+			dest='listfields',
+			help='list fields of the report instead of running the report'),
 		]
 	optionParserReport = OptionParser(
 		usage="options for report %s" % report,
@@ -99,7 +100,7 @@ if __name__ == '__main__':
 			except(reports.spacewalk_unknown_report):
 				systemExit(-4, 'Unknown report [%s].' % report_name)
 
-			if report_options.fields:
+			if report_options.listfields:
 				for c in report.columns:
 					print c
 				sys.exit(0)
