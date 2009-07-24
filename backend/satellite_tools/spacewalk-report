@@ -51,6 +51,10 @@ def processCommandline():
 	optionsTable = [
 		Option('--multival-on-rows', action='store_true', dest='multivalonrows',
 			help='if there are multiple values for certain field, repeat the rows'),
+		Option('--multival-separator', action='store', dest='multivalseparator',
+			default=';',
+			help='if there are multiple values for certain field, separate them with this string' \
+				' (unless --multival-on-rows)'),
 		Option('--db', action='store', type="string",
 			help='alternative database string (username/password@sid);' \
 				+ ' default is default_db from /etc/rhn/rhn.conf'),
@@ -133,7 +137,7 @@ if __name__ == '__main__':
 						if prevrow[m] != row[m]:
 							if m in report.multival_columns_reverted:
 								for v in report.multival_columns_reverted[m]:
-									outrow[v] = str(outrow[v]) + ';' + str(row[v])
+									outrow[v] = str(outrow[v]) + options.multivalseparator + str(row[v])
 									go = False
 									break
 							else:
