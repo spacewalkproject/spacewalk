@@ -13,12 +13,16 @@ columns:
 	errata_out_of_date
 	software_channel
 	configuration_channel
+	entitlements
+	system_group
 
 multival_columns:
 
 	server_id
 	software_channel : software_channel
 	configuration_channel : configuration_channel
+	entitlements : entitlements
+	system_group : system_group
 
 sql:
 
@@ -33,7 +37,9 @@ sql:
 				and rhnserverneededpackagecache.package_id = rhnpackage.id ) as packages_out_of_date,
 		( select count(*) from rhnServerErrataTypeView where rhnserver.id = server_id ) as errata_out_of_date,
 		rhnchannel.name as software_channel,
-		rhnconfigchannel.name as configuration_channel
+		rhnconfigchannel.name as configuration_channel,
+		entitlement_data.name as entitlements,
+		group_data.name as system_group
 	from rhnserver,
 		(
 		select server_id, hostname, ipaddr
@@ -45,12 +51,26 @@ sql:
 			)
 		) rhnservernetwork,
 		rhnserverchannel, rhnchannel,
-		rhnserverconfigchannel, rhnconfigchannel
+		rhnserverconfigchannel, rhnconfigchannel,
+		(
+		select rhnservergroupmembers.server_id, rhnservergroupmembers.server_group_id, rhnservergroup.name
+		from rhnservergroupmembers, rhnservergroup
+		where rhnservergroupmembers.server_group_id = rhnservergroup.id (+)
+			and rhnservergroup.group_type is not null
+		) entitlement_data,
+		(
+		select rhnservergroupmembers.server_id, rhnservergroupmembers.server_group_id, rhnservergroup.name
+		from rhnservergroupmembers, rhnservergroup
+		where rhnservergroupmembers.server_group_id = rhnservergroup.id (+)
+			and rhnservergroup.group_type is null
+		) group_data
 	where rhnserver.id = rhnservernetwork.server_id (+)
 		and rhnserver.id = rhnserverchannel.server_id (+)
 		and rhnserverchannel.channel_id = rhnchannel.id (+)
 		and rhnserver.id = rhnserverconfigchannel.server_id (+)
 		and rhnserverconfigchannel.config_channel_id = rhnconfigchannel.id (+)
+		and rhnserver.id = entitlement_data.server_id (+)
+		and rhnserver.id = group_data.server_id (+)
 	order by server_id, rhnchannel.parent_channel nulls first, rhnchannel.id,
-		rhnconfigchannel.id
+		rhnconfigchannel.id, entitlement_data.server_group_id, group_data.server_group_id
 
