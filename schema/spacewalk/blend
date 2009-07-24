@@ -67,11 +67,20 @@ Lines may be joined by (\).
 
 SPECIAL FILES
 
-start.sql - If found in the root current directory, the contents of this file is
-            inserted at the beginning of the output.
+clean.sql - If found in the current directory, the contents of this file is
+            inserted at the beginning of the output.  This file is expected
+            to contain commands to clean (clear) the database before schema
+            installation.
 
-end.sql -   If found in the root current directory, the contents of this file is
-            appended to the end of the output.
+start.sql - If found in the current directory, the contents of this file is
+            inserted at the beginning of the output (after clean.sql).  This
+            file is expected to contain commands used to condition the database
+            or database session to schema installation.
+
+end.sql -   If found in the current directory, the contents of this file is
+            appended to the end of the output.  This file contains commands
+            to commit or post process the installed schema such as commit inserted
+            data or to exit an application used for the installation.
 """
 
 import sys, os, re
@@ -351,12 +360,16 @@ class Writer:
         self.aggregated = aggregated
     
     def write(self, sorted, output):
-        self.start(output)
+        self.copy('clean.sql', output, True)
+        self.copy('start.sql', output, True)
         for p in sorted:
             self.copy(p, output)
-        self.end(output)
+        self.copy('end.sql', output, True)
             
-    def copy(self, path, output):
+    def copy(self, path, output, optional=False):
+        if optional:
+            if not os.path.exists(path):
+                return
         f = open(path)
         output.write(self.comment % path)
         for line in f.readlines():
@@ -370,20 +383,6 @@ class Writer:
                 continue
             output.write(line)
         f.close()
-    
-    def start(self, output):
-        if os.path.exists('start.sql'):
-            f = open('start.sql')
-            content = f.read()
-            output.write(content)
-            f.close()
-            
-    def end(self, output):
-        if os.path.exists('end.sql'):
-            f = open('end.sql')
-            content = f.read()
-            output.write(content)
-            f.close()
 
 
 class Oracle(Writer):

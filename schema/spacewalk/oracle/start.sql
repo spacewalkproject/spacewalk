@@ -13,6 +13,6 @@
 -- in this software or its documentation.
 --
 
-COMMIT;
-EXIT
+SET ECHO ON
+WHENEVER SQLERROR EXIT
 

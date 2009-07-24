@@ -15,16 +15,15 @@
 
 CREATE TABLE rhnChecksumType
 (
-    id           NUMBER PRIMARY KEY
+    id           NUMBER NOT NULL
+                     CONSTRAINT rhn_checksumtype_id_pk PRIMARY KEY
                      USING INDEX TABLESPACE [[64k_tbs]],
-    label        VARCHAR2(32) NOT NULL
-                     CONSTRAINT rhn_checksumtype_label_uq UNIQUE
-                     USING INDEX TABLESPACE [[64k_tbs]],
+    label        VARCHAR2(32) NOT NULL,
     description  VARCHAR2(64) NOT NULL,
-    created      DATE
-                     DEFAULT (sysdate) NOT NULL,
-    modified     DATE
-                     DEFAULT (sysdate) NOT NULL,
+    created      DATE NOT NULL
+                     DEFAULT (sysdate),
+    modified     DATE NOT NULL
+                     DEFAULT (sysdate)
 )
 ENABLE ROW MOVEMENT
 ;
@@ -32,6 +31,9 @@ ENABLE ROW MOVEMENT
 CREATE INDEX rhn_checksumtype_label_id_idx
     ON rhnChecksumType( label, id )
     TABLESPACE [[64k_tbs]];
+
+ALTER TABLE rhnChecksumType
+    ADD CONSTRAINT rhn_checksumtype_label_uq UNIQUE (label);
 
 CREATE SEQUENCE rhn_checksum_id_seq;
 
