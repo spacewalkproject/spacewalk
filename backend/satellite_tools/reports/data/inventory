@@ -17,6 +17,7 @@ columns:
 	system_group
 	organization
 	virtual_host
+	architecture
 
 multival_columns:
 
@@ -46,7 +47,10 @@ sql:
 		(
 		select name from web_customer where rhnserver.org_id = web_customer.id
 		) as organization,
-		virtual_data.host_system_id as virtual_host
+		virtual_data.host_system_id as virtual_host,
+		(
+		select rhnserverarch.name from rhnserverarch where rhnserver.server_arch_id = rhnserverarch.id
+		) as architecture
 	from rhnserver,
 		(
 		select server_id, hostname, ipaddr
