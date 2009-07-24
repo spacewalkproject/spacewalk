@@ -15,6 +15,7 @@ columns:
 	configuration_channel
 	entitlements
 	system_group
+	organization
 
 multival_columns:
 
@@ -39,7 +40,10 @@ sql:
 		rhnchannel.name as software_channel,
 		rhnconfigchannel.name as configuration_channel,
 		entitlement_data.name as entitlements,
-		group_data.name as system_group
+		group_data.name as system_group,
+		(
+		select name from web_customer where rhnserver.org_id = web_customer.id
+		) as organization
 	from rhnserver,
 		(
 		select server_id, hostname, ipaddr
