@@ -118,38 +118,40 @@ if __name__ == '__main__':
 					"Columns in report spec and in the database do not match:\nexpected %s\n     got %s" % ( report.columns, db_columns ))
 			writer.writerow(report.columns)
 
-			multival_keys = sorted(report.multival_columns_stop + report.multival_columns_reverted.keys())
-
 			row = h.fetchone()
 			prevrow = None
 			outrow = None
+			multival_dupes = {}
 			while row != None:
 				if options.multivalonrows:
 					writer.writerow(row)
 					row = h.fetchone()
 					continue
 
-				if outrow == None:
-					outrow = [ x for x in row ]
-				else:
-					go = True
-					for m in multival_keys:
+				if outrow != None:
+					for m in report.multival_columns_stop:
 						if prevrow[m] != row[m]:
-							if m in report.multival_columns_reverted:
-								for v in report.multival_columns_reverted[m]:
-									outrow[v] = str(outrow[v]) + options.multivalseparator + str(row[v])
-									go = False
-									break
-							else:
-								break
-						if not go:
+							writer.writerow(outrow)
+							outrow = None
 							break
 
-					if go:
-						writer.writerow(outrow)
-						outrow = [ x for x in row ]
+				if outrow != None:
+					for m in report.multival_columns_reverted.keys():
+						if prevrow[m] != row[m]:
+							if not m in multival_dupes:
+								multival_dupes[m] = {}
+							if not row[m] in multival_dupes[m]:
+								outrow[m] = str(outrow[m]) + options.multivalseparator + str(row[m])
+								multival_dupes[m][row[m]] = 1
+							break
+
+				if outrow == None:
+					outrow = [ x for x in row ]
+					multival_dupes = {}
+
 				prevrow = row
 				row = h.fetchone()
+
 			if outrow != None:
 				writer.writerow(outrow)
 		else:
