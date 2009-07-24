@@ -16,6 +16,7 @@ columns:
 	entitlements
 	system_group
 	organization
+	virtual_host
 
 multival_columns:
 
@@ -24,6 +25,7 @@ multival_columns:
 	configuration_channel : configuration_channel
 	entitlements : entitlements
 	system_group : system_group
+	virtual_host : virtual_host
 
 sql:
 
@@ -43,7 +45,8 @@ sql:
 		group_data.name as system_group,
 		(
 		select name from web_customer where rhnserver.org_id = web_customer.id
-		) as organization
+		) as organization,
+		virtual_data.host_system_id as virtual_host
 	from rhnserver,
 		(
 		select server_id, hostname, ipaddr
@@ -67,7 +70,12 @@ sql:
 		from rhnservergroupmembers, rhnservergroup
 		where rhnservergroupmembers.server_group_id = rhnservergroup.id (+)
 			and rhnservergroup.group_type is null
-		) group_data
+		) group_data,
+		(
+		select host_system_id, virtual_system_id
+		from rhnvirtualinstance
+		where host_system_id is not null
+		) virtual_data
 	where rhnserver.id = rhnservernetwork.server_id (+)
 		and rhnserver.id = rhnserverchannel.server_id (+)
 		and rhnserverchannel.channel_id = rhnchannel.id (+)
@@ -75,6 +83,8 @@ sql:
 		and rhnserverconfigchannel.config_channel_id = rhnconfigchannel.id (+)
 		and rhnserver.id = entitlement_data.server_id (+)
 		and rhnserver.id = group_data.server_id (+)
+		and rhnserver.id = virtual_data.virtual_system_id (+)
 	order by server_id, rhnchannel.parent_channel nulls first, rhnchannel.id,
-		rhnconfigchannel.id, entitlement_data.server_group_id, group_data.server_group_id
+		rhnconfigchannel.id, entitlement_data.server_group_id, group_data.server_group_id,
+		virtual_data.host_system_id
 
