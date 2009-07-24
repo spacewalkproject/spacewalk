@@ -1,7 +1,20 @@
+%define require_selinux 1
+
+# No Selinux for RHEL 4:
+%if 0%{?rhel} == 4
+%define require_selinux 0
+%endif
+
+# No seliux for Fedora 11 (yet):
+%if 0%{?fedora} == 11
+%define require_selinux 0
+%endif
+
+
 Summary:      Spacewalk monitoring
 Name:         spacewalk-monitoring
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      0.6.4
+Version:      0.6.6
 Release:      1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
@@ -47,9 +60,8 @@ Requires:       SputLite-server
 Requires:       ssl_bridge
 Requires:       status_log_acceptor
 Requires:       tsdb
-%if 0%{?rhel} == 4
-#for rhel4 we have no selinux policy, everything else should have
-%else
+
+%if %{require_selinux}
 Requires: spacewalk-monitoring-selinux
 %endif
 
@@ -111,6 +123,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Jul 21 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.6-1
+- Disabling requires on spacewalk-monitoring-selinux. (temporary)
+  (dgoodwin@redhat.com)
+
 * Mon May 11 2009 Jan Pazdziora 0.6.4-1
 - Move Req of oracle-instantclient-selinux to spacewalk-monitoring-selinux
 

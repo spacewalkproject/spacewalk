@@ -909,6 +909,11 @@ class Backend:
         cf_ids = []
         c_ids = []
         for cf in channel_families:
+            if 'private-channel-family' in cf['label']:
+                # Its a private channel family and channel family members
+                # will be different from server as this is most likely ISS
+                # sync. Don't compare and delete custom channel families.
+                continue
             for cid in cf['channel_ids']:
                 # Look up channel families for this channel
                 h_lookup_cfid.execute(channel_id=cid)

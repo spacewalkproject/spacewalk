@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.6.9
+Version:        0.6.10
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,11 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Tue Jul 21 2009 John Matthews <jmatthew@redhat.com> 0.6.10-1
+- rhn-load-config.pl - remove accidental 's' (bbuckingham@redhat.com)
+- 511100 - Fixed upgrade scripts to include cobbler.host (paji@redhat.com)
+- 511052 - script to fix rhn_sat_node, rhn_sat_cluster (mzazrivec@redhat.com)
+
 * Thu Jun 25 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.6.9-1
 - no in-place editing of /etc/oratab under oracle user (mzazrivec@redhat.com)
 - remove extraneous backslash characters (mzazrivec@redhat.com)

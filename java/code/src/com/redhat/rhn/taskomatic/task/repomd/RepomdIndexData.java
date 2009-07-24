@@ -27,6 +27,7 @@ public class RepomdIndexData {
     private String openChecksum;
     private Date timestamp;
     private String type;
+    
 
     /**
      * 
@@ -53,12 +54,7 @@ public class RepomdIndexData {
      * @param typeIn checksum type
      */
     public void setType(String typeIn) {
-        if (typeIn == "SHA1") {
-            this.type = "sha";
-        }
-        else if (typeIn == "SHA-256") {
-            this.type = "sha256";
-        }
+        this.type = typeIn;
     }
 
     /**

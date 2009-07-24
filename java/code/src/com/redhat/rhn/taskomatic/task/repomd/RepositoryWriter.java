@@ -56,6 +56,7 @@ public class RepositoryWriter {
     private String pathPrefix;
     private String mountPoint;
     private String checksumtype;
+    private String checksumname;
 
     /**
      * Constructor takes in pathprefix and mountpoint
@@ -105,6 +106,9 @@ public class RepositoryWriter {
 
         // Get compatible checksumType
         this.checksumtype = channel.getChecksumType();
+        this.checksumname = channel.getChecksum().getDescription();
+        
+        log.info("Checksum Type Value" + this.checksumtype);
 
         try {
             primaryFile = new CompressingDigestOutputWriter(
@@ -177,18 +181,28 @@ public class RepositoryWriter {
 
         log.info("Starting updateinfo generation for '" + channel.getLabel() +
                 '"');
+        log.info("Checksum Type Value for generate updateinfo" + this.checksumtype);
         RepomdIndexData updateinfoData = generateUpdateinfo(channel, prefix, 
                 this.checksumtype);
 
         RepomdIndexData groupsData = loadCompsFile(channel);
-
+        
         //Set the type so yum can read and perform checksum
-        primaryData.setType(this.checksumtype);
-        filelistsData.setType(this.checksumtype);
-        otherData.setType(this.checksumtype);
-        updateinfoData.setType(this.checksumtype);
-        groupsData.setType(this.checksumtype);
-
+        primaryData.setType(this.checksumname);
+        filelistsData.setType(this.checksumname);
+        otherData.setType(this.checksumname);
+        if (updateinfoData != null) {
+            updateinfoData.setType(this.checksumname);
+        }
+        
+        if (groupsData != null) {
+            groupsData.setType(this.checksumname);
+        }
+        
+        log.info("Primary xml's type" + primaryData.getType());
+        log.info("filelists xml's type" + filelistsData.getType());
+        log.info("other xml's type" + otherData.getType());
+        
         FileWriter indexFile;
 
         try {

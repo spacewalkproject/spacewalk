@@ -17,6 +17,7 @@ package com.redhat.rhn.manager.channel;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.common.ChecksumType;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
@@ -62,6 +63,9 @@ public class CreateChannelCommand {
     protected String gpgKeyUrl;
     protected String gpgKeyId;
     protected String gpgKeyFp;
+    protected String checksum;
+    
+
     protected String maintainerName;
     protected String maintainerEmail;
     protected String maintainerPhone;
@@ -77,6 +81,7 @@ public class CreateChannelCommand {
         name = null;
         summary = null;
         archLabel = null;
+        checksum = null;
         parentLabel = null;
         parentId = null;
     }
@@ -100,6 +105,13 @@ public class CreateChannelCommand {
      */
     public void setName(String nameIn) {
         name = nameIn;
+    }
+
+    /**
+     * @param checksumIn The name to set.
+     */
+    public void setChecksum(String checksumIn) {
+        this.checksum = checksumIn;
     }
 
     /**
@@ -239,6 +251,9 @@ public class CreateChannelCommand {
             throw new IllegalArgumentException("Invalid architecture label");
         }
         
+        ChecksumType ct = ChannelFactory.findChecksumByLabel(checksum);
+        
+        
         Channel c = ChannelFactory.createChannel();
         c.setLabel(label);
         c.setName(name);
@@ -247,6 +262,7 @@ public class CreateChannelCommand {
         c.setOrg(user.getOrg());
         c.setBaseDir("/dev/null");
         c.setChannelArch(ca);
+        c.setChecksum(ct);
         c.setGPGKeyId(gpgKeyId);
         c.setGPGKeyUrl(gpgKeyUrl);
         c.setGPGKeyFp(gpgKeyFp);

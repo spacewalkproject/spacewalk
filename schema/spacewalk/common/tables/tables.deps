@@ -48,7 +48,8 @@ rhnBlacklistObsoletes          :: rhnChannel rhnPackageName rhnChannelPackage \
                                   rhnPackage
 rhnCache                       :: rhnCacheKey
 rhnCacheTimestamps             :: rhnCacheKey rhnCache
-rhnChannel                     :: web_customer rhnChannelArch rhnChannelProduct rhnProductName
+rhnChannel                     :: web_customer rhnChannelArch rhnChannelProduct \
+                                  rhnProductName rhnChecksumType
 rhnChannelArch                 :: rhnArchType
 rhnChannelDownloads            :: rhnChannel rhnDownloads
 rhnChannelComps                :: rhnChannel

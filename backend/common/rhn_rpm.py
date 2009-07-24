@@ -268,7 +268,7 @@ def get_package_header(filename=None, file=None, fd=None):
         if hdr is None:
             raise InvalidPackageError
     else:
-        if hasattr(rpm, 'rpmHeaderFromFD'):
+        if hasattr(rpm, 'readHeaderFromFD'):
             header_start, header_end = \
                     get_header_byte_range(os.fdopen(os.dup(file_desc)))
             os.lseek(file_desc, header_start, 0)

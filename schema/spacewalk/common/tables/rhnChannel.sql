@@ -40,6 +40,8 @@ CREATE TABLE rhnChannel
     gpg_key_id          VARCHAR2(14),
     gpg_key_fp          VARCHAR2(50),
     end_of_life         DATE,
+    checksum_type_id    NUMBER CONSTRAINT rhn_channel_checksum_fk
+                                REFERENCES rhnChecksumType(id),
     receiving_updates   CHAR(1)
                             DEFAULT ('Y') NOT NULL
                             CONSTRAINT rhn_channel_ru_ck

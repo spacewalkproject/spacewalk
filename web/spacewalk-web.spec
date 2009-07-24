@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.11
+Version: 0.6.13
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -317,6 +317,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Jul 21 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.13-1
+- 512440 - add cobbler-proxy.conf to older rhn proxy installer
+
 * Thu Jul 09 2009 John Matthews <jmatthew@redhat.com> 0.6.11-1
 - 510146 - Update copyright years from 2002-08 to 2002-09.
   (dgoodwin@redhat.com)

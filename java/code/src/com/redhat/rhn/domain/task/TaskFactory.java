@@ -74,6 +74,16 @@ public class TaskFactory extends HibernateFactory {
     }
     
     /**
+     * Remove a completed Task from the queue.
+     * 
+     * @param taskIn to remove
+     */
+    public static void remove(Task taskIn) {
+        singleton.removeObject(taskIn);
+    }
+    
+    
+    /**
      * Lookups up a task.
      * @param org The org containing the task
      * @param name The name of the task
@@ -125,5 +135,16 @@ public class TaskFactory extends HibernateFactory {
         }
 
         return c.list();
+    }
+
+    /**
+     * Lookup a list of Tasks who's name start with passed in param
+     * @param nameIn to lookup
+     * @return List of Tasks or null if not found.
+     */
+    public static List getTaskListByNameLike(String nameIn) {
+        return HibernateFactory.getSession().getNamedQuery("Task.lookupByNameLike")
+          .setString("namelike", nameIn + "%")
+          .list();
     }
 }

@@ -2,7 +2,7 @@
 %define hb_res_dir     %{_sysconfdir}/ha.d/resource.d
 %define installed_dir  %sysv_dir/installed
 Name:         SatConfig-general
-Version:      1.216.11
+Version:      1.216.12
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - general setup, used by many packages
 URL:          https://fedorahosted.org/spacewalk
@@ -22,7 +22,7 @@ to make a monitoring work.
 %setup -q
 
 %build
-#nothing to do here
+pod2man --section=8 NOCpulse-ini NOCpulse-ini.8
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -40,6 +40,7 @@ install -m 755 validateConfiguration $RPM_BUILD_ROOT%sysv_dir
 install -m 755 pip $RPM_BUILD_ROOT%sysv_dir
 install -m 444 SysV.ini $RPM_BUILD_ROOT%sysv_dir
 ln -s ../../rc.d/np.d/hbResource $RPM_BUILD_ROOT%hb_res_dir/ClusterLeader
+install -D -m 644 NOCpulse-ini.8 $RPM_BUILD_ROOT%{_mandir}/man8/NOCpulse-ini.8
 
 %files
 %defattr(-,root,root,-)
@@ -56,11 +57,15 @@ ln -s ../../rc.d/np.d/hbResource $RPM_BUILD_ROOT%hb_res_dir/ClusterLeader
 %sysv_dir/SysV.ini
 %hb_res_dir/*
 %doc 1-STARTUP_SEQUENCE 2-COMMANDS_OVERVIEW 3-CONFIGURATION 4-DEVELOPMENT 5-STEPS_LEGEND
+%{_mandir}/man8/NOCpulse-ini.8.*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Jul 23 2009 Miroslav Suchý <msuchy@redhat.com> 1.216.12-1
+- 457011 - create NOCpulse-ini - tool to handle NOCpulse.ini
+
 * Thu Jun 18 2009 Miroslav Suchý <msuchy@redhat.com> 1.216.11-1
 - 499564 - ignore already started/stopped service for InstallSoftwareConfig
 

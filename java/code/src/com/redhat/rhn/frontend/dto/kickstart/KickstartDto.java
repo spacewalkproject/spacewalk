@@ -25,7 +25,6 @@ import org.apache.commons.lang.StringUtils;
  * @version $Rev: 50942 $
  */
 public class KickstartDto extends BaseDto {
-    private boolean valid;
     private Long id;
     private Long orgId;
     private Long kstreeId;
@@ -257,27 +256,5 @@ public class KickstartDto extends BaseDto {
      */
     public void setVirtBridge(String virtBridgeIn) {
         this.virtBridge = virtBridgeIn;
-    }
-
-    /**
-     * Checks if the profile is valid
-     * @return true if it is valid..
-     */
-    public boolean isValid() {
-        if (isCobbler()) {
-            return true;
-        }
-        if (StringUtils.isBlank(cobblerId)) {
-            return false;
-        }
-        return valid;
-    }
-
-    /**
-     * true if the profile is valid
-     * @param isValid if the profile is valid
-     */
-    public void setValid(boolean isValid) {
-        valid = isValid;
     }
 }

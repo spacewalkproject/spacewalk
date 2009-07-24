@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-OracleDB
-Version: 	  1.28.14
+Version: 	  1.28.16
 Release:      1%{?dist}
 Summary:      Perl modules for NOCpulse Oracle database access
 URL:          https://fedorahosted.org/spacewalk
@@ -47,7 +47,7 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/*
 
 %changelog
-* Mon Jul 20 2009 Devan Goodwin <dgoodwin@redhat.com> 1.28.14-1
+* Mon Jul 20 2009 Devan Goodwin <dgoodwin@redhat.com> 1.28.16-1
 - Dropping unecessary perl-NOCpulse-OracleDB build requires.
   (dgoodwin@redhat.com)
 

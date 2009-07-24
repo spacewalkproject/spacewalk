@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.common.ChecksumType" 
+        table="rhnChecksumType" mutable="false">
+        <cache usage="read-only"/>
+        <id name="id" type="long" column="id">
+            <meta attribute="scope-set">protected</meta>
+            <generator class="assigned" />
+        </id>
+        <property name="label" type="string" column="label" />
+        <property name="description" type="string" column="description" />  
+        <property name="created" type="date" column="created" />
+        <property name="modified" type="date" column="modified" />
+    </class>
+    
+    <query name="ChecksumType.loadAll">
+        <![CDATA[from com.redhat.rhn.domain.common.ChecksumType]]>
+    </query>
+    <query name="ChecksumType.loadAllForYum">
+        <![CDATA[from com.redhat.rhn.domain.common.ChecksumType as t
+        			where t.label = 'sha-256' or t.label = 'sha1']]>
+    </query>    
+    <query name="ChecksumType.findById">
+        <![CDATA[from com.redhat.rhn.domain.common.ChecksumType as t where t.id = :id]]>
+    </query>
+    <query name="ChecksumType.findByLabel">
+        <![CDATA[from com.redhat.rhn.domain.common.ChecksumType as t where t.label = :label]]>
+    </query>
+</hibernate-mapping>

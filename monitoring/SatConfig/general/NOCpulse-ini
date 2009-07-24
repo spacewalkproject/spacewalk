@@ -1,0 +1,215 @@
+#!/usr/bin/perl
+use strict;
+#
+# Copyright (c) 2009 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
+
+use lib '/etc/rc.d/np.d';
+use NOCpulse::NOCpulseini;
+use PhysCluster;
+use Data::Dumper;
+use Getopt::Long;
+
+#set the defaults
+my $all = 0;
+my @groups = ();
+my $raw = 0;
+my @macros = ();
+my $set_macro = '';
+my $set_param = '';
+my $new_value = '';
+my $help = 0;
+my $save = 0;
+
+GetOptions("all" => \$all,
+        "group:s@" => \@groups,
+        "raw" => \$raw,
+        "macro:s@" => \@macros,
+        "set-macro:s" => \$set_macro,
+        "set-param:s" => \$set_param,
+        "new-value:s" => \$new_value,
+        "help" => \$help,
+        );
+
+if ($help) {
+        print <<HELP;
+Usage:
+  NOCpulse-ini --all
+
+  NOCpulse-ini --group=general --group=mail
+
+  NOCpulse-ini --raw --group mail
+
+  NOCpulse-ini --macro=NPVAR --raw
+
+  NOCpulse-ini --set-macro=SMONURL --new-value='%{XPROTO}://different.url.com'
+
+  NOCpulse-ini --group queues --set-param=polling_interval --new-value=6
+HELP
+        exit;
+}
+ 
+my $cluster = PhysCluster->newInitialized('/etc/rhn/cluster.ini');
+my $localConfig = $cluster->get_LocalConfig;
+my $ini = NOCpulse::NOCpulseini->new;
+
+if (%$localConfig) {
+        my $config = (values(%$localConfig))[0];
+        my $dbd = $config->get_dbd;
+        my $dbname = $config->get_dbname;
+        my $username = $config->get_username;
+        my $password = $config->get_password;
+        $ini->connect($dbd, $dbname, $username, $password);
+        $ini->raw($raw);
+        $ini->fetch_nocpulseini('INTERNAL');
+} else {
+        print "Error: This script can be run only on monitoring backend.\n";
+        exit 1;
+}
+
+if ($all) {
+        print $ini->dump;
+} elsif (@groups and !$set_param) {
+        foreach my $group (@groups) {
+                print $ini->dump_group($group), "\n\n";
+        }
+}
+if (@macros) {
+        my $list = $ini->fetch_macros;
+        my %DESCRIPTION;
+        foreach my $macro (@$list) {
+                $DESCRIPTION{$macro->{'NAME'}} = $macro->{'DESCRIPTION'};
+        }
+        foreach my $macro (@macros) {
+                if ($ini->macrodb->{$macro}) {
+                        print "Macro $macro - $DESCRIPTION{$macro}\nexpands to: ", $ini->macrodb->{$macro}, "\n";
+                } else {
+                        print "Macro $macro is not defined.\n";
+                }
+        }
+}
+if ($set_macro) {
+        my $sql = qq|
+                UPDATE rhn_config_macro
+                SET definition=?
+                WHERE (environment, name) = ( SELECT macro.environment, macro.name
+                                FROM db_environment dbenv, config_macro macro
+                                WHERE UPPER(sys_context('userenv', 'db_name')) = UPPER(dbenv.db_name)
+                                AND  DECODE(macro.environment, 'ALL', dbenv.environment,
+                                        macro.environment) = dbenv.environment
+                                AND macro.name = ?
+                        )
+                |;
+        my $sth = $ini->dbh->prepare($sql);
+        $sth->execute($new_value, $set_macro);
+        print $sth->rows, " record updated.\n";
+        $save = 1;
+} elsif ($set_param) {
+        if (!@groups or scalar(@groups) != 1) {
+                print "Error: You have to specify exactly one group, to which parameter belongs.\n";
+                exit 2;
+        }
+        my $sql = qq|
+                UPDATE config_parameter
+                SET value = ?
+                WHERE group_name = ?
+                        AND name = ?
+                |;
+        my $sth = $ini->dbh->prepare($sql);
+        $sth->execute($new_value, $groups[0], $set_param);
+        print $sth->rows, " record updated.\n";
+        $save = 1;
+}
+
+if ($save) {
+        $ini->fetch_nocpulseini('INTERNAL');
+        $ini->save;
+}
+
+
+=pod
+
+=head1 NAME
+
+NOCpulse-ini - Show content of monitoring config file NOCpulse.ini and allow you to edit it.
+
+=head1 SYNOPSIS
+
+NOCpulse-ini [OPTIONS]
+
+=head1 DESCRIPTION
+
+Monitoring main configuration file NOCpulse.ini is human readable, but should not be edited.
+This file is deleted and recreated during Monitoring start, therefore all changes in this file
+are lost.
+Values for this configuration file are stored in database and should be edited with script 
+NOCpulse-ini. 
+
+WARNING: Changing of values is not recommended, as it can lead to non functional monitoring.
+
+If you use --set-macro or --set-param, then both database and NOCpulse.ini are updated.
+
+=head1 OPTIONS
+
+--all
+        Dump out full content of NOCpulse.ini as seen by database.
+
+--group
+        Dump out content of NOCpulse.ini as seen by database. Dump only part which belongs to this group.
+        May be specified multiple times.
+
+--raw
+        Macros are not expanded.
+
+--macro
+        Write value of given macro.
+
+--set-macro
+        Change value of this macro. 
+
+--set-param
+        Change value of parameter.
+
+--new-value
+        Set the new value for macro or parameter.
+
+=head1 EXAMPLES
+
+  NOCpulse-ini --all
+
+  NOCpulse-ini --group=general --group=mail
+
+  NOCpulse-ini --raw --group mail
+
+  NOCpulse-ini --macro=NPVAR --raw
+
+  NOCpulse-ini --set-macro=SMONURL --new-value='%{XPROTO}://different.url.com'
+
+  NOCpulse-ini --group queues --set-param=polling_interval --new-value=6
+
+=head1 SEE ALSO
+
+NOCpulse.ini(8)
+
+=head1 AUTHOR
+
+Miroslav Suchý <msuchy@redhat.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (c) 2009 Red Hat, Inc.
+Released under GNU General Public License, version 2 (GPLv2).
+
+=cut
+

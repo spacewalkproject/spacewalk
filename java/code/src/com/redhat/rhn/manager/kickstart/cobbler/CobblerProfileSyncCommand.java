@@ -70,12 +70,10 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
     public ValidatorError store() {
         //First are there any profiles within spacewalk that aren't within cobbler
         List<KickstartData> profiles = KickstartFactory.listAllKickstartData();
-
-        
         Map<String, Map> profileNames = getModifiedProfileNames();
         for (KickstartData profile : profiles) {
             if (!profileNames.containsKey(profile.getCobblerId())) {
-                  if (profile.getKickstartDefaults().getKstree().getCobblerId() != null) {
+                  if (profile.getKickstartDefaults().getKstree().getCobblerId() == null) {
                      log.warn("Kickstart profile " + profile.getLabel() +
                              " could not be synced to cobbler, due to it's " +
                              "tree being unsynced.  Please edit the tree url " +

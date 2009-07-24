@@ -79,7 +79,7 @@ if [ -d /home/nocpulse -a 0`id -u nocpulse 2> /dev/null` -ge 500 ]; then
 
 	# find lowest unused system uid to change nocpulse uid to
 	old_uid=`id -u nocpulse`
-	useradd -r tempnoc
+	useradd -r tempnoc -s /bin/bash
 	uid=`id -u tempnoc`
 	userdel tempnoc
 	usermod -u $uid nocpulse
@@ -92,7 +92,7 @@ fi
 
 getent group %{package_name} >/dev/null || groupadd -r %{package_name}
 getent passwd %{package_name} >/dev/null || \
-useradd -r -g %{package_name} -G apache -d %{_var}/lib/%{package_name} -c "NOCpulse user" %{package_name}
+useradd -r -g %{package_name} -G apache -d %{_var}/lib/%{package_name} -s /bin/bash -c "NOCpulse user" %{package_name}
 /usr/bin/passwd -l %{package_name} >/dev/null
 
 # if user already exists (rhnmd creates it too) add nocpulse to apache group

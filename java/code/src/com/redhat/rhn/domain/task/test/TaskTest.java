@@ -24,6 +24,8 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 import org.hibernate.Session;
 
+import java.util.List;
+
 /**
  * TaskTest
  * @version $Rev$
@@ -60,5 +62,18 @@ public class TaskTest extends RhnBaseTestCase {
         assertEquals(t2, t3);
         t3.setName("foo");
         assertFalse("t2 should not be equal to t3", t2.equals(t3));
+    }
+    
+    public void testLookupNameLike() throws Exception {
+        Org org = UserTestUtils.findNewOrg("testOrg");
+        String testname = "task_object_unit_test_" + TestUtils.randomString();
+        Long testdata = new Long(42);
+        Task t = TaskFactory.createTask(org, testname, testdata);
+        
+        List lookedup = TaskFactory.getTaskListByNameLike("task_object_unit_test_");
+        assertNotNull(lookedup);
+        assertTrue(lookedup.size() > 0);
+        assertTrue(lookedup.get(0) != null);
+        assertTrue(lookedup.get(0) instanceof Task);
     }
 }

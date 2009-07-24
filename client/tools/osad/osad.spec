@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.16
+Version: 5.9.18
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -17,7 +17,6 @@ BuildRequires: python-devel
 Requires: python
 Requires: rhnlib >= 1.8-3
 Requires: jabberpy
-Requires: python-optik
 # This should have been required by rhnlib
 Requires: PyXML
 %if "%{pythongen}" == "1.5"
@@ -54,10 +53,14 @@ OSA dispatcher get message from Spacewalk server that some command is need
 to execute on client. The message is transported via jabber protocol to OSAD
 agent.
 
+%define include_selinux_package 1
+
 %if 0%{?rhel} && 0%{?rhel} <= 4
 %define include_selinux_package 0
-%else
-%define include_selinux_package 1
+%endif
+
+%if 0%{?fedora} == 11
+%define include_selinux_package 0
 %endif
 
 %if %{include_selinux_package}
@@ -237,6 +240,12 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
+* Thu Jul 23 2009 Devan Goodwin <dgoodwin@redhat.com> 5.9.18-1
+- Remove Requires python-optik. (dgoodwin@redhat.com)
+
+* Wed Jul 22 2009 Devan Goodwin <dgoodwin@redhat.com> 5.9.17-1
+- Disable osad selinux for Fedora 11. (dgoodwin@redhat.com)
+
 * Mon Jul 20 2009 Devan Goodwin <dgoodwin@redhat.com> 5.9.16-1
 - Add osad BuildRequires for python-devel. (dgoodwin@redhat.com)
 

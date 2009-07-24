@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.6.8
+Version: 0.6.9
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -114,6 +114,10 @@ fi
 
 
 %changelog
+* Tue Jul 21 2009 John Matthews <jmatthew@redhat.com> 0.6.9-1
+- adding disable_iss flag to rhn.conf (pkilambi@redhat.com)
+- 511100 - Fixed upgrade scripts to include cobbler.host (paji@redhat.com)
+
 * Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.6.8-1
 - Fix mod_jk failure to load. (dgoodwin@redhat.com)
 
