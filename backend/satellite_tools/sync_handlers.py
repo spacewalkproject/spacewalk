@@ -211,7 +211,8 @@ def import_channels(channels, orgid=None):
                 family['label'] = 'private-channel-family-' + \
                                            str(c_obj['org_id'])
 
-        syncLib.log(1, "Syncing Channel to Org %s " % c_obj['org_id'])
+        syncLib.log(6, "Syncing Channel %s to Org %s " % \
+                       (c_obj['label'], c_obj['org_id']))
         batch.append(c_obj)
 
     importer = channelImport.ChannelImport(batch, diskImportLib.get_backend())
