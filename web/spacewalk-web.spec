@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.13
+Version: 0.6.14
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -317,6 +317,14 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Jul 27 2009 John Matthews <jmatthew@redhat.com> 0.6.14-1
+- 512440 - Fixed the proxies to turn SSLProxyEngine to deal with Cobbler KS
+  files (paji@redhat.com)
+- 512440 - Fixed the proxies to turn SSLProxyEngine to deal with Cobbler KS
+  files (paji@redhat.com)
+- 493060 - do not send email "RHN Monitoring Scout started" by default
+  (msuchy@redhat.com)
+
 * Tue Jul 21 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.13-1
 - 512440 - add cobbler-proxy.conf to older rhn proxy installer
 
