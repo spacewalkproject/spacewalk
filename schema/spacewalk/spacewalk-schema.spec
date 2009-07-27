@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.6.14
+Version:        0.6.15
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -52,6 +52,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Jul 27 2009 John Matthews <jmatthew@redhat.com> 0.6.15-1
+- fixing descritpion on checksums (pkilambi@redhat.com)
+-  Sha256 support for channel creation: (pkilambi@redhat.com)
+
 * Wed Jul 22 2009 John Matthews <jmatthew@redhat.com> 0.6.14-1
 - 512814 - tickle the upgrade logic (mmccune@redhat.com)
 
