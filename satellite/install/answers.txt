@@ -133,6 +133,12 @@ satellite-cert-file =
 # ssl-ca-cert-expiration = 
 # ssl-server-cert-expiration = 
 
+# Set to 'yes' to automatically install needed packages from RHN, provided the
+# system is registered. Set to 'no' to terminate the installer if any needed
+# packages are missing. Default is to prompt.
+#
+# run-updater =
+
 # *** For troubleshooting/testing only. ***
 #
 # rhn-parent =
