@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.14
+Version: 0.6.15
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -317,6 +317,12 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Jul 27 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.15-1
+- Prep perl stack for PostgreSQL connections. (dgoodwin@redhat.com)
+- Remove use of RHN_DEFAULT_DB environment variable for db connections.
+  (dgoodwin@redhat.com)
+- Remove unused get_default_handle sub in DB.pm. (dgoodwin@redhat.com)
+
 * Mon Jul 27 2009 John Matthews <jmatthew@redhat.com> 0.6.14-1
 - 512440 - Fixed the proxies to turn SSLProxyEngine to deal with Cobbler KS
   files (paji@redhat.com)
