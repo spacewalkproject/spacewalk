@@ -17,6 +17,7 @@
 
 from importLib import Import, InvalidArchError, \
     InvalidChannelError, InvalidChannelFamilyError, MissingParentChannelError
+from common import CFG
 
 class ChannelImport(Import):
     def __init__(self, batch, backend):
@@ -187,7 +188,10 @@ class ChannelImport(Import):
             self.backend.commit()
 
 class ChannelFamilyImport(Import):
-    def preprocess(self):
+    def preprocess(self): 
+        if CFG.ISS_PARENT:
+            # Filter out private channel families from ISS syncs
+            self.__filterCustomChannelFamilies()
         # We have to look up the channels for this channel family first
         self.channels = {}
         for cf in self.batch:
@@ -216,6 +220,16 @@ class ChannelFamilyImport(Import):
             self.backend.rollback()
             raise
         self.backend.commit()
+
+    def __filterCustomChannelFamilies(self):
+        """Filter out private channel families from ISS syncs. WebUI
+           creates these for us at the org creation time.
+        """
+        new_batch = []
+        for cf in self.batch:
+            if not cf['label'].startswith("private-channel-family"):
+                new_batch.append(cf)
+        self.batch = new_batch
 
 class ChannelFamilyPermissionsImport(Import):
     def __init__(self, batch, backend):

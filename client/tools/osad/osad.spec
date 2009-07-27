@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.18
+Version: 5.9.20
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -53,14 +53,10 @@ OSA dispatcher get message from Spacewalk server that some command is need
 to execute on client. The message is transported via jabber protocol to OSAD
 agent.
 
-%define include_selinux_package 1
-
 %if 0%{?rhel} && 0%{?rhel} <= 4
 %define include_selinux_package 0
-%endif
-
-%if 0%{?fedora} == 11
-%define include_selinux_package 0
+%else
+%define include_selinux_package 1
 %endif
 
 %if %{include_selinux_package}
@@ -240,6 +236,14 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
+* Mon Jul 27 2009 John Matthews <jmatthew@redhat.com> 5.9.20-1
+- 512732 - on Fedora 12, it will be just and corenet_udp_bind_generic_node and
+  corenet_udp_bind_all_nodes. (jpazdziora@redhat.com)
+
+* Mon Jul 27 2009 Jan Pazdziora 5.9.19-1
+- 512732 - on Fedora 11, corenet_udp_bind_lo_node is no longer available
+- Build osa-dispatcher-selinux again
+
 * Thu Jul 23 2009 Devan Goodwin <dgoodwin@redhat.com> 5.9.18-1
 - Remove Requires python-optik. (dgoodwin@redhat.com)
 

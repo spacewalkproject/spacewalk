@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.24
+Version: 0.6.26
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -572,6 +572,17 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Jul 27 2009 John Matthews <jmatthew@redhat.com> 0.6.26-1
+- 513073 - Fix rhnpush of packages with duplicate requires.
+  (dgoodwin@redhat.com)
+
+* Fri Jul 24 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.25-1
+- 513652 - Dumping the debug level so the info shows up only with --debug flag.
+  (pkilambi@redhat.com)
+- 513435 - WebUI creates these for us at the org creation time. So dont try to
+  insert those at the sync time as ui is not smart enough to check if exists
+  before inserting a row. (pkilambi@redhat.com)
+
 * Fri Jul 24 2009 Jan Pazdziora 0.6.24-1
 - add spacewalk-report script and inventory report.
 

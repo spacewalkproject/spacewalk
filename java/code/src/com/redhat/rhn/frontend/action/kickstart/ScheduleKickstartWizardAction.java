@@ -98,7 +98,8 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
     public static final String TARGET_PROFILE_TYPE = "targetProfileType";
     public static final String NETWORK_TYPE_DHCP = "networkTypeDhcp";
     public static final String NETWORK_INTERFACE = "networkInterface";
-    public static final String NETWORK_INTERFACES = "networkInterfaces";
+    public static final String DHCP_NETWORK_INTERFACES = "dhcpNetworkInterfaces";
+    public static final String STATIC_NETWORK_INTERFACES = "staticNetworkInterfaces";
     /**
      * {@inheritDoc}
      */
@@ -191,7 +192,12 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                 itr.remove();
             }
         }
-        context.getRequest().setAttribute(NETWORK_INTERFACES, nics);
+        context.getRequest().setAttribute(STATIC_NETWORK_INTERFACES, nics);
+        List<NetworkInterface> dhcpNics = new LinkedList<NetworkInterface>(nics);
+        NetworkInterface link = new NetworkInterface();
+        link.setName("link");
+        dhcpNics.add(0, link);
+        context.getRequest().setAttribute(DHCP_NETWORK_INTERFACES, dhcpNics);
         if (form.get(NETWORK_TYPE_DHCP) == null) {
             form.set(NETWORK_TYPE_DHCP, Boolean.TRUE);
         }
