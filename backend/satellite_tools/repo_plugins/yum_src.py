@@ -16,8 +16,8 @@
 import yum
 from yum import config
 from reposync import ContentPackage
-class ContentSource:
 
+class ContentSource:
     url = None
     name = None
     repo = None
@@ -31,7 +31,7 @@ class ContentSource:
         repo = yum.yumRepo.YumRepository(self.name)
         self.repo = repo
         repo.cache = 0
-        repo.metadata_expire = 5
+        repo.metadata_expire = 0
         repo.baseurl = [self.url]
         repo.basecachedir = '/var/cache/rhn/reposync/'
 #        repo.cachedir = '/var/cache/rhn/reposync/'
@@ -42,7 +42,8 @@ class ContentSource:
         to_return = []
         for pack in list:
             new_pack = ContentPackage()
-            new_pack.setNVREA(pack.name, pack.version, pack.release, pack.epoch, pack.arch)
+            new_pack.setNVREA(pack.name, pack.version, pack.release, 
+                              pack.epoch, pack.arch)
             new_pack.unique_id = pack
             for cs in pack.checksums:
                 new_pack.checksums[cs[0]] = cs[1]
@@ -52,5 +53,3 @@ class ContentSource:
     def get_package(self, package):
         """ get package """
         return self.repo.getPackage(package.unique_id)
-
- 

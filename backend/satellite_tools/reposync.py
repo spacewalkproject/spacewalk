@@ -23,8 +23,6 @@ from server.importlib.backendOracle import OracleBackend
 from server.importlib.packageImport import ChannelPackageSubscription
 
 class RepoSync:
- 
-
     parser = None
     type = None
     url = None
@@ -33,7 +31,6 @@ class RepoSync:
     channel = None
     fail = False
     repo_label = None
-
 
     def main(self):
         initCFG('server')
@@ -59,14 +56,13 @@ class RepoSync:
         self.repo_label = options.label
         self.channel = self.load_channel()
         
-	if not self.channel or not rhnChannel.isCustomChannel(self.channel['id']):
+	if not self.channel or not \
+            rhnChannel.isCustomChannel(self.channel['id']):
             print "Channel does not exist or is not custom"
             sys.exit(1)
 
         self.plugin = self.load_plugin()(self.url, self.channel_label + "-" + self.repo_label)
         self.import_packages(self.plugin.list_packages())
-
-
 
     def process_args(self):
         self.parser = OptionParser()
@@ -76,7 +72,6 @@ class RepoSync:
         self.parser.add_option('-l', '--label', action='store', dest='label', help='A friendly label to refer to the repo')
         self.parser.add_option('-f', '--fail', action='store_true', dest='fail', default=False , help="If a package import fails, fail the entire operation")
         return self.parser.parse_args()
-         
 
     def load_plugin(self):
         sys.path.append("repo_plugins")
@@ -94,18 +89,24 @@ class RepoSync:
              elif pack.checksums.has_key('sha256'):
                  """lookup by sha256"""
              if pid == None:
-                 if self.channel_label not in rhnPackage.get_channels_for_package([pack.name, pack.version, pack.release, pack.epoch, pack.arch]) and \
-                               self.channel_label not in rhnPackage.get_channels_for_package([pack.name, pack.version, pack.release, '', pack.arch]):
+                 if self.channel_label not in \
+                     rhnPackage.get_channels_for_package([pack.name, \
+                     pack.version, pack.release, pack.epoch, pack.arch]) and \
+                     self.channel_label not in \
+                     rhnPackage.get_channels_for_package([pack.name, \
+                     pack.version, pack.release, '', pack.arch]):
                      to_download.append(pack)
 
 
         for (index, pack) in enumerate(to_download):
             """download each package"""
             try:
-                print(str(index) + "/" + str(len(to_download)) + " : "+ pack.getNVREA())
+                print(str(index) + "/" + str(len(to_download)) + " : "+ \
+                      pack.getNVREA())
                 path = self.plugin.get_package(pack)
                 md5 = rhnLib.getFileMD5(filename=path)
-                pid =  rhnPackage.get_package_for_md5sum(self.channel['org_id'], md5)
+                pid =  rhnPackage.get_package_for_md5sum(
+                                  self.channel['org_id'], md5)
                 if pid is None:
                     self.upload_package(pack, path, md5)
                     self.associate_package(pack, md5)
@@ -138,7 +139,8 @@ class RepoSync:
         package_dict, diff_level = rhnPackageUpload.push_package(header,
                     payload_stream, md5sum, force=False,
                     header_start=header_start, header_end=header_end,
-                    relative_path=rel_package_path, org_id=self.channel['org_id'])
+                    relative_path=rel_package_path, 
+                    org_id=self.channel['org_id'])
         temp_file.close()
         if self.url.find("file://")  < 0:
             os.remove(path)
@@ -158,20 +160,25 @@ class RepoSync:
             package['epoch'] = pack.epoch
         package['arch'] = pack.arch
         package['md5sum'] = md5sum
-        package['channels']  = [{'label':self.channel_label, 'id':self.channel['id']}]
+        package['channels']  = [{'label':self.channel_label, 
+                                 'id':self.channel['id']}]
         package['org_id'] = self.channel['org_id']
 
         try:
-            importer = ChannelPackageSubscription([IncompletePackage().populate(package)], backend, caller=caller)
+            importer = ChannelPackageSubscription(
+                       [IncompletePackage().populate(package)], 
+                        backend, caller=caller)
             importer.run()
         except:
             package['epoch'] = '0'
-            importer = ChannelPackageSubscription([IncompletePackage().populate(package)], backend, caller=caller)
+            importer = ChannelPackageSubscription(
+                       [IncompletePackage().populate(package)], 
+                       backend, caller=caller)
             importer.run()
         backend.commit()
+
     def load_channel(self):
         return rhnChannel.channel_info(self.channel_label)
-
 
 class ContentPackage:
 
@@ -198,4 +205,3 @@ class ContentPackage:
             return self.name + '-' + self.version + '-' + self.release + '-' + self.epoch + '.' + self.arch
         else:
             return self.name + '-' + self.version + '-' + self.release + '.' + self.arch
-

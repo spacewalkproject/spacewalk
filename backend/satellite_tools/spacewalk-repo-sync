@@ -22,14 +22,12 @@ if __name__ != '__main__':
 import sys
 def systemExit(code, msgs=None):
     "Exit with a code and optional message(s). Saved a few lines of code."
-
     if msgs:
         if type(msgs) not in [type([]), type(())]:
             msgs = (msgs, )
         for msg in msgs:
             sys.stderr.write(str(msg)+'\n')
     sys.exit(code)
-
 
 try:
     import os
@@ -45,15 +43,11 @@ except ImportError:
     sys.stderr.write("Unable to find RHN code tree.\n"
                      "Path not correct? '%s'\n" % _LIBPATH)
 
-
-
-
 def releaseLOCK():
     global LOCK
     if LOCK:
         LOCK.release()
         LOCK = None
-
 
 def main():
 
@@ -62,18 +56,15 @@ def main():
         sys.stderr.write('ERROR: must be root to execute\n')
         sys.exit(8)
 
-
     LOCK = None
     try:
-        LOCK = rhnLockfile.Lockfile('/var/run/spacewalk-sync.pid')
+        LOCK = rhnLockfile.Lockfile('/var/run/spacewalk-repo-sync.pid')
     except rhnLockfile.LockfileLockedException:
-        systemExit(1, "SYNC ERROR: attempting to run more than one instance of satellite-sync. Exiting.")
-
+        systemExit(1, "ERROR: attempting to run more than one instance of spacewalk-repo-sync Exiting.")
     sync = reposync.RepoSync()
     sync.main()
     releaseLOCK()
     return 0
-
 
 if __name__ == '__main__':
     try:
@@ -86,4 +77,3 @@ if __name__ == '__main__':
     except Exception, e:
         releaseLOCK()
         raise
-
