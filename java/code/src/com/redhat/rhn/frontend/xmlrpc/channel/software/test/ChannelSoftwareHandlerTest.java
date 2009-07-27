@@ -511,6 +511,25 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         assertNotNull(ca);
         assertNotNull(c.getChannelArch());
         assertEquals(ca.getLabel(), c.getChannelArch().getLabel());
+        assertEquals(c.getChecksumType(), "sha1");
+    }
+    
+    public void testCreateWithChecksum() throws Exception {
+        ChannelSoftwareHandler csh = new ChannelSoftwareHandler();
+        addRole(admin, RoleFactory.CHANNEL_ADMIN);
+        int i = csh.create(adminKey, "api-test-checksum-chan-label",
+                "apiTestCSChanName", "apiTestSummary", "channel-ia32", null, "sha-256");
+        assertEquals(1, i);
+        Channel c = ChannelFactory.lookupByLabel(admin.getOrg(), 
+                                   "api-test-checksum-chan-label");
+        assertNotNull(c);
+        assertEquals("apiTestCSChanName", c.getName());
+        assertEquals("apiTestSummary", c.getSummary());
+        ChannelArch ca = ChannelFactory.findArchByLabel("channel-ia32");
+        assertNotNull(ca);
+        assertNotNull(c.getChannelArch());
+        assertEquals(ca.getLabel(), c.getChannelArch().getLabel());
+        assertEquals(c.getChecksumType(), "sha-256");
     }
     
     public void testCreateUnauthUser() {
