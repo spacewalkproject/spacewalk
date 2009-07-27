@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.6.11
+Version:        0.6.12
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,21 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Mon Jul 27 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.12-1
+- Fix PostgreSQL clearing of the DB during setup. (dgoodwin@redhat.com)
+- Populate Hibernate settings in rhn.conf for both Oracle and PostgreSQL.
+  (dgoodwin@redhat.com)
+- Prep perl stack for PostgreSQL connections. (dgoodwin@redhat.com)
+- Fully qualify spacewalk-setup calls to satcon_deploy. (dgoodwin@redhat.com)
+- Fix spacewalk-setup query to work with Oracle + PostgreSQL.
+  (dgoodwin@redhat.com)
+- Stop printing charset during setup. (dgoodwin@redhat.com)
+- Fix Oracle rhn-populate-db.pl issue. (dgoodwin@redhat.com)
+- Support setup --clear-db option for PostgreSQL. (dgoodwin@redhat.com)
+- Check if schema already exists during setup. (dgoodwin@redhat.com)
+- Update spacewalk-setup to deploy new PostgreSQL schema layout.
+  (dgoodwin@redhat.com)
+
 * Mon Jul 27 2009 John Matthews <jmatthew@redhat.com> 0.6.11-1
 - 508187 - Fix jabberd configs on x86_64. (dgoodwin@redhat.com)
 
