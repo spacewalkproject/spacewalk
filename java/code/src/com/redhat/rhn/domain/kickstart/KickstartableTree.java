@@ -385,4 +385,18 @@ public class KickstartableTree extends BaseDomainHelper {
         }
         return Distro.lookupById(con, getCobblerId());
     }
+    
+    private boolean pathExists(String path) {
+        return new File(path).exists();
+    }
+    
+    /**
+     * Returns true if both the kernel path and initrd paths exist
+     * and cobbler id is not null for this distribution.
+     * @return true if this is a valid distro.
+     */
+    public boolean isValid() {
+        return !StringUtils.isBlank(getCobblerId()) && 
+                    pathExists(getInitrdPath()) && pathExists(getKernelPath()); 
+    }
 }

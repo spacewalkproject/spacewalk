@@ -6266,7 +6266,13 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/Troubleshooting.do</context>
         </context-group>
-      </trans-unit>      
+    </trans-unit>
+      <trans-unit id="tree.edit.invalid_tree">
+        <source>Kickstart distributions is invalid due wrong or non existent base path to the kernel or initrd image. To make your custom distribution valid please select the distribution and modify its base path appropriately.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/TreeEdit.do</context>
+        </context-group>
+      </trans-unit>    
 
       <trans-unit id="kickstart.troubleshooting.validation.kernelparams.too_long">
         <source>Extra kernel parameters can be no longer than 128 characters.</source>

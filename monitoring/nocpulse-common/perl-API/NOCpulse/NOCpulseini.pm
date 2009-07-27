@@ -14,6 +14,7 @@ use Class::MethodMaker
         filename
         macrodb
         paramdb
+        raw
      )],
   new_with_init => 'new',
   ;
@@ -66,23 +67,37 @@ sub save {
     $@ = "Couldn't open $filename: $!";
     return undef;
   }
-  print $fh $data;
+  print $fh <<WARNING, $data;
+# You should not edit this file directly. All changes will be lost after 
+# Monitoring restart. Please use script NOCpulse-ini.
+WARNING
   $fh->close();
   # Be sure to make the file world-readable!
   chmod(0644, $filename) or die "Couldn't chmod $filename: $!";
 }
 
+# return content of NOCpulse.ini (as fetched from db).
+# but only for specified group
+sub dump_group {
+  my ($self, $group, $pdb) = @_;
+  $pdb = $self->paramdb() unless ($pdb);
+  my $result = "[$group]\n";
+  $result .= "# $pdb->{$group}->{'desc'}\n";
+
+  foreach my $param (sort keys %{$pdb->{$group}->{'params'}}) {
+    $result .= join('=', $param, $pdb->{$group}->{'params'}->{$param}) . "\n";
+  }
+  return $result;
+}
+
+# return content of NOCpulse.ini (as fetched from db)
 sub dump {
   my $self = shift;
 
   my $pdb = $self->paramdb();
   my $str;
   foreach my $grp (sort keys %$pdb) {
-    $str .= "[$grp]\n";
-    $str .= "# $pdb->{$grp}->{'desc'}\n";
-    foreach my $param (sort keys %{$pdb->{$grp}->{'params'}}) {
-      $str .= join('=', $param, $pdb->{$grp}->{'params'}->{$param}) . "\n";
-    }
+    $str .= $self->dump_group($grp, $pdb);
     $str .= "\n\n";
   }
   return $str;
@@ -110,6 +125,7 @@ sub fetch_macros {
   foreach my $macroname (keys %{$mdb}) {
     $mdb->{$macroname} = $self->expand($mdb->{$macroname});
   }
+  return $list;
 }
 
 sub fetch_params {
@@ -140,6 +156,7 @@ sub fetch_params {
 sub expand {
   my $self  = shift;
   my $value = shift;
+  return $value if ($self->raw or !$value);
 
   # Store literal percents using OOB data
   $value =~ s/%%/\0/g;

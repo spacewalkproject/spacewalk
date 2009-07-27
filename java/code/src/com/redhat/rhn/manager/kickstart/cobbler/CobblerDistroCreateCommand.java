@@ -15,6 +15,8 @@
 package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
@@ -23,6 +25,7 @@ import org.apache.log4j.Logger;
 import org.cobbler.Distro;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,7 +35,7 @@ import java.util.Map;
 public class CobblerDistroCreateCommand extends CobblerDistroCommand {
     
     private static Logger log = Logger.getLogger(CobblerDistroCreateCommand.class);
-    
+    private boolean syncProfiles;
     /**
      * Constructor
      * @param ksTreeIn to sync
@@ -51,6 +54,20 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
         super(ksTreeIn, userIn);
     }
 
+    /**
+     * Constructor
+     * @param ksTreeIn to sync
+     * @param userIn - user wanting to sync with cobbler
+     * @param syncProfilesIn - true if you want the distro command
+     *                          to run a CobblerProfileSync
+     *                          when storing.
+     */
+    public CobblerDistroCreateCommand(KickstartableTree ksTreeIn,
+            User userIn, boolean syncProfilesIn) {
+        this(ksTreeIn, userIn);
+        syncProfiles = syncProfilesIn;
+    }
+    
      /**
      * Save the Cobbler profile to cobbler.
      * @return ValidatorError if there was a problem
@@ -79,7 +96,19 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
                 tree.getInitrdXenPath(), ksmeta); 
             tree.setCobblerXenId(distroXen.getUid());
         }
+        
+        if (syncProfiles) {
+            List<KickstartData> profiles = KickstartFactory.
+                                            lookupKickstartDatasByTree(tree);
+            for (KickstartData profile : profiles) {
+                createProfile(profile);
+            }
+        }
         return null;
     }
 
+    private void createProfile(KickstartData profile) {
+        CobblerProfileCreateCommand creator = new CobblerProfileCreateCommand(profile);
+        creator.store();
+    }
 }

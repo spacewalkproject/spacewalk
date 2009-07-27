@@ -318,7 +318,7 @@
   <!-- Authentication/registration database configuration -->
   <authreg>
     <!-- Dynamic authreg modules path -->
-    <path>/usr/lib/jabberd</path>
+    <path>@@jabberDOTlibdir@@</path>
 
     <!-- Backend module to use -->
     <module>db</module>

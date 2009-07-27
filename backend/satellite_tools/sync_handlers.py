@@ -27,6 +27,8 @@ import xmlSource
 import syncCache
 import syncLib
 
+DEFAULT_ORG = 1
+
 class NoFreeEntitlementsError(Exception):
     "No free entitlements available to activate this satellite"
 
@@ -198,11 +200,9 @@ def import_channels(channels, orgid=None):
         # finally if the orgs differ so we might wanna use
         # requested org's channel-family.
         # TODO: Move these checks somewhere more appropriate
-        if not orgid and c_obj['org_id'] is not None and \
-            c_obj['org_id'] not in orgs:
+        if not orgid and c_obj['org_id'] is not None:
             #If the src org is not present default to org 1
-            orgid = 1
-        
+            orgid = DEFAULT_ORG
         if orgid is not None and c_obj['org_id'] is not None and \
             c_obj['org_id'] != orgid:
             #Only set the channel family if its a custom channel
@@ -211,6 +211,8 @@ def import_channels(channels, orgid=None):
                 family['label'] = 'private-channel-family-' + \
                                            str(c_obj['org_id'])
 
+        syncLib.log(6, "Syncing Channel %s to Org %s " % \
+                       (c_obj['label'], c_obj['org_id']))
         batch.append(c_obj)
 
     importer = channelImport.ChannelImport(batch, diskImportLib.get_backend())

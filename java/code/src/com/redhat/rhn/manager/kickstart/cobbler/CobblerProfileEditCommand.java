@@ -18,6 +18,7 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.user.User;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.cobbler.Profile;
 
@@ -26,9 +27,6 @@ import org.cobbler.Profile;
  * @version $Rev$
  */
 public class CobblerProfileEditCommand extends CobblerProfileCommand {
-
-    
-
     private static Logger log = Logger.getLogger(CobblerProfileEditCommand.class);
     
     /**
@@ -45,7 +43,9 @@ public class CobblerProfileEditCommand extends CobblerProfileCommand {
      * {@inheritDoc}
      */
     public ValidatorError store() {
-        log.debug("ProfileMap: " + this.getProfileMap());
+        if (StringUtils.isBlank(ksData.getCobblerId())) {
+            return new CobblerProfileCreateCommand(ksData, user).store();
+        }
         
         String cobName = makeCobblerName(ksData);
         

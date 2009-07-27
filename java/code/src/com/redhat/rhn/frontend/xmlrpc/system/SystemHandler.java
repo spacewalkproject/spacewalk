@@ -4062,7 +4062,10 @@ public class SystemHandler extends BaseHandler {
         String hostName = (String)data.get("hostname");
         String command = KickstartFormatter.makeStaticNetworkCommand(device, ip, gateway, 
                                                   nameservers.get(0), netmask, hostName);
-        Map<String, String> meta = rec.getKsMeta();
+        rec.setHostName(hostName);
+        rec.setGateway(gateway);
+        rec.setNameServers(nameservers);
+        Map<String, Object> meta = rec.getKsMeta();
         meta.put(KickstartFormatter.STATIC_NETWORK_VAR, command);
         rec.setKsMeta(meta);
         rec.save();

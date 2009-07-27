@@ -212,7 +212,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
            and scc.config_channel_id = cc.id
            and cc.confchan_type_id = cct.id
            and cct.label in ('normal', 'local_override')
-         order by scc.position desc nulls last, cc.name desc
+         order by scc.position nulls last, cc.name desc
     """)
     
     def _get_client_config_channels(self, server_id):

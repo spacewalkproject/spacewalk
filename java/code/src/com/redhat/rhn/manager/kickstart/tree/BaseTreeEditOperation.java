@@ -16,6 +16,7 @@ package com.redhat.rhn.manager.kickstart.tree;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ChannelVersion;
@@ -34,6 +35,7 @@ import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import org.cobbler.Distro;
 import org.cobbler.XmlRpcException;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -47,7 +49,8 @@ import java.util.regex.Pattern;
  * @version $Rev$
  */
 public abstract class BaseTreeEditOperation extends BasePersistOperation {
-
+    private static final String INVALID_INITRD = "kickstart.tree.invalidinitrd";
+    private static final String INVALID_KERNEL = "kickstart.tree.invalidkernel";
     protected KickstartableTree tree;
     private static final String EMPTY_STRING = "";
     public static final String KICKSTART_CAPABILITY = "rhn.kickstart.boot_image";
@@ -82,10 +85,18 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
             return new ValidatorError("kickstart.tree.invalidlabel");
         }
         
+        try {
+            validateBasePath();            
+        }
+        catch (ValidatorException ve) {
+            return ve.getResult().getErrors().get(0);
+        }
+        
         KickstartFactory.saveKickstartableTree(this.tree);
         // Sync to cobbler
         try {
-            getCobblerCommand().store();
+            CobblerCommand command = getCobblerCommand();
+            command.store();
 
             Distro distro = Distro.lookupById(CobblerXMLRPCHelper.getConnection(
                     this.getUser()), tree.getCobblerId());
@@ -93,37 +104,34 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
             Map kOpts = distro.getKernelOptions();
             distro.setKernelOptions(getKernelOptions());
             distro.setKernelPostOptions(getPostKernelOptions());
-
             distro.save();
-
-
         }
         catch (XmlRpcException xe) {
             HibernateFactory.rollbackTransaction();
             if (xe.getCause().getMessage().contains("kernel not found")) {
-                return new ValidatorError("kickstart.tree.invalidkernel", 
+                return new ValidatorError(INVALID_KERNEL, 
                         this.tree.getKernelPath());
             }
             else if (xe.getCause().getMessage().contains("initrd not found")) {
-                return new ValidatorError("kickstart.tree.invalidinitrd", 
+                return new ValidatorError(INVALID_INITRD, 
                         this.tree.getInitrdPath());
             }
             else {
-                throw new RuntimeException(xe.getCause());    
-            }            
+                throw new RuntimeException(xe.getCause());
+            }
         }
         catch (Exception e) {
             HibernateFactory.rollbackTransaction();
             if (e.getMessage().contains("kernel not found")) {
-                return new ValidatorError("kickstart.tree.invalidkernel", 
+                return new ValidatorError(INVALID_KERNEL, 
                         this.tree.getKernelPath());
             }
             else if (e.getMessage().contains("initrd not found")) {
-                return new ValidatorError("kickstart.tree.invalidinitrd", 
+                return new ValidatorError(INVALID_INITRD, 
                         this.tree.getInitrdPath());
             }
             else {
-                throw new RuntimeException(e);    
+                throw new RuntimeException(e);
             }
             
         }
@@ -145,7 +153,21 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
         return matcher.matches();
     }
 
-
+    private void validatePathExists(String path, String key) {
+        if (!(new File(path).exists())) {
+            ValidatorException.raiseException(key, path);
+        }
+    }    
+    /**
+     * Ensures that the base path is correctly setup..
+     * As in the initrd and kernel structures are setup correctly.
+     * @throws ValidatorException if those paths don;t exist
+     */
+    public void validateBasePath() throws ValidatorException {
+        validatePathExists(getTree().getInitrdPath(), INVALID_INITRD);
+        validatePathExists(getTree().getKernelPath(), INVALID_KERNEL);
+    }    
+    
     /**
      * @return Returns the tree.
      */

@@ -71,7 +71,9 @@ public abstract class CobblerObject {
      */
     protected static Map<String, Object> lookupDataMapById(CobblerConnection client, 
                              String id, String findMethod) {
-
+        if (id == null) {
+            return null;
+        }
         List<Map<String, Object>> objects = lookupDataMapsByCriteria(client,
                                                             UID, id, findMethod);
         if (!objects.isEmpty()) {
@@ -387,15 +389,15 @@ public abstract class CobblerObject {
     /**
      * @return the kernelMeta
      */
-    public Map<String, String> getKsMeta() {
-        return (Map<String, String>)dataMap.get(KS_META);
+    public Map<String, Object> getKsMeta() {
+        return (Map<String, Object>)dataMap.get(KS_META);
     }
 
     
     /**
      * @param kernelMetaIn the kernelMeta to set
      */
-    public void setKsMeta(Map<String, String> kernelMetaIn) {
+    public void setKsMeta(Map<String, ? extends Object> kernelMetaIn) {
         modify(SET_KS_META, kernelMetaIn);
     }
 

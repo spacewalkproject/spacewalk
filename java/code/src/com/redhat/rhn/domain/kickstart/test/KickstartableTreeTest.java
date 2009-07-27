@@ -15,6 +15,7 @@
 package com.redhat.rhn.domain.kickstart.test;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.util.FileUtils;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -24,15 +25,18 @@ import com.redhat.rhn.domain.kickstart.KickstartTreeType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ChannelTestUtils;
 import com.redhat.rhn.testing.TestUtils;
+import com.redhat.rhn.testing.UserTestUtils;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.cobbler.Distro;
 import org.hibernate.Session;
 
+import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +48,36 @@ import java.util.List;
 public class KickstartableTreeTest extends BaseTestCaseWithUser {
 
     public static final String TEST_BOOT_PATH = "test-boot-image-i186";
+    public static final File KICKSTART_TREE_PATH = new File("/tmp/kickstart/images");
+
+    public static void createKickstartTreeItems() throws Exception {
+        createKickstartTreeItems(KICKSTART_TREE_PATH);
+    }
+    
+    public static void createKickstartTreeItems(File basePath) throws Exception {
+        //Alright setup things we need for trees
+        createDirIfNotExists(basePath);
+        KickstartableTree tree = new KickstartableTree();
+        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        tree.setChannel(ChannelTestUtils.createBaseChannel(user));
+        tree.setBasePath(basePath.getAbsolutePath());
+        tree.setOrg(user.getOrg());
+        createKickstartTreeItems(tree);
+    }    
+    
+    public static void createKickstartTreeItems(KickstartableTree tree) throws Exception {
+        createDirIfNotExists(new File(tree.getKernelPath()).getParentFile());
+        createDirIfNotExists(new File(tree.getKernelXenPath()).getParentFile());
+        
+        FileUtils.writeStringToFile("kernel", tree.getKernelPath());
+        FileUtils.writeStringToFile("kernel-xen", tree.getKernelXenPath());
+
+        createDirIfNotExists(new File(tree.getInitrdPath()).getParentFile());
+        createDirIfNotExists(new File(tree.getInitrdXenPath()).getParentFile());
+        
+        FileUtils.writeStringToFile("initrd", tree.getInitrdPath());
+        FileUtils.writeStringToFile("initrd-xen", tree.getInitrdXenPath());        
+    }
     
     public void testKickstartableTree() throws Exception {
         KickstartableTree k = createTestKickstartableTree();
@@ -137,8 +171,6 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
      */
     public static KickstartableTree 
         createTestKickstartableTree(Channel treeChannel) throws Exception {
-        
-        
         Date created = new Date();
         Date modified = new Date();
         Date lastmodified = new Date();
@@ -156,7 +188,7 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         k.setLabel("ks-" + treeChannel.getLabel() + 
                 RandomStringUtils.randomAlphanumeric(5));
         
-        k.setBasePath("rhn/kickstart/" + k.getLabel());
+        k.setBasePath(KICKSTART_TREE_PATH.getAbsolutePath());
         k.setCreated(created);
         k.setModified(modified);
         k.setOrg(treeChannel.getOrg());
@@ -165,6 +197,8 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         k.setTreeType(treetype);
         k.setChannel(treeChannel);
 
+        createKickstartTreeItems(k);
+        
         Distro d = Distro.create(CobblerXMLRPCHelper.getConnection("test"),
                 k.getLabel(), k.getKernelPath(), k.getInitrdPath(), new HashMap());
         Distro xend = Distro.create(CobblerXMLRPCHelper.getConnection("test"),

@@ -947,6 +947,12 @@ sub populate_initial_configs {
 
   my %nls_database_paramaters = Spacewalk::Setup::get_nls_database_parameters($answers);
 
+  # Check where jabberd's lib dir is, can vary on x86_64:
+  my $jabberdLibDir = "/usr/lib/jabberd/";
+  if (-d "/usr/lib64/jabberd/") {
+      $jabberdLibDir = "/usr/lib64/jabberd";
+  }
+
   my %config_opts =
     (
      mount_point => $answers->{'mount-point'} || '/var/satellite',
@@ -968,6 +974,7 @@ sub populate_initial_configs {
      db_port => $answers->{'db-port'},
      traceback_mail => $answers->{'admin-email'},
      jabberDOTusername => 'rhn-dispatcher-sat',
+     jabberDOTlibdir => $jabberdLibDir,
      jabberDOTpassword => 'rhn-dispatcher-' . random_password(6),
      serverDOTsatelliteDOTca_chain => '/usr/share/rhn/RHNS-CA-CERT',
      serverDOTnls_lang => 'english.' . $nls_database_paramaters{NLS_CHARACTERSET},
@@ -983,6 +990,7 @@ sub populate_initial_configs {
      monitoringDOTorahome => '/opt/oracle',
      monitoringDOTdbd => 'Oracle',
      monitoringDOTscout_shared_key => '', # blank for now.
+     cobblerDOThost => $answers->{hostname}
     );
 
   for ($config_opts{'db_password'}) {

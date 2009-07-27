@@ -209,10 +209,10 @@ class rpmBinaryPackage(Package, rpmPackage):
             obj = Class()
             # Fedora 10+ rpms have duplicate provides deps,
             # Lets clean em up before db inserts.
-            if tag == 'provides':
+            if tag in ['requires', 'provides', 'obsoletes', 'conflicts']:
                 if not len(hash['name']):
                     continue
-                dep_nv = hash['name'] + hash['version']
+                dep_nv = (hash['name'], hash['version'], hash['flags'])
 
                 if dep_nv not in unique_deps:
                     unique_deps.append(dep_nv)
@@ -222,7 +222,6 @@ class rpmBinaryPackage(Package, rpmPackage):
                     # duplicate dep, ignore
                     continue
             else:
-                # requires, conflicts, obsoletes lets process as usual
                 obj.populate(hash)
                 self[tag].append(obj)
 

@@ -3,6 +3,8 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ include file="/WEB-INF/pages/common/fragments/editarea.jspf" %>
+	<c:choose>
+	<c:when test="${empty requestScope.invalid}">
   <html:form styleId="wizard-form" method="post" 
   action="${param.url}"
   enctype="multipart/form-data">
@@ -104,4 +106,47 @@
 			<input type="hidden" name="ksid" value="${param.ksid}"/>
 		</c:if>
 	</div>
-  </html:form> 
+  </html:form>
+  </c:when>
+  <c:when test="${empty requestScope.create}">
+      <p><bean:message key="kickstartdetails.invalid.jsp.summary"/>
+		<bean:message key="kickstartdetails.invalid.jsp.summary-option1"
+				 arg0="${ksdata.tree.label}"
+				arg1="/rhn/kickstart/TreeEdit.do?kstid=${ksdata.tree.id}"/></p>
+	<p><bean:message key="kickstartdetails.advanced.invalid.jsp.summary-option2"
+				 arg0="${rhn:localize(param.action_key)}"/></p>
+
+	  <html:form styleId="wizard-form" method="post" action="${param.url}">
+    <table class="details">
+        <tr>
+            <th><rhn:required-field key="kickstart.jsp.create.wizard.kstree.label"/>:</th>
+            <td>
+                  <c:choose>
+                    <c:when test="${empty notrees}">
+                      <html:select property="kstreeId">
+                       <html:optionsCollection property="kstrees" label="label" value="id" />
+                      </html:select>
+                    </c:when>
+                    <c:otherwise>
+                      <b><bean:message key="kickstart.edit.software.notrees.jsp" /></b>
+                    </c:otherwise>
+                  </c:choose>
+            </td>
+        </tr>
+	</table>        
+        <c:if test="${empty notrees}">
+    <div align="right">
+    	<hr />
+		
+		<html:submit property="dispatch">
+			<bean:message key="${param.action_key}"/>
+		</html:submit>
+		
+		</div>
+		<rhn:submitted/>
+		<input type="hidden" name="ksid" value="${param.ksid}"/>
+		</c:if>
+  </html:form>
+  </c:when>
+  </c:choose>
+    

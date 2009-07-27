@@ -12,16 +12,13 @@
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <h2><bean:message key="kickstartdetails.jsp.header2"/></h2>
-
-
-
 <div>
+<c:choose><c:when test="${empty requestScope.invalid}">
     <bean:message key="kickstartdetails.jsp.summary1"/>
     <html:form method="post" action="/kickstart/KickstartDetailsEdit.do">
       <html:hidden property="ksid" value="${ksdata.id}"/>
       <html:hidden property="submitted" value="true"/>
       <table class="details">
-
           <tr>
             <th><rhn:required-field key="kickstartdetails.jsp.label"/>:</th>
             <td><html:text property="label" maxlength="64" size="32" /><br/> 
@@ -35,9 +32,6 @@
           
 		<%@ include file="/WEB-INF/pages/common/fragments/kickstart/virtoptions.jspf" %>
            
-          
-          
-          
           <tr>
             <th><bean:message key="kickstartdetails.jsp.active"/></th>
             <td>
@@ -89,6 +83,16 @@
           </tr>
       </table>
     </html:form>
+    </c:when>
+    <c:otherwise>
+    <p><bean:message key="kickstartdetails.invalid.jsp.summary"/>
+		<bean:message key="kickstartdetails.invalid.jsp.summary-option1"
+				 arg0="${ksdata.tree.label}"
+				 arg1="/rhn/kickstart/TreeEdit.do?kstid=${ksdata.tree.id}"/></p>
+        <p><bean:message key="kickstartdetails.invalid.jsp.summary-option2"
+				arg0="/rhn/kickstart/KickstartSoftwareEdit.do?ksid=${ksdata.id}"/></p>
+    </c:otherwise>
+    </c:choose>
 </div>
 
 </body>

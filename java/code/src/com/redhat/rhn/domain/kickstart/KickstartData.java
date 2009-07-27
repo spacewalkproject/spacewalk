@@ -1503,4 +1503,14 @@ public class KickstartData {
         }
         return Profile.lookupById(con, getCobblerId());
     }
+
+    /**
+     * Method to determine if the profile
+     * is valid or if it needs to be corrected.
+     * @return true if the profile is synced to cobbler
+     * and the distro it hosts is valid.
+     */
+    public boolean isValid() {
+        return !StringUtils.isBlank(getCobblerId()) && getTree().isValid(); 
+    }
 }

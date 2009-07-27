@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.18
+Version: 0.6.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -505,6 +505,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/rhn-ssl-dbstore
 %attr(755,root,root) %{_bindir}/satellite-sync
 %attr(755,root,root) %{_bindir}/spacewalk-debug
+%attr(755,root,root) %{_bindir}/spacewalk-report
 %attr(755,root,root) %{_bindir}/rhn-satellite-exporter
 %attr(755,root,root) %{_bindir}/update-packages
 %attr(755,root,root) %{_bindir}/rhn-db-stats
@@ -534,6 +535,8 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/disk_dumper/iss_actions.py*
 %{rhnroot}/satellite_tools/disk_dumper/dumper.py*
 %{rhnroot}/satellite_tools/disk_dumper/string_buffer.py*
+%{_prefix}/share/spacewalk/reports.py*
+%{_prefix}/share/spacewalk/reports/data/*
 %config %attr(644,root,apache) %{rhnconf}/default/rhn_server_iss.conf
 %{_mandir}/man8/rhn-satellite-exporter.8*
 %{_mandir}/man8/rhn-charsets.8*
@@ -543,6 +546,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/rhn-db-stats.8*
 %{_mandir}/man8/satellite-sync.8*
 %{_mandir}/man8/spacewalk-debug.8*
+%{_mandir}/man8/spacewalk-report.8*
 %{_mandir}/man8/satpasswd.8*
 %{_mandir}/man8/satwho.8*
 
@@ -568,6 +572,73 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Jul 24 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.25-1
+- 513652 - Dumping the debug level so the info shows up only with --debug flag.
+  (pkilambi@redhat.com)
+- 513435 - WebUI creates these for us at the org creation time. So dont try to
+  insert those at the sync time as ui is not smart enough to check if exists
+  before inserting a row. (pkilambi@redhat.com)
+
+* Fri Jul 24 2009 Jan Pazdziora 0.6.24-1
+- add spacewalk-report script and inventory report.
+
+* Thu Jul 23 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.23-1
+- 513432, 513435 : Our channel family import is written such that we compare
+  and resync the red hat channel families. But in iss case we can have provate
+  channel family ties to a channel ebing imported that will not match whats on
+  the slave as slaves default to org 1. This fix should only post process the
+  channel families if its a non custom one. (pkilambi@redhat.com)
+- reporting: add report option for listing fields for report.
+  (jpazdziora@redhat.com)
+- reporting: after having parsed the common options, put the rest back to
+  sys.argv. (jpazdziora@redhat.com)
+- reporting: show error message when unknown report is specified.
+  (jpazdziora@redhat.com)
+- reporting: change structure of the report definition file to also include
+  column names. (jpazdziora@redhat.com)
+- reporting: add channel(s) to which the server is registered.
+  (jpazdziora@redhat.com)
+- reporting: add number of out-of-date packages and errata.
+  (jpazdziora@redhat.com)
+- reporting: add kernel version to the report. (jpazdziora@redhat.com)
+- reporting: when report name is not specified on the command line, show list
+  of available reports. (jpazdziora@redhat.com)
+- reporting: move the SQL to definition file, to allow for multiple reports.
+  (jpazdziora@redhat.com)
+- reporting: add registration time and last check-in time.
+  (jpazdziora@redhat.com)
+- reporting: add the registered by information. (jpazdziora@redhat.com)
+- reporting: add hostname and IP address to the report. (jpazdziora@redhat.com)
+- reporting: output field names as the first row. (jpazdziora@redhat.com)
+- reporting: output formatted as csv. (jpazdziora@redhat.com)
+- reporting: initial prepare, execute, and fetch loop. (jpazdziora@redhat.com)
+- reporting: add spacewalk-report to the rpm package. (jpazdziora@redhat.com)
+- reporting: a stub for new script, spacewalk-report. (jpazdziora@redhat.com)
+
+* Wed Jul 22 2009 John Matthews <jmatthew@redhat.com> 0.6.22-1
+- 511283 - Package compare between db and cache should see if the db is newer
+  than cache and only then import the content. (pkilambi@redhat.com)
+
+* Tue Jul 21 2009 John Matthews <jmatthew@redhat.com> 0.6.21-1
+- 512936 - Changing the custom channel rule to always defalt to org 1 for
+  custom channels unless --org option is used. This will avoid the confusion of
+  putting the channel is some random org on slaves. (pkilambi@redhat.com)
+
+* Tue Jul 21 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.20-1
+- 512960 - check for the proper attr name on rpm for header reading
+  (jbowes@redhat.com)
+
+* Thu Jul 16 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.19-1
+- 512236 - the org id checks were defaulting to None in custom channel cases
+  instead of 1. Also the metadata sting frommaster is a string None so we need
+  to check for the string. This should fix both custom and null org content in
+  iss case. hosted syncs should work as usual. (pkilambi@redhat.com)
+- Return config channels sorted highest to lowest priority.
+  (dgoodwin@redhat.com)
+- 511116 - changing updatePackages to change the permissions on the kickstart
+  trees in the same way we do for packages within /var/satellite
+  (jsherril@redhat.com)
+
 * Fri Jul 10 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.18-1
 - If not commandline options given, compare the erratum channels to the already
   imported ones (pkilambi@redhat.com)

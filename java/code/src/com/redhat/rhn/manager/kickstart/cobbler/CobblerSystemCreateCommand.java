@@ -55,6 +55,14 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     private String kickstartHost;
     private String kernelOptions;
     private String postKernelOptions;
+    private String staticNetwork;
+
+    /**
+     * @param staticNetworkIn The staticNetwork to set.
+     */
+    public void setStaticNetwork(String staticNetworkIn) {
+        staticNetwork = staticNetworkIn;
+    }
 
     /**
      * Constructor
@@ -71,7 +79,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         this.server = serverIn;
         this.mediaPath = mediaPathIn;
         if (ksDataIn != null) {
-            profileName = (String)lookupCobblerProfile(ksDataIn).get("name");
+            profileName = ksDataIn.getCobblerObject(user).getName();
         }
         else {
             throw new NullPointerException("ksDataIn cant be null");
@@ -142,14 +150,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                 sysname = (String) sysmap.get("name");
             }
         }
-        if (sysname != null) {
-            String handle = (String) invokeXMLRPC("get_system_handle",
-                    sysname, xmlRpcToken);
-            log.debug("getSystemHandleByMAC.returning handle: " + handle);
-            return handle;
-        }
-
-        return null;
+        return sysname;
     }
     
     private Map getSystemMapByMac() {
@@ -157,11 +158,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         List macs = new LinkedList();
         for (NetworkInterface n : server.getNetworkInterfaces()) {
             // Skip localhost and non real interfaces
-            if (n.getHwaddr() == null ||
-                n.getHwaddr().equals("00:00:00:00:00:00") ||
-                n.getHwaddr().equals("fe:ff:ff:ff:ff:ff") ||
-                n.getIpaddr() == null ||
-                n.getIpaddr().equals("127.0.0.1")) {
+            if (!n.isValid()) {
                 log.debug("Skipping.  not a real interface");
             }
             else {
@@ -205,27 +202,30 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      * @return ValidatorError if the store failed.
      */
     public ValidatorError store() {
-        String handle = null;
         // First lookup by MAC addr
-        handle = lookupExisting();
-        if (handle == null) {
+        String sysName = lookupExisting();
+        if (sysName == null) {
             // Next try by name
             try {
-                handle = (String) invokeXMLRPC("get_system_handle",
+                String handle = (String) invokeXMLRPC("get_system_handle",
                         getCobblerSystemRecordName(), xmlRpcToken);
+                if (!StringUtils.isBlank(handle)) {
+                    sysName = getCobblerSystemRecordName();
+                }
                 log.debug("Did we find handle by name: " + handle);
             } 
             catch (RuntimeException e) {
                 log.debug("No system by that name either.  create a new one");
             }
         }
-        // Else, lets make a new system
-        if (handle == null) {
-            handle = (String) invokeXMLRPC("new_system", xmlRpcToken);
-            log.debug("handle: " + handle);
-            invokeXMLRPC("modify_system", handle, "name", getCobblerSystemRecordName(),
-                                     xmlRpcToken);
+        if (!StringUtils.isBlank(sysName)) {
+            invokeXMLRPC("remove_system", sysName, xmlRpcToken);
+            invokeCobblerUpdate();
         }
+        String handle = (String) invokeXMLRPC("new_system", xmlRpcToken);
+        log.debug("handle: " + handle);
+        invokeXMLRPC("modify_system", handle, "name", getCobblerSystemRecordName(),
+                                     xmlRpcToken);
         
         if (this.server.getNetworkInterfaces() != null &&
                 !this.server.getNetworkInterfaces().isEmpty()) {
@@ -309,7 +309,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
             Server serverIn) {
         Map inet = new HashMap();
         for (NetworkInterface n : serverIn.getNetworkInterfaces()) {
-            if (!n.getHwaddr().equals("00:00:00:00:00:00")) {
+            if (n.isValid()) {
                 inet.put("macaddress-" + n.getName(), n.getHwaddr());
                 if (!StringUtils.isBlank(n.getIpaddr())) {
                     inet.put("ipaddress-" + n.getName(), n.getIpaddr());
@@ -317,6 +317,9 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                 if (!StringUtils.isBlank(n.getNetmask())) {
                     inet.put("subnet-" + n.getName(), n.getNetmask());
                 }
+                inet.put("static-" + n.getName(),
+                        !StringUtils.isBlank(staticNetwork) &&
+                        n.getName().equals(staticNetwork));                
             }
         }
         log.debug("Networks: " + inet);

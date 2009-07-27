@@ -654,12 +654,12 @@ public class OrgImpl extends BaseDomainHelper implements Org {
             return false;
         }
         final OrgImpl other = (OrgImpl) obj;
-        if (id == null) {
-            if (other.id != null) {
+        if (getId() == null) {
+            if (other.getId() != null) {
                 return false;
             }
         }
-        else if (!id.equals(other.id)) {
+        else if (!getId().equals(other.getId())) {
             return false;
         }
         return true;
@@ -672,7 +672,7 @@ public class OrgImpl extends BaseDomainHelper implements Org {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         return result;
     }
 }

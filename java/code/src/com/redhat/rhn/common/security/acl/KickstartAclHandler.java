@@ -16,7 +16,11 @@ package com.redhat.rhn.common.security.acl;
 
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.RequestContext;
+
+import org.apache.commons.lang.StringUtils;
 
 import java.util.HashMap;
 
@@ -26,17 +30,8 @@ import java.util.HashMap;
  * @version $Rev$
  */
 public class KickstartAclHandler extends BaseHandler {
-    
-    public static final String USER = "user";
-    public static final String KSID = "ksid";
-
-    
-    /*
-     * Sometimes we have a context where key "cid" is the cid-string (nav-xml)
-     * Sometimes, "cid" is an array of strings of len-1 where the -entry- is the 
-     * cid-str (rhn:require) Sigh.
-     */
-    protected KickstartData getKickstart(User usr, String[] params) {
+    private static final String USER = "user";
+    private KickstartData getKickstart(User usr, String[] params) {
         String ksStr = params[0];        
         Long id = null;
         try {
@@ -45,7 +40,7 @@ public class KickstartAclHandler extends BaseHandler {
         catch (NumberFormatException nfe) {
             return null;
         }
-        
+
         if (id != null) {
             KickstartData ks = KickstartFactory.lookupKickstartDataByIdAndOrg(
                     usr.getOrg(), id);
@@ -55,7 +50,7 @@ public class KickstartAclHandler extends BaseHandler {
             return null;
         }
     }
-    
+
     /**
      * Is the user allowed to administer the specified channel?
      * @param ctx request context (user,cid)
@@ -90,7 +85,44 @@ public class KickstartAclHandler extends BaseHandler {
         return !ks.isRawData();        
     }
     
-    
-    
-    
+    /**
+     * Returns true if the kickstart  tree 
+     * is synced to cobbler
+     * @param ctx request context (user,kstid)
+     * @param params check parameters
+     * @return true if the kickstart tree is synced
+     * to cobbler
+     */
+    public boolean aclTreeIsSynced(Object ctx, String[] params) {
+        HashMap ctxMap = (HashMap)ctx;
+        User usr = (User)ctxMap.get(USER);
+        Long id = getAsLong(ctxMap.get(RequestContext.KSTREE_ID));
+        if (id == null) {
+            return false;
+        }        
+        KickstartableTree ks =  KickstartFactory.
+                        lookupKickstartTreeByIdAndOrg(id, usr.getOrg());
+        return !StringUtils.isBlank(ks.getCobblerId());        
+    }
+
+    /**
+     * Returns true if the kickstart  profile 
+     * is synced to cobbler and if the profile 
+     * has a valid distribution
+     * @param ctx request context (user,kstid)
+     * @param params check parameters
+     * @return true if the kickstart profile is valid
+     * to cobbler
+     */
+    public boolean aclProfileIsValid(Object ctx, String[] params) {
+        HashMap ctxMap = (HashMap)ctx;
+        User usr = (User)ctxMap.get(USER);
+        Long id = getAsLong(ctxMap.get(RequestContext.KICKSTART_ID));
+        if (id == null) {
+            return false;
+        }
+        KickstartData ks =  KickstartFactory.
+                        lookupKickstartDataByIdAndOrg(usr.getOrg(), id);
+        return !StringUtils.isBlank(ks.getCobblerId()) && ks.getTree().isValid();
+    }
 }

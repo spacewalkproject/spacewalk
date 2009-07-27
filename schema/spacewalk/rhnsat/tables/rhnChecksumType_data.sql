@@ -18,17 +18,15 @@
 
 
 insert into rhnChecksumType (id, label, description) values
-            (rhn_checksum_id_seq.nextval, 'md5', 'md5sum' );
+            (rhn_checksum_id_seq.nextval, 'md5', 'md5' );
 insert into rhnChecksumType (id, label, description) values
-            (rhn_checksum_id_seq.nextval, 'sha1', 'sha1' );
+            (rhn_checksum_id_seq.nextval, 'sha1', 'sha' );
 insert into rhnChecksumType (id, label, description) values
-            (rhn_checksum_id_seq.nextval, 'sha224', 'sha224' );
+            (rhn_checksum_id_seq.nextval, 'sha-256', 'sha256' );
 insert into rhnChecksumType (id, label, description) values
-            (rhn_checksum_id_seq.nextval, 'sha256', 'sha256' );
+            (rhn_checksum_id_seq.nextval, 'sha-384', 'sha384' );
 insert into rhnChecksumType (id, label, description) values
-            (rhn_checksum_id_seq.nextval, 'sha384', 'sha384' );
-insert into rhnChecksumType (id, label, description) values
-            (rhn_checksum_id_seq.nextval, 'sha512', 'sha512' );
+            (rhn_checksum_id_seq.nextval, 'sha-512', 'sha512' );
 
 commit;
 

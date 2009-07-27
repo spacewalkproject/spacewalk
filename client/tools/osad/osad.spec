@@ -9,14 +9,14 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.15
+Version: 5.9.19
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
+BuildRequires: python-devel
 Requires: python
 Requires: rhnlib >= 1.8-3
 Requires: jabberpy
-Requires: python-optik
 # This should have been required by rhnlib
 Requires: PyXML
 %if "%{pythongen}" == "1.5"
@@ -236,6 +236,19 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
+* Mon Jul 27 2009 Jan Pazdziora 5.9.19-1
+- 512732 - on Fedora 11, corenet_udp_bind_lo_node is no longer available
+- Build osa-dispatcher-selinux again
+
+* Thu Jul 23 2009 Devan Goodwin <dgoodwin@redhat.com> 5.9.18-1
+- Remove Requires python-optik. (dgoodwin@redhat.com)
+
+* Wed Jul 22 2009 Devan Goodwin <dgoodwin@redhat.com> 5.9.17-1
+- Disable osad selinux for Fedora 11. (dgoodwin@redhat.com)
+
+* Mon Jul 20 2009 Devan Goodwin <dgoodwin@redhat.com> 5.9.16-1
+- Add osad BuildRequires for python-devel. (dgoodwin@redhat.com)
+
 * Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 5.9.15-1
 - 508064 - fix osad installation errors on client (mzazrivec@redhat.com)
 

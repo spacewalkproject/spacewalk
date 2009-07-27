@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ActivationKeyDto;
@@ -28,6 +29,7 @@ import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.cobbler.CobblerConnection;
 import org.cobbler.Distro;
@@ -88,7 +90,8 @@ public class KickstartLister extends BaseManager {
         Map params = new HashMap();
         params.put("org_id", orgIn.getId());
         Map elabParams = new HashMap();
-        DataResult returnDataResult = makeDataResult(params, elabParams, pc, m);
+        DataResult<KickstartDto> returnDataResult = makeDataResult(params,
+                                                            elabParams, pc, m);
         if (logger.isDebugEnabled()) {
             logger.debug("kickstartsInOrg(Org, PageControl) - end - return value=" +
                     returnDataResult);
@@ -425,9 +428,34 @@ public class KickstartLister extends BaseManager {
     public List <KickstartDto> listProfilesForSsm(User user) {
         List <KickstartDto> ret = new LinkedList<KickstartDto>();
         ret.addAll(kickstartsInOrg(user.getOrg(), null));
+        pruneInvalid(user, ret);
         ret.addAll(listCobblerProfiles(user));
         setKickstartUrls(ret, user);
         return ret;
     }
-
+    
+    /**
+     * Given a list of Kickstart DTOs
+     * the code below removes all the profiles
+     * that are associated to an invalid distro.
+     * or not synced to spacewalk. Mainly used in schedule* pages
+     * @param user the user to get org info.
+     * @param profiles the kickstart dto list to be pruned
+     */
+    public void pruneInvalid(User user, List<KickstartDto> profiles) {
+        Set<Long> ids = new HashSet<Long>();
+        List<KickstartableTree> trees = KickstartManager.getInstance().
+                        removeInvalid(KickstartFactory.
+                                    lookupAccessibleTreesByOrg(user.getOrg()));
+        for (KickstartableTree tree : trees) {
+            ids.add(tree.getId());
+        }
+        for (Iterator<KickstartDto> itr = profiles.iterator(); itr.hasNext();) {
+            KickstartDto dto = itr.next();
+            if (StringUtils.isBlank(dto.getCobblerId()) || 
+                            !ids.contains(dto.getKstreeId())) {
+                itr.remove();
+            }
+        }
+    }
 }

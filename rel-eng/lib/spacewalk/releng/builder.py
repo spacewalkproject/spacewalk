@@ -182,7 +182,7 @@ class Builder(object):
         elif dist:
             define_dist = "--define 'dist %s'" % dist
 
-        cmd = "rpmbuild %s %s --nodeps -bs %s" % \
+        cmd = 'rpmbuild --define "_source_filedigest_algorithm md5"  --define "_binary_filedigest_algorithm md5" %s %s --nodeps -bs %s' % \
                 (self._get_rpmbuild_dir_options(), define_dist, self.spec_file)
         output = run_command(cmd)
         print(output)
@@ -200,7 +200,7 @@ class Builder(object):
         define_dist = ""
         if self.dist:
             define_dist = "--define 'dist %s'" % self.dist
-        cmd = "rpmbuild %s %s --clean -ba %s" % \
+        cmd = 'rpmbuild --define "_source_filedigest_algorithm md5"  --define "_binary_filedigest_algorithm md5" %s %s --clean -ba %s' % \
                 (self._get_rpmbuild_dir_options(), define_dist, self.spec_file)
         output = run_command(cmd)
         print output

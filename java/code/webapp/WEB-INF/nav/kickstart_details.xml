@@ -1,64 +1,64 @@
 <?xml version="1.0"?>
 <rhn-navi-tree label="kickstart_detail" invisible="1" formvar="ksid" title-depth="1"
       acl_mixins="com.redhat.rhn.common.security.acl.KickstartAclHandler">
-  <rhn-tab name="Kickstart Details" >    
+  <rhn-tab name="Kickstart Details" acl="user_role(config_admin)" >    
     <rhn-tab-url>/rhn/kickstart/KickstartDetailsEdit.do</rhn-tab-url>
     <rhn-tab name="Details" >
       <rhn-tab-url>/rhn/kickstart/KickstartDetailsEdit.do</rhn-tab-url>
       <rhn-tab-url>/rhn/kickstart/KickstartClone.do</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="Operating System">
+    <rhn-tab name="Operating System" acl="user_role(config_admin)">
       <rhn-tab-url>/rhn/kickstart/KickstartSoftwareEdit.do</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="kickstart.variable.nav">
+    <rhn-tab name="kickstart.variable.nav" acl="user_role(config_admin);profile_is_valid()">
       <rhn-tab-url>/rhn/kickstart/EditVariables.do</rhn-tab-url>
     </rhn-tab>        
-    <rhn-tab name="Advanced Options">
+    <rhn-tab name="Advanced Options" acl="user_role(config_admin);profile_is_valid()">
       <rhn-tab-url>/rhn/kickstart/KickstartOptionsEdit.do</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="Bare Metal Kickstart">
+    <rhn-tab name="Bare Metal Kickstart" acl="user_role(config_admin);profile_is_valid()">
       <rhn-tab-url>/rhn/kickstart/KickstartIpRangeEdit.do</rhn-tab-url>
     </rhn-tab>    
   </rhn-tab>
-  <rhn-tab name="System Details">
+  <rhn-tab name="System Details" acl="user_role(config_admin);profile_is_valid()">
     <rhn-tab-url>/rhn/kickstart/SystemDetailsEdit.do</rhn-tab-url>
     <rhn-tab name="Details">
       <rhn-tab-url>/rhn/kickstart/SystemDetailsEdit.do</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="Locale">
+    <rhn-tab name="Locale" acl="user_role(config_admin);profile_is_valid()">
       <rhn-tab-url>/rhn/kickstart/Locale.do</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="Partitioning">
+    <rhn-tab name="Partitioning" acl="user_role(config_admin);profile_is_valid()">
       <rhn-tab-url>/rhn/kickstart/KickstartPartitionEdit.do</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="File Preservation">
+    <rhn-tab name="File Preservation" acl="user_role(config_admin);profile_is_valid()">
       <rhn-tab-url>/rhn/kickstart/KickstartFilePreservationLists.do</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="GPG_SSL">
+    <rhn-tab name="GPG_SSL" acl="user_role(config_admin);profile_is_valid()">
       <rhn-tab-url>/rhn/kickstart/KickstartCryptoKeysList.do</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="Troubleshooting">
+    <rhn-tab name="Troubleshooting" acl="user_role(config_admin);profile_is_valid()">
       <rhn-tab-url>/rhn/kickstart/Troubleshooting.do</rhn-tab-url>
     </rhn-tab>    
   </rhn-tab>
-  <rhn-tab name="Software" >
+  <rhn-tab name="Software" acl="user_role(config_admin);profile_is_valid()" >
     <rhn-tab-url>/rhn/kickstart/KickstartPackagesEdit.do</rhn-tab-url>
     <rhn-tab name="Package Groups">
       <rhn-tab-url>/rhn/kickstart/KickstartPackagesEdit.do</rhn-tab-url>
     </rhn-tab>  
-    <rhn-tab name="Package Profiles">
+    <rhn-tab name="Package Profiles" acl="user_role(config_admin);profile_is_valid()">
       <rhn-tab-url>/rhn/kickstart/KickstartPackageProfileEdit.do</rhn-tab-url>
     </rhn-tab>  
   </rhn-tab>
-  <rhn-tab name="Activation Keys" >
+  <rhn-tab name="Activation Keys"  acl="user_role(config_admin);profile_is_valid()">
     <rhn-tab-url>/rhn/kickstart/ActivationKeysList.do</rhn-tab-url>
   </rhn-tab>
-  <rhn-tab name="Scripts" >
+  <rhn-tab name="Scripts" acl="user_role(config_admin);profile_is_valid()">
     <rhn-tab-url>/rhn/kickstart/Scripts.do</rhn-tab-url>
     <rhn-tab-url>/rhn/kickstart/KickstartScriptEdit.do</rhn-tab-url>
     <rhn-tab-url>/rhn/kickstart/KickstartScriptCreateEdit.do</rhn-tab-url>
   </rhn-tab>
-  <rhn-tab name="Kickstart File" >
+  <rhn-tab name="Kickstart File" acl="user_role(config_admin);profile_is_valid()">
     <rhn-tab-url>/rhn/kickstart/KickstartFileDownload.do</rhn-tab-url>
   </rhn-tab>
 </rhn-navi-tree>
