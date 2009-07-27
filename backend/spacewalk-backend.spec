@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.26
+Version: 0.6.27
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -572,6 +572,43 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Jul 27 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.27-1
+- Fix rhnSQL pgsql driver when sql not provided to Cursor class.
+  (dgoodwin@redhat.com)
+- Replace Oracle blob update syntax with our rhnSQL wrapper.
+  (dgoodwin@redhat.com)
+- Add missing cursor method to pgsql rhnsql driver. (dgoodwin@redhat.com)
+- Minor pgsql query fix in satCerts.py. (dgoodwin@redhat.com)
+- Modify rhn-ssl-dbstore script to not be Oracle specific.
+  (dgoodwin@redhat.com)
+- Postgresql query fix. (dgoodwin@redhat.com)
+- Remove unused query in sync_handlers.py. (dgoodwin@redhat.com)
+- Add "as" to query to work with both databases. (dgoodwin@redhat.com)
+- Fix Oracle specific setDateFormat call in backend.py. (dgoodwin@redhat.com)
+- Change Oracle nextval to sequence_nextval. (dgoodwin@redhat.com)
+- Convert Oracle sequence.nextval's to use nextval compatability function.
+  (dgoodwin@redhat.com)
+- Add rhnSQL Cursor update_blob function. (dgoodwin@redhat.com)
+- Change satCerts.py query to be more clear. (dgoodwin@redhat.com)
+- Convert unicode Python strings into strings for PostgreSQL.
+  (dgoodwin@redhat.com)
+- Remove type mapping code from PostgreSQL rhnSQL driver. (dgoodwin@redhat.com)
+- Purge munge_args insanity from PostgreSQL rhnSQL driver.
+  (dgoodwin@redhat.com)
+- Adjust satCerts.py query to work with both databases. (dgoodwin@redhat.com)
+- Fix some rhnSQL error reporting for PostgreSQL. (dgoodwin@redhat.com)
+- Fix bug in rhnSQL PostgreSQL named -> positional argument conversion.
+  (dgoodwin@redhat.com)
+- Initial rhnSQL PostgreSQL Procedure implementation. (dgoodwin@redhat.com)
+- Modify rhn-satellite-activate to communicate with PostgreSQL.
+  (dgoodwin@redhat.com)
+- rhnSQL: Adjust and comment out some PostgreSQL Procedure code.
+  (dgoodwin@redhat.com)
+- Add support for calling PostgreSQL stored procedures with rhnSQL.
+  (dgoodwin@dangerouslyinc.com)
+- Implement rhnSQL Cursor.execute_bulk for PostgreSQL.
+  (dgoodwin@dangerouslyinc.com)
+
 * Mon Jul 27 2009 John Matthews <jmatthew@redhat.com> 0.6.26-1
 - 513073 - Fix rhnpush of packages with duplicate requires.
   (dgoodwin@redhat.com)
