@@ -325,6 +325,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/rhnItem.py*
 %{rhnroot}/server/rhnPackage.py*
 %{rhnroot}/server/rhnPackageUpload.py*
+%{rhnroot}/server/basePackageUpload.py*
 %{rhnroot}/server/rhnHandler.py*
 %{rhnroot}/server/rhnImport.py*
 %{rhnroot}/server/rhnLib.py*
@@ -507,6 +508,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/spacewalk-debug
 %attr(755,root,root) %{_bindir}/rhn-satellite-exporter
 %attr(755,root,root) %{_bindir}/update-packages
+%attr(755,root,root) %{_bindir}/spacewalk-repo-sync
 %attr(755,root,root) %{_bindir}/rhn-db-stats
 %attr(750,root,root) %{_bindir}/satpasswd
 %attr(750,root,root) %{_bindir}/satwho
@@ -525,6 +527,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/rhn_ssl_dbstore.py*
 %{rhnroot}/satellite_tools/xmlWireSource.py*
 %{rhnroot}/satellite_tools/updatePackages.py*
+%{rhnroot}/satellite_tools/reposync.py*
 %dir %{rhnroot}/satellite_tools/disk_dumper
 %{rhnroot}/satellite_tools/disk_dumper/__init__.py*
 %{rhnroot}/satellite_tools/disk_dumper/iss.py*
@@ -534,6 +537,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/disk_dumper/iss_actions.py*
 %{rhnroot}/satellite_tools/disk_dumper/dumper.py*
 %{rhnroot}/satellite_tools/disk_dumper/string_buffer.py*
+%dir %{rhnroot}/satellite_tools/repo_plugins
+%{rhnroot}/satellite_tools/repo_plugins/__init__.py*
+%{rhnroot}/satellite_tools/repo_plugins/yum_src.py*
 %config %attr(644,root,apache) %{rhnconf}/default/rhn_server_iss.conf
 %{_mandir}/man8/rhn-satellite-exporter.8*
 %{_mandir}/man8/rhn-charsets.8*
