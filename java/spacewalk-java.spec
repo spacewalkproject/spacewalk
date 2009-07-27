@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.35
+Version: 0.6.36
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -250,6 +250,13 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Mon Jul 27 2009 John Matthews <jmatthew@redhat.com> 0.6.36-1
+- 513683 - Added 'link' as a network device option (paji@redhat.com)
+- 515539 - Made the cobbler create system record command always delete and
+  create a new version of system (paji@redhat.com)
+- 510299 & 510785- Fixed issues pertaining to static network and upgrade.
+  (paji@redhat.com)
+
 * Thu Jul 23 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.35-1
 -  Sha256 support for channel creation: (pkilambi@redhat.com)
 - checkstyle (mmccune@redhat.com)
