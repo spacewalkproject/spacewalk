@@ -1,6 +1,6 @@
 %define release_name Alpha
 Name:           spacewalk
-Version:        0.6.3
+Version:        0.6.4
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -98,6 +98,12 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
+* Mon Jul 27 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.4-1
+- Re-enable spacewalk-monitoring-selinux dependency for F11.
+  (dgoodwin@redhat.com)
+- osa-dispatcher-selinux is back, in osad-5.9.19-1.*. (jpazdziora@redhat.com)
+- Disable jabberd-selinux for Fedora 11 permanently. (dgoodwin@redhat.com)
+
 * Wed Jul 22 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.3-1
 - Re-enable selinux for everything but Fedora 11. (dgoodwin@redhat.com)
 
