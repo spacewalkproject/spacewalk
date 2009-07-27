@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.6.15
+Version:        0.6.16
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Jul 27 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.16-1
+- Add support for PostgreSQL schema. (jortel@redhat.com)
+- Build both database versions from common schema. (jortel@redhat.com)
+- Add spacewalk-schema BuildRequires for chameleon. (dgoodwin@redhat.com)
+
 * Mon Jul 27 2009 John Matthews <jmatthew@redhat.com> 0.6.15-1
 - fixing descritpion on checksums (pkilambi@redhat.com)
 -  Sha256 support for channel creation: (pkilambi@redhat.com)
