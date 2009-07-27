@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.6.10
+Version:        0.6.11
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -100,6 +100,9 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Mon Jul 27 2009 John Matthews <jmatthew@redhat.com> 0.6.11-1
+- 508187 - Fix jabberd configs on x86_64. (dgoodwin@redhat.com)
+
 * Tue Jul 21 2009 John Matthews <jmatthew@redhat.com> 0.6.10-1
 - rhn-load-config.pl - remove accidental 's' (bbuckingham@redhat.com)
 - 511100 - Fixed upgrade scripts to include cobbler.host (paji@redhat.com)
