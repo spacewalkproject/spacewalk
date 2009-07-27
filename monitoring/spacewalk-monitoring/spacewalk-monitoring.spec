@@ -5,12 +5,6 @@
 %define require_selinux 0
 %endif
 
-# No seliux for Fedora 11 (yet):
-%if 0%{?fedora} == 11
-%define require_selinux 0
-%endif
-
-
 Summary:      Spacewalk monitoring
 Name:         spacewalk-monitoring
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
