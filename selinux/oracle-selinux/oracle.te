@@ -106,6 +106,7 @@ gen_require(`
 	type lo_node_t;
 ')
 allow oracle_db_t lo_node_t:udp_socket node_bind;
+corenet_udp_bind_all_nodes(oracle_db_t)
 corenet_udp_bind_generic_node(oracle_db_t)
 
 ###
