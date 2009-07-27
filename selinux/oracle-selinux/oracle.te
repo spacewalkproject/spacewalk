@@ -102,7 +102,10 @@ corenet_udp_sendrecv_all_if(oracle_tnslsnr_t)
 corenet_tcp_sendrecv_all_nodes(oracle_tnslsnr_t)
 corenet_udp_sendrecv_all_nodes(oracle_tnslsnr_t)
 corenet_tcp_connect_generic_port(oracle_tnslsnr_t)
-corenet_udp_bind_lo_node(oracle_db_t)
+gen_require(`
+	type lo_node_t;
+')
+allow oracle_db_t lo_node_t:udp_socket node_bind;
 corenet_udp_bind_generic_node(oracle_db_t)
 
 ###
