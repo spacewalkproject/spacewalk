@@ -202,7 +202,7 @@
 </div>
 
 <c:set var="resultList" value="${requestScope.result}" />
-<rl:listset name="auditList" legend="audit list">
+<rl:listset name="auditList">
     <rl:list dataset="resultList">
         <rl:column sortable="false"
                    bound="false"

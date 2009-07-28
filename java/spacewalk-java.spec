@@ -192,6 +192,7 @@ install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdir}
 install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdirup}
 install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdirwiz}
 install -d -m 755 $RPM_BUILD_ROOT/%{cobdirsnippets}
+install -d -m 755 $RPM_BUILD_ROOT/%{_var}/satellite/systemlogs
 
 install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/logrotate.d
 install -m 755 conf/rhn.xml $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
@@ -207,6 +208,8 @@ ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT/%{_bindir}/taskomaticd
 ln -s -f %{_javadir}/ojdbc14.jar $RPM_BUILD_ROOT%{jardir}/ojdbc14.jar
 install -d -m 755 $RPM_BUILD_ROOT/%{realcobsnippetsdir}
 ln -s -f  %{cobdirsnippets} $RPM_BUILD_ROOT/%{realcobsnippetsdir}/spacewalk
+touch $RPM_BUILD_ROOT/%{_var}/satellite/systemlogs/audit-review.log
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -234,6 +237,8 @@ fi
 %{appdir}/*
 %config(noreplace) %{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
 %{realcobsnippetsdir}/spacewalk
+%attr(755, apache, root) %{_var}/satellite/systemlogs
+%attr(644, tomcat, root) %{_var}/satellite/systemlogs/audit-review.log
 
 %files -n spacewalk-taskomatic
 %attr(755, root, root) %{_initrddir}/taskomatic

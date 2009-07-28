@@ -18,7 +18,7 @@
 <%--
 <div style="font-weight: bold; text-align: center;">Machine: <c:out value="${machine}" /></div>
 --%>
-<rl:listset name="auditList" legend="audit list">
+<rl:listset name="auditList">
     <rl:list>
         <rl:column sortable="true"
                    sortattr="name"

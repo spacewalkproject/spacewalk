@@ -16,7 +16,7 @@
   <bean:message key="audit.overview.jsp.header"/>
 </rhn:toolbar>
 
-<rl:listset name="auditList" legend="audit list">
+<rl:listset name="auditList">
     <rl:list>
         <rl:column sortable="true"
                    sortattr="name"
