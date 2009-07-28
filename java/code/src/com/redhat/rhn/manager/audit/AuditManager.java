@@ -249,10 +249,6 @@ public class AuditManager /* extends BaseManager */ {
         Date lastReview, firstUnreviewed;
         LinkedList<AuditMachineDto> hosts = new LinkedList<AuditMachineDto>();
 
-        if (!logDir.exists()) {
-            return new DataResult<AuditMachineDto>(null);
-        }
-
         for (File host : logDir.listFiles()) {
             if (host.isDirectory()) {
                 aurev = getLastReview(host.getName());
