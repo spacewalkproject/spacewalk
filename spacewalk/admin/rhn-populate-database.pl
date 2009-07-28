@@ -106,7 +106,11 @@ if ($clear_db) {
   RHN::SatInstall->clear_db();
 }
 
+# Only used for PostgreSQL:
 my $populate_cmd = "";
+# Only used for Oracle:
+my $dsn = sprintf('%s/%s@%s', $user, $password, $database);
+
 if ($postgresql) {
     print "*** Installing PostgreSQL schema.\n";
     chdir("/usr/share/spacewalk/schema/postgresql/");
@@ -114,7 +118,6 @@ if ($postgresql) {
 }
 else {
     print "*** Installing Oracle schema.\n";
-    my $dsn = sprintf('%s/%s@%s', $user, $password, $database);
     $populate_cmd = "sqlplus $dsn \@$schema_deploy_file";
     chdir;
 }
@@ -125,9 +128,20 @@ if (defined $log_file) {
   if (Spacewalk::Setup::have_selinux()) {
     system('/sbin/restorecon', $log_file) == 0 or die "Error running restorecon on $log_file.";
   }
-  $pid = open3(gensym, ">&LOGFILE", ">&LOGFILE", $populate_cmd); 
-} else {
-  $pid = open3(gensym, ">&STDOUT", ">&STDERR", $populate_cmd);
+  if ($postgresql) {
+    $pid = open3(gensym, ">&LOGFILE", ">&LOGFILE", $populate_cmd);
+  }
+  else {
+    $pid = open3(gensym, ">&LOGFILE", ">&LOGFILE", 'sqlplus', $dsn, "\@$schema_deploy_file");
+  }
+}
+else {
+  if ($postgresql) {
+    $pid = open3(gensym, ">&STDOUT", ">&STDERR", $populate_cmd);
+  }
+  else {
+    $pid = open3(gensym, ">&STDOUT", ">&STDERR", 'sqlplus', $dsn, "\@$schema_deploy_file");
+  }
 }
 
 waitpid($pid, 0);
