@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 0.6.2
+Version: 0.6.3
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Tue Jul 28 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.3-1
+- Fix Oracle db population logging. (dgoodwin@redhat.com)
+
 * Mon Jul 27 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.2-1
 - Fix Oracle logging to populate-db.log. (dgoodwin@redhat.com)
 - Fix some merge errors in rhn-populate-database.pl. (dgoodwin@redhat.com)
