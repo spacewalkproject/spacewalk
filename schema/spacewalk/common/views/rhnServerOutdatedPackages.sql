@@ -27,7 +27,7 @@ AS
 SELECT DISTINCT SNPC.server_id,
        P.name_id, 
        P.evr_id, 
-       PN.name || '-' || PE.evr.as_vre_simple(),
+       PN.name || '-' || evr_t_as_vre_simple( PE.evr ),
        E.id,
        E.advisory
   FROM rhnPackageName PN,
