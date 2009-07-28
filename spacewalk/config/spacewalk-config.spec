@@ -96,22 +96,6 @@ export ORACLE_HOME=/opt/oracle
 export NLS_LANG=english.AL32UTF8
 EOF
 
-if [ "$1" -eq "1" ]; then
-        #replace default passwords, yes its kinda hackish 
-        export NEWPASS=$( dd if=/dev/urandom bs=20 count=1 2>/dev/null \
-                                | sha1sum | awk '{print $1}' )
-        %{__sed} -i -f- %{_sysconfdir}/jabberd/*.xml <<END
-s,<secret>.*</secret>,<secret>$NEWPASS</secret>,g
-END
-        %{__sed} -i -f- %{_sysconfdir}/jabberd/*.xml <<END
-s,<pass>.*</pass>,<pass>$NEWPASS</pass>,g
-END
-        %{__sed} -i -f- %{_sysconfdir}/sysconfig/rhn-satellite-prep/etc/jabberd/*.xml <<END
-s,<pass>@@pass@@</pass>,<pass>$NEWPASS</pass>,g
-END
-
-fi
-
 
 %changelog
 * Mon Jul 27 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.11-1

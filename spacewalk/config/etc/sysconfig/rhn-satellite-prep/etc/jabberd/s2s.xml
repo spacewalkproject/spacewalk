@@ -16,7 +16,7 @@
 
     <!-- Username/password to authenticate as -->
     <user>jabberd</user>          <!-- default: jabberd -->
-    <pass>@@pass@@</pass>           <!-- default: secret -->
+    <pass>@@jabberDOTdbpass@@</pass>           <!-- default: secret -->
 
     <!-- The router will only allow one component to be the default
          route (ie the component that receives packets destined for

@@ -965,6 +965,9 @@ sub populate_initial_configs {
       $jabberdLibDir = "/usr/lib64/jabberd";
   }
 
+  # Generate a random password for jabberd:
+  my $jabberdRouterPassword = `dd if=/dev/urandom bs=20 count=1 2>/dev/null | sha1sum | awk '{print \$1}'`;
+
   my %config_opts =
     (
      mount_point => $answers->{'mount-point'} || '/var/satellite',
@@ -975,7 +978,6 @@ sub populate_initial_configs {
      webDOTis_monitoring_backend => 0,
      webDOTis_monitoring_scout => 0,
      webDOTenable_solaris_support => 0,
-     jabberDOThostname => $answers->{hostname},
      osadispatcherDOTosa_ssl_cert => '/var/www/html/pub/RHN-ORG-TRUSTED-SSL-CERT',
      encrypted_passwords => 1,
      default_db => sprintf('%s/%s@%s', @{$answers}{qw/db-user db-password db-sid/}),
@@ -989,9 +991,11 @@ sub populate_initial_configs {
      hibernate_driver => $hibernate_driver,
      hibernate_url => $hibernate_url,
      traceback_mail => $answers->{'admin-email'},
-     jabberDOTusername => 'rhn-dispatcher-sat',
+     jabberDOThostname => $answers->{hostname},
      jabberDOTlibdir => $jabberdLibDir,
-     jabberDOTpassword => 'rhn-dispatcher-' . random_password(6),
+     jabberDOTdbpass => $jabberdRouterPassword,
+     osadispatcherDOTusername => 'rhn-dispatcher-sat',
+     osadispatcherDOTpassword => 'rhn-dispatcher-' . random_password(6),
      serverDOTsatelliteDOTca_chain => '/usr/share/rhn/RHNS-CA-CERT',
      serverDOTnls_lang => 'english.' . $charset,
      server_secret_key => generate_secret(),
