@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.37
+Version: 0.6.38
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -252,6 +252,12 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Tue Jul 28 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.38-1
+-  Adding a new create channel api using checksumtype as a params.
+  (pkilambi@redhat.com)
+- 513786 - api - org.create - update api to support pam authentication
+  (bbuckingham@redhat.com)
+
 * Mon Jul 27 2009 John Matthews <jmatthew@redhat.com> 0.6.37-1
 - 513683 - Added 'link' as a network device option (paji@redhat.com)
 - 515539 - Made the cobbler create system record command always delete and
