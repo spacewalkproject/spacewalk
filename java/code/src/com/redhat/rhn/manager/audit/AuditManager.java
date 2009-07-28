@@ -249,7 +249,7 @@ public class AuditManager /* extends BaseManager */ {
         Date lastReview, firstUnreviewed;
         LinkedList<AuditMachineDto> hosts = new LinkedList<AuditMachineDto>();
 
-        if (logDir == null) {
+        if (!logDir.exists()) {
             return new DataResult<AuditMachineDto>(null);
         }
 
