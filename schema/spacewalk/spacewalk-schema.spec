@@ -29,7 +29,7 @@ Oracle tablespace name conversions have NOT been applied.
 %setup -q
 
 %build
-make -f Makefile.schema
+make -f Makefile.schema SCHEMA=%{name} VERSION=%{version} RELEASE=%{release}
 pod2man spacewalk-schema-upgrade spacewalk-schema-upgrade.1
 
 %install
