@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.6.12
+Version: 0.6.13
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -98,6 +98,10 @@ EOF
 
 
 %changelog
+* Wed Jul 29 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.13-1
+- Add router.xml and router-users.xml to jabberd configs we deploy.
+  (dgoodwin@redhat.com)
+
 * Tue Jul 28 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.12-1
 - Better jabberd password replacement for upgrades. (dgoodwin@redhat.com)
 
