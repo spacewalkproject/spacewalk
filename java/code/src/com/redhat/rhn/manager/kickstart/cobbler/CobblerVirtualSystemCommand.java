@@ -22,12 +22,12 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
+import org.cobbler.Network;
 import org.cobbler.SystemRecord;
 
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -95,21 +95,18 @@ public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
     }
 
     @Override
-    protected void processNetworkInterfaces(String handleIn,
-            String xmlRpcTokenIn, Server serverIn) {
+    protected void processNetworkInterfaces(SystemRecord rec, Server serverIn) {
         log.debug("processNetworkInterfaces called.");
-
         String newMac = (String) invokeXMLRPC("get_random_mac", Collections.EMPTY_LIST);
-        Map inet = new HashMap();
-        inet.put("macaddress-" + "eth0", newMac);
-
-        Object[] args = new Object[]{handleIn, "modify-interface",
-                inet, xmlRpcTokenIn};
-        invokeXMLRPC("modify_system", Arrays.asList(args));
+        Network net = new Network("eth0");
+        net.setMacAddress(newMac);
+        List<Network> nics = new LinkedList<Network>();
+        nics.add(net);
+        rec.setNetworkInterfaces(nics);
     }
 
 
-    protected String lookupExisting() {
+    protected SystemRecord lookupExisting() {
         log.debug("lookupExisting called.");
 
         SystemRecord rec = SystemRecord.lookupByName(
@@ -118,8 +115,7 @@ public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
             return null;
         }
         else {
-            return (String) invokeXMLRPC("get_system_handle",
-                    rec.getName(), xmlRpcToken);
+            return rec;
         }
     }
 

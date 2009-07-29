@@ -156,7 +156,9 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
                 ScheduleKickstartWizardAction.POST_KERNEL_PARAMS_TYPE));
         com.setCustomPostKernelParams(dynaForm.getString(
                 ScheduleKickstartWizardAction.POST_KERNEL_PARAMS));
-
+        com.setNetworkDevice(dynaForm.getString(ScheduleKickstartWizardAction.NETWORK_TYPE),
+                            dynaForm.getString(
+                                    ScheduleKickstartWizardAction.NETWORK_INTERFACE));
         List<ValidatorError> errors = com.store();
         return com.getScheduledActions();
     }
@@ -166,7 +168,6 @@ public class SsmKSScheduleAction extends RhnAction implements Listable {
      * {@inheritDoc}
      */
     public List getResult(RequestContext ctx) {
-
         if (isIP(ctx.getRequest())) {
             return Collections.EMPTY_LIST;
         }

@@ -23,15 +23,17 @@ import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.cobbler.Network;
+import org.cobbler.Profile;
 import org.cobbler.SystemRecord;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -55,13 +57,15 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     private String kickstartHost;
     private String kernelOptions;
     private String postKernelOptions;
-    private String staticNetwork;
-
+    private String networkInterface;
+    private boolean isDhcp;
     /**
-     * @param staticNetworkIn The staticNetwork to set.
+     * @param dhcp true if the network type is dhcp
+     * @param networkInterfaceIn The name of the network interface
      */
-    public void setStaticNetwork(String staticNetworkIn) {
-        staticNetwork = staticNetworkIn;
+    public void setNetworkInfo(boolean dhcp, String networkInterfaceIn) {
+        isDhcp = dhcp;
+        networkInterface = networkInterfaceIn;
     }
 
     /**
@@ -132,31 +136,28 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         profileName = nameIn;
     }    
   
-    protected String lookupExisting() {
-        String sysname = null;
+    protected SystemRecord lookupExisting() {
         if (server.getCobblerId() != null) {
             SystemRecord rec;
             rec = SystemRecord.lookupById(CobblerXMLRPCHelper.getConnection(user),
                     server.getCobblerId());
             if (rec != null) {
-                sysname = rec.getName();
+                return rec;
             }
         }
         //lookup by ID failed, so lets try by mac
-        if (sysname == null) {
-            Map sysmap = getSystemMapByMac();
-            if (sysmap != null) {
-                log.debug("getSystemHandleByMAC.found match.");
-                sysname = (String) sysmap.get("name");
+
+        Map sysmap = getSystemMapByMac();
+        if (sysmap != null) {
+            log.debug("getSystemHandleByMAC.found match.");
+            String uid = (String) sysmap.get("uid");
+            SystemRecord rec;
+            rec = SystemRecord.lookupById(CobblerXMLRPCHelper.getConnection(user),
+                    server.getCobblerId());
+            if (rec != null) {
+                return rec;
             }
         }
-        if (sysname != null) {
-            String handle = (String) invokeXMLRPC("get_system_handle",
-                    sysname, xmlRpcToken);
-            log.debug("getSystemHandleByMAC.returning handle: " + handle);
-            return handle;
-        }
-
         return null;
     }
     
@@ -200,7 +201,6 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
             }
         }
         return null;
-        
     }
 
 
@@ -209,58 +209,44 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      * @return ValidatorError if the store failed.
      */
     public ValidatorError store() {
-        String handle = null;
+        Profile profile = Profile.lookupByName(getCobblerConnection(), profileName);
         // First lookup by MAC addr
-        handle = lookupExisting();
-        if (handle == null) {
+        SystemRecord rec = lookupExisting();
+        if (rec == null) {
             // Next try by name
-            try {
-                handle = (String) invokeXMLRPC("get_system_handle",
-                        getCobblerSystemRecordName(), xmlRpcToken);
-                log.debug("Did we find handle by name: " + handle);
-            } 
-            catch (RuntimeException e) {
-                log.debug("No system by that name either.  create a new one");
-            }
-        }
-        // Else, lets make a new system
-        if (handle == null) {
-            handle = (String) invokeXMLRPC("new_system", xmlRpcToken);
-            log.debug("handle: " + handle);
-            invokeXMLRPC("modify_system", handle, "name", getCobblerSystemRecordName(),
-                                     xmlRpcToken);
+            rec = SystemRecord.lookupByName(getCobblerConnection(user),
+                                                getCobblerSystemRecordName());
         }
         
-        if (this.server.getNetworkInterfaces() != null &&
-                !this.server.getNetworkInterfaces().isEmpty()) {
-            processNetworkInterfaces(handle, xmlRpcToken, server);
+        // Else, lets make a new system
+        if (rec == null) {
+            rec = SystemRecord.create(getCobblerConnection(),
+                                                    getCobblerSystemRecordName(),
+                                                    profile);
         }
-
-        Object[] args = new String[]{handle, "profile", 
-                profileName, xmlRpcToken};
-        invokeXMLRPC("modify_system", Arrays.asList(args));
+        processNetworkInterfaces(rec, server);
+        rec.setProfile(profile);
         
         if (this.activationKeys == null || this.activationKeys.length() == 0) {
             log.error("This cobbler profile does not " +
                 "have a redhat_management_key set ");
         }
         else {
-            invokeXMLRPC("modify_system", handle, "redhat_management_key",
-                                            this.activationKeys, xmlRpcToken);
+            rec.setRedHatManagementKey(activationKeys);
         }
-
-
         if (!StringUtils.isBlank(getKickstartHost())) {
-            invokeXMLRPC("modify_system", handle, "server",
-                                getKickstartHost(), xmlRpcToken);
+            rec.setServer(getKickstartHost());
         }
         else {
-            invokeXMLRPC("modify_system", handle, "server",
-                    "", xmlRpcToken);
+            rec.setServer("");
         }
 
         // Setup the kickstart metadata so the URLs and activation key are setup
-        Map ksmeta = new HashMap();
+        Map<String, Object> ksmeta = rec.getKsMeta();
+        if (ksmeta == null) {
+            ksmeta = new HashMap<String, Object>();
+        }
+
         if (!StringUtils.isBlank(mediaPath)) {
             ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE,
                                                     this.mediaPath);            
@@ -269,35 +255,14 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
             ksmeta.put(SystemRecord.REDHAT_MGMT_SERVER,
                     getKickstartHost());
         }
-
-        args = new Object[]{handle, "ksmeta", 
-                ksmeta, xmlRpcToken};
-        invokeXMLRPC("modify_system", Arrays.asList(args));
-        
-        invokeXMLRPC("save_system", handle, xmlRpcToken);
-        Map cSystem = getSystemMapByMac();
-        // Virt system records have no mac/interfaces setup so we search on name
-        if (cSystem == null) {
-            cSystem = getSystemMapByName();
-        }
-        server.setCobblerId((String)cSystem.get("uid"));        
-        SystemRecord record = SystemRecord.lookupById(getCobblerConnection(),
-                server.getCobblerId());
-        record.setKernelOptions(kernelOptions);
-        record.setKernelPostOptions(postKernelOptions);
-        
-        record.save();
+        ksmeta.remove(KickstartFormatter.STATIC_NETWORK_VAR);
+        rec.setKsMeta(ksmeta);
+        rec.setKernelOptions(kernelOptions);
+        rec.setKernelPostOptions(postKernelOptions);
+        rec.save();
+        server.setCobblerId(rec.getId());
         return null;
     }
-
-    private Map getSystemMapByName() {
-        List < String > args = new ArrayList();
-        args.add(getCobblerSystemRecordName());
-        args.add(xmlRpcToken);
-        Map retval = (Map) invokeXMLRPC("get_system", args);
-        return retval;
-    }
-
     /**
      * Get the cobbler system record name for this system.
      * @return String name of cobbler system record. 
@@ -308,31 +273,25 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
             this.server.getOrg().getId();
     }
     
-    protected void processNetworkInterfaces(String handleIn, 
-            String xmlRpcTokenIn,
-            Server serverIn) {
-        Map inet = new HashMap();
-        for (NetworkInterface n : serverIn.getNetworkInterfaces()) {
-            if (n.isValid()) {
-                inet.put("macaddress-" + n.getName(), n.getHwaddr());
-                if (!StringUtils.isBlank(n.getIpaddr())) {
-                    inet.put("ipaddress-" + n.getName(), n.getIpaddr());
-                }
-                if (!StringUtils.isBlank(n.getNetmask())) {
-                    inet.put("subnet-" + n.getName(), n.getNetmask());
-                }
-                if (!StringUtils.isBlank(staticNetwork) &&
-                        n.getName().equals(staticNetwork)) {
-                    inet.put("static-" + n.getName(), Boolean.TRUE);
+    protected void processNetworkInterfaces(SystemRecord rec, 
+                                                Server serverIn) {
+        List <Network> nics = new LinkedList<Network>();
+        if (serverIn.getNetworkInterfaces() != null) {
+            for (NetworkInterface n : serverIn.getNetworkInterfaces()) {
+                if (n.isPublic()) {
+                    Network net = new Network(n.getName());
+                    net.setIpAddress(n.getIpaddr());
+                    net.setMacAddress(n.getHwaddr());
+                    net.setNetmask(n.getNetmask());
+                    if (!StringUtils.isBlank(networkInterface) &&
+                            n.getName().equals(networkInterface)) {
+                        net.setStaticNetwork(!isDhcp);
+                    }
+                    nics.add(net);
                 }
             }
         }
-        log.debug("Networks: " + inet);
-        
-        Object[] args = new Object[]{handleIn, "modify-interface", 
-                inet, xmlRpcTokenIn};
-        invokeXMLRPC("modify_system", Arrays.asList(args));
-
+        rec.setNetworkInterfaces(nics);
     }
 
     /**
