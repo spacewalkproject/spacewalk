@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.6.11
+Version: 0.6.12
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -98,6 +98,9 @@ EOF
 
 
 %changelog
+* Tue Jul 28 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.12-1
+- Better jabberd password replacement for upgrades. (dgoodwin@redhat.com)
+
 * Mon Jul 27 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.11-1
 - Populate Hibernate settings in rhn.conf for both Oracle and PostgreSQL.
   (dgoodwin@redhat.com)
