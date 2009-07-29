@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.6.13
+Version:        0.6.14
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,7 +101,7 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
-* Tue Jul 28 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.13-1
+* Tue Jul 28 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.14-1
 - Fix rhn.conf population of Hibernate dialect/driver/url settings.
   (dgoodwin@redhat.com)
 - Fix spacewalk-setup pgsql changes lost during merges. (dgoodwin@redhat.com)
