@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.15
+Version: 0.6.16
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -317,6 +317,16 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Jul 29 2009 John Matthews <jmatthew@redhat.com> 0.6.16-1
+- 512440 - SetHandler to none to allow ProxyPass on /cobbler* and /cblr to
+  work. (jpazdziora@redhat.com)
+- 512440 - Revert parts of "512440 - Fixed the proxies to turn SSLProxyEngine
+  to deal with Cobbler KS files" (jpazdziora@redhat.com)
+- 512440 - Revert "512440 - Fixed the proxies to turn SSLProxyEngine to deal
+  with Cobbler KS files" (jpazdziora@redhat.com)
+-  Adding a new create channel api using checksumtype as a params.
+  (pkilambi@redhat.com)
+
 * Mon Jul 27 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.15-1
 - Prep perl stack for PostgreSQL connections. (dgoodwin@redhat.com)
 - Remove use of RHN_DEFAULT_DB environment variable for db connections.
