@@ -1,0 +1,201 @@
+<!-- Router configuration -->
+<router>
+  <!-- ID of the router on the network (default: router) -->
+  <id>router</id>
+
+  <!-- The process ID file. Comment this out if you don't need to know
+       the process ID from outside the process (eg for control scripts) -->
+  <pidfile>/var/lib/jabberd/pid/router.pid</pidfile>
+
+  <!-- Log configuration - type is "syslog", "file" or "stdout" -->
+  <log type='syslog'>
+    <!-- If logging to syslog, this is the log ident -->
+    <ident>jabberd/router</ident>
+
+    <!-- If logging to syslog, this is the log facility
+         (local0 - local7)                        [default: local3] -->
+    <facility>local3</facility>
+
+    <!-- If logging to file, this is the filename of the logfile -->
+    <!--
+    <file>/var/lib/jabberd/log/router.log</file>
+    -->
+  </log>
+
+  <!-- Local network configuration -->
+  <local>
+    <!-- IP address to bind to (default: 0.0.0.0) -->
+    <ip>0.0.0.0</ip>
+
+    <!-- Port to bind to (default: 5347) -->
+    <port>5347</port>
+
+    <!-- File containing the user table. This is where the router gets
+         its component and secret information from for component
+         authentication.-->
+    <users>/etc/jabberd/router-users.xml</users>
+
+    <!-- Shared secret used to identify XEP-0114 components (that is,
+         "jabber:component:accept" components that authenticate using
+         the Jabber Component Protocol's "handshake", for example
+         mu-conference). If this is commented out, support for XEP-0114
+         components will be disabled. -->
+    <secret>@@jabberDOTdbpass@@</secret>
+
+    <!-- File containing an SSL certificate and private key for client
+         connections. From SSL_CTX_use_certificate_chain_file(3):
+         "The certificates must be in PEM format and must be sorted
+         starting with the subject's certificate (actual client or
+         server certificate), followed by intermediate CA certificates
+         if applicable, and ending at the highest level (root) CA"
+         (the latter one being optional).
+         If this is commented out, connecting components will not be able
+         to request an SSL-encrypted channel. -->
+    <!--
+    <pemfile>/etc/jabberd/server.pem</pemfile>
+    -->
+  </local>
+
+  <!-- Timed checks -->
+  <check>
+    <!-- Interval between checks.
+
+         Checks will be run every n seconds.
+
+         0 disables all checks.                       (default: 60) -->
+    <interval>60</interval>
+
+    <!-- Keepalives.
+         Connections that have not been used for longer than
+         this many seconds will have a single whitespace character sent
+         to them. This will force the TCP connection to be closed if
+         they have disconnected without us knowing about it.
+         0 disables keepalives.                       (default: 0) -->
+     <keepalive>0</keepalive>
+
+  </check>
+
+  <!-- input/output settings -->
+  <io>
+    <!-- Maximum number of file descriptors. Note that the number of
+         possible connections will be slightly less than this, because
+         the router itself can use up four on its own. If the supply of
+         file descriptors is exhausted, new incoming connections will be
+         denied.
+
+         These file descriptors are really only used when a component
+         connects to the router. So unless you have a lot of components
+         for some reason then you probably don't need to change this
+         value.
+
+         (default: 1024) -->
+    <max_fds>1024</max_fds>
+
+    <!-- Rate limiting -->
+    <limits>
+      <!-- Maximum bytes per second - if more than X bytes are sent in Y
+           seconds, connection is throttled for Z seconds. The format
+           is:
+
+             <bytes seconds='Y' throttle='Z'>X</bytes>
+
+           Default Y is 1, default Z is 5. set X to 0 to disable. -->
+      <bytes>0</bytes>
+
+      <!-- Maximum connects per second - if more than X connects are
+           attempted from a single IP in Y seconds, that IP is throttled
+           for Z seconds. The format is:
+
+             <connects seconds='Y' throttle='Z'>X</connects>
+
+           Default Y is 5, default Z is 5. set X to 0 to disable. -->
+      <connects>0</connects>
+    </limits>
+
+    <!-- IP-based access controls. If a connection IP matches an allow
+         rule, the connection will be accepted. If a connecting IP
+         matches a deny rule, the connection will be refused. If the
+         connecting IP does not match any rules, or it matches both an
+         allow and a deny rule, the contents of the <order/> option
+         determines what happens. -->
+    <access>
+      <!-- Rule check order (default: allow,deny)
+
+           allow,deny - Check allow rules, then check deny rules.
+                        Allow by default.
+           deny,allow - Check deny rules, then check allow rules.
+                        Deny by default. -->
+      <order>allow,deny</order>
+
+      <!-- Allow a network. If the mask isn't specified, it defaults to
+           255.255.255.255 (ie allow onle the specified IP) -->
+      <!--
+      <allow ip='127.0.0.0' mask='255.0.0.0'/>
+      -->
+
+      <!-- Allow a single host -->
+      <!--
+      <allow ip='12.34.56.78'/>
+      -->
+
+      <!-- Deny a network or a host -->
+      <!--
+      <deny ip='127.0.0.1' mask='255.0.0.0'/>
+      <deny ip='87.65.43.21'/>
+      -->
+    </access>
+  </io>
+
+  <!-- Name aliases.
+
+       Packets destined for the domain specified in the "name" attribute
+       will be routed to the component that has currently bound the name
+       in the "target" attribute (assuming it is online).
+
+       This is usually only required for some kinds of legacy
+       components (particularly jabberd 1.4 "uplink" components) -->
+  <aliases>
+    <!-- Example for a MUC component running from a jabberd 1.4 uplink -->
+    <!--
+    <alias name='conference.domain.com' target='muclinker'/>
+    -->
+  </aliases>
+
+  <!-- Access control information -->
+  <aci>
+    <!-- The usernames listed here will get access to all restricted
+         functions, regardless of restrictions further down -->
+    <acl type='all'>
+      <user>jabberd</user>
+    </acl>
+
+    <!-- These users can bind names other than their username -->
+    <!--
+    <acl type='bind'>
+    </acl>
+    -->
+
+    <!-- These users can bind a name as a default route -->
+    <!--
+    <acl type='default-route'>
+      <user>s2s</user>
+    </acl>
+    -->
+
+    <!-- These users can elect to receive all packets that pass through the router -->
+    <!--
+    <acl type='log'>
+      <user>msglog</user>
+    </acl>
+    -->
+
+    <!-- File containing packet filter rules.
+         May be used for fine grained packet routing control. -->
+    <filter>/etc/jabberd/router-filter.xml</filter>
+
+  </aci>
+
+</router>
+<!--
+  vim: syntax=xml
+-->
