@@ -96,10 +96,9 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
     public static final String HOST_SID = "hostSid";
     public static final String VIRT_HOST_IS_REGISTERED = "virtHostIsRegistered";
     public static final String TARGET_PROFILE_TYPE = "targetProfileType";
-    public static final String NETWORK_TYPE_DHCP = "networkTypeDhcp";
+    public static final String NETWORK_TYPE = "networkType";
     public static final String NETWORK_INTERFACE = "networkInterface";
-    public static final String DHCP_NETWORK_INTERFACES = "dhcpNetworkInterfaces";
-    public static final String STATIC_NETWORK_INTERFACES = "staticNetworkInterfaces";
+    public static final String NETWORK_INTERFACES = "networkInterfaces";
     /**
      * {@inheritDoc}
      */
@@ -192,15 +191,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                 itr.remove();
             }
         }
-        context.getRequest().setAttribute(STATIC_NETWORK_INTERFACES, nics);
-        List<NetworkInterface> dhcpNics = new LinkedList<NetworkInterface>(nics);
-        NetworkInterface link = new NetworkInterface();
-        link.setName("link");
-        dhcpNics.add(0, link);
-        context.getRequest().setAttribute(DHCP_NETWORK_INTERFACES, dhcpNics);
-        if (form.get(NETWORK_TYPE_DHCP) == null) {
-            form.set(NETWORK_TYPE_DHCP, Boolean.TRUE);
-        }
+        context.getRequest().setAttribute(NETWORK_INTERFACES, nics);
 
         if (StringUtils.isBlank(form.getString(NETWORK_INTERFACE))) {
             String defaultInterface = ConfigDefaults.get().
@@ -215,8 +206,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                 form.set(NETWORK_INTERFACE, server.
                             findPrimaryNetworkInterface().getName());
             }
-
-        }        
+        }
     }
     
     /**
@@ -378,7 +368,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             if (cmd.getServer().getCobblerId() != null) {
                 SystemRecord rec = SystemRecord.
                         lookupById(con, cmd.getServer().getCobblerId());
-                if (rec != null && profile.getName().equals(rec.getProfile())) {
+                if (rec != null && profile.getName().equals(rec.getProfile().getName())) {
                     if (StringUtils.isBlank(form.getString(KERNEL_PARAMS_TYPE))) {
                         form.set(KERNEL_PARAMS_TYPE, KERNEL_PARAMS_CUSTOM);
                         form.set(KERNEL_PARAMS, rec.getKernelOptionsString());
@@ -425,8 +415,8 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         KickstartHelper helper = new KickstartHelper(ctx.getRequest());
         KickstartScheduleCommand cmd = getScheduleCommand(form, ctx,
                 scheduleTime, helper.getKickstartHost());
-        
-        cmd.setNetworkDevice(Boolean.TRUE.equals(form.get(NETWORK_TYPE_DHCP)),
+
+        cmd.setNetworkDevice(form.getString(NETWORK_TYPE),
                                             form.getString(NETWORK_INTERFACE));
         cmd.setKernelOptions(parseKernelOptions(form, ctx.getRequest(),
                             form.getString(RequestContext.COBBLER_ID), false));

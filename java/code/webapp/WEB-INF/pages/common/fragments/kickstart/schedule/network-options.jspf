@@ -5,22 +5,22 @@
       <tr>
         <th><bean:message key="kickstart.netconn.jsp.label" />:</th>
         <td>
-		<input type="radio" name="networkTypeDhcp" value="true"
+		<input type="radio" name="networkType" value="dhcp"
 				onclick="form.dhcpNetworkId.disabled = false; form.staticNetworkId.disabled = true;"
-				<c:if test="${form.networkTypeDhcp or empty form.networkTypeDhcp}">checked="checked"</c:if>
+				<c:if test="${form.networkType == 'dhcp'}">checked="checked"</c:if>
 				  />
               <bean:message key="kickstart.netconn.dhcp.jsp.label"/>&nbsp;
 		<c:choose>
-		<c:when test="${empty requestScope.dhcpNetworkInterfaces}">
+		<c:when test="${empty requestScope.networkInterfaces}">
         <input type="text" name="networkInterface" id="dhcpNetworkId" size="4" maxlength="10"
-			<c:if test="${not form.networkTypeDhcp}">disabled="true"</c:if>
+			<c:if test="${form.networkType ne 'dhcp'}">disabled="true"</c:if>
 			 value="${form.networkInterface}"/>
 		</c:when>
 		<c:otherwise>
 		<select name="networkInterface" id="dhcpNetworkId"
-			<c:if test="${not form.networkTypeDhcp}">disabled="true"</c:if>
+			<c:if test="${form.networkType ne 'dhcp'}">disabled="true"</c:if>
 			>
-			<c:forEach var="nic" items="${requestScope.dhcpNetworkInterfaces}">
+			<c:forEach var="nic" items="${requestScope.networkInterfaces}">
 				<option
 				<c:if test="${nic.name == form.networkInterface}">selected="selected"</c:if>
 				value='${nic.name}'>${nic.name}</option>
@@ -29,22 +29,23 @@
 		</c:otherwise>
 		</c:choose>
 		<br />
-		<input type="radio" name="networkTypeDhcp" value="false"
+		<c:if test="${empty noStatic}">
+		<input type="radio" name="networkType" value="static"
 				onclick="form.staticNetworkId.disabled = false;form.dhcpNetworkId.disabled = true;"
-				<c:if test="${not form.networkTypeDhcp}">checked="checked"</c:if>
+				<c:if test="${not form.networkType}">checked="checked"</c:if>
 				  />
               <bean:message key="kickstart.netconn.static.jsp.label"/>&nbsp;
 		<c:choose>
-		<c:when test="${empty requestScope.staticNetworkInterfaces}">
+		<c:when test="${empty requestScope.networkInterfaces}">
         <input type="text" name="networkInterface" id="staticNetworkId" size="4" maxlength="10"
-                       <c:if test="${form.networkTypeDhcp}">disabled="true"</c:if>
+                       <c:if test="${form.networkType ne 'static'}">disabled="true"</c:if>
                         value="${form.networkInterface}"/>
 		</c:when>
 		<c:otherwise>
 		<select name="networkInterface" id="staticNetworkId"
-			<c:if test="${form.networkTypeDhcp}">disabled="true"</c:if>
+			<c:if test="${form.networkType ne 'static'}">disabled="true"</c:if>
 			>
-			<c:forEach var="nic" items="${requestScope.staticNetworkInterfaces}">
+			<c:forEach var="nic" items="${requestScope.networkInterfaces}">
 				<option
 				<c:if test="${nic.name == form.networkInterface}">selected="selected"</c:if>
 				value='${nic.name}'>${nic.name}</option>
@@ -52,5 +53,12 @@
 		</select>
 		</c:otherwise>
 		</c:choose>
+		<br />
+		</c:if>
+		<input type="radio" name="networkType" value="link"
+				onclick="form.staticNetworkId.disabled = true;form.dhcpNetworkId.disabled = true;"
+				<c:if test="${form.networkType == 'link' or empty form.networkType}">checked="checked"</c:if>
+				  />
+              <bean:message key="kickstart.netconn.dhcp.jsp.link"/>&nbsp;
         </td>
       </tr>

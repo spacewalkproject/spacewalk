@@ -16,6 +16,7 @@
 package org.cobbler;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ public class SystemRecord extends CobblerObject {
     private static final String NAME_SERVERS = "name_servers";
     private static final String GATEWAY = "gateway";
     private static final String PROFILE = "profile";
+    private static final String SERVER = "server";
     private static final String VIRT_BRIDGE = "virt_bridge";
     private static final String VIRT_CPUS = "virt_cpus";
     private static final String VIRT_TYPE = "virt_type";
@@ -39,6 +41,8 @@ public class SystemRecord extends CobblerObject {
     private static final String VIRT_RAM = "virt_ram";
     private static final String NETBOOT_ENABLED = "netboot_enabled";
     public static final String REDHAT_MGMT_SERVER = "redhat_management_server";
+    private static final String SET_INTERFACES = "modify-interface";
+    private static final String GET_INTERFACES = "interface";
     
     private SystemRecord(CobblerConnection clientIn) {
         client = clientIn;
@@ -48,13 +52,16 @@ public class SystemRecord extends CobblerObject {
      * Create a new system record in cobbler 
      * @param client the xmlrpc client
      * @param name the system record name
+     * @param profile the profile to be associated to this system
      * @return the newly created system record
      */
     public static SystemRecord create(CobblerConnection client, 
-                                String name) {
+                                String name,
+                                Profile profile) {
         SystemRecord sys = new SystemRecord(client);
         sys.handle = (String) client.invokeTokenMethod("new_system");
         sys.modify(NAME, name);
+        sys.setProfile(profile);
         sys.save();
         sys = lookupByName(client, name);
         return sys;
@@ -199,8 +206,8 @@ public class SystemRecord extends CobblerObject {
      /**
      * @return the Cobbler Profile name
      */
-     public String getProfile() {
-         return (String)dataMap.get(PROFILE);
+     public Profile getProfile() {
+         return Profile.lookupByName(client, (String)dataMap.get(PROFILE));
      }
 
      /**
@@ -244,6 +251,7 @@ public class SystemRecord extends CobblerObject {
      public int getVirtRam() {
          return (Integer)dataMap.get(VIRT_RAM);
      }
+
      /**
       * true if netboot enabled is true
       * false other wise
@@ -322,5 +330,57 @@ public class SystemRecord extends CobblerObject {
        */
       public void  setHostName(String hostname) {
           modify(HOSTNAME, hostname);
+      }
+
+      /**
+       * Associates a profile to this system record
+       * @param profile the profile to associate
+       */
+      public void  setProfile(Profile profile) {
+          setProfile(profile.getName());
+      }
+
+      /**
+       * Associates a profile to this system record 
+       * @param profileName the name of the profile
+       */
+      public void  setProfile(String profileName) {
+          modify(PROFILE, profileName);
+      }
+
+      /**
+       * Sets the cobbler server host information for this system
+       * @param server the server host name.
+       */
+      public void  setServer(String server) {
+          modify(SERVER, server);
+      }
+
+      /**
+       * Sets the network interfaces available to this system
+       * @param interfaces a list of network interfaces
+       */
+      public void setNetworkInterfaces(List<Network> interfaces) {
+          Map<String, Object> ifaces = new HashMap<String, Object>();
+          for (Network net : interfaces) {
+              ifaces.putAll(net.toMap());
+          }
+          modify(SET_INTERFACES, ifaces);
+      }
+
+      /**
+       * @return a list of network interfaces associated to this system
+       */
+      public List<Network>  getNetworkInterfaces() {
+          reload();
+          List<Network> networks = new LinkedList<Network>();
+          Map<String, Map<String, Object>> interfaces = (Map<String, Map<String, Object>>)
+                                                      dataMap.get(GET_INTERFACES);
+          if (interfaces != null) {
+              for (String name : interfaces.keySet()) {
+                  networks.add(Network.load(name, interfaces.get(name)));
+              }
+          }
+          return networks;
       }
 }
