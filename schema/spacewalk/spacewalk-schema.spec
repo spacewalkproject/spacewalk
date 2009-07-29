@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.6.17
+Version:        0.6.18
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Jul 29 2009 John Matthews <jmatthew@redhat.com> 0.6.18-1
+- Add upgrade scripts for PostgreSQL compat procedures. (dgoodwin@redhat.com)
+
 * Tue Jul 28 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.17-1
 - Fix rhnVersionInfo information (jortel@redhat.com)
 - Restore some Oracle/PostgreSQL compatability functions.
