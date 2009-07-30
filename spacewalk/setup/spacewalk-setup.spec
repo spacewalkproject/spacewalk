@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.6.14
+Version:        0.6.15
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,10 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Thu Jul 30 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.15-1
+- Fix spacewalk-setup sudoers setup SHARED_DIR problem.
+  (dgoodwin@redhat.com)
+
 * Tue Jul 28 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.14-1
 - Fix rhn.conf population of Hibernate dialect/driver/url settings.
   (dgoodwin@redhat.com)
