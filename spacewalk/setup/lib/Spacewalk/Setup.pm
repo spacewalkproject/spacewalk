@@ -940,7 +940,7 @@ EOQ
 
     if (not $opts->{"skip-db-diskspace-check"}) {
         system_or_exit(['python', SHARED_DIR .
-            '/embedded_diskspace_check.py'], 14,
+            '/setup/embedded_diskspace_check.py'], 14,
             'There is not enough space available for the embedded database.');
     }
     else {

@@ -195,7 +195,7 @@ sub remove_old_jvm {
 
 	return unless (($opts{"upgrade"}) and ($product_name =~ /Satellite/));
 
-	my $jvm_list = Spacewalk::Setup::SHARED_DIR . "/old-jvm-list";
+	my $jvm_list = Spacewalk::Setup::SHARED_DIR . "/setup/old-jvm-list";
 
 	local *F;
 	open F, $jvm_list or die "Error opening [$jvm_list]: $!\n";
@@ -288,7 +288,7 @@ sub setup_sudoers {
 		open FILE, $sudoers_path or die "Error reading [$sudoers_path]: $!\n";
 	} else {
 		# otherwise start with our own file
-		my $init_sudoers_path = Spacewalk::Setup::SHARED_DIR . '/sudoers.base';
+		my $init_sudoers_path = Spacewalk::Setup::SHARED_DIR . '/setup/sudoers.base';
 		open FILE, $init_sudoers_path
 			or die "Error reading [$init_sudoers_path]: $!\n";
 		$sudoers_content_orig = '';
@@ -302,7 +302,7 @@ sub setup_sudoers {
 
 	# The sudoers.clear file has regular expressions for clearing
 	# old configuration
-	if (open FILE, Spacewalk::Setup::SHARED_DIR . '/sudoers.clear') {
+	if (open FILE, Spacewalk::Setup::SHARED_DIR . '/setup/sudoers.clear') {
 		while (defined(my $regexp = <FILE>)) {
 			chomp $regexp;
 			$sudoers_content =~ s!$regexp!!igm;
@@ -314,7 +314,7 @@ sub setup_sudoers {
 	# need to add to sudoers. The first line of each file helps us
 	# detect that the part is already present, and potentially
 	# modify it to the latest versions we need.
-	for my $file (glob Spacewalk::Setup::SHARED_DIR . '/sudoers.[0-9]') {
+	for my $file (glob Spacewalk::Setup::SHARED_DIR . '/setup/sudoers.[0-9]') {
 		open FILE, $file or die "Error reading [$file]: $!\n";
 		my $regexp = <FILE>;
 		chomp $regexp;
