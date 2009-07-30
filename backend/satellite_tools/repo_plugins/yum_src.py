@@ -16,7 +16,7 @@
 import yum
 import shutil
 from yum import config
-from reposync import ContentPackage
+from satellite_tools.reposync import ContentPackage
 
 class ContentSource:
     url = None

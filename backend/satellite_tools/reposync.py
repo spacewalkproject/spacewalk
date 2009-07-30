@@ -39,6 +39,7 @@ class RepoSync:
         rhnSQL.initDB(db_string)
         (options, args) = self.process_args()
 
+
         quit = False
         if not options.url:
             quit = True
@@ -52,6 +53,12 @@ class RepoSync:
         if not options.label:
             quit = True
             print("--label must be specified")
+
+        self.log_file = options.logfile
+        if self.log_file:
+            rhnLog.initLOG(self.log_file)
+
+        self.error_msg(str(sys.argv))
 
         if quit:
             sys.exit(1)
@@ -71,8 +78,6 @@ class RepoSync:
             sys.exit(1)
 
 
-        if self.log_file:
-            rhnLog.initLOG(self.log_file)
 
         self.plugin = self.load_plugin()(self.url, self.channel_label + "-" + self.repo_label)
         self.import_packages(self.plugin.list_packages())
@@ -88,10 +93,10 @@ class RepoSync:
         return self.parser.parse_args()
 
     def load_plugin(self):
-        sys.path.append("repo_plugins")
         name = self.type + "_src"
-        mod = __import__(name)
-        return getattr(mod, "ContentSource")
+        mod = __import__('satellite_tools.repo_plugins', globals(), locals(), [name])
+        submod = getattr(mod, name)
+        return getattr(submod, "ContentSource")
         
     def import_packages(self, packages):
         to_link = []
