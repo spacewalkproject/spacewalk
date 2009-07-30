@@ -18,12 +18,14 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.task.TaskFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelNameException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidGPGKeyException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidGPGUrlException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidParentChannelException;
+import com.redhat.rhn.taskomatic.task.RepoSyncTask;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -69,6 +71,7 @@ public class CreateChannelCommand {
     protected String access = Channel.PRIVATE;
     protected String yumUrl;
     protected String repoLabel;
+    protected boolean syncRepo = false;
     
 
     
@@ -261,6 +264,7 @@ public class CreateChannelCommand {
         c.setMaintainerEmail(maintainerEmail);
         c.setMaintainerPhone(maintainerPhone);
         c.setSupportPolicy(supportPolicy);
+        c.setYumContentSource(yumUrl, repoLabel);
 
         // handles either parent id or label
         setParentChannel(c, user, parentLabel, parentId);
@@ -271,9 +275,11 @@ public class CreateChannelCommand {
         ChannelFactory.save(c);
         
         ChannelFactory.refreshNewestPackageCache(c, WEB_CHANNEL_CREATED);
-
-        c.setYumContentSource(yumUrl, repoLabel);
         
+        if (syncRepo && !c.getContentSources().isEmpty()) {
+            TaskFactory.createTask(user.getOrg(), RepoSyncTask.DISPLAY_NAME,
+                    c.getContentSources().iterator().next().getId());
+        }
         
         return c;
     }
@@ -448,6 +454,14 @@ public class CreateChannelCommand {
      */
     public void setRepoLabel(String repoLabelIn) {
         this.repoLabel = repoLabelIn;
+    }
+
+
+    /**
+     * @param syncRepoIn The syncRepo to set.
+     */
+    public void setSyncRepo(boolean syncRepoIn) {
+        this.syncRepo = syncRepoIn;
     }
     
 }

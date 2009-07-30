@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.taskomatic.task;
 
+import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.task.Task;
@@ -28,6 +30,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 
 /**
  * Repo Sync
@@ -59,7 +62,7 @@ public class RepoSyncTask implements Job {
     public void execute(JobExecutionContext context)
         throws JobExecutionException {
         
-        for (Task task : TaskFactory.listTasks("repo_sync")) {
+        for (Task task : TaskFactory.listTasks(DISPLAY_NAME)) {
             
             ContentSource src = ChannelFactory.lookupContentSource(task.getData());
             if (src == null) {
@@ -68,10 +71,16 @@ public class RepoSyncTask implements Job {
             }
             
             try {
-                Process p = Runtime.getRuntime().exec("");
+
+                Process p = Runtime.getRuntime().exec(
+                        (String[]) getSyncCommand(src).toArray());
+                p.waitFor();
             }
             catch (IOException e) {
-                
+                e.printStackTrace();
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
             }
             src.setLastSynced(new Date());
             TaskFactory.removeTask(task);
@@ -80,13 +89,16 @@ public class RepoSyncTask implements Job {
     
     private static List<String> getSyncCommand(ContentSource src) {
         List<String> cmd = new ArrayList<String>();
-        cmd.add("/usr/sbin/spacewalk-repo-sync");
+        cmd.add(Config.get().getString(ConfigDefaults.SPACEWALK_REPO_SYNC_PATH,
+                "/usr/sbin/spacewalk-repo-sync"));
         cmd.add("-c");
         cmd.add(src.getChannel().getLabel());
         cmd.add("-u");
         cmd.add(src.getSourceUrl());
         cmd.add("-t");
         cmd.add(src.getType().getLabel());
+        cmd.add("-l");
+        cmd.add(src.getLabel());
         return cmd;
     }
     

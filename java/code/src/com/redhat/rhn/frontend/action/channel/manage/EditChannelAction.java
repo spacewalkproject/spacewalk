@@ -335,6 +335,7 @@ public class EditChannelAction extends RhnAction implements Listable {
         ucc.setAccess((String)form.get("org_sharing"));
         ucc.setYumUrl((String) form.getString("yum_repo"));
         ucc.setRepoLabel((String) form.getString("repo_label"));
+        ucc.setSyncRepo((Boolean)form.get("sync_repo"));
 
         String parent = (String)form.get("parent");
         if (parent == null || parent.equals("")) {
@@ -407,6 +408,7 @@ public class EditChannelAction extends RhnAction implements Listable {
         ccc.setAccess((String)form.get("org_sharing"));
         ccc.setYumUrl((String) form.getString("yum_repo"));
         ccc.setRepoLabel((String) form.getString("repo_label"));
+        ccc.setSyncRepo((Boolean)form.get("sync_repo"));
 
         String parent = (String)form.get("parent");
         if (parent == null || parent.equals("")) {

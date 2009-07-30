@@ -145,6 +145,8 @@ public class ConfigDefaults {
     public static final String VIRT_DISK = "kickstart.virt_disk_size_gb";
     public static final String KICKSTART_NETWORK_INTERFACE = "kickstart.default_interface";
 
+    public static final String SPACEWALK_REPO_SYNC_PATH = "spacewalk_repo_sync_path";
+
     private ConfigDefaults() {
     }
     
