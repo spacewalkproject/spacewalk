@@ -27,6 +27,7 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -63,23 +64,28 @@ public class RepoSyncTask implements Job {
         throws JobExecutionException {
         
         for (Task task : TaskFactory.listTasks(DISPLAY_NAME)) {
-            
             ContentSource src = ChannelFactory.lookupContentSource(task.getData());
+            if (log.isInfoEnabled()) {
+                log.info("Syncing repo " + src.getSourceUrl() + " to channel " 
+                        + src.getChannel().getLabel());
+            }
             if (src == null) {
                 log.error("Content Source could not be found: " + task.getData());
                 continue;
             }
             
             try {
-
                 Process p = Runtime.getRuntime().exec(
-                        (String[]) getSyncCommand(src).toArray());
+                        getSyncCommand(src).toArray(new String[0]));
                 p.waitFor();
+                
             }
             catch (IOException e) {
+                log.fatal(e.getMessage());
                 e.printStackTrace();
             }
             catch (InterruptedException e) {
+                log.fatal(e.getMessage());
                 e.printStackTrace();
             }
             src.setLastSynced(new Date());
@@ -90,7 +96,7 @@ public class RepoSyncTask implements Job {
     private static List<String> getSyncCommand(ContentSource src) {
         List<String> cmd = new ArrayList<String>();
         cmd.add(Config.get().getString(ConfigDefaults.SPACEWALK_REPO_SYNC_PATH,
-                "/usr/sbin/spacewalk-repo-sync"));
+                "/usr/bin/spacewalk-repo-sync"));
         cmd.add("-c");
         cmd.add(src.getChannel().getLabel());
         cmd.add("-u");
@@ -99,6 +105,8 @@ public class RepoSyncTask implements Job {
         cmd.add(src.getType().getLabel());
         cmd.add("-l");
         cmd.add(src.getLabel());
+        cmd.add("-g");
+        cmd.add("/var/log/rhn/rhn_reposync.log");
         return cmd;
     }
     
