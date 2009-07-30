@@ -203,13 +203,13 @@ class RepoSync:
 
     def print_msg(self, message):
         if self.log_file:
-            rhnLog.log_debug(0, message)
+            rhnLog.log_clean(0, message)
         print message
 
 
     def error_msg(self, message):
         if self.log_file:
-            rhnLog.log_debug(0, message)
+            rhnLog.log_clean(0, message)
         sys.stderr.write(message)
 
 class ContentPackage:
