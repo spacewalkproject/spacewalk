@@ -17,7 +17,8 @@ import sys, os
 from optparse import OptionParser
 from common import rhnLib
 from server import rhnPackage, rhnSQL, rhnChannel, rhnPackageUpload
-from common import CFG, initCFG, rhn_rpm
+from common import CFG, initCFG, rhn_rpm, rhnLog, fetchTraceback
+from common.rhn_mpm import InvalidPackageError
 from server.importlib.importLib import IncompletePackage
 from server.importlib.backendOracle import OracleBackend
 from server.importlib.packageImport import ChannelPackageSubscription
@@ -38,15 +39,22 @@ class RepoSync:
         rhnSQL.initDB(db_string)
         (options, args) = self.process_args()
 
-
+        quit = False
         if not options.url:
+            quit = True
             print("--url must be specified")
         if not options.type:
+            quit = True
             print("--type must be specified")
         if not options.channel_label:
+            quit = True
             print("--channel must be specified")
         if not options.label:
-           print("--label must be specified")
+            quit = True
+            print("--label must be specified")
+
+        if quit:
+            sys.exit(1)
 
 
         self.type = options.type
@@ -55,11 +63,16 @@ class RepoSync:
         self.fail = options.fail
         self.repo_label = options.label
         self.channel = self.load_channel()
-        
+        self.log_file = options.logfile
+
 	if not self.channel or not \
             rhnChannel.isCustomChannel(self.channel['id']):
             print "Channel does not exist or is not custom"
             sys.exit(1)
+
+
+        if self.log_file:
+            rhnLog.initLOG(self.log_file)
 
         self.plugin = self.load_plugin()(self.url, self.channel_label + "-" + self.repo_label)
         self.import_packages(self.plugin.list_packages())
@@ -71,6 +84,7 @@ class RepoSync:
         self.parser.add_option('-t', '--type', action='store', dest='type', help='The type of repo, currently only "yum" is supported')
         self.parser.add_option('-l', '--label', action='store', dest='label', help='A friendly label to refer to the repo')
         self.parser.add_option('-f', '--fail', action='store_true', dest='fail', default=False , help="If a package import fails, fail the entire operation")
+        self.parser.add_option('-g', '--logfile', action='store', dest='logfile', help="The log file to log to.  Default is to stderr and stdout.")
         return self.parser.parse_args()
 
     def load_plugin(self):
@@ -82,6 +96,7 @@ class RepoSync:
     def import_packages(self, packages):
         to_link = []
         to_download = []
+        self.print_msg("Repo " + self.url + " has " + str(len(packages)) + ".")
         for pack in packages:
              pid = None
              if pack.checksums.has_key('md5sum'):
@@ -101,7 +116,7 @@ class RepoSync:
         for (index, pack) in enumerate(to_download):
             """download each package"""
             try:
-                print(str(index) + "/" + str(len(to_download)) + " : "+ \
+                self.print_msg(str(index+1) + "/" + str(len(to_download)) + " : "+ \
                       pack.getNVREA())
                 path = self.plugin.get_package(pack)
                 md5 = rhnLib.getFileMD5(filename=path)
@@ -112,9 +127,13 @@ class RepoSync:
                     self.associate_package(pack, md5)
                 else:
                     to_link.append(pack)
+                if self.url.find("file://")  < 0:
+                    os.remove(path)
+
             except KeyboardInterrupt:
                 raise
             except:
+                self.error_msg("ERROR" + fetchTraceback())
                 if self.fail:
                     raise
                 continue
@@ -124,6 +143,7 @@ class RepoSync:
             except KeyboardInterrupt:
                 raise
             except:
+                self.error_msg(fetchTraceback())
                 if self.fail:
                     raise
                 continue
@@ -142,9 +162,6 @@ class RepoSync:
                     relative_path=rel_package_path, 
                     org_id=self.channel['org_id'])
         temp_file.close()
-        if self.url.find("file://")  < 0:
-            os.remove(path)
-
 
     def associate_package(self, pack, md5sum):
         caller = "server.app.yumreposync"
@@ -154,31 +171,41 @@ class RepoSync:
         package['name'] = pack.name
         package['version'] = pack.version
         package['release'] = pack.release
-        if pack.epoch == 0:
-            package['epoch'] = ""
-        else:
-            package['epoch'] = pack.epoch
+        package['epoch'] = pack.epoch
         package['arch'] = pack.arch
         package['md5sum'] = md5sum
         package['channels']  = [{'label':self.channel_label, 
                                  'id':self.channel['id']}]
         package['org_id'] = self.channel['org_id']
-
         try:
-            importer = ChannelPackageSubscription(
-                       [IncompletePackage().populate(package)], 
-                        backend, caller=caller)
-            importer.run()
+           self._importer_run(package, caller, backend)
         except:
-            package['epoch'] = '0'
+            package['epoch'] = ''
+            self._importer_run(package, caller, backend)
+
+        backend.commit()
+
+    def _importer_run(self, package, caller, backend):
             importer = ChannelPackageSubscription(
-                       [IncompletePackage().populate(package)], 
+                       [IncompletePackage().populate(package)],
                        backend, caller=caller)
             importer.run()
-        backend.commit()
+
 
     def load_channel(self):
         return rhnChannel.channel_info(self.channel_label)
+
+
+    def print_msg(self, message):
+        if self.log_file:
+            rhnLog.log_debug(0, message)
+        print message
+
+
+    def error_msg(self, message):
+        if self.log_file:
+            rhnLog.log_debug(0, message)
+        sys.stderr.write(message)
 
 class ContentPackage:
 
@@ -199,9 +226,11 @@ class ContentPackage:
         self.version = version
         self.release = release
         self.arch = arch
+        self.epoch = epoch
 
     def getNVREA(self):
         if self.epoch:
             return self.name + '-' + self.version + '-' + self.release + '-' + self.epoch + '.' + self.arch
         else:
             return self.name + '-' + self.version + '-' + self.release + '.' + self.arch
+

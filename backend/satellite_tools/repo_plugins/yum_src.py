@@ -14,6 +14,7 @@
 # in this software or its documentation. 
 #
 import yum
+import shutil
 from yum import config
 from reposync import ContentPackage
 
@@ -21,10 +22,11 @@ class ContentSource:
     url = None
     name = None
     repo = None
-
+    cache_dir = '/var/cache/rhn/reposync/'
     def __init__(self, url, name):
         self.url = url
         self.name = name
+        self._clean_cache(self.cache_dir + name)
 
     def list_packages(self):
         """ list packages"""
@@ -33,8 +35,8 @@ class ContentSource:
         repo.cache = 0
         repo.metadata_expire = 0
         repo.baseurl = [self.url]
-        repo.basecachedir = '/var/cache/rhn/reposync/'
-#        repo.cachedir = '/var/cache/rhn/reposync/'
+        repo.basecachedir = self.cache_dir
+        repo.baseurlSetup()
         repo.setup(False)
         sack = repo.getPackageSack()
         sack.populate(repo, 'metadata', None, 0)
@@ -52,4 +54,11 @@ class ContentSource:
 
     def get_package(self, package):
         """ get package """
-        return self.repo.getPackage(package.unique_id)
+        check = (self.verify_pkg, (package.unique_id ,1), {})
+        return self.repo.getPackage(package.unique_id, checkfunc=check)
+
+    def verify_pkg(self, fo, pkg, fail):
+        return pkg.verifyLocalPkg()
+
+    def _clean_cache(self, directory):
+        shutil.rmtree(directory, True)
