@@ -95,18 +95,19 @@ public class RepoSyncTask implements Job {
     
     private static List<String> getSyncCommand(ContentSource src) {
         List<String> cmd = new ArrayList<String>();
-        cmd.add(Config.get().getString(ConfigDefaults.SPACEWALK_REPO_SYNC_PATH,
+        cmd.add(Config.get().getString(ConfigDefaults.SPACEWALK_REPOSYNC_PATH,
                 "/usr/bin/spacewalk-repo-sync"));
-        cmd.add("-c");
+        cmd.add("--channel");
         cmd.add(src.getChannel().getLabel());
-        cmd.add("-u");
+        cmd.add("--url");
         cmd.add(src.getSourceUrl());
-        cmd.add("-t");
+        cmd.add("--type");
         cmd.add(src.getType().getLabel());
-        cmd.add("-l");
+        cmd.add("--label");
         cmd.add(src.getLabel());
-        cmd.add("-g");
-        cmd.add("/var/log/rhn/rhn_reposync.log");
+        cmd.add("--logfile");
+        cmd.add(Config.get().getString(ConfigDefaults.SPACEWALK_REPOSYNC_LOG_FILE,
+                "/var/log/rhn/rhn_reposync.log"));
         return cmd;
     }
     
