@@ -34,13 +34,13 @@ our $VERSION = '0.6';
 
 use constant SATELLITE_SYSCONFIG  => "/etc/sysconfig/rhn-satellite";
 
-use constant SHARED_DIR => "/usr/share/spacewalk";
+use constant SHARED_DIR => "/usr/share/spacewalk/setup";
 
 use constant POSTGRESQL_SCHEMA_FILE => File::Spec->catfile("/etc", "sysconfig", 
     'rhn', 'postgres', 'main.sql');
 
 use constant DEFAULT_ANSWER_FILE_GLOB =>
-  SHARED_DIR . '/setup/defaults.d/*.conf';
+  SHARED_DIR . '/defaults.d/*.conf';
 
 use constant DEFAULT_RHN_CONF_LOCATION =>
   '/etc/rhn/rhn.conf';
@@ -940,7 +940,7 @@ EOQ
 
     if (not $opts->{"skip-db-diskspace-check"}) {
         system_or_exit(['python', SHARED_DIR .
-            '/setup/embedded_diskspace_check.py'], 14,
+            '/embedded_diskspace_check.py'], 14,
             'There is not enough space available for the embedded database.');
     }
     else {
