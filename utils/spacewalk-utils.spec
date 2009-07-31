@@ -50,10 +50,15 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/utils/__init__.py*
 %{rhnroot}/utils/systemSnapshot.py*
 %{rhnroot}/utils/migrateSystemProfile.py*
+%{rhnroot}/utils/rhnLockfile.py*
+%{rhnroot}/utils/rhn_fcntl.py*
 %{_mandir}/man8/*
 
 
 %changelog
+* Fri Jul 31 2009 Pradeep Kilambi <pkilambi@redhat.com>
+- removing common module dep and adding locking to utils package.
+
 * Wed Jul 15 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.5-1
 - add spacewalk-api script, which can interact with API from command line
 
