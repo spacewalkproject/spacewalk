@@ -14,10 +14,27 @@
  */
 package com.redhat.rhn.frontend.action.multiorg;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.OrgTrust;
@@ -29,18 +46,6 @@ import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.system.SystemManager;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Abstract POST action class that provides for setup->confirm->commit
@@ -251,15 +256,34 @@ public class TrustAction extends FormDispatcher {
         User orgUser = UserFactory.findRandomOrgAdmin(theOrg);
         for (Org removed : getRemoved(theOrg, set)) {
             theOrg.removeTrust(removed);
+            User orgAdmin = UserFactory.findRandomOrgAdmin(removed);
             DataResult<Map> dr =
                 SystemManager.subscribedInOrgTrust(theOrg.getId(), removed.getId());
 
               for (Map item : dr) {
                 Long sid = (Long)item.get("id");       
-                Long cid = (Long)item.get("cid");            
+                Server s = ServerFactory.lookupById(sid);
+                Long cid = (Long)item.get("cid");
+                Channel channel = ChannelFactory.lookupById(cid);
+                if (channel.getParentChannel() == null) {
+                    // unsubscribe children first if subscribed
+                    List<Channel> children = channel
+                            .getAccessibleChildrenFor(orgUser);
+                    Iterator<Channel> i = children.iterator();
+                    while (i.hasNext()) {
+                        Channel child = (Channel) i.next();
+                        if (s.isSubscribed(child)) {
+                            // unsubscribe server from child channel
+                            child.getTrustedOrgs().remove(theOrg);
+                            ChannelFactory.save(child);
+                            s = SystemManager.
+                            unsubscribeServerFromChannel(s, child);
+                        }
+                    }
+                }
+                ChannelFactory.save(channel);
                 SystemManager.unsubscribeServerFromChannel(orgUser, sid, cid);
             }
-            
         }
         
         OrgFactory.save(theOrg);
