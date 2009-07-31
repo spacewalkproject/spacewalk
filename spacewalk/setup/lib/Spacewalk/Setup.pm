@@ -1240,7 +1240,6 @@ sub oracle_populate_db {
         sprintf('--database=%s', @{$answers}{'db-sid'}),
         sprintf('--host=%s', @{$answers}{'db-host'}),
         sprintf("--schema-deploy-file=$sat_schema_deploy"),
-        sprintf("--log=$logfile"),
         sprintf('--nofork'),
     );
 
