@@ -68,9 +68,9 @@ public class TaskFactory extends HibernateFactory {
     }
     
     /**
-     * 
-     * @param name
-     * @return
+     * list All tasks with the given name
+     * @param name the name of the task
+     * @return List of tasks
      */
     public static List<Task> listTasks(String name) {
         Session session = null;
@@ -86,8 +86,8 @@ public class TaskFactory extends HibernateFactory {
     }
     
     /**
-     * 
-     * @param task
+     * Remove a task from teh database
+     * @param task the task to remove
      */
     public static void removeTask(Task task) {
         TaskFactory.getSession().delete(task);

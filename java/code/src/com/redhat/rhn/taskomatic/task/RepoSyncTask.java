@@ -27,7 +27,6 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -66,8 +65,8 @@ public class RepoSyncTask implements Job {
         for (Task task : TaskFactory.listTasks(DISPLAY_NAME)) {
             ContentSource src = ChannelFactory.lookupContentSource(task.getData());
             if (log.isInfoEnabled()) {
-                log.info("Syncing repo " + src.getSourceUrl() + " to channel " 
-                        + src.getChannel().getLabel());
+                log.info("Syncing repo " + src.getSourceUrl() + " to channel " + 
+                        src.getChannel().getLabel());
             }
             if (src == null) {
                 log.error("Content Source could not be found: " + task.getData());

@@ -818,6 +818,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
      * Set the yum content source, if one is already set, it will be replaced
      *   if null or '' is passed in, all content sources will be removed.
      * @param url  the url of the yum repo
+     * @param labelIn the label of the content source 
      */
     public void setYumContentSource(String url, String labelIn) {
         if (StringUtils.isEmpty(url)) {
