@@ -27,8 +27,6 @@ allow oracle_tnslsnr_t oracle_db_t:unix_stream_socket connectto;
 
 allow oracle_sqlplus_t oracle_db_log_t:dir search;
 
-allow oracle_db_t oracle_sqlplus_log_t:file write;
-
 dontaudit oracle_tnslsnr_t http_cache_port_t:tcp_socket name_bind;
 
 allow oracle_db_t initrc_t:fifo_file { read ioctl };
