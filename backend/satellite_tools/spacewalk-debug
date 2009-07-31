@@ -192,9 +192,12 @@ echo "    * querying RPM database (versioning of Spacewalk, etc.)"
 rpm -qa --last > $DIR/rpm-manifest
 rpm -qa | sort > $DIR/rpm-manifest-clean
 
-echo "    * querying schema version and database charactersets"
+echo "    * querying schema version, database charactersets and database"
 /usr/bin/rhn-schema-version > $DIR/database-schema-version
 /usr/bin/rhn-charsets > $DIR/database-character-sets
+if [ -f /usr/bin/db-control ] ; then
+    /bin/su - oracle -c "/usr/bin/db-control report" > $DIR/db-control-report
+fi
 
 echo "    * get diskspace available"
 df -h > $DIR/diskinfo
