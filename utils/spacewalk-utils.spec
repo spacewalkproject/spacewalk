@@ -50,11 +50,16 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/utils/__init__.py*
 %{rhnroot}/utils/systemSnapshot.py*
 %{rhnroot}/utils/migrateSystemProfile.py*
+%{rhnroot}/utils/rhnLockfile.py*
+%{rhnroot}/utils/rhn_fcntl.py*
 %{_mandir}/man8/sw-system-snapshot.8*
 %{_mandir}/man8/migrate-system-profile.8*
 
 
 %changelog
+* Fri Jul 31 2009 Pradeep Kilambi <pkilambi@redhat.com>
+- removing common module dep and adding locking to utils package.
+
 * Fri Apr 24 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.1-1
 - new package
 
