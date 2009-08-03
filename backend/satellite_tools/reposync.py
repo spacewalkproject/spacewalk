@@ -210,7 +210,7 @@ class RepoSync:
 
     def error_msg(self, message):
         rhnLog.log_clean(0, message)
-        sys.stderr.write(message)
+        sys.stderr.write(str(message) + "\n")
 
     def log_msg(self, message):
         rhnLog.log_clean(0, message)
