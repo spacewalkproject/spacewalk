@@ -260,7 +260,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                ci.username,
                ci.groupname,
                ci.filemode,
-	       cft.label
+	       cft.label,
+	       ci.selinux_ctx
           from rhnConfigChannel cc,
                rhnConfigInfo ci,
                rhnConfigRevision cr,
@@ -289,7 +290,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                ci.username,
                ci.groupname,
                ci.filemode,
-	       cft.label
+	       cft.label,
+	       ci.selinux_ctx
           from rhnConfigChannel cc,
                rhnConfigInfo ci,
                rhnConfigRevision cr,

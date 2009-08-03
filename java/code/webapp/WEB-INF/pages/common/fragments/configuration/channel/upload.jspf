@@ -48,6 +48,11 @@
 				key="filedetails.jsp.tip.permissions" /></span></td>
 		</tr>
 		<tr>
+			<th>SELinux context</th>
+			<td><html:text property="cffSELinuxCtx" size="30" /><br />
+			<span class="small-text"><bean:message key="filedetails.jsp.tip.selinux" /></span></td>
+		</tr>
+		<tr>
 			<th><bean:message key="filedetails.add_details.jspf.macro" /></th>
 			<td nowrap="nowrap">
               <bean:message key="filedetails.add_details.jspf.macro.start" />

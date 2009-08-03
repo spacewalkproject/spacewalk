@@ -49,6 +49,7 @@ public abstract class ConfigFileData {
     private String owner;
     private String group;
     private String permissions;
+    private String selinuxCtx;
     private String macroStart;
     private String macroEnd;
     
@@ -71,6 +72,7 @@ public abstract class ConfigFileData {
         setPermissions("644");
         setOwner("root");
         setGroup("root");
+        setSelinuxCtx("");
         setType(ConfigFileType.file());
         setMacroStart(DEFAULT_MACRO_START);
         setMacroEnd(DEFAULT_MACRO_END);
@@ -131,6 +133,20 @@ public abstract class ConfigFileData {
     public void setPermissions(String perms) {
         this.permissions = perms;
     }
+
+    /**
+     * @return the SELinux context
+     */
+    public String getSelinuxCtx() {
+        return selinuxCtx;
+    }
+
+    /**
+     * @param context the SELinux context to set
+     */
+    public void setSelinuxCtx(String context) {
+        this.selinuxCtx = context;
+    }
     
     /**
      * @return the macroStart
@@ -188,7 +204,8 @@ public abstract class ConfigFileData {
     public ConfigInfo extractInfo() {
         ConfigInfo info = ConfigurationFactory.lookupOrInsertConfigInfo(
                             getOwner(), getGroup(), 
-                            Long.valueOf(getPermissions()));
+                            Long.valueOf(getPermissions()),
+                            getSelinuxCtx());
         return info;
     }    
     
@@ -231,6 +248,17 @@ public abstract class ConfigFileData {
         // Validate mode
         if (!getPermissions().matches("^[0-7][0-7][0-7][0-7]?$")) {
             msgs.addError(error("mode-invalid"));
+        }
+
+        // Validate selinux context
+        if (!getSelinuxCtx().matches(
+                 // \\w is [a-zA-Z_0-9], or [_[:alnum:]]
+                 "^\\w*" + // user
+                "(:\\w*" + // role
+                "(:\\w*" + // type
+                "(:\\w*(\\-\\w+)?" + // sensitivity
+                "(:\\w*(\\.\\w+))?)?)?)?$")) { // category
+            msgs.addError(new ValidatorError("Invalid SELinux context"));
         }
         
         if (!StringUtils.isBlank(getMacroStart())) {
@@ -327,6 +355,7 @@ public abstract class ConfigFileData {
         map.put(ConfigFileForm.REV_UID, getOwner());
         map.put(ConfigFileForm.REV_GID, getGroup());
         map.put(ConfigFileForm.REV_PERMS, getPermissions());
+        map.put(ConfigFileForm.REV_SELINUX_CTX, getSelinuxCtx());
         map.put(ConfigFileForm.REV_MACROSTART, getMacroStart());
         map.put(ConfigFileForm.REV_MACROEND, getMacroEnd());
         return map;
@@ -363,6 +392,7 @@ public abstract class ConfigFileData {
                 append("Owner", getOwner()).
                 append("Group", getGroup()).
                 append("Permissions", getPermissions()).
+                append("SELinux Context", getSelinuxCtx()).
                 append("Type", getType()).
                 append("Macro Start", getMacroStart()).
                 append("Macro End", getMacroEnd()).

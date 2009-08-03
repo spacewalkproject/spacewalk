@@ -20,7 +20,8 @@ create or replace function
 lookup_config_info (
     username_in     in varchar2,
     groupname_in    in varchar2,
-    filemode_in     in varchar2
+    filemode_in     in varchar2,
+    selinux_ctx_in  in varchar2
 ) return number
 deterministic
 is
@@ -32,7 +33,8 @@ is
          where 1=1
            and username = username_in
            and groupname = groupname_in
-           and filemode = filemode_in;
+           and filemode = filemode_in
+           and selinux_ctx = selinux_ctx_in;
 begin
     for r in lookup_cursor loop
         return r.id;
@@ -41,8 +43,8 @@ begin
     select rhn_confinfo_id_seq.nextval
       into v_id
       from dual;
-    insert into rhnConfigInfo (id, username, groupname, filemode)
-    values (v_id, username_in, groupname_in, filemode_in);
+    insert into rhnConfigInfo (id, username, groupname, filemode, selinux_ctx)
+    values (v_id, username_in, groupname_in, filemode_in, selinux_ctx_in);
     commit;
     return v_id;
 end lookup_config_info;

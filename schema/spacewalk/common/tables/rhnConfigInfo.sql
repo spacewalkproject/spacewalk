@@ -16,22 +16,23 @@
 
 CREATE TABLE rhnConfigInfo
 (
-    id         NUMBER NOT NULL
-                   CONSTRAINT rhn_confinfo_id_pk PRIMARY KEY
-                   USING INDEX TABLESPACE [[2m_tbs]],
-    username   VARCHAR2(32) NOT NULL,
-    groupname  VARCHAR2(32) NOT NULL,
-    filemode   NUMBER NOT NULL,
-    created    DATE
-                   DEFAULT (sysdate) NOT NULL,
-    modified   DATE
-                   DEFAULT (sysdate) NOT NULL
+    id           NUMBER NOT NULL
+                     CONSTRAINT rhn_confinfo_id_pk PRIMARY KEY
+                     USING INDEX TABLESPACE [[2m_tbs]],
+    username     VARCHAR2(32) NOT NULL,
+    groupname    VARCHAR2(32) NOT NULL,
+    filemode     NUMBER NOT NULL,
+    created      DATE
+                     DEFAULT (sysdate) NOT NULL,
+    modified     DATE
+                     DEFAULT (sysdate) NOT NULL,
+    selinux_ctx  VARCHAR2(64)
 )
 ENABLE ROW MOVEMENT
 ;
 
 CREATE UNIQUE INDEX rhn_confinfo_ugf_uq
-    ON rhnConfigInfo (username, groupname, filemode)
+    ON rhnConfigInfo (username, groupname, filemode, selinux_ctx)
     TABLESPACE [[4m_tbs]];
 
 CREATE SEQUENCE rhn_confinfo_id_seq;

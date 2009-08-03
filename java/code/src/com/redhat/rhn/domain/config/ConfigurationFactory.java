@@ -294,13 +294,14 @@ public class ConfigurationFactory extends HibernateFactory {
             commit(file);
         }
         else {
-            //ConfigInfos have a unique constraint for their three data fields.
+            //ConfigInfos have a unique constraint for their four data fields.
             //The config info object associated with this revision may have been
             //changed, so we need to carefully not update the database record.
             ConfigInfo info = lookupOrInsertConfigInfo(
                     revision.getConfigInfo().getUsername(),
                     revision.getConfigInfo().getGroupname(),
-                    revision.getConfigInfo().getFilemode());
+                    revision.getConfigInfo().getFilemode(),
+                    revision.getConfigInfo().getSelinuxCtx());
             //if the object did not change, we now have two hibernate objects
             //with the same identifier.  Evict one so that hibernate doesn't get mad.
             getSession().evict(revision.getConfigInfo());
@@ -456,8 +457,8 @@ public class ConfigurationFactory extends HibernateFactory {
     }
 
     /**
-     * Return a <code>ConfigInfo</code> for the username, groupname, and
-     * file mode given. If no corresponding entry exists yet in the database, one will be
+     * Return a <code>ConfigInfo</code> from the username, groupname, file mode, and
+     * selinux context. If no corresponding entry exists yet in the database, one will be
      * created.
      * 
      * Uses the stored procedure <code>lookup_config_info</code> to get the id of the
@@ -475,11 +476,12 @@ public class ConfigurationFactory extends HibernateFactory {
      * @param username The linux username associated with a file
      * @param groupname The linux groupname associated with a file
      * @param filemode The three digit file mode (ex: 655)
+     * @param selinuxCtx The SELinux context
      * @return The ConfigInfo found or inserted.
      */
     public static ConfigInfo lookupOrInsertConfigInfo(String username,
-            String groupname, Long filemode) {
-        Long id = lookupConfigInfo(username, groupname, filemode);
+            String groupname, Long filemode, String selinuxCtx) {
+        Long id = lookupConfigInfo(username, groupname, filemode, selinuxCtx);
         return lookupConfigInfoById(id);
     }
     
@@ -489,9 +491,11 @@ public class ConfigurationFactory extends HibernateFactory {
      * @param user The linux username associated with a file
      * @param group The linux groupname associated with a file
      * @param filemode The three digit file mode (ex: 655)
+     * @param selinuxCtx The SELinux context
      * @return The id of the found config info
      */
-    private static Long lookupConfigInfo(String user, String group, Long filemode) {
+    private static Long lookupConfigInfo(String user, String group,
+            Long filemode, String selinuxCtx) {
         CallableMode m = ModeFactory.getCallableMode("config_queries",
             "lookup_config_info");
 
@@ -501,6 +505,7 @@ public class ConfigurationFactory extends HibernateFactory {
         inParams.put("username_in", user);
         inParams.put("groupname_in", group);
         inParams.put("filemode_in", filemode);
+        inParams.put("selinuxCtx_in", selinuxCtx);
         outParams.put("info_id", new Integer(Types.NUMERIC));
 
         Map out = m.execute(inParams, outParams);

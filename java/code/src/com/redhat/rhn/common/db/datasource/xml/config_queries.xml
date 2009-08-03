@@ -991,8 +991,8 @@ ORDER BY CCon.modified DESC
 </mode>
 
 <callable-mode name="lookup_config_info">
-  <query params="username_in, groupname_in, filemode_in">
-      {:info_id = call lookup_config_info( :username_in, :groupname_in, :filemode_in )}
+  <query params="username_in, groupname_in, filemode_in, selinuxCtx_in">
+      {:info_id = call lookup_config_info( :username_in, :groupname_in, :filemode_in, :selinuxCtx_in )}
   </query>
 </callable-mode>
 

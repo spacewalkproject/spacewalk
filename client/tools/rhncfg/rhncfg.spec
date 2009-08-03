@@ -14,6 +14,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: docbook-utils
 BuildRequires: python
+Requires: libselinux-python
 Requires: python
 Requires: rhnlib
 Provides: rhn-config-action = %{version}

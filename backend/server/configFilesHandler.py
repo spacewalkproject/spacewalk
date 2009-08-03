@@ -499,4 +499,5 @@ def format_file_results(row, server=None):
         'filemode'      : row['filemode'],
         'encoding'      : encoding,
         'filetype'      : row['label'],
+        'selinux_ctx'   : row['selinux_ctx'] or '',
     }

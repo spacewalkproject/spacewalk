@@ -26,6 +26,7 @@ public class ConfigInfo extends BaseDomainHelper {
     private String username;
     private String groupname;
     private Long filemode;
+    private String selinuxCtx;
     
     /**
      * protected constructor
@@ -97,5 +98,21 @@ public class ConfigInfo extends BaseDomainHelper {
     */
     public void setFilemode(Long filemodeIn) {
         this.filemode = filemodeIn;
+    }
+
+    /**
+     * Getter for selinux context
+     * @return String to get
+    */
+    public String getSelinuxCtx() {
+        return this.selinuxCtx;
+    }
+
+    /**
+     * Setter for selinux context
+     * @param ctxIn to set
+    */
+    public void setSelinuxCtx(String ctxIn) {
+        this.selinuxCtx = ctxIn;
     }
 }

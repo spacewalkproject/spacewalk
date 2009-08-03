@@ -867,6 +867,7 @@
       <form-property name="cffPath"        type="java.lang.String"/>
       <form-property name="cffUid"         type="java.lang.String"/>
       <form-property name="cffGid"         type="java.lang.String"/>
+      <form-property name="cffSELinuxCtx"  type="java.lang.String"/>
 	  <form-property name="cffPermissions" type="java.lang.String"/>
 	  <form-property name="cffMacroStart"  type="java.lang.String"/>
 	  <form-property name="cffMacroEnd"    type="java.lang.String"/>

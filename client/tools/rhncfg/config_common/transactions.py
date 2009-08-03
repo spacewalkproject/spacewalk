@@ -25,6 +25,7 @@ import string
 
 from config_common import file_utils, utils, cfg_exceptions
 from config_common.rhn_log import log_debug
+from selinux import setfilecon
 
 class TargetNotFile(Exception): pass
 class DuplicateDeployment(Exception): pass
@@ -102,7 +103,7 @@ class DeployTransaction:
     def deploy_callback(self, cb):
         self.deployment_cb = cb
 
-    def _chown_chmod(self, temp_file_path, dest_path, file_info, strict_ownership=1):
+    def _chown_chmod_chcon(self, temp_file_path, dest_path, file_info, strict_ownership=1):
         uid = file_info.get('uid')
         if uid is None:
             if file_info.has_key('username'):            
@@ -142,6 +143,13 @@ class DeployTransaction:
 	    mode = string.atoi(str(mode), 8)
             os.chmod(temp_file_path, mode)
 
+            if file_info.has_key('selinux_ctx'):
+                sectx = file_info.get('selinux_ctx')
+                if sectx is not None:
+                    log_debug(1, "selinux context: " + sectx);
+                    if setfilecon(temp_file_path, sectx) < 0:
+                        raise Exception("failed to set selinux context on %s" % dest_path)
+
         except OSError, e:
             if e.errno == errno.EPERM and not strict_ownership:
                 sys.stderr.write("cannonical file ownership and permissions lost on %s\n" % dest_path)
@@ -170,7 +178,7 @@ class DeployTransaction:
 	if file_info.get('filetype') == 'directory':
 		self.dirs.append(file_info)
 	else:
-        	self._chown_chmod(processed_file_path, dest_path, file_info, strict_ownership=strict_ownership)
+        	self._chown_chmod_chcon(processed_file_path, dest_path, file_info, strict_ownership=strict_ownership)
 
         	if self.newtemp_by_path.has_key(dest_path):
             	    raise DuplicateDeployment("Error:  %s already added to transaction" % dest_path)
@@ -221,7 +229,7 @@ class DeployTransaction:
 	#revert the owner/perms of any directories that we changed
         for d, val in self.changed_dir_info.items():
             log_debug(6, "reverting owner and perms of %s" % d)
-            self._chown_chmod(d, d, val)
+            self._chown_chmod_chcon(d, d, val)
             log_debug(9, "directory reverted")
 
 	#remove any directories created by either mkdir_p or in the deploy
@@ -271,12 +279,12 @@ class DeployTransaction:
                         entry["gid"] = s[5]
                         self.changed_dir_info[dirname] = entry
                         log_debug(3, "directory found, chowning and chmoding to %s as needed: %s" % (dirmode, dirname))
-                        self._chown_chmod(dirname, dirname, directory)
+                        self._chown_chmod_chcon(dirname, dirname, directory)
                     else:
                         log_debug(3, "directory not found, creating: %s" % dirname)
 			dirs_created = utils.mkdir_p(dirname)
                         self.new_dirs.extend(dirs_created)
-                        self._chown_chmod(dirname, dirname, directory)
+                        self._chown_chmod_chcon(dirname, dirname, directory)
                     if self.deployment_cb:
                         self.deployment_cb(dirname)
 
@@ -315,7 +323,7 @@ class DeployTransaction:
                 self.new_dirs.extend(temp_new_dirs or [])
                 
                 # properly chown and chmod it
-                self._chown_chmod(self.newtemp_by_path[path], path, dep_file)
+                self._chown_chmod_chcon(self.newtemp_by_path[path], path, dep_file)
                 log_debug(9, "tempfile written:  %s" % self.newtemp_by_path[path])
 
 

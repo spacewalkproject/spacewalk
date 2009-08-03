@@ -57,6 +57,7 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
     public static final String REV_UID          = "cffUid";
     public static final String REV_GID          = "cffGid";
     public static final String REV_PERMS        = "cffPermissions";
+    public static final String REV_SELINUX_CTX  = "cffSELinuxCtx";
     public static final String REV_MACROSTART   = "cffMacroStart";
     public static final String REV_MACROEND     = "cffMacroEnd";
     public static final String REV_CONTENTS     = "contents"; //cffContent
@@ -158,6 +159,7 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
         Long mode = cr.getConfigInfo().getFilemode();
         String modeStr = new DecimalFormat("000").format(mode.longValue());
         set(ConfigFileForm.REV_PERMS, modeStr);
+        set(ConfigFileForm.REV_SELINUX_CTX, cr.getConfigInfo().getSelinuxCtx());
         set(ConfigFileForm.REV_UID, cr.getConfigInfo().getUsername());
         set(ConfigFileForm.REV_GID, cr.getConfigInfo().getGroupname());
         set(ConfigFileForm.REV_BINARY, new Boolean(cr.getConfigContent().isBinary()));
@@ -310,6 +312,7 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
         data.setGroup(getString(REV_GID));
         data.setOwner(getString(REV_UID));
         data.setPermissions(getString(REV_PERMS));
+        data.setSelinuxCtx(getString(REV_SELINUX_CTX));
         data.setType(extractFileType());
         return data;
     }
