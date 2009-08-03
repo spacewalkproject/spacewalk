@@ -13,7 +13,7 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation. 
 #
-import sys, os
+import sys, os, time
 from optparse import OptionParser
 from common import rhnLib
 from server import rhnPackage, rhnSQL, rhnChannel, rhnPackageUpload
@@ -22,6 +22,9 @@ from common.rhn_mpm import InvalidPackageError
 from server.importlib.importLib import IncompletePackage
 from server.importlib.backendOracle import OracleBackend
 from server.importlib.packageImport import ChannelPackageSubscription
+
+
+default_log_location = '/var/log/rhn/reposync/'
 
 class RepoSync:
     parser = None
@@ -39,30 +42,32 @@ class RepoSync:
         rhnSQL.initDB(db_string)
         (options, args) = self.process_args()
 
+        log_filename = 'reposync.log'
+        if options.channel_label and options.label:
+            date = time.localtime()
+            datestr = '%s.%s.%s-%s:%s:%s' % (date.tm_year, date.tm_mon, date.tm_mday, date.tm_hour, date.tm_min, date.tm_sec)
+            log_filename = options.channel_label + '-' + options.label + '-' +  datestr + '.log'
+           
+        rhnLog.initLOG(default_log_location + log_filename)
 
         quit = False
         if not options.url:
             quit = True
-            print("--url must be specified")
+            self.error_msg("--url must be specified")
         if not options.type:
             quit = True
-            print("--type must be specified")
+            self.error_message("--type must be specified")
         if not options.channel_label:
             quit = True
-            print("--channel must be specified")
+            self.error_msg("--channel must be specified")
         if not options.label:
             quit = True
-            print("--label must be specified")
-
-        self.log_file = options.logfile
-        if self.log_file:
-            rhnLog.initLOG(self.log_file)
-
-        self.error_msg(str(sys.argv))
+            self.error_msg("--label must be specified")
 
         if quit:
             sys.exit(1)
 
+        self.log_msg(str(sys.argv))
 
         self.type = options.type
         self.url = options.url
@@ -70,9 +75,8 @@ class RepoSync:
         self.fail = options.fail
         self.repo_label = options.label
         self.channel = self.load_channel()
-        self.log_file = options.logfile
 
-	if not self.channel or not \
+	    if not self.channel or not \
             rhnChannel.isCustomChannel(self.channel['id']):
             print "Channel does not exist or is not custom"
             sys.exit(1)
@@ -89,7 +93,6 @@ class RepoSync:
         self.parser.add_option('-t', '--type', action='store', dest='type', help='The type of repo, currently only "yum" is supported')
         self.parser.add_option('-l', '--label', action='store', dest='label', help='A friendly label to refer to the repo')
         self.parser.add_option('-f', '--fail', action='store_true', dest='fail', default=False , help="If a package import fails, fail the entire operation")
-        self.parser.add_option('-g', '--logfile', action='store', dest='logfile', help="The log file to log to.  Default is to stderr and stdout.")
         return self.parser.parse_args()
 
     def load_plugin(self):
@@ -101,7 +104,7 @@ class RepoSync:
     def import_packages(self, packages):
         to_link = []
         to_download = []
-        self.print_msg("Repo " + self.url + " has " + str(len(packages)) + ".")
+        self.print_msg("Repo " + self.url + " has " + str(len(packages)) + " packages.")
         for pack in packages:
              pid = None
              if pack.checksums.has_key('md5sum'):
@@ -202,15 +205,16 @@ class RepoSync:
 
 
     def print_msg(self, message):
-        if self.log_file:
-            rhnLog.log_clean(0, message)
+        rhnLog.log_clean(0, message)
         print message
 
 
     def error_msg(self, message):
-        if self.log_file:
-            rhnLog.log_clean(0, message)
+        rhnLog.log_clean(0, message)
         sys.stderr.write(message)
+
+    def log_msg(self, message):
+        rhnLog.log_clean(0, message)
 
 class ContentPackage:
 

@@ -538,6 +538,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/disk_dumper/dumper.py*
 %{rhnroot}/satellite_tools/disk_dumper/string_buffer.py*
 %dir %{rhnroot}/satellite_tools/repo_plugins
+%attr(770,root,apache) %dir %{_var}/log/rhn/reposync
 %{rhnroot}/satellite_tools/repo_plugins/__init__.py*
 %{rhnroot}/satellite_tools/repo_plugins/yum_src.py*
 %config %attr(644,root,apache) %{rhnconf}/default/rhn_server_iss.conf
