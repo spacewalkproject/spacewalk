@@ -55,6 +55,8 @@ class RhnActivateWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.ActivateSubscri
     def __init__(self):
         RhnRegisterFirstbootGuiWindow.__init__(self)
         rhnregGui.ActivateSubscriptionPage.__init__(self)
+        if rhnreg.registered():
+            self.skipme = True
 
     def updatePage(self):
         self.activateSubscriptionPagePrepare()

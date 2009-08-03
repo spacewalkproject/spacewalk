@@ -41,6 +41,7 @@ class RetryServer(rpclib.Server):
             except rpclib.Fault:
                 raise
             except httplib.BadStatusLine:
+                self.log.log_me("Error: Server Unavailable. Please try later.") 
                 stdoutMsgCallback(
                       _("Error: Server Unavailable. Please try later."))
                 sys.exit(-1)

@@ -13,9 +13,9 @@ BuildRequires: rhpl
 BuildRequires: intltool
 BuildRequires: gettext
 
-Requires: yum >= 3.0-5.3
-Requires: rhn-client-tools >= 0.4.19
-Requires: m2crypto
+Requires: yum >= 3.2.19-15
+Requires: rhn-client-tools >= 0.4.19-9
+Requires: m2crypto >= 0.16-6.el5.6
 
 # Not really, but for upgrades we need these
 Requires: rhn-setup
@@ -60,8 +60,17 @@ make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RP
 
 
 %changelog
+* Mon Aug  3 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.4-13%{?dist}
+- Resolves:  #514503
+
 * Fri Jun 26 2009 John Matthews <jmatthew@redhat.com> 0.5.7-1
 - yum-rhn-plugin requires m2crypto
+
+* Mon Jun 22 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.4-10%{?dist}
+- Resolves: #484245 
+
+* Fri Jun 12 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.4-9%{?dist}
+- Resolves: #467866
 
 * Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.5.6-1
 - yum operations are not getting redirected as the GET requested is formed at

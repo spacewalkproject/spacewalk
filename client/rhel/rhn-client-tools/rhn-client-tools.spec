@@ -204,6 +204,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Wed Jul 29 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.4.20-9
+- Resolves: #445881
+
+* Mon Jun 29 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.4.20-8
+- Resolves: #467866
+
 * Fri Jun 26 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.1-1
 - code cleanup - there is no usage of md5 in this code
 - bump up version to 0.6
@@ -223,6 +229,9 @@ rm -rf $RPM_BUILD_ROOT
 - account for virt_uuid is None case (pkilambi@redhat.com)
 - Send smbios data to remaining_subscriptions during registration
   (jbowes@redhat.com)
+
+* Fri Jun 12 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.4.20-7
+- Resolves: #504292 #467866
 
 * Fri Jun  5 2009 Pradeep Kilambi <pkilambi@redhat.com>
 - Resolves: #504296
