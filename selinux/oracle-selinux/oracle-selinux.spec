@@ -20,7 +20,7 @@
 
 Name:            oracle-selinux
 Version:         0.1
-Release:         23.10%{?obtag}%{?dist}%{?repo}
+Release:         23.11%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -205,6 +205,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Mon Aug 03 2009 Jan Pazdziora 0.1-23.11
+- /usr/sbin/oracle-nofcontext-selinux-enable needs semanage, let's add it to
+  Requires everywhere
+
 * Mon Jul 27 2009 Jan Pazdziora 0.1-23.10
 - 512718 - on Fedora 11, corenet_udp_bind_lo_node is no longer available
 - 512718 - on Fedora 12, it will be just and corenet_udp_bind_generic_node and
