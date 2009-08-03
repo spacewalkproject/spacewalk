@@ -24,12 +24,13 @@ import pgsql
 
 import sql_base
 from server import rhnSQL
+from server.rhnSQL import sql_types
 
 from common import log_debug, log_error
 from common import UserDictCase
 from const import POSTGRESQL
 
-NAMED_PARAM_REGEX = re.compile(":\w+")
+NAMED_PARAM_REGEX = re.compile("(\W)(:\w+)")
 
 def convert_named_query_params(query):
     """ 
@@ -49,7 +50,6 @@ def convert_named_query_params(query):
     log_debug(3, "Converting query for PostgreSQL: %s" % query)
     pattern = NAMED_PARAM_REGEX
 
-    
     # List with index counter and the running param to index hash:
     index_data = [1, {}]
     f = create_replacer_function(index_data)
@@ -81,7 +81,7 @@ def create_replacer_function(index_data):
         representing the next argument number to be used. (increments $1 to $2, 
         etc) The second is a hash of parameter name to it's new index number.
         """
-        matched_param = match.group()[1:]
+        matched_param = match.group(2)[1:]
 
         counter = index_data[0] # don't increment this var directly
         param_index = index_data[1]
@@ -92,10 +92,53 @@ def create_replacer_function(index_data):
             param_index[matched_param] = []
         param_index[matched_param].append(counter)
         index_data[0] = index_data[0] + 1
-        return "$%s" % counter
+        return "%s$%s" % (match.group(1), counter)
     return param_replacer
 
-    
+
+
+class Procedure(sql_base.Procedure):
+    """
+    PostgreSQL functions are somewhat different than stored procedures in
+    other databases. As a result the python-pgsql does not even implement
+    the Python DBI API callproc method.
+
+    To workaround this and keep rhnSQL database independent, we'll translate
+    any incoming requests to call a procedure into a PostgreSQL query.
+    """
+
+    def __init__(self, name, cursor):
+        sql_base.Procedure.__init__(self, name, cursor)
+
+    def __call__(self, *args):
+        log_debug(2, self.name, args)
+
+        # Buildup a string for the positional arguments to the procedure:
+        positional_args = ""
+        i = 1
+        for arg in args:
+            if len(positional_args) == 0:
+                positional_args = "$1"
+            else:
+                positional_args = positional_args + ", $%i" % i
+            i += 1
+        query = "SELECT %s(%s)" % (self.name, positional_args)
+
+        # Ugh, unicode strings coming in here, PostgreSQL doesn't like
+        # getting them as such:
+        new_args = []
+        for arg in args:
+            if type(arg) == type(u""):
+                new_args.append(str(arg))
+            else:
+                new_args.append(arg)
+
+        # TODO: pgsql.Cursor returned here, what to do with it?
+        results = self.cursor.execute(query, *new_args)
+
+        return None
+
+
 
 class Database(sql_base.Database):
     """ Class for PostgreSQL database operations. """
@@ -163,24 +206,41 @@ class Database(sql_base.Database):
             raise SQLError("PostgreSQL unable to rollback to savepoint: %s" % name)
         self.dbh.rollback()
 
+    def procedure(self, name):
+        c = self.dbh.cursor()
+        # Pass the cursor in so we can close it after execute()
+        return Procedure(name, c)
+
+    def cursor(self):
+        return Cursor(dbh=self.dbh)
+
 
 
 class Cursor(sql_base.Cursor):
     """ PostgreSQL specific wrapper over sql_base.Cursor. """
 
     def __init__(self, dbh=None, sql=None, force=None):
+
         sql_base.Cursor.__init__(self, dbh, sql, force)
 
         # Accept Oracle style named query params, but convert for python-pgsql
         # under the hood:
+        temp_sql = ""
+        if self.sql is not None:
+            temp_sql = self.sql
         (self.sql, self.param_indicies, self.param_count) = \
-                convert_named_query_params(self.sql)
+                convert_named_query_params(temp_sql)
 
     def _prepare_sql(self):
         cursor = self.dbh.cursor()
         return cursor
 
     def _execute_wrapper(self, function, *p, **kw):
+        # PostgreSQL really doesn't like getting unicode strings:
+        for key, value in kw.items():
+            if type(value) == type(u""):
+                kw[key] = str(value)
+
         params =  ','.join(["%s: %s" % (str(key), str(value)) for key, value \
                 in kw.items()])
         log_debug(5, "Executing SQL: \"%s\" with bind params: {%s}"
@@ -188,40 +248,13 @@ class Cursor(sql_base.Cursor):
         if self.sql is None:
             raise rhnException("Cannot execute empty cursor")
 
-        modified_params = self._munge_args(kw)
         try:
             retval = apply(function, p, kw)
         except pgsql.ProgrammingError, e:
             # TODO: Constructor for this exception expects a first arg of db,
             # and yet the Oracle driver passes it an errno? Suspect it's not
             # even used.
-            raise rhnSQL.SQLStatementPrepareError(0, e.message, self.sql)
-        #except Exception, e:
-        #    log_error("PostgreSQL exception", e)
-        #    raise e
-            #ret = self._get_oracle_error_info(e)
-            #if isinstance(ret, StringType):
-            #    raise sql_base.SQLError(self.sql, p, kw, ret)
-            #(errno, errmsg) = ret[:2]
-            #if 900 <= errno <= 999:
-            #    # Per Oracle's documentation, SQL parsing error
-            #    args = (errno, errmsg, self.sql)
-            #    raise apply(sql_base.SQLStatementPrepareError, args)
-            #if errno == 1475: # statement needs to be reparsed; force a prepare again
-            #    if self.reparsed: # useless, tried that already. give up
-            #        log_error("Reparsing cursor did not fix it", self.sql)
-            #        args = ("Reparsing tried and still got this",) + tuple(ret)
-            #        raise apply(sql_base.SQLError, args)
-            #    self._real_cursor = self.dbh.prepare(self.sql)
-            #    self.reparsed = 1
-            #    apply(self._execute_wrapper, (function, ) + p, kw)
-            #elif 20000 <= errno <= 20999: # error codes we know we raise as schema errors
-            #    raise apply(sql_base.SQLSchemaError, ret)
-            #raise apply(sql_base.SQLError, ret)
-        #else:
-        #    self.reparsed = 0 # reset the reparsed counter
-        # Munge back the values
-        self._unmunge_args(kw, modified_params)
+            raise rhnSQL.SQLStatementPrepareError(0, str(e), self.sql)
         return retval
 
     def _execute_(self, args, kwargs):
@@ -287,3 +320,15 @@ class Cursor(sql_base.Cursor):
         rowcount = self._real_cursor.rowcount
         return rowcount
 
+    def update_blob(self, table_name, column_name, where_clause, data, 
+            **kwargs):
+        """ 
+        PostgreSQL uses bytea columns instead of blobs. Nothing special
+        needs to be done to insert text into one.
+        """
+        # NOTE: Injecting a :column_name parameter here
+        sql = "UPDATE %s SET %s = :%s %s" % (table_name, column_name,
+            column_name, where_clause)
+        c = rhnSQL.prepare(sql)
+        kwargs[column_name] = data
+        apply(c.execute, (), kwargs)

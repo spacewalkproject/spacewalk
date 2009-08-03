@@ -9,6 +9,9 @@ TOP		?= .
 ROOT		?= /usr/share/rhn
 export ROOT
 
+SPACEWALK_ROOT	?= /usr/share/spacewalk
+export SPACEWALK_ROOT
+
 PREFIX		?=
 export PREFIX
 
@@ -29,18 +32,25 @@ PYFILES		= $(addsuffix .py,$(FILES))
 PYCFILES	= $(addsuffix .pyc,$(FILES))
 PYOFILES	= $(addsuffix .pyo,$(FILES))
 
+SPACEWALK_PYFILES		= $(addsuffix .py,$(SPACEWALK_FILES))
+SPACEWALK_PYCFILES	= $(addsuffix .pyc,$(SPACEWALK_FILES))
+
 # what do we need to install and where
 INSTALL_FILES	+= $(PYFILES) $(PYCFILES)
 INSTALL_DEST	?= $(ROOT)/$(SUBDIR)
 
+SPACEWALK_INSTALL_FILES	+= $(SPACEWALK_PYFILES) $(SPACEWALK_PYCFILES)
+
 DIRS		+= $(addprefix $(PREFIX), \
-			$(sort $(EXTRA_DIRS)) $(INSTALL_DEST))
+			$(sort $(EXTRA_DIRS)) $(INSTALL_DEST) $(SPACEWALK_ROOT))
 
 all :: $(INSTALL_FILES)
 
-install :: all $(DIRS) $(INSTALL_FILES)
+install :: all $(DIRS) $(INSTALL_FILES) $(SPACEWALK_INSTALL_FILES)
 	@$(foreach f,$(INSTALL_FILES), \
 		$(INSTALL_DATA) $(f) $(PREFIX)$(INSTALL_DEST)/$(f) ; )
+	@$(foreach f,$(SPACEWALK_INSTALL_FILES), \
+		$(INSTALL_DATA) $(f) $(PREFIX)$(SPACEWALK_ROOT)/$(f) ; )
 
 $(DIRS):
 	$(INSTALL_DIR) $@

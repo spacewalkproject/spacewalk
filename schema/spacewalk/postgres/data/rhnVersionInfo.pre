@@ -1,0 +1,22 @@
+--
+-- this populates rhnVersionInfo.  It needs to be run through cpp
+-- during build.  see Makefile.schema
+--
+
+DELETE FROM rhnVersionInfo
+WHERE label = 'schema' and
+      name_id = lookup_package_name(SCHEMA_NAME);
+
+INSERT INTO rhnVersionInfo
+(
+    label,
+    name_id,
+    evr_id
+)
+( SELECT 'schema',
+         lookup_package_name(SCHEMA_NAME),
+         lookup_evr(NULL, SCHEMA_VERSION , SCHEMA_RELEASE )
+  FROM dual
+);
+commit;
+

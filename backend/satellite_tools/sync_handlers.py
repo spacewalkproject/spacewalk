@@ -211,7 +211,8 @@ def import_channels(channels, orgid=None):
                 family['label'] = 'private-channel-family-' + \
                                            str(c_obj['org_id'])
 
-        syncLib.log(1, "Syncing Channel to Org %s " % c_obj['org_id'])
+        syncLib.log(6, "Syncing Channel %s to Org %s " % \
+                       (c_obj['label'], c_obj['org_id']))
         batch.append(c_obj)
 
     importer = channelImport.ChannelImport(batch, diskImportLib.get_backend())
@@ -705,8 +706,8 @@ def _fetch_existing_channel_families():
 
 
 _query_fetch_channel_family_permissions = rhnSQL.Statement("""
-    select cf.label channel_family, cfp.org_id,
-           cfp.max_members, cfp.current_members, cf.org_id owner_org_id
+    select cf.label as channel_family, cfp.org_id,
+           cfp.max_members, cfp.current_members, cf.org_id as owner_org_id
       from rhnChannelFamilyPermissions cfp, rhnChannelFamily cf
      where cfp.channel_family_id = cf.id
 """)
@@ -729,27 +730,10 @@ _query_purge_extra_channel_families_1 = rhnSQL.Statement("""
 """)
 
 
-_query_purge_extra_channel_families_2 = rhnSQL.Statement("""
-    delete from rhnChannelFamily cf
-     where not exists (
-        select 1 from rhnChannelFamilyMembers
-         where channel_family_id = cf.id
-       )
-       and not exists (
-        select 1 from rhnChannelFamilyPermissions
-         where channel_family_id = cf.id
-           and (max_members != 0 or max_members is null)
-       )
-       and not exists (
-        select 1 from rhnChannelFamilyVirtSubLevel
-         where  channel_family_id = cf.id
-       )
-""")
-
 _query_purge_private_channel_families = rhnSQL.Statement("""
-    delete from rhnChannelFamily cf
-        where cf.org_id is null
-          and cf.label like '%private%'
+    delete from rhnChannelFamily
+        where org_id is null
+          and label like '%private%'
 """)
 
 def purge_extra_channel_families():

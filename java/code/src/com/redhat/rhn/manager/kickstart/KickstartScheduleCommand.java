@@ -110,6 +110,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     
     private static Logger log = Logger.getLogger(KickstartScheduleCommand.class);
     public  static final String DHCP_NETWORK_TYPE = "dhcp";
+    public  static final String LINK_NETWORK_TYPE = "link";
     public static final String STATIC_NETWORK_TYPE = "static";    
     // up2date is required to be 2.9.0
     public static final String UP2DATE_VERSION = "2.9.0";
@@ -576,6 +577,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             cmd.setKernelOptions(getExtraOptions());
             cmd.setPostKernelOptions(postKernelOptions);
             cmd.setScheduledAction(kickstartAction);
+            cmd.setNetworkInfo(isDhcp, networkInterface);
             ValidatorError cobblerError = cmd.store();
             if (cobblerError != null) {
                 return cobblerError;
@@ -589,6 +591,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             cmd.setKernelOptions(kernelOptions);
             cmd.setPostKernelOptions(postKernelOptions);
             cmd.setScheduledAction(kickstartAction);
+            cmd.setNetworkInfo(isDhcp, networkInterface);
             ValidatorError cobblerError = cmd.store();
             if (cobblerError != null) {
                 return cobblerError;
@@ -941,7 +944,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         static:146.108.30.184, static:auto, static:eth0
          */
         if (!StringUtils.isBlank(networkInterface)) {
-            if (isDhcp) {
+            if (isDhcp && !LINK_NETWORK_TYPE.equals(networkInterface)) {
                 // Get rid of the dhcp:
                 String params = " ksdevice=" + networkInterface;
                 if (!kOptions.contains("ksdevice")) {
@@ -1386,12 +1389,19 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     }
     
     /**
-     * @param dhcp true if this is a dc
+     * @param networkType dhcp/static/link one of em.
      * @param networkInterfaceIn The staticDevice to set.
      */
-    public void setNetworkDevice(boolean dhcp, String networkInterfaceIn) {
-        isDhcp = dhcp;
-        networkInterface = networkInterfaceIn;
+    public void setNetworkDevice(String networkType, String networkInterfaceIn) {
+        isDhcp = networkType.equals(DHCP_NETWORK_TYPE) ||
+                            networkType.equals(LINK_NETWORK_TYPE);
+        if (networkType.equals(LINK_NETWORK_TYPE)) {
+            networkInterface = LINK_NETWORK_TYPE;
+        }
+        else {
+            networkInterface = networkInterfaceIn;
+        }
+
     }
 
     /**
@@ -1458,7 +1468,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     }
     
     private ValidatorError validateNetworkInterface() {
-        if (!StringUtils.isEmpty(networkInterface)) {
+        if (!StringUtils.isEmpty(networkInterface) &&
+                        !(isDhcp && "link".equals(networkInterface))) {
             boolean nicAvailable = false;
             for (NetworkInterface nic : server.getNetworkInterfaces()) {
                 if (networkInterface.equals(nic.getName())) {

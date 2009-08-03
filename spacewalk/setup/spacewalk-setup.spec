@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.6.10
+Version:        0.6.17
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -19,6 +19,7 @@ BuildArch:      noarch
 Requires:       perl
 Requires:       perl-Params-Validate
 Requires:       spacewalk-schema
+Requires:       perl-DBD-Pg
 Requires:       /sbin/restorecon
 Requires:       spacewalk-admin
 Requires:       spacewalk-certs-tools
@@ -100,6 +101,37 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Mon Aug 03 2009 Jan Pazdziora 0.6.17-1
+- No --log option, print_progress does logging for us, sqlplus should print to
+  STDOUT/STDERR
+
+* Thu Jul 30 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.16-1
+- Fix spacewalk-setup sudoers setup SHARED_DIR problem.
+  (dgoodwin@redhat.com)
+
+* Tue Jul 28 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.14-1
+- Fix rhn.conf population of Hibernate dialect/driver/url settings.
+  (dgoodwin@redhat.com)
+- Fix spacewalk-setup pgsql changes lost during merges. (dgoodwin@redhat.com)
+
+* Mon Jul 27 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.12-1
+- Fix PostgreSQL clearing of the DB during setup. (dgoodwin@redhat.com)
+- Populate Hibernate settings in rhn.conf for both Oracle and PostgreSQL.
+  (dgoodwin@redhat.com)
+- Prep perl stack for PostgreSQL connections. (dgoodwin@redhat.com)
+- Fully qualify spacewalk-setup calls to satcon_deploy. (dgoodwin@redhat.com)
+- Fix spacewalk-setup query to work with Oracle + PostgreSQL.
+  (dgoodwin@redhat.com)
+- Stop printing charset during setup. (dgoodwin@redhat.com)
+- Fix Oracle rhn-populate-db.pl issue. (dgoodwin@redhat.com)
+- Support setup --clear-db option for PostgreSQL. (dgoodwin@redhat.com)
+- Check if schema already exists during setup. (dgoodwin@redhat.com)
+- Update spacewalk-setup to deploy new PostgreSQL schema layout.
+  (dgoodwin@redhat.com)
+
+* Mon Jul 27 2009 John Matthews <jmatthew@redhat.com> 0.6.11-1
+- 508187 - Fix jabberd configs on x86_64. (dgoodwin@redhat.com)
+
 * Tue Jul 21 2009 John Matthews <jmatthew@redhat.com> 0.6.10-1
 - rhn-load-config.pl - remove accidental 's' (bbuckingham@redhat.com)
 - 511100 - Fixed upgrade scripts to include cobbler.host (paji@redhat.com)

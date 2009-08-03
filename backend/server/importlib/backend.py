@@ -57,18 +57,22 @@ class Backend:
     # This object is initialized by the specific subclasses (e.g.
     # OracleBackend)
     tables = TableCollection()
+    # TODO: Some reason why we're passing a module in here? Seems to
+    # always be rhnSQL anyhow...
     def __init__(self, dbmodule):
         self.dbmodule = dbmodule
         self.sequences = {}
 
+    # TODO: Why is there a pseudo-constructor here instead of just using
+    # __init__?
     def init(self):
         # Initializes the database connection objects
         # This function has to be called on a newly defined Backend object
         # Initialize sequences
         for k, v in sequences.items():
             self.sequences[k] = self.dbmodule.Sequence(v)
-        # Set date format
-        self.setDateFormat("YYYY-MM-DD HH24:MI:SS")
+        # TODO: Why do we return a reference to ourselves? If somebody called
+        # this method they already have a reference...
         return self
 
     def setDateFormat(self, format):
@@ -238,7 +242,7 @@ class Backend:
 
     def lookupOrg(self): 
         # Returns the org id
-        sql = "select min(id) id from web_customer"
+        sql = "select min(id) as id from web_customer"
         h = self.dbmodule.prepare(sql)
         h.execute()
         rows = h.fetchall_dict()
@@ -905,6 +909,11 @@ class Backend:
         cf_ids = []
         c_ids = []
         for cf in channel_families:
+            if 'private-channel-family' in cf['label']:
+                # Its a private channel family and channel family members
+                # will be different from server as this is most likely ISS
+                # sync. Don't compare and delete custom channel families.
+                continue
             for cid in cf['channel_ids']:
                 # Look up channel families for this channel
                 h_lookup_cfid.execute(channel_id=cid)
@@ -1150,7 +1159,7 @@ class Backend:
         statement = self.dbmodule.prepare("""
             insert into rhnProductName 
                  (id, label, name)
-              values (rhn_productname_id_seq.nextval, 
+              values (sequence_nextval('rhn_productname_id_seq'), 
                       :product_label, :product_name)
 	""")
 

@@ -82,7 +82,6 @@ makedir /etc/rhn/satellite-httpd/conf/rhn
 makedir /var/www/lib
 
 chdir /etc
-symlink $SVNDIR/eng/web/conf/pxtdb.conf
 symlink $SVNDIR/eng/web/conf/tnsnames.ora
 
 chdir /etc/rhn

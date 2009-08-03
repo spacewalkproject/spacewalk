@@ -14,6 +14,24 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import org.apache.struts.action.DynaActionForm;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
@@ -41,24 +59,6 @@ import com.redhat.rhn.manager.channel.InvalidGPGFingerprintException;
 import com.redhat.rhn.manager.channel.UpdateChannelCommand;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
-
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-import org.apache.struts.action.DynaActionForm;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -159,6 +159,7 @@ public class EditChannelAction extends RhnAction implements Listable {
             request.setAttribute("channel_name", form.getString("name"));
             request.setAttribute("channel_arch", form.get("arch_name"));
             request.setAttribute("channel_arch_label", form.get("arch"));
+            request.setAttribute("checksum_label", form.get("checksum"));
             addErrors(request, errors);
             prepDropdowns(new RequestContext(request));
             return getStrutsDelegate().forwardParams(
@@ -198,6 +199,7 @@ public class EditChannelAction extends RhnAction implements Listable {
         request.setAttribute("label", form.get("label"));
         request.setAttribute("parent", form.get("parent"));
         request.setAttribute("arch", form.get("arch"));
+        request.setAttribute("checksum", form.get("checksum"));
         request.setAttribute("arch_name", form.get("arch_name"));
         request.setAttribute("summary", form.get("summary"));
         request.setAttribute("description", form.get("description"));
@@ -320,6 +322,7 @@ public class EditChannelAction extends RhnAction implements Listable {
         // times where python would make this SOOOO much easier.
         UpdateChannelCommand ucc = new UpdateChannelCommand();
         ucc.setArchLabel((String)form.get("arch"));
+        ucc.setChecksum((String)form.get("checksum"));
         ucc.setLabel((String)form.get("label"));
         ucc.setName((String)form.get("name"));
         ucc.setSummary((String)form.get("summary"));
@@ -394,6 +397,7 @@ public class EditChannelAction extends RhnAction implements Listable {
         // times where python would make this SOOOO much easier.
         CreateChannelCommand ccc = new CreateChannelCommand();
         ccc.setArchLabel((String)form.get("arch"));
+        ccc.setChecksum((String)form.get("checksum"));
         ccc.setLabel((String)form.get("label"));
         ccc.setName((String)form.get("name"));
         ccc.setSummary((String)form.get("summary"));
@@ -557,6 +561,7 @@ public class EditChannelAction extends RhnAction implements Listable {
             form.set("maintainer_phone", c.getMaintainerPhone());
             form.set("maintainer_email", c.getMaintainerEmail());
             form.set("support_policy", c.getSupportPolicy());
+            form.set("checksum", c.getChecksum().getLabel());
             if (c.isGloballySubscribable(ctx.getLoggedInUser().getOrg())) {
                 form.set("per_user_subscriptions", "all");
             }
@@ -599,6 +604,7 @@ public class EditChannelAction extends RhnAction implements Listable {
             request.setAttribute("channel_name", c.getName());
             request.setAttribute("channel_arch", c.getChannelArch().getName());
             request.setAttribute("channel_arch_label", c.getChannelArch().getLabel());
+            
         }
         else {
             // default settings
@@ -631,6 +637,10 @@ public class EditChannelAction extends RhnAction implements Listable {
             addOption(channelArches, arch.getName(), arch.getLabel());
         }
         ctx.getRequest().setAttribute("channelArches", channelArches);
+        // set the list of yum supported checksums
+        ctx.getRequest().setAttribute("checksums", 
+                ChannelFactory.listYumSupportedChecksums());
+        
     }
     
     /**

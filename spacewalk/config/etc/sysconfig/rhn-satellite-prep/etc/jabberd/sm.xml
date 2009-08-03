@@ -17,7 +17,7 @@
 
     <!-- Username/password to authenticate as -->
     <user>jabberd</user>          <!-- default: jabberd -->
-    <pass>@@pass@@</pass>           <!-- default: secret -->
+    <pass>@@jabberDOTdbpass@@</pass>           <!-- default: secret -->
 
     <!-- File containing an SSL certificate and private key to use when
          setting up an encrypted channel with the router. From
@@ -69,7 +69,7 @@
   <!-- Storage database configuration -->
   <storage>
     <!-- Dynamic storage modules path -->
-    <path>/usr/lib/jabberd</path>
+    <path>@@jabberDOTlibdir@@</path>
 
     <!-- By default, we use the MySQL driver for all storage -->
     <driver>db</driver>
@@ -109,7 +109,7 @@
 
       <!-- Database username and password -->
       <user>jabberd2</user>
-      <pass>@@pass@@</pass>
+      <pass>@@jabberDOTdbpass@@</pass>
 
       <!-- Transacation support. If this is commented out, transactions
            will be disabled. This might make database accesses faster,
@@ -140,7 +140,7 @@
 
       <!-- Database username and password -->
       <user>jabberd2</user>
-      <pass>@@pass@@</pass>
+      <pass>@@jabberDOTdbpass@@</pass>
 
       <!-- Transacation support. If this is commented out, transactions
            will be disabled. This might make database accesses faster,
@@ -172,7 +172,7 @@
 
       <!-- Database username and password -->
       <user>jabberd2</user>
-      <pass>@@pass@@</pass>
+      <pass>@@jabberDOTdbpass@@</pass>
     </oracle>
 
     <!-- SQLite driver configuration -->
@@ -326,7 +326,7 @@
        doing. -->
   <modules>
     <!-- Dynamic sm modules path -->
-    <path>/usr/lib/jabberd</path>
+    <path>@@jabberDOTlibdir@@</path>
 
     <!-- sess-start. The modules in this chain are called when a session
          is first started (usually on request by c2s as part of the

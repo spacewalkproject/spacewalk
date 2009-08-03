@@ -13,3 +13,4 @@ disttag = .el5
 
 [dist-f11-sw-0.6-candidate]
 disttag = .fc11
+blacklist=jabberd-selinux

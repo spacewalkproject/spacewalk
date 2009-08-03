@@ -20,7 +20,7 @@
 
 Name:            oracle-selinux
 Version:         0.1
-Release:         23.9%{?obtag}%{?dist}%{?repo}
+Release:         23.11%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -36,8 +36,8 @@ BuildArch:       noarch
 %if "%{selinux_policyver}" != ""
 Requires:         selinux-policy >= %{selinux_policyver}
 %endif
-Requires(post):   /usr/sbin/semodule, /sbin/restorecon
-Requires(postun): /usr/sbin/semodule, /sbin/restorecon
+Requires(post):   /usr/sbin/semanage, /usr/sbin/semodule, /sbin/restorecon
+Requires(postun): /usr/sbin/semanage, /usr/sbin/semodule, /sbin/restorecon
 Obsoletes:        oracle-10gR2-selinux
 
 %description
@@ -52,8 +52,8 @@ Requires:         selinux-policy >= %{selinux_policyver}
 %if 0%{?rhel} == 5
 Requires:        selinux-policy >= 2.4.6-80
 %endif
-Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/selinuxenabled
-Requires(postun): /usr/sbin/semodule, /sbin/restorecon
+Requires(post):   /usr/sbin/semanage, /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/selinuxenabled
+Requires(postun): /usr/sbin/semanage, /usr/sbin/semodule, /sbin/restorecon
 Conflicts:       oracle-selinux
 
 %description -n oracle-nofcontext-selinux
@@ -205,6 +205,15 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Mon Aug 03 2009 Jan Pazdziora 0.1-23.11
+- /usr/sbin/oracle-nofcontext-selinux-enable needs semanage, let's add it to
+  Requires everywhere
+
+* Mon Jul 27 2009 Jan Pazdziora 0.1-23.10
+- 512718 - on Fedora 11, corenet_udp_bind_lo_node is no longer available
+- 512718 - on Fedora 12, it will be just and corenet_udp_bind_generic_node and
+  corenet_udp_bind_all_nodes
+
 * Thu Jun 18 2009 Jan Pazdziora <jpazdziora@redhat.com> 0.1-23.9
 - 505606 - Require at least selinux-policy 2.4.6-80
 - do semodule -l first to see if we have the store

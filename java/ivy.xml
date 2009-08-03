@@ -48,6 +48,7 @@
         <dependency org="redhat" name="redstone-xmlrpc" rev="1.1_20071120" />
         <dependency org="redhat" name="redstone-xmlrpc-client" rev="1.1_20071120" />
         <dependency org="redhat" name="gsbase" rev="2.0.1" />
+        <dependency org="redhat" name="postgresql-jdbc" rev="8.1.407" />
         <dependency org="redhat" name="mockobjects" rev="0.09" />
         <dependency org="redhat" name="mockobjects-core" rev="0.09" />
         <dependency org="redhat" name="mockobjects-jdk1.4-j2ee1.3" rev="0.09" />

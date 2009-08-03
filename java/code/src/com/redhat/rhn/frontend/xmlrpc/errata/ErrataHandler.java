@@ -842,7 +842,7 @@ public class ErrataHandler extends BaseHandler {
     
     private Object getRequiredAttribute(Map map, String attribute) {
         Object value = map.get(attribute);
-        if (value == null) {
+        if (value == null || StringUtils.isEmpty(value.toString())) {
             throw new MissingErrataAttributeException(attribute);
         }
         else {

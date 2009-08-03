@@ -48,7 +48,6 @@ def update_kickstart_session(server_id, action_id, action_status,
         server_id)
     return ks_session_id
 
-
 _query_update_ks_session_table = rhnSQL.Statement("""
     update rhnKickstartSession
        set action_id = :action_id,
@@ -329,7 +328,7 @@ def schedule_virt_pkg_install(server_id, kickstart_session_id):
 _query_schedule_config_files = rhnSQL.Statement("""
     insert into rhnActionConfigRevision 
            (id, action_id, server_id, config_revision_id)
-    select rhn_actioncr_id_seq.nextval, :action_id, 
+    select sequence_nextval('rhn_actioncr_id_seq'), :action_id, 
            server_id, config_revision_id
       from (
             select distinct scc.server_id, 
@@ -541,7 +540,7 @@ def _channel_provides_capability(channel_id, capability):
 _query_insert_action_packages = rhnSQL.Statement("""
     insert into rhnActionPackage 
            (id, action_id, name_id, evr_id, package_arch_id, parameter)
-    select rhn_act_p_id_seq.nextval, :action_id, name_id, evr_id,
+    select sequence_nextval('rhn_act_p_id_seq'), :action_id, name_id, evr_id,
            package_arch_id, 'upgrade'
       from rhnPackage
      where id = :package_id

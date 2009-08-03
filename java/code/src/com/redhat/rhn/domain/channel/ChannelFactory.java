@@ -14,18 +14,13 @@
  */
 package com.redhat.rhn.domain.channel;
 
-import com.redhat.rhn.common.db.datasource.CallableMode;
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.SelectMode;
-import com.redhat.rhn.common.db.datasource.WriteMode;
-import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
-import com.redhat.rhn.domain.kickstart.KickstartableTree;
-import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.rhnpackage.Package;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.manager.channel.ChannelManager;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -35,13 +30,19 @@ import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.redhat.rhn.common.db.datasource.CallableMode;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.SelectMode;
+import com.redhat.rhn.common.db.datasource.WriteMode;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
+import com.redhat.rhn.domain.common.ChecksumType;
+import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.channel.ChannelManager;
 
 /**
  * ChannelFactory
@@ -261,7 +262,6 @@ public class ChannelFactory extends HibernateFactory {
         c.add(Restrictions.in("label", labels));
         return c.list();
     }
-
     
     /**
      * Returns list of channel architectures
@@ -272,7 +272,7 @@ public class ChannelFactory extends HibernateFactory {
         Criteria criteria = session.createCriteria(ChannelArch.class);
         return criteria.list();
     }
-    
+
     /**
      * returns a ChannelArch by label
      * @param label ChannelArch label
@@ -568,7 +568,27 @@ public class ChannelFactory extends HibernateFactory {
                 "KickstartableTree.findTreesForChannel", params);
     }
     
-
+    /**
+     * Find yum supported checksum types
+     * @return List of ChecksumTypes instances
+     */
+    public static List<ChecksumType> listYumSupportedChecksums() {
+        return singleton.listObjectsByNamedQuery(
+                "ChecksumType.loadAllForYum", Collections.EMPTY_MAP);
+    }
+    
+    /**
+     * Find checksumtype by label
+     * @param checksum checksum label
+     * @return ChecksumType instance for given label
+     */
+    public static ChecksumType findChecksumByLabel(String checksum) {
+        Map params = new HashMap();
+        params.put("label", checksum);
+        return (ChecksumType)
+            singleton.lookupObjectByNamedQuery("ChecksumType.findByLabel", params);
+    }
+    
     /**
      * Get a list of packages ids that are in a channel
      *  and in a list of errata.  (The errata do not

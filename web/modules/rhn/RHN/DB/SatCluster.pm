@@ -147,7 +147,7 @@ sub create_new {
   # Fetch two IDs from RHN_COMMAND_TARGET_RECID_SEQ to act 
   # as the sat_cluster recid and sat_node recid
   $sql = q{
-    SELECT RHN_COMMAND_TARGET_RECID_SEQ.nextval
+    SELECT sequence_nextval('RHN_COMMAND_TARGET_RECID_SEQ')
     FROM   dual
   };
 
@@ -190,7 +190,7 @@ sub create_new {
       :customer_id,
       :description,
       :last_update_user,
-      sysdate,
+      CURRENT_TIMESTAMP,
       1,
       :vip,
       1
@@ -228,7 +228,7 @@ sub create_new {
       :recid,
       'node',
       :last_update_user,
-      sysdate,
+      CURRENT_TIMESTAMP,
       :mac_address,
       10,
       :sat_cluster_id,

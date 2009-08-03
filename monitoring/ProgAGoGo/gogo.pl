@@ -230,6 +230,7 @@ if (my $nannypid = fork()) {
 
 # ... else, I am the nanny.
 
+setpgrp(0,0);
 
 # Set up the signal handlers for nice clean exits ...
 $SIG{'INT'}   = \&sigRelay;

@@ -15,6 +15,8 @@
 package com.redhat.rhn.frontend.xmlrpc.org;
 
 import com.redhat.rhn.FaultException;
+import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.validator.ValidatorError;
@@ -43,6 +45,7 @@ import com.redhat.rhn.frontend.xmlrpc.NoSuchEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchOrgException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
 import com.redhat.rhn.frontend.xmlrpc.OrgNotInTrustException;
+import com.redhat.rhn.frontend.xmlrpc.PamAuthNotConfiguredException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.SatelliteOrgException;
 import com.redhat.rhn.frontend.xmlrpc.ValidationException;
@@ -54,6 +57,7 @@ import com.redhat.rhn.manager.org.OrgManager;
 import com.redhat.rhn.manager.org.UpdateOrgSoftwareEntitlementsCommand;
 import com.redhat.rhn.manager.org.UpdateOrgSystemEntitlementsCommand;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
@@ -116,7 +120,8 @@ public class OrgHandler extends BaseHandler {
         log.debug("OrgHandler.create");
         getSatAdmin(sessionKey);
 
-        validateCreateOrgData(orgName, adminPassword, firstName, lastName, email);
+        validateCreateOrgData(orgName, adminPassword, firstName, lastName, email,
+            usePamAuth);
 
         CreateOrgCommand cmd = new CreateOrgCommand(orgName, adminLogin, adminPassword, 
             email);
@@ -124,6 +129,18 @@ public class OrgHandler extends BaseHandler {
         cmd.setLastName(lastName);
         cmd.setPrefix(prefix);
         
+        String pamAuthService = Config.get().getString(ConfigDefaults.WEB_PAM_AUTH_SERVICE);
+        if (usePamAuth) {
+            if (pamAuthService != null && pamAuthService.trim().length() > 0) {
+                cmd.setUsePam(usePamAuth);
+            }
+            else {
+                // The user wants to use pam authentication, but the server has not been
+                // configured to use pam... Throw an error...
+                throw new PamAuthNotConfiguredException();
+            }
+        }
+
         ValidatorError[] verrors = cmd.store();
         if (verrors != null) {
             throw new ValidationException(verrors[0].getMessage());
@@ -133,7 +150,7 @@ public class OrgHandler extends BaseHandler {
     }
 
     private void validateCreateOrgData(String orgName, String password, String firstName, 
-            String lastName, String email) {
+            String lastName, String email, Boolean usePamAuth) {
         
         Map<String, String> values = new HashMap<String, String>();
         values.put("orgName", orgName);
@@ -154,6 +171,11 @@ public class OrgHandler extends BaseHandler {
             // exception for the first one and return that to the user.
             ValidatorError e = result.getErrors().get(0);
             throw new ValidationException(e.getMessage());
+        }
+
+        if (!usePamAuth && StringUtils.isEmpty(password)) {
+            throw new FaultException(-501, "passwordRequiredOrUsePam",
+                    "Password is required if not using PAM authentication");
         }
     }
 

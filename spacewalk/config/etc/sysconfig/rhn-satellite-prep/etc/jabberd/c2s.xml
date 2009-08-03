@@ -15,7 +15,7 @@
 
     <!-- Username/password to authenticate as -->
     <user>jabberd</user>          <!-- default: jabberd -->
-    <pass>@@pass@@</pass>           <!-- default: secret -->
+    <pass>@@jabberDOTdbpass@@</pass>           <!-- default: secret -->
 
     <!-- File containing an SSL certificate and private key to use when
          setting up an encrypted channel with the router. From
@@ -318,7 +318,7 @@
   <!-- Authentication/registration database configuration -->
   <authreg>
     <!-- Dynamic authreg modules path -->
-    <path>/usr/lib/jabberd</path>
+    <path>@@jabberDOTlibdir@@</path>
 
     <!-- Backend module to use -->
     <module>db</module>
@@ -379,7 +379,7 @@
 
       <!-- Database username and password -->
       <user>jabberd2</user>
-      <pass>45296ce7aeb79751a83413fca6af2612e95a2fb6</pass>
+      <pass>@@jabberDOTdbpass@@</pass>
 
       <!-- Passwords in DB may be stored in plain or hashed format -->
       <!-- NOTE: If you are using hashed passwords, the only auth
@@ -414,7 +414,7 @@
 
       <!-- Database username and password -->
       <user>jabberd2</user>
-      <pass>45296ce7aeb79751a83413fca6af2612e95a2fb6</pass>
+      <pass>@@jabberDOTdbpass@@</pass>
     </pgsql>
 
     <!-- Oracle driver configuration -->
@@ -428,7 +428,7 @@
 
       <!-- Database username and password -->
       <user>jabberd2</user>
-      <pass>45296ce7aeb79751a83413fca6af2612e95a2fb6</pass>
+      <pass>@@jabberDOTdbpass@@</pass>
     </oracle>
 
     <!-- SQLite driver configuration -->

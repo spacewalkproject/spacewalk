@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.6.9
+Version: 0.6.13
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -96,24 +96,26 @@ export ORACLE_HOME=/opt/oracle
 export NLS_LANG=english.AL32UTF8
 EOF
 
-if [ "$1" -eq "1" ]; then
-        #replace default passwords, yes its kinda hackish 
-        export NEWPASS=$( dd if=/dev/urandom bs=20 count=1 2>/dev/null \
-                                | sha1sum | awk '{print $1}' )
-        %{__sed} -i -f- %{_sysconfdir}/jabberd/*.xml <<END
-s,<secret>.*</secret>,<secret>$NEWPASS</secret>,g
-END
-        %{__sed} -i -f- %{_sysconfdir}/jabberd/*.xml <<END
-s,<pass>.*</pass>,<pass>$NEWPASS</pass>,g
-END
-        %{__sed} -i -f- %{_sysconfdir}/sysconfig/rhn-satellite-prep/etc/jabberd/*.xml <<END
-s,<pass>@@pass@@</pass>,<pass>$NEWPASS</pass>,g
-END
-
-fi
-
 
 %changelog
+* Wed Jul 29 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.13-1
+- Add router.xml and router-users.xml to jabberd configs we deploy.
+  (dgoodwin@redhat.com)
+
+* Tue Jul 28 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.12-1
+- Better jabberd password replacement for upgrades. (dgoodwin@redhat.com)
+
+* Mon Jul 27 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.11-1
+- Populate Hibernate settings in rhn.conf for both Oracle and PostgreSQL.
+  (dgoodwin@redhat.com)
+- Add note on rhn.conf default_db being only used for Oracle.
+  (dgoodwin@redhat.com)
+
+* Mon Jul 27 2009 John Matthews <jmatthew@redhat.com> 0.6.10-1
+- 508187 - Fix jabberd configs on x86_64. (dgoodwin@redhat.com)
+- 493060 - do not send email "RHN Monitoring Scout started" by default
+  (msuchy@redhat.com)
+
 * Tue Jul 21 2009 John Matthews <jmatthew@redhat.com> 0.6.9-1
 - adding disable_iss flag to rhn.conf (pkilambi@redhat.com)
 - 511100 - Fixed upgrade scripts to include cobbler.host (paji@redhat.com)

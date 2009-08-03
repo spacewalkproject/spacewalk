@@ -45,6 +45,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             class="com.redhat.rhn.domain.channel.ChannelArch"
             column="channel_arch_id"/>
             
+         <many-to-one
+            name="checksum"
+            class="com.redhat.rhn.domain.common.ChecksumType"
+            column="checksum_type_id"/>
+               
         <set name="distChannelMaps">
             <key column="channel_id"/>
             <one-to-many class="com.redhat.rhn.domain.channel.DistChannelMap"/>
@@ -213,7 +218,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="Channel.channelsWithClonableErrata">
         <![CDATA[from com.redhat.rhn.domain.channel.ClonedChannel as c where c.org = :org]]>
     </query>
-
 
     <query name="Channel.packageInChannelAndErrata">
         <![CDATA[

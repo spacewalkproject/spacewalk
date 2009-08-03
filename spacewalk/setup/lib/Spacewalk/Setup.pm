@@ -36,6 +36,9 @@ use constant SATELLITE_SYSCONFIG  => "/etc/sysconfig/rhn-satellite";
 
 use constant SHARED_DIR => "/usr/share/spacewalk/setup";
 
+use constant POSTGRESQL_SCHEMA_FILE => File::Spec->catfile("/etc", "sysconfig", 
+    'rhn', 'postgres', 'main.sql');
+
 use constant DEFAULT_ANSWER_FILE_GLOB =>
   SHARED_DIR . '/defaults.d/*.conf';
 
@@ -412,7 +415,7 @@ sub check_groups_exist {
 sub clear_db {
     my $answers = shift;
 
-    my $dbh = oracle_get_dbh($answers);
+    my $dbh = get_dbh($answers);
 
     print loc("** Database: Shutting down services that may be using DB: [tomcat5, taskomatic, httpd, jabberd, osa-dispatcher, tsdb_local_queue].\n");
 
@@ -544,7 +547,7 @@ sub answered {
 
 sub get_nls_database_parameters {
     my $answers = shift;
-    my $dbh = oracle_get_dbh($answers);
+    my $dbh = get_dbh($answers);
 
     my $sth = $dbh->prepare(<<EOQ);
 SELECT NDP.parameter, NDP.value
@@ -634,18 +637,197 @@ sub set_progress_callback {
 	alarm 1;
 }
 
+sub get_database_answers {
+    my $opts = shift;
+    my $answers = shift;
+
+    ask(
+        -noninteractive => $opts->{"non-interactive"},
+        -question => "DB User",
+        -test => qr/\S+/,
+        -answer => \$answers->{'db-user'});
+
+    ask(
+        -noninteractive => $opts->{"non-interactive"},
+        -question => "DB Password",
+        -test => qr/\S+/,
+        -answer => \$answers->{'db-password'},
+        -password => 1);
+
+    ask(
+        -noninteractive => $opts->{"non-interactive"},
+        -question => "DB SID",
+        -test => qr/\S+/,
+        -answer => \$answers->{'db-sid'});
+
+    ask(
+        -noninteractive => $opts->{"non-interactive"},
+        -question => "DB hostname",
+        -test => qr/\S+/,
+        -answer => \$answers->{'db-host'});
+
+    ask(
+        -noninteractive => $opts->{"non-interactive"},
+        -question => "DB port",
+        -test => qr/\d+/,
+        -default => 1521,
+        -answer => \$answers->{'db-port'});
+
+    ask(
+        -noninteractive => $opts->{"non-interactive"},
+        -question => "DB protocol",
+        -test => qr/\S+/,
+        -default => 'TCP',
+        -answer => \$answers->{'db-protocol'});
+
+    return;
+}
+
+
+############################
+# PostgreSQL Specific Code #
+############################
+
+# Parent PostgreSQL setup function:
+sub postgresql_setup_db {
+    my $opts = shift;
+    my $answers = shift;
+
+    print Spacewalk::Setup::loc("** Database: Setting up database connection.\n");
+    my $connected;
+
+    while (not $connected) {
+        get_database_answers($opts, $answers);
+
+        my $dbh;
+
+        eval {
+            $dbh = get_dbh($answers);
+            $dbh->disconnect();
+        };
+        if ($@) {
+            print Spacewalk::Setup::loc("Could not connect to the database.  Your connection information may be incorrect.  Error: %s\n", $@);
+
+            delete @{$answers}{qw/db-protocol db-host db-port db-user db-sid db-password/};
+        }
+        else {
+            $connected = 1;
+        }
+    }
+
+    postgresql_populate_db($opts, $answers);
+
+    return 1;
+}
+
+sub postgresql_populate_db {
+    my $opts = shift;
+    my $answers = shift;
+
+    print Spacewalk::Setup::loc("** Database: Populating database.\n");
+
+    if ($opts->{"skip-db-population"} || $opts->{"upgrade"}) {
+        print Spacewalk::Setup::loc("** Database: Skipping database population.\n");
+        return 1;
+    }
+
+    #my $tablespace_name = oracle_get_default_tablespace_name($answers);
+    #oracle_populate_tablespace_name($tablespace_name);
+
+    if ($opts->{"clear-db"}) {
+        print Spacewalk::Setup::loc("** Database: --clear-db option used.  Clearing database.\n");
+        postgresql_clear_db($answers);
+    }
+
+    if (postgresql_test_db_schema($answers)) {
+        ask(
+            -noninteractive => $opts->{"non-interactive"},
+            -question => "The Database has schema.  Would you like to clear the database",
+            -test => qr/(Y|N)/i,
+            -answer => \$answers->{'clear-db'},
+            -default => 'Y',
+        );
+
+        if ($answers->{"clear-db"} =~ /Y/i) {
+            print Spacewalk::Setup::loc("** Database: Clearing database.\n");
+            postgresql_clear_db($answers);
+            print Spacewalk::Setup::loc("** Database: Re-populating database.\n");
+        }
+        else {
+            print Spacewalk::Setup::loc("**Database: The database already has schema.  Skipping database population.");
+            return 1;
+        }
+    }
+
+    my $sat_schema_deploy = POSTGRESQL_SCHEMA_FILE;
+    my $logfile = DB_POP_LOG_FILE;
+
+    my @opts = ('/usr/bin/rhn-populate-database.pl',
+        sprintf('--user=%s', @{$answers}{'db-user'}),
+        sprintf('--password=%s', @{$answers}{'db-password'}),
+        sprintf('--database=%s', @{$answers}{'db-sid'}),
+        sprintf('--host=%s', @{$answers}{'db-host'}),
+        sprintf("--schema-deploy-file=$sat_schema_deploy"),
+        sprintf("--log=$logfile"),
+        sprintf('--nofork'),
+        sprintf('--postgresql'),
+    );
+
+    print_progress(-init_message => "*** Progress: #",
+        -log_file_name => Spacewalk::Setup::DB_POP_LOG_FILE,
+        -log_file_size => Spacewalk::Setup::DB_POP_LOG_SIZE,
+        -err_message => "Could not populate database.\n",
+        -err_code => 23,
+        -system_opts => [@opts]);
+
+    return 1;
+}
+
+# Check if the database appears to already have schema loaded:
+sub postgresql_test_db_schema {
+    my $answers = shift;
+    my $dbh = get_dbh($answers);
+
+    # Assumption, if web_customer table exists then schema exists:
+    my $sth = $dbh->prepare("SELECT tablename from pg_tables where schemaname='public' and tablename='web_customer'");
+
+    $sth->execute;
+    my ($row) = $sth->fetchrow;
+    $sth->finish;
+    $dbh->disconnect();
+    return $row ? 1 : 0;
+}
+
+# Clear the PostgreSQL schema by deleting the 'public' schema with cascade, 
+# then re-creating it.
+sub postgresql_clear_db {
+    my $answers = shift;
+
+
+    # Only way to clear a PostgreSQL db we've found so far is to wipe it out
+    # completely:
+    my $password = @{$answers}{'db-password'};
+    my $user = @{$answers}{'db-user'};
+    my $host = @{$answers}{'db-host'};
+    my $port = @{$answers}{'db-port'};
+    my $database = @{$answers}{'db-sid'};
+    my $clear_db_cmd = "PGPASSWORD=$password dropdb -U $user -h $host -p $port $database";
+    system($clear_db_cmd);
+    $clear_db_cmd = "PGPASSWORD=$password createdb -U $user -h $host  $database";
+    system($clear_db_cmd);
+    $clear_db_cmd = "PGPASSWORD=$password createlang -U $user -h $host plpgsql $database";
+    system($clear_db_cmd);
+
+    return 1;
+}
 
 
 
+########################
+# Oracle Specific Code #
+########################
 
-
-##########
-# Oracle #
-##########
-
-# TODO: Prime candidates for extracting into another Perl module and/or package.
-
-# Parent Oracle setup method:
+# Parent Oracle setup function:
 sub oracle_setup_db {
     my $opts = shift;
     my $answers = shift;
@@ -799,7 +981,7 @@ sub oracle_setup_db_connection {
     my $connected;
 
     while (not $connected) {
-        oracle_get_database_answers($opts, $answers);
+        get_database_answers($opts, $answers);
 
         my $address = join(",", @{$answers}{qw/db-protocol db-host db-port/});
 
@@ -813,7 +995,7 @@ sub oracle_setup_db_connection {
         my $dbh;
 
         eval {
-            $dbh = oracle_get_dbh($answers);
+            $dbh = get_dbh($answers);
             $dbh->disconnect();
         };
         if ($@) {
@@ -832,56 +1014,10 @@ sub oracle_setup_db_connection {
     return 1;
 }
 
-sub oracle_get_database_answers {
-    my $opts = shift;
-    my $answers = shift;
-
-    ask(
-        -noninteractive => $opts->{"non-interactive"},
-        -question => "DB User",
-        -test => qr/\S+/,
-        -answer => \$answers->{'db-user'});
-
-    ask(
-        -noninteractive => $opts->{"non-interactive"},
-        -question => "DB Password",
-        -test => qr/\S+/,
-        -answer => \$answers->{'db-password'},
-        -password => 1);
-
-    ask(
-        -noninteractive => $opts->{"non-interactive"},
-        -question => "DB SID",
-        -test => qr/\S+/,
-        -answer => \$answers->{'db-sid'});
-
-    ask(
-        -noninteractive => $opts->{"non-interactive"},
-        -question => "DB hostname",
-        -test => qr/\S+/,
-        -answer => \$answers->{'db-host'});
-
-    ask(
-        -noninteractive => $opts->{"non-interactive"},
-        -question => "DB port",
-        -test => qr/\d+/,
-        -default => 1521,
-        -answer => \$answers->{'db-port'});
-
-    ask(
-        -noninteractive => $opts->{"non-interactive"},
-        -question => "DB protocol",
-        -test => qr/\S+/,
-        -default => 'TCP',
-        -answer => \$answers->{'db-protocol'});
-
-    return;
-}
-
 sub oracle_check_db_version {
     my $answers = shift;
 
-    my $dbh = oracle_get_dbh($answers);
+    my $dbh = get_dbh($answers);
 
     my ($v, $c);
 
@@ -927,7 +1063,7 @@ sub oracle_test_db_settings {
 sub oracle_check_db_privs {
     my $answers = shift;
 
-    my $dbh = oracle_get_dbh($answers);
+    my $dbh = get_dbh($answers);
 
     my $sth = $dbh->prepare(<<EOQ);
 SELECT DISTINCT privilege
@@ -992,7 +1128,7 @@ sub oracle_check_db_tablespace_settings {
 
     my $tablespace_name = oracle_get_default_tablespace_name($answers);
 
-    my $dbh = oracle_get_dbh($answers);
+    my $dbh = get_dbh($answers);
 
     my $sth = $dbh->prepare(<<EOQ);
 SELECT UT.status, UT.contents, UT.logging
@@ -1090,13 +1226,23 @@ sub oracle_populate_db {
     }
 
     my $sat_schema_deploy =
-    File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'universe.deploy.sql');
+        File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'oracle', 'deploy.sql');
+    my $logfile = DB_POP_LOG_FILE;
 
+#    my @opts = ('/usr/bin/rhn-populate-database.pl',
+#        sprintf('--dsn=%s/%s@%s', @{$answers}{qw/db-user db-password db-sid/}),
+#        "--schema-deploy-file=$sat_schema_deploy",
+#        '--nofork',
+#    );
     my @opts = ('/usr/bin/rhn-populate-database.pl',
-        sprintf('--dsn=%s/%s@%s', @{$answers}{qw/db-user db-password db-sid/}),
-        "--schema-deploy-file=$sat_schema_deploy",
-        '--nofork',
+        sprintf('--user=%s', @{$answers}{'db-user'}),
+        sprintf('--password=%s', @{$answers}{'db-password'}),
+        sprintf('--database=%s', @{$answers}{'db-sid'}),
+        sprintf('--host=%s', @{$answers}{'db-host'}),
+        sprintf("--schema-deploy-file=$sat_schema_deploy"),
+        sprintf('--nofork'),
     );
+
 
     if (have_selinux()) {
       local *X; open X, '> ' . DB_POP_LOG_FILE and close X;
@@ -1115,9 +1261,9 @@ sub oracle_populate_db {
 sub oracle_populate_tablespace_name {
   my $tablespace_name = shift;
 
-  my $sat_schema = File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'universe.satellite.sql');
+  my $sat_schema = File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'oracle', 'main.sql');
   my $sat_schema_deploy =
-    File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'universe.deploy.sql');
+    File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'oracle', 'deploy.sql');
 
   system_or_exit([ "/usr/bin/rhn-config-schema.pl",
 		   "--source=" . $sat_schema,
@@ -1134,7 +1280,7 @@ sub oracle_populate_tablespace_name {
 sub oracle_test_db_schema {
   my $answers = shift;
 
-  my $dbh = oracle_get_dbh($answers);
+  my $dbh = get_dbh($answers);
 
   my $sth = $dbh->prepare(<<'EOQ');
 SELECT 1
@@ -1154,19 +1300,32 @@ EOQ
   return $row ? 1 : 0;
 }
 
-sub oracle_get_dbh {
+sub get_dbh {
   my $answers = shift;
 
-  my ($username, $password, $sid) = @{$answers}{qw/db-user db-password db-sid/};
+  my ($database, $username, $password, $sid, $host, $port) = @{$answers}{qw/db-backend db-user db-password db-sid db-host db-port/};
 
-  my $dbh = DBI->connect("dbi:Oracle:$sid", $username, $password,
-			 {
-			  RaiseError => 1,
-			  PrintError => 0,
-			  Taint => 0,
-			  AutoCommit => 0,
-			 }
-			);
+  my $dbh;
+  if ($database eq "oracle") {
+      $dbh = DBI->connect("dbi:Oracle:$sid", $username, $password,
+          {
+              RaiseError => 1,
+              PrintError => 0,
+              Taint => 0,
+              AutoCommit => 0,
+          }
+      );
+  }
+  elsif ($database eq "postgresql") {
+      $dbh = DBI->connect("DBI:Pg:dbname=$sid;host=$host;port=$port", $username, $password,
+          {
+              RaiseError => 1,
+              PrintError => 0,
+              Taint => 0,
+              AutoCommit => 0,
+          }
+      );
+  }
 
   # Bugzilla 466747: On s390x, stty: standard input: Bad file descriptor
   # For some reason DBI mistakenly sets FD_CLOEXEC on a stdin file descriptor
@@ -1183,7 +1342,7 @@ sub oracle_get_dbh {
 sub oracle_get_default_tablespace_name {
   my $answers = shift;
 
-  my $dbh = oracle_get_dbh($answers);
+  my $dbh = get_dbh($answers);
 
   my $sth = $dbh->prepare(<<EOQ);
 SELECT UU.default_tablespace

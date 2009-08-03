@@ -524,7 +524,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @param summary Channel Summary
      * @param archLabel Architecture label
      * @param parentlabel Parent Channel label (may be null)
+     * @param checksumtype checksum type for this channel
      * @return 1 if creation of channel succeeds.
+     * @since 10.9
      * @throws PermissionCheckFailureException  thrown if user does not have
      * permission to create the channel.
      * @throws InvalidChannelNameException thrown if given name is in use or
@@ -559,10 +561,18 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #options_end()
      * @xmlrpc.param #param_desc("string", "parentLabel", "label of the parent of this 
      *              channel, an empty string if it does not have one")
+     * @xmlrpc.param #param_desc("string", "checksumtype", "checksum type for this channel,
+     *              used for yum repository metadata generation")
+     *      #options()
+     *          #item_desc ("sha1", "Offers widest compatibility  with clients")
+     *          #item_desc ("sha256", "Offers highest security, but is compatible
+     *                        only with newer clients: Fedora 11 and newer,
+     *                        or Enterprise Linux 6 and newer.")
+     *      #options_end()
      * @xmlrpc.returntype int - 1 if the creation operation succeeded, 0 otherwise
      */
     public int create(String sessionKey, String label, String name,
-            String summary, String archLabel, String parentlabel)
+            String summary, String archLabel, String parentlabel, String checksumtype)
         throws PermissionCheckFailureException, InvalidChannelLabelException,
                InvalidChannelNameException, InvalidParentChannelException {
         
@@ -577,10 +587,64 @@ public class ChannelSoftwareHandler extends BaseHandler {
         ccc.setSummary(summary);
         ccc.setParentLabel(parentlabel);
         ccc.setUser(user);
+        ccc.setChecksum(checksumtype);
 
         return (ccc.create() != null) ? 1 : 0;
     }
     
+    /**
+     * Creates a software channel, parent_channel_label can be empty string
+     * @param sessionKey WebSession containing User information.
+     * @param label Channel label to be created
+     * @param name Name of Channel
+     * @param summary Channel Summary
+     * @param archLabel Architecture label
+     * @param parentlabel Parent Channel label (may be null)
+     * @return 1 if creation of channel succeeds.
+     * @throws PermissionCheckFailureException  thrown if user does not have
+     * permission to create the channel.
+     * @throws InvalidChannelNameException thrown if given name is in use or
+     * otherwise, invalid.
+     * @throws InvalidChannelLabelException throw if given label is in use or
+     * otherwise, invalid.
+     * @throws InvalidParentChannelException thrown if parent label is for a
+     * channel that is not a base channel.
+     *
+     * @xmlrpc.doc Creates a software channel
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "label", "label of the new channel")
+     * @xmlrpc.param #param_desc("string", "name", "name of the new channel")
+     * @xmlrpc.param #param_desc("string", "summary" "summary of the channel")
+     * @xmlrpc.param #param_desc("string", "archLabel",
+     *              "the label of the architecture the channel corresponds to")
+     *      #options()
+     *          #item_desc ("channel-ia32", "For 32 bit channel architecture")
+     *          #item_desc ("channel-ia64", "For 64 bit channel architecture")
+     *          #item_desc ("channel-sparc", "For Sparc channel architecture")
+     *          #item_desc ("channel-alpha", "For Alpha channel architecture")
+     *          #item_desc ("channel-s390", "For s390 channel architecture")
+     *          #item_desc ("channel-s390x", "For s390x  channel architecture")
+     *          #item_desc ("channel-iSeries", "For i-Series channel architecture")
+     *          #item_desc ("channel-pSeries", "For p-Series channel architecture")
+     *          #item_desc ("channel-x86_64", "For x86_64 channel architecture")
+     *          #item_desc ("channel-ppc", "For PPC channel architecture")
+     *          #item_desc ("channel-sparc-sun-solaris",
+     *                                  "For Sparc Solaris channel architecture")
+     *          #item_desc ("channel-i386-sun-solaris",
+     *                                  "For i386 Solaris channel architecture")
+     *      #options_end()
+     * @xmlrpc.param #param_desc("string", "parentLabel", "label of the parent of this
+     *              channel, an empty string if it does not have one")
+     * @xmlrpc.returntype int - 1 if the creation operation succeeded, 0 otherwise
+     */
+    public int create(String sessionKey, String label, String name,
+            String summary, String archLabel, String parentlabel)
+        throws PermissionCheckFailureException, InvalidChannelLabelException,
+               InvalidChannelNameException, InvalidParentChannelException {
+
+        return create(sessionKey, label, name, summary, archLabel, parentlabel, "sha1");
+    }
+
     /**
      * Set the contact/support information for given channel.
      * @param sessionKey The sessionKey containing the logged in user

@@ -413,7 +413,7 @@ class VirtualizationEventHandler:
             raise VirtualizationEventError(
                 "Unknown identity:", identity)
 
-        get_id_sql = "SELECT rhn_vi_id_seq.nextval as id FROM dual"
+        get_id_sql = "SELECT sequence_nextval('rhn_vi_id_seq') as id FROM dual"
         query = rhnSQL.prepare(get_id_sql)
         query.execute()
         row = query.fetchone_dict() or {}
@@ -541,7 +541,7 @@ class VirtualizationEventHandler:
         # and the rhnVirtualInstanceInfo tables.  We'll do rhnVirtualInstance
         # first.
 
-        get_id_sql = "SELECT rhn_vi_id_seq.nextval as id FROM dual"
+        get_id_sql = "SELECT sequence_nextval('rhn_vi_id_seq') as id FROM dual"
         query = rhnSQL.prepare(get_id_sql)
         query.execute()
         row = query.fetchone_dict() or {}
@@ -736,7 +736,7 @@ class VirtualizationEventHandler:
             INSERT INTO rhnVirtualInstanceInstallLog
                 (id, log_message, ks_session_id)
             VALUES
-                (rhn_viil_id_seq.nextval, :log_message, :kickstart_session_id)
+                (sequence_nextval('rhn_viil_id_seq'), :log_message, :kickstart_session_id)
         """
         query = rhnSQL.prepare(insert_sql)
         query.execute(log_message          = log_message, 

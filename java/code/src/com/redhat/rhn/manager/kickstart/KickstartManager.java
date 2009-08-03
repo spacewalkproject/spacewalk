@@ -140,7 +140,7 @@ public class KickstartManager extends BaseManager {
          *  A kickstart that corresponds to it
          */
         NetworkInterface nic = server.getNetworkInterface("eth0");
-        if (nic != null && isPublicIpAddress(nic.getIpaddr())) {
+        if (nic != null && nic.isPublic()) {
             IpAddress ip = new IpAddress(nic.getIpaddr());
             ks = findProfileForIpAddress(ip, server.getOrg());
         }
@@ -149,7 +149,7 @@ public class KickstartManager extends BaseManager {
          */
         if (ks == null) {
             for (NetworkInterface tmp : server.getNetworkInterfaces()) {
-                if (isPublicIpAddress(tmp.getIpaddr())) {
+                if (tmp.isPublic()) {
                     IpAddress ip = new IpAddress(tmp.getIpaddr());
                     ks = findProfileForIpAddress(ip, server.getOrg());
                     if (ks != null) {
@@ -159,10 +159,6 @@ public class KickstartManager extends BaseManager {
             }
         }
         return ks;
-    }
-
-    private boolean isPublicIpAddress(String ip) {
-        return !(ip.equals("127.0.0.1") || ip.equals("0.0.0.0") || ip.equals(""));
     }
 
     /**

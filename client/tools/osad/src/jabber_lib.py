@@ -217,7 +217,7 @@ class Runner:
                     raise
             try:
                 # Make sure we don't create the file world-writable (#162619)
-                fd = os.open(pid_file, os.O_RDWR | os.O_CREAT, 0644)
+                fd = os.open(pid_file, os.O_WRONLY| os.O_APPEND | os.O_CREAT, 0644)
                 os.write(fd, str(os.getpid()))
                 os.write(fd, "\n")
                 os.close(fd)

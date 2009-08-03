@@ -29,6 +29,7 @@ import string
 import os
 import types
 
+from server import rhnSQL
 from common import rhnException, log_debug, log_error, rhnConfig
 from common import UserDictCase
 from sql_base import adjust_type
@@ -49,11 +50,11 @@ class Cursor(sql_base.Cursor):
     OracleError = cx_Oracle.DatabaseError
 
     def __init__(self, dbh, sql=None, force=None):
-        self._type_mapping = ORACLE_TYPE_MAPPING
 
         try:
             sql_base.Cursor.__init__(self, dbh=dbh, sql=sql,
                     force=force)
+            self._type_mapping = ORACLE_TYPE_MAPPING
         except sql_base.SQLSchemaError, e:
             (errno, errmsg) = e.errno, e.errmsg
             if 900 <= errno <= 999:
@@ -194,33 +195,6 @@ class Cursor(sql_base.Cursor):
 
         return rowcount
 
-    def execute_bulk(self, dict, chunk_size=100):
-        """
-        When attempting to execute bulk operations with a lot of rows in the
-        arrays,
-        Oracle may occasionally lock (probably the oracle client library).
-        I noticed this previously with the import code. -- misa
-        This function executes bulk operations in smaller chunks
-        dict is supposed to be the dictionary that we normally apply to
-        statement.execute.
-        """
-
-        ret = 0
-        start_chunk = 0
-        while 1:
-            subdict = {}
-            for k, arr in dict.items():
-                subarr = arr[start_chunk:start_chunk + chunk_size]
-                if not subarr:
-                    # Nothing more to do here - we exhausted the array(s)
-                    return ret
-                subdict[k] = subarr
-            ret = ret + apply(self.executemany, (), subdict)
-            start_chunk = start_chunk + chunk_size
-
-        # Should never reach this point
-        return ret
-
     def _get_oracle_error_info(self, error):
         if isinstance(error, cx_Oracle.DatabaseError):
             e = error[0]
@@ -244,13 +218,49 @@ class Cursor(sql_base.Cursor):
             return sql_base.SQLError(ret)
         return sql_base.SQLSchemaError(ret[0], ret[1])
 
+    def _munge_arg(self, val):
+        for sqltype, dbtype in self._type_mapping:
+            if isinstance(val, sqltype):
+                var = self._real_cursor.var(dbtype, val.size)
+                var.setvalue(0, val.get_value())
+                return var
+
+        # TODO: Find out why somebody flagged this with XXX?
+        # XXX
+        return val.get_value()
+
+    def _unmunge_args(self, kw_dict, modified_params):
+        for k, v in modified_params:
+            v.set_value(kw_dict[k].getvalue())
+
+    # TODO: Don't think this is doing anything for PostgreSQL, maybe move to Oracle?
+    def _munge_args(self, kw_dict):
+        modified = []
+        for k, v in kw_dict.items():
+            if not isinstance(v, sql_types.DatabaseDataType):
+                continue
+            vv = self._munge_arg(v)
+            modified.append((k, v))
+            kw_dict[k] = vv
+        return modified
+
+    def update_blob(self, table_name, column_name, where_clause, data, 
+            **kwargs):
+        sql = "SELECT %s FROM %s %s FOR update of %s" % \
+            (column_name, table_name, where_clause, column_name)
+        c= rhnSQL.prepare(sql)
+        apply(c.execute, (), kwargs)
+        row = c.fetchone_dict()
+        blob = row[column_name]
+        blob.write(data)
+
 
 
 class Procedure(sql_base.Procedure):
     OracleError = cx_Oracle.DatabaseError
 
-    def __init__(self, name, proc):
-        sql_base.Procedure.__init__(self, name, proc)
+    def __init__(self, name, cursor):
+        sql_base.Procedure.__init__(self, name, cursor)
         self._type_mapping = ORACLE_TYPE_MAPPING
 
     def __call__(self, *args):
@@ -258,9 +268,10 @@ class Procedure(sql_base.Procedure):
         Wrap the __call__ method from the parent class to catch Oracle specific
         actions and convert them to something generic.
         """
+        log_debug(2, self.name, args)
         retval = None
         try:
-            retval = sql_base.Procedure.__call__(self, *args)
+            retval = self._call_proc(args)
         except cx_Oracle.DatabaseError, e:
             if not hasattr(e, "args"):
                 raise sql_base.SQLError(self.name, args)
@@ -271,6 +282,45 @@ class Procedure(sql_base.Procedure):
         except cx_Oracle.NotSupportedError, error:
             raise apply(sql_base.SQLError, error.args)
         return retval
+
+    def _munge_args(self, args):
+        """
+        Converts database specific argument types to those defined in sql_base.
+        """
+        new_args = []
+        for arg in args:
+            if not isinstance(arg, sql_types.DatabaseDataType):
+                new_args.append(arg)
+                continue
+            new_args.append(self._munge_arg(arg))
+        return new_args
+
+    def _munge_arg(self, val):
+        for sqltype, db_specific_type in self._type_mapping:
+            var = self.proc.var(db_specific_type, val.size)
+            var.setvalue(0, val.get_value())
+            return var
+
+        # XXX
+        return val.get_value()
+
+    def _call_proc(self, args):
+        return self._call_proc_ret(args, ret_type=None)
+
+    def _call_proc_ret(self, args, ret_type=None):
+        args = map(adjust_type, self._munge_args(args))
+        if ret_type:
+            for sqltype, db_type in self._type_mapping:
+                if isinstance(ret_type, sqltype):
+                    ret_type = db_type
+                    break
+                else:
+                    raise Exception("Unknown type", ret_type)
+
+        if ret_type:
+            return self.cursor.callfunc(self.name, ret_type, args)
+        else:
+            return self.cursor.callproc(self.name, args)
 
 
 
@@ -400,17 +450,6 @@ class Database(sql_base.Database):
         # Pass the cursor in so we can close it after execute()
         return self._procedure_class(name, c)
 
-    # why would anybody need this?!
-    def execute(self, sql, *args, **kwargs):
-        cursor = self.prepare(sql)
-        apply(cursor.execute, args, kwargs)
-        return cursor
-
-    def function(self, name, ret_type):
-        if not isinstance(ret_type, sql_types.DatabaseDataType):
-            raise sql_base.SQLError("Invalid return type specified", ret_type)
-        return self._function(name, ret_type)
-
     def _function(self, name, ret_type):
         try:
             c = self.dbh.cursor()
@@ -418,6 +457,12 @@ class Database(sql_base.Database):
             e = error[0]
             raise sql_base.SQLSchemaError(e.code, e.message, e.context)
         return Function(name, c, ret_type)
+
+    # why would anybody need this?!
+    def execute(self, sql, *args, **kwargs):
+        cursor = self.prepare(sql)
+        apply(cursor.execute, args, kwargs)
+        return cursor
 
     # transaction support
     def transaction(self, name):

@@ -246,7 +246,7 @@ sub readFromFile
 
         my $satnumber;
         my $satNameFile = $self->configValue('satNameFile');
-        if (open(FILE,$satNameFile)) {
+        if ($satNameFile and open(FILE,$satNameFile)) {
                 $satnumber = <FILE>;
                 close(FILE);
                 chomp($satnumber);

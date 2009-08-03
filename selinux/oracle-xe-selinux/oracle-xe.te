@@ -12,8 +12,7 @@ require {
 	type initrc_t;
 }
 
-allow oracle_db_t oracle_sqlplus_log_t:file { read write getattr };
-allow oracle_db_t oracle_sqlplus_log_t:dir { search };
+rw_files_pattern(oracle_db_t, oracle_sqlplus_log_t, oracle_sqlplus_log_t)
 
 dontaudit oracle_db_t devpts_t:chr_file { ioctl };
 
@@ -26,8 +25,6 @@ allow oracle_db_t inaddr_any_node_t:tcp_socket node_bind;
 allow oracle_tnslsnr_t oracle_db_t:unix_stream_socket connectto;
 
 allow oracle_sqlplus_t oracle_db_log_t:dir search;
-
-allow oracle_db_t oracle_sqlplus_log_t:file write;
 
 dontaudit oracle_tnslsnr_t http_cache_port_t:tcp_socket name_bind;
 

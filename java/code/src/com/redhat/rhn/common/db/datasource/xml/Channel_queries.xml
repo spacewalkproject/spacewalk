@@ -1040,9 +1040,9 @@ SELECT  DISTINCT C.id
    AND  CP.package_id = P.id
    AND  P.name_id = PN.id
    AND  PN.name = :package
-   AND  (C.org_id = :org_id OR C.org_id IS NULL OR EXISTS (
-        SELECT 1 FROM rhnSharedChannelView SCV
-        WHERE SCV.id = C.id AND SCV.org_trust_id = :org_id))
+   AND  EXISTS (
+        SELECT 1 FROM rhnAvailableChannels AC
+        WHERE AC.channel_id = C.id AND AC.org_id = :org_id)
     </query>
 </mode>
 

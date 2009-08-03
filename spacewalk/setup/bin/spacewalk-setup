@@ -84,12 +84,14 @@ choose_database_schema(\%answers);
 # If Oracle was selected, call the Oracle specific setup script. If it turns
 # out we need a PostgreSQL specific setup script as well, refactor this to
 # something generic.
-
-if ($answers{'database'} eq 'oracle') {
+if ($answers{'db-backend'} eq 'oracle') {
     Spacewalk::Setup::oracle_setup_db(\%opts, \%answers);
 }
+elsif ($answers{'db-backend'} eq 'postgresql') {
+    Spacewalk::Setup::postgresql_setup_db(\%opts, \%answers);
+}
 else {
-    die "No idea how to install to database: " . $answers{'database'};
+    die "No idea how to install to database: " . $answers{'db-backend'};
 }
 
 remove_old_jvm(\%opts, \%answers);
@@ -100,11 +102,6 @@ setup_users_and_groups();
 setup_services();
 setup_gpg(\%opts);
 
-
-
-
-
-# TODO: Pickup removing Oracle code below:
 setup_admin_email(\%opts, \%answers, \%rhnOptions);
 
 print Spacewalk::Setup::loc("* Performing initial configuration.\n");
@@ -166,11 +163,11 @@ sub choose_database_schema {
     push(@valid_schemas, "oracle");
     # Uncomment this to enable installation of postgresql schema:
     # NOTE: useful for development ONLY at this time.
-    #push(@valid_schemas, "postgresql");
+    push(@valid_schemas, "postgresql");
     my %is_valid_schema = ();
 
     if (scalar(@valid_schemas) eq 1) {
-        $answers->{'database'} = $valid_schemas[0];
+        $answers->{'db-backend'} = $valid_schemas[0];
     }
     else {
         print "Available database backends:\n";
@@ -187,7 +184,7 @@ sub choose_database_schema {
                 my $text = shift;
                 $is_valid_schema{$text}
             },
-            -answer => \$answers->{'database'});
+            -answer => \$answers->{'db-backend'});
     }
 
 }
@@ -381,15 +378,14 @@ sub valid_ssl_cert_password {
 sub valid_cert_countries {
   my $answers = shift;
 
-  my $dbh = Spacewalk::Setup::oracle_get_dbh($answers);
-
+  my $dbh = Spacewalk::Setup::get_dbh($answers);
+  # NOTE: Removed a nvl on TL.short_name_tl and VC.short_name here,
+  # short_name_tl was always NULL.
   my $sth = $dbh->prepare(<<EOQ);
-  SELECT VC.code AS CODE,
-         nvl(TL.short_name_tl, VC.short_name) AS NAME
-    FROM valid_countries VC,
-         valid_countries_tl TL
-   WHERE TL.lang (+) = 'en'
-     AND TL.code (+)= VC.code
+SELECT  VC.code AS CODE,
+          VC.short_name AS NAME
+     FROM valid_countries_tl TL
+		right join  valid_countries VC on  VC.code = TL.code and TL.lang = 'en'
 ORDER BY VC.short_name
 EOQ
 
@@ -942,10 +938,35 @@ sub load_satellite_certificate {
 }
 
 sub populate_initial_configs {
-  my $opts = shift;
-  my $answers = shift;
+    my $opts = shift;
+    my $answers = shift;
 
-  my %nls_database_paramaters = Spacewalk::Setup::get_nls_database_parameters($answers);
+    # TODO: This may need to be addressed. Can query this for postgresql with 
+    # "show client_encoding;":
+    my $charset = 'UTF8';
+    if ($answers{'db-backend'} eq 'oracle') {
+        my %nls_database_paramaters = Spacewalk::Setup::get_nls_database_parameters($answers);
+        $charset = $nls_database_paramaters{NLS_CHARACTERSET};
+    }
+
+    # Define some db specific settings:
+    my $hibernate_dialect = "org.hibernate.dialect.Oracle9iDialect";
+    my $hibernate_driver = "oracle.jdbc.driver.OracleDriver";
+    my $hibernate_url = "jdbc:oracle:thin:@" . $answers->{"db-host"} . ":" . $answers->{"db-port"} . ":" . $answers->{"db-sid"};
+    if ($answers->{'db-backend'} eq 'postgresql') {
+        $hibernate_dialect = "org.hibernate.dialect.PostgreSQLDialect";
+        $hibernate_driver = "org.postgresql.Driver";
+        $hibernate_url = "jdbc:postgresql://" . $answers->{"db-host"} . ":" . $answers->{"db-port"} . "/" . $answers->{"db-sid"};
+    }
+
+  # Check where jabberd's lib dir is, can vary on x86_64:
+  my $jabberdLibDir = "/usr/lib/jabberd/";
+  if (-d "/usr/lib64/jabberd/") {
+      $jabberdLibDir = "/usr/lib64/jabberd";
+  }
+
+  # Generate a random password for jabberd:
+  my $jabberdRouterPassword = `dd if=/dev/urandom bs=20 count=1 2>/dev/null | sha1sum | awk '{print \$1}'`;
 
   my %config_opts =
     (
@@ -957,20 +978,26 @@ sub populate_initial_configs {
      webDOTis_monitoring_backend => 0,
      webDOTis_monitoring_scout => 0,
      webDOTenable_solaris_support => 0,
-     jabberDOThostname => $answers->{hostname},
      osadispatcherDOTosa_ssl_cert => '/var/www/html/pub/RHN-ORG-TRUSTED-SSL-CERT',
      encrypted_passwords => 1,
      default_db => sprintf('%s/%s@%s', @{$answers}{qw/db-user db-password db-sid/}),
+     db_backend => $answers->{'db-backend'},
      db_user => $answers->{'db-user'},
      db_password => $answers->{'db-password'},
      db_sid => $answers->{'db-sid'},
      db_host => $answers->{'db-host'},
      db_port => $answers->{'db-port'},
+     hibernate_dialect => $hibernate_dialect,
+     hibernate_driver => $hibernate_driver,
+     hibernate_url => $hibernate_url,
      traceback_mail => $answers->{'admin-email'},
-     jabberDOTusername => 'rhn-dispatcher-sat',
-     jabberDOTpassword => 'rhn-dispatcher-' . random_password(6),
+     jabberDOThostname => $answers->{hostname},
+     jabberDOTlibdir => $jabberdLibDir,
+     jabberDOTdbpass => $jabberdRouterPassword,
+     osadispatcherDOTusername => 'rhn-dispatcher-sat',
+     osadispatcherDOTpassword => 'rhn-dispatcher-' . random_password(6),
      serverDOTsatelliteDOTca_chain => '/usr/share/rhn/RHNS-CA-CERT',
-     serverDOTnls_lang => 'english.' . $nls_database_paramaters{NLS_CHARACTERSET},
+     serverDOTnls_lang => 'english.' . $charset,
      server_secret_key => generate_secret(),
      webDOTssl_available => $opts->{'skip-ssl-cert-generation'} ? 0 : 1,
      monitoringDOTdbname => $answers->{'db-sid'},
@@ -986,9 +1013,9 @@ sub populate_initial_configs {
      cobblerDOThost => $answers->{hostname}
     );
 
-  for ($config_opts{'db_password'}) {
-    s/\\/\\\\/g if defined $_;
-  }
+    for ($config_opts{'db_password'}) {
+        s/\\/\\\\/g if defined $_;
+    }
 
   my %rhnopt = ();
   if ($answers->{disconnected} || $opts->{disconnected}) {
@@ -1007,18 +1034,18 @@ sub populate_initial_configs {
   write_config( \%rhnopt,
 		'/etc/sysconfig/rhn-satellite-prep/etc/rhn/rhn.conf' );
 
-  foreach my $opt_name (qw/session_swap_secret session_secret/) {
-    foreach my $i (1 .. 4) {
-      $config_opts{"${opt_name}_${i}"} = generate_secret();
+    foreach my $opt_name (qw/session_swap_secret session_secret/) {
+        foreach my $i (1 .. 4) {
+            $config_opts{"${opt_name}_${i}"} = generate_secret();
+        }
     }
-  }
 
   Spacewalk::Setup::generate_satcon_dict();
   write_config(\%config_opts, Spacewalk::Setup::DEFAULT_SATCON_DICT);
 
   Spacewalk::Setup::satcon_deploy();
 
-  return \%config_opts;
+    return \%config_opts;
 }
 
 # given a list of directories (by default, /var/satellite)
@@ -1048,7 +1075,7 @@ sub final_db_config {
   my $options = shift;
   my $answers = shift;
 
-  my $dbh = Spacewalk::Setup::oracle_get_dbh($answers);
+  my $dbh = Spacewalk::Setup::get_dbh($answers);
   my $sth = $dbh->prepare(<<EOQ);
 SELECT TS.value
   FROM rhnTemplateString TS
@@ -1061,9 +1088,9 @@ EOQ
   unless ($current_hostname) {
     $sth = $dbh->prepare(<<EOQ);
 INSERT
-  INTO rhnTemplateString TS
+  INTO rhnTemplateString
        (id, category_id, label, value, description)
-VALUES (rhn_template_str_id_seq.nextval,
+VALUES (sequence_nextval('rhn_template_str_id_seq'),
         (SELECT TC.id FROM rhnTemplateCategory TC WHERE TC.label = 'org_strings'),
         'hostname',
         ?,
@@ -1122,7 +1149,13 @@ sub setup_monitoring {
      RHN_SAT_WEB_PORT => 443
     );
 
-  RHN::DB->set_default_handle(sprintf('%s/%s@%s', $answers->{'db-user'}, $answers->{'db-password'}, $answers->{'db-sid'}));
+  # DB connection params not yet written to rhn.conf, must specify them manually:
+  my $connection_string =
+    RHN::DB->get_dbi_connection_string($answers->{'db-backend'},
+      $answers->{'db-host'}, $answers->{'db-port'}, $answers->{'db-sid'});
+  RHN::DB->add_alias($connection_string, $answers->{'db-user'},
+    $answers->{'db-password'}, { } );
+  RHN::DB->set_default_connection($connection_string);
 
   update_monitoring_config($answers, \%mon_config);
   update_monitoring_environment($answers);
@@ -1141,10 +1174,14 @@ sub setup_monitoring {
 sub update_monitoring_environment {
   my $answers = shift;
 
-  my $dbh = Spacewalk::Setup::oracle_get_dbh($answers);
-  # BZ 226915 we cannot use db_name from %answers - it contains instance name
-  # we want real db name
-  my ($db_name) = $dbh->selectrow_array(q|SELECT UPPER(sys_context('userenv', 'db_name')) FROM dual|);
+  my $dbh = Spacewalk::Setup::get_dbh($answers);
+
+  my $db_name = $answers->{'db-sid'};
+  if ($answers->{'db-backend'} eq 'oracle') {
+      # BZ 226915 we cannot use db_name from %answers - it contains instance name
+      # we want real db name
+      ($db_name) = $dbh->selectrow_array(q|SELECT UPPER(sys_context('userenv', 'db_name')) FROM dual|);
+  }
 
   my $sth = $dbh->prepare(<<EOQ);
 UPDATE rhn_db_environment
@@ -1170,12 +1207,12 @@ sub update_monitoring_config {
   my $answers = shift;
   my $mon_config = shift;
 
-  my $dbh = Spacewalk::Setup::oracle_get_dbh($answers);
+  my $dbh = Spacewalk::Setup::get_dbh($answers);
   my $sth = $dbh->prepare(<<EOQ);
     UPDATE rhn_config_macro
     SET    definition = ?,
            last_update_user = 'installer',
-           last_update_date = sysdate
+           last_update_date = CURRENT_TIMESTAMP
     WHERE  name = ?
 EOQ
 

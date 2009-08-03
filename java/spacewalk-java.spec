@@ -6,13 +6,13 @@
 %define realcobsnippetsdir  %{_localstatedir}/lib/cobbler/snippets
 %define appdir          %{_localstatedir}/lib/tomcat5/webapps
 %define jardir          %{_localstatedir}/lib/tomcat5/webapps/rhn/WEB-INF/lib
-%define jars antlr asm bcel c3p0 cglib commons-beanutils commons-cli commons-codec commons-digester commons-discovery commons-el commons-io commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard xalan-j2 xerces-j2 xml-commons-apis commons-collections
+%define jars antlr asm bcel c3p0 cglib commons-beanutils commons-cli commons-codec commons-digester commons-discovery commons-el commons-io commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard xalan-j2 xerces-j2 xml-commons-apis commons-collections postgresql-jdbc
 
 Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.34
+Version: 0.6.38
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -53,6 +53,7 @@ Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
 Requires: spacewalk-branding
 Requires: jpackage-utils >= 0:1.5
+Requires: postgresql-jdbc
 Requires: cobbler >= 1.6.3
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
@@ -95,6 +96,7 @@ BuildRequires: quartz
 BuildRequires: stringtree-json
 BuildRequires: struts
 BuildRequires: sitemesh
+BuildRequires: postgresql-jdbc
 Obsoletes: rhn-java < 5.3.0
 Obsoletes: rhn-java-sat < 5.3.0
 Obsoletes: rhn-oracle-jdbc-tomcat5 <= 1.0
@@ -250,6 +252,24 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Tue Jul 28 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.38-1
+-  Adding a new create channel api using checksumtype as a params.
+  (pkilambi@redhat.com)
+- 513786 - api - org.create - update api to support pam authentication
+  (bbuckingham@redhat.com)
+
+* Mon Jul 27 2009 John Matthews <jmatthew@redhat.com> 0.6.37-1
+- 513683 - Added 'link' as a network device option (paji@redhat.com)
+- 515539 - Made the cobbler create system record command always delete and
+  create a new version of system (paji@redhat.com)
+- 510299 & 510785- Fixed issues pertaining to static network and upgrade.
+  (paji@redhat.com)
+
+* Thu Jul 23 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.35-1
+-  Sha256 support for channel creation: (pkilambi@redhat.com)
+- checkstyle (mmccune@redhat.com)
+- 512814 - unit test fix (mmccune@redhat.com)
+
 * Wed Jul 22 2009 John Matthews <jmatthew@redhat.com> 0.6.34-1
 - 512814 - adding spot to add 'upgrade' logic to our startup of tomact.
   (mmccune@redhat.com)

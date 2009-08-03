@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.6.14
+Version:        0.6.18
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -11,11 +11,14 @@ Url:            http://fedorahosted.org/spacewalk/
 BuildArch:      noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
+BuildRequires:  chameleon
+
 Obsoletes:      rhn-satellite-schema <= 5.1.0
 
 
 %define rhnroot /etc/sysconfig/rhn/
-%define universe universe.satellite.sql
+%define oracle %{rhnroot}/oracle
+%define postgres %{rhnroot}/postgres
 
 %description
 rhn-satellite-schema is the Oracle SQL schema for the Spacewalk server.
@@ -26,19 +29,20 @@ Oracle tablespace name conversions have NOT been applied.
 %setup -q
 
 %build
-make -f Makefile.schema \
-  UNIVERSE=%{universe} TOP=. SCHEMA=%{name} VERSION=%{version} RELEASE=%{release} \
-  all
+make -f Makefile.schema SCHEMA=%{name} VERSION=%{version} RELEASE=%{release}
 pod2man spacewalk-schema-upgrade spacewalk-schema-upgrade.1
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}
-install -m 0644 %{universe} $RPM_BUILD_ROOT%{rhnroot}
+install -m 0755 -d $RPM_BUILD_ROOT%{oracle}
+install -m 0755 -d $RPM_BUILD_ROOT%{postgres}
+install -m 0644 oracle/main.sql $RPM_BUILD_ROOT%{oracle}
+install -m 0644 postgres/main.sql $RPM_BUILD_ROOT%{postgres}
 install -m 0755 -d $RPM_BUILD_ROOT%{_bindir}
 install -m 0755 %{name}-upgrade $RPM_BUILD_ROOT%{_bindir}
 install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}/schema-upgrade
-tar cf - -C upgrade . | tar xf - -C $RPM_BUILD_ROOT%{rhnroot}/schema-upgrade
+cp -r upgrade/* $RPM_BUILD_ROOT%{rhnroot}/schema-upgrade
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
 cp -p spacewalk-schema-upgrade.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
@@ -47,11 +51,30 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%{rhnroot}/*
+%{oracle}
+%{postgres}
+%{rhnroot}/schema-upgrade
 %{_bindir}/%{name}-upgrade
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Jul 29 2009 John Matthews <jmatthew@redhat.com> 0.6.18-1
+- Add upgrade scripts for PostgreSQL compat procedures. (dgoodwin@redhat.com)
+
+* Tue Jul 28 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.17-1
+- Fix rhnVersionInfo information (jortel@redhat.com)
+- Restore some Oracle/PostgreSQL compatability functions.
+  (dgoodwin@redhat.com)
+
+* Mon Jul 27 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.16-1
+- Add support for PostgreSQL schema. (jortel@redhat.com)
+- Build both database versions from common schema. (jortel@redhat.com)
+- Add spacewalk-schema BuildRequires for chameleon. (dgoodwin@redhat.com)
+
+* Mon Jul 27 2009 John Matthews <jmatthew@redhat.com> 0.6.15-1
+- fixing descritpion on checksums (pkilambi@redhat.com)
+-  Sha256 support for channel creation: (pkilambi@redhat.com)
+
 * Wed Jul 22 2009 John Matthews <jmatthew@redhat.com> 0.6.14-1
 - 512814 - tickle the upgrade logic (mmccune@redhat.com)
 

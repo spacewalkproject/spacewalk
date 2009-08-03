@@ -18,6 +18,8 @@ package com.redhat.rhn.common.translation;
 import com.redhat.rhn.common.db.ConstraintViolationException;
 import com.redhat.rhn.common.db.WrappedSQLException;
 
+import org.postgresql.util.PSQLException;
+
 import java.sql.SQLException;
 
 /**
@@ -53,17 +55,28 @@ public class ExceptionTranslator extends Translations {
         e.setStackTrace(cause.getStackTrace());
     }
 
+    /**
+     * Convert from PSQLException to some RuntimeException sub-class.
+     * 
+     * @param e Exception to translate.
+     * @return Translated RuntimeException with reference to the original.
+     */
+    public static RuntimeException postgreSqlException(PSQLException e) {
+        return new WrappedSQLException(e.getMessage(), e);
+    }
+    
     // This will currently only work for SQLException's that come from
     // Oracle.  To add more Databases, make this a private method, add a
     // public method with a different name, but the same signature, in the
     // new method, determine DB type, and call the correct translator.
+    
     /** 
      * Convert from SQLException to some other Exception type 
      * @param e The SQLException to translate
      * @return The translated RuntimeException, which includes a reference
      *         to the SQLException that was passed in.
      */
-    public static RuntimeException oracleSQLExcpetion(SQLException e) {
+    public static RuntimeException oracleSQLException(SQLException e) {
         int code = e.getErrorCode();
         String msg = e.getMessage();
         switch(code) {

@@ -393,7 +393,11 @@ interface(`oracle_script',`
 
 	# connect to oracle port on any node
 	corenet_tcp_connect_oracle_port($1)
-	corenet_udp_bind_lo_node($1)
+	gen_require(`
+		type lo_node_t;
+	')
+	allow $1 lo_node_t:udp_socket node_bind;
+	corenet_udp_bind_all_nodes($1)
 	corenet_udp_bind_generic_node($1)
 
 	# execute bin files

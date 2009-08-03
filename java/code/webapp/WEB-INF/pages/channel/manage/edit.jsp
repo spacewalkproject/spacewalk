@@ -93,6 +93,19 @@
       </tr>
       <tr>
          <th nowrap="nowrap">
+            <bean:message key="channel.edit.jsp.checksum"/>:
+         </th>
+         <td class="small-form">
+            <html:select property="checksum">
+                <html:options collection="checksums"
+                              property="label"
+                              labelProperty="label" />
+            </html:select><br/>
+            <span class="small-text"><bean:message key="channel.edit.jsp.checksumtip"/></span>
+         </td>
+      </tr>
+      <tr>
+         <th nowrap="nowrap">
             <rhn:required-field key="channel.edit.jsp.summary"/>:
          </th>
          <td class="small-form">

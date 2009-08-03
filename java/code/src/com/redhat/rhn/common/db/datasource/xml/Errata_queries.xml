@@ -350,8 +350,6 @@ ORDER BY update_date DESC
   </query>
 </mode>
 
-
-
 <mode name="relevant_to_channel_by_type">
   <query params="cid, type">
 SELECT DISTINCT
@@ -369,6 +367,7 @@ SELECT DISTINCT
 ORDER BY last_modified_date DESC
   </query>
 </mode>
+
 
 <mode name="in_sources_for_target" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="custom_cid, user_id">

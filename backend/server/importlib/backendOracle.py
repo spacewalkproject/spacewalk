@@ -562,3 +562,25 @@ class OracleBackend(Backend):
     def __init__(self):
         Backend.__init__(self, rhnSQL)
 
+    def init(self):
+        """
+        Override parent to do explicit setting of the date format. (Oracle
+        specific)
+        """
+        # Set date format
+        self.setDateFormat("YYYY-MM-DD HH24:MI:SS")
+        return Backend.init(self)
+
+class PostgresqlBackend(OracleBackend):
+    """
+    PostgresqlBackend specific implementation. The bulk of the OracleBackend
+    is not actually Oracle specific, so we'll re-use as much as we can and just
+    avoid the few bits that are.
+    """
+
+    def init(self):
+        """
+        Avoid the Oracle specific stuff here in parent method.
+        """
+        return Backend.init(self)
+

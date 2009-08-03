@@ -10094,6 +10094,13 @@ Please note that some manual configuration of these scripts may still be require
     </context-group>
   </trans-unit>
 
+  <trans-unit id="kickstart.netconn.dhcp.jsp.link">
+    <source>DHCP using first available interface</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
+    </context-group>
+  </trans-unit>
+
   <trans-unit id="kickstart.selinux.enforce.policy.jsp.label">
     <source>Enforcing - SELinux policy enforced</source>
     <context-group name="ctx">
@@ -20940,6 +20947,21 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="channel.edit.jsp.checksum">
+        <source>Yum Repository Checksum Type</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.checksumtip">
+        <source>&lt;strong&gt; Tip:&lt;/strong&gt; 
+          sha1 offers the widest compatibility with clients. sha-256 offers higher security, 
+          but is compatible only with newer clients: Fedora 11 and newer, or Enterprise Linux 6 and newer. 
+         </source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+    </trans-unit>
       <trans-unit id="channel.edit.jsp.summary">
         <source>Channel Summary</source>
         <context-group name="ctx">

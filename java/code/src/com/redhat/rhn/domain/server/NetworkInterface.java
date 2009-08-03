@@ -210,4 +210,15 @@ public class NetworkInterface extends BaseDomainHelper implements
         return isIpValid() && isMacValid();
     }
 
+    /**
+     * true if the network card has a public ip address
+     * and can thus useful in the cases of KSing
+     * via ip address
+     * @return true if the NIC has a public ip address.
+     */
+    public boolean isPublic() {
+        return isValid() && !(getIpaddr().equals("127.0.0.1") ||
+                                        getIpaddr().equals("0.0.0.0"));
+    }
+
 }

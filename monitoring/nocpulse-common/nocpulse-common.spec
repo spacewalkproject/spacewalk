@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.1.16
+Version:      2.1.17
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -79,7 +79,7 @@ if [ -d /home/nocpulse -a 0`id -u nocpulse 2> /dev/null` -ge 500 ]; then
 
 	# find lowest unused system uid to change nocpulse uid to
 	old_uid=`id -u nocpulse`
-	useradd -r tempnoc
+	useradd -r tempnoc -s /bin/bash
 	uid=`id -u tempnoc`
 	userdel tempnoc
 	usermod -u $uid nocpulse
@@ -92,7 +92,7 @@ fi
 
 getent group %{package_name} >/dev/null || groupadd -r %{package_name}
 getent passwd %{package_name} >/dev/null || \
-useradd -r -g %{package_name} -G apache -d %{_var}/lib/%{package_name} -c "NOCpulse user" %{package_name}
+useradd -r -g %{package_name} -G apache -d %{_var}/lib/%{package_name} -s /bin/bash -c "NOCpulse user" %{package_name}
 /usr/bin/passwd -l %{package_name} >/dev/null
 
 # if user already exists (rhnmd creates it too) add nocpulse to apache group
@@ -136,6 +136,13 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Jul 27 2009 John Matthews <jmatthew@redhat.com> 2.1.17-1
+- specify login shell for useradd (msuchy@redhat.com)
+- 457011 - add warning to top of file. This file should not be edited manualy
+  (msuchy@redhat.com)
+- 457011 - create NOCpulse-ini - tool to handle NOCpulse.ini
+  (msuchy@redhat.com)
+
 * Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 2.1.16-1
 - don't print error when files to be moved don't exist (mzazrivec@redhat.com)
 - Don't to migrate log files from /home/nocpulse/var (mzazrivec@redhat.com)

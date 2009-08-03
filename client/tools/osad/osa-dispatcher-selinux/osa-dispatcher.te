@@ -53,7 +53,11 @@ read_files_pattern(osa_dispatcher_t,httpd_sys_content_t,httpd_sys_content_t)
 
 allow osa_dispatcher_t self:fifo_file rw_fifo_file_perms;
 
-corenet_udp_bind_lo_node(osa_dispatcher_t)
+gen_require(`
+	type lo_node_t;
+')
+allow osa_dispatcher_t lo_node_t:udp_socket node_bind;
+corenet_udp_bind_all_nodes(osa_dispatcher_t)
 corenet_udp_bind_generic_node(osa_dispatcher_t)
 
 sysnet_dns_name_resolve(osa_dispatcher_t)

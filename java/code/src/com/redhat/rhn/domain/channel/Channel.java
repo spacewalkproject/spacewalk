@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.common.ChecksumType;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.system.IncompatibleArchException;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -51,8 +52,8 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public static final String PUBLIC = "public";
     public static final String PROTECTED = "protected";
     public static final String PRIVATE = "private";
-    private static final String CHECKSUM_SHA_1 = "SHA1";
-    private static final String CHECKSUM_SHA_256 = "SHA-256";
+    private static final String CHECKSUM_SHA_1 = "sha1";
+    private static final String CHECKSUM_SHA_256 = "sha-256";
 
     private static List<String> releaseToSkipRepodata = new ArrayList<String>(Arrays
             .asList("2.1AS", "2.1ES", "2.1WS", "3AS", "3ES", "3WS", "3Desktop", "4AS",
@@ -64,6 +65,8 @@ public class Channel extends BaseDomainHelper implements Comparable {
             .asList("5Server", "5Client"));
     private String baseDir;
     private ChannelArch channelArch;
+    private ChecksumType checksum;
+
     private String description;
     private Date endOfLife;
     private String GPGKeyUrl;
@@ -162,6 +165,21 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public void setChannelArch(ChannelArch c) {
         this.channelArch = c;
     }
+    
+    /**
+     * @return Returns the channelChecksum.
+     */
+    public ChecksumType getChecksum() {
+        return checksum;
+    }
+
+    /**
+     * @param checksumIn The checksum to set.
+     */
+    public void setChecksum(ChecksumType checksumIn) {
+        this.checksum = checksumIn;
+    }
+
 
     /**
      * @param compsIn The Comps to set.
@@ -847,12 +865,14 @@ public class Channel extends BaseDomainHelper implements Comparable {
 
     /**
      * get the compatible checksum type to be used for repomd.xml
-     * based on channel release. If its RHEL-5 we use sha1
-     * anything newer will be sha256.
+     * based on channel release. 
+     * If its a custom channel use the checksum_type_id from db set at creation time
+     * If its RHEL-5 we use sha1 anything newer will be sha256.
      * @return checksumType
      */
     public String getChecksumType() {
         Channel toConsider = this;
+        
         while (toConsider.getParentChannel() != null) {
             toConsider = toConsider.getParentChannel();
         }
@@ -860,13 +880,24 @@ public class Channel extends BaseDomainHelper implements Comparable {
         if (channelDist != null) {
             String release = channelDist.getRelease();
             // If channel or parent is RHEL-5 use sha1, else use sha256
-            if (toConsider.isCustom() || sha1compatiblechannels.contains(release)) {
+            if (sha1compatiblechannels.contains(release)) {
                 return CHECKSUM_SHA_1;
             }
+        }
+        
+        // IF its custom use the one set at channel creation time
+        
+        if (toConsider.isCustom()) {
+            String checksumOut = toConsider.getChecksum().getLabel();
+            if (checksumOut != null) {
+                return checksumOut;
+            }
             else {
-                return CHECKSUM_SHA_256;
+                // default to sha1 if its not available in the db
+                return CHECKSUM_SHA_1;
             }
         }
+        
         // default to sha256
         return CHECKSUM_SHA_256;
     }
