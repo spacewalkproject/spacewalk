@@ -6,7 +6,7 @@
 
 Name:            oracle-xe-selinux
 Version:         10.2
-Release:         12%{?dist}
+Release:         13%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
 License:         GPLv2+
@@ -137,6 +137,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Aug 03 2009 Jan Pazdziora 10.2-13
+- Use rw_files_pattern instead of direct allows, to get open on new Fedoras
+
 * Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 10.2-12
 - 498611 - run "semodule -i" in %%post and restorecon in %%posttrans
 
