@@ -62,6 +62,7 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
     public static final String PATH = "path";
     public static final String OWNER = "owner";
     public static final String GROUP = "group";
+    public static final String SELINUX_CTX = "selinux_ctx";
     public static final String PERMISSIONS = "permissions";
     public static final String PERMISSIONS_MODE = "permissions_mode";
     public static final String MACRO_START = "macro-start-delimiter";
@@ -101,6 +102,7 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
         helper.add("revision", rev.getRevision());
         helper.add("creation", rev.getCreated());
         helper.add("modified", rev.getModified());
+        helper.add(SELINUX_CTX, rev.getConfigInfo().getSelinuxCtx());
         helper.add(OWNER, rev.getConfigInfo().getUsername());
         helper.add(GROUP, rev.getConfigInfo().getGroupname());
         helper.add(PERMISSIONS, rev.getConfigInfo().getFilemode());

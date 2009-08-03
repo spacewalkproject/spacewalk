@@ -13928,7 +13928,12 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
       		<context context-type="sourcefile">/rhn/configuration/FileDetails.do</context>
     	</context-group>
   	</trans-unit>
-
+	<trans-unit id="filedetails.jsp.tip.selinux">
+<source>&lt;strong&gt;Tip:&lt;/strong&gt; Enter SELinux context like: user_u:role_r:type_t:s0-s15:c0.c1024 (Note: you don't have to enter all parts)</source>
+    	<context-group name="ctx">
+      		<context context-type="sourcefile">/rhn/configuration/FileDetails.do</context>
+    	</context-group>
+  	</trans-unit>
 		<!-- form error messages -->
 	<trans-unit id="config-file-form.error.user-invalid">
 <source>User must be a valid Linux user name or user id, of 32 characters or less.</source>

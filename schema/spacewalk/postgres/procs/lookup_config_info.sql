@@ -18,7 +18,8 @@ lookup_config_info
 (
     username_in     in varchar,
     groupname_in    in varchar,
-    filemode_in     in numeric
+    filemode_in     in numeric,
+    selinux_ctx_in  in varchar
 )
 returns numeric
 as
@@ -31,7 +32,8 @@ declare
           from rhnConfigInfo
          where username = username_in
            and groupname = groupname_in
-           and filemode = filemode_in;
+           and filemode = filemode_in
+           and selinux_ctx = selinux_ctx_in;
 begin
     for r in lookup_cursor loop
         return r.id;
@@ -39,8 +41,8 @@ begin
     -- If we got here, we don't have the id
     select nextval('rhn_confinfo_id_seq') into v_id;
     insert into rhnConfigInfo
-        (id, username, groupname, filemode)
-    values (v_id, username_in, groupname_in, filemode_in);
+        (id, username, groupname, filemode, selinux_ctx)
+    values (v_id, username_in, groupname_in, filemode_in, selinux_ctx_in);
     return v_id;
 end;
 $$ language plpgsql;

@@ -100,8 +100,15 @@ public class PackageDetailsAction extends RhnAction {
             }
 
             request.setAttribute("pack", pkg);
-            request.setAttribute("description",
-                    pkg.getDescription().replace("\n", "<BR>\n"));
+            // description can be null.
+            if (pkg.getDescription() != null) {
+                request.setAttribute("description",
+                        pkg.getDescription().replace("\n", "<BR>\n"));
+            }
+            else {
+                request.setAttribute("description",
+                        pkg.getDescription());
+            }
             request.setAttribute("packArches",
                     PackageFactory.findPackagesWithDifferentArch(pkg));
             request.setAttribute("pid", pid);

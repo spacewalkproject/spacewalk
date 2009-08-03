@@ -265,6 +265,7 @@ public class ConfigChannelHandler extends BaseHandler {
         validKeys.add("owner");
         validKeys.add("group");
         validKeys.add("permissions");
+        validKeys.add("selinux_ctx");
         validKeys.add("macro-start-delimiter");
         validKeys.add("macro-end-delimiter");
         validateMap(validKeys, data);

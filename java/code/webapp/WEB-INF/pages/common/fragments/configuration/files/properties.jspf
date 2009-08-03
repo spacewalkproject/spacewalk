@@ -53,4 +53,19 @@
     <span class="small-text"><bean:message key="filedetails.jsp.tip.permissions" /></span>
   </td>
 </tr>
+<tr>
+  <th>SELinux context</th>
+  <td>
+    <rhn:require acl="config_channel_editable(${channel.id})"
+                 mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+      <html:text property="cffSELinuxCtx" size="24" />
+    </rhn:require>
+    <rhn:require acl="not config_channel_editable(${channel.id})"
+                 mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+      ${form.map.cffSELinuxCtx}
+    </rhn:require>
+    <br />
+    <span class="small-text"><bean:message key="filedetails.jsp.tip.selinux" /></span>
+  </td>
+</tr>
 </table>

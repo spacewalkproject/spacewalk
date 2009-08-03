@@ -122,7 +122,8 @@ _query_get_files = rhnSQL.Statement("""
            ci.username,
            ci.groupname,
            ci.filemode,
-	   cft.label
+	   cft.label,
+	   ci.selinux_ctx
       from 
            rhnConfigFileState cfs,
            rhnConfigContent ccont,

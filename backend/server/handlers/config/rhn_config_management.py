@@ -169,7 +169,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                ci.groupname,
                ci.filemode,
 	       cft.label,
-	       cct.priority
+	       cct.priority,
+	       ci.selinux_ctx
           from rhnConfigChannel cc,
                rhnConfigInfo ci,
                rhnConfigRevision cr,

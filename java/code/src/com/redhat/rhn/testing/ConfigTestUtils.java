@@ -307,7 +307,7 @@ public class ConfigTestUtils extends Assert {
      * @return The newly created ConfigInfo.
      */
     public static ConfigInfo createConfigInfo(String user, String group, Long fileMode) {
-        return ConfigurationFactory.lookupOrInsertConfigInfo(user, group, fileMode);
+        return ConfigurationFactory.lookupOrInsertConfigInfo(user, group, fileMode, "");
     }
     
     /**

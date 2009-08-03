@@ -151,9 +151,9 @@ public class ConfigurationFactoryTest extends RhnBaseTestCase {
         //one problem is that looking up the same thing must be done in such a way that
         //hibernate doesn't yell about it.
         ConfigInfo info1 = ConfigurationFactory.lookupOrInsertConfigInfo("testman",
-                "testgroup", new Long(665));
+                "testgroup", new Long(665), "");
         ConfigInfo info2 = ConfigurationFactory.lookupOrInsertConfigInfo("testman",
-                "testgroup", new Long(665));
+                "testgroup", new Long(665), "");
         assertNotNull(info1.getId());
         assertNotNull(info2.getId());
         assertEquals(info1.getId(), info2.getId());

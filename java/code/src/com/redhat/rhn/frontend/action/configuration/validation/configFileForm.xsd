@@ -20,6 +20,12 @@
 			<maxLength value="4" />
 		</simpleType>
 	</attribute>
+	<attribute name="cffSELinuxCtx">
+		<simpleType baseType="string">
+			<minLength value="0" />
+			<maxLength value="64" />
+		</simpleType>
+	</attribute>
 	<attribute name="cffMacroStart">
 		<simpleType baseType="string">
 			<minLength value="1" />
