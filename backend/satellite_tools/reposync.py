@@ -56,7 +56,7 @@ class RepoSync:
             self.error_msg("--url must be specified")
         if not options.type:
             quit = True
-            self.error_message("--type must be specified")
+            self.error_msg("--type must be specified")
         if not options.channel_label:
             quit = True
             self.error_msg("--channel must be specified")
