@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.6.16
+Version:        0.6.17
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,10 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Mon Aug 03 2009 Jan Pazdziora 0.6.17-1
+- No --log option, print_progress does logging for us, sqlplus should print to
+  STDOUT/STDERR
+
 * Thu Jul 30 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.16-1
 - Fix spacewalk-setup sudoers setup SHARED_DIR problem.
   (dgoodwin@redhat.com)
