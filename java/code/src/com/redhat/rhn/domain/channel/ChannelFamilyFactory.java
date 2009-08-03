@@ -108,7 +108,15 @@ public class ChannelFamilyFactory extends HibernateFactory {
 
         if (cfam == null) {
             String label = "private-channel-family-" + orgIn.getId();
-            String name = orgIn.getName() + " (" + orgIn.getId() + ") Channel Family";
+            String suffix = " (" + orgIn.getId() + ") Channel Family";
+            String prefix = orgIn.getName();
+            int len = prefix.length() + suffix.length();
+            if (len > 128) {
+                int diff = len - 128;
+                prefix = prefix.substring(1, prefix.length() - diff);
+            }
+            
+            String name = prefix.concat(suffix);            
 
             cfam = new ChannelFamily();
             cfam.setOrg(orgIn);
