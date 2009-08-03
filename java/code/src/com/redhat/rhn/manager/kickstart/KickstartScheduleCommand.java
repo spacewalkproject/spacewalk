@@ -934,9 +934,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      * @return extraOptions that will be appended to the Kickstart.
      */
     public String getExtraOptions() {
-        if (isCobblerOnly()) {
-            return StringUtils.defaultString(kernelOptions);
-        }
         StringBuilder retval = new StringBuilder();
         String kOptions = StringUtils.defaultString(kernelOptions);
         /** Some examples:
@@ -1393,9 +1390,11 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      * @param networkInterfaceIn The staticDevice to set.
      */
     public void setNetworkDevice(String networkType, String networkInterfaceIn) {
-        isDhcp = networkType.equals(DHCP_NETWORK_TYPE) ||
-                            networkType.equals(LINK_NETWORK_TYPE);
-        if (networkType.equals(LINK_NETWORK_TYPE)) {
+        isDhcp = DHCP_NETWORK_TYPE.equals(networkType) || 
+                                StringUtils.isBlank(networkType) ||
+                                    LINK_NETWORK_TYPE.equals(networkType);
+        if (StringUtils.isBlank(networkType) || 
+                    networkType.equals(LINK_NETWORK_TYPE)) {
             networkInterface = LINK_NETWORK_TYPE;
         }
         else {
@@ -1468,8 +1467,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     }
     
     private ValidatorError validateNetworkInterface() {
-        if (!StringUtils.isEmpty(networkInterface) &&
-                        !(isDhcp && "link".equals(networkInterface))) {
+
+        if (!LINK_NETWORK_TYPE.equals(networkInterface)) {
             boolean nicAvailable = false;
             for (NetworkInterface nic : server.getNetworkInterfaces()) {
                 if (networkInterface.equals(nic.getName())) {
