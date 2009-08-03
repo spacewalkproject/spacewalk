@@ -80,7 +80,7 @@
    <input type="hidden" name="maintainer_email" value="${maintainer_email}" />
    <input type="hidden" name="maintainer_phone" value="${maintainer_phone}" />
    <input type="hidden" name="support_policy" value="${support_policy}" />
-   <input type="hidden" name="per_user_subscriptions" value="${per_user_subsriptions}" />
+   <input type="hidden" name="per_user_subscriptions" value="${per_user_subscriptions}" />
    <input type="hidden" name="org_sharing" value="${org_sharing}" />
    <input type="hidden" name="gpg_key_url" value="${gpg_key_url}" />
    <input type="hidden" name="gpg_key_id" value="${gpg_key_id}" />
