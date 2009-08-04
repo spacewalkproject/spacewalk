@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.20
+Version: 5.9.21
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -236,6 +236,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
+* Tue Aug 04 2009 Jan Pazdziora 5.9.21-1
+- 514320 - open the pid file with append
+
 * Mon Jul 27 2009 John Matthews <jmatthew@redhat.com> 5.9.20-1
 - 512732 - on Fedora 12, it will be just and corenet_udp_bind_generic_node and
   corenet_udp_bind_all_nodes. (jpazdziora@redhat.com)
