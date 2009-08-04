@@ -1390,17 +1390,15 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      * @param networkInterfaceIn The staticDevice to set.
      */
     public void setNetworkDevice(String networkType, String networkInterfaceIn) {
-        isDhcp = DHCP_NETWORK_TYPE.equals(networkType) || 
-                                StringUtils.isBlank(networkType) ||
-                                    LINK_NETWORK_TYPE.equals(networkType);
-        if (StringUtils.isBlank(networkType) || 
-                    networkType.equals(LINK_NETWORK_TYPE)) {
+        if (StringUtils.isBlank(networkType) ||
+                                    LINK_NETWORK_TYPE.equals(networkType)) {
+            isDhcp = true;
             networkInterface = LINK_NETWORK_TYPE;
         }
         else {
+            isDhcp = DHCP_NETWORK_TYPE.equals(networkType);
             networkInterface = networkInterfaceIn;
         }
-
     }
 
     /**
