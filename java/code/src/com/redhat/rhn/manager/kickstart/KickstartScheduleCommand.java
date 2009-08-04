@@ -934,6 +934,9 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      * @return extraOptions that will be appended to the Kickstart.
      */
     public String getExtraOptions() {
+        if (isCobblerOnly()) {
+            return StringUtils.defaultString(kernelOptions);
+        }        
         StringBuilder retval = new StringBuilder();
         String kOptions = StringUtils.defaultString(kernelOptions);
         /** Some examples:
