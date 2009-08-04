@@ -6,7 +6,9 @@ CONSTRAINT rhn_channel_checksum_fk
 
 -- Update any existing channels that are not set
 UPDATE rhnChannel SET 
-  checksum_type_id = 2
+  checksum_type_id = (select id 
+                        from rhnChecksumType 
+                       where LABEL = 'sha1')
 WHERE checksum_type_id is null;
 
 show errors
