@@ -91,3 +91,46 @@ def main():
     
 if __name__=="__main__":
     main()
+
+
+"""
+
+=head1 NAME
+
+cobbler-setup
+
+=head1 SYNOPSIS
+
+	cobbler-setup
+	cobbler-setup --enable-tftp=yes
+
+=head1 DESCRIPTION
+
+The B<cobbler-setup> program generates configuration files for cobbler
+in F</etc/cobbler>, based on templates in
+F</usr/share/cobbler/installer_templates>. It also offers to enable
+services needed for PXT (B<xinetd> and B<tftp>), unless
+prevented with B<--enable-tftp=no>.
+
+The tool is generally called automatically by Spacewalk's
+B<spacewalk-setup>.
+
+=head1 OPTIONS
+
+=over 4
+
+=item --enable-tftp=yes, --enable-tftp=no
+
+This option prevents B<cobbler-setup> from asking whether to setup the
+B<xinetd> and B<tftp> services. With B<yes>, the action will be done,
+with B<no> it will not.
+
+=back
+
+=head1 SEE ALSO
+
+spacewalk-setup(1)
+
+=cut
+
+"""
