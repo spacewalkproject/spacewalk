@@ -22,7 +22,7 @@ Params::Validate::validation_options(strip_leading => "-");
 
 =head1 NAME
 
-Spacewalk::Setup
+Spacewalk::Setup, spacewalk-setup
 
 =head1 VERSION
 
@@ -1432,10 +1432,6 @@ sub generate_server_pem {
 	return $content;
 }
 
-
-=head1 NAME
-
-Spacewalk::Setup
 
 =head1 DESCRIPTION
 
