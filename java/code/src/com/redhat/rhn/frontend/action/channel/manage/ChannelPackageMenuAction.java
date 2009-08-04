@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
+import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -48,7 +49,8 @@ public class ChannelPackageMenuAction extends RhnAction {
 
         Channel chan = ChannelFactory.lookupByIdAndUser(cid, user);
         ChannelFactory.lookupByLabelAndUser(chan.getLabel(), user);
-        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN) &&
+                !UserManager.verifyChannelAdmin(user, chan)) {
             throw new PermissionCheckFailureException(RoleFactory.CHANNEL_ADMIN);
         }
 
