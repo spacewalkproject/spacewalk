@@ -180,7 +180,7 @@ public class SSMScheduleCommand {
             //an IP Range was not found for the ip address of this system
             //   and no org default was set.  In the future maybe we should handle this
             //   but for now, we'll just move on
-            return null;
+            return new ValidatorError("no.kickstart.profiles");
         }
 
         KickstartScheduleCommand com;
@@ -218,8 +218,10 @@ public class SSMScheduleCommand {
 
 
         ValidatorError error = com.store();
-
-        this.scheduledActions.add(com.getScheduledAction());
+        if (error == null) {
+            this.scheduledActions.add(com.getScheduledAction());    
+        }
+        
         return error;
     }
 
