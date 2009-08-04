@@ -251,9 +251,9 @@ public abstract class ConfigActionHelper {
 
     /**
      * Makes messages that look like
-     * 1 file and 5 directories
-     * 2 files and 1 directory
-     * No files or directories
+     * 1 file and 5 directories and 0 symlinks
+     * 2 files and 1 directory and 0 symlinks
+     * No files or directories or symlinks
      * Very standard i18nized counts messages
      * used in various places in config management.
      * @param count the ConfigFileCount object, 
@@ -268,64 +268,66 @@ public abstract class ConfigActionHelper {
     
     /**
      * Makes messages that look like
-     * 1 file and 5 directories
-     * 2 files and 1 directory
-     * No files or directories
+     * 1 file and 5 directories and 0 symlinks
+     * 2 files and 1 directory and 0 symlinks
+     * No files or directories and 0 symlinks
      * Very standard i18nized counts messages
      * used in various places in config management.
-     * @param count the ConfigFileCount object, 
+     * @param count the ConfigFileCount object,
      *          that stores info on the number of files and directories
      * @param url the url to wrap the messages if so desired
      * @param includeEmptyFilesAndDirs force the inclusion of both
      *                             the file and directory information
-     *                             even if their count is 0. 
+     *                             even if their count is 0.
      *                         for example:
      *                         if  this param == true
-     *                              return "0 files and 1 directory"
+     *                              return "0 files and 1 directory and 0 symlinks"
      *                         else
-     *                              return "1 directory"     
+     *                              return "1 directory"
      * @return the properly formatted File & Directories helper messages ..
      */
     public static String makeFileCountsMessage(ConfigFileCount count,
                                                String url,
                                                boolean includeEmptyFilesAndDirs) {
-        long fileCount = count.getFiles(), dirCount = count.getDirectories();
+        long fileCount = count.getFiles(), dirCount = count.getDirectories(),
+                symlinkCount = count.getSymlinks();
         int fileSuffix = getSuffix(fileCount);
         int dirSuffix = getSuffix(dirCount);
-        
-        if (includeEmptyFilesAndDirs) {
-            if (fileSuffix != NONE && dirSuffix == NONE) {
-                dirSuffix = PLURAL;
-            }
-            else if (fileSuffix == NONE && dirSuffix != NONE) {
-                fileSuffix = PLURAL;
-            }
-        }
-        
+        int symlinkSuffix = getSuffix(symlinkCount);
+
         LocalizationService service  = LocalizationService.getInstance();
-        String key = "config." + "files_" + fileSuffix + "_dirs_" + dirSuffix;
-        if (fileSuffix == NONE && dirSuffix == NONE) {
+        String key = "config." + "files_" + fileSuffix + "_dirs_" + dirSuffix +
+                "_symlinks_" + symlinkSuffix;
+
+        if (fileSuffix == NONE && dirSuffix == NONE && symlinkSuffix == NONE) {
             if (url != null) {
                 key += "_url";
                 return service.getMessage(key, new Object[] {url});
             }
             return service.getMessage(key);
         }
-        String message = null;
-        if (fileSuffix == NONE) {
-            message =  service.getMessage(key, new Object[] {String.valueOf(dirCount)});   
+
+        /* now we know there is at least one file/dir/symlink
+         * so all we need to do is make all NONEs into PLURALs
+         */
+        if (includeEmptyFilesAndDirs) {
+            if (fileSuffix == NONE) {
+                fileSuffix = PLURAL;
+            }
+            if (symlinkSuffix == NONE) {
+                symlinkSuffix = PLURAL;
+            }
+            if (dirSuffix == NONE) {
+                dirSuffix = PLURAL;
+            }
         }
-        else if (dirSuffix == NONE) {
-            message =  service.getMessage(key,
-                    new Object[] {String.valueOf(fileCount)});
-        }
-        else {
-            message = service.getMessage(key,
-                                new Object[] {String.valueOf(fileCount),
-                                                String.valueOf(dirCount)
-                                              });
-        }
-        if  (url != null) {
+
+        String message = service.getMessage(key, new Object[] {
+            String.valueOf(fileCount),
+            String.valueOf(dirCount),
+            String.valueOf(symlinkCount)
+        });
+        if (url != null) {
             HtmlTag a = new HtmlTag("a");
             a.setAttribute("href", url);
             a.addBody(message);
@@ -333,7 +335,7 @@ public abstract class ConfigActionHelper {
         }
         return message;
     }
-    
+
     private static int getSuffix(long i) {
         if (i == 1) {
             return SINGULAR;

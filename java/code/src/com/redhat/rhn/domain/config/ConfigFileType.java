@@ -50,8 +50,17 @@ public class ConfigFileType implements Serializable {
 
     public static final String FILE = "file";
     public static final String DIR = "directory";
+    public static final String SYMLINK = "symlink";
     private static final Map POSSIBLE_TYPES = new TreeMap(String.
                                                     CASE_INSENSITIVE_ORDER);
+
+    /**
+     * @return symlink config file type
+     */
+    public static ConfigFileType symlink() {
+        return lookup(SYMLINK);
+    }
+
     /**
      * 
      * @return dir config file type
@@ -80,11 +89,15 @@ public class ConfigFileType implements Serializable {
                                     lookupConfigFileTypeByLabel(FILE);
             ConfigFileType dir = ConfigurationFactory.
                             lookupConfigFileTypeByLabel(DIR);
+            ConfigFileType symlink = ConfigurationFactory.
+                            lookupConfigFileTypeByLabel(SYMLINK);
             POSSIBLE_TYPES.put(DIR, dir);
             POSSIBLE_TYPES.put("dir", dir);
             POSSIBLE_TYPES.put("folder", dir);
 
             POSSIBLE_TYPES.put(FILE, file);
+
+            POSSIBLE_TYPES.put(SYMLINK, symlink);
         }
         
         if (!POSSIBLE_TYPES.containsKey(type)) {

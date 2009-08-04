@@ -37,9 +37,13 @@
             <img alt='<bean:message key="config.common.fileAlt" />'
                  src="/img/rhn-listicon-cfg_file.gif" />
           </c:when>
-          <c:otherwise>
+          <c:when test="${current.configFileType == 'directory'}">
             <img alt='<bean:message key="config.common.dirAlt" />'
                  src="/img/rhn-listicon-cfg_folder.gif" />
+          </c:when>
+          <c:otherwise>
+            <img alt='<bean:message key="config.common.symlinkAlt" />'
+                 src="/img/rhn-listicon-cfg_symlink.gif" />
           </c:otherwise>
         </c:choose>
         <bean:message key="comparecopy.jsp.revnum" arg0="${current.configRevision}" />

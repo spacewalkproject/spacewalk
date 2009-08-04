@@ -25,7 +25,7 @@ import string
 
 from config_common import file_utils, utils, cfg_exceptions
 from config_common.rhn_log import log_debug
-from selinux import setfilecon
+from selinux import lsetfilecon
 
 class TargetNotFile(Exception): pass
 class DuplicateDeployment(Exception): pass
@@ -134,20 +134,21 @@ class DeployTransaction:
                 gid = 0
 
         try:
-            os.chown(temp_file_path, uid, gid)
+            if file_info['filetype'] != 'symlink':
+                os.chown(temp_file_path, uid, gid)
 
-            mode = '600'                
-            if file_info.has_key('filemode'):
-                mode = file_info['filemode']
+                mode = '600'
+                if file_info.has_key('filemode'):
+                    mode = file_info['filemode']
 
-	    mode = string.atoi(str(mode), 8)
-            os.chmod(temp_file_path, mode)
+                mode = string.atoi(str(mode), 8)
+                os.chmod(temp_file_path, mode)
 
             if file_info.has_key('selinux_ctx'):
                 sectx = file_info.get('selinux_ctx')
                 if sectx is not None and sectx is not "":
                     log_debug(1, "selinux context: " + sectx);
-                    if setfilecon(temp_file_path, sectx) < 0:
+                    if lsetfilecon(temp_file_path, sectx) < 0:
                         raise Exception("failed to set selinux context on %s" % dest_path)
 
         except OSError, e:
@@ -177,6 +178,8 @@ class DeployTransaction:
         # assume file
 	if file_info.get('filetype') == 'directory':
 		self.dirs.append(file_info)
+	elif file_info.get('filetype') == 'symlink':
+		self.files.append(file_info)
 	else:
         	self._chown_chmod_chcon(processed_file_path, dest_path, file_info, strict_ownership=strict_ownership)
 
@@ -197,6 +200,8 @@ class DeployTransaction:
         # assume file
 	if file_info.get('filetype') == 'directory':
 	    self.dirs.append(file_info)
+	elif file_info.get('filetype') == 'symlink':
+	    self.files.append(file_info)
 	else:
             self.files.append(file_info)
 
@@ -297,7 +302,7 @@ class DeployTransaction:
 		return
 	    else:
 		log_debug(4, "done with directory creation, moving on to files")
-		    
+
             # 1.
             for dep_file in self.files:
                 path = dep_file['path']

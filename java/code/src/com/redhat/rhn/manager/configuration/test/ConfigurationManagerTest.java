@@ -75,7 +75,7 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
     private PageControl pc;
     private ConfigurationManager cm;
     private static final ConfigFileCount EXPECTED_COUNT = 
-                                    ConfigFileCount.create(3, 1);
+                                    ConfigFileCount.create(3, 1, 0);
     
     protected void setUp() throws Exception {
         super.setUp();
@@ -725,7 +725,7 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
 
         ConfigFileCount expected = ConfigFileCount.create(
                                                 EXPECTED_COUNT.getFiles() + 1,
-                                                EXPECTED_COUNT.getDirectories());
+                                                EXPECTED_COUNT.getDirectories(), 0);
         assertEquals(expected, actual);
     }
 
@@ -778,7 +778,7 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
         actual = cm.countCentrallyDeployablePaths(s, user);
         ConfigFileCount expected = ConfigFileCount.create(
                                             EXPECTED_COUNT.getFiles() - 1,
-                                            EXPECTED_COUNT.getDirectories());
+                                            EXPECTED_COUNT.getDirectories(), 0);
         
         assertEquals(expected, actual);
         

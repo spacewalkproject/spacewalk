@@ -55,19 +55,25 @@ class FileProcessor:
 	if file_struct.get('filetype') == 'directory':
             return directory, []
 
-        (fullpath, dirs_created, fh) = maketemp(prefix=".rhn-cfg-tmp",
-                                  directory=directory)
-
-        try:
-            fh.write(contents)
-        except Exception:
-            if fh:
-                fh.close()  # don't leak fds...
-            raise
+        if file_struct.get('filetype') == 'symlink':
+            (dirname, filename) = os.path.split(file_struct['path'])
+            temppath = ".rhn-cfg-tmp_%s_%s_%.8f" % (filename, os.getpid(), time.time())
+            os.symlink(contents, temppath)
+            return temppath, []
         else:
-            fh.close()
+            (fullpath, dirs_created, fh) = maketemp(prefix=".rhn-cfg-tmp",
+                                      directory=directory)
 
-        return fullpath, dirs_created
+            try:
+                fh.write(contents)
+            except Exception:
+                if fh:
+                    fh.close()  # don't leak fds...
+                raise
+            else:
+                fh.close()
+
+            return fullpath, dirs_created
 
 
     def diff(self, file_struct):
@@ -75,9 +81,25 @@ class FileProcessor:
 
         temp_file, temp_dirs = self.process(file_struct)
         path = file_struct['path']
+        result = None
 
-        pipe = os.popen("/usr/bin/diff -u %s %s" % (path, temp_file))
-        result = pipe.read()
+        if file_struct['filetype'] == 'symlink':
+            try:
+                curlink = os.readlink(path)
+                newlink = os.readlink(temp_file)
+                if curlink == newlink:
+                    result = ''
+                else:
+                    result = "Link targets differ"
+            except OSError, e:
+                if e.errno == 22:
+                    result = "Deployed symlink is no longer a symlink!"
+                else:
+                    raise e
+        else:
+            pipe = os.popen("/usr/bin/diff -u %s %s" % (path, temp_file))
+            result = pipe.read()
+
         os.unlink(temp_file)
         return result
         

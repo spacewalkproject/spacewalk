@@ -40,6 +40,7 @@ public class ConfigChannelDto extends BaseDto {
     private Integer position;
     private Integer filesOnlyCount;
     private Integer dirsOnlyCount;
+    private Integer symlinksOnlyCount;
     
     //These three are when dealing with a single revision
     private Integer configRevision;
@@ -156,6 +157,10 @@ public class ConfigChannelDto extends BaseDto {
 
             if (dirsOnlyCount != null) {
                 totalFiles += dirsOnlyCount.intValue();
+            }
+
+            if (symlinksOnlyCount != null) {
+                totalFiles += symlinksOnlyCount.intValue();
             }
             fileCount = new Integer(totalFiles);
         }
@@ -376,6 +381,20 @@ public class ConfigChannelDto extends BaseDto {
     }
 
     /**
+     * @return the symlinksOnlyCount
+     */
+    public Integer getSymlinksOnlyCount() {
+        return symlinksOnlyCount;
+    }
+
+    /**
+     * @param count the symlinksOnlyCount
+     */
+    public void setSymlinksOnlyCount(Integer count) {
+        this.symlinksOnlyCount = count;
+    }
+
+    /**
      * Returns a i18ned string 
      * holding info on the Number of Files &amp; Directories
      * this is used in Config Channel Subscriptions page
@@ -383,14 +402,17 @@ public class ConfigChannelDto extends BaseDto {
      *          
      */
     public String getFilesAndDirsDisplayString() {
-        int files = 0, dirs = 0;
+        int files = 0, dirs = 0, symlinks = 0;
         if (filesOnlyCount != null) {
             files = filesOnlyCount.intValue();
         }
         if (dirsOnlyCount != null) {
             dirs = dirsOnlyCount.intValue();
         }
-        ConfigFileCount count = ConfigFileCount.create(files, dirs);
+        if (symlinksOnlyCount != null) {
+            symlinks = symlinksOnlyCount.intValue();
+        }
+        ConfigFileCount count = ConfigFileCount.create(files, dirs, symlinks);
         return ConfigActionHelper.makeFileCountsMessage(count, null);
     }
 

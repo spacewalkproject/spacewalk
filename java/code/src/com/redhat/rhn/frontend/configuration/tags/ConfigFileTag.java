@@ -40,10 +40,12 @@ public class ConfigFileTag extends TagSupport {
     
     public static final String DIR_ALT_KEY = "config.common.dirAlt";
     public static final String FILE_ALT_KEY = "config.common.fileAlt";
+    public static final String SYMLINK_ALT_KEY = "config.common.symlinkAlt";
 
     
     public static final String DIR_LIST_ICON = "/img/rhn-listicon-cfg_folder.gif";
     public static final String FILE_LIST_ICON = "/img/rhn-listicon-cfg_file.gif";
+    public static final String SYMLINK_LIST_ICON = "/img/rhn-listicon-cfg_symlink.gif";
 
     
     public static final String DIR_HEADER_ICON = "/img/folder-config.png";
@@ -145,6 +147,9 @@ public class ConfigFileTag extends TagSupport {
                      "folder".equalsIgnoreCase(type)) {
                  ConfigTagHelper.writeIcon(DIR_LIST_ICON, DIR_ALT_KEY, pageContext);
              }
+             else if ("symlink".equalsIgnoreCase(type)) {
+                 ConfigTagHelper.writeIcon(SYMLINK_LIST_ICON, SYMLINK_ALT_KEY, pageContext);
+             }
              else {
                  ConfigTagHelper.writeIcon(FILE_LIST_ICON, 
                                              FILE_ALT_KEY, pageContext);             
@@ -239,7 +244,7 @@ public class ConfigFileTag extends TagSupport {
      }
      
      /**
-      * Returns the Header icon image path for given config file type (file|dir)
+      * Returns the Header icon image path for given config file type (file|dir|symlink)
       * This method is public static because
       * EL functions defined in a TLD file, 
       * need to be public static methods.. 
@@ -254,12 +259,15 @@ public class ConfigFileTag extends TagSupport {
                  "folder".equalsIgnoreCase(type)) {
              return DIR_LIST_ICON;
          }
+         else if ("symlink".equalsIgnoreCase(type)) {
+             return SYMLINK_LIST_ICON;
+         }
          return FILE_LIST_ICON;
      }
      
      
      /**
-      * Returns the Header alt key  for a given config file type (file|dir)
+      * Returns the Header alt key  for a given config file type (file|dir|symlink)
       * This method is public static because
       * EL functions defined in a TLD file, 
       * need to be public static methods..  
@@ -271,6 +279,9 @@ public class ConfigFileTag extends TagSupport {
                  "directory".equalsIgnoreCase(type) ||
                  "folder".equalsIgnoreCase(type)) {
              return DIR_ALT_KEY;
+         }
+         else if ("symlink".equalsIgnoreCase(type)) {
+             return SYMLINK_ALT_KEY;
          }
          return FILE_ALT_KEY;     
      }

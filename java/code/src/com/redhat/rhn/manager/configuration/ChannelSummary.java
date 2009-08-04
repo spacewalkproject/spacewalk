@@ -32,6 +32,7 @@ public class ChannelSummary {
     
     private int numFiles;
     private int numDirs;
+    private int numSymlinks;
     private int numSystems;
     private ConfigRevision mostRecentMod;
     private String recentFileDate;
@@ -126,7 +127,22 @@ public class ChannelSummary {
         this.numFiles = files;
     }
 
-    
+    /**
+     * How many symlinks are contained in this channel?
+     * @return number of symlinks contained in this channel
+     */
+    public int getNumSymlinks() {
+        return numSymlinks;
+    }
+
+    /**
+     * Set num-symlinks contained in this channel
+     * @param symlinks how many symlinks are contained in this channel
+     */
+    public void setNumSymlinks(int symlinks) {
+        this.numSymlinks = symlinks;
+    }
+
     /**
      * How many systems are subscribed to this channel?
      * @return num of systems subscribed

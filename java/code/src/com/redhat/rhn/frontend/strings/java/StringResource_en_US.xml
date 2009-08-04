@@ -7174,41 +7174,98 @@ Follow this url to see the full list of inactive systems:
 	     </trans-unit>	     	     						
      </group>
     <group>
-    <context-group name="config_counts">
-		    <context context-type="sourcefile">Every Caller of ConfigActionHelper.makeFileCountsMessage</context>		    
-		</context-group>
-	     <trans-unit id="config.files_0_dirs_0_url">
-			<source>No files or directories. &lt;a href=&quot;{0}&quot;&gt; Add&lt;/a&gt;</source>
-	     </trans-unit>		
-	     <trans-unit id="config.files_0_dirs_0">
-			<source>No files or directories.</source>
-	     </trans-unit> 		
- 		
-	     <trans-unit id="config.files_1_dirs_0">
+            <context-group name="config_counts">
+                <context context-type="sourcefile">Every Caller of ConfigActionHelper.makeFileCountsMessage</context>
+            </context-group>
+
+	     <trans-unit id="config.files_0_dirs_0_symlinks_0_url">
+			<source>No files, directories or symlinks. &lt;a href=&quot;{0}&quot;&gt; Add&lt;/a&gt;</source>
+	     </trans-unit>
+
+	     <trans-unit id="config.files_0_dirs_0_symlinks_0">
+			<source>No files, directories or symlinks.</source>
+	     </trans-unit>
+	     <trans-unit id="config.files_0_dirs_0_symlinks_1">
+			<source>{2} symlink</source>
+	     </trans-unit>
+	     <trans-unit id="config.files_0_dirs_0_symlinks_2">
+			<source>{2} symlinks</source>
+	     </trans-unit>
+	     <trans-unit id="config.files_0_dirs_1_symlinks_0">
+			<source>{1} directory</source>
+	     </trans-unit>
+	     <trans-unit id="config.files_0_dirs_1_symlinks_1">
+			<source>{1} directory and {2} symlink</source>
+	     </trans-unit>
+	     <trans-unit id="config.files_0_dirs_1_symlinks_2">
+			<source>{1} directory and {2} symlinks</source>
+	     </trans-unit>
+	     <trans-unit id="config.files_0_dirs_2_symlinks_0">
+			<source>{1} directories</source>
+	     </trans-unit>
+	     <trans-unit id="config.files_0_dirs_2_symlinks_1">
+			<source>{1} directories and {2} symlink</source>
+	     </trans-unit>
+	     <trans-unit id="config.files_0_dirs_2_symlinks_2">
+			<source>{1} directories and {2} symlinks</source>
+	     </trans-unit>
+
+	     <trans-unit id="config.files_1_dirs_0_symlinks_0">
 			<source>{0} file</source>
-	     </trans-unit> 		
-	     <trans-unit id="config.files_2_dirs_0">
+	     </trans-unit>
+	     <trans-unit id="config.files_1_dirs_0_symlinks_1">
+			<source>{0} file and {2} symlink</source>
+	     </trans-unit>
+	     <trans-unit id="config.files_1_dirs_0_symlinks_2">
+			<source>{0} file and {2} symlinks</source>
+	     </trans-unit>
+	     <trans-unit id="config.files_1_dirs_1_symlinks_0">
+			<source>{0} file and {2} directory</source>
+	     </trans-unit>
+	     <trans-unit id="config.files_1_dirs_1_symlinks_1">
+			<source>{0} file and {1} directory and {2} symlink</source>
+	     </trans-unit>
+	     <trans-unit id="config.files_1_dirs_1_symlinks_2">
+			<source>{0} file and {1} directory and {2} symlinks</source>
+	     </trans-unit>
+	     <trans-unit id="config.files_1_dirs_2_symlinks_0">
+			<source>{0} file and {2} directories</source>
+	     </trans-unit>
+	     <trans-unit id="config.files_1_dirs_2_symlinks_1">
+			<source>{0} file and {1} directories and {2} symlink</source>
+	     </trans-unit>
+	     <trans-unit id="config.files_1_dirs_2_symlinks_2">
+			<source>{0} file and {1} directories and {2} symlinks</source>
+	     </trans-unit>
+
+	     <trans-unit id="config.files_2_dirs_0_symlinks_0">
 			<source>{0} files</source>
-	     </trans-unit> 		
-	     <trans-unit id="config.files_0_dirs_1">
-			<source>{0} directory</source>
-	     </trans-unit> 		
-	     <trans-unit id="config.files__0_dirs_2">
-			<source>{0} directories</source>
 	     </trans-unit>
-	     <trans-unit id="config.files_1_dirs_1">
-			<source>{0} file and {1} directory</source>
+	     <trans-unit id="config.files_2_dirs_0_symlinks_1">
+			<source>{0} files and {2} symlink</source>
 	     </trans-unit>
-	     <trans-unit id="config.files_2_dirs_1">
-			<source>{0} files and {1} directory</source>
+	     <trans-unit id="config.files_2_dirs_0_symlinks_2">
+			<source>{0} files and {2} symlinks</source>
 	     </trans-unit>
-	     <trans-unit id="config.files_2_dirs_2">
+	     <trans-unit id="config.files_2_dirs_1_symlinks_0">
+			<source>{0} files and {2} directory</source>
+	     </trans-unit>
+	     <trans-unit id="config.files_2_dirs_1_symlinks_1">
+			<source>{0} files and {1} directory and {2} symlink</source>
+	     </trans-unit>
+	     <trans-unit id="config.files_2_dirs_1_symlinks_2">
+			<source>{0} files and {1} directory and {2} symlinks</source>
+	     </trans-unit>
+	     <trans-unit id="config.files_2_dirs_2_symlinks_0">
 			<source>{0} files and {1} directories</source>
 	     </trans-unit>
-	     <trans-unit id="config.files_1_dirs_2">
-			<source>{0} file and {1} directories</source>
+	     <trans-unit id="config.files_2_dirs_2_symlinks_1">
+			<source>{0} files and {1} directories and {2} symlink</source>
 	     </trans-unit>
-	</group>	
+	     <trans-unit id="config.files_2_dirs_2_symlinks_2">
+			<source>{0} files and {1} directories and {2} symlinks</source>
+	     </trans-unit>
+	</group>
 
     <group>
         <context-group name="config_channel_counts">

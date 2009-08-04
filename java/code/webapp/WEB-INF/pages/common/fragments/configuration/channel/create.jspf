@@ -11,6 +11,9 @@
 			<html:radio
 				property="filetype" value="directory" /><bean:message
 				key="addfiles.jsp.type.directory" /><br />
+			<html:radio property="filetype" value="symlink" /><bean:message
+				key="addfiles.jsp.type.symlink" /><br />
+			<bean:message key="filedetails.jsp.tip.symlink" />
 			</td>
 		</tr>
 		<tr>

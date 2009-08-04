@@ -868,7 +868,26 @@ public class ConfigurationManager extends BaseManager {
         Long count = (Long)row.get("total_file_size");
         return count.intValue();
     }
-    
+
+    /**
+     * Return the number of Symlinks in this config-channel
+     * @param user user making the request
+     * @param channel channel of interest
+     * @return number of symlinks in this channel
+     */
+    public int getSymlinkCount(User user, ConfigChannel channel) {
+        if (!accessToChannel(user.getId(), channel.getId())) {
+            throw new IllegalArgumentException(
+                "User [" + user.getId() +
+                "] has no access to channel [" + channel.getId() + "]");
+        }
+        Map params = new HashMap();
+        params.put("ccid", channel.getId());
+        params.put("filetype", "symlink");
+        params.put("user_id", user.getId());
+        return doCountFiles(params);
+    }
+
     /**
      * Return the number of Directories in this config-channel
      * @param user user making the request
@@ -1010,6 +1029,7 @@ public class ConfigurationManager extends BaseManager {
         summary.setNumSystems(getSystemCount(user, channel));
         summary.setNumDirs(getDirCount(user, channel));
         summary.setNumFiles(getFileCount(user, channel));
+        summary.setNumSymlinks(getSymlinkCount(user, channel));
         
         DataResult dr = getFileInfo(user, channel);
         if (dr != null && dr.size() > 0) {
@@ -1623,30 +1643,31 @@ public class ConfigurationManager extends BaseManager {
         return processCountedFilePathQueries("count_locally_managed_file_paths", 
                                                                 params);
     }
-    
+
     private ConfigFileCount processCountedFilePathQueries(String query, Map params) {
-        SelectMode m = ModeFactory.getMode("config_queries",
-                                query);
+        SelectMode m = ModeFactory.getMode("config_queries", query);
         List results = m.execute(params);
-        long files = 0, dirs = 0;        
+        long files = 0, dirs = 0, symlinks = 0;
+
         for (Iterator itr = results.iterator(); itr.hasNext();) {
-            Map map = (Map) itr.next();
-            Long count = (Long) map.get("count");
+            Map map = (Map)itr.next();
+            Long count = (Long)map.get("count");
             String fileType = (String)map.get("file_type");
-            if (ConfigFileType.file().getLabel().
-                                                        equals(fileType)) {
+
+            if (ConfigFileType.file().getLabel().equals(fileType)) {
                 files = count.longValue();
-            }   
+            }
+            else if (ConfigFileType.symlink().getLabel().equals(fileType)) {
+                symlinks = count.longValue();
+            }
             else {
                 dirs = count.longValue();
-            }            
+            }
         }
-        
-        return ConfigFileCount.create(files, dirs);
+
+        return ConfigFileCount.create(files, dirs, symlinks);
     }
-    
-    
-    
+
     /**
      *  Returns the sum of files, and directories 
      *  that are present in the all the centrally managed channels
@@ -1711,22 +1732,26 @@ public class ConfigurationManager extends BaseManager {
         List pathList = m.execute(params);
         Set files = new HashSet();
         Set dirs = new HashSet();
+        Set symlinks = new HashSet();
         for (Iterator itr = pathList.iterator(); itr.hasNext();) {
             Map map = (Map) itr.next();
             String path = (String) map.get("path");
             String fileType = (String)map.get("file_type");
-            if (ConfigFileType.file().getLabel().
-                                                        equals(fileType)) {
-                if (!dirs.contains(path)) {
-                    files.add(path);    
+            if (ConfigFileType.file().getLabel().equals(fileType)) {
+                if (!dirs.contains(path) && !symlinks.contains(path)) {
+                    files.add(path);
                 }
-            }   
-            else if (!files.contains(path)) {
-                dirs.add(path);    
+            }
+            else if (ConfigFileType.symlink().getLabel().equals(fileType)) {
+                if (!dirs.contains(path) && !files.contains(path)) {
+                    symlinks.add(path);
+                }
+            }
+            else if (!files.contains(path) && !symlinks.contains(path)) {
+                dirs.add(path);
             }
         }
-        return ConfigFileCount.create(files.size(),
-                                            dirs.size());
+        return ConfigFileCount.create(files.size(), dirs.size(), symlinks.size());
     }
 
     

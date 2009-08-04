@@ -217,4 +217,12 @@ public class ConfigRevision extends BaseDomainHelper {
     public boolean isDirectory() {
         return (configFileType != null && configFileType.getLabel().equals("directory"));
     }
+
+    /**
+     * Is this revision a symlink?
+     * @return true if file-type is 'symlink'
+     */
+    public boolean isSymlink() {
+        return (configFileType != null && configFileType.getLabel().equals("symlink"));
+    }
 }

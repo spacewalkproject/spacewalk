@@ -268,29 +268,27 @@ public class OverviewAction extends RhnAction {
         
         return NONE;
     }
-    
+
     private void  setupDiffActionMessage(HttpServletRequest request,
-                                            ConfigFileCount total,
-                                            ConfigFileCount successful,
-                                            ConfigFileCount differing,
-                                            String url) {
-        
-        int filesSuffix = getSuffix(total.getFiles());
+            ConfigFileCount total,
+            ConfigFileCount successful,
+            ConfigFileCount differing,
+            String url) {
+
+        int filesSuffix = getSuffix(total.getFiles() + total.getSymlinks());
         int dirsSuffix = getSuffix(total.getDirectories());
-        
-        String messageKey = DIFF_ACTION_MESSAGE_PREFIX + 
-                                        filesSuffix + "_dirs_" + dirsSuffix;
-        
+
+        String messageKey = DIFF_ACTION_MESSAGE_PREFIX +
+            filesSuffix + "_dirs_" + dirsSuffix;
 
         List params = new ArrayList();
         // setup the params
         if (filesSuffix == PLURAL) {
-            params.add(String.valueOf(successful.getFiles()));
-            params.add(String.valueOf(total.getFiles()));
+            params.add(String.valueOf(successful.getFiles() + successful.getSymlinks()));
+            params.add(String.valueOf(total.getFiles() + total.getSymlinks()));
         }
         else if (filesSuffix == SINGULAR) {
-            params.add(String.valueOf(successful.getFiles()));
-            
+            params.add(String.valueOf(successful.getFiles() + successful.getSymlinks()));
         }
 
         if (dirsSuffix == PLURAL) {
@@ -299,50 +297,46 @@ public class OverviewAction extends RhnAction {
         }
         else if (dirsSuffix == SINGULAR) {
             params.add(String.valueOf(successful.getDirectories()));
-            
-        }        
-        
+        }
+
         params.add(url);
 
         LocalizationService service  = LocalizationService.getInstance();
         if (params.isEmpty()) {
-            request.setAttribute(DIFF_ACTION_MESSAGE, 
-                                    service.getMessage(messageKey));
-        } 
-        request.setAttribute(DIFF_ACTION_MESSAGE, 
-                                    service.getMessage(messageKey, 
-                                                            params.toArray()));
-        
-        if (successful.getFiles() > 0) {
+            request.setAttribute(DIFF_ACTION_MESSAGE,
+                    service.getMessage(messageKey));
+        }
+        request.setAttribute(DIFF_ACTION_MESSAGE,
+                service.getMessage(messageKey,
+                    params.toArray()));
+
+        if (successful.getFiles() + successful.getSymlinks() > 0) {
             String diffActionKey;
-            if (differing.getFiles() == 0) {
+            if (differing.getFiles() + differing.getSymlinks() == 0) {
                 diffActionKey = DIFF_DETAIL_MESSAGE_PREFIX + "0";
-                request.setAttribute(DIFF_DETAILS_MESSAGE, 
+                request.setAttribute(DIFF_DETAILS_MESSAGE,
                         service.getMessage(diffActionKey));
-                
-            } 
+            }
             else {
-                diffActionKey = DIFF_DETAIL_MESSAGE_PREFIX + 
-                                            getSuffix(successful.getFiles());
-                if (successful.getFiles() == 1) {
-                    request.setAttribute(DIFF_DETAILS_MESSAGE, 
-                                        service.getMessage(diffActionKey));
+                diffActionKey = DIFF_DETAIL_MESSAGE_PREFIX +
+                    getSuffix(successful.getFiles() + successful.getSymlinks());
+                if (successful.getFiles() + successful.getSymlinks() == 1) {
+                    request.setAttribute(DIFF_DETAILS_MESSAGE,
+                            service.getMessage(diffActionKey));
                 }
                 else {
                     Object [] keyParams = new Object[] {
-                                                String.valueOf(differing.getFiles()),
-                                                String.valueOf(successful.getFiles())
-                                            };
-                    request.setAttribute(DIFF_DETAILS_MESSAGE, 
+                        String.valueOf(differing.getFiles() + differing.getSymlinks()),
+                            String.valueOf(successful.getFiles() + successful.getSymlinks())
+                    };
+                    request.setAttribute(DIFF_DETAILS_MESSAGE,
                             service.getMessage(diffActionKey, keyParams));
                 }
             }
-            
+
         }
     }
-    
-    
-    
+
     private String makeTimeMessage(Action action, 
                                         User loggedInUser,
                                         Server server) {

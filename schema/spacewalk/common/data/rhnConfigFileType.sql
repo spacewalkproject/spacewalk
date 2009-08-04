@@ -18,6 +18,7 @@
 
 insert into rhnConfigFileType values (1, 'file', 'File', sysdate, sysdate);
 insert into rhnConfigFileType values (2, 'directory', 'Directory', sysdate, sysdate);
+insert into rhnConfigFileType values (3, 'symlink', 'Symlink', sysdate, sysdate);
 
 --
 --

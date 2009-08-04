@@ -12327,6 +12327,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="config.common.fileAlt">
           <source>file</source>
         </trans-unit>
+        <trans-unit id="config.common.symlinkAlt">
+          <source>symlink</source>
+        </trans-unit>
         <trans-unit id="config.common.dirAlt">
           <source>directory</source>
         </trans-unit>
@@ -12754,10 +12757,10 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
      </trans-unit>
 
       <trans-unit id="channelOverview.jsp.numfiles">
-<source>{0} files, {1} directories</source>
+<source>{0} files, {1} directories, {2} symlinks</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-		  <context context-type="paramnotes">"36 files, 2 directories"</context>
+		  <context context-type="paramnotes">"36 files, 2 directories, 0 symlinks"</context>
         </context-group>
      </trans-unit>
       <trans-unit id="channelOverview.jsp.numfiles-total">
@@ -13344,6 +13347,12 @@ but are not subscribed to _@@PRODUCT_NAME@@Config_.</context>
      </trans-unit>
 	<trans-unit id="addfiles.jsp.type.text">
 <source>Text file</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
+        </context-group>
+     </trans-unit>
+	<trans-unit id="addfiles.jsp.type.symlink">
+<source>Symbolic link</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelAddFiles.do</context>
         </context-group>
@@ -13954,6 +13963,12 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
       		<context context-type="sourcefile">/rhn/configuration/FileDetails.do</context>
     	</context-group>
   	</trans-unit>
+	<trans-unit id="filedetails.jsp.tip.symlink">
+<source>&lt;strong&gt;Tip:&lt;/strong&gt; Enter the target of the symlink as the file contents</source>
+	<context-group name="ctx">
+		<context context-type="sourcefile">/rhn/configuration/FileDetails.do</context>
+	</context-group>
+	</trans-unit>
 		<!-- form error messages -->
 	<trans-unit id="config-file-form.error.user-invalid">
 <source>User must be a valid Linux user name or user id, of 32 characters or less.</source>

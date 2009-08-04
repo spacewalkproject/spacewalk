@@ -48,9 +48,14 @@
                  src="/img/rhn-listicon-cfg_file.gif" />
             ${fn:escapeXml(current.path)}
           </c:when>
-          <c:otherwise>
+          <c:when test="${current.type == 'directory'}">
             <img alt='<bean:message key="config.common.dirAlt" />'
                  src="/img/rhn-listicon-cfg_folder.gif" />
+            ${fn:escapeXml(current.path)}
+          </c:when>
+          <c:otherwise>
+            <img alt='<bean:message key="config.common.symlinkAlt" />'
+                 src="/img/rhn-listicon-cfg_symlink.gif" />
             ${fn:escapeXml(current.path)}
           </c:otherwise>
         </c:choose>

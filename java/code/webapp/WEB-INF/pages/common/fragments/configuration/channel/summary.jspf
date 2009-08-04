@@ -4,13 +4,13 @@
 	<tr>
 		<th><bean:message key="channelOverview.jsp.numfiles-header" /></th>
 		<c:choose>
-			<c:when test="${summary.numFiles + summary.numDirs > 0}">
+			<c:when test="${summary.numFiles + summary.numDirs + summary.numSymlinks > 0}">
 				<td><bean:message key="channelOverview.jsp.numfiles"
-					arg0="${summary.numFiles}" arg1="${summary.numDirs}" /> 
+					arg0="${summary.numFiles}" arg1="${summary.numDirs}" arg2="${summary.numSymlinks}" />
 					<br />(<a
 					href="/rhn/configuration/ChannelFiles.do?ccid=${channel.id}"><bean:message
 					key="channelOverview.jsp.numfiles-total"
-					arg0="${summary.numFiles + summary.numDirs}" /></a>)</td>
+					arg0="${summary.numFiles + summary.numDirs + summary.numSymlinks}" /></a>)</td>
 			</c:when>
 			<c:otherwise>
 				<td><bean:message key="channelOverview.jsp.numfiles-none" /></td>
@@ -61,13 +61,18 @@
 	<tr>
 		<th><bean:message key="channelOverview.jsp.recentfile-header" /></th>
 		<td><c:choose>
-			<c:when test="${summary.numFiles + summary.numDirs > 0}">
-				<c:if test="${summary.mostRecentMod.configFile.latestConfigRevision.directory}">
-				  <img alt='<bean:message key="config.common.dirAlt" />' src="/img/rhn-listicon-cfg_folder.gif" />
-				</c:if>
-				<c:if test="${! summary.mostRecentMod.configFile.latestConfigRevision.directory}">
-				  <img alt='<bean:message key="config.common.fileAlt" />' src="/img/rhn-listicon-cfg_file.gif" />
-				</c:if>
+			<c:when test="${summary.numFiles + summary.numDirs + summary.numSymlinks > 0}">
+				<c:choose>
+					<c:when test="${summary.mostRecentMod.configFile.latestConfigRevision.directory}">
+						<img alt='<bean:message key="config.common.dirAlt" />' src="/img/rhn-listicon-cfg_folder.gif" />
+					</c:when>
+					<c:when test="${summary.mostRecentMod.configFile.latestConfigRevision.symlink}">
+						<img alt='<bean:message key="config.common.symlinkAlt" />' src="/img/rhn-listicon-cfg_symlink.gif" />
+					</c:when>
+					<c:otherwise>
+						<img alt='<bean:message key="config.common.fileAlt" />' src="/img/rhn-listicon-cfg_file.gif" />
+					</c:otherwise>
+				</c:choose>
 				<a href="/rhn/configuration/file/FileDetails.do?cfid=${summary.mostRecentMod.configFile.id}">
 				  <c:out value="${summary.mostRecentMod.configFile.configFileName.path}" />
 				</a><br />

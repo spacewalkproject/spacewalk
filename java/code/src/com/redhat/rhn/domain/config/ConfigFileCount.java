@@ -26,17 +26,20 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class ConfigFileCount {
     private long files;
     private long directories;
+    private long symlinks;
     
     /**
      * Creates a new instance of this class 
      * @param files the files to set
      * @param directories dirs to set
+     * @param symlinks symlinks to set
      * @return a new ConfigFileCount object using the params passed in
      */
-    public static ConfigFileCount create(long files, long directories) {
+    public static ConfigFileCount create(long files, long directories, long symlinks) {
         ConfigFileCount  cf = new  ConfigFileCount();
         cf.setFiles(files);
         cf.setDirectories(directories);
+        cf.setSymlinks(symlinks);
         return cf;
     }
     /**
@@ -67,6 +70,20 @@ public class ConfigFileCount {
     private void setFiles(long numFiles) {
         this.files = numFiles;
     }
+    /**
+     *
+     * @return the number of symlinks
+     */
+    public long getSymlinks() {
+        return symlinks;
+    }
+    /**
+     *
+     * @param numLinks the number of symlinks to set
+     */
+    private void setSymlinks(long numLinks) {
+        this.symlinks = numLinks;
+    }
     
     /**
      * 
@@ -80,6 +97,7 @@ public class ConfigFileCount {
         return new EqualsBuilder().
                     append(files, that.files).
                     append(directories, that.directories).
+                    append(symlinks, that.symlinks).
                     isEquals();
                     
     }
@@ -92,6 +110,7 @@ public class ConfigFileCount {
         return new HashCodeBuilder().
                         append(files).
                         append(directories).
+                        append(symlinks).
                         toHashCode();
     }
 }
