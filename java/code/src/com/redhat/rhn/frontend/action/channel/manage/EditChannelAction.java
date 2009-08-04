@@ -14,24 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-import org.apache.struts.action.DynaActionForm;
-
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
@@ -57,8 +39,27 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.channel.CreateChannelCommand;
 import com.redhat.rhn.manager.channel.InvalidGPGFingerprintException;
 import com.redhat.rhn.manager.channel.UpdateChannelCommand;
+import com.redhat.rhn.manager.download.DownloadManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
+
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import org.apache.struts.action.DynaActionForm;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -125,6 +126,7 @@ public class EditChannelAction extends RhnAction implements Listable {
                 createSuccessMessage(request, "message.channelupdated",
                     form.getString("name"));
             }
+
                                      
             //did they enable per user subscriptions?
             String sub = (String)form.get("per_user_subscriptions");            
@@ -165,6 +167,11 @@ public class EditChannelAction extends RhnAction implements Listable {
             return getStrutsDelegate().forwardParams(
                     mapping.findForward("default"), 
                     params);
+        }
+
+        if (errors.isEmpty() && form.get("sync_repo") != null) {
+            createSuccessMessage(request, "message.syncscheduled",
+                    form.getString("name"));
         }
 
         return getStrutsDelegate().forwardParams(
@@ -597,6 +604,11 @@ public class EditChannelAction extends RhnAction implements Listable {
                             cs.getLastSynced());
                 }
                 request.setAttribute("last_sync", lastSync);
+                if (ChannelManager.getLatestSyncLogFile(cs) != null) {
+                    request.setAttribute("log_url",
+                            DownloadManager.getChannelSyncLogDownloadPath(cs,
+                                    ctx.getLoggedInUser()));
+                }
                 
             }
             

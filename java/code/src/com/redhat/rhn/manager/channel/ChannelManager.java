@@ -35,6 +35,7 @@ import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.channel.ChannelVersion;
 import com.redhat.rhn.domain.channel.ClonedChannel;
+import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.channel.DistChannelMap;
 import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
 import com.redhat.rhn.domain.channel.ProductName;
@@ -2781,6 +2782,32 @@ public class ChannelManager extends BaseManager {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String fileModifiedDate = formatter.format(fileModifiedDateIn);
         return fileModifiedDate;
+    }
+
+
+    /**
+     * get the latest log file for spacewalk-repo-sync
+     * @param cs the channel content source you want the latest log file for
+     * @return the string of the filename (fully qualified)
+     */
+    public static String getLatestSyncLogFile(ContentSource cs) {
+
+        String logPath = Config.get().getString(ConfigDefaults.SPACEWALK_REPOSYNC_LOG_PATH,
+                "/var/log/rhn/reposync/");
+        String repoLabel = cs.getLabel();
+
+        File dir = new File(logPath);
+        List<String> possibleList = new ArrayList<String>();
+        for (String file : dir.list()) {
+            if (file.contains(cs.getChannel().getLabel() + '-' + repoLabel)) {
+                possibleList.add(file);
+            }
+        }
+        if (possibleList.isEmpty()) {
+            return null;
+        }
+        Collections.sort(possibleList);
+        return logPath + possibleList.get(possibleList.size() - 1);
     }
 
 }

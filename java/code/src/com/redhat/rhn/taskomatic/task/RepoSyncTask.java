@@ -63,6 +63,10 @@ public class RepoSyncTask implements Job {
         throws JobExecutionException {
         
         for (Task task : TaskFactory.listTasks(DISPLAY_NAME)) {
+            //workaround in case task is null (which can happen)
+            if (task == null || task.getData() == null) {
+                continue;
+            }
             ContentSource src = ChannelFactory.lookupContentSource(task.getData());
             if (log.isInfoEnabled()) {
                 log.info("Syncing repo " + src.getSourceUrl() + " to channel " + 
@@ -76,6 +80,7 @@ public class RepoSyncTask implements Job {
             try {
                 Process p = Runtime.getRuntime().exec(
                         getSyncCommand(src).toArray(new String[0]));
+                src.setLastSynced(new Date());
                 p.waitFor();
                 
             }
@@ -87,7 +92,6 @@ public class RepoSyncTask implements Job {
                 log.fatal(e.getMessage());
                 e.printStackTrace();
             }
-            src.setLastSynced(new Date());
             TaskFactory.removeTask(task);
         }
     }
@@ -104,9 +108,6 @@ public class RepoSyncTask implements Job {
         cmd.add(src.getType().getLabel());
         cmd.add("--label");
         cmd.add(src.getLabel());
-        cmd.add("--logfile");
-        cmd.add(Config.get().getString(ConfigDefaults.SPACEWALK_REPOSYNC_LOG_FILE,
-                "/var/log/rhn/rhn_reposync.log"));
         return cmd;
     }
     

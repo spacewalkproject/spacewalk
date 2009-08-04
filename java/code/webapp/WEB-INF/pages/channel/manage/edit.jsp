@@ -147,7 +147,12 @@
 	   			<bean:message key="channel.edit.jsp.lastsynced"/>:
 	   		</th>
 	   		<td>
-	   			<c:out value='${last_sync}'/>
+				<c:if test='${not empty log_url}'>
+					<a href='${log_url}'><c:out value='${last_sync}'/></a>
+				</c:if>
+				<c:if test='${empty log_url}'>
+					<c:out value='${last_sync}'/>
+				</c:if>
 	   		</td>
 	   	</tr>   
 	  </c:if>

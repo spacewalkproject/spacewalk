@@ -13,7 +13,7 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation. 
 #
-import sys, os, time
+import sys, os, time, grp
 from optparse import OptionParser
 from common import rhnLib
 from server import rhnPackage, rhnSQL, rhnChannel, rhnPackageUpload
@@ -45,10 +45,13 @@ class RepoSync:
         log_filename = 'reposync.log'
         if options.channel_label and options.label:
             date = time.localtime()
-            datestr = '%s.%s.%s-%s:%s:%s' % (date.tm_year, date.tm_mon, date.tm_mday, date.tm_hour, date.tm_min, date.tm_sec)
+            datestr = '%d.%02d.%02d-%02d:%02d:%02d' % (date.tm_year, date.tm_mon, date.tm_mday, date.tm_hour, date.tm_min, date.tm_sec)
             log_filename = options.channel_label + '-' + options.label + '-' +  datestr + '.log'
            
         rhnLog.initLOG(default_log_location + log_filename)
+        #os.fchown isn't in 2.4 :/
+        os.system("chgrp apache " + default_log_location + log_filename)
+
 
         quit = False
         if not options.url:
@@ -64,10 +67,12 @@ class RepoSync:
             quit = True
             self.error_msg("--label must be specified")
 
+        self.log_msg("\nSync started: %s" % (time.asctime(time.localtime())))
+        self.log_msg(str(sys.argv))
+
+
         if quit:
             sys.exit(1)
-
-        self.log_msg(str(sys.argv))
 
         self.type = options.type
         self.url = options.url
@@ -80,10 +85,9 @@ class RepoSync:
             print "Channel does not exist or is not custom"
             sys.exit(1)
 
-
-
         self.plugin = self.load_plugin()(self.url, self.channel_label + "-" + self.repo_label)
         self.import_packages(self.plugin.list_packages())
+        self.print_msg("Sync complete")
 
     def process_args(self):
         self.parser = OptionParser()
@@ -119,7 +123,8 @@ class RepoSync:
                      pack.version, pack.release, '', pack.arch]):
                      to_download.append(pack)
 
-
+        if len(to_download) == 0:
+            self.print_msg("No new packages to download.")
         for (index, pack) in enumerate(to_download):
             """download each package"""
             try:

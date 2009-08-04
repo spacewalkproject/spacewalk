@@ -146,7 +146,7 @@ public class ConfigDefaults {
     public static final String KICKSTART_NETWORK_INTERFACE = "kickstart.default_interface";
 
     public static final String SPACEWALK_REPOSYNC_PATH = "spacewalk_reposync_path";
-    public static final String SPACEWALK_REPOSYNC_LOG_FILE = "spacewalk_reposync_logfile";
+    public static final String SPACEWALK_REPOSYNC_LOG_PATH = "spacewalk_reposync_logpath";
 
     private ConfigDefaults() {
     }

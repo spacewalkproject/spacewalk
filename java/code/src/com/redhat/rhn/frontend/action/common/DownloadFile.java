@@ -22,6 +22,7 @@ import com.redhat.rhn.common.util.MD5Sum;
 import com.redhat.rhn.common.util.download.ByteArrayStreamInfo;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.KickstartSessionState;
@@ -35,6 +36,7 @@ import com.redhat.rhn.domain.rhnpackage.PatchSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.download.DownloadManager;
 import com.redhat.rhn.manager.download.UnknownDownloadTypeException;
 
@@ -45,7 +47,9 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DownloadAction;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -317,6 +321,21 @@ public class DownloadFile extends DownloadAction {
                 return getStreamForText(patch.getReadme().getBytes(1L, 
                         (int) patch.getReadme().length()));
             }         
+            else if (type.equals(DownloadManager.DOWNLOAD_TYPE_REPO_LOG)) {
+                ContentSource cs = ChannelFactory.lookupContentSource(fileId);
+                ChannelManager.verifyChannelAdmin(user, fileId);
+                File file = new File(ChannelManager.getLatestSyncLogFile(cs));
+
+                StringBuilder output = new StringBuilder();
+                BufferedReader input =  new BufferedReader(new FileReader(file));
+                String line;
+                while ((line = input.readLine()) != null) {
+                    output.append(line);
+                    output.append("\n");
+                }
+
+                return getStreamForText(output.toString().getBytes());
+            }
         }
         
         throw new UnknownDownloadTypeException("The specified download type " + type + 

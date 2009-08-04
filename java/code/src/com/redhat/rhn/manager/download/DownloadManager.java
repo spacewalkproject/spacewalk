@@ -17,6 +17,7 @@ package com.redhat.rhn.manager.download;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.security.SessionSwap;
+import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageSource;
 import com.redhat.rhn.domain.rhnpackage.Patch;
@@ -43,7 +44,7 @@ public class DownloadManager extends BaseManager {
     public static final String DOWNLOAD_TYPE_ISO = "iso";
     public static final String DOWNLOAD_TYPE_PATCH_README = "patchreadme";
     public static final String DOWNLOAD_TYPE_PATCH_SET_README = "patchsetreadme";    
-    
+    public static final String DOWNLOAD_TYPE_REPO_LOG = "repolog";
     
     /**
      * Get a download path (part of the url) that is used to download a package.
@@ -96,6 +97,20 @@ public class DownloadManager extends BaseManager {
                 DownloadManager.DOWNLOAD_TYPE_SOURCE);
     }    
     
+    /**
+     * Get a download path that is used to download a repo log file.
+     *
+     * @param src the content source
+     * @param user the user
+     * @return the path/url
+     */
+    public static String getChannelSyncLogDownloadPath(ContentSource src,
+                                        User user) {
+        return getNonExpiringDownloadPath(src.getId(), src.getLabel(), user,
+                DownloadManager.DOWNLOAD_TYPE_REPO_LOG);
+    }
+
+
     
     /**
      * Get the an ISO download Path 
