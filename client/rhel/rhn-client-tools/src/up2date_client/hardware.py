@@ -137,7 +137,7 @@ def process_hal_nodes(node):
         dev = {} 
         dev['class'] = node.classification
         #get bus
-        dev['bus'] = get_device_bus(node)
+        dev['bus'] = str(get_device_bus(node))
         
         #get scsi info
         if dev['bus'] == 'scsi':
@@ -151,15 +151,15 @@ def process_hal_nodes(node):
                 dev['prop4'] = parent.properties['scsi.lun']
         
         
-        dev['driver'] = get_device_driver(node) 
+        dev['driver'] = str(get_device_driver(node))
         
         device_path = get_device_path(node)
         if device_path:
-            dev['device'] = device_path
+            dev['device'] = str(device_path)
 
-        dev['desc'] = get_device_description(node)
+        dev['desc'] = str(get_device_description(node))
 
-        dev['pciType'] = get_device_pcitype(node)
+        dev['pciType'] = str(get_device_pcitype(node))
 
         dev['detached'] = 0
         kudzu_list.append(dev)
