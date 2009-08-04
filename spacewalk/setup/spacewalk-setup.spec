@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.6.17
+Version:        0.6.18
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Tue Aug 04 2009 Jan Pazdziora 0.6.18-1
+- 490668 - add man pages for spacewalk-setup and cobbler-setup
+
 * Mon Aug 03 2009 Jan Pazdziora 0.6.17-1
 - No --log option, print_progress does logging for us, sqlplus should print to
   STDOUT/STDERR
