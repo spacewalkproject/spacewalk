@@ -1,5 +1,5 @@
 Name:         ProgAGoGo
-Version:      1.11.5
+Version:      1.11.6
 Release:      1%{?dist}
 Summary:      Program exec''er/respawner
 URL:          https://fedorahosted.org/spacewalk
@@ -33,6 +33,9 @@ install -m 755 gogo.pl $RPM_BUILD_ROOT/%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Aug 04 2009 Jan Pazdziora 1.11.6-1
+- 513368 - call setpgrp to prevent kill 0 to propagate to jabberd and tomcat
+
 * Tue Feb 10 2009 Jan Pazdziora 1.11.5-1
 - gogo.pl: add a missing semicolon
 
