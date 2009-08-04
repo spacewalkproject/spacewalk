@@ -11,7 +11,7 @@ export PYTHONUNBUFFERED=1
 
 for tag in 0 1 2; do
   rel-eng/koji-missing-builds.py --no-extra ${TAGS[$tag]} | \
-    awk '!(/buildsys-macros/ || /oracle-server-admin/ || /oracle-server-scripts/) {
+    awk '!(/buildsys-macros/ || /oracle-server-admin/ || /oracle-server-scripts/ || /heirloom-pkgtools/) {
                  if (x==1) { print gensub(" *([a-zA-Z_-]+)-.*", "\\1", "g")}
                  }
              /Builds missing in koji/ { x=1 }' | \
