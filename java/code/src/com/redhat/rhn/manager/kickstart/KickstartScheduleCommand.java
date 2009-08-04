@@ -299,6 +299,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         }
 
         this.setKickstartServerName(kickstartServerNameIn);
+        isDhcp = true;
+        networkInterface = LINK_NETWORK_TYPE;
     }
 
     
