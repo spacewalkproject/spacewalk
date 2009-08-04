@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.16
+Version: 0.6.17
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -317,6 +317,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Aug 04 2009 Jan Pazdziora 0.6.17-1
+- Bump up the version to 0.6, in preparation for Spacewalk 0.6
+
 * Wed Jul 29 2009 John Matthews <jmatthew@redhat.com> 0.6.16-1
 - 512440 - SetHandler to none to allow ProxyPass on /cobbler* and /cblr to
   work. (jpazdziora@redhat.com)
