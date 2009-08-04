@@ -185,7 +185,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
               rhnChannelCloned c_1_
              WHERE c.id = :cid
                AND c.id = c_1_.id (+)
-               AND rhn_channel.user_role_check(c.id, :userId, 'subscribe') = 1]]>
+               AND (rhn_channel.user_role_check(c.id, :userId, 'subscribe') = 1 OR
+                    rhn_channel.user_role_check(c.id, :userId, 'manage') = 1) ]]>
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
     
@@ -195,7 +196,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
               rhnChannelCloned c_1_
              WHERE c.label = :label
                AND c.id = c_1_.id (+)
-               AND rhn_channel.user_role_check(c.id, :userId, 'subscribe') = 1]]>
+               AND (rhn_channel.user_role_check(c.id, :userId, 'subscribe') = 1 OR
+                    rhn_channel.user_role_check(c.id, :userId, 'manage') = 1) ]]>
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
     
