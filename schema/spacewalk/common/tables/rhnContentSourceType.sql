@@ -19,17 +19,13 @@
 create table
 rhnContentSourceType
 (
-	id		number
-			constraint rhn_cst_id_nn not null
+	id		number NOT NULL
                         constraint rhn_cst_id_pk primary key,
-	label		varchar2(32)
-			constraint rhn_cst_label_nn not null
+	label		varchar2(32) NOT NULL
                         constraint rhn_cst_label_uq unique,
-	created		date default(sysdate)
-			constraint rhn_cst_created_nn not null,
-	modified	date default(sysdate)
-			constraint rhn_cst_modified_nn not null
-)
+	created		date default(sysdate) NOT NULL,
+	modified	date default(sysdate) NOT NULL
+) 
 	enable row movement
   ;
 

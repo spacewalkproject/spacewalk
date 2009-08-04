@@ -16,32 +16,27 @@
 --
 --
 
+
 create table
 rhnChannelContentSource
 (
-        id		number
-                        constraint rhn_ccs_id_nn not null
-			constraint rhn_ccs_id_pk primary key,
-        channel_id      number
-                        constraint rhn_ccs_c_nn not null
+        id              number NOT NULL
+                        constraint rhn_ccs_id_pk primary key,
+        channel_id      number NOT NULL
                         constraint rhn_ccs_c_fk
                                 references rhnChannel(id) on delete cascade,
-        type_id         number
-                        constraint rhn_ccs_type_nn not null
+        type_id         number NOT NULL
                         constraint rhn_ccs_type_fk
                                 references rhnContentSourceType(id),
-        source_url      varchar2(512)
-                        constraint rhn_ccs_url_nn not null,
-        label           varchar2(64)
-                        constraint rhn_ccs_l_nn not null,
-        last_synced     date, 
-        created         date default(sysdate)
-                        constraint rhn_ccs_cre_nn not null,
-        modified        date default(sysdate)
-                        constraint rhn_ccs_mod_nn not null
+        source_url      varchar2(512) NOT NULL,
+        label           varchar2(64) NOT NULL,
+        last_synced     date,
+        created         date default(sysdate) NOT NULL,
+        modified        date default(sysdate) NOT NULL
 )
-	enable row movement
+        enable row movement
   ;
+
 
 
 create sequence rhn_chan_content_src_id_seq start with 500;
