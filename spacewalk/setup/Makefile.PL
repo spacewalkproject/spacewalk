@@ -12,6 +12,7 @@ WriteMakefile(
     PREREQ_PM => {
         'Test::More' => 0,
     },
+    MAN1PODS		=> { 'lib/Spacewalk/Setup.pm' => '$(INST_MAN1DIR)/spacewalk-setup.$(MAN1EXT)' },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'Spacewalk-Setup-*' },
 );
