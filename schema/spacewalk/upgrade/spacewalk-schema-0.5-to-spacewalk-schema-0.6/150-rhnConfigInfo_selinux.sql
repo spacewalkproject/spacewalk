@@ -30,7 +30,7 @@ IS
            AND username = username_in
            AND groupname = groupname_in
            AND filemode = filemode_in
-           AND selinux_ctx = selinux_ctx_in;
+           AND nvl(selinux_ctx, ' ') = nvl(selinux_ctx_in, ' ');
 BEGIN
     FOR r IN lookup_cursor LOOP
         RETURN r.id;

@@ -33,7 +33,7 @@ declare
          where username = username_in
            and groupname = groupname_in
            and filemode = filemode_in
-           and selinux_ctx = selinux_ctx_in;
+           and nvl(selinux_ctx, ' ') = nvl(selinux_ctx_in, ' ');
 begin
     for r in lookup_cursor loop
         return r.id;

@@ -145,7 +145,7 @@ class DeployTransaction:
 
             if file_info.has_key('selinux_ctx'):
                 sectx = file_info.get('selinux_ctx')
-                if sectx is not None:
+                if sectx is not None and sectx is not "":
                     log_debug(1, "selinux context: " + sectx);
                     if setfilecon(temp_file_path, sectx) < 0:
                         raise Exception("failed to set selinux context on %s" % dest_path)

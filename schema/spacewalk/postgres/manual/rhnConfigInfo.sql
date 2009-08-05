@@ -30,6 +30,7 @@ rhnConfigInfo
 	filemode		numeric not null,
 	created			timestamp default (current_timestamp) not null,
 	modified		timestamp default (current_timestamp) not null,
+	selinux_ctx		varchar(64),
 				constraint rhn_confinfo_ugf_uq unique ( username, groupname, filemode )
 --			        tablespace [[4m_tbs]]
 )

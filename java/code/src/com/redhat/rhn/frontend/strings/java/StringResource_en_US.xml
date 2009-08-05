@@ -6866,6 +6866,12 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="cffSELinuxCtx">
+<source>SELinux context</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="cffMacroStart">
 <source>Macro start tag</source>
         <context-group name="ctx">
