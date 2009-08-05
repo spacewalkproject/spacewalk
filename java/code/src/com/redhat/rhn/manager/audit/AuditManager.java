@@ -317,7 +317,7 @@ public class AuditManager /* extends BaseManager */ {
         // otherwise, just look up this one machine
         hostDir = new File(logDirStr + "/" + machineName + "/audit");
 
-        if (hostDir == null) {
+        if (hostDir == null || !hostDir.exists()) {
             return null;
         }
 
