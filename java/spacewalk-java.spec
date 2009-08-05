@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.38
+Version: 0.6.39
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -252,6 +252,45 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Wed Aug 05 2009 Jan Pazdziora 0.6.39-1
+- Fixed unit tests (paji@redhat.com)
+- 514291 - Fix for KS by IP (paji@redhat.com)
+- enhancing logging mechanism for spacewalk-repo-sync (jsherril@redhat.com)
+- 514800 - added logic to check for channel managers per cid
+  (shughes@redhat.com)
+- 514291 - Fix to properly schedule ssm ks over IP range (paji@redhat.com)
+- adding last_boot to system.getDetails() api call, per user request (jlsherri
+  @justin-sherrills-macbook-2.local)
+- 514994 - added logic to keep channel family name lengh at 128 or lower
+  (shughes@redhat.com)
+- 514792 - fix spelling error for form var on jsp page (shughes@redhat.com)
+- Merge branch 'master' into repo-sync (jsherril@redhat.com)
+- Patch: Selinux Context support for config files (joshua.roys@gtri.gatech.edu)
+- merge conflict (jsherril@redhat.com)
+- 515219 - We can have a channel with null description. In the
+  packagedetailsaction we call replace on description  without checking if its
+  a valid string resulting in Null Pointer Exception. (pkilambi@redhat.com)
+- 496080 - fixing issue where if the rhn tools beta channel was synced, you
+  would get an ISE when trying to give the virt entitlement within an org that
+  did not have access to that channel (jsherril@redhat.com)
+- check style fixes (jsherril@redhat.com)
+- 494409 - fix to unsubscribe child channels during trust removal
+  (shughes@redhat.com)
+- 514591 - fixing issue where empty string being passed in for some values on
+  errata.create api would result in ISE 500 (jsherril@redhat.com)
+- unit test fixes (jsherril@redhat.com)
+- some repo sync task fixes (jsherril@redhat.com)
+- updating task to include log file and more logging (jsherril@redhat.com)
+- adding sync repo option to channel details, and taskomatic task
+  (jsherril@redhat.com)
+- 51455, 513683, 514291, 513539 - Fixed a bunch of bugs related to KS
+  provisioning. (paji@redhat.com)
+- adding repo sync task and other UI bits for spacewalk repo sync
+  (jsherril@redhat.com)
+- merge conflict (jsherril@redhat.com)
+- adding sync repo option to UI for yum repos (jsherril@redhat.com)
+- initial yum repo sync schema and UI work (jsherril@redhat.com)
+
 * Tue Jul 28 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.38-1
 -  Adding a new create channel api using checksumtype as a params.
   (pkilambi@redhat.com)
