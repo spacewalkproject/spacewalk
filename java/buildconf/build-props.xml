@@ -108,7 +108,7 @@
              commons-validator concurrent dom4j hibernate3 jta
              jaf jasper5-compiler jasper5-runtime javamail jcommon jdom
              jfreechart jspapi jpam log4j redstone-xmlrpc-client redstone-xmlrpc
-             oro oscache quartz sitemesh struts taglibs-core
+             oro oscache quartz stringtree-json sitemesh struts taglibs-core
              taglibs-standard tanukiwrapper  postgresql-jdbc
              xalan-j2 xerces-j2 xml-commons-apis" />
 
