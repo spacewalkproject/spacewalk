@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.28
+Version: 0.6.29
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -579,6 +579,38 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Aug 05 2009 Jan Pazdziora 0.6.29-1
+- reporting: add the entitlements report
+- enhancing logging mechanism for spacewalk-repo-sync (jsherril@redhat.com)
+- Merge branch 'master' into repo-sync (jsherril@redhat.com)
+- Patch: Selinux Context support for config files (joshua.roys@gtri.gatech.edu)
+- merge conflict (jsherril@redhat.com)
+- adding newline to error message output (jsherril@redhat.com)
+- fixing small method call in reposync (jsherril@redhat.com)
+- fixing specfile to create directory for reposync (jsherril@redhat.com)
+- fixing small whitespace error with reposync (jsherril@redhat.com)
+- adding better logging for spacewalk-repo-sync (jsherril@redhat.com)
+- 467281 - Instead of checksing for the start now we cechk if tools is in the
+  channel label. This is not a perfect solution but atleast covers few more
+  cases. An ideal solution would be to add some kind of a relation ship between
+  parent and child signifying that this is a tools channel for a given parent.
+  (pkilambi@redhat.com)
+- 505559 - spacewalk-debug now captures database tablespace usage report
+  (pkilambi@redhat.com)
+- making the logging a bit cleaner (jsherril@redhat.com)
+- fixing some import things to actually work on an installed system
+  (jsherril@redhat.com)
+- adding logging, cache clearing, and a few fixes to reposync
+  (jsherril@redhat.com)
+- adding makefile to repo_plugins (pkilambi@redhat.com)
+- updating spacewalk backend spec file with reposync stuff
+  (pkilambi@redhat.com)
+- updating Makefile with reposync files (pkilambi@redhat.com)
+- some clean up on repo sync stuff (pkilambi@redhat.com)
+- adding repo sync task and other UI bits for spacewalk repo sync
+  (jsherril@redhat.com)
+- backend/satellite_tools/repo_plugins/yum_src.py (jsherril@redhat.com)
+
 * Wed Jul 29 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.28-1
 - 
 

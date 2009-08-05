@@ -46,7 +46,6 @@ create unique index rhn_ccs_uq
   ;
 
 /
-show errors
 
 --
 -- Revision 1.0  2009/06/26 21:54 jlsherrill

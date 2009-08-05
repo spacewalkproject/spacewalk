@@ -1,5 +1,5 @@
 Name:         SatConfig-bootstrap
-Version:      1.11.4
+Version:      1.11.5
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - satellite id installer
 URL:          https://fedorahosted.org/spacewalk
@@ -38,6 +38,10 @@ install -m 755 npBootstrap.pl $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Aug 05 2009 Jan Pazdziora 1.11.5-1
+- 493060 - do not send email "RHN Monitoring Scout started" by default
+  (msuchy@redhat.com)
+
 * Mon May 11 2009 Miroslav Suchý <msuchy@redhat.com> 1.11.4-1
 - utilize NOCpulse::Config for get scout_shared_key
 

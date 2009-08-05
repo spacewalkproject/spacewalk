@@ -36,7 +36,6 @@ create index rhn_ccst_id_l_idx
 	tablespace [[64k_tbs]]
   ;
 
-show errors
 
 --
 -- Revision 1.0  2002/11/13 21:50:21  jlsherrill

@@ -53,7 +53,7 @@ my $start_schema = join '-', @{ $schema_versions->[0] };
 
 my $my_schema_version_out = `rpm -qf --qf '%{name} %{version} %{release}\n' /etc/sysconfig/rhn/schema-override 2> /dev/null`;
 if ($?) { # the directory does not exists or is not owned by any rpm
-	$my_schema_version_out = `rpm -qf --qf '%{name} %{version} %{release}\n' /etc/sysconfig/rhn/universe.satellite.sql`;
+	$my_schema_version_out = `rpm -qf --qf '%{name} %{version} %{release}\n' /etc/sysconfig/rhn/oracle/main.sql`;
 }
 my ($my_schema_name, $my_schema_version, $my_schema_release) = ($my_schema_version_out =~ /^(\S+)\s(\S+)\s(\S+)$/);
 if (not defined $my_schema_release) {
