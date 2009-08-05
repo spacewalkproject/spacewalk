@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.39
+Version: 0.6.40
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -252,6 +252,11 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Wed Aug 05 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.40-1
+- Merge branch 'master' of ssh://pkilambi@git.fedorahosted.org/git/spacewalk
+  (joshua.roys@gtri.gatech.edu)
+- bugfix patch on selinux config file deploy (joshua.roys@gtri.gatech.edu)
+
 * Wed Aug 05 2009 Jan Pazdziora 0.6.39-1
 - Fixed unit tests (paji@redhat.com)
 - 514291 - Fix for KS by IP (paji@redhat.com)
