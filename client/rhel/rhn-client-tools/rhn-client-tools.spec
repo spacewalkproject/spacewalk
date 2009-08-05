@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.6.1
+Version: 0.6.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -204,6 +204,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Wed Aug 05 2009 John Matthews <jmatthew@redhat.com> 0.6.2-1
+- 494019 - Fixing the registration on python 2.6 to not include dbus.String
+  objects in hardware profile as new xmlrpclib _dump method validates based on
+  __dict__ on value. (pkilambi@redhat.com)
+
 * Wed Jul 29 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.4.20-9
 - Resolves: #445881
 
