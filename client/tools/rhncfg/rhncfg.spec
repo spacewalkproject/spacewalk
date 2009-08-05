@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.6
+Version: 5.9.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -105,6 +105,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Aug 05 2009 Pradeep Kilambi <pkilambi@redhat.com> 5.9.7-1
+- bugfix patch on selinux config file deploy (joshua.roys@gtri.gatech.edu)
+- Patch: Selinux Context support for config files (joshua.roys@gtri.gatech.edu)
+
 * Wed Apr 22 2009 jesus m. rodriguez <jesusr@redhat.com> 5.9.6-1
 - handle orphaned GID's the same way as orphaned UID's (maxim@wzzrd.com)
 - update copyright and licenses (jesusr@redhat.com)
