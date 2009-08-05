@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	0.6.6
+Version:	0.6.7
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -57,6 +57,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Aug 05 2009 Jan Pazdziora 0.6.7-1
+- utils: add python to BuildRequires
+
 * Fri Jul 31 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.6-1
 - removing common module dep and adding locking to utils package.
 
