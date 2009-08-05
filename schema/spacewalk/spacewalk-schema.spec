@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.6.18
+Version:        0.6.19
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,24 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Aug 05 2009 Jan Pazdziora 0.6.19-1
+- updating repo-sync schema to better conform with new schema standards, also
+  adding deps (jsherril@redhat.com)
+- being cautious (pkilambi@redhat.com)
+- Fixing the upgrades to default to sha1 for already existing channels
+  (pkilambi@redhat.com)
+- fixing small typo in upgrade script names (jsherril@redhat.com)
+- Merge branch 'master' into repo-sync (jsherril@redhat.com)
+- upgrade script for the previous commit. Patch from Joshua Roys
+  (joshua.roys@gtri.gatech.edu)
+- Patch: Selinux Context support for config files (joshua.roys@gtri.gatech.edu)
+- moving three new tables for postgres merge (jsherril@redhat.com)
+- merge conflict (jsherril@redhat.com)
+- Re-order Oracle upgrade script. (dgoodwin@redhat.com)
+- adding label to ContentSource schema (jsherril@redhat.com)
+- merge conflict (jsherril@redhat.com)
+- initial yum repo sync schema and UI work (jsherril@redhat.com)
+
 * Wed Jul 29 2009 John Matthews <jmatthew@redhat.com> 0.6.18-1
 - Add upgrade scripts for PostgreSQL compat procedures. (dgoodwin@redhat.com)
 
