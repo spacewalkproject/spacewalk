@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.6.19
+Version:        0.6.20
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Aug 05 2009 John Matthews <jmatthew@redhat.com> 0.6.20-1
+- bugfix patch on selinux config file deploy (joshua.roys@gtri.gatech.edu)
+- use new path to merged schema file (mzazrivec@redhat.com)
+- fixing schema errors for build (jsherril@redhat.com)
+
 * Wed Aug 05 2009 Jan Pazdziora 0.6.19-1
 - updating repo-sync schema to better conform with new schema standards, also
   adding deps (jsherril@redhat.com)
