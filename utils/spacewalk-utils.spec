@@ -14,6 +14,7 @@ BuildArch:      noarch
 
 BuildRequires:  /usr/bin/docbook2man
 BuildRequires:  docbook-utils
+BuildRequires:  python
 
 Requires:       python, rpm-python
 Requires:		perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
