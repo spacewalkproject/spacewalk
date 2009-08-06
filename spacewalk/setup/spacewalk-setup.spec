@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.6.19
+Version:        0.6.20
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Thu Aug 06 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.6.20-1
+- update spacewalk / satellite monitoring scout ip address
+
 * Wed Aug 05 2009 John Matthews <jmatthew@redhat.com> 0.6.19-1
 - 509474 - integration of Joshua's audit feature. (joshua.roys@gtri.gatech.edu)
 
