@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.18
+Version: 0.6.19
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -317,7 +317,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
-* Wed Aug 05 2009 John Matthews <jmatthew@redhat.com> 0.6.18-1
+* Wed Aug 05 2009 John Matthews <jmatthew@redhat.com> 0.6.19-1
 - 515580 - remove hard links to scooby.rdu (shughes@redhat.com)
 
 * Tue Aug 04 2009 Jan Pazdziora 0.6.17-1
