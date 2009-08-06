@@ -28,38 +28,52 @@ exit 0 unless $scout;
 my ($ip, $vip) = ($scout->{IP}, $scout->{VIP});
 my ($sn_id, $sc_id) = ($scout->{SAT_NODE_ID}, $scout->{ID});
 
-if ($ip eq '127.0.0.1' or $vip eq '127.0.0.1') {
-	my $hostname = Sys::Hostname::hostname;
-	my $ip_addr = RHN::Utils::find_ip_address($hostname);
+my $hostname = Sys::Hostname::hostname;
+my $ip_addr = RHN::Utils::find_ip_address($hostname);
 
-	my $dbh = RHN::DB->connect;
+my $dbh = RHN::DB->connect;
 
-	my $sql1 = q{
-        update rhn_sat_node
-            set ip = :ip,
-                last_update_user = 'upgrade',
-                last_update_date = sysdate
-            where ip = '127.0.0.1' and
-                  recid = :recid
-	};
-	my $sql2 = q{
-        update rhn_sat_cluster
-            set vip = :vip,
-                last_update_user = 'upgrade',
-                last_update_date = sysdate
-            where vip = '127.0.0.1' and
-                  recid = :recid
-	};
+# If IP address for satellite / spacewalk scout was set to 127.0.0.1, it needs to be updated
+my $sql1 = q{
+    update rhn_sat_node
+    set ip = :ip,
+        last_update_user = 'upgrade',
+        last_update_date = sysdate
+    where ip = '127.0.0.1' and
+          recid = :recid
+};
+my $sql2 = q{
+    update rhn_sat_cluster
+    set vip = :vip,
+        last_update_user = 'upgrade',
+        last_update_date = sysdate
+    where vip = '127.0.0.1' and
+          recid = :recid
+};
 
-	$dbh->do_h($sql1,
-		ip      => $ip_addr,
-		recid   => $sn_id,
-	);
-	$dbh->do_h($sql2,
-		vip     => $ip_addr,
-		recid   => $sc_id,
-	);
-	$dbh->commit;
-}
+# If IP address for satellite / spacewalk scout was not set, it needs to be updated
+my $sql3 = q{
+    update rhn_sat_node
+    set ip = :ip,
+        last_update_user = 'upgrade',
+        last_update_date = sysdate
+    where is null and
+          recid = :recid
+};
+my $sql4 = q{
+    update rhn_sat_cluster
+    set vip = :vip,
+        last_update_user = 'upgrade',
+        last_update_date = sysdate
+    where vip is null and
+          recid = :recid
+};
+
+$dbh->do_h($sql1, ip => $ip_addr, recid => $sn_id, );
+$dbh->do_h($sql2, vip => $ip_addr, 	recid   => $sc_id,);
+$dbh->do_h($sql3, ip => $ip_addr, recid => $sn_id, );
+$dbh->do_h($sql4, vip => $ip_addr, 	recid   => $sc_id,);
+
+$dbh->commit;
   
 1;
