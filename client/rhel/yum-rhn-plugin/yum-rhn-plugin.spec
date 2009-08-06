@@ -1,7 +1,7 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
 Source: %{name}-%{version}.tar.gz
-Version: 0.6.0
+Version: 0.6.1
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -60,6 +60,12 @@ make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RP
 
 
 %changelog
+* Thu Aug 06 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.1-1
+- fixing the changelog order causing tito build to fail (pkilambi@redhat.com)
+- fixing date (pkilambi@redhat.com)
+- new build (pkilambi@redhat.com)
+- client tools merge from svn (pkilambi@redhat.com)
+
 * Wed Aug 05 2009 Pradeep Kilambi <pkilambi@redhat.com>
 - new build
 
