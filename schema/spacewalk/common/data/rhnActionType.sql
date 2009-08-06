@@ -59,14 +59,14 @@ insert into rhnActionType values (37, 'virt.start', 'Starts up a virtual domain.
 insert into rhnActionType values (38, 'virt.suspend', 'Suspends a virtual domain.', 'N', 'N');
 insert into rhnActionType values (39, 'virt.resume', 'Resumes a virtual domain.', 'N', 'N');
 insert into rhnActionType values (40, 'virt.reboot', 'Reboots a virtual domain.', 'N', 'N');
-insert into rhnActionType values (41, 'virt.destroy', 'Destroys a virtual Domain.', 'N', 'N');
+insert into rhnActionType values (41, 'virt.destroy', 'Destroys a virtual domain.', 'N', 'N');
 insert into rhnActionType values (42, 'virt.setMemory', 'Sets the maximum memory usage for a virtual domain.', 'N', 'N');
 insert into rhnActionType values (43, 'virt.schedulePoller', 'Sets when the poller should run.', 'N', 'N');
 insert into rhnActionType values (44, 'kickstart_host.schedule_virt_host_pkg_install', 'Schedule a package install of host specific functionality.', 'N', 'N');
 insert into rhnActionType values (45, 'kickstart_guest.schedule_virt_guest_pkg_install', 'Schedule a package install of guest specific functionality.', 'N', 'N');
 insert into rhnActionType values (46, 'kickstart_host.add_tools_channel', 'Subscribes a server to the Spacewalk Tools channel associated with its base channel.', 'N', 'N');
 insert into rhnActionType values (47, 'kickstart_guest.add_tools_channel', 'Subscribes a virtualization guest to the Spacewalk Tools channel associated with its base channel.', 'N', 'N');
-insert into rhnActionType values (48, 'virt.setVCPUs', 'Sets the Vcpu  usage for a virtual domain.', 'N', 'N');
+insert into rhnActionType values (48, 'virt.setVCPUs', 'Sets the Vcpu usage for a virtual domain.', 'N', 'N');
 commit;
 insert into rhnActionType values (49, 'proxy.deactivate', 'Deactivate Proxy', 'N', 'N');
 --
