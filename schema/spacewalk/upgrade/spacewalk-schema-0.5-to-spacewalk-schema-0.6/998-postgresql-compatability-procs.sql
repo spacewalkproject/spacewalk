@@ -8,6 +8,8 @@ is
 begin
         return a.as_vre;
 end;
+/
+show errors
 
 create or replace function evr_t_as_vre_simple( a evr_t )
   return VARCHAR2
@@ -15,6 +17,8 @@ is
 begin
     return a.as_vre_simple;
 end;
+/
+show errors
 
 create or replace function sequence_currval( seq_name varchar2 ) return number as
        ret number;
@@ -23,6 +27,8 @@ begin
                into ret;
        return ret;
 end;
+/
+show errors
 
 create or replace function sequence_nextval( seq_name varchar2 ) return number as
        ret number;
@@ -31,6 +37,8 @@ begin
                into ret;
        return ret;
 end;
+/
+show errors
 
 
 CREATE OR REPLACE VIEW
