@@ -47,6 +47,5 @@ create unique index rhn_ccs_uq
 	tablespace [[64k_tbs]]
   ;
 
-/
 show errors
 
