@@ -69,17 +69,17 @@ make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RP
 * Fri Jun 26 2009 John Matthews <jmatthew@redhat.com> 0.5.7-1
 - yum-rhn-plugin requires m2crypto
 
-* Mon Jun 22 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.4-10%{?dist}
-- Resolves: #484245 
-
-* Fri Jun 12 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.4-9%{?dist}
-- Resolves: #467866
-
 * Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.5.6-1
 - yum operations are not getting redirected as the GET requested is formed at
   the plugin level and not through rhnlib. (pkilambi@redhat.com)
 - 467866 - Raise a more cleaner message if clients end up getting badStatusLine
   error due to 502 proxy errors (pkilambi@redhat.com)
+
+* Mon Jun 22 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.4-10%{?dist}
+- Resolves: #484245 
+
+* Fri Jun 12 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.4-9%{?dist}
+- Resolves: #467866
 
 * Thu May 21 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.5-1
 - merging additional spec changes and minor edits from svn (pkilambi@redhat.com)
