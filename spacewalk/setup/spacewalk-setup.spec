@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.6.18
+Version:        0.6.19
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Wed Aug 05 2009 John Matthews <jmatthew@redhat.com> 0.6.19-1
+- 509474 - integration of Joshua's audit feature. (joshua.roys@gtri.gatech.edu)
+
 * Tue Aug 04 2009 Jan Pazdziora 0.6.18-1
 - 490668 - add man pages for spacewalk-setup and cobbler-setup
 
