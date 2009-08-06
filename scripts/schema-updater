@@ -4,6 +4,19 @@ import sys
 import optparse
 import re
 import subprocess
+import cx_Oracle
+import re
+
+_query = """select default_tablespace from user_users
+          where username = sys_context('userenv', 'session_user')"""
+def get_table_space(options):
+    con = cx_Oracle.Connection(options.connect)
+    cursor = con.cursor()
+    cursor.execute(_query)
+    ret = cursor.fetchall()[0][0]
+    cursor.close()
+    con.close()
+    return ret
 
 def execute(command, shell=False, ignore_rc=False):
     if subprocess.call(command, shell = shell) != 0:
@@ -40,6 +53,9 @@ def main():
     for f in files:
         lines.extend([line.strip() for line in open(f).readlines() if not p.match(line)])
     if lines:
+        x = re.compile(r"tablespace\s+([\[\]\w]+)")
+        table_space = get_table_space(options)
+        lines = [x.sub("tablespace " + table_space, line) for line in lines]
         lines.append("commit;")
         f = "/tmp/__lines.sql"
         open(f,"w").write("\n".join(lines))
