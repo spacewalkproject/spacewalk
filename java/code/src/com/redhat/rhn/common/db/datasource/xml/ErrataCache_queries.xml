@@ -124,7 +124,8 @@ INSERT INTO rhnServerNeededCache
         (server_id, package_id, errata_id)
             (SELECT DISTINCT SNV.server_id, SNV.package_id, SNV.errata_id
                 FROM rhnServerNeededView SNV
-                WHERE SNV.channel_id = :channel_id)
+                WHERE SNV.server_id in (select SC.server_id from rhnServerChannel SC 
+                		where SC.channel_id = :channel_id ))
   </query>
 </write-mode>
 
