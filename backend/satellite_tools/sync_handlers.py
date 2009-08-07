@@ -641,7 +641,7 @@ def populate_channel_family_permissions(cert):
     for (cf_name, org_id), max_members in cfps.items():
         if org_id == 1:
 	    if cert_chfam_hash.has_key(cf_name):
-                cert_max_value = cert_chfam_hash[cf_name]
+                cert_max_value = cert_chfam_hash[cf_name] or 0
             else:
 	        # remove entitlements on extra slots 
                 cfps[(cf_name, org_id)] = None
