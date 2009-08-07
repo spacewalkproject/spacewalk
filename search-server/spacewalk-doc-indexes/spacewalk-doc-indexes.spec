@@ -30,10 +30,10 @@ documentation/help searches
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/en
-install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/en/segments
-cp -a data/crawl_www/index/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/en
-cp -a data/crawl_www/segments/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/en/segments
+install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/en-US
+install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/en-US/segments
+cp -a data/crawl_www/index/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/en-US
+cp -a data/crawl_www/segments/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/en-US/segments
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -45,6 +45,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Aug 07 2009 John Matthews <jmatthews@redhat.com> 0.7.0
+- update indexes to reside in "en-US"
+
 * Sat Apr 04 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.1-1
 - search requires doc-indexes, sw-doc-indexes provides doc-indexes (jesusr@redhat.com)
 - bump Versions to 0.6.0 (jesusr@redhat.com)
