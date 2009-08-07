@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.6.21
+Version:        0.6.22
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Fri Aug 07 2009 John Matthews <jmatthew@redhat.com> 0.6.22-1
+- adding upgrade for new fedora gpg key (jsherril@redhat.com)
+- adding newest fedora gpg key, and moving _data sql file to the right place
+  (jsherril@redhat.com)
+
 * Thu Aug 06 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.6.21-1
 - remove symlinks from schema upgrades
 - consistent data in new & upgraded schema
