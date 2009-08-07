@@ -57,7 +57,7 @@ my $sql3 = q{
     set ip = :ip,
         last_update_user = 'upgrade',
         last_update_date = sysdate
-    where is null and
+    where ip is null and
           recid = :recid
 };
 my $sql4 = q{
