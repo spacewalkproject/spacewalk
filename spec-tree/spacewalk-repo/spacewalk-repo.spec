@@ -1,7 +1,7 @@
 Summary: Spacewalk packages yum repository configuration.
 Name: spacewalk-repo
-Version: 0.7
-Release: 1%{?dist}
+Version: 0.6
+Release: 2%{?dist}
 License: GPL
 Group: Development
 # This src.rpm is cannonical upstream
@@ -47,7 +47,7 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/yum.repos.d/spacewalk.repo
 
 %changelog
-* Mon Aug 10 2009 jesus m. rodriguez <jesusr@redhat.com> 0.7-1
+* Mon Aug 10 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6-2
 - redefined fedora as Fedora (jesusr@redhat.com)
 
 * Thu Apr 30 2009 Jan Pazdziora 0.6-1
