@@ -1,7 +1,7 @@
 Summary: Spacewalk packages yum repository configuration.
 Name: spacewalk-repo
 Version: 0.6
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL
 Group: Development
 # This src.rpm is cannonical upstream
@@ -33,7 +33,7 @@ mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
 cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk.repo <<REPO
 [spacewalk]
 name=Spacewalk
-baseurl=http://spacewalk.redhat.com/yum/%{version}/%{reposubdir}/\$basearch/
+baseurl=http://spacewalk.redhat.com/yum/%{version}/%{reposubdir}/\$basearch/os/
 gpgkey=http://spacewalk.redhat.com/yum/RPM-GPG-KEY-spacewalk
 enabled=1
 gpgcheck=1
@@ -47,10 +47,11 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/yum.repos.d/spacewalk.repo
 
 %changelog
-* Mon Aug 10 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6-4
+* Mon Aug 10 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6-5
 - redefined fedora as Fedora (jesusr@redhat.com)
 - redefined rhel as RHEL (jesusr@redhat.com)
 - removed Server from 5Server
+- added /os/ to the end of the url
 
 * Thu Apr 30 2009 Jan Pazdziora 0.6-1
 - bump version to 0.6
