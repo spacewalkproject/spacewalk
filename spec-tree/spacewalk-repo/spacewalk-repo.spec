@@ -1,7 +1,7 @@
 Summary: Spacewalk packages yum repository configuration.
 Name: spacewalk-repo
 Version: 0.7.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL
 Group: Development
 # This src.rpm is cannonical upstream
@@ -25,9 +25,9 @@ mkdir -p $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 
 # some sane default value
-%define reposubdir      rhel/5Server
+%define reposubdir      RHEL/5
 # redefine on fedora
-%{?fedora: %define reposubdir      fedora/%{fedora}}
+%{?fedora: %define reposubdir      Fedora/%{fedora}}
 
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
 cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk.repo <<REPO
@@ -47,6 +47,11 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/yum.repos.d/spacewalk.repo
 
 %changelog
+* Mon Aug 10 2009 jesus m. rodriguez 0.7.0-2
+- rename rhel to RHEL
+- rename fedora to Fedora
+- remove Server from 5Server
+
 * Thu Apr 30 2009 Jan Pazdziora 0.6-1
 - bump version to 0.6
 
