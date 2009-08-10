@@ -64,6 +64,7 @@ import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
 import com.redhat.rhn.frontend.xmlrpc.ProxyChannelNotFoundException;
 import com.redhat.rhn.manager.BaseManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.org.OrgManager;
@@ -1953,6 +1954,7 @@ public class ChannelManager extends BaseManager {
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
+        params.put("set_label", RhnSetDecl.SYSTEMS.getLabel());
         DataResult dr = makeDataResult(params, params, lc, m);
 
         return dr;
