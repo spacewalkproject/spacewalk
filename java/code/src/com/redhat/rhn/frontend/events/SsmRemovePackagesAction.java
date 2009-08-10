@@ -14,24 +14,6 @@
  */
 package com.redhat.rhn.frontend.events;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
-
-import com.redhat.rhn.common.localization.LocalizationService;
-
-import com.redhat.rhn.common.messaging.EventMessage;
-
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerFactory;
-
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.user.UserFactory;
-
-import com.redhat.rhn.frontend.dto.PackageListItem;
-
-import com.redhat.rhn.manager.action.ActionManager;
-
-import com.redhat.rhn.manager.ssm.SsmOperationManager;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -40,14 +22,23 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.apache.log4j.Logger;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.messaging.EventMessage;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerFactory;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.frontend.dto.PackageListItem;
+import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.ssm.SsmOperationManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
 /**
  * Handles removing packages from servers in the SSM.
  *
  * @see com.redhat.rhn.frontend.events.SsmRemovePackagesEvent
- * @version $Revision$
  */
 public class SsmRemovePackagesAction extends AbstractDatabaseAction {
     private static Logger log = Logger.getLogger(SsmRemovePackagesAction.class);
@@ -55,30 +46,46 @@ public class SsmRemovePackagesAction extends AbstractDatabaseAction {
     /** {@inheritDoc} */
     protected void doExecute(EventMessage msg) {
         log.debug("Executing package removals.");
-        SsmRemovePackagesEvent event = (SsmRemovePackagesEvent) msg;
 
-        DataResult result = event.getResult();
+        SsmRemovePackagesEvent event = (SsmRemovePackagesEvent) msg;
         User user = UserFactory.lookupById(event.getUserId());
-        Date earliest = event.getEarliest();
 
         LocalizationService ls = LocalizationService.getInstance();
-        long operationId = SsmOperationManager.createOperation(user,
-            ls.getMessage("ssm.package.remove.operationname"), null);
-        int numPackages = 0;
+        String operationMessage = ls.getMessage("ssm.package.remove.operationname");
+        long operationId = SsmOperationManager.createOperation(user, operationMessage,
+            RhnSetDecl.SYSTEMS.getLabel());
+
+        try {
+            scheduleDeletes(event, user);
+        }
+        catch (Exception e) {
+            log.error("Error scheduling package deletes for event: " + event, e);
+        }
+        finally {
+            // This should stay in the finally block so the operation is
+            // not perpetually left in an in progress state
+            SsmOperationManager.completeOperation(user, operationId);
+        }
+    }
+
+    private void scheduleDeletes(SsmRemovePackagesEvent event, User user) {
+
+        DataResult result = event.getResult();
+        Date earliest = event.getEarliest();
 
         /* 443500 - The following was changed to be able to stuff all of the package
-           removals into a single action. The schedule package removal page will display
-           a fine grained mapping of server to package removed (taking into account to
-           only show packages that exist on the server).
+          removals into a single action. The schedule package removal page will display
+          a fine grained mapping of server to package removed (taking into account to
+          only show packages that exist on the server).
 
-           However, there is no issue in requesting a client delete a package it doesn't
-           have. So when we create the action, populate it with all packages and for
-           every server to which any package removal applies. This will let us keep all
-           of the removals coupled under a single scheduled action and won't cause an
-           issue on the client when the scheduled removals are picked up.
+          However, there is no issue in requesting a client delete a package it doesn't
+          have. So when we create the action, populate it with all packages and for
+          every server to which any package removal applies. This will let us keep all
+          of the removals coupled under a single scheduled action and won't cause an
+          issue on the client when the scheduled removals are picked up.
 
-           jdobies, Apr 8, 2009
-         */
+          jdobies, Apr 8, 2009
+        */
 
         // The package collection is a set to prevent duplciates when keeping a running
         // total of all packages selected
@@ -97,12 +104,11 @@ public class SsmRemovePackagesAction extends AbstractDatabaseAction {
             Map data = (Map) it.next();
 
             // Load the server
-            Long sid = (Long)data.get("id");
+            Long sid = (Long) data.get("id");
             allServerIds.add(sid);
 
             // Get the packages out of the elaborator
             List elabList = (List) data.get("elaborator0");
-            numPackages += elabList.size();
 
             for (Iterator elabIt = elabList.iterator(); elabIt.hasNext();) {
                 Map elabData = (Map) elabIt.next();
