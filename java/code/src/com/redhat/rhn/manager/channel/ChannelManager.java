@@ -66,6 +66,7 @@ import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.org.OrgManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
@@ -1929,6 +1930,7 @@ public class ChannelManager extends BaseManager {
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
+        params.put("set_label", RhnSetDecl.SYSTEMS.getLabel());
         DataResult dr = makeDataResult(params, params, lc, m);
 
         return dr;
