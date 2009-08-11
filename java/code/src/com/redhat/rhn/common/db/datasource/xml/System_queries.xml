@@ -134,7 +134,7 @@ ORDER BY UPPER(S.name)
 SELECT  DISTINCT
         S.id AS ID,
         S.name AS SERVER_NAME,
-        PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.name NVRE,
+        PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label NVRE,
         PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO,
         P.name_id AS NAME_ID,
         P.evr_id AS EVR_ID,
@@ -165,7 +165,7 @@ SELECT  DISTINCT
    AND  P.name_id = PN.id
    AND  P.evr_id = PE.id
    AND  P.package_arch_id = PA.id
-ORDER BY UPPER(S.name), UPPER(PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.name)
+ORDER BY UPPER(S.name), UPPER(PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label)
   </elaborator>
 </mode>
 
