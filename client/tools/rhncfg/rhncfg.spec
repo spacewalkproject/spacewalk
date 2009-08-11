@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.7
+Version: 5.9.8
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -105,7 +105,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
-* Tue Aug 11 2009 Pradeep Kilambi <pkilambi@redhat.com> 
+* Tue Aug 11 2009 Pradeep Kilambi <pkilambi@redhat.com> 5.9.8-1
 - 516889 - adding rhncfgcli_elist module to makefile
 
 * Wed Aug 05 2009 Pradeep Kilambi <pkilambi@redhat.com> 5.9.7-1
