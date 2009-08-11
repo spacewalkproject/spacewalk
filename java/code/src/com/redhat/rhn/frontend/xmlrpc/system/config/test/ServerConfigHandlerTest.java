@@ -215,7 +215,8 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
             
             ConfigChannel cc = commitToLocal ? server.getLocalOverride() :
                                                      server.getSandboxOverride();
-            assertRev(rev, path, contents, group, owner, perms, isDir, cc, start, end, selinuxCtx);
+            assertRev(rev, path, contents, group, owner, perms, isDir, cc, start, end, 
+                    selinuxCtx);
             
             assertRevNotChanged(rev, server, commitToLocal);
             
@@ -362,7 +363,8 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
                                                 "group" + TestUtils.randomString(), 
                                                 "owner" + TestUtils.randomString(),
                                                 "744",
-                                                isDir, srv1, local, "unconfined_u:object_r:tmp_t"));                
+                                                isDir, srv1, local, 
+                                                "unconfined_u:object_r:tmp_t"));
         }
     }
     

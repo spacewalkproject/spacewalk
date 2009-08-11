@@ -185,7 +185,8 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
 
     private ConfigRevision createRevision(String path, String contents, 
                             String group, String owner, 
-                                String perms, boolean isDir, ConfigChannel cc, String selinuxCtx) 
+                            String perms, boolean isDir, 
+                            ConfigChannel cc, String selinuxCtx) 
                                         throws ValidatorException {
         Map <String, Object> data = new HashMap<String, Object>();
         data.put("contents", contents);
@@ -313,7 +314,8 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
                                                     "group" + TestUtils.randomString(), 
                                                     "owner" + TestUtils.randomString(),
                                                     "744",
-                                                    isDir, cc, "unconfined_u:object_r:tmp_t"));                
+                                                    isDir, cc, 
+                                                    "unconfined_u:object_r:tmp_t"));
         }
     }
     
