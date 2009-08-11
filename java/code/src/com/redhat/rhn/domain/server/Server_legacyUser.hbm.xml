@@ -245,7 +245,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 			           	inner join rhnProxyInfo rpi on rpi.server_id = S.id 
            				where S.org_id = :orgId
            				and USP.user_id = :userId
-	              		]]>
+	              		]]>                              
     </sql-query>    
 
      <sql-query name="Server.findInSet">
@@ -263,6 +263,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
              where
                  ST.user_id = :userId
                  and ST.label = :label
+                 and S.id not in (SELECT server_id FROM rhnProxyInfo)
            ]]>  
         <return alias="S" class="com.redhat.rhn.domain.server.Server" />
     </sql-query>

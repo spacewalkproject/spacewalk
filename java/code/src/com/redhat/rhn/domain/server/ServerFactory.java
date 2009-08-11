@@ -575,7 +575,8 @@ public class ServerFactory extends HibernateFactory {
 
     /**
      * Returns a list of Server objects currently selected in the System Set
-     * Manager.
+     * Manager. This list will <strong>not</strong> contain servers that are
+     * proxies.
      * 
      * @param user User requesting.
      * @return List of servers.
