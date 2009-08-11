@@ -104,6 +104,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Aug 11 2009 Pradeep Kilambi <pkilambi@redhat.com> 
+- 516889 - adding rhncfgcli_elist module to makefile
+
 * Thu Mar 26 2009 jesus m. rodriguez <jesusr@redhat.com> 5.9.5-1
 - 430885 - gracefuly ignore dir diffs instead of treating them as missing files
 

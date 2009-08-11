@@ -12,6 +12,7 @@ FILES           = $(EXEC_FILES) __init__ handler_base \
                   rhncfgcli_channels \
                   rhncfgcli_diff rhncfgcli_get \
                   rhncfgcli_list \
+                  rhncfgcli_elist \
                   rhncfgcli_verify rpc_cli_repository
 CONFIG_FILES    = rhncfg-client.conf
 
