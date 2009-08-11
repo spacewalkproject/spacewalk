@@ -166,10 +166,15 @@ config_error () {
 
 #do we have yum or up2date?
 YUM_OR_UPDATE="up2date -i"
+UPGRADE="update -u"
 if [ -f /usr/bin/yum ]; then
-	YUM_OR_UPDATE="yum install"
+        YUM_OR_UPDATE="yum install"
+        UPGRADE="yum upgrade"
         # add -y for non-interactive installation
-	[ "$INTERACTIVE" = "0" ] && YUM_OR_UPDATE="$YUM_OR_UPDATE -y"
+        if [ "$INTERACTIVE" = "0" ]; then
+                YUM_OR_UPDATE="$YUM_OR_UPDATE -y"
+                UPGRADE="$UPGRADE -y"
+        fi
 fi
 SYSCONFIG_DIR=/etc/sysconfig/rhn
 RHNCONF_DIR=/etc/rhn
@@ -278,6 +283,7 @@ rpm -q spacewalk-proxy-management >/dev/null
 if [ $? -ne 0 ]; then
 	config_error 2 "Installation of package spacewalk-proxy-management failed."
 fi
+$UPGRADE
 
 if [ "$RHN_PARENT" == "xmlrpc.rhn.redhat.com" ]; then
     #skip monitoring part for hosted
