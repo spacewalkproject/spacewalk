@@ -105,6 +105,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Aug 11 2009 Pradeep Kilambi <pkilambi@redhat.com> 
+- 516889 - adding rhncfgcli_elist module to makefile
+
 * Wed Aug 05 2009 Pradeep Kilambi <pkilambi@redhat.com> 5.9.7-1
 - bugfix patch on selinux config file deploy (joshua.roys@gtri.gatech.edu)
 - Patch: Selinux Context support for config files (joshua.roys@gtri.gatech.edu)
