@@ -245,7 +245,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 			           	inner join rhnProxyInfo rpi on rpi.server_id = S.id 
            				where S.org_id = :orgId
            				and USP.user_id = :userId
-	              		]]>                              Se
+	              		]]>
     </sql-query>    
 
      <sql-query name="Server.findInSet">
