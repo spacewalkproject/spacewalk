@@ -185,13 +185,14 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
 
     private ConfigRevision createRevision(String path, String contents, 
                             String group, String owner, 
-                                String perms, boolean isDir, ConfigChannel cc) 
+                                String perms, boolean isDir, ConfigChannel cc, String selinuxCtx) 
                                         throws ValidatorException {
         Map <String, Object> data = new HashMap<String, Object>();
         data.put("contents", contents);
         data.put(ConfigRevisionSerializer.GROUP, group);
         data.put(ConfigRevisionSerializer.OWNER, owner);
         data.put(ConfigRevisionSerializer.PERMISSIONS, perms);
+        data.put(ConfigRevisionSerializer.SELINUX_CTX, selinuxCtx);
         String start = "#@";
         String end = "@#";
         if (!isDir) {
@@ -207,6 +208,7 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
         assertEquals(group, rev.getConfigInfo().getGroupname());
         assertEquals(owner, rev.getConfigInfo().getUsername());
         assertEquals(perms, String.valueOf(rev.getConfigInfo().getFilemode()));
+        assertEquals(selinuxCtx, rev.getConfigInfo().getSelinuxCtx());
         if (isDir) {
             assertEquals(ConfigFileType.dir(), rev.getConfigFileType());
         }
@@ -243,13 +245,13 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
                                     "group" + TestUtils.randomString(), 
                                     "owner" + TestUtils.randomString(),
                                     "777",
-                                    false, cc);
+                                    false, cc, "unconfined_u:object_r:tmp_t");
         try {
             createRevision(path, contents, 
                     "group" + TestUtils.randomString(), 
                     "owner" + TestUtils.randomString(),
                     "744",
-                    true, cc);
+                    true, cc, "unconfined_u:object_r:tmp_t");
             fail("Can't change the path from file to directory.");
         }
         catch (Exception e) {
@@ -262,7 +264,7 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
                     "group" + TestUtils.randomString(), 
                     "owner" + TestUtils.randomString(),
                     "744",
-                    true, cc);
+                    true, cc, "unconfined_u:object_r:tmp_t");
             fail("Validation error on the path.");
         }
         catch (Exception e) {
@@ -273,7 +275,7 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
                 "group" + TestUtils.randomString(), 
                 "owner" + TestUtils.randomString(),
                 "744",
-                true, cc);
+                true, cc, "unconfined_u:object_r:tmp_t");
     }
     
     public void testListFiles() {
@@ -311,7 +313,7 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
                                                     "group" + TestUtils.randomString(), 
                                                     "owner" + TestUtils.randomString(),
                                                     "744",
-                                                    isDir, cc));                
+                                                    isDir, cc, "unconfined_u:object_r:tmp_t"));                
         }
     }
     
@@ -339,7 +341,7 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
                                     "group" + TestUtils.randomString(), 
                                     "owner" + TestUtils.randomString(),
                                     "777",
-                                    false, cc);
+                                    false, cc, "unconfined_u:object_r:tmp_t");
         
         DataResult dr = ActionManager.recentlyScheduledActions(admin, null, 30);
         int preScheduleSize = dr.size();

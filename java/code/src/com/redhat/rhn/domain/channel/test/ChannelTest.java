@@ -180,6 +180,7 @@ public class ChannelTest extends BaseTestCaseWithUser {
     public void testContentSource() throws Exception {
         Channel c = ChannelFactoryTest.createTestChannel(user);
         ContentSource cs = new ContentSource();
+        cs.setLabel("repo_label-" + c.getLabel());
         cs.setSourceUrl("fake url");
         cs.setChannel(c);
         cs.setType(ChannelFactory.CONTENT_SOURCE_TYPE_YUM);

@@ -194,13 +194,14 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
     private ConfigRevision createRevision(String path, String contents, 
             String group, String owner, 
                 String perms, boolean isDir,
-                Server server, boolean commitToLocal) 
+                Server server, boolean commitToLocal, String selinuxCtx) 
                         throws ValidatorException {
             Map <String, Object> data = new HashMap<String, Object>();
             data.put("contents", contents);
             data.put(ConfigRevisionSerializer.GROUP, group);
             data.put(ConfigRevisionSerializer.OWNER, owner);
             data.put(ConfigRevisionSerializer.PERMISSIONS, perms);
+            data.put(ConfigRevisionSerializer.SELINUX_CTX, selinuxCtx);
             String start = "#@";
             String end = "@#";
             if (!isDir) {
@@ -214,7 +215,7 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
             
             ConfigChannel cc = commitToLocal ? server.getLocalOverride() :
                                                      server.getSandboxOverride();
-            assertRev(rev, path, contents, group, owner, perms, isDir, cc, start, end);
+            assertRev(rev, path, contents, group, owner, perms, isDir, cc, start, end, selinuxCtx);
             
             assertRevNotChanged(rev, server, commitToLocal);
             
@@ -224,12 +225,13 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
     private void assertRev(ConfigRevision rev, String path, String contents, 
                                     String group, String owner, 
                                 String perms, boolean isDir, ConfigChannel cc,
-                                String macroStart, String macroEnd) {
+                                String macroStart, String macroEnd, String selinuxCtx) {
             assertEquals(path, rev.getConfigFile().getConfigFileName().getPath());
             assertEquals(contents, rev.getConfigContent().getContentsString());
             assertEquals(group, rev.getConfigInfo().getGroupname());
             assertEquals(owner, rev.getConfigInfo().getUsername());
             assertEquals(perms, String.valueOf(rev.getConfigInfo().getFilemode()));
+            assertEquals(selinuxCtx, rev.getConfigInfo().getSelinuxCtx());
             if (isDir) {
                 assertEquals(ConfigFileType.dir(), rev.getConfigFileType());
             }
@@ -281,13 +283,13 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
                                     "group" + TestUtils.randomString(), 
                                     "owner" + TestUtils.randomString(),
                                     "777",
-                                    false, srv1, true);
+                                    false, srv1, true, "unconfined_u:object_r:tmp_t");
         try {
             createRevision(path, contents, 
                     "group" + TestUtils.randomString(), 
                     "owner" + TestUtils.randomString(),
                     "744",
-                    true, srv1, true);
+                    true, srv1, true, "unconfined_u:object_r:tmp_t");
             fail("Can't change the path from file to directory.");
         }
         catch (Exception e) {
@@ -300,7 +302,7 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
                     "group" + TestUtils.randomString(), 
                     "owner" + TestUtils.randomString(),
                     "744",
-                    true, srv1, false);
+                    true, srv1, false, "unconfined_u:object_r:tmp_t");
             fail("Validation error on the path.");
         }
         catch (Exception e) {
@@ -311,7 +313,7 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
                 "group" + TestUtils.randomString(), 
                 "owner" + TestUtils.randomString(),
                 "744",
-                true, srv1, false);
+                true, srv1, false, "unconfined_u:object_r:tmp_t");
     }
     
     public void testListFiles() throws Exception {
@@ -360,7 +362,7 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
                                                 "group" + TestUtils.randomString(), 
                                                 "owner" + TestUtils.randomString(),
                                                 "744",
-                                                isDir, srv1, local));                
+                                                isDir, srv1, local, "unconfined_u:object_r:tmp_t"));                
         }
     }
     
