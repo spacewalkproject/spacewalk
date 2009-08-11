@@ -26,6 +26,7 @@ use English;
 use POSIX qw/dup2 setsid O_WRONLY O_CREAT/;
 use ModPerl::Util qw/exit/;
 use DateTime;
+use IPC::Open3;
 
 use RHN::DB;
 use Params::Validate;
@@ -280,7 +281,9 @@ sub generate_server_cert {
 
   my @command = ('/usr/bin/rhn-sudo-ssl-tool',  @opts, '-q');
 
-  my $ret = system(@command);
+  my $pid = open3(undef, ">&STDERR", ">&STDERR", @command);
+  waitpid( $pid, 0 );
+  my $ret = $?;
 
   return $ret;
 }
