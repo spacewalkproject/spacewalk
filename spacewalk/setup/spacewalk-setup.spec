@@ -28,6 +28,7 @@ Requires:       spacewalk-backend-tools
 Requires:       cobbler >= 1.6.3
 Requires:       PyYAML
 Requires:       jabberd
+Requires:       /usr/bin/gpg
 
 
 %description
