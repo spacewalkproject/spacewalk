@@ -2187,16 +2187,6 @@ public class SystemManager extends BaseManager {
     }
     
     /**
-     * Returns a list of Server objects currently selected in the System Set Manager.
-     * 
-     * @param user User requesting the list.
-     * @return List of servers.
-     */
-    public static List<Server> systemsInSsm(User user) {
-        return ServerFactory.listSystemsInSsm(user);
-    }
-    
-    /**
      * Return the system names and IDs that are selected in the SSM for the given user,
      * which also have been subscribed to the given channel.
      * 
