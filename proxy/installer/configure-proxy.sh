@@ -166,7 +166,7 @@ config_error () {
 
 #do we have yum or up2date?
 YUM_OR_UPDATE="up2date -i"
-UPGRADE="update -u"
+UPGRADE="up2date -u"
 if [ -f /usr/bin/yum ]; then
         YUM_OR_UPDATE="yum install"
         UPGRADE="yum upgrade"
