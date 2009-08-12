@@ -45,6 +45,14 @@ Obsoletes: rhns-proxy-tools < 5.3.0
 Provides: rhns-proxy-tools = 5.3.0
 Obsoletes: spacewalk-proxy-tools < 0.5.3
 Provides: spacewalk-proxy-tools = %{version}
+Obsoletes: rhns-auth-daemon < 5.2.0
+Provides: rhns-auth-daemon = %{version}
+Obsoletes: rhn-modssl < 2.9.0
+Provides: rhn-modssl = %{version}
+Obsoletes: rhn-modpython < 2.8.0
+Provides: rhn-modpython = %{version}
+Obsoletes: rhn-apache < 1.4.0
+Provides: rhn-apache = %{version}
 
 %description management
 Spacewalk Management Proxy components.
