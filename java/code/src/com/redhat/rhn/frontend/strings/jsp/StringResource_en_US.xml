@@ -16056,6 +16056,9 @@ any of these revisions.  Are you sure you want to do this?</source>
        <trans-unit id="ssm.operations.completed.summary">
           <source>The following lists all tasks that have finished running. Click on an task's description to see more details.</source>
        </trans-unit>
+       <trans-unit id="ssm.operations.viewlog.note">
+          <source>Note: only child channel subscription changes and package install/remove/upgrade/verify tasks are listed.</source>
+       </trans-unit>
     </group>
        
     <!-- ssm/packages.jsp -->

@@ -21,6 +21,7 @@
 
 <div class="page-summary">
     <p><bean:message key="${summaryKey}"/></p>
+    <p><bean:message key="ssm.operations.viewlog.note"/></p>
 </div>
 
 <rl:listset name="groupSet">
