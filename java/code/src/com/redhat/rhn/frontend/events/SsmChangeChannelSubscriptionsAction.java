@@ -49,9 +49,9 @@ public class SsmChangeChannelSubscriptionsAction extends AbstractDatabaseAction 
         long operationId = SsmOperationManager.createOperation(user,
             "Channel Subscription Updates", null);
 
-        SsmOperationManager.associateServersWithOperation(operationId,
+        SsmOperationManager.associateServersWithOperation(operationId, user.getId(),
             RhnSetDecl.SSM_CHANNEL_SUBSCRIBE.getLabel());
-        SsmOperationManager.associateServersWithOperation(operationId,
+        SsmOperationManager.associateServersWithOperation(operationId, user.getId(),
             RhnSetDecl.SSM_CHANNEL_UNSUBSCRIBE.getLabel());
 
         // Do the changes

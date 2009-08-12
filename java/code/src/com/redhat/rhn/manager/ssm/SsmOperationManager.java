@@ -190,7 +190,7 @@ public class SsmOperationManager extends BaseManager {
 
         // Add the server/operation mappings
         if (rhnSetLabel != null) {
-            associateServersWithOperation(operationId, rhnSetLabel);
+            associateServersWithOperation(operationId, user.getId(), rhnSetLabel);
         }
 
         return operationId;
@@ -242,16 +242,19 @@ public class SsmOperationManager extends BaseManager {
      * Associates an operation with a group of servers against which it was run, where
      * the servers are found in an RhnSet. The IDs for these servers must be stored in
      * the "element" field of the RhnSet.
-     * 
+     *
      * @param operationId identifies an existing operation to associate with servers
+     * @param userId      identifies the user performing the operation
      * @param setLabel    identifies the set in which to find server IDs
      */
-    public static void associateServersWithOperation(long operationId, String setLabel) {
+    public static void associateServersWithOperation(long operationId, long userId,
+                                                     String setLabel) {
         WriteMode writeMode =
             ModeFactory.getWriteMode("ssm_operation_queries", "map_servers_to_operation");
 
-        Map<String, Object> params = new HashMap<String, Object>(2);
+        Map<String, Object> params = new HashMap<String, Object>(3);
         params.put("op_id", operationId);
+        params.put("user_id", userId);
         params.put("set_label", setLabel);
 
         writeMode.executeUpdate(params);
