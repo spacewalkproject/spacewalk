@@ -52,7 +52,7 @@
   <property name="common.jar.dependencies"
       value="bcel cglib commons-beanutils commons-cli commons-codec
              commons-collections commons-digester commons-discovery
-             commons-el commons-lang commons-logging commons-validator hibernate3
+             commons-el commons-lang commons-logging commons-io commons-validator hibernate3
              mailapi smtp jdom jpam 
              jspapi log4j oro redstone-xmlrpc-client redstone-xmlrpc servletapi5 struts 
              bcprov bcpg jcommon stringtree-json

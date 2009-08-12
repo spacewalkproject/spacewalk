@@ -60,7 +60,7 @@ Running @{banner} ...
            1.6.2, remove forkmode attribute -->
       <junit forkmode="once" fork="yes" printsummary="off" showoutput="yes"
              haltonfailure="${halt-tests-on-failure}" 
-             failureproperty="junit_test_failure" >
+             failureproperty="junit_test_failure" maxmemory="256m">
         <!-- kind of hokey, but we need a property for the DataSourceParser
              test to work.  This keeps people from breaking until we move
              the DataSource xml files into rhn-java. -->

@@ -43,6 +43,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -86,6 +88,31 @@ public class TestUtils {
         URL ret = clazz.getResource(path);
         return ret;
     }
+
+    /**
+     * Write a byte array to a file
+     * @param file to write bytearray to
+     * @param array to write out
+     */
+    public static void writeByteArrayToFile(File file, byte[] array) {
+        try {
+            if (file.exists()) {
+                file.delete();
+            }
+            file.createNewFile();
+            FileOutputStream fos = new FileOutputStream(file);
+            try {
+                fos.write(array);
+            }
+            finally {
+                fos.close();
+            }
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
 
     /**
      * Read whole stream into a string.
