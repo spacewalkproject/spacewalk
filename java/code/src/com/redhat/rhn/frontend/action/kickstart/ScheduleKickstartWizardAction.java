@@ -185,6 +185,11 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         Server server = cmd.getServer();
         List<NetworkInterface> nics = new LinkedList<NetworkInterface>
                                                 (server.getNetworkInterfaces());
+        
+        if (nics.isEmpty()) {
+            return;
+        }
+        
         for (Iterator<NetworkInterface> itr = nics.iterator(); itr.hasNext();) {
             NetworkInterface nic = itr.next();
             if (nic.isDisabled() || "127.0.0.1".equals(nic.getIpaddr())) {
