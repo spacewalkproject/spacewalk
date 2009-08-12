@@ -109,12 +109,13 @@
      This call assumes the server IDs are stored in the set's "element" field.
      -->
 <write-mode name="map_servers_to_operation">
-   <query params="op_id, set_label">
+   <query params="op_id, user_id, set_label">
       INSERT INTO rhnSsmOperationServer (operation_id, server_id)
              (
              SELECT DISTINCT :op_id, s.element
                FROM rhnSet s
               WHERE label = :set_label
+                AND user_id = :user_id
                 AND s.element NOT IN
                     (
                     SELECT sos.server_id

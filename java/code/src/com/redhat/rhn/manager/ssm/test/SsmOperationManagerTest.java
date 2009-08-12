@@ -143,7 +143,8 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         assertEquals(0, result.size());
         
         // Test
-        SsmOperationManager.associateServersWithOperation(operationId, serverSetLabel);
+        SsmOperationManager.associateServersWithOperation(operationId, ssmUser.getId(),
+            serverSetLabel);
         
         // Verify
         result = SsmOperationManager.findServerDataForOperation(operationId);
@@ -186,8 +187,10 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         String secondSetLabel = secondSet.getLabel();
 
         // Test
-        SsmOperationManager.associateServersWithOperation(operationId, serverSetLabel);
-        SsmOperationManager.associateServersWithOperation(operationId, secondSetLabel);
+        SsmOperationManager.associateServersWithOperation(operationId, ssmUser.getId(),
+            serverSetLabel);
+        SsmOperationManager.associateServersWithOperation(operationId, ssmUser.getId(),
+            secondSetLabel);
 
         // Verify
         result = SsmOperationManager.findServerDataForOperation(operationId);
@@ -235,7 +238,8 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         String secondSetLabel = secondSet.getLabel();
 
         // Test
-        SsmOperationManager.associateServersWithOperation(operationId, secondSetLabel);
+        SsmOperationManager.associateServersWithOperation(operationId, ssmUser.getId(),
+            secondSetLabel);
 
         // Verify
         result = SsmOperationManager.findServerDataForOperation(operationId);
