@@ -280,6 +280,13 @@ default_or_input "Email" SSL_EMAIL "$TRACEBACK_EMAIL"
                             --non-interactive
 config_error $? "Proxy activation failed!"
 
+rpm -q rhn-apache >/dev/null
+if [ $? -eq 0 ]; then
+    echo "Package rhn-apache present - assuming upgrade:"
+    echo "Force removal of /etc/httpd/conf/httpd.conf - backed up to /etc/httpd/conf/httpd.conf.rpmsave"
+    mv /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.rpmsave
+fi
+
 $YUM_OR_UPDATE spacewalk-proxy-management
 # check if package install successfully
 rpm -q spacewalk-proxy-management >/dev/null

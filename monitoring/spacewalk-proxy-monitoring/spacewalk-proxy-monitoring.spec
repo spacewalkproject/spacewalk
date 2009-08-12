@@ -52,6 +52,10 @@ Requires: mod_perl
 Requires: spacewalk-monitoring-selinux
 %endif
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Obsoletes: np-config < 2.111.0
+Provides:  np-config = %{version}
+Obsoletes: rhn-modperl < 1.30
+Provides:  rhn-modperl = %{version}
 
 %description
 NOCpulse provides application, network, systems and transaction monitoring,
