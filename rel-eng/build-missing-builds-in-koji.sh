@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TAGS=([0]="dist-5E-sw-0.6-candidate" [1]="dist-f10-sw-0.6-candidate" [2]="dist-f11-sw-0.6-candidate")
+TAGS=([0]="dist-5E-sw-0.7-candidate" [1]="dist-f11-sw-0.7-candidate" [2]="dist-f12-sw-0.7-candidate")
 
 pushd `pwd`
 
