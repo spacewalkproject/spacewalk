@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.0
+Version: 0.7.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -580,6 +580,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Aug 13 2009 Devan Goodwin <dgoodwin@redhat.com> 0.7.1-1
+- Add spacewalk-backend Requires on python-pgsql. (dgoodwin@redhat.com)
+- 516237 - Fix the channel family population task to take into account None
+  counts and use 0 instead while computing the purge count.
+  (pkilambi@redhat.com)
+- bumping versions to 0.7.0 (jmatthew@redhat.com)
+
 * Wed Aug 05 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.30-1
 - 
 
