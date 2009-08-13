@@ -165,7 +165,8 @@ public class ChannelHandlerTest extends BaseHandlerTestCase {
         org3.addTrust(admin.getOrg());
         channel.getTrustedOrgs().add(org2);
         channel.getTrustedOrgs().add(org3);
-
+        channel.setAccess(Channel.PUBLIC);
+        
         OrgFactory.save(admin.getOrg());
         ChannelFactory.save(channel);
         flushAndEvict(channel);
