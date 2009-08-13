@@ -161,10 +161,13 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <sql-query name="Channel.findAllBaseChannels">
         <![CDATA[SELECT {c.*}
                  FROM rhnChannel {c},
-                 rhnChannelCloned c_1_
-                 WHERE c.parent_channel is null 
-                 AND c.id = c_1_.id (+)
-                 AND 1 IN (SELECT rhn_channel.get_org_access(c.id, :org_id) from dual)]]>
+                      rhnUserChannel uc,
+                      rhnChannelCloned c_1_
+                 WHERE c.id = uc.channel_id
+                   AND c.id = c_1_.id (+)
+                   AND uc.org_id = :org_id
+                   AND uc.role = 'subscribe'
+                   AND c.parent_channel is null]]>
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>    
     
