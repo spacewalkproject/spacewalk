@@ -119,10 +119,13 @@ public class OrgTrustHandlerTest extends BaseHandlerTestCase {
         org2.addOwnedChannel(channel);
         org2.addTrust(admin.getOrg());
         channel.getTrustedOrgs().add(admin.getOrg());
+        channel.setAccess(Channel.PROTECTED);
         
         OrgFactory.save(admin.getOrg());
         ChannelFactory.save(channel);
         flushAndEvict(channel);
+        
+        
 
         // execute
         Object[] result = handler.listChannelsProvided(adminKey, org2.getId().intValue());
@@ -149,6 +152,7 @@ public class OrgTrustHandlerTest extends BaseHandlerTestCase {
         Org org2 = createOrg();
         org2.addTrust(admin.getOrg());
         channel.getTrustedOrgs().add(org2);
+        channel.setAccess(Channel.PROTECTED);
 
         OrgFactory.save(admin.getOrg());
         ChannelFactory.save(channel);
