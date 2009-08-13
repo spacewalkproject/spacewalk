@@ -255,7 +255,6 @@ public class TrustAction extends FormDispatcher {
         
         User orgUser = UserFactory.findRandomOrgAdmin(theOrg);
         for (Org removed : getRemoved(theOrg, set)) {
-            theOrg.removeTrust(removed);
             User orgAdmin = UserFactory.findRandomOrgAdmin(removed);
             DataResult<Map> dr =
                 SystemManager.subscribedInOrgTrust(theOrg.getId(), removed.getId());
@@ -284,6 +283,7 @@ public class TrustAction extends FormDispatcher {
                 ChannelFactory.save(channel);
                 SystemManager.unsubscribeServerFromChannel(orgUser, sid, cid);
             }
+            theOrg.removeTrust(removed);
         }
         
         OrgFactory.save(theOrg);
