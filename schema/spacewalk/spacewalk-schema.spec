@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.7.0
+Version:        0.7.1
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Aug 13 2009 Devan Goodwin <dgoodwin@redhat.com> 0.7.1-1
+- bumping Version to 0.7.0 (jmatthew@redhat.com)
+- Removing PostgreSQL rhnFAQ trigger, table no longer exists.
+  (dgoodwin@redhat.com)
+- Fix numeric/smallint incompatible types in PostgreSQL. (dgoodwin@redhat.com)
+- adding upgrade for new fedora gpg key (jsherril@redhat.com)
+- adding newest fedora gpg key, and moving _data sql file to the right place
+  (jsherril@redhat.com)
+
 * Thu Aug 06 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.6.21-1
 - remove symlinks from schema upgrades
 - consistent data in new & upgraded schema
