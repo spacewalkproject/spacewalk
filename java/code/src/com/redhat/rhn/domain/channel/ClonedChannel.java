@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.domain.channel;
 
+import com.redhat.rhn.domain.common.ChecksumType;
+
 /**
  * ClonedChannel
  * @version $Rev$
@@ -42,5 +44,18 @@ public class ClonedChannel extends Channel {
      */
     public boolean isCloned() {
         return true;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ChecksumType getChecksum() {
+        if (super.getChecksum() == null) {
+            // if the checksum type is not set use the
+            //checksum of original channel instead.
+            setChecksum(getOriginal().getChecksum());
+        }
+        return super.getChecksum();
     }
 }
