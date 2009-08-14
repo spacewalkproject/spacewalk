@@ -82,6 +82,14 @@ public class MigrationManager extends BaseManager {
             OrgFactory.save(fromOrg);
             ServerFactory.save(server);
             
+            if (user.getOrg().equals(toOrg)) {
+                server.setCreator(user);
+            }
+            else {
+                server.setCreator(UserFactory.getInstance().findRandomOrgAdmin(toOrg));
+            }
+            
+            
             // update server history to record the migration.
             ServerHistoryEvent event = new ServerHistoryEvent();
             event.setCreated(new Date());

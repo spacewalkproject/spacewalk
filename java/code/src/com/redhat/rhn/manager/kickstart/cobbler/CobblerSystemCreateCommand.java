@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
@@ -107,7 +108,8 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         this.profileName = cobblerProfileName;
         String note = "Reactivation key for " + server.getName() + ".";
         ActivationKey key = ActivationKeyManager.getInstance().
-                    createNewReActivationKey(server.getCreator(), server, note);
+              createNewReActivationKey(UserFactory.getInstance().findRandomOrgAdmin(
+                      server.getOrg()), server, note);
         log.debug("created reactivation key: " + key.getKey());
         String keys = key.getKey();
         if (ksData != null) {
