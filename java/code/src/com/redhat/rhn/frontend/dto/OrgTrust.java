@@ -74,4 +74,13 @@ public class OrgTrust extends BaseDto {
     public void setSubscribed(List<Long> subscribedIn) {
         subscribed = subscribedIn;
     }
+    
+    /**
+     * gets the org name of the trust
+     * @return the org name
+     */
+    public String getOrgName() {
+        return this.getOrg().getName();
+    }
+    
 }
