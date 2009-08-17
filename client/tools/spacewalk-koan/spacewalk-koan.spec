@@ -17,8 +17,8 @@ Provides: rhn.kickstart.boot_image = 5.3.0
 Provides: rhn-kickstart = 5.3.0
 Conflicts: rhn-kickstart < 5.3.0
 
-# If this is rhel 4 or less we need up2date.
-%if 0%{?rhel} < 5
+#this currently doesn't work for RHEL 2.1
+%if 0%{?rhel} && 0%{?rhel} < 5
 Requires: up2date
 %else
 Requires: rhn-check
