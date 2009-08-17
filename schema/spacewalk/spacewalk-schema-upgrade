@@ -231,7 +231,7 @@ print SQL $in;
 close SQL;
 
 if (not @ARGV or $ARGV[0] ne '-y') {
-	print "Planing to run sqlplus with [$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql]\n";
+	print "Planning to run sqlplus with [$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql]\n";
 	local $| = 1;
 	READ_ENTER:
 	print "Hit Enter to continue or Ctrl+C to interrupt: ";
