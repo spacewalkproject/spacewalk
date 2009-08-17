@@ -46,12 +46,6 @@ _LIBPATH = "/usr/share/rhn"
 if _LIBPATH not in sys.path:
     sys.path.append(_LIBPATH)
 
-# quick check to see if you are a super-user.
-if os.getuid() != 0:
-    sys.stderr.write('ERROR: must be root to execute\n')
-    sys.exit(8)
-
-
 try:
     from utils import rhnLockfile
 except KeyboardInterrupt:
@@ -66,7 +60,7 @@ except ImportError:
 #   i.e., lock against multiple instances of migrate servers
 LOCK = None
 try:
-    LOCK = rhnLockfile.Lockfile('/var/run/migrate-server.pid')
+    LOCK = rhnLockfile.Lockfile('/tmp/migrate-server.pid')
 except rhnLockfile.LockfileLockedException:
     systemExit(1, "ERROR: attempting to run more than one instance of migrate-server. Exiting.")
 
