@@ -312,6 +312,14 @@ public class KickstartFormatter {
             }
         }
         
+        if (ksdata.isRhel5OrGreater()) {
+            for (Channel child : ksdata.getChildChannels()) {
+                KickstartUrlHelper helper = new KickstartUrlHelper(ksdata);
+                commands.append(String.format("repo --name=%s --baseurl=%s",
+                      child.getLabel(), helper.getKickstartChildRepoUrl(child) + NEWLINE));
+            }
+        }
+
         return commands.toString();
     }
     

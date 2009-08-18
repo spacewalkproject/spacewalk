@@ -335,7 +335,7 @@ public class KickstartData {
     /**
      * @return the childChannels
      */
-    public Set getChildChannels() {
+    public Set<Channel> getChildChannels() {
         return childChannels;
     }
 
