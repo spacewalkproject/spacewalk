@@ -311,8 +311,9 @@ public class KickstartFormatter {
                 }
             }
         }
-        
-        if (ksdata.isRhel5OrGreater()) {
+
+        if (ksdata.isRhel5OrGreater() &&
+                   !Config.get().getBoolean("ks_restrict_child_channels")) {
             for (Channel child : ksdata.getChildChannels()) {
                 KickstartUrlHelper helper = new KickstartUrlHelper(ksdata);
                 commands.append(String.format("repo --name=%s --baseurl=%s",
