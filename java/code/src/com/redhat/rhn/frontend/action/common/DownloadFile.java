@@ -82,6 +82,7 @@ public class DownloadFile extends DownloadAction {
     private static final String USERID = "userid";
     private static final String FILEID = "fileid";
     private static final String FILENAME = "filename";
+    private static final String CHILD = "child";
     private static final String TREE = "tree";
     private static final String PATH = "path";
     private static final String SESSION = "session";
@@ -139,6 +140,7 @@ public class DownloadFile extends DownloadAction {
      *   /ks/dist/tree-label/path/to/file.rpm
      *    /ks/dist/org/#/tree-label/path/to/file
      *    /ks/dist/session/HEX/tree-label/path/to/file.rpm
+     *    /ks/dist/tree-label/child/child-chan-label/path/to/file.rpm
      *
      * @param url the url to parse
      * @return a map with the following params:
@@ -146,6 +148,7 @@ public class DownloadFile extends DownloadAction {
      *     path    (req)
      *     session  (opt)
      *     orgId    (opt)
+     *     child    (opt)
      */
     public static Map<String, String> parseDistUrl(String url) {
         Map<String, String> ret = new HashMap<String, String>();
@@ -165,6 +168,11 @@ public class DownloadFile extends DownloadAction {
             ret.put("session", split[3]);
             labelPos = 4;
         }
+        else if (split[2].equals("child")) {
+            ret.put("child", split[3]);
+            labelPos = 4;
+        }
+
         ret.put("label", split[labelPos]);
         String path = "";
         for (int i = labelPos + 1; i < split.length; i++) {
@@ -220,6 +228,25 @@ public class DownloadFile extends DownloadAction {
         }
         else {
             tree = KickstartFactory.lookupKickstartTreeByLabel(label);
+        }
+
+
+        if (map.containsKey("child")) {
+            Channel child = ChannelFactory.lookupByLabel(map.get("child"));
+            if (child == null || !child.getParentChannel().equals(tree.getChannel())) {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                return mapping.findForward("error");
+            }
+            else {
+                HashMap params = new HashMap();
+                params.put(TYPE, DownloadManager.DOWNLOAD_TYPE_KICKSTART);
+                params.put(TREE, tree);
+                params.put(CHILD, child);
+                params.put(FILENAME, path);
+                request.setAttribute(PARAMS, params);
+                return null;
+            }
+
         }
 
 
@@ -343,6 +370,7 @@ public class DownloadFile extends DownloadAction {
 
     }
     
+
     private StreamInfo getStreamInfoKickstart(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response, 
                 String path) throws Exception {
@@ -359,6 +387,8 @@ public class DownloadFile extends DownloadAction {
         KickstartSessionState newState = null;
         KickstartableTree tree = (KickstartableTree) params.get(TREE);
         Package rpmPackage;
+        Channel child = (Channel) params.get(CHILD);
+
         if (tree.getBasePath().indexOf(kickstartMount) == 0) {
             log.debug("Trimming mount because tree is" +
                 " explicitly rooted to the mount point");
@@ -378,6 +408,10 @@ public class DownloadFile extends DownloadAction {
                 log.debug("RPM filename: " + fileName);
             }
             Channel channel = tree.getChannel();
+            if (child != null) {
+                channel = child;
+            }
+
             rpmPackage = ChannelFactory.lookupPackageByFilename(channel, fileName); 
             if (rpmPackage != null) {
                 diskPath = Config.get().getString(ConfigDefaults.MOUNT_POINT) + "/" + 
@@ -398,7 +432,20 @@ public class DownloadFile extends DownloadAction {
         // check for dir pings, virt manager or install, bz #345721
         if (diskPath == null) {
             // my $dp = File::Spec->catfile($kickstart_mount, $tree->base_path, $path);
-            diskPath = kickstartMount + "/" + tree.getBasePath() + path;
+
+            if (child == null) {
+                diskPath = kickstartMount + "/" + tree.getBasePath() + path;
+            }
+            else {
+                String[] split = StringUtils.split(path, '/');
+                if (split[0].equals("repodata")) {
+                    split[0] = child.getLabel();
+                }
+                diskPath = "/var/cache/" +
+                    Config.get().getString("repomd_path_prefix", "rhn/repodata/") + "/" +
+                    StringUtils.join(split, '/');
+            }
+
             if (log.isDebugEnabled()) {
                 log.debug("DirCheck path: " + diskPath);
             }

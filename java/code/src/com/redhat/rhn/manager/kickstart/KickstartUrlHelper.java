@@ -16,6 +16,7 @@ package com.redhat.rhn.manager.kickstart;
 
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.security.SessionSwap;
+import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.common.CommonFactory;
 import com.redhat.rhn.domain.common.TinyUrl;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -210,6 +211,20 @@ public class KickstartUrlHelper {
         return url.toString();
     }
     
+    /**
+     * get a kickstart repo url for a child channel
+     * @param child the child channel
+     * @return string that represents the repo url
+     */
+    public String getKickstartChildRepoUrl(Channel child) {
+        StringBuffer url = new StringBuffer();
+        url.append(protocol + host + "/ks/dist/");
+        url.append("child/" + child.getLabel() + "/");
+        url.append(ksData.getTree().getLabel());
+        return url.toString();
+    }
+
+
     /**
      * Get the media path for the KickstartableTree. Example:
      * /ks/dist/ks-rhel-i386-as-4-u2
