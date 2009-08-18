@@ -202,10 +202,6 @@ if rhncfg-client verify %{_sysconfdir}/squid/squid.conf | grep -E '(modified|mis
     %{_usr}/sbin/squid -z
     /sbin/service squid condrestart
 fi > /dev/null 2>&1
-if rhncfg-client verify %{_sysconfdir}/httpd/conf.d/rhn_proxy.conf | grep -E '(modified|missing)'; then
-    %{_usr}/bin/rhncfg-client get %{_sysconfdir}/httpd/conf.d/rhn_proxy.conf
-/sbin/service httpd condrestart
-fi > /dev/null 2>&1
 
 exit 0
 
