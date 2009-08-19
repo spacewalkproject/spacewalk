@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.43
+Version: 0.6.44
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -257,6 +257,11 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Wed Aug 19 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.44-1
+- adding config option for disabling the ability to access child channel repo
+  through kickstart (jsherril@redhat.com)
+- adding support for child channel repos during kickstart (jsherril@redhat.com)
+
 * Thu Aug 13 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.43-1
 - fixing the cloned channel creation to use the original channels checksum type
   and set to db. Once the cloned logic is converted from perl to java we can do
