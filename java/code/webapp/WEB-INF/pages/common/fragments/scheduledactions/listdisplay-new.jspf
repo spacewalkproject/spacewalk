@@ -25,7 +25,7 @@
                 <rl:column sortable="true" 
                                    bound="false"
                            headerkey="actions.jsp.earliest" 
-                           sortattr="earliest" 
+                           sortattr="earliestDate"
                             defaultsort="desc"  
                            >
                         <c:out value="${current.earliest}" />
