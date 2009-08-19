@@ -189,6 +189,7 @@ while (1) {
           my $msg = $@ || "No alert id";
           $Log->log(1,"ERROR: Skipping $filename. Escalator Interface error: $@");
           $AlertQ->skip;
+          $alert_file->close_file;
           next;
         }
         $alert->alert_id($alert_id);
@@ -213,6 +214,7 @@ while (1) {
         if ($@ || !@send_ids) {
           $Log->log(1,"ERROR: Cannot create sends $filename.  Skipping alert.  Escalator Interface error: $@");
           $AlertQ->skip;
+          $alert_file->close_file;
           next;
         }
 
