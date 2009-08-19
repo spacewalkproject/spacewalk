@@ -2024,7 +2024,7 @@
              parameter="dispatch"
              className="com.redhat.rhn.frontend.struts.RhnActionMapping">
          <set-property property="acls" value="user_role(channel_admin)"/>
-         <forward name="default" path="/errata/manage/PackagePush.do" redirect="true"/>
+         <forward name="default" path="/errata/manage/PackagePush.do"/>
          <forward name="defaultWithoutRedirect" path="/errata/manage/PackagePush.do" />
      </action>
      
@@ -2137,7 +2137,7 @@
              parameter="dispatch"
              className="com.redhat.rhn.frontend.struts.RhnActionMapping">
          <set-property property="acls" value="user_role(channel_admin)"/>
-         <forward name="default" path="/errata/manage/AddPackagePackagePush.do" redirect="true"/>
+         <forward name="default" path="/errata/manage/AddPackagePackagePush.do"/>
          <forward name="defaultWithoutRedirect" path="/errata/manage/AddPackagePackagePush.do" />
      </action>
     

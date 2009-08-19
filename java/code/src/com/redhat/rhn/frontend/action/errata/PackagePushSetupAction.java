@@ -41,11 +41,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * PackagePushSetupAction
- * @version $Rev$
  */
 public class PackagePushSetupAction extends RhnListAction {
     
-
     /**
      * {@inheritDoc}
      */
@@ -53,6 +51,7 @@ public class PackagePushSetupAction extends RhnListAction {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
+
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getLoggedInUser();
         
@@ -79,8 +78,11 @@ public class PackagePushSetupAction extends RhnListAction {
         Iterator i = set.iterator();
         
         RhnSet packageSet = RhnSetDecl.PACKAGES_TO_PUSH.get(user);
-        packageSet.clear();
-        RhnSetManager.store(packageSet);
+
+        if (!rctx.isSubmitted()) {
+            packageSet.clear();
+            RhnSetManager.store(packageSet);
+        }
 
         /* Here we loop through the set of channels the user just selected
          * and prompt them if they would like to push the packages in

@@ -18,6 +18,7 @@
 <c:set var="pageList" value="${requestScope.pageList}" />
 <html:form action="/errata/manage/AddPackagePackagePushSubmit">
 <%@ include file="/WEB-INF/pages/common/fragments/errata/packagepush.jspf" %>
+<rhn:submitted/>
 </html:form>
 </body>
 </html>
