@@ -673,6 +673,11 @@ public class KickstartFormatter {
         retval.append(KSTREE);
         retval.append(NEWLINE);        
         
+        //RHEL 5u4 hack for bz 495680
+        if (ksdata.isRhel5()) {
+            retval.append("/etc/init.d/messagebus restart" + NEWLINE);
+            retval.append("/etc/init.d/haldaemon restart" + NEWLINE);
+        }
         retval.append("# begin cobbler snippet" + NEWLINE);
         retval.append("$SNIPPET('redhat_register')" + NEWLINE);
         retval.append("# end cobbler snippet" + NEWLINE);
