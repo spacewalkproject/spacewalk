@@ -23,7 +23,8 @@ use Sniglets::Lists;
 
 my %allowed_params = map { $_ => 1 }
   qw/name url acl dominant invisible override_sidenav hide_all_children_unless_active
-     perm_fail_redirect active-image inactive-image node-id on-click dynamic-children/;
+     perm_fail_redirect active-image inactive-image node-id on-click dynamic-children
+     target/;
 
 sub new {
   my $class = shift;
@@ -39,6 +40,8 @@ sub new {
     if ($p eq 'formvar') {
       $self->add_formvar($params{$p});
       next;
+    } elsif ($p eq 'target') {
+      $self->set_target($params{$p});
     }
 
     die "Invalid param to $class->new: '$p'"
@@ -62,6 +65,7 @@ sub active_image { return $_[0]->{'active-image'} }
 sub inactive_image { return $_[0]->{'inactive-image'} }
 sub acl { return $_[0]->{acl} }
 sub perm_fail_redirect { return $_[0]->{perm_fail_redirect} }
+sub target { return $_[0]->{target} }
 
 # any children
 sub hide_all_children_unless_active { return $_[0]->{hide_all_children_unless_active} }
@@ -129,6 +133,14 @@ sub id {
   confess "Request for node id before being set" unless defined $self->{id};
 
   return $self->{id};
+}
+
+sub set_target {
+  my $self = shift;
+
+  confess "node target already defined for node" if defined $self->{target};
+
+  $self->{target} = shift;
 }
 
 sub set_id {

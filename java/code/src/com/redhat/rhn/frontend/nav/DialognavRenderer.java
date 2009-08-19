@@ -141,7 +141,7 @@ public class DialognavRenderer extends Renderable {
             href += formVars.toString();
         }
 
-        li.addBody(aHref(href, node.getName(), cssLinkClass));
+        li.addBody(aHref(href, node.getName(), cssLinkClass, node.getTarget()));
         sb.append(li.render());
         sb.append("\n");
     }
@@ -179,11 +179,16 @@ public class DialognavRenderer extends Renderable {
         return false;
     }
 
-    private static String aHref(String url, String text, String style) {
+    private static String aHref(String url, String text, String style, String target) {
         HtmlTag a = new HtmlTag("a");
         if (style != null && !style.equals("")) {
             a.setAttribute("class", style);
         }
+
+        if (target != null && !target.equals("")) {
+            a.setAttribute("target", target);
+        }
+
         a.setAttribute("href", url);
         a.addBody(text);
         return a.render();

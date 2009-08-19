@@ -250,6 +250,8 @@
     </rhn-tab>
     <rhn-tab name="API" url="/rhn/apidoc/index.jsp" />
     <rhn-tab name="Search" url="/rhn/help/Search.do" />
+    <rhn-tab name="Chat" url="http://webchat.freenode.net/?channels=#spacewalk"
+             target="_blank" />
   </rhn-tab>
 
 </rhn-navi-tree>

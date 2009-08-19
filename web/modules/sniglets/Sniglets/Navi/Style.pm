@@ -146,7 +146,7 @@ sub render_link {
     $url .= join("&amp;", map { qq{$_=} . PXT::Utils->escapeURI($form_params{$_}) } keys %form_params);
   }
 
-  return PXT::HTML->link($url, PXT::Utils->escapeHTML($node->name), $css_style);
+  return PXT::HTML->link($url, PXT::Utils->escapeHTML($node->name), $css_style, $node->target);
 }
 
 
@@ -414,7 +414,7 @@ sub render_link {
     $url .= join("&amp;", map { qq{$_=} . PXT::Utils->escapeURI($form_params{$_}) } keys %form_params);
   }
 
-  return PXT::HTML->link($url, PXT::Utils->escapeHTML($node->name), $css_style);
+  return PXT::HTML->link($url, PXT::Utils->escapeHTML($node->name), $css_style, $node->target);
 }
 
 

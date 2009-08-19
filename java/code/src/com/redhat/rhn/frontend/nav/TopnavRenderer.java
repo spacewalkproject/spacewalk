@@ -81,7 +81,7 @@ public class TopnavRenderer extends Renderable {
                 // no class
             }
             liTag.addBody(getLink(node.getPrimaryURL(),
-                                node.getName(), classStr));
+                                node.getName(), classStr, node.getTarget()));
             sb.append(liTag.render());
             sb.append("\n");
         }
@@ -107,7 +107,7 @@ public class TopnavRenderer extends Renderable {
                 classStr = "mainLastLink";
             }
             liTag.addBody(getLink(node.getPrimaryURL(),
-                                node.getName(), classStr));
+                                node.getName(), classStr, node.getTarget()));
             sb.append(liTag.render());                                
             sb.append("\n");
         }
@@ -130,11 +130,14 @@ public class TopnavRenderer extends Renderable {
         return true;
     }
 
-    private String getLink(String url, String name, String classStr) {
+    private String getLink(String url, String name, String classStr, String target) {
         HtmlTag a = new HtmlTag("a");
         a.setAttribute("href", url);
         if (classStr != null && !"".equals(classStr)) {
             a.setAttribute("class", classStr);
+        }
+        if (target != null && !"".equals(target)) {
+            a.setAttribute("target", target);
         }
         a.addBody(name);
 

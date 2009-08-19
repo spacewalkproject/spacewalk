@@ -100,7 +100,7 @@ public class SidenavRenderer extends Renderable {
             li.setAttribute("class", cssClass);
         }
         
-        li.addBody(aHref(node.getPrimaryURL(), node.getName()));
+        li.addBody(aHref(node.getPrimaryURL(), node.getName(), node.getTarget()));
         sb.append(li.render());
         sb.append("\n");
     }
@@ -126,9 +126,12 @@ public class SidenavRenderer extends Renderable {
         return true;
     }
 
-    private static String aHref(String url, String text) {
+    private static String aHref(String url, String text, String target) {
         HtmlTag a = new HtmlTag("a");
         a.setAttribute("href", url);
+        if (target != null && !target.equals("")) {
+            a.setAttribute("target", target);
+        }
         a.addBody(text);
         return a.render();
     }

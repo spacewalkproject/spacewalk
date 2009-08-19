@@ -46,7 +46,7 @@ sub parse_navfile {
 
   my %tree_attr;
 
-  foreach (qw/label formvar acl_mixins/) {
+  foreach (qw/label formvar acl_mixins target/) {
     $tree_attr{$_} = $root->getAttribute($_);
   }
 

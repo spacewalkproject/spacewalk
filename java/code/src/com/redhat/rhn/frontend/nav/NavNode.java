@@ -34,6 +34,7 @@ public class NavNode {
     private String label;
     private String name;
     private String acl;
+    private String target;
     private boolean dominant;
     private boolean invisible;
     private boolean overrideSidenav;
@@ -374,6 +375,21 @@ public class NavNode {
     public boolean isLast() {
         return last;
     }
-}
 
+    /**
+     * Sets the target of the url.
+     * @param tgt link target
+     */
+    public void setTarget(String tgt) {
+        target = tgt;
+    }
+
+    /**
+     * returns the target for the url
+     * @return the target for the url
+     */
+    public String getTarget() {
+        return target;
+    }
+}
 

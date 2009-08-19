@@ -35,6 +35,8 @@
         <rhn-tab name="Sample Scripts" url="/rhn/apidoc/scripts.jsp" />
     </rhn-tab>
     <rhn-tab name="Search" url="/rhn/help/Search.do" />
+    <rhn-tab name="Chat"
+        url="http://webchat.freenode.net?channels=#spacewalk" target="_blank" />
 </rhn-tab>
 
 

@@ -55,6 +55,9 @@ public class NavDigester {
         digester.addSetProperties("*/rhn-tab",
                                   "inactive-image",
                                   "inactiveImage");
+        digester.addSetProperties("*/rhn-tab",
+                                  "target",
+                                  "target");
 
         digester.addCallMethod("*/rhn-tab",
                                "addPrimaryURL",
