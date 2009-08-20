@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.1
+Version: 0.7.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -257,6 +257,10 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu Aug 20 2009 jesus m. rodriguez <jesusr@redhat.com> 0.7.2-1
+- fix duplicate base channels listed in the "Parent Channel" dropdown (jesusr@redhat.com)
+- Log files should be ghosted rather than belonging to a package (m.d.chappell@bath.ac.uk)
+
 * Wed Aug 19 2009 jesus m. rodriguez <jesusr@redhat.com> 0.7.1-1
 - add the Chat graphic as an advertisement to the layouts. (jesusr@redhat.com)
 - allow users to chat with spacewalk members on IRC via the web.
