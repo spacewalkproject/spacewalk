@@ -8,7 +8,7 @@
 Summary:      Spacewalk monitoring
 Name:         spacewalk-monitoring
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      0.7.0
+Version:      0.7.1
 Release:      1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
@@ -117,6 +117,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Aug 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.1-1
+- 516624 - allow upgrade proxy using CLI to 5.3 from 5.0
+
 * Mon Jul 27 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.7-1
 - Re-enable spacewalk-monitoring-selinux dependency for F11.
   (dgoodwin@redhat.com)
