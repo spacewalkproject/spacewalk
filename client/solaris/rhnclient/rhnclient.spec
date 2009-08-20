@@ -58,7 +58,7 @@ rm -rf $RPM_BUILD_ROOT
 %{shareroot}/rhn/*
 /usr/sbin/*
 %{rhnconf}/*
-/var/log/up2date
+%ghost /var/log/up2date
 /var/run/.keep
 %defattr(0744,root,sys)
 /etc/init.d/rhnsd
