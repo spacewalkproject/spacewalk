@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.7.0
+Version: 0.7.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -293,6 +293,10 @@ fi
 
 
 %changelog
+* Thu Aug 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.1-1
+- 503187 - do not automaticaly download rhn_proxy.conf
+- 516624 - allow upgrade proxy using CLI to 5.3 from 5.0
+
 * Tue Jul 21 2009 John Matthews <jmatthew@redhat.com> 0.6.8-1
 - 503187 - rewrite old config during upgrade, old file will be saved as
   .rpmorig (msuchy@redhat.com)
