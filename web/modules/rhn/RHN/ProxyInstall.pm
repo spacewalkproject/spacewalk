@@ -370,6 +370,7 @@ sub import_file {
 			      username => { default => 'root' },
 			      groupname => { default => 'root' },
 			      mode => { default => 770 },
+			      selinux_ctx => { default => '' },
 			    });
 
   my $cc = $params{config_channel};
@@ -394,6 +395,7 @@ sub import_file {
   $new_revision->groupname($params{groupname});
   $new_revision->filemode($params{mode});
   $new_revision->contents($params{content});
+  $new_revision->selinux_ctx($params{selinux_ctx});
 
   $new_revision->commit;
 

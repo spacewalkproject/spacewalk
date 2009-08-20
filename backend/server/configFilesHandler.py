@@ -158,6 +158,8 @@ class ConfigFilesHandler(rhnHandler):
         file['username'] = file['user']
         file['groupname'] = file['group']
         file['file_mode'] = file['mode']
+        if not file.has_key('selinux_ctx'):
+            file['selinux_ctx'] = ''
 
         result = {}
         
@@ -321,7 +323,7 @@ class ConfigFilesHandler(rhnHandler):
             lob.write(file_contents)
 
     _query_lookup_config_info = rhnSQL.Statement("""
-        select lookup_config_info(:username, :groupname, :file_mode) id
+        select lookup_config_info(:username, :groupname, :file_mode, :selinux_ctx) id
           from dual
     """)
 
