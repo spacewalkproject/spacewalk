@@ -30,7 +30,7 @@ our @ISA = qw/RHN::SimpleStruct/;
 our @core_fields = qw/id revision config_file_id config_content_id
 		      config_info_id delim_start delim_end created
 		      modified username groupname filemode latest_id latest path
-		      md5sum file_size org_id config_channel_id filetype/;
+		      md5sum file_size org_id config_channel_id filetype selinux_ctx/;
 
 our @transient_fields = qw/__contents__ is_binary/;
 our @simple_struct_fields = (@core_fields, @transient_fields);
@@ -154,7 +154,7 @@ sub commit {
   }
  
   my $dbh = RHN::DB->connect;
-  my $ciid = $dbh->call_function('lookup_config_info', $self->username, $self->groupname, $self->filemode);
+  my $ciid = $dbh->call_function('lookup_config_info', $self->username, $self->groupname, $self->filemode, $self->selinux_ctx);
   my $ccid = $self->config_content_id;
   my $cftid = getFileTypeId($self->filetype);
 

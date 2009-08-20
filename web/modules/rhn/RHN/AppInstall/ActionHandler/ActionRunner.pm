@@ -205,6 +205,7 @@ sub generate_config_file {
 			      groupname => { default => 'root' },
 			      mode => { default => '770' },
 			      new_only => { default => 0 },
+			      selinux_ctx => { default => '' },
 			    });
 
   my $template_file = File::Spec->catfile($session->get_app_instance->get_app_dir(), $params{template});
@@ -239,6 +240,7 @@ sub generate_config_file {
   $new_revision->groupname($params{groupname});
   $new_revision->filemode($params{mode});
   $new_revision->contents($contents);
+  $new_revision->selinux_ctx($params{selinux_ctx});
 
   eval {
     $new_revision->commit;

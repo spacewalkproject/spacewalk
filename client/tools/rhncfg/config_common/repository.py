@@ -27,6 +27,13 @@ import utils
 
 from rhn_log import log_debug, die
 #from rhn_rpc import rpclib
+try:
+    from selinux import getfilecon
+except:
+    # on rhel4 we do not support selinux
+    def getfilecon(path):
+        return [0, ''];
+
 
 #6/29/05 rpc_wrapper implements the failover logic.
 import rpc_wrapper
@@ -124,6 +131,8 @@ class Repository:
         if gr_name:
             ret['group'] = gr_name
             self._gid_cache[gid] = gr_name
+
+        ret['selinux_ctx'] = getfilecon(path)[1]
 
         return ret
 
