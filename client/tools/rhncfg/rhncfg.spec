@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.8
+Version: 5.9.9
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -105,6 +105,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Aug 20 2009 Miroslav Suchy <msuchy@redhat.com> 5.9.9-1
+- fix an ISE relating to config management w/selinux
+
 * Tue Aug 11 2009 Pradeep Kilambi <pkilambi@redhat.com> 5.9.8-1
 - 516889 - adding rhncfgcli_elist module to makefile
 
