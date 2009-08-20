@@ -81,7 +81,11 @@ public class RepoSyncTask implements Job {
                 Process p = Runtime.getRuntime().exec(
                         getSyncCommand(src).toArray(new String[0]));
                 src.setLastSynced(new Date());
-                p.waitFor();
+                int chr = p.getInputStream().read();
+                while (chr != -1) {
+                    Thread.sleep(10000);
+                    chr = p.getInputStream().read();
+                }
                 
             }
             catch (IOException e) {
