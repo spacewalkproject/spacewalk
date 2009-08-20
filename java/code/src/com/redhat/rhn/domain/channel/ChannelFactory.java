@@ -808,12 +808,13 @@ public class ChannelFactory extends HibernateFactory {
     
     /**
      * List all accessible base channels for an org
-     * @param org the org doing the searching
+     * @param user logged in user.
      * @return list of custom channels
      */
-    public static List<Channel> listAllBaseChannels(Org org) {
+    public static List<Channel> listAllBaseChannels(User user) {
         Map params = new HashMap();
-        params.put("org_id", org.getId());
+        params.put("org_id", user.getOrg().getId());
+        params.put("user_id", user.getId());
         return singleton.listObjectsByNamedQuery(
                 "Channel.findAllBaseChannels", params);
     }

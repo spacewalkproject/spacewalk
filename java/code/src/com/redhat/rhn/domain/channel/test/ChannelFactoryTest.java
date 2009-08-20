@@ -338,7 +338,7 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         // do NOT use createBaseChannel here because that will create a Red Hat
         // base channel NOT a user owned base channel.
         Channel base = createTestChannel(user);
-        List<Channel> channels = ChannelFactory.listAllBaseChannels(user.getOrg());
+        List<Channel> channels = ChannelFactory.listAllBaseChannels(user);
         List<Channel> rhbases = ChannelFactory.listRedHatBaseChannels();
         int rbsize = 0;
         for (Iterator itr = rhbases.iterator(); itr.hasNext();) {

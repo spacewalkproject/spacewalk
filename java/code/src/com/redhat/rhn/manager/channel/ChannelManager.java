@@ -2387,11 +2387,11 @@ public class ChannelManager extends BaseManager {
     
     /**
      * List base channels (including Red Hat channels) for a given org.
-     * @param o Org to list base channels for.
+     * @param u User to list base channels for.
      * @return List of Channels
      */
-    public static List<Channel> findAllBaseChannelsForOrg(Org o) {
-        return ChannelFactory.listAllBaseChannels(o);
+    public static List<Channel> findAllBaseChannelsForOrg(User u) {
+        return ChannelFactory.listAllBaseChannels(u);
     }
 
     /**

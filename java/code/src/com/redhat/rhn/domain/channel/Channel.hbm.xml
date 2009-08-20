@@ -166,6 +166,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                  WHERE c.id = uc.channel_id
                    AND c.id = c_1_.id (+)
                    AND uc.org_id = :org_id
+                   AND uc.user_id = :user_id
                    AND uc.role = 'subscribe'
                    AND c.parent_channel is null]]>
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />

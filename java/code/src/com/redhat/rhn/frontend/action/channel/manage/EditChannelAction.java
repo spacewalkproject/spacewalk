@@ -633,7 +633,7 @@ public class EditChannelAction extends RhnAction implements Listable {
         // populate parent base channels
         List baseChannels = new ArrayList();
         List<Channel> bases = ChannelManager.findAllBaseChannelsForOrg(
-                        loggedInUser.getOrg());
+                        loggedInUser);
 
         LocalizationService ls = LocalizationService.getInstance();
         addOption(baseChannels, ls.getMessage("generic.jsp.none"), "");
