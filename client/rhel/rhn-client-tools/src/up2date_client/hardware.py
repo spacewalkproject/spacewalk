@@ -858,10 +858,14 @@ def read_dmi():
     return dmidict
 
 def get_hal_system_and_smbios():
-    computer = get_hal_computer()
-
-    props = computer.GetAllProperties()
-    
+    try:
+        computer = get_hal_computer()
+        props = computer.GetAllProperties()
+    except:
+        log = up2dateLog.initLog()
+        msg = "Error reading system and smbios information: %s\n" % (sys.exc_type)
+        log.log_debug(msg)
+        return 
     system_and_smbios = {}
 
     for key in props:
@@ -871,8 +875,8 @@ def get_hal_system_and_smbios():
     return system_and_smbios
 
 def get_hal_smbios():
-    computer = get_hal_computer()
     try:
+        computer = get_hal_computer()
         props = computer.GetAllProperties()
     except:
         log = up2dateLog.initLog()
