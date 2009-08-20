@@ -9,7 +9,7 @@ Name:         NPalert
 Summary:      NOCpulse notification system
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.126.9
+Version:      1.126.10
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -129,6 +129,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Aug 20 2009 Miroslav Suchý <msuchy@redhat.com> 1.126.10-1
+- avoid deadlock when we have problem after acquiring lock
+
 * Thu May 14 2009 Milan Zazrivec <mzazrivec@redhat.com> 1.126.9-1
 - fix package upgrade %post section
 
