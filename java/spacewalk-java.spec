@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.0
+Version: 0.7.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -257,6 +257,69 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Wed Aug 19 2009 jesus m. rodriguez <jesusr@redhat.com> 0.7.1-1
+- add the Chat graphic as an advertisement to the layouts. (jesusr@redhat.com)
+- allow users to chat with spacewalk members on IRC via the web.
+  (jesusr@redhat.com)
+- 518342 - adding workaround for RHEL5u4 bug failing to register when dbus and
+  hal are not running (jsherril@redhat.com)
+- Checkstyle fix (jason.dobies@redhat.com)
+- 518262 - Fixed select all buttons when selecting erratum packages to push to
+  a channel. (jason.dobies@redhat.com)
+- 516863 - Fix Schedule page date sorting. (dgoodwin@redhat.com)
+- adding config option for disabling the ability to access child channel repo
+  through kickstart (jsherril@redhat.com)
+- adding support for child channel repos during kickstart (jsherril@redhat.com)
+- 517567 - fixing issue with ISE with page sort on org trust page
+  (jsherril@redhat.com)
+- 517551 - fixing issue where a migrated system couldnt provision a guest
+  (jsherril@redhat.com)
+- unit test (jsherril@redhat.com)
+- 517421 - allow shared channels as parents to child channels
+  (jesusr@redhat.com)
+- 494409 - Update TrustAction to removed shared subscriptions before removing
+  trusts (jortel@redhat.com)
+- fixing the cloned channel creation to use the original channels checksum type
+  and set to db. Once the cloned logic is converted from perl to java we can do
+  this more nicely. (pkilambi@redhat.com)
+- 509430 - fixing issue where the provisioning tab would ISE on 2.1 systems
+  (jsherril@redhat.com)
+- 517076 - Added association of servers in the SSM to the package upgrade task
+  log. See comment in the code for more information. (jason.dobies@redhat.com)
+- 517086 - Added note to indicate the types of SSM tasks to expect to see on
+  that page to minimize confusion. (jason.dobies@redhat.com)
+- 514305 - switching the algorithm for reading the file into memory.
+  (mmccune@redhat.com)
+- 517074 - Systems were pulled from the SSM rhnSet without being scoped to a
+  specific user ID. Updated the query to take user IDs into account.
+  (jason.dobies@redhat.com)
+- Fixed typo. (jason.dobies@redhat.com)
+- 483606 - Added clause to SSM system retrieval query to filter out proxies.
+  (jason.dobies@redhat.com)
+- fixing checkstyle (pkilambi@redhat.com)
+- fixing unit test breakage (pkilambi@redhat.com)
+- 509364 - Fix to show Package Arch name correctly in SSM Package isntall
+  (paji@redhat.com)
+- 516220 - Fixed bug in SSM query that was looking for systems in any set, not
+  just the SSM specific rhnSet. (jason.dobies@redhat.com)
+- Reapplying accidentally reverted commit: "Revert "478397 - fixing issue where
+  rhnpush would schedule a taskomatic task to regenerate needed cache and was
+  using a query that didnt generate for all channels (even though it was
+  deleting from all channels)"" (jason.dobies@redhat.com)
+- 443500 - Made sure the call to complete the SSM async operation always takes
+  place. Added hook to associate servers with the operation.
+  (jason.dobies@redhat.com)
+- Revert "478397 - fixing issue where rhnpush would schedule a taskomatic task
+  to regenerate needed cache and was using a query that didnt generate for all
+  channels (even though it was deleting from all channels)"
+  (jason.dobies@redhat.com)
+- 478397 - fixing issue where rhnpush would schedule a taskomatic task to
+  regenerate needed cache and was using a query that didnt generate for all
+  channels (even though it was deleting from all channels)
+  (jsherril@redhat.com)
+- adding reposync task to taskomatic config (jsherril@redhat.com)
+- bumping versions to 0.7.0 (jmatthew@redhat.com)
+
 * Wed Aug 05 2009 John Matthews <jmatthew@redhat.com> 0.6.41-1
 - 509474 - make sure we symlink to stringtree-json (mmccune@redhat.com)
 - 509474 - fixing NPE (joshua.roys@gtri.gatech.edu)
