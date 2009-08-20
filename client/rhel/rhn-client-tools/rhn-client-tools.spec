@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.6.2
+Version: 0.6.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -204,6 +204,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Thu Aug 20 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.3-1
+- 518336 - if hal or messagebus is not accessible log the error and proceed
+  with rest of the registration. (pkilambi@redhat.com)
+
 * Wed Aug 05 2009 John Matthews <jmatthew@redhat.com> 0.6.2-1
 - 494019 - Fixing the registration on python 2.6 to not include dbus.String
   objects in hardware profile as new xmlrpclib _dump method validates based on
