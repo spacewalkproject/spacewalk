@@ -31,6 +31,8 @@
 
                 <jsp:include page="/WEB-INF/includes/legends.jsp" />
 
+                <jsp:include page="/WEB-INF/includes/advertisements.jsp" />
+
             </td>
             <td class="page-content">
             <html:errors/>

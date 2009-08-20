@@ -34,6 +34,13 @@
 	</grail-canvas>
 </rhn-browser-css-compliance>
 
+     <rhn-require acl="global_config(chat_enabled)">
+       <br/>
+       <a href="http://webchat.freenode.net?channels=#spacewalk" target="_blank">
+         <img src="/img/chat.png" alt=""/>
+       </a>
+     </rhn-require>
+
 	</td>
         <td class="page-content" width="100%">
 <pxt-include-late file="/network/components/message_queues/site.pxi" />
