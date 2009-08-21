@@ -22,7 +22,9 @@
 
 import sys
 import os
-from rhpl.translate import _
+
+import gettext
+_ = gettext.gettext
 
 sys.path.append("/usr/share/rhn/")
 

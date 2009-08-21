@@ -10,8 +10,9 @@ from os import geteuid
 import sys
 import string
 
-from rhpl.translate import _, textdomain
-textdomain("rhn-client-tools")
+import gettext
+_ = gettext.gettext
+gettext.textdomain("rhn-client-tools")
 
 import snack
 

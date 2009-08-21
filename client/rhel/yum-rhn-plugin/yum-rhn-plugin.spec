@@ -9,7 +9,6 @@ Url: http://rhn.redhat.com
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: python
-BuildRequires: rhpl
 BuildRequires: intltool
 BuildRequires: gettext
 

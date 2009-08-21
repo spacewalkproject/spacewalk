@@ -14,7 +14,8 @@ up2date agent to hold config info.
 import os
 import sys
 
-from rhpl.translate import _
+import gettext
+_ = gettext.gettext
 
 # XXX: This could be moved in a more "static" location if it is too
 # much of an eye sore

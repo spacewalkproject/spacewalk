@@ -8,7 +8,8 @@ import config
 import rhnserver
 
 
-from rhpl.translate import _
+import gettext
+_ = gettext.gettext
 
 
 

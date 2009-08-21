@@ -17,7 +17,8 @@ import yum.Errors
 from urlgrabber.grabber import URLGrabber
 from urlgrabber.grabber import URLGrabError
 
-from rhpl.translate import _
+import gettext
+_ = gettext.gettext
 
 # TODO: Get the up2date stuff that we need in a better place,
 # so we don't have to do path magic.

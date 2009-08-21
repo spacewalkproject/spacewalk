@@ -16,9 +16,10 @@ import up2dateUtils
 import up2dateAuth
 
 from rhn import rpclib
-    
-from rhpl.translate import _
-            
+
+import gettext
+_ = gettext.gettext
+
 
 def stdoutMsgCallback(msg):
     print msg

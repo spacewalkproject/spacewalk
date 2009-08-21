@@ -33,8 +33,9 @@ import gobject
 import sys
 import os
 import stat
-from rhpl.translate import _, textdomain
-textdomain("rhn-client-tools")
+import gettext
+_ = gettext.gettext
+gettext.textdomain("rhn-client-tools")
 gtk.glade.bindtextdomain("rhn-client-tools")
 
 import rhnreg

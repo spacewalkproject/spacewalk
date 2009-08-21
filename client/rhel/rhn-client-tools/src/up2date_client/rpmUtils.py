@@ -13,15 +13,13 @@
 #         fix by moving to up2dateErrors.py and importing from there
 #
 #
-        
-import os
 
+import os
 import rpm
-        
 import transaction
 
-
-from rhpl.translate import _
+import gettext
+_ = gettext.gettext
 
 
 # just cause this is such a potentially useful looking method...    

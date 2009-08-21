@@ -10,9 +10,9 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
 Requires: rhnlib >= 2.2.7
-Requires: rhpl >= 0.81-2
 Requires: rpm >= 4.2.3-24_nonptl
 Requires: rpm-python 
+Requires: python-ethtool
 Requires: gnupg
 Requires: sh-utils
 Requires: dbus-python

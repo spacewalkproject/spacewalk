@@ -18,8 +18,9 @@ import types
 
 import config
 
-from rhpl import ethtool
-from rhpl.translate import _, N_
+import ethtool
+import gettext
+_ = gettext.gettext
 from haltree import HalTree, HalDevice
 
 import dbus

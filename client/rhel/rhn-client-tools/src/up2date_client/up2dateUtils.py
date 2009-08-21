@@ -17,7 +17,8 @@ import transaction
 import config
 
 
-from rhpl.translate import _
+import gettext
+_ = gettext.gettext
 
 
 def _getOSVersionAndRelease():

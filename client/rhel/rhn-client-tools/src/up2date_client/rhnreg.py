@@ -37,7 +37,8 @@ try:
 except ImportError:
     support = None    
 
-from rhpl.translate import _
+import gettext
+_ = gettext.gettext
 
 
 # global variables
