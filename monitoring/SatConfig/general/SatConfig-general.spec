@@ -2,7 +2,7 @@
 %define hb_res_dir     %{_sysconfdir}/ha.d/resource.d
 %define installed_dir  %sysv_dir/installed
 Name:         SatConfig-general
-Version:      1.216.12
+Version:      1.216.13
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - general setup, used by many packages
 URL:          https://fedorahosted.org/spacewalk
@@ -63,6 +63,9 @@ install -D -m 644 NOCpulse-ini.8 $RPM_BUILD_ROOT%{_mandir}/man8/NOCpulse-ini.8
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Aug 24 2009 Dennis Gilmore <dennis@ausil.us> 1.216.13-1
+- 
+
 * Thu Jul 23 2009 Miroslav Suchý <msuchy@redhat.com> 1.216.12-1
 - 457011 - create NOCpulse-ini - tool to handle NOCpulse.ini
 
