@@ -83,16 +83,12 @@ public class RepoSyncTask implements Job {
                 src.setLastSynced(new Date());
                 int chr = p.getInputStream().read();
                 while (chr != -1) {
-                    Thread.sleep(10000);
                     chr = p.getInputStream().read();
+                    
                 }
                 
             }
             catch (IOException e) {
-                log.fatal(e.getMessage());
-                e.printStackTrace();
-            }
-            catch (InterruptedException e) {
                 log.fatal(e.getMessage());
                 e.printStackTrace();
             }
@@ -112,6 +108,7 @@ public class RepoSyncTask implements Job {
         cmd.add(src.getType().getLabel());
         cmd.add("--label");
         cmd.add(src.getLabel());
+        cmd.add("--quiet");
         return cmd;
     }
     
