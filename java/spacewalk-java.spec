@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.45
+Version: 0.6.46
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -257,7 +257,7 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
-* Mon Aug 24 2009 Justin Sherrill <jsherril@redhat.com> 0.6.45-1
+* Mon Aug 24 2009 Justin Sherrill <jsherril@redhat.com> 0.6.46-1
 - 518342 - adding workaround for RHEL5u4 bug failing to register when dbus and
   hal are not running (jsherril@redhat.com)
 - new way of waiting on process for RepoSync task.  This method read all
