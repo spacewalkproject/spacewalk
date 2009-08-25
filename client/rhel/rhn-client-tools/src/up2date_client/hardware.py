@@ -865,7 +865,7 @@ def get_hal_system_and_smbios():
         log = up2dateLog.initLog()
         msg = "Error reading system and smbios information: %s\n" % (sys.exc_type)
         log.log_debug(msg)
-        return 
+        return {}
     system_and_smbios = {}
 
     for key in props:
@@ -882,7 +882,7 @@ def get_hal_smbios():
         log = up2dateLog.initLog()
         msg = "Error reading smbios information: %s\n" % (sys.exc_type)
         log.log_debug(msg)
-        return
+        return {}
     smbios = {}
     for key in props:
         if key.startswith('smbios'):
