@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.6.3
+Version: 0.6.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -204,6 +204,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Tue Aug 25 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.4-1
+- 518336 - fixing the None unmarshel issue if smbios is missing and set to None
+  instead of empty dict. (pkilambi@redhat.com)
+
 * Thu Aug 20 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.3-1
 - 518336 - if hal or messagebus is not accessible log the error and proceed
   with rest of the registration. (pkilambi@redhat.com)
