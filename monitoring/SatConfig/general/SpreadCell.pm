@@ -2,7 +2,7 @@ package SpreadCell;
 use GogoSysVStep;
 @ISA=qw(GogoSysVStep);
 use PhysCluster;
-use Network::IPv4Addr qw(ipv4_broadcast);
+use Net::IPv4Addr qw(ipv4_broadcast);
 
 sub generateSpreadConfigFile
 {
