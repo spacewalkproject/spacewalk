@@ -35,6 +35,7 @@ class RepoSync:
     channel = None
     fail = False
     repo_label = None
+    quiet = False
 
     def main(self):
         initCFG('server')
@@ -79,6 +80,7 @@ class RepoSync:
         self.channel_label = options.channel_label
         self.fail = options.fail
         self.repo_label = options.label
+        self.quiet = options.quiet
         self.channel = self.load_channel()
 
         if not self.channel or not rhnChannel.isCustomChannel(self.channel['id']):
@@ -96,6 +98,7 @@ class RepoSync:
         self.parser.add_option('-t', '--type', action='store', dest='type', help='The type of repo, currently only "yum" is supported')
         self.parser.add_option('-l', '--label', action='store', dest='label', help='A friendly label to refer to the repo')
         self.parser.add_option('-f', '--fail', action='store_true', dest='fail', default=False , help="If a package import fails, fail the entire operation")
+        self.parser.add_option('-q', '--quiet', action='store_true', dest='quiet', default=False, help="Print no output, still logs output")
         return self.parser.parse_args()
 
     def load_plugin(self):
@@ -210,12 +213,14 @@ class RepoSync:
 
     def print_msg(self, message):
         rhnLog.log_clean(0, message)
-        print message
+        if not self.quiet:
+            print message
 
 
     def error_msg(self, message):
         rhnLog.log_clean(0, message)
-        sys.stderr.write(str(message) + "\n")
+        if not self.quiet:
+            sys.stderr.write(str(message) + "\n")
 
     def log_msg(self, message):
         rhnLog.log_clean(0, message)
