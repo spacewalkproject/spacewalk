@@ -120,7 +120,8 @@ def main():
    password  = options.password
    if password == None:
       password = getpass.getpass()
-   bundleSize = options.bundle
+   #even though this is supposed to be an int already, in RHEL4's python it isn't
+   bundleSize = int(options.bundle) 
 
    #did you provide a data file?  If not we need all the information
    if options.data == None:
