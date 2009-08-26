@@ -22,11 +22,13 @@ class ContentSource:
     url = None
     name = None
     repo = None
+    mirrorlist = False
     cache_dir = '/var/cache/rhn/reposync/'
-    def __init__(self, url, name):
+    def __init__(self, url, name, mirrorlist):
         self.url = url
         self.name = name
         self._clean_cache(self.cache_dir + name)
+        self.mirrorlist = mirrorlist
 
     def list_packages(self):
         """ list packages"""
@@ -34,7 +36,10 @@ class ContentSource:
         self.repo = repo
         repo.cache = 0
         repo.metadata_expire = 0
-        repo.baseurl = [self.url]
+        if self.mirrorlist:
+            repo.mirrorlist = self.url
+        else:
+            repo.baseurl = [self.url]
         repo.basecachedir = self.cache_dir
         repo.baseurlSetup()
         repo.setup(False)
