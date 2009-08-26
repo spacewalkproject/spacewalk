@@ -43,6 +43,9 @@ README  - This file
 
 Changelog:
 -----------
+8/26/2009 - 2.1.2
+- Small fix to ensure RHEL 4 compatibility
+
 6/18/09 - 2.1.1
 - couple of fixes regarding bundlesize and data file options
 
