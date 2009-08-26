@@ -83,7 +83,7 @@ fi
 if [ $1 -eq 0 ]; then
 	for i in %used_libs ; do
 		/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/'${i//./\\.}
-		/usr/bin/execstack -s /usr/lib/oracle/10.2.*/client*/lib/$i
+		# /usr/bin/execstack -s /usr/lib/oracle/10.2.*/client*/lib/$i
 	done
 	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
 fi
@@ -103,7 +103,7 @@ fi
 if [ $1 -eq 0 ]; then
 	/usr/sbin/semanage fcontext -d -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\..*/client.*/bin/sqlplus'
 	/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/libsqlplus\.so'
-	/usr/bin/execstack -s /usr/lib/oracle/10.2.*/client*/lib/libsqlplus.so
+	# /usr/bin/execstack -s /usr/lib/oracle/10.2.*/client*/lib/libsqlplus.so
 	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
 fi
 
