@@ -70,7 +70,6 @@ public abstract class KickstartVariableAction extends RhnAction {
         setupFormValues(context, (DynaActionForm) formIn, cobblerId);
         request.setAttribute(getObjectString(), request.getParameter(getObjectString()));
         
-        
         return getStrutsDelegate().forwardParams(mapping.findForward("default"), 
                 request.getParameterMap());
         
@@ -142,7 +141,7 @@ public abstract class KickstartVariableAction extends RhnAction {
     protected abstract String getCobblerId(RequestContext context);
     
     protected abstract String getObjectString();
-        
+            
     
     /**
      * Get the CobblerObject that we'll use to set the ksmeta data

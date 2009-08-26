@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
+import org.apache.struts.action.DynaActionForm;
 import org.cobbler.CobblerObject;
 import org.cobbler.Profile;
 
@@ -50,6 +51,19 @@ public class KickstartProfileVariableAction extends KickstartVariableAction {
     @Override
     protected String getObjectString() {
         return RequestContext.KICKSTART_ID;
+    }
+    
+    @Override
+    /**
+     * {@inheritDoc}
+     */
+    protected void setupFormValues(RequestContext ctx, 
+            DynaActionForm form, String cId) {
+        super.setupFormValues(ctx, form, cId);
+        Long ksid = ctx.getRequiredParam(RequestContext.KICKSTART_ID);
+        KickstartData data = KickstartFactory.lookupKickstartDataByIdAndOrg(
+                ctx.getLoggedInUser().getOrg(), ksid);
+        ctx.getRequest().setAttribute("ksdata", data);
     }
 
 }
