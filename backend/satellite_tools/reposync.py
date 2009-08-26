@@ -141,7 +141,7 @@ class RepoSync:
                     self.upload_package(pack, path, md5)
                     self.associate_package(pack, md5)
                 else:
-                    to_link.append(pack)
+                    self.associate_package(pack, md5) #package is already on the satellite, lets just associate
                 if self.url.find("file://")  < 0:
                     os.remove(path)
 
@@ -149,16 +149,6 @@ class RepoSync:
                 raise
             except:
                 self.error_msg("ERROR" + fetchTraceback())
-                if self.fail:
-                    raise
-                continue
-        for pack in to_link:
-            try:
-                self.associate_package(pack, md5)
-            except KeyboardInterrupt:
-                raise
-            except:
-                self.error_msg(fetchTraceback())
                 if self.fail:
                     raise
                 continue
