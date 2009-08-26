@@ -348,7 +348,7 @@ public class CreateChannelCommand {
     protected void verifyRequiredParameters() {
         if (user == null || StringUtils.isEmpty(summary)) {
             throw new IllegalArgumentException(
-                  "Required parameters not set: user, or summary");
+                    "edit.channel.invalidchannelsummary");
         }
         
         if (!StringUtils.isEmpty(yumUrl) && StringUtils.isEmpty(repoLabel)) {

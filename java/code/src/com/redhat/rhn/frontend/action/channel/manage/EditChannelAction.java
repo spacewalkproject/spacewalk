@@ -386,7 +386,7 @@ public class EditChannelAction extends RhnAction implements Listable {
         }
         catch (IllegalArgumentException iae) {
             errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("edit.channel.invalidchannelsummary"));
+                    new ActionMessage(iae.getMessage()));
         }
         
         return updated;
