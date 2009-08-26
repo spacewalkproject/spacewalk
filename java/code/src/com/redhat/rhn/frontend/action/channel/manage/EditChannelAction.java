@@ -625,6 +625,7 @@ public class EditChannelAction extends RhnAction implements Listable {
             request.setAttribute("channel_name", channelName);
             form.set("org_sharing", "private");
             form.set("per_user_subscriptions", "all");
+            form.set("checksum", "sha1");
         }
     }
 
