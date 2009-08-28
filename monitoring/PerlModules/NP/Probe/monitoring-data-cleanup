@@ -90,7 +90,7 @@ if ($delta) {
         # delete probes older then $delta
         my $date=DateCalc("today", "- $delta", \$err);
         if ($err > 0) {
-                print STDERR "Error: $delta is not valid delta of date.\n";
+                print STDERR "Error: $delta is not valid date delta.\n";
                 exit 1;
         }
         print UnixDate($date,"Deleting probes data older than %T %b %e, %Y...\n");
@@ -116,9 +116,9 @@ monitoring-data-cleanup [OPTIONS]
 
 =head1 DESCRIPTION
 
-This script delete data from monitoring probes older than given time frame.
+This script deletes data from monitoring probes older than given time frame.
 It can be useful to run from cron to periodicaly delete data which is not 
-interested for you.
+interesting for you.
 
 Additionaly - in Spacewalk 0.5 and older we did not deletes data when probe
 has been deleted. And if you did not push scout configs you will be getting
