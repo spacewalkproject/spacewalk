@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.7.1
+Version:        0.7.2
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -106,7 +106,7 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
-* Fri Aug 28 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.7.1-1
+* Fri Aug 28 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.7.2-1
 - add spacewalk-setup-jabberd script (mzazrivec@redhat.com)
 - bumping Version to 0.7.0 (jmatthew@redhat.com)
 - As /usr/bin/spacewalk-setup calls /usr/bin/gpg, we should Require it.
