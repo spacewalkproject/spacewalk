@@ -43,7 +43,7 @@ REMOTE_HOSTS=/etc/sysconfig/rhn/ssl-hosts.conf
 
 # Return path to the SSL certificate
 get_ssl_cert_file() {
-    grep ^SSLCertificateFile $SSL_HTTPD_CONF_FILE | awk '{print $2}'
+    awk '/^SSLCertificateFile/ {print $2}' $SSL_HTTPD_CONF_FILE
 }
 
 # main
