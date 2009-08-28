@@ -7220,7 +7220,7 @@ Follow this url to see the full list of inactive systems:
 			<source>{0} file and {2} symlinks</source>
 	     </trans-unit>
 	     <trans-unit id="config.files_1_dirs_1_symlinks_0">
-			<source>{0} file and {2} directory</source>
+			<source>{0} file and {1} directory</source>
 	     </trans-unit>
 	     <trans-unit id="config.files_1_dirs_1_symlinks_1">
 			<source>{0} file and {1} directory and {2} symlink</source>
@@ -7229,7 +7229,7 @@ Follow this url to see the full list of inactive systems:
 			<source>{0} file and {1} directory and {2} symlinks</source>
 	     </trans-unit>
 	     <trans-unit id="config.files_1_dirs_2_symlinks_0">
-			<source>{0} file and {2} directories</source>
+			<source>{0} file and {1} directories</source>
 	     </trans-unit>
 	     <trans-unit id="config.files_1_dirs_2_symlinks_1">
 			<source>{0} file and {1} directories and {2} symlink</source>
@@ -7248,7 +7248,7 @@ Follow this url to see the full list of inactive systems:
 			<source>{0} files and {2} symlinks</source>
 	     </trans-unit>
 	     <trans-unit id="config.files_2_dirs_1_symlinks_0">
-			<source>{0} files and {2} directory</source>
+			<source>{0} files and {1} directory</source>
 	     </trans-unit>
 	     <trans-unit id="config.files_2_dirs_1_symlinks_1">
 			<source>{0} files and {1} directory and {2} symlink</source>
