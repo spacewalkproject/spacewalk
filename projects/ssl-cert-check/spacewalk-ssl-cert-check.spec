@@ -4,7 +4,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.7
+Version: 1.8
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -43,6 +43,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id: ssl-cert-check.spec,v 1.1 2005/05/09 17:58:28 alikins Exp $
 %changelog
+* Fri Aug 28 2009 Michael Mraka <michael.mraka@redhat.com> 1.8-1
+- grep | awk is rarely needed
+- use spacewalk-cfg-get instead of awk
+
 * Wed Mar 18 2009 Miroslav Suchy <msuchy@redhat.com> 1.7-1
 - 490695 - versioned provides
 
