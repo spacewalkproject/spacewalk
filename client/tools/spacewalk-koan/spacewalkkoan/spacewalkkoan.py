@@ -61,7 +61,7 @@ def find_name_servers():
     return ret
 
 def find_gateway():
-    response = execute("route -n | grep '^0.0.0.0' | awk  '{print $2}'")
+    response = execute("route -n | awk '/^0\.0\.0\.0/ {print $2}'")
     return response[0]
 
 def getSystemId():
