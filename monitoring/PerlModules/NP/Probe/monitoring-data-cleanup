@@ -40,7 +40,7 @@ GetOptions(
 if ($help) {
         print <<HELP;
 Usage:
-  delete-old-probes --no-delete-unmatched
+  monitoring-data-cleanup --no-delete-unmatched
 
 HELP
         exit;
@@ -106,11 +106,11 @@ if ($delta) {
 
 =head1 NAME
 
-delete-old-probes - Delete unused and old data from monitoring probes.
+monitoring-data-cleanup - Delete unused and old data from monitoring probes.
 
 =head1 SYNOPSIS
 
-delete-old-probes [OPTIONS]
+monitoring-data-cleanup [OPTIONS]
 
 =head1 DESCRIPTION
 
