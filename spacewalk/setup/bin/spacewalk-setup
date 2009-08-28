@@ -126,6 +126,9 @@ setup_monitoring(\%opts, \%answers);
 print Spacewalk::Setup::loc("* Configuring apache SSL virtual host.\n");
 setup_ssl_vhost(\%opts, \%answers);
 
+print Spacewalk::Setup::loc("* Configuring jabberd.\n");
+setup_jabberd(\%opts, \%answers);
+
 print Spacewalk::Setup::loc("* Creating SSL certificates.\n");
 setup_ssl_certs(\%opts, \%answers);
 
@@ -513,6 +516,16 @@ sub setup_ssl_vhost {
   }
 
   return;
+}
+
+sub setup_jabberd {
+  my $opts = shift;
+  my $answers = shift;
+
+  system('rpm -q jabberd >& /dev/null');
+  if ($? >> 8 == 0) {
+    system("/usr/bin/spacewalk-setup-jabberd", "--macros", "hostname:$answers->{'hostname'}");
+  }
 }
 
 sub setup_ssl_certs {
@@ -965,15 +978,6 @@ sub populate_initial_configs {
         $hibernate_url = "jdbc:postgresql://" . $answers->{"db-host"} . ":" . $answers->{"db-port"} . "/" . $answers->{"db-sid"};
     }
 
-  # Check where jabberd's lib dir is, can vary on x86_64:
-  my $jabberdLibDir = "/usr/lib/jabberd/";
-  if (-d "/usr/lib64/jabberd/") {
-      $jabberdLibDir = "/usr/lib64/jabberd";
-  }
-
-  # Generate a random password for jabberd:
-  my $jabberdRouterPassword = `dd if=/dev/urandom bs=20 count=1 2>/dev/null | sha1sum | awk '{print \$1}'`;
-
   my %config_opts =
     (
      mount_point => $answers->{'mount-point'} || '/var/satellite',
@@ -998,8 +1002,6 @@ sub populate_initial_configs {
      hibernate_url => $hibernate_url,
      traceback_mail => $answers->{'admin-email'},
      jabberDOThostname => $answers->{hostname},
-     jabberDOTlibdir => $jabberdLibDir,
-     jabberDOTdbpass => $jabberdRouterPassword,
      osadispatcherDOTusername => 'rhn-dispatcher-sat',
      osadispatcherDOTpassword => 'rhn-dispatcher-' . random_password(6),
      serverDOTsatelliteDOTca_chain => '/usr/share/rhn/RHNS-CA-CERT',

@@ -1,0 +1,88 @@
+#!/usr/bin/perl
+#
+# Copyright (c) 2009 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
+
+use Spacewalk::Setup;
+use Sys::Hostname;
+use Getopt::Long;
+
+use strict 'refs';
+use warnings;
+
+my $verbose = 0;
+my $macros = '';
+my $help = 0;
+my %macros = ('hostname' => Sys::Hostname::hostname());
+
+GetOptions("macros:s" => \$macros, "verbose" => \$verbose, "help" => \$help);
+
+if ($help) {
+	print <<EOHELP;
+Usage: $0 --help | --verbose | --macros macros
+Options:
+  --help     Print this help message
+  --verbose  Verbose operation
+  --macros   Comma delimited list of macroname:macrovalue options
+EOHELP
+
+	exit 0;
+}
+
+if ($macros) {
+	foreach my $i (split(/,/, $macros, 0)) {
+		my ($key, $value) = split(/:/, $i, 3);
+		$macros{$key} = $value;
+	}
+}
+
+foreach my $basename ('c2s', 's2s', 'sm') {
+	my $configfile = "/etc/jabberd/$basename.xml";
+	my $template = Spacewalk::Setup::SHARED_DIR . "/jabberd/$basename.xsl";
+
+	{
+		$/ = undef;
+
+		print Spacewalk::Setup::loc("Processing $configfile...\n") if $verbose;
+		my $transformed = `/usr/bin/xsltproc $template $configfile`;
+		die "There was an error running xsltproc\n" if $?;
+		
+		local *F;
+		open F, $configfile;
+		my $original = <F>;
+		close F;
+
+		if ($transformed ne $original) {
+			print Spacewalk::Setup::loc("$configfile has been backed up to $configfile-swsave\n") if $verbose;
+			system('cp', '-p', '--backup=numbered', $configfile, "$configfile-swsave");
+
+			for my $key (keys %macros) {
+				$transformed =~ s/\@$key\@/$macros{$key}/mg;
+			}
+
+			my @statistics = stat($configfile);
+
+			open F, ">$configfile";
+			print F $transformed;
+			close F;
+
+			chown $statistics[4], $statistics[5], $configfile;
+			chmod 0640, $configfile;
+		}
+ 		elsif ($verbose) {
+			print Spacewalk::Setup::loc(" No changes were made\n");
+		}
+	}
+
+}
