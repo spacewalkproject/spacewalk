@@ -5,7 +5,7 @@ if [ $# -lt 1 -o $# -gt 2 ]; then
 	exit
 fi
 
-CONNECT=$(awk '/default_db/ {split($0,a,"="); print a[2]}' /etc/rhn/rhn.conf)
+CONNECT=$(spacewalk-cfg-get default_db)
 [ -n "$2" ] && CONNECT=$2
 
 # sqlplus ... | cat > ... is here to fool selinux, since oracle_sqlplus_t

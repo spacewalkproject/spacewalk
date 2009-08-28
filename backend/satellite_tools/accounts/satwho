@@ -9,7 +9,7 @@
 # script within RHN Satellite and an embedded database.
 
 SQLPLUS=/usr/bin/sqlplus
-CREDENTIALS=$(awk -F= '/^default_db/ {print $2} ' /etc/rhn/rhn.conf)
+CREDENTIALS=$(spacewalk-cfg-get default_db)
 
 if [ ! -x $SQLPLUS ]
 then
