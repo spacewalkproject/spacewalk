@@ -29,6 +29,7 @@ Requires:       cobbler >= 1.6.3
 Requires:       PyYAML
 Requires:       jabberd
 Requires:       /usr/bin/gpg
+Requires:       libxslt
 
 
 %description
