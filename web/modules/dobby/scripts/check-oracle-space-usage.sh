@@ -20,7 +20,7 @@ reportusage() {
 
 mailitout() {
    #get Satellite email address
-   MAILADDRESS=`awk '/traceback_mail/ {print $3}' /etc/rhn/rhn.conf`
+   MAILADDRESS=$(spacewalk-cfg-get traceback_mail)
 
    SUBJECT="Warning - high tablespace usage on Satellite oracle DB"
 
