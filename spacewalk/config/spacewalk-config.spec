@@ -18,8 +18,6 @@ Requires(post): chkconfig
 Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
-# this is so we can set the password consistently across all jabberd configs
-Requires(pre): jabberd
 # We need package httpd to be able to assign group apache in files section
 Requires: httpd
 
