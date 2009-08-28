@@ -150,7 +150,7 @@ function CheckSpace() {
         template=$1
 	# use m4 magic to determine how much space we will need...
 	ReqFactor=$(m4 -DRHNORA_CALC_SPACE $(m4_macros $DB_NAME) $template)
-	AvailSpace=$(df -P $DataDB | grep ^/dev/ | awk '{ print $4 }')
+	AvailSpace=$(df -P $DataDB | awk '/^\/dev\// { print $4 }')
 	ReqSpace=$(($ReqFactor * 1024 * 120 / 100))
 	if [ $ReqSpace -gt $AvailSpace ] ; then
 		echo "ERROR: Not have enough free space on $DataDB"
