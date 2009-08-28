@@ -41,34 +41,15 @@ REMOTE_HOSTS=/etc/sysconfig/rhn/ssl-hosts.conf
 [ -z "$ADMIN" -a ! -f $RHN_CONF_FILE ] && exit 0
 
 
-# Retrieve a setting from rhn.conf
-get_rhn_conf() {
-    local component="$1"
-    local conf="$2"
-    grep "^$conf" $RHN_CONF_FILE | awk -F= '{print $2}'
-}
-
 # Return path to the SSL certificate
 get_ssl_cert_file() {
     grep ^SSLCertificateFile $SSL_HTTPD_CONF_FILE | awk '{print $2}'
 }
 
-get_rhn_component() {
-    # Identify the RHN component
-    if rpm -q spacewalk-proxy-management >& /dev/null; then
-        echo "proxy.broker"
-        return
-    elif  rpm -q spacewalk-java >& /dev/null; then
-        echo "server.satellite"
-        return
-    fi
-}
-
 # main
-component=$(get_rhn_component)
 
-if [ -z "$ADMIN" -a -n "$component" ]; then
-    ADMIN=$(get_rhn_conf $component traceback_mail)
+if [ -z "$ADMIN" ]; then
+    ADMIN=$(spacewalk-cfg-get traceback_mail)
     # Replace commas with spaces
     ADMIN=${ADMIN//,/ }
     # Trim leading spaces
