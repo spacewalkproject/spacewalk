@@ -33,7 +33,7 @@ my ($sql, $err, $sth);
 GetOptions(
         "delete-unmatched!" => \$delete_unmatched,
         "dry-run" => \$dry_run,
-        "delete-before:s" => \$delta,
+        "keep-monitoring-data:s" => \$delta,
         "help" => \$help,
         );
 
@@ -42,6 +42,7 @@ if ($help) {
 Usage:
   monitoring-data-cleanup --no-delete-unmatched
 
+  monitoring-data-cleanup --keep-monitoring-data "1Y 6M"
 HELP
         exit;
 }
@@ -125,7 +126,7 @@ monitoring-data-cleanup [OPTIONS]
 --no-delete-unmatched
         Delete data from probes, which have been already deleted. Default is to delete them.
 
---delete-before DELTA
+--keep-monitoring-data DELTA
         Delete data older than DELTA. Recognized deltas are of the form:
              +Yy +Mm +Ww +Dd +Hh +MNmn +Ss
         Examples:
