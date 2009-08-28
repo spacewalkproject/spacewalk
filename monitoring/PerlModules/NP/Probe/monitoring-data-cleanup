@@ -117,14 +117,27 @@ monitoring-data-cleanup [OPTIONS]
 
 =head1 OPTIONS
 
+--dry-run
+        No changes will be commited. All data will remain intact.
+
 --delete-unmatched
 --no-delete-unmatched
         Delete data from probes, which have been already deleted. Default is to delete them.
 
+--delete-before DELTA
+        Delete data older than DELTA. Recognized deltas are of the form:
+             +Yy +Mm +Ww +Dd +Hh +MNmn +Ss
+        Examples:
+                "1year 2 months 3hours"
+                "2 business days"
+        For more information about format see ParseDateDelta section of Date::Manip(3)
+
 --help
         Display this help.
 
-=head1 EXAMPLES
+=head1 SEE ALSO
+
+Date::Manip(3)
 
 =head1 AUTHOR
 
