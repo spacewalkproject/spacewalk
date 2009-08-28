@@ -43,7 +43,6 @@ mv var $RPM_BUILD_ROOT/
 
 tar -C $RPM_BUILD_ROOT%{prepdir} -cf - etc \
      --exclude=etc/tomcat5 \
-     --exclude=etc/jabberd \
      | tar -C $RPM_BUILD_ROOT -xvf -
 
 echo "" > $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/rhn.conf
