@@ -34,7 +34,7 @@ contact Red Hat Support for assistance."
    exit 0
 }
 #grab the usage numbers from the db-control report output
-NUMBERS=`reportusage | awk '{print $5}'|sed '1d'| sed 's/%//g'`
+NUMBERS=`reportusage | awk '{if (FNR > 1) {sub("%",""); print $5}}'`
 # run db-control and then use awk and sed to get the % numbers
 for num in $NUMBERS
    do
