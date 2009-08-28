@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.7.0
+Version: 0.7.1
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -95,6 +95,11 @@ EOF
 
 
 %changelog
+* Fri Aug 28 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.7.1-1
+- No need to pre-require jabberd (mzazrivec@redhat.com)
+- removed all jabberd prep config files (mzazrivec@redhat.com)
+- bumping versions to 0.7.0 (jmatthew@redhat.com)
+
 * Wed Jul 29 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.13-1
 - Add router.xml and router-users.xml to jabberd configs we deploy.
   (dgoodwin@redhat.com)
