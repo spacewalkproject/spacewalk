@@ -33,7 +33,8 @@ mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Probe/Utils/test
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Probe/SNMP/test
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Probe/test
 
-install -m 755 -D rhn-runprobe $RPM_BUILD_ROOT/%{_bindir}/rhn-runprobe
+install -m 755 -D rhn-runprobe $RPM_BUILD_ROOT%{_bindir}/rhn-runprobe
+install -m 755 monitoring-data-cleanup $RPM_BUILD_ROOT%{_bindir}/monitoring-data-cleanup 
 install -m 644 Config/*.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Probe/Config/
 install -m 644 Config/test/*.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Probe/Config/test/
 install -m 644 DataSource/*.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Probe/DataSource/
@@ -57,6 +58,7 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man3
 /usr/bin/pod2man $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Probe/Shell/SQLPlus.pm |gzip > $RPM_BUILD_ROOT%{_mandir}/man3/NOCpulse::Probe::Shell::SQLPlus.3pm.gz
 /usr/bin/pod2man $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Probe/Shell/Local.pm |gzip > $RPM_BUILD_ROOT%{_mandir}/man3/NOCpulse::Probe::Shell::Local.3pm.gz
 /usr/bin/pod2man $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Probe/Shell/Unix.pm |gzip > $RPM_BUILD_ROOT%{_mandir}/man3/NOCpulse::Probe::Shell::Unix.3pm.gz
+/usr/bin/pod2man $RPM_BUILD_ROOT/%{_bindir}/monitoring-data-cleanup | gzip > $RPM_BUILD_ROOT%{_mandir}/man3/monitoring-data-cleanup.3pm.gz
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -64,6 +66,7 @@ rm -rf $RPM_BUILD_ROOT
 %files 
 %defattr(-,root,root,-)
 %{_bindir}/rhn-runprobe
+%{_bindir}/monitoring-data-cleanup
 %dir %{perl_vendorlib}/NOCpulse
 %{perl_vendorlib}/NOCpulse/*
 %{_mandir}/man3/*
