@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.1
+Version: 0.7.2
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -317,6 +317,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Aug 28 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.2-1
+- awk | sed | sed is rarely needed
+- use spacewalk-cfg-get instead of awk
+
 * Thu Aug 20 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.1-1
 - fix an ISE relating to config management w/selinux (Joshua Roys)
 - allow users to chat with spacewalk members on IRC via the web. (jesusr@redhat.com) 
