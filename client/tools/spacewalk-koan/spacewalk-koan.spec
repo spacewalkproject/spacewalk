@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.1.17
+Version: 0.2.2
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -49,6 +49,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Fri Aug 28 2009 Michael Mraka <michael.mraka@redhat.com> 0.2.2-1
+- grep | awk is rarely needed
+- 517876 - fixing spacewalk-koan so it doesnt require up2date on Fedora 11
+
 * Tue Jul 21 2009 John Matthews <jmatthew@redhat.com> 0.1.17-1
 - 510299 - static ks fix. (paji@redhat.com)
 - 510299 - Big commit to get static networking to work (paji@redhat.com)
