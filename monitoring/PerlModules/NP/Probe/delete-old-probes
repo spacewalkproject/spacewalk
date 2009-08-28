@@ -18,14 +18,22 @@ use strict;
 use lib '/etc/rc.d/np.d';
 use NOCpulse::NOCpulseini;
 use PhysCluster;
+
+use Date::Manip;
 use Getopt::Long;
 
 #set the defaults
 my $delete_unmatched = 1;
+my $delta = "";
+my $dry_run = 0;
 my $help = 0;
+
+my ($sql, $err, $sth);
 
 GetOptions(
         "delete-unmatched!" => \$delete_unmatched,
+        "dry-run" => \$dry_run,
+        "delete-before:s" => \$delta,
         "help" => \$help,
         );
 
@@ -36,6 +44,9 @@ Usage:
 
 HELP
         exit;
+}
+if ($dry_run) {
+        print "Warning: Dry run active - no changes will be made.\n";
 }
  
 my $cluster = PhysCluster->newInitialized('/etc/rhn/cluster.ini');
@@ -56,9 +67,9 @@ if (%$localConfig) {
 }
 
 if ($delete_unmatched) {
+        $ini->dbh->begin_work;
         print "Deleting data from already deleted probes...\n";
-$ini->dbh->begin_work;
-        my $sql = qq|
+        $sql = qq|
                 delete from time_series 
                 where time_series.rowid in (
                         select time_series.rowid from time_series 
@@ -67,10 +78,28 @@ $ini->dbh->begin_work;
                                 where rhn_probe.recid is null
                         )
                 |;
-        my $sth = $ini->dbh->prepare($sql);
+        $sth = $ini->dbh->prepare($sql);
         $sth->execute();
-        print $sth->rows, " record deleted. and rollbacked\n";
-        $ini->dbh->rollback;
+        print "\t", $sth->rows, " record deleted.\n";
+        $dry_run ? $ini->dbh->rollback : $ini->dbh->commit;
+}
+
+if ($delta) {
+        # delete probes older then $delta
+        my $date=DateCalc("today", "- $delta", \$err);
+        if ($err > 0) {
+                print STDERR "Error: $delta is not valid delta of date.\n";
+                exit 1;
+        }
+        print UnixDate($date,"Deleting probes data older than %T %b %e, %Y...\n");
+        $sql = qq|delete from time_series where entry_time < ?|;
+        $ini->dbh->begin_work;
+        $sth = $ini->dbh->prepare($sql);
+        $sth->execute(UnixDate($date,"%s"));
+        print "\t", $sth->rows, " record deleted.\n";
+        $dry_run ? $ini->dbh->rollback : $ini->dbh->commit;
+} else {
+        print "No date delta specified. I do not know what to delete.\n";
 }
 
 =pod
