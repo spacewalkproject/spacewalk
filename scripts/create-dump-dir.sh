@@ -17,7 +17,7 @@ URL=$1
 echo "Downloading from $URL"
 echo "Fetching iso list"
 
-wget -o /dev/null $URL -O - | grep iso | awk -F '"' '{print $6}' > $ISOLIST 
+wget -o /dev/null $URL -O - | awk -F '"' '/iso/ {print $6}' > $ISOLIST
 NUM=`cat $ISOLIST | wc -l`
 echo "Found $NUM disc images"
 
