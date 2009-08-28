@@ -9,7 +9,7 @@
 Summary: Oracle 10g Database Server Enterprise Edition scripts
 Name: oracle-server-scripts
 Version: 10.2.0
-Release: 30%{?dist}
+Release: 31%{?dist}
 Source0: oracle-home.sh
 Source1: init-params.ora
 Source2: create-db.sh
@@ -99,6 +99,9 @@ exit 0
 %{oracle_scripts}
 
 %changelog
+* Fri Aug 28 2009 Michael Mraka <michael.mraka@redhat.com> 10.2.0-31
+- grep | awk is rarely needed
+
 * Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 10.2.0-30
 - handle existing embedded entries in /etc/oratab during install
   (mzazrivec@redhat.com)
