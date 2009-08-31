@@ -491,66 +491,6 @@ use vars qw(@ISA);
 @ISA=qw(CFDBRecord);
 
 ############################################
-package ProbeTimeSeriesIds;
-use strict;
-use vars qw(@ISA);
-@ISA=qw(CFDBRecord);
-
-sub RemoveAllForSatellite
-{
-	my ($class,$satNodeId) = @_;
-	$class = ref($class) || $class;
-	# Delete existing time series IDs for the satellite.
-	my $sqlStmt = "delete from probe_time_series_ids
-            where probe_id in (
-              select distinct host_probe.recid
-              from host_probe, sat_node
-              where host_probe.sat_cluster_id = sat_node.sat_cluster_id
-              and sat_node.recid = ?
-              union
-              select distinct check_probe.recid
-              from check_probe
-              where check_probe.sat_cluster_id = sat_node.sat_cluster_id
-              and sat_node.recid = ?)";
-
-	my $sth = $class->DatabaseConnection->prepare($sqlStmt);
-	# print "RemoveAllForSatellite: sat node $satNodeId\n".$sqlStmt."\n";
-	my $ret = $sth->execute($satNodeId, $satNodeId);
-	if (!defined($ret)) {
-	   my $msg = "Cannot delete probe time series OID for satellite node $satNodeId: ";
-	   if ($sth) {
-	      $msg .= $sth->errstr."\n";
-	   }
-	   print $msg."\n";            # Goes into satellite output
-	   warn $msg.$sqlStmt;         # Goes into apache log
-	}
-}
-
-sub InsertRecords
-{
-	my $class = shift;
-	my @plugins = @_;
-	$class = ref($class) || $class;
-
-	my $sth = $class->DatabaseConnection->prepare
-	  ("insert into probe_time_series_ids(
-            PROBE_ID, METRIC_ID, TEMPLATE_ID, CUST_GROUP_ID, TEMPLATE_INSTANCE_STRING) values
-            (?,       ?,         ?,           0,             ?)");
-	foreach my $plugin (@plugins) {
-	   my ($probeId, $templateId, $metricId, $templateInstance) = @$plugin;
-	   #print "Inserting probeId: $probeId, templateId: $templateId, metricId: $metricId, templateInstance $templateInstance\n";
-	   my $ret = $sth->execute($probeId, $metricId, $templateId, $templateInstance);
-
-	   if (!defined($ret)) {
-	      my $msg = "Cannot insert probe time series OID for ".join(':', @$plugin).": ".$sth->errstr;
-	      print $msg."\n";   # Goes into satellite output
-	      warn $msg;         # Goes into apache log
-	   }
-	}
-}
-
-
-############################################
 package SNMPAlertRecord;
 use strict;
 use vars qw(@ISA);
