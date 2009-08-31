@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.30
+Version: 0.6.31
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -579,6 +579,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Aug 31 2009 Justin Sherrill <jsherril@redhat.com> 0.6.31-1
+- fix an ISE relating to config management w/selinux (msuchy@redhat.com)
+- adding --quiet flag to spacewalk-repo-sync (jsherril@redhat.com)
+
 * Wed Aug 05 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.30-1
 - 
 
