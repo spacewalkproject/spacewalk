@@ -8,6 +8,18 @@ Group:          Applications/Internet
 License:        GPLv2
 BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch:      noarch
+
+%description
+Spacewalk is a systems management application that will
+inventory, provision, update and control your Linux and
+Solaris machines.
+
+%package common
+Summary: Spacewalk Systems Management Application with Oracle database backend
+Group:   Applications/Internet
+License: GPLv2
+Obsoletes: spacewalk < 0.7.0
+
 BuildRequires:  python
 Requires:       python >= 2.3
 Requires:       spacewalk-setup
@@ -74,7 +86,41 @@ Requires:       spacewalk-selinux
 %endif
 
 
-%description
+%description common
+Spacewalk is a systems management application that will
+inventory, provision, update and control your Linux and
+Solaris machines.
+
+%package oracle
+Summary: Spacewalk Systems Management Application with Oracle database backend
+Group:   Applications/Internet
+License: GPLv2
+Obsoletes: spacewalk < 0.7.0
+Requires:  spacewalk-common = %{version}-%{release}
+Conflicts: spacewalk-postgresql
+
+Requires: oracle-instantclient-basic >= 10.2.0
+Requires: oracle-instantclient-sqlplus >= 10.2.0
+Requires: perl(DBD::Oracle)
+Requires: cx_Oracle
+
+%description oracle
+Spacewalk is a systems management application that will
+inventory, provision, update and control your Linux and
+Solaris machines.
+
+%package postgresql
+Summary: Spacewalk Systems Management Application with PostgreSQL database backend
+Group:   Applications/Internet
+License: GPLv2
+Obsoletes: spacewalk < 0.7.0
+Requires:  spacewalk-common = %{version}-%{release}
+Conflicts: spacewalk-oracle
+
+Requires: perl(DBD::Pg)
+Requires: python-pgsql
+
+%description postgresql
 Spacewalk is a systems management application that will 
 inventory, provision, update and control your Linux and 
 Solaris machines.
