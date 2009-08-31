@@ -41,7 +41,6 @@ Requires: jta
 Requires: log4j
 Requires: redstone-xmlrpc
 Requires: oscache
-Requires: ojdbc14
 Requires: servletapi5
 Requires: struts >= 0:1.2.9
 Requires: tomcat5
@@ -51,9 +50,9 @@ Requires: sitemesh
 Requires: stringtree-json
 Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
+Requires: spacewalk-java-jdbc
 Requires: spacewalk-branding
 Requires: jpackage-utils >= 0:1.5
-Requires: postgresql-jdbc
 Requires: cobbler >= 1.6.3
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
@@ -131,6 +130,24 @@ Provides: rhn-java-lib-sat = %{version}-%{release}
 This package contains the jar files for the Spacewalk Java web application
 and taskomatic process.
 
+%package oracle
+Summary: Oracle database backend support files for Spacewalk Java
+Group: Applications/Internet
+Requires: ojdbc14
+Provides: spacewalk-java-jdbc = %{version}-%{release}
+
+%description oracle
+This package contains Oracle database backend files for the Spacewalk Java.
+
+%package postgresql
+Summary: PostgreSQL database backend support files for Spacewalk Java
+Group: Applications/Internet
+Requires: postgresql-jdbc
+Provides: spacewalk-java-jdbc = %{version}-%{release}
+
+%description postgresql
+This package contains PostgreSQL database backend files for the Spacewalk Java.
+
 %package -n spacewalk-taskomatic
 Summary: Java version of taskomatic
 Group: Applications/Internet
@@ -150,12 +167,12 @@ Requires: jfreechart >= 0:1.0.9
 Requires: jpam
 Requires: log4j
 Requires: oscache
-Requires: ojdbc14
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
 Requires: tanukiwrapper
 Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
+Requires: spacewalk-java-jdbc
 Requires: concurrent
 Requires: quartz
 Requires: cobbler >= 1.6.3
@@ -255,6 +272,12 @@ fi
 %files lib
 %attr(644, root, root) %{_datadir}/rhn/classes/log4j.properties
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
+
+%files oracle
+%{jardir}/ojdbc14.jar
+
+%files postgresql
+%{jardir}/postgresql-jdbc.jar
 
 %changelog
 * Thu Aug 20 2009 jesus m. rodriguez <jesusr@redhat.com> 0.7.2-1
