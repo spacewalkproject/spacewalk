@@ -101,6 +101,7 @@ Conflicts: spacewalk-postgresql
 
 Requires: oracle-instantclient-basic >= 10.2.0
 Requires: oracle-instantclient-sqlplus >= 10.2.0
+Requires: spacewalk-java-oracle
 Requires: perl(DBD::Oracle)
 Requires: cx_Oracle
 
@@ -117,6 +118,7 @@ Obsoletes: spacewalk < 0.7.0
 Requires:  spacewalk-common = %{version}-%{release}
 Conflicts: spacewalk-oracle
 
+Requires: spacewalk-java-postgresql
 Requires: perl(DBD::Pg)
 Requires: python-pgsql
 
