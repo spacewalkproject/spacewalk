@@ -143,6 +143,12 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 /%{_sysconfdir}/spacewalk-release
 
+%files common
+
+%files oracle
+
+%files postgresql
+
 %changelog
 * Mon Jul 27 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.4-1
 - Re-enable spacewalk-monitoring-selinux dependency for F11.
