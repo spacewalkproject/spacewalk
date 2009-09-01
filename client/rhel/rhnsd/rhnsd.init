@@ -81,7 +81,7 @@ case "$1" in
 	stop
 	start
 	;;
-    condrestart)
+    condrestart|try-restart)
 	if [ -f /var/lock/subsys/rhnsd ]; then
 	    stop
 	    start
@@ -92,7 +92,7 @@ case "$1" in
 	RETVAL=$?
         ;;
     *)
-	echo $"Usage: $0 {start|stop|status|restart|condrestart|reload}"
+	echo $"Usage: $0 {start|stop|status|restart|condrestart|try-restart|reload}"
         exit 1
 esac
 exit $RETVAL
