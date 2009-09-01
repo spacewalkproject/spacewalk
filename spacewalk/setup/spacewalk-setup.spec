@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.7.2
+Version:        0.7.3
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -106,6 +106,10 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Tue Sep 01 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.7.3-1
+- spacewalk-setup-jabberd code cleanup
+- manual page for spacewalk-setup-jabberd
+
 * Fri Aug 28 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.7.2-1
 - add spacewalk-setup-jabberd script (mzazrivec@redhat.com)
 - bumping Version to 0.7.0 (jmatthew@redhat.com)
