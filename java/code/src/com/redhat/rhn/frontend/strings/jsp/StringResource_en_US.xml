@@ -3483,6 +3483,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/audit/Search.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="auditview.jsp.norecords">
+<source>No audit records found!</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/audit/Search.do</context>
+        </context-group>
+      </trans-unit>
 
 <!-- == ERRATA == -->
       <trans-unit id="erratalist.jsp.noerrata">

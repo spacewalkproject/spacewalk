@@ -203,7 +203,7 @@
 
 <c:set var="resultList" value="${requestScope.result}" />
 <rl:listset name="auditList">
-    <rl:list dataset="resultList">
+    <rl:list dataset="resultList" emptykey="auditview.jsp.norecords">
         <rl:column sortable="false"
                    bound="false"
                    headertext="Serial#"
