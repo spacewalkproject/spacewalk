@@ -63,13 +63,13 @@ foreach my $basename ('c2s', 's2s', 'sm') {
 		my $original = <F>;
 		close F;
 
+		for my $key (keys %macros) {
+			$transformed =~ s/\@$key\@/$macros{$key}/mg;
+		}
+
 		if ($transformed ne $original) {
 			print Spacewalk::Setup::loc("$configfile has been backed up to $configfile-swsave\n") if $verbose;
 			system('cp', '-p', '--backup=numbered', $configfile, "$configfile-swsave");
-
-			for my $key (keys %macros) {
-				$transformed =~ s/\@$key\@/$macros{$key}/mg;
-			}
 
 			my @statistics = stat($configfile);
 
