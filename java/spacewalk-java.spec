@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.2
+Version: 0.7.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -280,6 +280,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Sep 01 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.3-1
+- moved database specific files to subpackages
+- 518227 - missing repo label would result in invalid summary error
+- 498009 - kickstart label would not show up on kickstart variables page
+- setting the default checksum type for channels to be sha1 instead of sha256
+- making RepoSyncTask use the --quiet flag for repo syncing
+- new way of waiting on process for RepoSync task.  Hopefully this does not
+  bail out after a long time
+
 * Thu Aug 20 2009 jesus m. rodriguez <jesusr@redhat.com> 0.7.2-1
 - fix duplicate base channels listed in the "Parent Channel" dropdown (jesusr@redhat.com)
 - Log files should be ghosted rather than belonging to a package (m.d.chappell@bath.ac.uk)
