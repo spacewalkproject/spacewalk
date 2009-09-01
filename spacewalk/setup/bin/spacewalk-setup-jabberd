@@ -52,7 +52,7 @@ foreach my $basename ('c2s', 's2s', 'sm') {
 	my $template = Spacewalk::Setup::SHARED_DIR . "/jabberd/$basename.xsl";
 
 	{
-		$/ = undef;
+		local $/ = undef;
 
 		print Spacewalk::Setup::loc("Calling /usr/bin/xsltproc $template $configfile...\n") if $verbose;
 		my $transformed = `/usr/bin/xsltproc $template $configfile`;
