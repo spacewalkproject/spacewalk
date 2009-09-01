@@ -1,7 +1,7 @@
 %define release_name Gemini
 
 Name:           spacewalk
-Version:        0.7.0
+Version:        0.7.1
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -151,6 +151,11 @@ rm -rf %{buildroot}
 %files postgresql
 
 %changelog
+* Tue Sep 01 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.1-1
+- let's change codename to something new
+- split spacewalk metapackage into spacewalk-oracle/postgresql
+- bumping Version to 0.7.0
+
 * Mon Jul 27 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.4-1
 - Re-enable spacewalk-monitoring-selinux dependency for F11.
   (dgoodwin@redhat.com)
