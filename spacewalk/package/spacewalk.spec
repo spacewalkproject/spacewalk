@@ -1,4 +1,5 @@
 %define release_name Alpha
+
 Name:           spacewalk
 Version:        0.7.0
 Release:        1%{?dist}
@@ -141,11 +142,9 @@ echo "Spacewalk release %{version} (%{release_name})" > $RPM_BUILD_ROOT/%{_sysco
 %clean
 rm -rf %{buildroot}
 
-%files
-%defattr(-,root,root)
-/%{_sysconfdir}/spacewalk-release
-
 %files common
+%defattr(-,root,root)
+%{_sysconfdir}/spacewalk-release
 
 %files oracle
 
