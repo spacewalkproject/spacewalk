@@ -19,3 +19,11 @@ WriteMakefile(
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'Spacewalk-Setup-*' },
 );
+
+package MY;
+sub tools_other {
+	my $self = shift;
+	my $ret = $self->SUPER::tools_other(@_);
+	$ret =~ s/^(FIXIN\b.+)$/## $1\nFIXIN = \$(PERLRUN) -e 1/m;
+	return $ret;
+}

@@ -8,3 +8,11 @@ WriteMakefile(
     'AUTHOR'            => 'Spacewalk <spacewalk-devel@redhat.com>',
     'EXE_FILES' => [ 'bin/satcon-build-dictionary.pl', 'bin/satcon-deploy-tree.pl'],
 );
+
+package MY;
+sub tools_other {
+	my $self = shift;
+	my $ret = $self->SUPER::tools_other(@_);
+	$ret =~ s/^(FIXIN\b.+)$/## $1\nFIXIN = \$(PERLRUN) -e 1/m;
+	return $ret;
+}

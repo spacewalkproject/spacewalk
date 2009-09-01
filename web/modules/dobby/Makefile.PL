@@ -23,3 +23,11 @@ WriteMakefile('NAME'	=> "Dobby",
 	      'MAKEFILE'  => "Makefile.perl", # the name of the output Makefile file
 	      'EXE_FILES' => [ "scripts/db-control" ],
 );
+
+package MY;
+sub tools_other {
+	my $self = shift;
+	my $ret = $self->SUPER::tools_other(@_);
+	$ret =~ s/^(FIXIN\b.+)$/## $1\nFIXIN = \$(PERLRUN) -e 1/m;
+	return $ret;
+}
