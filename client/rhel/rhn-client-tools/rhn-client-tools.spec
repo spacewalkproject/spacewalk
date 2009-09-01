@@ -82,6 +82,17 @@ desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications --vendor=rh
 
 %find_lang %{name}
 
+%post -n rhn-setup-gnome
+touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+
+%postun -n rhn-setup-gnome
+if [ $1 -eq 0 ] ; then
+    touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+fi
+
+%posttrans -n rhn-setup-gnome
+gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %clean
