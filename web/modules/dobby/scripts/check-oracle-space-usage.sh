@@ -20,6 +20,8 @@ reportusage() {
 }
 
 mailitout() {
+   local reportusage=$1
+
    #get Satellite email address
    MAILADDRESS=$(spacewalk-cfg-get traceback_mail)
 
@@ -31,17 +33,18 @@ size of the tablespace  before getting to 100% usage. Please consult
 the Satellite documentation on using db-control to increase the size or
 contact Red Hat Support for assistance."
 
-   ( echo $BODY; echo ; reportusage ) | mail -s "$SUBJECT" $MAILADDRESS
+   echo -e "$BODY\n\n$reportusage" | mail -s "$SUBJECT" $MAILADDRESS
    exit 0
 }
 #grab the usage numbers from the db-control report output
-NUMBERS=`reportusage | awk '{if (FNR > 1) {sub("%",""); print $5}}'`
+REPORTUSAGE=$(reportusage)
+NUMBERS=$(echo "$REPORTUSAGE" | awk '{if (FNR > 1) {sub("%",""); print $5}}')
 # run db-control and then use awk and sed to get the % numbers
 for num in $NUMBERS
    do
    # if number is over 90% then send warning email
    if [ $num -gt 90 ]
-      then mailitout
+      then mailitout "$REPORTUSAGE"
    fi
 done
 exit 0
