@@ -86,3 +86,89 @@ foreach my $basename ('c2s', 's2s', 'sm') {
 	}
 
 }
+
+1;
+
+=head1 NAME
+
+spacewalk-setup-jabberd - utility for configuring jabberd services to work with
+Spacewalk / Satellite
+
+=head1 SYNOPSIS
+
+B<spacewalk-setup-jabberd>
+[B<--help>]
+[B<--verbose>]
+[B<--macros macro1:macro1value,macro2:macro2value...>]
+
+=head1 OPTIONS
+
+=over 5
+
+=item B<--macros>
+
+Specify macro names and corresponding macro values that will be used for
+substitution after document transformation. You can specify multiple
+macro:value pairs which you need to delimit by commas (example:
+--macros hostname:host.domain.org,pemfile:/etc/pki/tls/certs/localhost.pem).
+
+=item B<--verbose>
+
+Verbose script operation.
+
+=item B<--help>
+
+Print help message.
+
+=back
+
+=head1 DESCRIPTION
+
+B<spacewalk-setup-jabberd> is utility for configuring jabbberd services to work
+with Spacewalk / Satellite. The script uses XSL transformations to change
+existing jabberd configuration files.
+
+Ordinarily, spacewalk-setup-jabberd is called by spacewalk-setup(1) during
+initial Spacewalk / Satellite configuration or Spacewalk / Satellite upgrade.
+
+The script workflow is:
+
+=over 5
+
+=item
+
+Using xsltproc, apply appropriate XSL template to existing jabberd configuration
+file and read the transformed document.
+
+=item
+
+Substitute macros in transformed document (marked by two @ symbols, for example:
+@hostname@) with macro values (for example: host.domain.org).
+
+=item
+
+Resulting file is written out while the original file is backed up.
+
+=back
+
+=head1 FILES
+
+XSL templates used for transformation of existing jabberd configuration files:
+
+F</usr/share/spacewalk/setup/jabberd/c2s.xsl>
+
+F</usr/share/spacewalk/setup/jabberd/s2s.xsl>
+
+F</usr/share/spacewalk/setup/jabberd/sm.xsl>
+
+=head1 SEE ALSO
+
+B<spacewalk-setup>(1) - Spacewalk setup program
+
+B<xsltproc>(1) - command line XSLT processor
+
+=head1 AUTHORS
+
+Milan Zazrivec
+
+=cut

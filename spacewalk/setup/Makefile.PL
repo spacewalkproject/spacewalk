@@ -14,6 +14,7 @@ WriteMakefile(
     },
     MAN1PODS		=> { 'lib/Spacewalk/Setup.pm' => '$(INST_MAN1DIR)/spacewalk-setup.$(MAN1EXT)',
 				'bin/cobbler-setup' => '$(INST_MAN1DIR)/cobbler-setup.$(MAN1EXT)',
+				'bin/spacewalk-setup-jabberd' => '$(INST_MAN1DIR)/spacewalk-setup-jabberd.$(MAN1EXT)',
 			},
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'Spacewalk-Setup-*' },
