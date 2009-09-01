@@ -15,7 +15,8 @@ PATH=/usr/bin:/bin
 export PATH
 
 reportusage() {
-   /sbin/runuser oracle -c "db-control report"
+   # don't report UNDO usage
+   /sbin/runuser oracle -c "db-control report" | grep -v UNDO
 }
 
 mailitout() {
