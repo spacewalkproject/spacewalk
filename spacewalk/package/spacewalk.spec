@@ -1,4 +1,4 @@
-%define release_name Alpha
+%define release_name Gemini
 
 Name:           spacewalk
 Version:        0.7.0
