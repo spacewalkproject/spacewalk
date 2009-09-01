@@ -1332,6 +1332,13 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
       
+      <trans-unit id="Oracle Password_confirm">
+        <source>Oracle Password Confirm</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="Oracle Port">
         <source>Oracle Port</source>
           <context-group name="ctx">
