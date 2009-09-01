@@ -13,6 +13,21 @@
 # pidfile: /var/run/rhnsd.pid
 #
 
+### BEGIN INIT INFO
+# Provides: rhnsd
+# Required-Start: $local_fs $network $remote_fs $named $time
+# Required-Stop: $local_fs $network $remote_fs $named
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: Starts the Red Hat Network Daemon
+# Description: This is a daemon which handles the task of connecting
+#               periodically to the Red Hat Network servers to
+#               check for updates, notifications and perform system
+#               monitoring tasks according to the service level that
+#               this server is subscribed for.
+### END INIT INFO
+
+
 # interval in minutes to connect to Red Hat Network. The minimum allowed
 # value is currently 1 hour; by default rhnsd will connect every other hour.
 # This should be more than suitable for the vast majority of systems.  You
