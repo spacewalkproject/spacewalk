@@ -309,7 +309,7 @@ public class AuditManager /* extends BaseManager */ {
         Pattern fnregex = Pattern.compile("audit-(\\d+)-(\\d+).parsed");
 
         // if machineName is null, look up all review sections by recursion
-        if (machineName == null) {
+        if (machineName == null || machineName.length() == 0) {
             dr = null;
 
             for (AuditMachineDto aumachine : getMachines()) {
