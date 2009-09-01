@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.2
+Version: 0.7.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -579,6 +579,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Sep 01 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.3-1
+- 494813 - print error message instead of traceback
+- postgresql dependency moved to spacewalk-postgresql
+
 * Fri Aug 28 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.2-1
 - use spacewalk-cfg-get instead of awk
 - added mirror list support to spacewalk-repo-sync
