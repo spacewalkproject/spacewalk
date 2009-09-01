@@ -2182,10 +2182,8 @@ def processCommandline():
         rhnSQL.initDB(CFG.DEFAULT_DB)
     except (SQLError, SQLSchemaError, SQLConnectError), e:
         # An SQL error is fatal... crash and burn
-        tbOut = cStringIO.StringIO()
-        Traceback(mail=0, ostream=tbOut, with_locals=1)
-        log(-1, 'SQL ERROR during xml processing: %s' % e, stream=sys.stderr)
-        log(-1, 'TRACEBACK: %s' % tbOut.getvalue(), stream=sys.stderr)
+        log(-1, "ERROR: Can't connect to the database: %s" % e, stream=sys.stderr)
+        log(-1, "ERROR: Check if your database is running.", stream=sys.stderr)
         sys.exit(20)
 
     # check the validity of the debug level
