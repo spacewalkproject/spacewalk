@@ -54,7 +54,7 @@ foreach my $basename ('c2s', 's2s', 'sm') {
 	{
 		$/ = undef;
 
-		print Spacewalk::Setup::loc("Processing $configfile...\n") if $verbose;
+		print Spacewalk::Setup::loc("Calling /usr/bin/xsltproc $template $configfile...\n") if $verbose;
 		my $transformed = `/usr/bin/xsltproc $template $configfile`;
 		die "There was an error running xsltproc\n" if $?;
 		
