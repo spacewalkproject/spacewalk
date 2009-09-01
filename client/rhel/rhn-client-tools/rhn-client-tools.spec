@@ -10,7 +10,6 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
 Requires: rhnlib >= 2.2.7
-Requires: yum-rhn-plugin >= 0.5.3-30
 Requires: rhpl >= 0.81-2
 Requires: rpm >= 4.2.3-24_nonptl
 Requires: rpm-python 
@@ -35,6 +34,7 @@ system to receive software updates from Red Hat Network or Spacewalk.
 Summary: Check for RHN actions
 Group: System Environment/Base
 Requires: %{name} = %{version}-%{release}
+Requires: yum-rhn-plugin >= 0.5.3-30
 
 %description -n rhn-check
 rhn-check polls a Red Hat Network or Spacewalk server to find and execute 
