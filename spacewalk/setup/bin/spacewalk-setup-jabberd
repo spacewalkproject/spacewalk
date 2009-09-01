@@ -54,14 +54,14 @@ foreach my $basename ('c2s', 's2s', 'sm') {
 	{
 		local $/ = undef;
 
+		local *F;
+		open F, $configfile or die "Error opening $configfile: $!\n";
+		my $original = <F>;
+		close F;
+
 		print Spacewalk::Setup::loc("Calling /usr/bin/xsltproc $template $configfile...\n") if $verbose;
 		my $transformed = `/usr/bin/xsltproc $template $configfile`;
 		die "There was an error running xsltproc\n" if $?;
-		
-		local *F;
-		open F, $configfile;
-		my $original = <F>;
-		close F;
 
 		for my $key (keys %macros) {
 			$transformed =~ s/\@$key\@/$macros{$key}/mg;
