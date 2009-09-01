@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.7.0
+Version: 0.7.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -215,6 +215,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Tue Sep  1 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.1-1
+- change appeareance of icon and put it to Administration rather then to Preferences
+- add scriplet to refres icon cache
+- move "Requires: yum-rhn-plugin" from rhn-client-tools to rhn-check
+
 * Wed Aug 05 2009 John Matthews <jmatthew@redhat.com> 0.6.2-1
 - 494019 - Fixing the registration on python 2.6 to not include dbus.String
   objects in hardware profile as new xmlrpclib _dump method validates based on
