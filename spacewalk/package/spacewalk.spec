@@ -138,6 +138,13 @@ Solaris machines.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{_sysconfdir}
 echo "Spacewalk release %{version} (%{release_name})" > $RPM_BUILD_ROOT/%{_sysconfdir}/spacewalk-release
+install -d $RPM_BUILD_ROOT/%{_datadir}/spacewalk/setup/defaults.d
+for i in oracle postgresql ; do
+        cat <<EOF >$RPM_BUILD_ROOT/%{_datadir}/spacewalk/setup/defaults.d/$i-backend.conf
+# database backend to be used by spacewalk
+db-backend = $i
+EOF
+done
 
 %clean
 rm -rf %{buildroot}
@@ -147,8 +154,12 @@ rm -rf %{buildroot}
 %{_sysconfdir}/spacewalk-release
 
 %files oracle
+%defattr(-,root,root)
+%{_datadir}/spacewalk/setup/defaults.d/oracle-backend.conf
 
 %files postgresql
+%defattr(-,root,root)
+%{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
 * Tue Sep 01 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.1-1
