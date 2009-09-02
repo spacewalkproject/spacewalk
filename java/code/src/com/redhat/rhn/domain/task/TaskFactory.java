@@ -171,7 +171,7 @@ public class TaskFactory extends HibernateFactory {
      * @param nameIn to lookup
      * @return List of Tasks or null if not found.
      */
-    public static List getTaskListByNameLike(String nameIn) {
+    public static List<Task> getTaskListByNameLike(String nameIn) {
         return HibernateFactory.getSession().getNamedQuery("Task.lookupByNameLike")
           .setString("namelike", nameIn + "%")
           .list();

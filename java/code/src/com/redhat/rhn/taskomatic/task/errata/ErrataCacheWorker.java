@@ -34,8 +34,8 @@ import java.util.Map;
  */
 class ErrataCacheWorker implements QueueWorker {
     
-    private static final String BY_CHANNEL = "update_errata_cache_by_channel";
-    private static final String FOR_SERVER = "update_server_errata_cache";
+    public static final String BY_CHANNEL = "update_errata_cache_by_channel";
+    public static final String FOR_SERVER = "update_server_errata_cache";
 
     
     private Task task;

@@ -50,10 +50,10 @@ public class ErrataCacheDriver implements QueueDriver {
      * {@inheritDoc}
      */
     public List getCandidates() {
-        List tasks = TaskFactory.getTaskList(true, TaskFactory.NO_MAXIMUM);
+        List<Task> tasks = TaskFactory.getTaskListByNameLike(ErrataCacheWorker.BY_CHANNEL);
+        tasks.addAll(TaskFactory.getTaskListByNameLike(ErrataCacheWorker.FOR_SERVER));
         List retval = new LinkedList();
-        for (Iterator iter = tasks.iterator(); iter.hasNext();) {
-            Task current = (Task) iter.next();
+        for (Task current : tasks) {
             Map item = new HashMap();
             item.put("task", current);
             item.put("orgId", current.getOrg().getId());
