@@ -168,33 +168,25 @@ exit 0;
 sub choose_database_schema {
     my $answers = shift;
 
-    my @valid_schemas = ();
-    push(@valid_schemas, "oracle");
-    # Uncomment this to enable installation of postgresql schema:
-    # NOTE: useful for development ONLY at this time.
-    push(@valid_schemas, "postgresql");
-    my %is_valid_schema = ();
+    my %is_valid_schema = (
+	'oracle' => 1,
+	# Uncomment this to enable installation of postgresql schema:
+	# NOTE: useful for development ONLY at this time.
+	'postgresql' => 1,
+	);
 
-    if (scalar(@valid_schemas) eq 1) {
-        $answers->{'db-backend'} = $valid_schemas[0];
-    }
-    else {
-        print "Available database backends:\n";
-        # Hash just used for checking if a schema is valid:
-        while (my $i = shift @valid_schemas) {
-            print "   $i\n";
-            $is_valid_schema{$i} = 1;
-        }
+    my $question = "Choose your database backend ("
+	. join(", ", sort(keys(%is_valid_schema)))
+	. ")";
 
-        Spacewalk::Setup::ask(
+    Spacewalk::Setup::ask(
             -noninteractive => $opts{"non-interactive"},
-            -question => 'Database',
+            -question => $question,
             -test => sub {
                 my $text = shift;
                 $is_valid_schema{$text}
             },
             -answer => \$answers->{'db-backend'});
-    }
 
 }
 
