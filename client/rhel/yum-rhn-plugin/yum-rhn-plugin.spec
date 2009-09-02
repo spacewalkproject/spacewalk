@@ -51,9 +51,9 @@ make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RP
 %{_mandir}/man8/rhnplugin.8*
 %{_mandir}/man8/yum-rhn-plugin.8*
 
-/usr/lib/yum-plugins/rhnplugin.py
-/usr/lib/yum-plugins/rhnplugin.pyc
-/usr/lib/yum-plugins/rhnplugin.pyo
+%{_datadir}/yum-plugins/rhnplugin.py
+%{_datadir}/yum-plugins/rhnplugin.pyc
+%{_datadir}/yum-plugins/rhnplugin.pyo
 
 /usr/share/rhn/actions/packages.py
 /usr/share/rhn/actions/packages.pyc

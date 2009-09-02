@@ -2,7 +2,7 @@ PREFIX ?= /
 SYSCONF ?= etc
 PYTHON ?= python
 
-PKGDIR = /usr/lib/yum-plugins/
+PKGDIR = /usr/share/yum-plugins/
 
 PKGNAME = yum-rhn-plugin
 VERSION = $(shell echo `grep ^Version: $(PKGNAME).spec | awk '{ print $$2 }'`)
