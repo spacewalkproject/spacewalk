@@ -1,7 +1,7 @@
 %define release_name Gemini
 
 Name:           spacewalk
-Version:        0.7.1
+Version:        0.7.2
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -162,6 +162,9 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Wed Sep 02 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.2-1
+- added database backend to defaults
+
 * Tue Sep 01 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.1-1
 - let's change codename to something new
 - split spacewalk metapackage into spacewalk-oracle/postgresql
