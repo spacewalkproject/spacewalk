@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.7.3
+Version:        0.7.4
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -106,6 +106,10 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Wed Sep 02 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.4-1
+- db-backend is set in idefaults
+- 520441 - don't apply ExtUtils::MY->fixin(shift) to perl executables
+
 * Tue Sep 01 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.7.3-1
 - spacewalk-setup-jabberd code cleanup
 - manual page for spacewalk-setup-jabberd
