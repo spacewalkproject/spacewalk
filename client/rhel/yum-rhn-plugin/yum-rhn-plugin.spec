@@ -19,7 +19,8 @@ Requires: m2crypto >= 0.16-6
 
 # Not really, but for upgrades we need these
 Requires: rhn-setup
-Obsoletes: up2date
+Obsoletes: up2date < 5.0.0
+Provides: up2date = %{version}
 
 %description
 This yum plugin provides support for yum to access a Red Hat Network server for
