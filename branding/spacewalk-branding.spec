@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.7.0
+Version:    0.7.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -68,6 +68,11 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Sep 02 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.1-1
+- Add symlink capability to config management (joshua.roys@gtri.gatech.edu)
+- add the Chat graphic as an advertisement to the layouts
+- allow users to chat with spacewalk members on IRC via the web
+
 * Tue Jul 21 2009 John Matthews <jmatthew@redhat.com> 0.6.8-1
 - 510146 - Update copyright years from 2002-08 to 2002-09.
   (dgoodwin@redhat.com)
