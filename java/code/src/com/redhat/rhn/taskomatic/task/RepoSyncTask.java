@@ -16,6 +16,7 @@ package com.redhat.rhn.taskomatic.task;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.task.Task;
@@ -64,7 +65,9 @@ public class RepoSyncTask implements Job {
         
         for (Task task : TaskFactory.listTasks(DISPLAY_NAME)) {
             //workaround in case task is null (which can happen)
+
             if (task == null || task.getData() == null) {
+                TaskFactory.removeTask(task);
                 continue;
             }
             ContentSource src = ChannelFactory.lookupContentSource(task.getData());
@@ -74,8 +77,10 @@ public class RepoSyncTask implements Job {
             }
             if (src == null) {
                 log.error("Content Source could not be found: " + task.getData());
+                TaskFactory.removeTask(task);
                 continue;
             }
+            TaskFactory.removeTask(task);
             
             try {
                 Process p = Runtime.getRuntime().exec(
@@ -92,7 +97,6 @@ public class RepoSyncTask implements Job {
                 log.fatal(e.getMessage());
                 e.printStackTrace();
             }
-            TaskFactory.removeTask(task);
         }
     }
     
