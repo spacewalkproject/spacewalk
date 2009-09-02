@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.9
+Version: 5.9.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -105,6 +105,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Sep 02 2009 Michael Mraka <michael.mraka@redhat.com> 5.9.10-1
+- Add symlink capability to config management (joshua.roys@gtri.gatech.edu)
+- 519195 - fix typos in rhncfg-manager manual page
+
 * Thu Aug 20 2009 Miroslav Suchy <msuchy@redhat.com> 5.9.9-1
 - fix an ISE relating to config management w/selinux
 
