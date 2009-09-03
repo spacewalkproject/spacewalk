@@ -6,9 +6,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <class name="com.redhat.rhn.domain.user.legacy.PersonalInfo"
            table="WEB_USER_PERSONAL_INFO"
            lazy="false">
-        <id name="webUserId" type="long" column="web_user_id">
-            <generator class="foreign">
-                <param name="property">user</param>
+        <id name="id" type="long" column="id">
+            <meta attribute="scope-set">protected</meta>
+            <generator class="sequence">
+                <param name="sequence">web_user_personal_id_seq</param>
             </generator>
         </id>
         <property name="prefix" column="prefix" type="string" length="12" />
@@ -19,11 +20,29 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="phone" column="phone" type="string" length="128" />
         <property name="fax" column="fax" type="string" length="128" />
         <property name="email" column="email" type="string" length="128" />
+        <property name="login" column="login" type="string" length="64" />
+        <property name="loginUc" column="login_uc" type="string" length="64" />
+        <!-- Make sure we set access=field on password, since the setPassword method of
+             UserImpl encodes the password every time -->        
+        <property name="password" column="password" type="string" length="38" access="field" />
         <property name="created" type="timestamp" insert="false" update="false" />
         <property name="modified" type="timestamp" insert="false" update="false" />
+        
+        <many-to-one name="defaultOrg"
+                     column="default_org"
+                     class="com.redhat.rhn.domain.org.OrgImpl"
+                     outer-join="true"
+                     not-null="true" />        
 
-        <one-to-one name="user"
+
+      <set name="users" table="web_contact" lazy="true"
+			inverse="true" cascade="none">
+            <key column="personal_info_id" />
+            <one-to-many class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"/>
+        </set>
+
+       <!--   <one-to-one name="user"
                     class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"
-                    constrained="true" />
+                    constrained="true" />-->
     </class>
 </hibernate-mapping>

@@ -463,12 +463,6 @@ public interface User {
     void setIsPoBox(String isPoBoxIn);
 
     /**
-     * Get the EnterpriseUser
-     * @return enterprise user
-     */
-    EnterpriseUser getEnterpriseUser();
-
-    /**
      * Retrieves the set of  Pane object instances
      * This method retrieves the
      * @return Set of panes used by the user

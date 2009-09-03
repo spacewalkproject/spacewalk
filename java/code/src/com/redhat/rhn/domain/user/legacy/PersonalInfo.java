@@ -15,7 +15,13 @@
 
 package com.redhat.rhn.domain.user.legacy;
 
+import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.util.MD5Crypt;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
+
+import java.util.Set;
 
 /**
  * Class PersonalInfo that reflects the DB representation of WEB_USER_PERSONAL_INFO
@@ -24,6 +30,7 @@ import com.redhat.rhn.domain.user.User;
  */
 public class PersonalInfo extends AbstractUserChild {
 
+    private Long id;
     private String prefix;
     private String firstNames;
     private String lastName;
@@ -32,20 +39,96 @@ public class PersonalInfo extends AbstractUserChild {
     private String phone;
     private String fax;
     private String email;
-    private User user;
-
+    private String password;
+    private String login;
+    private String loginUc;
+    private Set<User> users;
+    private Org defaultOrg;
+    
     /**
      * Create a new empty user
      */
     protected PersonalInfo() {
     }
-
-    protected void setUser(User u) {
-        user = u;
+    
+    
+    /**
+     * @return Returns the id.
+     */
+    public Long getId() {
+        return id;
     }
 
-    protected User getUser() {
-        return user;
+    
+    /**
+     * @param id The id to set.
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    /**
+     * @return Returns the login.
+     */
+    public String getLogin() {
+        return login;
+    }
+
+    
+    /**
+     * @param loginIn The login to set.
+     */
+    public void setLogin(String loginIn) {
+        this.setLoginUc(loginIn.toUpperCase());
+        this.login = loginIn;
+    }
+
+    
+    /**
+     * @return Returns the loginUC.
+     */
+    public String getLoginUc() {
+        return loginUc;
+    }
+
+    
+    /**
+     * @param loginUCIn The loginUC to set.
+     */
+    public void setLoginUc(String loginUCIn) {
+        this.loginUc = loginUCIn;
+    }
+
+    /**
+     * @return Returns the password.
+     */
+    public String getPassword() {
+        return password;
+    }
+    
+    /**
+     * @param passwordIn The password to set.
+     */
+    public void setPassword(String passwordIn) {
+        /**
+         * If we're using encrypted passwords, encode the
+         * password before setting it. Otherwise, just
+         * set it.
+         */
+        if (Config.get().getBoolean(ConfigDefaults.WEB_ENCRYPTED_PASSWORDS)) {
+            this.password = MD5Crypt.crypt(passwordIn);
+        }
+        else {
+            this.password = passwordIn;
+        }
+    }
+
+    protected void setUsers(Set<User> u) {
+        users = u;
+    }
+
+    protected Set<User> getUsers() {
+        return users;
     }
 
     /**
@@ -174,5 +257,23 @@ public class PersonalInfo extends AbstractUserChild {
      */
     public void setEmail(String emailIn) {
         this.email = emailIn;
+    }
+
+
+    
+    /**
+     * @return Returns the defaultOrg.
+     */
+    public Org getDefaultOrg() {
+        return defaultOrg;
+    }
+
+
+    
+    /**
+     * @param defaultOrgIn The defaultOrg to set.
+     */
+    public void setDefaultOrg(Org defaultOrgIn) {
+        this.defaultOrg = defaultOrgIn;
     }
 }

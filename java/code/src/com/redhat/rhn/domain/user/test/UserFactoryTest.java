@@ -29,6 +29,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.domain.user.UserServerPreference;
 import com.redhat.rhn.domain.user.UserServerPreferenceId;
+import com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestStatics;
@@ -277,8 +278,8 @@ public class UserFactoryTest extends RhnBaseTestCase {
 
         assertNotNull(usr.getOrg());
 
-        assertNotNull(usr.getEnterpriseUser().getAddress());
-        Address dbAddr = usr.getEnterpriseUser().getAddress();
+        assertNotNull(((LegacyRhnUserImpl) usr).getAddress());
+        Address dbAddr = ((LegacyRhnUserImpl) usr).getAddress();
         assertTrue(dbAddr.getId().intValue() > 0);
         assertEquals("444 Castro", dbAddr.getAddress1());
     }

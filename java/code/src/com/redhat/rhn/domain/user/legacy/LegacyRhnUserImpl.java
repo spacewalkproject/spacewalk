@@ -58,12 +58,7 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
 
     private static final Logger LOG = Logger.getLogger(LegacyRhnUserImpl.class);
 
-    //private Address address;
-    private EnterpriseUserImpl euser;
     private Long id;
-    private String login;
-    private String loginUc;
-    private String password;
     private Set usergroups;
     private Org org;
     private Set stateChanges;
@@ -87,8 +82,6 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
      */
     public LegacyRhnUserImpl() {
         usergroups = new HashSet();
-        personalInfo = new PersonalInfo();
-        personalInfo.setUser(this);
         userInfo = new UserInfo();
         userInfo.setUser(this);
         stateChanges = new TreeSet();
@@ -118,7 +111,7 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
      * @return String the current value
      */
     public String getLogin() {
-        return this.login;
+        return this.getPersonalInfo().getLogin();
     }
 
     /**
@@ -126,8 +119,7 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
      * @param loginIn New value for login
      */
     public void setLogin(String loginIn) {
-        this.login = loginIn;
-        setLoginUc(loginIn.toUpperCase());
+        this.getPersonalInfo().setLogin(loginIn);
     }
 
     /**
@@ -135,7 +127,7 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
      * @return String the current value
      */
     public String getLoginUc() {
-        return this.loginUc;
+        return this.getPersonalInfo().getLoginUc();
     }
 
     /**
@@ -143,7 +135,7 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
      * @param loginUcIn New value for loginUc
      */
     public void setLoginUc(String loginUcIn) {
-        this.loginUc = loginUcIn;
+        this.getPersonalInfo().setLoginUc(loginUcIn);
     }
 
     /**
@@ -151,7 +143,7 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
      * @return String the current value
      */
     public String getPassword() {
-        return this.password;
+        return this.getPersonalInfo().getPassword();
     }
 
     /**
@@ -159,17 +151,7 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
      * @param passwordIn New value for password
      */
     public void setPassword(String passwordIn) {
-        /**
-         * If we're using encrypted passwords, encode the
-         * password before setting it. Otherwise, just
-         * set it.
-         */
-        if (Config.get().getBoolean(ConfigDefaults.WEB_ENCRYPTED_PASSWORDS)) {
-            this.password = MD5Crypt.crypt(passwordIn);
-        }
-        else {
-            this.password = passwordIn;
-        }
+        this.getPersonalInfo().setPassword(passwordIn);
     }
 
     /**
@@ -281,10 +263,10 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
             boolean useEncrPasswds =
                 Config.get().getBoolean(ConfigDefaults.WEB_ENCRYPTED_PASSWORDS);
             if (useEncrPasswds) {
-                result = MD5Crypt.crypt(thePassword, password).equals(password);
+                result = MD5Crypt.crypt(thePassword, this.getPassword()).equals(this.getPassword());
             }
             else {
-                result = password.equals(thePassword);
+                result = this.getPassword().equals(thePassword);
             }
             if (LOG.isDebugEnabled() && !useEncrPasswds) {
                 String encr = useEncrPasswds ? "with" : "without";
@@ -622,7 +604,7 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
             return false;
         }
         User otherUser = (User) other;
-        return new EqualsBuilder().append(login, otherUser.getLogin())
+        return new EqualsBuilder().append(this.getLogin(), otherUser.getLogin())
                                   .append(org, otherUser.getOrg())
                                   .append(id, otherUser.getId())
                                   .isEquals();
@@ -632,7 +614,7 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
      * {@inheritDoc}
      */
     public int hashCode() {
-        return new HashCodeBuilder().append(login).append(org).append(id).toHashCode();
+        return new HashCodeBuilder().append(this.getLogin()).append(org).append(id).toHashCode();
     }
 
     /**
@@ -751,16 +733,6 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
     /**
      * {@inheritDoc}
      */
-    public EnterpriseUser getEnterpriseUser() {
-        if (euser == null) {
-            euser = new EnterpriseUserImpl();
-        }
-        return euser;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public Set getHiddenPanes() {
         return hiddenPanes;
     }
@@ -777,7 +749,7 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
         addresses.add(addIn);
     }
 
-    protected Address getAddress() {
+    public Address getAddress() {
         Address baddr = null;
         Address addr = null;
         Address[] addrA = (Address[]) addresses.toArray(new Address[addresses.size()]);
@@ -823,318 +795,6 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
      */
     protected Set getAddresses() {
         return addresses;
-    }
-
-    /**
-     * Default POJO imple of EnterpriseUser done as an internal
-     * class to facilitate compatibility between hosted/sat.
-     * EnterpriseUserImpl
-     * @version $Rev$
-     */
-    class EnterpriseUserImpl extends BaseDomainHelper
-                implements EnterpriseUser {
-
-        /**
-        * Default constructor
-        *
-        */
-        protected EnterpriseUserImpl() {
-        }
-
-        /**
-        * Gets the current value of id
-        * @return long the current value
-        */
-        public Long getId() {
-            return id;
-        }
-
-        /**
-        * Sets the value of id to new value
-        * @param idIn New value for id
-        */
-        public void setId(Long idIn) {
-        }
-
-        /**
-        * Add a User to this instance.
-        *
-        * @param u a User to add
-        */
-        public void addUser(User u) {
-        }
-
-        /**
-        * Remove a User from this instance.
-        *
-        * @param u the User to remove
-        */
-        public void removeUser(User u) {
-        }
-
-        /**
-        * Return an iterator over all Users associated with
-        * this instance.
-        *
-        * @return Iterator an iterator over all users
-        */
-        public Iterator allUsers() {
-            return null;
-        }
-
-        /**
-        * Find the user having the id provided. Return null if
-        * not found.
-        * @param idIn id to use
-        * @return User or null
-        */
-        public User findUserById(Long idIn) {
-            return null;
-        }
-
-        /**
-        * Gets the current value of login
-        * @return String the current value
-        */
-        public String getLogin() {
-            return login;
-        }
-
-        /**
-        * Sets the value of login to new value
-        * @param loginIn New value for login
-        */
-        public void setLogin(String loginIn) {
-            login = loginIn;
-        }
-
-        /**
-        * Gets the current value of password
-        * @return String the current value
-        */
-        public String getPassword() {
-            return password;
-        }
-
-        /**
-        * Sets the value of password to new value
-        * @param passwordIn New value for password
-        */
-        public void setPassword(String passwordIn) {
-            /**
-            * If we're using encrypted passwords, encode the
-            * password before setting it. Otherwise, just
-            * set it.
-            */
-            if (Config.get().getBoolean(ConfigDefaults.WEB_ENCRYPTED_PASSWORDS)) {
-                password = MD5Crypt.crypt(passwordIn);
-            }
-            else {
-                password = passwordIn;
-            }
-        }
-
-        /**
-        * Gets the current value of prefix
-        * @return String the current value
-        */
-        public String getPrefix() {
-            return personalInfo.getPrefix();
-        }
-
-        /**
-        * Sets the value of prefix to new value
-        * @param prefixIn New value for prefix
-        */
-        public void setPrefix(String prefixIn) {
-            personalInfo.setPrefix(prefixIn);
-        }
-
-        /**
-        * Gets the current value of firstNames
-        * @return String the current value
-        */
-        public String getFirstNames() {
-            return personalInfo.getFirstNames();
-        }
-
-        /**
-        * Sets the value of firstNames to new value
-        * @param firstNamesIn New value for firstNames
-        */
-        public void setFirstNames(String firstNamesIn) {
-            personalInfo.setFirstNames(firstNamesIn);
-        }
-
-        /**
-        * Gets the current value of lastName
-        * @return String the current value
-        */
-        public String getLastName() {
-            return personalInfo.getLastName();
-        }
-
-        /**
-        * Sets the value of lastName to new value
-        * @param lastNameIn New value for lastName
-        */
-        public void setLastName(String lastNameIn) {
-            personalInfo.setLastName(lastNameIn);
-        }
-
-        /**
-        * Gets the current value of title
-        * @return String the current value
-        */
-        public String getTitle() {
-            return personalInfo.getTitle();
-        }
-
-        /**
-        * Sets the value of title to new value
-        * @param titleIn New value for title
-        */
-        public void setTitle(String titleIn) {
-            personalInfo.setTitle(titleIn);
-        }
-
-        /**
-        * Gets the current value of email
-        * @return String the current value
-        */
-        public String getEmail() {
-            return personalInfo.getEmail();
-        }
-
-        /**
-        * Sets the value of email to new value
-        * @param emailIn New value for email
-        */
-        public void setEmail(String emailIn) {
-            personalInfo.setEmail(emailIn);
-        }
-
-        /**
-        * Getter for lastLoggedIn
-        * @return lastLoggedIn
-        */
-        public Date getLastLoggedIn() {
-            return userInfo.getLastLoggedIn();
-        }
-
-        /**
-        * Setter for lastLoggedIn
-        * @param lastLoggedInIn New value for lastLoggedIn
-        */
-        public void setLastLoggedIn(Date lastLoggedInIn) {
-            userInfo.setLastLoggedIn(lastLoggedInIn);
-        }
-
-        /**
-        * @inheritDoc
-        * @param modifiedIn the modified date
-        */
-        public void setModified(Date modifiedIn) {
-        }
-
-        /**
-        * @inheritDoc
-        * @return date modified
-        */
-        public Date getModified() {
-            return null;
-        }
-
-        /**
-        * @inheritDoc
-        * @param createdIn date created in
-        */
-        public void setCreated(Date createdIn) {
-        }
-
-        /**
-        * @inheritDoc
-        * @return date was created
-        */
-        public Date getCreated() {
-            return null;
-        }
-
-        /**
-        * @return Returns the timeZone.
-        */
-        public RhnTimeZone getTimeZone() {
-            return userInfo.getTimeZone();
-        }
-        /**
-        * @param timeZoneIn The timeZone to set.
-        */
-        public void setTimeZone(RhnTimeZone timeZoneIn) {
-            userInfo.setTimeZone(timeZoneIn);
-        }
-
-        /**
-        * Set the address of this enterprise user.
-        * @param addressIn the address to set
-        */
-        public void setAddress(Address addressIn) {
-            addresses.clear();
-            addresses.add(addressIn);
-        }
-
-        /**
-        *
-        * @return returns the address info
-        */
-        public Address getAddress() {
-            Address baddr = null;
-            Address addr = null;
-            Address[] addrA = (Address[]) addresses.toArray(new Address[addresses.size()]);
-            if (addresses.size() > 0) {
-                for (int i = 0; i < addrA.length; i++) {
-                    if (addrA[i].getType().equals(Address.TYPE_MARKETING)) {
-                        addr = addrA[i];
-                    }
-                    if (addrA[i].getType().equals("B")) {
-                        baddr = addrA[i];
-                    }
-                }
-            }
-            if (addr == null) {
-                addr = UserFactory.createAddress();
-                if (baddr != null) {
-                    addr.setAddress1(baddr.getAddress1());
-                    addr.setAddress2(baddr.getAddress2());
-                    addr.setCity(baddr.getCity());
-                    addr.setCountry(baddr.getCountry());
-                    addr.setFax(baddr.getFax());
-                    addr.setIsPoBox(baddr.getIsPoBox());
-                    addr.setPhone(baddr.getPhone());
-                    addr.setState(baddr.getState());
-                    addr.setZip(baddr.getZip());
-                }
-                addresses.add(addr);
-            }
-            return addr;
-        }
-
-
-
-        /**
-        *
-        * @param companyIn the company value
-        */
-        public void setCompany(String companyIn) {
-            personalInfo.setCompany(companyIn);
-        }
-
-        /**
-        *
-        * @return returns the company value
-        */
-        public String getCompany() {
-            return personalInfo.getCompany();
-        }
     }
     
     /** {@inheritDoc} */

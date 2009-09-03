@@ -24,7 +24,7 @@ SELECT EVENT_ID as ID,
          WHERE SH.server_id = :sid
          UNION
         SELECT SA.action_id EVENT_ID,
-               AType.name || ' scheduled by ' || NVL(U.login, '(none)') AS SUMMARY,
+               AType.name || ' scheduled by ' || NVL(pinfo.login, '(none)') AS SUMMARY,
                SA.created,
                SA.pickup_time AS picked_up,
                SA.completion_time AS completed,
@@ -36,12 +36,14 @@ SELECT EVENT_ID as ID,
                rhnActionStatus AStat,
                rhnUser U,
                rhnAction A,
-               rhnServerAction SA
+               rhnServerAction SA,
+               web_user_personal_info pinfo
          WHERE SA.server_id = :sid
            AND SA.action_id = A.id
            AND ATYPE.id = A.action_type
            AND AStat.id = SA.status
            AND U.id(+) = A.scheduler
+           AND pinfo.id(+) = U.personal_info_id
            AND AStat.id IN (1, 2, 3)
        ) X
 ORDER BY COMPLETED DESC, PICKED_UP DESC, CREATED DESC, EVENT_ID DESC
@@ -97,15 +99,16 @@ SELECT  DISTINCT UAO.id as ID,
         UAO.type_name,
         (DECODE(UAO.action_name, NULL, UAO.type_name, UAO.action_name)) AS ACTION_NAME,
         UAO.scheduler,
-        WC.login AS SCHEDULER_NAME,
-      	 UAO.action_status,
+        pinfo.login AS SCHEDULER_NAME,
+      	UAO.action_status,
        	UAO.tally        
-  FROM  rhnUserActionOverview UAO, rhnAction A, web_contact WC
+  FROM  rhnUserActionOverview UAO, rhnAction A, web_contact WC, web_user_personal_info pinfo
  WHERE  UAO.org_id = :org_id
    AND  UAO.user_id = :user_id
    AND  UAO.archived = 0
    AND  UAO.id = A.id
    AND  WC.id = UAO.scheduler
+   AND  pinfo.id = WC.personal_info_id
    AND  UAO.id IN (%s)
 </query>
 
@@ -117,12 +120,13 @@ SELECT  DISTINCT UAO.id AS ID,
         UAO.type_name,
         (DECODE(UAO.action_name, NULL, UAO.type_name, UAO.action_name)) AS ACTION_NAME,
         UAO.scheduler,
-        WC.login AS SCHEDULER_NAME
-  FROM  rhnUserActionOverview UAO, web_contact WC
+        pinfo.login AS SCHEDULER_NAME
+  FROM  rhnUserActionOverview UAO, web_contact WC, web_user_personal_info pinfo
  WHERE  UAO.org_id = :org_id
    AND  UAO.user_id = :user_id
    AND  UAO.action_status_id IN (0,1)
    AND  UAO.archived = 0
+   AND  pinfo.id = WC.personal_info_id   
    AND  WC.id = UAO.scheduler
 ORDER BY EARLIEST DESC
   </query>
@@ -162,11 +166,12 @@ SELECT  DISTINCT UAO.id AS ID,
         UAO.type_name,
         (DECODE(UAO.action_name, NULL, UAO.type_name, UAO.action_name)) AS ACTION_NAME,
         UAO.scheduler,
-        WC.login AS SCHEDULER_NAME
-  FROM  rhnUserActionOverview UAO, web_contact WC
+        pinfo.login AS SCHEDULER_NAME
+  FROM  rhnUserActionOverview UAO, web_contact WC, web_user_personal_info pinfo
  WHERE  UAO.org_id = :org_id
    AND  UAO.user_id = :user_id
    AND  WC.id = UAO.scheduler
+   AND  pinfo.id = WC.personal_info_id   
 ORDER BY EARLIEST DESC
   </query>
 
@@ -182,12 +187,13 @@ SELECT  DISTINCT UAO.id AS ID,
         UAO.type_name,
         (DECODE(UAO.action_name, NULL, UAO.type_name, UAO.action_name)) AS ACTION_NAME,
         UAO.scheduler,
-        WC.login AS SCHEDULER_NAME
-  FROM  rhnUserActionOverview UAO, web_contact WC
+        pinfo.login AS SCHEDULER_NAME
+  FROM  rhnUserActionOverview UAO, web_contact WC,  web_user_personal_info pinfo
  WHERE  UAO.org_id = :org_id
    AND  UAO.user_id = :user_id
    AND  UAO.action_status_id = 2
    AND  UAO.archived = 0
+   AND  pinfo.id = WC.personal_info_id      
    AND  WC.id = UAO.scheduler
 ORDER BY EARLIEST DESC
   </query>
@@ -204,12 +210,13 @@ SELECT  DISTINCT UAO.id AS ID,
         UAO.type_name,
         (DECODE(UAO.action_name, NULL, UAO.type_name, UAO.action_name)) AS ACTION_NAME,
         UAO.scheduler,
-        WC.login AS SCHEDULER_NAME
-  FROM  rhnUserActionOverview UAO, web_contact WC
+        pinfo.login AS SCHEDULER_NAME
+  FROM  rhnUserActionOverview UAO, web_contact WC,  web_user_personal_info pinfo
  WHERE  UAO.org_id = :org_id
    AND  UAO.user_id = :user_id
    AND  UAO.action_status_id  = 3
    AND  UAO.archived = 0
+   AND  pinfo.id = WC.personal_info_id      
    AND  WC.id = UAO.scheduler
 ORDER BY EARLIEST DESC
   </query>
@@ -226,11 +233,12 @@ SELECT  DISTINCT UAO.id AS ID,
         UAO.earliest_action AS EARLIEST,
         UAO.type_name,
         (DECODE(UAO.action_name, NULL, UAO.type_name, UAO.action_name)) AS ACTION_NAME,
-        WC.login AS SCHEDULER_NAME
-  FROM  rhnUserActionOverview UAO, web_contact WC
+        pinfo.login AS SCHEDULER_NAME
+  FROM  rhnUserActionOverview UAO, web_contact WC,  web_user_personal_info pinfo
  WHERE  UAO.org_id = :org_id
    AND  UAO.user_id = :user_id
    AND  UAO.archived = 1
+   AND  pinfo.id = WC.personal_info_id        
    AND  WC.id = UAO.scheduler
 ORDER BY EARLIEST DESC
   </query>

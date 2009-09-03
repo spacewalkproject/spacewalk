@@ -11,21 +11,16 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">WEB_CONTACT_ID_SEQ</param>
             </generator>
         </id>
-        <property name="login" column="login" type="string" length="64" />
-        <property name="loginUc" column="login_uc" type="string" length="64" />
-        <!-- Make sure we set access=field on password, since the setPassword method of
-             UserImpl encodes the password every time -->
-        <property name="password" column="password" type="string" length="38" access="field" />
 
         <property name="created" column="created" type="timestamp"
                   insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp"
                   insert="false" update="false"/>
-        <one-to-one name="personalInfo"
+        <many-to-one name="personalInfo"
                     class="com.redhat.rhn.domain.user.legacy.PersonalInfo"
                     outer-join="true"
                     cascade="all"
-                    constrained="true" />
+                    column="personal_info_id"/>
         <one-to-one name="userInfo"
                     class="com.redhat.rhn.domain.user.legacy.UserInfo"
                     outer-join="true"
@@ -79,10 +74,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </class>
 
     <query name="User.findByLogin">
-        <![CDATA[from com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl as u where u.loginUc = :loginUc]]>
+        <![CDATA[from com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl as u 
+        		where u.personalInfo.loginUc = :loginUc 
+        		and u.personalInfo.defaultOrg = u.org]]>
     </query>
    <query name="User.findByLoginAndOrgId">
-        <![CDATA[from com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl as u where u.loginUc = :loginUc and org_id = :orgId]]>
+        <![CDATA[from com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl as u where u.personalInfo.loginUc = :loginUc and org_id = :orgId]]>
     </query>    
     <query name="User.findByIdandOrgId">
         <![CDATA[from com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl as u where u.id = :uid and org_id = :orgId]]>

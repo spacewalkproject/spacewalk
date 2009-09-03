@@ -29,6 +29,7 @@ import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.user.Address;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl;
 import com.redhat.rhn.manager.user.UserManager;
 
 import java.util.Set;
@@ -219,7 +220,7 @@ public class UserTestUtils extends Assert {
         user.setCountry("US");
         user.setPhone("650-555-1212");
         user.setFax("650-555-1212");
-        return user.getEnterpriseUser().getAddress();
+        return ((LegacyRhnUserImpl) user).getAddress();
     }
 
     /**

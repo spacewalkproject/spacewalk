@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.user;
 
 import com.redhat.rhn.domain.user.Address;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -60,17 +61,13 @@ public class AddressesAction extends RhnAction {
         // Set the User on the Request
         request.setAttribute(RhnHelper.TARGET_USER, user);
 
+        LegacyRhnUserImpl lUser = (LegacyRhnUserImpl) user;
+    
+        
         // Set the Addresses on the Request
-        Address marketing = user.getEnterpriseUser().getAddress();
-            //UserManager.getMostRecentAddressByType(user, Address.TYPE_MARKETING);
-        //Address billing =
-            //UserManager.getMostRecentAddressByType(user, Address.TYPE_BILLING);
-        //Address shipping =
-            //UserManager.getMostRecentAddressByType(user, Address.TYPE_SHIPPING);
+        Address marketing = lUser.getAddress();
 
         request.setAttribute(RhnHelper.TARGET_ADDRESS_MARKETING, marketing);
-        //request.setAttribute(RhnHelper.TARGET_ADDRESS_BILLING, billing);
-        //request.setAttribute(RhnHelper.TARGET_ADDRESS_SHIPPING, shipping);
         return mapping.findForward("default");
     }
 
