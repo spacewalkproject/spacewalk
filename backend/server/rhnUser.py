@@ -37,9 +37,6 @@ class User:
         # placeholders for the table schemas
         # web_contact
         self.contact = rhnSQL.Row("web_contact", "id")
-        self.contact["login"] = username
-        self.contact["password"] = password
-        self.contact["old_password"] = password
         # web_customer
         self.customer = rhnSQL.Row("web_customer", "id")
         self.customer["name"] = username
@@ -57,7 +54,11 @@ class User:
     def __init_info(self):
         # web_user_personal_info
         self.info = rhnSQL.Row("web_user_personal_info",
-                                         "web_user_id")
+                                         "id")
+        self.info["login"] = username
+        self.info["password"] = password
+        self.info["old_password"] = password
+        
         self.info['first_names'] =  "Valued"
         self.info['last_name'] = "Customer"
         self.info['prefix'] = "Mr."
