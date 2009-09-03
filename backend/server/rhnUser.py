@@ -411,8 +411,10 @@ def session_reload(session_string):
 def get_user_id(username):
     username = str(username)
     h = rhnSQL.prepare("""
-    select w.id from web_contact w
-    where w.login_uc = upper(:username)
+    select w.id 
+    from web_contact  w inner join
+         web_user_personal_info p on w.personal_info_id = p.id
+    where p.login_uc = upper(:username) and w.org_id = p.default_org
     """)
     h.execute(username=username)
     data = h.fetchone_dict()
