@@ -99,16 +99,16 @@ class User:
                 from web_contact w, rhnUserInfo ui
                 where w.login_uc = UPPER(:login)
                 and w.id = ui.user_id""")
-            h.execute(login=self.contact["login"])
+            h.execute(login=self.info["login"])
             data = h.fetchone_dict()
             if not data:
                 # This should not happen
                 raise rhnException("No entry found for user %s" %
-                    self.contact["login"])
+                    self.info["login"])
             if data['use_pam_authentication'] == 'Y':
                 # use PAM
                 import rhnAuthPAM 
-                return rhnAuthPAM.check_password(self.contact["login"], 
+                return rhnAuthPAM.check_password(self.info["login"], 
                     password, CFG.pam_auth_service)
             # If the entry in rhnUserInfo is 'N', perform regular
             # authentication
