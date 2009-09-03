@@ -637,7 +637,7 @@ class NoTgzBuilder(Builder):
         self._setup_sources()
         self.ran_tgz = True
 
-        source_suffixes = ('.tar.gz', '.tar', '.zip', '.jar')
+        source_suffixes = ('.tar.gz', '.tar', '.zip', '.jar', '.tar.bz2')
         debug("Scanning for sources.")
         for filename in os.listdir(self.rpmbuild_gitcopy):
             for suffix in source_suffixes:
