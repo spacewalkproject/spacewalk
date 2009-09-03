@@ -95,6 +95,22 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl as u where org_id = :org_id]]>
     </query>
     
+    <query name="User.listAllOrgsForUser">
+        <![CDATA[
+        select o
+        from com.redhat.rhn.domain.org.OrgImpl as o,
+             com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl as u 
+        where u.org = o and u.personalInfo.login = :login]]>
+    </query>    
+      
+   <query name="User.lookupByOrgAndLogin">
+        <![CDATA[
+        select u
+        from com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl as u 
+        where u.org = :org and u.personalInfo.login = :login]]>
+    </query>    
+    
+    
     <query name="User.findAllOrgAdmins">
         <![CDATA[
             select u

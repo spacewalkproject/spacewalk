@@ -15,7 +15,43 @@
 	</div>
 	<div id="utilityAccount">
         <p>
-         <span class="label"><bean:message key="header.jsp.loggedin"/></span> <a href="/rhn/account/UserDetails.do"><c:out escapeXml="true" value="${requestScope.session.user.login}" /></a><span class="navPipe">|</span><span class="label"><bean:message key="header.jsp.org"/></span> <a><c:out escapeXml="true" value="${requestScope.session.user.org.name}" /></a><span class="navPipe">|</span><a href="/rhn/account/UserPreferences.do"><bean:message key="header.jsp.preferences"/></a><span class="navPipe">|</span><html:link forward="logout"><span><bean:message key="header.jsp.signout"/></span></html:link>
+         <span class="label">
+             <bean:message key="header.jsp.loggedin"/>
+         </span> 
+         <a href="/rhn/account/UserDetails.do">
+             <c:out escapeXml="true" value="${requestScope.session.user.login}" />
+         </a>
+         <span class="navPipe">|</span>
+         <span class="label">
+             <bean:message key="header.jsp.org"/>
+         </span> 
+         
+         
+         
+          <span class="label">
+         <form action="/rhn/SwitchOrgs.do">
+             <select name="selected_org" onchange="this.form.submit();">
+                 <c:forEach var="org" items="${requestScope.session.user.userOrgs}">
+                 <option value="${org.id}" 
+                 		<c:if test="${org.id == requestScope.session.user.org.id}">selected </c:if>
+                     >${org.name}</option>
+                 </c:forEach>
+            </select>
+         </form>  
+         </span>
+          <!-- <c:out escapeXml="true" value="${requestScope.session.user.org.name}" /> -->
+         
+         
+         
+         <span class="navPipe">|</span>
+         <a href="/rhn/account/UserPreferences.do">
+             <bean:message key="header.jsp.preferences"/></a>
+         <span class="navPipe">|</span>
+         <html:link forward="logout">
+             <span>
+                 <bean:message key="header.jsp.signout"/>
+             </span>
+         </html:link>
         </p>
 	</div>
 </div>

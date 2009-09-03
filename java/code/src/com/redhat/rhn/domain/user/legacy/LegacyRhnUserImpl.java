@@ -44,6 +44,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -842,6 +843,11 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
     public void removeServer(Server server) {
         servers.remove(server);
     }
+    
+    public List<Org> getUserOrgs() {
+        return UserFactory.getInstance().listOrgsForUser(this);
+    }
+    
 }
 
 

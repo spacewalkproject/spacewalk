@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.server.Server;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -537,4 +538,7 @@ public interface User {
      * @param server Server to remove permission for.
      */
     void removeServer(Server server);
+    
+    public List<Org> getUserOrgs();
+    
 }

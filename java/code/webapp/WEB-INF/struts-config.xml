@@ -1084,6 +1084,15 @@
           <forward name="loggedin" path="/YourRhn.do" redirect="true"/>
     </action>
     
+    <action path="/SwitchOrgs"
+            scope="request"
+            input="/WEB-INF/pages/common/login.jsp"
+            type="com.redhat.rhn.frontend.action.SwitchOrgsAction"
+            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+          <forward name="default" path="/YourRhn.do" redirect="true"/>
+    </action>    
+    
+    
     <action path="/LoginSubmit"
         name="loginForm"
         scope="request"

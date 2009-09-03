@@ -711,4 +711,20 @@ public  class UserFactory extends HibernateFactory {
         return (List<User>)listObjectsByNamedQuery("User.findAllOrgAdmins", params);
     }
 
+    
+    public List<Org> listOrgsForUser(User user) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("login", user.getLogin());
+        return (List<Org>)listObjectsByNamedQuery("User.listAllOrgsForUser", params);
+    }
+ 
+    public User lookupUserForOrg(Org org, String login) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("org", org);
+        params.put("login", login);
+        return (User) lookupObjectByNamedQuery("User.lookupByOrgAndLogin", params);
+    }
+    
+    
+    
 }
