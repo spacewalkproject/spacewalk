@@ -83,8 +83,8 @@ class User:
 
     # simple check for a password that might become more complex sometime
     def check_password(self, password):
-        good_pwd = str(self.contact["password"])
-        old_pwd = str(self.contact["old_password"])
+        good_pwd = str(self.info["password"])
+        old_pwd = str(self.info["old_password"])
         if CFG.pam_auth_service:
             # a PAM service is defined
             # We have to check the user's rhnUserInfo.use_pam_authentication
@@ -279,7 +279,7 @@ class User:
                 log_debug(5, "Obfuscating user password")
                 user_pwd = self.contact["password"]
                 crypt_pwd = crypt.crypt(user_pwd, str(userid)[-2:])
-                self.contact["password"] = crypt_pwd
+                self.info["password"] = crypt_pwd
             self.contact.create(userid)
             # rhnUserInfo
             h = rhnSQL.prepare("insert into rhnUserInfo (user_id) "
@@ -363,7 +363,7 @@ class User:
                                   { "userid" : user_id }):
             self.__init_site()
         # Fix the username
-        self.username = self.contact['login']
+        self.username = self.info['login']
         return 0
 
     def create_session(self):
