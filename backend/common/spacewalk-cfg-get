@@ -27,5 +27,10 @@ cfg.parse()
 if list:
     cfg.show()
 else:
-    print cfg.get(key)
+    val = cfg.get(key)
+    if isinstance(val, list):
+        for i in val:
+            print i
+    else:
+        print val
 
