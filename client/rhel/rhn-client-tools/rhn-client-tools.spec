@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.7.1
+Version: 0.7.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -215,6 +215,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Fri Sep  4 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.2-1
+- Rhpl was removed from rhel client packages (lukas.durfina@gmail.com)
+ 
 * Tue Sep  1 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.1-1
 - change appeareance of icon and put it to Administration rather then to Preferences
 - add scriplet to refres icon cache
