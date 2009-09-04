@@ -378,7 +378,7 @@ sub log_rotate {
 }
 
 sub check_users_exist {
-    my @required_users = shift;
+    my @required_users = @_;
 
     my $missing_a_user;
 
@@ -396,7 +396,7 @@ sub check_users_exist {
 }
 
 sub check_groups_exist {
-    my @required_groups = shift;
+    my @required_groups = @_;
 
     my $missing_a_group;
 
