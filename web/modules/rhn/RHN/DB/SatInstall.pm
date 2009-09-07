@@ -334,27 +334,6 @@ EOQ
   return;
 }
 
-sub update_monitoring_environment {
-  my $class = shift;
-
-  my $dbh = RHN::DB->connect;
-  # BZ 226915 we cannot use db_name from %answers - it contains instance name
-  # we want real db name
-  my ($db_name) = $dbh->selectrow_array(q|SELECT UPPER(sys_context('userenv', 'db_name')) FROM dual|);
-
-  my $sth = $dbh->prepare(<<EOQ);
-UPDATE rhn_db_environment
-   SET db_name = UPPER(:db_name)
- WHERE environment = 'LICENSE'
-EOQ
-
-  $sth->execute_h(db_name => $db_name);
-
-  $dbh->commit;
-
-  return;
-}
-
 sub create_satellite_org {
   my $class = shift;
   my $org_name = shift;

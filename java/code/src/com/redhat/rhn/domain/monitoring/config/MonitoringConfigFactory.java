@@ -98,23 +98,6 @@ public class MonitoringConfigFactory extends HibernateFactory {
     }
     
     /**
-     * Make sure we have the configuration record 
-     * for the DB Environment stored correctly
-     * @return boolean if it was updated correctly or not.
-     */
-    public static boolean ensureDbEnvironmentExists() {
-        DbEnvironment env = null;
-        Map params = new HashMap();
-        params.put("environment", "LICENSE");    
-        env = (DbEnvironment) singleton.lookupObjectByNamedQuery(
-                "DbEnvironment.loadByEnvironment", params);
-        env.setDbName(getDatabaseName());
-        assert (env.getDbName() != null);
-        singleton.saveObject(env);
-        return true;
-    }
-    
-    /**
      * Get the database name being used by Hibernate.
      * @return String db name
      */

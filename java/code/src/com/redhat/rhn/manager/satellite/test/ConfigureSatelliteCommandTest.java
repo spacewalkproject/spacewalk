@@ -18,7 +18,6 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.monitoring.config.ConfigMacro;
-import com.redhat.rhn.domain.monitoring.config.DbEnvironment;
 import com.redhat.rhn.domain.monitoring.config.MonitoringConfigFactory;
 import com.redhat.rhn.domain.monitoring.satcluster.SatCluster;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -137,15 +136,6 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
             flushAndEvict(cm);
         }
 
-        
-        String randomString = RandomStringUtils.random(4); 
-        DbEnvironment db = (DbEnvironment) TestUtils.lookupTestObject(
-            "from com.redhat.rhn.domain.monitoring.config.DbEnvironment");
-        assertNotNull(db);
-        db.setDbName(randomString);
-        TestUtils.saveAndFlush(db);
-
-        
         cmd = new ConfigureSatelliteCommand(user) {
             protected Executor getExecutor() {
                 return new TestExecutor();
@@ -162,9 +152,6 @@ public class ConfigureSatelliteCommandTest extends BaseTestCaseWithUser {
         assertEquals(1, orgAdmin.getOrg().getMonitoringScouts().size());
         // Make sure we created the gritch dest
         assertEquals(1, orgAdmin.getNotificationMethods().size());
-        db = (DbEnvironment) TestUtils.lookupTestObject(
-            "from com.redhat.rhn.domain.monitoring.config.DbEnvironment");
-        assertNotSame(randomString, db.getDbName());
         assertNotNull(Config.get().getString(ConfigDefaults.WEB_SCOUT_SHARED_KEY));
         ConfigMacro cm = MonitoringConfigFactory.lookupConfigMacroByName("MAIL_MX");
         assertFalse(cm.getDefinition().startsWith("**"));

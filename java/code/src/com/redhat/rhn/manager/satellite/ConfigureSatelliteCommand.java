@@ -241,8 +241,6 @@ public class ConfigureSatelliteCommand extends BaseConfigureCommand
             // looks for a method with this name.
             mmc.setMethodName("Panic Destination");
             mmc.storeMethod(getUser());
-            boolean dbenvExists = MonitoringConfigFactory.ensureDbEnvironmentExists(); 
-            assert (dbenvExists);
             //HibernateFactory.getSession().evict(scout);
             scouts.add(scout);
         } 

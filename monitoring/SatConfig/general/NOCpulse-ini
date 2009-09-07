@@ -103,13 +103,7 @@ if ($set_macro) {
         my $sql = qq|
                 UPDATE rhn_config_macro
                 SET definition=?
-                WHERE (environment, name) = ( SELECT macro.environment, macro.name
-                                FROM db_environment dbenv, config_macro macro
-                                WHERE UPPER(sys_context('userenv', 'db_name')) = UPPER(dbenv.db_name)
-                                AND  DECODE(macro.environment, 'ALL', dbenv.environment,
-                                        macro.environment) = dbenv.environment
-                                AND macro.name = ?
-                        )
+                WHERE macro.name = ?
                 |;
         my $sth = $ini->dbh->prepare($sql);
         $sth->execute($new_value, $set_macro);

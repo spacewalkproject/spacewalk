@@ -261,7 +261,6 @@ rhn_command_queue_instances    :: rhn_command_queue_commands
 rhn_command_queue_params       :: rhn_command_queue_instances
 rhn_command_queue_sessions     :: web_contact
 rhn_command_target             :: web_customer
-rhn_config_macro               :: rhn_environment
 rhn_config_parameter           :: rhn_config_group rhn_config_security_type
 rhn_contact_group_members      :: rhn_contact_methods rhn_contact_groups
 rhn_contact_groups             :: web_customer rhn_strategies \
@@ -269,7 +268,6 @@ rhn_contact_groups             :: web_customer rhn_strategies \
 rhn_contact_methods            :: web_contact rhn_method_types rhn_pager_types \
                                   rhn_sat_cluster rhn_schedules rhn_time_zone_names \
                                   rhn_notification_formats rhnTimezone rhnUserInfo
-rhn_db_environment             :: rhn_environment
 rhn_host_check_suites          :: rhn_check_suites rhn_host_probe 
 rhn_host_monitoring            :: rhn_server_monitoring_info rhn_interface_monitoring
 rhn_host_probe                 :: rhnServer rhn_probe rhn_sat_cluster 

@@ -110,11 +110,8 @@ sub fetch_macros {
 
   # Fetch macros
   my $sql = q{
-    SELECT   macro.name, macro.definition, macro.description
-    FROM     db_environment dbenv, config_macro macro
-    WHERE    UPPER(sys_context('userenv', 'db_name')) = UPPER(dbenv.db_name)
-    AND      DECODE(macro.environment, 'ALL', dbenv.environment,
-                    macro.environment) = dbenv.environment
+    SELECT   name, definition, description
+    FROM     config_macro
   };
   my $list = $self->do_fetch_hash($sql);
   # First, create a database of unexpanded macros

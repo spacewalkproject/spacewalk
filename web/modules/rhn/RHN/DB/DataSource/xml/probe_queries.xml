@@ -229,12 +229,8 @@ SELECT   macro.name,
          macro.description,
          macro.last_update_user, 
          TO_CHAR(macro.last_update_date, 'YYYY-MM-DD HH24:MI:SS') AS last_update_date
-FROM     db_environment dbenv, config_macro macro
+FROM     config_macro macro
 WHERE    macro.editable = 1
-AND      dbenv.db_name = UPPER(sys_context('userenv', 'db_name'))
-AND      dbenv.environment = DECODE(macro.environment,
-                                    'ALL', dbenv.environment,
-                                    macro.environment)
   </query>
 </mode>
 

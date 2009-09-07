@@ -37,7 +37,4 @@ CREATE UNIQUE INDEX rhn_confm_environment_name_pk
 ALTER TABLE rhn_config_macro
     ADD CONSTRAINT rhn_confm_environment_name_pk PRIMARY KEY (environment, name);
 
-ALTER TABLE rhn_config_macro
-    ADD CONSTRAINT rhn_confm_envir_environment_fk FOREIGN KEY (environment)
-    REFERENCES rhn_environment (name);
 
