@@ -11,7 +11,9 @@ Group: Development/Libraries
 License: GPLv2
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildArch: noarch
+%if %{?suse_version: %{suse_version} > 1110} %{!?suse_version:1}
+ BuildArch: noarch
+%endif
 BuildRequires: python-devel
 
 Requires: pyOpenSSL 
@@ -38,7 +40,7 @@ make -f Makefile.rhnlib
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
+%{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT --prefix=%{_prefix}
 
 
 %clean
