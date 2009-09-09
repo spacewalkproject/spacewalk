@@ -1,6 +1,6 @@
 Name:           oracle-lib-compat
 Version:        10.2
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install
 Group:          Applications/Multimedia
 License:        GPLv2
@@ -84,6 +84,9 @@ find %{_prefix}/lib/oracle/%{icversion} \
         | xargs execstack -c
 
 %changelog
+* Wed Sep 09 2009 Michael Mraka <michael.mraka@redhat.com> 10.2-21
+- 506951 - clear exec stack on instantclient libs (fixes selinux avc denial)
+
 * Tue Apr 07 2009 Michael Mraka <michael.mraka@redhat.com> 10.2-20
 - specified exact version of instantclient
 
