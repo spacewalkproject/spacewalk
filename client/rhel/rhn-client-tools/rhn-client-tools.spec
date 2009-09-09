@@ -7,7 +7,9 @@ Name: rhn-client-tools
 Version: 0.7.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+%if %{?suse_version: %{suse_version} > 1110} %{!?suse_version:1}
 BuildArch: noarch
+%endif
 
 Requires: rhnlib >= 2.2.7
 Requires: rpm >= 4.2.3-24_nonptl
