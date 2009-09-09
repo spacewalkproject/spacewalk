@@ -14,8 +14,8 @@ URL:		http://fedorahosted.org/spacewalk
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:	noarch
 
-Requires(post):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack, /usr/sbin/selinuxenabled
-Requires(postun):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack
+Requires(post):	/usr/sbin/semanage, /sbin/restorecon, /usr/sbin/selinuxenabled
+Requires(postun):	/usr/sbin/semanage, /sbin/restorecon
 Requires:	oracle-instantclient-basic
 Requires:	oracle-nofcontext-selinux
 
@@ -27,8 +27,8 @@ Summary:	SELinux support for Oracle Instant Client sqlplus
 Group:		System Environment/Base
 Requires:	oracle-instantclient-sqlplus
 Requires:	oracle-nofcontext-selinux
-Requires(post):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack, /usr/sbin/selinuxenabled
-Requires(postun):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack
+Requires(post):	/usr/sbin/semanage, /sbin/restorecon, /usr/sbin/selinuxenabled
+Requires(postun):	/usr/sbin/semanage, /sbin/restorecon
 
 %description -n oracle-instantclient-sqlplus-selinux
 SELinux support for Oracle Instant Client sqlplus.
@@ -49,7 +49,6 @@ cat <<'EOS' > %{buildroot}%{_sbindir}/%{name}-enable
 
 for i in %used_libs ; do
 	/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/'${i//./\\.}
-	/usr/bin/execstack -c /usr/lib/oracle/10.2.*/client*/lib/$i
 done
 /sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
 
@@ -60,7 +59,6 @@ cat <<'EOS' > %{buildroot}%{_sbindir}/oracle-instantclient-sqlplus-selinux-enabl
 
 /usr/sbin/semanage fcontext -a -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\..*/client.*/bin/sqlplus'
 /usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/libsqlplus\.so'
-/usr/bin/execstack -c /usr/lib/oracle/10.2.*/client*/lib/libsqlplus.so
 /sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
 
 EOS
@@ -83,7 +81,6 @@ fi
 if [ $1 -eq 0 ]; then
 	for i in %used_libs ; do
 		/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/'${i//./\\.}
-		# /usr/bin/execstack -s /usr/lib/oracle/10.2.*/client*/lib/$i
 	done
 	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
 fi
@@ -103,7 +100,6 @@ fi
 if [ $1 -eq 0 ]; then
 	/usr/sbin/semanage fcontext -d -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\..*/client.*/bin/sqlplus'
 	/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/libsqlplus\.so'
-	# /usr/bin/execstack -s /usr/lib/oracle/10.2.*/client*/lib/libsqlplus.so
 	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
 fi
 
