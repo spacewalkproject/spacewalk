@@ -18,6 +18,8 @@ package com.redhat.rhn.domain.user;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.user.legacy.PersonalInfo;
+import com.redhat.rhn.domain.user.legacy.UserInfo;
 
 import java.util.Date;
 import java.util.List;
@@ -539,6 +541,15 @@ public interface User {
      */
     void removeServer(Server server);
     
+    public void setUserInfo(UserInfo info);
+    
+    public UserInfo getUserInfo();
+    
     public List<Org> getUserOrgs();
+    
+    public void setPersonalInfo(PersonalInfo pi);
+    
+    public PersonalInfo getPersonalInfo();
+    
     
 }

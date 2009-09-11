@@ -6628,6 +6628,19 @@
         <forward name="confirm"
                  path="/ssm/Packages.do"/>
      </action>
+     
+     <action path="/admin/multiorg/UserOrgs"
+         scope="request"
+         input="/WEB-INF/pages/admin/users/userOrgs.jsp"
+         type="com.redhat.rhn.frontend.action.multiorg.UserOrgsAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/admin/users/userOrgs.jsp" />
+        <forward name="submit"
+                 path="/admin/multiorg/UserOrgs.do" redirect="true"/>                 
+     </action>     
+     
+     
+     
     
   </action-mappings>
 

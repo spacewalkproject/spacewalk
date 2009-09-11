@@ -66,6 +66,7 @@ SELECT wc.id AS ID,
        PINFO.login_uc
   FROM web_contact wc inner join 
        web_user_personal_info PINFO on PINFO.id = WC.personal_info_id
+  where PINFO.default_org = wc.org_id
 ORDER BY PINFO.login_uc
   </query>
   <elaborator name="all_users_in_multiorg_overview" />
@@ -77,10 +78,11 @@ ORDER BY PINFO.login_uc
           rhn_user.check_role(user_id, 'satellite_admin') as sat_admin,
           wc.name as org_name,
           wupi.email as address
-    FROM  rhnUsersInOrgOverview UIOO, web_customer wc, web_user_personal_info wupi
+    FROM  rhnUsersInOrgOverview UIOO, web_customer wc, web_user_personal_info wupi, web_contact wcu
    WHERE  UIOO.user_id IN (%s)
      AND  wc.id = UIOO.org_id
-     AND  wupi.id = uioo.user_id
+     AND  uioo.user_id = wcu.id
+     AND  wupi.id = wcu.personal_info_id
 ORDER BY  UPPER(user_login), UIOO.user_id 
 </query>
 

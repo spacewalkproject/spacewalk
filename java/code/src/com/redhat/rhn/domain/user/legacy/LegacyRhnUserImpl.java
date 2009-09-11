@@ -308,7 +308,7 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
     * Return the PersonalInfo object
     * @return PersonalInfo object associated with this User
     */
-    protected PersonalInfo getPersonalInfo() {
+    public PersonalInfo getPersonalInfo() {
         if (personalInfo == null) {
             personalInfo = new PersonalInfo();
         }
@@ -319,7 +319,7 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
      * Set the PersonalInfo object
      * @param persIn the PersonalInfo object
      */
-    protected void setPersonalInfo(PersonalInfo persIn) {
+    public void setPersonalInfo(PersonalInfo persIn) {
         this.personalInfo = persIn;
     }
 
@@ -327,7 +327,7 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
      * Set the UserInfo object
      * @param infoIn the UserInfo object
      */
-    protected void setUserInfo(UserInfo infoIn) {
+    public void setUserInfo(UserInfo infoIn) {
         this.userInfo = infoIn;
     }
 
@@ -847,6 +847,7 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
     public List<Org> getUserOrgs() {
         return UserFactory.getInstance().listOrgsForUser(this);
     }
+
     
 }
 

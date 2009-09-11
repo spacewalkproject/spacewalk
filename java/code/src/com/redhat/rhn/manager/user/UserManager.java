@@ -34,6 +34,7 @@ import com.redhat.rhn.domain.user.RhnTimeZone;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.domain.user.UserServerPreference;
+import com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl;
 import com.redhat.rhn.frontend.dto.SystemGroupOverview;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.SystemSearchResult;
@@ -46,6 +47,8 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.log4j.Logger;
 
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -441,7 +444,8 @@ public class UserManager extends BaseManager {
      * @param targetUid The id for the user we're deleting
      */
     public static void deleteUser(User loggedInUser, Long targetUid) {
-        if (!loggedInUser.hasRole(RoleFactory.ORG_ADMIN)) {
+        if (!loggedInUser.hasRole(RoleFactory.ORG_ADMIN) && 
+                    !loggedInUser.hasRole(RoleFactory.SAT_ADMIN)) {
             //Throw an exception with a nice error message so the user
             //knows what went wrong.
             LocalizationService ls = LocalizationService.getInstance();
@@ -453,7 +457,7 @@ public class UserManager extends BaseManager {
         }
 
         // Do not allow deletion of the last Satellite Administrator:
-        User toDelete = UserFactory.lookupById(loggedInUser, targetUid);
+        User toDelete = UserFactory.lookupById(targetUid);
         if (toDelete.hasRole(RoleFactory.SAT_ADMIN)) {
             if (SatManager.getActiveSatAdmins().size() == 1) {
                 log.warn("Cannot delete the last Satellite Administrator");
@@ -996,4 +1000,53 @@ public class UserManager extends BaseManager {
         UserFactory.getInstance().
                 setUserServerPreferenceValue(user, server, preferenceName, value);
     }
+    
+    
+    public static void addUserToOrgs(User adminUser, User targetUser, Collection<Long> orgIds) {
+        if (!adminUser.hasRole(RoleFactory.SAT_ADMIN)) {
+            throw new PermissionException(RoleFactory.SAT_ADMIN);
+        }
+        for (Long oid : orgIds) {
+            User newUser = new LegacyRhnUserImpl();
+            newUser.setPersonalInfo(targetUser.getPersonalInfo());
+            newUser.setOrg(OrgFactory.lookupById(oid));
+            
+            newUser.setUserInfo(targetUser.getUserInfo().clone());
+            newUser.getUserInfo().setUser(newUser);
+            newUser.setAddress1(targetUser.getAddress1());
+            newUser.setAddress1(targetUser.getAddress2()); 
+            
+            
+            UserFactory.getInstance().saveWithoutSync(newUser);
+            
+
+        }
+        
+    }
+    
+    public static void removeUsersFromOrgs(User adminUser, User targetUser, Collection<Long> orgIds) {
+        if (!adminUser.hasRole(RoleFactory.SAT_ADMIN)) {
+            throw new PermissionException(RoleFactory.SAT_ADMIN);
+        }
+        
+        List<Org> userOrgs = targetUser.getUserOrgs();
+        List<Org> toRemove = new ArrayList<Org>();
+        
+        for (Long orgId : orgIds) {
+            toRemove.add(OrgFactory.lookupById(orgId));
+        }
+        userOrgs.removeAll(toRemove);
+        
+        if (userOrgs.isEmpty()) {
+            throw new UserNotInAnyOrgsException();
+        }
+        for (Org org : toRemove) {
+            User user = UserFactory.getInstance().lookupUserForOrg(org, targetUser.getLogin());
+            UserManager.deleteUser(adminUser, user.getId());
+        }
+        
+        
+    }
+    
+    
 }

@@ -125,8 +125,9 @@ is
 			union all
 			select	-1 state_id,
 					email address
-			from	web_user_personal_info
-			where	web_user_id = user_id_in;
+			from	web_user_personal_info pi inner join 
+                    web_contact wc on wc.personal_info_id = pi.id
+			where	wc.id = user_id_in;
 		retval rhnEmailAddress.address%TYPE;
 	begin
 		for addr in addrs loop

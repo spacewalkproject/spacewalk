@@ -23,9 +23,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                     column="personal_info_id"/>
         <one-to-one name="userInfo"
                     class="com.redhat.rhn.domain.user.legacy.UserInfo"
-                    outer-join="true"
+                    outer-join="false"
                     cascade="all"
-                    constrained="true" />
+                    constrained="false" />
         <many-to-one name="org"
                      column="org_id"
                      class="com.redhat.rhn.domain.org.OrgImpl"
@@ -102,6 +102,16 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
              com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl as u 
         where u.org = o and u.personalInfo.login = :login]]>
     </query>    
+    
+    <query name="User.lookupUsersForLogin">
+        <![CDATA[
+        select u
+             from com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl as u 
+        where u.personalInfo.login = :login]]>
+    </query>       
+    
+    
+    
       
    <query name="User.lookupByOrgAndLogin">
         <![CDATA[

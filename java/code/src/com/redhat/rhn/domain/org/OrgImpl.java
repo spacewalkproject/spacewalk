@@ -22,6 +22,7 @@ import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.BaseDomainHelper;
+import com.redhat.rhn.domain.Identifiable;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
@@ -58,7 +59,7 @@ import java.util.Set;
  * web_customer
  * @version $Rev:67468 $
  */
-public class OrgImpl extends BaseDomainHelper implements Org {
+public class OrgImpl extends BaseDomainHelper implements Org, Identifiable {
 
     private static final String USER_ID_KEY = "user_id";
     private static final String ORG_ID_KEY = "org_id";

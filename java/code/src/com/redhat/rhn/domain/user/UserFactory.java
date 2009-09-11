@@ -442,14 +442,20 @@ public  class UserFactory extends HibernateFactory {
      */
     protected void saveUser(User user) {
         log.debug("*********STARTING SAVE USER*********\n\n\n\n\n\n\n\n");
-        if (user.getId() == null) {
+       /* if (user.getId() == null) {
             // New org, gotta use the stored procedure.
             throw new IllegalArgumentException("Only use commit for" +
                     " existing users");
-        }
+        }*/
         saveObject(user);
         syncUserPerms(user);
     }
+    
+    public void saveWithoutSync(User user) {
+        saveObject(user);
+        
+    }
+    
 
     /**
      * Syncs the user permissions with server group info..
@@ -723,6 +729,12 @@ public  class UserFactory extends HibernateFactory {
         params.put("org", org);
         params.put("login", login);
         return (User) lookupObjectByNamedQuery("User.lookupByOrgAndLogin", params);
+    }
+    
+    public List<User> lookupUsersForLogin(String login) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("login", login);
+        return  listObjectsByNamedQuery("User.lookupUsersForLogin", params);
     }
     
     

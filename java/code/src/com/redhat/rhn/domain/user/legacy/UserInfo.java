@@ -25,7 +25,7 @@ import java.util.Date;
  * RHNUSERINFO
  * @version $Rev: 61184 $
  */
-public class UserInfo extends AbstractUserChild {
+public class UserInfo extends AbstractUserChild implements Cloneable {
     private int pageSize;
     private int emailNotify;
     private boolean usePamAuthentication;
@@ -41,7 +41,7 @@ public class UserInfo extends AbstractUserChild {
     protected UserInfo() {
     }
 
-    protected void setUser(User u) {
+    public void setUser(User u) {
         user = u;
     }
 
@@ -161,4 +161,17 @@ public class UserInfo extends AbstractUserChild {
     public void setEmailNotify(int emailNotifyIn) {
         this.emailNotify = emailNotifyIn;
     }
+    
+    
+    public UserInfo clone() {
+        UserInfo newInfo = new UserInfo();
+        newInfo.setEmailNotify(this.getEmailNotify());
+        newInfo.setPageSize(this.getPageSize());
+        newInfo.setPreferredLocale(this.getPreferredLocale());
+        newInfo.setShowSystemGroupList(this.getShowSystemGroupList());
+        newInfo.setUsePamAuthentication(this.getUsePamAuthentication());
+        newInfo.setTimeZone(this.getTimeZone());
+        return newInfo;
+    }
+    
 }
