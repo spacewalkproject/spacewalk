@@ -96,9 +96,10 @@ class User:
             # 
             h = rhnSQL.prepare("""
                 select ui.use_pam_authentication
-                from web_contact w, rhnUserInfo ui
+                from web_contact w, rhnUserInfo ui, web_user_personal_info pi
                 where w.login_uc = UPPER(:login)
-                and w.id = ui.user_id""")
+                and pi.id = w.personal_info_id
+                and pi.id = ui.personal_info_id""")
             h.execute(login=self.info["login"])
             data = h.fetchone_dict()
             if not data:
