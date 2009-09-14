@@ -746,7 +746,7 @@ public class PackageManager extends BaseManager {
         // metadata needs tto be updated (RHEL5+, mostly)
         for (Iterator itr = channels.iterator(); itr.hasNext();) {
             Map m = (Map)itr.next();
-            ChannelManager.queueChannelChange(m.get("channel_label").toString(), 
+            ChannelManager.queueChannelChange(m.get("label").toString(), 
                     "java::deletePackage", 
                     pkg.getPackageName().getName());
         }
