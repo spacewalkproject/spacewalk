@@ -1,0 +1,5 @@
+<area shape="rect" href="table&#45;RHNCONFIGREVISION.html#t&#45;fk" title="RHNCONFIGREVISION" alt="" coords="17,39,183,65">
+<area shape="rect" href="table&#45;RHNACTIONCONFIGREVISION.html#t&#45;fk" title="RHNACTIONCONFIGREVISION" alt="" coords="241,115,457,141">
+<area shape="rect" href="table&#45;RHNACTION.html#t&#45;fk" title="RHNACTION" alt="" coords="49,89,151,116">
+<area shape="rect" href="table&#45;RHNSERVER.html#t&#45;fk" title="RHNSERVER" alt="" coords="48,140,152,167">
+<area shape="rect" href="table&#45;RHNCONFIGFILEFAILURE.html#t&#45;fk" title="RHNCONFIGFILEFAILURE" alt="" coords="8,191,192,217">

@@ -1,0 +1,5 @@
+<area shape="rect" href="table&#45;WEB_CUSTOMER.html#t&#45;fk" title="WEB_CUSTOMER" alt="" coords="21,39,157,65">
+<area shape="rect" href="table&#45;RHNSERVER.html#t&#45;fk" title="RHNSERVER" alt="" coords="221,115,325,141">
+<area shape="rect" href="table&#45;WEB_CONTACT.html#t&#45;fk" title="WEB_CONTACT" alt="" coords="28,89,151,116">
+<area shape="rect" href="table&#45;RHNPROVISIONSTATE.html#t&#45;fk" title="RHNPROVISIONSTATE" alt="" coords="8,140,171,167">
+<area shape="rect" href="table&#45;RHNSERVERARCH.html#t&#45;fk" title="RHNSERVERARCH" alt="" coords="19,191,160,217">

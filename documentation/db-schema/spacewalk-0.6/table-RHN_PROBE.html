@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+        <head><title> Spacewalk 0.6 DB Schema - Table-RHN_PROBE </title>
+        <link rel="stylesheet" type="text/css" href="oraschemadoc.css" />
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta name="author" content="Petr Vanek, petr@scribus.info" />
+        <meta name="generator" content="oraschemadoc" />
+        </head>
+        <body>
+            <div class="contextbar">
+            <a href="main.html">Main</a>
+            <a href="tables-list.html">Tables</a>
+            <a href="views-list.html">Views</a>
+            <a href="mviews-list.html">Materialized&nbsp;Views</a>
+            <a href="indexes-list.html">Indexes</a>
+            <a href="constraints-list.html">Constraints</a>
+            <a href="triggers-list.html">Triggers</a>
+            <a href="procedures-list.html">Procedures</a>
+            <a href="functions-list.html">Functions</a>
+            <a href="packages-list.html">Packages</a>
+            <a href="sequences.html">Sequences</a>
+            <a href="java-sources-list.html">Java&nbsp;Sources</a>
+            <a href="sanity-check.html">Sanity&nbsp;Check</a>
+            <a href="symbol-index.html">Index</a>
+            <a href="sql_sources/" target="Main">DDL&nbsp;scrips</a>
+            </div><div class="subcontextbar"><a href="#t-descr">Description</a> <a href="#t-cols">Columns</a> <a href="#t-pk">Primary key</a> <a href="#t-cc">Check Constraints</a> <a href="#t-fk">Foreign keys</a> <a href="#t-uc">Unique Keys</a> <a href="#t-opt">Options</a> <a href="#t-ind">Indexes</a> <a href="#t-refs">Referenced by</a> <a href="#t-trgs">Triggers</a> <a href="#t-parts">Partitions</a> </div><h2>RHN_PROBE</h2>
+<h3>Description:</h3>
+ <a name="t-descr"></a><p>probe  probe definitions</p><a href="sql_sources/table/rhn_probe.sql">DDL script</a><h3>Columns<a name="t-cols"></a></h3>
+<table>
+<tr><th>Name</th><th>Type</th><th>Nullable</th><th>Default value</th><th>Comment</th></tr><tr><td>RECID<a name="col-RECID"></a></td><td>NUMBER(12)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>PROBE_TYPE<a name="col-PROBE_TYPE"></a></td><td>VARCHAR2(15)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>DESCRIPTION<a name="col-DESCRIPTION"></a></td><td>VARCHAR2(255)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>CUSTOMER_ID<a name="col-CUSTOMER_ID"></a></td><td>NUMBER(12)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>COMMAND_ID<a name="col-COMMAND_ID"></a></td><td>NUMBER(16)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>CONTACT_GROUP_ID<a name="col-CONTACT_GROUP_ID"></a></td><td>NUMBER(12)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>NOTIFY_CRITICAL<a name="col-NOTIFY_CRITICAL"></a></td><td>CHAR(1)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>NOTIFY_WARNING<a name="col-NOTIFY_WARNING"></a></td><td>CHAR(1)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>NOTIFY_UNKNOWN<a name="col-NOTIFY_UNKNOWN"></a></td><td>CHAR(1)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>NOTIFY_RECOVERY<a name="col-NOTIFY_RECOVERY"></a></td><td>CHAR(1)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>NOTIFICATION_INTERVAL_MINUTES<a name="col-NOTIFICATION_INTERVAL_MINUTES"></a></td><td>NUMBER(16)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>CHECK_INTERVAL_MINUTES<a name="col-CHECK_INTERVAL_MINUTES"></a></td><td>NUMBER(16)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>RETRY_INTERVAL_MINUTES<a name="col-RETRY_INTERVAL_MINUTES"></a></td><td>NUMBER(16)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>MAX_ATTEMPTS<a name="col-MAX_ATTEMPTS"></a></td><td>NUMBER(16)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>LAST_UPDATE_USER<a name="col-LAST_UPDATE_USER"></a></td><td>VARCHAR2(40)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>LAST_UPDATE_DATE<a name="col-LAST_UPDATE_DATE"></a></td><td>DATE</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table><h3>Primary key:<a name="t-pk"></a></h3>
+<table>
+<tr><th>Constraint Name</th><th>Columns</th></tr><tr><td>RHN_PROBE_RECID_PK<a name="cs-RHN_PROBE_RECID_PK"></a></td><td><a href="table-RHN_PROBE.html#col-RECID">RECID </a>
+</td></tr>
+</table><h3>Foreign Keys:<a name="t-fk"></a></h3>
+<table>
+<tr><th>Constraint Name</th><th>Columns</th><th>Referenced table</th><th>Referenced Constraint</th><th>On Delete Rule</th></tr><tr><td>RHN_PROBE_CMMND_COMMAND_ID_FK<a name="cs-RHN_PROBE_CMMND_COMMAND_ID_FK"></a></td><td><a href="table-RHN_PROBE.html#col-COMMAND_ID">COMMAND_ID </a>
+</td><td><a href="table-RHN_COMMAND.html"> RHN_COMMAND </a></td><td><a href="table-RHN_COMMAND.html#cs-RHN_CMMND_RECID_PK">RHN_CMMND_RECID_PK </a>
+</td><td>NO ACTION</td></tr>
+<tr><td>RHN_PROBE_CSTMR_CUSTOMER_ID_FK<a name="cs-RHN_PROBE_CSTMR_CUSTOMER_ID_FK"></a></td><td><a href="table-RHN_PROBE.html#col-CUSTOMER_ID">CUSTOMER_ID </a>
+</td><td><a href="table-WEB_CUSTOMER.html"> WEB_CUSTOMER </a></td><td><a href="table-WEB_CUSTOMER.html#cs-WEB_CUSTOMER_ID_PK">WEB_CUSTOMER_ID_PK </a>
+</td><td>NO ACTION</td></tr>
+<tr><td>RHN_PROBE_PRBTP_PROBE_TYPE_FK<a name="cs-RHN_PROBE_PRBTP_PROBE_TYPE_FK"></a></td><td><a href="table-RHN_PROBE.html#col-PROBE_TYPE">PROBE_TYPE </a>
+</td><td><a href="table-RHN_PROBE_TYPES.html"> RHN_PROBE_TYPES </a></td><td><a href="table-RHN_PROBE_TYPES.html#cs-RHN_PRBTP_PROBE_TYPE_PK">RHN_PRBTP_PROBE_TYPE_PK </a>
+</td><td>NO ACTION</td></tr>
+</table><map name="erdmap"><area shape="rect" href="table&#45;RHN_COMMAND.html#t&#45;fk" title="RHN_COMMAND" alt="" coords="21,39,149,65">
+<area shape="rect" href="table&#45;RHN_PROBE.html#t&#45;fk" title="RHN_PROBE" alt="" coords="213,89,317,116">
+<area shape="rect" href="table&#45;RHN_PROBE_TYPES.html#t&#45;fk" title="RHN_PROBE_TYPES" alt="" coords="8,89,163,116">
+<area shape="rect" href="table&#45;WEB_CUSTOMER.html#t&#45;fk" title="WEB_CUSTOMER" alt="" coords="17,140,153,167">
+</map><img class="erd" usemap="#erdmap" src="RHN_PROBE.png"/><h3>Unique Keys:<a name="t-uc"></a></h3>
+<table>
+<tr><th>Constraint name</th><th>Columns</th></tr><tr><td>RHN_PROBE_RECID_PROBE_TYPE_UQ<a name="cs-RHN_PROBE_RECID_PROBE_TYPE_UQ"></a></td><td><a href="table-RHN_PROBE.html#col-RECID">RECID </a>
+, <a href="table-RHN_PROBE.html#col-PROBE_TYPE">PROBE_TYPE </a>
+</td></tr>
+</table><h3>Options:<a name="t-opt"></a></h3>
+<table>
+<tr><th>Option</th><th>Settings</th></tr><tr><td>Tablespace</td><td>DATA_TBS</td></tr>
+<tr><td>Index Organized</td><td>No</td></tr>
+<tr><td>Generated by Oracle</td><td>No</td></tr>
+<tr><td>Clustered</td><td>No</td></tr>
+<tr><td>Nested</td><td>No</td></tr>
+<tr><td>Temporary</td><td>No</td></tr>
+</table><h3>Indexes:<a name="t-ind"></a></h3>
+<table>
+<tr><th>Index Name</th><th>Type</th><th>Unuqueness</th><th>Columns</th><th>DDL script</th></tr><tr><td>RHN_PROBE_CHECK_COMMAND_ID_IDX<a name="ind-RHN_PROBE_CHECK_COMMAND_ID_IDX"></a></td><td>NORMAL</td><td>NONUNIQUE</td><td><a href="table-RHN_PROBE.html#col-COMMAND_ID">COMMAND_ID </a>
+</td><td><a href="sql_sources/index/rhn_probe_check_command_id_idx.sql">DDL script</a></td></tr>
+<tr><td>RHN_PROBE_CONTACT_GRP_IDX<a name="ind-RHN_PROBE_CONTACT_GRP_IDX"></a></td><td>NORMAL</td><td>NONUNIQUE</td><td><a href="table-RHN_PROBE.html#col-CONTACT_GROUP_ID">CONTACT_GROUP_ID </a>
+</td><td><a href="sql_sources/index/rhn_probe_contact_grp_idx.sql">DDL script</a></td></tr>
+<tr><td>RHN_PROBE_CUSTOMER_ID_IDX<a name="ind-RHN_PROBE_CUSTOMER_ID_IDX"></a></td><td>NORMAL</td><td>NONUNIQUE</td><td><a href="table-RHN_PROBE.html#col-CUSTOMER_ID">CUSTOMER_ID </a>
+</td><td><a href="sql_sources/index/rhn_probe_customer_id_idx.sql">DDL script</a></td></tr>
+<tr><td>RHN_PROBE_PROBE_TYPE_IDX<a name="ind-RHN_PROBE_PROBE_TYPE_IDX"></a></td><td>NORMAL</td><td>NONUNIQUE</td><td><a href="table-RHN_PROBE.html#col-PROBE_TYPE">PROBE_TYPE </a>
+</td><td><a href="sql_sources/index/rhn_probe_probe_type_idx.sql">DDL script</a></td></tr>
+<tr><td>RHN_PROBE_RECID_PK<a name="ind-RHN_PROBE_RECID_PK"></a></td><td>NORMAL</td><td>UNIQUE</td><td><a href="table-RHN_PROBE.html#col-RECID">RECID </a>
+</td><td><a href="sql_sources/index/rhn_probe_recid_pk.sql">DDL script</a></td></tr>
+<tr><td>RHN_PROBE_RECID_PROBE_TYPE_UQ<a name="ind-RHN_PROBE_RECID_PROBE_TYPE_UQ"></a></td><td>NORMAL</td><td>UNIQUE</td><td><a href="table-RHN_PROBE.html#col-RECID">RECID </a>
+, <a href="table-RHN_PROBE.html#col-PROBE_TYPE">PROBE_TYPE </a>
+</td><td><a href="sql_sources/index/rhn_probe_recid_probe_type_uq.sql">DDL script</a></td></tr>
+</table><h3>Referenced by:<a name="t-refs"></a></h3>
+<table>
+<tr><th>Table</th><th>Constraint</th></tr><tr><td><a href="table-RHN_CHECK_PROBE.html"> RHN_CHECK_PROBE </a></td><td><a href="table-RHN_CHECK_PROBE.html#cs-RHN_CHKPB_RECID_PROBE_TYP_FK">RHN_CHKPB_RECID_PROBE_TYP_FK </a>
+</td></tr>
+<tr><td><a href="table-RHN_HOST_PROBE.html"> RHN_HOST_PROBE </a></td><td><a href="table-RHN_HOST_PROBE.html#cs-RHN_HSTPB_PROBE_PROBE_ID_FK">RHN_HSTPB_PROBE_PROBE_ID_FK </a>
+</td></tr>
+<tr><td><a href="table-RHN_PROBE_PARAM_VALUE.html"> RHN_PROBE_PARAM_VALUE </a></td><td><a href="table-RHN_PROBE_PARAM_VALUE.html#cs-RHN_PPVAL_CHKPB_PROBE_ID_FK">RHN_PPVAL_CHKPB_PROBE_ID_FK </a>
+</td></tr>
+<tr><td><a href="table-RHN_SAT_CLUSTER_PROBE.html"> RHN_SAT_CLUSTER_PROBE </a></td><td><a href="table-RHN_SAT_CLUSTER_PROBE.html#cs-RHN_SCLPB_PRB_RECID_PRB_TYP_FK">RHN_SCLPB_PRB_RECID_PRB_TYP_FK </a>
+</td></tr>
+<tr><td><a href="table-RHN_SAT_NODE_PROBE.html"> RHN_SAT_NODE_PROBE </a></td><td><a href="table-RHN_SAT_NODE_PROBE.html#cs-RHN_SNDPB_PR_RECID_PR_TYP_FK">RHN_SNDPB_PR_RECID_PR_TYP_FK </a>
+</td></tr>
+<tr><td><a href="table-RHN_SERVICE_PROBE_ORIGINS.html"> RHN_SERVICE_PROBE_ORIGINS </a></td><td><a href="table-RHN_SERVICE_PROBE_ORIGINS.html#cs-RHN_SRVPO_PR_SERV_PR_FK">RHN_SRVPO_PR_SERV_PR_FK </a>
+</td></tr>
+<tr><td><a href="table-RHN_URL_PROBE.html"> RHN_URL_PROBE </a></td><td><a href="table-RHN_URL_PROBE.html#cs-RHN_URLPB_PROBE_PR_ID_PR_FK">RHN_URLPB_PROBE_PR_ID_PR_FK </a>
+</td></tr>
+</table><div class="footer">
+        Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Mon Aug 31 10:55:05 2009</div>
+</body></html>
