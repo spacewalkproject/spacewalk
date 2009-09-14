@@ -34,6 +34,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                      outer-join="true"
                      not-null="true" />        
 
+        <one-to-one name="userInfo"
+                    class="com.redhat.rhn.domain.user.legacy.UserInfo"
+                    outer-join="false"
+                    cascade="all"
+                    constrained="false" />
+
 
       <set name="users" table="web_contact" lazy="true"
 			inverse="true" cascade="none">

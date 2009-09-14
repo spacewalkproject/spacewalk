@@ -69,8 +69,7 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
     private Set<Server> servers;
     // PersonalInfo sub-object object
     private PersonalInfo personalInfo;
-    // UserInfo sub-object
-    private UserInfo userInfo;
+
 
     // Keep track of whether the user used to be an org admin
     private Boolean wasOrgAdmin;
@@ -83,8 +82,6 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
      */
     public LegacyRhnUserImpl() {
         usergroups = new HashSet();
-        userInfo = new UserInfo();
-        userInfo.setUser(this);
         stateChanges = new TreeSet();
         addresses = new HashSet();
         hiddenPanes = new HashSet();
@@ -324,19 +321,11 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
     }
 
     /**
-     * Set the UserInfo object
-     * @param infoIn the UserInfo object
-     */
-    public void setUserInfo(UserInfo infoIn) {
-        this.userInfo = infoIn;
-    }
-
-    /**
      * Get the UserInfo sub object
      * @return UserInfo
      */
     public UserInfo getUserInfo() {
-        return this.userInfo;
+        return this.getPersonalInfo().getUserInfo();
     }
 
 
@@ -373,52 +362,52 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
     /*************   UserInfo methods **************/
     /** {@inheritDoc} */
     public int getPageSize() {
-        return this.userInfo.getPageSize();
+        return this.getUserInfo().getPageSize();
     }
 
     /** {@inheritDoc} */
     public void setPageSize(int pageSizeIn) {
-        this.userInfo.setPageSize(pageSizeIn);
+        this.getUserInfo().setPageSize(pageSizeIn);
     }
 
     /** {@inheritDoc} */
     public boolean getUsePamAuthentication() {
-        return this.userInfo.getUsePamAuthentication();
+        return this.getUserInfo().getUsePamAuthentication();
     }
 
     /** {@inheritDoc} */
     public void setUsePamAuthentication(boolean usePamAuthenticationIn) {
-        this.userInfo.setUsePamAuthentication(usePamAuthenticationIn);
+        this.getUserInfo().setUsePamAuthentication(usePamAuthenticationIn);
     }
 
     /** {@inheritDoc} */
     public String getShowSystemGroupList() {
-        return this.userInfo.getShowSystemGroupList();
+        return this.getUserInfo().getShowSystemGroupList();
     }
 
     /** {@inheritDoc} */
     public void setShowSystemGroupList(String showSystemGroupListIn) {
-        this.userInfo.setShowSystemGroupList(showSystemGroupListIn);
+        this.getUserInfo().setShowSystemGroupList(showSystemGroupListIn);
     }
 
     /** {@inheritDoc} */
     public Date getLastLoggedIn() {
-        return this.userInfo.getLastLoggedIn();
+        return this.getUserInfo().getLastLoggedIn();
     }
 
     /** {@inheritDoc} */
     public void setLastLoggedIn(Date lastLoggedInIn) {
-        this.userInfo.setLastLoggedIn(lastLoggedInIn);
+        this.getUserInfo().setLastLoggedIn(lastLoggedInIn);
     }
     
     /** {@inheritDoc} */
     public void setPreferredLocale(String locale) {
-        this.userInfo.setPreferredLocale(locale);
+        this.getUserInfo().setPreferredLocale(locale);
     }
     
     /** {@inheritDoc} */
     public String getPreferredLocale() {
-        return this.userInfo.getPreferredLocale();
+        return this.getUserInfo().getPreferredLocale();
     }
 
     /********* PersonalInfo Methods **********/
@@ -554,12 +543,12 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
 
     /** {@inheritDoc} */
     public RhnTimeZone getTimeZone() {
-        return this.userInfo.getTimeZone();
+        return this.getUserInfo().getTimeZone();
     }
 
     /** {@inheritDoc} */
     public void setTimeZone(RhnTimeZone timeZoneIn) {
-        this.userInfo.setTimeZone(timeZoneIn);
+        this.getUserInfo().setTimeZone(timeZoneIn);
     }
 
     /**
@@ -800,12 +789,12 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
     
     /** {@inheritDoc} */
     public void setEmailNotify(int emailNotifyIn) {
-       this.userInfo.setEmailNotify(emailNotifyIn);
+       this.getUserInfo().setEmailNotify(emailNotifyIn);
     }
     
     /** {@inheritDoc} */
     public int getEmailNotify() {
-        return this.userInfo.getEmailNotify();
+        return this.getUserInfo().getEmailNotify();
     }
 
     /**

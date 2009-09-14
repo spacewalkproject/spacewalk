@@ -468,3 +468,87 @@ is
 end rhn_user;
 /
 SHOW ERRORS
+
+
+
+
+create or replace trigger
+rhn_ugm_applicant_fix
+after delete on rhnUserGroupMembers
+for each row
+declare
+        group_type_val    NUMBER;
+        group_label_val   rhnUserGroupType.label%TYPE;
+begin
+        SELECT group_type INTO group_type_val
+          FROM rhnUserGroup
+         WHERE id = :old.user_group_id;
+
+        IF group_type_val IS NOT NULL
+        THEN
+            SELECT label INTO group_label_val
+              FROM rhnUserGroupType
+             WHERE id = group_type_val;
+
+            IF group_label_val = 'org_applicant'
+            THEN
+                UPDATE web_user_personal_info SET password = old_password    
+                    where id = (select personal_info_id from web_contact where id = :old.user_id);
+            END IF;
+        END IF;
+end;
+/
+show errors;
+
+
+
+
+
+
+ALTER TABLE rhnUserInfo ADD personal_info_id number;
+
+update rhnUserInfo ui set personal_info_id = (select pi.id from web_user_personal_info pi inner join 
+                                                                web_contact wc on pi.id = wc.personal_info_id 
+								where wc.id = ui.user_id);
+
+alter table rhnUserInfo drop column user_id;
+
+ALTER TABLE rhnUserInfo 
+	MODIFY personal_info_id number NOT NULL
+                                CONSTRAINT rhn_user_info_user_fk
+                                    REFERENCES web_user_personal_info(id)
+                                    ON DELETE CASCADE;
+
+
+create or replace view
+rhnWebContactEnabled
+as
+select
+   wcon.id,
+   wcon.org_id,
+   pi.login,
+   pi.login_uc,
+   pi.password,
+   pi.old_password,
+   wcon.oracle_contact_id,
+   wcon.created,
+   wcon.modified,
+   wcon.ignore_flag
+from
+   web_contact wcon inner join
+   web_user_personal_info pi on pi.id = wcon.personal_info_id
+minus
+select
+   wcd.id,
+   wcd.org_id,
+   wcd.login,
+   wcd.login_uc,
+   wcd.password,
+   wcd.old_password,
+   wcd.oracle_contact_id,
+   wcd.created,
+   wcd.modified,
+   wcd.ignore_flag
+from
+   rhnWebContactDisabled wcd;
+

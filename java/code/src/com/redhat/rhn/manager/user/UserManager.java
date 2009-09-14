@@ -35,6 +35,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.domain.user.UserServerPreference;
 import com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl;
+import com.redhat.rhn.domain.user.legacy.PersonalInfo;
 import com.redhat.rhn.frontend.dto.SystemGroupOverview;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.SystemSearchResult;
@@ -60,6 +61,8 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.security.auth.login.LoginException;
+
+import sun.security.jca.GetInstance;
 
 /**
  * UserManager - the singleton class used to provide Business Operations
@@ -457,19 +460,63 @@ public class UserManager extends BaseManager {
         }
 
         // Do not allow deletion of the last Satellite Administrator:
-        User toDelete = UserFactory.lookupById(targetUid);
-        if (toDelete.hasRole(RoleFactory.SAT_ADMIN)) {
+        User targetUser = UserFactory.lookupById(targetUid);
+        if (targetUser.hasRole(RoleFactory.SAT_ADMIN)) {
             if (SatManager.getActiveSatAdmins().size() == 1) {
                 log.warn("Cannot delete the last Satellite Administrator");
-                throw new DeleteSatAdminException(toDelete);
+                throw new DeleteSatAdminException(targetUser);
             }
         }
 
+        List<User> usersToDelete = UserFactory.getInstance().lookupUsersForLogin(
+                targetUser.getLogin());
+        PersonalInfo pinfo = targetUser.getPersonalInfo();
+        //Lets delete all the users for this login
+        for (User toDel : usersToDelete) {
+            CallableMode m = ModeFactory.getCallableMode("User_queries",
+                    "delete_user");
+            Map inParams = new HashMap();
+            Map outParams = new HashMap();
+            inParams.put("user_id", toDel.getId());
+            m.execute(inParams, outParams);
+        }
+        //now lets actually delete the personal info
+        UserFactory.getInstance().deletePersonalInfo(pinfo);
+        
+    }
+    
+    
+    /**
+     * Removes a user from his org (targetUser.getOrg).  This deletes the 
+     *      User object, and all related information, but keeps all personal info
+     *      
+     * @param loggedInUser
+     * @param targetUser
+     */
+    public static void removeUserFromOrg(User loggedInUser, User targetUser) {
+        
+        /*
+         * Make sure that either the user is a SAT_ADMIN, or the user is an org
+         *      admin and in the same org as the user they are removing
+         */
+        if ((!loggedInUser.hasRole(RoleFactory.ORG_ADMIN) && 
+                    loggedInUser.getOrg().equals(targetUser.getOrg())) && 
+                    !loggedInUser.hasRole(RoleFactory.SAT_ADMIN)) {
+            //Throw an exception with a nice error message so the user
+            //knows what went wrong.
+            LocalizationService ls = LocalizationService.getInstance();
+            PermissionException pex =
+                new PermissionException("Deleting a user requires an Org Admin.");
+            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.deleteuser"));
+            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.deleteuser"));
+            throw pex;
+        }
+        
         CallableMode m = ModeFactory.getCallableMode("User_queries",
-                "delete_user");
+            "delete_user");
         Map inParams = new HashMap();
         Map outParams = new HashMap();
-        inParams.put("user_id", targetUid);
+        inParams.put("user_id", targetUser.getId());
         m.execute(inParams, outParams);
     }
 
@@ -1002,6 +1049,12 @@ public class UserManager extends BaseManager {
     }
     
     
+    /**
+     * add a user to multiple orgs
+     * @param adminUser the user doing the adding
+     * @param targetUser the user to add
+     * @param orgIds list of OrgIds
+     */
     public static void addUserToOrgs(User adminUser, User targetUser, Collection<Long> orgIds) {
         if (!adminUser.hasRole(RoleFactory.SAT_ADMIN)) {
             throw new PermissionException(RoleFactory.SAT_ADMIN);
@@ -1010,9 +1063,6 @@ public class UserManager extends BaseManager {
             User newUser = new LegacyRhnUserImpl();
             newUser.setPersonalInfo(targetUser.getPersonalInfo());
             newUser.setOrg(OrgFactory.lookupById(oid));
-            
-            newUser.setUserInfo(targetUser.getUserInfo().clone());
-            newUser.getUserInfo().setUser(newUser);
             newUser.setAddress1(targetUser.getAddress1());
             newUser.setAddress1(targetUser.getAddress2()); 
             
@@ -1024,6 +1074,12 @@ public class UserManager extends BaseManager {
         
     }
     
+    /**
+     * remove a user from multiple orgs
+     * @param adminUser the user doing the removing
+     * @param targetUser the user to remove
+     * @param orgIds list of OrgIds
+     */
     public static void removeUsersFromOrgs(User adminUser, User targetUser, Collection<Long> orgIds) {
         if (!adminUser.hasRole(RoleFactory.SAT_ADMIN)) {
             throw new PermissionException(RoleFactory.SAT_ADMIN);
@@ -1042,10 +1098,8 @@ public class UserManager extends BaseManager {
         }
         for (Org org : toRemove) {
             User user = UserFactory.getInstance().lookupUserForOrg(org, targetUser.getLogin());
-            UserManager.deleteUser(adminUser, user.getId());
+            UserManager.removeUserFromOrg(adminUser, targetUser);
         }
-        
-        
     }
     
     

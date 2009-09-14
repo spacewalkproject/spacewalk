@@ -6,9 +6,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <class name="com.redhat.rhn.domain.user.legacy.UserInfo"
            table="RHNUSERINFO"
            lazy="false">
-        <id name="webUserId" type="long" column="user_id">
+        <id name="webUserId" type="long" column="personal_info_id">
             <generator class="foreign">
-                <param name="property">user</param>
+                <param name="property">personalInfo</param>
             </generator>
         </id>
         <property name="pageSize" column="page_size" type="int" />
@@ -23,8 +23,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <many-to-one name="timeZone" column="timezone_id"
 			class="com.redhat.rhn.domain.user.RhnTimeZone" cascade="none" />
 
-		<one-to-one name="user"
-                    class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"
+		<one-to-one name="personalInfo"
+                    class="com.redhat.rhn.domain.user.legacy.PersonalInfo"
                     constrained="true" />
     </class>
 </hibernate-mapping>

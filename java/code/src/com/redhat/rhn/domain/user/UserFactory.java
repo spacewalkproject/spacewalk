@@ -27,6 +27,7 @@ import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl;
+import com.redhat.rhn.domain.user.legacy.PersonalInfo;
 import com.redhat.rhn.manager.session.SessionManager;
 
 import org.apache.commons.lang.StringUtils;
@@ -737,6 +738,9 @@ public  class UserFactory extends HibernateFactory {
         return  listObjectsByNamedQuery("User.lookupUsersForLogin", params);
     }
     
+    public void deletePersonalInfo(PersonalInfo info) {
+        this.removeObject(info);
+    }
     
     
 }

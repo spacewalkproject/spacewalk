@@ -44,6 +44,7 @@ public class PersonalInfo extends AbstractUserChild {
     private String loginUc;
     private Set<User> users;
     private Org defaultOrg;
+    private UserInfo userInfo;
     
     /**
      * Create a new empty user
@@ -275,5 +276,23 @@ public class PersonalInfo extends AbstractUserChild {
      */
     public void setDefaultOrg(Org defaultOrgIn) {
         this.defaultOrg = defaultOrgIn;
+    }
+
+
+    
+    /**
+     * @return Returns the userInfo.
+     */
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+
+    
+    /**
+     * @param userInfoIn The userInfo to set.
+     */
+    public void setUserInfo(UserInfo userInfoIn) {
+        this.userInfo = userInfoIn;
     }
 }

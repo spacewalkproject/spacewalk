@@ -137,13 +137,13 @@ SELECT  UIOO.user_id as id, user_login, user_first_name, user_last_name, role_na
   FROM  rhnUsersInOrgOverview UIOO, rhnUserInfo UI, rhnWebContactChangeLog WCCL,
         web_user_personal_info WUPI, web_contact WC
  WHERE  UIOO.user_id IN (%s)
-   AND  UI.user_id = UIOO.user_id
-   AND  WCCL.web_contact_id = UI.user_id
+   AND  WCCL.web_contact_id = UIOO.user_id
    AND  WCCL.date_completed = (select max(wccl_exists.date_completed)
                                from rhnWebContactChangeLog   wccl_exists
                                where WCCL.web_contact_id = wccl_exists.web_contact_id)
    and WCCL.web_contact_from_id = WC.id                            
    AND  WUPI.id = WC.personal_info_id
+      AND  UI.personal_info_id = WUPI.id
   </elaborator>
 </mode>
 
@@ -168,9 +168,11 @@ SELECT  UIOO.user_id as id, user_login, user_first_name, user_last_name, role_na
                               (select max(wccl_exists.date_completed)
                                  from rhnWebContactChangeLog   wccl_exists
                                 where wccl.web_contact_id = wccl_exists.web_contact_id)),'enabled') as status
-    FROM  rhnUsersInOrgOverview UIOO, rhnUserInfo UI
+    FROM  rhnUsersInOrgOverview UIOO, rhnUserInfo UI, web_contact wc, web_user_personal_info WUPI
    WHERE  UIOO.user_id IN (%s)
-     AND  UI.user_id = UIOO.user_id
+     AND wc.id = UIOO.user_id
+     AND  wc.personal_info_id = WUPI.id
+     AND  UI.personal_info_id = WUPI.id
 ORDER BY  UPPER(user_login), UIOO.user_id 
 </query>
 

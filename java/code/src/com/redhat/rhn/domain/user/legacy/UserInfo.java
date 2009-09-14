@@ -33,20 +33,12 @@ public class UserInfo extends AbstractUserChild implements Cloneable {
     private String preferredLocale;
     private Date lastLoggedIn;
     private RhnTimeZone timeZone;
-    private User user;
+    private PersonalInfo personalInfo;
 
     /**
      * Create a new empty user
      */
     protected UserInfo() {
-    }
-
-    public void setUser(User u) {
-        user = u;
-    }
-
-    protected User getUser() {
-        return user;
     }
 
     /**
@@ -172,6 +164,22 @@ public class UserInfo extends AbstractUserChild implements Cloneable {
         newInfo.setUsePamAuthentication(this.getUsePamAuthentication());
         newInfo.setTimeZone(this.getTimeZone());
         return newInfo;
+    }
+
+
+    /**
+     * @return Returns the personalInfo.
+     */
+    public PersonalInfo getPersonalInfo() {
+        return personalInfo;
+    }
+
+    
+    /**
+     * @param personalInfoIn The personalInfo to set.
+     */
+    public void setPersonalInfo(PersonalInfo personalInfoIn) {
+        this.personalInfo = personalInfoIn;
     }
     
 }
