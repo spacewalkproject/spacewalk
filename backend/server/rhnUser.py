@@ -531,10 +531,11 @@ def __new_user_db(username, password, email, org_id, org_password):
 
     # now search it in the database        
     h = rhnSQL.prepare("""
-    select w.id, w.password, w.old_password, ui.use_pam_authentication
-    from web_contact w, rhnUserInfo ui
-    where w.login_uc = upper(:username)
-    and w.id = ui.user_id
+    select w.id, pi.password, pi.old_password, ui.use_pam_authentication
+    from web_contact w, rhnUserInfo ui, web_user_personal_info pi
+    where pi.login_uc = upper(:username)
+      and w.personal_info_id = pi.id
+      and ui.personal_info_id = pi.id
     """)
     h.execute(username=username)
     data = h.fetchone_dict()
