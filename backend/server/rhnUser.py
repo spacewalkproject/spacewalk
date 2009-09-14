@@ -464,10 +464,11 @@ def __reserve_user_db(user, password):
     log_debug(3, user, CFG.disallow_user_creation, encrypted_password, CFG.pam_auth_service)
     user = str(user)
     h = rhnSQL.prepare("""
-    select w.id, w.password, w.old_password, w.org_id, ui.use_pam_authentication
-    from web_contact w, rhnUserInfo ui
-    where w.login_uc = upper(:p1)
-    and w.id = ui.user_id
+    select pi.id, pi.password, pi.old_password, w.org_id, ui.use_pam_authentication
+    from web_contact w, rhnUserInfo ui, web_user_personal_info pi
+    where pi.login_uc = upper(:p1)
+    and w.personal_info_id = pi.id
+    and ui.personal_info_id = pi.id
     """)
     h.execute(p1=user)
     data = h.fetchone_dict()
