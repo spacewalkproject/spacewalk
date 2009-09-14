@@ -1,6 +1,0 @@
-<area shape="rect" href="table-RHNCONFIGREVISION.html#t-fk" title="RHNCONFIGREVISION" alt="" coords="221,140,387,167">
-<area shape="rect" href="table-RHNCONFIGFILE.html#t-fk" title="RHNCONFIGFILE" alt="" coords="24,39,155,65">
-<area shape="rect" href="table-RHNCONFIGCONTENT.html#t-fk" title="RHNCONFIGCONTENT" alt="" coords="7,89,172,116">
-<area shape="rect" href="table-WEB_CONTACT.html#t-fk" title="WEB_CONTACT" alt="" coords="28,140,151,167">
-<area shape="rect" href="table-RHNCONFIGINFO.html#t-fk" title="RHNCONFIGINFO" alt="" coords="23,191,156,217">
-<area shape="rect" href="table-RHNCONFIGFILETYPE.html#t-fk" title="RHNCONFIGFILETYPE" alt="" coords="7,241,172,268">
