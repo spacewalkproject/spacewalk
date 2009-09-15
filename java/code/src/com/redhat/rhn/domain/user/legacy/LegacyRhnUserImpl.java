@@ -86,6 +86,8 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
         addresses = new HashSet();
         hiddenPanes = new HashSet();
         associatedServerGroups = new HashSet();
+        personalInfo = new PersonalInfo();
+        personalInfo.setUserInfo(new UserInfo());
     }
 
     /**
@@ -537,7 +539,7 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
      * @param emailIn New value for email
      */
     public void setEmail(String emailIn) {
-        this.personalInfo.setEmail(emailIn);
+        this.getPersonalInfo().setEmail(emailIn);
     }
 
 

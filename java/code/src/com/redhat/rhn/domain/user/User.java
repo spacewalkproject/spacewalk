@@ -541,8 +541,6 @@ public interface User {
      */
     void removeServer(Server server);
     
-    public void setUserInfo(UserInfo info);
-    
     public UserInfo getUserInfo();
     
     public List<Org> getUserOrgs();
