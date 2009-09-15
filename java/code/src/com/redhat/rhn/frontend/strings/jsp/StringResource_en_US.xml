@@ -14122,6 +14122,12 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      </trans-unit>
+	<trans-unit id="filedetails.details.jspf.symlink">
+<source>Symlink</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     </trans-unit>
 	<trans-unit id="filedetails.manage_header.jspf.label">
 <source>{0} from channel &lt;a href="{2}"&gt;{1}&lt;/a&gt;</source>
         <context-group name="ctx">

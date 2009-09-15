@@ -73,11 +73,14 @@
   <th><bean:message key="filedetails.details.jspf.filetype-name" /></th>
   <td>
     <c:choose>
-    	<c:when test="${revision.directory}">
-    		<bean:message key="filedetails.details.jspf.directory" />
-    	</c:when>
-    	<c:otherwise>
-    	  <rhn:require acl="config_channel_editable(${channel.id})"
+	<c:when test="${revision.directory}">
+		<bean:message key="filedetails.details.jspf.directory" />
+	</c:when>
+	<c:when test="${revision.symlink}">
+		<bean:message key="filedetails.details.jspf.symlink" />
+	</c:when>
+	<c:otherwise>
+	  <rhn:require acl="config_channel_editable(${channel.id})"
                        mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
     	    <html:select property="binary">
     	      <html:option value="false">
