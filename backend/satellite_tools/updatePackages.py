@@ -137,7 +137,6 @@ def process_package_data():
     i = 0
     for path in paths:
         pb.addTo(1)
-        time.sleep(0.005)
         pb.printIncrement()
         old_path_nvrea = path['path'].split('/')
         org_id = old_path_nvrea[1]
