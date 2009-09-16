@@ -153,6 +153,7 @@ def process_package_data():
             continue
         old_abs_path = os.path.join(CFG.MOUNT_POINT, path['path'])
 
+        md5sum = path['md5sum']
         new_path = get_new_pkg_path(nvrea, org_id, old_path_nvrea[0], \
                                     md5sum=md5sum)
         new_abs_path = os.path.join(CFG.MOUNT_POINT, new_path)
@@ -166,7 +167,6 @@ def process_package_data():
                 skip_list.append(old_abs_path)
                 if debug: Log.writeMessage("Missing Path: %s" % old_abs_path)
                 continue
-        md5sum = path['md5sum']
 
         try:
             #hdr = get_package_info(old_abs_path)
