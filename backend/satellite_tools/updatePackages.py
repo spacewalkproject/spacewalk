@@ -134,6 +134,7 @@ def process_package_data():
                      finalSize=len(paths), finalBarLength=40, stream=sys.stdout)
     pb.printAll(1)
     skip_list = []
+    new_ok_list = []
     i = 0
     for path in paths:
         pb.addTo(1)
@@ -152,10 +153,19 @@ def process_package_data():
             continue
         old_abs_path = os.path.join(CFG.MOUNT_POINT, path['path'])
 
+        new_path = get_new_pkg_path(nvrea, org_id, old_path_nvrea[0], \
+                                    md5sum=md5sum)
+        new_abs_path = os.path.join(CFG.MOUNT_POINT, new_path)
+
         if not os.path.exists(old_abs_path):
-            skip_list.append(old_abs_path)
-            if debug: Log.writeMessage("Missing Path: %s" % old_abs_path)
-            continue
+            if os.path.exists(new_abs_path):
+                new_ok_list.append(new_abs_path)
+                if debug: Log.writeMessage("File %s already on final path %s" % (path['path'], new_abs_path))
+                old_abs_path = new_abs_path
+            else:
+                skip_list.append(old_abs_path)
+                if debug: Log.writeMessage("Missing Path: %s" % old_abs_path)
+                continue
         md5sum = path['md5sum']
 
         try:
@@ -163,20 +173,20 @@ def process_package_data():
             hdr = rhn_rpm.get_package_header(filename=old_abs_path)
         except IOError:
             raise
-        new_path = get_new_pkg_path(nvrea, org_id, old_path_nvrea[0], \
-                                    md5sum=md5sum)
-        new_abs_path = os.path.join(CFG.MOUNT_POINT, new_path)
-        new_abs_dir = os.path.dirname(new_abs_path)
-        # relocate the package on the filer
-        if not os.path.isdir(new_abs_dir):
-            os.makedirs(new_abs_dir)
-        shutil.move(old_abs_path, new_abs_path)
-        # Clean up left overs
-        os.removedirs(os.path.dirname(old_abs_path))
-        # make the path readable
-        os.chmod(new_abs_path, 0644)
-        if debug: Log.writeMessage("Relocated %s to %s on filer" \
+
+        if old_abs_path != new_abs_path:
+            new_abs_dir = os.path.dirname(new_abs_path)
+            # relocate the package on the filer
+            if not os.path.isdir(new_abs_dir):
+                os.makedirs(new_abs_dir)
+            shutil.move(old_abs_path, new_abs_path)
+            # Clean up left overs
+            os.removedirs(os.path.dirname(old_abs_path))
+            # make the path readable
+            os.chmod(new_abs_path, 0644)
+            if debug: Log.writeMessage("Relocated %s to %s on filer" \
                            % (old_abs_path, new_abs_path))
+
         # Update the db paths
         _update_package_path.execute(the_id= path['id'], \
                              new_path = new_path )
@@ -194,6 +204,7 @@ def process_package_data():
     rhnSQL.commit()
     sys.stderr.write("Transaction Committed! \n")
     if verbose: print " Skipping %s packages, paths not found" % len(skip_list)
+    if len(new_ok_list) > 0 and verbose: print " There were %s packages found in the correct location" % len(new_ok_list)
     return
 
 def process_kickstart_trees():
