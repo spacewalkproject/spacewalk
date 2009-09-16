@@ -74,9 +74,7 @@ def main():
 
     process_package_data()
 
-    rhnSQL.commit()
     process_kickstart_trees()
-    sys.stderr.write("Transaction Committed! \n")
 
 def get_new_pkg_path(nvrea, org_id, prepend="", omit_epoch=None,
         package_type='rpm', md5sum=None):
@@ -136,6 +134,7 @@ def process_package_data():
                      finalSize=len(paths), finalBarLength=40, stream=sys.stdout)
     pb.printAll(1)
     skip_list = []
+    i = 0
     for path in paths:
         pb.addTo(1)
         time.sleep(0.005)
@@ -187,8 +186,14 @@ def process_package_data():
         # Process gpg key ids
         server_packages.processPackageKeyAssociations(hdr, md5sum)
         if debug: Log.writeMessage("gpg key info updated" )
+        i = i + 1
+        # we need to break the transaction to smaller pieces
+        if i % 1000 == 0:
+            rhnSQL.commit()
     pb.printComplete()
-    # All done, proceed to commit
+    # All done, final commit
+    rhnSQL.commit()
+    sys.stderr.write("Transaction Committed! \n")
     if verbose: print " Skipping %s packages, paths not found" % len(skip_list)
     return
 
