@@ -104,9 +104,10 @@ def get_new_pkg_path(nvrea, org_id, prepend="", omit_epoch=None,
 
 
 _get_path_query = """
-    select md5sum, path
-      from rhnPackage
-     where path not like '%'||MD5SUM||'%'
+	select rhnPackage.md5sum, rhnPackage.path, rhnPackageEvr.epoch
+	from rhnPackage, rhnPackageEvr
+	where rhnPackage.path not like '%'||rhnPackage.MD5SUM||'%'
+		and rhnPackage.evr_id = rhnPackageEvr.id
 """
 
 _update_pkg_path_query = """
@@ -143,6 +144,8 @@ def process_package_data():
         org_id = old_path_nvrea[1]
         try:
             nvrea = parseRPMFilename(old_path_nvrea[-1])
+            if nvrea[3] in [ None, '']:
+                nvrea[3] = path['epoch']
         except:
             # probably not qan rpm skip
             if debug:
