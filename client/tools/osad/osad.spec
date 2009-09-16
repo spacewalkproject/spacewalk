@@ -216,7 +216,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 %{rhnroot}/osad/dispatcher_client.py*
 %{rhnroot}/osad/rhn_log.py*
 %config(noreplace) %{_sysconfdir}/logrotate.d/osa-dispatcher
-%config(noreplace) %{_sysconfdir}/rhn/default/rhn_osa-dispatcher.conf
+%config %{_sysconfdir}/rhn/default/rhn_osa-dispatcher.conf
 %attr(755,root,root) %{_initrddir}/osa-dispatcher
 %doc LICENSE
 %doc PYTHON-LICENSES.txt

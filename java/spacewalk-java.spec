@@ -263,10 +263,10 @@ fi
 
 %files config
 %defattr(644, root, root)
-%config(noreplace) %{_sysconfdir}/rhn/default/rhn_hibernate.conf
-%config(noreplace) %{_sysconfdir}/rhn/default/rhn_taskomatic_daemon.conf
-%config(noreplace) %{_sysconfdir}/rhn/default/rhn_taskomatic.conf
-%config(noreplace) %{_sysconfdir}/rhn/default/rhn_org_quartz.conf
+%config %{_sysconfdir}/rhn/default/rhn_hibernate.conf
+%config %{_sysconfdir}/rhn/default/rhn_taskomatic_daemon.conf
+%config %{_sysconfdir}/rhn/default/rhn_taskomatic.conf
+%config %{_sysconfdir}/rhn/default/rhn_org_quartz.conf
 %config %{_sysconfdir}/logrotate.d/rhn_web_api
 
 %files lib
