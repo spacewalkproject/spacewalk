@@ -102,7 +102,7 @@ def get_new_pkg_path(nvrea, org_id, prepend="", omit_epoch=None,
 
 
 _get_path_query = """
-	select rhnPackage.md5sum, rhnPackage.path, rhnPackageEvr.epoch
+	select rhnPackage.id, rhnPackage.md5sum, rhnPackage.path, rhnPackageEvr.epoch
 	from rhnPackage, rhnPackageEvr
 	where rhnPackage.path not like '%'||rhnPackage.MD5SUM||'%'
 		and rhnPackage.evr_id = rhnPackageEvr.id
@@ -111,7 +111,7 @@ _get_path_query = """
 _update_pkg_path_query = """
     update rhnPackage
        set path =: new_path
-    where path =: old_path
+    where id = :the_id
 """
 
 def process_package_data():
@@ -179,7 +179,7 @@ def process_package_data():
         if debug: Log.writeMessage("Relocated %s to %s on filer" \
                            % (old_abs_path, new_abs_path))
         # Update the db paths
-        _update_package_path.execute(old_path= path['path'], \
+        _update_package_path.execute(the_id= path['id'], \
                              new_path = new_path )
         if debug: Log.writeMessage("query Executed: %s" \
                                %  _update_pkg_path_query )
