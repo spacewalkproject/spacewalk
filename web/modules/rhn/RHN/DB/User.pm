@@ -44,12 +44,12 @@ use RHN::KSTree;
 
 use RHN::Exception qw/throw/;
 
-my @contact_fields = qw/ID ORG_ID LOGIN LOGIN_UC PASSWORD OLD_PASSWORD ORACLE_CONTACT_ID IGNORE_FLAG/;
+my @contact_fields = qw/ID ORG_ID ORACLE_CONTACT_ID IGNORE_FLAG PERSONAL_INFO_ID/;
 
 my @pi_fields = (qw/PREFIX FIRST_NAMES LAST_NAME GENQUAL PARENT_COMPANY COMPANY TITLE/,
 		 qw/PHONE FAX EMAIL PIN CREATED:longdate MODIFIED FIRST_NAMES_OL LAST_NAME_OL GENQUAL_OL/,
 		 qw/PARENT_COMPANY_OL COMPANY_OL TITLE_OL/,
-		 qw/WEB_USER_ID/
+		 qw/LOGIN LOGIN_UC PASSWORD OLD_PASSWORD/
 		);
 
 my @contact_info_fields = (qw/WEB_USER_ID EMAIL MAIL CALL FAX/);
@@ -67,7 +67,7 @@ my $s = new RHN::DB::TableClass("WEB_USER_SITE_INFO", "S", "site", @site_fields)
 
 my $j = $o->create_join([ $p, $c ], { "web_contact" => { "web_contact" => [ "ID", "ID" ],
 						     "rhnOrganization" => [ "org_id", "ID" ],
-						     "WEB_USER_PERSONAL_INFO" => [ "ID", "WEB_USER_ID" ],
+						     "WEB_USER_PERSONAL_INFO" => [ "PERSONAL_INFO_ID", "ID"  ],
 						     "WEB_USER_CONTACT_PERMISSION" => [ "ID", "WEB_USER_ID" ] } });
 
 my %method_criteria =
@@ -83,7 +83,11 @@ sub find_username_fast {
   my $user_id = shift;
 
   my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare("SELECT login FROM web_contact WHERE id = :user_id");
+  my $sth = $dbh->prepare(<<EOQ);
+      SELECT login FROM WEB_USER_PERSONAL_INFO pinfo inner join 
+                        web_contact wc on wc.personal_info_id = pinfo.id WHERE wc.id = :user_id
+EOQ
+
   $sth->execute_h(user_id => $user_id);
 
   my ($ret) = $sth->fetchrow;
@@ -2032,7 +2036,12 @@ sub get_pref {
   }
 
   my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare("SELECT $pref FROM rhnUserInfo WHERE user_id = ?");
+  my $sth = $dbh->prepare(<<EOS);
+           SELECT ui.$pref FROM rhnUserInfo ui inner join 
+								rhnPersonalInfo pi on pi.id = ui.personal_info_id inner join
+                                web_contact wc on wc.personal_info_id = pi.id 
+                                WHERE wc.user_id = ?
+EOS
 
   $sth->execute($self->id);
   my ($val) = $sth->fetchrow;
