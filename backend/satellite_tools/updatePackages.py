@@ -102,10 +102,23 @@ def get_new_pkg_path(nvrea, org_id, prepend="", omit_epoch=None,
 
 
 _get_path_query = """
-	select rhnPackage.id, rhnPackage.md5sum, rhnPackage.path, rhnPackageEvr.epoch
-	from rhnPackage, rhnPackageEvr
-	where rhnPackage.path not like '%'||rhnPackage.MD5SUM||'%'
-		and rhnPackage.evr_id = rhnPackageEvr.id
+	select id, md5sum, path, epoch, new_path
+	from (
+		select rhnPackage.id, rhnPackage.md5sum, rhnPackage.path, rhnPackageEvr.epoch,
+			decode(rhnPackage.org_id, null, 'NULL', rhnPackage.org_id) || '/' || substr(md5sum, 1, 3)
+			|| '/' || rhnPackageName.name
+			|| '/' || decode(rhnPackageEvr.epoch, null, '', rhnPackageEvr.epoch || ':')
+				|| rhnPackageEvr.version || '-' || rhnPackageEvr.release
+			|| '/' || rhnPackageArch.label
+			|| '/' || rhnPackage.md5sum
+			|| substr(rhnPackage.path, instr(rhnPackage.path, '/', -1))
+			as new_path
+		from rhnPackage, rhnPackagename, rhnPackageEvr, rhnPackageArch
+		where rhnPackage.name_id = rhnPackageName.id
+			and rhnPackage.evr_id = rhnPackageEvr.id
+			and rhnPackage.package_arch_id = rhnPackageArch.id
+		)
+	where '/' || new_path <> substr(path, -length(new_path) - 1)
 """
 
 _update_pkg_path_query = """
