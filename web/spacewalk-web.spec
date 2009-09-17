@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.3
+Version: 0.7.4
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -317,6 +317,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Sep 17 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.4-1
+- 476851 - removal of tables: rhn_db_environment, rhn_environment                                                              
+- 520441 - don't apply ExtUtils::MY->fixin(shift) to perl executables
+
 * Tue Sep 01 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.3-1
 - 488431 - don't report high usage on UNDO
 
