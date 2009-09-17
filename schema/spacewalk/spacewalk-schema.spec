@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.7.2
+Version:        0.7.3
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Sep 17 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.3-1
+- 523389 - split update into smaller chunks so it will not eat all UNDO at once
+- 476851 - removal of tables: rhn_db_environment, rhn_environment (upgrade)
+- 476851 - remove environment colum which refers to deleted rhn_enviroment table
+- 476851 - removal of tables: rhn_db_environment, rhn_environment
+
 * Wed Sep 02 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.2-1
 - Add symlink capability to config management (joshua.roys@gtri.gatech.edu)
 - 517867 - insert solaris data only if these do not exist
