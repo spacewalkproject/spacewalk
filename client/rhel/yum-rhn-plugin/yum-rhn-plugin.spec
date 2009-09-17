@@ -1,7 +1,7 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
 Source: %{name}-%{version}.tar.gz
-Version: 0.7.0
+Version: 0.7.1
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -60,6 +60,14 @@ make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RP
 
 
 %changelog
+* Thu Sep 17 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.1-1
+- Rhpl was removed from rhel client packages
+- use macros in spec file
+- move rhnplugin from /var/lib/yum-plugins to /usr/share/yum-plugins - it is not executable
+- versioned obsolete and provide the obsolete package
+- Fix yum-rhn-plugin requiring a version of m2crypto that doesn't exist.
+- bumping versions to 0.7.0
+
 * Thu Aug 06 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.1-1
 - fixing the changelog order causing tito build to fail (pkilambi@redhat.com)
 - fixing date (pkilambi@redhat.com)
