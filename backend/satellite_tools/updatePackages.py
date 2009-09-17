@@ -177,6 +177,8 @@ def process_package_data():
         if old_abs_path != new_abs_path:
             new_abs_dir = os.path.dirname(new_abs_path)
             # relocate the package on the filer
+            if debug: Log.writeMessage("Relocating %s to %s on filer" \
+                           % (old_abs_path, new_abs_path))
             if not os.path.isdir(new_abs_dir):
                 os.makedirs(new_abs_dir)
             shutil.move(old_abs_path, new_abs_path)
@@ -184,8 +186,6 @@ def process_package_data():
             os.removedirs(os.path.dirname(old_abs_path))
             # make the path readable
             os.chmod(new_abs_path, 0644)
-            if debug: Log.writeMessage("Relocated %s to %s on filer" \
-                           % (old_abs_path, new_abs_path))
 
         # Update the db paths
         _update_package_path.execute(the_id= path['id'], \
