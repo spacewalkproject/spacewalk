@@ -2,6 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
+
 
 <html:xhtml/>
 <html>
@@ -18,14 +20,29 @@
   </div>
 
 
-  <rhn:list pageList="${requestScope.pageList}"
-            noDataText="packagelist.jsp.nopackages">
-    <rhn:listdisplay>
-      <rhn:column header="packagelist.jsp.name.${type}">
-        ${current.nvre}
-      </rhn:column>
-    </rhn:listdisplay>
-  </rhn:list>
+
+<rl:listset name="packset">
+
+<rl:list emptykey="packagelist.jsp.nopackages">
+
+                <rl:decorator name="ElaborationDecorator"/>
+
+
+                <rl:column sortable="true"
+                                   bound="false"
+                           styleclass="first-column last-column"
+                           headerkey="packagelist.jsp.name.${type}"
+                           sortattr="nvre"
+                           defaultsort="asc"  >
+                           ${current.nvre}
+                </rl:column>
+
+</rl:list>
+
+<input type="hidden" name="aid" value="${aid}">
+
+</rl:listset>
+
 	
 </body>
 </html>
