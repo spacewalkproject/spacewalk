@@ -158,11 +158,18 @@ def process_package_data():
                                     md5sum=md5sum)
         new_abs_path = os.path.join(CFG.MOUNT_POINT, new_path)
 
+        bad_abs_path = os.path.join(CFG.MOUNT_POINT, \
+                   get_new_pkg_path(nvrea, org_id, old_path_nvrea[0], \
+                             omit_epoch = True, md5sum=md5sum))
+
         if not os.path.exists(old_abs_path):
             if os.path.exists(new_abs_path):
                 new_ok_list.append(new_abs_path)
                 if debug: Log.writeMessage("File %s already on final path %s" % (path['path'], new_abs_path))
                 old_abs_path = new_abs_path
+            elif os.path.exists(bad_abs_path):
+                Log.writeMessage("File %s found on %s" % (path['path'], bad_abs_path))
+                old_abs_path = bad_abs_path
             else:
                 skip_list.append(old_abs_path)
                 if debug: Log.writeMessage("Missing path %s for package %d" % ( old_abs_path, path['id']))
