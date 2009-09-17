@@ -165,7 +165,7 @@ def process_package_data():
                 old_abs_path = new_abs_path
             else:
                 skip_list.append(old_abs_path)
-                if debug: Log.writeMessage("Missing Path: %s" % old_abs_path)
+                if debug: Log.writeMessage("Missing path %s for package %d" % ( old_abs_path, path['id']))
                 continue
 
         try:
@@ -190,11 +190,11 @@ def process_package_data():
         # Update the db paths
         _update_package_path.execute(the_id= path['id'], \
                              new_path = new_path )
-        if debug: Log.writeMessage("query Executed: %s" \
-                               %  _update_pkg_path_query )
+        if debug: Log.writeMessage("query Executed: update rhnPackage %d to %s" \
+                               % ( path['id'], new_path ))
         # Process gpg key ids
         server_packages.processPackageKeyAssociations(hdr, md5sum)
-        if debug: Log.writeMessage("gpg key info updated" )
+        if debug: Log.writeMessage("gpg key info updated from %s" % new_abs_path )
         i = i + 1
         # we need to break the transaction to smaller pieces
         if i % 1000 == 0:
