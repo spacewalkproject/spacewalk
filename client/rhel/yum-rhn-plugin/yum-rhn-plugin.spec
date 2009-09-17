@@ -1,7 +1,7 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
 Source: %{name}-%{version}.tar.gz
-Version: 0.7.1
+Version: 0.7.2
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -60,7 +60,7 @@ make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RP
 
 
 %changelog
-* Thu Sep 17 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.1-1
+* Thu Sep 17 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.2-1
 - Rhpl was removed from rhel client packages
 - use macros in spec file
 - move rhnplugin from /var/lib/yum-plugins to /usr/share/yum-plugins - it is not executable
