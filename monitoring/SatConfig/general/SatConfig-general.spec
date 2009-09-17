@@ -2,7 +2,7 @@
 %define hb_res_dir     %{_sysconfdir}/ha.d/resource.d
 %define installed_dir  %sysv_dir/installed
 Name:         SatConfig-general
-Version:      1.216.15
+Version:      1.216.16
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - general setup, used by many packages
 URL:          https://fedorahosted.org/spacewalk
@@ -63,6 +63,9 @@ install -D -m 644 NOCpulse-ini.8 $RPM_BUILD_ROOT%{_mandir}/man8/NOCpulse-ini.8
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Sep 17 2009 Miroslav Suchý <msuchy@redhat.com> 1.216.16-1
+- 476851 - removal of tables: rhn_db_environment, rhn_environment
+
 * Tue Aug 25 2009 Miroslav Suchý <msuchy@redhat.com> 1.216.15-1
 - Network::IPv4Addr has been renamed to Net::IPv4Addr 
 
