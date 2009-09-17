@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.5
+Version: 0.7.6
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -280,6 +280,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Sep 17 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.6-1
+- 523631 - Files in /etc/rhn/default should not be "noreplace"
+- fixing broken path in eclipse classpath generation
+- 523146 - fix typo in name of column
+- 476851 - removal of tables: rhn_db_environment, rhn_environment
+- Made hibernate configs use new configs.
+- fixing issue where repo_sync tasks would not get removed under certain conditions
+- fixing issue where errata cache task was pulling ALL tasks out of the queue and not just the two it actually was using
+
 * Wed Sep 02 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.5-1
 - Add symlink capability to config management (joshua.roys@gtri.gatech.edu)
 
