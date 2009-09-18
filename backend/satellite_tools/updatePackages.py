@@ -118,7 +118,7 @@ _get_path_query = """
 			and rhnPackage.evr_id = rhnPackageEvr.id
 			and rhnPackage.package_arch_id = rhnPackageArch.id
 		)
-	where '/' || new_path <> substr(path, -length(new_path) - 1)
+	where '/' || new_path <> nvl(substr(path, -length(new_path) - 1), 'x')
 """
 
 _update_pkg_path_query = """
