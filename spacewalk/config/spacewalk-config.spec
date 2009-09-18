@@ -45,6 +45,13 @@ tar -C $RPM_BUILD_ROOT%{prepdir} -cf - etc \
 
 echo "" > $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/rhn.conf
 
+find $RPM_BUILD_ROOT -name '*.symlink' | \
+	while read filename ; do linkname=${filename%.symlink} ; \
+		target=`sed -s 's/^Link to //' $filename` ; \
+		ln -sf $target $linkname ; \
+		rm -f $filename ; \
+	done
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
