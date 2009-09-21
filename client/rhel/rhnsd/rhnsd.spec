@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 4.5.11
+Version: 4.5.12
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -62,6 +62,11 @@ rm -fr $RPM_BUILD_ROOT
 %{_mandir}/man8/rhnsd.8*
 
 %changelog
+* Mon Sep 21 2009 Miroslav Suchý <msuchy@redhat.com> 4.5.12-1
+- implement try-restart as alias for condrestart
+- add LSB header
+- change url, source0 and requires according to packaging guidelines
+
 * Tue Jul 21 2009 John Matthews <jmatthew@redhat.com> 4.5.11-1
 - #503719 - fix for postun scriptlet error (pkilambi@redhat.com)
 
