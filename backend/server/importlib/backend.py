@@ -514,11 +514,6 @@ class Backend:
     def lookupPackages(self, packages, ignore_missing = 0):
         # If nevra is enabled use md5sum as primary key
         self.validate_pks()
-        #tbs = self.tables['rhnPackage']
-        #if CFG.ENABLE_NVREA:
-        #    # Add md5sum as a primarykey if nevra is enabled
-        #    if 'md5sum' not in tbs.pk:
-        #        tbs.pk.append('md5sum')
         for package in packages:
             if not isinstance(package, IncompletePackage):
                 raise TypeError("Expected an IncompletePackage instance, found %s" % \
@@ -696,11 +691,6 @@ class Backend:
                 forceVerify=0, transactional=0):
         # Insert/update the packages
         self.validate_pks()
-        #tbs = self.tables['rhnPackage']
-        #if CFG.ENABLE_NVREA:
-            # Add md5sum as a primarykey if nevra is enabled
-        #    if 'md5sum' not in tbs.pk:
-        #        tbs.pk.append('md5sum')
 
         childTables = {
             'rhnPackageProvides':   'package_id', 
