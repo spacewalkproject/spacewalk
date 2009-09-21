@@ -512,6 +512,13 @@ class Backend:
         self.__processHash('rhnPackageGroup', 'name', hash)
 
     def lookupPackages(self, packages, ignore_missing = 0):
+        # If nevra is enabled use md5sum as primary key
+        self.validate_pks()
+        #tbs = self.tables['rhnPackage']
+        #if CFG.ENABLE_NVREA:
+        #    # Add md5sum as a primarykey if nevra is enabled
+        #    if 'md5sum' not in tbs.pk:
+        #        tbs.pk.append('md5sum')
         for package in packages:
             if not isinstance(package, IncompletePackage):
                 raise TypeError("Expected an IncompletePackage instance, found %s" % \
@@ -688,12 +695,12 @@ class Backend:
     def processPackages(self, packages, uploadForce=0, ignoreUploaded=0,
                 forceVerify=0, transactional=0):
         # Insert/update the packages
-
-        tbs = self.tables['rhnPackage']
-        if CFG.ENABLE_NVREA:
+        self.validate_pks()
+        #tbs = self.tables['rhnPackage']
+        #if CFG.ENABLE_NVREA:
             # Add md5sum as a primarykey if nevra is enabled
-            if 'md5sum' not in tbs.pk:
-                tbs.pk.append('md5sum')
+        #    if 'md5sum' not in tbs.pk:
+        #        tbs.pk.append('md5sum')
 
         childTables = {
             'rhnPackageProvides':   'package_id', 
@@ -1962,6 +1969,14 @@ class Backend:
             )
             h = self.dbmodule.prepare(query)
             apply(h.executemany, (), params)
+
+    def validate_pks(self):
+        # If nevra is enabled use md5sum as primary key
+        tbs = self.tables['rhnPackage']
+        if CFG.ENABLE_NVREA:
+            # Add md5sum as a primarykey if nevra is enabled
+            if 'md5sum' not in tbs.pk:
+                tbs.pk.append('md5sum') 
             
 # Returns a tuple for the hash's values
 def build_key(hash, fields):
