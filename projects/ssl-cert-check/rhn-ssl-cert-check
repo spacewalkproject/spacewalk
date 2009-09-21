@@ -32,7 +32,15 @@ unset ADMIN EXPIRATION CHECK
 EXPIRATION=${EXPIRATION:-60}
 
 RHN_CONF_FILE=/etc/rhn/rhn.conf
-SSL_HTTPD_CONF_FILE=/etc/httpd/conf.d/ssl.conf
+if rpm -q rhns-proxy-management; then
+    # for proxy 5.2 and older
+    SSL_HTTPD_CONF_FILE=/etc/httpd/conf.d/ssl.conf
+elif rpm -q rhn-satellite-config
+    # for satellite 5.2 and older
+    SSL_HTTPD_CONF_FILE=/etc/rhn/satellite-httpd/conf/ssl.conf
+else
+    SSL_HTTPD_CONF_FILE=/etc/httpd/conf.d/ssl.conf
+fi >/dev/null
 SSL_CERT_CHECK=/usr/share/ssl/ssl-cert-check
 REMOTE_HOSTS=/etc/sysconfig/rhn/ssl-hosts.conf
 
