@@ -60,6 +60,7 @@ rm -fr $RPM_BUILD_ROOT
 /usr/sbin/rhnsd
 /etc/rc.d/init.d/rhnsd
 %{_mandir}/man8/rhnsd.8*
+%doc LICENSE
 
 %changelog
 * Mon Sep 21 2009 Miroslav Suchý <msuchy@redhat.com> 4.5.12-1
