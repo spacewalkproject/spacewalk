@@ -56,9 +56,9 @@ rm -fr $RPM_BUILD_ROOT
 
 %files -f %{name}.lang 
 %defattr(-,root,root)
-%config(noreplace) /etc/sysconfig/rhn/rhnsd
-/usr/sbin/rhnsd
-/etc/rc.d/init.d/rhnsd
+%config(noreplace) %{_sysconfdir}/sysconfig/rhn/rhnsd
+%{_sbindir}/rhnsd
+%{_initrddir}/rhnsd
 %{_mandir}/man8/rhnsd.8*
 %doc LICENSE
 
