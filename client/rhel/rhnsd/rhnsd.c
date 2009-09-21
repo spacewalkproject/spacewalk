@@ -4,7 +4,7 @@
  * Author:
  *	Cristian Gafton <gafton@redhat.com>
  *
- * Distributed under GPL
+ * Distributed under GPLv2
  * $Id$
  */
 
