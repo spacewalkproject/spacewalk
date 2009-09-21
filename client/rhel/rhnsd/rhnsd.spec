@@ -30,7 +30,7 @@ make -f Makefile.rhnsd
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make -f Makefile.rhnsd install VERSION=%{version}-%{release} PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir}
+make -f Makefile.rhnsd install VERSION=%{version}-%{release} PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir} %{?_smp_mflags} CXXFLAGS="%{optflags}"
 
 %find_lang %{name}
 
