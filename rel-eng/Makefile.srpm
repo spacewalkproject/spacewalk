@@ -26,7 +26,7 @@ COMMIT_TIMESTAMP = $(shell git rev-list --timestamp --max-count=1 $(COMMIT_SHA1)
 ifndef DIR
 DIR := $(shell git show $(COMMIT_SHA1):rel-eng/packages/$(NAME) 2> /dev/null | awk '{print $$2; exit }')
 endif
-RPMBUILD_DIR := $(RPMBUILD_BASEDIR)/rpmbuild-$(NAME)-git-$(COMMIT_SHA1)/
+RPMBUILD_DIR := $(RPMBUILD_BASEDIR)/rpmbuild-$(NAME)-git-$(COMMIT_SHA1)
 endif
 
 # The TAG parameter determines git tag, and by stripping
@@ -65,11 +65,11 @@ NAME_VERSION := $(shell echo $(TAG)| sed 's!-[^-]*$$!!')
 NAME_TAR_GZ_DIR := $(shell echo $(TAG)| sed 's!-[^-]*$$!!')
 COMMIT_TIMESTAMP = $(shell git rev-list --timestamp --max-count=1 $(COMMIT_SHA1) | awk '{print $$1}')
 DIR := $(shell git show $(COMMIT_SHA1):rel-eng/packages/$(NAME) | awk '{print $$2; exit }')
-RPMBUILD_DIR := $(RPMBUILD_BASEDIR)/rpmbuild-$(TAG)/
+RPMBUILD_DIR := $(RPMBUILD_BASEDIR)/rpmbuild-$(TAG)
 endif
 endif
 
-RPMBUILD_SOURCEDIR := $(RPMBUILD_DIR)SOURCES/$(DIR)
+RPMBUILD_SOURCEDIR := $(RPMBUILD_DIR)/SOURCES/$(DIR)
 NAME_TAR_GZ := $(NAME_TAR_GZ_DIR).tar.gz
 
 ifdef DIST
@@ -88,7 +88,7 @@ DIR_OR_PREFIX := $(GIT_PREFIX)
 endif
 
 tgz : git-archive-to-tar-gz
-	@echo "Wrote: $(RPMBUILD_DIR)$(NAME_TAR_GZ)"
+	@echo "Wrote: $(RPMBUILD_DIR)/$(NAME_TAR_GZ)"
 
 git-archive-unpack : git-archive-to-tar-gz unpack-tar-gz
 
@@ -124,10 +124,10 @@ git-archive-to-tar-gz : setup-source-dir
 	@cd $(GIT_CDUP) && \
 		git archive --format=tar --prefix=$(NAME_TAR_GZ_DIR)/ $(COMMIT_SHA1):$(DIR) \
 		| perl $(THIS_DIR)tar-fixup-stamp-comment.pl $(COMMIT_TIMESTAMP) $(COMMIT_SHA1) \
-		| gzip -n -c - > $(RPMBUILD_DIR)$(NAME_TAR_GZ)
+		| gzip -n -c - > $(RPMBUILD_DIR)/$(NAME_TAR_GZ)
 
 unpack-tar-gz : setup-source-dir-2
-	@cd $(RPMBUILD_SOURCEDIR) && tar xz --strip-components 1 -f $(RPMBUILD_DIR)$(NAME_TAR_GZ)
+	@cd $(RPMBUILD_SOURCEDIR) && tar xz --strip-components 1 -f $(RPMBUILD_DIR)/$(NAME_TAR_GZ)
 
 
 setup-source-dir :
@@ -140,7 +140,7 @@ setup-source-dir :
 
 setup-source-dir-2 :
 	@mkdir -p $(RPMBUILD_SOURCEDIR)
-	@ln -s $(THIS_DIR) $(RPMBUILD_DIR)SOURCES/rel-eng
+	@ln -s $(THIS_DIR) $(RPMBUILD_DIR)/SOURCES/rel-eng
 
 
 rpmbuild_x-build-srpm_params = --nodeps -bs
@@ -166,13 +166,13 @@ x-setup-specfile :
 
 x-pull-in-tar-gz :
 	@if test -z "$(NO_TAR_GZ)" ; then \
-		for i in $(X_RPMBUILD_DIR)*.tar.gz ; do \
+		for i in $(X_RPMBUILD_DIR)/*.tar.gz ; do \
 			NAME_TAR_GZ=`basename $$i` ; \
 			if test -e $$NAME_TAR_GZ ; then  \
 				echo "The tarball seems to contain $$NAME_TAR_GZ already." ; \
 				exit 1 ; \
 			fi ; \
-			mv $(X_RPMBUILD_DIR)*.tar.gz . ; \
+			mv $(X_RPMBUILD_DIR)/*.tar.gz . ; \
 		done ; \
 		fi
 
@@ -184,7 +184,7 @@ x-download-source0 :
 		fi
 
 upload-tgz : tgz
-	@scp $(RPMBUILD_DIR)$(NAME_TAR_GZ) fedorahosted.org:spacewalk
+	@scp $(RPMBUILD_DIR)/$(NAME_TAR_GZ) fedorahosted.org:spacewalk
 
 %.src.rpm %.srpm :
 	$(MAKE) --no-print-directory srpm TAG=$*
