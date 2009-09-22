@@ -26,11 +26,11 @@ your machine, and runs any actions.
 %setup -q 
 
 %build
-make -f Makefile.rhnsd
+make -f Makefile.rhnsd %{?_smp_mflags} CFLAGS="%{optflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make -f Makefile.rhnsd install VERSION=%{version}-%{release} PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir} %{?_smp_mflags} CXXFLAGS="%{optflags}"
+make -f Makefile.rhnsd install VERSION=%{version}-%{release} PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir}
 
 %find_lang %{name}
 
