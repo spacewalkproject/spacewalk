@@ -1,6 +1,6 @@
-%define rhnroot %{_datadir}/rhn
-%define rhnconf %{_sysconfdir}/sysconfig/rhn
-%define client_caps_dir %{rhnconf}/clientCaps.d
+%global rhnroot %{_datadir}/rhn
+%global rhnconf %{_sysconfdir}/sysconfig/rhn
+%global client_caps_dir %{rhnconf}/clientCaps.d
 
 Name: rhncfg
 Summary: Red Hat Network Configuration Client Libraries
