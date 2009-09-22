@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 4.5.12
+Version: 4.5.13
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -63,6 +63,12 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Sep 22 2009 Miroslav Suchý <msuchy@redhat.com> 4.5.13-1
+- use macros
+- pass CFLAGS on correct position
+- add LICENSE file
+- change header info to actual license
+
 * Mon Sep 21 2009 Miroslav Suchý <msuchy@redhat.com> 4.5.12-1
 - implement try-restart as alias for condrestart
 - add LSB header
