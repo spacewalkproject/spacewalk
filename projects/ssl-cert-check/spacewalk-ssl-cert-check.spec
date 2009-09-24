@@ -4,13 +4,14 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Epoch:	 1
 Version: 1.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: openssl
-Obsoletes: rhn-ssl-cert-check < %{version}
-Provides:  rhn-ssl-cert-check = %{version}
+Obsoletes: rhn-ssl-cert-check < %{epoch}:%{version}
+Provides:  rhn-ssl-cert-check = %{epoch}:%{version}
 
 %description 
 Runs a check once a day to see if the ssl certificates installed on this
