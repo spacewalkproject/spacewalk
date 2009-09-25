@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 4.5.13
+Version: 4.5.14
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -63,6 +63,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Sep 25 2009 Tomas Lestach <tlestach@redhat.com> 4.5.14-1
+- removed hardcoded systemid path (tlestach@redhat.com)
+
 * Tue Sep 22 2009 Miroslav Suchý <msuchy@redhat.com> 4.5.13-1
 - use macros
 - pass CFLAGS on correct position
