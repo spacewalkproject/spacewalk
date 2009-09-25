@@ -26,9 +26,12 @@
 #include <sys/wait.h>
 #include <sys/time.h>
 #include <time.h>
+#include <regex.h>
 
 #define RHN_CHECK "/usr/sbin/rhn_check" /* XXX: fix me */
-#define RHN_SYSID "/etc/sysconfig/rhn/systemid" /* XXX: hard coded paths are evil */
+#define RHN_UP2DATE "/etc/sysconfig/rhn/up2date"
+
+#define MAX_PATH_SIZE   512 
 
 /* gettext stuff */
 #define N_(msgid)	(msgid)
@@ -73,6 +76,7 @@ static struct argp argp = {
 static void termination_handler (int);
 static int rhn_init(void);
 static int rhn_do_action(void);
+static int parse_systemid_path(char* systemid_path, int systemid_path_length);
 
 static void set_signal_handlers (void);
 static void unset_signal_handlers (void);
@@ -316,14 +320,30 @@ static int rhn_do_action(void)
     int child;
     int retval;
     int fds[2];
+    char systemid_path[MAX_PATH_SIZE] = {0};
 
     /*
      * before we do anything, check if a systemid has been created.
      * if not, we aren't gonna even go through with this.
      */
-    if (access(RHN_SYSID, R_OK)) {
-	syslog(LOG_DEBUG, "%s does not exist or is unreadable", RHN_SYSID);
-	return -1;
+
+    if (access(RHN_UP2DATE, R_OK))
+    {
+         syslog(LOG_DEBUG, "%s does not exist or is unreadable", RHN_UP2DATE);
+         return -1;
+    }
+
+    /* parse the systemid location from the up2date file */
+    if (parse_systemid_path(systemid_path, sizeof(systemid_path)))
+    {
+         syslog(LOG_DEBUG, "%s does not contain valid systemIdPath entry", RHN_UP2DATE);
+         return -1;
+    }
+
+    if (access(systemid_path, R_OK))
+    {
+         syslog(LOG_DEBUG, "%s does not exist or is unreadable", systemid_path);
+         return -1;
     }
     
     /* first, the child will have the stdout redirected */
@@ -452,3 +472,32 @@ static int rhn_do_action(void)
     close(fds[1]);
     return 0;
 }
+
+#define MAX_CONFIG_LINE_SIZE    (2*MAX_PATH_SIZE)
+#define SYSTEMID_NMATCH         2
+/* parse systemIdPath from the up2date configuration file */
+static int parse_systemid_path(char* systemid_path, int systemid_path_length)
+{
+    FILE* config_file;
+    regex_t re_systemIdPath;
+    regmatch_t submatch[SYSTEMID_NMATCH];
+
+    regcomp(&re_systemIdPath,"^[[:space:]]*systemIdPath[[:space:]]*=[[:space:]]*([[:print:]]+)", REG_EXTENDED);
+    if (NULL != (config_file = fopen(RHN_UP2DATE, "r") ))
+    {
+        char line[MAX_CONFIG_LINE_SIZE];
+        while (NULL != fgets(line, MAX_CONFIG_LINE_SIZE, config_file))
+        {
+             int match_length = submatch[1].rm_eo - submatch[1].rm_so;
+             if (systemid_path_length < match_length)
+                   match_length = systemid_path_length - 1;
+
+             strncpy(systemid_path, &line[submatch[1].rm_so], match_length);
+             systemid_path[match_length] = '\0';
+             return 0;
+        }
+        fclose(config_file);
+    }
+    return 1;   /* file / key not found */
+}
+
