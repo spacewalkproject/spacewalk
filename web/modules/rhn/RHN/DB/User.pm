@@ -2038,9 +2038,9 @@ sub get_pref {
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOS);
            SELECT ui.$pref FROM rhnUserInfo ui inner join 
-								rhnPersonalInfo pi on pi.id = ui.personal_info_id inner join
+				WEB_USER_PERSONAL_INFO pi on pi.id = ui.personal_info_id inner join
                                 web_contact wc on wc.personal_info_id = pi.id 
-                                WHERE wc.user_id = ?
+                                WHERE wc.id = ?
 EOS
 
   $sth->execute($self->id);
