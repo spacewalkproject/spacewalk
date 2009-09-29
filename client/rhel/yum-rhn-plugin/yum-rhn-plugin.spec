@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 0.7.3
+Version: 0.7.4
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -50,7 +50,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Tue Sep 29 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.3-1
+* Tue Sep 29 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.4-1
 - add source url
 - add fix version in provides
 - clean %%files section
