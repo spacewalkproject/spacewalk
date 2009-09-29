@@ -436,7 +436,6 @@ def processPackageKeyAssociations(header, md5sum):
         lookup_keytype_id.execute()
         key_type_id = lookup_keytype_id.fetchone_dict()
         insert_keyid_sql.execute(key_id = key_id, key_type_id = key_type_id['id'])
-        rhnSQL.commit()
         lookup_keyid_sql.execute(key_id = key_id)
         keyid = lookup_keyid_sql.fetchall_dict()
 
@@ -446,8 +445,6 @@ def processPackageKeyAssociations(header, md5sum):
 
     if not exists_check:
         provider_sql.execute(key_id=keyid[0]['id'], package_id=pkg_id[0]['id'])
-
-        rhnSQL.commit()
 
 
 # Compares list1 and list2 (each list is a tuple (n, v, r, e)
