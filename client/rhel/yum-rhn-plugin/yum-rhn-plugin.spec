@@ -1,11 +1,11 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Source: %{name}-%{version}.tar.gz
 Version: 0.7.2
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
-Url: http://rhn.redhat.com
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+URL:     https://fedorahosted.org/spacewalk
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: python
@@ -19,7 +19,7 @@ Requires: m2crypto >= 0.16-6
 # Not really, but for upgrades we need these
 Requires: rhn-setup
 Obsoletes: up2date < 5.0.0
-Provides: up2date = %{version}
+Provides: up2date = 5.0.0
 
 %description
 This yum plugin provides support for yum to access a Red Hat Network server for
@@ -38,7 +38,7 @@ make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RP
 %find_lang %{name}
 
 %clean
-[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
@@ -60,6 +60,10 @@ make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RP
 
 
 %changelog
+* Tue Sep 29 2009 Miroslav Suchý <msuchy@redhat.com>
+- add source url
+- add fix version in provides
+
 * Thu Sep 17 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.2-1
 - Rhpl was removed from rhel client packages
 - use macros in spec file
