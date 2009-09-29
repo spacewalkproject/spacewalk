@@ -43,26 +43,17 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(-,root,root,-)
 %config(noreplace) %{_sysconfdir}/yum/pluginconf.d/rhnplugin.conf
-
 %dir /var/lib/up2date
-
-%{_mandir}/man5/rhnplugin.conf.5*
-%{_mandir}/man8/rhnplugin.8*
-%{_mandir}/man8/yum-rhn-plugin.8*
-
-%{_datadir}/yum-plugins/rhnplugin.py
-%{_datadir}/yum-plugins/rhnplugin.pyc
-%{_datadir}/yum-plugins/rhnplugin.pyo
-
-%{_datadir}/rhn/actions/packages.py
-%{_datadir}/rhn/actions/packages.pyc
-%{_datadir}/rhn/actions/packages.pyo
+%{_mandir}/man*/*
+%{_datadir}/yum-plugins/*
+%{_datadir}/rhn/actions/*
 
 
 %changelog
 * Tue Sep 29 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.3-1
 - add source url
 - add fix version in provides
+- clean %%files section
 
 * Thu Sep 17 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.2-1
 - Rhpl was removed from rhel client packages
