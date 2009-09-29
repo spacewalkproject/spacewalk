@@ -39,6 +39,7 @@ import org.hibernate.Session;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -747,6 +748,10 @@ public class ServerFactory extends HibernateFactory {
      * @return list of system ids that are solaris systems
      */
     public static List<Long> listSolarisSystems(Collection<Long> systemIds) {
+        //Hibernate can't handle empty lists for in clauses, silly hibernate
+        if (systemIds.isEmpty()) {
+            return Collections.EMPTY_LIST;
+        }
         return ServerFactory.getSession().getNamedQuery("Server.listSolarisSystems").
                 setParameterList("sids", systemIds).list();
     }
@@ -758,6 +763,10 @@ public class ServerFactory extends HibernateFactory {
      * @return list of system ids that are linux systems
      */
     public static List<Long> listLinuxSystems(Collection<Long> systemIds) {
+       //Hibernate can't handle empty lists for in clauses, silly hibernate
+        if (systemIds.isEmpty()) {
+            return Collections.EMPTY_LIST;
+        }
         return ServerFactory.getSession().getNamedQuery("Server.listRedHatSystems").
                                                 setParameterList("sids", systemIds).list();
         
