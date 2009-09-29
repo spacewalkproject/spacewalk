@@ -38,6 +38,7 @@ import org.hibernate.Session;
 
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -739,4 +740,27 @@ public class ServerFactory extends HibernateFactory {
                 "ServerSnapshot.findTags", params);
         return snaps;
     }
+    
+    /**
+     * Filter out a list of systemIds with ones that are solaris systems
+     * @param systemIds list of system ids
+     * @return list of system ids that are solaris systems
+     */
+    public static List<Long> listSolarisSystems(Collection<Long> systemIds) {
+        return ServerFactory.getSession().getNamedQuery("Server.listSolarisSystems").
+                setParameterList("sids", systemIds).list();
+    }
+    
+    /**
+     * Filter out a list of systemIds with ones that are linux systems
+     *  (i.e. not solaris systems)
+     * @param systemIds list of system ids
+     * @return list of system ids that are linux systems
+     */
+    public static List<Long> listLinuxSystems(Collection<Long> systemIds) {
+        return ServerFactory.getSession().getNamedQuery("Server.listRedHatSystems").
+                                                setParameterList("sids", systemIds).list();
+        
+    }
+    
 }
