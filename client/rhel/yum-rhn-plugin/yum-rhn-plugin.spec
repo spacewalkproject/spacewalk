@@ -47,9 +47,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man*/*
 %{_datadir}/yum-plugins/*
 %{_datadir}/rhn/actions/*
-
+%doc LICENSE
 
 %changelog
+* Wed Sep 30 2009 Miroslav Suchý <msuchy@redhat.com>
+- add LICENSE
+
 * Tue Sep 29 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.4-1
 - add source url
 - add fix version in provides
