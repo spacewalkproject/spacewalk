@@ -191,6 +191,7 @@ def process_package_data():
         try:
             hdr = rhn_rpm.get_package_header(filename=old_abs_path)
         except IOError:
+            rhnSQL.commit()
             raise
 
         if old_abs_path != new_abs_path:
