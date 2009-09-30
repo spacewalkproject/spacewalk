@@ -369,6 +369,9 @@ def createPackage(header, size, md5sum, relpath, org_id, header_start,
         log_debug(4, "Creating package")
         p = rpmBinaryPackage()
 
+    # bug #524231 - we need to call fullFilelist() for RPM v3 file list
+    # to expand correctly
+    header.hdr.fullFilelist()
     p.populate(header, size, md5sum, relpath, org_id, header_start, header_end,
         channels)
     return p
