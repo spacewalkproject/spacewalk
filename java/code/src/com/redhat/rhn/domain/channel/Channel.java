@@ -790,9 +790,18 @@ public class Channel extends BaseDomainHelper implements Comparable {
             toConsider = toConsider.getParentChannel();
         }
 
+        String release = null;
         DistChannelMap channelDist = ChannelFactory.lookupDistChannelMap(toConsider);
         if (channelDist != null) {
-            String release = channelDist.getRelease();
+            release = channelDist.getRelease();
+        } 
+        else { // and now again for zstreams
+            ReleaseChannelMap channelRelease = ChannelFactory.lookupDefaultReleaseChannelMapForChannel(toConsider);
+            if (channelRelease != null) {
+                release = channelRelease.getRelease();
+            }
+        }
+        if (release != null) {
             if (!releaseToSkipRepodata.contains(release)) {
                 repodataRequired = true;
                 log.debug("isChannelRepodataRequired for channel(" + this.id + ") " +
