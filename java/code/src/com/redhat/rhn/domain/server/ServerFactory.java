@@ -771,31 +771,12 @@ public class ServerFactory extends HibernateFactory {
      * @return list of system ids that are solaris systems
      */
     public static List<Long> listSolarisSystems(Collection<Long> systemIds) {
-        return listGenericSystems(systemIds, "Server.listSolarisSystems");
-    }
-    
-    
-    
-    private static List<Long> listGenericSystems(Collection<Long> systemIds, String query) {
         //Hibernate can't handle empty lists for in clauses, silly hibernate
         if (systemIds.isEmpty()) {
             return Collections.EMPTY_LIST;
         }
-        ArrayList<Long> tmpList = new ArrayList<Long>();
-        List<Long> toRet = new ArrayList<Long>();
-        tmpList.addAll(systemIds);
-        
-        for (int i = 0; i < systemIds.size();) {
-            int initial = i;
-            int fin = i + 500 < systemIds.size() ? i + 500 : systemIds.size();
-            List<Long> sublist = tmpList.subList(i, fin);
-            toRet.addAll(ServerFactory.getSession().getNamedQuery(query).
-                setParameterList("sids", sublist).list());
-            i = fin+1;
-        }
-
-        return toRet;
-        
+        return ServerFactory.getSession().getNamedQuery("Server.listSolarisSystems").
+                setParameterList("sids", systemIds).list();
     }
     
     /**
@@ -805,7 +786,13 @@ public class ServerFactory extends HibernateFactory {
      * @return list of system ids that are linux systems
      */
     public static List<Long> listLinuxSystems(Collection<Long> systemIds) {
-        return listGenericSystems(systemIds, "Server.listRedHatSystems");
+       //Hibernate can't handle empty lists for in clauses, silly hibernate
+        if (systemIds.isEmpty()) {
+            return Collections.EMPTY_LIST;
+        }
+        return ServerFactory.getSession().getNamedQuery("Server.listRedHatSystems").
+                                                setParameterList("sids", systemIds).list();
+        
     }
     
 }
