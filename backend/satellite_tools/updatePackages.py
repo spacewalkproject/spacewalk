@@ -188,6 +188,11 @@ def process_package_data():
                 if debug: Log.writeMessage("Missing path %s for package %d" % ( old_abs_path, path['id']))
                 continue
 
+        try:
+            hdr = rhn_rpm.get_package_header(filename=old_abs_path)
+        except IOError:
+            raise
+
         if old_abs_path != new_abs_path:
             new_abs_dir = os.path.dirname(new_abs_path)
             # relocate the package on the filer
@@ -207,11 +212,6 @@ def process_package_data():
         if debug: Log.writeMessage("query Executed: update rhnPackage %d to %s" \
                                % ( path['id'], new_path ))
         # Process gpg key ids
-        try:
-            #hdr = get_package_info(old_abs_path)
-            hdr = rhn_rpm.get_package_header(filename=new_abs_path)
-        except IOError:
-            raise
         server_packages.processPackageKeyAssociations(hdr, md5sum)
         if debug: Log.writeMessage("gpg key info updated from %s" % new_abs_path )
         i = i + 1
