@@ -14,27 +14,28 @@
  */
 package com.redhat.rhn.frontend.events;
 
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.messaging.EventMessage;
-import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
-import com.redhat.rhn.frontend.action.SetLabels;
-import com.redhat.rhn.frontend.dto.EssentialServerDto;
-import com.redhat.rhn.frontend.dto.PackageListItem;
-import com.redhat.rhn.manager.action.ActionManager;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-import com.redhat.rhn.manager.ssm.SsmOperationManager;
-import com.redhat.rhn.manager.system.SystemManager;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
+import java.util.Set;
+import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import com.redhat.rhn.common.messaging.EventMessage;
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.manager.ssm.SsmOperationManager;
+import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerFactory;
+import com.redhat.rhn.frontend.dto.PackageListItem;
+import com.redhat.rhn.frontend.dto.EssentialServerDto;
+import com.redhat.rhn.frontend.action.SetLabels;
 
 /**
  * Schedules package installations on systems in the SSM.
@@ -91,13 +92,17 @@ public class SsmInstallPackagesAction extends AbstractDatabaseAction {
             PackageListItem.toKeyMaps(packageListItems);
 
         // Create one action for all servers to which the packages are installed
+        List<Server> actionServers = new ArrayList<Server>(servers.size());
         List<Long> serverIds = new LinkedList<Long>();
         for (EssentialServerDto dto : servers) {
             serverIds.add(dto.getId());
         }
-
+        log.debug("Looking up server objects.");
+        actionServers.addAll(ServerFactory.lookupByIdsAndUser(serverIds, user));
         log.debug("Scheduling actions.");
-        ActionManager.schedulePackageInstall(user, serverIds,
+
+
+        ActionManager.schedulePackageInstall(user, actionServers,
             packageListData, earliest);
         log.debug("Done scheduling package installations.");
 

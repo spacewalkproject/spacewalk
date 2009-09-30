@@ -89,36 +89,36 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         </set>
         
         <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl"
-            column="org_id" lazy="proxy"/>
+            column="org_id"/>
 
         <many-to-one name="creator" class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"
-            column="creator_id" lazy="proxy"/>
+            column="creator_id"/>
 
         <many-to-one name="serverArch"
             class="com.redhat.rhn.domain.server.ServerArch"
-            column="server_arch_id" lazy="proxy"/>
+            column="server_arch_id"/>
 
         <many-to-one name="provisionState"
             class="com.redhat.rhn.domain.common.ProvisionState"
-            column="provision_state_id" cascade="save-update" lazy="proxy"/>
+            column="provision_state_id" cascade="save-update"/>
 
         <one-to-one name="serverInfo"
-            class="com.redhat.rhn.domain.server.ServerInfo" cascade="all" lazy="proxy"/>
+            class="com.redhat.rhn.domain.server.ServerInfo" cascade="all"/>
 
         <one-to-one name="cpu" class="com.redhat.rhn.domain.server.CPU"
-            property-ref="server" cascade="all" lazy="proxy"/>
+            property-ref="server" cascade="all"/>
             
         <one-to-one name="lock" class="com.redhat.rhn.domain.server.ServerLock"
-                    cascade="all" lazy="proxy"/>
+                    cascade="all"/>
 
         <one-to-one name="serverUuid" class="com.redhat.rhn.domain.server.ServerUuid"
-                    cascade="all" lazy="proxy"/>
+                    cascade="all"/>
                     
         <one-to-one name="proxyInfo" class="com.redhat.rhn.domain.server.ProxyInfo"
-                    cascade="all" lazy="proxy"/>
+                    cascade="all"/>
                                         
         <one-to-one name="pushClient" class="com.redhat.rhn.domain.server.PushClient"
-		    property-ref="server" lazy="proxy" />
+		    property-ref="server" />
 
         <!--
         we want to access the ram object via the field directly.
@@ -127,16 +127,16 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         create a RAM object on a server.
         -->
         <one-to-one name="ram" class="com.redhat.rhn.domain.server.Ram"
-            property-ref="server" cascade="all" access="field" lazy="proxy"/>
+            property-ref="server" cascade="all" access="field"/>
         <one-to-one name="dmi" class="com.redhat.rhn.domain.server.Dmi"
-            property-ref="server" cascade="all" lazy="proxy"/>
+            property-ref="server" cascade="all"/>
         <one-to-one name="location" class="com.redhat.rhn.domain.server.Location"
-            property-ref="server" cascade="all" lazy="proxy" />
+            property-ref="server" cascade="all"/>
         
         <one-to-one name="virtualInstance"
                     class="com.redhat.rhn.domain.server.VirtualInstance"
                     property-ref="guestSystem"
-                    cascade="save-update" lazy="proxy"/>
+                    cascade="save-update"/>
                      
         <set name="history" cascade="all" lazy="true" inverse="true">
             <key column="server_id"/>
@@ -179,19 +179,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="Server.findByIdsAndOrgId">
         <![CDATA[from com.redhat.rhn.domain.server.Server as s where ORG_ID = :orgId and s.id in (:serverIds)]]>
     </query>
-    
-     <query name="Server.listRedHatSystems">
-        <![CDATA[ select s.id
-        				from com.redhat.rhn.domain.server.Server as s 
-        				where s.id in (:sids) and s.serverArch.archType.label != 'sysv-solaris']]>
-    </query>
-    
-     <query name="Server.listSolarisSystems">
-        <![CDATA[ select s.id
-        				from com.redhat.rhn.domain.server.Server as s 
-        				where s.id in (:sids) and s.serverArch.archType.label = 'sysv-solaris']]>
-    </query>    
-    
 
     <sql-query name="Server.findVirtPlatformHostsByOrg">
         <![CDATA[select   s.id as id, s.name as name, count(vi.id) as count 
