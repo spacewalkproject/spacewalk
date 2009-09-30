@@ -20,36 +20,30 @@
             AND  SGM.server_id = CP.host_id(+)
             AND  SGM.group_id = UMSG.server_group_id
          GROUP BY SGM.group_id) MONITORING_STATUS,
-         
-         
-         ( SELECT 1  from dual where exists 
-		 (select 1 FROM rhnErrata E,
-		                  rhnServerNeededPackageCache SNPC,
-		                  rhnServerGroupMembers SGM
-		            WHERE E.advisory_type = 'Security Advisory'
-		                  and snpc.errata_id = e.id
-		                  and snpc.server_id = sgm.server_id
-		                  and sgm.server_group_id = G.id)) AS SECURITY_ERRATA,
-         
-         (SELECT 1  from dual where exists 
-		 (select 1 FROM rhnErrata E,
-		                  rhnServerNeededPackageCache SNPC,
-		                  rhnServerGroupMembers SGM
-		            WHERE E.advisory_type = 'Bug Fix Advisory'
-		                  and snpc.errata_id = e.id
-		                  and snpc.server_id = sgm.server_id
-		                  and sgm.server_group_id = G.id)) AS BUG_ERRATA,
-                 
-         (SELECT 1  from dual where exists 
-		 (select 1 FROM rhnErrata E,
-		                  rhnServerNeededPackageCache SNPC,
-		                  rhnServerGroupMembers SGM
-		            WHERE E.advisory_type = 'Product Enhancement Advisory'
-		                  and snpc.errata_id = e.id
-		                  and snpc.server_id = sgm.server_id
-		                  and sgm.server_group_id = G.id))     AS ENHANCEMENT_ERRATA
-               
-                                             
+    ( select /*+first_rows*/ 1
+	    FROM rhnErrata E
+	    WHERE E.advisory_type = 'Security Advisory'
+	    and exists (select 1 from rhnServerNeededErrataCache SNPC, rhnServerGroupMembers SGM  
+	      where snpc.errata_id = e.id
+	      and snpc.server_id = sgm.server_id
+	      and sgm.server_group_id = 5)
+	      and rownum = 1) AS SECURITY_ERRATA,
+    ( select /*+first_rows*/ 1
+		    FROM rhnErrata E
+		    WHERE E.advisory_type = 'Bug Fix Advisory'
+		    and exists (select 1 from rhnServerNeededErrataCache SNPC, rhnServerGroupMembers SGM  
+		      where snpc.errata_id = e.id
+		      and snpc.server_id = sgm.server_id
+		      and sgm.server_group_id = 5)
+		      		and rownum = 1) AS BUG_ERRATA,
+    ( select /*+first_rows*/ 1
+		    FROM rhnErrata E
+		    WHERE E.advisory_type = 'Product Enhancement Advisory'
+		    and exists (select 1 from rhnServerNeededErrataCache SNPC, rhnServerGroupMembers SGM  
+		      where snpc.errata_id = e.id
+		      and snpc.server_id = sgm.server_id
+		      and sgm.server_group_id = 5)
+		      and rownum = 1) AS ENHANCEMENT_ERRATA                                 
  FROM   rhnServerGroup G, rhnUserManagedServerGroups UMSG
  WHERE   G.ORG_ID = :org_id
    AND   UMSG.user_id = :user_id
