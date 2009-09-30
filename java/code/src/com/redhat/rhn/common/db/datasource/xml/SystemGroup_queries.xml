@@ -23,27 +23,27 @@
          
          
          ( SELECT 1  from dual where exists 
-                (select /*+ ORDERED */ 1 FROM rhnServerGroupMembers SGM,
-                                 rhnServerNeededErrataCache SNPC,
-                                 rhnErrata E
+		 (select 1 FROM rhnErrata E,
+		                  rhnServerNeededPackageCache SNPC,
+		                  rhnServerGroupMembers SGM
 		            WHERE E.advisory_type = 'Security Advisory'
 		                  and snpc.errata_id = e.id
 		                  and snpc.server_id = sgm.server_id
 		                  and sgm.server_group_id = G.id)) AS SECURITY_ERRATA,
          
          (SELECT 1  from dual where exists 
-                (select /*+ ORDERED */ 1 FROM rhnServerGroupMembers SGM,
-                                 rhnServerNeededErrataCache SNPC,
-                                 rhnErrata E
+		 (select 1 FROM rhnErrata E,
+		                  rhnServerNeededPackageCache SNPC,
+		                  rhnServerGroupMembers SGM
 		            WHERE E.advisory_type = 'Bug Fix Advisory'
 		                  and snpc.errata_id = e.id
 		                  and snpc.server_id = sgm.server_id
 		                  and sgm.server_group_id = G.id)) AS BUG_ERRATA,
                  
          (SELECT 1  from dual where exists 
-                (select /*+ ORDERED */ 1 FROM rhnServerGroupMembers SGM,
-                                 rhnServerNeededErrataCache SNPC,
-                                 rhnErrata E
+		 (select 1 FROM rhnErrata E,
+		                  rhnServerNeededPackageCache SNPC,
+		                  rhnServerGroupMembers SGM
 		            WHERE E.advisory_type = 'Product Enhancement Advisory'
 		                  and snpc.errata_id = e.id
 		                  and snpc.server_id = sgm.server_id
