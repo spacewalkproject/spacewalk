@@ -1,4 +1,4 @@
-# Copyright (c) 1999-2002 Red Hat, Inc.  Distributed under GPL.
+# Copyright (c) 1999-2002 Red Hat, Inc.  Distributed under GPLv2
 #
 # Author: James Bowes <jbowes@redhat.com>
 #
