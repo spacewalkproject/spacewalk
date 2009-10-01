@@ -16,7 +16,7 @@ FILES	= __init__ connection diskImportLib messages \
 
 SCRIPTS = satellite-sync spacewalk-debug\
 	  rhn-schema-version rhn-satellite-activate rhn-charsets \
-	  rhn-ssl-dbstore update-packages rhn-db-stats \
+	  rhn-ssl-dbstore update-packages rhn-db-stats rhn-schema-stats \
           spacewalk-repo-sync spacewalk-report
 
 SPACEWALK_SUBDIRS = reports reports/data

@@ -205,6 +205,9 @@ df -h > $DIR/diskinfo
 echo "    * get database statistics"
 /usr/bin/rhn-db-stats $DIR/database/db-stats.log
 
+echo "    * get schema statistics"
+/usr/bin/rhn-schema-stats $DIR/database/schema-stats.log
+
 # alert.log
 if [ -f /rhnsat/admin/rhnsat/bdump/alert_rhnsat.log ] ; then
 	echo "    * copying alert_rhnsat.log"
