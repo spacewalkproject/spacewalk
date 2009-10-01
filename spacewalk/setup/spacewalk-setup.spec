@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.7.4
+Version:        0.7.5
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -106,6 +106,12 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Thu Oct 01 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.7.5-1
+- 476851 - removal of tables: rhn_db_environment, rhn_environment (msuchy@redhat.com)
+- fixed check_users_exist, check_groups_exist - only first user/group was
+  checked (michael.mraka@redhat.com)
+- spacewalk-setup-jabberd man page fixes (mzazrivec@redhat.com)
+
 * Wed Sep 02 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.4-1
 - db-backend is set in idefaults
 - 520441 - don't apply ExtUtils::MY->fixin(shift) to perl executables
