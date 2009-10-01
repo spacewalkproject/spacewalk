@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.4
+Version: 0.7.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -581,6 +581,27 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Oct 01 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.7.5-1
+- rhn-db-stats: split database & schema statistics (mzazrivec@redhat.com)
+- fixes for 524231, 523393, 523760, 523384 (jpazdziora@redhat.com)
+- catch all exceptions, so that we commit in all cases. (jpazdziora@redhat.com)
+- If we fail, let us commit the previous updates (done in this transaction).
+  (jpazdziora@redhat.com)
+- Do the rhn_rpm.get_package_header before we do the actual move.
+  (jpazdziora@redhat.com)
+- No commit in processPackageKeyAssociations. (jpazdziora@redhat.com)
+- clean up (pkilambi@redhat.com)
+- if nevra enabled use md5sum as a unique constraint for package pushes
+  (pkilambi@redhat.com)
+- Move the debug message up; if the OS operation fail, we will know what we
+  were trying to do. (jpazdziora@redhat.com)
+- Add more actual values to log messages, to make debugging easier.
+  (jpazdziora@redhat.com)
+- No need to sleep if we want the /var/satellite migration to be faster.
+  (jpazdziora@redhat.com)
+- Update using id, as there is no index on rhnPackage.path which could be used.
+  (jpazdziora@redhat.com)
+
 * Fri Sep 04 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.4-1
 - fixed output of multivalue variables in spacewalk-cfg-get
 
