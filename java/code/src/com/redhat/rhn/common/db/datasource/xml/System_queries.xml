@@ -570,13 +570,10 @@ SELECT  DISTINCT S.id,
         S.name SYSTEM_NAME
   FROM  rhnServer S,
         rhnServerPackage SP,
-        rhnSet ST2,
-        rhnSet St
- WHERE  St.user_id = :user_id
-   AND  St.label = :set_label
-   AND  ST2.user_id = :user_id
+        rhnSet ST2
+ WHERE  ST2.user_id = :user_id
    AND  ST2.label= :package_set_label
-   AND  St.element = SP.server_id
+   AND  SP.server_id in (select element from rhnSet  where label = :set_label and user_id = :user_id)
    AND  SP.name_id = ST2.element
    AND  SP.evr_id = ST2.element_two
    AND  SP.package_arch_id = ST2.element_three
