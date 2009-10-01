@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.6
+Version: 0.7.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -280,6 +280,19 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Oct  1 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.7-1
+- 476851 - removing column "ENVIRONMENT" from ConfigMacro
+- workaround for hibernate not handling in caluses of more than 1000 <jsherril@redhat.com>
+- 523673 - generate repomd for zstreams too
+- adding workaround for hibernate oddity/bug <jsherril@redhat.com>
+- checkstyle fixes <jsherril@redhat.com>
+- 525549 - fixing issue where SSM package operations would run out of memory <jsherril@redhat.com>
+- adding script to help diagnose spacewalk-cobbler login issues <jsherril@redhat.com>
+- Fix audit machine listing/paginatio <joshua.roys@gtri.gatech.edu>
+- Make reviewing empty audit sections possible <joshua.roys@gtri.gatech.edu>
+- Display 'File Type' as 'Symlink' in file details <joshua.roys@gtri.gatech.edu>
+- 523926 - fixing issue with schedule event package list not paginating properly <jsherril@redhat.com>
+
 * Thu Sep 17 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.6-1
 - 523631 - Files in /etc/rhn/default should not be "noreplace"
 - fixing broken path in eclipse classpath generation
