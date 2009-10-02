@@ -198,6 +198,7 @@ Requires: %{name}
 Requires: spacewalk-certs-tools
 Requires: spacewalk-admin >= 0.1.1-0
 Requires: python-gzipstream
+Requires: python-hashlib
 Requires: PyXML
 Requires: mod_ssl
 Requires: %{name}-xml-export-libs
