@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.5
+Version: 0.7.6
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -582,6 +582,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Oct 02 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.6-1
+- spacewalk-backend-tools requires python-hashlib
+
 * Thu Oct 01 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.7.5-1
 - rhn-db-stats: split database & schema statistics (mzazrivec@redhat.com)
 - fixes for 524231, 523393, 523760, 523384 (jpazdziora@redhat.com)
