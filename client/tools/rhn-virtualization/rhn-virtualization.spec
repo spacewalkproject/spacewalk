@@ -165,7 +165,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
-<<<<<<< Updated upstream:client/tools/rhn-virtualization/rhn-virtualization.spec
 * Fri Jul 10 2009 Pradeep Kilambi <pkilambi@redhat.com> 5.4.3-1
 - 510606 - Fix rhn-virtualization package to work with kvm guests. This commit
   includes fixes for > > - Guest start - We assume pygrub for any guest. This
@@ -183,13 +182,10 @@ rm -rf $RPM_BUILD_ROOT
 - 470335 - Fixing EOF error when poller tries to pickle dump the data to cache
   file. (pkilambi@redhat.com)
 
-* Tue Jun 16 2009 Brad Buckingham <bbuckingham@redhat.com> 5.4.0-1
-=======
 * Fri Oct 02 2009 Pradeep Kilambi <pkilambi@redhat.com> 5.3.0-5
 - 526371 - Feature support for rhn-virt-host to poll guests through VDSM instead of libvirt.So the guest registration does'nt consume an entitlement following the xen/kvm business rules on server
 
 * Tue Jun 16 2009 Brad Buckingham <bbuckingham@redhat.com> 5.3.0-1
->>>>>>> Stashed changes:client/tools/rhn-virtualization/rhn-virtualization.spec
 - bumping version (bbuckingham@redhat.com)
 - 502902 - If xend is not running instead of returning an empty list return an
   empty dict and let the registration and profile sync warn instead of failing
