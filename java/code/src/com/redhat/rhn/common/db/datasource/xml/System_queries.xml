@@ -564,22 +564,43 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
   <elaborator name="system_overview" />
 </mode>
 
-<mode name="system_set_remove_or_verify_packages_conf">
-   <query params="user_id, set_label, package_set_label">
-SELECT  DISTINCT S.id,
-        S.name SYSTEM_NAME
-  FROM  rhnServer S,
-        rhnServerPackage SP,
-        rhnSet ST2
- WHERE  ST2.user_id = :user_id
-   AND  ST2.label= :package_set_label
-   AND  SP.server_id in (select element from rhnSet  where label = :set_label and user_id = :user_id)
-   AND  SP.name_id = ST2.element
-   AND  SP.evr_id = ST2.element_two
-   AND  SP.package_arch_id = ST2.element_three
-   AND  SP.server_id = S.id
-ORDER BY UPPER(S.name), S.id
+
+<query name="system_set_remove_package_query" params="user_id, set_label, package_set_label">
+	SELECT  DISTINCT S.id,
+	        S.name SYSTEM_NAME
+	  FROM  rhnServer S,
+	        rhnServerPackage SP,
+	        rhnSet ST2
+	 WHERE  ST2.user_id = :user_id
+	   AND  ST2.label= :package_set_label
+	   AND  SP.server_id in (select element from rhnSet  where label = :set_label and user_id = :user_id)
+	   AND  SP.name_id = ST2.element
+	   AND  SP.evr_id = ST2.element_two
+	   AND  SP.package_arch_id = ST2.element_three
+	   AND  SP.server_id = S.id
+	ORDER BY UPPER(S.name), S.id
    </query>
+
+
+<mode name="system_set_remove_or_verify_packages_conf_short">
+	<query name="system_set_remove_package_query" />
+   <elaborator params="user_id, package_set_label" multiple="t">
+SELECT  DISTINCT SP.server_id id,
+        PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO
+  FROM  rhnPackageEVR PE,
+        rhnPackageName PN,
+        rhnServerPackage SP,
+        rhnPackageArch PA
+ WHERE  SP.server_id IN (%s)
+   AND  SP.name_id = PN.id
+   AND  PN.id || '|' || PE.id || '|' || PA.id IN (SELECT element || '|' || element_two || '|' || element_three FROM rhnSet WHERE user_id = :user_id AND label = :package_set_label)
+   AND  SP.evr_id = PE.id
+   AND  SP.package_arch_id = PA.id
+   </elaborator>
+</mode>
+
+<mode name="system_set_remove_or_verify_packages_conf">
+	<query name="system_set_remove_package_query" />
    <elaborator params="user_id, package_set_label" multiple="t">
 SELECT  DISTINCT SP.server_id id,
         PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label NVRE,

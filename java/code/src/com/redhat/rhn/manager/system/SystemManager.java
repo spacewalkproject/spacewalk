@@ -2406,13 +2406,23 @@ public class SystemManager extends BaseManager {
      * @param packageSetLabel identifies the RhnSet used to store the packages selected
      *                        by the user (this is needed for the query). This must be
      *                        established by the caller prior to calling this method
+     * @param shortened       whether or not to include the full elaborator, or a shortened 
+     *                        one that is much much faster, but doesn't provide a displayed
+     *                        string for the package (only the id combo)
      * @return description of server information as well as a list of relevant packages
      */
     public static DataResult ssmSystemPackagesToRemove(User user,
-                                                       String packageSetLabel) {       
-        SelectMode m =
-            ModeFactory.getMode("System_queries",
-                                "system_set_remove_or_verify_packages_conf");
+                                                       String packageSetLabel, 
+                                                       boolean shortened) {       
+        SelectMode m; 
+        if (shortened) {
+            m = ModeFactory.getMode("System_queries",
+                "system_set_remove_or_verify_packages_conf_short");
+        }
+        else {
+            m = ModeFactory.getMode("System_queries",
+            "system_set_remove_or_verify_packages_conf");           
+        }
 
         Map<String, Object> params = new HashMap<String, Object>(3);
         params.put("user_id", user.getId());
@@ -2438,7 +2448,7 @@ public class SystemManager extends BaseManager {
         // The query for this operation is the same as remove, so simply chain to
         // that method; this method is to make the verify code not look like it 
         // erronuously calls a remove query.
-        return ssmSystemPackagesToRemove(user, packageSetLabel);
+        return ssmSystemPackagesToRemove(user, packageSetLabel, false);
     }    
     
     /**
