@@ -1036,7 +1036,7 @@ EOQ
     $dbh->disconnect();
 
     my $version = join('', (split(/\./, $v))[0 .. 2]);
-    my @allowed_db_versions = qw/1110 1020 920/;
+    my @allowed_db_versions = qw/1120 1110 1020 920/;
 
     unless (grep { $version == $_ } @allowed_db_versions) {
         print loc("Invalid db version: (%s, %s)\n", $v, $c);
