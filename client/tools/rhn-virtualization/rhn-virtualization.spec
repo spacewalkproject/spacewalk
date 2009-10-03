@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.5
+Version:        5.4.6
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -165,7 +165,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
-* Sat Oct 03 2009 Pradeep Kilambi <pkilambi@redhat.com>
+* Sat Oct 03 2009 Pradeep Kilambi <pkilambi@redhat.com> 5.4.6-1
 - fixing typo for server initialization for non ssl case in rhev code.
   (pkilambi@redhat.com)
 - cleaning up conflicts (pkilambi@redhat.com)
