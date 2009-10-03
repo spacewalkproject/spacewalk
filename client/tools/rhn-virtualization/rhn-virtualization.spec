@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.3
+Version:        5.4.5
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -165,6 +165,19 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Sat Oct 03 2009 Pradeep Kilambi <pkilambi@redhat.com>
+- fixing typo for server initialization for non ssl case in rhev code.
+  (pkilambi@redhat.com)
+- cleaning up conflicts (pkilambi@redhat.com)
+-  Feature support for rhn-virt-host to poll guests through VDSM. 
+   libvirt is disabled in this case. if libvirt is disabled.
+   So the guest registration does'nt consume an entitlement following 
+   the xen/kvm business rules on server.(pkilambi@redhat.com)
+
+* Fri Oct 02 2009 Pradeep Kilambi <pkilambi@redhat.com> 5.3.0-5
+- 526371 - Feature support for rhn-virt-host to poll guests through VDSM instead of libvirt.So the guest registration does'nt consume an entitlement following the xen/kvm business rules on server
+
+
 * Fri Jul 10 2009 Pradeep Kilambi <pkilambi@redhat.com> 5.4.3-1
 - 510606 - Fix rhn-virtualization package to work with kvm guests. This commit
   includes fixes for > > - Guest start - We assume pygrub for any guest. This
@@ -181,9 +194,6 @@ rm -rf $RPM_BUILD_ROOT
 * Thu Jun 25 2009 Brad Buckingham <bbuckingham@redhat.com> 5.4.1-1
 - 470335 - Fixing EOF error when poller tries to pickle dump the data to cache
   file. (pkilambi@redhat.com)
-
-* Fri Oct 02 2009 Pradeep Kilambi <pkilambi@redhat.com> 5.3.0-5
-- 526371 - Feature support for rhn-virt-host to poll guests through VDSM instead of libvirt.So the guest registration does'nt consume an entitlement following the xen/kvm business rules on server
 
 * Tue Jun 16 2009 Brad Buckingham <bbuckingham@redhat.com> 5.3.0-1
 - bumping version (bbuckingham@redhat.com)
