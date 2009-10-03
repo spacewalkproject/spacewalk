@@ -58,7 +58,7 @@ def connect():
         server = xmlrpclib.Server('https://%s:%s' % (addr, port),
                                 SSL_Transport(ctx))
     else:
-        server = xmlrpclib.Server('http://%s:%s' % (server, port))
+        server = xmlrpclib.Server('http://%s:%s' % (addr, port))
     return server
 
 if __name__ == '__main__':
