@@ -145,18 +145,26 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
                                                HttpServletRequest request,
                                                HttpServletResponse response) {
 
+        Logger log = Logger.getLogger(this.getClass());
+        
         RequestContext context = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
         User user = context.getLoggedInUser();
-
+        log.fatal("A");
         // Load the date selected by the user
         Date earliest = getStrutsDelegate().readDatePicker((DynaActionForm) formIn,
             "date", DatePicker.YEAR_RANGE_POSITIVE);
 
         log.debug("Getting package removal data.");
+        
+        
+        
         // Parse through all of the results        
-        DataResult result = (DataResult) getResult(context, true); 
+        log.fatal("B");
+        DataResult result = (DataResult) getResult(context, true);
+        log.fatal("C");
         result.elaborate();
+        log.fatal("D");
 
         log.debug("Publishing schedule package remove event to message queue.");
         SsmRemovePackagesEvent event = new SsmRemovePackagesEvent(user.getId(), earliest,
