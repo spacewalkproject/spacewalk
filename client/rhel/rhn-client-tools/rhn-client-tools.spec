@@ -19,7 +19,7 @@ Requires: dbus-python
 Requires: hal
 Requires: newt
 
-Conflicts: up2date
+Conflicts: up2date < 5.0.0
 
 BuildRequires: python-devel
 BuildRequires: gettext
@@ -215,6 +215,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Mon Oct  5 2009 Miroslav Suchý <msuchy@redhat.com>
+- add versioned conflict to up2date
+
 * Tue Sep 22 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.3-1
 - comment out hosted url, so spacewalk users do not ping theirs machines
 
