@@ -1268,7 +1268,8 @@ public class ActionManager extends BaseManager {
     public static PackageAction schedulePackageVerify(User scheduler,
             Server srvr, List<Map<String, Long>> pkgs, Date earliest) {
         return (PackageAction) schedulePackageAction(scheduler, pkgs,
-            ActionFactory.TYPE_PACKAGES_VERIFY, earliest, srvr);
+            //ActionFactory.TYPE_PACKAGES_VERIFY, earliest, srvr);
+                ActionFactory.lookupActionTypeByLabel("packages.verify"), earliest, srvr);
     }    
     /**
      * Schedules one or more package installation actions for the given server.
@@ -1320,7 +1321,6 @@ public class ActionManager extends BaseManager {
         
         Action action = createScheduledAction(scheduler, type, name, earliestAction);
         ActionFactory.save(action);
-        
         action = (Action) ActionFactory.reload(action);
        
         

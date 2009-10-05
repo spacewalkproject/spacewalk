@@ -480,7 +480,7 @@ public class ActionFactory extends HibernateFactory {
      * @return Returns the ActionType corresponding to label
      * @throws Exception
      */
-    private static ActionType lookupActionTypeByLabel(String label) {
+    public static ActionType lookupActionTypeByLabel(String label) {
         Map params = new HashMap();
         params.put("label", label);
         return (ActionType) 
