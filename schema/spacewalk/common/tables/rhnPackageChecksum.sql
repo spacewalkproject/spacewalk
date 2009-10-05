@@ -32,8 +32,5 @@ rhnPackageChecksum
         enable row movement
 ;
 
-create index rhn_pkgcsum_id_n_idx
-        on rhnPackageChecksum (package_id, checksum_type_id)
-
 alter table rhnPackageChecksum add constraint rhn_pkg_checksum_id_pk primary key (package_id, checksum_type_id);
 
