@@ -68,7 +68,9 @@ import com.redhat.rhn.testing.UserTestUtils;
 import org.apache.commons.collections.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -962,6 +964,34 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         assertContains(tags, tag);
         
     }
+    
+    public void testListLinuxSystems() throws Exception { 
+
+        Long[] longs = new Long[11818];
+        List<Long> systemIds =  Arrays.asList(longs);
+        
+        
+        ArrayList<Long> tmpList = new ArrayList<Long>();
+        List<Long> toRet = new ArrayList<Long>();
+        tmpList.addAll(systemIds);
+        
+        
+        int total = 0;
+
+        for (int i = 0; i < systemIds.size();) {
+            int initial = i;
+            int fin = i + 500 < systemIds.size() ? i + 500 : systemIds.size();
+            List<Long> sublist = tmpList.subList(i, fin);
+            
+            
+            total += fin-initial;
+            i = fin;
+        }
+        System.out.println(total);
+        
+    }
+
+    
     
 }
 
