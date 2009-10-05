@@ -103,6 +103,10 @@ public class ActionType {
      * {@inheritDoc}
      */
     public boolean equals(Object o) {
+        if (o ==  this) {
+            return true;
+        }
+        
         if (o == null || !(o instanceof ActionType)) {
             return false;
         }
