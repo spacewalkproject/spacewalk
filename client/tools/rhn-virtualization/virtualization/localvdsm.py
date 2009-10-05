@@ -29,7 +29,7 @@ def getTrustStorePath():
     return tsPath
 
 def getLocalVdsName(tsPath):
-    p = subprocess.Popen(['openssl', 'x509', '-noout', '-subject', '-in',
+    p = subprocess.Popen(['/usr/bin/openssl', 'x509', '-noout', '-subject', '-in',
             '%s/certs/vdsmcert.pem' % tsPath],
             stdout=subprocess.PIPE, close_fds=True)
     out, err = p.communicate()

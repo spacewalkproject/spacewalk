@@ -139,7 +139,11 @@ def poll_through_vdsm():
         # VDSM raised an exception we're done here
         return {}
     # Extract list of vm's. True returns full list
-    domains = server.list(True)
+    try:
+        domains = server.list(True)
+    except:
+        # Something went wrong in vdsm, exit
+        return {}
 
     if not len(domains['vmList']):
         # No domains, exit.
@@ -156,11 +160,14 @@ def poll_through_vdsm():
         # This is gonna be fully virt as its managed by VDSM
         virt_type = VirtualizationType.FULLY
 
+        #Memory
+        memory = int(domain['memSize'] * 1024);
+
         properties = {
             PropertyType.NAME   : domain['vmName'],
             PropertyType.UUID   : uuid,
             PropertyType.TYPE   : virt_type,
-            PropertyType.MEMORY : domain['memSize'], # current memory
+            PropertyType.MEMORY : memory, # current memory
             PropertyType.VCPUS  : domain['smp'],
             PropertyType.STATE  : status}
 
