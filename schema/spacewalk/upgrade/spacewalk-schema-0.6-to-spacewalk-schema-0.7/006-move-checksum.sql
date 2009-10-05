@@ -1,7 +1,7 @@
 
 insert into rhnPackageChecksum (package_id, checksum_type_id, checksum)
         (select p.id, md5.id, md5sum
-           from test1064.rhnPackage p,
+           from rhnPackage p,
                 (select id from rhnpackageChecksumType where label = 'md5') md5
         );
 
