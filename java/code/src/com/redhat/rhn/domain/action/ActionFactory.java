@@ -484,7 +484,7 @@ public class ActionFactory extends HibernateFactory {
         Map params = new HashMap();
         params.put("label", label);
         return (ActionType) 
-            singleton.lookupObjectByNamedQuery("ActionType.findByLabel", params, false);
+            singleton.lookupObjectByNamedQuery("ActionType.findByLabel", params, true);
     }
 
     /**
