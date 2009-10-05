@@ -1,4 +1,8 @@
-%define init_script %{_sysconfdir}/rc.d/init.d/tsdb_local_queue
+%if 0%{!?_initddir:1}
+%define _initddir %{_sysconfdir}/rc.d/init.d
+%endif
+
+%define init_script %{_initddir}/tsdb_local_queue
 %define lqdir       %{_var}/log/nocpulse/TSDBLocalQueue
 %define bdbdir      %{_var}/lib/nocpulse/tsdb/bdb
 %define npbin       %{_bindir}
@@ -54,8 +58,7 @@ install -m 755 LocalQueue/drainer $RPM_BUILD_ROOT%{_bindir}
 install -m 755 LocalQueue/rebalance_cron $RPM_BUILD_ROOT%{_bindir}
 
 # Local queue init script (temporary, will be superseded by sysv stuff)
-install -d $RPM_BUILD_ROOT%{init_script}
-install -m 755 LocalQueue/init_script $RPM_BUILD_ROOT%{init_script}
+install -D -m 755 LocalQueue/init_script $RPM_BUILD_ROOT%{init_script}
 
 %post
 if [ $1 -eq 2 ]; then
