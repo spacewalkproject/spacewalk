@@ -586,16 +586,10 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
 	<query name="system_set_remove_package_query" />
    <elaborator params="user_id, package_set_label" multiple="t">
 SELECT  DISTINCT SP.server_id id,
-        PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO
-  FROM  rhnPackageEVR PE,
-        rhnPackageName PN,
-        rhnServerPackage SP,
-        rhnPackageArch PA
+        SP.name_id || '|' || SP.evr_id || '|' || SP.package_arch_id AS ID_COMBO
+  FROM  rhnServerPackage SP
  WHERE  SP.server_id IN (%s)
-   AND  SP.name_id = PN.id
-   AND  PN.id || '|' || PE.id || '|' || PA.id IN (SELECT element || '|' || element_two || '|' || element_three FROM rhnSet WHERE user_id = :user_id AND label = :package_set_label)
-   AND  SP.evr_id = PE.id
-   AND  SP.package_arch_id = PA.id
+   AND  SP.name_id  || '|' || SP.evr_id || '|' || SP.package_arch_id IN (SELECT element || '|' || element_two || '|' || element_three FROM rhnSet WHERE user_id = :user_id AND label = :package_set_label)
    </elaborator>
 </mode>
 
