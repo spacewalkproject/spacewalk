@@ -9,7 +9,7 @@ connect=$(spacewalk-cfg-get default_db)
 [ -n "$2" ] && connect=$2
 
 sql="
-set pagesize 2000 linesize 140
+set pagesize 4000 linesize 200
 set serverout on
 
 declare
@@ -22,6 +22,21 @@ begin
     end loop;
 end;
 /
+
+column constraint_name format a30 heading \"CONSTRAINT NAME\"
+column constraint_type format a4 heading \"TYPE\"
+column table_name format a30 heading \"TABLE NAME\"
+column search_condition heading \"SEARCH CONDITION\"
+column r_constraint_name format a30 heading \"REFERENCED CONSTRAINT\"
+
+select
+	constraint_name, constraint_type, table_name, search_condition, r_constraint_name
+from
+	user_constraints
+where
+	table_name not like '%BIN%'
+order by
+	table_name, constraint_type;
 
 column label format a30
 column name format a25
