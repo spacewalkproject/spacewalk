@@ -331,16 +331,18 @@ public class Action extends BaseDomainHelper implements Serializable {
             return false;
         }
         Action castOther = (Action) other;
-        return new EqualsBuilder().append(id, castOther.getId())
-                                  .append(org, castOther.getOrg())
-                                  .append(name, castOther.getName())
-                                  .append(earliestAction, castOther.getEarliestAction())
-                                  .append(version, castOther.getVersion())
-                                  .append(archived, castOther.getArchived())
-                                  .append(created, castOther.getCreated())
-                                  .append(modified, castOther.getModified())
-                                  .append(prerequisite, castOther.getPrerequisite())
-                                  .append(actionType, castOther.getActionType())
+        return new EqualsBuilder().append(this.getId(), castOther.getId())
+                                  .append(this.getOrg(), castOther.getOrg())
+                                  .append(this.getName(), castOther.getName())
+                                  .append(this.getEarliestAction(), 
+                                          castOther.getEarliestAction())
+                                  .append(this.getVersion(), castOther.getVersion())
+                                  .append(this.getArchived(), castOther.getArchived())
+                                  .append(this.getCreated(), castOther.getCreated())
+                                  .append(this.getModified(), castOther.getModified())
+                                  .append(this.getPrerequisite(), 
+                                          castOther.getPrerequisite())
+                                  .append(this.getActionType(), castOther.getActionType())
                                   .isEquals();
     }
 
@@ -348,11 +350,15 @@ public class Action extends BaseDomainHelper implements Serializable {
      * {@inheritDoc}
      */
     public int hashCode() {
-        return new HashCodeBuilder().append(id).append(org).append(name)
-                                    .append(earliestAction).append(version)
-                                    .append(archived).append(created)
-                                    .append(modified).append(prerequisite)
-                                    .append(actionType).toHashCode();
+        return new HashCodeBuilder().append(this.getId()).append(this.getOrg())
+                                    .append(this.getName())
+                                    .append(this.getEarliestAction())
+                                    .append(this.getVersion())
+                                    .append(this.getArchived())
+                                    .append(this.getCreated())
+                                    .append(this.getModified())
+                                    .append(this.getPrerequisite())
+                                    .append(this.getActionType()).toHashCode();
     }
     
     /**

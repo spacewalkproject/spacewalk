@@ -1317,10 +1317,16 @@ public class ActionManager extends BaseManager {
     
     private static Action scheduleAction(User scheduler, ActionType type, String name,
                                          Date earliestAction, Set<Long> serverIds) {
-        
+        /**
+         * We have to relookup the type here, because most likely a static final variable
+         *  was passed in.  If we use this and the .reload() gets called below
+         *  if we try to save a new action the instace of the type in the cache
+         *  will be different than the final static variable
+         *  sometimes hibernate is no fun
+         */
+        type = ActionFactory.lookupActionTypeByLabel(type.getLabel());
         Action action = createScheduledAction(scheduler, type, name, earliestAction);
         ActionFactory.save(action);
-        
         action = (Action) ActionFactory.reload(action);
        
         

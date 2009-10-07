@@ -768,11 +768,10 @@ public class ServerFactory extends HibernateFactory {
             List<Long> sublist = tmpList.subList(i, fin);
             toRet.addAll(ServerFactory.getSession().getNamedQuery(query).
                 setParameterList("sids", sublist).list());
-            i = fin+1;
+            i = fin;
         }
 
         return toRet;
-
     }
     
     /**

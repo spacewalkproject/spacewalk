@@ -102,7 +102,7 @@ public class ActionType {
     /**
      * {@inheritDoc}
      */
-    public boolean equals(Object o) {
+    public boolean equals(Object o) {        
         if (o == null || !(o instanceof ActionType)) {
             return false;
         }

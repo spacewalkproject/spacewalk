@@ -1169,7 +1169,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         
         // Test
         DataResult result =
-            SystemManager.ssmSystemPackagesToRemove(admin, packagesSet.getLabel());
+            SystemManager.ssmSystemPackagesToRemove(admin, packagesSet.getLabel(), false);
         assertNotNull(result);
         
         //   Need explicit elaborate call here; list tag will do this in the UI
