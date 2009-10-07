@@ -1318,7 +1318,7 @@ public class ActionManager extends BaseManager {
     
     private static Action scheduleAction(User scheduler, ActionType type, String name,
                                          Date earliestAction, Set<Long> serverIds) {
-        type = ActionFactory.lookupActionTypeByLabel(type.getLabel());
+        type = (ActionType) ActionFactory.reload(type);
         Action action = createScheduledAction(scheduler, type, name, earliestAction);
         ActionFactory.save(action);
         action = (Action) ActionFactory.reload(action);
