@@ -8,7 +8,7 @@
 %define npbin       %{_bindir}
 Name:         tsdb
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.27.20
+Version:      1.27.21
 Release:      1%{?dist}
 Summary:      Time Series Database
 URL:          https://fedorahosted.org/spacewalk
@@ -85,6 +85,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Oct  7 2009 Miroslav Suchý <msuchy@redhat.com> 1.27.21-1
+- Fix tsdb to install the init script properly (joshua.roys@gtri.gatech.edu)
+
 * Mon May 11 2009 Milan Zazrivec <mzazrivec@redhat.com> 1.27.20-1
 - 498257 - migrate existing files into new nocpulse homedir
 
