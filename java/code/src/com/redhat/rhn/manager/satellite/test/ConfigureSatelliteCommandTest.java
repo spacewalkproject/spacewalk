@@ -28,8 +28,6 @@ import com.redhat.rhn.manager.satellite.Executor;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.TestUtils;
 
-import org.apache.commons.lang.RandomStringUtils;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
