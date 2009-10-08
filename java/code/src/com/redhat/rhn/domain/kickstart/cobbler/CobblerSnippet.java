@@ -18,6 +18,7 @@ package com.redhat.rhn.domain.kickstart.cobbler;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.FileUtils;
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.org.Org;
 
@@ -196,7 +197,8 @@ public class CobblerSnippet implements Comparable {
         if (!path.exists()) {
             path.getParentFile().mkdirs();
         }
-        FileUtils.writeStringToFile(contents, path.getAbsolutePath());
+        FileUtils.writeStringToFile(StringUtil.webToLinux(contents), 
+                path.getAbsolutePath());
     }
 
     
