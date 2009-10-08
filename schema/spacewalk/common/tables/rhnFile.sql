@@ -24,7 +24,9 @@ CREATE TABLE rhnFile
                        REFERENCES web_customer (id)
                        ON DELETE CASCADE,
     file_size  NUMBER NOT NULL,
-    md5sum     VARCHAR2(64) NOT NULL,
+    checksum_id NUMBER NOT NULL,
+                   CONSTRAINT rhn_file_chsum_fk
+                       REFERENCES rhnChecksum (id),
     path       VARCHAR2(1000) NOT NULL,
     created    DATE
                    DEFAULT (sysdate) NOT NULL,
