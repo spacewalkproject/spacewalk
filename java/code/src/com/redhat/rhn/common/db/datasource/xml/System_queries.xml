@@ -422,6 +422,18 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
   <elaborator name="is_virtual_host" />
 </mode>
 
+<mode name="all_systems" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query>
+  SELECT  DISTINCT S.id,
+          S.name AS SERVER_NAME,
+          (SELECT 1
+             FROM rhnServerFeaturesView SFV
+            WHERE SFV.server_id = S.id
+              AND SFV.label = 'ftr_system_grouping') AS selectable
+    FROM  rhnServer S
+  </query>
+  <elaborator name="system_overview" />
+</mode>
 
 
 <mode name="most_critical_systems" class="com.redhat.rhn.frontend.dto.SystemOverview">
