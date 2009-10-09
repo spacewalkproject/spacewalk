@@ -445,6 +445,8 @@ public class AuditManager /* extends BaseManager */ {
             }
         }
 
+        brdr.close();
+
         return events;
     }
 }
