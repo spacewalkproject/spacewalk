@@ -37,9 +37,5 @@ TABLESPACE [[blob]]
 ENABLE ROW MOVEMENT
 ;
 
-CREATE INDEX rhn_confcontent_md5_uq
-    ON rhnConfigContent (md5sum)
-    TABLESPACE [[2m_tbs]];
-
 CREATE SEQUENCE rhn_confcontent_id_seq;
 
