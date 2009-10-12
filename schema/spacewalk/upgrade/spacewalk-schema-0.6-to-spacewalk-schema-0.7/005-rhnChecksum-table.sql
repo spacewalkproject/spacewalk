@@ -28,4 +28,6 @@ rhnChecksum
         enable row movement
 ;
 
+CREATE INDEX rhnChecksum_chsum_idx on rhnChecksum(checksum);
+
 CREATE SEQUENCE rhnChecksum_seq;
