@@ -20,10 +20,8 @@ CREATE TABLE rhnChecksumType
                      USING INDEX TABLESPACE [[64k_tbs]],
     label        VARCHAR2(32) NOT NULL,
     description  VARCHAR2(64) NOT NULL,
-    created      DATE NOT NULL
-                     DEFAULT (sysdate),
-    modified     DATE NOT NULL
-                     DEFAULT (sysdate)
+    created      DATE DEFAULT (sysdate) NOT NULL,
+    modified     DATE DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;
