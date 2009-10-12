@@ -55,7 +55,7 @@ public class KickstartCommandName {
     /**
      * @param n The name to set.
      */
-    private void setName(String n) {
+    public void setName(String n) {
         this.name = n;
     }
     
@@ -63,7 +63,7 @@ public class KickstartCommandName {
      * 
      * @param orderIn The order num to set
      */
-    private void setOrder(Long orderIn) {
+    public void setOrder(Long orderIn) {
         this.order = orderIn;
     }
     
@@ -79,7 +79,7 @@ public class KickstartCommandName {
      * 
      * @param argsIn Sets whether Command option takes in args
      */
-    private void setArgs(Boolean argsIn) {
+    public void setArgs(Boolean argsIn) {
         this.args = argsIn;
     }
     

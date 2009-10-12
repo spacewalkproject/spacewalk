@@ -675,7 +675,7 @@
   </form-bean>
 
         <form-bean name="kickstartPartitionForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+                   type="com.redhat.rhn.frontend.action.kickstart.KickstartPartitionForm">
             <form-property name="partitions" type="java.lang.String" />
             <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>        

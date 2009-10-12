@@ -694,6 +694,14 @@ public class KickstartData {
     }
     
     /**
+     * @return Returns the customOptions.
+     */
+    public SortedSet getCustomPartitionOptions() {
+        return new TreeSet(getCommandSubset("custom_partition"));
+    }
+
+
+    /**
      * remove old custom options and replace with new
      * @param customIn to replace old with.
      */
@@ -701,6 +709,14 @@ public class KickstartData {
         replaceSet(this.getCustomOptions(), customIn);
     }
     
+    /**
+     * remove old custom partition options and replace with new
+     * @param customIn to replace old with.
+     */
+    public void setCustomPartitionOptions(Collection<KickstartCommand> customIn) {
+        replaceSet(this.getCustomPartitionOptions(), customIn);
+    }
+
     /**
      * remove old partitions and replace with new
      * @param partitionsIn to replace old with.

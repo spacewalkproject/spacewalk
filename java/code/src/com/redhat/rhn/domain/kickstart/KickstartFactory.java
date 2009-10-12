@@ -1024,4 +1024,24 @@ public class KickstartFactory extends HibernateFactory {
         return (List<KickstartableTree>) session.getNamedQuery(query).list();
     }
 
+    /**
+     * Create the custom_partition command name if it doesn't exist.
+     *  This will be created in the schema for 5.4 (or later), but for the
+     *  5.3.1 release we have to create it if it's not there
+     * @return the KickstartCommandName
+     */
+    public static KickstartCommandName createCustomPartCommandName() {
+        final String customPartition = "custom_partition";
+        KickstartCommandName custom = lookupKickstartCommandName(customPartition);
+        if (custom == null) {
+            custom = new KickstartCommandName();
+            custom.setRequired(false);
+            custom.setName(customPartition);
+            custom.setOrder(53L);
+            custom.setArgs(true);
+            getSession().save(custom);
+        }
+        return custom;
+    }
+
 }

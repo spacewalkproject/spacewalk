@@ -178,4 +178,8 @@ values (rhn_kscommandname_id_seq.nextval, 'zfcp', 'Y', 51, 'N');
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
 values (rhn_kscommandname_id_seq.nextval, 'custom', 'Y', 52, 'N');
 
+insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
+values (rhn_kscommandname_id_seq.nextval, 'custom_partition', 'Y', 53, 'N');
+
+
 commit;
