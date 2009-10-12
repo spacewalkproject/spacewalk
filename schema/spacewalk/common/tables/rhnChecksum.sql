@@ -18,7 +18,7 @@
 create table
 rhnChecksum
 (
-        checksum_id     number not null
+        id              number not null
                         constraint rhnChecksum_pk primary key,
         checksum_type_id        number not null
                         constraint rhnChecksum_typeid_fk
