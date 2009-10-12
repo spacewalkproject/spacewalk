@@ -94,7 +94,8 @@ public class KickstartData {
     public static final String TYPE_RAW = "raw";
 
     private static String[] advancedOptions = 
-        {"partitions", "raids", "logvols", "volgroups", "include", "repo", "custom"};
+        {"partitions", "raids", "logvols", "volgroups", "include", 
+            "repo", "custom", "custom_partition"};
     
     private static final List ADANCED_OPTIONS = Arrays.asList(advancedOptions); 
     
