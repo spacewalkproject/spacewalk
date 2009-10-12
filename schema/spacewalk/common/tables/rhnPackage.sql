@@ -45,7 +45,7 @@ CREATE TABLE rhnPackage
     source_rpm_id    NUMBER
                          CONSTRAINT rhn_package_srcrpmid_fk
                              REFERENCES rhnSourceRPM (id),
-    checksum_id      NUMBER NOT NULL,
+    checksum_id      NUMBER NOT NULL
                          CONSTRAINT rhn_package_chsum_fk
                              REFERENCES rhnChecksum (id),
     vendor           VARCHAR2(64) NOT NULL,
