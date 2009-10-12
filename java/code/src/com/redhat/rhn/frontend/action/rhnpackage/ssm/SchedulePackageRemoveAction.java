@@ -92,7 +92,18 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
 
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
+        return getResult(context, false);
 
+    }
+    
+    /**
+     * Provide the data result
+     * @param context The request context
+     * @param shorten whether to return a DataResult with the full ealborator
+     *          or a shortened much faster ones
+     * @return the List
+     */
+    public List getResult(RequestContext context, boolean shorten) {
         HttpServletRequest request = context.getRequest();
         User user = context.getLoggedInUser();
 
@@ -113,7 +124,7 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
         }
 
         DataResult results = SystemManager.ssmSystemPackagesToRemove(user,
-            RhnSetDecl.SSM_REMOVE_PACKAGES_LIST.getLabel());
+            RhnSetDecl.SSM_REMOVE_PACKAGES_LIST.getLabel(), shorten);
 
         TagHelper.bindElaboratorTo("groupList", results.getElaborator(), request);
 
@@ -134,17 +145,16 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
                                                HttpServletRequest request,
                                                HttpServletResponse response) {
 
+        
         RequestContext context = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
         User user = context.getLoggedInUser();
-
         // Load the date selected by the user
         Date earliest = getStrutsDelegate().readDatePicker((DynaActionForm) formIn,
             "date", DatePicker.YEAR_RANGE_POSITIVE);
 
-        log.debug("Getting package removal data.");
         // Parse through all of the results        
-        DataResult result = (DataResult) getResult(context); 
+        DataResult result = (DataResult) getResult(context, true);
         result.elaborate();
 
         log.debug("Publishing schedule package remove event to message queue.");

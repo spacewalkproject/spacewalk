@@ -6,8 +6,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <class name="com.redhat.rhn.domain.monitoring.config.ConfigMacro" 
         table="rhn_config_macro" >
 		<composite-id>
-			<key-property name="environment" type="string" 
-				column="environment"/>
 			<key-property name="name" type="string" column="name"/>
 		</composite-id>
         <property name="definition" column="definition"  type="string" length="255" />

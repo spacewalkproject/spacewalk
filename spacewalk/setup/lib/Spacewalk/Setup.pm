@@ -66,7 +66,7 @@ use constant DB_INSTALL_LOG_FILE =>
 use constant DB_POP_LOG_FILE =>
   '/var/log/rhn/populate_db.log';
 
-use constant DB_POP_LOG_SIZE => 195531;
+use constant DB_POP_LOG_SIZE => 2500000;
 
 use constant RHN_LOG_DIR =>
   '/var/log/rhn';
@@ -1036,7 +1036,7 @@ EOQ
     $dbh->disconnect();
 
     my $version = join('', (split(/\./, $v))[0 .. 2]);
-    my @allowed_db_versions = qw/1110 1020 920/;
+    my @allowed_db_versions = qw/1120 1110 1020 920/;
 
     unless (grep { $version == $_ } @allowed_db_versions) {
         print loc("Invalid db version: (%s, %s)\n", $v, $c);

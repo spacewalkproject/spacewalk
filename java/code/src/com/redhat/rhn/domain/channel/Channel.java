@@ -796,7 +796,8 @@ public class Channel extends BaseDomainHelper implements Comparable {
             release = channelDist.getRelease();
         } 
         else { // and now again for zstreams
-            ReleaseChannelMap channelRelease = ChannelFactory.lookupDefaultReleaseChannelMapForChannel(toConsider);
+            ReleaseChannelMap channelRelease = 
+                ChannelFactory.lookupDefaultReleaseChannelMapForChannel(toConsider);
             if (channelRelease != null) {
                 release = channelRelease.getRelease();
             }

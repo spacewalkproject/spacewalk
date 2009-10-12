@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.7.3
+Version: 0.7.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -19,7 +19,7 @@ Requires: dbus-python
 Requires: hal
 Requires: newt
 
-Conflicts: up2date
+Conflicts: up2date < 5.0.0
 
 BuildRequires: python-devel
 BuildRequires: gettext
@@ -215,6 +215,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Mon Oct  5 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.4-1
+- add versioned conflict to up2date
+
 * Tue Sep 22 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.3-1
 - comment out hosted url, so spacewalk users do not ping theirs machines
 

@@ -1,10 +1,14 @@
-%define init_script %{_sysconfdir}/rc.d/init.d/tsdb_local_queue
+%if 0%{!?_initddir:1}
+%define _initddir %{_sysconfdir}/rc.d/init.d
+%endif
+
+%define init_script %{_initddir}/tsdb_local_queue
 %define lqdir       %{_var}/log/nocpulse/TSDBLocalQueue
 %define bdbdir      %{_var}/lib/nocpulse/tsdb/bdb
 %define npbin       %{_bindir}
 Name:         tsdb
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.27.20
+Version:      1.27.21
 Release:      1%{?dist}
 Summary:      Time Series Database
 URL:          https://fedorahosted.org/spacewalk
@@ -54,8 +58,7 @@ install -m 755 LocalQueue/drainer $RPM_BUILD_ROOT%{_bindir}
 install -m 755 LocalQueue/rebalance_cron $RPM_BUILD_ROOT%{_bindir}
 
 # Local queue init script (temporary, will be superseded by sysv stuff)
-install -d $RPM_BUILD_ROOT%{init_script}
-install -m 755 LocalQueue/init_script $RPM_BUILD_ROOT%{init_script}
+install -D -m 755 LocalQueue/init_script $RPM_BUILD_ROOT%{init_script}
 
 %post
 if [ $1 -eq 2 ]; then
@@ -82,6 +85,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Oct  7 2009 Miroslav Suchý <msuchy@redhat.com> 1.27.21-1
+- Fix tsdb to install the init script properly (joshua.roys@gtri.gatech.edu)
+
 * Mon May 11 2009 Milan Zazrivec <mzazrivec@redhat.com> 1.27.20-1
 - 498257 - migrate existing files into new nocpulse homedir
 

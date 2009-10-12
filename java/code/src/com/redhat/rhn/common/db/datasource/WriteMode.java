@@ -49,7 +49,7 @@ public class WriteMode extends BaseMode {
                     inClause.size() - subStart  : CachedStatement.BATCH_SIZE;
             List subClause = inClause.subList(subStart, subStart + subLength);
             toReturn += getQuery().executeUpdate(parameters, subClause);
-            subStart += subLength + 1;
+            subStart += subLength;
         }       
         return toReturn;
     }

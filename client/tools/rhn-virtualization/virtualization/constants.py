@@ -52,11 +52,17 @@ class PropertyType:
 # This structure maps the libvirt state enumeration to labels that RHN 
 # understands.
 #
-VIRT_STATE_NAME_MAP = ( StateType.RUNNING,  # VIR_DOMAIN_NOSTATE
+VIRT_STATE_NAME_MAP = ( StateType.NOSTATE,  # VIR_DOMAIN_NOSTATE
                         StateType.RUNNING,  # VIR_DOMAIN_RUNNING
-                        StateType.RUNNING,  # VIR_DOMAIN_BLOCKED
+                        StateType.BLOCKED,  # VIR_DOMAIN_BLOCKED
                         StateType.PAUSED,   # VIR_DOMAIN_PAUSED
                         StateType.SHUTDOWN, # VIR_DOMAIN_SHUTDOWN
                         StateType.SHUTOFF,  # VIR_DOMAIN_SHUTOFF
                         StateType.CRASHED)  # VIR_DOMAIN_CRASHED
 
+VIRT_VDSM_STATUS_MAP = {
+  'Up'  : 'running',
+  'Down': 'shutdown',
+  'Paused' : 'paused',
+  'Powering down' : 'shutoff',
+}

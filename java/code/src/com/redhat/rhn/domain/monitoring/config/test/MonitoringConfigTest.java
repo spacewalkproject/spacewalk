@@ -44,11 +44,10 @@ public class MonitoringConfigTest extends RhnBaseTestCase {
         cr.setLastUpdateUser(user.getLogin());
         MonitoringConfigFactory.saveConfigMacro(cr);
         String name = cr.getName();
-        String env = cr.getEnvironment();
         flushAndEvict(cr);
         cr = (ConfigMacro) TestUtils.lookupTestObject(
                 "from com.redhat.rhn.domain.monitoring.config.ConfigMacro c where " +
-                "c.name = '" + name + "' and c.environment = '" + env + "'");
+                "c.name = '" + name + "'");
         assertTrue(cr.getLastUpdateUser().equals(user.getLogin()));
         
     }
