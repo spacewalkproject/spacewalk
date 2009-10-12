@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.7.5
+Version:        0.7.6
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -106,6 +106,10 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Mon Oct 12 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.6-1
+- added Oracle 11gR2 to allowed versions
+- fixed length of db population progress bar
+
 * Thu Oct 01 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.7.5-1
 - 476851 - removal of tables: rhn_db_environment, rhn_environment (msuchy@redhat.com)
 - fixed check_users_exist, check_groups_exist - only first user/group was
