@@ -40,9 +40,11 @@ class Kickstart:
             SELECT 
                 relative_filename, 
                 file_size, 
-                md5sum, 
+                c.checksum,
                 TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED 
-            FROM rhnKSTreeFile WHERE kstree_id = :tree_id
+            FROM rhnKSTreeFile, rhnChecksum c
+           WHERE kstree_id = :tree_id
+             AND checksum_id = c.id
         """)
         files_query.execute(tree_id = tree_id)
 
@@ -69,7 +71,7 @@ class Kickstart:
 
         for file in self.files:
             if file['relative_filename'] == ks_file['relative_path'] and \
-               file['md5sum'] == ks_file['md5sum'] and \
+               file['checksum'] == ks_file['checksum'] and \
                file['file_size'] == ks_file['file_size'] and \
                file['last_modified'] == ks_file['last_modified']:
 
@@ -91,9 +93,10 @@ class Kickstart:
         h.execute()
         
         log_debug(3, 'trying to insert ' + str(self.id) + ' , ' + ks_file['relative_path'] + \
-                     ' , ' + str(ks_file['md5sum']) + ' , ' + str(ks_file['file_size']) + \
+                     ' , ' + str(ks_file['checksum']) + ' , ' + str(ks_file['file_size']) + \
                      ' , ' + ks_file['last_modified'])
 
+        # FIXME: this insert should go to rhnKSTreeFile and rhnChecksum
         insert_file_q = rhnSQL.prepare("""
             insert into rhnKSTreeFile
             (kstree_id, relative_filename, md5sum, file_size, last_modified)
