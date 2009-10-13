@@ -91,7 +91,7 @@ class OracleBackend(Backend):
                 'rdev'          : DBint(),
                 'file_size'     : DBint(),
                 'mtime'         : DBdateTime(),
-                'md5'           : DBstring(32),
+                'checksum_id'   : DBint(),
                 'linkto'        : DBstring(256),
                 'flags'         : DBint(),
                 'verifyflags'   : DBint(),
@@ -102,7 +102,8 @@ class OracleBackend(Backend):
             severityHash = {
                 'mtime'         : 0,
                 'file_size'     : 4,
-                'md5'           : 4,
+                # FIXME
+                # 'md5'           : 4,
             },
         ),
         Table('rhnPackage',
@@ -121,7 +122,7 @@ class OracleBackend(Backend):
                 'build_host'    : DBstring(256), 
                 'build_time'    : DBdateTime(),
                 'source_rpm_id' : DBint(),
-                'md5sum'        : DBstring(64), 
+                'checksum_id'   : DBint(),
                 'vendor'        : DBstring(64), 
                 'payload_format': DBstring(32), 
                 'path'          : DBstring(1000), 
@@ -135,7 +136,8 @@ class OracleBackend(Backend):
             nullable    = ['org_id'],
             severityHash = {
                 'path'          : 1,
-                'md5sum'        : 2,
+                # FIXME
+                # 'md5sum'        : 2,
                 'package_size'  : 2,
                 'build_time'    : 3,
                 'build_host'    : 3,
@@ -209,7 +211,7 @@ class OracleBackend(Backend):
                 'id'            : DBint(),
                 'errata_id'     : DBint(),
                 'type'          : DBint(),
-                'md5sum'        : DBstring(64),
+                'checksum_id'   : DBint(),
                 'filename'      : DBstring(1024),
             },
             pk          = ['errata_id', 'filename'],
@@ -341,8 +343,8 @@ class OracleBackend(Backend):
                 'build_time'    : DBdateTime(),
                 'path'          : DBstring(1000),
                 'package_size'  : DBint(),
-                'md5sum'        : DBstring(64),
-                'sigmd5'        : DBstring(64),
+                'checksum_id'   : DBint(),
+                'sigchecksum_id': DBint(),
                 'vendor'        : DBstring(64), 
                 'cookie'        : DBstring(128),
                 'last_modified' : DBdateTime(),
@@ -351,7 +353,8 @@ class OracleBackend(Backend):
             nullable    = ['org_id'],
             severityHash = {
                 'path'          : 1,
-                'md5sum'        : 2,
+                # FIXME
+                # 'md5sum'        : 2,
                 'file_size'     : 2,
                 'build_host'    : 3,
                 'build_time'    : 3,
@@ -470,7 +473,7 @@ class OracleBackend(Backend):
             fields      = {
                 'kstree_id'         : DBint(),
                 'relative_filename' : DBstring(256),
-                'md5sum'            : DBstring(64),
+                'checksum_id'       : DBint(),
                 'file_size'         : DBint(),
                 'last_modified'     : DBdateTime()
             },
