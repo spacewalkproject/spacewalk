@@ -222,23 +222,26 @@ class ConfigFilesHandler(rhnHandler):
         return result
 
     _query_content_lookup = rhnSQL.Statement("""
-        select id, md5sum, file_size, contents, is_binary
-          from rhnConfigContent
-         where md5sum = :md5sum
+        select id, c.checksum, file_size, contents, is_binary
+          from rhnConfigContent, rhnChecksum c
+         where c.checksum = :checksum
            and file_size = :file_size
+           and checksum_id = c.id
     """)
 
+    # FIXME: this insert have to go both to rhnConfigContent and rhnChecksum
     _query_insert_content = rhnSQL.Statement("""
         insert into rhnConfigContent 
                (id, md5sum, file_size, contents, is_binary)
-        values (:config_content_id, :md5sum, :file_size, empty_blob(),
+        values (:config_content_id, :checksum, :file_size, empty_blob(),
                :is_binary)
     """)
 
+    # FIXME: this insert have to go both to rhnConfigContent and rhnChecksum
     _query_insert_null_content = rhnSQL.Statement("""
         insert into rhnConfigContent 
                (id, md5sum, file_size, contents, is_binary)
-        values (:config_content_id, :md5sum, :file_size, NULL,
+        values (:config_content_id, :checksum, :file_size, NULL,
                :is_binary)
     """)
 
@@ -265,7 +268,7 @@ class ConfigFilesHandler(rhnHandler):
             file['config_file_type_id'] = '1'
 
         md5sum = getStringMD5(file_contents or '')
-        file['md5sum'] = md5sum
+        file['checksum'] = md5sum
 
         if file_contents:
             file['file_size'] = len(file_contents)
@@ -492,7 +495,7 @@ def format_file_results(row, server=None):
         'path'          : row['path'],
         'config_channel': row['config_channel'],
         'file_contents' : contents or '',
-        'md5sum'        : row['md5sum'],
+        'checksum'      : row['checksum'],
         'delim_start'   : row['delim_start'],
         'delim_end'     : row['delim_end'],
         'revision'      : row['revision'],
