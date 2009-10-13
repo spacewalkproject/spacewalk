@@ -273,7 +273,7 @@ def testDependencies(info, results):
 
     return
     
-# test to insure that no package with the same nvre but different md5 sum is in the db...
+# test to insure that no package with the same nvre but different checksum is in the db...
 # basically, complains if someone just resigns a package w/out bumping release
 #
 # NOTE:  currently, only cares about packages w/ org_id in (null, your_org)
@@ -285,17 +285,18 @@ def testMD5sums(info, results):
         header = package['header']
         filename = package['filename']
         query = """
-        select pn.name || '-' || pe.evr.as_vre_simple() nvre, p.md5sum md5sum,
+        select pn.name || '-' || pe.evr.as_vre_simple() nvre, c.checksum
                p.org_id org_id, p.build_host buildhost, p.build_time buildtime
           from rhnPackageArch pa, rhnPackageName pn, rhnPackageEVR pe, 
-            rhnPackage p
+            rhnPackage p, rhnChecksum c
          where pn.name = :name
                and pe.version = :version
                and pe.release = :release
                and pe.epoch %s
                and pn.id = p.name_id
                and pe.id = p.evr_id
-               and p.md5sum != :md5sum
+               and p.checksum_id = c.id
+               and c.checksum != :checksum
                and (p.org_id is null or p.org_id = :org_id)
                and pa.label = :arch
                and p.package_arch_id = pa.id
@@ -305,7 +306,7 @@ def testMD5sums(info, results):
             'version':header['version'], 
             'release':header['release'], 
             'epoch':header['epoch'], 
-            'md5sum':package['md5sum'],
+            'checksum':package['checksum'],
             'org_id':info['org_id'],
             'arch':header['arch'],
         }
@@ -343,8 +344,8 @@ def testMD5sums(info, results):
                 else:
                     further_info = "only MD5 sums differ, packages probably was just resigned"
 
-                results[filename].append("\nAlready found with an md5 sum of %s%s\n%s"
-                                         % (row['md5sum'], org_str, further_info))
+                results[filename].append("\nAlready found with a checksum of %s%s\n%s"
+                                         % (row['checksum'], org_str, further_info))
 
 
     return
