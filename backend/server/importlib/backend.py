@@ -374,7 +374,7 @@ class Backend:
     def ovalFileMD5sumCheck(self, erratum):
         """
         When oval file is dumped on to RHN filesystem
-        check if file exists and verifies their md5sum
+        check if file exists and verifies their checksum
         
         XXX:: as we create these files on RHN itself
         this call is not used. But leaving it here
@@ -384,12 +384,14 @@ class Backend:
             return None
 
         sql = """
-            select ef.md5sum
+            select c.checksum
               from rhnErrataFile ef,
-                   rhnErrata e
+                   rhnErrata e,
+                   rhnChecksum c
             where ef.filename = :filename
               and e.advisory_name = :aname
               and ef.errata_id = e.id
+              and ef.checksum_id = c.id
         """
 
         h = self.dbmodule.prepare(sql)
@@ -400,8 +402,8 @@ class Backend:
         #file does'nt exist proceed to populate.
         if not row:
             return 1
-        #file exists, check if md5's are same
-        if erratum['md5sum'] == row['md5sum']:
+        #file exists, check if checksums are same
+        if erratum['checksum'] == row['checksum']:
             return 1
         return 0
             
@@ -512,7 +514,7 @@ class Backend:
         self.__processHash('rhnPackageGroup', 'name', hash)
 
     def lookupPackages(self, packages, ignore_missing = 0):
-        # If nevra is enabled use md5sum as primary key
+        # If nevra is enabled use checksum as primary key
         self.validate_pks()
         for package in packages:
             if not isinstance(package, IncompletePackage):
@@ -1808,19 +1810,21 @@ class Backend:
                  pe.evr.release release,
                  pa.label arch,
                  p.org_id,
-                 p.md5sum
+                 cc.checksum
             from rhnChannel c, 
                  rhnChannelPackage cp,
                  rhnPackage p,
                  rhnPackageName pn,
                  rhnPackageEVR pe,
-                 rhnPackageArch pa
+                 rhnPackageArch pa,
+                 rhnChecksum cc
             where c.label = :label
                  and p.package_arch_id = pa.id
                  and cp.channel_id = c.id
                  and cp.package_id = p.id
                  and p.name_id = pn.id
                  and p.evr_id = pe.id
+                 and p.checksum_id = pc.id
         """
         h = self.dbmodule.prepare(query)
         h.execute(label=channel)
@@ -1961,12 +1965,12 @@ class Backend:
             apply(h.executemany, (), params)
 
     def validate_pks(self):
-        # If nevra is enabled use md5sum as primary key
+        # If nevra is enabled use checksum as primary key
         tbs = self.tables['rhnPackage']
         if CFG.ENABLE_NVREA:
-            # Add md5sum as a primarykey if nevra is enabled
-            if 'md5sum' not in tbs.pk:
-                tbs.pk.append('md5sum') 
+            # Add checksum as a primarykey if nevra is enabled
+            if 'checksum' not in tbs.pk:
+                tbs.pk.append('checksum')
             
 # Returns a tuple for the hash's values
 def build_key(hash, fields):
