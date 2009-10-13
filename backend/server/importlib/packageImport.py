@@ -71,20 +71,20 @@ class ChannelPackageSubscription(GenericPackageImport):
                 continue
             self._postprocessPackageNEVRA(package)
             if not CFG.ENABLE_NVREA:
-                # nvrea disabled, skip md5sum
+                # nvrea disabled, skip checksum
                 nevrao = (
                     package['name_id'],
                     package['evr_id'],
                     package['package_arch_id'],
                     package['org_id'])
             else:
-                # As nvrea is enabled uniquify based on md5sum
+                # As nvrea is enabled uniquify based on checksum
                 nevrao = (
                     package['name_id'],
                     package['evr_id'],
                     package['package_arch_id'],
                     package['org_id'],
-                    package['md5sum'])
+                    package['checksum'])
 
             if not uniqdict.has_key(nevrao):
                 # Uniquify the channel names
@@ -469,7 +469,7 @@ class PackageImport(ChannelPackageSubscription):
         package['solaris_patch_set_members'] = infoObjs
 
     def _comparePackages(self, package1, package2):
-        if package1['md5sum'] == package2['md5sum']:
+        if package1['checksum'] == package2['checksum']:
             return
         # XXX Handle this better
         raise Exception("Different packages in the same batch")
@@ -535,7 +535,7 @@ class SourcePackageImport(Import):
 
 
     def _comparePackages(self, package1, package2):
-        if package1['md5sum'] == package2['md5sum']:
+        if package1['checksum'] == package2['checksum']:
             return
         # XXX Handle this better
         raise Exception("Different packages in the same batch")
