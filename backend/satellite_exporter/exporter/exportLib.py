@@ -558,7 +558,7 @@ class PackagesDumper(BaseDumper):
                 p.build_host,
                 TO_CHAR(p.build_time, 'YYYYMMDDHH24MISS') build_time,
                 sr.name source_rpm,
-                p.md5sum,
+                c.checksum,
                 p.vendor,
                 p.payload_format,
                 p.compat,
@@ -569,13 +569,15 @@ class PackagesDumper(BaseDumper):
                 p.header_end,
                 TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
             from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe,
-                rhnPackageArch pa, rhnPackageGroup pg, rhnSourceRPM sr
+                rhnPackageArch pa, rhnPackageGroup pg, rhnSourceRPM sr,
+                rhnChecksum c
             where p.name_id = pn.id
             and p.evr_id = pe.id
             and p.package_arch_id = pa.id
             and p.package_group = pg.id
             and p.source_rpm_id = sr.id
             and p.path is not null
+            and p.checksum_id = c.id
             and rownum < 3
         """)
         h.execute()
@@ -592,7 +594,7 @@ class _PackageDumper(BaseRowDumper):
     def set_attributes(self):
         attrs = ["name", "version", "release", "package_arch",
             "package_group", "rpm_version", "package_size", "payload_size",
-            "build_host", "source_rpm", "md5sum", "payload_format",
+            "build_host", "source_rpm", "checksum", "payload_format",
             "compat", "cookie", "org_id"]
         attrdict = {
             'id'            : "rhn-package-%s" % self._row['id'],
@@ -658,10 +660,11 @@ class _PackageDumper(BaseRowDumper):
                 pc.name, pf.device, pf.inode, pf.file_mode, pf.username,
                 pf.groupname, pf.rdev, pf.file_size,
                 TO_CHAR(mtime, 'YYYYMMDDHH24MISS') mtime,
-                pf.md5, pf.linkto, pf.flags, pf.verifyflags, pf.lang
-            from rhnPackageFile pf, rhnPackageCapability pc
+                c.checksum, pf.linkto, pf.flags, pf.verifyflags, pf.lang
+            from rhnPackageFile pf, rhnPackageCapability pc, rhnChecksum c
             where pf.capability_id = pc.id
             and pf.package_id = :package_id
+            and pf.checksum_id = c.id
         """)
         h.execute(package_id=self._row['id'])
         arr.append(_PackageFilesDumper(self._writer, data_iterator=h))
@@ -684,15 +687,16 @@ class ShortPackagesDumper(BaseDumper):
                 pe.evr.release release,
                 pe.evr.epoch epoch,
                 pa.label package_arch,
-                p.md5sum,
+                c.checksum,
                 p.org_id,
                 TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
             from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe,
-                rhnPackageArch pa
+                rhnPackageArch pa, rhnChecksum c
             where p.name_id = pn.id
             and p.evr_id = pe.id
             and p.package_arch_id = pa.id
             and p.path is not null
+            and p.checksum_id = c.id
             and rownum < 3
         """)
         h.execute()
@@ -702,7 +706,7 @@ class ShortPackagesDumper(BaseDumper):
         attributes = {}
         attrs = [
             "id", "name", "version", "release", "epoch",
-            "package_arch", "md5sum", "package_size", "org_id",
+            "package_arch", "checksum", "package_size", "org_id",
         ]
         for attr in attrs:
             attributes[attr.replace('_', '-')] = data[attr]
@@ -731,16 +735,19 @@ class SourcePackagesDumper(BaseDumper):
                 ps.payload_size,
                 ps.build_host,
                 TO_CHAR(ps.build_time, 'YYYYMMDDHH24MISS') build_time,
-                ps.sigmd5,
+                sig.checksum sig_checksum,
                 ps.vendor,
                 ps.cookie,
                 ps.package_size,
-                ps.md5sum,
+                c.checksum,
                 TO_CHAR(ps.last_modified, 'YYYYMMDDHH24MISS') last_modified
-            from rhnPackageSource ps, rhnPackageGroup pg, rhnSourceRPM sr
+            from rhnPackageSource ps, rhnPackageGroup pg, rhnSourceRPM sr,
+                 rhnChecksum c, rhnChecksum sig
             where ps.package_group = pg.id
             and ps.source_rpm_id = sr.id
             and ps.path is not null
+            and ps.checksum_id = c.id
+            and ps.sigchecksum_id = sig.id
             and rownum < 3
         """)
         h.execute()
@@ -750,8 +757,8 @@ class SourcePackagesDumper(BaseDumper):
         attributes = {}
         attrs = [
             "id", "source_rpm", "package_group", "rpm_version",
-            "payload_size", "build_host", "sigmd5", "vendor",
-            "cookie", "package_size", "md5sum"
+            "payload_size", "build_host", "sig_checksum", "vendor",
+            "cookie", "package_size", "checksum"
         ]
         for attr in attrs:
             attributes[attr.replace('_', '-')] = data[attr]
@@ -809,7 +816,7 @@ class _PackageFilesDumper(BaseDumper):
 
     def dump_subelement(self, data):
         data['mtime'] = _dbtime2timestamp(data['mtime'])
-        data['md5'] = data['md5'] or ""
+        data['checksum'] = data['checksum'] or ""
         data['linkto'] = data['linkto'] or ""
         data['lang'] = data['lang'] or ""
         d = EmptyDumper(self._writer, 'rhn-package-file',
@@ -941,13 +948,15 @@ class _ErratumDumper(BaseRowDumper):
         h.execute(errata_id=self._row['id'])
         arr.append(_ErratumBuglistDumper(self._writer, data_iterator=h))
         _query_errata_file_info = """
-             select ef.id errata_file_id, ef.md5sum,
+             select ef.id errata_file_id, c.checksum,
                     ef.filename, eft.label type,
                     efp.package_id, efps.package_id source_package_id
                from rhnErrataFile ef, rhnErrataFileType eft,
-                    rhnErrataFilePackage efp, rhnErrataFilePackageSource efps
+                    rhnErrataFilePackage efp, rhnErrataFilePackageSource efps,
+                    rhnChecksum c
               where ef.errata_id = :errata_id
                 and ef.type = eft.id
+                and ef.checksum_id = c.id
                 %s
                 and ef.id = efp.errata_file_id (+)
                 and ef.id = efps.errata_file_id (+)
@@ -995,7 +1004,7 @@ class _ErratumFilesDumper(BaseDumper):
 
     def dump_subelement(self, data):
         attributes = {
-            'md5sum'    : data['md5sum'],
+            'checksum'    : data['checksum'],
             # XXX: band-aid - truncate to 128 chars for olde satellites.
             'filename'  : data['filename'][:128],
             'type'      : data['type'],
@@ -1359,11 +1368,12 @@ class _KickstartableTreeDumper(BaseRowDumper):
         kstree_id = self._row['id']
         h = rhnSQL.prepare("""
             select relative_filename "relative-path",
-                   md5sum,
+                   c.checksum,
                    file_size "file-size",
                     TO_CHAR(last_modified, 'YYYYMMDDHH24MISS') "last-modified"
-              from rhnKSTreeFile
+              from rhnKSTreeFile, rhnChecksum c
              where kstree_id = :kstree_id
+               and p.checksum_id = c.id
         """)
         h.execute(kstree_id=kstree_id)
         return ArrayIterator([_KickstartFilesDumper(self._writer, h)])
@@ -1410,7 +1420,7 @@ def packages_cursor(package_id, sources=0):
             p.build_host,
             TO_CHAR(p.build_time, 'YYYYMMDDHH24MISS') build_time,
             sr.name source_rpm,
-            p.md5sum,
+            c.checksum,
             p.vendor,
             p.payload_format,
             p.compat,
@@ -1420,7 +1430,8 @@ def packages_cursor(package_id, sources=0):
             p.copyright,
             p.cookie
         from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe,
-            rhnPackageArch pa, rhnPackageGroup pg, rhnSourceRPM sr
+            rhnPackageArch pa, rhnPackageGroup pg, rhnSourceRPM sr,
+            rhnChecksum c
         where p.name_id = pn.id
         and p.evr_id = pe.id
         and p.package_arch_id = pa.id
@@ -1428,6 +1439,7 @@ def packages_cursor(package_id, sources=0):
         and p.source_rpm_id = sr.id
         and p.path is not null
         and p.id = :package_id
+        and p.checksum_id = c.id
     """)
     h.execute(package_id=package_id)
     return h
@@ -1443,16 +1455,19 @@ def _source_packages_cursor(package_id):
             ps.payload_size,
             ps.build_host,
             TO_CHAR(ps.build_time, 'YYYYMMDDHH24MISS') build_time,
-            ps.sigmd5,
+            sig.checksum sig_checksum,
             ps.vendor,
             ps.cookie,
             ps.package_size,
-            ps.md5sum
-        from rhnPackageSource ps, rhnPackageGroup pg, rhnSourceRPM sr
+            c.checksum
+        from rhnPackageSource ps, rhnPackageGroup pg, rhnSourceRPM sr,
+             rhnChecksum c, rhnChecksum sig
         where ps.package_group = pg.id
         and ps.source_rpm_id = sr.id
         and ps.path is not null
         and ps.id = :package_id
+        and ps.checksum_id = c.id
+        and ps.sigchecksum_id = sig.id
     """)
     h.execute(package_id=package_id)
     return h
