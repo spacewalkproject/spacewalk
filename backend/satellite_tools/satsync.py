@@ -831,21 +831,22 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         self._diff_packages()
 
     _query_compare_packages = """
-        select p.id, p.md5sum, p.path, p.package_size,
+        select p.id, c.checksum, p.path, p.package_size,
                TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
-          from rhnPackage p
+          from rhnPackage p, rhnChecksum c
          where p.name_id = lookup_package_name(:name)
            and p.evr_id = lookup_evr(:epoch, :version, :release)
            and p.package_arch_id = lookup_package_arch(:arch)
            and (p.org_id = :org_id or
                (p.org_id is null and :org_id is null))
-           and p.md5sum =: md5sum
+           and p.checksum_id = c.id
+           and c.checksum =: checksum
     """
     # XXX the "is null" condition will have to change in multiorg satellites
     def _diff_packages(self):
         package_collection = sync_handlers.ShortPackageCollection()
         nvrea_keys = ['name', 'epoch', 'version', \
-                      'release', 'arch', 'md5sum']
+                      'release', 'arch', 'checksum']
         h = rhnSQL.prepare(self._query_compare_packages)
 
         missing_channel_packages = {}
@@ -956,7 +957,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         nevra = []
         for t in ['name', 'epoch', 'version', 'release', 'arch']:
             nevra.append(package[t])
-        md5sum = package['md5sum']
+        md5sum = package['checksum']
         package_size = package['package_size']
 
         if package['org_id'] is not None:
@@ -979,7 +980,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
         # Package found in the DB
         db_timestamp = int(rhnLib.timestamp(row['last_modified']))
-        db_md5sum = row['md5sum']
+        db_md5sum = row['checksum']
         db_package_size = row['package_size']
         db_path = row['path']
         final_path = db_path
@@ -1415,7 +1416,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                     relative_path = f['relative_path']
                     dest_path = os.path.join(base_path, relative_path)
                     timestamp = rhnLib.timestamp(f['last_modified'])
-                    md5sum = f['md5sum']
+                    md5sum = f['checksum']
                     file_size = f['file_size']
                     (errcode, ret_path) = self._verify_file(dest_path,
                         timestamp, file_size, md5sum)
@@ -1668,7 +1669,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             if len(self.pkg_header_info) > 0:
                 for data in self.pkg_header_info:
                     server_packages.processPackageKeyAssociations(data['header'], \
-                                                  data['md5sum'])
+                                                  data['checksum'])
         return self._link_channel_packages()
 
     def _link_channel_packages(self):
@@ -1880,7 +1881,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             hdr = rhn_rpm.get_package_header(filename=rpmManip.full_path)
 
             self.pkg_header_info.append({'header' : hdr,
-                                         'md5sum' : package['md5sum'] })
+                                         'checksum' : package['checksum'] })
             log(1, messages.package_fetch_successful %
                 (pkg_current, pkgs_total, filename, size))
 
