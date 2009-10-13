@@ -277,13 +277,13 @@ class Packages(RPC_Base):
         package_stream.seek(0, 0)
         del packageBits
 
-        header, payload_stream, md5sum, header_start, header_end = \
+        header, payload_stream, checksum, header_start, header_end = \
             rhnPackageUpload.load_package(package_stream)
         relative_path = rhnPackageUpload.relative_path_from_header(
             header, org_id=org_id)
 
         package_dict, diff_level = rhnPackageUpload.push_package(
-            header, payload_stream, md5sum, org_id=org_id, force=force,
+            header, payload_stream, checksum, org_id=org_id, force=force,
             header_start=header_start, header_end=header_end,
             relative_path=relative_path)
 
@@ -340,24 +340,24 @@ class Packages(RPC_Base):
                 if package['arch'] == 'src' or package['arch'] == 'nosrc':
                     # Source package - no reason to continue
                     continue
-                _md5sum_sql_filter = ""
-                md5sum_exists = 0
-                if package.has_key('md5sum') and CFG.ENABLE_NVREA:
-                    md5sum_exists = 1
-                    _md5sum_sql_filter = """and p.md5sum =: md5sum"""
+                _checksum_sql_filter = ""
+                checksum_exists = 0
+                if package.has_key('checksum') and CFG.ENABLE_NVREA:
+                    checksum_exists = 1
+                    _checksum_sql_filter = """and c.checksum = :checksum"""
 
                 h = rhnSQL.prepare(self._get_pkg_info_query % \
-                                    _md5sum_sql_filter)
+                                    _checksum_sql_filter)
                 pkg_epoch =  None
                 if package['epoch'] != '':
                     pkg_epoch = package['epoch']
 
-                if md5sum_exists:
+                if checksum_exists:
                     h.execute(pkg_name=package['name'], \
                     pkg_epoch=pkg_epoch, \
                     pkg_version=package['version'], \
                     pkg_rel=package['release'],pkg_arch=package['arch'], \
-                    orgid = org_id, md5sum = package['md5sum'] )
+                    orgid = org_id, checksum = package['checksum'] )
                 else:
                     h.execute(pkg_name=package['name'], \
                     pkg_epoch=pkg_epoch, \
@@ -367,7 +367,7 @@ class Packages(RPC_Base):
 
                 row = h.fetchone_dict()
 
-                package['md5sum'] = row['md5sum']
+                package['checksum'] = row['checksum']
                 package['org_id'] = org_id
                 package['channels'] = channelList
                 batch.append(IncompletePackage().populate(package))
@@ -453,13 +453,14 @@ class Packages(RPC_Base):
  
     _get_pkg_info_query = """
         select
-               p.md5sum md5sum,
+               c.checksum,
                p.path path
          from
                rhnPackageEVR pe,
                rhnPackageName pn,
                rhnPackage p,
-               rhnPackageArch pa
+               rhnPackageArch pa,
+               rhnChecksum c
          where
                pn.name     = :pkg_name
           and  ( pe.epoch  = :pkg_epoch or
@@ -474,35 +475,36 @@ class Packages(RPC_Base):
           and  p.evr_id    = pe.id
           and  p.package_arch_id = pa.id
           and  pa.label    = :pkg_arch
+          and  p.checksum_id = c.id
           %s 
     """
  
     def _getPackageMD5sum(self, org_id, pkg_infos, info):
         log_debug(3)
         row_list = {}
-        md5sum_exists = 0
+        checksum_exists = 0
         for pkg in pkg_infos.keys():
 
             pkg_info = pkg_infos[pkg] 
-            _md5sum_sql_filter = ""
-            if pkg_info.has_key('md5sum') and CFG.ENABLE_NVREA:
-                md5sum_exists = 1
-                _md5sum_sql_filter = """and p.md5sum =: md5sum"""
+            _checksum_sql_filter = ""
+            if pkg_info.has_key('checksum') and CFG.ENABLE_NVREA:
+                checksum_exists = 1
+                _checksum_sql_filter = """and c.checksum = :checksum"""
             
-            h = rhnSQL.prepare(self._get_pkg_info_query % _md5sum_sql_filter)
+            h = rhnSQL.prepare(self._get_pkg_info_query % _checksum_sql_filter)
 
             pkg_epoch = None
             if pkg_info['epoch'] != '':
                 pkg_epoch = pkg_info['epoch']
            
-            if md5sum_exists:
+            if checksum_exists:
                 h.execute(pkg_name=pkg_info['name'],
                           pkg_epoch=pkg_epoch,
                           pkg_version=pkg_info['version'],
                           pkg_rel=pkg_info['release'],
                           pkg_arch=pkg_info['arch'],
                           orgid = org_id,
-                          md5sum = pkg_info['md5sum'] )
+                          checksum = pkg_info['checksum'] )
             else:
                 h.execute(pkg_name=pkg_info['name'],
                           pkg_epoch=pkg_epoch,
@@ -519,8 +521,8 @@ class Packages(RPC_Base):
             if row.has_key('path'):    
                 filePath = os.path.join(CFG.MOUNT_POINT, row['path'])
                 if os.access(filePath, os.R_OK):
-                    if row.has_key('md5sum'):
-                        row_list[pkg] = row['md5sum']
+                    if row.has_key('checksum'):
+                        row_list[pkg] = row['checksum']
                     else:
                         row_list[pkg] = 'on-disk'
                 else:
@@ -577,7 +579,7 @@ class Packages(RPC_Base):
         return self._getSourcePackageMD5sum(org_id, pkg_infos, info)
     
     def _getSourcePackageMD5sum(self, org_id, pkg_infos, info):
-        """ Gives md5sum info of available source packages.
+        """ Gives checksum info of available source packages.
             Also does an existance check on the filesystem.
         """
 
@@ -586,16 +588,18 @@ class Packages(RPC_Base):
         statement = """
             select
                 ps.path path,
-                ps.md5sum md5sum
+                c.checksum
             from
                 rhnSourceRpm sr,
-                rhnPackageSource ps
+                rhnPackageSource ps,
+                rhnChecksum c
             where
                  sr.name = :name
              and ps.source_rpm_id = sr.id
              and ( ps.org_id  = :orgid or
                    ( ps.org_id is null and :orgid is null )
                  )
+             and ps.checksum_id = c.id
              """
         h = rhnSQL.prepare(statement)
         row_list = {}
@@ -611,8 +615,8 @@ class Packages(RPC_Base):
             if row.has_key('path'):    
                 filePath = os.path.join(CFG.MOUNT_POINT, row['path'])
                 if os.access(filePath, os.R_OK):
-                    if row.has_key('md5sum'):
-                        row_list[pkg] = row['md5sum']
+                    if row.has_key('checksum'):
+                        row_list[pkg] = row['checksum']
                     else:
                         row_list[pkg] = 'on-disk'
                 else:
@@ -640,14 +644,16 @@ class Packages(RPC_Base):
                 ps.rpm_version version,
                 ps.path,
                 ps.package_size,
-                ps.md5sum
+                c.checksum
                 
             from
                 rhnSourceRpm sr,
-                rhnPackageSource ps
+                rhnPackageSource ps,
+                rhnChecksum c
             where
                     ps.source_rpm_id = :sri
                 and ps.source_rpm_id = sr.id
+                and ps.checksum_id = c.id
         """
         h = rhnSQL.prepare(statement)
         h.execute(sri=int(source_rpm_id))
