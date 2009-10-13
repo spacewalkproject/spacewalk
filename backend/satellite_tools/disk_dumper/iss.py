@@ -211,25 +211,27 @@ class Dumper(dumper.XML_Dumper):
         try:
 	    if self.start_date:
 	        self.brpm_query = rhnSQL.Statement("""
-                     select rcp.package_id id, rp.path path, rp.md5sum md5sum, 
+                     select rcp.package_id id, rp.path path, c.checksum,
 		            TO_CHAR(rp.last_modified, 'YYYYMMDDHH24MISS') last_modified
-		       from rhnChannelPackage rcp, rhnPackage rp
+		       from rhnChannelPackage rcp, rhnPackage rp, rhnChecksum c
 		      where rcp.package_id = rp.id
 		        and rcp.channel_id = :channel_id
 		        and rp.last_modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
 		        and rp.last_modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
+                        and rp.checksum_id = c.id
 		""")
 	    else:
 	        self.brpm_query = rhnSQL.Statement("""
-                    select rcp.package_id id, rp.path path, rp.md5sum md5sum
-                      from rhnChannelPackage rcp, rhnPackage rp
+                    select rcp.package_id id, rp.path path, c.checksum
+                      from rhnChannelPackage rcp, rhnPackage rp, rhnChecksum c
                      where rcp.package_id = rp.id
                        and rcp.channel_id = :channel_id
+                       and rp.checksum_id = c.id
                 """)
             brpm_data = rhnSQL.prepare(self.brpm_query)
             
             #self.brpms is a list of binary rpm info. It is a list of dictionaries, where each dictionary
-            #has 'id', 'path', and 'md5sum' as the keys.
+            #has 'id', 'path', and 'checksum' as the keys.
             self.brpms = []
             log2stdout(1, "Gathering binary RPM info...")
             for ch in self.channel_ids:
@@ -414,27 +416,31 @@ class Dumper(dumper.XML_Dumper):
 	    if self.start_date:
 	        self.kickstart_files_query = rhnSQL.Statement("""
 		    select rktf.relative_filename "relative-path", 
-		           rktf.md5sum, rktf.file_size "file-size",
+		           c.checksum, rktf.file_size "file-size",
 		           TO_CHAR(rktf.last_modified, 'YYYYMMDDHH24MISS') "last-modified", 
 			   rkt.base_path "base-path",
 		           rkt.label label, 
 			   TO_CHAR(rkt.modified, 'YYYYMMDDHH24MISS') "modified"
-		      from rhnKSTreeFile rktf, rhnKickstartableTree rkt
+		      from rhnKSTreeFile rktf, rhnKickstartableTree rkt,
+                           rhnChecksum c
 		     where rktf.kstree_id = :kstree_id
 		       and rkt.id = rktf.kstree_id
 		       and rkt.modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
 		       and rkt.modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
+                       and rktf.checksum_id = c.id
 	        """)
 	    else:
                 self.kickstart_files_query = rhnSQL.Statement("""
                     select rktf.relative_filename "relative-path",
-		           rktf.md5sum, rktf.file_size "file-size",
+		           c.checksum, rktf.file_size "file-size",
                            TO_CHAR(rktf.last_modified, 'YYYYMMDDHH24MISS') "last-modified", 
 			   rkt.base_path "base-path",
                            rkt.label label
-                     from  rhnKSTreeFile rktf, rhnKickstartableTree rkt
+                     from  rhnKSTreeFile rktf, rhnKickstartableTree rkt,
+                           rhnChecksum c
                     where  rktf.kstree_id = :kstree_id
                       and  rkt.id = rktf.kstree_id
+                      and  rktf.checksum_id = c.id
             """)
             kickstart_files = rhnSQL.prepare(self.kickstart_files_query)
             self.kickstart_files = []
