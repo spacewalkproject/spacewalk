@@ -29,7 +29,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     
     <query name="KickstartCommandName.listAdvancedOptions">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartCommandName as t where t.name 
-               NOT IN ('partitions', 'raids', 'logvols', 'volgroups', 'include', 'repo', 'custom') order by t.order]]>
+               NOT IN ('partitions', 'raids', 'logvols', 'volgroups', 'include', 'repo', 'custom', 'custom_partition') order by t.order]]>
     </query>
     
     <query name="KickstartCommandName.listAllOptions">
@@ -38,7 +38,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     
     <query name="KickstartCommandName.requiredOptions">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartCommandName as t where t.required = 'Y'
-               AND t.name NOT IN ('partitions', 'raids', 'logvols', 'volgroups', 'include', 'repo', 'custom') order by t.order]]>
+               AND t.name NOT IN ('partitions', 'raids', 'logvols', 'volgroups', 'include', 'repo', 'custom', 'custom_partition') order by t.order]]>
     </query>
     
 </hibernate-mapping>
