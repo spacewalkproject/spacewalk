@@ -164,16 +164,12 @@ def transpose_to_hash(arr, column_names):
 
     return rh
 
-# Computes a package path, optionally prepending a prefix
-# The path will look like 
-# <prefix>/<org_id>/n/e:v-r/a/n-v-r.a.rpm if not omit_epoch
-# <prefix>/<org_id>/n/v-r/a/n-v-r.a.rpm if omit_epoch
 def get_package_path(nevra, org_id, source=0, prepend="", omit_epoch=None, 
         package_type='rpm', md5sum=None):
     """ Computes a package path, optionally prepending a prefix
         The path will look like
-        <prefix>/<org_id>/n/e:v-r/a/n-v-r.a.rpm if not omit_epoch
-        <prefix>/<org_id>/n/v-r/a/n-v-r.a.rpm if omit_epoch
+        <prefix>/<org_id>/md5sum[:3]/n/e:v-r/a/md5sum/n-v-r.a.rpm if not omit_epoch
+        <prefix>/<org_id>/md5sum[:3]/n/v-r/a/md5sum/n-v-r.a.rpm if omit_epoch
     """
     name = nevra[0]
     release = nevra[3]
