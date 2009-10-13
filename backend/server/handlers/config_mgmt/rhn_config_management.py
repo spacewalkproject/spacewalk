@@ -253,7 +253,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                cc.label config_channel, 
                ccont.contents file_contents,
                ccont.is_binary,
-               ccont.md5sum,
+               c.checksum,
                cr.delim_start, cr.delim_end,
                cr.revision,
                cf.modified,
@@ -267,6 +267,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                rhnConfigRevision cr,
                rhnConfigFile cf,
                rhnConfigContent ccont,
+               rhnChecksum c,
 	       rhnConfigFileType cft
          where cf.config_channel_id = cc.id
            and cc.label = :config_channel
@@ -277,13 +278,14 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
            and cf.latest_config_revision_id = cr.id
            and cr.config_content_id = ccont.id
 	   and cr.config_file_type_id = cft.id
+           and ccont.checksum_id = c.id
     """)
     _query_get_file_revision = rhnSQL.Statement("""
         select :path path,
                cc.label config_channel, 
                ccont.contents file_contents,
                ccont.is_binary,
-               ccont.md5sum,
+               c.checksum,
                cr.delim_start, cr.delim_end,
                cr.revision,
                cf.modified,
@@ -297,6 +299,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                rhnConfigRevision cr,
                rhnConfigFile cf,
                rhnConfigContent ccont,
+               rhnChecksum c,
  	       rhnConfigFileType cft
          where cf.config_channel_id = cc.id
            and cc.label = :config_channel
@@ -307,6 +310,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
            and cr.revision = :revision
            and cr.config_content_id = ccont.id
            and cr.config_file_type_id = cft.id
+           and ccont.checksum_id = c.id
 
     """)
 
