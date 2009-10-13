@@ -231,7 +231,7 @@ class File(Item):
         'rdev'              : IntType,
         'file_size'         : IntType,
         'mtime'             : DateType,
-        'md5'               : StringType,
+        'checksum'          : StringType,
         'linkto'            : StringType,
         'flags'             : IntType,
         'verifyflags'       : IntType,
@@ -270,7 +270,7 @@ class IncompletePackage(BaseInformation):
         'release'           : StringType,
         'arch'              : StringType,
         'org_id'            : IntType,
-        'md5sum'            : StringType,
+        'checksum'          : StringType,
         'package_size'      : IntType,
         'last_modified'     : DateType,
         # These attributes are lists of objects
@@ -326,8 +326,8 @@ class Package(IncompletePackage):
         'source_rpm'        : StringType,
         'package_size'      : IntType,
         'last_modified'     : DateType,
-        'md5sum'            : StringType,
-        'sigmd5'            : StringType,
+        'checksum'          : StringType,
+        'sigchecksum'       : StringType,
         'sigpgp'            : StringType,
         'siggpg'            : StringType,
         'sigsize'           : IntType,
@@ -360,11 +360,11 @@ class SourcePackage(IncompletePackage):
         'payload_format'    : StringType,
         'build_host'        : StringType,
         'build_time'        : DateType,
-        'sigmd5'            : StringType,
+        'sigchecksum'       : StringType,
         'vendor'            : StringType,
         'cookie'            : StringType,
         'package_size'      : IntType,
-        'md5sum'            : StringType,
+        'checksum'          : StringType,
         'path'              : StringType,
     }
     def __init__(self):
@@ -382,7 +382,7 @@ class SourcePackage(IncompletePackage):
 class SourcePackageFile(Information):
     attributeTypes = {
         'file_size'         : IntType,
-        'md5sum'            : StringType,
+        'checksum'          : StringType,
         'path'              : StringType,
         'org_id'            : IntType,
     }
@@ -397,7 +397,7 @@ class Bug(Information):
 
 class ErrataFile(Information):
     attributeTypes = {
-        'md5sum'            : StringType,
+        'checksum'          : StringType,
         'filename'          : StringType,
         'file_type'         : StringType,
         'channel_list'      : [StringType],
@@ -510,7 +510,7 @@ class KickstartFile(Information):
         'relative_path' : StringType,
         'last_modified' : DateType,
         'file_size'     : IntType,
-        'md5sum'        : StringType,
+        'checksum'      : StringType,
     }
 
 class KickstartableTree(Information):
@@ -789,7 +789,7 @@ def write_temp_package(packageData, org_id, prepend=""):
         an open file descriptor to the temp file
         header: an RPM header
         package size
-        package md5sum
+        package checksum
         relative path
         a source flag
     """
@@ -804,31 +804,31 @@ def write_temp_package(packageData, org_id, prepend=""):
     os.write(fd, packageData)
     # Clean up the package variable
     del packageData
-    # Compute the md5sum
-    pkgmd5sum = getFileMD5(None, fd)
+    # Compute the checksum
+    pkgchecksum = getFileMD5(None, fd)
     # Read the RPM header
     os.lseek(fd, 0, 0)
     header = rhn_mpm.get_package_header(fd=fd)
     # Get nevra
     nevra = get_nevra(header)
     relPackagePath = get_package_path(nevra, org_id, header.is_source, prepend,
-                                     pkgmd5sum)
+                                     pkgchecksum)
     # And return this information
-    return fd, header, packageSize, pkgmd5sum, relPackagePath
+    return fd, header, packageSize, pkgchecksum, relPackagePath
 
-def copy_package(fd, basedir, relpath, md5sum, force=None):
+def copy_package(fd, basedir, relpath, checksum, force=None):
     """
     Copies the information from the file descriptor to a file
     Checks the file's MD5 sum, raising FileConflictErrror if it's different
     The force flag prevents the exception from being raised, and copies the
-    file even if the md5sum has changed
+    file even if the checksum has changed
     """
     packagePath = basedir + "/" + relpath
     # Is the file there already?
     if os.path.isfile(packagePath) and not force:
-        # Get its md5sum
-        localmd5sum = getFileMD5(packagePath)
-        if md5sum == localmd5sum:
+        # Get its checksum
+        localchecksum = getFileMD5(packagePath)
+        if checksum == localchecksum:
             # Same file, so get outa here
             return 
         raise FileConflictError(os.path.basename(packagePath))
@@ -859,11 +859,11 @@ def write_package(packageData, basedir, org_id, prepend="", force=None):
     """
     Writes the bytes in a directory structure
     """
-    fd, header, packageSize, md5sum, relpath = write_temp_package(
+    fd, header, packageSize, checksum, relpath = write_temp_package(
         packageData, org_id, prepend)
-    copy_package(fd, basedir, relpath, md5sum, force=force)
+    copy_package(fd, basedir, relpath, checksum, force=force)
     os.close(fd)
-    return header, relpath, md5sum, packageSize
+    return header, relpath, checksum, packageSize
 
 # Returns a list of containing nevra for the given RPM header
 def get_nevra(header):
