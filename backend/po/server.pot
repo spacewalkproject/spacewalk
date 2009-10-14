@@ -938,7 +938,7 @@ msgid "Missing HTTP header information"
 msgstr ""
 
 #: ../common/rhnException.py:196
-msgid "The package's md5sum signature does not match the header one"
+msgid "The package's checksum signature does not match the header one"
 msgstr ""
 
 #: ../common/rhnException.py:197
