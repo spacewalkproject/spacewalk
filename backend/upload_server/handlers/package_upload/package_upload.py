@@ -45,17 +45,17 @@ class PackageUpload(basePackageUpload.BasePackageUpload):
 
         try:
             rhnPackageUpload.check_package_exists(self.package_path,
-            self.file_md5sum, force=0)
+            self.file_checksum, force=0)
         except rhnPackageUpload.AlreadyUploadedError:
             log_debug(2, "Already exists", self.rel_package_path)
             return apache.HTTP_CREATED
         except rhnPackageUpload.PackageConflictError, e:
-            log_error("Different md5sums", self.package_path)
+            log_error("Different checksums", self.package_path)
             rhnFlags.set("apache-return-code", apache.HTTP_CONFLICT)
             raise rhnFault(104, 
                 "Package %s (%s) already exists, with checksum %s " % 
                     (os.path.basename(self.package_path), 
-                    self.file_md5sum, e.args[1]))
+                    self.file_checksum, e.args[1]))
 
         return apache.OK
             
@@ -70,13 +70,13 @@ class PackageUpload(basePackageUpload.BasePackageUpload):
         log_debug(4, "Header length", len(req.headers_in[i]))
 
         temp_stream = rhnPackageUpload.write_temp_file(req, buffer_size)
-        header, payload_stream, md5sum, header_start, header_end = \
+        header, payload_stream, checksum, header_start, header_end = \
             rhnPackageUpload.load_package(temp_stream)
         temp_stream.close()
 
-        if self.file_md5sum != md5sum:
+        if self.file_checksum != checksum:
             raise rhnFault(501, "Uploaded: %s; filesystem: %s" %
-                (self.file_md5sum, md5sum))
+                (self.file_checksum, checksum))
 
         if not rhnPackageUpload.source_match(self.is_source, header.is_source):
             # Unexpected rpm package type
@@ -107,7 +107,7 @@ class PackageUpload(basePackageUpload.BasePackageUpload):
         if not header.is_signed:
             rhnFlags.set("apache-return-code", apache.HTTP_CONFLICT)
             raise rhnFault(103, "Package %s (%s) is not signed" % 
-                    (os.path.basename(self.package_path), self.file_md5sum))
+                    (os.path.basename(self.package_path), self.file_checksum))
 
         payload_stream.seek(0, 0)
         dirname = os.path.dirname(self.package_path)
