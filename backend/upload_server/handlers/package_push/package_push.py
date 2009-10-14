@@ -114,13 +114,13 @@ class PackagePush(basePackageUpload.BasePackageUpload):
 
         temp_stream = rhnPackageUpload.write_temp_file(req, 16384)
 
-        header, payload_stream, md5sum, header_start, header_end = \
+        header, payload_stream, checksum, header_start, header_end = \
             rhnPackageUpload.load_package(temp_stream)
 
         # Sanity check - removed, the package path can no longer be determined 
         # without the header
         self.rel_package_path = rhnPackageUpload.relative_path_from_header(
-            header, org_id=self.org_id, md5sum=md5sum)
+            header, org_id=self.org_id, checksum=checksum)
         self.package_path = os.path.join(CFG.MOUNT_POINT,
             self.rel_package_path)
         # XXX need to clean this up
@@ -132,15 +132,15 @@ class PackagePush(basePackageUpload.BasePackageUpload):
 #            log_debug(1, "Mismatching paths", relative_path,
 #                self.rel_package_path)
 #            raise rhnFault(104, "Mismatching information")
-        # Verify the md5sum of the bytes we downloaded against the md5sum
+        # Verify the checksum of the bytes we downloaded against the checksum
         # presented by rhnpush in the HTTP headers
-        if md5sum != self.file_md5sum:
-            log_debug(1, "Mismatching md5sums: expected", self.file_md5sum, 
-                "; got:", md5sum)
+        if checksum != self.file_checksum:
+            log_debug(1, "Mismatching checksum: expected", self.file_checksum,
+                "; got:", checksum)
             raise rhnFault(104, "Mismatching information")
         
         package_dict, diff_level = rhnPackageUpload.push_package(header,
-            payload_stream, md5sum, force=self.force,
+            payload_stream, checksum, force=self.force,
             header_start=header_start, header_end=header_end,
             relative_path=self.rel_package_path, org_id=self.org_id)
 
