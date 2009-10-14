@@ -223,7 +223,7 @@ maximum membership exceeded"),
 
      # 500-599: Package Uploader errors
      500: _("Missing HTTP header information"),
-     501: _("The package's md5sum signature does not match the header one"),
+     501: _("The package's checksum signature does not match the header one"),
      502: _("Header information does not match package metainformation"),
      503: _("Package with a different signature already uploaded"),
      504: _("Not an RPM package"),
