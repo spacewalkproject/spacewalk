@@ -21,7 +21,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
     <query name="ChecksumType.loadAllForYum">
         <![CDATA[from com.redhat.rhn.domain.common.ChecksumType as t
-        			where t.label = 'sha-256' or t.label = 'sha1']]>
+                               where t.label like 'sha%']]>
     </query>    
     <query name="ChecksumType.findById">
         <![CDATA[from com.redhat.rhn.domain.common.ChecksumType as t where t.id = :id]]>
