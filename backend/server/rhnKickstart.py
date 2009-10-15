@@ -96,15 +96,17 @@ class Kickstart:
                      ' , ' + str(ks_file['checksum']) + ' , ' + str(ks_file['file_size']) + \
                      ' , ' + ks_file['last_modified'])
 
-        # FIXME: this insert should go to rhnKSTreeFile and rhnChecksum
         insert_file_q = rhnSQL.prepare("""
             insert into rhnKSTreeFile
-            (kstree_id, relative_filename, md5sum, file_size, last_modified)
-            values (:kstree_id, :relative_filename, :md5sum, :file_size, :last_modified)
+            (kstree_id, relative_filename, checksum_id, file_size, last_modified)
+            values (:kstree_id, :relative_filename,
+                    lookup_checksum(:checksum_type, :checksum),
+                    :file_size, :last_modified)
         """)
         insert_file_q.execute(kstree_id = self.id,
                               relative_filename = ks_file['relative_path'],
-                              md5sum = ks_file['md5sum'],
+                              checksum_type = 'md5',
+                              checksum = ks_file['checksum'],
                               file_size = ks_file['file_size'],
                               last_modified = ks_file['last_modified'])
 
