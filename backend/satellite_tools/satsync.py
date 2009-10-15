@@ -908,22 +908,22 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             if ul:
                 raise RhnSyncException, 'ERROR: incremental dump skipped'
 
-    def _get_rel_package_path(self, nevra, org_id, source=0, md5sum=None):
+    def _get_rel_package_path(self, nevra, org_id, source=0, checksum=None):
         return get_package_path(nevra, org_id, prepend=CFG.PREPENDED_DIR,
-            source=source, md5sum=md5sum)
+            source=source, checksum=checksum)
 
-    def _verify_file(self, path, mtime, size, md5sum):
+    def _verify_file(self, path, mtime, size, checksum):
         """Verifies if the file is on the filesystem and matches the mtime and
-        md5sum
-        Computing the md5sum is costly, that's why we rely on mtime
+        checksum
+        Computing the checksum is costly, that's why we rely on mtime
         comparisons.
         Returns a tuple (error_code, ret_path) where:
-            if the file has the specified mtime and md5sum, error_code is 0
+            if the file has the specified mtime and checksum, error_code is 0
                 and ret_path is None
-            if the file has the md5sum, the function sets mtime, error_code is
+            if the file has the checksum, the function sets mtime, error_code is
                 0 and ret_path is path
-            if the file exists but has a different md5sum, error_code is the
-                file's current md5sum and ret_path is path
+            if the file exists but has a different checksum, error_code is the
+                file's current checksum and ret_path is path
             if the file does not exist at all, error_code is 1 and ret_path is
                 null
         The idea is that error_code is 0 if the file exists or something else
@@ -942,11 +942,11 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             # Same mtime, and size, assume identity
             return (0, None)
 
-        # Have to check md5sum
-        l_md5sum = rhnLib.getFileMD5(filename=abs_path)
-        if l_md5sum != md5sum:
-            # Different md5sums
-            return (l_md5sum, path)
+        # Have to check checksum
+        l_checksum = rhnLib.getFileMD5(filename=abs_path)
+        if l_checksum != checksum:
+            # Different checksums
+            return (l_checksum, path)
 
         # Set the mtime
         os.utime(abs_path, (mtime, mtime))
@@ -957,7 +957,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         nevra = []
         for t in ['name', 'epoch', 'version', 'release', 'arch']:
             nevra.append(package[t])
-        md5sum = package['checksum']
+        checksum = package['checksum']
         package_size = package['package_size']
 
         if package['org_id'] is not None:
@@ -965,12 +965,12 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         else:
             orgid = package['org_id']
 
-        path = self._get_rel_package_path(nevra, orgid, source=source, md5sum=md5sum)
+        path = self._get_rel_package_path(nevra, orgid, source=source, checksum=checksum)
         if not row:
             # Package is missing completely from the DB
             m_channel_packages.append((package_id, path))
             (errcode, ret_path) = self._verify_file(path,
-                l_timestamp, package_size, md5sum)
+                l_timestamp, package_size, checksum)
             if errcode == 0:
                 # Package on the filesystem, and matches
                 return
@@ -980,7 +980,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
         # Package found in the DB
         db_timestamp = int(rhnLib.timestamp(row['last_modified']))
-        db_md5sum = row['checksum']
+        db_checksum = row['checksum']
         db_package_size = row['package_size']
         db_path = row['path']
         final_path = db_path
@@ -988,7 +988,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         # Check the filesystem
         # This is one ugly piece of code
         (errcode, ret_path) = self._verify_file(db_path, l_timestamp,
-            package_size, md5sum)
+            package_size, checksum)
         if errcode != 0:
             if errcode != 1 or path == db_path:
                 # Package is modified; fix it
@@ -997,7 +997,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 # Package is missing, and the DB path is, for some
                 # reason, not the same as the computed path.
                 (errcode, ret_path) = self._verify_file(path,
-                    l_timestamp, package_size, md5sum)
+                    l_timestamp, package_size, checksum)
                 if errcode != 1:
                     # Use the computed path
                     final_path = path
@@ -1005,7 +1005,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                         # file is modified too; re-download
                         m_fs_packages.append((package_id, final_path))
 
-        if (l_timestamp <= db_timestamp and md5sum == db_md5sum and
+        if (l_timestamp <= db_timestamp and checksum == db_checksum and
             package_size == db_package_size and final_path == db_path):
             # Same package
             return
@@ -1416,10 +1416,10 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                     relative_path = f['relative_path']
                     dest_path = os.path.join(base_path, relative_path)
                     timestamp = rhnLib.timestamp(f['last_modified'])
-                    md5sum = f['checksum']
+                    checksum = f['checksum']
                     file_size = f['file_size']
                     (errcode, ret_path) = self._verify_file(dest_path,
-                        timestamp, file_size, md5sum)
+                        timestamp, file_size, checksum)
                     if errcode != 0:
                         # Have to download it
                         val = (kt_label, base_path, relative_path,
