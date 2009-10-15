@@ -440,7 +440,7 @@ def get_package_for_md5sum(org_id, checksum):
          rhnPackage p, rhnChecksum c
      where p.org_id = :org_id
          and p.checksum_id = c.id
-         and p.checksum = :checksum
+         and c.checksum = :checksum
      """
      h = rhnSQL.prepare(statement)
      h.execute(org_id=org_id, checksum=checksum)
