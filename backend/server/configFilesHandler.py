@@ -229,20 +229,18 @@ class ConfigFilesHandler(rhnHandler):
            and checksum_id = c.id
     """)
 
-    # FIXME: this insert have to go both to rhnConfigContent and rhnChecksum
     _query_insert_content = rhnSQL.Statement("""
         insert into rhnConfigContent 
-               (id, md5sum, file_size, contents, is_binary)
-        values (:config_content_id, :checksum, :file_size, empty_blob(),
-               :is_binary)
+               (id, checksum_id, file_size, contents, is_binary)
+        values (:config_content_id, lookup_checksum(:checksum_type, :checksum),
+                :file_size, empty_blob(), :is_binary)
     """)
 
-    # FIXME: this insert have to go both to rhnConfigContent and rhnChecksum
     _query_insert_null_content = rhnSQL.Statement("""
         insert into rhnConfigContent 
-               (id, md5sum, file_size, contents, is_binary)
-        values (:config_content_id, :checksum, :file_size, NULL,
-               :is_binary)
+               (id, checksum_id, file_size, contents, is_binary)
+        values (:config_content_id, lookup_checksum(:checksum_type, :checksum),
+                :file_size, NULL, :is_binary)
     """)
 
     _query_get_content_row = rhnSQL.Statement("""
@@ -267,8 +265,9 @@ class ConfigFilesHandler(rhnHandler):
 	    log_debug(4, "Client does not support config directories, so set file_type_id to 1")
             file['config_file_type_id'] = '1'
 
-        md5sum = getStringMD5(file_contents or '')
-        file['checksum'] = md5sum
+        checksum = getStringMD5(file_contents or '')
+        file['checksum_type'] = 'md5'
+        file['checksum'] = checksum
 
         if file_contents:
             file['file_size'] = len(file_contents)
