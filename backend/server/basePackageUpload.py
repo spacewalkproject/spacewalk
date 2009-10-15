@@ -85,7 +85,7 @@ class BasePackageUpload:
         self.package_version = self.field_data["Package-Version"]
         self.package_release = self.field_data["Package-Release"]
         self.package_arch = self.field_data["Package-Arch"]
-        self.file_md5sum = self.field_data["File-MD5sum"] 
+        self.file_checksum = self.field_data["File-MD5sum"]
         #4/18/05 wregglej. if 1051 is in the header's keys, then it's a nosrc package.
         self.is_source = (self.package_arch == 'src' or self.package_arch == 'nosrc')
         return apache.OK
