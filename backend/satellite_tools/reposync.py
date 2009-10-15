@@ -138,14 +138,14 @@ class RepoSync:
                 self.print_msg(str(index+1) + "/" + str(len(to_download)) + " : "+ \
                       pack.getNVREA())
                 path = self.plugin.get_package(pack)
-                md5 = rhnLib.getFileMD5(filename=path)
+                checksum = rhnLib.getFileMD5(filename=path)
                 pid =  rhnPackage.get_package_for_md5sum(
-                                  self.channel['org_id'], md5)
+                                  self.channel['org_id'], checksum)
                 if pid is None:
                     self.upload_package(pack, path, md5)
-                    self.associate_package(pack, md5)
+                    self.associate_package(pack, 'md5', checksum)
                 else:
-                    self.associate_package(pack, md5) #package is already on the satellite, lets just associate
+                    self.associate_package(pack, 'md5', checksum) #package is already on the satellite, lets just associate
                 if self.url.find("file://")  < 0:
                     os.remove(path)
 
@@ -159,10 +159,10 @@ class RepoSync:
     
     def upload_package(self, package, path, md5):
         temp_file = open(path, 'rb')
-        header, payload_stream, md5sum, header_start, header_end = \
+        header, payload_stream, checksum, header_start, header_end = \
                 rhnPackageUpload.load_package(temp_file)
         rel_package_path = rhnPackageUpload.relative_path_from_header(
-                    header, org_id=self.channel['org_id'], md5sum=md5sum)
+                    header, org_id=self.channel['org_id'], checksum=checksum)
         package_path = os.path.join(CFG.MOUNT_POINT,
                     rel_package_path)
         package_dict, diff_level = rhnPackageUpload.push_package(header,
@@ -172,7 +172,7 @@ class RepoSync:
                     org_id=self.channel['org_id'])
         temp_file.close()
 
-    def associate_package(self, pack, md5sum):
+    def associate_package(self, pack, checksum_type, checksum):
         caller = "server.app.yumreposync"
         backend = OracleBackend()
         backend.init()
@@ -182,7 +182,8 @@ class RepoSync:
         package['release'] = pack.release
         package['epoch'] = pack.epoch
         package['arch'] = pack.arch
-        package['md5sum'] = md5sum
+        package['checksum_type'] = checksum_type
+        package['checksum'] = checksum
         package['channels']  = [{'label':self.channel_label, 
                                  'id':self.channel['id']}]
         package['org_id'] = self.channel['org_id']
