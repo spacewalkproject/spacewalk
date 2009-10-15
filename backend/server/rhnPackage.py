@@ -432,18 +432,20 @@ def get_channels_for_package(pkg):
         return []
     return map(lambda c: c['label'], ret)
 
-def get_package_for_md5sum(org_id, checksum):
+def get_package_for_checksum(org_id, checksum_type, checksum):
      statement = """
      select
          p.id
      from
-         rhnPackage p, rhnChecksum c
+         rhnPackage p, rhnChecksum c, rhnChecksumType t
      where p.org_id = :org_id
          and p.checksum_id = c.id
          and c.checksum = :checksum
+         and c.checksum_type_id = t.id
+         and t.label = :checksum_type
      """
      h = rhnSQL.prepare(statement)
-     h.execute(org_id=org_id, checksum=checksum)
+     h.execute(org_id=org_id, checksum=checksum, checksum_type=checksum_type)
      ret = h.fetchone_dict()
      if not ret:
          return None

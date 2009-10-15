@@ -139,13 +139,14 @@ class RepoSync:
                       pack.getNVREA())
                 path = self.plugin.get_package(pack)
                 checksum = rhnLib.getFileMD5(filename=path)
-                pid =  rhnPackage.get_package_for_md5sum(
-                                  self.channel['org_id'], checksum)
+                checksum_type = 'md5'
+                pid =  rhnPackage.get_package_for_checksum(
+                                  self.channel['org_id'], checksum_type, checksum)
                 if pid is None:
                     self.upload_package(pack, path)
-                    self.associate_package(pack, 'md5', checksum)
+                    self.associate_package(pack, checksum_type, checksum)
                 else:
-                    self.associate_package(pack, 'md5', checksum) #package is already on the satellite, lets just associate
+                    self.associate_package(pack, checksum_type, checksum) #package is already on the satellite, lets just associate
                 if self.url.find("file://")  < 0:
                     os.remove(path)
 
