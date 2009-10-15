@@ -142,7 +142,7 @@ class RepoSync:
                 pid =  rhnPackage.get_package_for_md5sum(
                                   self.channel['org_id'], checksum)
                 if pid is None:
-                    self.upload_package(pack, path, md5)
+                    self.upload_package(pack, path)
                     self.associate_package(pack, 'md5', checksum)
                 else:
                     self.associate_package(pack, 'md5', checksum) #package is already on the satellite, lets just associate
@@ -157,7 +157,7 @@ class RepoSync:
                     raise
                 continue
     
-    def upload_package(self, package, path, md5):
+    def upload_package(self, package, path):
         temp_file = open(path, 'rb')
         header, payload_stream, checksum, header_start, header_end = \
                 rhnPackageUpload.load_package(temp_file)

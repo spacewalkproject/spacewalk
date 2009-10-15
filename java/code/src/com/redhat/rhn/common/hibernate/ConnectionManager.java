@@ -41,13 +41,6 @@ class ConnectionManager {
     
     private static final Logger LOG = Logger.getLogger(ConnectionManager.class);
     private static final String[] PACKAGE_NAMES = {"com.redhat.rhn.domain"};
-    private static final String HIBERNATE_USERNAME = "hibernate.connection.username";
-    private static final String HIBERNATE_PASSWORD = "hibernate.connection.password";
-    private static final String HIBERNATE_URL = "hibernate.connection.url";
-    private static final String ORACLE_JDBC_URL_FORMAT = "jdbc:oracle:thin:@%s:%s:%s";
-    private static final String HIBERNATE_DRIVER_CLASS = 
-                                                "hibernate.connection.driver_class";
-    private static final String ORACLE_DRIVER = "oracle.jdbc.driver.OracleDriver";
     
     private List configurators = new LinkedList();
     private SessionFactory sessionFactory;
@@ -59,9 +52,7 @@ class ConnectionManager {
         }
     };
 
-    private boolean isOracle() {
-        return "oracle".equals(Config.get().getString("db_backend"));
-    }
+    
 
     /**
      * Register a class with HibernateFactory, to give the registered class a
@@ -155,7 +146,8 @@ class ConnectionManager {
              * hibernate.*
              */
             LOG.info("Adding hibernate properties to hibernate Configuration");
-            Properties hibProperties = setupHibernateProps();
+            Properties hibProperties = Config.get().getNamespaceProperties(
+                    "hibernate");
             config.addProperties(hibProperties);
             // Force the use of our txn factory
             if (config.getProperty(Environment.TRANSACTION_STRATEGY) != null) {
@@ -183,34 +175,6 @@ class ConnectionManager {
         catch (HibernateException e) {
             LOG.error("FATAL ERROR creating HibernateFactory", e);
         }
-    }
-
-    private Properties setupHibernateProps() {
-        Properties hibProperties = Config.get().getNamespaceProperties(
-                "hibernate");
-        
-        if (!hibProperties.contains(HIBERNATE_USERNAME)) {
-            hibProperties.put(HIBERNATE_USERNAME,
-                                    Config.get().getString("db_user"));
-        }
-        if (!hibProperties.contains(HIBERNATE_PASSWORD)) {
-            hibProperties.put(HIBERNATE_PASSWORD,
-                                    Config.get().getString("db_password"));
-        }
-        
-        if (!hibProperties.contains(HIBERNATE_URL) && isOracle()) {
-            //jdbc:oracle:thin:@hostname:<;listener-port>:<SID>
-            String url = String.format(ORACLE_JDBC_URL_FORMAT, 
-                            Config.get().getString("db_host"),
-                            Config.get().getString("db_port"),
-                            Config.get().getString("db_name"));
-            hibProperties.put(HIBERNATE_URL, url);
-        }
-        
-        if (!hibProperties.contains(HIBERNATE_DRIVER_CLASS) && isOracle()) {
-            hibProperties.put(HIBERNATE_DRIVER_CLASS, ORACLE_DRIVER);
-        }
-        return hibProperties;
     }
 
     private SessionInfo threadSessionInfo() {
