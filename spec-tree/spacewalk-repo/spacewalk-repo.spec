@@ -1,6 +1,6 @@
 Summary: Spacewalk packages yum repository configuration.
 Name: spacewalk-repo
-Version: 0.7.0
+Version: 0.7
 Release: 2%{?dist}
 License: GPL
 Group: Development
