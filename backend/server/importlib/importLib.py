@@ -661,6 +661,7 @@ class GenericPackageImport(Import):
         self.package_arches = {}
         self.channels = {}
         self.channel_package_arch_compat = {}
+        self.checksums = {}
 
     def _processPackage(self, package):
         Import._processPackage(self, package)
@@ -674,6 +675,9 @@ class GenericPackageImport(Import):
 
         if not self.package_arches.has_key(package.arch):
             self.package_arches[package.arch] = None
+
+        if not self.checksums.has_key(package.checksum):
+            self.checksums[package.checksum] = None
 
 
     def _postprocessPackageNEVRA(self, package):

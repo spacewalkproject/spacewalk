@@ -63,6 +63,7 @@ class ChannelPackageSubscription(GenericPackageImport):
         self.backend.lookupChannelPackageArchCompat(self.channel_package_arch_compat)
         self.backend.lookupPackageNames(self.names)
         self.backend.lookupEVRs(self.evrs)
+        self.backend.lookupChecksums(self.checksums)
 
         # Fix the package information up, and uniquify the packages too
         uniqdict = {}
@@ -84,7 +85,7 @@ class ChannelPackageSubscription(GenericPackageImport):
                     package['evr_id'],
                     package['package_arch_id'],
                     package['org_id'],
-                    package['checksum'])
+                    package['checksum_id'])
 
             if not uniqdict.has_key(nevrao):
                 # Uniquify the channel names

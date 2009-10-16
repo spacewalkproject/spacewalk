@@ -371,6 +371,15 @@ class Backend:
 
         return row['id']
 
+    def lookupChecksums(self, checksumHash):
+        if not checksumHash:
+            return
+        sql = "select lookup_checksum(:checksum) id from dual"
+        h = self.dbmodule.prepare(sql)
+        for k in checksumHash.keys():
+            h.execute(name=k)
+            checksumHash[k] = h.fetchone_dict()['id']
+
     def ovalFileMD5sumCheck(self, erratum):
         """
         When oval file is dumped on to RHN filesystem
