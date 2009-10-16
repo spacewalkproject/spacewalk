@@ -31,6 +31,7 @@ class rpmPackage(IncompletePackage):
     tagMap = {
         # Ignoring these tags
         'last_modified'     : None,
+        'sigchecksum'       : 'sigmd5', # FIXME: this has to be fixed for sha256
     }
 
     def populate(self, header, size, checksum, path=None, org_id=None,
@@ -280,7 +281,7 @@ class rpmFile(File, ChangeLog):
         'rdev'      : 'filerdevs',
         'file_size' : 'filesizes',
         'mtime'     : 'filemtimes',
-        'checksum'  : 'filechecksum',
+        'checksum'  : 'filemd5s',       # FIXME: this has to fixed for sha256
         'linkto'    : 'filelinktos',
         'flags'     : 'fileflags',
         'verifyflags' : 'fileverifyflags',
