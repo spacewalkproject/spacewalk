@@ -86,6 +86,8 @@ Requires:       jabberd-selinux
 Requires:       spacewalk-selinux
 %endif
 
+Requires:       editarea
+
 
 %description common
 Spacewalk is a systems management application that will
