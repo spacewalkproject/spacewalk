@@ -374,10 +374,10 @@ class Backend:
     def lookupChecksums(self, checksumHash):
         if not checksumHash:
             return
-        sql = "select lookup_checksum(:checksum) id from dual"
+        sql = "select lookup_checksum(:checksumtype, :checksum) id from dual"
         h = self.dbmodule.prepare(sql)
         for k in checksumHash.keys():
-            h.execute(checksum=k)
+            h.execute(checksumtype=k[0], checksum=k[1])
             checksumHash[k] = h.fetchone_dict()['id']
 
     def ovalFileMD5sumCheck(self, erratum):

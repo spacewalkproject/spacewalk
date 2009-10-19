@@ -153,6 +153,7 @@ class ChannelPackageSubscription(GenericPackageImport):
                 'release'   : package.evr[2],
                 'arch'      : package.arch,
                 'org_id'    : package.org_id,
+                'checksum'  : package.checksum,
             }
             channels = package.channels or []
             l = []
