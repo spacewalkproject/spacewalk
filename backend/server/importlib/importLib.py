@@ -282,6 +282,7 @@ class IncompletePackage(BaseInformation):
         self.evr = None
         self.arch = None
         self.org_id = None
+        self.checksum = None
 
     def toDict(self):
         dict = BaseInformation.toDict(self)
