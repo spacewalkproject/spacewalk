@@ -384,12 +384,14 @@ class Backend:
             return None
 
         sql = """
-            select ef.md5sum
+            select c.checksum md5sum
               from rhnErrataFile ef,
-                   rhnErrata e
+                   rhnErrata e,
+                   rhnChecksum c
             where ef.filename = :filename
               and e.advisory_name = :aname
               and ef.errata_id = e.id
+              and ef.checksum_id = c.id
         """
 
         h = self.dbmodule.prepare(sql)
@@ -1808,19 +1810,21 @@ class Backend:
                  pe.evr.release release,
                  pa.label arch,
                  p.org_id,
-                 p.md5sum
+                 cc.checksum md5sum
             from rhnChannel c, 
                  rhnChannelPackage cp,
                  rhnPackage p,
                  rhnPackageName pn,
                  rhnPackageEVR pe,
-                 rhnPackageArch pa
+                 rhnPackageArch pa,
+                 rhnChecksum cc
             where c.label = :label
                  and p.package_arch_id = pa.id
                  and cp.channel_id = c.id
                  and cp.package_id = p.id
                  and p.name_id = pn.id
                  and p.evr_id = pe.id
+                 and p.checksum_id = pc.id
         """
         h = self.dbmodule.prepare(query)
         h.execute(label=channel)
@@ -1966,7 +1970,7 @@ class Backend:
         if CFG.ENABLE_NVREA:
             # Add md5sum as a primarykey if nevra is enabled
             if 'md5sum' not in tbs.pk:
-                tbs.pk.append('md5sum') 
+                tbs.pk.append('md5sum')
             
 # Returns a tuple for the hash's values
 def build_key(hash, fields):
