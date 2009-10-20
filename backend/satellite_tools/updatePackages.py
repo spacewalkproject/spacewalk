@@ -104,19 +104,20 @@ def get_new_pkg_path(nvrea, org_id, prepend="", omit_epoch=None,
 _get_path_query = """
 	select id, md5sum, path, epoch, new_path
 	from (
-		select rhnPackage.id, rhnPackage.md5sum, rhnPackage.path, rhnPackageEvr.epoch,
-			decode(rhnPackage.org_id, null, 'NULL', rhnPackage.org_id) || '/' || substr(md5sum, 1, 3)
+		select rhnPackage.id, rhnChecksum.checksum md5sum, rhnPackage.path, rhnPackageEvr.epoch,
+			decode(rhnPackage.org_id, null, 'NULL', rhnPackage.org_id) || '/' || substr(rhnChecksum.checksum, 1, 3)
 			|| '/' || rhnPackageName.name
 			|| '/' || decode(rhnPackageEvr.epoch, null, '', rhnPackageEvr.epoch || ':')
 				|| rhnPackageEvr.version || '-' || rhnPackageEvr.release
 			|| '/' || rhnPackageArch.label
-			|| '/' || rhnPackage.md5sum
+			|| '/' || rhnChecksum.checksum
 			|| substr(rhnPackage.path, instr(rhnPackage.path, '/', -1))
 			as new_path
-		from rhnPackage, rhnPackagename, rhnPackageEvr, rhnPackageArch
+		from rhnPackage, rhnPackagename, rhnPackageEvr, rhnPackageArch, rhnChecksum
 		where rhnPackage.name_id = rhnPackageName.id
 			and rhnPackage.evr_id = rhnPackageEvr.id
 			and rhnPackage.package_arch_id = rhnPackageArch.id
+                        and rhnPackage.checksum_id = rhnChecksum.id
 		)
 	where '/' || new_path <> nvl(substr(path, -length(new_path) - 1), 'x')
 """
