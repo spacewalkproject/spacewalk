@@ -966,18 +966,48 @@ class Registration(rhnHandler):
         if type(packages) != type([]):
             log_error("Invalid argument type", type(packages))
             raise rhnFault(21)
+
+        # Update the capabilities list
+        rhnCapability.update_client_capabilities(self.server_id)
+        # old clients send packages as a list of arrays
+        # while new (capability packages.extended_profile >= {version: 2, value: 1})
+        # use a list of dicts
+        client_caps = rhnCapability.get_client_capabilities()
+        package_is_dict = 0
+        if client_caps and client_caps.has_key('packages.extended_profile'):
+            cap_info = client_caps['packages.update']
+            if cap_info and cap_info['version'] >= 2:
+                package_is_dict = 1
+                packagesV2 = packages
+
         for package in packages:
-            if type(package) != type([]) or len(package) < 4:
-                log_error("Invalid package spec", type(package),
+            if package_is_dict:
+                # extended_profile >= 2
+                if type(package) != type({})):
+                    log_error("Invalid package spec for extended_profile >= 2",
+                         type(package), "len = %d" % len(package))
+                    raise rhnFault(21)
+            else
+                # extended_profile < 2
+                if (type(package) != type([]) or len(package) < 4):
+                    log_error("Invalid package spec", type(package),
                           "len = %d" % len(package))
-                raise rhnFault(21)
+                    raise rhnFault(21)
+                else
+                    p = {'name'   : package[0],
+                         'version': package[1],
+                         'release': package[2],
+                         'epoch'  : package[3],
+                         'arch'   : package[4],
+                         'cookie' : package[5],
+                        }
+                    packagesV2.append(p)
+
         server = self.auth_system(system_id)
         # log the entry
         log_debug(1, server.getid(), "packages: %d" % len(packages))
-        # Update the capabilities list
-        rhnCapability.update_client_capabilities(self.server_id)
         server.dispose_packages()
-        for package in packages:
+        for package in packagesV2:
             server.add_package(package)
         server.save_packages()
         return 0
