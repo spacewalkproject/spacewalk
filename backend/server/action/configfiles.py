@@ -115,7 +115,7 @@ _query_get_files = rhnSQL.Statement("""
            cc.label config_channel,
            ccont.contents file_contents,
            ccont.is_binary is_binary,
-           ccont.md5sum,
+           c.checksum md5sum,
            cr.delim_start,
            cr.delim_end,
            cr.revision,
@@ -127,6 +127,7 @@ _query_get_files = rhnSQL.Statement("""
       from 
            rhnConfigFileState cfs,
            rhnConfigContent ccont,
+           rhnChecksum c,
            rhnConfigChannel cc,
            rhnConfigFileName cfn,
            rhnConfigInfo ci,
@@ -145,6 +146,7 @@ _query_get_files = rhnSQL.Statement("""
        and cfs.label = 'alive'
        and cr.config_content_id = ccont.id
        and cr.config_file_type_id = cft.id
+       and ccont.checksum_id = c.id
 """)
 
 def _get_files(server_id, action_id):
