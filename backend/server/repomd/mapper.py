@@ -196,7 +196,7 @@ class SqlPackageMapper:
             pevr.release,  
             pevr.epoch,  
             pa.label arch,  
-            p.md5sum,
+            c.checksum md5sum,
             p.summary,
             p.description,
             p.vendor,
@@ -217,7 +217,8 @@ class SqlPackageMapper:
             rhnPackageEVR pevr,
             rhnPackageArch pa,
             rhnPackageGroup pg,
-            rhnSourceRPM sr
+            rhnSourceRPM sr,
+            rhnChecksum c
         where
             p.id = :package_id
         and p.name_id = pn.id
@@ -225,6 +226,7 @@ class SqlPackageMapper:
         and p.package_arch_id = pa.id
         and p.package_group = pg.id
         and p.source_rpm_id = sr.id
+        and p.checksum_id = c.id
         """)
        
         self.filelist_sql = rhnSQL.prepare("""
