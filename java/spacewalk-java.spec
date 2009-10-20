@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.8
+Version: 0.7.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -280,6 +280,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Oct 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.9-1
+- Make spacewalk use the editarea RPM and remove supplied editarea files (colin.coe@gmail.com)
+
 * Tue Oct 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.8-1
 - reverting parthas patch that was trying to automatically get connection info, but cause too many issues (jsherril@redhat.com)
 - 522526 - fixing small issue where updating advanced options page would remove custom partitioning script (jsherril@redhat.com)
