@@ -222,12 +222,14 @@ class ConfigFilesHandler(rhnHandler):
         return result
 
     _query_content_lookup = rhnSQL.Statement("""
-        select id, md5sum, file_size, contents, is_binary
-          from rhnConfigContent
-         where md5sum = :md5sum
+        select id, c.checksum md5sum, file_size, contents, is_binary
+          from rhnConfigContent, rhnChecksum c
+         where c.checksum = :md5sum
            and file_size = :file_size
+           and checksum_id = c.id
     """)
 
+    # FIXME: this insert have to go both to rhnConfigContent and rhnChecksum
     _query_insert_content = rhnSQL.Statement("""
         insert into rhnConfigContent 
                (id, md5sum, file_size, contents, is_binary)
@@ -235,6 +237,7 @@ class ConfigFilesHandler(rhnHandler):
                :is_binary)
     """)
 
+    # FIXME: this insert have to go both to rhnConfigContent and rhnChecksum
     _query_insert_null_content = rhnSQL.Statement("""
         insert into rhnConfigContent 
                (id, md5sum, file_size, contents, is_binary)
