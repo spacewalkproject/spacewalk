@@ -14,64 +14,46 @@
  */
 package com.redhat.rhn.frontend.action.monitoring;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.monitoring.ProbeSuiteDto;
+import com.redhat.rhn.frontend.listview.PageControl;
+import com.redhat.rhn.frontend.struts.BaseSetListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.Iterator;
 
 /**
  * ProbeSuiteListSetupAction
  * @version $Rev: 55183 $
  */
-public class ProbeSuiteListSetupAction extends RhnAction implements Listable {
+public class ProbeSuiteListSetupAction extends BaseSetListAction {
     
     /**
      * {@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping,
-            ActionForm formIn,
-            HttpServletRequest request,
-            HttpServletResponse response) {
-
-        ListRhnSetHelper helper = new ListRhnSetHelper(this, request, getSetDecl());
-        helper.execute();
-        if (helper.isDispatched()) {
-            if (helper.getSet().size() == 0) {
-                getStrutsDelegate().saveMessage("probesuites.jsp.selectasuite", request);
-                return  mapping.findForward("default");
+    protected DataResult getDataResult(RequestContext rctx, PageControl pc) {
+        User user = rctx.getCurrentUser();
+        DataResult result = MonitoringManager.getInstance().listProbeSuites(user, pc);
+        boolean containsNonSelectable = false;
+        for (Iterator i = result.iterator(); i.hasNext();) {
+            ProbeSuiteDto dto = (ProbeSuiteDto) i.next();
+            if (!dto.isSelectable()) {
+                containsNonSelectable = true;
+                break;
             }
-            return  mapping.findForward("remove");
         }
-
-        return mapping.findForward("default");
-
+        rctx.getRequest().setAttribute("containsNonSelectable", 
+                Boolean.valueOf(containsNonSelectable));
+        return result;
     }
-
 
     /**
      * {@inheritDoc}
      */
     public RhnSetDecl getSetDecl() {
         return RhnSetDecl.PROBE_SUITES_TO_DELETE;
-    }
-
-    /**
-     *
-     * {@inheritDoc}
-     */
-    public List getResult(RequestContext context) {
-        return MonitoringManager.getInstance().listProbeSuites(
-                context.getLoggedInUser(), null);
     }
 }
