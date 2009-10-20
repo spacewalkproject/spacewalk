@@ -22,8 +22,8 @@ import gettext
 _ = gettext.gettext
 
 
-# just cause this is such a potentially useful looking method...    
 def installedHeaderByKeyword(**kwargs):    
+    """ just cause this is such a potentially useful looking method... """
     _ts = transaction.initReadOnlyTransaction()   
     mi = _ts.dbMatch()   
     for keyword in kwargs.keys():   
@@ -35,9 +35,10 @@ def installedHeaderByKeyword(**kwargs):
     
     return headerList
 
-# given a list of package labels, run rpm -V on them
-# and return a dict keyed off that data
 def verifyPackages(packages):
+    """ given a list of package labels, run rpm -V on them
+        and return a dict keyed off that data
+    """
     data = {}
     missing_packages = []                                                                            
     # data structure is keyed off package
@@ -108,10 +109,10 @@ def verifyPackages(packages):
 
     return retlist, missing_packages
 
-
-# run the equiv of `rpm -Va`. It aint gonna
-# be fast, but...
 def verifyAllPackages():
+    """ run the equiv of `rpm -Va`. It aint gonna
+        be fast, but...
+    """
     data = {}
 
     packages = getInstalledPackageList(getArch=1)
