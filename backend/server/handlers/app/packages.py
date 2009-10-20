@@ -344,7 +344,7 @@ class Packages(RPC_Base):
                 md5sum_exists = 0
                 if package.has_key('md5sum') and CFG.ENABLE_NVREA:
                     md5sum_exists = 1
-                    _md5sum_sql_filter = """and p.md5sum =: md5sum"""
+                    _md5sum_sql_filter = """and c.checksum = :md5sum"""
 
                 h = rhnSQL.prepare(self._get_pkg_info_query % \
                                     _md5sum_sql_filter)
@@ -453,13 +453,14 @@ class Packages(RPC_Base):
  
     _get_pkg_info_query = """
         select
-               p.md5sum md5sum,
+               c.checksum md5sum,
                p.path path
          from
                rhnPackageEVR pe,
                rhnPackageName pn,
                rhnPackage p,
-               rhnPackageArch pa
+               rhnPackageArch pa,
+               rhnChecksum c
          where
                pn.name     = :pkg_name
           and  ( pe.epoch  = :pkg_epoch or
@@ -474,6 +475,7 @@ class Packages(RPC_Base):
           and  p.evr_id    = pe.id
           and  p.package_arch_id = pa.id
           and  pa.label    = :pkg_arch
+          and  p.checksum_id = c.id
           %s 
     """
  
@@ -487,7 +489,7 @@ class Packages(RPC_Base):
             _md5sum_sql_filter = ""
             if pkg_info.has_key('md5sum') and CFG.ENABLE_NVREA:
                 md5sum_exists = 1
-                _md5sum_sql_filter = """and p.md5sum =: md5sum"""
+                _md5sum_sql_filter = """and c.checksum = :md5sum"""
             
             h = rhnSQL.prepare(self._get_pkg_info_query % _md5sum_sql_filter)
 
@@ -586,16 +588,18 @@ class Packages(RPC_Base):
         statement = """
             select
                 ps.path path,
-                ps.md5sum md5sum
+                c.checksum md5sum
             from
                 rhnSourceRpm sr,
-                rhnPackageSource ps
+                rhnPackageSource ps,
+                rhnChecksum c
             where
                  sr.name = :name
              and ps.source_rpm_id = sr.id
              and ( ps.org_id  = :orgid or
                    ( ps.org_id is null and :orgid is null )
                  )
+             and ps.checksum_id = c.id
              """
         h = rhnSQL.prepare(statement)
         row_list = {}
@@ -640,14 +644,16 @@ class Packages(RPC_Base):
                 ps.rpm_version version,
                 ps.path,
                 ps.package_size,
-                ps.md5sum
+                c.checksum md5sum
                 
             from
                 rhnSourceRpm sr,
-                rhnPackageSource ps
+                rhnPackageSource ps,
+                rhnChecksum c
             where
                     ps.source_rpm_id = :sri
                 and ps.source_rpm_id = sr.id
+                and ps.checksum_id = c.id
         """
         h = rhnSQL.prepare(statement)
         h.execute(sri=int(source_rpm_id))
