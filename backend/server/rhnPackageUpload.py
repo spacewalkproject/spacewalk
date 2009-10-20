@@ -219,9 +219,11 @@ def push_package(header, payload_stream, md5sum, org_id=None, force=None,
             
             h_path = rhnSQL.prepare("""
             select ps.path path
-                from rhnpackagesource ps
+                from rhnpackagesource ps,
+                     rhnChecksum c
             where
-                ps.md5sum = :md5sum
+                c.checksum = :md5sum
+            and ps.checksum_id = c.id
             and (ps.org_id = :org_id or
                  (ps.org_id is null and :org_id is null)
                 )
@@ -229,9 +231,11 @@ def push_package(header, payload_stream, md5sum, org_id=None, force=None,
         else:
             h_path = rhnSQL.prepare("""
             select rp.path path
-                from rhnpackage rp
+                from rhnpackage rp,
+                     rhnChecksum c
             where
-                rp.md5sum = :md5sum
+                c.checksum = :md5sum
+            and rp.checksum_id = c.id
             and (rp.org_id = :org_id or
                  (rp.org_id is null and :org_id is null)
                 )            
@@ -249,8 +253,8 @@ def push_package(header, payload_stream, md5sum, org_id=None, force=None,
             h_upd = rhnSQL.prepare("""
             update rhnpackage
                set path = :path
-            where
-               md5sum = :md5sum
+            where checksum_id = (
+                        select id from rhnChecksum where checksum = :md5sum)
             """)
             h_upd.execute(path=relative_path, md5sum=md5sum)
 
