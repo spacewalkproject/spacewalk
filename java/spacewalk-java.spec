@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.7
+Version: 0.7.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -280,6 +280,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Oct 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.8-1
+- reverting parthas patch that was trying to automatically get connection info, but cause too many issues (jsherril@redhat.com)
+- 522526 - fixing small issue where updating advanced options page would remove custom partitioning script (jsherril@redhat.com)
+- 522526 - fixing issue where snippets couldnt be used in the partitioning section of the kickstart wizard (jsherril@redhat.com)
+- checkstyle fix (jsherril@redhat.com)
+- 523624 - fixing issue where snippets were written with a carraige return (jsherril@redhat.com)
+- 526823 - fixing issue where SSM package removal pages were taking way too long and timing out with 11000 systems (jsherril@redhat.com)
+- 525575 - imporoving performance of system group overview query (michaels fix) (jsherril@redhat.com)
+
 * Thu Oct  1 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.7-1
 - 476851 - removing column "ENVIRONMENT" from ConfigMacro
 - workaround for hibernate not handling in caluses of more than 1000 <jsherril@redhat.com>
