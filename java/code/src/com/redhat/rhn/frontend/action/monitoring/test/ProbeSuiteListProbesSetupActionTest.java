@@ -33,6 +33,5 @@ public class ProbeSuiteListProbesSetupActionTest extends RhnMockStrutsTestCase {
         setRequestPathInfo("/monitoring/config/ProbeSuiteListProbes");
         actionPerform();
         verifyNoActionErrors();
-        assertNotNull(request.getAttribute("set"));
     }
 }

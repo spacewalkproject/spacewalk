@@ -25,7 +25,7 @@ as
 select
 	server_id, 
 	package_id,
-	max(errata_id) as errata_id
+	errata_id as errata_id
 	from rhnServerNeededCache
 	group by server_id, package_id; 
 
