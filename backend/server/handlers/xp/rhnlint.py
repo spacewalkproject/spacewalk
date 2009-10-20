@@ -285,17 +285,18 @@ def testMD5sums(info, results):
         header = package['header']
         filename = package['filename']
         query = """
-        select pn.name || '-' || pe.evr.as_vre_simple() nvre, p.md5sum md5sum,
+        select pn.name || '-' || pe.evr.as_vre_simple() nvre, c.checksum md5sum,
                p.org_id org_id, p.build_host buildhost, p.build_time buildtime
           from rhnPackageArch pa, rhnPackageName pn, rhnPackageEVR pe, 
-            rhnPackage p
+            rhnPackage p, rhnChecksum c
          where pn.name = :name
                and pe.version = :version
                and pe.release = :release
                and pe.epoch %s
                and pn.id = p.name_id
                and pe.id = p.evr_id
-               and p.md5sum != :md5sum
+               and p.checksum_id = c.id
+               and c.checksum != :md5sum
                and (p.org_id is null or p.org_id = :org_id)
                and pa.label = :arch
                and p.package_arch_id = pa.id
