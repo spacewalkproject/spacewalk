@@ -401,8 +401,9 @@ def processPackageKeyAssociations(header, md5sum):
 
     lookup_pkgid_sql = rhnSQL.prepare("""
         select id
-          from rhnPackage
-         where md5sum = :md5sum
+          from rhnPackage, rhnChecksum c
+         where c.checksum = :md5sum
+           and p.checksum_id = c.id
     """)
 
     lookup_pkgkey_sql = rhnSQL.prepare("""
