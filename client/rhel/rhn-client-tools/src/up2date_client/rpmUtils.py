@@ -48,50 +48,33 @@ def verifyPackages(packages):
 
     retlist = []
     for package in packages:
-        (n,v,r,e,a) = package
         # we have to have at least name...
 
         # Note: we cant reliable match on epoch, so just
         # skip it... two packages that only diff by epoch is
         # way broken anyway
-        name = version = release = arch = None
-        if n != "":
-            name = n
-        if v != "":
-            version = v
-        if r != "":
-            release = r
-        if a != "":
-            arch = a
-
         keywords = {}
-        for token, value  in (("name", name),
-                              ("version", version),
-                              ("release",release),
-#                              ("epoch",epoch),
-                              ("arch", arch)):
-            if value != None:
-                keywords[token] = value
+        for key, value in package.iteritems():
+            if key in ('name', 'version', 'release', 'arch') and (value != None) and (value != ""):
+                keywords[key] = value
 
         headers = installedHeaderByKeyword(**keywords)
 	if len(headers) == 0:            
 	    missing_packages.append(package)
 
         for header in headers:
-            epoch = header['epoch']
-            if epoch == None:
-                epoch = ""
+            if header['epoch'] == None:
+                header['epoch'] = ""
             # gpg-pubkey "packages" can have an arch of None, see bz #162701
-            h_arch = header["arch"] 
-            if h_arch == None:
-                h_arch = ""
+            if header["arch"] == None:
+                header["arch"] = ""
                 
             pkg = (header['name'], header['version'],
-                   header['release'], epoch,
-                   h_arch)
+                   header['release'], header['epoch'],
+                   header["arch"])
 
             # dont include arch in the label if it's a None arch, #162701
-            if pkg[4] == "":
+            if header["arch"] == "":
                 packageLabel = "%s-%s-%s" % (pkg[0], pkg[1], pkg[2])
             else:
                 packageLabel = "%s-%s-%s.%s" % (pkg[0], pkg[1], pkg[2], pkg[4])
@@ -120,13 +103,14 @@ def verifyAllPackages():
     ret,missing_packages =  verifyPackages(packages)
     return ret
 
-
 #FIXME: this looks like a good candidate for caching, since it takes a second
 # or two to run, and I can call it a couple of times
 def getInstalledPackageList(msgCallback = None, progressCallback = None,
                             getArch=None, getInfo = None):
+    """ Return list of packages. Package is hash with keys name, epoch,
+        version, release and optionaly arch and cookie
+    """
     pkg_list = []
-
     
     if msgCallback != None:
         msgCallback(_("Getting list of packages installed on the system"))
@@ -146,31 +130,29 @@ def getInstalledPackageList(msgCallback = None, progressCallback = None,
     for h in _ts.dbMatch():
         if h == None:
             break
-        name = h['name']
-        epoch = h['epoch']
-        if epoch == None:
-            epoch = ""
-        version = h['version']
-        release = h['release']
+        package = {
+            'name': h['name'],
+            'epoch': h['epoch'],
+            'version': h['version'],
+            'release': h['release']
+        }
+        if package['epoch'] == None:
+            package['epoch'] = ""
         if getArch:
-            arch = h['arch']
+            package['arch'] = h['arch']
             # the arch on gpg-pubkeys is "None"...
-            if arch:
-                pkg_list.append([name, version, release, epoch, arch])
+            if package['arch']:
+                pkg_list.append(package)
         elif getInfo:
-            arch = h['arch']
-            cookie = h['cookie']
-            if arch and cookie:
-                pkg_list.append([name, version, release, epoch, arch, cookie])
-            elif arch:
-                pkg_list.append([name, version, release, epoch, arch])
+            package['arch'] = h['arch']
+            package['cookie'] = h['cookie']
+            pkg_list.append(package)
         else:
-            pkg_list.append([name, version, release, epoch])
-
+            pkg_list.append(package)
         
         if progressCallback != None:
             progressCallback(count, total)
         count = count + 1
     
-    pkg_list.sort()
+    pkg_list.sort(key=lambda x:(x['name'], x['epoch'], x['version'], x['release']))
     return pkg_list

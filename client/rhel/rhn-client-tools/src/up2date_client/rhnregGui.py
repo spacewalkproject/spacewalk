@@ -1528,8 +1528,8 @@ class PackageDialog:
         # name-version-release, arch
         self.packageStore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
         for package in self.getPackageList():
-            nvr = "%s-%s-%s" % (package[0], package[1], package[2])
-            arch = package[4]
+            nvr = "%s-%s-%s" % (package['name'], package['version'], package['release'])
+            arch = package['arch']
             self.packageStore.append((nvr, arch))
         self.packageTreeView = self.swXml.get_widget("packageTreeView")
         self.packageTreeView.set_model(self.packageStore)
