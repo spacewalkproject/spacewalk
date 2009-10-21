@@ -873,7 +873,7 @@ class Registration(rhnHandler):
         log_debug(5, system_id, packages)
         if CFG.DISABLE_PACKAGES:
             return 0
-        packages = self._normalize_packages(packages)
+        packages = self._normalize_packages(system_id, packages)
         server = self.auth_system(system_id)
         # log the entry
         log_debug(1, server.getid(), "packages: %d" % len(packages))
@@ -888,7 +888,7 @@ class Registration(rhnHandler):
         log_debug(5, system_id, packages)
         if CFG.DISABLE_PACKAGES:
             return 0
-        packages = self._normalize_packages(packages)
+        packages = self._normalize_packages(system_id, packages)
         server = self.auth_system(system_id)
         # log the entry
         log_debug(1, server.getid(), "packages: %d" % len(packages))
@@ -905,8 +905,8 @@ class Registration(rhnHandler):
         if type(packages) != type({}):
             log_error("Invalid argument type", type(packages))
             raise rhnFault(21)
-        added_packages = self._normalize_packages(packages.get('added'), allow_none=1)
-        removed_packages = self._normalize_packages(ackages.get('deleted'), allow_none=1)
+        added_packages = self._normalize_packages(system_id, packages.get('added'), allow_none=1)
+        removed_packages = self._normalize_packages(system_id, packages.get('deleted'), allow_none=1)
 
         server = self.auth_system(system_id)
         # log the entry
@@ -949,7 +949,7 @@ class Registration(rhnHandler):
         log_debug(5, system_id, packages)
         if CFG.DISABLE_PACKAGES:
             return 0
-        packages = self._normalize_packages(packages)
+        packages = self._normalize_packages(system_id, packages)
 
         server = self.auth_system(system_id)
         # log the entry
@@ -960,7 +960,7 @@ class Registration(rhnHandler):
         server.save_packages()
         return 0
 
-    def _normalize_packages(self, packages, allow_none=0):
+    def _normalize_packages(self, system_id, packages, allow_none=0):
         """ the function checks if list of packages is well formated
             and also converts packages from old list of lists
             (extended_profile >= 2) to new list of dicts (extended_profile = 2)
