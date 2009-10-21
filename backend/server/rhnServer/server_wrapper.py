@@ -56,7 +56,7 @@ class ServerWrapper(Packages, Hardware, History, SolarisPatches):
     # Wrappers for the similar functions from Packages class that supplementaly
     # require a valid sysid.
     def add_package(self, entry):
-        if entry[0].startswith("patch-solaris"):
+        if entry['name'].startswith("patch-solaris"):
             SolarisPatches.add_patch(self, self.server.get("id"), entry)
         return Packages.add_package(self, self.server.get("id"), entry)
     

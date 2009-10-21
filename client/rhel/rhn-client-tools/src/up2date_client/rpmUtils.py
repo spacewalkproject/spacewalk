@@ -144,8 +144,10 @@ def getInstalledPackageList(msgCallback = None, progressCallback = None,
             if package['arch']:
                 pkg_list.append(package)
         elif getInfo:
-            package['arch'] = h['arch']
-            package['cookie'] = h['cookie']
+            if h['arch']:
+                package['arch'] = h['arch']
+            if h['cookie']:
+                package['cookie'] = h['cookie']
             pkg_list.append(package)
         else:
             pkg_list.append(package)

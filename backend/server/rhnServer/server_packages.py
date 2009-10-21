@@ -19,14 +19,14 @@
 #
 
 import string
-from types import ListType, TupleType
+from types import DictType, TupleType
 
 from common import log_debug, rhn_rpm, rhnFault
 from server import rhnSQL, rhnLib
 from server_lib import snapshot_server, check_entitlement
 
 def get_nvrea(entry):
-    if type(entry) not in (DictType):
+    if type(entry) != DictType:
         return None
     if entry['arch'] is None:
             entry['arch'] = ""
