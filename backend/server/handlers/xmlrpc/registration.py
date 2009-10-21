@@ -987,7 +987,7 @@ class Registration(rhnHandler):
         packagesV2 = []
         if client_caps and client_caps.has_key('packages.extended_profile'):
             cap_info = client_caps['packages.extended_profile']
-            if cap_info and cap_info['version'] >= 2:
+            if cap_info and int(cap_info['version']) >= 2:
                 package_is_dict = 1
                 packagesV2 = packages
 
