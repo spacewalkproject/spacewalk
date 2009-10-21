@@ -985,7 +985,7 @@ class Registration(rhnHandler):
         client_caps = rhnCapability.get_client_capabilities()
         package_is_dict = 0
         if client_caps and client_caps.has_key('packages.extended_profile'):
-            cap_info = client_caps['packages.update']
+            cap_info = client_caps['packages.extended_profile']
             if cap_info and cap_info['version'] >= 2:
                 package_is_dict = 1
                 packagesV2 = packages
