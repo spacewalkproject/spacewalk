@@ -93,9 +93,10 @@ def refresh():
     else:
         domains = poller.poll_hypervisor()
 
-    if not len(domains):
-       # Either there were no domains or xend might not be running
-       # dont proceed further.
+    if not len(domains) and not libvirt.open(None).getType():
+       # On a KVM/QEMU host, libvirt reports no domain entry for host itself.
+       # On a Xen host, either there were no domains or xend might not be
+       # running. Don't proceed further.
        return
     domain_list = domains.values()
     domain_uuids = domains.keys()
