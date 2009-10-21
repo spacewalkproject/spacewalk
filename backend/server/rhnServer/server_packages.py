@@ -34,9 +34,9 @@ def get_nvrea(entry):
         entry['epoch'] = ""
     nvrea = []
     for k in ('name', 'version', 'release', 'epoch', 'arch'):
-        if entry[k] = None:
+        if entry[k] == None:
            return None
-        else
+        else:
            nvrea.append(str(entry[k]))
     return nvrea
 

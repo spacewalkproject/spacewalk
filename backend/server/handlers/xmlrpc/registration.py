@@ -983,17 +983,17 @@ class Registration(rhnHandler):
         for package in packages:
             if package_is_dict:
                 # extended_profile >= 2
-                if type(package) != type({})):
+                if type(package) != type({}):
                     log_error("Invalid package spec for extended_profile >= 2",
                          type(package), "len = %d" % len(package))
                     raise rhnFault(21)
-            else
+            else:
                 # extended_profile < 2
                 if (type(package) != type([]) or len(package) < 4):
                     log_error("Invalid package spec", type(package),
                           "len = %d" % len(package))
                     raise rhnFault(21)
-                else
+                else:
                     p = {'name'   : package[0],
                          'version': package[1],
                          'release': package[2],
