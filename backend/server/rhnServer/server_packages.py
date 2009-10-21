@@ -28,7 +28,7 @@ from server_lib import snapshot_server, check_entitlement
 def get_nvrea(entry):
     if type(entry) != DictType:
         return None
-    if entry['arch'] is None:
+    if not entry.has_key('arch') or entry['arch'] is None:
             entry['arch'] = ""
     if string.lower(str(entry['epoch'])) == "(none)" or entry['epoch'] == None:
         entry['epoch'] = ""
