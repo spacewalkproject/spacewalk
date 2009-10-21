@@ -26,24 +26,19 @@ from server import rhnSQL, rhnLib
 from server_lib import snapshot_server, check_entitlement
 
 def get_nvrea(entry):
-    if type(entry) not in (ListType, TupleType):
+    if type(entry) not in (DictType):
         return None
-    if len(entry) < 4:
-        return None
-    if len(entry) >= 5:
-        arch = entry[4]
-        if arch is None:
-            arch = ""
-        else:
-            arch = str(arch)
-    else:
-        arch = ""
-    name, version, release, epoch = map(str, entry[:4])
-    if string.lower(epoch) == "(none)" or epoch == None:
-        epoch = ""
-    if None in [name, version, release, epoch, arch]:
-        return None
-    return (name, version, release, epoch, arch)
+    if entry['arch'] is None:
+            entry['arch'] = ""
+    if string.lower(entry['epoch']) == "(none)" or entry['epoch'] == None:
+        entry['epoch'] = ""
+    nvrea = []
+    for k in ('name', 'version', 'release', 'epoch', 'arch'):
+        if entry[k] = None:
+           return None
+        else
+           nvrea.append(str(entry[k]))
+    return nvrea
 
 # A small class that helps us represent things about a
 # database package. In this structure "real" means that we have an
