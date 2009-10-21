@@ -30,7 +30,7 @@ def get_nvrea(entry):
         return None
     if entry['arch'] is None:
             entry['arch'] = ""
-    if string.lower(entry['epoch']) == "(none)" or entry['epoch'] == None:
+    if string.lower(str(entry['epoch'])) == "(none)" or entry['epoch'] == None:
         entry['epoch'] = ""
     nvrea = []
     for k in ('name', 'version', 'release', 'epoch', 'arch'):
@@ -38,7 +38,7 @@ def get_nvrea(entry):
            return None
         else:
            nvrea.append(str(entry[k]))
-    return nvrea
+    return tuple(nvrea)
 
 # A small class that helps us represent things about a
 # database package. In this structure "real" means that we have an
