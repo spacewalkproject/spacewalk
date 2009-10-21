@@ -984,6 +984,7 @@ class Registration(rhnHandler):
         # use a list of dicts
         client_caps = rhnCapability.get_client_capabilities()
         package_is_dict = 0
+        packagesV2 = []
         if client_caps and client_caps.has_key('packages.extended_profile'):
             cap_info = client_caps['packages.extended_profile']
             if cap_info and cap_info['version'] >= 2:
@@ -1008,9 +1009,11 @@ class Registration(rhnHandler):
                          'version': package[1],
                          'release': package[2],
                          'epoch'  : package[3],
-                         'arch'   : package[4],
-                         'cookie' : package[5],
                         }
+                    if len(package) > 4:
+                        p['arch'] = package[4]
+                    if len(package) > 5:
+                        p['cookie'] = package[5]
                     packagesV2.append(p)
         return packagesV2
 
