@@ -873,11 +873,10 @@ class Registration(rhnHandler):
         log_debug(5, system_id, packages)
         if CFG.DISABLE_PACKAGES:
             return 0
+        packages = self._normalize_packages(packages)
         server = self.auth_system(system_id)
         # log the entry
         log_debug(1, server.getid(), "packages: %d" % len(packages))
-        # Update the capabilities list
-        rhnCapability.update_client_capabilities(self.server_id)
         for package in packages:
             server.add_package(package)
         # XXX: check return code
@@ -889,14 +888,10 @@ class Registration(rhnHandler):
         log_debug(5, system_id, packages)
         if CFG.DISABLE_PACKAGES:
             return 0
-        if type(packages) != type([]):
-            log_error("Invalid argument type", type(packages))
-            raise rhnFault(21)
+        packages = self._normalize_packages(packages)
         server = self.auth_system(system_id)
         # log the entry
         log_debug(1, server.getid(), "packages: %d" % len(packages))
-        # Update the capabilities list
-        rhnCapability.update_client_capabilities(self.server_id)
         for package in packages:
             server.delete_package(package)
         # XXX: check return code
@@ -910,15 +905,9 @@ class Registration(rhnHandler):
         if type(packages) != type({}):
             log_error("Invalid argument type", type(packages))
             raise rhnFault(21)
-        added_packages = packages.get('added')
-        removed_packages = packages.get('deleted')
-        if type(added_packages) not in (types.NoneType, types.ListType):
-            log_error("Invalid argument type", type(added_packages))
-            raise rhnFault(21)
-        if type(removed_packages) not in (types.NoneType, types.ListType):
-            log_error("Invalid argument type", type(removed_packages))
-            raise rhnFault(21)
-            
+        added_packages = self._normalize_packages(packages.get('added'), allow_none=1)
+        removed_packages = self._normalize_packages(ackages.get('deleted'), allow_none=1)
+
         server = self.auth_system(system_id)
         # log the entry
         if added_packages is not None:
@@ -960,6 +949,25 @@ class Registration(rhnHandler):
         log_debug(5, system_id, packages)
         if CFG.DISABLE_PACKAGES:
             return 0
+        packages = self._normalize_packages(packages)
+
+        server = self.auth_system(system_id)
+        # log the entry
+        log_debug(1, server.getid(), "packages: %d" % len(packages))
+        server.dispose_packages()
+        for package in packages:
+            server.add_package(package)
+        server.save_packages()
+        return 0
+
+    def _normalize_packages(self, packages, allow_none=0):
+        """ the function checks if list of packages is well formated
+            and also converts packages from old list of lists
+            (extended_profile >= 2) to new list of dicts (extended_profile = 2)
+        """
+
+        if allow_none and packages is None:
+                return None
         # we need to be paranoid about the format of the argument because
         # if we accept wrong input then we might end up disposing in error
         # of all packages registered here
@@ -968,7 +976,9 @@ class Registration(rhnHandler):
             raise rhnFault(21)
 
         # Update the capabilities list
+        server = self.auth_system(system_id)
         rhnCapability.update_client_capabilities(self.server_id)
+
         # old clients send packages as a list of arrays
         # while new (capability packages.extended_profile >= {version: 2, value: 1})
         # use a list of dicts
@@ -1002,15 +1012,7 @@ class Registration(rhnHandler):
                          'cookie' : package[5],
                         }
                     packagesV2.append(p)
-
-        server = self.auth_system(system_id)
-        # log the entry
-        log_debug(1, server.getid(), "packages: %d" % len(packages))
-        server.dispose_packages()
-        for package in packagesV2:
-            server.add_package(package)
-        server.save_packages()
-        return 0
+        return packagesV2
 
     # Insert a new profile for the server
     def add_hw_profile(self, system_id, hwlist):       
