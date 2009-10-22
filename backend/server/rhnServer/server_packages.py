@@ -45,6 +45,8 @@ class dbPackage:
         self.r = str(pdict['release'])
         self.e = str(pdict['epoch'])
         self.a = str(pdict['arch'])
+        if pdict.has_key('installtime'):
+            self.installtime = pdict['installtime']
         # nvrea is a tuple; we can use tuple as dictionary keys since they are
         # immutable
         self.nvrea = (self.n, self.v, self.r, self.e, self.a)
