@@ -25,30 +25,26 @@ from common import log_debug, rhn_rpm, rhnFault
 from server import rhnSQL, rhnLib
 from server_lib import snapshot_server, check_entitlement
 
-def get_nvrea(entry):
-    if type(entry) != DictType:
-        return None
-    if not entry.has_key('arch') or entry['arch'] is None:
-            entry['arch'] = ""
-    if string.lower(str(entry['epoch'])) == "(none)" or entry['epoch'] == None:
-        entry['epoch'] = ""
-    nvrea = []
-    for k in ('name', 'version', 'release', 'epoch', 'arch'):
-        if entry[k] == None:
-           return None
-        else:
-           nvrea.append(str(entry[k]))
-    return tuple(nvrea)
-
 # A small class that helps us represent things about a
 # database package. In this structure "real" means that we have an
 # entry in the database for it.
 class dbPackage:
-    def __init__(self, plist, real = 0, name_id=None, evr_id=None,
+    def __init__(self, pdict, real = 0, name_id=None, evr_id=None,
             package_arch_id=None): 
-        if not isinstance(plist, TupleType):
-            plist = tuple(plist)
-        self.n, self.v, self.r, self.e, self.a = plist
+        if type(pdict) != DictType:
+            return None
+        if not pdict.has_key('arch') or pdict['arch'] is None:
+            pdict['arch'] = ""
+        if string.lower(str(pdict['epoch'])) == "(none)" or pdict['epoch'] == None:
+            pdict['epoch'] = ""
+        for k in ('name', 'version', 'release', 'epoch', 'arch'):
+            if pdict[k] == None:
+                return None
+        self.n = str(pdict['name'])
+        self.v = str(pdict['version'])
+        self.r = str(pdict['release'])
+        self.e = str(pdict['epoch'])
+        self.a = str(pdict['arch'])
         # nvrea is a tuple; we can use tuple as dictionary keys since they are
         # immutable
         self.nvrea = (self.n, self.v, self.r, self.e, self.a)
@@ -81,32 +77,32 @@ class Packages:
         
     def add_package(self, sysid, entry):
         log_debug(4, sysid, entry)
-        p = get_nvrea(entry)
+        p = dbPackage(entry)
         if p is None:
             # Not a valid package spec
             return -1
         if not self.__loaded:
             self.reload_packages_byid(sysid)        
-        if self.__p.has_key(p):
-            self.__p[p].add()
+        if self.__p.has_key(p.nvrea):
+            self.__p[p.nvrea].add()
             self.__changed = 1
             return 0
-        self.__p[p] = dbPackage(p)
+        self.__p[p.nvrea] = p
         self.__changed = 1
         return 0
 
     # delete a package from the list
     def delete_package(self, sysid, entry):
         log_debug(4, sysid, entry)
-        p = get_nvrea(entry)
+        p = dbPackage(entry)
         if p is None:
             # Not a valid package spec
             return -1
         if not self.__loaded:
             self.reload_packages_byid(sysid)        
-        if self.__p.has_key(p):
+        if self.__p.has_key(p.nvrea):
             log_debug(4, "  Package deleted")
-            self.__p[p].delete()
+            self.__p[p.nvrea].delete()
             self.__changed = 1
         # deletion is always successfull
         return 0
