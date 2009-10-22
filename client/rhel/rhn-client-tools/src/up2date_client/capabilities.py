@@ -12,7 +12,7 @@ _ = gettext.gettext
 neededCaps = {"caneatCheese": {'version':"21"},
               "supportsAutoUp2dateOption": {'version': "1"},
               "registration.finish_message": {'version': "1"},
-              "xmlrpc.packages.extended_profile": {'version':"2"},
+              "xmlrpc.packages.extended_profile": {'version':"1"},
               "registration.delta_packages": {'version':"1"},
               "registration.remaining_subscriptions": {'version': '1'},
               "registration.update_contact_info": {'version': "1"},
