@@ -134,7 +134,8 @@ def getInstalledPackageList(msgCallback = None, progressCallback = None,
             'name': h['name'],
             'epoch': h['epoch'],
             'version': h['version'],
-            'release': h['release']
+            'release': h['release'],
+            'installtime': h['installtime']
         }
         if package['epoch'] == None:
             package['epoch'] = ""
