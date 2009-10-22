@@ -124,9 +124,11 @@ def verify(server_id, action_id, data={}):
     uq_packages = {}
 
     for package_spec, responses in data['verify_info']:
+        package_spec = list(package_spec)
         # Fix the epoch
-        if package_spec['epoch'] == '':
-            package_spec['epoch'] = None
+        if package_spec[3] == '':
+            package_spec[3] = None
+        package_spec = tuple(package_spec)
         if uq_packages.has_key(package_spec):
             # Been here already
             continue
@@ -148,11 +150,11 @@ def verify(server_id, action_id, data={}):
             dict['server_id'] = server_id
             dict['action_id'] = action_id
 
-            dict['package_name'] = package_spec['name']
-            dict['version'] = package_spec['version']
-            dict['release'] = package_spec['release']
-            dict['epoch'] = package_spec['epoch']
-            dict['arch'] = package_spec['arch']
+            dict['package_name'] = package_spec[0]
+            dict['version'] = package_spec[1]
+            dict['release'] = package_spec[2]
+            dict['epoch'] = package_spec[3]
+            dict['arch'] = package_spec[4]
 
             if not dict.has_key('missing'):                
                 _hash_append(verify_attribs, dict)

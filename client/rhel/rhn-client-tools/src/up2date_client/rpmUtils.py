@@ -53,10 +53,15 @@ def verifyPackages(packages):
         # Note: we cant reliable match on epoch, so just
         # skip it... two packages that only diff by epoch is
         # way broken anyway
-        keywords = {}
-        for key, value in package.iteritems():
-            if key in ('name', 'version', 'release', 'arch') and (value != None) and (value != ""):
-                keywords[key] = value
+        keywords = {'name': package[0],
+                    'version': package[1],
+                    'release': package[2],
+                    # we left our epoch
+                    'arch': package[4]
+                    }
+        for key, value in keywords.iteritems():
+            if (value == None) or (value == ""):
+                del(keywords[key])
 
         headers = installedHeaderByKeyword(**keywords)
 	if len(headers) == 0:            
