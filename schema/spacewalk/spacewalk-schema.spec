@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.7.4
+Version:        0.7.5
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Oct 22 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.5-1
+- 449167 - record installation date of rpm package
+
 * Tue Oct 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.4-1
 - 449167 - record rpm installation date
 - 522526 - fixing issue where snippets couldnt be used in the partitioning section of the kickstart wizard (jsherril@redhat.com)
