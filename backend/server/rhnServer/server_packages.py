@@ -19,6 +19,7 @@
 #
 
 import string
+import time
 from types import DictType, TupleType
 
 from common import log_debug, rhn_rpm, rhnFault
@@ -160,9 +161,9 @@ class Packages:
             log_debug(4, sysid, len(alist), "added packages")
             h = rhnSQL.prepare("""
             insert into rhnServerPackage
-            (server_id, name_id, evr_id, package_arch_id)
+            (server_id, name_id, evr_id, package_arch_id, installtime)
             values (:sysid, LOOKUP_PACKAGE_NAME(:n), LOOKUP_EVR(:e, :v, :r),
-                LOOKUP_PACKAGE_ARCH(:a)
+                LOOKUP_PACKAGE_ARCH(:a), TO_DATE(:instime, 'YYYY-MM-DD HH24:MI:SS')
             )
             """)
             package_data = {
@@ -172,6 +173,8 @@ class Packages:
                 'r'     : map(lambda a: a.r, alist),
                 'e'     : map(lambda a: a.e, alist),
                 'a'     : map(lambda a: a.a, alist),
+                'instime' : map(lambda a: time.strftime('%Y-%m-%d %H:%M:%S',
+                                   time.localtime(a.installtime)), alist),
             }
             try:
                 h.execute_bulk(package_data)
@@ -224,13 +227,14 @@ class Packages:
         # Now load packages
         h = rhnSQL.prepare("""
         select
-            rpn.name n,
-            rpe.version v,
-            rpe.release r,
-            rpe.epoch e,
+            rpn.name name,
+            rpe.version version,
+            rpe.release release,
+            rpe.epoch epoch,
             sp.name_id,
             sp.evr_id,
-            sp.package_arch_id
+            sp.package_arch_id,
+            TO_CHAR(sp.installtime, 'YYYY-MM-DD HH24:MI:SS') installtime
         from
             rhnServerPackage sp,
             rhnPackageName rpn, 
@@ -245,13 +249,12 @@ class Packages:
             t = h.fetchone_dict()
             if not t:
                 break
-            if t["e"] is None: t["e"] = ""
-            package_arch_id = t["package_arch_id"]
-            package_arch = package_arches_hash[package_arch_id]
-            nvrea = (t['n'], t['v'], t['r'], t['e'], package_arch)
-            self.__p[nvrea] = dbPackage(nvrea, real=1, 
-                name_id=t["name_id"], evr_id=t["evr_id"], 
-                package_arch_id=package_arch_id)
+            t['arch'] = package_arches_hash[t['package_arch_id']]
+            t['installtime'] = time.mktime(time.strptime(t['installtime'],
+                                                "%Y-%m-%d %H:%M:%S"))
+            p = dbPackage(t, real=1, name_id=t['name_id'], evr_id=t['evr_id'],
+                          package_arch_id=t['package_arch_id'])
+            self.__p[p.nvrea] = p
         log_debug(4, "Loaded %d packages for server %s" % (len(self.__p), sysid))
         self.__loaded = 1
         self.__changed = 0
