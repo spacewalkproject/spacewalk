@@ -27,7 +27,7 @@ CREATE TABLE rhnServerPackage
                          REFERENCES rhnPackageArch (id),
     created          DATE
                          DEFAULT (sysdate) NOT NULL,
-    installtime      DATE NOT NULL
+    installtime      DATE
 )
 TABLESPACE [[server_package_tablespace]]
 ENABLE ROW MOVEMENT
