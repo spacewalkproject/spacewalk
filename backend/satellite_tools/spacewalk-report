@@ -172,8 +172,17 @@ if __name__ == '__main__':
 			if outrow != None:
 				writer.writerow(outrow)
 		else:
-			for r in reports.available_reports():
-				print r
+			for report_name in reports.available_reports():
+				if options.info:
+					synopsis = ''
+					try:
+						report = reports.report(report_name)
+						synopsis = report.synopsis
+					except:
+						None
+					print "%s: %s" % ( report_name, synopsis )
+				else:
+					print report_name
 
 	except KeyboardInterrupt:
 		systemExit(-1, "\nUser interrupted process.")
