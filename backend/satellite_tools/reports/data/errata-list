@@ -1,0 +1,32 @@
+
+columns:
+
+	advisory
+	cve
+	severity
+	synopsis
+	systems_affected
+
+multival_columns:
+
+	advisory
+	cve : cve
+
+sql:
+
+	select rhnErrata.advisory_name as advisory,
+		rhnCVE.name as cve,
+		rhnErrataSeverity.label as severity,
+		rhnErrata.synopsis,
+		count(*) as systems_affected
+	from rhnErrata, rhnServerNeededErrataCache, rhnErrataCVE, rhnCVE, rhnErrataSeverity
+	where rhnErrata.id = rhnServerNeededErrataCache.errata_id
+		and rhnErrata.id = rhnErrataCVE.errata_id (+)
+		and rhnErrataCVE.cve_id = rhnCVE.id (+)
+		and rhnErrata.severity_id = rhnErrataSeverity.id (+)
+	group by rhnErrata.id,
+		rhnErrata.advisory_name,
+		rhnCVE.name,
+		rhnErrataSeverity.label,
+		rhnErrata.synopsis
+	order by rhnErrata.advisory_name, rhnCVE.name
