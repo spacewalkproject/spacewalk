@@ -1,0 +1,30 @@
+
+columns:
+
+	advisory
+	server_id
+	profile_name
+	hostname
+	ip_address
+
+sql:
+
+	select rhnErrata.advisory_name as advisory,
+		rhnServerNeededErrataCache.server_id,
+		rhnServer.name as profile_name,
+		rhnservernetwork.hostname, trim(rhnservernetwork.ipaddr) as ip_address
+	from rhnErrata, rhnServerNeededErrataCache, rhnServer,
+		(
+		select server_id, hostname, ipaddr
+		from rhnservernetwork
+		where id in (
+			select min(id)
+			from rhnservernetwork
+			group by server_id
+			)
+		) rhnservernetwork
+	where rhnErrata.id = rhnServerNeededErrataCache.errata_id
+		and rhnServerNeededErrataCache.server_id = rhnServer.id
+		and rhnServerNeededErrataCache.server_id = rhnservernetwork.server_id (+)
+	order by rhnErrata.advisory_name, rhnServerNeededErrataCache.server_id
+
