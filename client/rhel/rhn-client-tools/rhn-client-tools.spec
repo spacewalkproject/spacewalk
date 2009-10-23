@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.7.5
+Version: 0.7.6
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -215,6 +215,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Fri Oct 23 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.6-1
+- 530369 - header is inmutable
+
 * Thu Oct 22 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.5-1
 - 449167 - record installation date of rpm package
 
