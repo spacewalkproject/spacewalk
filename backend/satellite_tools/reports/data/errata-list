@@ -1,10 +1,20 @@
 
+synopsis:
+
+	Errata out of compliance information - errata details
+
+description:
+
+	List of erratas that are applicable to at least one registered
+	system, together with basic info about the errata. Also see
+	errata-systems report to get list of systems that are affected.
+
 columns:
 
-	advisory
-	cve
-	synopsis
-	systems_affected
+	advisory	Advisory / errata identifier
+	cve		List of CVE names (Common Vulnerabilities and Exposures Identifiers) addressed by the errata
+	synopsis	Synopsis of the errata
+	systems_affected	Number of systems to which this errata is applicable
 
 multival_columns:
 

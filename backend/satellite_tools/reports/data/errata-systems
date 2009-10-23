@@ -1,11 +1,19 @@
 
+synopsis:
+
+	Errata out of compliance information - erratas for systems
+
+description:
+
+	List of applicable erratas and systems that are affected.
+
 columns:
 
-	advisory
-	server_id
-	profile_name
-	hostname
-	ip_address
+	advisory	Advisory / errata identifier
+	server_id	System identifier
+	profile_name	Profile name, as stored on server
+	hostname	Hostname, as reported by the system
+	ip_address	IP address, as reported by the system
 
 sql:
 
