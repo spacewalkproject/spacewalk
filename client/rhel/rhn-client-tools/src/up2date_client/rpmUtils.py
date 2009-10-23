@@ -68,15 +68,17 @@ def verifyPackages(packages):
 	    missing_packages.append(package)
 
         for header in headers:
-            if header['epoch'] == None:
-                header['epoch'] = ""
+            epoch = header['epoch']
+            if epoch == None:
+                epoch = ""
             # gpg-pubkey "packages" can have an arch of None, see bz #162701
-            if header["arch"] == None:
-                header["arch"] = ""
+            arch = header["arch"]
+            if arch == None:
+                arch = ""
                 
             pkg = (header['name'], header['version'],
-                   header['release'], header['epoch'],
-                   header["arch"])
+                   header['release'], epoch,
+                   arch)
 
             # dont include arch in the label if it's a None arch, #162701
             if header["arch"] == "":
