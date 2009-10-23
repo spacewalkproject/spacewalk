@@ -124,7 +124,7 @@ if __name__ == '__main__':
 			outrow = None
 			multival_dupes = {}
 			while row != None:
-				if options.multivalonrows:
+				if options.multivalonrows or not report.multival_column_names.keys():
 					writer.writerow(row)
 					row = h.fetchone()
 					continue
