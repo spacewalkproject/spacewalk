@@ -72,12 +72,21 @@ class report:
 
 	def _set(self, tag, value):
 		if tag == 'columns':
-			self.columns = filter(lambda x: x != '', re.split('\s+', value))
-			# set mapping from column name to column position in column_indexes
+			self.columns = []
 			self.column_indexes = {}
+			self.column_descriptions = {}
+			lines = filter(lambda x: x != '', re.split('\s*\n\s*', value))
 			i = 0
-			for c in self.columns:
+			for l in lines:
+				description = None
+				try:
+					( c, description ) = re.split('\s+', l, 1)
+				except:
+					c = l
+				self.columns.append(c)
 				self.column_indexes[c] = i
+				if description != None:
+					self.column_descriptions[c] = description
 				i = i + 1
 		elif tag == 'multival_columns':
 			# the multival_columns specifies either
