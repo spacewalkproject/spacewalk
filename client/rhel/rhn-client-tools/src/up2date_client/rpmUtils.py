@@ -59,8 +59,8 @@ def verifyPackages(packages):
                     # we left our epoch
                     'arch': package[4]
                     }
-        for key, value in keywords.iteritems():
-            if (value == None) or (value == ""):
+        for key in (keywords.keys()):
+            if (keywords[key] == None) or (keywords[key] == ""):
                 del(keywords[key])
 
         headers = installedHeaderByKeyword(**keywords)
