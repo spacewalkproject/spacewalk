@@ -236,6 +236,7 @@ class PackageImport(ChannelPackageSubscription):
 
         # FIXME: needs to be fixed for sha256
         checksum = ('md5',package['md5sum'])
+        package['checksum'] = checksum
         if not self.checksums.has_key(checksum):
             self.checksums[checksum] = None
 
@@ -361,6 +362,8 @@ class PackageImport(ChannelPackageSubscription):
         else:
             source_rpm = ''
         package['source_rpm_id'] = source_rpm
+        package['checksum_id'] = self.checksums[package['checksum']]
+
         # Postprocess the dependency information
         for tag in ('provides', 'requires', 'conflicts', 'obsoletes', 'files'):
             for entry in package[tag]:

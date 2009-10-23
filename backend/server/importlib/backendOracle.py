@@ -121,7 +121,7 @@ class OracleBackend(Backend):
                 'build_host'    : DBstring(256), 
                 'build_time'    : DBdateTime(),
                 'source_rpm_id' : DBint(),
-                'md5sum'        : DBstring(64), 
+                'checksum_id'   : DBint(),
                 'vendor'        : DBstring(64), 
                 'payload_format': DBstring(32), 
                 'path'          : DBstring(1000), 
@@ -135,7 +135,8 @@ class OracleBackend(Backend):
             nullable    = ['org_id'],
             severityHash = {
                 'path'          : 1,
-                'md5sum'        : 2,
+                # FIXME: sha256
+                #'md5sum'        : 2,
                 'package_size'  : 2,
                 'build_time'    : 3,
                 'build_host'    : 3,
