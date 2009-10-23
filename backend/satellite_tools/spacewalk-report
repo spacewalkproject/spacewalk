@@ -58,6 +58,8 @@ def processCommandline():
 		Option('--db', action='store', type="string",
 			help='alternative database string (username/password@sid);' \
 				+ ' default is default_db from /etc/rhn/rhn.conf'),
+		Option('--info', action='store_true',
+			help='print synopsis of the report in the list of report, or description of individual reports specified'),
 	]
 
 	optionParser = OptionParser( \
@@ -100,9 +102,23 @@ if __name__ == '__main__':
 			except(reports.spacewalk_unknown_report):
 				systemExit(-4, 'Unknown report [%s].' % report_name)
 
+			need_exit = None
+			if options.info:
+				if report.synopsis != None:
+					print report.synopsis
+				else:
+					print "No synopsis for report %s." % report_name
+				if report.description != None:
+					print
+					print report.description
+				need_exit = True
+
 			if report_options.listfields:
 				for c in report.columns:
 					print c
+				need_exit = True
+
+			if need_exit:
 				sys.exit(0)
 
 			initCFG('server')
