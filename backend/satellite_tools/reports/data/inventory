@@ -40,7 +40,7 @@ sql:
 		( select count(distinct rhnpackage.name_id) from rhnpackage, rhnserverneededpackagecache
 			where rhnserver.id = rhnserverneededpackagecache.server_id
 				and rhnserverneededpackagecache.package_id = rhnpackage.id ) as packages_out_of_date,
-		( select count(*) from rhnServerErrataTypeView where rhnserver.id = server_id ) as errata_out_of_date,
+		( select count(*) from rhnServerNeededErrataCache where rhnserver.id = server_id ) as errata_out_of_date,
 		rhnchannel.name as software_channel,
 		rhnconfigchannel.name as configuration_channel,
 		entitlement_data.name as entitlements,
