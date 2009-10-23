@@ -178,7 +178,7 @@ def initiate_guest(kickstart_host, cobbler_system_name, virt_type, name, mem_kb,
         k.port                = 443
         k.profile             = None
         k.system              = cobbler_system_name
-        k.should_poll         = 0
+        k.should_poll         = 1
         k.image               = None
         k.live_cd             = None
         k.virt_name           = name
