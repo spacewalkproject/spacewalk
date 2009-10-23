@@ -11,8 +11,11 @@ class report:
 	def __init__(self, name):
 		full_path = os.path.join(REPORT_DEFINITIONS, name)
 		self.sql = None
+		self.description = None
+		self.synopsis = None
 		self.columns = None
 		self.column_indexes = None
+		self.column_descriptions = None
 		self.multival_column_names = {}
 		self.multival_columns_reverted = {}
 		self.multival_columns_stop = []
@@ -93,6 +96,10 @@ class report:
 					self.multival_column_names[col] = id_col
 		elif tag == 'sql':
 			self.sql = value
+		elif tag == 'synopsis':
+			self.synopsis = re.sub('^(\s*\n)+\s*|(\s*\n)+$', '', value)
+		elif tag == 'description':
+			self.description = re.sub('(?m)^\s*', '    ', re.sub('^(\s*\n)+\s*|(\s*\n)+$', '', value))
 		else:
 			raise spacewalk_report_unknown_tag_exception(tag)
 
