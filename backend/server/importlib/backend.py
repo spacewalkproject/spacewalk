@@ -458,6 +458,18 @@ class Backend:
             if row:
                 evrHash[evr] = row['id']
 
+    def lookupChecksums(self, checksumHash):
+        if not checksumHash:
+            return
+        sql = "select lookup_checksum(:ctype, :csum) id from dual"
+        h = self.dbmodule.prepare(sql)
+        for k in checksumHash.keys():
+            ctype, csum = k
+            h.execute(ctype=ctype, csum=csum)
+            row = h.fetchone_dict()
+            if row:
+                checksumHash[k] = row['id']
+
     def lookupPackageNEVRAs(self, nevraHash):
         sql = "select LOOKUP_PACKAGE_NEVRA(:name, :evr, :arch) id from dual"
         h = self.dbmodule.prepare(sql)

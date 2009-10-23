@@ -63,6 +63,7 @@ class ChannelPackageSubscription(GenericPackageImport):
         self.backend.lookupChannelPackageArchCompat(self.channel_package_arch_compat)
         self.backend.lookupPackageNames(self.names)
         self.backend.lookupEVRs(self.evrs)
+        self.backend.lookupChecksums(self.checksums)
 
         # Fix the package information up, and uniquify the packages too
         uniqdict = {}
@@ -375,6 +376,7 @@ class PackageImport(ChannelPackageSubscription):
         evrs = {}
         names = {}
         archs = {}
+        checksums = {}
 
         for pkgDict, pkgInfoObj in package['solaris_patch_packages']:
                 
@@ -386,10 +388,12 @@ class PackageImport(ChannelPackageSubscription):
             pkgDict['evr'] = evr
 
             evrs[evr] = None
+            checksums[pkgDict['checksum']] = None
             names[pkgDict['name']] = None
             archs[pkgDict['arch']] = None
 
         self.backend.lookupEVRs(evrs)
+        self.backend.lookupChecksums(checksums)
         self.backend.lookupPackageNames(names)
         self.backend.lookupPackageArches(archs)
 
@@ -420,6 +424,7 @@ class PackageImport(ChannelPackageSubscription):
     def __postprocessSolarisPatchSetMembers(self, package):
 
         evrs = {}
+        checksums = {}
         names = {}
 
         for patchDict, patchObj in package['solaris_patch_set_members']:
@@ -432,9 +437,11 @@ class PackageImport(ChannelPackageSubscription):
             patchDict['evr'] = evr
 
             evrs[evr] = None
+            checksums[patchDict['checksum']] = None
             names[patchDict['name']] = None
 
         self.backend.lookupEVRs(evrs)
+        self.backend.lookupChecksums(self.checksums)
         self.backend.lookupPackageNames(names)
 
         nevras = {}

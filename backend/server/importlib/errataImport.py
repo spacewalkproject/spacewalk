@@ -108,6 +108,7 @@ class ErrataImport(GenericPackageImport):
 
         self.backend.lookupPackageNames(self.names)
         self.backend.lookupEVRs(self.evrs)
+        self.backend.lookupChecksums(self.checksums)
         self.backend.lookupPackageArches(self.package_arches)
 
         for erratum in self.batch:

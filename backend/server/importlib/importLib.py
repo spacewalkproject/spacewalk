@@ -658,6 +658,7 @@ class GenericPackageImport(Import):
         # Packages have to be pre-processed
         self.names = {}
         self.evrs = {}
+        self.checksums = {}
         self.package_arches = {}
         self.channels = {}
         self.channel_package_arch_compat = {}
@@ -668,6 +669,9 @@ class GenericPackageImport(Import):
         # Save the fields in the local hashes
         if not self.evrs.has_key(package.evr):
             self.evrs[package.evr] = None
+
+        if not self.checksums.has_key(package.checksum):
+            self.checksums[package.checksum] = None
 
         if not self.names.has_key(package.name):
             self.names[package.name] = None

@@ -24,6 +24,7 @@ class BlacklistObsoletesImport(Import):
         Import.__init__(self, batch, backend)
         self.names = {}
         self.evrs = {}
+        self.checksums = {}
         self.package_arches = {}
     
     def preprocess(self):
@@ -40,10 +41,12 @@ class BlacklistObsoletesImport(Import):
     def fix(self):
         self.backend.lookupPackageNames(self.names)
         self.backend.lookupEVRs(self.evrs)
+        self.backend.lookupChecksums(self.checksums)
         self.backend.lookupPackageArches(self.package_arches)
         for entry in self.batch:
             entry['name_id'] = self.names[entry['name']]
             entry['evr_id'] = self.evrs[entry['evr']]
+            entry['checksum_id'] = self.checksums[entry['checksum']]
             entry['package_arch_id'] = self.package_arches[entry['package-arch']]
             entry['ignore_name_id'] = self.names[entry['ignored-name']]
 
