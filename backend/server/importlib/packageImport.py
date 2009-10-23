@@ -234,6 +234,11 @@ class PackageImport(ChannelPackageSubscription):
         # XXX
         package['copyright'] = package['license']
 
+        # FIXME: needs to be fixed for sha256
+        checksum = ('md5',package['md5sum'])
+        if not self.checksums.has_key(checksum):
+            self.checksums[checksum] = None
+
         # Creates all the data structures needed to insert capabilities
         for tag in ('provides', 'requires', 'conflicts', 'obsoletes'):
             depList = package[tag]

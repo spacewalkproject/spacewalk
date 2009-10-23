@@ -670,9 +670,6 @@ class GenericPackageImport(Import):
         if not self.evrs.has_key(package.evr):
             self.evrs[package.evr] = None
 
-        if not self.checksums.has_key(package.checksum):
-            self.checksums[package.checksum] = None
-
         if not self.names.has_key(package.name):
             self.names[package.name] = None
 
