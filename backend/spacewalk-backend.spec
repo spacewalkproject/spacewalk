@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.8
+Version: 0.7.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -582,6 +582,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Oct 23 2009 Jan Pazdziora 0.7.9-1
+- reporting: added report errata-list and errata-system
+
 * Thu Oct 22 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.8-1
 - 449167 - record installation date of rpm package
 
