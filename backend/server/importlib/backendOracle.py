@@ -131,7 +131,8 @@ class OracleBackend(Backend):
                 'header_end'    : DBint(),
                 'last_modified' : DBdateTime(),
             },
-            pk          = ['org_id', 'name_id', 'evr_id', 'package_arch_id'],
+            pk          = ['org_id', 'name_id', 'evr_id', 'package_arch_id',
+                           'checksum_id'],
             nullable    = ['org_id'],
             severityHash = {
                 'path'          : 1,

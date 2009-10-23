@@ -1977,12 +1977,12 @@ class Backend:
             apply(h.executemany, (), params)
 
     def validate_pks(self):
-        # If nevra is enabled use md5sum as primary key
+        # If nevra is enabled use checksum as primary key
         tbs = self.tables['rhnPackage']
         if CFG.ENABLE_NVREA:
-            # Add md5sum as a primarykey if nevra is enabled
-            if 'md5sum' not in tbs.pk:
-                tbs.pk.append('md5sum')
+            # Add checksum as a primarykey if nevra is enabled
+            if 'checksum_id' not in tbs.pk:
+                tbs.pk.append('checksum_id')
             
 # Returns a tuple for the hash's values
 def build_key(hash, fields):
