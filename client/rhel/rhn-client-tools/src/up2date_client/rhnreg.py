@@ -426,7 +426,10 @@ def registerSystem(username = None, password = None,
         auth_dict["password"] = password
 
     if cfg['supportsSMBIOS']:
-        auth_dict["smbios"] = hardware.get_hal_smbios()
+        try:
+            auth_dict["smbios"] = hardware.get_hal_smbios()
+        except:
+            log.log_debug("Cannot Acquire hardware information")    
     
     s = rhnserver.RhnServer()
     if packages == None:
