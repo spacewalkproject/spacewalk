@@ -19,6 +19,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -53,6 +54,7 @@ public class PackageListItem extends IdComboDto {
     private String evra;
     private String summary;
     private String nvrea;
+    private Date installTime;
     
     private Long idOne;
     private Long idTwo;
@@ -406,6 +408,26 @@ public class PackageListItem extends IdComboDto {
     public void setNvrea(String aNvrea) {
         this.nvrea = aNvrea;
     }
+
+    /**
+     * Getter for installTime
+     * @return String when package was installed (as reported by rpm database).
+    */
+    public String getInstallTime() {
+        if (installTime == null) {
+            return "";
+        }
+        return LocalizationService.getInstance().formatDate(installTime);
+    }
+
+    /**
+     * Setter for installTime
+     * @param installTimeIn to set
+    */
+    public void setInstalltime(Date installTimeIn) {
+        installTime = installTimeIn;
+    }
+
     /**
      * Get a string representation of NEVR:
      * 

@@ -19,6 +19,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	                     class="com.redhat.rhn.domain.rhnpackage.PackageName"
 	                     column="name_id" /> 	        
 		</composite-id>
+		<property name="installTime" column="installtime" type="timestamp" />
 			<many-to-one name="arch"
 	                     class="com.redhat.rhn.domain.rhnpackage.PackageArch"
 	                     column="package_arch_id" /> 
