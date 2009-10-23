@@ -79,6 +79,8 @@ def processCommandlineReport(report):
 		Option('--list-fields', action='store_true',
 			dest='listfields',
 			help='list fields of the report instead of running the report'),
+		Option('--info', action='store_true',
+			help='print description for each column'),
 		]
 	optionParserReport = OptionParser(
 		usage="options for report %s" % report,
@@ -114,8 +116,18 @@ if __name__ == '__main__':
 				need_exit = True
 
 			if report_options.listfields:
+				if options.info:
+					print
+					print "Fields in the report:"
+					print
+
 				for c in report.columns:
-					print c
+					text = c
+					if options.info:
+						text = "    %s" % c
+					if report_options.info and report.column_descriptions.has_key(c) :
+						text = "%s: %s" % ( text, report.column_descriptions[c] )
+					print text
 				need_exit = True
 
 			if need_exit:
