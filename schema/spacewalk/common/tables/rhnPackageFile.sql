@@ -31,7 +31,7 @@ CREATE TABLE rhnPackageFile
     rdev           NUMBER NOT NULL,
     file_size      NUMBER NOT NULL,
     mtime          DATE NOT NULL,
-    checksum_id    NUMBER NOT NULL
+    checksum_id    NUMBER
                       CONSTRAINT rhn_package_file_chsum_fk
                           REFERENCES rhnChecksum (id),
     linkto         VARCHAR2(256),
