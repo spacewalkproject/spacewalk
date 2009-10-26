@@ -373,9 +373,9 @@ class PackageImport(ChannelPackageSubscription):
             for entry in package[tag]:
                 nv = entry['capability']
                 entry['capability_id'] = self.capabilities[nv]
-         fileList = package['files']
-         for f in fileList:
-                f['checksum_id'] = self.checksums[f['checksum']]
+        fileList = package['files']
+        for f in fileList:
+            f['checksum_id'] = self.checksums[f['checksum']]
 
     def __postprocessSolarisPackage(self, package):
         # set solaris patch packages for a solaris patch
