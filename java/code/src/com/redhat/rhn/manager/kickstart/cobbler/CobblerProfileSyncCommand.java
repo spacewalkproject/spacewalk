@@ -72,6 +72,13 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
         List<KickstartData> profiles = KickstartFactory.listAllKickstartData();
         Map<String, Map> profileNames = getModifiedProfileNames();
         for (KickstartData profile : profiles) {
+            /**
+             * workaround for bad data left in the DB (bz 525561) 
+             */
+            if (profile.getKickstartDefaults() == null) {
+                continue;
+            }
+            
             if (!profileNames.containsKey(profile.getCobblerId())) {
                   if (profile.getKickstartDefaults().getKstree().getCobblerId() == null) {
                      log.warn("Kickstart profile " + profile.getLabel() +
