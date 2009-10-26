@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.kickstart.KickstartPackage"
+        table="rhnKickstartPackage">
+
+        <composite-id>
+            <key-many-to-one name="ksData"
+                class="com.redhat.rhn.domain.kickstart.KickstartData"
+                access="field"
+                column="kickstart_id"
+                />
+            <key-many-to-one name="packageName"
+                class="com.redhat.rhn.domain.rhnpackage.PackageName"
+                column="package_name_id"
+                />
+        </composite-id>
+
+        <property name="position" column="position" not-null="true"/>
+        <property name="created" column="created" not-null="true" type="timestamp" insert="false" update="false"/>
+        <property name="modified" column="modified" not-null="true" type="timestamp" insert="false" update="false"/>
+
+    </class>
+
+
+    <query name="KickstartPackage.findByKickstartDataAndPackageName">
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartPackage as kp where kp.ksData = :ks_data and kp.packageName = :package_name]]>
+    </query>
+
+</hibernate-mapping>

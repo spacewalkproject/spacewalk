@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.xmlrpc.kickstart.profile.software.test;
 
 import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartPackage;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.software.SoftwareHandler;
@@ -39,8 +40,8 @@ public class SoftwareHandlerTest extends BaseHandlerTestCase {
         List<String> packages = handler.getSoftwareList(adminKey, ksProfile.getLabel());
 
         // Note: the test profile created should have had at least 1 package listed
-        assertTrue(ksProfile.getPackageNames().size() > 0);
-        assertEquals(ksProfile.getPackageNames().size(), packages.size());
+        assertTrue(ksProfile.getKsPackages().size() > 0);
+        assertEquals(ksProfile.getKsPackages().size(), packages.size());
     }
     
     public void testSetSoftwareList() throws Exception {
@@ -53,16 +54,16 @@ public class SoftwareHandlerTest extends BaseHandlerTestCase {
         int result = handler.setSoftwareList(adminKey, ksProfile.getLabel(), packages);
         
         boolean pkgFound = false;
-        for (Iterator<PackageName> itr = ksProfile.getPackageNames().iterator();
+        for (Iterator<KickstartPackage> itr = ksProfile.getKsPackages().iterator();
              itr.hasNext();) {
-              PackageName pkg = (PackageName) itr.next(); 
-              if (pkg.getName().equals("gcc")) {
+              KickstartPackage pkg = (KickstartPackage) itr.next(); 
+              if (pkg.getPackageName().getName().equals("gcc")) {
                   pkgFound = true;
                   
               }
         }
         assertEquals(1, result);
-        assertEquals(ksProfile.getPackageNames().size(), 1);
+        assertEquals(ksProfile.getKsPackages().size(), 1);
         assertEquals(pkgFound, true);
     }
     
@@ -70,7 +71,7 @@ public class SoftwareHandlerTest extends BaseHandlerTestCase {
         
         KickstartData ksProfile  = KickstartDataTest.createKickstartWithProfile(admin);
 
-        int numPackagesInitial = ksProfile.getPackageNames().size();
+        int numPackagesInitial = ksProfile.getKsPackages().size();
         
         List<String> packages = new ArrayList<String>();
         packages.add("bash");
@@ -80,7 +81,7 @@ public class SoftwareHandlerTest extends BaseHandlerTestCase {
 
         assertEquals(1, result);
         assertEquals(numPackagesInitial + packages.size(), 
-                ksProfile.getPackageNames().size());
+                ksProfile.getKsPackages().size());
         
         // attempt to add the same packages again and verify that the list did not change
         // (i.e. we don't allow duplicates)
@@ -88,6 +89,6 @@ public class SoftwareHandlerTest extends BaseHandlerTestCase {
 
         assertEquals(1, result);
         assertEquals(numPackagesInitial + packages.size(), 
-                ksProfile.getPackageNames().size());
+                ksProfile.getKsPackages().size());
     }
 }

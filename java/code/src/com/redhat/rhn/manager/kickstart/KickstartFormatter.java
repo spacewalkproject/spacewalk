@@ -19,6 +19,7 @@ import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartPackage;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
@@ -27,7 +28,6 @@ import com.redhat.rhn.domain.kickstart.cobbler.CobblerSnippet;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
-import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.token.Token;
@@ -443,8 +443,8 @@ public class KickstartFormatter {
      */
     private String getPackages() {        
         StringBuffer buf = new StringBuffer();
-        for (Iterator itr = ksdata.getPackageNames().iterator(); itr.hasNext();) {
-            buf.append(((PackageName)itr.next()).getName() + NEWLINE);
+        for (Iterator itr = ksdata.getKsPackages().iterator(); itr.hasNext();) {
+            buf.append(((KickstartPackage)itr.next()).getPackageName().getName() + NEWLINE);
         }
         if (KickstartVirtualizationType.paraHost().equals(ksdata.getKickstartDefaults().
                 getVirtualizationType())) {

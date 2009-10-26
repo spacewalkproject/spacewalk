@@ -34,11 +34,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="nonChrootPost" column="nonchrootpost" not-null="false" type="yes_no" />
         <property name="verboseUp2date" column="verboseup2date" not-null="false" type="yes_no" />
         <property name="cobblerId" column="cobbler_id"  type="string" length="64" />
-        <list name="packageNames" table="rhnKickstartPackage" lazy="true">
+        <set name="ksPackages" lazy="true" sort="natural" inverse="true">
           <key column="kickstart_id"/>
-          <index column="position"/>
-          <many-to-many column="package_name_id" class="com.redhat.rhn.domain.rhnpackage.PackageName" />
-        </list>
+          <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartPackage" />
+        </set>
 
         <set name="cryptoKeys" table="rhnCryptoKeyKickstart" lazy="true">
             <key column="ksdata_id"/>
