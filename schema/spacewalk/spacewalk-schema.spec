@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.7.3
+Version:        0.7.5
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Oct 22 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.5-1
+- 449167 - record installation date of rpm package
+
+* Tue Oct 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.4-1
+- 449167 - record rpm installation date
+- 522526 - fixing issue where snippets couldnt be used in the partitioning section of the kickstart wizard (jsherril@redhat.com)
+- 522526 - adding schema upgrade script for snippet issue (jsherril@redhat.com)
+- Don't indent sql upgrade code in resulting script (mzazrivec@redhat.com)
+- 523389 - can't add NOT NULL column into non-empty table (michael.mraka@redhat.com)
+- 523389 - decrease TEMP usage (michael.mraka@redhat.com)
+- 523389 - add support for schema upgrade overrides (mzazrivec@redhat.com)
+
 * Thu Sep 17 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.3-1
 - 523389 - split update into smaller chunks so it will not eat all UNDO at once
 - 476851 - removal of tables: rhn_db_environment, rhn_environment (upgrade)

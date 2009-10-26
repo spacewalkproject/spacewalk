@@ -36,8 +36,8 @@ def update(errataidlist):
     current_packages_with_arch = {}
     current_packages ={}
     for p in rpmUtils.getInstalledPackageList(getArch=1):
-        current_packages_with_arch[p[0]+p[4]] = p
-        current_packages[p[0]] = p
+        current_packages_with_arch[p['name']+p['arch']] = p
+        current_packages[p['name']] = p
 
     u = {}   
     # only update packages that are currently installed

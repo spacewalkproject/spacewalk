@@ -993,15 +993,13 @@ class PackagesWindow:
             if rhnreg.cfg['supportsExtendedPackageProfile']:
                 getInfo = 1
             tui.packageList = rpmUtils.getInstalledPackageList(getInfo=getInfo)
-            tui.packageList.sort(cmp = lambda x,y: cmp(x.lower(), y.lower()),
-                key = lambda x: x[0])
             self.screen.popWindow()
 
         for package in tui.packageList:
-            self.packageList.append("%s-%s-%s" % (package[0],
-                                                  package[1],
-                                                  package[2]),
-                                                  item = package[0],
+            self.packageList.append("%s-%s-%s" % (package['name'],
+                                                  package['version'],
+                                                  package['release']),
+                                                  item = package['name'],
                                                   selected = 1)
             
         # BUTTON BAR
@@ -1024,7 +1022,7 @@ class PackagesWindow:
         self.tui.includePackages = self.packagesButton.selected()
         selection = self.packageList.getSelection()
         for pkg in self.tui.packageList:
-            if pkg[0] in selection:
+            if pkg['name'] in selection:
                 self.tui.selectedPackages.append(pkg)
 
         

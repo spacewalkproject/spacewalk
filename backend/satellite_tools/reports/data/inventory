@@ -1,24 +1,33 @@
 
+synopsis:
+
+	Inventory report
+
+description:
+
+	List of systems registered to the server, together with
+	hardware and software information.
+
 columns:
 
-	server_id
-	profile_name
-	hostname
-	ip_address
-	registered_by
-	registration_time
-	last_checkin_time
-	kernel_version
-	packages_out_of_date
-	errata_out_of_date
-	software_channel
-	configuration_channel
-	entitlements
-	system_group
-	organization
-	virtual_host
-	architecture
-	hardware
+	server_id	System identifier
+	profile_name	Profile name, as stored on server
+	hostname	Hostname, as reported by the system
+	ip_address	IP address, as reported by the system
+	registered_by	User under which the system is registered
+	registration_time	Registration time
+	last_checkin_time	Last checkin time
+	kernel_version		Kernel version, as reported by the system
+	packages_out_of_date	Number of packages that can be upgraded
+	errata_out_of_date	Number of erratas that can be applied
+	software_channel	List of channels to which the system is registered
+	configuration_channel	List of configuration channels
+	entitlements		List of entitlements
+	system_group		List of system group to which the system belongs
+	organization		Organization name
+	virtual_host		System identifier of host, if system is a guest
+	architecture		Architecture of the system
+	hardware		Hardware information
 
 multival_columns:
 
@@ -40,7 +49,7 @@ sql:
 		( select count(distinct rhnpackage.name_id) from rhnpackage, rhnserverneededpackagecache
 			where rhnserver.id = rhnserverneededpackagecache.server_id
 				and rhnserverneededpackagecache.package_id = rhnpackage.id ) as packages_out_of_date,
-		( select count(*) from rhnServerErrataTypeView where rhnserver.id = server_id ) as errata_out_of_date,
+		( select count(*) from rhnServerNeededErrataCache where rhnserver.id = server_id ) as errata_out_of_date,
 		rhnchannel.name as software_channel,
 		rhnconfigchannel.name as configuration_channel,
 		entitlement_data.name as entitlements,

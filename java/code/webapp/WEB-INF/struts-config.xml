@@ -675,7 +675,7 @@
   </form-bean>
 
         <form-bean name="kickstartPartitionForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+                   type="com.redhat.rhn.frontend.action.kickstart.KickstartPartitionForm">
             <form-property name="partitions" type="java.lang.String" />
             <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>        
@@ -3403,18 +3403,11 @@
         <set-property property="mixins" value="com.redhat.rhn.common.security.acl.MonitoringAclHandler" />
         <forward name="default"
                  path="/WEB-INF/pages/admin/monitoring/config/probesuites.jsp"/>
-    </action>
-    
-    <action path="/monitoring/config/ProbeSuitesSubmit"
-         scope="request"
-         input="/WEB-INF/pages/admin/monitoring/config/probesuites.jsp"
-         type="com.redhat.rhn.frontend.action.monitoring.ProbeSuiteListAction"
-         parameter="dispatch">
-         <forward name="default"
-                  path="/monitoring/config/ProbeSuites.do" redirect="true"/>
          <forward name="remove"
                   path="/monitoring/config/ProbeSuitesRemoveConfirm.do" redirect="true"/>
-    </action>  
+    </action>
+    
+
 
     <action path="/monitoring/config/ProbeSuitesRemoveConfirm"
          scope="request"
@@ -3441,19 +3434,10 @@
     <set-property property="acls" value="probe_suite_access()"/>
         <forward name="default"
                  path="/WEB-INF/pages/admin/monitoring/config/probes.jsp"/> 
+        <forward name="remove"
+                 path="/monitoring/config/ProbeSuiteListProbes.do" redirect="true"/>
     </action>
-    
-    <action path="/monitoring/config/ProbeSuiteListProbesSubmit"
-        scope="request"
-        input="/WEB-INF/pages/admin/monitoring/config/probes.jsp"
-        type="com.redhat.rhn.frontend.action.monitoring.ProbeSuiteListProbesAction"
-        parameter="dispatch"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-    <set-property property="acls" value="probe_suite_access()"/>
-         <forward name="default"
-                  path="/monitoring/config/ProbeSuiteListProbes.do" redirect="true"/>
-    </action>  
-    
+
 
     <action path="/monitoring/config/ProbeSuiteProbeCreate"
          name="probeCreateForm"

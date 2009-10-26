@@ -395,7 +395,8 @@ SELECT  PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO,
         PE.epoch,
         PN.id AS NAME_ID,
         PE.id AS EVR_ID,
-        PA.label as arch
+        PA.label as arch,
+        SP.installtime as installTime
   FROM  rhnPackageName PN 
   			INNER JOIN rhnServerPackage SP on SP.name_id = PN.id
   			INNER JOIN rhnPackageEVR PE on SP.evr_id = PE.id

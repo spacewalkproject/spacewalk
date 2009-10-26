@@ -43,6 +43,9 @@ README  - This file
 
 Changelog:
 -----------
+10/14/2009 - 2.1.3
+- Adding 5u4 data files
+
 8/26/2009 - 2.1.2
 - Small fix to ensure RHEL 4 compatibility
 

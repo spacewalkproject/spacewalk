@@ -24,7 +24,10 @@ CREATE TABLE rhnServerPackage
     evr_id           NUMBER NOT NULL
                          REFERENCES rhnPackageEVR (id),
     package_arch_id  NUMBER
-                         REFERENCES rhnPackageArch (id)
+                         REFERENCES rhnPackageArch (id),
+    created          DATE
+                         DEFAULT (sysdate) NOT NULL,
+    installtime      DATE
 )
 TABLESPACE [[server_package_tablespace]]
 ENABLE ROW MOVEMENT

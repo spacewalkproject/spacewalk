@@ -1,11 +1,21 @@
 
+synopsis:
+
+	Entitlement and channel list and usage
+
+description:
+
+	For each organization, list of system entitlements and
+	channels to which the organization is entitled, together
+	with current usage.
+
 columns:
 
-	organization_id
-	organization
-	entitlement_type
-	entitlement
-	used
+	organization_id		Organization identifier
+	organization		Organization name
+	entitlement_type	'system' or 'channel'
+	entitlement		System entitlement name or channel name
+	used			How many entitlements are currently used
 
 multival_columns:
 

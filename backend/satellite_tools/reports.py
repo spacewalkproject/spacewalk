@@ -11,8 +11,11 @@ class report:
 	def __init__(self, name):
 		full_path = os.path.join(REPORT_DEFINITIONS, name)
 		self.sql = None
+		self.description = None
+		self.synopsis = None
 		self.columns = None
 		self.column_indexes = None
+		self.column_descriptions = None
 		self.multival_column_names = {}
 		self.multival_columns_reverted = {}
 		self.multival_columns_stop = []
@@ -69,12 +72,21 @@ class report:
 
 	def _set(self, tag, value):
 		if tag == 'columns':
-			self.columns = filter(lambda x: x != '', re.split('\s+', value))
-			# set mapping from column name to column position in column_indexes
+			self.columns = []
 			self.column_indexes = {}
+			self.column_descriptions = {}
+			lines = filter(lambda x: x != '', re.split('\s*\n\s*', value))
 			i = 0
-			for c in self.columns:
+			for l in lines:
+				description = None
+				try:
+					( c, description ) = re.split('\s+', l, 1)
+				except:
+					c = l
+				self.columns.append(c)
 				self.column_indexes[c] = i
+				if description != None:
+					self.column_descriptions[c] = description
 				i = i + 1
 		elif tag == 'multival_columns':
 			# the multival_columns specifies either
@@ -93,6 +105,10 @@ class report:
 					self.multival_column_names[col] = id_col
 		elif tag == 'sql':
 			self.sql = value
+		elif tag == 'synopsis':
+			self.synopsis = re.sub('^(\s*\n)+\s*|(\s*\n)+$', '', value)
+		elif tag == 'description':
+			self.description = re.sub('(?m)^\s*', '    ', re.sub('^(\s*\n)+\s*|(\s*\n)+$', '', value))
 		else:
 			raise spacewalk_report_unknown_tag_exception(tag)
 

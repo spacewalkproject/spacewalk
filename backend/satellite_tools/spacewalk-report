@@ -58,6 +58,8 @@ def processCommandline():
 		Option('--db', action='store', type="string",
 			help='alternative database string (username/password@sid);' \
 				+ ' default is default_db from /etc/rhn/rhn.conf'),
+		Option('--info', action='store_true',
+			help='print synopsis of the report in the list of report, or description of individual reports specified'),
 	]
 
 	optionParser = OptionParser( \
@@ -77,6 +79,8 @@ def processCommandlineReport(report):
 		Option('--list-fields', action='store_true',
 			dest='listfields',
 			help='list fields of the report instead of running the report'),
+		Option('--info', action='store_true',
+			help='print description for each column'),
 		]
 	optionParserReport = OptionParser(
 		usage="options for report %s" % report,
@@ -100,9 +104,33 @@ if __name__ == '__main__':
 			except(reports.spacewalk_unknown_report):
 				systemExit(-4, 'Unknown report [%s].' % report_name)
 
+			need_exit = None
+			if options.info:
+				if report.synopsis != None:
+					print report.synopsis
+				else:
+					print "No synopsis for report %s." % report_name
+				if report.description != None:
+					print
+					print report.description
+				need_exit = True
+
 			if report_options.listfields:
+				if options.info:
+					print
+					print "Fields in the report:"
+					print
+
 				for c in report.columns:
-					print c
+					text = c
+					if options.info:
+						text = "    %s" % c
+					if report_options.info and report.column_descriptions.has_key(c) :
+						text = "%s: %s" % ( text, report.column_descriptions[c] )
+					print text
+				need_exit = True
+
+			if need_exit:
 				sys.exit(0)
 
 			initCFG('server')
@@ -124,7 +152,7 @@ if __name__ == '__main__':
 			outrow = None
 			multival_dupes = {}
 			while row != None:
-				if options.multivalonrows:
+				if options.multivalonrows or not report.multival_column_names.keys():
 					writer.writerow(row)
 					row = h.fetchone()
 					continue
@@ -156,8 +184,17 @@ if __name__ == '__main__':
 			if outrow != None:
 				writer.writerow(outrow)
 		else:
-			for r in reports.available_reports():
-				print r
+			for report_name in reports.available_reports():
+				if options.info:
+					synopsis = ''
+					try:
+						report = reports.report(report_name)
+						synopsis = report.synopsis
+					except:
+						None
+					print "%s: %s" % ( report_name, synopsis )
+				else:
+					print report_name
 
 	except KeyboardInterrupt:
 		systemExit(-1, "\nUser interrupted process.")

@@ -19,6 +19,7 @@ import rpcServer
 import urlparse
 import rhnreg_constants
 import hardware
+from rhnPackageInfo import convertPackagesFromHashToList
 
 try:
     from rhn import rpclib
@@ -425,7 +426,10 @@ def registerSystem(username = None, password = None,
         auth_dict["password"] = password
 
     if cfg['supportsSMBIOS']:
-        auth_dict["smbios"] = hardware.get_hal_smbios()
+        try:
+            auth_dict["smbios"] = hardware.get_hal_smbios()
+        except:
+            log.log_debug("Cannot Acquire hardware information")    
     
     s = rhnserver.RhnServer()
     if packages == None:
@@ -636,6 +640,9 @@ def sendHardware(systemId, hardwareList):
    
 def sendPackages(systemId, packageList):
     s = rhnserver.RhnServer()
+    if not s.capabilities.hasCapability('xmlrpc.packages.extended_profile', 2):
+        # for older satellites and hosted - convert to old format
+        packageList = convertPackagesFromHashToList(packageList)
     s.registration.add_packages(systemId, packageList)
 
 def sendVirtInfo(systemId):

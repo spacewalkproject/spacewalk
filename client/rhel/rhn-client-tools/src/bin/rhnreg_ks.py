@@ -104,7 +104,7 @@ class RegisterKsCli(rhncli.RhnCli):
                 getInfo = 1
             packageList = rpmUtils.getInstalledPackageList(getInfo=getInfo)
         else:
-            packageList = []
+            packageList = {}
 
         
         hardwareList = hardware.Hardware()

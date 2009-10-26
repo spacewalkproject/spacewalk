@@ -3094,7 +3094,19 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/systems/details/packages/RemoveConfirm.do</context>
           <context context-type="sourcefile">/rhn/errata/manage/AddPackagesConfirm.do</context>
         </context-group>
-      </trans-unit>      
+      </trans-unit>
+      <trans-unit id="packagelist.jsp.installtime">
+<source>Installed</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="packagelist.jsp.unknowntime">
+<source>N/A</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="packagelist.jsp.removepagesummary">
 <source>The following packages are installed on this system.  Packages may be scheduled for removal by selecting them and clicking "Remove Packages" below.</source>
         <context-group name="ctx">

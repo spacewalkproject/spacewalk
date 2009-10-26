@@ -35,6 +35,29 @@ from virtualization.util          import dehyphenize_uuid, \
 ###############################################################################
 
 CONFIG_DIR = '/etc/sysconfig/rhn/virt'
+STANDARD_CONFIG_TEMPLATE = """
+    <domain type='xen'>
+        <name>%(name)s</name>
+        <bootloader>/usr/bin/pygrub</bootloader>
+        <memory>%(mem_kb)s</memory>
+        <vcpu>%(vcpus)s</vcpu>
+        <uuid>%(uuid)s</uuid>
+        <on_reboot>restart</on_reboot>
+        <on_poweroff>destroy</on_poweroff>
+        <on_crash>preserve</on_crash>
+        <devices>
+            <disk type='file'>
+                <source file='%(disk)s'/>
+                <target dev='xvda'/>
+            </disk>
+            <interface type='bridge'>
+                <source bridge='xenbr0'/>
+                <mac address='%(mac)s'/>
+                <script path='/etc/xen/scripts/vif-bridge'/>
+            </interface>
+        </devices>
+</domain>
+"""
 
 ###############################################################################
 # Classes
@@ -67,6 +90,19 @@ class DomainDirectory:
         DomainConfig object is returned.
         """
         return DomainConfig(self.__path, uuid)
+
+    def create_standard_config(self, uuid, name, mem_kb, vcpus, disk, mac):
+        # First, populate the XML with the appropriate values.
+        boot_params = { 'name'       : name,
+                        'mem_kb'     : mem_kb,
+                        'vcpus'      : vcpus,
+                        'uuid'       : hyphenize_uuid(uuid),
+                        'disk'       : disk,
+                        'mac'        : mac }
+
+        xml = STANDARD_CONFIG_TEMPLATE % boot_params
+
+        self.__write_xml_file(uuid, xml)
 
     def save_unknown_domain_configs(self, domain_uuids):
         """
