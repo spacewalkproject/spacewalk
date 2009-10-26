@@ -18,6 +18,7 @@ Generate reports from Spacewalk server in csv format
     <cmdsynopsis>
         <command>spacewalk-report</command>
         <arg>--db=<replaceable>connect_string</replaceable></arg>
+        <arg>--info</arg>
     </cmdsynopsis>
     <cmdsynopsis>
         <command>spacewalk-report</command>
@@ -29,9 +30,11 @@ Generate reports from Spacewalk server in csv format
         <sbr />
         <arg>--db=<replaceable>connect-string</replaceable></arg>
         <sbr />
+        <arg>--info</arg>
+        <sbr />
         <arg choice='plain'><replaceable>report-name</replaceable></arg>
         <sbr />
-        <arg>--list-fields</arg>
+        <arg>--list-fields <arg>--info</arg></arg>
         <sbr />
         <arg choice='plain'>other report specific options</arg>
     </cmdsynopsis>
@@ -60,6 +63,17 @@ Generate reports from Spacewalk server in csv format
 
 <RefSect1><Title>General Options</Title>
 <variablelist>
+    <varlistentry>
+        <term>--info</term>
+        <listitem>
+            <para>When listing available reports, also print
+	    synopsis for each report.</para>
+
+            <para>When used with report name specified, print
+	    synopsis and description for the report, instead
+	    of running the report.</para>
+        </listitem>
+    </varlistentry>
     <varlistentry>
         <term>--multival-on-rows</term>
         <listitem>
@@ -102,6 +116,13 @@ Generate reports from Spacewalk server in csv format
         <listitem>
             <para>Instead of running the report, shows fields that the
             report has, one field name per line.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--info</term>
+        <listitem>
+            <para>Used with <option>--list-fields</option>, the list
+	    of fields has description shown as well.</para>
         </listitem>
     </varlistentry>
 </variablelist>
