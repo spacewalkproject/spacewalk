@@ -264,6 +264,10 @@ class PackageImport(ChannelPackageSubscription):
             f['capability'] = nv
             if not self.capabilities.has_key(nv):
                 self.capabilities[nv] = None
+            fchecksum = ('md5', f['md5'])
+            f['checksum'] = fchecksum
+            if not self.checksums.has_key(fchecksum):
+                self.checksums[fchecksum] = None
 
         # Uniquify changelog entries
         changelogs = {}
@@ -369,6 +373,9 @@ class PackageImport(ChannelPackageSubscription):
             for entry in package[tag]:
                 nv = entry['capability']
                 entry['capability_id'] = self.capabilities[nv]
+         fileList = package['files']
+         for f in fileList:
+                f['checksum_id'] = self.checksums[f['checksum']]
 
     def __postprocessSolarisPackage(self, package):
         # set solaris patch packages for a solaris patch
