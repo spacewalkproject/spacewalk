@@ -71,6 +71,7 @@ class ChannelPackageSubscription(GenericPackageImport):
             if package.ignored:
                 continue
             self._postprocessPackageNEVRA(package)
+            package['checksum_id'] = self.checksums[package['checksum']]
             if not CFG.ENABLE_NVREA:
                 # nvrea disabled, skip md5sum
                 nevrao = (
@@ -177,6 +178,12 @@ class ChannelPackageSubscription(GenericPackageImport):
             self.channels[channelName] = None
         # Replace the channel list with the uniquified list
         package.channels = channels
+
+        # FIXME: needs to be fixed for sha256
+        checksum = ('md5',package['md5sum'])
+        package['checksum'] = checksum
+        if not self.checksums.has_key(checksum):
+            self.checksums[checksum] = None
     
     # Copies the channels from one package to the other
     def __copyChannels(self, sourcePackage, destPackage):
@@ -233,12 +240,6 @@ class PackageImport(ChannelPackageSubscription):
         # Change copyright to license
         # XXX
         package['copyright'] = package['license']
-
-        # FIXME: needs to be fixed for sha256
-        checksum = ('md5',package['md5sum'])
-        package['checksum'] = checksum
-        if not self.checksums.has_key(checksum):
-            self.checksums[checksum] = None
 
         # Creates all the data structures needed to insert capabilities
         for tag in ('provides', 'requires', 'conflicts', 'obsoletes'):
