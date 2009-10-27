@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartDefaults;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
@@ -68,7 +69,9 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
     }
     
     protected void updateCobblerFields(Profile profile) {
-        profile.setDistro(getDistroForKickstart());
+        if (getDistroForKickstart() != null) {
+            profile.setDistro(getDistroForKickstart());
+        }
         if (kernelOptions != null) {
             profile.setKernelOptions(kernelOptions);
         }
@@ -130,7 +133,11 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
      * @return the distro object
      */
     public Distro getDistroForKickstart() {
-        return getCobblerDistroForVirtType(ksData.getTree(), 
+        KickstartDefaults def = ksData.getKickstartDefaults();
+        if (def ==  null) {
+            return null;
+        }
+        return getCobblerDistroForVirtType(def.getKstree(), 
                 ksData.getKickstartDefaults().getVirtualizationType(), user);
     }
     

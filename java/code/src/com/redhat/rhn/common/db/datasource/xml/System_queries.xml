@@ -1239,7 +1239,8 @@ SELECT PN.name,
        PE.version, 
        PE.release, 
        NVL(PE.epoch, ' ') as epoch,
-       PA.name as arch
+       PA.name as arch,
+       SP.installtime
   FROM rhnPackageName PN, rhnPackageEVR PE, rhnServerPackage SP, rhnPackageArch PA
  WHERE SP.server_id = :sid
    AND PN.id = SP.name_id

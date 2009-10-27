@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.10
+Version: 0.7.13
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -280,6 +280,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Oct 26 2009 Tomas Lestach <tlestach@redhat.com> 0.7.13-1
+- 527724 - fix for kickstart upgrade issue (tlestach@redhat.com)
+- 449167 - it looks better when architecture column is not thin column
+  (msuchy@redhat.com)
+
 * Fri Oct 23 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.10-1
 - 449167 - show rpm install date in webui
 - 144325 - recommiting this without the unintended sql commit  <jsherril@redhat.com>

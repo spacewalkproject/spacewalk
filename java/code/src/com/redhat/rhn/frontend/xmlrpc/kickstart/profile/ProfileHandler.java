@@ -27,10 +27,10 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartDefaults;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartIpRange;
+import com.redhat.rhn.domain.kickstart.KickstartPackage;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.user.User;
@@ -823,23 +823,23 @@ public class ProfileHandler extends BaseHandler {
                 loggedInUser.getOrg().getId());
         
         // Set operations to determine deltas
-        Set<PackageName> onlyInProfile1 =
-            new HashSet<PackageName>(profile1.getPackageNames());
-        onlyInProfile1.removeAll(profile2.getPackageNames());
+        Set<KickstartPackage> onlyInProfile1 =
+            new HashSet<KickstartPackage>(profile1.getKsPackages());
+        onlyInProfile1.removeAll(profile2.getKsPackages());
         
-        Set<PackageName> onlyInProfile2 = 
-            new HashSet<PackageName>(profile2.getPackageNames());
-        onlyInProfile2.removeAll(profile1.getPackageNames());
+        Set<KickstartPackage> onlyInProfile2 = 
+            new HashSet<KickstartPackage>(profile2.getKsPackages());
+        onlyInProfile2.removeAll(profile1.getKsPackages());
         
         // Convert the remaining into strings for return
         Set<String> profile1PackageNameStrings = new HashSet<String>(onlyInProfile1.size());
-        for (PackageName packageName : onlyInProfile1) {
-            profile1PackageNameStrings.add(packageName.getName());
+        for (KickstartPackage ksPackage : onlyInProfile1) {
+            profile1PackageNameStrings.add(ksPackage.getPackageName().getName());
         }
         
         Set<String> profile2PackageNameStrings = new HashSet<String>(onlyInProfile2.size());
-        for (PackageName packageName : onlyInProfile2) {
-            profile2PackageNameStrings.add(packageName.getName());
+        for (KickstartPackage ksPackage : onlyInProfile2) {
+            profile2PackageNameStrings.add(ksPackage.getPackageName().getName());
         }
     
         // Package for return

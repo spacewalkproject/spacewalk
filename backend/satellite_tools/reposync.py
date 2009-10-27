@@ -143,9 +143,7 @@ class RepoSync:
                                   self.channel['org_id'], md5)
                 if pid is None:
                     self.upload_package(pack, path)
-                    self.associate_package(pack, md5)
-                else:
-                    self.associate_package(pack, md5) #package is already on the satellite, lets just associate
+                self.associate_package(pack, md5)
                 if self.url.find("file://")  < 0:
                     os.remove(path)
 

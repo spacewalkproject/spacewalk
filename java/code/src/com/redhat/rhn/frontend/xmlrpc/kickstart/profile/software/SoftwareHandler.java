@@ -18,6 +18,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartPackage;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
@@ -28,6 +29,7 @@ import com.redhat.rhn.frontend.xmlrpc.kickstart.XmlRpcKickstartHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * SoftwareHandler
@@ -57,8 +59,8 @@ public class SoftwareHandler extends BaseHandler {
         checkKickstartPerms(user);
         KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
         List<String> list = new ArrayList<String>();
-        for (PackageName p : ksdata.getPackageNames()) {
-            list.add(p.getName());
+        for (KickstartPackage p : ksdata.getKsPackages()) {
+            list.add(p.getPackageName().getName());
         }
         return list;
     }
@@ -86,11 +88,11 @@ public class SoftwareHandler extends BaseHandler {
         User user = getLoggedInUser(sessionKey);
         checkKickstartPerms(user);
         KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
-        List<PackageName> packages = ksdata.getPackageNames();
+        Set<KickstartPackage> packages = ksdata.getKsPackages();
         packages.clear();
         for (String p : packageList) {
             PackageName pn = PackageFactory.lookupOrCreatePackageByName(p);
-            packages.add(pn);
+            packages.add(new KickstartPackage(ksdata, pn));
         }
         KickstartFactory.saveKickstartData(ksdata);
         return 1;
@@ -118,11 +120,12 @@ public class SoftwareHandler extends BaseHandler {
         User user = getLoggedInUser(sessionKey);
         checkKickstartPerms(user);
         KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
-        List<PackageName> packages = ksdata.getPackageNames();
+        Set<KickstartPackage> packages = ksdata.getKsPackages();
         for (String p : packageList) {
             PackageName pn = PackageFactory.lookupOrCreatePackageByName(p);
-            if (!packages.contains(pn)) {
-                packages.add(pn);
+            KickstartPackage kp = new KickstartPackage(ksdata, pn);
+            if (!packages.contains(kp)) {
+                packages.add(kp);
             }
         }
         KickstartFactory.saveKickstartData(ksdata);

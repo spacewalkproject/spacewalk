@@ -1065,7 +1065,9 @@ public class SystemHandler extends BaseHandler {
     }
     
     /**
-     * List the installed packages for a given system
+     * List the installed packages for a given system.
+     * @xmlrpc.doc List the installed packages for a given system. The attribute
+     * installtime is returned since API version 10.10.
      * @param sessionKey The sessionKey containing the logged in user
      * @param sid The id of the system in question
      * @return Returns an array of maps representing the packages installed on a system
@@ -1083,6 +1085,7 @@ public class SystemHandler extends BaseHandler {
      *                 #prop("string", "release")
      *                 #prop("string", "epoch")
      *                 #prop("string", "arch")
+     *                 #prop("string", "installtime")
      *          #struct_end()
      *      #array_end()
      */

@@ -63,7 +63,7 @@ public class KickstartDataSerializer implements XmlRpcCustomSerializer {
         helper.add("kernelParams", kd.getKernelParams());
         helper.add("nonChrootPost", kd.getNonChrootPost());
         helper.add("verboseUp2date", kd.getVerboseUp2date());
-        helper.add("packageNames", kd.getPackageNames());
+        helper.add("packageNames", kd.getKsPackages());
         helper.add("commands", kd.getCommands());
         helper.add("defaultRegTokens", kd.getDefaultRegTokens());
         helper.add("ips", kd.getIps());
