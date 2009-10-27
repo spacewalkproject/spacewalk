@@ -183,6 +183,7 @@ class RepoSync:
         package['epoch'] = pack.epoch
         package['arch'] = pack.arch
         package['md5sum'] = md5sum
+        package['checksum'] = ('md5', md5sum)
         package['channels']  = [{'label':self.channel_label, 
                                  'id':self.channel['id']}]
         package['org_id'] = self.channel['org_id']
