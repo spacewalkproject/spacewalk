@@ -18,7 +18,7 @@ import time
 import string
 from types import StringType
 
-from common import log_debug, rhnLib, CFG
+from common import log_debug, rhnLib
 from server import rhnSQL
 
 class ArrayIterator:
@@ -1318,7 +1318,6 @@ class _KickstartFilesDumper(BaseDumper):
     tag_name = 'rhn-kickstart-files'
 
     def dump_subelement(self, data):
-        attrs = data.copy()
         last_modified = data['last-modified']
         data['last-modified'] = _dbtime2timestamp(last_modified)
 
