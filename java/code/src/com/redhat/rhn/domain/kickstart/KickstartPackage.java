@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,7 +16,6 @@ package com.redhat.rhn.domain.kickstart;
 
 import java.util.Date;
 import java.io.Serializable;
-import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 
@@ -41,13 +40,13 @@ public class KickstartPackage
     }
 
     /**
-     * @param ksdata
-     * @param package_name_id
+     * @param ksDataIn identifies kickstart
+     * @param packageNameIn PackageName to be assciated
      */
-    public KickstartPackage(KickstartData ksdata, PackageName package_name_id) {
+    public KickstartPackage(KickstartData ksDataIn, PackageName packageNameIn) {
         super();
-        this.ksData = ksdata;
-        this.packageName = package_name_id;
+        this.ksData = ksDataIn;
+        this.packageName = packageNameIn;
     }
 
     /**
@@ -58,9 +57,9 @@ public class KickstartPackage
     }
 
     /**
-     * @param position The position to set.
+     * @param positionIn The position to set.
      */
-    public void setPosition(Long position) {
+    public void setPosition(Long positionIn) {
         this.position = position;
     }
 
@@ -72,10 +71,10 @@ public class KickstartPackage
     }
 
     /**
-     * @param created The created to set.
+     * @param createdIn The created to set.
      */
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setCreated(Date createdIn) {
+        this.created = createdIn;
     }
 
     /**
@@ -86,10 +85,10 @@ public class KickstartPackage
     }
 
     /**
-     * @param modified The modified to set.
+     * @param modifiedIn The modified to set.
      */
-    public void setModified(Date modified) {
-        this.modified = modified;
+    public void setModified(Date modifiedIn) {
+        this.modified = modifiedIn;
     }
 
     /**
@@ -120,21 +119,25 @@ public class KickstartPackage
         this.packageName = pn;
     }
 
+    /**
+     * @param that KickstartPackage to be compared
+     * @return -1,0,1 for sort algo
+     */
     public int compareTo(KickstartPackage that) {
 
-        final int EQUAL = 0;
+        final int equal = 0;
 
         if (this.equals(that)) {
-            return EQUAL;
+            return equal;
         }
 
         int comparism = this.getKsData().getId().compareTo(that.getKsData().getId());
-        if (EQUAL != comparism) {
+        if (equal != comparism) {
             return comparism;
         }
 
         comparism = this.getPosition().compareTo(that.getPosition());
-        if (EQUAL != comparism){
+        if (equal != comparism) {
             return comparism;
         }
         return this.getPackageName().compareTo(that.getPackageName());
@@ -148,7 +151,7 @@ public class KickstartPackage
             return false;
         }
         KickstartPackage that = (KickstartPackage) other;
-        return this.hashCode()== other.hashCode();
+        return this.hashCode() == other.hashCode();
     }
 
     /**
@@ -162,6 +165,9 @@ public class KickstartPackage
             .toHashCode();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public String toString() {
         return "packageName: ".concat(this.getKsData().getId().toString())
             .concat(", ").concat(this.getPosition().toString())

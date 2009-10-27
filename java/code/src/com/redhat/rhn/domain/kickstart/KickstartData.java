@@ -21,7 +21,6 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.common.FileList;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.kickstart.KickstartPackage;
 import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
@@ -427,7 +426,7 @@ public class KickstartData {
     
     /**
      * Adds a KickstartPackage object to ksPackages.
-     * @param p KickstartPackage to add
+     * @param kp KickstartPackage to add
      */
 
     public void addKsPackage(KickstartPackage kp) {
@@ -437,7 +436,7 @@ public class KickstartData {
 
     /**
      * Removes a KickstartPackage object from ksPackages.
-     * @param p KickstartPackage to remove
+     * @param kp KickstartPackage to remove
      */
 
     public void removeKsPackage(KickstartPackage kp) {

@@ -1046,16 +1046,22 @@ public class KickstartFactory extends HibernateFactory {
         return custom;
     }
 
+    /**
+     * @param p KickstartPackage to add to DB
+     */
     public static void savePackage(KickstartPackage p) {
         singleton.saveObject(p);
     }
 
+    /**
+     * @param p KickstartPackage to remove from DB
+     */
     public static void removePackage(KickstartPackage p) {
         singleton.removeObject(p);
     }
 
     /**
-     * @param ksData KcikstartDate to lookup
+     * @param ksData KcikstartData to lookup
      * @param packageName PackageName to lookup
      * @return KickstartPackge list
      */

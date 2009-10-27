@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.xmlrpc.kickstart.profile.software.test;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartPackage;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
-import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.software.SoftwareHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 

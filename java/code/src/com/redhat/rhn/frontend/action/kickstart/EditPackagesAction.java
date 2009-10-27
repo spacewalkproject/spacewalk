@@ -28,7 +28,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.StringTokenizer;
@@ -138,8 +137,10 @@ public class EditPackagesAction extends RhnAction {
         // first clear the kickstart packages set
         Set ksPackages = ksdata.getKsPackages();
         for (Iterator iter = ksPackages.iterator(); iter.hasNext();) {
-            KickstartFactory.removePackage((KickstartPackage)iter.next());   // remove from DB
-            iter.remove();                      // remove from collection
+            // remove from DB
+            KickstartFactory.removePackage((KickstartPackage)iter.next());
+            // remove from collection
+            iter.remove();
         }
         
         String newPackages = form.getString(PACKAGE_LIST);
@@ -152,11 +153,12 @@ public class EditPackagesAction extends RhnAction {
                     continue;
                 }
                 PackageName pn = PackageFactory.lookupOrCreatePackageByName(pkg);
-                KickstartPackage ks_p = new KickstartPackage(ksdata,pn);
+                KickstartPackage kp = new KickstartPackage(ksdata, pn);
 
-                if (KickstartFactory.lookupKsPackageByKsDataAndPackageName(ksdata, pn).isEmpty()) {
-                    ksdata.addKsPackage(ks_p);          // save to collection
-                    KickstartFactory.savePackage(ks_p); // save to DB
+                if (KickstartFactory.lookupKsPackageByKsDataAndPackageName(
+                                                        ksdata, pn).isEmpty()) {
+                    ksdata.addKsPackage(kp);          // save to collection
+                    KickstartFactory.savePackage(kp); // save to DB
                 }
             }
         }

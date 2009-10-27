@@ -92,7 +92,7 @@ public class SoftwareHandler extends BaseHandler {
         packages.clear();
         for (String p : packageList) {
             PackageName pn = PackageFactory.lookupOrCreatePackageByName(p);
-            packages.add(new KickstartPackage(ksdata,pn));
+            packages.add(new KickstartPackage(ksdata, pn));
         }
         KickstartFactory.saveKickstartData(ksdata);
         return 1;
@@ -123,9 +123,9 @@ public class SoftwareHandler extends BaseHandler {
         Set<KickstartPackage> packages = ksdata.getKsPackages();
         for (String p : packageList) {
             PackageName pn = PackageFactory.lookupOrCreatePackageByName(p);
-            KickstartPackage ks_p = new KickstartPackage(ksdata, pn);
-            if (!packages.contains(ks_p)) {
-                packages.add(ks_p);
+            KickstartPackage kp = new KickstartPackage(ksdata, pn);
+            if (!packages.contains(kp)) {
+                packages.add(kp);
             }
         }
         KickstartFactory.saveKickstartData(ksdata);

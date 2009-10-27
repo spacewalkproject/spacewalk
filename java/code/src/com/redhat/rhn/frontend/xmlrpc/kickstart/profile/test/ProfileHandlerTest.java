@@ -186,7 +186,8 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
     
     public void testDownloadKickstart() throws Exception {
         KickstartData ks1  = KickstartDataTest.createKickstartWithProfile(admin);
-        ks1.addKsPackage(new KickstartPackage(ks1, PackageFactory.lookupOrCreatePackageByName("blahPackage")));
+        ks1.addKsPackage(new KickstartPackage(ks1,
+            PackageFactory.lookupOrCreatePackageByName("blahPackage")));
         
         ActivationKey key = ActivationKeyTest.createTestActivationKey(admin);
         ks1.addDefaultRegToken(key.getToken());
@@ -458,11 +459,11 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         Package package2 = PackageTest.createTestPackage(admin.getOrg());
         Package package3 = PackageTest.createTestPackage(admin.getOrg());
         
-        ks1.addKsPackage(new KickstartPackage(ks1,package1.getPackageName()));
-        ks1.addKsPackage(new KickstartPackage(ks1,package2.getPackageName()));
+        ks1.addKsPackage(new KickstartPackage(ks1, package1.getPackageName()));
+        ks1.addKsPackage(new KickstartPackage(ks1, package2.getPackageName()));
 
-        ks2.addKsPackage(new KickstartPackage(ks2,package1.getPackageName()));
-        ks2.addKsPackage(new KickstartPackage(ks2,package3.getPackageName()));
+        ks2.addKsPackage(new KickstartPackage(ks2, package1.getPackageName()));
+        ks2.addKsPackage(new KickstartPackage(ks2, package3.getPackageName()));
         
         KickstartFactory.saveKickstartData(ks1);
         KickstartFactory.saveKickstartData(ks2);
@@ -498,7 +499,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
                 
         Package package1 = PackageTest.createTestPackage(admin.getOrg());
         
-        ks1.addKsPackage(new KickstartPackage(ks1,package1.getPackageName()));
+        ks1.addKsPackage(new KickstartPackage(ks1, package1.getPackageName()));
 
         KickstartFactory.saveKickstartData(ks1);
         
