@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.13
+Version: 0.7.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -280,6 +280,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Oct 27 2009 Tomas Lestach <tlestach@redhat.com> 0.7.14-1
+- checkstyle errors removed (tlestach@redhat.com)
+- 525561 - fixing issue where ksdata without associated kickstart defaults
+  would try to be synced to cobbler and fail (jsherril@redhat.com)
+
 * Mon Oct 26 2009 Tomas Lestach <tlestach@redhat.com> 0.7.13-1
 - 527724 - fix for kickstart upgrade issue (tlestach@redhat.com)
 - 449167 - it looks better when architecture column is not thin column
