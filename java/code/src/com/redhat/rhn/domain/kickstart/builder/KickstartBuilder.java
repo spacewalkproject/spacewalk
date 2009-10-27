@@ -46,6 +46,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -209,7 +210,7 @@ public class KickstartBuilder {
                 "%packages tag.");
         }
         
-        Set<KickstartPackage> ksPackagesSet = new HashSet<KickstartPackage>();
+        Set<KickstartPackage> ksPackagesSet = new TreeSet<KickstartPackage>();
 
         for (Iterator<String> it = lines.iterator(); it.hasNext();) {
             String currentLine = (String)it.next();
@@ -350,7 +351,7 @@ public class KickstartBuilder {
         setupBasicInfo(label, ksdata, tree, virtualizationType);
 
         if (ksdata.getKsPackages() == null) {
-            ksdata.setKsPackages(new HashSet<KickstartPackage>());
+            ksdata.setKsPackages(new TreeSet<KickstartPackage>());
         }
         
         buildCommands(ksdata, parser.getOptionLines(), tree, kickstartHost);
@@ -531,7 +532,7 @@ public class KickstartBuilder {
         cmd.processSkipKey(ksdata);
         cmd.processRepos(ksdata);
         if (ksdata.getKsPackages() == null) {
-            ksdata.setKsPackages(new HashSet<KickstartPackage>());
+            ksdata.setKsPackages(new TreeSet<KickstartPackage>());
         }
         PackageName pn = cmd.findPackageName("@ Base");
         ksdata.addKsPackage(new KickstartPackage(ksdata, pn));

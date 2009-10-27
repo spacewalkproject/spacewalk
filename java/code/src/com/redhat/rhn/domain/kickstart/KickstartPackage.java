@@ -60,7 +60,7 @@ public class KickstartPackage
      * @param positionIn The position to set.
      */
     public void setPosition(Long positionIn) {
-        this.position = position;
+        this.position = positionIn;
     }
 
     /**

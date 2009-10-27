@@ -104,7 +104,7 @@ public class KickstartData {
         cryptoKeys = new HashSet();
         defaultRegTokens = new HashSet();
         preserveFileLists = new HashSet();
-        ksPackages = new HashSet<KickstartPackage>();
+        ksPackages = new TreeSet<KickstartPackage>();
         commands = new HashSet<KickstartCommand>();
         ips = new HashSet();
         scripts = new HashSet<KickstartScript>();
@@ -1225,7 +1225,7 @@ public class KickstartData {
         }
         cloned.setOrg(this.getOrg());
         if (this.getKsPackages() != null) {
-            cloned.setKsPackages(new HashSet(this.getKsPackages()));
+            cloned.setKsPackages(new TreeSet(this.getKsPackages()));
         }
         if (this.getPreserveFileLists() != null) {
             cloned.setPreserveFileLists(new HashSet(this.getPreserveFileLists()));
