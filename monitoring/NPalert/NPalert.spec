@@ -9,7 +9,7 @@ Name:         NPalert
 Summary:      NOCpulse notification system
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.126.10
+Version:      1.126.11
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -129,6 +129,10 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Oct 30 2009 Michael Mraka <michael.mraka@redhat.com> 1.126.11-1
+- Fix to use MethodMaker-provided accessor methods for list types.
+- bailout is defined in NOCpulse::NOCpulseini
+
 * Thu Aug 20 2009 Miroslav Suchý <msuchy@redhat.com> 1.126.10-1
 - avoid deadlock when we have problem after acquiring lock
 
