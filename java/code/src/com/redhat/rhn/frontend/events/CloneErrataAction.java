@@ -80,7 +80,6 @@ public class CloneErrataAction
             }
             ErrataCacheManager.insertCacheForChannelErrata(cids, errata);
         }
-        handleTransactions();
     }
 
 

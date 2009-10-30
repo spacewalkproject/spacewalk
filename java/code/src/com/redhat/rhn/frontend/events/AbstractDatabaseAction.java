@@ -42,26 +42,37 @@ public abstract class AbstractDatabaseAction implements MessageAction {
 
     /** {@inheritDoc} */
     public void execute(EventMessage msg) {
-        doExecute(msg);
-
-        handleTransactions();
+        boolean commit = true;
+        try {
+            doExecute(msg);
+        }
+        catch (Exception e) {
+            commit = false;
+            e.printStackTrace();
+        }
+        finally {
+            handleTransactions(commit);
+        }
     }
 
+    
     /**
      * Commits the current thread transaction, as well as close the Hibernate session. 
      * <p/>
      * Note that this call <em>MUST</em> take place for any database operations done in
      * a message queue action for the transaction to be committed. 
      */
-    protected void handleTransactions() {
+    protected void handleTransactions(boolean commit) {
         boolean committed = false;
 
         try {
-            HibernateFactory.commitTransaction();
-            committed = true;
-
-            if (log.isDebugEnabled()) {
-                log.debug("Transaction committed");
+            if (commit) {    
+                HibernateFactory.commitTransaction();
+                committed = true;
+    
+                if (log.isDebugEnabled()) {
+                    log.debug("Transaction committed");
+                }
             }
         }
         catch (HibernateException e) {

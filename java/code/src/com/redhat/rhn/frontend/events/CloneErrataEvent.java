@@ -17,7 +17,9 @@ package com.redhat.rhn.frontend.events;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.messaging.EventDatabaseMessage;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserFactory;
 
 import org.hibernate.Transaction;
 
@@ -33,10 +35,10 @@ public class CloneErrataEvent implements EventDatabaseMessage {
 
 
 
-    private Channel chan;
+    private Long chanId;
     private Collection<Long> errata;
     private Transaction txn;
-    private User user;
+    private Long userId;
 
     /**
      * constructor
@@ -45,9 +47,9 @@ public class CloneErrataEvent implements EventDatabaseMessage {
      * @param userIn the user 
      */
     public CloneErrataEvent(Channel chanIn, Collection<Long> errataIn, User userIn) {
-        chan = chanIn;
+        chanId = chanIn.getId();
         errata = errataIn;
-        user = userIn;
+        userId = userIn.getId();
         this.txn = HibernateFactory.getSession().getTransaction();
     }
     
@@ -72,7 +74,7 @@ public class CloneErrataEvent implements EventDatabaseMessage {
      * @return Returns the chan.
      */
     public Channel getChan() {
-        return chan;
+        return ChannelFactory.lookupById(chanId);
     }
 
     
@@ -80,7 +82,7 @@ public class CloneErrataEvent implements EventDatabaseMessage {
      * @param chanIn The chan to set.
      */
     public void setChan(Channel chanIn) {
-        this.chan = chanIn;
+        this.chanId = chanIn.getId();
     }
 
     
@@ -104,7 +106,7 @@ public class CloneErrataEvent implements EventDatabaseMessage {
      * @return Returns the user.
      */
     public User getUser() {
-        return user;
+        return UserFactory.lookupById(userId);
     }
     
   
