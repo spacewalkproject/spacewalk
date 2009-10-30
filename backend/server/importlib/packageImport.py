@@ -71,7 +71,8 @@ class ChannelPackageSubscription(GenericPackageImport):
             if package.ignored:
                 continue
             self._postprocessPackageNEVRA(package)
-            package['checksum_id'] = self.checksums[package['checksum']]
+            #package['checksum_id'] = self.checksums[package['checksum']]
+            self._postprocessPackage(package)
             if not CFG.ENABLE_NVREA:
                 # nvrea disabled, skip md5sum
                 nevrao = (
@@ -179,11 +180,11 @@ class ChannelPackageSubscription(GenericPackageImport):
         # Replace the channel list with the uniquified list
         package.channels = channels
 
-        # FIXME: needs to be fixed for sha256
-        checksum = ('md5',package['md5sum'])
-        package['checksum'] = checksum
-        if not self.checksums.has_key(checksum):
-            self.checksums[checksum] = None
+#        # FIXME: needs to be fixed for sha256
+#        checksum = ('md5',package['md5sum'])
+#        package['checksum'] = checksum
+#        if not self.checksums.has_key(checksum):
+#            self.checksums[checksum] = None
     
     # Copies the channels from one package to the other
     def __copyChannels(self, sourcePackage, destPackage):

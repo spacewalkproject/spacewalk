@@ -676,6 +676,11 @@ class GenericPackageImport(Import):
         if not self.package_arches.has_key(package.arch):
             self.package_arches[package.arch] = None
 
+        # FIXME: needs to be fixed for sha256
+        checksum = ('md5',package['md5sum'])
+        package['checksum'] = checksum
+        if not self.checksums.has_key(checksum):
+            self.checksums[checksum] = None
 
     def _postprocessPackageNEVRA(self, package):
         arch = self.package_arches[package.arch]
@@ -697,6 +702,8 @@ class GenericPackageImport(Import):
         package['name_id'], package['evr_id'], package['package_arch_id'] = nevra
         package['nevra_id'] = nevra_dict[nevra]
 
+    def _postprocessPackage(self, package):
+        package['checksum_id'] = self.checksums[package['checksum']]
 
 # Exceptions
 class ImportException(Exception):
