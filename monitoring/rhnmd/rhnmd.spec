@@ -5,7 +5,7 @@ Summary:   Red Hat Network Monitoring Daemon
 Name:      rhnmd
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:   5.3.2
+Version:   5.3.3
 Release:   1%{?dist}
 License:   GPLv2
 BuildArch: noarch
@@ -84,6 +84,9 @@ if [ $1 = 0 ]; then
 fi
 
 %changelog
+* Mon Nov  2 2009 Miroslav Suchý <msuchy@redhat.com> 5.3.3-1
+- make rhnmd package noarch
+
 * Fri Apr 10 2009 Miroslav Suchý <msuchy@redhat.com> 5.3.2-1
 - 494538 - remove the dependecy of rhnmd on nocpulse-common
 
