@@ -932,6 +932,7 @@ class CreateProfilePage:
             if not self.initProfile:
                 profileName = None
                 hostname = None
+                ipaddr = None
                 if self.hardware:
                     for hw in self.hardware:
                         if hw.has_key('class'):

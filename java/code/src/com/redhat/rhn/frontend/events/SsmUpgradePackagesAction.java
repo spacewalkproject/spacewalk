@@ -72,7 +72,7 @@ public class SsmUpgradePackagesAction extends AbstractDatabaseAction {
 
         // Explicitly call handle transactions here so the operation creation above
         // is persisted before the potentially long running logic below
-        handleTransactions();
+        handleTransactions(true);
 
         try {
             scheduleUpgrades(user, event);

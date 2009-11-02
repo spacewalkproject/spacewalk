@@ -27,7 +27,7 @@ sub new_strategy_for_alert {
 sub add_destination {
 #####################
   my ($self,$destination)=@_;
-  push(@{$self->destinations},$destination);
+  $self->push_destinations($destination);
 }
 
 ##############################

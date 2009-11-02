@@ -824,11 +824,11 @@ public class ProfileHandler extends BaseHandler {
         
         // Set operations to determine deltas
         Set<KickstartPackage> onlyInProfile1 =
-            new HashSet<KickstartPackage>(profile1.getKsPackages());
+            new TreeSet<KickstartPackage>(profile1.getKsPackages());
         onlyInProfile1.removeAll(profile2.getKsPackages());
         
         Set<KickstartPackage> onlyInProfile2 = 
-            new HashSet<KickstartPackage>(profile2.getKsPackages());
+            new TreeSet<KickstartPackage>(profile2.getKsPackages());
         onlyInProfile2.removeAll(profile1.getKsPackages());
         
         // Convert the remaining into strings for return
