@@ -8,10 +8,11 @@ Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.ta
 Version:   5.3.2
 Release:   1%{?dist}
 License:   GPLv2
+BuildArch: noarch
 Group:     System Environment/Daemons
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires:  openssh-server openssh
-BuildRequires: pam-devel gcc
+BuildRequires: pam-devel
 
 %description
 rhnmd enables secure ssh-based communication between the monitoring
@@ -21,7 +22,7 @@ scout and the monitored host.
 %setup -q
 
 %build
-gcc %{optflags} -Wall -shared rhnmdwrap.c -o librhnmdwrap.so -fPIC
+#nothing to do
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -37,9 +38,7 @@ ln -sf sshd $RPM_BUILD_ROOT%{_usr}/sbin/rhnmd
 install -m 0755 rhnmd-init $RPM_BUILD_ROOT%{_initrddir}/rhnmd
 install -m 0644 rhnmd_config $RPM_BUILD_ROOT%{_sysconfdir}/%{np_name}/rhnmd_config
 install -m 0600 authorized_keys $RPM_BUILD_ROOT%{_var}/lib/%{np_name}/.ssh/authorized_keys
-install -m 0755 rhnmd-wrap $RPM_BUILD_ROOT%{_usr}/sbin/rhnmd-wrap
 install -m 0644 rhnmd-pam_config $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/rhnmd
-install -m 0755 librhnmdwrap.so $RPM_BUILD_ROOT%{_libdir}/librhnmdwrap.so
 
 %pre
 if [ $1 -eq 1 ] ; then
@@ -74,7 +73,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(700, %{np_name},%{np_name}) %{_var}/lib/%{np_name}/.ssh
 %config(noreplace) %attr(-, %{np_name},%{np_name}) %{_var}/lib/%{np_name}/.ssh/authorized_keys
 %{_usr}/sbin/*
-%{_libdir}/librhnmdwrap.so
 %config(noreplace) %{_sysconfdir}/%{np_name}/*
 %{_initrddir}/rhnmd
 %doc LICENSE
