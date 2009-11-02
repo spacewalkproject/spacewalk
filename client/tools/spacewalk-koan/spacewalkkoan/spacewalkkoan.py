@@ -27,7 +27,6 @@ import os.path
 import tempfile
 import xmlrpclib
 import pprint
-import virtualization.support
 from koan.app import Koan
 
 SHADOW      = "/tmp/ks-tree-shadow"
@@ -192,6 +191,7 @@ def initiate_guest(kickstart_host, cobbler_system_name, virt_type, name, mem_kb,
         k.run()
 
         # refresh current virtualization state on the server
+        import virtualization.support
         virtualization.support.refresh()
     except Exception, e:
         (xa, xb, tb) = sys.exc_info()
