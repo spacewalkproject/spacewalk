@@ -930,14 +930,11 @@ def _normalizeSubelements(objtype, subelements):
     
 def _normalizeAttribute(objtype, attribute):
     # Deal with simple cases first
-    if objtype is None:
-        # Don't know how to handle it
+    if (objtype is None) or (objtype is types.StringType):
+        # (Don't know how to handle it) or (Expecting a scalar)
         return attribute
 
     if not isinstance(objtype, types.ListType):
-        # Expecting a scalar
-        if objtype is types.StringType:
-            return attribute
         if objtype is types.IntType:
             if attribute == '' or attribute == 'None':
                 # Treat it as NULL
