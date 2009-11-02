@@ -226,7 +226,9 @@ class ErrataImport(GenericPackageImport):
                 # Skip it
                 continue
 
+            oldpackage = package.copy()
             self._postprocessPackageNEVRA(package)
+            self._postprocessPackage(package)
 
             # Check the uniqueness
             nevrao = tuple(get_nevrao(package))
@@ -240,7 +242,9 @@ class ErrataImport(GenericPackageImport):
 
             # And put this package both in the local and in the global hash
             packageHash[nevrao] = package
-            self.packages.append(package)
+            # replace old package with new
+            idx = self.packages.index(oldpackage)
+            self.packages[idx] = package
 
         erratum['packages'] = packageHash
 
