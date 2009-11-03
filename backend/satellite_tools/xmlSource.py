@@ -936,19 +936,19 @@ def _normalizeAttribute(objtype, attribute):
     if (objtype is None) or (objtype is types.StringType):
         # (Don't know how to handle it) or (Expecting a scalar)
         return attribute
-
-    if not isinstance(objtype, types.ListType):
-        if objtype is types.IntType:
+    elif objtype is types.IntType:
             if attribute == '' or attribute == 'None':
                 # Treat it as NULL
                 return None
-            return int(attribute)
-        if objtype is importLib.DateType:
-            return _normalizeDateType(attribute)
+            else:
+                return int(attribute)
+    elif objtype is importLib.DateType:
+        return _normalizeDateType(attribute)
+    elif isinstance(objtype, types.ListType):
+        # List type - split stuff
+        return string.split(attribute)
+    else:
         raise Exception("Unhandled attribute data type %s" % objtype)
-
-    # List type - split stuff
-    return string.split(attribute)
 
 def _normalizeDateType(value):
     try:
