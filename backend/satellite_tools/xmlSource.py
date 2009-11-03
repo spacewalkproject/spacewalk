@@ -350,9 +350,8 @@ def _stringify(data):
     if isinstance(data, types.StringType):
         return data
     if typesHasUnicode:
-        if isinstance(data, types.UnicodeType):
-            # Convert Unicode data to UTF8
-            return data.encode('UTF8')
+        try: return data.encode('UTF8')
+        except AttributeError: pass
     return str(data)
 
 def _dict_to_utf8(d):
@@ -362,10 +361,10 @@ def _dict_to_utf8(d):
         return d
     ret = {}
     for k, v in d.items():
-        if isinstance(k, types.UnicodeType):
-            k = k.encode('UTF8')
-        if isinstance(v, types.UnicodeType):
-            v = v.encode('UTF8')
+        try: k = k.encode('UTF8')
+        except AttributeError: pass
+        try: v = v.encode('UTF8')
+        except AttributeError: pass
         ret[k] = v
     return ret
             
