@@ -234,7 +234,6 @@ class WriteLockedFile(LockedFile):
         # Set the file's mtime if necessary
         self.flush()
         if self.modified:
-            os.system("stat %s > /dev/null" % self.fname)
             os.utime(self.fname, (self.modified, self.modified))
 
 
