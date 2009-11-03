@@ -298,10 +298,11 @@ class BaseItem:
     def populateFromAttributes(self, obj, sourceDict):
         # Populates dict with items from sourceDict
         for key, value in sourceDict.items():
-            if not obj.has_key(key) and not self.tagMap.has_key(key):
-                # Unsupported key
-                continue
-            if self.tagMap.has_key(key):
+            if not self.tagMap.has_key(key):
+                if not obj.has_key(key):
+                    # Unsupported key
+                    continue
+            else:
                 # Have to map this key
                 key = self.tagMap[key]
 
