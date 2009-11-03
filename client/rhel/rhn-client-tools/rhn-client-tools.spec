@@ -9,6 +9,7 @@ Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %if %{?suse_version: %{suse_version} > 1000} %{!?suse_version:1}
 BuildArch: noarch
+BuildRequires: update-desktop-files
 %endif
 
 Requires: rhnlib >= 2.2.7
@@ -81,6 +82,9 @@ make -f Makefile.rhn-client-tools install VERSION=%{version}-%{release} PREFIX=$
 mkdir -p $RPM_BUILD_ROOT/var/lib/up2date
 
 desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications --vendor=rhn rhn_register.desktop
+%if 0%{?suse_version}
+%suse_update_desktop_file rhn_register System
+%endif
 
 %find_lang %{name}
 
