@@ -38,10 +38,12 @@ def copy(src, dest):
 def ask_yes_no(question, default_val = None):
     if default_val and default_val.lower() == 'y':
         default_val = 'y'
+        default_q   = '[Y/n]'
     else:
         default_val = 'n'
+        default_q   = '[y/N]'
 
-    ans = raw_input(question + " (y/n, default = '%s')?" % default_val)
+    ans = raw_input(question + " " + default_q + "?")
     if not ans:
         return default_val == 'y'
 

@@ -222,9 +222,10 @@ sub remove_old_jvm {
 
 	Spacewalk::Setup::ask(
 		-noninteractive => $opts{"non-interactive"},
-		-question => "Should setup remove these packages y/n",
+		-question => "Should setup remove these packages",
 		-test => sub { my $text = shift; return $text =~ /^[YyNn]/ },
 		-answer => \$answers->{"remove-old-jvm"},
+                -default => 'Y',
 	);
 	unless ( $answers->{"remove-old-jvm"} =~ /^[Yy]/ ) {
 		print Spacewalk::Setup::loc("** Skipping removal of old java packages.\n");
@@ -443,9 +444,10 @@ sub setup_ssl_vhost {
   }
   Spacewalk::Setup::ask(
     -noninteractive => $opts{"non-interactive"},
-    -question => "Should setup configure apache's default ssl server for you (saves original ssl.conf) y/n",
+    -question => "Should setup configure apache's default ssl server for you (saves original ssl.conf)",
     -test => sub { my $text = shift; return $text =~ /^[YyNn]/ },
     -answer => \$answers->{"ssl-config-sslvhost"},
+    -default => 'Y',
   );
   unless ( $answers->{"ssl-config-sslvhost"} =~ /^[Yy]/ ) {
     print Spacewalk::Setup::loc("** Skipping SSL virtual host configuration.\n");
