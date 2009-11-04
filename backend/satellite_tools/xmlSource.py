@@ -110,8 +110,6 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
         self.restoreParser()
         # No container at this time
         self.__container = None
-        # Simple tag stack, to ensure corectness
-        self.tagStack = []
         # Reset all the containers, to make sure previous runs don't leave
         # garbage data
         for container in self.container_dispatch.values():
@@ -191,7 +189,6 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
 
     def startElement(self, element, attrs):
         log_debug(6, element)
-        self.tagStack.append(element)
         utf8_attrs = _dict_to_utf8(attrs)
         if self.rootAttributes is None:
             # First time around
@@ -214,10 +211,6 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
 
     def endElement(self, element):
         log_debug(6, element)
-        top = self.tagStack[-1]
-        del self.tagStack[-1]
-        if element != top:
-            raise Exception("TTT")
         if self.__container is None:
             # End of the root attribute
             # We know now the tag stack is empty
