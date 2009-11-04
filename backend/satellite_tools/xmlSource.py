@@ -192,12 +192,13 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
     def startElement(self, element, attrs):
         log_debug(6, element)
         self.tagStack.append(element)
+        utf8_attrs = _dict_to_utf8(attrs)
         if self.rootAttributes is None:
             # First time around
             if self.rootElement != element:
                 raise Exception("Mismatching elements; root='%s', "
                     "received='%s'" % (self.rootElement, element))
-            self.rootAttributes = _dict_to_utf8(attrs)
+            self.rootAttributes = utf8_attrs
             self._check_version()
             return
 
@@ -205,7 +206,7 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
             # This means it's parsing a container element
             self.__container = self.get_container(element)
 
-        self.__container.startElement(element, _dict_to_utf8(attrs))
+        self.__container.startElement(element, utf8_attrs)
 
     def characters(self, data):
         if self.__container:
