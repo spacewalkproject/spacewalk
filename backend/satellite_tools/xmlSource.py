@@ -821,7 +821,7 @@ class ContainerHandler:
             # Nothing to do with this object
             return
 
-        if isinstance(item, importLib.Error):
+        if item.has_key('error'):
             # Special case errors
             log_debug(0, 'XML parser error: found "rhn-error" item: %s' %
                 item['error'])
