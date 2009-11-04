@@ -1185,6 +1185,25 @@ class Backend:
 
         return 
 
+    # bug #528227
+    def lookupChannelOrg(self, label):
+        """For given label of channel return its org_id.
+           If channel with given label does not exist or is NULL, return None.
+        """
+        statement = self.dbmodule.prepare("""
+            SELECT org_id
+              FROM rhnChannel
+             WHERE label = :label
+        """)
+
+        statement.execute(label=label)
+        org_id = statement.fetchone_dict()
+
+        if org_id:
+            return org_id
+
+        return
+
     def lookupChannelProduct(self, channel):
         statement = self.dbmodule.prepare("""
             SELECT id

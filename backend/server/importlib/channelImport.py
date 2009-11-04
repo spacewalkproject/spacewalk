@@ -18,6 +18,7 @@
 from importLib import Import, InvalidArchError, \
     InvalidChannelError, InvalidChannelFamilyError, MissingParentChannelError
 from common import CFG
+from satellite_tools.syncLib import log
 
 class ChannelImport(Import):
     def __init__(self, batch, backend):
@@ -52,6 +53,18 @@ class ChannelImport(Import):
                 self.arches[release['channel_arch']] = None
         if not channel.has_key('receiving_updates') or channel['receiving_updates'] is None:
            channel['receiving_updates'] = 'N'
+
+        # bug #528227
+        # Print a warning in case the sync would move the channel between orgs
+        if channel.has_key('org_id') and channel['org_id']:
+            org_id = self.backend.lookupChannelOrg(channel['label'])
+
+            if org_id and int(channel['org_id']) != org_id['org_id']:
+                log(1, "WARNING: Channel %s is already present in orgid %s." % \
+                    (channel['label'], org_id['org_id']))
+                log(1, "         Running synchronization will move the channel to orgid %s." % \
+                    channel['org_id'])
+                log(1,'')
         
     def fix(self):
         self.backend.lookupChannelArches(self.arches)
