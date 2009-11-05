@@ -4,10 +4,11 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.7.8
+Version: 0.7.9
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-%if %{?suse_version: %{suse_version} > 1000} %{!?suse_version:1}
+%if 0%{?suse_version: %{suse_version} > 1000} 
+%{!?suse_version:1}
 BuildArch: noarch
 BuildRequires: update-desktop-files
 %endif
@@ -221,7 +222,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
-* Thu Nov  5 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.8-1
+* Thu Nov  5 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.9-1
 - suse has its own macro for updating icons
 - enable build for suse 10.00 too
 - hardcode MANPATH
