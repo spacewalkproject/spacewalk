@@ -34,21 +34,21 @@ is
 			);
 	end update_perms_for_server;
 
+        -- update rhnUserServerPerms cache from rhnUserServerPermsDupes
 	procedure update_perms_for_user(
 		user_id_in in number
 	) is
 	begin
-        delete from rhnUserServerPerms
-        where user_id = user_id_in
-            and server_id in
-            (select server_id
-             from rhnUserServerPerms
-             where user_id = user_id_in
-             minus
-             select server_id
-             from rhnUserServerPermsDupes uspd
-             where uspd.user_id = user_id_in);
+        -- first delete rows which are not in rhnUserServerPermsDupes
+        delete from rhnUserServerPerms up
+         where user_id = user_id_in
+           and not exists (
+               select 1
+                 from rhnUserServerPermsDupes uspd
+                where uspd.user_id = up.user_id
+                  and uspd.server_id = up.server_id);
 
+        -- then insert rest of rows from rhnUserServerPermsDupes
         insert into rhnUserServerPerms (user_id, server_id)
         select distinct user_id_in, server_id
         from rhnUserServerPermsDupes uspd
