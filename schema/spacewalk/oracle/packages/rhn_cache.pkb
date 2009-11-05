@@ -49,25 +49,25 @@ is
 		user_id_in in number
 	) is
 	begin
-        -- first delete rows which are not in rhnUserServerPermsDupes
-        delete from rhnUserServerPerms up
-         where user_id = user_id_in
-           and not exists (
-               select 1
-                 from rhnUserServerPermsDupes uspd
-                where uspd.user_id = up.user_id
-                  and uspd.server_id = up.server_id);
+                -- first delete rows which are not in rhnUserServerPermsDupes
+                delete from rhnUserServerPerms up
+                 where user_id = user_id_in
+                   and not exists (
+                       select 1
+                         from rhnUserServerPermsDupes uspd
+                        where uspd.user_id = up.user_id
+                          and uspd.server_id = up.server_id);
 
-        -- then insert rest of rows from rhnUserServerPermsDupes
-        insert into rhnUserServerPerms (user_id, server_id)
-        select distinct user_id_in, server_id
-        from rhnUserServerPermsDupes uspd
-        where uspd.user_id = user_id_in
-            and not exists
-            (select 1
-             from rhnUserServerPerms usp
-             where usp.user_id = user_id_in
-                 and usp.server_id = uspd.server_id);
+                -- then insert rest of rows from rhnUserServerPermsDupes
+                insert into rhnUserServerPerms (user_id, server_id)
+                       select distinct user_id_in, server_id
+                         from rhnUserServerPermsDupes uspd
+                        where uspd.user_id = user_id_in
+                          and not exists (
+                              select 1
+                                from rhnUserServerPerms usp
+                               where usp.user_id = user_id_in
+                                 and usp.server_id = uspd.server_id);
 	end update_perms_for_user;
 
 	-- this means a server got added or removed, so we
