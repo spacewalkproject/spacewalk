@@ -26,11 +26,21 @@ is
 		server_id_in in number
 	) is
 	begin
-		delete from rhnUserServerPerms where server_id = server_id_in;
+                -- delete rows which are no more valid
+		delete from rhnUserServerPerms p
+                      where server_id = server_id_in
+                        and user_id not in (select user_id
+                                              from rhnUserServerPermsDupes d
+                                             where p.server_id = d.server_id);
+                -- insert newly added rows
 		insert into rhnUserServerPerms(user_id, server_id) (
-				select	distinct user_id, server_id_in
-				from	rhnUserServerPermsDupes
-				where	server_id = server_id_in
+			select distinct user_id, server_id_in
+				   from	rhnUserServerPermsDupes d
+                                  where server_id = server_id_in
+                                    and user_id not in (
+                                                select user_id
+                                                  from rhnUserServerPerms p
+                                                 where p.server_id = d.server_id)
 			);
 	end update_perms_for_server;
 
