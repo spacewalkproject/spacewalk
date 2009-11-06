@@ -159,7 +159,7 @@ class SSLSocket:
 
         buffer_length = len(self._buffer)
         # Read only the specified amount of data
-        while amt is None or buffer_length < amt:
+        while buffer_length < amt or amt is None:
             # if amt is None (read till the end), fills in self._buffer
             if amt is not None:
                 buffer_size = min(amt - buffer_length, buffer_size)
