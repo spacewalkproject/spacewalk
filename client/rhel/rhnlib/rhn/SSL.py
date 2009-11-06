@@ -200,7 +200,7 @@ class SSLSocket:
         poller = select.poll()
         poller.register(self._sock, filter_type)
         res = poller.poll(self._sock.gettimeout() * 1000)
-        if len(res) != 1:
+        if res == []:
             raise TimeoutException, "Connection timed out on %s" % caller_name
 
     def write(self, data):
