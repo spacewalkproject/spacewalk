@@ -157,16 +157,18 @@ class SSLSocket:
         # first read
         buffer_size = self._buffer_size
 
+        buffer_length = len(self._buffer)
         # Read only the specified amount of data
-        while amt is None or len(self._buffer) < amt:
+        while amt is None or buffer_length < amt:
             # if amt is None (read till the end), fills in self._buffer
             if amt is not None:
-                buffer_size = min(amt - len(self._buffer), buffer_size)
+                buffer_size = min(amt - buffer_length, buffer_size)
 
             try:
                 data = self._connection.recv(buffer_size)
  
                 self._buffer = self._buffer + data
+                buffer_length = len(self._buffer)
 
                 # More bytes to read?
                 pending = self._connection.pending()
