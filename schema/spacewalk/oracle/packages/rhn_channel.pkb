@@ -688,7 +688,7 @@ IS
     is
         current_members_count number := 0;
     begin
-        select  count(distinct sc.server_id)
+        select  count(distinct server_id)
         into    current_members_count
           from  rhnChannelFamilyServerPhysical cfsp
          where  cfsp.channel_family_id = channel_family_id_in
