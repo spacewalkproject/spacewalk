@@ -8439,6 +8439,9 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="ssm.package.verify.operationname">
         <source>Schedule Package Verifications</source>
      </trans-unit>
+     <trans-unit id="channel.manage.merge.finished">
+        <source>{0} Package(s) have been added and {1} Package(s) have been removed from the channel.</source>
+     </trans-unit>
      <trans-unit id="kickstart.cobbler.distro.syncfail">
         <source>
 The following is a list of errors gathered while Spacewalk attempts to 

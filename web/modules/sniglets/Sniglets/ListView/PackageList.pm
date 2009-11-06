@@ -2077,20 +2077,9 @@ sub sync_packages_to_channel_cb {
     $pxt->session->set(package_list_edited => $package_list_edited);
   }
 
-  my $message = '';
-  if (@add) {
-    $message = sprintf("<strong>%d</strong> package%s added to channel <strong>%s</strong>. ",
-		       (scalar @add), (scalar @add == 1) ? '' : 's', $channel->name);
-    if (@remove) {
-      $message .= "<br/>\n";
-    }
-  }
-
-  if (@remove) {
-    $message .= sprintf("<strong>%d</strong> package%s removed from channel <strong>%s</strong>.",
-		       (scalar @remove), (scalar @remove == 1) ? '' : 's', $channel->name);
-  }
-  $pxt->push_message(site_info => $message);
+  $pxt->param("message", "channel.manage.merge.finished");
+  $pxt->param("messagep1", scalar @add ? scalar @add : "0");
+  $pxt->param("messagep2", scalar @remove ? scalar @remove : "0");
 
   return 1;
 }
