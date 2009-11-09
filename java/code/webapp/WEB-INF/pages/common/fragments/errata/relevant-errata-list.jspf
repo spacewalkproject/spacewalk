@@ -32,9 +32,23 @@
                    styleclass="text-align: center;">
             <a href="/rhn/errata/details/SystemsAffected.do?eid=${current.id}">${current.affectedSystemCount}</a>
         </rl:column>
-        <rl:column headerkey="erratalist.jsp.updated" styleclass="text-align: center;">
+        <rl:column headerkey="erratalist.jsp.updated"
+                sortable="true"
+                sortattr="updateDateObj"
+                styleclass="text-align: center;">
             ${current.updateDate}
         </rl:column>
+        <c:if test="${displayCves}">
+
+            <rl:column headerkey="details.jsp.cves">
+                <c:forEach items="${current.cves}" var="cve">
+                    <a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=${cve}">
+                        <c:out value="${cve}"/> <br />
+                    </a>
+              </c:forEach>
+            </rl:column>
+
+        </c:if>
 
     </rl:list>
 

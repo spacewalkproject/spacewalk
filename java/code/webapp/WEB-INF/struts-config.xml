@@ -1756,7 +1756,31 @@
         input="/WEB-INF/pages/errata/all.jsp"
         type="com.redhat.rhn.frontend.action.errata.ErrataListAllAction">
         <forward name="default"
-               path="/WEB-INF/pages/errata/all.jsp" />  
+               path="/WEB-INF/pages/errata/all.jsp" />
+    </action>
+
+    <action path="/errata/AllBugErrata"
+        scope="request"
+        input="/WEB-INF/pages/errata/all.jsp"
+        type="com.redhat.rhn.frontend.action.errata.BugErrataListAllAction">
+        <forward name="default"
+               path="/WEB-INF/pages/errata/all.jsp" />
+    </action>
+
+    <action path="/errata/AllEnhancementErrata"
+        scope="request"
+        input="/WEB-INF/pages/errata/all.jsp"
+        type="com.redhat.rhn.frontend.action.errata.EnhancementErrataListAllAction">
+        <forward name="default"
+               path="/WEB-INF/pages/errata/all.jsp" />
+    </action>
+
+    <action path="/errata/AllSecurityErrata"
+        scope="request"
+        input="/WEB-INF/pages/errata/all.jsp"
+        type="com.redhat.rhn.frontend.action.errata.SecurityErrataListAllAction">
+        <forward name="default"
+               path="/WEB-INF/pages/errata/all.jsp" />
     </action>
 
     <action path="/errata/Overview"
@@ -1767,6 +1791,30 @@
             path="/WEB-INF/pages/errata/overview.jsp"/>
     </action>
     
+    <action path="/errata/OverviewBugErrata"
+        scope="request"
+        input="/WEB-INF/pages/errata/overview.jsp"
+        type="com.redhat.rhn.frontend.action.errata.BugErrataListRelevantAction">
+        <forward name="default"
+            path="/WEB-INF/pages/errata/overview.jsp"/>
+    </action>
+
+    <action path="/errata/OverviewEnhancementErrata"
+        scope="request"
+        input="/WEB-INF/pages/errata/overview.jsp"
+        type="com.redhat.rhn.frontend.action.errata.EnhancementErrataListRelevantAction">
+        <forward name="default"
+            path="/WEB-INF/pages/errata/overview.jsp"/>
+    </action>
+
+    <action path="/errata/OverviewSecurityErrata"
+        scope="request"
+        input="/WEB-INF/pages/errata/overview.jsp"
+        type="com.redhat.rhn.frontend.action.errata.SecurityErrataListRelevantAction">
+        <forward name="default"
+            path="/WEB-INF/pages/errata/overview.jsp"/>
+    </action>
+
    <action path="/errata/RelevantErrata"
         scope="request"
         input="/WEB-INF/pages/errata/relevant.jsp"
@@ -1775,12 +1823,36 @@
                path="/WEB-INF/pages/errata/relevant.jsp" />  
     </action>
 
+   <action path="/errata/RelevantBugErrata"
+        scope="request"
+        input="/WEB-INF/pages/errata/relevant.jsp"
+        type="com.redhat.rhn.frontend.action.errata.BugErrataListRelevantAction">
+        <forward name="default"
+               path="/WEB-INF/pages/errata/relevant.jsp" />
+    </action>
+
+   <action path="/errata/RelevantEnhancementErrata"
+        scope="request"
+        input="/WEB-INF/pages/errata/relevant.jsp"
+        type="com.redhat.rhn.frontend.action.errata.EnhancementErrataListRelevantAction">
+        <forward name="default"
+               path="/WEB-INF/pages/errata/relevant.jsp" />
+    </action>
+
+   <action path="/errata/RelevantSecurityErrata"
+        scope="request"
+        input="/WEB-INF/pages/errata/relevant.jsp"
+        type="com.redhat.rhn.frontend.action.errata.SecurityErrataListRelevantAction">
+        <forward name="default"
+               path="/WEB-INF/pages/errata/relevant.jsp" />
+    </action>
+
     <action path="/errata/details/Details"
         scope="request"
         input="/WEB-INF/pages/errata/details.jsp"
         type="com.redhat.rhn.frontend.action.errata.ErrataDetailsSetupAction">
         <forward name="default"
-               path="/WEB-INF/pages/errata/details.jsp" />  
+               path="/WEB-INF/pages/errata/details.jsp" />
     </action>
     
     <action path="/errata/details/Packages"

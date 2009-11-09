@@ -95,8 +95,18 @@
   <rhn-tab name="Errata" url="/rhn/errata/Overview.do" active-image="tab-errata-selected.gif" inactive-image="tab-errata.gif" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_list">
     <rhn-tab name="Errata" url="/rhn/errata/Overview.do" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_list">
       <rhn-tab-directory>/rhn/errata</rhn-tab-directory>
-      <rhn-tab name="Relevant" url="/rhn/errata/RelevantErrata.do" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_list" />
-      <rhn-tab name="All" url="/rhn/errata/AllErrata.do" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_list" />
+      <rhn-tab name="Relevant" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_list">
+        <rhn-tab-url>/rhn/errata/RelevantErrata.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/errata/RelevantBugErrata.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/errata/RelevantEnhancementErrata.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/errata/RelevantSecurityErrata.do</rhn-tab-url>
+      </rhn-tab>
+      <rhn-tab name="All" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_list">
+        <rhn-tab-url>/rhn/errata/AllErrata.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/errata/AllBugErrata.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/errata/AllEnhancementErrata.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/errata/AllSecurityErrata.do</rhn-tab-url>
+      </rhn-tab>
     </rhn-tab>
     <rhn-tab name="Advanced Search" url="/rhn/errata/Search.do"/>
     <rhn-tab name="Manage Errata" url="/rhn/errata/manage/PublishedErrata.do" acl="user_role(channel_admin)">

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<rhn-navi-tree label="errata_tabs" invisible="1" formvar="prid" title-depth="1">
+  <rhn-tab name="erratalist.jsp.allerrata">
+    <rhn-tab-url>/rhn/errata/Overview.do</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="yourrhn.jsp.criticalsystems.bugfixerrata">
+    <rhn-tab-url>/rhn/errata/OverviewBugErrata.do</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="yourrhn.jsp.criticalsystems.enhancementerrata">
+    <rhn-tab-url>/rhn/errata/OverviewEnhancementErrata.do</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="yourrhn.jsp.criticalsystems.securityerrata">
+    <rhn-tab-url>/rhn/errata/OverviewSecurityErrata.do</rhn-tab-url>
+  </rhn-tab>
+</rhn-navi-tree>

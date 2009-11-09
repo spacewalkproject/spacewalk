@@ -279,6 +279,23 @@ public class ErrataManager extends BaseManager {
     }
 
     /**
+     * Returns all of the errata of specified advisory type.
+     * @param user Currently logged in user.
+     * @param type advisory type
+     * @return all errata of specified advisory type
+     */
+    public static DataResult allErrataByType(User user, String type) {
+        SelectMode m = ModeFactory.getMode("Errata_queries", "all_errata_by_type");
+        Map params = new HashMap();
+        params.put("org_id", user.getOrg().getId());
+        params.put("type", type);
+        Map elabParams = new HashMap();
+        elabParams.put("user_id", user.getId());
+        DataResult result = makeDataResult(params, elabParams, null, m);
+        return result;
+    }
+
+    /**
      * Returns all of the errata in a channel
      * @param cid the channel id
      * @return all of the errata in the channel.
