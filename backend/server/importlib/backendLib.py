@@ -25,12 +25,10 @@ from types import ListType, StringType, DictType, IntType
 
 # A function that formats a UNIX timestamp to the session's format
 def gmtime(timestamp):
-    ttuple = time.gmtime(float(timestamp))
-    return _format_time(ttuple)
+    return _format_time(time.gmtime(float(timestamp)))
 
 def localtime(timestamp):
-    ttuple = time.localtime(float(timestamp))
-    return _format_time(ttuple)
+    return _format_time(time.localtime(float(timestamp)))
 
 def _format_time(time_tuple):
     return "%d-%02d-%02d %02d:%02d:%02d" % time_tuple[:6]

@@ -4,10 +4,14 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.7.7
+Version: 0.7.9
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+%if 0%{?suse_version: %{suse_version} > 1000} 
+%{!?suse_version:1}
 BuildArch: noarch
+BuildRequires: update-desktop-files
+%endif
 
 Requires: rhnlib >= 2.2.7
 Requires: rpm >= 4.2.3-24_nonptl
@@ -79,6 +83,9 @@ make -f Makefile.rhn-client-tools install VERSION=%{version}-%{release} PREFIX=$
 mkdir -p $RPM_BUILD_ROOT/var/lib/up2date
 
 desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications --vendor=rhn rhn_register.desktop
+%if 0%{?suse_version}
+%suse_update_desktop_file rhn_register System
+%endif
 
 %find_lang %{name}
 
@@ -215,6 +222,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Thu Nov  5 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.9-1
+- suse has its own macro for updating icons
+- enable build for suse 10.00 too
+- hardcode MANPATH
+- fix build under opensuse
+- 532145 - define local variable ipaddr before it is used
+- Dont halt registration if the hardware info could not be acquired for rhnreg_ks.
+
 * Fri Oct 23 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.7-1
 - 530369 - header is inmutable
 

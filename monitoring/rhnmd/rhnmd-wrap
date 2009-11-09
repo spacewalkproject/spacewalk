@@ -1,9 +1,0 @@
-#!/bin/sh
-
-if  [ -r /usr/lib64/librhnmdwrap.so ]
-then
-    LD_PRELOAD_64=/usr/lib64/librhnmdwrap.so exec /usr/sbin/rhnmd $*
-else
-    LD_PRELOAD_32=/usr/lib/librhnmdwrap.so exec /usr/sbin/rhnmd $*
-fi
-

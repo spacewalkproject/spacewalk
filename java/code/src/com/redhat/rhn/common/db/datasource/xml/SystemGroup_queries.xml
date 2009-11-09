@@ -26,7 +26,7 @@
 	    and exists (select 1 from rhnServerNeededErrataCache SNPC, rhnServerGroupMembers SGM
 	      where snpc.errata_id = e.id
 	      and snpc.server_id = sgm.server_id
-	      and sgm.server_group_id = 5)
+	      and sgm.server_group_id = G.id)
 	      and rownum = 1) AS SECURITY_ERRATA,
     ( select /*+first_rows*/ 1
 		    FROM rhnErrata E
@@ -34,7 +34,7 @@
 		    and exists (select 1 from rhnServerNeededErrataCache SNPC, rhnServerGroupMembers SGM
 		      where snpc.errata_id = e.id
 		      and snpc.server_id = sgm.server_id
-		      and sgm.server_group_id = 5)
+		      and sgm.server_group_id = G.id)
 				and rownum = 1) AS BUG_ERRATA,
     ( select /*+first_rows*/ 1
 		    FROM rhnErrata E
@@ -42,7 +42,7 @@
 		    and exists (select 1 from rhnServerNeededErrataCache SNPC, rhnServerGroupMembers SGM
 		      where snpc.errata_id = e.id
 		      and snpc.server_id = sgm.server_id
-		      and sgm.server_group_id = 5)
+		      and sgm.server_group_id = G.id)
 		      and rownum = 1) AS ENHANCEMENT_ERRATA
  FROM   rhnServerGroup G, rhnUserManagedServerGroups UMSG
  WHERE   G.ORG_ID = :org_id

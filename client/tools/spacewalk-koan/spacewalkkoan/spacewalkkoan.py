@@ -189,6 +189,10 @@ def initiate_guest(kickstart_host, cobbler_system_name, virt_type, name, mem_kb,
         k.add_reinstall_entry = None
         k.kopts_override      = None
         k.run()
+
+        # refresh current virtualization state on the server
+        import virtualization.support
+        virtualization.support.refresh()
     except Exception, e:
         (xa, xb, tb) = sys.exc_info()
         if  hasattr(e,"from_koan") and len(str(e)) > 1:

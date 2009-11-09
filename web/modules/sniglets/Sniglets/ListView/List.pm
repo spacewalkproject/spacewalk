@@ -405,6 +405,18 @@ sub callback {
     }
   }
 
+
+
+  if (defined $pxt->dirty_param('message')) {
+     $vars{'message'} = $pxt->passthrough_param('message');
+     my @mess_params = ('messagep1', 'messagep2', 'messagep3');
+     foreach my $mess_param (@mess_params){
+        if (defined $pxt->dirty_param($mess_param)) {
+            $vars{$mess_param} = $pxt->passthrough_param($mess_param);
+	}
+     }
+  }
+
   my $base = $pxt->uri;
   if ($action_success) {
     if ($action{label}) { # an action button was pressed
@@ -420,13 +432,11 @@ sub callback {
   }
 
   my $additional_vars = join("\&", map { "$_=" . PXT::Utils->escapeURI($vars{$_}) } keys %vars);
-
   if ($additional_vars) {
     $additional_vars = $base =~ /\?/ ? '&' . $additional_vars : '?' . $additional_vars;
   }
 
   my $redir = $base . $additional_vars;
-
   $pxt->redirect($redir);
 }
 

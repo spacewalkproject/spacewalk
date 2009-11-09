@@ -4,14 +4,16 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.13
+Version: 2.5.14
 Release: 1%{?dist}
 
 Group: Development/Libraries
 License: GPLv2
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
+%if %{?suse_version: %{suse_version} > 1110} %{!?suse_version:1}
 BuildArch: noarch
+%endif
 BuildRequires: python-devel
 
 Requires: pyOpenSSL 
@@ -38,7 +40,7 @@ make -f Makefile.rhnlib
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
+%{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT --prefix=%{_prefix}
 
 
 %clean
@@ -52,6 +54,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Thu Nov  5 2009 Miroslav Suchy <msuchy@redhat.com> 2.5.14-1
+- fix build under opensuse
+
 * Thu Aug 06 2009 Pradeep Kilambi <pkilambi@redhat.com> 2.5.13-1
 - 
 

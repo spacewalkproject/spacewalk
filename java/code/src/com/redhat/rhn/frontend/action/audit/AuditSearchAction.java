@@ -134,6 +134,7 @@ public class AuditSearchAction extends RhnAction {
             brdr.readLine(); // Argument is required for -m
             str = brdr.readLine(); // Valid message types are: ...
             str = str.substring(str.indexOf(':') + 2);
+            brdr.close();
         }
         catch (IOException ioex) {
             log.warn("failed to get ausearch types", ioex);

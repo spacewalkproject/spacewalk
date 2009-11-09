@@ -447,10 +447,6 @@ is
 		server_id_in in number,
 		server_group_id_in in number
     ) is
-		cursor sg_users is
-			select	user_id id
-			from	rhnUserServerGroupPerms
-			where	server_group_id = server_group_id_in;
 		used_slots number;
 		max_slots number;
 		org_id number;
@@ -488,9 +484,7 @@ is
 				set current_members = current_members + 1
 				where id = server_group_id_in;
 
-			for u in sg_users loop
-				rhn_cache.update_perms_for_user(u.id);
-			end loop;
+			rhn_cache.update_perms_for_server_group(server_group_id_in);
 			return;
 		end if;
 
@@ -591,11 +585,6 @@ is
     	server_id_in in number,
 		server_group_id_in in number
     ) is
-		cursor sg_users is
-			select	user_id id
-			from	rhnUserServerGroupPerms
-			where	server_group_id = server_group_id_in;
-
         cursor server_virt_groups is
             select 1
             from rhnServerEntitlementVirtual sev
@@ -629,9 +618,7 @@ is
 			update rhnServerGroup
 				set current_members = current_members - 1
 				where id = server_group_id_in;
-			for u in sg_users loop
-				rhn_cache.update_perms_for_user(u.id);
-			end loop;
+			rhn_cache.update_perms_for_server_group(server_group_id_in);
 			return;
 		end if;
 

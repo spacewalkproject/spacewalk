@@ -37,7 +37,7 @@ import proxy.rhnProxyAuth
 
 
 # the version should not be never decreased, never mind that spacewalk has different versioning
-_PROXY_VERSION = '5.3.0' # HISTORY: '0.9.7', '3.2.0', '3.5.0', '3.6.0', '4.1.0', '4.2.0', '5.0.0', '5.1.0', '5.2.0', '0.1', '5.3.0'
+_PROXY_VERSION = '5.3.1' # HISTORY: '0.9.7', '3.2.0', '3.5.0', '3.6.0', '4.1.0', '4.2.0', '5.0.0', '5.1.0', '5.2.0', '0.1', '5.3.0' '5.3.1'
 
 
 class BrokerHandler(SharedHandler):

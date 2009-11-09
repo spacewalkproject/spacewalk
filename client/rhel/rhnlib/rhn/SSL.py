@@ -157,16 +157,18 @@ class SSLSocket:
         # first read
         buffer_size = self._buffer_size
 
+        buffer_length = len(self._buffer)
         # Read only the specified amount of data
-        while amt is None or len(self._buffer) < amt:
+        while buffer_length < amt or amt is None:
             # if amt is None (read till the end), fills in self._buffer
             if amt is not None:
-                buffer_size = min(amt - len(self._buffer), buffer_size)
+                buffer_size = min(amt - buffer_length, buffer_size)
 
             try:
                 data = self._connection.recv(buffer_size)
  
                 self._buffer = self._buffer + data
+                buffer_length = len(self._buffer)
 
                 # More bytes to read?
                 pending = self._connection.pending()
@@ -198,7 +200,7 @@ class SSLSocket:
         poller = select.poll()
         poller.register(self._sock, filter_type)
         res = poller.poll(self._sock.gettimeout() * 1000)
-        if len(res) != 1:
+        if res == []:
             raise TimeoutException, "Connection timed out on %s" % caller_name
 
     def write(self, data):

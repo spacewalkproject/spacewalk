@@ -386,6 +386,8 @@ public class AuditManager /* extends BaseManager */ {
             }
         }
 
+        brdr.close();
+
         return new AuditReviewDto(machine, new Date(start), new Date(end),
             reviewedBy, reviewedOn);
     }
@@ -442,6 +444,8 @@ public class AuditManager /* extends BaseManager */ {
                 log.debug("unknown string: " + str);
             }
         }
+
+        brdr.close();
 
         return events;
     }

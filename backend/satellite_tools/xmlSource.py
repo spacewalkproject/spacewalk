@@ -26,6 +26,8 @@ from common import log_debug, Traceback, rhnFlags
 
 from server.importlib import importLib, backendLib
 
+typesHasUnicode = hasattr(types, "UnicodeType")
+
 # Terminology used throughout this file:
 # Item: an atomic entity from the database's perspective.
 #   A channel, or a package, or an erratum is an item.
@@ -108,8 +110,6 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
         self.restoreParser()
         # No container at this time
         self.__container = None
-        # Simple tag stack, to ensure corectness
-        self.tagStack = []
         # Reset all the containers, to make sure previous runs don't leave
         # garbage data
         for container in self.container_dispatch.values():
@@ -189,13 +189,13 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
 
     def startElement(self, element, attrs):
         log_debug(6, element)
-        self.tagStack.append(element)
+        utf8_attrs = _dict_to_utf8(attrs)
         if self.rootAttributes is None:
             # First time around
             if self.rootElement != element:
                 raise Exception("Mismatching elements; root='%s', "
                     "received='%s'" % (self.rootElement, element))
-            self.rootAttributes = _dict_to_utf8(attrs)
+            self.rootAttributes = utf8_attrs
             self._check_version()
             return
 
@@ -203,7 +203,7 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
             # This means it's parsing a container element
             self.__container = self.get_container(element)
 
-        self.__container.startElement(element, _dict_to_utf8(attrs))
+        self.__container.startElement(element, utf8_attrs)
 
     def characters(self, data):
         if self.__container:
@@ -211,10 +211,6 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
 
     def endElement(self, element):
         log_debug(6, element)
-        top = self.tagStack[-1]
-        del self.tagStack[-1]
-        if element != top:
-            raise Exception("TTT")
         if self.__container is None:
             # End of the root attribute
             # We know now the tag stack is empty
@@ -298,10 +294,11 @@ class BaseItem:
     def populateFromAttributes(self, obj, sourceDict):
         # Populates dict with items from sourceDict
         for key, value in sourceDict.items():
-            if not obj.has_key(key) and not self.tagMap.has_key(key):
-                # Unsupported key
-                continue
-            if self.tagMap.has_key(key):
+            if not self.tagMap.has_key(key):
+                if not obj.has_key(key):
+                    # Unsupported key
+                    continue
+            else:
                 # Have to map this key
                 key = self.tagMap[key]
 
@@ -338,7 +335,7 @@ class BaseItem:
 def _is_string(obj):
     if isinstance(obj, types.StringType):
         return 1
-    if hasattr(types, "UnicodeType") and isinstance(obj, types.UnicodeType):
+    if typesHasUnicode and isinstance(obj, types.UnicodeType):
         return 1
     return 0
 
@@ -346,23 +343,22 @@ def _stringify(data):
     # Accelerate the most common cases
     if isinstance(data, types.StringType):
         return data
-    if hasattr(types, "UnicodeType"):
-        if isinstance(data, types.UnicodeType):
-            # Convert Unicode data to UTF8
-            return data.encode('UTF8')
+    if typesHasUnicode:
+        try: return data.encode('UTF8')
+        except AttributeError: pass
     return str(data)
 
 def _dict_to_utf8(d):
     # Convert the dictionary to have non-unocide key-value pairs
-    if not hasattr(types, "UnicodeType"):
+    if not typesHasUnicode:
         # Nothing to do
         return d
     ret = {}
     for k, v in d.items():
-        if isinstance(k, types.UnicodeType):
-            k = k.encode('UTF8')
-        if isinstance(v, types.UnicodeType):
-            v = v.encode('UTF8')
+        try: k = k.encode('UTF8')
+        except AttributeError: pass
+        try: v = v.encode('UTF8')
+        except AttributeError: pass
         ret[k] = v
     return ret
             
@@ -825,7 +821,7 @@ class ContainerHandler:
             # Nothing to do with this object
             return
 
-        if isinstance(item, importLib.Error):
+        if item.has_key('error'):
             # Special case errors
             log_debug(0, 'XML parser error: found "rhn-error" item: %s' %
                 item['error'])
@@ -930,25 +926,22 @@ def _normalizeSubelements(objtype, subelements):
     
 def _normalizeAttribute(objtype, attribute):
     # Deal with simple cases first
-    if objtype is None:
-        # Don't know how to handle it
+    if (objtype is None) or (objtype is types.StringType):
+        # (Don't know how to handle it) or (Expecting a scalar)
         return attribute
-
-    if not isinstance(objtype, types.ListType):
-        # Expecting a scalar
-        if objtype is types.StringType:
-            return attribute
-        if objtype is types.IntType:
+    elif objtype is types.IntType:
             if attribute == '' or attribute == 'None':
                 # Treat it as NULL
                 return None
-            return int(attribute)
-        if objtype is importLib.DateType:
-            return _normalizeDateType(attribute)
+            else:
+                return int(attribute)
+    elif objtype is importLib.DateType:
+        return _normalizeDateType(attribute)
+    elif isinstance(objtype, types.ListType):
+        # List type - split stuff
+        return string.split(attribute)
+    else:
         raise Exception("Unhandled attribute data type %s" % objtype)
-
-    # List type - split stuff
-    return string.split(attribute)
 
 def _normalizeDateType(value):
     try:
