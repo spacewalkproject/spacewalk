@@ -16,7 +16,6 @@ package com.redhat.rhn.domain.common;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.domain.common.Checksum;
 import com.redhat.rhn.domain.org.Org;
 
 import org.apache.commons.codec.binary.Hex;

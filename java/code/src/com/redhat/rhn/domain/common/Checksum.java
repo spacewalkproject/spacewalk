@@ -15,7 +15,6 @@
 package com.redhat.rhn.domain.common;
 
 import com.redhat.rhn.domain.BaseDomainHelper;
-import com.redhat.rhn.domain.common.ChecksumType;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
@@ -61,7 +60,7 @@ public class Checksum extends BaseDomainHelper {
     /**
      * @return Returns the type of checksum.
      */
-    public String getChecksumType() {
+    public ChecksumType getChecksumType() {
         return checksumType;
     }
 
@@ -81,9 +80,9 @@ public class Checksum extends BaseDomainHelper {
             return false;
         }
 
-        Checksum checksum = (Checksum) o;
+        Checksum other = (Checksum) o;
 
-        if (id != null ? !id.equals(checksum.id) : checksum.id != null) {
+        if (id != null ? !id.equals(other.id) : other.id != null) {
             return false;
         }
 

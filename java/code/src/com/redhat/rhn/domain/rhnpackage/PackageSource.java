@@ -49,7 +49,7 @@ public class PackageSource extends BaseDomainHelper {
     /**
      * @return Returns the sig checksum.
      */
-    public String getSigchecksum() {
+    public Checksum getSigchecksum() {
         return sigchecksum;
     }
 
@@ -147,7 +147,7 @@ public class PackageSource extends BaseDomainHelper {
     /**
      * @return Returns the checksum.
      */
-    public String getChecksum() {
+    public Checksum getChecksum() {
         return checksum;
     }
 

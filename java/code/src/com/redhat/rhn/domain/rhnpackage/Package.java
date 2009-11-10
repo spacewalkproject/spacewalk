@@ -257,14 +257,14 @@ public class Package extends BaseDomainHelper {
     /**
      * @return Returns the checksum.
      */
-    public String getChecksum() {
+    public Checksum getChecksum() {
         return checksum;
     }
 
     /**
      * @param checksumIn The checksum to set.
      */
-    public void setChecksum(String checksumIn) {
+    public void setChecksum(Checksum checksumIn) {
         this.checksum = checksumIn;
     }
 

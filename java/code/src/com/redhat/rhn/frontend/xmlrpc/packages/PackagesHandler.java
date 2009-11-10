@@ -218,7 +218,8 @@ public class PackagesHandler extends BaseHandler {
             row.put("size", file.get("file_size"));
             row.put("linkto", StringUtils.defaultString((String) file.get("linkto")));
             row.put("checksum", StringUtils.defaultString((String) file.get("checksum")));
-            row.put("checksum_type", StringUtils.defaultString((String) file.get("checksumtype")));
+            row.put("checksum_type", StringUtils.defaultString(
+                                    (String) file.get("checksumtype")));
             
             // Determine the file_type
             if (file.get("checksum") != null) {

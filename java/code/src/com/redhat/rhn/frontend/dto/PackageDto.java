@@ -31,7 +31,7 @@ public class PackageDto extends BaseDto {
     private String epoch;
     private String archLabel;
     private String checksum;
-    private String checksumType
+    private String checksumType;
     private Long cid;
     private String channelName;
     private String summary;

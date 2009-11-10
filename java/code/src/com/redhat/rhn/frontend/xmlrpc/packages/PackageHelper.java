@@ -95,7 +95,8 @@ public class PackageHelper {
         addEntry(pkgMap, "checksum",
                       StringUtils.defaultString(pkg.getChecksum().getChecksum()));
         addEntry(pkgMap, "checksum_type",
-                      StringUtils.defaultString(pkg.getChecksum().getChecksumType().getLabel()));
+                      StringUtils.defaultString(
+                              pkg.getChecksum().getChecksumType().getLabel()));
         addEntry(pkgMap, "vendor",
                       StringUtils.defaultString(pkg.getVendor()));
         addEntry(pkgMap, "summary",
