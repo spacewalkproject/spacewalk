@@ -7,5 +7,7 @@ create unique index rhn_confm_name_pk
     tablespace [[2m_tbs]];
 alter table rhn_config_macro add constraint rhn_confm_name_pk primary key (name);
 
+alter table rhn_config_macro drop column environment;
+
 drop table rhn_environment;
 drop table rhn_db_environment;
