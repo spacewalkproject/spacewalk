@@ -644,38 +644,6 @@ SELECT  S.id, S.name, count(DISTINCT CF.config_file_name_id) AS config_file_coun
   </query>
 </mode>
 
-<mode name="selected_configfiles">
-  <query params="set_label, user_id">
-SELECT CR.id,
-       CCon.md5sum,
-       CFN.path,
-       CR.revision,
-       NVL2((SELECT 1 FROM rhnConfigFile CFt WHERE CFT.latest_config_revision_id = CR.id), 'Y', 'N') LATEST,
-       TO_CHAR(CCon.created, 'YYYY-MM-DD HH24:MI:SS') AS CREATED,
-       CASE CCT.label WHEN 'local_override' THEN '(system override)' ELSE CC.name END AS CONFIG_CHANNEL_NAME,
-       CC.label AS CONFIG_CHANNEL_LABEL,
-       CC.id AS CONFIG_CHANNEL_ID
-  FROM rhnConfigChannelType CCT,
-       rhnConfigChannel CC,
-       rhnConfigFileName CFN,
-       rhnConfigFile CF,
-       rhnConfigContent CCon,
-       rhnConfigRevision CR,
-       rhnSet S
- WHERE S.user_id = :user_id
-   AND S.label = :set_label
-   AND S.element = CR.id
-   AND CR.config_file_id = CF.id
-   AND CF.config_channel_id = CC.id
-   AND CC.confchan_type_id = CCT.id
-   AND CCon.id = CR.config_content_id
-   AND CCT.label IN ('normal', 'local_override')
-   AND CFN.id = CF.config_file_name_id
-   AND rhn_config_channel.get_user_chan_access(CC.id, :user_id) = 1
-ORDER BY CFN.path
-  </query>
-</mode>
-
 <mode name="global_configfiles_for_user" class="com.redhat.rhn.frontend.dto.ConfigFileDto">
   <query params="org_id, user_id">
 SELECT CF.id, CFN.path
