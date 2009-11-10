@@ -79,11 +79,17 @@ class ErrataImport(GenericPackageImport):
 
     def _preprocessErratumFiles(self, erratum):
         for f in (erratum['files'] or []):
+            checksum = ('md5', f['md5sum'])     # FIXME sha256
+            f['checksum'] = checksum
+            if not self.checksums.has_key(checksum):
+                self.checksums[checksum] = None
+
             if f['file_type'] == 'RPM':
                 package = f.get('pkgobj')
                 if package:
-                    self.packages.append(package)
                     self._processPackage(package)
+                    if not package in self.packages:
+                        self.packages.append(package)
             elif f['file_type'] == 'SRPM':
                 # XXX misa: do something here
                 pass
@@ -251,6 +257,7 @@ class ErrataImport(GenericPackageImport):
 
     def _fix_erratum_file_packages(self, erratum):
         for ef in erratum['files']:
+            ef['checksum_id'] = self.checksums[ef['checksum']]
             if ef['file_type'] == 'RPM':
                 package = ef.get('pkgobj')
                 if not package:
