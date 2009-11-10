@@ -90,9 +90,9 @@ class ErrataImport(GenericPackageImport):
                     self._processPackage(package)
                     if not package in self.packages:
                         self.packages.append(package)
-            elif f['file_type'] == 'SRPM':
-                # XXX misa: do something here
-                pass
+            #elif f['file_type'] == 'SRPM':
+            #    # XXX misa: do something here
+            #    pass
             
     def _preprocessErratumFileChannels(self, erratum):
         for f in (erratum['files'] or []):
