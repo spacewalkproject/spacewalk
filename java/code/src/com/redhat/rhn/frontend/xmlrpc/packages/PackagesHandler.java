@@ -81,7 +81,8 @@ public class PackagesHandler extends BaseHandler {
      *       #prop_array("string", "label", "Channel label providing this package.")
      *       #prop("string", "build_host")
      *       #prop("string", "description")
-     *       #prop("string", "md5sum")
+     *       #prop("string", "checksum")
+     *       #prop("string", "checksum_type")
      *       #prop("string", "vendor")
      *       #prop("string", "summary")
      *       #prop("string", "cookie")
@@ -188,7 +189,8 @@ public class PackagesHandler extends BaseHandler {
      *       #prop("string", "path")
      *       #prop("string", "type")
      *       #prop("string", "last_modified_date")
-     *       #prop("string", "md5sum")
+     *       #prop("string", "checksum")
+     *       #prop("string", "checksum_type")
      *       #prop("int", "size")
      *       #prop("string", "linkto")
      *     #struct_end()
@@ -215,10 +217,11 @@ public class PackagesHandler extends BaseHandler {
             row.put("last_modified_date", file.get("mtime"));
             row.put("size", file.get("file_size"));
             row.put("linkto", StringUtils.defaultString((String) file.get("linkto")));
-            row.put("md5sum", StringUtils.defaultString((String) file.get("md5")));
+            row.put("checksum", StringUtils.defaultString((String) file.get("checksum")));
+            row.put("checksum_type", StringUtils.defaultString((String) file.get("checksumtype")));
             
             // Determine the file_type
-            if (file.get("md5") != null) {
+            if (file.get("checksum") != null) {
                 row.put("type", "file");
             }
             else {

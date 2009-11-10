@@ -10,7 +10,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">RHN_ERRATAFILE_ID_SEQ</param>
             </generator>
         </id>
-        <property name="checksum" type="string" length="64" column="md5sum" />
+        <many-to-one name="checksum" class="com.redhat.rhn.domain.common.Checksum"
+            column="checksum_id" />
         <property name="fileName" type="string" length="1024" />
         <property name="created" column="created" type="timestamp" 
             insert="false" update="false"/>

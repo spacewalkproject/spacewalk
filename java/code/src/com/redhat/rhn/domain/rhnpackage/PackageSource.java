@@ -15,6 +15,7 @@
 package com.redhat.rhn.domain.rhnpackage;
 
 import com.redhat.rhn.domain.BaseDomainHelper;
+import com.redhat.rhn.domain.common.Checksum;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rpm.SourceRpm;
 
@@ -34,8 +35,8 @@ public class PackageSource extends BaseDomainHelper {
     private Long payloadSize;
     private String buildHost;
     private Date buildTime;
-    private String md5sum;
-    private String sigmd5;
+    private Checksum checksum;
+    private Checksum sigchecksum;
     private String vendor;
     private String path;
     private String cookie;
@@ -46,17 +47,17 @@ public class PackageSource extends BaseDomainHelper {
     private SourceRpm sourceRpm;
 
     /**
-     * @return Returns the sigmd5.
+     * @return Returns the sig checksum.
      */
-    public String getSigmd5() {
-        return sigmd5;
+    public String getSigchecksum() {
+        return sigchecksum;
     }
 
     /**
-     * @param sigmd5In The sigmd5 to set.
+     * @param sigchecksumIn The sigchecksum to set.
      */
-    public void setSigmd5(String sigmd5In) {
-        this.sigmd5 = sigmd5In;
+    public void setSigchecksum(Checksum sigchecksumIn) {
+        this.sigchecksum = sigchecksumIn;
     }
 
     /**
@@ -144,17 +145,17 @@ public class PackageSource extends BaseDomainHelper {
     }
 
     /**
-     * @return Returns the md5sum.
+     * @return Returns the checksum.
      */
-    public String getMd5sum() {
-        return md5sum;
+    public String getChecksum() {
+        return checksum;
     }
 
     /**
-     * @param m The md5sum to set.
+     * @param checksumIn The checksum to set.
      */
-    public void setMd5sum(String m) {
-        this.md5sum = m;
+    public void setChecksum(Checksum checksumIn) {
+        this.checksum = checksumIn;
     }
 
     /**

@@ -92,8 +92,10 @@ public class PackageHelper {
                       StringUtils.defaultString(pkg.getBuildHost()));
         addEntry(pkgMap, "description",
                       StringUtils.defaultString(pkg.getDescription()));
-        addEntry(pkgMap, "md5sum",
-                      StringUtils.defaultString(pkg.getMd5sum()));
+        addEntry(pkgMap, "checksum",
+                      StringUtils.defaultString(pkg.getChecksum().getChecksum()));
+        addEntry(pkgMap, "checksum_type",
+                      StringUtils.defaultString(pkg.getChecksum().getChecksumType().getLabel()));
         addEntry(pkgMap, "vendor",
                       StringUtils.defaultString(pkg.getVendor()));
         addEntry(pkgMap, "summary",

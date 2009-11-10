@@ -99,6 +99,7 @@ public class ChecksumType extends BaseDomainHelper {
         
         builder.append("id", id);
         builder.append("label", label);
+        builder.append("description", description);
         
         return builder.toString();
     }
