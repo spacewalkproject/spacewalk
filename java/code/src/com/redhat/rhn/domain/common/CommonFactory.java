@@ -16,6 +16,7 @@ package com.redhat.rhn.domain.common;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.domain.common.Checksum;
 import com.redhat.rhn.domain.org.Org;
 
 import org.apache.commons.codec.binary.Hex;
@@ -53,6 +54,15 @@ public class CommonFactory extends HibernateFactory {
      */
     protected Logger getLogger() {
         return log;
+    }
+
+    /**
+     * Save a Checksum to the DB.
+     *
+     * @param checksumIn Checksum to save
+     */
+    public static void saveChecksum(Checksum checksumIn) {
+        singleton.saveObject(checksumIn);
     }
 
     /**

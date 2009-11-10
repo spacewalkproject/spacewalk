@@ -5,7 +5,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 <hibernate-mapping>
     <class name="com.redhat.rhn.domain.common.Checksum"
         table="rhnChecksum" mutable="false">
-        <cache usage="read-only"/>
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
             <generator class="assigned" />
