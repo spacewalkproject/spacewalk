@@ -1,19 +1,5 @@
 <datasource_modes>
 
-<mode name="package_files">
-  <query params="pid">
-SELECT C.name,
-       F.file_size,
-       F.md5, F.file_mode,
-       F.linkto,
-       TO_CHAR(F.mtime, 'YYYY-MM-DD HH24:MI:SS') AS MTIME
-  FROM rhnPackageFile F, rhnPackageCapability C
- WHERE F.package_id = :pid
-   AND F.capability_id = C.id
-ORDER BY UPPER(C.name)
-  </query>
-</mode>
-
 <mode name="kickstarts_for_org" class="com.redhat.rhn.frontend.dto.kickstart.KickstartDto">
   <query params="org_id">
   SELECT KS.id, KS.org_id, KS.label, KS.is_org_default, 
