@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.common.Checksum"
+        table="rhnChecksum" mutable="false">
+        <cache usage="read-only"/>
+        <id name="id" type="long" column="id">
+            <meta attribute="scope-set">protected</meta>
+            <generator class="assigned" />
+        </id>
+        <property name="checksum" type="string" column="checksum" />
+        <property name="description" type="string" column="description" />
+        <many-to-one
+            name="checksumType"
+            class="com.redhat.rhn.domain.common.ChecksumType"
+            column="checksum_id"/>
+
+    </class>
+
+    <query name="Checksum.findById">
+        <![CDATA[from com.redhat.rhn.domain.common.Checksum as t where t.id = :id]]>
+    </query>
+    <query name="Checksum.findByChecksum">
+        <![CDATA[from com.redhat.rhn.domain.common.Checksum as t where t.checksum = :checksum]]>
+    </query>
+</hibernate-mapping>
