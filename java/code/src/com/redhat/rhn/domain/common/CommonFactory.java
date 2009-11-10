@@ -56,15 +56,6 @@ public class CommonFactory extends HibernateFactory {
     }
 
     /**
-     * Save a Checksum to the DB.
-     *
-     * @param checksumIn Checksum to save
-     */
-    public static void saveChecksum(Checksum checksumIn) {
-        singleton.saveObject(checksumIn);
-    }
-
-    /**
      * Save a FileList to the DB.
      * 
      * @param fIn FileList to save
