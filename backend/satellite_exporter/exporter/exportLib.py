@@ -23,16 +23,18 @@ class ChannelDumper(_ChannelDumper):
     def __init__(self, writer, row):
         BaseRowDumper.__init__(self, writer, row)
 
-    _query_release_channel_map = rhnSQL.Statement("""
-        select dcm.os product, dcm.release version,
-               dcm.eus_release release, ca.label channel_arch,
-               dcm.is_default is_default
-          from rhnDistChannelMap dcm, rhnChannelArch ca
-         where dcm.channel_id = :channel_id
-           and dcm.channel_arch_id = ca.id
-           and dcm.is_eus = 'Y'
-    """)
+    #_query_release_channel_map = rhnSQL.Statement("""
+    #    select dcm.os product, dcm.release version,
+    #           dcm.eus_release release, ca.label channel_arch,
+    #           dcm.is_default is_default
+    #      from rhnDistChannelMap dcm, rhnChannelArch ca
+    #     where dcm.channel_id = :channel_id
+    #       and dcm.channel_arch_id = ca.id
+    #       and dcm.is_eus = 'Y'
+    #""")
     def set_iterator(self):
+        arrayiterator = _ChannelDumper.set_iterator()
+        arr = arrayiterator._arr
         mappings = [
             ('rhn-channel-receiving-updates', 'receiving_updates'),
         ]
@@ -40,13 +42,11 @@ class ChannelDumper(_ChannelDumper):
             arr.append(SimpleDumper(self._writer, k, self._row[v]))
 
         #channel_id = self._row['id']
-        #arrayiterator = _ChannelDumper.set_iterator()
         ## Add EUS info
         #h = rhnSQL.prepare(self._query_release_channel_map)
         #h.execute(channel_id=channel_id)
-        #arrayiterator._arr.append(ReleaseDumper(self._writer, h))
-        #return arrayiterator
-        return _ChannelDumper.set_iterator()
+        #arr.append(ReleaseDumper(self._writer, h))
+        return arrayiterator
 
 
 #class ReleaseDumper(BaseDumper):
