@@ -38,42 +38,6 @@ from server import rhnSQL
 #
 
 
-def errata_cursor(errata_id):
-    _query_errata_info = """
-        select
-            e.id,
-            e.advisory_name,
-            e.advisory,
-            e.advisory_type,
-            e.advisory_rel,
-            e.product,
-            e.description,
-            %s
-            e.topic,
-            e.solution,
-            TO_CHAR(e.issue_date, 'YYYYMMDDHH24MISS') issue_date,
-            TO_CHAR(e.update_date, 'YYYYMMDDHH24MISS') update_date,
-            e.refers_to,
-            e.notes
-        from rhnErrata e
-        where e.id = :errata_id
-    """
-
-    # include severity into synopsis before
-    # exporting to satellite.
-    # Also ignore the first 17 characters in
-    # the label(errata.sev.label.) from
-    # rhnErrataSeverity table
-    synopsis = """
-        (select SUBSTR(label,18) || ':'
-           from rhnErrataSeverity
-          where id = e.severity_id) || e.synopsis synposis,
-    """
-    h = rhnSQL.prepare(_query_errata_info % synopsis)
-    h.execute(errata_id=errata_id)
-    return h
-
-
 class ProductNamesDumper(BaseDumper):
 
     tag_name = "rhn-product-names"

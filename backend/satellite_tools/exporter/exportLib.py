@@ -1477,7 +1477,7 @@ def _source_packages_cursor(package_id):
     return h
 
 
-def errata_cursor(errata_id):
+def _errata_cursor(errata_id, synopsis):
     _query_errata_info = """
         select 
             e.id,
@@ -1497,9 +1497,25 @@ def errata_cursor(errata_id):
         from rhnErrata e
         where e.id = :errata_id
     """
-    h = rhnSQL.prepare(_query_errata_info % "e.synopsis,")
+    h = rhnSQL.prepare(_query_errata_info % synopsis)
     h.execute(errata_id=errata_id)
     return h
+
+def errata_cursor(errata_id):
+    return _errata_cursor(errata_id, "e.synopsis,")
+
+def errata_severity_cursor(errata_id):
+    # include severity into synopsis before
+    # exporting to satellite.
+    # Also ignore the first 17 characters in
+    # the label(errata.sev.label.) from
+    # rhnErrataSeverity table
+    synopsis = """
+        (select SUBSTR(label,18) || ':'
+           from rhnErrataSeverity
+          where id = e.severity_id) || e.synopsis synposis,
+    """
+    return _errata_cursor(errata_id, synopsis)
 
 class ChannelProductsDumper(BaseDumper):
     
