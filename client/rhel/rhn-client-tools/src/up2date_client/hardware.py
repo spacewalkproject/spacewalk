@@ -705,6 +705,11 @@ def read_network():
         netdict['hostname'] = hostname
         netdict['ipaddr'] = ipaddr
 
+        if netdict['hostname'] == 'localhost.localdomain':
+            netdict['hostname'] = hostname
+        if netdict['ipaddr'] == "127.0.0.1":
+            netdict['ipaddr'] = ipaddr
+
     return netdict
 
 def read_network_interfaces():
