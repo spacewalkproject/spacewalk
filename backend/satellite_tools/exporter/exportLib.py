@@ -1536,3 +1536,16 @@ class ChannelProductsDumper(BaseDumper):
         }
         EmptyDumper(self._writer, 'rhn-channel-product', attributes).dump()
 
+class ProductNamesDumper(BaseDumper):
+    tag_name = "rhn-product-names"
+
+    def set_iterator(self):
+        query = rhnSQL.prepare("""
+            select label, name from rhnProductName
+        """)
+        query.execute()
+        return query
+
+    def dump_subelement(self, data):
+        EmptyDumper(self._writer, 'rhn-product-name', data).dump()
+
