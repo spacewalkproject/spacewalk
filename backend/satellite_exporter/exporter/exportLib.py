@@ -17,57 +17,6 @@ from satellite_tools.exporter import exportLib
 
 from server import rhnSQL
 
-class ChannelDumper(_ChannelDumper):
-    tag_name = 'rhn-channel'
-
-    def __init__(self, writer, row):
-        BaseRowDumper.__init__(self, writer, row)
-
-    #_query_release_channel_map = rhnSQL.Statement("""
-    #    select dcm.os product, dcm.release version,
-    #           dcm.eus_release release, ca.label channel_arch,
-    #           dcm.is_default is_default
-    #      from rhnDistChannelMap dcm, rhnChannelArch ca
-    #     where dcm.channel_id = :channel_id
-    #       and dcm.channel_arch_id = ca.id
-    #       and dcm.is_eus = 'Y'
-    #""")
-    def set_iterator(self):
-        arrayiterator = _ChannelDumper.set_iterator()
-        arr = arrayiterator._arr
-        mappings = [
-            ('rhn-channel-receiving-updates', 'receiving_updates'),
-        ]
-        for k, v in mappings:
-            arr.append(SimpleDumper(self._writer, k, self._row[v]))
-
-        #channel_id = self._row['id']
-        ## Add EUS info
-        #h = rhnSQL.prepare(self._query_release_channel_map)
-        #h.execute(channel_id=channel_id)
-        #arr.append(ReleaseDumper(self._writer, h))
-        return arrayiterator
-
-
-#class ReleaseDumper(BaseDumper):
-#    tag_name = 'rhn-release'
-#
-#    def dump_subelement(self, data):
-#        d = _ReleaseDumper(self._writer, data)
-#        d.dump()
-#
-#class _ReleaseDumper(BaseRowDumper):
-#    tag_name = 'rhn-release'
-#
-#    def set_attributes(self):
-#        return {
-#            'product'       : self._row['product'],
-#            'version'       : self._row['version'],
-#            'release'       : self._row['release'],
-#            'channel-arch'  : self._row['channel_arch'],
-#            'is-default'  : self._row['is_default'],
-#        }
-
 
 #class _PackageDumper(BaseRowDumper):
 #    tag_name = 'rhn-package'
