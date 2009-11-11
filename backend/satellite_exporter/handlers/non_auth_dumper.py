@@ -26,7 +26,8 @@ from server.rhnHandler import rhnHandler
 from server.importlib.backendLib import localtime
 from common.rhnTranslate import _
 
-from satellite_exporter.exporter import dumper, exportLib
+from satellite_tools.exporter import exportLib
+from satellite_exporter.exporter import dumper
 
 class InvalidPackageError(Exception):
     pass

@@ -25,8 +25,9 @@ from cStringIO import StringIO
 from common import log_debug, log_error, rhnFault, UserDictCase, rhnCache, \
     CFG, rhnLib
 from server import rhnSQL, rhnDatabaseCache
+from satellite_tools.exporter import exportLib
 from satellite_exporter import constants
-from satellite_exporter.exporter import exportLib, xmlWriter
+from satellite_exporter.exporter import xmlWriter
 from satellite_exporter.exporter.string_buffer import StringBuffer
 
 # A wrapper class for a database statement
@@ -885,7 +886,7 @@ class SourcePackagesDumper(CachedDumper, exportLib.SourcePackagesDumper):
         return exportLib.SourcePackagesDumper.dump_subelement(self, data)
 
 
-class ErrataDumper(CachedDumper, exportLib.ErrataDumper):
+class ErrataDumper(CachedDumper, exportLib.ErrataSynopsisDumper):
     def __init__(self, writer, errata):
         h = rhnSQL.prepare("""
             select
@@ -916,7 +917,7 @@ class ErrataDumper(CachedDumper, exportLib.ErrataDumper):
 
     def _dump_subelement(self, data):
         log_debug(6, data)
-        return exportLib.ErrataDumper.dump_subelement(self, data)
+        return exportLib.ErrataSynopsisDumper.dump_subelement(self, data)
 
 class KickstartableTreesDumper(CachedDumper,
         exportLib.KickstartableTreesDumper):
