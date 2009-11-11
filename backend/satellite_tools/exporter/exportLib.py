@@ -698,6 +698,7 @@ class ShortPackagesDumper(BaseDumper):
                 pe.evr.epoch epoch, 
                 pa.label package_arch,
                 p.md5sum,
+                p.org_id,
                 TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
             from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe, 
                 rhnPackageArch pa

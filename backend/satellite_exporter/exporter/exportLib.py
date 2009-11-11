@@ -37,51 +37,6 @@ from server import rhnSQL
 #        return attrdict
 #
 
-##
-class ShortPackagesDumper(BaseDumper):
-    tag_name = 'rhn-packages-short'
-
-    def set_iterator(self):
-        if self._iterator:
-            return self._iterator
-
-        # Sample query only
-        h = rhnSQL.prepare("""
-            select
-                p.id,
-                pn.name,
-                pe.evr.version version,
-                pe.evr.release release,
-                pe.evr.epoch epoch,
-                pa.label package_arch,
-                p.md5sum,
-                p.org_id,
-                TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
-            from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe,
-                rhnPackageArch pa
-            where p.name_id = pn.id
-            and p.evr_id = pe.id
-            and p.package_arch_id = pa.id
-            and p.path is not null
-            and rownum < 3
-        """)
-        h.execute()
-        return h
-
-    def dump_subelement(self, data):
-        attributes = {}
-        attrs = [
-            "id", "name", "version", "release", "epoch",
-            "package_arch", "md5sum", "package_size", "org_id",
-        ]
-        for attr in attrs:
-            attributes[attr.replace('_', '-')] = data[attr]
-        attributes['id'] = "rhn-package-%s" % data['id']
-        attributes['epoch'] = data['epoch'] or ""
-        attributes['last-modified'] = _dbtime2timestamp(data['last_modified'])
-        d = EmptyDumper(self._writer, 'rhn-package-short',
-            attributes=attributes)
-        d.dump()
 
 
 ## Errata
