@@ -52,6 +52,22 @@ ORDER BY  E.update_date DESC, E.id
   <elaborator name="errata_overview" />
 </mode>
 
+<mode name="relevant_errata_by_type_with_cves" class="com.redhat.rhn.frontend.dto.SecurityErrataOverview">
+  <query params="user_id, type">
+SELECT E.id, E.update_date
+  FROM rhnErrata E,
+       (SELECT SNEC.errata_id, COUNT(SNEC.server_id) C
+          FROM rhnServerNeededPackageCache SNEC
+         WHERE SNEC.server_id IN (SELECT server_id FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id)
+           AND errata_id IS NOT NULL
+        GROUP BY SNEC.errata_id) X
+ WHERE E.id = X.errata_id
+ AND E.advisory_type = :type
+ORDER BY  E.update_date DESC, E.id
+  </query>
+  <elaborator name="errata_cves_elab" />
+</mode>
+
 <mode name="all_errata" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="org_id">
 SELECT DISTINCT E.id, E.update_date, E.synopsis AS ADVISORY_SYNOPSIS
@@ -83,6 +99,23 @@ SELECT DISTINCT E.id, E.update_date, E.synopsis AS ADVISORY_SYNOPSIS
  ORDER BY  E.update_date DESC, E.id
   </query>
   <elaborator name="errata_overview" />
+</mode>
+
+<mode name="all_errata_by_type_with_cves" class="com.redhat.rhn.frontend.dto.SecurityErrataOverview">
+  <query params="org_id, type">
+SELECT DISTINCT E.id, E.update_date, E.synopsis AS ADVISORY_SYNOPSIS
+  FROM  rhnErrata E, rhnChannelErrata CE, rhnChannel C,
+        rhnChannelFamilyMembers CFM,
+        rhnOrgChannelFamilyPermissions OCF
+ WHERE  CE.errata_id = E.id
+   AND  CE.channel_id = C.id
+   AND  C.id = CFM.channel_id
+   AND  CFM.channel_family_id = OCF.channel_family_id
+   AND  OCF.org_id = :org_id
+   AND  E.advisory_type = :type
+ ORDER BY  E.update_date DESC, E.id
+  </query>
+  <elaborator name="errata_cves_elab" />
 </mode>
 
 <mode name="all_errata_orig" class="com.redhat.rhn.frontend.dto.ErrataOverview">
@@ -1253,4 +1286,26 @@ SELECT E.id, E.advisory, E.synopsis
   </query>
 </mode>
 
+<query name="errata_cves_elab" params="user_id" >
+SELECT E.id, E.advisory_name, E.advisory_type, E.synopsis AS ADVISORY_SYNOPSIS,
+       C.name AS CVE,
+       (SELECT  COUNT(DISTINCT S.id)
+                FROM  rhnServerNeededErrataCache SNEC,
+                rhnServer S, rhnUserServerPerms USP
+                WHERE  USP.user_id = :user_id
+                AND  USP.server_id = S.ID
+                AND  S.id = SNEC.server_id
+                AND  EXISTS (SELECT 1
+                                    FROM rhnServerFeaturesView SFV
+                                    WHERE SFV.server_id = SNEC.server_id
+                                    AND SFV.label = 'ftr_errata_updates')
+                                    AND  SNEC.errata_id = E.id)
+       AS AFFECTED_SYSTEM_COUNT
+FROM   rhnErrata E, rhnCve C, rhnErrataCVE EC
+WHERE  E.id IN (%s)
+AND    E.id = EC.errata_id
+AND    EC.cve_id = C.id
+</query>
+
 </datasource_modes>
+

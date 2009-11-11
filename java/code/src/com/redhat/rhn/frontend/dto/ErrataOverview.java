@@ -14,27 +14,19 @@
  */
 package com.redhat.rhn.frontend.dto;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.db.datasource.Elaborator;
-import com.redhat.rhn.common.db.datasource.RowCallback;
 import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.manager.errata.ErrataManager;
 
 import java.text.ParseException;
-import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 /**
  * ErrataOverview
  * @version $Rev$
  */
-public class ErrataOverview extends BaseDto 
-            implements RowCallback {
+public class ErrataOverview extends BaseDto {
     private Long id;
     private String advisory;
     private String advisoryName;
@@ -44,8 +36,8 @@ public class ErrataOverview extends BaseDto
     private Date issueDate;
     private Integer affectedSystemCount;
     private String advisoryLastUpdated;
-    private List cves;
-    private List packageNames;
+    private List cves = new ArrayList();
+    private List packageNames = new ArrayList();
     private List actionId;
     private List status;
     private Long associatedSystemId;
@@ -128,9 +120,6 @@ public class ErrataOverview extends BaseDto
      * @param name The name to add to packageNames.
      */
     public void addPackageName(String name) {
-        if (packageNames == null) {
-            packageNames = new ArrayList();
-        }
         packageNames.add(name);
     }
     /**
@@ -155,11 +144,10 @@ public class ErrataOverview extends BaseDto
      * Adds a cve to cves list.
      * @param cveIn The cve to add to cves list.
      */
-    public void addCve(CVE cveIn) {
-        if (cveIn == null) {
-            cves = new ArrayList();
+    public void addCve(String cveIn) {
+        if (cveIn != null) {
+            cves.add(cveIn);
         }
-        cves.add(cveIn);
     }
     /**
      * @param p The cves to set.
@@ -383,31 +371,5 @@ public class ErrataOverview extends BaseDto
      */
     public void setLastModified(Date lastModifiedIn) {
         this.lastModified = lastModifiedIn;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public List<String> getCallBackColumns() {
-        return new ArrayList<String>();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void callback(ResultSet rs) throws SQLException {
-        if (rs != null) {
-            if ("Security Advisory".equals(rs.getString("advisory_type"))) {
-                long eid = rs.getLong("id");
-                DataResult dr = ErrataManager.errataCVEs(eid);
-                Elaborator elab = dr.getElaborator();
-                List cvesList = new ArrayList();
-                for (Iterator iter = dr.iterator(); iter.hasNext();) {
-                    CVE cve = (CVE)iter.next();
-                    cvesList.add(cve.getName());
-                }
-                this.setCves(cvesList);
-            }
-        }
     }
 }

@@ -296,6 +296,23 @@ public class ErrataManager extends BaseManager {
     }
 
     /**
+     * Returns all of the security errata
+     * @param user Currently logged in user.
+     * @return all security errata
+     */
+    public static DataResult allSecurityErrata(User user) {
+        SelectMode m = ModeFactory.getMode("Errata_queries",
+                        "all_errata_by_type_with_cves");
+        Map params = new HashMap();
+        params.put("org_id", user.getOrg().getId());
+        params.put("type", ErrataFactory.ERRATA_TYPE_SECURITY);
+        Map elabParams = new HashMap();
+        elabParams.put("user_id", user.getId());
+        DataResult result = makeDataResult(params, elabParams, null, m);
+        return result;
+    }
+
+    /**
      * Returns all of the errata in a channel
      * @param cid the channel id
      * @return all of the errata in the channel.
@@ -374,7 +391,24 @@ public class ErrataManager extends BaseManager {
         return makeDataResult(params, elabParams, pc, m);
     }
 
-    
+    /**
+     * Returns the relevant security errata.
+     * @param user Currently logged in user.
+     * @param pc PageControl
+     * @return relevant errata.
+     */
+    public static DataResult relevantSecurityErrata(User user,
+            PageControl pc) {
+        SelectMode m = ModeFactory.getMode("Errata_queries",
+                        "relevant_errata_by_type_with_cves");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("type", ErrataFactory.ERRATA_TYPE_SECURITY);
+        Map elabParams = new HashMap();
+        elabParams.put("user_id", user.getId());
+        return makeDataResult(params, elabParams, pc, m);
+    }
+
     /**
      * Returns all of the unpublished errata.
      * @param user Currently logged in user.

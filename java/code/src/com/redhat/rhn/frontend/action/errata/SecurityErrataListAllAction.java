@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.errata;
 
-import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.errata.ErrataManager;
@@ -32,7 +31,7 @@ public class SecurityErrataListAllAction extends ErrataListAllAction {
     public List getResult(RequestContext context) {
 
         User user = context.getLoggedInUser();
-        return ErrataManager.allErrataByType(user, ErrataFactory.ERRATA_TYPE_SECURITY);
+        return ErrataManager.allSecurityErrata(user);
     }
 
     /** {@inheritDoc} */
