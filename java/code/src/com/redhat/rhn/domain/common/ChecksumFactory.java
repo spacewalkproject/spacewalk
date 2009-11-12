@@ -15,12 +15,11 @@
 package com.redhat.rhn.domain.common;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.common.hibernate.LookupException;
-import com.redhat.rhn.common.localization.LocalizationService;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import java.util.HashMap;
 
 /**
  * TokenFactory
@@ -68,16 +67,16 @@ public class ChecksumFactory extends HibernateFactory {
             return null;
         }
 
-        Checksum c = this.lookupByChecksum(hash)
+        Checksum c = lookupByChecksum(hash);
         if (c == null) {
             // Create new checksum
             c = new Checksum();
             HashMap params = new HashMap();
             params.put("label", hashType);
-            c.setChecksum(hash)
-            c.setChecksumType((ChecksumType)
-            singleton.lookupObjectByNamedQuery("ChecksumType.findByLabel", params))
-            this.save(c);
+            c.setChecksum(hash);
+            c.setChecksumtype((ChecksumType)
+            singleton.lookupObjectByNamedQuery("ChecksumType.findByLabel", params));
+            save(c);
         }
         return c;
     }
@@ -87,7 +86,7 @@ public class ChecksumFactory extends HibernateFactory {
      * Saves a checksum to the database
      * @param checksumIn The Checksum to save.
      */
-    public static void save(Checksum ChecksumIn) {
+    public static void save(Checksum checksumIn) {
         singleton.saveObject(checksumIn);
     }
 

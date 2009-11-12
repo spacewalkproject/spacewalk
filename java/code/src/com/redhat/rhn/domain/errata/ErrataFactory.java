@@ -286,7 +286,7 @@ public class ErrataFactory extends HibernateFactory {
                 //Now create the appropriate ErrataFile object
                 ErrataFile publishedFile = ErrataFactory.createPublishedErrataFile(
                         ErrataFactory.lookupErrataFileType("RPM"), 
-                        pack.getMd5sum(), pack.getNameEvra());
+                        pack.getChecksum().getChecksum(), pack.getNameEvra());
                  publishedFile.addPackage(pack);
                  publishedFile.setErrata(errata);
                  publishedFile.setModified(new Date());

@@ -19,6 +19,7 @@ import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.common.ChecksumFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.ChangeLogEntry;
@@ -130,7 +131,8 @@ public class PackageTest extends RhnBaseTestCase {
         p.setPayloadSize(new Long(42));
         p.setBuildHost("foo2");
         p.setBuildTime(new Date());
-        p.setMd5sum(MD5Crypt.crypt(TestUtils.randomString()));
+        p.setChecksum(ChecksumFactory.safeCreate(
+            MD5Crypt.crypt(TestUtils.randomString()), "md5"));
         p.setVendor("Rhn-Java");
         p.setPayloadFormat("testpayloadformat");
         p.setCompat(new Long(0));
@@ -186,14 +188,14 @@ public class PackageTest extends RhnBaseTestCase {
             source.setBuildTime(date);
             source.setCookie(string);
             source.setCreated(date);
-            source.setMd5sum(string);
+            source.setChecksum(ChecksumFactory.safeCreate(string, "md5"));
             source.setOrg(org);
             source.setPackageGroup(PackageGroupTest.createTestPackageGroup());
             source.setPackageSize(343L);
             source.setPath(string);
             source.setPayloadSize(343L);
             source.setRpmVersion(string);
-            source.setSigmd5(string);
+            source.setSigchecksum(ChecksumFactory.safeCreate(string, "md5"));
             source.setSourceRpm(rpm);
             source.setVendor(string);
         }

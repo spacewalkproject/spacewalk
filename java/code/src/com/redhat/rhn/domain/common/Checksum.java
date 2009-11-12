@@ -67,7 +67,7 @@ public class Checksum extends BaseDomainHelper {
     /**
      * @param checksumTypeIn The checksum type to set.
      */
-    public void setDescription(ChecksumType checksumTypeIn) {
+    public void setChecksumtype(ChecksumType checksumTypeIn) {
         this.checksumType = checksumTypeIn;
     }
 
