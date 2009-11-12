@@ -5,6 +5,6 @@
 TOP		= ../..
 
 SUBDIR		= satellite_exporter/exporter
-FILES		= __init__ dumper string_buffer xmlWriter
+FILES		= __init__ dumper string_buffer
 
 include $(TOP)/Makefile.defs

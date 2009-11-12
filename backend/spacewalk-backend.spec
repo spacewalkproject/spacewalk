@@ -436,7 +436,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_exporter/exporter/__init__.py*
 %{rhnroot}/satellite_exporter/exporter/dumper.py*
 %{rhnroot}/satellite_exporter/exporter/string_buffer.py*
-%{rhnroot}/satellite_exporter/exporter/xmlWriter.py*
 
 %dir %{rhnroot}/satellite_exporter/handlers
 %{rhnroot}/satellite_exporter/handlers/__init__.py*
