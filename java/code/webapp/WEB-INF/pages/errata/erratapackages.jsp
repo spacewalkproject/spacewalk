@@ -28,7 +28,7 @@
 			    </c:if>
 
 			 <c:forEach items="${current.packages}" var="pack">
-				<tt>${pack.md5sum}</tt>
+				<tt>${pack.checksum}</tt>
 				<a href="/rhn/software/packages/Details.do?pid=${pack.id}">
 						<c:out value="${pack.name}"/>
 				</a>

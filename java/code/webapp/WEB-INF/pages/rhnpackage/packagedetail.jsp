@@ -58,7 +58,7 @@
       
       <tr>
         <th><bean:message key="package.jsp.md5sum"/>:</th>
-        <td><c:out value="${pack.md5sum}" /></td>
+        <td><c:out value="${pack.checksum}" /></td>
       </tr>          
       
       <tr>
