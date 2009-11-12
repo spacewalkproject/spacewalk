@@ -13,7 +13,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <many-to-one
             name="checksumType"
             class="com.redhat.rhn.domain.common.ChecksumType"
-            column="checksum_id"/>
+            column="checksum_type_id"/>
 
     </class>
 
