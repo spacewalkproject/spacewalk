@@ -96,11 +96,6 @@ public class Checksum extends BaseDomainHelper {
 
     /** {@inheritDoc} */
     public String toString() {
-        ToStringBuilder builder = new ToStringBuilder(this);
-
-        builder.append("id", id);
-        builder.append("checksum", checksum);
-
-        return builder.toString();
+        return checksum;
     }
 }
