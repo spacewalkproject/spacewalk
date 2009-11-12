@@ -18,7 +18,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="payloadSize"     type="long"   column="payload_size"/>
         <property name="buildHost"       type="string" column="build_host"/>
         <property name="buildTime"       type="date"   column="build_time"/>
-        <property name="sigmd5"          type="string" column="sigmd5"/>
         <property name="vendor"          type="string" column="vendor"/>
         <property name="path"            type="string" column="path"/>
         <property name="cookie"          type="string" column="cookie"/>
@@ -30,6 +29,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
         <many-to-one name="checksum" class="com.redhat.rhn.domain.common.Checksum"
                      column="checksum_id" />
+        <many-to-one name="sigchecksum" class="com.redhat.rhn.domain.common.Checksum"
+                     column="sigchecksum" />
         <many-to-one name="org"
                      class="com.redhat.rhn.domain.org.OrgImpl"
                      column="org_id"
