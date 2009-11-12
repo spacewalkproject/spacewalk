@@ -450,24 +450,24 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         
         //   Clear any packages on the profile so we have a known starting state
         KickstartData ks1 = KickstartDataTest.createKickstartWithProfile(admin);
-        ks1.getKsPackages().clear();
+        ks1.clearKsPackages();
         
         KickstartData ks2 = KickstartDataTest.createKickstartWithProfile(admin);
-        ks2.getKsPackages().clear();
+        ks2.clearKsPackages();
         
         Package package1 = PackageTest.createTestPackage(admin.getOrg());
         Package package2 = PackageTest.createTestPackage(admin.getOrg());
         Package package3 = PackageTest.createTestPackage(admin.getOrg());
-        
+
         ks1.addKsPackage(new KickstartPackage(ks1, package1.getPackageName()));
         ks1.addKsPackage(new KickstartPackage(ks1, package2.getPackageName()));
 
         ks2.addKsPackage(new KickstartPackage(ks2, package1.getPackageName()));
         ks2.addKsPackage(new KickstartPackage(ks2, package3.getPackageName()));
-        
+
         KickstartFactory.saveKickstartData(ks1);
         KickstartFactory.saveKickstartData(ks2);
-        
+
         // Test
         Map<String, Set<String>> packagesDiff =
             handler.comparePackages(adminKey, ks1.getLabel(), ks2.getLabel());
@@ -495,14 +495,12 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         
         //   Clear any packages on the profile so we have a known starting state
         KickstartData ks1 = KickstartDataTest.createKickstartWithProfile(admin);
-        ks1.getKsPackages().clear();
-                
+        ks1.clearKsPackages();
         Package package1 = PackageTest.createTestPackage(admin.getOrg());
-        
         ks1.addKsPackage(new KickstartPackage(ks1, package1.getPackageName()));
 
         KickstartFactory.saveKickstartData(ks1);
-        
+
         // Test
         Map<String, Set<String>> packagesDiff =
             handler.comparePackages(adminKey, ks1.getLabel(), ks1.getLabel());

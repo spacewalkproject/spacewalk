@@ -170,8 +170,8 @@ public class KickstartPackage
      * {@inheritDoc}
      */
     public String toString() {
-        return "packageName: ".concat(this.getKsData().getId().toString())
-            .concat(", ").concat(this.getPosition().toString())
-            .concat(", ").concat(this.getPackageName().getName());
+        return "{ " + this.getKsData().getId().toString() +
+               ", " + this.getPosition().toString() +
+               ", " + this.getPackageName().getName() + " }";
     }
 }

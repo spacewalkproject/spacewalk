@@ -135,13 +135,8 @@ public class EditPackagesAction extends RhnAction {
             RequestContext ctx) {
         
         // first clear the kickstart packages set
+        ksdata.clearKsPackages();
         Set ksPackages = ksdata.getKsPackages();
-        for (Iterator iter = ksPackages.iterator(); iter.hasNext();) {
-            // remove from DB
-            KickstartFactory.removePackage((KickstartPackage)iter.next());
-            // remove from collection
-            iter.remove();
-        }
         
         String newPackages = form.getString(PACKAGE_LIST);
         if (newPackages != null && newPackages.length() > 0) {
@@ -157,8 +152,7 @@ public class EditPackagesAction extends RhnAction {
 
                 if (KickstartFactory.lookupKsPackageByKsDataAndPackageName(
                                                         ksdata, pn).isEmpty()) {
-                    ksdata.addKsPackage(kp);          // save to collection
-                    KickstartFactory.savePackage(kp); // save to DB
+                    ksdata.addKsPackage(kp);
                 }
             }
         }

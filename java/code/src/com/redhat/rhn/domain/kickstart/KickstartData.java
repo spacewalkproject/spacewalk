@@ -431,7 +431,9 @@ public class KickstartData {
 
     public void addKsPackage(KickstartPackage kp) {
         kp.setPosition((long)ksPackages.size());
-        this.ksPackages.add(kp);
+        if (this.ksPackages.add(kp)) {              // save to collection
+            KickstartFactory.savePackage(kp);       // save to DB
+        }
     }
 
     /**
@@ -459,6 +461,18 @@ public class KickstartData {
         this.ksPackages = p;
     }
  
+    /**
+     * Clear all ksPackages
+     */
+    public void clearKsPackages() {
+        for (Iterator iter = ksPackages.iterator(); iter.hasNext();) {
+            // remove from DB
+            KickstartFactory.removePackage((KickstartPackage)iter.next());
+            // remove from collection
+            iter.remove();
+        }
+    }
+
     /**
      * Get the KickstartScript of type "pre"
      * @return KickstartScript used by the Pre section.  Null if not used
