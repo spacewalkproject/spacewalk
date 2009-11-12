@@ -113,7 +113,7 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
             if (!rev.getConfigContent().isBinary()) {
                 helper.add(CONTENTS, rev.getConfigContent().getContentsString());    
             }
-            helper.add("md5", rev.getConfigContent().getMd5sum());
+            helper.add("md5", rev.getConfigContent().getChecksum().getChecksum());
             helper.add(MACRO_START, rev.getDelimStart());
             helper.add(MACRO_END, rev.getDelimEnd());
         }

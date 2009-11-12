@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.config;
 
+import com.redhat.rhn.domain.common.Checksum;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.BaseDomainHelper;
 
@@ -27,7 +28,7 @@ public class ConfigContent extends BaseDomainHelper {
 
     private Long id;
     private Long fileSize;
-    private String md5sum;
+    private Checksum checksum;
     private boolean isBinary;
     private Blob contentsBlob;
     /**
@@ -112,19 +113,19 @@ public class ConfigContent extends BaseDomainHelper {
     }
 
     /** 
-     * Getter for md5sum 
+     * Getter for checksum
      * @return String to get
     */
-    public String getMd5sum() {
-        return this.md5sum;
+    public Checksum getChecksum() {
+        return this.checksum;
     }
 
     /** 
-     * Setter for md5sum 
-     * @param md5sumIn to set
+     * Setter for checksum
+     * @param checksumIn to set
     */
-    public void setMd5sum(String md5sumIn) {
-        this.md5sum = md5sumIn;
+    public void setChecksum(Checksum checksumIn) {
+        this.checksum = checksumIn;
     }
 
     /** 

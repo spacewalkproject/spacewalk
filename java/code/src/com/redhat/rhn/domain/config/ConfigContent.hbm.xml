@@ -13,9 +13,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		</id>
 		<property name="contentsBlob" column="contents" type="blob" />
 		<property name="fileSize" column="file_size" type="long" />
-		<property name="md5sum" column="md5sum" type="string" length="64" />
 		<property name="binary" column="is_binary" type="yes_no" />
 		<property name="created" column="created" type="timestamp" />
 		<property name="modified" column="modified" type="timestamp" />
+		<many-to-one name="checksum" class="com.redhat.rhn.domain.common.Checksum"
+            column="checksum_id" />
 	</class>
 </hibernate-mapping>

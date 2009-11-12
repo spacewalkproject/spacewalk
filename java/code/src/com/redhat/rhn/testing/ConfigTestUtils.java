@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.config.ConfigFileType;
 import com.redhat.rhn.domain.config.ConfigInfo;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.config.ConfigurationFactory;
+import com.redhat.rhn.domain.common.ChecksumFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
@@ -279,7 +280,8 @@ public class ConfigTestUtils extends Assert {
      */
     public static ConfigContent createConfigContent(Long fileSize, boolean isBinary) {
         ConfigContent cc = ConfigurationFactory.newConfigContent();
-        cc.setMd5sum("d41d8cd98f00b204e9800998ecf8427e");
+        cc.setChecksum(ChecksumFactory.safeCreate(
+            "d41d8cd98f00b204e9800998ecf8427e", "md5"));
         cc.setContents(new byte[0]);
         cc.setFileSize(fileSize);
         cc.setBinary(isBinary);
