@@ -30,7 +30,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <many-to-one name="checksum" class="com.redhat.rhn.domain.common.Checksum"
                      column="checksum_id" />
         <many-to-one name="sigchecksum" class="com.redhat.rhn.domain.common.Checksum"
-                     column="sigchecksum" />
+                     column="sigchecksum_id" />
         <many-to-one name="org"
                      class="com.redhat.rhn.domain.org.OrgImpl"
                      column="org_id"
