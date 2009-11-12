@@ -74,7 +74,7 @@ public class ChecksumFactory extends HibernateFactory {
             HashMap params = new HashMap();
             params.put("label", hashType);
             c.setChecksum(hash);
-            c.setChecksumtype((ChecksumType)
+            c.setChecksumType((ChecksumType)
             singleton.lookupObjectByNamedQuery("ChecksumType.findByLabel", params));
             save(c);
         }

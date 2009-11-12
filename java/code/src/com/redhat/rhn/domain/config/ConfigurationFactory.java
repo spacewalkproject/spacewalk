@@ -764,7 +764,7 @@ public class ConfigurationFactory extends HibernateFactory {
         HashMap params = new HashMap();
         params.put("label", "md5");
         newChecksum.setChecksum(MD5Crypt.md5Hex(foo));
-        newChecksum.setChecksumtype((ChecksumType)
+        newChecksum.setChecksumType((ChecksumType)
             singleton.lookupObjectByNamedQuery("ChecksumType.findByLabel", params));
         ChecksumFactory.save(newChecksum);
         content.setChecksum(newChecksum);
