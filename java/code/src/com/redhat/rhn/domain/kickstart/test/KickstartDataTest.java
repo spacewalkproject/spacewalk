@@ -464,6 +464,8 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         
         k.setKernelParams(KERNEL_PARAMS);
 
+        k = (KickstartData) TestUtils.saveAndReload(k);
+
         k.addKsPackage(new KickstartPackage(k, pn));
         k.addKsPackage(new KickstartPackage(k, pn2));
 

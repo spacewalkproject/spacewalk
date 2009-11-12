@@ -14,19 +14,27 @@
  */
 package com.redhat.rhn.frontend.dto;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.db.datasource.Elaborator;
+import com.redhat.rhn.common.db.datasource.RowCallback;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.manager.errata.ErrataManager;
 
 import java.text.ParseException;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * ErrataOverview
  * @version $Rev$
  */
-public class ErrataOverview extends BaseDto {
+public class ErrataOverview extends BaseDto 
+            implements RowCallback {
     private Long id;
     private String advisory;
     private String advisoryName;
@@ -375,5 +383,31 @@ public class ErrataOverview extends BaseDto {
      */
     public void setLastModified(Date lastModifiedIn) {
         this.lastModified = lastModifiedIn;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<String> getCallBackColumns() {
+        return new ArrayList<String>();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void callback(ResultSet rs) throws SQLException {
+        if (rs != null) {
+            if ("Security Advisory".equals(rs.getString("advisory_type"))) {
+                long eid = rs.getLong("id");
+                DataResult dr = ErrataManager.errataCVEs(eid);
+                Elaborator elab = dr.getElaborator();
+                List cvesList = new ArrayList();
+                for (Iterator iter = dr.iterator(); iter.hasNext();) {
+                    CVE cve = (CVE)iter.next();
+                    cvesList.add(cve.getName());
+                }
+                this.setCves(cvesList);
+            }
+        }
     }
 }

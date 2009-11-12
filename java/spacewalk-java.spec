@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.15
+Version: 0.7.16
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -280,6 +280,28 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Nov 10 2009 Tomas Lestach <tlestach@redhat.com> 0.7.16-1
+- WebUI Errata & CVEs enhancements (tlestach@redhat.com)
+- unit test fixes (jsherril@redhat.com)
+- 531649 - fixed issue where confirmation message was not displayed after using
+  channel merge/compare feature (jsherril@redhat.com)
+- 531645 - fixing query with mistaken id reference (jsherril@redhat.com)
+- standart Red Hat header added to CompareConfigFilesTask.java
+  (tlestach@redhat.com)
+- Show number of differing config files in overview
+  (joshua.roys@gtri.gatech.edu)
+- Set CompareConfigFilesTask to run at 11pm (joshua.roys@gtri.gatech.edu)
+- Add task to schedule config file comparisons (joshua.roys@gtri.gatech.edu)
+- Fix two more fd leaks (joshua.roys@gtri.gatech.edu)
+- Plug fd leak (joshua.roys@gtri.gatech.edu)
+- Fix system comparison file/dir/symlink counts (joshua.roys@gtri.gatech.edu)
+- 508771 - fixing incorrect sort on channel errata list page
+  (jsherril@redhat.com)
+- 531091 - fixing issue that would result in odd hibernate errors due to
+  hibernate objects being used across hibernate sessions (jsherril@redhat.com)
+- 531059 - fixing issue where certain characters in the org name would cause
+  errors when trying to create things in cobbler (jsherril@redhat.com)
+
 * Tue Oct 27 2009 Tomas Lestach <tlestach@redhat.com> 0.7.15-1
 - replacing HashSet with TreeSet (tlestach@redhat.com)
 - checkstyle errors removed (tlestach@redhat.com)

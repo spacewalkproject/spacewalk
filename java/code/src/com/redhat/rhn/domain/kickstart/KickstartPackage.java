@@ -47,6 +47,7 @@ public class KickstartPackage
         super();
         this.ksData = ksDataIn;
         this.packageName = packageNameIn;
+        this.position = 0L;
     }
 
     /**

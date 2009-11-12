@@ -18,7 +18,7 @@ import time
 import string
 from types import StringType
 
-from common import log_debug, rhnLib, CFG
+from common import log_debug, rhnLib
 from server import rhnSQL
 
 class ArrayIterator:
@@ -341,6 +341,56 @@ class _ChannelDumper(BaseRowDumper):
         else:
             return (row['name'], row['version'], row['beta'])
 
+class ChannelDumper(_ChannelDumper):
+
+    def __init__(self, writer, row):
+        BaseRowDumper.__init__(self, writer, row)
+
+    #_query_release_channel_map = rhnSQL.Statement("""
+    #    select dcm.os product, dcm.release version,
+    #           dcm.eus_release release, ca.label channel_arch,
+    #           dcm.is_default is_default
+    #      from rhnDistChannelMap dcm, rhnChannelArch ca
+    #     where dcm.channel_id = :channel_id
+    #       and dcm.channel_arch_id = ca.id
+    #       and dcm.is_eus = 'Y'
+    #""")
+
+    def set_iterator(self):
+        arrayiterator = _ChannelDumper.set_iterator()
+        arr = arrayiterator._arr
+        mappings = [
+            ('rhn-channel-receiving-updates', 'receiving_updates'),
+        ]
+        for k, v in mappings:
+            arr.append(SimpleDumper(self._writer, k, self._row[v]))
+
+        #channel_id = self._row['id']
+        ## Add EUS info
+        #h = rhnSQL.prepare(self._query_release_channel_map)
+        #h.execute(channel_id=channel_id)
+        #arr.append(ReleaseDumper(self._writer, h))
+        return arrayiterator
+
+#class ReleaseDumper(BaseDumper):
+#    tag_name = 'rhn-release'
+#
+#    def dump_subelement(self, data):
+#        d = _ReleaseDumper(self._writer, data)
+#        d.dump()
+#
+#class _ReleaseDumper(BaseRowDumper):
+#    tag_name = 'rhn-release'
+#
+#    def set_attributes(self):
+#        return {
+#            'product'       : self._row['product'],
+#            'version'       : self._row['version'],
+#            'release'       : self._row['release'],
+#            'channel-arch'  : self._row['channel_arch'],
+#            'is-default'  : self._row['is_default'],
+#        }
+
 class ChannelSourcePackagesDumper(BaseDumper):
     # Dumps the erratum id and the last modified for an erratum in this
     # channel
@@ -652,6 +702,7 @@ class ShortPackagesDumper(BaseDumper):
                 pe.evr.epoch epoch, 
                 pa.label package_arch,
                 c.checksum md5sum,
+                p.org_id,
                 TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
             from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe, 
                 rhnPackageArch pa, rhnChecksum c
@@ -790,6 +841,8 @@ class _PackageFilesDumper(BaseDumper):
 class ErrataDumper(BaseDumper):
     tag_name = 'rhn-errata'
 
+    synposis_column = "e.synposis,"
+
     def set_iterator(self):
         if self._iterator:
             return self._iterator
@@ -815,7 +868,7 @@ class ErrataDumper(BaseDumper):
              from rhnErrata e
             where rownum < 3
 	""" 
-        h = rhnSQL.prepare(_query_errata_info % "e.synposis,")
+        h = rhnSQL.prepare(_query_errata_info % self.synposis_column)
         h.execute()
         return h
 
@@ -862,6 +915,8 @@ class _ErratumDumper(BaseRowDumper):
             'packages'  : string.join(packages),
             'cve-names' : string.join(cves),
         }
+
+    type_id_column = ""
 
     def set_iterator(self):
         arr = []
@@ -917,11 +972,29 @@ class _ErratumDumper(BaseRowDumper):
                 and ef.id = efps.errata_file_id (+)
 
         """  
-        h = rhnSQL.prepare(_query_errata_file_info % "")
+        h = rhnSQL.prepare(_query_errata_file_info % self.type_id_column)
         h.execute(errata_id=self._row['id'])
         arr.append(_ErratumFilesDumper(self._writer, data_iterator=h))
 
         return ArrayIterator(arr)
+
+class ErrataSynopsisDumper(ErrataDumper):
+    # include severity into synopsis before
+    # exporting to satellite.
+    # Also ignore the first 18 characters in
+    # the label(errata.sev.label.) from
+    # rhnErrataSeverity table
+    synposis_column = """
+            (select SUBSTR(label,18) || ':'
+               from rhnErrataSeverity
+              where id = e.severity_id) || e.synopsis synposis,"""
+
+class _ErratumSynopsisDumper(_ErratumDumper):
+    # SATSYNC: Ignore the Oval files stuff(typeid=4)
+    # while exporting errata File info to satellite
+    type_id_column = """and ef.type != (select id
+                                           from rhnErrataFileType
+                                          where label = 'OVAL')"""
 
 class _ErratumKeywordDumper(BaseDumper):
     tag_name = 'rhn-erratum-keywords'
@@ -1329,7 +1402,6 @@ class _KickstartFilesDumper(BaseDumper):
     tag_name = 'rhn-kickstart-files'
 
     def dump_subelement(self, data):
-        attrs = data.copy()
         last_modified = data['last-modified']
         data['last-modified'] = _dbtime2timestamp(last_modified)
 
@@ -1421,7 +1493,7 @@ def _source_packages_cursor(package_id):
     return h
 
 
-def errata_cursor(errata_id):
+def _errata_cursor(errata_id, synopsis):
     _query_errata_info = """
         select 
             e.id,
@@ -1441,9 +1513,25 @@ def errata_cursor(errata_id):
         from rhnErrata e
         where e.id = :errata_id
     """
-    h = rhnSQL.prepare(_query_errata_info % "e.synopsis,")
+    h = rhnSQL.prepare(_query_errata_info % synopsis)
     h.execute(errata_id=errata_id)
     return h
+
+def errata_cursor(errata_id):
+    return _errata_cursor(errata_id, "e.synopsis,")
+
+def errata_severity_cursor(errata_id):
+    # include severity into synopsis before
+    # exporting to satellite.
+    # Also ignore the first 17 characters in
+    # the label(errata.sev.label.) from
+    # rhnErrataSeverity table
+    synopsis = """
+        (select SUBSTR(label,18) || ':'
+           from rhnErrataSeverity
+          where id = e.severity_id) || e.synopsis synposis,
+    """
+    return _errata_cursor(errata_id, synopsis)
 
 class ChannelProductsDumper(BaseDumper):
     
@@ -1463,4 +1551,17 @@ class ChannelProductsDumper(BaseDumper):
             'beta'          : data['beta'],
         }
         EmptyDumper(self._writer, 'rhn-channel-product', attributes).dump()
+
+class ProductNamesDumper(BaseDumper):
+    tag_name = "rhn-product-names"
+
+    def set_iterator(self):
+        query = rhnSQL.prepare("""
+            select label, name from rhnProductName
+        """)
+        query.execute()
+        return query
+
+    def dump_subelement(self, data):
+        EmptyDumper(self._writer, 'rhn-product-name', data).dump()
 

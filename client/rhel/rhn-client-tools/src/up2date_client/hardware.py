@@ -702,8 +702,11 @@ def read_network():
     if netdict['hostname'] == 'localhost.localdomain' or \
     netdict['ipaddr'] == "127.0.0.1":
         hostname, ipaddr = findHostByRoute()
-        netdict['hostname'] = hostname
-        netdict['ipaddr'] = ipaddr
+
+        if netdict['hostname'] == 'localhost.localdomain':
+            netdict['hostname'] = hostname
+        if netdict['ipaddr'] == "127.0.0.1":
+            netdict['ipaddr'] = ipaddr
 
     return netdict
 

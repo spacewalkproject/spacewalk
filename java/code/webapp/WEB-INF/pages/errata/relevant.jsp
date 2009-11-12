@@ -15,6 +15,8 @@
   <bean:message key="erratalist.jsp.relevanterrata"/>
 </rhn:toolbar>
 
+<rhn:dialogmenu mindepth="0" maxdepth="3" definition="/WEB-INF/nav/errata_relevant_tabs.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
+
 <%@ include file="/WEB-INF/pages/common/fragments/errata/relevant-errata-list.jspf" %>
 
 </body>

@@ -15,6 +15,8 @@
   <bean:message key="errata.overview.jsp.errataoverview"/>
 </rhn:toolbar>
 
+<rhn:dialogmenu mindepth="0" maxdepth="3" definition="/WEB-INF/nav/errata_overview_tabs.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
+
 <p><bean:message key="errata.overview.jsp.summary"/></p>
 
 <h2><bean:message key="errata.jsp.header"/></h2>
