@@ -10,7 +10,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <generator class="assigned" />
         </id>
         <property name="checksum" type="string" column="checksum" />
-        <property name="description" type="string" column="description" />
         <many-to-one
             name="checksumType"
             class="com.redhat.rhn.domain.common.ChecksumType"
