@@ -75,7 +75,7 @@ class XMLWriter:
                 self.stream.write(" ")
                 self.data(k)
                 self.stream.write('="')
-                self.data(v)
+                self.data(str(v))
                 self.stream.write('"')
         if empty:
             self.stream.write("/")
