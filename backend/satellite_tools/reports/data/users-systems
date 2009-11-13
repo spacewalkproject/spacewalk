@@ -1,0 +1,59 @@
+
+synopsis:
+
+	Systems administered by individual users
+
+description:
+
+	List of systems that users can administer.
+
+columns:
+
+	organization_id		Organization identifier
+	user_id			Internal user id
+	username		User name / login
+	server_id		System identifier
+	group			Group through the user has access to the system
+	admin_access		1 if the user has access by being org administrator
+
+multival_columns:
+
+	organization_id
+	user_id
+	server_id
+ 	group : group
+
+# adapted query available_to_uid
+sql:
+
+	select organization_id, web_contact_adm.user_id, username, server_id, group_name as "GROUP", admin_access
+	from (
+		select web_contact.org_id as organization_id,
+			web_contact.id as user_id,
+			login as username,
+			case when web_contact_admin.user_id is not null then 1 else null end as admin_access
+		from web_contact, (
+			select rhnUserGroupMembers.user_id
+			from rhnUserGroupMembers, rhnUserGroup, rhnUserGroupType
+			where rhnUserGroupMembers.user_group_id = rhnUserGroup.id
+				and rhnUserGroup.group_type = rhnUserGroupType.id
+				and rhnUserGroupType.label = 'org_admin'
+			) web_contact_admin
+		where web_contact.id = web_contact_admin.user_id (+)
+	) web_contact_adm, (
+		select 1 as is_admin, web_contact.id as user_id, rhnServer.id as server_id, null as group_name
+		from web_contact, rhnServer
+		where web_contact.org_id = rhnServer.org_id
+		union all
+		select 0 as is_admin,
+			rhnUserServerGroupPerms.user_id, rhnServerGroupMembers.server_id, rhnServerGroup.name as group_name
+		from rhnUserServerGroupPerms, rhnServerGroupMembers, rhnServerGroup
+		where rhnUserServerGroupPerms.server_group_id = rhnServerGroupMembers.server_group_id
+			and rhnUserServerGroupPerms.server_group_id = rhnServerGroup.id
+		) rhn_contact_server_group
+	where
+		nvl(web_contact_adm.admin_access, 0) = rhn_contact_server_group.is_admin (+)
+		and web_contact_adm.user_id = rhn_contact_server_group.user_id (+)
+		and rhn_contact_server_group.server_id is not null
+	order by organization_id, user_id, server_id
+
