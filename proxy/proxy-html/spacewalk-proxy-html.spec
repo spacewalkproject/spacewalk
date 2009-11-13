@@ -34,7 +34,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%dir %{htmldir}
 %dir %{htmldir}/_rhn_proxy
 %config %{htmldir}/_rhn_proxy/index.html
 %{htmldir}/_rhn_proxy/*.ico
