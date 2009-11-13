@@ -360,7 +360,7 @@ class PackageImport(ChannelPackageSubscription):
                 self.__postprocessSolarisPackage(package)
 
     def __postprocessPackage(self, package):
-        # Set the ids
+        """ populate the columns foo_id with id numbers from appropriate hashes """
         package['package_group'] = self.groups[package['package_group']]
         source_rpm = package['source_rpm']
         if source_rpm is not None:
