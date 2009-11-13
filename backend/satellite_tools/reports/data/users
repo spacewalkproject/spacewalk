@@ -1,0 +1,65 @@
+
+synopsis:
+
+	Users in the system
+
+description:
+
+	List of all users for all organizations, with their details
+	and roles.
+
+columns:
+
+	organization_id		Organization identifier
+	organization		Organization name
+	user_id			Internal user id
+	username		User name / login
+	last_name		Last name
+	first_name		First name(s)
+	position		Position of the user
+	email			Email address
+	role			Roles assigned to the user
+	creation_time		Date and time when the user was created
+	last_login_time		When the user last accessed the system
+	active			String enabled or disabled
+
+multival_columns:
+
+	organization_id
+	user_id
+	role : role
+
+sql:
+
+	select web_contact.org_id as organization_id,
+		web_customer.name as organization,
+		web_contact.id as user_id,
+		login as username,
+		web_user_personal_info.last_name,
+		web_user_personal_info.first_names as first_name,
+		web_user_personal_info.title as position,
+		web_user_personal_info.email,
+		rhnUserGroupType.name as role,
+		to_char(web_contact.created, 'YYYY-MM-DD HH24:MI:SS') as creation_time,
+		to_char(rhnUserInfo.last_logged_in, 'YYYY-MM-DD HH24:MI:SS') as last_login_time,
+		nvl( ( select distinct wccs.label
+			from rhnWebContactChangeLog wccl, rhnWebContactChangeState wccs
+			where wccl.change_state_id = wccs.id
+				and wccl.web_contact_id = web_contact.id
+				and wccl.date_completed = (
+					select max(wccl_exists.date_completed)
+					from rhnWebContactChangeLog wccl_exists
+                                        where wccl.web_contact_id = wccl_exists.web_contact_id
+				)
+			),'enabled') as active
+	from web_contact, web_customer, web_user_personal_info,
+		rhnUserGroupMembers, rhnUserGroup, rhnUserGroupType,
+		rhnUserInfo
+	where web_contact.org_id = web_customer.id
+		and web_contact.id = web_user_personal_info.web_user_id
+		and web_contact.id = rhnUserGroupMembers.user_id (+)
+		and rhnUserGroupMembers.user_group_id = rhnUserGroup.id (+)
+		and rhnUserGroup.group_type = rhnUserGroupType.id (+)
+		and web_contact.id = rhnUserInfo.user_id
+	order by web_customer.id, web_contact.id
+
