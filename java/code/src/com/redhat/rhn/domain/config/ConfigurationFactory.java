@@ -22,7 +22,6 @@ import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.domain.common.Checksum;
-import com.redhat.rhn.domain.common.ChecksumType;
 import com.redhat.rhn.domain.common.ChecksumFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.server.Server;
@@ -759,14 +758,7 @@ public class ConfigurationFactory extends HibernateFactory {
         }
         
         content.setContents(foo);
-        // Create new checksum
-        Checksum newChecksum = new Checksum();
-        HashMap params = new HashMap();
-        params.put("label", "md5");
-        newChecksum.setChecksum(MD5Crypt.md5Hex(foo));
-        newChecksum.setChecksumType((ChecksumType)
-            singleton.lookupObjectByNamedQuery("ChecksumType.findByLabel", params));
-        ChecksumFactory.save(newChecksum);
+        Checksum newChecksum = ChecksumFactory.safeCreate(MD5Crypt.md5Hex(foo), "md5");
         content.setChecksum(newChecksum);
         content.setBinary(isBinary);
         return content;

@@ -206,7 +206,7 @@ public class PackageDto extends BaseDto {
      *
      * @param checksumTypeIn The checksumtype to set
      */
-    public void setChecksumType(String checksumTypeIn) {
+    public void setChecksumtype(String checksumTypeIn) {
         this.checksumType = checksumTypeIn;
     }
 

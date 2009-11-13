@@ -234,7 +234,6 @@ public class ConfigTestUtils extends Assert {
      */
     public static ConfigRevision createConfigRevision(ConfigFile file, 
                                                         ConfigFileType type) {
-
         ConfigInfo info = createConfigInfo();
         Long revision = new Long(1);
         ConfigContent content = createConfigContent();

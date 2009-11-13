@@ -16,8 +16,6 @@ package com.redhat.rhn.domain.common;
 
 import com.redhat.rhn.domain.BaseDomainHelper;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 /**
  * ArchType
  * @version $Rev$

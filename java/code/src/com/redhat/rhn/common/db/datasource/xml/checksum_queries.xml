@@ -1,0 +1,10 @@
+<datasource_modes>
+
+<!-- Lookup and if not exist, create new one -->
+<callable-mode name="create_new_checksum">
+  <query params="checksum_type_in, checksum_in">
+      {:checksumID = call lookup_checksum( :checksum_type_in, :checksum_in)}
+  </query>
+</callable-mode>
+
+</datasource_modes>

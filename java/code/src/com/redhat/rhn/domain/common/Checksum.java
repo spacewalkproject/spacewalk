@@ -16,8 +16,6 @@ package com.redhat.rhn.domain.common;
 
 import com.redhat.rhn.domain.BaseDomainHelper;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 /**
  * Checksum
  * Class for checksums of files, packages and erratas.
