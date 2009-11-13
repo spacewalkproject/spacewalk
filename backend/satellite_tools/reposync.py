@@ -117,10 +117,14 @@ class RepoSync:
         self.print_msg("Repo " + self.url + " has " + str(len(packages)) + " packages.")
         for pack in packages:
              pid = None
-             if pack.checksums.has_key('md5sum'):
-                 """lookup by md5sum"""
-             elif pack.checksums.has_key('sha256'):
-                 """lookup by sha256"""
+             # use the best checksum we know
+             for ctype in ('sha512', 'sha256', 'sha1', 'md5'):
+                 if pack.checksums.has_key(ctype):
+                     pack.checksum = (ctype, pack.checksums[ctype])
+                     break
+             if pack.checksum == None:
+                     raise rhnFault(507, "Checksum type: %s; Package: %s" %
+                             (string.join(pack.checksums.keys()), pack.file)) # FIXME
              if pid == None:
                  if self.channel_label not in \
                      rhnPackage.get_channels_for_package([pack.name, \
@@ -138,12 +142,12 @@ class RepoSync:
                 self.print_msg(str(index+1) + "/" + str(len(to_download)) + " : "+ \
                       pack.getNVREA())
                 path = self.plugin.get_package(pack)
-                md5 = rhnLib.getFileMD5(filename=path)
-                pid =  rhnPackage.get_package_for_md5sum(
-                                  self.channel['org_id'], md5)
+                pid =  rhnPackage.get_package_for_checksum(
+                                  self.channel['org_id'],
+                                  pack.checksum[0], pack.checksum[1])
                 if pid is None:
                     self.upload_package(pack, path)
-                self.associate_package(pack, md5)
+                self.associate_package(pack)
                 if self.url.find("file://")  < 0:
                     os.remove(path)
 
@@ -157,20 +161,21 @@ class RepoSync:
     
     def upload_package(self, package, path):
         temp_file = open(path, 'rb')
+        # FIXME sha256 - don't compute needless md5sum inside of load_package()
         header, payload_stream, md5sum, header_start, header_end = \
                 rhnPackageUpload.load_package(temp_file)
         rel_package_path = rhnPackageUpload.relative_path_from_header(
-                    header, org_id=self.channel['org_id'], md5sum=md5sum)
+                    header, org_id=self.channel['org_id'], md5sum=package.checksum[1]) # FIXME sha256
         package_path = os.path.join(CFG.MOUNT_POINT,
                     rel_package_path)
         package_dict, diff_level = rhnPackageUpload.push_package(header,
-                    payload_stream, md5sum, force=False,
+                    payload_stream, package.checksum[1], force=False,
                     header_start=header_start, header_end=header_end,
                     relative_path=rel_package_path, 
-                    org_id=self.channel['org_id'])
+                    org_id=self.channel['org_id'])                      # FIXME sha256
         temp_file.close()
 
-    def associate_package(self, pack, md5sum):
+    def associate_package(self, pack):
         caller = "server.app.yumreposync"
         backend = OracleBackend()
         backend.init()
@@ -180,8 +185,7 @@ class RepoSync:
         package['release'] = pack.release
         package['epoch'] = pack.epoch
         package['arch'] = pack.arch
-        package['md5sum'] = md5sum
-        package['checksum'] = ('md5', md5sum)
+        package['checksum'] = pack.checksum
         package['channels']  = [{'label':self.channel_label, 
                                  'id':self.channel['id']}]
         package['org_id'] = self.channel['org_id']
@@ -221,9 +225,10 @@ class RepoSync:
 class ContentPackage:
 
     def __init__(self):
-        #map of checksums.  Valid keys are 'md5sum' & 'sha256'
+        # map of checksums
         self.checksums = {}
-    
+        self.checksum = None
+
         #unique ID that can be used by plugin
         self.unique_id = None
 

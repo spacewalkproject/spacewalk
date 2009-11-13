@@ -229,6 +229,7 @@ maximum membership exceeded"),
      504: _("Not an RPM package"),
      505: _("Unsigned RPM package"),
      506: _("Incompatible package and channel architectures"),
+     507: _("Incompatible checksum type"),
 
      # 600-699: RHEL5+ EN errors
      600: _("Invalid Entitlement Number"),

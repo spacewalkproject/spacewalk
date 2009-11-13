@@ -677,8 +677,11 @@ class GenericPackageImport(Import):
             self.package_arches[package.arch] = None
 
         # FIXME: needs to be fixed for sha256
-        checksum = ('md5',package['md5sum'])
-        package['checksum'] = checksum
+        if not package.has_key('checksum'):
+            checksum = ('md5',package['md5sum'])
+            package['checksum'] = checksum
+        else:
+            checksum = package['checksum']
         if not self.checksums.has_key(checksum):
             self.checksums[checksum] = None
 
