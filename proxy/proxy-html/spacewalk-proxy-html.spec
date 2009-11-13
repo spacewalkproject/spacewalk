@@ -34,11 +34,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%attr(755,root,apache) %dir %{htmldir}
-%attr(755,root,apache) %dir %{htmldir}/_rhn_proxy
-%attr(644,root,apache) %config %{htmldir}/_rhn_proxy/index.html
-%attr(644,root,apache) %{htmldir}/_rhn_proxy/*.ico
-%attr(644,root,apache) %{htmldir}/_rhn_proxy/*.png
+%dir %{htmldir}
+%dir %{htmldir}/_rhn_proxy
+%config %{htmldir}/_rhn_proxy/index.html
+%{htmldir}/_rhn_proxy/*.ico
+%{htmldir}/_rhn_proxy/*.png
 %doc LICENSE
 
 %changelog
