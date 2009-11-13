@@ -270,13 +270,16 @@ fi
 %config %{_sysconfdir}/logrotate.d/rhn_web_api
 
 %files lib
-%attr(644, root, root) %{_datadir}/rhn/classes/log4j.properties
-%attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
+%defattr(644, root, root)
+%{_datadir}/rhn/classes/log4j.properties
+%{_datadir}/rhn/lib/rhn.jar
 
 %files oracle
+%defattr(644, root, root)
 %{jardir}/ojdbc14.jar
 
 %files postgresql
+%defattr(644, root, root)
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
