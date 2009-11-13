@@ -220,17 +220,18 @@ class RepoSync:
 
 class ContentPackage:
 
-    #map of checksums.  Valid keys are 'md5sum' & 'sha256'
-    checksums = {}
+    def __init__(self):
+        #map of checksums.  Valid keys are 'md5sum' & 'sha256'
+        self.checksums = {}
     
-    #unique ID that can be used by plugin
-    unique_id = None 
+        #unique ID that can be used by plugin
+        self.unique_id = None
 
-    name = None
-    version = None
-    release = None
-    epoch = None
-    arch = None
+        self.name = None
+        self.version = None
+        self.release = None
+        self.epoch = None
+        self.arch = None
 
     def setNVREA(self, name, version, release, epoch, arch):
         self.name = name
