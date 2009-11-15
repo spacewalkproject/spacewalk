@@ -120,8 +120,9 @@ class PackagePush(basePackageUpload.BasePackageUpload):
         # Sanity check - removed, the package path can no longer be determined 
         # without the header
         md5sum = rhnLib.getFileMD5(file=temp_stream)
+        checksum = ('md5', md5sum)      # FIXME sha256
         self.rel_package_path = rhnPackageUpload.relative_path_from_header(
-            header, org_id=self.org_id, md5sum=md5sum)
+            header, org_id=self.org_id, checksum=checksum)
         self.package_path = os.path.join(CFG.MOUNT_POINT,
             self.rel_package_path)
         # XXX need to clean this up

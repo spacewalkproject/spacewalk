@@ -909,8 +909,9 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 raise RhnSyncException, 'ERROR: incremental dump skipped'
 
     def _get_rel_package_path(self, nevra, org_id, source=0, md5sum=None):
+        checksum = ('md5', md5sum)      # FIXME sha256
         return get_package_path(nevra, org_id, prepend=CFG.PREPENDED_DIR,
-            source=source, md5sum=md5sum)
+            source=source, checksum=checksum)
 
     def _verify_file(self, path, mtime, size, md5sum):
         """Verifies if the file is on the filesystem and matches the mtime and

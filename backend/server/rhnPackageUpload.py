@@ -87,7 +87,7 @@ def _authenticate(authobj, channels, null_org, force):
 
     return org_id, force
 
-def relative_path_from_header(header, org_id, md5sum):
+def relative_path_from_header(header, org_id, checksum=(None,None)):
     nevra = importLib.get_nevra(header)
     if header.is_source:
         #4/18/05 wregglej. if 1051 is in the header's keys, then it's a nosrc package.
@@ -104,13 +104,13 @@ def relative_path_from_header(header, org_id, md5sum):
        header["package_name"]:
 
         rel_path = relative_path_from_nevra_without_package_name(nevra, org_id,
-                                                            md5sum=md5sum)
+                                                            checksum)
         return os.path.join(rel_path, header["package_name"])
 
     return relative_path_from_nevra(nevra,
-        org_id=org_id, package_type=header.packaging, md5sum=md5sum)
+        org_id, header.packaging, checksum)
 
-def relative_path_from_nevra(nevra, org_id, package_type=None, md5sum=None):
+def relative_path_from_nevra(nevra, org_id, package_type=None, checksum=None):
     #4/18/05 wregglej. if 1051 is in the header's keys, then it's a nosrc package.
     if nevra[4] == 'src' or nevra[4] == 'nosrc':
         is_source = 1
@@ -119,13 +119,13 @@ def relative_path_from_nevra(nevra, org_id, package_type=None, md5sum=None):
     log_debug(4, nevra, is_source)
     return get_package_path(nevra, org_id=org_id, source=is_source, 
         prepend=CFG.PREPENDED_DIR, omit_epoch=1, package_type=package_type,
-        md5sum=md5sum)
+        checksum=checksum)
 
 # bug #161989 - get the relative path from the nevra, but omit the package name
-def relative_path_from_nevra_without_package_name(nevra, org_id, md5sum=None):
+def relative_path_from_nevra_without_package_name(nevra, org_id, checksum):
     log_debug(4, nevra, "no package name")
     return get_package_path_without_package_name(nevra, org_id,
-                                     prepend=CFG.PREPENDED_DIR, md5sum=md5sum)
+                                     prepend=CFG.PREPENDED_DIR, checksum=checksum)
 
 def push_package(header, payload_stream, md5sum, org_id=None, force=None,
     header_start=None, header_end=None, channels=[], relative_path=None):

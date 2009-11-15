@@ -822,8 +822,9 @@ def write_temp_package(packageData, org_id, prepend=""):
     header = rhn_mpm.get_package_header(fd=fd)
     # Get nevra
     nevra = get_nevra(header)
+    checksum = ('md5', pkgmd5sum)       # FIXME sha256
     relPackagePath = get_package_path(nevra, org_id, header.is_source, prepend,
-                                     pkgmd5sum)
+                                     checksum)
     # And return this information
     return fd, header, packageSize, pkgmd5sum, relPackagePath
 
