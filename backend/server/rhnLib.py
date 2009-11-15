@@ -171,25 +171,20 @@ def get_package_path(nevra, org_id, source=0, prepend="", omit_epoch=None,
         <prefix>/<org_id>/checksum[:3]/n/e:v-r/a/checksum/n-v-r.a.rpm if not omit_epoch
         <prefix>/<org_id>/checksum[:3]/n/v-r/a/checksum/n-v-r.a.rpm if omit_epoch
     """
-    name = nevra[0]
-    release = nevra[3]
+    name, epoch, version, release, pkgarch = nevra
 
     # dirarch and pkgarch are special-cased for source rpms
     if source:
         dirarch = 'SRPMS'
-        pkgarch = nevra[4]
     else:
-        dirarch = pkgarch = nevra[4]
+        dirarch = pkgarch
 
     if org_id in ['', None]:
         org = "NULL"
     else:
         org = org_id
 
-    version = nevra[2]
-    if not omit_epoch:
-        epoch = nevra[1]
-        if epoch not in [None, '']:
+    if not omit_epoch and epoch not in [None, '']:
             version = str(epoch) + ':' + version
     # normpath sanitizes the path (removing duplicated / and such)
     template = os.path.normpath(prepend +
