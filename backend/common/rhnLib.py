@@ -375,8 +375,8 @@ def getFileChecksum(hashtype, filename=None, fd=None, file=None, buffer_size=Non
         Used by rotateFile()
     """
 
-    # python's md5 lib sucks.  hexdigest() doesn't show up until 2.0,
-    # and there's no way to directly import a file.
+    # python's md5 lib sucks
+    # there's no way to directly import a file.
     if buffer_size is None:
         buffer_size = 65536
 
@@ -402,7 +402,7 @@ def getFileChecksum(hashtype, filename=None, fd=None, file=None, buffer_size=Non
         file.seek(0, 0)
     else:
         f.close()
-    return hexify_string(m.digest())
+    return m.hexdigest()
 
 
 def getStringMD5(s):
@@ -412,12 +412,7 @@ def getStringMD5(s):
 def getStringChecksum(hashtype, s):
     """ compute checksum of an arbitrary string """
     ctx = hashlib.new(hashtype, s)
-    return hexify_string(ctx.digest())
-
-
-def hexify_string(s):
-    """ Used by getStringMD5() and getFileMD5() """
-    return ("%02x" * len(s)) % tuple(map(ord, s))
+    return ctx.hexdigest()
 
 
 def rhn_popen(cmd, progressCallback=None, bufferSize=16384, outputLog=None):
