@@ -164,14 +164,14 @@ class RepoSync:
         header, payload_stream, header_start, header_end = \
                 rhnPackageUpload.load_package(temp_file)
         rel_package_path = rhnPackageUpload.relative_path_from_header(
-                    header, org_id=self.channel['org_id'], md5sum=package.checksum[1]) # FIXME sha256
+                    header, self.channel['org_id'], package.checksum[1])
         package_path = os.path.join(CFG.MOUNT_POINT,
                     rel_package_path)
         package_dict, diff_level = rhnPackageUpload.push_package(header,
                     payload_stream, package.checksum[1], force=False,
                     header_start=header_start, header_end=header_end,
                     relative_path=rel_package_path, 
-                    org_id=self.channel['org_id'])                      # FIXME sha256
+                    org_id=self.channel['org_id'])
         temp_file.close()
 
     def associate_package(self, pack):
