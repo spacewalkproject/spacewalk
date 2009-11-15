@@ -33,6 +33,32 @@ for sym, val in rpm.__dict__.items():
         globals()[sym] = val
 del sym, val
 
+# need this for rpm-pyhon < 4.6 (e.g. on RHEL5)
+rpm.RPMTAG_FILEDIGESTALGO = 5011
+
+# these values are taken from /usr/include/rpm/rpmpgp.h
+# PGPHASHALGO_MD5             =  1,   /*!< MD5 */
+# PGPHASHALGO_SHA1            =  2,   /*!< SHA1 */
+# PGPHASHALGO_RIPEMD160       =  3,   /*!< RIPEMD160 */
+# PGPHASHALGO_MD2             =  5,   /*!< MD2 */
+# PGPHASHALGO_TIGER192        =  6,   /*!< TIGER192 */
+# PGPHASHALGO_HAVAL_5_160     =  7,   /*!< HAVAL-5-160 */
+# PGPHASHALGO_SHA256          =  8,   /*!< SHA256 */
+# PGPHASHALGO_SHA384          =  9,   /*!< SHA384 */
+# PGPHASHALGO_SHA512          = 10,   /*!< SHA512 */
+PGPHASHALGO = {
+  1: 'md5',
+  2: 'sha1',
+  3: 'ripemd160',
+  5: 'md2',
+  6: 'tiger192',
+  7: 'haval-5-160',
+  8: 'sha256',
+  9: 'sha384',
+ 10: 'sha512',
+}
+
+
 class InvalidPackageError(Exception):
     pass
 
@@ -155,6 +181,14 @@ class RPM_Header:
 
     def __getattr__(self, name):
         return getattr(self.hdr, name)
+
+    def checksum_type(self):
+        if self.hdr[rpm.RPMTAG_FILEDIGESTALGO] \
+           and PGPHASHALGO.has_key(self.hdr[rpm.RPMTAG_FILEDIGESTALGO]):
+           checksum_type = PGPHASHALGO[self.hdr[rpm.RPMTAG_FILEDIGESTALGO]]
+        else:
+           checksum_type = 'md5'
+        return checksum_type
 
     def is_signed(self):
         if hasattr(rpm, "RPMTAG_DSAHEADER"):
