@@ -215,11 +215,9 @@ def push_package(header, payload_stream, md5sum, org_id=None, force=None,
         log_debug(3, "Original package", orig_path)
         
         #check included to query for source and binary rpms
-        if header.is_source:
-            
-            h_path = rhnSQL.prepare("""
+        h_path_sql = """
             select ps.path path
-                from rhnpackagesource ps,
+                from %s ps,
                      rhnChecksum c
             where
                 c.checksum = :md5sum
@@ -227,19 +225,12 @@ def push_package(header, payload_stream, md5sum, org_id=None, force=None,
             and (ps.org_id = :org_id or
                  (ps.org_id is null and :org_id is null)
                 )
-            """)
+            """
+        if header.is_source:
+            h_package_table = 'rhnPackageSource'
         else:
-            h_path = rhnSQL.prepare("""
-            select rp.path path
-                from rhnpackage rp,
-                     rhnChecksum c
-            where
-                c.checksum = :md5sum
-            and rp.checksum_id = c.id
-            and (rp.org_id = :org_id or
-                 (rp.org_id is null and :org_id is null)
-                )            
-            """)
+            h_package_table = 'rhnPackage'
+        h_path = rhnSQL.prepare(h_path_sql % h_package_table)
         h_path.execute(md5sum=md5sum, org_id = org_id)
 
         rs_path = h_path.fetchall_dict()
