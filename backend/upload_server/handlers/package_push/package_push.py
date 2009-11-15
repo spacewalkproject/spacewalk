@@ -98,11 +98,6 @@ class PackagePush(basePackageUpload.BasePackageUpload):
 
         nevra = [self.package_name, "", self.package_version, 
             self.package_release, self.package_arch]
-        # XXX need to clean this up
-#        self.rel_package_path = rhnPackageUpload.relative_path_from_nevra(
-#            nevra, org_id=self.org_id, package_type=self.packaging)
-#        self.package_path = os.path.join(CFG.MOUNT_POINT,
-#            self.rel_package_path)
 
         return apache.OK
 
@@ -125,15 +120,6 @@ class PackagePush(basePackageUpload.BasePackageUpload):
             header, org_id=self.org_id, checksum=checksum)
         self.package_path = os.path.join(CFG.MOUNT_POINT,
             self.rel_package_path)
-        # XXX need to clean this up
-#        relative_path = rhnPackageUpload.relative_path_from_header(header,
-#            org_id=self.org_id)
-#        log_debug(3, "relative path from mpm header", relative_path, 
-#            "relative path from HTTP header", self.rel_package_path)
-#        if relative_path != self.rel_package_path:
-#            log_debug(1, "Mismatching paths", relative_path,
-#                self.rel_package_path)
-#            raise rhnFault(104, "Mismatching information")
         # Verify the md5sum of the bytes we downloaded against the md5sum
         # presented by rhnpush in the HTTP headers
         if md5sum != self.file_md5sum:
