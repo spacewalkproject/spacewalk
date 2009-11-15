@@ -19,15 +19,8 @@ import os
 import tempfile
 from mod_python import apache
 
-from common import CFG, log_debug, rhnFault, rhn_mpm, rhnLib, UserDictCase
-from common.rhn_rpm import get_header_byte_range
+from common import log_debug, rhnFault, UserDictCase
 
-from server import rhnSQL
-from server.importlib import importLib, userAuth, mpmSource, backendOracle, \
-    packageImport, errataCache
-from server.rhnLib import get_package_path, \
-    get_package_path_without_package_name
-from server.rhnServer import server_packages
 
 class BasePackageUpload:
     def __init__(self, req):
