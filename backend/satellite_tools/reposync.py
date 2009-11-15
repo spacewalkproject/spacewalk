@@ -161,8 +161,7 @@ class RepoSync:
     
     def upload_package(self, package, path):
         temp_file = open(path, 'rb')
-        # FIXME sha256 - don't compute needless md5sum inside of load_package()
-        header, payload_stream, md5sum, header_start, header_end = \
+        header, payload_stream, header_start, header_end = \
                 rhnPackageUpload.load_package(temp_file)
         rel_package_path = rhnPackageUpload.relative_path_from_header(
                     header, org_id=self.channel['org_id'], md5sum=package.checksum[1]) # FIXME sha256

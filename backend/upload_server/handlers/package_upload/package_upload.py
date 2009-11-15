@@ -70,8 +70,9 @@ class PackageUpload(basePackageUpload.BasePackageUpload):
         log_debug(4, "Header length", len(req.headers_in[i]))
 
         temp_stream = rhnPackageUpload.write_temp_file(req, buffer_size)
-        header, payload_stream, md5sum, header_start, header_end = \
+        header, payload_stream, header_start, header_end = \
             rhnPackageUpload.load_package(temp_stream)
+        md5sum = rhnLib.getFileMD5(file=temp_stream)
         temp_stream.close()
 
         if self.file_md5sum != md5sum:

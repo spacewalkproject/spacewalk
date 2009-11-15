@@ -298,7 +298,6 @@ def load_package(package_stream):
     except rhn_mpm.InvalidPackageError, e:
         raise rhnFault(50, "Unable to load package", explain=0)
 
-    md5sum = rhnLib.getFileMD5(file=payload_stream)
     payload_stream.seek(0, 0)
     if header.packaging == "mpm":
         header.header_start = header.header_end = 0
@@ -307,7 +306,7 @@ def load_package(package_stream):
         (header_start, header_end) = get_header_byte_range(payload_stream)
         payload_stream.seek(0,0)
 
-    return header, payload_stream, md5sum, header_start, header_end
+    return header, payload_stream, header_start, header_end
 
 class AlreadyUploadedError(Exception):
     pass

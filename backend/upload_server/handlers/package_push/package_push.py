@@ -114,11 +114,12 @@ class PackagePush(basePackageUpload.BasePackageUpload):
 
         temp_stream = rhnPackageUpload.write_temp_file(req, 16384)
 
-        header, payload_stream, md5sum, header_start, header_end = \
+        header, payload_stream, header_start, header_end = \
             rhnPackageUpload.load_package(temp_stream)
 
         # Sanity check - removed, the package path can no longer be determined 
         # without the header
+        md5sum = rhnLib.getFileMD5(file=temp_stream)
         self.rel_package_path = rhnPackageUpload.relative_path_from_header(
             header, org_id=self.org_id, md5sum=md5sum)
         self.package_path = os.path.join(CFG.MOUNT_POINT,

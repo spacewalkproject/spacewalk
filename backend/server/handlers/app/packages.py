@@ -277,11 +277,12 @@ class Packages(RPC_Base):
         package_stream.seek(0, 0)
         del packageBits
 
-        header, payload_stream, md5sum, header_start, header_end = \
+        header, payload_stream, header_start, header_end = \
             rhnPackageUpload.load_package(package_stream)
         relative_path = rhnPackageUpload.relative_path_from_header(
             header, org_id=org_id)
 
+        md5sum = rhnLib.getFileMD5(file=package_stream)
         package_dict, diff_level = rhnPackageUpload.push_package(
             header, payload_stream, md5sum, org_id=org_id, force=force,
             header_start=header_start, header_end=header_end,

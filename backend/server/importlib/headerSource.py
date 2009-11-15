@@ -85,7 +85,7 @@ class rpmPackage(IncompletePackage):
             source=None):
 	f_obj = file(f_path)
         import server.rhnPackageUpload as rhnPackageUpload
-        header, payload_stream, md5sum, header_start, header_end = \
+        header, payload_stream, header_start, header_end = \
             rhnPackageUpload.load_package(f_obj)
         if (source and not header.is_source) or (not source and header.is_source):
             raise ValueError("Unexpected RPM package type")
@@ -96,6 +96,7 @@ class rpmPackage(IncompletePackage):
         if relpath:
             # Strip trailing slashes
             path = "%s/%s" % (sanitizePath(relpath), os.path.basename(f_path))
+        md5sum = rhnLib.getFileMD5(file=f_obj)
         self.populate(header, size, md5sum, path, org_id, header_start,
             header_end, channels)
 
