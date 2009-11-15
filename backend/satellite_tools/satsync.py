@@ -1669,8 +1669,9 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             # Populate the package key info
             if len(self.pkg_header_info) > 0:
                 for data in self.pkg_header_info:
+                    checksum = ('md5', data['md5sum'])  # FIXME sha256
                     server_packages.processPackageKeyAssociations(data['header'], \
-                                                  data['md5sum'])
+                                                  checksum)
         return self._link_channel_packages()
 
     def _link_channel_packages(self):

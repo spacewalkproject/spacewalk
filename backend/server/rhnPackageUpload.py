@@ -127,7 +127,7 @@ def relative_path_from_nevra_without_package_name(nevra, org_id, checksum):
     return get_package_path_without_package_name(nevra, org_id,
                                      prepend=CFG.PREPENDED_DIR, checksum=checksum)
 
-def push_package(header, payload_stream, md5sum, org_id=None, force=None,
+def push_package(header, payload_stream, checksum, org_id=None, force=None,
     header_start=None, header_end=None, channels=[], relative_path=None):
     """Uploads an RPM package
     """
@@ -141,13 +141,13 @@ def push_package(header, payload_stream, md5sum, org_id=None, force=None,
     # First write the package to the filesystem to final location
     try:
         importLib.copy_package(payload_stream.fileno(), basedir=CFG.MOUNT_POINT,
-            relpath=relative_path, md5sum=md5sum, force=1)
+            relpath=relative_path, checksum=checksum, force=1)
     except OSError, e:
         raise rhnFault(50, "Package upload failed: %s" % e)
     except importLib.FileConflictError:
         raise rhnFault(50, "File already exists")
 
-    pkg = mpmSource.create_package(header, size=payload_size, md5sum=md5sum,
+    pkg = mpmSource.create_package(header, size=payload_size, checksum=checksum,
         relpath=relative_path, org_id=org_id, header_start=header_start,
         header_end=header_end, channels=channels)
 
@@ -206,7 +206,7 @@ def push_package(header, payload_stream, md5sum, org_id=None, force=None,
         #case 1:check if the path exists in the db and also on the file system.
         #if it does then no need to copy
         #case2: file exists on file system but path not in db.then add the 
-        #realtive path in the db based on md5sum of the pkg
+        #realtive path in the db based on checksum of the pkg
         #case3: if no file on file system but path exists.then we write the
         #file to file system
         #case4:no file exists on FS and no path in db .then we write both.
@@ -218,9 +218,12 @@ def push_package(header, payload_stream, md5sum, org_id=None, force=None,
         h_path_sql = """
             select ps.path path
                 from %s ps,
-                     rhnChecksum c
+                     rhnChecksum c,
+                     rhnChecksumType ct
             where
-                c.checksum = :md5sum
+                c.checksum = :csum
+            and ct.label = :ctype
+            and c.checksum_type_id = ct.id
             and ps.checksum_id = c.id
             and (ps.org_id = :org_id or
                  (ps.org_id is null and :org_id is null)
@@ -231,7 +234,7 @@ def push_package(header, payload_stream, md5sum, org_id=None, force=None,
         else:
             h_package_table = 'rhnPackage'
         h_path = rhnSQL.prepare(h_path_sql % h_package_table)
-        h_path.execute(md5sum=md5sum, org_id = org_id)
+        h_path.execute(ctype=checksum[0], csum=checksum[1], org_id = org_id)
 
         rs_path = h_path.fetchall_dict()
         path_dict = {}
@@ -245,15 +248,19 @@ def push_package(header, payload_stream, md5sum, org_id=None, force=None,
             update rhnpackage
                set path = :path
             where checksum_id = (
-                        select id from rhnChecksum where checksum = :md5sum)
+                        select id from rhnChecksum c,
+                                       rhnChecksumType ct
+                                 where c.checksum = :csum
+                                   and ct.label = :ctype
+                                   and c.checksum_type_id = ct.id)
             """)
-            h_upd.execute(path=relative_path, md5sum=md5sum)
+            h_upd.execute(path=relative_path, ctype=checksum[0], csum=checksum[1])
 
     # commit the transactions
     rhnSQL.commit()
     if not header.is_source:
         # Process Package Key information
-        server_packages.processPackageKeyAssociations(header, md5sum)
+        server_packages.processPackageKeyAssociations(header, checksum)
 
     if not header.is_source:
         errataCache.schedule_errata_cache_update(importer.affected_channels)

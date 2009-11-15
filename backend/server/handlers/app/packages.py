@@ -283,8 +283,9 @@ class Packages(RPC_Base):
             header, org_id=org_id)
 
         md5sum = rhnLib.getFileMD5(file=package_stream)
+        checksum = ('md5', md5sum)      # FIXME sha256
         package_dict, diff_level = rhnPackageUpload.push_package(
-            header, payload_stream, md5sum, org_id=org_id, force=force,
+            header, payload_stream, checksum, org_id=org_id, force=force,
             header_start=header_start, header_end=header_end,
             relative_path=relative_path)
 

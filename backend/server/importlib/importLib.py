@@ -23,7 +23,7 @@ from UserDict import UserDict
 from UserList import UserList
 
 from common import log_debug, rhn_mpm
-from common.rhnLib import maketemp, getFileMD5
+from common.rhnLib import maketemp, getFileChecksum
 
 from server.rhnLib import get_package_path
 
@@ -816,7 +816,7 @@ def write_temp_package(packageData, org_id, prepend=""):
     # Clean up the package variable
     del packageData
     # Compute the md5sum
-    pkgmd5sum = getFileMD5(None, fd)
+    pkgmd5sum = getFileChecksum('md5', None, fd)        # FIXME sha256
     # Read the RPM header
     os.lseek(fd, 0, 0)
     header = rhn_mpm.get_package_header(fd=fd)
@@ -828,19 +828,19 @@ def write_temp_package(packageData, org_id, prepend=""):
     # And return this information
     return fd, header, packageSize, pkgmd5sum, relPackagePath
 
-def copy_package(fd, basedir, relpath, md5sum, force=None):
+def copy_package(fd, basedir, relpath, checksum, force=None):
     """
     Copies the information from the file descriptor to a file
-    Checks the file's MD5 sum, raising FileConflictErrror if it's different
+    Checks the file's checksum, raising FileConflictErrror if it's different
     The force flag prevents the exception from being raised, and copies the
-    file even if the md5sum has changed
+    file even if the checksum has changed
     """
     packagePath = basedir + "/" + relpath
     # Is the file there already?
     if os.path.isfile(packagePath) and not force:
-        # Get its md5sum
-        localmd5sum = getFileMD5(packagePath)
-        if md5sum == localmd5sum:
+        # Get its checksum
+        localsum = getFileChecksum(checksum[0], packagePath)
+        if checksum[1] == localsum:
             # Same file, so get outa here
             return 
         raise FileConflictError(os.path.basename(packagePath))

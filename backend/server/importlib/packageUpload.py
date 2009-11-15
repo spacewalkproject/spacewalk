@@ -100,7 +100,8 @@ def __processPackage(package, org_id, channels, source):
         # Just say the whole package
         header_end = packageSize
 
-    p = createPackage(header, packageSize, md5sum, relpath, org_id,
+    checksum = ('md5', md5sum)          # FIXME sha256
+    p = createPackage(header, packageSize, checksum, relpath, org_id,
         header_start, header_end, channels)
     return p
 

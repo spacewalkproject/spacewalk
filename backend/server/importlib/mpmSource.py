@@ -80,11 +80,11 @@ class mpmBinaryPackage(headerSource.rpmBinaryPackage):
         if tagMap.has_key(t):
             del tagMap[t]
 
-    def populate(self, header, size, md5sum, path=None, org_id=None,
+    def populate(self, header, size, checksum, path=None, org_id=None,
             channels=[]):
 
         # call to base class method
-        headerSource.rpmBinaryPackage.populate(self, header, size, md5sum, path,
+        headerSource.rpmBinaryPackage.populate(self, header, size, checksum, path,
             org_id, channels)
 
         srpm = self.get('source_rpm', '')
@@ -202,15 +202,15 @@ class mpmBinaryPackage(headerSource.rpmBinaryPackage):
 
 # top-level package object creation --------------------------------------
 
-def create_package(header, size, md5sum, relpath, org_id, header_start=None,
+def create_package(header, size, checksum, relpath, org_id, header_start=None,
     header_end=None, channels=[]):
     if header.packaging == 'rpm':
-        return headerSource.createPackage(header, size=size, md5sum=md5sum,
+        return headerSource.createPackage(header, size=size, checksum=checksum,
             relpath=relpath, org_id=org_id, header_start=header_start,
             header_end=header_end, channels=channels)
     if header.is_source:
         raise NotImplementedError()
     p = mpmBinaryPackage()
-    p.populate(header, size=size, md5sum=md5sum, path=relpath,
+    p.populate(header, size=size, checksum=checksum, path=relpath,
         org_id=org_id, channels=channels)
     return p

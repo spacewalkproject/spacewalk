@@ -372,7 +372,7 @@ def update_errata_cache(server_id):
     # Return the number of changes
     return changed
 
-def processPackageKeyAssociations(header, md5sum):
+def processPackageKeyAssociations(header, checksum):
     provider_sql = rhnSQL.prepare("""
         insert into rhnPackageKeyAssociation
             (package_id, key_id) values
@@ -399,8 +399,12 @@ def processPackageKeyAssociations(header, md5sum):
 
     lookup_pkgid_sql = rhnSQL.prepare("""
         select p.id
-          from rhnPackage p, rhnChecksum c
-         where c.checksum = :md5sum
+          from rhnPackage p,
+               rhnChecksum c,
+               rhnChecksumType ct
+         where c.checksum = :csum
+           and ct.label = :ctype
+           and c.checksum_type_id = ct.id
            and p.checksum_id = c.id
     """)
 
@@ -411,7 +415,7 @@ def processPackageKeyAssociations(header, md5sum):
            and key_id = :key_id
     """)
 
-    lookup_pkgid_sql.execute(md5sum = md5sum)
+    lookup_pkgid_sql.execute(ctype=checksum[0], csum=checksum[1])
     pkg_id = lookup_pkgid_sql.fetchall_dict()
 
     if not pkg_id:

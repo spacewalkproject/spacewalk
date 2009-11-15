@@ -214,7 +214,8 @@ def process_package_data():
         if debug: Log.writeMessage("query Executed: update rhnPackage %d to %s" \
                                % ( path['id'], new_path ))
         # Process gpg key ids
-        server_packages.processPackageKeyAssociations(hdr, md5sum)
+        checksum = ('md5', md5sum)      # FIXME sha256
+        server_packages.processPackageKeyAssociations(hdr, checksum)
         if debug: Log.writeMessage("gpg key info updated from %s" % new_abs_path )
         i = i + 1
         # we need to break the transaction to smaller pieces
