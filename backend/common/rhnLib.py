@@ -15,7 +15,6 @@
 
 import os
 import sys
-import md5
 import pwd
 import grp
 import time
@@ -25,6 +24,23 @@ import string
 import popen2
 import select
 import urlparse
+try:
+    import hashlib
+except ImportError:
+    import md5
+    import sha
+    from Crypto.Hash import SHA256 as sha256
+    class hashlib:
+        @staticmethod
+        def new(checksum):
+            if checksum == 'md5':
+                return md5.new()
+            elif checksum == 'sha1':
+                return sha.new()
+            elif checksum == 'sha256':
+                return sha256.new()
+            else:
+                raise ValueError, "Incompatible checksum type"
 
 
 def setHeaderValue(mp_table, name, values):
@@ -352,6 +368,12 @@ def getFileMD5(filename=None, fd=None, file=None, buffer_size=None):
     """ Compute a file's md5sum
         Used by rotateFile()
     """
+    return getFileChecksum('md5', filename, fd, file, buffer_size)
+
+def getFileChecksum(hashtype, filename=None, fd=None, file=None, buffer_size=None):
+    """ Compute a file's checksum
+        Used by rotateFile()
+    """
 
     # python's md5 lib sucks.  hexdigest() doesn't show up until 2.0,
     # and there's no way to directly import a file.
@@ -368,7 +390,7 @@ def getFileMD5(filename=None, fd=None, file=None, buffer_size=None):
         f = open(filename, "r")
     # Rewind it
     f.seek(0, 0)
-    m = md5.new()
+    m = hashlib.new(hashtype)
     while 1:
         buffer = f.read(buffer_size)
         if not buffer:
@@ -385,7 +407,11 @@ def getFileMD5(filename=None, fd=None, file=None, buffer_size=None):
 
 def getStringMD5(s):
     """ compute md5sum of an arbitrary string """
-    ctx = md5.new(s)
+    return getStringChecksum(s)
+
+def getStringChecksum(hashtype, s):
+    """ compute checksum of an arbitrary string """
+    ctx = hashlib.new(hashtype, s)
     return hexify_string(ctx.digest())
 
 
