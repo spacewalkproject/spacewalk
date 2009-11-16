@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.16
+Version: 0.7.17
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -283,6 +283,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 12 2009 Tomas Lestach <tlestach@redhat.com> 0.7.17-1
+- 536825 - storing "@ Base" KickstartPackage into DB (tlestach@redhat.com)
+- java code enhancements according to jsherrill's comments
+  (tlestach@redhat.com)
+- unit test fix (jsherril@redhat.com)
+
 * Tue Nov 10 2009 Tomas Lestach <tlestach@redhat.com> 0.7.16-1
 - WebUI Errata & CVEs enhancements (tlestach@redhat.com)
 - unit test fixes (jsherril@redhat.com)

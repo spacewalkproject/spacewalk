@@ -34,7 +34,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="nonChrootPost" column="nonchrootpost" not-null="false" type="yes_no" />
         <property name="verboseUp2date" column="verboseup2date" not-null="false" type="yes_no" />
         <property name="cobblerId" column="cobbler_id"  type="string" length="64" />
-        <set name="ksPackages" lazy="true" sort="natural" inverse="true">
+        <set name="ksPackages" lazy="true" sort="natural" inverse="true" cascade="all-delete-orphan" >
           <key column="kickstart_id"/>
           <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartPackage" />
         </set>
