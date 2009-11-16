@@ -104,8 +104,8 @@ class PrimaryView(object):
         output.append("    <arch>%s</arch>" % (package.arch))
         output.append("    <version epoch=\"%s\" ver=\"%s\" rel=\"%s\" />"
             % (package.epoch, package.version, package.release))
-        output.append("    <checksum type=\"md5\" pkgid=\"YES\">%s</checksum>"
-            % (package.md5sum))
+        output.append("    <checksum type=\"%s\" pkgid=\"YES\">%s</checksum>"
+            % package.checksum)
         output.append("    <summary>%s</summary>"
             % (text_filter(package.summary)))
         output.append("    <description>%s</description>"
@@ -180,7 +180,7 @@ class FilelistsView(object):
     def _get_package(self, package):
         output = []
         output.append("  <package pkgid=\"%s\" name=\"%s\" arch=\"%s\">"
-            % (package.md5sum, package.name, package.arch))
+            % (package.checksum[1], package.name, package.arch))
         output.append("    <version epoch=\"%s\" ver=\"%s\" rel=\"%s\" />"
             % (package.epoch, package.version, package.release))
 
@@ -212,7 +212,7 @@ class OtherView(object):
     def _get_package(self, package):
         output = []
         output.append("  <package pkgid=\"%s\" name=\"%s\" arch=\"%s\">"
-            % (package.md5sum, package.name, package.arch))
+            % (package.checksum[1], package.name, package.arch))
         output.append("    <version epoch=\"%s\" ver=\"%s\" rel=\"%s\" />"
             % (package.epoch, package.version, package.release))
 
@@ -282,8 +282,8 @@ class UpdateinfoView(object):
                 package.epoch, package.arch, text_filter(package.source_rpm)))
             output.append("            <filename>%s</filename>"
                 % text_filter(package.filename))
-            output.append("            <sum type=\"md5\">%s</sum>"
-                % package.md5sum)
+            output.append("            <sum type=\"%s\">%s</sum>"
+                % package.checksum)
             output.append("          </package>")
 
         output.append("      </collection>")

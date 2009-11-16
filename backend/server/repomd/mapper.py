@@ -196,7 +196,7 @@ class SqlPackageMapper:
             pevr.release,  
             pevr.epoch,  
             pa.label arch,  
-            c.checksum md5sum,
+            c.checksum checksum,
             p.summary,
             p.description,
             p.vendor,
@@ -210,7 +210,8 @@ class SqlPackageMapper:
             p.copyright,
             p.path,
             sr.name source_rpm,
-            p.last_modified
+            p.last_modified,
+            ct.label checksum_type
         from  
             rhnPackage p,
             rhnPackageName pn,
@@ -218,7 +219,8 @@ class SqlPackageMapper:
             rhnPackageArch pa,
             rhnPackageGroup pg,
             rhnSourceRPM sr,
-            rhnChecksum c
+            rhnChecksum c,
+            rhnChecksumType ct
         where
             p.id = :package_id
         and p.name_id = pn.id
@@ -227,6 +229,7 @@ class SqlPackageMapper:
         and p.package_group = pg.id
         and p.source_rpm_id = sr.id
         and p.checksum_id = c.id
+        and c.checksum_type_id = ct.id
         """)
        
         self.filelist_sql = rhnSQL.prepare("""
@@ -346,7 +349,7 @@ class SqlPackageMapper:
             package.epoch = pkg[3]
         package.arch = pkg[4]
 
-        package.md5sum = pkg[5]
+        package.checksum = (pkg[20], pkg[5])
         package.summary = string_to_unicode(pkg[6])
         package.description = string_to_unicode(pkg[7])
         package.vendor = string_to_unicode(pkg[8])
