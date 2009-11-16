@@ -116,16 +116,6 @@ class RepoSync:
         to_download = []
         self.print_msg("Repo " + self.url + " has " + str(len(packages)) + " packages.")
         for pack in packages:
-             pid = None
-             # use the best checksum we know
-             for ctype in ('sha512', 'sha256', 'sha1', 'md5'):
-                 if pack.checksums.has_key(ctype):
-                     pack.checksum = (ctype, pack.checksums[ctype])
-                     break
-             if pack.checksum == None:
-                     raise rhnFault(507, "Checksum type: %s; Package: %s" %
-                             (string.join(pack.checksums.keys()), pack.file)) # FIXME
-             if pid == None:
                  if self.channel_label not in \
                      rhnPackage.get_channels_for_package([pack.name, \
                      pack.version, pack.release, pack.epoch, pack.arch]) and \
@@ -142,11 +132,7 @@ class RepoSync:
                 self.print_msg(str(index+1) + "/" + str(len(to_download)) + " : "+ \
                       pack.getNVREA())
                 path = self.plugin.get_package(pack)
-                pid =  rhnPackage.get_package_for_checksum(
-                                  self.channel['org_id'],
-                                  pack.checksum[0], pack.checksum[1])
-                if pid is None:
-                    self.upload_package(pack, path)
+                self.upload_package(pack, path)
                 self.associate_package(pack)
                 if self.url.find("file://")  < 0:
                     os.remove(path)
@@ -163,11 +149,19 @@ class RepoSync:
         temp_file = open(path, 'rb')
         header, payload_stream, header_start, header_end = \
                 rhnPackageUpload.load_package(temp_file)
-        rel_package_path = rhnPackageUpload.relative_path_from_header(
+        checksum_type = header.checksum_type()
+        package.checksum = (checksum_type, rhnLib.getFileChecksum(
+                                                checksum_type, file=temp_file))
+        pid =  rhnPackage.get_package_for_checksum(
+                                  self.channel['org_id'],
+                                  package.checksum[0], package.checksum[1])
+
+        if pid is None:
+            rel_package_path = rhnPackageUpload.relative_path_from_header(
                     header, self.channel['org_id'], package.checksum)
-        package_path = os.path.join(CFG.MOUNT_POINT,
+            package_path = os.path.join(CFG.MOUNT_POINT,
                     rel_package_path)
-        package_dict, diff_level = rhnPackageUpload.push_package(header,
+            package_dict, diff_level = rhnPackageUpload.push_package(header,
                     payload_stream, package.checksum, force=False,
                     header_start=header_start, header_end=header_end,
                     relative_path=rel_package_path, 
