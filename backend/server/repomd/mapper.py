@@ -41,11 +41,14 @@ class ChannelMapper:
 
         self.channel_details_sql = rhnSQL.prepare("""
         select
-            label,
-            name
+            c.label,
+            c.name,
+            ct.label checksumtype
         from
-            rhnChannel
-        where id = :channel_id
+            rhnChannel c,
+            rhnChecksumType ct
+        where c.id = :channel_id
+          and c.checksum_type_id = ct.id
         """)
 
         self.channel_sql = rhnSQL.prepare("""
@@ -109,6 +112,7 @@ class ChannelMapper:
     
         channel.label = details[0]
         channel.name = details[1]
+        channel.checksumtype = details[2]
 
         self.channel_sql.execute(channel_id = channel_id)
         package_ids = self.channel_sql.fetchall()

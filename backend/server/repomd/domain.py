@@ -25,6 +25,7 @@ class Channel:
 
         self.label = None
         self.name = None
+        self.checksumtype = None
 
         self.num_packages = 0
         self.packages = []
