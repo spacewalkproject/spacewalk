@@ -153,8 +153,7 @@ class RepoSync:
         package.checksum = (checksum_type, rhnLib.getFileChecksum(
                                                 checksum_type, file=temp_file))
         pid =  rhnPackage.get_package_for_checksum(
-                                  self.channel['org_id'],
-                                  package.checksum[0], package.checksum[1])
+                                  self.channel['org_id'], package.checksum)
 
         if pid is None:
             rel_package_path = rhnPackageUpload.relative_path_from_header(

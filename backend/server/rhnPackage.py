@@ -433,9 +433,9 @@ def get_channels_for_package(pkg):
     return map(lambda c: c['label'], ret)
 
 def get_package_for_md5sum(org_id, md5sum):
-     return get_package_for_checksum(org_id, 'md5', md5sum)
+     return get_package_for_checksum(org_id, ('md5', md5sum))
 
-def get_package_for_checksum(org_id, checksumtype, checksum):
+def get_package_for_checksum(org_id, checksum):
      statement = """
      select
          p.id
@@ -450,7 +450,7 @@ def get_package_for_checksum(org_id, checksumtype, checksum):
          and ct.label = :checksumtype
      """
      h = rhnSQL.prepare(statement)
-     h.execute(org_id=org_id, checksum=checksum, checksumtype=checksumtype)
+     h.execute(org_id=org_id, checksum=checksum[1], checksumtype=checksum[0])
      ret = h.fetchone_dict()
      if not ret:
          return None
