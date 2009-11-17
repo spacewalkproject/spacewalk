@@ -16,7 +16,7 @@ Requires: httpd
 
 %description
 This package contains placeholder html pages, which the Spacewalk Server
-display, if you navigate to it using your browser.
+displays, if you navigate to it using your browser.
 
 %prep
 %setup -q
