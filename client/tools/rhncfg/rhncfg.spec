@@ -34,7 +34,8 @@ Provides: rhn-config-client-package = %{version}
 
 %description client
 Red Hat Network Configuration Client.
-A command line interface to the client features of the RHN Configuration Management system. 
+A command line interface to the client features of the RHN Configuration
+Management system. 
 
 %package management
 Summary: Red Hat Network Configuration Management Client
