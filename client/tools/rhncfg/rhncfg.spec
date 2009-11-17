@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.11
+Version: 5.9.12
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -110,6 +110,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Nov 17 2009 Miroslav Suchy <msuchy@redhat.com> 5.9.12-1
+- 491088 - Polish the spec according Fedora Packaging Guidelines
+
 * Tue Oct 27 2009 Miroslav Suchy <msuchy@redhat.com> 5.9.11-1
 - Diff SELinux contexts (joshua.roys@gtri.gatech.edu)
 
