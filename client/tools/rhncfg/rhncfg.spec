@@ -22,7 +22,8 @@ Provides: rhn-config-client-package = %{version}
 Provides: rhn-config-management-package = %{version}
 
 %description 
-Red Hat Network Configuration Client Libraries
+Red Hat Network Configuration Client Libraries.
+The base libraries and functions needed by all rhncfg-* packages.
 
 %package client
 Summary: Red Hat Network Configuration Client
@@ -32,7 +33,8 @@ Provides: rhn-config-action = %{version}
 Provides: rhn-config-client-package = %{version}
 
 %description client
-Red Hat Network Configuration Client
+Red Hat Network Configuration Client.
+A command line interface to the client features of the RHN Configuration Management system. 
 
 %package management
 Summary: Red Hat Network Configuration Management Client
@@ -41,7 +43,8 @@ Requires: %{name} = %{version}-%{release}
 Provides: rhn-config-management-package = %{version}
 
 %description management
-Red Hat Network Configuration Management Client
+Red Hat Network Configuration Management Client.
+A command line interface used to manage RHN configuration.
 
 %package actions
 Summary: Red Hat Network Configuration Client Actions
@@ -61,6 +64,8 @@ Provides: rhn-config-client-package = %{version}
 
 %description actions
 Red Hat Network Configuration Client Actions
+The code required to run configuration actions scheduled via the RHN website or
+RHN Satellite or Spacewalk.
 
 %prep
 %setup -q
