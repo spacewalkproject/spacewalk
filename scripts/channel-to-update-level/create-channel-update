@@ -235,7 +235,10 @@ def populate(client, auth, srcChannel, newChannel, newChannelName, filename, par
       nvre_to_push = splitFilename(rpm)
       for src_pack in existing_packs:
          if (nvre_to_push == splitPackage(src_pack)):
-            if src_pack['name'] in skiplist:
+            key = 'name'
+            if not key in src_pack:
+               key = 'package_name'
+            if src_pack[key] in skiplist:
                skip_num = skip_num + 1
                continue
             pack_num = pack_num + 1
