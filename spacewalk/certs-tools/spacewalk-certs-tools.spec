@@ -40,7 +40,7 @@ chmod 755 $RPM_BUILD_ROOT/%{rhnroot}/certs/{rhn_ssl_tool.py,client_config_update
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root)
+%defattr(-,root,root,-)
 %{rhnroot}/certs/*.py*
 %attr(755,root,root) %{rhnroot}/certs/sign.sh
 %attr(755,root,root) %{rhnroot}/certs/gen-rpm.sh
