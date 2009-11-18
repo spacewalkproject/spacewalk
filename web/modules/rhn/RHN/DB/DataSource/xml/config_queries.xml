@@ -115,14 +115,16 @@ ORDER BY CFN.path
 <mode name="configfile_revisions">
   <query params="crid">
 SELECT CR.id,
-       CCon.md5sum,
+       Csum.checksum md5sum,
        CR.revision,
        NVL2((SELECT 1 FROM rhnConfigFile CFt WHERE CFT.latest_config_revision_id = CR.id), 'Y', 'N') LATEST,
        TO_CHAR(CCon.created, 'YYYY-MM-DD HH24:MI:SS') AS CREATED
-  FROM rhnConfigContent CCon, rhnConfigRevision CR, rhnConfigFile CF
+  FROM rhnConfigContent CCon, rhnConfigRevision CR, rhnConfigFile CF,
+       rhnChecksum Csum
  WHERE CCon.id = CR.config_content_id
    AND CF.id = (SELECT config_file_id FROM rhnConfigRevision WHERE id = :crid)
    AND CF.id = CR.config_file_id
+   AND CCon.checksum_id = Csum.id
 ORDER BY CR.revision DESC
   </query>
 </mode>
@@ -130,7 +132,7 @@ ORDER BY CR.revision DESC
 <mode name="configfiles_for_system">
   <query params="sid">
 SELECT CR.id AS ID,
-       CCon.md5sum,
+       Csum.checksum md5sum,
        CFN.path,
        CR.revision,
        NVL2((SELECT 1 FROM rhnConfigFile CFt WHERE CFT.latest_config_revision_id = CR.id), 'Y', 'N') LATEST,
@@ -150,7 +152,8 @@ SELECT CR.id AS ID,
        rhnConfigFile CF,
        rhnConfigRevision CR,
        rhnServerConfigChannel SCC,
-       rhnConfigFileType CFT
+       rhnConfigFileType CFT,
+       rhnChecksum Csum
  WHERE SCC.server_id = :sid
    AND SCC.config_channel_id = CF.config_channel_id
    AND CF.id = CR.config_file_id
@@ -161,6 +164,7 @@ SELECT CR.id AS ID,
    AND CF.latest_config_revision_id = CR.id
    AND CCT.label in ('normal', 'local_override')
    AND CR.config_file_type_id = CFT.id
+   AND CCon.checksum_id = Csum.id
 ORDER BY CCT.priority, SCC.position
   </query>
   <elaborator params="sid" multiple="t">
@@ -197,7 +201,7 @@ ORDER BY SCC.position
 <mode name="configfiles_for_system_diff">
   <query params="sid">
 SELECT CR.id AS ID,
-       CCon.md5sum,
+       Csum.checksum md5sum,
        CFN.path,
        CR.revision,
        NVL2((SELECT 1 FROM rhnConfigFile CFt WHERE CFT.latest_config_revision_id = CR.id), 'Y', 'N') LATEST,
@@ -217,7 +221,8 @@ SELECT CR.id AS ID,
        rhnConfigFile CF,
        rhnConfigRevision CR,
        rhnServerConfigChannel SCC,
-       rhnConfigFileType CFT
+       rhnConfigFileType CFT,
+       rhnChecksum Csum
  WHERE SCC.server_id = :sid
    AND SCC.config_channel_id = CF.config_channel_id
    AND CF.id = CR.config_file_id
@@ -229,6 +234,7 @@ SELECT CR.id AS ID,
    AND CCT.label in ('normal', 'local_override')
    AND CR.config_file_type_id = CFT.id
    AND NOT CFT.label = 'directory'
+   AND CCon.checksum_id = Csum.id
 ORDER BY CCT.priority, SCC.position
   </query>
   <elaborator params="sid" multiple="t">
@@ -266,7 +272,7 @@ ORDER BY SCC.position
   <query params="user_id">
 SELECT SCC.server_id,
        CR.id AS ID,
-       CCon.md5sum,
+       Csum.checksum md5sum,
        CFN.path,
        CR.revision,
        NVL2((SELECT 1 FROM rhnConfigFile CFt WHERE CFT.latest_config_revision_id = CR.id), 'Y', 'N') LATEST,
@@ -284,7 +290,8 @@ SELECT SCC.server_id,
        rhnConfigFileName CFN,
        rhnConfigFile CF,
        rhnConfigRevision CR,
-       rhnServerConfigChannel SCC
+       rhnServerConfigChannel SCC,
+       rhnChecksum Csum
  WHERE SCC.server_id IN (
     SELECT DISTINCT S.id
       FROM rhnServer S,
@@ -311,6 +318,7 @@ SELECT SCC.server_id,
      WHERE label = 'selected_configfiles_ssm' 
        AND USER_ID = :user_id
    )
+   AND CCon.checksum_id = Csum.id
    ORDER BY SCC.server_id, CCT.priority, SCC.position
   </query>
 </mode>
@@ -460,7 +468,7 @@ SELECT CFN.id, count(DISTINCT SCC.server_id) AS system_count
 <mode name="selected_configfiles">
   <query params="set_label, user_id">
 SELECT CR.id,
-       CCon.md5sum,
+       Csum.checksum md5sum,
        CFN.path,
        CR.revision,
        NVL2((SELECT 1 FROM rhnConfigFile CFt WHERE CFT.latest_config_revision_id = CR.id), 'Y', 'N') LATEST,
@@ -474,7 +482,8 @@ SELECT CR.id,
        rhnConfigFile CF,
        rhnConfigContent CCon,
        rhnConfigRevision CR,
-       rhnSet S
+       rhnSet S,
+       rhnChecksum Csum
  WHERE S.user_id = :user_id
    AND S.label = :set_label
    AND S.element = CR.id
@@ -484,6 +493,7 @@ SELECT CR.id,
    AND CCon.id = CR.config_content_id
    AND CCT.label IN ('normal', 'local_override')
    AND CFN.id = CF.config_file_name_id
+   AND CCon.checksum_id = Csum.id
 ORDER BY CFN.path
   </query>
 </mode>
@@ -509,7 +519,7 @@ ORDER BY CFN.path
   <query params="ss_id">
 SELECT DISTINCT
        CR.id,
-       CCon.md5sum,
+       Csum.checksum md5sum,
        CFN.id AS CONFIG_FILE_NAME_ID,
        CFN.path,
        CR.revision,
@@ -522,12 +532,14 @@ SELECT DISTINCT
        rhnConfigFileName CFN,
        rhnConfigFile CF,
        rhnConfigRevision CR,
-       rhnSnapshotConfigRevision SCR
+       rhnSnapshotConfigRevision SCR,
+       rhnChecksum Csum
  WHERE SCR.snapshot_id = :ss_id
    AND SCR.config_revision_id = CR.id
    AND CR.config_content_id = CCon.id
    AND CR.config_file_id = CF.id
    AND CF.config_file_name_id = CFN.id
+   AND CCon.checksum_id = Csum.id
 ORDER BY CFN.path
   </query>
 </mode>
