@@ -21,7 +21,7 @@ Provides:  rhns-certs-tools = 5.3.0
 This package contains tools to generate the SSL certificates required by 
 Spacewalk.
 
-%define rhnroot %{_prefix}/share/rhn
+%global rhnroot %{_datadir}/rhn
 
 %prep
 %setup -q
