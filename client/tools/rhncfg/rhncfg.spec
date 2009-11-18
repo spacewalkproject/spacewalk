@@ -17,9 +17,6 @@ BuildRequires: python
 Requires: libselinux-python
 Requires: python
 Requires: rhnlib
-Provides: rhn-config-action = %{version}
-Provides: rhn-config-client-package = %{version}
-Provides: rhn-config-management-package = %{version}
 # If this is rhel 4 or less we need up2date.
 %if 0%{?rhel} && "%rhel" < "5"
 Requires: up2date
@@ -34,8 +31,6 @@ The base libraries and functions needed by all rhncfg-* packages.
 Summary: Red Hat Network Configuration Client
 Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
-Provides: rhn-config-action = %{version}
-Provides: rhn-config-client-package = %{version}
 
 %description client
 A command line interface to the client features of the RHN Configuration
@@ -45,7 +40,6 @@ Management system.
 Summary: Red Hat Network Configuration Management Client
 Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
-Provides: rhn-config-management-package = %{version}
 
 %description management
 A command line interface used to manage RHN configuration.
@@ -55,8 +49,6 @@ Summary: Red Hat Network Configuration Client Actions
 Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-client
-Provides: rhn-config-action = %{version}
-Provides: rhn-config-client-package = %{version}
 
 %description actions
 The code required to run configuration actions scheduled via the RHN website or
