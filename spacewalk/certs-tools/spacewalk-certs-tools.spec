@@ -9,6 +9,7 @@ Source0:  https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: openssl rpm-build
+Requires: rhn-client-tools
 BuildRequires: docbook-utils
 BuildRequires: python
 Obsoletes: rhns-certs < 5.3.0
@@ -41,6 +42,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
+%dir %{rhnroot}/certs
 %{rhnroot}/certs/*.py*
 %attr(755,root,root) %{rhnroot}/certs/sign.sh
 %attr(755,root,root) %{rhnroot}/certs/gen-rpm.sh
