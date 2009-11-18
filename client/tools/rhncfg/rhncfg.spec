@@ -5,7 +5,7 @@
 Name: rhncfg
 Summary: Red Hat Network Configuration Client Libraries
 Group:   Applications/System
-License: GPLv2
+License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version: 5.9.13
@@ -86,7 +86,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %{rhnroot}/config_common
-%doc LICENSE
+%doc LICENSE PYTHON-LICENSES.txt
 
 %files client
 %defattr(-,root,root,-)
