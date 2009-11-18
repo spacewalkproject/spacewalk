@@ -48,6 +48,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/rhn-ssl-tool
 %attr(755,root,root) %{_bindir}/rhn-bootstrap
 %doc %{_mandir}/man1/rhn-*.1*
+%doc LICENSE
 %{_var}/www/html/pub/bootstrap/client_config_update.py*
 
 %changelog
