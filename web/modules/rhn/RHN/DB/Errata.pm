@@ -159,7 +159,7 @@ sub files {
   $query = <<EOQ;
 SELECT  DISTINCT
         EF.id AS ID,
-        EF.md5sum AS MD5SUM,
+        Csum.checksum AS MD5SUM,
         EF.filename AS FILENAME,
 	EFP.package_id AS PACKAGE_ID,
         P1.path AS RHN_PACKAGE_PATH,
@@ -206,7 +206,8 @@ SELECT MAX(E.advisory_name)
         rhnChannel C,
         rhnErrataFileChannel EFC,
         rhnErrataFileType EFT,
-        rhnErrataFile EF
+        rhnErrataFile EF,
+        rhnChecksum Csum
  WHERE  EF.errata_id = ?
    AND  EF.type = EFT.id
    AND  EF.id = EFC.errata_file_id (+)
@@ -222,6 +223,7 @@ SELECT MAX(E.advisory_name)
    AND  P1.source_rpm_id = PS1.source_rpm_id (+)
    AND  P1.package_arch_id = PA.id (+)
    AND  EFPS.package_id = PS2.id (+)
+   AND  EF.checksum_id = Csum.id
 ORDER BY UPPER(Prod.name), UPPER(PA.name), UPPER(EF.filename)
 EOQ
 
@@ -768,7 +770,7 @@ sub packages_in_errata {
          PE.evr.version,
          PE.evr.release,
          C.name,
-         P.md5sum,
+         Csum.checksum md5sum,
          P.path,
          PE.evr.epoch,
          PA.label,
@@ -780,7 +782,8 @@ sub packages_in_errata {
          rhnChannel C,
          rhnChannelErrata CE,
          rhnChannelPackage CP,
-         rhnErrataPackage EP
+         rhnErrataPackage EP,
+         rhnChecksum Csum
  WHERE  EP.errata_id = ?
      AND CE.errata_id = ?
      AND EP.package_id = CP.package_id
@@ -790,6 +793,7 @@ sub packages_in_errata {
    AND  P.name_id = PN.id
    AND  P.evr_id = PE.id
      AND P.package_arch_id = PA.id
+     AND P.checksum_id = Csum.id
 EOS
 
   $sth = $dbh->prepare($query);
@@ -817,13 +821,16 @@ sub source_rpms {
   my $sth;
 
   $query = <<EOS;
-  SELECT PS.id, P.id, PS.id, C.label, 'src', PS.path, NULL, NULL, 'SRPMs', P.md5sum, PS.md5sum
+  SELECT PS.id, P.id, PS.id, C.label, 'src', PS.path, NULL, NULL, 'SRPMs',
+         CPsum.checksum md5sum, CPSsum.checksum md5sum
     FROM rhnChannel C,
          rhnPackageSource PS,
          rhnPackage P,
          rhnChannelPackage CP,
          rhnChannelErrata CE,
          rhnErrataPackage EP
+         rhnChecksum CPsum,
+         rhnChecksum CPSsum
    WHERE EP.errata_id = ?
      AND CE.errata_id = ?
      AND EP.package_id = CP.package_id
@@ -831,6 +838,8 @@ sub source_rpms {
      AND CE.channel_id = C.id
      AND EP.package_id = P.id
      AND P.source_rpm_id = PS.source_rpm_id
+     AND P.checksum_id = CPsum.id
+     AND PS.checksum_id = CPSsum.id
 EOS
 
 
@@ -857,14 +866,14 @@ sub public_packages_overview {
   my $sth;
 
   $query = <<EOQ;
-SELECT  P2.id, P2.md5sum, C.name, PN.name, PE.evr.version, PE.evr.release, PE.evr.epoch, P2.path, PA.name, C.label, CFM.channel_family_id,
+SELECT  P2.id, Csum.checksum md5sum, C.name, PN.name, PE.evr.version, PE.evr.release, PE.evr.epoch, P2.path, PA.name, C.label, CFM.channel_family_id,
         (
            SELECT  CFP2.channel_family_id
              FROM  rhnChannelFamilyPermissions CFP2
             WHERE  CFP2.org_id IS NULL
               AND  CFP2.channel_family_id = CFM.channel_family_id
         ) PUBLIC_PACKAGE
-  FROM  rhnChannelFamily CF, rhnChannelFamilyMembers CFM, rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P2, rhnPackage P, rhnChannel C, rhnChannelPackage CP, rhnChannelErrata CE, rhnErrataPackage EP
+  FROM  rhnChannelFamily CF, rhnChannelFamilyMembers CFM, rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P2, rhnPackage P, rhnChannel C, rhnChannelPackage CP, rhnChannelErrata CE, rhnErrataPackage EP, rhnChecksum Csum
  WHERE  EP.errata_id = ?
    AND  CE.errata_id = ?
    AND  EP.package_id = CP.package_id
@@ -879,6 +888,7 @@ SELECT  P2.id, P2.md5sum, C.name, PN.name, PE.evr.version, PE.evr.release, PE.ev
    AND  C.id = CFM.channel_id
    AND  CFM.channel_family_id = CF.id
    AND  CF.org_id IS NULL
+   AND  P2.checksum_id = Csum.id
 EOQ
 
   $sth = $dbh->prepare($query);
@@ -906,18 +916,20 @@ sub rhn_files_overview {
 
   $query = <<EOQ;
 SELECT  DISTINCT EFP.package_id,
-                 EF.md5sum,
+                 Csum.checksum md5sum,
                  EF.filename AS FILENAME,
                  C.name AS CHANNEL_NAME
   FROM  rhnChannel C,
         rhnErrataFilePackage EFP,
         rhnErrataFileChannel EFC,
-        rhnErrataFile EF
+        rhnErrataFile EF,
+        rhnChecksum Csum
  WHERE  EF.errata_id = :errata_id
    AND  EF.id = EFC.errata_file_id (+)
    AND  EF.id = EFP.errata_file_id (+)
    AND  EFC.channel_id IN (SELECT AC.channel_id FROM rhnAvailableChannels AC WHERE AC.org_id = :org_id)
    AND  EFC.channel_id = C.id
+   AND  EF.checksum_id = Csum.id
 ORDER BY C.name, EF.filename DESC
 EOQ
 
@@ -1486,15 +1498,16 @@ EOQ
 
   my $ep_table = $self->table_map('rhnErrataPackage');
   $query = <<EOQ;
-SELECT rhn_erratafile_id_seq.nextval AS ID, EFT.id AS TYPE_ID, P.md5sum, P.path, P.id AS PACKAGE_ID,
+SELECT rhn_erratafile_id_seq.nextval AS ID, EFT.id AS TYPE_ID, Csum.checksum md5sum, P.path, P.id AS PACKAGE_ID,
        PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA
-  FROM rhnErrataFileType EFT, rhnPackage P, $ep_table EP, rhnPackageName PN, rhnPackageEVR PE, rhnPackageArch PA 
+  FROM rhnErrataFileType EFT, rhnPackage P, $ep_table EP, rhnPackageName PN, rhnPackageEVR PE, rhnPackageArch PA, rhnChecksum Csum
  WHERE EFT.label = 'RPM'
    AND P.id = EP.package_id
    AND EP.errata_id = :eid
    AND P.evr_id = PE.id
    AND P.name_id = PN.id
    AND P.package_arch_id = PA.id
+   AND P.checksum_id = Csum.id
 EOQ
 
   $sth = $dbh->prepare($query);
@@ -1503,8 +1516,8 @@ EOQ
   my $ef_insert_query = <<EOQ;
 INSERT
   INTO $ef_table
-       (id, errata_id, type, md5sum, filename)
-VALUES (:id, :eid, :type, :md5sum, :filename)
+       (id, errata_id, type, checksum_id, filename)
+VALUES (:id, :eid, :type, lookup_checksum('md5', :md5sum), :filename)
 EOQ
 
   my $ef_insert_sth = $dbh->prepare($ef_insert_query);

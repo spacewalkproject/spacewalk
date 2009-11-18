@@ -1128,7 +1128,7 @@ SELECT DISTINCT C.label,
                 PE.release,
                 E.advisory_name,
                 C.name,
-                P.md5sum OUTDATED_PACKAGE_MD5SUM,
+                Csum.checksum OUTDATED_PACKAGE_MD5SUM,
                 P.path
   FROM rhnPackageArch PA,
        rhnChannel C,
@@ -1141,7 +1141,8 @@ SELECT DISTINCT C.label,
        rhnChannelErrata CE,
        rhnPackage P2,
        rhnPackage P,
-       rhnErrataPackage EP
+       rhnErrataPackage EP,
+       rhnChecksum Csum
  WHERE EP.errata_id = ?
    AND EP.package_id = P.id
    AND P.name_id = P2.name_id
@@ -1157,6 +1158,7 @@ SELECT DISTINCT C.label,
    AND P2.evr_id = PE.id
    AND P2.package_arch_id = PA.id
    AND CE2.channel_id = C.id
+   AND P.checksum_id = Csum.id
 EOQ
 
   $sth = $dbh->prepare($query);

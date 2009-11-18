@@ -397,8 +397,8 @@ EOQ
   $query =<<EOQ;
 INSERT
   INTO rhnErrataFileTmp
-       (id, errata_id, type, md5sum, filename)
-       (SELECT rhn_erratafile_id_seq.nextval, :new_eid, EF.type, EF.md5sum, EF.filename
+       (id, errata_id, type, checksum_id, filename)
+       (SELECT rhn_erratafile_id_seq.nextval, :new_eid, EF.type, EF.checksum_id, EF.filename
           FROM rhnErrataFile EF
          WHERE EF.errata_id = :old_eid)
 EOQ

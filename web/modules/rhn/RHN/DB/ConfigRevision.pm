@@ -49,7 +49,7 @@ SELECT
        CFN.path,
        CC.org_id,
        CC.id config_channel_id,
-       CCon.md5sum,
+       Csum.checksum md5sum,
        CCon.file_size,
        (SELECT CFt.latest_config_revision_id FROM rhnConfigFile CFt WHERE CFT.id = CR.config_file_id) LATEST_ID,
        CCon.is_binary,
@@ -60,7 +60,8 @@ SELECT
        rhnConfigChannel CC,
        rhnConfigFile CF,
        rhnConfigRevision CR,
-       rhnConfigFileType CFT
+       rhnConfigFileType CFT,
+       rhnChecksum Csum
  WHERE CR.id = :id
    AND CI.id = CR.config_info_id
    AND CF.id = CR.config_file_id
@@ -68,6 +69,7 @@ SELECT
    AND CCon.id = CR.config_content_id
    AND CC.id = CF.config_channel_id
    AND CFT.id = CR.config_file_type_id
+   AND CCon.checksum_id = Csum.id
 EOS
   my $sth = $dbh->prepare($query);
   $sth->execute_h(id => $params{id});
@@ -100,9 +102,9 @@ sub create_config_contents {
   my $sth;
   $sth = $dbh->prepare(<<EOS);
 INSERT INTO rhnConfigContent
-  (id, md5sum, file_size, contents)
+  (id, checksum_id, file_size, contents)
 VALUES
-  (rhn_confcontent_id_seq.nextval, :md5sum, :file_size, :contents)
+  (rhn_confcontent_id_seq.nextval, lookup_checksum('md5', :md5sum), :file_size, :contents)
 RETURNING id INTO :ccid
 EOS
 

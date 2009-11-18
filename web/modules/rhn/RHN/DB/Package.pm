@@ -329,10 +329,11 @@ sub file_list {
   my $sth;
 
   $query = <<EOQ;
-SELECT C.name, F.file_size, F.md5, F.file_mode
-  FROM rhnPackageFile F, rhnPackageCapability C
+SELECT C.name, F.file_size, Csum.checksum md5, F.file_mode
+  FROM rhnPackageFile F, rhnPackageCapability C, rhnChecksum Csum
  WHERE F.package_id = ?
    AND F.capability_id = C.id
+   AND F.checksum_id = Csum.id
 ORDER BY UPPER(C.name)
 EOQ
 
