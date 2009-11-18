@@ -344,7 +344,8 @@ sub package_details {
   $pxt->pnotes(package_name => $package->nvre);
 
   $subst{"package_$_"} = PXT::Utils->escapeHTML($package->$_() || '') || $no_data
-    foreach qw/id arch_name arch_label arch_type_label arch_type_name package_group_name rpm_version build_host build_time md5sum vendor copyright/;
+    foreach qw/id arch_name arch_label arch_type_label arch_type_name
+    package_group_name rpm_version build_host build_time vendor copyright/;
 
   my ($relative_path, $size) = $package->source_rpm_path;
 

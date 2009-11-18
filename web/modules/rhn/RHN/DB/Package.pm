@@ -33,13 +33,14 @@ use RHN::Package::SolarisPatchSet;
 my @pkg_fields = qw/
 		    id org_id name_id evr_id package_arch_id package_group rpm_version description
 		    summary package_size payload_size build_host build_time:longdate source_rpm_id
-		    md5sum vendor payload_format compat path header_sig copyright cookie last_modified:longdate
+		    vendor payload_format compat path header_sig copyright cookie last_modified:longdate
 		    /;
 my @arch_fields = qw { id name label arch_type_id};
 my @name_fields = qw { id name };
 my @evr_fields = qw { id epoch version release };
 my @group_fields = qw { id name };
 my @srpm_fields = qw { id name };
+my @csum_fields = qw { id checksum };
 
 my $p = new RHN::DB::TableClass("rhnPackage","P","",@pkg_fields);
 my $a = new RHN::DB::TableClass("rhnPackageArch","PA","arch",@arch_fields);
@@ -47,14 +48,16 @@ my $n = new RHN::DB::TableClass("rhnPackageName", "PN", "package_name", @name_fi
 my $evr = new RHN::DB::TableClass("rhnPackageEVR", "PEVR", "package_evr", @evr_fields);
 my $pg = new RHN::DB::TableClass("rhnPackageGroup", "PG", "package_group", @group_fields);
 my $srpm = new RHN::DB::TableClass("rhnSourceRPM", "SRPM", "s_rpm", @srpm_fields);
+my $csum = new RHN::DB::TableClass("rhnChecksum", "Csum", "checksum", @csum_fields);
 
-my $tc = $p->create_join([ $a, $n, $evr, $pg, $srpm ],{ "rhnPackage" => {
+my $tc = $p->create_join([ $a, $n, $evr, $pg, $srpm, $csum ],{ "rhnPackage" => {
 									 "rhnPackage" => [ "ID", "ID" ],
 									 "rhnPackageArch" => ["PACKAGE_ARCH_ID", "ID" ],
 									 "rhnPackageName" => ["NAME_ID", "ID"],
 									 "rhnPackageEVR" => ["EVR_ID", "ID"],
 									 "rhnPackageGroup" => ["PACKAGE_GROUP", "ID"],
-									 "rhnSourceRPM" => ["SOURCE_RPM_ID", "ID"]
+									 "rhnSourceRPM" => ["SOURCE_RPM_ID", "ID"],
+									 "rhnChecksum" => ["CHECKSUM_ID", "ID"],
 									}
 						      },
 			 { rhnSourceRPM => "(+)",
