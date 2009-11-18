@@ -1,3 +1,5 @@
+%global htmldir %{_var}/www/html
+
 Name: spacewalk-proxy-html
 Summary: The HTML component for Spacewalk Proxy
 Group:   Applications/Internet
@@ -11,8 +13,6 @@ BuildArch: noarch
 Obsoletes: rhns-proxy-html < 5.3.0
 Provides: rhns-proxy-html = 5.3.0
 Requires: httpd
-
-%define htmldir %{_var}/www/html
 
 %description
 This package contains placeholder html pages, which the Spacewalk Server
@@ -42,6 +42,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Nov 18 2009 Miroslav Suchy <msuchy@redhat.com>
+- 494292 - use %%global instead of %%define
+
 * Tue Nov 17 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.1-1
 - 494292 - address issues with spec file during Fedora package review
 
