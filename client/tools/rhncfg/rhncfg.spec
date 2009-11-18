@@ -20,6 +20,12 @@ Requires: rhnlib
 Provides: rhn-config-action = %{version}
 Provides: rhn-config-client-package = %{version}
 Provides: rhn-config-management-package = %{version}
+# If this is rhel 4 or less we need up2date.
+%if 0%{?rhel} && "%rhel" < "5"
+Requires: up2date
+%else
+Requires: rhn-client-tools
+%endif
 
 %description 
 Red Hat Network Configuration Client Libraries.
@@ -52,14 +58,6 @@ Summary: Red Hat Network Configuration Client Actions
 Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-client
-
-# If this is rhel 4 or less we need up2date.
-%if 0%{?rhel} && "%rhel" < "5"
-Requires: up2date
-%else
-Requires: rhn-client-tools
-%endif
-
 Provides: rhn-config-action = %{version}
 Provides: rhn-config-client-package = %{version}
 
