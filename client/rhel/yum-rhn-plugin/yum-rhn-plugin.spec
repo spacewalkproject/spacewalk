@@ -15,7 +15,7 @@ BuildRequires: intltool
 BuildRequires: gettext
 
 Requires: yum >= 3.2.19-15
-Requires: rhn-client-tools >= 0.4.19-9
+Requires: rhn-client-tools >= 0.4.20-2
 Requires: m2crypto >= 0.16-6
 
 # Not really, but for upgrades we need these

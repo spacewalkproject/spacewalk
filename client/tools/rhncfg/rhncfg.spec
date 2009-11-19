@@ -5,10 +5,10 @@
 Name: rhncfg
 Summary: Red Hat Network Configuration Client Libraries
 Group:   Applications/System
-License: GPLv2
+License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.13
+Version: 5.9.14
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -17,23 +17,22 @@ BuildRequires: python
 Requires: libselinux-python
 Requires: python
 Requires: rhnlib
-Provides: rhn-config-action = %{version}
-Provides: rhn-config-client-package = %{version}
-Provides: rhn-config-management-package = %{version}
+# If this is rhel 4 or less we need up2date.
+%if 0%{?rhel} && "%rhel" < "5"
+Requires: up2date
+%else
+Requires: rhn-client-tools
+%endif
 
 %description 
-Red Hat Network Configuration Client Libraries.
 The base libraries and functions needed by all rhncfg-* packages.
 
 %package client
 Summary: Red Hat Network Configuration Client
 Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
-Provides: rhn-config-action = %{version}
-Provides: rhn-config-client-package = %{version}
 
 %description client
-Red Hat Network Configuration Client.
 A command line interface to the client features of the RHN Configuration
 Management system. 
 
@@ -41,10 +40,8 @@ Management system.
 Summary: Red Hat Network Configuration Management Client
 Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
-Provides: rhn-config-management-package = %{version}
 
 %description management
-Red Hat Network Configuration Management Client.
 A command line interface used to manage RHN configuration.
 
 %package actions
@@ -53,18 +50,7 @@ Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-client
 
-# If this is rhel 4 or less we need up2date.
-%if 0%{?rhel} && "%rhel" < "5"
-Requires: up2date
-%else
-Requires: rhn-client-tools
-%endif
-
-Provides: rhn-config-action = %{version}
-Provides: rhn-config-client-package = %{version}
-
 %description actions
-Red Hat Network Configuration Client Actions
 The code required to run configuration actions scheduled via the RHN website or
 RHN Satellite or Spacewalk.
 
@@ -86,7 +72,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %{rhnroot}/config_common
-%doc LICENSE
+%doc LICENSE PYTHON-LICENSES.txt
 
 %files client
 %defattr(-,root,root,-)
@@ -111,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Nov 18 2009 Miroslav Suchy <msuchy@redhat.com> 5.9.14-1
+- 491088 - Polish the spec according Fedora Packaging Guidelines
+
 * Tue Nov 17 2009 Miroslav Suchy <msuchy@redhat.com> 5.9.13-1
 - 491088 - Polish the spec according Fedora Packaging Guidelines
 
