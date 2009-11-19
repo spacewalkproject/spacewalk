@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.manager.kickstart.test;
 
-import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
