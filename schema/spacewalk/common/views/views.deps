@@ -36,7 +36,7 @@ rhnChannelFamilyServerVirtual    :: rhnServerEntitlementView \
                                     rhnChannelFamilyMembers \
                                     rhnServerChannel \
                                     rhnServer
-hnChannelFamilyOverview          :: rhnPrivateChannelFamily rhnChannelFamily
+rhnChannelFamilyOverview         :: rhnPrivateChannelFamily rhnChannelFamily
 rhnChannelFamilyPermissions      :: rhnPublicChannelFamily \
                                     rhnPrivateChannelFamily
 rhnChannelFamilyServers          :: rhnChannelFamilyMembers rhnChannelFamily \
