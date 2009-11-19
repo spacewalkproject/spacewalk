@@ -132,7 +132,7 @@ public class KickstartPackage
             return equal;
         }
 
-        int comparism = this.getKsData().getId().compareTo(that.getKsData().getId());
+        int comparism = this.getKsData().getLabel().compareTo(that.getKsData().getLabel());
         if (equal != comparism) {
             return comparism;
         }
@@ -173,5 +173,18 @@ public class KickstartPackage
         return "{ " + this.getKsData().getId().toString() +
                ", " + this.getPosition().toString() +
                ", " + this.getPackageName().getName() + " }";
+    }
+    
+    /**
+     * Produce a clone of a kickstartPackage object
+     * @param data The new kickstart data
+     * @return the clone
+     */
+    public KickstartPackage deepCopy(KickstartData data) {
+        KickstartPackage kp = new KickstartPackage();
+        kp.setKsData(data);
+        kp.setPackageName(this.getPackageName());
+        kp.setPosition(this.getPosition());
+        return kp;
     }
 }

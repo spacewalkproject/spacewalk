@@ -1238,9 +1238,10 @@ public class KickstartData {
             cloned.setKickstartDefaults(this.getKickstartDefaults().deepCopy(cloned));
         }
         cloned.setOrg(this.getOrg());
-        if (this.getKsPackages() != null) {
-            cloned.setKsPackages(new TreeSet(this.getKsPackages()));
+        for (KickstartPackage kp : this.getKsPackages()) {
+            cloned.getKsPackages().add(kp.deepCopy(cloned));
         }
+        
         if (this.getPreserveFileLists() != null) {
             cloned.setPreserveFileLists(new HashSet(this.getPreserveFileLists()));
         }

@@ -694,7 +694,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         verifySet(cloned.getDefaultRegTokens(), k.getDefaultRegTokens(), Token.class);
         
         verifySet(cloned.getLogvols(), k.getLogvols(), KickstartCommand.class);
-        verifySet(cloned.getKsPackages(), k.getKsPackages(), PackageName.class);
+        verifySet(cloned.getKsPackages(), k.getKsPackages(), KickstartPackage.class);
         verifySet(cloned.getPreserveFileLists(), k.getPreserveFileLists(), FileList.class);
         verifySet(cloned.getRaids(), k.getRaids(), KickstartCommand.class);
         verifySet(cloned.getVolgroups(), k.getVolgroups(), KickstartCommand.class);

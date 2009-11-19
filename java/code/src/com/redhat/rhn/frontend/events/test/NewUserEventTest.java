@@ -75,9 +75,9 @@ public class NewUserEventTest extends RhnBaseTestCase {
         assertTrue(mailer.getBody().contains("Your Spacewalk login:         testUser") ||
                    mailer.getBody().contains("Your RHN Satellite login:         testUser"));
         assertTrue(mailer.getBody().contains("Your Spacewalk email address: " +
-			        "redhatJavaTest@redhat.com") ||
+                    "redhatJavaTest@redhat.com") ||
                    mailer.getBody().contains("Your RHN Satellite email address: " +
-				"redhatJavaTest@redhat.com"));
+                "redhatJavaTest@redhat.com"));
     }
 
     private NewUserEvent createTestEvent() {

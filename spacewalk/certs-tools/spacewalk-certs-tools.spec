@@ -1,14 +1,15 @@
 Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
-License: GPLv2
-Version: 0.7.0
+License: GPLv2 and Python
+Version: 0.7.2
 Release: 1%{?dist}
 URL:      https://fedorahosted.org/spacewalk 
 Source0:  https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: openssl rpm-build
+Requires: rhn-client-tools
 BuildRequires: docbook-utils
 BuildRequires: python
 Obsoletes: rhns-certs < 5.3.0
@@ -21,7 +22,7 @@ Provides:  rhns-certs-tools = 5.3.0
 This package contains tools to generate the SSL certificates required by 
 Spacewalk.
 
-%define rhnroot %{_prefix}/share/rhn
+%global rhnroot %{_datadir}/rhn
 
 %prep
 %setup -q
@@ -34,22 +35,32 @@ rm -rf $RPM_BUILD_ROOT
 install -d -m 755 $RPM_BUILD_ROOT/%{rhnroot}/certs
 make -f Makefile.certs install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
     MANDIR=%{_mandir}
+chmod 755 $RPM_BUILD_ROOT/%{rhnroot}/certs/{rhn_ssl_tool.py,client_config_update.py,rhn_rpm.py,rhn_bootstrap.py}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root)
-%attr(755,root,root) %{rhnroot}/certs/*.py*
+%defattr(-,root,root,-)
+%dir %{rhnroot}/certs
+%{rhnroot}/certs/*.py*
 %attr(755,root,root) %{rhnroot}/certs/sign.sh
 %attr(755,root,root) %{rhnroot}/certs/gen-rpm.sh
 %attr(755,root,root) %{_bindir}/rhn-sudo-ssl-tool
 %attr(755,root,root) %{_bindir}/rhn-ssl-tool
 %attr(755,root,root) %{_bindir}/rhn-bootstrap
 %doc %{_mandir}/man1/rhn-*.1*
+%doc LICENSE PYTHON-LICENSES.txt
+%doc ssl-howto-simple.txt ssl-howto.txt
 %{_var}/www/html/pub/bootstrap/client_config_update.py*
 
 %changelog
+* Wed Nov 18 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.2-1
+- 538046 - Polish the spec according Fedora Packaging Guidelines
+
+* Tue Nov 17 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.1-1
+- fix rpmlint warnings
+
 * Wed May 06 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.3-1
 - adding optional way to specify profile name. (satoru.satoh@gmail.com)
 - 497110 - Don't assume jabberd is installed in rhn-ssl-tool (dgoodwin@redhat.com)

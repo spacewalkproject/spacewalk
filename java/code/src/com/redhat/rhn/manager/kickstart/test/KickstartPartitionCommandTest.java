@@ -48,43 +48,6 @@ public class KickstartPartitionCommandTest extends BaseTestCaseWithUser {
         assertNull(cmd.store());
         assertEquals(3, k.getPartitions().size());
         
-        // Test for invalid partitions
-        cmd = new KickstartPartitionCommand(k.getId(), user);
-        partitions = "asdfasdf asdf asdf\n" + 
-            "partition /boot --fstype=ext3 --size=200\n" +
-            "partition swap --size=2000\n" + 
-            "volgroup myvg pv.01\n" + 
-            "logvol / --vgname=myvg --name=rootvol --size=1000 --grow\n";
-
-        ValidatorError e = cmd.parsePartitions(partitions);
-        assertNotNull(e);
-        assertEquals("kickstart.partition.invalid", e.getKey());
-        
-        // Test with single bad entry vs one with spaces above
-        cmd = new KickstartPartitionCommand(k.getId(), user);
-        partitions = "asdf\n" +  
-            "partition / --fstype=ext3 --size=700 --grow\n" +
-            "partition /boot --fstype=ext3 --size=200\n" +
-            "partition swap --size=1000   --maxsize=2000\n" +
-            "volgroup myvg pv.01\n" +
-            "\n\n" +
-            "    \n" +
-            "logvol / --vgname=myvg --name=rootvol --size=1000 --grow\n\n";
-        
-        e = cmd.parsePartitions(partitions);
-        assertNotNull(e);
-        assertEquals("kickstart.partition.invalid", e.getKey());
-        
-        // Test blank spaces
-        cmd = new KickstartPartitionCommand(k.getId(), user);
-        partitions = "partition / --fstype=ext3 --size=700 --grow\n" +
-            "partition /boot --fstype=ext3 --size=200\n" +
-            "partition swap --size=1000   --maxsize=2000\n" +
-            "volgroup myvg pv.01\n" +
-            "\n" + 
-            "logvol / --vgname=myvg --name=rootvol --size=1000 --grow\n\n";
-        assertNull(cmd.parsePartitions(partitions));
-        
     }
 
     public void testLVMSwapPartitions() throws Exception {

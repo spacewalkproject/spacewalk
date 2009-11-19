@@ -1,21 +1,22 @@
+%global htmldir %{_var}/www/html
+
 Name: spacewalk-proxy-html
 Summary: The HTML component for Spacewalk Proxy
 Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk 
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.7.0
+Version: 0.7.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Obsoletes: rhns-proxy-html < 5.3.0
+Provides: rhns-proxy-html = 5.3.0
 Requires: httpd
-
-%define htmldir %{_var}/www/html
 
 %description
 This package contains placeholder html pages, which the Spacewalk Server
-display, if you navigate to it using your browser.
+displays, if you navigate to it using your browser.
 
 %prep
 %setup -q
@@ -34,14 +35,19 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%attr(755,root,apache) %dir %{htmldir}
-%attr(755,root,apache) %dir %{htmldir}/_rhn_proxy
-%attr(644,root,apache) %config %{htmldir}/_rhn_proxy/index.html
-%attr(644,root,apache) %{htmldir}/_rhn_proxy/*.ico
-%attr(644,root,apache) %{htmldir}/_rhn_proxy/*.png
+%dir %{htmldir}/_rhn_proxy
+%config %{htmldir}/_rhn_proxy/index.html
+%{htmldir}/_rhn_proxy/*.ico
+%{htmldir}/_rhn_proxy/*.png
 %doc LICENSE
 
 %changelog
+* Wed Nov 18 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.2-1
+- 494292 - use %%global instead of %%define
+
+* Tue Nov 17 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.1-1
+- 494292 - address issues with spec file during Fedora package review
+
 * Mon Dec  8 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.2-1
 - fixed Obsoletes: rhns-* < 5.3.0
 
