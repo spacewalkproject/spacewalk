@@ -196,8 +196,10 @@ def posttrans_hook(conduit):
     """ Post rpm transaction hook. We update the RHN profile here. """
     global rhn_enabled
     if rhn_enabled:
+        ts_info = conduit.getTsInfo()
+        delta = make_package_delta(ts_info)
         try:
-            rhnPackageInfo.updatePackageProfile() 
+            rhnPackageInfo.remoteDeltaPackages(delta)
         except up2dateErrors.RhnServerException, e:
             conduit.error(0, COMMUNICATION_ERROR + "\n" +
                 _("Package profile information could not be sent.") + "\n" + 
@@ -238,7 +240,6 @@ class RhnRepo(YumRepository):
     
     def __init__(self, channel):
         YumRepository.__init__(self, channel['label'])
-        self.name = channel['name']
         self._callbacks_changed = False
 
         # support failover urls, #232567
@@ -461,6 +462,65 @@ class RhnRepo(YumRepository):
             # possibly it's out of date
             up2dateAuth.updateLoginInfo()
             return YumRepository._getRepoXML(self)
+
+def make_package_delta(ts_info):
+    """
+    Construct an RHN style package delta from a yum TransactionData object.
+
+    Return a hash containing two keys: added and removed.
+    Each key's value is a list of RHN style package tuples.
+    """
+
+    delta = {}
+    delta["added"] = []
+    delta["removed"] = []
+
+    # Make sure the transaction data has the packages in nice lists.
+    ts_info.makelists()
+
+    for ts_member in ts_info.installed:
+        package = ts_member.po
+        pkgtup = __rhn_pkg_tup_from_po(package)
+        delta["added"].append(pkgtup)
+
+    for ts_member in ts_info.depinstalled:
+        package = ts_member.po
+        pkgtup = __rhn_pkg_tup_from_po(package)
+        delta["added"].append(pkgtup)
+
+    for ts_member in ts_info.updated:
+        package = ts_member.po
+        pkgtup = __rhn_pkg_tup_from_po(package)
+        delta["added"].append(pkgtup)
+
+    for ts_member in ts_info.depupdated:
+        package = ts_member.po
+        pkgtup = __rhn_pkg_tup_from_po(package)
+        delta["added"].append(pkgtup)
+
+    for ts_member in ts_info.removed:
+        package = ts_member.po
+        pkgtup = __rhn_pkg_tup_from_po(package)
+        delta["removed"].append(pkgtup)
+
+    for ts_member in ts_info.depremoved:
+        package = ts_member.po
+        pkgtup = __rhn_pkg_tup_from_po(package)
+        delta["removed"].append(pkgtup)
+
+    return delta
+
+def __rhn_pkg_tup_from_po(package):
+    """ Construct an rhn-style package tuple from a yum package object. """
+
+    name = package.returnSimple('name')
+    epoch = package.returnSimple('epoch')
+    version = package.returnSimple('version')
+    release = package.returnSimple('release')
+    arch = package.returnSimple('arch')
+
+    return (name, version, release, epoch, arch)
+
 
 class BadConfig(Exception):
     pass
