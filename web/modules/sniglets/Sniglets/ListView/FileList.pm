@@ -114,7 +114,7 @@ sub row_callback {
     $row->{NAME} = '<tt>' . $row->{NAME} . '</tt>';
 
     if ($row->{CHECKSUM}) {
-      $row->{CHECKSUM} = '<tt>' . $row->{CHECKSUM_TYPE} . ': ' . $row->{CHECKSUM} . '</tt>';
+      $row->{CHECKSUM} = '<tt>' . uc($row->{CHECKSUM_TYPE}) . ': ' . $row->{CHECKSUM} . '</tt>';
       $row->{FILE_SIZE} = '<tt>' . PXT::Utils->commafy($row->{FILE_SIZE}) . " bytes</tt>";
     }
     elsif ($row->{LINKTO}) {
