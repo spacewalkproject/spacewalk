@@ -104,12 +104,13 @@ ORDER BY created DESC
   <query params="pid">
 SELECT C.name,
        F.file_size,
-       Cs.checksum md5,
+       Cs.checksum,
+       Cs.checksum_type,
        F.file_mode,
        F.linkto,
        TO_CHAR(F.mtime, 'YYYY-MM-DD HH24:MI:SS') AS MTIME
   FROM rhnPackageFile F, rhnPackageCapability C,
-       rhnChecksum Cs
+       rhnChecksumView Cs
  WHERE F.package_id = :pid
    AND F.capability_id = C.id
    AND CS.id = F.checksum_id
