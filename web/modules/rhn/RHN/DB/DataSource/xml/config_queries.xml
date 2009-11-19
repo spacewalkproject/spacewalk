@@ -519,7 +519,7 @@ ORDER BY CFN.path
   <query params="ss_id">
 SELECT DISTINCT
        CR.id,
-       Csum.checksum md5sum,
+       UPPER(Csum.checksum_type) || ': ' || Csum.checksum AS CHECKSUM,
        CFN.id AS CONFIG_FILE_NAME_ID,
        CFN.path,
        CR.revision,
@@ -533,7 +533,7 @@ SELECT DISTINCT
        rhnConfigFile CF,
        rhnConfigRevision CR,
        rhnSnapshotConfigRevision SCR,
-       rhnChecksum Csum
+       rhnChecksumView Csum
  WHERE SCR.snapshot_id = :ss_id
    AND SCR.config_revision_id = CR.id
    AND CR.config_content_id = CCon.id

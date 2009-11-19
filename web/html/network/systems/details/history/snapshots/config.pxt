@@ -41,7 +41,7 @@ Snapshot - Configuration Files</h2>
     <url>/rhn/configuration/file/FileDetails.do?crid={column:id}</url>
   </column>
   <column name="Revision" label="revision" width="1%"/>
-  <column name="MD5 Checksum" label="md5sum" width="25%" />
+  <column name="Checksum" label="checksum" width="25%" />
   <column name="Created" label="created" width="10%" />
   <empty_list_message>No files</empty_list_message>
 </rhn-listview>
