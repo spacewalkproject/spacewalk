@@ -1152,22 +1152,20 @@ ORDER BY UPPER(EK.keyword)
   <query params="eid, org_id">
 SELECT  DISTINCT EFP.package_id,
                  CS.checksum,
-                 CST.label AS CHECKSUMTYPE,
+                 CS.checksum_type AS CHECKSUMTYPE,
                  EF.filename AS FILENAME,
                  C.name AS CHANNEL_NAME
   FROM  rhnChannel C,
         rhnErrataFilePackage EFP,
         rhnErrataFileChannel EFC,
         rhnErrataFile EF,
-        rhnChecksum CS,
-        rhnChecksumType CST
+        rhnChecksumView CS
  WHERE  EF.errata_id = :eid
    AND  EF.id = EFC.errata_file_id (+)
    AND  EF.id = EFP.errata_file_id (+)
    AND  EFC.channel_id IN (SELECT AC.channel_id FROM rhnAvailableChannels AC WHERE AC.org_id = :org_id)
    AND  EFC.channel_id = C.id
    AND  EF.checksum_id = CS.id
-   AND  CS.checksum_type_id = CST.id
 ORDER BY C.name, EF.filename DESC
   </query>
 </mode>

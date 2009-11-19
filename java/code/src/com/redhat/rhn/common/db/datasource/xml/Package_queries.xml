@@ -87,16 +87,15 @@ ORDER BY UPPER(C.name), C.version
 SELECT C.name,
        F.file_size,
        CS.checksum,
-       CST.label checksumtype,
+       CS.checksum_type checksumtype,
        F.file_mode,
        F.linkto,
        TO_CHAR(F.mtime, 'YYYY-MM-DD HH24:MI:SS') AS MTIME
   FROM rhnPackageFile F, rhnPackageCapability C,
-       rhnChecksum CS, rhnChecksumType CST
+       rhnChecksumView CS
  WHERE F.package_id = :pid
    AND F.capability_id = C.id
    AND F.checksum_id = CS.id
-   AND CS.checksum_type_id = CST.id
 ORDER BY UPPER(C.name)
   </query>
 </mode>

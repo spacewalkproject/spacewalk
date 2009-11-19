@@ -558,7 +558,7 @@ FROM
          p.build_time, p.path, p.package_size, p.payload_size,
          p.copyright, p.vendor, p.build_host, p.header_start, p.header_end,
          srpm.name as source_rpm, pg.name as package_group_name,
-         cs.checksum, cst.label as checksumtype
+         cs.checksum, cs.checksum_type as checksumtype
     FROM
          rhnChannelPackage cp,
          rhnPackage p
@@ -567,8 +567,7 @@ FROM
          rhnPackageName pn,
          rhnPackageEvr pevr,
          rhnPackageArch pa,
-         rhnChecksum cs,
-         rhnChecksumType cst
+         rhnChecksumView cs
     WHERE
          cp.package_id = p.id
          AND p.name_id = pn.id
@@ -576,7 +575,6 @@ FROM
          AND p.package_arch_id = pa.id
          AND cp.channel_id = :channel_id
          AND p.checksum_id = cs.id
-         AND cs.checksum_type_id = cst.id
     ORDER by 1
    </query>
 </mode>

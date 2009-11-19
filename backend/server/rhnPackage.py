@@ -441,13 +441,11 @@ def get_package_for_checksum(org_id, checksum):
          p.id
      from
          rhnPackage p,
-         rhnChecksum c,
-         rhnChecksumType ct
+         rhnChecksumView c
      where p.org_id = :org_id
          and p.checksum_id = c.id
          and c.checksum = :checksum
-         and ct.id = c.checksum_type_id
-         and ct.label = :checksumtype
+         and c.checksum_type = :checksumtype
      """
      h = rhnSQL.prepare(statement)
      h.execute(org_id=org_id, checksum=checksum[1], checksumtype=checksum[0])

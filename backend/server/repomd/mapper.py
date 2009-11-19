@@ -215,7 +215,7 @@ class SqlPackageMapper:
             p.path,
             sr.name source_rpm,
             p.last_modified,
-            ct.label checksum_type
+            c.checksum_type
         from  
             rhnPackage p,
             rhnPackageName pn,
@@ -223,8 +223,7 @@ class SqlPackageMapper:
             rhnPackageArch pa,
             rhnPackageGroup pg,
             rhnSourceRPM sr,
-            rhnChecksum c,
-            rhnChecksumType ct
+            rhnChecksumView c
         where
             p.id = :package_id
         and p.name_id = pn.id
@@ -233,7 +232,6 @@ class SqlPackageMapper:
         and p.package_group = pg.id
         and p.source_rpm_id = sr.id
         and p.checksum_id = c.id
-        and c.checksum_type_id = ct.id
         """)
        
         self.filelist_sql = rhnSQL.prepare("""

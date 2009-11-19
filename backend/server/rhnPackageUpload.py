@@ -218,12 +218,10 @@ def push_package(header, payload_stream, checksum, org_id=None, force=None,
         h_path_sql = """
             select ps.path path
                 from %s ps,
-                     rhnChecksum c,
-                     rhnChecksumType ct
+                     rhnChecksumView c
             where
                 c.checksum = :csum
-            and ct.label = :ctype
-            and c.checksum_type_id = ct.id
+            and c.checksum_type = :ctype
             and ps.checksum_id = c.id
             and (ps.org_id = :org_id or
                  (ps.org_id is null and :org_id is null)
@@ -248,11 +246,9 @@ def push_package(header, payload_stream, checksum, org_id=None, force=None,
             update rhnpackage
                set path = :path
             where checksum_id = (
-                        select id from rhnChecksum c,
-                                       rhnChecksumType ct
+                        select id from rhnChecksumView c
                                  where c.checksum = :csum
-                                   and ct.label = :ctype
-                                   and c.checksum_type_id = ct.id)
+                                   and c.checksum_type = :ctype)
             """)
             h_upd.execute(path=relative_path, ctype=checksum[0], csum=checksum[1])
 
