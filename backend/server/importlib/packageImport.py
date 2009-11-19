@@ -74,14 +74,14 @@ class ChannelPackageSubscription(GenericPackageImport):
             #package['checksum_id'] = self.checksums[package['checksum']]
             self._postprocessPackage(package)
             if not CFG.ENABLE_NVREA:
-                # nvrea disabled, skip md5sum
+                # nvrea disabled, skip checksum
                 nevrao = (
                     package['name_id'],
                     package['evr_id'],
                     package['package_arch_id'],
                     package['org_id'])
             else:
-                # As nvrea is enabled uniquify based on md5sum
+                # As nvrea is enabled uniquify based on checksum
                 nevrao = (
                     package['name_id'],
                     package['evr_id'],
