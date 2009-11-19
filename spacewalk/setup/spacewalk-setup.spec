@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.7.6
+Version:        0.7.7
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -106,6 +106,9 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Thu Nov 19 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.7-1
+- make installer look more consistent
+
 * Mon Oct 12 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.6-1
 - added Oracle 11gR2 to allowed versions
 - fixed length of db population progress bar
