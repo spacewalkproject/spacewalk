@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.5
+Version: 0.7.6
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -317,6 +317,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Nov 19 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.6-1
+- 531649 - fixed confirmation message after channel merge/compare
+- 527881 - fixed set clearing on the channel merge page
+
 * Mon Oct 26 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.5-1
 - bump up spacewalk version to 0.7
 - 449167 - add api call for rpm install date
