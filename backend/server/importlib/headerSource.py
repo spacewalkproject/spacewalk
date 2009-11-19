@@ -282,7 +282,8 @@ class rpmFile(File, ChangeLog):
         'rdev'      : 'filerdevs',
         'file_size' : 'filesizes',
         'mtime'     : 'filemtimes',
-        'md5'       : 'filemd5s',
+        'filedigest'  : 'filemd5s',     # FILEMD5S is a pre-rpm4.6 name for FILEDIGESTS
+                                        # we have to use it for compatibility reason
         'linkto'    : 'filelinktos',
         'flags'     : 'fileflags',
         'verifyflags' : 'fileverifyflags',

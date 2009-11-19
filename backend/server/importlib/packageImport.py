@@ -253,13 +253,14 @@ class PackageImport(ChannelPackageSubscription):
                     self.capabilities[nv] = None
         # Process files too
         fileList = package['files']
+        checksum_type = package['checksum'][0]
         for f in fileList:
             nv = (f['name'], '')
             del f['name']
             f['capability'] = nv
             if not self.capabilities.has_key(nv):
                 self.capabilities[nv] = None
-            fchecksum = ('md5', f['md5'])
+            fchecksum = (checksum_type, f['filedigest'])
             f['checksum'] = fchecksum
             if not self.checksums.has_key(fchecksum):
                 self.checksums[fchecksum] = None
@@ -486,7 +487,7 @@ class PackageImport(ChannelPackageSubscription):
         package['solaris_patch_set_members'] = infoObjs
 
     def _comparePackages(self, package1, package2):
-        if package1['md5sum'] == package2['md5sum']:
+        if package1['checksum'] == package2['checksum']:
             return
         # XXX Handle this better
         raise Exception("Different packages in the same batch")
@@ -552,7 +553,7 @@ class SourcePackageImport(Import):
 
 
     def _comparePackages(self, package1, package2):
-        if package1['md5sum'] == package2['md5sum']:
+        if package1['checksum'] == package2['checksum']:
             return
         # XXX Handle this better
         raise Exception("Different packages in the same batch")
