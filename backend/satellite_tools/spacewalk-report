@@ -60,44 +60,31 @@ def processCommandline():
 				+ ' default is default_db from /etc/rhn/rhn.conf'),
 		Option('--info', action='store_true',
 			help='print synopsis of the report in the list of report, or description of individual reports specified'),
+		Option('--list-fields', action='store_true',
+			dest='listfields',
+			help='list fields of the report instead of running the report'),
+		Option('--list-fields-info', action='store_true',
+			dest='listfieldsinfo',
+			help='as --list-fields but also prints description for each column'),
 	]
 
 	optionParser = OptionParser( \
-		usage="usage: %s [options] [report_name [report_options]]" % sys.argv[0], \
+		usage="usage: %s [options] [report_name]" % sys.argv[0], \
 		option_list=optionsTable)
-	optionParser.disable_interspersed_args()
 	options, args = optionParser.parse_args()
 
 	sys.argv[1:] = args
 
 	return options
 
-def processCommandlineReport(report):
-	""" process the commandline options for one report """
-
-	optionsTable = [
-		Option('--list-fields', action='store_true',
-			dest='listfields',
-			help='list fields of the report instead of running the report'),
-		Option('--info', action='store_true',
-			help='print description for each column'),
-		]
-	optionParserReport = OptionParser(
-		usage="options for report %s" % report,
-		option_list=optionsTable,
-		)
-	options, args = optionParserReport.parse_args()
-
-	return options
-
-
 if __name__ == '__main__':
 	options = processCommandline()
 
 	try:
+		if len(sys.argv) > 2:
+			systemExit(-5, 'Only one report name expected.')
 		if len(sys.argv) > 1:
 			report_name = sys.argv[1]
-			report_options = processCommandlineReport(report_name)
 
 			try:
 				report = reports.report(report_name)
@@ -115,7 +102,7 @@ if __name__ == '__main__':
 					print report.description
 				need_exit = True
 
-			if report_options.listfields:
+			if options.listfields or options.listfieldsinfo:
 				if options.info:
 					print
 					print "Fields in the report:"
@@ -125,7 +112,7 @@ if __name__ == '__main__':
 					text = c
 					if options.info:
 						text = "    %s" % c
-					if report_options.info and report.column_descriptions.has_key(c) :
+					if options.listfieldsinfo and report.column_descriptions.has_key(c) :
 						text = "%s: %s" % ( text, report.column_descriptions[c] )
 					print text
 				need_exit = True

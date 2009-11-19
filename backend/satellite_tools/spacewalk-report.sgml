@@ -32,11 +32,9 @@ Generate reports from Spacewalk server in csv format
         <sbr />
         <arg>--info</arg>
         <sbr />
+        <group><arg>--list-fields</arg><arg>--list-fields-info</arg></group>
+        <sbr />
         <arg choice='plain'><replaceable>report-name</replaceable></arg>
-        <sbr />
-        <arg>--list-fields <arg>--info</arg></arg>
-        <sbr />
-        <arg choice='plain'>other report specific options</arg>
     </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
@@ -50,18 +48,11 @@ Generate reports from Spacewalk server in csv format
 </para>
 
 <para>
-    The command takes some general options, specified on the command
-    line before the report name. Each report may have a set of
-    report-specific options, those are placed on the command line
-    after the report name.
-</para>
-
-<para>
     If the report name is not specified, list of available report
     names is printed, one name per line.
 </para>
 
-<RefSect1><Title>General Options</Title>
+<RefSect1><Title>Options</Title>
 <variablelist>
     <varlistentry>
         <term>--info</term>
@@ -106,11 +97,6 @@ Generate reports from Spacewalk server in csv format
             <command>spacewalk-report</command>.
         </listitem>
     </varlistentry>
-</variablelist>
-</RefSect1>
-
-<RefSect1><Title>Report-specific Options</Title>
-<variablelist>
     <varlistentry>
         <term>--list-fields</term>
         <listitem>
@@ -119,10 +105,11 @@ Generate reports from Spacewalk server in csv format
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>--info</term>
+        <term>--list-fields-info</term>
         <listitem>
-            <para>Used with <option>--list-fields</option>, the list
-	    of fields has description shown as well.</para>
+            <para>Instead of running the report, shows fields that the
+	    report has, one field name per line, and a description of
+	    that field.</para>
         </listitem>
     </varlistentry>
 </variablelist>
