@@ -46,6 +46,7 @@ rhnChannelPermissions            :: rhnChannelFamilyMembers rhnPrivateChannelFam
                                     rhnPublicChannelFamily web_contact
 rhnChannelTreeView               :: rhnChannel rhnChannelFamilyMembers \
                                     rhnChannelFamilyPermissions
+rhnChecksumView                  :: rhnChecksum rhnChecksumType
 rhnDemoOrgs                      :: demo_log
 rhnEntitledServers               :: rhnServerGroup rhnServerGroupType \
                                     rhnServerGroupMembers rhnServer
