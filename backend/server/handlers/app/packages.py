@@ -419,13 +419,12 @@ class Packages(RPC_Base):
         orgid = info.get('org_id')
         
         if orgid == 'null':
-            org_id, force = rhnPackageUpload.authenticate(username, password,
-                                                          channels=channels,
-                                                          null_org=1,
-                                                          force=force)
+            null_org=1
         else:
-            org_id, force = rhnPackageUpload.authenticate(username, password,
+            null_org=None
+        org_id, force = rhnPackageUpload.authenticate(username, password,
                                                           channels=channels,
+                                                          null_org=null_org,
                                                           force=force)
         return self._getPackageMD5sum(org_id, pkg_infos, info)
     
@@ -439,11 +438,11 @@ class Packages(RPC_Base):
         
         try:
             if orgid == 'null':
-                org_id, force = rhnPackageUpload.authenticate_session(
-                    session_string, channels=channels, null_org=1, force=force)
+                null_org=1
             else:
-                org_id, force = rhnPackageUpload.authenticate_session(
-                    session_string, channels=channels, force=force)
+                null_org=None
+            org_id, force = rhnPackageUpload.authenticate_session(
+                    session_string, channels=channels, null_org=null_org, force=force)
         except rhnSession.InvalidSessionError:
             raise rhnFault(33)
         except rhnSession.ExpiredSessionError:
@@ -564,11 +563,11 @@ class Packages(RPC_Base):
         
         try:
             if orgid == 'null':
-                org_id, force = rhnPackageUpload.authenticate_session(
-                    session_string, channels=channels, null_org=1, force=force)
+                null_org=1
             else:
-                org_id, force = rhnPackageUpload.authenticate_session(
-                    session_string, channels=channels, force=force)
+                null_org=None
+            org_id, force = rhnPackageUpload.authenticate_session(
+                    session_string, channels=channels, null_org=null_org, force=force)
         except rhnSession.InvalidSessionError:
             raise rhnFault(33)
         except rhnSession.ExpiredSessionError:
