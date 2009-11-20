@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.17
+Version: 0.7.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -280,6 +280,21 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Nov 20 2009 Tomas Lestach <tlestach@redhat.com> 0.7.18-1
+- some columns not filled on webui for non-cve errata (tlestach@redhat.com)
+- checkstyle fix (jsherril@redhat.com)
+- 512844 - fixing inefficient query in package set clenaup
+  (jsherril@redhat.com)
+- unit test fix - we no longer do validation checking on kickstart partitions,
+  so no need to test it (jsherril@redhat.com)
+- unit test fix - kickstart compare packages was not working correctly
+  (jsherril@redhat.com)
+- 537491 - fixing issue with cloned kickstart profiles losing the package list
+  during cloning (jsherril@redhat.com)
+- checkstyle fix (jsherril@redhat.com)
+- unit test fix (jsherril@redhat.com)
+- unit test fix (jsherril@redhat.com)
+
 * Thu Nov 12 2009 Tomas Lestach <tlestach@redhat.com> 0.7.17-1
 - 536825 - storing "@ Base" KickstartPackage into DB (tlestach@redhat.com)
 - java code enhancements according to jsherrill's comments
