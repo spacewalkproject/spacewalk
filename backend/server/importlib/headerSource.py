@@ -24,7 +24,7 @@ from importLib import File, Dependency, ChangeLog, Channel, \
     IncompletePackage, Package, SourcePackage
 from backendLib import gmtime, localtime
 from types import ListType, TupleType, IntType
-from common import log_debug
+from common import log_debug, rhnLib
 
 class rpmPackage(IncompletePackage):
     # Various mappings

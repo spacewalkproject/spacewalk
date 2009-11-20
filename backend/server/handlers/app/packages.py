@@ -22,7 +22,7 @@ import os
 import string
 import tempfile
 
-from common import RPC_Base, rhnFault, log_debug, log_error, CFG
+from common import RPC_Base, rhnFault, log_debug, log_error, CFG, rhnLib
 
 from server import rhnSQL, rhnPackageUpload, rhnUser, rhnSession
 

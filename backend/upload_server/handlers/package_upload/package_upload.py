@@ -22,7 +22,7 @@
 import os
 from mod_python import apache
 
-from common import CFG, log_debug, log_error, rhnFault, rhnFlags
+from common import CFG, log_debug, log_error, rhnFault, rhnFlags, rhnLib
 from server import rhnPackageUpload, basePackageUpload
 from server.rhnLib import get_package_path
 
