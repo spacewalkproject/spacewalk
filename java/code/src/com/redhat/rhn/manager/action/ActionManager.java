@@ -1327,7 +1327,8 @@ public class ActionManager extends BaseManager {
         type = ActionFactory.lookupActionTypeByLabel(type.getLabel());
         Action action = createScheduledAction(scheduler, type, name, earliestAction);
         ActionFactory.save(action);
-        action = (Action) ActionFactory.reload(action);
+        ActionFactory.getSession().flush();
+        ActionFactory.getSession().refresh(action);
        
         
         Map params = new HashMap();
