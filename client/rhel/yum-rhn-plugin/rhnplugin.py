@@ -196,10 +196,13 @@ def posttrans_hook(conduit):
     """ Post rpm transaction hook. We update the RHN profile here. """
     global rhn_enabled
     if rhn_enabled:
-        ts_info = conduit.getTsInfo()
-        delta = make_package_delta(ts_info)
+        up2date_cfg = config.initUp2dateConfig()
+        if up2date_cfg.has_key('writeChangesToLog') and up2date_cfg['writeChangesToLog'] == 1:
+            ts_info = conduit.getTsInfo()
+            delta = make_package_delta(ts_info)
+            rhnPackageInfo.logDeltaPackages(delta)
         try:
-            rhnPackageInfo.remoteDeltaPackages(delta)
+            rhnPackageInfo.updatePackageProfile()
         except up2dateErrors.RhnServerException, e:
             conduit.error(0, COMMUNICATION_ERROR + "\n" +
                 _("Package profile information could not be sent.") + "\n" + 
@@ -240,6 +243,7 @@ class RhnRepo(YumRepository):
     
     def __init__(self, channel):
         YumRepository.__init__(self, channel['label'])
+        self.name = channel['name']
         self._callbacks_changed = False
 
         # support failover urls, #232567
