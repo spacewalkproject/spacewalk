@@ -41,5 +41,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-report.8*
 
 %changelog
-* Fri Nov 20 2009 Jan Pazdziora 0.1.2-1
+* Fri Nov 20 2009 Jan Pazdziora 0.1.1-1
 - moved reports from spacewalk-backend to separate package
