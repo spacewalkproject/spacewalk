@@ -729,15 +729,16 @@ SELECT CTV.name, CTV.id, CTV.depth, CTV.channel_arch_id, C.org_id,
           FROM rhnchannelpackage cp
          WHERE cp.channel_id = CTV.id) AS package_count,
        CTV.parent_or_self_label, CTV.label AS channel_label
-  FROM rhnchannel C, rhnChannelTreeView CTV
+  FROM rhnchannel C, rhnChannelTreeView CTV, rhnChannel C2
  WHERE CTV.id = C.ID
+   AND  CTV.parent_or_self_id = C2.id
    AND (rhn_channel.user_role_check(C.id, :user_id, 'manage') = 1
         OR EXISTS (
               SELECT 1
                 FROM rhnChannel C2
                WHERE C2.parent_channel = C.ID
                  AND rhn_channel.user_role_check(C2.id, :user_id, 'manage') = 1))
-ORDER BY rhn_channel.channel_priority(CTV.parent_or_self_id), CTV.parent_or_self_id, CTV.depth, UPPER(CTV.name)
+ORDER BY UPPER(C2.name), depth, UPPER(C.name) 
   </query>
 </mode>
 
