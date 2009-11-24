@@ -82,7 +82,7 @@
              regexp tyrex jmock jmock-cglib strutstest gsbase" / -->
 
   <property name="install.build.jar.dependencies"
-      value="ant ant/ant-junit ant-contrib antlr
+      value="ant ant/ant-junit ant/ant-contrib antlr
       ${install.common.jar.dependencies} tanukiwrapper" />
 
   <property name="install.run.jar.dependencies"
