@@ -28,8 +28,10 @@ install:: all $(DIRS)
 	$(INSTALL_BIN) rhn_register.py $(SBIN_DIR)/rhn_register
 	$(INSTALL_BIN) rhn-profile-sync.py $(SBIN_DIR)/rhn-profile-sync
 	$(INSTALL_BIN) rhn_check.py $(SBIN_DIR)/rhn_check
+	$(INSTALL_BIN) spacewalk-channel.py $(SBIN_DIR)/spacewalk-channel
 
 	ln -sf consolehelper $(BIN_DIR)/rhn_register
+	ln -s spacewalk-channel $(SBIN_DIR)/rhn-channel
 
 # OTHER targets for internal use
 pychecker:: 

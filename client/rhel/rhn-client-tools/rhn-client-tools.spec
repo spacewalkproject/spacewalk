@@ -189,6 +189,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/rhn_register
 %{_sbindir}/rhn_register
 %{_sbindir}/rhnreg_ks
+%{_sbindir}/spacewalk-channel
+%{_sbindir}/rhn-channel
 
 %{_datadir}/rhn/up2date_client/rhnreg.*
 %{_datadir}/rhn/up2date_client/tui.*
