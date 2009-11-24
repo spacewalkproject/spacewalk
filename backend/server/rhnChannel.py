@@ -1935,7 +1935,7 @@ def subscribe_channel(server_id, channel, username, password):
     ret = h.fetchone_dict()
     if not ret:
         log_error("Channel %s does not exist?" % channel)
-        raise rhnFault(39, "Channel %s does not exist?" % channel)
+        raise rhnFault(40, "Channel %s does not exist?" % channel)
 
     channel_id = ret['id']
 
@@ -2190,14 +2190,13 @@ def unsubscribe_channel(server_id, channel, username, password):
     h.execute(channel = channel)
     ret = h.fetchone_dict()
     if not ret:
-        log_error("Asked to unsubscribe server %s "\
-                  "from non-existent channel %s" % (
-            server_id, channel))
-        return 0
+        log_error("Asked to unsubscribe server %s "\                                               "from non-existent channel %s" % (                                         server_id, channel))
+        raise rhnFault(40, "The specified channel '%s' does not exist." % channel)
     if not ret["parent_channel"]:
         log_error("Cannot unsubscribe %s from base channel %s" % (
             server_id, channel))
-        return 0
+        raise rhnFault(72, "You can not unsubscribe %s from base channel %s." % (
+            server_id, channel))
     # we're fine
     return unsubscribe_sql(server_id, ret["id"])
 
