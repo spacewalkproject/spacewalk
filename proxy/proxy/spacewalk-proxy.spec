@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.7.1
+Version: 0.7.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -293,6 +293,9 @@ fi
 
 
 %changelog
+* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.2-1
+- 499020 - bump up proxy version to 5.3.1 to enable CDN
+
 * Thu Aug 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.1-1
 - 503187 - do not automaticaly download rhn_proxy.conf
 - 516624 - allow upgrade proxy using CLI to 5.3 from 5.0
