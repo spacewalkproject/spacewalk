@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 0.7.6
+Version: 0.7.7
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -52,6 +52,15 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.7-1
+- 527412 - compute delta and write it to logs only if writeChangesToLog is set to 1
+- 527412 - Revert "fixing rhn-plugin to update package profiles through the updatePackageProfile call instead of manually setting up the delta as it causes stale package entries in the ui due to epoch being set to 0 for a no epoch packages"
+- 509342 - explicitly say, that this is example
+- 515575 - require recent rhn-client tools
+- remove no.po as Norwegian translation is for some time in nb.po, which is correct location anyway
+- remove double slash, Mandriva do not likes it
+- fix build under opensuse
+
 * Thu Oct  1 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.6-1
 - change licence in header to correct GPLv2
 
