@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# list date when package was last tagged
+# since nightly build pick up every tag and build it,
+# we can assume it is date of package build
+
+for p in `cat rel-eng/packages/*  |cut -f2 -d' '`; do
+        echo `git log '--pretty=format:%ci' $p |head -n1` $p
+done  |sort
