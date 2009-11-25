@@ -324,7 +324,7 @@
   <!-- We may want to break this down so that we can specify directories or
        classes to operate on.  But, hopefully our checkstyle report will
        generally be clean, so we may be able to always check all classes. -->
-  <target name="checkstyle" depends="init">
+  <target name="checkstyle" depends="init,do-compile-main">
     <mkdir dir="${report.dir}" />
     <checkstyle config="buildconf/checkstyle.xml" failOnViolation="true" >
       <property key="javadoc.method.scope" value="public" />
