@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.2.2
+Version: 0.2.3
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -49,6 +49,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.2.3-1
+- import virtualization module in kickstart_guest section (mzazrivec@redhat.com)
+- 532429 - refresh virt. state after successful guest kickstart (mzazrivec@redhat.com)
+- 530553 - wait for virt. domain installation to finish and restart (mzazrivec@redhat.com)
+
 * Fri Aug 28 2009 Michael Mraka <michael.mraka@redhat.com> 0.2.2-1
 - grep | awk is rarely needed
 - 517876 - fixing spacewalk-koan so it doesnt require up2date on Fedora 11
