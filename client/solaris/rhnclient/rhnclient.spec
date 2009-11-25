@@ -5,7 +5,7 @@
 Summary: Red Hat Network Client Utilities and Libraries
 Name: rhnclient
 Source0: %{name}-%{version}.tar.gz
-Version: 0.4
+Version: 0.7
 Release: 1
 License: GPLv2
 Group: Development/Libraries
@@ -65,6 +65,10 @@ rm -rf $RPM_BUILD_ROOT
 #%doc ChangeLog COPYING README TODO
 
 %changelog
+* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7-1
+- Reverting the client/solaris/rhnclient/rhnclient.spec part of the patch. (jpazdziora@redhat.com)
+- Log files should be ghosted rather than belonging to a package (m.d.chappell@bath.ac.uk)
+
 * Thu Apr 23 2009 jesus m. rodriguez <jesusr@redhat.com> 0.4-1
 - update copyright and licenses (jesusr@redhat.com)
 
