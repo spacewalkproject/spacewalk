@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.18
+Version: 0.7.19
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -280,6 +280,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.19-1
+- improving the system channels page by increasing the base channel selector box size and having the custom channels sorted by name (jsherril@redhat.com)
+- another small display issue fix for list (jsherril@redhat.com)
+- fixing sort on channel manage page to sort by name and not id (jsherril@redhat.com)
+- fixing a bunch of list display issues that have bugged me for a while (jsherril@redhat.com)
+- 519788 - fixing set selection on two config management lists (jsherril@redhat.com)
+- checkstyle fix (jsherril@redhat.com)
+- unit test fixes (jsherril@redhat.com)
+- unit test fix - reloading the "Action" hibernate object seemed to cause issues with the user object that it was associated with, so instead lets try refreshing (jsherril@redhat.com)
+
 * Fri Nov 20 2009 Tomas Lestach <tlestach@redhat.com> 0.7.18-1
 - some columns not filled on webui for non-cve errata (tlestach@redhat.com)
 - checkstyle fix (jsherril@redhat.com)
