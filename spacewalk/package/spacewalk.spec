@@ -1,7 +1,7 @@
 %define release_name Gemini
 
 Name:           spacewalk
-Version:        0.7.2
+Version:        0.7.3
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -164,6 +164,9 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.3-1
+- Make spacewalk require the editarea RPM (colin.coe@gmail.com)
+
 * Wed Sep 02 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.2-1
 - added database backend to defaults
 
