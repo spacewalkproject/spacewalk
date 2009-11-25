@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.6
+Version:        5.4.7
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -165,6 +165,13 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 5.4.7-1
+- 529688 - correctly detect Xen host
+- 530583 - detect an installing config also with ks= parameter
+- return back pieces still used by rhn-kickstart
+- 529688 - correctly update virtualization profile for KVM guest
+- missing commits from sat.git
+
 * Sat Oct 03 2009 Pradeep Kilambi <pkilambi@redhat.com> 5.4.6-1
 - fixing typo for server initialization for non ssl case in rhev code.
   (pkilambi@redhat.com)
