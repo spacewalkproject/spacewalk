@@ -2,7 +2,7 @@
 Summary:      Meta-package that pulls in all of the Spacewalk monitoring packages
 Name:         spacewalk-proxy-monitoring
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      0.7.0
+Version:      0.7.1
 Release:      1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
@@ -104,6 +104,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc README
 
 %changelog
+* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.1-1
+- bumping Version to 0.7.0 (jmatthew@redhat.com)
+- 516624 - allow upgrade proxy using CLI to 5.3 from 5.0
+
 * Mon May 11 2009 Jan Pazdziora 0.6.4-1
 - Move Req of oracle-instantclient-selinux to spacewalk-monitoring-selinux
 
