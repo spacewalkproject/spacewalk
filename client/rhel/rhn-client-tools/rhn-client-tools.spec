@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.7.9
+Version: 0.7.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %if 0%{?suse_version: %{suse_version} > 1000} 
@@ -225,6 +225,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.10-1
+- 216808 - add man page to package
+- 216808 - create new script spacewalk-channel
+- 527412 - compute delta and write it to logs only if writeChangesToLog is set to 1
+- 536789 - remove forgotten lines
+- 536789 - set only necessary network info
+
 * Thu Nov  5 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.9-1
 - suse has its own macro for updating icons
 - enable build for suse 10.00 too
