@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.16
+Version: 0.7.17
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -580,6 +580,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Nov 26 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.17-1
+- fix compilation error
+
 * Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.16-1
 - 540544 - raise error if channel do not exist or you are not allowed to add or remove it
 - 540544 - fix usage of check_user_password
