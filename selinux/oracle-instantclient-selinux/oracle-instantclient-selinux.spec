@@ -59,6 +59,7 @@ cat <<'EOS' > %{buildroot}%{_sbindir}/oracle-instantclient-sqlplus-selinux-enabl
 
 /usr/sbin/semanage fcontext -a -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\..*/client.*/bin/sqlplus'
 /usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/libsqlplus\.so'
+/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client64/lib/libsqlplusic\.so'
 /sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
 
 EOS
