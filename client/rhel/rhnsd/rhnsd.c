@@ -355,7 +355,6 @@ static int rhn_do_action(void)
     if ((child = fork()) == 0) {
 	/* Okay, maybe we're too paranoid... */
 	char *args[] = { NULL, NULL };
-	char *envp[] = { NULL  };
 
 	/* close the read end of the pipe */
 	close(fds[0]);
@@ -374,7 +373,7 @@ static int rhn_do_action(void)
         unset_signal_handlers ();
         /* exec binary helper */
         args[0] = RHN_CHECK;
-        execve(RHN_CHECK, args, envp);
+        execv(RHN_CHECK, args);
 
         /* should not get here: exit with error */
         set_signal_handlers ();
