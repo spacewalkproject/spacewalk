@@ -1,10 +1,9 @@
+%global selinux_variants mls strict targeted
+%global selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp 2> /dev/null)
+%global POLICYCOREUTILSVER 1.33.12-1
 
-%define selinux_variants mls strict targeted
-%define selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp 2> /dev/null)
-%define POLICYCOREUTILSVER 1.33.12-1
-
-%define moduletype apps
-%define modulename jabber
+%global moduletype apps
+%global modulename jabber
 
 Name:           jabberd-selinux
 Version:        1.4.6
