@@ -6,7 +6,7 @@
 %global modulename jabber
 
 Name:           jabberd-selinux
-Version:        1.4.6
+Version:        1.4.7
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting jabberd
 
@@ -107,6 +107,9 @@ rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu Nov 26 2009 Miroslav Suchý <msuchy@redhat.com> 1.4.7-1
+- use %%global instead of %%define
+
 * Thu Jun 18 2009 Jan Pazdziora 1.4.6-1
 - 505606 - Require at least selinux-policy 2.4.6-114
 
