@@ -133,6 +133,7 @@ def init_hook(conduit):
     except up2dateErrors.NoSystemIdError:
         conduit.error(0, _("This system may not be a registered to RHN. SystemId could not be acquired.\n") +
                           RHN_DISABLED)
+        rhn_enabled = False
         return
     except up2dateErrors.RhnServerException, e:
         conduit.error(0, COMMUNICATION_ERROR + "\n" + CHANNELS_DISABLED + 
