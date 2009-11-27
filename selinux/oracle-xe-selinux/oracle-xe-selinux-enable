@@ -7,7 +7,7 @@ for selinuxvariant in mls strict targeted
       /usr/share/selinux/${selinuxvariant}/oracle-xe.pp &> /dev/null || :
   done
 
-/usr/sbin/semanage port -a -t oracle_port_t -p tcp 9000 || :
+/usr/sbin/semanage port -a -t oracle_port_t -p tcp 9055 || :
 
 # Relabel oracle-xe-univ's files
 rpm -ql oracle-xe-univ | xargs -n 100 /sbin/restorecon -Rivv

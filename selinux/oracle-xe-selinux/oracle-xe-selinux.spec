@@ -121,6 +121,7 @@ if [ $1 -eq 0 ]; then
     done
 
   /usr/sbin/semanage port -d -t oracle_port_t -p tcp 9000 || :
+  /usr/sbin/semanage port -d -t oracle_port_t -p tcp 9055 || :
 
   # Clean up oracle-xe-univ's files
   rpm -ql oracle-xe-univ | xargs -n 100 /sbin/restorecon -Rivv
