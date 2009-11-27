@@ -6,7 +6,7 @@
 
 Name:            oracle-xe-selinux
 Version:         10.2
-Release:         14%{?dist}
+Release:         15%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
 License:         GPLv2+
@@ -138,6 +138,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Fri Nov 27 2009 Jan Pazdziora 10.2-15
+- Change the port from 9000 to 9055.
+
 * Thu Nov 26 2009 Jan Pazdziora 10.2-14
 - In RHEL5 one process reading information on another in the /proc directory
   caused a ptrace access check, allow
