@@ -1,4 +1,4 @@
-Summary: Spacewalk packages yum repository configuration.
+Summary: Spacewalk packages yum repository configuration
 Name: spacewalk-repo
 Version: 0.7
 Release: 3%{?dist}
