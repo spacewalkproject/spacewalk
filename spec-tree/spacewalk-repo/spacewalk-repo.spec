@@ -3,7 +3,7 @@ Name: spacewalk-repo
 Version: 0.7
 Release: 3%{?dist}
 License: GPLv2
-Group: Development
+Group: System Environment/Base
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
