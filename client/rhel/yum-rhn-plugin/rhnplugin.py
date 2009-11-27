@@ -16,7 +16,7 @@ import yum.Errors
 
 from urlgrabber.grabber import URLGrabber
 from urlgrabber.grabber import URLGrabError
-
+from iniparse import INIConfig
 import gettext
 _ = gettext.gettext
 
@@ -245,6 +245,7 @@ class RhnRepo(YumRepository):
     def __init__(self, channel):
         YumRepository.__init__(self, channel['label'])
         self.name = channel['name']
+        self.label = channel['label']
         self._callbacks_changed = False
 
         # support failover urls, #232567
@@ -444,18 +445,31 @@ class RhnRepo(YumRepository):
     grabfunc = property(lambda self: self._getgrabfunc())
     grab = property(lambda self: self._getgrab())
 
+    def _setChannelEnable(self, value=1):
+        """ Enable or disable channel in file rhnplugin.conf.
+            channel is label of channel and value should be 1 or 0.
+        """
+        cfg = INIConfig(file('/etc/yum/pluginconf.d/rhnplugin.conf'))
+        # we cannot use directly cfg[channel].['enabled'], because
+        # if that section do not exist it raise error
+        func=getattr(cfg, self.label)
+        func.enabled=value
+        f=open('/etc/yum/pluginconf.d/rhnplugin.conf', 'w')
+        print >>f, cfg
+        f.close()
+
     def enablePersistent(self):
         """
-        Despite name, this method does not alter persistent data 
-        It enables the repo temporarily
+        Persistently enable channel in rhnplugin.conf
         """
+        self._setChannelEnable(1)
         self.enable()
 
     def disablePersistent(self):
         """
-        Despite name, this method does not alter persistent data 
-        It disables the repo temporarily
+        Persistently disable channel in rhnplugin.conf
         """
+        self._setChannelEnable(0)
         self.disable()
 
     def _getRepoXML(self):
