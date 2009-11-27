@@ -1,7 +1,7 @@
 %define release_name Gemini
 
 Name:           spacewalk
-Version:        0.7.3
+Version:        0.7.4
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -163,6 +163,9 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Fri Nov 27 2009 Jan Pazdziora 0.7.4-1
+- Disable jabberd-selinux for Fedora 11+, enable spacewalk-selinux
+
 * Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.3-1
 - Make spacewalk require the editarea RPM (colin.coe@gmail.com)
 
