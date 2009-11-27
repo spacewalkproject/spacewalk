@@ -171,7 +171,7 @@ allow oracle_db_t oracle_tnslsnr_t:fifo_file { rw_file_perms };
 allow oracle_db_t oracle_tnslsnr_t:tcp_socket { rw_socket_perms };
 
 # Allow sqlplus to read shell redirects
-allow oracle_sqlplus_t tmp_t:file { read ioctl getattr };
+read_files_pattern(oracle_sqlplus_t, tmp_t, tmp_t)
 
 # sqlplus can run sql scripts
 oracle_script(oracle_sqlplus_t)
