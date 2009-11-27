@@ -16,6 +16,13 @@ BuildArch: noarch
 %description
 This package contains the Spacewalk repository configuration for yum.
 
+%package -n spacewalk-client-repo
+Summary: Spacewalk client packages yum repository configuration
+Group: System Environment/Base
+
+%description -n spacewalk-client-repo
+This package contains the Spacewalk repository configuration for yum.
+
 %prep
 mkdir -p $RPM_BUILD_ROOT
 
@@ -39,12 +46,25 @@ enabled=1
 gpgcheck=1
 REPO
 
+cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-client.repo <<REPO
+[spacewalk-client]
+name=Spacewalk Client Tools
+baseurl=http://spacewalk.redhat.com/yum/%{version}-client/%{reposubdir}/\$basearch/
+gpgkey=http://spacewalk.redhat.com/yum/RPM-GPG-KEY-spacewalk
+enabled=1
+gpgcheck=1
+REPO
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
 %config %{_sysconfdir}/yum.repos.d/spacewalk.repo
+
+%files -n spacewalk-client-repo
+%defattr(-,root,root,-)
+%config %{_sysconfdir}/yum.repos.d/spacewalk-client.repo
 
 %changelog
 * Fri Oct 16 2009 Michael Mraka <michael.mraka@redhat.com> 0.7-3
