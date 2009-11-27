@@ -77,13 +77,12 @@ Requires:       spacewalk-monitoring
 # SELinux
 Requires:       osa-dispatcher-selinux
 Requires:       spacewalk-monitoring-selinux
-%if 0%{?fedora} == 11
-%else
-# Fedora 11 has its own selinux policy for jabberd:
-Requires:       jabberd-selinux
-
-# Replace these for Fedora 11 when possible:
 Requires:       spacewalk-selinux
+
+%if 0%{?fedora} >= 11
+%else
+# Fedoras 11+ have their own selinux policy for jabberd:
+Requires:       jabberd-selinux
 %endif
 
 Requires:       editarea
