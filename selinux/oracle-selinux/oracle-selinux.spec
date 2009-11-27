@@ -20,7 +20,7 @@
 
 Name:            oracle-selinux
 Version:         0.1
-Release:         23.11%{?obtag}%{?dist}%{?repo}
+Release:         23.12%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -205,6 +205,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Fri Nov 27 2009 Jan Pazdziora 0.1-23.12
+- Use read_files_pattern to get open on Fedora 11
+
 * Mon Aug 03 2009 Jan Pazdziora 0.1-23.11
 - /usr/sbin/oracle-nofcontext-selinux-enable needs semanage, let's add it to
   Requires everywhere
