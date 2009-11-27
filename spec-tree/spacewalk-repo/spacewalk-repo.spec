@@ -2,7 +2,7 @@ Summary: Spacewalk packages yum repository configuration
 Name: spacewalk-repo
 Version: 0.7
 Release: 3%{?dist}
-License: GPL
+License: GPLv2
 Group: Development
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
