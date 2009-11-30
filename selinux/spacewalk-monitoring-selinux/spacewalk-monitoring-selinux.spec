@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        0.7.0
+Version:        0.7.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -144,6 +144,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Nov 30 2009 Jan Pazdziora 0.7.1-1
+- allow dequeue to utime the log file, to achieve heartbeating
+- bumping Version to 0.7.0 (jmatthew@redhat.com)
+
 * Mon Aug 10 2009 Jan Pazdziora 0.6.13-1
 - 516073 - allow monitoring to setpgid self
 
