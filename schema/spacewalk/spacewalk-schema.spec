@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.7.6
+Version:        0.7.7
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Nov 30 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.7.7-1
+- schema upgrade fixes for Spacewalk 0.7
+
 * Thu Nov 19 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.6-1
 - replaced cursors + for loops with already written bulk procedure
 - removed cartesian join
