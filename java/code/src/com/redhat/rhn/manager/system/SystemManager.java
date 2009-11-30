@@ -849,7 +849,9 @@ public class SystemManager extends BaseManager {
         Map elabParams = new HashMap();
         elabParams.put("user_id", user.getId());
         
-        return makeDataResult(params, elabParams, pc, m);
+        DataResult dr =  m.execute(params);
+        dr.setElaborationParams(elabParams);
+        return dr;
     }
     
     /**

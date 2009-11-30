@@ -89,6 +89,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.errata.impl.PublishedErrata as e 
                 where e.id = :id]]>    
     </query>
+    <query name="PublishedErrata.listByIds">
+        <![CDATA[from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
+                where e.id in (:list)]]>
+    </query>
+
     <query name="PublishedErrata.findByAdvisoryName">
         <![CDATA[from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
                  where e.advisoryName = :advisory]]>

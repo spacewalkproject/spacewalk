@@ -19,13 +19,13 @@
 
 
 <rl:listset name="erratConfirmListSet"> 
-	<rl:list dataset="pageList"
+	<rl:list
   			width="100%"        
-         	name="errataConfirmList"
          	styleclass="list"
          	emptykey="erratalist.jsp.noerrata">
          	
     <rl:decorator name="PageSizeDecorator"/>
+    <rl:decorator name="ElaborationDecorator"/>
     
     <rl:column headerkey="erratalist.jsp.type" styleclass="first-column text-align: center;">
       <c:if test="${current.securityAdvisory}">

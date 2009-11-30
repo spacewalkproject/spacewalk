@@ -14,22 +14,20 @@
  */
 package com.redhat.rhn.frontend.action.systems;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.dto.ErrataOverview;
-import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.struts.RhnListAction;
-import com.redhat.rhn.frontend.struts.RhnListSetHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
-import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.action.ActionManager;
-import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.struts.action.ActionForm;
@@ -39,8 +37,8 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,9 +48,8 @@ import javax.servlet.http.HttpServletResponse;
  * ErrataConfirmSetupAction
  * @version $Rev$
  */
-public class ErrataConfirmSetupAction extends RhnListAction {
-    public static final String DISPATCH = "dispatch";
-    public static final String LIST_NAME = "errataConfirmList";
+public class ErrataConfirmSetupAction extends RhnAction implements Listable {
+
     
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -62,13 +59,18 @@ public class ErrataConfirmSetupAction extends RhnListAction {
         
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getLoggedInUser();
-        RhnListSetHelper helper = new RhnListSetHelper(request);
+
+
         Long sid = requestContext.getRequiredParam("sid");
         RhnSet set = ErrataSetupAction.getSetDecl(sid).get(user);
+        Server server = SystemManager.lookupByIdAndUser(sid, user);
+
+        ListRhnSetHelper helper = new ListRhnSetHelper(this, request,
+                ErrataSetupAction.getSetDecl(sid));
+        helper.setWillClearSet(false);
+        helper.execute();
         
-        if (request.getParameter(DISPATCH) != null) {
-            // if its one of the Dispatch actions handle it..            
-            helper.updateSet(set, LIST_NAME);
+        if (helper.isDispatched()) {
             if (!set.isEmpty()) {
                 return confirmErrata(mapping, formIn, request, response);
             }
@@ -76,26 +78,12 @@ public class ErrataConfirmSetupAction extends RhnListAction {
                 RhnHelper.handleEmptySelection(request);
             }
         }
-        
-        
-
-        PageControl pc = new PageControl();
-        clampListBounds(pc, request, user);
-        pc.setPageSize(set.size());
-        
-        Server server = SystemManager.lookupByIdAndUser(sid, user);
-        DataResult dr =  SystemManager.errataInSet(user,
-                ErrataSetupAction.getSetDecl(sid).getLabel(), pc);
-        dr.setElaborationParams(Collections.EMPTY_MAP);
         //Setup the datepicker widget
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request,
                 (DynaActionForm)formIn, "date", DatePicker.YEAR_RANGE_POSITIVE);
         
         request.setAttribute("date", picker);
-        
-        request.setAttribute("pageList", dr);
         request.setAttribute("system", server);
-        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         
         return getStrutsDelegate().forwardParams(mapping.findForward("default"),
                                        request.getParameterMap());
@@ -125,15 +113,13 @@ public class ErrataConfirmSetupAction extends RhnListAction {
         Map hparams = new HashMap();
         
         Server server = SystemManager.lookupByIdAndUser(sid, user);
-        DataResult errata = SystemManager.errataInSet(user, 
-                    ErrataSetupAction.getSetDecl(sid) .getLabel(), null);
+        RhnSet set = ErrataSetupAction.getSetDecl(sid).get(user);
 
+        List<Errata> errataList = ErrataFactory.listErrata(set.getElementValues());
         
-        if (server != null && !errata.isEmpty()) {
-             for (int i = 0; i < errata.size(); i++) {
-                 Action update = ActionManager.createErrataAction(user, ErrataManager
-                         .lookupErrata(new Long(((ErrataOverview)errata.get(i))
-                         .getId().longValue()), user));
+        if (server != null && !errataList.isEmpty()) {
+             for (Errata e : errataList) {
+                 Action update = ActionManager.createErrataAction(user, e);
                  ActionManager.addServerToAction(server.getId(), update);
                  update.setEarliestAction(getStrutsDelegate().readDatePicker(form, "date",
                          DatePicker.YEAR_RANGE_POSITIVE));
@@ -142,12 +128,12 @@ public class ErrataConfirmSetupAction extends RhnListAction {
              
              ActionMessages msg = new ActionMessages(); 
              Object[] args = new Object[3];
-             args[0] = new Long(errata.size());
+             args[0] = new Long(errataList.size());
              args[1] = server.getName();
              args[2] = server.getId().toString();
              
              StringBuffer messageKey = new StringBuffer("errata.schedule");
-             if (errata.size() != 1) {
+             if (errataList.size() != 1) {
                  messageKey = messageKey.append(".plural");
              }
              
@@ -184,6 +170,17 @@ public class ErrataConfirmSetupAction extends RhnListAction {
             params.put("sid", sid);
         }
         return params;
+    }
+
+
+    /**
+     *
+     * {@inheritDoc}
+     */
+    public List getResult(RequestContext context) {
+        Long sid = context.getParamAsLong("sid");
+        return SystemManager.errataInSet(context.getLoggedInUser(),
+                    ErrataSetupAction.getSetDecl(sid).getLabel(), null);
     }
     
 }
