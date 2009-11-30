@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.19
+Version: 0.7.20
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -280,6 +280,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Nov 30 2009 Tomas Lestach <tlestach@redhat.com> 0.7.20-1
+- checking return value of channel.getChecksum() (tlestach@redhat.com)
+- adding checkstyle build dependency (tlestach@redhat.com)
+- updating ant-contrib path (tlestach@redhat.com)
+
 * Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.19-1
 - improving the system channels page by increasing the base channel selector box size and having the custom channels sorted by name (jsherril@redhat.com)
 - another small display issue fix for list (jsherril@redhat.com)
