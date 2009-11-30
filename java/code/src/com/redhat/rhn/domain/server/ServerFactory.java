@@ -29,8 +29,6 @@ import com.redhat.rhn.frontend.xmlrpc.ChannelSubscriptionException;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.UpdateBaseChannelCommand;
 
-import java.util.LinkedList;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
@@ -39,10 +37,10 @@ import org.hibernate.Session;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -748,30 +746,8 @@ public class ServerFactory extends HibernateFactory {
      * @return list of system ids that are solaris systems
      */
     public static List<Long> listSolarisSystems(Collection<Long> systemIds) {
-        return listGenericSystems(systemIds, "Server.listSolarisSystems");
-    }
-
-
-
-    private static List<Long> listGenericSystems(Collection<Long> systemIds, String query) {
-        //Hibernate can't handle empty lists for in clauses, silly hibernate
-        if (systemIds.isEmpty()) {
-            return Collections.EMPTY_LIST;
-        }
-        ArrayList<Long> tmpList = new ArrayList<Long>();
-        List<Long> toRet = new ArrayList<Long>();
-        tmpList.addAll(systemIds);
-
-        for (int i = 0; i < systemIds.size();) {
-            int initial = i;
-            int fin = i + 500 < systemIds.size() ? i + 500 : systemIds.size();
-            List<Long> sublist = tmpList.subList(i, fin);
-            toRet.addAll(ServerFactory.getSession().getNamedQuery(query).
-                setParameterList("sids", sublist).list());
-            i = fin;
-        }
-
-        return toRet;
+        return singleton.listObjectsByNamedQuery("Server.listSolarisSystems",
+                new HashMap(), systemIds, "sids");
     }
     
     /**
@@ -781,7 +757,8 @@ public class ServerFactory extends HibernateFactory {
      * @return list of system ids that are linux systems
      */
     public static List<Long> listLinuxSystems(Collection<Long> systemIds) {
-        return listGenericSystems(systemIds, "Server.listRedHatSystems");
+        return singleton.listObjectsByNamedQuery("Server.listRedHatSystems",
+                new HashMap(), systemIds, "sids");
     }
     
 }
