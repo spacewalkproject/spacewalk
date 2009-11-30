@@ -287,6 +287,23 @@ public class SystemManager extends BaseManager {
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, pc, m);
     }
+    
+    /**
+     * Returns list of all systems visible to user.
+     *    This is meant to be fast and only gets the id, name, and last checkin
+     * @param user Currently logged in user.
+     * @param pc PageControl
+     * @return list of SystemOverviews.
+     */
+    public static DataResult systemListShort(User user, PageControl pc) {
+        SelectMode m = ModeFactory.getMode("System_queries", "xmlrpc_visible_to_user", 
+                SystemOverview.class);
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        Map elabParams = new HashMap();
+        
+        return makeDataResult(params, elabParams, pc, m);
+    }
 
     /**
      * Returns a list of all systems

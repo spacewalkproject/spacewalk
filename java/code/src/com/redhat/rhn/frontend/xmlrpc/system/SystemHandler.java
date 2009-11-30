@@ -521,7 +521,7 @@ public class SystemHandler extends BaseHandler {
      */
     public Object[] listSystems(String sessionKey) throws FaultException {
         User loggedInUser = getLoggedInUser(sessionKey);
-        DataResult<SystemOverview> dr = SystemManager.systemList(loggedInUser, null);
+        DataResult<SystemOverview> dr = SystemManager.systemListShort(loggedInUser, null);
         dr.elaborate();
         return dr.toArray();
     }
@@ -1323,7 +1323,7 @@ public class SystemHandler extends BaseHandler {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(loggedInUser, login);
-        return getUserSystemsList(target);
+        return SystemManager.systemListShort(target, null);
     }
     
     /**
@@ -1341,11 +1341,13 @@ public class SystemHandler extends BaseHandler {
     public List listUserSystems(String sessionKey) {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
-        return getUserSystemsList(loggedInUser);
+        return SystemManager.systemListShort(loggedInUser, null);
     }
     
     /**
      * Private helper method to get a list of systems for a particular user
+     *   The query used is very inefficient.  Only use it when you need a lot
+     *   of information about the systems.
      * @param user The user to lookup
      * @return An array of SystemOverview objects representing a system
      */
