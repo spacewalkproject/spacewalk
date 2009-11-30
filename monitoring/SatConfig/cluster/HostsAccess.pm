@@ -16,7 +16,7 @@ sub initialize
 	my ($self,@params) = @_;
 	$self->SUPER::initialize(@params);
 	$self->addValidators(
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'allow',
 			description=>'Comma separated list of hosts (per hosts_access(5)) allowed access to this daemon',
 			required=>0,
