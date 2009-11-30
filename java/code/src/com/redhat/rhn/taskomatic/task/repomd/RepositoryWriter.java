@@ -56,7 +56,7 @@ public class RepositoryWriter {
     private String pathPrefix;
     private String mountPoint;
     private String checksumtype;
-    private String checksumname;
+    private String checksumname = null;
 
     /**
      * Constructor takes in pathprefix and mountpoint
@@ -106,7 +106,9 @@ public class RepositoryWriter {
 
         // Get compatible checksumType
         this.checksumtype = channel.getChecksumType();
-        this.checksumname = channel.getChecksum().getDescription();
+        if (channel.getChecksum() != null) {
+            this.checksumname = channel.getChecksum().getDescription();
+        }
         
         log.info("Checksum Type Value" + this.checksumtype);
 
