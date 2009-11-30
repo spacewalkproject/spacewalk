@@ -11,3 +11,6 @@ alter table rhn_config_macro drop column environment;
 
 drop table rhn_db_environment;
 drop table rhn_environment;
+
+drop synonym db_environment;
+drop synonym environment;
