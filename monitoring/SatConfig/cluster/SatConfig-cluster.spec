@@ -1,6 +1,6 @@
 %define sysv_dir       %{_sysconfdir}/rc.d/np.d
 Name:         SatConfig-cluster
-Version:      1.54.7
+Version:      1.54.8
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - cluster information
 URL:          https://fedorahosted.org/spacewalk
@@ -57,6 +57,9 @@ install -m 644 SatCluster.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Nov 30 2009 Miroslav Suchý <msuchy@redhat.com> 1.54.8-1
+- name space Validator conflicts with older version of perl-IO-Compress-Base
+
 * Mon Jul 27 2009 John Matthews <jmatthew@redhat.com> 1.54.7-1
 - remove warning when run as perl -w (msuchy@redhat.com)
 
