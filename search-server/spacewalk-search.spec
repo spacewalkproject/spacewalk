@@ -67,7 +67,7 @@ install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/indexes
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/lib
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/classes/com/redhat/satellite/search/db
-install -d -m 755 $RPM_BUILD_ROOT/etc/init.d
+install -d -m 755 $RPM_BUILD_ROOT{_initrddir}
 install -d -m 755 $RPM_BUILD_ROOT%{_bindir}
 install -d -m 755 $RPM_BUILD_ROOT%{_var}/log/rhn/search
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/nutch
@@ -78,7 +78,7 @@ cp -d lib/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/lib
 install -p -m 644 src/config/log4j.properties $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/classes/log4j.properties
 install -p -m 644 src/config/etc/logrotate.d/rhn-search $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn-search
 install -p -m 644 src/config/com/redhat/satellite/search/db/* $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/classes/com/redhat/satellite/search/db
-install -p -m 755 src/config/rhn-search $RPM_BUILD_ROOT%{_sysconfdir}/init.d
+install -p -m 755 src/config/rhn-search $RPM_BUILD_ROOT{_initrddir}
 ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT%{_bindir}/rhnsearchd
 install -p -m 644 src/config/search/rhn_search.conf $RPM_BUILD_ROOT%{_sysconfdir}/rhn/search/rhn_search.conf
 install -p -m 644 src/config/search/rhn_search_daemon.conf $RPM_BUILD_ROOT%{_sysconfdir}/rhn/search/rhn_search_daemon.conf
@@ -104,7 +104,7 @@ fi
 %{_prefix}/share/rhn/search/classes/log4j.properties
 %{_prefix}/share/rhn/search/classes/com/*
 %attr(755, root, root) %{_prefix}/share/rhn/search/indexes
-%attr(755, root, root) %{_sysconfdir}/init.d/rhn-search
+%attr(755, root, root) {_initrddir}/rhn-search
 %attr(755, root, root) %{_bindir}/rhnsearchd
 %dir %{_sysconfdir}/rhn/search/
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search.conf
