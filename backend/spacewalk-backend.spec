@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.17
+Version: 0.7.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -580,6 +580,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Dec  1 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.18-1
+- 449167 - time.strptime can not handle None values
+
 * Thu Nov 26 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.17-1
 - fix compilation error
 
