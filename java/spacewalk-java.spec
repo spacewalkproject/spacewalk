@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.22
+Version: 0.7.23
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -280,11 +280,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
-* Tue Dec  1 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.22-1
+* Tue Dec  1 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.23-1
 - 542830 - fixing three api calls that were using very inefficient queries to use the same queries that were used in sat 5.2 (jsherril@redhat.com)
 - converting old hibernate max in clause limit fix to use new fix (jsherril@redhat.com)
 - 538559 - fixing issue where about 300 errata could not be applied to a system due to inefficient hibernate usage (jsherril@redhat.com)
 - fixing list borders on errata apply confirm page (jsherril@redhat.com)
+- Fix creating new config-managed symlinks (joshua.roys@gtri.gatech.edu)
 
 * Mon Nov 30 2009 Tomas Lestach <tlestach@redhat.com> 0.7.21-1
 - checking return value of channel.getChecksum() (tlestach@redhat.com)
