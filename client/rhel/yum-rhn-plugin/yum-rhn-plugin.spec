@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 0.7.7
+Version: 0.7.8
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -53,6 +53,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Dec  1 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.8-1
+- 437822 - python dependecy is not picked up automatically
+- 437822 - when persistent enable/disable of rhn repo is requested, do it in rhnplugin.conf
+- 514467 - when we say RHN is disabled, we may actually really disable it
+
 * Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.7-1
 - 527412 - compute delta and write it to logs only if writeChangesToLog is set to 1
 - 527412 - Revert "fixing rhn-plugin to update package profiles through the updatePackageProfile call instead of manually setting up the delta as it causes stale package entries in the ui due to epoch being set to 0 for a no epoch packages"
