@@ -85,8 +85,8 @@ public class PublishErrataHelper {
         clone.setLocallyModified(original.getLocallyModified());
         clone.setLastModified(original.getLastModified());
         clone.setOrg(org);
+        clone.getCves().addAll(original.getCves());
         
-
         clone.setPackages(new HashSet(original.getPackages()));
 
         
