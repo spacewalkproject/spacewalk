@@ -20,7 +20,7 @@ Requires: python-ethtool
 Requires: gnupg
 Requires: sh-utils
 Requires: dbus-python
-Requires: hal
+Requires: hal >= 0.5.8.1-52
 Requires: newt
 
 Conflicts: up2date < 5.0.0
