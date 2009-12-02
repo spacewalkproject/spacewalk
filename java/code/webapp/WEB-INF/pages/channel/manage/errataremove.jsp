@@ -45,7 +45,7 @@
 				 <img src="/img/wrh-product.gif" alt="Product Enhancement Advisory" title="Product Enhancement Advisory" />
                         </c:if>
                        <c:if test="${current.advisoryType == 'Security Advisory'}">
-				 <img src="/img/wrh-product.gif" alt="Product Enhancement Advisory" title="Product Enhancement Advisory" />
+				 <img src="/img/wrh-security.gif" alt="Security Advisory" title="Security Advisory" />
                         </c:if>
                        <c:if test="${current.advisoryType == 'Bug Fix Advisory'}">
 				  <img src="/img/wrh-bug.gif" alt="Bug Fix Advisory" title="Bug Fix Advisory" />
