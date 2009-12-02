@@ -898,9 +898,9 @@ public class Channel extends BaseDomainHelper implements Comparable {
         // IF its custom use the one set at channel creation time
         
         if (toConsider.isCustom()) {
-            String checksumOut = toConsider.getChecksum().getLabel();
-            if (checksumOut != null) {
-                return checksumOut;
+            ChecksumType checksumOut = toConsider.getChecksum();
+            if ((checksumOut != null) && (checksumOut.getLabel() != null)) {
+                return checksumOut.getLabel();
             }
             else {
                 // default to sha1 if its not available in the db
