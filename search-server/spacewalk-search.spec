@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.2
+Version: 0.7.3
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -112,7 +112,7 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
-* Tue Dec  1 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.2-1
+* Wed Dec  2 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.3-1
 - 480342 - move init script from /etc/init.d to /etc/rc.d/init.d
 
 * Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.1-1
