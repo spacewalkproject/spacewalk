@@ -94,8 +94,9 @@ public class ConfirmErrataAction extends RhnListAction {
         
         Long sourceCid = null;
         Channel srcChan = null;
-        if (request.getParameter(SELECTED_CHANNEL) != "") {
-            sourceCid = Long.parseLong(request.getParameter(SELECTED_CHANNEL));
+        String sel_channel = request.getParameter(SELECTED_CHANNEL);
+        if ((sel_channel != null) && (sel_channel != "")) {
+            sourceCid = Long.parseLong(sel_channel);
             srcChan = ChannelFactory.lookupByIdAndUser(sourceCid, user);
         }
 
