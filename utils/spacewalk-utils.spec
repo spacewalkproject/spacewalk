@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	0.7.1
+Version:	0.8.0
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
