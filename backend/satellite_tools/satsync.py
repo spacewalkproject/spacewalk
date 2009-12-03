@@ -1648,7 +1648,6 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             ss = SequenceServer(packages[:], nevermorethan=self._batch_size)
             while not ss.doneYN():
                 chunk = ss.getChunk()
-                item_count = len(chunk)
                 batch = self._get_cached_package_batch(chunk)
                 # check to make sure the orgs exported are valid
                 _validate_package_org(batch)
@@ -1664,7 +1663,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                     # an SQL error is fatal... crash and burn
                     sys.exit(13)
                 ss.clearChunk()
-                pb.addTo(item_count)
+                pb.addTo(ss.returnedChunksize)
                 pb.printIncrement()
             pb.printComplete()
             # Populate the package key info
