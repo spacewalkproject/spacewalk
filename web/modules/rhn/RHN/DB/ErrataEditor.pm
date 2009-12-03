@@ -166,6 +166,17 @@ EOQ
   $sth = $dbh->prepare($query);
   $sth->execute_h(temp_eid => $temp_eid);
 
+  $query =<<EOQ;
+INSERT INTO rhnErrataCve
+        (errata_id, cve_id)
+        (SELECT ECL.id, EC.cve_id
+           FROM rhnErrataCVE EC, rhnErrataCloned ECL
+          WHERE ECL.original_id = EC.errata_id
+           AND ECL.id = :new_eid)
+EOQ
+  $sth = $dbh->prepare($query);
+  $sth->execute_h(new_eid => $new_eid);
+
   my $errata = RHN::ErrataTmp->lookup_managed_errata(-id => $new_eid);
   $errata->refresh_erratafiles();
 

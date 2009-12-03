@@ -73,7 +73,7 @@ public class KickstartData {
     private Set childChannels;
     private Set defaultRegTokens;
     private Set preserveFileLists;
-    private Set<KickstartPackage> ksPackages;
+    private Set<KickstartPackage> ksPackages = new HashSet<KickstartPackage>();
     private Collection<KickstartCommand> commands = new HashSet<KickstartCommand>();
     private Set ips;          // rhnKickstartIpRange
     private Set<KickstartScript> scripts;      // rhnKickstartScript
@@ -1238,8 +1238,10 @@ public class KickstartData {
             cloned.setKickstartDefaults(this.getKickstartDefaults().deepCopy(cloned));
         }
         cloned.setOrg(this.getOrg());
-        for (KickstartPackage kp : this.getKsPackages()) {
-            cloned.getKsPackages().add(kp.deepCopy(cloned));
+        if (this.getKsPackages() != null) {
+            for (KickstartPackage kp : this.getKsPackages()) {
+                cloned.getKsPackages().add(kp.deepCopy(cloned));
+            }
         }
         
         if (this.getPreserveFileLists() != null) {

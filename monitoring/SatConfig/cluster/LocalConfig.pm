@@ -20,35 +20,35 @@ sub initialize
 	my ($self,@params) = @_;
 	$self->SUPER::initialize(@params);
 	$self->addValidators(
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'dbd',
 			description=>'Database driver (usually Oracle)',
 			required=>1,
 			optional=>0,
 			format=>'string'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'dbname',
 			description=>'Database name (usually licensed01)',
 			required=>1,
 			optional=>0,
 			format=>'string'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'orahome',
 			description=>'Path to Oracle home (/home/oracle/OraHome1)',
 			required=>1,
 			optional=>0,
 			format=>'string'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'username',
 			description=>'User to log in to database as (web)',
 			required=>1,
 			optional=>0,
 			format=>'string'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'username',
 			description=>'Passwod to log into database with',
 			required=>1,

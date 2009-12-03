@@ -22,28 +22,28 @@ sub initialize
 	my ($self,@params) = @_;
 	$self->SUPER::initialize(@params);
 	$self->addValidators(
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'IpAddr',
 			description=>'An IP Address definition',
 			required=>1,
 			optional=>-1,
 			format=>'IpAddr'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'PrivateIpAddr',
 			description=>'A private IP Address definition',
 			required=>1,
 			optional=>0,
 			format=>'PrivateIpAddr'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'HostsAccess',
 			description=>'Hosts allowed to access a daemons services',
 			required=>0,
 			optional=>-1,
 			format=>'HostsAccess'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'hostname',
 			description=>'Host Name',
 			required=>0,

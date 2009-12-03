@@ -34,10 +34,10 @@ for my $file (@files) {
 	close FILE;
 	my $name = File::Basename::basename($file);
 	my ($version, $dir) = split /\s/, $line;
-	my @changes = `git log --pretty=oneline $name-$version..HEAD -- $cdup$dir`;
+	my @changes = `git log --pretty=format:'%h %s (%ae)' $name-$version..HEAD -- $cdup$dir`;
 	if (@changes) {
 		print "$name-$version..HEAD:\n";
-		print @changes;
+		print @changes, "\n";
         print "------------------------------------------\n";
 	}
 }

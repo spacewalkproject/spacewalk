@@ -11,7 +11,7 @@ from optparse import OptionParser
 import ConfigParser
 
 config = ConfigParser.RawConfigParser()
-config.read('global.build.py.props')
+config.read(["tito.props", "rel-eng/tito.props"])
 
 usage = "usage: %prog [options] <tag to check>"
 parser = OptionParser(usage, version='%prog 0.0.1')

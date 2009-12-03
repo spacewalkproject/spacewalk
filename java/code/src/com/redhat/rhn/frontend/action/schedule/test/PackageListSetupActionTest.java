@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.schedule.test;
 
-import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.server.test.ServerActionTest;
@@ -22,58 +21,46 @@ import com.redhat.rhn.domain.action.test.ActionFactoryTest;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
-import com.redhat.rhn.frontend.action.common.BadParameterException;
-import com.redhat.rhn.frontend.action.schedule.PackageListSetupAction;
 import com.redhat.rhn.manager.action.ActionManager;
-import com.redhat.rhn.testing.ActionHelper;
-import com.redhat.rhn.testing.RhnBaseTestCase;
+import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 
 /**
  * PackageListSetupActionTest
  * @version $Rev$
  */
-public class PackageListSetupActionTest extends RhnBaseTestCase {
+public class PackageListSetupActionTest extends RhnMockStrutsTestCase {
     
     public void testPeformExecute() throws Exception {
-        PackageListSetupAction action = new PackageListSetupAction();
-        ActionHelper sah = new ActionHelper();
-        sah.setUpAction(action);
         
-        sah.getRequest().setupAddParameter("aid", (String)null);
-        try {
-            sah.executeAction();
-            fail();
-        }
-        catch (BadParameterException e) {
-            //no op
-        }
-        
-        sah.setupClampListBounds();
-        sah.getRequest().setupAddParameter("aid", "-99999");
-        sah.getRequest().setupAddParameter("returnvisit", (String) null);
-        try {
-            sah.executeAction();
-            fail();
-        }
-        catch (LookupException e) {
-            //no op
-        }
-        
-        sah.getUser().addRole(RoleFactory.ORG_ADMIN);
-        Action a = ActionFactoryTest.createAction(sah.getUser(), ActionFactory.TYPE_ERRATA);
-        Server server = ServerFactoryTest.createTestServer(sah.getUser(), true);
+        setRequestPathInfo("/schedule/PackageList");
+
+        user.addRole(RoleFactory.ORG_ADMIN);
+        Action a = ActionFactoryTest.createAction(user, ActionFactory.TYPE_ERRATA);
+        Server server = ServerFactoryTest.createTestServer(user, true);
         ServerActionTest.createServerAction(server, a);
         ActionManager.storeAction(a);
+        addRequestParameter("aid", a.getId().toString());
+        addRequestParameter("newset", (String)null);
+        addRequestParameter("returnvisit", (String) null);
+        actionPerform();
+        assertNotNull(getRequest().getAttribute("dataset"));
+        assertNotNull(getRequest().getAttribute("actionname"));
+    }
         
-        sah.getRequest().setupAddParameter("aid", a.getId().toString());
-        sah.setupClampListBounds();
-        sah.getRequest().setupAddParameter("newset", (String)null);
-        sah.getRequest().setupAddParameter("returnvisit", (String) null);
+   public void testPerformExecuteBad() {
+       setRequestPathInfo("/schedule/PackageList");
         
-        sah.executeAction();
-        assertNotNull(sah.getRequest().getAttribute("pageList"));
-        assertNotNull(sah.getRequest().getAttribute("actionname"));
-        assertNotNull(sah.getRequest().getAttribute("user"));
+        addRequestParameter("aid", (String) null);
+        actionPerform();
+        assertTrue(getActualForward().contains("errors/badparam.jsp"));
+   }
+   
+   
+   public void testPerformExecuteBad2() {
+        setRequestPathInfo("/schedule/PackageList");
+        addRequestParameter("aid", "-99999");
+        actionPerform();
+        assertTrue(getActualForward().contains("errors/lookup.jsp"));
     }
 
 }

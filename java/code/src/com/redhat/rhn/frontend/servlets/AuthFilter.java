@@ -15,17 +15,22 @@
 
 package com.redhat.rhn.frontend.servlets;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.frontend.security.AuthenticationService;
 import com.redhat.rhn.frontend.security.AuthenticationServiceFactory;
 
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Date;
+import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -61,6 +66,8 @@ public class AuthFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain) throws IOException, ServletException {
         
+
+
         if (log.isDebugEnabled()) {
             log.debug("ENTER AuthFilter.doFilter: " + request.getRemoteAddr() + 
                     " [" + new Date() + "] (" + 
@@ -69,6 +76,27 @@ public class AuthFilter implements Filter {
         
         if (authenticationService.validate((HttpServletRequest)request, 
                 (HttpServletResponse)response)) {
+
+            //Check the referrer and redirect to YourRhn.do if it doesn't match
+            HttpServletRequest hreq = new
+                RhnHttpServletRequest((HttpServletRequest)request);
+            Enumeration em = hreq.getHeaders("referer");
+            if (em.hasMoreElements()) {
+                String urlString = (String) em.nextElement();
+                URL url = new URL(urlString);
+                List goodUrls = ConfigDefaults.get().getNonRefererUrls();
+                if (!goodUrls.contains(hreq.getServletPath()) &&
+                        !request.getLocalName().equals(url.getHost())) {
+                    log.fatal("Referrer (" + url.getHost() + ") for url " +
+                            hreq.getServletPath() +
+                            " does not match.  Redirecting to /rhn/YourRhn.do.");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher(
+                            "/YourRhn.do");
+                    dispatcher.forward(request, response);
+                    return;
+                }
+            }
+
             
             chain.doFilter(request, response);
         }

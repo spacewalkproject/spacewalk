@@ -4,7 +4,7 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.14
+Version: 2.5.15
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -54,6 +54,11 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 2.5.15-1
+- aamt is not Null in most cases, move it more to right
+- replace len() with ==
+- count length of buffer only once in loop
+
 * Thu Nov  5 2009 Miroslav Suchy <msuchy@redhat.com> 2.5.14-1
 - fix build under opensuse
 

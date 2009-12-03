@@ -47,6 +47,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -1029,6 +1030,17 @@ public class ErrataFactory extends HibernateFactory {
     public static void syncErrataDetails(PublishedClonedErrata cloned) {
         copyDetails(cloned, cloned.getOriginal(), true);
     }
+
+    /**
+     * List errata objects by ID
+     * @param ids list of ids
+     * @return List of Errata Objects
+     */
+    public static List<Errata> listErrata(Collection<Long> ids) {
+        return singleton.listObjectsByNamedQuery("PublishedErrata.listByIds",
+                new HashMap(), ids, "list");
+    }
+
 
 }
 

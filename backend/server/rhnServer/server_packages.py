@@ -252,7 +252,8 @@ class Packages:
             if not t:
                 break
             t['arch'] = package_arches_hash[t['package_arch_id']]
-            t['installtime'] = time.mktime(time.strptime(t['installtime'],
+            if t.has_key('installtime') and t['installtime'] is not None:
+                t['installtime'] = time.mktime(time.strptime(t['installtime'],
                                                 "%Y-%m-%d %H:%M:%S"))
             p = dbPackage(t, real=1, name_id=t['name_id'], evr_id=t['evr_id'],
                           package_arch_id=t['package_arch_id'])

@@ -6,7 +6,7 @@
 
 Name:            oracle-xe-selinux
 Version:         10.2
-Release:         13%{?dist}
+Release:         15%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
 License:         GPLv2+
@@ -121,6 +121,7 @@ if [ $1 -eq 0 ]; then
     done
 
   /usr/sbin/semanage port -d -t oracle_port_t -p tcp 9000 || :
+  /usr/sbin/semanage port -d -t oracle_port_t -p tcp 9055 || :
 
   # Clean up oracle-xe-univ's files
   rpm -ql oracle-xe-univ | xargs -n 100 /sbin/restorecon -Rivv
@@ -137,6 +138,13 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Fri Nov 27 2009 Jan Pazdziora 10.2-15
+- Change the port from 9000 to 9055.
+
+* Thu Nov 26 2009 Jan Pazdziora 10.2-14
+- In RHEL5 one process reading information on another in the /proc directory
+  caused a ptrace access check, allow
+
 * Mon Aug 03 2009 Jan Pazdziora 10.2-13
 - Use rw_files_pattern instead of direct allows, to get open on new Fedoras
 

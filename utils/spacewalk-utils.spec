@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	0.7.0
+Version:	0.7.1
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -57,6 +57,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.1-1
+- migration of system profile should be able to run as non root now that it can run on any client and not just satellite. (pkilambi@redhat.com)
+- bumping Version to 0.7.0 (jmatthew@redhat.com)
+
 * Wed Aug 05 2009 Jan Pazdziora 0.6.7-1
 - utils: add python to BuildRequires
 

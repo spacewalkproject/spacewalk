@@ -21,28 +21,28 @@ sub initialize
 	my ($self,@params) = @_;
 	$self->SUPER::initialize(@params);
 	$self->addValidators(
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'jkshmSize',
 			description=>'dykeman fix',
 			required=>1,
 			optional=>0,
 			format=>'integer'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'webapps',
 			description=>'dykeman fix',
 			required=>1,
 			optional=>0,
 			format=>'string'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'serverClusterFilename',
 			description=>'Configuration filename (on this machine) of the J2K server cluster',
 			required=>1,
 			optional=>0,
 			format=>'string'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'debugLevel',
 			description=>'dykeman fix',
 			required=>1,

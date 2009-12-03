@@ -26,11 +26,11 @@
     <rl:list dataset="pageList"
              width="100%"
              name="groupList"
-             styleclass="list"
+             styleclass="list "
              emptykey="systemlist.jsp.nosystems">
 
         <rl:column headerkey="actions.jsp.system" bound="false"
-                   sortattr="name" sortable="true">
+                   sortattr="name" sortable="true" styleclass="first-column  last-column">
             ${current.name}
         </rl:column>
 

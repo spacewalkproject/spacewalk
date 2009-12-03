@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.17
+Version: 0.7.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -283,6 +283,53 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Dec 02 2009 Tomas Lestach <tlestach@redhat.com> 0.7.24-1
+- 537094 - yum list-sec CVE's on cloned channels doesn't work
+  (tlestach@redhat.com)
+- fixing checksum empty string in the repo metadata (tlestach@redhat.com)
+- checking return value of channel.getChecksum() (tlestach@redhat.com)
+- 543347 - Security errata with enhancement advisory icons
+  (tlestach@redhat.com)
+- fixing ISE when cloning channel (tlestach@redhat.com)
+- fixing ISE when adding Red Hat Errata to custom channel (tlestach@redhat.com)
+
+* Tue Dec  1 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.23-1
+- 542830 - fixing three api calls that were using very inefficient queries to use the same queries that were used in sat 5.2 (jsherril@redhat.com)
+- converting old hibernate max in clause limit fix to use new fix (jsherril@redhat.com)
+- 538559 - fixing issue where about 300 errata could not be applied to a system due to inefficient hibernate usage (jsherril@redhat.com)
+- fixing list borders on errata apply confirm page (jsherril@redhat.com)
+- Fix creating new config-managed symlinks (joshua.roys@gtri.gatech.edu)
+
+* Mon Nov 30 2009 Tomas Lestach <tlestach@redhat.com> 0.7.21-1
+- checking return value of channel.getChecksum() (tlestach@redhat.com)
+- adding checkstyle build dependency (tlestach@redhat.com)
+- updating ant-contrib path (tlestach@redhat.com)
+
+* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.19-1
+- improving the system channels page by increasing the base channel selector box size and having the custom channels sorted by name (jsherril@redhat.com)
+- another small display issue fix for list (jsherril@redhat.com)
+- fixing sort on channel manage page to sort by name and not id (jsherril@redhat.com)
+- fixing a bunch of list display issues that have bugged me for a while (jsherril@redhat.com)
+- 519788 - fixing set selection on two config management lists (jsherril@redhat.com)
+- checkstyle fix (jsherril@redhat.com)
+- unit test fixes (jsherril@redhat.com)
+- unit test fix - reloading the "Action" hibernate object seemed to cause issues with the user object that it was associated with, so instead lets try refreshing (jsherril@redhat.com)
+
+* Fri Nov 20 2009 Tomas Lestach <tlestach@redhat.com> 0.7.18-1
+- some columns not filled on webui for non-cve errata (tlestach@redhat.com)
+- checkstyle fix (jsherril@redhat.com)
+- 512844 - fixing inefficient query in package set clenaup
+  (jsherril@redhat.com)
+- unit test fix - we no longer do validation checking on kickstart partitions,
+  so no need to test it (jsherril@redhat.com)
+- unit test fix - kickstart compare packages was not working correctly
+  (jsherril@redhat.com)
+- 537491 - fixing issue with cloned kickstart profiles losing the package list
+  during cloning (jsherril@redhat.com)
+- checkstyle fix (jsherril@redhat.com)
+- unit test fix (jsherril@redhat.com)
+- unit test fix (jsherril@redhat.com)
+
 * Thu Nov 12 2009 Tomas Lestach <tlestach@redhat.com> 0.7.17-1
 - 536825 - storing "@ Base" KickstartPackage into DB (tlestach@redhat.com)
 - java code enhancements according to jsherrill's comments

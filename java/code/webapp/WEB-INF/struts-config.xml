@@ -6596,7 +6596,7 @@
        <forward name="default"
                 path="/WEB-INF/pages/ssm/packageinstallschedule.jsp" />
        <forward name="confirm"
-                path="/ssm/ViewLog.do" />
+                path="/ssm/ViewLog.do" redirect="true"/>
     </action>
 
      <!-- SSM Package Remove Pages -->
@@ -6618,7 +6618,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/ssm/packageremoveschedule.jsp" />
         <forward name="confirm"
-                 path="/ssm/ViewLog.do"/>
+                 path="/ssm/ViewLog.do" redirect="true"/>
      </action>
      
      <!-- SSM Package Upgrade Pages -->
@@ -6640,7 +6640,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/ssm/packageupgradeschedule.jsp" />
         <forward name="confirm"
-                 path="/ssm/ViewLog.do"/>
+                 path="/ssm/ViewLog.do" redirect="true"/>
      </action>                                          
     
      <!-- SSM Package Verify Pages -->
@@ -6662,7 +6662,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/ssm/packageverifyschedule.jsp" />
         <forward name="confirm"
-                 path="/ssm/ViewLog.do"/>
+                 path="/ssm/ViewLog.do" redirect="true"/>
      </action>
 
      <action path="/admin/TaskStatus"

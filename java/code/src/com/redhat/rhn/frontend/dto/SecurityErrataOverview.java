@@ -42,9 +42,16 @@ public class SecurityErrataOverview extends ErrataOverview
      */
     public void callback(ResultSet rs) throws SQLException {
         if (rs != null) {
-            String cve = rs.getString("CVE");
-            if (cve != null) {
+            // need to use try-catch, because of use of two
+            // elaborators (only one of them elaborates "CVE")
+            try {
+                String cve = rs.getString("CVE");
+                if (cve != null) {
                     addCve(cve);
+                }
+            }
+            catch (SQLException e) {
+                return;
             }
         }
     }

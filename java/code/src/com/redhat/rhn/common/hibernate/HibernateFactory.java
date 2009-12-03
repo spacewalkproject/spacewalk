@@ -36,6 +36,9 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -117,8 +120,12 @@ public abstract class HibernateFactory {
         Set entrySet = parameters.entrySet();
         for (Iterator itr = entrySet.iterator(); itr.hasNext();) {
             Map.Entry entry = (Map.Entry) itr.next();
-            if (entry.getValue() instanceof List) {
-                query.setParameterList((String) entry.getKey(), (List) entry.getValue());
+            if (entry.getValue() instanceof Collection) {
+                Collection c = (Collection) entry.getValue();
+                if (c.size() > 100) {
+                    LOG.error("Query exectued with Collection larger than 1000");
+                }
+                query.setParameterList((String) entry.getKey(), c);
             }
             else {
                 query.setParameter((String) entry.getKey(), entry.getValue());
@@ -188,6 +195,43 @@ public abstract class HibernateFactory {
     protected List listObjectsByNamedQuery(String qryName, Map qryParams) {
         return listObjectsByNamedQuery(qryName, qryParams, false);
     }
+
+    /**
+     * Using a named query, find all the objects matching the criteria within.
+     * Warning: This can be very expensive if the returned list is large. Use
+     * only for small tables with static data
+     * @param qryName Named query to use to find a list of objects.
+     * @param qryParams Map of named bind parameters whose keys are Strings. The
+     * map can also be null.
+     * @param col the collection to use as an inclause
+     * @param colLabel the label the collection will have
+     * @return List of objects returned by named query, or null if nothing
+     * found.
+     */
+    protected List listObjectsByNamedQuery(String qryName, Map qryParams,
+                                        Collection col, String colLabel) {
+
+        if (col.isEmpty()) {
+            return Collections.EMPTY_LIST;
+        }
+
+        ArrayList<Long> tmpList = new ArrayList<Long>();
+        List<Long> toRet = new ArrayList<Long>();
+        tmpList.addAll(col);
+
+        for (int i = 0; i < col.size();) {
+            int initial = i;
+            int fin = i + 500 < col.size() ? i + 500 : col.size();
+            List<Long> sublist = tmpList.subList(i, fin);
+
+            qryParams.put(colLabel, sublist);
+            toRet.addAll(listObjectsByNamedQuery(qryName, qryParams, false));
+            i = fin;
+        }
+        return toRet;
+    }
+
+
 
     /**
      * Using a named query, find all the objects matching the criteria within.

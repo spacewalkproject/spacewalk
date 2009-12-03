@@ -9,15 +9,12 @@ import rhnserver
 import rpmUtils
 
 
-def remoteDeltaPackages(pkgs):
+def logDeltaPackages(pkgs):
     log = up2dateLog.initLog()
     log.log_me("Adding packages to package profile: %s" %
                pprint_pkglist(pkgs['added']))
     log.log_me("Removing packages from package profile: %s" %
-               pprint_pkglist(pkgs['deleted']))
-    s = rhnserver.RhnServer()
-
-    s.registration.delta_packages(up2dateAuth.getSystemId(), pkgs)
+               pprint_pkglist(pkgs['removed']))
 
 def updatePackageProfile():
     """ get a list of installed packages and send it to rhnServer """

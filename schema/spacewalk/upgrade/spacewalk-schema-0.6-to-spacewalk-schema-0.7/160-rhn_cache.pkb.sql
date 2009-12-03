@@ -87,6 +87,7 @@ is
 							rhnServerGroup sg,
 							rhnUserGroupType ugt
 					where	ugt.label = 'org_admin'
+						and ugt.id = ug.group_type
 						and sg.id = server_group_id_in
 						and ugm.user_id = usgp.user_id
 						and ug.org_id = sg.org_id

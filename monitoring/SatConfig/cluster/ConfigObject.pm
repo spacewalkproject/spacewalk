@@ -200,7 +200,7 @@ sub describe
 	return $result;
 }
 
-package Validator;
+package SatConfig::cluster::Validator;
 use NOCpulse::Object;
 @ISA=qw(NOCpulse::Object);
 

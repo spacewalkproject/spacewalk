@@ -687,6 +687,27 @@ def findHostByRoute():
         hostname = "unknown"
         s.close()
     return hostname, intf
+
+def get_slave_hwaddr(master, slave):
+    hwaddr = ""
+    try:
+        bonding = open('/proc/net/bonding/%s' % master, "r")
+    except:
+        return hwaddr
+
+    slave_found = False
+    for line in bonding.readlines():
+        if slave_found and string.find(line, "Permanent HW addr: ") != -1:
+            hwaddr = string.split(line)[3]
+            break
+
+        if string.find(line, "Slave Interface: ") != -1:
+            ifname = string.split(line)[2]
+            if ifname == slave:
+                slave_found = True
+
+    bonding.close()
+    return hwaddr
     
 def read_network():
     netdict = {}
@@ -721,6 +742,16 @@ def read_network_interfaces():
         except:
             hwaddr = ""
             
+        # slave devices can have their hwaddr changed
+        try:
+            master = os.readlink('/sys/class/net/%s/master' % interface)
+        except:
+            master = None
+
+        if master:
+            master_interface = os.path.basename(master)
+            hwaddr = get_slave_hwaddr(master_interface, interface)
+
         try:
             module = ethtool.get_module(interface)
         except:

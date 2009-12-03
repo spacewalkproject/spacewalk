@@ -5,7 +5,7 @@
         <rl:decorator name="PageSizeDecorator"/>
         <rl:decorator name="ElaborationDecorator"/>
 
-        <rl:column headerkey="erratalist.jsp.type" styleclass="text-align: left;">
+        <rl:column headerkey="erratalist.jsp.type" styleclass="first-column text-align: left;">
             <c:if test="${current.securityAdvisory}">
                 <img src="/img/wrh-security.gif"
                      alt="<bean:message key="erratalist.jsp.securityadvisory"/>"/>
@@ -32,15 +32,30 @@
                    styleclass="text-align: center;">
             <a href="/rhn/errata/details/SystemsAffected.do?eid=${current.id}">${current.affectedSystemCount}</a>
         </rl:column>
-        <rl:column headerkey="erratalist.jsp.updated"
-                sortable="true"
-                sortattr="updateDateObj"
-                styleclass="text-align: center;">
-            ${current.updateDate}
-        </rl:column>
+
+                <c:if test="${displayCves}">
+	                 <rl:column headerkey="erratalist.jsp.updated"
+		                sortable="true"
+		                sortattr="updateDateObj"
+	                	styleclass="text-align: center;">
+			            ${current.updateDate}
+			        </rl:column>	                	
+                </c:if>
+                <c:if test="${not displayCves}">
+	                  <rl:column headerkey="erratalist.jsp.updated"
+		                sortable="true"
+		                sortattr="updateDateObj"
+	               		styleclass="last-column text-align: center;">
+			            ${current.updateDate}
+			        </rl:column>	               		
+                </c:if>  
+          
+
+        
+        
         <c:if test="${displayCves}">
 
-            <rl:column headerkey="details.jsp.cves">
+            <rl:column headerkey="details.jsp.cves" styleclass="last-column">
                 <c:forEach items="${current.cves}" var="cve">
                     <a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=${cve}">
                         <c:out value="${cve}"/> <br />

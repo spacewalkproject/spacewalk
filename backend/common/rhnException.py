@@ -191,6 +191,7 @@ on this system."),
      Please refer to your organization's channel or organization
      administrators for further details.
      """),
+     72: _("""You can not unsubscribe from base channel."""),
 
      # 80-90: server group errors
      80: _("There was an error while trying to join the system to its groups"),

@@ -18,35 +18,35 @@ sub initialize
 {
 	my ($self,@params) = @_;
 	$self->addValidators(
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'net',
 			description=>'A network address',
 			required=>1,
 			optional=>0,
 			format=>'ipAddress'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'mask',
 			description=>'A CIDR mask (e.g. 24)',
 			required=>0,
 			optional=>0,
 			format=>'cidrMask'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'dev',
 			description=>'A device name (e.g. eth0)',
 			required=>1,
 			optional=>0,
 			format=>'deviceName'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'gate',
 			description=>'IP address of a gateway',
 			required=>1,
 			optional=>0,
 			format=>'ipAddress'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'vip',
 			description=>'Virtual IP address',
 			required=>0,

@@ -35,7 +35,7 @@
         <rl:decorator name="PageSizeDecorator"/>
         
         <rl:column headerkey="ssm.operations.viewlog.description" bound="false"
-                   sortattr="description" sortable="true">
+                   sortattr="description" sortable="true" styleclass="first-column">
             <a href="/rhn/ssm/ViewLogDetails.do?oid=${current.id}"><c:out value="${current.description}"/></a>
         </rl:column>
 
@@ -48,7 +48,7 @@
             </c:if>
         </rl:column>
 
-        <rl:column headerkey="ssm.operations.viewlog.modified" bound="false">
+        <rl:column headerkey="ssm.operations.viewlog.modified" bound="false" styleclass="last-column">
             <c:out value="${current.modified}"/>
         </rl:column>
 
