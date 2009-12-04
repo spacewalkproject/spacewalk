@@ -4,7 +4,7 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.15
+Version: 2.5.16
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -54,6 +54,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Fri Dec 04 2009 Michael Mraka <michael.mraka@redhat.com> 2.5.16-1
+- added rhn_rpm and rhn_mpm 
+
 * Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 2.5.15-1
 - aamt is not Null in most cases, move it more to right
 - replace len() with ==
