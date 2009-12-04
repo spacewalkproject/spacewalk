@@ -15,7 +15,7 @@ Red Hat Network (http://rhn.redhat.com) software.""",
       author = 'Mihai Ibanescu',
       author_email = 'misa@redhat.com',
       url = 'http://rhn.redhat.com',
-      packages = ["rhn"],
+      packages = ["rhn", "rhn/common"],
       license = "GPL",
 
       )
