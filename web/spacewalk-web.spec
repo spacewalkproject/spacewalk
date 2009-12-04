@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.0
+Version: 0.8.1
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -317,6 +317,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Dec  4 2009 Miroslav Suchý <msuchy@redhat.com> 0.8.1-1
+- sha256 support
+
 * Wed Dec 02 2009 Tomas Lestach <tlestach@redhat.com> 0.7.8-1
 - 537094 - yum list-sec CVE's on cloned channels doesn't work
   (tlestach@redhat.com)
