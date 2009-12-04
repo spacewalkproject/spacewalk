@@ -16,7 +16,7 @@ BuildArch: noarch
 Requires: python, rpm-python
 # /etc/rhn is provided by spacewalk-proxy-common or by spacewalk-config
 Requires: /etc/rhn
-Requires: rhnlib >= 1.8
+Requires: rhnlib >= 2.2.16
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
@@ -274,9 +274,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}/common
 %{rhnroot}/common/__init__.py*
 %{rhnroot}/common/rhn_fcntl.py*
-%{rhnroot}/common/rhn_mpm.py*
 %{rhnroot}/common/rhn_posix.py*
-%{rhnroot}/common/rhn_rpm.py*
 %{rhnroot}/common/rhn_timer.py*
 %{rhnroot}/common/rhnApache.py*
 %{rhnroot}/common/rhnCache.py*
