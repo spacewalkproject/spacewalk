@@ -10,7 +10,7 @@ Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:     noarch
-Requires:      rpm-python, rhnlib >= 2.2.16
+Requires:      rpm-python, rhnlib >= 2.5.16
 BuildRequires: docbook-utils, gettext
 
 Summary: Package uploader for the Red Hat Network Satellite Server
