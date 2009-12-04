@@ -34,7 +34,7 @@ import operator
 from optparse import Option, OptionParser
 
 ## local imports
-import rhn_rpm
+from rhn.common import rhn_rpm
 from client_config_update import readConfigFile
 from rhn_bootstrap_strings import \
     getHeader, getConfigFilesSh, getUp2dateScriptsSh, getGPGKeyImportSh, \

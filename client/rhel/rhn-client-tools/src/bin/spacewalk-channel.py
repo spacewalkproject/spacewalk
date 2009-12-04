@@ -16,6 +16,8 @@
 import os
 import socket
 import sys
+import getpass
+
 from optparse import Option, OptionParser
 
 def systemExit(code, msgs=None):
@@ -65,9 +67,10 @@ def processCommandline():
     if args:
         systemExit(1, "ERROR: these arguments make no sense in this context (try --help)")
     if not OPTIONS.user and not OPTIONS.list:
-        systemExit(2, "ERROR: username is required")
+        print("Username: ")
+        OPTIONS.user = sys.stdin.readline()
     if not OPTIONS.password and not OPTIONS.list:
-        systemExit(3, "ERROR: password is required")
+        OPTIONS.password = getpass.getpass()
 
 def main():
     if OPTIONS.add:

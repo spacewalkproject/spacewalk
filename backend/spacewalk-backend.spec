@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.18
+Version: 0.8.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -16,7 +16,7 @@ BuildArch: noarch
 Requires: python, rpm-python
 # /etc/rhn is provided by spacewalk-proxy-common or by spacewalk-config
 Requires: /etc/rhn
-Requires: rhnlib >= 1.8
+Requires: rhnlib >= 2.5.16
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
@@ -274,9 +274,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}/common
 %{rhnroot}/common/__init__.py*
 %{rhnroot}/common/rhn_fcntl.py*
-%{rhnroot}/common/rhn_mpm.py*
 %{rhnroot}/common/rhn_posix.py*
-%{rhnroot}/common/rhn_rpm.py*
 %{rhnroot}/common/rhn_timer.py*
 %{rhnroot}/common/rhnApache.py*
 %{rhnroot}/common/rhnCache.py*
@@ -580,6 +578,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Dec 04 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.1-1
+- rhn_rpm/rhn_mpm moved to rhnlib
+- bumping Version to 0.8.0
+
 * Tue Dec  1 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.18-1
 - 449167 - time.strptime can not handle None values
 

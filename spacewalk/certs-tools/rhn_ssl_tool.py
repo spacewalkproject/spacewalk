@@ -50,7 +50,7 @@ from sslToolLib import RhnSslToolException, rotateFile, rhn_popen, cleanupAbsPat
         gendir, chdir, getMachineName, fixSerial, TempDir, parseRPMFilename, \
         errnoGeneralError, errnoSuccess, maketemp
 
-from rhn_rpm import hdrLabelCompare, sortRPMs, get_package_header, \
+from rhn.common.rhn_rpm import hdrLabelCompare, sortRPMs, get_package_header, \
         getInstalledHeader
 
 from sslToolConfig import ConfigFile, figureSerial, getOption, CERT_PATH, \

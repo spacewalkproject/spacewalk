@@ -9,9 +9,7 @@ TOP     = ..
 SUBDIR  = common
 FILES	=   __init__ \
             rhn_fcntl \
-            rhn_mpm \
             rhn_posix \
-            rhn_rpm \
             rhn_timer \
             rhnApache \
             rhnCache \

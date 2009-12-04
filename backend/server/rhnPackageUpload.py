@@ -19,7 +19,7 @@ import os
 import tempfile
 
 from common import CFG, log_debug, rhnFault, rhn_mpm, rhnLib, UserDictCase
-from common.rhn_rpm import get_header_byte_range
+from rhn.common.rhn_rpm import get_header_byte_range
 
 from server import rhnSQL
 from server.importlib import importLib, userAuth, mpmSource, backendOracle, \

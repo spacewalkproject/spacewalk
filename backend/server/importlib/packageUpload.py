@@ -17,7 +17,8 @@
 # Package import code on the app side
 #
 
-from common import rhnFault, rhn_rpm, log_debug
+from common import rhnFault, log_debug
+from rhn.common import rhn_rpm
 
 from server import rhnChannel, taskomatic, rhnSQL
 from server.importlib.headerSource import createPackage

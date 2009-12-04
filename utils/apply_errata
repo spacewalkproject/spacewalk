@@ -1,0 +1,287 @@
+#!/usr/bin/python
+
+"""
+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; version 2 of the License.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ Copyright 2009  Colin Coe <colin.coe@gmail.com>
+
+ Portions of code reused from the Satellite/Spacewalk documentation and
+ 'Mastering Regular Expressions (2nd Edition)' and various sources on
+ the Internet
+
+"""
+
+import getopt, sys, time, os, re
+import xmlrpclib, httplib
+from time import localtime
+from sys import argv
+import getpass
+
+prog = sys.argv[0]
+today = "%d-%d-%d" % (localtime()[2], localtime()[1], localtime()[0])
+erratum         = []
+opt             = dict()
+opt['test']     = True
+opt['user']     = ""
+opt['passwd']   = ""
+opt['sat_host'] = ""
+opt['date']     = time.localtime(time.time())
+opt['proxy']    = ""
+
+def usage(code):
+   offset = time.time() - (45 * 86400)
+   today = "%d-%d-%d" % (localtime(offset)[2], localtime(offset)[1], localtime(offset)[0])
+   if code is not None:
+      try:
+         code = int(code)
+      except:
+         code = 0
+   else:
+      code = 0
+   print "-a            - all errata - implies -b -e -s"
+   print "-b            - bug fix errata"
+   print "-d <date>     - date (in m-d-yy format) - defaults to today's date"
+   print "-e            - enhancement errata"
+   print "-s            - security errata"
+   print "-r            - do it for real - required to make the script actually do"
+   print "                updates"
+   print "-v            - be verbose, implied if -r is not supplied"
+   print "-n            - call /usr/sbin/rhn_check rather than waiting for the next"
+   print "                scheduled checkin"
+   print "-u <username> - username for connecting to RHN hosted or the Satellite server"
+   print "-p <password> - password for connecting to RHN hosted or the Satellite server"
+   print "-P <proxy>    - the proxy server to use"
+   print "-z <search>   - only apply errata matching this regular expression"
+   print "-h            - this help message"
+   print "Notes:"
+   print "1) Errata are scheduled only if they have a date of <date> or older"
+   print "2) -u and -p can be ommitted if the environment variables RHN_USER and RHN_PASS"
+   print "   are defined. If -u/-p are provided and RHN_USER and RHN_PASS are also"
+   print "   defined, the -u/-p switches have preference."
+   print "   If the password is '-' then the user is asked to enter the password via stdin"
+   print "3) the search is case insensitive and looks in the errata synopsis.  An"
+   print "   example use is:"
+   print " '%s -u admin -p - -P squid:3128 -s -d %s -z \"critical|important\"'" % (prog, today)
+   print "-P <proxy> is needed to define the proxy server (and port) to use and overrides"
+   print "   the environment variable RHN_PROXY"
+   sys.exit(code)
+
+
+def testEnvVar(ev):
+   try:
+      var = os.environ[ev]
+   except:
+      return False
+   return True
+
+
+def getSysId():
+   infile = open("/etc/sysconfig/rhn/systemid","r")
+   text = infile.read()
+   pattern = re.compile("[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")
+   result = pattern.search(text)
+   infile.close()
+   if result is None:
+      print "No system ID found, please register the node with RHN or your local Satellite/"
+      print "Spacewalk server using rhn_register or another appropriate tool"
+      sys.exit(3)
+   return int(result.group(0))
+
+
+def getServer():
+   infile = open("/etc/sysconfig/rhn/up2date","r")
+   text = infile.read()
+   pattern = re.compile("(serverURL=).*")
+   result = pattern.search(text)
+   infile.close()
+   if result is None:
+      print "No server details found.  This should not happen as RHN hosted is"
+      print "present by default.  Resolve and re-run."
+      sys.exit(3)
+   return result.group(0).split("/")[2]
+
+
+class ProxiedTransport(xmlrpclib.Transport):
+    def set_proxy(self, proxy):
+        self.proxy = opt['proxy']
+    def make_connection(self, host):
+        self.realhost = host
+        h = httplib.HTTP(self.proxy)
+        return h
+    def send_request(self, connection, handler, request_body):
+        connection.putrequest("POST", 'http://%s%s' % (self.realhost, handler))
+    def send_host(self, connection, host):
+        connection.putheader('Host', self.realhost)
+
+
+def main():
+   try:
+      opts, args = getopt.getopt(sys.argv[1:], "abd:esrvhu:p:P:z:n")
+   except getopt.GetoptError:
+      # print help information and exit:
+      usage(2)
+
+   type = dict()
+   EI   = dict()
+   EN   = dict()
+   ED   = dict()
+
+   type['b'] = False
+   type['e'] = False
+   type['s'] = False
+
+   if len(argv) == 1:
+      usage(1)
+
+   if testEnvVar('RHN_USER'):
+      opt['user'] = os.environ['RHN_USER']
+
+   if testEnvVar('RHN_PASS'):
+      opt['passwd'] = os.environ['RHN_PASS']
+
+   if testEnvVar('RHN_PROXY'):
+      opt['proxy'] = os.environ['RHN_PROXY']
+
+   opt['verbose'] = False
+   for o, a in opts:
+      if o == "-v":
+         opt['verbose'] = True
+      if o in ("-h"):
+         usage(0)
+      if o in ("-p"):
+         if opt['passwd'] == "":
+            opt['passwd'] = a
+      if o in ("-u"):
+         if opt['user'] == "":
+            opt['user'] = a
+      if o in ("-P"):
+         if opt['proxy'] == "":
+            opt['proxy'] = a
+      if o in ("-d"):
+         opt['date'] = a
+      if o in ("-b") or o in ("-a"):
+         type['b'] = True
+      if o in ("-e") or o in ("-a"):
+         type['e'] = True
+      if o in ("-s") or o in ("-a"):
+         type['s'] = True
+      if o in ("-r"):
+         opt['test'] = False
+      if o in ("-z"):
+         opt['search'] = a
+
+      if opt['passwd'] == '-':
+         opt['passwd'] = getpass.getpass()
+
+   try:
+      if opt['search'] == "":
+         opt['search'] = ".*"
+   except:
+      opt['search'] = ".*"
+
+   if not type['b'] and not type['e'] and not type['s']:
+      # Nothing selected, assuming all
+      type['b'] = True
+      type['e'] = True
+      type['s'] = True
+
+   if opt['test'] == True:
+      opt['verbose'] = True
+
+   if opt['user'] == "":
+      print "-u <username> not supplied and environment variable RHN_USER not set"
+      sys.exit(4)
+
+   if opt['passwd'] == "":
+      print "-p <password> not supplied and environment variable RHN_PASS not set"
+      sys.exit(5)
+
+   if opt['sat_host'] == "":
+      opt['sat_host'] = getServer()
+   sid = getSysId()
+
+   SATELLITE_URL = "http://%s/rpc/api" % opt['sat_host']
+
+   # If no proxy is defined, assume no proxy needed
+   if opt['proxy'] != "":
+      p = ProxiedTransport()
+      p.set_proxy(opt['proxy']);
+      client = xmlrpclib.Server(SATELLITE_URL, verbose=0, transport=p)
+   else:
+      client = xmlrpclib.Server(SATELLITE_URL, verbose=0)
+   session = client.auth.login(opt['user'], opt['passwd'])
+
+   ue = client.system.getUnscheduledErrata(session, sid)
+
+   for e in ue:
+      year = int(e['date'].split("/")[2]) + 2000
+      month = int(e['date'].split("/")[0])
+      day = int(e['date'].split("/")[1])
+      e_epoch = int(time.mktime(time.strptime('%d-%d-%d 00:00:00' % (year, month, day), '%Y-%m-%d %H:%M:%S')))
+
+      try:
+         year = int(opt['date'].split('-')[2])
+         month = int(opt['date'].split('-')[0])
+         day = int(opt['date'].split('-')[1])
+      except:
+         year  = int(opt['date'][0])
+         month = int(opt['date'][1])
+         day   = int(opt['date'][2])
+
+      d_epoch = int(time.mktime(time.strptime('%d-%d-%d 00:00:00' % (year, month, day), '%Y-%m-%d %H:%M:%S')))
+      ED[e['id']] = time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.localtime(e_epoch))
+
+      if e_epoch < d_epoch:
+         EI[e['id']] = e['advisory_synopsis']
+         EN[e['id']] = e['advisory_name']
+
+         pattern = re.compile(opt['search'], re.I)
+         result = pattern.search(e['advisory_synopsis'])
+
+         if result is not None:
+            if type['b'] and e['advisory_name'].find("RHBA") == 0:
+               erratum.append(e['id'])
+
+            if type['e'] and e['advisory_name'].find("RHEA") == 0:
+               erratum.append(e['id'])
+
+            if type['s'] and e['advisory_name'].find("RHSA") == 0:
+               erratum.append(e['id'])
+
+   if opt['verbose']:
+      print "Notes:"
+      print "\tUsing: %s" % opt['sat_host']
+      if opt['test']:
+         print "\tRunning in test mode, updates will not be scheduled"
+      else:
+         print "\tUpdates *will* be scheduled"
+      if type['b']:
+         print "\tBug fix errata selected"
+      if type['e']:
+         print "\tEnhancement errata selected"
+      if type['s']:
+         print "\tSecurity errata selected"
+      print "\t%d errata selected" % len(erratum)
+      print ""
+
+   if opt['verbose']:
+      for errata in erratum:
+         print "(Errata ID: %04d, Errata Name: %s, Released: %s) %s" % (errata, EN[errata], ED[errata], EI[errata])
+
+   if not opt['test']:
+      client.system.applyErrata(session, sid, erratum)
+
+   client.auth.logout(session)
+
+
+if __name__ == "__main__":
+    main()
+

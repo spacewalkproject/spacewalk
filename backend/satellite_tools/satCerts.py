@@ -27,8 +27,8 @@ import os
 from server import rhnSQL
 from server.rhnServer import satellite_cert
 from common.rhnTB import fetchTraceback
-from common.rhn_rpm import getInstalledHeader
 from common.rhnConfig import RHNOptions
+from rhn.common.rhn_rpm import getInstalledHeader
 
 #
 # RHN certificate section

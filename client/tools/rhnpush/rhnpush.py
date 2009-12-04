@@ -37,7 +37,6 @@ import time
 import urlparse
 import rhnpush_cache
 import rhnpush_confmanager
-import rhn_mpm
 
 from types import IntType, StringType
 try:
@@ -45,6 +44,7 @@ try:
 except ImportError:
     from optik import Option, OptionParser
 from rhn import rpclib
+from rhn.common import rhn_mpm
 
 import uploadLib
 import rhnpush_v2

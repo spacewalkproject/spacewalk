@@ -16,12 +16,12 @@
 # system imports
 import os
 import sys
-import rhn_mpm
 import string
 import fnmatch
 import getpass
 import rhnpush_cache
 import struct
+from rhn.common import rhn_mpm
 
 try:
     import hashlib
@@ -731,7 +731,7 @@ def packageCompare(pkg1, pkg2, is_mpm=None):
     if is_mpm:
         func = rhn_mpm.labelCompare
     else:
-        import rhn_rpm
+        from rhn.common import rhn_rpm
         func = rhn_rpm.labelCompare
     return func(packages[0], packages[1])
 
