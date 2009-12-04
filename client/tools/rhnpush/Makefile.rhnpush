@@ -9,7 +9,7 @@ INSTALL_DATA    = $(INSTALL) -m 644
 
 SUBDIR		= rhnpush
 FILES		= rhnpush rhnpush_v2 uploadLib __init__ connection \
-              rhn_rpm rhn_mpm rpm2mpm solaris2mpm utils rhnpush_cache \
+              rpm2mpm solaris2mpm utils rhnpush_cache \
 			  rhnpush_config rhnpush_confmanager archive
 
 RHN_CONF_DIR    = /etc/sysconfig/rhn
