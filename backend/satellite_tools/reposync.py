@@ -17,8 +17,9 @@ import sys, os, time, grp
 from optparse import OptionParser
 from common import rhnLib
 from server import rhnPackage, rhnSQL, rhnChannel, rhnPackageUpload
-from common import CFG, initCFG, rhn_rpm, rhnLog, fetchTraceback
-from common.rhn_mpm import InvalidPackageError
+from common import CFG, initCFG, rhnLog, fetchTraceback
+from rhn.common import rhn_rpm
+from rhn.common.rhn_mpm import InvalidPackageError
 from server.importlib.importLib import IncompletePackage
 from server.importlib.backendOracle import OracleBackend
 from server.importlib.packageImport import ChannelPackageSubscription
