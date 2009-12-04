@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.7.7
+Version:        0.8.0
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 

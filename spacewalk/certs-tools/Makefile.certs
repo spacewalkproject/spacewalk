@@ -18,7 +18,7 @@
 
 
 SUBDIR	=   certs
-FILES	=   __init__ rhn_rpm rhn_ssl_tool sslToolCli sslToolConfig sslToolLib \
+FILES	=   __init__ rhn_ssl_tool sslToolCli sslToolConfig sslToolLib \
             timeLib rhn_bootstrap rhn_bootstrap_strings client_config_update
 INSTALL_FILES   = gen-rpm.sh sign.sh
 

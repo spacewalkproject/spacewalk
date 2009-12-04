@@ -1,4 +1,3 @@
-#!/usr/bin/python
 #
 # Copyright (c) 2008 Red Hat, Inc.
 #
@@ -22,7 +21,7 @@ from rhn.rpclib import xmlrpclib
 
 import struct
 
-from types import ListType, TupleType
+from types import ListType, TupleType, DictType
 
 def labelCompare(l1, l2):
     try:
@@ -96,6 +95,12 @@ class MPM_Header:
 
     def __getitem__(self, name):
         return self.hdr.get(name)
+
+    def __setitem__(self, name, item):
+        self.hdr[name] = item
+
+    def __delitem__(self, name):
+        del self.hdr[name]
 
     def __getattr__(self, name):
         return getattr(self.hdr, name)

@@ -21,7 +21,7 @@ import string
 import cStringIO
 from rhn import rpclib
 
-import rhn_rpm
+from rhn.common import rhn_rpm
 
 # local imports
 import rhnFlags

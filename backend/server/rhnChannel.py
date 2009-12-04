@@ -22,9 +22,10 @@ from rhn.rpclib import xmlrpclib
 from types import IntType, ListType, DictType
 
 # common module
-from common import log_debug, log_error, rhnFault, rhnException, rhnCache, rhnFlags, CFG, rhn_rpm
+from common import log_debug, log_error, rhnFault, rhnException, rhnCache, rhnFlags, CFG
 from common.rhnTranslate import _
 from common.rhnLib import startswith
+from rhn.common import rhn_rpm
 from rhnServer import server_lib
 from rhnDependency import MakeEvrError
 

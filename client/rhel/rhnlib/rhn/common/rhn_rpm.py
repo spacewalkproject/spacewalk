@@ -1,4 +1,3 @@
-#!/usr/bin/python
 #
 # Copyright (c) 2008 Red Hat, Inc.
 #
@@ -13,10 +12,6 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 #
-#
-# Compatibility layer for rpm
-#
-# $Id$
 
 import os
 import sys
@@ -36,6 +31,32 @@ for sym, val in rpm.__dict__.items():
         # A constant, probably - import it into our namespace
         globals()[sym] = val
 del sym, val
+
+# need this for rpm-pyhon < 4.6 (e.g. on RHEL5)
+rpm.RPMTAG_FILEDIGESTALGO = 5011
+
+# these values are taken from /usr/include/rpm/rpmpgp.h
+# PGPHASHALGO_MD5             =  1,   /*!< MD5 */
+# PGPHASHALGO_SHA1            =  2,   /*!< SHA1 */
+# PGPHASHALGO_RIPEMD160       =  3,   /*!< RIPEMD160 */
+# PGPHASHALGO_MD2             =  5,   /*!< MD2 */
+# PGPHASHALGO_TIGER192        =  6,   /*!< TIGER192 */
+# PGPHASHALGO_HAVAL_5_160     =  7,   /*!< HAVAL-5-160 */
+# PGPHASHALGO_SHA256          =  8,   /*!< SHA256 */
+# PGPHASHALGO_SHA384          =  9,   /*!< SHA384 */
+# PGPHASHALGO_SHA512          = 10,   /*!< SHA512 */
+PGPHASHALGO = {
+  1: 'md5',
+  2: 'sha1',
+  3: 'ripemd160',
+  5: 'md2',
+  6: 'tiger192',
+  7: 'haval-5-160',
+  8: 'sha256',
+  9: 'sha384',
+ 10: 'sha512',
+}
+
 
 class InvalidPackageError(Exception):
     pass
@@ -126,9 +147,9 @@ class RPMTransaction:
             return self.ts.run(self._flags, self._prob_filter, callback,
                 user_data)
         return self.ts.run(callback, user_data)
-        
-        
-            
+
+
+
 
 class SharedStateTransaction:
     _shared_state = {}
@@ -144,7 +165,7 @@ class RPMReadOnlyTransaction(SharedStateTransaction, RPMTransaction):
             RPMTransaction.__init__(self)
             # FIXME: replace with macro defination
             self.pushVSFlags(8)
-            
+
 class RPM_Header:
     "Wrapper class for an rpm header - we need to store a flag is_source"
     def __init__(self, hdr, is_source=None):
@@ -159,6 +180,14 @@ class RPM_Header:
 
     def __getattr__(self, name):
         return getattr(self.hdr, name)
+
+    def checksum_type(self):
+        if self.hdr[rpm.RPMTAG_FILEDIGESTALGO] \
+           and PGPHASHALGO.has_key(self.hdr[rpm.RPMTAG_FILEDIGESTALGO]):
+           checksum_type = PGPHASHALGO[self.hdr[rpm.RPMTAG_FILEDIGESTALGO]]
+        else:
+           checksum_type = 'md5'
+        return checksum_type
 
     def is_signed(self):
         if hasattr(rpm, "RPMTAG_DSAHEADER"):
@@ -193,6 +222,57 @@ class RPM_Header:
                 'signature'         : ret,
             })
 
+def get_header_byte_range(package_file):
+    """
+    Return the start and end bytes of the rpm header object.
+
+    For details of the rpm file format, see:
+    http://www.rpm.org/max-rpm/s1-rpm-file-format-rpm-file-format.html
+    """
+
+    lead_size = 96
+
+    # Move past the rpm lead
+    package_file.seek(lead_size)
+
+    sig_size = get_header_struct_size(package_file)
+
+    # Now we can find the start of the actual header.
+    header_start = lead_size + sig_size
+
+    package_file.seek(header_start)
+
+    header_size = get_header_struct_size(package_file)
+
+    header_end = header_start + header_size
+
+    return (header_start, header_end)
+
+def get_header_struct_size(package_file):
+    """
+    Compute the size in bytes of the rpm header struct starting at the current
+    position in package_file.
+    """
+    # Move past the header preamble
+    package_file.seek(8, 1)
+
+    # Read the number of index entries
+    header_index = package_file.read(4)
+    (header_index_value, ) = struct.unpack('>I', header_index)
+
+    # Read the the size of the header data store
+    header_store = package_file.read(4)
+    (header_store_value, ) = struct.unpack('>I', header_store)
+
+    # The total size of the header. Each index entry is 16 bytes long.
+    header_size = 8 + 4 + 4 + header_index_value * 16 + header_store_value
+
+    # Headers end on an 8-byte boundary. Round out the extra data.
+    round_out = header_size % 8
+    if round_out != 0:
+        header_size = header_size + (8 - round_out)
+
+    return header_size
 
 # Loads the package header from a file / stream / file descriptor
 # Raises rpm.error if an error is found, or InvalidPacageError if package is
@@ -201,7 +281,7 @@ class RPM_Header:
 def get_package_header(filename=None, file=None, fd=None):
     if (filename is None and file is None and fd is None):
         raise ValueError, "No parameters passed"
-    
+
     if filename is not None:
         f = open(filename)
     elif file is not None:
@@ -221,12 +301,19 @@ def get_package_header(filename=None, file=None, fd=None):
         if hdr is None:
             raise InvalidPackageError
     else:
-        ts = RPMReadOnlyTransaction()
-        nomd5 = getattr(rpm, 'RPMVSF_NOMD5')
-        needpayload = getattr(rpm, 'RPMVSF_NEEDPAYLOAD')
-        ts.pushVSFlags(~(nomd5 | needpayload))
-        hdr = RPMReadOnlyTransaction().hdrFromFdno(file_desc)
-        ts.popVSFlags()
+        if hasattr(rpm, 'readHeaderFromFD'):
+            header_start, header_end = \
+                    get_header_byte_range(os.fdopen(os.dup(file_desc)))
+            os.lseek(file_desc, header_start, 0)
+            hdr, offset = rpm.readHeaderFromFD(file_desc)
+        else:
+            # RHEL-4 and older, do the old way
+            ts = RPMReadOnlyTransaction()
+            nomd5 = getattr(rpm, 'RPMVSF_NOMD5')
+            needpayload = getattr(rpm, 'RPMVSF_NEEDPAYLOAD')
+            ts.pushVSFlags(~(nomd5 | needpayload))
+            hdr = RPMReadOnlyTransaction().hdrFromFdno(file_desc)
+            ts.popVSFlags()
         if hdr is None:
             raise InvalidPackageError
         is_source = hdr[getattr(rpm, 'RPMTAG_SOURCEPACKAGE')]
@@ -262,7 +349,7 @@ class MatchIterator:
             hdr = self.mi.next()
         except StopIteration:
             hdr = None
-        
+
         if hdr is None:
             return None
         if hasattr(rpm, "headerFromPackage"):
@@ -270,7 +357,7 @@ class MatchIterator:
         else:
             is_source =  hdr[getattr(rpm, 'RPMTAG_SOURCEPACKAGE')]
         return RPM_Header(hdr, is_source)
-            
+
 
 def headerLoad(data):
     hdr = rpm.headerLoad(data)
@@ -285,7 +372,7 @@ def labelCompare(t1, t2):
 
 def nvre_compare(t1, t2):
     def build_evr(p):
-        evr = [p[3], p[1], p[2]]        
+        evr = [p[3], p[1], p[2]]
         evr = map(str, evr)
         if evr[0] == "":
             evr[0] = None

@@ -19,9 +19,9 @@ from rhn.rpclib import xmlrpclib
 import random
 
 # common modules imports
-from common import rhnCache, rhnFlags, log_debug, CFG, rhn_rpm, \
-    rhnFault
+from common import rhnCache, rhnFlags, log_debug, CFG, rhnFault
 from common.rhnTranslate import _
+from rhn.common import rhn_rpm
 
 # server modules imports
 from server import rhnChannel, rhnSQL, rhnHandler, rhnLib

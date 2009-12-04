@@ -971,9 +971,20 @@ sub install_rhn_packages {
 		 26,
 		 'Could not install RHN packages.  Most likely your system is not configured with the @Base package group.  See the RHN Satellite Server Installation Guide for more information about Software Requirements.');
   } else {
-    system_or_exit(['python', '-u', 'install/installPackages.py'],
+    my @rpms = glob("Satellite/*.rpm EmbeddedDB/*.rpm");
+
+    # skip packages already installed or newer version already installed
+    for my $i (0..$#rpms) {
+        my $ret = system ("rpm -U --test --nodeps --quiet 2>/dev/null $rpms[$i]");
+        if ($ret != 0) {
+            delete($rpms[$i]);
+        }
+    }
+    if (@rpms) {
+       system_or_exit(['rpm', '-Uv', @rpms],
 		 26,
 		 'Could not install RHN packages.  Most likely your system is not configured with the @Base package group.  See the RHN Satellite Server Installation Guide for more information about Software Requirements.');
+    }
   }
   return 1;
 }
