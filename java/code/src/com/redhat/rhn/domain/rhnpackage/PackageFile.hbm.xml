@@ -24,7 +24,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="rdev"     type="long"   column="rdev"/>
         <property name="fileSize"     type="long"   column="file_size"/>
         <property name="mtime" type="date" column="mtime"/>
-        <property name="md5" type="string" column="md5"/>
 		<property name="linkTo" type="string" column="linkto"/>
         <property name="flags"     type="long"   column="flags"/>
         <property name="verifyFlags"     type="long"   column="verifyflags"/>
@@ -34,6 +33,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp"
             insert="false" update="false"/>
+
+        <many-to-one name="checksum" class="com.redhat.rhn.domain.common.Checksum"
+             column="checksum_id" />
 
 
     </class>

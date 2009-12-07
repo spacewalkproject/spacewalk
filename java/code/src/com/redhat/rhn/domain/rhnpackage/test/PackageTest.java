@@ -19,6 +19,7 @@ import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.common.Checksum;
 import com.redhat.rhn.domain.common.ChecksumFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
@@ -224,7 +225,7 @@ public class PackageTest extends RhnBaseTestCase {
         file.setInode(343L);
         file.setLang("eng");
         file.setLinkTo("dkfjdkfj");
-        file.setMd5("dkfjd");
+        file.setChecksum(ChecksumFactory.safeCreate("kfdjfkd", "md5"));
         file.setModified(new Date());
         file.setMtime(new Date());
         file.setRdev(3434L);
