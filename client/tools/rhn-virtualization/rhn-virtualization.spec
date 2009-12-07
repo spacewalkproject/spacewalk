@@ -35,6 +35,7 @@ Summary: RHN/Spacewalk Virtualization support specific to the Host system
 Group: System Environment/Base
 Requires: libvirt-python
 Requires: rhn-virtualization-common
+Requires: /usr/sbin/crond
 Conflicts: rhn-virtualization-guest
 
 %description host
@@ -71,13 +72,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %post host
 /sbin/chkconfig --add rhn-virtualization-host
-/sbin/service crond restart
+/sbin/service crond condrestart
 
 %preun host
 /sbin/chkconfig --del rhn-virtualization-host
 
 %postun host
-/sbin/service crond restart
+/sbin/service crond condrestart
 
 %post guest
 /sbin/chkconfig --add rhn-virtualization-guest
