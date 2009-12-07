@@ -21,14 +21,14 @@ rhn-virtualization provides various RHN/Spacewalk actions for manipulation
 virtual machine guest images.
 
 %package common
-Summary: Files needed by both rhn-virtualization-host and -guest
+Summary: Files needed by rhn-virtualization-host
 Group: System Environment/Base
 Requires: rhn-client-tools
 Requires: chkconfig
 
 %description common
 This package contains files that are needed by the rhn-virtualization-host
-and rhn-virtualization-guest packages.
+package.
 
 %package host
 Summary: RHN/Spacewalk Virtualization support specific to the Host system
@@ -36,21 +36,10 @@ Group: System Environment/Base
 Requires: libvirt-python
 Requires: rhn-virtualization-common
 Requires: /usr/sbin/crond
-Conflicts: rhn-virtualization-guest
 
 %description host
 This package contains code for RHN's and Spacewalk's Virtualization support 
 that is specific to the Host system (a.k.a. Dom0).
-
-%package guest
-Summary: RHN/Spacewalk Virtualization support specific to Guest systems
-Group: System Environment/Base
-Requires: rhn-virtualization-common
-Conflicts: rhn-virtualization-host
-
-%description guest
-This package contains code for RHN's and Spacewalk's Virtualization support 
-that is specific to Guest systems (a.k.a. DomUs).
 
 
 %prep
@@ -79,13 +68,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %postun host
 /sbin/service crond condrestart
-
-%post guest
-/sbin/chkconfig --add rhn-virtualization-guest
-/sbin/service rhn-virtualization-guest start
-
-%preun guest
-/sbin/chkconfig --del rhn-virtualization-guest
 
 %files common
 %defattr(-,root,root,-)
@@ -155,14 +137,6 @@ rm -rf $RPM_BUILD_ROOT
 %{rhn_dir}/virtualization/localvdsm.pyc
 %{rhn_dir}/virtualization/localvdsm.pyo
 %{rhn_dir}/actions/virt.pyo
-%doc LICENSE
-
-%files guest
-%defattr(-,root,root,-)
-%{_initrddir}/rhn-virtualization-guest
-%{rhn_dir}/virtualization/report_uuid.py
-%{rhn_dir}/virtualization/report_uuid.pyc
-%{rhn_dir}/virtualization/report_uuid.pyo
 %doc LICENSE
 
 %changelog
