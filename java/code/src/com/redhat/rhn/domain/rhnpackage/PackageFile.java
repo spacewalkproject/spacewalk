@@ -285,10 +285,10 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
 
 
     /**
-     * @param checksum The checksum to set.
+     * @param checksumIn The checksum to set.
      */
-    public void setChecksum(Checksum checksum) {
-        this.checksum = checksum;
+    public void setChecksum(Checksum checksumIn) {
+        this.checksum = checksumIn;
     }
 
 }
