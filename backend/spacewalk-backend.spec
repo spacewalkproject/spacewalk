@@ -2,6 +2,7 @@
 %define rhnconf %{_sysconfdir}/rhn
 %define httpdconf %{rhnconf}/satellite-httpd/conf
 %define apacheconfd %{_sysconfdir}/httpd/conf.d
+%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
@@ -237,12 +238,18 @@ XXX To be determined if the proper location is under backend
 
 %build
 make -f Makefile.backend all
+export PYTHON_MODULE_NAME=%{name}
+export PYTHON_MODULE_VERSION=%{version}
+%{__python} setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{rhnroot}
 make -f Makefile.backend install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
     MANDIR=%{_mandir}
+export PYTHON_MODULE_NAME=%{name}
+export PYTHON_MODULE_VERSION=%{version}
+%{__python} setup.py install -O1 --root $RPM_BUILD_ROOT --prefix=%{_prefix}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -455,8 +462,8 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files libs
 %defattr(-,root,root)
-%dir %{rhnroot}/spacewalk/
-
+%{python_sitelib}/spacewalk/
+%{python_sitelib}/spacewalk*egg-info
 
 %files config-files-common
 %defattr(-,root,root)
