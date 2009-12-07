@@ -63,7 +63,7 @@ def load_rpm(stream, seekable=1):
     # Hmm, maybe an rpm
 
     try:
-        from rhn.common import rhn_rpm
+        from spacewalk.common import rhn_rpm
     except ImportError:
         raise InvalidPackageError
 

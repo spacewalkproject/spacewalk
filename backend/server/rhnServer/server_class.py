@@ -23,7 +23,7 @@ import string
 from common import rhnException, rhnFault, log_debug, log_error, CFG
 from common import rhnFlags
 from common.rhnTranslate import _
-from rhn.common import rhn_rpm
+from spacewalk.common import rhn_rpm
 
 # from the server stuff...
 from server import rhnChannel, rhnUser, rhnSQL, rhnLib, rhnAction, \

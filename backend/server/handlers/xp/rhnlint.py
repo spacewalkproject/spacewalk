@@ -19,7 +19,7 @@ import time
 import string
 
 from common import RPC_Base, log_debug
-from rhn.common import rhn_rpm
+from spacewalk.common import rhn_rpm
 
 from server import rhnSQL
 

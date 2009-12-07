@@ -23,7 +23,7 @@ import time
 from types import DictType, TupleType
 
 from common import log_debug, rhnFault
-from rhn.common import rhn_rpm
+from spacewalk.common import rhn_rpm
 from server import rhnSQL, rhnLib
 from server_lib import snapshot_server, check_entitlement
 

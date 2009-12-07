@@ -25,7 +25,7 @@ from types import IntType, ListType, DictType
 from common import log_debug, log_error, rhnFault, rhnException, rhnCache, rhnFlags, CFG
 from common.rhnTranslate import _
 from common.rhnLib import startswith
-from rhn.common import rhn_rpm
+from spacewalk.common import rhn_rpm
 from rhnServer import server_lib
 from rhnDependency import MakeEvrError
 

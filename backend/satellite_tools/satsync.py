@@ -31,7 +31,7 @@ from optparse import Option, OptionParser
 # __rhn imports__
 from common import CFG, initCFG, initLOG, Traceback, rhnMail, \
     rhnLib, rhnFlags
-from rhn.common import rhn_rpm
+from spacewalk.common import rhn_rpm
 
 from server import rhnSQL
 from server.rhnSQL import SQLError, SQLSchemaError, SQLConnectError

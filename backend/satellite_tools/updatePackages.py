@@ -26,7 +26,7 @@ sys.path.append('/usr/share/rhn')
 
 from optparse import Option, OptionParser
 from common import rhnLib, rhnLog, initLOG, CFG, initCFG
-from rhn.common import rhn_rpm
+from spacewalk.common import rhn_rpm
 from server.rhnLib import parseRPMFilename
 from server import rhnSQL
 from server.rhnServer import server_packages

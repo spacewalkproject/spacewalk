@@ -21,7 +21,7 @@ import string
 import cStringIO
 from rhn import rpclib
 
-from rhn.common import rhn_rpm
+from spacewalk.common import rhn_rpm
 
 # local imports
 import rhnFlags

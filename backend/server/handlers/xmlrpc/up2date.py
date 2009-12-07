@@ -26,7 +26,7 @@ from types import ListType, TupleType, StringType, IntType
 # common module imports
 from common import CFG, rhnFlags, rhnFault, log_debug, log_error
 from common.rhnTranslate import _
-from rhn.common import rhn_rpm
+from spacewalk.common import rhn_rpm
 
 # local module imports
 from server.rhnLib import computeSignature
