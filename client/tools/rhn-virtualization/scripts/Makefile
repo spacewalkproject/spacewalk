@@ -3,7 +3,7 @@ PKGDIR1 = /etc/cron.d
 CONF_DIR = /etc/sysconfig/rhn/virt
 CONF_DIR_AUTO = /etc/sysconfig/rhn/virt/auto
 
-SCRIPTS = rhn-virtualization-host rhn-virtualization-guest
+SCRIPTS = rhn-virtualization-host
 OTHER = rhn-virtualization.cron
 
 all: 
