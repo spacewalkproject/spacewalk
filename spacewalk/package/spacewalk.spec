@@ -1,4 +1,4 @@
-%define release_name Gemini
+%define release_name Bowling
 
 Name:           spacewalk
 Version:        0.8.0
