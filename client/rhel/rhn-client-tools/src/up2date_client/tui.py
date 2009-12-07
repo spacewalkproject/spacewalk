@@ -989,10 +989,10 @@ class PackagesWindow:
             self.pwin.add(self.scale, 0, 0)
             self.pwin.draw()
             self.screen.refresh()
-            getInfo = 0
+            getArch = 0
             if rhnreg.cfg['supportsExtendedPackageProfile']:
-                getInfo = 1
-            tui.packageList = rpmUtils.getInstalledPackageList(getInfo=getInfo)
+                getArch = 1
+            tui.packageList = rpmUtils.getInstalledPackageList(getArch=getArch)
             self.screen.popWindow()
 
         for package in tui.packageList:

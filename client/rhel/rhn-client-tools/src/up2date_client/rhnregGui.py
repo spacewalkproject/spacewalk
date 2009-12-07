@@ -1093,14 +1093,12 @@ class CreateProfilePage:
         pwin.setProgress(4, 6)
         
         if self.sendPackages:
-            # interesting...
-            getInfo = 0
-#            if self.cfg['supportsExtendedPackageProfile']
-            #FIXME
-            getInfo = 1
+            getArch = 0
+            if self.cfg['supportsExtendedPackageProfile']:
+                getArch = 1
             packageList = rpmUtils.getInstalledPackageList(progressCallback = lambda amount,
                                                            total: gtk.main_iteration(False),
-                                                           getInfo=getInfo)
+                                                           getArch=getArch)
 ##            selection = []
             # FIXME
             selectedPackages = packageList
