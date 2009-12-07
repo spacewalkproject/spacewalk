@@ -10,7 +10,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: openssl rpm-build
 Requires: rhn-client-tools
-Requires: rhnlib >= 2.5.16
+Requires: spacewalk-backend-libs >= 0.8.3
 BuildRequires: docbook-utils
 BuildRequires: python
 Obsoletes: rhns-certs < 5.3.0

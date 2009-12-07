@@ -16,7 +16,8 @@ BuildArch: noarch
 Requires: python, rpm-python
 # /etc/rhn is provided by spacewalk-proxy-common or by spacewalk-config
 Requires: /etc/rhn
-Requires: rhnlib >= 2.5.16
+Requires: rhnlib >= 1.8
+Requires: %{name}-libs = %{version}-%{release}
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
@@ -138,6 +139,13 @@ modular so that you can plug/install additional mdoules for XML-RPC
 receivers and get them enabled automatically.
 
 This package contains listener for the Server XML dumper.
+
+%package libs
+Summary: Spacewalk server and client tools libraries
+Group: Applications/Internet
+
+%description libs
+Libraries required by both Spacewalk server and Spacewalk client tools.
 
 %package config-files-common
 Summary: Common files for the Configuration Management project
@@ -443,6 +451,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %config %{_sysconfdir}/logrotate.d/rhn_sat_export_internal
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_satexport.conf
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_satexport_internal.conf
+
+
+%files libs
+%defattr(-,root,root)
+%dir %{rhnroot}/spacewalk/
 
 
 %files config-files-common
