@@ -239,7 +239,7 @@ def get_para_virt_info():
         uuid_file = open('/sys/hypervisor/uuid', 'r')
         uuid = uuid_file.read()
         uuid_file.close()
-        uuid = uuid.lower().replace('-', '')
+        uuid = uuid.lower().replace('-', '').rstrip("\r\n")
         virt_type = "para"
         return (uuid, virt_type)
     except IOError:
