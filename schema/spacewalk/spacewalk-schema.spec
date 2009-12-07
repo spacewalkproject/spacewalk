@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.8.1
+Version:        0.8.2
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Dec 07 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.2-1
+- fixed sha256 related data upgrade scripts
+
 * Fri Dec 04 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.1-1
 - SHA256 feature related changes
 
