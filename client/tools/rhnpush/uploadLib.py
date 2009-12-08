@@ -665,17 +665,17 @@ def listMissingSourcePackages(server, username, password, channels):
 def listMissingSourcePackagesBySession(server, session_string, channels):
     return call(server.packages.listMissingSourcePackagesBySession, channels, session_string)
 
-def getPackageMD5sumBySession(server, session_string, info):
-    return call(server.packages.getPackageMD5sumBySession, session_string, info)
+def getPackageChecksumBySession(server, session_string, info):
+    return call(server.packages.getPackageChecksumBySession, session_string, info)
 
-def getSourcePackageMD5sumBySession(server, session_string, info):
-    return call(server.packages.getSourcePackageMD5sumBySession, session_string, info)
+def getSourcePackageChecksumBySession(server, session_string, info):
+    return call(server.packages.getSourcePackageChecksumBySession, session_string, info)
 
-def getPackageMD5sum(server, username, password, info):
-    return call(server.packages.getPackageMD5sum, username, password, info)
+def getPackageChecksum(server, username, password, info):
+    return call(server.packages.getPackageChecksum, username, password, info)
 
-def getSourcePackageMD5sum(server, username, password, info):
-    return call(server.packages.getSourcePackageMD5sum, username, password, info)
+def getSourcePackageChecksum(server, username, password, info):
+    return call(server.packages.getSourcePackageChecksum, username, password, info)
 
 
 def getServer(uri, proxy=None, username=None, password=None, ca_chain=None):

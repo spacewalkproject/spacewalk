@@ -536,19 +536,19 @@ class UploadClass(uploadLib.UploadClass):
                 #computing md5sum and other info is expensive process and session
                 #could have expired.Make sure its re-authenticated.
                 self.authenticate()
-                md5data = uploadLib.getPackageMD5sumBySession(self.server, self.session.getSessionString(), info)
+                checksum_data = uploadLib.getPackageChecksumBySession(self.server, self.session.getSessionString(), info)
             else:
-                md5data = uploadLib.getPackageMD5sum(self.server, self.username, self.password, info)
+                checksum_data = uploadLib.getPackageChecksum(self.server, self.username, self.password, info)
         else:
             if self.new_sat_test():
                 #computing md5sum and other info is expensive process and session
                 #could have expired.Make sure its re-authenticated.
                 self.authenticate()
-                md5data = uploadLib.getSourcePackageMD5sumBySession(self.server, self.session.getSessionString(), info)
+                checksum_data = uploadLib.getSourcePackageChecksumBySession(self.server, self.session.getSessionString(), info)
             else:
-                md5data = uploadLib.getSourcePackageMD5sum(self.server, self.username, self.password, info)
+                checksum_data = uploadLib.getSourcePackageChecksum(self.server, self.username, self.password, info)
                 
-        return (md5data, pkg_hash, digest_hash)
+        return (checksum_data, pkg_hash, digest_hash)
 
 
     def package(self, package, FileChecksum):
