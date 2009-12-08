@@ -39,7 +39,7 @@ from types import ListType, TupleType, IntType
 
 from rhn import connections, rpclib
 
-from rhn.common import rhn_mpm
+from spacewalk.common import rhn_mpm
 
 class ConnectionError(Exception):
     pass

@@ -44,7 +44,7 @@ try:
 except ImportError:
     from optik import Option, OptionParser
 from rhn import rpclib
-from rhn.common import rhn_mpm
+from spacewalk.common import rhn_mpm
 
 import uploadLib
 import rhnpush_v2

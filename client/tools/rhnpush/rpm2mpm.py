@@ -20,7 +20,7 @@ from types import ListType, TupleType, DictType
 import gzip
 import cStringIO
 
-from rhn.common import rhn_rpm, rhn_mpm
+from spacewalk.common import rhn_rpm, rhn_mpm
 
 def main():
     packages = sys.argv[1:]
