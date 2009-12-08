@@ -334,6 +334,7 @@ class UploadClass(uploadLib.UploadClass):
         #If not use the normal way to talk to older satellites(< 4.1.0).
         if headerinfo.getheader('X-RHN-Check-Package-Exists'):
             checkpkgflag = 1
+            # FIXME sha 256
             (md5pkgdata, pkgs_info, digest_hash) = self.check_package_exists()
             
         for pkg in self.files:
@@ -350,7 +351,7 @@ class UploadClass(uploadLib.UploadClass):
                 digest = digest_hash[pkg_key]
 
                 #compare md5's for existance check
-                if md5pkgdata[pkg_key] == digest and not self.options.force:
+                if md5pkgdata[pkg_key] == digest[1] and not self.options.force:
                     channel_packages.append(pkgs_info[pkg_key])
                     self.warn(1, "Package %s already exists on the RHN Server-- Skipping Upload...." % pkg)
                     continue
@@ -363,7 +364,7 @@ class UploadClass(uploadLib.UploadClass):
                     self.warn(0,"Package on disk but not on db -- Skipping Upload "%pkg)
                     continue
                 
-                elif md5pkgdata[pkg_key] != digest:
+                elif md5pkgdata[pkg_key] != digest[1]:
                     if self.options.force:
                         self.warn(1,"Package checksum %s mismatch  -- Forcing Upload"% pkg)
                     else:
@@ -389,7 +390,8 @@ class UploadClass(uploadLib.UploadClass):
                     self.warn(2, "ERROR: %s: No such file or directory available" % pkg)
                     continue
                 
-                digest = uploadLib.computeMD5sum(None, payload_stream)
+                # FIXME sha 256
+                digest = ('md5', uploadLib.computeMD5sum(None, payload_stream))
                 f.close()
                 
             for t in range(0, tries):
@@ -467,7 +469,7 @@ class UploadClass(uploadLib.UploadClass):
 
     #does an existance check of the packages to be uploaded and returns their md5sum and other info
     def check_package_exists(self):
-        self.warn(2, "Computing md5sum and package Info .This may take sometime ...")
+        self.warn(2, "Computing checksum and package Info .This may take sometime ...")
         pkg_hash = {}
         digest_hash = {}
         
@@ -494,7 +496,8 @@ class UploadClass(uploadLib.UploadClass):
                 self.warn(2, "ERROR: %s: No such file or directory available" % pkg)
                 continue
                         
-            digest_hash[pkg_key] =  uploadLib.computeMD5sum(None, payload_stream)
+            # FIXME sha 256
+            digest_hash[pkg_key] =  ('md5', uploadLib.computeMD5sum(None, payload_stream))
             f.close()
             
             for tag in ('name', 'version', 'release', 'epoch', 'arch'):
@@ -511,7 +514,7 @@ class UploadClass(uploadLib.UploadClass):
                     pkg_info['arch'] = 'nosrc'
                 else:
                     pkg_info['arch'] = 'src'
-            pkg_info['md5sum'] = digest_hash[pkg_key]
+            pkg_info['checksum'] = digest_hash[pkg_key]
             pkg_hash[pkg_key] = pkg_info
 
         if self.options.nullorg:
@@ -547,7 +550,7 @@ class UploadClass(uploadLib.UploadClass):
         return (md5data, pkg_hash, digest_hash)
 
 
-    def package(self, package, FileMD5sum):
+    def package(self, package, FileChecksum):
         self.warn(1, "Uploading package %s" % package)
         if not os.access(package, os.R_OK):
             self.die(-1, "Could not read file %s" % package)
@@ -570,7 +573,7 @@ class UploadClass(uploadLib.UploadClass):
 
         try:
             if self.ping_status == 200:
-                ret = self._push_package_v2(package, FileMD5sum)
+                ret = self._push_package_v2(package, FileChecksum)
             else:
                 ret = self._push_package_xmlrpc(package, h, packaging)
         except UploadError, e:
@@ -600,7 +603,7 @@ class UploadClass(uploadLib.UploadClass):
 
         return ret
 
-    def _push_package_v2(self, package, FileMD5sum):
+    def _push_package_v2(self, package, FileChecksum):
         self.warn(1, "Using POST request")
         pu = rhnpush_v2.PackageUpload(self.url_v2)
 
@@ -611,7 +614,7 @@ class UploadClass(uploadLib.UploadClass):
         pu.set_force(self.options.force)
         pu.set_null_org(self.options.nullorg)
 
-        status, msgstr = pu.upload(package, FileMD5sum)
+        status, msgstr = pu.upload(package, FileChecksum)
 
         ret = {}
         for tag in ('name', 'version', 'release', 'epoch', 'arch'):
@@ -620,7 +623,7 @@ class UploadClass(uploadLib.UploadClass):
                 val = ''
             ret[tag] = val
 
-        ret['md5sum'] = FileMD5sum
+        ret['checksum'] = FileChecksum
         if status == 400:
             # Bad request - something bad happened
             try:
