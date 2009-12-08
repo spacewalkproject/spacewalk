@@ -22,20 +22,7 @@ import getpass
 import rhnpush_cache
 import struct
 from spacewalk.common import rhn_mpm
-
-try:
-    import hashlib
-except ImportError:
-    import md5
-    class hashlib:
-        @staticmethod
-        def new(checksum):
-            # Add sha1 if needed.
-            if checksum == 'md5':
-                return md5.new()
-            # if not md5 or sha1, its invalid
-            if checksum not in ['md5', 'sha1']:
-                raise ValueError, "Incompatible checksum type"
+from spacewalk.common import checksum
 
 try:
     from rhn import rpclib
@@ -513,7 +500,7 @@ def _processFile(filename, relativeDir=None, source=None, nosig=None):
     size = os.path.getsize(filename)
     # Open the file
     f = open(filename, "r")
-    digest = computeMD5sum(None, f)
+    digest = checksum.getFileChecksum('md5', file=f)
     # Rewind the file
     f.seek(0, 0)
     # Read the header
@@ -572,23 +559,6 @@ def _processBatch(batch, relativeDir, source, verbose, nosig=None):
         # Append the header to the list of headers to be sent out
         headersList.append(hash)
     return sentPackages, headersList
-
-def computeMD5sum(filename=None, f=None):
-    if f is None:
-        fd = open(filename, "r")
-    else:
-        fd = f
-        fd.seek(0, 0)
-    md5sum = hashlib.new('md5')
-    while 1:
-        buf = fd.read(BUFFER_SIZE)
-        if not buf:
-            break
-        md5sum.update(buf)
-    if not f:
-        fd.close()
-    return string.join(map(lambda x: "%02x" % ord(x), md5sum.digest()), '')
-
 
 def readStdin():
     # Reads the standard input lines and returns a list

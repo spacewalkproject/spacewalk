@@ -45,6 +45,7 @@ except ImportError:
     from optik import Option, OptionParser
 from rhn import rpclib
 from spacewalk.common import rhn_mpm
+from spacewalk.common import checksum
 
 import uploadLib
 import rhnpush_v2
@@ -391,7 +392,7 @@ class UploadClass(uploadLib.UploadClass):
                     continue
                 
                 # FIXME sha 256
-                digest = ('md5', uploadLib.computeMD5sum(None, payload_stream))
+                digest = ('md5', checksum.getFileChecksum('md5', file=payload_stream))
                 f.close()
                 
             for t in range(0, tries):
@@ -497,7 +498,7 @@ class UploadClass(uploadLib.UploadClass):
                 continue
                         
             # FIXME sha 256
-            digest_hash[pkg_key] =  ('md5', uploadLib.computeMD5sum(None, payload_stream))
+            digest_hash[pkg_key] =  ('md5', checksum.getFileChecksum('md5', file=payload_stream))
             f.close()
             
             for tag in ('name', 'version', 'release', 'epoch', 'arch'):
