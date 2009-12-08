@@ -18,7 +18,8 @@
 import os
 import tempfile
 
-from common import CFG, log_debug, rhnFault, rhn_mpm, rhnLib, UserDictCase
+from common import CFG, log_debug, rhnFault, rhnLib, UserDictCase
+from spacewalk.common import rhn_mpm
 from spacewalk.common.rhn_rpm import get_header_byte_range
 
 from server import rhnSQL

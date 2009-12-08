@@ -22,10 +22,11 @@ from types import IntType, StringType, InstanceType
 from UserDict import UserDict
 from UserList import UserList
 
-from common import log_debug, rhn_mpm
+from common import log_debug
 from common.rhnLib import maketemp, getFileChecksum, createPath, setPermsPath
 
 from server.rhnLib import get_package_path
+from spacewalk.common import rhn_mpm
 
 # no-op class, used to define the type of an attribute
 class DateType:
