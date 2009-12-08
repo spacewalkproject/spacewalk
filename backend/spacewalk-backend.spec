@@ -462,8 +462,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files libs
 %defattr(-,root,root)
-%{python_sitelib}/spacewalk/
-%{python_sitelib}/spacewalk*egg-info
+%{python_sitelib}/spacewalk*
 
 %files config-files-common
 %defattr(-,root,root)
