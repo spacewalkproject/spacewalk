@@ -2,12 +2,14 @@
 <!DOCTYPE hibernate-mapping
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<hibernate-mapping>
+<hibernate-mapping default-access="property">
     <class name="com.redhat.rhn.domain.common.Checksum"
-        table="rhnChecksum" mutable="false">
-        <id name="id" type="long" column="id">
-            <meta attribute="scope-set">protected</meta>
-            <generator class="assigned" />
+        table="rhnChecksum" >
+        <id name="id" type="long" column="id" >
+
+             <generator class="sequence">
+                <param name="sequence">rhnChecksum_seq</param>
+            </generator>
         </id>
         <property name="checksum" type="string" column="checksum" />
         <many-to-one

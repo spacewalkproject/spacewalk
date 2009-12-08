@@ -21,6 +21,7 @@ import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.common.ChecksumFactory;
 import com.redhat.rhn.domain.errata.impl.PublishedBug;
 import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
 import com.redhat.rhn.domain.errata.impl.PublishedErrata;
@@ -505,7 +506,7 @@ public class ErrataFactory extends HibernateFactory {
                                                          Set packages) {
         ErrataFile file = new UnpublishedErrataFile();
         file.setFileType(ft);
-        file.setChecksum(cs);
+        file.setChecksum(ChecksumFactory.safeCreate(cs, "md5"));
         file.setFileName(name);
         file.setPackages(packages);
         return file;
@@ -538,7 +539,7 @@ public class ErrataFactory extends HibernateFactory {
                                                        Set packages) {
         ErrataFile file = new PublishedErrataFile();
         file.setFileType(ft);
-        file.setChecksum(cs);
+        file.setChecksum(ChecksumFactory.safeCreate(cs, "md5"));
         file.setFileName(name);
         file.setPackages(packages);
         return file;
