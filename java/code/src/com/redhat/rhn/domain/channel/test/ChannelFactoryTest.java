@@ -388,15 +388,15 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
     
     public void testfindChecksumByLabel() {
         assertNull("Checksum found for null label",
-                ChannelFactory.findChecksumByLabel(null));
+                ChannelFactory.findChecksumTypeByLabel(null));
         assertNull("Checksum found for invalid label",
-                ChannelFactory.findChecksumByLabel("some-invalid_checksum"));
+                ChannelFactory.findChecksumTypeByLabel("some-invalid_checksum"));
         
-        ChecksumType ct = ChannelFactory.findChecksumByLabel("sha-256");
+        ChecksumType ct = ChannelFactory.findChecksumTypeByLabel("sha256");
         assertNotNull(ct);
-        assertEquals("sha-256", ct.getLabel());
+        assertEquals("sha256", ct.getLabel());
         
-        ChecksumType ct2 = ChannelFactory.findChecksumByLabel("sha1");
+        ChecksumType ct2 = ChannelFactory.findChecksumTypeByLabel("sha1");
         assertNotNull(ct2);
         assertEquals("sha1", ct2.getLabel());
     }

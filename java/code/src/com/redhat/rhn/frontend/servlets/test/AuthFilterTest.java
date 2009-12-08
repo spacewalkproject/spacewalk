@@ -21,6 +21,8 @@ import org.jmock.Mock;
 import org.jmock.MockObjectTestCase;
 import org.jmock.core.Constraint;
 
+import java.util.Vector;
+
 import javax.servlet.FilterChain;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -78,6 +80,7 @@ public class AuthFilterTest extends MockObjectTestCase {
         
         mockRequest.stubs().method("getRequestDispatcher").withAnyArguments().will(
                 returnValue((RequestDispatcher)mockDispatcher.proxy()));
+        mockRequest.stubs().method("getHeaders").will(returnValue(new Vector().elements()));
         
         filter.setAuthenticationService((AuthenticationService)mockAuthService.proxy());
     }

@@ -67,7 +67,7 @@ public class UpdateChannelCommand extends CreateChannelCommand {
             throw new IllegalArgumentException("Invalid architecture label");
         }
         
-        ChecksumType ct = ChannelFactory.findChecksumByLabel(checksum);
+        ChecksumType ct = ChannelFactory.findChecksumTypeByLabel(checksum);
         
         if (!ct.getLabel().equals(c.getChecksum().getLabel()) && c.getPackageCount() > 0) {
             // schedule repo re generation if the checksum type changed 

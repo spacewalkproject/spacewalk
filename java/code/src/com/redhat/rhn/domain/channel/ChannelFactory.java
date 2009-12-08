@@ -582,7 +582,7 @@ public class ChannelFactory extends HibernateFactory {
      * @param checksum checksum label
      * @return ChecksumType instance for given label
      */
-    public static ChecksumType findChecksumByLabel(String checksum) {
+    public static ChecksumType findChecksumTypeByLabel(String checksum) {
         Map params = new HashMap();
         params.put("label", checksum);
         return (ChecksumType)
