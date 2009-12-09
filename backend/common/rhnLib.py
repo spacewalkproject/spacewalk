@@ -532,8 +532,8 @@ def setPermsPath(path, user='apache', group='root', chmod=0750):
 
     uid_, gid_ = os.stat(path)[4:6]
     if uid_ != uid or gid_ != gid:
-        #log(1, "   Performing 'chown %s.%s %s'" % (user, group, path))
-            #stream=sys.stderr)
+        log(3, "   Performing 'chown %s.%s %s'" % (user, group, path))
+            stream=sys.stderr)
         os.chown(path, uid, gid)
     os.chmod(path, chmod)
 
