@@ -24,6 +24,8 @@ import string
 import popen2
 import select
 import urlparse
+from common import log_debug, log_error
+
 try:
     import hashlib
 except ImportError:
@@ -512,7 +514,7 @@ def startswith(s, prefix):
 def setPermsPath(path, user='apache', group='root', chmod=0750):
     """chown user.group and set permissions to chmod"""
     if not os.path.exists(path):
-        log(-1, "*** ERROR: Path doesn't exist (can't set permissions): %s" % path, stream=sys.stderr)
+        log_error("*** ERROR: Path doesn't exist (can't set permissions): %s" % path)
         sys.exit(-1)
 
     # If non-root, don't bother to change owners
@@ -522,18 +524,17 @@ def setPermsPath(path, user='apache', group='root', chmod=0750):
     gc = GecosCache()
     uid = gc.getuid(user)
     if uid is None:
-        log(-1, messages.missing_user % user, stream=sys.stderr)
+        log_error(messages.missing_user % user)
         sys.exit(-1)
 
     gid = gc.getgid(group)
     if gid is None:
-        log(-1, messages.missing_group % group, stream=sys.stderr)
+        log_error(messages.missing_group % group)
         sys.exit(-1)
 
     uid_, gid_ = os.stat(path)[4:6]
     if uid_ != uid or gid_ != gid:
-        log(3, "   Performing 'chown %s.%s %s'" % (user, group, path),
-            stream=sys.stderr)
+        log_debug(3, "   Performing 'chown %s.%s %s'" % (user, group, path))
         os.chown(path, uid, gid)
     os.chmod(path, chmod)
 
@@ -645,7 +646,7 @@ def createPath(path, user='apache', group='root', chmod=0755, logging=1):
     path = cleanupAbsPath(path)
     if not os.path.exists(path):
         if logging:
-            log(4, "   Creating path: %s" % path, stream=sys.stderr)
+            log_debug(4, "   Creating path: %s" % path)
         makedirs(path, mode=chmod, user=user, group=group)
     elif not os.path.isdir(path):
         raise ValueError, "ERROR: createPath('%s'): path doesn't lead to a directory" % str(path)
