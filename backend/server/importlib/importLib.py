@@ -23,7 +23,7 @@ from UserDict import UserDict
 from UserList import UserList
 
 from common import log_debug, rhn_mpm
-from common.rhnLib import maketemp, getFileChecksum
+from common.rhnLib import maketemp, getFileChecksum, createPath, setPermsPath
 
 from server.rhnLib import get_package_path
 
@@ -848,7 +848,7 @@ def copy_package(fd, basedir, relpath, checksum, force=None):
     dir = os.path.dirname(packagePath)
     # Create the directory where the file will reside
     if not os.path.exists(dir):
-        os.makedirs(dir)
+        createPath(dir)
     pkgfd = os.open(packagePath, os.O_WRONLY | os.O_CREAT | os.O_TRUNC)
     os.lseek(fd, 0, 0)
     while 1:
@@ -862,7 +862,7 @@ def copy_package(fd, basedir, relpath, checksum, force=None):
                 n, len(buffer), packagePath)
     os.close(pkgfd)
     # set the path perms readable by all users
-    os.chmod(packagePath, 0644)
+    setPermsPath(packagePath, chmod=0644)
 
 
 # Assuming packageData is an RPM package, writes it on the disk
