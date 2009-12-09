@@ -206,6 +206,7 @@ Requires: %{name}-app = %{version}-%{release}
 Requires: %{name}
 Requires: spacewalk-certs-tools
 Requires: spacewalk-admin >= 0.1.1-0
+Requires: python-devel
 Requires: python-gzipstream
 Requires: python-hashlib
 Requires: PyXML
