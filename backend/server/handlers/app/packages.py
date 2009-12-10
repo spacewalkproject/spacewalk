@@ -562,11 +562,9 @@ class Packages(RPC_Base):
     def _MD5sum2Checksum_info(self, info):
         log_debug(5)
         pkg_infos = info.get('packages')
-        for pkginfo in info.get('packages'):
-            if pkginfo.has_key('md5sum'):
-                pkginfo['checksum'] = ('md5', pkginfo['md5sum'])
-
-        return
+        for pkg in pkg_infos.keys():
+            if pkg_infos[pkg].has_key('md5sum'):
+                pkg_infos[pkg]['checksum'] = ('md5', pkg_infos[pkg]['md5sum'])
 
     def _Checksum2MD5sum_list(checksum_list):
         row_list = {}
