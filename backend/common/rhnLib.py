@@ -407,12 +407,6 @@ def getFileChecksum(hashtype, filename=None, fd=None, file=None, buffer_size=Non
     return m.hexdigest()
 
 
-def getStringChecksum(hashtype, s):
-    """ compute checksum of an arbitrary string """
-    ctx = hashlib.new(hashtype, s)
-    return ctx.hexdigest()
-
-
 def rhn_popen(cmd, progressCallback=None, bufferSize=16384, outputLog=None):
     """ popen-like function, that accepts execvp-style arguments too (i.e. an
         array of params, thus making shell escaping unnecessary)
