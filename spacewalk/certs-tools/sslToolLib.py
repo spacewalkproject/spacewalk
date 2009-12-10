@@ -322,12 +322,6 @@ def getFileMD5(filename=None, fd=None, file=None, buffer_size=None):
     return hexify_string(m.digest())
 
 
-def getStringMD5(s):
-    "compute md5sum of an arbitrary string"
-    ctx = md5.new(s)
-    return hexify_string(ctx.digest())
-
-
 def hexify_string(s):
     return ("%02x" * len(s)) % tuple(map(ord, s))
 
