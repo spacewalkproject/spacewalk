@@ -349,7 +349,7 @@ class UploadClass(uploadLib.UploadClass):
                     continue
                 
                 digest = digest_hash[pkg_key]
-                server_digest = server_digest_hash[pkg_key]
+                server_digest = tuple(server_digest_hash[pkg_key])
 
                 # compare checksums for existance check
                 if server_digest == digest and not self.options.force:
