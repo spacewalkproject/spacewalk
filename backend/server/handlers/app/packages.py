@@ -566,7 +566,8 @@ class Packages(RPC_Base):
             if pkg_infos[pkg].has_key('md5sum'):
                 pkg_infos[pkg]['checksum'] = ('md5', pkg_infos[pkg]['md5sum'])
 
-    def _Checksum2MD5sum_list(checksum_list):
+    def _Checksum2MD5sum_list(self, checksum_list):
+        log_debug(5)
         row_list = {}
         for k in checksum_list.keys():
             if checksum_list[k] == '' or checksum_list[k] == 'on-disk':
