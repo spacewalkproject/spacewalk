@@ -35,7 +35,8 @@ class BasePackageUpload:
             "Package-Version",
             "Package-Release",
             "Package-Arch",
-            "File-MD5sum",
+            "File-Checksum",
+            "File-Checksum-Type",
         ]
         self.field_data = UserDictCase()
         self.org_id = None
@@ -49,6 +50,13 @@ class BasePackageUpload:
         
         #Header string. This is what the Auth-Session field will look like in the header.
         session_header = "%s-%s" % (self.header_prefix, "Auth-Session")
+
+        # legacy rhnpush sends File-MD5sum; translate it into File-Checksum
+        md5sum_header = "%s-%s" % (self.header_prefix, "File-MD5sum")
+        if req.headers_in.has_key(md5sum_header):
+            req.headers_in["%s-%s" % (self.header_prefix, "File-Checksum-Type")] = 'md5'
+            req.headers_in["%s-%s" % (self.header_prefix, "File-Checksum")] =
+                        req.headers_in[md5sum_header]
 
         for f in self.required_fields:
             hf = "%s-%s" % (self.header_prefix, f)
@@ -78,7 +86,8 @@ class BasePackageUpload:
         self.package_version = self.field_data["Package-Version"]
         self.package_release = self.field_data["Package-Release"]
         self.package_arch = self.field_data["Package-Arch"]
-        self.file_md5sum = self.field_data["File-MD5sum"] 
+        self.file_checksum = (self.field_data["File-Checksum-Type"],
+                              self.field_data["File-Checksum"] )
         #4/18/05 wregglej. if 1051 is in the header's keys, then it's a nosrc package.
         self.is_source = (self.package_arch == 'src' or self.package_arch == 'nosrc')
         return apache.OK

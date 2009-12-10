@@ -114,17 +114,17 @@ class PackagePush(basePackageUpload.BasePackageUpload):
 
         # Sanity check - removed, the package path can no longer be determined 
         # without the header
-        md5sum = rhnLib.getFileMD5(file=temp_stream)
-        checksum = ('md5', md5sum)      # FIXME sha256
+        checksum = (header.checksum_type(),
+                    rhnLib.getFileChecksum(header.checksum_type(), file=temp_stream))
         self.rel_package_path = rhnPackageUpload.relative_path_from_header(
             header, org_id=self.org_id, checksum=checksum)
         self.package_path = os.path.join(CFG.MOUNT_POINT,
             self.rel_package_path)
-        # Verify the md5sum of the bytes we downloaded against the md5sum
+        # Verify the checksum of the bytes we downloaded against the checksum
         # presented by rhnpush in the HTTP headers
-        if md5sum != self.file_md5sum:
-            log_debug(1, "Mismatching md5sums: expected", self.file_md5sum, 
-                "; got:", md5sum)
+        if checksum != self.file_checksum:
+            log_debug(1, "Mismatching checksums: expected", self.file_checksum,
+                "; got:", checksum)
             raise rhnFault(104, "Mismatching information")
         
         package_dict, diff_level = rhnPackageUpload.push_package(header,

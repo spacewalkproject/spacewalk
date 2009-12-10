@@ -309,14 +309,14 @@ class AlreadyUploadedError(Exception):
 class PackageConflictError(Exception):
     pass
 
-def check_package_exists(package_path, package_md5sum, force=0):
+def check_package_exists(package_path, package_checksum, force=0):
     if not os.path.exists(package_path):
         return
-    # File exists, same MD5sum?
-    md5sum = rhnLib.getFileMD5(package_path)
-    if package_md5sum == md5sum and not force:
+    # File exists, same checksum?
+    checksum = rhnLib.getFileChecksum(package_checksum[0], package_path)
+    if package_checksum == checksum and not force:
         raise AlreadyUploadedError(package_path)
     if force:
         return
-    raise PackageConflictError(package_path, md5sum)
+    raise PackageConflictError(package_path, checksum)
 
