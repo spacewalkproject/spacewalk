@@ -344,7 +344,7 @@ class UploadClass(uploadLib.UploadClass):
             pkg_key = (pkg.strip()).split('/')[-1]
 
             if checkpkgflag :
-                #Its Newer Satellite. compute md5sum checks on client.
+                # it's newer satellite, compute checksum checks on client.
                 if not server_digest_hash.has_key(pkg_key):
                     continue
                 
@@ -375,11 +375,12 @@ class UploadClass(uploadLib.UploadClass):
                         self.warn(0, msg)
                         continue
             else:
-                #Its an older satellite(< 4.1.0). Just do the push the usual old way,
-                #without md5sum pre-check.
+                # it's an older satellite(< 4.1.0). Just do the push the usual old way,
+                # without checksum pre-check.
                 try:
                     f = open(pkg)
                     header, payload_stream = rhn_mpm.load(file=f)
+                    checksum_type = header.checksum_type()
                 except rhn_mpm.InvalidPackageError, e:
                     if not self.options.tolerant:
                         self.die(-1, "ERROR: %s: This file doesn't appear to be a package" % pkg)
@@ -391,8 +392,8 @@ class UploadClass(uploadLib.UploadClass):
                     self.warn(2, "ERROR: %s: No such file or directory available" % pkg)
                     continue
                 
-                # FIXME sha 256
-                digest = ('md5', checksum.getFileChecksum('md5', file=payload_stream))
+                digest = (checksum_type,
+                          checksum.getFileChecksum(checksum_type, file=payload_stream))
                 f.close()
                 
             for t in range(0, tries):
@@ -468,7 +469,7 @@ class UploadClass(uploadLib.UploadClass):
                                 self.password, info)
         return 0
 
-    #does an existance check of the packages to be uploaded and returns their md5sum and other info
+    # does an existance check of the packages to be uploaded and returns their checksum and other info
     def check_package_exists(self):
         self.warn(2, "Computing checksum and package Info .This may take sometime ...")
         pkg_hash = {}
@@ -486,6 +487,7 @@ class UploadClass(uploadLib.UploadClass):
             try:
                 f = open(pkg)
                 header, payload_stream = rhn_mpm.load(file=f)
+                checksum_type = header.checksum_type()
             except rhn_mpm.InvalidPackageError, e:
                 if not self.options.tolerant:
                     self.die(-1, "ERROR: %s: This file doesn't appear to be a package" % pkg)
@@ -497,8 +499,8 @@ class UploadClass(uploadLib.UploadClass):
                 self.warn(2, "ERROR: %s: No such file or directory available" % pkg)
                 continue
                         
-            # FIXME sha 256
-            digest_hash[pkg_key] =  ('md5', checksum.getFileChecksum('md5', file=payload_stream))
+            digest_hash[pkg_key] =  (checksum_type,
+                        checksum.getFileChecksum(checksum_type, file=payload_stream))
             f.close()
             
             for tag in ('name', 'version', 'release', 'epoch', 'arch'):
@@ -530,19 +532,19 @@ class UploadClass(uploadLib.UploadClass):
             'org_id'   : orgid,
 	    'force'    : self.options.force or 0
             }
-        #rpc call to get md5sum info for all the packages to be uploaded
+        # rpc call to get checksum info for all the packages to be uploaded
         if not self.options.source:
             if self.new_sat_test():
-                #computing md5sum and other info is expensive process and session
-                #could have expired.Make sure its re-authenticated.
+                # computing checksum and other info is expensive process and session
+                # could have expired.Make sure its re-authenticated.
                 self.authenticate()
                 checksum_data = uploadLib.getPackageChecksumBySession(self.server, self.session.getSessionString(), info)
             else:
                 checksum_data = uploadLib.getPackageChecksum(self.server, self.username, self.password, info)
         else:
             if self.new_sat_test():
-                #computing md5sum and other info is expensive process and session
-                #could have expired.Make sure its re-authenticated.
+                # computing checksum and other info is expensive process and session
+                # could have expired.Make sure its re-authenticated.
                 self.authenticate()
                 checksum_data = uploadLib.getSourcePackageChecksumBySession(self.server, self.session.getSessionString(), info)
             else:

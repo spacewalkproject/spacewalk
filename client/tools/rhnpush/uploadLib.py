@@ -485,7 +485,7 @@ def _processFile(filename, relativeDir=None, source=None, nosig=None):
         Returns a hash containing:
           header
           packageSize
-          md5sum
+          checksum
           relativePath
           nvrea
      """
@@ -500,12 +500,14 @@ def _processFile(filename, relativeDir=None, source=None, nosig=None):
     size = os.path.getsize(filename)
     # Open the file
     f = open(filename, "r")
-    digest = checksum.getFileChecksum('md5', file=f)
-    # Rewind the file
-    f.seek(0, 0)
     # Read the header
     h = get_header(None, f.fileno(), source)
     (header_start, header_end) = get_header_byte_range(f);
+    # Rewind the file
+    f.seek(0, 0)
+    # Compute digest
+    digest = (h.checksum_type(),
+              checksum.getFileChecksum(h.checksum_type(), file=f))
     f.close()
     if h is None:
         raise UploadError("%s is not a valid RPM file" % filename)
@@ -531,7 +533,7 @@ def _processFile(filename, relativeDir=None, source=None, nosig=None):
 
     # Build the header hash to be sent
     hash = { 'header' : Binary(h.unload()),
-            'md5sum' : digest,
+            'checksum' : digest,
             'packageSize' : size,
             'header_start' : header_start,
             'header_end' : header_end}
