@@ -21,7 +21,7 @@ import base64
 import os
 
 from common import rhnFault, rhnException, log_debug, CFG, rhnFlags
-from common.rhnLib import getStringMD5
+from spacewalk.common.checksum import getStringMD5
 
 from server import rhnSQL, rhnUser, rhnCapability
 from server.rhnHandler import rhnHandler
