@@ -25,6 +25,7 @@ import popen2
 import select
 import urlparse
 from common import log_debug, log_error
+from spacewalk.common import checksum
 
 try:
     import hashlib
@@ -323,9 +324,11 @@ def rotateFile(filepath, depth=5, suffix='.', verbosity=0):
                          % os.path.dirname(pathNSuffix))
 
     # is there anything to do? (existence, then size, then md5sum)
+    checksum_type = 'md5'       # FIXME: this should be configuation option
     if os.path.exists(pathNSuffix1) and os.path.isfile(pathNSuffix1) \
       and os.stat(filepath)[6] == os.stat(pathNSuffix1)[6] \
-      and getFileMD5(filepath) == getFileMD5(pathNSuffix1):
+      and checksum.getFileChecksum(checksum_type, filepath) == \
+          checksum.getFileChecksum(checksum_type, pathNSuffix1):
         # nothing to do
         if verbosity:
             sys.stderr.write("File '%s' is identical to it's rotation. "
