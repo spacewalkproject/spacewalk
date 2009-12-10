@@ -23,10 +23,11 @@ from UserDict import UserDict
 from UserList import UserList
 
 from common import log_debug
-from common.rhnLib import maketemp, getFileChecksum, createPath, setPermsPath
+from common.rhnLib import maketemp, createPath, setPermsPath
 
 from server.rhnLib import get_package_path
 from spacewalk.common import rhn_mpm
+from spacewalk.common.checksum import getFileChecksum
 
 # no-op class, used to define the type of an attribute
 class DateType:
@@ -840,8 +841,9 @@ def copy_package(fd, basedir, relpath, checksum, force=None):
     # Is the file there already?
     if os.path.isfile(packagePath) and not force:
         # Get its checksum
-        localsum = getFileChecksum(checksum[0], packagePath)
-        if checksum[1] == localsum:
+        localsum = (checksum[0],
+                    getFileChecksum(checksum[0], packagePath))
+        if checksum == localsum:
             # Same file, so get outa here
             return 
         raise FileConflictError(os.path.basename(packagePath))
