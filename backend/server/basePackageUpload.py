@@ -55,7 +55,7 @@ class BasePackageUpload:
         md5sum_header = "%s-%s" % (self.header_prefix, "File-MD5sum")
         if req.headers_in.has_key(md5sum_header):
             req.headers_in["%s-%s" % (self.header_prefix, "File-Checksum-Type")] = 'md5'
-            req.headers_in["%s-%s" % (self.header_prefix, "File-Checksum")] =
+            req.headers_in["%s-%s" % (self.header_prefix, "File-Checksum")] = \
                         req.headers_in[md5sum_header]
 
         for f in self.required_fields:
