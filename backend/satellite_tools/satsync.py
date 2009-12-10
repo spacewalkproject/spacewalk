@@ -48,8 +48,9 @@ from progress_bar import ProgressBar
 from xmlSource import FatalParseException, ParseException
 from diskImportLib import rpmsPath
 
+from common.rhnLib import createPath
 from syncLib import log, log2, log2disk, log2stderr, log2email, unique
-from syncLib import RhnSyncException, RpmManip, createPath, ReprocessingNeeded
+from syncLib import RhnSyncException, RpmManip, ReprocessingNeeded
 from syncLib import initEMAIL_LOG, dumpEMAIL_LOG
 from syncLib import FileCreationError, FileManip, intersection
 

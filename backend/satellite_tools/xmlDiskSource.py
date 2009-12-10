@@ -19,7 +19,7 @@
 import os
 import gzip
 import string
-from syncLib import createPath
+from common.rhnLib import createPath
 
 
 class MissingXmlDiskSourceFileError(Exception):
