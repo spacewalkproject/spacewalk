@@ -25,8 +25,9 @@ import string
 from mod_python import apache
 from rhn import rpclib
 
-from common import CFG, log_debug, log_error, rhnFault, rhnFlags, rhnLib
+from common import CFG, log_debug, log_error, rhnFault, rhnFlags
 from server import rhnPackageUpload, rhnSQL, basePackageUpload
+from spacewalk.common import checksum
 
 class PackagePush(basePackageUpload.BasePackageUpload):
     def __init__(self, req):
@@ -115,7 +116,7 @@ class PackagePush(basePackageUpload.BasePackageUpload):
         # Sanity check - removed, the package path can no longer be determined 
         # without the header
         checksum = (header.checksum_type(),
-                    rhnLib.getFileChecksum(header.checksum_type(), file=temp_stream))
+                    checksum.getFileChecksum(header.checksum_type(), file=temp_stream))
         self.rel_package_path = rhnPackageUpload.relative_path_from_header(
             header, org_id=self.org_id, checksum=checksum)
         self.package_path = os.path.join(CFG.MOUNT_POINT,
