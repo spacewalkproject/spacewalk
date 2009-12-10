@@ -69,22 +69,6 @@ def RegistrationNumber(nr):
         return None     
     return ret
 
-# checks if a registration number is valid
-def ValidNumber(reg_num):
-    reg_num = RegistrationNumber(reg_num)
-    if not reg_num:
-        return -1
-    h = rhnSQL.prepare("""
-    select registered_flag flag from web_product_valid_numbers
-    where reg_number = :regnum
-    """)
-    h.execute(regnum = reg_num)
-    row = h.fetchone_dict()
-    if not row or not row.has_key("flag"):
-        return -1
-    flag = int(row["flag"])
-    return not flag
-
 #
 # Functions that we will provide for the outside world
 #
@@ -117,7 +101,6 @@ class Registration(rhnHandler):
         self.functions.append("update_contact_info")
         self.functions.append("update_packages")
         self.functions.append("update_transactions")
-        self.functions.append("validate_reg_num")
         self.functions.append("virt_notify")
         self.functions.append("welcome_message")
 
@@ -1210,29 +1193,6 @@ class Registration(rhnHandler):
         
         # save the user either to the database or the UserService
         self.__save_user(user)
-        return 0
-
-    # Validate a registration number
-    def validate_reg_num(self, prodcode):
-        log_debug(1, prodcode)
-        if not prodcode:
-            raise rhnFault(16, _("""
-            The product registration code can be found on the
-            registration card included with the product"""))
-        code = ValidNumber(prodcode)
-        if code == 0: # already registered
-            raise rhnFault(16, _("""
-            The code that you have entered has been already
-            registered. Please contact Red Hat Customer Support
-            at http://www.redhat.com/services/tools/installation/
-            """))
-        elif code == -1:
-            raise rhnFault(16, _("""
-            Invalid product registration number.
-            The product registration code can be found on the
-            registration card included with the product. Please
-            check carefully that you have entered the correct
-            registration number. Invalid: %s""") % prodcode)
         return 0
 
     # Updates the RPM transactions

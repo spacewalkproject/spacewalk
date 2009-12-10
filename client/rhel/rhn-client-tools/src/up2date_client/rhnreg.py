@@ -316,10 +316,6 @@ def reserveUser(username, password):
     s = rhnserver.RhnServer()
     return s.registration.reserve_user(username, password)
 
-def validateRegNum(regNum):
-    s = rhnserver.RhnServer()
-    s.registration.validate_reg_num(regNum)
-
 
 def registerUser(username, password, email = None):
     s = rhnserver.RhnServer()

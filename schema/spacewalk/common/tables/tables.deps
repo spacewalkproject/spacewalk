@@ -305,4 +305,4 @@ web_contact                    :: web_customer
 web_user_contact_permission    :: web_contact
 web_user_site_info             :: web_contact web_user_site_type
 web_user_personal_info         :: web_contact web_user_prefix
-web_customer_product           :: rh_product web_product_valid_numbers
+web_customer_product           :: rh_product
