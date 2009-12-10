@@ -369,47 +369,6 @@ def rotateFile(filepath, depth=5, suffix='.', verbosity=0):
     return pathNSuffix1
 
 
-def getFileMD5(filename=None, fd=None, file=None, buffer_size=None):
-    """ Compute a file's md5sum
-        Used by rotateFile()
-    """
-    return getFileChecksum('md5', filename, fd, file, buffer_size)
-
-def getFileChecksum(hashtype, filename=None, fd=None, file=None, buffer_size=None):
-    """ Compute a file's checksum
-        Used by rotateFile()
-    """
-
-    # python's md5 lib sucks
-    # there's no way to directly import a file.
-    if buffer_size is None:
-        buffer_size = 65536
-
-    if filename is None and fd is None and file is None:
-        raise ValueError("no file specified")
-    if file:
-        f = file
-    elif fd is not None:
-        f = os.fdopen(os.dup(fd), "r")
-    else:
-        f = open(filename, "r")
-    # Rewind it
-    f.seek(0, 0)
-    m = hashlib.new(hashtype)
-    while 1:
-        buffer = f.read(buffer_size)
-        if not buffer:
-            break
-        m.update(buffer)
-
-    # cleanup time
-    if file is not None:
-        file.seek(0, 0)
-    else:
-        f.close()
-    return m.hexdigest()
-
-
 def rhn_popen(cmd, progressCallback=None, bufferSize=16384, outputLog=None):
     """ popen-like function, that accepts execvp-style arguments too (i.e. an
         array of params, thus making shell escaping unnecessary)
