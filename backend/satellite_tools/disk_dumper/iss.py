@@ -196,7 +196,10 @@ class Dumper(dumper.XML_Dumper):
                 ch_info = ch_data.fetchall_dict()
                 
                 if not ch_info:
-                    raise ISSError("Error: Channel %s not found." % ids, "")
+                    if self.start_date:
+                        raise ISSError("Error: No %s channel information found within specified time frame." % ids, "")
+                    else:
+                        raise ISSError("Error: Channel %s not found." % ids, "")
                     
                 self.channel_ids = self.channel_ids + ch_info
         except ISSError:
