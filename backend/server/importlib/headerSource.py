@@ -24,7 +24,8 @@ from importLib import File, Dependency, ChangeLog, Channel, \
     IncompletePackage, Package, SourcePackage
 from backendLib import gmtime, localtime
 from types import ListType, TupleType, IntType
-from common import log_debug, rhnLib
+from common import log_debug
+from spacewalk.common import checksum
 
 class rpmPackage(IncompletePackage):
     # Various mappings
@@ -96,8 +97,8 @@ class rpmPackage(IncompletePackage):
         if relpath:
             # Strip trailing slashes
             path = "%s/%s" % (sanitizePath(relpath), os.path.basename(f_path))
-        md5sum = rhnLib.getFileMD5(file=f_obj)
-        checksum = ('md5', md5sum)      # FIXME sha256
+        checksum = (header.checksum_type(),
+                    checksum.getFileChecksum(header.checksum_type(), file=f_obj))
         self.populate(header, size, checksum, path, org_id, header_start,
             header_end, channels)
 

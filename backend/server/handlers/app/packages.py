@@ -23,7 +23,7 @@ import string
 import tempfile
 from types import TupleType
 
-from common import RPC_Base, rhnFault, log_debug, log_error, CFG, rhnLib
+from common import RPC_Base, rhnFault, log_debug, log_error, CFG
 
 from server import rhnSQL, rhnPackageUpload, rhnUser, rhnSession
 
@@ -35,6 +35,7 @@ from server.importlib.backendOracle import OracleBackend
 from server.importlib.packageUpload import uploadPackages, listChannels, listChannelsSource
 from server.importlib.userAuth import UserAuth
 from server.importlib.errataCache import schedule_errata_cache_update
+from spacewalk.common import checksum
 
 #12/22/05 wregglej 173287
 #I made a decent number of changes to this file to implement session authentication.
@@ -288,8 +289,8 @@ class Packages(RPC_Base):
         relative_path = rhnPackageUpload.relative_path_from_header(
             header, org_id=org_id)
 
-        md5sum = rhnLib.getFileMD5(file=package_stream)
-        checksum = ('md5', md5sum)      # FIXME sha256
+        checksum = (header.checksum_type(),
+                    checksum.getFileChecksum(header.checksum_type(), file=package_stream))
         package_dict, diff_level = rhnPackageUpload.push_package(
             header, payload_stream, checksum, org_id=org_id, force=force,
             header_start=header_start, header_end=header_end,
