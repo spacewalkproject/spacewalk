@@ -357,7 +357,7 @@ class UploadClass(uploadLib.UploadClass):
                     self.warn(1, "Package %s already exists on the RHN Server-- Skipping Upload...." % pkg)
                     continue
 
-                elif server_digest == "":
+                elif server_digest == ():
                     self.warn(1,"Package %s Not Found on RHN Server -- Uploading" % pkg)
 
                 elif server_digest == "on-disk" and not self.options.force:
