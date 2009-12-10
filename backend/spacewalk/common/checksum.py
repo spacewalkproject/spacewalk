@@ -76,7 +76,7 @@ def getFileChecksum(hashtype, filename=None, fd=None, file=None, buffer_size=Non
 
 def getStringMD5(s):
     """ compute md5sum of an arbitrary string """
-    return getStringChecksum(s)
+    return getStringChecksum('md5', s)
 
 def getStringChecksum(hashtype, s):
     """ compute checksum of an arbitrary string """
