@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.1
+Version: 0.8.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -283,6 +283,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Dec 10 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.2-1
+- fixed support for SHA256 rpms
+
 * Fri Dec  4 2009 Miroslav Suchý <msuchy@redhat.com> 0.8.1-1
 - sha256 support
 
