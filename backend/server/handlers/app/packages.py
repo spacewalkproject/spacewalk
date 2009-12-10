@@ -21,6 +21,7 @@
 import os
 import string
 import tempfile
+from types import TupleType
 
 from common import RPC_Base, rhnFault, log_debug, log_error, CFG, rhnLib
 
