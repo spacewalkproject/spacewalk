@@ -335,8 +335,7 @@ class UploadClass(uploadLib.UploadClass):
         #If not use the normal way to talk to older satellites(< 4.1.0).
         if headerinfo.getheader('X-RHN-Check-Package-Exists'):
             checkpkgflag = 1
-            # FIXME sha 256
-            (md5pkgdata, pkgs_info, digest_hash) = self.check_package_exists()
+            (server_digest_hash, pkgs_info, digest_hash) = self.check_package_exists()
             
         for pkg in self.files:
             ret = None #pkilambi:errors off as not initialized.this fixes it.
@@ -346,26 +345,27 @@ class UploadClass(uploadLib.UploadClass):
 
             if checkpkgflag :
                 #Its Newer Satellite. compute md5sum checks on client.
-                if not md5pkgdata.has_key(pkg_key):
+                if not server_digest_hash.has_key(pkg_key):
                     continue
                 
                 digest = digest_hash[pkg_key]
+                server_digest = server_digest_hash[pkg_key]
 
-                #compare md5's for existance check
-                if md5pkgdata[pkg_key] == digest[1] and not self.options.force:
+                # compare checksums for existance check
+                if server_digest == digest and not self.options.force:
                     channel_packages.append(pkgs_info[pkg_key])
                     self.warn(1, "Package %s already exists on the RHN Server-- Skipping Upload...." % pkg)
                     continue
 
-                elif md5pkgdata[pkg_key] == "":
+                elif server_digest == "":
                     self.warn(1,"Package %s Not Found on RHN Server -- Uploading" % pkg)
 
-                elif  md5pkgdata[pkg_key] == "on-disk" and not self.options.force:
+                elif server_digest == "on-disk" and not self.options.force:
                     channel_packages.append(pkgs_info[pkg_key])
                     self.warn(0,"Package on disk but not on db -- Skipping Upload "%pkg)
                     continue
                 
-                elif md5pkgdata[pkg_key] != digest[1]:
+                elif server_digest != digest:
                     if self.options.force:
                         self.warn(1,"Package checksum %s mismatch  -- Forcing Upload"% pkg)
                     else:
