@@ -31,7 +31,7 @@ from optparse import Option, OptionParser
 # __rhn imports__
 from common import CFG, initCFG, initLOG, Traceback, rhnMail, \
     rhnLib, rhnFlags
-from spacewalk.common import rhn_rpm
+from spacewalk.common import rhn_rpm, checksum
 
 from server import rhnSQL
 from server.rhnSQL import SQLError, SQLSchemaError, SQLConnectError
@@ -915,18 +915,18 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         return get_package_path(nevra, org_id, prepend=CFG.PREPENDED_DIR,
             source=source, checksum=checksum)
 
-    def _verify_file(self, path, mtime, size, md5sum):
+    def _verify_file(self, path, mtime, size, checksum):
         """Verifies if the file is on the filesystem and matches the mtime and
-        md5sum
-        Computing the md5sum is costly, that's why we rely on mtime
+        checksum
+        Computing the checksum is costly, that's why we rely on mtime
         comparisons.
         Returns a tuple (error_code, ret_path) where:
-            if the file has the specified mtime and md5sum, error_code is 0
+            if the file has the specified mtime and checksum, error_code is 0
                 and ret_path is None
-            if the file has the md5sum, the function sets mtime, error_code is
+            if the file has the checksum, the function sets mtime, error_code is
                 0 and ret_path is path
-            if the file exists but has a different md5sum, error_code is the
-                file's current md5sum and ret_path is path
+            if the file exists but has a different checksum, error_code is the
+                file's current checksum and ret_path is path
             if the file does not exist at all, error_code is 1 and ret_path is
                 null
         The idea is that error_code is 0 if the file exists or something else
@@ -945,11 +945,12 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             # Same mtime, and size, assume identity
             return (0, None)
 
-        # Have to check md5sum
-        l_md5sum = rhnLib.getFileMD5(filename=abs_path)
-        if l_md5sum != md5sum:
-            # Different md5sums
-            return (l_md5sum, path)
+        # Have to check checksum
+        l_checksum = (checksum[0],
+                      checksum.getFileChecksum(checksum[0], filename=abs_path))
+        if l_checksum != checksum:
+            # Different checksums
+            return (l_checksum, path)
 
         # Set the mtime
         os.utime(abs_path, (mtime, mtime))
@@ -973,7 +974,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             # Package is missing completely from the DB
             m_channel_packages.append((package_id, path))
             (errcode, ret_path) = self._verify_file(path,
-                l_timestamp, package_size, md5sum)
+                l_timestamp, package_size, ('md5', md5sum)) # FIXME sha256
             if errcode == 0:
                 # Package on the filesystem, and matches
                 return
@@ -991,7 +992,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         # Check the filesystem
         # This is one ugly piece of code
         (errcode, ret_path) = self._verify_file(db_path, l_timestamp,
-            package_size, md5sum)
+            package_size, ('md5', md5sum)) # FIXME sha256
         if errcode != 0:
             if errcode != 1 or path == db_path:
                 # Package is modified; fix it
@@ -1000,7 +1001,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 # Package is missing, and the DB path is, for some
                 # reason, not the same as the computed path.
                 (errcode, ret_path) = self._verify_file(path,
-                    l_timestamp, package_size, md5sum)
+                    l_timestamp, package_size, ('md5', md5sum)) # FIXME sha256
                 if errcode != 1:
                     # Use the computed path
                     final_path = path
@@ -1422,7 +1423,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                     md5sum = f['md5sum']
                     file_size = f['file_size']
                     (errcode, ret_path) = self._verify_file(dest_path,
-                        timestamp, file_size, md5sum)
+                        timestamp, file_size, ('md5', md5sum))  # FIXME sha256
                     if errcode != 0:
                         # Have to download it
                         val = (kt_label, base_path, relative_path,
