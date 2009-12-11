@@ -3896,26 +3896,6 @@ EOQ
   return $row;
 }
 
-sub server_group_type_ids_by_label {
-  my $class = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT  label, id
-  FROM  rhnServerGroupType
-EOQ
-
-
-  $sth->execute();
-
-  my $ret;
-  while (my $row = $sth->fetchrow_hashref) {
-    $ret->{$row->{LABEL}} = $row->{ID};
-  }
-
-  return $ret;
-}
-
 sub server_group_type_details_from_set {
   my $class = shift;
   my $uid = shift;
