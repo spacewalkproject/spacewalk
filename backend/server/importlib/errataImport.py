@@ -57,16 +57,13 @@ class ErrataImport(GenericPackageImport):
             self._processPackage(package)
 
         # Process channels
-        channels = []
         channelHash = {}
         for channel in errata['channels']:
             channelName = channel['label']
-            if not channelHash.has_key(channelName):
-                channels.append(channel)
-                channelHash[channelName] = None
+            channelHash[channelName] = channel
             self.channels[channelName] = None
         # Replace the channel list with the unique one
-        errata['channels'] = channels
+        errata['channels'] = channelHash.values()
 
     def _preprocessErratumCVE(self, erratum):
         # Build the CVE dictionary
