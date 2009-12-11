@@ -337,7 +337,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/rhnKickstart.py*
 %{rhnroot}/server/rhnDatabaseCache.py*
 %{rhnroot}/server/rhnDependency.py*
-%{rhnroot}/server/rhnItem.py*
 %{rhnroot}/server/rhnPackage.py*
 %{rhnroot}/server/rhnPackageUpload.py*
 %{rhnroot}/server/basePackageUpload.py*
