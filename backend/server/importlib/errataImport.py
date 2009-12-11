@@ -24,7 +24,7 @@ class ErrataImport(GenericPackageImport):
     def __init__(self, batch, backend, queue_timeout=600):
         GenericPackageImport.__init__(self, batch, backend)
         # A composite key of the name, evr, arch plus org_id
-        self.packages = []
+        self.packages = {}
         self.ignoreMissing = 0
         self.cve = {}
         self.queue_timeout = queue_timeout
@@ -88,8 +88,8 @@ class ErrataImport(GenericPackageImport):
                 package = f.get('pkgobj')
                 if package:
                     self._processPackage(package)
-                    if not package in self.packages:
-                        self.packages.append(package)
+                    nevrao = tuple(get_nevrao(package))
+                    self.packages[nevrao] = package
             #elif f['file_type'] == 'SRPM':
             #    # XXX misa: do something here
             #    pass
@@ -129,7 +129,7 @@ class ErrataImport(GenericPackageImport):
             #fix oval info to populate the relevant dbtables
             self._fix_erratum_oval_info(erratum)
             
-        self.backend.lookupPackages(self.packages, self.ignoreMissing)
+        self.backend.lookupPackages(self.packages.values(), self.ignoreMissing)
         for erratum in self.batch:
             self._fix_erratum_packages(erratum)
             self._fix_erratum_file_channels(erratum)
@@ -232,7 +232,6 @@ class ErrataImport(GenericPackageImport):
                 # Skip it
                 continue
 
-            oldpackage = package.copy()
             self._postprocessPackageNEVRA(package)
             self._postprocessPackage(package)
 
@@ -248,9 +247,7 @@ class ErrataImport(GenericPackageImport):
 
             # And put this package both in the local and in the global hash
             packageHash[nevrao] = package
-            # replace old package with new
-            idx = self.packages.index(oldpackage)
-            self.packages[idx] = package
+            self.packages[nevrao] = package
 
         erratum['packages'] = packageHash
 
