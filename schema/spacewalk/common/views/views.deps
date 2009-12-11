@@ -50,7 +50,7 @@ rhnChecksumView                  :: rhnChecksum rhnChecksumType
 rhnDemoOrgs                      :: demo_log
 rhnEntitledServers               :: rhnServerGroup rhnServerGroupType \
                                     rhnServerGroupMembers rhnServer
-rhnExpiringTrialMail             :: rhnServerGroupType rh_product \
+rhnExpiringTrialMail             :: rhnServerGroupType \
                                     web_user_site_info web_user_personal_info \
                                     web_user_contact_permission web_contact \
                                     rhnUserGroupMembers rhnUserGroup \

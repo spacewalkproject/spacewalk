@@ -208,8 +208,7 @@ rhnServerProfile               :: web_customer rhnChannel rhnServerProfileType
 rhnServerProfilePackage        :: rhnServerProfile rhnPackageName rhnPackageEVR
 rhnServerTokenRegs             :: rhnRegToken rhnServer
 rhnServerServerGroupArchCompat :: rhnServerGroupType rhnServerArch
-rhnServiceChannelFamilyMap     :: rh_product
-rhnServiceServerGroupMap       :: rh_product rhnServerGroupType
+rhnServiceServerGroupMap       :: rhnServerGroupType
 rhnSet                         :: web_contact
 rhnSGTypeBaseAddonCompat       :: rhnServerGroupType
 rhnSGTypeVirtSubLevel          :: rhnServerGroupType rhnVirtSubLevel
