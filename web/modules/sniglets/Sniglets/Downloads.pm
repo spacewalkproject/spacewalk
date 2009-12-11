@@ -109,37 +109,4 @@ sub ftp_download {
   return $ret;
 }
 
-sub send_partial_file {
-  my $fh = shift;
-  my $filename = shift;
-  my $pxt = shift;
-  my $header = $pxt->header_in('Range');
-  my $range_start = $header;
-  my $range_end = $header;
-  my $distance = -1;
-  my $chunk;
-  $range_start =~ s{bytes=([0-9]*)-([0-9]*)}{$1};
-  $range_end =~ s{bytes=([0-9]*)-([0-9]*)}{$2};
-  if ($range_start eq $header) {
-    $range_start =~ s{bytes=([0-9]*)}{$1};
-    $range_end = -1;
-  }
-  if ($range_end > $range_start) {
-    $distance = $range_end - $range_start;
-  }
-  if ($distance > -1) {
-    if ($range_start > 0) {
-      seek($fh, 0, $range_start);
-    }
-    read($fh, $chunk, $distance);
-    $pxt->header_out('Content-length' => $distance);
-    $pxt->send_http_header;
-    $pxt->print($chunk);
-  }
-  else {
-    $pxt->header_out('Content-length' => -s $filename);
-    $pxt->send_http_header;
-    $pxt->sendfile($filename);
-  }
-}
 1;
