@@ -23,7 +23,6 @@ use RHN::DataSource::Simple;
 use RHN::Exception qw/throw/;
 use RHN::Token;
 use RHN::Kickstart;
-use RHN::Kickstart::IPRange;
 use RHN::Kickstart::Session;
 use RHN::Utils;
 
