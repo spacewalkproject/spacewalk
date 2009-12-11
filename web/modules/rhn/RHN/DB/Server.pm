@@ -755,44 +755,6 @@ EOQ
 
 
 
-# given a base channel id plus satellite certificate satellite-version value,
-# return satellite channel info...
-sub sat_channel_by_version {
-  my $self = shift;
-  my %params = validate(@_, { version => { type => Params::Validate::SCALAR } });
-
-  my @potential_chans = RHN::Channel->satellite_channels_by_version(-version => $params{version});
-
-  return unless @potential_chans;
-
-  my $num_potentials = scalar @potential_chans;
-
-  my $base_channel_id = $self->base_channel_id;
-  die "no base channel!?" unless $base_channel_id;
-
-  my $query = sprintf(<<EOQ, join(", ", map {":chan$_"} (1..$num_potentials)));
-SELECT DISTINCT C.id AS CHANNEL_ID, C.label AS CHANNEL_LABEL
-  FROM rhnChannel C
- WHERE C.label IN (%s)
-   AND C.parent_channel = :base_channel_id
-EOQ
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare($query);
-
-  my %args = (base_channel_id => $base_channel_id);
-  foreach my $placeholder (map {"chan$_"} (1..$num_potentials)) {
-    $args{$placeholder} = pop @potential_chans;
-  }
-
-  $sth->execute_h(%args);
-
-  my $sat_channel_info = $sth->fetchrow_hashref;
-  $sth->finish;
-
-  return $sat_channel_info;
-}
-
 sub deactivate_proxy {
   my $self = shift;
   my $transaction = shift;
