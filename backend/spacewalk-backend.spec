@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.7
+Version: 0.8.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -597,6 +597,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Dec 11 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.8-1
+- removed a lot of dead code
+- fixed getFileChecksum usage
+- SHA256 fixes
 * Thu Dec 10 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.7-1
 - added support for uploading SHA256 rpms
 - 541078 - rhn-satellite-exporter --start-date and --end-date issues fixed
