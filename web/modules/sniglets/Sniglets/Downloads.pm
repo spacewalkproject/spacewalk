@@ -33,37 +33,9 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-recent-iso-channels', \&recent_iso_channels, 1);
   $pxt->register_tag('rhn-ftp-download', \&ftp_download, 4);
   $pxt->register_tag('rhn-akamai-redirect' => \&akamai_redirect);
   $pxt->register_tag('rhn-download-package', \&download_package, 1);
-}
-
-sub recent_iso_channels {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__} || '';
-  my $limit = $params{limit};
-
-  my @channels = split /\s*,\s*/, PXT::Config->get("popular_iso_channels");
-
-  my $ret;
-  foreach my $i (0 .. $#channels) {
-    last if $limit and $i >= $limit;
-    my $channel_id = RHN::Channel->channel_id_by_label($channels[$i]);
-    next unless $pxt->user->verify_channel_access($channel_id);
-    my $channel = RHN::Channel->lookup(-id => $channel_id);
-
-    my %s;
-    $s{channel_label} = $channel->label;
-    $s{channel_name} = $channel->name;
-    PXT::Utils->escapeHTML_multi(\%s);
-
-    $ret .= PXT::Utils->perform_substitutions($block, \%s);
-  }
-
-  return $ret;
 }
 
 # non-tag access to RHN download links
