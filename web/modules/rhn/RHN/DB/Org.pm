@@ -1435,46 +1435,6 @@ EOQ
 }
 
 
-# get the entitled channel families available for 
-# an org's cert
-sub ent_cert_channels {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $stmt =  <<EOQ;
-SELECT  
-        cf.id                           id,
-        cf.name                         name,
-        cf.label                        label,
-        ocfp.max_members                quantity
-FROM    rhnChannelFamily                cf,
-        rhnOrgChannelFamilyPermissions  ocfp
-WHERE   1=1
-    and ocfp.org_id = :org_id
-    and cf.org_id is null
-    and ocfp.channel_family_id = cf.id
-EOQ
-
-  foreach my $skip_clause (@skip_cert_channels) {
-    $stmt .= " and cf.label not like '$skip_clause'";
-  }
-
-  my $sth = $dbh->prepare($stmt);
-
-  $sth->execute_h(org_id => $self->id);
-
-  my @result;
-
-  while ( my (@data) = $sth->fetchrow ) {
-      push ( @result, \@data );
-  }
-
-  $sth->finish;
-
-  return @result;
-  
-}
-
 # Get options defined for this Org's list of monitoring Scouts
 sub get_scout_options {
     my $self = shift;
