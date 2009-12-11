@@ -51,7 +51,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-errata-list-summary', \&errata_list_summary, 5);
   $pxt->register_tag('rhn-system-group-list-summary', \&system_group_list_summary, 5);
-  $pxt->register_tag('rhn-purchase-history-summary', \&purchase_history_summary, 5);
   $pxt->register_tag('rhn-system-name', \&system_name, -5);
   $pxt->register_tag('rhn-time-period-selector', \&time_selector);
 
@@ -297,24 +296,6 @@ sub system_group_list_summary {
 
   if ($summary) {
     $html = PXT::Utils->perform_substitutions($attr{__block__}, $summary);
-  }
-
-  return $html;
-}
-
-sub purchase_history_summary {
-  my $pxt = shift;
-  my %attr = @_;
-
-  my $type = $attr{type} || '';
-
-  throw "Not a valid type: '$type'." unless grep { $type eq $_ } qw/free trial paid/;
-
-  my $summary = $pxt->pnotes("purchase_history_summary");
-  my $html = '';
-
-  if ($summary) {
-    $html = PXT::Utils->perform_substitutions($attr{__block__}, $summary->{$type});
   }
 
   return $html;
