@@ -107,37 +107,6 @@ sub get_service_map {
 }
 
 
-sub render_channel_rows {
-  my $channels = shift;
-  my $prefix = shift;
-  my $render_zero_quant = shift;
-  my $counter = 1;
-  my $ret = "";
-
-  foreach my $label (sort keys %{$channels}) {
-    $counter++;
-    my $row_class = ($counter % 2) ? "list-row-even" : "list-row-odd";
-    my $quant = $channels->{$label}->{QUANT};
-    my $id = $channels->{$label}->{ID};
-    if ($render_zero_quant or $quant > 0) {
-      $ret .= "<tr class=\"" . $row_class . "\"><td>" . $label . "</td><td align=\"center\">" . $quant . "</td><td align=\"center\">";
-      if ($label eq 'rhn-tools') {
-        $ret .= "$quant\n";
-        $ret .= "<input type=\"hidden\" name=\"" . $prefix . "_" . $id . "_quant\" value=\"" . $quant . "\"/>\n";
-      }
-      else {
-        $ret .= "<input size=\"5\" type=\"text\" name=\"" . $prefix . "_" . $id . "_quant\" value=\"" . $quant . "\"/>\n";
-      }
-      $ret .= "<input type=\"hidden\" name=\"" . $prefix . "\" value=\"$id\"/>";
-      $ret .= "<input type=\"hidden\" name=\"" . $prefix . "_" . $id . "_label\" value=\"" . $label . "\"/>\n";
-      $ret .= "<input type=\"hidden\" name=\"" . $prefix . "_" . $id . "_oldquant\" value=\"" . $quant . "\"/>\n";
-      $ret .= "</td></tr>\n";
-    }
-  }
-
-  return $ret;
-}
-
 # render the page that lets user view cert data
 sub cert_text {
   my $pxt = shift;
