@@ -89,9 +89,6 @@ sub _register_modes {
 			   -provider => \&activation_key_provider,
 			   -action_callback => \&activation_key_cb);
 
-  Sniglets::ListView::List->add_mode(-mode => "faq_list",
-			   -datasource => RHN::DataSource::General->new);
-
   Sniglets::ListView::List->add_mode(-mode => "user_emailaddress_log",
 			   -datasource => RHN::DataSource::General->new,
 			   -provider => \&emailaddress_provider);
