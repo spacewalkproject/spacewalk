@@ -61,8 +61,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-user-site-view' => \&user_site_view);
 
-  $pxt->register_tag('rhn-if-pref' => \&if_pref, -10);
-
   $pxt->register_tag('rhn-if-server-groups' => \&if_server_groups);
 
   $pxt->register_tag('rhn-user-login' => \&rhn_user_login);
@@ -993,28 +991,6 @@ sub rhn_require {
    }
 
    return '';
-}
-
-sub if_pref {
-  my $pxt = shift;
-  my %attr = @_;
-
-  my $pref_name = $attr{name};
-  my $pref_val = $attr{value};
-
-  my $selected = $pxt->user->get_pref($pref_name);
-
-  if (uc($selected) eq uc($pref_val)) {
-
-    if (my $file = $attr{file}) {
-      return $pxt->include($file);
-    }
-    else {
-      return $attr{__block__};
-    }
-  }
-
-  return;
 }
 
 sub toggle_pref_cb {
