@@ -33,8 +33,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-channel-downloads' => \&channel_downloads, 3);
-
   $pxt->register_tag('rhn-recent-iso-channels', \&recent_iso_channels, 1);
   $pxt->register_tag('rhn-ftp-download', \&ftp_download, 4);
   $pxt->register_tag('rhn-akamai-redirect' => \&akamai_redirect);
@@ -97,49 +95,6 @@ sub choose_download_location {
 
   return $locations[0]
 }
-
-sub channel_downloads {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $channel = $params{channel};
-  my $category = $params{category};
-  my $mode = $params{mode};
-  my $type = $params{type};
-  my $block = $params{__block__};
-
-  my $ret;
-
-  my $file_ds = new RHN::DataSource::Channel(-mode => $mode);
-  my $isos = $file_ds->execute_full(-channel_label => $channel, -download_type => $type);
-
-  my $i = 0;
-  foreach my $iso (@$isos) {
-    next unless $iso->{CATEGORY} eq $category;
-    my %s;
-
-    $s{download_name} = $iso->{DOWNLOAD_NAME};
-    $s{download_path} = $iso->{DOWNLOAD_PATH};
-    $s{download_file_id} = $iso->{ID};
-    $s{download_size} = PXT::Utils->humanify($iso->{DOWNLOAD_SIZE});
-    $s{download_checksum} = $iso->{DOWNLOAD_CHECKSUM};
-    $s{download_trclass} = $i++ % 2 ? "#eeeeee" : "#ffffff";
-
-    if ($iso->{LOCATIONS} and @{$iso->{LOCATIONS}} > 0) {
-      $s{download_location} = Sniglets::Downloads->choose_download_location(@{$iso->{LOCATIONS}});
-    }
-    else {
-      $s{download_location} = "local";
-    }
-
-    PXT::Utils->escapeHTML_multi(\%s);
-
-    $ret .= PXT::Utils->perform_substitutions($block, \%s);
-  }
-
-  return $ret;
-}
-
 
 # non-tag access to RHN download links
 sub rhn_download_url {
