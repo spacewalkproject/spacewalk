@@ -55,7 +55,6 @@ sub register_tags {
 
   $pxt->register_tag('public-secure-links-if-logged-in' => \&secure_links_if_logged_in, 101);
 
-  $pxt->register_tag('rhn-user-info' => \&rhn_user_info);
   $pxt->register_tag('rhn-admin-user-site-edit-form' => \&admin_user_site_edit_form);
 
   $pxt->register_tag('rhn-login-form', \&rhn_login_form);
@@ -281,20 +280,6 @@ sub public_login_link {
   my $login_url = PXT::Utils->escapeURI($pxt->uri . (@params ? "?" . join("&amp;", map { $_ . "=" . $pxt->dirty_param($_) } @params) : ""));
   my $login_pxt = $pxt->derelative_url("/errata/login.pxt", 'https');
   return "<a href=\"$login_pxt?url_bounce=$login_url\"><img src=\"/img/homepg_login.gif\" width=\"117\" height=\"21\" border=\"0\" alt=\"login\" /></a>";
-}
-
-sub rhn_user_info {
-  my $pxt = shift;
-  my %params = @_;
-  my $block = $params{__block__};
-
-  my %subst;
-
-  $subst{login} = $pxt->user->login;
-  $subst{email} = $pxt->user->email;
-  $subst{created} = $pxt->user->created;
-
-  return PXT::Utils->perform_substitutions($block, \%subst); 
 }
 
 sub system_summary {
