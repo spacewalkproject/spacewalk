@@ -57,7 +57,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-login-form', \&rhn_login_form);
 
-  $pxt->register_tag('rhn-system-summary' => \&system_summary);
   $pxt->register_tag('rhn-action-summary' => \&action_summary);
 
   $pxt->register_tag('rhn-require' => \&rhn_require, -1000);
@@ -249,75 +248,6 @@ EOB
 
 
 
-
-sub system_summary {
-  my $pxt = shift;
-  my %params = @_;
-  my $block = $params{__block__};
-  my $html;
-
-  my $system_summary = { };
-
-  @{$system_summary}{qw/total out_of_date unentitled ungrouped inactive/} = @{$pxt->user->system_summary}[0 .. 4];
-
-  my @system_display = ( { label => 'total',
-			   name  => 'Total systems',
-			   value => $system_summary->{total},
-			   mode  => 'SystemList' },
-			 { label => 'out_of_date',
-			   name  => 'Out of date systems',
-			   value => $system_summary->{out_of_date},
-			   mode  => 'OutOfDate',
-			   test  => 1 },
-			 { label => 'unentitled',
-			   name  => 'Unentitled systems',
-			   value => $system_summary->{unentitled},
-			   mode  => 'Unentitled' },
-			 { label => 'ungrouped',
-			   name  => 'Ungrouped systems',
-			   value => $system_summary->{ungrouped},
-			   mode  => 'Ungrouped',
-			   test  => $pxt->user->is('org_admin') && $pxt->user->org->has_entitlement('sw_mgr_enterprise') && $system_summary->{ungrouped} > 0 },
-			 { label => 'inactive',
-			   name  => 'Inactive systems',
-			   value => $system_summary->{inactive},
-			   mode  => 'Inactive' } );
-
-  foreach my $attrib (@system_display) {
-
-    if (exists $attrib->{test}) {
-      next unless $attrib->{test};
-    }
-    else {
-      next unless $attrib->{value};
-    }
-
-    my $copy = $block;
-
-    my $link = $params{link_url};
-    $link =~ s/\{mode\}/$attrib->{mode}/eg;
-
-    $copy =~ s/\{attrib_link\}/$link/;
-
-    foreach (qw/name value/) {
-      $copy =~ s/\{attrib_$_\}/$attrib->{$_}/eg;
-    }
-
-    $html .= $copy;
-  }
-
-  if ($system_summary->{total} == 0) {
-    my $message = $params{no_systems_message};
-
-    $html = <<EOQ;
-<tr class="graydata" valign="middle">
-<td colspan="2" align="center"><strong>$message</strong></td>
-</tr>
-EOQ
-}
-
-  return $html;
-}
 
 sub action_summary {
   my $pxt = shift;
