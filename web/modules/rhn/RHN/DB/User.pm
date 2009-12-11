@@ -184,39 +184,6 @@ EOQ
   return $ret;
 }
 
-# used during deactivation process, ensures people get 
-# removed from cheetah mailer...
-sub queue_for_cheetah {
-  my $self = shift;
-  my %params = validate(@_, {user_id => 0, transaction => 0});
-
-  my $user;
-  if (not ref $self) {
-    die "no user id and not a user object method call" unless $params{user_id};
-
-    $user = RHN::User->lookup(-id => $params{user_id});
-  }
-  else {
-    $user = $self;
-  }
-
-  my $dbh = $params{transaction} || RHN::DB->connect();
-
-  my $mailable_address = $user->find_mailable_address;
-  my $email_addy = $mailable_address ? $mailable_address->address : undef;
-
-  if ($email_addy) {
-    my $sth = $dbh->prepare("INSERT INTO cheetah_unsubscribe (address) VALUES (?)");
-    $sth->execute($email_addy);
-  }
-
-  unless ($params{transaction}) {
-    $dbh->commit;
-  }
-
-  return $email_addy;
-}
-
 # walks a user's sets to ensure nothing has corrupted them... hopefully isn't too expensive
 sub cleanse_sets {
   my $self = shift;
