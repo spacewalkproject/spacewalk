@@ -1399,32 +1399,6 @@ EOQ
 }
 
 
-# figure out the theoretical expiration date of an org's cert given
-# the currently available services
-sub calc_cert_expiration {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT GREATEST(end_date_active) FROM web_customer_entitlements 
-  WHERE service_item_code IN 
-    (SELECT item_code FROM rh_product 
-      WHERE product_id IN 
-        (SELECT product_id FROM rhnServiceChannelFamilyMap 
-          WHERE family_id IN 
-            (SELECT id FROM rhnChannelFamily WHERE label='rhn-satellite'))) AND 
-              active_flag='Y' AND customer_id=:org_id
-EOQ
-
-  $sth->execute_h(org_id => $self->id);
-  my $data = $sth->fetchrow;
-
-  $sth->finish;
-
-  return Date::Parse::str2time($data);
-  
-}
-
 sub available_cert_channels {
   my $self = shift;
 
