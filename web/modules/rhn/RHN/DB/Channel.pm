@@ -289,42 +289,6 @@ sub trusted_orgs {
 # Channel package functions
 ################################
 
-my %sat_chans_by_version = ('1.0' => ['redhat-rhn-satellite-as-i386-2.1', 'redhat-rhn-satellite-i386-7.2'],
-			    '2.0' => ['redhat-rhn-satellite-2.0-as-i386-2.1', 'redhat-rhn-satellite-2.0-i386-7.2'],
-			    '2.1' => ['redhat-rhn-satellite-2.1-as-i386-2.1'],
-			    '2.99' => ['redhat-rhn-satellite-2.99beta-as-i386-2.1'],
-			    '3.2' => ['redhat-rhn-satellite-3.2-as-i386-2.1'],
-			    '3.4' => ['redhat-rhn-satellite-3.4-as-i386-2.1'],
-			    '3.5' => ['redhat-rhn-satellite-3.5-as-i386-2.1', 'redhat-rhn-satellite-3.5-as-i386-3'],
-			    '3.6' => ['redhat-rhn-satellite-3.6-as-i386-2.1', 'redhat-rhn-satellite-3.6-as-i386-3'],
-			    '3.7' => ['redhat-rhn-satellite-3.7-as-i386-2.1', 'redhat-rhn-satellite-3.7-as-i386-3', 
-                          'redhat-rhn-satellite-3.7-as-i386-4'],
-			    '4.0' => ['redhat-rhn-satellite-4.0-as-x86_64-4',
-				      'redhat-rhn-satellite-4.0-as-i386-3',
-				      'redhat-rhn-satellite-4.0-as-i386-4',
-				     ],
-			    '4.1' => ['redhat-rhn-satellite-4.1-as-i386-3',
-				      'redhat-rhn-satellite-4.1-as-i386-4',
-				     ],
-                            '4.2' => ['redhat-rhn-satellite-4.2-as-i386-3',
-                                      'redhat-rhn-satellite-4.2-as-i386-4',
-                                     ],
-			    '5.0' => ['redhat-rhn-satellite-5.0-as-i386-4',
-				      'redhat-rhn-satellite-5.0-server-i386-5',
-				     ],
-			   );
-
-sub satellite_channels_by_version {
-  my $class = shift;
-  my %params = validate(@_, { version => {type => Params::Validate::SCALAR } });
-
-  if (not exists $sat_chans_by_version{$params{version}}) {
-    die "invalid satellite version";
-  }
-
-  return @{$sat_chans_by_version{$params{version}}};
-}
-
 my %proxy_chans_by_version = ('1.1' => ['redhat-rhn-proxy-as-i386-2.1', 'redhat-rhn-proxy-i386-7.2'],
 			      '3.2' => ['redhat-rhn-proxy-3.2-as-i386-2.1'],
 			      '3.6' => ['redhat-rhn-proxy-3.6-as-i386-2.1', 'redhat-rhn-proxy-3.6-as-i386-3'],
