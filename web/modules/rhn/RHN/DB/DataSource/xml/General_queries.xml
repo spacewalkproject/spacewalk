@@ -150,34 +150,6 @@ ORDER BY RT.note, RT.id
   </query>
 </mode>
 
-<mode name="purchase_history">
-  <query params="org_id">
-SELECT DISTINCT * FROM
-(SELECT wce.customer_id,
-        wce.active_flag,
-        TO_CHAR(wce.start_date_active, 'YYYY-MM-DD') AS start_date_active,
-        TO_CHAR(wce.end_date_active, 'YYYY-MM-DD') AS end_date_active,
-        wce.product_name,
-        wce.service_name,
-        wce.product_item_code,
-        wce.service_item_code,
-        wce.group_label,
-        wce.quantity,
-        wce.customer_product_id,
-        wce.paid,
-        wco.order_id
-from    web_customer_orders wco,
-        web_customer_entitlements wce
-where   wce.customer_id = :org_id
-        and wco.customer_id(+) = :org_id
-        and wce.product_item_code NOT LIKE '__TAX' -- ugly hack, don't show taxes here
-	    and wce.quantity >= 0 -- hide the ugly prov upgrade slots
-        --and wco.order_id IS NOT NULL
-        and wce.customer_product_id = wco.customer_product_id(+)) X
-ORDER BY X.start_date_active DESC, X.order_id DESC, X.product_item_code
-  </query>
-</mode>
-
 <mode name="user_emailaddress_log">
   <query params="support_uid">
 SELECT EAL.user_id, WC.login, EAL.address, EAL.reason, TO_CHAR(EAL.created, 'YYYY-MM-DD HH24:MI:SS') as created
