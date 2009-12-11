@@ -18,7 +18,6 @@ use strict;
 package Sniglets::ListView::GeneralList;
 
 use Sniglets::ListView::List;
-use RHN::Catalog;
 use RHN::DataSource::General;
 use RHN::DataSource::Simple;
 use RHN::Exception qw/throw/;
