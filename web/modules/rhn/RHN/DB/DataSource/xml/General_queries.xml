@@ -150,16 +150,6 @@ ORDER BY RT.note, RT.id
   </query>
 </mode>
 
-<mode name="user_emailaddress_log">
-  <query params="support_uid">
-SELECT EAL.user_id, WC.login, EAL.address, EAL.reason, TO_CHAR(EAL.created, 'YYYY-MM-DD HH24:MI:SS') as created
-  FROM Web_Contact WC, rhnEmailAddressLog EAL
- WHERE EAL.user_id = :support_uid
-   AND WC.id = EAL.user_id
-ORDER BY EAL.created DESC
-  </query>
-</mode>
-
 <mode name="template_strings">
   <query params="">
  SELECT TS.id, TC.label as CATEGORY_LABEL, TS.label, TS.value

@@ -89,10 +89,6 @@ sub _register_modes {
 			   -provider => \&activation_key_provider,
 			   -action_callback => \&activation_key_cb);
 
-  Sniglets::ListView::List->add_mode(-mode => "user_emailaddress_log",
-			   -datasource => RHN::DataSource::General->new,
-			   -provider => \&emailaddress_provider);
-
   Sniglets::ListView::List->add_mode(-mode => "template_strings",
 			   -datasource => RHN::DataSource::General->new);
 
@@ -142,20 +138,6 @@ sub system_notes_provider {
     if (defined $note->{NOTE}) {
       $note->{NOTE} = '<pre>' . $note->{NOTE} . '</pre>';
     }
-  }
-
-  return (%ret);
-}
-
-sub emailaddress_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my %ret = $self->default_provider($pxt);
-
-  foreach my $event (@{$ret{data}}) {
-    $event->{REASON} ||= '';
-    $event->{REASON} =~ s|payloader/||g;
   }
 
   return (%ret);
