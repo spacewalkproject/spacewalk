@@ -56,7 +56,6 @@ sub register_tags {
   $pxt->register_tag('public-secure-links-if-logged-in' => \&secure_links_if_logged_in, 101);
 
   $pxt->register_tag('rhn-login-form', \&rhn_login_form);
-  $pxt->register_tag('rhn-logout-form', \&rhn_logout_form);
 
   # for the non-rhn's pages we serve out, little different logout link behavior,
   # more in line w/ www.redhat.com
@@ -526,18 +525,6 @@ sub rhn_login_form {
   $body =~ s(\[login_form_hidden\])(<input type="hidden" name="pxt_trap" value="rhn:login_cb" />\n<input type="hidden" name="cookie_test" value="1" />\n$hidden)gmsi;
 
   $pxt->session->set('cookie_test' => 1);
-
-  return $body;
-}
-
-sub rhn_logout_form {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $body = $params{__block__};
-  $body = $pxt->prefill_form_values($body);
-
-  $body =~ s(\[logout_form_hidden\])(<input type="hidden" name="pxt_trap" value="rhn:logout_cb" />)gmsi;
 
   return $body;
 }
