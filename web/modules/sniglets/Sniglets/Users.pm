@@ -61,7 +61,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-user-site-view' => \&user_site_view);
 
-  $pxt->register_tag('rhn-toggle-pref' => \&toggle_pref);
   $pxt->register_tag('rhn-if-pref' => \&if_pref, -10);
 
   $pxt->register_tag('rhn-if-server-groups' => \&if_server_groups);
@@ -994,42 +993,6 @@ sub rhn_require {
    }
 
    return '';
-}
-
-sub toggle_pref {
-  my $pxt = shift;
-  my %attr = @_;
-
-  my $pref_name = $attr{name};
-  my $type = $attr{type};
-
-  my @labels = split(/\|/, $attr{labels} . '');
-  my @values = split(/\|/, $attr{values} . '');
-
-  my %pref_map;
-
-  foreach my $val (@values) {
-    $pref_map{$val} = shift @labels;
-  }
-
-  my $selected = $pxt->user->get_pref($pref_name);
-
-  my @opts;
-
-  foreach my $val (@values) {
-    if ($val eq $selected) {
-      unshift @opts, $pref_map{$val} . (defined $type ? " $type" : '');
-    }
-    else {
-      my $uri = $pxt->uri;
-      push @opts,
-	sprintf('(<a href="%s?pxt_trap=rhn:toggle_pref_cb&amp;pref_name=%s&amp;pref_value=%s">View %s</a>)',
-		$uri, $pref_name, $val, $pref_map{$val});
-    }
-  }
-
-  my $html = join('&#160;', @opts);
-  return $html;
 }
 
 sub if_pref {
