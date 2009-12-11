@@ -66,36 +66,6 @@ sub recent_iso_channels {
   return $ret;
 }
 
-# algorithm: sum the config weights of the various locations.  pick a
-# random choice in (0 .. $sum - 1).  walk the list of choices,
-# subtracting the weight from the choice we made.  when the result is
-# negative, we found where in the list of choices our random choice
-# has hit.  default to the first choice if somehow this does not work
-# (which it never should, but...).
-
-sub choose_download_location {
-  my $class = shift;
-  my @locations = @_;
-
-  # only one location?  use it
-  return $locations[0] if @locations == 1;
-
-  my @weights = map { PXT::Config->get("download_${_}_weight") || 0 } @locations;
-
-  my $sum = 0;
-  $sum += $_ for @weights;
-  my $choice = int(rand($sum));
-
-  for my $i (0 .. $#locations) {
-    $choice -= $weights[$i];
-    if ($choice < 0) {
-      return $locations[$i];
-    }
-  }
-
-  return $locations[0]
-}
-
 # non-tag access to RHN download links
 sub rhn_download_url {
   my $class = shift;
