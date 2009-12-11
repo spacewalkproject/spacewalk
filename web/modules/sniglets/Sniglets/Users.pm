@@ -85,7 +85,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-if-server-groups' => \&if_server_groups);
 
-  $pxt->register_tag('rhn-email-confirmation' => \&rhn_email_confirmation);
   $pxt->register_tag('rhn-user-login' => \&rhn_user_login);
 
   $pxt->register_tag('rhn-user-default-system-groups-form' => \&default_system_groups);
@@ -1820,43 +1819,6 @@ sub if_server_groups {
   return unless @groups;
 
   return $block;
-}
-
-sub rhn_email_confirmation {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $confirm_code = $pxt->path_info;
-  if (not $confirm_code) {
-    return "The URL you have pasted is incorrect.  Some e-mail programs can break the URL into multiple lines.  Please ensure that the URL is complete, and try again.";
-  }
-  my ($empty, $address_id, $hmac_digest) = split m(/), $confirm_code;
-
-  if ($hmac_digest eq RHN::SessionSwap->rhn_hmac_data($address_id)) {
-    my $address = RHN::EmailAddress->lookup(-id => $address_id, -soft => 1);
-    if (not $address) {
-      return sprintf("That email address cannot be confirmed; please %s the address you would like to be confirmed.",
-		    PXT::HTML->link("/network/account/change-email.pxt", "resubmit"));
-    }
-    $address->verify_email_address;
-
-    my $user = RHN::User->lookup(-id => $address->user_id);
-    $user->email($address->address);
-    my ($marketting_site) = $user->sites('M');
-    if ($marketting_site) {
-      $marketting_site->site_email($address->address);
-      $marketting_site->commit;
-    }
-
-    $user->commit;
-
-    $pxt->push_message(site_info => sprintf("Thank you, the email address <strong>%s</strong> has been confirmed.", PXT::Utils->escapeHTML($address->address)));
-
-    $pxt->redirect('/confirm_email_success.pxt');
-  }
-  else {
-    return "The URL you have pasted is incorrect; please try again.  Some e-mail programs can break the URL into multiple lines.  Please ensure that the URL is complete, and try again.";
-  }
 }
 
 sub rhn_user_login {
