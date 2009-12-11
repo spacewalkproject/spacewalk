@@ -252,43 +252,6 @@ ORDER BY KTT.id, KT.label
   </query>
 </mode>
 
-<mode name="kickstart_sessions_for_org">
-  <query params="org_id, days">
-  SELECT KSS.id,
-         KSS.kickstart_id,
-         KSS.org_id,
-         KSS.old_server_id,
-         KSS.new_server_id,
-         KSS.state_id,
-         KSSS.label AS state_label,
-         KSSS.name AS state_name,
-         KSS.action_id,
-         TO_CHAR((SELECT MAX(time)
-                    FROM rhnKickstartSessionHistory KSH
-                   WHERE KSH.kickstart_session_id = KSS.id), 'YYYY-MM-DD HH24:MI:SS') AS last_action,
-         KSS.kstree_id
-    FROM rhnKickstartSession KSS,
-         rhnKickstartSessionState KSSS
-   WHERE KSS.org_id = :org_id
-     AND KSSS.id = KSS.state_id
-     AND NOT ((KSSS.label = 'failed' OR KSSS.label = 'complete') AND KSS.last_action &lt; sysdate - :days)
-ORDER BY last_action DESC, state_label, KSS.id
-  </query>
-  <elaborator params="">
-SELECT KSS.id, C.name as dist
-  FROM rhnKickstartSession KSS, rhnKickstartableTree KST, rhnChannel C
- WHERE KSS.id IN (%s)
-   AND KST.id = KSS.kstree_id
-   AND KST.channel_id = C.id
-  </elaborator>
-  <elaborator params="">
-SELECT KSS.id, S.name AS system_name
-  FROM rhnKickstartSession KSS, rhnServer S
- WHERE KSS.id IN (%s)
-   AND S.id = KSS.old_server_id
-  </elaborator>
-</mode>
-
 <mode name="kickstart_session_history">
   <query params="kssid">
   SELECT KSH.id,

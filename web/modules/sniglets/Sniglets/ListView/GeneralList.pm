@@ -100,10 +100,6 @@ sub _register_modes {
 			   -datasource => RHN::DataSource::General->new,
 			   -action_callback => \&kickstart_packages_cb);
 
-  Sniglets::ListView::List->add_mode(-mode => "kickstart_sessions_for_org",
-			   -datasource => RHN::DataSource::General->new,
-			   -provider => \&kickstart_sessions_provider);
-
   Sniglets::ListView::List->add_mode(-mode => "kickstart_session_history",
 			   -datasource => RHN::DataSource::General->new,
 			   -provider => \&session_history_provider);
@@ -191,36 +187,6 @@ sub kickstarts_for_org_provider {
 
     my $default_kstree = RHN::KSTree->lookup(-id => $row->{KSTREE_ID});
     $row->{INSTALL_TYPE} = $default_kstree->install_type_name;
-  }
-
-  return (%ret);
-}
-
-sub kickstart_sessions_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my %ret = $self->default_provider($pxt, -days => $pxt->dirty_param('days_of_history') || 1);
-
-  foreach my $row (@{$ret{data}}) {
-
-    if ( exists $row->{LAST_ACTION} ) {
-      $row->{LAST_ACTION} = $pxt->user->convert_time($row->{LAST_ACTION});
-    }
-
-    unless ($row->{SYSTEM_NAME}) {
-      $row->{SYSTEM_NAME} = '(New Profile)';
-    }
-
-    if (not $row->{DIST}) {
-      if ($row->{KICKSTART_ID}) {
-	my $ks = RHN::Kickstart->lookup(-id => $row->{KICKSTART_ID});
-	$row->{DIST} = $ks->dist || '(unknown)';
-      }
-      else {
-	$row->{DIST} = '(unknown)';
-      }
-    }
   }
 
   return (%ret);
