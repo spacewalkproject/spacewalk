@@ -49,8 +49,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-pathinfo-list-mode', \&pathinfo_list_mode, -5);
 
-  $pxt->register_tag('rhn-time-period-selector', \&time_selector);
-
   $pxt->register_tag('rhn-list-legend' => \&list_legend, 200);
 }
 
@@ -295,28 +293,5 @@ my $time_slots = [
 		    value => 40320 },
 		 ];
 
-
-sub time_selector {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $formvar = $params{formvar};
-  throw "No formvar specified." unless $formvar;
-
-  my $current = $pxt->dirty_param($formvar) || $params{default};
-  throw "No default value." unless $current;
-
-  my $ret = PXT::HTML->form_start(-method => 'POST');
-
-  $ret .= PXT::HTML->select(-name => $formvar,
-			    -options => [ map { [ $_->{label}, $_->{value}, $_->{value} == $current ] }
-					  @{$time_slots} ] );
-
-  $ret .= PXT::HTML->submit(-name => 'Submit',
-			    -value => 'Submit');
-
-  $ret .= PXT::HTML->form_end;
-  return $ret;
-}
 
 1;
