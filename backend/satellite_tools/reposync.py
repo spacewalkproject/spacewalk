@@ -15,10 +15,9 @@
 #
 import sys, os, time, grp
 from optparse import OptionParser
-from common import rhnLib
 from server import rhnPackage, rhnSQL, rhnChannel, rhnPackageUpload
 from common import CFG, initCFG, rhnLog, fetchTraceback
-from spacewalk.common import rhn_rpm
+from spacewalk.common import rhn_rpm, checksum
 from spacewalk.common.rhn_mpm import InvalidPackageError
 from server.importlib.importLib import IncompletePackage
 from server.importlib.backendOracle import OracleBackend
@@ -151,7 +150,7 @@ class RepoSync:
         header, payload_stream, header_start, header_end = \
                 rhnPackageUpload.load_package(temp_file)
         checksum_type = header.checksum_type()
-        package.checksum = (checksum_type, rhnLib.getFileChecksum(
+        package.checksum = (checksum_type, checksum.getFileChecksum(
                                                 checksum_type, file=temp_file))
         pid =  rhnPackage.get_package_for_checksum(
                                   self.channel['org_id'], package.checksum)
