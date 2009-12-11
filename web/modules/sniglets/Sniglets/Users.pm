@@ -57,8 +57,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-login-form', \&rhn_login_form);
 
-  $pxt->register_tag('rhn-user-prefs-edit' => \&user_prefs_edit);
-
   $pxt->register_tag('rhn-system-summary' => \&system_summary);
   $pxt->register_tag('rhn-action-summary' => \&action_summary);
 
@@ -1064,65 +1062,6 @@ sub timezone_sort {
     } @zones;
 
   return @zones;
-}
-
-sub user_prefs_edit {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-  my $user;
-  my %subst;
-
-  if ($pxt->user->is('org_admin') and $pxt->param('uid')) {
-    $user = RHN::User->lookup(-id => $pxt->param('uid'));
-  }
-  else {
-    $user = $pxt->user;
-  }
-
-  $pxt->pnotes(user_name => $user->login);
-
-  $subst{email_checked} = $user->get_pref('email_notify') ? '1' : '';
-
-  foreach (qw/contact_email contact_call contact_fax contact_mail/) {
-    $subst{$_ .'_checked'} = defined $user->$_() && $user->$_() eq 'Y' ? '1' : '';
-  }
-
-  $subst{preferred_page_size_select} = PXT::HTML->select(-name => 'preferred_page_size',
-							 -size => 1,
-							 -options => [ map { [ $_ * 5, $_ * 5, $user->preferred_page_size == $_ * 5] } 1..10 ] );
-
-  my @raw_timezones = PXT::Utils->get_timezones();
-  my $now = DateTime->now;
-  for my $zone (@raw_timezones) {
-    my $tz = new DateTime::TimeZone(name => $zone->{OLSON});
-    $zone->{OFFSET} = $tz->offset_for_datetime($now);
-  }
-  @raw_timezones = Sniglets::Users->timezone_sort(@raw_timezones);
-
-  my @timezones;
-
-  my $pref = $user->get_pref('timezone_id');
-  for my $zone (@raw_timezones) {
-    my $hours = int($zone->{OFFSET} / 60 / 60);
-    my $minutes = int($zone->{OFFSET} / 60) % 60;
-    push @timezones, [ sprintf("(GMT%+03d%02d) %s", $hours, $minutes, $zone->{DESCRIPTION}),
-		       $zone->{ID},
-		       $zone->{ID} eq $pref ];
-  }
-
-  my $time_zone = PXT::HTML->select(-name => 'time_zone',
-				    -size => 1,
-				    -options => \@timezones,
-				   );
-
-  $subst{time_zone_select} = $time_zone;
-
-  PXT::Debug->log(7, "performing pref substitutuion");
-  $block = PXT::Utils->perform_substitutions($block, \%subst);
-
-  return $block;
 }
 
 sub user_prefs_edit_cb {
