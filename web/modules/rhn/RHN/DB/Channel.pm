@@ -1350,27 +1350,6 @@ EOQ
   return $row;
 }
 
-sub family_details_by_label {
-  my $class = shift;
-  my $label = shift;
-
-  die "No channel family label" unless defined $label;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT  CF.id, CF.name, CF.label, CF.product_url, CF.org_id
-  FROM  rhnChannelFamily CF
- WHERE  CF.label = :label
-EOQ
-
-  $sth->execute_h(label => $label);
-  my ($row) = $sth->fetchrow_hashref;
-
-  $sth->finish;
-
-  return $row;
-}
-
 
 
 sub family_details_from_set {
