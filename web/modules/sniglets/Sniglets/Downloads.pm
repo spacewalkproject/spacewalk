@@ -21,7 +21,6 @@ use PXT::HTML;
 use PXT::Config;
 
 use RHN::TokenGen::Generator;
-use RHN::SessionSwap;
 use RHN::DataSource::Channel;
 
 use File::Spec;
