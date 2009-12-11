@@ -61,8 +61,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-user-site-view' => \&user_site_view);
 
-  $pxt->register_tag('rhn-opt-out' => \&opt_out);
-
   $pxt->register_tag('rhn-toggle-pref' => \&toggle_pref);
   $pxt->register_tag('rhn-if-pref' => \&if_pref, -10);
 
@@ -996,24 +994,6 @@ sub rhn_require {
    }
 
    return '';
-}
-
-sub opt_out {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $user = $pxt->user;
-
-  if ($user) {
-    $user->contact_email('N');
-    $user->set_pref('email_notify', '0');
-
-    $user->commit;
-    return sprintf "Thank you, the email address '%s' will no longer receive emails.", $user->email;
-  }
-  else {
-    return "Invalid URL.";
-  }
 }
 
 sub toggle_pref {
