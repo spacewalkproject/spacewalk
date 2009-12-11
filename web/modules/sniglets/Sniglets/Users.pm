@@ -61,8 +61,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-user-site-view' => \&user_site_view);
 
-  $pxt->register_tag('rhn-help-link' => \&help_link);
-
   $pxt->register_tag('rhn-opt-out' => \&opt_out);
 
   $pxt->register_tag('rhn-toggle-pref' => \&toggle_pref);
@@ -998,27 +996,6 @@ sub rhn_require {
    }
 
    return '';
-}
-
-sub help_link {
-    my $pxt = shift;
-    my %params = @_;
-
-    my $link;
-
-    if ($pxt->user && $pxt->user->org->has_entitlement($params{entitlement})) {
-	$link = $params{success_link};
-    } else {
-	$link = $params{fail_link};
-    }
-
-    my $text = $params{__block__};
-    my $style = $params{style} || '';
-
-    return qq(<a href="$link" style="$style">$text</a>)
-	if $link;
-
-    return '';
 }
 
 sub opt_out {
