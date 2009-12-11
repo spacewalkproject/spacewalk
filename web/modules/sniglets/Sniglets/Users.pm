@@ -57,8 +57,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-login-form', \&rhn_login_form);
 
-  $pxt->register_tag('public-login-link', \&public_login_link);
-
   $pxt->register_tag('rhn-user-prefs-edit' => \&user_prefs_edit);
 
   $pxt->register_tag('rhn-system-summary' => \&system_summary);
@@ -253,17 +251,6 @@ EOB
 
 
 
-
-# subtlely different login link behavior, more like www.redhat.com
-# logs you in but returns you to the page.
-sub public_login_link {
-  my $pxt = shift;
-  my @params = $pxt->param();
-
-  my $login_url = PXT::Utils->escapeURI($pxt->uri . (@params ? "?" . join("&amp;", map { $_ . "=" . $pxt->dirty_param($_) } @params) : ""));
-  my $login_pxt = $pxt->derelative_url("/errata/login.pxt", 'https');
-  return "<a href=\"$login_pxt?url_bounce=$login_url\"><img src=\"/img/homepg_login.gif\" width=\"117\" height=\"21\" border=\"0\" alt=\"login\" /></a>";
-}
 
 sub system_summary {
   my $pxt = shift;
