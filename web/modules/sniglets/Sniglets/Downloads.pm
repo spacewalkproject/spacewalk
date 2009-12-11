@@ -33,7 +33,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-channel-download-categories' => \&channel_download_categories, 2);
   $pxt->register_tag('rhn-channel-downloads' => \&channel_downloads, 3);
 
   $pxt->register_tag('rhn-recent-iso-channels', \&recent_iso_channels, 1);
@@ -97,49 +96,6 @@ sub choose_download_location {
   }
 
   return $locations[0]
-}
-
-sub channel_download_categories {
-  my $pxt = shift;
-  my %params = @_;
-  my $channel = $params{channel};
-  my $block = $params{__block__};
-  my $mode = $params{mode};
-  my $type = $params{type};
-  my $limit = $params{limit};
-
-  my %cat_urls;
-
-  my $ds = new RHN::DataSource::Channel(-mode => $mode);
-  my $cats = $ds->execute_query(-channel_label => $channel, -download_type => $type);
-  my $url_ds = new RHN::DataSource::Channel(-mode => 'release_notes_url_by_category');
-  my $urls = $url_ds->execute_query(-channel_label => $channel, -download_type => $type);
-  for my $row (@$urls) {
-    if ($row->{RELEASE_NOTES_URL}) {
-      $cat_urls{$row->{CATEGORY}} = $row->{RELEASE_NOTES_URL};
-    }
-  }
-
-  my $ret;
-  my $i = 0;
-  for my $cat (@$cats) {
-    my %s;
-    last if $limit and ++$i > $limit;
-
-    $s{download_category} = $cat->{CATEGORY};
-    $s{download_type} = $type;
-    PXT::Utils->escapeHTML_multi(\%s);
-
-    if (exists $cat_urls{$cat->{CATEGORY}}) {
-      $s{release_notes_url} = '<a href="' . $cat_urls{$cat->{CATEGORY}}
-                                          . '">Release Notes</a>';
-    }
-    else {
-      $s{release_notes_url} = '';
-    }
-
-    $ret .= PXT::Utils->perform_substitutions($block, \%s);
-  } return $ret;
 }
 
 sub channel_downloads {
