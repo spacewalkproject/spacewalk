@@ -49,7 +49,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-pathinfo-list-mode', \&pathinfo_list_mode, -5);
 
-  $pxt->register_tag('rhn-system-name', \&system_name, -5);
   $pxt->register_tag('rhn-time-period-selector', \&time_selector);
 
   $pxt->register_tag('rhn-list-legend' => \&list_legend, 200);
@@ -267,25 +266,6 @@ sub pathinfo_list_mode {
   $html =~ s/\{pinfo_list_mode\}/$pinfo_modes{$type}->{$pinfo}->{mode}/ge;
 
   return $html;
-}
-
-sub system_name {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $sid = $params{sid} || $pxt->param('sid');
-  die "no server id" unless $sid;
-
-  $pxt->user->verify_system_access($sid)
-    or $pxt->redirect('/errors/permission.pxt');
-
-  my $server = RHN::Server->lookup(-id => $sid);
-  die "no valid server" unless $server;
-
-  my %subst;
-
-  $subst{system_name} = PXT::Utils->escapeHTML($server->name);
-  return PXT::Utils->perform_substitutions($params{__block__}, \%subst);
 }
 
 my @sort_columns = ( { value => 'FB.created',
