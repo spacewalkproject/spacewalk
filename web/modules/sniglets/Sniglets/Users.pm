@@ -1809,39 +1809,4 @@ sub build_default_system_groups_form {
   return $form;
 }
 
-sub create_gritch_destination {
-  my $user = shift;
-
-  my $cmethod = RHN::ContactMethod->create;
-  my $cgroup = RHN::ContactGroup->create;
-
-  my $name = 'Panic Destination';
-  my $email = $user->find_mailable_address->address;
-  my $use_pager_type = 0;
-
-  $cmethod->contact_id($user->id);
-  $cmethod->method_name($name);
-  $cmethod->last_update_user($user->id);
-
-  my $method_type_info = RHN::ContactMethod->get_method_type_info("Email");
-  $cmethod->pager_email(undef);
-  $cmethod->email_address($email);
-  $cmethod->method_type_id($method_type_info->{method_type_id});
-  $cmethod->notification_format_id($method_type_info->{method_format_id});
-
-  $cgroup->strategy_id($method_type_info->{strategy_id});
-  $cgroup->notification_format_id($method_type_info->{group_format_id});
-  $cgroup->contact_group_name($name);
-  $cgroup->customer_id($user->org->id);
-  $cgroup->last_update_user($user->id);
-
-  $cmethod->commit;
-  $cgroup->commit;
-  $cgroup->set_groups_methods($user->id, $cmethod->recid);
-
-  RHN::SatInstall->set_first_gritch_destination($user->id);
-
-  return;
-}
-
 1;
