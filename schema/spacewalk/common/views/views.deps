@@ -54,8 +54,7 @@ rhnExpiringTrialMail             :: rhnServerGroupType rh_product \
                                     web_user_site_info web_user_personal_info \
                                     web_user_contact_permission web_contact \
                                     rhnUserGroupMembers rhnUserGroup \
-                                    rhnServiceServerGroupMap \
-                                    web_cp_service_line
+                                    rhnServiceServerGroupMap
 rhnFreeErrataMail                :: rhnChannelErrata rhnServerChannel \
                                     rhnServerGroupMembers rhnServerGroup \
                                     rhnServer web_contact rhnErrata \
@@ -86,12 +85,9 @@ rhnServerGroupOVLiteHelper       :: rhnServerNeededPackageCache rhnErrata \
 rhnServerErrataTypeView          :: rhnServerNeededErrataCache
 rhnServerOutdatedPackages        :: rhnServerNeededPackageCache rhnErrata \
                                     rhnPackageName rhnPackageEVR rhnPackage
-rhnServiceLineChannelView        :: web_cp_service_line \
-                                    rhnServiceChannelFamilyMap
-rhnServiceLineServerGroup        :: web_cp_service_line \
-                                    rhnServerGroupType rhnServiceServerGroupMap
-rhnServiceLineUserGroup          :: web_cp_service_line \
-                                    rhnUserGroupType rhnServiceUserGroupMap
+rhnServiceLineChannelView        :: rhnServiceChannelFamilyMap
+rhnServiceLineServerGroup        :: rhnServerGroupType rhnServiceServerGroupMap
+rhnServiceLineUserGroup          :: rhnUserGroupType rhnServiceUserGroupMap
 rhnServices                      :: rhnServiceChannelFamilyMap \
                                     rhnServiceServerGroupMap \
                                     rhnServiceUserGroupMap
