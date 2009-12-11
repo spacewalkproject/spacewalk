@@ -289,18 +289,6 @@ SELECT KSS.id, S.name AS system_name
   </elaborator>
 </mode>
 
-<mode name="ip_ranges_for_org">
-  <query params="org_id">
-  SELECT IPR.org_id || IPR.min || IPR.max AS ID,
-         IPR.org_id, IPR.min, IPR.max,
-         KS.id AS kickstart_id, KS.label
-    FROM rhnKickstartIPRange IPR, rhnKSData KS
-   WHERE IPR.org_id = :org_id
-     AND KS.id = IPR.kickstart_id
-ORDER BY IPR.min
-  </query>
-</mode>
-
 <mode name="kickstart_session_history">
   <query params="kssid">
   SELECT KSH.id,

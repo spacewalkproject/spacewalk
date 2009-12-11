@@ -105,10 +105,6 @@ sub _register_modes {
 			   -datasource => RHN::DataSource::General->new,
 			   -provider => \&kickstart_sessions_provider);
 
-  Sniglets::ListView::List->add_mode(-mode => "ip_ranges_for_org",
-			   -datasource => RHN::DataSource::General->new,
-			   -provider => \&ip_ranges_provider);
-
   Sniglets::ListView::List->add_mode(-mode => "kickstart_session_history",
 			   -datasource => RHN::DataSource::General->new,
 			   -provider => \&session_history_provider);
@@ -226,21 +222,6 @@ sub kickstart_sessions_provider {
 	$row->{DIST} = '(unknown)';
       }
     }
-  }
-
-  return (%ret);
-}
-
-sub ip_ranges_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my %ret = $self->default_provider($pxt);
-
-  foreach my $row (@{$ret{data}}) {
-    my $range = new RHN::Kickstart::IPRange(-min => $row->{MIN}, -max => $row->{MAX});
-
-    $row->{RANGE} = sprintf('<tt>%s&#160;-&#160;%s</tt>', $range->min, $range->max);
   }
 
   return (%ret);
