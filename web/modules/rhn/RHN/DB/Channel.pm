@@ -314,11 +314,6 @@ my %sat_chans_by_version = ('1.0' => ['redhat-rhn-satellite-as-i386-2.1', 'redha
 				     ],
 			   );
 
-sub satellite_channel_versions {
-  my $class = shift;
-  return sort(keys %sat_chans_by_version);
-}
-
 sub satellite_channels_by_version {
   my $class = shift;
   my %params = validate(@_, { version => {type => Params::Validate::SCALAR } });
