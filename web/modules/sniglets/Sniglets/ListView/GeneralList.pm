@@ -90,10 +90,6 @@ sub _register_modes {
 			   -provider => \&activation_key_provider,
 			   -action_callback => \&activation_key_cb);
 
-  Sniglets::ListView::List->add_mode(-mode => "purchase_history",
-			   -datasource => RHN::DataSource::General->new,
-			   -provider => \&purchase_history_provider);
-
   Sniglets::ListView::List->add_mode(-mode => "faq_list",
 			   -datasource => RHN::DataSource::General->new);
 
@@ -198,74 +194,6 @@ sub activation_key_provider {
   }
 
   return (%ret);
-}
-
-sub purchase_history_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my $ds = $self->datasource;
-
-  my $org_id = $pxt->user->org_id;
-  if ($pxt->param('support_org_id')) {
-    $org_id = $pxt->param('support_org_id');
-  }
-
-  my $data = $ds->execute_query(-org_id => $org_id);
-
-  my $org = $pxt->user->org;
-
-  my $all_ids = [ map { $_->{ID} } @{$data} ];
-  $self->all_ids($all_ids);
-
-  my $summary; #Keep some data for summary
-
-  foreach my $type (qw/trial free paid/) {
-    $summary->{$type}->{"${_}_slots"} = 0 foreach (qw/enterprise basic provisioning/);
-  }
-
-  foreach my $row (@{$data}) {
-    my $type = 'trial';
-
-    $row->{PAID} ||= 'T';
-    if ($row->{PAID} eq 'F') {
-      $type = 'free';
-    }
-    elsif ($row->{PAID} eq 'P') {
-      $type = 'paid';
-    }
-
-    $row->{SLOTS} = $row->{QUANTITY};
-
-    $row->{GROUP_LABEL} ||= ''; #prevent warn
-
-    if ($row->{GROUP_LABEL} eq 'enterprise_entitled' and $row->{QUANTITY} >= 0) {
-      $row->{SLOTS} .= '&#160;Management';
-      $summary->{$type}->{enterprise_slots} += $row->{QUANTITY};
-    }
-    elsif ($row->{GROUP_LABEL} eq 'provisioning_entitled') {
-      if (RHN::Catalog->is_provisioning_upgrade_product($row->{PRODUCT_ITEM_CODE})) {
-	$row->{SLOTS} .= '&#160;Provisioning Upgrade';
-      }
-      else {
-	$row->{SLOTS} .= '&#160;Provisioning';
-      }
-      $summary->{$type}->{provisioning_slots} += $row->{QUANTITY};
-    }
-    elsif ($row->{GROUP_LABEL} eq 'sw_mgr_entitled') {
-      $row->{SLOTS} .= '&#160;' . $org->basic_slot_name;
-      $summary->{$type}->{basic_slots} += $row->{QUANTITY};
-    }
-  }
-
-  $pxt->pnotes("purchase_history_summary", $summary);
-
-# slice data last because we need the summary info above
-  $data = $ds->slice_data($data, $self->lower, $self->upper);
-
-  return (data => $data,
-	  all_ids => $all_ids,
-	  alphabar => undef);
 }
 
 my @allowed_sort_columns = qw/FB.created BASIC_SLOTS ENTERPRISE_SLOTS/;
