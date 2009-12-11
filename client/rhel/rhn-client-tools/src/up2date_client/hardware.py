@@ -801,8 +801,6 @@ def get_hal_computer():
    
 # Read DMI information via hal.    
 def read_dmi():
-    computer = get_hal_computer()
-
     dmidict = {}
     dmidict["class"] = "DMI" 
 
@@ -810,6 +808,8 @@ def read_dmi():
     uname = string.lower(os.uname()[4])
     if not (uname[0] == "i"  and  uname[-2:] == "86") and not (uname == "x86_64"):
         return dmidict
+
+    computer = get_hal_computer()
 
     # System Information 
     vendor = get_device_property(computer, "system.hardware.vendor")
