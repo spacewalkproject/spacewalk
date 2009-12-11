@@ -49,7 +49,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-pathinfo-list-mode', \&pathinfo_list_mode, -5);
 
-  $pxt->register_tag('rhn-errata-list-summary', \&errata_list_summary, 5);
   $pxt->register_tag('rhn-system-name', \&system_name, -5);
   $pxt->register_tag('rhn-time-period-selector', \&time_selector);
 
@@ -266,21 +265,6 @@ sub pathinfo_list_mode {
   $html =~ s/\{pinfo_list_name\}/$pinfo_modes{$type}->{$pinfo}->{name}/ge;
   $html =~ s/\{pinfo_list_label\}/$pinfo_modes{$type}->{$pinfo}->{label} || ''/ge;
   $html =~ s/\{pinfo_list_mode\}/$pinfo_modes{$type}->{$pinfo}->{mode}/ge;
-
-  return $html;
-}
-
-sub errata_list_summary {
-  my $pxt = shift;
-  my %attr = @_;
-
-  my $summary = $pxt->pnotes('errata_summary');
-
-  my $html = '';
-
-  if ($summary) {
-    $html = PXT::Utils->perform_substitutions($attr{__block__}, $summary);
-  }
 
   return $html;
 }
