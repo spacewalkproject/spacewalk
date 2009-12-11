@@ -38,7 +38,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-recent-iso-channels', \&recent_iso_channels, 1);
   $pxt->register_tag('rhn-ftp-download', \&ftp_download, 4);
-  $pxt->register_tag('rhn-ftp-download-handler' => \&ftp_download_handler);
   $pxt->register_tag('rhn-akamai-redirect' => \&akamai_redirect);
   $pxt->register_tag('rhn-download-package', \&download_package, 1);
 }
@@ -274,110 +273,6 @@ sub akamai_redirect {
   $pxt->redirect($redirect_url); #redirect to new tampa/local url
 
   return;
-}
-
-sub ftp_download_handler {
-  my $pxt = shift;
-
-  return if $pxt->method  eq 'HEAD'; #firefox somtimes sends a head and get request
-
-  my $request_magic;
-  my $path_info = $pxt->pnotes('download_path_info') || $pxt->path_info;
-  if ($pxt->dirty_param("auth")) {
-    $request_magic = $pxt->dirty_param("auth") . $path_info;
-  }
-  else {
-    $request_magic = $path_info;
-  }
-
-  my ($first_slash, $expires, $given_token, $user_id, $file_id, $path) = split(m(/), $request_magic, 6);
-
-  my $computed_token = new RHN::TokenGen::Local(-expires => $expires, -user_id => $user_id,
-						  -path => $path, -file_id => $file_id);
-
-  if ($computed_token->token_signature ne $given_token) {
-    $pxt->internal_redirect("/errors/download-mismatch.pxt");
-    return;
-  }
-
-  if (time > $expires or $computed_token->usage_count >= PXT::Config->get('download_token_limit')) {
-    $pxt->status(404);
-    return $pxt->include("/errors/download-expired.pxt");
-  }
-
-  # warn "[DOWNLOAD] Initiating download of $path with token $given_token";
-
-  my $save_filename = (split m(/), $path)[-1];
-
-  my $akamai_cookie = $pxt->cookie('akamai-dps-rhn-id') ? $pxt->cookie('akamai-dps-rhn-id')->value : '';
-  if ($file_id > 0) {
-    my $location = $pxt->header_in('X-Server-Hostname') || PXT::Config->get('base_domain');
-    my @forward_ips = split /,?\s+/, ($pxt->header_in('X-Forwarded-For') || $pxt->connection->remote_ip);
-
-    RHN::TokenGen::Local->record_download(-file_id => $file_id, -token => $given_token,
-				    -location => $location,
-				    -user_id => $user_id,
-				    -ip => $forward_ips[0]);
-  }
-
-  # hey, it's akamai.  just return an empty 200 since we satisfied the token checks above
-  if ($akamai_cookie eq 'true') {
-    $pxt->manual_content(1);
-    $pxt->content_type('application/octet-stream');
-    $pxt->send_http_header;
-
-    return;
-  }
-
-  if ($pxt->header_in('X-Replace-Content-Active')) {
-    $pxt->header_out('X-Replace-Content', $path);
-    $pxt->header_out('Content-disposition', "attachment; filename=$save_filename");
-    $pxt->content_type('application/octet-stream');
-    $pxt->pxt_no_cache(0);
-
-    return "You should never see this.";
-  }
-  elsif (PXT::Config->get('satellite') or PXT::Config->get('development_environment')) {
-    my $filename = File::Spec->catfile(PXT::Config->get('mount_point'), $path);
-
-    if (-e $filename) {
-      $pxt->manual_content(1);
-      $pxt->no_cache(1);
-
-      $pxt->content_type('application/octet-stream');
-      $pxt->header_out('Content-disposition' => "attachment; filename=$save_filename");
-
-      #IE fix for their messed up local cache
-      if (defined $pxt->header_in('User-Agent') &&
-          $pxt->header_in('User-Agent') =~ /MSIE/) {
-          $pxt->no_cache(0);
-          if ($pxt->protocol =~ /(\d\.\d)/ && $1 >= 1.1) {
-            $pxt->header_out('Cache-Control', "max-age=300"); 
-          }
-          else {
-            $pxt->header_out('Expires', Apache::Util::ht_time(time + 300));
-          }
-      }
-
-      if (defined $pxt->header_in('Range')) {
-        my $filehandle;
-        open ($filehandle, "$filename") or die "open $filename: $!";
-        send_partial_file($filehandle, $filename, $pxt);
-        close $filehandle;
-      }
-      else {
-        $pxt->header_out('Content-length' => -s $filename);
-        $pxt->send_http_header;
-        $pxt->sendfile($filename);
-      }
-    }
-    else {
-      die "attempted download $filename doesn't exist!";
-    }
-  }
-  else {
-    die "No X-Replace-Content header present; perhaps you aren't running behind an RHN proxy?";
-  }
 }
 
 sub send_partial_file {
