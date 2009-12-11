@@ -61,8 +61,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-user-site-view' => \&user_site_view);
 
-  $pxt->register_tag('rhn-if-server-groups' => \&if_server_groups);
-
   $pxt->register_tag('rhn-user-login' => \&rhn_user_login);
 
   $pxt->register_tag('rhn-user-default-system-groups-form' => \&default_system_groups);
@@ -1249,20 +1247,6 @@ sub check_perms {
 
   #ran the gauntlet
   return 1;
-}
-
-sub if_server_groups {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-
-  my @groups = $pxt->user->servergroup_admin_overview;
-  @groups = grep { $_->[2] } @groups;
-
-  return unless @groups;
-
-  return $block;
 }
 
 sub rhn_user_login {
