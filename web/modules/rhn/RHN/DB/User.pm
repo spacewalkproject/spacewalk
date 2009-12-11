@@ -2631,23 +2631,6 @@ EOQ
   return @ret;
 }
 
-sub find_mailable_address {
-  my $self = shift;
-
-  my ($address) = $self->email_addresses_by_types(qw/verified unverified pending pending_warned needs_verifying/);
-
-  if (not $address and $self->email) {
-    $address = RHN::EmailAddress->create();
-    $address->user_id($self->id);
-    $address->state('unverified');
-    $address->next_action_seconds(undef);
-    $address->address($self->email);
-    $address->commit;
-  }
-
-  return $address;
-}
-
 sub delete_nonverified_addresses {
   my $self = shift;
   my %params = validate(@_, {transaction => 0});
