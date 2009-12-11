@@ -372,43 +372,6 @@ class Backend:
 
         return row['id']
 
-    def ovalFileMD5sumCheck(self, erratum):
-        """
-        When oval file is dumped on to RHN filesystem
-        check if file exists and verifies their md5sum
-        
-        XXX:: as we create these files on RHN itself
-        this call is not used. But leaving it here
-        in case we decide to change it.
-        """
-        if not erratum:
-            return None
-
-        sql = """
-            select c.checksum md5sum
-              from rhnErrataFile ef,
-                   rhnErrata e,
-                   rhnChecksum c
-            where ef.filename = :filename
-              and e.advisory_name = :aname
-              and ef.errata_id = e.id
-              and ef.checksum_id = c.id
-        """
-
-        h = self.dbmodule.prepare(sql)
-        h.execute(filename = erratum['filename'], \
-                  aname = erratum['advisory_name'])
-        row = h.fetchone_dict()
-        
-        #file does'nt exist proceed to populate.
-        if not row:
-            return 1
-        #file exists, check if md5's are same
-        if erratum['md5sum'] == row['md5sum']:
-            return 1
-        return 0
-            
-    
     def processBugzillaPaths(self, hash):
         if not hash:
             return
