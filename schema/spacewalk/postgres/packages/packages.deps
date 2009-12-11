@@ -52,7 +52,7 @@ rhn_external_api.pkb    :: rh_product web_contact xxrh_eproxy_api
 rhn_ep.pkb              :: rhn_bel.pks rhn_channel.pks rhn_entitlements.pks rhn_exception.pks \
                            rhn_quota web_contact web_customer rh_product \
                            web_user_order web_user_order_line \
-                           web_customer_product web_cp_service_line \
+                           web_cp_service_line \
                            rhnServiceServerGroupMap rhnServerGroupType \
                            rhnServiceUserGroupMap rhnUserGroupType \
                            rhnChannelFamily rhnServiceChannelFamilyMap \
