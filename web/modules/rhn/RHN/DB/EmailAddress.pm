@@ -152,19 +152,6 @@ sub commit {
   delete $self->{":modified:"};
 }
 
-sub next_action_seconds {
-  my $self = shift;
-  my $delay = shift;
-
-  if (not defined $delay) {
-    $self->next_action(undef);
-  }
-  else {
-    my $when = time + $delay;
-    $self->next_action(strftime("%Y-%m-%d %H:%M:%S", localtime $when));
-  }
-}
-
 sub state {
   my $self = shift;
   return $self->mail_state_label if not @_;
@@ -180,97 +167,6 @@ sub state {
   $self->mail_state_label($new_label);
   delete $self->{":modified:"}->{mail_state_label};
   $self->state_id($id);
-}
-
-sub email_address_states {
-  my $class = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query = <<EOQ;
-SELECT label
-  FROM rhnEmailAddressState
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute;
-
-  my $labels = [ ];
-
-  while (my ($label) = $sth->fetchrow) {
-    push @{$labels}, $label;
-  }
-
-  return $labels;
-}
-
-sub delete_self {
-  my $self = shift;
-  my %params = validate(@_, {-transaction => 0});
-  my $dbh = $params{-transaction} || RHN::DB->connect;
-
-  my $query = <<EOQ;
-DELETE
-  FROM rhnEmailAddress
- WHERE id = :id
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h(id => $self->id);
-
-  $dbh->commit unless $params{-transaction};
-}
-
-sub delete_other_addresses {
-  my $self = shift;
-  my %params = validate(@_, {-transaction => 0});
-  my $dbh = $params{-transaction} || RHN::DB->connect;
-
-  my $query = <<EOQ;
-DELETE
-  FROM rhnEmailAddress
- WHERE id <> :id
-   AND user_id = :user_id
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h(id => $self->id, user_id => $self->user_id);
-
-  $dbh->commit unless $params{-transaction};
-}
-
-sub reset_email {
-  my $class = shift;
-  my $user = shift;
-  my $state = shift || 'unverified';
-
-  throw "No user." unless (ref $user and $user->isa('RHN::DB::User'));
-
-  my $new_address = $user->email;
-  my @addresses = $user->email_addresses;
-  $_->delete_self foreach (@addresses);
-  my $email = $class->create;
-  $email->address($new_address);
-  $email->user_id($user->id);
-  $email->state($state);
-  $email->commit;
-
-  return $email;
-}
-
-sub log_sent_email {
-  my $class = shift;
-  my %params = validate(@_, {-reason => 1, -address => 1, -user_id => 1});
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-INSERT INTO rhnEmailAddressLog
-  (user_id, address, reason, created)
-VALUES
-  (:user_id, :address, :reason, sysdate)
-EOS
-  $sth->execute_h(user_id => $params{-user_id}, address => $params{-address}, reason => $params{-reason});
-  $dbh->commit;
 }
 
 1;
