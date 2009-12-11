@@ -19,33 +19,6 @@ from common.rhnTranslate import _
 
 from server import rhnServer
 
-disabled_error_msg = _("""
-     Your demo account has been disabled. To enable your account, you must 
-     verify your email address by visiting:
-
-     %(email_link)s
-
-     You may also enable your account by purchasing Red Hat Network service at:
-
-     https://rhn.redhat.com/network/sales/index.pxt
-                    
-     Your account name:      %(login)s
-     Current email on file:  %(email)s
-""")
-
-disabled_freeloader_msg = _("""
-     Your demo account has been disabled.  To enable your account, you must
-     fill out the latest Red Hat Network survey by visiting:
-
-     %(survey_link)s
-
-     You may also enable your Red Hat Network account by purchasing service at:
-
-     https://rhn.redhat.com/network/sales/index.pxt
-
-     Your account name:      %(login)s
-""")
-
 # extend the RPC_Base base class
 class rhnHandler(RPC_Base):
     def __init__(self):
