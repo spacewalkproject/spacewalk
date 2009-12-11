@@ -18,7 +18,6 @@ use strict;
 package Sniglets::Org;
 
 use POSIX qw/strftime/;
-use HTTP::Date qw(time2str str2time);
 use RHN::Channel;
 use RHN::API::Types;
 use RHN::SatelliteCert;
