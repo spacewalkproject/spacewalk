@@ -27,25 +27,6 @@ import urlparse
 from common import log_debug, log_error
 from spacewalk.common import checksum
 
-try:
-    import hashlib
-except ImportError:
-    import md5
-    import sha
-    from Crypto.Hash import SHA256 as sha256
-    class hashlib:
-        @staticmethod
-        def new(checksum):
-            if checksum == 'md5':
-                return md5.new()
-            elif checksum == 'sha1':
-                return sha.new()
-            elif checksum == 'sha256':
-                return sha256.new()
-            else:
-                raise ValueError, "Incompatible checksum type"
-
-
 def setHeaderValue(mp_table, name, values):
     """
     Function that correctly sets headers in an Apache-like table
