@@ -109,9 +109,6 @@ sub _register_modes {
 			   -datasource => RHN::DataSource::General->new,
 			   -provider => \&ip_ranges_provider);
 
-  Sniglets::ListView::List->add_mode(-mode => "private_kstrees_for_user",
-			   -datasource => RHN::DataSource::General->new);
-
   Sniglets::ListView::List->add_mode(-mode => "kickstart_session_history",
 			   -datasource => RHN::DataSource::General->new,
 			   -provider => \&session_history_provider);

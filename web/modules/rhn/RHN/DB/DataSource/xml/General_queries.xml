@@ -252,21 +252,6 @@ ORDER BY KTT.id, KT.label
   </query>
 </mode>
 
-<mode name="private_kstrees_for_user">
-  <query params="user_id">
-SELECT KT.id, KT.base_path, KT.channel_id, KT.label, KT.boot_image,
-       UAC.channel_name, UAC.channel_label,
-       KTT.label AS KSTREE_TYPE_LABEL, KTT.name AS KSTREE_TYPE_NAME
-  FROM rhnKSTreeType KTT, rhnKickstartableTree KT, web_contact wc, rhnUserAvailableChannels UAC
- WHERE UAC.user_id = :user_id
-   AND wc.id = :user_id
-   AND KT.channel_id = UAC.channel_id
-   AND KTT.id = KT.kstree_type
-   AND KT.org_id = wc.org_id
-ORDER BY KTT.id, KT.label
-  </query>
-</mode>
-
 <mode name="kickstart_sessions_for_org">
   <query params="org_id, days">
   SELECT KSS.id,
