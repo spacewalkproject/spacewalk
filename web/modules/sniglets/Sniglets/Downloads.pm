@@ -34,7 +34,6 @@ sub register_tags {
   my $pxt = shift;
 
   $pxt->register_tag('rhn-ftp-download', \&ftp_download, 4);
-  $pxt->register_tag('rhn-akamai-redirect' => \&akamai_redirect);
   $pxt->register_tag('rhn-download-package', \&download_package, 1);
 }
 
@@ -108,24 +107,6 @@ sub ftp_download {
   my $ret = PXT::HTML->link($uri, $label);
 
   return $ret;
-}
-
-sub akamai_redirect {
-  my $pxt = shift;
-  my $user_id  =  $pxt->user_id;
-
-  my $file_path = $pxt->param('iso_path');
-  my $base_url = $pxt->dirty_param('base_url'); #'/download' probably we need this from akamai
-  my $location = $pxt->dirty_param('location');
-
-  my $expires = time + PXT::Config->get('download_url_lifetime');
-  my $file_id = RHN::TokenGen::Local->get_file_id($file_path);
-
-  my $redirect_url = RHN::TokenGen::Generator->generate_url($user_id, $file_id, $file_path, $base_url, $location, $expires, $pxt->ssl_available);
-
-  $pxt->redirect($redirect_url); #redirect to new tampa/local url
-
-  return;
 }
 
 sub send_partial_file {
