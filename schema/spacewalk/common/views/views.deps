@@ -72,16 +72,10 @@ rhnServerGroupOVLiteHelper       :: rhnServerNeededPackageCache rhnErrata \
 rhnServerErrataTypeView          :: rhnServerNeededErrataCache
 rhnServerOutdatedPackages        :: rhnServerNeededPackageCache rhnErrata \
                                     rhnPackageName rhnPackageEVR rhnPackage
-rhnServiceLineChannelView        :: rhnServiceChannelFamilyMap
-rhnServiceLineServerGroup        :: rhnServerGroupType rhnServiceServerGroupMap
-rhnServiceLineUserGroup          :: rhnUserGroupType rhnServiceUserGroupMap
-rhnServices                      :: rhnServiceChannelFamilyMap \
-                                    rhnServiceServerGroupMap \
-                                    rhnServiceUserGroupMap
 rhnStorageDevice                 :: rhnDevice
 rhnUserAvailableChannels         :: rhn_channel.pks rhnServerChannel \
                                     rhnUserChannelTreeView rhnUserServerPerms
-rhnUserAvailableUpgrades         :: rhnServiceServerGroupMap rhnServerGroupType
+rhnUserAvailableUpgrades         :: rhnServerGroupType
 rhnUserChannel                   :: rhn_channel.pks rhnChannelFamilyMembers \
                                     rhnUserChannelFamilyPerms web_contact
 rhnUserChannelTreeView           :: rhnChannel rhnChannelFamilyMembers \

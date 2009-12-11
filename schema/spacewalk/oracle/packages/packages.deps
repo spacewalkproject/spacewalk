@@ -53,12 +53,12 @@ rhn_external_api.pkb    :: web_contact xxrh_eproxy_api
 rhn_ep.pkb              :: rhn_bel.pks rhn_channel.pks rhn_entitlements.pks rhn_exception.pks \
                            rhn_quota web_contact web_customer \
                            web_user_order web_user_order_line \
-                           rhnServiceServerGroupMap rhnServerGroupType \
-                           rhnServiceUserGroupMap rhnUserGroupType \
-                           rhnChannelFamily rhnServiceChannelFamilyMap \
-                           rhnUserGroup rhnServiceLineUserGroups \
-                           rhnServerGroup rhnServiceLineServerGroups \
-                           rhnPrivateChannelFamily rhnServiceLineChannelView \
+                           rhnServerGroupType \
+                           rhnUserGroupType \
+                           rhnChannelFamily \
+                           rhnUserGroup \
+                           rhnServerGroup \
+                           rhnPrivateChannelFamily \
                            rhnDaemonState rhnChannelFamilyMembers \
                            rhnEntitlementQueue
 rhn_org.pkb             :: rhn_entitlements.pks \
