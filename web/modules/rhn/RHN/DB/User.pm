@@ -2563,44 +2563,6 @@ EOQ
   return @sids;
 }
 
-# give it one or more types and it will give you objects of those
-# types.  in multiple, it returns in order of the types specified, so
-# you can cascade through preferred choices, etc
-sub email_addresses_by_types {
-  my $self_or_class = shift;
-  my $id;
-
-  if (ref $self_or_class) {
-    $id = $self_or_class->id;
-  }
-  else {
-    $id = shift;
-  }
-
-  my @types = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT id
-  FROM rhnEmailAddress
- WHERE user_id = :user_id
-   AND state_id = rhn_bel.lookup_email_state(:type)
-ORDER BY MODIFIED DESC
-EOQ
-
-  my @ret;
-
-  for my $type (@types) {
-    $sth->execute_h(user_id => $id, type => $type);
-
-    while (my ($id) = $sth->fetchrow) {
-      push @ret, RHN::EmailAddress->lookup(-id => $id);
-    }
-  }
-
-  return @ret;
-}
-
 sub email_addresses {
   my $self_or_class = shift;
   my $id;
