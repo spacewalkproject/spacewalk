@@ -55,8 +55,6 @@ sub register_tags {
 
   $pxt->register_tag('public-secure-links-if-logged-in' => \&secure_links_if_logged_in, 101);
 
-  $pxt->register_tag('rhn-admin-user-site-edit-form' => \&admin_user_site_edit_form);
-
   $pxt->register_tag('rhn-login-form', \&rhn_login_form);
   $pxt->register_tag('rhn-logout-form', \&rhn_logout_form);
 
@@ -848,77 +846,6 @@ sub admin_user_edit_cb {
   $pxt->redirect($url->as_string)
 }
 
-
-sub admin_user_site_edit_form {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $uid = $pxt->param('uid') || $pxt->user->id;
-  my $user = RHN::User->lookup(-id => $uid);
-
-  die "no user" unless $user;
-
-  if ($pxt->user->org_id != $user->org_id) {
-    Carp::cluck "Orgs for admin user edit mistatch (admin: @{[$pxt->user->org_id]} != @{[$user->org_id]}";
-    $pxt->redirect("/errors/permission.pxt");
-  }
-
-  if ($uid != $pxt->user->id and not $pxt->user->is('org_admin')) {
-    Carp::cluck "Non-orgadmin attempting to edit another's record";
-    $pxt->redirect("/errors/permission.pxt");
-  }
-
-  $pxt->pnotes(user_name => $user->login);
-
-  my %type_table = (M => "Mailing", B => "Billing", S => "Shipping");
-
-  my $type = uc $params{type} || $pxt->dirty_param('type') || 'M';
-
-  my $block = $params{__block__};
-
-  $block =~ s/\{site_address_type\}/$type_table{$type}/ig;
-
-  my ($site) = $user->sites($type);
-  ($site) = $user->sites('M')
-    unless $site;
-
-  if ($site) {
-    foreach (qw/site_address1 site_city/) {
-      if ($site->$_() eq '.') {
-	$site->$_('');
-      }
-    }
-  }
-
-  if ($user->id == $pxt->user->id) {
-    if ($type eq 'M' and $pxt->uri =~ m(/network/account/edit_address.pxt) and $site and ($site->site_city eq '.' or $site->site_address1 eq '.')) {
-      $pxt->push_message(site_info => 'Please take a moment and complete the information below for our records.');
-
-      $site->$_('')
-	foreach qw/site_address1 site_address2 site_address3 site_city site_state site_zip site_fax site_phone/;
-    }
-  }
-
-  my $sid = defined $site ? $site->site_id : 0;
-
-  $block =~ s(\{$_\})(defined $site and defined $site->$_() ? PXT::Utils->escapeHTML($site->$_()) : '')eig
-    foreach qw/site_address1 site_address2 site_address3 site_city site_state site_zip site_fax site_phone/;
-
-  $block =~ s/\{site_country_selectbox\}/PXT::Utils->country_selectbox("site_country", 'en', $site ? $site->site_country() : 'US')/eig;
-
-
-  my $formvars = PXT::HTML->hidden(-name => 'type', -value => $type);
-  $formvars .= PXT::HTML->hidden(-name => 'uid', -value => $uid);
-  $formvars .= PXT::HTML->hidden(-name => 'pxt:trap', -value => 'rhn:admin_user_site_edit_cb')
-    if defined $params{mode} and $params{mode} ne "checkout";
-
-  $formvars .= PXT::HTML->hidden(-name => 'redirect_to_main_page', value => 'yes')
-    if ($pxt->pnotes('redirect_to_main_page'));
-
-  $block =~ s/\{admin_user_formvars\}/$formvars/egi;
-
-  return $block;
-}
 
 sub user_site_view {
   my $pxt = shift;
