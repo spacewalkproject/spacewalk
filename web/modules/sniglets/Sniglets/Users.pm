@@ -57,9 +57,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-login-form', \&rhn_login_form);
 
-  # for the non-rhn's pages we serve out, little different logout link behavior,
-  # more in line w/ www.redhat.com
-  $pxt->register_tag('public-logout-link', \&public_logout_link);
   $pxt->register_tag('public-login-link', \&public_login_link);
 
   $pxt->register_tag('rhn-user-prefs-edit' => \&user_prefs_edit);
@@ -256,17 +253,6 @@ EOB
 
 
 
-
-# subtlely different logout link behavior, more like www.redhat.com
-# logs you out but keeps you on the page.
-sub public_logout_link {
-  my $pxt = shift;
-
-  my $base_url = $pxt->derelative_url($pxt->uri, 'http');
-  my $logout_url = $pxt->uri . "?" . join("&amp;", map { $_ . "=" . $pxt->passthrough_param($_) } $pxt->param());
-
-  return "<a href=\"$logout_url&amp;pxt:trap=rhn:logout_cb&amp;logout_redirect=$base_url\"><img src=\"/img/homepg_logout.gif\" width=\"71\" height=\"21\" border=\"0\" valign=\"top\" alt=\"logout\" /></a>";
-}
 
 # subtlely different login link behavior, more like www.redhat.com
 # logs you in but returns you to the page.
