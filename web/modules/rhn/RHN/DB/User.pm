@@ -2386,36 +2386,6 @@ sub approve {
   return $self->password;
 }
 
-sub servergroup_admin_overview {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my @params = ($self->id, $self->org_id);
-  my $query = <<EOQ;
-SELECT SG.id, SG.name,
-       NVL((SELECT MAX(1) FROM rhnUserServerGroupPerms USGP WHERE USGP.server_group_id = SG.id AND USGP.user_id = ?), 0)
-  FROM rhnServerGroup SG
- WHERE SG.org_id = ?
-   AND SG.group_type IS NULL
-EOQ
-
-  if ($self->is('org_admin')) {
-    $query = <<EOQ;
-SELECT SG.id, SG.name, 1
-  FROM rhnServerGroup SG
- WHERE SG.org_id = ?
-   AND SG.group_type IS NULL
-EOQ
-    shift @params;
-  }
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute(@params);
-
-  return $sth->fullfetch;
-}
-
 sub grant_servergroup_permission {
   my $self = shift;
   my $uid;
