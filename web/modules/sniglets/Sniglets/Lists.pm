@@ -266,32 +266,4 @@ sub pathinfo_list_mode {
   return $html;
 }
 
-my @sort_columns = ( { value => 'FB.created',
-		       label => 'Date', },
-		     { value => 'BASIC_SLOTS',
-		       label => 'Update Slots', },
-		     { value => 'ENTERPRISE_SLOTS',
-		       label => 'Management Slots', },
-		     );
-
-my @sort_orders = ( { value => 'DESC',
-		      label => 'Descending', },
-		    { value => 'ASCENDING',
-		      label => 'Ascending', },
-		    );
-
-my $time_slots = [
-		  { label => '5 Minutes',
-		    value => 5 },
-		  { label => 'Hour',
-		    value => 60 },
-		  { label => 'Day',
-		    value => 1440 },
-		  { label => 'Week',
-		    value => 10080 },
-		  { label => 'Month',
-		    value => 40320 },
-		 ];
-
-
 1;
