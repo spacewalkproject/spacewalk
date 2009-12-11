@@ -61,18 +61,6 @@ def setHeaderValue(mp_table, name, values):
         mp_table[name] = str(values)
 
 
-def rfc822time(arg):
-    """
-    Return time as a string formatted such as: 'Wed, 23 Jun 2001 23:08:35 GMT'.
-    """
-    format = "%a, %d %b %Y %H:%M:%S GMT"
-    if type(arg) in (types.ListType, types.TupleType):
-        # Already a list
-        return time.strftime(format, arg)
-    # Assume it's a float
-    return time.strftime(format, time.gmtime(arg))
-
-
 rfc822_days = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')
 rfc822_mons = ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', \
                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
