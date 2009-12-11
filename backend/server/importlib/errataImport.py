@@ -230,7 +230,6 @@ class ErrataImport(GenericPackageImport):
                 continue
 
             self._postprocessPackageNEVRA(package)
-            self._postprocessPackage(package)
 
             # Check the uniqueness
             nevrao = tuple(get_nevrao(package))

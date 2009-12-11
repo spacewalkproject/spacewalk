@@ -71,7 +71,6 @@ class ChannelPackageSubscription(GenericPackageImport):
             if package.ignored:
                 continue
             self._postprocessPackageNEVRA(package)
-            self._postprocessPackage(package)
             if not CFG.ENABLE_NVREA:
                 # nvrea disabled, skip checksum
                 nevrao = (
