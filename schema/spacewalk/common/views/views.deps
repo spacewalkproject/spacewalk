@@ -75,7 +75,6 @@ rhnServerOutdatedPackages        :: rhnServerNeededPackageCache rhnErrata \
 rhnStorageDevice                 :: rhnDevice
 rhnUserAvailableChannels         :: rhn_channel.pks rhnServerChannel \
                                     rhnUserChannelTreeView rhnUserServerPerms
-rhnUserAvailableUpgrades         :: rhnServerGroupType
 rhnUserChannel                   :: rhn_channel.pks rhnChannelFamilyMembers \
                                     rhnUserChannelFamilyPerms web_contact
 rhnUserChannelTreeView           :: rhnChannel rhnChannelFamilyMembers \
