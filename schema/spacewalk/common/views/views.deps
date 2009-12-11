@@ -50,14 +50,6 @@ rhnChecksumView                  :: rhnChecksum rhnChecksumType
 rhnDemoOrgs                      :: demo_log
 rhnEntitledServers               :: rhnServerGroup rhnServerGroupType \
                                     rhnServerGroupMembers rhnServer
-rhnFreeErrataMail                :: rhnChannelErrata rhnServerChannel \
-                                    rhnServerGroupMembers rhnServerGroup \
-                                    rhnServer web_contact rhnErrata \
-                                    web_user_personal_info rhnUserInfo \
-                                    rhnErrata rhnServerArch rhnUserServerPrefs \
-                                    rhnUserGroupType rhnUserGroup \
-                                    rhnUserGroupMembers rhnServerGroupMembers \
-                                    rhnUserServerGroupPerms
 rhnHWDevice                      :: rhnDevice
 rhnOrgChannelTreeView            :: rhnChannel rhnChannelFamilyMembers \
                                     rhnOrgChannelFamilyPermissions
@@ -66,7 +58,7 @@ rhnOrgPackageOverview            :: rhnPackageName rhnPackageEVR rhnPackageArch 
                                     rhnChannelPackageArchCompat rhnPackage \
                                     rhn_package.pks
 rhnPaidOrgs                      :: rhnDemoOrgs rhnServerGroup
-rhnPrivateErrataMail             :: rhnFreeErrataMail rhnServerPackage \
+rhnPrivateErrataMail             :: rhnServerPackage \
                                     rhnWebContactDisabled
 rhnServerEntitledView            :: rhnServerGroupType rhnServerGroup \
                                     rhnServerGroupMembers
