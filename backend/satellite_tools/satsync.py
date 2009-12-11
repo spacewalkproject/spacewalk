@@ -833,22 +833,23 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         self._diff_packages()
 
     _query_compare_packages = """
-        select p.id, c.checksum md5sum, p.path, p.package_size,
+        select p.id, c.checksum_type, c.checksum, p.path, p.package_size,
                TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
-          from rhnPackage p, rhnChecksum c
+          from rhnPackage p, rhnChecksumView c
          where p.name_id = lookup_package_name(:name)
            and p.evr_id = lookup_evr(:epoch, :version, :release)
            and p.package_arch_id = lookup_package_arch(:arch)
            and (p.org_id = :org_id or
                (p.org_id is null and :org_id is null))
            and p.checksum_id = c.id
-           and c.checksum =: md5sum
+           and c.checksum = :checksum
+           and c.checksum_type = :checksum_type
     """
     # XXX the "is null" condition will have to change in multiorg satellites
     def _diff_packages(self):
         package_collection = sync_handlers.ShortPackageCollection()
         nvrea_keys = ['name', 'epoch', 'version', \
-                      'release', 'arch', 'md5sum']
+                      'release', 'arch', 'checksum']
         h = rhnSQL.prepare(self._query_compare_packages)
 
         missing_channel_packages = {}
@@ -884,7 +885,10 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 else:
                     nevra['org_id'] = package['org_id']
 
-                apply(h.execute, (), nevra)
+                params = nevra.copy()
+                params['checksum_type'] = nevra['checksum'][0]
+                params['checksum'] = nevra['checksum'][1]
+                apply(h.execute, (), params)
                 row = h.fetchone_dict()
                 # Update the progress bar
                 pb.addTo(1)
@@ -910,8 +914,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             if ul:
                 raise RhnSyncException, 'ERROR: incremental dump skipped'
 
-    def _get_rel_package_path(self, nevra, org_id, source=0, md5sum=None):
-        checksum = ('md5', md5sum)      # FIXME sha256
+    def _get_rel_package_path(self, nevra, org_id, source=0, checksum=None):
         return get_package_path(nevra, org_id, prepend=CFG.PREPENDED_DIR,
             source=source, checksum=checksum)
 
@@ -961,7 +964,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         nevra = []
         for t in ['name', 'epoch', 'version', 'release', 'arch']:
             nevra.append(package[t])
-        md5sum = package['md5sum']
+        checksum = package['checksum']
         package_size = package['package_size']
 
         if package['org_id'] is not None:
@@ -969,12 +972,12 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         else:
             orgid = package['org_id']
 
-        path = self._get_rel_package_path(nevra, orgid, source=source, md5sum=md5sum)
+        path = self._get_rel_package_path(nevra, orgid, source, checksum)
         if not row:
             # Package is missing completely from the DB
             m_channel_packages.append((package_id, path))
             (errcode, ret_path) = self._verify_file(path,
-                l_timestamp, package_size, ('md5', md5sum)) # FIXME sha256
+                l_timestamp, package_size, checksum)
             if errcode == 0:
                 # Package on the filesystem, and matches
                 return
@@ -984,7 +987,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
         # Package found in the DB
         db_timestamp = int(rhnLib.timestamp(row['last_modified']))
-        db_md5sum = row['md5sum']
+        db_checksum = (row['checksum_type'], row['checksum'])
         db_package_size = row['package_size']
         db_path = row['path']
         final_path = db_path
@@ -992,7 +995,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         # Check the filesystem
         # This is one ugly piece of code
         (errcode, ret_path) = self._verify_file(db_path, l_timestamp,
-            package_size, ('md5', md5sum)) # FIXME sha256
+            package_size, checksum)
         if errcode != 0:
             if errcode != 1 or path == db_path:
                 # Package is modified; fix it
@@ -1001,7 +1004,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 # Package is missing, and the DB path is, for some
                 # reason, not the same as the computed path.
                 (errcode, ret_path) = self._verify_file(path,
-                    l_timestamp, package_size, ('md5', md5sum)) # FIXME sha256
+                    l_timestamp, package_size, checksum)
                 if errcode != 1:
                     # Use the computed path
                     final_path = path
@@ -1009,7 +1012,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                         # file is modified too; re-download
                         m_fs_packages.append((package_id, final_path))
 
-        if (l_timestamp <= db_timestamp and md5sum == db_md5sum and
+        if (l_timestamp <= db_timestamp and checksum == db_checksum and
             package_size == db_package_size and final_path == db_path):
             # Same package
             return
