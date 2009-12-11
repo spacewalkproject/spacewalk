@@ -239,25 +239,6 @@ EOQ
   $dbh->commit unless $params{-transaction};
 }
 
-sub verify_email_address {
-  my $self = shift;
-
-  my $user = RHN::User->lookup(-id => $self->user_id);
-  my ($verified) = $user->email_addresses_by_types('verified');
-  if ($verified and $verified->address eq $self->address) {
-    if ($self->state ne 'verified') {
-      $self->delete_self;
-    }
-    warn sprintf("address id %d already verified", $self->id);
-    return;
-  }
-
-  $self->delete_other_addresses;
-  $self->state('verified');
-  $self->next_action_seconds(undef);
-  $self->commit;
-}
-
 sub reset_email {
   my $class = shift;
   my $user = shift;
