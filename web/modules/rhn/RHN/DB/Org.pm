@@ -129,40 +129,6 @@ EOQ
   return $ret;
 }
 
-sub lookup_company_name {
-
-  my $self = shift;
-  my $org_id = shift;
-  my $dbh = RHN::DB->connect;
-
-  my $sth = $dbh->prepare (<<EOQ);
-select
-   nvl(wupi.company,(select name from web_customer where id = :org_id))
-from
-   web_user_personal_info wupi,
-   web_contact wcon
-where
-   wcon.org_id = :org_id
-   and wupi.web_user_id = wcon.id
-   and wupi.modified = (
-         select max(wupi.modified)
-         from
-            web_user_personal_info wupi,
-            web_contact wcon
-         where
-            wcon.org_id = :org_id
-            and wupi.web_user_id = wcon.id
-         )
-EOQ
-
-  $sth->execute_h(org_id => $org_id);
-  my $org_name = $sth->fetchrow();
-  $sth->finish();
-
-  return $org_name;
-
-}
-
 
 my @valid_org_entitlements = qw/sw_mgr_personal sw_mgr_enterprise rhn_provisioning rhn_nonlinux rhn_monitor rhn_solaris/;
 
