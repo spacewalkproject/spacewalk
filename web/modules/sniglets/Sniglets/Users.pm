@@ -57,8 +57,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-login-form', \&rhn_login_form);
 
-  $pxt->register_tag('rhn-action-summary' => \&action_summary);
-
   $pxt->register_tag('rhn-require' => \&rhn_require, -1000);
 
   $pxt->register_tag('rhn-user-site-view' => \&user_site_view);
@@ -248,63 +246,6 @@ EOB
 
 
 
-
-sub action_summary {
-  my $pxt = shift;
-  my %params = @_;
-  my $block = $params{__block__};
-
-  my $html;
-
-  my $days = $params{days} || 7;
-
-  my $action_summary = { };
-  @{$action_summary}{qw/failed pending completed total/} = @{$pxt->user->action_summary($days)}[0 .. 3];
-
-  my @action_display = ( { label => 'failed',
-			   name  => 'Recently failed actions',
-			   value => $action_summary->{failed},
-			   link  => '/rhn/schedule/FailedActions.do' },
-			 { label => 'pending',
-			   name  => 'Pending actions',
-			   value => $action_summary->{pending},
-			   link  => '/rhn/schedule/PendingActions.do' },
-			 { label => 'completed',
-			   name  => 'Recently completed actions',
-			   value => $action_summary->{completed},
-			   link  => '/rhn/schedule/CompletedActions.do' } );
-
-  foreach my $attrib (@action_display) {
-
-    if (exists $attrib->{test}) {
-      next unless $attrib->{test};
-    }
-    else {
-      next unless $attrib->{value};
-    }
-
-    my $copy = $block;
-
-    foreach (qw/name value link/) {
-      $copy =~ s/\{attrib_$_\}/$attrib->{$_}/eg;
-    }
-
-    $html .= $copy;
-  }
-
-  if ($action_summary->{total} == 0) {
-    my $message = $params{no_actions_message};
-
-    $html = <<EOQ;
-<tr class="graydata" valign="middle">
-<td colspan="2" align="center"><strong>$message</strong></td>
-</tr>
-EOQ
-
-  }
-
-  return $html;
-}
 
 sub errata_summary {
   my $pxt = shift;
