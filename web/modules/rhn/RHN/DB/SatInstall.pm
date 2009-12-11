@@ -389,37 +389,4 @@ EOQ
   return @rows;
 }
 
-sub set_first_gritch_destination {
-  my $class = shift;
-  my $uid = shift;
-
-  throw "No user id" unless $uid;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-  SELECT CM.recid,
-         CM.method_name,
-         WC.org_id
-    FROM web_contact WC, rhn_contact_methods CM
-   WHERE CM.contact_id = WC.id
-     AND WC.id = :user_id
-ORDER BY CM.recid
-EOQ
-
-  $sth->execute_h(user_id => $uid);
-
-  my $row = $sth->fetchrow_hashref;
-  $sth->finish;
-
-  my %gritch_conf =
-    (GRITCH_TARGETDESTNAME => $row->{METHOD_NAME},
-     GRITCH_TARGETDESTID => $row->{RECID},
-     GRITCH_TARGETCUST => $row->{ORG_ID},
-    );
-
-  $class->update_monitoring_config(\%gritch_conf);
-
-  return;
-}
-
 1;
