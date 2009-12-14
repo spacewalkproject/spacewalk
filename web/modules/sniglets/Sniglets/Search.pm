@@ -28,7 +28,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-errata-search-form' => \&errata_search_form);
   $pxt->register_tag('rhn-package-search-form' => \&package_search_form);
   $pxt->register_tag('rhn-system-search-form' => \&system_search_form);
 
@@ -265,24 +264,6 @@ $errata_searches->add_mode(errata_search_by_package_name => "Package Name (ex: a
 $errata_searches->set_name('errata_search');
 
 RHN::SearchTypes->register_type('errata', $errata_searches);
-
-sub errata_search_form {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $search = RHN::SearchTypes->find_type('errata');
-  my $search_select = $search->render_search_selectbox(pxt => $pxt);
-
-  my $return_block = '';
-  $return_block .= PXT::HTML->form_start(-method => "POST");
-  $return_block .= PXT::Utils->perform_substitutions($params{__block__},
-						     { 'search_options' => $search_select,
-						       'search_string' => PXT::Utils->escapeHTML($pxt->dirty_param('search_string') || '') }
-						    );
-  $return_block .= PXT::HTML->form_end;
-
-  return $return_block;
-}
 
 sub errata_search_handler {
   my $pxt = shift;
