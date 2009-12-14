@@ -35,7 +35,6 @@ sub register_tags {
   my $pxt = shift;
 
   $pxt->register_tag('rhn-channel-details' => \&channel_details);
-  $pxt->register_tag('rhn-channel-relationships' => \&channel_relationships);
 
   $pxt->register_tag('rhn-channel-gpg-key' => \&channel_gpg_key);
 
@@ -546,58 +545,6 @@ EOQ
   }
 
   return ($subscribable_checkbox, $message, $submit_html);
-}
-
-sub channel_relationships {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $cid = $pxt->param('cid');
-
-  throw "no channel id" unless $cid;
-
-  my $channel = RHN::Channel->lookup(-id => $cid);
-
-  my %rel = $channel->relationships;
-
-  my @ships;
-
-  foreach my $to_cid (keys %rel) {
-    next unless $pxt->user->verify_channel_access($to_cid);
-
-    my $to_link;
-    if ($cid == $to_cid) {
-      $to_link = 'This channel';
-    }
-    else {
-      my $to_label = RHN::Channel->lookup(-id => $to_cid)->label;
-      $to_link = PXT::HTML->link("/network/software/channels/details.pxt?cid=${to_cid}", $to_label);
-    }
-
-    foreach my $label (keys %{$rel{$to_cid}}) {
-      my $descrip = $rel{$to_cid}->{$label}->{description};
-
-      foreach my $from_cid (@{$rel{$to_cid}->{$label}->{channels}}) {
-	next unless $pxt->user->verify_channel_access($from_cid);
-
-	my $from_link;
-	if ($cid == $from_cid) {
-	  $from_link = 'this channel'
-	}
-	else {
-	  my $from_label = RHN::Channel->lookup(-id => $from_cid)->label;
-	  $from_link = PXT::HTML->link("/network/software/channels/details.pxt?cid=${from_cid}", $from_label);
-	}
-	push @ships, join " ", ($to_link, $descrip, $from_link);
-      }
-    }
-  }
-
-  return unless @ships;
-
-  my $relationships = join "<br/>\n", @ships;
-
-  return PXT::Utils->perform_substitutions($params{__block__}, { relationships => $relationships });
 }
 
 sub viewed_channel_name {
