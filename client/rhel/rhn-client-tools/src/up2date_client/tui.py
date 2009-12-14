@@ -219,8 +219,6 @@ class WhyRegisterWindow:
 
         self.g = toplevel
 
-        self.screen.gridWrappedWindow(toplevel, 'WhyRegisterWindow', 80, 24)
-
     def run(self):
         log.log_debug("Running %s" % self.__class__.__name__)
         result = self.g.runOnce()
