@@ -34,7 +34,6 @@ sub register_tags {
   $pxt->register_tag('rhn-channel-edit-form' => \&channel_edit_form);
   $pxt->register_tag('rhn-channel-select-options' => \&channel_select_options);
   $pxt->register_tag('rhn-if-package-list-modified' => \&if_package_list_modified);
-  $pxt->register_tag('rhn-if-packages-deleted-from-channels' => \&if_packages_deleted_from_channels);
   $pxt->register_tag('rhn-show-all-errata-checkbox' => \&show_all_errata_checkbox);
   $pxt->register_tag('rhn-if-var' => \&if_var, -5);
   $pxt->register_tag('rhn-clone-channel-form' => \&clone_channel_form);
@@ -806,27 +805,6 @@ sub if_package_list_modified {
 
   if ((time - $edited) < 3600) {
     return $block;
-  }
-
-  return '';
-}
-
-sub if_packages_deleted_from_channels {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-
-  my $package_list_edited = $pxt->session->get('package_list_edited');
-
-  my @channels = keys %{$package_list_edited};
-
-  foreach my $cid (@channels) {
-    my $edited = $package_list_edited->{$cid} || 0;
-
-    if ((time - $edited) < 3600) {
-      return $block;
-    }
   }
 
   return '';
