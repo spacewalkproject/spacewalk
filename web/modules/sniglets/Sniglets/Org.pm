@@ -106,66 +106,6 @@ sub get_service_map {
 }
 
 
-# create the actual cert xml given the cert_info session data
-sub create_cert_text {
-  my $pxt = shift;
-  my $data = shift;
-  my %cert_info = %{$data};
-
-  my $cert = new RHN::SatelliteCert;
-
-  my $owner = $cert_info{meta_info}->{owner};
-  my $issued = $cert_info{meta_info}->{issued};
-  my $expires = $cert_info{meta_info}->{expires};
-  
-  $cert->set_field(product => "RHN-SATELLITE-001");
-  $cert->set_field(owner => $owner);
-  $cert->set_field(issued => $issued);
-  $cert->set_field(expires => $expires);
-  $cert->set_field('generation', RHN::SatelliteCert->current_generation());
- 
-  my $existing_channels = get_channel_family_map($pxt->user->id, 'new_cert_channel_set');
-  foreach my $label (sort keys %{$existing_channels}) {
-    my $quant = $existing_channels->{$label}->{QUANT};
-    if ($quant > 0) {
-      $cert->set_channel_family($label, $quant);
-    }
-  }
-
-  my $additional_channels = get_channel_family_map($pxt->user->id, 'new_cert_add_channel_set');
-  foreach my $label (sort keys %{$additional_channels}) {
-    my $quant = $additional_channels->{$label}->{QUANT};
-    if ($quant > 0) {
-      $cert->set_channel_family($label, $quant);
-    }
-  }
-
-  my %slot_names = (
-    'enterprise_entitled'   => 'slots',
-    'provisioning_entitled' => 'provisioning-slots',
-    'nonlinux_entitled'     => 'nonlinux-slots',
-    'monitoring_entitled'   => 'monitoring-slots');
-
-
-  my $services = get_service_map($pxt->user->id);
-  foreach my $label (sort keys %{$services}) {
-    my $quant = $services->{$label}->{QUANT};
-    # logic per bz #132461 and bz #164662
-    if ($label eq 'enterprise_entitled' and $cert_info{'meta_info'}->{'version'} < 4.0) {
-      $quant += $services->{'provisioning_entitled'}->{QUANT};
-    }
-    if ($quant > 0) {
-      my $slot_name = $slot_names{$label};
-      $cert->set_field($slot_name => $quant);
-    }
-  }
-
-  $cert->set_field("satellite-version" => $cert_info{'meta_info'}->{'version'});
-
-  return $cert->to_string();
-}
-
-
 sub cert_text_cb {
   my $pxt = shift;
 
@@ -185,25 +125,6 @@ sub cert_text_cb {
   if ($action eq "Back") {
     $pxt->redirect("/internal/support/create_cert.pxt?support_org_id=" . $support_org_id);
   }
-}
-
-sub download_cert {
-  my $pxt = shift;
-  my $data = shift;
-  my %cert_info = %{$data};
-
-  $pxt->manual_content(1);
-  $pxt->content_type('application/octet-stream');
-
-  my $filename = $cert_info{'meta_info'}->{'owner'} . ".cert";
-  $filename =~s/ /-/g;
-  $filename = lc($filename);
-
-  $pxt->header_out('Content-disposition', "attachment; filename=" . $filename);
-
-  # better mime type to force download of plain text?
-  $pxt->send_http_header;
-  $pxt->print (create_cert_text($pxt, \%cert_info));
 }
 
 1;
