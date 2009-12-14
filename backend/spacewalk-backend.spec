@@ -522,7 +522,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/rhn-ssl-dbstore
 %attr(755,root,root) %{_bindir}/satellite-sync
 %attr(755,root,root) %{_bindir}/spacewalk-debug
-%attr(755,root,root) %{_bindir}/spacewalk-report
 %attr(755,root,root) %{_bindir}/rhn-satellite-exporter
 %attr(755,root,root) %{_bindir}/update-packages
 %attr(755,root,root) %{_bindir}/spacewalk-repo-sync
@@ -559,8 +558,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(770,root,apache) %dir %{_var}/log/rhn/reposync
 %{rhnroot}/satellite_tools/repo_plugins/__init__.py*
 %{rhnroot}/satellite_tools/repo_plugins/yum_src.py*
-%{_prefix}/share/spacewalk/reports.py*
-%{_prefix}/share/spacewalk/reports/data/*
 %config %attr(644,root,apache) %{rhnconf}/default/rhn_server_iss.conf
 %{_mandir}/man8/rhn-satellite-exporter.8*
 %{_mandir}/man8/rhn-charsets.8*
@@ -571,7 +568,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/rhn-schema-stats.8*
 %{_mandir}/man8/satellite-sync.8*
 %{_mandir}/man8/spacewalk-debug.8*
-%{_mandir}/man8/spacewalk-report.8*
 %{_mandir}/man8/satpasswd.8*
 %{_mandir}/man8/satwho.8*
 
