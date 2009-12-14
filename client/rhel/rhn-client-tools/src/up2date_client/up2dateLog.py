@@ -32,7 +32,7 @@ class Log:
         s = ""
         for i in args:
             s = s + "%s" % (i,)
-        if self.cfg["debug"] > 1 and self.cfg["isatty"]:
+        if self.cfg["debug"] > 1:
             print s
         self.write_log(s)
 
