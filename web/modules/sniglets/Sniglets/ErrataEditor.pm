@@ -28,8 +28,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-errata-editor-channel-options' => \&errata_channel_options);
-
   $pxt->register_tag('rhn-if-errata-package-list-modified' => \&if_errata_package_list_modified);
 
   $pxt->register_tag('rhn-if-var' => \&if_var, -5);
@@ -508,71 +506,6 @@ sub update_errata_cache {
   $pxt->session->set(errata_package_list_edited => $package_list_edited);
 
   $pxt->redirect($pxt->uri . "?eid=$eid");
-}
-
-sub errata_channel_options {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-  my $html;
-
-  my $eid = $pxt->param('eid');
-  return unless $eid;
-
-  my @related_channels;
-
-  my $errata = RHN::ErrataTmp->lookup_managed_errata(-id => $eid);
-
-  if ($errata->isa('RHN::DB::ErrataTmp')) {
-    @related_channels = RHN::ErrataTmp->related_channels_owned_by_org($eid, $pxt->user->org_id);
-  }
-  else {
-    @related_channels = RHN::Errata->channels($eid);
-  }
-
-  my @selected = @related_channels;
-  my @owned_channels = RHN::Channel->channels_owned_by_org($pxt->user->org_id);
-
-  unless (scalar @owned_channels) {
-    $pxt->push_message(site_info => "Your organization does not own any channels capable of supporting errata.  You must create at least one channel before you can publish an errata.");
-    my $redir = $params{no_channels_redirect};
-    throw "param 'no_channels_redirect' needed but not provided." unless $redir;
-    $pxt->redirect($redir);
-  }
-
-  foreach my $channel (@owned_channels) {
-    my $copy = $block;
-    my $checked = 0;
-
-    $channel->[1] =~ /channel_(\d+)/;
-    my $channel_id = $1;
-
-    next unless (RHN::Channel->channel_type_capable($channel_id, 'errata'));
-
-    if (grep { $_ == $channel_id } @selected) {
-      $checked = 1;
-    }
-
-    my $package_count = scalar($errata->channel_packages_in_errata($channel_id));
-    my $packages_link = '0';
-
-    if ($package_count) {
-      $packages_link = sprintf(qq(<a href="/network/errata/manage/errata_channel_intersection.pxt?cid=%d&amp;eid=%d">%d</a>), $channel_id, $eid, $package_count);
-    }
-
-    my %subs;
-    $subs{channel_id} = $channel_id;
-    $subs{channel_name} = PXT::Utils->escapeHTML($channel->[0]);
-    $subs{checked} = $checked ? '1' : '';
-    $subs{packages_in_errata_and_channel} = $packages_link;
-
-    $copy = PXT::Utils->perform_substitutions($copy, \%subs);
-
-    $html .= $copy;
-  }
-
-   return $html;
 }
 
 sub if_var {
