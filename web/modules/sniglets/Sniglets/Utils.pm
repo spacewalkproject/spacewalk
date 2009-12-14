@@ -23,7 +23,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag("rhn-country-select", \&country_select);
   $pxt->register_tag("rhn-bugzilla-link", \&rhn_bugzilla_link);
   $pxt->register_tag("rhn-redirect", \&rhn_redirect);
 }
@@ -88,20 +87,6 @@ EOC
   else {
     return '';
   }
-}
-
-sub country_select {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $var_name = $params{var_name};
-  my $var_value = $params{var_value};
-  my $var_lang = $params{var_lang};
-  my $allow_empty = $params{allow_empty};
-
-#  warn "var name == $var_name, var value == $var_value";
-
-  return PXT::Utils->country_selectbox($var_name, $var_lang, $var_value, undef, $allow_empty);
 }
 
 1;
