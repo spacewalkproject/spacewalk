@@ -41,7 +41,6 @@ sub register_tags {
   # for www.redhat.com'ish public errata display
   $pxt->register_tag('public-errata-product-list' => \&public_errata_product_list);
   $pxt->register_tag('public-errata-affected-products' => \&public_errata_affected_products, 2);
-  $pxt->register_tag('public-attempted-errata' => \&public_attempted_errata);
   $pxt->register_tag('public-errata-list-vs-details' => \&public_errata_list_vs_details);
   $pxt->register_tag('public-errata-filter' => \&public_errata_filter);
   $pxt->register_tag('public-errata-filter-type-url' => \&public_errata_filter_type_url);
@@ -129,15 +128,6 @@ sub errata_in_db {
 
   return $errata;
 }
-
-sub public_attempted_errata {
-  my $pxt = shift;
-
-  return '' unless $pxt->dirty_param('attempted_adv');
-
-  return PXT::Utils->escapeHTML($pxt->dirty_param('attempted_adv'));
-}
-
 
 sub public_errata_product_list {
   my $pxt = shift;
