@@ -21,7 +21,7 @@ multival_columns:
 	organization_id
 	user_id
 	server_id
- 	group : group
+	group : group
 
 # adapted query available_to_uid
 sql:
