@@ -28,8 +28,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-edit-errata-form' => \&errata_edit);
-
   $pxt->register_tag('rhn-errata-editor-channel-options' => \&errata_channel_options);
 
   $pxt->register_tag('rhn-if-errata-package-list-modified' => \&if_errata_package_list_modified);
@@ -122,124 +120,6 @@ my $errata_data = {
 		   org_id => {display => 0,
 			      edit => 0 } };
 
-
-sub errata_edit {
-  my $pxt = shift;
-  my %params = @_;
-  my $block = $params{__block__};
-  my $html;
-
-  my $eid = $pxt->param('eid') || 0;
-
-  if ($eid) {
-    throw "user '" . $pxt->user->id . "' does not own errata '$eid'"
-      unless $pxt->user->verify_errata_admin($eid);
-    load_package_set($pxt->user->id, $eid);
-  }
-
-  my %subs;
-
-  $block =~ m(\{errata_edit:template\}(.*)\{/errata_edit:template\})s;
-  my $template = $1;
-
-  my $errata;
-
-  # editing an existing errata
-  if ($eid) {
-    $errata = RHN::ErrataTmp->lookup_managed_errata(-id => $eid);
-
-    foreach my $field (@errata_fields) {
-      my $value;
-
-      if ($field eq 'keywords') {
-	$value = join(", ", $errata->keywords);
-      }
-      elsif ($field eq 'buglist') {
-	my @bugs = RHN::Utils->parameterize([ $errata->bugs_fixed, ['', ''] ], 'id', 'summary');
-
-	foreach my $bug (@bugs) {
-	  $value .= "ID: " . PXT::HTML->text(-name => "errata_buglist_" . $bug->{id} . "_id",
-  				    -value => $bug->{id},
-				    -size => 6);
-	  $value .= "\n<br/>\n";
-	  $value .= "Summary: " . PXT::HTML->text(-name => "errata_buglist_" . $bug->{id} . "_summary",
-  				    -value => PXT::Utils->escapeHTML($bug->{summary} || ''),
-				    -size => 60);
-
-	  if ($bug->{id}) {
-	    $value .= sprintf('<A HREF="edit.pxt?eid=%d&amp;bug_id=%d&amp;pxt:trap=rhn:errata_editor:delete_bug">delete</A>', $errata->id, $bug->{id});
-	    $value .= "<hr />\n";
-	  }
-	  else {
-	    $value .= PXT::HTML->submit(-value => 'Submit');
-	  }
-	}
-      }
-      else {
-	$value = $errata->$field() || $pxt->dirty_param("errata_$field") || $errata_data->{$field}->{default} || '';
-      }
-      $errata_data->{$field}{value} = $value;
-    }
-  }
-  # creating a new errata
-  else {
-
-    foreach my $field (@errata_fields) {
-
-      if ($field eq 'buglist') {
-	my $value = "ID: " . PXT::HTML->text(-name  => "errata_buglist__id",
-  	                            -value => '',
-				    -size  => 6);
-        $value .= "Summary: " . PXT::HTML->text(-name  => "errata_buglist__summary",
-  	  		          -value => '',
-				  -size  => 60);
-	$errata_data->{$field}->{value} = $value;
-      }
-      else {
-	$errata_data->{$field}->{value} = PXT::Utils->escapeHTML($pxt->dirty_param("errata_$field") || $errata_data->{$field}->{default} || '');
-      }
-    }
-  }
-
-  foreach my $field (@errata_fields) {
-    my $data = $errata_data->{$field};
-
-    next unless $data->{display};
-
-    $subs{field_name} = $data->{display};
-    $subs{field_value} = $data->{value} || '';
-    $subs{req_star} = $data->{required} ? '<span class="required-form-field">*</span>' : '';
-
-      if ($data->{edit} eq 'text') {
-        $subs{field_form_elem} = PXT::HTML->text(-name => "errata_${field}",
-						 -value => PXT::Utils->escapeHTML($data->{value}),
-						 -size => $data->{size},
-						 -maxlength => $data->{maxlength});
-      }
-      elsif ($data->{edit} eq 'textarea') {
-        $subs{field_form_elem} = PXT::HTML->textarea(-name => "errata_${field}",
-						     -value => PXT::Utils->escapeHTML($data->{value}),
-						     -rows => $data->{rows},
-						     -cols => $data->{cols});
-      }
-      elsif ($data->{edit} eq 'select') {
-	my @options = map { [ $_->[0], $_->[0], $_->[0] eq $data->{value} ] } @{$data->{options}};
-        $subs{field_form_elem} = PXT::HTML->select(-name => "errata_${field}",
-  						   -options => [ @options ]);
-      }
-     else {
-       $subs{field_form_elem} = $data->{value};
-     }
-
-    $html .= PXT::Utils->perform_substitutions($template, \%subs);
-  }
-
-  $block =~ s(\{errata_edit:template\}(.*)\{/errata_edit:template\})($html)s;
-  $block =~ s/\{eid\}/ref $errata ? $errata->id : 0/eg;
-  $block =~ s(<if_eid>(.*)</if_eid>)(ref $errata ? $1 : '')esg;
-
-  return $block;
-}
 
 sub errata_edit_cb {
   my $pxt = shift;
