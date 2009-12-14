@@ -27,7 +27,7 @@ def get_package_id(pkg):
     """Lookup a package id from rhnPackage in the database,
     Return the id or return None if the package is not found"""
 
-    p = dbPackage(entry)
+    p = dbPackage(pkg)
 
     query = """SELECT id FROM rhnPackage
                WHERE name_id=LOOKUP_PACKAGE_NAME(:name)
