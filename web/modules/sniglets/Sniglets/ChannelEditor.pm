@@ -32,7 +32,6 @@ sub register_tags {
   my $pxt = shift;
 
   $pxt->register_tag('rhn-channel-edit-form' => \&channel_edit_form);
-  $pxt->register_tag('rhn-verify-channel-family' => \&verify_channel_family);
   $pxt->register_tag('rhn-channel-select-options' => \&channel_select_options);
   $pxt->register_tag('rhn-if-package-list-modified' => \&if_package_list_modified);
   $pxt->register_tag('rhn-if-packages-deleted-from-channels' => \&if_packages_deleted_from_channels);
@@ -674,21 +673,6 @@ sub channel_edit_form {
   $block = PXT::Utils->perform_substitutions($block, \%subs);
 
   return $block;
-}
-
-#ensure that the org that the logged-in use represents has a channelfamily,
-#and has permission to access that channelfamily.
-sub verify_channel_family {
-
-  my $pxt = shift;
-
-  my $org = $pxt->user->org or return;
-
-  RHN::ChannelEditor->verify_org_family($org);
-  RHN::ChannelEditor->verify_family_permissions($org);
-
-  return;
-
 }
 
 #output a list of channels to select packages from, including 'no channels', and 'any channel'
