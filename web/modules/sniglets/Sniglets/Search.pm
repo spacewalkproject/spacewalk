@@ -28,8 +28,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-search-bar' => \&search_bar);
-
   $pxt->register_tag('rhn-errata-search-form' => \&errata_search_form);
   $pxt->register_tag('rhn-package-search-form' => \&package_search_form);
   $pxt->register_tag('rhn-system-search-form' => \&system_search_form);
@@ -392,39 +390,6 @@ sub package_search_handler {
   if (Sniglets::Search->validate_search_string($pxt, $search, $search_string)) {
     RHN::Search->package_search($pxt->user, $search_mode, $search_string, \@arch_labels, $smart_search);
   }
-}
-
-# search bar.  default to your last search, or systems if you're
-# logged in, or package if you're not.  whew.
-sub search_bar {
-  my $pxt = shift;
-
-  my $default_search = $pxt->session->get('last_search_type');
-
-  my @options;
-  if ($pxt->user and $pxt->user->org->has_entitlement('sw_mgr_enterprise')) {
-    push @options, [ 'Systems', 'systems', 0 ];
-    $default_search ||= 'systems';
-  }
-  $default_search ||= 'packages';
-
-  push @options, [ 'Packages', 'packages', 0 ];
-  push @options, [ 'Errata', 'errata', 0 ];
-
-  for my $option (@options) {
-    $option->[2]++ if $option->[1] eq $default_search;
-  }
-
-  my $ret = '';
-  $ret .= PXT::HTML->form_start(-method => 'GET', -action => "/rhn/Search.do");
-  $ret .= PXT::HTML->select(-name => 'search_type',
-			    -options => \@options);
-  $ret .= PXT::HTML->text(-name => 'search_string', -length => 40, -size => 20);
-  $ret .= PXT::HTML->hidden(-name => 'submitted', -value => 'true');
-  $ret .= PXT::HTML->submit_image(-src => '/img/button-search.gif', -border => 0, -align => "top");
-  $ret .= PXT::HTML->form_end;
-
-  return $ret;
 }
 
 sub bar_search_cb {
