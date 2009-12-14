@@ -28,7 +28,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-if-searched' => \&if_searched, -10);
 }
 
 sub register_callbacks {
@@ -40,23 +39,6 @@ sub register_callbacks {
   $pxt->register_callback('rhn:package_search_handler' => \&package_search_handler);
 
   $pxt->register_callback('rhn:bar_search_cb' => \&bar_search_cb);
-}
-
-sub if_searched {
-  my $pxt = shift;
-  my %params = @_;
-  my $block = $params{__block__};
-
-  if ($pxt->pnotes('searched')) {
-    PXT::Debug->log(7, "searched...");
-    return $block;
-  }
-  elsif ($pxt->dirty_param('search_string')) {
-    return $block;
-  }
-
-  PXT::Debug->log(7, "not searched");
-  return;
 }
 
 sub validate_search_string {
