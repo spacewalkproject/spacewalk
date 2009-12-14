@@ -29,7 +29,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-cert-text' => \&cert_text);
   $pxt->register_tag('rhn-org-entitlement-name' => \&org_entitlement_name, -5);
 }
 
@@ -107,36 +106,6 @@ sub get_service_map {
 }
 
 
-# render the page that lets user view cert data
-sub cert_text {
-  my $pxt = shift;
-  my %params = @_;
-  my $block = $params{__block__};
-
-  my $support_org_id = $pxt->param('support_org_id');
-  my $data = $pxt->session->get('new_cert_info');
-  my %cert_info;
-  if ($data and $data->{'meta_info'}->{'support_org_id'} eq $support_org_id) {
-    %cert_info = %{$data};
-  }
-  else {
-    reset_form($pxt);
-    croak "No cert data!";
-  }
-
-  my %subs;
-  $subs{support_org_id} = $support_org_id;
-
-  # do the opening and meta info
-  my $cert_text = create_cert_text($pxt, \%cert_info);
- 
-  $cert_text=~s/>/&gt;/g;
-  $cert_text=~s/</&lt;/g;
-  $subs{cert_text} = $cert_text;
-  $block = PXT::Utils->perform_substitutions($block, \%subs);
-  return $block;
-}
- 
 # create the actual cert xml given the cert_info session data
 sub create_cert_text {
   my $pxt = shift;
