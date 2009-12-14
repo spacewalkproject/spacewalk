@@ -28,8 +28,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-system-search-form' => \&system_search_form);
-
   $pxt->register_tag('rhn-if-searched' => \&if_searched, -10);
 }
 
@@ -193,40 +191,6 @@ $system_searches->add_category(-label => 'Location',
 RHN::SearchTypes->register_type('system', $system_searches);
 
 my @integer_types = qw/search_id search_cpu_mhz_lt search_cpu_mhz_gt search_ram_lt search_ram_gt search_checkin search_registered/;
-
-sub system_search_form {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-  my $search_string = $pxt->dirty_param('search_string') || '';
-  my $search_set = $pxt->dirty_param('search_set') || 'all';
-  my $view_mode = $pxt->dirty_param('view_mode') || 'search_simple';
-  my $invert = $pxt->dirty_param('invert') || '';
-
-  my $search = RHN::SearchTypes->find_type('system');
-
-  my $search_select = $search->render_search_selectbox(pxt => $pxt, search_type => $view_mode);
-
-  $search_string = Sniglets::Search->strip_invalid_chars($search_string, $view_mode);
-
-  my %subst;
-
-  $subst{all_checked} = $search_set eq 'all' ? '1' : '';
-  $subst{system_list_checked} = $search_set eq 'system_list' ? '1' : '';
-
-  $subst{search_string} = PXT::Utils->escapeHTML($search_string);
-  $subst{invert_checked} = $invert ? ' checked="1"' : '';
-
-  $subst{search_options} = $search_select;
-
-  my $return_block;
-  $return_block .= PXT::HTML->form_start(-method => "POST");
-  $return_block .= PXT::Utils->perform_substitutions($params{__block__}, \%subst);
-  $return_block .= PXT::HTML->form_end;
-
-  return $return_block;
-}
 
 sub system_search_handler {
   my $pxt = shift;
