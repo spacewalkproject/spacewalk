@@ -365,7 +365,7 @@ class Packages(RPC_Base):
                 if package['epoch'] != '':
                     pkg_epoch = package['epoch']
 
-                if md5sum_exists:
+                if checksum_exists:
                     h.execute(pkg_name=package['name'], \
                     pkg_epoch=pkg_epoch, \
                     pkg_version=package['version'], \
