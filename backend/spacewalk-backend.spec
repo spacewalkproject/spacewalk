@@ -144,6 +144,7 @@ This package contains listener for the Server XML dumper.
 %package libs
 Summary: Spacewalk server and client tools libraries
 Group: Applications/Internet
+BuildRequires: python-devel
 
 %description libs
 Libraries required by both Spacewalk server and Spacewalk client tools.
@@ -206,7 +207,6 @@ Requires: %{name}-app = %{version}-%{release}
 Requires: %{name}
 Requires: spacewalk-certs-tools
 Requires: spacewalk-admin >= 0.1.1-0
-Requires: python-devel
 Requires: python-gzipstream
 Requires: python-hashlib
 Requires: PyXML
