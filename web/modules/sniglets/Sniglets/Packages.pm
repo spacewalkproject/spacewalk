@@ -38,8 +38,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-package-details' => \&package_details);
   $pxt->register_tag('rhn-package-change-log' => \&package_change_log);
-  # for above the tabs...
-  $pxt->register_tag('rhn-package-name' => sub { (shift)->pnotes('package_name') },2);
 
 
   $pxt->register_tag('rhn-unknown-package-nvre' => \&unknown_package_nvre);
