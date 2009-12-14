@@ -1423,10 +1423,13 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                     relative_path = f['relative_path']
                     dest_path = os.path.join(base_path, relative_path)
                     timestamp = rhnLib.timestamp(f['last_modified'])
-                    md5sum = f['md5sum']
+                    if 'md5sum' in f:   # old pre-sha256 kickstart export
+                        checksum = ('md5', f['md5sum'])
+                    else:
+                        checksum = (f['checksum_type'], f['checksum'])
                     file_size = f['file_size']
                     (errcode, ret_path) = self._verify_file(dest_path,
-                        timestamp, file_size, ('md5', md5sum))  # FIXME sha256
+                        timestamp, file_size, checksum)
                     if errcode != 0:
                         # Have to download it
                         val = (kt_label, base_path, relative_path,
@@ -1674,7 +1677,10 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             # Populate the package key info
             if len(self.pkg_header_info) > 0:
                 for data in self.pkg_header_info:
-                    checksum = ('md5', data['md5sum'])  # FIXME sha256
+                    if 'md5sum' in data:   # old pre-sha256 package export
+                        checksum = ('md5', data['md5sum'])
+                    else:
+                        checksum = (data['checksum_type'], data['checksum'])
                     server_packages.processPackageKeyAssociations(data['header'], \
                                                   checksum)
         return self._link_channel_packages()
