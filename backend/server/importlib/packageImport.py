@@ -252,14 +252,16 @@ class PackageImport(ChannelPackageSubscription):
                     self.capabilities[nv] = None
         # Process files too
         fileList = package['files']
-        checksum_type = package['checksum'][0]
         for f in fileList:
             nv = (f['name'], '')
             del f['name']
             f['capability'] = nv
             if not self.capabilities.has_key(nv):
                 self.capabilities[nv] = None
-            fchecksum = (checksum_type, f['filedigest'])
+            if 'md5' in f:      # old pre-sha256 export
+                fchecksum = ('md5', f['md5'])
+            else:
+                fchecksum = (f['checksum_type'], f['checksum'])
             f['checksum'] = fchecksum
             if not self.checksums.has_key(fchecksum):
                 self.checksums[fchecksum] = None
