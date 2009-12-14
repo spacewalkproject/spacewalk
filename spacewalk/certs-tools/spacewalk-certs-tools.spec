@@ -2,7 +2,7 @@ Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 0.8.2
+Version: 0.8.3
 Release: 1%{?dist}
 URL:      https://fedorahosted.org/spacewalk 
 Source0:  https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -56,6 +56,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/www/html/pub/bootstrap/client_config_update.py*
 
 %changelog
+* Mon Dec 14 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.3-1
+- fixed namespace of rhn_rpm
+- removed dead code
+
 * Mon Dec 07 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.2-1
 - moved code from rhnlib to spacewalk-backend-libs
 
