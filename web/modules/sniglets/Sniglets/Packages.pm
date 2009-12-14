@@ -42,8 +42,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-unknown-package-nvre' => \&unknown_package_nvre);
 
-  $pxt->register_tag('rhn-download-privileges' => \&download_privileges);
-
   $pxt->register_tag('rhn-download-package-list' => \&download_package_list);
   $pxt->register_tag('rhn-download', \&download, 2);
   $pxt->register_tag('rhn-must-select-archs', \&must_select_archs, 2);
@@ -106,22 +104,6 @@ sub must_select_archs {
   return $hidden_vals unless $pxt->pnotes('must_select_archs');
 
   return $params{__block__} . $hidden_vals;
-}
-
-sub download_privileges {
-  my $pxt = shift;
-  my $filename = $pxt->dirty_param('filename');
-
-  if (defined $filename and $filename =~ m/.*?\.rpm/) {
-    #warn "ok, you're allowed to download rpms for free...";
-    return '';
-  }
-
-  unless ($pxt->user->org->is_paying_customer) {
-    $pxt->redirect('/network/software/cannot_download.pxt');
-  }
-
-  return '';
 }
 
 sub download {
