@@ -12,6 +12,6 @@ setup(name = os.environ["PYTHON_MODULE_NAME"],
       long_description = """A collection of python modules used by the
 Spacewalk (http://spacewalk.redhat.com) software.""",
       url = 'http://spacewalk.redhat.com',
-      packages = ["spacewalk/common"],
+      packages = ["spacewalk", "spacewalk/common"],
       license = "GPL",
       )
