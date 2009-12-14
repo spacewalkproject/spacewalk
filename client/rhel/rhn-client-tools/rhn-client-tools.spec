@@ -22,6 +22,8 @@ Requires: sh-utils
 Requires: dbus-python
 Requires: hal >= 0.5.8.1-52
 Requires: newt
+Requires: python-dmidecode
+Requires: libxml2-python
 
 Conflicts: up2date < 5.0.0
 

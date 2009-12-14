@@ -27,13 +27,6 @@ except ImportError:
     rpclib = __import__("xmlrpclib")
 
 try:
-    import dmi
-except ImportError:
-    # If we couldn't import a DMI module, we'll use HAL instead.
-    dmi = None
-    import dbus
-
-try:
     from virtualization import support
 except ImportError:
     support = None    
@@ -253,34 +246,14 @@ def get_fully_virt_info():
     This function looks in the SMBIOS area to determine if this is a 
     fully-virt guest.  It returns a (uuid, virt_type) tuple.
     """
-    try:
-        # For RHEL4 systems and lower, we'll try to use DMI.
-        if dmi is not None:
-            dmi_registry = dmi.DMI()
-            vendor = dmi_registry['system']['vendor']
-            if vendor.lower() == "xen":
-                uuid = dmi_registry['system']['serial']
-                uuid = uuid.lower().replace('-', '')
-                virt_type = "fully"
-                return (uuid, virt_type)
-        else:
-            # For RHEL5 systems and higher, we'll use HAL.
-            bus = dbus.SystemBus()
-            device_obj = \
-                bus.get_object('org.freedesktop.Hal',
-                               '/org/freedesktop/Hal/devices/computer')
-            device = dbus.Interface(device_obj, 'org.freedesktop.Hal.Device')
-            vendor = device.GetPropertyString('smbios.bios.vendor')
-            if vendor.lower() == "xen":
-                uuid = device.GetPropertyString('smbios.system.uuid')
-                uuid = uuid.lower().replace('-', '')
-                virt_type = "fully"
-                return (uuid, virt_type)
-    except:
-        # Failed.  Must not be fully-virt.
-        pass
-
-    return (None, None)
+    vendor = hardware.dmi_vendor()
+    uuid = hardware.dmi_system_uuid()
+    if vendor.lower() == "xen":
+        uuid = uuid.lower().replace('-', '')
+        virt_type = "fully"
+        return (uuid, virt_type)
+    else:
+        return (None, None)
 
 def _is_host_uuid(uuid):
     uuid = eval('0x%s' % uuid)

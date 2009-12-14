@@ -24,6 +24,8 @@ _ = gettext.gettext
 from haltree import HalTree, HalDevice
 
 import dbus
+import dmidecode
+import libxml2
 import up2dateLog
 
 #PCI DEVICE DEFINES
@@ -99,6 +101,55 @@ try:
 except ImportError:
     locale = None
 
+# this does not change, we can cache it
+_dmi_data           = None
+_dmi_not_available  = 0
+
+def _initialize_dmi_data():
+    """ Initialize _dmi_data unless it already exist and returns it """
+    if _dmi_data is None:
+        if _dmi_not_available:
+            # do not try to initialize it again and again if not available
+            return None
+        else :
+            dmixml = dmidecode.dmidecodeXML()
+            dmixml = _dmi_data.SetResultType(dmidecode.DMIXML_DOC)
+            # Get all the DMI data and prepare a XPath context
+            try:
+                data = dmixml.QuerySection('all')
+            except:
+                # DMI decode FAIL, this can happend e.g in PV guest
+                _dmi_not_available = 1
+                return None
+            _dmi_data = data.xpathNewContext();
+    return _dmi_data
+
+def get_dmi_data(path):
+    """ Fetch DMI data from given section using given path.
+        If data could not be retrieved, returns empty string.
+        General method and should not be used outside of this module.
+    """
+    dmi_data = _initialize_dmi_data()
+    if dmi_data is None:
+       return ''
+    data = dmi_data.xpathEval(path)
+    if data != []:
+        return data[0].content
+    else:
+        # The path do not exist
+        return ''
+
+def dmi_vendor();
+    """ Return Vendor from dmidecode bios information.
+        If this value could not be fetch, returns empty string.
+    """
+    return get_dmi_data('/dmidecode/BIOSInfo/Vendor')
+
+def dmi_system_uuid();
+    """ Return UUID from dmidecode system information.
+        If this value could not be fetch, returns empty string.
+    """
+    return get_dmi_data('/dmidecode/SystemInfo/SystemUUID')
 
 # read_hal()
 # 
@@ -825,24 +876,8 @@ def read_dmi():
         system = product + " " + version
         dmidict["system"] = system
 
-    is_pv_guest = 0
-    # check to see if this a PV Guest
-    if os.access("/dev/xvc0", os.R_OK):
-        is_pv_guest = 1
-
     # BaseBoard Information
-    # bz#432426 To Do: try to avoid system calls and probing hardware to
-    # get baseboard and chassis information
-    if not is_pv_guest:
-        # only probe dmidecode if its not a PV xen guest.
-        # As PV guests will *never* be provided SMBIOS data.
-        f = os.popen("/usr/sbin/dmidecode --string=baseboard-manufacturer")
-        vendor = f.readline().strip()
-        f.close()
-        dmidict["board"] = vendor
-    else:
-        dmidict["board"] = ''
-    
+    dmidict["board"] = get_dmi_data('/dmidecode/BaseBoardInfo/Manufacturer')
 
     # Bios Information    
     vendor = get_device_property(computer, "system.firmware.vendor")
@@ -857,33 +892,17 @@ def read_dmi():
 
     # Chassis Information
     # The hairy part is figuring out if there is an asset tag/serial number of importance
-    asset = ""
-    if not is_pv_guest:
-        # only probe dmidecode if its not a PV xen guest.
-        # As PV guests will *never* be provided SMBIOS data.
-        f = os.popen("/usr/sbin/dmidecode --string=chassis-serial-number")
-        chassis_serial = f.readline().strip()
-        f.close()
-     
-        f = os.popen("/usr/sbin/dmidecode --string=chassis-asset-tag")
-        chassis_tag = f.readline().strip()
-        f.close()
-    
-        f = os.popen("/usr/sbin/dmidecode --string=baseboard-serial-number")
-        board_serial = f.readline().strip()
-        f.close()
-    else:
-        chassis_serial = chassis_tag = board_serial = ''
+    chassis_serial = get_dmi_data('/dmidecode/SystemInfo/SerialNumber')
+    chassis_tag = get_dmi_data('/dmidecode/ChassisInfo/AssetTag')
+    board_serial = get_dmi_data('/dmidecode/BaseBoardInfo/SerialNumber')
     
     system_serial = get_device_property(computer, "smbios.system.serial")
     
-    asset = "(%s: %s) (%s: %s) (%s: %s) (%s: %s)" % ("chassis", chassis_serial,
+    dmidict["asset"] = "(%s: %s) (%s: %s) (%s: %s) (%s: %s)" % ("chassis", chassis_serial,
                                                      "chassis", chassis_tag,
                                                      "board", board_serial,
                                                      "system", system_serial)
     
-    dmidict["asset"] = asset
-                                                             
     # Clean up empty entries    
     for k in dmidict.keys()[:]:
         if dmidict[k] is None:
