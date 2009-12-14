@@ -29,7 +29,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-org-entitlement-name' => \&org_entitlement_name, -5);
 }
 
 sub register_callbacks {
@@ -47,22 +46,6 @@ sub reset_form {
     reset_and_commit_set($pxt->user->id, 'new_cert_channel_set');
     reset_and_commit_set($pxt->user->id, 'new_cert_add_channel_set');
     reset_and_commit_set($pxt->user->id, 'new_cert_service_set');
-}
-
-sub org_entitlement_name {
-  my $pxt = shift;
-  my %attr = @_;
-
-  my $slot = $attr{type};
-
-  throw "No type in call to org_entitlement_name"
-    unless $slot;
-
-  my $block = $attr{__block__} || '{entitlement}';
-
-  $block = PXT::Utils->perform_substitutions($block, { entitlement => $pxt->user->org->slot_name($slot) });
-
-  return $block;
 }
 
 sub reset_and_commit_set {
