@@ -41,7 +41,6 @@ sub register_tags {
   $pxt->register_tag('rhn-raw-script-output' => \&raw_script_output);
   $pxt->register_tag('rhn-schedule-action-interface' => \&schedule_action_interface, 2);
 
-  $pxt->register_tag('rhn-date-pickbox' => \&date_pickbox, 1);
   $pxt->register_tag('rhn-reschedule-form-if-failed-action' => \&reschedule_form_if_failed_action);
   $pxt->register_tag('rhn-latest-config-actions' => \&latest_config_actions);
 
