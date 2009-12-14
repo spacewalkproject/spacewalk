@@ -28,7 +28,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-package-search-form' => \&package_search_form);
   $pxt->register_tag('rhn-system-search-form' => \&system_search_form);
 
   $pxt->register_tag('rhn-if-searched' => \&if_searched, -10);
@@ -290,54 +289,6 @@ $package_searches->add_mode(package_search_by_name => "Name Only", 'Summary');
 $package_searches->set_name('package_search');
 
 RHN::SearchTypes->register_type('package', $package_searches);
-
-sub package_search_form {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $search = RHN::SearchTypes->find_type('package');
-  my $search_select = $search->render_search_selectbox(pxt => $pxt);
-
-  my $search_arches;
-
-  # sigh, this is lame, but almost nothing in the ListView area
-  # understands multivalued formvars, so...
-  my %arches;
-  $arches{$_} = $pxt->dirty_param($_)
-    for qw/channel_arch_ia32 channel_arch_ia64 channel_arch_x86_64/;
-  my $no_selected_arched;
-  $no_selected_arched = 1
-    unless grep { defined $arches{$_} } qw/channel_arch_ia32 channel_arch_ia64 channel_arch_x86_64/;
-
-
-  for my $arch (Sniglets::Packages->search_arch_list) {
-    my ($label, $name) = @$arch;
-
-    $search_arches .= PXT::HTML->checkbox(-name => "channel_arch_$label",
-					  -value => "channel-$label",
-					  -checked => $arches{"channel_arch_$label"} ? 1 : 0);
-    $search_arches .= "$name ";
-  }
-
-  my $search_smart_channels;
-  $search_smart_channels = PXT::HTML->checkbox(-name => 'search_subscribed_channels',
-					       -value => 1,
-					       -checked => ($pxt->dirty_param('search_subscribed_channels') || $no_selected_arched || 0));
-  $search_smart_channels .= "Channels relevant to your systems";
-
-  my $return_block = '';
-  $return_block .= PXT::HTML->form_start(-method => "POST");
-  $return_block .= PXT::Utils->perform_substitutions($params{__block__},
-						     { 'search_options' => $search_select,
-						       'search_string' => PXT::Utils->escapeHTML($pxt->dirty_param('search_string') || ''),
-						       'search_arches' => $search_arches,
-						       'search_smart_channels' => $search_smart_channels,
-						     }
-						    );
-  $return_block .= PXT::HTML->form_end;
-
-  return $return_block;
-}
 
 sub package_search_handler {
   my $pxt = shift;
