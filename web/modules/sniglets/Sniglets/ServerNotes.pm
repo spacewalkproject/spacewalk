@@ -27,7 +27,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-display-server-note' => \&display_server_note);
   $pxt->register_tag('rhn-server-note-edit-form' => \&server_note_edit_form);
 }
 
@@ -36,24 +35,6 @@ sub register_callbacks {
   my $pxt = shift;
 
   $pxt->register_callback('rhn:server_note_cb' => \&server_note_cb);
-}
-
-# display a single note
-sub display_server_note {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $sid = $pxt->param('sid');
-
-  my $sn = RHN::ServerNotes->lookup(-id => $sid);
-  my $block = $params{__block__};
-
-  if($sn) {
-    $block =~ s/\{$_\}/PXT::Utils->escapeHTML($sn->$_() || '')/eig
-    foreach qw { id creator subject note created modified server_id };
-  }
-
-  return $block;
 }
 
 sub server_note_edit_form {
