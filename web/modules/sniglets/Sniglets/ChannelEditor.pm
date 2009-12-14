@@ -34,7 +34,6 @@ sub register_tags {
   $pxt->register_tag('rhn-channel-edit-form' => \&channel_edit_form);
   $pxt->register_tag('rhn-channel-select-options' => \&channel_select_options);
   $pxt->register_tag('rhn-if-package-list-modified' => \&if_package_list_modified);
-  $pxt->register_tag('rhn-show-all-errata-checkbox' => \&show_all_errata_checkbox);
   $pxt->register_tag('rhn-if-var' => \&if_var, -5);
   $pxt->register_tag('rhn-clone-channel-form' => \&clone_channel_form);
 
@@ -819,15 +818,6 @@ sub if_var {
   return unless $pxt->passthrough_param($attr{formvar});
 
   return $block;
-}
-
-sub show_all_errata_checkbox {
-  my $pxt = shift;
-  my %attr = @_;
-
-  return PXT::HTML->checkbox(-name => 'show_all_errata',
-			     -value => 1,
-			     -checked => $pxt->dirty_param('show_all_errata') ? 1 : 0);
 }
 
 sub channel_sync_prompt {
