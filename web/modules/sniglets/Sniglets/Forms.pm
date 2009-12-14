@@ -33,8 +33,6 @@ use PXT::ACL;
 sub register_tags {
   my $class = shift;
   my $pxt = shift;
-
-  $pxt->register_tag("rhn-render-form", \&render_form);
 }
 
 sub register_callbacks {
@@ -42,70 +40,6 @@ sub register_callbacks {
   my $pxt = shift;
 
   $pxt->register_callback('rhn:catch_form', \&catch_form_cb);
-}
-
-sub render_form {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $rform = prepare_form($pxt, %params);
-
-  my $style = new Sniglets::Forms::Style;
-  my $html = $rform->render($style);
-
-  return $html;
-}
-
-sub prepare_form {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $file = File::Spec->catfile($pxt->document_root, $params{file});
-
-  my $pform = RHN::Form::Parser->parse_file($file);
-
-  throw "'$pform' is not a RHN::Form::ParsedForm"
-    unless (ref $pform && $pform->isa('RHN::Form::ParsedForm'));
-
-  my $file_widget = new RHN::Form::Widget::Hidden(label => 'form_file',
-						  default => $file);
-
-  $pform->add_widget($file_widget);
-
-  my $acl_parser = new PXT::ACL (mixins => [ $pform->acl_mixins ]);
-# remove widgets based upon ACLs
-  foreach my $widget ($pform->widgets) {
-    next unless $widget->acl;
-
-    if (not $acl_parser->eval_acl($pxt, $widget->acl)) {
-      $pform->remove_widget($widget->label);
-    }
-  }
-
-  my $rform = $pform->realize; #A realized form, ready to render
-  undef $pform;
-
-  my $source = $rform->lookup_value('source');
-
-  if ($source) {
-    my $id_formvar = $rform->lookup_value('id_formvar');
-
-    eval "use $source";
-    die $@ if $@;
-
-    my $obj = $source->lookup(-id => $pxt->passthrough_param($id_formvar));
-
-    foreach my $widget ($rform->widgets) {
-      my $label = $widget->label;
-      if ($obj->can($label)) {
-	$widget->raw_value($obj->$label());
-      }
-    }
-  }
-
-  my $errors = load_params($pxt, $rform);
-
-  return $rform;
 }
 
 sub catch_form_cb {
