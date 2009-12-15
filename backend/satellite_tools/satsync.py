@@ -1784,6 +1784,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         pids = unique(erratum['packages'])
         # map all the pkgs objects to the erratum
         packages = []
+        # remove packages which are not in the export (e.g. archs we are not syncing)
         for pid in pids:
             try:
                 timestamp = sp_coll.get_package_timestamp(pid)
