@@ -56,8 +56,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-up2date-at-least' => \&up2date_at_least);
 
-  $pxt->register_tag('rhn-server-child-channels' => \&server_child_channels, 3);
-
   $pxt->register_tag('rhn-server-prefs-conf-list' => \&server_prefs_conf_list);
   $pxt->register_tag('rhn-server-name' => \&server_name, 2);
 
@@ -207,27 +205,6 @@ sub up2date_at_least {
   }
 
   return '';
-}
-
-# gets the channels from server_base_channel via pnote, 3rd link in chain.
-sub server_child_channels {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-
-  my $server_channels = $pxt->pnotes('server_channels');
-  PXT::Debug->log_dump(7, \$server_channels);
-  my $ret = '';
-  foreach my $sc (grep { defined $_->{PARENT_CHANNEL} } @{$server_channels}) {
-    my %subst = (child_channel_name => PXT::Utils->escapeHTML($sc->{NAME} || ''), child_channel_id => $sc->{ID});
-    PXT::Debug->log_dump(\%subst);
-    $ret .= PXT::Utils->perform_substitutions($block, \%subst);
-  }
-
-  PXT::Debug->log(7, "server channels:  $ret");
-
-  return $ret;
 }
 
 sub proxy_entitlement_form {
