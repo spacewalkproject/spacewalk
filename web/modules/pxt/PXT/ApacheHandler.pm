@@ -544,8 +544,6 @@ sub pxt_parse_data {
 
     $class->register_tags($p2) if $class->can("register_tags");
     $class->register_callbacks($p2) if $class->can("register_callbacks");
-
-    $class->register_xmlrpc($p2) if $class->can("register_xmlrpc");
   }
 
   if ($pxt->xml_request) {
