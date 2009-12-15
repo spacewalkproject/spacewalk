@@ -199,7 +199,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Kickstart/
 %{perl_vendorlib}/RHN/Mail.pm
 %{perl_vendorlib}/RHN/Manifest.pm
-%{perl_vendorlib}/RHN/Message.pm
 %{perl_vendorlib}/RHN/MonitoringConfigMacro.pm
 %{perl_vendorlib}/RHN/Org.pm
 %{perl_vendorlib}/RHN/Package.pm
