@@ -30,7 +30,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-profile-sync-confirm' => \&profile_sync_confirm);
 }
 
 sub register_callbacks {
@@ -129,38 +128,6 @@ sub profile_delete_cb {
   throw "param 'delete_success_page' needed but not provided." unless $redir;
   $pxt->push_message(site_info => "Profile <strong>$name</strong> deleted.");
   $pxt->redirect($redir, ($sid ? (sid => $sid) : ()));
-}
-
-sub profile_sync_confirm {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $copy = $params{__block__};
-
-  my $source;
-  my $source_profile_id = $pxt->param('prid');
-  my $source_system_id = $pxt->param('sid_1');
-
-  my $victim = RHN::Server->lookup(-id => $pxt->param('sid'));
-
-  if ($source_profile_id) {
-    $source = RHN::Profile->lookup(-id => $source_profile_id);
-  }
-  elsif ($source_system_id) {
-    $source = RHN::Server->lookup(-id => $source_system_id);
-  }
-  else {
-    die 'no source for sync operation?';
-  }
-
-
-  my %subst;
-  $subst{source} = $source->name;
-  $subst{victim} = $victim->name;
-
-  $copy = PXT::Utils->perform_substitutions($copy, \%subst);
-
-  return $copy;
 }
 
 sub sync_server_cb {
