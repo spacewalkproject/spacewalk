@@ -120,15 +120,6 @@ sub register_callbacks {
   $pxt->register_callback('rhn:osa-ping' => \&osa_ping_cb);
 }
 
-sub register_xmlrpc {
-  my $class = shift;
-  my $pxt = shift;
-
-  $pxt->register_xmlrpc('server_needed_packages', \&server_outdated_package_list_xmlrpc);
-  $pxt->register_xmlrpc('server_schedule_errata_update', \&server_schedule_errata_update_xmlrpc);
-  $pxt->register_xmlrpc('server_schedule_package_update', \&server_schedule_package_update_xmlrpc);
-}
-
 sub osa_ping_cb {
   my $pxt = shift;
   my $sid = $pxt->param('sid');
@@ -983,61 +974,6 @@ sub handle_system_entitlement_change {
   }
 
   return;
-}
-
-sub server_outdated_package_list_xmlrpc {
-  my $pxt = shift;
-  my $params = shift;
-
-  my ($token, $sid) = @{$params}{qw/token server_id/};
-  $pxt->user->verify_system_access($sid) or die "No permissions to server";
-
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  my $unused;
-  my @rows = $server->outdated_package_overview(-lower => 0, -upper => 10000, -total_rows => \$unused);
-
-  my @ret = map { { (nvre => $_->[4], advisory => $_->[6] || '', errata_id => $_->[5], name_id => $_->[2], evr_id => $_->[3]) } } @rows;
-
-  return \@ret;
-}
-
-sub server_schedule_package_update_xmlrpc {
-  my $pxt = shift;
-  my $params = shift;
-  my ($token, $sid, $name_id, $evr_id) = @{$params}{qw/token server_id name_id evr_id/};
-
-  $pxt->user->verify_system_access($sid) or die "No permissions to server";
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  my $package_id = RHN::Package->guestimate_package_id(-server_id => $sid, -name_id => $name_id, -evr_id => $evr_id);
-
-  my $earliest_date = RHN::Date->now->long_date;
-  my $action_id = RHN::Scheduler->schedule_package_install(-org_id => $pxt->user->org_id,
-							   -user_id => $pxt->user->id,
-							   -earliest => $earliest_date,
-							   -package_id => $package_id,
-							   -server_id => $server->id);
-
-  return $action_id;
-}
-
-sub server_schedule_errata_update_xmlrpc {
-  my $pxt = shift;
-  my $params = shift;
-  my ($token, $sid, $eid) = @{$params}{qw/token server_id errata_id/};
-
-  $pxt->user->verify_system_access($sid) or die "No permissions to server";
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  my $earliest_date = RHN::Date->now->long_date;
-  my ($action_id) = RHN::Scheduler->schedule_errata_updates_for_system(-org_id => $pxt->user->org_id,
-								       -user_id => $pxt->user->id,
-								       -earliest => $earliest_date,
-								       -errata_ids => [ $eid ],
-								       -server_id => $server->id);
-
-  return $action_id;
 }
 
 sub server_network_details {
