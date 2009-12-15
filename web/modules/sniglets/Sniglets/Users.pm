@@ -99,14 +99,6 @@ sub tnc_accepted_cb {
 	$pxt->redirect("/rhn/YourRhn.do");
 }
 
-sub register_xmlrpc {
-  my $class = shift;
-  my $pxt = shift;
-
-  $pxt->register_xmlrpc('rhn_login', \&rhn_login_xmlrpc);
-  $pxt->register_xmlrpc('rhn_logout', \&rhn_logout_xmlrpc);
-}
-
 # secures *all* intraserver links and all links to specified exterior servers
 sub secure_links_if_logged_in {
   my $pxt = shift;
@@ -524,43 +516,6 @@ sub rhn_logout_cb {
   }
 }
 
-
-sub rhn_login_xmlrpc {
-  my $pxt = shift;
-  my $params = shift;
-  # sadly, this was necessary.  we've broken the "old" (closed) protocols
-
-  if (ref $params ne 'HASH') {
-    $pxt->rpc_fault('old_client');
-  }
-
-  my ($username, $password) = ($params->{username}, $params->{password});
-
-  if ($pxt->session->uid) {
-    warn "User already logged in";
-    return $pxt->user->id;
-  }
-
-  my $user = RHN::User->check_login($username, $password);
- 
-  if ($user and !($user->is_disabled())) {
-    $pxt->session->uid($user->id);
-    $pxt->touch_session;
-    $pxt->session->serialize;
-  }
-  else {
-    $pxt->rpc_fault("invalid_login");
-  }
-
-  return $user ? $pxt->session->key : undef;
-}
-
-sub rhn_logout_xmlrpc {
-  my $pxt = shift;
-  my $session = shift;
-
-  $pxt->clear_session;
-}
 
 sub admin_user_edit_cb {
   my $pxt = shift;
