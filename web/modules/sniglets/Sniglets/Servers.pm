@@ -56,8 +56,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-up2date-at-least' => \&up2date_at_least);
 
-  $pxt->register_tag('rhn-resubscribe-warning-sdc' => \&resubscribe_warning_sdc, 3);
-  $pxt->register_tag('rhn-resubscribe-base-warning-sdc' => \&resubscribe_base_warning_sdc, 3);
   $pxt->register_tag('rhn-server-base-channel' => \&server_base_channel, 2);
   $pxt->register_tag('rhn-server-child-channels' => \&server_child_channels, 3);
 
@@ -156,29 +154,6 @@ sub osa_ping_cb {
   # $pxt->push_message(site_info => "<strong>" . $server->name . "</strong> has been pinged.  OSA Status will update within the next minute.");
   $pxt->redirect('/rhn/systems/details/Overview.do?sid=' . $sid . "&message=system.osad.pinged&messagep1=" . $server->name);
 }
-
-sub resubscribe_warning_sdc {
-  my $pxt = shift;
-  my %params = @_;
-
-  if ($pxt->pnotes('resubscribe_warning')) {
-    return $params{__block__};
-  }
-
-  return '';
-}
-
-sub resubscribe_base_warning_sdc {
-  my $pxt = shift;
-  my %params = @_;
-
-  if ($pxt->pnotes('resubscribe_base_warning')) {
-    return $params{__block__};
-  }
-
-  return '';
-}
-
 
 sub system_pending_actions_count {
   my $pxt = shift;
