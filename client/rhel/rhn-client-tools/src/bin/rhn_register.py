@@ -13,7 +13,8 @@
 import sys
 import os
 
-from rhpl.translate import _
+import gettext
+_ = gettext.gettext
 
 if "--development" in sys.argv:
     sys.path.append("../")

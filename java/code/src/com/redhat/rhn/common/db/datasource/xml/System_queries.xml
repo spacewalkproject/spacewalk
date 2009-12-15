@@ -422,6 +422,18 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
   <elaborator name="is_virtual_host" />
 </mode>
 
+<mode name="all_systems" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query>
+  SELECT  DISTINCT S.id,
+          S.name AS SERVER_NAME,
+          (SELECT 1
+             FROM rhnServerFeaturesView SFV
+            WHERE SFV.server_id = S.id
+              AND SFV.label = 'ftr_system_grouping') AS selectable
+    FROM  rhnServer S
+  </query>
+  <elaborator name="system_overview" />
+</mode>
 
 
 <mode name="most_critical_systems" class="com.redhat.rhn.frontend.dto.SystemOverview">
@@ -564,25 +576,37 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
   <elaborator name="system_overview" />
 </mode>
 
-<mode name="system_set_remove_or_verify_packages_conf">
-   <query params="user_id, set_label, package_set_label">
-SELECT  DISTINCT S.id,
-        S.name SYSTEM_NAME
-  FROM  rhnServer S,
-        rhnServerPackage SP,
-        rhnSet ST2,
-        rhnSet St
- WHERE  St.user_id = :user_id
-   AND  St.label = :set_label
-   AND  ST2.user_id = :user_id
-   AND  ST2.label= :package_set_label
-   AND  St.element = SP.server_id
-   AND  SP.name_id = ST2.element
-   AND  SP.evr_id = ST2.element_two
-   AND  SP.package_arch_id = ST2.element_three
-   AND  SP.server_id = S.id
-ORDER BY UPPER(S.name), S.id
+
+<query name="system_set_remove_package_query" params="user_id, set_label, package_set_label">
+	SELECT  DISTINCT S.id,
+	        S.name SYSTEM_NAME
+	  FROM  rhnServer S,
+	        rhnServerPackage SP,
+	        rhnSet ST2
+	 WHERE  ST2.user_id = :user_id
+	   AND  ST2.label= :package_set_label
+	   AND  SP.server_id in (select element from rhnSet  where label = :set_label and user_id = :user_id)
+	   AND  SP.name_id = ST2.element
+	   AND  SP.evr_id = ST2.element_two
+	   AND  SP.package_arch_id = ST2.element_three
+	   AND  SP.server_id = S.id
+	ORDER BY UPPER(S.name), S.id
    </query>
+
+
+<mode name="system_set_remove_or_verify_packages_conf_short">
+	<query name="system_set_remove_package_query" />
+   <elaborator params="user_id, package_set_label" multiple="t">
+SELECT  DISTINCT SP.server_id id,
+        SP.name_id || '|' || SP.evr_id || '|' || SP.package_arch_id AS ID_COMBO
+  FROM  rhnServerPackage SP
+ WHERE  SP.server_id IN (%s)
+   AND  SP.name_id  || '|' || SP.evr_id || '|' || SP.package_arch_id IN (SELECT element || '|' || element_two || '|' || element_three FROM rhnSet WHERE user_id = :user_id AND label = :package_set_label)
+   </elaborator>
+</mode>
+
+<mode name="system_set_remove_or_verify_packages_conf">
+	<query name="system_set_remove_package_query" />
    <elaborator params="user_id, package_set_label" multiple="t">
 SELECT  DISTINCT SP.server_id id,
         PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label NVRE,
@@ -1076,6 +1100,7 @@ ORDER BY S.ID
   SELECT /*+ RULE */ SERVER_ID AS ID, OUTDATED_PACKAGES, SERVER_NAME, security_errata, bug_errata, enhancement_errata,
           SERVER_ADMINS, GROUP_COUNT, NOTE_COUNT, MODIFIED, CHANNEL_LABELS, CHANNEL_ID, HISTORY_COUNT,
           LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED,
+          config_files_with_differences,
        ( SELECT  DECODE(
                    MAX(DECODE(PS.state, 'OK', 1, 'PENDING', 2, 'UNKNOWN', 3, 'WARNING', 4, 'CRITICAL', 5)),
                          1, 'OK', 2, 'PENDING', 3, 'UNKNOWN', 4, 'WARNING', 5, 'CRITICAL') ST
@@ -1108,6 +1133,7 @@ select distinct sgm.server_id as ID, 1 as virtual_host
   SELECT  SERVER_ID AS ID, SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, OUTDATED_PACKAGES, SERVER_NAME,
           SERVER_ADMINS, GROUP_COUNT, NOTE_COUNT, MODIFIED, CHANNEL_LABELS, HISTORY_COUNT,
           LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED,
+          config_files_with_differences,
        ( SELECT  DECODE(
                    MAX(DECODE(PS.state, 'OK', 1, 'PENDING', 2, 'UNKNOWN', 3, 'WARNING', 4, 'CRITICAL', 5)),
                          1, 'OK', 2, 'PENDING', 3, 'UNKNOWN', 4, 'WARNING', 5, 'CRITICAL') ST
@@ -1125,6 +1151,7 @@ ORDER BY  SECURITY_ERRATA DESC, BUG_ERRATA DESC, ENHANCEMENT_ERRATA DESC
           SERVER_ID as system_id, SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, OUTDATED_PACKAGES, SERVER_NAME,
           SERVER_ADMINS, GROUP_COUNT, NOTE_COUNT, OV.MODIFIED, CHANNEL_LABELS, CHANNEL_ID, HISTORY_COUNT,
           LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED,
+          config_files_with_differences,
        ( SELECT  DECODE(
                    MAX(DECODE(PS.state, 'OK', 1, 'PENDING', 2, 'UNKNOWN', 3, 'WARNING', 4, 'CRITICAL', 5)),
                          1, 'OK', 2, 'PENDING', 3, 'UNKNOWN', 4, 'WARNING', 5, 'CRITICAL') ST
@@ -1227,7 +1254,8 @@ SELECT PN.name,
        PE.version, 
        PE.release, 
        NVL(PE.epoch, ' ') as epoch,
-       PA.name as arch
+       PA.name as arch,
+       SP.installtime
   FROM rhnPackageName PN, rhnPackageEVR PE, rhnServerPackage SP, rhnPackageArch PA
  WHERE SP.server_id = :sid
    AND PN.id = SP.name_id

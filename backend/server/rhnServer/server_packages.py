@@ -19,41 +19,38 @@
 #
 
 import string
-from types import ListType, TupleType
+import time
+from types import DictType, TupleType
 
-from common import log_debug, rhn_rpm, rhnFault
+from common import log_debug, rhnFault
+from spacewalk.common import rhn_rpm
 from server import rhnSQL, rhnLib
 from server_lib import snapshot_server, check_entitlement
-
-def get_nvrea(entry):
-    if type(entry) not in (ListType, TupleType):
-        return None
-    if len(entry) < 4:
-        return None
-    if len(entry) >= 5:
-        arch = entry[4]
-        if arch is None:
-            arch = ""
-        else:
-            arch = str(arch)
-    else:
-        arch = ""
-    name, version, release, epoch = map(str, entry[:4])
-    if string.lower(epoch) == "(none)" or epoch == None:
-        epoch = ""
-    if None in [name, version, release, epoch, arch]:
-        return None
-    return (name, version, release, epoch, arch)
 
 # A small class that helps us represent things about a
 # database package. In this structure "real" means that we have an
 # entry in the database for it.
 class dbPackage:
-    def __init__(self, plist, real = 0, name_id=None, evr_id=None,
+    def __init__(self, pdict, real = 0, name_id=None, evr_id=None,
             package_arch_id=None): 
-        if not isinstance(plist, TupleType):
-            plist = tuple(plist)
-        self.n, self.v, self.r, self.e, self.a = plist
+        if type(pdict) != DictType:
+            return None
+        if not pdict.has_key('arch') or pdict['arch'] is None:
+            pdict['arch'] = ""
+        if string.lower(str(pdict['epoch'])) == "(none)" or pdict['epoch'] == None:
+            pdict['epoch'] = ""
+        for k in ('name', 'version', 'release', 'epoch', 'arch'):
+            if pdict[k] == None:
+                return None
+        self.n = str(pdict['name'])
+        self.v = str(pdict['version'])
+        self.r = str(pdict['release'])
+        self.e = str(pdict['epoch'])
+        self.a = str(pdict['arch'])
+        if pdict.has_key('installtime'):
+            self.installtime = pdict['installtime']
+        else:
+            self.installtime = None
         # nvrea is a tuple; we can use tuple as dictionary keys since they are
         # immutable
         self.nvrea = (self.n, self.v, self.r, self.e, self.a)
@@ -86,32 +83,32 @@ class Packages:
         
     def add_package(self, sysid, entry):
         log_debug(4, sysid, entry)
-        p = get_nvrea(entry)
+        p = dbPackage(entry)
         if p is None:
             # Not a valid package spec
             return -1
         if not self.__loaded:
             self.reload_packages_byid(sysid)        
-        if self.__p.has_key(p):
-            self.__p[p].add()
+        if self.__p.has_key(p.nvrea):
+            self.__p[p.nvrea].add()
             self.__changed = 1
             return 0
-        self.__p[p] = dbPackage(p)
+        self.__p[p.nvrea] = p
         self.__changed = 1
         return 0
 
     # delete a package from the list
     def delete_package(self, sysid, entry):
         log_debug(4, sysid, entry)
-        p = get_nvrea(entry)
+        p = dbPackage(entry)
         if p is None:
             # Not a valid package spec
             return -1
         if not self.__loaded:
             self.reload_packages_byid(sysid)        
-        if self.__p.has_key(p):
+        if self.__p.has_key(p.nvrea):
             log_debug(4, "  Package deleted")
-            self.__p[p].delete()
+            self.__p[p.nvrea].delete()
             self.__changed = 1
         # deletion is always successfull
         return 0
@@ -167,9 +164,9 @@ class Packages:
             log_debug(4, sysid, len(alist), "added packages")
             h = rhnSQL.prepare("""
             insert into rhnServerPackage
-            (server_id, name_id, evr_id, package_arch_id)
+            (server_id, name_id, evr_id, package_arch_id, installtime)
             values (:sysid, LOOKUP_PACKAGE_NAME(:n), LOOKUP_EVR(:e, :v, :r),
-                LOOKUP_PACKAGE_ARCH(:a)
+                LOOKUP_PACKAGE_ARCH(:a), TO_DATE(:instime, 'YYYY-MM-DD HH24:MI:SS')
             )
             """)
             package_data = {
@@ -179,6 +176,8 @@ class Packages:
                 'r'     : map(lambda a: a.r, alist),
                 'e'     : map(lambda a: a.e, alist),
                 'a'     : map(lambda a: a.a, alist),
+                'instime' : map(lambda a: time.strftime('%Y-%m-%d %H:%M:%S',
+                                   time.localtime(a.installtime)), alist),
             }
             try:
                 h.execute_bulk(package_data)
@@ -231,13 +230,14 @@ class Packages:
         # Now load packages
         h = rhnSQL.prepare("""
         select
-            rpn.name n,
-            rpe.version v,
-            rpe.release r,
-            rpe.epoch e,
+            rpn.name name,
+            rpe.version version,
+            rpe.release release,
+            rpe.epoch epoch,
             sp.name_id,
             sp.evr_id,
-            sp.package_arch_id
+            sp.package_arch_id,
+            TO_CHAR(sp.installtime, 'YYYY-MM-DD HH24:MI:SS') installtime
         from
             rhnServerPackage sp,
             rhnPackageName rpn, 
@@ -252,13 +252,13 @@ class Packages:
             t = h.fetchone_dict()
             if not t:
                 break
-            if t["e"] is None: t["e"] = ""
-            package_arch_id = t["package_arch_id"]
-            package_arch = package_arches_hash[package_arch_id]
-            nvrea = (t['n'], t['v'], t['r'], t['e'], package_arch)
-            self.__p[nvrea] = dbPackage(nvrea, real=1, 
-                name_id=t["name_id"], evr_id=t["evr_id"], 
-                package_arch_id=package_arch_id)
+            t['arch'] = package_arches_hash[t['package_arch_id']]
+            if t.has_key('installtime') and t['installtime'] is not None:
+                t['installtime'] = time.mktime(time.strptime(t['installtime'],
+                                                "%Y-%m-%d %H:%M:%S"))
+            p = dbPackage(t, real=1, name_id=t['name_id'], evr_id=t['evr_id'],
+                          package_arch_id=t['package_arch_id'])
+            self.__p[p.nvrea] = p
         log_debug(4, "Loaded %d packages for server %s" % (len(self.__p), sysid))
         self.__loaded = 1
         self.__changed = 0
@@ -374,7 +374,7 @@ def update_errata_cache(server_id):
     # Return the number of changes
     return changed
 
-def processPackageKeyAssociations(header, md5sum):
+def processPackageKeyAssociations(header, checksum):
     provider_sql = rhnSQL.prepare("""
         insert into rhnPackageKeyAssociation
             (package_id, key_id) values
@@ -400,9 +400,12 @@ def processPackageKeyAssociations(header, md5sum):
     """)
 
     lookup_pkgid_sql = rhnSQL.prepare("""
-        select id
-          from rhnPackage
-         where md5sum = :md5sum
+        select p.id
+          from rhnPackage p,
+               rhnChecksumView c
+         where c.checksum = :csum
+           and c.checksum_type = :ctype
+           and p.checksum_id = c.id
     """)
 
     lookup_pkgkey_sql = rhnSQL.prepare("""
@@ -412,7 +415,7 @@ def processPackageKeyAssociations(header, md5sum):
            and key_id = :key_id
     """)
 
-    lookup_pkgid_sql.execute(md5sum = md5sum)
+    lookup_pkgid_sql.execute(ctype=checksum[0], csum=checksum[1])
     pkg_id = lookup_pkgid_sql.fetchall_dict()
 
     if not pkg_id:
@@ -436,7 +439,6 @@ def processPackageKeyAssociations(header, md5sum):
         lookup_keytype_id.execute()
         key_type_id = lookup_keytype_id.fetchone_dict()
         insert_keyid_sql.execute(key_id = key_id, key_type_id = key_type_id['id'])
-        rhnSQL.commit()
         lookup_keyid_sql.execute(key_id = key_id)
         keyid = lookup_keyid_sql.fetchall_dict()
 
@@ -446,8 +448,6 @@ def processPackageKeyAssociations(header, md5sum):
 
     if not exists_check:
         provider_sql.execute(key_id=keyid[0]['id'], package_id=pkg_id[0]['id'])
-
-        rhnSQL.commit()
 
 
 # Compares list1 and list2 (each list is a tuple (n, v, r, e)

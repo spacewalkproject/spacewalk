@@ -555,9 +555,10 @@ FROM
   SELECT /*+ ORDERED */ p.id, pn.name as name, pevr.epoch as epoch,
          pevr.version as version, pevr.release as release,
          p.summary, p.description, pa.label as arch_label,
-         p.md5sum, p.build_time, p.path, p.package_size, p.payload_size,
+         p.build_time, p.path, p.package_size, p.payload_size,
          p.copyright, p.vendor, p.build_host, p.header_start, p.header_end,
-         srpm.name as source_rpm, pg.name as package_group_name
+         srpm.name as source_rpm, pg.name as package_group_name,
+         cs.checksum, cs.checksum_type as checksumtype
     FROM
          rhnChannelPackage cp,
          rhnPackage p
@@ -565,13 +566,15 @@ FROM
             LEFT OUTER JOIN rhnSourceRpm srpm  ON p.source_rpm_id = srpm.id,
          rhnPackageName pn,
          rhnPackageEvr pevr,
-         rhnPackageArch pa
+         rhnPackageArch pa,
+         rhnChecksumView cs
     WHERE
          cp.package_id = p.id
          AND p.name_id = pn.id
          AND p.evr_id = pevr.id
          AND p.package_arch_id = pa.id
          AND cp.channel_id = :channel_id
+         AND p.checksum_id = cs.id
     ORDER by 1
    </query>
 </mode>

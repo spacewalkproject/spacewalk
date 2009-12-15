@@ -1,7 +1,7 @@
 
 Name:		oracle-instantclient-selinux
 Version:	10.2
-Release:	15%{?dist}
+Release:	17%{?dist}
 Summary:	SELinux support for Oracle Instant Client
 Group:		System Environment/Base
 License:	GPLv2+
@@ -14,8 +14,8 @@ URL:		http://fedorahosted.org/spacewalk
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:	noarch
 
-Requires(post):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack, /usr/sbin/selinuxenabled
-Requires(postun):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack
+Requires(post):	/usr/sbin/semanage, /sbin/restorecon, /usr/sbin/selinuxenabled
+Requires(postun):	/usr/sbin/semanage, /sbin/restorecon
 Requires:	oracle-instantclient-basic
 Requires:	oracle-nofcontext-selinux
 
@@ -27,8 +27,8 @@ Summary:	SELinux support for Oracle Instant Client sqlplus
 Group:		System Environment/Base
 Requires:	oracle-instantclient-sqlplus
 Requires:	oracle-nofcontext-selinux
-Requires(post):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack, /usr/sbin/selinuxenabled
-Requires(postun):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack
+Requires(post):	/usr/sbin/semanage, /sbin/restorecon, /usr/sbin/selinuxenabled
+Requires(postun):	/usr/sbin/semanage, /sbin/restorecon
 
 %description -n oracle-instantclient-sqlplus-selinux
 SELinux support for Oracle Instant Client sqlplus.
@@ -49,7 +49,6 @@ cat <<'EOS' > %{buildroot}%{_sbindir}/%{name}-enable
 
 for i in %used_libs ; do
 	/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/'${i//./\\.}
-	/usr/bin/execstack -c /usr/lib/oracle/10.2.*/client*/lib/$i
 done
 /sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
 
@@ -60,7 +59,7 @@ cat <<'EOS' > %{buildroot}%{_sbindir}/oracle-instantclient-sqlplus-selinux-enabl
 
 /usr/sbin/semanage fcontext -a -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\..*/client.*/bin/sqlplus'
 /usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/libsqlplus\.so'
-/usr/bin/execstack -c /usr/lib/oracle/10.2.*/client*/lib/libsqlplus.so
+/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client64/lib/libsqlplusic\.so'
 /sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
 
 EOS
@@ -83,7 +82,6 @@ fi
 if [ $1 -eq 0 ]; then
 	for i in %used_libs ; do
 		/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/'${i//./\\.}
-		# /usr/bin/execstack -s /usr/lib/oracle/10.2.*/client*/lib/$i
 	done
 	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
 fi
@@ -103,7 +101,6 @@ fi
 if [ $1 -eq 0 ]; then
 	/usr/sbin/semanage fcontext -d -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\..*/client.*/bin/sqlplus'
 	/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/libsqlplus\.so'
-	# /usr/bin/execstack -s /usr/lib/oracle/10.2.*/client*/lib/libsqlplus.so
 	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
 fi
 
@@ -114,6 +111,12 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-instantclient-sqlplus-selinux-enable
 
 %changelog
+* Thu Nov 26 2009 Jan Pazdziora 10.2-17
+- On 64bit platform, the libsqlplusic.so needs textrel_shlib_t
+
+* Wed Sep 09 2009 Michael Mraka <michael.mraka@redhat.com> 10.2-16
+- 506951 - execstack -c moved to instantclient packages
+
 * Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 10.2-15
 - 498611 - run "semodule -i" in %%post and restorecon in %%posttrans
 

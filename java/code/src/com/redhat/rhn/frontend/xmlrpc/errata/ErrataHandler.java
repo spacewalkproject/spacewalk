@@ -597,7 +597,7 @@ public class ErrataHandler extends BaseHandler {
      *                              providing this package.")
      *                  #prop("string", "build_host")
      *                  #prop("string", "description")
-     *                  #prop("string", "md5sum")
+     *                  #prop("string", "checksum")
      *                  #prop("string", "vendor")
      *                  #prop("string", "summary")
      *                  #prop("string", "cookie")

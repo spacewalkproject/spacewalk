@@ -32,7 +32,8 @@ from virtualization.errors             import VirtualizationException
 from virtualization.constants          import StateType,           \
                                               PropertyType,        \
                                               VirtualizationType,  \
-                                              VIRT_STATE_NAME_MAP
+                                              VIRT_STATE_NAME_MAP, \
+                                              VIRT_VDSM_STATUS_MAP
 from virtualization.notification       import Plan,                \
                                               EventType,           \
                                               TargetType
@@ -119,6 +120,63 @@ def poll_hypervisor():
     if state: _log_debug("Polled state: %s" % repr(state))
 
     return state
+
+def poll_through_vdsm():
+    """
+     This method polls all the virt guests running on a VDSM enabled Host.
+     Libvirt is disabled by default on RHEV-M managed clients.
+     * Imports the localvdsm client that talks to the localhost
+       and fetches the list of vms and their info.
+     * Extract the data and construct the state to pass it to the 
+       execution plan for guest polling.
+     * The server should account for business rules similar to
+       xen/kvm.
+    """
+    import localvdsm
+    try:
+        server = localvdsm.connect()
+    except:
+        # VDSM raised an exception we're done here
+        return {}
+    # Extract list of vm's. True returns full list
+    try:
+        domains = server.list(True)
+    except:
+        # Something went wrong in vdsm, exit
+        return {}
+
+    if not len(domains['vmList']):
+        # No domains, exit.
+        return
+
+    state = {}
+    for domain in domains['vmList']:
+        #trim uuid
+        uuid = domain['vmId'].lower().replace('-', '')
+        # Map the VDSM status to libvirt for server compatibility
+        status = "Unknown"
+        if VIRT_VDSM_STATUS_MAP.has_key(domain['status']):
+            status = VIRT_VDSM_STATUS_MAP[domain['status']]
+        # This is gonna be fully virt as its managed by VDSM
+        virt_type = VirtualizationType.FULLY
+
+        #Memory
+        memory = int(domain['memSize'] * 1024);
+
+        properties = {
+            PropertyType.NAME   : domain['vmName'],
+            PropertyType.UUID   : uuid,
+            PropertyType.TYPE   : virt_type,
+            PropertyType.MEMORY : memory, # current memory
+            PropertyType.VCPUS  : domain['smp'],
+            PropertyType.STATE  : status}
+
+        state[uuid] = properties
+
+    if state: _log_debug("Polled state: %s" % repr(state))
+
+    return state
+
 
 def poll_state(uuid):
     """

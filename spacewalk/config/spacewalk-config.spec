@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.7.1
+Version: 0.8.0
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -44,6 +44,13 @@ tar -C $RPM_BUILD_ROOT%{prepdir} -cf - etc \
      | tar -C $RPM_BUILD_ROOT -xvf -
 
 echo "" > $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/rhn.conf
+
+find $RPM_BUILD_ROOT -name '*.symlink' | \
+	while read filename ; do linkname=${filename%.symlink} ; \
+		target=`sed -s 's/^Link to //' $filename` ; \
+		ln -sf $target $linkname ; \
+		rm -f $filename ; \
+	done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -95,6 +102,9 @@ EOF
 
 
 %changelog
+* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.2-1
+- Create the symlinks in .spec, based on .symlink "templates". (jpazdziora@redhat.com)
+
 * Fri Aug 28 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.7.1-1
 - No need to pre-require jabberd (mzazrivec@redhat.com)
 - removed all jabberd prep config files (mzazrivec@redhat.com)

@@ -25,6 +25,7 @@ from cStringIO import StringIO
 # rhn imports:
 from common import CFG, log_clean, rhnLib
 from common.rhnLog import log_time
+from common.rhnLib import createPath
 
 import messages
 
@@ -200,7 +201,7 @@ class FileManip:
         fout = open(self.full_path, 'wb')
         # setting file permissions; NOTE: rhnpush uses apache to write to disk,
         # hence the 6 setting.
-        setPermsPath(self.full_path, user='apache', group='apache', chmod=0644)
+        rhnLib.setPermsPath(self.full_path, user='apache', group='apache', chmod=0644)
         size = 0
         try:
             while 1:
@@ -255,160 +256,6 @@ class RpmManip(FileManip):
     def nvrea(self):
         return tuple(map(lambda x, s=self: s.pdict[x], 
             ['name', 'version', 'release', 'epoch', 'arch']))
-
-def setPermsPath(path, user='apache', group='root', chmod=0750):
-    """chown user.group and set permissions to chmod"""
-    if not os.path.exists(path):
-        log(-1, "*** ERROR: Path doesn't exist (can't set permissions): %s" % path, stream=sys.stderr)
-        sys.exit(-1)
-
-    # If non-root, don't bother to change owners
-    if os.getuid() != 0:
-        return
-
-    gc = GecosCache()
-    uid = gc.getuid(user)
-    if uid is None:
-        log(-1, messages.missing_user % user, stream=sys.stderr)
-        sys.exit(-1)
-
-    gid = gc.getgid(group)
-    if gid is None:
-        log(-1, messages.missing_group % group, stream=sys.stderr)
-        sys.exit(-1)
-
-    uid_, gid_ = os.stat(path)[4:6]
-    if uid_ != uid or gid_ != gid:
-        log(3, "   Performing 'chown %s.%s %s'" % (user, group, path), 
-            stream=sys.stderr)
-        os.chown(path, uid, gid)
-    os.chmod(path, chmod)
-
-
-class GecosCache:
-    "Cache getpwnam() and getgrnam() calls"
-    __shared_data = {}
-
-    def __init__(self):
-        self.__dict__ = self.__shared_data
-        if len(self.__shared_data.keys()) == 0:
-            # Not initialized
-            self._users = {}
-            self._groups = {}
-
-    def getuid(self, name):
-        "Return the UID of the user by name"
-        if self._users.has_key(name):
-            return self._users[name]
-        try:
-            uid = pwd.getpwnam(name)[2]
-        except KeyError:
-            # XXX misa: gripe? taw: I think we need to do something!
-            sys.stderr.write("XXX: User %s does not exist\n" % name)
-            return None
-        self._users[name] = uid
-        return uid
-
-    def getgid(self, name):
-        "Return the GID of the group by name"
-        if self._groups.has_key(name):
-            return self._groups[name]
-        try:
-            gid = grp.getgrnam(name)[2]
-        except KeyError:
-            # XXX misa: gripe?
-            sys.stderr.write("XXX: Group %s does not exist\n" % name)
-            return None
-        self._groups[name] = gid
-        return gid
-        
-    def reset(self):
-        self.__shared_data.clear()
-        self.__init__()
-
-
-def getUidGid(user=None, group=None):
-    "return uid, gid given user and group"
-
-    gc = GecosCache()
-    uid = os.getuid()
-    if uid != 0:
-        # Don't bother to change the owner, it will fail anyway
-        # group ownership may work though
-        user=None
-    else:
-        uid = gc.getuid(user)
-
-    if group:
-        gid = gc.getgid(group)
-    else:
-        gid = None
-
-    if gid is None:
-        gid = os.getgid()
-    return uid, gid
-
-
-def makedirs(path,  mode=0755, user=None, group=None):
-    "makedirs function that also changes the owners"
-
-    dirs_to_create = []
-    dirname = path
-
-    uid, gid = getUidGid(user, group)
-
-    while 1:
-        if os.path.isdir(dirname):
-            # We're done with this step
-            break
-        # We have to create this directory
-        dirs_to_create.append(dirname)
-        dirname, last = os.path.split(dirname)
-        if not last:
-            # We reached the top directory
-            break
-
-    # Now create the directories
-    while dirs_to_create:
-        dirname = dirs_to_create.pop()
-        try:
-            os.mkdir(dirname, mode)
-        except OSError, e:
-            if e.errno != 17: # File exists
-                raise
-            # Ignore the error
-        try:
-            os.chown(dirname, uid, gid)
-        except OSError:
-            # Changing permissions failed; ignore the error
-            sys.stderr.write("Changing owner for %s failed\n" % dirname)
-
-
-def createPath(path, user='apache', group='root', chmod=0755, logging=1):
-    """advanced makedirs
-
-    Will create the path if necessary.
-    Will chmod, and chown that path properly.
-
-    Uses the above makedirs() function.
-    """
-
-    path = rhnLib.cleanupAbsPath(path)
-    if not os.path.exists(path):
-        if logging:
-            log(4, "   Creating path: %s" % path, stream=sys.stderr)
-        makedirs(path, mode=chmod, user=user, group=group)
-    elif not os.path.isdir(path):
-        raise ValueError, "ERROR: createPath('%s'): path doesn't lead to a directory" % str(path)
-    else:
-        os.chmod(path, chmod)
-        uid, gid = getUidGid(user, group)
-        try:
-            os.chown(path, uid, gid)
-        except OSError:
-            # Changing permissions failed; ignore the error
-            sys.stderr.write("Changing owner for %s failed\n" % path)
-
 
 def intersection(seq0, seq1):
     """return the intersection of two sequences
@@ -508,50 +355,4 @@ def unique(s):
         if x not in u:
             u.append(x)
     return u
-
-def diffFileYN(filepath, mtime, size, md5sum):
-    """mtime, size, and md5sum are what the file at filepath *should* be
-    NOTE: I know it is broken, but mtime can be one of 4 things:
-          None, "2003-05-28 08:36:22", an epoch (int), or an epoch (float)
-    return: 1 == yes, they are different
-            0 == no, they are the same
-           -1 == file doesn't even exist.
-    side-effect: if the files are the same, but the mtime is different,
-                 then the mtime will be set to the mtime specified
-    """
-
-    if type(mtime) is type(''):
-        mtime = time.mktime(time.strptime(mtime, '%Y-%m-%d %H:%M:%S'))
-    _mtime = -1
-    _size = -1
-
-    st = None
-    try:
-        filepath = rhnLib.cleanupAbsPath(filepath)
-        st = os.stat(filepath)
-    except:
-        # missing
-        return -1
-
-    if not os.path.exists(filepath):
-        # missing
-        return -1
-
-    _mtime = st[-2]
-    _size = st[-4]
-
-    if size and size != _size:
-        return 1
-    elif not size or mtime != _mtime:
-        # probably a mismatch... double-check with an md5sum check
-        # NOTE: if size or mtime is None, they md5sum will be checked as well.
-        _md5sum = rhnLib.getFileMD5(filepath)
-        if md5sum != _md5sum:
-            return 1
-        elif mtime:
-            # They are the same file, but the mtime are different.
-            # Set the mtime to what it "should" be and move on.
-            os.utime(filepath, (mtime, mtime))
-    return 0
-
 

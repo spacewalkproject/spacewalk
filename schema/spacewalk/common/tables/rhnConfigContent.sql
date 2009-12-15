@@ -21,7 +21,9 @@ CREATE TABLE rhnConfigContent
                    USING INDEX TABLESPACE [[2m_tbs]],
     contents   BLOB,
     file_size  NUMBER,
-    md5sum     VARCHAR2(64) NOT NULL,
+    checksum_id NUMBER NOT NULL
+                  CONSTRAINT rhn_confcontent_chsum_fk
+                  REFERENCES rhnChecksum (id),
     is_binary  CHAR(1)
                    DEFAULT ('N') NOT NULL
                    CONSTRAINT rhn_confcontent_isbin_ck
@@ -34,10 +36,6 @@ CREATE TABLE rhnConfigContent
 TABLESPACE [[blob]]
 ENABLE ROW MOVEMENT
 ;
-
-CREATE INDEX rhn_confcontent_md5_uq
-    ON rhnConfigContent (md5sum)
-    TABLESPACE [[2m_tbs]];
 
 CREATE SEQUENCE rhn_confcontent_id_seq;
 

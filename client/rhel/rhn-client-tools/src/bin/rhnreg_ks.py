@@ -22,7 +22,9 @@
 
 import sys
 import os
-from rhpl.translate import _
+
+import gettext
+_ = gettext.gettext
 
 sys.path.append("/usr/share/rhn/")
 
@@ -97,10 +99,10 @@ class RegisterKsCli(rhncli.RhnCli):
                 self.options.email)
 
         if not self.options.nopackages:
-            getInfo = 0
+            getArch = 0
             if rhnreg.cfg['supportsExtendedPackageProfile']:
-                getInfo = 1
-            packageList = rpmUtils.getInstalledPackageList(getInfo=getInfo)
+                getArch = 1
+            packageList = rpmUtils.getInstalledPackageList(getArch=getArch)
         else:
             packageList = []
 

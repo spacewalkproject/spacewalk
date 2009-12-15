@@ -85,7 +85,22 @@
 		        </c:choose>   		           
 		</rl:column>
 		</c:if>
-		
+		<c:if test = "${empty noConfigFiles}">
+			<rl:column sortable="false"
+				   bound="false"
+				   headerkey="systemlist.jsp.configfiles"
+				   styleclass="center"
+				   headerclass="thin-column">
+				<c:choose>
+					<c:when test="${(current.configFilesWithDifferences) == 0}">
+						<c:out value="0" />
+					</c:when>
+					<c:otherwise>
+						<c:out value="<a href='/rhn/systems/details/configuration/Overview.do?sid=${current.id}'>${current.configFilesWithDifferences}</a>" escapeXml="false" />
+					</c:otherwise>
+				</c:choose>
+			</rl:column>
+		</c:if>
 		<!-- Name Channel Column -->
 		<rl:column sortable="true" 
 				   bound="false"

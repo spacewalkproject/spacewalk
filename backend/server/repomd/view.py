@@ -18,7 +18,8 @@ XML_ENCODING = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
 
 class RepoView:
 
-    def __init__(self, primary, filelists, other, updateinfo, groups, fileobj):
+    def __init__(self, primary, filelists, other, updateinfo, groups, fileobj,
+                 checksumtype):
         self.primary = primary
         self.filelists = filelists
         self.other = other
@@ -26,17 +27,18 @@ class RepoView:
         self.groups = groups
 
         self.fileobj = fileobj
+        self.checksumtype = checksumtype
 
     def _get_data(self, data_type, data_obj):
         output = []
         output.append("  <data type=\"%s\">" % (data_type))
         output.append("    <location href=\"repodata/%s.xml.gz\"/>"
             % (data_type))
-        output.append("    <checksum type=\"sha\">%s</checksum>"
-            % (data_obj['gzip_checksum']))
+        output.append("    <checksum type=\"%s\">%s</checksum>"
+            % (self.checksumtype, data_obj['gzip_checksum']))
         output.append("    <timestamp>%d</timestamp>" % (data_obj['timestamp']))
-        output.append("    <open-checksum type=\"sha\">%s</open-checksum>"
-            % (data_obj['open_checksum']))
+        output.append("    <open-checksum type=\"%s\">%s</open-checksum>"
+            % (self.checksumtype, data_obj['open_checksum']))
         output.append("  </data>")
         return output
 
@@ -45,8 +47,8 @@ class RepoView:
         if self.groups:
             output.append("  <data type=\"group\">")
             output.append("    <location href=\"repodata/comps.xml\"/>")
-            output.append("    <checksum type=\"sha\">%s</checksum>"
-                % (self.groups['open_checksum']))
+            output.append("    <checksum type=\"%s\">%s</checksum>"
+                % (self.checksumtype, self.groups['open_checksum']))
             output.append("    <timestamp>%d</timestamp>" 
                 % (self.groups['timestamp']))
             output.append("  </data>")
@@ -104,8 +106,8 @@ class PrimaryView(object):
         output.append("    <arch>%s</arch>" % (package.arch))
         output.append("    <version epoch=\"%s\" ver=\"%s\" rel=\"%s\" />"
             % (package.epoch, package.version, package.release))
-        output.append("    <checksum type=\"md5\" pkgid=\"YES\">%s</checksum>"
-            % (package.md5sum))
+        output.append("    <checksum type=\"%s\" pkgid=\"YES\">%s</checksum>"
+            % package.checksum)
         output.append("    <summary>%s</summary>"
             % (text_filter(package.summary)))
         output.append("    <description>%s</description>"
@@ -180,7 +182,7 @@ class FilelistsView(object):
     def _get_package(self, package):
         output = []
         output.append("  <package pkgid=\"%s\" name=\"%s\" arch=\"%s\">"
-            % (package.md5sum, package.name, package.arch))
+            % (package.checksum[1], package.name, package.arch))
         output.append("    <version epoch=\"%s\" ver=\"%s\" rel=\"%s\" />"
             % (package.epoch, package.version, package.release))
 
@@ -212,7 +214,7 @@ class OtherView(object):
     def _get_package(self, package):
         output = []
         output.append("  <package pkgid=\"%s\" name=\"%s\" arch=\"%s\">"
-            % (package.md5sum, package.name, package.arch))
+            % (package.checksum[1], package.name, package.arch))
         output.append("    <version epoch=\"%s\" ver=\"%s\" rel=\"%s\" />"
             % (package.epoch, package.version, package.release))
 
@@ -282,8 +284,8 @@ class UpdateinfoView(object):
                 package.epoch, package.arch, text_filter(package.source_rpm)))
             output.append("            <filename>%s</filename>"
                 % text_filter(package.filename))
-            output.append("            <sum type=\"md5\">%s</sum>"
-                % package.md5sum)
+            output.append("            <sum type=\"%s\">%s</sum>"
+                % package.checksum)
             output.append("          </package>")
 
         output.append("      </collection>")

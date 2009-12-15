@@ -44,9 +44,9 @@ CREATE TABLE rhnServerActionVerifyResult
     mode_differs           CHAR(1) NOT NULL
                                CONSTRAINT rhn_sactionvr_mode_ck
                                    CHECK (mode_differs in ( 'Y' , 'N' , '?' )),
-    md5_differs            CHAR(1) NOT NULL
-                               CONSTRAINT rhn_sactionvr_md5_ck
-                                   CHECK (md5_differs in ( 'Y' , 'N' , '?' )),
+    checksum_differs       CHAR(1) NOT NULL
+                               CONSTRAINT rhn_sactionvr_chsum_ck
+                                   CHECK (checksum_differs in ( 'Y' , 'N' , '?' )),
     devnum_differs         CHAR(1) NOT NULL
                                CONSTRAINT rhn_sactionvr_devnum_ck
                                    CHECK (devnum_differs in ( 'Y' , 'N' , '?' )),

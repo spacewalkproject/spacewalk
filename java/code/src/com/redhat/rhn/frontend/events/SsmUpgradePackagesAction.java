@@ -14,22 +14,22 @@
  */
 package com.redhat.rhn.frontend.events;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.messaging.EventMessage;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.ssm.SsmOperationManager;
+
+import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import org.apache.log4j.Logger;
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.messaging.EventMessage;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerFactory;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.user.UserFactory;
-import com.redhat.rhn.manager.action.ActionManager;
-import com.redhat.rhn.manager.ssm.SsmOperationManager;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
 /**
  * Handles removing packages from servers in the SSM.
@@ -72,7 +72,7 @@ public class SsmUpgradePackagesAction extends AbstractDatabaseAction {
 
         // Explicitly call handle transactions here so the operation creation above
         // is persisted before the potentially long running logic below
-        handleTransactions();
+        handleTransactions(true);
 
         try {
             scheduleUpgrades(user, event);
@@ -103,8 +103,7 @@ public class SsmUpgradePackagesAction extends AbstractDatabaseAction {
             serverIds.add(serverId);
         }
 
-        List<Server> serverList = ServerFactory.lookupByIdsAndUser(serverIds, user);
-        ActionManager.schedulePackageUpgrades(user, serverList, packageListItems, earliest);
+        ActionManager.schedulePackageUpgrades(user, serverIds, packageListItems, earliest);
 
         if (log.isDebugEnabled()) {
             log.debug("Time to schedule all actions: " +

@@ -115,9 +115,6 @@ my %mon_config =
 
 RHN::SatInstall->update_monitoring_config(\%mon_config);
 
-my $dbname = $mon_config{RHN_DB_NAME};
-RHN::SatInstall->update_monitoring_environment($dbname);
-
 print "Restarting satellite services\n";
 system("/usr/sbin/rhn-satellite", "restart");
 

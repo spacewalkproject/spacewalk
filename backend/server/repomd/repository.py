@@ -16,7 +16,7 @@
 #   Classes for generating repository metadata from RHN info.
 #
 
-import sha
+import hashlib
 import time
 import StringIO
 import shutil
@@ -361,7 +361,7 @@ class MetadataRepository:
 
             ret = self.cache.set_file(cache_entry, self.last_modified)
             repomd_view = view.RepoView(primary, filelists, other, updateinfo,
-                comps, ret)
+                comps, ret, self.__get_checksumtype())
 
             repomd_view.write_repomd()
             ret.close()
@@ -370,14 +370,14 @@ class MetadataRepository:
         return ret
 
     def __get_file_checksum(self, xml_file):
-        sha_computer = sha.new()
+        hash_computer = hashlib.new(self.__get_checksumtype())
 
         chunk = xml_file.read(CHUNK_SIZE)
         while chunk:
-            sha_computer.update(chunk)
+            hash_computer.update(chunk)
             chunk = xml_file.read(CHUNK_SIZE)
 
-        return sha_computer.hexdigest()
+        return hash_computer.hexdigest()
 
     def __compute_open_checksum(self, timestamp, xml_file):
         template_hash = {}
@@ -393,6 +393,9 @@ class MetadataRepository:
         template_hash['gzip_checksum'] = self.__get_file_checksum(xml_gz_file)
 
         return template_hash
+
+    def __get_checksumtype(self):
+        return self.repository.channel.checksumtype
 
     def __getattr__(self, x):
         return getattr(self.compressed_repository, x)

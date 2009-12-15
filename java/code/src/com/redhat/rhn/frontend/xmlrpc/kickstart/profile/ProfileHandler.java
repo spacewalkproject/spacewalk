@@ -27,10 +27,10 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartDefaults;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartIpRange;
+import com.redhat.rhn.domain.kickstart.KickstartPackage;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.user.User;
@@ -823,34 +823,33 @@ public class ProfileHandler extends BaseHandler {
                 loggedInUser.getOrg().getId());
         
         // Set operations to determine deltas
-        Set<PackageName> onlyInProfile1 =
-            new HashSet<PackageName>(profile1.getPackageNames());
-        onlyInProfile1.removeAll(profile2.getPackageNames());
         
-        Set<PackageName> onlyInProfile2 = 
-            new HashSet<PackageName>(profile2.getPackageNames());
-        onlyInProfile2.removeAll(profile1.getPackageNames());
-        
-        // Convert the remaining into strings for return
-        Set<String> profile1PackageNameStrings = new HashSet<String>(onlyInProfile1.size());
-        for (PackageName packageName : onlyInProfile1) {
-            profile1PackageNameStrings.add(packageName.getName());
-        }
-        
-        Set<String> profile2PackageNameStrings = new HashSet<String>(onlyInProfile2.size());
-        for (PackageName packageName : onlyInProfile2) {
-            profile2PackageNameStrings.add(packageName.getName());
-        }
+
+        Set<String> onlyInProfile1 = getPackageNamesForKS(profile1);
+        onlyInProfile1.removeAll(getPackageNamesForKS(profile2));
+
+        Set<String> onlyInProfile2 = getPackageNamesForKS(profile2);
+        onlyInProfile2.removeAll(getPackageNamesForKS(profile1));
+
     
         // Package for return
         Map<String, Set<String>> results = new HashMap<String, Set<String>>(2);
         
-        results.put(kickstartLabel1, profile1PackageNameStrings);
-        results.put(kickstartLabel2, profile2PackageNameStrings);
+        results.put(kickstartLabel1, onlyInProfile1);
+        results.put(kickstartLabel2, onlyInProfile2);
         
         return results;
     }
     
+    private Set<String> getPackageNamesForKS(KickstartData ksdata) {
+        Set<String> toRet = new HashSet<String>();
+        for (KickstartPackage ksPack : ksdata.getKsPackages()) {
+            toRet.add(ksPack.getPackageName().getName());
+        }
+        return toRet;
+    }
+
+
     /**
      * Returns a list for each kickstart profile of properties that are different between
      * the profiles. Each property that is not equal between the two profiles will be

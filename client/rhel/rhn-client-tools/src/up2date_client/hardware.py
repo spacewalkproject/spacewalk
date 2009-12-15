@@ -18,11 +18,14 @@ import types
 
 import config
 
-from rhpl import ethtool
-from rhpl.translate import _, N_
+import ethtool
+import gettext
+_ = gettext.gettext
 from haltree import HalTree, HalDevice
 
 import dbus
+import dmidecode
+import libxml2
 import up2dateLog
 
 #PCI DEVICE DEFINES
@@ -98,6 +101,56 @@ try:
 except ImportError:
     locale = None
 
+# this does not change, we can cache it
+_dmi_data           = None
+_dmi_not_available  = 0
+
+def _initialize_dmi_data():
+    """ Initialize _dmi_data unless it already exist and returns it """
+    global _dmi_data, _dmi_not_available
+    if _dmi_data is None:
+        if _dmi_not_available:
+            # do not try to initialize it again and again if not available
+            return None
+        else :
+            dmixml = dmidecode.dmidecodeXML()
+            dmixml = dmixml.SetResultType(dmidecode.DMIXML_DOC)
+            # Get all the DMI data and prepare a XPath context
+            try:
+                data = dmixml.QuerySection('all')
+            except:
+                # DMI decode FAIL, this can happend e.g in PV guest
+                _dmi_not_available = 1
+                return None
+            _dmi_data = data.xpathNewContext();
+    return _dmi_data
+
+def get_dmi_data(path):
+    """ Fetch DMI data from given section using given path.
+        If data could not be retrieved, returns empty string.
+        General method and should not be used outside of this module.
+    """
+    dmi_data = _initialize_dmi_data()
+    if dmi_data is None:
+       return ''
+    data = dmi_data.xpathEval(path)
+    if data != []:
+        return data[0].content
+    else:
+        # The path do not exist
+        return ''
+
+def dmi_vendor():
+    """ Return Vendor from dmidecode bios information.
+        If this value could not be fetch, returns empty string.
+    """
+    return get_dmi_data('/dmidecode/BIOSInfo/Vendor')
+
+def dmi_system_uuid():
+    """ Return UUID from dmidecode system information.
+        If this value could not be fetch, returns empty string.
+    """
+    return get_dmi_data('/dmidecode/SystemInfo/SystemUUID')
 
 # read_hal()
 # 
@@ -686,6 +739,27 @@ def findHostByRoute():
         hostname = "unknown"
         s.close()
     return hostname, intf
+
+def get_slave_hwaddr(master, slave):
+    hwaddr = ""
+    try:
+        bonding = open('/proc/net/bonding/%s' % master, "r")
+    except:
+        return hwaddr
+
+    slave_found = False
+    for line in bonding.readlines():
+        if slave_found and string.find(line, "Permanent HW addr: ") != -1:
+            hwaddr = string.split(line)[3]
+            break
+
+        if string.find(line, "Slave Interface: ") != -1:
+            ifname = string.split(line)[2]
+            if ifname == slave:
+                slave_found = True
+
+    bonding.close()
+    return hwaddr
     
 def read_network():
     netdict = {}
@@ -701,8 +775,11 @@ def read_network():
     if netdict['hostname'] == 'localhost.localdomain' or \
     netdict['ipaddr'] == "127.0.0.1":
         hostname, ipaddr = findHostByRoute()
-        netdict['hostname'] = hostname
-        netdict['ipaddr'] = ipaddr
+
+        if netdict['hostname'] == 'localhost.localdomain':
+            netdict['hostname'] = hostname
+        if netdict['ipaddr'] == "127.0.0.1":
+            netdict['ipaddr'] = ipaddr
 
     return netdict
 
@@ -717,6 +794,16 @@ def read_network_interfaces():
         except:
             hwaddr = ""
             
+        # slave devices can have their hwaddr changed
+        try:
+            master = os.readlink('/sys/class/net/%s/master' % interface)
+        except:
+            master = None
+
+        if master:
+            master_interface = os.path.basename(master)
+            hwaddr = get_slave_hwaddr(master_interface, interface)
+
         try:
             module = ethtool.get_module(interface)
         except:
@@ -766,8 +853,6 @@ def get_hal_computer():
    
 # Read DMI information via hal.    
 def read_dmi():
-    computer = get_hal_computer()
-
     dmidict = {}
     dmidict["class"] = "DMI" 
 
@@ -775,6 +860,8 @@ def read_dmi():
     uname = string.lower(os.uname()[4])
     if not (uname[0] == "i"  and  uname[-2:] == "86") and not (uname == "x86_64"):
         return dmidict
+
+    computer = get_hal_computer()
 
     # System Information 
     vendor = get_device_property(computer, "system.hardware.vendor")
@@ -790,24 +877,8 @@ def read_dmi():
         system = product + " " + version
         dmidict["system"] = system
 
-    is_pv_guest = 0
-    # check to see if this a PV Guest
-    if os.access("/dev/xvc0", os.R_OK):
-        is_pv_guest = 1
-
     # BaseBoard Information
-    # bz#432426 To Do: try to avoid system calls and probing hardware to
-    # get baseboard and chassis information
-    if not is_pv_guest:
-        # only probe dmidecode if its not a PV xen guest.
-        # As PV guests will *never* be provided SMBIOS data.
-        f = os.popen("/usr/sbin/dmidecode --string=baseboard-manufacturer")
-        vendor = f.readline().strip()
-        f.close()
-        dmidict["board"] = vendor
-    else:
-        dmidict["board"] = ''
-    
+    dmidict["board"] = get_dmi_data('/dmidecode/BaseBoardInfo/Manufacturer')
 
     # Bios Information    
     vendor = get_device_property(computer, "system.firmware.vendor")
@@ -822,33 +893,17 @@ def read_dmi():
 
     # Chassis Information
     # The hairy part is figuring out if there is an asset tag/serial number of importance
-    asset = ""
-    if not is_pv_guest:
-        # only probe dmidecode if its not a PV xen guest.
-        # As PV guests will *never* be provided SMBIOS data.
-        f = os.popen("/usr/sbin/dmidecode --string=chassis-serial-number")
-        chassis_serial = f.readline().strip()
-        f.close()
-     
-        f = os.popen("/usr/sbin/dmidecode --string=chassis-asset-tag")
-        chassis_tag = f.readline().strip()
-        f.close()
-    
-        f = os.popen("/usr/sbin/dmidecode --string=baseboard-serial-number")
-        board_serial = f.readline().strip()
-        f.close()
-    else:
-        chassis_serial = chassis_tag = board_serial = ''
+    chassis_serial = get_dmi_data('/dmidecode/SystemInfo/SerialNumber')
+    chassis_tag = get_dmi_data('/dmidecode/ChassisInfo/AssetTag')
+    board_serial = get_dmi_data('/dmidecode/BaseBoardInfo/SerialNumber')
     
     system_serial = get_device_property(computer, "smbios.system.serial")
     
-    asset = "(%s: %s) (%s: %s) (%s: %s) (%s: %s)" % ("chassis", chassis_serial,
+    dmidict["asset"] = "(%s: %s) (%s: %s) (%s: %s) (%s: %s)" % ("chassis", chassis_serial,
                                                      "chassis", chassis_tag,
                                                      "board", board_serial,
                                                      "system", system_serial)
     
-    dmidict["asset"] = asset
-                                                             
     # Clean up empty entries    
     for k in dmidict.keys()[:]:
         if dmidict[k] is None:

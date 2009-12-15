@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 from config_common.rhn_log import log_debug, die
 import handler_base, base64, stat
 

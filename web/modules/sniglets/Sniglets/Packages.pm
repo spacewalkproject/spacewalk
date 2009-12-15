@@ -38,13 +38,9 @@ sub register_tags {
 
   $pxt->register_tag('rhn-package-details' => \&package_details);
   $pxt->register_tag('rhn-package-change-log' => \&package_change_log);
-  # for above the tabs...
-  $pxt->register_tag('rhn-package-name' => sub { (shift)->pnotes('package_name') },2);
 
 
   $pxt->register_tag('rhn-unknown-package-nvre' => \&unknown_package_nvre);
-
-  $pxt->register_tag('rhn-download-privileges' => \&download_privileges);
 
   $pxt->register_tag('rhn-download-package-list' => \&download_package_list);
   $pxt->register_tag('rhn-download', \&download, 2);
@@ -108,22 +104,6 @@ sub must_select_archs {
   return $hidden_vals unless $pxt->pnotes('must_select_archs');
 
   return $params{__block__} . $hidden_vals;
-}
-
-sub download_privileges {
-  my $pxt = shift;
-  my $filename = $pxt->dirty_param('filename');
-
-  if (defined $filename and $filename =~ m/.*?\.rpm/) {
-    #warn "ok, you're allowed to download rpms for free...";
-    return '';
-  }
-
-  unless ($pxt->user->org->is_paying_customer) {
-    $pxt->redirect('/network/software/cannot_download.pxt');
-  }
-
-  return '';
 }
 
 sub download {
@@ -344,7 +324,8 @@ sub package_details {
   $pxt->pnotes(package_name => $package->nvre);
 
   $subst{"package_$_"} = PXT::Utils->escapeHTML($package->$_() || '') || $no_data
-    foreach qw/id arch_name arch_label arch_type_label arch_type_name package_group_name rpm_version build_host build_time md5sum vendor copyright/;
+    foreach qw/id arch_name arch_label arch_type_label arch_type_name
+    package_group_name rpm_version build_host build_time vendor copyright/;
 
   my ($relative_path, $size) = $package->source_rpm_path;
 

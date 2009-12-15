@@ -4,7 +4,7 @@
  * Author:
  *	Cristian Gafton <gafton@redhat.com>
  *
- * Distributed under GPL
+ * Distributed under GPLv2
  * $Id$
  */
 
@@ -26,9 +26,14 @@
 #include <sys/wait.h>
 #include <sys/time.h>
 #include <time.h>
+#include <limits.h>
+#include <regex.h>
 
 #define RHN_CHECK "/usr/sbin/rhn_check" /* XXX: fix me */
-#define RHN_SYSID "/etc/sysconfig/rhn/systemid" /* XXX: hard coded paths are evil */
+#define RHN_UP2DATE "/etc/sysconfig/rhn/up2date"
+#define RHNSD_CONFIG_FILE "/etc/sysconfig/rhn/rhnsd"
+
+#define MAX_PATH_SIZE   512 
 
 /* gettext stuff */
 #define N_(msgid)	(msgid)
@@ -61,6 +66,16 @@ static const char doc[] = N_("Red Hat Network Services Daemon");
 #define PROGRAM		"rhnsd"
 #define VERSION		"1.0.2"
 
+/* Configuration parameters */
+static const char* param_name_interval = "interval";
+
+typedef struct _config_param  
+{
+    char *key;
+    char *data;
+} config_param;
+
+
 /* Prototype for option handler.  */
 static error_t parse_opt __P ((int key, char *arg, struct argp_state *state));
 
@@ -73,9 +88,14 @@ static struct argp argp = {
 static void termination_handler (int);
 static int rhn_init(void);
 static int rhn_do_action(void);
+static void read_configuration();
+static void setInterval(char *arg);
+
+static int parse_systemid_path(char* systemid_path, int systemid_path_length);
 
 static void set_signal_handlers (void);
 static void unset_signal_handlers (void);
+static void SIGHUP_handler(int);
 
 /* Arguments */
 #define MIN_INTERVAL  1         /* minimal sane interval; RHN will blacklist
@@ -104,6 +124,11 @@ int main (int argc, char **argv)
     /* Set the text message domain.  */
     bindtextdomain(PROGRAM, "/usr/share/locale");
     textdomain(PROGRAM);
+
+    /* Read default configuration file and allow command line 
+     * options to override initial configuration file entries
+     **/
+    read_configuration();
 
     /* Parse and process arguments.  */
     argp_parse(&argp, argc, argv, 0, &remaining, NULL);
@@ -187,6 +212,8 @@ int main (int argc, char **argv)
     }
 }
 
+
+
 /* Handle program arguments.  */
 static error_t
 parse_opt (int key, char *arg, struct argp_state *state)
@@ -199,11 +226,7 @@ parse_opt (int key, char *arg, struct argp_state *state)
 
 	case 'i':
 	    /* --interval */
-	    interval = atoi(arg);
-	    if (interval < MIN_INTERVAL) {
-		interval = MIN_INTERVAL;
-		syslog(LOG_WARNING, "you cannot specify a minimum interval less than %d, interval adjusted.", MIN_INTERVAL);
-	    }	    
+	    setInterval(arg);
 	    break;
 
 	case 'v':
@@ -289,6 +312,7 @@ set_signal_handlers (void)
     signal (SIGQUIT, termination_handler);
     signal (SIGTERM, termination_handler);
     signal (SIGPIPE, SIG_IGN);
+    signal (SIGHUP, SIGHUP_handler);
 }
 
 static void 
@@ -298,6 +322,7 @@ unset_signal_handlers (void)
     signal (SIGQUIT, SIG_DFL);
     signal (SIGTERM, SIG_DFL);
     signal (SIGPIPE, SIG_DFL);
+    signal (SIGHUP, SIG_DFL);
 }
 
 /* XXX: fix me up */
@@ -316,14 +341,30 @@ static int rhn_do_action(void)
     int child;
     int retval;
     int fds[2];
+    char systemid_path[MAX_PATH_SIZE] = {0};
 
     /*
      * before we do anything, check if a systemid has been created.
      * if not, we aren't gonna even go through with this.
      */
-    if (access(RHN_SYSID, R_OK)) {
-	syslog(LOG_DEBUG, "%s does not exist or is unreadable", RHN_SYSID);
-	return -1;
+
+    if (access(RHN_UP2DATE, R_OK))
+    {
+         syslog(LOG_DEBUG, "%s does not exist or is unreadable", RHN_UP2DATE);
+         return -1;
+    }
+
+    /* parse the systemid location from the up2date file */
+    if (parse_systemid_path(systemid_path, sizeof(systemid_path)))
+    {
+         syslog(LOG_DEBUG, "%s does not contain valid systemIdPath entry", RHN_UP2DATE);
+         return -1;
+    }
+
+    if (access(systemid_path, R_OK))
+    {
+         syslog(LOG_DEBUG, "%s does not exist or is unreadable", systemid_path);
+         return -1;
     }
     
     /* first, the child will have the stdout redirected */
@@ -335,7 +376,6 @@ static int rhn_do_action(void)
     if ((child = fork()) == 0) {
 	/* Okay, maybe we're too paranoid... */
 	char *args[] = { NULL, NULL };
-	char *envp[] = { NULL  };
 
 	/* close the read end of the pipe */
 	close(fds[0]);
@@ -354,7 +394,7 @@ static int rhn_do_action(void)
         unset_signal_handlers ();
         /* exec binary helper */
         args[0] = RHN_CHECK;
-        execve(RHN_CHECK, args, envp);
+        execv(RHN_CHECK, args);
 
         /* should not get here: exit with error */
         set_signal_handlers ();
@@ -452,3 +492,119 @@ static int rhn_do_action(void)
     close(fds[1]);
     return 0;
 }
+
+
+
+static void setInterval(char *arg) 
+{
+    interval = atoi(arg);
+    if (interval < MIN_INTERVAL) {
+        interval = MIN_INTERVAL;
+        syslog(LOG_WARNING, "you cannot specify a minimum interval less than %d, interval adjusted.", MIN_INTERVAL);
+    }
+    syslog(LOG_NOTICE, "%s running with check_in interval set to %d seconds.", doc, interval);
+}
+
+static int skipLine(char *line)
+{
+    if (line == NULL) {
+        return 1;
+    }
+    // Detect a Comment
+    if (line[0] == '#') {
+        return 1;
+    }
+    return 0;
+}
+
+/*
+ * Returns a key/value pair of a configuration item, or NULL.
+ * Expected format of config entries is:
+ * KEY=VALUE
+ */
+static config_param *parseLine(char *line) 
+{
+    if (skipLine(line)) {
+        return NULL;
+    }
+    
+    config_param *cp = malloc(sizeof(config_param));
+    char delim[] = "=";
+    char *dup = strdup(line);
+    cp->key = strsep(&dup, delim);
+    if (cp->key == NULL) {
+        free(dup);
+        return NULL;
+    }
+    int index;
+    // Cast all keys to lowercase
+    for (index = 0; index < strlen(cp->key); index++) {
+        cp->key[index] = tolower(cp->key[index]);
+    }
+
+    cp->data = strsep(&dup, delim);
+    if (cp->data == NULL) {
+        free(dup);
+        return NULL;
+    }
+    free(dup);
+    return cp;
+}
+
+static void read_configuration() 
+{
+    FILE *config = fopen(RHNSD_CONFIG_FILE, "r");
+    if (config == NULL) {
+        syslog(LOG_ERR, "Error reading configuraton file, %s", RHNSD_CONFIG_FILE);
+        syslog(LOG_ERR, "%s", strerror(errno));
+        return;
+    }
+    char line[LINE_MAX];
+    while (fgets(line, LINE_MAX, config) != NULL) {
+        config_param *cp = parseLine(line);
+        if (cp == NULL) {
+            continue;
+        }
+        if (strncmp(param_name_interval, cp->key, strlen(param_name_interval)) == 0) {
+            setInterval(cp->data);
+        }
+        free(cp);
+    }
+    fclose(config);
+}
+
+static void SIGHUP_handler(int signum) 
+{
+    read_configuration();
+}
+
+
+
+#define MAX_CONFIG_LINE_SIZE    (2*MAX_PATH_SIZE)
+#define SYSTEMID_NMATCH         2
+/* parse systemIdPath from the up2date configuration file */
+static int parse_systemid_path(char* systemid_path, int systemid_path_length)
+{
+    FILE* config_file;
+    regex_t re_systemIdPath;
+    regmatch_t submatch[SYSTEMID_NMATCH];
+
+    regcomp(&re_systemIdPath,"^[[:space:]]*systemIdPath[[:space:]]*=[[:space:]]*([[:print:]]+)", REG_EXTENDED);
+    if (NULL != (config_file = fopen(RHN_UP2DATE, "r") ))
+    {
+        char line[MAX_CONFIG_LINE_SIZE];
+        while (NULL != fgets(line, MAX_CONFIG_LINE_SIZE, config_file))
+        {
+             int match_length = submatch[1].rm_eo - submatch[1].rm_so;
+             if (systemid_path_length < match_length)
+                   match_length = systemid_path_length - 1;
+
+             strncpy(systemid_path, &line[submatch[1].rm_so], match_length);
+             systemid_path[match_length] = '\0';
+             return 0;
+        }
+        fclose(config_file);
+    }
+    return 1;   /* file / key not found */
+}
+

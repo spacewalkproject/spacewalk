@@ -23,6 +23,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 
@@ -45,7 +46,7 @@ public class InstalledPackage implements Serializable, Comparable<InstalledPacka
     private PackageName name;
     private PackageArch arch;
     private Server server;
-    
+    private Date installTime;
     
     /**
      * @return Returns the server.
@@ -102,6 +103,22 @@ public class InstalledPackage implements Serializable, Comparable<InstalledPacka
      */
     public void setName(PackageName nameIn) {
         this.name = nameIn;
+    }
+
+    /**
+     * Getter for installTime
+     * @return Date when package was installed (as reported by rpm database).
+    */
+    public Date getInstallTime() {
+        return this.installTime;
+    }
+
+    /**
+     * Setter for installTime
+     * @param installTimeIn to set
+    */
+    public void setInstallTime(Date installTimeIn) {
+        this.installTime = installTimeIn;
     }
     
     /**

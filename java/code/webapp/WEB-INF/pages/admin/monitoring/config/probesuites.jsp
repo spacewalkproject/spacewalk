@@ -2,6 +2,9 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+<%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
+
+
 
 <html:xhtml/>
 <html>
@@ -24,35 +27,75 @@
     <bean:message key="probesuites.jsp.access"/>
   </p>
   </c:if>
-    <form method="POST" name="rhn_list" action="/rhn/monitoring/config/ProbeSuitesSubmit.do">
-    <rhn:list pageList="${requestScope.pageList}" noDataText="probesuites.jsp.nosuites">
-      <rhn:listdisplay   set="${requestScope.set}" exportColumns="id,suiteName,description,systemCount"
-         hiddenvars="${requestScope.newset}" button="probesuites.jsp.deleteprobesuites">
-        <rhn:set value="${current.id}" disabled="${not current.selectable}"/>
-        <rhn:column header="probesuites.jsp.name">
-            <c:if test="${current.selectable}">
-              <A HREF="ProbeSuiteEdit.do?suite_id=${current.id}">${current.suiteName}</A>
-            </c:if>
-            <c:if test="${not current.selectable}">
-              ${current.suiteName}
-            </c:if>
-        </rhn:column>
-        <rhn:column header="probesuites.jsp.description">
-            ${current.description}
-        </rhn:column>
-        <rhn:column header="probesuites.jsp.system_count">
-            <c:if test="${current.selectable}">
-              <A HREF="ProbeSuiteSystems.do?suite_id=${current.id}">${current.systemCount}</A>
-            </c:if>
-            <c:if test="${not current.selectable}">
-              &mdash;
-            </c:if>
-        </rhn:column>
-      </rhn:listdisplay>
-    </rhn:list>
-    </form>
 
-    
+
+
+ <rl:listset name="suitSet">
+
+   <rl:list emptykey="probesuites.jsp.nosuites">
+		<rl:decorator name="ElaborationDecorator"/>
+		<rl:decorator name="PageSizeDecorator"/>
+		<rl:selectablecolumn value="${current.id}"
+							selected="${current.selected}"
+							styleclass="first-column"/>
+
+                <rl:column sortable="true"
+                           bound="false"
+                           headerkey="probesuites.jsp.name"
+                           sortattr="suiteName"
+                           defaultsort="asc"
+                           filterattr="suiteName">
+                    <c:if test="${current.selectable}">
+		              <a href="ProbeSuiteEdit.do?suite_id=${current.id}"><c:out value="${current.suiteName}"/></a>
+		            </c:if>
+		            <c:if test="${not current.selectable}">
+				<c:out value="${current.suiteName}"/>
+		            </c:if>
+                </rl:column>
+
+                <rl:column sortable="true"
+                                   bound="false"
+                           headerkey="probesuites.jsp.description"
+                           sortattr="name" >
+						<c:out value="${current.description}"/>
+              </rl:column>
+
+
+                <rl:column sortable="true"
+                                   bound="false"
+                           headerkey="probesuites.jsp.system_count"
+                           sortattr="systemCount"
+                           styleclass="last-column">
+		            <c:if test="${current.selectable}">
+		              <A HREF="ProbeSuiteSystems.do?suite_id=${current.id}">${current.systemCount}</A>
+		            </c:if>
+		            <c:if test="${not current.selectable}">
+		              &mdash;
+		            </c:if>
+              </rl:column>
+
+
+
+  </rl:list>
+
+
+  <rl:csv dataset="dataset"
+    exportColumns="id,suiteName,description,systemCount"/>
+
+
+  <div align="right">
+   <rhn:submitted/>
+   <hr/>
+
+    <input type="submit"
+	name ="dispatch"
+	    value='<bean:message key="probesuites.jsp.deleteprobesuites"/>'/>
+	</div>
+
+</rl:listset>
+
+
+
   </p>
 </div>
 

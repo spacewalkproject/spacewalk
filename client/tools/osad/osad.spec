@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.21
+Version: 5.9.22
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -216,7 +216,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 %{rhnroot}/osad/dispatcher_client.py*
 %{rhnroot}/osad/rhn_log.py*
 %config(noreplace) %{_sysconfdir}/logrotate.d/osa-dispatcher
-%config(noreplace) %{_sysconfdir}/rhn/default/rhn_osa-dispatcher.conf
+%config %{_sysconfdir}/rhn/default/rhn_osa-dispatcher.conf
 %attr(755,root,root) %{_initrddir}/osa-dispatcher
 %doc LICENSE
 %doc PYTHON-LICENSES.txt
@@ -236,6 +236,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
+* Tue Oct 27 2009 Miroslav Suchy <msuchy@redhat.com> 5.9.22-1
+- Make debugging osa* network/jabber issues easier (joshua.roys@gtri.gatech.edu)
+
 * Tue Aug 04 2009 Jan Pazdziora 5.9.21-1
 - 514320 - open the pid file with append
 

@@ -1,0 +1,57 @@
+
+synopsis:
+
+	Entitlement and channel list and usage
+
+description:
+
+	For each organization, list of system entitlements and
+	channels to which the organization is entitled, together
+	with current usage.
+
+columns:
+
+	organization_id		Organization identifier
+	organization		Organization name
+	entitlement_type	'system' or 'channel'
+	entitlement		System entitlement name or channel name
+	used			How many entitlements are currently used
+	total			The total number of entitlements
+
+multival_columns:
+
+	organization_id
+	entitlement_type
+	entitlement
+
+sql:
+
+	select organization_id,
+		web_customer.name as organization,
+		entitlement_type,
+		entitlement,
+		used,
+		total
+	from (
+		select rhnprivatechannelfamily.org_id as organization_id,
+			'channel' as entitlement_type,
+			rhnchannelfamily.name as entitlement,
+			rhnprivatechannelfamily.current_members as used,
+			rhnprivatechannelfamily.max_members as total
+		from rhnchannelfamily, rhnprivatechannelfamily
+		where rhnchannelfamily.id = rhnprivatechannelfamily.channel_family_id
+		union all
+		select rhnservergroup.org_id as organization_id,
+			'system' as entitlement_type,
+			rhnservergrouptype.name as entitlement,
+			rhnservergroup.current_members as used,
+			rhnservergroup.max_members as total
+		from rhnservergroup, rhnservergrouptype
+		where rhnservergroup.group_type = rhnservergrouptype.id
+			and rhnservergroup.max_members > 0
+		) entitlements, web_customer
+	where entitlements.organization_id = web_customer.id
+	order by entitlements.organization_id,
+		case when entitlement_type = 'channel' then 1 else 0 end,
+		entitlement
+

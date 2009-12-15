@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: ISO-8859-1 -*-
 #
 # Copyright (c) 2008 Red Hat, Inc.
 #
@@ -24,12 +25,6 @@ class XMLWriter:
     """
     XML writer, UTF-8 aware
     """
-    if hasattr(sys, 'version_info'):
-        # new enough
-        _with_native_unicode = 1
-    else:
-        import iconv
-        _with_native_unicode = 0
     
     # We escape &<>'" and chars UTF-8 does not properly escape (everything
     # other than tab (\x09), newline and carriage return (\x0a and \x0d) and
@@ -53,14 +48,9 @@ class XMLWriter:
         self.stream = stream
         if not skip_xml_decl:
             self.stream.write('<?xml version="1.0" encoding="%s"?>' % self.encoding)
-        if not self._with_native_unicode:
-            # self.iconv is the iconv module
-            self._cd = self.iconv.CD(self.encoding, self.charset)
 
     def _convert(self, s):
         # Converts the string to the desired encoding
-        if not self._with_native_unicode:
-            return self._cd.iconv(s)
         return unicode(s, self.charset).encode(self.encoding)
 
     def open_tag(self, name, attributes={}, namespace=None):
@@ -85,7 +75,7 @@ class XMLWriter:
                 self.stream.write(" ")
                 self.data(k)
                 self.stream.write('="')
-                self.data(v)
+                self.data(str(v))
                 self.stream.write('"')
         if empty:
             self.stream.write("/")
@@ -149,13 +139,6 @@ class XMLWriter:
 
     def flush(self):
         self.stream.flush()
-
-    def __del__(self):
-        if self._with_native_unicode:
-            # Nothing to do
-            return
-        self._cd.close()
-        self._cd = None
 
 if __name__ == '__main__':
     weirdtag = chr(248) + 'gootag'

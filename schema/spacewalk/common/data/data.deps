@@ -48,10 +48,8 @@ rhn_command_parameter            :: data/rhn_semantic_data_type \
 rhn_command_param_threshold      :: data/rhn_command \
                                     data/rhn_metrics \
                                     data/rhn_threshold_type
-rhn_config_macro                 :: data/rhn_environment
 rhn_config_parameter             :: data/rhn_config_group \
                                     data/rhn_config_security_type
-rhn_db_environment               :: data/rhn_environment
 rhn_metrics                      :: data/rhn_command_class data/rhn_units
 rhn_os_commands_xref             :: data/rhn_command data/rhn_os
 rhn_schedule_days                :: data/rhn_schedules

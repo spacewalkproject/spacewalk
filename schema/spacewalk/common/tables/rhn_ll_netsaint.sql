@@ -16,7 +16,7 @@
 
 CREATE TABLE rhn_ll_netsaint
 (
-    netsaint_id  NUMBER(12) NOT NULL,
+    netsaint_id  NUMBER NOT NULL,
     city         VARCHAR2(255)
 )
 ENABLE ROW MOVEMENT

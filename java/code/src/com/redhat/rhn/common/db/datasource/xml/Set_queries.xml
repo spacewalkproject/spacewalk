@@ -239,26 +239,20 @@ DELETE
 DELETE
   FROM rhnSet
  WHERE rowid IN(SELECT s.rowid
-                  FROM rhnSet S, web_contact WC
+                  FROM rhnSet S, web_contact WC, rhnPackage P
                  WHERE S.user_id = :user_id
                    AND S.user_id = WC.id
                    AND S.label = :label
-                   AND NOT EXISTS(SELECT 1
-                                    FROM dual
-                                   WHERE EXISTS (SELECT 1
-                                                   FROM rhnPackage P
-                                                  WHERE P.id = S.element
-                                                    AND P.org_id = WC.org_id
-                                                )
-                                      OR EXISTS (SELECT 1
+                   AND S.element = P.id
+                   AND (P.org_id != WC.org_id
+                           AND  P.id NOT IN (SELECT CP.package_id
                                                    FROM rhnChannelPackage CP,
                                                         rhnAvailableChannels AC
                                                   WHERE AC.org_id = wc.org_id
                                                     AND AC.channel_id = CP.channel_id
-                                                    AND CP.package_id = S.element
-                                                )
-                                 )
-               )
+                                 ))
+                   )
+
   </query>
 </write-mode>
 

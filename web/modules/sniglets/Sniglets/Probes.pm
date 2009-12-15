@@ -46,8 +46,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag("rhn-system-probe-creation-form", \&system_probe_creation_form);
-  $pxt->register_tag("rhn-system-probe-edit-form", \&system_probe_edit_form);
   $pxt->register_tag("rhn-probe-state-summary", \&probe_state_summary);
 }
 
@@ -304,24 +302,6 @@ sub build_system_probe_creation_form {
   return $form;
 }
 
-################################
-sub system_probe_creation_form {
-################################
-  my $pxt = shift;
-  my %params = @_;
-
-  my $form = build_system_probe_creation_form($pxt, %params);
-  my $rform = $form->realize;
-  undef $form;
-
-  Sniglets::Forms::load_params($pxt, $rform);
-
-  my $style = new Sniglets::Forms::Style('standard');
-  my $html = $rform->render($style);
-
-  return $html;
-}
-
 ##############################
 sub system_probe_creation_cb {
 ##############################
@@ -424,24 +404,6 @@ sub system_probe_creation_cb {
   my $pid = $probe->recid();
   $pxt->redirect("/network/systems/details/probes/details.pxt?sid=$sid&probe_id=$pid");
 
-}
-
-############################
-sub system_probe_edit_form {
-############################
-  my $pxt = shift;
-  my %params = @_;
-
-  my $form = build_system_probe_edit_form($pxt, %params);
-  my $rform = $form->realize;
-  undef $form;
-
-  Sniglets::Forms::load_params($pxt, $rform);
-
-  my $style = new Sniglets::Forms::Style('standard');
-  my $html = $rform->render($style);
-
-  return $html;
 }
 
 ##################################

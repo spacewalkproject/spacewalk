@@ -259,12 +259,15 @@ class Runner:
                 sys.exit(1)
             except socket.error, e:
                 self.print_message(js, "socket error")
+                log_error(extract_traceback())
                 continue
             except JabberError, e:
                 self.print_message(js, "JabberError")
+                log_error(extract_traceback())
                 continue 
             except SSLError, e:
                 self.print_message(js, "SSLError")
+                log_error(extract_traceback())
                 continue
         else:
             # Ran out of Jabber servers to try

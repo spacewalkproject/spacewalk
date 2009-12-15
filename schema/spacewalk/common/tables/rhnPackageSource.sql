@@ -33,11 +33,15 @@ CREATE TABLE rhnPackageSource
     payload_size   NUMBER NOT NULL,
     build_host     VARCHAR2(256) NOT NULL,
     build_time     DATE NOT NULL,
-    sigmd5         VARCHAR2(64) NOT NULL,
+    sigchecksum_id NUMBER NOT NULL
+                      CONSTRAINT rhn_pkgsrc_sigchsum_fk
+                          REFERENCES rhnChecksum (id),
     vendor         VARCHAR2(64) NOT NULL,
     cookie         VARCHAR2(128) NOT NULL,
     path           VARCHAR2(1000),
-    md5sum         VARCHAR2(64) NOT NULL,
+    checksum_id    NUMBER NOT NULL
+                      CONSTRAINT rhn_pkgsrc_chsum_fk
+                          REFERENCES rhnChecksum (id),
     package_size   NUMBER NOT NULL,
     last_modified  DATE
                        DEFAULT (sysdate) NOT NULL,

@@ -18,21 +18,21 @@ sub initialize
 	my ($self,@params) = @_;
 	$self->SUPER::initialize(@params);
 	$self->addValidators(
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'serverName',
 			description=>'Fully qualified host+domain name of the server in question',
 			required=>0,
 			optional=>1,
 			format=>'string'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'serverAlias',
 			description=>'Short name (i.e. host name) of the server',
 			required=>0,
 			optional=>1,
 			format=>'string'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'allowedClients',
 			description=>'Space separated list of IP addresses that clients can connect from (if none, all are allowed)',
 			required=>0,

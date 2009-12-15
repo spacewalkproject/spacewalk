@@ -53,168 +53,168 @@ sub initialize
 	$self->SUPER::initialize();
 	$self->readFromFile($filename);
 	$self->addValidators(
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'satNumber',
 			description=>'Node number within the cluster (e.g. 1,2)',
 			required=>1,
 			optional=>0,
 			format=>'integer'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'nameservers',
 			description=>'List of nameserver ip addresses separated by spaces',
 			required=>1,
 			optional=>0,
 			format=>'string'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'nssearchpath',
 			description=>'List of domain names to search separated by spaces',
 			required=>1,
 			optional=>0,
 			format=>'string'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'smonaddr',
 			description=>'IP address of smon',
 			required=>1,
 			optional=>0,
 			format=>'ipAddress'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'smonfqdn',
 			description=>'Fully qualified domain name of smon',
 			required=>1,
 			optional=>0,
 			format=>'fqdn'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'smontestaddr',
 			description=>'IP address of smon-test',
 			required=>1,
 			optional=>0,
 			format=>'ipAddress'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'smontestfqdn',
 			description=>'Fully qualified domain name of smon-test',
 			required=>1,
 			optional=>0,
 			format=>'fqdn'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'sshaddr',
 			description=>'IP Address of host from which SSH connects will come',
 			required=>1,
 			optional=>0,
 			format=>'ipAddress'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'sshmask',
 			description=>'Dotted-quad mask for sshaddr',
 			required=>1,
 			optional=>0,
 			format=>'ipAddress'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'sshfqdn',
 			description=>'Fully qualified domain name of host from which ssh connects will com',
 			required=>1,
 			optional=>0,
 			format=>'fqdn'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'otherHosts',
 			description=>'List of static host entries separated by spaces',
 			required=>0,
 			optional=>1,
 			format=>'string'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'ntpservers',
 			description=>'List of ntp server IP addresses separated by spaces',
 			required=>0,
 			optional=>1,
 			format=>'string'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'superSputEnabled',
 			description=>'1 or 0, depending on whether SuperSput should be enabled or not',
 			required=>1,
 			optional=>0,
 			format=>'boolean'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'haFailoverEnabled',
 			description=>'1 or 0, depending on whether HA should be enabled or not',
 			required=>1,
 			optional=>0,
 			format=>'boolean'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'portalAddress',
 			description=>'IP address of the portal/DB machine',
 			required=>0,
 			optional=>1,
 			format=>'ipAddress'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'VIP',
 			description=>'Virtual IP Address definition',
 			required=>0,
 			optional=>1,
 			format=>'VIP'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'OffnetRoute',
 			description=>'Off net route definition',
 			required=>0,
 			optional=>0,
 			format=>'OffnetRoute'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'PhysNode',
 			description=>'Node definition',
 			required=>1,
 			optional=>0,
 			format=>'PhysNode'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'ApacheServer',
 			description=>'Apache server definition',
 			required=>0,
 			optional=>-1,
 			format=>'ApacheServer'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'NetworkFilesystem',
 			description=>'An NFS mounted filesystem',
 			required=>0,
 			optional=>-1,
 			format=>'NetworkFilesystem'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'LocalConfig',
 			description=>'Local configuration server access info',
 			required=>0,
 			optional=>1,
 			format=>'LocalConfig'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'RemoteConfig',
 			description=>'Remote configuration server access info',
 			required=>0,
 			optional=>1,
 			format=>'RemoteConfig'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'TomcatServer',
 			description=>'System wide parameters for a Tomcat app server',
 			required=>0,
 			optional=>1,
 			format=>'TomcatServer'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'ModJK2',
 			description=>'Parameters for JK2 clients under Apache',
 			required=>0,

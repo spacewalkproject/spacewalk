@@ -13,33 +13,17 @@
 # in this software or its documentation. 
 #
 
-import os
 import socket
 import string
 import base64
 import urllib
 import urlparse
 
-try:
-    import hashlib
-except ImportError:
-    import md5
-    class hashlib:
-        @staticmethod
-        def new(checksum):
-            # Add sha1 if needed.
-            if checksum == 'md5':
-                return md5.new()
-            # if not md5 or sha1, its invalid
-            if checksum not in ['md5', 'sha1']:
-                raise ValueError, "Incompatible checksum type"
-
-
 from types import ListType, TupleType, IntType
 
 from rhn import connections, rpclib
 
-import rhn_mpm
+from spacewalk.common import rhn_mpm
 
 class ConnectionError(Exception):
     pass
@@ -185,7 +169,7 @@ class PackageUpload:
 
         return self._response
 
-    def upload(self, file, FileMD5sum):
+    def upload(self, file, FileChecksum):
         """
         Uploads a file.
         Returns (http_error_code, error_message)
@@ -225,8 +209,8 @@ class PackageUpload:
 
         self.nvra = nvra
 
-        #use the precomputed passed md5sum.
-        self.md5sum = FileMD5sum
+        # use the precomputed passed checksum
+        self.checksum = FileChecksum
                 
         # Set headers
         self.set_header("Content-Type", "application/x-rpm")
@@ -238,7 +222,11 @@ class PackageUpload:
         self.set_header("%s-%s" % (prefix, "Package-Release"), nvra[2])
         self.set_header("%s-%s" % (prefix, "Package-Arch"), nvra[3])
         self.set_header("%s-%s" % (prefix, "Packaging"), self.packaging)
-        self.set_header("%s-%s" % (prefix, "File-MD5sum"), self.md5sum)
+        if self.checksum[0] == 'md5':
+            self.set_header("%s-%s" % (prefix, "File-MD5sum"), self.checksum[1])
+        else:
+            self.set_header("%s-%s" % (prefix, "File-Checksum-Type"), self.checksum[0])
+            self.set_header("%s-%s" % (prefix, "File-Checksum"), self.checksum[1])
         
         self._response = self.send_http('POST', stream_body=f)
         f.close()
@@ -257,9 +245,9 @@ class PackageUpload:
             return status, "OK"
         if status == 201:
             # Created
-            return (status, "%s: %s-%s-%s.%s.rpm already uploaded" % (
-                self.md5sum, self.nvra[0], self.nvra[1], self.nvra[2], 
-                self.nvra[3]))
+            return (status, "%s %s: %s-%s-%s.%s.rpm already uploaded" % (
+                self.checksum[0], self.checksum[1],
+                self.nvra[0], self.nvra[1], self.nvra[2], self.nvra[3]))
         if status in (404, 409):
             # Conflict
             errstring = self.get_error_message(self._resp_headers)
@@ -289,43 +277,3 @@ class PackageUpload:
         text = string.join(text, '\n')
         text = base64.decodestring(text)
         return text
-
-
-def getFileMD5(filename=None, fd=None, file=None, buffer_size=None):
-    """ Compute a file's md5sum
-        Used by rotateFile()
-    """
-
-    # python's md5 lib sucks.  hexdigest() doesn't show up until 2.0,
-    # and there's no way to directly import a file.
-    if buffer_size is None:
-        buffer_size = 65536
-
-    if filename is None and fd is None and file is None:
-	raise ValueError("no file specified");
-    if file:
-        f = file
-    elif fd is not None:
-        f = os.fdopen(os.dup(fd), "r")
-    else:
-        f = open(filename, "r")
-    # Rewind it
-    f.seek(0, 0)
-    m = hashlib.new('md5')
-    while 1:
-        buffer = f.read(buffer_size)
-        if not buffer:
-            break
-        m.update(buffer)
-
-    # cleanup time
-    if file is not None:
-        file.seek(0, 0)
-    else:
-        f.close()
-    return hexify_string(m.digest())
-
-def hexify_string(s):
-    """ Used by getStringMD5() and getFileMD5() """
-    return ("%02x" * len(s)) % tuple(map(ord, s))
-

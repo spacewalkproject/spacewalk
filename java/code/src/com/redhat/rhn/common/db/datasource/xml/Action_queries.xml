@@ -302,4 +302,15 @@ SELECT  1
   </query>
 </mode>
 
+<write-mode name="insert_server_actions">
+  <query params="parent_id, status_id, tries">
+INSERT INTO rhnServerAction (server_id, action_id, status, REMAINING_TRIES)
+ select  s.id as server_id, :parent_id as action_id, 
+ 		:status_id as status, :tries as REMAINING_TRIES
+ 	from rhnServer s
+ 	where s.id in (%s)
+  </query>
+</write-mode>
+
+
 </datasource_modes>

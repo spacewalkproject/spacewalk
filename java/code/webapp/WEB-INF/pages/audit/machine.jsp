@@ -63,6 +63,8 @@
             </span>
         </rl:column>
     </rl:list>
+
+    <input type="hidden" name="machine" value="${machine}" />
 </rl:listset>
 
 </body>

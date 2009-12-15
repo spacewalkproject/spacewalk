@@ -69,22 +69,6 @@ def RegistrationNumber(nr):
         return None     
     return ret
 
-# checks if a registration number is valid
-def ValidNumber(reg_num):
-    reg_num = RegistrationNumber(reg_num)
-    if not reg_num:
-        return -1
-    h = rhnSQL.prepare("""
-    select registered_flag flag from web_product_valid_numbers
-    where reg_number = :regnum
-    """)
-    h.execute(regnum = reg_num)
-    row = h.fetchone_dict()
-    if not row or not row.has_key("flag"):
-        return -1
-    flag = int(row["flag"])
-    return not flag
-
 #
 # Functions that we will provide for the outside world
 #
@@ -117,7 +101,6 @@ class Registration(rhnHandler):
         self.functions.append("update_contact_info")
         self.functions.append("update_packages")
         self.functions.append("update_transactions")
-        self.functions.append("validate_reg_num")
         self.functions.append("virt_notify")
         self.functions.append("welcome_message")
 
@@ -873,11 +856,10 @@ class Registration(rhnHandler):
         log_debug(5, system_id, packages)
         if CFG.DISABLE_PACKAGES:
             return 0
+        packages = self._normalize_packages(system_id, packages)
         server = self.auth_system(system_id)
         # log the entry
         log_debug(1, server.getid(), "packages: %d" % len(packages))
-        # Update the capabilities list
-        rhnCapability.update_client_capabilities(self.server_id)
         for package in packages:
             server.add_package(package)
         # XXX: check return code
@@ -889,14 +871,10 @@ class Registration(rhnHandler):
         log_debug(5, system_id, packages)
         if CFG.DISABLE_PACKAGES:
             return 0
-        if type(packages) != type([]):
-            log_error("Invalid argument type", type(packages))
-            raise rhnFault(21)
+        packages = self._normalize_packages(system_id, packages)
         server = self.auth_system(system_id)
         # log the entry
         log_debug(1, server.getid(), "packages: %d" % len(packages))
-        # Update the capabilities list
-        rhnCapability.update_client_capabilities(self.server_id)
         for package in packages:
             server.delete_package(package)
         # XXX: check return code
@@ -910,15 +888,9 @@ class Registration(rhnHandler):
         if type(packages) != type({}):
             log_error("Invalid argument type", type(packages))
             raise rhnFault(21)
-        added_packages = packages.get('added')
-        removed_packages = packages.get('deleted')
-        if type(added_packages) not in (types.NoneType, types.ListType):
-            log_error("Invalid argument type", type(added_packages))
-            raise rhnFault(21)
-        if type(removed_packages) not in (types.NoneType, types.ListType):
-            log_error("Invalid argument type", type(removed_packages))
-            raise rhnFault(21)
-            
+        added_packages = self._normalize_packages(system_id, packages.get('added'), allow_none=1)
+        removed_packages = self._normalize_packages(system_id, packages.get('deleted'), allow_none=1)
+
         server = self.auth_system(system_id)
         # log the entry
         if added_packages is not None:
@@ -960,27 +932,73 @@ class Registration(rhnHandler):
         log_debug(5, system_id, packages)
         if CFG.DISABLE_PACKAGES:
             return 0
+        packages = self._normalize_packages(system_id, packages)
+
+        server = self.auth_system(system_id)
+        # log the entry
+        log_debug(1, server.getid(), "packages: %d" % len(packages))
+        server.dispose_packages()
+        for package in packages:
+            server.add_package(package)
+        server.save_packages()
+        return 0
+
+    def _normalize_packages(self, system_id, packages, allow_none=0):
+        """ the function checks if list of packages is well formated
+            and also converts packages from old list of lists
+            (extended_profile >= 2) to new list of dicts (extended_profile = 2)
+        """
+
+        if allow_none and packages is None:
+                return None
         # we need to be paranoid about the format of the argument because
         # if we accept wrong input then we might end up disposing in error
         # of all packages registered here
         if type(packages) != type([]):
             log_error("Invalid argument type", type(packages))
             raise rhnFault(21)
-        for package in packages:
-            if type(package) != type([]) or len(package) < 4:
-                log_error("Invalid package spec", type(package),
-                          "len = %d" % len(package))
-                raise rhnFault(21)
-        server = self.auth_system(system_id)
-        # log the entry
-        log_debug(1, server.getid(), "packages: %d" % len(packages))
+
         # Update the capabilities list
+        server = self.auth_system(system_id)
         rhnCapability.update_client_capabilities(self.server_id)
-        server.dispose_packages()
+
+        # old clients send packages as a list of arrays
+        # while new (capability packages.extended_profile >= {version: 2, value: 1})
+        # use a list of dicts
+        client_caps = rhnCapability.get_client_capabilities()
+        package_is_dict = 0
+        packagesV2 = []
+        if client_caps and client_caps.has_key('packages.extended_profile'):
+            cap_info = client_caps['packages.extended_profile']
+            if cap_info and int(cap_info['version']) >= 2:
+                package_is_dict = 1
+                packagesV2 = packages
+
         for package in packages:
-            server.add_package(package)
-        server.save_packages()
-        return 0
+            if package_is_dict:
+                # extended_profile >= 2
+                if type(package) != type({}):
+                    log_error("Invalid package spec for extended_profile >= 2",
+                         type(package), "len = %d" % len(package))
+                    raise rhnFault(21)
+            else:
+                # extended_profile < 2
+                if (type(package) != type([]) or len(package) < 4):
+                    log_error("Invalid package spec", type(package),
+                          "len = %d" % len(package))
+                    raise rhnFault(21)
+                else:
+                    p = {'name'   : package[0],
+                         'version': package[1],
+                         'release': package[2],
+                         'epoch'  : package[3],
+                        }
+                    if len(package) > 4:
+                        p['arch'] = package[4]
+                    if len(package) > 5:
+                        p['cookie'] = package[5]
+                    packagesV2.append(p)
+        return packagesV2
 
     # Insert a new profile for the server
     def add_hw_profile(self, system_id, hwlist):       
@@ -1175,29 +1193,6 @@ class Registration(rhnHandler):
         
         # save the user either to the database or the UserService
         self.__save_user(user)
-        return 0
-
-    # Validate a registration number
-    def validate_reg_num(self, prodcode):
-        log_debug(1, prodcode)
-        if not prodcode:
-            raise rhnFault(16, _("""
-            The product registration code can be found on the
-            registration card included with the product"""))
-        code = ValidNumber(prodcode)
-        if code == 0: # already registered
-            raise rhnFault(16, _("""
-            The code that you have entered has been already
-            registered. Please contact Red Hat Customer Support
-            at http://www.redhat.com/services/tools/installation/
-            """))
-        elif code == -1:
-            raise rhnFault(16, _("""
-            Invalid product registration number.
-            The product registration code can be found on the
-            registration card included with the product. Please
-            check carefully that you have entered the correct
-            registration number. Invalid: %s""") % prodcode)
         return 0
 
     # Updates the RPM transactions

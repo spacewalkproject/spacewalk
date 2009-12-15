@@ -45,7 +45,9 @@ CREATE TABLE rhnPackage
     source_rpm_id    NUMBER
                          CONSTRAINT rhn_package_srcrpmid_fk
                              REFERENCES rhnSourceRPM (id),
-    md5sum           VARCHAR2(64) NOT NULL,
+    checksum_id      NUMBER NOT NULL
+                         CONSTRAINT rhn_package_chsum_fk
+                             REFERENCES rhnChecksum (id),
     vendor           VARCHAR2(64) NOT NULL,
     payload_format   VARCHAR2(32),
     compat           NUMBER(1)
@@ -69,10 +71,6 @@ CREATE TABLE rhnPackage
 )
 ENABLE ROW MOVEMENT
 ;
-
-CREATE UNIQUE INDEX rhn_package_md5_oid_uq
-    ON rhnPackage (md5sum, org_id)
-    TABLESPACE [[2m_tbs]];
 
 CREATE INDEX rhn_package_oid_id_idx
     ON rhnPackage (org_id, id)

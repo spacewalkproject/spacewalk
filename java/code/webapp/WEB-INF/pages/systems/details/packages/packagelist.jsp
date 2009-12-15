@@ -56,12 +56,19 @@
 		      <a href="/rhn/software/packages/Details.do?sid=${param.sid}&amp;id_combo=${current.idCombo}">
 		        ${current.nvre}</a>
 		  </rl:column>
-    <rl:column headerkey="packagelist.jsp.packagearch" bound="false" styleclass="thin-column last-column">
+    <rl:column headerkey="packagelist.jsp.packagearch" bound="false">
     	<c:choose>
     		<c:when test ="${not empty current.arch}">${current.arch}</c:when>
     		<c:otherwise><bean:message key="packagelist.jsp.notspecified"/></c:otherwise>
     	</c:choose>
-    </rl:column>    		  
+    </rl:column>
+    <rl:column headerkey="packagelist.jsp.installtime" bound="false" styleclass="last-column"
+		sortattr="installTime" sortable="true">
+		<c:choose>
+            <c:when test ="${not empty current.installTime}">${current.installTime}</c:when>
+            <c:otherwise><bean:message key="packagelist.jsp.notspecified"/></c:otherwise>
+        </c:choose>
+    </rl:column>
 	</rl:list>
  			
 <c:if test="${not empty requestScope.all}">

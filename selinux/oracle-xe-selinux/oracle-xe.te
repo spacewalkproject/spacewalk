@@ -30,3 +30,5 @@ dontaudit oracle_tnslsnr_t http_cache_port_t:tcp_socket name_bind;
 
 allow oracle_db_t initrc_t:fifo_file { read ioctl };
 
+allow oracle_db_t self:process ptrace;
+

@@ -21,8 +21,9 @@ import string
 
 # Global Modules
 from common import rhnException, rhnFault, log_debug, log_error, CFG
-from common import rhnFlags, rhn_rpm
+from common import rhnFlags
 from common.rhnTranslate import _
+from spacewalk.common import rhn_rpm
 
 # from the server stuff...
 from server import rhnChannel, rhnUser, rhnSQL, rhnLib, rhnAction, \

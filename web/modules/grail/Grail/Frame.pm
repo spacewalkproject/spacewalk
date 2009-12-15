@@ -24,12 +24,9 @@ sub register_tags {
   my $pxt = shift;
 
   $pxt->register_tag("grail-canvas" => \&canvas_handler, -100);
-  $pxt->register_tag("grail-title" => \&title_handler, -100);
   $pxt->register_tag("grail-early-canvas" => \&canvas_handler, -101);
   $pxt->register_tag("grail-canvas-template" => \&canvas_template_handler, 100);
-  $pxt->register_tag("grail-canvas-template-hack" => \&canvas_template_handler, 100);
   $pxt->register_tag("grail-canvas-replacement" => \&canvas_replacement_handler, 50);
-  $pxt->register_tag("grail-dynamic-canvas" => \&dynamic_canvas_handler, -150);
 }
 
 sub register_callbacks {
@@ -52,30 +49,6 @@ sub canvas_handler {
   }
 
   return $canvas->render($pxt, -mode => "render_canvas", -params => [ $params{mode}, $params{__block__} ]);
-}
-
-sub title_handler {
-  my $pxt = shift;
-  my %params = @_;
-
-  return "<TITLE>" . ($pxt->pnotes('page_title') || $params{__block__}) . "</TITLE>";
-}
-
-sub dynamic_canvas_handler {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $canvas = new Grail::Canvas;
-
-  my $replacements = $pxt->pnotes('canvas_replacements') || {};
-
-  if ($params{mode} and exists $replacements->{$params{mode}}) {
-    $params{__block__} = $replacements->{$params{mode}};
-    return $canvas->render($pxt, -mode => "render_canvas", -params => [ $params{mode}, $params{__block__} ]);
-  }
-  else {
-    return $canvas->render($pxt, -mode => "render_dynamic_canvas", -params => [ $params{mode}, $params{__block__} ]);
-  }
 }
 
 sub canvas_replacement_handler {

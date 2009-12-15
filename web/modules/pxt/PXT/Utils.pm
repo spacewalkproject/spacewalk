@@ -271,11 +271,15 @@ sub escape_html {
 
 sub escapeURI {
   my $class = shift;
-  my $str = shift || '';
-
+  my $str;
+  if (scalar @_) {
+     $str = shift;
+  }
+  else {
+    $str = '';
+  }
   my $ret = Apache2::Util::escape_path($str, Apache2::RequestUtil->request->pool);
   $ret =~ s(\+)(%2b)g;
-
   return $ret;
 }
 

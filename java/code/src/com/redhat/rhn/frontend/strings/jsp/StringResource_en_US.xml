@@ -3094,7 +3094,19 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/systems/details/packages/RemoveConfirm.do</context>
           <context context-type="sourcefile">/rhn/errata/manage/AddPackagesConfirm.do</context>
         </context-group>
-      </trans-unit>      
+      </trans-unit>
+      <trans-unit id="packagelist.jsp.installtime">
+<source>Installed</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="packagelist.jsp.unknowntime">
+<source>N/A</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="packagelist.jsp.removepagesummary">
 <source>The following packages are installed on this system.  Packages may be scheduled for removal by selecting them and clicking "Remove Packages" below.</source>
         <context-group name="ctx">
@@ -3479,6 +3491,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       </trans-unit>
       <trans-unit id="auditsearch.jsp.header">
 <source>Audit Search</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/audit/Search.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auditview.jsp.norecords">
+<source>No audit records found!</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/audit/Search.do</context>
         </context-group>
@@ -5269,6 +5287,13 @@ value for this entitlement, excluding the default organization's consumption.</s
 
       <trans-unit id="systemlist.jsp.errata">
 <source>Errata</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/SystemList</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="systemlist.jsp.configfiles">
+<source>Configs</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
         </context-group>
@@ -14118,6 +14143,12 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
     </trans-unit>
 	<trans-unit id="filedetails.details.jspf.directory">
 <source>Directory</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
+        </context-group>
+     </trans-unit>
+	<trans-unit id="filedetails.details.jspf.symlink">
+<source>Symlink</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>

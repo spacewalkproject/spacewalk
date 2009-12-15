@@ -260,7 +260,7 @@ public class CreateChannelCommand {
             throw new IllegalArgumentException("Invalid architecture label");
         }
         
-        ChecksumType ct = ChannelFactory.findChecksumByLabel(checksum);
+        ChecksumType ct = ChannelFactory.findChecksumTypeByLabel(checksum);
         
         
         Channel c = ChannelFactory.createChannel();

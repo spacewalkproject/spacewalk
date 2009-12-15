@@ -2,19 +2,14 @@ To add configuration parameters to /etc/NOCpulse.ini, you need to
 update the database in the usual way, in particular the following
 tables:
 
-  ENVIRONMENT          - Lists all environments (dev, prod, etc);
-
-  DB_ENVIRONMENT       - Relates database name to environment, e.g.
-                         'dev01a' => 'dev' environment;
-
   CONFIG_SECURITY_TYPE - Lists all security levels (e.g. internal, external);
 
   CONFIG_GROUP         - Stores group names (formerly section headings,
                          e.g. '[general]' became the 'general' group);
 
   CONFIG_PARAMETER     - Stores config parameters (key/value pairs) for
-                         a given security type and environment;
+                         a given security type;
 
-  CONFIG_MACRO         - Stores macros for a given environment.
+  CONFIG_MACRO         - Stores macros.
 
 

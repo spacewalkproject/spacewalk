@@ -31,6 +31,7 @@ from iss_ui import UI
 from iss_actions import ActionDeps
 import shutil
 import iss_isos
+from spacewalk.common import checksum
 
 class ISSError(Exception):
     def __init__(self, msg, tb):
@@ -196,7 +197,10 @@ class Dumper(dumper.XML_Dumper):
                 ch_info = ch_data.fetchall_dict()
                 
                 if not ch_info:
-                    raise ISSError("Error: Channel %s not found." % ids, "")
+                    if self.start_date:
+                        raise ISSError("Error: No %s channel information found within specified time frame." % ids, "")
+                    else:
+                        raise ISSError("Error: Channel %s not found." % ids, "")
                     
                 self.channel_ids = self.channel_ids + ch_info
         except ISSError:
@@ -211,20 +215,22 @@ class Dumper(dumper.XML_Dumper):
         try:
 	    if self.start_date:
 	        self.brpm_query = rhnSQL.Statement("""
-                     select rcp.package_id id, rp.path path, rp.md5sum md5sum, 
+                     select rcp.package_id id, rp.path path, c.checksum md5sum,
 		            TO_CHAR(rp.last_modified, 'YYYYMMDDHH24MISS') last_modified
-		       from rhnChannelPackage rcp, rhnPackage rp
+		       from rhnChannelPackage rcp, rhnPackage rp, rhnChecksum c
 		      where rcp.package_id = rp.id
 		        and rcp.channel_id = :channel_id
 		        and rp.last_modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
 		        and rp.last_modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
+                        and rp.checksum_id = c.id
 		""")
 	    else:
 	        self.brpm_query = rhnSQL.Statement("""
-                    select rcp.package_id id, rp.path path, rp.md5sum md5sum
-                      from rhnChannelPackage rcp, rhnPackage rp
+                    select rcp.package_id id, rp.path path, c.checksum md5sum
+                      from rhnChannelPackage rcp, rhnPackage rp, rhnChecksum c
                      where rcp.package_id = rp.id
                        and rcp.channel_id = :channel_id
+                       and rp.checksum_id = c.id
                 """)
             brpm_data = rhnSQL.prepare(self.brpm_query)
             
@@ -414,27 +420,31 @@ class Dumper(dumper.XML_Dumper):
 	    if self.start_date:
 	        self.kickstart_files_query = rhnSQL.Statement("""
 		    select rktf.relative_filename "relative-path", 
-		           rktf.md5sum, rktf.file_size "file-size",
+		           c.checksum md5sum, rktf.file_size "file-size",
 		           TO_CHAR(rktf.last_modified, 'YYYYMMDDHH24MISS') "last-modified", 
 			   rkt.base_path "base-path",
 		           rkt.label label, 
 			   TO_CHAR(rkt.modified, 'YYYYMMDDHH24MISS') "modified"
-		      from rhnKSTreeFile rktf, rhnKickstartableTree rkt
+		      from rhnKSTreeFile rktf, rhnKickstartableTree rkt,
+                           rhnChecksum c
 		     where rktf.kstree_id = :kstree_id
 		       and rkt.id = rktf.kstree_id
 		       and rkt.modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
 		       and rkt.modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
+                       and rktf.checksum_id = c.id
 	        """)
 	    else:
                 self.kickstart_files_query = rhnSQL.Statement("""
                     select rktf.relative_filename "relative-path",
-		           rktf.md5sum, rktf.file_size "file-size",
+		           c.checksum md5sum, rktf.file_size "file-size",
                            TO_CHAR(rktf.last_modified, 'YYYYMMDDHH24MISS') "last-modified", 
 			   rkt.base_path "base-path",
                            rkt.label label
-                     from  rhnKSTreeFile rktf, rhnKickstartableTree rkt
+                     from  rhnKSTreeFile rktf, rhnKickstartableTree rkt,
+                           rhnChecksum c
                     where  rktf.kstree_id = :kstree_id
                       and  rkt.id = rktf.kstree_id
+                      and  rktf.checksum_id = c.id
             """)
             kickstart_files = rhnSQL.prepare(self.kickstart_files_query)
             self.kickstart_files = []
@@ -1115,7 +1125,7 @@ class ExporterMain:
 		    for file in os.listdir(iso_output):
 		        if self.options.make_isos != "dvds":
 			    if file != "MD5SUM":
-		                md5_val = computeMD5sum(os.path.join(iso_output, file))
+		                md5_val = checksum.getFileChecksum('md5', (os.path.join(iso_output, file)))
 			        md5str = "%s  %s\n" % (md5_val, file)
 	                        f.write(md5str)
 	            f.close()
@@ -1169,17 +1179,6 @@ def compress_file(file):
     # removed the old file
     os.unlink(file)
 
-def computeMD5sum(filename):
-    """Compute MD5 checksum for the file
-    """
-    import md5
-    m = md5.new()
-    fileobj = open(filename)
-    filedata = fileobj.read()
-    fileobj.close()
-    m.update(filedata)
-    return m.hexdigest()            
-                    
 if __name__ == "__main__":
     em = ExporterMain()
     em.main()

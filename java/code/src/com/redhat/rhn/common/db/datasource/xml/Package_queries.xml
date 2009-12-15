@@ -86,13 +86,16 @@ ORDER BY UPPER(C.name), C.version
   <query params="pid">
 SELECT C.name,
        F.file_size,
-       F.md5,
+       CS.checksum,
+       CS.checksum_type checksumtype,
        F.file_mode,
        F.linkto,
        TO_CHAR(F.mtime, 'YYYY-MM-DD HH24:MI:SS') AS MTIME
-  FROM rhnPackageFile F, rhnPackageCapability C
+  FROM rhnPackageFile F, rhnPackageCapability C,
+       rhnChecksumView CS
  WHERE F.package_id = :pid
    AND F.capability_id = C.id
+   AND F.checksum_id = CS.id
 ORDER BY UPPER(C.name)
   </query>
 </mode>
@@ -395,7 +398,8 @@ SELECT  PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO,
         PE.epoch,
         PN.id AS NAME_ID,
         PE.id AS EVR_ID,
-        PA.label as arch
+        PA.label as arch,
+        SP.installtime as installTime
   FROM  rhnPackageName PN 
   			INNER JOIN rhnServerPackage SP on SP.name_id = PN.id
   			INNER JOIN rhnPackageEVR PE on SP.evr_id = PE.id

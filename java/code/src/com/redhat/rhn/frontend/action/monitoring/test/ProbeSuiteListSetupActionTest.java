@@ -14,15 +14,10 @@
  */
 package com.redhat.rhn.frontend.action.monitoring.test;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.domain.monitoring.suite.ProbeSuite;
 import com.redhat.rhn.domain.monitoring.suite.test.ProbeSuiteTest;
-import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.monitoring.ProbeSuiteListSetupAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.testing.ActionHelper;
-import com.redhat.rhn.testing.RhnBaseTestCase;
-import com.redhat.rhn.testing.RhnMockHttpServletRequest;
+import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 
 import org.apache.struts.action.Action;
 
@@ -30,37 +25,17 @@ import org.apache.struts.action.Action;
  * ProbeSuiteListSetupActionTest
  * @version $Rev: 55327 $
  */
-public class ProbeSuiteListSetupActionTest extends RhnBaseTestCase {
+public class ProbeSuiteListSetupActionTest extends RhnMockStrutsTestCase {
     private Action action = null;
     
-    public void setUp() {
-        action = new ProbeSuiteListSetupAction();
-    }
     
     public void testExecute() throws Exception {
-        ActionHelper sah = new ActionHelper();
-        sah.setUpAction(action);
-
-        // Use the User created by the Helper
-        User user = sah.getUser();
-        // Add some ProbeSuites so the list will do something
-        for (int i = 0; i < 5; i++) {
-            ProbeSuiteTest.createTestProbeSuite(user);
-        }
-        sah.getRequest().setupAddParameter("submitted", "false");
-        sah.setupClampListBounds();
-        sah.executeAction();
-        RhnMockHttpServletRequest request = sah.getRequest();
-        
-        RequestContext requestContext = new RequestContext(request);
-        
-        user = requestContext.getLoggedInUser();
-        RhnSet set = (RhnSet) request.getAttribute("set");
-        
-        DataResult dr = (DataResult) request.getAttribute("pageList");
-        assertNotNull(dr);
-        assertTrue(dr.size() > 0);
-        assertNotNull(set);
-        assertEquals("probe_suite_delete_list", set.getLabel());
+        ProbeSuite suite = ProbeSuiteTest.createTestProbeSuite(user);
+        String[] suites = new String[1];
+        suites[0] = suite.getId().toString();
+        addRequestParameter(RequestContext.SUITE_ID, suites);
+        setRequestPathInfo("/monitoring/config/ProbeSuiteListProbes.do");
+        actionPerform();
+        verifyNoActionErrors();
     }
 }

@@ -55,40 +55,13 @@ sub register_tags {
 
   $pxt->register_tag('public-secure-links-if-logged-in' => \&secure_links_if_logged_in, 101);
 
-  $pxt->register_tag('rhn-user-info' => \&rhn_user_info);
-  $pxt->register_tag('rhn-admin-user-edit-form' => \&admin_user_edit_form);
-  $pxt->register_tag('rhn-admin-user-site-edit-form' => \&admin_user_site_edit_form);
-
   $pxt->register_tag('rhn-login-form', \&rhn_login_form);
-  $pxt->register_tag('rhn-logout-form', \&rhn_logout_form);
-
-  # for the non-rhn's pages we serve out, little different logout link behavior,
-  # more in line w/ www.redhat.com
-  $pxt->register_tag('public-logout-link', \&public_logout_link);
-  $pxt->register_tag('public-login-link', \&public_login_link);
-
-  $pxt->register_tag('rhn-user-prefs-edit' => \&user_prefs_edit);
-
-  $pxt->register_tag('rhn-system-summary' => \&system_summary);
-  $pxt->register_tag('rhn-action-summary' => \&action_summary);
 
   $pxt->register_tag('rhn-require' => \&rhn_require, -1000);
 
   $pxt->register_tag('rhn-user-site-view' => \&user_site_view);
 
-  $pxt->register_tag('rhn-help-link' => \&help_link);
-
-  $pxt->register_tag('rhn-opt-out' => \&opt_out);
-
-  $pxt->register_tag('rhn-toggle-pref' => \&toggle_pref);
-  $pxt->register_tag('rhn-if-pref' => \&if_pref, -10);
-
-  $pxt->register_tag('rhn-if-server-groups' => \&if_server_groups);
-
-  $pxt->register_tag('rhn-email-confirmation' => \&rhn_email_confirmation);
   $pxt->register_tag('rhn-user-login' => \&rhn_user_login);
-
-  $pxt->register_tag('rhn-user-default-system-groups-form' => \&default_system_groups);
 }
 
 sub register_callbacks {
@@ -124,14 +97,6 @@ sub tnc_accepted_cb {
 	my $pxt = shift;
 	$pxt->push_message(site_info => 'Thank you for accepting the Terms and Conditions!');
 	$pxt->redirect("/rhn/YourRhn.do");
-}
-
-sub register_xmlrpc {
-  my $class = shift;
-  my $pxt = shift;
-
-  $pxt->register_xmlrpc('rhn_login', \&rhn_login_xmlrpc);
-  $pxt->register_xmlrpc('rhn_logout', \&rhn_logout_xmlrpc);
 }
 
 # secures *all* intraserver links and all links to specified exterior servers
@@ -263,168 +228,6 @@ EOB
 
 
 
-# subtlely different logout link behavior, more like www.redhat.com
-# logs you out but keeps you on the page.
-sub public_logout_link {
-  my $pxt = shift;
-
-  my $base_url = $pxt->derelative_url($pxt->uri, 'http');
-  my $logout_url = $pxt->uri . "?" . join("&amp;", map { $_ . "=" . $pxt->passthrough_param($_) } $pxt->param());
-
-  return "<a href=\"$logout_url&amp;pxt:trap=rhn:logout_cb&amp;logout_redirect=$base_url\"><img src=\"/img/homepg_logout.gif\" width=\"71\" height=\"21\" border=\"0\" valign=\"top\" alt=\"logout\" /></a>";
-}
-
-# subtlely different login link behavior, more like www.redhat.com
-# logs you in but returns you to the page.
-sub public_login_link {
-  my $pxt = shift;
-  my @params = $pxt->param();
-
-  my $login_url = PXT::Utils->escapeURI($pxt->uri . (@params ? "?" . join("&amp;", map { $_ . "=" . $pxt->dirty_param($_) } @params) : ""));
-  my $login_pxt = $pxt->derelative_url("/errata/login.pxt", 'https');
-  return "<a href=\"$login_pxt?url_bounce=$login_url\"><img src=\"/img/homepg_login.gif\" width=\"117\" height=\"21\" border=\"0\" alt=\"login\" /></a>";
-}
-
-sub rhn_user_info {
-  my $pxt = shift;
-  my %params = @_;
-  my $block = $params{__block__};
-
-  my %subst;
-
-  $subst{login} = $pxt->user->login;
-  $subst{email} = $pxt->user->email;
-  $subst{created} = $pxt->user->created;
-
-  return PXT::Utils->perform_substitutions($block, \%subst); 
-}
-
-sub system_summary {
-  my $pxt = shift;
-  my %params = @_;
-  my $block = $params{__block__};
-  my $html;
-
-  my $system_summary = { };
-
-  @{$system_summary}{qw/total out_of_date unentitled ungrouped inactive/} = @{$pxt->user->system_summary}[0 .. 4];
-
-  my @system_display = ( { label => 'total',
-			   name  => 'Total systems',
-			   value => $system_summary->{total},
-			   mode  => 'SystemList' },
-			 { label => 'out_of_date',
-			   name  => 'Out of date systems',
-			   value => $system_summary->{out_of_date},
-			   mode  => 'OutOfDate',
-			   test  => 1 },
-			 { label => 'unentitled',
-			   name  => 'Unentitled systems',
-			   value => $system_summary->{unentitled},
-			   mode  => 'Unentitled' },
-			 { label => 'ungrouped',
-			   name  => 'Ungrouped systems',
-			   value => $system_summary->{ungrouped},
-			   mode  => 'Ungrouped',
-			   test  => $pxt->user->is('org_admin') && $pxt->user->org->has_entitlement('sw_mgr_enterprise') && $system_summary->{ungrouped} > 0 },
-			 { label => 'inactive',
-			   name  => 'Inactive systems',
-			   value => $system_summary->{inactive},
-			   mode  => 'Inactive' } );
-
-  foreach my $attrib (@system_display) {
-
-    if (exists $attrib->{test}) {
-      next unless $attrib->{test};
-    }
-    else {
-      next unless $attrib->{value};
-    }
-
-    my $copy = $block;
-
-    my $link = $params{link_url};
-    $link =~ s/\{mode\}/$attrib->{mode}/eg;
-
-    $copy =~ s/\{attrib_link\}/$link/;
-
-    foreach (qw/name value/) {
-      $copy =~ s/\{attrib_$_\}/$attrib->{$_}/eg;
-    }
-
-    $html .= $copy;
-  }
-
-  if ($system_summary->{total} == 0) {
-    my $message = $params{no_systems_message};
-
-    $html = <<EOQ;
-<tr class="graydata" valign="middle">
-<td colspan="2" align="center"><strong>$message</strong></td>
-</tr>
-EOQ
-}
-
-  return $html;
-}
-
-sub action_summary {
-  my $pxt = shift;
-  my %params = @_;
-  my $block = $params{__block__};
-
-  my $html;
-
-  my $days = $params{days} || 7;
-
-  my $action_summary = { };
-  @{$action_summary}{qw/failed pending completed total/} = @{$pxt->user->action_summary($days)}[0 .. 3];
-
-  my @action_display = ( { label => 'failed',
-			   name  => 'Recently failed actions',
-			   value => $action_summary->{failed},
-			   link  => '/rhn/schedule/FailedActions.do' },
-			 { label => 'pending',
-			   name  => 'Pending actions',
-			   value => $action_summary->{pending},
-			   link  => '/rhn/schedule/PendingActions.do' },
-			 { label => 'completed',
-			   name  => 'Recently completed actions',
-			   value => $action_summary->{completed},
-			   link  => '/rhn/schedule/CompletedActions.do' } );
-
-  foreach my $attrib (@action_display) {
-
-    if (exists $attrib->{test}) {
-      next unless $attrib->{test};
-    }
-    else {
-      next unless $attrib->{value};
-    }
-
-    my $copy = $block;
-
-    foreach (qw/name value link/) {
-      $copy =~ s/\{attrib_$_\}/$attrib->{$_}/eg;
-    }
-
-    $html .= $copy;
-  }
-
-  if ($action_summary->{total} == 0) {
-    my $message = $params{no_actions_message};
-
-    $html = <<EOQ;
-<tr class="graydata" valign="middle">
-<td colspan="2" align="center"><strong>$message</strong></td>
-</tr>
-EOQ
-
-  }
-
-  return $html;
-}
-
 sub errata_summary {
   my $pxt = shift;
   my %params = @_;
@@ -545,18 +348,6 @@ sub rhn_login_form {
   $body =~ s(\[login_form_hidden\])(<input type="hidden" name="pxt_trap" value="rhn:login_cb" />\n<input type="hidden" name="cookie_test" value="1" />\n$hidden)gmsi;
 
   $pxt->session->set('cookie_test' => 1);
-
-  return $body;
-}
-
-sub rhn_logout_form {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $body = $params{__block__};
-  $body = $pxt->prefill_form_values($body);
-
-  $body =~ s(\[logout_form_hidden\])(<input type="hidden" name="pxt_trap" value="rhn:logout_cb" />)gmsi;
 
   return $body;
 }
@@ -726,176 +517,6 @@ sub rhn_logout_cb {
 }
 
 
-sub rhn_login_xmlrpc {
-  my $pxt = shift;
-  my $params = shift;
-  # sadly, this was necessary.  we've broken the "old" (closed) protocols
-
-  if (ref $params ne 'HASH') {
-    $pxt->rpc_fault('old_client');
-  }
-
-  my ($username, $password) = ($params->{username}, $params->{password});
-
-  if ($pxt->session->uid) {
-    warn "User already logged in";
-    return $pxt->user->id;
-  }
-
-  my $user = RHN::User->check_login($username, $password);
- 
-  if ($user and !($user->is_disabled())) {
-    $pxt->session->uid($user->id);
-    $pxt->touch_session;
-    $pxt->session->serialize;
-  }
-  else {
-    $pxt->rpc_fault("invalid_login");
-  }
-
-  return $user ? $pxt->session->key : undef;
-}
-
-sub rhn_logout_xmlrpc {
-  my $pxt = shift;
-  my $session = shift;
-
-  $pxt->clear_session;
-}
-
-sub admin_user_edit_form {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $uid = $pxt->param('uid');
-  my $user;
-  my $editing_self;
-
-# Either editing the user from the 'uid' param, or the current user
-  if ($uid and not $pxt->dirty_param('editing_self')) {
-    $user = RHN::User->lookup(-id => $uid);
-  }
-  else {
-    $editing_self = 1;
-    $user = $pxt->user;
-    $pxt->param(uid => $user->id); # prepare_form() needs this
-    $pxt->cleanse_param('uid');
-  }
-
-  $pxt->redirect('/errors/permission.pxt') unless $pxt->user->can_modify_user($user);
-
-  my $rform = Sniglets::Forms::prepare_form($pxt, %params);
-
-  if ($editing_self) {
-    if ($user->first_names eq 'Valued' || $user->last_name eq 'Customer') {
-      $pxt->push_message(site_info => 'Please take a moment and complete the information below for our records.');
-
-      $rform->lookup_widget('first_names')->value('');
-      $rform->lookup_widget('last_name')->value('');
-    }
-    $rform->action('/network/account/details.pxt');
-    $rform->lookup_widget('editing_self')->value(1);
-    $rform->remove_widget('user_groups');
-    $rform->remove_widget('use_pam_authentication');
-  }
-
-  my @role_labels = $user->role_labels;
-
-  if (@role_labels and $rform->lookup_widget('user_type')) {
-    $rform->lookup_widget('user_type')->value(join(", ", @role_labels));
-  }
-
-  $rform->lookup_widget('user_password')->value('*' x 12);
-  $rform->lookup_widget('user_password_confirm')->value('*' x 12);
-
-  my $email = $user->find_mailable_address;
-  my $email_verification_status = $email ? $email->address : '(none)';
-
-  if (PXT::Config->get('satellite')) {
-    my $user_id_param = $editing_self ? "" : "?uid=" . $user->id;
-    $email_verification_status .= "<br />" .
-      PXT::HTML->link("change-email.pxt$user_id_param", "Change.");
-  }
-  else {
-    my $user_id_param = $editing_self ? "" : "?uid=" . $user->id;
-
-    if ($email and $email->state eq 'verified') {
-      $email_verification_status .= " - Confirmed.";
-      my @pending = grep { $_->state ne 'verified' } $user->email_addresses;
-      if (@pending) {
-	$email_verification_status .= "<br />Pending change to " . $pending[0]->address . ".";
-      }
-
-      $email_verification_status .= "<br />" .
-	PXT::HTML->link("change-email.pxt$user_id_param", "Change");
-    }
-    else {
-      $email_verification_status .= " - Unconfirmed.";
-
-      $email_verification_status .= "<br />" .
-	PXT::HTML->link("change-email.pxt$user_id_param", "Confirm");
-    }
-  }
-
-  $rform->lookup_widget('email_address')->value($email_verification_status);
-
-  my $roles_widget = $rform->lookup_widget('user_groups');
-  if ($roles_widget) {
-    my @groups = $user->group_list_for_user;
-    my @selected_groups;
-
-    # roles that an org admin inherits if they exist in the org.
-    my @inherited_roles = qw/activation_key_admin channel_admin config_admin monitoring_admin system_group_admin /;
-
-    foreach my $group (@groups) {
-      next if $group->[3] eq 'org_applicant';
-
-      if ((grep { $group->[3] eq $_ } @inherited_roles) and $user->is('org_admin')) {
-        $roles_widget->add_option({value => $group->[1], #group id
-				   label => $group->[2] . ' - [ Admin Access ]', #group name
-				   disabled => 1,
-				  });
-	# also push it onto the list so the checkbox is always on, even when disabled
-      	push(@selected_groups, $group->[1]);
-      }
-      elsif ($group->[3] eq 'rhn_support' and $user->is('cert_admin')) {
-	      $roles_widget->add_option({value => $group->[1], #group id
-				   label => $group->[2],                         #group name
-				   disabled => 1,
-        });
-      	push(@selected_groups, $group->[1]);
-      }
-      else {
-	$roles_widget->add_option({value => $group->[1], #group id
-				   label => $group->[2], #group name
-				   disabled => 0,
-				  });
-      }
-
-      push(@selected_groups, $group->[1]) if $group->[0]; #user has permissions to group
-    }
-
-    $roles_widget->value(\@selected_groups);
-  }
-
-  my $created = $pxt->user->convert_time($user->created());
-  my $last_logged_in = $user->last_logged_in ? $pxt->user->convert_time($user->last_logged_in) : undef;
-
-  $rform->lookup_widget('user_created')->value($created);
-  $rform->lookup_widget('last_login')->value($last_logged_in);
-
-  if (my $pam_widget = $rform->lookup_widget('use_pam_authentication')) {
-    if ($user->get_pref('use_pam_authentication') eq 'Y') {
-      $pam_widget->checked(1);
-    }
-  }
-
-  my $style = new Sniglets::Forms::Style;
-  my $html = $rform->render($style);
-
-  return $html;
-}
-
 sub admin_user_edit_cb {
   my $pxt = shift;
 
@@ -998,77 +619,6 @@ sub admin_user_edit_cb {
   $pxt->redirect($url->as_string)
 }
 
-
-sub admin_user_site_edit_form {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $uid = $pxt->param('uid') || $pxt->user->id;
-  my $user = RHN::User->lookup(-id => $uid);
-
-  die "no user" unless $user;
-
-  if ($pxt->user->org_id != $user->org_id) {
-    Carp::cluck "Orgs for admin user edit mistatch (admin: @{[$pxt->user->org_id]} != @{[$user->org_id]}";
-    $pxt->redirect("/errors/permission.pxt");
-  }
-
-  if ($uid != $pxt->user->id and not $pxt->user->is('org_admin')) {
-    Carp::cluck "Non-orgadmin attempting to edit another's record";
-    $pxt->redirect("/errors/permission.pxt");
-  }
-
-  $pxt->pnotes(user_name => $user->login);
-
-  my %type_table = (M => "Mailing", B => "Billing", S => "Shipping");
-
-  my $type = uc $params{type} || $pxt->dirty_param('type') || 'M';
-
-  my $block = $params{__block__};
-
-  $block =~ s/\{site_address_type\}/$type_table{$type}/ig;
-
-  my ($site) = $user->sites($type);
-  ($site) = $user->sites('M')
-    unless $site;
-
-  if ($site) {
-    foreach (qw/site_address1 site_city/) {
-      if ($site->$_() eq '.') {
-	$site->$_('');
-      }
-    }
-  }
-
-  if ($user->id == $pxt->user->id) {
-    if ($type eq 'M' and $pxt->uri =~ m(/network/account/edit_address.pxt) and $site and ($site->site_city eq '.' or $site->site_address1 eq '.')) {
-      $pxt->push_message(site_info => 'Please take a moment and complete the information below for our records.');
-
-      $site->$_('')
-	foreach qw/site_address1 site_address2 site_address3 site_city site_state site_zip site_fax site_phone/;
-    }
-  }
-
-  my $sid = defined $site ? $site->site_id : 0;
-
-  $block =~ s(\{$_\})(defined $site and defined $site->$_() ? PXT::Utils->escapeHTML($site->$_()) : '')eig
-    foreach qw/site_address1 site_address2 site_address3 site_city site_state site_zip site_fax site_phone/;
-
-  $block =~ s/\{site_country_selectbox\}/PXT::Utils->country_selectbox("site_country", 'en', $site ? $site->site_country() : 'US')/eig;
-
-
-  my $formvars = PXT::HTML->hidden(-name => 'type', -value => $type);
-  $formvars .= PXT::HTML->hidden(-name => 'uid', -value => $uid);
-  $formvars .= PXT::HTML->hidden(-name => 'pxt:trap', -value => 'rhn:admin_user_site_edit_cb')
-    if defined $params{mode} and $params{mode} ne "checkout";
-
-  $formvars .= PXT::HTML->hidden(-name => 'redirect_to_main_page', value => 'yes')
-    if ($pxt->pnotes('redirect_to_main_page'));
-
-  $block =~ s/\{admin_user_formvars\}/$formvars/egi;
-
-  return $block;
-}
 
 sub user_site_view {
   my $pxt = shift;
@@ -1329,65 +879,6 @@ sub timezone_sort {
   return @zones;
 }
 
-sub user_prefs_edit {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-  my $user;
-  my %subst;
-
-  if ($pxt->user->is('org_admin') and $pxt->param('uid')) {
-    $user = RHN::User->lookup(-id => $pxt->param('uid'));
-  }
-  else {
-    $user = $pxt->user;
-  }
-
-  $pxt->pnotes(user_name => $user->login);
-
-  $subst{email_checked} = $user->get_pref('email_notify') ? '1' : '';
-
-  foreach (qw/contact_email contact_call contact_fax contact_mail/) {
-    $subst{$_ .'_checked'} = defined $user->$_() && $user->$_() eq 'Y' ? '1' : '';
-  }
-
-  $subst{preferred_page_size_select} = PXT::HTML->select(-name => 'preferred_page_size',
-							 -size => 1,
-							 -options => [ map { [ $_ * 5, $_ * 5, $user->preferred_page_size == $_ * 5] } 1..10 ] );
-
-  my @raw_timezones = PXT::Utils->get_timezones();
-  my $now = DateTime->now;
-  for my $zone (@raw_timezones) {
-    my $tz = new DateTime::TimeZone(name => $zone->{OLSON});
-    $zone->{OFFSET} = $tz->offset_for_datetime($now);
-  }
-  @raw_timezones = Sniglets::Users->timezone_sort(@raw_timezones);
-
-  my @timezones;
-
-  my $pref = $user->get_pref('timezone_id');
-  for my $zone (@raw_timezones) {
-    my $hours = int($zone->{OFFSET} / 60 / 60);
-    my $minutes = int($zone->{OFFSET} / 60) % 60;
-    push @timezones, [ sprintf("(GMT%+03d%02d) %s", $hours, $minutes, $zone->{DESCRIPTION}),
-		       $zone->{ID},
-		       $zone->{ID} eq $pref ];
-  }
-
-  my $time_zone = PXT::HTML->select(-name => 'time_zone',
-				    -size => 1,
-				    -options => \@timezones,
-				   );
-
-  $subst{time_zone_select} = $time_zone;
-
-  PXT::Debug->log(7, "performing pref substitutuion");
-  $block = PXT::Utils->perform_substitutions($block, \%subst);
-
-  return $block;
-}
-
 sub user_prefs_edit_cb {
   my $pxt = shift;
 
@@ -1451,103 +942,6 @@ sub rhn_require {
    }
 
    return '';
-}
-
-sub help_link {
-    my $pxt = shift;
-    my %params = @_;
-
-    my $link;
-
-    if ($pxt->user && $pxt->user->org->has_entitlement($params{entitlement})) {
-	$link = $params{success_link};
-    } else {
-	$link = $params{fail_link};
-    }
-
-    my $text = $params{__block__};
-    my $style = $params{style} || '';
-
-    return qq(<a href="$link" style="$style">$text</a>)
-	if $link;
-
-    return '';
-}
-
-sub opt_out {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $user = $pxt->user;
-
-  if ($user) {
-    $user->contact_email('N');
-    $user->set_pref('email_notify', '0');
-
-    $user->commit;
-    return sprintf "Thank you, the email address '%s' will no longer receive emails.", $user->email;
-  }
-  else {
-    return "Invalid URL.";
-  }
-}
-
-sub toggle_pref {
-  my $pxt = shift;
-  my %attr = @_;
-
-  my $pref_name = $attr{name};
-  my $type = $attr{type};
-
-  my @labels = split(/\|/, $attr{labels} . '');
-  my @values = split(/\|/, $attr{values} . '');
-
-  my %pref_map;
-
-  foreach my $val (@values) {
-    $pref_map{$val} = shift @labels;
-  }
-
-  my $selected = $pxt->user->get_pref($pref_name);
-
-  my @opts;
-
-  foreach my $val (@values) {
-    if ($val eq $selected) {
-      unshift @opts, $pref_map{$val} . (defined $type ? " $type" : '');
-    }
-    else {
-      my $uri = $pxt->uri;
-      push @opts,
-	sprintf('(<a href="%s?pxt_trap=rhn:toggle_pref_cb&amp;pref_name=%s&amp;pref_value=%s">View %s</a>)',
-		$uri, $pref_name, $val, $pref_map{$val});
-    }
-  }
-
-  my $html = join('&#160;', @opts);
-  return $html;
-}
-
-sub if_pref {
-  my $pxt = shift;
-  my %attr = @_;
-
-  my $pref_name = $attr{name};
-  my $pref_val = $attr{value};
-
-  my $selected = $pxt->user->get_pref($pref_name);
-
-  if (uc($selected) eq uc($pref_val)) {
-
-    if (my $file = $attr{file}) {
-      return $pxt->include($file);
-    }
-    else {
-      return $attr{__block__};
-    }
-  }
-
-  return;
 }
 
 sub toggle_pref_cb {
@@ -1808,57 +1202,6 @@ sub check_perms {
   return 1;
 }
 
-sub if_server_groups {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-
-  my @groups = $pxt->user->servergroup_admin_overview;
-  @groups = grep { $_->[2] } @groups;
-
-  return unless @groups;
-
-  return $block;
-}
-
-sub rhn_email_confirmation {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $confirm_code = $pxt->path_info;
-  if (not $confirm_code) {
-    return "The URL you have pasted is incorrect.  Some e-mail programs can break the URL into multiple lines.  Please ensure that the URL is complete, and try again.";
-  }
-  my ($empty, $address_id, $hmac_digest) = split m(/), $confirm_code;
-
-  if ($hmac_digest eq RHN::SessionSwap->rhn_hmac_data($address_id)) {
-    my $address = RHN::EmailAddress->lookup(-id => $address_id, -soft => 1);
-    if (not $address) {
-      return sprintf("That email address cannot be confirmed; please %s the address you would like to be confirmed.",
-		    PXT::HTML->link("/network/account/change-email.pxt", "resubmit"));
-    }
-    $address->verify_email_address;
-
-    my $user = RHN::User->lookup(-id => $address->user_id);
-    $user->email($address->address);
-    my ($marketting_site) = $user->sites('M');
-    if ($marketting_site) {
-      $marketting_site->site_email($address->address);
-      $marketting_site->commit;
-    }
-
-    $user->commit;
-
-    $pxt->push_message(site_info => sprintf("Thank you, the email address <strong>%s</strong> has been confirmed.", PXT::Utils->escapeHTML($address->address)));
-
-    $pxt->redirect('/confirm_email_success.pxt');
-  }
-  else {
-    return "The URL you have pasted is incorrect; please try again.  Some e-mail programs can break the URL into multiple lines.  Please ensure that the URL is complete, and try again.";
-  }
-}
-
 sub rhn_user_login {
   my $pxt = shift;
 
@@ -1878,22 +1221,6 @@ sub rhn_user_login {
     }
   }
   return $user->login;
-}
-
-sub default_system_groups {
-  my $pxt = shift;
-  my %attr = @_;
-
-  my $form = build_default_system_groups_form($pxt, %attr);
-  my $rform = $form->realize;
-  undef $form;
-
-  Sniglets::Forms::load_params($pxt, $rform);
-
-  my $style = new Sniglets::Forms::Style;
-  my $html = $rform->render($style);
-
-  return $html;
 }
 
 sub default_system_groups_cb {
@@ -1979,41 +1306,6 @@ sub build_default_system_groups_form {
   $form->add_widget( new RHN::Form::Widget::Submit(name => 'Update Defaults') );
 
   return $form;
-}
-
-sub create_gritch_destination {
-  my $user = shift;
-
-  my $cmethod = RHN::ContactMethod->create;
-  my $cgroup = RHN::ContactGroup->create;
-
-  my $name = 'Panic Destination';
-  my $email = $user->find_mailable_address->address;
-  my $use_pager_type = 0;
-
-  $cmethod->contact_id($user->id);
-  $cmethod->method_name($name);
-  $cmethod->last_update_user($user->id);
-
-  my $method_type_info = RHN::ContactMethod->get_method_type_info("Email");
-  $cmethod->pager_email(undef);
-  $cmethod->email_address($email);
-  $cmethod->method_type_id($method_type_info->{method_type_id});
-  $cmethod->notification_format_id($method_type_info->{method_format_id});
-
-  $cgroup->strategy_id($method_type_info->{strategy_id});
-  $cgroup->notification_format_id($method_type_info->{group_format_id});
-  $cgroup->contact_group_name($name);
-  $cgroup->customer_id($user->org->id);
-  $cgroup->last_update_user($user->id);
-
-  $cmethod->commit;
-  $cgroup->commit;
-  $cgroup->set_groups_methods($user->id, $cmethod->recid);
-
-  RHN::SatInstall->set_first_gritch_destination($user->id);
-
-  return;
 }
 
 1;

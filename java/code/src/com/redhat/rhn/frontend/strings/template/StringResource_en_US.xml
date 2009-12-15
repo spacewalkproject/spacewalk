@@ -14,43 +14,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
       
-<!-- Verify Email email -->
-      <trans-unit id="email.verify.body">
-<source>Dear @@PRODUCT_NAME@@ User,
-
-This email is sent to validate the email address that you have
-provided for your Red Hat login. Your Red Hat login, in combination
-with an active Red Hat subscription, provides you with access to
-systems management capabilities through @@PRODUCT_NAME@@.
-
-To ensure the security of the account information associated with your
-Red Hat login, please take a moment to click the link below
-and verify that we have the correct email address. If you do not
-confirm your email address, your Red Hat login will eventually be
-deactivated.
-
-To confirm your email address, please visit the following URL:
-
-{0}
-
-Thank you for using @@PRODUCT_NAME@@.
-{1}
-
-{2}</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/ChangeEmail.do</context>
-      <context context-type="sourcefile">/users/ChangeEmail.do</context>
-      <context context-type="paramnotes">vist the following URL:
-          https://rhn.redhat.com/confirm_email.pxt/123452/317c9c3729b9be21ab13be28654560a33e8e4dd0
-          Thank you for using @@PRODUCT_NAME@@.
-          --the @@PRODUCT_NAME@@ Team
-          Account Information:
-              Your @@PRODUCT_NAME@@ login:         mdputter
-              Your @@PRODUCT_NAME@@ email address: mdputter@myhog.com
-          </context>
-        </context-group>
-      </trans-unit>
-      
 <!-- New Account Email -->
       <trans-unit id="email.newaccount.subject">
 <source>Your @@PRODUCT_NAME@@ Account is ready</source>

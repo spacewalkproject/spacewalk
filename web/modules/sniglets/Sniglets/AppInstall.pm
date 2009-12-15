@@ -36,7 +36,6 @@ sub register_tags {
 
   $pxt->register_tag("rhn-appinstall-start", \&appinstall_start);
   $pxt->register_tag("rhn-appinstall-check-requirements", \&appinstall_check_requirements);
-  $pxt->register_tag("rhn-appinstall-progress", \&appinstall_progress);
   $pxt->register_tag("rhn-appinstall-ts-and-cs", \&appinstall_ts_and_cs);
   $pxt->register_tag("rhn-appinstall-engine", \&appinstall_engine);
 }

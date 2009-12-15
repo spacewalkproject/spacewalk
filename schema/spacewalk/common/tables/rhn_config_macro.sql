@@ -16,7 +16,6 @@
 
 CREATE TABLE rhn_config_macro
 (
-    environment       VARCHAR2(255) NOT NULL,
     name              VARCHAR2(255) NOT NULL,
     definition        VARCHAR2(255),
     description       VARCHAR2(255),
@@ -30,14 +29,11 @@ ENABLE ROW MOVEMENT
 
 COMMENT ON TABLE rhn_config_macro IS 'confm configuration macro def';
 
-CREATE UNIQUE INDEX rhn_confm_environment_name_pk
-    ON rhn_config_macro (environment, name)
+CREATE UNIQUE INDEX rhn_confm_name_pk
+    ON rhn_config_macro (name)
     TABLESPACE [[2m_tbs]];
 
 ALTER TABLE rhn_config_macro
-    ADD CONSTRAINT rhn_confm_environment_name_pk PRIMARY KEY (environment, name);
+    ADD CONSTRAINT rhn_confm_name_pk PRIMARY KEY (name);
 
-ALTER TABLE rhn_config_macro
-    ADD CONSTRAINT rhn_confm_envir_environment_fk FOREIGN KEY (environment)
-    REFERENCES rhn_environment (name);
 

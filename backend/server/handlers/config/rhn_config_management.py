@@ -161,7 +161,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                cc.label config_channel, 
                ccont.contents file_contents,
                ccont.is_binary is_binary,
-               ccont.md5sum,
+               c.checksum md5sum,
                cr.delim_start, cr.delim_end,
                cr.revision,
                cf.modified,
@@ -175,6 +175,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                rhnConfigInfo ci,
                rhnConfigRevision cr,
                rhnConfigContent ccont,
+               rhnChecksum c,
                rhnServerConfigChannel scc,
                rhnConfigFile cf,
 	       rhnConfigFileType cft,
@@ -189,6 +190,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
            and cr.config_content_id = ccont.id
 	   and cr.config_file_type_id = cft.id
 	   and cct.id = cc.confchan_type_id
+           and ccont.checksum_id = c.id
          order by cct.priority, scc.position 
     """)
 

@@ -33,8 +33,9 @@ import gobject
 import sys
 import os
 import stat
-from rhpl.translate import _, textdomain
-textdomain("rhn-client-tools")
+import gettext
+_ = gettext.gettext
+gettext.textdomain("rhn-client-tools")
 gtk.glade.bindtextdomain("rhn-client-tools")
 
 import rhnreg
@@ -931,6 +932,7 @@ class CreateProfilePage:
             if not self.initProfile:
                 profileName = None
                 hostname = None
+                ipaddr = None
                 if self.hardware:
                     for hw in self.hardware:
                         if hw.has_key('class'):
@@ -1091,14 +1093,12 @@ class CreateProfilePage:
         pwin.setProgress(4, 6)
         
         if self.sendPackages:
-            # interesting...
-            getInfo = 0
-#            if self.cfg['supportsExtendedPackageProfile']
-            #FIXME
-            getInfo = 1
+            getArch = 0
+            if self.cfg['supportsExtendedPackageProfile']:
+                getArch = 1
             packageList = rpmUtils.getInstalledPackageList(progressCallback = lambda amount,
                                                            total: gtk.main_iteration(False),
-                                                           getInfo=getInfo)
+                                                           getArch=getArch)
 ##            selection = []
             # FIXME
             selectedPackages = packageList
@@ -1527,8 +1527,8 @@ class PackageDialog:
         # name-version-release, arch
         self.packageStore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
         for package in self.getPackageList():
-            nvr = "%s-%s-%s" % (package[0], package[1], package[2])
-            arch = package[4]
+            nvr = "%s-%s-%s" % (package['name'], package['version'], package['release'])
+            arch = package['arch']
             self.packageStore.append((nvr, arch))
         self.packageTreeView = self.swXml.get_widget("packageTreeView")
         self.packageTreeView.set_model(self.packageStore)

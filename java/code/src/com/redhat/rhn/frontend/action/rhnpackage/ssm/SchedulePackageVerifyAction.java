@@ -138,7 +138,7 @@ public class SchedulePackageVerifyAction extends RhnAction implements Listable {
         }
 
         DataResult results = SystemManager.ssmSystemPackagesToRemove(user,
-            RhnSetDecl.SSM_VERIFY_PACKAGES_LIST.getLabel());
+            RhnSetDecl.SSM_VERIFY_PACKAGES_LIST.getLabel(), false);
 
         TagHelper.bindElaboratorTo("groupList", results.getElaborator(), request);
 

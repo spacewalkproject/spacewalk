@@ -1,10 +1,12 @@
 
-<script language="javascript" type="text/javascript" src="/javascript/editarea/edit_area/edit_area_full.js"></script>
+<script language="javascript" type="text/javascript" src="/editarea/edit_area_full.js"></script>
 <script language="javascript" type="text/javascript">
 editAreaLoader.init({
         id : "contents"
         ,allow_toggle: true
-        ,toolbar: "search,go_to_line,undo,redo"
+        ,allow_resize: "both"
+        ,word_wrap: true
+        ,toolbar: "search, go_to_line, |, undo, redo, |, syntax_selection, |, highlight, reset_highlight, |, help"
 });
 </script>
 

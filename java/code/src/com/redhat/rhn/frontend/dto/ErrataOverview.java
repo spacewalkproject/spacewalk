@@ -36,8 +36,8 @@ public class ErrataOverview extends BaseDto {
     private Date issueDate;
     private Integer affectedSystemCount;
     private String advisoryLastUpdated;
-    private List cves;
-    private List packageNames;
+    private List cves = new ArrayList();
+    private List packageNames = new ArrayList();
     private List actionId;
     private List status;
     private Long associatedSystemId;
@@ -120,9 +120,6 @@ public class ErrataOverview extends BaseDto {
      * @param name The name to add to packageNames.
      */
     public void addPackageName(String name) {
-        if (packageNames == null) {
-            packageNames = new ArrayList();
-        }
         packageNames.add(name);
     }
     /**
@@ -147,11 +144,10 @@ public class ErrataOverview extends BaseDto {
      * Adds a cve to cves list.
      * @param cveIn The cve to add to cves list.
      */
-    public void addCve(CVE cveIn) {
-        if (cveIn == null) {
-            cves = new ArrayList();
+    public void addCve(String cveIn) {
+        if (cveIn != null) {
+            cves.add(cveIn);
         }
-        cves.add(cveIn);
     }
     /**
      * @param p The cves to set.

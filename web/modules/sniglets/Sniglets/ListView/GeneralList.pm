@@ -18,13 +18,11 @@ use strict;
 package Sniglets::ListView::GeneralList;
 
 use Sniglets::ListView::List;
-use RHN::Catalog;
 use RHN::DataSource::General;
 use RHN::DataSource::Simple;
 use RHN::Exception qw/throw/;
 use RHN::Token;
 use RHN::Kickstart;
-use RHN::Kickstart::IPRange;
 use RHN::Kickstart::Session;
 use RHN::Utils;
 
@@ -90,17 +88,6 @@ sub _register_modes {
 			   -provider => \&activation_key_provider,
 			   -action_callback => \&activation_key_cb);
 
-  Sniglets::ListView::List->add_mode(-mode => "purchase_history",
-			   -datasource => RHN::DataSource::General->new,
-			   -provider => \&purchase_history_provider);
-
-  Sniglets::ListView::List->add_mode(-mode => "faq_list",
-			   -datasource => RHN::DataSource::General->new);
-
-  Sniglets::ListView::List->add_mode(-mode => "user_emailaddress_log",
-			   -datasource => RHN::DataSource::General->new,
-			   -provider => \&emailaddress_provider);
-
   Sniglets::ListView::List->add_mode(-mode => "template_strings",
 			   -datasource => RHN::DataSource::General->new);
 
@@ -112,17 +99,6 @@ sub _register_modes {
   Sniglets::ListView::List->add_mode(-mode => "kickstart_packages",
 			   -datasource => RHN::DataSource::General->new,
 			   -action_callback => \&kickstart_packages_cb);
-
-  Sniglets::ListView::List->add_mode(-mode => "kickstart_sessions_for_org",
-			   -datasource => RHN::DataSource::General->new,
-			   -provider => \&kickstart_sessions_provider);
-
-  Sniglets::ListView::List->add_mode(-mode => "ip_ranges_for_org",
-			   -datasource => RHN::DataSource::General->new,
-			   -provider => \&ip_ranges_provider);
-
-  Sniglets::ListView::List->add_mode(-mode => "private_kstrees_for_user",
-			   -datasource => RHN::DataSource::General->new);
 
   Sniglets::ListView::List->add_mode(-mode => "kickstart_session_history",
 			   -datasource => RHN::DataSource::General->new,
@@ -150,20 +126,6 @@ sub system_notes_provider {
     if (defined $note->{NOTE}) {
       $note->{NOTE} = '<pre>' . $note->{NOTE} . '</pre>';
     }
-  }
-
-  return (%ret);
-}
-
-sub emailaddress_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my %ret = $self->default_provider($pxt);
-
-  foreach my $event (@{$ret{data}}) {
-    $event->{REASON} ||= '';
-    $event->{REASON} =~ s|payloader/||g;
   }
 
   return (%ret);
@@ -200,74 +162,6 @@ sub activation_key_provider {
   return (%ret);
 }
 
-sub purchase_history_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my $ds = $self->datasource;
-
-  my $org_id = $pxt->user->org_id;
-  if ($pxt->param('support_org_id')) {
-    $org_id = $pxt->param('support_org_id');
-  }
-
-  my $data = $ds->execute_query(-org_id => $org_id);
-
-  my $org = $pxt->user->org;
-
-  my $all_ids = [ map { $_->{ID} } @{$data} ];
-  $self->all_ids($all_ids);
-
-  my $summary; #Keep some data for summary
-
-  foreach my $type (qw/trial free paid/) {
-    $summary->{$type}->{"${_}_slots"} = 0 foreach (qw/enterprise basic provisioning/);
-  }
-
-  foreach my $row (@{$data}) {
-    my $type = 'trial';
-
-    $row->{PAID} ||= 'T';
-    if ($row->{PAID} eq 'F') {
-      $type = 'free';
-    }
-    elsif ($row->{PAID} eq 'P') {
-      $type = 'paid';
-    }
-
-    $row->{SLOTS} = $row->{QUANTITY};
-
-    $row->{GROUP_LABEL} ||= ''; #prevent warn
-
-    if ($row->{GROUP_LABEL} eq 'enterprise_entitled' and $row->{QUANTITY} >= 0) {
-      $row->{SLOTS} .= '&#160;Management';
-      $summary->{$type}->{enterprise_slots} += $row->{QUANTITY};
-    }
-    elsif ($row->{GROUP_LABEL} eq 'provisioning_entitled') {
-      if (RHN::Catalog->is_provisioning_upgrade_product($row->{PRODUCT_ITEM_CODE})) {
-	$row->{SLOTS} .= '&#160;Provisioning Upgrade';
-      }
-      else {
-	$row->{SLOTS} .= '&#160;Provisioning';
-      }
-      $summary->{$type}->{provisioning_slots} += $row->{QUANTITY};
-    }
-    elsif ($row->{GROUP_LABEL} eq 'sw_mgr_entitled') {
-      $row->{SLOTS} .= '&#160;' . $org->basic_slot_name;
-      $summary->{$type}->{basic_slots} += $row->{QUANTITY};
-    }
-  }
-
-  $pxt->pnotes("purchase_history_summary", $summary);
-
-# slice data last because we need the summary info above
-  $data = $ds->slice_data($data, $self->lower, $self->upper);
-
-  return (data => $data,
-	  all_ids => $all_ids,
-	  alphabar => undef);
-}
-
 my @allowed_sort_columns = qw/FB.created BASIC_SLOTS ENTERPRISE_SLOTS/;
 
 sub kickstarts_for_org_provider {
@@ -293,51 +187,6 @@ sub kickstarts_for_org_provider {
 
     my $default_kstree = RHN::KSTree->lookup(-id => $row->{KSTREE_ID});
     $row->{INSTALL_TYPE} = $default_kstree->install_type_name;
-  }
-
-  return (%ret);
-}
-
-sub kickstart_sessions_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my %ret = $self->default_provider($pxt, -days => $pxt->dirty_param('days_of_history') || 1);
-
-  foreach my $row (@{$ret{data}}) {
-
-    if ( exists $row->{LAST_ACTION} ) {
-      $row->{LAST_ACTION} = $pxt->user->convert_time($row->{LAST_ACTION});
-    }
-
-    unless ($row->{SYSTEM_NAME}) {
-      $row->{SYSTEM_NAME} = '(New Profile)';
-    }
-
-    if (not $row->{DIST}) {
-      if ($row->{KICKSTART_ID}) {
-	my $ks = RHN::Kickstart->lookup(-id => $row->{KICKSTART_ID});
-	$row->{DIST} = $ks->dist || '(unknown)';
-      }
-      else {
-	$row->{DIST} = '(unknown)';
-      }
-    }
-  }
-
-  return (%ret);
-}
-
-sub ip_ranges_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my %ret = $self->default_provider($pxt);
-
-  foreach my $row (@{$ret{data}}) {
-    my $range = new RHN::Kickstart::IPRange(-min => $row->{MIN}, -max => $row->{MAX});
-
-    $row->{RANGE} = sprintf('<tt>%s&#160;-&#160;%s</tt>', $range->min, $range->max);
   }
 
   return (%ret);

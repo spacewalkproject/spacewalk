@@ -1,0 +1,876 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+        <head><title> Spacewalk 0.6 DB Schema - Package - RHN_SERVER </title>
+        <link rel="stylesheet" type="text/css" href="oraschemadoc.css" />
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta name="author" content="Petr Vanek, petr@scribus.info" />
+        <meta name="generator" content="oraschemadoc" />
+        </head>
+        <body>
+            <div class="contextbar">
+            <a href="main.html">Main</a>
+            <a href="tables-list.html">Tables</a>
+            <a href="views-list.html">Views</a>
+            <a href="mviews-list.html">Materialized&nbsp;Views</a>
+            <a href="indexes-list.html">Indexes</a>
+            <a href="constraints-list.html">Constraints</a>
+            <a href="triggers-list.html">Triggers</a>
+            <a href="procedures-list.html">Procedures</a>
+            <a href="functions-list.html">Functions</a>
+            <a href="packages-list.html">Packages</a>
+            <a href="sequences.html">Sequences</a>
+            <a href="java-sources-list.html">Java&nbsp;Sources</a>
+            <a href="sanity-check.html">Sanity&nbsp;Check</a>
+            <a href="symbol-index.html">Index</a>
+            <a href="sql_sources/" target="Main">DDL&nbsp;scrips</a>
+            </div><div class="subcontextbar"><a href="#p-src">Package source</a> <a href="#p-bsrc">Package body source</a> </div><h2>RHN_SERVER</h2>
+<a href="sql_sources/package/rhn_server.sql">DDL script</a><h2>Package source</h2>
+<a name="p-src"></a><pre>
+Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
+<pre>
+     1<span class="operator">:</span> <span class="keyword">package</span> rhn_server
+     2<span class="operator">:</span> <span class="reserved">is</span>
+     3<span class="operator">:</span> 
+     4<span class="operator">:</span>     <span class="comment">-- i.e., "can this box do management stuff?" and yes if provisioning box</span>
+     5<span class="operator">:</span>     <span class="keyword">function</span> system_service_level<span class="operator">(</span>
+     6<span class="operator">:</span>     	server_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+     7<span class="operator">:</span> 	service_level_in <span class="reserved">in</span> varchar2
+     8<span class="operator">:</span>     <span class="operator">)</span> <span class="keyword">return</span> number;
+     9<span class="operator">:</span> 
+    10<span class="operator">:</span>     <span class="keyword">function</span> can_change_base_channel<span class="operator">(</span>
+    11<span class="operator">:</span>     	server_id_in <span class="reserved">in</span> number
+    12<span class="operator">:</span>     <span class="operator">)</span> <span class="keyword">return</span> number;
+    13<span class="operator">:</span> 
+    14<span class="operator">:</span>     <span class="reserved">procedure</span> set_custom_value<span class="operator">(</span>
+    15<span class="operator">:</span>     	server_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+    16<span class="operator">:</span> 	user_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+    17<span class="operator">:</span> 	key_label_in varchar2<span class="operator">,</span>
+    18<span class="operator">:</span>      	value_in <span class="reserved">in</span> varchar2
+    19<span class="operator">:</span>     <span class="operator">)</span>;
+    20<span class="operator">:</span> 
+    21<span class="operator">:</span>     <span class="keyword">function</span> bulk_set_custom_value<span class="operator">(</span>
+    22<span class="operator">:</span>     	key_label_in <span class="reserved">in</span> varchar2<span class="operator">,</span>
+    23<span class="operator">:</span> 	value_in <span class="reserved">in</span> varchar2<span class="operator">,</span>
+    24<span class="operator">:</span> 	set_label_in <span class="reserved">in</span> varchar2<span class="operator">,</span>
+    25<span class="operator">:</span> 	set_uid_in <span class="reserved">in</span> number
+    26<span class="operator">:</span>     <span class="operator">)</span> <span class="keyword">return</span> integer;
+    27<span class="operator">:</span> 
+    28<span class="operator">:</span>     <span class="reserved">procedure</span> snapshot_server<span class="operator">(</span>
+    29<span class="operator">:</span>     	server_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+    30<span class="operator">:</span> 	reason_in <span class="reserved">in</span> varchar2
+    31<span class="operator">:</span>     <span class="operator">)</span>;
+    32<span class="operator">:</span> 
+    33<span class="operator">:</span>     <span class="reserved">procedure</span> bulk_snapshot<span class="operator">(</span>
+    34<span class="operator">:</span>     	reason_in <span class="reserved">in</span> varchar2<span class="operator">,</span>
+    35<span class="operator">:</span>     	set_label_in <span class="reserved">in</span> varchar2<span class="operator">,</span>
+    36<span class="operator">:</span> 	set_uid_in <span class="reserved">in</span> number
+    37<span class="operator">:</span>     <span class="operator">)</span>;
+    38<span class="operator">:</span> 
+    39<span class="operator">:</span>     <span class="reserved">procedure</span> tag_delete<span class="operator">(</span>
+    40<span class="operator">:</span>     	server_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+    41<span class="operator">:</span> 	tag_id_in <span class="reserved">in</span> number
+    42<span class="operator">:</span>     <span class="operator">)</span>;
+    43<span class="operator">:</span> 
+    44<span class="operator">:</span>     <span class="reserved">procedure</span> tag_snapshot<span class="operator">(</span>
+    45<span class="operator">:</span>     	snapshot_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+    46<span class="operator">:</span> 	org_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+    47<span class="operator">:</span>     	tagname_in <span class="reserved">in</span> varchar2
+    48<span class="operator">:</span>     <span class="operator">)</span>;
+    49<span class="operator">:</span> 
+    50<span class="operator">:</span>     <span class="reserved">procedure</span> bulk_snapshot_tag<span class="operator">(</span>
+    51<span class="operator">:</span>     	org_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+    52<span class="operator">:</span>     	tagname_in varchar2<span class="operator">,</span>
+    53<span class="operator">:</span> 	set_label_in <span class="reserved">in</span> varchar2<span class="operator">,</span>
+    54<span class="operator">:</span> 	set_uid_in <span class="reserved">in</span> number
+    55<span class="operator">:</span>     <span class="operator">)</span>;
+    56<span class="operator">:</span> 
+    57<span class="operator">:</span>     <span class="reserved">procedure</span> remove_action<span class="operator">(</span>
+    58<span class="operator">:</span> 	server_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+    59<span class="operator">:</span> 	action_id_in <span class="reserved">in</span> number
+    60<span class="operator">:</span>     <span class="operator">)</span>;
+    61<span class="operator">:</span> 
+    62<span class="operator">:</span>     <span class="keyword">function</span> check_user_access<span class="operator">(</span>server_id_in <span class="reserved">in</span> number<span class="operator">,</span> user_id_in <span class="reserved">in</span> number<span class="operator">)</span> <span class="keyword">return</span> number;
+    63<span class="operator">:</span> 
+    64<span class="operator">:</span> 
+    65<span class="operator">:</span>     <span class="keyword">function</span> can_server_consume_virt_slot<span class="operator">(</span>server_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+    66<span class="operator">:</span>                                               group_type_in <span class="reserved">in</span>
+    67<span class="operator">:</span>                                               rhnServerGroupType<span class="operator">.</span>label<span class="operator">%</span><span class="keyword">TYPE</span><span class="operator">)</span>
+    68<span class="operator">:</span>     <span class="keyword">return</span> number;
+    69<span class="operator">:</span> 
+    70<span class="operator">:</span>     <span class="reserved">procedure</span> insert_into_servergroup <span class="operator">(</span>
+    71<span class="operator">:</span> 	server_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+    72<span class="operator">:</span> 	server_group_id_in <span class="reserved">in</span> number
+    73<span class="operator">:</span>     <span class="operator">)</span>;
+    74<span class="operator">:</span> 
+    75<span class="operator">:</span>     <span class="keyword">function</span> insert_into_servergroup_maybe <span class="operator">(</span>
+    76<span class="operator">:</span> 	server_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+    77<span class="operator">:</span> 	server_group_id_in <span class="reserved">in</span> number
+    78<span class="operator">:</span>     <span class="operator">)</span> <span class="keyword">return</span> number;
+    79<span class="operator">:</span> 
+    80<span class="operator">:</span> 	<span class="reserved">procedure</span> insert_set_into_servergroup <span class="operator">(</span>
+    81<span class="operator">:</span> 	server_group_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+    82<span class="operator">:</span> 	user_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+    83<span class="operator">:</span> 	set_label_in <span class="reserved">in</span> varchar2
+    84<span class="operator">:</span> 	<span class="operator">)</span>;
+    85<span class="operator">:</span> 
+    86<span class="operator">:</span>     <span class="reserved">procedure</span> delete_from_servergroup <span class="operator">(</span>
+    87<span class="operator">:</span> 	server_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+    88<span class="operator">:</span> 	server_group_id_in <span class="reserved">in</span> number
+    89<span class="operator">:</span>     <span class="operator">)</span>;
+    90<span class="operator">:</span> 
+    91<span class="operator">:</span> 	<span class="reserved">procedure</span> delete_set_from_servergroup <span class="operator">(</span>
+    92<span class="operator">:</span> 	server_group_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+    93<span class="operator">:</span> 	user_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+    94<span class="operator">:</span> 	set_label_in <span class="reserved">in</span> varchar2
+    95<span class="operator">:</span> 	<span class="operator">)</span>;
+    96<span class="operator">:</span> 
+    97<span class="operator">:</span> 	<span class="reserved">procedure</span> clear_servergroup <span class="operator">(</span>
+    98<span class="operator">:</span> 	server_group_id_in <span class="reserved">in</span> number
+    99<span class="operator">:</span> 	<span class="operator">)</span>;
+   100<span class="operator">:</span> 
+   101<span class="operator">:</span> 	<span class="reserved">procedure</span> delete_from_org_servergroups <span class="operator">(</span>
+   102<span class="operator">:</span> 	server_id_in <span class="reserved">in</span> number
+   103<span class="operator">:</span> 	<span class="operator">)</span>;
+   104<span class="operator">:</span> 
+   105<span class="operator">:</span> 	<span class="keyword">function</span> get_ip_address <span class="operator">(</span>
+   106<span class="operator">:</span> 		server_id_in <span class="reserved">in</span> number
+   107<span class="operator">:</span> 	<span class="operator">)</span> <span class="keyword">return</span> varchar2;
+   108<span class="operator">:</span> <span class="reserved">end</span> rhn_server;
+</pre>
+<h2>Package body source</h2>
+<a name="p-bsrc"></a><pre>
+Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
+<pre>
+     1<span class="operator">:</span> <span class="keyword">package</span> <span class="keyword">body</span> rhn_server
+     2<span class="operator">:</span> <span class="reserved">is</span>
+     3<span class="operator">:</span>     <span class="keyword">function</span> system_service_level<span class="operator">(</span>
+     4<span class="operator">:</span>     	server_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+     5<span class="operator">:</span> 	service_level_in <span class="reserved">in</span> varchar2
+     6<span class="operator">:</span>     <span class="operator">)</span> <span class="keyword">return</span> number <span class="reserved">is</span>
+     7<span class="operator">:</span> 
+     8<span class="operator">:</span>     <span class="keyword">cursor</span> ents <span class="reserved">is</span>
+     9<span class="operator">:</span>       <span class="reserved">select</span> label <span class="reserved">from</span> rhnServerEntitlementView
+    10<span class="operator">:</span>       <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in;
+    11<span class="operator">:</span> 
+    12<span class="operator">:</span>     retval number <span class="operator">:</span><span class="operator">=</span> 0;
+    13<span class="operator">:</span> 
+    14<span class="operator">:</span>     <span class="reserved">begin</span>
+    15<span class="operator">:</span>          <span class="reserved">for</span> ent <span class="reserved">in</span> ents <span class="keyword">loop</span>
+    16<span class="operator">:</span>             retval <span class="operator">:</span><span class="operator">=</span> rhn_entitlements<span class="operator">.</span>entitlement_grants_service <span class="operator">(</span>ent<span class="operator">.</span>label<span class="operator">,</span> service_level_in<span class="operator">)</span>;
+    17<span class="operator">:</span>             <span class="reserved">if</span> retval <span class="operator">=</span> 1 <span class="reserved">then</span>
+    18<span class="operator">:</span>                <span class="keyword">return</span> retval;
+    19<span class="operator">:</span>             <span class="reserved">end</span> <span class="reserved">if</span>;
+    20<span class="operator">:</span>          <span class="reserved">end</span> <span class="keyword">loop</span>;
+    21<span class="operator">:</span> 
+    22<span class="operator">:</span>          <span class="keyword">return</span> retval;
+    23<span class="operator">:</span> 
+    24<span class="operator">:</span>     <span class="reserved">end</span> system_service_level;
+    25<span class="operator">:</span> 
+    26<span class="operator">:</span> 
+    27<span class="operator">:</span>     <span class="keyword">function</span> can_change_base_channel<span class="operator">(</span>server_id_in <span class="reserved">IN</span> NUMBER<span class="operator">)</span>
+    28<span class="operator">:</span>     <span class="keyword">return</span> number
+    29<span class="operator">:</span>     <span class="reserved">is</span>
+    30<span class="operator">:</span>     	throwaway number;
+    31<span class="operator">:</span>     <span class="reserved">begin</span>
+    32<span class="operator">:</span>     	<span class="comment">-- the idea: if we get past this query, the server is</span>
+    33<span class="operator">:</span> 	<span class="comment">-- neither sat nor proxy, so base channel is changeable</span>
+    34<span class="operator">:</span> 
+    35<span class="operator">:</span> 	<span class="reserved">select</span> 1 <span class="reserved">into</span> throwaway
+    36<span class="operator">:</span> 	  <span class="reserved">from</span> rhnServer S
+    37<span class="operator">:</span> 	 <span class="reserved">where</span> S<span class="operator">.</span>id <span class="operator">=</span> server_id_in
+    38<span class="operator">:</span> 	   <span class="reserved">and</span> <span class="reserved">not</span> exists <span class="operator">(</span><span class="reserved">select</span> 1 <span class="reserved">from</span> rhnSatelliteInfo SI <span class="reserved">where</span> SI<span class="operator">.</span>server_id <span class="operator">=</span> S<span class="operator">.</span>id<span class="operator">)</span>
+    39<span class="operator">:</span> 	   <span class="reserved">and</span> <span class="reserved">not</span> exists <span class="operator">(</span><span class="reserved">select</span> 1 <span class="reserved">from</span> rhnProxyInfo PI <span class="reserved">where</span> PI<span class="operator">.</span>server_id <span class="operator">=</span> S<span class="operator">.</span>id<span class="operator">)</span>;
+    40<span class="operator">:</span> 
+    41<span class="operator">:</span> 	<span class="keyword">return</span> 1;
+    42<span class="operator">:</span>     <span class="reserved">exception</span>
+    43<span class="operator">:</span>     	<span class="reserved">when</span> no_data_found
+    44<span class="operator">:</span> 	    <span class="reserved">then</span>
+    45<span class="operator">:</span> 	    <span class="keyword">return</span> 0;
+    46<span class="operator">:</span>     <span class="reserved">end</span> can_change_base_channel;
+    47<span class="operator">:</span> 
+    48<span class="operator">:</span>     <span class="reserved">procedure</span> set_custom_value<span class="operator">(</span>
+    49<span class="operator">:</span>     	server_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+    50<span class="operator">:</span> 	user_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+    51<span class="operator">:</span> 	key_label_in <span class="reserved">in</span> varchar2<span class="operator">,</span>
+    52<span class="operator">:</span> 	value_in <span class="reserved">in</span> varchar2
+    53<span class="operator">:</span>     <span class="operator">)</span> <span class="reserved">is</span>
+    54<span class="operator">:</span>     	key_id_val number;
+    55<span class="operator">:</span>     <span class="reserved">begin</span>
+    56<span class="operator">:</span>     	<span class="reserved">select</span> CDK<span class="operator">.</span>id <span class="reserved">into</span> key_id_val
+    57<span class="operator">:</span> 	  <span class="reserved">from</span> rhnCustomDataKey CDK<span class="operator">,</span>
+    58<span class="operator">:</span> 	       rhnServer S
+    59<span class="operator">:</span> 	 <span class="reserved">where</span> S<span class="operator">.</span>id <span class="operator">=</span> server_id_in
+    60<span class="operator">:</span> 	   <span class="reserved">and</span> S<span class="operator">.</span>org_id <span class="operator">=</span> CDK<span class="operator">.</span>org_id
+    61<span class="operator">:</span> 	   <span class="reserved">and</span> CDK<span class="operator">.</span>label <span class="operator">=</span> key_label_in;
+    62<span class="operator">:</span> 
+    63<span class="operator">:</span> 	<span class="reserved">begin</span>
+    64<span class="operator">:</span> 	    <span class="reserved">insert</span> <span class="reserved">into</span> rhnServerCustomDataValue <span class="operator">(</span>server_id<span class="operator">,</span> key_id<span class="operator">,</span> <span class="keyword">value</span><span class="operator">,</span> created_by<span class="operator">,</span> last_modified_by<span class="operator">)</span>
+    65<span class="operator">:</span> 	    <span class="reserved">values</span> <span class="operator">(</span>server_id_in<span class="operator">,</span> key_id_val<span class="operator">,</span> value_in<span class="operator">,</span> user_id_in<span class="operator">,</span> user_id_in<span class="operator">)</span>;
+    66<span class="operator">:</span> 	<span class="reserved">exception</span>
+    67<span class="operator">:</span> 	    <span class="reserved">when</span> DUP_VAL_ON_INDEX
+    68<span class="operator">:</span> 	    	<span class="reserved">then</span>
+    69<span class="operator">:</span> 		<span class="reserved">update</span> rhnServerCustomDataValue
+    70<span class="operator">:</span> 		   <span class="keyword">set</span> <span class="keyword">value</span> <span class="operator">=</span> value_in<span class="operator">,</span>
+    71<span class="operator">:</span> 		       last_modified_by <span class="operator">=</span> user_id_in
+    72<span class="operator">:</span> 		 <span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in
+    73<span class="operator">:</span> 		   <span class="reserved">and</span> key_id <span class="operator">=</span> key_id_val;
+    74<span class="operator">:</span> 	<span class="reserved">end</span>;
+    75<span class="operator">:</span> 
+    76<span class="operator">:</span>     <span class="reserved">end</span> set_custom_value;
+    77<span class="operator">:</span> 
+    78<span class="operator">:</span>     <span class="keyword">function</span> bulk_set_custom_value<span class="operator">(</span>
+    79<span class="operator">:</span>     	key_label_in <span class="reserved">in</span> varchar2<span class="operator">,</span>
+    80<span class="operator">:</span> 	value_in <span class="reserved">in</span> varchar2<span class="operator">,</span>
+    81<span class="operator">:</span> 	set_label_in <span class="reserved">in</span> varchar2<span class="operator">,</span>
+    82<span class="operator">:</span> 	set_uid_in <span class="reserved">in</span> number
+    83<span class="operator">:</span>     <span class="operator">)</span>
+    84<span class="operator">:</span>     <span class="keyword">return</span> integer
+    85<span class="operator">:</span>     <span class="reserved">is</span>
+    86<span class="operator">:</span>     i integer <span class="operator">:</span><span class="operator">=</span> 0;
+    87<span class="operator">:</span>     <span class="reserved">begin</span>
+    88<span class="operator">:</span>         i <span class="operator">:</span><span class="operator">=</span> 0;
+    89<span class="operator">:</span>     	<span class="reserved">for</span> server <span class="reserved">in</span> rhn_set<span class="operator">.</span>set_iterator<span class="operator">(</span>set_label_in<span class="operator">,</span> set_uid_in<span class="operator">)</span>
+    90<span class="operator">:</span> 	<span class="keyword">loop</span>
+    91<span class="operator">:</span> 	    <span class="reserved">if</span> rhn_server<span class="operator">.</span>system_service_level<span class="operator">(</span>server<span class="operator">.</span><span class="keyword">element</span><span class="operator">,</span> <span class="string">'provisioning'</span><span class="operator">)</span> <span class="operator">=</span> 1 <span class="reserved">then</span>
+    92<span class="operator">:</span> 	    	rhn_server<span class="operator">.</span>set_custom_value<span class="operator">(</span>server<span class="operator">.</span><span class="keyword">element</span><span class="operator">,</span> set_uid_in<span class="operator">,</span> key_label_in<span class="operator">,</span> value_in<span class="operator">)</span>;
+    93<span class="operator">:</span>             i <span class="operator">:</span><span class="operator">=</span> i <span class="operator">+</span> 1;
+    94<span class="operator">:</span> 	    <span class="reserved">end</span> <span class="reserved">if</span>;
+    95<span class="operator">:</span> 	<span class="reserved">end</span> <span class="keyword">loop</span> server;
+    96<span class="operator">:</span>     <span class="keyword">return</span> i;
+    97<span class="operator">:</span>     <span class="reserved">end</span> bulk_set_custom_value;
+    98<span class="operator">:</span> 
+    99<span class="operator">:</span>     <span class="reserved">procedure</span> bulk_snapshot_tag<span class="operator">(</span>
+   100<span class="operator">:</span>     	org_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+   101<span class="operator">:</span>         tagname_in <span class="reserved">in</span> varchar2<span class="operator">,</span>
+   102<span class="operator">:</span> 	set_label_in <span class="reserved">in</span> varchar2<span class="operator">,</span>
+   103<span class="operator">:</span> 	set_uid_in <span class="reserved">in</span> number
+   104<span class="operator">:</span>     <span class="operator">)</span> <span class="reserved">is</span>
+   105<span class="operator">:</span>     	snapshot_id number;
+   106<span class="operator">:</span>     <span class="reserved">begin</span>
+   107<span class="operator">:</span>     	<span class="reserved">for</span> server <span class="reserved">in</span> rhn_set<span class="operator">.</span>set_iterator<span class="operator">(</span>set_label_in<span class="operator">,</span> set_uid_in<span class="operator">)</span>
+   108<span class="operator">:</span> 	<span class="keyword">loop</span>
+   109<span class="operator">:</span> 	    <span class="reserved">if</span> rhn_server<span class="operator">.</span>system_service_level<span class="operator">(</span>server<span class="operator">.</span><span class="keyword">element</span><span class="operator">,</span> <span class="string">'provisioning'</span><span class="operator">)</span> <span class="operator">=</span> 1 <span class="reserved">then</span>
+   110<span class="operator">:</span> 	    	<span class="reserved">begin</span>
+   111<span class="operator">:</span> 	    	    <span class="reserved">select</span> <span class="keyword">max</span><span class="operator">(</span>id<span class="operator">)</span> <span class="reserved">into</span> snapshot_id
+   112<span class="operator">:</span> 	    	    <span class="reserved">from</span> rhnSnapshot
+   113<span class="operator">:</span> 	    	    <span class="reserved">where</span> server_id <span class="operator">=</span> server<span class="operator">.</span><span class="keyword">element</span>;
+   114<span class="operator">:</span> 	    	<span class="reserved">exception</span>
+   115<span class="operator">:</span> 	    	    <span class="reserved">when</span> NO_DATA_FOUND <span class="reserved">then</span>
+   116<span class="operator">:</span> 		    	rhn_server<span class="operator">.</span>snapshot_server<span class="operator">(</span>server<span class="operator">.</span><span class="keyword">element</span><span class="operator">,</span> <span class="string">'tagging system:  '</span> <span class="operator">|</span><span class="operator">|</span> tagname_in<span class="operator">)</span>;
+   117<span class="operator">:</span> 
+   118<span class="operator">:</span> 			<span class="reserved">select</span> <span class="keyword">max</span><span class="operator">(</span>id<span class="operator">)</span> <span class="reserved">into</span> snapshot_id
+   119<span class="operator">:</span> 			<span class="reserved">from</span> rhnSnapshot
+   120<span class="operator">:</span> 			<span class="reserved">where</span> server_id <span class="operator">=</span> server<span class="operator">.</span><span class="keyword">element</span>;
+   121<span class="operator">:</span> 		<span class="reserved">end</span>;
+   122<span class="operator">:</span> 
+   123<span class="operator">:</span> 		<span class="comment">-- now have a snapshot_id to work with...</span>
+   124<span class="operator">:</span> 		<span class="reserved">begin</span>
+   125<span class="operator">:</span> 		    rhn_server<span class="operator">.</span>tag_snapshot<span class="operator">(</span>snapshot_id<span class="operator">,</span> org_id_in<span class="operator">,</span> tagname_in<span class="operator">)</span>;
+   126<span class="operator">:</span> 		<span class="reserved">exception</span>
+   127<span class="operator">:</span> 		    <span class="reserved">when</span> DUP_VAL_ON_INDEX
+   128<span class="operator">:</span> 		    	<span class="reserved">then</span>
+   129<span class="operator">:</span> 			<span class="comment">-- do nothing, be forgiving...</span>
+   130<span class="operator">:</span> 			<span class="reserved">null</span>;
+   131<span class="operator">:</span> 		<span class="reserved">end</span>;
+   132<span class="operator">:</span> 	    <span class="reserved">end</span> <span class="reserved">if</span>;
+   133<span class="operator">:</span> 	<span class="reserved">end</span> <span class="keyword">loop</span> server;
+   134<span class="operator">:</span>     <span class="reserved">end</span> bulk_snapshot_tag;
+   135<span class="operator">:</span> 
+   136<span class="operator">:</span>     <span class="reserved">procedure</span> tag_delete<span class="operator">(</span>
+   137<span class="operator">:</span>     	server_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+   138<span class="operator">:</span> 	tag_id_in <span class="reserved">in</span> number
+   139<span class="operator">:</span>     <span class="operator">)</span> <span class="reserved">is</span>
+   140<span class="operator">:</span>     	<span class="keyword">cursor</span> snapshots <span class="reserved">is</span>
+   141<span class="operator">:</span> 		<span class="reserved">select</span>	snapshot_id
+   142<span class="operator">:</span> 		<span class="reserved">from</span>	rhnSnapshotTag
+   143<span class="operator">:</span> 		<span class="reserved">where</span>	tag_id <span class="operator">=</span> tag_id_in;
+   144<span class="operator">:</span> 	tag_id_tmp number;
+   145<span class="operator">:</span>     <span class="reserved">begin</span>
+   146<span class="operator">:</span>     	<span class="reserved">select</span>	id <span class="reserved">into</span> tag_id_tmp
+   147<span class="operator">:</span> 	<span class="reserved">from</span>	rhnTag
+   148<span class="operator">:</span> 	<span class="reserved">where</span>	id <span class="operator">=</span> tag_id_in
+   149<span class="operator">:</span> 	<span class="reserved">for</span> <span class="reserved">update</span>;
+   150<span class="operator">:</span> 
+   151<span class="operator">:</span> 	<span class="reserved">delete</span>
+   152<span class="operator">:</span> 		<span class="reserved">from</span>	rhnSnapshotTag
+   153<span class="operator">:</span> 		<span class="reserved">where</span>	server_id <span class="operator">=</span> server_id_in
+   154<span class="operator">:</span> 			<span class="reserved">and</span> tag_id <span class="operator">=</span> tag_id_in;
+   155<span class="operator">:</span> 	<span class="reserved">for</span> snapshot <span class="reserved">in</span> snapshots <span class="keyword">loop</span>
+   156<span class="operator">:</span> 		<span class="keyword">return</span>;
+   157<span class="operator">:</span> 	<span class="reserved">end</span> <span class="keyword">loop</span>;
+   158<span class="operator">:</span> 	<span class="reserved">delete</span>
+   159<span class="operator">:</span> 		<span class="reserved">from</span> rhnTag
+   160<span class="operator">:</span> 		<span class="reserved">where</span> id <span class="operator">=</span> tag_id_in;
+   161<span class="operator">:</span>     <span class="reserved">end</span> tag_delete;
+   162<span class="operator">:</span> 
+   163<span class="operator">:</span>     <span class="reserved">procedure</span> tag_snapshot<span class="operator">(</span>
+   164<span class="operator">:</span>         snapshot_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+   165<span class="operator">:</span> 	org_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+   166<span class="operator">:</span> 	tagname_in <span class="reserved">in</span> varchar2
+   167<span class="operator">:</span>     <span class="operator">)</span> <span class="reserved">is</span>
+   168<span class="operator">:</span>     <span class="reserved">begin</span>
+   169<span class="operator">:</span>     	<span class="reserved">insert</span> <span class="reserved">into</span> rhnSnapshotTag <span class="operator">(</span>snapshot_id<span class="operator">,</span> server_id<span class="operator">,</span> tag_id<span class="operator">)</span>
+   170<span class="operator">:</span> 	<span class="reserved">select</span> snapshot_id_in<span class="operator">,</span> server_id<span class="operator">,</span> lookup_tag<span class="operator">(</span>org_id_in<span class="operator">,</span> tagname_in<span class="operator">)</span>
+   171<span class="operator">:</span> 	<span class="reserved">from</span> rhnSnapshot
+   172<span class="operator">:</span> 	<span class="reserved">where</span> id <span class="operator">=</span> snapshot_id_in;
+   173<span class="operator">:</span>     <span class="reserved">end</span> tag_snapshot;
+   174<span class="operator">:</span> 
+   175<span class="operator">:</span>     <span class="reserved">procedure</span> bulk_snapshot<span class="operator">(</span>
+   176<span class="operator">:</span>     	reason_in <span class="reserved">in</span> varchar2<span class="operator">,</span>
+   177<span class="operator">:</span> 	set_label_in <span class="reserved">in</span> varchar2<span class="operator">,</span>
+   178<span class="operator">:</span> 	set_uid_in <span class="reserved">in</span> number
+   179<span class="operator">:</span>     <span class="operator">)</span> <span class="reserved">is</span>
+   180<span class="operator">:</span>     <span class="reserved">begin</span>
+   181<span class="operator">:</span>     	<span class="reserved">for</span> server <span class="reserved">in</span> rhn_set<span class="operator">.</span>set_iterator<span class="operator">(</span>set_label_in<span class="operator">,</span> set_uid_in<span class="operator">)</span>
+   182<span class="operator">:</span> 	<span class="keyword">loop</span>
+   183<span class="operator">:</span>     	    <span class="reserved">if</span> rhn_server<span class="operator">.</span>system_service_level<span class="operator">(</span>server<span class="operator">.</span><span class="keyword">element</span><span class="operator">,</span> <span class="string">'provisioning'</span><span class="operator">)</span> <span class="operator">=</span> 1 <span class="reserved">then</span>
+   184<span class="operator">:</span> 	    	rhn_server<span class="operator">.</span>snapshot_server<span class="operator">(</span>server<span class="operator">.</span><span class="keyword">element</span><span class="operator">,</span> reason_in<span class="operator">)</span>;
+   185<span class="operator">:</span> 	    <span class="reserved">end</span> <span class="reserved">if</span>;
+   186<span class="operator">:</span> 	<span class="reserved">end</span> <span class="keyword">loop</span> server;
+   187<span class="operator">:</span>     <span class="reserved">end</span> bulk_snapshot;
+   188<span class="operator">:</span> 
+   189<span class="operator">:</span>     <span class="reserved">procedure</span> snapshot_server<span class="operator">(</span>
+   190<span class="operator">:</span>     	server_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+   191<span class="operator">:</span> 	reason_in <span class="reserved">in</span> varchar2
+   192<span class="operator">:</span>     <span class="operator">)</span> <span class="reserved">is</span>
+   193<span class="operator">:</span>     	snapshot_id number;
+   194<span class="operator">:</span> 	<span class="keyword">cursor</span> revisions <span class="reserved">is</span>
+   195<span class="operator">:</span> 		<span class="reserved">select</span> <span class="reserved">distinct</span>
+   196<span class="operator">:</span> 			cr<span class="operator">.</span>id
+   197<span class="operator">:</span> 		<span class="reserved">from</span>	rhnConfigRevision	cr<span class="operator">,</span>
+   198<span class="operator">:</span> 			rhnConfigFileName	cfn<span class="operator">,</span>
+   199<span class="operator">:</span> 			rhnConfigFile		cf<span class="operator">,</span>
+   200<span class="operator">:</span> 			rhnConfigChannel	cc<span class="operator">,</span>
+   201<span class="operator">:</span> 			rhnServerConfigChannel	scc
+   202<span class="operator">:</span> 		<span class="reserved">where</span>	1<span class="operator">=</span>1
+   203<span class="operator">:</span> 			<span class="reserved">and</span> scc<span class="operator">.</span>server_id <span class="operator">=</span> server_id_in
+   204<span class="operator">:</span> 			<span class="reserved">and</span> scc<span class="operator">.</span>config_channel_id <span class="operator">=</span> cc<span class="operator">.</span>id
+   205<span class="operator">:</span> 			<span class="reserved">and</span> cc<span class="operator">.</span>id <span class="operator">=</span> cf<span class="operator">.</span>config_channel_id
+   206<span class="operator">:</span> 			<span class="reserved">and</span> cf<span class="operator">.</span>id <span class="operator">=</span> cr<span class="operator">.</span>config_file_id
+   207<span class="operator">:</span> 			<span class="reserved">and</span> cr<span class="operator">.</span>id <span class="operator">=</span> cf<span class="operator">.</span>latest_config_revision_id
+   208<span class="operator">:</span> 			<span class="reserved">and</span> cf<span class="operator">.</span>config_file_name_id <span class="operator">=</span> cfn<span class="operator">.</span>id
+   209<span class="operator">:</span> 			<span class="reserved">and</span> cf<span class="operator">.</span>id <span class="operator">=</span> lookup_first_matching_cf<span class="operator">(</span>scc<span class="operator">.</span>server_id<span class="operator">,</span> cfn<span class="operator">.</span>path<span class="operator">)</span>;
+   210<span class="operator">:</span> 	locked integer;
+   211<span class="operator">:</span>     <span class="reserved">begin</span>
+   212<span class="operator">:</span>     	<span class="reserved">select</span> rhn_snapshot_id_seq<span class="operator">.</span>nextval <span class="reserved">into</span> snapshot_id <span class="reserved">from</span> dual;
+   213<span class="operator">:</span> 
+   214<span class="operator">:</span> 	<span class="reserved">insert</span> <span class="reserved">into</span> rhnSnapshot <span class="operator">(</span>id<span class="operator">,</span> org_id<span class="operator">,</span> server_id<span class="operator">,</span> reason<span class="operator">)</span> <span class="operator">(</span>
+   215<span class="operator">:</span> 		<span class="reserved">select</span>	snapshot_id<span class="operator">,</span>
+   216<span class="operator">:</span> 			s<span class="operator">.</span>org_id<span class="operator">,</span>
+   217<span class="operator">:</span> 			server_id_in<span class="operator">,</span>
+   218<span class="operator">:</span> 			reason_in
+   219<span class="operator">:</span> 		<span class="reserved">from</span>	rhnServer s
+   220<span class="operator">:</span> 		<span class="reserved">where</span>	s<span class="operator">.</span>id <span class="operator">=</span> server_id_in
+   221<span class="operator">:</span> 	<span class="operator">)</span>;
+   222<span class="operator">:</span> 	<span class="reserved">insert</span> <span class="reserved">into</span> rhnSnapshotChannel <span class="operator">(</span>snapshot_id<span class="operator">,</span> channel_id<span class="operator">)</span> <span class="operator">(</span>
+   223<span class="operator">:</span> 		<span class="reserved">select</span>	snapshot_id<span class="operator">,</span> sc<span class="operator">.</span>channel_id
+   224<span class="operator">:</span> 		<span class="reserved">from</span>	rhnServerChannel sc
+   225<span class="operator">:</span> 		<span class="reserved">where</span>	sc<span class="operator">.</span>server_id <span class="operator">=</span> server_id_in
+   226<span class="operator">:</span> 	<span class="operator">)</span>;
+   227<span class="operator">:</span> 	<span class="reserved">insert</span> <span class="reserved">into</span> rhnSnapshotServerGroup <span class="operator">(</span>snapshot_id<span class="operator">,</span> server_group_id<span class="operator">)</span> <span class="operator">(</span>
+   228<span class="operator">:</span> 		<span class="reserved">select</span>	snapshot_id<span class="operator">,</span> sgm<span class="operator">.</span>server_group_id
+   229<span class="operator">:</span> 		<span class="reserved">from</span>	rhnServerGroupMembers sgm
+   230<span class="operator">:</span> 		<span class="reserved">where</span>	sgm<span class="operator">.</span>server_id <span class="operator">=</span> server_id_in
+   231<span class="operator">:</span> 	<span class="operator">)</span>;
+   232<span class="operator">:</span>         locked <span class="operator">:</span><span class="operator">=</span> 0;
+   233<span class="operator">:</span>         <span class="keyword">while</span> true <span class="keyword">loop</span>
+   234<span class="operator">:</span>             <span class="reserved">begin</span>
+   235<span class="operator">:</span>                 <span class="reserved">insert</span> <span class="reserved">into</span> rhnPackageNEVRA <span class="operator">(</span>id<span class="operator">,</span> name_id<span class="operator">,</span> evr_id<span class="operator">,</span> package_arch_id<span class="operator">)</span>
+   236<span class="operator">:</span>                 <span class="reserved">select</span> rhn_pkgnevra_id_seq<span class="operator">.</span>nextval<span class="operator">,</span> sp<span class="operator">.</span>name_id<span class="operator">,</span> sp<span class="operator">.</span>evr_id<span class="operator">,</span> sp<span class="operator">.</span>package_arch_id
+   237<span class="operator">:</span>                 <span class="reserved">from</span> rhnServerPackage sp
+   238<span class="operator">:</span>                 <span class="reserved">where</span> sp<span class="operator">.</span>server_id <span class="operator">=</span> server_id_in
+   239<span class="operator">:</span>                         <span class="reserved">and</span> <span class="reserved">not</span> exists
+   240<span class="operator">:</span>                         <span class="operator">(</span><span class="reserved">select</span> 1
+   241<span class="operator">:</span>                                 <span class="reserved">from</span> rhnPackageNEVRA nevra
+   242<span class="operator">:</span>                                 <span class="reserved">where</span> nevra<span class="operator">.</span>name_id <span class="operator">=</span> sp<span class="operator">.</span>name_id
+   243<span class="operator">:</span>                                         <span class="reserved">and</span> nevra<span class="operator">.</span>evr_id <span class="operator">=</span> sp<span class="operator">.</span>evr_id
+   244<span class="operator">:</span>                                         <span class="reserved">and</span> <span class="operator">(</span>nevra<span class="operator">.</span>package_arch_id <span class="operator">=</span> sp<span class="operator">.</span>package_arch_id
+   245<span class="operator">:</span>                                             <span class="reserved">or</span> <span class="operator">(</span>nevra<span class="operator">.</span>package_arch_id <span class="reserved">is</span> <span class="reserved">null</span>
+   246<span class="operator">:</span>                                                 <span class="reserved">and</span> sp<span class="operator">.</span>package_arch_id <span class="reserved">is</span> <span class="reserved">null</span><span class="operator">)</span><span class="operator">)</span><span class="operator">)</span>;
+   247<span class="operator">:</span>                 <span class="keyword">exit</span>;
+   248<span class="operator">:</span>             <span class="reserved">exception</span> <span class="reserved">when</span> dup_val_on_index <span class="reserved">then</span>
+   249<span class="operator">:</span>                 <span class="reserved">if</span> locked <span class="operator">=</span> 1 <span class="reserved">then</span>
+   250<span class="operator">:</span>                     <span class="keyword">raise</span>;
+   251<span class="operator">:</span>                 <span class="reserved">else</span>
+   252<span class="operator">:</span>                     <span class="reserved">lock</span> <span class="reserved">table</span> rhnPackageNEVRA <span class="reserved">in</span> <span class="reserved">exclusive</span> <span class="reserved">mode</span>;
+   253<span class="operator">:</span>                     locked <span class="operator">:</span><span class="operator">=</span> 1;
+   254<span class="operator">:</span>                 <span class="reserved">end</span> <span class="reserved">if</span>;
+   255<span class="operator">:</span>             <span class="reserved">end</span>;
+   256<span class="operator">:</span>         <span class="reserved">end</span> <span class="keyword">loop</span>;
+   257<span class="operator">:</span> 	<span class="reserved">insert</span> <span class="reserved">into</span> rhnSnapshotPackage <span class="operator">(</span>snapshot_id<span class="operator">,</span> nevra_id<span class="operator">)</span> <span class="operator">(</span>
+   258<span class="operator">:</span>                 <span class="reserved">select</span> <span class="reserved">distinct</span> snapshot_id<span class="operator">,</span> nevra<span class="operator">.</span>id
+   259<span class="operator">:</span>                 <span class="reserved">from</span>    rhnServerPackage sp<span class="operator">,</span> rhnPackageNEVRA nevra
+   260<span class="operator">:</span>                 <span class="reserved">where</span>   sp<span class="operator">.</span>server_id <span class="operator">=</span> server_id_in
+   261<span class="operator">:</span>                         <span class="reserved">and</span> nevra<span class="operator">.</span>name_id <span class="operator">=</span> sp<span class="operator">.</span>name_id
+   262<span class="operator">:</span>                         <span class="reserved">and</span> nevra<span class="operator">.</span>evr_id <span class="operator">=</span> sp<span class="operator">.</span>evr_id
+   263<span class="operator">:</span>                         <span class="reserved">and</span> <span class="operator">(</span>nevra<span class="operator">.</span>package_arch_id <span class="operator">=</span> sp<span class="operator">.</span>package_arch_id
+   264<span class="operator">:</span>                             <span class="reserved">or</span> <span class="operator">(</span>nevra<span class="operator">.</span>package_arch_id <span class="reserved">is</span> <span class="reserved">null</span>
+   265<span class="operator">:</span>                                 <span class="reserved">and</span> sp<span class="operator">.</span>package_arch_id <span class="reserved">is</span> <span class="reserved">null</span><span class="operator">)</span><span class="operator">)</span>
+   266<span class="operator">:</span> 	<span class="operator">)</span>;
+   267<span class="operator">:</span> 
+   268<span class="operator">:</span> 	<span class="reserved">insert</span> <span class="reserved">into</span> rhnSnapshotConfigChannel <span class="operator">(</span> snapshot_id<span class="operator">,</span> config_channel_id <span class="operator">)</span> <span class="operator">(</span>
+   269<span class="operator">:</span> 		<span class="reserved">select</span>	snapshot_id<span class="operator">,</span> scc<span class="operator">.</span>config_channel_id
+   270<span class="operator">:</span> 		<span class="reserved">from</span>	rhnServerConfigChannel scc
+   271<span class="operator">:</span> 		<span class="reserved">where</span>	server_id <span class="operator">=</span> server_id_in
+   272<span class="operator">:</span> 	<span class="operator">)</span>;
+   273<span class="operator">:</span> 
+   274<span class="operator">:</span> 	<span class="reserved">for</span> revision <span class="reserved">in</span> revisions <span class="keyword">loop</span>
+   275<span class="operator">:</span> 		<span class="reserved">insert</span> <span class="reserved">into</span> rhnSnapshotConfigRevision <span class="operator">(</span>
+   276<span class="operator">:</span> 				snapshot_id<span class="operator">,</span> config_revision_id
+   277<span class="operator">:</span> 			<span class="operator">)</span> <span class="reserved">values</span> <span class="operator">(</span>
+   278<span class="operator">:</span> 				snapshot_id<span class="operator">,</span> revision<span class="operator">.</span>id
+   279<span class="operator">:</span> 			<span class="operator">)</span>;
+   280<span class="operator">:</span> 	<span class="reserved">end</span> <span class="keyword">loop</span>;
+   281<span class="operator">:</span>     <span class="reserved">end</span> snapshot_server;
+   282<span class="operator">:</span> 
+   283<span class="operator">:</span>     <span class="reserved">procedure</span> remove_action<span class="operator">(</span>
+   284<span class="operator">:</span>     	server_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+   285<span class="operator">:</span> 	action_id_in <span class="reserved">in</span> number
+   286<span class="operator">:</span>     <span class="operator">)</span> <span class="reserved">is</span>
+   287<span class="operator">:</span>     	<span class="comment">-- this really wants "nulls last", but 8.1.7.3.0 sucks ass.</span>
+   288<span class="operator">:</span> 	<span class="comment">-- instead, we make a local table that holds our</span>
+   289<span class="operator">:</span> 	<span class="comment">-- list of ids with null prereqs.  There's surely a better way</span>
+   290<span class="operator">:</span> 	<span class="comment">-- (an array instead of a table maybe?  who knows...)</span>
+   291<span class="operator">:</span> 	<span class="comment">-- but I've got code to do this handy that I can look at ;)</span>
+   292<span class="operator">:</span>     	<span class="keyword">cursor</span> chained_actions <span class="reserved">is</span>
+   293<span class="operator">:</span> 		<span class="reserved">select</span>	id<span class="operator">,</span> prerequisite
+   294<span class="operator">:</span> 		<span class="reserved">from</span>	rhnAction
+   295<span class="operator">:</span> 		<span class="reserved">start</span> <span class="reserved">with</span> id <span class="operator">=</span> action_id_in
+   296<span class="operator">:</span> 		<span class="reserved">connect</span> <span class="reserved">by</span> <span class="reserved">prior</span> id <span class="operator">=</span> prerequisite
+   297<span class="operator">:</span> 		<span class="reserved">order</span> <span class="reserved">by</span> prerequisite <span class="reserved">desc</span>;
+   298<span class="operator">:</span> 	<span class="keyword">cursor</span> sessions <span class="reserved">is</span>
+   299<span class="operator">:</span> 		<span class="reserved">select</span>	s<span class="operator">.</span>id
+   300<span class="operator">:</span> 		<span class="reserved">from</span>	rhnKickstartSession s
+   301<span class="operator">:</span> 		<span class="reserved">where</span>	server_id_in <span class="reserved">in</span> <span class="operator">(</span>s<span class="operator">.</span>old_server_id<span class="operator">,</span> s<span class="operator">.</span>new_server_id<span class="operator">)</span>
+   302<span class="operator">:</span> 			<span class="reserved">and</span> s<span class="operator">.</span>action_id <span class="operator">=</span> action_id_in
+   303<span class="operator">:</span> 			<span class="reserved">and</span> <span class="reserved">not</span> exists <span class="operator">(</span>
+   304<span class="operator">:</span> 				<span class="reserved">select</span>	1
+   305<span class="operator">:</span> 				<span class="reserved">from</span>	rhnKickstartSessionState ss
+   306<span class="operator">:</span> 				<span class="reserved">where</span>	ss<span class="operator">.</span>id <span class="operator">=</span> s<span class="operator">.</span>state_id
+   307<span class="operator">:</span> 					<span class="reserved">and</span> ss<span class="operator">.</span>label <span class="reserved">in</span> <span class="operator">(</span><span class="string">'failed'</span><span class="operator">,</span><span class="string">'complete'</span><span class="operator">)</span>
+   308<span class="operator">:</span> 			<span class="operator">)</span>;
+   309<span class="operator">:</span> 	<span class="keyword">type</span> chain_end_type <span class="reserved">is</span> <span class="reserved">table</span> <span class="reserved">of</span> number <span class="reserved">index</span> <span class="reserved">by</span> binary_integer;
+   310<span class="operator">:</span> 	chain_ends chain_end_type;
+   311<span class="operator">:</span> 	i number;
+   312<span class="operator">:</span> 	prereq number <span class="operator">:</span><span class="operator">=</span> 1;
+   313<span class="operator">:</span>     <span class="reserved">begin</span>
+   314<span class="operator">:</span> 	<span class="reserved">select</span>	prerequisite
+   315<span class="operator">:</span> 	<span class="reserved">into</span>	prereq
+   316<span class="operator">:</span> 	<span class="reserved">from</span>	rhnAction
+   317<span class="operator">:</span> 	<span class="reserved">where</span>	id <span class="operator">=</span> action_id_in;
+   318<span class="operator">:</span> 
+   319<span class="operator">:</span> 	<span class="reserved">if</span> prereq <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span> <span class="reserved">then</span>
+   320<span class="operator">:</span> 		rhn_exception<span class="operator">.</span>raise_exception<span class="operator">(</span><span class="string">'action_is_child'</span><span class="operator">)</span>;
+   321<span class="operator">:</span> 	<span class="reserved">end</span> <span class="reserved">if</span>;
+   322<span class="operator">:</span> 
+   323<span class="operator">:</span> 	i <span class="operator">:</span><span class="operator">=</span> 0;
+   324<span class="operator">:</span> 	<span class="reserved">for</span> action <span class="reserved">in</span> chained_actions <span class="keyword">loop</span>
+   325<span class="operator">:</span> 		<span class="reserved">if</span> action<span class="operator">.</span>prerequisite <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">then</span>
+   326<span class="operator">:</span> 			chain_ends<span class="operator">(</span>i<span class="operator">)</span> <span class="operator">:</span><span class="operator">=</span> action<span class="operator">.</span>id;
+   327<span class="operator">:</span> 			i <span class="operator">:</span><span class="operator">=</span> i <span class="operator">+</span> 1;
+   328<span class="operator">:</span> 		<span class="reserved">else</span>
+   329<span class="operator">:</span> 			<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerAction
+   330<span class="operator">:</span> 				<span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in
+   331<span class="operator">:</span> 				<span class="reserved">and</span> action_id <span class="operator">=</span> action<span class="operator">.</span>id;
+   332<span class="operator">:</span> 		<span class="reserved">end</span> <span class="reserved">if</span>;
+   333<span class="operator">:</span> 	<span class="reserved">end</span> <span class="keyword">loop</span>;
+   334<span class="operator">:</span> 	i <span class="operator">:</span><span class="operator">=</span> chain_ends<span class="operator">.</span>first;
+   335<span class="operator">:</span> 	<span class="keyword">while</span> i <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span> <span class="keyword">loop</span>
+   336<span class="operator">:</span> 		<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerAction
+   337<span class="operator">:</span> 			<span class="reserved">where</span> server_id <span class="operator">=</span> server_id_in
+   338<span class="operator">:</span> 			<span class="reserved">and</span> action_id <span class="operator">=</span> chain_ends<span class="operator">(</span>i<span class="operator">)</span>;
+   339<span class="operator">:</span> 		i <span class="operator">:</span><span class="operator">=</span> chain_ends<span class="operator">.</span>next<span class="operator">(</span>i<span class="operator">)</span>;
+   340<span class="operator">:</span> 	<span class="reserved">end</span> <span class="keyword">loop</span>;
+   341<span class="operator">:</span> 	<span class="reserved">for</span> s <span class="reserved">in</span> sessions <span class="keyword">loop</span>
+   342<span class="operator">:</span> 		<span class="reserved">update</span> rhnKickstartSession
+   343<span class="operator">:</span> 			<span class="keyword">set</span> 	state_id <span class="operator">=</span> <span class="operator">(</span>
+   344<span class="operator">:</span> 					<span class="reserved">select</span>	id
+   345<span class="operator">:</span> 					<span class="reserved">from</span>	rhnKickstartSessionState
+   346<span class="operator">:</span> 					<span class="reserved">where</span>	label <span class="operator">=</span> <span class="string">'failed'</span>
+   347<span class="operator">:</span> 				<span class="operator">)</span><span class="operator">,</span>
+   348<span class="operator">:</span> 				action_id <span class="operator">=</span> <span class="reserved">null</span>
+   349<span class="operator">:</span> 			<span class="reserved">where</span>	id <span class="operator">=</span> s<span class="operator">.</span>id;
+   350<span class="operator">:</span> 		set_ks_session_history_message<span class="operator">(</span>s<span class="operator">.</span>id<span class="operator">,</span> <span class="string">'failed'</span><span class="operator">,</span> <span class="string">'Kickstart cancelled due to action removal'</span><span class="operator">)</span>;
+   351<span class="operator">:</span> 	<span class="reserved">end</span> <span class="keyword">loop</span>;
+   352<span class="operator">:</span>     <span class="reserved">end</span> remove_action;
+   353<span class="operator">:</span> 
+   354<span class="operator">:</span>     <span class="keyword">function</span> check_user_access<span class="operator">(</span>server_id_in <span class="reserved">in</span> number<span class="operator">,</span> user_id_in <span class="reserved">in</span> number<span class="operator">)</span>
+   355<span class="operator">:</span>     <span class="keyword">return</span> number
+   356<span class="operator">:</span>     <span class="reserved">is</span>
+   357<span class="operator">:</span>     	has_access number;
+   358<span class="operator">:</span>     <span class="reserved">begin</span>
+   359<span class="operator">:</span>     	<span class="comment">-- first check; if this returns no rows, then the server/user are in different orgs, and we bail</span>
+   360<span class="operator">:</span>         <span class="reserved">select</span> 1 <span class="reserved">into</span> has_access
+   361<span class="operator">:</span> 	  <span class="reserved">from</span> rhnServer S<span class="operator">,</span>
+   362<span class="operator">:</span> 	       web_contact wc
+   363<span class="operator">:</span> 	 <span class="reserved">where</span> wc<span class="operator">.</span>org_id <span class="operator">=</span> s<span class="operator">.</span>org_id
+   364<span class="operator">:</span> 	   <span class="reserved">and</span> s<span class="operator">.</span>id <span class="operator">=</span> server_id_in
+   365<span class="operator">:</span> 	   <span class="reserved">and</span> wc<span class="operator">.</span>id <span class="operator">=</span> user_id_in;
+   366<span class="operator">:</span> 
+   367<span class="operator">:</span> 	<span class="comment">-- okay, so they're in the same org.  if we have an org admin, they get a free pass</span>
+   368<span class="operator">:</span>     	<span class="reserved">if</span> rhn_user<span class="operator">.</span>check_role<span class="operator">(</span>user_id_in<span class="operator">,</span> <span class="string">'org_admin'</span><span class="operator">)</span> <span class="operator">=</span> 1
+   369<span class="operator">:</span> 	<span class="reserved">then</span>
+   370<span class="operator">:</span> 	    <span class="keyword">return</span> 1;
+   371<span class="operator">:</span> 	<span class="reserved">end</span> <span class="reserved">if</span>;
+   372<span class="operator">:</span> 
+   373<span class="operator">:</span>     	<span class="reserved">select</span> 1 <span class="reserved">into</span> has_access
+   374<span class="operator">:</span> 	  <span class="reserved">from</span> rhnServerGroupMembers SGM<span class="operator">,</span>
+   375<span class="operator">:</span> 	       rhnUserServerGroupPerms USG
+   376<span class="operator">:</span> 	 <span class="reserved">where</span> SGM<span class="operator">.</span>server_group_id <span class="operator">=</span> USG<span class="operator">.</span>server_group_id
+   377<span class="operator">:</span> 	   <span class="reserved">and</span> SGM<span class="operator">.</span>server_id <span class="operator">=</span> server_id_in
+   378<span class="operator">:</span> 	   <span class="reserved">and</span> USG<span class="operator">.</span>user_id <span class="operator">=</span> user_id_in
+   379<span class="operator">:</span> 	   <span class="reserved">and</span> rownum <span class="operator">=</span> 1;
+   380<span class="operator">:</span> 
+   381<span class="operator">:</span> 	<span class="keyword">return</span> 1;
+   382<span class="operator">:</span>     <span class="reserved">exception</span>
+   383<span class="operator">:</span>     	<span class="reserved">when</span> no_data_found
+   384<span class="operator">:</span> 	    <span class="reserved">then</span>
+   385<span class="operator">:</span> 	    <span class="keyword">return</span> 0;
+   386<span class="operator">:</span>     <span class="reserved">end</span> check_user_access;
+   387<span class="operator">:</span> 
+   388<span class="operator">:</span>     <span class="comment">-- *******************************************************************</span>
+   389<span class="operator">:</span>     <span class="comment">-- FUNCTION: can_server_consume_virt_slot</span>
+   390<span class="operator">:</span>     <span class="comment">-- Returns 1 if the server id is eligible to consume a virtual slot,</span>
+   391<span class="operator">:</span>     <span class="comment">--   else returns 0.</span>
+   392<span class="operator">:</span>     <span class="comment">-- Called by: insert_into_servergroup, delete_from_servergroup</span>
+   393<span class="operator">:</span>     <span class="comment">-- *******************************************************************</span>
+   394<span class="operator">:</span>     <span class="keyword">function</span> can_server_consume_virt_slot<span class="operator">(</span>server_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+   395<span class="operator">:</span>                                            group_type_in <span class="reserved">in</span>
+   396<span class="operator">:</span>                                            rhnServerGroupType<span class="operator">.</span>label<span class="operator">%</span><span class="keyword">TYPE</span><span class="operator">)</span>
+   397<span class="operator">:</span>     <span class="keyword">return</span> number
+   398<span class="operator">:</span>     <span class="reserved">is</span>
+   399<span class="operator">:</span> 
+   400<span class="operator">:</span>         <span class="keyword">cursor</span> server_virt_slots <span class="reserved">is</span>
+   401<span class="operator">:</span>             <span class="reserved">select</span> vi<span class="operator">.</span>VIRTUAL_SYSTEM_ID
+   402<span class="operator">:</span>             <span class="reserved">from</span>
+   403<span class="operator">:</span>                 rhnVirtualInstance vi
+   404<span class="operator">:</span>             <span class="reserved">where</span>
+   405<span class="operator">:</span>                 <span class="comment">-- server id is a virtual instance</span>
+   406<span class="operator">:</span>                 vi<span class="operator">.</span>VIRTUAL_SYSTEM_ID <span class="operator">=</span> server_id_in
+   407<span class="operator">:</span>                 <span class="comment">-- server id's host is virt entitled</span>
+   408<span class="operator">:</span>                 <span class="reserved">and</span> exists <span class="operator">(</span> <span class="reserved">select</span> 1
+   409<span class="operator">:</span>                      <span class="reserved">from</span> rhnServerEntitlementView sev
+   410<span class="operator">:</span>                  <span class="reserved">where</span> vi<span class="operator">.</span>HOST_SYSTEM_ID <span class="operator">=</span> sev<span class="operator">.</span>server_id
+   411<span class="operator">:</span>                  <span class="reserved">and</span> sev<span class="operator">.</span>label <span class="reserved">in</span> <span class="operator">(</span><span class="string">'virtualization_host'</span><span class="operator">,</span>
+   412<span class="operator">:</span>                                    <span class="string">'virtualization_host_platform'</span><span class="operator">)</span> <span class="operator">)</span>
+   413<span class="operator">:</span>                 <span class="comment">-- server id's host also has the ent we want</span>
+   414<span class="operator">:</span>                 <span class="reserved">and</span> exists <span class="operator">(</span> <span class="reserved">select</span> 1
+   415<span class="operator">:</span>                      <span class="reserved">from</span> rhnServerEntitlementView sev2
+   416<span class="operator">:</span>                  <span class="reserved">where</span> vi<span class="operator">.</span>HOST_SYSTEM_ID <span class="operator">=</span> sev2<span class="operator">.</span>server_id
+   417<span class="operator">:</span>                  <span class="reserved">and</span> sev2<span class="operator">.</span>label <span class="operator">=</span> group_type_in <span class="operator">)</span>;
+   418<span class="operator">:</span> 
+   419<span class="operator">:</span>     <span class="reserved">begin</span>
+   420<span class="operator">:</span>         <span class="reserved">for</span> server_virt_slot <span class="reserved">in</span> server_virt_slots <span class="keyword">loop</span>
+   421<span class="operator">:</span>             <span class="keyword">return</span> 1;
+   422<span class="operator">:</span>         <span class="reserved">end</span> <span class="keyword">loop</span>;
+   423<span class="operator">:</span>         <span class="keyword">return</span> 0;
+   424<span class="operator">:</span>     <span class="reserved">end</span> can_server_consume_virt_slot;
+   425<span class="operator">:</span> 
+   426<span class="operator">:</span> 
+   427<span class="operator">:</span>     <span class="reserved">procedure</span> insert_into_servergroup <span class="operator">(</span>
+   428<span class="operator">:</span> 		server_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+   429<span class="operator">:</span> 		server_group_id_in <span class="reserved">in</span> number
+   430<span class="operator">:</span>     <span class="operator">)</span> <span class="reserved">is</span>
+   431<span class="operator">:</span> 		<span class="keyword">cursor</span> sg_users <span class="reserved">is</span>
+   432<span class="operator">:</span> 			<span class="reserved">select</span>	user_id id
+   433<span class="operator">:</span> 			<span class="reserved">from</span>	rhnUserServerGroupPerms
+   434<span class="operator">:</span> 			<span class="reserved">where</span>	server_group_id <span class="operator">=</span> server_group_id_in;
+   435<span class="operator">:</span> 		used_slots number;
+   436<span class="operator">:</span> 		max_slots number;
+   437<span class="operator">:</span> 		org_id number;
+   438<span class="operator">:</span> 		mgmt_available number;
+   439<span class="operator">:</span> 		mgmt_upgrade number;
+   440<span class="operator">:</span> 		mgmt_sgid number;
+   441<span class="operator">:</span> 		prov_available number;
+   442<span class="operator">:</span> 		prov_upgrade number;
+   443<span class="operator">:</span> 		prov_sgid number;
+   444<span class="operator">:</span> 		group_label rhnServerGroupType<span class="operator">.</span>label<span class="operator">%</span><span class="keyword">TYPE</span>;
+   445<span class="operator">:</span> 		group_type number;
+   446<span class="operator">:</span> 	<span class="reserved">begin</span>
+   447<span class="operator">:</span> 		<span class="comment">-- frist, group_type = null, because it's easy...</span>
+   448<span class="operator">:</span> 
+   449<span class="operator">:</span> 		<span class="comment">-- this will rowlock the servergroup we're trying to change;</span>
+   450<span class="operator">:</span> 		<span class="comment">-- we probably need to lock the other one, but I think the chances</span>
+   451<span class="operator">:</span> 		<span class="comment">-- of it being a real issue are very small for now...</span>
+   452<span class="operator">:</span> 		<span class="reserved">select</span>	sg<span class="operator">.</span>group_type<span class="operator">,</span> sg<span class="operator">.</span>org_id<span class="operator">,</span> sg<span class="operator">.</span>current_members<span class="operator">,</span> sg<span class="operator">.</span>max_members
+   453<span class="operator">:</span> 		<span class="reserved">into</span>	group_type<span class="operator">,</span> org_id<span class="operator">,</span> used_slots<span class="operator">,</span> max_slots
+   454<span class="operator">:</span> 		<span class="reserved">from</span>	rhnServerGroup sg
+   455<span class="operator">:</span> 		<span class="reserved">where</span>	sg<span class="operator">.</span>id <span class="operator">=</span> server_group_id_in
+   456<span class="operator">:</span> 		<span class="reserved">for</span> <span class="reserved">update</span> <span class="reserved">of</span> sg<span class="operator">.</span>current_members;
+   457<span class="operator">:</span> 
+   458<span class="operator">:</span> 		<span class="reserved">if</span> group_type <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">then</span>
+   459<span class="operator">:</span> 			<span class="reserved">if</span> used_slots <span class="operator">&gt;</span><span class="operator">=</span> max_slots <span class="reserved">then</span>
+   460<span class="operator">:</span> 				rhn_exception<span class="operator">.</span>raise_exception<span class="operator">(</span><span class="string">'servergroup_max_members'</span><span class="operator">)</span>;
+   461<span class="operator">:</span> 			<span class="reserved">end</span> <span class="reserved">if</span>;
+   462<span class="operator">:</span> 
+   463<span class="operator">:</span> 			<span class="reserved">insert</span> <span class="reserved">into</span> rhnServerGroupMembers<span class="operator">(</span>
+   464<span class="operator">:</span> 					server_id<span class="operator">,</span> server_group_id
+   465<span class="operator">:</span> 				<span class="operator">)</span> <span class="reserved">values</span> <span class="operator">(</span>
+   466<span class="operator">:</span> 					server_id_in<span class="operator">,</span> server_group_id_in
+   467<span class="operator">:</span> 				<span class="operator">)</span>;
+   468<span class="operator">:</span> 			<span class="reserved">update</span> rhnServerGroup
+   469<span class="operator">:</span> 				<span class="keyword">set</span> current_members <span class="operator">=</span> current_members <span class="operator">+</span> 1
+   470<span class="operator">:</span> 				<span class="reserved">where</span> id <span class="operator">=</span> server_group_id_in;
+   471<span class="operator">:</span> 
+   472<span class="operator">:</span> 			<span class="reserved">for</span> u <span class="reserved">in</span> sg_users <span class="keyword">loop</span>
+   473<span class="operator">:</span> 				rhn_cache<span class="operator">.</span>update_perms_for_user<span class="operator">(</span>u<span class="operator">.</span>id<span class="operator">)</span>;
+   474<span class="operator">:</span> 			<span class="reserved">end</span> <span class="keyword">loop</span>;
+   475<span class="operator">:</span> 			<span class="keyword">return</span>;
+   476<span class="operator">:</span> 		<span class="reserved">end</span> <span class="reserved">if</span>;
+   477<span class="operator">:</span> 
+   478<span class="operator">:</span> 		<span class="comment">-- now for group_type != null</span>
+   479<span class="operator">:</span> 		<span class="comment">--</span>
+   480<span class="operator">:</span> 		<span class="reserved">select</span>	label
+   481<span class="operator">:</span> 		<span class="reserved">into</span>	group_label
+   482<span class="operator">:</span> 		<span class="reserved">from</span>	rhnServerGroupType	sgt
+   483<span class="operator">:</span> 		<span class="reserved">where</span>	sgt<span class="operator">.</span>id <span class="operator">=</span> group_type;
+   484<span class="operator">:</span> 
+   485<span class="operator">:</span> 		<span class="comment">-- the naive easy path that gets hit most often and has to be quickest.</span>
+   486<span class="operator">:</span> 		<span class="reserved">if</span> group_label <span class="reserved">in</span> <span class="operator">(</span><span class="string">'sw_mgr_entitled'</span><span class="operator">,</span>
+   487<span class="operator">:</span>                            <span class="string">'enterprise_entitled'</span><span class="operator">,</span>
+   488<span class="operator">:</span>                            <span class="string">'monitoring_entitled'</span><span class="operator">,</span>
+   489<span class="operator">:</span>                            <span class="string">'provisioning_entitled'</span><span class="operator">,</span>
+   490<span class="operator">:</span>                            <span class="string">'virtualization_host'</span><span class="operator">,</span>
+   491<span class="operator">:</span>                            <span class="string">'virtualization_host_platform'</span><span class="operator">)</span> <span class="reserved">then</span>
+   492<span class="operator">:</span> 			<span class="reserved">if</span> used_slots <span class="operator">&gt;</span><span class="operator">=</span> max_slots <span class="reserved">and</span>
+   493<span class="operator">:</span>                <span class="operator">(</span>can_server_consume_virt_slot<span class="operator">(</span>server_id_in<span class="operator">,</span> group_label<span class="operator">)</span> <span class="operator">!</span><span class="operator">=</span> 1<span class="operator">)</span>
+   494<span class="operator">:</span>                <span class="reserved">then</span>
+   495<span class="operator">:</span> 				rhn_exception<span class="operator">.</span>raise_exception<span class="operator">(</span><span class="string">'servergroup_max_members'</span><span class="operator">)</span>;
+   496<span class="operator">:</span> 			<span class="reserved">end</span> <span class="reserved">if</span>;
+   497<span class="operator">:</span> 
+   498<span class="operator">:</span> 			<span class="reserved">insert</span> <span class="reserved">into</span> rhnServerGroupMembers<span class="operator">(</span>
+   499<span class="operator">:</span> 					server_id<span class="operator">,</span> server_group_id
+   500<span class="operator">:</span> 				<span class="operator">)</span> <span class="reserved">values</span> <span class="operator">(</span>
+   501<span class="operator">:</span> 					server_id_in<span class="operator">,</span> server_group_id_in
+   502<span class="operator">:</span> 				<span class="operator">)</span>;
+   503<span class="operator">:</span> 
+   504<span class="operator">:</span>             <span class="comment">-- Only update current members if the system in consuming a</span>
+   505<span class="operator">:</span>             <span class="comment">-- physical slot.</span>
+   506<span class="operator">:</span>             <span class="reserved">if</span> can_server_consume_virt_slot<span class="operator">(</span>server_id_in<span class="operator">,</span> group_label<span class="operator">)</span> <span class="operator">=</span> 0 <span class="reserved">then</span>
+   507<span class="operator">:</span>                 <span class="reserved">update</span> rhnServerGroup
+   508<span class="operator">:</span>                 <span class="keyword">set</span> current_members <span class="operator">=</span> current_members <span class="operator">+</span> 1
+   509<span class="operator">:</span>                 <span class="reserved">where</span> id <span class="operator">=</span> server_group_id_in;
+   510<span class="operator">:</span>             <span class="reserved">end</span> <span class="reserved">if</span>;
+   511<span class="operator">:</span> 
+   512<span class="operator">:</span> 			<span class="keyword">return</span>;
+   513<span class="operator">:</span> 		<span class="reserved">end</span> <span class="reserved">if</span>;
+   514<span class="operator">:</span> 	<span class="reserved">end</span>;
+   515<span class="operator">:</span> 
+   516<span class="operator">:</span> 	<span class="keyword">function</span> insert_into_servergroup_maybe <span class="operator">(</span>
+   517<span class="operator">:</span> 		server_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+   518<span class="operator">:</span> 		server_group_id_in <span class="reserved">in</span> number
+   519<span class="operator">:</span> 	<span class="operator">)</span> <span class="keyword">return</span> number <span class="reserved">is</span>
+   520<span class="operator">:</span> 		retval number <span class="operator">:</span><span class="operator">=</span> 0;
+   521<span class="operator">:</span> 		<span class="keyword">cursor</span> servergroups <span class="reserved">is</span>
+   522<span class="operator">:</span> 			<span class="reserved">select</span>	s<span class="operator">.</span>id	server_id<span class="operator">,</span>
+   523<span class="operator">:</span> 					sg<span class="operator">.</span>id	server_group_id
+   524<span class="operator">:</span> 			<span class="reserved">from</span>	rhnServerGroup	sg<span class="operator">,</span>
+   525<span class="operator">:</span> 					rhnServer		s
+   526<span class="operator">:</span> 			<span class="reserved">where</span>	s<span class="operator">.</span>id <span class="operator">=</span> server_id_in
+   527<span class="operator">:</span> 				<span class="reserved">and</span> sg<span class="operator">.</span>id <span class="operator">=</span> server_group_id_in
+   528<span class="operator">:</span> 				<span class="reserved">and</span> s<span class="operator">.</span>org_id <span class="operator">=</span> sg<span class="operator">.</span>org_id
+   529<span class="operator">:</span> 				<span class="reserved">and</span> <span class="reserved">not</span> exists <span class="operator">(</span>
+   530<span class="operator">:</span> 					<span class="reserved">select</span>	1
+   531<span class="operator">:</span> 					<span class="reserved">from</span>	rhnServerGroupMembers sgm
+   532<span class="operator">:</span> 					<span class="reserved">where</span>	sgm<span class="operator">.</span>server_id <span class="operator">=</span> s<span class="operator">.</span>id
+   533<span class="operator">:</span> 						<span class="reserved">and</span> sgm<span class="operator">.</span>server_group_id <span class="operator">=</span> sg<span class="operator">.</span>id
+   534<span class="operator">:</span> 				<span class="operator">)</span>;
+   535<span class="operator">:</span> 	<span class="reserved">begin</span>
+   536<span class="operator">:</span> 		<span class="reserved">for</span> sgm <span class="reserved">in</span> servergroups <span class="keyword">loop</span>
+   537<span class="operator">:</span> 			rhn_server<span class="operator">.</span>insert_into_servergroup<span class="operator">(</span>sgm<span class="operator">.</span>server_id<span class="operator">,</span> sgm<span class="operator">.</span>server_group_id<span class="operator">)</span>;
+   538<span class="operator">:</span> 			retval <span class="operator">:</span><span class="operator">=</span> retval <span class="operator">+</span> 1;
+   539<span class="operator">:</span> 		<span class="reserved">end</span> <span class="keyword">loop</span>;
+   540<span class="operator">:</span> 		<span class="keyword">return</span> retval;
+   541<span class="operator">:</span> 	<span class="reserved">end</span> insert_into_servergroup_maybe;
+   542<span class="operator">:</span> 
+   543<span class="operator">:</span> 	<span class="reserved">procedure</span> insert_set_into_servergroup <span class="operator">(</span>
+   544<span class="operator">:</span> 		server_group_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+   545<span class="operator">:</span> 		user_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+   546<span class="operator">:</span> 		set_label_in <span class="reserved">in</span> varchar2
+   547<span class="operator">:</span> 	<span class="operator">)</span> <span class="reserved">is</span>
+   548<span class="operator">:</span> 		<span class="keyword">cursor</span> servers <span class="reserved">is</span>
+   549<span class="operator">:</span> 			<span class="reserved">select</span>	st<span class="operator">.</span><span class="keyword">element</span>	id
+   550<span class="operator">:</span> 			<span class="reserved">from</span>	rhnSet		st
+   551<span class="operator">:</span> 			<span class="reserved">where</span>	st<span class="operator">.</span>user_id <span class="operator">=</span> user_id_in
+   552<span class="operator">:</span> 				<span class="reserved">and</span> st<span class="operator">.</span>label <span class="operator">=</span> set_label_in
+   553<span class="operator">:</span> 				<span class="reserved">and</span> exists <span class="operator">(</span>
+   554<span class="operator">:</span> 					<span class="reserved">select</span>	1
+   555<span class="operator">:</span> 					<span class="reserved">from</span>	rhnUserManagedServerGroups umsg
+   556<span class="operator">:</span> 					<span class="reserved">where</span>	umsg<span class="operator">.</span>server_group_id <span class="operator">=</span> server_group_id_in
+   557<span class="operator">:</span> 						<span class="reserved">and</span> umsg<span class="operator">.</span>user_id <span class="operator">=</span> user_id_in
+   558<span class="operator">:</span> 					<span class="operator">)</span>
+   559<span class="operator">:</span> 				<span class="reserved">and</span> <span class="reserved">not</span> exists <span class="operator">(</span>
+   560<span class="operator">:</span> 					<span class="reserved">select</span>	1
+   561<span class="operator">:</span> 					<span class="reserved">from</span>	rhnServerGroupMembers sgm
+   562<span class="operator">:</span> 					<span class="reserved">where</span>	sgm<span class="operator">.</span>server_id <span class="operator">=</span> st<span class="operator">.</span><span class="keyword">element</span>
+   563<span class="operator">:</span> 						<span class="reserved">and</span> sgm<span class="operator">.</span>server_group_id <span class="operator">=</span> server_group_id_in
+   564<span class="operator">:</span> 				<span class="operator">)</span>;
+   565<span class="operator">:</span> 	<span class="reserved">begin</span>
+   566<span class="operator">:</span> 		<span class="reserved">for</span> s <span class="reserved">in</span> servers <span class="keyword">loop</span>
+   567<span class="operator">:</span> 			rhn_server<span class="operator">.</span>insert_into_servergroup<span class="operator">(</span>s<span class="operator">.</span>id<span class="operator">,</span> server_group_id_in<span class="operator">)</span>;
+   568<span class="operator">:</span> 		<span class="reserved">end</span> <span class="keyword">loop</span>;
+   569<span class="operator">:</span> 	<span class="reserved">end</span> insert_set_into_servergroup;
+   570<span class="operator">:</span> 
+   571<span class="operator">:</span>     <span class="reserved">procedure</span> delete_from_servergroup <span class="operator">(</span>
+   572<span class="operator">:</span>     	server_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+   573<span class="operator">:</span> 		server_group_id_in <span class="reserved">in</span> number
+   574<span class="operator">:</span>     <span class="operator">)</span> <span class="reserved">is</span>
+   575<span class="operator">:</span> 		<span class="keyword">cursor</span> sg_users <span class="reserved">is</span>
+   576<span class="operator">:</span> 			<span class="reserved">select</span>	user_id id
+   577<span class="operator">:</span> 			<span class="reserved">from</span>	rhnUserServerGroupPerms
+   578<span class="operator">:</span> 			<span class="reserved">where</span>	server_group_id <span class="operator">=</span> server_group_id_in;
+   579<span class="operator">:</span> 
+   580<span class="operator">:</span>         <span class="keyword">cursor</span> server_virt_groups <span class="reserved">is</span>
+   581<span class="operator">:</span>             <span class="reserved">select</span> 1
+   582<span class="operator">:</span>             <span class="reserved">from</span> rhnServerEntitlementVirtual sev
+   583<span class="operator">:</span>             <span class="reserved">where</span> sev<span class="operator">.</span>server_id <span class="operator">=</span> server_id_in
+   584<span class="operator">:</span>             <span class="reserved">and</span> sev<span class="operator">.</span>server_group_id <span class="operator">=</span> server_group_id_in;
+   585<span class="operator">:</span> 
+   586<span class="operator">:</span> 		oid number;
+   587<span class="operator">:</span> 		mgmt_sgid number;
+   588<span class="operator">:</span> 		label rhnServerGroupType<span class="operator">.</span>label<span class="operator">%</span><span class="keyword">TYPE</span>;
+   589<span class="operator">:</span> 		group_type number;
+   590<span class="operator">:</span> 	<span class="reserved">begin</span>
+   591<span class="operator">:</span> 		<span class="reserved">begin</span>
+   592<span class="operator">:</span> 			<span class="reserved">select</span>	sg<span class="operator">.</span>group_type<span class="operator">,</span> sg<span class="operator">.</span>org_id
+   593<span class="operator">:</span> 			<span class="reserved">into</span>	group_type<span class="operator">,</span>	oid
+   594<span class="operator">:</span> 			<span class="reserved">from</span>	rhnServerGroupMembers	sgm<span class="operator">,</span>
+   595<span class="operator">:</span> 					rhnServerGroup			sg
+   596<span class="operator">:</span> 			<span class="reserved">where</span>	sg<span class="operator">.</span>id <span class="operator">=</span> server_group_id_in
+   597<span class="operator">:</span> 				<span class="reserved">and</span> sg<span class="operator">.</span>id <span class="operator">=</span> sgm<span class="operator">.</span>server_group_id
+   598<span class="operator">:</span> 				<span class="reserved">and</span> sgm<span class="operator">.</span>server_id <span class="operator">=</span> server_id_in
+   599<span class="operator">:</span> 			<span class="reserved">for</span> <span class="reserved">update</span> <span class="reserved">of</span> sg<span class="operator">.</span>current_members;
+   600<span class="operator">:</span> 		<span class="reserved">exception</span>
+   601<span class="operator">:</span> 			<span class="reserved">when</span> no_data_found <span class="reserved">then</span>
+   602<span class="operator">:</span> 				rhn_exception<span class="operator">.</span>raise_exception<span class="operator">(</span><span class="string">'server_not_in_group'</span><span class="operator">)</span>;
+   603<span class="operator">:</span> 		<span class="reserved">end</span>;
+   604<span class="operator">:</span> 
+   605<span class="operator">:</span> 		<span class="comment">-- do group_type is null first</span>
+   606<span class="operator">:</span> 		<span class="reserved">if</span> group_type <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">then</span>
+   607<span class="operator">:</span> 			<span class="reserved">delete</span> <span class="reserved">from</span> rhnServerGroupMembers
+   608<span class="operator">:</span> 				<span class="reserved">where</span> server_group_id <span class="operator">=</span> server_group_id_in
+   609<span class="operator">:</span> 				<span class="reserved">and</span>	server_id <span class="operator">=</span> server_id_in;
+   610<span class="operator">:</span> 			<span class="reserved">update</span> rhnServerGroup
+   611<span class="operator">:</span> 				<span class="keyword">set</span> current_members <span class="operator">=</span> current_members <span class="operator">-</span> 1
+   612<span class="operator">:</span> 				<span class="reserved">where</span> id <span class="operator">=</span> server_group_id_in;
+   613<span class="operator">:</span> 			<span class="reserved">for</span> u <span class="reserved">in</span> sg_users <span class="keyword">loop</span>
+   614<span class="operator">:</span> 				rhn_cache<span class="operator">.</span>update_perms_for_user<span class="operator">(</span>u<span class="operator">.</span>id<span class="operator">)</span>;
+   615<span class="operator">:</span> 			<span class="reserved">end</span> <span class="keyword">loop</span>;
+   616<span class="operator">:</span> 			<span class="keyword">return</span>;
+   617<span class="operator">:</span> 		<span class="reserved">end</span> <span class="reserved">if</span>;
+   618<span class="operator">:</span> 
+   619<span class="operator">:</span> 		<span class="reserved">select</span>	sgt<span class="operator">.</span>label
+   620<span class="operator">:</span> 		<span class="reserved">into</span>	label
+   621<span class="operator">:</span> 		<span class="reserved">from</span>	rhnServerGroupType sgt
+   622<span class="operator">:</span> 		<span class="reserved">where</span>	sgt<span class="operator">.</span>id <span class="operator">=</span> group_type;
+   623<span class="operator">:</span> 
+   624<span class="operator">:</span> 		<span class="reserved">if</span> label <span class="reserved">in</span> <span class="operator">(</span><span class="string">'sw_mgr_entitled'</span><span class="operator">,</span>
+   625<span class="operator">:</span>                      <span class="string">'enterprise_entitled'</span><span class="operator">,</span>
+   626<span class="operator">:</span>                      <span class="string">'provisioning_entitled'</span><span class="operator">,</span>
+   627<span class="operator">:</span>                      <span class="string">'monitoring_entitled'</span><span class="operator">,</span>
+   628<span class="operator">:</span>                      <span class="string">'virtualization_host'</span><span class="operator">,</span>
+   629<span class="operator">:</span>                      <span class="string">'virtualization_host_platform'</span><span class="operator">)</span> <span class="reserved">then</span>
+   630<span class="operator">:</span> 
+   631<span class="operator">:</span>             <span class="comment">-- Only update current members if the system is consuming</span>
+   632<span class="operator">:</span>             <span class="comment">-- a physical slot.</span>
+   633<span class="operator">:</span>             <span class="reserved">for</span> server_virt_group <span class="reserved">in</span> server_virt_groups <span class="keyword">loop</span>
+   634<span class="operator">:</span>                 <span class="reserved">delete</span> <span class="reserved">from</span> rhnServerGroupMembers
+   635<span class="operator">:</span>                 <span class="reserved">where</span> server_group_id <span class="operator">=</span> server_group_id_in
+   636<span class="operator">:</span>                 <span class="reserved">and</span>	server_id <span class="operator">=</span> server_id_in;
+   637<span class="operator">:</span>                 <span class="keyword">return</span>;
+   638<span class="operator">:</span>             <span class="reserved">end</span> <span class="keyword">loop</span>;
+   639<span class="operator">:</span> 
+   640<span class="operator">:</span>             <span class="reserved">delete</span> <span class="reserved">from</span> rhnServerGroupMembers
+   641<span class="operator">:</span>             <span class="reserved">where</span> server_group_id <span class="operator">=</span> server_group_id_in
+   642<span class="operator">:</span>             <span class="reserved">and</span>	server_id <span class="operator">=</span> server_id_in;
+   643<span class="operator">:</span> 
+   644<span class="operator">:</span>             <span class="reserved">update</span> rhnServerGroup
+   645<span class="operator">:</span>             <span class="keyword">set</span> current_members <span class="operator">=</span> current_members <span class="operator">-</span> 1
+   646<span class="operator">:</span>             <span class="reserved">where</span> id <span class="operator">=</span> server_group_id_in;
+   647<span class="operator">:</span> 
+   648<span class="operator">:</span> 		<span class="reserved">end</span> <span class="reserved">if</span>;
+   649<span class="operator">:</span> 	<span class="reserved">end</span>;
+   650<span class="operator">:</span> 
+   651<span class="operator">:</span> 	<span class="reserved">procedure</span> delete_set_from_servergroup <span class="operator">(</span>
+   652<span class="operator">:</span> 		server_group_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+   653<span class="operator">:</span> 		user_id_in <span class="reserved">in</span> number<span class="operator">,</span>
+   654<span class="operator">:</span> 		set_label_in <span class="reserved">in</span> varchar2
+   655<span class="operator">:</span> 	<span class="operator">)</span> <span class="reserved">is</span>
+   656<span class="operator">:</span> 		<span class="keyword">cursor</span> servergroups <span class="reserved">is</span>
+   657<span class="operator">:</span> 			<span class="reserved">select</span>	sgm<span class="operator">.</span>server_id<span class="operator">,</span> sgm<span class="operator">.</span>server_group_id
+   658<span class="operator">:</span> 			<span class="reserved">from</span>	rhnSet st<span class="operator">,</span>
+   659<span class="operator">:</span> 					rhnServerGroupMembers sgm
+   660<span class="operator">:</span> 			<span class="reserved">where</span>	sgm<span class="operator">.</span>server_group_id <span class="operator">=</span> server_group_id_in
+   661<span class="operator">:</span> 				<span class="reserved">and</span> st<span class="operator">.</span>user_id <span class="operator">=</span> user_id_in
+   662<span class="operator">:</span> 				<span class="reserved">and</span> st<span class="operator">.</span>label <span class="operator">=</span> set_label_in
+   663<span class="operator">:</span> 				<span class="reserved">and</span> sgm<span class="operator">.</span>server_id <span class="operator">=</span> st<span class="operator">.</span><span class="keyword">element</span>
+   664<span class="operator">:</span> 				<span class="reserved">and</span> exists <span class="operator">(</span>
+   665<span class="operator">:</span> 					<span class="reserved">select</span>	1
+   666<span class="operator">:</span> 					<span class="reserved">from</span>	rhnUserManagedServerGroups usgp
+   667<span class="operator">:</span> 					<span class="reserved">where</span>	usgp<span class="operator">.</span>server_group_id <span class="operator">=</span> server_group_id_in
+   668<span class="operator">:</span> 						<span class="reserved">and</span> usgp<span class="operator">.</span>user_id <span class="operator">=</span> user_id_in
+   669<span class="operator">:</span> 				<span class="operator">)</span>;
+   670<span class="operator">:</span> 	<span class="reserved">begin</span>
+   671<span class="operator">:</span> 		<span class="reserved">for</span> sgm <span class="reserved">in</span> servergroups <span class="keyword">loop</span>
+   672<span class="operator">:</span> 			rhn_server<span class="operator">.</span>delete_from_servergroup<span class="operator">(</span>sgm<span class="operator">.</span>server_id<span class="operator">,</span> server_group_id_in<span class="operator">)</span>;
+   673<span class="operator">:</span> 		<span class="reserved">end</span> <span class="keyword">loop</span>;
+   674<span class="operator">:</span> 	<span class="reserved">end</span> delete_set_from_servergroup;
+   675<span class="operator">:</span> 
+   676<span class="operator">:</span> 	<span class="reserved">procedure</span> clear_servergroup <span class="operator">(</span>
+   677<span class="operator">:</span> 		server_group_id_in <span class="reserved">in</span> number
+   678<span class="operator">:</span> 	<span class="operator">)</span> <span class="reserved">is</span>
+   679<span class="operator">:</span> 		<span class="keyword">cursor</span> servers <span class="reserved">is</span>
+   680<span class="operator">:</span> 			<span class="reserved">select</span>	sgm<span class="operator">.</span>server_id	id
+   681<span class="operator">:</span> 			<span class="reserved">from</span>	rhnServerGroupMembers sgm
+   682<span class="operator">:</span> 			<span class="reserved">where</span>	sgm<span class="operator">.</span>server_group_id <span class="operator">=</span> server_group_id_in;
+   683<span class="operator">:</span> 	<span class="reserved">begin</span>
+   684<span class="operator">:</span> 		<span class="reserved">for</span> s <span class="reserved">in</span> servers <span class="keyword">loop</span>
+   685<span class="operator">:</span> 			rhn_server<span class="operator">.</span>delete_from_servergroup<span class="operator">(</span>s<span class="operator">.</span>id<span class="operator">,</span> server_group_id_in<span class="operator">)</span>;
+   686<span class="operator">:</span> 		<span class="reserved">end</span> <span class="keyword">loop</span>;
+   687<span class="operator">:</span> 	<span class="reserved">end</span> clear_servergroup;
+   688<span class="operator">:</span> 
+   689<span class="operator">:</span> 	<span class="reserved">procedure</span> delete_from_org_servergroups <span class="operator">(</span>
+   690<span class="operator">:</span> 		server_id_in <span class="reserved">in</span> number
+   691<span class="operator">:</span> 	<span class="operator">)</span> <span class="reserved">is</span>
+   692<span class="operator">:</span> 		<span class="keyword">cursor</span> servergroups <span class="reserved">is</span>
+   693<span class="operator">:</span> 			<span class="reserved">select</span>	sgm<span class="operator">.</span>server_group_id id
+   694<span class="operator">:</span> 			<span class="reserved">from</span>	rhnServerGroup sg<span class="operator">,</span>
+   695<span class="operator">:</span> 					rhnServerGroupMembers sgm
+   696<span class="operator">:</span> 			<span class="reserved">where</span>	sgm<span class="operator">.</span>server_id <span class="operator">=</span> server_id_in
+   697<span class="operator">:</span> 				<span class="reserved">and</span> sgm<span class="operator">.</span>server_group_id <span class="operator">=</span> sg<span class="operator">.</span>id
+   698<span class="operator">:</span> 				<span class="reserved">and</span> sg<span class="operator">.</span>group_type <span class="reserved">is</span> <span class="reserved">null</span>;
+   699<span class="operator">:</span> 	<span class="reserved">begin</span>
+   700<span class="operator">:</span> 		<span class="reserved">for</span> sg <span class="reserved">in</span> servergroups <span class="keyword">loop</span>
+   701<span class="operator">:</span> 			rhn_server<span class="operator">.</span>delete_from_servergroup<span class="operator">(</span>server_id_in<span class="operator">,</span> sg<span class="operator">.</span>id<span class="operator">)</span>;
+   702<span class="operator">:</span> 		<span class="reserved">end</span> <span class="keyword">loop</span>;
+   703<span class="operator">:</span> 	<span class="reserved">end</span> delete_from_org_servergroups;
+   704<span class="operator">:</span> 
+   705<span class="operator">:</span> 	<span class="keyword">function</span> get_ip_address <span class="operator">(</span>
+   706<span class="operator">:</span> 		server_id_in <span class="reserved">in</span> number
+   707<span class="operator">:</span> 	<span class="operator">)</span> <span class="keyword">return</span> varchar2 <span class="reserved">is</span>
+   708<span class="operator">:</span> 		<span class="keyword">cursor</span> interfaces <span class="reserved">is</span>
+   709<span class="operator">:</span> 			<span class="reserved">select</span>	<span class="keyword">name</span><span class="operator">,</span> ip_addr
+   710<span class="operator">:</span> 			<span class="reserved">from</span>	rhnServerNetInterface
+   711<span class="operator">:</span> 			<span class="reserved">where</span>	server_id <span class="operator">=</span> server_id_in
+   712<span class="operator">:</span> 				<span class="reserved">and</span> ip_addr <span class="operator">!</span><span class="operator">=</span> <span class="string">'127.0.0.1'</span>;
+   713<span class="operator">:</span> 		<span class="keyword">cursor</span> addresses <span class="reserved">is</span>
+   714<span class="operator">:</span> 			<span class="reserved">select</span>	ipaddr ip_addr
+   715<span class="operator">:</span> 			<span class="reserved">from</span>	rhnServerNetwork
+   716<span class="operator">:</span> 			<span class="reserved">where</span>	server_id <span class="operator">=</span> server_id_in
+   717<span class="operator">:</span> 				<span class="reserved">and</span> ipaddr <span class="operator">!</span><span class="operator">=</span> <span class="string">'127.0.0.1'</span>;
+   718<span class="operator">:</span> 	<span class="reserved">begin</span>
+   719<span class="operator">:</span> 		<span class="reserved">for</span> addr <span class="reserved">in</span> addresses <span class="keyword">loop</span>
+   720<span class="operator">:</span> 			<span class="keyword">return</span> addr<span class="operator">.</span>ip_addr;
+   721<span class="operator">:</span> 		<span class="reserved">end</span> <span class="keyword">loop</span>;
+   722<span class="operator">:</span> 		<span class="reserved">for</span> iface <span class="reserved">in</span> interfaces <span class="keyword">loop</span>
+   723<span class="operator">:</span> 			<span class="keyword">return</span> iface<span class="operator">.</span>ip_addr;
+   724<span class="operator">:</span> 		<span class="reserved">end</span> <span class="keyword">loop</span>;
+   725<span class="operator">:</span> 		<span class="keyword">return</span> <span class="reserved">NULL</span>;
+   726<span class="operator">:</span> 	<span class="reserved">end</span> get_ip_address;
+   727<span class="operator">:</span> <span class="reserved">end</span> rhn_server;
+</pre>
+<div class="footer">
+        Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Mon Aug 31 10:55:07 2009</div>
+</body></html>

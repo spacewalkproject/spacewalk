@@ -30,16 +30,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-profile-create-from-system' => \&profile_create_from_system);
-
-  $pxt->register_tag('rhn-compat-profile-select' => \&compat_profile_select);
-  $pxt->register_tag('rhn-compat-system-select' => \&compat_system_select);
-  $pxt->register_tag('rhn-profile-name' => \&profile_name, -2);
-  $pxt->register_tag('rhn-profile-edit' => \&profile_edit);
-
-  $pxt->register_tag('rhn-profile-or-system-details' => \&profile_or_system_details, -5);
-
-  $pxt->register_tag('rhn-profile-sync-confirm' => \&profile_sync_confirm);
 }
 
 sub register_callbacks {
@@ -53,37 +43,6 @@ sub register_callbacks {
   $pxt->register_callback('rhn:create_profile_from_system_cb' => \&create_profile_from_system_cb);
 }
 
-sub profile_name {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $prid = $params{prid} || $pxt->param('prid');
-
-  throw 'No profile id' unless $prid;
-
-  $pxt->user->verify_system_profile_access($prid)
-    or $pxt->redirect('/errors/permission.pxt');
-
-  my $block = $params{__block__};
-  my $p = RHN::Profile->lookup(-id => $prid);
-
-  return PXT::Utils->escapeHTML($p->name);
-}
-
-sub profile_edit {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $profile = RHN::Profile->lookup(-id => $pxt->param('prid'));
-
-  my $block = $params{__block__};
-  my %subst;
-  $subst{profile_name} = $profile->name;
-  $subst{profile_description} = $profile->description;
-
-  return PXT::Utils->perform_substitutions($block, \%subst);
-}
-
 sub profile_edit_cb {
   my $pxt = shift;
 
@@ -93,68 +52,6 @@ sub profile_edit_cb {
   $profile->commit;
 
   $pxt->redirect("details.pxt", prid => $profile->id);
-}
-
-sub profile_or_system_details {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $sid = $pxt->param('sid_1') || '';
-  my $prid = $pxt->param('prid') || '';
-
-  throw "Either (sid_1) or (prid) param required" unless ($sid || $prid);
-
-  my %subst;
-
-  if ($sid) {
-    my $system = RHN::Server->lookup(-id => $sid);
-    throw "no valid server" unless $system;
-
-    $subst{profile_or_system_name} = $system->name;
-    $subst{profile_or_system_description} = $system->description;
-  }
-  else {
-    my $profile = RHN::Profile->lookup(-id => $prid);
-    throw "No valid profile" unless $profile;
-
-    $subst{profile_or_system_name} = $profile->name;
-    $subst{profile_or_system_description} = $profile->description;
-  }
-
-  PXT::Utils->escapeHTML_multi(\%subst);
-
-  my $block = PXT::Utils->perform_substitutions($params{__block__}, \%subst);
-
-  return $block;
-}
-
-sub profile_create_from_system {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-  my %subst;
-
-  my $system = RHN::Server->lookup(-id => $pxt->param('sid'));
-
-  throw 'no system.' unless $system;
-
-  $subst{profile_create_name} =
-    PXT::HTML->text(-name => 'name',
-		    -value => "Profile of " . PXT::Utils->escapeHTML($system->name || ''),
-		    -maxlength => 128,
-		    -size => 48);
-
-  $subst{profile_create_description} =
-    PXT::HTML->textarea(-name => 'description',
-			-value => "Profile made from " . PXT::Utils->escapeHTML($system->name || ''),
-			-rows => 6,
-			-cols => 48,
-			-wrap => 'VIRTUAL');
-
-  $block = PXT::Utils->perform_substitutions($block, \%subst);
-
-  return $block;
 }
 
 sub create_profile_from_system_cb {
@@ -231,86 +128,6 @@ sub profile_delete_cb {
   throw "param 'delete_success_page' needed but not provided." unless $redir;
   $pxt->push_message(site_info => "Profile <strong>$name</strong> deleted.");
   $pxt->redirect($redir, ($sid ? (sid => $sid) : ()));
-}
-
-sub compat_profile_select {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $sid = $pxt->param('sid');
-  my $ret = $params{__block__};
-
-  my $empty_msg = $params{empty_message} || '';
-  throw 'param empty_message needed but not provided.'
-    unless $empty_msg;
-
-  my @profiles = RHN::Profile->compatible_with_server($sid, $pxt->user->org_id);
-  my @options = map { [ PXT::Utils->escapeHTML($_->[1] || ''), $_->[0], 0 ] } @profiles;
-
-  if (@options) {
-    $ret =~ s/\{profile_select\}/PXT::HTML->select(-name => 'prid', -options => \@options)/e;
-  }
-  else {
-    $ret = $empty_msg;
-  }
-
-  return $ret;
-}
-
-sub compat_system_select {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $sid = $pxt->param('sid');
-  my $ret = $params{__block__};
-
-  my $empty_msg = $params{empty_message} || '';
-  throw 'param empty_message needed but not provided.'
-    unless $empty_msg;
-
-  my @systems = RHN::Server->compatible_with_server($sid, $pxt->user->id, $pxt->user->org_id);
-  my @options = map { [ PXT::Utils->escapeHTML($_->[1] || ''), $_->[0], 0 ] } @systems;
-
-  if (@options) {
-    $ret =~ s/\{system_select\}/PXT::HTML->select(-name => 'sid_1', -options => \@options)/e;
-  }
-  else {
-    $ret = $empty_msg;
-  }
-
-  return $ret;
-}
-
-sub profile_sync_confirm {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $copy = $params{__block__};
-
-  my $source;
-  my $source_profile_id = $pxt->param('prid');
-  my $source_system_id = $pxt->param('sid_1');
-
-  my $victim = RHN::Server->lookup(-id => $pxt->param('sid'));
-
-  if ($source_profile_id) {
-    $source = RHN::Profile->lookup(-id => $source_profile_id);
-  }
-  elsif ($source_system_id) {
-    $source = RHN::Server->lookup(-id => $source_system_id);
-  }
-  else {
-    die 'no source for sync operation?';
-  }
-
-
-  my %subst;
-  $subst{source} = $source->name;
-  $subst{victim} = $victim->name;
-
-  $copy = PXT::Utils->perform_substitutions($copy, \%subst);
-
-  return $copy;
 }
 
 sub sync_server_cb {

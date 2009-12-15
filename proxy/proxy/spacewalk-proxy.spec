@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.7.1
+Version: 0.8.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -126,6 +126,7 @@ Group:   Applications/Internet
 Requires: spacewalk-backend
 Requires: rhnlib
 Requires: python-optik
+Requires: rhnpush
 BuildRequires: /usr/bin/docbook2man
 Obsoletes: rhn_package_manager < 5.3.0
 Obsoletes: rhns-proxy-package-manager < 5.3.0
@@ -293,6 +294,12 @@ fi
 
 
 %changelog
+* Fri Dec  4 2009 Miroslav Suchý <msuchy@redhat.com> 0.8.1-1
+- sha256 support
+
+* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.2-1
+- 499020 - bump up proxy version to 5.3.1 to enable CDN
+
 * Thu Aug 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.1-1
 - 503187 - do not automaticaly download rhn_proxy.conf
 - 516624 - allow upgrade proxy using CLI to 5.3 from 5.0

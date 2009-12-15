@@ -790,9 +790,19 @@ public class Channel extends BaseDomainHelper implements Comparable {
             toConsider = toConsider.getParentChannel();
         }
 
+        String release = null;
         DistChannelMap channelDist = ChannelFactory.lookupDistChannelMap(toConsider);
         if (channelDist != null) {
-            String release = channelDist.getRelease();
+            release = channelDist.getRelease();
+        } 
+        else { // and now again for zstreams
+            ReleaseChannelMap channelRelease = 
+                ChannelFactory.lookupDefaultReleaseChannelMapForChannel(toConsider);
+            if (channelRelease != null) {
+                release = channelRelease.getRelease();
+            }
+        }
+        if (release != null) {
             if (!releaseToSkipRepodata.contains(release)) {
                 repodataRequired = true;
                 log.debug("isChannelRepodataRequired for channel(" + this.id + ") " +
@@ -888,9 +898,9 @@ public class Channel extends BaseDomainHelper implements Comparable {
         // IF its custom use the one set at channel creation time
         
         if (toConsider.isCustom()) {
-            String checksumOut = toConsider.getChecksum().getLabel();
-            if (checksumOut != null) {
-                return checksumOut;
+            ChecksumType checksumOut = toConsider.getChecksum();
+            if ((checksumOut != null) && (checksumOut.getLabel() != null)) {
+                return checksumOut.getLabel();
             }
             else {
                 // default to sha1 if its not available in the db

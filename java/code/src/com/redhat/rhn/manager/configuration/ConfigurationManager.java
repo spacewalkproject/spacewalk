@@ -517,8 +517,25 @@ public class ConfigurationManager extends BaseManager {
         DataResult dr = makeDataResult(params, elabParams, pc, m);
         return dr;
     }
-    
-    
+
+    /**
+     * Lists the file names to which the given server is subscribed
+     * Finds the deployable revisions for each file name.
+     * @param server The server to which these files must be relevant
+     * @return A list of config file names in DTO format.
+     */
+    public DataResult <ConfigFileNameDto> listAllFileNamesForSystem(Server server) {
+        SelectMode m = ModeFactory.getMode("config_queries",
+                "automated_file_names_for_system");
+        Map params = new HashMap();
+        Map elabParams = new HashMap();
+        params.put("sid", server.getId());
+        elabParams.put("sid", server.getId());
+        DataResult dr = makeDataResult(params, elabParams, null, m);
+        dr.elaborate();
+        return dr;
+    }
+
     /**
      * Lists the file names to which the given server is subscribed
      * Finds the deployable revisions for each file name.

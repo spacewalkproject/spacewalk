@@ -1,0 +1,127 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN">
+
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>spacewalk-report</RefEntryTitle><manvolnum>8</manvolnum>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>spacewalk-report</command></RefName>
+<RefPurpose>
+Generate reports from Spacewalk server in csv format
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>spacewalk-report</command>
+        <arg>--db=<replaceable>connect_string</replaceable></arg>
+        <arg>--info</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <command>spacewalk-report</command>
+        <sbr />
+        <group>
+          <arg>--multival-on-rows</arg>
+          <arg>--multival-separator=<replaceable>separator-string</replaceable></arg>
+        </group>
+        <sbr />
+        <arg>--db=<replaceable>connect-string</replaceable></arg>
+        <sbr />
+        <arg>--info</arg>
+        <sbr />
+        <group><arg>--list-fields</arg><arg>--list-fields-info</arg></group>
+        <sbr />
+        <arg choice='plain'><replaceable>report-name</replaceable></arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+<para>
+    The <command>spacewalk-report</command> command can be used to
+    generate canned reports from Spacewalk server database. The report
+    which will be generated is selected by specifying its name as
+    a parameter to <command>spacewalk-report</command>.
+</para>
+
+<para>
+    If the report name is not specified, list of available report
+    names is printed, one name per line.
+</para>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>--info</term>
+        <listitem>
+            <para>When listing available reports, also print
+	    synopsis for each report.</para>
+
+            <para>When used with report name specified, print
+	    synopsis and description for the report, instead
+	    of running the report.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--multival-on-rows</term>
+        <listitem>
+            <para>If certain field can have multiple values, you can
+            use this option to have records for the entity repeated
+            in output in the form of cartesian product. By default,
+            those multiple values are presented on one row in one
+            field, separated by semicolon.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--multival-separator=<replaceable>separator-string</replaceable></term>
+        <listitem>
+            <para>If multiple values are output on one row (the
+            default), this option can change the string which
+            separates multiple values in one field. The default is
+            semicolon.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--db=<replaceable>connect-string</replaceable></term>
+        <listitem>
+            <para>Database connect string in the form of
+            <replaceable>username/password@dbname</replaceable> can be
+            specified to generated report from user-defined database.
+            By default, connect string from default_db option from
+            /etc/rhn/rhn.conf is used.</para>
+            <para>This option should be considered obsoleted and may
+            not be available in next versions of
+            <command>spacewalk-report</command>.
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--list-fields</term>
+        <listitem>
+            <para>Instead of running the report, shows fields that the
+            report has, one field name per line.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--list-fields-info</term>
+        <listitem>
+            <para>Instead of running the report, shows fields that the
+	    report has, one field name per line, and a description of
+	    that field.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Jan Pazdziora</member>
+</simplelist>
+</RefSect1>
+</RefEntry>
+
+<!--
+vim: sw=4
+-->

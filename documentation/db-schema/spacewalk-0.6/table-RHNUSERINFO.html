@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+        <head><title> Spacewalk 0.6 DB Schema - Table-RHNUSERINFO </title>
+        <link rel="stylesheet" type="text/css" href="oraschemadoc.css" />
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta name="author" content="Petr Vanek, petr@scribus.info" />
+        <meta name="generator" content="oraschemadoc" />
+        </head>
+        <body>
+            <div class="contextbar">
+            <a href="main.html">Main</a>
+            <a href="tables-list.html">Tables</a>
+            <a href="views-list.html">Views</a>
+            <a href="mviews-list.html">Materialized&nbsp;Views</a>
+            <a href="indexes-list.html">Indexes</a>
+            <a href="constraints-list.html">Constraints</a>
+            <a href="triggers-list.html">Triggers</a>
+            <a href="procedures-list.html">Procedures</a>
+            <a href="functions-list.html">Functions</a>
+            <a href="packages-list.html">Packages</a>
+            <a href="sequences.html">Sequences</a>
+            <a href="java-sources-list.html">Java&nbsp;Sources</a>
+            <a href="sanity-check.html">Sanity&nbsp;Check</a>
+            <a href="symbol-index.html">Index</a>
+            <a href="sql_sources/" target="Main">DDL&nbsp;scrips</a>
+            </div><div class="subcontextbar"><a href="#t-descr">Description</a> <a href="#t-cols">Columns</a> <a href="#t-pk">Primary key</a> <a href="#t-cc">Check Constraints</a> <a href="#t-fk">Foreign keys</a> <a href="#t-uc">Unique Keys</a> <a href="#t-opt">Options</a> <a href="#t-ind">Indexes</a> <a href="#t-refs">Referenced by</a> <a href="#t-trgs">Triggers</a> <a href="#t-parts">Partitions</a> </div><h2>RHNUSERINFO</h2>
+<a href="sql_sources/table/rhnuserinfo.sql">DDL script</a><h3>Columns<a name="t-cols"></a></h3>
+<table>
+<tr><th>Name</th><th>Type</th><th>Nullable</th><th>Default value</th><th>Comment</th></tr><tr><td>USER_ID<a name="col-USER_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>NO_CLEAR_SETS<a name="col-NO_CLEAR_SETS"></a></td><td>NUMBER(38)</td><td>N</td><td>(0) </td><td>&nbsp;</td></tr>
+<tr><td>PAGE_SIZE<a name="col-PAGE_SIZE"></a></td><td>NUMBER(38)</td><td>N</td><td>(20) </td><td>&nbsp;</td></tr>
+<tr><td>EMAIL_NOTIFY<a name="col-EMAIL_NOTIFY"></a></td><td>NUMBER(38)</td><td>N</td><td>(1) </td><td>&nbsp;</td></tr>
+<tr><td>BAD_EMAIL<a name="col-BAD_EMAIL"></a></td><td>NUMBER(38)</td><td>N</td><td>(0) </td><td>&nbsp;</td></tr>
+<tr><td>TZ_OFFSET<a name="col-TZ_OFFSET"></a></td><td>NUMBER(38)</td><td>N</td><td>(-5) </td><td>&nbsp;</td></tr>
+<tr><td>TIMEZONE_ID<a name="col-TIMEZONE_ID"></a></td><td>NUMBER(38)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>SHOW_APPLIED_ERRATA<a name="col-SHOW_APPLIED_ERRATA"></a></td><td>CHAR(1)</td><td>N</td><td>('N') </td><td>&nbsp;</td></tr>
+<tr><td>SHOW_SYSTEM_GROUP_LIST<a name="col-SHOW_SYSTEM_GROUP_LIST"></a></td><td>CHAR(1)</td><td>N</td><td>('N') </td><td>&nbsp;</td></tr>
+<tr><td>AGREED_TO_TERMS<a name="col-AGREED_TO_TERMS"></a></td><td>CHAR(1)</td><td>N</td><td>('N') </td><td>&nbsp;</td></tr>
+<tr><td>USE_PAM_AUTHENTICATION<a name="col-USE_PAM_AUTHENTICATION"></a></td><td>CHAR(1)</td><td>N</td><td>('N') </td><td>&nbsp;</td></tr>
+<tr><td>LAST_LOGGED_IN<a name="col-LAST_LOGGED_IN"></a></td><td>DATE</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>AGREED_TO_WS_TERMS<a name="col-AGREED_TO_WS_TERMS"></a></td><td>CHAR(1)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>AGREED_TO_ES_TERMS<a name="col-AGREED_TO_ES_TERMS"></a></td><td>CHAR(1)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>CREATED<a name="col-CREATED"></a></td><td>DATE</td><td>N</td><td>(sysdate) </td><td>&nbsp;</td></tr>
+<tr><td>MODIFIED<a name="col-MODIFIED"></a></td><td>DATE</td><td>N</td><td>(sysdate) </td><td>&nbsp;</td></tr>
+<tr><td>PREFERRED_LOCALE<a name="col-PREFERRED_LOCALE"></a></td><td>VARCHAR2(8)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table><h3>Check Constraints:<a name="t-cc"></a></h3>
+<table>
+<tr><th>Constraint Name</th><th>Check Condition</th></tr><tr><td>RHN_USER_INFO_AGREED_CK<a name="cs-RHN_USER_INFO_AGREED_CK"></a></td><td>agreed_to_terms in ( 'Y' , 'N' )</td></tr>
+<tr><td>RHN_USER_INFO_ES_CK<a name="cs-RHN_USER_INFO_ES_CK"></a></td><td>agreed_to_es_terms is null or agreed_to_es_terms in ( 'Y' , 'N' )</td></tr>
+<tr><td>RHN_USER_INFO_PAM_CK<a name="cs-RHN_USER_INFO_PAM_CK"></a></td><td>use_pam_authentication in ( 'Y' , 'N' )</td></tr>
+<tr><td>RHN_USER_INFO_SEA_CK<a name="cs-RHN_USER_INFO_SEA_CK"></a></td><td>show_applied_errata in ( 'Y' , 'N' )</td></tr>
+<tr><td>RHN_USER_INFO_SSGL_CK<a name="cs-RHN_USER_INFO_SSGL_CK"></a></td><td>show_system_group_list in ( 'Y' , 'N' )</td></tr>
+<tr><td>RHN_USER_INFO_TZOFFSET_CK<a name="cs-RHN_USER_INFO_TZOFFSET_CK"></a></td><td>tz_offset &gt;= -11 and tz_offset &lt;= 13</td></tr>
+<tr><td>RHN_USER_INFO_WS_CK<a name="cs-RHN_USER_INFO_WS_CK"></a></td><td>agreed_to_ws_terms is null or agreed_to_ws_terms in ( 'Y' , 'N' )</td></tr>
+</table><h3>Foreign Keys:<a name="t-fk"></a></h3>
+<table>
+<tr><th>Constraint Name</th><th>Columns</th><th>Referenced table</th><th>Referenced Constraint</th><th>On Delete Rule</th></tr><tr><td>RHN_USER_INFO_TZID_FK<a name="cs-RHN_USER_INFO_TZID_FK"></a></td><td><a href="table-RHNUSERINFO.html#col-TIMEZONE_ID">TIMEZONE_ID </a>
+</td><td><a href="table-RHNTIMEZONE.html"> RHNTIMEZONE </a></td><td><a href="table-RHNTIMEZONE.html#cs-RHN_TIMEZONE_ID_PK">RHN_TIMEZONE_ID_PK </a>
+</td><td>CASCADE</td></tr>
+<tr><td>RHN_USER_INFO_USER_FK<a name="cs-RHN_USER_INFO_USER_FK"></a></td><td><a href="table-RHNUSERINFO.html#col-USER_ID">USER_ID </a>
+</td><td><a href="table-WEB_CONTACT.html"> WEB_CONTACT </a></td><td><a href="table-WEB_CONTACT.html#cs-WEB_CONTACT_PK">WEB_CONTACT_PK </a>
+</td><td>CASCADE</td></tr>
+</table><map name="erdmap"><area shape="rect" href="table&#45;RHNUSERINFO.html#t&#45;fk" title="RHNUSERINFO" alt="" coords="180,64,300,91">
+<area shape="rect" href="table&#45;WEB_CONTACT.html#t&#45;fk" title="WEB_CONTACT" alt="" coords="8,39,131,66">
+<area shape="rect" href="table&#45;RHNTIMEZONE.html#t&#45;fk" title="RHNTIMEZONE" alt="" coords="10,90,130,116">
+</map><img class="erd" usemap="#erdmap" src="RHNUSERINFO.png"/><h3>Unique Keys:<a name="t-uc"></a></h3>
+<table>
+<tr><th>Constraint name</th><th>Columns</th></tr><tr><td>RHN_USER_INFO_UID_UQ<a name="cs-RHN_USER_INFO_UID_UQ"></a></td><td><a href="table-RHNUSERINFO.html#col-USER_ID">USER_ID </a>
+</td></tr>
+</table><h3>Options:<a name="t-opt"></a></h3>
+<table>
+<tr><th>Option</th><th>Settings</th></tr><tr><td>Tablespace</td><td>DATA_TBS</td></tr>
+<tr><td>Index Organized</td><td>No</td></tr>
+<tr><td>Generated by Oracle</td><td>No</td></tr>
+<tr><td>Clustered</td><td>No</td></tr>
+<tr><td>Nested</td><td>No</td></tr>
+<tr><td>Temporary</td><td>No</td></tr>
+</table><h3>Indexes:<a name="t-ind"></a></h3>
+<table>
+<tr><th>Index Name</th><th>Type</th><th>Unuqueness</th><th>Columns</th><th>DDL script</th></tr><tr><td>RHN_USER_INFO_UID_EMAIL_IDX<a name="ind-RHN_USER_INFO_UID_EMAIL_IDX"></a></td><td>NORMAL</td><td>NONUNIQUE</td><td><a href="table-RHNUSERINFO.html#col-USER_ID">USER_ID </a>
+, <a href="table-RHNUSERINFO.html#col-EMAIL_NOTIFY">EMAIL_NOTIFY </a>
+</td><td><a href="sql_sources/index/rhn_user_info_uid_email_idx.sql">DDL script</a></td></tr>
+</table><h3>Triggers</h3>
+<a name="t-trgs"></a><a name="trg-RHN_USER_INFO_MOD_TRIG"></a><h4>RHN_USER_INFO_MOD_TRIG</h4>
+<pre>
+Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
+<pre>
+<span class="reserved">CREATE</span> TRIGGER 
+rhn_user_info_mod_trig
+before <span class="reserved">insert</span> <span class="reserved">or</span> <span class="reserved">update</span> <span class="reserved">on</span> rhnUserInfo
+<span class="reserved">for</span> each <span class="keyword">row</span>
+
+REFERENCING <span class="keyword">NEW</span> <span class="reserved">AS</span> <span class="keyword">NEW</span> OLD <span class="reserved">AS</span> OLD
+<span class="reserved">begin</span>
+	<span class="operator">:</span><span class="keyword">new</span><span class="operator">.</span>modified <span class="operator">:</span><span class="operator">=</span> sysdate;
+<span class="reserved">end</span> rhn_user_info_mod_trig;
+</pre>
+<div class="footer">
+        Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Mon Aug 31 10:55:02 2009</div>
+</body></html>

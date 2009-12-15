@@ -164,41 +164,32 @@ def transpose_to_hash(arr, column_names):
 
     return rh
 
-# Computes a package path, optionally prepending a prefix
-# The path will look like 
-# <prefix>/<org_id>/n/e:v-r/a/n-v-r.a.rpm if not omit_epoch
-# <prefix>/<org_id>/n/v-r/a/n-v-r.a.rpm if omit_epoch
 def get_package_path(nevra, org_id, source=0, prepend="", omit_epoch=None, 
-        package_type='rpm', md5sum=None):
+        package_type='rpm', checksum=(None,None)):
     """ Computes a package path, optionally prepending a prefix
         The path will look like
-        <prefix>/<org_id>/n/e:v-r/a/n-v-r.a.rpm if not omit_epoch
-        <prefix>/<org_id>/n/v-r/a/n-v-r.a.rpm if omit_epoch
+        <prefix>/<org_id>/checksum[:3]/n/e:v-r/a/checksum/n-v-r.a.rpm if not omit_epoch
+        <prefix>/<org_id>/checksum[:3]/n/v-r/a/checksum/n-v-r.a.rpm if omit_epoch
     """
-    name = nevra[0]
-    release = nevra[3]
+    name, epoch, version, release, pkgarch = nevra
 
     # dirarch and pkgarch are special-cased for source rpms
     if source:
         dirarch = 'SRPMS'
-        pkgarch = nevra[4]
     else:
-        dirarch = pkgarch = nevra[4]
+        dirarch = pkgarch
 
     if org_id in ['', None]:
         org = "NULL"
     else:
         org = org_id
 
-    version = nevra[2]
-    if not omit_epoch:
-        epoch = nevra[1]
-        if epoch not in [None, '']:
+    if not omit_epoch and epoch not in [None, '']:
             version = str(epoch) + ':' + version
     # normpath sanitizes the path (removing duplicated / and such)
     template = os.path.normpath(prepend +
                                "/%s/%s/%s/%s-%s/%s/%s/%s-%s-%s.%s.%s")
-    return template % (org, md5sum[:3], name, version, release, dirarch, md5sum,
+    return template % (org, checksum[1][:3], name, version, release, dirarch, checksum[1],
         name, nevra[2], release, pkgarch, package_type)
 
 
@@ -209,10 +200,10 @@ def get_package_path(nevra, org_id, source=0, prepend="", omit_epoch=None,
 # This enables us to append an arbitrary file name that is not restricted to the 
 # form: name-version-release.arch.type
 def get_package_path_without_package_name(nevra, org_id, prepend="",
-        md5sum=None):
+        checksum=(None,None)):
     """return a package path without the package name appended"""
     return os.path.dirname(get_package_path(nevra, org_id, prepend=prepend,
-        md5sum=md5sum))
+        checksum=checksum))
 
 
 class CallableObj:

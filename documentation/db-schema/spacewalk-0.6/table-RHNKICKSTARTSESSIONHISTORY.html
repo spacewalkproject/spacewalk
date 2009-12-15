@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+        <head><title> Spacewalk 0.6 DB Schema - Table-RHNKICKSTARTSESSIONHISTORY </title>
+        <link rel="stylesheet" type="text/css" href="oraschemadoc.css" />
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta name="author" content="Petr Vanek, petr@scribus.info" />
+        <meta name="generator" content="oraschemadoc" />
+        </head>
+        <body>
+            <div class="contextbar">
+            <a href="main.html">Main</a>
+            <a href="tables-list.html">Tables</a>
+            <a href="views-list.html">Views</a>
+            <a href="mviews-list.html">Materialized&nbsp;Views</a>
+            <a href="indexes-list.html">Indexes</a>
+            <a href="constraints-list.html">Constraints</a>
+            <a href="triggers-list.html">Triggers</a>
+            <a href="procedures-list.html">Procedures</a>
+            <a href="functions-list.html">Functions</a>
+            <a href="packages-list.html">Packages</a>
+            <a href="sequences.html">Sequences</a>
+            <a href="java-sources-list.html">Java&nbsp;Sources</a>
+            <a href="sanity-check.html">Sanity&nbsp;Check</a>
+            <a href="symbol-index.html">Index</a>
+            <a href="sql_sources/" target="Main">DDL&nbsp;scrips</a>
+            </div><div class="subcontextbar"><a href="#t-descr">Description</a> <a href="#t-cols">Columns</a> <a href="#t-pk">Primary key</a> <a href="#t-cc">Check Constraints</a> <a href="#t-fk">Foreign keys</a> <a href="#t-uc">Unique Keys</a> <a href="#t-opt">Options</a> <a href="#t-ind">Indexes</a> <a href="#t-refs">Referenced by</a> <a href="#t-trgs">Triggers</a> <a href="#t-parts">Partitions</a> </div><h2>RHNKICKSTARTSESSIONHISTORY</h2>
+<a href="sql_sources/table/rhnkickstartsessionhistory.sql">DDL script</a><h3>Columns<a name="t-cols"></a></h3>
+<table>
+<tr><th>Name</th><th>Type</th><th>Nullable</th><th>Default value</th><th>Comment</th></tr><tr><td>ID<a name="col-ID"></a></td><td>NUMBER(38)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>KICKSTART_SESSION_ID<a name="col-KICKSTART_SESSION_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>ACTION_ID<a name="col-ACTION_ID"></a></td><td>NUMBER(38)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>STATE_ID<a name="col-STATE_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>TIME<a name="col-TIME"></a></td><td>DATE</td><td>N</td><td>(sysdate) </td><td>&nbsp;</td></tr>
+<tr><td>MESSAGE<a name="col-MESSAGE"></a></td><td>VARCHAR2(4000)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>CREATED<a name="col-CREATED"></a></td><td>DATE</td><td>N</td><td>(sysdate) </td><td>&nbsp;</td></tr>
+<tr><td>MODIFIED<a name="col-MODIFIED"></a></td><td>DATE</td><td>N</td><td>(sysdate) </td><td>&nbsp;</td></tr>
+</table><h3>Primary key:<a name="t-pk"></a></h3>
+<table>
+<tr><th>Constraint Name</th><th>Columns</th></tr><tr><td>RHN_KS_SESSIONHIST_ID_PK<a name="cs-RHN_KS_SESSIONHIST_ID_PK"></a></td><td><a href="table-RHNKICKSTARTSESSIONHISTORY.html#col-ID">ID </a>
+</td></tr>
+</table><h3>Foreign Keys:<a name="t-fk"></a></h3>
+<table>
+<tr><th>Constraint Name</th><th>Columns</th><th>Referenced table</th><th>Referenced Constraint</th><th>On Delete Rule</th></tr><tr><td>RHN_KS_SESSIONHIST_AID_FK<a name="cs-RHN_KS_SESSIONHIST_AID_FK"></a></td><td><a href="table-RHNKICKSTARTSESSIONHISTORY.html#col-ACTION_ID">ACTION_ID </a>
+</td><td><a href="table-RHNACTION.html"> RHNACTION </a></td><td><a href="table-RHNACTION.html#cs-RHN_ACTION_PK">RHN_ACTION_PK </a>
+</td><td>SET NULL</td></tr>
+<tr><td>RHN_KS_SESSIONHIST_KSID_FK<a name="cs-RHN_KS_SESSIONHIST_KSID_FK"></a></td><td><a href="table-RHNKICKSTARTSESSIONHISTORY.html#col-KICKSTART_SESSION_ID">KICKSTART_SESSION_ID </a>
+</td><td><a href="table-RHNKICKSTARTSESSION.html"> RHNKICKSTARTSESSION </a></td><td><a href="table-RHNKICKSTARTSESSION.html#cs-RHN_KS_SESSION_ID_PK">RHN_KS_SESSION_ID_PK </a>
+</td><td>CASCADE</td></tr>
+<tr><td>RHN_KS_SESSIONHIST_STAT_FK<a name="cs-RHN_KS_SESSIONHIST_STAT_FK"></a></td><td><a href="table-RHNKICKSTARTSESSIONHISTORY.html#col-STATE_ID">STATE_ID </a>
+</td><td><a href="table-RHNKICKSTARTSESSIONSTATE.html"> RHNKICKSTARTSESSIONSTATE </a></td><td><a href="table-RHNKICKSTARTSESSIONSTATE.html#cs-RHN_KS_SESSION_STATE_ID_PK">RHN_KS_SESSION_STATE_ID_PK </a>
+</td><td>NO ACTION</td></tr>
+</table><map name="erdmap"><area shape="rect" href="table&#45;RHNKICKSTARTSESSIONHISTORY.html#t&#45;fk" title="RHNKICKSTARTSESSIONHISTORY" alt="" coords="279,89,519,116">
+<area shape="rect" href="table&#45;RHNKICKSTARTSESSION.html#t&#45;fk" title="RHNKICKSTARTSESSION" alt="" coords="28,39,209,65">
+<area shape="rect" href="table&#45;RHNACTION.html#t&#45;fk" title="RHNACTION" alt="" coords="68,89,169,116">
+<area shape="rect" href="table&#45;RHNKICKSTARTSESSIONSTATE.html#t&#45;fk" title="RHNKICKSTARTSESSIONSTATE" alt="" coords="8,140,229,167">
+</map><img class="erd" usemap="#erdmap" src="RHNKICKSTARTSESSIONHISTORY.png"/><h3>Options:<a name="t-opt"></a></h3>
+<table>
+<tr><th>Option</th><th>Settings</th></tr><tr><td>Tablespace</td><td>DATA_TBS</td></tr>
+<tr><td>Index Organized</td><td>No</td></tr>
+<tr><td>Generated by Oracle</td><td>No</td></tr>
+<tr><td>Clustered</td><td>No</td></tr>
+<tr><td>Nested</td><td>No</td></tr>
+<tr><td>Temporary</td><td>No</td></tr>
+</table><h3>Indexes:<a name="t-ind"></a></h3>
+<table>
+<tr><th>Index Name</th><th>Type</th><th>Unuqueness</th><th>Columns</th><th>DDL script</th></tr><tr><td>RHN_KS_SESSIONHIST_ID_PK<a name="ind-RHN_KS_SESSIONHIST_ID_PK"></a></td><td>NORMAL</td><td>UNIQUE</td><td><a href="table-RHNKICKSTARTSESSIONHISTORY.html#col-ID">ID </a>
+</td><td><a href="sql_sources/index/rhn_ks_sessionhist_id_pk.sql">DDL script</a></td></tr>
+<tr><td>RHN_KS_SESSIONHIST_KSID_IDX<a name="ind-RHN_KS_SESSIONHIST_KSID_IDX"></a></td><td>NORMAL</td><td>NONUNIQUE</td><td><a href="table-RHNKICKSTARTSESSIONHISTORY.html#col-KICKSTART_SESSION_ID">KICKSTART_SESSION_ID </a>
+</td><td><a href="sql_sources/index/rhn_ks_sessionhist_ksid_idx.sql">DDL script</a></td></tr>
+</table><h3>Triggers</h3>
+<a name="t-trgs"></a><a name="trg-RHN_KS_SESSIONHIST_MOD_TRIG"></a><h4>RHN_KS_SESSIONHIST_MOD_TRIG</h4>
+<pre>
+Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
+<pre>
+<span class="reserved">CREATE</span> TRIGGER 
+rhn_ks_sessionhist_mod_trig
+before <span class="reserved">insert</span> <span class="reserved">or</span> <span class="reserved">update</span> <span class="reserved">on</span> rhnKickstartSessionHistory
+<span class="reserved">for</span> each <span class="keyword">row</span>
+
+REFERENCING <span class="keyword">NEW</span> <span class="reserved">AS</span> <span class="keyword">NEW</span> OLD <span class="reserved">AS</span> OLD
+<span class="reserved">begin</span>
+	<span class="operator">:</span><span class="keyword">new</span><span class="operator">.</span>modified <span class="operator">:</span><span class="operator">=</span> sysdate;
+<span class="reserved">end</span>;
+</pre>
+<div class="footer">
+        Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Mon Aug 31 10:54:55 2009</div>
+</body></html>

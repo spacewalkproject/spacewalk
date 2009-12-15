@@ -21,7 +21,8 @@ package com.redhat.rhn.frontend.dto;
  */
 public class ErrataPackageFile {
     private Long packageId;
-    private String md5sum;
+    private String checksum;
+    private String checksumType;
     private String filename;
     private String channelName;
     
@@ -51,16 +52,35 @@ public class ErrataPackageFile {
         this.filename = filenameIn;
     }
     /**
-     * @return Returns the md5sum.
+     *
+     * @return Returns the checksum
      */
-    public String getMd5sum() {
-        return md5sum;
+    public String getChecksum() {
+        return checksum;
     }
+
     /**
-     * @param md5sumIn The md5sum to set.
+     *
+     * @param checksumIn The checksum to set
      */
-    public void setMd5sum(String md5sumIn) {
-        this.md5sum = md5sumIn;
+    public void setChecksum(String checksumIn) {
+        this.checksum = checksumIn;
+    }
+
+    /**
+     *
+     * @return Returns the checksum type
+     */
+    public String getChecksumType() {
+        return checksumType;
+    }
+
+    /**
+     *
+     * @param checksumTypeIn The checksumtype to set
+     */
+    public void setChecksumType(String checksumTypeIn) {
+        this.checksumType = checksumTypeIn;
     }
     /**
      * @return Returns the packageId.

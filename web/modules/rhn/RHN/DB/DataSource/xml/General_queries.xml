@@ -104,13 +104,16 @@ ORDER BY created DESC
   <query params="pid">
 SELECT C.name,
        F.file_size,
-       F.md5,
+       Cs.checksum,
+       Cs.checksum_type,
        F.file_mode,
        F.linkto,
        TO_CHAR(F.mtime, 'YYYY-MM-DD HH24:MI:SS') AS MTIME
-  FROM rhnPackageFile F, rhnPackageCapability C
+  FROM rhnPackageFile F, rhnPackageCapability C,
+       rhnChecksumView Cs
  WHERE F.package_id = :pid
    AND F.capability_id = C.id
+   AND CS.id = F.checksum_id
 ORDER BY UPPER(C.name)
   </query>
 </mode>
@@ -144,44 +147,6 @@ ORDER BY  SN.modified DESC
      AND AK.ks_session_id IS NULL
      AND RT.id = AK.reg_token_id
 ORDER BY RT.note, RT.id
-  </query>
-</mode>
-
-<mode name="purchase_history">
-  <query params="org_id">
-SELECT DISTINCT * FROM
-(SELECT wce.customer_id,
-        wce.active_flag,
-        TO_CHAR(wce.start_date_active, 'YYYY-MM-DD') AS start_date_active,
-        TO_CHAR(wce.end_date_active, 'YYYY-MM-DD') AS end_date_active,
-        wce.product_name,
-        wce.service_name,
-        wce.product_item_code,
-        wce.service_item_code,
-        wce.group_label,
-        wce.quantity,
-        wce.customer_product_id,
-        wce.paid,
-        wco.order_id
-from    web_customer_orders wco,
-        web_customer_entitlements wce
-where   wce.customer_id = :org_id
-        and wco.customer_id(+) = :org_id
-        and wce.product_item_code NOT LIKE '__TAX' -- ugly hack, don't show taxes here
-	    and wce.quantity >= 0 -- hide the ugly prov upgrade slots
-        --and wco.order_id IS NOT NULL
-        and wce.customer_product_id = wco.customer_product_id(+)) X
-ORDER BY X.start_date_active DESC, X.order_id DESC, X.product_item_code
-  </query>
-</mode>
-
-<mode name="user_emailaddress_log">
-  <query params="support_uid">
-SELECT EAL.user_id, WC.login, EAL.address, EAL.reason, TO_CHAR(EAL.created, 'YYYY-MM-DD HH24:MI:SS') as created
-  FROM Web_Contact WC, rhnEmailAddressLog EAL
- WHERE EAL.user_id = :support_uid
-   AND WC.id = EAL.user_id
-ORDER BY EAL.created DESC
   </query>
 </mode>
 
@@ -284,70 +249,6 @@ SELECT KT.id, KT.base_path, KT.channel_id, KT.label, KT.org_id,
    AND C.id = KT.channel_id
    AND CA.id = C.channel_arch_id
 ORDER BY KTT.id, KT.label
-  </query>
-</mode>
-
-<mode name="private_kstrees_for_user">
-  <query params="user_id">
-SELECT KT.id, KT.base_path, KT.channel_id, KT.label, KT.boot_image,
-       UAC.channel_name, UAC.channel_label,
-       KTT.label AS KSTREE_TYPE_LABEL, KTT.name AS KSTREE_TYPE_NAME
-  FROM rhnKSTreeType KTT, rhnKickstartableTree KT, web_contact wc, rhnUserAvailableChannels UAC
- WHERE UAC.user_id = :user_id
-   AND wc.id = :user_id
-   AND KT.channel_id = UAC.channel_id
-   AND KTT.id = KT.kstree_type
-   AND KT.org_id = wc.org_id
-ORDER BY KTT.id, KT.label
-  </query>
-</mode>
-
-<mode name="kickstart_sessions_for_org">
-  <query params="org_id, days">
-  SELECT KSS.id,
-         KSS.kickstart_id,
-         KSS.org_id,
-         KSS.old_server_id,
-         KSS.new_server_id,
-         KSS.state_id,
-         KSSS.label AS state_label,
-         KSSS.name AS state_name,
-         KSS.action_id,
-         TO_CHAR((SELECT MAX(time)
-                    FROM rhnKickstartSessionHistory KSH
-                   WHERE KSH.kickstart_session_id = KSS.id), 'YYYY-MM-DD HH24:MI:SS') AS last_action,
-         KSS.kstree_id
-    FROM rhnKickstartSession KSS,
-         rhnKickstartSessionState KSSS
-   WHERE KSS.org_id = :org_id
-     AND KSSS.id = KSS.state_id
-     AND NOT ((KSSS.label = 'failed' OR KSSS.label = 'complete') AND KSS.last_action &lt; sysdate - :days)
-ORDER BY last_action DESC, state_label, KSS.id
-  </query>
-  <elaborator params="">
-SELECT KSS.id, C.name as dist
-  FROM rhnKickstartSession KSS, rhnKickstartableTree KST, rhnChannel C
- WHERE KSS.id IN (%s)
-   AND KST.id = KSS.kstree_id
-   AND KST.channel_id = C.id
-  </elaborator>
-  <elaborator params="">
-SELECT KSS.id, S.name AS system_name
-  FROM rhnKickstartSession KSS, rhnServer S
- WHERE KSS.id IN (%s)
-   AND S.id = KSS.old_server_id
-  </elaborator>
-</mode>
-
-<mode name="ip_ranges_for_org">
-  <query params="org_id">
-  SELECT IPR.org_id || IPR.min || IPR.max AS ID,
-         IPR.org_id, IPR.min, IPR.max,
-         KS.id AS kickstart_id, KS.label
-    FROM rhnKickstartIPRange IPR, rhnKSData KS
-   WHERE IPR.org_id = :org_id
-     AND KS.id = IPR.kickstart_id
-ORDER BY IPR.min
   </query>
 </mode>
 

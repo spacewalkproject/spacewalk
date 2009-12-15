@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.5
+Version: 0.8.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -263,23 +263,157 @@ fi
 
 %files config
 %defattr(644, root, root)
-%config(noreplace) %{_sysconfdir}/rhn/default/rhn_hibernate.conf
-%config(noreplace) %{_sysconfdir}/rhn/default/rhn_taskomatic_daemon.conf
-%config(noreplace) %{_sysconfdir}/rhn/default/rhn_taskomatic.conf
-%config(noreplace) %{_sysconfdir}/rhn/default/rhn_org_quartz.conf
+%config %{_sysconfdir}/rhn/default/rhn_hibernate.conf
+%config %{_sysconfdir}/rhn/default/rhn_taskomatic_daemon.conf
+%config %{_sysconfdir}/rhn/default/rhn_taskomatic.conf
+%config %{_sysconfdir}/rhn/default/rhn_org_quartz.conf
 %config %{_sysconfdir}/logrotate.d/rhn_web_api
 
 %files lib
-%attr(644, root, root) %{_datadir}/rhn/classes/log4j.properties
-%attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
+%defattr(644, root, root)
+%{_datadir}/rhn/classes/log4j.properties
+%{_datadir}/rhn/lib/rhn.jar
 
 %files oracle
+%defattr(644, root, root)
 %{jardir}/ojdbc14.jar
 
 %files postgresql
+%defattr(644, root, root)
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Dec 10 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.2-1
+- fixed support for SHA256 rpms
+
+* Fri Dec  4 2009 Miroslav Suchý <msuchy@redhat.com> 0.8.1-1
+- sha256 support
+
+* Wed Dec 02 2009 Tomas Lestach <tlestach@redhat.com> 0.7.24-1
+- 537094 - yum list-sec CVE's on cloned channels doesn't work
+  (tlestach@redhat.com)
+- fixing checksum empty string in the repo metadata (tlestach@redhat.com)
+- checking return value of channel.getChecksum() (tlestach@redhat.com)
+- 543347 - Security errata with enhancement advisory icons
+  (tlestach@redhat.com)
+- fixing ISE when cloning channel (tlestach@redhat.com)
+- fixing ISE when adding Red Hat Errata to custom channel (tlestach@redhat.com)
+
+* Tue Dec  1 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.23-1
+- 542830 - fixing three api calls that were using very inefficient queries to use the same queries that were used in sat 5.2 (jsherril@redhat.com)
+- converting old hibernate max in clause limit fix to use new fix (jsherril@redhat.com)
+- 538559 - fixing issue where about 300 errata could not be applied to a system due to inefficient hibernate usage (jsherril@redhat.com)
+- fixing list borders on errata apply confirm page (jsherril@redhat.com)
+- Fix creating new config-managed symlinks (joshua.roys@gtri.gatech.edu)
+
+* Mon Nov 30 2009 Tomas Lestach <tlestach@redhat.com> 0.7.21-1
+- checking return value of channel.getChecksum() (tlestach@redhat.com)
+- adding checkstyle build dependency (tlestach@redhat.com)
+- updating ant-contrib path (tlestach@redhat.com)
+
+* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.19-1
+- improving the system channels page by increasing the base channel selector box size and having the custom channels sorted by name (jsherril@redhat.com)
+- another small display issue fix for list (jsherril@redhat.com)
+- fixing sort on channel manage page to sort by name and not id (jsherril@redhat.com)
+- fixing a bunch of list display issues that have bugged me for a while (jsherril@redhat.com)
+- 519788 - fixing set selection on two config management lists (jsherril@redhat.com)
+- checkstyle fix (jsherril@redhat.com)
+- unit test fixes (jsherril@redhat.com)
+- unit test fix - reloading the "Action" hibernate object seemed to cause issues with the user object that it was associated with, so instead lets try refreshing (jsherril@redhat.com)
+
+* Fri Nov 20 2009 Tomas Lestach <tlestach@redhat.com> 0.7.18-1
+- some columns not filled on webui for non-cve errata (tlestach@redhat.com)
+- checkstyle fix (jsherril@redhat.com)
+- 512844 - fixing inefficient query in package set clenaup
+  (jsherril@redhat.com)
+- unit test fix - we no longer do validation checking on kickstart partitions,
+  so no need to test it (jsherril@redhat.com)
+- unit test fix - kickstart compare packages was not working correctly
+  (jsherril@redhat.com)
+- 537491 - fixing issue with cloned kickstart profiles losing the package list
+  during cloning (jsherril@redhat.com)
+- checkstyle fix (jsherril@redhat.com)
+- unit test fix (jsherril@redhat.com)
+- unit test fix (jsherril@redhat.com)
+
+* Thu Nov 12 2009 Tomas Lestach <tlestach@redhat.com> 0.7.17-1
+- 536825 - storing "@ Base" KickstartPackage into DB (tlestach@redhat.com)
+- java code enhancements according to jsherrill's comments
+  (tlestach@redhat.com)
+- unit test fix (jsherril@redhat.com)
+
+* Tue Nov 10 2009 Tomas Lestach <tlestach@redhat.com> 0.7.16-1
+- WebUI Errata & CVEs enhancements (tlestach@redhat.com)
+- unit test fixes (jsherril@redhat.com)
+- 531649 - fixed issue where confirmation message was not displayed after using
+  channel merge/compare feature (jsherril@redhat.com)
+- 531645 - fixing query with mistaken id reference (jsherril@redhat.com)
+- standart Red Hat header added to CompareConfigFilesTask.java
+  (tlestach@redhat.com)
+- Show number of differing config files in overview
+  (joshua.roys@gtri.gatech.edu)
+- Set CompareConfigFilesTask to run at 11pm (joshua.roys@gtri.gatech.edu)
+- Add task to schedule config file comparisons (joshua.roys@gtri.gatech.edu)
+- Fix two more fd leaks (joshua.roys@gtri.gatech.edu)
+- Plug fd leak (joshua.roys@gtri.gatech.edu)
+- Fix system comparison file/dir/symlink counts (joshua.roys@gtri.gatech.edu)
+- 508771 - fixing incorrect sort on channel errata list page
+  (jsherril@redhat.com)
+- 531091 - fixing issue that would result in odd hibernate errors due to
+  hibernate objects being used across hibernate sessions (jsherril@redhat.com)
+- 531059 - fixing issue where certain characters in the org name would cause
+  errors when trying to create things in cobbler (jsherril@redhat.com)
+
+* Tue Oct 27 2009 Tomas Lestach <tlestach@redhat.com> 0.7.15-1
+- replacing HashSet with TreeSet (tlestach@redhat.com)
+- checkstyle errors removed (tlestach@redhat.com)
+- 525561 - fixing issue where ksdata without associated kickstart defaults
+  would try to be synced to cobbler and fail (jsherril@redhat.com)
+
+* Mon Oct 26 2009 Tomas Lestach <tlestach@redhat.com> 0.7.13-1
+- 527724 - fix for kickstart upgrade issue (tlestach@redhat.com)
+- 449167 - it looks better when architecture column is not thin column
+  (msuchy@redhat.com)
+
+* Fri Oct 23 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.10-1
+- 449167 - show rpm install date in webui
+- 144325 - recommiting this without the unintended sql commit  <jsherril@redhat.com>
+- 144325 - moving probes and probe suite pages over to new list tag <jsherril@redhat.com>
+
+* Tue Oct 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.9-1
+- Make spacewalk use the editarea RPM and remove supplied editarea files (colin.coe@gmail.com)
+
+* Tue Oct 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.8-1
+- reverting parthas patch that was trying to automatically get connection info, but cause too many issues (jsherril@redhat.com)
+- 522526 - fixing small issue where updating advanced options page would remove custom partitioning script (jsherril@redhat.com)
+- 522526 - fixing issue where snippets couldnt be used in the partitioning section of the kickstart wizard (jsherril@redhat.com)
+- checkstyle fix (jsherril@redhat.com)
+- 523624 - fixing issue where snippets were written with a carraige return (jsherril@redhat.com)
+- 526823 - fixing issue where SSM package removal pages were taking way too long and timing out with 11000 systems (jsherril@redhat.com)
+- 525575 - imporoving performance of system group overview query (michaels fix) (jsherril@redhat.com)
+
+* Thu Oct  1 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.7-1
+- 476851 - removing column "ENVIRONMENT" from ConfigMacro
+- workaround for hibernate not handling in caluses of more than 1000 <jsherril@redhat.com>
+- 523673 - generate repomd for zstreams too
+- adding workaround for hibernate oddity/bug <jsherril@redhat.com>
+- checkstyle fixes <jsherril@redhat.com>
+- 525549 - fixing issue where SSM package operations would run out of memory <jsherril@redhat.com>
+- adding script to help diagnose spacewalk-cobbler login issues <jsherril@redhat.com>
+- Fix audit machine listing/paginatio <joshua.roys@gtri.gatech.edu>
+- Make reviewing empty audit sections possible <joshua.roys@gtri.gatech.edu>
+- Display 'File Type' as 'Symlink' in file details <joshua.roys@gtri.gatech.edu>
+- 523926 - fixing issue with schedule event package list not paginating properly <jsherril@redhat.com>
+
+* Thu Sep 17 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.6-1
+- 523631 - Files in /etc/rhn/default should not be "noreplace"
+- fixing broken path in eclipse classpath generation
+- 523146 - fix typo in name of column
+- 476851 - removal of tables: rhn_db_environment, rhn_environment
+- Made hibernate configs use new configs.
+- fixing issue where repo_sync tasks would not get removed under certain conditions
+- fixing issue where errata cache task was pulling ALL tasks out of the queue and not just the two it actually was using
+
 * Wed Sep 02 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.5-1
 - Add symlink capability to config management (joshua.roys@gtri.gatech.edu)
 

@@ -56,17 +56,10 @@ sub register_tags {
 
   $pxt->register_tag('rhn-up2date-at-least' => \&up2date_at_least);
 
-  $pxt->register_tag('rhn-server-child-channel-interface' => \&server_child_channel_interface, -1);
-  $pxt->register_tag('rhn-resubscribe-warning-sdc' => \&resubscribe_warning_sdc, 3);
-  $pxt->register_tag('rhn-resubscribe-base-warning-sdc' => \&resubscribe_base_warning_sdc, 3);
-  $pxt->register_tag('rhn-server-base-channel' => \&server_base_channel, 2);
-  $pxt->register_tag('rhn-server-child-channels' => \&server_child_channels, 3);
-
   $pxt->register_tag('rhn-server-prefs-conf-list' => \&server_prefs_conf_list);
   $pxt->register_tag('rhn-server-name' => \&server_name, 2);
 
   $pxt->register_tag('rhn-tri-state-system-pref-list' => \&tri_state_system_pref_list);
-  $pxt->register_tag('rhn-tri-state-system-entitlement-list' => \&tri_state_system_entitlement_list);
 
   $pxt->register_tag('rhn-server-hardware-profile' => \&server_hardware_profile);
   $pxt->register_tag('rhn-dmi-info' => \&server_dmi_info, 1);
@@ -81,21 +74,14 @@ sub register_tags {
 
   $pxt->register_tag('rhn-server-history-event-details' => \&server_history_event_details);
 
-  $pxt->register_tag('rhn-server-status-interface' => \&server_status_interface, 10);
-
   $pxt->register_tag('rhn-system-base-channel-select' => \&system_base_channel_select);
 
   $pxt->register_tag('rhn-proxy-entitlement-form' => \&proxy_entitlement_form);
 
-  $pxt->register_tag('rhn-entitlement-count' => \&entitlement_count);
   $pxt->register_tag('rhn-system-pending-actions-count' => \&system_pending_actions_count);
   $pxt->register_tag('rhn-system-activation-key-form' => \&system_activation_key_form);
 
-  $pxt->register_tag('rhn-check-config-client' => \&check_config_client);
-
   $pxt->register_tag('rhn-remote-command-form' => \&remote_command_form);
-
-  $pxt->register_tag('rhn-server-virtualization-guest-details' => \&server_virtualization_details, 2);
 }
 
 sub register_callbacks {
@@ -134,15 +120,6 @@ sub register_callbacks {
   $pxt->register_callback('rhn:osa-ping' => \&osa_ping_cb);
 }
 
-sub register_xmlrpc {
-  my $class = shift;
-  my $pxt = shift;
-
-  $pxt->register_xmlrpc('server_needed_packages', \&server_outdated_package_list_xmlrpc);
-  $pxt->register_xmlrpc('server_schedule_errata_update', \&server_schedule_errata_update_xmlrpc);
-  $pxt->register_xmlrpc('server_schedule_package_update', \&server_schedule_package_update_xmlrpc);
-}
-
 sub osa_ping_cb {
   my $pxt = shift;
   my $sid = $pxt->param('sid');
@@ -157,29 +134,6 @@ sub osa_ping_cb {
   # $pxt->push_message(site_info => "<strong>" . $server->name . "</strong> has been pinged.  OSA Status will update within the next minute.");
   $pxt->redirect('/rhn/systems/details/Overview.do?sid=' . $sid . "&message=system.osad.pinged&messagep1=" . $server->name);
 }
-
-sub resubscribe_warning_sdc {
-  my $pxt = shift;
-  my %params = @_;
-
-  if ($pxt->pnotes('resubscribe_warning')) {
-    return $params{__block__};
-  }
-
-  return '';
-}
-
-sub resubscribe_base_warning_sdc {
-  my $pxt = shift;
-  my %params = @_;
-
-  if ($pxt->pnotes('resubscribe_base_warning')) {
-    return $params{__block__};
-  }
-
-  return '';
-}
-
 
 sub system_pending_actions_count {
   my $pxt = shift;
@@ -235,128 +189,6 @@ sub up2date_at_least {
 
   return '';
 }
-
-# gets the channels from the admin_server_edit_form via pnote, 2nd link in chain.
-sub server_base_channel {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-
-  my $server_channels = $pxt->pnotes('server_channels');
-
-  my ($base_channel) = grep { not defined $_->{PARENT_CHANNEL} }  @{$server_channels};
-  $block = PXT::Utils->perform_substitutions($block, {base_id => $base_channel->{ID}, base_name => PXT::Utils->escapeHTML($base_channel->{NAME} || '')});
-  return $block;
-}
-
-# gets the channels from server_base_channel via pnote, 3rd link in chain.
-sub server_child_channels {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-
-  my $server_channels = $pxt->pnotes('server_channels');
-  PXT::Debug->log_dump(7, \$server_channels);
-  my $ret = '';
-  foreach my $sc (grep { defined $_->{PARENT_CHANNEL} } @{$server_channels}) {
-    my %subst = (child_channel_name => PXT::Utils->escapeHTML($sc->{NAME} || ''), child_channel_id => $sc->{ID});
-    PXT::Debug->log_dump(\%subst);
-    $ret .= PXT::Utils->perform_substitutions($block, \%subst);
-  }
-
-  PXT::Debug->log(7, "server channels:  $ret");
-
-  return $ret;
-}
-
-sub server_child_channel_interface {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $server_id = $pxt->param('sid');
-
-  my $server = RHN::Server->lookup(-id => $server_id);
-  my $base_chan_id = $server->base_channel_id();
-
-  my $block = $params{__block__};
-
-  my @server_channels = $server->user_server_channels_info($pxt->user->id);
-
-  # save a lookup for subscribed channels for use in loop below... important in warning resubscription...
-  my %subscribed = map { $_->{ID} => 1 } @server_channels;
-
-  my @subscribable_channels = RHN::Channel->subscribable_channels(server_id => $server_id,
-								  user_id => $pxt->user->id,
-								  base_channel_id => $base_chan_id);
-
-  my %sat_channels = map { $_ => 1 } RHN::Channel->rhn_satellite_channels();
-  my %proxy_channels = map { $_ => 1 } RHN::Channel->rhn_proxy_channels();
-
-  # filter out proxy and satellite channels, they're handled by seperate interface,
-  # and filter out the base channel as well...
-  my @channels = grep { not exists $sat_channels{$_->{ID}} and not exists $proxy_channels{$_->{ID}} and $_->{ID} ne $base_chan_id}
-    (@server_channels, @subscribable_channels);
-
-  $pxt->pnotes(child_channels_total => scalar @channels);
-
-  $block =~ m/<child_channel>(.*?)<\/child_channel>/ism;
-  my $child_channel_block = $1;
-
-  $child_channel_block =~ m/<gpg_key>(.*?)<\/gpg_key>/ism;
-  my $gpg_key_block = $1;
-
-  my $child_channels_html = '';
-
-  # determines whether we render the guts of rhn-resubscribe-warning
-  my $resubscribe_warning;
-
-  foreach my $channel (sort { $a->{NAME} cmp $b->{NAME} } @channels) {
-    my $current = $child_channel_block;
-    my $current_gpg = '';
-
-    my %subs;
-    $subs{checkbox} = PXT::HTML->checkbox(-name => "child_channel",
-					  -value => PXT::Utils->escapeHTML($channel->{ID} || ''),
-					  -checked => ((grep { $_->{LABEL} eq $channel->{LABEL} } @server_channels) ? 1 : 0));
-
-    $subs{channel_id} = PXT::Utils->escapeHTML($channel->{ID});
-    $subs{channel_name} = PXT::Utils->escapeHTML($channel->{NAME});
-    $subs{channel_summary} = PXT::Utils->escapeHTML($channel->{SUMMARY});
-    $subs{resubscribe_warning} = '';
-
-    if ($subscribed{$channel->{ID}} and not $channel->{RESUBSCRIBABLE}) {
-
-      # we'll need to show warning text...
-      $resubscribe_warning = 1;
-
-      $subs{resubscribe_warning} = PXT::HTML->img(-src => '/img/rhn-listicon-alert.gif',
-						  -title => 'Resubscription Warning',
-						 );
-
-      $subs{resubscribe_warning} = "<span class=\"resubscribe-warning\">$subs{resubscribe_warning}</span>";
-    }
-
-    $current = PXT::Utils->perform_substitutions($current, \%subs);
-
-    if ($channel->{GPG_KEY_URL}) {
-      $current_gpg = $gpg_key_block;
-      $current_gpg =~ s{\{gpg_key_url\}}{$pxt->derelative_url("/network/software/channels/details.pxt?cid=" . $channel->{ID}, 'https')}eg;
-    }
-
-    $current =~ s{<gpg_key>.*?</gpg_key>}{$current_gpg}gis;
-    $child_channels_html .= $current;
-  }
-
-  $block =~ s{<child_channel>.*?</child_channel>}{$child_channels_html}is;
-
-  $pxt->pnotes('resubscribe_warning' => 1) if $resubscribe_warning;
-  $pxt->pnotes('server_details_subscribable_child_channels_seen' => scalar @channels);
-
-  return $block;
-}
-
 
 sub proxy_entitlement_form {
   my $pxt = shift;
@@ -617,45 +449,6 @@ sub server_name {
   return PXT::Utils->escapeHTML($server->name);
 }
 
-sub server_status_interface {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $system = $pxt->pnotes('server');
-  die "no system!" unless $system;
-
-  my $data = $system->applicable_errata_counts();
-
-  $data->{ID} = $system->id;
-  $data->{IS_ENTITLED} = $system->is_entitled;
-  $data->{LAST_CHECKIN_DAYS_AGO} = $system->last_checked_in_days_ago;
-  $data->{LOCKED} = $system->check_lock;
-
-  my $session = RHN::Kickstart::Session->lookup(-sid => $system->id, -org_id => $pxt->user->org_id, -soft => 1);
-  my $state = $session ? $session->session_state_label : '';
-  $data->{KICKSTART_SESSION_ID} = ($session and $state ne 'complete' and $state ne 'failed') ? $session->id : undef;
-
-  my $subst = system_status_info($pxt->user, $data);
-
-  if ($subst->{link}) {
-    $subst->{message} = "(" . PXT::HTML->link($subst->{link}, $subst->{message}) . ")";
-  }
-
-  if ($subst->{image_medium}) {
-    $subst->{image_medium} = PXT::HTML->img(-src => $subst->{image_medium}, -alt => $subst->{status_str}, -title => $subst->{status_str});
-  }
-
-  if ($subst->{image}) {
-    $subst->{image} = PXT::HTML->img(-src => $subst->{image}, -alt => $subst->{status_str}, -title => $subst->{status_str});
-  }
-
-  my $block = $params{__block__};
-
-  $block = PXT::Utils->perform_substitutions($block, $subst);
-
-  return $block;
-}
-
 # not a sniglet
 sub system_status_info {
   my $user = shift;
@@ -849,47 +642,6 @@ sub server_history_event_details {
   return PXT::Utils->perform_substitutions($params{__block__}, $event->render($pxt->user));
 
   return $params{__block__};
-}
-
-sub server_virtualization_details {
-  my $pxt = shift;
-  my %params = @_;
-  my $ret = '';
-
-  my $server = $pxt->pnotes('server');
-
-  throw "No server." unless $server;
-
-  my %subst;
-
-  my $virt_details = $server->virtual_guest_details();
-
-  return unless $virt_details;
-
-  my $block = $params{__block__};
-
-  $subst{virtualization_type} = $virt_details->{TYPE_NAME} || "None";
-  $subst{virtualization_uuid} = $virt_details->{UUID} || "Unknown";
-  $subst{virtualization_host} = "Unknown";
-
-  if ($virt_details->{HOST_SYSTEM_ID}) {
-    if ($pxt->user->verify_system_access($virt_details->{HOST_SYSTEM_ID})) {
-      $subst{virtualization_host} =
-        PXT::HTML->link2(text => $virt_details->{HOST_SYSTEM_NAME},
-          url => "/rhn/systems/details/Overview.do?sid=" . $virt_details->{HOST_SYSTEM_ID});
-
-    }
-    else {
-      $subst{virtualization_host} = sprintf("%s (%d)",
-                                            $virt_details->{HOST_SYSTEM_NAME},
-                                            $virt_details->{HOST_SYSTEM_ID});
-
-    }
-  }
-
-  my $html = PXT::Utils->perform_substitutions($block, \%subst);
-
-  return $html;
 }
 
 sub base_entitlement {
@@ -1224,61 +976,6 @@ sub handle_system_entitlement_change {
   return;
 }
 
-sub server_outdated_package_list_xmlrpc {
-  my $pxt = shift;
-  my $params = shift;
-
-  my ($token, $sid) = @{$params}{qw/token server_id/};
-  $pxt->user->verify_system_access($sid) or die "No permissions to server";
-
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  my $unused;
-  my @rows = $server->outdated_package_overview(-lower => 0, -upper => 10000, -total_rows => \$unused);
-
-  my @ret = map { { (nvre => $_->[4], advisory => $_->[6] || '', errata_id => $_->[5], name_id => $_->[2], evr_id => $_->[3]) } } @rows;
-
-  return \@ret;
-}
-
-sub server_schedule_package_update_xmlrpc {
-  my $pxt = shift;
-  my $params = shift;
-  my ($token, $sid, $name_id, $evr_id) = @{$params}{qw/token server_id name_id evr_id/};
-
-  $pxt->user->verify_system_access($sid) or die "No permissions to server";
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  my $package_id = RHN::Package->guestimate_package_id(-server_id => $sid, -name_id => $name_id, -evr_id => $evr_id);
-
-  my $earliest_date = RHN::Date->now->long_date;
-  my $action_id = RHN::Scheduler->schedule_package_install(-org_id => $pxt->user->org_id,
-							   -user_id => $pxt->user->id,
-							   -earliest => $earliest_date,
-							   -package_id => $package_id,
-							   -server_id => $server->id);
-
-  return $action_id;
-}
-
-sub server_schedule_errata_update_xmlrpc {
-  my $pxt = shift;
-  my $params = shift;
-  my ($token, $sid, $eid) = @{$params}{qw/token server_id errata_id/};
-
-  $pxt->user->verify_system_access($sid) or die "No permissions to server";
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  my $earliest_date = RHN::Date->now->long_date;
-  my ($action_id) = RHN::Scheduler->schedule_errata_updates_for_system(-org_id => $pxt->user->org_id,
-								       -user_id => $pxt->user->id,
-								       -earliest => $earliest_date,
-								       -errata_ids => [ $eid ],
-								       -server_id => $server->id);
-
-  return $action_id;
-}
-
 sub server_network_details {
   my $pxt = shift;
   my %params = @_;
@@ -1611,34 +1308,6 @@ sub tri_state_system_pref_list {
   return $html;
 }
 
-sub tri_state_system_entitlement_list {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-  my $html = '';
-
-  my $counter = 1;
-
-  my @all_entitlements = RHN::Entitlements->valid_system_entitlements_for_org($pxt->user->org_id);
-  my @addon_entitlements = grep { $_->{IS_BASE} eq 'N' } @all_entitlements;
-
-  foreach my $ent (@addon_entitlements) {
-    $counter++;
-    my %subst;
-
-    $subst{entitlement_name} = $ent->{LABEL};
-    $subst{entitlement_label} = $pxt->user->org->slot_name($ent->{LABEL});
-    $subst{class} = ($counter % 2) ? "list-row-even" : "list-row-odd";
-
-    PXT::Utils->escapeHTML_multi(\%subst);
-
-    $html .= PXT::Utils->perform_substitutions($block, \%subst);
-  }
-
-  return $html;
-}
-
 sub ssm_change_system_prefs_cb {
   my $pxt = shift;
 
@@ -1771,74 +1440,6 @@ sub system_base_channel_select {
 
   return PXT::HTML->select(-name => "system_base_channel",
 			   -options => \@options);
-}
-
-sub entitlement_count {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $ent_data = $pxt->user->org->entitlement_data;
-
-  my ($ret, $ret_wg, $ret_prov, $ret_mon, $ret_nonlinux);
-
-  $ret = <<EOQ;
-<h3>Base Entitlements</h3>
-<div class="page-content">
-EOQ
-
-  if (not PXT::Config->get("satellite")) {
-    $ret .= sprintf('%s Service: You have <strong>%d subscription%s</strong>',
-		    $pxt->user->org->basic_slot_name(),
-		    $ent_data->{sw_mgr_entitled}->{max},
-		    $ent_data->{sw_mgr_entitled}->{max} == 1 ? '' : 's',
-		   );
-    $ret .= sprintf(', and you have <strong>%d system%s subscribed</strong>.<br/>',
-		    $ent_data->{sw_mgr_entitled}->{used},
-		    $ent_data->{sw_mgr_entitled}->{used} == 1 ? '' : 's');
-  }
-
-  $ret_wg .= sprintf('Management Service: You have <strong>%d subscription%s</strong>',
-		     $ent_data->{enterprise_entitled}->{max},
-		     $ent_data->{enterprise_entitled}->{max} == 1 ? '' : 's');
-
-  $ret_wg .= sprintf(', and you have <strong>%d system%s subscribed</strong>.<br/>',
-		     $ent_data->{enterprise_entitled}->{used},
-		     $ent_data->{enterprise_entitled}->{used} == 1 ? '' : 's');
-
-  $ret_prov .= sprintf('Provisioning Service: You have <strong>%d subscription%s</strong>',
-		     $ent_data->{provisioning_entitled}->{max},
-		     $ent_data->{provisioning_entitled}->{max} == 1 ? '' : 's');
-  $ret_prov .= sprintf(', and you have <strong>%d system%s subscribed</strong>.<br/>',
-		     $ent_data->{provisioning_entitled}->{used},
-		     $ent_data->{provisioning_entitled}->{used} == 1 ? '' : 's');
-
-  $ret_mon .= sprintf('Monitoring Service: You have <strong>%d subscription%s</strong>',
-		     $ent_data->{monitoring_entitled}->{max},
-		     $ent_data->{monitoring_entitled}->{max} == 1 ? '' : 's');
-  $ret_mon .= sprintf(', and you have <strong>%d system%s subscribed</strong>.<br/>',
-		     $ent_data->{monitoring_entitled}->{used},
-		     $ent_data->{monitoring_entitled}->{used} == 1 ? '' : 's');
-
-  if ($ent_data->{enterprise_entitled}->{max} > 0) {
-    $ret .= $ret_wg;
-  }
-
-  $ret .= "</div>\n";
-  if ($ent_data->{provisioning_entitled}->{max} > 0 or
-      $ent_data->{monitoring_entitled}->{max} > 0) {
-    $ret .= <<EOQ;
-<h3>Add-On Entitlements</h3>
-<div class="page-content">
-EOQ
-  if ($ent_data->{provisioning_entitled}->{max} > 0) {
-    $ret .= $ret_prov;
-  }
-  if ($ent_data->{monitoring_entitled}->{max} > 0) {
-    $ret .= $ret_mon;
-  }
-    $ret .= "</div>\n";
-  }
-  return $ret;
 }
 
 sub delete_servers_cb {
@@ -2066,20 +1667,6 @@ sub ks_session_redir {
   }
 
   return;
-}
-
-sub check_config_client {
-  my $pxt = shift;
-
-  my $server = RHN::Server->lookup(-id => $pxt->param('sid'));
-
-  # can't just push_message since there are odd redirects going on with the navi selected node code
-  if (not $server->client_capable('configfiles.deploy')) {
-    return '<div class="local-alert">This system does not have the "rhncfg-actions" package; scheduled actions will fail until it is installed.</div>';
-  }
-  else {
-    return '';
-  }
 }
 
 sub remote_command_form {

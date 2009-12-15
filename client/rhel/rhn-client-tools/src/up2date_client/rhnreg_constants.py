@@ -7,7 +7,8 @@
 #       James Slagle <jslagle@redhat.com>
 
 
-from rhpl.translate import _
+import gettext
+_ = gettext.gettext
 
 COPYRIGHT_TEXT        = _("Copyright © 2006  Red Hat, Inc. All rights "
                           "reserved.")

@@ -185,7 +185,7 @@ def _set_server_capabilities():
         'xmlrpc.login.extra_data'               : {'version' : 1, 'value' : 1},
         'rhncfg.content.base64_decode'          : {'version' : 1, 'value' : 1},
         'rhncfg.filetype.directory'             : {'version' : 1, 'value' : 1},
-        'xmlrpc.packages.extended_profile'      : {'version' : 1, 'value' : 1},
+        'xmlrpc.packages.extended_profile'      : {'version' : '1-2', 'value' : 1},
     }
     l = []
     for name, hashval in capabilities.items():

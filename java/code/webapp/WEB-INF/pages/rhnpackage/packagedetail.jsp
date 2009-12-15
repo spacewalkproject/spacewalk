@@ -57,8 +57,19 @@
       </tr>      
       
       <tr>
+        <th><bean:message key="package.jsp.key"/>:</th>
+        <c:if test="${package_key !=  null}">
+		<td><c:out value="${package_key}" /></td>
+        </c:if>
+        <c:if test="${package_key ==  null}">
+		<td><bean:message key="package.jsp.key.unkown"/></td>
+        </c:if>
+
+      </tr>
+
+      <tr>
         <th><bean:message key="package.jsp.md5sum"/>:</th>
-        <td><c:out value="${pack.md5sum}" /></td>
+        <td><c:out value="${pack.checksum}" /></td>
       </tr>          
       
       <tr>

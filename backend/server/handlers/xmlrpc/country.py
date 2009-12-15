@@ -137,7 +137,6 @@ country_to_iso = {
         'Lithuania':'LT',
         'Lithuania':'LX',
         'Luxembourg':'LU',
-        'M\350\267\251co':'MA',
         'Macau':'MO',
         'Macedonia':'MK',
         'Madagascar':'MG',

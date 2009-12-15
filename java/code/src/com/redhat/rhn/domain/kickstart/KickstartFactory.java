@@ -19,6 +19,7 @@ import com.redhat.rhn.common.util.FileUtils;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
@@ -123,7 +124,8 @@ public class KickstartFactory extends HibernateFactory {
                                       .setString("id", cobblerId)
                                       .setLong("org_id", orgIn.getId())
                                       .uniqueResult();
-    }    
+    }
+
     /**
      * Lookup a KickstartData based on a label and orgId
      * @param label to lookup
@@ -1024,4 +1026,51 @@ public class KickstartFactory extends HibernateFactory {
         return (List<KickstartableTree>) session.getNamedQuery(query).list();
     }
 
+    /**
+     * Create the custom_partition command name if it doesn't exist.
+     *  This will be created in the schema for 5.4 (or later), but for the
+     *  5.3.1 release we have to create it if it's not there
+     * @return the KickstartCommandName
+     */
+    public static KickstartCommandName createCustomPartCommandName() {
+        final String customPartition = "custom_partition";
+        KickstartCommandName custom = lookupKickstartCommandName(customPartition);
+        if (custom == null) {
+            custom = new KickstartCommandName();
+            custom.setRequired(false);
+            custom.setName(customPartition);
+            custom.setOrder(53L);
+            custom.setArgs(true);
+            getSession().save(custom);
+        }
+        return custom;
+    }
+
+    /**
+     * @param p KickstartPackage to add to DB
+     */
+    public static void savePackage(KickstartPackage p) {
+        singleton.saveObject(p);
+    }
+
+    /**
+     * @param p KickstartPackage to remove from DB
+     */
+    public static void removePackage(KickstartPackage p) {
+        singleton.removeObject(p);
+    }
+
+    /**
+     * @param ksData KcikstartData to lookup
+     * @param packageName PackageName to lookup
+     * @return KickstartPackge list
+     */
+    public static List<KickstartPackage> lookupKsPackageByKsDataAndPackageName(
+                KickstartData ksData, PackageName packageName) {
+        return HibernateFactory.getSession()
+                .getNamedQuery("KickstartPackage.findByKickstartDataAndPackageName")
+                .setLong("ks_data", ksData.getId())
+                .setLong("package_name", packageName.getId())
+                .list();
+    }
 }

@@ -43,6 +43,13 @@ README  - This file
 
 Changelog:
 -----------
+11/18/2009 - 2.2
+- Fix broken Satellite 5.0 compatibility
+- Adding --name option to specify channel name
+
+10/14/2009 - 2.1.3
+- Adding 5u4 data files
+
 8/26/2009 - 2.1.2
 - Small fix to ensure RHEL 4 compatibility
 

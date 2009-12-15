@@ -57,7 +57,7 @@
          
         <rl:column bound="false" 
                sortable="false" 
-               headerkey="entitlements.jsp.channel">
+               headerkey="entitlements.jsp.channel" styleclass="first-column">
             <a href="/rhn/admin/multiorg/SoftwareEntitlementDetails.do?cfid=${current.id}"><c:out value="${current.name}" /></a>
         </rl:column>
         <rl:column bound="false" 
@@ -72,7 +72,7 @@
         </rl:column>
         <rl:column bound="false" 
                sortable="false" 
-               headerkey="orgsystemsubs.jsp.proposed_total">
+               headerkey="orgsystemsubs.jsp.proposed_total" styleclass="last-column">
             <c:choose>
                   <c:when test="${param.oid != 1}">                               
                     <input name="${current.id}" value="${current.maxMembers}" type="text" 

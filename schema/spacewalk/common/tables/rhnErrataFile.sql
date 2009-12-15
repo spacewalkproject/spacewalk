@@ -24,7 +24,9 @@ CREATE TABLE rhnErrataFile
     type       NUMBER NOT NULL
                    CONSTRAINT rhn_erratafile_type_fk
                        REFERENCES rhnErrataFileType (id),
-    md5sum     VARCHAR2(64) NOT NULL,
+    checksum_id NUMBER NOT NULL
+                   CONSTRAINT rhn_erratafile_chsum_fk
+                       REFERENCES rhnChecksum (id),
     filename   VARCHAR2(1024) NOT NULL,
     created    DATE
                    DEFAULT (sysdate) NOT NULL,

@@ -309,7 +309,7 @@ public class AuditManager /* extends BaseManager */ {
         Pattern fnregex = Pattern.compile("audit-(\\d+)-(\\d+).parsed");
 
         // if machineName is null, look up all review sections by recursion
-        if (machineName == null) {
+        if (machineName == null || machineName.length() == 0) {
             dr = null;
 
             for (AuditMachineDto aumachine : getMachines()) {
@@ -386,6 +386,8 @@ public class AuditManager /* extends BaseManager */ {
             }
         }
 
+        brdr.close();
+
         return new AuditReviewDto(machine, new Date(start), new Date(end),
             reviewedBy, reviewedOn);
     }
@@ -442,6 +444,8 @@ public class AuditManager /* extends BaseManager */ {
                 log.debug("unknown string: " + str);
             }
         }
+
+        brdr.close();
 
         return events;
     }

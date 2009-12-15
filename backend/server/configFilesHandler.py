@@ -21,7 +21,7 @@ import base64
 import os
 
 from common import rhnFault, rhnException, log_debug, CFG, rhnFlags
-from common.rhnLib import getStringMD5
+from spacewalk.common.checksum import getStringMD5
 
 from server import rhnSQL, rhnUser, rhnCapability
 from server.rhnHandler import rhnHandler
@@ -222,24 +222,25 @@ class ConfigFilesHandler(rhnHandler):
         return result
 
     _query_content_lookup = rhnSQL.Statement("""
-        select id, md5sum, file_size, contents, is_binary
-          from rhnConfigContent
-         where md5sum = :md5sum
+        select id, c.checksum md5sum, file_size, contents, is_binary
+          from rhnConfigContent, rhnChecksum c
+         where c.checksum = :md5sum
            and file_size = :file_size
+           and checksum_id = c.id
     """)
 
     _query_insert_content = rhnSQL.Statement("""
         insert into rhnConfigContent 
-               (id, md5sum, file_size, contents, is_binary)
-        values (:config_content_id, :md5sum, :file_size, empty_blob(),
-               :is_binary)
+               (id, checksum_id, file_size, contents, is_binary)
+        values (:config_content_id, lookup_checksum('md5', :md5sum),
+                :file_size, empty_blob(), :is_binary)
     """)
 
     _query_insert_null_content = rhnSQL.Statement("""
         insert into rhnConfigContent 
-               (id, md5sum, file_size, contents, is_binary)
-        values (:config_content_id, :md5sum, :file_size, NULL,
-               :is_binary)
+               (id, checksum_id, file_size, contents, is_binary)
+        values (:config_content_id, lookup_checksum('md5', :md5sum),
+                :file_size, NULL, :is_binary)
     """)
 
     _query_get_content_row = rhnSQL.Statement("""

@@ -79,11 +79,4 @@ sub generate_url {
   return $uri;
 }
 
-sub usage_count {
-  my $self = shift;
-
-  my $ret = RHN::DB::Downloads->token_usage_count($self->token_signature);
-  return $ret;
-}
-
 1;

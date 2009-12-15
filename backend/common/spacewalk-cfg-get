@@ -5,13 +5,13 @@ sys.path.append("/usr/share/rhn")
 
 from common.rhnConfig import RHNOptions
 
-list=0
+do_list=0
 if len(sys.argv) == 4 and sys.argv[1] == "get":
     comp = sys.argv[2]
     key = sys.argv[3]
 elif len(sys.argv) == 3 and sys.argv[1] == "list":
     comp = sys.argv[2]
-    list = 1
+    do_list = 1
 elif len(sys.argv) == 2:
     # assume we want key from root
     comp = ''
@@ -24,8 +24,13 @@ else:
 cfg = RHNOptions(comp)
 cfg.parse()
 
-if list:
+if do_list:
     cfg.show()
 else:
-    print cfg.get(key)
+    val = cfg.get(key)
+    if isinstance(val, list):
+        for i in val:
+            print i
+    else:
+        print val
 

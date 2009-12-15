@@ -21,6 +21,7 @@ import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.common.ChecksumFactory;
 import com.redhat.rhn.domain.errata.impl.PublishedBug;
 import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
 import com.redhat.rhn.domain.errata.impl.PublishedErrata;
@@ -47,6 +48,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -286,7 +288,7 @@ public class ErrataFactory extends HibernateFactory {
                 //Now create the appropriate ErrataFile object
                 ErrataFile publishedFile = ErrataFactory.createPublishedErrataFile(
                         ErrataFactory.lookupErrataFileType("RPM"), 
-                        pack.getMd5sum(), pack.getNameEvra());
+                        pack.getChecksum().getChecksum(), pack.getNameEvra());
                  publishedFile.addPackage(pack);
                  publishedFile.setErrata(errata);
                  publishedFile.setModified(new Date());
@@ -504,7 +506,7 @@ public class ErrataFactory extends HibernateFactory {
                                                          Set packages) {
         ErrataFile file = new UnpublishedErrataFile();
         file.setFileType(ft);
-        file.setChecksum(cs);
+        file.setChecksum(ChecksumFactory.safeCreate(cs, "md5"));
         file.setFileName(name);
         file.setPackages(packages);
         return file;
@@ -537,7 +539,7 @@ public class ErrataFactory extends HibernateFactory {
                                                        Set packages) {
         ErrataFile file = new PublishedErrataFile();
         file.setFileType(ft);
-        file.setChecksum(cs);
+        file.setChecksum(ChecksumFactory.safeCreate(cs, "md5"));
         file.setFileName(name);
         file.setPackages(packages);
         return file;
@@ -1029,6 +1031,17 @@ public class ErrataFactory extends HibernateFactory {
     public static void syncErrataDetails(PublishedClonedErrata cloned) {
         copyDetails(cloned, cloned.getOriginal(), true);
     }
+
+    /**
+     * List errata objects by ID
+     * @param ids list of ids
+     * @return List of Errata Objects
+     */
+    public static List<Errata> listErrata(Collection<Long> ids) {
+        return singleton.listObjectsByNamedQuery("PublishedErrata.listByIds",
+                new HashMap(), ids, "list");
+    }
+
 
 }
 

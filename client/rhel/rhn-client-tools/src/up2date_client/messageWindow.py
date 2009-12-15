@@ -2,7 +2,8 @@
 import string
 
 import gtk
-from rhpl.translate import _
+import gettext
+_ = gettext.gettext
 
 # wrap a long line...
 def wrap_line(line, max_line_size = 100):

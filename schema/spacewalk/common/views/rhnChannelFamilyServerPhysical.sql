@@ -23,12 +23,10 @@ create or replace view rhnChannelFamilyServerPhysical as
 		rsc.created			as created,
 		rsc.modified			as modified
 	from	rhnChannelFamilyMembers		rcfm,
-		rhnChannelFamily		rcf,
 		rhnServerChannel		rsc,
 		rhnServer			rs
 	where
 		rcfm.channel_id = rsc.channel_id
-		and rcfm.channel_family_id = rcf.id
 		and rsc.server_id = rs.id
         and not exists (
                 select 1
@@ -48,6 +46,6 @@ create or replace view rhnChannelFamilyServerPhysical as
                     -- the host's virt ent grants a cf virt sub level
                     and sgtvsl.virt_sub_level_id = cfvsl.virt_sub_level_id
                     -- the cf is in that virt sub level
-                    and cfvsl.channel_family_id = rcf.id
+                    and cfvsl.channel_family_id = rcfm.channel_family_id
                 );
 

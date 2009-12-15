@@ -27,6 +27,7 @@ from rhn import rpclib
 
 from common import CFG, log_debug, log_error, rhnFault, rhnFlags
 from server import rhnPackageUpload, rhnSQL, basePackageUpload
+from spacewalk.common import checksum
 
 class PackagePush(basePackageUpload.BasePackageUpload):
     def __init__(self, req):
@@ -98,11 +99,6 @@ class PackagePush(basePackageUpload.BasePackageUpload):
 
         nevra = [self.package_name, "", self.package_version, 
             self.package_release, self.package_arch]
-        # XXX need to clean this up
-#        self.rel_package_path = rhnPackageUpload.relative_path_from_nevra(
-#            nevra, org_id=self.org_id, package_type=self.packaging)
-#        self.package_path = os.path.join(CFG.MOUNT_POINT,
-#            self.rel_package_path)
 
         return apache.OK
 
@@ -114,33 +110,26 @@ class PackagePush(basePackageUpload.BasePackageUpload):
 
         temp_stream = rhnPackageUpload.write_temp_file(req, 16384)
 
-        header, payload_stream, md5sum, header_start, header_end = \
+        header, payload_stream, header_start, header_end = \
             rhnPackageUpload.load_package(temp_stream)
 
         # Sanity check - removed, the package path can no longer be determined 
         # without the header
+        checksum = (header.checksum_type(),
+                    checksum.getFileChecksum(header.checksum_type(), file=temp_stream))
         self.rel_package_path = rhnPackageUpload.relative_path_from_header(
-            header, org_id=self.org_id, md5sum=md5sum)
+            header, org_id=self.org_id, checksum=checksum)
         self.package_path = os.path.join(CFG.MOUNT_POINT,
             self.rel_package_path)
-        # XXX need to clean this up
-#        relative_path = rhnPackageUpload.relative_path_from_header(header,
-#            org_id=self.org_id)
-#        log_debug(3, "relative path from mpm header", relative_path, 
-#            "relative path from HTTP header", self.rel_package_path)
-#        if relative_path != self.rel_package_path:
-#            log_debug(1, "Mismatching paths", relative_path,
-#                self.rel_package_path)
-#            raise rhnFault(104, "Mismatching information")
-        # Verify the md5sum of the bytes we downloaded against the md5sum
+        # Verify the checksum of the bytes we downloaded against the checksum
         # presented by rhnpush in the HTTP headers
-        if md5sum != self.file_md5sum:
-            log_debug(1, "Mismatching md5sums: expected", self.file_md5sum, 
-                "; got:", md5sum)
+        if checksum != self.file_checksum:
+            log_debug(1, "Mismatching checksums: expected", self.file_checksum,
+                "; got:", checksum)
             raise rhnFault(104, "Mismatching information")
         
         package_dict, diff_level = rhnPackageUpload.push_package(header,
-            payload_stream, md5sum, force=self.force,
+            payload_stream, checksum, force=self.force,
             header_start=header_start, header_end=header_end,
             relative_path=self.rel_package_path, org_id=self.org_id)
 

@@ -33,10 +33,10 @@ sub _filelist {
   $Log->log(9,`ls -alt`,"\n");
 
   my @files=glob("*");
-  $Log->dump(9,"\@files are ",@files,"\n(@files)\n");
+  $Log->dump(9,"\@files are ",\@files,"\n(@files)\n");
 
   # Prepend the directory name to the file names found
-  @{$self->_files}=map { $self->directory . "/$_" } @files;
+  $self->_files( (map { $self->directory . "/$_" } @files) );
   $Log->dump(9,"_files are ",$self->_files,"\n(_files)\n");
   chdir $dir;
   return $self->_files;

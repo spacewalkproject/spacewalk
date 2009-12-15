@@ -129,40 +129,6 @@ EOQ
   return $ret;
 }
 
-sub lookup_company_name {
-
-  my $self = shift;
-  my $org_id = shift;
-  my $dbh = RHN::DB->connect;
-
-  my $sth = $dbh->prepare (<<EOQ);
-select
-   nvl(wupi.company,(select name from web_customer where id = :org_id))
-from
-   web_user_personal_info wupi,
-   web_contact wcon
-where
-   wcon.org_id = :org_id
-   and wupi.web_user_id = wcon.id
-   and wupi.modified = (
-         select max(wupi.modified)
-         from
-            web_user_personal_info wupi,
-            web_contact wcon
-         where
-            wcon.org_id = :org_id
-            and wupi.web_user_id = wcon.id
-         )
-EOQ
-
-  $sth->execute_h(org_id => $org_id);
-  my $org_name = $sth->fetchrow();
-  $sth->finish();
-
-  return $org_name;
-
-}
-
 
 my @valid_org_entitlements = qw/sw_mgr_personal sw_mgr_enterprise rhn_provisioning rhn_nonlinux rhn_monitor rhn_solaris/;
 
@@ -1433,32 +1399,6 @@ EOQ
 }
 
 
-# figure out the theoretical expiration date of an org's cert given
-# the currently available services
-sub calc_cert_expiration {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT GREATEST(end_date_active) FROM web_customer_entitlements 
-  WHERE service_item_code IN 
-    (SELECT item_code FROM rh_product 
-      WHERE product_id IN 
-        (SELECT product_id FROM rhnServiceChannelFamilyMap 
-          WHERE family_id IN 
-            (SELECT id FROM rhnChannelFamily WHERE label='rhn-satellite'))) AND 
-              active_flag='Y' AND customer_id=:org_id
-EOQ
-
-  $sth->execute_h(org_id => $self->id);
-  my $data = $sth->fetchrow;
-
-  $sth->finish;
-
-  return Date::Parse::str2time($data);
-  
-}
-
 sub available_cert_channels {
   my $self = shift;
 
@@ -1494,46 +1434,6 @@ EOQ
   
 }
 
-
-# get the entitled channel families available for 
-# an org's cert
-sub ent_cert_channels {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $stmt =  <<EOQ;
-SELECT  
-        cf.id                           id,
-        cf.name                         name,
-        cf.label                        label,
-        ocfp.max_members                quantity
-FROM    rhnChannelFamily                cf,
-        rhnOrgChannelFamilyPermissions  ocfp
-WHERE   1=1
-    and ocfp.org_id = :org_id
-    and cf.org_id is null
-    and ocfp.channel_family_id = cf.id
-EOQ
-
-  foreach my $skip_clause (@skip_cert_channels) {
-    $stmt .= " and cf.label not like '$skip_clause'";
-  }
-
-  my $sth = $dbh->prepare($stmt);
-
-  $sth->execute_h(org_id => $self->id);
-
-  my @result;
-
-  while ( my (@data) = $sth->fetchrow ) {
-      push ( @result, \@data );
-  }
-
-  $sth->finish;
-
-  return @result;
-  
-}
 
 # Get options defined for this Org's list of monitoring Scouts
 sub get_scout_options {

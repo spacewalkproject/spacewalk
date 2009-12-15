@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf8"?>
-<rhn-navi-tree xmlns:xi="http://www.w3.org/2001/XInclude" label="install" title-depth="0">
-  <rhn-tab name="Install" url="/index.pxt">
-  </rhn-tab>
-</rhn-navi-tree>

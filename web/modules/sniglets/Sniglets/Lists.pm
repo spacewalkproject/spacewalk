@@ -49,12 +49,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-pathinfo-list-mode', \&pathinfo_list_mode, -5);
 
-  $pxt->register_tag('rhn-errata-list-summary', \&errata_list_summary, 5);
-  $pxt->register_tag('rhn-system-group-list-summary', \&system_group_list_summary, 5);
-  $pxt->register_tag('rhn-purchase-history-summary', \&purchase_history_summary, 5);
-  $pxt->register_tag('rhn-system-name', \&system_name, -5);
-  $pxt->register_tag('rhn-time-period-selector', \&time_selector);
-
   $pxt->register_tag('rhn-list-legend' => \&list_legend, 200);
 }
 
@@ -270,124 +264,6 @@ sub pathinfo_list_mode {
   $html =~ s/\{pinfo_list_mode\}/$pinfo_modes{$type}->{$pinfo}->{mode}/ge;
 
   return $html;
-}
-
-sub errata_list_summary {
-  my $pxt = shift;
-  my %attr = @_;
-
-  my $summary = $pxt->pnotes('errata_summary');
-
-  my $html = '';
-
-  if ($summary) {
-    $html = PXT::Utils->perform_substitutions($attr{__block__}, $summary);
-  }
-
-  return $html;
-}
-
-sub system_group_list_summary {
-  my $pxt = shift;
-  my %attr = @_;
-
-  my $summary = $pxt->pnotes('system_group_list_summary');
-
-  my $html = '';
-
-  if ($summary) {
-    $html = PXT::Utils->perform_substitutions($attr{__block__}, $summary);
-  }
-
-  return $html;
-}
-
-sub purchase_history_summary {
-  my $pxt = shift;
-  my %attr = @_;
-
-  my $type = $attr{type} || '';
-
-  throw "Not a valid type: '$type'." unless grep { $type eq $_ } qw/free trial paid/;
-
-  my $summary = $pxt->pnotes("purchase_history_summary");
-  my $html = '';
-
-  if ($summary) {
-    $html = PXT::Utils->perform_substitutions($attr{__block__}, $summary->{$type});
-  }
-
-  return $html;
-}
-
-sub system_name {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $sid = $params{sid} || $pxt->param('sid');
-  die "no server id" unless $sid;
-
-  $pxt->user->verify_system_access($sid)
-    or $pxt->redirect('/errors/permission.pxt');
-
-  my $server = RHN::Server->lookup(-id => $sid);
-  die "no valid server" unless $server;
-
-  my %subst;
-
-  $subst{system_name} = PXT::Utils->escapeHTML($server->name);
-  return PXT::Utils->perform_substitutions($params{__block__}, \%subst);
-}
-
-my @sort_columns = ( { value => 'FB.created',
-		       label => 'Date', },
-		     { value => 'BASIC_SLOTS',
-		       label => 'Update Slots', },
-		     { value => 'ENTERPRISE_SLOTS',
-		       label => 'Management Slots', },
-		     );
-
-my @sort_orders = ( { value => 'DESC',
-		      label => 'Descending', },
-		    { value => 'ASCENDING',
-		      label => 'Ascending', },
-		    );
-
-my $time_slots = [
-		  { label => '5 Minutes',
-		    value => 5 },
-		  { label => 'Hour',
-		    value => 60 },
-		  { label => 'Day',
-		    value => 1440 },
-		  { label => 'Week',
-		    value => 10080 },
-		  { label => 'Month',
-		    value => 40320 },
-		 ];
-
-
-sub time_selector {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $formvar = $params{formvar};
-  throw "No formvar specified." unless $formvar;
-
-  my $current = $pxt->dirty_param($formvar) || $params{default};
-  throw "No default value." unless $current;
-
-  my $ret = PXT::HTML->form_start(-method => 'POST');
-
-  $ret .= PXT::HTML->select(-name => $formvar,
-			    -options => [ map { [ $_->{label}, $_->{value}, $_->{value} == $current ] }
-					  @{$time_slots} ] );
-
-  $ret .= PXT::HTML->submit(-name => 'Submit',
-			    -value => 'Submit');
-
-  $ret .= PXT::HTML->form_end;
-  return $ret;
 }
 
 1;

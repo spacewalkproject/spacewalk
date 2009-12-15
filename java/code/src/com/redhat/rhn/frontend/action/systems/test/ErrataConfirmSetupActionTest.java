@@ -35,7 +35,6 @@ public class ErrataConfirmSetupActionTest extends RhnMockStrutsTestCase {
         //Note: 2 invocations of getParameter("use_date") will be called by DatePicker
         addRequestParameter(DatePicker.USE_DATE, "true");
         actionPerform();
-        assertNotNull(request.getAttribute("pageList"));
         assertNotNull(request.getAttribute("system"));
         Server server2 = (Server) request.getAttribute("system");
         assertEquals(server, server2);

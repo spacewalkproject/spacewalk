@@ -1,25 +1,28 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Source: %{name}-%{version}.tar.gz
-Version: 0.7.0
+Version: 0.8.0
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
-Url: http://rhn.redhat.com
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+URL:     https://fedorahosted.org/spacewalk
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+%if %{?suse_version: %{suse_version} > 1110} %{!?suse_version:1}
 BuildArch: noarch
+%endif
 BuildRequires: python
-BuildRequires: rhpl
 BuildRequires: intltool
 BuildRequires: gettext
 
 Requires: yum >= 3.2.19-15
-Requires: rhn-client-tools >= 0.4.19-9
+Requires: rhn-client-tools >= 0.4.20-2
 Requires: m2crypto >= 0.16-6
+Requires: python-iniparse
 
 # Not really, but for upgrades we need these
 Requires: rhn-setup
-Obsoletes: up2date
+Obsoletes: up2date < 5.0.0
+Provides: up2date = 5.0.0
 
 %description
 This yum plugin provides support for yum to access a Red Hat Network server for
@@ -38,28 +41,51 @@ make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RP
 %find_lang %{name}
 
 %clean
-[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
 %config(noreplace) %{_sysconfdir}/yum/pluginconf.d/rhnplugin.conf
-
 %dir /var/lib/up2date
-
-%{_mandir}/man5/rhnplugin.conf.5*
-%{_mandir}/man8/rhnplugin.8*
-%{_mandir}/man8/yum-rhn-plugin.8*
-
-/usr/lib/yum-plugins/rhnplugin.py
-/usr/lib/yum-plugins/rhnplugin.pyc
-/usr/lib/yum-plugins/rhnplugin.pyo
-
-/usr/share/rhn/actions/packages.py
-/usr/share/rhn/actions/packages.pyc
-/usr/share/rhn/actions/packages.pyo
-
+%{_mandir}/man*/*
+%{_datadir}/yum-plugins/*
+%{_datadir}/rhn/actions/*
+%doc LICENSE
 
 %changelog
+* Tue Dec  1 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.8-1
+- 437822 - python dependecy is not picked up automatically
+- 437822 - when persistent enable/disable of rhn repo is requested, do it in rhnplugin.conf
+- 514467 - when we say RHN is disabled, we may actually really disable it
+
+* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.7-1
+- 527412 - compute delta and write it to logs only if writeChangesToLog is set to 1
+- 527412 - Revert "fixing rhn-plugin to update package profiles through the updatePackageProfile call instead of manually setting up the delta as it causes stale package entries in the ui due to epoch being set to 0 for a no epoch packages"
+- 509342 - explicitly say, that this is example
+- 515575 - require recent rhn-client tools
+- remove no.po as Norwegian translation is for some time in nb.po, which is correct location anyway
+- remove double slash, Mandriva do not likes it
+- fix build under opensuse
+
+* Thu Oct  1 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.6-1
+- change licence in header to correct GPLv2
+
+* Wed Sep 30 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.5-1
+- add LICENSE
+
+* Tue Sep 29 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.4-1
+- add source url
+- add fix version in provides
+- clean %%files section
+
+* Thu Sep 17 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.2-1
+- Rhpl was removed from rhel client packages
+- use macros in spec file
+- move rhnplugin from /var/lib/yum-plugins to /usr/share/yum-plugins - it is not executable
+- versioned obsolete and provide the obsolete package
+- Fix yum-rhn-plugin requiring a version of m2crypto that doesn't exist.
+- bumping versions to 0.7.0
+
 * Thu Aug 06 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.6.1-1
 - fixing the changelog order causing tito build to fail (pkilambi@redhat.com)
 - fixing date (pkilambi@redhat.com)

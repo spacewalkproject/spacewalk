@@ -16,7 +16,7 @@ sub initialize
 	my ($self,@params) = @_;
 	$self->SUPER::initialize(@params);
 	$self->addValidators(
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'source',
 			description=>'<servername>:</path/to/mount>',
 			required=>1,

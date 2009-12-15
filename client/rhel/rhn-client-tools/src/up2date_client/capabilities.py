@@ -4,7 +4,8 @@ import config
 import up2dateErrors
 import string
 
-from rhpl.translate import _
+import gettext
+_ = gettext.gettext
 
 # a dict with "capability name" as the key, and the version
 # as the value.

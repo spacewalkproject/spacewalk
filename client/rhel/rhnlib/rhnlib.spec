@@ -4,14 +4,16 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.13
+Version: 2.5.18
 Release: 1%{?dist}
 
 Group: Development/Libraries
 License: GPLv2
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
+%if %{?suse_version: %{suse_version} > 1110} %{!?suse_version:1}
 BuildArch: noarch
+%endif
 BuildRequires: python-devel
 
 Requires: pyOpenSSL 
@@ -38,7 +40,7 @@ make -f Makefile.rhnlib
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
+%{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT --prefix=%{_prefix}
 
 
 %clean
@@ -52,6 +54,23 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Mon Dec 07 2009 Michael Mraka <michael.mraka@redhat.com> 2.5.18-1
+- moved code from rhnlib to spacewalk-backend-libs
+
+* Fri Dec  4 2009 Miroslav Suchý <msuchy@redhat.com> 2.5.17-1
+- sha256 support
+
+* Fri Dec 04 2009 Michael Mraka <michael.mraka@redhat.com> 2.5.16-1
+- added rhn_rpm and rhn_mpm 
+
+* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 2.5.15-1
+- aamt is not Null in most cases, move it more to right
+- replace len() with ==
+- count length of buffer only once in loop
+
+* Thu Nov  5 2009 Miroslav Suchy <msuchy@redhat.com> 2.5.14-1
+- fix build under opensuse
+
 * Thu Aug 06 2009 Pradeep Kilambi <pkilambi@redhat.com> 2.5.13-1
 - 
 

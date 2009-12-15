@@ -15,21 +15,21 @@
 				key="addfiles.jsp.type.symlink" /><br />
 			<script type="text/javascript">
 				function enableAllInputs(event) {
-					$('cffUid').disabled = "";
-					$('cffGid').disabled = "";
-					$('cffPermissions').disabled = "";
-					$('cffMacroStart').disabled = "";
-					$('cffMacroEnd').disabled = "";
+					$('cffUid').readOnly = "";
+					$('cffGid').readOnly = "";
+					$('cffPermissions').readOnly = "";
+					$('cffMacroStart').readOnly = "";
+					$('cffMacroEnd').readOnly = "";
 				}
 
 				Event.observe('file_radio', 'focus', enableAllInputs);
 				Event.observe('dir_radio', 'focus', enableAllInputs);
 				Event.observe('symlink_radio', 'focus', function(event) {
-					$('cffUid').disabled = "disabled";
-					$('cffGid').disabled = "disabled";
-					$('cffPermissions').disabled = "disabled";
-					$('cffMacroStart').disabled = "disabled";
-					$('cffMacroEnd').disabled = "disabled";
+					$('cffUid').readOnly = "readonly";
+					$('cffGid').readOnly = "readonly";
+					$('cffPermissions').readOnly = "readonly";
+					$('cffMacroStart').readOnly = "readonly";
+					$('cffMacroEnd').readOnly = "readonly";
 				});
 			</script>
 			<span class="small-text"><bean:message key="filedetails.jsp.tip.symlink" /></span>

@@ -18,6 +18,12 @@ import time
 import tempfile
 import base64
 from config_common.rhn_log import log_debug
+try:
+    from selinux import lgetfilecon
+except:
+    # on rhel4 we do not support selinux
+    def lgetfilecon(path):
+        return [0, '']
 
 from config_common import utils
 
@@ -81,7 +87,13 @@ class FileProcessor:
 
         temp_file, temp_dirs = self.process(file_struct)
         path = file_struct['path']
-        result = None
+        sectx_result = ''
+        result = ''
+
+        cur_sectx = lgetfilecon(path)[1]
+        if file_struct.has_key('selinux_ctx'):
+            if cur_sectx != file_struct['selinux_ctx']:
+                sectx_result = "SELinux contexts differ!  Current context: %s\n" % cur_sectx
 
         if file_struct['filetype'] == 'symlink':
             try:
@@ -101,7 +113,7 @@ class FileProcessor:
             result = pipe.read()
 
         os.unlink(temp_file)
-        return result
+        return sectx_result + result
         
     def _validate_struct(self, file_struct):
         for k in self.file_struct_fields.keys():

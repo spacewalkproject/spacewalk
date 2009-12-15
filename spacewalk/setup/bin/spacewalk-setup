@@ -222,9 +222,10 @@ sub remove_old_jvm {
 
 	Spacewalk::Setup::ask(
 		-noninteractive => $opts{"non-interactive"},
-		-question => "Should setup remove these packages y/n",
+		-question => "Should setup remove these packages",
 		-test => sub { my $text = shift; return $text =~ /^[YyNn]/ },
 		-answer => \$answers->{"remove-old-jvm"},
+                -default => 'Y',
 	);
 	unless ( $answers->{"remove-old-jvm"} =~ /^[Yy]/ ) {
 		print Spacewalk::Setup::loc("** Skipping removal of old java packages.\n");
@@ -443,9 +444,10 @@ sub setup_ssl_vhost {
   }
   Spacewalk::Setup::ask(
     -noninteractive => $opts{"non-interactive"},
-    -question => "Should setup configure apache's default ssl server for you (saves original ssl.conf) y/n",
+    -question => "Should setup configure apache's default ssl server for you (saves original ssl.conf)",
     -test => sub { my $text = shift; return $text =~ /^[YyNn]/ },
     -answer => \$answers->{"ssl-config-sslvhost"},
+    -default => 'Y',
   );
   unless ( $answers->{"ssl-config-sslvhost"} =~ /^[Yy]/ ) {
     print Spacewalk::Setup::loc("** Skipping SSL virtual host configuration.\n");
@@ -1158,7 +1160,6 @@ sub setup_monitoring {
   RHN::DB->set_default_connection($connection_string);
 
   update_monitoring_config($answers, \%mon_config);
-  update_monitoring_environment($answers);
 
   # Bugzilla 466747: On s390x, stty: standard input: Bad file descriptor
   # For some reason DBI mistakenly sets FD_CLOEXEC on a stdin file descriptor
@@ -1168,38 +1169,6 @@ sub setup_monitoring {
   my $flags = fcntl(STDIN, F_GETFD, 0);
   fcntl(STDIN, F_SETFD, $flags & ~FD_CLOEXEC);
   
-  return 1;
-}
-
-sub update_monitoring_environment {
-  my $answers = shift;
-
-  my $dbh = Spacewalk::Setup::get_dbh($answers);
-
-  my $db_name = $answers->{'db-sid'};
-  if ($answers->{'db-backend'} eq 'oracle') {
-      # BZ 226915 we cannot use db_name from %answers - it contains instance name
-      # we want real db name
-      ($db_name) = $dbh->selectrow_array(q|SELECT UPPER(sys_context('userenv', 'db_name')) FROM dual|);
-  }
-
-  my $sth = $dbh->prepare(<<EOQ);
-UPDATE rhn_db_environment
-   SET db_name = UPPER(?)
- WHERE environment = 'LICENSE'
-EOQ
-
-  $sth->execute($db_name);
-
-  if ($DEBUG) {
-    $dbh->rollback();
-  }
-  else {
-    $dbh->commit();
-  }
-
-  $dbh->disconnect();
-
   return 1;
 }
 

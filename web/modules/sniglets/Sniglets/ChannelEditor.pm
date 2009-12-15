@@ -32,11 +32,8 @@ sub register_tags {
   my $pxt = shift;
 
   $pxt->register_tag('rhn-channel-edit-form' => \&channel_edit_form);
-  $pxt->register_tag('rhn-verify-channel-family' => \&verify_channel_family);
   $pxt->register_tag('rhn-channel-select-options' => \&channel_select_options);
   $pxt->register_tag('rhn-if-package-list-modified' => \&if_package_list_modified);
-  $pxt->register_tag('rhn-if-packages-deleted-from-channels' => \&if_packages_deleted_from_channels);
-  $pxt->register_tag('rhn-show-all-errata-checkbox' => \&show_all_errata_checkbox);
   $pxt->register_tag('rhn-if-var' => \&if_var, -5);
   $pxt->register_tag('rhn-clone-channel-form' => \&clone_channel_form);
 
@@ -676,21 +673,6 @@ sub channel_edit_form {
   return $block;
 }
 
-#ensure that the org that the logged-in use represents has a channelfamily,
-#and has permission to access that channelfamily.
-sub verify_channel_family {
-
-  my $pxt = shift;
-
-  my $org = $pxt->user->org or return;
-
-  RHN::ChannelEditor->verify_org_family($org);
-  RHN::ChannelEditor->verify_family_permissions($org);
-
-  return;
-
-}
-
 #output a list of channels to select packages from, including 'no channels', and 'any channel'
 sub channel_select_options {
   my $pxt = shift;
@@ -827,27 +809,6 @@ sub if_package_list_modified {
   return '';
 }
 
-sub if_packages_deleted_from_channels {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-
-  my $package_list_edited = $pxt->session->get('package_list_edited');
-
-  my @channels = keys %{$package_list_edited};
-
-  foreach my $cid (@channels) {
-    my $edited = $package_list_edited->{$cid} || 0;
-
-    if ((time - $edited) < 3600) {
-      return $block;
-    }
-  }
-
-  return '';
-}
-
 sub if_var {
   my $pxt = shift;
   my %attr = @_;
@@ -857,15 +818,6 @@ sub if_var {
   return unless $pxt->passthrough_param($attr{formvar});
 
   return $block;
-}
-
-sub show_all_errata_checkbox {
-  my $pxt = shift;
-  my %attr = @_;
-
-  return PXT::HTML->checkbox(-name => 'show_all_errata',
-			     -value => 1,
-			     -checked => $pxt->dirty_param('show_all_errata') ? 1 : 0);
 }
 
 sub channel_sync_prompt {
@@ -880,10 +832,13 @@ sub channel_sync_prompt {
   my %s = (target_channel => sprintf("<strong>%s</strong>", $target->label),
 	   source_channel => sprintf("<strong>%s</strong>", $source->label));
 
-  # Clear the packages for merge set to remove any old selections:
-  my $set = RHN::Set->lookup(-label => 'packages_for_merge', -uid => $pxt->user->id);
-  $set->empty;
-  $set->commit;
+  #only clear if sync_type is not set, otherwise we clear the set on pagination
+  if (!$pxt->dirty_param("sync_type")) {
+	# Clear the packages for merge set to remove any old selections:
+	my $set = RHN::Set->lookup(-label => 'packages_for_merge', -uid => $pxt->user->id);
+	$set->empty;
+	$set->commit;
+  }
 
   return PXT::Utils->perform_substitutions($params{__block__}, \%s);
 }

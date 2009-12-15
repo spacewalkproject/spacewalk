@@ -191,6 +191,7 @@ on this system."),
      Please refer to your organization's channel or organization
      administrators for further details.
      """),
+     72: _("""You can not unsubscribe from base channel."""),
 
      # 80-90: server group errors
      80: _("There was an error while trying to join the system to its groups"),
@@ -223,12 +224,13 @@ maximum membership exceeded"),
 
      # 500-599: Package Uploader errors
      500: _("Missing HTTP header information"),
-     501: _("The package's md5sum signature does not match the header one"),
+     501: _("The package's checksum signature does not match the header one"),
      502: _("Header information does not match package metainformation"),
      503: _("Package with a different signature already uploaded"),
      504: _("Not an RPM package"),
      505: _("Unsigned RPM package"),
      506: _("Incompatible package and channel architectures"),
+     507: _("Incompatible checksum type"),
 
      # 600-699: RHEL5+ EN errors
      600: _("Invalid Entitlement Number"),

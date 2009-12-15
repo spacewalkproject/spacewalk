@@ -21,6 +21,7 @@
 import os
 import string
 import tempfile
+from types import TupleType
 
 from common import RPC_Base, rhnFault, log_debug, log_error, CFG
 
@@ -34,6 +35,7 @@ from server.importlib.backendOracle import OracleBackend
 from server.importlib.packageUpload import uploadPackages, listChannels, listChannelsSource
 from server.importlib.userAuth import UserAuth
 from server.importlib.errataCache import schedule_errata_cache_update
+from spacewalk.common import checksum
 
 #12/22/05 wregglej 173287
 #I made a decent number of changes to this file to implement session authentication.
@@ -70,6 +72,11 @@ class Packages(RPC_Base):
         self.functions.append('test_check_session')
         self.functions.append('login')
         self.functions.append('check_session')
+        self.functions.append('getPackageChecksum')
+        self.functions.append('getPackageChecksumBySession')
+        self.functions.append('getSourcePackageChecksum')
+        self.functions.append('getSourcePackageChecksumBySession')
+        # old MD5 compatibility functions
         self.functions.append('getPackageMD5sum')
         self.functions.append('getPackageMD5sumBySession')
         self.functions.append('getSourcePackageMD5sum')
@@ -277,13 +284,15 @@ class Packages(RPC_Base):
         package_stream.seek(0, 0)
         del packageBits
 
-        header, payload_stream, md5sum, header_start, header_end = \
+        header, payload_stream, header_start, header_end = \
             rhnPackageUpload.load_package(package_stream)
         relative_path = rhnPackageUpload.relative_path_from_header(
             header, org_id=org_id)
 
+        checksum = (header.checksum_type(),
+                    checksum.getFileChecksum(header.checksum_type(), file=package_stream))
         package_dict, diff_level = rhnPackageUpload.push_package(
-            header, payload_stream, md5sum, org_id=org_id, force=force,
+            header, payload_stream, checksum, org_id=org_id, force=force,
             header_start=header_start, header_end=header_end,
             relative_path=relative_path)
 
@@ -340,24 +349,30 @@ class Packages(RPC_Base):
                 if package['arch'] == 'src' or package['arch'] == 'nosrc':
                     # Source package - no reason to continue
                     continue
-                _md5sum_sql_filter = ""
-                md5sum_exists = 0
-                if package.has_key('md5sum') and CFG.ENABLE_NVREA:
-                    md5sum_exists = 1
-                    _md5sum_sql_filter = """and p.md5sum =: md5sum"""
+                _checksum_sql_filter = ""
+                checksum_exists = 0
+                if 'md5sum' in package: # for old rhnpush compatibility
+                    package['checksum'] = ('md5', package['md5sum'])
+
+                if package.has_key('checksum') and CFG.ENABLE_NVREA:
+                    checksum_exists = 1
+                    _checksum_sql_filter = """and c.checksum = :checksum
+                                              and c.checksum_type = :checksum_type"""
 
                 h = rhnSQL.prepare(self._get_pkg_info_query % \
-                                    _md5sum_sql_filter)
+                                    _checksum_sql_filter)
                 pkg_epoch =  None
                 if package['epoch'] != '':
                     pkg_epoch = package['epoch']
 
-                if md5sum_exists:
+                if checksum_exists:
                     h.execute(pkg_name=package['name'], \
                     pkg_epoch=pkg_epoch, \
                     pkg_version=package['version'], \
                     pkg_rel=package['release'],pkg_arch=package['arch'], \
-                    orgid = org_id, md5sum = package['md5sum'] )
+                    orgid = org_id, \
+                    checksum_type = package['checksum'][0], \
+                    checksum = package['checksum'][1])
                 else:
                     h.execute(pkg_name=package['name'], \
                     pkg_epoch=pkg_epoch, \
@@ -367,7 +382,7 @@ class Packages(RPC_Base):
 
                 row = h.fetchone_dict()
 
-                package['md5sum'] = row['md5sum']
+                package['checksum'] = (row['checksum_type'], row['checksum'])
                 package['org_id'] = org_id
                 package['channels'] = channelList
                 batch.append(IncompletePackage().populate(package))
@@ -407,59 +422,75 @@ class Packages(RPC_Base):
         row = h.fetchone_dict()
         return row['server_count']
 
+    def getPackageChecksum(self, username, password, info):
+        """ returns checksum info of available packages
+            also does an existance check on the filesystem.
+        """
+        log_debug(3)
+
+        pkg_infos = info.get('packages')
+        channels = info.get('channels', [])
+        force = info.get('force', 0)
+        orgid = info.get('org_id')
+
+        if orgid == 'null':
+            null_org=1
+        else:
+            null_org=None
+        org_id, force = rhnPackageUpload.authenticate(username, password,
+                                                          channels=channels,
+                                                          null_org=null_org,
+                                                          force=force)
+        return self._getPackageChecksum(org_id, pkg_infos)
+
     def getPackageMD5sum(self, username, password, info):
         """ bug#177762 gives md5sum info of available packages.
             also does an existance check on the filesystem.
         """
         log_debug(3)
-        
-        pkg_infos = info.get('packages')
-        channels = info.get('channels', [])
-        force = info.get('force', 0)
-        orgid = info.get('org_id')
-        
-        if orgid == 'null':
-            org_id, force = rhnPackageUpload.authenticate(username, password,
-                                                          channels=channels,
-                                                          null_org=1,
-                                                          force=force)
-        else:
-            org_id, force = rhnPackageUpload.authenticate(username, password,
-                                                          channels=channels,
-                                                          force=force)
-        return self._getPackageMD5sum(org_id, pkg_infos, info)
-    
-    def getPackageMD5sumBySession(self, session_string, info):
+        self._MD5sum2Checksum_info(info)
+        return self._Checksum2MD5sum_list(
+                    self.getPackageChecksum(username, password, info))
+
+    def getPackageChecksumBySession(self, session_string, info):
         log_debug(3)
 
         pkg_infos = info.get('packages')
         channels  = info.get('channels', [])
         force     = info.get('force', 0)
         orgid = info.get('org_id')
-        
+
         try:
             if orgid == 'null':
-                org_id, force = rhnPackageUpload.authenticate_session(
-                    session_string, channels=channels, null_org=1, force=force)
+                null_org=1
             else:
-                org_id, force = rhnPackageUpload.authenticate_session(
-                    session_string, channels=channels, force=force)
+                null_org=None
+            org_id, force = rhnPackageUpload.authenticate_session(
+                    session_string, channels=channels, null_org=null_org, force=force)
         except rhnSession.InvalidSessionError:
             raise rhnFault(33)
         except rhnSession.ExpiredSessionError:
             raise rhnFault(34)
-    
-        return self._getPackageMD5sum(org_id, pkg_infos, info)
- 
+
+        return self._getPackageChecksum(org_id, pkg_infos)
+
+    def getPackageMD5sumBySession(self, session_string, info):
+        log_debug(3)
+        self._MD5sum2Checksum_info(info)
+        return self._Checksum2MD5sum_list(
+                    self.getPackageChecksumBySession(session_string, info))
+
     _get_pkg_info_query = """
         select
-               p.md5sum md5sum,
+               c.checksum_type,
+               c.checksum,
                p.path path
          from
                rhnPackageEVR pe,
                rhnPackageName pn,
                rhnPackage p,
-               rhnPackageArch pa
+               rhnPackageArch pa,
+               rhnChecksumView c
          where
                pn.name     = :pkg_name
           and  ( pe.epoch  = :pkg_epoch or
@@ -474,35 +505,38 @@ class Packages(RPC_Base):
           and  p.evr_id    = pe.id
           and  p.package_arch_id = pa.id
           and  pa.label    = :pkg_arch
+          and  p.checksum_id = c.id
           %s 
     """
  
-    def _getPackageMD5sum(self, org_id, pkg_infos, info):
+    def _getPackageChecksum(self, org_id, pkg_infos):
         log_debug(3)
         row_list = {}
-        md5sum_exists = 0
+        checksum_exists = 0
         for pkg in pkg_infos.keys():
 
             pkg_info = pkg_infos[pkg] 
-            _md5sum_sql_filter = ""
-            if pkg_info.has_key('md5sum') and CFG.ENABLE_NVREA:
-                md5sum_exists = 1
-                _md5sum_sql_filter = """and p.md5sum =: md5sum"""
+            _checksum_sql_filter = ""
+            if pkg_info.has_key('checksum') and CFG.ENABLE_NVREA:
+                checksum_exists = 1
+                _checksum_sql_filter = """and c.checksum = :checksum
+                                          and c.checksum_type = :checksum_type"""
             
-            h = rhnSQL.prepare(self._get_pkg_info_query % _md5sum_sql_filter)
+            h = rhnSQL.prepare(self._get_pkg_info_query % _checksum_sql_filter)
 
             pkg_epoch = None
             if pkg_info['epoch'] != '':
                 pkg_epoch = pkg_info['epoch']
            
-            if md5sum_exists:
+            if checksum_exists:
                 h.execute(pkg_name=pkg_info['name'],
                           pkg_epoch=pkg_epoch,
                           pkg_version=pkg_info['version'],
                           pkg_rel=pkg_info['release'],
                           pkg_arch=pkg_info['arch'],
                           orgid = org_id,
-                          md5sum = pkg_info['md5sum'] )
+                          checksum_type = pkg_info['checksum'][0],
+                          checksum = pkg_info['checksum'][1])
             else:
                 h.execute(pkg_name=pkg_info['name'],
                           pkg_epoch=pkg_epoch,
@@ -519,8 +553,8 @@ class Packages(RPC_Base):
             if row.has_key('path'):    
                 filePath = os.path.join(CFG.MOUNT_POINT, row['path'])
                 if os.access(filePath, os.R_OK):
-                    if row.has_key('md5sum'):
-                        row_list[pkg] = row['md5sum']
+                    if row.has_key('checksum'):
+                        row_list[pkg] = (row['checksum_type'], row['checksum'])
                     else:
                         row_list[pkg] = 'on-disk'
                 else:
@@ -533,7 +567,26 @@ class Packages(RPC_Base):
                     
         return row_list                
 
-    def getSourcePackageMD5sum(self, username, password, info):
+    def _MD5sum2Checksum_info(self, info):
+        log_debug(5)
+        pkg_infos = info.get('packages')
+        for pkg in pkg_infos.keys():
+            if pkg_infos[pkg].has_key('md5sum'):
+                pkg_infos[pkg]['checksum'] = ('md5', pkg_infos[pkg]['md5sum'])
+
+    def _Checksum2MD5sum_list(self, checksum_list):
+        log_debug(5)
+        row_list = {}
+        for k in checksum_list.keys():
+            if checksum_list[k] == '' or checksum_list[k] == 'on-disk':
+                row_list[k] = checksum_list[k]
+            elif type(checksum_list[k]) == TupleType and checksum_list[k][0] == 'md5':
+                row_list[k] = checksum_list[k][1]
+            else:
+                row_list[k] = ''
+        return row_list
+
+    def getSourcePackageChecksum(self, username, password, info):
         """ Uploads an RPM package """
         log_debug(3)
         
@@ -552,9 +605,15 @@ class Packages(RPC_Base):
                                                           channels=channels,
                                                           force=force)
         
-        return self._getSourcePackageMD5sum(org_id, pkg_infos, info)
+        return self._getSourcePackageChecksum(org_id, pkg_infos)
 
-    def getSourcePackageMD5sumBySession(self, session_string, info):
+    def getSourcePackageMD5sum(self, username, password, info):
+        log_debug(3)
+        self._MD5sum2Checksum_info(info)
+        return self._Checksum2MD5sum_list(
+                    self.getSourcePackageChecksum(username, password, info))
+
+    def getSourcePackageChecksumBySession(self, session_string, info):
         log_debug(3)
 
         pkg_infos = info.get('packages')
@@ -564,20 +623,26 @@ class Packages(RPC_Base):
         
         try:
             if orgid == 'null':
-                org_id, force = rhnPackageUpload.authenticate_session(
-                    session_string, channels=channels, null_org=1, force=force)
+                null_org=1
             else:
-                org_id, force = rhnPackageUpload.authenticate_session(
-                    session_string, channels=channels, force=force)
+                null_org=None
+            org_id, force = rhnPackageUpload.authenticate_session(
+                    session_string, channels=channels, null_org=null_org, force=force)
         except rhnSession.InvalidSessionError:
             raise rhnFault(33)
         except rhnSession.ExpiredSessionError:
             raise rhnFault(34)
 
-        return self._getSourcePackageMD5sum(org_id, pkg_infos, info)
+        return self._getSourcePackageChecksum(org_id, pkg_infos)
     
-    def _getSourcePackageMD5sum(self, org_id, pkg_infos, info):
-        """ Gives md5sum info of available source packages.
+    def getSourcePackageMD5sumBySession(self, session_string, info):
+        log_debug(3)
+        self._MD5sum2Checksum_info(info)
+        return self._Checksum2MD5sum_list(
+                    self.getSourcePackageChecksumBySession(session_string, info))
+
+    def _getSourcePackageChecksum(self, org_id, pkg_infos):
+        """ Gives checksum info of available source packages.
             Also does an existance check on the filesystem.
         """
 
@@ -586,16 +651,19 @@ class Packages(RPC_Base):
         statement = """
             select
                 ps.path path,
-                ps.md5sum md5sum
+                c.checksum,
+                c.checksum_type
             from
                 rhnSourceRpm sr,
-                rhnPackageSource ps
+                rhnPackageSource ps,
+                rhnChecksumView c
             where
                  sr.name = :name
              and ps.source_rpm_id = sr.id
              and ( ps.org_id  = :orgid or
                    ( ps.org_id is null and :orgid is null )
                  )
+             and ps.checksum_id = c.id
              """
         h = rhnSQL.prepare(statement)
         row_list = {}
@@ -611,8 +679,8 @@ class Packages(RPC_Base):
             if row.has_key('path'):    
                 filePath = os.path.join(CFG.MOUNT_POINT, row['path'])
                 if os.access(filePath, os.R_OK):
-                    if row.has_key('md5sum'):
-                        row_list[pkg] = row['md5sum']
+                    if row.has_key('checksum'):
+                        row_list[pkg] = (row['checksum_type'], row['checksum'])
                     else:
                         row_list[pkg] = 'on-disk'
                 else:
@@ -625,7 +693,6 @@ class Packages(RPC_Base):
                     
         return row_list
         
-    
     # XXX Are these still used anywhere?
     # XXX To be moved
     
@@ -640,14 +707,16 @@ class Packages(RPC_Base):
                 ps.rpm_version version,
                 ps.path,
                 ps.package_size,
-                ps.md5sum
+                c.checksum md5sum
                 
             from
                 rhnSourceRpm sr,
-                rhnPackageSource ps
+                rhnPackageSource ps,
+                rhnChecksum c
             where
                     ps.source_rpm_id = :sri
                 and ps.source_rpm_id = sr.id
+                and ps.checksum_id = c.id
         """
         h = rhnSQL.prepare(statement)
         h.execute(sri=int(source_rpm_id))

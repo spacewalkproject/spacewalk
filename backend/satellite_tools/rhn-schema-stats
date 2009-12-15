@@ -1,0 +1,68 @@
+#!/bin/bash
+
+if [[ $@ =~ "--help|-h" ]] || [ $# -lt 1 -o $# -gt 2 ]; then
+	echo "Usage: `basename $0` -h | --help | output-file [connect-string]"
+	exit
+fi
+
+connect=$(spacewalk-cfg-get default_db)
+[ -n "$2" ] && connect=$2
+
+sql="
+set pagesize 4000 linesize 200
+set serverout on
+
+declare
+  n number;
+begin
+  for i in (select * from user_tables order by table_name)
+    loop
+      execute immediate 'select count(*) from ' || i.table_name into n;
+      dbms_output.put_line(i.table_name || ': ' || n);
+    end loop;
+end;
+/
+
+column constraint_name format a30 heading \"CONSTRAINT NAME\"
+column constraint_type format a4 heading \"TYPE\"
+column table_name format a30 heading \"TABLE NAME\"
+column search_condition heading \"SEARCH CONDITION\"
+column r_constraint_name format a30 heading \"REFERENCED CONSTRAINT\"
+
+select
+	constraint_name, constraint_type, table_name, search_condition, r_constraint_name
+from
+	user_constraints
+where
+	table_name not like '%BIN%'
+order by
+	table_name, constraint_type;
+
+column label format a30
+column name format a25
+column epoch format a10
+column version format a10
+column release format a10
+
+select
+	rvi.label, to_char(rvi.created, 'YYYY-MM-DD') created, to_char(rvi.modified, 'YYYY-MM-DD') modified,
+	rpn.name,
+	rpe.epoch, rpe.version, rpe.release
+from
+	rhnVersionInfo rvi,
+	rhnPackageName rpn,
+	rhnPackageEvr rpe
+where
+	rvi.evr_id = rpe.id and
+	rvi.name_id = rpn.id;
+
+quit;
+"
+
+if [ "$1" == "-" ]; then
+	echo "$sql" | sqlplus -S $connect 
+else
+	# sqlplus ... | cat ... is here to fool selinux, since oracle_sqlplus_t
+	# cannot write just anywhere (via spool ...)
+	echo "$sql" | sqlplus -S $connect | cat > $1
+fi

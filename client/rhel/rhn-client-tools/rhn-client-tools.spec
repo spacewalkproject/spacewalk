@@ -4,22 +4,28 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.7.1
+Version: 0.8.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+%if 0%{?suse_version: %{suse_version} > 1000} 
+%{!?suse_version:1}
 BuildArch: noarch
+BuildRequires: update-desktop-files
+%endif
 
 Requires: rhnlib >= 2.2.7
-Requires: rhpl >= 0.81-2
 Requires: rpm >= 4.2.3-24_nonptl
 Requires: rpm-python 
+Requires: python-ethtool
 Requires: gnupg
 Requires: sh-utils
 Requires: dbus-python
-Requires: hal
+Requires: hal >= 0.5.8.1-52
 Requires: newt
+Requires: python-dmidecode
+Requires: libxml2-python
 
-Conflicts: up2date
+Conflicts: up2date < 5.0.0
 
 BuildRequires: python-devel
 BuildRequires: gettext
@@ -79,6 +85,9 @@ make -f Makefile.rhn-client-tools install VERSION=%{version}-%{release} PREFIX=$
 mkdir -p $RPM_BUILD_ROOT/var/lib/up2date
 
 desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications --vendor=rhn rhn_register.desktop
+%if 0%{?suse_version}
+%suse_update_desktop_file rhn_register System
+%endif
 
 %find_lang %{name}
 
@@ -175,6 +184,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{_mandir}/man8/rhnreg_ks.8*
 %{_mandir}/man8/rhn_register.8*
+%{_mandir}/man8/spacewalk-channel.8*
 
 %config(noreplace) %{_sysconfdir}/security/console.apps/rhn_register
 %config(noreplace) %{_sysconfdir}/pam.d/rhn_register
@@ -182,6 +192,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/rhn_register
 %{_sbindir}/rhn_register
 %{_sbindir}/rhnreg_ks
+%{_sbindir}/spacewalk-channel
+%{_sbindir}/rhn-channel
 
 %{_datadir}/rhn/up2date_client/rhnreg.*
 %{_datadir}/rhn/up2date_client/tui.*
@@ -215,6 +227,42 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Tue Dec 15 2009 Miroslav Suchý <msuchy@redhat.com> 0.8.2-1
+- 546312 - do not depend on hald for rhnreg_ks
+
+* Tue Dec  1 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.11-1
+- 541262 - fix networkRetries logic (mzazrivec@redhat.com)
+
+* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.10-1
+- 216808 - add man page to package
+- 216808 - create new script spacewalk-channel
+- 527412 - compute delta and write it to logs only if writeChangesToLog is set to 1
+- 536789 - remove forgotten lines
+- 536789 - set only necessary network info
+
+* Thu Nov  5 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.9-1
+- suse has its own macro for updating icons
+- enable build for suse 10.00 too
+- hardcode MANPATH
+- fix build under opensuse
+- 532145 - define local variable ipaddr before it is used
+- Dont halt registration if the hardware info could not be acquired for rhnreg_ks.
+
+* Fri Oct 23 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.7-1
+- 530369 - header is inmutable
+
+* Thu Oct 22 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.5-1
+- 449167 - record installation date of rpm package
+
+* Mon Oct  5 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.4-1
+- add versioned conflict to up2date
+
+* Tue Sep 22 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.3-1
+- comment out hosted url, so spacewalk users do not ping theirs machines
+
+* Fri Sep  4 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.2-1
+- Rhpl was removed from rhel client packages (lukas.durfina@gmail.com)
+ 
 * Tue Sep  1 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.1-1
 - change appeareance of icon and put it to Administration rather then to Preferences
 - add scriplet to refres icon cache

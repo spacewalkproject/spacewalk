@@ -63,6 +63,7 @@ class ChannelPackageSubscription(GenericPackageImport):
         self.backend.lookupChannelPackageArchCompat(self.channel_package_arch_compat)
         self.backend.lookupPackageNames(self.names)
         self.backend.lookupEVRs(self.evrs)
+        self.backend.lookupChecksums(self.checksums)
 
         # Fix the package information up, and uniquify the packages too
         uniqdict = {}
@@ -71,20 +72,20 @@ class ChannelPackageSubscription(GenericPackageImport):
                 continue
             self._postprocessPackageNEVRA(package)
             if not CFG.ENABLE_NVREA:
-                # nvrea disabled, skip md5sum
+                # nvrea disabled, skip checksum
                 nevrao = (
                     package['name_id'],
                     package['evr_id'],
                     package['package_arch_id'],
                     package['org_id'])
             else:
-                # As nvrea is enabled uniquify based on md5sum
+                # As nvrea is enabled uniquify based on checksum
                 nevrao = (
                     package['name_id'],
                     package['evr_id'],
                     package['package_arch_id'],
                     package['org_id'],
-                    package['md5sum'])
+                    package['checksum_id'])
 
             if not uniqdict.has_key(nevrao):
                 # Uniquify the channel names
@@ -176,7 +177,7 @@ class ChannelPackageSubscription(GenericPackageImport):
             self.channels[channelName] = None
         # Replace the channel list with the uniquified list
         package.channels = channels
-    
+
     # Copies the channels from one package to the other
     def __copyChannels(self, sourcePackage, destPackage):
         dpHash = destPackage['channels']
@@ -257,6 +258,13 @@ class PackageImport(ChannelPackageSubscription):
             f['capability'] = nv
             if not self.capabilities.has_key(nv):
                 self.capabilities[nv] = None
+            if 'md5' in f:      # old pre-sha256 export
+                fchecksum = ('md5', f['md5'])
+            else:
+                fchecksum = (f['checksum_type'], f['checksum'])
+            f['checksum'] = fchecksum
+            if not self.checksums.has_key(fchecksum):
+                self.checksums[fchecksum] = None
 
         # Uniquify changelog entries
         changelogs = {}
@@ -347,7 +355,7 @@ class PackageImport(ChannelPackageSubscription):
                 self.__postprocessSolarisPackage(package)
 
     def __postprocessPackage(self, package):
-        # Set the ids
+        """ populate the columns foo_id with id numbers from appropriate hashes """
         package['package_group'] = self.groups[package['package_group']]
         source_rpm = package['source_rpm']
         if source_rpm is not None:
@@ -355,11 +363,16 @@ class PackageImport(ChannelPackageSubscription):
         else:
             source_rpm = ''
         package['source_rpm_id'] = source_rpm
+        package['checksum_id'] = self.checksums[package['checksum']]
+
         # Postprocess the dependency information
         for tag in ('provides', 'requires', 'conflicts', 'obsoletes', 'files'):
             for entry in package[tag]:
                 nv = entry['capability']
                 entry['capability_id'] = self.capabilities[nv]
+        fileList = package['files']
+        for f in fileList:
+            f['checksum_id'] = self.checksums[f['checksum']]
 
     def __postprocessSolarisPackage(self, package):
         # set solaris patch packages for a solaris patch
@@ -375,6 +388,7 @@ class PackageImport(ChannelPackageSubscription):
         evrs = {}
         names = {}
         archs = {}
+        checksums = {}
 
         for pkgDict, pkgInfoObj in package['solaris_patch_packages']:
                 
@@ -386,10 +400,12 @@ class PackageImport(ChannelPackageSubscription):
             pkgDict['evr'] = evr
 
             evrs[evr] = None
+            checksums[pkgDict['checksum']] = None
             names[pkgDict['name']] = None
             archs[pkgDict['arch']] = None
 
         self.backend.lookupEVRs(evrs)
+        self.backend.lookupChecksums(checksums)
         self.backend.lookupPackageNames(names)
         self.backend.lookupPackageArches(archs)
 
@@ -420,6 +436,7 @@ class PackageImport(ChannelPackageSubscription):
     def __postprocessSolarisPatchSetMembers(self, package):
 
         evrs = {}
+        checksums = {}
         names = {}
 
         for patchDict, patchObj in package['solaris_patch_set_members']:
@@ -432,9 +449,11 @@ class PackageImport(ChannelPackageSubscription):
             patchDict['evr'] = evr
 
             evrs[evr] = None
+            checksums[patchDict['checksum']] = None
             names[patchDict['name']] = None
 
         self.backend.lookupEVRs(evrs)
+        self.backend.lookupChecksums(self.checksums)
         self.backend.lookupPackageNames(names)
 
         nevras = {}
@@ -469,7 +488,7 @@ class PackageImport(ChannelPackageSubscription):
         package['solaris_patch_set_members'] = infoObjs
 
     def _comparePackages(self, package1, package2):
-        if package1['md5sum'] == package2['md5sum']:
+        if package1['checksum'] == package2['checksum']:
             return
         # XXX Handle this better
         raise Exception("Different packages in the same batch")
@@ -535,7 +554,7 @@ class SourcePackageImport(Import):
 
 
     def _comparePackages(self, package1, package2):
-        if package1['md5sum'] == package2['md5sum']:
+        if package1['checksum'] == package2['checksum']:
             return
         # XXX Handle this better
         raise Exception("Different packages in the same batch")

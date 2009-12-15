@@ -1,0 +1,89 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHNSAT "RHN Satellite Server" >
+<!ENTITY THECOMMAND "rhn-schema-stats" >
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>&THECOMMAND;</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 1.0.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>&THECOMMAND;</command></RefName>
+<RefPurpose>
+utility for querying important Spacewalk / Satellite database schema statistics.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>&THECOMMAND;</command>
+        <arg choice="opt">-h | --help</arg>
+	<arg choice="req">output-file</arg>
+	<arg choice="opt">db-conect-string</arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+
+<para>
+rhn-schema-stats retrieves important statistics from your Satellite / Spacewalk database
+schema. Ordinarily, is used by spacewalk-debug (satellite-debug), but it can be used standalone.
+</para>
+
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-h | --help</term>
+        <listitem>
+            <para>Print usage information.</para>
+        </listitem>
+    </varlistentry>
+
+    <varlistentry>
+        <term>output-file</term>
+        <listitem>
+            <para>File name to save the retrieved information to. Use - if you wish to
+                  print the output to stdout.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>db-connect-string</term>
+        <listitem>
+            <para>Connection string to your Oracle database.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Files</Title>
+<simplelist>
+    <member>/usr/bin/&THECOMMAND;</member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Example</Title>
+<simplelist>
+        <member><command>&THECOMMAND; database.log</command></member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>See Also</Title>
+<simplelist>
+    <member>spacewalk-debug(8)</member>
+    <member>rhn-db-stats(8)</member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Milan Zazrivec <email>mzazrivec@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>

@@ -10,8 +10,9 @@ from os import geteuid
 import sys
 import string
 
-from rhpl.translate import _, textdomain
-textdomain("rhn-client-tools")
+import gettext
+_ = gettext.gettext
+gettext.textdomain("rhn-client-tools")
 
 import snack
 
@@ -217,8 +218,6 @@ class WhyRegisterWindow:
         toplevel.add(self.bb, 0, 1, growx = 1)
 
         self.g = toplevel
-
-        self.screen.gridWrappedWindow(toplevel, 'WhyRegisterWindow', 80, 24)
 
     def run(self):
         log.log_debug("Running %s" % self.__class__.__name__)
@@ -988,19 +987,17 @@ class PackagesWindow:
             self.pwin.add(self.scale, 0, 0)
             self.pwin.draw()
             self.screen.refresh()
-            getInfo = 0
+            getArch = 0
             if rhnreg.cfg['supportsExtendedPackageProfile']:
-                getInfo = 1
-            tui.packageList = rpmUtils.getInstalledPackageList(getInfo=getInfo)
-            tui.packageList.sort(cmp = lambda x,y: cmp(x.lower(), y.lower()),
-                key = lambda x: x[0])
+                getArch = 1
+            tui.packageList = rpmUtils.getInstalledPackageList(getArch=getArch)
             self.screen.popWindow()
 
         for package in tui.packageList:
-            self.packageList.append("%s-%s-%s" % (package[0],
-                                                  package[1],
-                                                  package[2]),
-                                                  item = package[0],
+            self.packageList.append("%s-%s-%s" % (package['name'],
+                                                  package['version'],
+                                                  package['release']),
+                                                  item = package['name'],
                                                   selected = 1)
             
         # BUTTON BAR
@@ -1023,7 +1020,7 @@ class PackagesWindow:
         self.tui.includePackages = self.packagesButton.selected()
         selection = self.packageList.getSelection()
         for pkg in self.tui.packageList:
-            if pkg[0] in selection:
+            if pkg['name'] in selection:
                 self.tui.selectedPackages.append(pkg)
 
         

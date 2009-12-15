@@ -144,14 +144,14 @@ my $stamp = sprintf "%04d%02d%02d-%02d%02d%02d", $year + 1900, $mon + 1, $mday,
 
 my $start = $start_schema_norm;
 my $in = <<EOF;
-	spool $SCHEMA_UPGRADE_LOGDIR/$stamp-begin.log append
-	whenever sqlerror exit sql.sqlcode
+spool $SCHEMA_UPGRADE_LOGDIR/$stamp-begin.log append
+whenever sqlerror exit sql.sqlcode
 
-	update rhnVersionInfo
-	set label = 'schema-from-' || to_char(created, 'YYYYMMDD-HH24MISS'),
-		modified = sysdate
-	where label = 'schema';
-	commit;
+update rhnVersionInfo
+       set label = 'schema-from-' || to_char(created, 'YYYYMMDD-HH24MISS'),
+           modified = sysdate
+       where label = 'schema';
+commit;
 EOF
 
 while (@path) {
@@ -161,7 +161,7 @@ while (@path) {
 		die "Directory [$SCHEMA_UPGRADE_DIR/$dir] was seen but is lost now.\n";
 	}
 
-	my @files = sort glob "$SCHEMA_UPGRADE_DIR/$dir/*.{sql,ref}";
+	my @files = match_overrides("$SCHEMA_UPGRADE_DIR/$dir/*.{sql,ref}");
 	for (my $i = 0; $i < @files; $i++) {
 		if ($files[$i] =~ /\.ref$/) {
 			my @subfiles;
@@ -170,7 +170,7 @@ while (@path) {
 			while (<REF>) {
 				chomp;
 				next if /^\s*(#|$)/;
-				my @newsubfiles = sort glob "$SCHEMA_UPGRADE_DIR/$_";
+				my @newsubfiles = match_overrides("$SCHEMA_UPGRADE_DIR/$_");
 				if (not @newsubfiles) {
 					die "Could not find any files matching [$_] from [$files[$i]]\n";
 				}
@@ -212,15 +212,15 @@ EOF
 }
 
 $in .= <<EOF;
-	spool $SCHEMA_UPGRADE_LOGDIR/$stamp-end.log append
-	whenever sqlerror exit sql.sqlcode
+spool $SCHEMA_UPGRADE_LOGDIR/$stamp-end.log append
+whenever sqlerror exit sql.sqlcode
 
-	insert into rhnVersionInfo
-		( label, name_id, evr_id, created, modified )
-	values ('schema', lookup_package_name('$my_schema_name'),
-		lookup_evr(null, '$my_schema_version' , '$my_schema_release' ),
-		sysdate, sysdate );
-	commit;
+insert into rhnVersionInfo
+       ( label, name_id, evr_id, created, modified )
+       values ('schema', lookup_package_name('$my_schema_name'),
+               lookup_evr(null, '$my_schema_version' , '$my_schema_release' ),
+               sysdate, sysdate );
+commit;
 EOF
 
 $in .= "quit;\n";
@@ -329,6 +329,10 @@ sub get_shortest_path {
 		}
 	}
 	@out;
+}
+
+sub match_overrides {
+	return map {-e "$_.override" ? "$_.override" : $_} sort glob shift;
 }
 
 1;

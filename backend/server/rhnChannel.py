@@ -22,9 +22,10 @@ from rhn.rpclib import xmlrpclib
 from types import IntType, ListType, DictType
 
 # common module
-from common import log_debug, log_error, rhnFault, rhnException, rhnCache, rhnFlags, CFG, rhn_rpm
+from common import log_debug, log_error, rhnFault, rhnException, rhnCache, rhnFlags, CFG
 from common.rhnTranslate import _
 from common.rhnLib import startswith
+from spacewalk.common import rhn_rpm
 from rhnServer import server_lib
 from rhnDependency import MakeEvrError
 
@@ -1798,37 +1799,20 @@ def list_obsoletes(channel):
     rhnCache.set(cache_entry, result, c_info["last_modified"])
     return result
 
-
-# this surely needs to be more complicated, since it needs to check
-# for admins in a org, and not just users with a matching org_id
-# XXX: there is a lot of duplication code with stuff in rhns_user -
-# need to simplify...
 def __auth_user(server_id, username, password):
+    """ Auth if user can add/remove channel from given server """
     log_debug(3, server_id, username)
     # check the username and password for compliance
-    username, password = rhnUser.check_user_password(username, password)
-    # verify the password
-    h = rhnSQL.prepare("""
-    select w.id, w.password from web_contact w
-    where w.login_uc = upper(:username)
-    """)
-    h.execute(username = username)
-    res = h.fetchone_dict()
-    if not res: # Login name and password for this server do not match
-        raise rhnFault(1)
-    # now check the password
-    if string.lower(res["password"]) != string.lower(password):
-        raise rhnFault(2)      
-    userid = res['id']
+    user = rhnUser.auth_username_password(username, password)
     # The user's password checks, verify that they have perms on that
     # server.
     h = rhnSQL.prepare("""
-    select *
+    select count(*)
     from rhnUserServerPerms usp
     where usp.user_id = :user_id
     and   usp.server_id = :server_id
     """)
-    h.execute(user_id = str(userid), server_id = str(server_id))
+    h.execute(user_id = str(user.getid()), server_id = str(server_id))
     res = h.fetchone_dict()
     if not res:
         # Not allowed to perform administrative tasks on this server
@@ -1952,7 +1936,7 @@ def subscribe_channel(server_id, channel, username, password):
     ret = h.fetchone_dict()
     if not ret:
         log_error("Channel %s does not exist?" % channel)
-        raise rhnFault(39, "Channel %s does not exist?" % channel)
+        raise rhnFault(40, "Channel %s does not exist?" % channel)
 
     channel_id = ret['id']
 
@@ -2202,19 +2186,19 @@ def unsubscribe_channel(server_id, channel, username, password):
 
     # now get the id of the channel
     h = rhnSQL.prepare("""
-    select c.id, c.parent_channel from rhnChannel where label = :channel
+    select id, parent_channel from rhnChannel where label = :channel
     """)
     h.execute(channel = channel)
     ret = h.fetchone_dict()
     if not ret:
-        log_error("Asked to unsubscribe server %s "\
-                  "from non-existent channel %s" % (
+        log_error("Asked to unsubscribe server %s from non-existent channel %s" % (
             server_id, channel))
-        return 0
+        raise rhnFault(40, "The specified channel '%s' does not exist." % channel)
     if not ret["parent_channel"]:
-        log_error("Cannot unsubscribe %s from parent channel %s" % (
+        log_error("Cannot unsubscribe %s from base channel %s" % (
             server_id, channel))
-        return 0
+        raise rhnFault(72, "You can not unsubscribe %s from base channel %s." % (
+            server_id, channel))
     # we're fine
     return unsubscribe_sql(server_id, ret["id"])
 

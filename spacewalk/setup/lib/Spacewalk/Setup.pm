@@ -66,7 +66,7 @@ use constant DB_INSTALL_LOG_FILE =>
 use constant DB_POP_LOG_FILE =>
   '/var/log/rhn/populate_db.log';
 
-use constant DB_POP_LOG_SIZE => 195531;
+use constant DB_POP_LOG_SIZE => 2500000;
 
 use constant RHN_LOG_DIR =>
   '/var/log/rhn';
@@ -305,7 +305,21 @@ sub upgrade_stop_services {
 }
 
 my $spinning_callback_count;
-my @spinning_pattern = ('_/\,', ' ___,', '  _/\,', '   ___,', '    _/\,', '    _,_', '    ,/\_', '   ,___', '  ,/\_', ' ,___', ',/\_', '_,_');
+my @spinning_pattern = (
+    '______|||', 
+    'o_____|||', 
+    '_o____|||', 
+    '__o___|||', 
+    '___o__|||', 
+    '____o_|||', 
+    '_____o/||', 
+    '______o/|', 
+    '_______o/', 
+    '________o', 
+    '_________', 
+    '______///',
+);
+
 my $spinning_pattern_maxlength = 0;
 for (@spinning_pattern) {
 	if (length > $spinning_pattern_maxlength) {
@@ -378,7 +392,7 @@ sub log_rotate {
 }
 
 sub check_users_exist {
-    my @required_users = shift;
+    my @required_users = @_;
 
     my $missing_a_user;
 
@@ -396,7 +410,7 @@ sub check_users_exist {
 }
 
 sub check_groups_exist {
-    my @required_groups = shift;
+    my @required_groups = @_;
 
     my $missing_a_group;
 
@@ -1036,7 +1050,7 @@ EOQ
     $dbh->disconnect();
 
     my $version = join('', (split(/\./, $v))[0 .. 2]);
-    my @allowed_db_versions = qw/1110 1020 920/;
+    my @allowed_db_versions = qw/1120 1110 1020 920/;
 
     unless (grep { $version == $_ } @allowed_db_versions) {
         print loc("Invalid db version: (%s, %s)\n", $v, $c);

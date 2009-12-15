@@ -4,7 +4,6 @@ from sys import argv, exit
 base_template="""<?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry excluding="**/.svn|**/.svn/**" kind="src" path="code/internal/src"/>
-	<classpathentry kind="src" path="build/src"/>
 	<classpathentry excluding="**/.svn|**/.svn/**" kind="src" path="code/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="build/classes"/>

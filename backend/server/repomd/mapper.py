@@ -41,11 +41,14 @@ class ChannelMapper:
 
         self.channel_details_sql = rhnSQL.prepare("""
         select
-            label,
-            name
+            c.label,
+            c.name,
+            ct.label checksumtype
         from
-            rhnChannel
-        where id = :channel_id
+            rhnChannel c,
+            rhnChecksumType ct
+        where c.id = :channel_id
+          and c.checksum_type_id = ct.id
         """)
 
         self.channel_sql = rhnSQL.prepare("""
@@ -109,6 +112,7 @@ class ChannelMapper:
     
         channel.label = details[0]
         channel.name = details[1]
+        channel.checksumtype = details[2]
 
         self.channel_sql.execute(channel_id = channel_id)
         package_ids = self.channel_sql.fetchall()
@@ -196,7 +200,7 @@ class SqlPackageMapper:
             pevr.release,  
             pevr.epoch,  
             pa.label arch,  
-            p.md5sum,
+            c.checksum checksum,
             p.summary,
             p.description,
             p.vendor,
@@ -210,14 +214,16 @@ class SqlPackageMapper:
             p.copyright,
             p.path,
             sr.name source_rpm,
-            p.last_modified
+            p.last_modified,
+            c.checksum_type
         from  
             rhnPackage p,
             rhnPackageName pn,
             rhnPackageEVR pevr,
             rhnPackageArch pa,
             rhnPackageGroup pg,
-            rhnSourceRPM sr
+            rhnSourceRPM sr,
+            rhnChecksumView c
         where
             p.id = :package_id
         and p.name_id = pn.id
@@ -225,6 +231,7 @@ class SqlPackageMapper:
         and p.package_arch_id = pa.id
         and p.package_group = pg.id
         and p.source_rpm_id = sr.id
+        and p.checksum_id = c.id
         """)
        
         self.filelist_sql = rhnSQL.prepare("""
@@ -344,7 +351,7 @@ class SqlPackageMapper:
             package.epoch = pkg[3]
         package.arch = pkg[4]
 
-        package.md5sum = pkg[5]
+        package.checksum = (pkg[20], pkg[5])
         package.summary = string_to_unicode(pkg[6])
         package.description = string_to_unicode(pkg[7])
         package.vendor = string_to_unicode(pkg[8])

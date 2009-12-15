@@ -21,7 +21,9 @@ CREATE TABLE rhnAppInstallSession
                       CONSTRAINT rhn_appinst_session_iid_fk
                           REFERENCES rhnAppInstallInstance (id)
                           ON DELETE CASCADE,
-    md5sum        VARCHAR2(64),
+    checksum_id   NUMBER NOT NULL
+                     CONSTRAINT rhn_appinst_session_chsum_fk
+                     REFERENCES rhnChecksum (id),
     process_name  VARCHAR2(32),
     step_number   NUMBER,
     user_id       NUMBER NOT NULL

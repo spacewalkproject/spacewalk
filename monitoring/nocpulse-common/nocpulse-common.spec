@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.1.17
+Version:      2.1.18
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -136,6 +136,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Sep 17 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.18-1
+- 476851 - removal of tables: rhn_db_environment, rhn_environment
+
 * Mon Jul 27 2009 John Matthews <jmatthew@redhat.com> 2.1.17-1
 - specify login shell for useradd (msuchy@redhat.com)
 - 457011 - add warning to top of file. This file should not be edited manualy

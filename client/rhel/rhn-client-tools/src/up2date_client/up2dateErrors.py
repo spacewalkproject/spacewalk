@@ -8,7 +8,8 @@
 #
 
 import up2dateLog
-from rhpl.translate import _
+import gettext
+_ = gettext.gettext
 import OpenSSL
 import config
 

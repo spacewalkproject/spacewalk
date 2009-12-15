@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.0
+Version: 0.8.0
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -67,7 +67,7 @@ install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/indexes
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/lib
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/classes/com/redhat/satellite/search/db
-install -d -m 755 $RPM_BUILD_ROOT/etc/init.d
+install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
 install -d -m 755 $RPM_BUILD_ROOT%{_bindir}
 install -d -m 755 $RPM_BUILD_ROOT%{_var}/log/rhn/search
 install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/nutch
@@ -78,7 +78,7 @@ cp -d lib/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/lib
 install -p -m 644 src/config/log4j.properties $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/classes/log4j.properties
 install -p -m 644 src/config/etc/logrotate.d/rhn-search $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn-search
 install -p -m 644 src/config/com/redhat/satellite/search/db/* $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/classes/com/redhat/satellite/search/db
-install -p -m 755 src/config/rhn-search $RPM_BUILD_ROOT%{_sysconfdir}/init.d
+install -p -m 755 src/config/rhn-search $RPM_BUILD_ROOT%{_initrddir}
 ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT%{_bindir}/rhnsearchd
 install -p -m 644 src/config/search/rhn_search.conf $RPM_BUILD_ROOT%{_sysconfdir}/rhn/search/rhn_search.conf
 install -p -m 644 src/config/search/rhn_search_daemon.conf $RPM_BUILD_ROOT%{_sysconfdir}/rhn/search/rhn_search_daemon.conf
@@ -104,7 +104,7 @@ fi
 %{_prefix}/share/rhn/search/classes/log4j.properties
 %{_prefix}/share/rhn/search/classes/com/*
 %attr(755, root, root) %{_prefix}/share/rhn/search/indexes
-%attr(755, root, root) %{_sysconfdir}/init.d/rhn-search
+%attr(755, root, root) %{_initrddir}/rhn-search
 %attr(755, root, root) %{_bindir}/rhnsearchd
 %dir %{_sysconfdir}/rhn/search/
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search.conf
@@ -112,6 +112,14 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Wed Dec  2 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.3-1
+- 480342 - move init script from /etc/init.d to /etc/rc.d/init.d
+
+* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.1-1
+- 516872 - Fixed search server's log properties (paji@redhat.com)
+- Update doc indexes to reside in "en-US" (jmatthew@redhat.com)
+- bumping versions to 0.7.0 (jmatthew@redhat.com)
+
 * Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.6.11-1
 - 487014 - SystemSearch remove score requirement to redirect to SDC on 1 result
   (jmatthew@redhat.com)

@@ -35,7 +35,10 @@
 
 # Sanity checks.
 [ -x /usr/sbin/rhnsd ] || exit 6
-[ -f /etc/sysconfig/rhn/systemid ] || exit 6
+RHN_UP2DATE_FILE="/etc/sysconfig/rhn/up2date"
+[ -f $RHN_UP2DATE_FILE ] || exit 6
+RHN_SYSTEMID_FILE=`awk -F '=[[:space:]]*' '/^[[:space:]]*systemIdPath[[:space:]]*=/ {print $2}' $RHN_UP2DATE_FILE`
+[ -f $RHN_SYSTEMID_FILE ] || exit 6
 
 # Source function library.
 . /etc/rc.d/init.d/functions
@@ -88,8 +91,10 @@ case "$1" in
 	fi
 	;;
     reload)
+        echo -n $"Reloading Red Hat Network Daemon: "
   	killproc rhnsd -HUP
 	RETVAL=$?
+        echo
         ;;
     *)
 	echo $"Usage: $0 {start|stop|status|restart|condrestart|try-restart|reload}"

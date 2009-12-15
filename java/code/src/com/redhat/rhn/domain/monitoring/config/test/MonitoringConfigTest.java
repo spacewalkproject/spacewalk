@@ -15,7 +15,6 @@
 package com.redhat.rhn.domain.monitoring.config.test;
 
 import com.redhat.rhn.domain.monitoring.config.ConfigMacro;
-import com.redhat.rhn.domain.monitoring.config.DbEnvironment;
 import com.redhat.rhn.domain.monitoring.config.MonitoringConfigFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.testing.RhnBaseTestCase;
@@ -45,11 +44,10 @@ public class MonitoringConfigTest extends RhnBaseTestCase {
         cr.setLastUpdateUser(user.getLogin());
         MonitoringConfigFactory.saveConfigMacro(cr);
         String name = cr.getName();
-        String env = cr.getEnvironment();
         flushAndEvict(cr);
         cr = (ConfigMacro) TestUtils.lookupTestObject(
                 "from com.redhat.rhn.domain.monitoring.config.ConfigMacro c where " +
-                "c.name = '" + name + "' and c.environment = '" + env + "'");
+                "c.name = '" + name + "'");
         assertTrue(cr.getLastUpdateUser().equals(user.getLogin()));
         
     }
@@ -60,23 +58,5 @@ public class MonitoringConfigTest extends RhnBaseTestCase {
         assertNotNull(cm);
     }
     
-    public void testDbEnv() throws Exception {
-        Object o = TestUtils.lookupTestObject(
-                "from com.redhat.rhn.domain.monitoring.config." +
-                "DbEnvironment d");
-        assertNotNull(o);
-        assertTrue(o instanceof DbEnvironment);
-    }
-    
-    public void testCreateDbEnv() throws Exception {
-
-        DbEnvironment env =
-                (DbEnvironment) TestUtils.lookupTestObject(
-            "from com.redhat.rhn.domain.monitoring.config.DbEnvironment");
-        assertNotNull(env);
-
-        assertTrue(MonitoringConfigFactory.ensureDbEnvironmentExists());
-    }
-
 }
 

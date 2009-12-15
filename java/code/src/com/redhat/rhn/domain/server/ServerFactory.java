@@ -29,8 +29,6 @@ import com.redhat.rhn.frontend.xmlrpc.ChannelSubscriptionException;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.UpdateBaseChannelCommand;
 
-import java.util.LinkedList;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
@@ -38,9 +36,11 @@ import org.hibernate.Session;
 
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -739,4 +739,26 @@ public class ServerFactory extends HibernateFactory {
                 "ServerSnapshot.findTags", params);
         return snaps;
     }
+    
+    /**
+     * Filter out a list of systemIds with ones that are solaris systems
+     * @param systemIds list of system ids
+     * @return list of system ids that are solaris systems
+     */
+    public static List<Long> listSolarisSystems(Collection<Long> systemIds) {
+        return singleton.listObjectsByNamedQuery("Server.listSolarisSystems",
+                new HashMap(), systemIds, "sids");
+    }
+    
+    /**
+     * Filter out a list of systemIds with ones that are linux systems
+     *  (i.e. not solaris systems)
+     * @param systemIds list of system ids
+     * @return list of system ids that are linux systems
+     */
+    public static List<Long> listLinuxSystems(Collection<Long> systemIds) {
+        return singleton.listObjectsByNamedQuery("Server.listRedHatSystems",
+                new HashMap(), systemIds, "sids");
+    }
+    
 }

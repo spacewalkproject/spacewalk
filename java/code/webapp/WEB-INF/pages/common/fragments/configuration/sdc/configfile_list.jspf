@@ -12,3 +12,4 @@
         <%@ include file="/WEB-INF/pages/common/fragments/configuration/sdc/configfile_rows.jspf" %>
       </rhn:listdisplay>
     </rhn:list>
+    <rhn:submitted/>

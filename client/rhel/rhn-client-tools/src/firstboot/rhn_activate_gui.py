@@ -36,9 +36,10 @@ import rhnregGui
 import up2dateErrors
 import messageWindow
 
-from rhpl.translate import _, N_
-import rhpl.translate as translate
-translate.textdomain("rhn-client-tools")
+import gettext
+_ = gettext.gettext
+
+gettext.textdomain("rhn-client-tools")
 gtk.glade.bindtextdomain("rhn-client-tools")
 
 

@@ -39,6 +39,7 @@ public class SystemOverview extends BaseDto implements Serializable  {
     private Long bugErrata = 0L;
     private Long enhancementErrata = 0L;
     private Long outdatedPackages;
+    private Long configFilesWithDifferences;
     private String serverName;
     private Long serverAdmins;
     private Long groupCount;
@@ -316,6 +317,18 @@ public class SystemOverview extends BaseDto implements Serializable  {
      */
     public void setOutdatedPackages(Long outdatedPackagesIn) {
         this.outdatedPackages = outdatedPackagesIn;
+    }
+    /**
+     * @return Returns the configFilesWithDifferences.
+     */
+    public Long getConfigFilesWithDifferences() {
+        return configFilesWithDifferences;
+    }
+    /**
+     * @param configFilesWithDifferencesIn The configFilesWithDifferences to set.
+     */
+    public void setConfigFilesWithDifferences(Long configFilesWithDifferencesIn) {
+        this.configFilesWithDifferences = configFilesWithDifferencesIn;
     }
     /**
      * @return Returns the pendingUpdates.

@@ -15,7 +15,6 @@
 
 import os
 import sys
-import md5
 import pwd
 import grp
 import time
@@ -25,7 +24,8 @@ import string
 import popen2
 import select
 import urlparse
-
+from common import log_debug, log_error
+from spacewalk.common import checksum
 
 def setHeaderValue(mp_table, name, values):
     """
@@ -40,18 +40,6 @@ def setHeaderValue(mp_table, name, values):
             mp_table.add(name, str(v))
     else:
         mp_table[name] = str(values)
-
-
-def rfc822time(arg):
-    """
-    Return time as a string formatted such as: 'Wed, 23 Jun 2001 23:08:35 GMT'.
-    """
-    format = "%a, %d %b %Y %H:%M:%S GMT"
-    if type(arg) in (types.ListType, types.TupleType):
-        # Already a list
-        return time.strftime(format, arg)
-    # Assume it's a float
-    return time.strftime(format, time.gmtime(arg))
 
 
 rfc822_days = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')
@@ -305,9 +293,11 @@ def rotateFile(filepath, depth=5, suffix='.', verbosity=0):
                          % os.path.dirname(pathNSuffix))
 
     # is there anything to do? (existence, then size, then md5sum)
+    checksum_type = 'md5'       # FIXME: this should be configuation option
     if os.path.exists(pathNSuffix1) and os.path.isfile(pathNSuffix1) \
       and os.stat(filepath)[6] == os.stat(pathNSuffix1)[6] \
-      and getFileMD5(filepath) == getFileMD5(pathNSuffix1):
+      and checksum.getFileChecksum(checksum_type, filepath) == \
+          checksum.getFileChecksum(checksum_type, pathNSuffix1):
         # nothing to do
         if verbosity:
             sys.stderr.write("File '%s' is identical to it's rotation. "
@@ -346,52 +336,6 @@ def rotateFile(filepath, depth=5, suffix='.', verbosity=0):
 
     # return the full filepath of the backed up file
     return pathNSuffix1
-
-
-def getFileMD5(filename=None, fd=None, file=None, buffer_size=None):
-    """ Compute a file's md5sum
-        Used by rotateFile()
-    """
-
-    # python's md5 lib sucks.  hexdigest() doesn't show up until 2.0,
-    # and there's no way to directly import a file.
-    if buffer_size is None:
-        buffer_size = 65536
-
-    if filename is None and fd is None and file is None:
-        raise ValueError("no file specified")
-    if file:
-        f = file
-    elif fd is not None:
-        f = os.fdopen(os.dup(fd), "r")
-    else:
-        f = open(filename, "r")
-    # Rewind it
-    f.seek(0, 0)
-    m = md5.new()
-    while 1:
-        buffer = f.read(buffer_size)
-        if not buffer:
-            break
-        m.update(buffer)
-
-    # cleanup time
-    if file is not None:
-        file.seek(0, 0)
-    else:
-        f.close()
-    return hexify_string(m.digest())
-
-
-def getStringMD5(s):
-    """ compute md5sum of an arbitrary string """
-    ctx = md5.new(s)
-    return hexify_string(ctx.digest())
-
-
-def hexify_string(s):
-    """ Used by getStringMD5() and getFileMD5() """
-    return ("%02x" * len(s)) % tuple(map(ord, s))
 
 
 def rhn_popen(cmd, progressCallback=None, bufferSize=16384, outputLog=None):
@@ -491,7 +435,7 @@ def startswith(s, prefix):
 def setPermsPath(path, user='apache', group='root', chmod=0750):
     """chown user.group and set permissions to chmod"""
     if not os.path.exists(path):
-        log(-1, "*** ERROR: Path doesn't exist (can't set permissions): %s" % path, stream=sys.stderr)
+        log_error("*** ERROR: Path doesn't exist (can't set permissions): %s" % path)
         sys.exit(-1)
 
     # If non-root, don't bother to change owners
@@ -501,18 +445,17 @@ def setPermsPath(path, user='apache', group='root', chmod=0750):
     gc = GecosCache()
     uid = gc.getuid(user)
     if uid is None:
-        log(-1, messages.missing_user % user, stream=sys.stderr)
+        log_error(messages.missing_user % user)
         sys.exit(-1)
 
     gid = gc.getgid(group)
     if gid is None:
-        log(-1, messages.missing_group % group, stream=sys.stderr)
+        log_error(messages.missing_group % group)
         sys.exit(-1)
 
     uid_, gid_ = os.stat(path)[4:6]
     if uid_ != uid or gid_ != gid:
-        #log(1, "   Performing 'chown %s.%s %s'" % (user, group, path))
-            #stream=sys.stderr)
+        log_debug(3, "   Performing 'chown %s.%s %s'" % (user, group, path))
         os.chown(path, uid, gid)
     os.chmod(path, chmod)
 
@@ -624,7 +567,7 @@ def createPath(path, user='apache', group='root', chmod=0755, logging=1):
     path = cleanupAbsPath(path)
     if not os.path.exists(path):
         if logging:
-            log(4, "   Creating path: %s" % path, stream=sys.stderr)
+            log_debug(4, "   Creating path: %s" % path)
         makedirs(path, mode=chmod, user=user, group=group)
     elif not os.path.isdir(path):
         raise ValueError, "ERROR: createPath('%s'): path doesn't lead to a directory" % str(path)

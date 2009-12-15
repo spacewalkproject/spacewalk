@@ -25,8 +25,8 @@ from cStringIO import StringIO
 from common import log_debug, log_error, rhnFault, UserDictCase, rhnCache, \
     CFG, rhnLib
 from server import rhnSQL, rhnDatabaseCache
+from satellite_tools.exporter import exportLib, xmlWriter
 from satellite_exporter import constants
-from satellite_exporter.exporter import exportLib, xmlWriter
 from satellite_exporter.exporter.string_buffer import StringBuffer
 
 # A wrapper class for a database statement
@@ -778,15 +778,16 @@ class ShortPackagesDumper(CachedDumper, exportLib.ShortPackagesDumper):
                 pe.evr.release release,
                 pe.evr.epoch epoch,
                 pa.label package_arch,
-                p.md5sum,
+                c.checksum md5sum,
                 p.package_size,
                 TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
             from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe,
-                rhnPackageArch pa
+                rhnPackageArch pa, rhnChecksum c
             where p.id = :package_id
             and p.name_id = pn.id
             and p.evr_id = pe.id
             and p.package_arch_id = pa.id
+            and p.checksum_id = c.id
         """)
         CachedDumper.__init__(self, writer, statement=h, params=packages)
 
@@ -820,7 +821,7 @@ class PackagesDumper(CachedDumper, exportLib.PackagesDumper):
                 p.build_host,
                 TO_CHAR(p.build_time, 'YYYYMMDDHH24MISS') build_time,
                 sr.name source_rpm,
-                p.md5sum,
+                c.checksum md5sum,
                 p.vendor,
                 p.payload_format,
                 p.compat,
@@ -831,13 +832,15 @@ class PackagesDumper(CachedDumper, exportLib.PackagesDumper):
                 p.cookie,
                 TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
             from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe,
-                rhnPackageArch pa, rhnPackageGroup pg, rhnSourceRPM sr
+                rhnPackageArch pa, rhnPackageGroup pg, rhnSourceRPM sr,
+                rhnChecksum c
             where p.id = :package_id
             and p.name_id = pn.id
             and p.evr_id = pe.id
             and p.package_arch_id = pa.id
             and p.package_group = pg.id
             and p.source_rpm_id = sr.id
+            and p.checksum_id = c.id
         """)
         CachedDumper.__init__(self, writer, statement=h, params=packages)
 
@@ -861,16 +864,19 @@ class SourcePackagesDumper(CachedDumper, exportLib.SourcePackagesDumper):
                 ps.payload_size,
                 ps.build_host,
                 TO_CHAR(ps.build_time, 'YYYYMMDDHH24MISS') build_time,
-                ps.sigmd5,
+                sig.checksum sigmd5,
                 ps.vendor,
                 ps.cookie,
                 ps.package_size,
-                ps.md5sum,
+                c.checksum md5sum,
                 TO_CHAR(ps.last_modified, 'YYYYMMDDHH24MISS') last_modified
-            from rhnPackageSource ps, rhnPackageGroup pg, rhnSourceRPM sr
+            from rhnPackageSource ps, rhnPackageGroup pg, rhnSourceRPM sr,
+                 rhnChecksum c, rhnChecksum sig
             where ps.id = :package_id
             and ps.package_group = pg.id
             and ps.source_rpm_id = sr.id
+            and ps.checksum_id = c.id
+            and ps.sigchecksum_id = sig.id
         """)
         CachedDumper.__init__(self, writer, statement=h, params=packages)
 
@@ -885,7 +891,7 @@ class SourcePackagesDumper(CachedDumper, exportLib.SourcePackagesDumper):
         return exportLib.SourcePackagesDumper.dump_subelement(self, data)
 
 
-class ErrataDumper(CachedDumper, exportLib.ErrataDumper):
+class ErrataDumper(CachedDumper, exportLib.ErrataSynopsisDumper):
     def __init__(self, writer, errata):
         h = rhnSQL.prepare("""
             select
@@ -916,7 +922,7 @@ class ErrataDumper(CachedDumper, exportLib.ErrataDumper):
 
     def _dump_subelement(self, data):
         log_debug(6, data)
-        return exportLib.ErrataDumper.dump_subelement(self, data)
+        return exportLib.ErrataSynopsisDumper.dump_subelement(self, data)
 
 class KickstartableTreesDumper(CachedDumper,
         exportLib.KickstartableTreesDumper):

@@ -28,7 +28,6 @@ sub register_tags {
   my $pxt = shift;
 
   $pxt->register_tag('rhn-set-totals' => \&set_totals);
-  $pxt->register_tag('rhn-xml-checker' => \&xml_checker);
 }
 
 sub register_callbacks {
@@ -77,62 +76,6 @@ sub clear_set_cb {
   $set->commit;
 
   $pxt->redirect($pxt->param('set_clear_redirect') || $pxt->uri);
-}
-
-sub xml_checker {
-  my $pxt = shift;
-
-  $pxt->manual_content(1);
-  $pxt->no_cache(1);
-  $pxt->content_type('text/xml');
-  $pxt->send_http_header;
-
-  my %set_var_map = ( system_list => "sid" );
-  my $set_label = $pxt->dirty_param('set_label');
-
-  if (not $set_label or not exists $set_var_map{$set_label}) {
-    $pxt->print("INVALID SET");
-    return;
-  }
-
-  my $set = new RHN::DB::Set $set_label, $pxt->user->id;
-
-  my @which = $pxt->param($set_var_map{$set_label});
-
-  if ($pxt->dirty_param("checked") and $pxt->dirty_param("checked") eq "on") {
-    $set->immediate_add(@which);
-  }
-  else {
-    $set->immediate_remove(@which);
-  }
-  RHN::DB->connect->commit;
-
-  my $count = $set->element_count;
-  my $header_message;
-
-  if ($count == 0) {
-    $header_message = 'No systems selected';
-  }
-  elsif ($count == 1) {
-    $header_message = '1 system selected';
-  }
-  else {
-    $header_message = "$count systems selected";
-  }
-
-  my $pagination_message = "($count selected)";
-
-  my $ret = <<EOS;
-<?xml version="1.0" encoding="utf-8"?>
-
-<ssm-data>
-  <ssm-count-header-message>$header_message</ssm-count-header-message>
-  <ssm-count-pagination-message>$pagination_message</ssm-count-pagination-message>
-  <ssm-count>$count</ssm-count>
-</ssm-data>
-EOS
-
-  $pxt->print($ret);
 }
 
 1;

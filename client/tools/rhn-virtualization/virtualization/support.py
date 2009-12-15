@@ -39,6 +39,27 @@ except:
     # be on every system.
     libvirt = None
 
+def _check_status(daemon):
+    """
+     Checks to see if daemon is running.
+    """
+    import commands
+    cmd = "/etc/init.d/%s status" % daemon
+    status, msg = commands.getstatusoutput(cmd)
+    if status != 0:
+        return False
+    return True
+
+
+vdsm_enabled = None
+if not _check_status("libvirtd"):
+    # Only check for vdsm if libvirt is disabled.
+    # sometimes due to manual intervention both could be running
+    # in such case use libvirt as the system is now in 
+    # un supported state.
+    vdsm_enabled = _check_status("vdsmd")
+
+
 ###############################################################################
 # Public Interface
 ###############################################################################
@@ -67,16 +88,23 @@ def refresh():
           PropertyType.UUID     : my_uuid          })
 
     # Now, crawl each of the domains on this host.
-    domains = poller.poll_hypervisor()
-    if not len(domains):
-       # Either there were no domains or xend might not be running
-       # dont proceed further.
+    if vdsm_enabled:
+        domains = poller.poll_through_vdsm() 
+    else:
+        domains = poller.poll_hypervisor()
+
+    if not len(domains) and libvirt.open(None).getType() == 'Xen':
+       # On a KVM/QEMU host, libvirt reports no domain entry for host itself.
+       # On a Xen host, either there were no domains or xend might not be
+       # running. Don't proceed further.
        return
     domain_list = domains.values()
     domain_uuids = domains.keys()
 
-    domain_dir = DomainDirectory()
-    domain_dir.save_unknown_domain_configs(domain_uuids)
+    if not vdsm_enabled:
+        # We need this only for libvirt
+        domain_dir = DomainDirectory()
+        domain_dir.save_unknown_domain_configs(domain_uuids)
 
     plan.add(EventType.CRAWL_BEGAN, TargetType.SYSTEM)
     for domain_properties in domain_list:
@@ -159,6 +187,10 @@ def _is_host_domain():
 
     We can figure out if Xen/Qemu is running by checking for the type
     """
+    if vdsm_enabled:
+        # since vdsm is enabled, lets move further and 
+        # see what we get
+        return True
     if not libvirt:
         # No libvirt, dont bother with the rest
         return False
@@ -173,7 +205,6 @@ def _fetch_host_uuid():
     16 zeros.
     """
     return '0000000000000000'
-
 
 ###############################################################################
 # Test Routine

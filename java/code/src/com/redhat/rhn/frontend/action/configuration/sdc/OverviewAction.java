@@ -275,30 +275,21 @@ public class OverviewAction extends RhnAction {
             ConfigFileCount differing,
             String url) {
 
-        int filesSuffix = getSuffix(total.getFiles() + total.getSymlinks());
+        int filesSuffix = getSuffix(total.getFiles());
         int dirsSuffix = getSuffix(total.getDirectories());
+        int symlinksSuffix = getSuffix(total.getSymlinks());
 
         String messageKey = DIFF_ACTION_MESSAGE_PREFIX +
-            filesSuffix + "_dirs_" + dirsSuffix;
+            filesSuffix + "_dirs_" + dirsSuffix + "_symlinks_" + symlinksSuffix;
 
         List params = new ArrayList();
         // setup the params
-        if (filesSuffix == PLURAL) {
-            params.add(String.valueOf(successful.getFiles() + successful.getSymlinks()));
-            params.add(String.valueOf(total.getFiles() + total.getSymlinks()));
-        }
-        else if (filesSuffix == SINGULAR) {
-            params.add(String.valueOf(successful.getFiles() + successful.getSymlinks()));
-        }
-
-        if (dirsSuffix == PLURAL) {
-            params.add(String.valueOf(successful.getDirectories()));
-            params.add(String.valueOf(total.getDirectories()));
-        }
-        else if (dirsSuffix == SINGULAR) {
-            params.add(String.valueOf(successful.getDirectories()));
-        }
-
+        params.add(String.valueOf(successful.getFiles()));
+        params.add(String.valueOf(total.getFiles()));
+        params.add(String.valueOf(successful.getDirectories()));
+        params.add(String.valueOf(total.getDirectories()));
+        params.add(String.valueOf(successful.getSymlinks()));
+        params.add(String.valueOf(total.getSymlinks()));
         params.add(url);
 
         LocalizationService service  = LocalizationService.getInstance();
@@ -306,9 +297,10 @@ public class OverviewAction extends RhnAction {
             request.setAttribute(DIFF_ACTION_MESSAGE,
                     service.getMessage(messageKey));
         }
-        request.setAttribute(DIFF_ACTION_MESSAGE,
-                service.getMessage(messageKey,
-                    params.toArray()));
+        else {
+            request.setAttribute(DIFF_ACTION_MESSAGE,
+                    service.getMessage(messageKey, params.toArray()));
+        }
 
         if (successful.getFiles() + successful.getSymlinks() > 0) {
             String diffActionKey;
@@ -327,7 +319,7 @@ public class OverviewAction extends RhnAction {
                 else {
                     Object [] keyParams = new Object[] {
                         String.valueOf(differing.getFiles() + differing.getSymlinks()),
-                            String.valueOf(successful.getFiles() + successful.getSymlinks())
+                        String.valueOf(successful.getFiles() + successful.getSymlinks())
                     };
                     request.setAttribute(DIFF_DETAILS_MESSAGE,
                             service.getMessage(diffActionKey, keyParams));

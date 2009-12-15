@@ -25,6 +25,7 @@ from importLib import File, Dependency, ChangeLog, Channel, \
 from backendLib import gmtime, localtime
 from types import ListType, TupleType, IntType
 from common import log_debug
+from spacewalk.common import checksum
 
 class rpmPackage(IncompletePackage):
     # Various mappings
@@ -33,7 +34,7 @@ class rpmPackage(IncompletePackage):
         'last_modified'     : None,
     }
 
-    def populate(self, header, size, md5sum, path=None, org_id=None,
+    def populate(self, header, size, checksum, path=None, org_id=None,
         header_start=None, header_end=None, channels=[]):
         
         # XXX is seems to me that this is the place that 'source_rpm' is getting
@@ -63,7 +64,7 @@ class rpmPackage(IncompletePackage):
             self[f] = val
 
         self['package_size'] = size
-        self['md5sum'] = md5sum
+        self['checksum'] = checksum
         self['path'] = path
         self['org_id'] = org_id
         self['header_start'] = header_start
@@ -85,7 +86,7 @@ class rpmPackage(IncompletePackage):
             source=None):
 	f_obj = file(f_path)
         import server.rhnPackageUpload as rhnPackageUpload
-        header, payload_stream, md5sum, header_start, header_end = \
+        header, payload_stream, header_start, header_end = \
             rhnPackageUpload.load_package(f_obj)
         if (source and not header.is_source) or (not source and header.is_source):
             raise ValueError("Unexpected RPM package type")
@@ -96,7 +97,9 @@ class rpmPackage(IncompletePackage):
         if relpath:
             # Strip trailing slashes
             path = "%s/%s" % (sanitizePath(relpath), os.path.basename(f_path))
-        self.populate(header, size, md5sum, path, org_id, header_start,
+        checksum = (header.checksum_type(),
+                    checksum.getFileChecksum(header.checksum_type(), file=f_obj))
+        self.populate(header, size, checksum, path, org_id, header_start,
             header_end, channels)
 
 class rpmBinaryPackage(Package, rpmPackage):
@@ -131,10 +134,10 @@ class rpmBinaryPackage(Package, rpmPackage):
         'package_id'    : None,
     })
 
-    def populate(self, header, size, md5sum, path=None, org_id=None,
+    def populate(self, header, size, checksum, path=None, org_id=None,
              header_start=None, header_end=None, channels=[]):
 
-        rpmPackage.populate(self, header, size, md5sum, path, org_id,
+        rpmPackage.populate(self, header, size, checksum, path, org_id,
             header_start, header_end)
         
         # Populate file information
@@ -246,9 +249,9 @@ class rpmSourcePackage(SourcePackage, rpmPackage):
         'channels'      : None,
         'package_id'    : None,
     })
-    def populate(self, header, size, md5sum, path=None, org_id=None,
+    def populate(self, header, size, checksum, path=None, org_id=None,
         header_start=None, header_end=None, channels=[]):
-        rpmPackage.populate(self, header, size, md5sum, path, org_id,
+        rpmPackage.populate(self, header, size, checksum, path, org_id,
             header_start, header_end)
         nvr = []
         # Fill in source_rpm
@@ -280,7 +283,8 @@ class rpmFile(File, ChangeLog):
         'rdev'      : 'filerdevs',
         'file_size' : 'filesizes',
         'mtime'     : 'filemtimes',
-        'md5'       : 'filemd5s',
+        'filedigest'  : 'filemd5s',     # FILEMD5S is a pre-rpm4.6 name for FILEDIGESTS
+                                        # we have to use it for compatibility reason
         'linkto'    : 'filelinktos',
         'flags'     : 'fileflags',
         'verifyflags' : 'fileverifyflags',
@@ -357,7 +361,7 @@ def sanitizeList(l):
         return l
     return [l]
 
-def createPackage(header, size, md5sum, relpath, org_id, header_start,
+def createPackage(header, size, checksum, relpath, org_id, header_start,
     header_end, channels):
     """
     Returns a populated instance of rpmBinaryPackage or rpmSourcePackage
@@ -369,7 +373,10 @@ def createPackage(header, size, md5sum, relpath, org_id, header_start,
         log_debug(4, "Creating package")
         p = rpmBinaryPackage()
 
-    p.populate(header, size, md5sum, relpath, org_id, header_start, header_end,
+    # bug #524231 - we need to call fullFilelist() for RPM v3 file list
+    # to expand correctly
+    header.hdr.fullFilelist()
+    p.populate(header, size, checksum, relpath, org_id, header_start, header_end,
         channels)
     return p
 

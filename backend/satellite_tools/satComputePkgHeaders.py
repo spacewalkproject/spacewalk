@@ -55,7 +55,7 @@ sys.modules["_apache"] = sys.modules["__main__"]
 
 
 from server import rhnSQL
-from common import rhn_rpm
+from spacewalk.common import rhn_rpm
 
 options_table = [
     Option("-v", "--verbose",       action="count", 

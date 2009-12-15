@@ -26,28 +26,12 @@ import java.util.Date;
  */
 public class ConfigMacro implements Serializable {
 
-    private String environment;
     private String name;
     private String definition;
     private String description;
     private String editable;
     private String lastUpdateUser;
     private Date lastUpdateDate;
-    /** 
-     * Getter for environment 
-     * @return String to get
-    */
-    public String getEnvironment() {
-        return this.environment;
-    }
-
-    /** 
-     * Setter for environment 
-     * @param environmentIn to set
-    */
-    public void setEnvironment(String environmentIn) {
-        this.environment = environmentIn;
-    }
 
     /** 
      * Getter for name 
@@ -149,7 +133,7 @@ public class ConfigMacro implements Serializable {
      * {@inheritDoc}
      */
     public int hashCode() {
-        return new HashCodeBuilder().append(environment).append(name)
+        return new HashCodeBuilder().append(name)
                 .toHashCode();
     }
 
@@ -161,7 +145,7 @@ public class ConfigMacro implements Serializable {
             return false;
         }
         ConfigMacro castOther = (ConfigMacro) other;
-        return new EqualsBuilder().append(environment, castOther.environment)
+        return new EqualsBuilder()
                 .append(name, castOther.name).isEquals();
     }
 

@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+        <head><title> Spacewalk 0.6 DB Schema - Tables </title>
+        <link rel="stylesheet" type="text/css" href="oraschemadoc.css" />
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta name="author" content="Petr Vanek, petr@scribus.info" />
+        <meta name="generator" content="oraschemadoc" />
+        </head>
+        <body>
+            <div class="contextbar">
+            <a href="main.html">Main</a>
+            <a href="tables-list.html">Tables</a>
+            <a href="views-list.html">Views</a>
+            <a href="mviews-list.html">Materialized&nbsp;Views</a>
+            <a href="indexes-list.html">Indexes</a>
+            <a href="constraints-list.html">Constraints</a>
+            <a href="triggers-list.html">Triggers</a>
+            <a href="procedures-list.html">Procedures</a>
+            <a href="functions-list.html">Functions</a>
+            <a href="packages-list.html">Packages</a>
+            <a href="sequences.html">Sequences</a>
+            <a href="java-sources-list.html">Java&nbsp;Sources</a>
+            <a href="sanity-check.html">Sanity&nbsp;Check</a>
+            <a href="symbol-index.html">Index</a>
+            <a href="sql_sources/" target="Main">DDL&nbsp;scrips</a>
+            </div><h3>Tables</h3>
+<table>
+<tr><th>Table</th><th>Description</th><th>DDL Script</th></tr><tr><td><a href="table-DEMO_LOG.html"> DEMO_LOG </a></td><td>&nbsp;</td><td><a href="sql_sources/table/demo_log.sql">DDL script</a></td></tr>
+<tr><td><a href="table-PXTSESSIONS.html"> PXTSESSIONS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/pxtsessions.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTION.html"> RHNACTION </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnaction.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONCONFIGCHANNEL.html"> RHNACTIONCONFIGCHANNEL </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionconfigchannel.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONCONFIGDATE.html"> RHNACTIONCONFIGDATE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionconfigdate.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONCONFIGDATEFILE.html"> RHNACTIONCONFIGDATEFILE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionconfigdatefile.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONCONFIGFILENAME.html"> RHNACTIONCONFIGFILENAME </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionconfigfilename.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONCONFIGREVISION.html"> RHNACTIONCONFIGREVISION </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionconfigrevision.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONCONFIGREVISIONRESULT.html"> RHNACTIONCONFIGREVISIONRESULT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionconfigrevisionresult.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONDAEMONCONFIG.html"> RHNACTIONDAEMONCONFIG </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactiondaemonconfig.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONERRATAUPDATE.html"> RHNACTIONERRATAUPDATE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionerrataupdate.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONKICKSTART.html"> RHNACTIONKICKSTART </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionkickstart.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONKICKSTARTFILELIST.html"> RHNACTIONKICKSTARTFILELIST </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionkickstartfilelist.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONKICKSTARTGUEST.html"> RHNACTIONKICKSTARTGUEST </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionkickstartguest.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONPACKAGE.html"> RHNACTIONPACKAGE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionpackage.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONPACKAGEANSWERFILE.html"> RHNACTIONPACKAGEANSWERFILE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionpackageanswerfile.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONPACKAGEDELTA.html"> RHNACTIONPACKAGEDELTA </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionpackagedelta.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONPACKAGEORDER.html"> RHNACTIONPACKAGEORDER </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionpackageorder.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONPACKAGEREMOVALFAILURE.html"> RHNACTIONPACKAGEREMOVALFAILURE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionpackageremovalfailure.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONSCRIPT.html"> RHNACTIONSCRIPT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionscript.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONSTATUS.html"> RHNACTIONSTATUS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionstatus.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONTRANSACTIONS.html"> RHNACTIONTRANSACTIONS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactiontransactions.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONTYPE.html"> RHNACTIONTYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactiontype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONVIRTDESTROY.html"> RHNACTIONVIRTDESTROY </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionvirtdestroy.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONVIRTREBOOT.html"> RHNACTIONVIRTREBOOT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionvirtreboot.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONVIRTREFRESH.html"> RHNACTIONVIRTREFRESH </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionvirtrefresh.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONVIRTRESUME.html"> RHNACTIONVIRTRESUME </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionvirtresume.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONVIRTSCHEDULEPOLLER.html"> RHNACTIONVIRTSCHEDULEPOLLER </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionvirtschedulepoller.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONVIRTSETMEMORY.html"> RHNACTIONVIRTSETMEMORY </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionvirtsetmemory.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONVIRTSHUTDOWN.html"> RHNACTIONVIRTSHUTDOWN </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionvirtshutdown.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONVIRTSTART.html"> RHNACTIONVIRTSTART </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionvirtstart.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONVIRTSUSPEND.html"> RHNACTIONVIRTSUSPEND </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionvirtsuspend.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIONVIRTVCPU.html"> RHNACTIONVIRTVCPU </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactionvirtvcpu.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNACTIVATIONKEY.html"> RHNACTIVATIONKEY </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnactivationkey.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNALLOWTRUST.html"> RHNALLOWTRUST </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnallowtrust.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNAPPINSTALLINSTANCE.html"> RHNAPPINSTALLINSTANCE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnappinstallinstance.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNAPPINSTALLSESSION.html"> RHNAPPINSTALLSESSION </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnappinstallsession.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNAPPINSTALLSESSIONDATA.html"> RHNAPPINSTALLSESSIONDATA </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnappinstallsessiondata.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNARCHTYPE.html"> RHNARCHTYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnarchtype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNARCHTYPEACTIONS.html"> RHNARCHTYPEACTIONS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnarchtypeactions.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNBEEHIVEPATHMAP.html"> RHNBEEHIVEPATHMAP </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnbeehivepathmap.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNBLACKLISTOBSOLETES.html"> RHNBLACKLISTOBSOLETES </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnblacklistobsoletes.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCHANNEL.html"> RHNCHANNEL </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnchannel.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCHANNELARCH.html"> RHNCHANNELARCH </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnchannelarch.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCHANNELCLONED.html"> RHNCHANNELCLONED </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnchannelcloned.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCHANNELCOMPS.html"> RHNCHANNELCOMPS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnchannelcomps.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCHANNELCONTENTSOURCE.html"> RHNCHANNELCONTENTSOURCE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnchannelcontentsource.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCHANNELDOWNLOADS.html"> RHNCHANNELDOWNLOADS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnchanneldownloads.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCHANNELERRATA.html"> RHNCHANNELERRATA </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnchannelerrata.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCHANNELFAMILY.html"> RHNCHANNELFAMILY </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnchannelfamily.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCHANNELFAMILYLICENSE.html"> RHNCHANNELFAMILYLICENSE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnchannelfamilylicense.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCHANNELFAMILYLICENSECONSENT.html"> RHNCHANNELFAMILYLICENSECONSENT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnchannelfamilylicenseconsent.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCHANNELFAMILYMEMBERS.html"> RHNCHANNELFAMILYMEMBERS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnchannelfamilymembers.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCHANNELFAMILYVIRTSUBLEVEL.html"> RHNCHANNELFAMILYVIRTSUBLEVEL </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnchannelfamilyvirtsublevel.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCHANNELNEWESTPACKAGE.html"> RHNCHANNELNEWESTPACKAGE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnchannelnewestpackage.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCHANNELNEWESTPACKAGEAUDIT.html"> RHNCHANNELNEWESTPACKAGEAUDIT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnchannelnewestpackageaudit.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCHANNELPACKAGE.html"> RHNCHANNELPACKAGE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnchannelpackage.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCHANNELPACKAGEARCHCOMPAT.html"> RHNCHANNELPACKAGEARCHCOMPAT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnchannelpackagearchcompat.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCHANNELPARENT.html"> RHNCHANNELPARENT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnchannelparent.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCHANNELPERMISSION.html"> RHNCHANNELPERMISSION </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnchannelpermission.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCHANNELPERMISSIONROLE.html"> RHNCHANNELPERMISSIONROLE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnchannelpermissionrole.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCHANNELPRODUCT.html"> RHNCHANNELPRODUCT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnchannelproduct.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCHANNELTRUST.html"> RHNCHANNELTRUST </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnchanneltrust.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCHECKSUMTYPE.html"> RHNCHECKSUMTYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnchecksumtype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCLIENTCAPABILITY.html"> RHNCLIENTCAPABILITY </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnclientcapability.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCLIENTCAPABILITYNAME.html"> RHNCLIENTCAPABILITYNAME </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnclientcapabilityname.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCONFIGCHANNEL.html"> RHNCONFIGCHANNEL </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnconfigchannel.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCONFIGCHANNELTYPE.html"> RHNCONFIGCHANNELTYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnconfigchanneltype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCONFIGCONTENT.html"> RHNCONFIGCONTENT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnconfigcontent.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCONFIGFILE.html"> RHNCONFIGFILE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnconfigfile.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCONFIGFILEFAILURE.html"> RHNCONFIGFILEFAILURE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnconfigfilefailure.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCONFIGFILENAME.html"> RHNCONFIGFILENAME </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnconfigfilename.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCONFIGFILESTATE.html"> RHNCONFIGFILESTATE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnconfigfilestate.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCONFIGFILETYPE.html"> RHNCONFIGFILETYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnconfigfiletype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCONFIGINFO.html"> RHNCONFIGINFO </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnconfiginfo.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCONFIGREVISION.html"> RHNCONFIGREVISION </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnconfigrevision.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCONTENTSOURCETYPE.html"> RHNCONTENTSOURCETYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhncontentsourcetype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCPU.html"> RHNCPU </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhncpu.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCPUARCH.html"> RHNCPUARCH </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhncpuarch.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCRYPTOKEY.html"> RHNCRYPTOKEY </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhncryptokey.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCRYPTOKEYKICKSTART.html"> RHNCRYPTOKEYKICKSTART </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhncryptokeykickstart.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCRYPTOKEYTYPE.html"> RHNCRYPTOKEYTYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhncryptokeytype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCUSTOMDATAKEY.html"> RHNCUSTOMDATAKEY </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhncustomdatakey.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNCVE.html"> RHNCVE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhncve.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNDAEMONSTATE.html"> RHNDAEMONSTATE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhndaemonstate.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNDAILYSUMMARYQUEUE.html"> RHNDAILYSUMMARYQUEUE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhndailysummaryqueue.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNDEVICE.html"> RHNDEVICE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhndevice.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNDISTCHANNELMAP.html"> RHNDISTCHANNELMAP </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhndistchannelmap.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNDOWNLOADS.html"> RHNDOWNLOADS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhndownloads.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNDOWNLOADTYPE.html"> RHNDOWNLOADTYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhndownloadtype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNEMAILADDRESS.html"> RHNEMAILADDRESS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnemailaddress.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNEMAILADDRESSLOG.html"> RHNEMAILADDRESSLOG </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnemailaddresslog.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNEMAILADDRESSSTATE.html"> RHNEMAILADDRESSSTATE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnemailaddressstate.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNENTITLEMENTLOG.html"> RHNENTITLEMENTLOG </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnentitlementlog.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNERRATA.html"> RHNERRATA </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnerrata.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNERRATABUGLIST.html"> RHNERRATABUGLIST </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnerratabuglist.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNERRATABUGLISTTMP.html"> RHNERRATABUGLISTTMP </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnerratabuglisttmp.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNERRATACLONED.html"> RHNERRATACLONED </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnerratacloned.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNERRATACLONEDTMP.html"> RHNERRATACLONEDTMP </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnerrataclonedtmp.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNERRATACVE.html"> RHNERRATACVE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnerratacve.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNERRATAFILE.html"> RHNERRATAFILE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnerratafile.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNERRATAFILECHANNEL.html"> RHNERRATAFILECHANNEL </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnerratafilechannel.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNERRATAFILECHANNELTMP.html"> RHNERRATAFILECHANNELTMP </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnerratafilechanneltmp.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNERRATAFILEPACKAGE.html"> RHNERRATAFILEPACKAGE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnerratafilepackage.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNERRATAFILEPACKAGESOURCE.html"> RHNERRATAFILEPACKAGESOURCE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnerratafilepackagesource.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNERRATAFILEPACKAGETMP.html"> RHNERRATAFILEPACKAGETMP </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnerratafilepackagetmp.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNERRATAFILETMP.html"> RHNERRATAFILETMP </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnerratafiletmp.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNERRATAFILETYPE.html"> RHNERRATAFILETYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnerratafiletype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNERRATAKEYWORD.html"> RHNERRATAKEYWORD </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnerratakeyword.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNERRATAKEYWORDTMP.html"> RHNERRATAKEYWORDTMP </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnerratakeywordtmp.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNERRATANOTIFICATIONQUEUE.html"> RHNERRATANOTIFICATIONQUEUE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnerratanotificationqueue.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNERRATAPACKAGE.html"> RHNERRATAPACKAGE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnerratapackage.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNERRATAPACKAGETMP.html"> RHNERRATAPACKAGETMP </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnerratapackagetmp.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNERRATAQUEUE.html"> RHNERRATAQUEUE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnerrataqueue.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNERRATASEVERITY.html"> RHNERRATASEVERITY </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnerrataseverity.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNERRATATMP.html"> RHNERRATATMP </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnerratatmp.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNEXCEPTION.html"> RHNEXCEPTION </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnexception.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNFEATURE.html"> RHNFEATURE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnfeature.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNFILE.html"> RHNFILE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnfile.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNFILEDOWNLOAD.html"> RHNFILEDOWNLOAD </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnfiledownload.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNFILELIST.html"> RHNFILELIST </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnfilelist.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNFILELISTMEMBERS.html"> RHNFILELISTMEMBERS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnfilelistmembers.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNFILELOCATION.html"> RHNFILELOCATION </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnfilelocation.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNGRAILCOMPONENTCHOICES.html"> RHNGRAILCOMPONENTCHOICES </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhngrailcomponentchoices.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNGRAILCOMPONENTS.html"> RHNGRAILCOMPONENTS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhngrailcomponents.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNINDEXERWORK.html"> RHNINDEXERWORK </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnindexerwork.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNINFOPANE.html"> RHNINFOPANE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhninfopane.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNKICKSTARTABLETREE.html"> RHNKICKSTARTABLETREE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnkickstartabletree.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNKICKSTARTCHILDCHANNEL.html"> RHNKICKSTARTCHILDCHANNEL </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnkickstartchildchannel.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNKICKSTARTCOMMAND.html"> RHNKICKSTARTCOMMAND </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnkickstartcommand.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNKICKSTARTCOMMANDNAME.html"> RHNKICKSTARTCOMMANDNAME </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnkickstartcommandname.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNKICKSTARTDEFAULTREGTOKEN.html"> RHNKICKSTARTDEFAULTREGTOKEN </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnkickstartdefaultregtoken.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNKICKSTARTDEFAULTS.html"> RHNKICKSTARTDEFAULTS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnkickstartdefaults.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNKICKSTARTIPRANGE.html"> RHNKICKSTARTIPRANGE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnkickstartiprange.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNKICKSTARTPACKAGE.html"> RHNKICKSTARTPACKAGE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnkickstartpackage.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNKICKSTARTPRESERVEFILELIST.html"> RHNKICKSTARTPRESERVEFILELIST </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnkickstartpreservefilelist.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNKICKSTARTSCRIPT.html"> RHNKICKSTARTSCRIPT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnkickstartscript.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNKICKSTARTSESSION.html"> RHNKICKSTARTSESSION </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnkickstartsession.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNKICKSTARTSESSIONHISTORY.html"> RHNKICKSTARTSESSIONHISTORY </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnkickstartsessionhistory.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNKICKSTARTSESSIONSTATE.html"> RHNKICKSTARTSESSIONSTATE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnkickstartsessionstate.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNKICKSTARTTIMEZONE.html"> RHNKICKSTARTTIMEZONE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnkickstarttimezone.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNKICKSTARTVIRTUALIZATIONTYPE.html"> RHNKICKSTARTVIRTUALIZATIONTYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnkickstartvirtualizationtype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNKSDATA.html"> RHNKSDATA </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnksdata.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNKSINSTALLTYPE.html"> RHNKSINSTALLTYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnksinstalltype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNKSTREEFILE.html"> RHNKSTREEFILE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnkstreefile.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNKSTREETYPE.html"> RHNKSTREETYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnkstreetype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNMESSAGE.html"> RHNMESSAGE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnmessage.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNMESSAGEPRIORITY.html"> RHNMESSAGEPRIORITY </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnmessagepriority.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNMESSAGETYPE.html"> RHNMESSAGETYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnmessagetype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNMONITOR.html"> RHNMONITOR </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnmonitor.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNMONITORGRANULARITY.html"> RHNMONITORGRANULARITY </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnmonitorgranularity.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNORGCHANNELSETTINGS.html"> RHNORGCHANNELSETTINGS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnorgchannelsettings.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNORGCHANNELSETTINGSTYPE.html"> RHNORGCHANNELSETTINGSTYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnorgchannelsettingstype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNORGENTITLEMENTS.html"> RHNORGENTITLEMENTS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnorgentitlements.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNORGENTITLEMENTTYPE.html"> RHNORGENTITLEMENTTYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnorgentitlementtype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNORGERRATACACHEQUEUE.html"> RHNORGERRATACACHEQUEUE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnorgerratacachequeue.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNORGINFO.html"> RHNORGINFO </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnorginfo.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNORGQUOTA.html"> RHNORGQUOTA </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnorgquota.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGE.html"> RHNPACKAGE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackage.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGEARCH.html"> RHNPACKAGEARCH </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackagearch.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGECAPABILITY.html"> RHNPACKAGECAPABILITY </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackagecapability.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGECHANGELOG.html"> RHNPACKAGECHANGELOG </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackagechangelog.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGECONFLICTS.html"> RHNPACKAGECONFLICTS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackageconflicts.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGEDELTA.html"> RHNPACKAGEDELTA </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackagedelta.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGEDELTAELEMENT.html"> RHNPACKAGEDELTAELEMENT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackagedeltaelement.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGEEVR.html"> RHNPACKAGEEVR </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackageevr.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGEFILE.html"> RHNPACKAGEFILE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackagefile.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGEFILEDELETEQUEUE.html"> RHNPACKAGEFILEDELETEQUEUE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackagefiledeletequeue.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGEGROUP.html"> RHNPACKAGEGROUP </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackagegroup.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGEKEY.html"> RHNPACKAGEKEY </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackagekey.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGEKEYASSOCIATION.html"> RHNPACKAGEKEYASSOCIATION </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackagekeyassociation.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGEKEYTYPE.html"> RHNPACKAGEKEYTYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackagekeytype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGENAME.html"> RHNPACKAGENAME </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackagename.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGENEVRA.html"> RHNPACKAGENEVRA </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackagenevra.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGEOBSOLETES.html"> RHNPACKAGEOBSOLETES </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackageobsoletes.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGEPROVIDER.html"> RHNPACKAGEPROVIDER </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackageprovider.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGEPROVIDES.html"> RHNPACKAGEPROVIDES </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackageprovides.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGEREQUIRES.html"> RHNPACKAGEREQUIRES </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackagerequires.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGESENSE.html"> RHNPACKAGESENSE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackagesense.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGESENSEMAP.html"> RHNPACKAGESENSEMAP </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackagesensemap.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGESOURCE.html"> RHNPACKAGESOURCE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackagesource.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPACKAGESYNCBLACKLIST.html"> RHNPACKAGESYNCBLACKLIST </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpackagesyncblacklist.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPAIDERRATATEMPCACHE.html"> RHNPAIDERRATATEMPCACHE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpaiderratatempcache.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPATHCHANNELMAP.html"> RHNPATHCHANNELMAP </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpathchannelmap.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPRIVATECHANNELFAMILY.html"> RHNPRIVATECHANNELFAMILY </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnprivatechannelfamily.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPRODUCT.html"> RHNPRODUCT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnproduct.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPRODUCTCHANNEL.html"> RHNPRODUCTCHANNEL </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnproductchannel.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPRODUCTLINE.html"> RHNPRODUCTLINE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnproductline.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPRODUCTNAME.html"> RHNPRODUCTNAME </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnproductname.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPROVISIONSTATE.html"> RHNPROVISIONSTATE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnprovisionstate.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPROXYINFO.html"> RHNPROXYINFO </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnproxyinfo.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPUBLICCHANNELFAMILY.html"> RHNPUBLICCHANNELFAMILY </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpublicchannelfamily.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPUSHCLIENT.html"> RHNPUSHCLIENT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpushclient.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPUSHCLIENTSTATE.html"> RHNPUSHCLIENTSTATE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpushclientstate.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNPUSHDISPATCHER.html"> RHNPUSHDISPATCHER </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnpushdispatcher.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNRAM.html"> RHNRAM </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnram.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNREDHATCANONVERSION.html"> RHNREDHATCANONVERSION </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnredhatcanonversion.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNREGTOKEN.html"> RHNREGTOKEN </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnregtoken.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNREGTOKENCHANNELS.html"> RHNREGTOKENCHANNELS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnregtokenchannels.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNREGTOKENCONFIGCHANNELS.html"> RHNREGTOKENCONFIGCHANNELS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnregtokenconfigchannels.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNREGTOKENENTITLEMENT.html"> RHNREGTOKENENTITLEMENT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnregtokenentitlement.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNREGTOKENGROUPS.html"> RHNREGTOKENGROUPS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnregtokengroups.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNREGTOKENORGDEFAULT.html"> RHNREGTOKENORGDEFAULT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnregtokenorgdefault.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNREGTOKENPACKAGES.html"> RHNREGTOKENPACKAGES </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnregtokenpackages.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNRELATIONSHIPTYPE.html"> RHNRELATIONSHIPTYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnrelationshiptype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNRELEASECHANNELMAP.html"> RHNRELEASECHANNELMAP </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnreleasechannelmap.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNREPOREGENQUEUE.html"> RHNREPOREGENQUEUE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnreporegenqueue.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSATELLITECERT.html"> RHNSATELLITECERT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsatellitecert.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSATELLITECHANNELFAMILY.html"> RHNSATELLITECHANNELFAMILY </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsatellitechannelfamily.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSATELLITEINFO.html"> RHNSATELLITEINFO </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsatelliteinfo.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSATELLITESERVERGROUP.html"> RHNSATELLITESERVERGROUP </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsatelliteservergroup.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSAVEDSEARCH.html"> RHNSAVEDSEARCH </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsavedsearch.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSAVEDSEARCHTYPE.html"> RHNSAVEDSEARCHTYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsavedsearchtype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVER.html"> RHNSERVER </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserver.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERACTION.html"> RHNSERVERACTION </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserveraction.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERACTIONPACKAGERESULT.html"> RHNSERVERACTIONPACKAGERESULT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserveractionpackageresult.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERACTIONSCRIPTRESULT.html"> RHNSERVERACTIONSCRIPTRESULT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserveractionscriptresult.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERACTIONVERIFYMISSING.html"> RHNSERVERACTIONVERIFYMISSING </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserveractionverifymissing.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERACTIONVERIFYRESULT.html"> RHNSERVERACTIONVERIFYRESULT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserveractionverifyresult.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERARCH.html"> RHNSERVERARCH </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserverarch.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERCACHEINFO.html"> RHNSERVERCACHEINFO </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnservercacheinfo.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERCHANNEL.html"> RHNSERVERCHANNEL </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserverchannel.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERCHANNELARCHCOMPAT.html"> RHNSERVERCHANNELARCHCOMPAT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserverchannelarchcompat.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERCONFIGCHANNEL.html"> RHNSERVERCONFIGCHANNEL </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserverconfigchannel.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERCUSTOMDATAVALUE.html"> RHNSERVERCUSTOMDATAVALUE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnservercustomdatavalue.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERDMI.html"> RHNSERVERDMI </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserverdmi.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVEREVENT.html"> RHNSERVEREVENT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserverevent.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERGROUP.html"> RHNSERVERGROUP </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnservergroup.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERGROUPMEMBERS.html"> RHNSERVERGROUPMEMBERS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnservergroupmembers.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERGROUPNOTES.html"> RHNSERVERGROUPNOTES </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnservergroupnotes.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERGROUPTYPE.html"> RHNSERVERGROUPTYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnservergrouptype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERGROUPTYPEFEATURE.html"> RHNSERVERGROUPTYPEFEATURE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnservergrouptypefeature.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERHISTORY.html"> RHNSERVERHISTORY </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserverhistory.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERINFO.html"> RHNSERVERINFO </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserverinfo.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERINSTALLINFO.html"> RHNSERVERINSTALLINFO </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserverinstallinfo.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERLOCATION.html"> RHNSERVERLOCATION </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserverlocation.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERLOCK.html"> RHNSERVERLOCK </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserverlock.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERMESSAGE.html"> RHNSERVERMESSAGE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnservermessage.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERNEEDEDCACHE.html"> RHNSERVERNEEDEDCACHE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserverneededcache.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERNETINTERFACE.html"> RHNSERVERNETINTERFACE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnservernetinterface.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERNETWORK.html"> RHNSERVERNETWORK </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnservernetwork.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERNOTES.html"> RHNSERVERNOTES </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnservernotes.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERPACKAGE.html"> RHNSERVERPACKAGE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserverpackage.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERPACKAGEARCHCOMPAT.html"> RHNSERVERPACKAGEARCHCOMPAT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserverpackagearchcompat.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERPATH.html"> RHNSERVERPATH </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserverpath.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERPRESERVEFILELIST.html"> RHNSERVERPRESERVEFILELIST </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserverpreservefilelist.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERPROFILE.html"> RHNSERVERPROFILE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserverprofile.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERPROFILEPACKAGE.html"> RHNSERVERPROFILEPACKAGE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserverprofilepackage.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERPROFILETYPE.html"> RHNSERVERPROFILETYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserverprofiletype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERSERVERGROUPARCHCOMPAT.html"> RHNSERVERSERVERGROUPARCHCOMPAT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserverservergrouparchcompat.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERTOKENREGS.html"> RHNSERVERTOKENREGS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnservertokenregs.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSERVERUUID.html"> RHNSERVERUUID </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnserveruuid.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSET.html"> RHNSET </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnset.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSGTYPEBASEADDONCOMPAT.html"> RHNSGTYPEBASEADDONCOMPAT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsgtypebaseaddoncompat.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSGTYPEVIRTSUBLEVEL.html"> RHNSGTYPEVIRTSUBLEVEL </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsgtypevirtsublevel.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSNAPSHOT.html"> RHNSNAPSHOT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsnapshot.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSNAPSHOTCHANNEL.html"> RHNSNAPSHOTCHANNEL </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsnapshotchannel.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSNAPSHOTCONFIGCHANNEL.html"> RHNSNAPSHOTCONFIGCHANNEL </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsnapshotconfigchannel.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSNAPSHOTCONFIGREVISION.html"> RHNSNAPSHOTCONFIGREVISION </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsnapshotconfigrevision.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSNAPSHOTINVALIDREASON.html"> RHNSNAPSHOTINVALIDREASON </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsnapshotinvalidreason.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSNAPSHOTPACKAGE.html"> RHNSNAPSHOTPACKAGE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsnapshotpackage.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSNAPSHOTSERVERGROUP.html"> RHNSNAPSHOTSERVERGROUP </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsnapshotservergroup.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSNAPSHOTTAG.html"> RHNSNAPSHOTTAG </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsnapshottag.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSNPERRATAQUEUE.html"> RHNSNPERRATAQUEUE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsnperrataqueue.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSNPSERVERQUEUE.html"> RHNSNPSERVERQUEUE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsnpserverqueue.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSOLARISPACKAGE.html"> RHNSOLARISPACKAGE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsolarispackage.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSOLARISPATCH.html"> RHNSOLARISPATCH </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsolarispatch.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSOLARISPATCHEDPACKAGE.html"> RHNSOLARISPATCHEDPACKAGE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsolarispatchedpackage.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSOLARISPATCHPACKAGES.html"> RHNSOLARISPATCHPACKAGES </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsolarispatchpackages.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSOLARISPATCHSET.html"> RHNSOLARISPATCHSET </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsolarispatchset.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSOLARISPATCHSETMEMBERS.html"> RHNSOLARISPATCHSETMEMBERS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsolarispatchsetmembers.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSOLARISPATCHTYPE.html"> RHNSOLARISPATCHTYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsolarispatchtype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSOURCERPM.html"> RHNSOURCERPM </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsourcerpm.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSSMOPERATION.html"> RHNSSMOPERATION </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnssmoperation.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSSMOPERATIONSERVER.html"> RHNSSMOPERATIONSERVER </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnssmoperationserver.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNSYSTEMMIGRATIONS.html"> RHNSYSTEMMIGRATIONS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnsystemmigrations.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNTAG.html"> RHNTAG </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhntag.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNTAGNAME.html"> RHNTAGNAME </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhntagname.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNTASKQUEUE.html"> RHNTASKQUEUE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhntaskqueue.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNTEMPLATECATEGORY.html"> RHNTEMPLATECATEGORY </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhntemplatecategory.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNTEMPLATESTRING.html"> RHNTEMPLATESTRING </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhntemplatestring.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNTEXTMESSAGE.html"> RHNTEXTMESSAGE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhntextmessage.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNTIMEZONE.html"> RHNTIMEZONE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhntimezone.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNTINYURL.html"> RHNTINYURL </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhntinyurl.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNTRANSACTION.html"> RHNTRANSACTION </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhntransaction.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNTRANSACTIONELEMENT.html"> RHNTRANSACTIONELEMENT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhntransactionelement.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNTRANSACTIONOPERATION.html"> RHNTRANSACTIONOPERATION </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhntransactionoperation.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNTRANSACTIONPACKAGE.html"> RHNTRANSACTIONPACKAGE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhntransactionpackage.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNTRUSTEDORGS.html"> RHNTRUSTEDORGS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhntrustedorgs.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNUSERDEFAULTSYSTEMGROUPS.html"> RHNUSERDEFAULTSYSTEMGROUPS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnuserdefaultsystemgroups.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNUSERGROUP.html"> RHNUSERGROUP </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnusergroup.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNUSERGROUPMEMBERS.html"> RHNUSERGROUPMEMBERS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnusergroupmembers.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNUSERGROUPTYPE.html"> RHNUSERGROUPTYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnusergrouptype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNUSERINFO.html"> RHNUSERINFO </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnuserinfo.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNUSERINFOPANE.html"> RHNUSERINFOPANE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnuserinfopane.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNUSERMESSAGE.html"> RHNUSERMESSAGE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnusermessage.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNUSERMESSAGESTATUS.html"> RHNUSERMESSAGESTATUS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnusermessagestatus.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNUSERMESSAGETYPE.html"> RHNUSERMESSAGETYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnusermessagetype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNUSERRESERVED.html"> RHNUSERRESERVED </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnuserreserved.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNUSERSERVERGROUPPERMS.html"> RHNUSERSERVERGROUPPERMS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnuserservergroupperms.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNUSERSERVERPERMS.html"> RHNUSERSERVERPERMS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnuserserverperms.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNUSERSERVERPREFS.html"> RHNUSERSERVERPREFS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnuserserverprefs.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNVERSIONINFO.html"> RHNVERSIONINFO </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnversioninfo.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNVIRTSUBLEVEL.html"> RHNVIRTSUBLEVEL </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnvirtsublevel.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNVIRTUALINSTANCE.html"> RHNVIRTUALINSTANCE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnvirtualinstance.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNVIRTUALINSTANCEEVENTLOG.html"> RHNVIRTUALINSTANCEEVENTLOG </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnvirtualinstanceeventlog.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNVIRTUALINSTANCEEVENTTYPE.html"> RHNVIRTUALINSTANCEEVENTTYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnvirtualinstanceeventtype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNVIRTUALINSTANCEINFO.html"> RHNVIRTUALINSTANCEINFO </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnvirtualinstanceinfo.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNVIRTUALINSTANCEINSTALLLOG.html"> RHNVIRTUALINSTANCEINSTALLLOG </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnvirtualinstanceinstalllog.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNVIRTUALINSTANCESTATE.html"> RHNVIRTUALINSTANCESTATE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnvirtualinstancestate.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNVIRTUALINSTANCETYPE.html"> RHNVIRTUALINSTANCETYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnvirtualinstancetype.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNVISIBLEOBJECTS.html"> RHNVISIBLEOBJECTS </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnvisibleobjects.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNWEBCONTACTCHANGELOG.html"> RHNWEBCONTACTCHANGELOG </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnwebcontactchangelog.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHNWEBCONTACTCHANGESTATE.html"> RHNWEBCONTACTCHANGESTATE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhnwebcontactchangestate.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_CHECK_PROBE.html"> RHN_CHECK_PROBE </a></td><td>CHKPB  Service check probe definitions (monitoring...</td><td><a href="sql_sources/table/rhn_check_probe.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_CHECK_SUITES.html"> RHN_CHECK_SUITES </a></td><td>CKSUT  check suites...</td><td><a href="sql_sources/table/rhn_check_suites.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_CHECK_SUITE_PROBE.html"> RHN_CHECK_SUITE_PROBE </a></td><td>CKSPB  Check suite probe definitions (monitoring)...</td><td><a href="sql_sources/table/rhn_check_suite_probe.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_COMMAND.html"> RHN_COMMAND </a></td><td>CMMND A command that probes can run...</td><td><a href="sql_sources/table/rhn_command.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_COMMAND_CENTER_STATE.html"> RHN_COMMAND_CENTER_STATE </a></td><td>CMDCS  State of the command center (monitoring)...</td><td><a href="sql_sources/table/rhn_command_center_state.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_COMMAND_CLASS.html"> RHN_COMMAND_CLASS </a></td><td>COMCL Command classes...</td><td><a href="sql_sources/table/rhn_command_class.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_COMMAND_GROUPS.html"> RHN_COMMAND_GROUPS </a></td><td>CMDGR  Command group definitions...</td><td><a href="sql_sources/table/rhn_command_groups.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_COMMAND_PARAMETER.html"> RHN_COMMAND_PARAMETER </a></td><td>CPARM  A parameter for a particular command...</td><td><a href="sql_sources/table/rhn_command_parameter.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_COMMAND_PARAM_THRESHOLD.html"> RHN_COMMAND_PARAM_THRESHOLD </a></td><td>coptr  a parameter for a particular command...</td><td><a href="sql_sources/table/rhn_command_param_threshold.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_COMMAND_QUEUE_COMMANDS.html"> RHN_COMMAND_QUEUE_COMMANDS </a></td><td>cqcmd  command queue command definitions...</td><td><a href="sql_sources/table/rhn_command_queue_commands.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_COMMAND_QUEUE_EXECS.html"> RHN_COMMAND_QUEUE_EXECS </a></td><td>cqexe  command queue execution records...</td><td><a href="sql_sources/table/rhn_command_queue_execs.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_COMMAND_QUEUE_EXECS_BK.html"> RHN_COMMAND_QUEUE_EXECS_BK </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhn_command_queue_execs_bk.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_COMMAND_QUEUE_INSTANCES.html"> RHN_COMMAND_QUEUE_INSTANCES </a></td><td>cqins  command queue instance definitions...</td><td><a href="sql_sources/table/rhn_command_queue_instances.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_COMMAND_QUEUE_INSTANCES_BK.html"> RHN_COMMAND_QUEUE_INSTANCES_BK </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhn_command_queue_instances_bk.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_COMMAND_QUEUE_PARAMS.html"> RHN_COMMAND_QUEUE_PARAMS </a></td><td>cqprm   command queue parameter definitions...</td><td><a href="sql_sources/table/rhn_command_queue_params.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_COMMAND_QUEUE_SESSIONS.html"> RHN_COMMAND_QUEUE_SESSIONS </a></td><td>cqses  command queue sessions...</td><td><a href="sql_sources/table/rhn_command_queue_sessions.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_COMMAND_REQUIREMENTS.html"> RHN_COMMAND_REQUIREMENTS </a></td><td>creqs storage for system requirements for commands...</td><td><a href="sql_sources/table/rhn_command_requirements.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_COMMAND_TARGET.html"> RHN_COMMAND_TARGET </a></td><td>cmdtg  command target (cluster or node)...</td><td><a href="sql_sources/table/rhn_command_target.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_CONFIG_GROUP.html"> RHN_CONFIG_GROUP </a></td><td>confg  configuration group definition:general,mail...</td><td><a href="sql_sources/table/rhn_config_group.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_CONFIG_MACRO.html"> RHN_CONFIG_MACRO </a></td><td>confm configuration macro def...</td><td><a href="sql_sources/table/rhn_config_macro.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_CONFIG_PARAMETER.html"> RHN_CONFIG_PARAMETER </a></td><td>confp  configuration parameter definition...</td><td><a href="sql_sources/table/rhn_config_parameter.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_CONFIG_SECURITY_TYPE.html"> RHN_CONFIG_SECURITY_TYPE </a></td><td>conct security levels internal,external,all...</td><td><a href="sql_sources/table/rhn_config_security_type.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_CONTACT_GROUPS.html"> RHN_CONTACT_GROUPS </a></td><td>cntgp  contact group definitions...</td><td><a href="sql_sources/table/rhn_contact_groups.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_CONTACT_GROUP_MEMBERS.html"> RHN_CONTACT_GROUP_MEMBERS </a></td><td>cntgm  contact group membership records...</td><td><a href="sql_sources/table/rhn_contact_group_members.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_CONTACT_METHODS.html"> RHN_CONTACT_METHODS </a></td><td>cmeth  contact method definitions...</td><td><a href="sql_sources/table/rhn_contact_methods.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_CURRENT_ALERTS.html"> RHN_CURRENT_ALERTS </a></td><td>alrts  current alert records...</td><td><a href="sql_sources/table/rhn_current_alerts.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_CURRENT_STATE_SUMMARIES.html"> RHN_CURRENT_STATE_SUMMARIES </a></td><td>cursu  current state summaries (monitoring)...</td><td><a href="sql_sources/table/rhn_current_state_summaries.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_DB_ENVIRONMENT.html"> RHN_DB_ENVIRONMENT </a></td><td>dbenv environments - database_names xref...</td><td><a href="sql_sources/table/rhn_db_environment.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_DEPLOYED_PROBE.html"> RHN_DEPLOYED_PROBE </a></td><td>dprob  deployed_probe definitions...</td><td><a href="sql_sources/table/rhn_deployed_probe.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_ENVIRONMENT.html"> RHN_ENVIRONMENT </a></td><td>envir environments:dev,qa,stage,prod,license...</td><td><a href="sql_sources/table/rhn_environment.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_HOST_CHECK_SUITES.html"> RHN_HOST_CHECK_SUITES </a></td><td>hstck  check suites used by hosts. the host_probe_...</td><td><a href="sql_sources/table/rhn_host_check_suites.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_HOST_PROBE.html"> RHN_HOST_PROBE </a></td><td>hstpb  host probe definitions...</td><td><a href="sql_sources/table/rhn_host_probe.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_INTERFACE_MONITORING.html"> RHN_INTERFACE_MONITORING </a></td><td>monif  Monitoring interface.  The one entry from r...</td><td><a href="sql_sources/table/rhn_interface_monitoring.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_LL_NETSAINT.html"> RHN_LL_NETSAINT </a></td><td>llnet  scout records...</td><td><a href="sql_sources/table/rhn_ll_netsaint.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_METHOD_TYPES.html"> RHN_METHOD_TYPES </a></td><td>mthtp  method types...</td><td><a href="sql_sources/table/rhn_method_types.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_METRICS.html"> RHN_METRICS </a></td><td>metrc  metric definitions...</td><td><a href="sql_sources/table/rhn_metrics.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_MULTI_SCOUT_THRESHOLD.html"> RHN_MULTI_SCOUT_THRESHOLD </a></td><td>msthr  multi_scout_threshold definitions...</td><td><a href="sql_sources/table/rhn_multi_scout_threshold.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_NOTIFICATION_FORMATS.html"> RHN_NOTIFICATION_FORMATS </a></td><td>ntfmt  notification message formats...</td><td><a href="sql_sources/table/rhn_notification_formats.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_NOTIFSERVERS.html"> RHN_NOTIFSERVERS </a></td><td>notsv  notification host table...</td><td><a href="sql_sources/table/rhn_notifservers.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_OS.html"> RHN_OS </a></td><td>os000  operating systems...</td><td><a href="sql_sources/table/rhn_os.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_OS_COMMANDS_XREF.html"> RHN_OS_COMMANDS_XREF </a></td><td>oscxr  operating systems - commands cross ref...</td><td><a href="sql_sources/table/rhn_os_commands_xref.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_PAGER_TYPES.html"> RHN_PAGER_TYPES </a></td><td>pgrtp  pager types...</td><td><a href="sql_sources/table/rhn_pager_types.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_PHYSICAL_LOCATION.html"> RHN_PHYSICAL_LOCATION </a></td><td>phslc  physical location records...</td><td><a href="sql_sources/table/rhn_physical_location.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_PROBE.html"> RHN_PROBE </a></td><td>probe  probe definitions...</td><td><a href="sql_sources/table/rhn_probe.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_PROBE_PARAM_VALUE.html"> RHN_PROBE_PARAM_VALUE </a></td><td>ppval  param value for a probe running a command...</td><td><a href="sql_sources/table/rhn_probe_param_value.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_PROBE_STATE.html"> RHN_PROBE_STATE </a></td><td>prbst  probe state...</td><td><a href="sql_sources/table/rhn_probe_state.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_PROBE_TYPES.html"> RHN_PROBE_TYPES </a></td><td>prbtp  probe types...</td><td><a href="sql_sources/table/rhn_probe_types.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_QUANTA.html"> RHN_QUANTA </a></td><td>qnta0  quanta definitions...</td><td><a href="sql_sources/table/rhn_quanta.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_REDIRECTS.html"> RHN_REDIRECTS </a></td><td>rdrct  redirect definitions...</td><td><a href="sql_sources/table/rhn_redirects.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_REDIRECT_CRITERIA.html"> RHN_REDIRECT_CRITERIA </a></td><td>rdrcr  redirect criteria...</td><td><a href="sql_sources/table/rhn_redirect_criteria.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_REDIRECT_EMAIL_TARGETS.html"> RHN_REDIRECT_EMAIL_TARGETS </a></td><td>rdret  redirect email targets...</td><td><a href="sql_sources/table/rhn_redirect_email_targets.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_REDIRECT_GROUP_TARGETS.html"> RHN_REDIRECT_GROUP_TARGETS </a></td><td>rdrgt  redirect group targets...</td><td><a href="sql_sources/table/rhn_redirect_group_targets.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_REDIRECT_MATCH_TYPES.html"> RHN_REDIRECT_MATCH_TYPES </a></td><td>rdrmt  redirect match types...</td><td><a href="sql_sources/table/rhn_redirect_match_types.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_REDIRECT_METHOD_TARGETS.html"> RHN_REDIRECT_METHOD_TARGETS </a></td><td>rdrme  redirect method targets...</td><td><a href="sql_sources/table/rhn_redirect_method_targets.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_REDIRECT_TYPES.html"> RHN_REDIRECT_TYPES </a></td><td>rdrtp  redirect types...</td><td><a href="sql_sources/table/rhn_redirect_types.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_SATELLITE_STATE.html"> RHN_SATELLITE_STATE </a></td><td>satst  satellite state (monitoring)...</td><td><a href="sql_sources/table/rhn_satellite_state.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_SAT_CLUSTER.html"> RHN_SAT_CLUSTER </a></td><td>satcl  satellite cluster...</td><td><a href="sql_sources/table/rhn_sat_cluster.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_SAT_CLUSTER_PROBE.html"> RHN_SAT_CLUSTER_PROBE </a></td><td>sclpb  satellite cluster probe definitions...</td><td><a href="sql_sources/table/rhn_sat_cluster_probe.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_SAT_NODE.html"> RHN_SAT_NODE </a></td><td>satnd  satellite node...</td><td><a href="sql_sources/table/rhn_sat_node.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_SAT_NODE_PROBE.html"> RHN_SAT_NODE_PROBE </a></td><td>sndpb  satellite node probe definitions...</td><td><a href="sql_sources/table/rhn_sat_node_probe.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_SCHEDULES.html"> RHN_SCHEDULES </a></td><td>sched  schedule definitions...</td><td><a href="sql_sources/table/rhn_schedules.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_SCHEDULE_DAYS.html"> RHN_SCHEDULE_DAYS </a></td><td>schdy  individual day records for schedules...</td><td><a href="sql_sources/table/rhn_schedule_days.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_SCHEDULE_DAYS_NORM.html"> RHN_SCHEDULE_DAYS_NORM </a></td><td>&nbsp;</td><td><a href="sql_sources/table/rhn_schedule_days_norm.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_SCHEDULE_TYPES.html"> RHN_SCHEDULE_TYPES </a></td><td>schtp  schedule types...</td><td><a href="sql_sources/table/rhn_schedule_types.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_SCHEDULE_WEEKS.html"> RHN_SCHEDULE_WEEKS </a></td><td>schwk  individual week records for schedules...</td><td><a href="sql_sources/table/rhn_schedule_weeks.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_SEMANTIC_DATA_TYPE.html"> RHN_SEMANTIC_DATA_TYPE </a></td><td>sdtyp  data type int, float, string, ipaddress, ho...</td><td><a href="sql_sources/table/rhn_semantic_data_type.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_SERVER_MONITORING_INFO.html"> RHN_SERVER_MONITORING_INFO </a></td><td>host   additional fields to rhn_server for monitor...</td><td><a href="sql_sources/table/rhn_server_monitoring_info.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_SERVICE_PROBE_ORIGINS.html"> RHN_SERVICE_PROBE_ORIGINS </a></td><td>srvpo  mapping from a replicated service probe to ...</td><td><a href="sql_sources/table/rhn_service_probe_origins.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_SNMP_ALERT.html"> RHN_SNMP_ALERT </a></td><td>snmpa  snmp alerts...</td><td><a href="sql_sources/table/rhn_snmp_alert.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_STRATEGIES.html"> RHN_STRATEGIES </a></td><td>strat  strategy definitions...</td><td><a href="sql_sources/table/rhn_strategies.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_THRESHOLD_TYPE.html"> RHN_THRESHOLD_TYPE </a></td><td>trtyp threshold type:warn_min, warn_max, crit_min,...</td><td><a href="sql_sources/table/rhn_threshold_type.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_TIME_ZONE_NAMES.html"> RHN_TIME_ZONE_NAMES </a></td><td>tznms  time zone names...</td><td><a href="sql_sources/table/rhn_time_zone_names.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_UNITS.html"> RHN_UNITS </a></td><td>units  unit definitions...</td><td><a href="sql_sources/table/rhn_units.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_URL_PROBE.html"> RHN_URL_PROBE </a></td><td>urlpb  url probe...</td><td><a href="sql_sources/table/rhn_url_probe.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_URL_PROBE_STEP.html"> RHN_URL_PROBE_STEP </a></td><td>urlps  url probe step...</td><td><a href="sql_sources/table/rhn_url_probe_step.sql">DDL script</a></td></tr>
+<tr><td><a href="table-RHN_WIDGET.html"> RHN_WIDGET </a></td><td>wdget  text,password,menu,radio,checkbox...</td><td><a href="sql_sources/table/rhn_widget.sql">DDL script</a></td></tr>
+<tr><td><a href="table-STATE_CHANGE.html"> STATE_CHANGE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/state_change.sql">DDL script</a></td></tr>
+<tr><td><a href="table-TIME_SERIES.html"> TIME_SERIES </a></td><td>&nbsp;</td><td><a href="sql_sources/table/time_series.sql">DDL script</a></td></tr>
+<tr><td><a href="table-VALID_COUNTRIES.html"> VALID_COUNTRIES </a></td><td>&nbsp;</td><td><a href="sql_sources/table/valid_countries.sql">DDL script</a></td></tr>
+<tr><td><a href="table-VALID_COUNTRIES_TL.html"> VALID_COUNTRIES_TL </a></td><td>&nbsp;</td><td><a href="sql_sources/table/valid_countries_tl.sql">DDL script</a></td></tr>
+<tr><td><a href="table-WEB_CONTACT.html"> WEB_CONTACT </a></td><td>&nbsp;</td><td><a href="sql_sources/table/web_contact.sql">DDL script</a></td></tr>
+<tr><td><a href="table-WEB_CUSTOMER.html"> WEB_CUSTOMER </a></td><td>&nbsp;</td><td><a href="sql_sources/table/web_customer.sql">DDL script</a></td></tr>
+<tr><td><a href="table-WEB_CUSTOMER_NOTIFICATION.html"> WEB_CUSTOMER_NOTIFICATION </a></td><td>&nbsp;</td><td><a href="sql_sources/table/web_customer_notification.sql">DDL script</a></td></tr>
+<tr><td><a href="table-WEB_USER_CONTACT_PERMISSION.html"> WEB_USER_CONTACT_PERMISSION </a></td><td>&nbsp;</td><td><a href="sql_sources/table/web_user_contact_permission.sql">DDL script</a></td></tr>
+<tr><td><a href="table-WEB_USER_PERSONAL_INFO.html"> WEB_USER_PERSONAL_INFO </a></td><td>&nbsp;</td><td><a href="sql_sources/table/web_user_personal_info.sql">DDL script</a></td></tr>
+<tr><td><a href="table-WEB_USER_PREFIX.html"> WEB_USER_PREFIX </a></td><td>&nbsp;</td><td><a href="sql_sources/table/web_user_prefix.sql">DDL script</a></td></tr>
+<tr><td><a href="table-WEB_USER_SITE_INFO.html"> WEB_USER_SITE_INFO </a></td><td>&nbsp;</td><td><a href="sql_sources/table/web_user_site_info.sql">DDL script</a></td></tr>
+<tr><td><a href="table-WEB_USER_SITE_TYPE.html"> WEB_USER_SITE_TYPE </a></td><td>&nbsp;</td><td><a href="sql_sources/table/web_user_site_type.sql">DDL script</a></td></tr>
+</table><div class="footer">
+        Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Mon Aug 31 10:54:46 2009</div>
+</body></html>

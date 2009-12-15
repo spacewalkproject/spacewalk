@@ -16,8 +16,9 @@ import yum.Errors
 
 from urlgrabber.grabber import URLGrabber
 from urlgrabber.grabber import URLGrabError
-
-from rhpl.translate import _
+from iniparse import INIConfig
+import gettext
+_ = gettext.gettext
 
 # TODO: Get the up2date stuff that we need in a better place,
 # so we don't have to do path magic.
@@ -132,6 +133,7 @@ def init_hook(conduit):
     except up2dateErrors.NoSystemIdError:
         conduit.error(0, _("This system may not be a registered to RHN. SystemId could not be acquired.\n") +
                           RHN_DISABLED)
+        rhn_enabled = False
         return
     except up2dateErrors.RhnServerException, e:
         conduit.error(0, COMMUNICATION_ERROR + "\n" + CHANNELS_DISABLED + 
@@ -195,8 +197,13 @@ def posttrans_hook(conduit):
     """ Post rpm transaction hook. We update the RHN profile here. """
     global rhn_enabled
     if rhn_enabled:
+        up2date_cfg = config.initUp2dateConfig()
+        if up2date_cfg.has_key('writeChangesToLog') and up2date_cfg['writeChangesToLog'] == 1:
+            ts_info = conduit.getTsInfo()
+            delta = make_package_delta(ts_info)
+            rhnPackageInfo.logDeltaPackages(delta)
         try:
-            rhnPackageInfo.updatePackageProfile() 
+            rhnPackageInfo.updatePackageProfile()
         except up2dateErrors.RhnServerException, e:
             conduit.error(0, COMMUNICATION_ERROR + "\n" +
                 _("Package profile information could not be sent.") + "\n" + 
@@ -238,6 +245,7 @@ class RhnRepo(YumRepository):
     def __init__(self, channel):
         YumRepository.__init__(self, channel['label'])
         self.name = channel['name']
+        self.label = channel['label']
         self._callbacks_changed = False
 
         # support failover urls, #232567
@@ -437,18 +445,31 @@ class RhnRepo(YumRepository):
     grabfunc = property(lambda self: self._getgrabfunc())
     grab = property(lambda self: self._getgrab())
 
+    def _setChannelEnable(self, value=1):
+        """ Enable or disable channel in file rhnplugin.conf.
+            channel is label of channel and value should be 1 or 0.
+        """
+        cfg = INIConfig(file('/etc/yum/pluginconf.d/rhnplugin.conf'))
+        # we cannot use directly cfg[channel].['enabled'], because
+        # if that section do not exist it raise error
+        func=getattr(cfg, self.label)
+        func.enabled=value
+        f=open('/etc/yum/pluginconf.d/rhnplugin.conf', 'w')
+        print >>f, cfg
+        f.close()
+
     def enablePersistent(self):
         """
-        Despite name, this method does not alter persistent data 
-        It enables the repo temporarily
+        Persistently enable channel in rhnplugin.conf
         """
+        self._setChannelEnable(1)
         self.enable()
 
     def disablePersistent(self):
         """
-        Despite name, this method does not alter persistent data 
-        It disables the repo temporarily
+        Persistently disable channel in rhnplugin.conf
         """
+        self._setChannelEnable(0)
         self.disable()
 
     def _getRepoXML(self):
@@ -460,6 +481,65 @@ class RhnRepo(YumRepository):
             # possibly it's out of date
             up2dateAuth.updateLoginInfo()
             return YumRepository._getRepoXML(self)
+
+def make_package_delta(ts_info):
+    """
+    Construct an RHN style package delta from a yum TransactionData object.
+
+    Return a hash containing two keys: added and removed.
+    Each key's value is a list of RHN style package tuples.
+    """
+
+    delta = {}
+    delta["added"] = []
+    delta["removed"] = []
+
+    # Make sure the transaction data has the packages in nice lists.
+    ts_info.makelists()
+
+    for ts_member in ts_info.installed:
+        package = ts_member.po
+        pkgtup = __rhn_pkg_tup_from_po(package)
+        delta["added"].append(pkgtup)
+
+    for ts_member in ts_info.depinstalled:
+        package = ts_member.po
+        pkgtup = __rhn_pkg_tup_from_po(package)
+        delta["added"].append(pkgtup)
+
+    for ts_member in ts_info.updated:
+        package = ts_member.po
+        pkgtup = __rhn_pkg_tup_from_po(package)
+        delta["added"].append(pkgtup)
+
+    for ts_member in ts_info.depupdated:
+        package = ts_member.po
+        pkgtup = __rhn_pkg_tup_from_po(package)
+        delta["added"].append(pkgtup)
+
+    for ts_member in ts_info.removed:
+        package = ts_member.po
+        pkgtup = __rhn_pkg_tup_from_po(package)
+        delta["removed"].append(pkgtup)
+
+    for ts_member in ts_info.depremoved:
+        package = ts_member.po
+        pkgtup = __rhn_pkg_tup_from_po(package)
+        delta["removed"].append(pkgtup)
+
+    return delta
+
+def __rhn_pkg_tup_from_po(package):
+    """ Construct an rhn-style package tuple from a yum package object. """
+
+    name = package.returnSimple('name')
+    epoch = package.returnSimple('epoch')
+    version = package.returnSimple('version')
+    release = package.returnSimple('release')
+    arch = package.returnSimple('arch')
+
+    return (name, version, release, epoch, arch)
+
 
 class BadConfig(Exception):
     pass

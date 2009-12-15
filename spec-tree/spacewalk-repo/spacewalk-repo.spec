@@ -1,9 +1,9 @@
-Summary: Spacewalk packages yum repository configuration.
+Summary: Spacewalk packages yum repository configuration
 Name: spacewalk-repo
-Version: 0.7.0
-Release: 2%{?dist}
-License: GPL
-Group: Development
+Version: 0.7
+Release: 4%{?dist}
+License: GPLv2
+Group: System Environment/Base
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
@@ -14,6 +14,13 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch: noarch
 
 %description
+This package contains the Spacewalk repository configuration for yum.
+
+%package -n spacewalk-client-repo
+Summary: Spacewalk client packages yum repository configuration
+Group: System Environment/Base
+
+%description -n spacewalk-client-repo
 This package contains the Spacewalk repository configuration for yum.
 
 %prep
@@ -39,6 +46,15 @@ enabled=1
 gpgcheck=1
 REPO
 
+cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-client.repo <<REPO
+[spacewalk-client]
+name=Spacewalk Client Tools
+baseurl=http://spacewalk.redhat.com/yum/%{version}-client/%{reposubdir}/\$basearch/
+gpgkey=http://spacewalk.redhat.com/yum/RPM-GPG-KEY-spacewalk
+enabled=1
+gpgcheck=1
+REPO
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -46,7 +62,17 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %config %{_sysconfdir}/yum.repos.d/spacewalk.repo
 
+%files -n spacewalk-client-repo
+%defattr(-,root,root,-)
+%config %{_sysconfdir}/yum.repos.d/spacewalk-client.repo
+
 %changelog
+* Fri Nov 27 2009 Miroslav Suchý <msuchy@redhat.com> 0.7-4
+- create subpackage spacewalk-client-repo
+
+* Fri Oct 16 2009 Michael Mraka <michael.mraka@redhat.com> 0.7-3
+- fixed version of spacewalk-repo
+
 * Mon Aug 10 2009 jesus m. rodriguez 0.7.0-2
 - rename rhel to RHEL
 - rename fedora to Fedora

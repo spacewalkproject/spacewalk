@@ -23,8 +23,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag("rhn-debug", \&debug_dump);
-  $pxt->register_tag("rhn-country-select", \&country_select);
   $pxt->register_tag("rhn-bugzilla-link", \&rhn_bugzilla_link);
   $pxt->register_tag("rhn-redirect", \&rhn_redirect);
 }
@@ -89,51 +87,6 @@ EOC
   else {
     return '';
   }
-}
-
-sub country_select {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $var_name = $params{var_name};
-  my $var_value = $params{var_value};
-  my $var_lang = $params{var_lang};
-  my $allow_empty = $params{allow_empty};
-
-#  warn "var name == $var_name, var value == $var_value";
-
-  return PXT::Utils->country_selectbox($var_name, $var_lang, $var_value, undef, $allow_empty);
-}
-
-sub debug_dump {
-  my $pxt = shift;
-
-  my $ret = '';
-
-  if ( $pxt->user() ) {
-    return $ret unless ( $pxt->user->login =~ /^rhn7/ );
-  } else {
-    # This needs to be uncommented later
-    return '';
-  }
-
-
-  $ret .= "<p><ul>\n";
-  foreach my $p ($pxt->param) {
-    $ret .= "<li>$p: " . $pxt->param($p) . "<br>\n";
-  }
-  $ret .= "</li></p>\n<br>\n<br>\n";
-
-  if ($pxt->user) {
-    $ret .= "<strong>You are currently logged in.</strong><br>\n";
-    $ret .= "Username: " . $pxt->user->login . "<br>\n";
-    $ret .= "User id: " . $pxt->session->uid . "<br>\n";
-  }
-
-#  $ret .= "Session id: " . $pxt->session->key . "<br>\n";
-  $ret .= "Session dump: <pre>" . Data::Dumper->Dump([ $pxt->session ]) . "</pre>\n";
-
-  return $ret;
 }
 
 1;

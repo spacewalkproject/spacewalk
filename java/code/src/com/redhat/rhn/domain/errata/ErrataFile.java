@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.errata;
 
+import com.redhat.rhn.domain.common.Checksum;
 import com.redhat.rhn.domain.rhnpackage.Package;
 
 import java.util.Date;
@@ -54,13 +55,13 @@ public interface ErrataFile {
      * MD5 checksum
      * @param cs checksums
      */
-    void setChecksum(String cs);
+    void setChecksum(Checksum cs);
     
     /**
      * MD5 checksum
      * @return checksum
      */
-    String getChecksum();
+    Checksum getChecksum();
     
     /**
      * File name

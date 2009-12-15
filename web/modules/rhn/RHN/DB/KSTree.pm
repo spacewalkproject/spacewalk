@@ -89,7 +89,7 @@ EOQ
   return unless ($row);
   $self->$_($row->{uc $_}) for qw/id label base_path channel_id boot_image org_id tree_type tree_type_name tree_type_label install_type install_type_label install_type_name channel_arch_id channel_arch_label channel_arch_name/;
 
-  $sth = $dbh->prepare("SELECT relative_filename, file_size, md5sum, TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED FROM rhnKSTreeFile WHERE kstree_id = :tree_id");
+  $sth = $dbh->prepare("SELECT relative_filename, file_size, Csum.checksum md5sum, TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED FROM rhnKSTreeFile, rhnChecksum Csum WHERE kstree_id = :tree_id AND checksum_id = Csum.id");
   $sth->execute_h(tree_id => $self->id);
   $self->files( [ $sth->fullfetch_hashref ] );
 
@@ -194,9 +194,9 @@ sub commit_files {
   for my $file (@{$self->files}) {
     $sth = $dbh->prepare(<<EOQ);
 INSERT INTO rhnKSTreeFile
-  (kstree_id, relative_filename, md5sum, last_modified, file_size)
+  (kstree_id, relative_filename, checksum_id, last_modified, file_size)
 VALUES
-  (:tree_id, :relative_filename, :md5sum, TO_DATE(:last_modified, 'YYYY-MM-DD HH24:MI:SS'), :file_size)
+  (:tree_id, :relative_filename, lookup_checksum('md5', :md5sum), TO_DATE(:last_modified, 'YYYY-MM-DD HH24:MI:SS'), :file_size)
 EOQ
 
     $sth->execute_h(tree_id => $self->id, map { $_ => $file->{+uc $_} } qw/relative_filename md5sum last_modified file_size/)

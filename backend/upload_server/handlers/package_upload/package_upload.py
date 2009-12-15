@@ -25,6 +25,7 @@ from mod_python import apache
 from common import CFG, log_debug, log_error, rhnFault, rhnFlags
 from server import rhnPackageUpload, basePackageUpload
 from server.rhnLib import get_package_path
+from spacewalk.common import checksum
 
 class PackageUpload(basePackageUpload.BasePackageUpload):
     def headerParserHandler(self, req):
@@ -45,17 +46,18 @@ class PackageUpload(basePackageUpload.BasePackageUpload):
 
         try:
             rhnPackageUpload.check_package_exists(self.package_path,
-            self.file_md5sum, force=0)
+            self.file_checksum, force=0)
         except rhnPackageUpload.AlreadyUploadedError:
             log_debug(2, "Already exists", self.rel_package_path)
             return apache.HTTP_CREATED
         except rhnPackageUpload.PackageConflictError, e:
-            log_error("Different md5sums", self.package_path)
+            log_error("Different checksums", self.package_path)
             rhnFlags.set("apache-return-code", apache.HTTP_CONFLICT)
             raise rhnFault(104, 
-                "Package %s (%s) already exists, with checksum %s " % 
+                "Package %s (%s: %s) already exists, with checksum (%s: %s) " %
                     (os.path.basename(self.package_path), 
-                    self.file_md5sum, e.args[1]))
+                    self.file_checksum[0], self.file_checksum[1],
+                    e.args[1][0], e.args[1][1]))
 
         return apache.OK
             
@@ -70,13 +72,16 @@ class PackageUpload(basePackageUpload.BasePackageUpload):
         log_debug(4, "Header length", len(req.headers_in[i]))
 
         temp_stream = rhnPackageUpload.write_temp_file(req, buffer_size)
-        header, payload_stream, md5sum, header_start, header_end = \
+        header, payload_stream, header_start, header_end = \
             rhnPackageUpload.load_package(temp_stream)
+        checksum = (header.checksum_type(),
+                    checksum.getFileChecksum(header.checksum_type(), file=temp_stream))
         temp_stream.close()
 
-        if self.file_md5sum != md5sum:
-            raise rhnFault(501, "Uploaded: %s; filesystem: %s" %
-                (self.file_md5sum, md5sum))
+        if self.file_checksum != checksum:
+            raise rhnFault(501, "Uploaded: (%s: %s); filesystem: (%s: %s)" %
+                (self.file_checksum[0], self.file_checksum[1],
+                 checksum[0], checksum[1]))
 
         if not rhnPackageUpload.source_match(self.is_source, header.is_source):
             # Unexpected rpm package type
@@ -106,8 +111,9 @@ class PackageUpload(basePackageUpload.BasePackageUpload):
         # XXX
         if not header.is_signed:
             rhnFlags.set("apache-return-code", apache.HTTP_CONFLICT)
-            raise rhnFault(103, "Package %s (%s) is not signed" % 
-                    (os.path.basename(self.package_path), self.file_md5sum))
+            raise rhnFault(103, "Package %s (%s: %s) is not signed" %
+                    (os.path.basename(self.package_path),
+                     self.file_checksum[0], self.file_checksum[1]))
 
         payload_stream.seek(0, 0)
         dirname = os.path.dirname(self.package_path)

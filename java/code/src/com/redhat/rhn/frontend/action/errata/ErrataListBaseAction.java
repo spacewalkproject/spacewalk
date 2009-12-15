@@ -52,7 +52,7 @@ public abstract class ErrataListBaseAction extends RhnAction implements Listable
                                  HttpServletRequest request,
                                  HttpServletResponse response)
         throws Exception {
-
+        request.setAttribute("displayCves", isSecurityAction());
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
 
@@ -80,6 +80,14 @@ public abstract class ErrataListBaseAction extends RhnAction implements Listable
         }
 
         return result;
+    }
+
+    /**
+     * Method to distinguish security errata actions
+     * @return whether it is an action of Security Errata
+     */
+    public boolean isSecurityAction() {
+        return false;
     }
 
     /**

@@ -1,6 +1,6 @@
 Name:           oracle-lib-compat
 Version:        10.2
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install
 Group:          Applications/Multimedia
 License:        GPLv2
@@ -21,6 +21,7 @@ BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 Requires:       oracle-instantclient-basic = %{icversion}
 Requires:       oracle-instantclient-sqlplus = %{icversion}
 Requires(post): ldconfig
+Requires(post): /usr/bin/execstack
 
 %ifarch x86_64
 %define lib64 ()(64bit)
@@ -77,8 +78,15 @@ rm -rf $RPM_BUILD_ROOT
 %post
 ldconfig
 
+# clear execstack on libs in oracle's provided instantclient rpm
+find %{_prefix}/lib/oracle/%{icversion} \
+        | xargs file | awk -F: '/ELF.*(executable|shared object)/ {print $1}' \
+        | xargs execstack -c
 
 %changelog
+* Wed Sep 09 2009 Michael Mraka <michael.mraka@redhat.com> 10.2-21
+- 506951 - clear exec stack on instantclient libs (fixes selinux avc denial)
+
 * Tue Apr 07 2009 Michael Mraka <michael.mraka@redhat.com> 10.2-20
 - specified exact version of instantclient
 

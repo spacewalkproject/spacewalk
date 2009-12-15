@@ -40,9 +40,11 @@ class Kickstart:
             SELECT 
                 relative_filename, 
                 file_size, 
-                md5sum, 
+                c.checksum md5sum,
                 TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED 
-            FROM rhnKSTreeFile WHERE kstree_id = :tree_id
+            FROM rhnKSTreeFile, rhnChecksum c
+           WHERE kstree_id = :tree_id
+             AND checksum_id = c.id
         """)
         files_query.execute(tree_id = tree_id)
 
@@ -96,8 +98,9 @@ class Kickstart:
 
         insert_file_q = rhnSQL.prepare("""
             insert into rhnKSTreeFile
-            (kstree_id, relative_filename, md5sum, file_size, last_modified)
-            values (:kstree_id, :relative_filename, :md5sum, :file_size, :last_modified)
+            (kstree_id, relative_filename, checksum_id, file_size, last_modified)
+            values (:kstree_id, :relative_filename, lookup_checksum('md5', :md5sum),
+                    :file_size, :last_modified)
         """)
         insert_file_q.execute(kstree_id = self.id,
                               relative_filename = ks_file['relative_path'],

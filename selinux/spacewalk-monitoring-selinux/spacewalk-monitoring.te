@@ -52,6 +52,7 @@ dev_read_urand(spacewalk_monitoring_t)
 logging_log_filetrans(spacewalk_monitoring_t, spacewalk_monitoring_log_t, file)
 create_files_pattern(spacewalk_monitoring_t, var_log_t, spacewalk_monitoring_log_t)
 append_files_pattern(spacewalk_monitoring_t, var_log_t, spacewalk_monitoring_log_t)
+allow spacewalk_monitoring_t spacewalk_monitoring_log_t:file setattr;
 
 files_pid_filetrans(spacewalk_monitoring_t, spacewalk_monitoring_var_run_t, file)
 manage_files_pattern(spacewalk_monitoring_t, var_run_t, spacewalk_monitoring_var_run_t)

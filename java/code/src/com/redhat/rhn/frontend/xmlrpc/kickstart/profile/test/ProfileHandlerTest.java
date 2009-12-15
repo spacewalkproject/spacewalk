@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.kickstart.KickstartCommandName;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartIpRange;
+import com.redhat.rhn.domain.kickstart.KickstartPackage;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
@@ -185,8 +186,8 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
     
     public void testDownloadKickstart() throws Exception {
         KickstartData ks1  = KickstartDataTest.createKickstartWithProfile(admin);
-        ks1.addPackageName(PackageFactory.lookupOrCreatePackageByName(
-                "blahPackage"));
+        ks1.addKsPackage(new KickstartPackage(ks1,
+            PackageFactory.lookupOrCreatePackageByName("blahPackage")));
         
         ActivationKey key = ActivationKeyTest.createTestActivationKey(admin);
         ks1.addDefaultRegToken(key.getToken());
@@ -449,24 +450,24 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         
         //   Clear any packages on the profile so we have a known starting state
         KickstartData ks1 = KickstartDataTest.createKickstartWithProfile(admin);
-        ks1.getPackageNames().clear();
+        ks1.clearKsPackages();
         
         KickstartData ks2 = KickstartDataTest.createKickstartWithProfile(admin);
-        ks2.getPackageNames().clear();
+        ks2.clearKsPackages();
         
         Package package1 = PackageTest.createTestPackage(admin.getOrg());
         Package package2 = PackageTest.createTestPackage(admin.getOrg());
         Package package3 = PackageTest.createTestPackage(admin.getOrg());
-        
-        ks1.addPackageName(package1.getPackageName());
-        ks1.addPackageName(package2.getPackageName());
 
-        ks2.addPackageName(package1.getPackageName());
-        ks2.addPackageName(package3.getPackageName());
-        
+        ks1.addKsPackage(new KickstartPackage(ks1, package1.getPackageName()));
+        ks1.addKsPackage(new KickstartPackage(ks1, package2.getPackageName()));
+
+        ks2.addKsPackage(new KickstartPackage(ks2, package1.getPackageName()));
+        ks2.addKsPackage(new KickstartPackage(ks2, package3.getPackageName()));
+
         KickstartFactory.saveKickstartData(ks1);
         KickstartFactory.saveKickstartData(ks2);
-        
+
         // Test
         Map<String, Set<String>> packagesDiff =
             handler.comparePackages(adminKey, ks1.getLabel(), ks2.getLabel());
@@ -494,14 +495,12 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         
         //   Clear any packages on the profile so we have a known starting state
         KickstartData ks1 = KickstartDataTest.createKickstartWithProfile(admin);
-        ks1.getPackageNames().clear();
-                
+        ks1.clearKsPackages();
         Package package1 = PackageTest.createTestPackage(admin.getOrg());
-        
-        ks1.addPackageName(package1.getPackageName());
+        ks1.addKsPackage(new KickstartPackage(ks1, package1.getPackageName()));
 
         KickstartFactory.saveKickstartData(ks1);
-        
+
         // Test
         Map<String, Set<String>> packagesDiff =
             handler.comparePackages(adminKey, ks1.getLabel(), ks1.getLabel());
@@ -519,10 +518,10 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         
         //   Clear any packages on the profile so we have a known starting state
         KickstartData ks1 = KickstartDataTest.createKickstartWithProfile(admin);
-        ks1.getPackageNames().clear();
+        ks1.getKsPackages().clear();
         
         KickstartData ks2 = KickstartDataTest.createKickstartWithProfile(admin);
-        ks2.getPackageNames().clear();
+        ks2.getKsPackages().clear();
         
         KickstartFactory.saveKickstartData(ks1);
         KickstartFactory.saveKickstartData(ks2);

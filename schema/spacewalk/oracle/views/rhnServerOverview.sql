@@ -31,6 +31,7 @@ rhnServerOverview
     bug_errata, 
     enhancement_errata,
     outdated_packages,
+    config_files_with_differences,
     last_checkin_days_ago,
     last_checkin,
     pending_updates,
@@ -77,7 +78,24 @@ select
       where
              snpc.server_id = S.id
 	 and p.id = snpc.package_id
-	 ),    
+	 ),
+    ( select count(*)
+        from rhnActionConfigRevision ACR
+             INNER JOIN rhnActionConfigRevisionResult ACRR on ACR.id = ACRR.action_config_revision_id
+       where ACR.server_id = S.id
+         and ACR.action_id = (
+              select MAX(rA.id)
+                from rhnAction rA
+                     INNER JOIN rhnServerAction rSA on rSA.action_id = rA.id
+                     INNER JOIN rhnActionStatus rAS on rAS.id = rSA.status
+                     INNER JOIN rhnActionType rAT on rAT.id = rA.action_type
+               where rSA.server_id = S.id
+                 and rAS.name in ('Completed', 'Failed')
+                 and rAT.label = 'configfiles.diff'
+         )
+         and ACR.failure_id is null
+         and ACRR.result is not null
+        ),
     ( select sysdate - checkin from rhnServerInfo where server_id = S.id ),
     ( select TO_CHAR(checkin, 'YYYY-MM-DD HH24:MI:SS') from rhnServerInfo where server_id = S.id ),
     ( select count(1) 

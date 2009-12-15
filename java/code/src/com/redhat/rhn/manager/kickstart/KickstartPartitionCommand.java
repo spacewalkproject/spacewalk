@@ -58,6 +58,7 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
     private static final String INCLUDE = "include";
     private static final String VOLGROUPS = "volgroups";
     private static final String VOLGROUP = "volgroup";
+    private static final String CUSTOM_PARTITION = "custom_partition";
     private static final String EMPTY_STRING = "";
     
     private KickstartCommandName raidName;
@@ -65,6 +66,7 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
     private KickstartCommandName logVolName;
     private KickstartCommandName includeName;
     private KickstartCommandName volGroupName;
+    private KickstartCommandName custom;
     
     private LinkedHashMap partitions = new LinkedHashMap(Collections.EMPTY_MAP);
     private LinkedHashMap includes = new LinkedHashMap(Collections.EMPTY_MAP);
@@ -77,6 +79,7 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
     private Set logvolSet = new HashSet();
     private Set volGroupSet = new HashSet();
     private Set raidSet = new HashSet();
+    private Set customSet = new HashSet();
     
     private int partSwaps = 0;
     private int raidSwaps = 0;
@@ -93,6 +96,10 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
         logVolName = KickstartFactory.lookupKickstartCommandName(LOGVOLS);
         includeName = KickstartFactory.lookupKickstartCommandName(INCLUDE);
         volGroupName = KickstartFactory.lookupKickstartCommandName(VOLGROUPS);
+        custom = KickstartFactory.lookupKickstartCommandName(CUSTOM_PARTITION);
+        if (custom == null) {
+            custom = KickstartFactory.createCustomPartCommandName();
+        }
     }
     
     /**
@@ -108,6 +115,8 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
         buf.append(getPartition(this.ksdata.getVolgroups(), VOLGROUP));
         buf.append(getPartition(this.ksdata.getLogvols(), LOGVOL));
         buf.append(getPartition(this.ksdata.getIncludes(), "%" + INCLUDE));        
+        buf.append(getPartition(this.ksdata.getCustomPartitionOptions(),
+                CUSTOM_PARTITION));
         return buf.toString();
     }
     
@@ -130,11 +139,11 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
             if (tokens == null || tokens.length == 0) {
                 continue;
             }
-            if (tokens.length == 1) {
-                return new ValidatorError("kickstart.partition.invalid", token);
+
+            String key = "";
+            if (tokens.length > 1) {
+                key = tokens[1]; // mount point is the key
             }
-            
-            String key = tokens[1]; // mount point is the key
             String stripped = StringUtils.trim(token.replaceFirst(tokens[0],
                     EMPTY_STRING));
             if (log.isDebugEnabled()) {
@@ -157,7 +166,7 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
                     handleLogVols(key, stripped);
                 }
                 else {
-                    return new ValidatorError("kickstart.partition.invalid", token);
+                    handleCustom(token);
                 }
             }
             catch (ParseException e) {
@@ -170,9 +179,22 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
         ksdata.setPartitions(partitionSet);
         ksdata.setIncludes(includeSet);
         ksdata.setRaids(raidSet);
+        ksdata.setCustomPartitionOptions(customSet);
         return null;
     }
     
+
+    private void handleCustom(String token) {
+        KickstartCommand ksCommand = new KickstartCommand();
+        ksCommand.setCommandName(custom);
+        ksCommand.setCreated(new Date());
+        ksCommand.setModified(ksCommand.getCreated());
+        ksCommand.setArguments(token);
+        ksCommand.setKickstartData(this.ksdata);
+        customSet.add(ksCommand);
+    }
+
+
     /**
      * 
      * @param keyIn mount point coming in
@@ -307,7 +329,11 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
         for (Iterator itr = setIn.iterator(); itr.hasNext();) {
            KickstartCommand c = (KickstartCommand)itr.next();
            String args = c.getArguments();
-           retval.append(prefixIn + SPACE);
+
+           if (!prefixIn.equals(CUSTOM_PARTITION)) {
+               retval.append(prefixIn + SPACE);
+           }
+
            // check legacy perl hack (e.g. swap1...swapN)
            if (args.startsWith(SWAP) && !args.startsWith(LVMSWAP)) {
               String[] tmp = args.split(WHITESPACE);

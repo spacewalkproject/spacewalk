@@ -28,13 +28,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-search-bar' => \&search_bar);
-
-  $pxt->register_tag('rhn-errata-search-form' => \&errata_search_form);
-  $pxt->register_tag('rhn-package-search-form' => \&package_search_form);
-  $pxt->register_tag('rhn-system-search-form' => \&system_search_form);
-
-  $pxt->register_tag('rhn-if-searched' => \&if_searched, -10);
 }
 
 sub register_callbacks {
@@ -46,23 +39,6 @@ sub register_callbacks {
   $pxt->register_callback('rhn:package_search_handler' => \&package_search_handler);
 
   $pxt->register_callback('rhn:bar_search_cb' => \&bar_search_cb);
-}
-
-sub if_searched {
-  my $pxt = shift;
-  my %params = @_;
-  my $block = $params{__block__};
-
-  if ($pxt->pnotes('searched')) {
-    PXT::Debug->log(7, "searched...");
-    return $block;
-  }
-  elsif ($pxt->dirty_param('search_string')) {
-    return $block;
-  }
-
-  PXT::Debug->log(7, "not searched");
-  return;
 }
 
 sub validate_search_string {
@@ -198,40 +174,6 @@ RHN::SearchTypes->register_type('system', $system_searches);
 
 my @integer_types = qw/search_id search_cpu_mhz_lt search_cpu_mhz_gt search_ram_lt search_ram_gt search_checkin search_registered/;
 
-sub system_search_form {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-  my $search_string = $pxt->dirty_param('search_string') || '';
-  my $search_set = $pxt->dirty_param('search_set') || 'all';
-  my $view_mode = $pxt->dirty_param('view_mode') || 'search_simple';
-  my $invert = $pxt->dirty_param('invert') || '';
-
-  my $search = RHN::SearchTypes->find_type('system');
-
-  my $search_select = $search->render_search_selectbox(pxt => $pxt, search_type => $view_mode);
-
-  $search_string = Sniglets::Search->strip_invalid_chars($search_string, $view_mode);
-
-  my %subst;
-
-  $subst{all_checked} = $search_set eq 'all' ? '1' : '';
-  $subst{system_list_checked} = $search_set eq 'system_list' ? '1' : '';
-
-  $subst{search_string} = PXT::Utils->escapeHTML($search_string);
-  $subst{invert_checked} = $invert ? ' checked="1"' : '';
-
-  $subst{search_options} = $search_select;
-
-  my $return_block;
-  $return_block .= PXT::HTML->form_start(-method => "POST");
-  $return_block .= PXT::Utils->perform_substitutions($params{__block__}, \%subst);
-  $return_block .= PXT::HTML->form_end;
-
-  return $return_block;
-}
-
 sub system_search_handler {
   my $pxt = shift;
 
@@ -268,24 +210,6 @@ $errata_searches->set_name('errata_search');
 
 RHN::SearchTypes->register_type('errata', $errata_searches);
 
-sub errata_search_form {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $search = RHN::SearchTypes->find_type('errata');
-  my $search_select = $search->render_search_selectbox(pxt => $pxt);
-
-  my $return_block = '';
-  $return_block .= PXT::HTML->form_start(-method => "POST");
-  $return_block .= PXT::Utils->perform_substitutions($params{__block__},
-						     { 'search_options' => $search_select,
-						       'search_string' => PXT::Utils->escapeHTML($pxt->dirty_param('search_string') || '') }
-						    );
-  $return_block .= PXT::HTML->form_end;
-
-  return $return_block;
-}
-
 sub errata_search_handler {
   my $pxt = shift;
 
@@ -311,54 +235,6 @@ $package_searches->add_mode(package_search_by_name => "Name Only", 'Summary');
 $package_searches->set_name('package_search');
 
 RHN::SearchTypes->register_type('package', $package_searches);
-
-sub package_search_form {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $search = RHN::SearchTypes->find_type('package');
-  my $search_select = $search->render_search_selectbox(pxt => $pxt);
-
-  my $search_arches;
-
-  # sigh, this is lame, but almost nothing in the ListView area
-  # understands multivalued formvars, so...
-  my %arches;
-  $arches{$_} = $pxt->dirty_param($_)
-    for qw/channel_arch_ia32 channel_arch_ia64 channel_arch_x86_64/;
-  my $no_selected_arched;
-  $no_selected_arched = 1
-    unless grep { defined $arches{$_} } qw/channel_arch_ia32 channel_arch_ia64 channel_arch_x86_64/;
-
-
-  for my $arch (Sniglets::Packages->search_arch_list) {
-    my ($label, $name) = @$arch;
-
-    $search_arches .= PXT::HTML->checkbox(-name => "channel_arch_$label",
-					  -value => "channel-$label",
-					  -checked => $arches{"channel_arch_$label"} ? 1 : 0);
-    $search_arches .= "$name ";
-  }
-
-  my $search_smart_channels;
-  $search_smart_channels = PXT::HTML->checkbox(-name => 'search_subscribed_channels',
-					       -value => 1,
-					       -checked => ($pxt->dirty_param('search_subscribed_channels') || $no_selected_arched || 0));
-  $search_smart_channels .= "Channels relevant to your systems";
-
-  my $return_block = '';
-  $return_block .= PXT::HTML->form_start(-method => "POST");
-  $return_block .= PXT::Utils->perform_substitutions($params{__block__},
-						     { 'search_options' => $search_select,
-						       'search_string' => PXT::Utils->escapeHTML($pxt->dirty_param('search_string') || ''),
-						       'search_arches' => $search_arches,
-						       'search_smart_channels' => $search_smart_channels,
-						     }
-						    );
-  $return_block .= PXT::HTML->form_end;
-
-  return $return_block;
-}
 
 sub package_search_handler {
   my $pxt = shift;
@@ -392,39 +268,6 @@ sub package_search_handler {
   if (Sniglets::Search->validate_search_string($pxt, $search, $search_string)) {
     RHN::Search->package_search($pxt->user, $search_mode, $search_string, \@arch_labels, $smart_search);
   }
-}
-
-# search bar.  default to your last search, or systems if you're
-# logged in, or package if you're not.  whew.
-sub search_bar {
-  my $pxt = shift;
-
-  my $default_search = $pxt->session->get('last_search_type');
-
-  my @options;
-  if ($pxt->user and $pxt->user->org->has_entitlement('sw_mgr_enterprise')) {
-    push @options, [ 'Systems', 'systems', 0 ];
-    $default_search ||= 'systems';
-  }
-  $default_search ||= 'packages';
-
-  push @options, [ 'Packages', 'packages', 0 ];
-  push @options, [ 'Errata', 'errata', 0 ];
-
-  for my $option (@options) {
-    $option->[2]++ if $option->[1] eq $default_search;
-  }
-
-  my $ret = '';
-  $ret .= PXT::HTML->form_start(-method => 'GET', -action => "/rhn/Search.do");
-  $ret .= PXT::HTML->select(-name => 'search_type',
-			    -options => \@options);
-  $ret .= PXT::HTML->text(-name => 'search_string', -length => 40, -size => 20);
-  $ret .= PXT::HTML->hidden(-name => 'submitted', -value => 'true');
-  $ret .= PXT::HTML->submit_image(-src => '/img/button-search.gif', -border => 0, -align => "top");
-  $ret .= PXT::HTML->form_end;
-
-  return $ret;
 }
 
 sub bar_search_cb {

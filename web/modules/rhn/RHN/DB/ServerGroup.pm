@@ -464,24 +464,6 @@ EOQ
   return @groups;
 }
 
-sub servergroup_admin_overview {
-  my $self = shift;
-  my $org_id = shift;
-  my $sgid = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-SELECT wc.id, wc.login,
-       NVL((SELECT MAX(1) FROM rhnUserManagedServerGroups USGP WHERE USGP.server_group_id = ? AND USGP.user_id = wc.id), 0)
-  FROM web_contact wc
- WHERE wc.org_id = ?
-EOS
-
-  $sth->execute($sgid, $org_id);
-
-  return $sth->fullfetch;
-}
-
 sub intersect_groups {
   my $self = shift;
   my $user_id = shift;

@@ -15,10 +15,10 @@
 #
 import sys, os, time, grp
 from optparse import OptionParser
-from common import rhnLib
 from server import rhnPackage, rhnSQL, rhnChannel, rhnPackageUpload
-from common import CFG, initCFG, rhn_rpm, rhnLog, fetchTraceback
-from common.rhn_mpm import InvalidPackageError
+from common import CFG, initCFG, rhnLog, fetchTraceback
+from spacewalk.common import rhn_rpm, checksum
+from spacewalk.common.rhn_mpm import InvalidPackageError
 from server.importlib.importLib import IncompletePackage
 from server.importlib.backendOracle import OracleBackend
 from server.importlib.packageImport import ChannelPackageSubscription
@@ -116,12 +116,6 @@ class RepoSync:
         to_download = []
         self.print_msg("Repo " + self.url + " has " + str(len(packages)) + " packages.")
         for pack in packages:
-             pid = None
-             if pack.checksums.has_key('md5sum'):
-                 """lookup by md5sum"""
-             elif pack.checksums.has_key('sha256'):
-                 """lookup by sha256"""
-             if pid == None:
                  if self.channel_label not in \
                      rhnPackage.get_channels_for_package([pack.name, \
                      pack.version, pack.release, pack.epoch, pack.arch]) and \
@@ -138,14 +132,8 @@ class RepoSync:
                 self.print_msg(str(index+1) + "/" + str(len(to_download)) + " : "+ \
                       pack.getNVREA())
                 path = self.plugin.get_package(pack)
-                md5 = rhnLib.getFileMD5(filename=path)
-                pid =  rhnPackage.get_package_for_md5sum(
-                                  self.channel['org_id'], md5)
-                if pid is None:
-                    self.upload_package(pack, path, md5)
-                    self.associate_package(pack, md5)
-                else:
-                    self.associate_package(pack, md5) #package is already on the satellite, lets just associate
+                self.upload_package(pack, path)
+                self.associate_package(pack)
                 if self.url.find("file://")  < 0:
                     os.remove(path)
 
@@ -157,22 +145,29 @@ class RepoSync:
                     raise
                 continue
     
-    def upload_package(self, package, path, md5):
+    def upload_package(self, package, path):
         temp_file = open(path, 'rb')
-        header, payload_stream, md5sum, header_start, header_end = \
+        header, payload_stream, header_start, header_end = \
                 rhnPackageUpload.load_package(temp_file)
-        rel_package_path = rhnPackageUpload.relative_path_from_header(
-                    header, org_id=self.channel['org_id'], md5sum=md5sum)
-        package_path = os.path.join(CFG.MOUNT_POINT,
+        checksum_type = header.checksum_type()
+        package.checksum = (checksum_type, checksum.getFileChecksum(
+                                                checksum_type, file=temp_file))
+        pid =  rhnPackage.get_package_for_checksum(
+                                  self.channel['org_id'], package.checksum)
+
+        if pid is None:
+            rel_package_path = rhnPackageUpload.relative_path_from_header(
+                    header, self.channel['org_id'], package.checksum)
+            package_path = os.path.join(CFG.MOUNT_POINT,
                     rel_package_path)
-        package_dict, diff_level = rhnPackageUpload.push_package(header,
-                    payload_stream, md5sum, force=False,
+            package_dict, diff_level = rhnPackageUpload.push_package(header,
+                    payload_stream, package.checksum, force=False,
                     header_start=header_start, header_end=header_end,
                     relative_path=rel_package_path, 
                     org_id=self.channel['org_id'])
         temp_file.close()
 
-    def associate_package(self, pack, md5sum):
+    def associate_package(self, pack):
         caller = "server.app.yumreposync"
         backend = OracleBackend()
         backend.init()
@@ -182,7 +177,7 @@ class RepoSync:
         package['release'] = pack.release
         package['epoch'] = pack.epoch
         package['arch'] = pack.arch
-        package['md5sum'] = md5sum
+        package['checksum'] = pack.checksum
         package['channels']  = [{'label':self.channel_label, 
                                  'id':self.channel['id']}]
         package['org_id'] = self.channel['org_id']
@@ -221,17 +216,19 @@ class RepoSync:
 
 class ContentPackage:
 
-    #map of checksums.  Valid keys are 'md5sum' & 'sha256'
-    checksums = {}
-    
-    #unique ID that can be used by plugin
-    unique_id = None 
+    def __init__(self):
+        # map of checksums
+        self.checksums = {}
+        self.checksum = None
 
-    name = None
-    version = None
-    release = None
-    epoch = None
-    arch = None
+        #unique ID that can be used by plugin
+        self.unique_id = None
+
+        self.name = None
+        self.version = None
+        self.release = None
+        self.epoch = None
+        self.arch = None
 
     def setNVREA(self, name, version, release, epoch, arch):
         self.name = name

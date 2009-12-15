@@ -35,21 +35,6 @@ EOQ
   $dbh->commit;
 }
 
-sub token_usage_count {
-  my $class = shift;
-  my $token = shift;
-
-  my $dbh = RHN::DB->connect();
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT COUNT(1) FROM rhnFileDownload WHERE token = :token
-EOQ
-  $sth->execute_h(token => $token);
-  my ($ret) = $sth->fetchrow;
-  $sth->finish;
-
-  return $ret;
-}
-
 # bump the order of a given category up in the list
 sub bump_channel_category {
   my $class = shift;

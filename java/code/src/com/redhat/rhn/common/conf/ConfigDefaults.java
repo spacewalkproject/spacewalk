@@ -17,6 +17,8 @@ package com.redhat.rhn.common.conf;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ConfigDefaults is the place to store application specific Config settings
@@ -147,6 +149,8 @@ public class ConfigDefaults {
 
     public static final String SPACEWALK_REPOSYNC_PATH = "spacewalk_reposync_path";
     public static final String SPACEWALK_REPOSYNC_LOG_PATH = "spacewalk_reposync_logpath";
+    public static final String NON_REFERER_URLS = "non_referer_urls";
+
 
     private ConfigDefaults() {
     }
@@ -391,6 +395,22 @@ public class ConfigDefaults {
      */
     public String getDefaultKickstartNetworkInterface() {
         return Config.get().getString(KICKSTART_NETWORK_INTERFACE, "eth0");
+    }
+
+    /**
+     * Get the list of Url paths that we don't do the referer check on
+     * @return The list of strings
+     */
+    public List<String> getNonRefererUrls() {
+        List<String> toRet = Config.get().getList(NON_REFERER_URLS);
+        if (toRet == null) {
+            toRet = new ArrayList<String>();
+        }
+        toRet.add("/Login.do");
+        toRet.add("/ReLogin.do");
+        toRet.add("/index.jsp");
+        toRet.add("/YourRhn.do");
+        return toRet;
     }
 
     /**

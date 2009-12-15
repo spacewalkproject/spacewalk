@@ -102,7 +102,7 @@ public abstract class RepomdWriter {
             PackageDto pkgDto) throws SAXException {
         long pkgId = pkgDto.getId().longValue();
         SimpleAttributesImpl attr = new SimpleAttributesImpl();
-        attr.addAttribute("pkgid", sanitize(pkgId, pkgDto.getMd5sum()));
+        attr.addAttribute("pkgid", sanitize(pkgId, pkgDto.getChecksum()));
         attr.addAttribute("name", sanitize(pkgId, pkgDto.getName()));
         attr.addAttribute("arch", sanitize(pkgId, pkgDto.getArchLabel()));
         handler.startElement("package", attr);

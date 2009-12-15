@@ -6,6 +6,7 @@
 use strict;
 use NOCpulse::Config;
 use NOCpulse::Gritch;
+use NOCpulse::NOCpulseini;
 
 my $CFG=NOCpulse::Config->new;
 my $recipient=$CFG->get('notification','notif_emergency_email');
@@ -32,7 +33,7 @@ my $queue = { ALERTS   => 'alert_queue_dir',
 
 # Locate queue directory
 my $QUEUE_DIR = $CFG->get('notification', $queue->{$queue_name});
-chdir $QUEUE_DIR || &bailout("unable to find queue directory\n");
+chdir $QUEUE_DIR || NOCpulse::NOCpulseini->bailout("unable to find queue directory $QUEUE_DIR\n");
 my @files=glob("*");
 
 my $queue_size=scalar(@files);

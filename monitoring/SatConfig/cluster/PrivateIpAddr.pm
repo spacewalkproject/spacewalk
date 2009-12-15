@@ -45,7 +45,7 @@ sub initialize
 	$self->SUPER::initialize(@params);
 	$self->set_validators([]);
 	$self->addValidators(
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'dev',
 			description=>'A device name (e.g. eth0 or lo)',
 			required=>1,

@@ -21,7 +21,9 @@ CREATE TABLE rhnKSTreeFile
                                REFERENCES rhnKickstartableTree (id)
                                ON DELETE CASCADE,
     relative_filename  VARCHAR2(256) NOT NULL,
-    md5sum             VARCHAR2(64) NOT NULL,
+    checksum_id        NUMBER NOT NULL
+                          CONSTRAINT rhn_kstreefile_chsum_fk
+                           REFERENCES rhnChecksum (id),
     file_size          NUMBER NOT NULL,
     last_modified      DATE
                            DEFAULT (sysdate) NOT NULL,

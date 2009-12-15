@@ -1,0 +1,112 @@
+.\" Copyright 2009 Red Hat, Inc.
+.\"
+.\" This man page is free documentation; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this man page; if not, write to the Free Software
+.\" Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+.\"
+.TH SPACEWALK-CHANNEL 8 "2009 November 24" "Linux" "Red Hat, Inc."
+
+.SH NAME
+spacewalk-channel \- Subscribe to or unsubscribe system from channel.
+
+.SH SYNOPSIS
+
+spacewalk-channel [\fIoptions\fP]
+
+.SH DESCRIPTION
+.PP
+\fVspacewalk-channel\fR allows you to subscribe to and unsubscribe from 
+specified channels via the command line. A visit to the Red Hat Network
+(or Spacewalk) website isn't required.
+
+.SH OPTIONS
+
+.IP "\fB-l, --list\fP"
+Print a list of channel(s) that you are currently subscribed to.
+.br
+.IP "\fB-a, --add\fP"
+You are subscribing system to given channel(s). You have to specify --user and --password.
+.br
+.IP "\fB-r, --remove\fP"
+You are unsubscribing system to given channel(s). You have to specify --user and --password.
+.br
+.IP "\fB-u, --username\fP"
+Your username used to register the system with and for Red Hat Network, RHN Satellite or Spacewalk.
+If you do not enter this option and it is required, you will be prompted.
+.br
+.IP "\fB-p, --password\fP"
+The password associated with the username specified with the \fB--username\fR
+option. This is an unencrypted password.
+If you do not enter this option and it is required, you will be prompted.
+.br
+.IP "\fB-c, --channel\fP"
+Label of channel you want to subscribe to or unsubscribe from. Can be specified multiple 
+times.
+.br
+.IP "\fB-v, --verbose\fP"
+Print out successfull action.
+.br
+.IP "\fB-h, --help\fP"
+Show a help message and exit.
+
+.SH NOTE
+.PP
+The addition and removal of channels is mutually exclusive, please use the command twice.
+
+.SH "EXAMPLES"
+
+Subscribe to two channels:
+
+.RS
+.nf
+spacewalk-channel --add -c rhn-tools-rhel-i386-server-5 -c rhel-i386-server-vt-5 --user username --password password
+.fi
+.RE
+
+Unsubscribe from channel:
+
+.RS
+.nf
+spacewalk-channel --remove -c rhn-tools-rhel-i386-server-5 -c rhel-i386-server-vt-5 --user username --password password
+.fi
+.RE
+
+List subscribed channels:
+
+.RS
+.nf
+spacewalk-channel --list
+.fi
+.RE
+
+.SH "SEE ALSO"
+
+.PP
+\fBrhnplugin\fP(8), \fBrhn_register\fP(8), \fBup2date\fP(5).
+
+.SH AUTHORS
+.PP
+Miroslav Suchý <msuchy@redhat.com>
+
+.SH "BUGS"
+.PP
+Report bugs to <http://bugzilla.redhat.com>.
+
+.SH COPYRIGHT
+
+.PP
+Copyright \(co 2009 Red Hat, Inc.
+
+.PP
+This is free software; see the source for copying conditions.  There is 
+NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.

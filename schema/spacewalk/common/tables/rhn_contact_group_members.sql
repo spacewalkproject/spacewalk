@@ -16,16 +16,16 @@
 
 CREATE TABLE rhn_contact_group_members
 (
-    contact_group_id          NUMBER(12) NOT NULL
+    contact_group_id          NUMBER NOT NULL
                                   CONSTRAINT rhn_cntgm_cgid_fk
                                       REFERENCES rhn_contact_groups (recid)
                                       ON DELETE CASCADE,
     order_number              NUMBER NOT NULL,
-    member_contact_method_id  NUMBER(12)
+    member_contact_method_id  NUMBER
                                   CONSTRAINT rhn_cntgm_mcmid_fk
                                       REFERENCES rhn_contact_methods (recid)
                                       ON DELETE CASCADE,
-    member_contact_group_id   NUMBER(12)
+    member_contact_group_id   NUMBER
                                   CONSTRAINT rhn_cntgm_mcgid_fk
                                       REFERENCES rhn_contact_groups (recid)
                                       ON DELETE CASCADE,

@@ -47,6 +47,7 @@ import javax.servlet.http.HttpServletResponse;
 public class PackageDetailsAction extends RhnAction {
 
     private final String PACKAGE_NAME = "package_name";
+    private final String PACKAGE_KEY = "package_key";
     
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -84,6 +85,10 @@ public class PackageDetailsAction extends RhnAction {
             else {
                 request.setAttribute("type", "rpm");
                 request.setAttribute(PACKAGE_NAME, pkg.getFilename());
+                if (!pkg.getPackageKeys().isEmpty()) {
+                    request.setAttribute(PACKAGE_KEY,
+                            pkg.getPackageKeys().iterator().next().getKey());
+                }
             }
 
             if (DownloadManager.isFileAvailable(pkg.getPath())) {

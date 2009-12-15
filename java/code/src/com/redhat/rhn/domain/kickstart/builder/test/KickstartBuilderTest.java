@@ -195,7 +195,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         
         KickstartData ksData = createBareKickstartData();
         builder.buildPackages(ksData, lines);
-        assertEquals(6, ksData.getPackageNames().size());
+        assertEquals(6, ksData.getKsPackages().size());
     }
     
     public void testBuidEmptyPackages() throws Exception {
@@ -205,7 +205,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         List<String> lines = new LinkedList<String>();
         KickstartData ksData = createBareKickstartData();
         builder.buildPackages(ksData, lines);
-        assertEquals(0, ksData.getPackageNames().size());
+        assertEquals(0, ksData.getKsPackages().size());
     }
     
     public void testBuildPreScripts() throws Exception {
@@ -332,7 +332,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         KickstartData ksData = builder.createFromParser(parser, "mykslabel", 
                 KickstartVirtualizationType.XEN_PARAVIRT, tree, null);
         assertEquals(19, ksData.getCommands().size());
-        assertEquals(100, ksData.getPackageNames().size());
+        assertEquals(100, ksData.getKsPackages().size());
         assertEquals(1, ksData.getScripts().size());
         
         KickstartScript preScript = ksData.getScripts().iterator().next();

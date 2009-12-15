@@ -27,7 +27,7 @@ prog="rhnmd"
 
 # Some functions to make the below more readable
 SU="/sbin/runuser -s /bin/bash - nocpulse -c"
-SSHD="/usr/sbin/rhnmd-wrap"
+SSHD="/usr/sbin/rhnmd"
 
 do_restart_sanity_check()
 {

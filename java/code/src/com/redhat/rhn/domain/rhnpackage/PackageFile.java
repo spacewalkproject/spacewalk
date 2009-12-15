@@ -15,6 +15,7 @@
 package com.redhat.rhn.domain.rhnpackage;
 
 import com.redhat.rhn.domain.BaseDomainHelper;
+import com.redhat.rhn.domain.common.Checksum;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -43,7 +44,7 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
     private Long rdev;
     private Long fileSize;
     private Date mtime;
-    private String md5;
+    private Checksum checksum;
     private String linkTo;
     private Long flags;
     private Long verifyFlags;
@@ -189,19 +190,6 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
         this.mtime = mtimeIn;
     }
 
-    /**
-     * @return Returns the md5.
-     */
-    public String getMd5() {
-        return md5;
-    }
-
-    /**
-     * @param md5In The md5 to set.
-     */
-    public void setMd5(String md5In) {
-        this.md5 = md5In;
-    }
 
     /**
      * @return Returns the linkTo.
@@ -285,6 +273,22 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
         hash.append(this.getPack());
         hash.append(this.getCapability());
         return hash.toHashCode();
+    }
+
+
+    /**
+     * @return Returns the checksum.
+     */
+    public Checksum getChecksum() {
+        return checksum;
+    }
+
+
+    /**
+     * @param checksumIn The checksum to set.
+     */
+    public void setChecksum(Checksum checksumIn) {
+        this.checksum = checksumIn;
     }
 
 }

@@ -1,5 +1,0 @@
-<area shape="rect" href="table-RHNSERVERACTION.html#t-fk" title="RHNSERVERACTION" alt="" coords="21,39,176,65">
-<area shape="rect" href="table-RHNACTIONCONFIGFILENAME.html#t-fk" title="RHNACTIONCONFIGFILENAME" alt="" coords="240,115,459,141">
-<area shape="rect" href="table-RHNCONFIGREVISION.html#t-fk" title="RHNCONFIGREVISION" alt="" coords="16,89,181,116">
-<area shape="rect" href="table-RHNCONFIGFILENAME.html#t-fk" title="RHNCONFIGFILENAME" alt="" coords="15,140,183,167">
-<area shape="rect" href="table-RHNCONFIGFILEFAILURE.html#t-fk" title="RHNCONFIGFILEFAILURE" alt="" coords="5,191,192,217">

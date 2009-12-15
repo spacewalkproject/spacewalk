@@ -26,6 +26,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.common.Checksum;
 import com.redhat.rhn.domain.errata.impl.PublishedErrata;
 import com.redhat.rhn.domain.errata.impl.UnpublishedErrata;
 import com.redhat.rhn.domain.org.Org;
@@ -45,7 +46,7 @@ public class Package extends BaseDomainHelper {
     private Long payloadSize;
     private String buildHost;
     private Date buildTime;
-    private String md5sum;
+    private Checksum checksum;
     private String vendor;
     private String payloadFormat;
     private Long compat;
@@ -254,17 +255,17 @@ public class Package extends BaseDomainHelper {
     }
 
     /**
-     * @return Returns the md5sum.
+     * @return Returns the checksum.
      */
-    public String getMd5sum() {
-        return md5sum;
+    public Checksum getChecksum() {
+        return checksum;
     }
 
     /**
-     * @param m The md5sum to set.
+     * @param checksumIn The checksum to set.
      */
-    public void setMd5sum(String m) {
-        this.md5sum = m;
+    public void setChecksum(Checksum checksumIn) {
+        this.checksum = checksumIn;
     }
 
     /**

@@ -31,6 +31,7 @@ import com.redhat.rhn.domain.kickstart.KickstartDefaultRegToken;
 import com.redhat.rhn.domain.kickstart.KickstartDefaults;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartInstallType;
+import com.redhat.rhn.domain.kickstart.KickstartPackage;
 import com.redhat.rhn.domain.kickstart.KickstartPreserveFileList;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
@@ -130,7 +131,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         KickstartData k = createTestKickstartData(user.getOrg());
         assertNotNull(k);
         assertNotNull(k.getId());
-        assertNotNull(k.getPackageNames());
+        assertNotNull(k.getKsPackages());
         
         KickstartData k2 = lookupById(user.getOrg(), k.getId());
         assertEquals(k2.getLabel(), k.getLabel());
@@ -275,7 +276,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         KickstartData ksd = createKickstartWithOptions(user.getOrg());
         assertNotNull(ksd);
         assertNotNull(ksd.getId());
-        assertNotNull(ksd.getPackageNames());
+        assertNotNull(ksd.getKsPackages());
         KickstartFactory.saveKickstartData(ksd);
         flushAndEvict(ksd); 
         
@@ -463,8 +464,10 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         
         k.setKernelParams(KERNEL_PARAMS);
 
-        k.addPackageName(pn);
-        k.addPackageName(pn2);
+        k = (KickstartData) TestUtils.saveAndReload(k);
+
+        k.addKsPackage(new KickstartPackage(k, pn));
+        k.addKsPackage(new KickstartPackage(k, pn2));
 
         
 
@@ -691,7 +694,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         verifySet(cloned.getDefaultRegTokens(), k.getDefaultRegTokens(), Token.class);
         
         verifySet(cloned.getLogvols(), k.getLogvols(), KickstartCommand.class);
-        verifyList(cloned.getPackageNames(), k.getPackageNames(), PackageName.class);
+        verifySet(cloned.getKsPackages(), k.getKsPackages(), KickstartPackage.class);
         verifySet(cloned.getPreserveFileLists(), k.getPreserveFileLists(), FileList.class);
         verifySet(cloned.getRaids(), k.getRaids(), KickstartCommand.class);
         verifySet(cloned.getVolgroups(), k.getVolgroups(), KickstartCommand.class);
@@ -712,7 +715,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         k.setCommands(null);
         k.setDefaultRegTokens(null);
         k.setIps(null);
-        k.setPackageNames(null);
+        k.setKsPackages(null);
         k.setPreserveFileLists(null);
         k.setScripts(null);
         // Now we deep copy it, save and reload
@@ -728,7 +731,8 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         assertTrue("Not instance of: " + clazz.getName(), 
                 clazz.isInstance(cloned.iterator().next()));
     }
-    
+
+   /*
     private void verifyList(List cloned, List orig, Class clazz) {
         assertTrue("orig doesnt have any: " + clazz.getName(), orig.size() > 0);
         assertTrue("cloned doesnt have any: " + clazz.getName(), cloned.size() > 0);
@@ -736,7 +740,8 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         assertTrue("Not instance of: " + clazz.getName(), 
                 clazz.isInstance(cloned.iterator().next()));
     }
-    
+    */
+
     public void testISRhelRevMethods() throws Exception {
         
         KickstartData k = createKickstartWithChannel(user.getOrg());

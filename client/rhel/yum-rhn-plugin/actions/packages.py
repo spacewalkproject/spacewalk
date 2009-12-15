@@ -1,4 +1,4 @@
-# Copyright (c) 1999-2002 Red Hat, Inc.  Distributed under GPL.
+# Copyright (c) 1999-2002 Red Hat, Inc.  Distributed under GPLv2
 #
 # Author: James Bowes <jbowes@redhat.com>
 #
@@ -20,6 +20,7 @@ from up2date_client import up2dateLog
 from up2date_client import config
 from up2date_client import rpmUtils
 from up2date_client import rhnPackageInfo
+from up2date_client import rhncli
 
 from rpm import RPMPROB_FILTER_OLDPACKAGE
 
@@ -48,7 +49,7 @@ class YumAction(yum.YumBase):
     def __init__(self):
         yum.YumBase.__init__(self)
 
-        self.doConfigSetup()
+        self.doConfigSetup(debuglevel=rhncli.cfg["debug"])
 
         self.doTsSetup()
         self.doRpmDBSetup()

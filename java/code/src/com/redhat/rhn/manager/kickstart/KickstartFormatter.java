@@ -19,6 +19,7 @@ import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartPackage;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
@@ -27,7 +28,6 @@ import com.redhat.rhn.domain.kickstart.cobbler.CobblerSnippet;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
-import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.token.Token;
@@ -62,7 +62,8 @@ public class KickstartFormatter {
     private static final String WHITESPACE = "\\s";
     private static final String SWAP = "swap";
     private static final String PART = "part";
-    private static final String PARTITIONS = "partitions";    
+    private static final String PARTITIONS = "partitions";
+    private static final String CUSTOM_PARTITION = "custom_partition";
     private static final String RAID = "raid";
     private static final String RAIDS = "raids";
     private static final String VOLGROUP = "volgroup";
@@ -70,7 +71,8 @@ public class KickstartFormatter {
     private static final String LOGVOLS = "logvols";
     private static final String LOGVOL = "logvol";
     private static final String INCLUDE = "include";
-    private static final String PARTREGEX = "partitions|raids|volgroups|logvols|include";
+    private static final String PARTREGEX = "partitions|raids|volgroups|logvols|include|" +
+                                            "custom_partition";
     private static final String DEPS = "--resolvedeps";
     private static final String PACKAGES = "%packages";
     private static final String INTERPRETER_OPT = "--interpreter";
@@ -419,6 +421,9 @@ public class KickstartFormatter {
         else if (cnameIn.equals(INCLUDE)) {
             retval = "%" + INCLUDE + SPACE + StringUtils.join(tokens, SPACE) + NEWLINE;
         }
+        else if (cnameIn.equals(CUSTOM_PARTITION)) {
+            retval = StringUtils.join(tokens, SPACE) + NEWLINE;
+        }
         return retval;
     }
     
@@ -438,8 +443,8 @@ public class KickstartFormatter {
      */
     private String getPackages() {        
         StringBuffer buf = new StringBuffer();
-        for (Iterator itr = ksdata.getPackageNames().iterator(); itr.hasNext();) {
-            buf.append(((PackageName)itr.next()).getName() + NEWLINE);
+        for (Iterator itr = ksdata.getKsPackages().iterator(); itr.hasNext();) {
+            buf.append(((KickstartPackage)itr.next()).getPackageName().getName() + NEWLINE);
         }
         if (KickstartVirtualizationType.paraHost().equals(ksdata.getKickstartDefaults().
                 getVirtualizationType())) {

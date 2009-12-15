@@ -56,7 +56,6 @@ public class RepositoryWriter {
     private String pathPrefix;
     private String mountPoint;
     private String checksumtype;
-    private String checksumname;
 
     /**
      * Constructor takes in pathprefix and mountpoint
@@ -106,7 +105,6 @@ public class RepositoryWriter {
 
         // Get compatible checksumType
         this.checksumtype = channel.getChecksumType();
-        this.checksumname = channel.getChecksum().getDescription();
         
         log.info("Checksum Type Value" + this.checksumtype);
 
@@ -188,15 +186,15 @@ public class RepositoryWriter {
         RepomdIndexData groupsData = loadCompsFile(channel);
         
         //Set the type so yum can read and perform checksum
-        primaryData.setType(this.checksumname);
-        filelistsData.setType(this.checksumname);
-        otherData.setType(this.checksumname);
+        primaryData.setType(this.checksumtype);
+        filelistsData.setType(this.checksumtype);
+        otherData.setType(this.checksumtype);
         if (updateinfoData != null) {
-            updateinfoData.setType(this.checksumname);
+            updateinfoData.setType(this.checksumtype);
         }
         
         if (groupsData != null) {
-            groupsData.setType(this.checksumname);
+            groupsData.setType(this.checksumtype);
         }
         
         log.info("Primary xml's type" + primaryData.getType());

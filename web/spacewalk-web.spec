@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.3
+Version: 0.8.2
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -165,7 +165,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Action.pm
 %{perl_vendorlib}/RHN/AppInstall/
 %{perl_vendorlib}/RHN/Cache/
-%{perl_vendorlib}/RHN/Catalog.pm
 %{perl_vendorlib}/RHN/Cert.pm
 %{perl_vendorlib}/RHN/Channel.pm
 %{perl_vendorlib}/RHN/ChannelEditor.pm
@@ -188,7 +187,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Entitlements.pm
 %{perl_vendorlib}/RHN/Errata.pm
 %{perl_vendorlib}/RHN/ErrataEditor.pm
-%{perl_vendorlib}/RHN/ErrataMailer.pm
 %{perl_vendorlib}/RHN/ErrataTmp.pm
 %{perl_vendorlib}/RHN/FileList.pm
 %{perl_vendorlib}/RHN/Form.pm
@@ -200,7 +198,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Kickstart/
 %{perl_vendorlib}/RHN/Mail.pm
 %{perl_vendorlib}/RHN/Manifest.pm
-%{perl_vendorlib}/RHN/Message.pm
 %{perl_vendorlib}/RHN/MonitoringConfigMacro.pm
 %{perl_vendorlib}/RHN/Org.pm
 %{perl_vendorlib}/RHN/Package.pm
@@ -224,7 +221,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/ServerGroup.pm
 %{perl_vendorlib}/RHN/ServerMessage.pm
 %{perl_vendorlib}/RHN/ServerNotes.pm
-%{perl_vendorlib}/RHN/ServerPackage.pm
 %{perl_vendorlib}/RHN/Session.pm
 %{perl_vendorlib}/RHN/Set.pm
 %{perl_vendorlib}/RHN/SimpleStruct.pm
@@ -317,6 +313,32 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Dec 15 2009 Jan Pazdziora 0.8.2-1
+- Removed dead code (PXT tags, xmlrpc, functions, modules).
+
+* Fri Dec  4 2009 Miroslav Suchý <msuchy@redhat.com> 0.8.1-1
+- sha256 support
+
+* Wed Dec 02 2009 Tomas Lestach <tlestach@redhat.com> 0.7.8-1
+- 537094 - yum list-sec CVE's on cloned channels doesn't work
+  (tlestach@redhat.com)
+
+* Mon Nov 30 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.7-1
+- add variable web.chat_enabled to config file
+
+* Thu Nov 19 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.6-1
+- 531649 - fixed confirmation message after channel merge/compare
+- 527881 - fixed set clearing on the channel merge page
+
+* Mon Oct 26 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.5-1
+- bump up spacewalk version to 0.7
+- 449167 - add api call for rpm install date
+- Make spacewalk use the editarea RPM and remove supplied editarea files <colin.coe@gmail.com>
+
+* Thu Sep 17 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.4-1
+- 476851 - removal of tables: rhn_db_environment, rhn_environment                                                              
+- 520441 - don't apply ExtUtils::MY->fixin(shift) to perl executables
+
 * Tue Sep 01 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.3-1
 - 488431 - don't report high usage on UNDO
 

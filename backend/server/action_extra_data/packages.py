@@ -40,7 +40,7 @@ insert into rhnServerActionVerifyResult (
     package_evr_id,
     package_arch_id,
     package_capability_id,
-    attribute, size_differs, mode_differs, md5_differs,
+    attribute, size_differs, mode_differs, checksum_differs,
     devnum_differs, readlink_differs, uid_differs,
     gid_differs, mtime_differs
 )

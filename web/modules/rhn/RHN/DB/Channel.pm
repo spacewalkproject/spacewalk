@@ -289,47 +289,6 @@ sub trusted_orgs {
 # Channel package functions
 ################################
 
-my %sat_chans_by_version = ('1.0' => ['redhat-rhn-satellite-as-i386-2.1', 'redhat-rhn-satellite-i386-7.2'],
-			    '2.0' => ['redhat-rhn-satellite-2.0-as-i386-2.1', 'redhat-rhn-satellite-2.0-i386-7.2'],
-			    '2.1' => ['redhat-rhn-satellite-2.1-as-i386-2.1'],
-			    '2.99' => ['redhat-rhn-satellite-2.99beta-as-i386-2.1'],
-			    '3.2' => ['redhat-rhn-satellite-3.2-as-i386-2.1'],
-			    '3.4' => ['redhat-rhn-satellite-3.4-as-i386-2.1'],
-			    '3.5' => ['redhat-rhn-satellite-3.5-as-i386-2.1', 'redhat-rhn-satellite-3.5-as-i386-3'],
-			    '3.6' => ['redhat-rhn-satellite-3.6-as-i386-2.1', 'redhat-rhn-satellite-3.6-as-i386-3'],
-			    '3.7' => ['redhat-rhn-satellite-3.7-as-i386-2.1', 'redhat-rhn-satellite-3.7-as-i386-3', 
-                          'redhat-rhn-satellite-3.7-as-i386-4'],
-			    '4.0' => ['redhat-rhn-satellite-4.0-as-x86_64-4',
-				      'redhat-rhn-satellite-4.0-as-i386-3',
-				      'redhat-rhn-satellite-4.0-as-i386-4',
-				     ],
-			    '4.1' => ['redhat-rhn-satellite-4.1-as-i386-3',
-				      'redhat-rhn-satellite-4.1-as-i386-4',
-				     ],
-                            '4.2' => ['redhat-rhn-satellite-4.2-as-i386-3',
-                                      'redhat-rhn-satellite-4.2-as-i386-4',
-                                     ],
-			    '5.0' => ['redhat-rhn-satellite-5.0-as-i386-4',
-				      'redhat-rhn-satellite-5.0-server-i386-5',
-				     ],
-			   );
-
-sub satellite_channel_versions {
-  my $class = shift;
-  return sort(keys %sat_chans_by_version);
-}
-
-sub satellite_channels_by_version {
-  my $class = shift;
-  my %params = validate(@_, { version => {type => Params::Validate::SCALAR } });
-
-  if (not exists $sat_chans_by_version{$params{version}}) {
-    die "invalid satellite version";
-  }
-
-  return @{$sat_chans_by_version{$params{version}}};
-}
-
 my %proxy_chans_by_version = ('1.1' => ['redhat-rhn-proxy-as-i386-2.1', 'redhat-rhn-proxy-i386-7.2'],
 			      '3.2' => ['redhat-rhn-proxy-3.2-as-i386-2.1'],
 			      '3.6' => ['redhat-rhn-proxy-3.6-as-i386-2.1', 'redhat-rhn-proxy-3.6-as-i386-3'],
@@ -1128,7 +1087,7 @@ SELECT DISTINCT C.label,
                 PE.release,
                 E.advisory_name,
                 C.name,
-                P.md5sum OUTDATED_PACKAGE_MD5SUM,
+                Csum.checksum OUTDATED_PACKAGE_MD5SUM,
                 P.path
   FROM rhnPackageArch PA,
        rhnChannel C,
@@ -1141,7 +1100,8 @@ SELECT DISTINCT C.label,
        rhnChannelErrata CE,
        rhnPackage P2,
        rhnPackage P,
-       rhnErrataPackage EP
+       rhnErrataPackage EP,
+       rhnChecksum Csum
  WHERE EP.errata_id = ?
    AND EP.package_id = P.id
    AND P.name_id = P2.name_id
@@ -1157,6 +1117,7 @@ SELECT DISTINCT C.label,
    AND P2.evr_id = PE.id
    AND P2.package_arch_id = PA.id
    AND CE2.channel_id = C.id
+   AND P.checksum_id = Csum.id
 EOQ
 
   $sth = $dbh->prepare($query);
@@ -1341,27 +1302,6 @@ SELECT  CF.id, CF.name, CF.label, CF.product_url, CF.org_id
 EOQ
 
   $sth->execute_h(cfid => $cfid);
-  my ($row) = $sth->fetchrow_hashref;
-
-  $sth->finish;
-
-  return $row;
-}
-
-sub family_details_by_label {
-  my $class = shift;
-  my $label = shift;
-
-  die "No channel family label" unless defined $label;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT  CF.id, CF.name, CF.label, CF.product_url, CF.org_id
-  FROM  rhnChannelFamily CF
- WHERE  CF.label = :label
-EOQ
-
-  $sth->execute_h(label => $label);
   my ($row) = $sth->fetchrow_hashref;
 
   $sth->finish;

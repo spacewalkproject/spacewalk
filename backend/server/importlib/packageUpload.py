@@ -17,7 +17,8 @@
 # Package import code on the app side
 #
 
-from common import rhnFault, rhn_rpm, log_debug
+from common import rhnFault, log_debug
+from spacewalk.common import rhn_rpm
 
 from server import rhnChannel, taskomatic, rhnSQL
 from server.importlib.headerSource import createPackage
@@ -100,7 +101,8 @@ def __processPackage(package, org_id, channels, source):
         # Just say the whole package
         header_end = packageSize
 
-    p = createPackage(header, packageSize, md5sum, relpath, org_id,
+    checksum = ('md5', md5sum)          # FIXME sha256
+    p = createPackage(header, packageSize, checksum, relpath, org_id,
         header_start, header_end, channels)
     return p
 

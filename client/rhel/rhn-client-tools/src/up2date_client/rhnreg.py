@@ -19,6 +19,7 @@ import rpcServer
 import urlparse
 import rhnreg_constants
 import hardware
+from rhnPackageInfo import convertPackagesFromHashToList
 
 try:
     from rhn import rpclib
@@ -26,18 +27,12 @@ except ImportError:
     rpclib = __import__("xmlrpclib")
 
 try:
-    import dmi
-except ImportError:
-    # If we couldn't import a DMI module, we'll use HAL instead.
-    dmi = None
-    import dbus
-
-try:
     from virtualization import support
 except ImportError:
     support = None    
 
-from rhpl.translate import _
+import gettext
+_ = gettext.gettext
 
 
 # global variables
@@ -237,7 +232,7 @@ def get_para_virt_info():
         uuid_file = open('/sys/hypervisor/uuid', 'r')
         uuid = uuid_file.read()
         uuid_file.close()
-        uuid = uuid.lower().replace('-', '')
+        uuid = uuid.lower().replace('-', '').rstrip("\r\n")
         virt_type = "para"
         return (uuid, virt_type)
     except IOError:
@@ -251,34 +246,14 @@ def get_fully_virt_info():
     This function looks in the SMBIOS area to determine if this is a 
     fully-virt guest.  It returns a (uuid, virt_type) tuple.
     """
-    try:
-        # For RHEL4 systems and lower, we'll try to use DMI.
-        if dmi is not None:
-            dmi_registry = dmi.DMI()
-            vendor = dmi_registry['system']['vendor']
-            if vendor.lower() == "xen":
-                uuid = dmi_registry['system']['serial']
-                uuid = uuid.lower().replace('-', '')
-                virt_type = "fully"
-                return (uuid, virt_type)
-        else:
-            # For RHEL5 systems and higher, we'll use HAL.
-            bus = dbus.SystemBus()
-            device_obj = \
-                bus.get_object('org.freedesktop.Hal',
-                               '/org/freedesktop/Hal/devices/computer')
-            device = dbus.Interface(device_obj, 'org.freedesktop.Hal.Device')
-            vendor = device.GetPropertyString('smbios.bios.vendor')
-            if vendor.lower() == "xen":
-                uuid = device.GetPropertyString('smbios.system.uuid')
-                uuid = uuid.lower().replace('-', '')
-                virt_type = "fully"
-                return (uuid, virt_type)
-    except:
-        # Failed.  Must not be fully-virt.
-        pass
-
-    return (None, None)
+    vendor = hardware.dmi_vendor()
+    uuid = hardware.dmi_system_uuid()
+    if vendor.lower() == "xen":
+        uuid = uuid.lower().replace('-', '')
+        virt_type = "fully"
+        return (uuid, virt_type)
+    else:
+        return (None, None)
 
 def _is_host_uuid(uuid):
     uuid = eval('0x%s' % uuid)
@@ -313,10 +288,6 @@ def termsAndConditions():
 def reserveUser(username, password):
     s = rhnserver.RhnServer()
     return s.registration.reserve_user(username, password)
-
-def validateRegNum(regNum):
-    s = rhnserver.RhnServer()
-    s.registration.validate_reg_num(regNum)
 
 
 def registerUser(username, password, email = None):
@@ -635,6 +606,9 @@ def sendHardware(systemId, hardwareList):
    
 def sendPackages(systemId, packageList):
     s = rhnserver.RhnServer()
+    if not s.capabilities.hasCapability('xmlrpc.packages.extended_profile', 2):
+        # for older satellites and hosted - convert to old format
+        packageList = convertPackagesFromHashToList(packageList)
     s.registration.add_packages(systemId, packageList)
 
 def sendVirtInfo(systemId):

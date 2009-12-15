@@ -16,8 +16,6 @@ package com.redhat.rhn.domain.common;
 
 import com.redhat.rhn.domain.BaseDomainHelper;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 /**
  * ArchType
  * @version $Rev$
@@ -95,11 +93,6 @@ public class ChecksumType extends BaseDomainHelper {
 
     /** {@inheritDoc} */
     public String toString() {
-        ToStringBuilder builder = new ToStringBuilder(this);
-        
-        builder.append("id", id);
-        builder.append("label", label);
-        
-        return builder.toString();
+        return label;
     }
 }

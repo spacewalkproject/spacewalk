@@ -94,7 +94,7 @@
             </p>
             </div-->
           <p/>
-          <select name="new_base_channel_id" size="5">
+          <select name="new_base_channel_id" size="10">
             <option value="-1"
             	<c:if test="${current_base_channel_id == -1}">
             		selected="selected"

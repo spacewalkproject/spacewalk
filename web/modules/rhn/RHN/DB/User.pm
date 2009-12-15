@@ -188,39 +188,6 @@ EOQ
   return $ret;
 }
 
-# used during deactivation process, ensures people get 
-# removed from cheetah mailer...
-sub queue_for_cheetah {
-  my $self = shift;
-  my %params = validate(@_, {user_id => 0, transaction => 0});
-
-  my $user;
-  if (not ref $self) {
-    die "no user id and not a user object method call" unless $params{user_id};
-
-    $user = RHN::User->lookup(-id => $params{user_id});
-  }
-  else {
-    $user = $self;
-  }
-
-  my $dbh = $params{transaction} || RHN::DB->connect();
-
-  my $mailable_address = $user->find_mailable_address;
-  my $email_addy = $mailable_address ? $mailable_address->address : undef;
-
-  if ($email_addy) {
-    my $sth = $dbh->prepare("INSERT INTO cheetah_unsubscribe (address) VALUES (?)");
-    $sth->execute($email_addy);
-  }
-
-  unless ($params{transaction}) {
-    $dbh->commit;
-  }
-
-  return $email_addy;
-}
-
 # walks a user's sets to ensure nothing has corrupted them... hopefully isn't too expensive
 sub cleanse_sets {
   my $self = shift;
@@ -2428,36 +2395,6 @@ sub approve {
   return $self->password;
 }
 
-sub servergroup_admin_overview {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my @params = ($self->id, $self->org_id);
-  my $query = <<EOQ;
-SELECT SG.id, SG.name,
-       NVL((SELECT MAX(1) FROM rhnUserServerGroupPerms USGP WHERE USGP.server_group_id = SG.id AND USGP.user_id = ?), 0)
-  FROM rhnServerGroup SG
- WHERE SG.org_id = ?
-   AND SG.group_type IS NULL
-EOQ
-
-  if ($self->is('org_admin')) {
-    $query = <<EOQ;
-SELECT SG.id, SG.name, 1
-  FROM rhnServerGroup SG
- WHERE SG.org_id = ?
-   AND SG.group_type IS NULL
-EOQ
-    shift @params;
-  }
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute(@params);
-
-  return $sth->fullfetch;
-}
-
 sub grant_servergroup_permission {
   my $self = shift;
   my $uid;
@@ -2605,44 +2542,6 @@ EOQ
   return @sids;
 }
 
-# give it one or more types and it will give you objects of those
-# types.  in multiple, it returns in order of the types specified, so
-# you can cascade through preferred choices, etc
-sub email_addresses_by_types {
-  my $self_or_class = shift;
-  my $id;
-
-  if (ref $self_or_class) {
-    $id = $self_or_class->id;
-  }
-  else {
-    $id = shift;
-  }
-
-  my @types = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT id
-  FROM rhnEmailAddress
- WHERE user_id = :user_id
-   AND state_id = rhn_bel.lookup_email_state(:type)
-ORDER BY MODIFIED DESC
-EOQ
-
-  my @ret;
-
-  for my $type (@types) {
-    $sth->execute_h(user_id => $id, type => $type);
-
-    while (my ($id) = $sth->fetchrow) {
-      push @ret, RHN::EmailAddress->lookup(-id => $id);
-    }
-  }
-
-  return @ret;
-}
-
 sub email_addresses {
   my $self_or_class = shift;
   my $id;
@@ -2671,23 +2570,6 @@ EOQ
   }
 
   return @ret;
-}
-
-sub find_mailable_address {
-  my $self = shift;
-
-  my ($address) = $self->email_addresses_by_types(qw/verified unverified pending pending_warned needs_verifying/);
-
-  if (not $address and $self->email) {
-    $address = RHN::EmailAddress->create();
-    $address->user_id($self->id);
-    $address->state('unverified');
-    $address->next_action_seconds(undef);
-    $address->address($self->email);
-    $address->commit;
-  }
-
-  return $address;
 }
 
 sub delete_nonverified_addresses {

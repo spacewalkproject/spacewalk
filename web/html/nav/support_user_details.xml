@@ -1,4 +1,0 @@
-<rhn-navi-tree label="support_user_details" formvar="support_uid" title-depth="1">
-  <rhn-tab name="Details" url="/internal/support/org_user.pxt" />
-  <rhn-tab name="Email Address State Log" url="/internal/support/user_emailaddress_log.pxt" />
-</rhn-navi-tree>

@@ -4,13 +4,14 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.8
+Epoch:	 1
+Version: 1.9
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: openssl
-Obsoletes: rhn-ssl-cert-check < %{version}
-Provides:  rhn-ssl-cert-check = %{version}
+Obsoletes: rhn-ssl-cert-check < %{epoch}:%{version}
+Provides:  rhn-ssl-cert-check = %{epoch}:%{version}
 
 %description 
 Runs a check once a day to see if the ssl certificates installed on this
@@ -41,8 +42,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) %{_datadir}/ssl/ssl-cert-check
 %doc LICENSE
 
-# $Id: ssl-cert-check.spec,v 1.1 2005/05/09 17:58:28 alikins Exp $
 %changelog
+* Thu Sep 24 2009 Miroslav Suchý <msuchy@redhat.com> 1.9-1
+- 524053 - Force to "upgrade" to older version of rhn-ssl-cert-check
+
 * Fri Aug 28 2009 Michael Mraka <michael.mraka@redhat.com> 1.8-1
 - grep | awk is rarely needed
 - use spacewalk-cfg-get instead of awk

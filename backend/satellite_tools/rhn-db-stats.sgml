@@ -22,8 +22,9 @@ utility for querying important database parameters used by
 <Synopsis>
     <cmdsynopsis>
         <command>&THECOMMAND;</command>
-		<arg choice="req">output-file</arg>
-		<arg>db-conect-string</arg>
+        <arg choice="opt">-h | --help</arg>
+	<arg choice="req">output-file</arg>
+	<arg choice="opt">db-conect-string</arg>
     </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
@@ -31,7 +32,7 @@ utility for querying important database parameters used by
 <RefSect1><Title>Description</Title>
 
 <para>
-rhn-db-stats retrieves important statistics and parameters from Oracle database
+rhn-db-stats retrieves important parameters from Oracle database
 used by your Satellite / Spacewalk installation. It is used by spacewalk-debug
 (satellite-debug) or it can be used standalone.
 </para>
@@ -41,9 +42,17 @@ used by your Satellite / Spacewalk installation. It is used by spacewalk-debug
 <RefSect1><Title>Options</Title>
 <variablelist>
     <varlistentry>
+        <term>-h | --help</term>
+        <listitem>
+            <para>Print usage information.</para>
+        </listitem>
+    </varlistentry>
+
+    <varlistentry>
         <term>output-file</term>
         <listitem>
-            <para>File name to save the retrieved information to.</para>
+            <para>File name to save the retrieved information to. Use - if you wish to
+                  print the output to stdout.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -70,6 +79,7 @@ used by your Satellite / Spacewalk installation. It is used by spacewalk-debug
 <RefSect1><Title>See Also</Title>
 <simplelist>
     <member>spacewalk-debug(8)</member>
+    <member>rhn-schema-stats(8)</member>
 </simplelist>
 </RefSect1>
 

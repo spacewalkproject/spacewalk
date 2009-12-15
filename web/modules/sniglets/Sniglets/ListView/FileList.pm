@@ -113,17 +113,17 @@ sub row_callback {
   if ($self->datasource->mode eq 'package_files') {
     $row->{NAME} = '<tt>' . $row->{NAME} . '</tt>';
 
-    if ($row->{MD5}) {
-      $row->{MD5} = '<tt>' . $row->{MD5} . '</tt>';
+    if ($row->{CHECKSUM}) {
+      $row->{CHECKSUM} = '<tt>' . uc($row->{CHECKSUM_TYPE}) . ': ' . $row->{CHECKSUM} . '</tt>';
       $row->{FILE_SIZE} = '<tt>' . PXT::Utils->commafy($row->{FILE_SIZE}) . " bytes</tt>";
     }
     elsif ($row->{LINKTO}) {
       $row->{FILE_SIZE} = '&#160;';
-      $row->{MD5} = "<tt>(Symlink)</tt>";
+      $row->{CHECKSUM} = "<tt>(Symlink)</tt>";
     }
     else {
       $row->{FILE_SIZE} = '&#160;';
-      $row->{MD5} = "<tt>(Directory)</tt>";
+      $row->{CHECKSUM} = "<tt>(Directory)</tt>";
     }
   }
 

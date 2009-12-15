@@ -41,9 +41,7 @@ sub register_tags {
   $pxt->register_tag('rhn-raw-script-output' => \&raw_script_output);
   $pxt->register_tag('rhn-schedule-action-interface' => \&schedule_action_interface, 2);
 
-  $pxt->register_tag('rhn-date-pickbox' => \&date_pickbox, 1);
   $pxt->register_tag('rhn-reschedule-form-if-failed-action' => \&reschedule_form_if_failed_action);
-  $pxt->register_tag('rhn-latest-config-actions' => \&latest_config_actions);
 
   $pxt->register_tag('rhn-package-event-result' => \&package_event_result);
 }
@@ -443,57 +441,6 @@ my %config_actions = ('configfiles.verify' => 'verification',
 		      'configfiles.diff' => 'diff',
 		      'configfiles.upload' => 'upload',
 		      'configfiles.deploy' => 'deploy');
-
-sub latest_config_actions {
-  my $pxt = shift;
-  my %attr = @_;
-
-  my $type = $attr{type};
-
-  die "Invalid type"
-    unless grep { $_ eq $type } keys %config_actions;
-
-  my @actions = RHN::Server->get_latest_actions(-server_id => $pxt->param('sid'), -type => $type);
-
-  my $template = $attr{__block__};
-  my $html;
-
-  my $sid = $pxt->param('sid');
-
-  my $upload_namespace_id = RHN::ConfigChannel->vivify_server_config_channel($sid, 'server_import');
-
-  foreach my $row (@actions) {
-    my %subst;
-    $subst{action_type_name} = $config_actions{$attr{type}};
-    $subst{action_type_name} =~ s/^(.)/\U$1/;
-    $subst{action_status} = $row->{STATUS};
-    $subst{action_status} =~ s/^(.)/\L$1/;
-    $subst{action_time} = $pxt->user->convert_time($row->{LAST_MODIFIED});
-
-    my $link_text = $row->{STATUS} eq 'Completed' ? 'View Results' : 'View Status';
-
-    if (   (grep { $type eq $_ } qw/configfiles.verify configfiles.deploy/)
-        or ($row->{STATUS} ne 'Completed') ) {
-      $subst{results_link} =
-	PXT::HTML->link(sprintf('/network/systems/details/history/event.pxt?sid=%d&amp;hid=%d', $sid, $row->{ID}),
-			$link_text);
-    }
-    elsif ( $type eq 'configfiles.upload' ) {
-      $subst{results_link} =
-	PXT::HTML->link(sprintf('/rhn/systems/details/configuration/ViewModifyLocalPaths.do?sid=%d',
-				$sid), $link_text);
-    }
-    elsif ( $type eq 'configfiles.diff') {
-      $subst{results_link} =
-	PXT::HTML->link(sprintf('/network/systems/details/history/event.pxt?sid=%d&amp;hid=%d',
-				$sid, $row->{ID}), $link_text);
-    }
-
-    $html .= PXT::Utils->perform_substitutions($template, \%subst);
-  }
-
-  return $html;
-}
 
 sub schedule_config_action_cb {
   my $pxt = shift;

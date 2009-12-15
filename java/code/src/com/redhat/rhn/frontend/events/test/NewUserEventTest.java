@@ -71,9 +71,13 @@ public class NewUserEventTest extends RhnBaseTestCase {
         assertContains(mailer.getSubject(), "Spacewalk User Created: testUser");
         assertContains(mailer.getBody(), 
                 "someserver.rhndev.redhat.com/rhn/users/ActiveList.do");
-        assertContains(mailer.getBody(), "Your Spacewalk login:         testUser");
-        assertContains(mailer.getBody(), 
-                "Your Spacewalk email address: redhatJavaTest@redhat.com");
+
+        assertTrue(mailer.getBody().contains("Your Spacewalk login:         testUser") ||
+                   mailer.getBody().contains("Your RHN login:         testUser"));
+        assertTrue(mailer.getBody().contains("Your Spacewalk email address: " +
+                    "redhatJavaTest@redhat.com") ||
+                   mailer.getBody().contains("Your RHN email address: " +
+                "redhatJavaTest@redhat.com"));
     }
 
     private NewUserEvent createTestEvent() {

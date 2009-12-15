@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 4.5.11
+Version: 4.5.16
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -26,7 +26,7 @@ your machine, and runs any actions.
 %setup -q 
 
 %build
-make -f Makefile.rhnsd
+make -f Makefile.rhnsd %{?_smp_mflags} CFLAGS="%{optflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -56,12 +56,34 @@ rm -fr $RPM_BUILD_ROOT
 
 %files -f %{name}.lang 
 %defattr(-,root,root)
-%config(noreplace) /etc/sysconfig/rhn/rhnsd
-/usr/sbin/rhnsd
-/etc/rc.d/init.d/rhnsd
+%config(noreplace) %{_sysconfdir}/sysconfig/rhn/rhnsd
+%{_sbindir}/rhnsd
+%{_initrddir}/rhnsd
 %{_mandir}/man8/rhnsd.8*
+%doc LICENSE
 
 %changelog
+* Tue Dec  1 2009 Miroslav Suchý <msuchy@redhat.com> 4.5.16-1
+- 502234 - fixing issue where the rhnsd init script would fail to reload the configuration, a forward port of a patch from rhel 4 (jsherril@redhat.com)
+- 541682 - make env. for rhn_check consistent with osad (mzazrivec@redhat.com)
+
+* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 4.5.15-1
+- hardcode MANPATH
+
+* Fri Sep 25 2009 Tomas Lestach <tlestach@redhat.com> 4.5.14-1
+- removed hardcoded systemid path (tlestach@redhat.com)
+
+* Tue Sep 22 2009 Miroslav Suchý <msuchy@redhat.com> 4.5.13-1
+- use macros
+- pass CFLAGS on correct position
+- add LICENSE file
+- change header info to actual license
+
+* Mon Sep 21 2009 Miroslav Suchý <msuchy@redhat.com> 4.5.12-1
+- implement try-restart as alias for condrestart
+- add LSB header
+- change url, source0 and requires according to packaging guidelines
+
 * Tue Jul 21 2009 John Matthews <jmatthew@redhat.com> 4.5.11-1
 - #503719 - fix for postun scriptlet error (pkilambi@redhat.com)
 

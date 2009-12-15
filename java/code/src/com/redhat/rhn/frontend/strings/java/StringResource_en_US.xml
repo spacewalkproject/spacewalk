@@ -7108,57 +7108,127 @@ Follow this url to see the full list of inactive systems:
 	     <trans-unit id="sdc.config.diff.noaction">
 			<source>No system comparisons completed. [&lt;a href=&quot;{0}&quot;&gt;Schedule System Comparison&lt;/a&gt;]</source>
         </trans-unit>
-	     <trans-unit id="sdc.config.diff.files_0_dirs_0">
-			<source>No files or directories were selected for comparison. [&lt;a href=&quot;{0}&quot;&gt; View Details&lt;/a&gt;]</source>
-	     </trans-unit>
 
-	     <trans-unit id="sdc.config.diff.files_1_dirs_0">
-<source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href=&quot;{1}&quot;&gt; View Details&lt;/a&gt;]</source>
-	     </trans-unit>
-                      
-                        
-	     <trans-unit id="sdc.config.diff.files_2_dirs_0">
-             <source>{0} of {1} files on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href=&quot;{2}&quot;&gt; View Details&lt;/a&gt;]</source>
-         </trans-unit>
-                      
+	<trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_0">
+		<source>No files, directories or symlinks were selected for comparison. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
 
-	     <trans-unit id="sdc.config.diff.files_0_dirs_1">
-<source>{0} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href=&quot;{1}&quot;&gt; View Details&lt;/a&gt;]</source>
-	     </trans-unit>
-                      
-                        
-	     <trans-unit id="sdc.config.diff.files_0_dirs_2">
-             <source>{0} of {1} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href=&quot;{2}&quot;&gt; View Details&lt;/a&gt;]</source>
-         </trans-unit>
+	<trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_1">
+		<source>{4} of 1 symlink on the system was successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
 
-	     <trans-unit id="sdc.config.diff.files_1_dirs_1">
-<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href=&quot;{2}&quot;&gt; View Details&lt;/a&gt;]</source>
-	     </trans-unit>
-                      
-                        
-	     <trans-unit id="sdc.config.diff.files_1_dirs_2">
-             <source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href=&quot;{3}&quot;&gt; View Details&lt;/a&gt;]</source>
-         </trans-unit>
-                
-	     <trans-unit id="sdc.config.diff.files_2_dirs_1">
-             <source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href=&quot;{3}&quot;&gt; View Details&lt;/a&gt;]</source>
-         </trans-unit>
-                                
-	     <trans-unit id="sdc.config.diff.files_2_dirs_2">
-             <source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href=&quot;{3}&quot;&gt; View Details&lt;/a&gt;]</source>
-         </trans-unit>	     
+	<trans-unit id="sdc.config.diff.files_0_dirs_0_symlinks_2">
+		<source>{4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
 
-	     <trans-unit id="sdc.config.differing.files_0">
-			<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+	<trans-unit id="sdc.config.diff.files_0_dirs_1_symlinks_0">
+		<source>{2} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_0_dirs_1_symlinks_1">
+		<source>{2} of 1 directory and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_0_dirs_1_symlinks_2">
+		<source>{2} of 1 directory and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_0_dirs_2_symlinks_0">
+		<source>{2} of {3} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_0_dirs_2_symlinks_1">
+		<source>{2} of {3} directories and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_0_dirs_2_symlinks_2">
+		<source>{2} of {3} directories and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_1_dirs_0_symlinks_0">
+		<source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_1_dirs_0_symlinks_1">
+		<source>{0} of 1 file and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_1_dirs_0_symlinks_2">
+		<source>{0} of 1 file and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_1_dirs_1_symlinks_0">
+		<source>{0} of 1 file and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_1_dirs_1_symlinks_1">
+		<source>{0} of 1 file and {2} of 1 directory and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_1_dirs_1_symlinks_2">
+		<source>{0} of 1 file and {2} of 1 directory and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_1_dirs_2_symlinks_0">
+		<source>{0} of 1 file and {2} of {3} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_1_dirs_2_symlinks_1">
+		<source>{0} of 1 file and {2} of {3} directories and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_1_dirs_2_symlinks_2">
+		<source>{0} of 1 file and {2} of {3} directories and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_2_dirs_0_symlinks_0">
+		<source>{0} of {1} files on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_2_dirs_0_symlinks_1">
+		<source>{0} of {1} files and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_2_dirs_0_symlinks_2">
+		<source>{0} of {1} files and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_2_dirs_1_symlinks_0">
+		<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_2_dirs_1_symlinks_1">
+		<source>{0} of {1} files and {2} of 1 directory and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_2_dirs_1_symlinks_2">
+		<source>{0} of {1} files and {2} of 1 directory and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_2_dirs_2_symlinks_0">
+		<source>{0} of {1} files and {2} of {3} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_2_dirs_2_symlinks_1">
+		<source>{0} of {1} files and {2} of {3} directories and {4} of 1 symlink on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.diff.files_2_dirs_2_symlinks_2">
+		<source>{0} of {1} files and {2} of {3} directories and {4} of {5} symlinks on the system were successfully compared with @@PRODUCT_NAME@@-Managed files. [&lt;a href=&quot;{6}&quot;&gt;View Details&lt;/a&gt;]</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.differing.files_0">
+		<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
         </trans-unit>
-	     		
-	     <trans-unit id="sdc.config.differing.files_1">
-             <source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>
-	     </trans-unit>
-	     <trans-unit id="sdc.config.differing.files_2">
-             <source>{0} of {1} files on the system differed from the @@PRODUCT_NAME@@-Managed files.</source>
-	     </trans-unit>	     
-	</group>	
+
+	<trans-unit id="sdc.config.differing.files_1">
+		<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>
+	</trans-unit>
+
+	<trans-unit id="sdc.config.differing.files_2">
+		<source>{0} of {1} files on the system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+	</trans-unit>
+    </group>
 
     <group>
        <context-group name="sdc_actions_time_messages">
@@ -8369,6 +8439,18 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="ssm.package.verify.operationname">
         <source>Schedule Package Verifications</source>
      </trans-unit>
+     <trans-unit id="channel.manage.merge.finished">
+        <source>{0} Package(s) have been added and {1} Package(s) have been removed from the channel.</source>
+     </trans-unit>
+     <trans-unit id="package.jsp.key">
+        <source>Signing Key</source>
+     </trans-unit>
+     <trans-unit id="package.jsp.key.unkown">
+        <source>(Unknown)</source>
+     </trans-unit>
+	<trans-unit id="request.post.check">
+        <source>This action requires a POST request, but this was not one.</source>
+     </trans-unit>     
      <trans-unit id="kickstart.cobbler.distro.syncfail">
         <source>
 The following is a list of errors gathered while Spacewalk attempts to 

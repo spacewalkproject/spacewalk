@@ -16,14 +16,8 @@ FILES	= __init__ connection diskImportLib messages \
 
 SCRIPTS = satellite-sync spacewalk-debug\
 	  rhn-schema-version rhn-satellite-activate rhn-charsets \
-	  rhn-ssl-dbstore update-packages rhn-db-stats \
-          spacewalk-repo-sync spacewalk-report
-
-SPACEWALK_SUBDIRS = reports reports/data
-
-SPACEWALK_FILES	= reports
-
-SPACEWALK_REPORT_FILES	= reports/data
+	  rhn-ssl-dbstore update-packages rhn-db-stats rhn-schema-stats \
+          spacewalk-repo-sync
 
 # check if we can build man pages
 DOCBOOK = $(wildcard /usr/bin/docbook2man)
@@ -46,8 +40,6 @@ include $(TOP)/Makefile.defs
 all :: $(SCRIPTS)
 install :: $(SCRIPTS) $(PREFIX)/$(BINDIR)
 	$(INSTALL_BIN) $(SCRIPTS) $(PREFIX)/$(BINDIR)
-	$(INSTALL_DIR) $(addprefix $(PREFIX)$(SPACEWALK_ROOT)/, $(SPACEWALK_SUBDIRS))
-	$(INSTALL_DATA) $(SPACEWALK_REPORT_FILES)/* $(PREFIX)$(SPACEWALK_ROOT)/reports/data
 
 ifneq ($(DOCBOOK),)
 # install man pages

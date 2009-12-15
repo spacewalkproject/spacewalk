@@ -502,29 +502,6 @@ EOQ
   }
 }
 
-sub last_checked_in_days_ago {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect();
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT  sysdate - checkin
-  FROM  rhnServerInfo
- WHERE  server_id = ?
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  my @columns;
-  @columns = $sth->fetchrow;
-  $sth->finish;
-
-  return $columns[0];
-}
-
 sub is_proxy {
   my $self = shift;
 
@@ -754,44 +731,6 @@ EOQ
 }
 
 
-
-# given a base channel id plus satellite certificate satellite-version value,
-# return satellite channel info...
-sub sat_channel_by_version {
-  my $self = shift;
-  my %params = validate(@_, { version => { type => Params::Validate::SCALAR } });
-
-  my @potential_chans = RHN::Channel->satellite_channels_by_version(-version => $params{version});
-
-  return unless @potential_chans;
-
-  my $num_potentials = scalar @potential_chans;
-
-  my $base_channel_id = $self->base_channel_id;
-  die "no base channel!?" unless $base_channel_id;
-
-  my $query = sprintf(<<EOQ, join(", ", map {":chan$_"} (1..$num_potentials)));
-SELECT DISTINCT C.id AS CHANNEL_ID, C.label AS CHANNEL_LABEL
-  FROM rhnChannel C
- WHERE C.label IN (%s)
-   AND C.parent_channel = :base_channel_id
-EOQ
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare($query);
-
-  my %args = (base_channel_id => $base_channel_id);
-  foreach my $placeholder (map {"chan$_"} (1..$num_potentials)) {
-    $args{$placeholder} = pop @potential_chans;
-  }
-
-  $sth->execute_h(%args);
-
-  my $sat_channel_info = $sth->fetchrow_hashref;
-  $sth->finish;
-
-  return $sat_channel_info;
-}
 
 sub deactivate_proxy {
   my $self = shift;
@@ -1114,28 +1053,6 @@ EOQ
   return @ret;
 }
 
-
-sub applicable_errata_counts {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth;
-
-  my $query = <<EOQ;
-SELECT SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, OUTDATED_PACKAGES
-  FROM rhnServerOverview
- WHERE org_id = ?
-   AND server_id = ?
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->org_id, $self->id);
-
-  my $row = $sth->fetchrow_hashref;
-  $sth->finish;
-
-  return $row;
-}
 
 sub system_list_count {
   my $class = shift;
@@ -1604,42 +1521,6 @@ EOS
   }
 }
 
-# return a server's channels in the context of a user...
-# (if unsubscribed, could this user resubscribe the channel?)
-sub user_server_channels_info {
-  my $self = shift;
-  my $user_id = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query  = <<EOQ;
-SELECT C.id,
-       C.label,
-       C.name,
-       C.summary,
-       (SELECT 1
-          FROM rhnUserChannel
-         WHERE user_id = WC.id
-           AND channel_id = C.id
-           AND role = 'subscribe') AS RESUBSCRIBABLE
-  FROM rhnChannel C,
-       rhnServerChannel SC,
-       web_contact WC
- WHERE WC.id = :user_id
-   AND C.id = SC.channel_id
-   AND SC.server_id = :server_id
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h(server_id => $self->id, user_id => $user_id);
-
-  my @ret;
-  while (my $row = $sth->fetchrow_hashref) {
-    push @ret, $row;
-  }
-
-  return @ret;
-}
-
 sub server_channels {
   my $self = shift;
 
@@ -2020,131 +1901,6 @@ EOS
   return @ret;
 }
 
-
-sub outdated_package_overview {
-  my $self = shift;
-  my %params = @_;
-
-  my ($lower, $upper, $total_ref, $all) = map { $params{"-" . $_} } qw/lower upper total_rows all/;
-
-  $lower ||= 1;
-  $upper ||= 100000;
-
-  $$total_ref = 0;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query = <<EOQ;
-SELECT
-        pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) ID_COMBO,
-        full_list.server_id,
-        pn.id,
-        lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release),
-        pn.name ||'-'|| full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch),
-        full_list.errata_id,
-        full_list.errata_advisory,
-        full_list.evr.epoch,
-        full_list.evr.version,
-        full_list.evr.release,
-        E.advisory_type
-FROM rhnErrata E,
-    (
-    SELECT SOP.package_name_id name_id, MAX(pe.evr) evr, SOP.server_id server_id, SOP.errata_id errata_id, SOP.errata_advisory errata_advisory
-    FROM
-        rhnPackageEVR PE,
-        rhnServerOutdatedPackages SOP
-    WHERE SOP.server_id = ?
-    AND SOP.package_evr_id = PE.id
-    GROUP BY SOP.package_name_id, SOP.server_id, SOP.errata_id, SOP.errata_advisory
-    ) full_list,
-   rhnPackageName PN
-WHERE
-    full_list.name_id = PN.id
-    AND full_list.errata_id = E.id (+)
-ORDER BY UPPER(PN.name)
-EOQ
-
-  my $sth = $dbh->prepare($query);
-
-  $sth->execute($self->id);
-
-  my %latest;
-
-  while (my @row = $sth->fetchrow) {
-
-    my @eids;
-    my @eadvs;
-    my @etypes;
-
-    push @eids, $row[5] if $row[5];
-    push @eadvs, $row[6] if $row[6];
-    push @etypes, $row[10] if $row[10];
-
-    if (not exists $latest{$row[2]}) {
-      $latest{$row[2]} = \@row;
-    }
-    else {
-      my $cmp = RHN::Package->vercmp($row[7],
-				     $row[8],
-				     $row[9],
-				     $latest{$row[2]}->[7],
-				     $latest{$row[2]}->[8],
-				     $latest{$row[2]}->[9]);
-
-      push @eids, @{$latest{$row[2]}->[5]};
-      push @eadvs, @{$latest{$row[2]}->[6]};
-
-      $latest{$row[2]} = \@row
-	if $cmp >= 0;
-    }
-    $latest{$row[2]}->[5] = \@eids;
-    $latest{$row[2]}->[6] = \@eadvs;
-    $latest{$row[2]}->[7] = \@etypes;
-  }
-
-  my @ret;
-  my $i = 1;
-
-  foreach my $nid (sort { $latest{$a}->[4] cmp $latest{$b}->[4] } keys %latest) {
-    $$total_ref = $i;
-    if ($all or ($i >= $lower and $i <= $upper)) {
-      push @ret, [ @{$latest{$nid}}[0 .. 7] ];
-    }
-    $i++;
-  }
-
-  $sth = $dbh->prepare(<<EOS);
-SELECT SPN.name || '-' || SPE.evr.as_vre_simple()
-  FROM rhnPackageName SPN,
-       rhnPackageEVR SPE,
-       rhnPackageEVR PE,
-       rhnServerPackage SP
- WHERE SP.server_id = ?
-   AND SP.name_id = ?
-   AND PE.id = ?
-   AND SPE.id = SP.evr_id
-   AND SPN.id = SP.name_id
-   AND SP.evr_id != PE.id
-   AND SPE.evr < PE.evr
-ORDER BY UPPER(SPN.name), SPE.evr DESC
-EOS
-
-  foreach my $row (@ret) {
-    my $nid = $row->[2];
-    my $eid = $row->[3];
-
-    $sth->execute($self->id, $nid, $eid);
-
-    my @evr;
-    while (my ($installed_package_vre) = $sth->fetchrow) {
-      push @evr, $installed_package_vre;
-    }
-
-    $row->[8] = join(", ", @evr);
-  }
-
-  return @ret;
-}
 
 sub package_groups {
   my $self = shift;
@@ -3894,26 +3650,6 @@ EOQ
   $sth->finish;
 
   return $row;
-}
-
-sub server_group_type_ids_by_label {
-  my $class = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT  label, id
-  FROM  rhnServerGroupType
-EOQ
-
-
-  $sth->execute();
-
-  my $ret;
-  while (my $row = $sth->fetchrow_hashref) {
-    $ret->{$row->{LABEL}} = $row->{ID};
-  }
-
-  return $ret;
 }
 
 sub server_group_type_details_from_set {

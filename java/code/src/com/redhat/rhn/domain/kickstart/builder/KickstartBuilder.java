@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.kickstart.KickstartCommandName;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartDefaults;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartPackage;
 import com.redhat.rhn.domain.kickstart.KickstartRawData;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
@@ -38,7 +39,6 @@ import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -46,6 +46,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -209,7 +210,7 @@ public class KickstartBuilder {
                 "%packages tag.");
         }
         
-        List<PackageName> packageNames = new ArrayList<PackageName>();
+        Set<KickstartPackage> ksPackagesSet = new TreeSet<KickstartPackage>();
 
         for (Iterator<String> it = lines.iterator(); it.hasNext();) {
             String currentLine = (String)it.next();
@@ -219,10 +220,10 @@ public class KickstartBuilder {
             }
             
             PackageName pn = PackageFactory.lookupOrCreatePackageByName(currentLine);
-            packageNames.add(pn);
+            ksPackagesSet.add(new KickstartPackage(ksData, pn));
         }
         
-        ksData.getPackageNames().addAll(packageNames);
+        ksData.getKsPackages().addAll(ksPackagesSet);
     }
 
     /**
@@ -349,8 +350,8 @@ public class KickstartBuilder {
         KickstartData ksdata = new KickstartData();
         setupBasicInfo(label, ksdata, tree, virtualizationType);
 
-        if (ksdata.getPackageNames() == null) {
-            ksdata.setPackageNames(new ArrayList<PackageName>());
+        if (ksdata.getKsPackages() == null) {
+            ksdata.setKsPackages(new TreeSet<KickstartPackage>());
         }
         
         buildCommands(ksdata, parser.getOptionLines(), tree, kickstartHost);
@@ -530,12 +531,12 @@ public class KickstartBuilder {
         setPartitionScheme(cmd, ksdata);
         cmd.processSkipKey(ksdata);
         cmd.processRepos(ksdata);
-        if (ksdata.getPackageNames() == null) {
-            ksdata.setPackageNames(new ArrayList<PackageName>());
+        if (ksdata.getKsPackages() == null) {
+            ksdata.setKsPackages(new TreeSet<KickstartPackage>());
         }
-        PackageName pn = cmd.findPackageName("@ Base");
-        ksdata.getPackageNames().add(pn);
         cmd.store(ksdata);
+        PackageName pn = cmd.findPackageName("@ Base");
+        ksdata.addKsPackage(new KickstartPackage(ksdata, pn));
         return ksdata;
 
     }

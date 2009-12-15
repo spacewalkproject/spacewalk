@@ -1,0 +1,6 @@
+-- created by Oraschemadoc Mon Aug 31 10:54:43 2009
+-- visit http://www.yarpen.cz/oraschemadoc/ for more info
+
+   CREATE SEQUENCE  "MIM1"."RHN_CHANNEL_ARCH_ID_SEQ"  MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 520 CACHE 20 NOORDER  NOCYCLE 
+ 
+/

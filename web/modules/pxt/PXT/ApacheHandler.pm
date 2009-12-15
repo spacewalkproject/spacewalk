@@ -53,6 +53,7 @@ our $make_vile;
 sub handler {
   my $r = shift;
 
+
   local $make_vile = 0;
   $ENV{PATH} = "/bin:/usr/sbin";
 
@@ -72,6 +73,16 @@ sub handler {
   my $session = $r->pnotes('pxt_session');
   my $cookies = $r->pnotes('pxt_cookies');
   my $request = $r->pnotes('pxt_request');
+
+  #verify referer hostname is correct
+  my $referer = $r->headers_in->{'referer'};
+  if ($referer) {
+      my $hostname = $r->hostname;
+      my $ref_host = URI->new($referer)->host;
+      if ($hostname ne $ref_host) {
+        return PXT::ApacheHandler->handle_redirect($r, $request, "/rhn/YourRhn.do");
+      }
+  }
 
   # Load API exceptions
   my $exception_box = RHN::API::Exception->exception_box;
@@ -533,8 +544,6 @@ sub pxt_parse_data {
 
     $class->register_tags($p2) if $class->can("register_tags");
     $class->register_callbacks($p2) if $class->can("register_callbacks");
-
-    $class->register_xmlrpc($p2) if $class->can("register_xmlrpc");
   }
 
   if ($pxt->xml_request) {

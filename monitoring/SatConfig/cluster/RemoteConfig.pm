@@ -18,21 +18,21 @@ sub initialize
 	my ($self,@params) = @_;
 	$self->SUPER::initialize(@params);
 	$self->addValidators(
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'protocol',
 			description=>'Protocol to access configuration server with (http/https)',
 			required=>1,
 			optional=>0,
 			format=>'string'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'host',
 			description=>'Host to connect to (defaults to smon address)',
 			required=>0,
 			optional=>1,
 			format=>'string'
 		),
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'path',
 			description=>'Path to configuration program (/cgi-bin/fetch_nocpulse_ini.cgi)',
 			required=>1,

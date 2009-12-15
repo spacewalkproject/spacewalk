@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+        <head><title> Spacewalk 0.6 DB Schema - View-RHNUSERSINORGOVERVIEW </title>
+        <link rel="stylesheet" type="text/css" href="oraschemadoc.css" />
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta name="author" content="Petr Vanek, petr@scribus.info" />
+        <meta name="generator" content="oraschemadoc" />
+        </head>
+        <body>
+            <div class="contextbar">
+            <a href="main.html">Main</a>
+            <a href="tables-list.html">Tables</a>
+            <a href="views-list.html">Views</a>
+            <a href="mviews-list.html">Materialized&nbsp;Views</a>
+            <a href="indexes-list.html">Indexes</a>
+            <a href="constraints-list.html">Constraints</a>
+            <a href="triggers-list.html">Triggers</a>
+            <a href="procedures-list.html">Procedures</a>
+            <a href="functions-list.html">Functions</a>
+            <a href="packages-list.html">Packages</a>
+            <a href="sequences.html">Sequences</a>
+            <a href="java-sources-list.html">Java&nbsp;Sources</a>
+            <a href="sanity-check.html">Sanity&nbsp;Check</a>
+            <a href="symbol-index.html">Index</a>
+            <a href="sql_sources/" target="Main">DDL&nbsp;scrips</a>
+            </div><div class="subcontextbar"><a href="#v-descr">Description</a> <a href="#v-cols">Columns</a> <a href="#v-query">Query</a> <a href="#v-cc">Constraints</a> <a href="#v-trgs">Triggers</a> </div><h2>RHNUSERSINORGOVERVIEW</h2>
+<a href="sql_sources/view/rhnusersinorgoverview.sql">DDL script</a><h3>Columns<a name="v-cols"></a></h3>
+<table>
+<tr><th>Name</th><th>Type</th><th>Nullable</th><th>Insertable</th><th>Updatable</th><th>Deletable</th><th>Comment</th></tr><tr><td>ORG_ID<a name="col-ORG_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>USER_ID<a name="col-USER_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>USER_LOGIN<a name="col-USER_LOGIN"></a></td><td>VARCHAR2(64)</td><td>N</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>USER_FIRST_NAME<a name="col-USER_FIRST_NAME"></a></td><td>VARCHAR2(128)</td><td>N</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
+<tr><td>USER_LAST_NAME<a name="col-USER_LAST_NAME"></a></td><td>VARCHAR2(128)</td><td>N</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
+<tr><td>USER_MODIFIED<a name="col-USER_MODIFIED"></a></td><td>DATE</td><td>N</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>SERVER_COUNT<a name="col-SERVER_COUNT"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>SERVER_GROUP_COUNT<a name="col-SERVER_GROUP_COUNT"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>ROLE_NAMES<a name="col-ROLE_NAMES"></a></td><td>VARCHAR2(4000)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+</table><h3>Query:</h3>
+<a name="v-query"></a><pre>
+Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
+<pre>
+<span class="reserved">select</span>
+	u<span class="operator">.</span>org_id					<span class="reserved">as</span> org_id<span class="operator">,</span>
+	u<span class="operator">.</span>id						<span class="reserved">as</span> user_id<span class="operator">,</span>
+	u<span class="operator">.</span>login						<span class="reserved">as</span> user_login<span class="operator">,</span>
+	pi<span class="operator">.</span>first_names					<span class="reserved">as</span> user_first_name<span class="operator">,</span>
+	pi<span class="operator">.</span>last_name					<span class="reserved">as</span> user_last_name<span class="operator">,</span>
+	u<span class="operator">.</span>modified					<span class="reserved">as</span> user_modified<span class="operator">,</span>
+    	<span class="operator">(</span>	<span class="reserved">select</span>	<span class="keyword">count</span><span class="operator">(</span>server_id<span class="operator">)</span>
+		<span class="reserved">from</span>	rhnUserServerPerms sp
+		<span class="reserved">where</span>	sp<span class="operator">.</span>user_id <span class="operator">=</span> u<span class="operator">.</span>id<span class="operator">)</span>
+							<span class="reserved">as</span> server_count<span class="operator">,</span>
+	<span class="operator">(</span>	<span class="reserved">select</span>	<span class="keyword">count</span><span class="operator">(</span>server_group_id<span class="operator">)</span>
+		<span class="reserved">from</span>	rhnUserManagedServerGroups umsg
+		<span class="reserved">where</span>	umsg<span class="operator">.</span>user_id <span class="operator">=</span> u<span class="operator">.</span>id <span class="reserved">and</span> exists <span class="operator">(</span>
+			<span class="reserved">select</span>	1
+			<span class="reserved">from</span>	rhnVisibleServerGroup sg
+			<span class="reserved">where</span>	sg<span class="operator">.</span>id <span class="operator">=</span> umsg<span class="operator">.</span>server_group_id<span class="operator">)</span><span class="operator">)</span>
+							<span class="reserved">as</span> server_group_count<span class="operator">,</span>
+	<span class="operator">(</span>	<span class="reserved">select</span>	coalesce<span class="operator">(</span>utcv<span class="operator">.</span>names<span class="operator">,</span> <span class="string">'(normal user)'</span><span class="operator">)</span>
+		<span class="reserved">from</span>	rhnUserTypeCommaView utcv
+		<span class="reserved">where</span>	utcv<span class="operator">.</span>user_id <span class="operator">=</span> u<span class="operator">.</span>id<span class="operator">)</span>
+							<span class="reserved">as</span> role_names
+<span class="reserved">from</span>	web_user_personal_info pi<span class="operator">,</span>
+	web_contact u
+<span class="reserved">where</span>
+	u<span class="operator">.</span>id <span class="operator">=</span> pi<span class="operator">.</span>web_user_id
+</pre>
+<div class="footer">
+        Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Mon Aug 31 10:55:06 2009</div>
+</body></html>

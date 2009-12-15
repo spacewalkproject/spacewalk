@@ -1,6 +1,6 @@
 Name:           perl-Satcon
 Summary:        Framework for configuration files
-Version:        1.10
+Version:        1.11
 Release:        1%{?dist}
 License:        GPLv2
 Group:          Applications/System
@@ -46,6 +46,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 1.11-1
+- 520441 - don't apply ExtUtils::MY->fixin(shift) to perl executables
+
 * Tue Dec 16 2008 Miroslav Suchý <msuchy@redhat.com> 1.10-1
 - remove satcon-make-rpm.pl
 

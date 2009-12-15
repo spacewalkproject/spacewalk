@@ -21,6 +21,8 @@ import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.MD5Crypt;
+import com.redhat.rhn.domain.common.Checksum;
+import com.redhat.rhn.domain.common.ChecksumFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
@@ -756,7 +758,8 @@ public class ConfigurationFactory extends HibernateFactory {
         }
         
         content.setContents(foo);
-        content.setMd5sum(MD5Crypt.md5Hex(foo));
+        Checksum newChecksum = ChecksumFactory.safeCreate(MD5Crypt.md5Hex(foo), "md5");
+        content.setChecksum(newChecksum);
         content.setBinary(isBinary);
         return content;
     }

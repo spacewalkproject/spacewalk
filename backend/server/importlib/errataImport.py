@@ -24,7 +24,7 @@ class ErrataImport(GenericPackageImport):
     def __init__(self, batch, backend, queue_timeout=600):
         GenericPackageImport.__init__(self, batch, backend)
         # A composite key of the name, evr, arch plus org_id
-        self.packages = []
+        self.packages = {}
         self.ignoreMissing = 0
         self.cve = {}
         self.queue_timeout = queue_timeout
@@ -57,16 +57,13 @@ class ErrataImport(GenericPackageImport):
             self._processPackage(package)
 
         # Process channels
-        channels = []
         channelHash = {}
         for channel in errata['channels']:
             channelName = channel['label']
-            if not channelHash.has_key(channelName):
-                channels.append(channel)
-                channelHash[channelName] = None
+            channelHash[channelName] = channel
             self.channels[channelName] = None
         # Replace the channel list with the unique one
-        errata['channels'] = channels
+        errata['channels'] = channelHash.values()
 
     def _preprocessErratumCVE(self, erratum):
         # Build the CVE dictionary
@@ -79,14 +76,20 @@ class ErrataImport(GenericPackageImport):
 
     def _preprocessErratumFiles(self, erratum):
         for f in (erratum['files'] or []):
+            checksum = ('md5', f['md5sum'])     # FIXME sha256
+            f['checksum'] = checksum
+            if not self.checksums.has_key(checksum):
+                self.checksums[checksum] = None
+
             if f['file_type'] == 'RPM':
                 package = f.get('pkgobj')
                 if package:
-                    self.packages.append(package)
                     self._processPackage(package)
-            elif f['file_type'] == 'SRPM':
-                # XXX misa: do something here
-                pass
+                    nevrao = tuple(get_nevrao(package))
+                    self.packages[nevrao] = package
+            #elif f['file_type'] == 'SRPM':
+            #    # XXX misa: do something here
+            #    pass
             
     def _preprocessErratumFileChannels(self, erratum):
         for f in (erratum['files'] or []):
@@ -108,6 +111,7 @@ class ErrataImport(GenericPackageImport):
 
         self.backend.lookupPackageNames(self.names)
         self.backend.lookupEVRs(self.evrs)
+        self.backend.lookupChecksums(self.checksums)
         self.backend.lookupPackageArches(self.package_arches)
 
         for erratum in self.batch:
@@ -122,7 +126,7 @@ class ErrataImport(GenericPackageImport):
             #fix oval info to populate the relevant dbtables
             self._fix_erratum_oval_info(erratum)
             
-        self.backend.lookupPackages(self.packages, self.ignoreMissing)
+        self.backend.lookupPackages(self.packages.values(), self.ignoreMissing)
         for erratum in self.batch:
             self._fix_erratum_packages(erratum)
             self._fix_erratum_file_channels(erratum)
@@ -239,13 +243,14 @@ class ErrataImport(GenericPackageImport):
 
             # And put this package both in the local and in the global hash
             packageHash[nevrao] = package
-            self.packages.append(package)
+            self.packages[nevrao] = package
 
         erratum['packages'] = packageHash
 
 
     def _fix_erratum_file_packages(self, erratum):
         for ef in erratum['files']:
+            ef['checksum_id'] = self.checksums[ef['checksum']]
             if ef['file_type'] == 'RPM':
                 package = ef.get('pkgobj')
                 if not package:

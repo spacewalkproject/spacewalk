@@ -2,12 +2,13 @@
 %define rhnconf %{_sysconfdir}/rhn
 %define httpdconf %{rhnconf}/satellite-httpd/conf
 %define apacheconfd %{_sysconfdir}/httpd/conf.d
+%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.7.3
+Version: 0.8.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -17,6 +18,7 @@ Requires: python, rpm-python
 # /etc/rhn is provided by spacewalk-proxy-common or by spacewalk-config
 Requires: /etc/rhn
 Requires: rhnlib >= 1.8
+Requires: %{name}-libs = %{version}-%{release}
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
@@ -139,6 +141,14 @@ receivers and get them enabled automatically.
 
 This package contains listener for the Server XML dumper.
 
+%package libs
+Summary: Spacewalk server and client tools libraries
+Group: Applications/Internet
+BuildRequires: python-devel
+
+%description libs
+Libraries required by both Spacewalk server and Spacewalk client tools.
+
 %package config-files-common
 Summary: Common files for the Configuration Management project
 Group: Applications/Internet
@@ -198,6 +208,7 @@ Requires: %{name}
 Requires: spacewalk-certs-tools
 Requires: spacewalk-admin >= 0.1.1-0
 Requires: python-gzipstream
+Requires: python-hashlib
 Requires: PyXML
 Requires: mod_ssl
 Requires: %{name}-xml-export-libs
@@ -228,12 +239,18 @@ XXX To be determined if the proper location is under backend
 
 %build
 make -f Makefile.backend all
+export PYTHON_MODULE_NAME=%{name}
+export PYTHON_MODULE_VERSION=%{version}
+%{__python} setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{rhnroot}
 make -f Makefile.backend install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
     MANDIR=%{_mandir}
+export PYTHON_MODULE_NAME=%{name}
+export PYTHON_MODULE_VERSION=%{version}
+%{__python} setup.py install -O1 --root $RPM_BUILD_ROOT --prefix=%{_prefix}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -273,9 +290,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}/common
 %{rhnroot}/common/__init__.py*
 %{rhnroot}/common/rhn_fcntl.py*
-%{rhnroot}/common/rhn_mpm.py*
 %{rhnroot}/common/rhn_posix.py*
-%{rhnroot}/common/rhn_rpm.py*
 %{rhnroot}/common/rhn_timer.py*
 %{rhnroot}/common/rhnApache.py*
 %{rhnroot}/common/rhnCache.py*
@@ -322,7 +337,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/rhnKickstart.py*
 %{rhnroot}/server/rhnDatabaseCache.py*
 %{rhnroot}/server/rhnDependency.py*
-%{rhnroot}/server/rhnItem.py*
 %{rhnroot}/server/rhnPackage.py*
 %{rhnroot}/server/rhnPackageUpload.py*
 %{rhnroot}/server/basePackageUpload.py*
@@ -435,8 +449,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_exporter/exporter/__init__.py*
 %{rhnroot}/satellite_exporter/exporter/dumper.py*
 %{rhnroot}/satellite_exporter/exporter/string_buffer.py*
-%{rhnroot}/satellite_exporter/exporter/exportLib.py*
-%{rhnroot}/satellite_exporter/exporter/xmlWriter.py*
 
 %dir %{rhnroot}/satellite_exporter/handlers
 %{rhnroot}/satellite_exporter/handlers/__init__.py*
@@ -447,6 +459,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_satexport.conf
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_satexport_internal.conf
 
+
+%files libs
+%defattr(-,root,root)
+%{python_sitelib}/spacewalk*
 
 %files config-files-common
 %defattr(-,root,root)
@@ -506,11 +522,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/rhn-ssl-dbstore
 %attr(755,root,root) %{_bindir}/satellite-sync
 %attr(755,root,root) %{_bindir}/spacewalk-debug
-%attr(755,root,root) %{_bindir}/spacewalk-report
 %attr(755,root,root) %{_bindir}/rhn-satellite-exporter
 %attr(755,root,root) %{_bindir}/update-packages
 %attr(755,root,root) %{_bindir}/spacewalk-repo-sync
 %attr(755,root,root) %{_bindir}/rhn-db-stats
+%attr(755,root,root) %{_bindir}/rhn-schema-stats
 %attr(750,root,root) %{_bindir}/satpasswd
 %attr(750,root,root) %{_bindir}/satwho
 %{rhnroot}/satellite_tools/SequenceServer.py*
@@ -542,8 +558,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(770,root,apache) %dir %{_var}/log/rhn/reposync
 %{rhnroot}/satellite_tools/repo_plugins/__init__.py*
 %{rhnroot}/satellite_tools/repo_plugins/yum_src.py*
-%{_prefix}/share/spacewalk/reports.py*
-%{_prefix}/share/spacewalk/reports/data/*
 %config %attr(644,root,apache) %{rhnconf}/default/rhn_server_iss.conf
 %{_mandir}/man8/rhn-satellite-exporter.8*
 %{_mandir}/man8/rhn-charsets.8*
@@ -551,9 +565,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/rhn-schema-version.8*
 %{_mandir}/man8/rhn-ssl-dbstore.8*
 %{_mandir}/man8/rhn-db-stats.8*
+%{_mandir}/man8/rhn-schema-stats.8*
 %{_mandir}/man8/satellite-sync.8*
 %{_mandir}/man8/spacewalk-debug.8*
-%{_mandir}/man8/spacewalk-report.8*
 %{_mandir}/man8/satpasswd.8*
 %{_mandir}/man8/satwho.8*
 
@@ -579,6 +593,115 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Dec 14 2009 Jan Pazdziora 0.8.10-1
+- reporting: add column total to the entitlements report
+
+* Mon Dec 14 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.11-1
+- fixed satellite-sync errata import
+
+* Fri Dec 11 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.8-1
+- removed a lot of dead code
+- fixed getFileChecksum usage
+- SHA256 fixes
+* Thu Dec 10 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.7-1
+- added support for uploading SHA256 rpms
+- 541078 - rhn-satellite-exporter --start-date and --end-date issues fixed
+
+* Wed Dec 09 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.5-1
+- 516767 - create files with default repository owner/group/permissions
+- removed duplicated code from syncLib
+
+* Tue Dec 08 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.4-1
+- fixed file glob for -libs
+
+* Mon Dec 07 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.3-1
+- moved code from rhnlib to spacewalk-backend-libs
+- 543509 - do not fail if machine has not uuid set (like qemu)
+
+* Fri Dec  4 2009 Miroslav Suchý <msuchy@redhat.com> 0.8.2-1
+- sha256 support
+
+* Fri Dec 04 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.1-1
+- rhn_rpm/rhn_mpm moved to rhnlib
+- bumping Version to 0.8.0
+
+* Tue Dec  1 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.18-1
+- 449167 - time.strptime can not handle None values
+
+* Thu Nov 26 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.17-1
+- fix compilation error
+
+* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.16-1
+- 540544 - raise error if channel do not exist or you are not allowed to add or remove it
+- 540544 - fix usage of check_user_password
+- made conditions more readable (michael.mraka@redhat.com)
+
+* Thu Nov 19 2009 Jan Pazdziora 0.7.15-1
+- 537063 - drop the report-specific options
+
+* Wed Nov 18 2009 Jan Pazdziora 0.7.14-1
+- reporting: add reports "users" and "users-systems".
+
+* Thu Nov 12 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.13-1
+- merged exportLib from satellite_exporter to satellite_tools
+* Thu Nov  5 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.12-1
+- save some time
+- replace isinstance with has_key
+- do not check xml corectness twice
+- call _dict_to_utf8 only once
+- 528227 - Warning in case sync would move the channel between orgs.
+- do not vaste time checking if string is instance of UnicodeType
+- order test according to probability that the type will appear
+- reverting 68bed9e28e2973d3e1e30816d9090b7f5e1d4005
+- do not ask repeatedly if types has attribute UnicodeKey
+- removing unnecessary condition
+- optimize code
+
+* Fri Oct 30 2009 Jan Pazdziora 0.7.11-1
+- reporting: add column type to the errata-list report.
+- removed redundant else; we call associate_package anyway (Michael M.)
+
+* Mon Oct 26 2009 Jan Pazdziora 0.7.10-1
+- reporting: added --info options and documentation of reports and fields
+
+* Fri Oct 23 2009 Jan Pazdziora 0.7.9-1
+- reporting: added report errata-list and errata-system
+
+* Thu Oct 22 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.8-1
+- 449167 - record installation date of rpm package
+
+* Mon Oct 19 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.7-1
+- removed unused parameter
+- changed get_package_path comment to reflect new package path
+- Include constraint info in schema statistics
+
+* Fri Oct 02 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.6-1
+- spacewalk-backend-tools requires python-hashlib
+
+* Thu Oct 01 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.7.5-1
+- rhn-db-stats: split database & schema statistics (mzazrivec@redhat.com)
+- fixes for 524231, 523393, 523760, 523384 (jpazdziora@redhat.com)
+- catch all exceptions, so that we commit in all cases. (jpazdziora@redhat.com)
+- If we fail, let us commit the previous updates (done in this transaction).
+  (jpazdziora@redhat.com)
+- Do the rhn_rpm.get_package_header before we do the actual move.
+  (jpazdziora@redhat.com)
+- No commit in processPackageKeyAssociations. (jpazdziora@redhat.com)
+- clean up (pkilambi@redhat.com)
+- if nevra enabled use md5sum as a unique constraint for package pushes
+  (pkilambi@redhat.com)
+- Move the debug message up; if the OS operation fail, we will know what we
+  were trying to do. (jpazdziora@redhat.com)
+- Add more actual values to log messages, to make debugging easier.
+  (jpazdziora@redhat.com)
+- No need to sleep if we want the /var/satellite migration to be faster.
+  (jpazdziora@redhat.com)
+- Update using id, as there is no index on rhnPackage.path which could be used.
+  (jpazdziora@redhat.com)
+
+* Fri Sep 04 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.4-1
+- fixed output of multivalue variables in spacewalk-cfg-get
+
 * Tue Sep 01 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.3-1
 - 494813 - print error message instead of traceback
 - postgresql dependency moved to spacewalk-postgresql

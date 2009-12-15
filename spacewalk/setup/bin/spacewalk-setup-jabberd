@@ -129,7 +129,7 @@ with Spacewalk / Satellite. The script uses XSL transformations to change
 existing jabberd configuration files.
 
 Ordinarily, spacewalk-setup-jabberd is called by spacewalk-setup(1) during
-initial Spacewalk / Satellite configuration or Spacewalk / Satellite upgrade.
+initial Spacewalk / Satellite configuration or upgrade.
 
 The script workflow is:
 
@@ -137,7 +137,7 @@ The script workflow is:
 
 =item
 
-Using xsltproc, apply appropriate XSL template to existing jabberd configuration
+Using xsltproc, apply appropriate XSL stylesheet to existing jabberd configuration
 file and read the transformed document.
 
 =item
@@ -153,7 +153,7 @@ Resulting file is written out while the original file is backed up.
 
 =head1 FILES
 
-XSL templates used for transformation of existing jabberd configuration files:
+XSL stylesheets used for transformation of existing jabberd configuration files:
 
 F</usr/share/spacewalk/setup/jabberd/c2s.xsl>
 
@@ -161,11 +161,21 @@ F</usr/share/spacewalk/setup/jabberd/s2s.xsl>
 
 F</usr/share/spacewalk/setup/jabberd/sm.xsl>
 
+Jabberd configuration files modified by spacewalk-setup-jabberd:
+
+F</etc/jabberd/c2s.xsl>
+
+F</etc/jabberd/s2s.xsl>
+
+F</etc/jabberd/sm.xsl>
+
 =head1 SEE ALSO
 
 B<spacewalk-setup>(1) - Spacewalk setup program
 
 B<xsltproc>(1) - command line XSLT processor
+
+B<c2s>(8), B<router>(8), B<s2s>(8), B<sm>(8) - jabberd components
 
 =head1 AUTHORS
 

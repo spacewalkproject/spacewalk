@@ -19,11 +19,7 @@
 from common import log_debug
 from server import rhnSQL
 
-from server_packages import get_nvrea
-
-# globals ----------------------------------------------------------------
-
-NAME, VER, REL, EPOCH, ARCH = (0, 1, 2, 3, 4)
+from server_packages import dbPackage
 
 # functions --------------------------------------------------------------
 
@@ -31,7 +27,7 @@ def get_package_id(pkg):
     """Lookup a package id from rhnPackage in the database,
     Return the id or return None if the package is not found"""
 
-    nvrea = get_nvrea(pkg)
+    p = dbPackage(pkg)
 
     query = """SELECT id FROM rhnPackage
                WHERE name_id=LOOKUP_PACKAGE_NAME(:name)
@@ -40,8 +36,7 @@ def get_package_id(pkg):
 
     handle = rhnSQL.prepare(query)
 
-    handle.execute(name=nvrea[NAME], epoch=nvrea[EPOCH], ver=nvrea[VER], 
-                   rel=nvrea[REL], arch=nvrea[ARCH])
+    handle.execute(name=p.n, epoch=p.e, ver=p.v, rel=p.r, arch=p.a)
 
     row = handle.fetchone_dict() or {}
 

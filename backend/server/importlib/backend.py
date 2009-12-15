@@ -22,7 +22,8 @@ import string
 import re
 import sys
 
-from common import rhnFault, rhn_rpm, CFG
+from common import rhnFault, CFG
+from spacewalk.common import rhn_rpm
 from server import rhnSQL, rhnChannel, taskomatic
 from importLib import Diff, Package, IncompletePackage, Erratum, \
         AlreadyUploadedError, InvalidPackageError, TransactionError, \
@@ -371,41 +372,6 @@ class Backend:
 
         return row['id']
 
-    def ovalFileMD5sumCheck(self, erratum):
-        """
-        When oval file is dumped on to RHN filesystem
-        check if file exists and verifies their md5sum
-        
-        XXX:: as we create these files on RHN itself
-        this call is not used. But leaving it here
-        in case we decide to change it.
-        """
-        if not erratum:
-            return None
-
-        sql = """
-            select ef.md5sum
-              from rhnErrataFile ef,
-                   rhnErrata e
-            where ef.filename = :filename
-              and e.advisory_name = :aname
-              and ef.errata_id = e.id
-        """
-
-        h = self.dbmodule.prepare(sql)
-        h.execute(filename = erratum['filename'], \
-                  aname = erratum['advisory_name'])
-        row = h.fetchone_dict()
-        
-        #file does'nt exist proceed to populate.
-        if not row:
-            return 1
-        #file exists, check if md5's are same
-        if erratum['md5sum'] == row['md5sum']:
-            return 1
-        return 0
-            
-    
     def processBugzillaPaths(self, hash):
         if not hash:
             return
@@ -455,6 +421,18 @@ class Backend:
             row = h.fetchone_dict()
             if row:
                 evrHash[evr] = row['id']
+
+    def lookupChecksums(self, checksumHash):
+        if not checksumHash:
+            return
+        sql = "select lookup_checksum(:ctype, :csum) id from dual"
+        h = self.dbmodule.prepare(sql)
+        for k in checksumHash.keys():
+            ctype, csum = k
+            h.execute(ctype=ctype, csum=csum)
+            row = h.fetchone_dict()
+            if row:
+                checksumHash[k] = row['id']
 
     def lookupPackageNEVRAs(self, nevraHash):
         sql = "select LOOKUP_PACKAGE_NEVRA(:name, :evr, :arch) id from dual"
@@ -512,6 +490,8 @@ class Backend:
         self.__processHash('rhnPackageGroup', 'name', hash)
 
     def lookupPackages(self, packages, ignore_missing = 0):
+        # If nevra is enabled use md5sum as primary key
+        self.validate_pks()
         for package in packages:
             if not isinstance(package, IncompletePackage):
                 raise TypeError("Expected an IncompletePackage instance, found %s" % \
@@ -688,12 +668,7 @@ class Backend:
     def processPackages(self, packages, uploadForce=0, ignoreUploaded=0,
                 forceVerify=0, transactional=0):
         # Insert/update the packages
-
-        tbs = self.tables['rhnPackage']
-        if CFG.ENABLE_NVREA:
-            # Add md5sum as a primarykey if nevra is enabled
-            if 'md5sum' not in tbs.pk:
-                tbs.pk.append('md5sum')
+        self.validate_pks()
 
         childTables = {
             'rhnPackageProvides':   'package_id', 
@@ -1187,6 +1162,25 @@ class Backend:
             return product['id']
 
         return 
+
+    # bug #528227
+    def lookupChannelOrg(self, label):
+        """For given label of channel return its org_id.
+           If channel with given label does not exist or is NULL, return None.
+        """
+        statement = self.dbmodule.prepare("""
+            SELECT org_id
+              FROM rhnChannel
+             WHERE label = :label
+        """)
+
+        statement.execute(label=label)
+        org_id = statement.fetchone_dict()
+
+        if org_id:
+            return org_id
+
+        return
 
     def lookupChannelProduct(self, channel):
         statement = self.dbmodule.prepare("""
@@ -1811,19 +1805,21 @@ class Backend:
                  pe.evr.release release,
                  pa.label arch,
                  p.org_id,
-                 p.md5sum
+                 cc.checksum md5sum
             from rhnChannel c, 
                  rhnChannelPackage cp,
                  rhnPackage p,
                  rhnPackageName pn,
                  rhnPackageEVR pe,
-                 rhnPackageArch pa
+                 rhnPackageArch pa,
+                 rhnChecksum cc
             where c.label = :label
                  and p.package_arch_id = pa.id
                  and cp.channel_id = c.id
                  and cp.package_id = p.id
                  and p.name_id = pn.id
                  and p.evr_id = pe.id
+                 and p.checksum_id = pc.id
         """
         h = self.dbmodule.prepare(query)
         h.execute(label=channel)
@@ -1962,6 +1958,14 @@ class Backend:
             )
             h = self.dbmodule.prepare(query)
             apply(h.executemany, (), params)
+
+    def validate_pks(self):
+        # If nevra is enabled use checksum as primary key
+        tbs = self.tables['rhnPackage']
+        if CFG.ENABLE_NVREA:
+            # Add checksum as a primarykey if nevra is enabled
+            if 'checksum_id' not in tbs.pk:
+                tbs.pk.append('checksum_id')
             
 # Returns a tuple for the hash's values
 def build_key(hash, fields):

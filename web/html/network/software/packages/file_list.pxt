@@ -25,7 +25,7 @@
 <rhn-listview class="Sniglets::ListView::FileList" mode="package_files">
   <formvars><var name="pid" /></formvars>
   <column name="Filename" label="name" align="left" />
-  <column name="MD5 Sum" label="md5" align="left" />
+  <column name="Checksum" label="checksum" align="left" />
   <column name="Last Modified" label="mtime" />
   <column name="Size" label="file_size" align="right" />
   <empty_list_message>No files.</empty_list_message>

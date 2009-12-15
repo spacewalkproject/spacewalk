@@ -6,7 +6,7 @@
 </tr>
 <tr>
   <th><bean:message key="filedetails.add_details.jspf.md5" /></th>
-  <td>${revision.configContent.md5sum}</td>
+  <td>${revision.configContent.checksum}</td>
 </tr>
 <c:if test="${!revision.configContent.binary && !revision.directory}">
 <tr>

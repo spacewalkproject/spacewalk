@@ -17,7 +17,8 @@ import transaction
 import config
 
 
-from rhpl.translate import _
+import gettext
+_ = gettext.gettext
 
 
 def _getOSVersionAndRelease():
@@ -57,10 +58,6 @@ def getRelease():
     Returns the release of the redhat-release rpm
     '''
     os_release, version, release = _getOSVersionAndRelease()
-    
-    # We only want the first 3 sections of release.
-    release = release.rsplit('.')
-    release = '.'.join(release)
     return release
 
 def getArch():

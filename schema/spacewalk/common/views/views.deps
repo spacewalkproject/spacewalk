@@ -36,7 +36,7 @@ rhnChannelFamilyServerVirtual    :: rhnServerEntitlementView \
                                     rhnChannelFamilyMembers \
                                     rhnServerChannel \
                                     rhnServer
-hnChannelFamilyOverview          :: rhnPrivateChannelFamily rhnChannelFamily
+rhnChannelFamilyOverview         :: rhnPrivateChannelFamily rhnChannelFamily
 rhnChannelFamilyPermissions      :: rhnPublicChannelFamily \
                                     rhnPrivateChannelFamily
 rhnChannelFamilyServers          :: rhnChannelFamilyMembers rhnChannelFamily \
@@ -46,23 +46,10 @@ rhnChannelPermissions            :: rhnChannelFamilyMembers rhnPrivateChannelFam
                                     rhnPublicChannelFamily web_contact
 rhnChannelTreeView               :: rhnChannel rhnChannelFamilyMembers \
                                     rhnChannelFamilyPermissions
+rhnChecksumView                  :: rhnChecksum rhnChecksumType
 rhnDemoOrgs                      :: demo_log
 rhnEntitledServers               :: rhnServerGroup rhnServerGroupType \
                                     rhnServerGroupMembers rhnServer
-rhnExpiringTrialMail             :: rhnServerGroupType rh_product \
-                                    web_user_site_info web_user_personal_info \
-                                    web_user_contact_permission web_contact \
-                                    rhnUserGroupMembers rhnUserGroup \
-                                    rhnServiceServerGroupMap \
-                                    web_customer_product web_cp_service_line
-rhnFreeErrataMail                :: rhnChannelErrata rhnServerChannel \
-                                    rhnServerGroupMembers rhnServerGroup \
-                                    rhnServer web_contact rhnErrata \
-                                    web_user_personal_info rhnUserInfo \
-                                    rhnErrata rhnServerArch rhnUserServerPrefs \
-                                    rhnUserGroupType rhnUserGroup \
-                                    rhnUserGroupMembers rhnServerGroupMembers \
-                                    rhnUserServerGroupPerms
 rhnHWDevice                      :: rhnDevice
 rhnOrgChannelTreeView            :: rhnChannel rhnChannelFamilyMembers \
                                     rhnOrgChannelFamilyPermissions
@@ -71,7 +58,7 @@ rhnOrgPackageOverview            :: rhnPackageName rhnPackageEVR rhnPackageArch 
                                     rhnChannelPackageArchCompat rhnPackage \
                                     rhn_package.pks
 rhnPaidOrgs                      :: rhnDemoOrgs rhnServerGroup
-rhnPrivateErrataMail             :: rhnFreeErrataMail rhnServerPackage \
+rhnPrivateErrataMail             :: rhnServerPackage \
                                     rhnWebContactDisabled
 rhnServerEntitledView            :: rhnServerGroupType rhnServerGroup \
                                     rhnServerGroupMembers
@@ -85,20 +72,9 @@ rhnServerGroupOVLiteHelper       :: rhnServerNeededPackageCache rhnErrata \
 rhnServerErrataTypeView          :: rhnServerNeededErrataCache
 rhnServerOutdatedPackages        :: rhnServerNeededPackageCache rhnErrata \
                                     rhnPackageName rhnPackageEVR rhnPackage
-rhnServiceLineChannelView        :: web_customer_product web_cp_service_line \
-                                    rhnServiceChannelFamilyMap
-rhnServiceLineServerGroup        :: web_customer_product web_cp_service_line \
-                                    rhnServerGroupType rhnServiceServerGroupMap
-rhnServiceLineUserGroup          :: web_customer_product web_cp_service_line \
-                                    rhnUserGroupType rhnServiceUserGroupMap
-rhnServices                      :: rhnServiceChannelFamilyMap \
-                                    rhnServiceServerGroupMap \
-                                    rhnServiceUserGroupMap
 rhnStorageDevice                 :: rhnDevice
 rhnUserAvailableChannels         :: rhn_channel.pks rhnServerChannel \
                                     rhnUserChannelTreeView rhnUserServerPerms
-rhnUserAvailableUpgrades         :: rhnServiceServerGroupMap rhnServerGroupType \
-                                    web_customer_product
 rhnUserChannel                   :: rhn_channel.pks rhnChannelFamilyMembers \
                                     rhnUserChannelFamilyPerms web_contact
 rhnUserChannelTreeView           :: rhnChannel rhnChannelFamilyMembers \
@@ -125,8 +101,6 @@ rhn_contact_monitoring           :: web_contact web_user_personal_info
 rhn_host_monitoring              :: rhnServer rhnServerNetInterface \
                                     rhn_interface_monitoring \
                                     rhn_server_monitoring_info
-web_customer_orders              :: web_user_order web_user_order_line \
-                                    rh_product web_customer_product web_contact
 rhnSharedChannelView             :: rhnChannel rhnChannelTrust rhnTrustedOrgs
 rhnSharedChannelTreeView         :: rhnSharedChannelView
 rhnUserActionOverview            :: rhnActionStatus rhnUserServerPerms rhnServerAction \

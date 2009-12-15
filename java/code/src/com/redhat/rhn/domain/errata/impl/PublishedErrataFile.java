@@ -16,6 +16,7 @@ package com.redhat.rhn.domain.errata.impl;
 
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.common.Checksum;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFile;
 import com.redhat.rhn.domain.errata.ErrataFileType;
@@ -34,7 +35,7 @@ public class PublishedErrataFile extends BaseDomainHelper implements ErrataFile 
     
     protected ErrataFileType fileType;
     
-    protected String checksum;
+    protected Checksum checksum;
     
     protected String fileName;
     
@@ -110,7 +111,7 @@ public class PublishedErrataFile extends BaseDomainHelper implements ErrataFile 
      * MD5 checksum
      * @param cs checksums
      */
-    public void setChecksum(String cs) {
+    public void setChecksum(Checksum cs) {
         checksum = cs;
     }
     
@@ -118,7 +119,7 @@ public class PublishedErrataFile extends BaseDomainHelper implements ErrataFile 
      * MD5 checksum
      * @return checksum
      */
-    public String getChecksum() {
+    public Checksum getChecksum() {
         return checksum;
     }
     

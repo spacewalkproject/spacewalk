@@ -206,7 +206,7 @@ ORDER BY MIN(ordering)
   <query params="channel_label, download_type, org_id" >
 SELECT RD.name AS DOWNLOAD_NAME,
        RF.path AS DOWNLOAD_PATH,
-       RF.md5sum AS DOWNLOAD_CHECKSUM,
+       CS.checksum AS DOWNLOAD_CHECKSUM,
        RF.file_size AS DOWNLOAD_SIZE,
        RF.id AS FILE_ID,
        RF.id AS ID, -- for datasource, needs ID for elaborator
@@ -216,7 +216,8 @@ SELECT RD.name AS DOWNLOAD_NAME,
        rhnDownloadType DT,
        rhnAvailableChannels AC,
        rhnChannelDownloads CD,
-       rhnChannel C
+       rhnChannel C,
+       rhnChecksum CS
  WHERE AC.org_id = :org_id
    AND RD.id = CD.downloads_id
    AND CD.channel_id = C.id
@@ -225,6 +226,7 @@ SELECT RD.name AS DOWNLOAD_NAME,
    AND DT.id = RD.download_type
    AND DT.label = :download_type
    AND RF.id = RD.file_id
+   AND RF.checksum_id = CS.id
 ORDER BY RD.ordering
   </query>
   <elaborator multiple="t">
@@ -263,17 +265,18 @@ ORDER BY MIN(ordering)
 SELECT DISTINCT RF.id AS ID,
        RD.name AS DOWNLOAD_NAME,
        RF.path AS DOWNLOAD_PATH,
-       RF.md5sum AS DOWNLOAD_CHECKSUM,
+       CS.checksum AS DOWNLOAD_CHECKSUM,
        RF.file_size AS DOWNLOAD_SIZE,
-	   RF.id AS FILE_ID,
+       RF.id AS FILE_ID,
        RD.category AS CATEGORY,
-	   RD.ordering AS ORDERING
+       RD.ordering AS ORDERING
   FROM rhnFile RF,
        rhnDownloads RD,
        rhnDownloadType DT,
        rhnChannelDownloads CD,
-	   rhnAvailableChannels AC,
-       rhnChannel C
+       rhnAvailableChannels AC,
+       rhnChannel C,
+       rhnChecksum CS
  WHERE AC.org_id = :org_id
    AND C.id = AC.channel_id
    AND C.label = :channel_label
@@ -282,6 +285,7 @@ SELECT DISTINCT RF.id AS ID,
    AND DT.id = RD.download_type
    AND DT.label = :download_type
    AND RF.id = RD.file_id
+   AND RF.checksum_id =  CS.id
 ORDER BY RD.ordering
   </query>
   <elaborator multiple="t">
@@ -729,15 +733,16 @@ SELECT CTV.name, CTV.id, CTV.depth, CTV.channel_arch_id, C.org_id,
           FROM rhnchannelpackage cp
          WHERE cp.channel_id = CTV.id) AS package_count,
        CTV.parent_or_self_label, CTV.label AS channel_label
-  FROM rhnchannel C, rhnChannelTreeView CTV
+  FROM rhnchannel C, rhnChannelTreeView CTV, rhnChannel C2
  WHERE CTV.id = C.ID
+   AND  CTV.parent_or_self_id = C2.id
    AND (rhn_channel.user_role_check(C.id, :user_id, 'manage') = 1
         OR EXISTS (
               SELECT 1
                 FROM rhnChannel C2
                WHERE C2.parent_channel = C.ID
                  AND rhn_channel.user_role_check(C2.id, :user_id, 'manage') = 1))
-ORDER BY rhn_channel.channel_priority(CTV.parent_or_self_id), CTV.parent_or_self_id, CTV.depth, UPPER(CTV.name)
+ORDER BY UPPER(C2.name), depth, UPPER(C.name) 
   </query>
 </mode>
 
@@ -777,7 +782,7 @@ SELECT  C.id, C.name, C.label, 1 AS IS_CUSTOM
         (SELECT S.id, S.org_id
             FROM rhnSharedChannelView S
           WHERE S.ORG_TRUST_ID = :org_id
-            AND S.parent_channel IS NULL)
+            AND S.parent_channel IS NULL) order by UPPER(C.name)
   </query>
 </mode>
 
@@ -1143,7 +1148,7 @@ GROUP BY C.id, C.name
 
 <mode name="channel_errata_packages" class="com.redhat.rhn.frontend.dto.PackageDto">
   <query params="eid, cid">
-  SELECT  P.id, P.md5sum,
+  SELECT  P.id, CS.checksum, CS.checksum_type checksumtype,
 	   PN.name || '-' || PE.version
 	       || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)
 	       || '-' || PA.label name
@@ -1152,7 +1157,8 @@ GROUP BY C.id, C.name
 		  rhnErrataPackage EP on EP.package_id = CP.package_id inner join
 		  rhnPackageName PN on P.name_id = PN.id inner join
 		  rhnPackageEvr PE on  P.evr_id = PE.id inner join
-		  rhnPackageArch PA on P.package_arch_id = PA.id
+		  rhnPackageArch PA on P.package_arch_id = PA.id inner join
+      rhnChecksumView CS on P.checksum_id = CS.id
 	where CP.channel_id = :cid
 	  and EP.errata_id = :eid
 	ORDER by name

@@ -46,7 +46,8 @@ public class PackageHelperTest extends RhnBaseTestCase {
         assertKey(map, "arch_label", pkg.getPackageArch().getLabel());
         assertKey(map, "build_host", pkg.getBuildHost());
         assertKey(map, "description", pkg.getDescription());
-        assertKey(map, "md5sum", pkg.getMd5sum());
+        assertKey(map, "checksum", pkg.getChecksum().getChecksum());
+        assertKey(map, "checksum_type", pkg.getChecksum().getChecksumType().getLabel());
         assertKey(map, "vendor", pkg.getVendor());
         assertKey(map, "summary", pkg.getSummary());
         assertKey(map, "cookie", pkg.getCookie());

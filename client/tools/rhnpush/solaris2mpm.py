@@ -39,7 +39,7 @@ except ImportError:
             if checksum not in ['md5', 'sha1']:
                 raise ValueError, "Incompatible checksum type"
 
-import rhn_mpm
+from spacewalk.common import rhn_mpm
 
 from archive import get_archive_parser
 

@@ -32,7 +32,8 @@ import gnome.ui
 import signal
 from rhn import rpclib
 
-from rhpl.translate import _
+import gettext
+_ = gettext.gettext
 
 import up2dateErrors
 import config

@@ -1,13 +1,12 @@
+%global selinux_variants mls strict targeted
+%global selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp 2> /dev/null)
+%global POLICYCOREUTILSVER 1.33.12-1
 
-%define selinux_variants mls strict targeted
-%define selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp 2> /dev/null)
-%define POLICYCOREUTILSVER 1.33.12-1
-
-%define moduletype apps
-%define modulename jabber
+%global moduletype apps
+%global modulename jabber
 
 Name:           jabberd-selinux
-Version:        1.4.6
+Version:        1.4.7
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting jabberd
 
@@ -108,6 +107,9 @@ rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu Nov 26 2009 Miroslav Suchý <msuchy@redhat.com> 1.4.7-1
+- use %%global instead of %%define
+
 * Thu Jun 18 2009 Jan Pazdziora 1.4.6-1
 - 505606 - Require at least selinux-policy 2.4.6-114
 

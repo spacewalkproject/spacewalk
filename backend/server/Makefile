@@ -16,7 +16,6 @@ FILES		= __init__ \
                   rhnDependency \
                   rhnAction \
                   rhnHandler rhnImport rhnMapping rhnLib rhnPackage \
-                  rhnItem \
                   rhnKickstart \
                   rhnPackageUpload basePackageUpload rhnRepository \
                   rhnSession rhnUser rhnVirtualization taskomatic

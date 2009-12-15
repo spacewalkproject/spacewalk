@@ -75,7 +75,7 @@
                                    bound="false"
                            headerkey="erratalist.jsp.updated" 
                            styleclass="last-column"
-                           sortattr="updateDate"
+                           sortattr="updateDateObj"
                            defaultsort="desc" 
                           >
                         ${current.updateDate}

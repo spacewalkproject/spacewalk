@@ -16,9 +16,10 @@ import up2dateUtils
 import up2dateAuth
 
 from rhn import rpclib
-    
-from rhpl.translate import _
-            
+
+import gettext
+_ = gettext.gettext
+
 
 def stdoutMsgCallback(msg):
     print msg
@@ -190,7 +191,10 @@ def doCall(method, *args, **kwargs):
     ret = None
 
     attempt_count = 1
-    attempts = cfg["networkRetries"] or 5
+    if cfg["networkRetries"] <= 0:
+        attempts = 1
+    else:
+        attempts = cfg["networkRetries"]
 
     while 1:
         failure = 0

@@ -241,6 +241,7 @@ public class ConfigChannelHandler extends BaseHandler {
      *      #prop_desc("string", "group", "Group name of the file/directory.")
      *      #prop_desc("string", "permissions", 
      *                              "Octal file/directory permissions (eg: 644)")
+     *      #prop_desc("string", "selinux_ctx", "SELinux Security context (optional)")
      *      #prop_desc("string", "macro-start-delimiter", 
      *                  "Config file macro start delimiter. Use null or empty 
      *                  string to accept the default. (ignored if working with a
@@ -269,6 +270,10 @@ public class ConfigChannelHandler extends BaseHandler {
         validKeys.add("macro-start-delimiter");
         validKeys.add("macro-end-delimiter");
         validateMap(validKeys, data);
+
+        if (data.get("selinux_ctx") == null) {
+            data.put("selinux_ctx", "");
+        }
 
         User user = getLoggedInUser(sessionKey);
         XmlRpcConfigChannelHelper helper = XmlRpcConfigChannelHelper.getInstance();

@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.7.2
+Version:        0.8.2
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,41 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Dec 07 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.2-1
+- fixed sha256 related data upgrade scripts
+
+* Fri Dec 04 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.1-1
+- SHA256 feature related changes
+
+* Mon Nov 30 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.7.7-1
+- schema upgrade fixes for Spacewalk 0.7
+
+* Thu Nov 19 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.6-1
+- replaced cursors + for loops with already written bulk procedure
+- removed cartesian join
+- 532683 - removed unnecessary table joins
+- fixed schema upgrades
+- optimized queries in update_perms_for_server
+- 532683 - optimized delete
+
+* Thu Oct 22 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.5-1
+- 449167 - record installation date of rpm package
+
+* Tue Oct 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.4-1
+- 449167 - record rpm installation date
+- 522526 - fixing issue where snippets couldnt be used in the partitioning section of the kickstart wizard (jsherril@redhat.com)
+- 522526 - adding schema upgrade script for snippet issue (jsherril@redhat.com)
+- Don't indent sql upgrade code in resulting script (mzazrivec@redhat.com)
+- 523389 - can't add NOT NULL column into non-empty table (michael.mraka@redhat.com)
+- 523389 - decrease TEMP usage (michael.mraka@redhat.com)
+- 523389 - add support for schema upgrade overrides (mzazrivec@redhat.com)
+
+* Thu Sep 17 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.3-1
+- 523389 - split update into smaller chunks so it will not eat all UNDO at once
+- 476851 - removal of tables: rhn_db_environment, rhn_environment (upgrade)
+- 476851 - remove environment colum which refers to deleted rhn_enviroment table
+- 476851 - removal of tables: rhn_db_environment, rhn_environment
+
 * Wed Sep 02 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.2-1
 - Add symlink capability to config management (joshua.roys@gtri.gatech.edu)
 - 517867 - insert solaris data only if these do not exist

@@ -10,7 +10,7 @@ INSTALL_DATA    = $(INSTALL) -m 644
 
 all :
 
-MANPATH	?= /usr/share/man
+MANPATH	= /usr/share/man
 MANDIR	= $(PREFIX)/$(MANPATH)
 CAT	= 8
 LANGDIR	= 

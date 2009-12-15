@@ -134,6 +134,7 @@ public class AuditSearchAction extends RhnAction {
             brdr.readLine(); // Argument is required for -m
             str = brdr.readLine(); // Valid message types are: ...
             str = str.substring(str.indexOf(':') + 2);
+            brdr.close();
         }
         catch (IOException ioex) {
             log.warn("failed to get ausearch types", ioex);
@@ -193,6 +194,7 @@ public class AuditSearchAction extends RhnAction {
             // if we have to process the DatePickers, it means that the user
             // entered a time, which means it's probably not a reviewable
             // section
+            unrev = true;
             request.setAttribute("unreviewable", "true");
         }
         else if (!submitted && request.getParameter("machine") != null) {
@@ -216,8 +218,15 @@ public class AuditSearchAction extends RhnAction {
             result = AuditManager.getAuditLogs(autypes, machine, start, end);
 
             if (result == null) {
-                amsgs.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("No results found!", false));
+                if (!unrev) {
+                    // we need to be able to mark reviewable sections as
+                    // 'reviewed' even if they're empty
+                    result = new LinkedList();
+                }
+                else {
+                    amsgs.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("No results found!", false));
+                }
             }
 
             // check to see if this section has been reviewed

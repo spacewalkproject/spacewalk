@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.kickstart;
 
 import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartPackage;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
@@ -27,9 +28,8 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
@@ -118,16 +118,13 @@ public class EditPackagesAction extends RhnAction {
     }
     
     private void prepareForm(KickstartData ksdata, DynaActionForm form) {
-        List packageNames = ksdata.getPackageNames();
-        if (packageNames != null && packageNames.size() > 0) {
+        Set ksPackages = ksdata.getKsPackages();
+        if (ksPackages != null && ksPackages.size() > 0) {
             StringBuffer buf = new StringBuffer();
-            StringBuffer buf2 = new StringBuffer();
-            int i = 0;
-            for (Iterator iter = packageNames.iterator(); iter.hasNext();) {
-                PackageName pn = (PackageName) iter.next();
-                buf.append(pn.getName());
+            for (Iterator iter = ksPackages.iterator(); iter.hasNext();) {
+                KickstartPackage pn = (KickstartPackage)iter.next();
+                buf.append(pn.getPackageName().getName());
                 buf.append("\n");
-                i++;
             }
             form.set(PACKAGE_LIST, buf.toString());
         }
@@ -136,12 +133,11 @@ public class EditPackagesAction extends RhnAction {
     
     private void transferEdits(KickstartData ksdata, DynaActionForm form, 
             RequestContext ctx) {
-        List packageNames = ksdata.getPackageNames();
-        if (packageNames == null) {
-            packageNames = new ArrayList();
-            ksdata.setPackageNames(packageNames);
-        }
-        packageNames.clear();
+        
+        // first clear the kickstart packages set
+        ksdata.clearKsPackages();
+        Set ksPackages = ksdata.getKsPackages();
+        
         String newPackages = form.getString(PACKAGE_LIST);
         if (newPackages != null && newPackages.length() > 0) {
             for (StringTokenizer strtok = new StringTokenizer(newPackages, "\n");
@@ -152,7 +148,12 @@ public class EditPackagesAction extends RhnAction {
                     continue;
                 }
                 PackageName pn = PackageFactory.lookupOrCreatePackageByName(pkg);
-                packageNames.add(pn);
+                KickstartPackage kp = new KickstartPackage(ksdata, pn);
+
+                if (KickstartFactory.lookupKsPackageByKsDataAndPackageName(
+                                                        ksdata, pn).isEmpty()) {
+                    ksdata.addKsPackage(kp);
+                }
             }
         }
         KickstartFactory.saveKickstartData(ksdata);

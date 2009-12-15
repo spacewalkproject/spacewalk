@@ -21,7 +21,6 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.common.FileList;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
@@ -33,7 +32,6 @@ import org.apache.log4j.Logger;
 import org.cobbler.CobblerConnection;
 import org.cobbler.Profile;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -75,7 +73,7 @@ public class KickstartData {
     private Set childChannels;
     private Set defaultRegTokens;
     private Set preserveFileLists;
-    private List<PackageName> packageNames;        
+    private Set<KickstartPackage> ksPackages = new HashSet<KickstartPackage>();
     private Collection<KickstartCommand> commands = new HashSet<KickstartCommand>();
     private Set ips;          // rhnKickstartIpRange
     private Set<KickstartScript> scripts;      // rhnKickstartScript
@@ -94,7 +92,8 @@ public class KickstartData {
     public static final String TYPE_RAW = "raw";
 
     private static String[] advancedOptions = 
-        {"partitions", "raids", "logvols", "volgroups", "include", "repo", "custom"};
+        {"partitions", "raids", "logvols", "volgroups", "include", 
+            "repo", "custom", "custom_partition"};
     
     private static final List ADANCED_OPTIONS = Arrays.asList(advancedOptions); 
     
@@ -105,7 +104,7 @@ public class KickstartData {
         cryptoKeys = new HashSet();
         defaultRegTokens = new HashSet();
         preserveFileLists = new HashSet();
-        packageNames = new ArrayList<PackageName>();
+        ksPackages = new TreeSet<KickstartPackage>();
         commands = new HashSet<KickstartCommand>();
         ips = new HashSet();
         scripts = new HashSet<KickstartScript>();
@@ -376,7 +375,7 @@ public class KickstartData {
 
     /**
      * Getter for defaultRegTokens
-     * @return Returns the pacakageLists.
+     * @return Returns the packageLists.
      */
     public Set<Token> getDefaultRegTokens() {
         return defaultRegTokens;
@@ -384,7 +383,7 @@ public class KickstartData {
 
     /**
      * Setter for defaultRegTokens
-     * @param p The pacakgeLists to set.
+     * @param p The packageLists to set.
      */
     public void setDefaultRegTokens(Set p) {
         this.defaultRegTokens = p;
@@ -426,29 +425,54 @@ public class KickstartData {
     }
     
     /**
-     * Adds a PackageName object to packageNames.
-     * @param p PackageName to add
+     * Adds a KickstartPackage object to ksPackages.
+     * @param kp KickstartPackage to add
      */
-    public void addPackageName(PackageName p) {
-        packageNames.add(p);
+
+    public void addKsPackage(KickstartPackage kp) {
+        kp.setPosition((long)ksPackages.size());
+        if (this.ksPackages.add(kp)) {              // save to collection
+            KickstartFactory.savePackage(kp);       // save to DB
+        }
     }
 
     /**
-     * Getter for packageNames
-     * @return Returns the pacakageNames.
+     * Removes a KickstartPackage object from ksPackages.
+     * @param kp KickstartPackage to remove
      */
-    public List<PackageName> getPackageNames() {
-        return packageNames;
+
+    public void removeKsPackage(KickstartPackage kp) {
+        this.ksPackages.remove(kp);
     }
 
     /**
-     * Setter for packageNames
-     * @param p The pacakgeLists to set.
+     * Getter for ksPackages
+     * @return Returns the ksPackages.
      */
-    public void setPackageNames(List<PackageName> p) {
-        this.packageNames = p;
+    public Set<KickstartPackage> getKsPackages() {
+        return ksPackages;
+    }
+
+    /**
+     * Setter for ksPackages
+     * @param p The KickstartPackage set to set.
+     */
+    public void setKsPackages(Set<KickstartPackage> p) {
+        this.ksPackages = p;
     }
  
+    /**
+     * Clear all ksPackages
+     */
+    public void clearKsPackages() {
+        for (Iterator iter = ksPackages.iterator(); iter.hasNext();) {
+            // remove from DB
+            KickstartFactory.removePackage((KickstartPackage)iter.next());
+            // remove from collection
+            iter.remove();
+        }
+    }
+
     /**
      * Get the KickstartScript of type "pre"
      * @return KickstartScript used by the Pre section.  Null if not used
@@ -694,6 +718,14 @@ public class KickstartData {
     }
     
     /**
+     * @return Returns the customOptions.
+     */
+    public SortedSet getCustomPartitionOptions() {
+        return new TreeSet(getCommandSubset("custom_partition"));
+    }
+
+
+    /**
      * remove old custom options and replace with new
      * @param customIn to replace old with.
      */
@@ -701,6 +733,14 @@ public class KickstartData {
         replaceSet(this.getCustomOptions(), customIn);
     }
     
+    /**
+     * remove old custom partition options and replace with new
+     * @param customIn to replace old with.
+     */
+    public void setCustomPartitionOptions(Collection<KickstartCommand> customIn) {
+        replaceSet(this.getCustomPartitionOptions(), customIn);
+    }
+
     /**
      * remove old partitions and replace with new
      * @param partitionsIn to replace old with.
@@ -1198,9 +1238,12 @@ public class KickstartData {
             cloned.setKickstartDefaults(this.getKickstartDefaults().deepCopy(cloned));
         }
         cloned.setOrg(this.getOrg());
-        if (this.getPackageNames() != null) {
-            cloned.setPackageNames(new ArrayList(this.getPackageNames()));
+        if (this.getKsPackages() != null) {
+            for (KickstartPackage kp : this.getKsPackages()) {
+                cloned.getKsPackages().add(kp.deepCopy(cloned));
+            }
         }
+        
         if (this.getPreserveFileLists() != null) {
             cloned.setPreserveFileLists(new HashSet(this.getPreserveFileLists()));
         }
@@ -1248,7 +1291,6 @@ public class KickstartData {
         else {
             return false;
         }
-        
     }
         
     /**
@@ -1267,7 +1309,6 @@ public class KickstartData {
         return ConfigDefaults.get().getKickstartPackageName();
 
     }
-
     
     /**
      * @return Returns if the post scripts should be logged.
@@ -1289,7 +1330,6 @@ public class KickstartData {
     public Boolean getKsCfg() {
         return ksCfg;
     }
-
     
     /**
      * @param postLogIn The postLog to set.
@@ -1311,7 +1351,6 @@ public class KickstartData {
     public void setKsCfg(Boolean ksCfgIn) {
         this.ksCfg = ksCfgIn;
     }
-
     
     /**
      * Returns the SE Linux mode associated to this kickstart profile
@@ -1353,8 +1392,6 @@ public class KickstartData {
         return getKickstartDefaults() != null && 
             getKickstartDefaults().getRemoteCommandFlag();
     }
-
-
     
     /**
      * @return the cobblerName

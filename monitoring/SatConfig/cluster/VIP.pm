@@ -15,7 +15,7 @@ sub initialize
 	my ($self,@params) = @_;
 	$self->SUPER::initialize(@params);
 	$self->addValidators(
-		Validator->newInitialized(
+		SatConfig::cluster::Validator->newInitialized(
 			name=>'network',
 			description=>'A network address',
 			required=>1,

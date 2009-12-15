@@ -22,10 +22,12 @@ from types import IntType, StringType, InstanceType
 from UserDict import UserDict
 from UserList import UserList
 
-from common import log_debug, rhn_mpm
-from common.rhnLib import maketemp, getFileMD5
+from common import log_debug
+from common.rhnLib import maketemp, createPath, setPermsPath
 
 from server.rhnLib import get_package_path
+from spacewalk.common import rhn_mpm
+from spacewalk.common.checksum import getFileChecksum
 
 # no-op class, used to define the type of an attribute
 class DateType:
@@ -658,6 +660,7 @@ class GenericPackageImport(Import):
         # Packages have to be pre-processed
         self.names = {}
         self.evrs = {}
+        self.checksums = {}
         self.package_arches = {}
         self.channels = {}
         self.channel_package_arch_compat = {}
@@ -675,6 +678,14 @@ class GenericPackageImport(Import):
         if not self.package_arches.has_key(package.arch):
             self.package_arches[package.arch] = None
 
+        # FIXME: needs to be fixed for sha256
+        if not package.has_key('checksum'):
+            checksum = ('md5',package['md5sum'])
+            package['checksum'] = checksum
+        else:
+            checksum = package['checksum']
+        if not self.checksums.has_key(checksum):
+            self.checksums[checksum] = None
 
     def _postprocessPackageNEVRA(self, package):
         arch = self.package_arches[package.arch]
@@ -695,7 +706,7 @@ class GenericPackageImport(Import):
 
         package['name_id'], package['evr_id'], package['package_arch_id'] = nevra
         package['nevra_id'] = nevra_dict[nevra]
-
+        package['checksum_id'] = self.checksums[package['checksum']]
 
 # Exceptions
 class ImportException(Exception):
@@ -805,30 +816,32 @@ def write_temp_package(packageData, org_id, prepend=""):
     # Clean up the package variable
     del packageData
     # Compute the md5sum
-    pkgmd5sum = getFileMD5(None, fd)
+    pkgmd5sum = getFileChecksum('md5', None, fd)        # FIXME sha256
     # Read the RPM header
     os.lseek(fd, 0, 0)
     header = rhn_mpm.get_package_header(fd=fd)
     # Get nevra
     nevra = get_nevra(header)
+    checksum = ('md5', pkgmd5sum)       # FIXME sha256
     relPackagePath = get_package_path(nevra, org_id, header.is_source, prepend,
-                                     pkgmd5sum)
+                                     checksum)
     # And return this information
     return fd, header, packageSize, pkgmd5sum, relPackagePath
 
-def copy_package(fd, basedir, relpath, md5sum, force=None):
+def copy_package(fd, basedir, relpath, checksum, force=None):
     """
     Copies the information from the file descriptor to a file
-    Checks the file's MD5 sum, raising FileConflictErrror if it's different
+    Checks the file's checksum, raising FileConflictErrror if it's different
     The force flag prevents the exception from being raised, and copies the
-    file even if the md5sum has changed
+    file even if the checksum has changed
     """
     packagePath = basedir + "/" + relpath
     # Is the file there already?
     if os.path.isfile(packagePath) and not force:
-        # Get its md5sum
-        localmd5sum = getFileMD5(packagePath)
-        if md5sum == localmd5sum:
+        # Get its checksum
+        localsum = (checksum[0],
+                    getFileChecksum(checksum[0], packagePath))
+        if checksum == localsum:
             # Same file, so get outa here
             return 
         raise FileConflictError(os.path.basename(packagePath))
@@ -836,7 +849,7 @@ def copy_package(fd, basedir, relpath, md5sum, force=None):
     dir = os.path.dirname(packagePath)
     # Create the directory where the file will reside
     if not os.path.exists(dir):
-        os.makedirs(dir)
+        createPath(dir)
     pkgfd = os.open(packagePath, os.O_WRONLY | os.O_CREAT | os.O_TRUNC)
     os.lseek(fd, 0, 0)
     while 1:
@@ -850,7 +863,7 @@ def copy_package(fd, basedir, relpath, md5sum, force=None):
                 n, len(buffer), packagePath)
     os.close(pkgfd)
     # set the path perms readable by all users
-    os.chmod(packagePath, 0644)
+    setPermsPath(packagePath, chmod=0644)
 
 
 # Assuming packageData is an RPM package, writes it on the disk
