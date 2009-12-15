@@ -42,7 +42,6 @@ sub register_tags {
   $pxt->register_tag("rhn-checkable", \&rhn_checkable, 10);
 
   $pxt->register_tag("rhn-autorefresh-widget", \&rhn_autorefresh_widget);
-  $pxt->register_tag("rhn-html-meta-refresh", \&rhn_html_meta_refresh);
   $pxt->register_tag("rhn-return-link", \&return_link);
 }
 
