@@ -62,8 +62,6 @@ sub register_tags {
   $pxt->register_tag('rhn-user-site-view' => \&user_site_view);
 
   $pxt->register_tag('rhn-user-login' => \&rhn_user_login);
-
-  $pxt->register_tag('rhn-user-default-system-groups-form' => \&default_system_groups);
 }
 
 sub register_callbacks {
@@ -1268,22 +1266,6 @@ sub rhn_user_login {
     }
   }
   return $user->login;
-}
-
-sub default_system_groups {
-  my $pxt = shift;
-  my %attr = @_;
-
-  my $form = build_default_system_groups_form($pxt, %attr);
-  my $rform = $form->realize;
-  undef $form;
-
-  Sniglets::Forms::load_params($pxt, $rform);
-
-  my $style = new Sniglets::Forms::Style;
-  my $html = $rform->render($style);
-
-  return $html;
 }
 
 sub default_system_groups_cb {
