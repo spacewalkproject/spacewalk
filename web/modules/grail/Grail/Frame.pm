@@ -26,7 +26,6 @@ sub register_tags {
   $pxt->register_tag("grail-canvas" => \&canvas_handler, -100);
   $pxt->register_tag("grail-early-canvas" => \&canvas_handler, -101);
   $pxt->register_tag("grail-canvas-template" => \&canvas_template_handler, 100);
-  $pxt->register_tag("grail-canvas-template-hack" => \&canvas_template_handler, 100);
   $pxt->register_tag("grail-canvas-replacement" => \&canvas_replacement_handler, 50);
   $pxt->register_tag("grail-dynamic-canvas" => \&dynamic_canvas_handler, -150);
 }
