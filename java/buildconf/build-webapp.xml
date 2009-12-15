@@ -172,7 +172,6 @@
              resource="${git.home}/web/modules/cypress/Cypress"/>
     <symlink link="/var/www/lib/Dobby" resource="${git.home}/web/modules/dobby/Dobby"/>
     <symlink link="/var/www/lib/Grail" resource="${git.home}/web/modules/grail/Grail"/>
-    <symlink link="/var/www/lib/Moon" resource="${git.home}/web/modules/moon/Moon"/>
     <symlink link="/var/www/lib/PXT" resource="${git.home}/web/modules/pxt/PXT"/>
     <symlink link="/var/www/lib/RHN" resource="${git.home}/web/modules/rhn/RHN"/>
     <symlink link="/var/www/lib/Sniglets"
@@ -188,7 +187,6 @@
     <symlink action="delete" link="/var/www/lib/Cypress"/>
     <symlink action="delete" link="/var/www/lib/Dobby"/>
     <symlink action="delete" link="/var/www/lib/Grail"/>
-    <symlink action="delete" link="/var/www/lib/Moon"/>
     <symlink action="delete" link="/var/www/lib/PXT"/>
     <symlink action="delete" link="/var/www/lib/RHN"/>
     <symlink action="delete" link="/var/www/lib/Sniglets"/>

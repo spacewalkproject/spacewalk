@@ -117,15 +117,6 @@ Provides:  rhn-sniglets = 5.3.0
 This package contains the tag handlers for the PXT templates
 
 
-%package -n spacewalk-moon
-Group: Applications/Internet  
-Summary: The Moon library for manipulating and charting data
-Obsoletes: rhn-moon < 5.3.0
-Provides:  rhn-moon = 5.3.0
-
-%description -n spacewalk-moon
-Modules for loading, manipulating, and rendering graphed data.
-
 %prep
 %setup -q
 
@@ -300,11 +291,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{perl_vendorlib}/Sniglets.pm
 %{perl_vendorlib}/Sniglets/
-
-%files -n spacewalk-moon
-%defattr(644,root,root,755)
-%{perl_vendorlib}/Moon/
-%{_mandir}/man3/Moon*
 
 %files -n spacewalk-html
 %defattr(644,root,root,755)

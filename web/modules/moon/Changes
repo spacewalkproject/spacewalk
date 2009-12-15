@@ -1,6 +1,0 @@
-Revision history for Perl extension Moon::Image.
-
-0.01  Fri Jul 12 16:06:02 2002
-	- original version; created by h2xs 1.21 with options
-		-XA -n Moon::Image
-

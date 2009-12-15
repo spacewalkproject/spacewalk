@@ -127,7 +127,6 @@ chdir /var/www/lib
 symlink $SVNDIR/eng/web/modules/cypress/Cypress 
 symlink $SVNDIR/eng/web/modules/dobby/Dobby 
 symlink $SVNDIR/eng/web/modules/grail/Grail
-symlink $SVNDIR/eng/web/modules/moon/Moon 
 symlink $SVNDIR/eng/web/modules/rhn/RHN 
 symlink $SVNDIR/eng/web/modules/pxt/PXT 
 symlink $SVNDIR/eng/web/modules/ 

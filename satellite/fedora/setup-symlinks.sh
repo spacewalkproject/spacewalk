@@ -109,7 +109,6 @@ cd /var/www/lib
 symlink $GITDIR/web/modules/cypress/Cypress 
 symlink $GITDIR/web/modules/dobby/Dobby 
 symlink $GITDIR/web/modules/grail/Grail
-symlink $GITDIR/web/modules/moon/Moon 
 symlink $GITDIR/web/modules/rhn/RHN 
 symlink $GITDIR/web/modules/pxt/PXT 
 symlink $GITDIR/web/modules/ 

@@ -37,7 +37,6 @@ Requires:       spacewalk-cypress
 Requires:       spacewalk-grail
 Requires:       spacewalk-pxt
 Requires:       spacewalk-sniglets
-Requires:       spacewalk-moon
 
 # Python
 Requires:       spacewalk-certs-tools
