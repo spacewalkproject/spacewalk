@@ -29,7 +29,6 @@ sub register_tags {
   my $pxt = shift;
 
   $pxt->register_tag("rhn-help", \&rhn_help);
-  $pxt->register_tag("rhn-help-link", \&rhn_help_link);
   $pxt->register_tag("rhn-if-var", \&if_var, -5);
   $pxt->register_tag("rhn-unless-var", \&unless_var, -5);
 
@@ -157,21 +156,6 @@ sub rhn_help {
 			  -guide => $guide,
 			  -href => $href,
 			  -block => qq(<img src="/img/rhn-icon-help.gif" alt="Help Icon" />),
-			  -satellite => $params{satellite});
-}
-
-sub rhn_help_link {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-  my $guide = $params{guide} || '';
-  my $href = $params{href} || '';
-
-  return render_help_link(-user => $pxt->user,
-			  -guide => $guide,
-			  -href => $href,
-			  -block => $block,
 			  -satellite => $params{satellite});
 }
 
