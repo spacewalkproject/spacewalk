@@ -74,8 +74,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-server-history-event-details' => \&server_history_event_details);
 
-  $pxt->register_tag('rhn-server-status-interface' => \&server_status_interface, 10);
-
   $pxt->register_tag('rhn-system-base-channel-select' => \&system_base_channel_select);
 
   $pxt->register_tag('rhn-proxy-entitlement-form' => \&proxy_entitlement_form);
@@ -463,45 +461,6 @@ sub server_name {
 
   $pxt->pnotes(server => $server);
   return PXT::Utils->escapeHTML($server->name);
-}
-
-sub server_status_interface {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $system = $pxt->pnotes('server');
-  die "no system!" unless $system;
-
-  my $data = $system->applicable_errata_counts();
-
-  $data->{ID} = $system->id;
-  $data->{IS_ENTITLED} = $system->is_entitled;
-  $data->{LAST_CHECKIN_DAYS_AGO} = $system->last_checked_in_days_ago;
-  $data->{LOCKED} = $system->check_lock;
-
-  my $session = RHN::Kickstart::Session->lookup(-sid => $system->id, -org_id => $pxt->user->org_id, -soft => 1);
-  my $state = $session ? $session->session_state_label : '';
-  $data->{KICKSTART_SESSION_ID} = ($session and $state ne 'complete' and $state ne 'failed') ? $session->id : undef;
-
-  my $subst = system_status_info($pxt->user, $data);
-
-  if ($subst->{link}) {
-    $subst->{message} = "(" . PXT::HTML->link($subst->{link}, $subst->{message}) . ")";
-  }
-
-  if ($subst->{image_medium}) {
-    $subst->{image_medium} = PXT::HTML->img(-src => $subst->{image_medium}, -alt => $subst->{status_str}, -title => $subst->{status_str});
-  }
-
-  if ($subst->{image}) {
-    $subst->{image} = PXT::HTML->img(-src => $subst->{image}, -alt => $subst->{status_str}, -title => $subst->{status_str});
-  }
-
-  my $block = $params{__block__};
-
-  $block = PXT::Utils->perform_substitutions($block, $subst);
-
-  return $block;
 }
 
 # not a sniglet
