@@ -56,7 +56,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-up2date-at-least' => \&up2date_at_least);
 
-  $pxt->register_tag('rhn-server-base-channel' => \&server_base_channel, 2);
   $pxt->register_tag('rhn-server-child-channels' => \&server_child_channels, 3);
 
   $pxt->register_tag('rhn-server-prefs-conf-list' => \&server_prefs_conf_list);
@@ -208,20 +207,6 @@ sub up2date_at_least {
   }
 
   return '';
-}
-
-# gets the channels from the admin_server_edit_form via pnote, 2nd link in chain.
-sub server_base_channel {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-
-  my $server_channels = $pxt->pnotes('server_channels');
-
-  my ($base_channel) = grep { not defined $_->{PARENT_CHANNEL} }  @{$server_channels};
-  $block = PXT::Utils->perform_substitutions($block, {base_id => $base_channel->{ID}, base_name => PXT::Utils->escapeHTML($base_channel->{NAME} || '')});
-  return $block;
 }
 
 # gets the channels from server_base_channel via pnote, 3rd link in chain.
