@@ -165,7 +165,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Action.pm
 %{perl_vendorlib}/RHN/AppInstall/
 %{perl_vendorlib}/RHN/Cache/
-%{perl_vendorlib}/RHN/Catalog.pm
 %{perl_vendorlib}/RHN/Cert.pm
 %{perl_vendorlib}/RHN/Channel.pm
 %{perl_vendorlib}/RHN/ChannelEditor.pm
