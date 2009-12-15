@@ -86,6 +86,7 @@ public class AddPackagesAction extends RhnAction implements Listable {
         helper.execute();
 
         if (helper.isDispatched()) {
+            context.requirePost();
             Long eid = context.getRequiredParam("eid");
             StrutsDelegate strutsDelegate = getStrutsDelegate();
             return strutsDelegate.forwardParam(actionMapping.findForward("confirm"),

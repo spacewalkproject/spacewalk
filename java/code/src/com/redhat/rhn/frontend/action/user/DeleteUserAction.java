@@ -50,7 +50,8 @@ public class DeleteUserAction extends RhnAction {
             HttpServletResponse response) {
         
         RequestContext requestContext = new RequestContext(request);
-
+        requestContext.requirePost();
+        
         if (!AclManager.hasAcl("user_role(org_admin)",
                 request, null)) {
             //Throw an exception with a nice error message so the user
@@ -84,7 +85,7 @@ public class DeleteUserAction extends RhnAction {
             return getStrutsDelegate().forwardParams(mapping.findForward("failure"), 
                     params);
         }
-
+        
         try {
             UserManager.deleteUser(loggedInUser, uid);
         }

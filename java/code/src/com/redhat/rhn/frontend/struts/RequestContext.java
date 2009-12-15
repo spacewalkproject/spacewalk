@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.struts;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
@@ -110,6 +111,7 @@ public class RequestContext {
     public static final String NO_SCRIPT = "noscript";
     /** the name of the Red Hat session cookie */
     public static final String WEB_SESSION_COOKIE_NAME = "pxt-session-cookie";
+    public static final String POST = "POST";
     
     
     private HttpServletRequest request;
@@ -724,6 +726,16 @@ public class RequestContext {
      */
     public boolean isSubmitted() {
         return Boolean.TRUE.toString().equals(getParam(RhnAction.SUBMITTED, false));
+    }
+    
+    /**
+     * verify that the request is a POST and throw an exception otherwise.
+     */
+    public void requirePost() {        
+        if (!POST.equals(request.getMethod())) {
+            throw new PermissionException(
+                    LocalizationService.getInstance().getMessage("request.post.check"));
+        }
     }
     
 }
