@@ -30,8 +30,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-profile-edit' => \&profile_edit);
-
   $pxt->register_tag('rhn-profile-or-system-details' => \&profile_or_system_details, -5);
 
   $pxt->register_tag('rhn-profile-sync-confirm' => \&profile_sync_confirm);
@@ -46,20 +44,6 @@ sub register_callbacks {
   $pxt->register_callback('rhn:sync_server_cb' => \&sync_server_cb);
 
   $pxt->register_callback('rhn:create_profile_from_system_cb' => \&create_profile_from_system_cb);
-}
-
-sub profile_edit {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $profile = RHN::Profile->lookup(-id => $pxt->param('prid'));
-
-  my $block = $params{__block__};
-  my %subst;
-  $subst{profile_name} = $profile->name;
-  $subst{profile_description} = $profile->description;
-
-  return PXT::Utils->perform_substitutions($block, \%subst);
 }
 
 sub profile_edit_cb {
