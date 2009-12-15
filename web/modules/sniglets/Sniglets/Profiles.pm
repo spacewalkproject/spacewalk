@@ -30,8 +30,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-profile-create-from-system' => \&profile_create_from_system);
-
   $pxt->register_tag('rhn-compat-profile-select' => \&compat_profile_select);
   $pxt->register_tag('rhn-compat-system-select' => \&compat_system_select);
   $pxt->register_tag('rhn-profile-name' => \&profile_name, -2);
@@ -124,35 +122,6 @@ sub profile_or_system_details {
   PXT::Utils->escapeHTML_multi(\%subst);
 
   my $block = PXT::Utils->perform_substitutions($params{__block__}, \%subst);
-
-  return $block;
-}
-
-sub profile_create_from_system {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-  my %subst;
-
-  my $system = RHN::Server->lookup(-id => $pxt->param('sid'));
-
-  throw 'no system.' unless $system;
-
-  $subst{profile_create_name} =
-    PXT::HTML->text(-name => 'name',
-		    -value => "Profile of " . PXT::Utils->escapeHTML($system->name || ''),
-		    -maxlength => 128,
-		    -size => 48);
-
-  $subst{profile_create_description} =
-    PXT::HTML->textarea(-name => 'description',
-			-value => "Profile made from " . PXT::Utils->escapeHTML($system->name || ''),
-			-rows => 6,
-			-cols => 48,
-			-wrap => 'VIRTUAL');
-
-  $block = PXT::Utils->perform_substitutions($block, \%subst);
 
   return $block;
 }
