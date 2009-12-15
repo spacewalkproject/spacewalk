@@ -81,8 +81,6 @@ sub register_tags {
   $pxt->register_tag('rhn-system-pending-actions-count' => \&system_pending_actions_count);
   $pxt->register_tag('rhn-system-activation-key-form' => \&system_activation_key_form);
 
-  $pxt->register_tag('rhn-check-config-client' => \&check_config_client);
-
   $pxt->register_tag('rhn-remote-command-form' => \&remote_command_form);
 
   $pxt->register_tag('rhn-server-virtualization-guest-details' => \&server_virtualization_details, 2);
@@ -1776,20 +1774,6 @@ sub ks_session_redir {
   }
 
   return;
-}
-
-sub check_config_client {
-  my $pxt = shift;
-
-  my $server = RHN::Server->lookup(-id => $pxt->param('sid'));
-
-  # can't just push_message since there are odd redirects going on with the navi selected node code
-  if (not $server->client_capable('configfiles.deploy')) {
-    return '<div class="local-alert">This system does not have the "rhncfg-actions" package; scheduled actions will fail until it is installed.</div>';
-  }
-  else {
-    return '';
-  }
 }
 
 sub remote_command_form {
