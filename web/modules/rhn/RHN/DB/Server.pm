@@ -502,29 +502,6 @@ EOQ
   }
 }
 
-sub last_checked_in_days_ago {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect();
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT  sysdate - checkin
-  FROM  rhnServerInfo
- WHERE  server_id = ?
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  my @columns;
-  @columns = $sth->fetchrow;
-  $sth->finish;
-
-  return $columns[0];
-}
-
 sub is_proxy {
   my $self = shift;
 
@@ -1076,28 +1053,6 @@ EOQ
   return @ret;
 }
 
-
-sub applicable_errata_counts {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth;
-
-  my $query = <<EOQ;
-SELECT SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, OUTDATED_PACKAGES
-  FROM rhnServerOverview
- WHERE org_id = ?
-   AND server_id = ?
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->org_id, $self->id);
-
-  my $row = $sth->fetchrow_hashref;
-  $sth->finish;
-
-  return $row;
-}
 
 sub system_list_count {
   my $class = shift;
