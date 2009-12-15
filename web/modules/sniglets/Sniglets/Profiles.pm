@@ -30,8 +30,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-profile-or-system-details' => \&profile_or_system_details, -5);
-
   $pxt->register_tag('rhn-profile-sync-confirm' => \&profile_sync_confirm);
 }
 
@@ -55,39 +53,6 @@ sub profile_edit_cb {
   $profile->commit;
 
   $pxt->redirect("details.pxt", prid => $profile->id);
-}
-
-sub profile_or_system_details {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $sid = $pxt->param('sid_1') || '';
-  my $prid = $pxt->param('prid') || '';
-
-  throw "Either (sid_1) or (prid) param required" unless ($sid || $prid);
-
-  my %subst;
-
-  if ($sid) {
-    my $system = RHN::Server->lookup(-id => $sid);
-    throw "no valid server" unless $system;
-
-    $subst{profile_or_system_name} = $system->name;
-    $subst{profile_or_system_description} = $system->description;
-  }
-  else {
-    my $profile = RHN::Profile->lookup(-id => $prid);
-    throw "No valid profile" unless $profile;
-
-    $subst{profile_or_system_name} = $profile->name;
-    $subst{profile_or_system_description} = $profile->description;
-  }
-
-  PXT::Utils->escapeHTML_multi(\%subst);
-
-  my $block = PXT::Utils->perform_substitutions($params{__block__}, \%subst);
-
-  return $block;
 }
 
 sub create_profile_from_system_cb {
