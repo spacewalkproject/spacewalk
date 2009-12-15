@@ -82,8 +82,6 @@ sub register_tags {
   $pxt->register_tag('rhn-system-activation-key-form' => \&system_activation_key_form);
 
   $pxt->register_tag('rhn-remote-command-form' => \&remote_command_form);
-
-  $pxt->register_tag('rhn-server-virtualization-guest-details' => \&server_virtualization_details, 2);
 }
 
 sub register_callbacks {
@@ -653,47 +651,6 @@ sub server_history_event_details {
   return PXT::Utils->perform_substitutions($params{__block__}, $event->render($pxt->user));
 
   return $params{__block__};
-}
-
-sub server_virtualization_details {
-  my $pxt = shift;
-  my %params = @_;
-  my $ret = '';
-
-  my $server = $pxt->pnotes('server');
-
-  throw "No server." unless $server;
-
-  my %subst;
-
-  my $virt_details = $server->virtual_guest_details();
-
-  return unless $virt_details;
-
-  my $block = $params{__block__};
-
-  $subst{virtualization_type} = $virt_details->{TYPE_NAME} || "None";
-  $subst{virtualization_uuid} = $virt_details->{UUID} || "Unknown";
-  $subst{virtualization_host} = "Unknown";
-
-  if ($virt_details->{HOST_SYSTEM_ID}) {
-    if ($pxt->user->verify_system_access($virt_details->{HOST_SYSTEM_ID})) {
-      $subst{virtualization_host} =
-        PXT::HTML->link2(text => $virt_details->{HOST_SYSTEM_NAME},
-          url => "/rhn/systems/details/Overview.do?sid=" . $virt_details->{HOST_SYSTEM_ID});
-
-    }
-    else {
-      $subst{virtualization_host} = sprintf("%s (%d)",
-                                            $virt_details->{HOST_SYSTEM_NAME},
-                                            $virt_details->{HOST_SYSTEM_ID});
-
-    }
-  }
-
-  my $html = PXT::Utils->perform_substitutions($block, \%subst);
-
-  return $html;
 }
 
 sub base_entitlement {
