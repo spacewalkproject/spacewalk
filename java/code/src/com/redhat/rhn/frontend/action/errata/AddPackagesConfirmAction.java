@@ -74,6 +74,7 @@ public class AddPackagesConfirmAction extends RhnAction implements Listable {
         helper.execute();
 
         if (helper.isDispatched()) {
+            context.requirePost();
             ActionForward forward = addPackagesToErrata(actionMapping, request, decl);
             return forward;
         }
