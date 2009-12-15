@@ -30,7 +30,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-profile-name' => \&profile_name, -2);
   $pxt->register_tag('rhn-profile-edit' => \&profile_edit);
 
   $pxt->register_tag('rhn-profile-or-system-details' => \&profile_or_system_details, -5);
@@ -47,23 +46,6 @@ sub register_callbacks {
   $pxt->register_callback('rhn:sync_server_cb' => \&sync_server_cb);
 
   $pxt->register_callback('rhn:create_profile_from_system_cb' => \&create_profile_from_system_cb);
-}
-
-sub profile_name {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $prid = $params{prid} || $pxt->param('prid');
-
-  throw 'No profile id' unless $prid;
-
-  $pxt->user->verify_system_profile_access($prid)
-    or $pxt->redirect('/errors/permission.pxt');
-
-  my $block = $params{__block__};
-  my $p = RHN::Profile->lookup(-id => $prid);
-
-  return PXT::Utils->escapeHTML($p->name);
 }
 
 sub profile_edit {
