@@ -23,6 +23,7 @@ sys.path.append("/usr/share/rhn")
 import rhnreg
 import rhnregGui
 from rhn_register_firstboot_gui_window import RhnRegisterFirstbootGuiWindow
+import config
 
 import gtk
 from gtk import glade
@@ -68,6 +69,8 @@ class RhnFinishWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.FinishPage):
         the gnome druid in rhn_register.
         
         """
+        up2DateConfig = config.initUp2dateConfig()
+        up2DateConfig.save()
         return True
 
 
