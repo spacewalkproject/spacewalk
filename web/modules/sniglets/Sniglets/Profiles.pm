@@ -30,7 +30,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-compat-system-select' => \&compat_system_select);
   $pxt->register_tag('rhn-profile-name' => \&profile_name, -2);
   $pxt->register_tag('rhn-profile-edit' => \&profile_edit);
 
@@ -199,30 +198,6 @@ sub profile_delete_cb {
   throw "param 'delete_success_page' needed but not provided." unless $redir;
   $pxt->push_message(site_info => "Profile <strong>$name</strong> deleted.");
   $pxt->redirect($redir, ($sid ? (sid => $sid) : ()));
-}
-
-sub compat_system_select {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $sid = $pxt->param('sid');
-  my $ret = $params{__block__};
-
-  my $empty_msg = $params{empty_message} || '';
-  throw 'param empty_message needed but not provided.'
-    unless $empty_msg;
-
-  my @systems = RHN::Server->compatible_with_server($sid, $pxt->user->id, $pxt->user->org_id);
-  my @options = map { [ PXT::Utils->escapeHTML($_->[1] || ''), $_->[0], 0 ] } @systems;
-
-  if (@options) {
-    $ret =~ s/\{system_select\}/PXT::HTML->select(-name => 'sid_1', -options => \@options)/e;
-  }
-  else {
-    $ret = $empty_msg;
-  }
-
-  return $ret;
 }
 
 sub profile_sync_confirm {
