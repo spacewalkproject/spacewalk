@@ -76,7 +76,10 @@ class ErrataImport(GenericPackageImport):
 
     def _preprocessErratumFiles(self, erratum):
         for f in (erratum['files'] or []):
-            checksum = ('md5', f['md5sum'])     # FIXME sha256
+            if 'md5sum' in f:   # old pre-sha256 export
+                checksum = ('md5', f['md5sum'])
+            else:
+                checksum = (f['checksum_type'], f['checksum'])
             f['checksum'] = checksum
             if not self.checksums.has_key(checksum):
                 self.checksums[checksum] = None
