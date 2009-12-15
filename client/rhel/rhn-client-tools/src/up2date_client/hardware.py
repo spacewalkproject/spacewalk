@@ -107,13 +107,14 @@ _dmi_not_available  = 0
 
 def _initialize_dmi_data():
     """ Initialize _dmi_data unless it already exist and returns it """
+    global _dmi_data, _dmi_not_available
     if _dmi_data is None:
         if _dmi_not_available:
             # do not try to initialize it again and again if not available
             return None
         else :
             dmixml = dmidecode.dmidecodeXML()
-            dmixml = _dmi_data.SetResultType(dmidecode.DMIXML_DOC)
+            dmixml = dmixml.SetResultType(dmidecode.DMIXML_DOC)
             # Get all the DMI data and prepare a XPath context
             try:
                 data = dmixml.QuerySection('all')
@@ -139,13 +140,13 @@ def get_dmi_data(path):
         # The path do not exist
         return ''
 
-def dmi_vendor();
+def dmi_vendor():
     """ Return Vendor from dmidecode bios information.
         If this value could not be fetch, returns empty string.
     """
     return get_dmi_data('/dmidecode/BIOSInfo/Vendor')
 
-def dmi_system_uuid();
+def dmi_system_uuid():
     """ Return UUID from dmidecode system information.
         If this value could not be fetch, returns empty string.
     """
