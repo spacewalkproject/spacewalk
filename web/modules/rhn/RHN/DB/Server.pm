@@ -1566,42 +1566,6 @@ EOS
   }
 }
 
-# return a server's channels in the context of a user...
-# (if unsubscribed, could this user resubscribe the channel?)
-sub user_server_channels_info {
-  my $self = shift;
-  my $user_id = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query  = <<EOQ;
-SELECT C.id,
-       C.label,
-       C.name,
-       C.summary,
-       (SELECT 1
-          FROM rhnUserChannel
-         WHERE user_id = WC.id
-           AND channel_id = C.id
-           AND role = 'subscribe') AS RESUBSCRIBABLE
-  FROM rhnChannel C,
-       rhnServerChannel SC,
-       web_contact WC
- WHERE WC.id = :user_id
-   AND C.id = SC.channel_id
-   AND SC.server_id = :server_id
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h(server_id => $self->id, user_id => $user_id);
-
-  my @ret;
-  while (my $row = $sth->fetchrow_hashref) {
-    push @ret, $row;
-  }
-
-  return @ret;
-}
-
 sub server_channels {
   my $self = shift;
 
