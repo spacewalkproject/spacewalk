@@ -60,7 +60,6 @@ sub register_tags {
   $pxt->register_tag('rhn-server-name' => \&server_name, 2);
 
   $pxt->register_tag('rhn-tri-state-system-pref-list' => \&tri_state_system_pref_list);
-  $pxt->register_tag('rhn-tri-state-system-entitlement-list' => \&tri_state_system_entitlement_list);
 
   $pxt->register_tag('rhn-server-hardware-profile' => \&server_hardware_profile);
   $pxt->register_tag('rhn-dmi-info' => \&server_dmi_info, 1);
@@ -1450,34 +1449,6 @@ sub tri_state_system_pref_list {
 
     $subst{pref_name} = $pref->{name};
     $subst{pref_label} = $pref->{label};
-    $subst{class} = ($counter % 2) ? "list-row-even" : "list-row-odd";
-
-    PXT::Utils->escapeHTML_multi(\%subst);
-
-    $html .= PXT::Utils->perform_substitutions($block, \%subst);
-  }
-
-  return $html;
-}
-
-sub tri_state_system_entitlement_list {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-  my $html = '';
-
-  my $counter = 1;
-
-  my @all_entitlements = RHN::Entitlements->valid_system_entitlements_for_org($pxt->user->org_id);
-  my @addon_entitlements = grep { $_->{IS_BASE} eq 'N' } @all_entitlements;
-
-  foreach my $ent (@addon_entitlements) {
-    $counter++;
-    my %subst;
-
-    $subst{entitlement_name} = $ent->{LABEL};
-    $subst{entitlement_label} = $pxt->user->org->slot_name($ent->{LABEL});
     $subst{class} = ($counter % 2) ? "list-row-even" : "list-row-odd";
 
     PXT::Utils->escapeHTML_multi(\%subst);
