@@ -260,14 +260,19 @@ class ErrataImport(GenericPackageImport):
 
 
     def _fix_erratum_packages(self, erratum):
-        pkgs = {}
-        for nevrao, package in erratum['packages'].items():
+        pkgs = []
+        # This is a workaround; It would be much straightforward to use
+        # 'package in erratum['packages'].values()' here. But for (to me) unknown
+        # reason it sometimes has package.id == None which makes whole import fail.
+        # And self.packages[nevrao].id contains always right value.
+        for nevrao in erratum['packages'].keys():
+            package = self.packages[nevrao]
             if package.ignored:
                 # Ignore this package
                 continue
-            pkgs[package.id] = None
+            pkgs.append({'package_id' : package.id})
         
-        erratum['packages'] = map(lambda x: {'package_id' : x}, pkgs.keys())
+        erratum['packages'] = pkgs
 
         for ef in (erratum['files'] or []):
             if ef['file_type'] == 'RPM':
