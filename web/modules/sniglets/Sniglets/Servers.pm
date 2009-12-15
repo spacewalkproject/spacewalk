@@ -78,7 +78,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-proxy-entitlement-form' => \&proxy_entitlement_form);
 
-  $pxt->register_tag('rhn-entitlement-count' => \&entitlement_count);
   $pxt->register_tag('rhn-system-pending-actions-count' => \&system_pending_actions_count);
   $pxt->register_tag('rhn-system-activation-key-form' => \&system_activation_key_form);
 
@@ -1550,74 +1549,6 @@ sub system_base_channel_select {
 
   return PXT::HTML->select(-name => "system_base_channel",
 			   -options => \@options);
-}
-
-sub entitlement_count {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $ent_data = $pxt->user->org->entitlement_data;
-
-  my ($ret, $ret_wg, $ret_prov, $ret_mon, $ret_nonlinux);
-
-  $ret = <<EOQ;
-<h3>Base Entitlements</h3>
-<div class="page-content">
-EOQ
-
-  if (not PXT::Config->get("satellite")) {
-    $ret .= sprintf('%s Service: You have <strong>%d subscription%s</strong>',
-		    $pxt->user->org->basic_slot_name(),
-		    $ent_data->{sw_mgr_entitled}->{max},
-		    $ent_data->{sw_mgr_entitled}->{max} == 1 ? '' : 's',
-		   );
-    $ret .= sprintf(', and you have <strong>%d system%s subscribed</strong>.<br/>',
-		    $ent_data->{sw_mgr_entitled}->{used},
-		    $ent_data->{sw_mgr_entitled}->{used} == 1 ? '' : 's');
-  }
-
-  $ret_wg .= sprintf('Management Service: You have <strong>%d subscription%s</strong>',
-		     $ent_data->{enterprise_entitled}->{max},
-		     $ent_data->{enterprise_entitled}->{max} == 1 ? '' : 's');
-
-  $ret_wg .= sprintf(', and you have <strong>%d system%s subscribed</strong>.<br/>',
-		     $ent_data->{enterprise_entitled}->{used},
-		     $ent_data->{enterprise_entitled}->{used} == 1 ? '' : 's');
-
-  $ret_prov .= sprintf('Provisioning Service: You have <strong>%d subscription%s</strong>',
-		     $ent_data->{provisioning_entitled}->{max},
-		     $ent_data->{provisioning_entitled}->{max} == 1 ? '' : 's');
-  $ret_prov .= sprintf(', and you have <strong>%d system%s subscribed</strong>.<br/>',
-		     $ent_data->{provisioning_entitled}->{used},
-		     $ent_data->{provisioning_entitled}->{used} == 1 ? '' : 's');
-
-  $ret_mon .= sprintf('Monitoring Service: You have <strong>%d subscription%s</strong>',
-		     $ent_data->{monitoring_entitled}->{max},
-		     $ent_data->{monitoring_entitled}->{max} == 1 ? '' : 's');
-  $ret_mon .= sprintf(', and you have <strong>%d system%s subscribed</strong>.<br/>',
-		     $ent_data->{monitoring_entitled}->{used},
-		     $ent_data->{monitoring_entitled}->{used} == 1 ? '' : 's');
-
-  if ($ent_data->{enterprise_entitled}->{max} > 0) {
-    $ret .= $ret_wg;
-  }
-
-  $ret .= "</div>\n";
-  if ($ent_data->{provisioning_entitled}->{max} > 0 or
-      $ent_data->{monitoring_entitled}->{max} > 0) {
-    $ret .= <<EOQ;
-<h3>Add-On Entitlements</h3>
-<div class="page-content">
-EOQ
-  if ($ent_data->{provisioning_entitled}->{max} > 0) {
-    $ret .= $ret_prov;
-  }
-  if ($ent_data->{monitoring_entitled}->{max} > 0) {
-    $ret .= $ret_mon;
-  }
-    $ret .= "</div>\n";
-  }
-  return $ret;
 }
 
 sub delete_servers_cb {
