@@ -56,7 +56,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-up2date-at-least' => \&up2date_at_least);
 
-  $pxt->register_tag('rhn-server-child-channel-interface' => \&server_child_channel_interface, -1);
   $pxt->register_tag('rhn-resubscribe-warning-sdc' => \&resubscribe_warning_sdc, 3);
   $pxt->register_tag('rhn-resubscribe-base-warning-sdc' => \&resubscribe_base_warning_sdc, 3);
   $pxt->register_tag('rhn-server-base-channel' => \&server_base_channel, 2);
@@ -270,93 +269,6 @@ sub server_child_channels {
 
   return $ret;
 }
-
-sub server_child_channel_interface {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $server_id = $pxt->param('sid');
-
-  my $server = RHN::Server->lookup(-id => $server_id);
-  my $base_chan_id = $server->base_channel_id();
-
-  my $block = $params{__block__};
-
-  my @server_channels = $server->user_server_channels_info($pxt->user->id);
-
-  # save a lookup for subscribed channels for use in loop below... important in warning resubscription...
-  my %subscribed = map { $_->{ID} => 1 } @server_channels;
-
-  my @subscribable_channels = RHN::Channel->subscribable_channels(server_id => $server_id,
-								  user_id => $pxt->user->id,
-								  base_channel_id => $base_chan_id);
-
-  my %sat_channels = map { $_ => 1 } RHN::Channel->rhn_satellite_channels();
-  my %proxy_channels = map { $_ => 1 } RHN::Channel->rhn_proxy_channels();
-
-  # filter out proxy and satellite channels, they're handled by seperate interface,
-  # and filter out the base channel as well...
-  my @channels = grep { not exists $sat_channels{$_->{ID}} and not exists $proxy_channels{$_->{ID}} and $_->{ID} ne $base_chan_id}
-    (@server_channels, @subscribable_channels);
-
-  $pxt->pnotes(child_channels_total => scalar @channels);
-
-  $block =~ m/<child_channel>(.*?)<\/child_channel>/ism;
-  my $child_channel_block = $1;
-
-  $child_channel_block =~ m/<gpg_key>(.*?)<\/gpg_key>/ism;
-  my $gpg_key_block = $1;
-
-  my $child_channels_html = '';
-
-  # determines whether we render the guts of rhn-resubscribe-warning
-  my $resubscribe_warning;
-
-  foreach my $channel (sort { $a->{NAME} cmp $b->{NAME} } @channels) {
-    my $current = $child_channel_block;
-    my $current_gpg = '';
-
-    my %subs;
-    $subs{checkbox} = PXT::HTML->checkbox(-name => "child_channel",
-					  -value => PXT::Utils->escapeHTML($channel->{ID} || ''),
-					  -checked => ((grep { $_->{LABEL} eq $channel->{LABEL} } @server_channels) ? 1 : 0));
-
-    $subs{channel_id} = PXT::Utils->escapeHTML($channel->{ID});
-    $subs{channel_name} = PXT::Utils->escapeHTML($channel->{NAME});
-    $subs{channel_summary} = PXT::Utils->escapeHTML($channel->{SUMMARY});
-    $subs{resubscribe_warning} = '';
-
-    if ($subscribed{$channel->{ID}} and not $channel->{RESUBSCRIBABLE}) {
-
-      # we'll need to show warning text...
-      $resubscribe_warning = 1;
-
-      $subs{resubscribe_warning} = PXT::HTML->img(-src => '/img/rhn-listicon-alert.gif',
-						  -title => 'Resubscription Warning',
-						 );
-
-      $subs{resubscribe_warning} = "<span class=\"resubscribe-warning\">$subs{resubscribe_warning}</span>";
-    }
-
-    $current = PXT::Utils->perform_substitutions($current, \%subs);
-
-    if ($channel->{GPG_KEY_URL}) {
-      $current_gpg = $gpg_key_block;
-      $current_gpg =~ s{\{gpg_key_url\}}{$pxt->derelative_url("/network/software/channels/details.pxt?cid=" . $channel->{ID}, 'https')}eg;
-    }
-
-    $current =~ s{<gpg_key>.*?</gpg_key>}{$current_gpg}gis;
-    $child_channels_html .= $current;
-  }
-
-  $block =~ s{<child_channel>.*?</child_channel>}{$child_channels_html}is;
-
-  $pxt->pnotes('resubscribe_warning' => 1) if $resubscribe_warning;
-  $pxt->pnotes('server_details_subscribable_child_channels_seen' => scalar @channels);
-
-  return $block;
-}
-
 
 sub proxy_entitlement_form {
   my $pxt = shift;
