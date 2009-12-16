@@ -75,8 +75,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(-, %{np_name},%{np_name}) %{_var}/lib/%{np_name}
 %dir %attr(700, %{np_name},%{np_name}) %{_var}/lib/%{np_name}/.ssh
 %config(noreplace) %attr(-, %{np_name},%{np_name}) %{_var}/lib/%{np_name}/.ssh/authorized_keys
-%{_usr}/sbin/*
-%config(noreplace) %{_sysconfdir}/%{np_name}/*
+%{_usr}/sbin/rhnmd
+%config(noreplace) %{_sysconfdir}/%{np_name}/rhnmd
 %{_initddir}/rhnmd
 %doc LICENSE
 
