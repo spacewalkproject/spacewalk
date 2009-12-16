@@ -849,7 +849,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
     def _diff_packages(self):
         package_collection = sync_handlers.ShortPackageCollection()
         nvrea_keys = ['name', 'epoch', 'version', \
-                      'release', 'arch', 'checksum']
+                      'release', 'arch', 'checksum', 'checksum_type']
         h = rhnSQL.prepare(self._query_compare_packages)
 
         missing_channel_packages = {}
@@ -876,6 +876,9 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 package = package_collection.get_package(pid, p_timestamp)
                 assert package is not None
                 nevra = {}
+                if 'md5sum' in package:         # old pre-sha256 export
+                    package['checksum_type'] = 'md5'
+                    package['checksum'] = package['md5sum']
                 for t in nvrea_keys:
                     nevra[t] = package[t] or ""
 
@@ -885,14 +888,13 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 else:
                     nevra['org_id'] = package['org_id']
 
-                params = nevra.copy()
-                params['checksum_type'] = nevra['checksum'][0]
-                params['checksum'] = nevra['checksum'][1]
-                apply(h.execute, (), params)
+                apply(h.execute, (), nevra)
                 row = h.fetchone_dict()
                 # Update the progress bar
                 pb.addTo(1)
                 pb.printIncrement()
+                # make checksum tuple (type, string)
+                package['checksum'] = (package['checksum_type'], package['checksum'])
                 self._process_package(pid, package, l_timestamp, row,
                     m_channel_packages, m_fs_packages, source=0)
             pb.printComplete()
