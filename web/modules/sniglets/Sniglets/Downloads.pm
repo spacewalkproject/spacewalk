@@ -32,7 +32,6 @@ sub register_tags {
   my $pxt = shift;
 
   $pxt->register_tag('rhn-ftp-download', \&ftp_download, 4);
-  $pxt->register_tag('rhn-download-package', \&download_package, 1);
 }
 
 # non-tag access to RHN download links
@@ -41,32 +40,6 @@ sub rhn_download_url {
   my %params = validate(@_, { pxt => 1, path => 1, label => 1, location => { default => "local" }});
 
   return ftp_download($params{pxt}, (-location => $params{location}, -path => $params{path}, __block__ => $params{label}));
-}
-
-sub download_package {
-  my $pxt = shift;
-  my %params = validate(@_, { channel => 1, name => 1, __block__ => 1 });
-
-  my $cid = RHN::Channel->channel_id_by_label($params{channel});
-  my $channel = RHN::Channel->lookup(-id => $cid);
-
-  my @pkg_ids = map { $channel->latest_package_by_name($_) } split /,\s*/, $params{name};
-
-  my $ret;
-  my $expires = time + PXT::Config->get('download_url_lifetime');
-
-  for my $pkg_id (@pkg_ids) {
-    my $pkg = RHN::Package->lookup(-id => $pkg_id);
-    my $user_id = $pxt->user ? $pxt->user->id : 0;
-    my $uri = RHN::TokenGen::Generator->generate_url($user_id, 0, $pkg->path, "/download", "local", $expires, $pxt->ssl_available);
-	
-    my $copy = $params{__block__};
-    $ret .= PXT::Utils->perform_substitutions($copy,
-					      { nvre => PXT::HTML->link($uri, join(".", $pkg->nvre, $pkg->arch_label, "rpm")),
-						channel => $channel->name, md5sum => $pkg->md5sum });
-  }
-
-  return $ret;
 }
 
 sub ftp_download {
