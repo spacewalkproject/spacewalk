@@ -8,7 +8,7 @@ Summary:        Red Hat Network Monitoring Daemon
 Name:           rhnmd
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:        5.3.3
+Version:        5.3.4
 Release:        1%{?dist}
 License:        GPLv2
 BuildArch:      noarch
@@ -87,6 +87,15 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Dec 16 2009 Miroslav Suchý <msuchy@redhat.com> 5.3.4-1
+- 538057 - fix typo
+- 538057 - use proper text indention. The content of tags like Name, Version, ... usually starts at 17 characters
+- 538057 - move %%preun before %%clean and %%files
+- 538057 - do not use wildcards
+- 538057 - preserve timestamp of the source files
+- 538057 - %%{_initrddir} is considered deprecated on Fedora, but still needed on RHEL
+- 538057 - Use %%global instead of %%define
+
 * Mon Nov  2 2009 Miroslav Suchý <msuchy@redhat.com> 5.3.3-1
 - make rhnmd package noarch
 
