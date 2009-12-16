@@ -141,6 +141,9 @@ public class ServerConfigHandler extends BaseHandler {
      *      #prop_desc("string","macro-end-delimiter",
      *                   "Config file macro end delimiter. Use null or empty string  
      *              to accept the default. (ignored if working with a directory)")
+     *      #prop_desc("string","selinux_ctx",
+     *                   "SeLinux context (optional)")
+     *
      *  #struct_end()
      * @xmlrpc.param #param("int","commitToLocal")
      *      #options()

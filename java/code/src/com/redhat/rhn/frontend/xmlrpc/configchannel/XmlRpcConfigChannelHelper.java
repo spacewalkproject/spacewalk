@@ -139,7 +139,10 @@ public class XmlRpcConfigChannelHelper {
         form.setOwner((String)data.get(ConfigRevisionSerializer.OWNER));
         form.setGroup((String)data.get(ConfigRevisionSerializer.GROUP));
         form.setPermissions((String)data.get(ConfigRevisionSerializer.PERMISSIONS));
-        form.setSelinuxCtx((String)data.get(ConfigRevisionSerializer.SELINUX_CTX));
+        String selinux = (String)data.get(ConfigRevisionSerializer.SELINUX_CTX);
+        form.setSelinuxCtx(selinux == null ? "" : selinux);
+
+
 
         ConfigFileBuilder helper = ConfigFileBuilder.getInstance();
         try {
