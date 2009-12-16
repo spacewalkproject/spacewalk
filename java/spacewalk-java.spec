@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.2
+Version: 0.8.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -283,6 +283,19 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Dec 16 2009 Tomas Lestach <tlestach@redhat.com> 0.8.3-1
+- modifying spacewalk-java build propetries to enable f12 builds
+  (tlestach@redhat.com)
+- Remove the spacewalk-moon (sub)package as it is not used anywhere.
+  (jpazdziora@redhat.com)
+- correcting the action that the POST check was done for errata add package
+  (jsherril@redhat.com)
+- adding post checking to a couple of pages (jsherril@redhat.com)
+- 545995 - adding package signing key to the package details page
+  (jsherril@redhat.com)
+- The email.verify.body trans-unit is not used anywhere, removing as dead text.
+  (jpazdziora@redhat.com)
+
 * Thu Dec 10 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.2-1
 - fixed support for SHA256 rpms
 
