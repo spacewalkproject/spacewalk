@@ -65,8 +65,12 @@
              regexp tyrex jmock jmock-cglib strutstest gsbase jfreechart jmap 
              postgresql-jdbc" />
 
+  <condition property="ant-contrib.path" value="ant/ant-contrib" else="ant-contrib">
+      <available file="/usr/share/java/ant/ant-contrib.jar"/>
+  </condition>
+
   <property name="build.jar.dependencies"
-      value="ant ant-junit ant-contrib antlr 
+      value="ant ant-junit ${ant-contrib.path} antlr
       ${common.jar.dependencies} tanukiwrapper jasper5-compiler jasper5-runtime
        concurrent" />
 
@@ -82,7 +86,7 @@
              regexp tyrex jmock jmock-cglib strutstest gsbase" / -->
 
   <property name="install.build.jar.dependencies"
-      value="ant ant/ant-junit ant-contrib antlr
+      value="ant ant/ant-junit ${ant-contrib.path} antlr
       ${install.common.jar.dependencies} tanukiwrapper" />
 
   <property name="install.run.jar.dependencies"
