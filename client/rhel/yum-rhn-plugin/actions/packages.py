@@ -384,11 +384,11 @@ def _run_yum_action(command):
 
 # The following functions are the same as the old up2date ones.
 
-# Check if the locally installed package list changed, if
-# needed the list is updated on the server
-# In case of error avoid pushing data to stay safe
-#
 def checkNeedUpdate(rhnsd=None):
+    """ Check if the locally installed package list changed, if
+        needed the list is updated on the server
+        In case of error avoid pushing data to stay safe
+    """
     data = {}
     dbpath = "/var/lib/rpm"
     cfg = config.initUp2dateConfig()
@@ -421,8 +421,8 @@ def checkNeedUpdate(rhnsd=None):
     # from rhnsd
     return refresh_list(rhnsd=1)
    
-# push again the list of rpm packages to the server
 def refresh_list(rhnsd=None):
+    """ push again the list of rpm packages to the server """
     log.log_debug("Called refresh_rpmlist")
 
     ret = None
