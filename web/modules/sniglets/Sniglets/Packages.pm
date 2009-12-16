@@ -42,7 +42,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-unknown-package-nvre' => \&unknown_package_nvre);
 
-  $pxt->register_tag('rhn-download-package-list' => \&download_package_list);
   $pxt->register_tag('rhn-must-select-archs', \&must_select_archs, 2);
   $pxt->register_tag('rhn-upload-answerfile-form' => \&upload_answerfile_form);
 
@@ -103,69 +102,6 @@ sub must_select_archs {
   return $hidden_vals unless $pxt->pnotes('must_select_archs');
 
   return $params{__block__} . $hidden_vals;
-}
-
-sub download_package_list {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $package_set = RHN::Set->lookup(-label => 'package_downloadable_list', -uid => $pxt->user->id);
-  my $cid = $pxt->param('cid');
-
-  my @available_pkg_arches = RHN::Package->available_package_arches($pxt->user->org_id, $package_set, $cid);
-
-  my $hidden_vals = '';
-  my $block = $params{__block__};
-  my $ret = '';
-
-  my $counter = 0;
-  my $prefix = "/pub/";
-
-  my @files;
-  foreach my $package_info (@available_pkg_arches) {
-    my $num_arches = @{$package_info->[1]};
-    my $current = '';
-
-    if ($num_arches > 1) {
-      $current = $block;
-
-      if ($counter % 2) {
-	$current =~ s/{color}/#eeeeee/gism;
-      } else {
-	$current =~ s/{color}/white/gism;
-      }
-
-      $current =~ s/\{package_nvre\}/$package_info->[0]/ism;
-      my $checkboxes = '';
-      my @checkboxes;
-      foreach my $arch_pkg (@{$package_info->[1]}) {
-	next unless $arch_pkg->[2];
-	push @files, "$prefix$arch_pkg->[2]";
-	push @checkboxes, "<input type=\"checkbox\" name=\"filename\" value=\"$prefix$arch_pkg->[2]\" />&#160;$arch_pkg->[1]";
-	$checkboxes[-1] .= PXT::HTML->hidden(-name => "filename_full", -value => $prefix . $arch_pkg->[2]);
-      }
-      $checkboxes = join (" &#160;&#160; ", @checkboxes);
-      $current =~ s/\{package_checkboxes\}/$checkboxes/ism;
-
-      $counter++;
-    }
-    else {
-      if ($package_info->[1]->[0]->[2]) {
-	push @files, "$prefix$package_info->[1]->[0]->[2]";
-	$hidden_vals .= "<input type=\"hidden\" name=\"filename\" value=\"$prefix$package_info->[1]->[0]->[2]\" />\n";
-	$hidden_vals .= PXT::HTML->hidden(-name => "filename_full", -value => $prefix . $package_info->[1]->[0]->[2]);
-      }
-    }
-    $ret .= $current;
-  }
-
-  my $computed_md5 = Digest::MD5::md5_hex(join(":", sort @files));
-  $pxt->pnotes('computed_md5' => $computed_md5);
-
-#  return "<pre>Available packages:\n".Data::Dumper->Dump([(@available_pkg_arches)])."</pre>";
-  $pxt->pnotes(must_select_archs => 1) if ($counter > 0);
-  $pxt->pnotes(hidden_vals => $hidden_vals);
-  return $ret;
 }
 
 sub download_packages_cb {
