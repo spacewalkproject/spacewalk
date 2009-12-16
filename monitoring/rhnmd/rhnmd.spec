@@ -82,7 +82,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(700, %{np_name},%{np_name}) %{_var}/lib/%{np_name}/.ssh
 %config(noreplace) %attr(-, %{np_name},%{np_name}) %{_var}/lib/%{np_name}/.ssh/authorized_keys
 %{_usr}/sbin/rhnmd
-%config(noreplace) %{_sysconfdir}/%{np_name}/rhnmd
+%config(noreplace) %{_sysconfdir}/%{np_name}/rhnmd_config
 %{_initddir}/rhnmd
 %doc LICENSE
 
