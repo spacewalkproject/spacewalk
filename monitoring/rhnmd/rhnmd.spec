@@ -1,5 +1,5 @@
-%define np_name nocpulse
-%define identity %{_var}/lib/%{np_name}/.ssh/nocpulse-identity
+%global np_name nocpulse
+%global identity %{_var}/lib/%{np_name}/.ssh/nocpulse-identity
 
 Summary:   Red Hat Network Monitoring Daemon
 Name:      rhnmd
