@@ -30,13 +30,6 @@ sub register_tags {
   $pxt->register_tag('rhn-set-totals' => \&set_totals);
 }
 
-sub register_callbacks {
-  my $class = shift;
-  my $pxt = shift;
-
-  $pxt->register_callback('rhn:clear_set_cb', \&clear_set_cb);
-}
-
 sub set_totals {
   my $pxt = shift;
   my %params = @_;
@@ -63,19 +56,6 @@ sub set_totals {
   }
 
   return $block;
-}
-
-sub clear_set_cb {
-  my $pxt = shift;
-
-  my $set_label = $pxt->pnotes('set_to_clear') || $pxt->dirty_param('selection');
-  my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-
-  throw "No valid set!" unless $set;
-  $set->empty;
-  $set->commit;
-
-  $pxt->redirect($pxt->param('set_clear_redirect') || $pxt->uri);
 }
 
 1;
