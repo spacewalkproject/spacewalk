@@ -1869,4 +1869,27 @@ public class ChannelSoftwareHandler extends BaseHandler {
         return 1;
     }
     
+    /**
+     * Regenerate the yum cache for a specific channel.
+     * @param sessionKey the session key
+     * @param channelLabel the channel label
+     * @return int - 1 on success!
+     *
+     * @xmlrpc.doc Regenerate yum cache for the specified channel.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "the label of the
+     *          channel")
+     * @xmlrpc.returntype  #return_int_success()
+     *
+     */
+    public int regenerateYumCache(String sessionKey, String channelLabel) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        channelAdminPermCheck(loggedInUser);
+        Channel chan = lookupChannelByLabel(loggedInUser, channelLabel);
+        ChannelManager.queueChannelChange(channelLabel,
+                "api: regenerateYumCache", "api called");
+        return 1;
+
+    }
+
 }
