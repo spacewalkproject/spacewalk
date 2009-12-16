@@ -91,7 +91,7 @@ rm -rf $RPM_BUILD_ROOT
 - make rhnmd package noarch
 
 * Fri Apr 10 2009 Miroslav Suchý <msuchy@redhat.com> 5.3.2-1
-- 494538 - remove the dependecy of rhnmd on nocpulse-common
+- 494538 - remove the dependency of rhnmd on nocpulse-common
 
 * Tue Apr  7 2009 Miroslav Suchý <msuchy@redhat.com> 5.3.1-1
 - authorized_keys should be owned by nocpulse
