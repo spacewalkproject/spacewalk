@@ -4,18 +4,18 @@
 %global _initddir %{_sysconfdir}/rc.d/init.d
 %endif
 
-Summary:   Red Hat Network Monitoring Daemon
-Name:      rhnmd
-URL:       https://fedorahosted.org/spacewalk
-Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:   5.3.3
-Release:   1%{?dist}
-License:   GPLv2
-BuildArch: noarch
-Group:     System Environment/Daemons
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-Requires:  openssh-server openssh
-BuildRequires: pam-devel
+Summary:        Red Hat Network Monitoring Daemon
+Name:           rhnmd
+URL:            https://fedorahosted.org/spacewalk
+Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Version:        5.3.3
+Release:        1%{?dist}
+License:        GPLv2
+BuildArch:      noarch
+Group:          System Environment/Daemons
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Requires:       openssh-server openssh
+BuildRequires:  pam-devel
 
 %description
 rhnmd enables secure ssh-based communication between the monitoring
