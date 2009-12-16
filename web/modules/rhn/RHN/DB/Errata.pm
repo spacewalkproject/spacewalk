@@ -1072,12 +1072,6 @@ EOQ
   return @ret;
 }
 
-sub get_advisory_types {
-  my $class = shift;
-
-  return ( [ "Bug Fix Advisory" ], [ "Product Enhancement Advisory" ], [ "Security Advisory" ] );
-}
-
 sub get_product_types {
   my $dbh = RHN::DB->connect;
   my $query = "SELECT DISTINCT(product) FROM rhnErrata";
