@@ -758,34 +758,5 @@ sub profiling_markpoint {
   $last_profile_pt = $now;
 }
 
-package PXT::ApacheHandler::TransHandler;
-use Apache2::Const qw/:common REDIRECT M_GET/;
-
-sub handler {
-  my $r = shift;
-
-  if ($r->uri =~ m(^/download/)) {
-    my $path_info = $r->uri;
-
-    # is this one of those bizarre user agents that mishandles
-    # redirects and keeps growing the request string?  typically seen
-    # from LeechGet (which also sometimes apparently masquerades
-    # itself).  so, check to see if http: or https: occurs three times
-    # in the request and truncate to 512 bytes.
-
-    if ($path_info =~ /https?:.*https?:.*https?/) {
-      Apache->log_error("Detected long download request line; altering logging");
-      $r->the_request(substr($path_info, 0, 256));
-    }
-
-    $path_info =~ s(^/download)();
-    $r->filename($r->document_root . "/download");
-    $r->pnotes(download_path_info => $path_info);
-    return OK;
-  }
-
-  return DECLINED;
-}
-
 1;
 
