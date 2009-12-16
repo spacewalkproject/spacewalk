@@ -42,7 +42,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-unknown-package-nvre' => \&unknown_package_nvre);
 
-  $pxt->register_tag('rhn-must-select-archs', \&must_select_archs, 2);
   $pxt->register_tag('rhn-upload-answerfile-form' => \&upload_answerfile_form);
 
   $pxt->register_tag('rhn-package-raw-pkgmap' => \&raw_pkgmap);
@@ -89,17 +88,6 @@ sub lookup_package_nvre {
   die 'no nvre for given name id and evr id!' unless $nvre;
 
   return $nvre;
-}
-
-sub must_select_archs {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $hidden_vals = $pxt->pnotes('hidden_vals');
-
-  return $hidden_vals unless $pxt->pnotes('must_select_archs');
-
-  return $params{__block__} . $hidden_vals;
 }
 
 sub package_dependencies {
