@@ -43,7 +43,6 @@ sub register_tags {
   $pxt->register_tag('rhn-unknown-package-nvre' => \&unknown_package_nvre);
 
   $pxt->register_tag('rhn-download-package-list' => \&download_package_list);
-  $pxt->register_tag('rhn-download', \&download, 2);
   $pxt->register_tag('rhn-must-select-archs', \&must_select_archs, 2);
   $pxt->register_tag('rhn-upload-answerfile-form' => \&upload_answerfile_form);
 
@@ -105,42 +104,6 @@ sub must_select_archs {
 
   return $params{__block__} . $hidden_vals;
 }
-
-sub download {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-
-  my $url = PXT::Config->get("download_url") || "/cgi-bin/download.pl/rhn-packages.tar";
-
-  my $redirect = $pxt->derelative_url("/network/software/packages/download_complete.pxt");
-
-  $redirect .= "?pxt_trap=rhn%3aclear_set_cb&selection=package_installable_list";
-
-  my $hidden_package_vars = '';
-  my $download_packages = $pxt->pnotes('download_packages');
-  my $optional_packages = $pxt->pnotes('optional_packages');
-
-  $download_packages = [ ] unless (ref $download_packages eq 'ARRAY');
-  $optional_packages = [ ] unless (ref $optional_packages eq 'ARRAY');
-
-  foreach my $file (@{$download_packages}) {
-    $hidden_package_vars .= PXT::HTML->hidden(-name => 'filename', -value => $file);
-  }
-
-  foreach my $file (@{$optional_packages}, @{$download_packages}) {
-    $hidden_package_vars .= PXT::HTML->hidden(-name => 'filename_full', -value => $file);
-  }
-
-  $block =~ s/\{token\}/RHN::SessionSwap->encode_data(time, $pxt->pnotes('computed_md5'))/egi;
-  $block =~ s/\{redirect\}/$redirect/egi;
-  $block =~ s/\{download_url\}/$url/gi;
-  $block =~ s/\{hidden_package_vars\}/$hidden_package_vars/gi;
-
-  return $block;
-}
-
 
 sub download_package_list {
   my $pxt = shift;
