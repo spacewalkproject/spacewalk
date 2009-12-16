@@ -66,6 +66,12 @@ then
 fi
 /sbin/chkconfig --add rhnmd
 
+%preun
+if [ $1 = 0 ]; then
+    /sbin/service rhnmd stop > /dev/null 2>&1
+    /sbin/chkconfig --del rhnmd
+fi
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -79,12 +85,6 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/%{np_name}/rhnmd
 %{_initddir}/rhnmd
 %doc LICENSE
-
-%preun
-if [ $1 = 0 ]; then
-    /sbin/service rhnmd stop > /dev/null 2>&1
-    /sbin/chkconfig --del rhnmd
-fi
 
 %changelog
 * Mon Nov  2 2009 Miroslav Suchý <msuchy@redhat.com> 5.3.3-1
