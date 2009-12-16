@@ -184,6 +184,12 @@ class Registration(rhnHandler):
             log_error("User password check failed", username)
             raise rhnFault(2)
 
+        if rhnUser.is_user_disabled(username):
+            msg = _("""
+                   %s Account has been deactivated on this server.
+                   Please contact your Org administrator for more help.""")
+            raise rhnFault(1, msg % user, explain=0)
+
         return user
 
     def create_system(self, user, profile_name, release_version,
