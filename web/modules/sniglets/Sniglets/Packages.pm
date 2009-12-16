@@ -53,8 +53,6 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:download_packages_cb' => \&download_packages_cb);
-
   $pxt->register_callback('rhn:sscd_confirm_package_upgrades' => \&sscd_confirm_package_upgrades_cb);
   $pxt->register_callback('rhn:sscd_confirm_package_installations' => \&sscd_confirm_package_installations_cb);
   $pxt->register_callback('rhn:sscd_confirm_patch_installations' => \&sscd_confirm_package_installations_cb);
@@ -102,12 +100,6 @@ sub must_select_archs {
   return $hidden_vals unless $pxt->pnotes('must_select_archs');
 
   return $params{__block__} . $hidden_vals;
-}
-
-sub download_packages_cb {
-  my $pxt = shift;
-
-#  $pxt->redirect('/network/packagelist/download_packages.pxt');
 }
 
 sub package_dependencies {
