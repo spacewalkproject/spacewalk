@@ -25,7 +25,7 @@ import popen2
 import select
 import urlparse
 from common import log_debug, log_error
-from spacewalk.common import checksum
+from spacewalk.common.checksum import getFileChecksum
 
 def setHeaderValue(mp_table, name, values):
     """
@@ -296,8 +296,8 @@ def rotateFile(filepath, depth=5, suffix='.', verbosity=0):
     checksum_type = 'md5'       # FIXME: this should be configuation option
     if os.path.exists(pathNSuffix1) and os.path.isfile(pathNSuffix1) \
       and os.stat(filepath)[6] == os.stat(pathNSuffix1)[6] \
-      and checksum.getFileChecksum(checksum_type, filepath) == \
-          checksum.getFileChecksum(checksum_type, pathNSuffix1):
+      and getFileChecksum(checksum_type, filepath) == \
+          getFileChecksum(checksum_type, pathNSuffix1):
         # nothing to do
         if verbosity:
             sys.stderr.write("File '%s' is identical to it's rotation. "

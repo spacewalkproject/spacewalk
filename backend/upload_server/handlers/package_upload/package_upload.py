@@ -25,7 +25,7 @@ from mod_python import apache
 from common import CFG, log_debug, log_error, rhnFault, rhnFlags
 from server import rhnPackageUpload, basePackageUpload
 from server.rhnLib import get_package_path
-from spacewalk.common import checksum
+from spacewalk.common.checksum import getFileChecksum
 
 class PackageUpload(basePackageUpload.BasePackageUpload):
     def headerParserHandler(self, req):
@@ -75,7 +75,7 @@ class PackageUpload(basePackageUpload.BasePackageUpload):
         header, payload_stream, header_start, header_end = \
             rhnPackageUpload.load_package(temp_stream)
         checksum = (header.checksum_type(),
-                    checksum.getFileChecksum(header.checksum_type(), file=temp_stream))
+                    getFileChecksum(header.checksum_type(), file=temp_stream))
         temp_stream.close()
 
         if self.file_checksum != checksum:

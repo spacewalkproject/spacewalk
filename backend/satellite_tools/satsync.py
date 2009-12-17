@@ -31,7 +31,8 @@ from optparse import Option, OptionParser
 # __rhn imports__
 from common import CFG, initCFG, initLOG, Traceback, rhnMail, \
     rhnLib, rhnFlags
-from spacewalk.common import rhn_rpm, checksum
+from spacewalk.common import rhn_rpm
+from spacewalk.common.checksum import getFileChecksum
 
 from server import rhnSQL
 from server.rhnSQL import SQLError, SQLSchemaError, SQLConnectError
@@ -952,7 +953,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
         # Have to check checksum
         l_checksum = (checksum[0],
-                      checksum.getFileChecksum(checksum[0], filename=abs_path))
+                      getFileChecksum(checksum[0], filename=abs_path))
         if l_checksum != checksum:
             # Different checksums
             return (l_checksum, path)

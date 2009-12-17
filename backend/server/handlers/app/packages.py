@@ -35,7 +35,7 @@ from server.importlib.backendOracle import OracleBackend
 from server.importlib.packageUpload import uploadPackages, listChannels, listChannelsSource
 from server.importlib.userAuth import UserAuth
 from server.importlib.errataCache import schedule_errata_cache_update
-from spacewalk.common import checksum
+from spacewalk.common.checksum import getFileChecksum
 
 #12/22/05 wregglej 173287
 #I made a decent number of changes to this file to implement session authentication.
@@ -290,7 +290,7 @@ class Packages(RPC_Base):
             header, org_id=org_id)
 
         checksum = (header.checksum_type(),
-                    checksum.getFileChecksum(header.checksum_type(), file=package_stream))
+                    getFileChecksum(header.checksum_type(), file=package_stream))
         package_dict, diff_level = rhnPackageUpload.push_package(
             header, payload_stream, checksum, org_id=org_id, force=force,
             header_start=header_start, header_end=header_end,

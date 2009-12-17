@@ -19,7 +19,8 @@ import os
 import tempfile
 
 from common import CFG, log_debug, rhnFault, UserDictCase
-from spacewalk.common import rhn_mpm, checksum
+from spacewalk.common import rhn_mpm
+from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhn_rpm import get_header_byte_range
 
 from server import rhnSQL
@@ -314,7 +315,7 @@ def check_package_exists(package_path, package_checksum, force=0):
         return
     # File exists, same checksum?
     checksum = (package_checksum[0],
-                checksum.getFileChecksum(package_checksum[0], package_path))
+                getFileChecksum(package_checksum[0], package_path))
     if package_checksum == checksum and not force:
         raise AlreadyUploadedError(package_path)
     if force:

@@ -31,7 +31,7 @@ from iss_ui import UI
 from iss_actions import ActionDeps
 import shutil
 import iss_isos
-from spacewalk.common import checksum
+from spacewalk.common.checksum import getFileChecksum
 
 class ISSError(Exception):
     def __init__(self, msg, tb):
@@ -1125,7 +1125,7 @@ class ExporterMain:
 		    for file in os.listdir(iso_output):
 		        if self.options.make_isos != "dvds":
 			    if file != "MD5SUM":
-		                md5_val = checksum.getFileChecksum('md5', (os.path.join(iso_output, file)))
+		                md5_val = getFileChecksum('md5', (os.path.join(iso_output, file)))
 			        md5str = "%s  %s\n" % (md5_val, file)
 	                        f.write(md5str)
 	            f.close()

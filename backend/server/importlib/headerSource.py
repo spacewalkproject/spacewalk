@@ -25,7 +25,7 @@ from importLib import File, Dependency, ChangeLog, Channel, \
 from backendLib import gmtime, localtime
 from types import ListType, TupleType, IntType
 from common import log_debug
-from spacewalk.common import checksum
+from spacewalk.common.checksum import getFileChecksum
 
 class rpmPackage(IncompletePackage):
     # Various mappings
@@ -98,7 +98,7 @@ class rpmPackage(IncompletePackage):
             # Strip trailing slashes
             path = "%s/%s" % (sanitizePath(relpath), os.path.basename(f_path))
         checksum = (header.checksum_type(),
-                    checksum.getFileChecksum(header.checksum_type(), file=f_obj))
+                    getFileChecksum(header.checksum_type(), file=f_obj))
         self.populate(header, size, checksum, path, org_id, header_start,
             header_end, channels)
 
