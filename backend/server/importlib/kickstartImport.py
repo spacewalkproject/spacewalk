@@ -27,6 +27,7 @@ class KickstartableTreeImport(Import):
 
         self.kstree_types = {}
         self.ks_install_types = {}
+        self.checksums = {}
 
     def preprocess(self):
         # Processes the batch to a form more suitable for database
@@ -46,11 +47,20 @@ class KickstartableTreeImport(Import):
             ks_install_label = ent['install_type_label']
             ks_install_name = ent['install_type_name']
             self.ks_install_types[ks_install_label] = ks_install_name
+            for f in ent['files']:
+                if 'md5sum' in f:       # old pre-sha256 export
+                    checksum = ('md5', f['md5sum'])
+                else:
+                    checksum = (f['checksum_type'], f['checksum'])
+                f['checksum'] = checksum
+                if checksum not in self.checksums:
+                    self.checksums[checksum] = None
 
     def fix(self):
         self.backend.lookup_kstree_types(self.kstree_types)
         self.backend.lookup_ks_install_types(self.ks_install_types)
         self.backend.lookupChannels(self.channels)
+        self.backend.lookupChecksums(self.checksums)
 
         for ent in self.batch:
             if ent.ignored:
@@ -65,6 +75,9 @@ class KickstartableTreeImport(Import):
             ks_install_label = ent['install_type_label']
             ent['kstree_type'] = self.kstree_types[kstree_type_label]
             ent['install_type'] = self.ks_install_types[ks_install_label]
+            for f in ent['files']:
+                f['checksum_id'] = self.checksums[f['checksum']]
+
 
     def submit(self):
         self.backend.processKickstartTrees(self.batch)

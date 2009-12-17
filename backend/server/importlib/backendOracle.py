@@ -473,11 +473,11 @@ class OracleBackend(Backend):
             fields      = {
                 'kstree_id'         : DBint(),
                 'relative_filename' : DBstring(256),
-                'md5sum'            : DBstring(64),
+                'checksum_id'       : DBint(),
                 'file_size'         : DBint(),
                 'last_modified'     : DBdateTime()
             },
-            pk          = ['kstree_id', 'relative_filename'],
+            pk          = ['kstree_id', 'relative_filename', 'checksum_id'],
             attribute   = 'files',
             map         = {
                 'relative_filename' : 'relative_path',
