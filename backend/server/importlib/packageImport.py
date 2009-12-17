@@ -252,14 +252,17 @@ class PackageImport(ChannelPackageSubscription):
                     self.capabilities[nv] = None
         # Process files too
         fileList = package['files']
+        pkg_checksum_type = package['checksum'][0]
         for f in fileList:
             nv = (f['name'], '')
             del f['name']
             f['capability'] = nv
             if not self.capabilities.has_key(nv):
                 self.capabilities[nv] = None
-            if 'md5' in f:      # old pre-sha256 export
+            if 'md5' in f:              # old pre-sha256 export
                 fchecksum = ('md5', f['md5'])
+            elif 'filedigest' in f:     # import via spacewalk-repo-sync
+                fchecksum = (pkg_checksum_type, f['filedigest'])
             else:
                 fchecksum = (f['checksum_type'], f['checksum'])
             f['checksum'] = fchecksum
