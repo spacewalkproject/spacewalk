@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.12
+Version: 0.8.13
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -593,6 +593,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Dec 17 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.13-1
+- fixed kickastart import for sha256 exports
+- 528833 - fixed using an activation key of a disabled user
+
 * Wed Dec 16 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.12-1
 - fixed satellite-sync of pre-sha256 exports
 
