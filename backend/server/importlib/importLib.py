@@ -233,7 +233,7 @@ class File(Item):
         'rdev'              : IntType,
         'file_size'         : IntType,
         'mtime'             : DateType,
-        'md5'               : StringType,
+        'filedigest'        : StringType,
         'linkto'            : StringType,
         'flags'             : IntType,
         'verifyflags'       : IntType,
