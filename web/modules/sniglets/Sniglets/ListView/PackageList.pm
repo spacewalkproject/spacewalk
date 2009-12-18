@@ -310,9 +310,6 @@ sub default_callback {
   elsif ($label eq 'remove_patches_from_channel') {
     return remove_patches_from_channel_cb($pxt);
   }
-  elsif ($label eq 'add_packages_to_channel') {
-    return add_packages_to_channel_cb($pxt);
-  }
   elsif ($label eq 'add_patches_to_channel') {
     return add_patches_to_channel_cb($pxt);
   }
@@ -2214,40 +2211,6 @@ sub remove_patches_from_channel_cb {
 
   $pxt->push_message(site_info => sprintf("<strong>%d</strong> patch%s removed from channel <strong>%s</strong>.",
 					  $count, $count == 1 ? '' : 'es',
-					  $channel->name));
-
-  return 1;
-}
-
-sub add_packages_to_channel_cb {
-  my $pxt = shift;
-
-  my $set_label = $pxt->dirty_param('set_label');
-  throw "No package set label" unless $set_label;
-
-  my $cid = $pxt->param('cid');
-  my $channel = RHN::Channel->lookup(-id => $cid);
-
-  $channel->add_packages_in_set(-set_label => $set_label, -user_id => $pxt->user->id);
-
-  my $package_set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-
-  my $count = scalar $package_set->contents;
-
-  $package_set->empty;
-  $package_set->commit;
-
-  RHN::Channel->refresh_newest_package_cache($channel->id, 'web.channel_manager');
-  RHN::ChannelEditor->schedule_errata_cache_update($pxt->user->org_id, $channel->id, 3600);
-
-  if (RHN::Channel->channel_type_capable($channel->id, 'errata')) {
-    my $package_list_edited = $pxt->session->get('package_list_edited') || { };
-    $package_list_edited->{$channel->id} = time;
-    $pxt->session->set(package_list_edited => $package_list_edited);
-  }
-
-  $pxt->push_message(site_info => sprintf("<strong>%d</strong> package%s added to channel <strong>%s</strong>.",
-					  $count, $count == 1 ? '' : 's',
 					  $channel->name));
 
   return 1;
