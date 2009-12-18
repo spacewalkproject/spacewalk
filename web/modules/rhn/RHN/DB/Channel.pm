@@ -1486,42 +1486,6 @@ EOQ
   return %ret;
 }
 
-# If a package from the incoming list exists in a channel, the version
-# in the channel must be greater than or equal to the version of the
-# incoming package.  If not, return true.
-sub has_latest_packages {
-  my $class = shift;
-  my $cid = shift;
-  my @pids = @_;
-
-  my $dbh = RHN::DB->connect;
-  my @newer;
-
-  foreach my $pid (@pids) {
-    my $query =<<EOQ;
-SELECT 1
-  FROM rhnPackage P1, rhnPackageEVR PE1, rhnChannelNewestPackage CNP, rhnPackageEVR PE2
- WHERE P1.id = :package_id
-   AND CNP.channel_id = :channel_id
-   AND P1.name_id = CNP.name_id
-   AND P1.package_arch_id = CNP.package_arch_id
-   AND PE1.id = P1.evr_id
-   AND PE2.id = CNP.evr_id
-   AND rpm.vercmp(PE1.epoch, PE1.version, PE1.release, PE2.epoch, PE2.version, PE2.release) > 0
-EOQ
-
-    my $sth = $dbh->prepare($query);
-    $sth->execute_h(package_id => $pid, channel_id => $cid);
-
-    my ($pid_newer) = $sth->fetchrow || 0;
-    $sth->finish;
-
-    push @newer, $pid if $pid_newer;
-  }
-
-  return (@newer) ? 0 : 1;
-}
-
 sub remove_packages_in_set {
   my $self = shift;
   my %attr = validate_with(params => \@_, spec => { set_label => 1, user_id => 1 }, strip_leading => '-');
