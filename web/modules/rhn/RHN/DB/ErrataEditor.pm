@@ -27,38 +27,6 @@ use RHN::Exception qw/throw/;
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
 
-sub packages_in_errata {
-  my $class = shift;
-  my $eid = shift;
-  my $temp = shift || 0;
-
-  die "No errata id!" unless $eid;
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-  my $sth;
-
-  my $table = $temp ? 'rhnErrataPackageTmp' : 'rhnErrataPackage';
-
-  $query = <<EOS;
-  SELECT DISTINCT EP.package_id
-    FROM $table EP
-   WHERE EP.errata_id = ?
-EOS
-
-  $sth = $dbh->prepare($query);
-
-  $sth->execute($eid);
-
-  my @result;
-
-  while (my ($pid) = $sth->fetchrow) {
-    push @result, $pid;
-  }
-
-  return @result;
-}
-
 sub publish_errata {
   my $class = shift;
   my $temp_errata = shift;
