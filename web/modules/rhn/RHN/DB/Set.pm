@@ -70,10 +70,6 @@ sub contains {
   return exists $self->{contents}->{$val};
 }
 
-sub element_count {
-  return scalar keys %{$_[0]->{contents}};
-}
-
 sub empty {
   $_[0]->{contents} = { };
 }
