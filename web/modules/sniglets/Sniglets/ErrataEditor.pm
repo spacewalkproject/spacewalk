@@ -38,7 +38,6 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:errata_editor:delete_bug' => \&delete_bug);
   $pxt->register_callback('rhn:errata_editor:mail_notification_cb' => \&mail_notification_cb);
   $pxt->register_callback('rhn:update_errata_cache' => \&update_errata_cache);
   $pxt->register_callback('rhn:clone_specified_errata_cb' => \&clone_specified_errata_cb);
@@ -130,27 +129,6 @@ sub if_errata_package_list_modified {
   }
 
   return '';
-}
-
-sub delete_bug {
-  my $pxt = shift;
-
-  my $eid = $pxt->param('eid') || 0;
-  my $bug_id = $pxt->dirty_param('bug_id') || 0;
-
-  return unless ($eid && $bug_id);
-
-  throw "user '" . $pxt->user->id . "' does not own errata '$eid'"
-    unless $pxt->user->verify_errata_admin($eid);
-
-  my $errata;
-
-  $errata = RHN::ErrataTmp->lookup_managed_errata(-id => $eid);
-
-  $errata->delete_bug($bug_id);
-
-  $pxt->redirect($pxt->uri . sprintf('?eid=%d', $eid));
-  return;
 }
 
 sub mail_notification_cb {
