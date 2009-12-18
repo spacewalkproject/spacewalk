@@ -423,21 +423,5 @@ sub find_clones_of_errata {
   return $data;
 }
 
-sub delete_errata {
-  my $class = shift;
-  my $eid = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth;
-
-  my $errata = RHN::ErrataTmp->lookup_managed_errata(-id => $eid);
-
-  die "Attempt to delete RHN errata '$eid'" unless $errata->org_id;
-
-  $dbh->call_procedure('delete_errata', $eid);
-
-  $dbh->commit;
-}
-
 1;
 
