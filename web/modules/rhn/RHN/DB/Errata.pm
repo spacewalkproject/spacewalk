@@ -475,28 +475,6 @@ EOQ
   return;
 }
 
-sub delete_bug {
-  my $self = shift;
-  my $id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $bl_table = $self->table_map('rhnErrataBugList');
-
-  my $query = <<EOQ;
-DELETE FROM $bl_table
- WHERE errata_id = ?
-   AND bug_id = ?
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->id, $id);
-
-  $dbh->commit;
-
-  return;
-}
-
 sub keywords {
   my $self = shift;
   my $dbh = RHN::DB->connect;
