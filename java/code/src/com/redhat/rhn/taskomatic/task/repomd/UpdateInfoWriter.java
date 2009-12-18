@@ -179,7 +179,7 @@ public class UpdateInfoWriter extends RepomdWriter {
                         pkg.getFilename()));
 
                 attr.clear();
-                attr.addAttribute("type", "md5");
+                attr.addAttribute("type", sanitize(pkgId, pkg.getChecksum().getChecksumType().getLabel()));
                 handler.startElement("sum", attr);
                 handler.addCharacters(sanitize(pkgId, pkg.getChecksum().getChecksum()));
                 handler.endElement("sum");

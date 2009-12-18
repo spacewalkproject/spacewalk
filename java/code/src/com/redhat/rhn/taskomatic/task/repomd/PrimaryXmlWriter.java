@@ -183,7 +183,7 @@ public class PrimaryXmlWriter extends RepomdWriter {
         handler.endElement("version");
 
         attr.clear();
-        attr.addAttribute("type", "md5");
+        attr.addAttribute("type", sanitize(pkgId, pkgDto.getChecksumType()));
         attr.addAttribute("pkgid", "YES");
         handler.startElement("checksum", attr);
         handler.addCharacters(sanitize(pkgId, pkgDto.getChecksum()));

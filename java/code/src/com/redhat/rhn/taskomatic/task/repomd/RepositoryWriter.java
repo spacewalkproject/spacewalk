@@ -108,13 +108,19 @@ public class RepositoryWriter {
         
         log.info("Checksum Type Value" + this.checksumtype);
 
+        // available digests:  MD2, MD5, SHA-1, SHA-256, SHA-384, SHA-512
+        String checksum_algo = this.checksumtype;
+        if (checksum_algo.toUpperCase().startsWith("SHA")) {
+            checksum_algo = this.checksumtype.substring(0, 3) + "-" + this.checksumtype.substring(3);
+        }
+
         try {
             primaryFile = new CompressingDigestOutputWriter(
-                    new FileOutputStream(prefix + PRIMARY_FILE), this.checksumtype);
+                    new FileOutputStream(prefix + PRIMARY_FILE), checksum_algo);
             filelistsFile = new CompressingDigestOutputWriter(
-                    new FileOutputStream(prefix + FILELISTS_FILE), this.checksumtype);
+                    new FileOutputStream(prefix + FILELISTS_FILE), checksum_algo);
             otherFile = new CompressingDigestOutputWriter(new FileOutputStream(
-                    prefix + OTHER_FILE), this.checksumtype);
+                    prefix + OTHER_FILE), checksum_algo);
         }
         catch (IOException e) {
             throw new RepomdRuntimeException(e);
@@ -181,9 +187,9 @@ public class RepositoryWriter {
                 '"');
         log.info("Checksum Type Value for generate updateinfo" + this.checksumtype);
         RepomdIndexData updateinfoData = generateUpdateinfo(channel, prefix, 
-                this.checksumtype);
+                checksum_algo);
 
-        RepomdIndexData groupsData = loadCompsFile(channel);
+        RepomdIndexData groupsData = loadCompsFile(channel, checksum_algo);
         
         //Set the type so yum can read and perform checksum
         primaryData.setType(this.checksumtype);
@@ -234,9 +240,10 @@ public class RepositoryWriter {
     /**
      * 
      * @param channel channel indo
+     * @param checksumAlgo checksum algorithm
      * @return repomd index for given channel
      */
-    private RepomdIndexData loadCompsFile(Channel channel) {
+    private RepomdIndexData loadCompsFile(Channel channel, String checksumAlgo) {
         String relativeFilename;
         String compsMount = Config.get().getString(ConfigDefaults.MOUNT_POINT);
  
@@ -262,7 +269,7 @@ public class RepositoryWriter {
         DigestInputStream digestStream;
         try {
             digestStream = new DigestInputStream(stream, MessageDigest
-                    .getInstance(this.checksumtype));
+                    .getInstance(checksumAlgo));
         }
         catch (NoSuchAlgorithmException nsae) {
             throw new RepomdRuntimeException(nsae);
