@@ -301,23 +301,6 @@ sub default_callback {
   elsif ($label eq 'package_remove_remote_command') {
     return package_remove_remote_command_cb($pxt);
   }
-  elsif ($label eq 'download_system_packages') {
-    my $set_label = $pxt->dirty_param('set_label');
-    my $package_set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-    my $download_set = RHN::Set->lookup(-label => 'package_downloadable_list', -uid => $pxt->user->id);
-
-    $download_set->empty;
-    $download_set->add($package_set->contents);
-    $download_set->commit;
-
-    if ($download_set->element_count > PXT::Config->get('download_tarball_max')) {
-      $pxt->push_message(site_info =>sprintf("At most %d packages may be downloaded as a tarball at one time; please reduce your selection size",
-					     PXT::Config->get('download_tarball_max')));
-      return 0;
-    }
-
-    return 1;
-  }
   elsif ($label eq 'download_packages') {
     my $set_label = $pxt->dirty_param('list_set_label');
     my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
@@ -352,9 +335,6 @@ sub default_callback {
   }
   elsif ($label eq 'add_packages_to_errata') {
     return add_packages_to_errata_cb($pxt);
-  }
-  elsif ($label eq 'download_system_packages') {
-    return package_download_for_system_cb($pxt);
   }
   elsif ($label eq 'sync_packages_to_channel') {
     return sync_packages_to_channel_cb($pxt);
@@ -1207,35 +1187,6 @@ sub package_download_for_system_arch_select_provider {
   return (data => $data,
 	  all_ids => $all_ids,
 	  alphabar => $alphabar);
-}
-
-sub package_download_for_system_cb {
-  my $pxt = shift;
-  my $set_label = shift || 'downloadable_package_list';
-
-  my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-  my @files = $pxt->dirty_param('download_packages');
-  my @optional_files = $pxt->dirty_param('optional_pacakges');
-
-  my @selected_pids = $set->contents;
-  my @selected_files;
-  my $prefix = '/pub/';
-
-  foreach my $pid (@selected_pids) {
-    my $package = RHN::Package->lookup(-id => $pid);
-    push @selected_files, $prefix . $package->path;
-  }
-
-  my $all_files = join("&", (map { 'filename_full=' . PXT::Utils->escapeURI($_) } @files, @optional_files));
-  my $selected_files = join("&", (map { 'filename=' . PXT::Utils->escapeURI($_) } @files, @selected_files));
-
-  my $token = $pxt->dirty_param('token');
-
-  my $vars = sprintf('token=%s&%s&%s', $token, $all_files, $selected_files);
-
-  my $uri = '/cgi-bin/download.pl?' . $vars;
-
-  $pxt->redirect($uri);
 }
 
 sub delete_packages_cb {
