@@ -39,7 +39,6 @@ sub register_callbacks {
   my $pxt = shift;
 
   $pxt->register_callback('rhn:update_errata_cache' => \&update_errata_cache);
-  $pxt->register_callback('rhn:delete_errata_cb' => \&delete_errata_cb);
 }
 
 sub update_errata_cache {
@@ -127,19 +126,6 @@ sub if_errata_package_list_modified {
   }
 
   return '';
-}
-
-sub delete_errata_cb {
-  my $pxt = shift;
-  my $eid = $pxt->param('eid');
-
-  my $errata = RHN::ErrataTmp->lookup_managed_errata(-id => $eid);
-  my $advisory = $errata->advisory;
-
-  RHN::ErrataEditor->delete_errata($eid);
-
-  $pxt->push_message(site_info => "Deleted errata <strong>$advisory</strong>.");
-  $pxt->redirect('/network/errata/manage/list/published.pxt');
 }
 
 1;
