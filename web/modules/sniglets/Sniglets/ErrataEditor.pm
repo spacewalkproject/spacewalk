@@ -39,7 +39,6 @@ sub register_callbacks {
   my $pxt = shift;
 
   $pxt->register_callback('rhn:update_errata_cache' => \&update_errata_cache);
-  $pxt->register_callback('rhn:clone_specified_errata_cb' => \&clone_specified_errata_cb);
   $pxt->register_callback('rhn:delete_errata_cb' => \&delete_errata_cb);
 }
 
@@ -128,26 +127,6 @@ sub if_errata_package_list_modified {
   }
 
   return '';
-}
-
-sub clone_specified_errata_cb {
-  my $pxt = shift;
-  my $eid = $pxt->param('eid');
-
-  throw "No eid" unless $eid;
-
-  my $set_label = 'clone_errata_list';
-  my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-  $set->empty;
-  $set->add($eid);
-  $set->commit;
-
-  my $redir = $pxt->dirty_param('redir');
-  throw "param redir needed" unless $redir;
-
-  $pxt->redirect($redir . "?set_label=${set_label}");
-
-  return;
 }
 
 sub delete_errata_cb {
