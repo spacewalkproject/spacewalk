@@ -204,6 +204,22 @@ class YumAction(yum.YumBase):
             return ()
 
     def add_transaction_data(self, transaction_data):
+        """ Add packages to transaction. 
+            transaction_data is in format:
+            { 'packages' : [
+                [['name', '1.0.0', '1', '', ''], 'e'], ...
+                # name,    versio, rel., epoch, arch,   flag
+            ]}
+            where flag can be:
+                i - install
+                u - update
+                e - remove
+                r - rollback
+            Note: install and update will check for dependecies and
+            obsoletes and will install them if needed.
+            Rollback do not check anything and will assume that state
+            to which we are rolling back should be correct.
+        """
         for pkgtup, action in transaction_data['packages']:
             pkgkeys = {
                     'name' : pkgtup[0],
@@ -215,10 +231,19 @@ class YumAction(yum.YumBase):
                 pkgkeys['arch'] = pkgtup[4]
             else:
                 pkgtup.append('')
+                pkgkeys['arch'] = None
             if action == 'u':
                 self.update(**pkgkeys)
             elif action == 'i':
                 self.install(**pkgkeys)
+            elif action == 'r':
+                # we are doing rollback, we want exact version
+                # no dependecy check
+                pkgs = self.pkgSack.searchNevra(name=pkgkeys['name'],
+                     epoch=pkgkeys['epoch'], arch=pkgkeys['arch'],
+                     ver=pkgkeys['version'], rel=pkgkeys['release'])
+                for po in pkgs:
+                     self.tsInfo.addInstall(po)
             elif action == 'e':
                 package_tup = _yum_package_tup(pkgtup)
                 packages = self.getInstalledPkgObject(package_tup)
@@ -256,7 +281,7 @@ def remove(package_list):
 
     transaction_data = __make_transaction(package_list, 'e')
     
-    return runTransaction(transaction_data)
+    return _runTransaction(transaction_data)
 
 def update(package_list):        
     """We have been told that we should retrieve/install packages"""
@@ -268,11 +293,11 @@ def update(package_list):
   
     transaction_data = __make_transaction(package_list, 'i')
    
-    return runTransaction(transaction_data)
+    return _runTransaction(transaction_data)
 
 def __make_transaction(package_list, action):
     """
-    Build transaction Data like runTransaction would expect.
+    Build transaction Data like _runTransaction would expect.
     This is a list of ((n,v,r,e,a), m) where m is either e, i, or u
     """
 
@@ -297,11 +322,22 @@ class RunTransactionCommand:
     def execute(self, yum_base):
         yum_base.add_transaction_data(self.transaction_data)
 
-def runTransaction(transaction_data):
+def _runTransaction(transaction_data)
     """ Run a tranaction on a group of packages. """
-
     command = RunTransactionCommand(transaction_data)
     return _run_yum_action(command)
+
+def runTransaction(transaction_data):
+    """ Run a transaction on a group of packages. 
+        This was historicaly meant as generic call, but
+        is only called for rollback. 
+        Therefore we change all actions "i" (install) to 
+        "r" (rollback) where we will not check dependencies and obsoletes.
+    """
+    for index, data in enumerate(transaction_data['packages']):
+        if data[1] == 'i':
+            transaction_data['packages'][index][1] = 'r'
+    return _runTransaction(transaction_data)
 
 class FullUpdateCommand:
 
