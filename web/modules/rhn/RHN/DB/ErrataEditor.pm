@@ -153,66 +153,6 @@ EOQ
   return ($new_eid);
 }
 
-#remove all packages from errata, and replace with contents of set.
-#Caller is responsible for making sure the user is allowed to do this
-sub replace_errata_packages {
-  my $class = shift;
-  my $errata = shift;
-  my $set = shift;
-
-  die "No errata" unless $errata;
-
-  my $eid = $errata->id;
-
-  my $eptable = $errata->table_map('rhnErrataPackage');
-
-  my $query = <<EOQ;
-DELETE FROM $eptable
- WHERE errata_id = ?
-EOQ
-
-  my $dbh = RHN::DB->connect();
-  $dbh->nest_transactions;
-  my $sth = $dbh->prepare($query);
-
-  $sth->execute($eid);
-
-  $query = <<EOQ;
-SELECT element
-  FROM rhnSet
- WHERE label = :label
-   AND user_id = :uid
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  $sth->execute_h(label => $set->label, user_id => $set->uid);
-  my @pids;
-
-  while (my ($pid) = $sth->fetchrow) {
-    push @pids, $pid;
-  }
-
-  $query = <<EOQ;
-INSERT
-  INTO $eptable
-       (errata_id, package_id)
-VALUES (:eid, :pid)
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  foreach my $pid (@pids) {
-    $sth->execute_h(eid => $eid, pid => $pid);
-  }
-
-  $errata->refresh_erratafiles();
-
-  $dbh->nested_commit;
-
-  return 1;
-}
-
 sub find_next_advisory {
   my $adv = shift || '';
   my $adv_name = shift || '';
