@@ -87,24 +87,6 @@ sub unless_var {
 
 }
 
-sub load_package_set {
-  my $uid = shift;
-  my $eid = shift;
-
-  my $set = RHN::Set->lookup(-label => 'errata_package_list', -uid => $uid);
-  $set->empty;
-  $set->commit;
-
-  my @packages_in_errata =
-    RHN::ErrataEditor->packages_in_errata($eid);
-
-  $set->add(@packages_in_errata);
-
-  $set->commit;
-
-  return 1;
-}
-
 sub if_errata_package_list_modified {
   my $pxt = shift;
   my %params = @_;
