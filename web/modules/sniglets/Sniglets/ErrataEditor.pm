@@ -39,7 +39,6 @@ sub register_callbacks {
   my $pxt = shift;
 
   $pxt->register_callback('rhn:errata_editor:errata_publish_cb' => \&errata_publish_cb);
-  $pxt->register_callback('rhn:errata_editor:verify_errata_packages_in_channels' => \&verify_errata_packages_in_channels);
   $pxt->register_callback('rhn:errata_editor:select_channels_cb' => \&select_channels_cb);
   $pxt->register_callback('rhn:errata_editor:errata_delete_cb' => \&errata_delete_cb);
   $pxt->register_callback('rhn:errata_editor:delete_bug' => \&delete_bug);
@@ -120,97 +119,6 @@ sub errata_publish_cb {
   throw "param 'success_redirect' needed but not provided" unless $redir;
 
   $pxt->redirect($redir);
-
-  return;
-}
-
-# The flow: If the errata is being published to a channel for which
-# the user is an admin, and the errata has packages which are newer
-# than packages in the channel, then ask the user if he wants to push
-# the newer versions into that channel.  Else, just publish the errata.
-sub verify_errata_packages_in_channels {
-  my $pxt = shift;
-
-  my $eid = $pxt->param('eid') || 0;
-  throw 'No eid!' unless $eid;
-
-  throw "user '" . $pxt->user->id . "' does not own errata '$eid'"
-    unless $pxt->user->verify_errata_admin($eid);
-
-  my $errata = RHN::ErrataTmp->lookup_managed_errata(-id => $eid);
-
-  my @channels = ();
-
-  foreach my $param ($pxt->param()) {
-    next unless $param =~ /^channel_/;
-    push @channels, $pxt->dirty_param($param);
-  }
-
-  my $target_set = RHN::Set->lookup(-label => 'target_channels_list', -uid => $pxt->user->id);
-  $target_set->empty;
-  $target_set->add(@channels);
-  $target_set->commit;
-
-  my $action_type;
-  if ($pxt->dirty_param('publish_errata')) {
-    $action_type = 'publish_errata';
-  }
-  elsif ($pxt->dirty_param('update_channels')) {
-    $action_type = 'update_channels';
-  }
-  else {
-    throw "The action type parameter is missing.  It should have been preserved."
-  }
-
-  my @updates_needed;
-
-  foreach my $cid (@channels) {
-    die "User '" . $pxt->user->id . "' does not have permission to publish errata '$eid' to channel '$cid'"
-      unless $pxt->user->verify_channel_admin($cid);
-
-    push @updates_needed, $cid
-      unless RHN::Channel->has_latest_packages($cid, $errata->packages);
-  }
-
-  if (@updates_needed) {
-    my $cid = pop @updates_needed;
-
-    my $package_set = RHN::Set->lookup(-label => 'update_package_list', -uid => $pxt->user->id);
-    $package_set->empty;
-
-    my $eid_cloned_from = $errata->cloned_from;
-    my $cid_cloned_from = RHN::Channel->channel_cloned_from($cid);
-
-    if ($eid_cloned_from and $cid_cloned_from
-	and RHN::Channel->is_errata_for_channel($eid_cloned_from, $cid_cloned_from)) {
-      my $ds = new RHN::DataSource::Package(-mode => 'channel_errata_full_intersection');
-      my $data = $ds->execute_full(-eid => $eid_cloned_from, -cid => $cid_cloned_from);
-
-      if (@{$data}) {
-	$package_set->add(map { $_->{ID} } @{$data});
-	$pxt->push_message(local_info => 'This errata is cloned from an official Red Hat errata, and the channel you are publishing this errata to is the clone of a Red Hat channel.  Packages which are associated with the original channel and errata are preselected below.');
-      }
-    }
-    $package_set->commit;
-
-    my $channel_set = RHN::Set->lookup(-label => 'update_channels_list', -uid => $pxt->user->id);
-    $channel_set->empty;
-    $channel_set->add(@updates_needed);
-    $channel_set->commit;
-
-    my $redir = $pxt->dirty_param('update_channel_redirect');
-
-    throw "Param 'update_channel_redirect' needed but not provided"
-      unless $redir;
-
-    $pxt->redirect($redir . "?eid=${eid}&cid=${cid}&${action_type}=1");
-  }
-  elsif ($action_type eq 'publish_errata') {
-    errata_publish_cb($pxt);
-  }
-  else {
-    select_channels_cb($pxt);
-  }
 
   return;
 }
