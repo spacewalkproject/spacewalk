@@ -126,6 +126,9 @@ public class RepositoryWriter {
         catch (IOException e) {
             throw new RepomdRuntimeException(e);
         }
+        catch (NoSuchAlgorithmException e) {
+            throw new RepomdRuntimeException(e);
+        }
 
         BufferedWriter primaryBufferedWriter = new BufferedWriter(
                 new OutputStreamWriter(primaryFile));
@@ -364,6 +367,12 @@ public class RepositoryWriter {
                     new FileOutputStream(prefix + UPDATEINFO_FILE), checksumtypeIn);
         }
         catch (FileNotFoundException e) {
+            throw new RepomdRuntimeException(e);
+        }
+        catch (NoSuchAlgorithmException e) {
+            throw new RepomdRuntimeException(e);
+        }
+        catch (IOException e) {
             throw new RepomdRuntimeException(e);
         }
         BufferedWriter updateinfoBufferedWriter = new BufferedWriter(

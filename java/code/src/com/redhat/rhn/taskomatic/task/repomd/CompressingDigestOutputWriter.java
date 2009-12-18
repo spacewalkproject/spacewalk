@@ -41,21 +41,16 @@ public class CompressingDigestOutputWriter extends OutputStream implements
      * 
      * @param stream The stream to compress
      * @param checksumAlgo checksum algorithm
+     * @throws NoSuchAlgorithmException nosuchalgorithmexception 
+     * @throws IOException ioexception
      */
-    public CompressingDigestOutputWriter(OutputStream stream, String checksumAlgo) {
-        try {
+    public CompressingDigestOutputWriter(OutputStream stream, String checksumAlgo)
+                                        throws NoSuchAlgorithmException, IOException {
             compressedDigestStream = new DigestOutputStream(stream,
                     MessageDigest.getInstance(checksumAlgo));
             compressedStream = new GZIPOutputStream(compressedDigestStream);
             uncompressedDigestStream = new DigestOutputStream(compressedStream,
                     MessageDigest.getInstance(checksumAlgo));
-        }
-        catch (NoSuchAlgorithmException nsae) {
-            // XXX fatal runtime exception
-        }
-        catch (IOException ioe) {
-            // XXX fatal runtime exception
-        }
     }
 
     /**
