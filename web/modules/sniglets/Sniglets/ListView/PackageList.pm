@@ -286,9 +286,6 @@ sub default_callback {
   elsif ($label eq 'confirm_package_install') {
     return install_packages_cb($pxt);
   }
-  elsif ($label eq 'confirm_package_verify') {
-    return verify_packages_cb($pxt);
-  }
   elsif ($label eq 'package_install_remote_command') {
     return install_packages_cb($pxt, 'package_install_remote_command');
   }
@@ -1381,42 +1378,6 @@ sub install_packages_cb {
   my @action_order = grep { defined $_ } ($pkg_action, $pcluster_action, $patch_action);
 
   return wantarray ? @action_order : 1;
-}
-
-sub verify_packages_cb {
-  my $pxt = shift;
-
-  my $sid = $pxt->param('sid');
-
-  my $package_set_label = $pxt->dirty_param('set_label');
-  throw "No package set label" unless $package_set_label;
-
-  my $package_set = RHN::Set->lookup(-label => $package_set_label, -uid => $pxt->user->id);
-
-  my $earliest_date = RHN::Date->now->long_date;
-  my $actions_scheduled =
-    RHN::Scheduler->schedule_system_package_action(-org_id => $pxt->user->org_id,
-						   -user_id => $pxt->user->id,
-						   -earliest => $earliest_date,
-						   -sid => $sid,
-						   -id_combos => [ $package_set->contents ],
-						   -action_type => 'verify',
-						  );
-
-  my $system = RHN::Server->lookup(-id => $sid);
-
-  foreach my $action_id (keys %{$actions_scheduled}) {
-    my $package_count = scalar @{$actions_scheduled->{$action_id}};
-    $pxt->push_message(site_info =>
-		       sprintf('<strong>%d</strong> package verif%s been <a href="/network/systems/details/history/event.pxt?sid=%d&amp;hid=%d">scheduled</a> for <a href="/rhn/systems/details/Overview.do?sid=%d"><strong>%s</strong></a>.',
-			       $package_count, $package_count == 1 ? 'y has' : 'ies have', $system->id, $action_id,
-			       $sid, PXT::Utils->escapeHTML($system->name)));
-  }
-
-  $package_set->empty;
-  $package_set->commit;
-
-  return 1;
 }
 
 sub ssm_install_packages_cb {
