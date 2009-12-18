@@ -301,17 +301,6 @@ sub default_callback {
   elsif ($label eq 'package_remove_remote_command') {
     return package_remove_remote_command_cb($pxt);
   }
-  elsif ($label eq 'download_packages') {
-    my $set_label = $pxt->dirty_param('list_set_label');
-    my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-
-    if ($set->element_count > PXT::Config->get('download_tarball_max')) {
-      $pxt->push_message(site_info =>sprintf("At most %d packages may be downloaded as a tarball at one time; please reduce your selection size",
-					     PXT::Config->get('download_tarball_max')));
-      return 0;
-    }
-    return 1;
-  }
   elsif ($label eq 'update_channel_packages_from_errata') {
     return add_channel_packages_cb($pxt);
   }
