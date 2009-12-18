@@ -245,34 +245,6 @@ EOQ
   return 1;
 }
 
-# schedule errata notices for all orgs that have access to a channel
-# that this errata affects, instead of just the org that owns the
-# errata
-
-sub update_notification_queue {
-  my $class = shift;
-
-  my $eid = shift;
-  my $minutes_from_now = shift || 0;
-
-  my $dbh = RHN::DB->connect;
-
-  $dbh->do('DELETE FROM rhnErrataQueue ENQ WHERE ENQ.errata_id = ?', { }, $eid);
-
-  my $sth = $dbh->prepare(<<EOQ);
-INSERT INTO rhnErrataQueue
-       (errata_id, next_action)
-VALUES
-       (:errata_id, sysdate + :minutes/1440)
-EOQ
-
-  $sth->execute_h(errata_id => $eid, minutes => $minutes_from_now);
-
-  $dbh->commit;
-
-  return;
-}
-
 sub find_next_advisory {
   my $adv = shift || '';
   my $adv_name = shift || '';
