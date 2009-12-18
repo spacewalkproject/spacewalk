@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.3
+Version: 0.8.4
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -283,6 +283,23 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Dec 18 2009 Tomas Lestach <tlestach@redhat.com> 0.8.4-1
+- fixed exception handling (tlestach@redhat.com)
+- modifying Checksum.toString() for easier debugging (tlestach@redhat.com)
+- sha256 changes for taskomatic (tlestach@redhat.com)
+- adding checksum type for rhn/errata/details/Packages.do page
+  (tlestach@redhat.com)
+- displaying checkum type on rhn/software/packages/Details.do page
+  (tlestach@redhat.com)
+- download_packages.pxt was in the second rhn-tab-url in both
+  channel_detail.xmls, and not referenced from anywhere else, removing.
+  (jpazdziora@redhat.com)
+- The webapp.conf is not used anywhere. (jpazdziora@redhat.com)
+- adding channel.software.regenerateYumCache() api call (jsherril@redhat.com)
+- making selinux not required for server.config.createOrUpdate() api call, also
+  adding selinux_ctx to the documentation (jsherril@redhat.com)
+- changing mock request to default to a POST request (jsherril@redhat.com)
+
 * Wed Dec 16 2009 Tomas Lestach <tlestach@redhat.com> 0.8.3-1
 - modifying spacewalk-java build propetries to enable f12 builds
   (tlestach@redhat.com)
