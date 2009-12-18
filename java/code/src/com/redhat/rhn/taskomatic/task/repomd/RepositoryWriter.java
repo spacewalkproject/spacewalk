@@ -109,18 +109,19 @@ public class RepositoryWriter {
         log.info("Checksum Type Value" + this.checksumtype);
 
         // available digests:  MD2, MD5, SHA-1, SHA-256, SHA-384, SHA-512
-        String checksum_algo = this.checksumtype;
-        if (checksum_algo.toUpperCase().startsWith("SHA")) {
-            checksum_algo = this.checksumtype.substring(0, 3) + "-" + this.checksumtype.substring(3);
+        String checksumAlgo = this.checksumtype;
+        if (checksumAlgo.toUpperCase().startsWith("SHA")) {
+            checksumAlgo = this.checksumtype.substring(0, 3) + "-" +
+                           this.checksumtype.substring(3);
         }
 
         try {
             primaryFile = new CompressingDigestOutputWriter(
-                    new FileOutputStream(prefix + PRIMARY_FILE), checksum_algo);
+                    new FileOutputStream(prefix + PRIMARY_FILE), checksumAlgo);
             filelistsFile = new CompressingDigestOutputWriter(
-                    new FileOutputStream(prefix + FILELISTS_FILE), checksum_algo);
+                    new FileOutputStream(prefix + FILELISTS_FILE), checksumAlgo);
             otherFile = new CompressingDigestOutputWriter(new FileOutputStream(
-                    prefix + OTHER_FILE), checksum_algo);
+                    prefix + OTHER_FILE), checksumAlgo);
         }
         catch (IOException e) {
             throw new RepomdRuntimeException(e);
@@ -187,9 +188,9 @@ public class RepositoryWriter {
                 '"');
         log.info("Checksum Type Value for generate updateinfo" + this.checksumtype);
         RepomdIndexData updateinfoData = generateUpdateinfo(channel, prefix, 
-                checksum_algo);
+                checksumAlgo);
 
-        RepomdIndexData groupsData = loadCompsFile(channel, checksum_algo);
+        RepomdIndexData groupsData = loadCompsFile(channel, checksumAlgo);
         
         //Set the type so yum can read and perform checksum
         primaryData.setType(this.checksumtype);

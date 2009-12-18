@@ -40,7 +40,7 @@ public class CompressingDigestOutputWriter extends OutputStream implements
     /**
      * 
      * @param stream The stream to compress
-     * @param checksumtype checksum type
+     * @param checksumAlgo checksum algorithm
      */
     public CompressingDigestOutputWriter(OutputStream stream, String checksumAlgo) {
         try {

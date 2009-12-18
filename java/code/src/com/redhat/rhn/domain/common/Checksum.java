@@ -94,6 +94,6 @@ public class Checksum extends BaseDomainHelper {
 
     /** {@inheritDoc} */
     public String toString() {
-        return checksum;
+        return checksumType + ":" + checksum;
     }
 }
