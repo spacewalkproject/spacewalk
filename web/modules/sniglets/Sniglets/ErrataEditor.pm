@@ -38,7 +38,6 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:errata_editor:mail_notification_cb' => \&mail_notification_cb);
   $pxt->register_callback('rhn:update_errata_cache' => \&update_errata_cache);
   $pxt->register_callback('rhn:clone_specified_errata_cb' => \&clone_specified_errata_cb);
   $pxt->register_callback('rhn:delete_errata_cb' => \&delete_errata_cb);
@@ -129,21 +128,6 @@ sub if_errata_package_list_modified {
   }
 
   return '';
-}
-
-sub mail_notification_cb {
-  my $pxt = shift;
-
-  my $eid = $pxt->param('eid');
-
-  my $errata = RHN::ErrataTmp->lookup_managed_errata(-id => $eid);
-  throw "Errata '$eid' not published." if ($errata->isa('RHN::DB::ErrataTmp'));
-
-  RHN::ErrataEditor->update_notification_queue($eid, 0);
-
-  $pxt->push_message(site_info => sprintf('An errata mail update has been scheduled for <strong>%s</strong>.', $errata->synopsis));
-
-  return;
 }
 
 sub clone_specified_errata_cb {
