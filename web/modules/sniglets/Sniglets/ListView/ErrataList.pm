@@ -207,9 +207,6 @@ sub default_callback {
   elsif ($label eq 'add_errata') {
     return add_errata_to_channel($pxt);
   }
-  elsif ($label eq 'delete_errata') {
-    return delete_errata_cb($pxt);
-  }
 
   return 1;
 }
@@ -700,29 +697,6 @@ sub add_errata_to_channel {
   $transaction->nested_commit;
 
   $pxt->push_message(site_info => sprintf('Added <strong>%d</strong> errata to <strong>%s</strong>.', $count, $channel->name));
-
-  return 1;
-}
-
-sub delete_errata_cb {
-  my $pxt = shift;
-  my $set_label = $pxt->dirty_param('set_label');
-
-  throw "No set_label" unless $set_label;
-
-  my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-  my @eids = $set->contents;
-
-  my $count = scalar(@eids);
-
-  foreach my $eid (@eids) {
-    RHN::ErrataEditor->delete_errata($eid);
-  }
-
-  $set->empty;
-  $set->commit;
-
-  $pxt->push_message(site_info => sprintf('Deleted <strong>%d</strong> errata.', $count));
 
   return 1;
 }
