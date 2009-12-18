@@ -319,9 +319,6 @@ sub default_callback {
   elsif ($label eq 'add_patchsets_to_channel') {
     return add_patchsets_to_channel_cb($pxt);
   }
-  elsif ($label eq 'remove_packages_from_errata') {
-    return remove_packages_from_errata_cb($pxt);
-  }
   elsif ($label eq 'sync_packages_to_channel') {
     return sync_packages_to_channel_cb($pxt);
   }
@@ -2306,43 +2303,6 @@ sub add_patchsets_to_channel_cb {
   $pxt->push_message(site_info => sprintf("<strong>%d</strong> patchset%s added to channel <strong>%s</strong>.",
 					  $count, $count == 1 ? '' : 's',
 					  $channel->name));
-
-  return 1;
-}
-
-sub remove_packages_from_errata_cb {
-  my $pxt = shift;
-
-  my $set_label = $pxt->dirty_param('set_label');
-  throw "No package set label" unless $set_label;
-
-  my $eid = $pxt->param('eid');
-  my $errata = RHN::ErrataTmp->lookup_managed_errata(-id => $eid);
-
-  $errata->remove_packages_in_set(-set_label => $set_label, -user_id => $pxt->user->id);
-
-  my $package_set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-
-  my $count = scalar $package_set->contents;
-
-  $package_set->empty;
-  $package_set->commit;
-
-  unless ($errata->isa('RHN::DB::ErrataTmp')) {
-
-    foreach my $cid (RHN::Errata->channels($eid)) {
-      RHN::ChannelEditor->schedule_errata_cache_update($pxt->user->org_id, $cid, 3600);
-    }
-    my $package_list_edited = $pxt->session->get('errata_package_list_edited') || { };
-    $package_list_edited->{$eid} = time;
-    $pxt->session->set(errata_package_list_edited => $package_list_edited);
-  }
-
-  $errata->refresh_erratafiles;
-
-  $pxt->push_message(site_info => sprintf("<strong>%d</strong> package%s removed from errata <strong>%s</strong>.",
-					  $count, $count == 1 ? '' : 's',
-					  $errata->advisory));
 
   return 1;
 }
