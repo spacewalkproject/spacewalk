@@ -301,9 +301,6 @@ sub default_callback {
   elsif ($label eq 'package_remove_remote_command') {
     return package_remove_remote_command_cb($pxt);
   }
-  elsif ($label eq 'update_channel_packages_from_errata') {
-    return add_channel_packages_cb($pxt);
-  }
   elsif ($label eq 'remove_patches_from_channel') {
     return remove_patches_from_channel_cb($pxt);
   }
@@ -2068,86 +2065,6 @@ sub empty_set_action_cb { #overridden from ListView::List
   }
 
   return $self->SUPER::empty_set_action_cb($pxt, %action);
-}
-
-sub add_channel_packages_cb {
-  my $pxt = shift;
-
-  my $set_label = $pxt->dirty_param('set_label');
-  my $channel_id = $pxt->param('cid');
-  my $package_set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-
-  RHN::ChannelEditor->add_channel_packages($channel_id, $package_set->contents);
-  RHN::Channel->refresh_newest_package_cache($channel_id, 'web.errata_cloning');
-  RHN::ChannelEditor->schedule_errata_cache_update($pxt->user->org_id, $channel_id, 0);
-
-  if (RHN::Channel->channel_type_capable($channel_id, 'errata')) {
-    my $package_list_edited = $pxt->session->get('package_list_edited') || { };
-    $package_list_edited->{$channel_id} = 0;
-    $pxt->session->set(package_list_edited => $package_list_edited);
-  }
-
-  $package_set->empty;
-  $package_set->commit;
-
-  my $action_type;
-  if ($pxt->dirty_param('publish_errata')) {
-    $action_type = 'publish_errata';
-  }
-  elsif ($pxt->dirty_param('update_channels')) {
-    $action_type = 'update_channels';
-  }
-  else {
-    throw "The action type parameter is missing.  It should have been preserved."
-  }
-
-  my $channel_set = RHN::Set->lookup(-label => 'update_channels_list', -uid => $pxt->user->id);
-
-  my @updates_needed = $channel_set->contents;
-
-  if (@updates_needed) {
-    my $cid = pop @updates_needed;
-
-    my $next_package_set = RHN::Set->lookup(-label => 'update_package_list', -uid => $pxt->user->id);
-    $next_package_set->empty;
-
-    my $errata = RHN::ErrataTmp->lookup_managed_errata(-id => $pxt->param('eid'));
-    my $eid_cloned_from = $errata->cloned_from;
-    my $cid_cloned_from = RHN::Channel->channel_cloned_from($cid);
-
-    if ($eid_cloned_from and $cid_cloned_from
-	and RHN::Channel->is_errata_for_channel($eid_cloned_from, $cid_cloned_from)) {
-      my $ds = new RHN::DataSource::Package(-mode => 'channel_errata_full_intersection');
-      my $data = $ds->execute_full(-eid => $eid_cloned_from, -cid => $cid_cloned_from);
-
-      if (@{$data}) {
-	$next_package_set->add(map { $_->{ID} } @{$data});
-	$pxt->push_message(local_info => 'This errata is cloned from an official Red Hat errata, and the channel you are publishing this errata to is the clone of a Red Hat channel.  Packages which are associated with the original channel and errata are preselected below.');
-      }
-    }
-    $next_package_set->commit;
-
-    $channel_set->empty;
-    $channel_set->add(@updates_needed);
-    $channel_set->commit;
-
-    my $redir = $pxt->dirty_param('update_channel_redirect');
-
-    throw "Param 'update_channel_redirect' needed but not provided"
-      unless $redir;
-
-    my $eid = $pxt->param('eid');
-    # bugzilla: 197966 - need to retain the action_type
-    $pxt->redirect($redir . "?eid=${eid}&cid=${cid}&${action_type}=1");
-  }
-  elsif ($action_type eq 'publish_errata') {
-    Sniglets::ErrataEditor::errata_publish_cb($pxt);
-  }
-  else {
-    Sniglets::ErrataEditor::select_channels_cb($pxt);
-  }
-
-  return 1;
 }
 
 sub remove_patches_from_channel_cb {
