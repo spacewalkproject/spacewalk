@@ -298,9 +298,6 @@ sub default_callback {
   elsif ($label eq 'ssm_package_install_answer_files') {
     return ssm_install_packages_cb($pxt, 'ssm_package_install_answer_files');
   }
-  elsif ($label eq 'package_remove_remote_command') {
-    return package_remove_remote_command_cb($pxt);
-  }
   elsif ($label eq 'remove_patches_from_channel') {
     return remove_patches_from_channel_cb($pxt);
   }
@@ -1452,16 +1449,6 @@ sub package_install_remote_command_cb {
   my $set_label = $pxt->dirty_param('set_label');
 
   $pxt->redirect("/rhn/systems/details/packages/ScheduleRemoteCommand.do?sid=$sid&set_label=$set_label&mode=package_install");
-
-  return 1;
-}
-
-sub package_remove_remote_command_cb {
-  my $pxt = shift;
-  my $sid = $pxt->param('sid');
-  my $set_label = $pxt->dirty_param('set_label');
-
-  $pxt->redirect("/rhn/systems/details/packages/ScheduleRemoteCommand.do?sid=$sid&set_label=$set_label&mode=package_remove");
 
   return 1;
 }
