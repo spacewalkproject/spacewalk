@@ -1756,27 +1756,4 @@ sub channel_type_capable {
   return 1;
 }
 
-# return true if an errata is 'for' a channel.
-sub is_errata_for_channel {
-  my $class = shift;
-  my $eid = shift;
-  my $cid = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT 1
-  FROM rhnChannelErrata CE
- WHERE CE.channel_id = :cid
-   AND CE.errata_id = :eid
-EOQ
-
-  $sth->execute_h(cid => $cid, eid => $eid);
-
-  my ($res) = $sth->fetchrow;
-  $sth->finish;
-
-  return $res ? 1 : 0;
-}
-
 1;
