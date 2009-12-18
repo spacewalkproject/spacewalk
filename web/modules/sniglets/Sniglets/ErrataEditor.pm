@@ -38,7 +38,6 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:errata_editor:errata_delete_cb' => \&errata_delete_cb);
   $pxt->register_callback('rhn:errata_editor:delete_bug' => \&delete_bug);
   $pxt->register_callback('rhn:errata_editor:mail_notification_cb' => \&mail_notification_cb);
   $pxt->register_callback('rhn:update_errata_cache' => \&update_errata_cache);
