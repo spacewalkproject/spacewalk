@@ -161,7 +161,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/ChannelEditor.pm
 %{perl_vendorlib}/RHN/Cleansers.pm
 %{perl_vendorlib}/RHN/Command.pm
-%{perl_vendorlib}/RHN/CommandParameter.pm
 %{perl_vendorlib}/RHN/ConfigChannel.pm
 %{perl_vendorlib}/RHN/ConfigFile.pm
 %{perl_vendorlib}/RHN/ConfigRevision.pm
@@ -229,11 +228,9 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/UserGroup.pm
 %{perl_vendorlib}/RHN/Utils.pm
 %{_mandir}/man3/RHN::Command.3pm.gz
-%{_mandir}/man3/RHN::CommandParameter.3pm.gz
 %{_mandir}/man3/RHN::ContactGroup.3pm.gz
 %{_mandir}/man3/RHN::ContactMethod.3pm.gz
 %{_mandir}/man3/RHN::DB::Command.3pm.gz
-%{_mandir}/man3/RHN::DB::CommandParameter.3pm.gz
 %{_mandir}/man3/RHN::DB::ContactGroup.3pm.gz
 %{_mandir}/man3/RHN::DB::ContactMethod.3pm.gz
 %{_mandir}/man3/RHN::DB::MonitoringConfigMacro.3pm.gz
