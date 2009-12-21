@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.2
+Version: 0.8.3
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -299,6 +299,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Dec 21 2009 Jan Pazdziora <jpazdziora@redhat.com> 0.8.3-1
+- removed a lot of dead code
+- modified to fit sha256 schema changes (michael.mraka@redhat.com)
+- adding channel.software.regenerateYumCache() api call (jsherril@redhat.com)
+
 * Tue Dec 15 2009 Jan Pazdziora 0.8.2-1
 - Removed dead code (PXT tags, xmlrpc, functions, modules).
 
