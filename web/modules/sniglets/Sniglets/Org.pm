@@ -59,20 +59,4 @@ sub get_channel_family_map {
   return $ret;
 }
 
-sub get_service_map {
-  my $uid = shift;
-
-  my @data = RHN::Server->server_group_type_details_from_set($uid, 'new_cert_service_set');
-
-  my $ret;
-  foreach my $row (@data) {
-    my $label = $row->{LABEL};
-    $ret->{$label}->{QUANT} = $row->{ELEMENT_TWO};
-    $ret->{$label}->{ID} = $row->{ID};
-  } 
-
-  return $ret;
-}
-
-
 1;
