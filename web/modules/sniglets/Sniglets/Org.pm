@@ -25,13 +25,4 @@ use Carp;
 
 use RHN::Exception qw/throw/;
 
-sub reset_and_commit_set {
-  my $uid = shift;
-  my $label = shift;
-
-  my $set = RHN::Set->lookup(-label => $label, -uid => $uid);
-  $set->empty();
-  $set->commit();
-}
-
 1;
