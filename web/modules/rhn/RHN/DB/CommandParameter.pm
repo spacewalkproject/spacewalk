@@ -84,23 +84,6 @@ sub new {
 
 
 
-# List parameters by command ID
-#####################
-sub list_by_command {
-#####################
-  my $class = shift;
-  my $command_id = shift;
-
-  my $ds = new RHN::DataSource::Simple(-querybase => "probe_queries",
-				       -mode => "parameters_for_command");
-
-  return $ds->execute_query(-command_id => $command_id);
-
-}
-
-
-
-
 1;
 
 __END__
@@ -112,22 +95,10 @@ RHN::DB::CommandParameter - Monitoring command parameters
 
   use RHN::DB::CommandParameter;
   
-  my $plist = RHN::DB::CommandParameter->list_by_command($command_id);
-
 =head1 DESCRIPTION
 
 RHN::DB::CommandParamter provides access to monitoring command
 parameters (RHN_COMMAND_PARAMETER table).
-
-=head1 CLASS METHODS
-
-=over 8
-
-=item list_by_command($command_id)
-
-List parameters by command ID.  Returns a list of hashes.
-
-=back
 
 =head1 SEE ALSO
 
