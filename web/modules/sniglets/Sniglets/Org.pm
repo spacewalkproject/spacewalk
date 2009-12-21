@@ -43,20 +43,4 @@ sub reset_and_commit_set {
   $set->commit();
 }
 
-sub get_channel_family_map {
-  my $uid = shift;
-  my $set_label = shift;
-
-  my @data = RHN::Channel->family_details_from_set($uid, $set_label);
-
-  my $ret;
-  foreach my $row (@data) {
-    my $label = $row->{LABEL};
-    $ret->{$label}->{QUANT} = $row->{ELEMENT_TWO};
-    $ret->{$label}->{ID} = $row->{ID};
-  } 
-
-  return $ret;
-}
-
 1;
