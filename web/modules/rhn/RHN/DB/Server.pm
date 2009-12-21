@@ -3652,32 +3652,6 @@ EOQ
   return $row;
 }
 
-sub server_group_type_details_from_set {
-  my $class = shift;
-  my $uid = shift;
-  my $set_label = shift;
-
-  die "No uid" unless defined $uid;
-  die "No set label" unless defined $set_label;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT  SGT.id, SGT.label, RS.element_two
-  FROM  rhnServerGroupType SGT,
-        rhnSet RS
-WHERE  SGT.id=RS.element and RS.user_id = :user_id AND RS.label=:label
-EOQ
-
-  $sth->execute_h(user_id=> $uid, label => $set_label);
-
-  my @ret;
-  while (my $row = $sth->fetchrow_hashref) {
-    push @ret, $row;
-  }
-
-  return @ret;
-}
-
 # Make a guess at this system's hostname
 sub guess_hostname {
   my $self = shift;
