@@ -150,20 +150,6 @@ sub lookup {
 }
 
 
-# Get a list of enabled commands given a command group name
-############################
-sub list_commands_by_group {
-############################
-  my $class = shift;
-  my $command_group_label = shift;
-
-  my $ds = new RHN::DataSource::Simple(-querybase => "probe_queries",
-				       -mode => "enabled_commands_for_group");
-
-  return $ds->execute_query(-command_group_label => $command_group_label);
-}
-
-
 # Get a list of available command groups
 #################
 sub list_groups {
@@ -191,7 +177,6 @@ RHN::DB::Command - Monitoring commands
   use RHN::DB::Command;
   
   my $groups   = RHN::DB::Command->list_groups();
-  my $commands = RHN::DB::Command->list_commands_by_group($group_name);
   my $cmd_obj  = RHN::DB::Command->lookup(id => $command_id);
 
 
@@ -211,10 +196,6 @@ Construct a new RHN::DB::Command object.
 =item list_groups()
 
 Get a list of available command groups.
-
-=item list_commands_by_group($group_name)
-
-Get a list of enabled commands given a command group name.
 
 =item lookup(id => $command_id)
 
