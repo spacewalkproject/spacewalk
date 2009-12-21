@@ -44,7 +44,6 @@ use RHN::ConfigFile;
 use RHN::Kickstart::Session;
 
 use Sniglets::Forms;
-use Sniglets::Org;
 use Sniglets::HTML;
 use Sniglets::AppInstall;
 use Sniglets::ServerActions;

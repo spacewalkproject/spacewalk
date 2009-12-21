@@ -2,7 +2,6 @@
 <pxt-passthrough>
   <pxt-use class="Grail::Frame" />
   <pxt-use class="Sniglets::HTML" />
-  <pxt-use class="Sniglets::Org" />
   <pxt-use class="Sniglets::Lists" />
 
   <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
