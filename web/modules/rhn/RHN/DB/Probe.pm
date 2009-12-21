@@ -283,66 +283,6 @@ sub commit {
   delete $self->{":modified:"};
 }
 
-########################
-sub insert_check_probe {
-########################
-  my $self = shift;
-
-  my ($probe_id, $host_id, $sat_cluster_id);
-
-  $probe_id = $self->{__recid__};
-  $host_id = $self->{__host_id__};
-  $sat_cluster_id = $self->{__sat_cluster_id__};
-
-  my $dbh = RHN::DB->connect;
-
-  #probe_type will always be 'check'
-  my $query = <<EOS;
-INSERT INTO rhn_check_probe
-  (probe_id, host_id, probe_type, sat_cluster_id)
-VALUES
-  (:probe_id, :host_id, 'check', :sat_cluster_id)
-EOS
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h(probe_id => $probe_id, host_id => $host_id, sat_cluster_id => $sat_cluster_id);
-  $dbh->commit;
-
-}
-
-#########################
-sub insert_probe_params {
-#########################
-  my $class = shift;
-  my %params = @_;
-
-  my $dbh = RHN::DB->connect;
-  my ($sth, $query);
-  my ($param_name, $value);
-  my $probe_id = $class->{__recid__};
-  my $command_id = $class->{__command_id__};
-  my $last_update_user = $class->{__last_update_user__};
-
-  foreach my $key (sort keys %params) {
-    $param_name = $key;
-    $value = $params{$key};
-
-    $query = <<EOQ;
-INSERT INTO rhn_probe_param_value
-  (probe_id, command_id, param_name, value, last_update_user, last_update_date)
-VALUES
-  (:probe_id, :command_id, :param_name, :value, :last_update_user, sysdate)
-EOQ
-
-    $sth = $dbh->prepare($query);
-    $sth->execute_h(probe_id => $probe_id, command_id => $command_id, param_name => $param_name,
-		    value => $value, last_update_user => $last_update_user);
-  }
-
-  $dbh->commit;
-
-}
-
 #################
 sub list_scouts {
 #################
