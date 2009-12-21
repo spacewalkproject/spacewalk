@@ -31,14 +31,6 @@ sub register_tags {
 
 }
 
-sub register_callbacks {
-  my $class = shift;
-  my $pxt = shift;
-
-  $pxt->register_callback('rhn:cert_text_cb' => \&cert_text_cb);
-
-}
-
 sub reset_form {
   my $pxt = shift;
 
@@ -88,26 +80,5 @@ sub get_service_map {
   return $ret;
 }
 
-
-sub cert_text_cb {
-  my $pxt = shift;
-
-  my $support_org_id = $pxt->param('support_org_id');
-  my $action = $pxt->dirty_param('button');
-
-  my $data = $pxt->session->get('new_cert_info');
-  my %cert_info;
-  if ($data and $data->{'meta_info'}->{'support_org_id'} eq $support_org_id) {
-    %cert_info = %{$data};
-  }
-  else {
-    reset_form($pxt);
-    croak "No cert data!";
-  }
-  
-  if ($action eq "Back") {
-    $pxt->redirect("/internal/support/create_cert.pxt?support_org_id=" . $support_org_id);
-  }
-}
 
 1;
