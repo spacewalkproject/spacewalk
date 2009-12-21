@@ -25,15 +25,6 @@ use Carp;
 
 use RHN::Exception qw/throw/;
 
-sub reset_form {
-  my $pxt = shift;
-
-    $pxt->session->unset('new_cert_info');
-    reset_and_commit_set($pxt->user->id, 'new_cert_channel_set');
-    reset_and_commit_set($pxt->user->id, 'new_cert_add_channel_set');
-    reset_and_commit_set($pxt->user->id, 'new_cert_service_set');
-}
-
 sub reset_and_commit_set {
   my $uid = shift;
   my $label = shift;
