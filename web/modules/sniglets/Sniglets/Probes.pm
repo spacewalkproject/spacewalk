@@ -55,7 +55,6 @@ sub register_callbacks {
 
   $pxt->register_callback('rhn:system_probe_creation_cb' => \&system_probe_creation_cb);
   $pxt->register_callback('rhn:system_probe_edit_cb' => \&system_probe_edit_cb);
-  $pxt->register_callback('rhn:delete_probe_cb' => \&delete_probe_cb);
 }
 
 ######################################
@@ -704,31 +703,6 @@ sub system_probe_edit_cb {
   my $escaped = PXT::Utils->escapeHTML($probe->description());
 
   $pxt->push_message(site_info => "System Probe <strong>$escaped</strong> updated.");
-}
-
-#####################
-sub delete_probe_cb {
-#####################
-  my $pxt = shift;
-
-  my $sid = $pxt->param('sid');
-  my $probe_id = $pxt->param('probe_id');
-
-  unless ($pxt->dirty_param('brb_confirm')) {
-    my $redir = $pxt->dirty_param('delete_confirm_page');
-    throw "param 'delete_confirm_page' needed but not provided." unless $redir;
-    $pxt->redirect($redir);
-  }
-
-  my $probe = RHN::Probe->lookup(-recid => $probe_id);
-
-  $probe->delete_probe;
-
-  my $desc = $probe->description;
-  my $redir = $pxt->dirty_param('delete_success_page');
-  throw "param 'delete_success_page' needed but not provided." unless $redir;
-  $pxt->push_message(site_info => "System Probe \'$desc\' deleted.");
-  $pxt->redirect($redir);
 }
 
 
