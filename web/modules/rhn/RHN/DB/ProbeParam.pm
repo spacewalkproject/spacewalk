@@ -49,19 +49,6 @@ sub create {
   return $self;
 }
 
-#############################
-sub list_probe_param_values {
-#############################
-  my $class = shift;
-  my $probe_id = shift;
-  my $command_id = shift;
-
-  my $ds = new RHN::DataSource::Simple(-querybase => "probe_queries",
-				       -mode => "params_for_probe");
-
-  return $ds->execute_query(-probe_id => $probe_id, -command_id => $command_id);
-}
-
 
 1;
 
@@ -73,9 +60,6 @@ RHN::DB::ProbeParam - Monitoring probe parameters
 =head1 SYNOPSIS
 
   use RHN::DB::ProbeParam;
-
-  # Get a list of probe parameters
-  my $params = RHN::DB::ProbeParam->list_probe_param_values($pid, $cid);
 
 =head1 DESCRIPTION
 
@@ -89,10 +73,6 @@ RHN::DB::ProbeParam provides access to monitoring probe parameters
 =item new()
 
 Creates a new RHN::DB::ProbeParam object
-
-=item I<list_probe_param_values>($probe_id, $command_id)
-
-Lists probe param values given a probe ID and a command ID.
 
 =back
 
