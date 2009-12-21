@@ -63,32 +63,6 @@ sub list_probe_param_values {
 }
 
 
-###############################
-sub update_probe_param_values {
-###############################
-  my $class = shift;
-  my $probe_id = shift;
-  my %modified_params = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $sqlstmt;
-  my $sth;
-
-  my ($name, $value);
-  while ( ($name, $value) = each %modified_params) {
-    $sqlstmt = <<EOQ;
-UPDATE PROBE_PARAM_VALUE
-   SET value = :value,
-       last_update_date = SYSDATE
- WHERE param_name = :param_name
-   AND probe_id = :probe_id
-EOQ
-  $sth = $dbh->prepare($sqlstmt);
-  $sth->execute_h(value => $value, param_name => $name, probe_id => $probe_id);
-  }
-
-}
-
 1;
 
 __END__
@@ -102,13 +76,6 @@ RHN::DB::ProbeParam - Monitoring probe parameters
 
   # Get a list of probe parameters
   my $params = RHN::DB::ProbeParam->list_probe_param_values($pid, $cid);
-
-  # Update changed parameters
-  RHN::DB::ProbeParam->update_probe_param_values($pid,
-      $paramname => $value,
-      # ...
-    );
-  
 
 =head1 DESCRIPTION
 
@@ -126,10 +93,6 @@ Creates a new RHN::DB::ProbeParam object
 =item I<list_probe_param_values>($probe_id, $command_id)
 
 Lists probe param values given a probe ID and a command ID.
-
-=item I<update_probe_param_values>($probe_id, %modified_params)
-
-Updates a list of modified parameters given a probe ID.
 
 =back
 
