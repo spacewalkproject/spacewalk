@@ -1311,32 +1311,6 @@ EOQ
 
 
 
-sub family_details_from_set {
-  my $class = shift;
-  my $uid = shift;
-  my $set_label = shift;
-
-  die "No uid" unless defined $uid;
-  die "No set label" unless defined $set_label;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT  CF.id, CF.name, CF.label, CF.product_url, CF.org_id, RS.element_two
-  FROM  rhnChannelFamily CF,
-        rhnSet RS
-WHERE  CF.id=RS.element and RS.user_id = :user_id AND RS.label=:label
-EOQ
-
-  $sth->execute_h(user_id=> $uid, label => $set_label);
-
-  my @ret;
-  while (my $row = $sth->fetchrow_hashref) {
-    push @ret, $row;
-  }
-
-  return @ret;
-}
-
 sub packages {
   my $self = shift;
   my $cid;
