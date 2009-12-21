@@ -25,12 +25,6 @@ use Carp;
 
 use RHN::Exception qw/throw/;
 
-sub register_tags {
-  my $class = shift;
-  my $pxt = shift;
-
-}
-
 sub reset_form {
   my $pxt = shift;
 
