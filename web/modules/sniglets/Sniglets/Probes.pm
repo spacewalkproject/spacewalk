@@ -24,7 +24,6 @@ use RHN::ContactGroup;
 use RHN::DataSource;
 use RHN::Exception;
 use RHN::Probe;
-use RHN::ProbeParam;
 use RHN::Server;
 
 use RHN::Form::Widget::Checkbox;
