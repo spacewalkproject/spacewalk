@@ -440,28 +440,6 @@ sub user_site_view {
 }
 
 
-my @required_map =
-  ( 'login' => 'Username',
-    'password1' => 'Password',
-    'password2' => 'Password Confirmation',
-    'account_type' => 'Account Type',
-    'prefix' => 'Title',
-    'first_names' => 'First Name',
-    'last_name' => 'Last Name',
-    'email' => 'E-mail Address',
-  );
-
-unless (PXT::Config->get('satellite')) {
-  push @required_map, ('address1' => 'Mailing Address',
-		       'city' => 'City',
-		       'zip' => 'Zip Code',
-		       'phone' => 'Phone');
-
-}
-
-my %required_map = @required_map;
-my @required_fields = map { $_ & 1 ? () : $required_map[$_] } 0..$#required_map;
-
 # sort timezones, making the listed ones pop to the top
 sub timezone_sort {
   my $class = shift;
