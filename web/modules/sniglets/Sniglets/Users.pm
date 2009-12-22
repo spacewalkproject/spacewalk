@@ -73,15 +73,6 @@ sub register_callbacks {
   $pxt->register_callback('rhn:forgot_accounts_cb', \&forgot_accounts_cb);
 
   $pxt->register_callback('rhn:user_prefs_edit_cb' => \&user_prefs_edit_cb);
-  
-  $pxt->register_callback('rhn:accepted' => \&tnc_accepted_cb);
-}
-
-#Can you see this
-sub tnc_accepted_cb {
-	my $pxt = shift;
-	$pxt->push_message(site_info => 'Thank you for accepting the Terms and Conditions!');
-	$pxt->redirect("/rhn/YourRhn.do");
 }
 
 # secures *all* intraserver links and all links to specified exterior servers
