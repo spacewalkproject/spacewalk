@@ -73,8 +73,6 @@ sub register_callbacks {
   $pxt->register_callback('rhn:forgot_accounts_cb', \&forgot_accounts_cb);
 
   $pxt->register_callback('rhn:user_prefs_edit_cb' => \&user_prefs_edit_cb);
-
-  $pxt->register_callback('rhn:user_default_system_groups_cb' => \&default_system_groups_cb);
   
   $pxt->register_callback('rhn:accepted' => \&tnc_accepted_cb);
 }
@@ -831,91 +829,6 @@ sub rhn_user_login {
     }
   }
   return $user->login;
-}
-
-sub default_system_groups_cb {
-  my $pxt = shift;
-
-  my $form = build_default_system_groups_form($pxt);
-  my $response = $form->prepare_response;
-
-  my $errors = Sniglets::Forms::load_params($pxt, $response);
-
-  if (@{$errors}) {
-    foreach my $error (@{$errors}) {
-      $pxt->push_message(local_alert => $error);
-    }
-    return;
-  }
-
-  my @groups = $response->lookup_widget('default_system_groups')->value;
-
-  if (ref $groups[0] eq 'ARRAY') {
-    @groups = @{$groups[0]};
-  }
-
-  my $uid = $pxt->param('uid');
-  my $user = RHN::User->lookup(-id => $uid);
-
-  my @old_groups = $user->default_system_groups;
-  $user->set_default_system_groups(@groups);
-
-  if (RHN::Utils::sets_differ(\@groups, \@old_groups)) {
-    $pxt->push_message(site_info => sprintf('Default system groups updated for <strong>%s</strong>.', $user->login));
-  }
-
-  my $url = $pxt->uri;
-  $pxt->redirect($url . "?uid=" . $user->id);
-
-  return;
-}
-
-sub build_default_system_groups_form {
-  my $pxt = shift;
-  my %attr = @_;
-
-  my $form = new RHN::Form::ParsedForm(name => 'Default System Groups',
-				       label => 'default_system_groups',
-				       action => $attr{action},
-				      );
-
-  my $group_selectbox = new RHN::Form::Widget::Select(name => 'Default System Groups',
-						      label =>'default_system_groups', 
-						      multiple => 1,
-						      size => 4);
-
-  my $uid = $pxt->param('uid');
-  my $user = RHN::User->lookup(-id => $uid);
-
-  my $group_perms_ds = new RHN::DataSource::SystemGroup(-mode => 'user_permissions');
-  my $data = $group_perms_ds->execute_full(-formvar_uid => $uid, -org_id => $user->org_id);
-
-  foreach my $group ( @{$data} ) {
-    my $name = $group->{GROUP_NAME};
-    my $id = $group->{ID};
-
-    if ($group->{HAS_PERMISSION}) {
-      $name = '(*) ' . $name;
-    }
-
-    $group_selectbox->add_option( {value => $id,
-				   label => $name,
-				  } );
-  }
-
-  $group_selectbox->value([ $user->default_system_groups ]);
-
-  unless (@{$data}) { #no system groups in org
-    $form->add_widget( new RHN::Form::Widget::Literal(name => 'Default System Groups', value => '<strong>Your organization has no system groups.</strong>') );
-    return $form;
-  }
-
-  $form->add_widget($group_selectbox);
-  $form->add_widget( new RHN::Form::Widget::Hidden(name => 'uid', value => $user->id) );
-  $form->add_widget( new RHN::Form::Widget::Hidden(name => 'pxt:trap', value => 'rhn:user_default_system_groups_cb') );
-  $form->add_widget( new RHN::Form::Widget::Submit(name => 'Update Defaults') );
-
-  return $form;
 }
 
 1;
