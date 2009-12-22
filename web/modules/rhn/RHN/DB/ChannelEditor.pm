@@ -203,32 +203,6 @@ EOQ
   return @channels;
 }
 
-sub delete_channel {
-  my $class = shift;
-  my $cid = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth;
-
-  my $channel = RHN::Channel->lookup(-id => $cid);
-
-  die "Attempt to delete RHN channel '$cid'" unless $channel->org_id;
-
-  $sth = $dbh->prepare(<<EOQ);
-INSERT 
-  INTO rhnRepoRegenQueue
-        (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
-VALUES (rhn_repo_regen_queue_id_seq.nextval,
-        :label, 'perl-web::delete_channel', NULL, 'N', 'N', sysdate, sysdate, sysdate)
-EOQ
-
-  $sth->execute_h(label => $channel->label);
-
-  $dbh->call_procedure('delete_channel', $cid);
-
-  $dbh->commit;
-}
-
 #remove all packages from channel, and replace with contents of set.
 #Caller is responsible for making sure the user is allowed to do this
 sub replace_channel_packages {
