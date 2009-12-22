@@ -46,7 +46,6 @@ sub register_callbacks {
 
   $pxt->register_callback('rhn:channel_view_cb' => \&channel_view_cb);
   $pxt->register_callback('rhn:channel_edit_cb' => \&channel_edit_cb);
-  $pxt->register_callback('rhn:channel_delete_cb' => \&channel_delete_cb);
   $pxt->register_callback('rhn:update_channel_cache' => \&update_channel_cache);
   $pxt->register_callback('rhn:clone_channel_cb' => \&clone_channel_cb);
 }
@@ -83,80 +82,6 @@ sub channel_view_cb {
   }
 
   $pxt->redirect($url);
-}
-
-sub channel_delete_cb {
-  my $pxt = shift;
-
-  my $cid = $pxt->param('cid') || 0;
-
-  die "no channel id"
-    unless $cid;
-
-  unless ($pxt->user->verify_channel_admin($cid) and $pxt->user->is('channel_admin')) {
-    $pxt->redirect("/errors/permission.pxt");
-  }
-
-  if (RHN::Channel->children($cid)) {
-    $pxt->push_message(local_alert => 'A channel cannot be deleted until all child channels are deleted.');
-    return;
-  }
-  if (RHN::Channel->distros($cid)) {
-    $pxt->push_message(local_alert => 'A channel cannot be deleted until all associated kickstart distributions are deleted or dissociated.');
-    return;
-  }
-
-
-  my @servers = RHN::Channel->servers($cid);
-
-  my $force_unsub = $pxt->dirty_param('force_unsubscribe') || 0;
-
-  if (@servers) {
-    my $servers_link = $pxt->dirty_param('servers_link');
-    throw "param 'servers_link' needed but not provided" unless $servers_link;
-    unless ($force_unsub == 1) {
-      $pxt->push_message(local_alert => "There are currently systems subscribed to this channel. Please confirm system channel removal by selecting the unsubscribe checkbox.");
-      return;
-    }
-    foreach my $sid(@servers) {
-      my $server = RHN::Server->lookup(-id => $sid);
-      $server->unsubscribe_from_channel($cid);
-    }
-  }
-
-  my $channel = RHN::Channel->lookup(-id => $cid);
-  my $name = $channel->name;
-
-  my $ds = new RHN::DataSource::Package(-mode => 'packages_only_in_channel');
-  my $orphaned_packages = $ds->execute_query(-cid => $cid, -org_id => $pxt->user->org_id);
-
-  RHN::ChannelEditor->delete_channel($cid);
-
-  foreach my $sid (@servers) {
-    RHN::Server->schedule_errata_cache_update($pxt->user->org_id, $sid, 0);
-  }
-
-  $pxt->push_message(site_info => "Channel <strong>$name</strong> has been deleted.");
-
-  my $redirect_to;
-
-  if (@{$orphaned_packages}) {
-    $redirect_to = $pxt->dirty_param('orphaned_packages_redirect');
-    throw "param 'orphaned_packages_redirect' needed but not provided" unless $redirect_to;
-
-    $redirect_to .= '?view_channel=no_channels';
-    my $set = RHN::Set->lookup(-label => 'deletable_package_list', -uid => $pxt->user->id);
-    $set->empty;
-    $set->add(map { $_->{ID} } @{$orphaned_packages});
-    $set->commit;
-
-    $pxt->push_message(site_info => "The packages selected below were unique to <strong>$name</strong>, and have now been orphaned.  The packages which are not selected were already orphaned.");
-  }
-  else {
-    $redirect_to = $pxt->dirty_param('redirect_to');
-    throw "param 'redirect_to' needed but not provided" unless $redirect_to;
-  }
-  $pxt->redirect($redirect_to);
 }
 
 sub channel_edit_cb {
