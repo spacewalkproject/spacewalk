@@ -107,23 +107,6 @@ sub register_callbacks {
 
   $pxt->register_callback('rhn:remote-command-cb' => \&remote_command_cb);
   $pxt->register_callback('rhn:package-action-command-cb' => \&package_action_command_cb);
-
-  $pxt->register_callback('rhn:osa-ping' => \&osa_ping_cb);
-}
-
-sub osa_ping_cb {
-  my $pxt = shift;
-  my $sid = $pxt->param('sid');
-
-  die "no sid" unless $sid;
-
-  my $server = RHN::Server->lookup(-id => $sid);
-  die "no server" unless $server;
-
-  $server->osa_ping();
-
-  # $pxt->push_message(site_info => "<strong>" . $server->name . "</strong> has been pinged.  OSA Status will update within the next minute.");
-  $pxt->redirect('/rhn/systems/details/Overview.do?sid=' . $sid . "&message=system.osad.pinged&messagep1=" . $server->name);
 }
 
 sub system_pending_actions_count {
