@@ -390,40 +390,6 @@ EOQ
   return $action_id;
 }
 
-sub schedule_package_refresh {
-  my $class = shift;
-  my %params = @_;
-
-  my ($org_id, $user_id, $server_id, $earliest, $transaction) =
-    map { $params{"-" . $_} } qw/org_id user_id server_id earliest transaction/;
-
-  my $action_label;
-  my $server_packaging_type = RHN::Server->packaging_type($server_id);
-
-  if ($server_packaging_type eq 'rpm') {
-    $action_label = 'packages.refresh_list';
-  }
-  elsif ($server_packaging_type eq 'sysv-solaris') {
-    $action_label = 'solarispkgs.refresh_list';
-  }
-  else {
-    throw "Unknown packaging type ($server_packaging_type) for system ($server_id)";
-  }
-
-  my ($action_id, $stat_id) = $class->make_base_action(-org_id => $org_id,
-						       -user_id => $user_id,
-						       -type_label => $action_label,
-						       -earliest => $earliest,
-						       -transaction => $transaction
-						      );
-
-  $class->add_servers_to_action($action_id, $stat_id, $user_id, undef, $server_id);
-
-  osa_wakeup_tickle();
-
-  return $action_id;
-}
-
 sub sscd_schedule_package_refresh {
   my $class = shift;
   my %params = @_;
