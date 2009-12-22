@@ -71,8 +71,6 @@ sub register_callbacks {
   $pxt->register_callback('rhn:login_cb', \&rhn_login_cb);
   $pxt->register_callback('rhn:forgot_password_cb', \&forgot_password_cb);
   $pxt->register_callback('rhn:forgot_accounts_cb', \&forgot_accounts_cb);
-  $pxt->register_callback('rhn:logout_cb', \&rhn_logout_cb);
-
 
   $pxt->register_callback('rhn:admin_user_edit_cb' => \&admin_user_edit_cb);
   $pxt->register_callback('rhn:admin_user_site_edit_cb' => \&admin_user_site_edit_cb);
@@ -456,23 +454,6 @@ sub rhn_login_cb {
     $pxt->push_message(local_alert => 'Either the password or username is incorrect.');
   }
 
-}
-
-sub rhn_logout_cb {
-  my $pxt = shift;
-
-  $pxt->clear_user;
-  $pxt->session->uid(undef);
-  $pxt->clear_session;
-
-  if ($pxt->dirty_param('logout_redirect')) {
-    my @extra_params = grep { $_ ne 'logout_redirect' and $_ ne 'pxt:trap' and $_ ne ''} $pxt->param();
-    my $extra_params = @extra_params ? "?" . join("&", map { $_ . "=" . $pxt->param($_) } @extra_params) : "";
-    $pxt->redirect($pxt->dirty_param('logout_redirect') . $extra_params);
-  }
-  else {
-    $pxt->redirect('/rhn/Logout.do');
-  }
 }
 
 
