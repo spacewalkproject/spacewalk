@@ -922,16 +922,6 @@ sub sites {
   return @ret;
 }
 
-sub default_bill_address {
-  my $self = shift;
-
-  my $site = ($self->sites('B'))[0] || ($self->sites('M'))[0] || ($self->sites('S'))[0];
-
-  $site = $self->new_site('B') if not $site;
-
-  return $site;
-}
-
 
 # this crap is foobared.  unfoobar it later.
 sub RHN::DB::UserSite::commit {
