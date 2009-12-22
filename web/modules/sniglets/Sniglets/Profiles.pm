@@ -26,12 +26,6 @@ use PXT::Utils;
 
 use Data::Dumper;
 
-sub register_tags {
-  my $class = shift;
-  my $pxt = shift;
-
-}
-
 sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
