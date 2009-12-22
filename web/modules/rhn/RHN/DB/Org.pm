@@ -1017,23 +1017,6 @@ EOQ
 
 }
 
-sub enter_edu_holding_pen {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query = <<EOQ;
-INSERT INTO rhnEduHoldingPen
-  (org_id)
-VALUES
-  (?)
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  $dbh->commit;
-}
-
 # all roles that are available to the org
 sub available_roles {
   my $self = shift;
