@@ -52,7 +52,6 @@ use Carp;
 use RHN::Utils;
 use RHN::Exception qw/throw/;
 use RHN::API::Exception;
-use RHN::SatCluster;
 
 
 # fields in the rhnServer table
@@ -3736,20 +3735,6 @@ sub sat_clusters_for_system {
   my $data = $ds->execute_full(-sid => $sid);
 
   return @{$data};
-}
-
-sub schedule_sat_cluster_push {
-  my $self = shift;
-  my $uid = shift;
-  my @clusters = @_;
-
-  my $org_id = $self->org_id();
-
-  foreach my $row (@clusters) {
-    RHN::SatCluster->push_config($org_id, $row->{SAT_CLUSTER_ID}, $uid);
-  }
-
-  return;
 }
 
 sub virtual_guest_details {
