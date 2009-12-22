@@ -65,19 +65,6 @@ sub validate_search_string {
 my @integer_types = qw/search_id search_cpu_mhz_lt search_cpu_mhz_gt search_ram_lt search_ram_gt search_checkin search_registered/;
 
 #################################
-# Errata Searching
-#################################
-
-
-my $errata_searches = new RHN::SearchType;
-$errata_searches->add_mode(simple_errata_search => "Summary", 'Synopsis');
-$errata_searches->add_mode(errata_search_by_advisory => "Errata Advisory (ex: RHSA-2002:130)", 'Errata Advisory');
-$errata_searches->add_mode(errata_search_by_package_name => "Package Name (ex: apache)", 'Package Name');
-$errata_searches->set_name('errata_search');
-
-RHN::SearchTypes->register_type('errata', $errata_searches);
-
-#################################
 # Package Searching
 #################################
 
