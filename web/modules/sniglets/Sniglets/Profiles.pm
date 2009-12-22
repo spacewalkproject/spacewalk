@@ -31,65 +31,6 @@ sub register_callbacks {
   my $pxt = shift;
 
   $pxt->register_callback('rhn:sync_server_cb' => \&sync_server_cb);
-
-  $pxt->register_callback('rhn:create_profile_from_system_cb' => \&create_profile_from_system_cb);
-}
-
-sub create_profile_from_system_cb {
-  my $pxt = shift;
-
-  my $name = $pxt->dirty_param('name');
-  my $description = $pxt->dirty_param('description');
-
-  unless ($name && $description) {
-    $pxt->push_message(local_alert => "A system profile must have both a name and a description.");
-    return
-  }
-
-  my $profile = RHN::Profile->create;
-
-  $profile->org_id($pxt->user->org_id);
-  my $system = RHN::Server->lookup(-id => $pxt->param('sid'));
-  throw "no system!" unless $system;
-
-  unless ($system->base_channel_id) {
-    $pxt->push_message(local_alert => "This system must be subscribed to a base channel before a package profile can be created.");
-    return;
-  }
-
-  $profile->base_channel($system->base_channel_id);
-  $profile->$_($pxt->dirty_param($_)) foreach qw/name description/;
-
-  throw "profile base channel not in org"
-    unless grep { $_->[1] == $profile->base_channel }
-      RHN::Channel->base_channel_list($pxt->user->org_id);
-
-  eval {
-    $profile->commit;
-  };
-  if ($@) {
-    my $E = $@;
-    if (ref $E and catchable($E)) {
-      if ($E->is_rhn_exception('RHN.RHN_SERVER_PROFILE_NOID_UQ')) {
-	$pxt->push_message(local_alert => "A profile with that name already exists.");
-	return;
-      }
-      else {
-	throw $E;
-      }
-    }
-    else {
-      die $E;
-    }
-  }
-
-  $profile->copy_from(-sid => $system->id);
-
-  $pxt->push_message(site_info => sprintf('Profile <strong>%s</strong> successfully created from <strong>%s</strong>.', PXT::Utils->escapeHTML($profile->name), PXT::Utils->escapeHTML($system->name)));
-
-  my $redir = $pxt->dirty_param('redirect_success');
-  throw "param 'redirect_success' needed but not provided." unless $redir;
-  $pxt->redirect($redir);
 }
 
 sub sync_server_cb {
