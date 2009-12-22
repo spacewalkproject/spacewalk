@@ -79,25 +79,4 @@ sub file_id_to_path {
   return $class->file_name_id_to_path($ret);
 }
 
-sub validate_path_name {
-  my $class = shift;
-  my $path = shift;
-
-  return "No path defined" unless $path;
-
-  my @path = split m([/]), $path;
-
-  if ($path =~ m(^[^/])) {
-    return "Paths must begin with a forward slash ('/').";
-  }
-  if ($path =~ m(/$)) {
-    return "Paths must not end with a forward slash ('/').";
-  }
-  if (grep { $_ eq ".." } @path) {
-    return "Paths must be absolute paths (no '..' in the pathname).";
-  }
-
-  return;
-}
-
 1;
