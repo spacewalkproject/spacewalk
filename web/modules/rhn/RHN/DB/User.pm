@@ -997,29 +997,6 @@ EOQ
   $dbh->commit;
 }
 
-sub group_list_for_user {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query = <<EOS;
-  SELECT MAX(DECODE(user_id, ?, 1, 0)), GROUP_ID, GROUP_NAME, GROUP_TYPE
-    FROM rhnUserGroupMembership
-   WHERE ORG_ID = ?
-GROUP BY group_id, group_name, group_type
-ORDER BY UPPER(group_name), group_id
-EOS
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->id, $self->org_id);
-
-  my @ret;
-  while (my ($user_member, $id, $name, $group_type) = $sth->fetchrow) {
-    push @ret, [ $user_member, $id, $name, $group_type ];
-  }
-
-  return @ret;
-}
-
 
 # this crap is foobared.  unfoobar it later.
 sub RHN::DB::UserSite::commit {
