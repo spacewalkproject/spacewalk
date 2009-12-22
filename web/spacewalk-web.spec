@@ -68,15 +68,6 @@ Dobby is collection of perl modules and scripts to administer an Oracle
 database.
 
 
-%package -n spacewalk-cypress
-Summary: Cypress, a collection of Grail applications for Red Hat Network
-Group: Applications/Internet
-Obsoletes: rhn-cypress < 5.3.0
-Provides: rhn-cypress = 5.3.0
-
-%description -n spacewalk-cypress
-Cypress is a collection of Components for Grail.
-
 %package -n spacewalk-grail
 Summary: Grail, a component framework for Red Hat Network
 Requires: spacewalk-base
@@ -252,11 +243,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/DB.pm
 %{perl_vendorlib}/PXT/Config.pm
 %attr(640,root,apache) %config %{_sysconfdir}/rhn/default/rhn_web.conf
-
-%files -n spacewalk-cypress 
-%defattr(644,root,root,755)
-%{perl_vendorlib}/Cypress.pm
-%{perl_vendorlib}/Cypress/
 
 %files -n spacewalk-dobby
 %defattr(644,root,root,755)

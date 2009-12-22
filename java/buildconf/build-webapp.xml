@@ -168,8 +168,6 @@
     <symlink link="/var/www/html" resource="${git.home}/web/html"/>
     <mkdir dir="/var/www/lib"/>
     <mkdir dir="/var/www/html/nav"/>
-    <symlink link="/var/www/lib/Cypress"
-             resource="${git.home}/web/modules/cypress/Cypress"/>
     <symlink link="/var/www/lib/Dobby" resource="${git.home}/web/modules/dobby/Dobby"/>
     <symlink link="/var/www/lib/Grail" resource="${git.home}/web/modules/grail/Grail"/>
     <symlink link="/var/www/lib/PXT" resource="${git.home}/web/modules/pxt/PXT"/>
@@ -184,7 +182,6 @@
 
   <target name="uninstall-web"
           description="Used to uninstall the perl side of spacewalk  devel environment">
-    <symlink action="delete" link="/var/www/lib/Cypress"/>
     <symlink action="delete" link="/var/www/lib/Dobby"/>
     <symlink action="delete" link="/var/www/lib/Grail"/>
     <symlink action="delete" link="/var/www/lib/PXT"/>
