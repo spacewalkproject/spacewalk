@@ -57,17 +57,6 @@ sub validate_search_string {
 
 my @integer_types = qw/search_id search_cpu_mhz_lt search_cpu_mhz_gt search_ram_lt search_ram_gt search_checkin search_registered/;
 
-#################################
-# Package Searching
-#################################
-
-my $package_searches = new RHN::SearchType;
-$package_searches->add_mode(simple_package_search => "Name and Summary", 'Summary');
-$package_searches->add_mode(package_search_by_name => "Name Only", 'Summary');
-$package_searches->set_name('package_search');
-
-RHN::SearchTypes->register_type('package', $package_searches);
-
 # Utility functions
 
 sub strip_rpm_extensions { #strips the extensions off of an rpm file name
