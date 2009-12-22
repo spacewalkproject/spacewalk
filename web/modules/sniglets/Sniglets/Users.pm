@@ -440,37 +440,6 @@ sub user_site_view {
 }
 
 
-# sort timezones, making the listed ones pop to the top
-sub timezone_sort {
-  my $class = shift;
-  my @zones = @_;
-
-  my $i = 10;
-  my %preferred_zones =
-    map { $_ => --$i }
-      ( "United States (Eastern)",
-	"United States (Central)",
-	"United States (Indiana)",
-	"United States (Mountain)",
-	"United States (Arizona)",
-	"United States (Pacific)",
-	"United States (Alaska)",
-	"United States (Hawaii)" );
-
-  # now we we-order the timezones based on a random, euro-centric hueristic
-  @zones =
-    sort {
-      my $a_name = $a->{DESCRIPTION};
-      my $b_name = $b->{DESCRIPTION};
-      my $a_score = $preferred_zones{$a_name} || -1;
-      my $b_score = $preferred_zones{$b_name} || -1;
-
-      return ($b_score <=> $a_score) || ($a->{OFFSET} <=> $b->{OFFSET}) || ($a_name cmp $b_name);
-    } @zones;
-
-  return @zones;
-}
-
 sub user_prefs_edit_cb {
   my $pxt = shift;
 
