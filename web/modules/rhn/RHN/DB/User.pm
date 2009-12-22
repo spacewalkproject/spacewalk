@@ -992,20 +992,6 @@ sub RHN::DB::UserSite::oai_site_sync {
   }
 }
 
-sub RHN::DB::UserSite::associated_with_order {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare("SELECT id FROM web_user_order WHERE web_user_id = ? AND (bill_to_contact_id = ? OR ship_to_contact_id = ?)");
-
-  $sth->execute($self->site_web_user_id, $self->site_id, $self->site_id);
-  my ($id) = $sth->fetchrow;
-
-  $sth->finish;
-
-  return $id ? 1 : 0;
-}
-
 sub selection_details {
   my $self = shift;
 
