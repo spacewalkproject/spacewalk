@@ -24,13 +24,6 @@ use RHN::Server;
 use RHN::Exception;
 use PXT::Utils;
 
-sub register_callbacks {
-  my $class = shift;
-  my $pxt = shift;
-
-  $pxt->register_callback('rhn:package_search_handler' => \&package_search_handler);
-}
-
 sub validate_search_string {
   my $class = shift;
   my $pxt = shift;
@@ -74,40 +67,6 @@ $package_searches->add_mode(package_search_by_name => "Name Only", 'Summary');
 $package_searches->set_name('package_search');
 
 RHN::SearchTypes->register_type('package', $package_searches);
-
-sub package_search_handler {
-  my $pxt = shift;
-
-  my $search = RHN::SearchTypes->find_type('package');
-  my $selected = new RHN::DB::Set $search->set_name, $pxt->user->id;
-  $selected->empty;
-  $selected->commit;
-
-  my $search_string = $pxt->dirty_param('search_string') || '';
-  my $search_mode = $pxt->dirty_param('view_mode') || $search->default_search_type;
-
-  my @arch_labels;
-  for my $arch (qw/ia32 ia64 x86_64/) {
-    push @arch_labels, "channel-$arch"
-      if $pxt->dirty_param("channel_arch_$arch");
-  }
-
-  my $smart_search = $pxt->dirty_param('search_subscribed_channels');
-
-  if (not $smart_search and not @arch_labels) {
-    $pxt->push_message(local_alert => 'You must choose at least one architecture, or to search relevant channels.');
-    return;
-  }
-
-  if ($smart_search and @arch_labels) {
-    $pxt->push_message(local_alert => 'Either do a smart search -or- an arch search, not both.');
-    return;
-  }
-
-  if (Sniglets::Search->validate_search_string($pxt, $search, $search_string)) {
-    RHN::Search->package_search($pxt->user, $search_mode, $search_string, \@arch_labels, $smart_search);
-  }
-}
 
 # Utility functions
 
