@@ -932,41 +932,6 @@ sub default_bill_address {
   return $site;
 }
 
-# Now an object method because we need a user who owns the set
-sub add_users_to_groups {
-  my $self = shift;
-  my @users = @{+shift};
-  my @groups = @{+shift};
-  my $pending = shift;
-
-  return unless @users and @groups;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query = "delete from rhnSet where user_id = :user_id and label = :label";
-  my $sth0 = $dbh->prepare($query);
-  $sth0->execute_h(user_id => $self->id, label => "user_group_list");
-
-  my $sth1 = $dbh->prepare(<<EOQ);
-INSERT INTO rhnSet (user_id, label, element, element_two)
-    values (:set_owner, 'user_group_list', :user_id, :ugid)
-EOQ
-
-  my $pending_group = RHN::Org->org_applicant_group_from_ugid($groups[0]);
-
-  foreach my $user_id (@users) {
-    foreach my $group_id (@groups) {
-      next if ($pending_group and ($group_id == $pending_group) and (!$pending));
-      $sth1->execute_h(set_owner => $self->id, user_id => $user_id, ugid => $group_id);
-    }
-  }
-
-  $dbh->call_procedure("rhn_user.add_users_to_usergroups", $self->id);
-  $sth0->execute_h(user_id => $self->id, label=>"user_group_list");
-
-  $dbh->commit;
-}
-
 
 # this crap is foobared.  unfoobar it later.
 sub RHN::DB::UserSite::commit {
