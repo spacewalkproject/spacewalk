@@ -2514,29 +2514,6 @@ EOQ
   return $truth ? 1 : 0;
 }
 
-sub default_system_groups {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query =<<EOQ;
-SELECT system_group_id
-  FROM rhnUserDefaultSystemGroups
- WHERE user_id = :user_id
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h(user_id => $self->id);
-
-  my @groups;
-
-  while (my ($gid) = $sth->fetchrow) {
-    push @groups, $gid;
-  }
-
-  return @groups;
-}
-
 sub set_default_system_groups {
   my $self = shift;
   my @sgids = grep { $_ } @_;
