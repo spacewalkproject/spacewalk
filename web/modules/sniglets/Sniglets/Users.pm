@@ -74,7 +74,6 @@ sub register_callbacks {
 
   $pxt->register_callback('rhn:user_prefs_edit_cb' => \&user_prefs_edit_cb);
 
-  $pxt->register_callback('rhn:request_account_deactivation_cb' => \&request_account_deactivation_cb);
   $pxt->register_callback('rhn:user_default_system_groups_cb' => \&default_system_groups_cb);
   
   $pxt->register_callback('rhn:accepted' => \&tnc_accepted_cb);
@@ -103,35 +102,6 @@ sub secure_links_if_logged_in {
   }
 
   return $params{__block__};
-}
-
-
-sub request_account_deactivation_cb {
-  my $pxt = shift;
-  my $user = $pxt->user;
-
-  die "no user!" unless $user;
-
-  eval {
-    $user->request_deactivation();
-  };
-
-  if ($@) {
-
-    my $E = $@;
-
-    if (ref $E and catchable($E) and $E->constraint_value eq 'RHN_UDQUEUE_UID_UQ') {
-      $pxt->push_message(site_info => 'We have already logged your deactivation request and will complete the request as soon as possible.');
-    }
-    else {
-      throw $E;
-    }
-  }
-  else {
-    $pxt->push_message(site_info => 'Request for account deactivation sent.');
-  }
-
-  $pxt->redirect('/network/account/details.pxt');
 }
 
 
