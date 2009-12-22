@@ -884,38 +884,6 @@ sub server_network_interfaces {
   return $block;
 }
 
-sub server_location {
-  my $pxt = shift;
-  my %params = @_;
-  my $sid = $pxt->param('sid');
-  die "no server id" unless ($sid);
-
-  # if possible, reuse existing server object
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  my %subst;
-
-  $subst{country} = defined $server->location_country ? $server->location_country : "";
-
-  $subst{state} = defined $server->location_state ? $server->location_state : "";
-
-  $subst{city} = defined $server->location_city ? $server->location_city : "";
-
-  $subst{address1} = defined $server->location_address1 ? $server->location_address1 : "";
-  $subst{address2} = defined $server->location_address2 ? $server->location_address2 : "";
-
-  $subst{building} = defined $server->location_building ? $server->location_building : "";
-
-  $subst{room} = defined $server->location_room ? $server->location_room : "" ;
-  $subst{rack} = defined $server->location_rack ? $server->location_rack : "" ;
-
-  $subst{machine} = defined $server->location_machine ? $server->location_machine : "";
-
-  PXT::Utils->escapeHTML_multi(\%subst);
-
-  return PXT::Utils->perform_substitutions($params{__block__}, \%subst);
-}
-
 # must happen *after* server_hardware_profile... so use tags
 # correctly!
 sub server_device {
