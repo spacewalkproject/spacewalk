@@ -74,7 +74,6 @@ sub register_callbacks {
 
   $pxt->register_callback('rhn:user_prefs_edit_cb' => \&user_prefs_edit_cb);
 
-  $pxt->register_callback('rhn:delete_user_cb' => \&delete_user_cb);
   $pxt->register_callback('rhn:request_account_deactivation_cb' => \&request_account_deactivation_cb);
   $pxt->register_callback('rhn:user_default_system_groups_cb' => \&default_system_groups_cb);
   
@@ -104,45 +103,6 @@ sub secure_links_if_logged_in {
   }
 
   return $params{__block__};
-}
-
-sub delete_user_cb {
-  my $pxt = shift;
-
-  my $uid = $pxt->param('uid');
-  die 'no user id' unless $uid;
-
-  if ($uid == $pxt->user->id) {
-    $pxt->push_message(local_alert => "You may not delete yourself.");
-    $pxt->redirect("/rhn/users/UserDetails.do?uid=$uid");
-  }
-
-  my $user = RHN::User->lookup(-id => $uid);
-  die 'user lookup failed' unless $user;
-
-  my $login = $user->login;
-
-  eval {
-    RHN::User->delete_user($uid);
-  };
-  if ($@ and catchable($@)) {
-    my $E = $@;
-
-    if ($E->is_rhn_exception('cannot_delete_user')) {
-      $pxt->push_message(local_alert => "Could not delete user <strong>" . $login . "</strong>.");
-      $pxt->redirect("/rhn/users/UserDetails.do?uid=$uid");
-    }
-    else {
-      throw $E;
-    }
-  }
-  else {
-    $pxt->push_message(site_info => "Deleted user <strong>" . $login . "</strong>.");
-  }
-
-  $pxt->redirect('/rhn/users/index.jsp');
-
-  return;
 }
 
 
