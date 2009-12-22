@@ -29,13 +29,6 @@ sub register_tags {
   $pxt->register_tag("grail-canvas-replacement" => \&canvas_replacement_handler, 50);
 }
 
-sub register_callbacks {
-  my $class = shift;
-  my $pxt = shift;
-
-  $pxt->register_callback('grail:canvas_trap_handler' => \&canvas_trap_handler);
-}
-
 sub canvas_handler {
   my $pxt = shift;
   my %params = @_;
@@ -82,15 +75,6 @@ sub canvas_template_handler {
   }
 
   return $pxt->include($file);
-}
-
-sub canvas_trap_handler {
-  my $pxt = shift;
-
-  $pxt->pnotes($_, $pxt->param($_))
-    foreach qw/grail_canvas_handler grail_canvas_formvars/;
-
-  $pxt->form_builder_variables(qw/grail_canvas_handler grail_canvas_formvars/);
 }
 
 1;
