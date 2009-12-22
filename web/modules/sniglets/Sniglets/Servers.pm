@@ -103,7 +103,6 @@ sub register_callbacks {
 
   $pxt->register_callback('rhn:system-activation-key-cb' => \&system_activation_key_cb);
 
-  $pxt->register_callback('rhn:server_lock_cb' => \&server_lock_cb);
   $pxt->register_callback('rhn:server_set_lock_cb' => \&server_set_lock_cb);
 
   $pxt->register_callback('rhn:remote-command-cb' => \&remote_command_cb);
@@ -1328,26 +1327,6 @@ sub system_activation_key_cb {
 
   my $url = $pxt->uri;
   $pxt->redirect($url . "?sid=" . $sid);
-}
-
-sub server_lock_cb {
-  my $pxt = shift;
-  my $sid = $pxt->param('sid');
-  my $lock = $pxt->dirty_param('lock');
-
-  my $system = RHN::Server->lookup(-id => $sid);
-  my $msg;
-  if ($lock) {
-    $system->lock_server($pxt->user, "Manually locked");
-    $msg = "<strong>%s</strong> has been locked.";
-  }
-  else {
-    $system->unlock_server();
-    $msg = "<strong>%s</strong> has been unlocked.";
-  }
-
-  $pxt->push_message(site_info => sprintf($msg, $system->name));
-  $pxt->redirect("index.pxt?sid=$sid");
 }
 
 sub server_set_lock_cb {
