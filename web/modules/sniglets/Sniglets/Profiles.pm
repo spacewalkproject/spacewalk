@@ -36,7 +36,6 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:profile_delete_cb' => \&profile_delete_cb);
   $pxt->register_callback('rhn:profile_edit_cb' => \&profile_edit_cb);
   $pxt->register_callback('rhn:sync_server_cb' => \&sync_server_cb);
 
@@ -109,25 +108,6 @@ sub create_profile_from_system_cb {
   my $redir = $pxt->dirty_param('redirect_success');
   throw "param 'redirect_success' needed but not provided." unless $redir;
   $pxt->redirect($redir);
-}
-
-sub profile_delete_cb {
-  my $pxt = shift;
-
-  my $prid = $pxt->param('prid');
-  throw "No profile id" unless $prid;
-
-  my $sid = $pxt->param('sid');
-
-  my $profile = RHN::Profile->lookup(-id => $prid);
-
-  my $name = PXT::Utils->escapeHTML($profile->name);
-  $profile->delete_profile;
-
-  my $redir = $pxt->dirty_param('delete_success_page');
-  throw "param 'delete_success_page' needed but not provided." unless $redir;
-  $pxt->push_message(site_info => "Profile <strong>$name</strong> deleted.");
-  $pxt->redirect($redir, ($sid ? (sid => $sid) : ()));
 }
 
 sub sync_server_cb {
