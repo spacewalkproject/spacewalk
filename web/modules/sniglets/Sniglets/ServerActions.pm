@@ -431,39 +431,6 @@ sub server_set_actions_cb {
   }
 }
 
-my %config_actions = ('configfiles.verify' => 'verification',
-		      'configfiles.diff' => 'diff',
-		      'configfiles.upload' => 'upload',
-		      'configfiles.deploy' => 'deploy');
-
-sub _schedule_config_action {
-  my $user = shift;
-  my $action = shift;
-  my $earliest_date = shift;
-  my $sid = shift;
-  my $ids = shift;
-  my %id_map = %{$ids};
-
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  my @revisions;
-
-  foreach my $revision ($server->latest_managed_config_revisions()) {
-    # skip file/rev unless it's truly under management on the server...
-    next unless $id_map{$revision->{LATEST_CONFIG_REVISION_ID}};
-    push @revisions, $revision->{LATEST_CONFIG_REVISION_ID};
-  }
-
-  RHN::Scheduler->schedule_config_action(-org_id => $user->org_id,
-              -user_id => $user->id,
-              -earliest => $earliest_date,
-              -server_id => $sid,
-              -action_type => $action,
-              -action_name => 'Configuration ' . $config_actions{$action} . ' for '. $server->name,
-              -revision_ids => [@revisions],
-             );
-}
-
 sub package_event_result {
   my $pxt = shift;
   my %attr = @_;
