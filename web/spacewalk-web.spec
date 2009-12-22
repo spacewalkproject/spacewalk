@@ -208,7 +208,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Server.pm
 %{perl_vendorlib}/RHN/ServerActions.pm
 %{perl_vendorlib}/RHN/ServerGroup.pm
-%{perl_vendorlib}/RHN/ServerMessage.pm
 %{perl_vendorlib}/RHN/ServerNotes.pm
 %{perl_vendorlib}/RHN/Session.pm
 %{perl_vendorlib}/RHN/Set.pm
@@ -218,7 +217,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/TSDB.pm
 %{perl_vendorlib}/RHN/Tag.pm
 %{perl_vendorlib}/RHN/TemplateString.pm
-%{perl_vendorlib}/RHN/TextMessage.pm
 %{perl_vendorlib}/RHN/TinyURL.pm
 %{perl_vendorlib}/RHN/Token.pm
 %{perl_vendorlib}/RHN/TokenGen/
