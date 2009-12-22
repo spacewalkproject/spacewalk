@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.3
+Version: 0.8.4
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -277,6 +277,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Dec 22 2009 Jan Pazdziora 0.8.4-1
+- Removed more dead code, including spacewalk-cypress.
+
 * Mon Dec 21 2009 Jan Pazdziora <jpazdziora@redhat.com> 0.8.3-1
 - removed a lot of dead code
 - modified to fit sha256 schema changes (michael.mraka@redhat.com)
