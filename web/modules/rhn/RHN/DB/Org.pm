@@ -562,29 +562,6 @@ EOSQL
   return ($count, $sec, $bug, $enh);
 }
 
-sub org_applicant_group_from_ugid {
-  my $class = shift;
-  my $ugid = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT UG1.id
-  FROM rhnUserGroupType UGT,
-       rhnUserGroup UG1,
-       rhnUserGroup UG2
- WHERE UG1.group_type = UGT.id
-   AND UGT.label = 'org_applicant'
-   AND UG1.org_id = UG2.org_id
-   AND UG2.id = ?
-EOQ
-
-  $sth->execute($ugid);
-  my ($ret) = $sth->fetchrow;
-  $sth->finish;
-
-  return $ret;
-}
-
 sub entitlement_counts {
   my $self = shift;
   my $entitlement = shift;
