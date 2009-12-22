@@ -967,36 +967,6 @@ EOQ
   $dbh->commit;
 }
 
-# Now an object method because we need a user who owns the set
-sub remove_users_from_groups {
-  my $self = shift;
-  my @users = @{+shift};
-  my @groups = @{+shift};
-
-  return unless @users and @groups;
-  my $dbh = RHN::DB->connect;
-
-  my $query = "delete from rhnSet where user_id = :user_id and label = :label";
-  my $sth0 = $dbh->prepare($query);
-  $sth0->execute_h(user_id=>$self->id, label=>"user_group_list");
-
-  my $sth1 = $dbh->prepare(<<EOQ);
-INSERT INTO rhnSet (user_id, label, element, element_two)
-    values (:owner, 'user_group_list', :user_id, :ugid)
-EOQ
-
-  for my $user (@users) {
-    for my $group (@groups) {
-      $sth1->execute_h(owner=>$self->id, user_id=>$user, ugid=>$group);
-    }
-  }
-
-  $dbh->call_procedure("rhn_user.remove_users_from_servergroups", $self->id);
-
-  $sth0->execute_h(user_id=>$self->id, label=>"user_group_list");
-  $dbh->commit;
-}
-
 
 # this crap is foobared.  unfoobar it later.
 sub RHN::DB::UserSite::commit {
