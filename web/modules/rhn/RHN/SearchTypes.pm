@@ -31,15 +31,6 @@ sub find_type {
   return $ret;
 }
 
-sub register_type {
-  my $class = shift;
-  my $label = shift;
-  my $type = shift;
-  die "invalid search type $type" unless $type->isa("RHN::SearchType");
-
-  $search_types{$label} = $type;
-}
-
 package RHN::SearchType;
 
 use Params::Validate qw/validate/;
