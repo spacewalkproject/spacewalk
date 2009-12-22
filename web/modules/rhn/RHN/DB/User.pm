@@ -883,17 +883,6 @@ sub oai_contact_sync {
   }
 }
 
-sub new_site {
-  my $self = shift;
-  my $type = shift;
-
-  my $site = bless { }, 'RHN::DB::UserSite';
-  $site->{__newly_created__} = 1;
-  $site->{__site_id__} = -1;
-  $site->site_type($type);
-  return $site;
-}
-
 # instance OR class method
 sub sites {
   my $class = shift;
