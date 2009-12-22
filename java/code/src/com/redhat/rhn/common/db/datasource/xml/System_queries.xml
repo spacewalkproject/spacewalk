@@ -601,8 +601,8 @@ SELECT  DISTINCT SP.server_id id,
         SP.name_id || '|' || SP.evr_id || '|' || SP.package_arch_id AS ID_COMBO
   FROM  rhnServerPackage SP
  WHERE  SP.server_id IN (%s)
-   AND  SP.name_id  || '|' || SP.evr_id || '|' || SP.package_arch_id IN (SELECT element || '|' || element_two || '|' || element_three FROM rhnSet WHERE user_id = :user_id AND label = :package_set_label)
-   </elaborator>
+    AND  exists (select 1 from rhnSet where user_id = :user_id and label = :package_set_label and element = SP.name_id and element_two = SP.evr_id and element_three = SP.package_arch_id)
+    </elaborator>
 </mode>
 
 <mode name="system_set_remove_or_verify_packages_conf">
