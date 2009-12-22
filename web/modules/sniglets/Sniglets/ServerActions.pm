@@ -59,7 +59,6 @@ sub register_callbacks {
 
   $pxt->register_callback('rhn:sscd_reboot_servers_cb' => \&sscd_reboot_servers_cb);
 
-  $pxt->register_callback('rhn:add_managed_filenames_to_set_cb' => \&add_managed_filenames_to_set_cb);
   $pxt->register_callback('rhn:schedule_ssm_config_action_cb' => \&schedule_ssm_config_action_cb);
 
 }
@@ -522,36 +521,6 @@ sub schedule_ssm_config_action_cb {
 
 }
 
-
-sub add_managed_filenames_to_set_cb {
-  my $pxt = shift;
-
-  my $sid = $pxt->param('sid');
-  my $ds = new RHN::DataSource::Simple(-querybase => 'config_queries',
-				       -mode => 'configfiles_for_system',
-				      );
-
-  my $data = $ds->execute_query(-sid => $sid);
-
-  my %seen;
-
-  $data = [ sort { $a->{PATH} cmp $b->{PATH} }
-	    grep { not $seen{$_->{PATH}}++ } @{$data} ];
-
-  my @ids = map { $_->{CONFIG_FILE_NAME_ID} } @{$data};
-
-  my $set_label = $pxt->dirty_param('set_label');
-  die "No set label" unless $set_label;
-
-  my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-  $set->empty;
-  $set->commit;
-  $set->add(@ids);
-  $set->commit;
-
-  my $uri = $pxt->uri;
-  $pxt->redirect($uri . sprintf('?sid=%d&set_label=%s', $sid, $set_label));
-}
 
 sub package_event_result {
   my $pxt = shift;
