@@ -786,34 +786,6 @@ EOQ
   return RHN::Utils->parameterize(\@channels, 'id', 'name');
 }
 
-sub base_channel_list {
-  my $class = shift;
-  my $org_id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT AC.channel_name, AC.channel_id, AC.channel_arch_id
-  FROM rhnAvailableChannels AC
- WHERE AC.org_id = ?
-   AND AC.channel_depth = 1
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($org_id);
-
-  my @channels;
-
-  while (my @row = $sth->fetchrow) {
-    push @channels, [ @row ];
-  }
-
-  return @channels;
-}
-
 sub package_groups {
   my $class = shift;
   my $channel_id = shift;
