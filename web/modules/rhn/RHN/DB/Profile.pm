@@ -384,25 +384,6 @@ EOS
   return @packages;
 }
 
-sub delete_profile {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-DELETE FROM rhnServerProfilePackage WHERE server_profile_id = :prid
-EOQ
-
-  $sth->execute_h(prid => $self->id);
-
-  $sth = $dbh->prepare(<<EOQ);
-DELETE FROM rhnServerProfile WHERE id = :prid
-EOQ
-
-  $sth->execute_h(prid => $self->id);
-
-  return;
-}
-
 sub load_package_manifest {
   my $self = shift;
   my $mfst = new RHN::Manifest(-org_id => $self->org_id);
