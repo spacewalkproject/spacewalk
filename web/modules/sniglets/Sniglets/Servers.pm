@@ -95,7 +95,6 @@ sub register_callbacks {
 
   $pxt->register_callback('rhn:server_prefs_form_cb' => \&server_prefs_form_cb);
 
-  $pxt->register_callback('rhn:system_package_list_refresh_cb' => \&system_package_list_refresh_cb);
   $pxt->register_callback('rhn:server_hardware_list_refresh_cb' => \&server_hardware_list_refresh_cb);
 
   $pxt->register_callback('rhn:ssm_change_system_prefs_cb' => \&ssm_change_system_prefs_cb);
@@ -388,24 +387,6 @@ sub cancel_scheduled_proxy_install {
 
   my $url = $pxt->uri;
   $pxt->redirect($url . "?sid=$sid");
-}
-
-sub system_package_list_refresh_cb {
-  my $pxt = shift;
-
-  my $sid = $pxt->param('sid');
-  throw "no server id" unless $sid;
-
-  my $earliest_date = RHN::Date->now->long_date;
-  my $action_id = RHN::Scheduler->schedule_package_refresh(-org_id => $pxt->user->org_id,
-							   -user_id => $pxt->user->id,
-							   -earliest => $earliest_date,
-							   -server_id => $sid);
-
-  my $system = RHN::Server->lookup(-id => $sid);
-
-  $pxt->push_message(site_info => sprintf("You have successfully scheduled a package profile refresh for <strong>%s</strong>.", PXT::Utils->escapeHTML($system->name)));
-  return;
 }
 
 sub server_hardware_list_refresh_cb {
