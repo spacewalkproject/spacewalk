@@ -68,8 +68,6 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:education_cb' => \&education_cb);
-
   $pxt->register_callback('rhn:login_cb', \&rhn_login_cb);
   $pxt->register_callback('rhn:forgot_password_cb', \&forgot_password_cb);
   $pxt->register_callback('rhn:forgot_accounts_cb', \&forgot_accounts_cb);
@@ -185,45 +183,6 @@ sub request_account_deactivation_cb {
   $pxt->redirect('/network/account/details.pxt');
 }
 
-
-sub education_cb {
-  my $pxt = shift;
-
-  eval {
-    $pxt->user->org->enter_edu_holding_pen();
-  };
-  if ($@) {
-    my $E = $@;
-    if (ref($E) eq 'RHN::Exception') {
-    if ($E->constraint_value eq 'RHN_EDU_HP_OID_UQ') {
-      $pxt->push_message(local_alert => 'Your application is currently being processed.');
-      return;
-      }
-      else {
-	warn "unknown error in education_cb:  " . Data::Dumper->Dump([($@)]);
-	die $@;
-      }
-    }
-    else {
-      # passthrough, add real error checking later
-      die $@;
-    }
-  }
-  else {
-    my ($login, $uid, $env, $oid) = ($pxt->user->login, $pxt->user->id, $pxt->hostname, $pxt->user->org->id);
-    RHN::Mail->send(to => PXT::Config->get('education_account_email'),
-		    subject => "EDUCATION: User $login has subscribed to the education channels",
-		    headers => { "X-RHN-Info" => "education_account_creation"},
-		    body => <<EOB);
-
-The user $login (uid $uid, oid $oid) has subscribed to the education
-channels in the $env environment.
-
-EOB
-
-    $pxt->redirect("/newlogin/education_pending.pxt");
-  }
-}
 
 
 
