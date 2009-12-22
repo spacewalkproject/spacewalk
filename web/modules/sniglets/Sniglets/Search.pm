@@ -24,12 +24,6 @@ use RHN::Server;
 use RHN::Exception;
 use PXT::Utils;
 
-sub register_tags {
-  my $class = shift;
-  my $pxt = shift;
-
-}
-
 sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
