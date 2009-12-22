@@ -59,7 +59,6 @@ sub register_callbacks {
 
   $pxt->register_callback('rhn:sscd_reboot_servers_cb' => \&sscd_reboot_servers_cb);
 
-  $pxt->register_callback('rhn:schedule_config_action_cb' => \&schedule_config_action_cb);
   $pxt->register_callback('rhn:add_managed_files_to_set_cb' => \&add_managed_files_to_set_cb);
   $pxt->register_callback('rhn:add_managed_filenames_to_set_cb' => \&add_managed_filenames_to_set_cb);
   $pxt->register_callback('rhn:schedule_ssm_config_action_cb' => \&schedule_ssm_config_action_cb);
@@ -441,78 +440,6 @@ my %config_actions = ('configfiles.verify' => 'verification',
 		      'configfiles.diff' => 'diff',
 		      'configfiles.upload' => 'upload',
 		      'configfiles.deploy' => 'deploy');
-
-sub schedule_config_action_cb {
-  my $pxt = shift;
-  my $sid = $pxt->param('sid');
-  die "no server id" unless $sid;
-
-  PXT::Utils->untaint(\$sid);
-
-  my $action;
-
-  foreach my $action_type (keys %config_actions) {
-    $action = $action_type if $pxt->dirty_param($action_type);
-  }
-
-  die "no action" unless $action;
-
-  my $set_label = $pxt->dirty_param('set_label') || '';
-  my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-  my %ids = map { ( $_, 1 ) } $set->contents;
-
-  my $count = scalar $set->contents;
-
-  $set->empty;
-  $set->commit;
-
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  my $action_id;
-  my $earliest_date = Sniglets::ServerActions->parse_date_pickbox($pxt);
-
-  if ($action eq 'configfiles.upload') {
-    my @filename_ids = keys %ids;
-
-    my $dest_type = $pxt->dirty_param('destination_channel_type') || 'sandbox';
-
-    my $ccid = RHN::ConfigChannel->vivify_server_config_channel($sid, $dest_type eq 'sandbox' ? 'server_import' : 'local_override');
-
-    ($action_id) = RHN::Scheduler->schedule_config_upload(-org_id => $pxt->user->org_id,
-							  -user_id => $pxt->user->id,
-							  -earliest => $earliest_date,
-							  -server_id => $sid,
-							  -action_name => 'Configuration ' . $config_actions{$action},
-							  -filename_ids => [@filename_ids],
-							  -config_channel_id => $ccid,
-							 );
-
-  }
-  else {
-     my @revisions;
-
-     foreach my $revision ($server->latest_managed_config_revisions()) {
-       # skip file/rev unless it's truly under management on the server...
-       next unless $ids{$revision->{LATEST_CONFIG_REVISION_ID}};
-       push @revisions, $revision->{LATEST_CONFIG_REVISION_ID};
-     }
-
-
-    ($action_id) = RHN::Scheduler->schedule_config_action(-org_id => $pxt->user->org_id,
-							  -user_id => $pxt->user->id,
-							  -earliest => $earliest_date,
-							  -server_id => $sid,
-							  -action_type => $action,
-							  -action_name => 'Configuration ' . $config_actions{$action},
-							  -revision_ids => [@revisions],
-							 );
-  }
-
-  $pxt->push_message( site_info =>
-    sprintf('System config <strong><a href="/network/systems/details/history/event.pxt?sid=%d&amp;hid=%d">%s</a></strong> scheduled for <strong>%d</strong> file%s.',
-	    $sid, $action_id, $config_actions{$action}, $count, $count == 1 ? '' : 's') );
-  $pxt->redirect("/rhn/systems/details/configuration/Overview.do?sid=$sid");
-}
 
 sub _schedule_config_action {
   my $user = shift;
