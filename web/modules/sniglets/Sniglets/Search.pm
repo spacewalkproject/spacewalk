@@ -24,37 +24,6 @@ use RHN::Server;
 use RHN::Exception;
 use PXT::Utils;
 
-sub validate_search_string {
-  my $class = shift;
-  my $pxt = shift;
-  my $search = shift;
-  my $search_string = shift;
-
-  if ($search_string =~ /[^-a-zA-Z0-9_.]/) {
-    $pxt->push_message(local_alert => 'Search strings must contain only letters, numbers, hyphens and dashes.');
-    return;
-  }
-
-  if (length $search_string < 2) {
-    $pxt->push_message(local_alert => 'Search strings must be longer than two characters.');
-    return;
-  }
-
-  if ($search) {
-    my $result = $search->valid_search_string($search_string);
-
-    # returned value is error message to display, or undef/emptystring
-    # if there are no errors
-
-    if ($result) {
-      $pxt->push_message(local_alert => $result);
-      return;
-    }
-  }
-
-  $pxt->pnotes(searched => 1);
-}
-
 my @integer_types = qw/search_id search_cpu_mhz_lt search_cpu_mhz_gt search_ram_lt search_ram_gt search_checkin search_registered/;
 
 # Utility functions
