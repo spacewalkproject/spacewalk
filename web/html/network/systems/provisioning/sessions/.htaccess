@@ -1,9 +1,0 @@
-  AuthType Basic
-  AuthName "RHN Org Admin Area"
-
-  PerlModule PXT::ApacheHandler
-  PerlModule PXT::ApacheAuth
-  PerlAuthenHandler PXT::ApacheAuth
-
-  require acl org_entitlement(rhn_provisioning);user_role(config_admin)
-
