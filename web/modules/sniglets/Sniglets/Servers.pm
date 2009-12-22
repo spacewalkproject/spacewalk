@@ -759,28 +759,6 @@ sub addon_entitlement_box {
   return join("<br/>\n", $boxes->render);
 }
 
-sub server_edit_location_cb {
-  my $pxt = shift;
-  my $transaction = shift;
-
-  my $sid = $pxt->param('sid');
-  die "no server id" unless $sid;
-
-  my $server = $transaction || RHN::Server->lookup(-id => $sid);
-
-  die "Orgs for admin server edit mistatch (admin: @{[$pxt->user->org_id]} != @{[$server->org_id]}"
-    unless $pxt->user->org_id == $server->org_id;
-
-  foreach my $form_var (qw/country state city address1 address2 building room rack/) {
-    my $function = 'location_' . $form_var;
-    $server->$function($pxt->dirty_param($form_var));
-  }
-
-  $server->commit unless $transaction;
-
-  return $server;
-}
-
 sub reboot_server_cb {
   my $pxt = shift;
   my $sid = $pxt->param('sid');
