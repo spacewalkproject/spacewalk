@@ -69,9 +69,7 @@
               <rhn-tab-directory>/rhn/kickstart</rhn-tab-directory>
               <rhn-tab-url>/rhn/kickstart/TreeEdit.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="File Preservation" url="/rhn/systems/provisioning/preservation/PreservationList.do" >
-        <rhn-tab-directory>/systems/provisioning/preservation/</rhn-tab-directory>
-      </rhn-tab>
+      <rhn-tab name="File Preservation" url="/rhn/systems/provisioning/preservation/PreservationList.do" />
     </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Errata" url="/rhn/errata/Overview.do" active-image="tab-errata-selected.gif" inactive-image="tab-errata.gif">
