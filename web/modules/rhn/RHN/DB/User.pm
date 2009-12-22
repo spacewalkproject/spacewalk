@@ -2514,42 +2514,6 @@ EOQ
   return $truth ? 1 : 0;
 }
 
-sub set_default_system_groups {
-  my $self = shift;
-  my @sgids = grep { $_ } @_;
-
-  my $dbh = RHN::DB->connect;
-
-  $self->org->owns_server_groups(@sgids)
-    or die "Attempt to set system groups (@sgids) for user '" . $self->id . "' without permission";
-
-  my $query =<<EOQ;
-DELETE
-  FROM rhnUserDefaultSystemGroups
- WHERE user_id = :user_id
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h(user_id => $self->id);
-
-  $query =<<EOQ;
-INSERT
-  INTO rhnUserDefaultSystemGroups
-       (user_id, system_group_id)
-VALUES (:user_id, :sgid)
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  foreach my $sgid (@sgids) {
-    $sth->execute_h(user_id => $self->id, sgid => $sgid);
-  }
-
-  $dbh->commit;
-
-  return;
-}
-
 ##
  # Sees if user exists in rhnWebContactDisabled view. 
  # If so, return true(1). Otherwise, the user is an active
