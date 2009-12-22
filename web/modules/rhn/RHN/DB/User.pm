@@ -2024,37 +2024,6 @@ sub get_server_pref {
   return $val;
 }
 
-sub set_server_pref {
-  my $self = shift;
-  my $server_id = shift;
-  my $pref = shift;
-  my $new_val = shift;
-  my $assumed_default = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query = <<EOS;
-DELETE FROM rhnUserServerPrefs
- WHERE user_id = ?
-   AND server_id = ?
-   AND name = ?
-EOS
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->id, $server_id, $pref);
-
-  if ($new_val ne $assumed_default) {
-    my $query = <<EOS;
-INSERT INTO rhnUserServerPrefs
-(user_id, server_id, name, value)
-VALUES
-(?, ?, ?, ?)
-EOS
-    my $sth = $dbh->prepare($query);
-    $sth->execute($self->id, $server_id, $pref, $new_val);
-  }
-
-  $dbh->commit;
-}
-
 sub set_pref {
   my $self = shift;
   my $pref = shift;
