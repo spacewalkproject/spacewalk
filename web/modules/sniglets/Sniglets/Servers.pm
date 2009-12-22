@@ -102,7 +102,6 @@ sub register_callbacks {
   $pxt->register_callback('rhn:delete_servers_cb' => \&delete_servers_cb);
 
   $pxt->register_callback('rhn:system-activation-key-cb' => \&system_activation_key_cb);
-  $pxt->register_callback('rhn:add-filenames-to-set-cb' => \&add_filenames_to_set_cb);
 
   $pxt->register_callback('rhn:server_lock_cb' => \&server_lock_cb);
   $pxt->register_callback('rhn:server_set_lock_cb' => \&server_set_lock_cb);
@@ -1329,40 +1328,6 @@ sub system_activation_key_cb {
 
   my $url = $pxt->uri;
   $pxt->redirect($url . "?sid=" . $sid);
-}
-
-sub add_filenames_to_set_cb {
-  my $pxt = shift;
-
-  my $filenames = $pxt->dirty_param('input_filenames');
-
-  my @filenames = split(/,\s*/, $filenames);
-
-  my $errors;
-
-  foreach my $file (@filenames) {
-    my $errmsg = RHN::ConfigFile->validate_path_name($file);
-    if ($errmsg) {
-      $pxt->push_message(local_alert => sprintf('Invalid path <strong>%s</strong>: %s', PXT::Utils->escapeHTML($file), $errmsg));
-      $errors++;
-    }
-  }
-
-  return if $errors;
-
-  my $set_label = 'selected_configfilenames';
-  my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-
-  foreach my $file (@filenames) {
-    $set->add(RHN::ConfigFile->path_to_id($file));
-  }
-
-  $set->commit;
-
-  my $sid = $pxt->param('sid');
-  my $uri = $pxt->uri;
-
-  $pxt->redirect($uri . '?sid=' . $sid);
 }
 
 sub server_lock_cb {
