@@ -36,21 +36,9 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:profile_edit_cb' => \&profile_edit_cb);
   $pxt->register_callback('rhn:sync_server_cb' => \&sync_server_cb);
 
   $pxt->register_callback('rhn:create_profile_from_system_cb' => \&create_profile_from_system_cb);
-}
-
-sub profile_edit_cb {
-  my $pxt = shift;
-
-  my $profile = RHN::Profile->lookup(-id => $pxt->param('prid'));
-  $profile->name($pxt->dirty_param('profile_name'));
-  $profile->description($pxt->dirty_param('profile_description'));
-  $profile->commit;
-
-  $pxt->redirect("details.pxt", prid => $profile->id);
 }
 
 sub create_profile_from_system_cb {
