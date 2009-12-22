@@ -72,8 +72,6 @@ sub register_callbacks {
   $pxt->register_callback('rhn:forgot_password_cb', \&forgot_password_cb);
   $pxt->register_callback('rhn:forgot_accounts_cb', \&forgot_accounts_cb);
 
-  $pxt->register_callback('rhn:admin_user_site_edit_cb' => \&admin_user_site_edit_cb);
-
   $pxt->register_callback('rhn:user_prefs_edit_cb' => \&user_prefs_edit_cb);
 
 
@@ -610,33 +608,6 @@ sub update_site_record {
   $site->commit;
 
   return (1, $changed);
-}
-
-sub admin_user_site_edit_cb {
-  my $pxt = shift;
-
-  my $uid = $pxt->param('uid');
-  my $user = RHN::User->lookup(-id => $uid);
-
-  my $incomplete = $user->has_incomplete_info;
-  my $broken;
-  $broken = 1 if $incomplete;
-
-  my ($success, $changed) = Sniglets::Users->update_site_record($pxt, $user, $pxt->dirty_param('type'));
-  return unless $success;
-
-  $incomplete = $user->has_incomplete_info;
-
-  if ($broken and not $incomplete) {
-    $pxt->push_message(site_info => 'Thank you for completely filling out your account information.');
-    $pxt->redirect('/network/');
-  }
-
-  $pxt->push_message(site_info => 'Address changed.');
-
-  $pxt->redirect('/network/') if ($pxt->dirty_param('redirect_to_main_page'));
-  $pxt->redirect('/network/account/addresses.pxt') if ($pxt->dirty_param('redirect_to_my_addresses'));
-  $pxt->redirect('/rhn/users/Addresses.do?uid=' . $user->id) if ($pxt->dirty_param('redirect_to_user_addresses'));
 }
 
 my @required_map =
