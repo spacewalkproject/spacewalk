@@ -39,12 +39,6 @@ sub register_tags {
   # use -150 for priority since we need to set a {foo} that is consumed by a the navi tag
 }
 
-sub register_callbacks {
-  my $class = shift;
-  my $pxt = shift;
-  $pxt->register_callback('rhn:configfile_copy_files_cb' => \&configfile_copy_files_cb);
-}
-
 sub configfile_copy_files_cb {
   my $pxt = shift;
   my $mode = $pxt->dirty_param('copy_mode') || '';
