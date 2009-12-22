@@ -95,9 +95,6 @@ sub register_callbacks {
 
   $pxt->register_callback('rhn:server_prefs_form_cb' => \&server_prefs_form_cb);
 
-  # this now gets called in some cases by admin_server_edit_cb
-  $pxt->register_callback('rhn:system_update_brb_cb' => \&system_update_brb_cb);
-
   $pxt->register_callback('rhn:system_package_list_refresh_cb' => \&system_package_list_refresh_cb);
   $pxt->register_callback('rhn:server_hardware_list_refresh_cb' => \&server_hardware_list_refresh_cb);
 
