@@ -90,8 +90,6 @@ sub register_callbacks {
   $pxt->register_callback('rhn:proxy_entitlement_cb' => \&proxy_entitlement_cb);
   $pxt->register_callback('rhn:cancel_scheduled_proxy_install_cb' => \&cancel_scheduled_proxy_install);
 
-  $pxt->register_callback('rhn:admin_server_edit_cb' => \&admin_server_edit_cb);
-
   $pxt->register_callback('rhn:delete_server_cb' => \&delete_server_cb);
   $pxt->register_callback('rhn:reboot_server_cb' => \&reboot_server_cb);
 
@@ -806,76 +804,6 @@ sub reboot_server_cb {
 #
 #  $pxt->push_message(site_info => $message);
   $pxt->redirect("/rhn/systems/details/Overview.do?sid=$sid&message=system.reboot.scheduled&messagep1=" . $server->name . "&messagep2=" . $pretty_earliest_date . "&messagep3=" . $action_id);
-}
-
-sub admin_server_edit_cb {
-  my $pxt = shift;
-
-  my @extra_messages;
-
-  my $sid = $pxt->param('sid');
-  die "no server id" unless ($sid);
-
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  my $trunc_name = substr($pxt->dirty_param('name'), 0, 128);
-  $trunc_name =~ s/^\s+//;
-  $trunc_name =~ s/\s+$//;
-
-  unless (length $trunc_name > 2) {
-    $pxt->push_message(local_alert => "A system name must be at least three characters in length.");
-    return;
-  }
-
-  unless ($trunc_name =~ /^[\x20-\x7e]+$/) {
-    $pxt->push_message(local_alert => "Desired System Name contains invalid characters. In addition to alphanumeric characters, '-', '_', '.', and '\@' are allowed. Please try again");
-    return;
-  }
-
-
-  $server->name($trunc_name);
-  my $trunc_desc = substr($pxt->dirty_param('description'), 0, 256);
-  $server->description($trunc_desc);
-
-  $pxt->user->set_server_pref($server->id,
-			      'receive_notifications',
-			      $pxt->dirty_param('receive_notifications') ? 1 : 0, 1);
-  $pxt->user->set_server_pref($server->id,
-			      'include_in_daily_summary',
-			      ($pxt->dirty_param('include_in_daily_summary') and
-			       $server->has_feature('ftr_daily_summary')
-			      ) ? 1 : 0, 1);
-
-  if ($pxt->user->is('org_admin')) {
-    handle_system_entitlement_change($pxt, $server);
-  }
-
-  $server = server_edit_location_cb($pxt, $server);
-
-  my $auto_update = $pxt->dirty_param('auto_update') ? 'Y' : 'N';
-
-  if (($auto_update ne uc $server->auto_update) and $server->has_feature('ftr_auto_errata_updates')) {
-    $server->auto_update($auto_update);
-
-# only do the auto update if we're switching to an auto-updated enterprise slot system...
-    if ($auto_update eq 'Y') {
-      RHN::Scheduler->schedule_all_errata_updates_for_system(-earliest => RHN::Date->now->long_date,
-							     -org_id => $pxt->user->org_id,
-							     -user_id => $pxt->user->id,
-							     -server_id => $server->id,
-							    );
-
-      push @extra_messages, $server->name . " will be <strong>fully updated</strong> in accordance with Auto Errata Update preference.";
-    }
-  }
-
-  $server->commit;
-  $pxt->push_message(site_info => "System properties changed for <strong>" . $server->name . "</strong>.");
-
-  foreach my $message (@extra_messages) {
-    $pxt->push_message(site_info => $message);
-  }
-  $pxt->redirect("/rhn/systems/details/Overview.do?sid=$sid");
 }
 
 # Not a sniglet - handle system entitlement changes from server
