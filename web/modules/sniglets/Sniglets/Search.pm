@@ -37,8 +37,6 @@ sub register_callbacks {
   $pxt->register_callback('rhn:system_search_handler' => \&system_search_handler);
   $pxt->register_callback('rhn:errata_search_handler' => \&errata_search_handler);
   $pxt->register_callback('rhn:package_search_handler' => \&package_search_handler);
-
-  $pxt->register_callback('rhn:bar_search_cb' => \&bar_search_cb);
 }
 
 sub validate_search_string {
@@ -268,41 +266,6 @@ sub package_search_handler {
   if (Sniglets::Search->validate_search_string($pxt, $search, $search_string)) {
     RHN::Search->package_search($pxt->user, $search_mode, $search_string, \@arch_labels, $smart_search);
   }
-}
-
-sub bar_search_cb {
-  my $pxt = shift;
-
-  my $type = $pxt->dirty_param('search_type') || 'systems';
-  my $string = $pxt->dirty_param('search_string') || '';
-
-  $string = PXT::Utils->escapeURI($string);
-  my $url;
-
-  if ($type eq 'systems') {
-    my $trap = PXT::Utils->escapeURI('pxt_trap=rhn:system_search_handler');
-    $url = "/rhn/systems/Search.do?view_mode=systemsearch_name_and_description&search_string=$string&whereToSearch=all&submitted=true";
-
-    $url = "/rhn/systems/Search.do" if not $string;
-  }
-  elsif ($type eq 'errata') {
-    my $trap = PXT::Utils->escapeURI('pxt_trap=rhn:errata_search_handler');
-    $url = "/rhn/errata/Search.do?view_mode=simple_errata_search&search_string=$string";
-
-    $url = "/rhn/errata/Search.do" if not $string;
-  }
-  elsif ($type eq 'packages') {
-    my $trap = PXT::Utils->escapeURI('pxt_trap=rhn:package_search_handler');
-    $url = "/rhn/channels/software/Search.do?view_mode=search_name_and_summary&search_string=$string&ia32=channel-ia32&ia64=channel-ia64&x86=channel-x86_64&$trap";
-
-    $url = "/rhn/channels/software/Search.do" if not $string;
-  }
-  else {
-    die "no search type?!";
-  }
-
-  $pxt->session->set('last_search_type' => $type);
-  $pxt->redirect($url);
 }
 
 # Utility functions
