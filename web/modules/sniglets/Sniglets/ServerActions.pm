@@ -58,9 +58,6 @@ sub register_callbacks {
   $pxt->register_callback('rhn:reschedule_action_cb' => \&reschedule_action_cb);
 
   $pxt->register_callback('rhn:sscd_reboot_servers_cb' => \&sscd_reboot_servers_cb);
-
-  $pxt->register_callback('rhn:schedule_ssm_config_action_cb' => \&schedule_ssm_config_action_cb);
-
 }
 
 sub raw_script_output {
@@ -466,61 +463,6 @@ sub _schedule_config_action {
               -revision_ids => [@revisions],
              );
 }
-
-sub schedule_ssm_config_action_cb {
-
-  my $pxt = shift;
-
-  my $action;
-
-  foreach my $action_type (keys %config_actions) {
-    $action = $action_type if $pxt->dirty_param($action_type);
-  }
-
-  die "no action" unless $action;
-
-
-  my $earliest_date = Sniglets::ServerActions->parse_date_pickbox($pxt);
-
-  # grab all the latest revisions per server
-  my $ds = new RHN::DataSource::Simple(-querybase => 'config_queries',
-				       -mode => 'ssm_configfile_revisions',
-				      );
-
-  my $data = $ds->execute_query(-user_id => $pxt->user->id);
-
-  # Here's the plan.  ssm_configfile_revisions is ordered by
-  # SERVER_ID, and SCC.POSITION.  So as we loop through the data, all
-  # of the paths for each system are ordered by the
-  # priority/position/rank for that system of the config channel they
-  # were found in.  So we just take the first instance of each path,
-  # and thus avoid scheduling a diff for a path twice if it is in two
-  # config channels that a system is subscribed to.
-
-  my %paths_by_server_id;
-  foreach my $row (@{$data}) {
-    my $sid = $row->{SERVER_ID};
-    my $path = $row->{PATH};
-    my $crid = $row->{ID};
-
-    next if exists $paths_by_server_id{$sid}->{$path};
-    $paths_by_server_id{$sid}->{$path} = $crid;
-  }
-
-  my $server;
-  foreach my $sid (keys %paths_by_server_id) {
-    my %ids = map { ( $_ => 1 ) } values %{$paths_by_server_id{$sid}};
-    _schedule_config_action($pxt->user, $action, $earliest_date, $sid, \%ids);
-  }
-
-  my $count = keys %paths_by_server_id;
-  $pxt->push_message(site_info => sprintf("%d system%s scheduled for %s.", 
-    $count, $count > 1 ? "s" : "", $config_actions{$action}));
-
-  $pxt->redirect("/network/systems/ssm/index.pxt");
-
-}
-
 
 sub package_event_result {
   my $pxt = shift;
