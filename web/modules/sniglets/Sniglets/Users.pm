@@ -661,29 +661,6 @@ unless (PXT::Config->get('satellite')) {
 my %required_map = @required_map;
 my @required_fields = map { $_ & 1 ? () : $required_map[$_] } 0..$#required_map;
 
-sub group_checkboxes {
-  my $formvar = shift;
-  my $user = shift;
-
-  my @groups = $user->group_list_for_user;
-
-  my $ret;
-
-  foreach my $line (@groups) {
-    next if !$line->[0] and $line->[3] and $line->[3] eq 'org_applicant';
-
-    $ret .= PXT::HTML->checkbox(-name => $formvar,
-				-value => $line->[1],     #group_id
-				-checked => $line->[0]);  #user has permissions to group
-
-    $ret .= $line->[2]; #group_name
-
-    $ret .= "<br />\n";
-  }
-
-  return $ret;
-}
-
 # sort timezones, making the listed ones pop to the top
 sub timezone_sort {
   my $class = shift;
