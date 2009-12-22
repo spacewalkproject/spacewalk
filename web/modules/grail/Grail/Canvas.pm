@@ -25,7 +25,6 @@ use Carp;
 my @component_modes =
   (
    [ 'render_canvas', 'render_canvas', undef, undef ],
-   [ 'render_dynamic_canvas', 'render_dynamic_canvas', undef, undef ]
   );
 
 sub component_modes {
@@ -76,38 +75,6 @@ sub render_canvas {
     $file =~ s/::/\//g;
     require "$file.pm";
     push @components, [ $c_hash{name}->new(), $c_hash{mode} || $mode, $c ];
-  }
-
-  return $self->render_components($pxt, $mode, $block, @components);
-}
-
-sub render_dynamic_canvas {
-  my $self = shift;
-  my $pxt = shift;
-  my $mode = shift;
-  my $block = shift;
-
-  my @component_list;
-  if (not $pxt->user or $pxt->user->id < 0) {
-    @component_list = map { [ $_, $mode ] } qw/Cypress::Slashdot/;
-  }
-  else {
-    @component_list = RHN::Grail->components_for_user($pxt->user->id);
-  }
-
-#  warn "Component list: " . Data::Dumper->Dump(\@component_list);
-
-  my @components;
-  foreach (@component_list) {
-    my $file = $_->[0];
-    $file =~ s/::/\//g;
-    $file =~ /(.*)/;		# clear taint, grr
-    $file = $1;
-
-    require "$file.pm";
-
-
-    push @components, [ $_->[0]->new(), $_->[1], [ ] ];
   }
 
   return $self->render_components($pxt, $mode, $block, @components);
