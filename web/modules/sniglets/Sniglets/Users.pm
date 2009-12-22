@@ -74,10 +74,6 @@ sub register_callbacks {
 
   $pxt->register_callback('rhn:user_prefs_edit_cb' => \&user_prefs_edit_cb);
 
-
-  $pxt->register_callback('rhn:toggle_pref_cb' => \&toggle_pref_cb);
-
-
   $pxt->register_callback('rhn:delete_user_cb' => \&delete_user_cb);
   $pxt->register_callback('rhn:request_account_deactivation_cb' => \&request_account_deactivation_cb);
   $pxt->register_callback('rhn:user_default_system_groups_cb' => \&default_system_groups_cb);
@@ -641,21 +637,6 @@ sub rhn_require {
    }
 
    return '';
-}
-
-sub toggle_pref_cb {
-  my $pxt = shift;
-
-  my $name = $pxt->dirty_param('pref_name') || '';
-  my $value = $pxt->dirty_param('pref_value') || '';
-
-  die "rhn:toggle_pref_cb called without proper args ($name, $value)" unless $name && $value;
-
-  $pxt->user->set_pref($name, $value);
-
-  $pxt->redirect($pxt->uri);
-
-  return;
 }
 
 sub validate_user {
