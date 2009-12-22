@@ -264,18 +264,6 @@ sub delete_user {
 }
 
 
-# queues up a user to be deleted/disabled
-sub request_deactivation {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare("INSERT INTO rhnUserDeletionQueue (user_id) VALUES (?)");
-
-  $sth->execute($self->id);
-  $dbh->commit;
-}
-
-
 sub create_custom_data_key {
   my $self = shift;
   my %params = validate(@_, {label => 1, description => 1});
