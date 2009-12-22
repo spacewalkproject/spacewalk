@@ -28,7 +28,6 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:errata_search_handler' => \&errata_search_handler);
   $pxt->register_callback('rhn:package_search_handler' => \&package_search_handler);
 }
 
@@ -77,21 +76,6 @@ $errata_searches->add_mode(errata_search_by_package_name => "Package Name (ex: a
 $errata_searches->set_name('errata_search');
 
 RHN::SearchTypes->register_type('errata', $errata_searches);
-
-sub errata_search_handler {
-  my $pxt = shift;
-
-  my $search = RHN::SearchTypes->find_type('errata');
-
-  my $selected = new RHN::DB::Set $search->set_name, $pxt->user->id;
-  $selected->empty;
-  $selected->commit;
-
-  my $search_string = $pxt->dirty_param('search_string') || '';
-  my $search_mode = $pxt->dirty_param('view_mode') || $search->default_search_type;
-
-  RHN::Search->errata_search($pxt->user, $search_mode, $search_string);
-}
 
 #################################
 # Package Searching
