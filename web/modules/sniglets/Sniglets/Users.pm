@@ -72,7 +72,6 @@ sub register_callbacks {
   $pxt->register_callback('rhn:forgot_password_cb', \&forgot_password_cb);
   $pxt->register_callback('rhn:forgot_accounts_cb', \&forgot_accounts_cb);
 
-  $pxt->register_callback('rhn:admin_user_edit_cb' => \&admin_user_edit_cb);
   $pxt->register_callback('rhn:admin_user_site_edit_cb' => \&admin_user_site_edit_cb);
 
   $pxt->register_callback('rhn:user_prefs_edit_cb' => \&user_prefs_edit_cb);
@@ -454,109 +453,6 @@ sub rhn_login_cb {
     $pxt->push_message(local_alert => 'Either the password or username is incorrect.');
   }
 
-}
-
-
-sub admin_user_edit_cb {
-  my $pxt = shift;
-
-  my $user = Sniglets::Forms::catch_form($pxt);
-  return unless $user;
-
-  $pxt->redirect("/errors/permission.pxt") unless $pxt->user->can_modify_user($user);
-
-  if ($pxt->dirty_param('user_password_confirm') ne $pxt->dirty_param('user_password')) {
-    $pxt->push_message(local_alert => 'Password and confirmation do not match');
-    return;
-  }
-
-# validation done, start modifying
-
-# pam authentication is a satellite feature
-  if (PXT::Config->get('pam_auth_service') and not $pxt->dirty_param('editing_self')) {
-    $user->set_pref(use_pam_authentication => ($pxt->dirty_param('use_pam_authentication') ? 'Y' : 'N'));
-  }
-  elsif ($pxt->dirty_param('user_password') =~ /[^*]/) { # otherwise, just set the password
-    $user->set_password($pxt->dirty_param('user_password'))
-  }
-
-  my $url = new URI ($pxt->uri);
-
-  eval {
-    # Set the user's roles/groups
-    if (not $pxt->dirty_param('editing_self') and $pxt->user->is('org_admin')) {
-      my %old_groups = map { $_->[1] => 1 } grep { $_->[0] } $user->group_list_for_user;
-      my %new_groups = map { $_ => 1 } $pxt->dirty_param('user_groups');
-
-      my $chan_admin_group = $user->org->user_group_id('channel_admin') || 0;
-      my $conf_admin_group = $user->org->user_group_id('config_admin') || 0;
-
-      if ($user->is('org_admin') and exists ($old_groups{$chan_admin_group})) {
-	$new_groups{$chan_admin_group} = 1;
-      }
-
-      if ($user->is('org_admin') and exists ($old_groups{$conf_admin_group})) {
-	$new_groups{$conf_admin_group} = 1;
-      }
-
-      my @remove = grep { not exists $new_groups{$_} } keys %old_groups;
-      my @add = grep { not exists $old_groups{$_} } keys %new_groups;
-
-      my $admin_group = $user->org->user_group_id('org_admin');
-
-      if ($user->is('org_admin') && (grep { $_ == $admin_group} @remove)) {
-	if ($user->org->org_admins == 1) {
-	  $pxt->push_message(local_alert => 'This user is the last Org Admin for this Org.  You cannot remove him from the Org Admins group.');
-	  return;
-	}
-	elsif ($user->id == $pxt->user->id) {
-	  $pxt->push_message(site_info => "You have removed your Org Admin privileges.");
-	  $url->path_query('/rhn/YourRhn.do');
-	}
-      }
-
-      $user->remove_users_from_groups([ $user->id ], \@remove);
-      $user->add_users_to_groups([ $user->id ], \@add);
-    }
-  };
-
-  if ($@ and catchable($@)) {
-    my $E = $@;
-
-    if ($E->is_rhn_exception('usergroup_max_members')) {
-      $pxt->push_message(local_alert => "Maximum group membership exceeded.");
-      return;
-    }
-    else {
-      throw $E;
-    }
-  }
-
-# Set company name
-  $user->company($user->org->name)
-    if $user->org->customer_type eq 'B';
-
-# set marketing site info
-  my ($marketing_site) = $user->sites('M');
-  if ($marketing_site) {
-    $marketing_site->site_alt_first_names($user->first_names);
-    $marketing_site->site_alt_last_name($user->last_name);
-
-# commit changes
-    $marketing_site->commit;
-  }
-
-  $user->commit;
-
-  $pxt->push_message(site_info => 'User information updated.');
-
-  unless ($pxt->dirty_param('editing_self')) {
-    $url->query_form(uid => $user->id);
-  }
-
-  $url->query_form($url->query_form, rand => int rand 5000000);
-
-  $pxt->redirect($url->as_string)
 }
 
 
