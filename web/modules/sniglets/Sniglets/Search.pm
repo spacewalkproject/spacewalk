@@ -28,7 +28,6 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:system_search_handler' => \&system_search_handler);
   $pxt->register_callback('rhn:errata_search_handler' => \&errata_search_handler);
   $pxt->register_callback('rhn:package_search_handler' => \&package_search_handler);
 }
@@ -165,29 +164,6 @@ $system_searches->add_category(-label => 'Location',
 RHN::SearchTypes->register_type('system', $system_searches);
 
 my @integer_types = qw/search_id search_cpu_mhz_lt search_cpu_mhz_gt search_ram_lt search_ram_gt search_checkin search_registered/;
-
-sub system_search_handler {
-  my $pxt = shift;
-
-  my $search_string = $pxt->dirty_param('search_string') || '';
-  my $search_set = $pxt->dirty_param('search_set') || 'all';
-  my $search_type = $pxt->dirty_param('view_mode') || 'search_simple';
-  my $invert = $pxt->dirty_param('invert');
-
-  my $set_name = $pxt->dirty_param('set_name') || 'search_result_list';
-  my $selected = new RHN::DB::Set $set_name, $pxt->user->id;
-
-  $selected->empty;
-  $selected->commit;
-
-  $search_string = Sniglets::Search->strip_invalid_chars($search_string, $search_type);
-
-  my $integer_search = grep { $search_type eq $_ } @integer_types;
-
-  if ($integer_search or Sniglets::Search->validate_search_string($pxt, undef, $search_string)) {
-    RHN::Search->system_search($pxt->user, $search_string, $search_set, $search_type, $invert);
-  }
-}
 
 #################################
 # Errata Searching
