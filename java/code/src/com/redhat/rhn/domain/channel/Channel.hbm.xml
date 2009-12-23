@@ -46,7 +46,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             column="channel_arch_id"/>
             
          <many-to-one
-            name="checksum"
+            name="checksumType"
             class="com.redhat.rhn.domain.common.ChecksumType"
             column="checksum_type_id"/>
                

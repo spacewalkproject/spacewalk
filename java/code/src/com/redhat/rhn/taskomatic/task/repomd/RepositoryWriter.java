@@ -104,7 +104,7 @@ public class RepositoryWriter {
         CompressingDigestOutputWriter otherFile;
 
         // Get compatible checksumType
-        this.checksumtype = channel.getChecksumType();
+        this.checksumtype = channel.getChecksumTypeLabel();
         
         log.info("Checksum Type Value" + this.checksumtype);
 

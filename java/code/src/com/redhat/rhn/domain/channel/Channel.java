@@ -65,7 +65,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
             .asList("5Server", "5Client"));
     private String baseDir;
     private ChannelArch channelArch;
-    private ChecksumType checksum;
+    private ChecksumType checksumType;
 
     private String description;
     private Date endOfLife;
@@ -169,15 +169,15 @@ public class Channel extends BaseDomainHelper implements Comparable {
     /**
      * @return Returns the channelChecksum.
      */
-    public ChecksumType getChecksum() {
-        return checksum;
+    public ChecksumType getChecksumType() {
+        return checksumType;
     }
 
     /**
-     * @param checksumIn The checksum to set.
+     * @param checksumTypeIn The checksum to set.
      */
-    public void setChecksum(ChecksumType checksumIn) {
-        this.checksum = checksumIn;
+    public void setChecksumType(ChecksumType checksumTypeIn) {
+        this.checksumType = checksumTypeIn;
     }
 
 
@@ -880,35 +880,34 @@ public class Channel extends BaseDomainHelper implements Comparable {
      * If its RHEL-5 we use sha1 anything newer will be sha256.
      * @return checksumType
      */
-    public String getChecksumType() {
-        Channel toConsider = this;
+    public String getChecksumTypeLabel() {
         
-        while (toConsider.getParentChannel() != null) {
-            toConsider = toConsider.getParentChannel();
+        if ((checksumType != null) && (checksumType.getLabel() != null)) {
+            return checksumType.getLabel();
         }
-        DistChannelMap channelDist = ChannelFactory.lookupDistChannelMap(toConsider);
+
+        Channel parent = this.getParentChannel();
+        if (parent != null) {
+            String parentChecksumType = parent.getChecksumTypeLabel();
+            if (parentChecksumType != null) {
+                setChecksumType(
+                        ChannelFactory.findChecksumTypeByLabel(parentChecksumType));
+                return parentChecksumType;
+            }
+        }
+
+        DistChannelMap channelDist = ChannelFactory.lookupDistChannelMap(this);
         if (channelDist != null) {
             String release = channelDist.getRelease();
-            // If channel or parent is RHEL-5 use sha1, else use sha256
+            // If channel or parent is RHEL-5 use sha1
             if (sha1compatiblechannels.contains(release)) {
+                this.setChecksumType(
+                        ChannelFactory.findChecksumTypeByLabel(CHECKSUM_SHA_1));
                 return CHECKSUM_SHA_1;
             }
         }
-        
-        // IF its custom use the one set at channel creation time
-        
-        if (toConsider.isCustom()) {
-            ChecksumType checksumOut = toConsider.getChecksum();
-            if ((checksumOut != null) && (checksumOut.getLabel() != null)) {
-                return checksumOut.getLabel();
-            }
-            else {
-                // default to sha1 if its not available in the db
-                return CHECKSUM_SHA_1;
-            }
-        }
-        
-        // default to sha256
-        return CHECKSUM_SHA_256;
+
+        // sorry, but something's really wrong
+        return null;
     }
 }

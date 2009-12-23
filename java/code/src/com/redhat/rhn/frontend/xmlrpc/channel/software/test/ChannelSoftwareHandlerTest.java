@@ -511,7 +511,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         assertNotNull(ca);
         assertNotNull(c.getChannelArch());
         assertEquals(ca.getLabel(), c.getChannelArch().getLabel());
-        assertEquals(c.getChecksumType(), "sha1");
+        assertEquals(c.getChecksumTypeLabel(), "sha1");
     }
     
     public void testCreateWithChecksum() throws Exception {
@@ -529,7 +529,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         assertNotNull(ca);
         assertNotNull(c.getChannelArch());
         assertEquals(ca.getLabel(), c.getChannelArch().getLabel());
-        assertEquals(c.getChecksumType(), "sha256");
+        assertEquals(c.getChecksumTypeLabel(), "sha256");
     }
     
     public void testCreateUnauthUser() {

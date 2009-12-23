@@ -68,8 +68,7 @@ public class UpdateChannelCommand extends CreateChannelCommand {
         }
         
         ChecksumType ct = ChannelFactory.findChecksumTypeByLabel(checksum);
-        
-        if (!ct.getLabel().equals(c.getChecksum().getLabel()) && c.getPackageCount() > 0) {
+        if (!ct.getLabel().equals(c.getChecksumTypeLabel()) && c.getPackageCount() > 0) {
             // schedule repo re generation if the checksum type changed 
             // and the channel has packages
             ChannelManager.queueChannelChange(c.getLabel(), 
@@ -84,7 +83,7 @@ public class UpdateChannelCommand extends CreateChannelCommand {
         c.setGPGKeyId(gpgKeyId);
         c.setGPGKeyUrl(gpgKeyUrl);
         c.setGPGKeyFp(gpgKeyFp);
-        c.setChecksum(ct);
+        c.setChecksumType(ct);
         c.setAccess(access);
         c.setMaintainerName(maintainerName);
         c.setMaintainerEmail(maintainerEmail);

@@ -568,11 +568,11 @@ public class EditChannelAction extends RhnAction implements Listable {
             form.set("maintainer_phone", c.getMaintainerPhone());
             form.set("maintainer_email", c.getMaintainerEmail());
             form.set("support_policy", c.getSupportPolicy());
-            if (c.getChecksum() == null) {
+            if (c.getChecksumTypeLabel() == null) {
                 form.set("checksum", null);
             }
             else {
-                form.set("checksum", c.getChecksum().getLabel());
+                form.set("checksum", c.getChecksumTypeLabel());
             }
             if (c.isGloballySubscribable(ctx.getLoggedInUser().getOrg())) {
                 form.set("per_user_subscriptions", "all");

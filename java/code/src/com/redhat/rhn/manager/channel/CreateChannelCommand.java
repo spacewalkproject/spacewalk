@@ -271,7 +271,7 @@ public class CreateChannelCommand {
         c.setOrg(user.getOrg());
         c.setBaseDir("/dev/null");
         c.setChannelArch(ca);
-        c.setChecksum(ct);
+        c.setChecksumType(ct);
         c.setGPGKeyId(gpgKeyId);
         c.setGPGKeyUrl(gpgKeyUrl);
         c.setGPGKeyFp(gpgKeyFp);

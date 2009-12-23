@@ -50,12 +50,12 @@ public class ClonedChannel extends Channel {
      * {@inheritDoc}
      */
     @Override
-    public ChecksumType getChecksum() {
-        if (super.getChecksum() == null) {
+    public ChecksumType getChecksumType() {
+        if (super.getChecksumType() == null) {
             // if the checksum type is not set use the
             //checksum of original channel instead.
-            setChecksum(getOriginal().getChecksum());
+            setChecksumType(getOriginal().getChecksumType());
         }
-        return super.getChecksum();
+        return super.getChecksumType();
     }
 }
