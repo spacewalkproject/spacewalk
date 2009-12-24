@@ -281,7 +281,7 @@ rm -rf $RPM_BUILD_ROOT
 - Removed more dead code, including spacewalk-cypress.
 
 * Mon Dec 21 2009 Jan Pazdziora <jpazdziora@redhat.com> 0.8.3-1
-- removed a lot of dead code
+- removed a lot of dead code, including spacewalk-moon
 - modified to fit sha256 schema changes (michael.mraka@redhat.com)
 - adding channel.software.regenerateYumCache() api call (jsherril@redhat.com)
 
