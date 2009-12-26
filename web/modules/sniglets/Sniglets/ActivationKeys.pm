@@ -43,7 +43,6 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
   $pxt->register_callback('rhn:edit_token_channels_cb' => \&edit_token_channels_cb);
-  $pxt->register_callback('rhn:edit_token_packages_cb' => \&edit_token_packages_cb);
 }
 
 
@@ -152,37 +151,6 @@ sub create_token {
   $token->org_id($pxt->user->org_id);
 
   return $token;
-}
-
-sub edit_token_packages_cb {
-  my $pxt = shift;
-
-  my $tid = $pxt->param('tid');
-  my $token = RHN::Token->lookup(-id => $tid);
-
-  my $pkg_string = $pxt->dirty_param('packages');
-  $pkg_string =~ s(\r)()g;
-  # remove whitespace from beginning and end
-  $pkg_string =~ s/^\s+//;
-  $pkg_string =~ s/\s+$//;
-  my @package_names = split /\n+/, $pkg_string;
-
-  my %seen;
-  my @packages;
-  for my $name (@package_names) {
-    if (exists $seen{$name}) {
-      $pxt->push_message(local_alert => "Package '$name' appears multiple times.");
-      return;
-    }
-    $seen{$name}++;
-
-    my $pkg_id = RHN::Package->lookup_package_name_id($name);
-
-    push @packages, $pkg_id;
-  }
-
-  $token->set_packages(@packages);
-  $pxt->push_message(site_info => sprintf('Activation Key <strong>%s</strong> has been modified.', PXT::Utils->escapeHTML($token->note)));
 }
 
 sub token_details {
