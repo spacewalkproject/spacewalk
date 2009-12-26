@@ -267,38 +267,6 @@ EOQ
   return;
 }
 
-sub set_groups {
-  my $self = shift;
-  my @groups = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-DELETE FROM rhnRegTokenGroups RTG
-      WHERE RTG.token_id = ?
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  $query = <<EOQ;
-INSERT INTO rhnRegTokenGroups
-            (token_id, server_group_id)
-     VALUES (?, ?)
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  foreach my $group (@groups) {
-    $sth->execute($self->id, $group);
-  }
-
-  $sth->finish;
-  $dbh->commit;
-}
-
 sub lookup {
   my $class = shift;
   my %params = validate(@_, { id => 0, sid => 0, token => 0 });
