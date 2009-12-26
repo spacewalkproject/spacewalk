@@ -59,8 +59,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-require' => \&rhn_require, -1000);
 
-  $pxt->register_tag('rhn-user-site-view' => \&user_site_view);
-
   $pxt->register_tag('rhn-user-login' => \&rhn_user_login);
 }
 
@@ -366,77 +364,6 @@ sub rhn_login_cb {
     $pxt->push_message(local_alert => 'Either the password or username is incorrect.');
   }
 
-}
-
-
-sub user_site_view {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $uid = $pxt->param('uid') || $pxt->pnotes('uid') || $pxt->user->id;
-  my $user = RHN::User->lookup(-id => $uid);
-
-  die "no user" unless $user;
-
-  if ($pxt->user->org_id != $user->org_id) {
-    Carp::cluck "Orgs for admin user edit mistatch (admin: @{[$pxt->user->org_id]} != @{[$user->org_id]}";
-    $pxt->redirect("/errors/permission.pxt");
-  }
-
-  if ($uid != $pxt->user->id and not $pxt->user->is('org_admin')) {
-    Carp::cluck "Non-orgadmin attempting to edit another's record";
-    $pxt->redirect("/errors/permission.pxt");
-  }
-
-  $pxt->pnotes(user_name => $user->login);
-
-  my $type = uc $params{type} || $pxt->dirty_param('type') || $pxt->pnotes('type') || 'M';
-  my $block = $params{__block__};
-  my ($site) = $user->sites($type);
-
-  unless ($site && $site->site_city && $site->site_state && $site->site_zip) {
-    #($site) = $user->sites('M');
-    my $link = PXT::HTML->link("edit_address.pxt?type=$type&amp;uid=$uid", 'Add this address');
-    my $html = qq(<div>\n<strong>(Address not filled out)</strong></div>);
-    $html .= qq(<div>\n$link\n</div>\n);
-
-    return $html;
-  }
-
-  if ($user->id == $pxt->user->id) {
-    if ($type eq 'M' and $pxt->uri =~ m(/network/account/edit_address.pxt) and $site and ($site->site_city eq '.' or $site->site_address1 eq '.')) {
-      $pxt->push_message(site_info => 'Please take a moment and complete the information below for our records.');
-
-      $site->$_('')
-	foreach qw/site_address1 site_address2 site_address3 site_city site_state site_zip site_fax site_phone/;
-    }
-  }
-
-  my %subst;
-
-  my $site_addr = '';
-  $site_addr .= $site->$_() ? PXT::Utils->escapeHTML($site->$_()) . '<br />' : ''
-    foreach qw/site_address1 site_address2 site_address3/;
-
-  $subst{site_address} = $site_addr;
-
-  my $site_city = $site->site_city() || '';
-  my $site_state = $site->site_state() || '';
-  my $site_zip = $site->site_zip() || '';
-
-  my $site_city_state_zip = $site_city ne '' ? "$site_city, $site_state" : $site_state;
-  $site_city_state_zip .= $site_zip ? " $site_zip" : '';
-
-  $subst{site_city_state_zip} = PXT::Utils->escapeHTML($site_city_state_zip);
-
-  $subst{user_id} = $user->id;
-
-  $subst{site_type} = $type;
-
-  $subst{$_} = $site->$_() ? PXT::Utils->escapeHTML($site->$_()) || '' : ''
-    foreach qw/site_phone site_fax/;
-
-  return PXT::Utils->perform_substitutions($block, \%subst);
 }
 
 
