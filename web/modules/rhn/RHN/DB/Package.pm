@@ -1400,14 +1400,6 @@ EOQ
 
 }
 
-sub lookup_package_name_id {
-  my $class = shift;
-  my $name = shift;
-
-  my $dbh = RHN::DB->connect;
-  return $dbh->call_function('lookup_package_name', $name);
-}
-
 sub is_package_in_channel {
   my $class = shift;
   my %params = validate(@_, { evr_id => 0, name_id => 0, id => 0, cid => 1 });
