@@ -165,40 +165,6 @@ sub fancy_packages {
   return @$data;
 }
 
-sub set_config_channels {
-  my $self = shift;
-  my @config_channels = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-DELETE FROM rhnRegTokenConfigChannels RTCC
-      WHERE RTCC.token_id = ?
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  $query = <<EOQ;
-INSERT INTO rhnRegTokenConfigChannels
-            (token_id, config_channel_id, position)
-     VALUES (?, ?, ?)
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  my $counter = 1;
-  foreach my $ns_id (@config_channels) {
-    $sth->execute($self->id, $ns_id, $counter);
-    $counter++;
-  }
-
-  $sth->finish;
-  $dbh->commit;
-}
-
 sub groups {
   my $self = shift;
 
