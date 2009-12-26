@@ -672,26 +672,4 @@ sub create_new_key {
   return $new_key;
 }
 
-sub clone_token {
-  my $self = shift;
-
-  my $other = RHN::Token->create_token;
-
-  foreach my $field ($t->method_names, map { lc } @ak_fields) {
-    next if ($field eq 'id');
-    $other->$field($self->$field);
-  }
-
-  $other->create_new_key;
-
-  $other->commit;
-
-  $other->set_channels(-channels => [ $self->channels ]);
-  $other->set_groups($self->groups);
-  $other->set_config_channels($self->config_channels);
-  $other->set_packages($self->packages);
-
-  return $other;
-}
-
 1;
