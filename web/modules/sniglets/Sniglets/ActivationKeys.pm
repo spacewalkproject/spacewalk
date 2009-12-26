@@ -37,7 +37,6 @@ sub register_tags {
   my $pxt = shift;
   $pxt->register_tag('rhn-token-details' => \&token_details);
   $pxt->register_tag('rhn-token-channels' => \&edit_token_channels);
-  $pxt->register_tag('rhn-token-packages' => \&edit_token_packages);
 }
 
 sub register_callbacks {
@@ -153,24 +152,6 @@ sub create_token {
   $token->org_id($pxt->user->org_id);
 
   return $token;
-}
-
-sub edit_token_packages {
-  my $pxt = shift;
-
-  my $tid = $pxt->param('tid');
-  my $token = RHN::Token->lookup(-id => $tid);
-
-  my @packages = $token->fancy_packages;
-  my $pkg_count = scalar @packages;
-  my $pkg_string = join("\n", map { $_->{NAME} } @packages);
-
-  my $widget = new RHN::Form::Widget::TextArea(name => 'Packages',
-					       label => 'packages',
-					       cols => 64,
-					       rows => $pkg_count < 4 ? 6 : $pkg_count + 1,
-					       default => ($pkg_string || ''));
-  return $widget->render;
 }
 
 sub edit_token_packages_cb {
