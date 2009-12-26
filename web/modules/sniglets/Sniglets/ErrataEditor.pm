@@ -28,8 +28,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('rhn-if-errata-package-list-modified' => \&if_errata_package_list_modified);
-
   $pxt->register_tag('rhn-if-var' => \&if_var, -5);
   $pxt->register_tag('rhn-unless-var' => \&unless_var, -5);
 }
@@ -85,29 +83,6 @@ sub unless_var {
 
   return $block;
 
-}
-
-sub if_errata_package_list_modified {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-
-  my $eid = $pxt->param('eid');
-  return unless $eid;
-
-  my $errata = RHN::ErrataTmp->lookup_managed_errata(-id => $eid);
-
-  return if $errata->isa('RHN::DB::ErrataTmp'); #don't cache temp errata!
-
-  my $package_list_edited = $pxt->session->get('errata_package_list_edited');
-  my $edited = $package_list_edited->{$eid} || 0;
-
-  if ((time - $edited) < 3600) {
-    return $block;
-  }
-
-  return '';
 }
 
 1;
