@@ -8,13 +8,3 @@ require acl user_role(activation_key_admin); org_entitlement(sw_mgr_enterprise)
 
 
 
-<Files namespaces.pxt>
-  AuthType Basic
-  AuthName "RHN Org Admin Area"
-
-  PerlModule PXT::ApacheHandler
-  PerlModule PXT::ApacheAuth
-  PerlAuthenHandler PXT::ApacheAuth
-  require acl org_entitlement(rhn_provisioning)
-</Files>
-
