@@ -199,39 +199,6 @@ EOQ
   $dbh->commit;
 }
 
-sub set_packages {
-  my $self = shift;
-  my @packages = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-DELETE FROM rhnRegTokenPackages RTP
-      WHERE RTP.token_id = ?
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  $query = <<EOQ;
-INSERT INTO rhnRegTokenPackages
-            (token_id, name_id)
-     VALUES (?, ?)
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  foreach my $pid (@packages) {
-    next unless $pid;
-    $sth->execute($self->id, $pid);
-  }
-
-  $sth->finish;
-  $dbh->commit;
-}
-
 sub groups {
   my $self = shift;
 
