@@ -197,7 +197,6 @@
     <rhn-tab name="Scout Config Push" acl="show_monitoring();" url="/network/monitoring/scout/index.pxt" />
     <rhn-tab name="Notification" acl="show_monitoring()" url="/rhn/monitoring/config/notification/Methods.do">
       <rhn-tab-url>/rhn/monitoring/config/notification/NotificationMethods.do</rhn-tab-url>
-      <rhn-tab-directory>/network/monitoring/notifications/contact_methods</rhn-tab-directory>
       <rhn-tab name="Filters" acl="show_monitoring()" url="/rhn/monitoring/config/notification/ActiveFilters.do">
         <rhn-tab-directory>/rhn/monitoring/config/notification</rhn-tab-directory>
       </rhn-tab>

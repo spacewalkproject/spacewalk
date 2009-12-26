@@ -163,7 +163,6 @@
     </rhn-tab>
     <rhn-tab name="Notification" url="/rhn/monitoring/config/notification/Methods.do">
       <rhn-tab-url>rhn/monitoring/config/notification/NotificationMethods.do</rhn-tab-url>
-      <rhn-tab-directory>/network/monitoring/notifications/contact_methods</rhn-tab-directory>
       <rhn-tab name="Filters" url="/rhn/monitoring/config/notification/ActiveFilters.do"/>
     </rhn-tab>
     <rhn-tab name="Probe Suites" url="/rhn/monitoring/config/ProbeSuites.do">
