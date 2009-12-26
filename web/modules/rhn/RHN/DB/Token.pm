@@ -625,18 +625,4 @@ sub org_default {
   return $hit ? 1 : 0;
 }
 
-sub create_new_key {
-  my $self = shift;
-
-  my $new_key = $self->generate_random_key;
-
-  while (my $existing = RHN::Token->lookup(-token => $new_key)) {
-    $new_key = $self->generate_random_key;
-  }
-
-  $self->activation_key_token($new_key);
-
-  return $new_key;
-}
-
 1;
