@@ -27,6 +27,7 @@ try:
 	import os
 	import csv
 	from optparse import Option, OptionParser
+	import errno
 except KeyboardInterrupt:
 	systemExit(-1, "\nUser interrupted process.")
 
@@ -189,4 +190,9 @@ if __name__ == '__main__':
 		# really a stub for better exception handling in the future.
 		sys.stderr.write("SQL error occurred, traceback follows...\n")
 		raise
+	except IOError, e:
+		if e.errno == errno.EPIPE:
+			sys.exit(0)
+		else:
+			raise
 
