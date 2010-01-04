@@ -124,7 +124,7 @@ if __name__ == '__main__':
 			initCFG('server')
 			rhnSQL.initDB(options.db)
 
-			writer = csv.writer(sys.stdout)
+			writer = csv.writer(sys.stdout, lineterminator = "\n")
 
 			h = rhnSQL.prepare(report.sql)
 			h.execute()
