@@ -22,8 +22,6 @@ insert into rhnChecksumType (id, label, description) values
 insert into rhnChecksumType (id, label, description) values
             (rhn_checksum_id_seq.nextval, 'sha1', 'sha1sum' );
 insert into rhnChecksumType (id, label, description) values
-            (rhn_checksum_id_seq.nextval, 'sha224', 'sha224sum' );
-insert into rhnChecksumType (id, label, description) values
             (rhn_checksum_id_seq.nextval, 'sha256', 'sha256sum' );
 insert into rhnChecksumType (id, label, description) values
             (rhn_checksum_id_seq.nextval, 'sha384', 'sha384sum' );
