@@ -978,21 +978,6 @@ sub use_sessions {
   return $self->{use_sessions};
 }
 
-# return a vague idea of how well the browser supports CSS.  note that
-# NN gets a 0, everything else a 1, roughly corresponding to CSS-1
-# compliance
-
-sub browser_css_compliance {
-  my $self = shift;
-
-  my $ua = $self->header_in('User-Agent');
-  if ($ua and $ua =~ m(Mozilla/4.[567])) {
-    return 0;
-  }
-
-  return 1;
-}
-
 package PXT::Debug;
 
 sub log {

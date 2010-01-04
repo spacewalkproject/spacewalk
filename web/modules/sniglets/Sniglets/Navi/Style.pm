@@ -154,15 +154,7 @@ package Sniglets::Navi::Style::contentnav;
 use base qw/Sniglets::Navi::Style::ul/;
 
 sub recursive_type {
-  my $class = shift;
-  my $pxt = shift;
-
-  if ($pxt->browser_css_compliance > 0) {
-    return 'post-order';
-  }
-  else {
-    return "in-order";
-  }
+  return 'post-order';
 }
 
 sub pre_nav {

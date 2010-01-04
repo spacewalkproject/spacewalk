@@ -14,15 +14,6 @@ Header at the top, sidebar at the left, mainview at the right, footer at the bot
   <body>
 <div id="wrap">
 
-  <rhn-browser-css-compliance at_most="0">
-    <div id="broken-browser-warning">
-      <h1>
-        You are using an unsupported browser.
-      </h1>
-      <a href="/help/browser-info.pxt">More Info</a>
-    </div>
-  </rhn-browser-css-compliance>
-
     <rhn-navi-nav depth="0" style="topnav"/>
     <pxt-include-late file="/network/components/status_bar/main.pxi" />
 
