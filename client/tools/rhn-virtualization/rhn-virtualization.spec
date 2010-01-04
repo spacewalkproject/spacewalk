@@ -34,7 +34,7 @@ package.
 Summary: RHN/Spacewalk Virtualization support specific to the Host system
 Group: System Environment/Base
 Requires: libvirt-python
-Requires: rhn-virtualization-common
+Requires: rhn-virtualization-common = %{version}-%{release}
 Requires: /usr/sbin/crond
 
 %description host
