@@ -306,42 +306,6 @@ EOQ
   return @result;
 }
 
-sub create_new_org {
-  my $class = shift;
-  my %params = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-BEGIN
-  CREATE_NEW_ORG(name_in => :org_name, password_in => :org_password,
-                 oracle_customer_number_in => :oracle_customer_number,
-                 oracle_customer_id_in => :oracle_customer_id,
-                 customer_type_in => :customer_type,
-                 org_id_out => :org_id, org_admin_group_out => :org_admin_group,
-                 org_app_group_out => :org_app_group,
-                 creation_location => 'rhn');
-END;
-EOQ
-
-  $sth->bind_param(":org_name" => $params{"-org_name"});
-  $sth->bind_param(":org_password" => $params{"-org_password"});
-
-  $sth->bind_param(":${_}" => $params{"-$_"})
-    foreach qw/oracle_customer_number oracle_customer_id customer_type/;
-
-  my ($org_id, $org_admin_group, $org_app_group);
-  $sth->bind_param_inout(':org_id' => \$org_id, 4096);
-  $sth->bind_param_inout(':org_admin_group' => \$org_admin_group, 4096);
-  $sth->bind_param_inout(':org_app_group' => \$org_app_group, 4096);
-  $sth->execute;
-
-  if ($params{-commit}) {
-    $dbh->commit;
-  }
-
-  return ($org_id, $org_admin_group, $org_app_group);
-}
-
 sub entitlement_counts {
   my $self = shift;
   my $entitlement = shift;
