@@ -199,20 +199,6 @@ EOQ
   }
 }
 
-sub delete_systems_from_action {
-  my $class = shift;
-  my $aid = shift;
-  my @systems = @_;
-
-  my $dbh = RHN::DB->connect;
-
-  foreach my $sid (@systems) {
-    $dbh->call_procedure('rhn_server.remove_action', $sid, $aid);
-  }
-
-  $dbh->commit;
-}
-
 
 sub delete_set_from_action {
   my $class = shift;
