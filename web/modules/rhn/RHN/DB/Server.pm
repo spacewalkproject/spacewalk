@@ -2994,12 +2994,4 @@ EOQ
 }
 
 
-sub satellite_cert {
-  my $self = shift;
-  if (@_) {
-    $self->{__cert__} = shift;
-  }
-  return $self->{__cert__};
-}
-
 1;
