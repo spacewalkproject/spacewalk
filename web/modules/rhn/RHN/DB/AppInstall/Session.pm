@@ -470,40 +470,4 @@ foreach my $field (keys %valid_fields) {
   }
 }
 
-sub get_user_id {
-  my $self = shift;
-
-  return $self->get_user->id()
-}
-
-sub set_user_id {
-  my $self = shift;
-  my $id = shift;
-
-  my $user = RHN::User->lookup(-id => $id);
-
-  $self->set_user($user);
-  $self->{":modified:"}->{user_id} = 1;
-
-  return;
-}
-
-sub get_server_id {
-  my $self = shift;
-
-  return $self->get_server->id()
-}
-
-sub set_server_id {
-  my $self = shift;
-  my $id = shift;
-
-  my $server = RHN::Server->lookup(-id => $id);
-
-  $self->set_server($server);
-  $self->{":modified:"}->{server_id} = 1;
-
-  return;
-}
-
 1;
