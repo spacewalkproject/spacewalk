@@ -101,77 +101,6 @@ sub render_interpreter_pre {
   return $pre; 
 }
 
-sub set_zerombr {
-  my $self = shift;
-  my $on = shift;
-
-  return unless $self->commands;
-
-  if (defined $on and $on ne 'no') {
-    $self->commands->set(zerombr => 'yes');
-  }
-  else {
-    $self->commands->unset('zerombr');
-  }
-
-  return;
-}
-
-sub set_bootloader {
-  my $self = shift;
-  my %params = validate(@_, { bootloader => 1, append => 0, driveorder => 0, location => 0,
-			      password => 0, md5pass => 0, upgrade => 0 });
-
-  return unless $self->commands;
-
-  my $location = $params{location} ? $params{location} : 'mbr';
-  $location = 'mbr' unless (grep { $location eq $_ } qw/mbr partition none/);
-  $location = '--location ' . $location;
-
-  my $uselilo = ($params{bootloader} eq 'lilo') ? '--useLilo ' : '';
-
-  my $extra;
-
-  foreach my $key (qw/append driveorder password md5pass upgrade/) {
-    if ($params{$key}) {
-      $extra .= "--$key $params{$key}";
-    }
-    elsif (exists $params{$key}) {
-      $extra .= "--$key";
-    }
-  }
-
-  $extra = " " . $extra if $extra;
-
-  $self->commands->bootloader("${uselilo}${location}${extra}");
-
-  return;
-}
-
-sub get_bootloader {
-  my $self = shift;
-
-  return unless $self->commands;
-
-  my $bl = $self->commands->bootloader;
-  my @opts = @{$bl};
-  return (grep { $_ =~ /lilo/i } @opts) ? 'lilo' : 'grub';
-}
-
-sub set_timezone {
-  my $self = shift;
-  my %params = validate(@_, { zone => 1, hardware_utc => 0 });
-
-  return unless $self->commands;
-
-  $params{zone} = 'America/New_York' unless (grep { $params{zone} eq $_ } $self->timezones);
-  my $utc = $params{hardware_utc} ? '--utc ' : '';
-
-  $self->commands->timezone($utc . $params{zone});
-
-  return;
-}
-
 sub get_timezone {
   my $self = shift;
 
@@ -183,58 +112,6 @@ sub get_timezone {
   $zn = $opts[-1];
 
   return ( grep { $zn eq $_ } $self->timezones ) ? $zn : 'America/New_York';
-}
-
-sub is_timezone_utc {
-  my $self = shift;
-
-  return unless $self->commands;
-
-  my $zn = $self->commands->timezone || '';
-
-  foreach my $opt (@{$zn}) {
-    return 1 if ($opt eq '--utc');
-  }
-
-  return;
-}
-
-sub set_partition_info {
-  my $self = shift;
-  my %params = validate(@_, { parts => 1 });
-
-  return unless $self->commands;
-  my (@parts, @raids, @volgroups, @logvols, @include);
-  foreach my $line (split /\n/, $params{parts}) {
-    if ($line =~ /^part\S*\s+(.*)$/) {
-      my $part = $1;
-      push @parts, [ split /\s+/, $part ];
-    }
-    elsif ($line =~ /^raid\s+(.*)$/) {
-      my $raid = $1;
-      push @raids, [ split /\s+/, $raid ];
-    }
-    elsif ($line =~ /^volgroup\s+(.*)$/) {
-      my $group = $1;
-      push @volgroups, [ split /\s+/, $group ];
-    }
-    elsif ($line =~ /^logvol\s+(.*)$/) {
-      my $vol = $1;
-      push @logvols, [ split /\s+/, $vol ];
-    }
-    elsif ($line =~ /^\%?include\s+(.*)$/) {
-      my $inc = $1;
-      push @include, [ split /\s+/, $inc];
-    }
-  }
-
-  $self->commands->partitions(new RHN::Kickstart::Partitions(@parts));
-  $self->commands->raids(new RHN::Kickstart::Raids(@raids));
-  $self->commands->volgroups(new RHN::Kickstart::Volgroups(@volgroups));
-  $self->commands->logvols(new RHN::Kickstart::Logvols(@logvols));
-  $self->commands->include(new RHN::Kickstart::Include(@include));
-
-  return;
 }
 
 my @timezones = qw|Europe/Andorra
