@@ -75,12 +75,6 @@ sub as_string {
   return $self->min . "-" . $self->max;
 }
 
-sub split_ips {
-  my $self = shift;
-
-  return ($self->min->value, $self->max->value);
-}
-
 # get or set the minimum value
 sub min {
   my $self = shift;
@@ -157,108 +151,6 @@ sub after {
   return 1 if ($self->min > $other->max);
 
   return 0;
-}
-
-# This range has no IPs in common with the other
-sub disjoint_from {
-  my $self = shift;
-  my ($other) = validate_pos(@_, { isa => "RHN::Kickstart::IPRange" });
-
-  return 1 if ($self->before($other) or $self->after($other));
-
-  return 0;
-}
-
-# All of this range is inside the other
-sub subset_of {
-  my $self = shift;
-  my ($other) = validate_pos(@_, { isa => "RHN::Kickstart::IPRange" });
-
-  return 1 if ( ($self->min >= $other->min) and ($self->max <= $other->max) );
-
-  return 0;
-}
-
-# All of the other range is inside this one
-sub superset_of {
-  my $self = shift;
-  my ($other) = validate_pos(@_, { isa => "RHN::Kickstart::IPRange" });
-
-  return 1 if ( ($self->min <= $other->min) and ($self->max >= $other->max) );
-
-  return 0;
-}
-
-sub equal_to {
-  my $self = shift;
-  my ($other) = validate_pos(@_, { isa => "RHN::Kickstart::IPRange" });
-
-  return 1 if ( ($self->min == $other->min) and ($self->max == $other->max) );
-
-  return 0;
-}
-
-# Can they exist within the same space?
-# Yes, if they are disjoint, or one is a subset of the other
-sub can_coexist {
-  my $self = shift;
-  my ($other) = validate_pos(@_, { isa => "RHN::Kickstart::IPRange" });
-
-  return 1 if ( ($self->disjoint_from($other) or $self->subset_of($other) or $self->superset_of($other))
-		and (not $self->equal_to($other)) );
-
-  return 1 if ($self->equal_to($other) and ($self->ksid == $other->ksid));
-
-  return 0;
-}
-
-# test for range conflicts within an org for a given ip range
-# returns the conflicting ranges, if any
-sub test_org_conflicts {
-  my $class = shift;
-  my $org_id = shift;
-  my $range = shift;
-
-  my $ds = new RHN::DataSource::General(-mode => 'org_ks_ip_ranges');
-  my $data = $ds->execute_query(-org_id => $org_id);
-
-  my @ret;
-
-  foreach my $row (@{$data}) {
-    my $test_range = build_range_from_row($row);
-
-    push(@ret, $test_range) unless $range->can_coexist($test_range);
-  }
-
-  return @ret;
-}
-
-sub org_ranges_for_ip {
-  my $class = shift;
-  my %params = validate(@_, { org_id => { optional => 0 }, ip => { optional => 0 } });
-
-  my $ip = new RHN::Kickstart::IPAddress($params{ip});
-
-  my $ds = new RHN::DataSource::General(-mode => 'org_ks_ip_ranges_for_ip');
-  my $data = $ds->execute_query(-org_id => $params{org_id}, -ip => $ip->export);
-
-  my @ret;
-
-  foreach my $row (@{$data}) {
-    push @ret, build_range_from_row($row);
-  }
-
-  return @ret;
-}
-
-sub build_range_from_row {
-  my $row = shift;
-
-  return new RHN::Kickstart::IPRange(-min => $row->{MIN},
-				     -max => $row->{MAX},
-				     -ksid => $row->{KICKSTART_ID},
-				     -org_id => $row->{ORG_ID},
-				   );
 }
 
 1;
