@@ -49,36 +49,6 @@ sub _blank_hw_device {
    return $self;
 }
 
-# returns one hwdevice object from it's key
-sub lookup_hw_device {
-  my $class = shift;
-  my $id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = $h->select_query("H.ID = ?");
-  $sth = $dbh->prepare($query);
-  $sth->execute($id);
-
-  my @columns = $sth->fetchrow;
-  $sth->finish;
-
-  my $ret;
-  if ($columns[0]) {
-    $ret = $class->_blank_hw_device;
-    $ret->{"__".$_."__"} = shift @columns foreach $h->method_names;
-  }
-  else {
-    local $" = ", ";
-    die "Error loading hw device $id; no ID? (@columns)";
-  }
-
-  return $ret;
-}
-
 # returns an array of hwdevice objects given a server id
 sub lookup_hw_devices_by_server {
   my $class = shift;
