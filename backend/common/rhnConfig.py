@@ -41,13 +41,6 @@ class ConfigParserError(Exception):
     pass
 
 
-# Main options class
-# FIXME: needs an overhaul. Way way way too complex.
-#
-# Singleton-esque:
-# The basic idea is to share the important pieces of information - the
-# component and the configuration tree - across all instances of this
-# class.
 # TODO: need to be able to specify "" component and parse all files in
 #       the directory and form a _complete_ mapping structure.
 #       Or, if that is too difficult, take in a list of components...
@@ -55,10 +48,12 @@ class ConfigParserError(Exception):
 #       of config options, compare to the default options and write to
 #       /etc/rhn/rhn.conf if those options differ at all.
 #       XXX: almost done
-
-
 class RHNOptions:
-
+    """ Main options class
+        The basic idea is to share the important pieces of information - the
+        component and the configuration tree - across all instances of this
+        class.
+    """
     def __init__(self, component=None, root=None, file=None):
         self.__component = None
         # Defaults for each option, keyed on tuples
