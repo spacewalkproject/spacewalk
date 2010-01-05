@@ -727,61 +727,6 @@ EOQ
   return $dbh;
 }
 
-sub deactivate_satellite {
-  my $self = shift;
-  my $transaction = shift;
-  my $dbh = $transaction || RHN::DB->connect();
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-DELETE FROM  rhnSatelliteInfo
-      WHERE  server_id = ?
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  $query = <<EOQ;
-DELETE FROM rhnSatelliteChannelFamily
-      WHERE server_id = ?
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  # actually unsubscribe from any satellite channels...
-  $query = <<EOQ;
-DECLARE
-
-  cursor subscribed_sat_channels(server_id_in in number) is
-    SELECT DISTINCT SC.channel_id AS ID
-  FROM rhnServerChannel SC, rhnChannelFamilyMembers CFM, rhnChannelFamily CF
-     WHERE SC.server_id = server_id_in
-   AND CF.label = 'rhn-satellite'
-   AND CF.id = CFM.channel_family_id
-   AND CFM.channel_id = SC.channel_id;
-
-BEGIN
-
-  for subscribed_chan in subscribed_sat_channels(:server_id) loop
-   rhn_channel.unsubscribe_server(:server_id, subscribed_chan.id);
-  end loop;
-END;
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute_h(server_id => $self->id);
-
-
-  $dbh->commit unless $transaction;
-
-  delete $self->{__satellite_server_id__};
-  delete $self->{__satellite_cert__};
-
-  return $dbh;
-}
-
 
 sub base_channel_id {
   my $self = shift;
