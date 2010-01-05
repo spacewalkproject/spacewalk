@@ -103,14 +103,6 @@ sub get_query_body {
   return $mode_data->{query}->{body};
 }
 
-sub get_query_params {
-  my $self = shift;
-
-  my $mode_data = $self->lookup_mode_data;
-
-  return $mode_data->{query}->{params};
-}
-
 sub execute_query {
   my $self = shift;
   my %params = @_;
