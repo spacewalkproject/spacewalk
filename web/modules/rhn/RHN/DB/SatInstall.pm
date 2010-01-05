@@ -65,148 +65,6 @@ EOQ
   return $row ? 1 : 0;
 }
 
-# return 0 if the version is allowed, otherwise dies with the version
-
-sub check_db_version {
-  my $class = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my ($v, $c);
-
-  $dbh->call_procedure('dbms_utility.db_version', \$v, \$c);
-
-  my $version = join('', (split(/\./, $v))[0 .. 2]);
-
-  throw "Invalid db version: ($v, $c)" unless
-    grep { $version == $_ } @allowed_db_versions;
-
-  return 0;
-}
-
-# Find the default tablespace name for the given (oracle) user.
-sub get_default_tablespace_name {
-  my $class = shift;
-  my $db_user = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT UU.default_tablespace
-  FROM user_users UU
- WHERE UU.username = upper(:uname)
-EOQ
-
-  $sth->execute_h(uname => $db_user);
-
-  my ($ts) = $sth->fetchrow();
-  $sth->finish;
-
-  throw "No tablespace found for user '$db_user'"
-    unless $ts;
-
-  return $ts;
-}
-
-sub check_db_privs {
-  my $class = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT DISTINCT privilege
-  FROM (
-          SELECT USP.privilege
-            FROM user_sys_privs USP
-        UNION
-          SELECT RSP.privilege
-            FROM role_sys_privs RSP,
-                 user_role_privs URP
-           WHERE RSP.role = URP.granted_role
-        UNION
-          SELECT RSP.privilege
-            FROM role_sys_privs RSP,
-                 role_role_privs RRP,
-                 user_role_privs URP1,
-                 user_role_privs URP2
-           WHERE URP1.granted_role = RRP.role
-             AND RRP.role = URP2.granted_role
-             AND URP2.granted_role = RSP.role
-       )
- WHERE privilege = :priv
-EOQ
-
-  my @required_privs =
-    ('ALTER SESSION',
-     'CREATE SEQUENCE',
-     'CREATE SYNONYM',
-     'CREATE TABLE',
-     'CREATE VIEW',
-     'CREATE PROCEDURE',
-     'CREATE TRIGGER',
-     'CREATE TYPE',
-     'CREATE SESSION',
-    );
-
-  foreach my $priv (@required_privs) {
-    $sth->execute_h(priv => $priv);
-    my ($got_priv) = $sth->fetchrow();
-
-    unless ($got_priv) {
-      throw "Missing privilege: $priv";
-    }
-
-    $sth->finish;
-  }
-
-  return 0;
-}
-
-# returns 0 if the tablespace settings are good, dies with error(s) otherwise
-sub check_db_tablespace_settings {
-  my $class = shift;
-
-  my $oracle_user = shift;
-  my $tablespace_name = $class->get_default_tablespace_name($oracle_user);
-
-  $class->check_db_privs();
-
-  my $dbh = RHN::DB->connect;
-
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT UT.status, UT.contents, UT.logging
-  FROM user_tablespaces UT
- WHERE UT.tablespace_name = :tname
-EOQ
-
-  $sth->execute_h(tname => $tablespace_name);
-  my $row = $sth->fetchrow_hashref;
-  $sth->finish;
-
-  unless (ref $row eq 'HASH' and (%{$row})) {
-    throw "tablespace $tablespace_name does not appear to exist";
-  }
-
-  my %expectations = (STATUS => 'ONLINE',
-		      CONTENTS => 'PERMANENT',
-		      LOGGING => 'LOGGING',
-		     );
-  my @errs = ();
-
-  foreach my $column (keys %expectations) {
-    if ($row->{$column} ne $expectations{$column}) {
-      push @errs, sprintf("tablespace %s has %s set to %s where %s is expected",
-			  $tablespace_name, $column, $row->{$column}, $expectations{$column});
-    }
-  }
-
-  if (@errs) {
-    throw "Tablespace errors: " . join(';', @errs);
-  }
-
-  return 0;
-}
-
 sub get_nls_database_parameters {
   my $class = shift;
 
@@ -226,23 +84,6 @@ EOQ
   }
 
   return %nls_database_parameters;
-}
-
-my @ALLOWED_CHARSETS = qw/UTF8 AL32UTF8/;
-
-# returns 0 if the db is using UTF8, dies with actual character set otherwise.
-sub check_db_charsets {
-  my $class = shift;
-
-  my %nls_database_parameters = $class->get_nls_database_parameters();
-
-  unless (exists $nls_database_parameters{NLS_CHARACTERSET} and
-	  grep { $nls_database_parameters{NLS_CHARACTERSET} eq $_ } @ALLOWED_CHARSETS) {
-    throw "DB is using an invalid (non-UTF8) character set: (NLS_CHARACTERSET = "
-      . $nls_database_parameters{NLS_CHARACTERSET} . ")";
-  }
-
-  return 0;
 }
 
 sub clear_db {
@@ -330,23 +171,6 @@ EOQ
   }
 
   $dbh->commit;
-
-  return;
-}
-
-sub create_satellite_org {
-  my $class = shift;
-  my $org_name = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my ($org_id) = $class->get_satellite_org_id;
-
-  if (defined $org_id) {
-    throw "Attempt create an org on satellite when one already exists";
-  }
-
-  $dbh->call_procedure("create_first_org", $org_name, PXT::Utils->random_password(16));
 
   return;
 }
