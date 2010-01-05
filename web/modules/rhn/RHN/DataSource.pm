@@ -255,35 +255,4 @@ sub collate_data {
   return $data;
 }
 
-# static method to return a list of all the available datasources.
-# used by test suite and by query performance metric script
-
-sub available_datasource_files {
-  my $class = shift;
-  my @extra_entries = @_;
-
-  my $core_dir = $INC{"RHN/DB/DataSource.pm"};
-  $core_dir =~ s(\.pm$)(/xml);
-
-  my @ret;
-
-  for my $entry ($core_dir, @extra_entries) {
-    my @files;
-
-    if (-d $entry) {
-      my $dir = $entry;
-      opendir DIR, $dir or die "opendir $dir: $!";
-      push @files, grep { -f "$dir/$_" } readdir DIR;
-      closedir DIR;
-    }
-    else {
-      push @files, $entry;
-    }
-
-    push @ret, map { s(\.xml$)(); $_ } grep { m(\.xml$) } @files;
-  }
-
-  return sort @ret;
-}
-
 1;
