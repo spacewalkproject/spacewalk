@@ -159,63 +159,6 @@ sub commit {
   delete $self->{":modified:"};
 }
 
-sub compatible_servers_in_set {
-  my $self = shift;
-  my $user_id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query = <<EOQ;
-SELECT S.id,
-       S.name
-  FROM rhnServer S
- WHERE S.org_id = ?
-   AND S.id IN (SELECT element FROM rhnSet WHERE user_id = ? AND label = 'system_list')
-   AND EXISTS (SELECT 1
-                 FROM rhnServerChannel SC
-                WHERE SC.server_id = S.id
-                  AND SC.channel_id = ?)
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->org_id, $user_id, $self->base_channel);
-
-  my @ret;
-  while (my @data = $sth->fetchrow) {
-    push @ret, [ @data ];
-  }
-
-  return @ret;
-}
-
-
-sub compatible_servers {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query = <<EOQ;
-SELECT S.id,
-       S.name
-  FROM rhnServer S
- WHERE S.org_id = ?
-   AND EXISTS (SELECT 1
-                 FROM rhnServerChannel SC
-                WHERE SC.server_id = S.id
-                  AND SC.channel_id = ?)
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->org_id, $self->base_channel);
-
-  my @ret;
-  while (my @data = $sth->fetchrow) {
-    push @ret, [ @data ];
-  }
-
-  return @ret;
-}
-
 sub copy_from {
   my $self = shift;
   my %params = validate(@_, { sid => 0, prid => 0, transaction => 0 });
@@ -265,42 +208,6 @@ EOQ
   $sth->execute_h(%query_params);
 
   $dbh->commit unless $params{transaction};
-}
-
-sub package_info_for_match_action {
-  my $class = shift;
-  my %params = @_;
-
-  my ($action_id, $lower, $upper, $total_ref) =
-    map { $params{"-" . $_} } qw/action_id lower upper total_rows/;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-SELECT PN.name || '-' || PE.evr.as_vre_simple(), AP.parameter
-  FROM rhnPackageName PN,
-       rhnPackageEVR PE,
-       rhnActionPackage AP
- WHERE AP.action_id = ?
-   AND AP.name_id = PN.id
-   AND AP.evr_id = PE.id
-ORDER BY upper(PN.name), PE.evr, AP.parameter
-EOS
-  $sth->execute($action_id);
-
-  $$total_ref = 0;
-
-  my @result;
-  my $i = 1;
-  while (my @data = $sth->fetchrow) {
-    $$total_ref = $i;
-
-    if ($i >= $lower and $i <= $upper) {
-      push @result, [ @data ];
-    }
-    $i++;
-  }
-  $sth->finish;
-  return @result;
 }
 
 sub compatible_with_server {
@@ -443,47 +350,6 @@ sub create_from_system {
   $profile->copy_from(-sid => $params{sid}, -transaction => $params{transaction});
 
   return $profile;
-}
-
-sub create_from_profile {
-  my $class = shift;
-  my %params = validate(@_, { prid => 1, org_id => 1, name => 1, description => 1, type => 1, transaction => 0 });
-
-  my $old_profile = RHN::Profile->lookup(-id => $params{prid});
-  my $profile = RHN::Profile->create;
-
-  $profile->org_id($params{org_id});
-
-  $profile->base_channel($old_profile->base_channel);
-  $profile->name($params{name});
-  $profile->description($params{description});
-  $profile->set_profile_type($params{type});
-
-  $profile->commit($params{transaction});
-  $profile->copy_from(-prid => $params{prid}, -transaction => $params{transaction});
-
-  return $profile;
-}
-
-sub remove_packages_by_id_combo {
-  my $self = shift;
-  my @id_combos = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-DELETE
-  FROM rhnServerProfilePackage SPP
- WHERE SPP.server_profile_id = :id
-   AND SPP.name_id = :name_id
-   AND SPP.evr_id = :evr_id
-EOQ
-
-  foreach my $combo (@id_combos) {
-    my ($name_id, $evr_id) = split /\|/, $combo;
-    $sth->execute_h(id => $self->id, evr_id => $evr_id, name_id => $name_id);
-  }
-
-  $dbh->commit;
 }
 
 # goofy, but useful
