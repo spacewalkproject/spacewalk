@@ -1785,38 +1785,6 @@ sub can_entitle_server {
   return $can ? 1 : 0;
 }
 
-sub can_switch_base_entitlement {
-  my $self_or_class = shift;
-  my $entitlement = shift;
-
-  my $sid;
-  if (ref $self_or_class) {
-    $sid = $self_or_class->id;
-  }
-  else {
-    $sid = shift;
-  }
-
-  my $dbh = RHN::DB->connect;
-  my $can = 0;
-
-  eval {
-    $can = $dbh->call_function('rhn_entitlements.can_switch_base', $sid, $entitlement);
-  };
-
-  if ($@) {
-    my $E = $@;
-
-    # if it's anything other not function not returning a value, toss
-    # the exception further up the chain...
-    unless ($E =~ m/ORA-06503/) {
-      throw $E;
-    }
-  }
-
-  return $can ? 1 : 0;
-}
-
 sub set_channels {
   my $self = shift;
   my %params = validate(@_, {user_id => 1, channels => 1});
