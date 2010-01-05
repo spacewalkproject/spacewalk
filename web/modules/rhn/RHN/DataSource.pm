@@ -96,15 +96,6 @@ sub required_params {
   return @uniq_params;
 }
 
-sub execute_one {
-  my $self = shift;
-
-  my $ret = $self->execute_query(@_);
-  throw "Too many rows returned from query (mode $self->{mode})" if @$ret > 1;
-
-  return @$ret > 0 ? $ret->[0] : ();
-}
-
 sub get_query_body {
   my $self = shift;
 
