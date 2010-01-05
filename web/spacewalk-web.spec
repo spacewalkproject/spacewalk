@@ -177,7 +177,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Kickstart/
 %{perl_vendorlib}/RHN/Mail.pm
 %{perl_vendorlib}/RHN/Manifest.pm
-%{perl_vendorlib}/RHN/MonitoringConfigMacro.pm
 %{perl_vendorlib}/RHN/Org.pm
 %{perl_vendorlib}/RHN/Package.pm
 %{perl_vendorlib}/RHN/Package/
@@ -224,7 +223,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/RHN::DB::SatCluster.3pm.gz
 %{_mandir}/man3/RHN::DB::SatNode.3pm.gz
 %{_mandir}/man3/RHN::DB::ServerGroup.3pm.gz
-%{_mandir}/man3/RHN::MonitoringConfigMacro.3pm.gz
 %{_mandir}/man3/RHN::Probe.3pm.gz
 %{_mandir}/man3/RHN::SCDB.3pm.gz
 %{_mandir}/man3/RHN::SatCluster.3pm.gz
