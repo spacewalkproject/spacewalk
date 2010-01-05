@@ -575,38 +575,6 @@ EOQ
 }
 
 
-sub user_subscribable_base_channels {
-  my $self = shift;
-  my %params = validate(@_, {user_id => 1, org_id => 1});
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT  C.id, C.name
-  FROM  rhnChannel C,
-        rhnUserChannel UC
- WHERE  UC.user_id = :user_id
-   AND  UC.role = 'subscribe'
-   AND  UC.channel_id = C.id
-   AND  C.parent_channel IS NULL
-   AND  C.org_id = :org_id
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute_h(user_id => $params{user_id}, org_id => $params{org_id});
-
-  my @channels;
-
-  while (my @row = $sth->fetchrow) {
-    push @channels, [ @row ];
-  }
-
-  return @channels;
-}
-
 sub package_groups {
   my $class = shift;
   my $channel_id = shift;
