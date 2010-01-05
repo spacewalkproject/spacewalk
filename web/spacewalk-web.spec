@@ -169,7 +169,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/FileList.pm
 %{perl_vendorlib}/RHN/Form.pm
 %{perl_vendorlib}/RHN/Form/
-%{perl_vendorlib}/RHN/Grail.pm
 %{perl_vendorlib}/RHN/I18N.pm
 %{perl_vendorlib}/RHN/KSTree.pm
 %{perl_vendorlib}/RHN/Kickstart.pm

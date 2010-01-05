@@ -17,7 +17,6 @@ use strict;
 
 package Grail::Canvas;
 use Grail::Component;
-use RHN::Grail;
 use Carp;
 
 @Grail::Canvas::ISA = qw/Grail::Component/;

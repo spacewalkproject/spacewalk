@@ -21,7 +21,6 @@ use PXT::Utils;
 
 use RHN::User;
 use RHN::Org;
-use RHN::Grail;
 use PXT::HTML;
 use RHN::UserActions;
 use RHN::Exception qw/throw catchable/;

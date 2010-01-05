@@ -10,7 +10,6 @@ RHN/DB/Action.pm
 RHN/DB/ChannelEditor.pm
 RHN/DB/Channel.pm
 RHN/DB/Errata.pm
-RHN/DB/Grail.pm
 RHN/DB/JoinClass.pm
 RHN/DB/Notes.pm
 RHN/DB/Org.pm
@@ -34,7 +33,6 @@ RHN/DB/UserGroup.pm
 RHN/DB/User.pm
 RHN/Errata.pm
 RHN/Exception.pm
-RHN/Grail.pm
 RHN/Mail.pm
 RHN/Org.pm
 RHN/Package.pm
