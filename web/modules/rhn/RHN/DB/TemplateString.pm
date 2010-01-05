@@ -89,31 +89,6 @@ sub lookup {
    return $ret;
 }
 
-sub get_category_id {
-  my $class = shift;
-  my $label = shift;
-  die "no label!" unless ($label);
-
-  my $dbh = RHN::DB->connect;
-
-  my $sth = $dbh->prepare("SELECT id FROM rhnTemplateCategory WHERE label = :label");
-  $sth->execute_h(label => $label);
-
-  my ($value) = $sth->fetchrow;
-  $sth->finish;
-
-  return $value;
-}
-
-sub create_template_string {
-  my $class = shift;
-
-  my $template = $class->_blank_templatestring();
-  $template->{__id__} = -1;
-
-  return $template;
-}
-
 
 sub _blank_templatestring {
   my $class = shift;
