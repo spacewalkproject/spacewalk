@@ -734,16 +734,5 @@ sub clear_profile_timer {
   $last_profile_pt = 0;
 }
 
-sub profiling_markpoint {
-  my $now = Time::HiRes::time;
-
-  my $where = join(": ", (caller)[1], (caller)[2]);
-  my $delta = $last_profile_pt ? sprintf("%.03f", $now - $last_profile_pt) : "begin";
-
-  warn "profile pt: $now ($delta) at $where\n";
-
-  $last_profile_pt = $now;
-}
-
 1;
 
