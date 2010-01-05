@@ -37,11 +37,6 @@ sub add_alias {
   $aliases{$dbi_connection_string} = [ @_ ];
 }
 
-sub clear_aliases {
-  my $class = shift;
-  %aliases = ();
-}
-
 sub lookup_alias {
   my $class = shift;
   my $alias = shift;
