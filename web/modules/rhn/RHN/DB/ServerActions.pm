@@ -174,22 +174,4 @@ EOQ
   return $dbh;
 }
 
-sub change_set_base_channel {
-  my $class = shift;
-  my $set = shift;
-  my $channel_id = shift;
-
-  my $query = <<EOQ;
-BEGIN
-  rhn_channel.bulk_server_base_change(?, ?, ?);
-END;
-EOQ
-
-  my $dbh = RHN::DB->connect();
-  my $sth = $dbh->prepare($query);
-  $sth->execute($channel_id, $set->label, $set->uid);
-
-  $dbh->commit;
-}
-
 1;
