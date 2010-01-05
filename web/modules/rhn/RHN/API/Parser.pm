@@ -22,32 +22,6 @@ use RHN::API::TypeHandler;
 use Carp;
 use XML::LibXML;
 
-sub parse_interface {
-  my $class = shift;
-  my $method_prefix = shift;
-  my $file = shift;
-
-  my $parser = new XML::LibXML;
-  $parser->keep_blanks(0);
-  $parser->expand_xinclude(1);
-  my $doc = $parser->parse_file($file);
-  my $root = $doc->getDocumentElement;
-
-  my $iface = new RHN::API::Interface $method_prefix;
-
-  for my $xml_node (grep { $_->isa("XML::LibXML::Element") } $root->childNodes) {
-    if ($xml_node->nodeName ne 'rhn-method') {
-      warn "non-rhn-method node: " . $xml_node->toString;
-      next;
-    }
-
-    my $method = $class->process_method($xml_node);
-    $iface->add_method($method);
-  }
-
-  return $iface;
-}
-
 sub helper_find_nodes {
   my $node = shift;
   my $node_name = shift;
