@@ -40,11 +40,6 @@ my %monitoring_features = map { $_ => 1 }
 my %nonlinux_features = map { $_ => 1 }
   qw/ftr_nonlinux_support/;
 
-# all features are the unique features in other FOO_features arrays
-my %feature_universe = (%updates_features, %management_features,
-			%provisioning_features, %nonlinux_features,
-			%monitoring_features);
-
 my %entitlement_feature_map =
   ( none => { },
     sw_mgr_entitled => { map { $_ => 1 } (keys %updates_features) },
@@ -61,10 +56,6 @@ my %entitlement_feature_map =
 					    keys %provisioning_features,
 					    keys %nonlinux_features) },
   );
-
-my %excluded_features = (nonlinux_entitled => { map { $_ => 1 }
-						qw/ftr_errata_updates ftr_proxy_capable ftr_sat_capable ftr_reboot
-						   ftr_kickstart ftr_delta_action/ });
 
 # What type of feature is this?  Management, provisioning, monitoring, etc.
 sub feature_type {
