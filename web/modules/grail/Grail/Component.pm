@@ -65,37 +65,11 @@ sub render_mapping {
   return $self->{_render_map_}->{+shift};
 }
 
-sub render_modes {
-  my $self = shift;
-
-  return keys %{$self->{_render_map_}};
-}
-
 sub initialize {
   my $self = shift;
 
   $self->register_render_mode(@$_)
     foreach $self->component_modes;
-}
-
-sub sql_install_query {
-  my $self = shift;
-  my $pkg = ref $self ? ref $self : $self;
-
-  my @ret;
-
-  foreach my $c ($self->component_modes) {
-    my $role = $c->[4] ? "'$c->[4]'" : 'NULL';
-    my $config = $c->[3] ? "'$c->[3]'" : 'NULL';
-    my $label = $c->[2] || '';
-
-    push @ret, <<EOQ;
-INSERT INTO rhnGrailComponents (id, component_pkg, component_mode, config_mode, component_label, role_required)
-     VALUES (rhn_grail_components_seq.nextval, '$pkg', '$c->[0]', $config, '$label', $role);
-EOQ
-  }
-
-  return join("", @ret);
 }
 
 1;
