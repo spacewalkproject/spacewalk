@@ -429,52 +429,6 @@ EOQ
   return @ret;
 }
 
-sub add_bug {
-  my $self = shift;
-  my ($id, $summary) = @_;
-
-  my $dbh = RHN::DB->connect;
-
-  my $bl_table = $self->table_map('rhnErrataBugList');
-
-  my $query = <<EOQ;
-INSERT INTO $bl_table
-       (errata_id, bug_id, summary)
-VALUES (?, ?, ?)
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->id, $id, $summary);
-
-  $dbh->commit;
-
-  return;
-}
-
-sub update_bug {
-  my $self = shift;
-  my ($old_id, $new_id, $summary) = @_;
-
-  my $dbh = RHN::DB->connect;
-
-  my $bl_table = $self->table_map('rhnErrataBugList');
-
-  my $query = <<EOQ;
-UPDATE $bl_table
-   SET bug_id = ?,
-       summary = ?
- WHERE errata_id = ?
-   AND bug_id = ?
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($new_id, $summary, $self->id, $old_id);
-
-  $dbh->commit;
-
-  return;
-}
-
 sub keywords {
   my $self = shift;
   my $dbh = RHN::DB->connect;
@@ -502,44 +456,6 @@ EOQ
   $sth->finish;
 
   return @ret;
-}
-
-sub set_keywords {
-  my $self = shift;
-  my @words = @_;
-
-  my $dbh = RHN::DB->connect;
-
-  my $kw_table = $self->table_map('rhnErrataKeyword');
-
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-DELETE FROM  $kw_table EK
-      WHERE  EK.errata_id = ?
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  $query = <<EOQ;
-INSERT INTO  $kw_table EK
-(errata_id, keyword)
-VALUES
-(?, ?)
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  foreach my $word (@words) {
-    $sth->execute($self->id, $word);
-  }
-
-  $sth->finish;
-  $dbh->commit;
-
-  return;
 }
 
 #all channels affected by errata, pulled from rhnChannelErrata
@@ -610,41 +526,6 @@ EOQ
 
 }
 
-# differs from the above in that this one only shows redhat channels affected by an errata...
-sub affected_redhat_channels {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT  DISTINCT C.id, C.name
-  FROM  rhnChannelFamilyMembers CFM, rhnChannelFamily CF, rhnChannel C, rhnChannelErrata CE
- WHERE  CE.errata_id = ?
-   AND  CE.channel_id = C.id
-   AND  C.org_id IS NULL
-   AND  CF.label = 'rh-public'
-   AND  CF.id = CFM.channel_family_id
-   AND  CFM.channel_id = C.id
-ORDER BY UPPER(C.name)
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  my @ret;
-
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-  $sth->finish;
-
-  return @ret;
-
-}
-
 # show channels which own packages referred to by this errata
 sub related_channels_owned_by_org {
   my $class = shift;
@@ -685,47 +566,6 @@ EOQ
   $sth->finish;
 
   return @ret;
-}
-
-sub channel_packages_in_errata {
-  my $self = shift;
-  my $cid = shift;
-
-  die "No channel id!" unless $cid;
-
-  my $ep_table = $self->table_map('rhnErrataPackage');
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-  my $sth;
-
-  $query = <<EOS;
-  SELECT DISTINCT P1.name_id
-    FROM rhnChannel C,
-         rhnChannelPackage CP,
-         rhnPackage P2,
-         rhnPackage P1,
-         $ep_table EP
-   WHERE EP.errata_id = :eid
-     AND EP.package_id = P1.id
-     AND P1.name_id = P2.name_id
-     AND P1.package_arch_id = P2.package_arch_id
-     AND CP.package_id = P2.id
-     AND C.id = CP.channel_id
-     AND C.id = :cid
-EOS
-
-  $sth = $dbh->prepare($query);
-
-  $sth->execute_h(eid => $self->id, cid => $cid);
-
-  my @result;
-
-  while (my ($pid) = $sth->fetchrow) {
-    push @result, $pid;
-  }
-
-  return @result;
 }
 
 sub packages_in_errata {
@@ -785,101 +625,6 @@ EOS
   }
 
   return @result;
-}
-
-# return the srpms for the binary rpms entered in rhnPackage that
-# are associated w/ this errata
-# output is in same format as with packages_overview
-sub source_rpms {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = <<EOS;
-  SELECT PS.id, P.id, PS.id, C.label, 'src', PS.path, NULL, NULL, 'SRPMs',
-         CPsum.checksum md5sum, CPSsum.checksum md5sum
-    FROM rhnChannel C,
-         rhnPackageSource PS,
-         rhnPackage P,
-         rhnChannelPackage CP,
-         rhnChannelErrata CE,
-         rhnErrataPackage EP
-         rhnChecksum CPsum,
-         rhnChecksum CPSsum
-   WHERE EP.errata_id = ?
-     AND CE.errata_id = ?
-     AND EP.package_id = CP.package_id
-     AND CE.channel_id = CP.channel_id
-     AND CE.channel_id = C.id
-     AND EP.package_id = P.id
-     AND P.source_rpm_id = PS.source_rpm_id
-     AND P.checksum_id = CPsum.id
-     AND PS.checksum_id = CPSsum.id
-EOS
-
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id, $self->id);
-
-  my @ret;
-
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-  $sth->finish;
-
-  return @ret;
-}
-
-# for an errata, give binary packages RHN knows about...
-sub public_packages_overview {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT  P2.id, Csum.checksum md5sum, C.name, PN.name, PE.evr.version, PE.evr.release, PE.evr.epoch, P2.path, PA.name, C.label, CFM.channel_family_id,
-        (
-           SELECT  CFP2.channel_family_id
-             FROM  rhnChannelFamilyPermissions CFP2
-            WHERE  CFP2.org_id IS NULL
-              AND  CFP2.channel_family_id = CFM.channel_family_id
-        ) PUBLIC_PACKAGE
-  FROM  rhnChannelFamily CF, rhnChannelFamilyMembers CFM, rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P2, rhnPackage P, rhnChannel C, rhnChannelPackage CP, rhnChannelErrata CE, rhnErrataPackage EP, rhnChecksum Csum
- WHERE  EP.errata_id = ?
-   AND  CE.errata_id = ?
-   AND  EP.package_id = CP.package_id
-   AND  CE.channel_id = CP.channel_id
-   AND  CP.channel_id = C.id
-   AND  CP.package_id = P.id
-   AND  P.name_id = P2.name_id
-   AND  EXISTS (SELECT CP2.package_id FROM rhnChannelPackage CP2 WHERE CP2.channel_id = C.id AND CP2.package_id = P2.id)
-   AND  P2.name_id = PN.id
-   AND  P2.evr_id = PE.id
-   AND  P2.package_arch_id = PA.id
-   AND  C.id = CFM.channel_id
-   AND  CFM.channel_family_id = CF.id
-   AND  CF.org_id IS NULL
-   AND  P2.checksum_id = Csum.id
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id, $self->id);
-
-  my @ret;
-
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-  $sth->finish;
-
-  return @ret;
 }
 
 # shows the packages corresponding to the subscribed channels of your org.
@@ -1021,74 +766,6 @@ sub commit {
   delete $self->{":modified:"};
 
   return $transaction;
-}
-
-sub recent_errata_summary {
-  my $class = shift;
-  my $user = shift;
-  my $count = shift;
-
-  my $e_table = $class->table_map('rhnErrata');
-
-  my $query = <<EOQ;
-  SELECT  id, advisory, advisory_type, synopsis, issue_date, update_date
-    FROM  $e_table
-ORDER BY  update_date DESC, id
-EOQ
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare($query);
-  $sth->execute;
-
-  my @ret;
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row, "n/a" ];
-    last if @ret > $count;
-  }
-  $sth->finish;
-
-  return @ret;
-}
-
-sub get_product_types {
-  my $dbh = RHN::DB->connect;
-  my $query = "SELECT DISTINCT(product) FROM rhnErrata";
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute(); 
-  my @res;
-  my @row;
-
-  push @res, [ @row ] while(@row = $sth->fetchrow); 
-
-  return @res; 
-}
-
-sub get_errata_packages {
-  my $class = shift;
-  my $id = shift;
-  my $pcols = shift;
-  my $acols = shift || [];
-
-  my $ep_table = $class->table_map('rhnErrataPackage');
-
-  my $dbh = RHN::DB->connect;
-
-  my $query = sprintf <<EOQ, join(", ",(map { "RP.$_"} @{$pcols}),(map { "RA.$_" } @{$acols}));
-SELECT %s
-FROM rhnPackage RP, rhnPackageArch RPA, $ep_table REP
-WHERE REP.errata_id = ? AND REP.package_id = RP.id AND RP.package_arch_id = RA.id
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($id);
-
-  my @res;
-  my @row;
-
-  push @res, [ @row ] while(@row = $sth->fetchrow);
-
-  return @res;
 }
 
 sub add_errata_package {
@@ -1405,28 +1082,6 @@ EOQ
   $dbh->commit;
 
   return;
-}
-
-sub is_locally_modified {
-  my $class = shift;
-  my $eid = shift;
-
-  my $e_table = $class->table_map('rhnErrata');
-
-  my $dbh = RHN::DB->connect;
-  my $query =<<EOQ;
-SELECT E.locally_modified
-  FROM $e_table E
- WHERE E.id = :eid
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h(eid => $eid);
-
-  my ($mod) = $sth->fetchrow;
-
-  return (defined $mod) ? ($mod eq 'Y' ? 1 : 0)
-                        : undef;
 }
 
 sub cloned_from {
