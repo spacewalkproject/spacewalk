@@ -310,28 +310,6 @@ sub activation_keys {
   return @tokens;
 }
 
-sub old_server {
-  my $self = shift;
-
-  my $sid = $self->old_server_id;
-
-  return $sid ? RHN::Server->lookup(-id => $sid) : undef;
-}
-
-sub new_server {
-  my $self = shift;
-
-  my $sid = $self->new_server_id;
-
-  return $sid ? RHN::Server->lookup(-id => $sid) : undef;
-}
-
-sub current_server {
-  my $self = shift;
-
-  return ($self->new_server || $self->old_server);
-}
-
 sub kstree {
   my $self = shift;
 
