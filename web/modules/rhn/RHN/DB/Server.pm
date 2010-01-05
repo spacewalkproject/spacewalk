@@ -859,31 +859,6 @@ EOQ
   return $columns[0];
 }
 
-#returns the default base channel, from rhnServer.arch, .os, and .release
-sub default_base_channel {
-  my $self = shift;
-  my $sid = (ref $self) ? $self->id : shift;
-
-  my $dbh = RHN::DB->connect;
-  my $default_base_id;
-
-  eval {
-    $default_base_id = $dbh->call_function('rhn_channel.guess_server_base', $sid);
-  };
-
-  if ($@) {
-    my $E = $@;
-
-    # if it's anything other not function not returning a value, toss
-    # the exception further up the chain...
-    unless ($E =~ m/ORA-06503/) {
-      throw $E;
-    }
-  }
-
-  return $default_base_id;
-}
-
 sub verify_channel_arch_compat {
   my $self = shift;
   my $cid = shift;
