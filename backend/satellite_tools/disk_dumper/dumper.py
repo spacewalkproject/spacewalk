@@ -57,333 +57,6 @@ class DatabaseStatement:
     def __getattr__(self, name):
         return getattr(self.statement, name)
 
-class XML_DumperEx(XML_Dumper):
-    def __init__(self, req):
-        self.compress_level = 5
-        self.headers_out = UserDictCase()
-        self._raw_stream = req
-        self._raw_stream.content_type = 'application/octet-stream'
-        # State machine
-        self._headers_sent = 0
-        self._is_closed = 0
-        self._compressed_stream = None
-        # Redefine in subclasses
-        self._channel_family_query = """
-            select pcf.channel_family_id, to_number(null) quantity
-              from rhnPublicChannelFamily pcf
-        """
-
-    def _send_headers(self, error=0, init_compressed_stream=1):
-        log_debug(4, "is_closed", self._is_closed)
-        if self._is_closed:
-            raise Exception, "Trying to write to a closed connection"
-        if self._headers_sent:
-            return
-        self._headers_sent = 1
-        if self.compress_level:
-            self.headers_out['Content-Encoding'] = 'gzip'
-        # Send the headers
-        if error:
-            # No compression
-            self.compress_level = 0
-            self._raw_stream.content_type = 'text/xml'
-        for h, v in self.headers_out.items():
-            self._raw_stream.headers_out[h] = str(v)
-        self._raw_stream.send_http_header()
-        # If need be, start gzipping
-        if self.compress_level and init_compressed_stream:
-            log_debug(4, "Compressing with factor %s" % self.compress_level)
-            self._compressed_stream = gzip.GzipFile(None, "wb",
-                self.compress_level, self._raw_stream)
-
-    def send(self, data):
-        log_debug(3, "Sending %d bytes" % len(data))
-        try:
-            self._send_headers()
-            if self._compressed_stream:
-                log_debug(4, "Sending through a compressed stream")
-                self._compressed_stream.write(data)
-            else:
-                self._raw_stream.write(data)
-        except IOError:
-            log_error("Client appears to have closed connection")
-            self.close()
-            raise ClosedConnectionError
-        log_debug(5, "Bytes sent", len(data))
-
-    write = send
-
-    def close(self):
-        log_debug(2, "Closing")
-        if self._is_closed:
-            log_debug(3, "Already closed")
-            return
-
-        if self._compressed_stream:
-            log_debug(5, "Closing a compressed stream")
-            try:
-                self._compressed_stream.close()
-            except IOError, e:
-                # Remote end has closed connection already
-                log_error("Error closing the stream", str(e))
-                pass
-            self._compressed_stream = None
-        self._is_closed = 1
-        log_debug(3, "Closed")
-
-    # Dumper functions here
-    def dump_blacklist_obsoletes(self):
-        log_debug(2)
-        writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer,
-            exportLib.BlacklistObsoletesDumper(writer))
-        dumper.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
-        return 0
-
-    def dump_arches(self, rpm_arch_type_only=0):
-        log_debug(2)
-        writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer,
-            exportLib.ChannelArchesDumper(writer,
-                rpm_arch_type_only=rpm_arch_type_only),
-            exportLib.PackageArchesDumper(writer,
-                rpm_arch_type_only=rpm_arch_type_only),
-            exportLib.ServerArchesDumper(writer,
-                rpm_arch_type_only=rpm_arch_type_only),
-            exportLib.CPUArchesDumper(writer),
-            exportLib.ServerPackageArchCompatDumper(writer,
-                rpm_arch_type_only=rpm_arch_type_only),
-            exportLib.ServerChannelArchCompatDumper(writer,
-                rpm_arch_type_only=rpm_arch_type_only),
-            exportLib.ChannelPackageArchCompatDumper(writer,
-                rpm_arch_type_only=rpm_arch_type_only),
-        )
-        dumper.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
-        return 0
-
-    def dump_server_group_type_server_arches(self, rpm_arch_type_only=0,
-            virt_filter=0):
-        log_debug(2)
-        writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer,
-            exportLib.ServerGroupTypeServerArchCompatDumper(writer,
-                rpm_arch_type_only=rpm_arch_type_only, virt_filter=virt_filter),
-        )
-        dumper.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
-        return 0
-
-    def dump_channel_families(self, virt_filter=0):
-        log_debug(2)
-
-        h = self.get_channel_families_statement()
-        h.execute()
-
-        writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer,
-            exportLib.ChannelFamiliesDumper(writer,
-                data_iterator=h, null_max_members=0, virt_filter=virt_filter),)
-        dumper.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
-        return 0
-
-    def dump_channels(self, channel_labels=None):
-        log_debug(2)
-        channels = self._validate_channels(channel_labels=channel_labels)
-
-        writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer, ChannelsDumperEx(writer,
-            channels=channels.values()))
-        dumper.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
-        return 0
-
-    def dump_channel_packages_short(self, channel_label, last_modified):
-        log_debug(2, channel_label)
-        channels = self._validate_channels(channel_labels=[channel_label])
-        channel_obj = channels[channel_label]
-        db_last_modified = int(rhnLib.timestamp(channel_obj['last_modified']))
-        last_modified = int(rhnLib.timestamp(last_modified))
-        log_debug(3, "last modified", last_modified, "db last modified",
-            db_last_modified)
-        if last_modified != db_last_modified:
-            raise rhnFault(3013, "The requested channel version does not match"
-                " the upstream version", explain=0)
-        channel_id = channel_obj['channel_id']
-        key = "xml-channel-packages/rhn-channel-%d.data" % channel_id
-        # Try to get everything off of the cache
-        val = rhnCache.get(key, compressed=0, raw=1, modified=last_modified)
-        if val is None:
-            # Not generated yet
-            log_debug(4, "Cache MISS for %s (%s)" % (channel_label,
-                channel_id))
-            stream = self._cache_channel_packages_short(channel_id, key,
-                last_modified)
-        else:
-            log_debug(4, "Cache HIT for %s (%s)" % (channel_label,
-                channel_id))
-            temp_stream = tempfile.TemporaryFile()
-            temp_stream.write(val)
-            temp_stream.flush()
-            stream = self._normalize_compressed_stream(temp_stream)
-
-        # Copy the results to the output stream
-        # They shold be already compressed if they were requested to be
-        # compressed
-        buffer_size = 16384
-        # Send the HTTP headers - but don't init the compressed stream since
-        # we send the data ourselves
-        self._send_headers(init_compressed_stream=0)
-        while 1:
-            buff = stream.read(buffer_size)
-            if not buff:
-                break
-            try:
-                self._raw_stream.write(buff)
-            except IOError:
-                log_error("Client disconnected prematurely")
-                self.close()
-                raise ClosedConnectionError
-        # We're done
-        return 0
-
-    def _cache_channel_packages_short(self, channel_id, key, last_modified):
-        """ Caches the short package entries for channel_id """
-        # Create a temporary file
-        temp_stream = tempfile.TemporaryFile()
-        # Always compress the result
-        compress_level = 5
-        stream = gzip.GzipFile(None, "wb", compress_level, temp_stream)
-        writer = xmlWriter.XMLWriter(stream=stream)
-
-        # Fetch packages
-        h = rhnSQL.prepare(self._query_get_channel_packages)
-        h.execute(channel_id=channel_id)
-        package_ids = h.fetchall_dict() or []
-        # Sort packages
-        package_ids.sort(lambda a, b: cmp(a['package_id'], b['package_id']))
-
-        dumper = SatelliteDumperEx(writer,
-            ShortPackagesDumper(writer, package_ids))
-        dumper.dump()
-        writer.flush()
-        # We're done with the stream object
-        stream.close()
-        del stream
-        temp_stream.seek(0, 0)
-        # Set the value in the cache. We don't recompress the result since
-        # it's already compressed
-        rhnCache.set(key, temp_stream.read(), modified=last_modified,
-            compressed=0, raw=1)
-        return self._normalize_compressed_stream(temp_stream)
-
-    def _packages(self, packages, prefix, dump_class, sources=0):
-        if sources:
-            h = self.get_source_packages_statement()
-        else:
-            h = self.get_packages_statement()
-
-        packages_hash = {}
-        for package in packages:
-            package = str(package)
-            if package[:len(prefix)] != prefix:
-                raise rhnFault(3002, "Invalid package name %s" % package)
-            package_id = package[len(prefix):]
-            try:
-                package_id = int(package_id)
-            except ValueError:
-                raise rhnFault(3002, "Invalid package name %s" % package)
-            if packages_hash.has_key(package_id):
-                # Already verified
-                continue
-            h.execute(package_id=package_id)
-            row = h.fetchone_dict()
-            if not row:
-                # XXX Silently ignore it?
-                raise rhnFault(3003, "No such package %s" % package)
-            # Saving the row, it's handy later when we create the iterator
-            packages_hash[package_id] = row
-
-        writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer,
-            dump_class(writer, packages_hash.values()))
-        dumper.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
-        return 0
-
-    def dump_errata(self, errata):
-        log_debug(2)
-
-        h = self.get_errata_statement()
-
-        errata_hash = {}
-        prefix = 'rhn-erratum-'
-        for erratum in errata:
-            erratum = str(erratum)
-            if erratum[:len(prefix)] != prefix:
-                raise rhnFault(3004, "Wrong erratum name %s" % erratum)
-            errata_id = erratum[len(prefix):]
-            try:
-                errata_id = int(errata_id)
-            except ValueError:
-                raise rhnFault(3004, "Wrong erratum name %s" % erratum)
-            if errata_hash.has_key(errata_id):
-                # Already verified
-                continue
-            h.execute(errata_id=errata_id)
-            row = h.fetchone_dict()
-            if not row:
-                # XXX Silently ignore it?
-                raise rhnFault(3005, "No such erratum %s" % erratum)
-            # Saving the row, it's handy later when we create the iterator
-            errata_hash[errata_id] = row
-
-        writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer,
-            ErrataDumperEx(writer, errata_hash.values()))
-        dumper.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
-        return 0
-
-    def dump_kickstartable_trees(self, kickstart_labels=None):
-        log_debug(2)
-        kickstarts = self._validate_kickstarts(
-            kickstart_labels=kickstart_labels)
-
-        writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer,
-            KickstartableTreesDumper(writer, kickstarts=kickstarts))
-        dumper.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
-        return 0
-
-    def dump_product_names(self):
-        log_debug(4)
-        writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer, exportLib.ProductNamesDumper(writer))
-        dumper.dump()
-        writer.flush()
-        self.close()
-        return 0
-
 class XML_Dumper:
     def __init__(self):
         self.compress_level = 5
@@ -854,12 +527,332 @@ class XML_Dumper:
 
         return result
 
-class SatelliteDumperEx(SatelliteDumper):
-    def set_attributes(self):
-        """ Overriding with our own version """
-        attributes = SatelliteDumper.set_attributes(self)
-        attributes['version'] = constants.PROTOCOL_VERSION
-        return attributes
+class XML_DumperEx(XML_Dumper):
+    def __init__(self, req):
+        self.compress_level = 5
+        self.headers_out = UserDictCase()
+        self._raw_stream = req
+        self._raw_stream.content_type = 'application/octet-stream'
+        # State machine
+        self._headers_sent = 0
+        self._is_closed = 0
+        self._compressed_stream = None
+        # Redefine in subclasses
+        self._channel_family_query = """
+            select pcf.channel_family_id, to_number(null) quantity
+              from rhnPublicChannelFamily pcf
+        """
+
+    def _send_headers(self, error=0, init_compressed_stream=1):
+        log_debug(4, "is_closed", self._is_closed)
+        if self._is_closed:
+            raise Exception, "Trying to write to a closed connection"
+        if self._headers_sent:
+            return
+        self._headers_sent = 1
+        if self.compress_level:
+            self.headers_out['Content-Encoding'] = 'gzip'
+        # Send the headers
+        if error:
+            # No compression
+            self.compress_level = 0
+            self._raw_stream.content_type = 'text/xml'
+        for h, v in self.headers_out.items():
+            self._raw_stream.headers_out[h] = str(v)
+        self._raw_stream.send_http_header()
+        # If need be, start gzipping
+        if self.compress_level and init_compressed_stream:
+            log_debug(4, "Compressing with factor %s" % self.compress_level)
+            self._compressed_stream = gzip.GzipFile(None, "wb",
+                self.compress_level, self._raw_stream)
+
+    def send(self, data):
+        log_debug(3, "Sending %d bytes" % len(data))
+        try:
+            self._send_headers()
+            if self._compressed_stream:
+                log_debug(4, "Sending through a compressed stream")
+                self._compressed_stream.write(data)
+            else:
+                self._raw_stream.write(data)
+        except IOError:
+            log_error("Client appears to have closed connection")
+            self.close()
+            raise ClosedConnectionError
+        log_debug(5, "Bytes sent", len(data))
+
+    write = send
+
+    def close(self):
+        log_debug(2, "Closing")
+        if self._is_closed:
+            log_debug(3, "Already closed")
+            return
+
+        if self._compressed_stream:
+            log_debug(5, "Closing a compressed stream")
+            try:
+                self._compressed_stream.close()
+            except IOError, e:
+                # Remote end has closed connection already
+                log_error("Error closing the stream", str(e))
+                pass
+            self._compressed_stream = None
+        self._is_closed = 1
+        log_debug(3, "Closed")
+
+    # Dumper functions here
+    def dump_blacklist_obsoletes(self):
+        log_debug(2)
+        writer = self._get_xml_writer()
+        dumper = SatelliteDumperEx(writer,
+            exportLib.BlacklistObsoletesDumper(writer))
+        dumper.dump()
+        writer.flush()
+        log_debug(4, "OK")
+        self.close()
+        return 0
+
+    def dump_arches(self, rpm_arch_type_only=0):
+        log_debug(2)
+        writer = self._get_xml_writer()
+        dumper = SatelliteDumperEx(writer,
+            exportLib.ChannelArchesDumper(writer,
+                rpm_arch_type_only=rpm_arch_type_only),
+            exportLib.PackageArchesDumper(writer,
+                rpm_arch_type_only=rpm_arch_type_only),
+            exportLib.ServerArchesDumper(writer,
+                rpm_arch_type_only=rpm_arch_type_only),
+            exportLib.CPUArchesDumper(writer),
+            exportLib.ServerPackageArchCompatDumper(writer,
+                rpm_arch_type_only=rpm_arch_type_only),
+            exportLib.ServerChannelArchCompatDumper(writer,
+                rpm_arch_type_only=rpm_arch_type_only),
+            exportLib.ChannelPackageArchCompatDumper(writer,
+                rpm_arch_type_only=rpm_arch_type_only),
+        )
+        dumper.dump()
+        writer.flush()
+        log_debug(4, "OK")
+        self.close()
+        return 0
+
+    def dump_server_group_type_server_arches(self, rpm_arch_type_only=0,
+            virt_filter=0):
+        log_debug(2)
+        writer = self._get_xml_writer()
+        dumper = SatelliteDumperEx(writer,
+            exportLib.ServerGroupTypeServerArchCompatDumper(writer,
+                rpm_arch_type_only=rpm_arch_type_only, virt_filter=virt_filter),
+        )
+        dumper.dump()
+        writer.flush()
+        log_debug(4, "OK")
+        self.close()
+        return 0
+
+    def dump_channel_families(self, virt_filter=0):
+        log_debug(2)
+
+        h = self.get_channel_families_statement()
+        h.execute()
+
+        writer = self._get_xml_writer()
+        dumper = SatelliteDumperEx(writer,
+            exportLib.ChannelFamiliesDumper(writer,
+                data_iterator=h, null_max_members=0, virt_filter=virt_filter),)
+        dumper.dump()
+        writer.flush()
+        log_debug(4, "OK")
+        self.close()
+        return 0
+
+    def dump_channels(self, channel_labels=None):
+        log_debug(2)
+        channels = self._validate_channels(channel_labels=channel_labels)
+
+        writer = self._get_xml_writer()
+        dumper = SatelliteDumperEx(writer, ChannelsDumperEx(writer,
+            channels=channels.values()))
+        dumper.dump()
+        writer.flush()
+        log_debug(4, "OK")
+        self.close()
+        return 0
+
+    def dump_channel_packages_short(self, channel_label, last_modified):
+        log_debug(2, channel_label)
+        channels = self._validate_channels(channel_labels=[channel_label])
+        channel_obj = channels[channel_label]
+        db_last_modified = int(rhnLib.timestamp(channel_obj['last_modified']))
+        last_modified = int(rhnLib.timestamp(last_modified))
+        log_debug(3, "last modified", last_modified, "db last modified",
+            db_last_modified)
+        if last_modified != db_last_modified:
+            raise rhnFault(3013, "The requested channel version does not match"
+                " the upstream version", explain=0)
+        channel_id = channel_obj['channel_id']
+        key = "xml-channel-packages/rhn-channel-%d.data" % channel_id
+        # Try to get everything off of the cache
+        val = rhnCache.get(key, compressed=0, raw=1, modified=last_modified)
+        if val is None:
+            # Not generated yet
+            log_debug(4, "Cache MISS for %s (%s)" % (channel_label,
+                channel_id))
+            stream = self._cache_channel_packages_short(channel_id, key,
+                last_modified)
+        else:
+            log_debug(4, "Cache HIT for %s (%s)" % (channel_label,
+                channel_id))
+            temp_stream = tempfile.TemporaryFile()
+            temp_stream.write(val)
+            temp_stream.flush()
+            stream = self._normalize_compressed_stream(temp_stream)
+
+        # Copy the results to the output stream
+        # They shold be already compressed if they were requested to be
+        # compressed
+        buffer_size = 16384
+        # Send the HTTP headers - but don't init the compressed stream since
+        # we send the data ourselves
+        self._send_headers(init_compressed_stream=0)
+        while 1:
+            buff = stream.read(buffer_size)
+            if not buff:
+                break
+            try:
+                self._raw_stream.write(buff)
+            except IOError:
+                log_error("Client disconnected prematurely")
+                self.close()
+                raise ClosedConnectionError
+        # We're done
+        return 0
+
+    def _cache_channel_packages_short(self, channel_id, key, last_modified):
+        """ Caches the short package entries for channel_id """
+        # Create a temporary file
+        temp_stream = tempfile.TemporaryFile()
+        # Always compress the result
+        compress_level = 5
+        stream = gzip.GzipFile(None, "wb", compress_level, temp_stream)
+        writer = xmlWriter.XMLWriter(stream=stream)
+
+        # Fetch packages
+        h = rhnSQL.prepare(self._query_get_channel_packages)
+        h.execute(channel_id=channel_id)
+        package_ids = h.fetchall_dict() or []
+        # Sort packages
+        package_ids.sort(lambda a, b: cmp(a['package_id'], b['package_id']))
+
+        dumper = SatelliteDumperEx(writer,
+            ShortPackagesDumper(writer, package_ids))
+        dumper.dump()
+        writer.flush()
+        # We're done with the stream object
+        stream.close()
+        del stream
+        temp_stream.seek(0, 0)
+        # Set the value in the cache. We don't recompress the result since
+        # it's already compressed
+        rhnCache.set(key, temp_stream.read(), modified=last_modified,
+            compressed=0, raw=1)
+        return self._normalize_compressed_stream(temp_stream)
+
+    def _packages(self, packages, prefix, dump_class, sources=0):
+        if sources:
+            h = self.get_source_packages_statement()
+        else:
+            h = self.get_packages_statement()
+
+        packages_hash = {}
+        for package in packages:
+            package = str(package)
+            if package[:len(prefix)] != prefix:
+                raise rhnFault(3002, "Invalid package name %s" % package)
+            package_id = package[len(prefix):]
+            try:
+                package_id = int(package_id)
+            except ValueError:
+                raise rhnFault(3002, "Invalid package name %s" % package)
+            if packages_hash.has_key(package_id):
+                # Already verified
+                continue
+            h.execute(package_id=package_id)
+            row = h.fetchone_dict()
+            if not row:
+                # XXX Silently ignore it?
+                raise rhnFault(3003, "No such package %s" % package)
+            # Saving the row, it's handy later when we create the iterator
+            packages_hash[package_id] = row
+
+        writer = self._get_xml_writer()
+        dumper = SatelliteDumperEx(writer,
+            dump_class(writer, packages_hash.values()))
+        dumper.dump()
+        writer.flush()
+        log_debug(4, "OK")
+        self.close()
+        return 0
+
+    def dump_errata(self, errata):
+        log_debug(2)
+
+        h = self.get_errata_statement()
+
+        errata_hash = {}
+        prefix = 'rhn-erratum-'
+        for erratum in errata:
+            erratum = str(erratum)
+            if erratum[:len(prefix)] != prefix:
+                raise rhnFault(3004, "Wrong erratum name %s" % erratum)
+            errata_id = erratum[len(prefix):]
+            try:
+                errata_id = int(errata_id)
+            except ValueError:
+                raise rhnFault(3004, "Wrong erratum name %s" % erratum)
+            if errata_hash.has_key(errata_id):
+                # Already verified
+                continue
+            h.execute(errata_id=errata_id)
+            row = h.fetchone_dict()
+            if not row:
+                # XXX Silently ignore it?
+                raise rhnFault(3005, "No such erratum %s" % erratum)
+            # Saving the row, it's handy later when we create the iterator
+            errata_hash[errata_id] = row
+
+        writer = self._get_xml_writer()
+        dumper = SatelliteDumperEx(writer,
+            ErrataDumperEx(writer, errata_hash.values()))
+        dumper.dump()
+        writer.flush()
+        log_debug(4, "OK")
+        self.close()
+        return 0
+
+    def dump_kickstartable_trees(self, kickstart_labels=None):
+        log_debug(2)
+        kickstarts = self._validate_kickstarts(
+            kickstart_labels=kickstart_labels)
+
+        writer = self._get_xml_writer()
+        dumper = SatelliteDumperEx(writer,
+            KickstartableTreesDumper(writer, kickstarts=kickstarts))
+        dumper.dump()
+        writer.flush()
+        log_debug(4, "OK")
+        self.close()
+        return 0
+
+    def dump_product_names(self):
+        log_debug(4)
+        writer = self._get_xml_writer()
+        dumper = SatelliteDumperEx(writer, exportLib.ProductNamesDumper(writer))
+        dumper.dump()
+        writer.flush()
+        self.close()
+        return 0
 
 class SatelliteDumper(exportLib.SatelliteDumper):
     def set_attributes(self):
@@ -867,6 +860,13 @@ class SatelliteDumper(exportLib.SatelliteDumper):
         attributes = exportLib.SatelliteDumper.set_attributes(self)
         attributes['version'] = CFG.XML_DUMP_VERSION
         attributes['generation'] = CFG.SAT_CERT_GENERATION
+        return attributes
+
+class SatelliteDumperEx(SatelliteDumper):
+    def set_attributes(self):
+        """ Overriding with our own version """
+        attributes = SatelliteDumper.set_attributes(self)
+        attributes['version'] = constants.PROTOCOL_VERSION
         return attributes
 
 class QueryIterator:
@@ -1038,35 +1038,6 @@ class CachedDumper(exportLib.BaseDumper):
         self.set_writer(ow)
 
         self.cache_set(params, s.getvalue())
-
-class ChannelsDumperEx(CachedDumper, exportLib.ChannelsDumper):
-    _query_list_channels = rhnSQL.Statement("""
-        select c.id, c.label, ca.label channel_arch, c.basedir, c.name,
-               c.summary, c.description, c.gpg_key_url, c.org_id,
-               TO_CHAR(c.last_modified, 'YYYYMMDDHH24MISS') last_modified,
-               c.channel_product_id,
-               pc.label parent_channel,
-               cp.product channel_product,
-               cp.version channel_product_version,
-               cp.beta channel_product_beta,
-               c.receiving_updates
-          from rhnChannel c, rhnChannelArch ca, rhnChannel pc, rhnChannelProduct cp
-         where c.id = :channel_id
-           and c.channel_arch_id = ca.id
-           and c.parent_channel = pc.id (+)
-           and c.channel_product_id = cp.id (+)
-    """)
-    def __init__(self, writer, channels):
-        h = rhnSQL.prepare(self._query_list_channels)
-        CachedDumper.__init__(self, writer, statement=h, params=channels)
-
-    def _get_key(self, params):
-        channel_id = params['channel_id']
-        return "xml-channels/rhn-channel-%d.xml" % channel_id
-
-    def _dump_subelement(self, data):
-        log_debug(6, data)
-        return exportLib.ChannelsDumper.dump_subelement(self, data)
 
 class ChannelsDumper(CachedDumper, exportLib.ChannelsDumper):
     _query_list_channels = rhnSQL.Statement("""
@@ -1278,6 +1249,35 @@ class _ChannelsDumper(exportLib._ChannelDumper):
         return ks_trees
 
 
+class ChannelsDumperEx(CachedDumper, exportLib.ChannelsDumper):
+    _query_list_channels = rhnSQL.Statement("""
+        select c.id, c.label, ca.label channel_arch, c.basedir, c.name,
+               c.summary, c.description, c.gpg_key_url, c.org_id,
+               TO_CHAR(c.last_modified, 'YYYYMMDDHH24MISS') last_modified,
+               c.channel_product_id,
+               pc.label parent_channel,
+               cp.product channel_product,
+               cp.version channel_product_version,
+               cp.beta channel_product_beta,
+               c.receiving_updates
+          from rhnChannel c, rhnChannelArch ca, rhnChannel pc, rhnChannelProduct cp
+         where c.id = :channel_id
+           and c.channel_arch_id = ca.id
+           and c.parent_channel = pc.id (+)
+           and c.channel_product_id = cp.id (+)
+    """)
+    def __init__(self, writer, channels):
+        h = rhnSQL.prepare(self._query_list_channels)
+        CachedDumper.__init__(self, writer, statement=h, params=channels)
+
+    def _get_key(self, params):
+        channel_id = params['channel_id']
+        return "xml-channels/rhn-channel-%d.xml" % channel_id
+
+    def _dump_subelement(self, data):
+        log_debug(6, data)
+        return exportLib.ChannelsDumper.dump_subelement(self, data)
+
 class ShortPackagesDumper(CachedDumper, exportLib.ShortPackagesDumper):
     def __init__(self, writer, packages):
         h = rhnSQL.prepare("""
@@ -1400,6 +1400,40 @@ class SourcePackagesDumper(CachedDumper, exportLib.SourcePackagesDumper):
         log_debug(6, data)
         return exportLib.SourcePackagesDumper.dump_subelement(self, data)
 
+class ErrataDumper(CachedDumper, exportLib.ErrataDumper):
+    def __init__(self, writer, errata):
+        h = rhnSQL.prepare("""
+            select
+                e.id,
+                e.org_id,
+                e.advisory_name,
+                e.advisory,
+                e.advisory_type,
+                e.advisory_rel,
+                e.product,
+                e.description,
+                e.synopsis,
+                e.topic,
+                e.solution,
+                TO_CHAR(e.issue_date, 'YYYYMMDDHH24MISS') issue_date,
+                TO_CHAR(e.update_date, 'YYYYMMDDHH24MISS') update_date,
+                TO_CHAR(e.last_modified, 'YYYYMMDDHH24MISS') last_modified,
+                e.refers_to,
+                e.notes
+            from rhnErrata e
+            where e.id = :errata_id
+        """)
+        CachedDumper.__init__(self, writer, statement=h, params=errata)
+
+    def _get_key(self, params):
+        errata_id = params['errata_id']
+        hash_val = hash_object_id(errata_id, 10)
+        return "xml-errata/%s/rhn-erratum-%s.xml" % (hash_val, errata_id)
+
+    def _dump_subelement(self, data):
+        log_debug(6, data)
+        return exportLib.ErrataDumper.dump_subelement(self, data)
+
 class ErrataDumperEx(CachedDumper, exportLib.ErrataSynopsisDumper):
     def __init__(self, writer, errata):
         h = rhnSQL.prepare("""
@@ -1432,40 +1466,6 @@ class ErrataDumperEx(CachedDumper, exportLib.ErrataSynopsisDumper):
     def _dump_subelement(self, data):
         log_debug(6, data)
         return exportLib.ErrataSynopsisDumper.dump_subelement(self, data)
-
-class ErrataDumper(CachedDumper, exportLib.ErrataDumper):
-    def __init__(self, writer, errata):
-        h = rhnSQL.prepare("""
-            select 
-                e.id,
-                e.org_id,
-                e.advisory_name,
-                e.advisory,
-                e.advisory_type,
-                e.advisory_rel,
-                e.product,
-                e.description,
-                e.synopsis,
-                e.topic,
-                e.solution,
-                TO_CHAR(e.issue_date, 'YYYYMMDDHH24MISS') issue_date,
-                TO_CHAR(e.update_date, 'YYYYMMDDHH24MISS') update_date,
-                TO_CHAR(e.last_modified, 'YYYYMMDDHH24MISS') last_modified,
-                e.refers_to,
-                e.notes
-            from rhnErrata e
-            where e.id = :errata_id
-        """)
-        CachedDumper.__init__(self, writer, statement=h, params=errata)
-
-    def _get_key(self, params):
-        errata_id = params['errata_id']
-        hash_val = hash_object_id(errata_id, 10)
-        return "xml-errata/%s/rhn-erratum-%s.xml" % (hash_val, errata_id)
-
-    def _dump_subelement(self, data):
-        log_debug(6, data)
-        return exportLib.ErrataDumper.dump_subelement(self, data)
 
 class KickstartableTreesDumper(CachedDumper, exportLib.KickstartableTreesDumper):
     _query_lookup_ks_tree = rhnSQL.Statement("""
