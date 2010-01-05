@@ -310,19 +310,6 @@ sub lookup {
 }
 
 
-########################
-sub list_scouts_by_org {
-########################
-  my $self = shift;
-  my $org_id = shift;
-
-  my $ds = new RHN::DataSource::Simple(-querybase => 'scout_queries',
-				       -mode => 'scouts_for_org');
-
-  return $ds->execute_query(-org_id => $org_id);
-
-}
-
 #################
 sub push_config {
 #################
