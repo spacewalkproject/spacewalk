@@ -128,21 +128,4 @@ sub generate_server_cert {
   return $ret;
 }
 
-sub enable_notification_cron {
-  my $class = shift;
-
-  my $ret = system('/usr/bin/sudo', 'ln', '-s', '/opt/notification/cron/notification',
-		   '/etc/cron.d/notification');
-
-  return;
-}
-
-sub disable_notification_cron {
-  my $class = shift;
-
-  my $ret = system('/usr/bin/sudo', 'rm', '/etc/cron.d/notification');
-
-  return;
-}
-
 1;
