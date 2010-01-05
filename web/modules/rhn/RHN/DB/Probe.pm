@@ -295,50 +295,6 @@ sub list_scouts {
   return $ds->execute_query(-customer_id => $customer_id);
 }
 
-##################
-sub delete_probe {
-##################
-  my $class = shift;
-
-  my $dbh = RHN::DB->connect;
-  my ($sth, $query);
-  my $probe_id = $class->{__recid__};
-
-  $query = <<EOQ;
-DELETE FROM rhn_probe
-      WHERE recid = :probe_id
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute_h(probe_id => $probe_id);
-  $dbh->commit;
-}
-
-
-#####################
-sub scout_for_probe {
-#####################
-  my $class = shift;
-  my $probe_id = shift;
-
-  my $dbh = RHN::DB->connect;
-  my ($sth, $query);
-
-  $query = <<EOF;
-SELECT SC.description
-  FROM sat_cluster SC, check_probe CP
- WHERE CP.probe_id = :probe_id
-   AND CP.sat_cluster_id = SC.recid
-EOF
-
-  $sth = $dbh->prepare($query);
-  $sth->execute_h(probe_id => $probe_id);
-  my $scout_description = $sth->fetchrow;
-
-  return $scout_description;
-}
-
-
 
 1;
 
@@ -375,16 +331,6 @@ Create a probe record
 Look up probe by probe ID
 
 
-
-=item scout_for_probe(probe_id)
-
-Use this method to find the description of the monitoring scout on
-which probe_id is configured to run.
-
-EXAMPLE:
-
-my $scout_description = $probe->scout_for_probe($probe_id);
-$form->add_widget( new RHN::Form::Widget::Literal(name => 'Monitoring Scout', value => $scout_description) );
 
 =back
 
