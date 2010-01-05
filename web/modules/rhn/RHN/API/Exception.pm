@@ -30,25 +30,6 @@ sub exception_box {
   return $global_exception_box;
 }
 
-sub clear_exception_box {
-  my $class = shift;
-
-  undef $global_exception_box;
-}
-
-sub throw_generic {
-  my $class = shift;
-  my $string = shift;
-  my @extra = @_;
-
-  my $exception = $class->new($string);
-  $exception->{fault_code} = -1;
-  $exception->{fault_text} = $string;
-  $exception->{extra_data} = \@extra;
-
-  $exception->SUPER::throw;
-}
-
 sub throw_named {
   my $class = shift;
   my $string = shift;
