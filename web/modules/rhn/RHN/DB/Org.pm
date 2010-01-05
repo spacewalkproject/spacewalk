@@ -654,41 +654,6 @@ sub slot_name {
   return $self->{cached_slot_names}->{$ent};
 }
 
-sub basic_slot_name {
-  my $self = shift;
-
-  return $self->slot_name('sw_mgr_entitled');
-}
-
-sub enterprise_slot_name {
-  my $self = shift;
-
-  return $self->slot_name('enterprise_entitled');
-}
-
-sub provisioning_slot_name {
-  my $self = shift;
-
-  return $self->slot_name('provisioning_entitled');
-}
-
-sub nonlinux_slot_name {
-  my $self = shift;
-
-  return $self->slot_name('nonlinux_entitled');
-}
-
-sub virtualization_slot_name {
-  my $self = shift;
-
-  return $self->slot_name('virtualization_host');
-}
-
-sub virtualization_platform_slot_name {
-  my $self = shift;
-
-  return $self->slot_name('virtualization_host_platform');
-}
 
 
 sub org_channel_setting {
