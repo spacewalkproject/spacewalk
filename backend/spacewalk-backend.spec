@@ -445,11 +445,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_exporter/satexport.py*
 %{rhnroot}/satellite_exporter/constants.py*
 
-%dir %{rhnroot}/satellite_exporter/exporter
-%{rhnroot}/satellite_exporter/exporter/__init__.py*
-%{rhnroot}/satellite_exporter/exporter/dumper.py*
-%{rhnroot}/satellite_exporter/exporter/string_buffer.py*
-
 %dir %{rhnroot}/satellite_exporter/handlers
 %{rhnroot}/satellite_exporter/handlers/__init__.py*
 %{rhnroot}/satellite_exporter/handlers/non_auth_dumper.py*
