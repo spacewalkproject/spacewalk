@@ -1400,7 +1400,7 @@ class _KickstartableTreeDumper(BaseRowDumper):
                     TO_CHAR(last_modified, 'YYYYMMDDHH24MISS') "last-modified"
               from rhnKSTreeFile, rhnChecksumView c
              where kstree_id = :kstree_id
-               and p.checksum_id = c.id
+               and checksum_id = c.id
         """)
         h.execute(kstree_id=kstree_id)
         return ArrayIterator([_KickstartFilesDumper(self._writer, h)])
