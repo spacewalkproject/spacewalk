@@ -186,31 +186,6 @@ sub parse {
   return $mode_data;
 }
 
-sub is_xml_data_cached { #just for testing
-  my $self = shift;
-
-  return scalar keys %{$self->mode_data()};
-}
-
-my %xml_cache_time;
-
-sub load_data_file {
-  my $class = shift;
-  my $filename = shift;
-
-  my $xml_dir = $INC{"RHN/DB/DataSource.pm"};
-  $xml_dir =~ s/\.pm$/\//;
-
-  my $path = File::Spec->catfile($xml_dir, 'xml');
-  my $fc = RHN::Cache::File->new(-name => $filename, -directory => $path, -no_cache => 1);
-
-  if ($fc->is_up2date) {
-    return;
-  }
-
-  return $fc->contents;
-}
-
 sub data_file {
   my $self = shift;
 
