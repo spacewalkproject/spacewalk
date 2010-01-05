@@ -63,33 +63,6 @@ EOS
 
 }
 
-sub channel_edit_list {
-  my $class = shift;
-  my $org_id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT AC.channel_name, AC.channel_id, AC.channel_depth, AC.channel_arch_id
-  FROM rhnAvailableChannels AC
- WHERE AC.org_id = ?
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($org_id);
-
-  my @channels;
-
-  while (my @row = $sth->fetchrow) {
-    push @channels, [ @row ];
-  }
-
-  return @channels;
-}
-
 sub channel_base_arch_map {
   my $self = shift;
 
