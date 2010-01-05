@@ -42,21 +42,6 @@ sub get_url {
   return $self->{url};
 }
 
-sub set_url {
-  my $self = shift;
-  my $url = shift;
-
-  $self->{url} = $url;
-
-  return;
-}
-
-sub get_save_session {
-  my $self = shift;
-
-  return $self->{save_session};
-}
-
 sub set_save_session {
   my $self = shift;
   my $save_session = shift;
