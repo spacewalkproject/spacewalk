@@ -169,18 +169,6 @@ EOQ
   return;
 }
 
-sub delete_config_channel {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $sth = $dbh->call_procedure('rhn_config.delete_channel', $self->id);
-
-  $dbh->commit;
-
-  return;
-}
-
 sub commit {
   my $self = shift;
   my $transaction = shift;
@@ -364,52 +352,6 @@ sub vivify_file_existence {
   # TODO: if find_file_existence returned a 'dead' file, revive it
 
   return $ret;
-}
-
-sub find_overriding_system {
-  my $self = shift;
-
-  my $sth = RHN::DB->connect->prepare(<<EOS);
-SELECT SCC.server_id
-  FROM rhnServerConfigChannel SCC,
-       rhnConfigChannelType CCT,
-       rhnConfigChannel CC
- WHERE CC.id = :ccid
-   AND CC.confchan_type_id = CCT.id
-   AND SCC.config_channel_id = CC.id
-EOS
-  $sth->execute_h(ccid => $self->id);
-  my ($ret) = $sth->fetchrow;
-  $sth->finish;
-
-  return $ret;
-}
-
-sub presentation_name {
-  my $self = shift;
-
-  if ($self->type_label eq 'local_override') {
-    my $sid = $self->find_overriding_system;
-    my $server = RHN::Server->lookup(-id => $sid);
-    return $server->name;
-  }
-  else {
-    return $self->name;
-  }
-}
-
-sub latest_revisions {
-  my $class = shift;
-  my $cc_id = shift;
-
-  die "no cc_id" unless $cc_id;
-
-  my $ds = new RHN::DataSource::Simple(-querybase => 'config_queries',
-				       -mode => 'latest_files_in_namespace',
-				      );
-
-  my $revisions = $ds->execute_query(-ccid => $cc_id);
-  return @{$revisions};
 }
 
 sub lookup_latest_in_channel {
