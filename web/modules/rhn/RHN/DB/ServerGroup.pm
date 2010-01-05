@@ -239,28 +239,6 @@ EOQ
   $dbh->commit();
 }
 
-=head1 retrieve
-
-arguments - $group_id (scalar) - the group_id to be retrieved
-returns - list
-
-=cut
-
-sub retrieve {
-  my $class = shift;
-  my $group_id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query ='SELECT ' . join(', ', @server_group) . ' FROM ' . $t->table_name . ' where id = ?';
-  my $sth = $dbh->prepare($query);
-  $sth->execute($group_id);
-  my @data = $sth->fetchrow();
-  $sth->finish;
-
-  return @data;
-}
-
 sub server_group_list {
   my $self = shift;
   my $org_id = shift;
