@@ -50,20 +50,6 @@ sub is_valid_entitlement {
 }
 
 
-sub lookup_group_type_id {
-  my $class = shift;
-  my $entitlement = shift;
-
-  my @all = $class->valid_system_entitlements();
-  my ($match) = grep { $_->{LABEL} eq $entitlement } @all;
-
-  unless ($match) {
-    throw "(no_group_type) No server group type '$entitlement' found";
-  }
-
-  return $match->{ID};
-}
-
 sub entitlement_feature_map {
   my $class = shift;
 
