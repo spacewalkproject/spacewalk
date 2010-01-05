@@ -42,7 +42,6 @@ sub register_tags {
   $pxt->register_tag('rhn-resubscribe-warning-ssm' => \&resubscribe_warning_ssm, 3);
 
 
-  $pxt->register_tag('rhn-sscd-base-channel-alteration' => \&sscd_base_channel_alteration);
   $pxt->register_tag('viewed_channel_name' => \&viewed_channel_name, -10);
 }
 
@@ -70,63 +69,6 @@ sub resubscribe_warning_ssm {
 }
 
 
-
-sub sscd_base_channel_alteration {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-
-  my @system_set_base_channels = RHN::Server->system_set_base_channels($pxt->user->id);
-
-  my $ds = new RHN::DataSource::System (-mode => 'systems_in_set_with_no_base_channel');
-  my $systems_without_base_channel = $ds->execute_query(-user_id => $pxt->user->id);
-
-  if (@{$systems_without_base_channel}) {
-    unshift @system_set_base_channels, [ 0, '(none)', scalar @{$systems_without_base_channel} ];
-  }
-
-  $block =~ m{<base_channel>(.*?)</base_channel>}ism;
-  my $channel_block = $1;
-
-  my @subscribable_base_channels = RHN::Channel->user_subscribable_base_channels(user_id => $pxt->user->id,
-										 org_id => $pxt->user->org_id);
-
-  my $no_change_opt = ['No Change', '__no_change__', 1];
-  my $default_opt = [ 'Default RH Base Channel', '__default__', undef ];
-  my @base_channels = map { [ $_->[1], $_->[0] ] } @subscribable_base_channels;
-
-  my $channels = '';
-  foreach my $base_channel (@system_set_base_channels) {
-
-    my %current;
-
-    my @options = ($no_change_opt);
-
-    my $can_sub_ds = new RHN::DataSource::Channel(-mode => 'can_subscribe_to_default_in_set');
-    my $can_sub_results = $can_sub_ds->execute_full(-user_id => $pxt->user->id);
-    if (@$can_sub_results and $can_sub_results->[0]->{CHANNEL_ID}) {
-      push @options, $default_opt;
-    }
-
-    push @options, @base_channels;
-
-    my @filtered_options = grep { $_->[1] ne $base_channel->[0] } @options;
-    my $drop_down_box = PXT::HTML->select(-name => "desired_base_channel_from-" . $base_channel->[0],
-					  -options => \@filtered_options);
-
-    $current{base_channel_id} = $base_channel->[0];
-    $current{base_channel_name} = $base_channel->[1];
-    $current{system_count} = $base_channel->[2];
-    $current{drop_down_box} = $drop_down_box;
-
-    $channels .= PXT::Utils->perform_substitutions($channel_block, \%current);
-  }
-
-  $block =~ s{<base_channel>.*?</base_channel>}{$channels}ism;
-
-  return $block;
-}
 
 sub channel_gpg_key {
   my $pxt = shift;
