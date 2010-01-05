@@ -41,39 +41,6 @@ sub _blank_net_info {
   return $self;
 }
 
-# returns one net info object from it's key
-sub lookup_net_info {
-  my $class = shift;
-  my $id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = $n->select_query("N.ID = ?");
-  $sth = $dbh->prepare($query);
-  $sth->execute($id);
-
-  my @columns = $sth->fetchrow;
-  $sth->finish;
-
-  my $ret;
-  if ($columns[0]) {
-    $ret = $class->_blank_net_info;
-    $ret->{"__".$_."__"} = shift @columns foreach $n->method_names;
-  }
-  else {
-    local $" = ", ";
-    die "Error loading net info $id; no ID? (@columns)";
-  }
-
-  # bretm - fix ipaddr, all seem to length==16 w/ whitespace padding in db
-  $ret->{__ipaddr__} =~ s/^\s*(.*?)\s*$/$1/e;  # strip leading and following ws
-
-  return $ret;
-}
-
 # returns an array of net info objects given a server id
 sub lookup_net_info_by_server {
   my $class = shift;
