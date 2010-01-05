@@ -161,29 +161,6 @@ sub get_full_server_status {
 
 }
 
-sub associated_errata {
-  my $self = shift;
-  die "action $self->id is not an errata.update action" unless $self->action_type_label eq 'errata.update';
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT errata_id FROM rhnActionErrataUpdate WHERE action_id = ?
-EOQ
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  my @ret;
-  while (my @data = $sth->fetchrow) {
-    push @ret, @data;
-  }
-
-  return @ret;
-}
-
 
 sub cancel_pending_for_system {
   my $class = shift;
@@ -363,13 +340,6 @@ sub lookup {
 
 sub blank_action {
   bless { }, shift;
-}
-
-sub create_action {
-  my $class = shift;
-  my $action = $class->blank_action;
-  $action->{__id__} = -1;
-  return $action;
 }
 
 sub commit {
