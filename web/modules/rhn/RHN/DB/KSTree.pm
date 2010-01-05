@@ -251,13 +251,6 @@ sub name {
   return sprintf('%s (%s)', $channel->name, $self->label);
 }
 
-sub install_types {
-  my $class = shift;
-
-  my $ds = new RHN::DataSource::Simple(-querybase => 'KSTree_queries', -mode => 'install_types');
-  return $ds->execute_query();
-}
-
 sub compatible_tree {
   my $self = shift;
   my $kstid = shift;
