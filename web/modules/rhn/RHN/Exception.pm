@@ -78,7 +78,6 @@ sub is_rhn_exception {
   return $self->{-text} =~ /\(([^.]+\.)?$label\)/;
 }
 
-# overloaded by RHN::API::Exception
 sub fault_text {
   my $self = shift;
 

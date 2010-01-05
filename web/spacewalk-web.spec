@@ -141,7 +141,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{perl_vendorlib}/RHN
 %dir %{perl_vendorlib}/PXT
 %{perl_vendorlib}/RHN.pm
-%{perl_vendorlib}/RHN/API/
 %{perl_vendorlib}/RHN/Access.pm
 %{perl_vendorlib}/RHN/Access/
 %{perl_vendorlib}/RHN/Action.pm
