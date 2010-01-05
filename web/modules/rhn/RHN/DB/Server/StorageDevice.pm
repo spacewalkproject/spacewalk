@@ -43,35 +43,6 @@ sub _blank_storage_device {
    return $self;
 }
 
-# returns one storage device object from it's key
-sub lookup_storage_device {
-  my $class = shift;
-  my $id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = $s->select_query("S.ID = ?");
-  $sth = $dbh->prepare($query);
-  $sth->execute($id);
-
-  my @columns = $sth->fetchrow;
-  $sth->finish;
-
-  my $ret;
-  if ($columns[0]) {
-    $ret = $class->_blank_storage_device;
-    $ret->{"__".$_."__"} = shift @columns foreach $s->method_names;
-  }
-  else {
-    local $" = ", ";
-    croak "Error loading storage device $id; no ID? (@columns)";
-  }
-
-  return $ret;
-}
 
 # returns an array of storage device objects given a server id
 sub lookup_storage_devices_by_server {
