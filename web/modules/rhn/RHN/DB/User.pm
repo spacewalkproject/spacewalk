@@ -1759,17 +1759,6 @@ sub has_incomplete_info {
   return 0;
 }
 
-sub approve {
-  my $self = shift;
-
-  $self->set_password(PXT::Utils->random_password(10));
-  $self->remove_from_group('org_applicant');
-
-  $self->commit;
-
-  return $self->password;
-}
-
 sub grant_servergroup_permission {
   my $self = shift;
   my $uid;
