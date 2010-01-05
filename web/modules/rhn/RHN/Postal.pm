@@ -68,33 +68,12 @@ sub template {
   $self->{original_body} = $body;
 }
 
-sub inline_template {
-  my $self = shift;
-  my $text = shift;
-
-  $self->{original_body} = $text;
-}
-
 sub set_tag {
   my $self = shift;
   my $tag = shift;
   my $val = shift;
 
   $self->{tags}->{$tag} = $val;
-}
-
-sub hide_tag {
-  my $self = shift;
-  my $tag = shift;
-
-  $self->{hidden_tags}->{$tag} = 1;
-}
-
-sub unhide_tag {
-  my $self = shift;
-  my $tag = shift;
-
-  $self->{passthrough_tags}->{$tag} = 1;
 }
 
 sub subject {
