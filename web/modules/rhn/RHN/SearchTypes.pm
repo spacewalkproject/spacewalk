@@ -120,22 +120,6 @@ sub new {
   return $self;
 }
 
-sub parse_mode {
-  my $self = shift;
-  my %params = @_;
-
-  throw "No mode name" unless $params{-name};
-  throw "No mode label" unless $params{-label};
-
-  return {
-     mode_choice_name => $params{-name},
-     mode_label => $params{-label},
-     mode_column_name => $params{-column_name} || $params{-label},
-     acl => $params{-acl},
-     acl_mixins => $params{-acl_mixins},
-    };
-}
-
 sub render_search_selectbox {
   my $self = shift;
   my %params = validate(@_, {pxt => 1, search_type => 0});
