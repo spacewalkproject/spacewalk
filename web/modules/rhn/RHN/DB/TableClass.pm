@@ -156,43 +156,6 @@ sub insert_query {
   return $ret;
 }
 
-sub update_query_lob {
-  my $self = shift;
-  my %changed_fields = map { $_ => 1 } @_;
-
-  return '' unless grep { exists $changed_fields{$_} } $self->column_names;
-
-  my $ret;
-  my $n = 0;
-
-  $ret .= "UPDATE $self->{name} $self->{alias}\nSET ";
-  $ret .= join(", ", map { $n++; "$_ = " . $self->type_to_placeholder($_, ":q$n") }
-	       grep { exists $changed_fields{$_} } map { "$_" } $self->column_names);
-
-  $ret .= "\nWHERE ";
-
-  return $ret;
-}
-
-sub insert_query_lob {
-  my $self = shift;
-  my %changed_fields = map { $_ => 1 } @_;
-
-  return '' unless grep { exists $changed_fields{$_} } $self->column_names;
-
-  my $ret;
-  my $n = 0;
-
-  $ret .= "INSERT INTO $self->{name} $self->{alias}\n (";
-  $ret .= join(", ", grep { exists $changed_fields{$_} } $self->column_names);
-  $ret .= ") VALUES (";
-  $ret .= join(", ", map { $n++; $self->type_to_placeholder($_, ":q$n") }
-	       grep { exists $changed_fields{$_} } map { "$_" } $self->column_names);
-  $ret .= ")";
-
-  return $ret;
-}
-
 sub column_names {
   my $self = shift;
 
