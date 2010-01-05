@@ -336,12 +336,6 @@ sub package_details {
   return PXT::Utils->perform_substitutions($ret, \%subst);
 }
 
-sub search_arch_list {
-  my $class = shift;
-
-  return ['ia32', 'IA-32'], ['ia64', 'IA-64'], ['x86_64', 'AMD64']
-}
-
 sub raw_pkgmap {
   my $pxt = shift;
 
