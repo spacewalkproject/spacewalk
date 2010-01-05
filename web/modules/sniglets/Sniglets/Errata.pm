@@ -19,7 +19,6 @@ package Sniglets::Errata;
 
 use Carp;
 use Data::Dumper;
-use Time::HiRes;
 use File::Spec;
 
 use RHN::Access;
@@ -29,10 +28,6 @@ use PXT::Utils;
 use PXT::HTML;
 use Sniglets::Downloads;
 use RHN::Exception;
-
-my $ti = 1;
-my $prev_t = 0;
-sub dump_time { PXT::Debug->log(4, "[TIME] snap $ti: " . (Time::HiRes::time() - $prev_t)); $ti++; $prev_t = Time::HiRes::time(); }
 
 
 sub register_tags {
