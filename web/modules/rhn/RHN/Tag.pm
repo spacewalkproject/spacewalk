@@ -36,13 +36,5 @@ sub lookup {
   }
 }
 
-sub lookup_tag {
-  my $class = shift;
-
-  warn "deprecated use of $class->lookup_foo from (" . join(', ', caller) . ").  Using $class->lookup instead\n";
-
-  return $class->lookup(@_);
-}
-
 
 1;
