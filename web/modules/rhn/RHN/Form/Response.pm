@@ -97,14 +97,4 @@ sub status {
   return 'partial';
 }
 
-sub lookup_widget_value {
-  my $self = shift;
-  my $var = shift;
-
-  my $widget = $self->lookup_widget($var);
-  return unless defined $widget;
-
-  return $widget->value;
-}
-
 1;
