@@ -1759,23 +1759,6 @@ sub has_incomplete_info {
   return 0;
 }
 
-sub banish {
-  my $self = shift;
-
-  my ($org_id) = RHN::Org->create_new_org(-org_name => "Rejection Org for " . $self->login,
-					  -org_password => PXT::Utils->random_password(16),
-					  -customer_type => 'P');
-
-  $self->remove_from_group('org_applicant');
-
-  $self->org_id($org_id);
-  delete $self->{__orgobj__};
-  $self->set_password(PXT::Utils->random_password(16));
-  $self->login(substr($self->id . '-' . $self->login, 0, 63));
-
-  $self->commit;
-}
-
 sub approve {
   my $self = shift;
 
