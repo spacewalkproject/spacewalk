@@ -516,16 +516,6 @@ EOQ
   delete $self->{":modified:"};
 }
 
-sub org_activation_keys {
-  my $class = shift;
-  my $org_id = shift;
-
-  my $ds = new RHN::DataSource::General(-mode => 'activation_keys');
-  my $data = $ds->execute_query(-org_id => $org_id);
-
-  return @{$data};
-}
-
 sub generate_random_key {
   my $class = shift;
 
