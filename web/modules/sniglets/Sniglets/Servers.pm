@@ -72,8 +72,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-server-history-event-details' => \&server_history_event_details);
 
-  $pxt->register_tag('rhn-system-base-channel-select' => \&system_base_channel_select);
-
   $pxt->register_tag('rhn-proxy-entitlement-form' => \&proxy_entitlement_form);
 
   $pxt->register_tag('rhn-system-pending-actions-count' => \&system_pending_actions_count);
@@ -1048,44 +1046,6 @@ sub server_prefs_form_cb {
 
     $pxt->redirect('/network/systems/ssm/misc/index.pxt');
   }
-}
-
-sub system_base_channel_select {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-  my $sid = $pxt->param('sid');
-
-  die "No Server id!"
-    unless $sid;
-
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  my $current_base_id = $server->base_channel_id || 0;
-
-  if ($current_base_id and not $pxt->user->verify_channel_subscribe($current_base_id)) {
-    $pxt->pnotes(resubscribe_base_warning => 1);
-  }
-
-  my @channels = RHN::Channel->user_subscribable_bases_for_system($server, $pxt->user);
-
-  unshift @channels, { ID => 0, NAME => "(none, disable service)", LABEL => "(none)" };
-
-  my @options;
-
-  foreach my $channel (@channels) {
-    my $selected = '';
-
-    if ($channel->{ID} == $current_base_id) {
-      $selected = '1';
-    }
-
-    push @options, [ PXT::Utils->escapeHTML($channel->{NAME} || ''), $channel->{ID}, $selected ];
-  }
-
-  return PXT::HTML->select(-name => "system_base_channel",
-			   -options => \@options);
 }
 
 sub delete_servers_cb {
