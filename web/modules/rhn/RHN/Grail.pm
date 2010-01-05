@@ -17,19 +17,4 @@ use strict;
 
 package RHN::Grail;
 
-use RHN::DB::Grail;
-
-sub components_for_user {
-  my $class = shift;
-  my $user = shift;
-
-  return RHN::DB::Grail->components_for_user($user);
-}
-
-sub set_user_components {
-  my $class = shift;
-
-  RHN::DB::Grail->set_user_components(@_);
-}
-
 1;
