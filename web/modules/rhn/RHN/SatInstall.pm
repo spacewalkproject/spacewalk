@@ -85,74 +85,10 @@ sub write_config {
   return;
 }
 
-sub config_up2date {
-  my $class = shift;
-  my %params = validate(@_, { http_proxy => 0,
-			      http_proxy_username => 0,
-			      http_proxy_password => 0,
-			    });
-
-  my $up2date_opts = { enableProxy => ($params{http_proxy} ? '1' : '0'),
-		       httpProxy => $params{http_proxy},
-		       enableProxyAuth => ($params{http_proxy_username} ? '1' : '0'),
-		       proxyUser => $params{http_proxy_username},
-		       proxyPassword => $params{http_proxy_password},
-		     };
-
-  $class->write_config($up2date_opts, '/etc/sysconfig/rhn/up2date');
-
-  # swallow the exception - the only good reason for this to fail if
-  # the previous command succeeded is that we are running an up2date
-  # client that doesn't have seperate configs for rhn_regsiter.
-  eval {
-    $class->write_config($up2date_opts, '/etc/sysconfig/rhn/rhn_register');
-  };
-
-  return;
-}
-
 sub is_embedded_db {
   my $class = shift;
 
   return $class->is_rpm_installed('oracle-server-admin');
-}
-
-sub db_population_in_progress {
-  my $class = shift;
-
-  return (-e '/var/lock/subsys/rhn-satellite-db-population' ? 1 : 0);
-}
-
-sub build_proxy_url {
-  my ($url, $user, $pass) = @_;
-
-  return unless $url;
-
-  $url =~ m|^((https?)://)?(.*)|;
-  my $proto = $2 || 'http';
-  my $rest = $3;
-
-  throw "Could not parse url '$url'\n"
-    unless $rest;
-
-  my $ret;
-
-  if ($user) {
-    $ret = sprintf('%s://%s:%s@%s', $proto, $user, $pass, $rest);
-  }
-  else {
-    $ret = sprintf('%s//%s', $proto, $rest);
-  }
-
-  return $ret;
-}
-
-sub build_rhn_url {
-  my ($host, $ssl) = @_;
-
-  my $proto = $ssl ? 'https' : 'http';
-
-  return sprintf('%s://%s/XMLRPC', $proto, $host);
 }
 
 sub generate_secret {
@@ -195,19 +131,6 @@ sub local_sat_cert_checks {
   }
 
   return;
-}
-
-sub check_valid_ssl_cert_password {
-  my $class = shift;
-  my $password = shift;
-
-  my $ret;
-
-  if ($password =~ /([\t\r\n\f\013&+%\'\`\\\"=\#)])/) {
-    $ret = $1;
-  }
-
-  return $ret;
 }
 
 my %ca_cert_opts = (
@@ -288,97 +211,6 @@ sub generate_server_cert {
   return $ret;
 }
 
-my $valid_bootstrap_params = {
-			      hostname => 1,
-			      "ssl-cert" => 1,
-			      "http-proxy" => 0,
-			      "http-proxy-username" => 0,
-			      "http-proxy-password" => 0,
-			      "no-ssl" => 0,
-			      "no-gpg" => 0,
-			      "allow-config-actions" => 0,
-			      "allow-remote-commands" => 0,
-			      overrides => 1,
-			      script => 1,
-			     };
-
-sub generate_bootstrap_scripts {
-  my $class = shift;
-  my %params = validate(@_, $valid_bootstrap_params);
-
-  my @opts;
-
-  foreach my $key (keys %{$valid_bootstrap_params}) {
-    if (grep { $key eq $_ } qw/no-ssl no-gpg allow-config-actions allow-remote-commands/) {
-
-      push @opts, "--$key" if ($params{$key});
-      next;
-    }
-
-    if (not $params{$key}) {
-      next;
-    }
-
-    push @opts, sprintf('--%s=%s', $key, $params{$key});
-  }
-
-  my $ret = system('/usr/bin/sudo', '/usr/bin/rhn-bootstrap', @opts);
-
-  my %retcodes = (
-		  10 => 'A script with that name already exists',
-		  11 => 'Invalid script name',
-		  12 => 'Invalid arguments',
-		  13 => 'Could not parse httpd proxy URL',
-		  14 => 'Cannot find pub tree',
-		  15 => 'The hostname was not valid',
-		  16 => 'Could not find the CA certificate',
-		  17 => 'Could not find GPG key',
-		 );
-
-  if ($ret) {
-    my $exit_value = $? >> 8;
-    throw "(bootstrap_script_creation_failed) $retcodes{$exit_value}" if exists $retcodes{$exit_value};
-
-    throw "There was a problem generating the bootstrap scripts: $exit_value";
-  }
-
-  return;
-}
-
-sub write_satellite_cert {
-  my $class = shift;
-  my %params = validate(@_, {contents => 1});
-
-  my $contents = $params{contents} || '';
-  my $filename = "/tmp/satcert_${PID}";
-
-  open(FH, ">$filename") or die "Could not open $filename for writing: $OS_ERROR";
-
-  print FH $contents;
-
-  close(FH);
-
-  return $filename;
-}
-
-sub get_db_population_log_stats {
-  my $class = shift;
-  my $file = shift || DEFAULT_DB_POP_LOG_FILE;
-
-  my $ret = {};
-  if (not (-r $file)) {
-    $ret->{$_} = '' foreach (qw/file_size/);
-    return $ret;
-  }
-
-  my @stats = stat $file;
-
-  $ret->{file_size} = $stats[7];
-  $ret->{percent_complete} = int(100 * $ret->{file_size} / DB_POP_LOG_SIZE);
-
-  return $ret;
-}
-
 sub restart_satellite {
   my $class = shift;
   my %params = validate(@_, { delay => 1,
@@ -400,44 +232,6 @@ sub restart_satellite {
     or throw "(exec_error) Could not exec '/usr/sbin/rhn-satellite restart': $!";
 
   # exec does not return
-}
-
-my @valid_sysv_steps = qw/Monitoring MonitoringScout/;
-
-sub setup_monitoring_sysv_step {
-  my $class = shift;
-  my $step = shift;
-  my $command = shift || 'install';
-
-  throw "No step name given" unless $step;
-  throw "Invalid step: '$step'"
-    unless (grep { $step eq $_ } @valid_sysv_steps);
-
-  my $ret = system('/usr/bin/sudo', '/etc/rc.d/np.d/step', $step, $command);
-
-  if ($ret) {
-    throw "There was a problem starting the monitoring backend.  "
-      . 'See the webserver error log for details.';
-  }
-
-  return;
-}
-
-sub get_db_population_errors {
-  my $class = shift;
-  my %params = validate(@_, {log_file => 0});
-
-  my $log_file = $params{log_file} || DEFAULT_DB_POP_LOG_FILE;
-
-
-  open(ERRORS, qq(grep -P "^ORA|Errors for" $log_file |))
-    or die "Could not grep $log_file: $OS_ERROR";
-
-  my @errors = <ERRORS>;
-
-  close(ERRORS);
-
-  return @errors;
 }
 
 sub is_rpm_installed {
