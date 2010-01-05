@@ -99,47 +99,6 @@ sub add {
   @{$self->{contents}}{@vals} = (1) x @vals;
 }
 
-sub immediate_add {
-  my $self = shift;
-  my @vals = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare("INSERT INTO rhnSet (user_id, label, element, element_two) VALUES (?, ?, ?, ?)");
-
-  for my $val (@vals) {
-    if (ref $val) {
-      $sth->execute($self->uid, $self->label, $val->[0], $val->[1])
-	unless exists $self->{contents}->{join("|", @$val)};
-    }
-    else {
-      $sth->execute($self->uid, $self->label, $val, undef)
-	unless exists $self->{contents}->{$val};
-    }
-  }
-
-  $self->add(@vals);
-}
-
-sub immediate_remove {
-  my $self = shift;
-  my @vals = @_;
-
-  my $dbh = RHN::DB->connect;
-
-  for my $val (@vals) {
-    if (ref $val) {
-      my $sth = $dbh->prepare("DELETE FROM rhnSet WHERE user_id = ? AND label = ? AND element = ? AND element_two = ?");
-      $sth->execute($self->uid, $self->label, $val->[0], $val->[1]);
-    }
-    else {
-      my $sth = $dbh->prepare("DELETE FROM rhnSet WHERE user_id = ? AND label = ? AND element = ?");
-      $sth->execute($self->uid, $self->label, $val);
-    }
-  }
-
-  $self->remove(@vals);
-}
-
 sub remove {
   my $self = shift;
   my @vals = @_;
