@@ -211,46 +211,6 @@ EOQ
 }
 
 
-sub _change_user_state {
-  my $self = shift;
-  my $doer_id = shift;
-  my $state_label = shift;
-
-  my $transaction = shift;
-
-  my $dbh = $transaction || RHN::DB->connect();
-
-  my $query = <<EOQ;
-INSERT INTO rhnWebContactChangelog (id, web_contact_id, web_contact_from_id, change_state_id)
-SELECT rhn_wcon_disabled_seq.nextval, :target_id, :doer_id, id
-  FROM rhnWebContactChangeState
- WHERE label = :state_label
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h(target_id => $self->id, doer_id => $doer_id, state_label => $state_label);
-
-  unless ($transaction) {
-    $dbh->commit;
-  }
-
-  return $transaction;
-}
-
-sub disable_user {
-  my $self = shift;
-  my $doer_id = shift;
-
-  return $self->_change_user_state($doer_id, 'disabled');
-}
-
-sub enable_user {
-  my $self = shift;
-  my $doer_id = shift;
-
-  return $self->_change_user_state($doer_id, 'enabled');
-}
-
 
 sub delete_user {
   my $class = shift;
