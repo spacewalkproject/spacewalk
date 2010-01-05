@@ -264,25 +264,6 @@ sub delete_user {
 }
 
 
-sub create_custom_data_key {
-  my $self = shift;
-  my %params = validate(@_, {label => 1, description => 1});
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-INSERT INTO rhnCustomDataKey (id, org_id, label, description, created_by, last_modified_by)
-VALUES (rhn_cdatakey_id_seq.nextval, :org_id, :label, :description, :user_id, :user_id)
-EOQ
-  $sth->execute_h(user_id => $self->id,
-		  org_id => $self->org_id,
-		  label => $params{label},
-		  description => $params{description},
-		 );
-
-  $dbh->commit;
-}
-
-
 
 sub roles {
   my $self = shift;
@@ -331,16 +312,6 @@ sub is {
   else {
     die "Invalid role $role; available roles are " . join(", ", sort keys %role_cache);
   }
-}
-
-sub role_labels {
-  my $self = shift;
-
-  if (not keys %role_cache) {
-    $self->rebuild_role_cache;
-  }
-
-  return map { $role_cache{$_} } $self->roles;
 }
 
 sub _blank_user {
@@ -524,31 +495,6 @@ sub users_by_email {
   return $sth->fullfetch;
 }
 
-# NOTE: do not use this unless you know you have cleansed any Oracle
-# regexps from the input pattern
-sub users_like_email {
-  my $class = shift;
-  my $pattern = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare('SELECT web_user_id FROM web_user_personal_info WHERE email LIKE ?');
-  $sth->execute($pattern);
-
-  return $sth->fullfetch;
-}
-
-sub full_opt_out {
-  my $self = shift;
-
-  $self->contact_email('N');
-  $self->contact_mail('N');
-  $self->contact_call('N');
-  $self->contact_fax('N');
-  $self->set_pref('email_notify', '0');
-
-  $self->commit;
-}
-
 sub set_password {
   my $self = shift;
   my $new_pw = shift;
@@ -715,95 +661,6 @@ sub convert_time {
   }
 
   return $rv;
-}
-
-my %server_action_names = (
-                           'Package List Refresh' => 'package_list_refresh',
-                           'Hardware List Refresh' => 'hardware_list_refresh',
-                           'Package Install' => 'package_install',
-                           'Package Removal' => 'package_removal',
-                           'Errata Update' => 'errata_update',
-			   'Profile Match' => 'profile_match'
-                          );
-
-sub action_list_overview {
-  my $self = shift;
-  my %params = @_;
-
-  my ($lower, $upper, $total_ref, $mode, $all_ids) =
-    map { $params{"-" . $_} } qw/lower upper total_rows mode all_ids/;
-
-  $lower ||= 1;
-  $upper ||= 100000;
-
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-
-  if ($mode eq 'pending_actions') {
-    $query = <<EOQ;
-SELECT  AO.type_name, TO_CHAR(AO.earliest_action, 'YYYY-MM-DD HH24:MI:SS') EARLIEST, AO.total_count, AO.successful_count, AO.failed_count, AO.in_progress_count, AO.action_id, DECODE(AO.name, NULL, AO.type_name, AO.name)
-  FROM  rhnActionOverview AO
- WHERE  AO.org_id = ?
-   AND  EXISTS (SELECT 1 FROM rhnServerAction SA WHERE SA.action_id = AO.action_id AND status IN (0, 1))
-   AND  AO.archived = 0
-ORDER BY EARLIEST DESC
-EOQ
-  }
-  elsif ($mode eq 'completed_actions') {
-    $query = <<EOQ;
-SELECT  AO.type_name, TO_CHAR(AO.earliest_action, 'YYYY-MM-DD HH24:MI:SS') EARLIEST, AO.total_count, AO.successful_count, AO.failed_count, AO.in_progress_count, AO.action_id, DECODE(AO.name, NULL, AO.type_name, AO.name)
-  FROM  rhnActionOverview AO
- WHERE  AO.org_id = ?
-   AND  EXISTS (SELECT 1 FROM rhnServerAction SA WHERE SA.action_id = AO.action_id AND status = 2)
-   AND  AO.archived = 0
-ORDER BY EARLIEST DESC
-EOQ
-  }
-  elsif ($mode eq 'failed_actions') {
-    $query = <<EOQ;
-SELECT  AO.type_name, TO_CHAR(AO.earliest_action, 'YYYY-MM-DD HH24:MI:SS') EARLIEST, AO.total_count, AO.successful_count, AO.failed_count, AO.in_progress_count, AO.action_id, DECODE(AO.name, NULL, AO.type_name, AO.name)
-  FROM  rhnActionOverview AO
- WHERE  AO.org_id = ?
-   AND  EXISTS (SELECT 1 FROM rhnServerAction SA WHERE SA.action_id = AO.action_id AND status = 3)
-   AND  AO.archived = 0
-ORDER BY EARLIEST DESC
-EOQ
-  }
-  elsif ($mode eq 'archived_actions') {
-    $query = <<EOQ;
-SELECT  AO.type_name, TO_CHAR(AO.earliest_action, 'YYYY-MM-DD HH24:MI:SS') EARLIEST, AO.total_count, AO.successful_count, AO.failed_count, AO.in_progress_count, AO.action_id, DECODE(AO.name, NULL, AO.type_name, AO.name)
-  FROM  rhnActionOverview AO
- WHERE  AO.org_id = ?
-   AND  AO.archived = 1
-ORDER BY EARLIEST DESC
-EOQ
-  }
-  else {
-    croak 'no supported mode!  mode == '.$mode;
-  }
-
-#  warn "Action list query:  $query\n".$self->org_id.", ".$self->login;
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->org_id);
-
-  $$total_ref = 0;
-  my $i = 1;
-  my @actions;
-  while (my @action = $sth->fetchrow) {
-    $$total_ref = $i;
-        push @$all_ids, $action[6] if $all_ids;
-    if ($i >= $lower and $i <= $upper) {
-#      push @actions, [@action, $server_action_names{$action[0]}];
-      $action[1] = $self->convert_time($action[1]);
-      push @actions, [ @action ];
-    }
-    $i++;
-  }
-
-  return @actions;
 }
 
 sub commit {
@@ -1377,31 +1234,6 @@ EOQ
   return 1;
 }
 
-sub verify_transaction_access {
-  my $self = shift;
-  my @transaction_ids = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT  1
-  FROM  rhnTransaction T
- WHERE  T.id = :tid
-   AND  EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = T.server_id)
-EOQ
-
-  foreach my $tid (@transaction_ids) {
-    $sth->execute_h(tid => $tid, user_id => $self->id);
-
-    my ($first_row) = $sth->fetchrow;
-
-    $sth->finish;
-
-    return 0 unless $first_row;
-  }
-
-  return 1;
-}
-
 sub verify_errata_access {
   my $self = shift;
   my @errata_ids = @_;
@@ -1874,21 +1706,6 @@ sub get_pref {
   return $val;
 }
 
-sub get_server_pref {
-  my $self = shift;
-  my $server_id = shift;
-  my $pref = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare("SELECT value FROM rhnUserServerPrefs WHERE user_id = ? AND server_id = ? AND name = ?");
-
-  $sth->execute($self->id, $server_id, $pref);
-  my ($val) = $sth->fetchrow;
-  $sth->finish;
-
-  return $val;
-}
-
 sub set_pref {
   my $self = shift;
   my $pref = shift;
@@ -1910,86 +1727,6 @@ sub set_pref {
   $sth = $dbh->prepare("UPDATE rhnUserInfo SET $pref = ? WHERE user_id = ?");
   $sth->execute($val, $self->id);
   $dbh->commit;
-}
-
-# applicant info:
-#   $sth = $dbh->prepare(<<EOS);
-# SELECT UG.id,
-#        (SELECT COUNT(*) FROM rhnUserGroupMembers WHERE user_group_id = UG.id)
-#   FROM rhnUserGroupType UGT,
-#        rhnUserGroup UG
-#  WHERE UG.org_id = ?
-#    AND UG.group_type = UGT.id
-#    AND UGT.label = 'org_applicant'
-# EOS
-#   $sth->execute($self->org_id);
-#   my ($applicant_group, $applicant_count) = $sth->fetchrow;
-#   $sth->finish;
-
-sub system_summary {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth;
-
-  $sth = $dbh->prepare(<<EOS);
-SELECT COUNT(S.id)
-  FROM rhnServer S
- WHERE S.org_id = ?
-   AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = ? AND USP.server_id = S.id)
-   AND NOT EXISTS (SELECT 1 FROM rhnEntitledServers ES where ES.id = S.id)
-EOS
-  $sth->execute($self->org_id, $self->id);
-  my ($unentitled) = $sth->fetchrow;
-  $sth->finish;
-
-  $sth = $dbh->prepare(<<EOS);
-SELECT COUNT(S.id)
-  FROM rhnServer S
- WHERE S.org_id = ?
-   AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = ? AND USP.server_id = S.id)
-   AND NOT EXISTS (SELECT 1
-                     FROM rhnServerGroup SG, rhnServerGroupMembers SGM
-                    WHERE SGM.server_id = S.id
-                      AND SG.id = SGM.server_group_id
-                      AND SG.group_type IS NULL)
-EOS
-  $sth->execute($self->org_id, $self->id);
-  my ($ungrouped) = $sth->fetchrow;
-  $sth->finish;
-
-  $sth = $dbh->prepare(<<EOS);
-SELECT COUNT(USP.server_id)
-  FROM rhnUserServerPerms USP
- WHERE USP.user_id = ?
-EOS
-  $sth->execute($self->id);
-  my ($total_servers) = $sth->fetchrow;
-  $sth->finish;
-
-  $sth = $dbh->prepare(<<EOS);
-SELECT COUNT(USP.server_id)
-  FROM rhnUserServerPerms USP
- WHERE USP.user_id = ?
-   AND EXISTS (SELECT 1 FROM rhnServerNeededPackageCache WHERE server_id = USP.server_id)
-EOS
-  $sth->execute($self->id);
-  my ($servers_needing_attention) = $sth->fetchrow;
-  $sth->finish;
-
-  $sth = $dbh->prepare(<<EOS);
-SELECT COUNT(USP.server_id)
-  FROM rhnUserServerPerms USP
- WHERE USP.user_id = ?
-   AND EXISTS (SELECT 1 FROM rhnServerInfo WHERE server_id = USP.server_id AND checkin < sysdate - ?)
-EOS
-
-  $sth->execute($self->id, PXT::Config->get('system_checkin_threshold'));
-  my ($inactive_server_count) = $sth->fetchrow;
-  $sth->finish;
-
-
-  return [ $total_servers, $servers_needing_attention, $unentitled, $ungrouped, $inactive_server_count ];
 }
 
 sub action_summary {
@@ -2124,72 +1861,6 @@ sub has_incomplete_info {
   }
 
   return 0;
-}
-
-sub orders_for_user {
-  my $class = shift;
-  my $uid = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-SELECT CUSTOMER_NUMBER, WEB_ORDER_NUMBER, LINE_ID, PRODUCT_ITEM_CODE, PRODUCT_NAME, QUANTITY
-  FROM user_orders
- WHERE customer_number = (SELECT oracle_customer_number FROM web_customer cu, web_contact co WHERE co.id = ? and co.org_id = cu.id)
-EOS
-
-  $sth->execute($uid);
-
-  my @ret;
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-
-  return @ret;
-}
-
-sub products_for_user {
-  my $class = shift;
-  my $uid = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-SELECT REGISTRATION_USER_ID, REG_NUMBER, SERVICE_TAG, PRODUCT_DESCRIPTION, PRODUCT_ITEM_CODE,
-       PRODUCT_START_DATE, PRODUCT_END_DATE, PRODUCT_ACTIVE_FLAG, PRODUCT_QUANTITY,
-       SERVICE_DESCRIPTION, SERVICE_ITEM_CODE, SERVICE_START_DATE, SERVICE_END_DATE,
-       SERVICE_ACTIVE_FLAG
-  FROM user_products
- WHERE user_id = ?
-EOS
-
-  $sth->execute($uid);
-
-  my @ret;
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-
-  return @ret;
-}
-
-sub uids_by_login_prefix {
-  my $class = shift;
-  my $login = uc shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-SELECT id, login
-  FROM web_contact
- WHERE login_uc LIKE ?
-EOS
-
-  $sth->execute("$login%");
-
-  my @ret;
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-
-  return @ret;
 }
 
 sub banish {
@@ -2367,54 +2038,6 @@ EOQ
   return @sids;
 }
 
-sub email_addresses {
-  my $self_or_class = shift;
-  my $id;
-
-  if (ref $self_or_class) {
-    $id = $self_or_class->id;
-  }
-  else {
-    $id = shift;
-  }
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT id
-  FROM rhnEmailAddress
- WHERE user_id = :user_id
-ORDER BY MODIFIED DESC
-EOQ
-
-  $sth->execute_h(user_id => $id);
-
-  my @ret;
-
-  while (my ($id) = $sth->fetchrow) {
-    push @ret, RHN::EmailAddress->lookup(-id => $id);
-  }
-
-  return @ret;
-}
-
-sub delete_nonverified_addresses {
-  my $self = shift;
-  my %params = validate(@_, {transaction => 0});
-  my $dbh = $params{transaction} || RHN::DB->connect;
-
-  my $query = <<EOQ;
-DELETE
-  FROM rhnEmailAddress
- WHERE user_id = :user_id
-   AND state_id != (SELECT id FROM rhnEmailAddressState WHERE label = 'verified')
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h(user_id => $self->id);
-
-  $dbh->commit unless $params{transaction};
-}
-
 #lock the user's row in web_contact -- $dbh must be committed or rolled back at some point
 sub lock_web_contact {
   my $class = shift;
@@ -2468,27 +2091,6 @@ EOQ
   $sth->finish;
 
   return 0 if defined $row;
-
-  return 1;
-}
-
-# can this user modify the target user?
-sub can_modify_user {
-  my $self = shift;
-  my $target = shift;
-
-  die "'$target' is not a user object"
-      unless (ref $target and $target->isa('RHN::DB::User'));
-
-  if ($self->org_id != $target->org_id) {
-    warn "Orgs for admin user edit mistatch (admin: @{[$self->org_id]} != @{[$target->org_id]}";
-    return 0;
-  }
-
-  if ($target->id != $self->id and not $self->is('org_admin')) {
-    warn "Non-orgadmin attempting to edit another's record";
-    return 0;
-  }
 
   return 1;
 }
