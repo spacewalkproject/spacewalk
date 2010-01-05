@@ -470,24 +470,6 @@ foreach my $field (keys %valid_fields) {
   }
 }
 
-sub get_instance_id {
-  my $self = shift;
-
-  return $self->get_app_instance->get_id()
-}
-
-sub set_instance_id {
-  my $self = shift;
-  my $id = shift;
-
-  my $app = RHN::AppInstall::Instance->lookup(-id => $id);
-
-  $self->set_app_instance($app);
-  $self->{":modified:"}->{instance_id} = 1;
-
-  return;
-}
-
 sub get_user_id {
   my $self = shift;
 
