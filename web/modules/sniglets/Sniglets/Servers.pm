@@ -613,48 +613,6 @@ sub base_entitlement {
   }
 }
 
-sub base_entitlement_box {
-  my $pxt = shift;
-  my $server = shift;
-
-  my ($base_entitlement) = grep { $_->{IS_BASE} eq 'Y' } $server->entitlements;
-
-  $base_entitlement ||= { LABEL => 'none',
-			  PERMANENT => 'N' };
-
-  if ($base_entitlement->{PERMANENT} eq 'Y') {
-    return $pxt->user->org->slot_name($base_entitlement->{LABEL});
-  }
-
-  my @all_entitlements = RHN::Entitlements->valid_system_entitlements_for_org($pxt->user->org_id);
-  my @allowed_entitlements = grep { $_->{IS_BASE} eq 'Y' and
-				      ( $_->{LABEL} eq $base_entitlement->{LABEL} or
-					$server->can_switch_base_entitlement($_->{LABEL})
-				      )
-				  } @all_entitlements;
-
-  my @options = ( map { {label => $pxt->user->org->slot_name($_->{LABEL}),
-			   value => $_->{LABEL}},
-			 } @allowed_entitlements);
-
-  if ($base_entitlement->{LABEL} eq 'none') {
-    unshift @options,
-      { label => 'None',
-	value => 'none' };
-  }
-  else {
-    unshift @options,
-      { label => 'Unentitle System',
-	value => 'unentitle' };
-  }
-
-  my $selectbox = new RHN::Form::Widget::Select (name => 'Base Entitlement',
-						 label => 'base_entitlement',
-						 default => $base_entitlement->{LABEL},
-						 options => \@options);
-  return $selectbox->render;
-}
-
 sub addon_entitlements {
   my $pxt = shift;
   my $server = shift;
@@ -669,52 +627,6 @@ sub addon_entitlements {
   }
 
   return join(", ", @addon_entitlements);
-}
-
-sub addon_entitlement_box {
-  my $pxt = shift;
-  my $server = shift;
-
-  my @system_entitlements = $server->entitlements;
-  my ($base_entitlement) = grep { $_->{IS_BASE} eq 'Y' } @system_entitlements;
-  my %addon_entitlements = map { ($_->{LABEL}, $_) }
-    grep { $_->{IS_BASE} eq 'N' } @system_entitlements;
-
-  if (not $base_entitlement) {
-    return "A system must have a base entitlement to have add-on entitlements.";
-  }
-
-  my @all_entitlements = RHN::Entitlements->valid_system_entitlements_for_org($pxt->user->org_id);
-  my %allowed_entitlements = map { ($_->{LABEL}, $_) }
-    grep { $_->{IS_BASE} eq 'N' and
-	   $server->can_entitle_server($_->{LABEL}) } @all_entitlements;
-
-  my @options;
-  my @selected;
-
-  foreach my $ent (@all_entitlements) {
-    if (exists $addon_entitlements{$ent->{LABEL}} or
-	exists $allowed_entitlements{$ent->{LABEL}}) {
-      my $disabled = (exists $addon_entitlements{$ent->{LABEL}} and
-		   $ent->{PERMANENT} eq 'Y') ? 1 : 0;
-
-      push @options, { label => $pxt->user->org->slot_name($ent->{LABEL}),
-		       value => $ent->{LABEL},
-		       disabled => $disabled };
-      push(@selected, $ent->{LABEL}) if exists $addon_entitlements{$ent->{LABEL}};
-    }
-  }
-
-  unless (@options) {
-    return "No add-on entitlements available.";
-  }
-
-  my $boxes = new RHN::Form::Widget::CheckboxGroup (name => 'Add-On Entitlements',
-						    label => 'addon_entitlements',
-						    default => \@selected,
-						    options => \@options);
-
-  return join("<br/>\n", $boxes->render);
 }
 
 sub reboot_server_cb {
@@ -1188,47 +1100,6 @@ sub delete_servers_cb {
 
   my $message = "message=" . sprintf('message.ssm.server%sdeleted', ($count == 1 ? '' : 's')) . "%messagep1=$count";
   $pxt->redirect('/rhn/systems/Overview.do?empty_set=true&return_url=/rhn/systems/Overview.do?' . $message);
-}
-
-sub store_bounce {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $ret = $params{__block__};
-
-  # A bit of an ugly and hurried loop here, but it'll work.
-
-  my @ent_types = ('sw_mgr_', 'enterprise_');
-  my $ent_type;
-
-  foreach $ent_type (@ent_types) {
-    my $eg = $ent_type . "entitled";
-    my ($server_count, $entitled_server_count, $entitlement_count) = $pxt->user->org->entitlement_gap($eg);
-    my $recommend = $server_count - $entitlement_count;
-    $recommend = int($recommend/5 + 1) * 5;
-    $recommend = 5 if $recommend < 5;
-
-    my $remaining = $entitlement_count - $entitled_server_count;
-    $remaining = 0 if $remaining < 0;
-
-    my $rq = $ent_type . 'recommend_quantity';
-    my $edc = $ent_type . 'entitled_count';
-    my $etc = $ent_type . 'entitlement_count';
-    my $er = $ent_type . 'entitlement_remaining';
-
-    $ret =~ s/\{$rq\}/$recommend/gms;
-
-    $ret =~ s/\{$edc\}/$entitled_server_count/gms;
-    $ret =~ s/\{$etc\}/defined $entitlement_count ? $entitlement_count : '(unlimited)'/egms;
-    $ret =~ s/\{$er\}/defined $entitlement_count ? $remaining : '(unlimited)'/egms;
-
-    $ret =~ s/\{quantity\}/$pxt->param('quantity') || 5/egms;
-
-    $ret =~ s/\{rhn_$_\}/$pxt->dir_config("rhn_$_")/egsmi
-      foreach qw/item_code store_url/;
-  }
-
-  return $ret;
 }
 
 sub system_activation_key_form {
