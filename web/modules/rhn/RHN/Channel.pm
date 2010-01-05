@@ -36,14 +36,6 @@ sub lookup {
   }
 }
 
-sub lookup_channel {
-  my $class = shift;
-
-  warn "deprecated use of $class->lookup_foo from (" . join(', ', caller) . ").  Using $class->lookup instead\n";
-
-  return $class->lookup(@_);
-}
-
 sub user_subscribable_bases_for_system {
   my $class = shift;
   my $system = shift;

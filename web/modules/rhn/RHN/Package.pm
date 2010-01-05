@@ -37,14 +37,6 @@ sub lookup {
   }
 }
 
-sub lookup_package {
-  my $class = shift;
-
-  warn "deprecated use of $class->lookup_foo from (" . join(', ', caller) . ").  Using $class->lookup instead\n";
-
-  return $class->lookup(@_);
-}
-
 my $RPMSENSE_LESS = 2;
 my $RPMSENSE_GREATER = 4;
 my $RPMSENSE_EQUAL = 8;
