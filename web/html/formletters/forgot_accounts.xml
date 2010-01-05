@@ -9,7 +9,7 @@ Red Hat Login(s):
 
 You may reset the passwords for any of the above Red Hat logins at:
 
-  https://<postal-template-replace label="hostname" default="rhn.redhat.com" />/help/forgot_password.pxt
+  https://<postal-template-replace label="hostname" default=" unknown hostname " />/help/forgot_password.pxt
 
 If you continue to have difficulties logging in, please contact
 your <product-name /> administrator for further assistance.
