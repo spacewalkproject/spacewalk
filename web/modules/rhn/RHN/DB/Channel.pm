@@ -370,25 +370,6 @@ EOQ
   return @ret;
 }
 
-sub available_entitlements {
-  my $class = shift;
-  my %params = validate(@_, {org_id => 1, channel_id => 1});
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-  my $sth;
-
-  $query = "SELECT rhn_channel.available_chan_subscriptions(:channel_id, :org_id) FROM DUAL";
-
-  $sth = $dbh->prepare($query);
-  $sth->execute_h(org_id => $params{org_id}, channel_id => $params{channel_id});
-
-  my ($count) = $sth->fetchrow;
-  $sth->finish;
-
-  return $count;
-}
-
 sub has_downloads {
   my $class = shift;
   my $cid = shift;
@@ -1127,23 +1108,6 @@ EOQ
   $dbh->commit;
 
   return;
-}
-
-# XXX: hack; for now, rely on filesystem presence.  later, store this
-# info in the database
-
-sub installable_path {
-  my $self = shift;
-
-  return "rhn/kickstart/" . $self->label;
-}
-
-sub installable {
-  my $self = shift;
-
-  my $path = File::Spec->catfile(PXT::Config->get('kickstart_mount_point'), $self->installable_path);
-
-  return -d $path;
 }
 
 sub package_by_filename_in_tree {
