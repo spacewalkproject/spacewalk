@@ -152,7 +152,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Cleansers.pm
 %{perl_vendorlib}/RHN/Command.pm
 %{perl_vendorlib}/RHN/ConfigChannel.pm
-%{perl_vendorlib}/RHN/ConfigFile.pm
 %{perl_vendorlib}/RHN/ConfigRevision.pm
 %{perl_vendorlib}/RHN/ContactGroup.pm
 %{perl_vendorlib}/RHN/ContactMethod.pm
