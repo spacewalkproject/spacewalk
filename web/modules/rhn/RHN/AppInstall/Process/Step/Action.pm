@@ -124,11 +124,4 @@ sub push_argument {
   return;
 }
 
-sub pop_argument {
-  my $self  = shift;
-
-  return if (not @{$self->{arguments}});
-  return pop @{$self->{arguments}};
-}
-
 1;
