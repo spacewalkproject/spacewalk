@@ -34,25 +34,6 @@ sub valid_fields {
   return ($class->SUPER::valid_fields(), %valid_fields);
 }
 
-sub get_requirements {
-  my $self = shift;
-
-  return @{$self->{requirements} || []};
-}
-
-sub set_requirements {
-  my $self = shift;
-  my @requirements = @_;
-
-  if (ref $requirements[0] eq 'ARRAY') {
-    @requirements = @{$requirements[0]};
-  }
-
-  $self->push_requirement(@requirements);
-
-  return;
-}
-
 sub push_requirement {
   my $self = shift;
   my @requirements = @_;
