@@ -85,17 +85,6 @@ sub add_requirement {
   return;
 }
 
-sub remove_requirement {
-  my $self = shift;
-  my $requirement_name = shift;
-
-  if (not delete $self->{requirement_registry}->{$requirement_name}) {
-    throw "(requirement_not_found) There is no '$requirement_name' requirement registered";
-  }
-
-  return;
-}
-
 sub check_requirement {
   my $self = shift;
   my $requirement = shift;
@@ -129,28 +118,6 @@ sub make_param_pretty {
   my $param = shift;
 
   return $param_subs{$param} || $param;
-}
-
-sub get_requirement_registry {
-  my $self = shift;
-
-  return %{$self->{requirement_registry}};
-}
-
-sub set_requirement_registry {
-  my $self = shift;
-  my %data;
-
-  if (ref $_[0] eq 'HASH') {
-    %data = %{$_[0]};
-  }
-  else {
-    %data = @_;
-  }
-
-  $self->{requirement_registry} = \%data;
-
-  return;
 }
 
 1;
