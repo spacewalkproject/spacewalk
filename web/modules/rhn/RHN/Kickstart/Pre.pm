@@ -25,8 +25,6 @@ Params::Validate::validation_options(strip_leading => "-");
 use overload # I, for one, welcome our new operator overloaders
   '""' => \&as_string;
 
-my @valid_helpers = qw//;
-
 sub new {
   my $class = shift;
   my $val = shift;
@@ -45,10 +43,6 @@ sub as_string {
   my $self = shift;
 
   return $$self;
-}
-
-sub valid_helpers {
-  return @valid_helpers;
 }
 
 1;
