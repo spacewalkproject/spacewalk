@@ -44,36 +44,6 @@ sub _blank_cd_device {
    return $self;
 }
 
-# returns one cddevice object from it's key
-sub lookup_cd_device {
-  my $class = shift;
-  my $id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = $c->select_query("C.ID = ?");
-  $sth = $dbh->prepare($query);
-  $sth->execute($id);
-
-  my @columns = $sth->fetchrow;
-  $sth->finish;
-
-  my $ret;
-  if ($columns[0]) {
-    $ret = $class->_blank_cd_device;
-    $ret->{"__".$_."__"} = shift @columns foreach $c->method_names;
-  }
-  else {
-    local $" = ", ";
-    die "Error loading cddevice $id; no ID? (@columns)";
-  }
-
-  return $ret;
-}
-
 # returns an array of cddevice objects given a server id
 #
 # TODO: find a server in the database w/ more than 1 cd device attached to test
