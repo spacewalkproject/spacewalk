@@ -1,7 +1,7 @@
 <postal-letter subject="Red Hat Login Information">
 [ This is an automated email sent to <email-address /> at your request. ]
 
-You have requested a list of all Red Hat logins associated
+You have requested a list of all <product-name /> logins associated
 with the email address <email-address />.
 
 Red Hat Login(s):
@@ -12,9 +12,9 @@ You may reset the passwords for any of the above Red Hat logins at:
   https://<postal-template-replace label="hostname" default="rhn.redhat.com" />/help/forgot_password.pxt
 
 If you continue to have difficulties logging in, please contact
-<helpful-email-address /> for further assistance.  If you did not
-request this email be sent, please disregard this message.
+your <product-name /> administrator for further assistance.
+If you did not request this email be sent, please disregard this message.
 
-Thank you for using Red Hat Network.
+Thank you for using <product-name />.
 <postal-template-replace label="email_footer"/>
 </postal-letter>
