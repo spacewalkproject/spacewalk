@@ -18,12 +18,4 @@ use strict;
 package RHN::DB::ConfigFile;
 use RHN::DB;
 
-# given a path, return the rhnConfigFileName id
-sub path_to_id {
-  my $class = shift;
-
-  my $dbh = RHN::DB->connect;
-  return $dbh->call_function('lookup_config_filename', @_);
-}
-
 1;
