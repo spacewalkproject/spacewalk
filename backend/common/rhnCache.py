@@ -192,10 +192,6 @@ class LockedFile(object):
             self.fd.close()
             self.closed = True
 
-#    def __del__(self):
-#        if not self.closed:
-#            self.close()
-
     def __getattr__(self, x):
         return getattr(self.fd, x)
 
