@@ -52,11 +52,8 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:sscd_confirm_package_upgrades' => \&sscd_confirm_package_upgrades_cb);
-  $pxt->register_callback('rhn:sscd_confirm_package_installations' => \&sscd_confirm_package_installations_cb);
   $pxt->register_callback('rhn:sscd_confirm_patch_installations' => \&sscd_confirm_package_installations_cb);
   $pxt->register_callback('rhn:sscd_confirm_patchset_installations' => \&sscd_confirm_package_installations_cb);
-  $pxt->register_callback('rhn:sscd_confirm_package_removals' => \&sscd_confirm_package_removals_cb);
   $pxt->register_callback('rhn:sscd_confirm_patch_removals' => \&sscd_confirm_package_removals_cb);
 
   $pxt->register_callback('rhn:upload-answerfile-cb' => \&upload_answerfile_cb);
