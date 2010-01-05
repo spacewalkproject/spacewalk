@@ -207,34 +207,6 @@ EOQ
   $dbh->commit;
 }
 
-sub best_kstree_for_server {
-  my $class = shift;
-  my $user = shift;
-  my $server = shift;
-
-  my $base_channel = RHN::Server->base_channel_id($server->id);
-  my $base_channel_cloned_from = RHN::Channel->channel_cloned_from($base_channel) || 0;
-
-  my $ds = new RHN::DataSource::General(-mode => 'kstrees_for_user');
-  my $forest = $ds->execute_query(-user_id => $user->id);
-
-  my $id;
-  for my $tree (@$forest) {
-    if ($tree->{CHANNEL_ID} == $base_channel or
-        $tree->{CHANNEL_ID} == $base_channel_cloned_from) {
-      $id = $tree->{ID};
-      last;
-    }
-  }
-
-  if ($id) {
-    return $class->lookup(-id => $id);
-  }
-  else {
-    return;
-  }
-}
-
 sub kstrees_for_user {
   my $class = shift;
   my $uid = shift;
@@ -249,50 +221,6 @@ sub name {
   my $channel = RHN::Channel->lookup(-id => $self->channel_id);
 
   return sprintf('%s (%s)', $channel->name, $self->label);
-}
-
-sub compatible_tree {
-  my $self = shift;
-  my $kstid = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT 1
-  FROM rhnKickstartableTree KST1, rhnKickstartableTree KST2,
-       rhnChannel C1, rhnChannel C2
- WHERE KST1.id = :kstid1
-   AND KST2.id = :kstid2
-   AND C1.id = KST1.channel_id
-   AND C2.id = KST2.channel_id
-   AND KST1.install_type = KST2.install_type
-   AND C1.channel_arch_id = C2.channel_arch_id
-EOQ
-
-  $sth->execute_h(kstid1 => $self->id, kstid2 => $kstid);
-  my ($truth) = $sth->fetchrow;
-  $sth->finish;
-
-  return $truth;
-}
-
-# If org_id is NULL, then the KSTree is an RHN kstree, hosted on the
-# satellite.  Otherwise it is user-hosted.
-sub is_rhn_tree {
-  my $self = shift;
-
-  return ($self->org_id ? 0 : 1);
-}
-
-# If we add more is_{foo}_capable functions, we should probably move the
-# data to the database.
-sub is_selinux_capable {
-  my $self = shift;
-
-  if ($self->install_type_label eq 'rhel_4') {
-    return 1;
-  }
-
-  return 0;
 }
 
 1;
