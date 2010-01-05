@@ -106,11 +106,13 @@ class UnreadableFileError(Exception):
     pass
 
 
-# This function returns a file descriptor for the open file fname
-# If the file is already there, it is truncated
-# otherwise, all the directories up to it are created and the file is created
-# as well
 def _safe_create(fname, user, group, mode):
+    """ This function returns a file descriptor for the open file fname
+        If the file is already there, it is truncated
+        otherwise, all the directories up to it are created and the file is created
+        as well.
+    """
+
     # There can be race conditions between the moment we check for the file
     # existence and when we actually create it, so retry if something fails
     tries = 5
