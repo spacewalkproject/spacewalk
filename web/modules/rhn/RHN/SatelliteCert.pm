@@ -21,11 +21,6 @@ use RHN::Cert;
 
 our @ISA = qw/RHN::Cert/;
 
-# change this when signature criteria changes
-sub current_generation {
-  return 2;
-}
-
 sub _init {
   my $self = shift;
 
