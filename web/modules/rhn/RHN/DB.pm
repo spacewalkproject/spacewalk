@@ -352,12 +352,6 @@ sub profile_format {
   return @ret;
 }
 
-sub reset_profiling {
-  my $self = shift;
-
-  $self->{Profile}->{Data} = undef;
-}
-
 sub init_db_handle {
   my $self = shift;
 
