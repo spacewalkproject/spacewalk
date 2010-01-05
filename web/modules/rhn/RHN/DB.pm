@@ -89,19 +89,6 @@ sub apache_child_init_handler {
   }
 }
 
-# DBD::Oracle handles don't survive forks well if you don't
-# immediately exec or somesuch.  so this is what we call when we know
-# we're going to fork
-
-sub prepare_for_fork {
-  my $class = shift;
-
-  for my $handle (grep { defined $_ } values %handles) {
-    $handle->force_disconnect;
-  }
-  %handles = ();
-}
-
 
 # called after every request.  necessary to cleanup uncommitted
 # transactions and such
