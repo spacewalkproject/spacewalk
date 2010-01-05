@@ -2107,39 +2107,6 @@ sub _blank_server {
 }
 
 
-sub system_set_base_channels {
-  my $class = shift;
-  my $user_id = shift;
-
-  my $dbh = RHN::DB->connect();
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT  C.id, C.name, COUNT(C.id)
-  FROM  rhnChannel C,
-        rhnServerChannel SC,
-        rhnSet ST
- WHERE  ST.user_id = ?
-   AND  ST.label = 'system_list'
-   AND  ST.element = SC.server_id
-   AND  SC.channel_id = C.id
-   AND  C.parent_channel IS NULL
-GROUP BY C.id, C.name
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($user_id);
-
-  my @ret;
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-
-  return @ret;
-}
-
-
 
 # retrieve a server given its unique id.
 sub lookup {
