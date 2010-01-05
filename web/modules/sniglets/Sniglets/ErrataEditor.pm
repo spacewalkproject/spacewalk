@@ -32,35 +32,6 @@ sub register_tags {
   $pxt->register_tag('rhn-unless-var' => \&unless_var, -5);
 }
 
-sub register_callbacks {
-  my $class = shift;
-  my $pxt = shift;
-
-  $pxt->register_callback('rhn:update_errata_cache' => \&update_errata_cache);
-}
-
-sub update_errata_cache {
-  my $pxt = shift;
-  my $eid = $pxt->param('eid');
-
-  die "ErrataEditor::update_errata_cache called without eid"
-    unless $eid;
-
-  foreach my $cid (RHN::Errata->channels($eid)) {
-    unless ($pxt->user->verify_channel_admin($cid)) {
-      $pxt->redirect("/errors/permission.pxt");
-    }
-
-    RHN::ChannelEditor->schedule_errata_cache_update($pxt->user->org_id, $cid);
-  }
-
-  my $package_list_edited = $pxt->session->get('errata_package_list_edited');
-  $package_list_edited->{$eid} = 0;
-  $pxt->session->set(errata_package_list_edited => $package_list_edited);
-
-  $pxt->redirect($pxt->uri . "?eid=$eid");
-}
-
 sub if_var {
   my $pxt = shift;
   my %attr = @_;
