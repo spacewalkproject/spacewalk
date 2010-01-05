@@ -2541,31 +2541,6 @@ EOS
   return (\@p_added_rows, \@p_deleted_rows, $p_unchanged);
 }
 
-sub schedule_errata_cache_update {
-  my $class = shift;
-
-  my $org_id = shift;
-  my $sid = shift;
-  my $delay = shift || 0;
-
-  die "Org id and Server id required"
-    unless ($org_id && $sid);
-
-  my $now = RHN::Date->now->long_date;
-  $delay = $delay / (24*60*60);
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-INSERT INTO rhnTaskQueue
-       (org_id, task_name, task_data, priority, earliest)
-VALUES (?, 'update_server_errata_cache', ?, 0, TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS') + ?)
-EOQ
-
-    $sth->execute($org_id, $sid, $now, $delay);
-
-  $dbh->commit;
-}
-
 # eids of applicable errata for which the server does not have a
 # pending update action
 #
