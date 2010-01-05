@@ -463,31 +463,6 @@ EOQ
   return 0;
 }
 
-sub org_admins {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-SELECT ugm.user_id
-  FROM rhnUserGroupMembers ugm,
-       web_contact wc
- WHERE ugm.user_group_id = (SELECT id
-                              FROM rhnUserGroup
-                             WHERE org_id = ?
-                               AND group_type = (SELECT id FROM rhnUserGroupType WHERE label = 'org_admin'))
-   AND wc.id = ugm.user_id
-ORDER BY wc.id
-EOS
-  $sth->execute($self->id);
-
-  my @ret;
-  while (my ($id) = $sth->fetchrow) {
-    push @ret, $id;
-  }
-
-  return @ret;
-}
-
 sub entitled_satellite_families {
   my $self = shift;
 
