@@ -161,15 +161,6 @@ EOQ
   $self->crypto_key_type_id($row->{ID});
 }
 
-sub org_key_list {
-  my $class = shift;
-  my $org_id = shift;
-
-  my $ds = new RHN::DataSource::Simple(-querybase => "General_queries");
-  $ds->mode("crypto_keys_for_org");
-  return $ds->execute_query(-org_id => $org_id);
-}
-
 sub key_type_list {
   my $class = shift;
 
