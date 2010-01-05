@@ -1,10 +1,10 @@
-<postal-letter subject="Red Hat Login Information">
+<postal-letter subject="&product_name; Login Information">
 [ This is an automated email sent to <email-address /> at your request. ]
 
 You have requested a list of all <product-name /> logins associated
 with the email address <email-address />.
 
-Red Hat Login(s):
+Existing login(s):
 <account-list />
 
 You may reset the passwords for any of the above Red Hat logins at:

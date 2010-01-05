@@ -164,7 +164,12 @@ sub render {
   $p->register_tag("postal-letter" =>
 		   sub {
 		     my %params = @_;
-		     $self->subject($params{subject}) if exists $params{subject};
+		     if (exists $params{subject}) {
+		       my $subject = $params{subject};
+		       my $product_name = PXT::Config->get('product_name');
+		       $subject =~ s!&product_name;!$product_name!g;
+		       $self->subject($subject);
+                     }
 		     return $params{__block__};
 		   }
 		  );
