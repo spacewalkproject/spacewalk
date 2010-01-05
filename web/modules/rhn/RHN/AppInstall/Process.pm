@@ -63,24 +63,6 @@ sub lookup_step {
   return $step;
 }
 
-sub get_steps {
-  my $self = shift;
-  return @{$self->{steps} || []};
-}
-
-sub set_steps {
-  my $self = shift;
-  my @steps = @_;
-
-  if (ref $steps[0] eq 'ARRAY') {
-    @steps = @{$steps[0]};
-  }
-
-  $self->push_step(@steps);
-
-  return;
-}
-
 sub push_step {
   my $self = shift;
   my @steps = @_;
