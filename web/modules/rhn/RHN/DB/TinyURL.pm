@@ -46,22 +46,6 @@ EOS
   return $result;
 }
 
-sub lookup_consume {
-  my $class = shift;
-  my %params = validate(@_, {token => 1});
-  my $token = $params{token};
-
-  my $ret = $class->lookup(-token => $token);
-  if ($ret) {
-    my $dbh = RHN::DB->connect;
-    my $sth = $dbh->prepare("UPDATE rhnTinyURL SET enabled = 'N' WHERE token = :token");
-    $sth->execute_h(token => $token);
-    $dbh->commit;
-  }
-
-  return $ret;
-}
-
 sub create {
   my $class = shift;
   my $url = shift;
