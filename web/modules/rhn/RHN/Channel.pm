@@ -36,26 +36,4 @@ sub lookup {
   }
 }
 
-sub user_subscribable_bases_for_system {
-  my $class = shift;
-  my $system = shift;
-  my $user = shift;
-
-  my $ds = new RHN::DataSource::Channel(-mode => 'base_channels_owned_by_org');
-  my $channels = $ds->execute_query(-org_id => $user->org_id);
-  my @ret = @$channels;
-
-  my $default_base = $system->default_base_channel;
-  if (defined $default_base) {
-    my $channel = RHN::Channel->lookup(-id => $default_base);
-    unshift @ret, { map { uc $_ => $channel->$_() } qw/id name label/ };
-  }
-
-  # filter out the channels a user doesn't have access to...
-  @ret = grep { $user->verify_channel_subscribe($_->{ID}) } @ret;
-  @ret = grep { $system->verify_channel_arch_compat($_->{ID}) } @ret;
-
-  return @ret;
-}
-
 1;
