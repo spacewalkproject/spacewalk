@@ -58,7 +58,6 @@ sub register_callbacks {
   $pxt->register_callback('rhn:sscd_confirm_patchset_installations' => \&sscd_confirm_package_installations_cb);
   $pxt->register_callback('rhn:sscd_confirm_package_removals' => \&sscd_confirm_package_removals_cb);
   $pxt->register_callback('rhn:sscd_confirm_patch_removals' => \&sscd_confirm_package_removals_cb);
-  $pxt->register_callback('rhn:sscd_confirm_package_verification' => \&sscd_confirm_package_verification_cb);
 
   $pxt->register_callback('rhn:upload-answerfile-cb' => \&upload_answerfile_cb);
 }
@@ -475,22 +474,6 @@ sub sscd_confirm_package_removals_cb {
   }
   else {
     die "crap!";
-  }
-}
-
-sub sscd_confirm_package_verification_cb {
-  my $pxt = shift;
-
-  if ($pxt->dirty_param('sscd_confirm_package_verification')) {
-    my $earliest = Sniglets::ServerActions->parse_date_pickbox($pxt);
-
-    my $actions = RHN::Scheduler->sscd_schedule_package_verify(-org_id => $pxt->user->org_id, -user_id => $pxt->user->id, -earliest => $earliest);
-    my $package_set = RHN::Set->lookup(-label => 'sscd_verify_package_list', -uid => $pxt->user->id);
-    $package_set->empty;
-    $package_set->commit;
-
-    $pxt->push_message(site_info => "Package verifications scheduled.");
-    $pxt->redirect("/network/systems/ssm/packages/index.pxt");
   }
 }
 
