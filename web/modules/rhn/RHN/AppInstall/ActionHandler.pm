@@ -171,26 +171,4 @@ sub export_arguments {
   }
 }
 
-sub get_action_registry {
-  my $self = shift;
-
-  return %{$self->{action_registry}};
-}
-
-sub set_action_registry {
-  my $self = shift;
-  my %data;
-
-  if (ref $_[0] eq 'HASH') {
-    %data = %{$_[0]};
-  }
-  else {
-    %data = @_;
-  }
-
-  $self->{action_registry} = \%data;
-
-  return;
-}
-
 1;
