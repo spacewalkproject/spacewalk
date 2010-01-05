@@ -180,17 +180,6 @@ sub lookup_widget {
   return $self->{widgets_by_label}->{$label};
 }
 
-sub lookup_value {
-  my $self = shift;
-  my $label = shift;
-
-  my $widg = $self->{widgets_by_label}->{$label};
-
-  return undef unless $widg;
-
-  return $widg->value;
-}
-
 sub clone_widgets {
   my $self = shift;
 
