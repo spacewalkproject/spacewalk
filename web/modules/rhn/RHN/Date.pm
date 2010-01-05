@@ -179,14 +179,6 @@ sub short_date {
   return $self->strftime("%Y-%m-%d");
 }
 
-# helper function for our classical "long_date" format, with abbreviated zone name
-sub long_date_with_zone {
-  my $self = shift;
-  my $user = shift;
-
-  return $self->long_date . " " . $self->user_short_timezone($user);
-}
-
 # increment an RHN::Date object.  parameters are passed straight
 # through to the datetime add method, which basically is like
 # "$foo->add(hours => 2, minutes => 7), etc
