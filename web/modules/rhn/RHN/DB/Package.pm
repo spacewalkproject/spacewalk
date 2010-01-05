@@ -526,13 +526,6 @@ sub blank_package {
   bless { }, shift;
 }
 
-sub create_package {
-  my $class = shift;
-  my $package = $class->blank_package;
-  $package->{__id__} = -1;
-  return $package;
-}
-
 sub arch_fields {
   return @arch_fields;
 }
