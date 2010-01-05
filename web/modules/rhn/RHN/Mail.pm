@@ -22,30 +22,6 @@ use Params::Validate;
 my @header_order = qw/To From Subject/;
 my $DEFAULT_FROM = PXT::Config->get('default_mail_from');
 
-sub send_raw {
-  my $class = shift;
-  my $data = shift;
-
-  my $sendmail_from = $DEFAULT_FROM;
-  my @command = ('/usr/sbin/sendmail', '-t', '-oi', "-f'$sendmail_from'");
-
-  $ENV{PATH} = "/bin:/usr/bin";
-
-  my $command = join(' ', @command);
-  open SM, "|$command"
-    or die "Can't spawn sendmail: $!";
-
-  print SM $data;
-  if (not close SM) {
-    if ($!) {
-      die "Can't close sendmail: $!";
-    }
-    else {
-      warn "sendmail returned failure code $?";
-    }
-  }
-}
-
 # given a list of possible recipients, validate they're allowed to receive
 # email in the current environment
 sub validate_allowed_recipients {
