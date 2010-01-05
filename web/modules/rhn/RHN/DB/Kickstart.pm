@@ -895,38 +895,6 @@ EOQ
   return @{$data};
 }
 
-sub default_tree {
-  my $self = shift;
-
-  my $kstree_id = $self->default_kstree_id;
-
-  if ($kstree_id) {
-    return RHN::KSTree->lookup(-id => $kstree_id);
-  }
-
-  return;
-}
-sub get_channel_arch { 
-  my $self = shift;
-
-  my $channel_id  = $self->default_tree->channel_id;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT CA.label
-  FROM rhnChannel C, rhnChannelArch CA 
-  WHERE 1=1
-  AND C.id = :cid
-  AND C.channel_arch_id = CA.id
-EOQ
-
-  $sth->execute_h(cid => $channel_id);
-
-  my $row = $sth->fetchrow_hashref;
-  $sth->finish;
-
-  return $row->{'LABEL'};
-}
 
 sub org_ks_ip_ranges {
   my $class = shift;
