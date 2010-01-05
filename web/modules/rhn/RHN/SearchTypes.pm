@@ -54,11 +54,6 @@ sub acl_test {
   return $acl_parser->eval_acl($params{pxt}, $params{acl_string});
 }
 
-sub set_min_search_length {
-  my $self = shift;
-  $self->{min_search_length} = shift;
-}
-
 sub set_name {
   my $self = shift;
 
@@ -110,12 +105,6 @@ sub label_to_column_name {
   return $matches[0]->{mode_column_name};
 }
 
-sub valid_search_string {
-  my $self = shift;
-  my $search_str = shift;
-
-  return;
-}
 
 package RHN::SearchType::System;
 
@@ -129,25 +118,6 @@ sub new {
   my $self = bless { categories => [], min_search_length => 0 }, $class;
 
   return $self;
-}
-
-sub add_category {
-  my $self = shift;
-  my %params = @_;
-
-  throw "No category label" unless $params{-label};
-  my $modes = $params{-modes} || [];
-
-  throw "modes param should be array ref"
-    unless (ref $modes eq 'ARRAY');
-
-  push @{$self->{categories}},
-    {
-     label => $params{-label},
-     modes => [ map { $self->parse_mode(%{$_}) } @{$modes} ],
-     acl => $params{-acl},
-     acl_mixins => $params{-acl_mixins},
-    };
 }
 
 sub parse_mode {
