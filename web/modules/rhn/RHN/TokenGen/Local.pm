@@ -16,13 +16,10 @@
 package RHN::TokenGen::Local;
 
 use strict;
-use RHN::DB::Downloads;
 
 use URI::URL;
 use PXT::Utils;
 use PXT::Config;
-
-our @ISA = qw/RHN::DB::Downloads/;
 
 use Params::Validate;
 Params::Validate::validation_options(strip_leading => "-");
