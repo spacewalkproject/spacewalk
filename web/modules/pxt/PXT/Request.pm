@@ -353,26 +353,6 @@ sub passthrough_param {
   }
 }
 
-sub numeric_param {
-  my $self = shift;
-  my $name = shift;
-
-  my $n = $self->param($name) || 0;
-
-  $n = int(0 + $n);
-
-  return $n;
-}
-
-sub positive_numeric_param {
-  my $self = shift;
-  my $name = shift;
-
-  my $n = $self->numeric_param($name);
-
-  return $n < 0 ? -$n : $n;
-}
-
 sub prefill_form_values {
   my $self = shift;
   my $block = shift;
@@ -550,12 +530,6 @@ sub encode_rpc_result {
   return $self->xml_request->encode_rpc_result(@_);
 }
 
-sub encode_rpc_fault {
-  my $self = shift;
-
-  return $self->xml_request->encode_rpc_fault(@_);
-}
-
 my %fault_messages =
   ( unknown_error => 'Unknown internal error',
     server_security => 'No server perms/server does not exist',
@@ -568,40 +542,6 @@ my %fault_messages =
     no_access_to_sat_channel => 'Account does not have access to any Satellite channels',
     insufficient_channel_entitlements => 'All entitlements to the required channel are currently in use.',
   );
-
-sub rpc_fault {
-  my $self = shift;
-  my $fault_string = shift;
-  my $fault_code = -2; # later we'll assign numbers; for now, -2 means
-                       # "not in fault list" and -1 means "in list"
-
-  if (exists $fault_messages{$fault_string}) {
-    $fault_code = -1;
-    $fault_string = $fault_messages{$fault_string};
-  }
-
-  die bless { fault_text => $fault_string, fault_code => $fault_code }, "PXT::RPCFault";
-}
-
-sub exception_message_map {
-  my $self = shift;
-  my $exception = shift;
-  my %map = @_;
-
-  for my $key (%map) {
-    if (ref $exception and $exception->is_rhn_exception($key)) {
-      $self->push_message(local_alert => $map{$key});
-      return 1;
-    }
-  }
-
-  if (exists $map{__default__}) {
-    $self->push_message(local_alert => $map{__default__});
-    return 1;
-  }
-
-  return 0;
-}
 
 sub touch_session {
   $_[0]->{session_touched} = 1;
@@ -671,38 +611,10 @@ sub user {
   return $self->{__user__};
 }
 
-sub current_stage {
-  my $self = shift;
-
-  return $self->{stage};
-}
-
-sub set_stage {
-  my $self = shift;
-
-  $self->{stage} = shift;
-
-  return $self->current_stage;
-}
-
 sub form_builder_variables {
   my $self = shift;
 
   push @{$self->{form_builder_variables}}, @_;
-}
-
-sub form_builder_query_string {
-  my $self = shift;
-
-  return join("&", map { "$_=" . $self->pnotes($_) } @{$self->{form_builder_variables}});
-}
-
-sub form_builder_hidden_vars {
-  my $self = shift;
-
-  return join("\n",
-	      map { sprintf(q{<input type="hidden" name="%s" value="%s">}, $_, $self->pnotes($_)) }
-	      @{$self->{form_builder_variables}});
 }
 
 sub parse {
@@ -793,16 +705,6 @@ sub derelative_url {
   $url->port(PXT::Config->get('base_port')) if PXT::Config->get('base_port') and not $url->scheme eq 'https';
 
   return $url;
-}
-
-sub pagination_bounds {
-  my $self = shift;
-  my $prefix = shift;
-
-  my $lower = $self->param('lower') || $self->pnotes("${prefix}_lower") || 1;
-  my $upper = $self->param('upper') || $self->pnotes("${prefix}_upper") || $self->user->preferred_page_size;
-
-  return ($lower, $upper);
 }
 
 sub route_marker {
