@@ -37,32 +37,10 @@ sub lookup {
   }
 }
 
-sub lookup_note {
-  my $class = shift;
-
-  warn "deprecated use of $class->lookup_foo from (" . join(', ', caller) . ").  Using $class->lookup instead\n";
-
-  return $class->lookup(@_);
-}
-
 sub create {
   my $class = shift;
 
   return RHN::DB::ServerNotes->create_note(@_);
-}
-
-sub server_notes {
-  my $self = shift;
-
-  my $id;
-  if(ref $self) {
-    $id = $self->id;
-  }
-  else {
-    $id = shift;
-  }
-
-  return RHN::DB::ServerNotes->notes_by_col("server_id",$id,@_);
 }
 
 1;
