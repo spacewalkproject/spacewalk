@@ -85,91 +85,8 @@ sub write_config {
   return;
 }
 
-sub is_embedded_db {
-  my $class = shift;
-
-  return $class->is_rpm_installed('oracle-server-admin');
-}
-
 sub generate_secret {
   return md5_hex(PXT::Utils->random_bits(4096));
-}
-
-sub local_sat_cert_checks {
-  my $filename = shift;
-  my $check_monitoring = shift;
-
-  open(CERT, $filename) or throw "(satellite_activation_failed) File upload error: $OS_ERROR";
-  my @data = <CERT>;
-  close(CERT);
-
-  my $cert_str = join('', @data);
-  my ($signature, $cert);
-
-  eval {
-    ($signature, $cert) = RHN::SatelliteCert->parse_cert($cert_str);
-  };
-  if ($@) {
-    throw "(parse_error) Error parsing satellite cert: $@";
-  }
-
-  my $sat_version = PXT::Config->get('version');
-  my $cert_version = $cert->get_field('satellite-version');
-
-  #The cert version should be less specific than the sat version.
-  my $match_length = length($cert_version);
-  $sat_version = substr($sat_version, 0, $match_length);
-  unless ($sat_version eq $cert_version) {
-    throw "(satellite_activation_failed) The version of the supplied cert ($cert_version)"
-      . " did not match the version of this satellite ($sat_version)";
-  }
-
-  my $mon_slots = $cert->get_field('monitoring-slots');
-
-  if ($check_monitoring and not $mon_slots) {
-    throw "(no_monitoring_entitlements) You have provided a certificate that does not contain monitoring entitlements.";
-  }
-
-  return;
-}
-
-my %ca_cert_opts = (
-   dir => 1,
-   password => 1,
-   'set-country' => 1,
-   'set-state' => 1,
-   'set-city' => 1,
-   'set-org' => 1,
-   'set-org-unit' => 1,
-   'set-common-name' => 0,
-   'cert-expiration' => 1, # In years
-);
-
-my @unquoted_cert_opts = qw/cert-expiration set-country dir set-hostname/;
-
-sub generate_ca_cert {
-  my $class = shift;
-  my %params = validate(@_, {
-   %ca_cert_opts,
-   'server-rpm' => 1,
-			    });
-
-  $params{'cert-expiration'} *= 365;
-
-  my @opts = "--gen-ca";
-
-  foreach my $name (keys %params) {
-    next unless ($params{$name}
-		 and exists $ca_cert_opts{$name});
-
-    push @opts, qq(--$name=$params{$name});
-  }
-
-  my @command = ('/usr/bin/rhn-sudo-ssl-tool', @opts);
-
-  my $ret = system(@command);
-
-  return $ret;
 }
 
 my %server_cert_opts = (
@@ -232,30 +149,6 @@ sub restart_satellite {
     or throw "(exec_error) Could not exec '/usr/sbin/rhn-satellite restart': $!";
 
   # exec does not return
-}
-
-sub is_rpm_installed {
-  my $class = shift;
-  my $rpmname = shift;
-
-  throw "(satinstall:missing_param) No rpm name param" unless $rpmname;
-
-  # If the return code from rpm -q <rpmname> is nonzero, then the RPM was not found.
-  my $ret = system('rpm', '-q', $rpmname);
-
-  if ($ret) {
-    return 0;
-  }
-
-  return 1;
-}
-
-sub default_cert_expiration {
-  my $dt = DateTime->now;
-  my $dt2 = new DateTime (year => 2038, month => 1, day => 18);
-  my $diff = $dt2 - $dt;
-
-  return $diff->years - 1;
 }
 
 sub enable_notification_cron {
