@@ -119,13 +119,6 @@ sub current_process {
 }
 
 
-# returns the step object for the step we are on.
-sub current_step {
-  my $self = shift;
-
-  $self->_lookup_step($self->get_step_number);
-}
-
 # return the next step, or undef if none exists.
 # does not advance the step counter.
 sub next_step {
@@ -269,47 +262,6 @@ sub export {
 	      };
 
   return $state;
-}
-
-# import the state for the given app; returns a new session object.
-sub import_session {
-  my $class = shift;
-  my %attr = validate(@_, {
-			   app_instance => { isa => 'RHN::AppInstall::Instance' },
-			   stored_data => { type => HASHREF },
-			  });
-
-  my $app = $attr{app_instance};
-  my $data = $attr{stored_data};
-
-  _check_stored_data($app, $data);
-
-  my $user = RHN::User->lookup(-id => $data->{user_id});
-  my $server = RHN::Server->lookup(-id => $data->{server_id});
-
-  my $session = $class->new(-app_instance => $app,
-			    -process_name => $data->{process_name},
-			    -step_number => $data->{step_number},
-			    -session_data => $data->{session_data},
-			    -user => $user,
-			    -server => $server,
-			   );
-
-  return $session;
-}
-
-# verify that the stored data matches the app, user, and server
-sub _check_stored_data {
-  my ($app, $data) = @_;
-
-  throw "(invalid_session) The target application label does not match the stored session"
-    unless ($app->get_label eq $data->{app_label});
-  throw "(invalid_session) The target application version does not match the stored session"
-    unless ($app->get_version eq $data->{app_version});
-  throw "(invalid_session) The target application md5sum does not match the stored session"
-    unless ($app->get_md5 eq $data->{app_md5sum});
-
-  return;
 }
 
 
