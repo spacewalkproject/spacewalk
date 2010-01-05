@@ -85,12 +85,6 @@ sub set_argument {
   return;
 }
 
-sub get_failed_message {
-  my $self = shift;
-
-  return $self->{failed_message};
-}
-
 sub set_failed_message {
   my $self = shift;
   my $failed_message = shift;
