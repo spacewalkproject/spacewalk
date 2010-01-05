@@ -253,52 +253,6 @@ EOQ
 }
 
 
-sub num_proxies_in_set {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-
-  $query = <<EOQ;
-SELECT COUNT(ST.element)
-  FROM rhnProxyInfo PI,
-       rhnSet ST
- WHERE ST.user_id = ?
-   AND ST.label = ?
-   AND ST.element = PI.server_id
-EOQ
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->uid, $self->label);
-
-  my ($count) = $sth->fetchrow;
-  $sth->finish();
-
-  return $count;
-}
-
-sub num_satellites_in_set {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-
-  $query = <<EOQ;
-SELECT COUNT(ST.element)
-  FROM rhnSatelliteInfo SI,
-       rhnSet ST
- WHERE ST.user_id = ?
-   AND ST.label = ?
-   AND ST.element = SI.server_id
-EOQ
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->uid, $self->label);
-
-  my ($count) = $sth->fetchrow;
-  $sth->finish();
-
-  return $count;
-}
-
 sub remove_scheduled_errata_for_system {
   my $self = shift;
   my $sid = shift;
