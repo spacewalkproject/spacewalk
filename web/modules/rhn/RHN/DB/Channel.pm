@@ -1135,24 +1135,6 @@ EOQ
   return ($pid, $path);
 }
 
-sub latest_package_like {
-  my $class = shift;
-  my $cid = shift;
-  my $name = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT CP.package_id
-  FROM rhnPackageName PN, rhnChannelNewestPackage CP
- WHERE CP.channel_id = :cid
-   AND CP.name_id = PN.id
-   AND PN.name LIKE :namelike
-EOQ
-
-  $sth->execute_h(cid => $cid, namelike => '%' . $name . '%');
-  return map { @$_ } $sth->fullfetch;
-}
-
 sub latest_package_equal {
   my $class = shift;
   my $cid = shift;
