@@ -128,29 +128,6 @@ sub generate_server_cert {
   return $ret;
 }
 
-sub restart_satellite {
-  my $class = shift;
-  my %params = validate(@_, { delay => 1,
-			      service => { default => 'rhn-satellite' },
-			    });
-
-  RHN::DB->prepare_for_fork();
-  # we fork here.  the original process returns and sends content to
-  # the client so the page renders.  the child will quickly terminate...
-  return if fork;
-
-  # sleep to let the parent process cleanup
-  sleep $params{delay};
-  # when apache restarts, it sends a kill to its entire process group.
-  # for us, though, that would include the restart script.  oops.
-  POSIX::setsid();
-
-  exec('/usr/bin/sudo', '/usr/sbin/rhn-satellite', 'restart')
-    or throw "(exec_error) Could not exec '/usr/sbin/rhn-satellite restart': $!";
-
-  # exec does not return
-}
-
 sub enable_notification_cron {
   my $class = shift;
 
