@@ -35,27 +35,6 @@ sub components_for_user {
   return @ret;
 }
 
-sub components_available {
-  my $class = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query = <<EOQ;
-    SELECT  component_pkg, component_mode, config_mode, component_label, NVL(UGT.label, ''), GC.id
-      FROM  rhnGrailComponents GC, rhnUserGroupType UGT
-     WHERE  UGT.id(+) = role_required
-  ORDER BY  UPPER(component_label), component_pkg, component_mode
-EOQ
-  my $sth = $dbh->prepare($query);
-  $sth->execute;
-
-  my @ret;
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-
-  return @ret;
-}
-
 sub set_user_components {
   my $class = shift;
   my $uid = shift;
