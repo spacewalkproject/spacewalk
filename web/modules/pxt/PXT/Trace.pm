@@ -130,15 +130,6 @@ sub active {
   return $cache->get('tracing_active') || 0;
 }
 
-sub clear_traces {
-  my $self = shift;
-
-  my $cache = $self->get_cache;
-  my $tracing = $cache->get('tracing_active');
-  $cache->clear;
-  $cache->set('tracing_active', $tracing);
-}
-
 sub get_cache {
   return new Cache::FileCache({namespace => 'pxt_trace'});
 }
