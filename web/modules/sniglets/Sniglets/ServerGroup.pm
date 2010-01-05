@@ -19,7 +19,6 @@ package Sniglets::ServerGroup;
 
 use RHN::Server;
 use RHN::ServerGroup;
-use RHN::UserGroup;
 use RHN::Org;
 use RHN::ServerActions;
 use RHN::User;

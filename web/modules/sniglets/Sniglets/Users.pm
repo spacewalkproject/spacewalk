@@ -20,7 +20,6 @@ package Sniglets::Users;
 use PXT::Utils;
 
 use RHN::User;
-use RHN::UserGroup;
 use RHN::Org;
 use RHN::Grail;
 use PXT::HTML;
