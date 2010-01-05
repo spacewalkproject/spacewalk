@@ -1289,11 +1289,12 @@ class ShortPackagesDumper(CachedDumper, exportLib.ShortPackagesDumper):
                 pe.evr.release release, 
                 pe.evr.epoch epoch, 
                 pa.label package_arch,
-                c.checksum md5sum,
+                c.checksum_type,
+                c.checksum,
                 p.package_size,
                 TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
             from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe, 
-                rhnPackageArch pa, rhnChecksum c
+                rhnPackageArch pa, rhnChecksumView c
             where p.id = :package_id 
             and p.name_id = pn.id
             and p.evr_id = pe.id
@@ -1332,7 +1333,8 @@ class PackagesDumper(CachedDumper, exportLib.PackagesDumper):
                 p.build_host, 
                 TO_CHAR(p.build_time, 'YYYYMMDDHH24MISS') build_time,
                 sr.name source_rpm, 
-                c.checksum md5sum,
+                c.checksum_type,
+                c.checksum,
                 p.vendor,
                 p.payload_format, 
                 p.compat, 
@@ -1344,7 +1346,7 @@ class PackagesDumper(CachedDumper, exportLib.PackagesDumper):
                 TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
             from rhnPackage p, rhnPackageName pn, rhnPackageEVR pe, 
                 rhnPackageArch pa, rhnPackageGroup pg, rhnSourceRPM sr,
-                rhnChecksum c
+                rhnChecksumView c
             where p.id = :package_id 
             and p.name_id = pn.id
             and p.evr_id = pe.id
@@ -1379,10 +1381,11 @@ class SourcePackagesDumper(CachedDumper, exportLib.SourcePackagesDumper):
                 ps.vendor,
                 ps.cookie,
                 ps.package_size,
-                c.checksum md5sum,
+                c.checksum_type,
+                c.checksum,
                 TO_CHAR(ps.last_modified, 'YYYYMMDDHH24MISS') last_modified
             from rhnPackageSource ps, rhnPackageGroup pg, rhnSourceRPM sr,
-                 rhnChecksum c, rhnChecksum sig
+                 rhnChecksumView c, rhnChecksum sig
             where ps.id = :package_id
             and ps.package_group = pg.id
             and ps.source_rpm_id = sr.id
