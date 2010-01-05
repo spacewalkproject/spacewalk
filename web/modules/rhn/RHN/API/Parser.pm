@@ -22,40 +22,6 @@ use RHN::API::TypeHandler;
 use Carp;
 use XML::LibXML;
 
-sub parse_exceptions {
-  my $class = shift;
-  my $file = shift;
-
-  my $parser = new XML::LibXML;
-  $parser->keep_blanks(0);
-  $parser->expand_xinclude(1);
-  my $doc = $parser->parse_file($file);
-  my $root = $doc->getDocumentElement;
-
-  my $exception_box = RHN::API::Exception->exception_box;
-
-  my ($lower, $upper) = ($root->getAttribute('lower'), $root->getAttribute('upper'));
-
-  for my $xml_node (grep { $_->isa("XML::LibXML::Element") } $root->childNodes) {
-    if ($xml_node->nodeName ne 'rhn-exception') {
-      warn "non-rhn-exception node: " . $xml_node->toString;
-      next;
-    }
-
-    my ($code, $label) = map { $xml_node->getAttribute($_) } qw/code label/;
-    my $description = $xml_node->textContent || '';
-
-    die "rhn-exception missing code" unless $code;
-    die "rhn-exception missing label" unless $label;
-    die "rhn-exception $label (code $code) outside bounds of ($lower, $upper)"
-      unless $lower <= $code and $code <= $upper;
-
-    $description =~ s/^\s+//gms;
-    $description =~ s/\s+$//gms;
-    $exception_box->add_exception($label, $code, $description);
-  }
-}
-
 sub parse_interface {
   my $class = shift;
   my $method_prefix = shift;
