@@ -859,30 +859,6 @@ EOQ
   return $columns[0];
 }
 
-sub verify_channel_arch_compat {
-  my $self = shift;
-  my $cid = shift;
-
-  throw "No cid" unless $cid;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT 1
-  FROM rhnChannel C, rhnServerChannelArchCompat SCAC, rhnServer S
- WHERE S.id = :sid
-   AND SCAC.server_arch_id = S.server_arch_id
-   AND C.id = :cid
-   AND SCAC.channel_arch_id = C.channel_arch_id
-EOQ
-
-  $sth->execute_h(sid => $self->id, cid => $cid);
-  my ($compat) = $sth->fetchrow;
-
-  $sth->finish;
-
-  return ($compat ? 1 : 0);
-}
-
 # given a channel family label and server_id, return the child channels
 # the server could be subscribed to, if any
 sub child_channel_candidates {
