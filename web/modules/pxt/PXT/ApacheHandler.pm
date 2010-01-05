@@ -84,17 +84,6 @@ sub handler {
       }
   }
 
-  # Load API exceptions
-  my $exception_box = RHN::API::Exception->exception_box;
-
-  if ($exception_box->is_empty) {
-    my $path = File::Spec->catfile($request->document_root, "/rpc/api-exceptions/*.xml");
-
-    foreach my $file (glob $path) {
-      RHN::API::Parser->parse_exceptions($file);
-    }
-  }
-
   my $filename = $r->filename;
   my ($file_contents, $file_classes);
 
