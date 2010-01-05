@@ -51,7 +51,6 @@ use Carp;
 
 use RHN::Utils;
 use RHN::Exception qw/throw/;
-use RHN::API::Exception;
 
 
 # fields in the rhnServer table
@@ -666,7 +665,7 @@ EOQ
   my $proxy_channel_info = $sth->fetchrow_hashref;
   $sth->finish;
 
-  RHN::API::Exception->throw_named("proxy_no_proxy_child_channel") unless $proxy_channel_info;
+  throw ("proxy_no_proxy_child_channel") unless $proxy_channel_info;
   return $proxy_channel_info;
 }
 
@@ -683,7 +682,7 @@ sub activate_proxy {
   my $sth;
 
   if ($self->is_satellite()) {
-    RHN::API::Exception->throw_named("proxy_system_is_satellite");
+    throw("proxy_system_is_satellite");
   }
 
   $query = <<EOQ;
