@@ -66,31 +66,6 @@ my %excluded_features = (nonlinux_entitled => { map { $_ => 1 }
 						qw/ftr_errata_updates ftr_proxy_capable ftr_sat_capable ftr_reboot
 						   ftr_kickstart ftr_delta_action/ });
 
-my %grant_map =
-  ( none => [  ],
-    sw_mgr_entitled => [ 'updates' ],
-    enterprise_entitled => [ 'updates', 'management', 'monitoring' ],
-    provisioning_entitled => [ 'updates', 'management', 'provisioning', 'monitoring' ],
-    monitoring_entitled => [ 'monitoring' ],
-    nonlinux_entitled => [ 'updates', 'management', 'provisioning', 'nonlinux' ]
-  );
-my %valid_services = map { $_ => 1 } qw/updates management provisioning monitoring nonlinux/;
-
-sub entitlement_grants_service { # Need to refactor Tokens to remove this entirely
-  my $class = shift;
-  my $entitlement = shift;
-  my $desired_service = shift;
-
-  return 0 unless defined $desired_service and defined $entitlement;
-
-  croak "Invalid entitlement type '$entitlement'" unless exists $grant_map{$entitlement};
-  croak "Invalid service level '$desired_service'" unless exists $valid_services{$desired_service};
-
-  return 1 if grep { $_ eq $desired_service } @{$grant_map{$entitlement}};
-
-  return 0;
-}
-
 # What type of feature is this?  Management, provisioning, monitoring, etc.
 sub feature_type {
   my $class = shift;
