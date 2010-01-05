@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	0.8.0
+Version:	0.8.1
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -57,6 +57,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jan 05 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.1-1
+- added scr.cgi and apply_errata scripts
+
 * Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.1-1
 - migration of system profile should be able to run as non root now that it can run on any client and not just satellite. (pkilambi@redhat.com)
 - bumping Version to 0.7.0 (jmatthew@redhat.com)
