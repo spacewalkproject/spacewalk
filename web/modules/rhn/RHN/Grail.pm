@@ -26,13 +26,6 @@ sub components_for_user {
   return RHN::DB::Grail->components_for_user($user);
 }
 
-sub components_available_for_user {
-  my $class = shift;
-  my $user = shift;
-
-  return grep { $_->[4] ? $user->is($_->[4]) : 1 } RHN::DB::Grail->components_available;
-}
-
 sub set_user_components {
   my $class = shift;
 
