@@ -215,6 +215,7 @@ class _ChannelDumper(BaseRowDumper):
             ('rhn-channel-summary', 'summary'),
             ('rhn-channel-description', 'description'),
             ('rhn-channel-gpg-key-url', 'gpg_key_url'),
+            ('rhn-channel-checksum-type', 'checksum_type'),
         ]
         for k, v in mappings:
             arr.append(SimpleDumper(self._writer, k, self._row[v]))

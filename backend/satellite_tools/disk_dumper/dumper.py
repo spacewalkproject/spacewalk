@@ -1044,12 +1044,15 @@ class ChannelsDumper(CachedDumper, exportLib.ChannelsDumper):
         select c.id, c.org_id, 
 	       c.label, ca.label channel_arch, c.basedir, c.name, 
                c.summary, c.description, c.gpg_key_url,
+               ct.label checksum_type,
                TO_CHAR(c.last_modified, 'YYYYMMDDHH24MISS') last_modified, 
                pc.label parent_channel
-          from rhnChannel c, rhnChannelArch ca, rhnChannel pc
+          from rhnChannel c, rhnChannelArch ca, rhnChannel pc,
+               rhnChecksumType ct
          where c.id = :channel_id
            and c.channel_arch_id = ca.id
            and c.parent_channel = pc.id (+)
+           and c.checksum_type_id = ct.id (+)
     """)
     def __init__(self, writer, channels):
         h = rhnSQL.prepare(self._query_list_channels)
@@ -1112,6 +1115,7 @@ class _ChannelsDumper(exportLib._ChannelDumper):
             ('rhn-channel-summary', 'summary'),
             ('rhn-channel-description', 'description'),
             ('rhn-channel-gpg-key-url', 'gpg_key_url'),
+            ('rhn-channel-checksum-type', 'checksum_type'),
         ]
         for k, v in mappings:
             arr.append(exportLib.SimpleDumper(self._writer, k, self._row[v]))
@@ -1259,12 +1263,15 @@ class ChannelsDumperEx(CachedDumper, exportLib.ChannelsDumper):
                cp.product channel_product,
                cp.version channel_product_version,
                cp.beta channel_product_beta,
-               c.receiving_updates
-          from rhnChannel c, rhnChannelArch ca, rhnChannel pc, rhnChannelProduct cp
+               c.receiving_updates,
+               ct.label checksum_type
+          from rhnChannel c, rhnChannelArch ca, rhnChannel pc, rhnChannelProduct cp,
+               rhnChecksumType ct
          where c.id = :channel_id
            and c.channel_arch_id = ca.id
            and c.parent_channel = pc.id (+)
            and c.channel_product_id = cp.id (+)
+           and c.checksum_type_id = ct.id (+)
     """)
     def __init__(self, writer, channels):
         h = rhnSQL.prepare(self._query_list_channels)
