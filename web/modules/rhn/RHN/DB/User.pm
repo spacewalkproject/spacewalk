@@ -1722,28 +1722,6 @@ EOQ
 }
 
 
-sub remove_from_group {
-  my $self = shift;
-  my $label = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT UG.id
-  FROM rhnUserGroupType UGT,
-       rhnUserGroup UG
- WHERE UG.org_id = ?
-   AND UG.group_type = UGT.id
-   AND UGT.label = ?
-EOQ
-
-  $sth->execute($self->org_id, $label);
-  my ($ugid) = $sth->fetchrow;
-  $sth->finish;
-
-  $dbh->call_procedure("rhn_user.delete_from_usergroup", $self->id, $ugid);
-  $dbh->commit;
-}
-
 sub has_incomplete_info {
   my $self = shift;
 
