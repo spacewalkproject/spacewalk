@@ -233,11 +233,15 @@ class File(Item):
         'rdev'              : IntType,
         'file_size'         : IntType,
         'mtime'             : DateType,
-        'filedigest'        : StringType,
         'linkto'            : StringType,
         'flags'             : IntType,
         'verifyflags'       : IntType,
         'lang'              : StringType,
+        # those attributes are mutualy exclusive
+        'md5'               : StringType,       # xml dumps < 3.5
+        'filedigest'        : StringType,       # spacewalk-repo-sync
+        'checksum'          : StringType,       # xml dumps >= 3.5
+        'checksum_type'     : StringType,       # xml dumps >= 3.5
     }
     def __init__(self):
         Item.__init__(self, self.attributeTypes)
@@ -272,9 +276,12 @@ class IncompletePackage(BaseInformation):
         'release'           : StringType,
         'arch'              : StringType,
         'org_id'            : IntType,
-        'md5sum'            : StringType,
         'package_size'      : IntType,
         'last_modified'     : DateType,
+        # those attributes are mutualy exclusive
+        'md5sum'            : StringType,       # xml dumps < 3.5
+        'checksum'          : StringType,       # xml dumps >= 3.5
+        'checksum_type'     : StringType,       # xml dumps >= 3.5
         # These attributes are lists of objects
         'channels'          : [StringType],
     }

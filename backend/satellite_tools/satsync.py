@@ -877,9 +877,6 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 package = package_collection.get_package(pid, p_timestamp)
                 assert package is not None
                 nevra = {}
-                if 'md5sum' in package:         # old pre-sha256 export
-                    package['checksum_type'] = 'md5'
-                    package['checksum'] = package['md5sum']
                 for t in nvrea_keys:
                     nevra[t] = package[t] or ""
 
