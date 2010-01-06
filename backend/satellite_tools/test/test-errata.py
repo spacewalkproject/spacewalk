@@ -19,7 +19,7 @@ if __name__ == '__main__':
     #s = StreamConnection("http://rhnapp.webdev-colo.redhat.com/SAT-DUMP",
     #s = StreamConnection("http://roadrunner.devel.redhat.com/SAT-DUMP",
     #s = StreamConnection("http://coyote.devel.redhat.com/SAT-DUMP",
-        xml_dump_version="2.0")
+        )
     systemid = open("systemid-satellite-live").read()
     f = s.dump.errata(systemid, ["rhn-erratum-1018"])
     print f.read()

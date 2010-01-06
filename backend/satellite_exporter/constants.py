@@ -16,7 +16,16 @@
 Constant values (protocol versions, etc) for satellite sync/exporter.
 """
 
-PROTOCOL_VERSION = 3.3
+PROTOCOL_VERSION = 3.5
+
+# Support for checksums other then md5
+SHA256_SUPPORTED_VERSION = 3.5
+
+# Support for redirects to CDN (Akamai)
+REDIRECTS_SUPPORTED_VERSION = 3.4
+
+# Support for supplying comps.xml files (package groups)
+COMPS_SUPPORTED_VERSION = 3.3
 
 # Support for update model details (rhn510+)
 EUS_SUPPORTED_VERSION = 3.2

@@ -26,7 +26,7 @@ if __name__ == '__main__':
     #s = StreamConnection("http://xmlrpc.rhn.webqa.redhat.com/SAT-DUMP",
     s = StreamConnection("http://satellite.rhn.redhat.com/SAT-DUMP",
     #s = StreamConnection("http://xmlrpc.rhn.webdev.redhat.com/SAT-DUMP",
-        xml_dump_version="3.0")
+        )
     systemid = open("systemid-satellite-live").read()
     #systemid = open("systemid-test01-devel").read()
     #systemid = open("/tmp/systemid-test05").read()

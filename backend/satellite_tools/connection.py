@@ -22,6 +22,7 @@ import string
 import gzipstream
 
 from rhn import rpclib
+from satellite_exporter import constants
 
 __version__ = "0.1"
 
@@ -89,7 +90,7 @@ class _Server(rpclib.Server):
 
 class StreamConnection(_Server):
     def __init__(self, uri, proxy=None, username=None, password=None, 
-                refreshCallback=None, xml_dump_version="3.3"):
+                refreshCallback=None, xml_dump_version=constants.PROTOCOL_VERSION):
         _Server.__init__(self, uri, proxy=proxy, username=username,
                 password=password, refreshCallback=refreshCallback)
         self.add_header("X-RHN-Satellite-XML-Dump-Version", xml_dump_version)
