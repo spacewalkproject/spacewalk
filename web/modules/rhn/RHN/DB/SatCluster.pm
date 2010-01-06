@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -421,7 +421,7 @@ Method to simply grab the scout_shared_key for a given sat_cluster_id
 
 =head1 COPYRIGHT
 
-Copyright (c) 2004-2005, Red Hat, Inc.  All rights reserved
+Copyright (c) 2004-2010, Red Hat, Inc.  All rights reserved
 
 =cut
 
