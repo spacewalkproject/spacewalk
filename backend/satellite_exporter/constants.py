@@ -32,3 +32,12 @@ EUS_SUPPORTED_VERSION = 3.2
 
 # Support for virt details (rhn500+)
 VIRT_SUPPORTED_VERSION = 3.1
+
+# Historical log
+# * Version 2.2 2004-03-02
+#    arch types introduced in all the arch dumps
+# * Version 2.3 2004-09-13
+#    added short package dumps per channel
+# * Version 3.0 2005-01-13
+#    required major version change for channel family merging (#136525)
+
