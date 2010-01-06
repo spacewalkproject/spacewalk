@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.7
+Version: 0.8.8
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,7 +269,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
-* Wed Jan 06 2010 Jan Pazdziora 0.8.7-1
+* Wed Jan 06 2010 Jan Pazdziora 0.8.8-1
 - Fixed the forgot_* emails.
 - More dead code removals.
 
