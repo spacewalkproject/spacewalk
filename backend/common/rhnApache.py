@@ -23,7 +23,7 @@ import os.path
 
 
 # global module imports
-from mod_python import apache
+from server import apache
 
 
 # Now local module imports

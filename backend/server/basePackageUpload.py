@@ -17,7 +17,7 @@
 
 import os
 import tempfile
-from mod_python import apache
+from server import apache
 
 from common import log_debug, rhnFault, UserDictCase
 

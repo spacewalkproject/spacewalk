@@ -21,7 +21,7 @@ import base64
 import string
 from rhn import rpclib
 from rhn.rpclib import transports
-from mod_python import apache
+from server import apache
 
 # common modules
 from common import CFG, rhnFault, rhnFlags, redirectException #to catch redirect exception

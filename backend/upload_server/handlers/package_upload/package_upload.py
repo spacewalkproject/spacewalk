@@ -20,7 +20,7 @@
 # $Id$
 
 import os
-from mod_python import apache
+from server import apache
 
 from common import CFG, log_debug, log_error, rhnFault, rhnFlags
 from server import rhnPackageUpload, basePackageUpload

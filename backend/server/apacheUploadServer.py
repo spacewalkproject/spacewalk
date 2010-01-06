@@ -16,7 +16,7 @@
 #
 
 import string
-from mod_python import apache
+from server import apache
 
 import rhnSession
 

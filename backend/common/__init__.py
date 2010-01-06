@@ -25,8 +25,8 @@ from rhnConfig import CFG, initCFG
 
 # try to figure out if we're running under Apache or not
 try:
-    import _apache
     from rhnApache import rhnApache
+    import _apache
 except ImportError:
     # no _apache available, not running under apache/mod_python
     pass
