@@ -208,7 +208,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/TokenGen/
 %{perl_vendorlib}/RHN/User.pm
 %{perl_vendorlib}/RHN/UserActions.pm
-%{perl_vendorlib}/RHN/UserGroup.pm
 %{perl_vendorlib}/RHN/Utils.pm
 %{_mandir}/man3/RHN::Command.3pm.gz
 %{_mandir}/man3/RHN::ContactGroup.3pm.gz
