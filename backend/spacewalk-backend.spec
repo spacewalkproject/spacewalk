@@ -54,6 +54,13 @@ Requires: PyPAM
 Obsoletes: rhns-server < 5.3.0
 Provides: rhns-server = %{version}-%{release}
 
+%if 0%{?rhel} && 0%{?rhel} < 6
+Requires: mod_python
+%else
+Requires: mod_wsgi
+%endif
+
+
 %description server
 This package contains the basic code that provides server/backend
 functionality for a variety of XML-RPC receivers. The architecture is
@@ -385,6 +392,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(640,root,apache) %{rhnconf}/default/rhn_server.conf
 # main httpd config
 %attr(640,root,apache) %config %{apacheconfd}/zz-spacewalk-server.conf
+
+%if 0%{?rhel} && 0%{?rhel} < 6
+%attr(640,root,apache) %config %{apacheconfd}/zz-spacewalk-server-python.conf
+%else
+%attr(640,root,apache) %config %{apacheconfd}/zz-spacewalk-server-wsgi.conf
+%endif
+
 # logs and other stuff
 %config %{_sysconfdir}/logrotate.d/rhn_server
 # translations
