@@ -27,12 +27,14 @@ my $delete_unmatched = 1;
 my $delta = "";
 my $dry_run = 0;
 my $help = 0;
+my $interval= "";
 
 my ($sql, $err, $sth);
 
 GetOptions(
         "delete-unmatched!" => \$delete_unmatched,
         "dry-run" => \$dry_run,
+	"interval:s" => \$interval,
         "keep-monitoring-data:s" => \$delta,
         "help" => \$help,
         );
@@ -86,7 +88,47 @@ if ($delete_unmatched) {
         $dry_run ? $ini->dbh->rollback : $ini->dbh->commit;
 }
 
-if ($delta) {
+if ($interval && $delta) {
+        #Lookup oldest monitoring data
+        $sql = qq|select min(entry_time) as earliest from time_series|;
+
+	$sth = $ini->dbh->prepare($sql);
+	$sth->execute;
+	my $earliest_entry = $sth->fetchrow() or die("Unable to retrieve earliest entry");
+	my $earliest_date = &ParseDateString("epoch $earliest_entry");
+	my $date=DateCalc("today", "- $delta",\$err);
+
+	print UnixDate($earliest_date,"Deleting data from %T %b %e, %Y to ").UnixDate($date,"%T %b %e, %Y")." with interval of $interval\n";
+
+	#Calculate list of intervals, last one being $date
+	my (@date_list,$interval_date);
+	while(1) {
+	        $interval_date=DateCalc(UnixDate($earliest_date,"epoch %s"),"+ $interval",\$err);
+	        if ($err > 0) {
+	                print STDERR "Error: $interval is not valid date delta.\n";
+		        exit 1;
+	        }
+	        if (Date_Cmp($interval_date,$date) >= 0) {
+		        last;
+	        }
+	        push(@date_list,$interval_date);
+	        $earliest_date=$interval_date;
+	}
+
+	push(@date_list,$date);
+
+	$sql = qq|delete from time_series where entry_time < ?|;
+	$sth = $ini->dbh->prepare($sql);
+
+	foreach my $delete_date (@date_list) {
+                print UnixDate($delete_date,"Deleting probes data older than %T %b %e, %Y...\n");
+	        $ini->dbh->begin_work;
+	        $sth->execute(UnixDate($delete_date,"%s"));
+	        print "\t", $sth->rows, " record deleted.\n";
+	        $dry_run ? $ini->dbh->rollback : $ini->dbh->commit;
+	}
+
+} elsif ($delta) {
         # delete probes older then $delta
         my $date=DateCalc("today", "- $delta", \$err);
         if ($err > 0) {
@@ -140,6 +182,14 @@ data for deleted probes too. This script will delete them too.
                 "1year 2 months 3hours"
                 "2 business days"
         For more information about format see ParseDateDelta section of Date::Manip(3)
+
+--interval INTERVAL_DELTA
+       If set, delete data older than DELTA in increments of
+       INTERVAL_DELTA, starting with the oldest record.
+       Example:
+             monitoring-data-cleanup --keep-monitoring-data 1 month --interval 1 month
+       This is used to delete large amounts of monitoring data without encountering error
+       ORA-30036 or requiring an enormous undo tablespace.
 
 --help
         Display this help.
