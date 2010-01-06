@@ -637,23 +637,16 @@ sub channel_select_options {
       @channel_list = ([ 'All managed patchsets', 'any_channel' ], [ 'Patchsets in no channels', 'no_channels' ]);
     }
 
-    if (PXT::Config->get('satellite')) {
-      my @org_channels = RHN::Channel->compat_channels_owned_by_org($pxt->user->org_id, $cid);
-      my @rh_channels = RHN::Channel->compat_channels_owned_by_org('NULL', $cid);
+    my @org_channels = RHN::Channel->compat_channels_owned_by_org($pxt->user->org_id, $cid);
+    my @rh_channels = RHN::Channel->compat_channels_owned_by_org('NULL', $cid);
 
-      @org_channels = grep { $perm_map{$_->[1]} } @org_channels;
-      @rh_channels = grep { $perm_map{$_->[1]} } @rh_channels;
+    @org_channels = grep { $perm_map{$_->[1]} } @org_channels;
+    @rh_channels = grep { $perm_map{$_->[1]} } @rh_channels;
 
-      push @channel_list, ([ 'My Channels', 'my_channels', 'optgroup' ],
+    push @channel_list, ([ 'My Channels', 'my_channels', 'optgroup' ],
 			   @org_channels,
 			   [ 'Red Hat Channels', 'redhat_channels', 'optgroup' ],
 			   @rh_channels);
-    }
-    else {
-      my @org_channels = RHN::Channel->compat_channels_owned_by_org($pxt->user->org_id, $cid);
-      @org_channels = grep { $perm_map{$_->[1]} } @org_channels;
-      push @channel_list, @org_channels;
-    }
   }
   elsif ($mode eq 'compare_channels') {
       my @org_channels = RHN::Channel->channels_owned_by_org($pxt->user->org_id);

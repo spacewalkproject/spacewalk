@@ -423,14 +423,8 @@ sub system_status_info {
     $ret->{status_class} = 'system-status-unentitled';
 
     if ($user->is('org_admin')) {
-      if ($user->org->unused_entitlements || PXT::Config->get('satellite')) {
-	$ret->{message} = 'entitle it here';
- 	$ret->{link} = "/network/systems/details/edit.pxt?sid=${sid}";
-      }
-      else {
-  	$ret->{message} = 'buy more entitlements';
-  	$ret->{link} = "/rhn/account/SubscriptionManagement.do";
-      }
+      $ret->{message} = 'entitle it here';
+      $ret->{link} = "/network/systems/details/edit.pxt?sid=${sid}";
     }
   }
   elsif ($data->{LAST_CHECKIN_DAYS_AGO} > PXT::Config->get('system_checkin_threshold')) {

@@ -785,32 +785,29 @@ sub delete_packages_from_set {
   my $lock_sth = RHN::User->lock_web_contact(-transaction => $dbh, -uid => $user_id);
   my $sth;
 
-  if (PXT::Config->get('satellite')) {
-    $sth = $dbh->prepare(<<EOQ);
+  $sth = $dbh->prepare(<<EOQ);
 SELECT P.path
   FROM rhnPackage P
  WHERE P.id IN(SELECT S.element FROM rhnSet S WHERE S.user_id = :user_id and S.label = :label)
    AND NOT EXISTS(SELECT 1 FROM rhnPackageFileDeleteQueue PFDQ WHERE PFDQ.path = P.path)
 EOQ
 
-    $sth->execute_h(user_id => $user_id, label => $set_label);
+  $sth->execute_h(user_id => $user_id, label => $set_label);
 
-    my @paths;
+  my @paths;
 
-    while (my ($path) = $sth->fetchrow) {
-      push @paths, $path;
-    }
+  while (my ($path) = $sth->fetchrow) {
+    push @paths, $path;
+  }
 
-    $sth = $dbh->prepare(<<EOQ);
+  $sth = $dbh->prepare(<<EOQ);
 INSERT
   INTO rhnPackageFileDeleteQueue (path)
 VALUES (:path)
 EOQ
 
-    foreach my $path (@paths) {
-      $sth->execute_h(path => $path);
-    }
-
+  foreach my $path (@paths) {
+    $sth->execute_h(path => $path);
   }
 
   my $query = 'delete from %s where package_id IN(SELECT S.element FROM rhnSet S WHERE S.user_id = :user_id AND S.label = :label)';

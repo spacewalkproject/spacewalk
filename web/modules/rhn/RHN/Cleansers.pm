@@ -227,12 +227,7 @@ sub verify_viewed_channel {
     $cid =~ tr/0-9//cd;
   }
 
-  if (PXT::Config->get('satellite')) {
-    return 0 unless $user->verify_channel_access(@channels);
-  }
-  else {
-    return 0 unless $user->verify_channel_admin(@channels);
-  }
+  return 0 unless $user->verify_channel_access(@channels);
 
   return 1;
 }

@@ -247,7 +247,7 @@ sub template_replace {
   my $default = $params{default};
   die "No label." unless $label;
 
-  if ($params{__block__} and PXT::Config->get('satellite')) {
+  if ($params{__block__}) {
     return $params{__block__};
   }
 
@@ -264,10 +264,6 @@ sub template_replace {
 
 sub template_block {
   my %params = @_;
-
-  unless (PXT::Config->get('satellite')) {
-    return '';
-  }
 
   my %subst = RHN::TemplateString->load_all;
 

@@ -167,7 +167,6 @@ sub render_help_link {
   my $url_prefix;
 
   if ($satellite_only) {
-    return '' unless PXT::Config->get('satellite');
     $url_prefix = '/rhn/help/satellite/en-US/';
   }
   elsif ($guide ne 'reference') {

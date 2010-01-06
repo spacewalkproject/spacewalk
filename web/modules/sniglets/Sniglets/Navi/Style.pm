@@ -329,11 +329,7 @@ sub pre_nav {
   my $self = shift;
   my $pxt = shift;
 
-  if (PXT::Config->get('satellite')) {
-    return $pxt->include(-file => "/nav/styles/navbar_top_sat.txt");
-  }
-
-  return $pxt->include(-file => "/nav/styles/navbar_top.txt");
+  return $pxt->include(-file => "/nav/styles/navbar_top_sat.txt");
 }
 
 sub post_nav {

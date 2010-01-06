@@ -347,11 +347,6 @@ sub viewed_channel_name {
   return '' unless $view_cid;
   $view_cid =~ s/^channel_//;
 
-  unless (PXT::Config->get('satellite')) {
-    throw sprintf("User '%d' has no access to channel '%d'.", $pxt->user->id, $view_cid)
-      unless $pxt->user->verify_channel_access($view_cid);
-  }
-
   my $channel = RHN::Channel->lookup(-id => $view_cid);
   my $name = $channel->name;
 

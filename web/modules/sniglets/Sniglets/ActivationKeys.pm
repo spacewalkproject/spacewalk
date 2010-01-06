@@ -174,7 +174,7 @@ sub token_details {
     $token = RHN::Token->blank_token;
     $token->user_id($pxt->user->id);
     $token->org_id($pxt->user->org_id);
-    $token->activation_key_token(PXT::Config->get('satellite') ? '' : 'Will be generated when key is created');
+    $token->activation_key_token('');
   }
 
 

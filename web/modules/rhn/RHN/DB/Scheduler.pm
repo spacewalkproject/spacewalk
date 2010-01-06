@@ -627,7 +627,6 @@ sub schedule_package_install {
   my $sth;
 
   my $rhn_class = '';
-  $rhn_class = 'RHN.' unless PXT::Config->get('satellite');
 
   if ($package_id and $server_set) {
     $query = <<EOQ;

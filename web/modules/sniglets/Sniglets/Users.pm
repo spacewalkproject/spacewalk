@@ -310,7 +310,7 @@ sub rhn_login_cb {
   $pxt->clear_user;
   $pxt->session->uid(undef);
 
-  if (PXT::Config->get('satellite') and not RHN::Org->validate_cert() ) {
+  if (not RHN::Org->validate_cert() ) {
     warn "Certificate is expired.";
     $pxt->redirect('/errors/cert-expired.pxt');
   }

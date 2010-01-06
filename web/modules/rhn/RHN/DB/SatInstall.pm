@@ -35,9 +35,6 @@ sub test_db_connection {
 sub test_db_schema {
   my $class = shift;
 
-  # hosted always has schema
-  return 1 unless PXT::Config->get("satellite");
-
   my $dbh = RHN::DB->connect;
 
   my $sth = $dbh->prepare(<<EOQ);

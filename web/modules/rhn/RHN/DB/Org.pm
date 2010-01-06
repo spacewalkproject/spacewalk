@@ -606,7 +606,7 @@ sub slot_name {
   my $self = shift;
   my $ent = shift;
 
-  if ($ent eq 'sw_mgr_entitled' and PXT::Config->get('satellite')) {
+  if ($ent eq 'sw_mgr_entitled') {
     return 'VERY BROKEN UPDATE ENTITLEMENT';
   }
 
