@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2009 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -1076,12 +1076,9 @@ class EntitlementVirtualizationListener(VirtualizationListener):
         # rhnSQL.commit()
 
 
-# Copyright (c) 2006, Red Hat Inc.
-#
+
 # This file provides an interface that allows components of the RHN server to
 # listen for virtualization events.
-#
-# $Id$
 
 ###############################################################################
 # Constants
