@@ -187,7 +187,7 @@ data for deleted probes too. This script will delete them too.
        If set, delete data older than DELTA in increments of
        INTERVAL_DELTA, starting with the oldest record.
        Example:
-             monitoring-data-cleanup --keep-monitoring-data 1 month --interval 1 month
+             monitoring-data-cleanup --keep-monitoring-data "1 month" --interval "1 month"
        This is used to delete large amounts of monitoring data without encountering error
        ORA-30036 or requiring an enormous undo tablespace.
 
