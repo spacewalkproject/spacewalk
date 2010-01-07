@@ -22,7 +22,7 @@ from common import CFG, initCFG, log_debug, log_error, log_setreq, initLOG, \
     Traceback, rhnFault, rhnException, rhnFlags
 from common.rhnTranslate import _
 from server import rhnSQL, rhnImport
-from satellite_exporter.exporter.dumper import ClosedConnectionError
+from satellite_tools.disk_dumper.dumper import ClosedConnectionError
 from satellite_exporter import constants
 
 class BaseApacheServer:
