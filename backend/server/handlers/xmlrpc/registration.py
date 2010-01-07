@@ -188,7 +188,7 @@ class Registration(rhnHandler):
             msg = _("""
                    %s Account has been deactivated on this server.
                    Please contact your Org administrator for more help.""")
-            raise rhnFault(1, msg % user, explain=0)
+            raise rhnFault(1, msg % username, explain=0)
 
         return user
 
