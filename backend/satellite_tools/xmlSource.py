@@ -250,7 +250,7 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
 # Particular case: a satellite handler
 class SatelliteDispatchHandler(BaseDispatchHandler):
     rootElement = 'rhn-satellite'
-    # this is last version of channel dump we support
+    # this is the oldest version of channel dump we support
     version = "3.0"
 
     # Historical log
