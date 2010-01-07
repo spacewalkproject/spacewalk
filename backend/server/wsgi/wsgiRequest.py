@@ -37,7 +37,7 @@ class WsgiRequest:
         self.content_type = ""
         self.the_request = env['REQUEST_METHOD'] + " " + env['SCRIPT_NAME'] + " "  + env['SERVER_PROTOCOL']
         self.output = []
-        self.err_headers_out = []
+        self.err_headers_out = WsgiDict() 
         self.status = ""
         self.sent_bodyct = 0
         self.sent_header = 0
