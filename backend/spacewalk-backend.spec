@@ -53,7 +53,7 @@ Requires: PyPAM
 Obsoletes: rhns-server < 5.3.0
 Provides: rhns-server = %{version}-%{release}
 
-%if 0%{?rhel} && 0%{?rhel} < 6
+%if  0%{?rhel} < 6
 Requires: mod_python
 %else
 Requires: mod_wsgi
@@ -258,7 +258,7 @@ export PYTHON_MODULE_NAME=%{name}
 export PYTHON_MODULE_VERSION=%{version}
 %{__python} setup.py install -O1 --root $RPM_BUILD_ROOT --prefix=%{_prefix}
 
-%if 0%{?rhel} && 0%{?rhel} < 6
+%if 0%{?rhel} < 6
 rm  $RPM_BUILD_ROOT/%{apacheconfd}/zz-spacewalk-server-wsgi.conf
 %else
 rm  $RPM_BUILD_ROOT/%{apacheconfd}/zz-spacewalk-server-python.conf
@@ -399,7 +399,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 # main httpd config
 %attr(640,root,apache) %config %{apacheconfd}/zz-spacewalk-server.conf
 
-%if 0%{?rhel} && 0%{?rhel} < 6
+%if 0%{?rhel} < 6
 %attr(640,root,apache) %config %{apacheconfd}/zz-spacewalk-server-python.conf
 %else
 %attr(640,root,apache) %config %{apacheconfd}/zz-spacewalk-server-wsgi.conf
