@@ -49,7 +49,6 @@ backend modules.
 Summary: Basic code that provides RHN Server functionality
 Group: Applications/Internet
 Requires(pre): %{name}-sql = %{version}-%{release}
-Requires: mod_python
 Requires: PyPAM
 Obsoletes: rhns-server < 5.3.0
 Provides: rhns-server = %{version}-%{release}
