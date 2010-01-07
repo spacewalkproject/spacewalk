@@ -308,8 +308,8 @@ def testChecksums(info, results):
             'version':header['version'], 
             'release':header['release'], 
             'epoch':header['epoch'], 
-            'checksum':package['checksum'][1],
-            'checksum_type':package['checksum'][0],
+            'checksum':package['checksum'],
+            'checksum_type':package['checksum_type'],
             'org_id':info['org_id'],
             'arch':header['arch'],
         }

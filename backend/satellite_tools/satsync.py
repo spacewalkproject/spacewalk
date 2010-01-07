@@ -891,8 +891,6 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 # Update the progress bar
                 pb.addTo(1)
                 pb.printIncrement()
-                # make checksum tuple (type, string)
-                package['checksum'] = (package['checksum_type'], package['checksum'])
                 self._process_package(pid, package, l_timestamp, row,
                     m_channel_packages, m_fs_packages, source=0)
             pb.printComplete()
@@ -914,11 +912,11 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             if ul:
                 raise RhnSyncException, 'ERROR: incremental dump skipped'
 
-    def _get_rel_package_path(self, nevra, org_id, source=0, checksum=None):
+    def _get_rel_package_path(self, nevra, org_id, source, checksum_type, checksum):
         return get_package_path(nevra, org_id, prepend=CFG.PREPENDED_DIR,
-            source=source, checksum=checksum)
+            source=source, checksum_type=checksum_type, checksum=checksum)
 
-    def _verify_file(self, path, mtime, size, checksum):
+    def _verify_file(self, path, mtime, size, checksum_type, checksum):
         """Verifies if the file is on the filesystem and matches the mtime and
         checksum
         Computing the checksum is costly, that's why we rely on mtime
@@ -949,8 +947,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             return (0, None)
 
         # Have to check checksum
-        l_checksum = (checksum[0],
-                      getFileChecksum(checksum[0], filename=abs_path))
+        l_checksum = getFileChecksum(checksum_type, filename=abs_path)
         if l_checksum != checksum:
             # Different checksums
             return (l_checksum, path)
@@ -964,6 +961,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         nevra = []
         for t in ['name', 'epoch', 'version', 'release', 'arch']:
             nevra.append(package[t])
+        checksum_type = package['checksum_type']
         checksum = package['checksum']
         package_size = package['package_size']
 
@@ -972,12 +970,12 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         else:
             orgid = package['org_id']
 
-        path = self._get_rel_package_path(nevra, orgid, source, checksum)
+        path = self._get_rel_package_path(nevra, orgid, source, checksum_type, checksum)
         if not row:
             # Package is missing completely from the DB
             m_channel_packages.append((package_id, path))
             (errcode, ret_path) = self._verify_file(path,
-                l_timestamp, package_size, checksum)
+                l_timestamp, package_size, checksum_type, checksum)
             if errcode == 0:
                 # Package on the filesystem, and matches
                 return
@@ -987,7 +985,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
         # Package found in the DB
         db_timestamp = int(rhnLib.timestamp(row['last_modified']))
-        db_checksum = (row['checksum_type'], row['checksum'])
+        db_checksum_type = row['checksum_type']
+        db_checksum = row['checksum']
         db_package_size = row['package_size']
         db_path = row['path']
         final_path = db_path
@@ -995,7 +994,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         # Check the filesystem
         # This is one ugly piece of code
         (errcode, ret_path) = self._verify_file(db_path, l_timestamp,
-            package_size, checksum)
+            package_size, checksum_type, checksum)
         if errcode != 0:
             if errcode != 1 or path == db_path:
                 # Package is modified; fix it
@@ -1004,7 +1003,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 # Package is missing, and the DB path is, for some
                 # reason, not the same as the computed path.
                 (errcode, ret_path) = self._verify_file(path,
-                    l_timestamp, package_size, checksum)
+                    l_timestamp, package_size, checksum_type, checksum)
                 if errcode != 1:
                     # Use the computed path
                     final_path = path
@@ -1012,7 +1011,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                         # file is modified too; re-download
                         m_fs_packages.append((package_id, final_path))
 
-        if (l_timestamp <= db_timestamp and checksum == db_checksum and
+        if (l_timestamp <= db_timestamp and
+            checksum_type == db_checksum_type and checksum == db_checksum and
             package_size == db_package_size and final_path == db_path):
             # Same package
             return
@@ -1424,12 +1424,11 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                     dest_path = os.path.join(base_path, relative_path)
                     timestamp = rhnLib.timestamp(f['last_modified'])
                     if 'md5sum' in f:   # old pre-sha256 kickstart export
-                        checksum = ('md5', f['md5sum'])
-                    else:
-                        checksum = (f['checksum_type'], f['checksum'])
+                        f['checksum_type'] = 'md5'
+                        f['checksum'] = f['md5sum']
                     file_size = f['file_size']
                     (errcode, ret_path) = self._verify_file(dest_path,
-                        timestamp, file_size, checksum)
+                        timestamp, file_size, f['checksum_type'], f['checksum'])
                     if errcode != 0:
                         # Have to download it
                         val = (kt_label, base_path, relative_path,
@@ -1678,11 +1677,13 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             if len(self.pkg_header_info) > 0:
                 for data in self.pkg_header_info:
                     if 'md5sum' in data:   # old pre-sha256 package export
-                        checksum = ('md5', data['md5sum'])
+                        checksum_type = 'md5'
+                        checksum = data['md5sum']
                     else:
-                        checksum = (data['checksum_type'], data['checksum'])
+                        checksum_type = data['checksum_type']
+                        checksum = data['checksum']
                     server_packages.processPackageKeyAssociations(data['header'], \
-                                                  checksum)
+                                                  checksum_type, checksum)
         return self._link_channel_packages()
 
     def _link_channel_packages(self):

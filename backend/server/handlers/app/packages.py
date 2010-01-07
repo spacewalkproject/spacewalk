@@ -289,10 +289,10 @@ class Packages(RPC_Base):
         relative_path = rhnPackageUpload.relative_path_from_header(
             header, org_id=org_id)
 
-        checksum = (header.checksum_type(),
-                    getFileChecksum(header.checksum_type(), file=package_stream))
+        checksum_type = header.checksum_type()
+        checksum = getFileChecksum(header.checksum_type(), file=package_stream)
         package_dict, diff_level = rhnPackageUpload.push_package(
-            header, payload_stream, checksum, org_id=org_id, force=force,
+            header, payload_stream, checksum_type, checksum, org_id=org_id, force=force,
             header_start=header_start, header_end=header_end,
             relative_path=relative_path)
 
@@ -352,7 +352,8 @@ class Packages(RPC_Base):
                 _checksum_sql_filter = ""
                 checksum_exists = 0
                 if 'md5sum' in package: # for old rhnpush compatibility
-                    package['checksum'] = ('md5', package['md5sum'])
+                    package['checksum_type'] = 'md5'
+                    package['checksum'] = package['md5sum']
 
                 if package.has_key('checksum') and CFG.ENABLE_NVREA:
                     checksum_exists = 1
@@ -371,8 +372,8 @@ class Packages(RPC_Base):
                     pkg_version=package['version'], \
                     pkg_rel=package['release'],pkg_arch=package['arch'], \
                     orgid = org_id, \
-                    checksum_type = package['checksum'][0], \
-                    checksum = package['checksum'][1])
+                    checksum_type = package['checksum_type'], \
+                    checksum = package['checksum'])
                 else:
                     h.execute(pkg_name=package['name'], \
                     pkg_epoch=pkg_epoch, \
@@ -382,7 +383,8 @@ class Packages(RPC_Base):
 
                 row = h.fetchone_dict()
 
-                package['checksum'] = (row['checksum_type'], row['checksum'])
+                package['checksum_type'] = row['checksum_type']
+                package['checksum'] = row['checksum']
                 package['org_id'] = org_id
                 package['channels'] = channelList
                 batch.append(IncompletePackage().populate(package))
@@ -535,8 +537,8 @@ class Packages(RPC_Base):
                           pkg_rel=pkg_info['release'],
                           pkg_arch=pkg_info['arch'],
                           orgid = org_id,
-                          checksum_type = pkg_info['checksum'][0],
-                          checksum = pkg_info['checksum'][1])
+                          checksum_type = pkg_info['checksum_type'],
+                          checksum = pkg_info['checksum'])
             else:
                 h.execute(pkg_name=pkg_info['name'],
                           pkg_epoch=pkg_epoch,

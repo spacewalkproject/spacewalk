@@ -49,12 +49,11 @@ class KickstartableTreeImport(Import):
             self.ks_install_types[ks_install_label] = ks_install_name
             for f in ent['files']:
                 if 'md5sum' in f:       # old pre-sha256 export
-                    checksum = ('md5', f['md5sum'])
-                else:
-                    checksum = (f['checksum_type'], f['checksum'])
-                f['checksum'] = checksum
-                if checksum not in self.checksums:
-                    self.checksums[checksum] = None
+                    f['checksum_type'] = 'md5'
+                    f['checksum'] = f['md5sum']
+                checksumTuple = (f['checksum_type'], f['checksum'])
+                if checksumTuple not in self.checksums:
+                    self.checksums[checksumTuple] = None
 
     def fix(self):
         self.backend.lookup_kstree_types(self.kstree_types)
@@ -76,7 +75,7 @@ class KickstartableTreeImport(Import):
             ent['kstree_type'] = self.kstree_types[kstree_type_label]
             ent['install_type'] = self.ks_install_types[ks_install_label]
             for f in ent['files']:
-                f['checksum_id'] = self.checksums[f['checksum']]
+                f['checksum_id'] = self.checksums[(f['checksum_type'], f['checksum'])]
 
 
     def submit(self):

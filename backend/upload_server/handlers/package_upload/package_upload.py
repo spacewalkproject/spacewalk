@@ -46,7 +46,7 @@ class PackageUpload(basePackageUpload.BasePackageUpload):
 
         try:
             rhnPackageUpload.check_package_exists(self.package_path,
-            self.file_checksum, force=0)
+            self.file_checksum_type, self.file_checksum, force=0)
         except rhnPackageUpload.AlreadyUploadedError:
             log_debug(2, "Already exists", self.rel_package_path)
             return apache.HTTP_CREATED
@@ -56,8 +56,8 @@ class PackageUpload(basePackageUpload.BasePackageUpload):
             raise rhnFault(104, 
                 "Package %s (%s: %s) already exists, with checksum (%s: %s) " %
                     (os.path.basename(self.package_path), 
-                    self.file_checksum[0], self.file_checksum[1],
-                    e.args[1][0], e.args[1][1]))
+                    self.file_checksum_type, self.file_checksum,
+                    e.args[1], e.args[2]))
 
         return apache.OK
             
@@ -74,14 +74,15 @@ class PackageUpload(basePackageUpload.BasePackageUpload):
         temp_stream = rhnPackageUpload.write_temp_file(req, buffer_size)
         header, payload_stream, header_start, header_end = \
             rhnPackageUpload.load_package(temp_stream)
-        checksum = (header.checksum_type(),
-                    getFileChecksum(header.checksum_type(), file=temp_stream))
+        checksum_type = header.checksum_type()
+        checksum = getFileChecksum(checksum_type, file=temp_stream))
         temp_stream.close()
 
-        if self.file_checksum != checksum:
+        if not (self.file_checksum_type == checksum_type
+                and self.file_checksum == checksum):
             raise rhnFault(501, "Uploaded: (%s: %s); filesystem: (%s: %s)" %
-                (self.file_checksum[0], self.file_checksum[1],
-                 checksum[0], checksum[1]))
+                (self.file_checksum_type, self.file_checksum,
+                 checksum_type, checksum))
 
         if not rhnPackageUpload.source_match(self.is_source, header.is_source):
             # Unexpected rpm package type
@@ -113,7 +114,7 @@ class PackageUpload(basePackageUpload.BasePackageUpload):
             rhnFlags.set("apache-return-code", apache.HTTP_CONFLICT)
             raise rhnFault(103, "Package %s (%s: %s) is not signed" %
                     (os.path.basename(self.package_path),
-                     self.file_checksum[0], self.file_checksum[1]))
+                     self.file_checksum_type, self.file_checksum))
 
         payload_stream.seek(0, 0)
         dirname = os.path.dirname(self.package_path)

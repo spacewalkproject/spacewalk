@@ -150,19 +150,21 @@ class RepoSync:
         temp_file = open(path, 'rb')
         header, payload_stream, header_start, header_end = \
                 rhnPackageUpload.load_package(temp_file)
-        checksum_type = header.checksum_type()
-        package.checksum = (checksum_type, getFileChecksum(
-                                                checksum_type, file=temp_file))
+        package.checksum_type = header.checksum_type()
+        package.checksum = getFileChecksum(package.checksum_type, file=temp_file))
         pid =  rhnPackage.get_package_for_checksum(
-                                  self.channel['org_id'], package.checksum)
+                                  self.channel['org_id'],
+                                  package.checksum_type, package.checksum)
 
         if pid is None:
             rel_package_path = rhnPackageUpload.relative_path_from_header(
-                    header, self.channel['org_id'], package.checksum)
+                    header, self.channel['org_id'],
+                    package.checksum_type, package.checksum)
             package_path = os.path.join(CFG.MOUNT_POINT,
                     rel_package_path)
             package_dict, diff_level = rhnPackageUpload.push_package(header,
-                    payload_stream, package.checksum, force=False,
+                    payload_stream, package.checksum_type, package.checksum,
+                    force=False,
                     header_start=header_start, header_end=header_end,
                     relative_path=rel_package_path, 
                     org_id=self.channel['org_id'])
@@ -179,6 +181,7 @@ class RepoSync:
         package['epoch'] = pack.epoch
         package['arch'] = pack.arch
         package['checksum'] = pack.checksum
+        package['checksum_type'] = pack.checksum_type
         package['channels']  = [{'label':self.channel_label, 
                                  'id':self.channel['id']}]
         package['org_id'] = self.channel['org_id']
@@ -220,6 +223,7 @@ class ContentPackage:
     def __init__(self):
         # map of checksums
         self.checksums = {}
+        self.checksum_type = None
         self.checksum = None
 
         #unique ID that can be used by plugin

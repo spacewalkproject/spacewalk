@@ -25,7 +25,7 @@ class Channel:
 
         self.label = None
         self.name = None
-        self.checksumtype = None
+        self.checksum_type = None
 
         self.num_packages = 0
         self.packages = []
@@ -47,7 +47,8 @@ class Package:
         self.epoch = 0
         self.arch = None
 
-        self.checksum = (None, None)
+        self.checksum = None
+        self.checksum_type = None
         self.summary = None
         self.description = None
         self.vendor = None

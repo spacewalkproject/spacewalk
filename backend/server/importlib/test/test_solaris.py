@@ -56,7 +56,8 @@ solaris_pkgs = [
             'version': '4.0p1'
         },
         size=1024,
-        checksum=('md5','somecrap'),
+        checksum_type='md5',
+        checksum='somecrap',
         path='/dev/null',
         org_id=1,
         channels=['solaris']
@@ -105,7 +106,8 @@ solaris_patches = [
             'version': '09',
         },
         size=1024,
-        checksum=('md5','somecrap'),
+        checksum_type='md5',
+        checksum='somecrap',
         path='/dev/null',
         org_id=1,
         channels=['solaris-patches']
@@ -196,7 +198,8 @@ solaris_patches = [
             'version': '36',
         },
         size=1024,
-        checksum=('md5','somemorecrap'),
+        checksum_type='md5',
+        checksum='somemorecrap',
         path='/dev/null',
         org_id=1,
         channels=['solaris-patches']

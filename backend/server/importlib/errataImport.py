@@ -77,12 +77,11 @@ class ErrataImport(GenericPackageImport):
     def _preprocessErratumFiles(self, erratum):
         for f in (erratum['files'] or []):
             if 'md5sum' in f:   # old pre-sha256 export
-                checksum = ('md5', f['md5sum'])
-            else:
-                checksum = (f['checksum_type'], f['checksum'])
-            f['checksum'] = checksum
-            if not self.checksums.has_key(checksum):
-                self.checksums[checksum] = None
+                f['checksum_type'] = 'md5'
+                f['checksum'] = f['md5sum']
+            checksumTuple = (f['checksum_type'], f['checksum'])
+            if not self.checksums.has_key(checksumTuple):
+                self.checksums[checksumTuple] = None
 
             if f['file_type'] == 'RPM':
                 package = f.get('pkgobj')
@@ -253,7 +252,7 @@ class ErrataImport(GenericPackageImport):
 
     def _fix_erratum_file_packages(self, erratum):
         for ef in erratum['files']:
-            ef['checksum_id'] = self.checksums[ef['checksum']]
+            ef['checksum_id'] = self.checksums[(ef['checksum_type'], ef['checksum'])]
             if ef['file_type'] == 'RPM':
                 package = ef.get('pkgobj')
                 if not package:

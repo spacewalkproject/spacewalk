@@ -252,7 +252,6 @@ class PackageImport(ChannelPackageSubscription):
                     self.capabilities[nv] = None
         # Process files too
         fileList = package['files']
-        pkg_checksum_type = package['checksum'][0]
         for f in fileList:
             nv = (f['name'], '')
             del f['name']
@@ -261,16 +260,15 @@ class PackageImport(ChannelPackageSubscription):
                 self.capabilities[nv] = None
             if type(f['md5']) == StringType:
                 # xml dumps < 3.5 (pre-sha256)
-                fchecksum = ('md5', f['md5'])
+                f['checksum_type'] = 'md5'
+                f['checksum'] = f['md5']
             elif type(f['filedigest']) == StringType:
                 # import via spacewalk-repo-sync
-                fchecksum = (pkg_checksum_type, f['filedigest'])
-            else:
-                # xml dumps > 3.5 (sha256)
-                fchecksum = (f['checksum_type'], f['checksum'])
-            f['checksum'] = fchecksum
-            if not self.checksums.has_key(fchecksum):
-                self.checksums[fchecksum] = None
+                f['checksum_type'] = package['checksum_type']
+                f['checksum'] = f['filedigest']
+            fchecksumTuple = (f['checksum_type'], f['checksum'])
+            if not self.checksums.has_key(fchecksumTuple):
+                self.checksums[fchecksumTuple] = None
 
         # Uniquify changelog entries
         changelogs = {}
@@ -369,7 +367,7 @@ class PackageImport(ChannelPackageSubscription):
         else:
             source_rpm = ''
         package['source_rpm_id'] = source_rpm
-        package['checksum_id'] = self.checksums[package['checksum']]
+        package['checksum_id'] = self.checksums[(package['checksum_type'], package['checksum'])]
 
         # Postprocess the dependency information
         for tag in ('provides', 'requires', 'conflicts', 'obsoletes', 'files'):
@@ -378,7 +376,7 @@ class PackageImport(ChannelPackageSubscription):
                 entry['capability_id'] = self.capabilities[nv]
         fileList = package['files']
         for f in fileList:
-            f['checksum_id'] = self.checksums[f['checksum']]
+            f['checksum_id'] = self.checksums[(f['checksum_type'], f['checksum'])]
 
     def __postprocessSolarisPackage(self, package):
         # set solaris patch packages for a solaris patch
@@ -406,7 +404,7 @@ class PackageImport(ChannelPackageSubscription):
             pkgDict['evr'] = evr
 
             evrs[evr] = None
-            checksums[pkgDict['checksum']] = None
+            checksums[(pkgDict['checksum_type'], pkgDict['checksum'])] = None
             names[pkgDict['name']] = None
             archs[pkgDict['arch']] = None
 
@@ -455,7 +453,7 @@ class PackageImport(ChannelPackageSubscription):
             patchDict['evr'] = evr
 
             evrs[evr] = None
-            checksums[patchDict['checksum']] = None
+            checksums[(patchDict['checksum_type'], patchDict['checksum'])] = None
             names[patchDict['name']] = None
 
         self.backend.lookupEVRs(evrs)
@@ -494,7 +492,8 @@ class PackageImport(ChannelPackageSubscription):
         package['solaris_patch_set_members'] = infoObjs
 
     def _comparePackages(self, package1, package2):
-        if package1['checksum'] == package2['checksum']:
+        if (package1['checksum_type'] == package2['checksum_type']
+            and package1['checksum'] == package2['checksum']):
             return
         # XXX Handle this better
         raise Exception("Different packages in the same batch")
@@ -560,7 +559,8 @@ class SourcePackageImport(Import):
 
 
     def _comparePackages(self, package1, package2):
-        if package1['checksum'] == package2['checksum']:
+        if (package1['checksum_type'] == package2['checksum_type']
+            and package1['checksum'] == package2['checksum']):
             return
         # XXX Handle this better
         raise Exception("Different packages in the same batch")

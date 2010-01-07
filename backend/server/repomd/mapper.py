@@ -43,7 +43,7 @@ class ChannelMapper:
         select
             c.label,
             c.name,
-            ct.label checksumtype
+            ct.label checksum_type
         from
             rhnChannel c,
             rhnChecksumType ct
@@ -112,7 +112,7 @@ class ChannelMapper:
     
         channel.label = details[0]
         channel.name = details[1]
-        channel.checksumtype = details[2]
+        channel.checksum_type = details[2]
 
         self.channel_sql.execute(channel_id = channel_id)
         package_ids = self.channel_sql.fetchall()
@@ -351,7 +351,8 @@ class SqlPackageMapper:
             package.epoch = pkg[3]
         package.arch = pkg[4]
 
-        package.checksum = (pkg[20], pkg[5])
+        package.checksum_type = pkg[20]
+        package.checksum = pkg[5]
         package.summary = string_to_unicode(pkg[6])
         package.description = string_to_unicode(pkg[7])
         package.vendor = string_to_unicode(pkg[8])

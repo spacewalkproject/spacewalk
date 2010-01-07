@@ -687,12 +687,11 @@ class GenericPackageImport(Import):
 
         # FIXME: needs to be fixed for sha256
         if not package.has_key('checksum'):
-            checksum = ('md5',package['md5sum'])
-            package['checksum'] = checksum
-        else:
-            checksum = package['checksum']
-        if not self.checksums.has_key(checksum):
-            self.checksums[checksum] = None
+            package['checksum_type'] = 'md5'
+            package['checksum'] = package['md5sum']
+        checksumTuple = (package['checksum_type'], package['checksum'])
+        if not self.checksums.has_key(checksumTuple):
+            self.checksums[checksumTuple] = None
 
     def _postprocessPackageNEVRA(self, package):
         arch = self.package_arches[package.arch]
@@ -713,7 +712,7 @@ class GenericPackageImport(Import):
 
         package['name_id'], package['evr_id'], package['package_arch_id'] = nevra
         package['nevra_id'] = nevra_dict[nevra]
-        package['checksum_id'] = self.checksums[package['checksum']]
+        package['checksum_id'] = self.checksums[(package['checksum_type'], package['checksum'])]
 
 # Exceptions
 class ImportException(Exception):
@@ -829,13 +828,14 @@ def write_temp_package(packageData, org_id, prepend=""):
     header = rhn_mpm.get_package_header(fd=fd)
     # Get nevra
     nevra = get_nevra(header)
-    checksum = ('md5', pkgmd5sum)       # FIXME sha256
+    checksum_type = 'md5'      # FIXME sha256
+    checksum = pkgmd5sum       # FIXME sha256
     relPackagePath = get_package_path(nevra, org_id, header.is_source, prepend,
-                                     checksum)
+                                     checksum_type, checksum)
     # And return this information
     return fd, header, packageSize, pkgmd5sum, relPackagePath
 
-def copy_package(fd, basedir, relpath, checksum, force=None):
+def copy_package(fd, basedir, relpath, checksum_type, checksum, force=None):
     """
     Copies the information from the file descriptor to a file
     Checks the file's checksum, raising FileConflictErrror if it's different
@@ -846,8 +846,7 @@ def copy_package(fd, basedir, relpath, checksum, force=None):
     # Is the file there already?
     if os.path.isfile(packagePath) and not force:
         # Get its checksum
-        localsum = (checksum[0],
-                    getFileChecksum(checksum[0], packagePath))
+        localsum = getFileChecksum(checksum_type, packagePath)
         if checksum == localsum:
             # Same file, so get outa here
             return 
