@@ -348,7 +348,7 @@ class UploadClass(uploadLib.UploadClass):
                 if not server_digest_hash.has_key(pkg_key):
                     continue
                 
-                digest = digest_hash[pkg_key]
+                checksum_type, checksum = digest = digest_hash[pkg_key]
                 server_digest = tuple(server_digest_hash[pkg_key])
 
                 # compare checksums for existance check
