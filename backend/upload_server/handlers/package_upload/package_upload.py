@@ -75,7 +75,7 @@ class PackageUpload(basePackageUpload.BasePackageUpload):
         header, payload_stream, header_start, header_end = \
             rhnPackageUpload.load_package(temp_stream)
         checksum_type = header.checksum_type()
-        checksum = getFileChecksum(checksum_type, file=temp_stream))
+        checksum = getFileChecksum(checksum_type, file=temp_stream)
         temp_stream.close()
 
         if not (self.file_checksum_type == checksum_type

@@ -127,7 +127,7 @@ def relative_path_from_nevra(nevra, org_id, package_type=None, checksum_type=Non
 def relative_path_from_nevra_without_package_name(nevra, org_id, checksum_type, checksum):
     log_debug(4, nevra, "no package name")
     return get_package_path_without_package_name(nevra, org_id,
-                                     prepend=CFG.PREPENDED_DIR, checksum_type, checksum)
+                                     CFG.PREPENDED_DIR, checksum_type, checksum)
 
 def push_package(header, payload_stream, checksum_type, checksum, org_id=None, force=None,
     header_start=None, header_end=None, channels=[], relative_path=None):

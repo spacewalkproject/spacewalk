@@ -478,7 +478,7 @@ class IncompletePackageItem(BaseItem):
         'checksum-type'             : 'checksum_type',  # xml dump 3.5 (sha256)
     }
 
-   def populate(self, attributes, elements):
+    def populate(self, attributes, elements):
         item = BaseItem.populate(self, attributes, elements)
         if item['md5sum']:
             # xml dumps < 3.5 (pre-sha256)

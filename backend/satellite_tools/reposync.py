@@ -151,7 +151,7 @@ class RepoSync:
         header, payload_stream, header_start, header_end = \
                 rhnPackageUpload.load_package(temp_file)
         package.checksum_type = header.checksum_type()
-        package.checksum = getFileChecksum(package.checksum_type, file=temp_file))
+        package.checksum = getFileChecksum(package.checksum_type, file=temp_file)
         pid =  rhnPackage.get_package_for_checksum(
                                   self.channel['org_id'],
                                   package.checksum_type, package.checksum)
