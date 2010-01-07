@@ -260,9 +260,9 @@ export PYTHON_MODULE_VERSION=%{version}
 %{__python} setup.py install -O1 --root $RPM_BUILD_ROOT --prefix=%{_prefix}
 
 %if 0%{?rhel} && 0%{?rhel} < 6
-rm %config %{apacheconfd}/zz-spacewalk-server-wsgi.conf
+rm  %{apacheconfd}/zz-spacewalk-server-wsgi.conf
 %else
-rm %config %{apacheconfd}/zz-spacewalk-server-python.conf
+rm  %{apacheconfd}/zz-spacewalk-server-python.conf
 %endif
 
 
