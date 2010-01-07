@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.17
+Version: 0.8.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -588,7 +588,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
-* Thu Jan 07 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.17-1
+* Thu Jan 07 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.18-1
 - made satelite-sync understand both 3.4 and 3.5 dumps
 - 175155 - bump up protocol version to 3.5
 
