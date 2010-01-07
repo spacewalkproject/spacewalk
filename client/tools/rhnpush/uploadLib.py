@@ -506,8 +506,8 @@ def _processFile(filename, relativeDir=None, source=None, nosig=None):
     # Rewind the file
     f.seek(0, 0)
     # Compute digest
-    digest = (h.checksum_type(),
-              checksum.getFileChecksum(h.checksum_type(), file=f))
+    checksum_type = h.checksum_type()
+    checksum = checksum.getFileChecksum(checksum_type, file=f)
     f.close()
     if h is None:
         raise UploadError("%s is not a valid RPM file" % filename)
@@ -533,7 +533,8 @@ def _processFile(filename, relativeDir=None, source=None, nosig=None):
 
     # Build the header hash to be sent
     hash = { 'header' : Binary(h.unload()),
-            'checksum' : digest,
+            'checksum_type' : checksum_type,
+            'checksum' : checksum,
             'packageSize' : size,
             'header_start' : header_start,
             'header_end' : header_end}
