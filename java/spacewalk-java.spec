@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.4
+Version: 0.8.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -283,6 +283,19 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jan 08 2010 Justin Sherrill <jsherril@redhat.com> 0.8.5-1
+- 553265 - fixing issue where stored profile list wasnt sorted by name
+  (jsherril@redhat.com)
+- 552900 - fixing issue where variables would have a newline on the end
+  (jsherril@redhat.com)
+- Update copyright years to end with 2010. (jpazdziora@redhat.com)
+- adding "Yum Repository Checksum Type" info to the channels/ChannelDetail.do
+  page (tlestach@redhat.com)
+- 526823 - improving speed of scheduling package installs for 1000s of systems
+  (jsherril@redhat.com)
+- 549391 - ISE when audit searching without any machine information
+  (tlestach@redhat.com)
+
 * Fri Dec 18 2009 Tomas Lestach <tlestach@redhat.com> 0.8.4-1
 - fixed exception handling (tlestach@redhat.com)
 - modifying Checksum.toString() for easier debugging (tlestach@redhat.com)
