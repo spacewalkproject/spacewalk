@@ -1423,9 +1423,6 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                     relative_path = f['relative_path']
                     dest_path = os.path.join(base_path, relative_path)
                     timestamp = rhnLib.timestamp(f['last_modified'])
-                    if 'md5sum' in f:   # old pre-sha256 kickstart export
-                        f['checksum_type'] = 'md5'
-                        f['checksum'] = f['md5sum']
                     file_size = f['file_size']
                     (errcode, ret_path) = self._verify_file(dest_path,
                         timestamp, file_size, f['checksum_type'], f['checksum'])
