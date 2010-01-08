@@ -242,7 +242,8 @@ solaris_patch_sets = [
             'version': '20050323',
         },
         size=1024,
-        chekcsum=('md5','somecrap'),
+        checksum_type='md5',
+        checksum='somecrap',
         path='/dev/null',
         org_id=1,
         channels=['solaris']
