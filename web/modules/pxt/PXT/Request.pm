@@ -25,6 +25,7 @@ use RHN::StoredMessage;
 use PXT::Trace;
 use PXT::XmlrpcRequest;
 use PXT::SoapRequest;
+use RHN::Cleansers ();
 
 use Carp qw/cluck confess/;
 use Data::Dumper;
