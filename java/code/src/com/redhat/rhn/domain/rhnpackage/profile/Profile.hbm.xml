@@ -54,7 +54,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                     FROM rhnChannel C
                    WHERE C.id = P.base_channel
                      AND C.org_id = :org_id
-                     AND C.parent_channel IS NULL) )
+                     AND C.parent_channel IS NULL) ) order by P.name
                      ]]>
         <return alias="p" class="com.redhat.rhn.domain.rhnpackage.profile.Profile" />
     </sql-query>
