@@ -3,6 +3,7 @@ Summary: Set and list custom values for RHN-enabled machines
 Group: Applications/System
 License: GPLv2 and Python
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+URL:     https://fedorahosted.org/spacewalk
 Version: 5.4.0
 Release: 1%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
