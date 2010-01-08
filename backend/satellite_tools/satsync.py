@@ -1896,7 +1896,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             hdr = rhn_rpm.get_package_header(filename=rpmManip.full_path)
 
             self.pkg_header_info.append({'header' : hdr,
-                                         'md5sum' : package['md5sum'] })
+                                         'checksum_type' : package['checksum_type'],
+                                         'checksum' : package['checksum']})
             log(1, messages.package_fetch_successful %
                 (pkg_current, pkgs_total, filename, size))
 
