@@ -1,0 +1,73 @@
+.\" Copyright 2010 Red Hat, Inc.
+.\"
+.\" This man page is free documentation; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this man page; if not, write to the Free Software
+.\" Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+.\"
+.TH RHN-CUSTOM-INFO 8 "2010 Januar 8" "Linux" "Red Hat, Inc."
+
+.SH NAME
+rhn-custom-info \- handling of custom key/value pairs for an RHN-enabled system.
+
+.SH SYNOPSIS
+
+rhn-custom-info [\fIoptions\fP] key1 value1 key2 value2 ...
+
+.SH DESCRIPTION
+
+.PP
+In RHN, RHN Satellite and Spacewalk you can define custom keys. And each 
+registred machine can have this key and its own value.
+This values can be listed and edited from WebUI or from command line
+using \fBrhn-custom-info\fR.
+.br
+Note: You can only list and edit existing keys. You can not create new key or delete
+existing key.
+
+.SH OPTIONS
+.IP "\fB-h\fR, \fB--help\fR"
+Show help message and exit.
+.br
+.IP "\fB-u RHN_LOGIN\fR, \fB--username=RHN_LOGIN\fR"
+Your username. If not enter it on command line, you will be promted.
+.br
+.IP "\fB-p RHN_PASSWD\fR, \fB--password=RHN_PASSWD\fR"
+Your password. If not enter it on command line, you will be promted.
+.br
+.IP "\fB-s URL\fR, \fB--server=URL\fR"
+Use the rhn api at URL. It should be in form http://hostname.of.your.server/rpc/api
+If you not enter it on command line it is parsed from /etc/sysconfig/rhn/up2date
+.br
+.IP "\fB-l\fR, \fB--list-values\fR"
+List the custom keys and values for the system.
+
+.SH AUTHORS
+
+Bret McMillan <bretm@redhat.com>
+.br
+Pradeep Kilambi <pkilambi@redhat.com>
+.br
+Miroslav Suchy <msuchy@redhat.com>
+
+.SH "BUGS"
+.PP
+Report bugs to <http://bugzilla.redhat.com>.
+
+.SH COPYRIGHT
+
+.PP
+Copyright \(co 1999-2010 Red Hat, Inc.
+
+.PP
+This is free software; see the source for copying conditions.  There is 
+NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.

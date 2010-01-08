@@ -31,6 +31,8 @@ make -f Makefile.rhn-custom-info all
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT
 make -f Makefile.rhn-custom-info install PREFIX=$RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_mandir}/man8/
+install -m 644 rhn-custom-info.8 $RPM_BUILD_ROOT%{_mandir}/man8/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -40,6 +42,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/rhn-custom-info
 %dir %{_datadir}/rhn/custominfo
 %{_datadir}/rhn/custominfo/rhn-custom-info.py*
+%doc LICENSE PYTHON-LICENSES.txt
+%{_mandir}/man8/rhn-custom-info.*
 
 # $Id$
 %changelog
