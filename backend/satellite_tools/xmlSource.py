@@ -613,6 +613,15 @@ class FileItem(BaseItem):
         'rhn-package-file-verifyflags': 'verifyflags',
         'rhn-package-file-lang'     : 'lang',
     }
+    def populate(self, attributes, elements):
+        item = BaseItem.populate(self, attributes, elements)
+        if 'md5' in item:
+            # xml dumps < 3.5 (pre-sha256)
+            # if md5 is empty set empty checksum - e.g. for dirs and links
+            item['checksum_type'] = 'md5'
+            item['checksum']      = item['md5']
+            del(item['md5'])
+        return item
 addItem(FileItem)
 
 class DistItem(BaseItem):
