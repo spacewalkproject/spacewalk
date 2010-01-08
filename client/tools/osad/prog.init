@@ -68,8 +68,13 @@ case "$1" in
         status "$script"
         RETVAL=$?
         ;;
+    condrestart)
+        if status "$script" >/dev/null; then
+            stop
+            start
+        fi
     *)
-        echo $"Usage: $0 {start|stop|restart|reload|status}"
+        echo $"Usage: $0 {start|stop|restart|reload|status|condrestart}"
         exit 1
 esac
 
