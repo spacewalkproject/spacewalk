@@ -574,7 +574,9 @@ class Packages(RPC_Base):
         pkg_infos = info.get('packages')
         for pkg in pkg_infos.keys():
             if pkg_infos[pkg].has_key('md5sum'):
-                pkg_infos[pkg]['checksum'] = ('md5', pkg_infos[pkg]['md5sum'])
+                pkg_infos[pkg]['checksum_type'] = 'md5'
+                pkg_infos[pkg]['checksum'] = pkg_infos[pkg]['md5sum']
+                del(pkg_infos[pkg]['md5sum'])
 
     def _Checksum2MD5sum_list(self, checksum_list):
         log_debug(5)
