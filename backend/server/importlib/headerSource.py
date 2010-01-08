@@ -23,7 +23,7 @@ import string
 from importLib import File, Dependency, ChangeLog, Channel, \
     IncompletePackage, Package, SourcePackage
 from backendLib import gmtime, localtime
-from types import ListType, TupleType, IntType
+from types import ListType, TupleType, IntType, StringType
 from common import log_debug
 from spacewalk.common.checksum import getFileChecksum
 
@@ -229,6 +229,8 @@ class rpmBinaryPackage(Package, rpmPackage):
                     # duplicate dep, ignore
                     continue
             else:
+                if tag == 'files':
+                    hash['checksum_type'] = self['checksum_type']
                 obj.populate(hash)
                 self[tag].append(obj)
 
@@ -301,6 +303,9 @@ class rpmFile(File, ChangeLog):
         if tm is not None and isinstance(tm, IntType):
             # A UNIX timestamp
             self['mtime'] = gmtime(tm)
+        if type(self['filedigest']) == StringType:
+            self['checksum'] = self['filedigest']
+            del(self['filedigest'])
     
 class rpmProvides(Dependency):
     # More mappings

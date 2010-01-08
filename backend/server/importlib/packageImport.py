@@ -259,14 +259,6 @@ class PackageImport(ChannelPackageSubscription):
             f['capability'] = nv
             if not self.capabilities.has_key(nv):
                 self.capabilities[nv] = None
-            if type(f['md5']) == StringType:
-                # xml dumps < 3.5 (pre-sha256)
-                f['checksum_type'] = 'md5'
-                f['checksum'] = f['md5']
-            elif type(f['filedigest']) == StringType:
-                # import via spacewalk-repo-sync
-                f['checksum_type'] = package['checksum_type']
-                f['checksum'] = f['filedigest']
             fchecksumTuple = (f['checksum_type'], f['checksum'])
             if not self.checksums.has_key(fchecksumTuple):
                 self.checksums[fchecksumTuple] = None
