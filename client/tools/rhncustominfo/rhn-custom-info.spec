@@ -6,7 +6,7 @@ Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.
 URL:     https://fedorahosted.org/spacewalk
 Version: 5.4.0
 Release: 1%{?dist}
-BuildRoot: /var/tmp/%{name}-%{version}-root
+BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
 BuildRequires: python
 Requires: python
