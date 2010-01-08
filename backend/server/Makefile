@@ -9,7 +9,7 @@ TOP     = ..
 SUBDIR		= server
 FILES		= __init__ \
 		  apacheServer apacheHandler apacheAuth apacheRequest \
-                  apacheUploadServer \
+                  apache apacheUploadServer \
                   byterange \
 		  configFilesHandler \
 		  rhnAuthPAM rhnCapability rhnChannel rhnDatabaseCache \

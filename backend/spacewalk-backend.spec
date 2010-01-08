@@ -337,6 +337,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %files server
 %defattr(-,root,root)
 # modules
+%{rhnroot}/server/apache.py*
 %{rhnroot}/server/apacheAuth.py*
 %{rhnroot}/server/apacheHandler.py*
 %{rhnroot}/server/apacheRequest.py*
