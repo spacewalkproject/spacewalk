@@ -733,7 +733,7 @@ public class StringUtil {
                     ValidatorException.raiseException(errorKey, option);
                 }
                 else {
-                    toReturn.put(args[0], args[1]);
+                    toReturn.put(args[0], args[1].trim());
                 }
             }
         }
