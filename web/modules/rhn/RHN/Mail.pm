@@ -77,6 +77,7 @@ sub send {
   # make sure everyone who should get this message is allowed to
   if (not $params{allow_all_domains}) {
     unless ($class->validate_allowed_recipients(grep {$_} ($params{to}, $params{cc}, $params{bcc}))) {
+      warn "Recipients ($params{to}, $params{cc}, $params{bcc}) failed validate_allowed_recipients check, mail not sent.\n";
       return;
     }
   }
