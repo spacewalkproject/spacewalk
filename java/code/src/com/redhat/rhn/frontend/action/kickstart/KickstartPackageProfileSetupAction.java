@@ -63,7 +63,7 @@ public class KickstartPackageProfileSetupAction extends RhnAction implements Lis
         KickstartData ks = KickstartFactory.lookupKickstartDataByIdAndOrg(
                 context.getCurrentUser().getOrg(), context.getRequiredParam("ksid"));
 
-
+        request.setAttribute(RequestContext.KICKSTART, ks);
         ListHelper helper = new ListHelper(this, request);
         helper.execute();
 
