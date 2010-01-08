@@ -36,10 +36,10 @@ make -f Makefile.rhn-custom-info install PREFIX=$RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root)
-/usr/bin/rhn-custom-info
-%dir /usr/share/rhn/custominfo
-/usr/share/rhn/custominfo/rhn-custom-info.py*
+%defattr(-,root,root,-)
+%{_bindir}/rhn-custom-info
+%dir %{_datadir}/rhn/custominfo
+%{_datadir}/rhn/custominfo/rhn-custom-info.py*
 
 # $Id$
 %changelog
