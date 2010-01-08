@@ -32,6 +32,9 @@ class rpmPackage(IncompletePackage):
     tagMap = {
         # Ignoring these tags
         'last_modified'     : None,
+        # We set them differently
+	'checksum'          : None,
+	'checksum_type'     : None,
     }
 
     def populate(self, header, size, checksum_type, checksum, path=None, org_id=None,
