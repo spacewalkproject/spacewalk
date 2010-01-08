@@ -4,7 +4,7 @@ Group: Applications/System
 License: GPLv2 and Python
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
-Version: 5.4.0
+Version: 5.4.1
 Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
@@ -49,6 +49,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Jan  8 2010 Miroslav Suchy <msuchy@redhat.com> 5.4.1-1
++- added man page
++- polished spec for Fedora Review
+
 * Tue Jun 16 2009 Brad Buckingham <bbuckingham@redhat.com> 5.4.0-1
 - bumping version (bbuckingham@redhat.com)
 
