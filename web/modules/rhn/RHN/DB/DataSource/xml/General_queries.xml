@@ -113,7 +113,7 @@ SELECT C.name,
        rhnChecksumView Cs
  WHERE F.package_id = :pid
    AND F.capability_id = C.id
-   AND CS.id = F.checksum_id
+   AND CS.id (+) = F.checksum_id
 ORDER BY UPPER(C.name)
   </query>
 </mode>
