@@ -289,13 +289,6 @@ class BaseItem:
         self.populateFromAttributes(item, attributes)
         # Populate the item from sub-elements
         self.populateFromElements(item, elements)
-
-        if 'md5sum' in item:
-            if item['md5sum']:
-                # xml dumps < 3.5 (pre-sha256)
-                item['checksum_type'] = 'md5'
-                item['checksum']      = item['md5sum']
-            del(item['md5sum'])
         return item
 
     
@@ -484,6 +477,15 @@ class IncompletePackageItem(BaseItem):
         'org-id'                    : 'org_id',
         'checksum-type'             : 'checksum_type',  # xml dump 3.5 (sha256)
     }
+
+    def populate(self, attributes, elements):
+        item = BaseItem.populate(self, attributes, elements)
+        if item['md5sum']:
+            # xml dumps < 3.5 (pre-sha256)
+            item['checksum_type'] = 'md5'
+            item['checksum']      = item['md5sum']
+        del(item['md5sum'])
+        return item
 addItem(IncompletePackageItem)
 
 class PackageItem(IncompletePackageItem):
