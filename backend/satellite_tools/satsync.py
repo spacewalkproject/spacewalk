@@ -1676,14 +1676,9 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             # Populate the package key info
             if len(self.pkg_header_info) > 0:
                 for data in self.pkg_header_info:
-                    if 'md5sum' in data:   # old pre-sha256 package export
-                        checksum_type = 'md5'
-                        checksum = data['md5sum']
-                    else:
-                        checksum_type = data['checksum_type']
-                        checksum = data['checksum']
-                    server_packages.processPackageKeyAssociations(data['header'], \
-                                                  checksum_type, checksum)
+                    server_packages.processPackageKeyAssociations(data['header'],
+                                         data['checksum_type'], data['checksum'])
+
         return self._link_channel_packages()
 
     def _link_channel_packages(self):
