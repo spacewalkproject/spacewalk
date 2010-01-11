@@ -615,7 +615,7 @@ class FileItem(BaseItem):
     }
     def populate(self, attributes, elements):
         item = BaseItem.populate(self, attributes, elements)
-        if 'md5' in item:
+        if 'md5' in item and type(item['md5']) == types.StringType:
             # xml dumps < 3.5 (pre-sha256)
             # if md5 is empty set empty checksum - e.g. for dirs and links
             item['checksum_type'] = 'md5'
