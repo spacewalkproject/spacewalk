@@ -23,7 +23,7 @@ from common import CFG, initCFG, log_debug, log_error, log_setreq, initLOG, \
 from common.rhnTranslate import _
 from server import rhnSQL, rhnImport
 from satellite_tools.disk_dumper.dumper import ClosedConnectionError
-from satellite_exporter import constants
+from satellite_tools import constants
 
 class BaseApacheServer:
     def __init__(self):

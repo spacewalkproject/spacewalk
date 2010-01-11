@@ -25,6 +25,7 @@ from cStringIO import StringIO
 from common import log_debug, log_error, rhnFault, UserDictCase, rhnCache, \
     CFG, rhnLib
 from server import rhnSQL, rhnDatabaseCache
+from satellite_tools import constants
 from satellite_tools.exporter import exportLib, xmlWriter
 from string_buffer import StringBuffer
 

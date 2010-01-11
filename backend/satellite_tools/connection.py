@@ -22,7 +22,7 @@ import string
 import gzipstream
 
 from rhn import rpclib
-from satellite_exporter import constants
+from satellite_tools import constants
 
 __version__ = "0.1"
 
