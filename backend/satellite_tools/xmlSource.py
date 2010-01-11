@@ -458,7 +458,7 @@ class ChannelItem(BaseItem):
         'rhn-channel-errata'        : 'errata_timestamps',
         'source-packages'           : 'source_packages',
         'rhn-channel-gpg-key-url'   : 'gpg_key_url',
-	    'rhn-channel-product-name'  : 'product_name',
+        'rhn-channel-product-name'  : 'product_name',
         'rhn-channel-product-version'  : 'product_version',
         'rhn-channel-product-beta'  : 'product_beta',
         'rhn-channel-receiving-updates' : 'receiving_updates',
