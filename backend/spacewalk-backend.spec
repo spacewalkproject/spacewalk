@@ -464,7 +464,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}/satellite_exporter
 %{rhnroot}/satellite_exporter/__init__.py*
 %{rhnroot}/satellite_exporter/satexport.py*
-%{rhnroot}/satellite_exporter/constants.py*
 
 %dir %{rhnroot}/satellite_exporter/handlers
 %{rhnroot}/satellite_exporter/handlers/__init__.py*
@@ -561,6 +560,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/xmlWireSource.py*
 %{rhnroot}/satellite_tools/updatePackages.py*
 %{rhnroot}/satellite_tools/reposync.py*
+%{rhnroot}/satellite_tools/constants.py*
 %dir %{rhnroot}/satellite_tools/disk_dumper
 %{rhnroot}/satellite_tools/disk_dumper/__init__.py*
 %{rhnroot}/satellite_tools/disk_dumper/iss.py*
