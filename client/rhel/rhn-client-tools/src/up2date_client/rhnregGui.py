@@ -1094,7 +1094,7 @@ class CreateProfilePage:
         
         if self.sendPackages:
             getArch = 0
-            if self.cfg['supportsExtendedPackageProfile']:
+            if cfg['supportsExtendedPackageProfile']:
                 getArch = 1
             packageList = rpmUtils.getInstalledPackageList(progressCallback = lambda amount,
                                                            total: gtk.main_iteration(False),
