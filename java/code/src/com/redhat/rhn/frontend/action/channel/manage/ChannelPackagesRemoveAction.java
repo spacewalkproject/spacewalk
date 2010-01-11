@@ -111,12 +111,10 @@ public class ChannelPackagesRemoveAction extends RhnAction {
 
 
     private void removePackages(User user, Channel chan, RhnSet set) {
-        for (Long id : set.getElementValues()) {
-            chan.removePackage(PackageFactory.lookupByIdAndUser(id, user), user);
-        }
-        List<Long> packList = new ArrayList<Long>();
-        packList.addAll(set.getElementValues());
-        ErrataCacheManager.deleteCacheEntriesForChannelPackages(chan.getId(), packList);
+        List<Long> ids = new ArrayList<Long>();
+        ids.addAll(set.getElementValues());
+        ChannelManager.removePackages(chan, ids, user);
+        ErrataCacheManager.deleteCacheEntriesForChannelPackages(chan.getId(), ids);
         ChannelManager.refreshWithNewestPackages(chan, "web.channel_package_remove");
     }
 
