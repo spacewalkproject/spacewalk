@@ -353,6 +353,13 @@ class rpmChangeLog(ChangeLog):
         if tm is not None and isinstance(tm, IntType):
             # A UNIX timestamp
             self['time'] = gmtime(tm)
+        # In changelog, data is either in UTF-8, or in any other
+        # undetermined encoding. Assume ISO-Latin-1 if not UTF-8.
+        for i in ('text', 'name'):
+            try:
+                self[i] = unicode(self[i], "utf-8")
+            except UnicodeDecodeError:
+                self[i] = unicode(self[i], "iso-8859-1")
 
 def sanitizePath(path):
     if not path:
