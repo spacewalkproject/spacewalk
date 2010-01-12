@@ -1394,7 +1394,7 @@ class _KickstartableTreeDumper(BaseRowDumper):
         kstree_id = self._row['id']
         h = rhnSQL.prepare("""
             select relative_filename "relative-path",
-                   c.checksum_type,
+                   c.checksum_type "checksum-type",
                    c.checksum,
                    file_size "file-size",
                     TO_CHAR(last_modified, 'YYYYMMDDHH24MISS') "last-modified"
