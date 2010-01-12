@@ -335,9 +335,6 @@ class Server:
                 else:
                      save_response = pe.errcode
 
-            if not self._allow_redirect:
-                raise InvalidRedirectionError("Redirects not allowed")
-
             self._redirected = None
             if save_response == 200:
                 break
@@ -350,6 +347,9 @@ class Server:
                  retry = retry + 1
                  self.use_handler_path = 1
                  continue
+
+            if not self._allow_redirect:
+                raise InvalidRedirectionError("Redirects not allowed")
                                 
             if self._verbose:
                 print "%s redirected to %s" % (self._uri, self._redirected)
