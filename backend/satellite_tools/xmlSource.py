@@ -747,6 +747,8 @@ class KickstartFileItem(BaseItem):
         'relative-path'             : 'relative_path',
         'file-size'                 : 'file_size',
         'last-modified'             : 'last_modified',
+        'checksum'                  : 'checksum',
+        'checksum-type'             : 'checksum_type',
     }
     def populate(self, attributes, elements):
         item = BaseItem.populate(self, attributes, elements)
