@@ -1450,6 +1450,7 @@ class ErrataDumperEx(CachedDumper, exportLib.ErrataSynopsisDumper):
         h = rhnSQL.prepare("""
             select
                 e.id,
+                e.org_id,
                 e.advisory_name,
                 e.advisory,
                 e.advisory_type,
