@@ -319,14 +319,7 @@ class Server:
             request = self._req_body(params, methodname)
 
             try:
-                if self._redirected: 
-                    type, uri = urllib.splittype(self._redirected)
- 
-                    host, handler = urllib.splithost(uri) 
-                    response = self._transport.request(host, handler, 
-                        request, verbose=self._verbose) 
-                else:    
-                    response = self._transport.request(self._host, \
+                response = self._transport.request(self._host, \
                                 self._handler, request, verbose=self._verbose)
                 save_response = self._transport.response_status
             except xmlrpclib.ProtocolError, pe:
