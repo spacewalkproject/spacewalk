@@ -329,6 +329,7 @@ class Server:
                      save_response = pe.errcode
 
             self._redirected = None
+            retry += 1
             if save_response == 200:
                 break
             elif save_response in (301, 302):
@@ -337,7 +338,6 @@ class Server:
                 redirect_response = 1
             else:
                 # Retry pkg fetch
-                 retry = retry + 1
                  self.use_handler_path = 1
                  continue
 
