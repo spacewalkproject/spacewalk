@@ -321,7 +321,6 @@ class Server:
             try:
                 if self._redirected: 
                     type, uri = urllib.splittype(self._redirected)
-                    self._redirected = None
  
                     host, handler = urllib.splithost(uri) 
                     response = self._transport.request(host, handler, 
@@ -338,7 +337,8 @@ class Server:
 
             if not self._allow_redirect:
                 raise InvalidRedirectionError("Redirects not allowed")
-           
+
+            self._redirected = None
             if save_response == 200:
                 break
             elif save_response in (301, 302):
