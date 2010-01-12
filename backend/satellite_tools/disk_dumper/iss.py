@@ -216,7 +216,6 @@ class Dumper(dumper.XML_Dumper):
 	    if self.start_date:
 	        self.brpm_query = rhnSQL.Statement("""
                      select rcp.package_id id, rp.path path,
-		            TO_CHAR(rp.last_modified, 'YYYYMMDDHH24MISS') last_modified
 		       from rhnChannelPackage rcp, rhnPackage rp
 		      where rcp.package_id = rp.id
 		        and rcp.channel_id = :channel_id
