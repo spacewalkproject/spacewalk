@@ -215,27 +215,25 @@ class Dumper(dumper.XML_Dumper):
         try:
 	    if self.start_date:
 	        self.brpm_query = rhnSQL.Statement("""
-                     select rcp.package_id id, rp.path path, c.checksum md5sum,
+                     select rcp.package_id id, rp.path path,
 		            TO_CHAR(rp.last_modified, 'YYYYMMDDHH24MISS') last_modified
-		       from rhnChannelPackage rcp, rhnPackage rp, rhnChecksum c
+		       from rhnChannelPackage rcp, rhnPackage rp
 		      where rcp.package_id = rp.id
 		        and rcp.channel_id = :channel_id
 		        and rp.last_modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
 		        and rp.last_modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
-                        and rp.checksum_id = c.id
 		""")
 	    else:
 	        self.brpm_query = rhnSQL.Statement("""
-                    select rcp.package_id id, rp.path path, c.checksum md5sum
-                      from rhnChannelPackage rcp, rhnPackage rp, rhnChecksum c
+                    select rcp.package_id id, rp.path path
+                      from rhnChannelPackage rcp, rhnPackage rp
                      where rcp.package_id = rp.id
                        and rcp.channel_id = :channel_id
-                       and rp.checksum_id = c.id
                 """)
             brpm_data = rhnSQL.prepare(self.brpm_query)
             
             #self.brpms is a list of binary rpm info. It is a list of dictionaries, where each dictionary
-            #has 'id', 'path', and 'md5sum' as the keys.
+            #has 'id' and 'path' as the keys.
             self.brpms = []
             log2stdout(1, "Gathering binary RPM info...")
             for ch in self.channel_ids:
