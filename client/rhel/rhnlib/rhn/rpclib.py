@@ -283,7 +283,12 @@ class Server:
         # call a method on the remote server
         # the loop is used to handle redirections
         redirect_response = 0
-        retry = 0        
+        retry = 0
+
+        rpc_version = __version__
+        if len(__version__.split()) > 1:
+            rpc_version = __version__.split()[1]
+
         while 1:
             if retry >= MAX_REDIRECTIONS:
                 raise InvalidRedirectionError(
@@ -294,10 +299,6 @@ class Server:
             for k, v in self._headers.items():
                 self._transport.set_header(k, v)
 
-            rpc_version = __version__
-            if len(__version__.split()) > 1:
-                rpc_version = __version__.split()[1]
- 
             self._transport.add_header("X-Info",
                 'RPC Processor (C) Red Hat, Inc (version %s)' % 
                 rpc_version)
