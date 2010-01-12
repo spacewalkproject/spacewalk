@@ -147,6 +147,9 @@ sub package_change_log {
   foreach my $change (@changelog) {
     my $current = $block;
     $current =~ s({time})(PXT::HTML->htmlify_text($change->{TIME}))egims;
+    for (qw(NAME TEXT)) {
+      utf8::encode($change->{$_}); utf8::decode($change->{$_});
+    }
     $current =~ s({modifier})(PXT::HTML->htmlify_text($change->{NAME}))egism;
     $current =~ s({entry})(PXT::HTML->htmlify_text($change->{TEXT}))egims;
     $ret .= $current;
