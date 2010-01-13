@@ -211,7 +211,7 @@ class Dumper(dumper.XML_Dumper):
         ###BINARY RPM INFO###
         try:
             query = """
-                     select rcp.package_id id, rp.path path,
+                     select rcp.package_id id, rp.path path
 		       from rhnChannelPackage rcp, rhnPackage rp
 		      where rcp.package_id = rp.id
 		        and rcp.channel_id = :channel_id
