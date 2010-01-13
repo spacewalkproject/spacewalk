@@ -79,15 +79,19 @@ def uploadPackages(info, source=0, force=0, caller=None):
 
 def __processPackage(package, org_id, channels, source):
     log_debug(4, org_id, channels, source)
-    if not package.has_key('md5sum'):
-        raise rhnFault(50, "The package's md5 digest has not been specified")
+    if 'md5sum' in package: # for old rhnpush compatibility
+        package['checksum_type'] = 'md5'
+        package['checksum'] = package['md5sum']
+        del(package['md5sum'])
+
+    if 'checksum' not in package:
+        raise rhnFault(50, "The package's checksum digest has not been specified")
     if not package.has_key('packageSize'):
         raise rhnFault(50, "The package size has not been specified")
 
     header = rhn_rpm.headerLoad(package['header'].data)
     if not header:
         raise rhnFault(50)
-    md5sum = package['md5sum']
     packageSize = package['packageSize']
     relpath = package.get('relativePath')
     
@@ -101,8 +105,8 @@ def __processPackage(package, org_id, channels, source):
         # Just say the whole package
         header_end = packageSize
 
-    checksum_type = 'md5'      # FIXME sha256
-    checksum = md5sum          # FIXME sha256
+    checksum_type = package['checksum_type']
+    checksum = package['checksum']
     p = createPackage(header, packageSize, checksum_type, checksum, relpath, org_id,
         header_start, header_end, channels)
     return p
