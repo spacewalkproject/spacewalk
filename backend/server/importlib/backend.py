@@ -490,7 +490,7 @@ class Backend:
         self.__processHash('rhnPackageGroup', 'name', hash)
 
     def lookupPackages(self, packages, ignore_missing = 0):
-        # If nevra is enabled use md5sum as primary key
+        # If nevra is enabled use checksum as primary key
         self.validate_pks()
         for package in packages:
             if not isinstance(package, IncompletePackage):
@@ -1805,21 +1805,22 @@ class Backend:
                  pe.evr.release release,
                  pa.label arch,
                  p.org_id,
-                 cc.checksum md5sum
+                 cc.checksum_type,
+                 cc.checksum
             from rhnChannel c, 
                  rhnChannelPackage cp,
                  rhnPackage p,
                  rhnPackageName pn,
                  rhnPackageEVR pe,
                  rhnPackageArch pa,
-                 rhnChecksum cc
+                 rhnChecksumView cc
             where c.label = :label
                  and p.package_arch_id = pa.id
                  and cp.channel_id = c.id
                  and cp.package_id = p.id
                  and p.name_id = pn.id
                  and p.evr_id = pe.id
-                 and p.checksum_id = pc.id
+                 and p.checksum_id = cc.id
         """
         h = self.dbmodule.prepare(query)
         h.execute(label=channel)
