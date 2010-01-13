@@ -270,9 +270,10 @@ class rpmSourcePackage(SourcePackage, rpmPackage):
         else:
             self['source_rpm'] = "%s-%s-%s.src.rpm" % tuple(nvr)
 
-        # Convert sigmd5 to ASCII
-        self['sigmd5'] = string.join(
-            map(lambda x: "%02x" % ord(x), self['sigmd5']), '')
+        # Convert sigchecksum to ASCII
+        self['sigchecksum_type'] = 'md5'
+        self['sigchecksum'] = string.join(
+            map(lambda x: "%02x" % ord(x), self['sigchecksum']), '')
 
     def populateFromFile(self, file, relpath=None, org_id=None, channels=[]):
         return self._populateFromFile(file, relpath, org_id, channels, source=1)

@@ -1386,7 +1386,8 @@ class SourcePackagesDumper(CachedDumper, exportLib.SourcePackagesDumper):
                 ps.payload_size,
                 ps.build_host, 
                 TO_CHAR(ps.build_time, 'YYYYMMDDHH24MISS') build_time,
-                sig.checksum sigmd5,
+                sig.checksum sigchecksum,
+                sig.checksum_type sigchecksum_type,
                 ps.vendor,
                 ps.cookie,
                 ps.package_size,
@@ -1394,7 +1395,7 @@ class SourcePackagesDumper(CachedDumper, exportLib.SourcePackagesDumper):
                 c.checksum,
                 TO_CHAR(ps.last_modified, 'YYYYMMDDHH24MISS') last_modified
             from rhnPackageSource ps, rhnPackageGroup pg, rhnSourceRPM sr,
-                 rhnChecksumView c, rhnChecksum sig
+                 rhnChecksumView c, rhnChecksumView sig
             where ps.id = :package_id
             and ps.package_group = pg.id
             and ps.source_rpm_id = sr.id

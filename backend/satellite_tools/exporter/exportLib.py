@@ -753,7 +753,8 @@ class SourcePackagesDumper(BaseDumper):
                 ps.payload_size,
                 ps.build_host, 
                 TO_CHAR(ps.build_time, 'YYYYMMDDHH24MISS') build_time,
-                sig.checksum sigmd5,
+                sig.checksum sigchecksum,
+                sig.checksum_type sigchecksum_type,
                 ps.vendor,
                 ps.cookie,
                 ps.package_size,
@@ -761,7 +762,7 @@ class SourcePackagesDumper(BaseDumper):
                 c.checksum,
                 TO_CHAR(ps.last_modified, 'YYYYMMDDHH24MISS') last_modified
             from rhnPackageSource ps, rhnPackageGroup pg, rhnSourceRPM sr,
-                 rhnChecksumView c, rhnChecksum sig
+                 rhnChecksumView c, rhnChecksumView sig
             where ps.package_group = pg.id
             and ps.source_rpm_id = sr.id
             and ps.path is not null
@@ -776,7 +777,7 @@ class SourcePackagesDumper(BaseDumper):
         attributes = {}
         attrs = [
             "id", "source_rpm", "package_group", "rpm_version", 
-            "payload_size", "build_host", "sigmd5", "vendor",
+            "payload_size", "build_host", "sigchecksum_type", "sigchecksum", "vendor",
             "cookie", "package_size", "checksum_type", "checksum"
         ]
         for attr in attrs:
@@ -1483,14 +1484,15 @@ def _source_packages_cursor(package_id):
             ps.payload_size,
             ps.build_host, 
             TO_CHAR(ps.build_time, 'YYYYMMDDHH24MISS') build_time,
-            sig.checksum sigmd5,
+            sig.checksum sigchecksum,
+            sig.checksum_type sigchecksum_type,
             ps.vendor,
             ps.cookie,
             ps.package_size,
             c.checksum_type,
             c.checksum
         from rhnPackageSource ps, rhnPackageGroup pg, rhnSourceRPM sr,
-             rhnChecksumView c, rhnChecksum sig
+             rhnChecksumView c, rhnChecksumView sig
         where ps.package_group = pg.id
         and ps.source_rpm_id = sr.id
         and ps.path is not null
