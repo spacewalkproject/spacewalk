@@ -33,12 +33,6 @@ except ImportError:
                 raise ValueError, "Incompatible checksum type"
 
 
-def getFileMD5(filename=None, fd=None, file=None, buffer_size=None):
-    """ Compute a file's md5sum
-        Used by rotateFile()
-    """
-    return getFileChecksum('md5', filename, fd, file, buffer_size)
-
 def getFileChecksum(hashtype, filename=None, fd=None, file=None, buffer_size=None):
     """ Compute a file's checksum
         Used by rotateFile()
@@ -73,10 +67,6 @@ def getFileChecksum(hashtype, filename=None, fd=None, file=None, buffer_size=Non
         f.close()
     return m.hexdigest()
 
-
-def getStringMD5(s):
-    """ compute md5sum of an arbitrary string """
-    return getStringChecksum('md5', s)
 
 def getStringChecksum(hashtype, s):
     """ compute checksum of an arbitrary string """
