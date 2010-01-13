@@ -317,6 +317,9 @@ class Runner:
         self._packages_report = self.syncer.download_rpms()
         return None
 
+    # def _step_srpms(self):
+    # 	return self.syncer.download_srpms()
+
     def _step_download_errata(self):
         return self.syncer.download_errata()
 
@@ -325,6 +328,9 @@ class Runner:
 
     def _step_packages(self):
         self._affected_channels = self.syncer.import_packages()
+
+    # def _step_source_packages(self):
+    #     self.syncer.import_packages(sources=1)
 
     def _step_errata(self):
         self.syncer.import_errata()
@@ -900,14 +906,17 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         self._missing_channel_packages = missing_channel_packages
         self._missing_fs_packages = missing_fs_packages
 
-    def _verify_missing_channel_packages(self, missing_channel_packages):
+    def _verify_missing_channel_packages(self, missing_channel_packages, sources=0):
         """Verify if all the missing packages are actually available somehow.
         In an incremental approach, one may request packages that are actually
         not available in the current dump, probably because of applying an
         incremental to the wrong base"""
         for channel_label, objs in missing_channel_packages.items():
             pids = map(lambda x: x[0], objs)
-            avail_pids = self._avail_channel_packages[channel_label]
+	    if sources:
+		avail_pids = map(lambda x: x[0], self._avail_channel_source_packages[channel_label])
+	    else:
+		avail_pids = self._avail_channel_packages[channel_label]
             comm, ul, ur = intersection(pids, avail_pids)
             if ul:
                 raise RhnSyncException, 'ERROR: incremental dump skipped'
@@ -1108,10 +1117,30 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 # download the packages till now
                 raise ReprocessingNeeded
 
+    def download_srpms(self):
+        self._compute_unique_source_packages()
+	    self._diff_source_packages()
+        log(1, ["", "Downloading srpm packages"])
+        # Lets go fetch the source packages and push them to their proper location:
+        for channel, missing_fs_source_packages in self._missing_fs_source_packages.items():
+            missing_source_packages_count = len(missing_fs_source_packages)
+            log(1, "   Fetching any missing SRPMs: %s (%s)" %
+                (channel, missing_source_packages_count or 'NONE MISSING'))
+            if missing_source_packages_count == 0:
+                continue
+
+            # Fetch all SRPMs whose meta-data is marked for need to be imported
+            # (ie. high chance of not being there)
+            self._fetch_packages(channel, missing_fs_source_packages, sources=1)
+            continue
+
+        log(1, "Processing srpm packages complete")
+
     def _compute_unique_source_packages(self):
         ### process package metadata for one channel at a time
         relevant = self._channel_req.get_requested_channels()
         self._channel_source_packages = channel_sp = {}
+        self._avail_channel_source_packages = avail_channel_source_packages = {}
         self._uq_channel_source_packages = uq_sp = {}
         uq = {}
         for chn in relevant:
@@ -1137,12 +1166,14 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             ret_sps.sort()
             channel_sp[chn] = ret_sps
 
-        # Uniquify the errata
+        avail_channel_source_packages[chn] = ret_sps
+
+        # Uniquify source packages
         for channel_label, sps in channel_sp.items():
             ch_sp_ids = uq_sp[channel_label] = []
             for sp_id, timestamp in sps:
                 if uq.has_key(sp_id):
-                    # Saw this erratum already
+                    # Saw this source package already
                     continue
                 ch_sp_ids.append((sp_id, timestamp))
                 uq[sp_id] = None
@@ -1154,7 +1185,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         missing_sps = {}
 
         # First, determine what has to be downloaded
-        sp_collection = sync_handlers.ShortPackageCollection()
+        sp_collection = sync_handlers.SourcePackageCollection()
         for channel, sps in self._uq_channel_source_packages.items():
             missing_sps[channel] = mp = []
 
@@ -1169,14 +1200,77 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
         return missing_sps
 
+    _query_compare_source_packages = """
+        select ps.id, c.checksum_type, c.checksum, ps.path, ps.package_size,
+               TO_CHAR(ps.last_modified, 'YYYYMMDDHH24MISS') last_modified
+          from rhnPackageSource ps, rhnChecksumView c
+         where ps.source_rpm_id = lookup_source_name(:package_id)
+           and (ps.org_id = :org_id or
+               (ps.org_id is null and :org_id is null))
+           and ps.checksum_id = c.id
+           and c.checksum = :checksum
+           and c.checksum_type = :checksum_type
+    """
+    # XXX the "is null" condition will have to change in multiorg satellites
+    def _diff_source_packages(self):
+        package_collection = sync_handlers.SourcePackageCollection()
+        sql_params = ['package_id', 'checksum', 'checksum_type']
+        h = rhnSQL.prepare(self._query_compare_source_packages)
+
+        missing_channel_source_packages = {}
+        missing_fs_source_packages = {}
+
+        for channel_label, upids in self._uq_channel_source_packages.items():
+            log(1, "Diffing source package metadata (what's missing locally?): %s" % channel_label)
+            m_channel_source_packages = missing_channel_source_packages[channel_label] = []
+            m_fs_source_packages = missing_fs_source_packages[channel_label] = []
+            pb = ProgressBar(prompt='Diffing:    ', endTag=' - complete',
+                finalSize=len(upids), finalBarLength=40, stream=sys.stdout)
+            if CFG.DEBUG > 2:
+                pb.redrawYN = 0
+            pb.printAll(1)
+
+            if not upids:
+                pb.printComplete()
+                continue
+
+            for pid, timestamp in upids:
+                package = package_collection.get_package(pid, timestamp)
+                assert package is not None
+
+	        if package.has_key('md5sum'):
+	            package['checksum_type'] = 'md5'
+	            package['checksum'] = package['md5sum']
+	        del(package['md5sum'])
+
+                params = {}
+                for t in sql_params:
+                    params[t] = package[t] or ""
+
+                if package['org_id'] is not None:
+                    params['org_id'] = OPTIONS.orgid or DEFAULT_ORG
+                    package['org_id'] = OPTIONS.orgid  or DEFAULT_ORG
+                else:
+                    params['org_id'] = package['org_id']
+
+                apply(h.execute, (), params)
+                row = h.fetchone_dict()
+                # Update the progress bar
+                pb.addTo(1)
+                pb.printIncrement()
+              # print "process package:", package['name']
+                self._process_package(pid, package, None, row,
+                    m_channel_source_packages, m_fs_source_packages, source=1)
+            pb.printComplete()
+
+        self._verify_missing_channel_packages(missing_channel_source_packages, sources=1)
+
+        self._missing_channel_source_packages = missing_channel_source_packages
+        self._missing_fs_source_packages = missing_fs_source_packages
 
     def download_source_package_metadata(self):
-        # XXX not used at the moment
-        return
         log(1, ["", "Downloading source package metadata"])
-        print "XXX not implemented"
 
-        self._compute_unique_source_packages()
         # Get the missing but uncached packages
         missing_packages = self._compute_not_cached_source_packages()
 
@@ -1223,7 +1317,6 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 # Something may have changed from the moment we started to
                 # download the packages till now
                 raise ReprocessingNeeded
-
 
     def _compute_unique_kickstarts(self):
         ### process package metadata for one channel at a time
@@ -1633,9 +1726,15 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
     # __private methods__
 
-    def import_packages(self):
-        log(1, ["", "Importing package metadata"])
-        for channel, packages in self._missing_channel_packages.items():
+    def import_packages(self, sources=0):
+        if sources:
+            log(1, ["", "Importing source package metadata"])
+            missing_channel_items = self._missing_channel_source_packages
+        else:
+            log(1, ["", "Importing package metadata"])
+            missing_channel_items = self._missing_channel_packages
+
+        for channel, packages in missing_channel_items.items():
             package_count = len(packages)
 
             log(1, messages.package_importing % (channel,
@@ -1652,11 +1751,11 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             ss = SequenceServer(packages[:], nevermorethan=self._batch_size)
             while not ss.doneYN():
                 chunk = ss.getChunk()
-                batch = self._get_cached_package_batch(chunk)
+                batch = self._get_cached_package_batch(chunk, sources)
                 # check to make sure the orgs exported are valid
                 _validate_package_org(batch)
                 try:
-                    sync_handlers.import_packages(batch)
+                    sync_handlers.import_packages(batch, sources)
                 except (SQLError, SQLSchemaError, SQLConnectError), e:
                     tbOut = cStringIO.StringIO()
                     Traceback(mail=0, ostream=tbOut, with_locals=1)
@@ -1716,12 +1815,15 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             sys.exit(14)
         return importer.affected_channels
 
-    def _get_cached_package_batch(self, chunk):
+    def _get_cached_package_batch(self, chunk, sources=0):
         # short-circuit the most common case
         if not chunk:
             return []
         short_package_collection = sync_handlers.ShortPackageCollection()
-        package_collection = sync_handlers.PackageCollection()
+        if sources:
+            package_collection = sync_handlers.SourcePackageCollection()
+        else:
+            package_collection = sync_handlers.PackageCollection()
         batch = []
         for pid, file_path in chunk:
             timestamp = short_package_collection.get_package_timestamp(pid)
@@ -1829,11 +1931,12 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
 
     def _fetch_packages(self, channel, missing_fs_packages, sources=0):
-        package_collection = sync_handlers.ShortPackageCollection()
-        #if sources:
+        if sources:
         #    acronym = "SRPM"
-        #else:
+            package_collection = sync_handlers.SourcePackageCollection()
+        else:
         #    acronym = "RPM"
+            package_collection = sync_handlers.ShortPackageCollection()
 
         self._failed_fs_packages.clear()
         self._extinct_packages.clear()

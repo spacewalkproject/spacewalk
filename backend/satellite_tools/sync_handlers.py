@@ -427,8 +427,8 @@ def get_kickstarts_handler():
     handler.set_container(KickstartableTreesContainer())
     return handler
 
-def import_packages(batch):
-    importer = packageImport.PackageImport(batch, diskImportLib.get_backend())
+def import_packages(batch, sources=0):
+    importer = packageImport.PackageImport(batch, diskImportLib.get_backend(), sources)
     importer.setUploadForce(4)
     importer.setIgnoreUploaded(1)
     importer.run()

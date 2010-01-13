@@ -375,6 +375,7 @@ class SourcePackage(IncompletePackage):
         'package_size'      : IntType,
         'md5sum'            : StringType,
         'path'              : StringType,
+        'last_modified'     : DateType,
     }
     def __init__(self):
         # Inherit from IncompletePackage

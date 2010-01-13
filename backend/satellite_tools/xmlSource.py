@@ -549,7 +549,7 @@ class SourcePackageItem(BaseItem):
         'build-host'                : 'build_host',
         'build-time'                : 'build_time',
         'package-size'              : 'package_size',
-        #???'rhn-package-last-modified' : 'last_modified',
+        'last-modified'             : 'last_modified',
     }
 addItem(SourcePackageItem)
 
