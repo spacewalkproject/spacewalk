@@ -710,7 +710,17 @@ class ErrataFileItem(BaseItem):
         # Specific to XML
         'package'                   : 'package',
         'source-package'            : 'source-package',
+        'checksum'                  : 'checksum',
+        'checksum-type'             : 'checksum_type',
     }
+    def populate(self, attributes, elements):
+        item = BaseItem.populate(self, attributes, elements)
+        if item['md5sum']:
+            # xml dumps < 3.5 (pre-sha256)
+            item['checksum_type'] = 'md5'
+            item['checksum']      = item['md5sum']
+        del(item['md5sum'])
+        return item
 addItem(ErrataFileItem)
 
 class BlacklistObsoleteItem(BaseItem):
