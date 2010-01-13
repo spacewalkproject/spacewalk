@@ -465,8 +465,19 @@ class ChannelItem(BaseItem):
     }
 addItem(ChannelItem)
 
+class BaseChecksummedItem(BaseItem):
+    def populate(self, attributes, elements):
+        item = BaseItem.populate(self, attributes, elements)
+        if ('md5sum' in item and item['md5sum']
+            and ('checksum' not in item or not item['checksum'])):
+            # xml dumps < 3.5 (aka pre-sha256)
+            item['checksum_type'] = 'md5'
+            item['checksum']      = item['md5sum']
+        del(item['md5sum'])
+        return item
+addItem(BaseChecksummedItem)
 
-class IncompletePackageItem(BaseItem):
+class IncompletePackageItem(BaseChecksummedItem):
     item_name = 'rhn-package-short'
     item_class = importLib.IncompletePackage
     tagMap = {
@@ -477,15 +488,6 @@ class IncompletePackageItem(BaseItem):
         'org-id'                    : 'org_id',
         'checksum-type'             : 'checksum_type',  # xml dump 3.5 (sha256)
     }
-
-    def populate(self, attributes, elements):
-        item = BaseItem.populate(self, attributes, elements)
-        if item['md5sum']:
-            # xml dumps < 3.5 (pre-sha256)
-            item['checksum_type'] = 'md5'
-            item['checksum']      = item['md5sum']
-        del(item['md5sum'])
-        return item
 addItem(IncompletePackageItem)
 
 class PackageItem(IncompletePackageItem):
@@ -595,7 +597,7 @@ class ObsoletesItem(BaseItem):
     }
 addItem(ObsoletesItem)
 
-class FileItem(BaseItem):
+class FileItem(BaseChecksummedItem):
     item_name = 'rhn-package-file'
     item_class = importLib.File
     tagMap = {
@@ -607,21 +609,12 @@ class FileItem(BaseItem):
         'rhn-package-file-rdev'     : 'rdev',
         'rhn-package-file-file_size': 'file_size',
         'rhn-package-file-mtime'    : 'mtime',
-        'rhn-package-file-md5'      : 'md5',
+        'rhn-package-file-md5'      : 'md5sum',
         'rhn-package-file-linkto'   : 'linkto',
         'rhn-package-file-flags'    : 'flags',
         'rhn-package-file-verifyflags': 'verifyflags',
         'rhn-package-file-lang'     : 'lang',
     }
-    def populate(self, attributes, elements):
-        item = BaseItem.populate(self, attributes, elements)
-        if 'md5' in item and type(item['md5']) == types.StringType:
-            # xml dumps < 3.5 (pre-sha256)
-            # if md5 is empty set empty checksum - e.g. for dirs and links
-            item['checksum_type'] = 'md5'
-            item['checksum']      = item['md5']
-            del(item['md5'])
-        return item
 addItem(FileItem)
 
 class DistItem(BaseItem):
@@ -701,7 +694,7 @@ class ErrorItem(BaseItem):
     tagMap = {}
 addItem(ErrorItem)
 
-class ErrataFileItem(BaseItem):
+class ErrataFileItem(BaseChecksummedItem):
     item_name = 'rhn-erratum-file'
     item_class = importLib.ErrataFile
     tagMap = {
@@ -713,14 +706,6 @@ class ErrataFileItem(BaseItem):
         'checksum'                  : 'checksum',
         'checksum-type'             : 'checksum_type',
     }
-    def populate(self, attributes, elements):
-        item = BaseItem.populate(self, attributes, elements)
-        if item['md5sum']:
-            # xml dumps < 3.5 (pre-sha256)
-            item['checksum_type'] = 'md5'
-            item['checksum']      = item['md5sum']
-        del(item['md5sum'])
-        return item
 addItem(ErrataFileItem)
 
 class BlacklistObsoleteItem(BaseItem):
@@ -750,7 +735,7 @@ class KickstartableTreeItem(BaseItem):
     }
 addItem(KickstartableTreeItem)
 
-class KickstartFileItem(BaseItem):
+class KickstartFileItem(BaseChecksummedItem):
     item_name = 'rhn-kickstart-file'
     item_class = importLib.KickstartFile
     tagMap = {
@@ -760,14 +745,6 @@ class KickstartFileItem(BaseItem):
         'checksum'                  : 'checksum',
         'checksum-type'             : 'checksum_type',
     }
-    def populate(self, attributes, elements):
-        item = BaseItem.populate(self, attributes, elements)
-        if item['md5sum']:
-            # xml dumps < 3.5 (pre-sha256)
-            item['checksum_type'] = 'md5'
-            item['checksum']      = item['md5sum']
-        del(item['md5sum'])
-        return item
 addItem(KickstartFileItem)
 
 #
