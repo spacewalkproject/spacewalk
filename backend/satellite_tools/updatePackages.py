@@ -78,7 +78,7 @@ def main():
     process_kickstart_trees()
 
 def get_new_pkg_path(nvrea, org_id, prepend="", omit_epoch=None,
-        package_type='rpm', md5sum=None):
+        package_type='rpm', checksum=None):
     name = nvrea[0]
     release = nvrea[2]
 
@@ -98,27 +98,31 @@ def get_new_pkg_path(nvrea, org_id, prepend="", omit_epoch=None,
     # normpath sanitizes the path (removing duplicated / and such)
     template = os.path.normpath(prepend +
                                "/%s/%s/%s/%s-%s/%s/%s/%s-%s-%s.%s.%s")
-    return template % (org, md5sum[:3], name, version, release, dirarch, md5sum,
+    return template % (org, checksum[:3], name, version, release, dirarch, checksum,
         name, nvrea[1], release, pkgarch, package_type)
 
 
 _get_path_query = """
-	select id, md5sum, path, epoch, new_path
+	select id, checksum_type, checksum, path, epoch, new_path
 	from (
-		select rhnPackage.id, rhnChecksum.checksum md5sum, rhnPackage.path, rhnPackageEvr.epoch,
-			decode(rhnPackage.org_id, null, 'NULL', rhnPackage.org_id) || '/' || substr(rhnChecksum.checksum, 1, 3)
+		select rhnPackage.id,
+                       rhnChecksumView.checksum_type,
+                       rhnChecksumView.checksum,
+                       rhnPackage.path,
+                       rhnPackageEvr.epoch,
+			decode(rhnPackage.org_id, null, 'NULL', rhnPackage.org_id) || '/' || substr(rhnChecksumView.checksum, 1, 3)
 			|| '/' || rhnPackageName.name
 			|| '/' || decode(rhnPackageEvr.epoch, null, '', rhnPackageEvr.epoch || ':')
 				|| rhnPackageEvr.version || '-' || rhnPackageEvr.release
 			|| '/' || rhnPackageArch.label
-			|| '/' || rhnChecksum.checksum
+			|| '/' || rhnChecksumView.checksum
 			|| substr(rhnPackage.path, instr(rhnPackage.path, '/', -1))
 			as new_path
-		from rhnPackage, rhnPackagename, rhnPackageEvr, rhnPackageArch, rhnChecksum
+		from rhnPackage, rhnPackagename, rhnPackageEvr, rhnPackageArch, rhnChecksumView
 		where rhnPackage.name_id = rhnPackageName.id
 			and rhnPackage.evr_id = rhnPackageEvr.id
 			and rhnPackage.package_arch_id = rhnPackageArch.id
-                        and rhnPackage.checksum_id = rhnChecksum.id
+                        and rhnPackage.checksum_id = rhnChecksumView.id
 		)
 	where '/' || new_path <> nvl(substr(path, -length(new_path) - 1), 'x')
 """
@@ -168,14 +172,15 @@ def process_package_data():
             continue
         old_abs_path = os.path.join(CFG.MOUNT_POINT, path['path'])
 
-        md5sum = path['md5sum']
+        checksum_type = path['checksum_type']
+        checksum = path['checksum']
         new_path = get_new_pkg_path(nvrea, org_id, old_path_nvrea[0], \
-                                    md5sum=md5sum)
+                                    checksum=checksum)
         new_abs_path = os.path.join(CFG.MOUNT_POINT, new_path)
 
         bad_abs_path = os.path.join(CFG.MOUNT_POINT, \
                    get_new_pkg_path(nvrea, org_id, old_path_nvrea[0], \
-                             omit_epoch = True, md5sum=md5sum))
+                             omit_epoch = True, checksum=checksum))
 
         if not os.path.exists(old_abs_path):
             if os.path.exists(new_abs_path):
@@ -215,8 +220,6 @@ def process_package_data():
         if debug: Log.writeMessage("query Executed: update rhnPackage %d to %s" \
                                % ( path['id'], new_path ))
         # Process gpg key ids
-        checksum_type = 'md5'   # FIXME sha256
-        checksum =  md5sum      # FIXME sha256
         server_packages.processPackageKeyAssociations(hdr, checksum_type, checksum)
         if debug: Log.writeMessage("gpg key info updated from %s" % new_abs_path )
         i = i + 1
