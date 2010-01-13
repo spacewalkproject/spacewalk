@@ -238,7 +238,7 @@ class File(Item):
         'verifyflags'       : IntType,
         'lang'              : StringType,
         # those attributes are mutualy exclusive
-        'md5'               : StringType,       # xml dumps < 3.5
+        'md5sum'            : StringType,       # xml dumps < 3.5
         'filedigest'        : StringType,       # spacewalk-repo-sync
         'checksum'          : StringType,       # xml dumps >= 3.5
         'checksum_type'     : StringType,       # xml dumps >= 3.5
@@ -335,7 +335,6 @@ class Package(IncompletePackage):
         'source_rpm'        : StringType,
         'package_size'      : IntType,
         'last_modified'     : DateType,
-        'md5sum'            : StringType,
         'sigmd5'            : StringType,
         'sigpgp'            : StringType,
         'siggpg'            : StringType,
@@ -343,6 +342,10 @@ class Package(IncompletePackage):
         'header_start'      : IntType,
         'header_end'        : IntType,
         'path'              : StringType,
+        # these attributes are mutualy exclusive
+        'md5sum'            : StringType,       # xml dumps < 3.5
+        'checksum'          : StringType,       # xml dumps >= 3.5
+        'checksum_type'     : StringType,       # xml dumps >= 3.5
         # These attributes are lists of objects
         'files'             : [File],
         'requires'          : [Dependency],
@@ -373,9 +376,12 @@ class SourcePackage(IncompletePackage):
         'vendor'            : StringType,
         'cookie'            : StringType,
         'package_size'      : IntType,
-        'md5sum'            : StringType,
         'path'              : StringType,
         'last_modified'     : DateType,
+        # these attributes are mutualy exclusive
+        'md5sum'            : StringType,       # xml dumps < 3.5
+        'checksum'          : StringType,       # xml dumps >= 3.5
+        'checksum_type'     : StringType,       # xml dumps >= 3.5
     }
     def __init__(self):
         # Inherit from IncompletePackage
@@ -392,9 +398,12 @@ class SourcePackage(IncompletePackage):
 class SourcePackageFile(Information):
     attributeTypes = {
         'file_size'         : IntType,
-        'md5sum'            : StringType,
         'path'              : StringType,
         'org_id'            : IntType,
+        # these attributes are mutualy exclusive
+        'md5sum'            : StringType,       # xml dumps < 3.5
+        'checksum'          : StringType,       # xml dumps >= 3.5
+        'checksum_type'     : StringType,       # xml dumps >= 3.5
     }
 
 
@@ -407,11 +416,14 @@ class Bug(Information):
 
 class ErrataFile(Information):
     attributeTypes = {
-        'md5sum'            : StringType,
         'filename'          : StringType,
         'file_type'         : StringType,
         'channel_list'      : [StringType],
         'package_id'        : IntType,
+        # these attributes are mutualy exclusive
+        'md5sum'            : StringType,       # xml dumps < 3.5
+        'checksum'          : StringType,       # xml dumps >= 3.5
+        'checksum_type'     : StringType,       # xml dumps >= 3.5
     }
 
 
@@ -520,7 +532,10 @@ class KickstartFile(Information):
         'relative_path' : StringType,
         'last_modified' : DateType,
         'file_size'     : IntType,
-        'md5sum'        : StringType,
+        # these attributes are mutualy exclusive
+        'md5sum'            : StringType,       # xml dumps < 3.5
+        'checksum'          : StringType,       # xml dumps >= 3.5
+        'checksum_type'     : StringType,       # xml dumps >= 3.5
     }
 
 class KickstartableTree(Information):

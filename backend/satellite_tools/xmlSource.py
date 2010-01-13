@@ -468,12 +468,12 @@ addItem(ChannelItem)
 class BaseChecksummedItem(BaseItem):
     def populate(self, attributes, elements):
         item = BaseItem.populate(self, attributes, elements)
-        if ('md5sum' in item and item['md5sum']
-            and ('checksum' not in item or not item['checksum'])):
-            # xml dumps < 3.5 (aka pre-sha256)
-            item['checksum_type'] = 'md5'
-            item['checksum']      = item['md5sum']
-        del(item['md5sum'])
+        if 'md5sum' in item:
+            if type(item['checksum']) != types.StringType:
+                # xml dumps < 3.5 (aka pre-sha256)
+                item['checksum_type'] = 'md5'
+                item['checksum']      = item['md5sum']
+            del(item['md5sum'])
         return item
 addItem(BaseChecksummedItem)
 
@@ -614,6 +614,7 @@ class FileItem(BaseChecksummedItem):
         'rhn-package-file-flags'    : 'flags',
         'rhn-package-file-verifyflags': 'verifyflags',
         'rhn-package-file-lang'     : 'lang',
+        'md5' : 'md5sum',
     }
 addItem(FileItem)
 
