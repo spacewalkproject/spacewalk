@@ -432,9 +432,6 @@ def get_channels_for_package(pkg):
         return []
     return map(lambda c: c['label'], ret)
 
-def get_package_for_md5sum(org_id, md5sum):
-     return get_package_for_checksum(org_id, 'md5', md5sum)
-
 def get_package_for_checksum(org_id, checksum_type, checksum):
      statement = """
      select
