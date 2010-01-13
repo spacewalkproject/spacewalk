@@ -32,14 +32,6 @@
       <html:text property="title" size="30" maxlength="30"/>
     </td>
   </tr>
-  <tr>
-    <th><bean:message key="usertype.displayname"/></th>
-    <td>
-    	<c:forEach var="role" items="${userDetailsForm.map.usersRoles}" varStatus="status">
-    		${role}<c:if test="${not status.last}">,</c:if>
-    	</c:forEach>
-    </td>
-  </tr>
   <rhn:require acl="user_role(org_admin)">
     <c:if test="${displaypam == true}">
       <tr>
