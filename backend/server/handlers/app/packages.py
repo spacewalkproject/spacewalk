@@ -697,41 +697,6 @@ class Packages(RPC_Base):
                     
         return row_list
         
-    # XXX Are these still used anywhere?
-    # XXX To be moved
-    
-    # Helper functions
-    def _getSourcePackageInfo(self, source_rpm_id):
-        """ Get dictionary containing source package information. """
-        log_debug(4, source_rpm_id)
-        statement = """
-            select
-                ps.id,
-                sr.name,
-                ps.rpm_version version,
-                ps.path,
-                ps.package_size,
-                c.checksum md5sum
-                
-            from
-                rhnSourceRpm sr,
-                rhnPackageSource ps,
-                rhnChecksum c
-            where
-                    ps.source_rpm_id = :sri
-                and ps.source_rpm_id = sr.id
-                and ps.checksum_id = c.id
-        """
-        h = rhnSQL.prepare(statement)
-        h.execute(sri=int(source_rpm_id))
-        row = h.fetchone_dict()
-        # Fix the darn nulls
-        if row:
-            for k in row.keys():
-                if row[k] is None:
-                    row[k] = ''
-        return row
- 
 def auth(login, password):
     """ Authorize this user. """
     authobj = UserAuth()
