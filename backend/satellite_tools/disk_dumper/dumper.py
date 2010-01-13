@@ -866,8 +866,9 @@ class SatelliteDumper(exportLib.SatelliteDumper):
 class SatelliteDumperEx(SatelliteDumper):
     def set_attributes(self):
         """ Overriding with our own version """
-        attributes = SatelliteDumper.set_attributes(self)
+        attributes = exportLib.SatelliteDumper.set_attributes(self)
         attributes['version'] = constants.PROTOCOL_VERSION
+        attributes['generation'] = CFG.SAT_CERT_GENERATION
         return attributes
 
 class QueryIterator:
