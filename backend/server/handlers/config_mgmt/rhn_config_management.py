@@ -253,7 +253,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                cc.label config_channel, 
                ccont.contents file_contents,
                ccont.is_binary,
-               c.checksum md5sum,
+               c.checksum_type,
+               c.checksum,
                cr.delim_start, cr.delim_end,
                cr.revision,
                cf.modified,
@@ -267,7 +268,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                rhnConfigRevision cr,
                rhnConfigFile cf,
                rhnConfigContent ccont,
-               rhnChecksum c,
+               rhnChecksumView c,
 	       rhnConfigFileType cft
          where cf.config_channel_id = cc.id
            and cc.label = :config_channel
@@ -285,7 +286,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                cc.label config_channel, 
                ccont.contents file_contents,
                ccont.is_binary,
-               c.checksum md5sum,
+               c.checksum_type,
+               c.checksum,
                cr.delim_start, cr.delim_end,
                cr.revision,
                cf.modified,
@@ -299,7 +301,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                rhnConfigRevision cr,
                rhnConfigFile cf,
                rhnConfigContent ccont,
-               rhnChecksum c,
+               rhnChecksumView c,
  	       rhnConfigFileType cft
          where cf.config_channel_id = cc.id
            and cc.label = :config_channel
