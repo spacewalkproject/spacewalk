@@ -57,7 +57,7 @@ def parseRPMName(pkgName):
     n, v, r = reg.group(1,2,3)
     e = ""
     ind = string.find(r, ':')
-    if ind => 0: # epoch found
+    if ind >= 0: # epoch found
         e = r[ind+1:]
         r = r[0:ind]
     return str(n), str(e), str(v), str(r)
