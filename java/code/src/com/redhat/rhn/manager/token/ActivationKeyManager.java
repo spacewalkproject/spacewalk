@@ -428,7 +428,7 @@ public class ActivationKeyManager {
      * @param user TODO
      */
     public void changeKey(String newKey, ActivationKey key, User user) {
-        newKey = newKey.trim();
+        newKey = newKey.trim().replace(" ", "");
         String oldKey = key.getKey();
         if (!newKey.equals(key.getKey())) {
             ActivationKeyFactory.validateKeyName(newKey);

@@ -114,10 +114,10 @@ public class ActivationKeyFactory extends HibernateFactory {
             keyToUse = generateKey();
         }
         else {
-            validateKeyName(key.trim());
+            validateKeyName(key.trim().replace(" ", ""));
         }
 
-        keyToUse = ActivationKey.makePrefix(user.getOrg()) + keyToUse.trim();
+        keyToUse = ActivationKey.makePrefix(user.getOrg()) + keyToUse.trim().replace(" ", "");
         
         if (server != null) {
             keyToUse = "re-" + keyToUse;
