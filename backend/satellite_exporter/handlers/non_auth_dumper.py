@@ -448,7 +448,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
     def get_package_path_by_filename(self, fileName, channel):
         log_debug(3, fileName, channel)
         fileName = str(fileName)
-        n, v, r, e, a = rhnLib.parseRPMFilename(fileName)
+        n, e, v, r, a = rhnLib.parseRPMFilename(fileName)
 
         h = rhnSQL.prepare(self._query_get_package_path_by_nvra)
         h.execute(name=n, version=v, release=r, epoch=e, arch=a, channel=channel)

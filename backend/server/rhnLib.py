@@ -49,7 +49,7 @@ def computeSignature(*fields):
 re_rpmName = re.compile("^(.*)-([^-]*)-([^-]*)$")
 def parseRPMName(pkgName):
     """ IN:  Package string in, n-n-n-v.v.v-r.r_r, format.
-        OUT: Four strings (in a tuple): name, version, release, epoch.
+        OUT: Four strings (in a tuple): name, epoch, version, release.
     """
     reg = re_rpmName.match(pkgName)
     if reg == None:
@@ -57,11 +57,10 @@ def parseRPMName(pkgName):
     n, v, r = reg.group(1,2,3)
     e = ""
     ind = string.find(r, ':')
-    if ind < 0: # no epoch
-        return str(n), str(v), str(r), str(e)
-    e = r[ind+1:]
-    r = r[0:ind]
-    return str(n), str(v), str(r), str(e)
+    if ind => 0: # epoch found
+        e = r[ind+1:]
+        r = r[0:ind]
+    return str(n), str(e), str(v), str(r)
 
 
 # 'n_n-n-v.v.v-r_r.r:e.ARCH.rpm' ---> [n,v,r,e,a]
@@ -76,7 +75,7 @@ def parseRPMFilename(pkgFilename):
        o Release can include the Epoch, e.g.: 2:4 (4 is the epoch)
        o Epoch: Can include anything except a - and the : seperator???
          XXX: Is epoch info above correct?
-    OUT: [n,v,r,e, arch].
+    OUT: [n,e,v,r, arch].
     """
     if type(pkgFilename) != type(''):
 	raise rhnFault(21, str(pkgFilename)) # Invalid arg.

@@ -137,9 +137,9 @@ def process_package_data():
         old_path_nvrea = path['path'].split('/')
         org_id = old_path_nvrea[1]
         try:
-            nvrea = parseRPMFilename(old_path_nvrea[-1])
-            if nvrea[3] in [ None, '']:
-                nvrea[3] = path['epoch']
+            nevra = parseRPMFilename(old_path_nvrea[-1])
+            if nevra[1] in [ None, '']:
+                nevra[1] = path['epoch']
         except:
             # probably not qan rpm skip
             if debug:
@@ -150,7 +150,6 @@ def process_package_data():
 
         checksum_type = path['checksum_type']
         checksum = path['checksum']
-        nevra = (nvrea[0], nvrea[3], nvrea[1], nvrea[2], nvrea[4])
         new_path = get_package_path(nevra, org_id, prepend=old_path_nvrea[0],
                                     checksum=checksum)
         new_abs_path = os.path.join(CFG.MOUNT_POINT, new_path)
