@@ -82,7 +82,9 @@
         <rhn-tab-url>/rhn/kickstart/TreeEdit.do</rhn-tab-url>
         <rhn-tab-url>/rhn/kickstart/TreeCreate.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="File Preservation" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/systems/provisioning/preservation/PreservationList.do" />
+      <rhn-tab name="File Preservation" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/systems/provisioning/preservation/PreservationList.do">
+        <rhn-tab-url>/rhn/systems/provisioning/preservation/PreservationListEdit.do</rhn-tab-url>
+      </rhn-tab>
       <rhn-tab name="snippets.jsp.toolbar" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/kickstart/cobbler/CustomSnippetList.do" >
         <rhn-tab-url>/rhn/kickstart/cobbler/CobblerSnippetList.do</rhn-tab-url>
         <rhn-tab-url>/rhn/kickstart/cobbler/CustomSnippetList.do</rhn-tab-url>
