@@ -817,42 +817,6 @@ def removeNone(list):
 
 # Assorted functions for various things
 
-def write_temp_package(packageData, org_id, prepend=""):
-    """
-    Writes the package data to a temporary file
-    Returns:
-        an open file descriptor to the temp file
-        header: an RPM header
-        package size
-        package md5sum
-        relative path
-        a source flag
-    """
-    log_debug(3, 'prepend', prepend)
-    packageSize = len(packageData)
-    # Create a temp file to write the package into
-    filename, fd = maketemp("/tmp/package")
-    os.unlink(filename)
-    # Rewind the fd
-    os.lseek(fd, 0, 0)
-    # Write the bits
-    os.write(fd, packageData)
-    # Clean up the package variable
-    del packageData
-    # Compute the md5sum
-    pkgmd5sum = getFileChecksum('md5', None, fd)        # FIXME sha256
-    # Read the RPM header
-    os.lseek(fd, 0, 0)
-    header = rhn_mpm.get_package_header(fd=fd)
-    # Get nevra
-    nevra = get_nevra(header)
-    checksum_type = 'md5'      # FIXME sha256
-    checksum = pkgmd5sum       # FIXME sha256
-    relPackagePath = get_package_path(nevra, org_id, header.is_source, prepend,
-                                     checksum_type, checksum)
-    # And return this information
-    return fd, header, packageSize, pkgmd5sum, relPackagePath
-
 def copy_package(fd, basedir, relpath, checksum_type, checksum, force=None):
     """
     Copies the information from the file descriptor to a file
@@ -889,18 +853,6 @@ def copy_package(fd, basedir, relpath, checksum_type, checksum, force=None):
     # set the path perms readable by all users
     setPermsPath(packagePath, chmod=0644)
 
-
-# Assuming packageData is an RPM package, writes it on the disk
-# (optionally forcing the write)
-def write_package(packageData, basedir, org_id, prepend="", force=None):
-    """
-    Writes the bytes in a directory structure
-    """
-    fd, header, packageSize, md5sum, relpath = write_temp_package(
-        packageData, org_id, prepend)
-    copy_package(fd, basedir, relpath, md5sum, force=force)
-    os.close(fd)
-    return header, relpath, md5sum, packageSize
 
 # Returns a list of containing nevra for the given RPM header
 def get_nevra(header):
