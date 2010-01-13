@@ -65,7 +65,7 @@ backendOracle.py, you'll notice several values for severities:
         fix the path.
     2 means "same object, different signature" (only for packages too). If
       build_time and build_host are the same (as well as everything else except
-      for md5sum and package_size), then the package was resigned.
+      for checksum and package_size), then the package was resigned.
     3 means "everything the same, except build_time and build_host". Probably
       package recompiled.
     4 (default) means something critical changed.

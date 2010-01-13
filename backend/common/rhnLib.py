@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2009 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -262,7 +262,7 @@ def rotateFile(filepath, depth=5, suffix='.', verbosity=0):
           (2)
             all file stats preserved. Doesn't blow away original file.
           (3)
-            if x.txt and x.txt.1 are identical (size or md5sum), None is
+            if x.txt and x.txt.1 are identical (size or checksum), None is
             returned
     """
 
@@ -292,7 +292,7 @@ def rotateFile(filepath, depth=5, suffix='.', verbosity=0):
         sys.stderr.write("Working dir: %s\n"
                          % os.path.dirname(pathNSuffix))
 
-    # is there anything to do? (existence, then size, then md5sum)
+    # is there anything to do? (existence, then size, then checksum)
     checksum_type = 'md5'       # FIXME: this should be configuation option
     if os.path.exists(pathNSuffix1) and os.path.isfile(pathNSuffix1) \
       and os.stat(filepath)[6] == os.stat(pathNSuffix1)[6] \
