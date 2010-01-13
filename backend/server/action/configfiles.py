@@ -115,7 +115,8 @@ _query_get_files = rhnSQL.Statement("""
            cc.label config_channel,
            ccont.contents file_contents,
            ccont.is_binary is_binary,
-           c.checksum md5sum,
+           c.checksum_type,
+           c.checksum,
            cr.delim_start,
            cr.delim_end,
            cr.revision,
@@ -127,7 +128,7 @@ _query_get_files = rhnSQL.Statement("""
       from 
            rhnConfigFileState cfs,
            rhnConfigContent ccont,
-           rhnChecksum c,
+           rhnChecksumView c,
            rhnConfigChannel cc,
            rhnConfigFileName cfn,
            rhnConfigInfo ci,

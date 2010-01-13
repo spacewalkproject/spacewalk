@@ -21,7 +21,7 @@ import base64
 import os
 
 from common import rhnFault, rhnException, log_debug, CFG, rhnFlags
-from spacewalk.common.checksum import getStringMD5
+from spacewalk.common.checksum import getStringChecksum
 
 from server import rhnSQL, rhnUser, rhnCapability
 from server.rhnHandler import rhnHandler
@@ -222,9 +222,10 @@ class ConfigFilesHandler(rhnHandler):
         return result
 
     _query_content_lookup = rhnSQL.Statement("""
-        select id, c.checksum md5sum, file_size, contents, is_binary
-          from rhnConfigContent, rhnChecksum c
-         where c.checksum = :md5sum
+        select id, c.checksum_type, c.checksum, file_size, contents, is_binary
+          from rhnConfigContent, rhnChecksumView c
+         where c.checksum = :checksum
+           and c.checksum_type = :checksum_type
            and file_size = :file_size
            and checksum_id = c.id
     """)
@@ -232,14 +233,14 @@ class ConfigFilesHandler(rhnHandler):
     _query_insert_content = rhnSQL.Statement("""
         insert into rhnConfigContent 
                (id, checksum_id, file_size, contents, is_binary)
-        values (:config_content_id, lookup_checksum('md5', :md5sum),
+        values (:config_content_id, lookup_checksum(:checksum_type, :checksum),
                 :file_size, empty_blob(), :is_binary)
     """)
 
     _query_insert_null_content = rhnSQL.Statement("""
         insert into rhnConfigContent 
                (id, checksum_id, file_size, contents, is_binary)
-        values (:config_content_id, lookup_checksum('md5', :md5sum),
+        values (:config_content_id, lookup_checksum(:checksum_type, :checksum),
                 :file_size, NULL, :is_binary)
     """)
 
@@ -251,6 +252,8 @@ class ConfigFilesHandler(rhnHandler):
     """)
 
     def _push_contents(self, file):
+
+        checksum_type = 'md5'       # FIXME: this should be configuration option
 
         file['file_size'] = 0
         file['is_binary'] = 'N'
@@ -265,8 +268,8 @@ class ConfigFilesHandler(rhnHandler):
 	    log_debug(4, "Client does not support config directories, so set file_type_id to 1")
             file['config_file_type_id'] = '1'
 
-        md5sum = getStringMD5(file_contents or '')
-        file['md5sum'] = md5sum
+        file['checksum_type'] = checksum_type
+        file['checksum'] = getStringChecksum(checksum_type, file_contents or '')
 
         if file_contents:
             file['file_size'] = len(file_contents)
@@ -493,7 +496,8 @@ def format_file_results(row, server=None):
         'path'          : row['path'],
         'config_channel': row['config_channel'],
         'file_contents' : contents or '',
-        'md5sum'        : row['md5sum'],
+        'checksum_type' : row['checksum_type'],
+        'checksum'      : row['checksum'],
         'delim_start'   : row['delim_start'],
         'delim_end'     : row['delim_end'],
         'revision'      : row['revision'],
