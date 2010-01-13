@@ -1119,7 +1119,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
     def download_srpms(self):
         self._compute_unique_source_packages()
-	    self._diff_source_packages()
+        self._diff_source_packages()
         log(1, ["", "Downloading srpm packages"])
         # Lets go fetch the source packages and push them to their proper location:
         for channel, missing_fs_source_packages in self._missing_fs_source_packages.items():
