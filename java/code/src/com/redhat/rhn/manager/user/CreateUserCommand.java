@@ -16,6 +16,7 @@ package com.redhat.rhn.manager.user;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.hibernate.LookupException;
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.validator.RequiredConstraint;
 import com.redhat.rhn.common.validator.ValidatorError;
@@ -30,6 +31,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedSet;
 import java.util.regex.Pattern;
 
 import javax.mail.internet.AddressException;
@@ -76,6 +78,7 @@ public class CreateUserCommand {
         }
         validateEmail();
         validateLogin();
+        validatePrefix();
         
         return (ValidatorError[]) errors.toArray(new ValidatorError[0]);
     }
@@ -210,6 +213,21 @@ public class CreateUserCommand {
         
     }
     
+    /**
+     * Private helper method to validate the user's prefix. Puts errors into the
+     * errors list.
+     */
+    private void validatePrefix() {
+        // Make sure set prefix is valid
+        SortedSet validPrefixes = LocalizationService.getInstance().availablePrefixes();
+        if (!LocalizationService.getInstance().availablePrefixes().contains(
+                                                                    user.getPrefix())) {
+            errors.add(new ValidatorError(
+                    "Invalid prefix [" + user.getPrefix() + "]. Must be one of " +
+                    validPrefixes.toString()));
+        }
+    }
+
     /**
      * Private helper method to validate the password. This happens when the setPassword
      * method of this class is called. Puts errors into the passwordErrors list.
