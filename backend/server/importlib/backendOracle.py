@@ -102,8 +102,6 @@ class OracleBackend(Backend):
             severityHash = {
                 'mtime'         : 0,
                 'file_size'     : 4,
-                # FIXME: sha256
-                #'md5'           : 4,
             },
         ),
         Table('rhnPackage',
@@ -137,8 +135,6 @@ class OracleBackend(Backend):
             nullable    = ['org_id'],
             severityHash = {
                 'path'          : 1,
-                # FIXME: sha256
-                #'md5sum'        : 2,
                 'package_size'  : 2,
                 'build_time'    : 3,
                 'build_host'    : 3,
@@ -344,18 +340,17 @@ class OracleBackend(Backend):
                 'build_time'    : DBdateTime(),
                 'path'          : DBstring(1000),
                 'package_size'  : DBint(),
-                'md5sum'        : DBstring(64),
+                'checksum_id'   : DBint(),
                 'sigchecksum_id' : DBint(),
                 'vendor'        : DBstring(64), 
                 'cookie'        : DBstring(128),
                 'last_modified' : DBdateTime(),
             },
             pk          = ['source_rpm_id', 'org_id',
-                           'sigchecksum_id'],
+                           'sigchecksum_id', 'checksum_id'],
             nullable    = ['org_id'],
             severityHash = {
                 'path'          : 1,
-                'md5sum'        : 2,
                 'file_size'     : 2,
                 'build_host'    : 3,
                 'build_time'    : 3,
