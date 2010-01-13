@@ -27,7 +27,7 @@ sys.path.append('/usr/share/rhn')
 from optparse import Option, OptionParser
 from common import rhnLib, rhnLog, initLOG, CFG, initCFG
 from spacewalk.common import rhn_rpm
-from server.rhnLib import parseRPMFilename
+from server.rhnLib import parseRPMFilename, get_package_path
 from server import rhnSQL
 from server.rhnServer import server_packages
 from satellite_tools.progress_bar import ProgressBar
@@ -76,30 +76,6 @@ def main():
     process_package_data()
 
     process_kickstart_trees()
-
-def get_new_pkg_path(nvrea, org_id, prepend="", omit_epoch=None,
-        package_type='rpm', checksum=None):
-    name = nvrea[0]
-    release = nvrea[2]
-
-    # dirarch and pkgarch are special-cased for source rpms
-    dirarch = pkgarch = nvrea[4]
-
-    if org_id in ['', None]:
-        org = "NULL"
-    else:
-        org = org_id
-
-    version = nvrea[1]
-    if not omit_epoch:
-        epoch = nvrea[3]
-        if epoch not in [None, '']:
-            version = str(epoch) + ':' + version
-    # normpath sanitizes the path (removing duplicated / and such)
-    template = os.path.normpath(prepend +
-                               "/%s/%s/%s/%s-%s/%s/%s/%s-%s-%s.%s.%s")
-    return template % (org, checksum[:3], name, version, release, dirarch, checksum,
-        name, nvrea[1], release, pkgarch, package_type)
 
 
 _get_path_query = """
@@ -174,12 +150,13 @@ def process_package_data():
 
         checksum_type = path['checksum_type']
         checksum = path['checksum']
-        new_path = get_new_pkg_path(nvrea, org_id, old_path_nvrea[0], \
+        nevra = (nvrea[0], nvrea[3], nvrea[1], nvrea[2], nvrea[4])
+        new_path = get_package_path(nevra, org_id, prepend=old_path_nvrea[0],
                                     checksum=checksum)
         new_abs_path = os.path.join(CFG.MOUNT_POINT, new_path)
 
         bad_abs_path = os.path.join(CFG.MOUNT_POINT, \
-                   get_new_pkg_path(nvrea, org_id, old_path_nvrea[0], \
+                   get_package_path(nevra, org_id, prepend=old_path_nvrea[0],
                              omit_epoch = True, checksum=checksum))
 
         if not os.path.exists(old_abs_path):
