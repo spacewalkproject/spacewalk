@@ -601,19 +601,6 @@ class FileItem(BaseChecksummedItem):
     item_name = 'rhn-package-file'
     item_class = importLib.File
     tagMap = {
-        'rhn-package-file-device'   : 'device',
-        'rhn-package-file-inode'    : 'inode',
-        'rhn-package-file-file_mode': 'file_mode',
-        'rhn-package-file-username' : 'username',
-        'rhn-package-file-groupname': 'groupname',
-        'rhn-package-file-rdev'     : 'rdev',
-        'rhn-package-file-file_size': 'file_size',
-        'rhn-package-file-mtime'    : 'mtime',
-        'rhn-package-file-md5'      : 'md5sum',
-        'rhn-package-file-linkto'   : 'linkto',
-        'rhn-package-file-flags'    : 'flags',
-        'rhn-package-file-verifyflags': 'verifyflags',
-        'rhn-package-file-lang'     : 'lang',
         'md5' : 'md5sum',
     }
 addItem(FileItem)
@@ -704,7 +691,6 @@ class ErrataFileItem(BaseChecksummedItem):
         # Specific to XML
         'package'                   : 'package',
         'source-package'            : 'source-package',
-        'checksum'                  : 'checksum',
         'checksum-type'             : 'checksum_type',
     }
 addItem(ErrataFileItem)
@@ -743,7 +729,6 @@ class KickstartFileItem(BaseChecksummedItem):
         'relative-path'             : 'relative_path',
         'file-size'                 : 'file_size',
         'last-modified'             : 'last_modified',
-        'checksum'                  : 'checksum',
         'checksum-type'             : 'checksum_type',
     }
 addItem(KickstartFileItem)
