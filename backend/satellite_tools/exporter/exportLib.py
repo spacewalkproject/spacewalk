@@ -1031,7 +1031,7 @@ class _ErratumFilesDumper(BaseDumper):
 
     def dump_subelement(self, data):
         attributes = {
-            'checksum_type'    : data['checksum_type'],
+            'checksum-type'    : data['checksum_type'],
             'checksum'    : data['checksum'],
             # XXX: band-aid - truncate to 128 chars for olde satellites.
             'filename'  : data['filename'][:128],
