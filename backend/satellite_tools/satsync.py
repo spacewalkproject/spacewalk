@@ -1238,11 +1238,6 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 package = package_collection.get_package(pid, timestamp)
                 assert package is not None
 
-	        if package.has_key('md5sum'):
-	            package['checksum_type'] = 'md5'
-	            package['checksum'] = package['md5sum']
-	        del(package['md5sum'])
-
                 params = {}
                 for t in sql_params:
                     params[t] = package[t] or ""
