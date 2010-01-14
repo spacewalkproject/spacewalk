@@ -2,7 +2,7 @@ update rhnChecksumType
    set label = translate(label, ' -', ' ');
 
 update rhnChecksumType
-   set description = label || 'sum';
+   set description = upper(label) || 'sum';
 
 commit;
 
