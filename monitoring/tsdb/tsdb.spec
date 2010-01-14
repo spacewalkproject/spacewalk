@@ -8,7 +8,7 @@
 %define npbin       %{_bindir}
 Name:         tsdb
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.27.21
+Version:      1.27.22
 Release:      1%{?dist}
 Summary:      Time Series Database
 URL:          https://fedorahosted.org/spacewalk
@@ -90,6 +90,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Jan 14 2010 Miroslav Suchý <msuchy@redhat.com> 1.27.22-1
+- Fix the fix to install the tsdb init script (joshua.roys@gtri.gatech.edu)
+
 * Wed Oct  7 2009 Miroslav Suchý <msuchy@redhat.com> 1.27.21-1
 - Fix tsdb to install the init script properly (joshua.roys@gtri.gatech.edu)
 
