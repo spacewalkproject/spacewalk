@@ -239,7 +239,6 @@ class File(Item):
         'lang'              : StringType,
         # those attributes are mutualy exclusive
         'md5sum'            : StringType,       # xml dumps < 3.5
-        'filedigest'        : StringType,       # spacewalk-repo-sync
         'checksum'          : StringType,       # xml dumps >= 3.5
         'checksum_type'     : StringType,       # xml dumps >= 3.5
     }
