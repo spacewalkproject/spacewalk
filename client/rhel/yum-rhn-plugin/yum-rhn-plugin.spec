@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 0.8.1
+Version: 0.8.2
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -53,6 +53,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Jan 14 2010 Miroslav Suchý <msuchy@redhat.com> 0.8.2-1
+- 549368 - yum now (F12) pass new attribute size, we should honor it if given
+
 * Fri Dec 18 2009 Miroslav Suchý <msuchy@redhat.com> 0.8.1-1
 - 504295 - retrieve and use debug level from rhncli, pass it to yum
 - 548448 - when we are doing rollback, bypass dependecy resolution
