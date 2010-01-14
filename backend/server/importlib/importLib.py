@@ -23,11 +23,12 @@ from UserDict import UserDict
 from UserList import UserList
 
 from common import log_debug
-from common.rhnLib import maketemp, createPath, setPermsPath
+from common.rhnLib import setPermsPath
 
 from server.rhnLib import get_package_path
 from spacewalk.common import rhn_mpm
 from spacewalk.common.checksum import getFileChecksum
+from spacewalk.common.fileutils import maketemp, createPath
 
 # no-op class, used to define the type of an attribute
 class DateType:

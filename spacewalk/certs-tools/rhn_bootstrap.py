@@ -41,8 +41,8 @@ from rhn_bootstrap_strings import \
     getCorpCACertSh, getRegistrationSh, getUp2dateTheBoxSh, \
     getAllowConfigManagement, getAllowRemoteCommands
 from sslToolConfig import CA_CRT_NAME, CA_CRT_RPM_NAME
-from sslToolLib import make_temp_file, rotateFile, cleanupAbsPath, \
-                       getFileMD5
+from spacewalk.common.fileutils import make_temp_file, rotateFile, cleanupAbsPath, \
+from spacewalk.common.checksum  import getFileChecksum
 
 ## GLOBALS
 PRODUCT_NAME = 'RHN Server'
@@ -459,7 +459,7 @@ def copyFiles(options):
         dest = os.path.join(pubDir, os.path.basename(options.ssl_cert))
         if os.path.dirname(options.ssl_cert) != pubDir:
             if os.path.isfile(dest) \
-              and getFileMD5(options.ssl_cert) != getFileMD5(dest):
+              and getFileChecksum('md5', options.ssl_cert) != getFileChecksum('md5', dest):
                 rotateFile(dest, options.verbose)
             elif os.path.isfile(dest):
                 writeYN = 0
@@ -472,7 +472,7 @@ def copyFiles(options):
         dest = os.path.join(pubDir, os.path.basename(options.gpg_key))
         if os.path.dirname(options.gpg_key) != pubDir:
             if os.path.isfile(dest) \
-              and getFileMD5(options.gpg_key) != getFileMD5(dest):
+              and getFileChecksum('md5', options.gpg_key) != getFileChecksum('md5', dest):
                 rotateFile(dest, options.verbose)
             elif os.path.isfile(dest):
                 writeYN = 0

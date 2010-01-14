@@ -36,6 +36,7 @@ from common.rhnConfig import CFG, initCFG
 from common.rhnTranslate import _
 from server import rhnSQL
 from server.rhnServer import satellite_cert
+from spacewalk.common import fileutils
 
 ## local imports
 import sync_handlers
@@ -115,7 +116,7 @@ def validateSatCert(certFilename, verbosity=0):
 
     # copy cert to temp location (it may be gzipped which validate-sat-cert.pl
     # doesn't like).
-    certTmpFile, fd = rhnLib.maketemp(DEFAULT_RHN_CERT_LOCATION)
+    certTmpFile, fd = fileutils.maketemp(DEFAULT_RHN_CERT_LOCATION)
     fo = os.fdopen(fd, 'wb')
     fo.write(string.strip(openGzippedFile(certFilename).read()))
     fo.flush()
@@ -127,7 +128,7 @@ def validateSatCert(certFilename, verbosity=0):
     if verbosity:
         print "Checking cert XML sanity and GPG signature:", repr(string.join(args))
 
-    ret, out, err = rhnLib.rhn_popen(args)
+    ret, out, err = fileutils.rhn_popen(args)
     err = err.read()
     out = out.read()
 
@@ -148,7 +149,7 @@ def validateSatCert(certFilename, verbosity=0):
 
 def writeRhnCert(options, cert):
     if os.path.exists(DEFAULT_RHN_CERT_LOCATION):
-        rhnLib.rotateFile(DEFAULT_RHN_CERT_LOCATION, depth=5)
+        fileutils.rotateFile(DEFAULT_RHN_CERT_LOCATION, depth=5)
     fo = open(DEFAULT_RHN_CERT_LOCATION, 'wb+')
     fo.write(cert)
     fo.close()
@@ -410,7 +411,7 @@ def populateChannelFamilies(options):
 
     if options.verbose:
         print "Executing: %s\n" % repr(string.join(args))
-    ret, out_stream, err_stream = rhnLib.rhn_popen(args)
+    ret, out_stream, err_stream = fileutils.rhn_popen(args)
     if ret:
         msg_ = "Population of the Channel Family permissions failed."
         msg = ("%s\nReturn value: %s\nStandard-out: %s\n\n"
@@ -480,12 +481,12 @@ def processCommandline():
     # systemid, rhn-cert
     if not options.systemid:
         options.systemid = DEFAULT_SYSTEMID_LOCATION
-    options.systemid = rhnLib.cleanupAbsPath(options.systemid)
+    options.systemid = fileutils.cleanupAbsPath(options.systemid)
 
     if not options.rhn_cert:
         print "NOTE: using backup cert as default: %s" % DEFAULT_RHN_CERT_LOCATION
         options.rhn_cert = DEFAULT_RHN_CERT_LOCATION
-    options.rhn_cert = rhnLib.cleanupAbsPath(options.rhn_cert)
+    options.rhn_cert = fileutils.cleanupAbsPath(options.rhn_cert)
     if not os.path.exists(options.rhn_cert):
         sys.stderr.write("ERROR: RHN Cert (%s) does not exist\n" % options.rhn_cert)
         sys.exit(1)

@@ -22,7 +22,7 @@ import string
 from stat import ST_SIZE
 from optparse import Option, OptionParser
 
-from common.rhnLib import maketemp
+from spacewalk.common.fileutils import maketemp
 
 MOUNT_POINT = '/tmp'
 IMAGE_SIZE = "630M"

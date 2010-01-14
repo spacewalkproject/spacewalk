@@ -19,10 +19,10 @@
 # $Id$
 
 import os
-from common import rhnFault, log_debug, rhnLib
+from common import rhnFault, log_debug
 
 from server import rhnSQL, configFilesHandler
-
+from spacewalk.common.fileutils import maketemp
 
 class ConfigManagement(configFilesHandler.ConfigFilesHandler):
     def __init__(self):
@@ -474,7 +474,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         # seems to be invalid (bug 151220)
 
         # Empty files or directories may have NULL instead of lobs
-        filename_src, fd = rhnLib.maketemp("/tmp/rhncfg")
+        filename_src, fd = maketemp("/tmp/rhncfg")
         fc_lob = fsrc['file_contents']
         if fc_lob:
             os.write(fd, rhnSQL.read_lob(fc_lob))
@@ -495,7 +495,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                 "binary data" % (path, revision_dst),
                 explain=0)
         
-        filename_dst, fd = rhnLib.maketemp("/tmp/rhncfg")
+        filename_dst, fd = maketemp("/tmp/rhncfg")
         fc_lob = fdst['file_contents']
         if fc_lob:
             os.write(fd, rhnSQL.read_lob(fc_lob))

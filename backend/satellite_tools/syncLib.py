@@ -25,7 +25,7 @@ from cStringIO import StringIO
 # rhn imports:
 from common import CFG, log_clean, rhnLib
 from common.rhnLog import log_time
-from common.rhnLib import createPath
+from spacewalk.common.fileutils import createPath
 
 import messages
 

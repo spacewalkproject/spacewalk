@@ -19,7 +19,7 @@
 import os
 import gzip
 import string
-from common.rhnLib import createPath
+from spacewalk.common.fileutils import createPath
 
 
 class MissingXmlDiskSourceFileError(Exception):

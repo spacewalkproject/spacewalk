@@ -38,6 +38,7 @@ from server import rhnSQL
 from server.rhnSQL import SQLError, SQLSchemaError, SQLConnectError
 from server.rhnServer import satellite_cert, server_packages
 from server.rhnLib import get_package_path
+from spacewalk.common import fileutils
 
 initCFG('server.satellite')
 initLOG(CFG.LOG_FILE, CFG.DEBUG)
@@ -49,7 +50,6 @@ from progress_bar import ProgressBar
 from xmlSource import FatalParseException, ParseException
 from diskImportLib import rpmsPath
 
-from common.rhnLib import createPath
 from syncLib import log, log2, log2disk, log2stderr, log2email, unique
 from syncLib import RhnSyncException, RpmManip, ReprocessingNeeded
 from syncLib import initEMAIL_LOG, dumpEMAIL_LOG
@@ -579,7 +579,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             # save it to disk
             log2(1, 4, "    - syncing to disk %s" %
                 _DEFAULT_RHN_ENTITLEMENT_CERT_BACKUP)
-            rhnLib.rotateFile(_DEFAULT_RHN_ENTITLEMENT_CERT_BACKUP, depth=5)
+            fileutils.rotateFile(_DEFAULT_RHN_ENTITLEMENT_CERT_BACKUP, depth=5)
             open(_DEFAULT_RHN_ENTITLEMENT_CERT_BACKUP, 'wb').write(cert)
 
         log2(1, 3, "RHN Entitlement Certificate sync complete")
@@ -2115,11 +2115,11 @@ def _verifyPkgRepMountPoint():
         log(-1, "ERROR: server.mount_point not set in the configuration file")
         sys.exit(16)
 
-    if not os.path.exists(rhnLib.cleanupAbsPath(CFG.MOUNT_POINT)):
+    if not os.path.exists(fileutils.cleanupAbsPath(CFG.MOUNT_POINT)):
         log(-1, "ERROR: server.mount_point not set in the configuration file")
         sys.exit(26)
 
-    if not os.path.exists(rhnLib.cleanupAbsPath(CFG.MOUNT_POINT+'/'+CFG.PREPENDED_DIR)):
+    if not os.path.exists(fileutils.cleanupAbsPath(CFG.MOUNT_POINT+'/'+CFG.PREPENDED_DIR)):
         log(-1, "ERROR: server.mount_point not set in the configuration file")
         sys.exit(26)
 
@@ -2438,9 +2438,9 @@ def processCommandline():
             # int('a')  --> ValueError
             raise ValueError("ERROR: --batch-size must have a value within the range: 1..50")
 
-    OPTIONS.mount_point = rhnLib.cleanupAbsPath(OPTIONS.mount_point)
-    OPTIONS.rhn_cert = rhnLib.cleanupAbsPath(OPTIONS.rhn_cert)
-    OPTIONS.systemid = rhnLib.cleanupAbsPath(OPTIONS.systemid)
+    OPTIONS.mount_point = fileutils.cleanupAbsPath(OPTIONS.mount_point)
+    OPTIONS.rhn_cert = fileutils.cleanupAbsPath(OPTIONS.rhn_cert)
+    OPTIONS.systemid = fileutils.cleanupAbsPath(OPTIONS.systemid)
 
     if OPTIONS.rhn_cert:
         if not OPTIONS.mount_point:

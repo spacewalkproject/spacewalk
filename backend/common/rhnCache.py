@@ -30,6 +30,8 @@ from rhnLib import timestamp, makedirs, setPermsPath
 import rhn_posix
 import rhn_fcntl
 
+from spacewalk.common.fileutils import makedirs
+
 # this is a constant I'm not too happy about but one way or another we have
 # to reserve our own shared memory space.
 CACHEDIR = "/var/cache/rhn"

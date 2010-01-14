@@ -28,7 +28,7 @@ import socket
 import string
 
 ## local imports
-from sslToolLib import cleanupNormPath, rotateFile, rhn_popen, cleanupAbsPath
+from spacewalk.common.fileutils import cleanupNormPath, rotateFile, rhn_popen, cleanupAbsPath
 from sslToolLib import getMachineName, daysTil18Jan2038, incSerial, fixSerial
 
 
