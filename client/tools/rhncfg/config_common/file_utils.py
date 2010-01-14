@@ -139,23 +139,8 @@ def maketemp(prefix=None, directory=None):
     # Create the file in /tmp by default
         prefix = 'rhncfg-tempfile'
 
-    filename = "%s%s%s-%s-%.8f" % (directory, os.sep, prefix, os.getpid(), time.time())
-
-    tries = 10
-    while tries > 0:
-        tries = tries - 1
-        try:
-            fd = os.open(filename, os.O_RDWR | os.O_CREAT | os.O_EXCL, 0600)
-        except OSError, e:
-            if e.errno != 17:
-                raise e
-            # File already exists
-            filename = "%s-%.8f" % (filename, time.time())
-        else:
-            break
-    else:
-        raise OSError("Could not create temp file")
+    file_prefix = "%s-%s-" % (prefix, os.getpid())
+    (fd, filename) = tempfile.mkstemp(prefix=file_prefix, dir=directory)
 
     return filename, dirs_created, os.fdopen(fd, "w+")
-
 
