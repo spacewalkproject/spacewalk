@@ -169,7 +169,8 @@ sub connect {
   my $alias_data = RHN::DB->lookup_alias($alias);
   Carp::croak "RHN::DB->connect($alias): No such alias '$alias'" unless $alias_data;
 
-  my ($username, $password, $params) = @{ $alias_data };
+  my $params;
+  ($username, $password, $params) = @{ $alias_data };
 
   my $dbh = $handles{$alias} = $class->direct_connect($alias, $username, $password,
 						      { %$params,
