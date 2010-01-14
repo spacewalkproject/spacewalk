@@ -15,7 +15,7 @@
 
 import os
 import re
-import md5
+import hashlib
 import time
 import string
 import base64
@@ -30,19 +30,13 @@ def removeNewlines(str):
     # Remove \n and \r from the string str
     return string.translate(str, string.maketrans("", ""), "\n\r")
 
-
-# Generic MD5 sum calculator
-def md5sum(*fields):
+def computeSignature(*fields):
     # Init the hash
-    m = md5.new()
+    m = hashlib.new('md5')
     for i in fields:
         # use str(i) since some of the fields may be non-string
         m.update(str(i))
-    return m.digest()
-
-
-def computeSignature(*fields):
-    return removeNewlines(base64.encodestring(apply(md5sum, fields)))
+    return removeNewlines(base64.encodestring(m.digest()))
 
 
 # reg exp for splitting package names.

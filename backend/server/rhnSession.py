@@ -17,7 +17,7 @@
 #
 
 
-import md5
+import hashlib
 import time
 import string
 
@@ -64,7 +64,7 @@ class Session:
 
         secrets = self.get_secrets()
         
-        ctx = md5.new()
+        ctx = hashlib.new('md5')
         ctx.update(string.join(secrets[:2] + [str(self.session_id)] + 
             secrets[2:], ':'))
 
