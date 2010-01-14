@@ -302,11 +302,11 @@ class RhnRepo(YumRepository):
     # Override the 'private' __get method so we can do our auth stuff.
     def _getFile(self, url=None, relative=None, local=None,
         start=None, end=None, copy_local=0, checkfunc=None, text=None,
-        reget='simple', cache=True):
+        reget='simple', cache=True, size=None):
         try:
             try:
                 return self._noExceptionWrappingGet(url, relative, local,
-                    start, end, copy_local, checkfunc, text, reget, cache)
+                    start, end, copy_local, checkfunc, text, reget, cache, size)
             except URLGrabError, e:
                 try:
                     up2dateAuth.updateLoginInfo()
@@ -314,7 +314,7 @@ class RhnRepo(YumRepository):
                     raise yum.Errors.RepoError(str(e))
 
                 return self._noExceptionWrappingGet(url, relative, local,
-                    start, end, copy_local, checkfunc, text, reget, cache)
+                    start, end, copy_local, checkfunc, text, reget, cache, size)
 
         except URLGrabError, e:
             raise yum.Errors.RepoError, \
@@ -330,7 +330,7 @@ class RhnRepo(YumRepository):
     # provide more detail in its exception, so we don't have to cut n' paste
     def _noExceptionWrappingGet(self, url=None, relative=None, local=None,
         start=None, end=None, copy_local=0, checkfunc=None, text=None,
-        reget='simple', cache=True):
+        reget='simple', cache=True, size=None):
         """retrieve file from the mirrorgroup for the repo
            relative to local, optionally get range from
            start to end, also optionally retrieve from a specific baseurl"""
@@ -375,7 +375,8 @@ class RhnRepo(YumRepository):
                                       checkfunc=checkfunc,
                                       http_headers=headers,
                                       ssl_ca_cert = self.sslcacert,
-                                      timeout=self.timeout
+                                      timeout=self.timeout,
+                                      size = size
                                       )
             return result
 
@@ -399,7 +400,8 @@ class RhnRepo(YumRepository):
                                           checkfunc=checkfunc,
                                           http_headers=headers,
                                           ssl_ca_cert = self.sslcacert,
-                                          timeout=self.timeout
+                                          timeout=self.timeout,
+                                          size = size
                                           )
                 return result
             except URLGrabError, e:
