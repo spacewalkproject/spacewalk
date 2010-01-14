@@ -19,8 +19,10 @@ import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.xmlrpc.ChannelSubscriptionException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.manager.channel.ChannelManager;
@@ -63,7 +65,7 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
     public ValidatorError store() {
         List<Long> remove = new ArrayList<Long>();
         /*
-         * Loop through the servers channels and take any channels the server is already
+         * Loop through the server channels and take any channels the server is already
          * subscribed to out of the cids list. Also, keep track of any we will have to 
          * unsubscribe from in the remove list.
          */
@@ -79,6 +81,20 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
             }
         }
         
+        // Check whether channelsIds are childs of the current base
+        for (Long channelId : cids) {
+            if (!SystemManager.subscribableChannels(server.getId(),
+                    user.getId(), server.getBaseChannel().getId()).contains(channelId)) {
+                Channel channel = ChannelFactory.lookupById(channelId);
+                if (channel == null) {
+                    throw new InvalidChannelException();
+                }
+                else {
+                    throw new ChannelSubscriptionException(channel.getLabel());
+                }
+            }
+        }
+
         //Subscribe to new channels
         log.debug("subscribing to new channels");
         boolean failedChannels = subscribeToNewChannels(user, cids, server);
