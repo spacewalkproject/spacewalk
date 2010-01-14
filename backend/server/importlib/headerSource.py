@@ -35,6 +35,8 @@ class rpmPackage(IncompletePackage):
         # We set them differently
 	'checksum'          : None,
 	'checksum_type'     : None,
+        'sigchecksum'       : None,
+        'sigchecksum_type'  : None,
     }
 
     def populate(self, header, size, checksum_type, checksum, path=None, org_id=None,
@@ -74,6 +76,10 @@ class rpmPackage(IncompletePackage):
         self['header_start'] = header_start
         self['header_end'] = header_end
         self['last_modified'] = localtime(time.time())
+        if self['sigmd5']:
+            self['sigchecksum_type'] = 'md5'
+            self['sigchecksum'] = self['sigmd5']
+        del(self['sigmd5'])
 
         # Fix some of the information up
         vendor = self['vendor']
