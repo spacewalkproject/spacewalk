@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.8
+Version: 0.8.9
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,13 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Jan 14 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.9-1
+- force correct UTF-8 in changelog
+- fixed directories and links listing in package detail
+- fixed email sending in pxt pages
+- added back RHN::Cleansers
+- removed dead code
+
 * Wed Jan 06 2010 Jan Pazdziora 0.8.8-1
 - Fixed the forgot_* emails.
 - More dead code removals.
