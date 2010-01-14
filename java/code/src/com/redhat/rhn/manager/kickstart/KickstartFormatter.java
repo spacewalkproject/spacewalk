@@ -849,7 +849,7 @@ public class KickstartFormatter {
     private String getSHA1PackagePath(Package p) {
         String retval = null;
         if (p != null) {
-            retval = "http://" + this.ksHost +
+            retval = "http://" + REDHAT_MGMT_SERVER +
                 DownloadManager.getPackageDownloadPathNoExpiration(p, user);
         }            
         return retval;
