@@ -703,10 +703,6 @@ class GenericPackageImport(Import):
         if not self.package_arches.has_key(package.arch):
             self.package_arches[package.arch] = None
 
-        # FIXME: needs to be fixed for sha256
-        if not package.has_key('checksum'):
-            package['checksum_type'] = 'md5'
-            package['checksum'] = package['md5sum']
         checksumTuple = (package['checksum_type'], package['checksum'])
         if not self.checksums.has_key(checksumTuple):
             self.checksums[checksumTuple] = None
