@@ -114,19 +114,20 @@ public class ChannelEditor {
         
         List<Long> existingPids = ChannelFactory.getPackageIds(channel.getId());
 
-        //Loop through packages and add to channel. 
+        List list = new ArrayList();
         for (Iterator itr = packageIds.iterator(); itr.hasNext();) {
             Long pid = convertObjectToLong(itr.next());
-            List list = new ArrayList();
-            list.add(pid);
-            if (add && !existingPids.contains(pid)) {
-                ChannelManager.addPackages(channel, list, user);
-            }
-            else if (!add) {
-                ChannelManager.removePackages(channel, list, user);
+            if (!existingPids.contains(pid)) {
+                list.add(pid);
             }
         }
-        
+        if (add) {
+            ChannelManager.addPackages(channel, list, user);
+        }
+        else if (!add) {
+            ChannelManager.removePackages(channel, list, user);
+        }
+                
         // Mark the affected channel to have it smetadata evaluated, where necessary
         // (RHEL5+, mostly)
         ChannelManager.queueChannelChange(channel.getLabel(), "java::changePackages", null);

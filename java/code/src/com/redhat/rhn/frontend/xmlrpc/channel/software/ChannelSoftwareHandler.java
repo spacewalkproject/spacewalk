@@ -76,6 +76,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Timer;
 
 /**
  * ChannelSoftwareHandler
@@ -1031,7 +1032,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         // Try to add the list of packages to the channel. Catch any exceptions and 
         // convert to FaultExceptions
         try {
-            ChannelEditor.getInstance().addPackages(loggedInUser, channel, packageIds);    
+            ChannelEditor.getInstance().addPackages(loggedInUser, channel, packageIds);
         }
         catch (PermissionException e) {
             throw new PermissionCheckFailureException();
@@ -1051,7 +1052,6 @@ public class ChannelSoftwareHandler extends BaseHandler {
         
         /* Bugzilla # 177673 */
         scheduleErrataCacheUpdate(loggedInUser.getOrg(), channel, 3600000);
-        
         
         //if we made it this far, the operation was a success!
         return 1;

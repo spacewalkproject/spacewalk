@@ -2633,11 +2633,12 @@ public class ChannelManager extends BaseManager {
         Map params = new HashMap();
         params.put("cid", chan.getId());
 
-        WriteMode m = ModeFactory.getWriteMode("Channel_queries", "add_channel_package");
-        for (Long pid : packageIds) {
+        WriteMode m = ModeFactory.getWriteMode("Channel_queries", "add_channel_packages");
+        m.executeUpdate(params, packageIds);
+    /*    for (Long pid : packageIds) {
             params.put("pid", pid);
             m.executeUpdate(params);
-        }
+        }*/
 
 
         HibernateFactory.getSession().refresh(chan);
