@@ -37,6 +37,7 @@ import string
 import traceback
 import time
 import fcntl
+from spacewalk.common.fileutils import getUidGid
 
 LOG = None
 
@@ -60,21 +61,6 @@ def log_time():
     tz_offset_string = " %s%02d:%02d" % (sign, hours, mins)
     t = time.strftime("%Y/%m/%d %H:%M:%S", time.localtime(time.time()))
     return t + tz_offset_string
-
-# return a uid and gid for arbitrary username
-def getUidGid(username, groupname):
-    # Initialize with some values
-    uid = os.getuid()
-    gid = uid
-    try:
-        uid = pwd.getpwnam(username)[2]
-    except KeyError:
-        sys.stderr.write("*** rhnLog.py ERROR: user '%s' doesn't exist; can't fetch UID." % username)
-    try:
-        gid = pwd.getpwnam(groupname)[3]
-    except KeyError:
-        sys.stderr.write("*** rhnLog.py ERROR: user '%s' doesn't exist; can't fetch GID." % groupname)
-    return uid, gid
 
 # function for setting the close-on-exec flag
 def set_close_on_exec(fd):

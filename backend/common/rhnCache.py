@@ -26,11 +26,11 @@ from struct import pack
 from stat import ST_MTIME
 from errno import EEXIST
 
-from rhnLib import timestamp, setPermsPath
+from rhnLib import timestamp
 import rhn_posix
 import rhn_fcntl
 
-from spacewalk.common.fileutils import makedirs
+from spacewalk.common.fileutils import makedirs, setPermsPath
 
 # this is a constant I'm not too happy about but one way or another we have
 # to reserve our own shared memory space.

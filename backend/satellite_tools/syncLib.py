@@ -25,7 +25,7 @@ from cStringIO import StringIO
 # rhn imports:
 from common import CFG, log_clean, rhnLib
 from common.rhnLog import log_time
-from spacewalk.common.fileutils import createPath
+from spacewalk.common.fileutils import createPath, setPermsPath
 
 import messages
 
@@ -201,7 +201,7 @@ class FileManip:
         fout = open(self.full_path, 'wb')
         # setting file permissions; NOTE: rhnpush uses apache to write to disk,
         # hence the 6 setting.
-        rhnLib.setPermsPath(self.full_path, user='apache', group='apache', chmod=0644)
+        setPermsPath(self.full_path, user='apache', group='apache', chmod=0644)
         size = 0
         try:
             while 1:
