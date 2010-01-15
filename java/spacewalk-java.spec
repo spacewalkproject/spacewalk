@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.5
+Version: 0.8.6
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -283,6 +283,29 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jan 15 2010 Tomas Lestach <tlestach@redhat.com> 0.8.6-1
+- removing logic for channel checksum type completion (tlestach@redhat.com)
+- 549752 - fix for check "channel in set" in UpdateChildChannelsCommand
+  (tlestach@redhat.com)
+- 555212 - changing the path we use for downloading package updates in
+  kickstarts from $http_server to $redhat_management_server so that distros can
+  be located externally without breaking this functionality
+  (jsherril@redhat.com)
+- 549752 - throwing exception, if subscribing system to a wrong child via api
+  (tlestach@redhat.com)
+- 537147 - removign unused row in column on user details page
+  (jsherril@redhat.com)
+- 514759 - stripping space chars from activation keys (jsherril@redhat.com)
+- 554516 - adding better formatting for config file diffs (jsherril@redhat.com)
+- 513716 - prefix validation added when creating a user (tlestach@redhat.com)
+- 554767 - fixing issue where file preservation list details wouldnt always
+  show up under the correct tab (jsherril@redhat.com)
+- 543461 - fixing issue where csv downloader for systems errata list was not
+  showing up (jsherril@redhat.com)
+- 549553 - speeding up package removal from channel (jsherril@redhat.com)
+- 553262 - fixing issue where kickstart label wasnt printed on software profile
+  page (jsherril@redhat.com)
+
 * Fri Jan 08 2010 Justin Sherrill <jsherril@redhat.com> 0.8.5-1
 - 553265 - fixing issue where stored profile list wasnt sorted by name
   (jsherril@redhat.com)
