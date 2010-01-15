@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.8.2
+Version: 0.8.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %if 0%{?suse_version: %{suse_version} > 1000} 
@@ -227,6 +227,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.3-1
+- 554317 - fix for gui registration traceback
+- removed dead code
+- 513660 - save / update up2date config during firstboot
+
 * Tue Dec 15 2009 Miroslav Suchý <msuchy@redhat.com> 0.8.2-1
 - 546312 - do not depend on hald for rhnreg_ks
 
