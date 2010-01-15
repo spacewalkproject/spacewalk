@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 0.8.2
+Version: 0.8.3
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -53,6 +53,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.3-1
+- fixed syntax error
+
 * Thu Jan 14 2010 Miroslav Suchý <msuchy@redhat.com> 0.8.2-1
 - 549368 - yum now (F12) pass new attribute size, we should honor it if given
 
