@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.8.3
+Version:        0.8.4
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.4-1
+- added upgrade script for rhnChannel.checksum_type_id
+
 * Thu Jan 14 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.3-1
 - dropped dead tables
 
