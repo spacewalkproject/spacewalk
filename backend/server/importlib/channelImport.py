@@ -29,6 +29,7 @@ class ChannelImport(Import):
         self.will_commit = 1
         self.releases = {}
         self.channels = {}
+        self.checksum_types = {}
 
     def preprocess(self):
         # Processes the batch to a form more suitable for database
@@ -53,6 +54,9 @@ class ChannelImport(Import):
                 self.arches[release['channel_arch']] = None
         if not channel.has_key('receiving_updates') or channel['receiving_updates'] is None:
            channel['receiving_updates'] = 'N'
+        # Yum repo checksum type
+        if channel['checksum_type'] not in self.checksum_types:
+            self.checksum_types[channel['checksum_type']] = None
 
         # bug #528227
         # Print a warning in case the sync would move the channel between orgs
@@ -69,6 +73,7 @@ class ChannelImport(Import):
     def fix(self):
         self.backend.lookupChannelArches(self.arches)
         self.backend.lookupChannelFamilies(self.families)
+        self.backend.lookupChecksumTypes(self.checksum_types)
         # Fix
         for channel in self.batch:
             self.__postprocessChannel(channel)
@@ -82,6 +87,7 @@ class ChannelImport(Import):
             channel.ignored = 1
             raise InvalidArchError(arch, "Unsupported channel arch %s" % arch)
         channel['channel_arch_id'] = self.arches[arch]
+        channel['checksum_type_id'] = self.checksum_types[channel['checksum_type']]
 
         if channel.has_key('product_name'):
             channel['product_name_id'] = self.backend.lookupProductNames(

@@ -462,6 +462,7 @@ class ChannelItem(BaseItem):
         'rhn-channel-product-version'  : 'product_version',
         'rhn-channel-product-beta'  : 'product_beta',
         'rhn-channel-receiving-updates' : 'receiving_updates',
+        'rhn-channel-checksum-type' : 'checksum_type',
     }
 addItem(ChannelItem)
 

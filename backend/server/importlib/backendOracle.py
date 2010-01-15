@@ -283,6 +283,7 @@ class OracleBackend(Backend):
                 'receiving_updates' : DBstring(1),
                 'last_modified' : DBdateTime(),
                 'channel_product_id' : DBint(),
+                'checksum_type_id' : DBint(),
             },
             pk          = ['label'],
         ),

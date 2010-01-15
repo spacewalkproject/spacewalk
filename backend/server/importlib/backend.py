@@ -434,6 +434,17 @@ class Backend:
             if row:
                 checksumHash[k] = row['id']
 
+    def lookupChecksumTypes(self, checksumTypeHash):
+        if not checksumTypeHash:
+            return
+        sql = "select id from rhnChecksumType where label = :label"
+        h = self.dbmodule.prepare(sql)
+        for l in checksumTypeHash.keys():
+            h.execute(label=l)
+            row = h.fetchone_dict()
+            if row:
+                checksumTypeHash[l] = row['id']
+
     def lookupPackageNEVRAs(self, nevraHash):
         sql = "select LOOKUP_PACKAGE_NEVRA(:name, :evr, :arch) id from dual"
         h = self.dbmodule.prepare(sql)
