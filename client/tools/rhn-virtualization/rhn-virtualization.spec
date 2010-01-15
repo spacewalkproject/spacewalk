@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.7
+Version:        5.4.8
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -140,6 +140,15 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 5.4.8-1
+- 552271 - -host needs to require specific version of -common package
+- 546676 - blocking and nostate are always just running
+- 543980 - remove rhn-virtualization-guest script from Makefile
+- 543980 - get rid of rhn-virtualization-guest package
+- 543980 - remove scripts/rhn-virtualization-guest script
+- 543980 - remove report_uuid.py
+- 533283 - don't restart crond if it wasn't running before
+
 * Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 5.4.7-1
 - 529688 - correctly detect Xen host
 - 530583 - detect an installing config also with ks= parameter
