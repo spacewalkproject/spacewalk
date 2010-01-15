@@ -26,7 +26,7 @@ from struct import pack
 from stat import ST_MTIME
 from errno import EEXIST
 
-from rhnLib import timestamp, makedirs, setPermsPath
+from rhnLib import timestamp, setPermsPath
 import rhn_posix
 import rhn_fcntl
 
