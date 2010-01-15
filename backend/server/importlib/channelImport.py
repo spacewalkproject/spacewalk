@@ -20,6 +20,9 @@ from importLib import Import, InvalidArchError, \
 from common import CFG
 from satellite_tools.syncLib import log
 
+import re
+RHEL5_REGEXP = re.compile("rhel-[^-]*-(server|client)-5")
+
 class ChannelImport(Import):
     def __init__(self, batch, backend):
         Import.__init__(self, batch, backend)
@@ -55,6 +58,10 @@ class ChannelImport(Import):
         if not channel.has_key('receiving_updates') or channel['receiving_updates'] is None:
            channel['receiving_updates'] = 'N'
         # Yum repo checksum type
+        if (not channel['checksum_type']
+            and (RHEL5_REGEXP.match(channel['label'])
+                 or RHEL5_REGEXP.match(channel['parent_channel']))):
+                 channel['checksum_type'] = 'sha1'
         if channel['checksum_type'] not in self.checksum_types:
             self.checksum_types[channel['checksum_type']] = None
 
