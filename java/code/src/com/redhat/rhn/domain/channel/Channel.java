@@ -52,8 +52,6 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public static final String PUBLIC = "public";
     public static final String PROTECTED = "protected";
     public static final String PRIVATE = "private";
-    private static final String CHECKSUM_SHA_1 = "sha1";
-    private static final String CHECKSUM_SHA_256 = "sha-256";
 
     private static List<String> releaseToSkipRepodata = new ArrayList<String>(Arrays
             .asList("2.1AS", "2.1ES", "2.1WS", "3AS", "3ES", "3WS", "3Desktop", "4AS",
@@ -61,8 +59,6 @@ public class Channel extends BaseDomainHelper implements Comparable {
     private static List<String> archesToSkipRepodata = new ArrayList<String>(Arrays
             .asList("channel-sparc-sun-solaris", "channel-i386-sun-solaris", 
                     "channel-sparc"));
-    private static List<String> sha1compatiblechannels = new ArrayList<String>(Arrays
-            .asList("5Server", "5Client"));
     private String baseDir;
     private ChannelArch channelArch;
     private ChecksumType checksumType;
@@ -882,32 +878,10 @@ public class Channel extends BaseDomainHelper implements Comparable {
      */
     public String getChecksumTypeLabel() {
         
-        if ((checksumType != null) && (checksumType.getLabel() != null)) {
-            return checksumType.getLabel();
+        if ((checksumType == null) || (checksumType.getLabel() == null)) {
+            // each channel shall have set checksumType
+            return null;
         }
-
-        Channel parent = this.getParentChannel();
-        if (parent != null) {
-            String parentChecksumType = parent.getChecksumTypeLabel();
-            if (parentChecksumType != null) {
-                setChecksumType(
-                        ChannelFactory.findChecksumTypeByLabel(parentChecksumType));
-                return parentChecksumType;
-            }
-        }
-
-        DistChannelMap channelDist = ChannelFactory.lookupDistChannelMap(this);
-        if (channelDist != null) {
-            String release = channelDist.getRelease();
-            // If channel or parent is RHEL-5 use sha1
-            if (sha1compatiblechannels.contains(release)) {
-                this.setChecksumType(
-                        ChannelFactory.findChecksumTypeByLabel(CHECKSUM_SHA_1));
-                return CHECKSUM_SHA_1;
-            }
-        }
-
-        // sorry, but something's really wrong
-        return null;
+        return checksumType.getLabel();
     }
 }
