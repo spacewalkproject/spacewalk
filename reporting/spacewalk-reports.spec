@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.0
+Version: 0.8.1
 Release: 1%{?dist}
 URL: https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -42,6 +42,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/spacewalk-report.8*
 
 %changelog
+* Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.1-1
+- rebuild for spacewalk 0.8
+
 * Mon Jan 04 2010 Jan Pazdziora 0.7.1-1
 - 549370 - set lineending to be just LF, not CRLF
 - 548751 - handle IOError: [Errno 32] Broken pipe when piping to head
