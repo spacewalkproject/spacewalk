@@ -17,10 +17,19 @@ package com.redhat.rhn.frontend.xmlrpc.configchannel.test;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.domain.action.ActionFactory;
+import com.redhat.rhn.domain.action.config.ConfigAction;
+import com.redhat.rhn.domain.action.config.ConfigRevisionAction;
 import com.redhat.rhn.domain.config.ConfigChannel;
+import com.redhat.rhn.domain.config.ConfigChannelType;
+import com.redhat.rhn.domain.config.ConfigFile;
+import com.redhat.rhn.domain.config.ConfigFileState;
 import com.redhat.rhn.domain.config.ConfigFileType;
 import com.redhat.rhn.domain.config.ConfigRevision;
+import com.redhat.rhn.domain.config.ConfigurationFactory;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerConstants;
+import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.frontend.dto.ConfigChannelDto;
 import com.redhat.rhn.frontend.dto.ConfigFileDto;
@@ -30,16 +39,22 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.ConfigRevisionSerializer;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.configuration.ConfigChannelCreationHelper;
+import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.manager.system.test.SystemManagerTest;
 import com.redhat.rhn.testing.ConfigTestUtils;
 import com.redhat.rhn.testing.TestUtils;
+import com.redhat.rhn.testing.UserTestUtils;
 
 import org.apache.commons.lang.RandomStringUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * ConfigChannelHandlerTest
@@ -373,6 +388,90 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
         
         assertEquals(validChannel, 1);
         assertEquals(invalidChannel, 0);
+    }
+    
+    
+    public void testDeployAllSystems()  throws Exception {
+        UserTestUtils.addProvisioning(admin.getOrg());
+        
+        // Create  global config channels
+        ConfigChannel gcc1 = ConfigTestUtils.createConfigChannel(admin.getOrg(),
+                ConfigChannelType.global());
+        ConfigChannel gcc2 = ConfigTestUtils.createConfigChannel(admin.getOrg(),
+                ConfigChannelType.global());
+        
+        Long ver = new Long(2);
+        
+        // gcc1 only 
+        Server srv1 = ServerFactoryTest.createTestServer(regular, true,
+                    ServerConstants.getServerGroupTypeProvisioningEntitled());
+
+        srv1.subscribe(gcc1);
+        srv1.subscribe(gcc2);
+        
+        ServerFactory.save(srv1);
+
+        Set <ConfigRevision> revisions = new HashSet<ConfigRevision>();
+        
+        ConfigFile g1f1 = gcc1.createConfigFile(
+                ConfigFileState.normal(), "/etc/foo1");
+        revisions.add(ConfigTestUtils.createConfigRevision(g1f1));
+        
+        ConfigurationFactory.commit(gcc1);
+
+        ConfigFile g1f2 = gcc1.createConfigFile(
+                ConfigFileState.normal(), "/etc/foo2");
+        revisions.add(ConfigTestUtils.createConfigRevision(g1f2));
+        ConfigurationFactory.commit(gcc2);
+
+        ConfigFile g2f2 = gcc2.createConfigFile(
+                ConfigFileState.normal(), "/etc/foo4");
+        revisions.add(ConfigTestUtils.createConfigRevision(g2f2));
+        ConfigurationFactory.commit(gcc2);
+
+        ConfigFile g2f3 = gcc2.createConfigFile(
+                ConfigFileState.normal(), "/etc/foo3");
+        revisions.add(ConfigTestUtils.createConfigRevision(g2f3));
+        ConfigurationFactory.commit(gcc2);
+
+        
+        // System 1 - both g1f1 and g1f2 should deploy here
+        List<Number> systems  = new ArrayList<Number>();
+        systems.add(srv1.getId());
+        Date date = new Date();
+
+        try {
+            // validate that system must have config deployment capability
+            // in order to deploy config files... (e.g. rhncfg* pkgs installed)
+            handler.deployAllSystems(regularKey, gcc1.getLabel(), date);
+
+            fail("Shouldn't be permitted to deploy without config deploy capability.");
+        }
+        catch (Exception e) {
+            // Success
+        }
+
+        SystemManagerTest.giveCapability(srv1.getId(),
+                SystemManager.CAP_CONFIGFILES_DEPLOY, ver);
+
+        handler.deployAllSystems(regularKey, gcc1.getLabel(), date);
+        
+        DataResult<ScheduledAction> actions = ActionManager.
+                                    recentlyScheduledActions(regular, null, 1);
+        ConfigAction ca = null;
+        for (ScheduledAction action : actions) {
+            if (ActionFactory.TYPE_CONFIGFILES_DEPLOY.getName().
+                    equals(action.getTypeName())) {
+                ca = (ConfigAction)ActionManager.lookupAction(regular,
+                                                    action.getId().longValue());
+            }
+        }
+        assertNotNull(ca);
+        assertEquals(revisions.size(), ca.getConfigRevisionActions().size());
+        for (ConfigRevisionAction cra : ca.getConfigRevisionActions()) {
+            assertTrue(revisions.contains(cra.getConfigRevision()));
+        }
+        
     }
 
 }
