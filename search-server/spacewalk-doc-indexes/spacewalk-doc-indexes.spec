@@ -1,5 +1,5 @@
 Name: spacewalk-doc-indexes
-Version: 0.8.0
+Version: 0.8.1
 Release: 1%{?dist}
 Summary: Lucene indexes of help documentation for spacewalk
 
@@ -45,6 +45,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.1-1
+- rebuild for spacewalk 0.8
+
+
 * Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.1-1
 - Update doc indexes to reside in "en-US" (jmatthew@redhat.com)
 - bumping versions to 0.7.0 (jmatthew@redhat.com)
