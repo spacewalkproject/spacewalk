@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.22
+Version: 5.9.23
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -234,6 +234,11 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
+* Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.23-1
+- implement condrestart for osad init script 
+- make reload alias for restart
+- add osad-auth.conf as normal file with placeholder content
+
 * Tue Oct 27 2009 Miroslav Suchy <msuchy@redhat.com> 5.9.22-1
 - Make debugging osa* network/jabber issues easier (joshua.roys@gtri.gatech.edu)
 
