@@ -322,7 +322,7 @@ class RunTransactionCommand:
     def execute(self, yum_base):
         yum_base.add_transaction_data(self.transaction_data)
 
-def _runTransaction(transaction_data)
+def _runTransaction(transaction_data):
     """ Run a tranaction on a group of packages. """
     command = RunTransactionCommand(transaction_data)
     return _run_yum_action(command)
