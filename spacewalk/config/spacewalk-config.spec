@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.8.0
+Version: 0.8.1
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -102,6 +102,9 @@ EOF
 
 
 %changelog
+* Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.1-1
+- rebuild for spacewalk 0.8
+
 * Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.2-1
 - Create the symlinks in .spec, based on .symlink "templates". (jpazdziora@redhat.com)
 
