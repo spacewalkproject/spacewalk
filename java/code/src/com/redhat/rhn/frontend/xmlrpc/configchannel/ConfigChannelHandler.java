@@ -23,14 +23,20 @@ import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigChannelType;
 import com.redhat.rhn.domain.config.ConfigFile;
 import com.redhat.rhn.domain.config.ConfigRevision;
+import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ConfigChannelDto;
 import com.redhat.rhn.frontend.dto.ConfigFileDto;
+import com.redhat.rhn.frontend.dto.ConfigSystemDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.manager.MissingCapabilityException;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.configuration.ConfigChannelCreationHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
+import com.redhat.rhn.manager.system.SystemManager;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -476,5 +482,68 @@ public class ConfigChannelHandler extends BaseHandler {
             }
         }
         return 0;
+    }
+
+
+    /**
+     * Schedule a configuration deployment for all systems in a config channel immediately
+     * @param sessionKey the session key
+     * @param channelLabel the channel to remove the files from..
+     * @return 1 if successful with the operation errors out otherwise.
+     *
+     *
+     * @xmlrpc.doc Schedule an immediate configuration deployment for all systems
+     *    subscribed to a particular configuration channel.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string","channelLabel",
+     *                       "The configuration channel's label.")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int deployAllSystems(String sessionKey, String channelLabel) {
+        return deployAllSystems(sessionKey, channelLabel, new Date());
+    }
+
+
+    /**
+     * Schedule a configuration deployment for all systems in a config channel
+     * @param sessionKey the session key
+     * @param channelLabel the channel to remove the files from..
+     * @param date the date to schedule
+     * @return 1 if successful with the operation errors out otherwise.
+     *
+     *
+     * @xmlrpc.doc Schedule a configuration deployment for all systems
+     *    subscribed to a particular configuration channel.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string","channelLabel",
+     *                       "The configuration channel's label.")
+     * @xmlrpc.param #param_desc($date, "The date to schedule the action")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int deployAllSystems(String sessionKey, String channelLabel, Date date) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
+        ConfigurationManager manager = ConfigurationManager.getInstance();
+
+        ConfigChannel channel = configHelper.lookupGlobal(loggedInUser,
+                channelLabel);
+        List<ConfigSystemDto> dtos = manager.listChannelSystems(loggedInUser, channel, null);
+        List<Server> servers = new ArrayList<Server>();
+        for (ConfigSystemDto m : dtos) {
+            Server s = SystemManager.lookupByIdAndUser((Long) m.getId(), loggedInUser);
+            if (s != null) {
+                servers.add(s);
+            }
+        }
+
+        try {
+            manager.deployConfiguration(loggedInUser, servers, date);
+        }
+        catch (MissingCapabilityException e) {
+            throw new com.redhat.rhn.frontend.xmlrpc.MissingCapabilityException(
+                e.getCapability(), e.getServer());
+        }
+        return 1;
+
     }
 }
