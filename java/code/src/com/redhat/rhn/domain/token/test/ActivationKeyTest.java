@@ -127,7 +127,8 @@ public class ActivationKeyTest extends BaseTestCaseWithUser {
         String keyName = " Test Space  ";
         ActivationKey k = manager.createNewActivationKey
             (user, keyName, "Cool Duplicate", null, null, false);
-        assertEquals(ActivationKey.makePrefix(user.getOrg()) + keyName.trim(), k.getKey());
+        assertEquals(ActivationKey.makePrefix(user.getOrg()) + 
+                keyName.trim().replace(" ", ""), k.getKey());
         String newKey = keyName + " FOO  ";
         manager.changeKey(newKey , k, user);
         assertNotNull(ActivationKey.makePrefix(user.getOrg()) + newKey.trim());

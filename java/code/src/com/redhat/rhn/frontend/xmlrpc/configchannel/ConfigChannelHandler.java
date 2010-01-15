@@ -527,7 +527,8 @@ public class ConfigChannelHandler extends BaseHandler {
 
         ConfigChannel channel = configHelper.lookupGlobal(loggedInUser,
                 channelLabel);
-        List<ConfigSystemDto> dtos = manager.listChannelSystems(loggedInUser, channel, null);
+        List<ConfigSystemDto> dtos = manager.listChannelSystems(loggedInUser, channel, 
+                null);
         List<Server> servers = new ArrayList<Server>();
         for (ConfigSystemDto m : dtos) {
             Server s = SystemManager.lookupByIdAndUser((Long) m.getId(), loggedInUser);
