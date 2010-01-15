@@ -82,6 +82,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -169,6 +170,25 @@ public class SystemManager extends BaseManager {
         return m.execute(params);
     }
     
+    /**
+     * Gets the list of channel ids that this server could subscribe to
+     * according to it's base channel.
+     * @param sid The id of the server in question
+     * @param uid The id of the user asking
+     * @param cid The id of the base channel for the server
+     * @return Returns a list of subscribable (child) channel ids for this server.
+     */
+    public static Set subscribableChannelIds(Long sid, Long uid, Long cid) {
+        Iterator subscribableChannelIter = subscribableChannels(sid, uid, cid).iterator();
+
+        Set subscribableChannelIdSet = new HashSet();
+        while (subscribableChannelIter.hasNext()) {
+            Map row = (Map) subscribableChannelIter.next();
+            subscribableChannelIdSet.add(row.get("id"));
+        }
+        return subscribableChannelIdSet;
+    }
+
     /**
      * Gets the latest upgradable packages for a system
      * @param sid The id for the system we want packages for

@@ -1103,18 +1103,12 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         }
         
         Server hostServer = getHostServer();
-        Iterator i = SystemManager.subscribableChannels(hostServer.getId(), 
-                this.user.getId(), hostServer.getBaseChannel().getId()).iterator();
+        Set channelIds = SystemManager.subscribableChannelIds(hostServer.getId(),
+                this.user.getId(), hostServer.getBaseChannel().getId());
         
-        Set channelIds = new HashSet();
-        // Add list of subscribable channels
-        while (i.hasNext()) {
-            Map row = (Map) i.next();
-            channelIds.add(row.get("id"));
-        }
         // Add list of channels
         Set serverChannelIds = new HashSet();
-        i = hostServer.getChannels().iterator();
+        Iterator i = hostServer.getChannels().iterator();
         while (i.hasNext()) {
             Channel c = (Channel) i.next();
             serverChannelIds.add(c.getId());

@@ -30,6 +30,7 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.List;
 
 
@@ -82,9 +83,10 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
         }
         
         // Check whether channelsIds are childs of the current base
+        Set subscribableChannelIds = SystemManager.subscribableChannelIds(
+                        server.getId(), user.getId(), server.getBaseChannel().getId());
         for (Long channelId : cids) {
-            if (!SystemManager.subscribableChannels(server.getId(),
-                    user.getId(), server.getBaseChannel().getId()).contains(channelId)) {
+            if (!subscribableChannelIds.contains(channelId)) {
                 Channel channel = ChannelFactory.lookupById(channelId);
                 if (channel == null) {
                     throw new InvalidChannelException();
