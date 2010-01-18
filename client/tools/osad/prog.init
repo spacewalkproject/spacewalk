@@ -73,6 +73,7 @@ case "$1" in
             stop
             start
         fi
+        ;;
     *)
         echo $"Usage: $0 {start|stop|restart|reload|status|condrestart}"
         exit 1
