@@ -46,11 +46,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE PYTHON-LICENSES.txt
 %{_mandir}/man8/rhn-custom-info.*
 
-# $Id$
 %changelog
 * Fri Jan  8 2010 Miroslav Suchy <msuchy@redhat.com> 5.4.1-1
-+- added man page
-+- polished spec for Fedora Review
+- added man page
+- polished spec for Fedora Review
 
 * Tue Jun 16 2009 Brad Buckingham <bbuckingham@redhat.com> 5.4.0-1
 - bumping version (bbuckingham@redhat.com)
