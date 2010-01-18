@@ -13,16 +13,9 @@
 # in this software or its documentation.
 #
 
-import os
-import sys
-import pwd
-import grp
 import time
 import types
-import shutil
 import string
-import popen2
-import select
 import urlparse
 from common import log_debug, log_error
 from spacewalk.common.checksum import getFileChecksum

@@ -15,6 +15,8 @@
 
 import os
 import sys
+import pwd
+import grp
 import time
 import types
 import shutil
