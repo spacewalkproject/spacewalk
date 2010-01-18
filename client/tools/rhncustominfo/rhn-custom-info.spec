@@ -12,7 +12,7 @@ BuildRequires: python
 Requires: python
 Requires: rhnlib
 
-%if 0%{?rhel} >= 5 || 0%{?fedora} == 1
+%if 0%{?rhel} >= 5 || 0%{?fedora} >= 1
 Requires: yum-rhn-plugin
 %else
 Requires: up2date
