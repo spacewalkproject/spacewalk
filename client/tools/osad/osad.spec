@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.23
+Version: 5.9.24
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -234,6 +234,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
+* Mon Jan 18 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.24-1
+- fixed syntax error in init.d scripts
+
 * Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.23-1
 - implement condrestart for osad init script 
 - make reload alias for restart
