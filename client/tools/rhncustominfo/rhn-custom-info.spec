@@ -8,7 +8,7 @@ Version: 5.4.1
 Release: 1%{?dist}
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
-BuildRequires: python
+BuildRequires: python-devel
 Requires: python
 Requires: rhnlib
 
