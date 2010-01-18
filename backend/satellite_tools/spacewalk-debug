@@ -94,7 +94,7 @@ mkdir -p $DIR/database
 mkdir -p $DIR/cobbler-lib
 
 echo "    * copying configuration information"
-cp -fapRd /etc/httpd/conf $DIR/conf/httpd
+cp -fapRd /etc/httpd/conf* $DIR/conf/httpd
 cp -fapRd /etc/rhn $DIR/conf/rhn
 cp -fapRd /etc/sysconfig/rhn $DIR/conf/rhn/sysconfig
 cp -fapRd /etc/tnsnames.ora $DIR/conf
