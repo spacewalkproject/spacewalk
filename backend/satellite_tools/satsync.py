@@ -2412,7 +2412,7 @@ def processCommandline():
         actionDict['errata'] = 0
 
     #if actionDict['no-source-packages']:
-    #    actionDict['source-packages'] = 0
+    actionDict['source-packages'] = 0
 
     if actionDict['no-packages']:
         actionDict['packages'] = 0
@@ -2426,7 +2426,7 @@ def processCommandline():
         
 
     #if actionDict['no-srpms']:
-    #    actionDict['srpms'] = 0
+    actionDict['srpms'] = 0
 
     if OPTIONS.batch_size:
         try:
