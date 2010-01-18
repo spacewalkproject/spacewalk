@@ -10,7 +10,6 @@ BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch: noarch
 BuildRequires: python
 Requires: python
-Requires: python-optik
 Requires: rhnlib
 
 %if 0%{?rhel} >= 5 || 0%{?fedora} == 1
