@@ -18,7 +18,6 @@
 import string
 
 from cStringIO import StringIO
-from sets import Set
 
 from common import rhnFlags
 from common import rhnFault, rhnException, log_error, log_debug
@@ -135,7 +134,7 @@ def token_channels(server, server_arch, tokens_obj):
     subscribe_channel = rhnSQL.Procedure("rhn_channel.subscribe_server")
     # Use a set here to ensure uniqueness of the
     # channel family ids used in the loop below.
-    channel_family_ids = Set()
+    channel_family_ids = set()
 	
     for c in filter(lambda a: a["parent_channel"], chash.values()):
         # make sure this channel has the right parent
