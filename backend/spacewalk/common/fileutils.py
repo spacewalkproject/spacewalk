@@ -21,7 +21,7 @@ import time
 import types
 import shutil
 import string
-import popen2
+import subprocess
 import select
 from checksum import getFileChecksum
 
@@ -204,22 +204,23 @@ def rhn_popen(cmd, progressCallback=None, bufferSize=16384, outputLog=None):
         outputLog --> optional log file file object write method
     """
 
-    popen2._cleanup()
+    subprocess._cleanup()
 
     # If you want unbuffered, set bufsize to 0
     if type(cmd) in (types.ListType, types.TupleType):
         cmd = map(str, cmd)
-    c = popen2.Popen3(cmd, capturestderr=1, bufsize=0)
+    c = subprocess.Popen(cmd, bufsize=0, stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True)
 
     # We don't write to the child process
-    c.tochild.close()
+    c.stdin.close()
 
     # Create two temporary streams to hold the info from stdout and stderr
     child_out = make_temp_file("/tmp/my-popen-")
     child_err = make_temp_file("/tmp/my-popen-")
 
     # Map the input file descriptor with the temporary (output) one
-    fd_mappings = [(c.fromchild, child_out), (c.childerr, child_err)]
+    fd_mappings = [(c.stdout, child_out), (c.stderr, child_err)]
     exitcode = None
     count = 1
 
