@@ -16,7 +16,7 @@
 #
 
 import os
-import sha
+import hashlib
 import time
 import string
 
@@ -468,7 +468,7 @@ def generate_random_string(length=20):
         return ''
     random_bytes = 16
     length = int(length)
-    s = sha.new()
+    s = hashlib.new('sha1')
     s.update("%.8f" % time.time())
     s.update(str(os.getpid()))
     devrandom = open('/dev/urandom')
