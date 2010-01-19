@@ -117,7 +117,7 @@ public class ChannelEditor {
         List list = new ArrayList();
         for (Iterator itr = packageIds.iterator(); itr.hasNext();) {
             Long pid = convertObjectToLong(itr.next());
-            if (!existingPids.contains(pid)) {
+            if (!add || !existingPids.contains(pid)) {
                 list.add(pid);
             }
         }
