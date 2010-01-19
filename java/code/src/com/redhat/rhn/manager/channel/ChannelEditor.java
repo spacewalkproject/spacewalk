@@ -124,7 +124,7 @@ public class ChannelEditor {
         if (add) {
             ChannelManager.addPackages(channel, list, user);
         }
-        else if (!add) {
+        else {
             ChannelManager.removePackages(channel, list, user);
         }
                 
