@@ -296,27 +296,22 @@ def get_package_header(filename=None, file=None, fd=None):
     else:
         file_desc = f.fileno()
 
-    if hasattr(rpm, 'headerFromPackage'):
-        hdr, is_source = rpm.headerFromPackage(file_desc)
-        if hdr is None:
-            raise InvalidPackageError
+    if hasattr(rpm, 'readHeaderFromFD'):
+        header_start, header_end = \
+                get_header_byte_range(os.fdopen(os.dup(file_desc)))
+        os.lseek(file_desc, header_start, 0)
+        hdr, offset = rpm.readHeaderFromFD(file_desc)
     else:
-        if hasattr(rpm, 'readHeaderFromFD'):
-            header_start, header_end = \
-                    get_header_byte_range(os.fdopen(os.dup(file_desc)))
-            os.lseek(file_desc, header_start, 0)
-            hdr, offset = rpm.readHeaderFromFD(file_desc)
-        else:
-            # RHEL-4 and older, do the old way
-            ts = RPMReadOnlyTransaction()
-            nomd5 = getattr(rpm, 'RPMVSF_NOMD5')
-            needpayload = getattr(rpm, 'RPMVSF_NEEDPAYLOAD')
-            ts.pushVSFlags(~(nomd5 | needpayload))
-            hdr = RPMReadOnlyTransaction().hdrFromFdno(file_desc)
-            ts.popVSFlags()
-        if hdr is None:
-            raise InvalidPackageError
-        is_source = hdr[getattr(rpm, 'RPMTAG_SOURCEPACKAGE')]
+        # RHEL-4 and older, do the old way
+        ts = RPMReadOnlyTransaction()
+        nomd5 = getattr(rpm, 'RPMVSF_NOMD5')
+        needpayload = getattr(rpm, 'RPMVSF_NEEDPAYLOAD')
+        ts.pushVSFlags(~(nomd5 | needpayload))
+        hdr = RPMReadOnlyTransaction().hdrFromFdno(file_desc)
+        ts.popVSFlags()
+    if hdr is None:
+        raise InvalidPackageError
+    is_source = hdr[getattr(rpm, 'RPMTAG_SOURCEPACKAGE')]
 
     return RPM_Header(hdr, is_source)
 
