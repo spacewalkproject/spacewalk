@@ -40,8 +40,8 @@ def getLocalVdsName(tsPath):
 def connect():
     tsPath = getTrustStorePath()
     port = config.get('addresses', 'management_port')
-    addr = getLocalVdsName(tsPath)
     if tsPath:
+        addr = getLocalVdsName(tsPath)
         from M2Crypto.m2xmlrpclib import SSL_Transport
         from M2Crypto import SSL
 
@@ -58,7 +58,7 @@ def connect():
         server = xmlrpclib.Server('https://%s:%s' % (addr, port),
                                 SSL_Transport(ctx))
     else:
-        server = xmlrpclib.Server('http://%s:%s' % (addr, port))
+        server = xmlrpclib.Server('http://localhost:%s' % port)
     return server
 
 if __name__ == '__main__':
