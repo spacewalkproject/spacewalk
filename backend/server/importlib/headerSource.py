@@ -23,7 +23,7 @@ import string
 from importLib import File, Dependency, ChangeLog, Channel, \
     IncompletePackage, Package, SourcePackage
 from backendLib import gmtime, localtime
-from types import ListType, TupleType, IntType, StringType
+from types import ListType, TupleType, IntType, LongType, StringType
 from common import log_debug
 from spacewalk.common.checksum import getFileChecksum
 
@@ -55,7 +55,7 @@ class rpmPackage(IncompletePackage):
             # get the db field value from the header
             val = header[field]
             if f == 'build_time':
-                if val is not None and isinstance(val, IntType):
+                if type(val) in (IntType, LongType):
                     # A UNIX timestamp
                     val = gmtime(val)
             elif val:
@@ -307,7 +307,7 @@ class rpmFile(File, ChangeLog):
         ChangeLog.populate(self, hash)
         # Fix the time
         tm = self['mtime']
-        if tm is not None and isinstance(tm, IntType):
+        if type(tm) in (IntType, LongType):
             # A UNIX timestamp
             self['mtime'] = gmtime(tm)
         if type(self['filedigest']) == StringType:
@@ -357,7 +357,7 @@ class rpmChangeLog(ChangeLog):
         ChangeLog.populate(self, hash)
         # Fix the time
         tm = self['time']
-        if tm is not None and isinstance(tm, IntType):
+        if type(tm) in (IntType, LongType):
             # A UNIX timestamp
             self['time'] = gmtime(tm)
         # In changelog, data is either in UTF-8, or in any other
