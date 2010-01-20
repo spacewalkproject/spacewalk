@@ -265,14 +265,12 @@ def get_package_header(filename=None, file=None, fd=None):
     else:
         # RHEL-4 and older, do the old way
         ts = RPMReadOnlyTransaction()
-        nomd5 = getattr(rpm, 'RPMVSF_NOMD5')
-        needpayload = getattr(rpm, 'RPMVSF_NEEDPAYLOAD')
-        ts.pushVSFlags(~(nomd5 | needpayload))
+        ts.pushVSFlags(~(rpm.RPMVSF_NOMD5 | rpm.RPMVSF_NEEDPAYLOAD))
         hdr = RPMReadOnlyTransaction().hdrFromFdno(file_desc)
         ts.popVSFlags()
     if hdr is None:
         raise InvalidPackageError
-    is_source = hdr[getattr(rpm, 'RPMTAG_SOURCEPACKAGE')]
+    is_source = hdr[rpm.RPMTAG_SOURCEPACKAGE]
 
     return RPM_Header(hdr, is_source)
 
@@ -303,13 +301,13 @@ class MatchIterator:
 
         if hdr is None:
             return None
-        is_source =  hdr[getattr(rpm, 'RPMTAG_SOURCEPACKAGE')]
+        is_source =  hdr[rpm.RPMTAG_SOURCEPACKAGE]
         return RPM_Header(hdr, is_source)
 
 
 def headerLoad(data):
     hdr = rpm.headerLoad(data)
-    is_source =  hdr[getattr(rpm, 'RPMTAG_SOURCEPACKAGE')]
+    is_source =  hdr[rpm.RPMTAG_SOURCEPACKAGE]
     return RPM_Header(hdr, is_source)
 
 def labelCompare(t1, t2):
