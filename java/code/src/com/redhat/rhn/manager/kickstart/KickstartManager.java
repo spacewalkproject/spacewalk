@@ -66,7 +66,20 @@ public class KickstartManager extends BaseManager {
      * @return the rendered kickstart contents
      */
     public String renderKickstart(String host, KickstartData data) {
-        String retval = renderKickstart(data);
+        return renderKickstart(host, KickstartUrlHelper.getCobblerProfileUrl(data));
+    }
+    
+    /**
+     * Render the kickstart using cobbler and return the contents with the Cobbler host 
+     * search/replaced.
+     * 
+     * @param host the host to force into the ks file.  searches and replaces all 
+     * instances of the Cobbler Host with whatever you pass in.  Use with Proxies.
+     * @param url The url to fetch
+     * @return the rendered kickstart contents
+     */
+    public String renderKickstart(String host, String url) {
+        String retval = renderKickstart(url);
         // Search/replacing all instances of cobbler host with host
         // we pass in, for use with rhn proxy.
         retval = retval.replaceAll(ConfigDefaults.get().getCobblerHost(), host);
@@ -79,8 +92,19 @@ public class KickstartManager extends BaseManager {
      * @return the rendered kickstart contents
      */
     public String renderKickstart(KickstartData data) {
-        return DownloadUtils.downloadUrl(KickstartUrlHelper.getCobblerProfileUrl(data));    
+        return renderKickstart(KickstartUrlHelper.getCobblerProfileUrl(data));    
     }
+    
+    
+    /**
+     * Render the kickstart using cobbler and return the contents
+     * @param url the url to fetch
+     * @return the rendered kickstart contents
+     */
+    public String renderKickstart(String url) {
+        return DownloadUtils.downloadUrl(url);
+    }
+    
 
     /**
      * Simple method to validate a generated kickstart 
