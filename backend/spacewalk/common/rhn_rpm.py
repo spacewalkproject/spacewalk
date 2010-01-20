@@ -78,38 +78,29 @@ class RPMTransaction:
     # easier
     def pushVSFlags(self, flags):
         self.tsflags.append(flags)
-        if hasattr(self.ts, 'setVSFlags'):
-            f = getattr(self.ts, 'setVSFlags')
-            f(self.tsflags[-1])
+        f = getattr(self.ts, 'setVSFlags')
+        f(self.tsflags[-1])
 
     def popVSFlags(self):
         del self.tsflags[-1]
-        if hasattr(self.ts, 'setVSFlags'):
-            f = getattr(self.ts, 'setVSFlags')
-            f(self.tsflags[-1])
+        f = getattr(self.ts, 'setVSFlags')
+        f(self.tsflags[-1])
 
     def addInstall(self, arg1, arg2, mode):
         """Install a package"""
         hdr = arg1.hdr
-        if hasattr(self.ts, 'addInstall'):
-            f = getattr(self.ts, 'addInstall')
-            return f(hdr, arg2, mode)
-        return self.ts.add(hdr, arg2, mode)
+        f = getattr(self.ts, 'addInstall')
+        return f(hdr, arg2, mode)
 
     def addErase(self, arg1):
         """Erase a package"""
         hdr = arg1.hdr
-        if hasattr(self.ts, 'addErase'):
-            f = getattr(self.ts, 'addErase')
-            return f(hdr)
-        return self.ts.add(hdr, hdr, "e")
+        f = getattr(self.ts, 'addErase')
+        return f(hdr)
 
     def check(self):
         """Check dependencies"""
-        if hasattr(self.ts, 'check'):
-            f = getattr(self.ts, 'check')
-        else:
-            f = getattr(self.ts, 'depcheck')
+        f = getattr(self.ts, 'check')
         return f()
 
     def setFlags(self, flag):
