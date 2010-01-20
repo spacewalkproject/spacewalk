@@ -464,6 +464,8 @@ def sanitizeValue(value, datatype):
     if isinstance(datatype, DBstring):
         if value is None:
             value = ''
+        elif isinstance(value, unicode):
+            value = unicode.encode(value, 'utf-8')
         return value[:datatype.limit]
     if isinstance(datatype, DBblob):
         if value is None:
