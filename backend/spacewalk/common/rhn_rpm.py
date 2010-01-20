@@ -257,11 +257,19 @@ def get_package_header(filename=None, file=None, fd=None):
     else:
         file_desc = f.fileno()
 
-    if hasattr(rpm, 'readHeaderFromFD'):
-        header_start, header_end = \
-                get_header_byte_range(os.fdopen(os.dup(file_desc)))
-        os.lseek(file_desc, header_start, 0)
-        hdr, offset = rpm.readHeaderFromFD(file_desc)
+# FIXME:
+    if None:
+        pass
+# - readHeaderFromFD() doesn't set hdr['archivesize'] which makes payload_size = 0
+#   for all imported packages
+# - this code was introduced as a fix of bz 487621; if it re-appears then uncomment
+#   and try to fix missing hdr['archivesize'] another way
+#    #if hasattr(rpm, 'readHeaderFromFD'):
+#
+#        header_start, header_end = \
+#                get_header_byte_range(os.fdopen(os.dup(file_desc)))
+#        os.lseek(file_desc, header_start, 0)
+#        hdr, offset = rpm.readHeaderFromFD(file_desc)
     else:
         # RHEL-4 and older, do the old way
         ts = RPMReadOnlyTransaction()
