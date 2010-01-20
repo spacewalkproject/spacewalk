@@ -62,15 +62,8 @@ class InvalidPackageError(Exception):
 class RPMTransaction:
     read_only = 0
     def __init__(self):
-        if hasattr(rpm, 'opendb'):
-            db = getattr(rpm, 'opendb')(not self.read_only)
-            self.ts = rpm.TransactionSet('/', db)
-        else:
-            self.ts = rpm.TransactionSet()
+        self.ts = rpm.TransactionSet()
         self.tsflags = []
-        # For rpm 4.0.4
-        self._flags = 0
-        self._prob_filter = 0
 
     def __getattr__(self, attr):
         return getattr(self.ts, attr)
@@ -121,27 +114,13 @@ class RPMTransaction:
 
     def setFlags(self, flag):
         """Set transaction flags"""
-        if hasattr(rpm, 'headerFromPackage'):
-            # Old style rpm
-            old_flags = self._flags
-            self._flags = flag
-            return old_flags
         return self.ts.setFlags(flag)
 
     def setProbFilter(self, flag):
         """Set problem flags"""
-        if hasattr(rpm, 'headerFromPackage'):
-            # Old style rpm
-            old_flags = self._prob_filter
-            self._prob_filter = flag
-            return old_flags
         return self.ts.setProbFilter(flag)
 
     def run(self, callback, user_data):
-        if hasattr(rpm, 'headerFromPackage'):
-            # Old style rpm
-            return self.ts.run(self._flags, self._prob_filter, callback,
-                user_data)
         return self.ts.run(callback, user_data)
 
 
@@ -317,15 +296,10 @@ class MatchIterator:
         if not tag_name:
             tag_name = "name"
 
-        if hasattr(rpm, "headerFromPackage"):
-            # rpm 4.0.4 or earlier
-            self.db = rpm.opendb()
-            method = self.db.match
-        else:
-            # rpm 4.1 or later
-            self.ts = rpm.TransactionSet()
-            self.ts.setVSFlags(8)
-            method = self.ts.dbMatch
+        # rpm 4.1 or later
+        self.ts = rpm.TransactionSet()
+        self.ts.setVSFlags(8)
+        method = self.ts.dbMatch
 
         if value:
             self.mi = method(tag_name, value)
@@ -343,19 +317,13 @@ class MatchIterator:
 
         if hdr is None:
             return None
-        if hasattr(rpm, "headerFromPackage"):
-            is_source = not hdr[rpm.RPMTAG_SOURCERPM]
-        else:
-            is_source =  hdr[getattr(rpm, 'RPMTAG_SOURCEPACKAGE')]
+        is_source =  hdr[getattr(rpm, 'RPMTAG_SOURCEPACKAGE')]
         return RPM_Header(hdr, is_source)
 
 
 def headerLoad(data):
     hdr = rpm.headerLoad(data)
-    if hasattr(rpm, "headerFromPackage"):
-        is_source = not hdr[rpm.RPMTAG_SOURCERPM]
-    else:
-        is_source =  hdr[getattr(rpm, 'RPMTAG_SOURCEPACKAGE')]
+    is_source =  hdr[getattr(rpm, 'RPMTAG_SOURCEPACKAGE')]
     return RPM_Header(hdr, is_source)
 
 def labelCompare(t1, t2):
