@@ -19,10 +19,6 @@ import rpm
 import struct
 
 import exceptions
-if not hasattr(exceptions, 'StopIteration'):
-    # Presumably python 1.5.2
-    class StopIteration(Exception):
-        pass
 
 # Expose a bunch of useful constants from rpm
 error = rpm.error
