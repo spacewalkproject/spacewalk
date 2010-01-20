@@ -78,30 +78,25 @@ class RPMTransaction:
     # easier
     def pushVSFlags(self, flags):
         self.tsflags.append(flags)
-        f = getattr(self.ts, 'setVSFlags')
-        f(self.tsflags[-1])
+        self.ts.setVSFlags(self.tsflags[-1])
 
     def popVSFlags(self):
         del self.tsflags[-1]
-        f = getattr(self.ts, 'setVSFlags')
-        f(self.tsflags[-1])
+        self.ts.setVSFlags(self.tsflags[-1])
 
     def addInstall(self, arg1, arg2, mode):
         """Install a package"""
         hdr = arg1.hdr
-        f = getattr(self.ts, 'addInstall')
-        return f(hdr, arg2, mode)
+        return self.ts.addInstall(hdr, arg2, mode)
 
     def addErase(self, arg1):
         """Erase a package"""
         hdr = arg1.hdr
-        f = getattr(self.ts, 'addErase')
-        return f(hdr)
+        return self.ts.addErase(hdr)
 
     def check(self):
         """Check dependencies"""
-        f = getattr(self.ts, 'check')
-        return f()
+        return self.ts.check()
 
     def setFlags(self, flag):
         """Set transaction flags"""
