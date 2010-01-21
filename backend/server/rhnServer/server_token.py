@@ -460,11 +460,19 @@ _query_server_token_used = rhnSQL.Statement("""
     values (:server_id, :token_id)
 """)
 
+_query_check_server_uses_token = rhnSQL.Statement("""
+    select 1 from rhnServerTokenRegs
+    where server_id = :server_id
+    and token_id = :token_id
+""")
+
 def server_used_token(server_id, token_id):
-    h = rhnSQL.prepare(_query_server_token_used)
+    h = rhnSQL.prepare(_query_check_server_uses_token)
     h.execute(server_id=server_id, token_id=token_id)
-
-
+    ret = h.fetchone_dict()
+    if not ret:
+        h = rhnSQL.prepare(_query_server_token_used)
+        h.execute(server_id=server_id, token_id=token_id)
 
 _query_check_token_limits = rhnSQL.Statement("""
     select
