@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.8.4
+Version: 0.8.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %if 0%{?suse_version: %{suse_version} > 1000} 
@@ -227,6 +227,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Thu Jan 21 2010 Miroslav Suchý <msuchy@redhat.com> 0.8.5-1
+- 557059 - convert dbus.string to unicode
+
 * Thu Jan 21 2010 Milan Zazrivec <mzazrivec@redhat.com> 0.8.4-1
 - 557370 - put dmidecode import warnings into log
 
