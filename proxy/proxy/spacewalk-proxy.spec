@@ -24,6 +24,9 @@ Summary: Packages required by the SpacewalkManagement Proxy
 Group:   Applications/Internet
 Requires: squid
 Requires: spacewalk-backend
+# python-hashlib is optional for spacewalk-backend-libs
+# but we need made it mandatory here
+Requires: python-hashlib
 Requires: %{name}-broker = %{version}
 Requires: %{name}-redirect = %{version}
 Requires: %{name}-common >= %{version}
