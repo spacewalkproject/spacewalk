@@ -1395,7 +1395,6 @@ class Tui:
             StartWindow,
             InfoWindow,
             OrgGroupWindow,
-            SubscriptionWindow,
             OSReleaseWindow,
             HardwareWindow,
             PackagesWindow,
