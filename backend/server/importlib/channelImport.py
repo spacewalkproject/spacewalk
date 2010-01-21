@@ -63,7 +63,8 @@ class ChannelImport(Import):
                  or (channel['parent_channel']
                     and RHEL5_REGEXP.match(channel['parent_channel'])))):
                  channel['checksum_type'] = 'sha1'
-        if channel['checksum_type'] not in self.checksum_types:
+        if (channel['checksum_type']
+            and channel['checksum_type'] not in self.checksum_types):
             self.checksum_types[channel['checksum_type']] = None
 
         # bug #528227
@@ -95,7 +96,10 @@ class ChannelImport(Import):
             channel.ignored = 1
             raise InvalidArchError(arch, "Unsupported channel arch %s" % arch)
         channel['channel_arch_id'] = self.arches[arch]
-        channel['checksum_type_id'] = self.checksum_types[channel['checksum_type']]
+        if channel['checksum_type']:
+            channel['checksum_type_id'] = self.checksum_types[channel['checksum_type']]
+        else:
+            channel['checksum_type_id'] = None
 
         if channel.has_key('product_name'):
             channel['product_name_id'] = self.backend.lookupProductNames(
