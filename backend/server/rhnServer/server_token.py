@@ -399,16 +399,16 @@ def token_config_channels(server, tokens_obj):
 
     config_channels = []
     config_channels_hash = {}
-    no_deployment = 0
+    deployment = 0
     for token in tokens_obj.tokens:
         channels = _get_token_config_channels(token['token_id'])
         # Check every token used and if any of them are set to not deploy configs
         # then we won't deploy configs for any config channels the system is subscribed to
         deploy_configs = token['deploy_configs']
         log_debug(2, "token_id: ", token['token_id'], " deploy_configs: ", deploy_configs)
-	if deploy_configs == 'N':
-            log_debug(2, "At least one token set to not deploy config files, so deploying none")
-            no_deployment = 1
+	if deploy_configs == 'Y':
+            log_debug(2, "At least one token set to deploy config files")
+            deployment = 1
         for c in channels:
             config_channel_id = c['config_channel_id']
             if tokens_obj.forget_rereg_token:
@@ -446,7 +446,7 @@ def token_config_channels(server, tokens_obj):
     # determine if we have to deploy the files too
     # Don't pass tokens_obj, we only need the token that provided the config
     # channels in the first place
-    if not no_deployment:
+    if deployment:
         log_debug(2, "All tokens have deploy_configs == Y, deploying configs")
         deploy_configs_if_needed(server)
 
