@@ -226,7 +226,8 @@ def rhn_popen(cmd, progressCallback=None, bufferSize=16384, outputLog=None):
 
     while 1:
         # Is the child process done?
-        status = c.poll()
+        c.poll()
+        status = c.returncode
         if status != -1:
             if os.WIFEXITED(status):
                 # Save the exit code, we still have to read from the pipes
