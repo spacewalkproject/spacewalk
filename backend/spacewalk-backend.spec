@@ -421,7 +421,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/action_extra_data/*
 # config files
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_xmlrpc.conf
-%attr(640,root,apache) %config %{httpdconf}/rhn/xmlrpc.conf
+%attr(640,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-xmlrpc.conf
 %config %{_sysconfdir}/logrotate.d/rhn_server_xmlrpc
 
 %files applet
@@ -430,7 +430,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/handlers/applet/*
 # config files
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_applet.conf
-%attr(640,root,apache) %config %{httpdconf}/rhn/applet.conf
+%attr(640,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-applet.conf
 %config %{_sysconfdir}/logrotate.d/rhn_server_applet
 
 %files app
@@ -439,7 +439,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/handlers/app/*
 # config files
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_app.conf
-%attr(640,root,apache) %config %{httpdconf}/rhn/app.conf
+%attr(640,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-app.conf
 %config %{_sysconfdir}/logrotate.d/rhn_server_app
 
 %files xp
@@ -448,7 +448,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/handlers/xp/*
 # config files
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_xp.conf
-%attr(640,root,apache) %config %{httpdconf}/rhn/xp.conf
+%attr(640,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-xp.conf
 %config %{_sysconfdir}/logrotate.d/rhn_server_xp
 
 %files iss
@@ -456,7 +456,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}/server/handlers/sat
 %{rhnroot}/server/handlers/sat/*
 %config %{_sysconfdir}/logrotate.d/rhn_server_sat
-%attr(640,root,apache) %config %{httpdconf}/rhn/sat.conf
+%attr(640,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-sat.conf
 
 %files iss-export
 %defattr(-,root,root)
@@ -469,7 +469,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_exporter/handlers/__init__.py*
 %{rhnroot}/satellite_exporter/handlers/non_auth_dumper.py*
 # config files
-%attr(640,root,apache) %config %{httpdconf}/rhn/sat-export-internal.conf
+%attr(640,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-sat-export-internal.conf
 %config %{_sysconfdir}/logrotate.d/rhn_sat_export_internal
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_satexport.conf
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_satexport_internal.conf
@@ -490,7 +490,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}/server/handlers/config
 %{rhnroot}/server/handlers/config/*
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_config-management.conf
-%attr(640,root,apache) %config %{httpdconf}/rhn/config-management.conf
+%attr(640,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-config-management.conf
 %config %{_sysconfdir}/logrotate.d/rhn_config_management
 
 %files config-files-tool
@@ -498,7 +498,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}/server/handlers/config_mgmt
 %{rhnroot}/server/handlers/config_mgmt/*
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_config-management-tool.conf
-%attr(640,root,apache) %config %{httpdconf}/rhn/config-management-tool.conf
+%attr(640,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-config-management-tool.conf
 %config %{_sysconfdir}/logrotate.d/rhn_config_management_tool
 
 %files upload-server
@@ -512,7 +512,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_upload.conf
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_upload_package.conf
 %config %{_sysconfdir}/logrotate.d/rhn_package_upload
-%attr(640,root,apache) %config %{httpdconf}/rhn/pkg-upload.conf
+%attr(640,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-pkg-upload.conf
 
 %files package-push-server
 %defattr(-,root,root)
@@ -525,7 +525,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_upload.conf
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_upload_package-push.conf
 %config %{_sysconfdir}/logrotate.d/rhn_package_push
-%attr(640,root,apache) %config %{httpdconf}/rhn/package-push.conf
+%attr(640,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-package-push.conf
 
 %files tools
 %defattr(-,root,root)
