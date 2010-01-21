@@ -21,13 +21,8 @@
 import os
 import re
 import sys
-import md5
-import time
-import types
 import string
 import shutil
-import popen2
-import select
 import tempfile
 from timeLib import DAY, now, secs2days, secs2years, secs2str, \
                     str2secs
