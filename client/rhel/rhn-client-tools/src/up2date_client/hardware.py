@@ -931,7 +931,7 @@ def get_hal_system_and_smbios():
 
     for key in props:
         if key.startswith('system') or key.startswith('smbios'):
-            system_and_smbios[key] = props[key]
+            system_and_smbios[unicode(key)] = unicode(props[key])
 
     return system_and_smbios
 
