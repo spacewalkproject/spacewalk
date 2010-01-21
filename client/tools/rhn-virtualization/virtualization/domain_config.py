@@ -249,13 +249,6 @@ class DomainConfig:
         found = self.__extractElement(start_tree, *tag_path[:-1])
         found.setAttribute(attribute_name, str(value))
 
-    def __addElementValue(self, start_tree, value, *tag_path):
-        self.__makeElement(start_tree, *tag_path)
-        self.__setElementValue(start_tree, value, *tag_path)
-
-    def __addElementAttribute(self, start_tree, value, *tag_path):
-        self.__setElementAttribute(start_tree, value, *tag_path)
-
     def __makeElement(self, start_tree, *tag_path):
         # If there are no more tags left in the path, there's nothing more to 
         # add.
