@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 4.5.16
+Version: 4.8.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -63,6 +63,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Jan 21 2010 Miroslav Suchý <msuchy@redhat.com> 4.8.1-1
+- bumping up version, to be ahead of rhel5 versions
+
 * Tue Dec  1 2009 Miroslav Suchý <msuchy@redhat.com> 4.5.16-1
 - 502234 - fixing issue where the rhnsd init script would fail to reload the configuration, a forward port of a patch from rhel 4 (jsherril@redhat.com)
 - 541682 - make env. for rhn_check consistent with osad (mzazrivec@redhat.com)
