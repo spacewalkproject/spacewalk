@@ -208,15 +208,7 @@ class TempDir:
         """ fetch the temporary directory path using the most "correct"
             mk*temp function for this python version
         """
-        
-        mktemp = None
-        if hasattr(tempfile, 'mkdtemp'):
-            # python 2.3+
-            mktemp = tempfile.mkdtemp
-        else:
-            # pre-python 2.3
-            mktemp = tempfile.mktemp
-        return mktemp(suffix=suffix)
+        return tempfile.mkdtemp(suffix=suffix)
 
     def getdir(self):
         return self.path
