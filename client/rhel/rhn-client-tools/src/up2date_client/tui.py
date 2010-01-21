@@ -1460,12 +1460,6 @@ class Tui:
                         index = index + 1
                         continue
 
-                if win.name == 'SubscriptionWindow':
-
-                    if self._show_subscription_window() == False:
-                        index = index + 1
-                        continue
-
                 if win.name == 'OSReleaseWindow':
                     channels = rhnreg.getAvailableChannels(self.userName, 
                                self.password, self.other)
@@ -1494,10 +1488,6 @@ class Tui:
                         else:
                             index = index - 4
 
-                    elif win.name == 'SubscriptionWindow':
-                        # If we didn't see the org window, go back 2
-                        if self.saw_org_window == 0:
-                            index = index - 2
                     elif win.name == 'OSReleaseWindow':
                         if self.saw_sub_window == 1:
                             index = index - 1
