@@ -202,7 +202,7 @@ public class KickstartFormatter {
      * @return String containing kickstart file
      */
     public String getFileData() {
-        StringBuilder buf = new StringBuilder();
+        StringBuffer buf = new StringBuffer();
         buf.append(getHeader());
         buf.append(getCommands());
         
@@ -221,9 +221,9 @@ public class KickstartFormatter {
         buf.append("$kickstart_start");
         buf.append(NEWLINE);
         addCobblerSnippet(buf, "pre_install_network_config");
-        buf.append(NEWLINE);        
+        buf.append(NEWLINE);
         buf.append(getPrePost(KickstartScript.TYPE_PRE));
-        buf.append(NEWLINE);      
+        buf.append(NEWLINE);
         buf.append(getNoChroot());
         buf.append(NEWLINE);
         buf.append(getRhnPost());
@@ -232,7 +232,6 @@ public class KickstartFormatter {
         buf.append(getPrePost(KickstartScript.TYPE_POST));
         buf.append(NEWLINE);
         addCobblerSnippet(buf, "post_install_kernel_options");
-        addCobblerSnippet(buf, "post_install_network_config");
         addCobblerSnippet(buf, "koan_environment");
         buf.append("$kickstart_done");
         buf.append(NEWLINE);
@@ -242,7 +241,7 @@ public class KickstartFormatter {
         return retval;
     }
 
-    private void addCobblerSnippet(StringBuilder buf, String contents) {
+    private void addCobblerSnippet(StringBuffer buf, String contents) {
         CobblerSnippet.makeFragment(contents);
         buf.append(CobblerSnippet.makeFragment(contents));
         buf.append(NEWLINE);
@@ -701,6 +700,7 @@ public class KickstartFormatter {
         
         retval.append(NEWLINE);
         retval.append(END_POST);
+        addCobblerSnippet(retval, "post_install_network_config");
         return retval.toString();
     }
 
