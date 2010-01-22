@@ -226,26 +226,16 @@ def rhn_popen(cmd, progressCallback=None, bufferSize=16384, outputLog=None):
 
     while 1:
         # Is the child process done?
-        c.poll()
-        status = c.returncode
-        if status != -1:
-            if os.WIFEXITED(status):
+        status = c.poll()
+        if status is not None:
+            if status >= 0:
                 # Save the exit code, we still have to read from the pipes
-                exitcode = os.WEXITSTATUS(status)
-            elif os.WIFSIGNALED(status):
-                # Some signal terminated this process
-                sig = os.WTERMSIG(status)
+                exitcode = status
+            else:
+                # Some signal sent to this process
                 if outputLog is not None:
-                    outputLog("rhn_popen: terminated: Signal %s received\n" % (
-                              sig))
-                exitcode = -sig
-                break
-            elif os.WIFSTOPPED(status):
-                # Some signal stopped this process
-                sig = os.WSTOPSIG(status)
-                if outputLog is not None:
-                    outputLog("rhn_popen: stopped: Signal %s received\n" % sig)
-                exitcode = -sig
+                    outputLog("rhn_popen: Signal %s received\n" % (-status))
+                exitcode = status
                 break
 
         fd_set = map(lambda x: x[0], fd_mappings)
