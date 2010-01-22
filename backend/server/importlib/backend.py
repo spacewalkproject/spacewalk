@@ -84,7 +84,7 @@ class Backend:
     def processCapabilities(self, capabilityHash):
         # First figure out which capabilities are already inserted
 	templ = """
-            select id
+            select /*+index(rhnPackageCapability rhn_pkg_cap_name_version_uq)*/ id
               from rhnPackageCapability
              where name = :name 
                and version %s"""
