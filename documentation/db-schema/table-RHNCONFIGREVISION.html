@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+        <head><title> Spacewalk DB Schema - Table-RHNCONFIGREVISION </title>
+        <link rel="stylesheet" type="text/css" href="oraschemadoc.css" />
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta name="author" content="Petr Vanek, petr@scribus.info" />
+        <meta name="generator" content="oraschemadoc" />
+        </head>
+        <body>
+            <div class="contextbar">
+            <a href="main.html">Main</a>
+            <a href="tables-list.html">Tables</a>
+            <a href="views-list.html">Views</a>
+            <a href="mviews-list.html">Materialized&nbsp;Views</a>
+            <a href="indexes-list.html">Indexes</a>
+            <a href="constraints-list.html">Constraints</a>
+            <a href="triggers-list.html">Triggers</a>
+            <a href="procedures-list.html">Procedures</a>
+            <a href="functions-list.html">Functions</a>
+            <a href="packages-list.html">Packages</a>
+            <a href="sequences.html">Sequences</a>
+            <a href="java-sources-list.html">Java&nbsp;Sources</a>
+            <a href="jobs.html">Jobs</a>
+            <a href="sanity-check.html">Sanity&nbsp;Check</a>
+            <a href="symbol-index.html">Index</a>
+            <a href="sql_sources/" target="Main">DDL&nbsp;scrips</a>
+            </div><div class="subcontextbar"><a href="#t-descr">Description</a> <a href="#t-cols">Columns</a> <a href="#t-pk">Primary key</a> <a href="#t-cc">Check Constraints</a> <a href="#t-fk">Foreign keys</a> <a href="#t-uc">Unique Keys</a> <a href="#t-opt">Options</a> <a href="#t-ind">Indexes</a> <a href="#t-refs">Referenced by</a> <a href="#t-trgs">Triggers</a> <a href="#t-parts">Partitions</a> </div><h2>RHNCONFIGREVISION</h2>
+<a href="sql_sources/table/rhnconfigrevision.sql">DDL script</a><h3>Columns<a name="t-cols"></a></h3>
+<table>
+<tr><th>Name</th><th>Type</th><th>Nullable</th><th>Default value</th><th>Comment</th></tr><tr><td>ID<a name="col-ID"></a></td><td>NUMBER(38)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>REVISION<a name="col-REVISION"></a></td><td>NUMBER(38)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>CONFIG_FILE_ID<a name="col-CONFIG_FILE_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>CONFIG_CONTENT_ID<a name="col-CONFIG_CONTENT_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>CONFIG_INFO_ID<a name="col-CONFIG_INFO_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>DELIM_START<a name="col-DELIM_START"></a></td><td>VARCHAR2(16)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>DELIM_END<a name="col-DELIM_END"></a></td><td>VARCHAR2(16)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>CREATED<a name="col-CREATED"></a></td><td>DATE</td><td>N</td><td>(sysdate) </td><td>&nbsp;</td></tr>
+<tr><td>MODIFIED<a name="col-MODIFIED"></a></td><td>DATE</td><td>N</td><td>(sysdate) </td><td>&nbsp;</td></tr>
+<tr><td>CONFIG_FILE_TYPE_ID<a name="col-CONFIG_FILE_TYPE_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>(1) </td><td>&nbsp;</td></tr>
+<tr><td>CHANGED_BY_ID<a name="col-CHANGED_BY_ID"></a></td><td>NUMBER(38)</td><td>Y</td><td>(null)
+                             </td><td>&nbsp;</td></tr>
+</table><h3>Primary key:<a name="t-pk"></a></h3>
+<table>
+<tr><th>Constraint Name</th><th>Columns</th></tr><tr><td>RHN_CONFREVISION_ID_PK<a name="cs-RHN_CONFREVISION_ID_PK"></a></td><td><a href="table-RHNCONFIGREVISION.html#col-ID">ID </a>
+</td></tr>
+</table><h3>Foreign Keys:<a name="t-fk"></a></h3>
+<table>
+<tr><th>Constraint Name</th><th>Columns</th><th>Referenced table</th><th>Referenced Constraint</th><th>On Delete Rule</th></tr><tr><td>RHN_CONFREVISION_CCID_FK<a name="cs-RHN_CONFREVISION_CCID_FK"></a></td><td><a href="table-RHNCONFIGREVISION.html#col-CONFIG_CONTENT_ID">CONFIG_CONTENT_ID </a>
+</td><td><a href="table-RHNCONFIGCONTENT.html"> RHNCONFIGCONTENT </a></td><td><a href="table-RHNCONFIGCONTENT.html#cs-RHN_CONFCONTENT_ID_PK">RHN_CONFCONTENT_ID_PK </a>
+</td><td>NO ACTION</td></tr>
+<tr><td>RHN_CONFREVISION_CFID_FK<a name="cs-RHN_CONFREVISION_CFID_FK"></a></td><td><a href="table-RHNCONFIGREVISION.html#col-CONFIG_FILE_ID">CONFIG_FILE_ID </a>
+</td><td><a href="table-RHNCONFIGFILE.html"> RHNCONFIGFILE </a></td><td><a href="table-RHNCONFIGFILE.html#cs-RHN_CONFFILE_ID_PK">RHN_CONFFILE_ID_PK </a>
+</td><td>NO ACTION</td></tr>
+<tr><td>RHN_CONFREVISION_CID_FK<a name="cs-RHN_CONFREVISION_CID_FK"></a></td><td><a href="table-RHNCONFIGREVISION.html#col-CHANGED_BY_ID">CHANGED_BY_ID </a>
+</td><td><a href="table-WEB_CONTACT.html"> WEB_CONTACT </a></td><td><a href="table-WEB_CONTACT.html#cs-WEB_CONTACT_PK">WEB_CONTACT_PK </a>
+</td><td>NO ACTION</td></tr>
+<tr><td>RHN_CONFREVISION_CIID_FK<a name="cs-RHN_CONFREVISION_CIID_FK"></a></td><td><a href="table-RHNCONFIGREVISION.html#col-CONFIG_INFO_ID">CONFIG_INFO_ID </a>
+</td><td><a href="table-RHNCONFIGINFO.html"> RHNCONFIGINFO </a></td><td><a href="table-RHNCONFIGINFO.html#cs-RHN_CONFINFO_ID_PK">RHN_CONFINFO_ID_PK </a>
+</td><td>NO ACTION</td></tr>
+<tr><td>RHN_CONF_REV_CFTI_FK<a name="cs-RHN_CONF_REV_CFTI_FK"></a></td><td><a href="table-RHNCONFIGREVISION.html#col-CONFIG_FILE_TYPE_ID">CONFIG_FILE_TYPE_ID </a>
+</td><td><a href="table-RHNCONFIGFILETYPE.html"> RHNCONFIGFILETYPE </a></td><td><a href="table-RHNCONFIGFILETYPE.html#cs-RHN_CONFFILETYPE_ID_PK">RHN_CONFFILETYPE_ID_PK </a>
+</td><td>NO ACTION</td></tr>
+</table><h3>Options:<a name="t-opt"></a></h3>
+<table>
+<tr><th>Option</th><th>Settings</th></tr><tr><td>Tablespace</td><td>DATA_TBS</td></tr>
+<tr><td>Index Organized</td><td>No</td></tr>
+<tr><td>Generated by Oracle</td><td>No</td></tr>
+<tr><td>Clustered</td><td>No</td></tr>
+<tr><td>Nested</td><td>No</td></tr>
+<tr><td>Temporary</td><td>No</td></tr>
+</table><h3>Indexes:<a name="t-ind"></a></h3>
+<table>
+<tr><th>Index Name</th><th>Type</th><th>Unuqueness</th><th>Columns</th><th>DDL script</th></tr><tr><td>RHN_CONFREVISION_CFID_REV_UQ<a name="ind-RHN_CONFREVISION_CFID_REV_UQ"></a></td><td>NORMAL</td><td>UNIQUE</td><td><a href="table-RHNCONFIGREVISION.html#col-CONFIG_FILE_ID">CONFIG_FILE_ID </a>
+, <a href="table-RHNCONFIGREVISION.html#col-REVISION">REVISION </a>
+</td><td><a href="sql_sources/index/rhn_confrevision_cfid_rev_uq.sql">DDL script</a></td></tr>
+<tr><td>RHN_CONFREVISION_ID_PK<a name="ind-RHN_CONFREVISION_ID_PK"></a></td><td>NORMAL</td><td>UNIQUE</td><td><a href="table-RHNCONFIGREVISION.html#col-ID">ID </a>
+</td><td><a href="sql_sources/index/rhn_confrevision_id_pk.sql">DDL script</a></td></tr>
+</table><h3>Referenced by:<a name="t-refs"></a></h3>
+<table>
+<tr><th>Table</th><th>Constraint</th></tr><tr><td><a href="table-RHNACTIONCONFIGFILENAME.html"> RHNACTIONCONFIGFILENAME </a></td><td><a href="table-RHNACTIONCONFIGFILENAME.html#cs-RHN_ACTIONCF_NAME_CRID_FK">RHN_ACTIONCF_NAME_CRID_FK </a>
+</td></tr>
+<tr><td><a href="table-RHNACTIONCONFIGREVISION.html"> RHNACTIONCONFIGREVISION </a></td><td><a href="table-RHNACTIONCONFIGREVISION.html#cs-RHN_ACTIONCR_CRID_FK">RHN_ACTIONCR_CRID_FK </a>
+</td></tr>
+<tr><td><a href="table-RHNCONFIGFILE.html"> RHNCONFIGFILE </a></td><td><a href="table-RHNCONFIGFILE.html#cs-RHN_CONFFILE_LCRID_FK">RHN_CONFFILE_LCRID_FK </a>
+</td></tr>
+<tr><td><a href="table-RHNSNAPSHOTCONFIGREVISION.html"> RHNSNAPSHOTCONFIGREVISION </a></td><td><a href="table-RHNSNAPSHOTCONFIGREVISION.html#cs-RHN_SNAPSHOTCR_CRID_FK">RHN_SNAPSHOTCR_CRID_FK </a>
+</td></tr>
+</table><h3>Triggers</h3>
+<a name="t-trgs"></a><a name="trg-RHN_CONFREVISION_ACCT_TRIG"></a><h4>RHN_CONFREVISION_ACCT_TRIG</h4>
+<pre>
+Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
+<pre>
+<span class="reserved">CREATE</span> TRIGGER 
+rhn_confrevision_acct_trig
+after <span class="reserved">insert</span> <span class="reserved">on</span> rhnConfigRevision
+<span class="reserved">for</span> each <span class="keyword">row</span>
+
+REFERENCING <span class="keyword">NEW</span> <span class="reserved">AS</span> <span class="keyword">NEW</span> OLD <span class="reserved">AS</span> OLD
+<span class="reserved">declare</span>
+	org_id number;
+	available number;
+	added number;
+<span class="reserved">begin</span>
+	<span class="comment">-- find the current amount of quota available</span>
+	<span class="reserved">select</span>	cc<span class="operator">.</span>org_id id<span class="operator">,</span>
+			oq<span class="operator">.</span>total <span class="operator">+</span> oq<span class="operator">.</span>bonus <span class="operator">-</span> oq<span class="operator">.</span>used available<span class="operator">,</span>
+			content<span class="operator">.</span>file_size added
+	<span class="reserved">into</span>	org_id<span class="operator">,</span> available<span class="operator">,</span> added
+	<span class="reserved">from</span>	rhnConfigContent	content<span class="operator">,</span>
+			rhnOrgQuota			oq<span class="operator">,</span>
+			rhnConfigChannel	cc<span class="operator">,</span>
+			rhnConfigFile		cf
+	<span class="reserved">where</span>	cf<span class="operator">.</span>id <span class="operator">=</span> <span class="operator">:</span><span class="keyword">new</span><span class="operator">.</span>config_file_id
+			<span class="reserved">and</span> cf<span class="operator">.</span>config_channel_id <span class="operator">=</span> cc<span class="operator">.</span>id
+			<span class="reserved">and</span> cc<span class="operator">.</span>org_id <span class="operator">=</span> oq<span class="operator">.</span>org_id
+			<span class="reserved">and</span> <span class="operator">:</span><span class="keyword">new</span><span class="operator">.</span>config_content_id <span class="operator">=</span> content<span class="operator">.</span>id;
+
+	<span class="reserved">if</span> added gt; available <span class="reserved">then</span>
+		rhn_exception<span class="operator">.</span>raise_exception<span class="operator">(</span><span class="string">'not_enough_quota'</span><span class="operator">)</span>;
+	<span class="reserved">end</span> <span class="reserved">if</span>;
+<span class="reserved">end</span>;
+</pre>
+<a name="trg-RHN_CONFREVISION_DEL_TRIG"></a><h4>RHN_CONFREVISION_DEL_TRIG</h4>
+<pre>
+Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
+<pre>
+<span class="reserved">CREATE</span> TRIGGER 
+rhn_confrevision_del_trig
+before <span class="reserved">delete</span> <span class="reserved">on</span> rhnConfigRevision
+<span class="reserved">for</span> each <span class="keyword">row</span>
+
+REFERENCING <span class="keyword">NEW</span> <span class="reserved">AS</span> <span class="keyword">NEW</span> OLD <span class="reserved">AS</span> OLD
+<span class="reserved">declare</span>
+	<span class="keyword">cursor</span> snapshots <span class="reserved">is</span>
+		<span class="reserved">select</span>	snapshot_id id
+		<span class="reserved">from</span>	rhnSnapshotConfigRevision
+		<span class="reserved">where</span>	config_revision_id <span class="operator">=</span> <span class="operator">:</span>old<span class="operator">.</span>id;
+<span class="reserved">begin</span>
+	<span class="reserved">for</span> snapshot <span class="reserved">in</span> snapshots <span class="keyword">loop</span>
+		<span class="reserved">update</span> rhnSnapshot
+			<span class="keyword">set</span> invalid <span class="operator">=</span> lookup_snapshot_invalid_reason<span class="operator">(</span><span class="string">'cr_removed'</span><span class="operator">)</span>
+			<span class="reserved">where</span> id <span class="operator">=</span> snapshot<span class="operator">.</span>id;
+		<span class="reserved">delete</span> <span class="reserved">from</span> rhnSnapshotConfigRevision
+			<span class="reserved">where</span> snapshot_id <span class="operator">=</span> snapshot<span class="operator">.</span>id
+				<span class="reserved">and</span> config_revision_id <span class="operator">=</span> <span class="operator">:</span>old<span class="operator">.</span>id;
+	<span class="reserved">end</span> <span class="keyword">loop</span>;
+<span class="reserved">end</span>;
+</pre>
+<a name="trg-RHN_CONFREVISION_MOD_TRIG"></a><h4>RHN_CONFREVISION_MOD_TRIG</h4>
+<pre>
+Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
+<pre>
+<span class="reserved">CREATE</span> TRIGGER 
+rhn_confrevision_mod_trig
+before <span class="reserved">insert</span> <span class="reserved">or</span> <span class="reserved">update</span> <span class="reserved">on</span> rhnConfigRevision
+<span class="reserved">for</span> each <span class="keyword">row</span>
+
+REFERENCING <span class="keyword">NEW</span> <span class="reserved">AS</span> <span class="keyword">NEW</span> OLD <span class="reserved">AS</span> OLD
+<span class="reserved">begin</span>
+	<span class="operator">:</span><span class="keyword">new</span><span class="operator">.</span>modified <span class="operator">:</span><span class="operator">=</span> sysdate;
+<span class="reserved">end</span>;
+</pre>
+<div class="footer">
+        Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Jan 22 13:41:14 2010</div>
+</body></html>

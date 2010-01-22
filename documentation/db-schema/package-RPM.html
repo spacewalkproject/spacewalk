@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+        <head><title> Spacewalk DB Schema - Package - RPM </title>
+        <link rel="stylesheet" type="text/css" href="oraschemadoc.css" />
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta name="author" content="Petr Vanek, petr@scribus.info" />
+        <meta name="generator" content="oraschemadoc" />
+        </head>
+        <body>
+            <div class="contextbar">
+            <a href="main.html">Main</a>
+            <a href="tables-list.html">Tables</a>
+            <a href="views-list.html">Views</a>
+            <a href="mviews-list.html">Materialized&nbsp;Views</a>
+            <a href="indexes-list.html">Indexes</a>
+            <a href="constraints-list.html">Constraints</a>
+            <a href="triggers-list.html">Triggers</a>
+            <a href="procedures-list.html">Procedures</a>
+            <a href="functions-list.html">Functions</a>
+            <a href="packages-list.html">Packages</a>
+            <a href="sequences.html">Sequences</a>
+            <a href="java-sources-list.html">Java&nbsp;Sources</a>
+            <a href="jobs.html">Jobs</a>
+            <a href="sanity-check.html">Sanity&nbsp;Check</a>
+            <a href="symbol-index.html">Index</a>
+            <a href="sql_sources/" target="Main">DDL&nbsp;scrips</a>
+            </div><div class="subcontextbar"><a href="#p-src">Package source</a> <a href="#p-bsrc">Package body source</a> </div><h2>RPM</h2>
+<a href="sql_sources/package/rpm.sql">DDL script</a><h2>Package source</h2>
+<a name="p-src"></a><pre>
+Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
+<pre>
+     1<span class="operator">:</span> <span class="keyword">PACKAGE</span> rpm <span class="reserved">AS</span>
+     2<span class="operator">:</span>     <span class="keyword">FUNCTION</span> vercmp<span class="operator">(</span>
+     3<span class="operator">:</span>         e1 VARCHAR2<span class="operator">,</span> v1 VARCHAR2<span class="operator">,</span> r1 VARCHAR2<span class="operator">,</span>
+     4<span class="operator">:</span>         e2 VARCHAR2<span class="operator">,</span> v2 VARCHAR2<span class="operator">,</span> r2 VARCHAR2<span class="operator">)</span>
+     5<span class="operator">:</span>     <span class="keyword">RETURN</span> NUMBER
+     6<span class="operator">:</span>         <span class="keyword">DETERMINISTIC</span>
+     7<span class="operator">:</span>         <span class="keyword">PARALLEL_ENABLE</span>;
+     8<span class="operator">:</span>     <span class="keyword">PRAGMA</span> RESTRICT_REFERENCES<span class="operator">(</span>vercmp<span class="operator">,</span> WNDS<span class="operator">,</span> RNDS<span class="operator">)</span>;
+     9<span class="operator">:</span> 
+    10<span class="operator">:</span>     <span class="keyword">FUNCTION</span> vercmpCounter
+    11<span class="operator">:</span>     <span class="keyword">return</span> NUMBER
+    12<span class="operator">:</span>         <span class="keyword">PARALLEL_ENABLE</span>;
+    13<span class="operator">:</span>     <span class="keyword">PRAGMA</span> RESTRICT_REFERENCES<span class="operator">(</span>vercmpCounter<span class="operator">,</span> WNDS<span class="operator">,</span> RNDS<span class="operator">)</span>;
+    14<span class="operator">:</span> 
+    15<span class="operator">:</span>     <span class="keyword">FUNCTION</span> vercmpResetCounter
+    16<span class="operator">:</span>     <span class="keyword">return</span> NUMBER
+    17<span class="operator">:</span>         <span class="keyword">PARALLEL_ENABLE</span>;
+    18<span class="operator">:</span>     <span class="keyword">PRAGMA</span> RESTRICT_REFERENCES<span class="operator">(</span>vercmpResetCounter<span class="operator">,</span> WNDS<span class="operator">,</span> RNDS<span class="operator">)</span>;
+    19<span class="operator">:</span> 
+    20<span class="operator">:</span> <span class="reserved">END</span> rpm;
+</pre>
+<h2>Package body source</h2>
+<a name="p-bsrc"></a><pre>
+Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
+<pre>
+     1<span class="operator">:</span> <span class="keyword">PACKAGE</span> <span class="keyword">BODY</span> rpm <span class="reserved">AS</span>
+     2<span class="operator">:</span>     vercmp_counter NUMBER <span class="operator">:</span><span class="operator">=</span> 0;
+     3<span class="operator">:</span> 
+     4<span class="operator">:</span>     <span class="keyword">FUNCTION</span> isdigit<span class="operator">(</span>ch <span class="keyword">CHAR</span><span class="operator">)</span>
+     5<span class="operator">:</span>     <span class="keyword">RETURN</span> BOOLEAN
+     6<span class="operator">:</span>     <span class="keyword">deterministic</span>
+     7<span class="operator">:</span>     <span class="reserved">IS</span>
+     8<span class="operator">:</span>     <span class="reserved">BEGIN</span>
+     9<span class="operator">:</span>         <span class="reserved">if</span> ascii<span class="operator">(</span>ch<span class="operator">)</span> <span class="reserved">between</span> ascii<span class="operator">(</span><span class="string">'0'</span><span class="operator">)</span> <span class="reserved">and</span> ascii<span class="operator">(</span><span class="string">'9'</span><span class="operator">)</span>
+    10<span class="operator">:</span>         <span class="reserved">then</span>
+    11<span class="operator">:</span>             <span class="keyword">return</span> TRUE;
+    12<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
+    13<span class="operator">:</span>         <span class="keyword">return</span> FALSE;
+    14<span class="operator">:</span>     <span class="reserved">END</span> isdigit;
+    15<span class="operator">:</span> 
+    16<span class="operator">:</span> 
+    17<span class="operator">:</span>     <span class="keyword">FUNCTION</span> isalpha<span class="operator">(</span>ch <span class="keyword">CHAR</span><span class="operator">)</span>
+    18<span class="operator">:</span>     <span class="keyword">RETURN</span> BOOLEAN
+    19<span class="operator">:</span>     <span class="keyword">deterministic</span>
+    20<span class="operator">:</span>     <span class="reserved">IS</span>
+    21<span class="operator">:</span>     <span class="reserved">BEGIN</span>
+    22<span class="operator">:</span>         <span class="reserved">if</span> ascii<span class="operator">(</span>ch<span class="operator">)</span> <span class="reserved">between</span> ascii<span class="operator">(</span><span class="string">'a'</span><span class="operator">)</span> <span class="reserved">and</span> ascii<span class="operator">(</span><span class="string">'z'</span><span class="operator">)</span> <span class="reserved">or</span>
+    23<span class="operator">:</span>             ascii<span class="operator">(</span>ch<span class="operator">)</span> <span class="reserved">between</span> ascii<span class="operator">(</span><span class="string">'A'</span><span class="operator">)</span> <span class="reserved">and</span> ascii<span class="operator">(</span><span class="string">'Z'</span><span class="operator">)</span>
+    24<span class="operator">:</span>         <span class="reserved">then</span>
+    25<span class="operator">:</span>             <span class="keyword">return</span> TRUE;
+    26<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
+    27<span class="operator">:</span>         <span class="keyword">return</span> FALSE;
+    28<span class="operator">:</span>     <span class="reserved">END</span> isalpha;
+    29<span class="operator">:</span> 
+    30<span class="operator">:</span> 
+    31<span class="operator">:</span>     <span class="keyword">FUNCTION</span> isalphanum<span class="operator">(</span>ch <span class="keyword">CHAR</span><span class="operator">)</span>
+    32<span class="operator">:</span>     <span class="keyword">RETURN</span> BOOLEAN
+    33<span class="operator">:</span>     <span class="keyword">deterministic</span>
+    34<span class="operator">:</span>     <span class="reserved">IS</span>
+    35<span class="operator">:</span>     <span class="reserved">BEGIN</span>
+    36<span class="operator">:</span>         <span class="reserved">if</span> ascii<span class="operator">(</span>ch<span class="operator">)</span> <span class="reserved">between</span> ascii<span class="operator">(</span><span class="string">'a'</span><span class="operator">)</span> <span class="reserved">and</span> ascii<span class="operator">(</span><span class="string">'z'</span><span class="operator">)</span> <span class="reserved">or</span>
+    37<span class="operator">:</span>             ascii<span class="operator">(</span>ch<span class="operator">)</span> <span class="reserved">between</span> ascii<span class="operator">(</span><span class="string">'A'</span><span class="operator">)</span> <span class="reserved">and</span> ascii<span class="operator">(</span><span class="string">'Z'</span><span class="operator">)</span> <span class="reserved">or</span>
+    38<span class="operator">:</span>             ascii<span class="operator">(</span>ch<span class="operator">)</span> <span class="reserved">between</span> ascii<span class="operator">(</span><span class="string">'0'</span><span class="operator">)</span> <span class="reserved">and</span> ascii<span class="operator">(</span><span class="string">'9'</span><span class="operator">)</span>
+    39<span class="operator">:</span>         <span class="reserved">then</span>
+    40<span class="operator">:</span>             <span class="keyword">return</span> TRUE;
+    41<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
+    42<span class="operator">:</span>         <span class="keyword">return</span> FALSE;
+    43<span class="operator">:</span>     <span class="reserved">END</span> isalphanum;
+    44<span class="operator">:</span> 
+    45<span class="operator">:</span> 
+    46<span class="operator">:</span>     <span class="keyword">FUNCTION</span> rpmstrcmp <span class="operator">(</span>string1 <span class="reserved">IN</span> VARCHAR2<span class="operator">,</span> string2 <span class="reserved">IN</span> VARCHAR2<span class="operator">)</span>
+    47<span class="operator">:</span>     <span class="keyword">RETURN</span> NUMBER
+    48<span class="operator">:</span>     <span class="keyword">deterministic</span>
+    49<span class="operator">:</span>     <span class="reserved">IS</span>
+    50<span class="operator">:</span>         digits <span class="keyword">CHAR</span><span class="operator">(</span>10<span class="operator">)</span> <span class="operator">:</span><span class="operator">=</span> <span class="string">'0123456789'</span>;
+    51<span class="operator">:</span>         lc_alpha <span class="keyword">CHAR</span><span class="operator">(</span>27<span class="operator">)</span> <span class="operator">:</span><span class="operator">=</span> <span class="string">'abcdefghijklmnopqrstuvwxyz'</span>;
+    52<span class="operator">:</span>         uc_alpha <span class="keyword">CHAR</span><span class="operator">(</span>27<span class="operator">)</span> <span class="operator">:</span><span class="operator">=</span> <span class="string">'ABCDEFGHIJKLMNOPQRSTUVWXYZ'</span>;
+    53<span class="operator">:</span>         alpha <span class="keyword">CHAR</span><span class="operator">(</span>54<span class="operator">)</span> <span class="operator">:</span><span class="operator">=</span> lc_alpha <span class="operator">|</span><span class="operator">|</span> uc_alpha;
+    54<span class="operator">:</span>         str1 VARCHAR2<span class="operator">(</span>32767<span class="operator">)</span> <span class="operator">:</span><span class="operator">=</span> string1;
+    55<span class="operator">:</span>         str2 VARCHAR2<span class="operator">(</span>32767<span class="operator">)</span> <span class="operator">:</span><span class="operator">=</span> string2;
+    56<span class="operator">:</span>         one VARCHAR2<span class="operator">(</span>32767<span class="operator">)</span>;
+    57<span class="operator">:</span>         two VARCHAR2<span class="operator">(</span>32767<span class="operator">)</span>;
+    58<span class="operator">:</span>         isnum BOOLEAN;
+    59<span class="operator">:</span>     <span class="reserved">BEGIN</span>
+    60<span class="operator">:</span>         <span class="reserved">if</span> str1 <span class="reserved">is</span> <span class="reserved">NULL</span> <span class="reserved">or</span> str2 <span class="reserved">is</span> <span class="reserved">NULL</span>
+    61<span class="operator">:</span>         <span class="reserved">then</span>
+    62<span class="operator">:</span>             <span class="keyword">raise</span> VALUE_ERROR;
+    63<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
+    64<span class="operator">:</span>         <span class="comment">-- easy comparison to see if versions are identical</span>
+    65<span class="operator">:</span>         <span class="reserved">if</span> str1 <span class="operator">=</span> str2
+    66<span class="operator">:</span>         <span class="reserved">then</span>
+    67<span class="operator">:</span>             <span class="keyword">return</span> 0;
+    68<span class="operator">:</span>         <span class="reserved">end</span> <span class="reserved">if</span>;
+    69<span class="operator">:</span>         <span class="comment">-- loop through each version segment of str1 and str2 and compare them</span>
+    70<span class="operator">:</span>         one <span class="operator">:</span><span class="operator">=</span> str1;
+    71<span class="operator">:</span>         two <span class="operator">:</span><span class="operator">=</span> str2;
+    72<span class="operator">:</span> 
+    73<span class="operator">:</span>         <span class="operator">&lt;</span><span class="operator">&lt;</span>segment_loop<span class="operator">&gt;</span><span class="operator">&gt;</span>
+    74<span class="operator">:</span>         <span class="keyword">while</span> one <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span> <span class="reserved">and</span> two <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span>
+    75<span class="operator">:</span>         <span class="keyword">loop</span>
+    76<span class="operator">:</span>             <span class="reserved">declare</span>
+    77<span class="operator">:</span>                 segm1 VARCHAR2<span class="operator">(</span>32767<span class="operator">)</span>;
+    78<span class="operator">:</span>                 segm2 VARCHAR2<span class="operator">(</span>32767<span class="operator">)</span>;
+    79<span class="operator">:</span>             <span class="reserved">begin</span>
+    80<span class="operator">:</span>                 <span class="comment">--DBMS_OUTPUT.PUT_LINE('Params: ' || one || ',' || two);</span>
+    81<span class="operator">:</span>                 <span class="comment">-- Throw out all non-alphanum characters</span>
+    82<span class="operator">:</span>                 <span class="keyword">while</span> one <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span> <span class="reserved">and</span> <span class="reserved">not</span> isalphanum<span class="operator">(</span>one<span class="operator">)</span>
+    83<span class="operator">:</span>                 <span class="keyword">loop</span>
+    84<span class="operator">:</span>                     one <span class="operator">:</span><span class="operator">=</span> substr<span class="operator">(</span>one<span class="operator">,</span> 2<span class="operator">)</span>;
+    85<span class="operator">:</span>                 <span class="reserved">end</span> <span class="keyword">loop</span>;
+    86<span class="operator">:</span>                 <span class="keyword">while</span> two <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span> <span class="reserved">and</span> <span class="reserved">not</span> isalphanum<span class="operator">(</span>two<span class="operator">)</span>
+    87<span class="operator">:</span>                 <span class="keyword">loop</span>
+    88<span class="operator">:</span>                     two <span class="operator">:</span><span class="operator">=</span> substr<span class="operator">(</span>two<span class="operator">,</span> 2<span class="operator">)</span>;
+    89<span class="operator">:</span>                 <span class="reserved">end</span> <span class="keyword">loop</span>;
+    90<span class="operator">:</span>                 <span class="comment">--DBMS_OUTPUT.PUT_LINE('new params: ' || one || ',' || two);</span>
+    91<span class="operator">:</span> 
+    92<span class="operator">:</span>                 str1 <span class="operator">:</span><span class="operator">=</span> one;
+    93<span class="operator">:</span>                 str2 <span class="operator">:</span><span class="operator">=</span> two;
+    94<span class="operator">:</span> 
+    95<span class="operator">:</span>                 <span class="comment">/* grab first completely alpha or completely numeric segment */</span>
+    96<span class="operator">:</span>                 <span class="comment">/* leave one and two pointing to the start of the alpha or numeric */</span>
+    97<span class="operator">:</span>                 <span class="comment">/* segment and walk str1 and str2 to end of segment */</span>
+    98<span class="operator">:</span> 
+    99<span class="operator">:</span>                 <span class="reserved">if</span> str1 <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span> <span class="reserved">and</span> isdigit<span class="operator">(</span>str1<span class="operator">)</span>
+   100<span class="operator">:</span>                 <span class="reserved">then</span>
+   101<span class="operator">:</span>                     str1 <span class="operator">:</span><span class="operator">=</span> ltrim<span class="operator">(</span>str1<span class="operator">,</span> digits<span class="operator">)</span>;
+   102<span class="operator">:</span>                     str2 <span class="operator">:</span><span class="operator">=</span> ltrim<span class="operator">(</span>str2<span class="operator">,</span> digits<span class="operator">)</span>;
+   103<span class="operator">:</span>                     isnum <span class="operator">:</span><span class="operator">=</span> true;
+   104<span class="operator">:</span>                 <span class="reserved">else</span>
+   105<span class="operator">:</span>                     str1 <span class="operator">:</span><span class="operator">=</span> ltrim<span class="operator">(</span>str1<span class="operator">,</span> alpha<span class="operator">)</span>;
+   106<span class="operator">:</span>                     str2 <span class="operator">:</span><span class="operator">=</span> ltrim<span class="operator">(</span>str2<span class="operator">,</span> alpha<span class="operator">)</span>;
+   107<span class="operator">:</span>                     isnum <span class="operator">:</span><span class="operator">=</span> false;
+   108<span class="operator">:</span>                 <span class="reserved">end</span> <span class="reserved">if</span>;
+   109<span class="operator">:</span> 
+   110<span class="operator">:</span>                 <span class="comment">--DBMS_OUTPUT.PUT_LINE('Len: ' || length(str1) || ',' || length(str2));</span>
+   111<span class="operator">:</span>                 <span class="comment">-- Oracle trats the length of an empty string as null</span>
+   112<span class="operator">:</span>                 <span class="reserved">if</span> str1 <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span>
+   113<span class="operator">:</span>                 <span class="reserved">then</span> segm1 <span class="operator">:</span><span class="operator">=</span> substr<span class="operator">(</span>one<span class="operator">,</span> 1<span class="operator">,</span> <span class="keyword">length</span><span class="operator">(</span>one<span class="operator">)</span> <span class="operator">-</span> <span class="keyword">length</span><span class="operator">(</span>str1<span class="operator">)</span><span class="operator">)</span>;
+   114<span class="operator">:</span>                 <span class="reserved">else</span> segm1 <span class="operator">:</span><span class="operator">=</span> one;
+   115<span class="operator">:</span>                 <span class="reserved">end</span> <span class="reserved">if</span>;
+   116<span class="operator">:</span> 
+   117<span class="operator">:</span>                 <span class="reserved">if</span> str2 <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span>
+   118<span class="operator">:</span>                 <span class="reserved">then</span> segm2 <span class="operator">:</span><span class="operator">=</span> substr<span class="operator">(</span>two<span class="operator">,</span> 1<span class="operator">,</span> <span class="keyword">length</span><span class="operator">(</span>two<span class="operator">)</span> <span class="operator">-</span> <span class="keyword">length</span><span class="operator">(</span>str2<span class="operator">)</span><span class="operator">)</span>;
+   119<span class="operator">:</span>                 <span class="reserved">else</span> segm2 <span class="operator">:</span><span class="operator">=</span> two;
+   120<span class="operator">:</span>                 <span class="reserved">end</span> <span class="reserved">if</span>;
+   121<span class="operator">:</span> 
+   122<span class="operator">:</span>                 <span class="comment">--DBMS_OUTPUT.PUT_LINE('Segments: ' || segm1 || ',' || segm2);</span>
+   123<span class="operator">:</span>                 <span class="comment">--DBMS_OUTPUT.PUT_LINE('Rest: ' || str1 || ',' || str2);</span>
+   124<span class="operator">:</span>                 <span class="comment">/* take care of the case where the two version segments are */</span>
+   125<span class="operator">:</span>                 <span class="comment">/* different types: one numeric and one alpha */</span>
+   126<span class="operator">:</span>                 <span class="reserved">if</span> segm1 <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">then</span> <span class="keyword">return</span> <span class="operator">-</span>1; <span class="reserved">end</span> <span class="reserved">if</span>; <span class="comment">/* arbitrary */</span>
+   127<span class="operator">:</span>                 <span class="reserved">if</span> segm2 <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">then</span>
+   128<span class="operator">:</span> 					<span class="reserved">if</span> isnum <span class="reserved">then</span>
+   129<span class="operator">:</span> 						<span class="keyword">return</span> 1;
+   130<span class="operator">:</span> 					<span class="reserved">else</span>
+   131<span class="operator">:</span> 						<span class="keyword">return</span> <span class="operator">-</span>1;
+   132<span class="operator">:</span> 					<span class="reserved">end</span> <span class="reserved">if</span>;
+   133<span class="operator">:</span> 				<span class="reserved">end</span> <span class="reserved">if</span>;
+   134<span class="operator">:</span> 
+   135<span class="operator">:</span>                 <span class="reserved">if</span> isnum
+   136<span class="operator">:</span>                 <span class="reserved">then</span>
+   137<span class="operator">:</span>                     <span class="comment">/* this used to be done by converting the digit segments */</span>
+   138<span class="operator">:</span>                     <span class="comment">/* to ints using atoi() - it's changed because long */</span>
+   139<span class="operator">:</span>                     <span class="comment">/* digit segments can overflow an int - this should fix that. */</span>
+   140<span class="operator">:</span> 
+   141<span class="operator">:</span>                     <span class="comment">/* throw away any leading zeros - it's a number, right? */</span>
+   142<span class="operator">:</span>                     segm1 <span class="operator">:</span><span class="operator">=</span> ltrim<span class="operator">(</span>segm1<span class="operator">,</span> <span class="string">'0'</span><span class="operator">)</span>;
+   143<span class="operator">:</span>                     segm2 <span class="operator">:</span><span class="operator">=</span> ltrim<span class="operator">(</span>segm2<span class="operator">,</span> <span class="string">'0'</span><span class="operator">)</span>;
+   144<span class="operator">:</span> 
+   145<span class="operator">:</span>                     <span class="comment">/* whichever number has more digits wins */</span>
+   146<span class="operator">:</span>                     <span class="comment">-- length of empty string is null</span>
+   147<span class="operator">:</span>                     <span class="reserved">if</span> segm1 <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">and</span> segm2 <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span>
+   148<span class="operator">:</span>                     <span class="reserved">then</span>
+   149<span class="operator">:</span>                         <span class="keyword">return</span> <span class="operator">-</span>1;
+   150<span class="operator">:</span>                     <span class="reserved">end</span> <span class="reserved">if</span>;
+   151<span class="operator">:</span>                     <span class="reserved">if</span> segm1 <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span> <span class="reserved">and</span> segm2 <span class="reserved">is</span> <span class="reserved">null</span>
+   152<span class="operator">:</span>                     <span class="reserved">then</span>
+   153<span class="operator">:</span>                         <span class="keyword">return</span> 1;
+   154<span class="operator">:</span>                     <span class="reserved">end</span> <span class="reserved">if</span>;
+   155<span class="operator">:</span>                     <span class="reserved">if</span> <span class="keyword">length</span><span class="operator">(</span>segm1<span class="operator">)</span> <span class="operator">&gt;</span> <span class="keyword">length</span><span class="operator">(</span>segm2<span class="operator">)</span> <span class="reserved">then</span> <span class="keyword">return</span> 1; <span class="reserved">end</span> <span class="reserved">if</span>;
+   156<span class="operator">:</span>                     <span class="reserved">if</span> <span class="keyword">length</span><span class="operator">(</span>segm2<span class="operator">)</span> <span class="operator">&gt;</span> <span class="keyword">length</span><span class="operator">(</span>segm1<span class="operator">)</span> <span class="reserved">then</span> <span class="keyword">return</span> <span class="operator">-</span>1; <span class="reserved">end</span> <span class="reserved">if</span>;
+   157<span class="operator">:</span>                 <span class="reserved">end</span> <span class="reserved">if</span>;
+   158<span class="operator">:</span> 
+   159<span class="operator">:</span>                 <span class="comment">/* strcmp will return which one is greater - even if the two */</span>
+   160<span class="operator">:</span>                 <span class="comment">/* segments are alpha or if they are numeric.  don't return  */</span>
+   161<span class="operator">:</span>                 <span class="comment">/* if they are equal because there might be more segments to */</span>
+   162<span class="operator">:</span>                 <span class="comment">/* compare */</span>
+   163<span class="operator">:</span> 
+   164<span class="operator">:</span>                 <span class="reserved">if</span> segm1 <span class="operator">&lt;</span> segm2 <span class="reserved">then</span> <span class="keyword">return</span> <span class="operator">-</span>1; <span class="reserved">end</span> <span class="reserved">if</span>;
+   165<span class="operator">:</span>                 <span class="reserved">if</span> segm1 <span class="operator">&gt;</span> segm2 <span class="reserved">then</span> <span class="keyword">return</span> 1; <span class="reserved">end</span> <span class="reserved">if</span>;
+   166<span class="operator">:</span> 
+   167<span class="operator">:</span>                 one <span class="operator">:</span><span class="operator">=</span> str1;
+   168<span class="operator">:</span>                 two <span class="operator">:</span><span class="operator">=</span> str2;
+   169<span class="operator">:</span>             <span class="reserved">end</span>;
+   170<span class="operator">:</span>         <span class="reserved">end</span> <span class="keyword">loop</span> segment_loop;
+   171<span class="operator">:</span>         <span class="comment">/* this catches the case where all numeric and alpha segments have */</span>
+   172<span class="operator">:</span>         <span class="comment">/* compared identically but the segment sepparating characters were */</span>
+   173<span class="operator">:</span>         <span class="comment">/* different */</span>
+   174<span class="operator">:</span>         <span class="reserved">if</span> one <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">and</span> two <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">then</span> <span class="keyword">return</span> 0; <span class="reserved">end</span> <span class="reserved">if</span>;
+   175<span class="operator">:</span> 
+   176<span class="operator">:</span>         <span class="comment">/* whichever version still has characters left over wins */</span>
+   177<span class="operator">:</span>         <span class="reserved">if</span> one <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">then</span> <span class="keyword">return</span> <span class="operator">-</span>1; <span class="reserved">end</span> <span class="reserved">if</span>;
+   178<span class="operator">:</span>         <span class="keyword">return</span> 1;
+   179<span class="operator">:</span>     <span class="reserved">END</span> rpmstrcmp;
+   180<span class="operator">:</span> 
+   181<span class="operator">:</span> 
+   182<span class="operator">:</span>     <span class="keyword">FUNCTION</span> vercmp<span class="operator">(</span>
+   183<span class="operator">:</span>         e1 VARCHAR2<span class="operator">,</span> v1 VARCHAR2<span class="operator">,</span> r1 VARCHAR2<span class="operator">,</span>
+   184<span class="operator">:</span>         e2 VARCHAR2<span class="operator">,</span> v2 VARCHAR2<span class="operator">,</span> r2 VARCHAR2<span class="operator">)</span>
+   185<span class="operator">:</span>     <span class="keyword">RETURN</span> NUMBER
+   186<span class="operator">:</span>     <span class="reserved">IS</span>
+   187<span class="operator">:</span>         rc NUMBER;
+   188<span class="operator">:</span>     <span class="reserved">BEGIN</span>
+   189<span class="operator">:</span>         <span class="reserved">DECLARE</span>
+   190<span class="operator">:</span>           ep1 NUMBER;
+   191<span class="operator">:</span>           ep2 NUMBER;
+   192<span class="operator">:</span>           <span class="reserved">BEGIN</span>
+   193<span class="operator">:</span>             vercmp_counter <span class="operator">:</span><span class="operator">=</span> vercmp_counter <span class="operator">+</span> 1;
+   194<span class="operator">:</span>             <span class="reserved">if</span> e1 <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">then</span>
+   195<span class="operator">:</span>               ep1 <span class="operator">:</span><span class="operator">=</span> 0;
+   196<span class="operator">:</span>             <span class="reserved">else</span>
+   197<span class="operator">:</span>               ep1 <span class="operator">:</span><span class="operator">=</span> TO_NUMBER<span class="operator">(</span>e1<span class="operator">)</span>;
+   198<span class="operator">:</span>             <span class="reserved">end</span> <span class="reserved">if</span>;
+   199<span class="operator">:</span>             <span class="reserved">if</span> e2 <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">then</span>
+   200<span class="operator">:</span>               ep2 <span class="operator">:</span><span class="operator">=</span> 0;
+   201<span class="operator">:</span>             <span class="reserved">else</span>
+   202<span class="operator">:</span>               ep2 <span class="operator">:</span><span class="operator">=</span> TO_NUMBER<span class="operator">(</span>e2<span class="operator">)</span>;
+   203<span class="operator">:</span>             <span class="reserved">end</span> <span class="reserved">if</span>;
+   204<span class="operator">:</span>             <span class="comment">-- Epochs are non-null; compare them</span>
+   205<span class="operator">:</span>             <span class="reserved">if</span> ep1 <span class="operator">&lt;</span> ep2 <span class="reserved">then</span> <span class="keyword">return</span> <span class="operator">-</span>1; <span class="reserved">end</span> <span class="reserved">if</span>;
+   206<span class="operator">:</span>             <span class="reserved">if</span> ep1 <span class="operator">&gt;</span> ep2 <span class="reserved">then</span> <span class="keyword">return</span> 1; <span class="reserved">end</span> <span class="reserved">if</span>;
+   207<span class="operator">:</span>             rc <span class="operator">:</span><span class="operator">=</span> rpmstrcmp<span class="operator">(</span>v1<span class="operator">,</span> v2<span class="operator">)</span>;
+   208<span class="operator">:</span>             <span class="reserved">if</span> rc <span class="operator">!</span><span class="operator">=</span> 0 <span class="reserved">then</span> <span class="keyword">return</span> rc; <span class="reserved">end</span> <span class="reserved">if</span>;
+   209<span class="operator">:</span>            <span class="keyword">return</span> rpmstrcmp<span class="operator">(</span>r1<span class="operator">,</span> r2<span class="operator">)</span>;
+   210<span class="operator">:</span>          <span class="reserved">END</span>;
+   211<span class="operator">:</span> 
+   212<span class="operator">:</span>     <span class="reserved">END</span> vercmp;
+   213<span class="operator">:</span> 
+   214<span class="operator">:</span>     <span class="keyword">FUNCTION</span> vercmpCounter
+   215<span class="operator">:</span>     <span class="keyword">RETURN</span> NUMBER
+   216<span class="operator">:</span>     <span class="reserved">IS</span>
+   217<span class="operator">:</span>     <span class="reserved">BEGIN</span>
+   218<span class="operator">:</span>         <span class="keyword">return</span> vercmp_counter;
+   219<span class="operator">:</span>     <span class="reserved">END</span> vercmpCounter;
+   220<span class="operator">:</span> 
+   221<span class="operator">:</span>     <span class="keyword">FUNCTION</span> vercmpResetCounter
+   222<span class="operator">:</span>     <span class="keyword">RETURN</span> NUMBER
+   223<span class="operator">:</span>     <span class="reserved">IS</span>
+   224<span class="operator">:</span>         <span class="keyword">result</span> NUMBER;
+   225<span class="operator">:</span>     <span class="reserved">BEGIN</span>
+   226<span class="operator">:</span>         <span class="keyword">result</span> <span class="operator">:</span><span class="operator">=</span> vercmp_counter;
+   227<span class="operator">:</span>         vercmp_counter <span class="operator">:</span><span class="operator">=</span> 0;
+   228<span class="operator">:</span>         <span class="keyword">return</span> <span class="keyword">result</span>;
+   229<span class="operator">:</span>     <span class="reserved">END</span> vercmpResetCounter;
+   230<span class="operator">:</span> <span class="reserved">END</span> rpm;
+</pre>
+<div class="footer">
+        Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Jan 22 13:41:16 2010</div>
+</body></html>
