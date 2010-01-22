@@ -35,7 +35,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="satellite_tools-module.html">Package&nbsp;satellite_tools</a> ::
-        <a href="satellite_tools.exporter-module.html">Package&nbsp;exporter</a> ::
+        <a href="satellite_tools.exporter-module.html" onclick="show_private();">Package&nbsp;exporter</a> ::
         <a href="satellite_tools.exporter.exportLib-module.html">Module&nbsp;exportLib</a> ::
         Class&nbsp;_ChannelFamilyDumper
       </span>
@@ -56,7 +56,22 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class _ChannelFamilyDumper</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.exporter.exportLib-pysrc.html#_ChannelFamilyDumper">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_satellit_89" name="uml_class_diagram_for_satellit_89">
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseRowDumper-class.html" title="satellite_tools.exporter.exportLib.BaseRowDumper" alt="" coords="216,160,325,192"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib._ChannelFamilyDumper-class.html#tag_name" title="satellite_tools.exporter.exportLib._ChannelFamilyDumper.tag_name" alt="" coords="17,239,524,257"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib._ChannelFamilyDumper-class.html#__init__" title="satellite_tools.exporter.exportLib._ChannelFamilyDumper.__init__" alt="" coords="17,260,524,279"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib._ChannelFamilyDumper-class.html#set_iterator" title="satellite_tools.exporter.exportLib._ChannelFamilyDumper.set_iterator" alt="" coords="17,279,524,297"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib._ChannelFamilyDumper-class.html#set_attributes" title="satellite_tools.exporter.exportLib._ChannelFamilyDumper.set_attributes" alt="" coords="17,297,524,316"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib._ChannelFamilyDumper-class.html" title="satellite_tools.exporter.exportLib._ChannelFamilyDumper" alt="" coords="16,221,525,317"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#timer" title="satellite_tools.exporter.exportLib.BaseDumper.timer" alt="" coords="88,36,453,55"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#dump" title="satellite_tools.exporter.exportLib.BaseDumper.dump" alt="" coords="88,55,453,73"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#dump_subelement" title="satellite_tools.exporter.exportLib.BaseDumper.dump_subelement" alt="" coords="88,73,453,92"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#get_writer" title="satellite_tools.exporter.exportLib.BaseDumper.get_writer" alt="" coords="88,92,453,111"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_writer" title="satellite_tools.exporter.exportLib.BaseDumper.set_writer" alt="" coords="88,111,453,129"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html" title="satellite_tools.exporter.exportLib.BaseDumper" alt="" coords="87,11,455,131"/>
+</map>
+  <img src="uml_class_diagram_for_satellit_89.png" alt='' usemap="#uml_class_diagram_for_satellit_89" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -162,32 +177,32 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="tag_name"></a><span class="summary-name">tag_name</span> = <code title="'rhn-channel-family'">'rhn-channel-family'</code>
+        <a name="tag_name"></a><span class="summary-name">tag_name</span> = <code title="'rhn-channel-family'"><code class="variable-quote">'</code><code class="variable-string">rhn-channel-family</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.exporter.exportLib._ChannelFamilyDumper-class.html#_query_cf_virt_sublevel" class="summary-name" onclick="show_private();">_query_cf_virt_sublevel</a> = <code title="&quot;&quot;&quot;
+        <a href="satellite_tools.exporter.exportLib._ChannelFamilyDumper-class.html#_query_cf_virt_sublevel" class="summary-name" onclick="show_private();">_query_cf_virt_sublevel</a> = <code title="'''
         select vsl.label, vsl.name
           from rhnChannelFamilyVirtSubLevel cfvsl,
                rhnVirtSubLevel vsl
          where cfvsl.channel_family_id =: channel_family_id
            and cfvsl.virt_sub_level_id = vsl.id
-    &quot;&quot;&quot;"><code class="variable-ellipsis">...</code></code>
+    '''"><code class="variable-quote">'</code><code class="variable-string">\n        select vsl.label, vsl.nam</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.exporter.exportLib._ChannelFamilyDumper-class.html#_query_get_channel_family_channels" class="summary-name" onclick="show_private();">_query_get_channel_family_channels</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.exporter.exportLib._ChannelFamilyDumper-class.html#_query_get_channel_family_channels" class="summary-name" onclick="show_private();">_query_get_channel_family_channels</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147123884; statement=
         select c.label
           from rhnChannelFamilyMembers cfm, rhnChannel c
          where cfm.channel_family_id = :channel_family_id
            and cfm.channel_id = c.id
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.S<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -312,13 +327,13 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&quot;&quot;&quot;
-        select vsl.label, vsl.name
-          from rhnChannelFamilyVirtSubLevel cfvsl,
-               rhnVirtSubLevel vsl
-         where cfvsl.channel_family_id =: channel_family_id
-           and cfvsl.virt_sub_level_id = vsl.id
-    &quot;&quot;&quot;
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">        select vsl.label, vsl.name</code>
+<code class="variable-string">          from rhnChannelFamilyVirtSubLevel cfvsl,</code>
+<code class="variable-string">               rhnVirtSubLevel vsl</code>
+<code class="variable-string">         where cfvsl.channel_family_id =: channel_family_id</code>
+<code class="variable-string">           and cfvsl.virt_sub_level_id = vsl.id</code>
+<code class="variable-string">    </code><code class="variable-quote">'''</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -336,12 +351,12 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 147123884; statement=
         select c.label
           from rhnChannelFamilyMembers cfm, rhnChannel c
          where cfm.channel_family_id = :channel_family_id
            and cfm.channel_id = c.id
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -371,7 +386,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:10 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:31 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

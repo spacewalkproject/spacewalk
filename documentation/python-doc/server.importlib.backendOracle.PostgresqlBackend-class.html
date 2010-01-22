@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.importlib.backendOracle.PostgresqlBackend</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.importlib-module.html">Package&nbsp;importlib</a> ::
+        <a href="server.importlib.backendOracle-module.html" onclick="show_private();">Module&nbsp;backendOracle</a> ::
+        Class&nbsp;PostgresqlBackend
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.importlib.backendOracle.PostgresqlBackend-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class PostgresqlBackend</h1><p class="nomargin-top"><span class="codelink"><a href="server.importlib.backendOracle-pysrc.html#PostgresqlBackend">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_server_i_27" name="uml_class_diagram_for_server_i_27">
+<area shape="rect" href="server.importlib.backendOracle.OracleBackend-class.html#tables" title="server.importlib.backendOracle.OracleBackend.tables" alt="" coords="155,364,251,383"/>
+<area shape="rect" href="server.importlib.backendOracle.OracleBackend-class.html#__init__" title="server.importlib.backendOracle.OracleBackend.__init__" alt="" coords="155,385,251,404"/>
+<area shape="rect" href="server.importlib.backendOracle.OracleBackend-class.html" title="server.importlib.backendOracle.OracleBackend" alt="" coords="153,347,252,405"/>
+<area shape="rect" href="server.importlib.backendOracle.PostgresqlBackend-class.html#init" title="Avoid the Oracle specific stuff here in parent method." alt="" coords="143,460,263,479"/>
+<area shape="rect" href="server.importlib.backendOracle.PostgresqlBackend-class.html" title="PostgresqlBackend specific implementation." alt="" coords="141,435,264,480"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#setDateFormat" title="server.importlib.backend.Backend.setDateFormat" alt="" coords="17,36,388,55"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#processCapabilities" title="server.importlib.backend.Backend.processCapabilities" alt="" coords="17,55,388,73"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#processCVEs" title="server.importlib.backend.Backend.processCVEs" alt="" coords="17,73,388,92"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupErrataFileTypes" title="server.importlib.backend.Backend.lookupErrataFileTypes" alt="" coords="17,92,388,111"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupChannelArches" title="server.importlib.backend.Backend.lookupChannelArches" alt="" coords="17,111,388,129"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupPackageArches" title="server.importlib.backend.Backend.lookupPackageArches" alt="" coords="17,129,388,148"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupServerArches" title="server.importlib.backend.Backend.lookupServerArches" alt="" coords="17,148,388,167"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupArchTypes" title="server.importlib.backend.Backend.lookupArchTypes" alt="" coords="17,167,388,185"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupOrg" title="server.importlib.backend.Backend.lookupOrg" alt="" coords="17,185,388,204"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupChannels" title="server.importlib.backend.Backend.lookupChannels" alt="" coords="17,204,388,223"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#updateChannelFamilyInfo" title="server.importlib.backend.Backend.updateChannelFamilyInfo" alt="" coords="17,223,388,241"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupChannelPackageArchCompat" title="server.importlib.backend.Backend.lookupChannelPackageArchCompat" alt="" coords="17,241,388,260"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupServerGroupTypes" title="server.importlib.backend.Backend.lookupServerGroupTypes" alt="" coords="17,260,388,279"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#validate_pks" title="server.importlib.backend.Backend.validate_pks" alt="" coords="17,297,388,316"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html" title="server.importlib.backend.Backend" alt="" coords="16,11,389,317"/>
+</map>
+  <img src="uml_class_diagram_for_server_i_27.png" alt='' usemap="#uml_class_diagram_for_server_i_27" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
+<p>PostgresqlBackend specific implementation. The bulk of the 
+  OracleBackend is not actually Oracle specific, so we'll re-use as much as
+  we can and just avoid the few bits that are.</p>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="server.importlib.backendOracle.PostgresqlBackend-class.html#init" class="summary-sig-name">init</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Avoid the Oracle specific stuff here in parent method.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.importlib.backendOracle-pysrc.html#PostgresqlBackend.init">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.importlib.backendOracle.OracleBackend-class.html">OracleBackend</a></code></b>:
+      <code><a href="server.importlib.backendOracle.OracleBackend-class.html#__init__">__init__</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.importlib.backend.Backend-class.html">backend.Backend</a></code></b>:
+      <code><a href="server.importlib.backend.Backend-class.html#__processObjectCollection__">__processObjectCollection__</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#commit">commit</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#createChannelProduct">createChannelProduct</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#listChannel">listChannel</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupArchTypes">lookupArchTypes</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupChannelArches">lookupChannelArches</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupChannelFamilies">lookupChannelFamilies</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupChannelOrg">lookupChannelOrg</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupChannelPackageArchCompat">lookupChannelPackageArchCompat</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupChannelProduct">lookupChannelProduct</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupChannels">lookupChannels</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupChecksumTypes">lookupChecksumTypes</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupChecksums">lookupChecksums</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupEVRs">lookupEVRs</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupErrataFileTypes">lookupErrataFileTypes</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupErrataSeverityId">lookupErrataSeverityId</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupErratum">lookupErratum</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupOrg">lookupOrg</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupPackageArches">lookupPackageArches</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupPackageGroups">lookupPackageGroups</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupPackageKeyId">lookupPackageKeyId</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupPackageNEVRAs">lookupPackageNEVRAs</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupPackageNames">lookupPackageNames</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupPackages">lookupPackages</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupPackagesByNEVRA">lookupPackagesByNEVRA</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupProductNames">lookupProductNames</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupServerArches">lookupServerArches</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupServerGroupTypes">lookupServerGroupTypes</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupSolarisPackages">lookupSolarisPackages</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookupSourceRPMs">lookupSourceRPMs</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookup_ks_install_types">lookup_ks_install_types</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#lookup_kstree_types">lookup_kstree_types</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processBlacklistObsoletes">processBlacklistObsoletes</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processBugzillaPaths">processBugzillaPaths</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processCPUArches">processCPUArches</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processCVEs">processCVEs</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processCapabilities">processCapabilities</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processChannelArches">processChannelArches</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processChannelFamilies">processChannelFamilies</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processChannelFamilyMembers">processChannelFamilyMembers</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processChannelFamilyPermissions">processChannelFamilyPermissions</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processChannelFamilyVirtSubLevel">processChannelFamilyVirtSubLevel</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processChannelPackageArchCompatMap">processChannelPackageArchCompatMap</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processChannelProduct">processChannelProduct</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processChannels">processChannels</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processDistChannelMap">processDistChannelMap</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processErrata">processErrata</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processKickstartTrees">processKickstartTrees</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processPackageArches">processPackageArches</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processPackages">processPackages</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processPathChannels">processPathChannels</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processProductNames">processProductNames</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processReleaseChannelMap">processReleaseChannelMap</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processSGTVirtSubLevel">processSGTVirtSubLevel</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processServerArches">processServerArches</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processServerChannelArchCompatMap">processServerChannelArchCompatMap</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processServerGroupServerArchCompatMap">processServerGroupServerArchCompatMap</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processServerPackageArchCompatMap">processServerPackageArchCompatMap</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processSourcePackages">processSourcePackages</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#processVirtSubLevel">processVirtSubLevel</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#queue_errata">queue_errata</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#rollback">rollback</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#setDateFormat">setDateFormat</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#subscribeToChannels">subscribeToChannels</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#updateChannelFamilyInfo">updateChannelFamilyInfo</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#update_channels_affected_by_errata">update_channels_affected_by_errata</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#update_newest_package_cache">update_newest_package_cache</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#validate_pks">validate_pks</a></code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.importlib.backend.Backend-class.html">backend.Backend</a></code></b> (private):
+      <code><a href="server.importlib.backend.Backend-class.html#_do_diff" onclick="show_private();">_do_diff</a></code>,
+      <code><a href="server.importlib.backend.Backend-class.html#_lookup_in_table" onclick="show_private();">_lookup_in_table</a></code>
+      </p></div>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.importlib.backendOracle.OracleBackend-class.html">OracleBackend</a></code></b>:
+      <code><a href="server.importlib.backendOracle.OracleBackend-class.html#tables">tables</a></code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="init"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">init</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.importlib.backendOracle-pysrc.html#PostgresqlBackend.init">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Avoid the Oracle specific stuff here in parent method.</p>
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="server.importlib.backend.Backend-class.html#init">backend.Backend.init</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:50 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

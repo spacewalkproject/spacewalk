@@ -56,7 +56,31 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Database</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Database">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_r_48" name="uml_class_diagram_for_server_r_48">
+<area shape="rect" href="server.rhnSQL.sql_base.Database-class.html#function" title="Return a pointer to a callable instance for a given stored function." alt="" coords="199,36,380,55"/>
+<area shape="rect" href="server.rhnSQL.sql_base.Database-class.html#check" title="check the connection" alt="" coords="199,55,380,73"/>
+<area shape="rect" href="server.rhnSQL.sql_base.Database-class.html#DateFromTicks" title="Returns a Date object" alt="" coords="199,73,380,92"/>
+<area shape="rect" href="server.rhnSQL.sql_base.Database-class.html" title="Base class for handling database operations." alt="" coords="197,11,381,93"/>
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database-class.html#TimestampFromTicks" title="hash(x)" alt="" coords="17,140,561,159"/>
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database-class.html#OracleError" title="server.rhnSQL.driver_cx_Oracle.Database.OracleError" alt="" coords="17,159,561,177"/>
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database-class.html#__init__" title="server.rhnSQL.driver_cx_Oracle.Database.__init__" alt="" coords="17,180,561,199"/>
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database-class.html#connect" title="Opens a connection to the database." alt="" coords="17,199,561,217"/>
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database-class.html#is_connected_to" title="Check if this database matches the given connection parameters." alt="" coords="17,217,561,236"/>
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database-class.html#close" title="Close the connection" alt="" coords="17,236,561,255"/>
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database-class.html#cursor" title="return an empty Cursor object" alt="" coords="17,255,561,273"/>
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database-class.html#prepare" title="Prepare an SQL statement." alt="" coords="17,273,561,292"/>
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database-class.html#procedure" title="Return a pointer to a callable instance for a given stored procedure." alt="" coords="17,292,561,311"/>
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database-class.html#execute" title="server.rhnSQL.driver_cx_Oracle.Database.execute" alt="" coords="17,311,561,329"/>
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database-class.html#transaction" title="set a transaction point to which we can rollback to" alt="" coords="17,329,561,348"/>
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database-class.html#commit" title="Commit changes" alt="" coords="17,348,561,367"/>
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database-class.html#rollback" title="rollback changes, optionally to a previously set transaction point" alt="" coords="17,367,561,385"/>
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database-class.html#check_connection" title="Check that this connection is still valid." alt="" coords="17,385,561,404"/>
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database-class.html#Date" title="Returns a Date object" alt="" coords="17,404,561,423"/>
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database-class.html#DatetimeFromTicks" title="server.rhnSQL.driver_cx_Oracle.Database.DatetimeFromTicks" alt="" coords="17,423,561,441"/>
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database-class.html" title="server.rhnSQL.driver_cx_Oracle.Database" alt="" coords="16,123,563,443"/>
+</map>
+  <img src="uml_class_diagram_for_server_r_48.png" alt='' usemap="#uml_class_diagram_for_server_r_48" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== NESTED CLASSES ==================== -->
@@ -89,7 +113,8 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnSQL.driver_cx_Oracle.Procedure-class.html" class="summary-name" onclick="show_private();">_procedure_class</a>
+        <a href="server.rhnSQL.driver_cx_Oracle.Procedure-class.html" class="summary-name" onclick="show_private();">_procedure_class</a><br />
+      Class for calling out to stored procedures.
     </td>
   </tr>
 </table>
@@ -259,6 +284,24 @@
       
     </td>
   </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="server.rhnSQL.driver_cx_Oracle.Database-class.html#_function" class="summary-sig-name" onclick="show_private();">_function</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">ret_type</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Database._function">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
@@ -271,43 +314,6 @@
         <span class="summary-sig-arg">**kwargs</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Database.execute">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="server.rhnSQL.driver_cx_Oracle.Database-class.html#function" class="summary-sig-name">function</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">ret_type</span>)</span><br />
-      Return a pointer to a callable instance for a given stored function.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Database.function">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="_function"></a><span class="summary-sig-name">_function</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">ret_type</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Database._function">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -478,7 +484,8 @@
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnSQL.sql_base.Database-class.html">sql_base.Database</a></code></b>:
       <code><a href="server.rhnSQL.sql_base.Database-class.html#DateFromTicks">DateFromTicks</a></code>,
-      <code><a href="server.rhnSQL.sql_base.Database-class.html#check">check</a></code>
+      <code><a href="server.rhnSQL.sql_base.Database-class.html#check">check</a></code>,
+      <code><a href="server.rhnSQL.sql_base.Database-class.html#function">function</a></code>
       </p>
     </td>
   </tr>
@@ -504,7 +511,8 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="TimestampFromTicks"></a><span class="summary-name">TimestampFromTicks</span> = <code title="cx_Oracle.TimestampFromTicks">cx_Oracle.TimestampFromTicks</code>
+        <a name="TimestampFromTicks"></a><span class="summary-name">TimestampFromTicks</span> = <code title="cx_Oracle.TimestampFromTicks">cx_Oracle.TimestampFromTicks</code><br />
+      hash(x)
     </td>
   </tr>
 <tr>
@@ -711,32 +719,26 @@
   </dl>
 </td></tr></table>
 </div>
-<a name="function"></a>
-<div>
+<a name="_function"></a>
+<div class="private">
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">function</span>(<span class="sig-arg">self</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_function</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">name</span>,
         <span class="sig-arg">ret_type</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Database.function">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Database._function">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  <p>Return a pointer to a callable instance for a given stored 
-  function.</p>
-  <p>The return value is the return value of the function. One has to 
-  properly define the return type for the function, since usually the 
-  database drivers do not allow for auto-discovery. See cx_Oracle's 
-  Cursor.callfunc for more details.</p>
+  
   <dl class="fields">
     <dt>Overrides:
-        <a href="server.rhnSQL.sql_base.Database-class.html#function">sql_base.Database.function</a>
-        <dd><em class="note">(inherited documentation)</em></dd>
+        <a href="server.rhnSQL.sql_base.Database-class.html#_function" onclick="show_private();">sql_base.Database._function</a>
     </dt>
   </dl>
 </td></tr></table>
@@ -932,7 +934,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:16 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:13 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

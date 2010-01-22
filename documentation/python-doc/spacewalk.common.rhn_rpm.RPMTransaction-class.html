@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>spacewalk.common.rhn_rpm.RPMTransaction</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="spacewalk-module.html">Package&nbsp;spacewalk</a> ::
+        <a href="spacewalk.common-module.html">Package&nbsp;common</a> ::
+        <a href="spacewalk.common.rhn_rpm-module.html">Module&nbsp;rhn_rpm</a> ::
+        Class&nbsp;RPMTransaction
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="spacewalk.common.rhn_rpm.RPMTransaction-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class RPMTransaction</h1><p class="nomargin-top"><span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#RPMTransaction">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_spacewal_4" name="uml_class_diagram_for_spacewal_4">
+<area shape="rect" href="spacewalk.common.rhn_rpm.RPMReadOnlyTransaction-class.html" title="spacewalk.common.rhn_rpm.RPMReadOnlyTransaction" alt="" coords="32,285,208,312"/>
+<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#read_only" title="spacewalk.common.rhn_rpm.RPMTransaction.read_only" alt="" coords="17,28,223,47"/>
+<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#__init__" title="spacewalk.common.rhn_rpm.RPMTransaction.__init__" alt="" coords="17,49,223,68"/>
+<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#__getattr__" title="spacewalk.common.rhn_rpm.RPMTransaction.__getattr__" alt="" coords="17,68,223,87"/>
+<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#getMethod" title="spacewalk.common.rhn_rpm.RPMTransaction.getMethod" alt="" coords="17,87,223,105"/>
+<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#pushVSFlags" title="spacewalk.common.rhn_rpm.RPMTransaction.pushVSFlags" alt="" coords="17,105,223,124"/>
+<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#popVSFlags" title="spacewalk.common.rhn_rpm.RPMTransaction.popVSFlags" alt="" coords="17,124,223,143"/>
+<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#addInstall" title="Install a package" alt="" coords="17,143,223,161"/>
+<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#addErase" title="Erase a package" alt="" coords="17,161,223,180"/>
+<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#check" title="Check dependencies" alt="" coords="17,180,223,199"/>
+<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#setFlags" title="Set transaction flags" alt="" coords="17,199,223,217"/>
+<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#setProbFilter" title="Set problem flags" alt="" coords="17,217,223,236"/>
+<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html#run" title="spacewalk.common.rhn_rpm.RPMTransaction.run" alt="" coords="17,236,223,255"/>
+<area shape="rect" href="spacewalk.common.rhn_rpm.RPMTransaction-class.html" title="spacewalk.common.rhn_rpm.RPMTransaction" alt="" coords="16,11,224,256"/>
+</map>
+  <img src="uml_class_diagram_for_spacewal_4.png" alt='' usemap="#uml_class_diagram_for_spacewal_4" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#RPMTransaction.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__getattr__"></a><span class="summary-sig-name">__getattr__</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">attr</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#RPMTransaction.__getattr__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="getMethod"></a><span class="summary-sig-name">getMethod</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">method</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#RPMTransaction.getMethod">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="pushVSFlags"></a><span class="summary-sig-name">pushVSFlags</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">flags</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#RPMTransaction.pushVSFlags">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="popVSFlags"></a><span class="summary-sig-name">popVSFlags</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#RPMTransaction.popVSFlags">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="addInstall"></a><span class="summary-sig-name">addInstall</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">arg1</span>,
+        <span class="summary-sig-arg">arg2</span>,
+        <span class="summary-sig-arg">mode</span>)</span><br />
+      Install a package</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#RPMTransaction.addInstall">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="addErase"></a><span class="summary-sig-name">addErase</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">arg1</span>)</span><br />
+      Erase a package</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#RPMTransaction.addErase">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="check"></a><span class="summary-sig-name">check</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Check dependencies</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#RPMTransaction.check">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="setFlags"></a><span class="summary-sig-name">setFlags</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">flag</span>)</span><br />
+      Set transaction flags</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#RPMTransaction.setFlags">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="setProbFilter"></a><span class="summary-sig-name">setProbFilter</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">flag</span>)</span><br />
+      Set problem flags</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#RPMTransaction.setProbFilter">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="run"></a><span class="summary-sig-name">run</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">callback</span>,
+        <span class="summary-sig-arg">user_data</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#RPMTransaction.run">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="read_only"></a><span class="summary-name">read_only</span> = <code title="0">0</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:17 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

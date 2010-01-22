@@ -330,11 +330,20 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnVirtualization-module.html#CLIENT_SERVER_STATE_MAP" class="summary-name">CLIENT_SERVER_STATE_MAP</a> = <code title="{ClientStateType.NOSTATE: ServerStateType.RUNNING, ClientStateType.RUN\
-NING: ServerStateType.RUNNING, ClientStateType.BLOCKED: ServerStateTyp\
-e.RUNNING, ClientStateType.PAUSED: ServerStateType.PAUSED, ClientState\
-Type.SHUTDOWN: ServerStateType.STOPPED, ClientStateType.SHUTOFF: Serve\
-rStateType.STOPPED, ClientStateType.CRASHED: ServerStateType.CRASHED}">{ClientStateType.NOSTATE: ServerStat<code class="variable-ellipsis">...</code></code>
+        <a href="server.rhnVirtualization-module.html#CLIENT_SERVER_STATE_MAP" class="summary-name">CLIENT_SERVER_STATE_MAP</a> = <code title="{'blocked': 'running',
+ 'crashed': 'crashed',
+ 'nostate': 'running',
+ 'paused': 'paused',
+ 'running': 'running',
+ 'shutdown': 'stopped',
+ 'shutoff': 'stopped'}"><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">blocked</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">running</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">crashed</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">c</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'server'"><code class="variable-quote">'</code><code class="variable-string">server</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -424,11 +433,13 @@ Return a tuple consisting of (timestamp, event, target, properties).
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-{ClientStateType.NOSTATE: ServerStateType.RUNNING, ClientStateType.RUN<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-NING: ServerStateType.RUNNING, ClientStateType.BLOCKED: ServerStateTyp<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-e.RUNNING, ClientStateType.PAUSED: ServerStateType.PAUSED, ClientState<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-Type.SHUTDOWN: ServerStateType.STOPPED, ClientStateType.SHUTOFF: Serve<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-rStateType.STOPPED, ClientStateType.CRASHED: ServerStateType.CRASHED}
+<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">blocked</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">running</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">crashed</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">crashed</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">nostate</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">running</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">paused</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">paused</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">running</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">running</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">shutdown</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">stopped</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">shutoff</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">stopped</code><code class="variable-quote">'</code><code class="variable-group">}</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -458,7 +469,7 @@ rStateType.STOPPED, ClientStateType.CRASHED: ServerStateType.CRASHED}
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:06 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:15 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

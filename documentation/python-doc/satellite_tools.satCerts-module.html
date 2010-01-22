@@ -222,7 +222,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="retrieve_db_cert"></a><span class="summary-sig-name">retrieve_db_cert</span>(<span class="summary-sig-arg">label</span>=<span class="summary-sig-default">'rhn-satellite-cert'</span>)</span></td>
+          <td><span class="summary-sig"><a name="retrieve_db_cert"></a><span class="summary-sig-name">retrieve_db_cert</span>(<span class="summary-sig-arg">label</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">rhn-satellite-cert</code><code class="variable-quote">'</code></span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satCerts-pysrc.html#retrieve_db_cert">source&nbsp;code</a></span>
             
@@ -419,173 +419,156 @@ If yes:
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satCerts-module.html#_queryLookupOrgId" class="summary-name" onclick="show_private();">_queryLookupOrgId</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.satCerts-module.html#_queryLookupOrgId" class="summary-name" onclick="show_private();">_queryLookupOrgId</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 160206572; statement=
     SELECT id
       FROM web_customer
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.Statement instance<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satCerts-module.html#_query_get_slot_types" class="summary-name" onclick="show_private();">_query_get_slot_types</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.satCerts-module.html#_query_get_slot_types" class="summary-name" onclick="show_private();">_query_get_slot_types</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 160206604; statement=
     select sg.group_type slot_type_id, sgt.label slot_name
       from rhnServerGroup sg,
            rhnServerGroupType sgt
      where sg.org_id = :org_id
        and sg.group_type = sgt.id
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.Statement inst<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satCerts-module.html#_query_get_allorg_slot_types" class="summary-name" onclick="show_private();">_query_get_allorg_slot_types</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
-    select sg.org_id,sg.group_type slot_type_id, 
-           sgt.label slot_name, sg.max_members, sg.current_members
+        <a href="satellite_tools.satCerts-module.html#_query_get_allorg_slot_types" class="summary-name" onclick="show_private();">_query_get_allorg_slot_types</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 160206636; statement=
+    select sg.org_id,sg.group_type as slot_type_id, 
+           sgt.label as slot_name, sg.max_members, sg.current_members
       from rhnServerGroup sg,
            rhnServerGroupType sgt
      where sg.group_type = sgt.id
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.Stateme<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satCerts-module.html#_query_update_dates" class="summary-name" onclick="show_private();">_query_update_dates</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.satCerts-module.html#_query_update_dates" class="summary-name" onclick="show_private();">_query_update_dates</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 160206668; statement=
     UPDATE rhnSatelliteCert
        SET issued = :issued, expires = :expires
      WHERE label = :label
            AND ((version is null and :version is null)
                 OR version = :version)
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.Statement instan<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satCerts-module.html#_query_latest_version" class="summary-name" onclick="show_private();">_query_latest_version</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
-    SELECT nvl(version, 0) version, version orig_version, cert,
-           TO_CHAR(issued, 'YYYY-MM-DD HH24:MI:SS') issued,
-           TO_CHAR(expires, 'YYYY-MM-DD HH24:MI:SS') expires
-      FROM rhnSatelliteCert
-     WHERE label = :label
-     ORDER BY version DESC NULLS LAST
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+        <a href="satellite_tools.satCerts-module.html#_query_latest_version" class="summary-name" onclick="show_private();">_query_latest_version</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 160206700; statement=
+    SELECT COALESCE(version, 0) as version, version as orig_version, c\
+ert,
+        TO_CHAR(issued, 'YYYY-MM-DD HH24:MI:SS') as issued,
+        TO_CHAR(expires, 'YYYY-MM-DD HH24:MI:SS') as expires
+    FROM rhnSatelliteCert
+    WHERE label = :label
+    ORDER BY CASE WHEN version IS NULL
+...">&lt;server.rhnSQL.sql_base.Statement inst<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satCerts-module.html#_query_insert_cert" class="summary-name" onclick="show_private();">_query_insert_cert</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.satCerts-module.html#_query_insert_cert" class="summary-name" onclick="show_private();">_query_insert_cert</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 160206764; statement=
     INSERT into rhnSatelliteCert 
            (label, version, cert, expires, issued)
     VALUES (:label, :version, empty_blob(),
             TO_DATE(:expires, 'YYYY-MM-DD HH24:MI:SS'), 
             TO_DATE(:issued, 'YYYY-MM-DD HH24:MI:SS'))
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.Statement instanc<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satCerts-module.html#_query_update_web_customer" class="summary-name" onclick="show_private();">_query_update_web_customer</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.satCerts-module.html#_query_update_web_customer" class="summary-name" onclick="show_private();">_query_update_web_customer</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 160206796; statement=
     UPDATE web_customer
     SET name = :owner
     WHERE id = 1
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.Statement<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satCerts-module.html#_query_update_web_user" class="summary-name" onclick="show_private();">_query_update_web_user</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.satCerts-module.html#_query_update_web_user" class="summary-name" onclick="show_private();">_query_update_web_user</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 160206828; statement=
     UPDATE web_user_personal_info
     SET company = :owner
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.Statement ins<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satCerts-module.html#_query_update_rhnchannelfamily" class="summary-name" onclick="show_private();">_query_update_rhnchannelfamily</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.satCerts-module.html#_query_update_rhnchannelfamily" class="summary-name" onclick="show_private();">_query_update_rhnchannelfamily</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 160415788; statement=
     UPDATE rhnchannelfamily
     SET name = :owner
     WHERE org_id = 1
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.State<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satCerts-module.html#_query_cert_for_update" class="summary-name" onclick="show_private();">_query_cert_for_update</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
-    SELECT cert 
-      FROM rhnSatelliteCert
-     WHERE label = :label
-           AND version = :version
-       FOR update of cert
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="satellite_tools.satCerts-module.html#_query_get_sat_clusters" class="summary-name" onclick="show_private();">_query_get_sat_clusters</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.satCerts-module.html#_query_get_sat_clusters" class="summary-name" onclick="show_private();">_query_get_sat_clusters</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 160415820; statement=
     SELECT recid
       FROM rhn_Sat_Cluster
      WHERE customer_id = :customer_id
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.Statement in<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satCerts-module.html#_querySelectCryptoCertInfo" class="summary-name" onclick="show_private();">_querySelectCryptoCertInfo</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
-    SELECT ck.id, ck.description, ckt.label type_label, ck.key
+        <a href="satellite_tools.satCerts-module.html#_querySelectCryptoCertInfo" class="summary-name" onclick="show_private();">_querySelectCryptoCertInfo</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 160415948; statement=
+    SELECT ck.id, ck.description, ckt.label as type_label, ck.key
       FROM rhnCryptoKeyType ckt,
            rhnCryptoKey ck
      WHERE ckt.label = 'SSL'
        AND ckt.id = ck.crypto_key_type_id
        AND ck.description = :description
        AND ck.org_id = :org_id
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;server.rhnSQL.sql_base.Statement<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satCerts-module.html#_queryInsertCryptoCertInfo" class="summary-name" onclick="show_private();">_queryInsertCryptoCertInfo</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.satCerts-module.html#_queryInsertCryptoCertInfo" class="summary-name" onclick="show_private();">_queryInsertCryptoCertInfo</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 160415980; statement=
     INSERT into rhnCryptoKey
            (id, org_id, description, crypto_key_type_id, key)
     SELECT :rhn_cryptokey_id, :org_id, :description, ckt.id, empty_blo\
 b()
       FROM rhnCryptoKeyType ckt
      WHERE ckt.label = 'SSL'
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.Statement<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
-<tr class="private">
+<tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satCerts-module.html#_querySelectCryptoCert" class="summary-name" onclick="show_private();">_querySelectCryptoCert</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
-    SELECT key
-      FROM rhnCryptoKey
-     WHERE id = :rhn_cryptokey_id
-       FOR update of key
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'satellite_tools'"><code class="variable-quote">'</code><code class="variable-string">satellite_tools</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -770,10 +753,10 @@ uses:
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 160206572; statement=
     SELECT id
       FROM web_customer
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -791,13 +774,13 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 160206604; statement=
     select sg.group_type slot_type_id, sgt.label slot_name
       from rhnServerGroup sg,
            rhnServerGroupType sgt
      where sg.org_id = :org_id
        and sg.group_type = sgt.id
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -815,13 +798,13 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
-    select sg.org_id,sg.group_type slot_type_id, 
-           sgt.label slot_name, sg.max_members, sg.current_members
+&lt;server.rhnSQL.sql_base.Statement instance at 160206636; statement=
+    select sg.org_id,sg.group_type as slot_type_id, 
+           sgt.label as slot_name, sg.max_members, sg.current_members
       from rhnServerGroup sg,
            rhnServerGroupType sgt
      where sg.group_type = sgt.id
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -839,13 +822,13 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 160206668; statement=
     UPDATE rhnSatelliteCert
        SET issued = :issued, expires = :expires
      WHERE label = :label
            AND ((version is null and :version is null)
                 OR version = :version)
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -863,14 +846,15 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
-    SELECT nvl(version, 0) version, version orig_version, cert,
-           TO_CHAR(issued, 'YYYY-MM-DD HH24:MI:SS') issued,
-           TO_CHAR(expires, 'YYYY-MM-DD HH24:MI:SS') expires
-      FROM rhnSatelliteCert
-     WHERE label = :label
-     ORDER BY version DESC NULLS LAST
-&quot;&quot;&quot;)
+&lt;server.rhnSQL.sql_base.Statement instance at 160206700; statement=
+    SELECT COALESCE(version, 0) as version, version as orig_version, c<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ert,
+        TO_CHAR(issued, 'YYYY-MM-DD HH24:MI:SS') as issued,
+        TO_CHAR(expires, 'YYYY-MM-DD HH24:MI:SS') as expires
+    FROM rhnSatelliteCert
+    WHERE label = :label
+    ORDER BY CASE WHEN version IS NULL
+<code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -888,13 +872,13 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 160206764; statement=
     INSERT into rhnSatelliteCert 
            (label, version, cert, expires, issued)
     VALUES (:label, :version, empty_blob(),
             TO_DATE(:expires, 'YYYY-MM-DD HH24:MI:SS'), 
             TO_DATE(:issued, 'YYYY-MM-DD HH24:MI:SS'))
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -912,11 +896,11 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 160206796; statement=
     UPDATE web_customer
     SET name = :owner
     WHERE id = 1
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -934,10 +918,10 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 160206828; statement=
     UPDATE web_user_personal_info
     SET company = :owner
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -955,35 +939,11 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 160415788; statement=
     UPDATE rhnchannelfamily
     SET name = :owner
     WHERE org_id = 1
-&quot;&quot;&quot;)
-</pre></td></tr></table>
-</dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="_query_cert_for_update"></a>
-<div class="private">
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <h3 class="epydoc">_query_cert_for_update</h3>
-  
-  <dl class="fields">
-  </dl>
-  <dl class="fields">
-    <dt>Value:</dt>
-      <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
-    SELECT cert 
-      FROM rhnSatelliteCert
-     WHERE label = :label
-           AND version = :version
-       FOR update of cert
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -1001,11 +961,11 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 160415820; statement=
     SELECT recid
       FROM rhn_Sat_Cluster
      WHERE customer_id = :customer_id
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -1023,8 +983,8 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
-    SELECT ck.id, ck.description, ckt.label type_label, ck.key
+&lt;server.rhnSQL.sql_base.Statement instance at 160415948; statement=
+    SELECT ck.id, ck.description, ckt.label as type_label, ck.key
       FROM rhnCryptoKeyType ckt,
            rhnCryptoKey ck
      WHERE ckt.label = 'SSL'
@@ -1049,37 +1009,14 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 160415980; statement=
     INSERT into rhnCryptoKey
            (id, org_id, description, crypto_key_type_id, key)
     SELECT :rhn_cryptokey_id, :org_id, :description, ckt.id, empty_blo<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 b()
       FROM rhnCryptoKeyType ckt
      WHERE ckt.label = 'SSL'
-&quot;&quot;&quot;)
-</pre></td></tr></table>
-</dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="_querySelectCryptoCert"></a>
-<div class="private">
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <h3 class="epydoc">_querySelectCryptoCert</h3>
-  
-  <dl class="fields">
-  </dl>
-  <dl class="fields">
-    <dt>Value:</dt>
-      <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
-    SELECT key
-      FROM rhnCryptoKey
-     WHERE id = :rhn_cryptokey_id
-       FOR update of key
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -1109,7 +1046,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:14 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

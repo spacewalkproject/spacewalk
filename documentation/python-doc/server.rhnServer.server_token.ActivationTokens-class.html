@@ -55,6 +55,30 @@
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class ActivationTokens</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnServer.server_token-pysrc.html#ActivationTokens">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_server_r_94" name="uml_class_diagram_for_server_r_94">
+<area shape="rect" href="server.rhnServer.server_token.ReRegistrationActivationToken-class.html" title="Subclass for re&#45;registration keys and activation keys used together." alt="" coords="273,379,473,405"/>
+<area shape="rect" href="server.rhnServer.server_token.ReRegistrationToken-class.html" title="Subclass for re&#45;registration keys." alt="" coords="303,323,444,349"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#is_rereg_token" title="server.rhnServer.server_token.ActivationTokens.is_rereg_token" alt="" coords="17,28,729,47"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#forget_rereg_token" title="server.rhnServer.server_token.ActivationTokens.forget_rereg_token" alt="" coords="17,47,729,65"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#__init__" title="server.rhnServer.server_token.ActivationTokens.__init__" alt="" coords="17,68,729,87"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#__nonzero__" title="server.rhnServer.server_token.ActivationTokens.__nonzero__" alt="" coords="17,87,729,105"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#get_server_id" title="server.rhnServer.server_token.ActivationTokens.get_server_id" alt="" coords="17,105,729,124"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#get_user_id" title="server.rhnServer.server_token.ActivationTokens.get_user_id" alt="" coords="17,124,729,143"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#get_org_id" title="server.rhnServer.server_token.ActivationTokens.get_org_id" alt="" coords="17,143,729,161"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#get_kickstart_session_id" title="server.rhnServer.server_token.ActivationTokens.get_kickstart_session_id" alt="" coords="17,161,729,180"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#get_entitlements" title="server.rhnServer.server_token.ActivationTokens.get_entitlements" alt="" coords="17,180,729,199"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#has_entitlement_label" title="server.rhnServer.server_token.ActivationTokens.has_entitlement_label" alt="" coords="17,199,729,217"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#get_deploy_configs" title="server.rhnServer.server_token.ActivationTokens.get_deploy_configs" alt="" coords="17,217,729,236"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#get_names" title="server.rhnServer.server_token.ActivationTokens.get_names" alt="" coords="17,236,729,255"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#get_tokens" title="server.rhnServer.server_token.ActivationTokens.get_tokens" alt="" coords="17,255,729,273"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#entitle" title="Entitle a server according to the entitlements we have configured." alt="" coords="17,273,729,292"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html" title="An aggregation of activation tokens, exposing important information like org_id, user_id etc in a unified manner." alt="" coords="16,11,731,293"/>
+</map>
+  <img src="uml_class_diagram_for_server_r_94.png" alt='' usemap="#uml_class_diagram_for_server_r_94" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
 <p>An aggregation of activation tokens, exposing important information 
   like org_id, user_id etc in a unified manner.</p>
 
@@ -86,7 +110,7 @@
         <span class="summary-sig-arg">user_id</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">org_id</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">kickstart_session_id</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">entitlements</span>=<span class="summary-sig-default">[]</span>,
+        <span class="summary-sig-arg">entitlements</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">deploy_configs</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_token-pysrc.html#ActivationTokens.__init__">source&nbsp;code</a></span>
@@ -334,7 +358,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:17 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:16 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

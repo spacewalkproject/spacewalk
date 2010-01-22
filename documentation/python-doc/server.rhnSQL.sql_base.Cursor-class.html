@@ -151,6 +151,29 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a name="update_blob"></a><span class="summary-sig-name">update_blob</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">table_name</span>,
+        <span class="summary-sig-arg">column_name</span>,
+        <span class="summary-sig-arg">where_clause</span>,
+        <span class="summary-sig-arg">data</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+      Abstraction for the update of a blob column which can vary wildly 
+      between different database implementations.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor.update_blob">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a name="execute"></a><span class="summary-sig-name">execute</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">*p</span>,
         <span class="summary-sig-arg">**kw</span>)</span><br />
@@ -189,7 +212,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="execute_bulk"></a><span class="summary-sig-name">execute_bulk</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.rhnSQL.sql_base.Cursor-class.html#execute_bulk" class="summary-sig-name">execute_bulk</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">dict</span>,
         <span class="summary-sig-arg">chunk_size</span>=<span class="summary-sig-default">100</span>)</span><br />
       Uses executemany but chops the incoming dict into chunks for each 
@@ -362,58 +385,6 @@
       
     </td>
   </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="_munge_arg"></a><span class="summary-sig-name">_munge_arg</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">val</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor._munge_arg">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="_unmunge_args"></a><span class="summary-sig-name">_unmunge_args</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">kw_dict</span>,
-        <span class="summary-sig-arg">modified_params</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor._unmunge_args">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="_munge_args"></a><span class="summary-sig-name">_munge_args</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">kw_dict</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor._munge_args">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
 </table>
 <!-- ==================== CLASS VARIABLES ==================== -->
 <a name="section-ClassVariables"></a>
@@ -436,7 +407,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="_cursor_cache"></a><span class="summary-name">_cursor_cache</span> = <code title="{}">{}</code>
+        <a name="_cursor_cache"></a><span class="summary-name">_cursor_cache</span> = <code title="{}"><code class="variable-group">{</code><code class="variable-group">}</code></code>
     </td>
   </tr>
 </table>
@@ -505,6 +476,33 @@
   </dl>
 </td></tr></table>
 </div>
+<a name="execute_bulk"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">execute_bulk</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">dict</span>,
+        <span class="sig-arg">chunk_size</span>=<span class="sig-default">100</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Cursor.execute_bulk">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Uses executemany but chops the incoming dict into chunks for each 
+  call.</p>
+  <p>When attempting to execute bulk operations with a lot of rows in the 
+  arrays, Oracle may occasionally lock (probably the oracle client 
+  library). I noticed this previously with the import code. -- misa This 
+  function executes bulk operations in smaller chunks dict is supposed to 
+  be the dictionary that we normally apply to statement.execute.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
 <a name="_execute_wrapper"></a>
 <div class="private">
 <table class="details" border="1" cellpadding="3"
@@ -553,7 +551,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:16 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:13 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

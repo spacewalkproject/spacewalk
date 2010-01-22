@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>satellite_tools.disk_dumper.dumper.XML_DumperEx</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="satellite_tools-module.html">Package&nbsp;satellite_tools</a> ::
+        <a href="satellite_tools.disk_dumper-module.html" onclick="show_private();">Package&nbsp;disk_dumper</a> ::
+        <a href="satellite_tools.disk_dumper.dumper-module.html">Module&nbsp;dumper</a> ::
+        Class&nbsp;XML_DumperEx
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class XML_DumperEx</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_satellit_44" name="uml_class_diagram_for_satellit_44">
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#get_channel_families_statement" title="satellite_tools.disk_dumper.dumper.XML_Dumper.get_channel_families_statement" alt="" coords="120,36,416,55"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#get_channel_families_statement_new" title="satellite_tools.disk_dumper.dumper.XML_Dumper.get_channel_families_statement_new" alt="" coords="120,55,416,73"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#get_channels_statement" title="satellite_tools.disk_dumper.dumper.XML_Dumper.get_channels_statement" alt="" coords="120,73,416,92"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#get_packages_statement" title="satellite_tools.disk_dumper.dumper.XML_Dumper.get_packages_statement" alt="" coords="120,92,416,111"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#get_source_packages_statement" title="satellite_tools.disk_dumper.dumper.XML_Dumper.get_source_packages_statement" alt="" coords="120,111,416,129"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#get_errata_statement" title="satellite_tools.disk_dumper.dumper.XML_Dumper.get_errata_statement" alt="" coords="120,129,416,148"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#dump_packages" title="satellite_tools.disk_dumper.dumper.XML_Dumper.dump_packages" alt="" coords="120,148,416,167"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#dump_packages_short" title="satellite_tools.disk_dumper.dumper.XML_Dumper.dump_packages_short" alt="" coords="120,167,416,185"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#dump_source_packages" title="satellite_tools.disk_dumper.dumper.XML_Dumper.dump_source_packages" alt="" coords="120,185,416,204"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html" title="satellite_tools.disk_dumper.dumper.XML_Dumper" alt="" coords="119,11,417,205"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#__init__" title="satellite_tools.disk_dumper.dumper.XML_DumperEx.__init__" alt="" coords="17,260,519,279"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#send" title="satellite_tools.disk_dumper.dumper.XML_DumperEx.send" alt="" coords="17,279,519,297"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#write" title="satellite_tools.disk_dumper.dumper.XML_DumperEx.write" alt="" coords="17,297,519,316"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#close" title="satellite_tools.disk_dumper.dumper.XML_DumperEx.close" alt="" coords="17,316,519,335"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#dump_blacklist_obsoletes" title="satellite_tools.disk_dumper.dumper.XML_DumperEx.dump_blacklist_obsoletes" alt="" coords="17,335,519,353"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#dump_arches" title="satellite_tools.disk_dumper.dumper.XML_DumperEx.dump_arches" alt="" coords="17,353,519,372"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#dump_server_group_type_server_arches" title="satellite_tools.disk_dumper.dumper.XML_DumperEx.dump_server_group_type_server_arches" alt="" coords="17,372,519,391"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#dump_channel_families" title="satellite_tools.disk_dumper.dumper.XML_DumperEx.dump_channel_families" alt="" coords="17,391,519,409"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#dump_channels" title="satellite_tools.disk_dumper.dumper.XML_DumperEx.dump_channels" alt="" coords="17,409,519,428"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#dump_channel_packages_short" title="satellite_tools.disk_dumper.dumper.XML_DumperEx.dump_channel_packages_short" alt="" coords="17,428,519,447"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#dump_errata" title="satellite_tools.disk_dumper.dumper.XML_DumperEx.dump_errata" alt="" coords="17,447,519,465"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#dump_kickstartable_trees" title="satellite_tools.disk_dumper.dumper.XML_DumperEx.dump_kickstartable_trees" alt="" coords="17,465,519,484"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#dump_product_names" title="satellite_tools.disk_dumper.dumper.XML_DumperEx.dump_product_names" alt="" coords="17,484,519,503"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html" title="satellite_tools.disk_dumper.dumper.XML_DumperEx" alt="" coords="16,235,520,504"/>
+<area shape="rect" href="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper-class.html" title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper" alt="" coords="47,533,489,560"/>
+</map>
+  <img src="uml_class_diagram_for_satellit_44.png" alt='' usemap="#uml_class_diagram_for_satellit_44" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">req</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_send_headers"></a><span class="summary-sig-name">_send_headers</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">error</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">init_compressed_stream</span>=<span class="summary-sig-default">1</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx._send_headers">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="send"></a><span class="summary-sig-name">send</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">data</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx.send">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="write"></a><span class="summary-sig-name">write</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">data</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx.send">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="close"></a><span class="summary-sig-name">close</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx.close">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#dump_blacklist_obsoletes" class="summary-sig-name">dump_blacklist_obsoletes</a>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx.dump_blacklist_obsoletes">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#dump_arches" class="summary-sig-name">dump_arches</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">rpm_arch_type_only</span>=<span class="summary-sig-default">0</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx.dump_arches">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#dump_server_group_type_server_arches" class="summary-sig-name">dump_server_group_type_server_arches</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">rpm_arch_type_only</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">virt_filter</span>=<span class="summary-sig-default">0</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx.dump_server_group_type_server_arches">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#dump_channel_families" class="summary-sig-name">dump_channel_families</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">virt_filter</span>=<span class="summary-sig-default">0</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx.dump_channel_families">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#dump_channels" class="summary-sig-name">dump_channels</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">channel_labels</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx.dump_channels">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#dump_channel_packages_short" class="summary-sig-name">dump_channel_packages_short</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">channel_label</span>,
+        <span class="summary-sig-arg">last_modified</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx.dump_channel_packages_short">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#_cache_channel_packages_short" class="summary-sig-name" onclick="show_private();">_cache_channel_packages_short</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">channel_id</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">last_modified</span>)</span><br />
+      Caches the short package entries for channel_id</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx._cache_channel_packages_short">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#_packages" class="summary-sig-name" onclick="show_private();">_packages</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">packages</span>,
+        <span class="summary-sig-arg">prefix</span>,
+        <span class="summary-sig-arg">dump_class</span>,
+        <span class="summary-sig-arg">sources</span>=<span class="summary-sig-default">0</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx._packages">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#dump_errata" class="summary-sig-name">dump_errata</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">errata</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx.dump_errata">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#dump_kickstartable_trees" class="summary-sig-name">dump_kickstartable_trees</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">kickstart_labels</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx.dump_kickstartable_trees">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="dump_product_names"></a><span class="summary-sig-name">dump_product_names</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx.dump_product_names">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html">XML_Dumper</a></code></b>:
+      <code><a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#dump_packages">dump_packages</a></code>,
+      <code><a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#dump_packages_short">dump_packages_short</a></code>,
+      <code><a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#dump_source_packages">dump_source_packages</a></code>,
+      <code><a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#get_channel_families_statement">get_channel_families_statement</a></code>,
+      <code><a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#get_channel_families_statement_new">get_channel_families_statement_new</a></code>,
+      <code><a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#get_channels_statement">get_channels_statement</a></code>,
+      <code><a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#get_errata_statement">get_errata_statement</a></code>,
+      <code><a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#get_packages_statement">get_packages_statement</a></code>,
+      <code><a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#get_source_packages_statement">get_source_packages_statement</a></code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html">XML_Dumper</a></code></b> (private):
+      <code><a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#_get_xml_writer" onclick="show_private();">_get_xml_writer</a></code>,
+      <code><a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#_normalize_compressed_stream" onclick="show_private();">_normalize_compressed_stream</a></code>,
+      <code><a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#_validate_channels" onclick="show_private();">_validate_channels</a></code>,
+      <code><a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#_validate_kickstarts" onclick="show_private();">_validate_kickstarts</a></code>
+      </p></div>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html">XML_Dumper</a></code></b> (private):
+      <code><a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#_query_get_channel_packages" onclick="show_private();">_query_get_channel_packages</a></code>,
+      <code><a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#_query_validate_kickstarts" onclick="show_private();">_query_validate_kickstarts</a></code>
+      </p></div>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">req</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#__init__">XML_Dumper.__init__</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="dump_blacklist_obsoletes"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">dump_blacklist_obsoletes</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx.dump_blacklist_obsoletes">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#dump_blacklist_obsoletes">XML_Dumper.dump_blacklist_obsoletes</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="dump_arches"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">dump_arches</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">rpm_arch_type_only</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx.dump_arches">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#dump_arches">XML_Dumper.dump_arches</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="dump_server_group_type_server_arches"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">dump_server_group_type_server_arches</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">rpm_arch_type_only</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">virt_filter</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx.dump_server_group_type_server_arches">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#dump_server_group_type_server_arches">XML_Dumper.dump_server_group_type_server_arches</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="dump_channel_families"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">dump_channel_families</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">virt_filter</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx.dump_channel_families">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#dump_channel_families">XML_Dumper.dump_channel_families</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="dump_channels"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">dump_channels</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">channel_labels</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx.dump_channels">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#dump_channels">XML_Dumper.dump_channels</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="dump_channel_packages_short"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">dump_channel_packages_short</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">channel_label</span>,
+        <span class="sig-arg">last_modified</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx.dump_channel_packages_short">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#dump_channel_packages_short">XML_Dumper.dump_channel_packages_short</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_cache_channel_packages_short"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_cache_channel_packages_short</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">channel_id</span>,
+        <span class="sig-arg">key</span>,
+        <span class="sig-arg">last_modified</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx._cache_channel_packages_short">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Caches the short package entries for channel_id</p>
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#_cache_channel_packages_short" onclick="show_private();">XML_Dumper._cache_channel_packages_short</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_packages"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_packages</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">packages</span>,
+        <span class="sig-arg">prefix</span>,
+        <span class="sig-arg">dump_class</span>,
+        <span class="sig-arg">sources</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx._packages">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#_packages" onclick="show_private();">XML_Dumper._packages</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="dump_errata"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">dump_errata</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">errata</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx.dump_errata">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#dump_errata">XML_Dumper.dump_errata</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="dump_kickstartable_trees"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">dump_kickstartable_trees</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">kickstart_labels</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_DumperEx.dump_kickstartable_trees">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#dump_kickstartable_trees">XML_Dumper.dump_kickstartable_trees</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:26 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

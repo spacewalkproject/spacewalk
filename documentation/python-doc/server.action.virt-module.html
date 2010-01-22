@@ -312,125 +312,132 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.virt-module.html#__rhnexport__" class="summary-name">__rhnexport__</a> = <code title="['refresh', 'shutdown', 'reboot', 'resume', 'start', 'schedulePoller',\
- 'suspend', 'destroy', 'setMemory', 'setVCPUs']">['refresh', 'shutdown', 'reboot', 'resume', 's<code class="variable-ellipsis">...</code></code>
+        <a href="server.action.virt-module.html#__rhnexport__" class="summary-name">__rhnexport__</a> = <code title="['refresh',
+ 'shutdown',
+ 'reboot',
+ 'resume',
+ 'start',
+ 'schedulePoller',
+ 'suspend',
+ 'destroy',
+..."><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">refresh</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">shutdown</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">reboot</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">resume</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">s</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.virt-module.html#_query_refresh" class="summary-name" onclick="show_private();">_query_refresh</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.action.virt-module.html#_query_refresh" class="summary-name" onclick="show_private();">_query_refresh</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159095436; statement=
     select  avf.action_id,
     from    rhnActionVirtRefresh
     where   avf.action_id = :action_id
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.Statement instance at<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.virt-module.html#_query_shutdown" class="summary-name" onclick="show_private();">_query_shutdown</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.action.virt-module.html#_query_shutdown" class="summary-name" onclick="show_private();">_query_shutdown</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159095468; statement=
     select  avs.action_id, 
             avs.uuid
     from    rhnActionVirtShutdown avs
     where   avs.action_id = :action_id
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.Statement instance a<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.virt-module.html#_query_suspend" class="summary-name" onclick="show_private();">_query_suspend</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.action.virt-module.html#_query_suspend" class="summary-name" onclick="show_private();">_query_suspend</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159095500; statement=
     select  avs.action_id,
             avs.uuid
     from    rhnActionVirtSuspend avs    
     where   avs.action_id = :action_id
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.Statement instance at<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.virt-module.html#_query_resume" class="summary-name" onclick="show_private();">_query_resume</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.action.virt-module.html#_query_resume" class="summary-name" onclick="show_private();">_query_resume</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159095532; statement=
     select  avr.action_id,
             avr.uuid
     from    rhnActionVirtResume avr
     where   avr.action_id = :action_id
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.Statement instance at <code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.virt-module.html#_query_reboot" class="summary-name" onclick="show_private();">_query_reboot</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.action.virt-module.html#_query_reboot" class="summary-name" onclick="show_private();">_query_reboot</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159095564; statement=
     select  avr.action_id,
             avr.uuid
     from    rhnActionVirtReboot avr
     where   avr.action_id = :action_id
 
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.Statement instance at <code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.virt-module.html#_query_destroy" class="summary-name" onclick="show_private();">_query_destroy</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.action.virt-module.html#_query_destroy" class="summary-name" onclick="show_private();">_query_destroy</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159095596; statement=
     select  avd.action_id,
             avd.uuid
     from    rhnActionVirtDestroy avd
     where   avd.action_id = :action_id
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.Statement instance at<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.virt-module.html#_query_start" class="summary-name" onclick="show_private();">_query_start</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.action.virt-module.html#_query_start" class="summary-name" onclick="show_private();">_query_start</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159095628; statement=
     select  avs.action_id,
             avs.uuid
     from    rhnActionVirtStart avs
     where   avs.action_id = :action_id
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.Statement instance at 1<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.virt-module.html#_query_setMemory" class="summary-name" onclick="show_private();">_query_setMemory</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.action.virt-module.html#_query_setMemory" class="summary-name" onclick="show_private();">_query_setMemory</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159095660; statement=
     select  asm.action_id,
             asm.uuid,
             asm.memory
     from    rhnActionVirtSetMemory asm
     where   asm.action_id = :action_id
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.Statement instance <code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.virt-module.html#_query_getVCPUs" class="summary-name" onclick="show_private();">_query_getVCPUs</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.action.virt-module.html#_query_getVCPUs" class="summary-name" onclick="show_private();">_query_getVCPUs</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159095692; statement=
     select  av.action_id,
             av.uuid,
             av.vcpu
     from    rhnActionVirtVCPU av
     where   av.action_id = :action_id
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.Statement instance a<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.virt-module.html#_query_schedulePoller" class="summary-name" onclick="show_private();">_query_schedulePoller</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.action.virt-module.html#_query_schedulePoller" class="summary-name" onclick="show_private();">_query_schedulePoller</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159095724; statement=
     select  asp.action_id,
             asp.minute,
             asp.hour,
@@ -438,7 +445,14 @@
             asp.month,
             asp.dow
     from    rhnActionVirtSchedulePoller asp
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;server.rhnSQL.sql_base.Statement inst<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'server.action'"><code class="variable-quote">'</code><code class="variable-string">server.action</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -472,8 +486,15 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-['refresh', 'shutdown', 'reboot', 'resume', 'start', 'schedulePoller',<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
- 'suspend', 'destroy', 'setMemory', 'setVCPUs']
+<code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">refresh</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">shutdown</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">reboot</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">resume</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">start</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">schedulePoller</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">suspend</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">destroy</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -491,11 +512,11 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 159095436; statement=
     select  avf.action_id,
     from    rhnActionVirtRefresh
     where   avf.action_id = :action_id
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -513,12 +534,12 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 159095468; statement=
     select  avs.action_id, 
             avs.uuid
     from    rhnActionVirtShutdown avs
     where   avs.action_id = :action_id
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -536,12 +557,12 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 159095500; statement=
     select  avs.action_id,
             avs.uuid
     from    rhnActionVirtSuspend avs    
     where   avs.action_id = :action_id
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -559,12 +580,12 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 159095532; statement=
     select  avr.action_id,
             avr.uuid
     from    rhnActionVirtResume avr
     where   avr.action_id = :action_id
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -582,13 +603,13 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 159095564; statement=
     select  avr.action_id,
             avr.uuid
     from    rhnActionVirtReboot avr
     where   avr.action_id = :action_id
 
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -606,12 +627,12 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 159095596; statement=
     select  avd.action_id,
             avd.uuid
     from    rhnActionVirtDestroy avd
     where   avd.action_id = :action_id
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -629,12 +650,12 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 159095628; statement=
     select  avs.action_id,
             avs.uuid
     from    rhnActionVirtStart avs
     where   avs.action_id = :action_id
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -652,13 +673,13 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 159095660; statement=
     select  asm.action_id,
             asm.uuid,
             asm.memory
     from    rhnActionVirtSetMemory asm
     where   asm.action_id = :action_id
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -676,13 +697,13 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 159095692; statement=
     select  av.action_id,
             av.uuid,
             av.vcpu
     from    rhnActionVirtVCPU av
     where   av.action_id = :action_id
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -700,7 +721,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 159095724; statement=
     select  asp.action_id,
             asp.minute,
             asp.hour,
@@ -738,7 +759,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:15 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

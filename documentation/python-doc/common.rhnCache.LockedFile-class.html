@@ -35,7 +35,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="common-module.html">Package&nbsp;common</a> ::
-        <a href="common.rhnCache-module.html">Module&nbsp;rhnCache</a> ::
+        <a href="common.rhnCache-module.html" onclick="show_private();">Module&nbsp;rhnCache</a> ::
         Class&nbsp;LockedFile
       </span>
     </td>
@@ -55,7 +55,16 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class LockedFile</h1><p class="nomargin-top"><span class="codelink"><a href="common.rhnCache-pysrc.html#LockedFile">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_common_r_4" name="uml_class_diagram_for_common_r_4">
+<area shape="rect" href="common.rhnCache.ReadLockedFile-class.html" title="common.rhnCache.ReadLockedFile" alt="" coords="101,123,216,149"/>
+<area shape="rect" href="common.rhnCache.WriteLockedFile-class.html" title="common.rhnCache.WriteLockedFile" alt="" coords="267,123,379,149"/>
+<area shape="rect" href="common.rhnCache.LockedFile-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="17,36,463,55"/>
+<area shape="rect" href="common.rhnCache.LockedFile-class.html#close" title="common.rhnCache.LockedFile.close" alt="" coords="17,55,463,73"/>
+<area shape="rect" href="common.rhnCache.LockedFile-class.html#__getattr__" title="common.rhnCache.LockedFile.__getattr__" alt="" coords="17,73,463,92"/>
+<area shape="rect" href="common.rhnCache.LockedFile-class.html" title="common.rhnCache.LockedFile" alt="" coords="16,11,464,93"/>
+</map>
+  <img src="uml_class_diagram_for_common_r_4.png" alt='' usemap="#uml_class_diagram_for_common_r_4" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -84,9 +93,9 @@
           <td><span class="summary-sig"><a href="common.rhnCache.LockedFile-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">name</span>,
         <span class="summary-sig-arg">modified</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">user</span>=<span class="summary-sig-default">'root'</span>,
-        <span class="summary-sig-arg">group</span>=<span class="summary-sig-default">'root'</span>,
-        <span class="summary-sig-arg">mode</span>=<span class="summary-sig-default">0755</span>)</span><br />
+        <span class="summary-sig-arg">user</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">root</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">group</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">root</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">mode</span>=<span class="summary-sig-default">493</span>)</span><br />
       x.__init__(...) initializes x; see x.__class__.__doc__ for signature</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnCache-pysrc.html#LockedFile.__init__">source&nbsp;code</a></span>
@@ -134,6 +143,7 @@
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
       <code>__delattr__</code>,
+      <code>__format__</code>,
       <code>__getattribute__</code>,
       <code>__hash__</code>,
       <code>__new__</code>,
@@ -141,7 +151,9 @@
       <code>__reduce_ex__</code>,
       <code>__repr__</code>,
       <code>__setattr__</code>,
-      <code>__str__</code>
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
       </p>
     </td>
   </tr>
@@ -199,9 +211,9 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">name</span>,
         <span class="sig-arg">modified</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">user</span>=<span class="sig-default">'root'</span>,
-        <span class="sig-arg">group</span>=<span class="sig-default">'root'</span>,
-        <span class="sig-arg">mode</span>=<span class="sig-default">0755</span>)</span>
+        <span class="sig-arg">user</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">root</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">group</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">root</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">mode</span>=<span class="sig-default">493</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -243,7 +255,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:06 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:16 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -110,14 +110,6 @@
       General [S]RPM manipulation class.
     </td>
   </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="satellite_tools.syncLib.GecosCache-class.html" class="summary-name">GecosCache</a><br />
-      Cache getpwnam() and getgrnam() calls
-    </td>
-  </tr>
 </table>
 <!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
@@ -351,7 +343,7 @@
         <span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cleanYN</span>=<span class="summary-sig-default">0</span>,
         <span class="summary-sig-arg">notimeYN</span>=<span class="summary-sig-default">0</span>,
-        <span class="summary-sig-arg">stream</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
+        <span class="summary-sig-arg">stream</span>=<span class="summary-sig-default">sys.stdin</span>)</span><br />
       Log to disk and some stream --- differing log levels.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.syncLib-pysrc.html#log2">source&nbsp;code</a></span>
@@ -372,89 +364,10 @@
         <span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cleanYN</span>=<span class="summary-sig-default">0</span>,
         <span class="summary-sig-arg">notimeYN</span>=<span class="summary-sig-default">0</span>,
-        <span class="summary-sig-arg">stream</span>=<span class="summary-sig-default">sys.stdout</span>)</span><br />
+        <span class="summary-sig-arg">stream</span>=<span class="summary-sig-default">sys.stdin</span>)</span><br />
       Log to disk and some stream --- share same log level.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.syncLib-pysrc.html#log">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="setPermsPath"></a><span class="summary-sig-name">setPermsPath</span>(<span class="summary-sig-arg">path</span>,
-        <span class="summary-sig-arg">user</span>=<span class="summary-sig-default">'apache'</span>,
-        <span class="summary-sig-arg">group</span>=<span class="summary-sig-default">'root'</span>,
-        <span class="summary-sig-arg">chmod</span>=<span class="summary-sig-default">0750</span>)</span><br />
-      chown user.group and set permissions to chmod</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="satellite_tools.syncLib-pysrc.html#setPermsPath">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="getUidGid"></a><span class="summary-sig-name">getUidGid</span>(<span class="summary-sig-arg">user</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">group</span>=<span class="summary-sig-default">None</span>)</span><br />
-      return uid, gid given user and group</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="satellite_tools.syncLib-pysrc.html#getUidGid">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="makedirs"></a><span class="summary-sig-name">makedirs</span>(<span class="summary-sig-arg">path</span>,
-        <span class="summary-sig-arg">mode</span>=<span class="summary-sig-default">0755</span>,
-        <span class="summary-sig-arg">user</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">group</span>=<span class="summary-sig-default">None</span>)</span><br />
-      makedirs function that also changes the owners</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="satellite_tools.syncLib-pysrc.html#makedirs">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="satellite_tools.syncLib-module.html#createPath" class="summary-sig-name">createPath</a>(<span class="summary-sig-arg">path</span>,
-        <span class="summary-sig-arg">user</span>=<span class="summary-sig-default">'apache'</span>,
-        <span class="summary-sig-arg">group</span>=<span class="summary-sig-default">'root'</span>,
-        <span class="summary-sig-arg">chmod</span>=<span class="summary-sig-default">0755</span>,
-        <span class="summary-sig-arg">logging</span>=<span class="summary-sig-default">1</span>)</span><br />
-      advanced makedirs</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="satellite_tools.syncLib-pysrc.html#createPath">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -498,31 +411,6 @@
       
     </td>
   </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="satellite_tools.syncLib-module.html#diffFileYN" class="summary-sig-name">diffFileYN</a>(<span class="summary-sig-arg">filepath</span>,
-        <span class="summary-sig-arg">mtime</span>,
-        <span class="summary-sig-arg">size</span>,
-        <span class="summary-sig-arg">md5sum</span>)</span><br />
-      mtime, size, and md5sum are what the file at filepath *should* be
-NOTE: I know it is broken, but mtime can be one of 4 things:
-      None, &quot;2003-05-28 08:36:22&quot;, an epoch (int), or an epoch (float)
-return: 1 == yes, they are different
-        0 == no, they are the same
-       -1 == file doesn't even exist.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="satellite_tools.syncLib-pysrc.html#diffFileYN">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
 </table>
 <!-- ==================== VARIABLES ==================== -->
 <a name="section-Variables"></a>
@@ -545,7 +433,15 @@ return: 1 == yes, they are different
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="EMAIL_LOG"></a><span class="summary-name">EMAIL_LOG</span> = <code title="None">None</code>
+        <a name="EMAIL_LOG"></a><span class="summary-name">EMAIL_LOG</span> = <code title="None">None</code><br />
+      hash(x)
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'satellite_tools'"><code class="variable-quote">'</code><code class="variable-string">satellite_tools</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -671,7 +567,7 @@ return: 1 == yes, they are different
         <span class="sig-arg">msg</span>,
         <span class="sig-arg">cleanYN</span>=<span class="sig-default">0</span>,
         <span class="sig-arg">notimeYN</span>=<span class="sig-default">0</span>,
-        <span class="sig-arg">stream</span>=<span class="sig-default">sys.stdout</span>)</span>
+        <span class="sig-arg">stream</span>=<span class="sig-default">sys.stdin</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="satellite_tools.syncLib-pysrc.html#log2">source&nbsp;code</a></span>&nbsp;
@@ -695,7 +591,7 @@ return: 1 == yes, they are different
         <span class="sig-arg">msg</span>,
         <span class="sig-arg">cleanYN</span>=<span class="sig-default">0</span>,
         <span class="sig-arg">notimeYN</span>=<span class="sig-default">0</span>,
-        <span class="sig-arg">stream</span>=<span class="sig-default">sys.stdout</span>)</span>
+        <span class="sig-arg">stream</span>=<span class="sig-default">sys.stdin</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="satellite_tools.syncLib-pysrc.html#log">source&nbsp;code</a></span>&nbsp;
@@ -704,32 +600,6 @@ return: 1 == yes, they are different
   
   <p>Log to disk and some stream --- share same log level. Arguments: see 
   def _prepLogMsg(...) above.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="createPath"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">createPath</span>(<span class="sig-arg">path</span>,
-        <span class="sig-arg">user</span>=<span class="sig-default">'apache'</span>,
-        <span class="sig-arg">group</span>=<span class="sig-default">'root'</span>,
-        <span class="sig-arg">chmod</span>=<span class="sig-default">0755</span>,
-        <span class="sig-arg">logging</span>=<span class="sig-default">1</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="satellite_tools.syncLib-pysrc.html#createPath">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>advanced makedirs</p>
-  <p>Will create the path if necessary. Will chmod, and chown that path 
-  properly.</p>
-  <p>Uses the above makedirs() function.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -766,38 +636,6 @@ return: 1 == yes, they are different
   </dl>
 </td></tr></table>
 </div>
-<a name="diffFileYN"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">diffFileYN</span>(<span class="sig-arg">filepath</span>,
-        <span class="sig-arg">mtime</span>,
-        <span class="sig-arg">size</span>,
-        <span class="sig-arg">md5sum</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="satellite_tools.syncLib-pysrc.html#diffFileYN">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <pre class="literalblock">
-mtime, size, and md5sum are what the file at filepath *should* be
-NOTE: I know it is broken, but mtime can be one of 4 things:
-      None, &quot;2003-05-28 08:36:22&quot;, an epoch (int), or an epoch (float)
-return: 1 == yes, they are different
-        0 == no, they are the same
-       -1 == file doesn't even exist.
-side-effect: if the files are the same, but the mtime is different,
-             then the mtime will be set to the mtime specified
-
-</pre>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
 <br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
@@ -822,7 +660,7 @@ side-effect: if the files are the same, but the mtime is different,
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:14 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

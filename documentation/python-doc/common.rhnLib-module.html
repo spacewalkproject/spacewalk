@@ -77,14 +77,6 @@
         <a href="common.rhnLib.InvalidUrlError-class.html" class="summary-name">InvalidUrlError</a>
     </td>
   </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="common.rhnLib.GecosCache-class.html" class="summary-name">GecosCache</a><br />
-      Cache getpwnam() and getgrnam() calls
-    </td>
-  </tr>
 </table>
 <!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
@@ -184,40 +176,6 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="common.rhnLib-module.html#cleanupAbsPath" class="summary-sig-name">cleanupAbsPath</a>(<span class="summary-sig-arg">path</span>)</span><br />
-      take ~taw/../some/path/$MOUNT_POINT/blah and make it sensible.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnLib-pysrc.html#cleanupAbsPath">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="common.rhnLib-module.html#cleanupNormPath" class="summary-sig-name">cleanupNormPath</a>(<span class="summary-sig-arg">path</span>)</span><br />
-      take ~taw/../some/path/$MOUNT_POINT/blah and make it sensible.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnLib-pysrc.html#cleanupNormPath">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
           <td><span class="summary-sig"><a href="common.rhnLib-module.html#parseUrl" class="summary-sig-name">parseUrl</a>(<span class="summary-sig-arg">url</span>)</span><br />
       urlparse is more complicated than what we need.</td>
           <td align="right" valign="top">
@@ -236,140 +194,10 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="fix_url"></a><span class="summary-sig-name">fix_url</span>(<span class="summary-sig-arg">url</span>,
-        <span class="summary-sig-arg">scheme</span>=<span class="summary-sig-default">&quot;http&quot;</span>,
-        <span class="summary-sig-arg">path</span>=<span class="summary-sig-default">&quot;/&quot;</span>)</span></td>
+        <span class="summary-sig-arg">scheme</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">http</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">path</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">/</code><code class="variable-quote">'</code></span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnLib-pysrc.html#fix_url">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="common.rhnLib-module.html#maketemp" class="summary-sig-name">maketemp</a>(<span class="summary-sig-arg">prefix</span>)</span><br />
-      Creates a temporary file (guaranteed to be new), using the specified 
-      prefix.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnLib-pysrc.html#maketemp">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="common.rhnLib-module.html#make_temp_file" class="summary-sig-name">make_temp_file</a>(<span class="summary-sig-arg">prefix</span>)</span><br />
-      Creates a temporary file stream (returns an open file object)</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnLib-pysrc.html#make_temp_file">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="common.rhnLib-module.html#rotateFile" class="summary-sig-name">rotateFile</a>(<span class="summary-sig-arg">filepath</span>,
-        <span class="summary-sig-arg">depth</span>=<span class="summary-sig-default">5</span>,
-        <span class="summary-sig-arg">suffix</span>=<span class="summary-sig-default">'.'</span>,
-        <span class="summary-sig-arg">verbosity</span>=<span class="summary-sig-default">0</span>)</span><br />
-      backup/rotate a file
-depth (-1==no limit) refers to num.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnLib-pysrc.html#rotateFile">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="getFileMD5"></a><span class="summary-sig-name">getFileMD5</span>(<span class="summary-sig-arg">filename</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">fd</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">buffer_size</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Compute a file's md5sum Used by rotateFile()</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnLib-pysrc.html#getFileMD5">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="getStringMD5"></a><span class="summary-sig-name">getStringMD5</span>(<span class="summary-sig-arg">s</span>)</span><br />
-      compute md5sum of an arbitrary string</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnLib-pysrc.html#getStringMD5">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="hexify_string"></a><span class="summary-sig-name">hexify_string</span>(<span class="summary-sig-arg">s</span>)</span><br />
-      Used by getStringMD5() and getFileMD5()</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnLib-pysrc.html#hexify_string">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="common.rhnLib-module.html#rhn_popen" class="summary-sig-name">rhn_popen</a>(<span class="summary-sig-arg">cmd</span>,
-        <span class="summary-sig-arg">progressCallback</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">bufferSize</span>=<span class="summary-sig-default">16384</span>,
-        <span class="summary-sig-arg">outputLog</span>=<span class="summary-sig-default">None</span>)</span><br />
-      popen-like function, that accepts execvp-style arguments too (i.e.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnLib-pysrc.html#rhn_popen">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -388,101 +216,6 @@ depth (-1==no limit) refers to num.</td>
       Trivial function that I wish existed in python 1.5</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnLib-pysrc.html#startswith">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="setPermsPath"></a><span class="summary-sig-name">setPermsPath</span>(<span class="summary-sig-arg">path</span>,
-        <span class="summary-sig-arg">user</span>=<span class="summary-sig-default">'apache'</span>,
-        <span class="summary-sig-arg">group</span>=<span class="summary-sig-default">'root'</span>,
-        <span class="summary-sig-arg">chmod</span>=<span class="summary-sig-default">0750</span>)</span><br />
-      chown user.group and set permissions to chmod</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnLib-pysrc.html#setPermsPath">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="getUidGid"></a><span class="summary-sig-name">getUidGid</span>(<span class="summary-sig-arg">user</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">group</span>=<span class="summary-sig-default">None</span>)</span><br />
-      return uid, gid given user and group</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnLib-pysrc.html#getUidGid">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="makedirs"></a><span class="summary-sig-name">makedirs</span>(<span class="summary-sig-arg">path</span>,
-        <span class="summary-sig-arg">mode</span>=<span class="summary-sig-default">0755</span>,
-        <span class="summary-sig-arg">user</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">group</span>=<span class="summary-sig-default">None</span>)</span><br />
-      makedirs function that also changes the owners</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnLib-pysrc.html#makedirs">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="common.rhnLib-module.html#createPath" class="summary-sig-name">createPath</a>(<span class="summary-sig-arg">path</span>,
-        <span class="summary-sig-arg">user</span>=<span class="summary-sig-default">'apache'</span>,
-        <span class="summary-sig-arg">group</span>=<span class="summary-sig-default">'root'</span>,
-        <span class="summary-sig-arg">chmod</span>=<span class="summary-sig-default">0755</span>,
-        <span class="summary-sig-arg">logging</span>=<span class="summary-sig-default">1</span>)</span><br />
-      advanced makedirs</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnLib-pysrc.html#createPath">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="_test_parseUrl"></a><span class="summary-sig-name">_test_parseUrl</span>()</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnLib-pysrc.html#_test_parseUrl">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -512,15 +245,29 @@ depth (-1==no limit) refers to num.</td>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="rfc822_days"></a><span class="summary-name">rfc822_days</span> = <code title="'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'">'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'</code>
+        <a name="rfc822_days"></a><span class="summary-name">rfc822_days</span> = <code title="('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')"><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">Mon</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">Tue</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">Wed</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">Thu</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">Fri</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">Sat</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">Sun</code><code class="variable-quote">'</code><code class="variable-group">)</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="common.rhnLib-module.html#rfc822_mons" class="summary-name">rfc822_mons</a> = <code title="'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', \
-'Nov', 'Dec'">'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',<code class="variable-ellipsis">...</code></code>
+        <a href="common.rhnLib-module.html#rfc822_mons" class="summary-name">rfc822_mons</a> = <code title="('Jan',
+ 'Feb',
+ 'Mar',
+ 'Apr',
+ 'May',
+ 'Jun',
+ 'Jul',
+ 'Aug',
+..."><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">Jan</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">Feb</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">Mar</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">Apr</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">May</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">Jun</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">Jul</code><code class="variable-quote">'</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'common'"><code class="variable-quote">'</code><code class="variable-string">common</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -577,58 +324,6 @@ NOTE:  In all cases, the argument is assumed to be in local time.  It will
   </dl>
 </td></tr></table>
 </div>
-<a name="cleanupAbsPath"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">cleanupAbsPath</span>(<span class="sig-arg">path</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="common.rhnLib-pysrc.html#cleanupAbsPath">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <pre class="literalblock">
-take ~taw/../some/path/$MOUNT_POINT/blah and make it sensible.
-
-Path return is absolute.
-NOTE: python 2.2 fixes a number of bugs with this and eliminates
-      the need for os.path.expanduser
-
-</pre>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="cleanupNormPath"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">cleanupNormPath</span>(<span class="sig-arg">path</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="common.rhnLib-pysrc.html#cleanupNormPath">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <pre class="literalblock">
-take ~taw/../some/path/$MOUNT_POINT/blah and make it sensible.
-
-Returned path may be relative.
-NOTE: python 2.2 fixes a number of bugs with this and eliminates
-      the need for os.path.expanduser
-
-</pre>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
 <a name="parseUrl"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -670,140 +365,6 @@ The behavior of *this* function:
   </dl>
 </td></tr></table>
 </div>
-<a name="maketemp"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">maketemp</span>(<span class="sig-arg">prefix</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="common.rhnLib-pysrc.html#maketemp">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Creates a temporary file (guaranteed to be new), using the specified 
-  prefix. Returns the filename and an open file descriptor (low-level)</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="make_temp_file"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">make_temp_file</span>(<span class="sig-arg">prefix</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="common.rhnLib-pysrc.html#make_temp_file">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Creates a temporary file stream (returns an open file object)</p>
-  <p>Returns a read/write stream pointing to a file that goes away once the
-  stream is closed</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="rotateFile"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">rotateFile</span>(<span class="sig-arg">filepath</span>,
-        <span class="sig-arg">depth</span>=<span class="sig-default">5</span>,
-        <span class="sig-arg">suffix</span>=<span class="sig-default">'.'</span>,
-        <span class="sig-arg">verbosity</span>=<span class="sig-default">0</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="common.rhnLib-pysrc.html#rotateFile">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <pre class="literalblock">
-backup/rotate a file
-depth (-1==no limit) refers to num. of backups (rotations) to keep.
-
-Behavior:
-  (1)
-    x.txt (current)
-    x.txt.1 (old)
-    x.txt.2 (older)
-    x.txt.3 (oldest)
-  (2)
-    all file stats preserved. Doesn't blow away original file.
-  (3)
-    if x.txt and x.txt.1 are identical (size or md5sum), None is
-    returned
-
-</pre>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="rhn_popen"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">rhn_popen</span>(<span class="sig-arg">cmd</span>,
-        <span class="sig-arg">progressCallback</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">bufferSize</span>=<span class="sig-default">16384</span>,
-        <span class="sig-arg">outputLog</span>=<span class="sig-default">None</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="common.rhnLib-pysrc.html#rhn_popen">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>popen-like function, that accepts execvp-style arguments too (i.e. an 
-  array of params, thus making shell escaping unnecessary)</p>
-  <p>cmd can be either a string (like &quot;ls -l /dev&quot;), or an array 
-  of arguments [&quot;ls&quot;, &quot;-l&quot;, &quot;/dev&quot;]</p>
-  <p>Returns the command's error code, a stream with stdout's contents and 
-  a stream with stderr's contents</p>
-  <p>progressCallback --&gt; progress bar twiddler outputLog --&gt; 
-  optional log file file object write method</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="createPath"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">createPath</span>(<span class="sig-arg">path</span>,
-        <span class="sig-arg">user</span>=<span class="sig-default">'apache'</span>,
-        <span class="sig-arg">group</span>=<span class="sig-default">'root'</span>,
-        <span class="sig-arg">chmod</span>=<span class="sig-default">0755</span>,
-        <span class="sig-arg">logging</span>=<span class="sig-default">1</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="common.rhnLib-pysrc.html#createPath">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>advanced makedirs</p>
-  <p>Will create the path if necessary. Will chmod, and chown that path 
-  properly.</p>
-  <p>Uses the above makedirs() function.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
 <br />
 <!-- ==================== VARIABLES DETAILS ==================== -->
 <a name="section-VariablesDetails"></a>
@@ -835,8 +396,15 @@ Behavior:
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', <span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-'Nov', 'Dec'
+<code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">Jan</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">Feb</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">Mar</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">Apr</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">May</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">Jun</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">Jul</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">Aug</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -866,7 +434,7 @@ Behavior:
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:14 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

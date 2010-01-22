@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>rhn.SSL</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="rhn-module.html">Package&nbsp;rhn</a> ::
+        Module&nbsp;SSL
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="rhn.SSL-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="rhn.SSL-module.html" onclick="show_private();">Module rhn.SSL</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Higher-level SSL objects used by rpclib</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2002-2005 Red Hat, Inc.</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># Author: Mihai Ibanescu &lt;misa@redhat.com&gt;</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># $Id$</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-docstring">rhn.SSL builds an abstraction on top of the objects provided by pyOpenSSL</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">OpenSSL</tt> <tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module rhn.SSL=rhn.SSL-module.html"><a title="rhn.SSL" class="py-name" href="#" onclick="return doclink('link-0', 'SSL', 'link-0');">SSL</a></tt><tt class="py-op">,</tt> <tt class="py-name">crypto</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">time</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">socket</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Method server.rhnSQL.sql_table.Table.select()=server.rhnSQL.sql_table.Table-class.html#select"><a title="server.rhnSQL.sql_table.Table.select" class="py-name" href="#" onclick="return doclink('link-1', 'select', 'link-1');">select</a></tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt id="link-2" class="py-name" targets="Variable rhn.SSL.DEFAULT_TIMEOUT=rhn.SSL-module.html#DEFAULT_TIMEOUT"><a title="rhn.SSL.DEFAULT_TIMEOUT" class="py-name" href="#" onclick="return doclink('link-2', 'DEFAULT_TIMEOUT', 'link-2');">DEFAULT_TIMEOUT</a></tt> <tt class="py-op">=</tt> <tt class="py-number">120</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"> </tt>
+<a name="SSLSocket"></a><div id="SSLSocket-def"><a name="L24"></a><tt class="py-lineno"> 24</tt> <a class="py-toggle" href="#" id="SSLSocket-toggle" onclick="return toggle('SSLSocket');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="rhn.SSL.SSLSocket-class.html">SSLSocket</a><tt class="py-op">:</tt> </tt>
+</div><div id="SSLSocket-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="SSLSocket-expanded"><a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-docstring">    Class that wraps a pyOpenSSL Connection object, adding more methods</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="SSLSocket.__init__"></a><div id="SSLSocket.__init__-def"><a name="L28"></a><tt class="py-lineno"> 28</tt> <a class="py-toggle" href="#" id="SSLSocket.__init__-toggle" onclick="return toggle('SSLSocket.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhn.SSL.SSLSocket-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">socket</tt><tt class="py-op">,</tt> <tt class="py-param">trusted_certs</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SSLSocket.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SSLSocket.__init__-expanded"><a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">        <tt class="py-comment"># SSL.Context object</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_ctx</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">        <tt class="py-comment"># SSL.Connection object </tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_connection</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_sock</tt> <tt class="py-op">=</tt> <tt class="py-name">socket</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_trusted_certs</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">        <tt class="py-comment"># convert None to empty list</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">        <tt class="py-name">trusted_certs</tt> <tt class="py-op">=</tt> <tt class="py-name">trusted_certs</tt> <tt class="py-keyword">or</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">f</tt> <tt class="py-keyword">in</tt> <tt class="py-name">trusted_certs</tt><tt class="py-op">:</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-3" class="py-name" targets="Method rhn.SSL.SSLSocket.add_trusted_cert()=rhn.SSL.SSLSocket-class.html#add_trusted_cert,Method rhn.rpclib.Server.add_trusted_cert()=rhn.rpclib.Server-class.html#add_trusted_cert,Method rhn.rpclib.Server.add_trusted_cert()=rhn.rpclib.Server-class.html#add_trusted_cert,Method rhn.transports.SafeProxyTransport.add_trusted_cert()=rhn.transports.SafeProxyTransport-class.html#add_trusted_cert,Method rhn.transports.SafeTransport.add_trusted_cert()=rhn.transports.SafeTransport-class.html#add_trusted_cert"><a title="rhn.SSL.SSLSocket.add_trusted_cert
+rhn.rpclib.Server.add_trusted_cert
+rhn.rpclib.Server.add_trusted_cert
+rhn.transports.SafeProxyTransport.add_trusted_cert
+rhn.transports.SafeTransport.add_trusted_cert" class="py-name" href="#" onclick="return doclink('link-3', 'add_trusted_cert', 'link-3');">add_trusted_cert</a></tt><tt class="py-op">(</tt><tt class="py-name">f</tt><tt class="py-op">)</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">        <tt class="py-comment"># SSL method to use</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_ssl_method</tt> <tt class="py-op">=</tt> <tt id="link-4" class="py-name"><a title="rhn.SSL" class="py-name" href="#" onclick="return doclink('link-4', 'SSL', 'link-0');">SSL</a></tt><tt class="py-op">.</tt><tt class="py-name">SSLv23_METHOD</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">        <tt class="py-comment"># Flags to pass to the SSL layer</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_ssl_verify_flags</tt> <tt class="py-op">=</tt> <tt id="link-5" class="py-name"><a title="rhn.SSL" class="py-name" href="#" onclick="return doclink('link-5', 'SSL', 'link-0');">SSL</a></tt><tt class="py-op">.</tt><tt class="py-name">VERIFY_PEER</tt>  </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">        <tt class="py-comment"># Buffer size for reads</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer_size</tt> <tt class="py-op">=</tt> <tt class="py-number">8192</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">        <tt class="py-comment"># Position, for tell()</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_pos</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">        <tt class="py-comment"># Buffer</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer</tt> <tt class="py-op">=</tt> <tt class="py-string">""</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">        <tt class="py-comment"># Flag to show if makefile() was called</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_makefile_called</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_closed</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+</div><a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"> </tt>
+<a name="SSLSocket.add_trusted_cert"></a><div id="SSLSocket.add_trusted_cert-def"><a name="L57"></a><tt class="py-lineno"> 57</tt> <a class="py-toggle" href="#" id="SSLSocket.add_trusted_cert-toggle" onclick="return toggle('SSLSocket.add_trusted_cert');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhn.SSL.SSLSocket-class.html#add_trusted_cert">add_trusted_cert</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">file</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SSLSocket.add_trusted_cert-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SSLSocket.add_trusted_cert-expanded"><a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"><tt class="py-docstring">        Adds a trusted certificate to the certificate store of the SSL context</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"><tt class="py-docstring">        object.</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">access</tt><tt class="py-op">(</tt><tt class="py-name">file</tt><tt class="py-op">,</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">R_OK</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">ValueError</tt><tt class="py-op">,</tt> <tt class="py-string">"Unable to read certificate file %s"</tt> <tt class="py-op">%</tt> <tt class="py-name">file</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_trusted_certs</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-6', 'append', 'link-6');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">file</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"> </tt>
+<a name="SSLSocket.init_ssl"></a><div id="SSLSocket.init_ssl-def"><a name="L66"></a><tt class="py-lineno"> 66</tt> <a class="py-toggle" href="#" id="SSLSocket.init_ssl-toggle" onclick="return toggle('SSLSocket.init_ssl');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhn.SSL.SSLSocket-class.html#init_ssl">init_ssl</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SSLSocket.init_ssl-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SSLSocket.init_ssl-expanded"><a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"><tt class="py-docstring">        Initializes the SSL connection.</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Method rhn.SSL.SSLSocket._check_closed()=rhn.SSL.SSLSocket-class.html#_check_closed"><a title="rhn.SSL.SSLSocket._check_closed" class="py-name" href="#" onclick="return doclink('link-7', '_check_closed', 'link-7');">_check_closed</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">        <tt class="py-comment"># Get a context</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_ctx</tt> <tt class="py-op">=</tt> <tt id="link-8" class="py-name"><a title="rhn.SSL" class="py-name" href="#" onclick="return doclink('link-8', 'SSL', 'link-0');">SSL</a></tt><tt class="py-op">.</tt><tt class="py-name">Context</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_ssl_method</tt><tt class="py-op">)</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_trusted_certs</tt><tt class="py-op">:</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">            <tt class="py-comment"># We have been supplied with trusted CA certs</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">            <tt class="py-keyword">for</tt> <tt class="py-name">f</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_trusted_certs</tt><tt class="py-op">:</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_ctx</tt><tt class="py-op">.</tt><tt class="py-name">load_verify_locations</tt><tt class="py-op">(</tt><tt class="py-name">f</tt><tt class="py-op">)</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">            <tt class="py-comment"># Reset the verify flags</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_ssl_verify_flags</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_ctx</tt><tt class="py-op">.</tt><tt class="py-name">set_verify</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_ssl_verify_flags</tt><tt class="py-op">,</tt> <tt id="link-9" class="py-name" targets="Function rhn.SSL.ssl_verify_callback()=rhn.SSL-module.html#ssl_verify_callback"><a title="rhn.SSL.ssl_verify_callback" class="py-name" href="#" onclick="return doclink('link-9', 'ssl_verify_callback', 'link-9');">ssl_verify_callback</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">hasattr</tt><tt class="py-op">(</tt><tt id="link-10" class="py-name"><a title="rhn.SSL" class="py-name" href="#" onclick="return doclink('link-10', 'SSL', 'link-0');">SSL</a></tt><tt class="py-op">,</tt> <tt class="py-string">"OP_DONT_INSERT_EMPTY_FRAGMENTS"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">            <tt class="py-comment"># Certain SSL implementations break when empty fragments are</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">            <tt class="py-comment"># initially sent (even if sending them is compliant to </tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">            <tt class="py-comment"># SSL 3.0 and TLS 1.0 specs). Play it safe and disable this</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">            <tt class="py-comment"># feature (openssl 0.9.6e and later)</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_ctx</tt><tt class="py-op">.</tt><tt class="py-name">set_options</tt><tt class="py-op">(</tt><tt id="link-11" class="py-name"><a title="rhn.SSL" class="py-name" href="#" onclick="return doclink('link-11', 'SSL', 'link-0');">SSL</a></tt><tt class="py-op">.</tt><tt class="py-name">OP_DONT_INSERT_EMPTY_FRAGMENTS</tt><tt class="py-op">)</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">        <tt class="py-comment"># Init the connection</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_connection</tt> <tt class="py-op">=</tt> <tt id="link-12" class="py-name"><a title="rhn.SSL" class="py-name" href="#" onclick="return doclink('link-12', 'SSL', 'link-0');">SSL</a></tt><tt class="py-op">.</tt><tt class="py-name">Connection</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_ctx</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_sock</tt><tt class="py-op">)</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">        <tt class="py-comment"># Place the connection in client mode</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_connection</tt><tt class="py-op">.</tt><tt class="py-name">set_connect_state</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line"> </tt>
+<a name="SSLSocket.makefile"></a><div id="SSLSocket.makefile-def"><a name="L94"></a><tt class="py-lineno"> 94</tt> <a class="py-toggle" href="#" id="SSLSocket.makefile-toggle" onclick="return toggle('SSLSocket.makefile');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhn.SSL.SSLSocket-class.html#makefile">makefile</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">mode</tt><tt class="py-op">,</tt> <tt class="py-param">bufsize</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SSLSocket.makefile-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SSLSocket.makefile-expanded"><a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line"><tt class="py-docstring">        Returns self, since we are a file-like object already</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">bufsize</tt><tt class="py-op">:</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer_size</tt> <tt class="py-op">=</tt> <tt class="py-name">bufsize</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">        <tt class="py-comment"># Increment the counter with the number of times we've called makefile</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">        <tt class="py-comment"># - we don't want close to actually close things until all the objects</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">        <tt class="py-comment"># that originally called makefile() are gone</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_makefile_called</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_makefile_called</tt> <tt class="py-op">+</tt> <tt class="py-number">1</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt> </tt>
+</div><a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">     </tt>
+<a name="SSLSocket.close"></a><div id="SSLSocket.close-def"><a name="L107"></a><tt class="py-lineno">107</tt> <a class="py-toggle" href="#" id="SSLSocket.close-toggle" onclick="return toggle('SSLSocket.close');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhn.SSL.SSLSocket-class.html#close">close</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SSLSocket.close-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SSLSocket.close-expanded"><a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line"><tt class="py-docstring">        Closes the SSL connection</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">        <tt class="py-comment"># XXX Normally sock.makefile does a dup() on the socket file</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">        <tt class="py-comment"># descriptor; httplib relies on this, but there is no dup for an ssl</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">        <tt class="py-comment"># connection; so we have to count how may times makefile() was called</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_closed</tt><tt class="py-op">:</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">            <tt class="py-comment"># Nothing to do</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_makefile_called</tt><tt class="py-op">:</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Method rhn.SSL.SSLSocket._really_close()=rhn.SSL.SSLSocket-class.html#_really_close"><a title="rhn.SSL.SSLSocket._really_close" class="py-name" href="#" onclick="return doclink('link-13', '_really_close', 'link-13');">_really_close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_makefile_called</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_makefile_called</tt> <tt class="py-op">-</tt> <tt class="py-number">1</tt> </tt>
+</div><a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line"> </tt>
+<a name="SSLSocket._really_close"></a><div id="SSLSocket._really_close-def"><a name="L122"></a><tt class="py-lineno">122</tt> <a class="py-toggle" href="#" id="SSLSocket._really_close-toggle" onclick="return toggle('SSLSocket._really_close');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhn.SSL.SSLSocket-class.html#_really_close">_really_close</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SSLSocket._really_close-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SSLSocket._really_close-expanded"><a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_connection</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Function server.action.virt.shutdown()=server.action.virt-module.html#shutdown,Function server.action_extra_data.virt.shutdown()=server.action_extra_data.virt-module.html#shutdown"><a title="server.action.virt.shutdown
+server.action_extra_data.virt.shutdown" class="py-name" href="#" onclick="return doclink('link-14', 'shutdown', 'link-14');">shutdown</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_connection</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name" targets="Method common.rhnCache.ClosingZipFile.close()=common.rhnCache.ClosingZipFile-class.html#close,Method common.rhnCache.LockedFile.close()=common.rhnCache.LockedFile-class.html#close,Method proxy.responseContext.ResponseContext.close()=proxy.responseContext.ResponseContext-class.html#close,Method rhn.SSL.SSLSocket.close()=rhn.SSL.SSLSocket-class.html#close,Method rhn.rpclib.Server.close()=rhn.rpclib.Server-class.html#close,Method rhn.rpclib.Server.close()=rhn.rpclib.Server-class.html#close,Method rhn.transports.BaseOutput.close()=rhn.transports.BaseOutput-class.html#close,Method satellite_tools.connection.CompressedStream.close()=satellite_tools.connection.CompressedStream-class.html#close,Method satellite_tools.disk_dumper.dumper.CachedQueryIterator.close()=satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#close,Method satellite_tools.disk_dumper.dumper.XML_DumperEx.close()=satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#close,Method satellite_tools.disk_dumper.iss.Dumper.close()=satellite_tools.disk_dumper.iss.Dumper-class.html#close,Method satellite_tools.disk_dumper.string_buffer.StringBuffer.close()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#close,Method satellite_tools.sync_handlers.ContainerHandler.close()=satellite_tools.sync_handlers.ContainerHandler-class.html#close,Method satellite_tools.xmlSource.BaseDispatchHandler.close()=satellite_tools.xmlSource.BaseDispatchHandler-class.html#close,Method server.rhnSQL.driver_cx_Oracle.Database.close()=server.rhnSQL.driver_cx_Oracle.Database-class.html#close,Method server.rhnSQL.sql_base.Database.close()=server.rhnSQL.sql_base.Database-class.html#close"><a title="common.rhnCache.ClosingZipFile.close
+common.rhnCache.LockedFile.close
+proxy.responseContext.ResponseContext.close
+rhn.SSL.SSLSocket.close
+rhn.rpclib.Server.close
+rhn.rpclib.Server.close
+rhn.transports.BaseOutput.close
+satellite_tools.connection.CompressedStream.close
+satellite_tools.disk_dumper.dumper.CachedQueryIterator.close
+satellite_tools.disk_dumper.dumper.XML_DumperEx.close
+satellite_tools.disk_dumper.iss.Dumper.close
+satellite_tools.disk_dumper.string_buffer.StringBuffer.close
+satellite_tools.sync_handlers.ContainerHandler.close
+satellite_tools.xmlSource.BaseDispatchHandler.close
+server.rhnSQL.driver_cx_Oracle.Database.close
+server.rhnSQL.sql_base.Database.close" class="py-name" href="#" onclick="return doclink('link-15', 'close', 'link-15');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_closed</tt> <tt class="py-op">=</tt> <tt class="py-number">1</tt> </tt>
+</div><a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line"> </tt>
+<a name="SSLSocket._check_closed"></a><div id="SSLSocket._check_closed-def"><a name="L127"></a><tt class="py-lineno">127</tt> <a class="py-toggle" href="#" id="SSLSocket._check_closed-toggle" onclick="return toggle('SSLSocket._check_closed');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhn.SSL.SSLSocket-class.html#_check_closed">_check_closed</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SSLSocket._check_closed-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SSLSocket._check_closed-expanded"><a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_closed</tt><tt class="py-op">:</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">ValueError</tt><tt class="py-op">,</tt> <tt class="py-string">"I/O operation on closed file"</tt> </tt>
+</div><a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line"> </tt>
+<a name="SSLSocket.__getattr__"></a><div id="SSLSocket.__getattr__-def"><a name="L131"></a><tt class="py-lineno">131</tt> <a class="py-toggle" href="#" id="SSLSocket.__getattr__-toggle" onclick="return toggle('SSLSocket.__getattr__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhn.SSL.SSLSocket-class.html#__getattr__">__getattr__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SSLSocket.__getattr__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SSLSocket.__getattr__-expanded"><a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">hasattr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_connection</tt><tt class="py-op">,</tt> <tt id="link-16" class="py-name" targets="Variable satellite_tools.repo_plugins.yum_src.ContentSource.name=satellite_tools.repo_plugins.yum_src.ContentSource-class.html#name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-16', 'name', 'link-16');">name</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">getattr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_connection</tt><tt class="py-op">,</tt> <tt id="link-17" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-17', 'name', 'link-16');">name</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt class="py-name">AttributeError</tt><tt class="py-op">,</tt> <tt id="link-18" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-18', 'name', 'link-16');">name</a></tt> </tt>
+</div><a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">    <tt class="py-comment"># File methods</tt> </tt>
+<a name="SSLSocket.isatty"></a><div id="SSLSocket.isatty-def"><a name="L137"></a><tt class="py-lineno">137</tt> <a class="py-toggle" href="#" id="SSLSocket.isatty-toggle" onclick="return toggle('SSLSocket.isatty');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhn.SSL.SSLSocket-class.html#isatty">isatty</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SSLSocket.isatty-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SSLSocket.isatty-expanded"><a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line"><tt class="py-docstring">        Returns false always.</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-number">0</tt> </tt>
+</div><a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line"> </tt>
+<a name="SSLSocket.tell"></a><div id="SSLSocket.tell-def"><a name="L143"></a><tt class="py-lineno">143</tt> <a class="py-toggle" href="#" id="SSLSocket.tell-toggle" onclick="return toggle('SSLSocket.tell');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhn.SSL.SSLSocket-class.html#tell">tell</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SSLSocket.tell-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SSLSocket.tell-expanded"><a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_pos</tt> </tt>
+</div><a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line"> </tt>
+<a name="SSLSocket.seek"></a><div id="SSLSocket.seek-def"><a name="L146"></a><tt class="py-lineno">146</tt> <a class="py-toggle" href="#" id="SSLSocket.seek-toggle" onclick="return toggle('SSLSocket.seek');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhn.SSL.SSLSocket-class.html#seek">seek</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">pos</tt><tt class="py-op">,</tt> <tt class="py-param">mode</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SSLSocket.seek-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SSLSocket.seek-expanded"><a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt class="py-name">NotImplementedError</tt><tt class="py-op">,</tt> <tt class="py-string">"seek"</tt> </tt>
+</div><a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line"> </tt>
+<a name="SSLSocket.read"></a><div id="SSLSocket.read-def"><a name="L149"></a><tt class="py-lineno">149</tt> <a class="py-toggle" href="#" id="SSLSocket.read-toggle" onclick="return toggle('SSLSocket.read');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhn.SSL.SSLSocket-class.html#read">read</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">amt</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SSLSocket.read-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SSLSocket.read-expanded"><a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line"><tt class="py-docstring">        Reads up to amt bytes from the SSL connection.</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="rhn.SSL.SSLSocket._check_closed" class="py-name" href="#" onclick="return doclink('link-19', '_check_closed', 'link-7');">_check_closed</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">        <tt class="py-comment"># Initially, the buffer size is the default buffer size.</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">        <tt class="py-comment"># Unfortunately, pending() does not return meaningful data until</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">        <tt class="py-comment"># recv() is called, so we only adjust the buffer size after the</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">        <tt class="py-comment"># first read</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">        <tt id="link-20" class="py-name" targets="Variable satellite_tools.exporter.exporter.Dumper.buffer_size=satellite_tools.exporter.exporter.Dumper-class.html#buffer_size"><a title="satellite_tools.exporter.exporter.Dumper.buffer_size" class="py-name" href="#" onclick="return doclink('link-20', 'buffer_size', 'link-20');">buffer_size</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer_size</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line"> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">        <tt class="py-name">buffer_length</tt> <tt class="py-op">=</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer</tt><tt class="py-op">)</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">        <tt class="py-comment"># Read only the specified amount of data</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">        <tt class="py-keyword">while</tt> <tt class="py-name">buffer_length</tt> <tt class="py-op">&lt;</tt> <tt class="py-name">amt</tt> <tt class="py-keyword">or</tt> <tt class="py-name">amt</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">            <tt class="py-comment"># if amt is None (read till the end), fills in self._buffer</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">amt</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">                <tt id="link-21" class="py-name"><a title="satellite_tools.exporter.exporter.Dumper.buffer_size" class="py-name" href="#" onclick="return doclink('link-21', 'buffer_size', 'link-20');">buffer_size</a></tt> <tt class="py-op">=</tt> <tt class="py-name">min</tt><tt class="py-op">(</tt><tt class="py-name">amt</tt> <tt class="py-op">-</tt> <tt class="py-name">buffer_length</tt><tt class="py-op">,</tt> <tt id="link-22" class="py-name"><a title="satellite_tools.exporter.exporter.Dumper.buffer_size" class="py-name" href="#" onclick="return doclink('link-22', 'buffer_size', 'link-20');">buffer_size</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line"> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">            <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">                <tt id="link-23" class="py-name" targets="Method satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data()=satellite_exporter.handlers.non_auth_dumper.ContainerWriter-class.html#data,Method satellite_tools.exporter.xmlWriter.XMLWriter.data()=satellite_tools.exporter.xmlWriter.XMLWriter-class.html#data"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-23', 'data', 'link-23');">data</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_connection</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name" targets="Function proxy.rhnAuthProtocol.recv()=proxy.rhnAuthProtocol-module.html#recv,Method rhn.SSL.SSLSocket.recv()=rhn.SSL.SSLSocket-class.html#recv"><a title="proxy.rhnAuthProtocol.recv
+rhn.SSL.SSLSocket.recv" class="py-name" href="#" onclick="return doclink('link-24', 'recv', 'link-24');">recv</a></tt><tt class="py-op">(</tt><tt id="link-25" class="py-name"><a title="satellite_tools.exporter.exporter.Dumper.buffer_size" class="py-name" href="#" onclick="return doclink('link-25', 'buffer_size', 'link-20');">buffer_size</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">  </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer</tt> <tt class="py-op">+</tt> <tt id="link-26" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-26', 'data', 'link-23');">data</a></tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">                <tt class="py-name">buffer_length</tt> <tt class="py-op">=</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer</tt><tt class="py-op">)</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line"> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">                <tt class="py-comment"># More bytes to read?</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">                <tt class="py-name">pending</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_connection</tt><tt class="py-op">.</tt><tt class="py-name">pending</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">pending</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">                    <tt class="py-comment"># we're done here</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">                    <tt class="py-keyword">break</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt> <tt id="link-27" class="py-name"><a title="rhn.SSL" class="py-name" href="#" onclick="return doclink('link-27', 'SSL', 'link-0');">SSL</a></tt><tt class="py-op">.</tt><tt class="py-name">ZeroReturnError</tt><tt class="py-op">:</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">                <tt class="py-comment"># Nothing more to be read</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">                <tt class="py-keyword">break</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt> <tt id="link-28" class="py-name"><a title="rhn.SSL" class="py-name" href="#" onclick="return doclink('link-28', 'SSL', 'link-0');">SSL</a></tt><tt class="py-op">.</tt><tt class="py-name">SysCallError</tt><tt class="py-op">,</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">"SSL exception"</tt><tt class="py-op">,</tt> <tt class="py-name">e</tt><tt class="py-op">.</tt><tt class="py-name">args</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">                <tt class="py-keyword">break</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt> <tt id="link-29" class="py-name"><a title="rhn.SSL" class="py-name" href="#" onclick="return doclink('link-29', 'SSL', 'link-0');">SSL</a></tt><tt class="py-op">.</tt><tt class="py-name">WantWriteError</tt><tt class="py-op">:</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-30" class="py-name" targets="Method rhn.SSL.SSLSocket._poll()=rhn.SSL.SSLSocket-class.html#_poll"><a title="rhn.SSL.SSLSocket._poll" class="py-name" href="#" onclick="return doclink('link-30', '_poll', 'link-30');">_poll</a></tt><tt class="py-op">(</tt><tt id="link-31" class="py-name"><a title="server.rhnSQL.sql_table.Table.select" class="py-name" href="#" onclick="return doclink('link-31', 'select', 'link-1');">select</a></tt><tt class="py-op">.</tt><tt class="py-name">POLLOUT</tt><tt class="py-op">,</tt> <tt class="py-string">'read'</tt><tt class="py-op">)</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt> <tt id="link-32" class="py-name"><a title="rhn.SSL" class="py-name" href="#" onclick="return doclink('link-32', 'SSL', 'link-0');">SSL</a></tt><tt class="py-op">.</tt><tt class="py-name">WantReadError</tt><tt class="py-op">:</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-33" class="py-name"><a title="rhn.SSL.SSLSocket._poll" class="py-name" href="#" onclick="return doclink('link-33', '_poll', 'link-30');">_poll</a></tt><tt class="py-op">(</tt><tt id="link-34" class="py-name"><a title="server.rhnSQL.sql_table.Table.select" class="py-name" href="#" onclick="return doclink('link-34', 'select', 'link-1');">select</a></tt><tt class="py-op">.</tt><tt class="py-name">POLLIN</tt><tt class="py-op">,</tt> <tt class="py-string">'read'</tt><tt class="py-op">)</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line"> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">amt</tt><tt class="py-op">:</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line">            <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-name">amt</tt><tt class="py-op">]</tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer</tt><tt class="py-op">[</tt><tt class="py-name">amt</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line">            <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer</tt> <tt class="py-op">=</tt> <tt class="py-string">""</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line"> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_pos</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_pos</tt> <tt class="py-op">+</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">ret</tt><tt class="py-op">)</tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">ret</tt> </tt>
+</div><a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line"> </tt>
+<a name="SSLSocket._poll"></a><div id="SSLSocket._poll-def"><a name="L199"></a><tt class="py-lineno">199</tt> <a class="py-toggle" href="#" id="SSLSocket._poll-toggle" onclick="return toggle('SSLSocket._poll');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhn.SSL.SSLSocket-class.html#_poll">_poll</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">filter_type</tt><tt class="py-op">,</tt> <tt class="py-param">caller_name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SSLSocket._poll-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SSLSocket._poll-expanded"><a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">        <tt class="py-name">poller</tt> <tt class="py-op">=</tt> <tt id="link-35" class="py-name"><a title="server.rhnSQL.sql_table.Table.select" class="py-name" href="#" onclick="return doclink('link-35', 'select', 'link-1');">select</a></tt><tt class="py-op">.</tt><tt class="py-name">poll</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">        <tt class="py-name">poller</tt><tt class="py-op">.</tt><tt class="py-name">register</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_sock</tt><tt class="py-op">,</tt> <tt class="py-name">filter_type</tt><tt class="py-op">)</tt> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line">        <tt class="py-name">res</tt> <tt class="py-op">=</tt> <tt class="py-name">poller</tt><tt class="py-op">.</tt><tt class="py-name">poll</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_sock</tt><tt class="py-op">.</tt><tt class="py-name">gettimeout</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">*</tt> <tt class="py-number">1000</tt><tt class="py-op">)</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">res</tt> <tt class="py-op">==</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-36" class="py-name" targets="Class rhn.SSL.TimeoutException=rhn.SSL.TimeoutException-class.html"><a title="rhn.SSL.TimeoutException" class="py-name" href="#" onclick="return doclink('link-36', 'TimeoutException', 'link-36');">TimeoutException</a></tt><tt class="py-op">,</tt> <tt class="py-string">"Connection timed out on %s"</tt> <tt class="py-op">%</tt> <tt class="py-name">caller_name</tt> </tt>
+</div><a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line"> </tt>
+<a name="SSLSocket.write"></a><div id="SSLSocket.write-def"><a name="L206"></a><tt class="py-lineno">206</tt> <a class="py-toggle" href="#" id="SSLSocket.write-toggle" onclick="return toggle('SSLSocket.write');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhn.SSL.SSLSocket-class.html#write">write</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">data</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SSLSocket.write-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SSLSocket.write-expanded"><a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line"><tt class="py-docstring">        Writes to the SSL connection.</tt> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-37" class="py-name"><a title="rhn.SSL.SSLSocket._check_closed" class="py-name" href="#" onclick="return doclink('link-37', '_check_closed', 'link-7');">_check_closed</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line">         </tt>
+<a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line">        <tt class="py-comment"># XXX Should use sendall </tt> </tt>
+<a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line">        <tt class="py-comment"># sent = self._connection.sendall(data)</tt> </tt>
+<a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line">        <tt class="py-name">origlen</tt> <tt class="py-op">=</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt id="link-38" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-38', 'data', 'link-23');">data</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line">        <tt class="py-keyword">while</tt> <tt id="link-39" class="py-name" targets="Variable xmlrpclib.True=xmlrpclib-module.html#True"><a title="xmlrpclib.True" class="py-name" href="#" onclick="return doclink('link-39', 'True', 'link-39');">True</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line">            <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line">                <tt class="py-name">sent</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_connection</tt><tt class="py-op">.</tt><tt id="link-40" class="py-name" targets="Function common.rhnMail.send()=common.rhnMail-module.html#send,Function proxy.rhnAuthProtocol.send()=proxy.rhnAuthProtocol-module.html#send,Method satellite_tools.disk_dumper.dumper.XML_DumperEx.send()=satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#send"><a title="common.rhnMail.send
+proxy.rhnAuthProtocol.send
+satellite_tools.disk_dumper.dumper.XML_DumperEx.send" class="py-name" href="#" onclick="return doclink('link-40', 'send', 'link-40');">send</a></tt><tt class="py-op">(</tt><tt id="link-41" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-41', 'data', 'link-23');">data</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L218"></a><tt class="py-lineno">218</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">sent</tt> <tt class="py-op">==</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt id="link-42" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-42', 'data', 'link-23');">data</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L219"></a><tt class="py-lineno">219</tt>  <tt class="py-line">                    <tt class="py-keyword">break</tt> </tt>
+<a name="L220"></a><tt class="py-lineno">220</tt>  <tt class="py-line">                <tt id="link-43" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-43', 'data', 'link-23');">data</a></tt> <tt class="py-op">=</tt> <tt id="link-44" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-44', 'data', 'link-23');">data</a></tt><tt class="py-op">[</tt><tt class="py-name">sent</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> </tt>
+<a name="L221"></a><tt class="py-lineno">221</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt> <tt id="link-45" class="py-name"><a title="rhn.SSL" class="py-name" href="#" onclick="return doclink('link-45', 'SSL', 'link-0');">SSL</a></tt><tt class="py-op">.</tt><tt class="py-name">WantWriteError</tt><tt class="py-op">:</tt> </tt>
+<a name="L222"></a><tt class="py-lineno">222</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-46" class="py-name"><a title="rhn.SSL.SSLSocket._poll" class="py-name" href="#" onclick="return doclink('link-46', '_poll', 'link-30');">_poll</a></tt><tt class="py-op">(</tt><tt id="link-47" class="py-name"><a title="server.rhnSQL.sql_table.Table.select" class="py-name" href="#" onclick="return doclink('link-47', 'select', 'link-1');">select</a></tt><tt class="py-op">.</tt><tt class="py-name">POLLOUT</tt><tt class="py-op">,</tt> <tt class="py-string">'write'</tt><tt class="py-op">)</tt> </tt>
+<a name="L223"></a><tt class="py-lineno">223</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt> <tt id="link-48" class="py-name"><a title="rhn.SSL" class="py-name" href="#" onclick="return doclink('link-48', 'SSL', 'link-0');">SSL</a></tt><tt class="py-op">.</tt><tt class="py-name">WantReadError</tt><tt class="py-op">:</tt> </tt>
+<a name="L224"></a><tt class="py-lineno">224</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-49" class="py-name"><a title="rhn.SSL.SSLSocket._poll" class="py-name" href="#" onclick="return doclink('link-49', '_poll', 'link-30');">_poll</a></tt><tt class="py-op">(</tt><tt id="link-50" class="py-name"><a title="server.rhnSQL.sql_table.Table.select" class="py-name" href="#" onclick="return doclink('link-50', 'select', 'link-1');">select</a></tt><tt class="py-op">.</tt><tt class="py-name">POLLIN</tt><tt class="py-op">,</tt> <tt class="py-string">'write'</tt><tt class="py-op">)</tt> </tt>
+<a name="L225"></a><tt class="py-lineno">225</tt>  <tt class="py-line">                  </tt>
+<a name="L226"></a><tt class="py-lineno">226</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">origlen</tt> </tt>
+</div><a name="L227"></a><tt class="py-lineno">227</tt>  <tt class="py-line"> </tt>
+<a name="SSLSocket.recv"></a><div id="SSLSocket.recv-def"><a name="L228"></a><tt class="py-lineno">228</tt> <a class="py-toggle" href="#" id="SSLSocket.recv-toggle" onclick="return toggle('SSLSocket.recv');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhn.SSL.SSLSocket-class.html#recv">recv</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">amt</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SSLSocket.recv-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SSLSocket.recv-expanded"><a name="L229"></a><tt class="py-lineno">229</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-51" class="py-name" targets="Method rhn.SSL.SSLSocket.read()=rhn.SSL.SSLSocket-class.html#read,Method rhn.connections.HTTPResponse.read()=rhn.connections.HTTPResponse-class.html#read,Method rhn.nonblocking.NonBlockingFile.read()=rhn.nonblocking.NonBlockingFile-class.html#read,Method rhn.transports.File.read()=rhn.transports.File-class.html#read,Method rhn.transports.Input.read()=rhn.transports.Input-class.html#read,Method server.wsgi.wsgiRequest.WsgiRequest.read()=server.wsgi.wsgiRequest.WsgiRequest-class.html#read"><a title="rhn.SSL.SSLSocket.read
+rhn.connections.HTTPResponse.read
+rhn.nonblocking.NonBlockingFile.read
+rhn.transports.File.read
+rhn.transports.Input.read
+server.wsgi.wsgiRequest.WsgiRequest.read" class="py-name" href="#" onclick="return doclink('link-51', 'read', 'link-51');">read</a></tt><tt class="py-op">(</tt><tt class="py-name">amt</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L230"></a><tt class="py-lineno">230</tt>  <tt class="py-line"> </tt>
+<a name="L231"></a><tt class="py-lineno">231</tt>  <tt class="py-line">    <tt id="link-52" class="py-name"><a title="common.rhnMail.send
+proxy.rhnAuthProtocol.send
+satellite_tools.disk_dumper.dumper.XML_DumperEx.send" class="py-name" href="#" onclick="return doclink('link-52', 'send', 'link-40');">send</a></tt> <tt class="py-op">=</tt> <tt id="link-53" class="py-name" targets="Method pygettext.TokenEater.write()=pygettext.TokenEater-class.html#write,Method rhn.SSL.SSLSocket.write()=rhn.SSL.SSLSocket-class.html#write,Method rhn.SmartIO.SmartIO.write()=rhn.SmartIO.SmartIO-class.html#write,Method rhn.nonblocking.NonBlockingFile.write()=rhn.nonblocking.NonBlockingFile-class.html#write,Method satellite_tools.disk_dumper.dumper.TeeStream.write()=satellite_tools.disk_dumper.dumper.TeeStream-class.html#write,Method satellite_tools.disk_dumper.string_buffer.StringBuffer.write()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#write,Method server.handlers.app.rhn_mpm.MPM_Package.write()=server.handlers.app.rhn_mpm.MPM_Package-class.html#write,Method server.wsgi.wsgiRequest.WsgiRequest.write()=server.wsgi.wsgiRequest.WsgiRequest-class.html#write,Method spacewalk.common.rhn_mpm.MPM_Package.write()=spacewalk.common.rhn_mpm.MPM_Package-class.html#write"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-53', 'write', 'link-53');">write</a></tt> </tt>
+<a name="L232"></a><tt class="py-lineno">232</tt>  <tt class="py-line"> </tt>
+<a name="L233"></a><tt class="py-lineno">233</tt>  <tt class="py-line">    <tt class="py-name">sendall</tt> <tt class="py-op">=</tt> <tt id="link-54" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-54', 'write', 'link-53');">write</a></tt> </tt>
+<a name="L234"></a><tt class="py-lineno">234</tt>  <tt class="py-line"> </tt>
+<a name="SSLSocket.readline"></a><div id="SSLSocket.readline-def"><a name="L235"></a><tt class="py-lineno">235</tt> <a class="py-toggle" href="#" id="SSLSocket.readline-toggle" onclick="return toggle('SSLSocket.readline');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhn.SSL.SSLSocket-class.html#readline">readline</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">length</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SSLSocket.readline-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SSLSocket.readline-expanded"><a name="L236"></a><tt class="py-lineno">236</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L237"></a><tt class="py-lineno">237</tt>  <tt class="py-line"><tt class="py-docstring">        Reads a single line (up to `length' characters long) from the SSL</tt> </tt>
+<a name="L238"></a><tt class="py-lineno">238</tt>  <tt class="py-line"><tt class="py-docstring">        connection.</tt> </tt>
+<a name="L239"></a><tt class="py-lineno">239</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L240"></a><tt class="py-lineno">240</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-55" class="py-name"><a title="rhn.SSL.SSLSocket._check_closed" class="py-name" href="#" onclick="return doclink('link-55', '_check_closed', 'link-7');">_check_closed</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L241"></a><tt class="py-lineno">241</tt>  <tt class="py-line">        <tt class="py-keyword">while</tt> <tt id="link-56" class="py-name"><a title="xmlrpclib.True" class="py-name" href="#" onclick="return doclink('link-56', 'True', 'link-39');">True</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L242"></a><tt class="py-lineno">242</tt>  <tt class="py-line">            <tt class="py-comment"># charcount contains the number of chars to be outputted (or None</tt> </tt>
+<a name="L243"></a><tt class="py-lineno">243</tt>  <tt class="py-line">            <tt class="py-comment"># if none to be outputted at this time)</tt> </tt>
+<a name="L244"></a><tt class="py-lineno">244</tt>  <tt class="py-line">            <tt class="py-name">charcount</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L245"></a><tt class="py-lineno">245</tt>  <tt class="py-line">            <tt class="py-name">i</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer</tt><tt class="py-op">.</tt><tt class="py-name">find</tt><tt class="py-op">(</tt><tt class="py-string">'\n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L246"></a><tt class="py-lineno">246</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">i</tt> <tt class="py-op">&gt;=</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L247"></a><tt class="py-lineno">247</tt>  <tt class="py-line">                <tt class="py-comment"># Go one char past newline</tt> </tt>
+<a name="L248"></a><tt class="py-lineno">248</tt>  <tt class="py-line">                <tt class="py-name">charcount</tt> <tt class="py-op">=</tt> <tt class="py-name">i</tt> <tt class="py-op">+</tt> <tt class="py-number">1</tt> </tt>
+<a name="L249"></a><tt class="py-lineno">249</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt id="link-57" class="py-name" targets="Method server.handlers.xmlrpc.queue.Queue.length()=server.handlers.xmlrpc.queue.Queue-class.html#length"><a title="server.handlers.xmlrpc.queue.Queue.length" class="py-name" href="#" onclick="return doclink('link-57', 'length', 'link-57');">length</a></tt> <tt class="py-keyword">and</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer</tt><tt class="py-op">)</tt> <tt class="py-op">&gt;=</tt> <tt id="link-58" class="py-name"><a title="server.handlers.xmlrpc.queue.Queue.length" class="py-name" href="#" onclick="return doclink('link-58', 'length', 'link-57');">length</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L250"></a><tt class="py-lineno">250</tt>  <tt class="py-line">                <tt class="py-name">charcount</tt> <tt class="py-op">=</tt> <tt id="link-59" class="py-name"><a title="server.handlers.xmlrpc.queue.Queue.length" class="py-name" href="#" onclick="return doclink('link-59', 'length', 'link-57');">length</a></tt> </tt>
+<a name="L251"></a><tt class="py-lineno">251</tt>  <tt class="py-line"> </tt>
+<a name="L252"></a><tt class="py-lineno">252</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">charcount</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L253"></a><tt class="py-lineno">253</tt>  <tt class="py-line">                <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-name">charcount</tt><tt class="py-op">]</tt> </tt>
+<a name="L254"></a><tt class="py-lineno">254</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer</tt><tt class="py-op">[</tt><tt class="py-name">charcount</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> </tt>
+<a name="L255"></a><tt class="py-lineno">255</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_pos</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_pos</tt> <tt class="py-op">+</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">ret</tt><tt class="py-op">)</tt> </tt>
+<a name="L256"></a><tt class="py-lineno">256</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">ret</tt> </tt>
+<a name="L257"></a><tt class="py-lineno">257</tt>  <tt class="py-line"> </tt>
+<a name="L258"></a><tt class="py-lineno">258</tt>  <tt class="py-line">            <tt class="py-comment"># Determine the number of chars to be read next</tt> </tt>
+<a name="L259"></a><tt class="py-lineno">259</tt>  <tt class="py-line">            <tt class="py-name">bufsize</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer_size</tt> </tt>
+<a name="L260"></a><tt class="py-lineno">260</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt id="link-60" class="py-name"><a title="server.handlers.xmlrpc.queue.Queue.length" class="py-name" href="#" onclick="return doclink('link-60', 'length', 'link-57');">length</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L261"></a><tt class="py-lineno">261</tt>  <tt class="py-line">                <tt class="py-comment"># we know length &gt; len(self._buffer)</tt> </tt>
+<a name="L262"></a><tt class="py-lineno">262</tt>  <tt class="py-line">                <tt class="py-name">bufsize</tt> <tt class="py-op">=</tt> <tt class="py-name">min</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer_size</tt><tt class="py-op">,</tt> <tt id="link-61" class="py-name"><a title="server.handlers.xmlrpc.queue.Queue.length" class="py-name" href="#" onclick="return doclink('link-61', 'length', 'link-57');">length</a></tt> <tt class="py-op">-</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L263"></a><tt class="py-lineno">263</tt>  <tt class="py-line"> </tt>
+<a name="L264"></a><tt class="py-lineno">264</tt>  <tt class="py-line">            <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L265"></a><tt class="py-lineno">265</tt>  <tt class="py-line">                <tt id="link-62" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-62', 'data', 'link-23');">data</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_connection</tt><tt class="py-op">.</tt><tt id="link-63" class="py-name"><a title="proxy.rhnAuthProtocol.recv
+rhn.SSL.SSLSocket.recv" class="py-name" href="#" onclick="return doclink('link-63', 'recv', 'link-24');">recv</a></tt><tt class="py-op">(</tt><tt class="py-name">bufsize</tt><tt class="py-op">)</tt> </tt>
+<a name="L266"></a><tt class="py-lineno">266</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer</tt> <tt class="py-op">+</tt> <tt id="link-64" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-64', 'data', 'link-23');">data</a></tt> </tt>
+<a name="L267"></a><tt class="py-lineno">267</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt> <tt id="link-65" class="py-name"><a title="rhn.SSL" class="py-name" href="#" onclick="return doclink('link-65', 'SSL', 'link-0');">SSL</a></tt><tt class="py-op">.</tt><tt class="py-name">ZeroReturnError</tt><tt class="py-op">:</tt> </tt>
+<a name="L268"></a><tt class="py-lineno">268</tt>  <tt class="py-line">                <tt class="py-comment"># Nothing more to be read</tt> </tt>
+<a name="L269"></a><tt class="py-lineno">269</tt>  <tt class="py-line">                <tt class="py-keyword">break</tt> </tt>
+<a name="L270"></a><tt class="py-lineno">270</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt> <tt id="link-66" class="py-name"><a title="rhn.SSL" class="py-name" href="#" onclick="return doclink('link-66', 'SSL', 'link-0');">SSL</a></tt><tt class="py-op">.</tt><tt class="py-name">WantWriteError</tt><tt class="py-op">:</tt> </tt>
+<a name="L271"></a><tt class="py-lineno">271</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-67" class="py-name"><a title="rhn.SSL.SSLSocket._poll" class="py-name" href="#" onclick="return doclink('link-67', '_poll', 'link-30');">_poll</a></tt><tt class="py-op">(</tt><tt id="link-68" class="py-name"><a title="server.rhnSQL.sql_table.Table.select" class="py-name" href="#" onclick="return doclink('link-68', 'select', 'link-1');">select</a></tt><tt class="py-op">.</tt><tt class="py-name">POLLOUT</tt><tt class="py-op">,</tt> <tt class="py-string">'readline'</tt><tt class="py-op">)</tt> </tt>
+<a name="L272"></a><tt class="py-lineno">272</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt> <tt id="link-69" class="py-name"><a title="rhn.SSL" class="py-name" href="#" onclick="return doclink('link-69', 'SSL', 'link-0');">SSL</a></tt><tt class="py-op">.</tt><tt class="py-name">WantReadError</tt><tt class="py-op">:</tt> </tt>
+<a name="L273"></a><tt class="py-lineno">273</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-70" class="py-name"><a title="rhn.SSL.SSLSocket._poll" class="py-name" href="#" onclick="return doclink('link-70', '_poll', 'link-30');">_poll</a></tt><tt class="py-op">(</tt><tt id="link-71" class="py-name"><a title="server.rhnSQL.sql_table.Table.select" class="py-name" href="#" onclick="return doclink('link-71', 'select', 'link-1');">select</a></tt><tt class="py-op">.</tt><tt class="py-name">POLLIN</tt><tt class="py-op">,</tt> <tt class="py-string">'readline'</tt><tt class="py-op">)</tt> </tt>
+<a name="L274"></a><tt class="py-lineno">274</tt>  <tt class="py-line"> </tt>
+<a name="L275"></a><tt class="py-lineno">275</tt>  <tt class="py-line">        <tt class="py-comment"># We got here if we're done reading, so return everything</tt> </tt>
+<a name="L276"></a><tt class="py-lineno">276</tt>  <tt class="py-line">        <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer</tt> </tt>
+<a name="L277"></a><tt class="py-lineno">277</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_buffer</tt> <tt class="py-op">=</tt> <tt class="py-string">""</tt> </tt>
+<a name="L278"></a><tt class="py-lineno">278</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_pos</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_pos</tt> <tt class="py-op">+</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">ret</tt><tt class="py-op">)</tt> </tt>
+<a name="L279"></a><tt class="py-lineno">279</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">ret</tt> </tt>
+</div></div><a name="L280"></a><tt class="py-lineno">280</tt>  <tt class="py-line"> </tt>
+<a name="L281"></a><tt class="py-lineno">281</tt>  <tt class="py-line"> </tt>
+<a name="ssl_verify_callback"></a><div id="ssl_verify_callback-def"><a name="L282"></a><tt class="py-lineno">282</tt> <a class="py-toggle" href="#" id="ssl_verify_callback-toggle" onclick="return toggle('ssl_verify_callback');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="rhn.SSL-module.html#ssl_verify_callback">ssl_verify_callback</a><tt class="py-op">(</tt><tt class="py-param">conn</tt><tt class="py-op">,</tt> <tt class="py-param">cert</tt><tt class="py-op">,</tt> <tt class="py-param">errnum</tt><tt class="py-op">,</tt> <tt class="py-param">depth</tt><tt class="py-op">,</tt> <tt class="py-param">ok</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ssl_verify_callback-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="ssl_verify_callback-expanded"><a name="L283"></a><tt class="py-lineno">283</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L284"></a><tt class="py-lineno">284</tt>  <tt class="py-line"><tt class="py-docstring">    Verify callback, which will be called for each certificate in the</tt> </tt>
+<a name="L285"></a><tt class="py-lineno">285</tt>  <tt class="py-line"><tt class="py-docstring">    certificate chain.</tt> </tt>
+<a name="L286"></a><tt class="py-lineno">286</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L287"></a><tt class="py-lineno">287</tt>  <tt class="py-line">    <tt class="py-comment"># Nothing by default</tt> </tt>
+<a name="L288"></a><tt class="py-lineno">288</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">ok</tt> </tt>
+</div><a name="L289"></a><tt class="py-lineno">289</tt>  <tt class="py-line"> </tt>
+<a name="TimeoutException"></a><div id="TimeoutException-def"><a name="L290"></a><tt class="py-lineno">290</tt> <a class="py-toggle" href="#" id="TimeoutException-toggle" onclick="return toggle('TimeoutException');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="rhn.SSL.TimeoutException-class.html">TimeoutException</a><tt class="py-op">(</tt><tt class="py-base-class">SSL</tt><tt class="py-op">.</tt><tt class="py-base-class">Error</tt><tt class="py-op">,</tt> <tt class="py-base-class">socket</tt><tt class="py-op">.</tt><tt class="py-base-class">timeout</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TimeoutException-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="TimeoutException-expanded"><a name="L291"></a><tt class="py-lineno">291</tt>  <tt class="py-line">     </tt>
+<a name="TimeoutException.__init__"></a><div id="TimeoutException.__init__-def"><a name="L292"></a><tt class="py-lineno">292</tt> <a class="py-toggle" href="#" id="TimeoutException.__init__-toggle" onclick="return toggle('TimeoutException.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhn.SSL.TimeoutException-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-op">*</tt><tt class="py-param">args</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TimeoutException.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="TimeoutException.__init__-expanded"><a name="L293"></a><tt class="py-lineno">293</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">args</tt> <tt class="py-op">=</tt> <tt class="py-name">args</tt> </tt>
+</div><a name="L294"></a><tt class="py-lineno">294</tt>  <tt class="py-line"> </tt>
+<a name="TimeoutException.__str__"></a><div id="TimeoutException.__str__-def"><a name="L295"></a><tt class="py-lineno">295</tt> <a class="py-toggle" href="#" id="TimeoutException.__str__-toggle" onclick="return toggle('TimeoutException.__str__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="rhn.SSL.TimeoutException-class.html#__str__">__str__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TimeoutException.__str__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="TimeoutException.__str__-expanded"><a name="L296"></a><tt class="py-lineno">296</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">"Timeout Exception"</tt> </tt>
+</div></div><a name="L297"></a><tt class="py-lineno">297</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:45 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

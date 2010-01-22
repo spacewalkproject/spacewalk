@@ -56,7 +56,27 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class ReRegistrationActivationToken</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnServer.server_token-pysrc.html#ReRegistrationActivationToken">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_r_95" name="uml_class_diagram_for_server_r_95">
+<area shape="rect" href="server.rhnServer.server_token.ReRegistrationToken-class.html#is_rereg_token" title="server.rhnServer.server_token.ReRegistrationToken.is_rereg_token" alt="" coords="384,271,512,289"/>
+<area shape="rect" href="server.rhnServer.server_token.ReRegistrationToken-class.html" title="Subclass for re&#45;registration keys." alt="" coords="383,253,513,299"/>
+<area shape="rect" href="server.rhnServer.server_token.ReRegistrationActivationToken-class.html#forget_rereg_token" title="server.rhnServer.server_token.ReRegistrationActivationToken.forget_rereg_token" alt="" coords="17,345,879,364"/>
+<area shape="rect" href="server.rhnServer.server_token.ReRegistrationActivationToken-class.html#__init__" title="server.rhnServer.server_token.ReRegistrationActivationToken.__init__" alt="" coords="17,367,879,385"/>
+<area shape="rect" href="server.rhnServer.server_token.ReRegistrationActivationToken-class.html#entitle" title="Entitle a server according to the entitlements we have configured." alt="" coords="17,385,879,404"/>
+<area shape="rect" href="server.rhnServer.server_token.ReRegistrationActivationToken-class.html" title="Subclass for re&#45;registration keys and activation keys used together." alt="" coords="16,328,880,405"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#__nonzero__" title="server.rhnServer.server_token.ActivationTokens.__nonzero__" alt="" coords="327,36,569,55"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#get_server_id" title="server.rhnServer.server_token.ActivationTokens.get_server_id" alt="" coords="327,55,569,73"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#get_user_id" title="server.rhnServer.server_token.ActivationTokens.get_user_id" alt="" coords="327,73,569,92"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#get_org_id" title="server.rhnServer.server_token.ActivationTokens.get_org_id" alt="" coords="327,92,569,111"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#get_kickstart_session_id" title="server.rhnServer.server_token.ActivationTokens.get_kickstart_session_id" alt="" coords="327,111,569,129"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#get_entitlements" title="server.rhnServer.server_token.ActivationTokens.get_entitlements" alt="" coords="327,129,569,148"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#has_entitlement_label" title="server.rhnServer.server_token.ActivationTokens.has_entitlement_label" alt="" coords="327,148,569,167"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#get_deploy_configs" title="server.rhnServer.server_token.ActivationTokens.get_deploy_configs" alt="" coords="327,167,569,185"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#get_names" title="server.rhnServer.server_token.ActivationTokens.get_names" alt="" coords="327,185,569,204"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html#get_tokens" title="server.rhnServer.server_token.ActivationTokens.get_tokens" alt="" coords="327,204,569,223"/>
+<area shape="rect" href="server.rhnServer.server_token.ActivationTokens-class.html" title="An aggregation of activation tokens, exposing important information like org_id, user_id etc in a unified manner." alt="" coords="325,11,571,224"/>
+</map>
+  <img src="uml_class_diagram_for_server_r_95.png" alt='' usemap="#uml_class_diagram_for_server_r_95" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <p>Subclass for re-registration keys and activation keys used 
@@ -90,8 +110,8 @@
         <span class="summary-sig-arg">user_id</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">org_id</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">kickstart_session_id</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">entitlements</span>=<span class="summary-sig-default">[]</span>,
-        <span class="summary-sig-arg">remove_entitlements</span>=<span class="summary-sig-default">[]</span>,
+        <span class="summary-sig-arg">entitlements</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
+        <span class="summary-sig-arg">remove_entitlements</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">deploy_configs</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnServer.server_token-pysrc.html#ReRegistrationActivationToken.__init__">source&nbsp;code</a></span>
@@ -201,8 +221,8 @@
         <span class="sig-arg">user_id</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">org_id</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">kickstart_session_id</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">entitlements</span>=<span class="sig-default">[]</span>,
-        <span class="sig-arg">remove_entitlements</span>=<span class="sig-default">[]</span>,
+        <span class="sig-arg">entitlements</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
+        <span class="sig-arg">remove_entitlements</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="sig-arg">deploy_configs</span>=<span class="sig-default">None</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
@@ -269,7 +289,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:17 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:16 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

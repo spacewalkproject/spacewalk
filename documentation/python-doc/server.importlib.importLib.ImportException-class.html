@@ -36,7 +36,7 @@
       <span class="breadcrumbs">
         <a href="server-module.html">Package&nbsp;server</a> ::
         <a href="server.importlib-module.html">Package&nbsp;importlib</a> ::
-        <a href="server.importlib.importLib-module.html">Module&nbsp;importLib</a> ::
+        <a href="server.importlib.importLib-module.html" onclick="show_private();">Module&nbsp;importLib</a> ::
         Class&nbsp;ImportException
       </span>
     </td>
@@ -56,7 +56,37 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class ImportException</h1><p class="nomargin-top"><span class="codelink"><a href="server.importlib.importLib-pysrc.html#ImportException">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_i_70" name="uml_class_diagram_for_server_i_70">
+<area shape="rect" href="server.importlib.importLib.InvalidArchError-class.html" title="server.importlib.importLib.InvalidArchError" alt="" coords="16,435,125,461"/>
+<area shape="rect" href="server.importlib.importLib.FileConflictError-class.html" title="server.importlib.importLib.FileConflictError" alt="" coords="1001,491,1111,517"/>
+<area shape="rect" href="server.importlib.importLib.ImportException-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="781,385,907,404"/>
+<area shape="rect" href="server.importlib.importLib.ImportException-class.html" title="server.importlib.importLib.ImportException" alt="" coords="780,360,908,405"/>
+<area shape="rect" href="server.importlib.importLib.MissingParentChannelError-class.html" title="server.importlib.importLib.MissingParentChannelError" alt="" coords="176,435,355,461"/>
+<area shape="rect" href="server.importlib.importLib.TransactionError-class.html" title="server.importlib.importLib.TransactionError" alt="" coords="405,435,520,461"/>
+<area shape="rect" href="server.importlib.importLib.InvalidPackageError-class.html" title="server.importlib.importLib.InvalidPackageError" alt="" coords="571,435,707,461"/>
+<area shape="rect" href="server.importlib.importLib.InvalidChannelFamilyError-class.html" title="server.importlib.importLib.InvalidChannelFamilyError" alt="" coords="757,435,931,461"/>
+<area shape="rect" href="server.importlib.importLib.AlreadyUploadedError-class.html" title="server.importlib.importLib.AlreadyUploadedError" alt="" coords="981,435,1131,461"/>
+<area shape="rect" href="server.importlib.importLib.InvalidChannelError-class.html" title="server.importlib.importLib.InvalidChannelError" alt="" coords="1181,435,1315,461"/>
+<area shape="rect" href="server.importlib.importLib.IncompatibleArchError-class.html" title="server.importlib.importLib.IncompatibleArchError" alt="" coords="1365,435,1515,461"/>
+<area shape="rect" href="server.importlib.importLib.InvalidSeverityError-class.html" title="server.importlib.importLib.InvalidSeverityError" alt="" coords="1565,435,1699,461"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.BaseException.args" alt="" coords="763,28,925,47"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.BaseException.message" alt="" coords="763,47,925,65"/>
+<area shape="rect" href="javascript:void(0);" title="x.__delattr__(&#39;name&#39;) &lt;==&gt; del x.name" alt="" coords="763,68,925,87"/>
+<area shape="rect" href="javascript:void(0);" title="x.__getattribute__(&#39;name&#39;) &lt;==&gt; x.name" alt="" coords="763,87,925,105"/>
+<area shape="rect" href="javascript:void(0);" title="x[y]" alt="" coords="763,105,925,124"/>
+<area shape="rect" href="javascript:void(0);" title="x[i:j]" alt="" coords="763,124,925,143"/>
+<area shape="rect" href="javascript:void(0);" title="helper for pickle" alt="" coords="763,143,925,161"/>
+<area shape="rect" href="javascript:void(0);" title="repr(x)" alt="" coords="763,161,925,180"/>
+<area shape="rect" href="javascript:void(0);" title="x.__setattr__(&#39;name&#39;, value) &lt;==&gt; x.name = value" alt="" coords="763,180,925,199"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.BaseException.__setstate__" alt="" coords="763,199,925,217"/>
+<area shape="rect" href="javascript:void(0);" title="str(x)" alt="" coords="763,217,925,236"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.BaseException.__unicode__" alt="" coords="763,236,925,255"/>
+<area shape="rect" href="javascript:void(0);" title="Common base class for all exceptions" alt="" coords="761,11,927,256"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.Exception.__new__" alt="" coords="779,311,909,329"/>
+<area shape="rect" href="javascript:void(0);" title="Common base class for all non&#45;exit exceptions." alt="" coords="777,285,911,331"/>
+</map>
+  <img src="uml_class_diagram_for_server_i_70.png" alt='' usemap="#uml_class_diagram_for_server_i_70" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -108,11 +138,15 @@
       <code>__repr__</code>,
       <code>__setattr__</code>,
       <code>__setstate__</code>,
-      <code>__str__</code>
+      <code>__str__</code>,
+      <code>__unicode__</code>
       </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__format__</code>,
       <code>__hash__</code>,
-      <code>__reduce_ex__</code>
+      <code>__reduce_ex__</code>,
+      <code>__sizeof__</code>,
+      <code>__subclasshook__</code>
       </p>
     </td>
   </tr>
@@ -214,7 +248,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:15 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:54 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

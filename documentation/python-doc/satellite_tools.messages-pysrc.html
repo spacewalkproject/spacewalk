@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>satellite_tools.messages</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="satellite_tools-module.html">Package&nbsp;satellite_tools</a> ::
+        Module&nbsp;messages
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="satellite_tools.messages-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="satellite_tools.messages-module.html" onclick="show_private();">Module satellite_tools.messages</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-comment"># $Id$</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-docstring">""" Red Hat Network Management Satellite Synchronization Tool Messages</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-docstring">    Copyright (c) 2002-2005 Red Hat, Inc.</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt class="py-docstring">    All rights reserved.</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"><tt id="link-0" class="py-name" targets="Variable satellite_tools.messages.failed_step=satellite_tools.messages-module.html#failed_step"><a title="satellite_tools.messages.failed_step" class="py-name" href="#" onclick="return doclink('link-0', 'failed_step', 'link-0');">failed_step</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"""</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"><tt class="py-string">ERROR: executing step %s. Error is:</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"><tt class="py-string">%s</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"><tt class="py-string">"""</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line"> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"><tt id="link-1" class="py-name" targets="Variable satellite_tools.messages.file_dir_error=satellite_tools.messages-module.html#file_dir_error"><a title="satellite_tools.messages.file_dir_error" class="py-name" href="#" onclick="return doclink('link-1', 'file_dir_error', 'link-1');">file_dir_error</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"""</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line"><tt class="py-string">ERROR: there was a problem accessing the channel data from your temporary</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"><tt class="py-string">       repository. Did you migrate all of the data from the channel ISOs</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line"><tt class="py-string">       do this directory? If so, please recheck the channels ISOs, ensure</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line"><tt class="py-string">       that you have them all, and then iteratively remount and repopulate</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line"><tt class="py-string">       the temporary repository (%s).</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"><tt class="py-string">"""</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line"> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line"><tt id="link-2" class="py-name" targets="Variable satellite_tools.messages.syncer_error=satellite_tools.messages-module.html#syncer_error"><a title="satellite_tools.messages.syncer_error" class="py-name" href="#" onclick="return doclink('link-2', 'syncer_error', 'link-2');">syncer_error</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"""</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"><tt class="py-string">ERROR: there was a problem synchronizing the information.</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line"><tt class="py-string">       Error message: %s</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line"><tt class="py-string">"""</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line"> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line"><tt id="link-3" class="py-name" targets="Variable satellite_tools.messages.iss_not_available=satellite_tools.messages-module.html#iss_not_available"><a title="satellite_tools.messages.iss_not_available" class="py-name" href="#" onclick="return doclink('link-3', 'iss_not_available', 'link-3');">iss_not_available</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"""</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line"><tt class="py-string">ERROR: The Server listed within iss-parent is not configured for ISS </tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line"><tt class="py-string">       capability.</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line"><tt class="py-string">       Please review your configuration before trying again.</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line"><tt class="py-string">"""</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">             </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line"><tt id="link-4" class="py-name" targets="Variable satellite_tools.messages.parent_channel_error=satellite_tools.messages-module.html#parent_channel_error"><a title="satellite_tools.messages.parent_channel_error" class="py-name" href="#" onclick="return doclink('link-4', 'parent_channel_error', 'link-4');">parent_channel_error</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"""</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line"><tt class="py-string">ERROR: a child-channel cannot be synced without its parent being synced as</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line"><tt class="py-string">       well. A parent needs to be either (a) previously synced or (b) synced</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line"><tt class="py-string">       in tandem with the desired child-channel. Missing parents for this</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line"><tt class="py-string">       transaction:</tt> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line"><tt class="py-string">       %s</tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line"><tt class="py-string">"""</tt> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line"> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line"><tt id="link-5" class="py-name" targets="Variable satellite_tools.messages.invalid_channel_family_error=satellite_tools.messages-module.html#invalid_channel_family_error"><a title="satellite_tools.messages.invalid_channel_family_error" class="py-name" href="#" onclick="return doclink('link-5', 'invalid_channel_family_error', 'link-5');">invalid_channel_family_error</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"""</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line"><tt class="py-string">ERROR: you are not entitled to sync a channel in this set of channels.</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line"><tt class="py-string">Please contact your sales rep or RHN contact</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line"><tt class="py-string">%s"""</tt> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line"> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line"><tt id="link-6" class="py-name" targets="Variable satellite_tools.messages.missing_user=satellite_tools.messages-module.html#missing_user"><a title="satellite_tools.messages.missing_user" class="py-name" href="#" onclick="return doclink('link-6', 'missing_user', 'link-6');">missing_user</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"*** ERROR: user '%s' doesn't exist. Cannot set permissions properly."</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line"> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line"><tt id="link-7" class="py-name" targets="Variable satellite_tools.messages.missing_group=satellite_tools.messages-module.html#missing_group"><a title="satellite_tools.messages.missing_group" class="py-name" href="#" onclick="return doclink('link-7', 'missing_group', 'link-7');">missing_group</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"*** ERROR: group '%s' doesn't exist. Cannot set permissions properly."</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line"> </tt>
+<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line"><tt id="link-8" class="py-name" targets="Variable satellite_tools.messages.not_enough_diskspace=satellite_tools.messages-module.html#not_enough_diskspace"><a title="satellite_tools.messages.not_enough_diskspace" class="py-name" href="#" onclick="return doclink('link-8', 'not_enough_diskspace', 'link-8');">not_enough_diskspace</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"  ERROR: not enough free space (%s KB) on device."</tt> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line"> </tt>
+<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line"><tt id="link-9" class="py-name" targets="Variable satellite_tools.messages.package_fetch_successful=satellite_tools.messages-module.html#package_fetch_successful"><a title="satellite_tools.messages.package_fetch_successful" class="py-name" href="#" onclick="return doclink('link-9', 'package_fetch_successful', 'link-9');">package_fetch_successful</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"    %3d/%s Fetch successful: %s (%s bytes)"</tt>  </tt>
+<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line"><tt id="link-10" class="py-name" targets="Variable satellite_tools.messages.package_fetch_extinct=satellite_tools.messages-module.html#package_fetch_extinct"><a title="satellite_tools.messages.package_fetch_extinct" class="py-name" href="#" onclick="return doclink('link-10', 'package_fetch_extinct', 'link-10');">package_fetch_extinct</a></tt> <tt class="py-op">=</tt>    <tt class="py-string">"    %3d/%s Extinct package:  %s"</tt>  </tt>
+<a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line"><tt id="link-11" class="py-name" targets="Variable satellite_tools.messages.package_fetch_failed=satellite_tools.messages-module.html#package_fetch_failed"><a title="satellite_tools.messages.package_fetch_failed" class="py-name" href="#" onclick="return doclink('link-11', 'package_fetch_failed', 'link-11');">package_fetch_failed</a></tt>  <tt class="py-op">=</tt>    <tt class="py-string">"    %3d/%s Fetch unsuccessful: %s"</tt> </tt>
+<a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line"><tt id="link-12" class="py-name" targets="Variable satellite_tools.messages.package_fetch_summary=satellite_tools.messages-module.html#package_fetch_summary"><a title="satellite_tools.messages.package_fetch_summary" class="py-name" href="#" onclick="return doclink('link-12', 'package_fetch_summary', 'link-12');">package_fetch_summary</a></tt> <tt class="py-op">=</tt>         <tt class="py-string">"   RPM fetch summary: %s"</tt> </tt>
+<a name="L71"></a><tt class="py-lineno">71</tt>  <tt class="py-line"><tt id="link-13" class="py-name" targets="Variable satellite_tools.messages.package_fetch_summary_success=satellite_tools.messages-module.html#package_fetch_summary_success"><a title="satellite_tools.messages.package_fetch_summary_success" class="py-name" href="#" onclick="return doclink('link-13', 'package_fetch_summary_success', 'link-13');">package_fetch_summary_success</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"       success: %d"</tt> </tt>
+<a name="L72"></a><tt class="py-lineno">72</tt>  <tt class="py-line"><tt id="link-14" class="py-name" targets="Variable satellite_tools.messages.package_fetch_summary_failed=satellite_tools.messages-module.html#package_fetch_summary_failed"><a title="satellite_tools.messages.package_fetch_summary_failed" class="py-name" href="#" onclick="return doclink('link-14', 'package_fetch_summary_failed', 'link-14');">package_fetch_summary_failed</a></tt> <tt class="py-op">=</tt>  <tt class="py-string">"       failed:  %d"</tt> </tt>
+<a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line"><tt id="link-15" class="py-name" targets="Variable satellite_tools.messages.package_fetch_summary_extinct=satellite_tools.messages-module.html#package_fetch_summary_extinct"><a title="satellite_tools.messages.package_fetch_summary_extinct" class="py-name" href="#" onclick="return doclink('link-15', 'package_fetch_summary_extinct', 'link-15');">package_fetch_summary_extinct</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"       extinct: %d"</tt> </tt>
+<a name="L74"></a><tt class="py-lineno">74</tt>  <tt class="py-line"> </tt>
+<a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line"><tt id="link-16" class="py-name" targets="Variable satellite_tools.messages.package_parsing=satellite_tools.messages-module.html#package_parsing"><a title="satellite_tools.messages.package_parsing" class="py-name" href="#" onclick="return doclink('link-16', 'package_parsing', 'link-16');">package_parsing</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"   Retrieving / parsing *relevant* package metadata: %s (%s)"</tt> </tt>
+<a name="L76"></a><tt class="py-lineno">76</tt>  <tt class="py-line"><tt id="link-17" class="py-name" targets="Variable satellite_tools.messages.erratum_parsing=satellite_tools.messages-module.html#erratum_parsing"><a title="satellite_tools.messages.erratum_parsing" class="py-name" href="#" onclick="return doclink('link-17', 'erratum_parsing', 'link-17');">erratum_parsing</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"   Retrieving / parsing errata data: %s (%s)"</tt> </tt>
+<a name="L77"></a><tt class="py-lineno">77</tt>  <tt class="py-line"><tt id="link-18" class="py-name" targets="Variable satellite_tools.messages.kickstart_parsing=satellite_tools.messages-module.html#kickstart_parsing"><a title="satellite_tools.messages.kickstart_parsing" class="py-name" href="#" onclick="return doclink('link-18', 'kickstart_parsing', 'link-18');">kickstart_parsing</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"   Retrieving / parsing kickstart data: %s (%s)"</tt> </tt>
+<a name="L78"></a><tt class="py-lineno">78</tt>  <tt class="py-line"><tt id="link-19" class="py-name" targets="Variable satellite_tools.messages.kickstart_downloading=satellite_tools.messages-module.html#kickstart_downloading"><a title="satellite_tools.messages.kickstart_downloading" class="py-name" href="#" onclick="return doclink('link-19', 'kickstart_downloading', 'link-19');">kickstart_downloading</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"   Retrieving / parsing kickstart tree files: %s (%s)"</tt> </tt>
+<a name="L79"></a><tt class="py-lineno">79</tt>  <tt class="py-line"><tt id="link-20" class="py-name" targets="Variable satellite_tools.messages.package_importing=satellite_tools.messages-module.html#package_importing"><a title="satellite_tools.messages.package_importing" class="py-name" href="#" onclick="return doclink('link-20', 'package_importing', 'link-20');">package_importing</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"   Importing *relevant* package metadata: %s (%s)"</tt> </tt>
+<a name="L80"></a><tt class="py-lineno">80</tt>  <tt class="py-line"><tt id="link-21" class="py-name" targets="Variable satellite_tools.messages.warning_slow=satellite_tools.messages-module.html#warning_slow"><a title="satellite_tools.messages.warning_slow" class="py-name" href="#" onclick="return doclink('link-21', 'warning_slow', 'link-21');">warning_slow</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"   * WARNING: this may be a slow process."</tt> </tt>
+<a name="L81"></a><tt class="py-lineno">81</tt>  <tt class="py-line"><tt id="link-22" class="py-name" targets="Variable satellite_tools.messages.link_channel_packages=satellite_tools.messages-module.html#link_channel_packages,Function satellite_tools.sync_handlers.link_channel_packages()=satellite_tools.sync_handlers-module.html#link_channel_packages"><a title="satellite_tools.messages.link_channel_packages
+satellite_tools.sync_handlers.link_channel_packages" class="py-name" href="#" onclick="return doclink('link-22', 'link_channel_packages', 'link-22');">link_channel_packages</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"Linking packages to channels"</tt> </tt>
+<a name="L82"></a><tt class="py-lineno">82</tt>  <tt class="py-line"><tt id="link-23" class="py-name" targets="Variable satellite_tools.messages.errata_importing=satellite_tools.messages-module.html#errata_importing"><a title="satellite_tools.messages.errata_importing" class="py-name" href="#" onclick="return doclink('link-23', 'errata_importing', 'link-23');">errata_importing</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"   Importing *relevant* errata: %s (%s)"</tt> </tt>
+<a name="L83"></a><tt class="py-lineno">83</tt>  <tt class="py-line"><tt id="link-24" class="py-name" targets="Variable satellite_tools.messages.kickstart_import_nothing_to_do=satellite_tools.messages-module.html#kickstart_import_nothing_to_do"><a title="satellite_tools.messages.kickstart_import_nothing_to_do" class="py-name" href="#" onclick="return doclink('link-24', 'kickstart_import_nothing_to_do', 'link-24');">kickstart_import_nothing_to_do</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"   No new kickstartable tree to import"</tt> </tt>
+<a name="L84"></a><tt class="py-lineno">84</tt>  <tt class="py-line"><tt id="link-25" class="py-name" targets="Variable satellite_tools.messages.kickstart_importing=satellite_tools.messages-module.html#kickstart_importing"><a title="satellite_tools.messages.kickstart_importing" class="py-name" href="#" onclick="return doclink('link-25', 'kickstart_importing', 'link-25');">kickstart_importing</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"Importing kickstartable trees (%d)"</tt> </tt>
+<a name="L85"></a><tt class="py-lineno">85</tt>  <tt class="py-line"><tt id="link-26" class="py-name" targets="Variable satellite_tools.messages.kickstart_imported=satellite_tools.messages-module.html#kickstart_imported"><a title="satellite_tools.messages.kickstart_imported" class="py-name" href="#" onclick="return doclink('link-26', 'kickstart_imported', 'link-26');">kickstart_imported</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"Imported kickstartable trees (%d)"</tt> </tt>
+<a name="L86"></a><tt class="py-lineno">86</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:22 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

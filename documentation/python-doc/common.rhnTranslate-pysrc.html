@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>common.rhnTranslate</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="common-module.html">Package&nbsp;common</a> ::
+        Module&nbsp;rhnTranslate
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="common.rhnTranslate-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="common.rhnTranslate-module.html" onclick="show_private();">Module common.rhnTranslate</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">types</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Method common.rhnTranslate.i18n.gettext()=common.rhnTranslate.i18n-class.html#gettext"><a title="common.rhnTranslate.i18n.gettext" class="py-name" href="#" onclick="return doclink('link-0', 'gettext', 'link-0');">gettext</a></tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">string</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">hasattr</tt><tt class="py-op">(</tt><tt id="link-1" class="py-name"><a title="common.rhnTranslate.i18n.gettext" class="py-name" href="#" onclick="return doclink('link-1', 'gettext', 'link-0');">gettext</a></tt><tt class="py-op">,</tt> <tt class="py-string">'GNUTranslations'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="RHN_Translations"></a><div id="RHN_Translations-def"><a name="L22"></a><tt class="py-lineno"> 22</tt> <a class="py-toggle" href="#" id="RHN_Translations-toggle" onclick="return toggle('RHN_Translations');">-</a><tt class="py-line">    <tt class="py-keyword">class</tt> <a class="py-def-name" href="common.rhnTranslate.RHN_Translations-class.html">RHN_Translations</a><tt class="py-op">(</tt><tt class="py-base-class">gettext</tt><tt class="py-op">.</tt><tt class="py-base-class">GNUTranslations</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RHN_Translations-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="RHN_Translations-expanded"><a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line">        <tt class="py-comment"># Defining our own class, since we'd like to save the language we use</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line">        <tt class="py-comment"># Determining the language is not very pretty - we parse the file name</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line">        <tt class="py-comment"># which is supposed to be something like </tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">        <tt class="py-comment"># .../&lt;lang&gt;/LC_MESSAGES/&lt;domain&gt;.po</tt> </tt>
+<a name="RHN_Translations._parse"></a><div id="RHN_Translations._parse-def"><a name="L27"></a><tt class="py-lineno"> 27</tt> <a class="py-toggle" href="#" id="RHN_Translations._parse-toggle" onclick="return toggle('RHN_Translations._parse');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnTranslate.RHN_Translations-class.html#_parse">_parse</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">fp</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RHN_Translations._parse-collapsed" style="display:none;" pad="+++" indent="++++++++++++++++"></div><div id="RHN_Translations._parse-expanded"><a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">            <tt id="link-2" class="py-name"><a title="common.rhnTranslate.i18n.gettext" class="py-name" href="#" onclick="return doclink('link-2', 'gettext', 'link-0');">gettext</a></tt><tt class="py-op">.</tt><tt class="py-name">GNUTranslations</tt><tt class="py-op">.</tt><tt id="link-3" class="py-name" targets="Method common.rhnTranslate.RHN_Translations._parse()=common.rhnTranslate.RHN_Translations-class.html#_parse"><a title="common.rhnTranslate.RHN_Translations._parse" class="py-name" href="#" onclick="return doclink('link-3', '_parse', 'link-3');">_parse</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">fp</tt><tt class="py-op">)</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">            <tt id="link-4" class="py-name" targets="Variable satellite_tools.xmlDiskSource.ArchesDiskSource.filename=satellite_tools.xmlDiskSource.ArchesDiskSource-class.html#filename,Variable satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename=satellite_tools.xmlDiskSource.ArchesExtraDiskSource-class.html#filename"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename" class="py-name" href="#" onclick="return doclink('link-4', 'filename', 'link-4');">filename</a></tt> <tt class="py-op">=</tt> <tt class="py-name">fp</tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Variable satellite_tools.repo_plugins.yum_src.ContentSource.name=satellite_tools.repo_plugins.yum_src.ContentSource-class.html#name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-5', 'name', 'link-5');">name</a></tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">            <tt id="link-6" class="py-name"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename" class="py-name" href="#" onclick="return doclink('link-6', 'filename', 'link-4');">filename</a></tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">normpath</tt><tt class="py-op">(</tt><tt id="link-7" class="py-name"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename" class="py-name" href="#" onclick="return doclink('link-7', 'filename', 'link-4');">filename</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">            <tt class="py-comment"># Extract the language</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">lang</tt> <tt class="py-op">=</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt id="link-8" class="py-name"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename" class="py-name" href="#" onclick="return doclink('link-8', 'filename', 'link-4');">filename</a></tt><tt class="py-op">,</tt> <tt class="py-string">'/'</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-number">3</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"> </tt>
+<a name="RHN_Translations.getlangs"></a><div id="RHN_Translations.getlangs-def"><a name="L34"></a><tt class="py-lineno"> 34</tt> <a class="py-toggle" href="#" id="RHN_Translations.getlangs-toggle" onclick="return toggle('RHN_Translations.getlangs');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnTranslate.RHN_Translations-class.html#getlangs">getlangs</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RHN_Translations.getlangs-collapsed" style="display:none;" pad="+++" indent="++++++++++++++++"></div><div id="RHN_Translations.getlangs-expanded"><a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">            <tt class="py-comment"># Return all languages</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">            <tt class="py-comment">#pkilambi:bug#158561,170819,170821: the gettext object in python 2.2.3 has no attribute</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">            <tt class="py-comment">#_fallback so add a check if __dict__ has key</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">            <tt class="py-comment">#if not self._fallback or not hasattr(self._fallback, 'getlangs'):</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__dict__</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Method common.UserDictCase'.UserDictCase.has_key()=common.UserDictCase%27.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Function server.rhnDatabaseCache.has_key()=server.rhnDatabaseCache-module.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-9', 'has_key', 'link-9');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">"_fallback"</tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> <tt class="py-keyword">not</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_fallback</tt> <tt class="py-keyword">or</tt> <tt class="py-keyword">not</tt> <tt class="py-name">hasattr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_fallback</tt><tt class="py-op">,</tt> <tt class="py-string">'getlangs'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-op">[</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">lang</tt><tt class="py-op">,</tt> <tt class="py-string">'C'</tt> <tt class="py-op">]</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">            <tt class="py-comment"># Recursive call</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-op">[</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">lang</tt> <tt class="py-op">]</tt> <tt class="py-op">+</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_fallback</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Method common.rhnTranslate.RHN_Translations.getlangs()=common.rhnTranslate.RHN_Translations-class.html#getlangs,Method common.rhnTranslate.i18n.getlangs()=common.rhnTranslate.i18n-class.html#getlangs,Method common.rhnTranslate.i18n_old.getlangs()=common.rhnTranslate.i18n_old-class.html#getlangs"><a title="common.rhnTranslate.RHN_Translations.getlangs
+common.rhnTranslate.i18n.getlangs
+common.rhnTranslate.i18n_old.getlangs" class="py-name" href="#" onclick="return doclink('link-10', 'getlangs', 'link-10');">getlangs</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"> </tt>
+<a name="i18n"></a><div id="i18n-def"><a name="L44"></a><tt class="py-lineno"> 44</tt> <a class="py-toggle" href="#" id="i18n-toggle" onclick="return toggle('i18n');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="common.rhnTranslate.i18n-class.html">i18n</a><tt class="py-op">:</tt> </tt>
+</div><div id="i18n-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="i18n-expanded"><a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">    <tt id="link-11" class="py-name" targets="Variable common.rhnTranslate.i18n._default_langs=common.rhnTranslate.i18n-class.html#_default_langs"><a title="common.rhnTranslate.i18n._default_langs" class="py-name" href="#" onclick="return doclink('link-11', '_default_langs', 'link-11');">_default_langs</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">'en'</tt><tt class="py-op">,</tt> <tt class="py-string">'en_US'</tt><tt class="py-op">,</tt> <tt class="py-string">'C'</tt><tt class="py-op">]</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">    <tt class="py-comment"># Wrapper class that allows us to change languages</tt> </tt>
+<a name="i18n.__init__"></a><div id="i18n.__init__-def"><a name="L47"></a><tt class="py-lineno"> 47</tt> <a class="py-toggle" href="#" id="i18n.__init__-toggle" onclick="return toggle('i18n.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnTranslate.i18n-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">domain</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">localedir</tt><tt class="py-op">=</tt><tt class="py-string">"."</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="i18n.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="i18n.__init__-expanded"><a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Module server.repomd.domain=server.repomd.domain-module.html"><a title="server.repomd.domain" class="py-name" href="#" onclick="return doclink('link-12', 'domain', 'link-12');">domain</a></tt> <tt class="py-op">=</tt> <tt id="link-13" class="py-name"><a title="server.repomd.domain" class="py-name" href="#" onclick="return doclink('link-13', 'domain', 'link-12');">domain</a></tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">localedir</tt> <tt class="py-op">=</tt> <tt class="py-name">localedir</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">langs</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name"><a title="common.rhnTranslate.i18n._default_langs" class="py-name" href="#" onclick="return doclink('link-14', '_default_langs', 'link-11');">_default_langs</a></tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name" targets="Method common.rhnTranslate.i18n._set_catalog()=common.rhnTranslate.i18n-class.html#_set_catalog,Method common.rhnTranslate.i18n_old._set_catalog()=common.rhnTranslate.i18n_old-class.html#_set_catalog"><a title="common.rhnTranslate.i18n._set_catalog
+common.rhnTranslate.i18n_old._set_catalog" class="py-name" href="#" onclick="return doclink('link-15', '_set_catalog', 'link-15');">_set_catalog</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"> </tt>
+<a name="i18n._set_catalog"></a><div id="i18n._set_catalog-def"><a name="L53"></a><tt class="py-lineno"> 53</tt> <a class="py-toggle" href="#" id="i18n._set_catalog-toggle" onclick="return toggle('i18n._set_catalog');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnTranslate.i18n-class.html#_set_catalog">_set_catalog</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="i18n._set_catalog-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="i18n._set_catalog-expanded"><a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">        <tt class="py-comment"># Set the catalog object</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-16" class="py-name" targets="Variable common.rhnApache'.cat=common.rhnApache%27-module.html#cat,Variable common.rhnTranslate.cat=common.rhnTranslate-module.html#cat"><a title="common.rhnApache'.cat
+common.rhnTranslate.cat" class="py-name" href="#" onclick="return doclink('link-16', 'cat', 'link-16');">cat</a></tt> <tt class="py-op">=</tt> <tt id="link-17" class="py-name"><a title="common.rhnTranslate.i18n.gettext" class="py-name" href="#" onclick="return doclink('link-17', 'gettext', 'link-0');">gettext</a></tt><tt class="py-op">.</tt><tt class="py-name">Catalog</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="server.repomd.domain" class="py-name" href="#" onclick="return doclink('link-18', 'domain', 'link-12');">domain</a></tt><tt class="py-op">,</tt> <tt class="py-name">localedir</tt><tt class="py-op">=</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">localedir</tt><tt class="py-op">,</tt>  </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">            <tt class="py-name">languages</tt><tt class="py-op">=</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">langs</tt><tt class="py-op">,</tt> <tt class="py-name">fallback</tt><tt class="py-op">=</tt><tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-name">class_</tt><tt class="py-op">=</tt><tt id="link-19" class="py-name" targets="Class common.rhnTranslate.RHN_Translations=common.rhnTranslate.RHN_Translations-class.html"><a title="common.rhnTranslate.RHN_Translations" class="py-name" href="#" onclick="return doclink('link-19', 'RHN_Translations', 'link-19');">RHN_Translations</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"> </tt>
+<a name="i18n.getlangs"></a><div id="i18n.getlangs-def"><a name="L58"></a><tt class="py-lineno"> 58</tt> <a class="py-toggle" href="#" id="i18n.getlangs-toggle" onclick="return toggle('i18n.getlangs');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnTranslate.i18n-class.html#getlangs">getlangs</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="i18n.getlangs-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="i18n.getlangs-expanded"><a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">        <tt class="py-comment"># List of languages we support</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">hasattr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="common.rhnApache'.cat
+common.rhnTranslate.cat" class="py-name" href="#" onclick="return doclink('link-20', 'cat', 'link-16');">cat</a></tt><tt class="py-op">,</tt> <tt class="py-string">"getlangs"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-op">[</tt> <tt class="py-string">"C"</tt> <tt class="py-op">]</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="common.rhnApache'.cat
+common.rhnTranslate.cat" class="py-name" href="#" onclick="return doclink('link-21', 'cat', 'link-16');">cat</a></tt><tt class="py-op">.</tt><tt id="link-22" class="py-name"><a title="common.rhnTranslate.RHN_Translations.getlangs
+common.rhnTranslate.i18n.getlangs
+common.rhnTranslate.i18n_old.getlangs" class="py-name" href="#" onclick="return doclink('link-22', 'getlangs', 'link-10');">getlangs</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"> </tt>
+<a name="i18n.setlangs"></a><div id="i18n.setlangs-def"><a name="L64"></a><tt class="py-lineno"> 64</tt> <a class="py-toggle" href="#" id="i18n.setlangs-toggle" onclick="return toggle('i18n.setlangs');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnTranslate.i18n-class.html#setlangs">setlangs</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">langs</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="i18n.setlangs-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="i18n.setlangs-expanded"><a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt class="py-name">langs</tt><tt class="py-op">,</tt> <tt class="py-name">types</tt><tt class="py-op">.</tt><tt class="py-name">StringType</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">            <tt class="py-name">langs</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt> <tt class="py-name">langs</tt> <tt class="py-op">]</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">        <tt class="py-comment"># Filter "C" - we will add it ourselves later anyway</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">        <tt class="py-name">langs</tt> <tt class="py-op">=</tt> <tt class="py-name">filter</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">x</tt><tt class="py-op">:</tt> <tt class="py-name">x</tt> <tt class="py-op">!=</tt> <tt class="py-string">'C'</tt><tt class="py-op">,</tt> <tt class="py-name">langs</tt><tt class="py-op">)</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">        <tt class="py-name">langs</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name" targets="Method server.importlib.importLib.Collection.extend()=server.importlib.importLib.Collection-class.html#extend"><a title="server.importlib.importLib.Collection.extend" class="py-name" href="#" onclick="return doclink('link-23', 'extend', 'link-23');">extend</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="common.rhnTranslate.i18n._default_langs" class="py-name" href="#" onclick="return doclink('link-24', '_default_langs', 'link-11');">_default_langs</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">langs</tt> <tt class="py-op">=</tt> <tt class="py-name">langs</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-25" class="py-name"><a title="common.rhnTranslate.i18n._set_catalog
+common.rhnTranslate.i18n_old._set_catalog" class="py-name" href="#" onclick="return doclink('link-25', '_set_catalog', 'link-15');">_set_catalog</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"> </tt>
+<a name="i18n.gettext"></a><div id="i18n.gettext-def"><a name="L73"></a><tt class="py-lineno"> 73</tt> <a class="py-toggle" href="#" id="i18n.gettext-toggle" onclick="return toggle('i18n.gettext');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnTranslate.i18n-class.html#gettext">gettext</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">string</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="i18n.gettext-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="i18n.gettext-expanded"><a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name"><a title="common.rhnApache'.cat
+common.rhnTranslate.cat" class="py-name" href="#" onclick="return doclink('link-26', 'cat', 'link-16');">cat</a></tt><tt class="py-op">.</tt><tt id="link-27" class="py-name"><a title="common.rhnTranslate.i18n.gettext" class="py-name" href="#" onclick="return doclink('link-27', 'gettext', 'link-0');">gettext</a></tt><tt class="py-op">(</tt><tt class="py-name">string</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line"> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">    <tt class="py-comment"># reinitialize this catalog</tt> </tt>
+<a name="i18n.set"></a><div id="i18n.set-def"><a name="L77"></a><tt class="py-lineno"> 77</tt> <a class="py-toggle" href="#" id="i18n.set-toggle" onclick="return toggle('i18n.set');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnTranslate.i18n-class.html#set">set</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">domain</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">localedir</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="i18n.set-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="i18n.set-expanded"><a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-28" class="py-name"><a title="server.repomd.domain" class="py-name" href="#" onclick="return doclink('link-28', 'domain', 'link-12');">domain</a></tt><tt class="py-op">:</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="server.repomd.domain" class="py-name" href="#" onclick="return doclink('link-29', 'domain', 'link-12');">domain</a></tt> <tt class="py-op">=</tt> <tt id="link-30" class="py-name"><a title="server.repomd.domain" class="py-name" href="#" onclick="return doclink('link-30', 'domain', 'link-12');">domain</a></tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">localedir</tt><tt class="py-op">:</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">localedir</tt> <tt class="py-op">=</tt> <tt class="py-name">localedir</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-31" class="py-name"><a title="common.rhnTranslate.i18n._set_catalog
+common.rhnTranslate.i18n_old._set_catalog" class="py-name" href="#" onclick="return doclink('link-31', '_set_catalog', 'link-15');">_set_catalog</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line"><tt class="py-comment"># Old-style gettext</tt> </tt>
+<a name="i18n_old"></a><div id="i18n_old-def"><a name="L83"></a><tt class="py-lineno"> 83</tt> <a class="py-toggle" href="#" id="i18n_old-toggle" onclick="return toggle('i18n_old');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="common.rhnTranslate.i18n_old-class.html">i18n_old</a><tt class="py-op">(</tt><tt class="py-base-class">i18n</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="i18n_old-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="i18n_old-expanded"><a name="i18n_old._set_catalog"></a><div id="i18n_old._set_catalog-def"><a name="L84"></a><tt class="py-lineno"> 84</tt> <a class="py-toggle" href="#" id="i18n_old._set_catalog-toggle" onclick="return toggle('i18n_old._set_catalog');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnTranslate.i18n_old-class.html#_set_catalog">_set_catalog</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="i18n_old._set_catalog-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="i18n_old._set_catalog-expanded"><a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-32" class="py-name"><a title="common.rhnApache'.cat
+common.rhnTranslate.cat" class="py-name" href="#" onclick="return doclink('link-32', 'cat', 'link-16');">cat</a></tt> <tt class="py-op">=</tt> <tt id="link-33" class="py-name"><a title="common.rhnTranslate.i18n.gettext" class="py-name" href="#" onclick="return doclink('link-33', 'gettext', 'link-0');">gettext</a></tt><tt class="py-op">.</tt><tt class="py-name">Catalog</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-34" class="py-name"><a title="server.repomd.domain" class="py-name" href="#" onclick="return doclink('link-34', 'domain', 'link-12');">domain</a></tt><tt class="py-op">,</tt> <tt class="py-name">localedir</tt><tt class="py-op">=</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">localedir</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"> </tt>
+<a name="i18n_old.getlangs"></a><div id="i18n_old.getlangs-def"><a name="L87"></a><tt class="py-lineno"> 87</tt> <a class="py-toggle" href="#" id="i18n_old.getlangs-toggle" onclick="return toggle('i18n_old.getlangs');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnTranslate.i18n_old-class.html#getlangs">getlangs</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="i18n_old.getlangs-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="i18n_old.getlangs-expanded"><a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-35" class="py-name"><a title="common.rhnTranslate.i18n.gettext" class="py-name" href="#" onclick="return doclink('link-35', 'gettext', 'link-0');">gettext</a></tt><tt class="py-op">.</tt><tt class="py-name">lang</tt> </tt>
+</div><a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"> </tt>
+<a name="i18n_old.setlangs"></a><div id="i18n_old.setlangs-def"><a name="L90"></a><tt class="py-lineno"> 90</tt> <a class="py-toggle" href="#" id="i18n_old.setlangs-toggle" onclick="return toggle('i18n_old.setlangs');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnTranslate.i18n_old-class.html#setlangs">setlangs</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">langs</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="i18n_old.setlangs-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="i18n_old.setlangs-expanded"><a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt class="py-name">langs</tt><tt class="py-op">,</tt> <tt class="py-name">types</tt><tt class="py-op">.</tt><tt class="py-name">StringType</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">            <tt class="py-name">langs</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt> <tt class="py-name">langs</tt> <tt class="py-op">]</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">        <tt class="py-comment"># Build the list of languages</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">        <tt class="py-name">_added_langs</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">        <tt class="py-comment"># Aargh - on python 1.5, gettext removes os and string - so subsequent</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">        <tt class="py-comment"># calls to _expandLang fail - so add the string module back</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">        <tt id="link-36" class="py-name"><a title="common.rhnTranslate.i18n.gettext" class="py-name" href="#" onclick="return doclink('link-36', 'gettext', 'link-0');">gettext</a></tt><tt class="py-op">.</tt><tt class="py-name">string</tt> <tt class="py-op">=</tt> <tt class="py-name">string</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">l</tt> <tt class="py-keyword">in</tt> <tt class="py-name">langs</tt><tt class="py-op">:</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">            <tt class="py-name">_added_langs</tt><tt class="py-op">.</tt><tt id="link-37" class="py-name"><a title="server.importlib.importLib.Collection.extend" class="py-name" href="#" onclick="return doclink('link-37', 'extend', 'link-23');">extend</a></tt><tt class="py-op">(</tt><tt id="link-38" class="py-name"><a title="common.rhnTranslate.i18n.gettext" class="py-name" href="#" onclick="return doclink('link-38', 'gettext', 'link-0');">gettext</a></tt><tt class="py-op">.</tt><tt class="py-name">_expandLang</tt><tt class="py-op">(</tt><tt class="py-name">l</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">        <tt class="py-comment"># Adding some defaults</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">        <tt class="py-name">_added_langs</tt><tt class="py-op">.</tt><tt id="link-39" class="py-name"><a title="server.importlib.importLib.Collection.extend" class="py-name" href="#" onclick="return doclink('link-39', 'extend', 'link-23');">extend</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-40" class="py-name"><a title="common.rhnTranslate.i18n._default_langs" class="py-name" href="#" onclick="return doclink('link-40', '_default_langs', 'link-11');">_default_langs</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">        <tt class="py-comment"># Remove duplicates</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">        <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">        <tt class="py-keyword">del</tt> <tt id="link-41" class="py-name"><a title="common.rhnTranslate.i18n.gettext" class="py-name" href="#" onclick="return doclink('link-41', 'gettext', 'link-0');">gettext</a></tt><tt class="py-op">.</tt><tt class="py-name">lang</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">l</tt> <tt class="py-keyword">in</tt> <tt class="py-name">_added_langs</tt><tt class="py-op">:</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">l</tt> <tt class="py-op">==</tt> <tt class="py-string">'C'</tt><tt class="py-op">:</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">                <tt class="py-comment"># We'll add it back later</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">                <tt class="py-keyword">continue</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-42" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-42', 'has_key', 'link-9');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">l</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">                <tt class="py-comment"># Already loaded it</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">                <tt class="py-keyword">continue</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">            <tt id="link-43" class="py-name"><a title="common.rhnTranslate.i18n.gettext" class="py-name" href="#" onclick="return doclink('link-43', 'gettext', 'link-0');">gettext</a></tt><tt class="py-op">.</tt><tt class="py-name">lang</tt><tt class="py-op">.</tt><tt id="link-44" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-44', 'append', 'link-44');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">l</tt><tt class="py-op">)</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">            <tt class="py-name">h</tt><tt class="py-op">[</tt><tt class="py-name">l</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-string">"C"</tt> <tt class="py-keyword">not</tt> <tt class="py-keyword">in</tt> <tt id="link-45" class="py-name"><a title="common.rhnTranslate.i18n.gettext" class="py-name" href="#" onclick="return doclink('link-45', 'gettext', 'link-0');">gettext</a></tt><tt class="py-op">.</tt><tt class="py-name">lang</tt><tt class="py-op">:</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">            <tt id="link-46" class="py-name"><a title="common.rhnTranslate.i18n.gettext" class="py-name" href="#" onclick="return doclink('link-46', 'gettext', 'link-0');">gettext</a></tt><tt class="py-op">.</tt><tt class="py-name">lang</tt><tt class="py-op">.</tt><tt id="link-47" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-47', 'append', 'link-44');">append</a></tt><tt class="py-op">(</tt><tt class="py-string">"C"</tt><tt class="py-op">)</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-48" class="py-name"><a title="common.rhnTranslate.i18n._set_catalog
+common.rhnTranslate.i18n_old._set_catalog" class="py-name" href="#" onclick="return doclink('link-48', '_set_catalog', 'link-15');">_set_catalog</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"> </tt>
+<a name="N_"></a><div id="N_-def"><a name="L118"></a><tt class="py-lineno">118</tt> <a class="py-toggle" href="#" id="N_-toggle" onclick="return toggle('N_');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnTranslate-module.html#N_">N_</a><tt class="py-op">(</tt><tt class="py-param">str</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="N_-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="N_-expanded"><a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">str</tt> </tt>
+</div><a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line"> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">hasattr</tt><tt class="py-op">(</tt><tt id="link-49" class="py-name"><a title="common.rhnTranslate.i18n.gettext" class="py-name" href="#" onclick="return doclink('link-49', 'gettext', 'link-0');">gettext</a></tt><tt class="py-op">,</tt> <tt class="py-string">'GNUTranslations'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">    <tt id="link-50" class="py-name"><a title="common.rhnApache'.cat
+common.rhnTranslate.cat" class="py-name" href="#" onclick="return doclink('link-50', 'cat', 'link-16');">cat</a></tt> <tt class="py-op">=</tt> <tt id="link-51" class="py-name" targets="Class common.rhnTranslate.i18n=common.rhnTranslate.i18n-class.html"><a title="common.rhnTranslate.i18n" class="py-name" href="#" onclick="return doclink('link-51', 'i18n', 'link-51');">i18n</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line"><tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">    <tt id="link-52" class="py-name"><a title="common.rhnApache'.cat
+common.rhnTranslate.cat" class="py-name" href="#" onclick="return doclink('link-52', 'cat', 'link-16');">cat</a></tt> <tt class="py-op">=</tt> <tt id="link-53" class="py-name" targets="Class common.rhnTranslate.i18n_old=common.rhnTranslate.i18n_old-class.html"><a title="common.rhnTranslate.i18n_old" class="py-name" href="#" onclick="return doclink('link-53', 'i18n_old', 'link-53');">i18n_old</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line"><tt id="link-54" class="py-name" targets="Function common.rhnTranslate._()=common.rhnTranslate-module.html#_"><a title="common.rhnTranslate._" class="py-name" href="#" onclick="return doclink('link-54', '_', 'link-54');">_</a></tt> <tt class="py-op">=</tt> <tt id="link-55" class="py-name"><a title="common.rhnApache'.cat
+common.rhnTranslate.cat" class="py-name" href="#" onclick="return doclink('link-55', 'cat', 'link-16');">cat</a></tt><tt class="py-op">.</tt><tt id="link-56" class="py-name"><a title="common.rhnTranslate.i18n.gettext" class="py-name" href="#" onclick="return doclink('link-56', 'gettext', 'link-0');">gettext</a></tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:35 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

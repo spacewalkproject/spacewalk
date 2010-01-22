@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.taskomatic</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        Module&nbsp;taskomatic
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.taskomatic-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="server.taskomatic-module.html">Module server.taskomatic</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-docstring">Module for taskomatic related functions (inserting into queues, etc)</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package server=server-module.html"><a title="server" class="py-name" href="#" onclick="return doclink('link-0', 'server', 'link-0');">server</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Package server.rhnSQL=server.rhnSQL-module.html"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-1', 'rhnSQL', 'link-1');">rhnSQL</a></tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"> </tt>
+<a name="RepodataQueueEntry"></a><div id="RepodataQueueEntry-def"><a name="L9"></a><tt class="py-lineno"> 9</tt> <a class="py-toggle" href="#" id="RepodataQueueEntry-toggle" onclick="return toggle('RepodataQueueEntry');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.taskomatic.RepodataQueueEntry-class.html">RepodataQueueEntry</a><tt class="py-op">(</tt><tt class="py-base-class">object</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RepodataQueueEntry-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="RepodataQueueEntry-expanded"><a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"> </tt>
+<a name="RepodataQueueEntry.__init__"></a><div id="RepodataQueueEntry.__init__-def"><a name="L11"></a><tt class="py-lineno">11</tt> <a class="py-toggle" href="#" id="RepodataQueueEntry.__init__-toggle" onclick="return toggle('RepodataQueueEntry.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.taskomatic.RepodataQueueEntry-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">channel</tt><tt class="py-op">,</tt> <tt class="py-param">client</tt><tt class="py-op">,</tt> <tt class="py-param">reason</tt><tt class="py-op">,</tt> <tt class="py-param">force</tt><tt class="py-op">=</tt><tt id="link-2" class="py-name" targets="Variable xmlrpclib.False=xmlrpclib-module.html#False"><a title="xmlrpclib.False" class="py-name" href="#" onclick="return doclink('link-2', 'False', 'link-2');">False</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line">            <tt class="py-param">bypass_filters</tt><tt class="py-op">=</tt><tt id="link-3" class="py-name"><a title="xmlrpclib.False" class="py-name" href="#" onclick="return doclink('link-3', 'False', 'link-2');">False</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RepodataQueueEntry.__init__-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="RepodataQueueEntry.__init__-expanded"><a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Variable satellite_tools.reposync.RepoSync.channel=satellite_tools.reposync.RepoSync-class.html#channel,Module server.handlers.app.channel=server.handlers.app.channel-module.html,Variable server.repomd.repository.Repository.channel=server.repomd.repository.Repository-class.html#channel"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-4', 'channel', 'link-4');">channel</a></tt> <tt class="py-op">=</tt> <tt id="link-5" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-5', 'channel', 'link-4');">channel</a></tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">client</tt> <tt class="py-op">=</tt> <tt class="py-name">client</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">reason</tt> <tt class="py-op">=</tt> <tt class="py-name">reason</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">force</tt> <tt class="py-op">=</tt> <tt class="py-name">force</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">bypass_filters</tt> <tt class="py-op">=</tt> <tt class="py-name">bypass_filters</tt> </tt>
+</div></div><a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"> </tt>
+<a name="RepodataQueue"></a><div id="RepodataQueue-def"><a name="L20"></a><tt class="py-lineno">20</tt> <a class="py-toggle" href="#" id="RepodataQueue-toggle" onclick="return toggle('RepodataQueue');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.taskomatic.RepodataQueue-class.html">RepodataQueue</a><tt class="py-op">(</tt><tt class="py-base-class">object</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RepodataQueue-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="RepodataQueue-expanded"><a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"> </tt>
+<a name="RepodataQueue._boolean_as_char"></a><div id="RepodataQueue._boolean_as_char-def"><a name="L22"></a><tt class="py-lineno">22</tt> <a class="py-toggle" href="#" id="RepodataQueue._boolean_as_char-toggle" onclick="return toggle('RepodataQueue._boolean_as_char');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.taskomatic.RepodataQueue-class.html#_boolean_as_char">_boolean_as_char</a><tt class="py-op">(</tt><tt class="py-param">boolean</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RepodataQueue._boolean_as_char-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="RepodataQueue._boolean_as_char-expanded"><a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">boolean</tt><tt class="py-op">:</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-string">'Y'</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-string">'N'</tt> </tt>
+</div><a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">    <tt id="link-6" class="py-name" targets="Static Method server.taskomatic.RepodataQueue._boolean_as_char()=server.taskomatic.RepodataQueue-class.html#_boolean_as_char"><a title="server.taskomatic.RepodataQueue._boolean_as_char" class="py-name" href="#" onclick="return doclink('link-6', '_boolean_as_char', 'link-6');">_boolean_as_char</a></tt> <tt class="py-op">=</tt> <tt class="py-name">staticmethod</tt><tt class="py-op">(</tt><tt id="link-7" class="py-name"><a title="server.taskomatic.RepodataQueue._boolean_as_char" class="py-name" href="#" onclick="return doclink('link-7', '_boolean_as_char', 'link-6');">_boolean_as_char</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"> </tt>
+<a name="RepodataQueue.add"></a><div id="RepodataQueue.add-def"><a name="L30"></a><tt class="py-lineno">30</tt> <a class="py-toggle" href="#" id="RepodataQueue.add-toggle" onclick="return toggle('RepodataQueue.add');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.taskomatic.RepodataQueue-class.html#add">add</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">entry</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RepodataQueue.add-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="RepodataQueue.add-expanded"><a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">        <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt id="link-8" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-8', 'rhnSQL', 'link-1');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Method server.rhnSQL.driver_cx_Oracle.Database.prepare()=server.rhnSQL.driver_cx_Oracle.Database-class.html#prepare,Method server.rhnSQL.driver_postgresql.Database.prepare()=server.rhnSQL.driver_postgresql.Database-class.html#prepare,Function server.rhnSQL.prepare()=server.rhnSQL-module.html#prepare,Method server.rhnSQL.sql_base.Cursor.prepare()=server.rhnSQL.sql_base.Cursor-class.html#prepare,Method server.rhnSQL.sql_base.Database.prepare()=server.rhnSQL.sql_base.Database-class.html#prepare"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-9', 'prepare', 'link-9');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line"><tt class="py-string">            insert into rhnRepoRegenQueue</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line"><tt class="py-string">                (id, channel_label, client, reason, force, bypass_filters,</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line"><tt class="py-string">                 next_action, created, modified)</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"><tt class="py-string">            values (</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line"><tt class="py-string">                sequence_nextval('rhn_repo_regen_queue_id_seq'),</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line"><tt class="py-string">                :channel, :client, :reason, :force, :bypass_filters,</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"><tt class="py-string">                sysdate, sysdate, sysdate</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line"><tt class="py-string">            )</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line"><tt class="py-string">        """</tt><tt class="py-op">)</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line"> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">        <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Method satellite_tools.disk_dumper.dumper.DatabaseStatement.execute()=satellite_tools.disk_dumper.dumper.DatabaseStatement-class.html#execute,Method server.rhnSQL.driver_cx_Oracle.Database.execute()=server.rhnSQL.driver_cx_Oracle.Database-class.html#execute,Function server.rhnSQL.execute()=server.rhnSQL-module.html#execute,Method server.rhnSQL.sql_base.Cursor.execute()=server.rhnSQL.sql_base.Cursor-class.html#execute"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-10', 'execute', 'link-10');">execute</a></tt><tt class="py-op">(</tt><tt id="link-11" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-11', 'channel', 'link-4');">channel</a></tt><tt class="py-op">=</tt><tt class="py-name">entry</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-12', 'channel', 'link-4');">channel</a></tt><tt class="py-op">,</tt> <tt class="py-name">client</tt><tt class="py-op">=</tt><tt class="py-name">entry</tt><tt class="py-op">.</tt><tt class="py-name">client</tt><tt class="py-op">,</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">            <tt class="py-name">reason</tt><tt class="py-op">=</tt><tt class="py-name">entry</tt><tt class="py-op">.</tt><tt class="py-name">reason</tt><tt class="py-op">,</tt> <tt class="py-name">force</tt><tt class="py-op">=</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name"><a title="server.taskomatic.RepodataQueue._boolean_as_char" class="py-name" href="#" onclick="return doclink('link-13', '_boolean_as_char', 'link-6');">_boolean_as_char</a></tt><tt class="py-op">(</tt><tt class="py-name">entry</tt><tt class="py-op">.</tt><tt class="py-name">force</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">            <tt class="py-name">bypass_filters</tt><tt class="py-op">=</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name"><a title="server.taskomatic.RepodataQueue._boolean_as_char" class="py-name" href="#" onclick="return doclink('link-14', '_boolean_as_char', 'link-6');">_boolean_as_char</a></tt><tt class="py-op">(</tt><tt class="py-name">entry</tt><tt class="py-op">.</tt><tt class="py-name">bypass_filters</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line"> </tt>
+<a name="add_to_repodata_queue"></a><div id="add_to_repodata_queue-def"><a name="L46"></a><tt class="py-lineno">46</tt> <a class="py-toggle" href="#" id="add_to_repodata_queue-toggle" onclick="return toggle('add_to_repodata_queue');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.taskomatic-module.html#add_to_repodata_queue">add_to_repodata_queue</a><tt class="py-op">(</tt><tt class="py-param">channel</tt><tt class="py-op">,</tt> <tt class="py-param">client</tt><tt class="py-op">,</tt> <tt class="py-param">reason</tt><tt class="py-op">,</tt> <tt class="py-param">force</tt><tt class="py-op">=</tt><tt id="link-15" class="py-name"><a title="xmlrpclib.False" class="py-name" href="#" onclick="return doclink('link-15', 'False', 'link-2');">False</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">        <tt class="py-param">bypass_filters</tt><tt class="py-op">=</tt><tt id="link-16" class="py-name"><a title="xmlrpclib.False" class="py-name" href="#" onclick="return doclink('link-16', 'False', 'link-2');">False</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="add_to_repodata_queue-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="add_to_repodata_queue-expanded"><a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">    <tt class="py-name">entry</tt> <tt class="py-op">=</tt> <tt id="link-17" class="py-name" targets="Class server.taskomatic.RepodataQueueEntry=server.taskomatic.RepodataQueueEntry-class.html"><a title="server.taskomatic.RepodataQueueEntry" class="py-name" href="#" onclick="return doclink('link-17', 'RepodataQueueEntry', 'link-17');">RepodataQueueEntry</a></tt><tt class="py-op">(</tt><tt id="link-18" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-18', 'channel', 'link-4');">channel</a></tt><tt class="py-op">,</tt> <tt class="py-name">client</tt><tt class="py-op">,</tt> <tt class="py-name">reason</tt><tt class="py-op">,</tt> <tt class="py-name">force</tt><tt class="py-op">,</tt> <tt class="py-name">bypass_filters</tt><tt class="py-op">)</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">    <tt id="link-19" class="py-name" targets="Module server.handlers.xmlrpc.queue=server.handlers.xmlrpc.queue-module.html"><a title="server.handlers.xmlrpc.queue" class="py-name" href="#" onclick="return doclink('link-19', 'queue', 'link-19');">queue</a></tt> <tt class="py-op">=</tt> <tt id="link-20" class="py-name" targets="Class server.taskomatic.RepodataQueue=server.taskomatic.RepodataQueue-class.html"><a title="server.taskomatic.RepodataQueue" class="py-name" href="#" onclick="return doclink('link-20', 'RepodataQueue', 'link-20');">RepodataQueue</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">    <tt id="link-21" class="py-name"><a title="server.handlers.xmlrpc.queue" class="py-name" href="#" onclick="return doclink('link-21', 'queue', 'link-19');">queue</a></tt><tt class="py-op">.</tt><tt id="link-22" class="py-name" targets="Method common.rhnTB.SecurityList.add()=common.rhnTB.SecurityList-class.html#add,Method proxy.responseContext.ResponseContext.add()=proxy.responseContext.ResponseContext-class.html#add,Method server.rhnServer.server_packages.dbPackage.add()=server.rhnServer.server_packages.dbPackage-class.html#add,Method server.taskomatic.RepodataQueue.add()=server.taskomatic.RepodataQueue-class.html#add,Method server.wsgi.wsgiRequest.WsgiDict.add()=server.wsgi.wsgiRequest.WsgiDict-class.html#add"><a title="common.rhnTB.SecurityList.add
+proxy.responseContext.ResponseContext.add
+server.rhnServer.server_packages.dbPackage.add
+server.taskomatic.RepodataQueue.add
+server.wsgi.wsgiRequest.WsgiDict.add" class="py-name" href="#" onclick="return doclink('link-22', 'add', 'link-22');">add</a></tt><tt class="py-op">(</tt><tt class="py-name">entry</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line"> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line"><tt class="py-comment"># XXX not the best place for this...</tt> </tt>
+<a name="add_to_repodata_queue_for_channel_package_subscription"></a><div id="add_to_repodata_queue_for_channel_package_subscription-def"><a name="L53"></a><tt class="py-lineno">53</tt> <a class="py-toggle" href="#" id="add_to_repodata_queue_for_channel_package_subscription-toggle" onclick="return toggle('add_to_repodata_queue_for_channel_package_subscription');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.taskomatic-module.html#add_to_repodata_queue_for_channel_package_subscription">add_to_repodata_queue_for_channel_package_subscription</a><tt class="py-op">(</tt><tt class="py-param">affected_channels</tt><tt class="py-op">,</tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">        <tt class="py-param">batch</tt><tt class="py-op">,</tt> <tt class="py-param">caller</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="add_to_repodata_queue_for_channel_package_subscription-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="add_to_repodata_queue_for_channel_package_subscription-expanded"><a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line"> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">        <tt class="py-name">tmpreason</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt id="link-23" class="py-name" targets="Method server.handlers.xmlrpc.up2date.Up2date.package()=server.handlers.xmlrpc.up2date.Up2date-class.html#package"><a title="server.handlers.xmlrpc.up2date.Up2date.package" class="py-name" href="#" onclick="return doclink('link-23', 'package', 'link-23');">package</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">batch</tt><tt class="py-op">:</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line">            <tt class="py-name">tmpreason</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-24', 'append', 'link-24');">append</a></tt><tt class="py-op">(</tt><tt id="link-25" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.package" class="py-name" href="#" onclick="return doclink('link-25', 'package', 'link-23');">package</a></tt><tt class="py-op">.</tt><tt id="link-26" class="py-name" targets="Method server.importlib.importLib.IncompletePackage.short_str()=server.importlib.importLib.IncompletePackage-class.html#short_str,Method server.importlib.importLib.SourcePackage.short_str()=server.importlib.importLib.SourcePackage-class.html#short_str"><a title="server.importlib.importLib.IncompletePackage.short_str
+server.importlib.importLib.SourcePackage.short_str" class="py-name" href="#" onclick="return doclink('link-26', 'short_str', 'link-26');">short_str</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line"> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">        <tt class="py-name">reason</tt> <tt class="py-op">=</tt> <tt class="py-string">" "</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">tmpreason</tt><tt class="py-op">)</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line"> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt id="link-27" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-27', 'channel', 'link-4');">channel</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">affected_channels</tt><tt class="py-op">:</tt> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line">            <tt class="py-comment"># don't want to cause an error for the db</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line">            <tt id="link-28" class="py-name" targets="Function server.taskomatic.add_to_repodata_queue()=server.taskomatic-module.html#add_to_repodata_queue"><a title="server.taskomatic.add_to_repodata_queue" class="py-name" href="#" onclick="return doclink('link-28', 'add_to_repodata_queue', 'link-28');">add_to_repodata_queue</a></tt><tt class="py-op">(</tt><tt id="link-29" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-29', 'channel', 'link-4');">channel</a></tt><tt class="py-op">,</tt> <tt class="py-name">caller</tt><tt class="py-op">,</tt> <tt class="py-name">reason</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-number">128</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:36 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

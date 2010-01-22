@@ -55,7 +55,23 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class ConfigFilesHandler</h1><p class="nomargin-top"><span class="codelink"><a href="server.configFilesHandler-pysrc.html#ConfigFilesHandler">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_c_12" name="uml_class_diagram_for_server_c_12">
+<area shape="rect" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html" title="server.handlers.config.rhn_config_management.ConfigManagement" alt="" coords="16,333,395,360"/>
+<area shape="rect" href="server.rhnHandler%27.rhnHandler-class.html#auth_system" title="server.rhnHandler&#39;.rhnHandler.auth_system" alt="" coords="339,97,520,116"/>
+<area shape="rect" href="server.rhnHandler%27.rhnHandler-class.html" title="server.rhnHandler&#39;.rhnHandler" alt="" coords="337,72,521,117"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFilesHandler-class.html#__init__" title="server.configFilesHandler.ConfigFilesHandler.__init__" alt="" coords="315,172,544,191"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFilesHandler-class.html#get_function" title="server.configFilesHandler.ConfigFilesHandler.get_function" alt="" coords="315,191,544,209"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFilesHandler-class.html#max_upload_file_size" title="server.configFilesHandler.ConfigFilesHandler.max_upload_file_size" alt="" coords="315,209,544,228"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFilesHandler-class.html#login" title="server.configFilesHandler.ConfigFilesHandler.login" alt="" coords="315,228,544,247"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFilesHandler-class.html#test_session" title="server.configFilesHandler.ConfigFilesHandler.test_session" alt="" coords="315,247,544,265"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFilesHandler-class.html#push_file" title="server.configFilesHandler.ConfigFilesHandler.push_file" alt="" coords="315,265,544,284"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFilesHandler-class.html#new_config_channel_id" title="server.configFilesHandler.ConfigFilesHandler.new_config_channel_id" alt="" coords="315,284,544,303"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFilesHandler-class.html" title="server.configFilesHandler.ConfigFilesHandler" alt="" coords="313,147,545,304"/>
+<area shape="rect" href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement-class.html" title="server.handlers.config_mgmt.rhn_config_management.ConfigManagement" alt="" coords="445,333,864,360"/>
+<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html" title="common.RPC_Base&#39;.RPC_Base" alt="" coords="331,11,528,43"/>
+</map>
+  <img src="uml_class_diagram_for_server_c_12.png" alt='' usemap="#uml_class_diagram_for_server_c_12" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -97,7 +113,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="get_function"></a><span class="summary-sig-name">get_function</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.configFilesHandler.ConfigFilesHandler-class.html#get_function" class="summary-sig-name">get_function</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">function</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.configFilesHandler-pysrc.html#ConfigFilesHandler.get_function">source&nbsp;code</a></span>
@@ -414,8 +430,8 @@
   </tr>
   <tr>
     <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnHandler.rhnHandler-class.html">rhnHandler.rhnHandler</a></code></b>:
-      <code><a href="server.rhnHandler.rhnHandler-class.html#auth_system">auth_system</a></code>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnHandler%27.rhnHandler-class.html">rhnHandler'.rhnHandler</a></code></b>:
+      <code><a href="server.rhnHandler%27.rhnHandler-class.html#auth_system">auth_system</a></code>
       </p>
     </td>
   </tr>
@@ -441,119 +457,124 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_content_lookup" class="summary-name" onclick="show_private();">_query_content_lookup</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
-        select id, md5sum, file_size, contents, is_binary
-          from rhnConfigContent
-         where md5sum = :md5sum
+        <a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_content_lookup" class="summary-name" onclick="show_private();">_query_content_lookup</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 151536492; statement=
+        select id, c.checksum_type, c.checksum, file_size, contents, i\
+s_binary
+          from rhnConfigContent, rhnChecksumView c
+         where c.checksum = :checksum
+           and c.checksum_type = :checksum_type
            and file_size = :file_size
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+           and checksum_id = c.id
+...">&lt;server.rhnSQL.sql_base.Statement inst<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_insert_content" class="summary-name" onclick="show_private();">_query_insert_content</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_insert_content" class="summary-name" onclick="show_private();">_query_insert_content</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 151536620; statement=
         insert into rhnConfigContent 
-               (id, md5sum, file_size, contents, is_binary)
-        values (:config_content_id, :md5sum, :file_size, empty_blob(),
-               :is_binary)
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+               (id, checksum_id, file_size, contents, is_binary)
+        values (:config_content_id, lookup_checksum(:checksum_type, :c\
+hecksum),
+                :file_size, empty_blob(), :is_binary)
+    ">&lt;server.rhnSQL.sql_base.Statement inst<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_insert_null_content" class="summary-name" onclick="show_private();">_query_insert_null_content</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_insert_null_content" class="summary-name" onclick="show_private();">_query_insert_null_content</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 151536780; statement=
         insert into rhnConfigContent 
-               (id, md5sum, file_size, contents, is_binary)
-        values (:config_content_id, :md5sum, :file_size, NULL,
-               :is_binary)
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+               (id, checksum_id, file_size, contents, is_binary)
+        values (:config_content_id, lookup_checksum(:checksum_type, :c\
+hecksum),
+                :file_size, NULL, :is_binary)
+    ">&lt;server.rhnSQL.sql_base.Statement<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_get_content_row" class="summary-name" onclick="show_private();">_query_get_content_row</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_get_content_row" class="summary-name" onclick="show_private();">_query_get_content_row</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 151536812; statement=
         select contents 
           from rhnConfigContent 
          where id = :config_content_id
            for update of contents
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement ins<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_lookup_config_info" class="summary-name" onclick="show_private();">_query_lookup_config_info</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
-        select lookup_config_info(:username, :groupname, :file_mode) i\
-d
+        <a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_lookup_config_info" class="summary-name" onclick="show_private();">_query_lookup_config_info</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 151536844; statement=
+        select lookup_config_info(:username, :groupname, :file_mode, :\
+selinux_ctx) id
           from dual
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement <code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_lookup_config_file" class="summary-name" onclick="show_private();">_query_lookup_config_file</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_lookup_config_file" class="summary-name" onclick="show_private();">_query_lookup_config_file</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 151536876; statement=
         select id
           from rhnConfigFile
          where config_channel_id = :config_channel_id
            and config_file_name_id = lookup_config_filename(:path)
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement <code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_lookup_revision" class="summary-name" onclick="show_private();">_query_lookup_revision</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_lookup_revision" class="summary-name" onclick="show_private();">_query_lookup_revision</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 151536908; statement=
         select id, revision, config_content_id, config_info_id, 
                delim_start, delim_end, config_file_type_id
           from rhnConfigRevision
          where config_file_id = :config_file_id
          order by revision desc
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement ins<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_update_revision" class="summary-name" onclick="show_private();">_query_update_revision</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_update_revision" class="summary-name" onclick="show_private();">_query_update_revision</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 151536940; statement=
         update rhnConfigRevision 
            set modified = sysdate 
          where id = :config_revision_id
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement ins<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_update_revision_add_author" class="summary-name" onclick="show_private();">_query_update_revision_add_author</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_update_revision_add_author" class="summary-name" onclick="show_private();">_query_update_revision_add_author</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 151536972; statement=
         update rhnConfigRevision
             set changed_by_id = :user_id
         where id = :rev_id
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.St<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_update_config_file" class="summary-name" onclick="show_private();">_query_update_config_file</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_update_config_file" class="summary-name" onclick="show_private();">_query_update_config_file</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 151537004; statement=
         update rhnConfigFile
            set latest_config_revision_id = :config_revision_id,
                state_id = :state_id
          where config_channel_id = :config_channel_id
            and config_file_name_id = lookup_config_filename(:path)
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement <code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -593,7 +614,30 @@ d
   
   <dl class="fields">
     <dt>Overrides:
-        <a href="server.rhnHandler.rhnHandler-class.html#__init__">rhnHandler.rhnHandler.__init__</a>
+        <a href="common.RPC_Base%27.RPC_Base-class.html#__init__">common.RPC_Base'.RPC_Base.__init__</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_function"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_function</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">function</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.configFilesHandler-pysrc.html#ConfigFilesHandler.get_function">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="common.RPC_Base%27.RPC_Base-class.html#get_function">common.RPC_Base'.RPC_Base.get_function</a>
     </dt>
   </dl>
 </td></tr></table>
@@ -629,12 +673,15 @@ d
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
-        select id, md5sum, file_size, contents, is_binary
-          from rhnConfigContent
-         where md5sum = :md5sum
+&lt;server.rhnSQL.sql_base.Statement instance at 151536492; statement=
+        select id, c.checksum_type, c.checksum, file_size, contents, i<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+s_binary
+          from rhnConfigContent, rhnChecksumView c
+         where c.checksum = :checksum
+           and c.checksum_type = :checksum_type
            and file_size = :file_size
-    &quot;&quot;&quot;)
+           and checksum_id = c.id
+<code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -652,12 +699,13 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 151536620; statement=
         insert into rhnConfigContent 
-               (id, md5sum, file_size, contents, is_binary)
-        values (:config_content_id, :md5sum, :file_size, empty_blob(),
-               :is_binary)
-    &quot;&quot;&quot;)
+               (id, checksum_id, file_size, contents, is_binary)
+        values (:config_content_id, lookup_checksum(:checksum_type, :c<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+hecksum),
+                :file_size, empty_blob(), :is_binary)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -675,12 +723,13 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 151536780; statement=
         insert into rhnConfigContent 
-               (id, md5sum, file_size, contents, is_binary)
-        values (:config_content_id, :md5sum, :file_size, NULL,
-               :is_binary)
-    &quot;&quot;&quot;)
+               (id, checksum_id, file_size, contents, is_binary)
+        values (:config_content_id, lookup_checksum(:checksum_type, :c<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+hecksum),
+                :file_size, NULL, :is_binary)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -698,12 +747,12 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 151536812; statement=
         select contents 
           from rhnConfigContent 
          where id = :config_content_id
            for update of contents
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -721,11 +770,11 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
-        select lookup_config_info(:username, :groupname, :file_mode) i<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-d
+&lt;server.rhnSQL.sql_base.Statement instance at 151536844; statement=
+        select lookup_config_info(:username, :groupname, :file_mode, :<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+selinux_ctx) id
           from dual
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -743,12 +792,12 @@ d
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 151536876; statement=
         select id
           from rhnConfigFile
          where config_channel_id = :config_channel_id
            and config_file_name_id = lookup_config_filename(:path)
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -766,13 +815,13 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 151536908; statement=
         select id, revision, config_content_id, config_info_id, 
                delim_start, delim_end, config_file_type_id
           from rhnConfigRevision
          where config_file_id = :config_file_id
          order by revision desc
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -790,11 +839,11 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 151536940; statement=
         update rhnConfigRevision 
            set modified = sysdate 
          where id = :config_revision_id
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -812,11 +861,11 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 151536972; statement=
         update rhnConfigRevision
             set changed_by_id = :user_id
         where id = :rev_id
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -834,13 +883,13 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 151537004; statement=
         update rhnConfigFile
            set latest_config_revision_id = :config_revision_id,
                state_id = :state_id
          where config_channel_id = :config_channel_id
            and config_file_name_id = lookup_config_filename(:path)
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -870,7 +919,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:14 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:45 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

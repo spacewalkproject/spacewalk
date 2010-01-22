@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.handlers.sat.get_handler</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.handlers-module.html">Package&nbsp;handlers</a> ::
+        <a href="server.handlers.sat-module.html" onclick="show_private();">Package&nbsp;sat</a> ::
+        Module&nbsp;get_handler
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.handlers.sat.get_handler-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="server.handlers.sat.get_handler-module.html" onclick="show_private();">Module server.handlers.sat.get_handler</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation.</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-comment"># GET handler for /SAT</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Function server.handlers.app.channel.auth()=server.handlers.app.channel-module.html#auth,Function server.handlers.app.comps.auth()=server.handlers.app.comps-module.html#auth,Function server.handlers.app.packages.auth()=server.handlers.app.packages-module.html#auth,Module server.handlers.sat.auth=server.handlers.sat.auth-module.html,Function server.handlers.xp.packages.auth()=server.handlers.xp.packages-module.html#auth,Function server.handlers.xp.rhnlint.auth()=server.handlers.xp.rhnlint-module.html#auth,Method server.importlib.userAuth.UserAuth.auth()=server.importlib.userAuth.UserAuth-class.html#auth"><a title="server.handlers.app.channel.auth
+server.handlers.app.comps.auth
+server.handlers.app.packages.auth
+server.handlers.sat.auth
+server.handlers.xp.packages.auth
+server.handlers.xp.rhnlint.auth
+server.importlib.userAuth.UserAuth.auth" class="py-name" href="#" onclick="return doclink('link-0', 'auth', 'link-0');">auth</a></tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-1" class="py-name" targets="Package common=common-module.html,Package spacewalk.common=spacewalk.common-module.html"><a title="common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-1', 'common', 'link-1');">common</a></tt> <tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Function common.rhnLog.log_debug()=common.rhnLog-module.html#log_debug"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-2', 'log_debug', 'link-2');">log_debug</a></tt>  </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-3" class="py-name" targets="Package server=server-module.html"><a title="server" class="py-name" href="#" onclick="return doclink('link-3', 'server', 'link-3');">server</a></tt> <tt class="py-keyword">import</tt> <tt id="link-4" class="py-name" targets="Module server.apacheRequest=server.apacheRequest-module.html,Class server.apacheRequest.apacheRequest=server.apacheRequest.apacheRequest-class.html"><a title="server.apacheRequest
+server.apacheRequest.apacheRequest" class="py-name" href="#" onclick="return doclink('link-4', 'apacheRequest', 'link-4');">apacheRequest</a></tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"> </tt>
+<a name="GetHandler"></a><div id="GetHandler-def"><a name="L23"></a><tt class="py-lineno">23</tt> <a class="py-toggle" href="#" id="GetHandler-toggle" onclick="return toggle('GetHandler');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.handlers.sat.get_handler.GetHandler-class.html">GetHandler</a><tt class="py-op">(</tt><tt class="py-base-class">apacheRequest</tt><tt class="py-op">.</tt><tt class="py-base-class">GetHandler</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="GetHandler-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="GetHandler-expanded"><a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">    <tt class="py-docstring">""" handles the GET requests for /SAT requests """</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"> </tt>
+<a name="GetHandler.method_ref"></a><div id="GetHandler.method_ref-def"><a name="L26"></a><tt class="py-lineno">26</tt> <a class="py-toggle" href="#" id="GetHandler.method_ref-toggle" onclick="return toggle('GetHandler.method_ref');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.handlers.sat.get_handler.GetHandler-class.html#method_ref">method_ref</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">method</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="GetHandler.method_ref-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="GetHandler.method_ref-expanded"><a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">        <tt class="py-docstring">""" get a function reference for the GET request """</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">        <tt id="link-5" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-5', 'log_debug', 'link-2');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name"><a title="server" class="py-name" href="#" onclick="return doclink('link-6', 'server', 'link-3');">server</a></tt><tt class="py-op">,</tt> <tt class="py-name">method</tt><tt class="py-op">)</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">        <tt class="py-name">remote_host</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">req</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Method server.wsgi.wsgiRequest.WsgiRequest.get_remote_host()=server.wsgi.wsgiRequest.WsgiRequest-class.html#get_remote_host"><a title="server.wsgi.wsgiRequest.WsgiRequest.get_remote_host" class="py-name" href="#" onclick="return doclink('link-7', 'get_remote_host', 'link-7');">get_remote_host</a></tt><tt class="py-op">(</tt><tt id="link-8" class="py-name" targets="Module server.apache=server.apache-module.html"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-8', 'apache', 'link-8');">apache</a></tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Variable server.apache.REMOTE_DOUBLE_REV=server.apache-module.html#REMOTE_DOUBLE_REV"><a title="server.apache.REMOTE_DOUBLE_REV" class="py-name" href="#" onclick="return doclink('link-9', 'REMOTE_DOUBLE_REV', 'link-9');">REMOTE_DOUBLE_REV</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">        <tt class="py-comment"># Authorize using remote address</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">        <tt class="py-name">auth_obj</tt> <tt class="py-op">=</tt> <tt id="link-10" class="py-name"><a title="server.handlers.app.channel.auth
+server.handlers.app.comps.auth
+server.handlers.app.packages.auth
+server.handlers.sat.auth
+server.handlers.xp.packages.auth
+server.handlers.xp.rhnlint.auth
+server.importlib.userAuth.UserAuth.auth" class="py-name" href="#" onclick="return doclink('link-10', 'auth', 'link-0');">auth</a></tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Class server.handlers.sat.auth.Authentication=server.handlers.sat.auth.Authentication-class.html"><a title="server.handlers.sat.auth.Authentication" class="py-name" href="#" onclick="return doclink('link-11', 'Authentication', 'link-11');">Authentication</a></tt><tt class="py-op">(</tt><tt class="py-name">remote_host</tt><tt class="py-op">)</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line"> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">        <tt id="link-12" class="py-name" targets="Module server.repomd.repository=server.repomd.repository-module.html"><a title="server.repomd.repository" class="py-name" href="#" onclick="return doclink('link-12', 'repository', 'link-12');">repository</a></tt> <tt class="py-op">=</tt> <tt id="link-13" class="py-name" targets="Class common.rhnRepository.Repository=common.rhnRepository.Repository-class.html,Class proxy.broker.rhnRepository.Repository=proxy.broker.rhnRepository.Repository-class.html,Class server.repomd.repository.Repository=server.repomd.repository.Repository-class.html,Class server.rhnRepository.Repository=server.rhnRepository.Repository-class.html"><a title="common.rhnRepository.Repository
+proxy.broker.rhnRepository.Repository
+server.repomd.repository.Repository
+server.rhnRepository.Repository" class="py-name" href="#" onclick="return doclink('link-13', 'Repository', 'link-13');">Repository</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Variable satellite_tools.reposync.RepoSync.channel=satellite_tools.reposync.RepoSync-class.html#channel,Module server.handlers.app.channel=server.handlers.app.channel-module.html,Variable server.repomd.repository.Repository.channel=server.repomd.repository.Repository-class.html#channel"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-14', 'channel', 'link-14');">channel</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">             </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">        <tt class="py-name">f</tt> <tt class="py-op">=</tt> <tt id="link-15" class="py-name"><a title="server.repomd.repository" class="py-name" href="#" onclick="return doclink('link-15', 'repository', 'link-12');">repository</a></tt><tt class="py-op">.</tt><tt id="link-16" class="py-name" targets="Method common.RPC_Base'.RPC_Base.get_function()=common.RPC_Base%27.RPC_Base-class.html#get_function,Method satellite_exporter.satexport.ApacheServer.get_function()=satellite_exporter.satexport.ApacheServer-class.html#get_function,Method server.configFilesHandler.ConfigFilesHandler.get_function()=server.configFilesHandler.ConfigFilesHandler-class.html#get_function"><a title="common.RPC_Base'.RPC_Base.get_function
+satellite_exporter.satexport.ApacheServer.get_function
+server.configFilesHandler.ConfigFilesHandler.get_function" class="py-name" href="#" onclick="return doclink('link-16', 'get_function', 'link-16');">get_function</a></tt><tt class="py-op">(</tt><tt class="py-name">method</tt><tt class="py-op">)</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">f</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-17" class="py-name"><a title="server.apacheRequest
+server.apacheRequest.apacheRequest" class="py-name" href="#" onclick="return doclink('link-17', 'apacheRequest', 'link-4');">apacheRequest</a></tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Class server.apacheRequest.UnknownXML=server.apacheRequest.UnknownXML-class.html"><a title="server.apacheRequest.UnknownXML" class="py-name" href="#" onclick="return doclink('link-18', 'UnknownXML', 'link-18');">UnknownXML</a></tt><tt class="py-op">(</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">                <tt class="py-string">"function '%s' invalid; path_info is %s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">                    <tt class="py-name">method</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">path_info</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">f</tt> </tt>
+</div></div><a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:29 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

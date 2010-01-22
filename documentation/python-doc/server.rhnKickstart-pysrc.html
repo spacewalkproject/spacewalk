@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.rhnKickstart</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        Module&nbsp;rhnKickstart
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.rhnKickstart-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="server.rhnKickstart-module.html">Module server.rhnKickstart</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008--2009 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">string</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-comment"># common module</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package common=common-module.html,Package spacewalk.common=spacewalk.common-module.html"><a title="common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-0', 'common', 'link-0');">common</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Function common.rhnLog.log_debug()=common.rhnLog-module.html#log_debug"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-1', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">,</tt> <tt id="link-2" class="py-name" targets="Class common.rhnException'.rhnFault=common.rhnException%27.rhnFault-class.html"><a title="common.rhnException'.rhnFault" class="py-name" href="#" onclick="return doclink('link-2', 'rhnFault', 'link-2');">rhnFault</a></tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-comment"># local module</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-3" class="py-name" targets="Package server.rhnSQL=server.rhnSQL-module.html"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-3', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">,</tt> <tt id="link-4" class="py-name" targets="Module server.rhnChannel=server.rhnChannel-module.html"><a title="server.rhnChannel" class="py-name" href="#" onclick="return doclink('link-4', 'rhnChannel', 'link-4');">rhnChannel</a></tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"> </tt>
+<a name="Kickstart"></a><div id="Kickstart-def"><a name="L24"></a><tt class="py-lineno"> 24</tt> <a class="py-toggle" href="#" id="Kickstart-toggle" onclick="return toggle('Kickstart');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.rhnKickstart.Kickstart-class.html">Kickstart</a><tt class="py-op">:</tt> </tt>
+</div><div id="Kickstart-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Kickstart-expanded"><a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line">     </tt>
+<a name="Kickstart.__init__"></a><div id="Kickstart.__init__-def"><a name="L26"></a><tt class="py-lineno"> 26</tt> <a class="py-toggle" href="#" id="Kickstart.__init__-toggle" onclick="return toggle('Kickstart.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnKickstart.Kickstart-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">ks_dict</tt><tt class="py-op">,</tt> <tt class="py-param">pkgs</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Kickstart.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Kickstart.__init__-expanded"><a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">         </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">id</tt> <tt class="py-op">=</tt> <tt class="py-name">ks_dict</tt><tt class="py-op">[</tt><tt class="py-string">'id'</tt><tt class="py-op">]</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">label</tt> <tt class="py-op">=</tt> <tt class="py-name">ks_dict</tt><tt class="py-op">[</tt><tt class="py-string">'label'</tt><tt class="py-op">]</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">base_path</tt> <tt class="py-op">=</tt> <tt class="py-name">ks_dict</tt><tt class="py-op">[</tt><tt class="py-string">'base_path'</tt><tt class="py-op">]</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">channel_id</tt> <tt class="py-op">=</tt> <tt class="py-name">ks_dict</tt><tt class="py-op">[</tt><tt class="py-string">'channel_id'</tt><tt class="py-op">]</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">boot_image</tt> <tt class="py-op">=</tt> <tt class="py-name">ks_dict</tt><tt class="py-op">[</tt><tt class="py-string">'boot_image'</tt><tt class="py-op">]</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">pkgs</tt> <tt class="py-op">=</tt> <tt class="py-name">pkgs</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">files</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Function server.action.configfiles._get_files()=server.action.configfiles-module.html#_get_files,Method server.repomd.view.PrimaryView._get_files()=server.repomd.view.PrimaryView-class.html#_get_files,Method server.rhnKickstart.Kickstart._get_files()=server.rhnKickstart.Kickstart-class.html#_get_files"><a title="server.action.configfiles._get_files
+server.repomd.view.PrimaryView._get_files
+server.rhnKickstart.Kickstart._get_files" class="py-name" href="#" onclick="return doclink('link-5', '_get_files', 'link-5');">_get_files</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">id</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"> </tt>
+<a name="Kickstart._get_files"></a><div id="Kickstart._get_files-def"><a name="L37"></a><tt class="py-lineno"> 37</tt> <a class="py-toggle" href="#" id="Kickstart._get_files-toggle" onclick="return toggle('Kickstart._get_files');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnKickstart.Kickstart-class.html#_get_files">_get_files</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">tree_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Kickstart._get_files-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Kickstart._get_files-expanded"><a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">        <tt class="py-name">files_query</tt> <tt class="py-op">=</tt> <tt id="link-6" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-6', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Method server.rhnSQL.driver_cx_Oracle.Database.prepare()=server.rhnSQL.driver_cx_Oracle.Database-class.html#prepare,Method server.rhnSQL.driver_postgresql.Database.prepare()=server.rhnSQL.driver_postgresql.Database-class.html#prepare,Function server.rhnSQL.prepare()=server.rhnSQL-module.html#prepare,Method server.rhnSQL.sql_base.Cursor.prepare()=server.rhnSQL.sql_base.Cursor-class.html#prepare,Method server.rhnSQL.sql_base.Database.prepare()=server.rhnSQL.sql_base.Database-class.html#prepare"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-7', 'prepare', 'link-7');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"><tt class="py-string">            SELECT </tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"><tt class="py-string">                relative_filename, </tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-string">                file_size, </tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"><tt class="py-string">                c.checksum_type,</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"><tt class="py-string">                c.checksum,</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"><tt class="py-string">                TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED </tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"><tt class="py-string">            FROM rhnKSTreeFile, rhnChecksumViev c</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt class="py-string">           WHERE kstree_id = :tree_id</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"><tt class="py-string">             AND checksum_id = c.id</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"><tt class="py-string">        """</tt><tt class="py-op">)</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">        <tt class="py-name">files_query</tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Method satellite_tools.disk_dumper.dumper.DatabaseStatement.execute()=satellite_tools.disk_dumper.dumper.DatabaseStatement-class.html#execute,Method server.rhnSQL.driver_cx_Oracle.Database.execute()=server.rhnSQL.driver_cx_Oracle.Database-class.html#execute,Function server.rhnSQL.execute()=server.rhnSQL-module.html#execute,Method server.rhnSQL.sql_base.Cursor.execute()=server.rhnSQL.sql_base.Cursor-class.html#execute"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-8', 'execute', 'link-8');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">tree_id</tt> <tt class="py-op">=</tt> <tt class="py-name">tree_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">        <tt class="py-name">file_list</tt> <tt class="py-op">=</tt> <tt class="py-name">files_query</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Method server.rhnSQL.sql_base.Cursor.fetchall_dict()=server.rhnSQL.sql_base.Cursor-class.html#fetchall_dict"><a title="server.rhnSQL.sql_base.Cursor.fetchall_dict" class="py-name" href="#" onclick="return doclink('link-9', 'fetchall_dict', 'link-9');">fetchall_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">file_list</tt><tt class="py-op">:</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">file_list</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"> </tt>
+<a name="Kickstart.delete_tree"></a><div id="Kickstart.delete_tree-def"><a name="L58"></a><tt class="py-lineno"> 58</tt> <a class="py-toggle" href="#" id="Kickstart.delete_tree-toggle" onclick="return toggle('Kickstart.delete_tree');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnKickstart.Kickstart-class.html#delete_tree">delete_tree</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Kickstart.delete_tree-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Kickstart.delete_tree-expanded"><a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">        <tt class="py-name">delete_query</tt> <tt class="py-op">=</tt> <tt id="link-10" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-10', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-11" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-11', 'prepare', 'link-7');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"><tt class="py-string">            delete from rhnKickstartableTree</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"><tt class="py-string">            where id = :id</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"><tt class="py-string">        """</tt><tt class="py-op">)</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">        <tt class="py-name">delete_query</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-12', 'execute', 'link-8');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">id</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">id</tt><tt class="py-op">)</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">        <tt class="py-name">update_channel</tt> <tt class="py-op">=</tt> <tt id="link-13" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-13', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Function server.rhnSQL.Procedure()=server.rhnSQL-module.html#Procedure,Class server.rhnSQL.driver_cx_Oracle.Procedure=server.rhnSQL.driver_cx_Oracle.Procedure-class.html,Class server.rhnSQL.driver_postgresql.Procedure=server.rhnSQL.driver_postgresql.Procedure-class.html,Class server.rhnSQL.sql_base.Procedure=server.rhnSQL.sql_base.Procedure-class.html"><a title="server.rhnSQL.Procedure
+server.rhnSQL.driver_cx_Oracle.Procedure
+server.rhnSQL.driver_postgresql.Procedure
+server.rhnSQL.sql_base.Procedure" class="py-name" href="#" onclick="return doclink('link-14', 'Procedure', 'link-14');">Procedure</a></tt><tt class="py-op">(</tt><tt class="py-string">'rhn_channel.update_channel'</tt><tt class="py-op">)</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">        <tt class="py-name">invalidate_ss</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">        <tt class="py-name">update_channel</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">channel_id</tt><tt class="py-op">,</tt> <tt class="py-name">invalidate_ss</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"> </tt>
+<a name="Kickstart.has_file"></a><div id="Kickstart.has_file-def"><a name="L71"></a><tt class="py-lineno"> 71</tt> <a class="py-toggle" href="#" id="Kickstart.has_file-toggle" onclick="return toggle('Kickstart.has_file');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnKickstart.Kickstart-class.html#has_file">has_file</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">ks_file</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Kickstart.has_file-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Kickstart.has_file-expanded"><a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">file</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">files</tt><tt class="py-op">:</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">file</tt><tt class="py-op">[</tt><tt class="py-string">'relative_filename'</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-name">ks_file</tt><tt class="py-op">[</tt><tt class="py-string">'relative_path'</tt><tt class="py-op">]</tt> <tt class="py-keyword">and</tt> \ </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">               <tt class="py-name">file</tt><tt class="py-op">[</tt><tt class="py-string">'checksum_type'</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-name">ks_file</tt><tt class="py-op">[</tt><tt class="py-string">'checksum_type'</tt><tt class="py-op">]</tt> <tt class="py-keyword">and</tt> \ </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">               <tt class="py-name">file</tt><tt class="py-op">[</tt><tt class="py-string">'checksum'</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-name">ks_file</tt><tt class="py-op">[</tt><tt class="py-string">'checksum'</tt><tt class="py-op">]</tt> <tt class="py-keyword">and</tt> \ </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">               <tt class="py-name">file</tt><tt class="py-op">[</tt><tt class="py-string">'file_size'</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-name">ks_file</tt><tt class="py-op">[</tt><tt class="py-string">'file_size'</tt><tt class="py-op">]</tt> <tt class="py-keyword">and</tt> \ </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">               <tt class="py-name">file</tt><tt class="py-op">[</tt><tt class="py-string">'last_modified'</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-name">ks_file</tt><tt class="py-op">[</tt><tt class="py-string">'last_modified'</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-number">1</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">             </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-number">0</tt> </tt>
+</div><a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line"> </tt>
+<a name="Kickstart.clear_files"></a><div id="Kickstart.clear_files-def"><a name="L84"></a><tt class="py-lineno"> 84</tt> <a class="py-toggle" href="#" id="Kickstart.clear_files-toggle" onclick="return toggle('Kickstart.clear_files');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnKickstart.Kickstart-class.html#clear_files">clear_files</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Kickstart.clear_files-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Kickstart.clear_files-expanded"><a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line"> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">        <tt class="py-name">clear_files_q</tt> <tt class="py-op">=</tt> <tt id="link-15" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-15', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-16" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-16', 'prepare', 'link-7');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"><tt class="py-string">            delete from rhnKSTreeFile where kstree_id = :kstree_id</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"><tt class="py-string">        """</tt><tt class="py-op">)</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">        <tt class="py-name">clear_files_q</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-17', 'execute', 'link-8');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">kstree_id</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">id</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line"> </tt>
+<a name="Kickstart.add_file"></a><div id="Kickstart.add_file-def"><a name="L92"></a><tt class="py-lineno"> 92</tt> <a class="py-toggle" href="#" id="Kickstart.add_file-toggle" onclick="return toggle('Kickstart.add_file');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnKickstart.Kickstart-class.html#add_file">add_file</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">ks_file</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Kickstart.add_file-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Kickstart.add_file-expanded"><a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">         </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">        <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt id="link-18" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-18', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-19', 'prepare', 'link-7');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-string">"alter session set nls_date_format = 'YYYY-MM-DD HH24:MI:SS'"</tt><tt class="py-op">)</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">        <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-20', 'execute', 'link-8');">execute</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">         </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">        <tt id="link-21" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-21', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">,</tt> <tt class="py-string">'trying to insert '</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">id</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">' , '</tt> <tt class="py-op">+</tt> <tt class="py-name">ks_file</tt><tt class="py-op">[</tt><tt class="py-string">'relative_path'</tt><tt class="py-op">]</tt> <tt class="py-op">+</tt> \ </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">                     <tt class="py-string">' , '</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">ks_file</tt><tt class="py-op">[</tt><tt class="py-string">'checksum_type'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">':'</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">                     <tt class="py-string">' , '</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">ks_file</tt><tt class="py-op">[</tt><tt class="py-string">'checksum'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">' , '</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">ks_file</tt><tt class="py-op">[</tt><tt class="py-string">'file_size'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> \ </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">                     <tt class="py-string">' , '</tt> <tt class="py-op">+</tt> <tt class="py-name">ks_file</tt><tt class="py-op">[</tt><tt class="py-string">'last_modified'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line"> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">        <tt class="py-name">insert_file_q</tt> <tt class="py-op">=</tt> <tt id="link-22" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-22', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-23" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-23', 'prepare', 'link-7');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line"><tt class="py-string">            insert into rhnKSTreeFile</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line"><tt class="py-string">            (kstree_id, relative_filename, checksum_id, file_size, last_modified)</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line"><tt class="py-string">            values (:kstree_id, :relative_filename, lookup_checksum(:checksum_type, :checksum),</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line"><tt class="py-string">                    :file_size, :last_modified)</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line"><tt class="py-string">        """</tt><tt class="py-op">)</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">        <tt class="py-name">insert_file_q</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-24', 'execute', 'link-8');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">kstree_id</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">id</tt><tt class="py-op">,</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">                              <tt class="py-name">relative_filename</tt> <tt class="py-op">=</tt> <tt class="py-name">ks_file</tt><tt class="py-op">[</tt><tt class="py-string">'relative_path'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">                              <tt id="link-25" class="py-name" targets="Method spacewalk.common.rhn_rpm.RPM_Header.checksum_type()=spacewalk.common.rhn_rpm.RPM_Header-class.html#checksum_type"><a title="spacewalk.common.rhn_rpm.RPM_Header.checksum_type" class="py-name" href="#" onclick="return doclink('link-25', 'checksum_type', 'link-25');">checksum_type</a></tt> <tt class="py-op">=</tt> <tt class="py-name">ks_file</tt><tt class="py-op">[</tt><tt class="py-string">'checksum_type'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">                              <tt id="link-26" class="py-name" targets="Module spacewalk.common.checksum=spacewalk.common.checksum-module.html"><a title="spacewalk.common.checksum" class="py-name" href="#" onclick="return doclink('link-26', 'checksum', 'link-26');">checksum</a></tt> <tt class="py-op">=</tt> <tt class="py-name">ks_file</tt><tt class="py-op">[</tt><tt class="py-string">'checksum'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">                              <tt class="py-name">file_size</tt> <tt class="py-op">=</tt> <tt class="py-name">ks_file</tt><tt class="py-op">[</tt><tt class="py-string">'file_size'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">                              <tt id="link-27" class="py-name" targets="Method server.repomd.mapper.ChannelMapper.last_modified()=server.repomd.mapper.ChannelMapper-class.html#last_modified,Method server.repomd.mapper.SqlErratumMapper.last_modified()=server.repomd.mapper.SqlErratumMapper-class.html#last_modified,Method server.repomd.mapper.SqlPackageMapper.last_modified()=server.repomd.mapper.SqlPackageMapper-class.html#last_modified"><a title="server.repomd.mapper.ChannelMapper.last_modified
+server.repomd.mapper.SqlErratumMapper.last_modified
+server.repomd.mapper.SqlPackageMapper.last_modified" class="py-name" href="#" onclick="return doclink('link-27', 'last_modified', 'link-27');">last_modified</a></tt> <tt class="py-op">=</tt> <tt class="py-name">ks_file</tt><tt class="py-op">[</tt><tt class="py-string">'last_modified'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">        <tt class="py-name">update_channel</tt> <tt class="py-op">=</tt> <tt id="link-28" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-28', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="server.rhnSQL.Procedure
+server.rhnSQL.driver_cx_Oracle.Procedure
+server.rhnSQL.driver_postgresql.Procedure
+server.rhnSQL.sql_base.Procedure" class="py-name" href="#" onclick="return doclink('link-29', 'Procedure', 'link-14');">Procedure</a></tt><tt class="py-op">(</tt><tt class="py-string">'rhn_channel.update_channel'</tt><tt class="py-op">)</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">        <tt class="py-name">invalidate_ss</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">        <tt class="py-name">update_channel</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">channel_id</tt><tt class="py-op">,</tt> <tt class="py-name">invalidate_ss</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line"> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">    <tt class="py-comment"># Verifies that all pkgs in the ks tree are actually available in the channel</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">    <tt class="py-comment"># Returns a list of packages not found.  If the list is empty, the tree linted </tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">    <tt class="py-comment"># successfully.</tt> </tt>
+<a name="Kickstart.lint_tree"></a><div id="Kickstart.lint_tree-def"><a name="L123"></a><tt class="py-lineno">123</tt> <a class="py-toggle" href="#" id="Kickstart.lint_tree-toggle" onclick="return toggle('Kickstart.lint_tree');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnKickstart.Kickstart-class.html#lint_tree">lint_tree</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Kickstart.lint_tree-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Kickstart.lint_tree-expanded"><a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line"> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">        <tt class="py-comment"># Get a list of all pkgs in the channel.</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">        <tt class="py-name">channel_pkgs</tt> <tt class="py-op">=</tt> <tt id="link-30" class="py-name"><a title="server.rhnChannel" class="py-name" href="#" onclick="return doclink('link-30', 'rhnChannel', 'link-4');">rhnChannel</a></tt><tt class="py-op">.</tt><tt id="link-31" class="py-name" targets="Function server.rhnChannel.list_packages_path()=server.rhnChannel-module.html#list_packages_path"><a title="server.rhnChannel.list_packages_path" class="py-name" href="#" onclick="return doclink('link-31', 'list_packages_path', 'link-31');">list_packages_path</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">channel_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line"> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">        <tt id="link-32" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-32', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">,</tt> <tt class="py-string">'channel_pkgs is '</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">channel_pkgs</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line"> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">        <tt class="py-name">pkgs_not_found</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line"> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">        <tt class="py-comment"># Walk over each package in the kickstart tree</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">pkg</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">pkgs</tt><tt class="py-op">:</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line"> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">            <tt class="py-name">found</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line"> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">            <tt class="py-comment"># Check the current kickstart package against each package in the channel</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">            <tt class="py-keyword">for</tt> <tt class="py-name">channel_pkg</tt> <tt class="py-keyword">in</tt> <tt class="py-name">channel_pkgs</tt><tt class="py-op">:</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line"> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">                <tt class="py-comment"># If we find the pkg, set found and break the loop.</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">find</tt><tt class="py-op">(</tt><tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">lower</tt><tt class="py-op">(</tt><tt class="py-name">channel_pkg</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">lower</tt><tt class="py-op">(</tt><tt class="py-name">pkg</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">                    <tt class="py-name">found</tt> <tt class="py-op">=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">                    <tt class="py-keyword">break</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">                                 </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">found</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">                <tt class="py-name">pkgs_not_found</tt><tt class="py-op">.</tt><tt id="link-33" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-33', 'append', 'link-33');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">pkg</tt><tt class="py-op">)</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line"> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">pkgs_not_found</tt>                 </tt>
+</div><a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">         </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">         </tt>
+<a name="Kickstart.commit"></a><div id="Kickstart.commit-def"><a name="L151"></a><tt class="py-lineno">151</tt> <a class="py-toggle" href="#" id="Kickstart.commit-toggle" onclick="return toggle('Kickstart.commit');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnKickstart.Kickstart-class.html#commit">commit</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Kickstart.commit-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Kickstart.commit-expanded"><a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">        <tt class="py-keyword">pass</tt> </tt>
+</div></div><a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">     </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line"> </tt>
+<a name="create_tree"></a><div id="create_tree-def"><a name="L155"></a><tt class="py-lineno">155</tt> <a class="py-toggle" href="#" id="create_tree-toggle" onclick="return toggle('create_tree');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnKickstart-module.html#create_tree">create_tree</a><tt class="py-op">(</tt><tt class="py-param">ks_label</tt><tt class="py-op">,</tt> <tt class="py-param">channel_label</tt><tt class="py-op">,</tt> <tt class="py-param">path</tt><tt class="py-op">,</tt> <tt class="py-param">boot_image</tt><tt class="py-op">,</tt> <tt class="py-param">kstree_type</tt><tt class="py-op">,</tt> <tt class="py-param">install_type</tt><tt class="py-op">,</tt> <tt class="py-param">pkgs</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="create_tree-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="create_tree-expanded"><a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">     </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">    <tt id="link-34" class="py-name" targets="Variable satellite_tools.reposync.RepoSync.channel=satellite_tools.reposync.RepoSync-class.html#channel,Module server.handlers.app.channel=server.handlers.app.channel-module.html,Variable server.repomd.repository.Repository.channel=server.repomd.repository.Repository-class.html#channel"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-34', 'channel', 'link-34');">channel</a></tt> <tt class="py-op">=</tt> <tt id="link-35" class="py-name"><a title="server.rhnChannel" class="py-name" href="#" onclick="return doclink('link-35', 'rhnChannel', 'link-4');">rhnChannel</a></tt><tt class="py-op">.</tt><tt id="link-36" class="py-name" targets="Function server.rhnChannel.channel_info()=server.rhnChannel-module.html#channel_info"><a title="server.rhnChannel.channel_info" class="py-name" href="#" onclick="return doclink('link-36', 'channel_info', 'link-36');">channel_info</a></tt><tt class="py-op">(</tt><tt id="link-37" class="py-name" targets="Variable satellite_tools.reposync.RepoSync.channel_label=satellite_tools.reposync.RepoSync-class.html#channel_label"><a title="satellite_tools.reposync.RepoSync.channel_label" class="py-name" href="#" onclick="return doclink('link-37', 'channel_label', 'link-37');">channel_label</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line"> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-38" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-38', 'channel', 'link-34');">channel</a></tt> <tt class="py-keyword">is</tt> <tt class="py-string">''</tt><tt class="py-op">:</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-39" class="py-name"><a title="common.rhnException'.rhnFault" class="py-name" href="#" onclick="return doclink('link-39', 'rhnFault', 'link-2');">rhnFault</a></tt><tt class="py-op">(</tt><tt class="py-number">40</tt><tt class="py-op">,</tt> <tt class="py-string">'Could not lookup channel '</tt> <tt class="py-op">+</tt> <tt id="link-40" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel_label" class="py-name" href="#" onclick="return doclink('link-40', 'channel_label', 'link-37');">channel_label</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line"> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">    <tt class="py-name">channel_id</tt> <tt class="py-op">=</tt> <tt id="link-41" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-41', 'channel', 'link-34');">channel</a></tt><tt class="py-op">[</tt><tt class="py-string">'id'</tt><tt class="py-op">]</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">     </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">    <tt class="py-name">create_ks_query</tt> <tt class="py-op">=</tt> <tt id="link-42" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-42', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-43" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-43', 'prepare', 'link-7');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line"><tt class="py-string">        insert into rhnKickstartableTree (</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line"><tt class="py-string">            id, org_id, label, base_path, channel_id, boot_image, kstree_type,</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line"><tt class="py-string">            install_type)</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line"><tt class="py-string">        values (</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line"><tt class="py-string">            sequence_nextval('rhn_kstree_id_seq'), :org_id, :label, :base_path, :channel_id, </tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line"><tt class="py-string">            :boot_image, </tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line"><tt class="py-string">            (select id from rhnKSTreeType where label = :kstree_type),</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line"><tt class="py-string">            (select id from rhnKSInstallType where label = :install_type))</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line"><tt class="py-string">    """</tt><tt class="py-op">)</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">    <tt class="py-name">create_ks_query</tt><tt class="py-op">.</tt><tt id="link-44" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-44', 'execute', 'link-8');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">org_id</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">                            <tt class="py-name">label</tt> <tt class="py-op">=</tt> <tt class="py-name">ks_label</tt><tt class="py-op">,</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">                            <tt class="py-name">base_path</tt> <tt class="py-op">=</tt> <tt class="py-name">path</tt><tt class="py-op">,</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">                            <tt class="py-name">channel_id</tt> <tt class="py-op">=</tt> <tt class="py-name">channel_id</tt><tt class="py-op">,</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">                            <tt class="py-name">boot_image</tt> <tt class="py-op">=</tt> <tt class="py-name">boot_image</tt><tt class="py-op">,</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">                            <tt class="py-name">kstree_type</tt> <tt class="py-op">=</tt> <tt class="py-name">kstree_type</tt><tt class="py-op">,</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">                            <tt class="py-name">install_type</tt> <tt class="py-op">=</tt> <tt class="py-name">install_type</tt><tt class="py-op">)</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line"> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-45" class="py-name" targets="Function server.rhnKickstart.lookup_tree()=server.rhnKickstart-module.html#lookup_tree"><a title="server.rhnKickstart.lookup_tree" class="py-name" href="#" onclick="return doclink('link-45', 'lookup_tree', 'link-45');">lookup_tree</a></tt><tt class="py-op">(</tt><tt class="py-name">ks_label</tt><tt class="py-op">,</tt> <tt class="py-name">pkgs</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line"> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line"> </tt>
+<a name="lookup_tree"></a><div id="lookup_tree-def"><a name="L185"></a><tt class="py-lineno">185</tt> <a class="py-toggle" href="#" id="lookup_tree-toggle" onclick="return toggle('lookup_tree');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnKickstart-module.html#lookup_tree">lookup_tree</a><tt class="py-op">(</tt><tt class="py-param">ks_label</tt><tt class="py-op">,</tt> <tt class="py-param">pkgs</tt><tt class="py-op">)</tt><tt class="py-op">:</tt>     </tt>
+</div><a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">     </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">    <tt class="py-name">ks_label_query</tt> <tt class="py-op">=</tt> <tt id="link-46" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-46', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-47" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-47', 'prepare', 'link-7');">prepare</a></tt> <tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line"><tt class="py-string">        SELECT KT.id, KT.label, KT.base_path, KT.channel_id, KT.boot_image,</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line"><tt class="py-string">               KT.org_id, KTT.id AS TREE_TYPE, KTT.label AS TREE_TYPE_LABEL, KTT.name AS TREE_TYPE_NAME,</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line"><tt class="py-string">               KIT.id AS install_type, KIT.label AS install_type_label, KIT.name AS install_type_name,</tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line"><tt class="py-string">               C.channel_arch_id, CA.label AS CHANNEL_ARCH_LABEL, CA.name AS CHANNEL_ARCH_NAME</tt> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line"><tt class="py-string">          FROM rhnKSTreeType KTT,</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line"><tt class="py-string">               rhnKSInstallType KIT,</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line"><tt class="py-string">               rhnChannel C,</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line"><tt class="py-string">               rhnChannelArch CA,</tt> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line"><tt class="py-string">               rhnKickstartableTree KT</tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line"><tt class="py-string">         WHERE KT.label = :ks_label</tt> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line"><tt class="py-string">           AND KTT.id = KT.kstree_type</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line"><tt class="py-string">           AND KIT.id = KT.install_type</tt> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line"><tt class="py-string">           AND C.id = KT.channel_id</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line"><tt class="py-string">           AND CA.id = C.channel_arch_id</tt> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line"><tt class="py-string">    """</tt><tt class="py-op">)</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line"> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line">    <tt class="py-name">ks_label_query</tt><tt class="py-op">.</tt><tt id="link-48" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-48', 'execute', 'link-8');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">ks_label</tt> <tt class="py-op">=</tt> <tt class="py-name">ks_label</tt><tt class="py-op">)</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line"> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line">    <tt class="py-name">ks_row</tt> <tt class="py-op">=</tt> <tt class="py-name">ks_label_query</tt><tt class="py-op">.</tt><tt id="link-49" class="py-name" targets="Method satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict()=satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#fetchone_dict,Method satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict()=satellite_tools.disk_dumper.dumper.QueryIterator-class.html#fetchone_dict,Method satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict()=satellite_tools.exporter.exportLib.ArrayIterator-class.html#fetchone_dict,Method server.rhnSQL.sql_base.Cursor.fetchone_dict()=server.rhnSQL.sql_base.Cursor-class.html#fetchone_dict"><a title="satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict
+satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict
+satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict
+server.rhnSQL.sql_base.Cursor.fetchone_dict" class="py-name" href="#" onclick="return doclink('link-49', 'fetchone_dict', 'link-49');">fetchone_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line"> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">ks_row</tt><tt class="py-op">:</tt> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line">        <tt id="link-50" class="py-name" targets="Module server.action.kickstart=server.action.kickstart-module.html,Module server.action_extra_data.kickstart=server.action_extra_data.kickstart-module.html"><a title="server.action.kickstart
+server.action_extra_data.kickstart" class="py-name" href="#" onclick="return doclink('link-50', 'kickstart', 'link-50');">kickstart</a></tt> <tt class="py-op">=</tt> <tt id="link-51" class="py-name" targets="Class server.rhnKickstart.Kickstart=server.rhnKickstart.Kickstart-class.html"><a title="server.rhnKickstart.Kickstart" class="py-name" href="#" onclick="return doclink('link-51', 'Kickstart', 'link-51');">Kickstart</a></tt><tt class="py-op">(</tt><tt class="py-name">ks_row</tt><tt class="py-op">,</tt> <tt class="py-name">pkgs</tt><tt class="py-op">)</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-52" class="py-name"><a title="server.action.kickstart
+server.action_extra_data.kickstart" class="py-name" href="#" onclick="return doclink('link-52', 'kickstart', 'link-50');">kickstart</a></tt> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+</div><a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:34 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

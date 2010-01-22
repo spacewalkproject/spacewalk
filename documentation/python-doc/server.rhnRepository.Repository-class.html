@@ -55,7 +55,32 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Repository</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnRepository-pysrc.html#Repository">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_r_41" name="uml_class_diagram_for_server_r_41">
+<area shape="rect" href="common.rhnRepository.Repository-class.html#__del__" title="common.rhnRepository.Repository.__del__" alt="" coords="108,111,348,129"/>
+<area shape="rect" href="common.rhnRepository.Repository-class.html#getPackage" title="Get rpm package." alt="" coords="108,129,348,148"/>
+<area shape="rect" href="common.rhnRepository.Repository-class.html#getPackagePathNVRA" title="OVERLOAD this in server and proxy rhnRepository." alt="" coords="108,148,348,167"/>
+<area shape="rect" href="common.rhnRepository.Repository-class.html#getPackageSource" title="Get srpm packrge." alt="" coords="108,167,348,185"/>
+<area shape="rect" href="common.rhnRepository.Repository-class.html#set_compress_headers" title="common.rhnRepository.Repository.set_compress_headers" alt="" coords="108,185,348,204"/>
+<area shape="rect" href="common.rhnRepository.Repository-class.html" title="Shared repository class, inherited by both the proxy and server specific Repository classes." alt="" coords="107,85,349,205"/>
+<area shape="rect" href="server.rhnRepository.Repository-class.html#__init__" title="Initialize the class, setting channel name and server" alt="" coords="17,260,439,279"/>
+<area shape="rect" href="server.rhnRepository.Repository-class.html#getPackageHeader" title="Get rpm header." alt="" coords="17,279,439,297"/>
+<area shape="rect" href="server.rhnRepository.Repository-class.html#listChannels" title="Clients v2+ returns a list of the channels the server is subscribed to, or &#160;could subscribe to." alt="" coords="17,297,439,316"/>
+<area shape="rect" href="server.rhnRepository.Repository-class.html#listPackages" title="Clients v2+." alt="" coords="17,316,439,335"/>
+<area shape="rect" href="server.rhnRepository.Repository-class.html#getObsoletes" title="Returns a list of packages that obsolete other packages" alt="" coords="17,335,439,353"/>
+<area shape="rect" href="server.rhnRepository.Repository-class.html#getObsoletesBlacklist" title="Returns a list of packages that obsolete other packages XXX Obsoleted" alt="" coords="17,353,439,372"/>
+<area shape="rect" href="server.rhnRepository.Repository-class.html#listAllPackages" title="Creates and/or serves up a cached copy of all the packages for this &#160;channel." alt="" coords="17,372,439,391"/>
+<area shape="rect" href="server.rhnRepository.Repository-class.html#listAllPackagesComplete" title="Creates and/or serves up a cached copy of all the packages for this channel including requires, obsoletes, conflicts, etc." alt="" coords="17,391,439,409"/>
+<area shape="rect" href="server.rhnRepository.Repository-class.html#repodata" title="server.rhnRepository.Repository.repodata" alt="" coords="17,409,439,428"/>
+<area shape="rect" href="server.rhnRepository.Repository-class.html#getPackagePath" title="Retrieves package path Overloads getPackagePath in common/rhnRepository." alt="" coords="17,428,439,447"/>
+<area shape="rect" href="server.rhnRepository.Repository-class.html#getAllPackagePaths" title="retrives the package location if edge network location available and its &#160;local path." alt="" coords="17,447,439,465"/>
+<area shape="rect" href="server.rhnRepository.Repository-class.html#getSourcePackagePath" title="Overloads getSourcePackagePath in common/rhnRepository." alt="" coords="17,465,439,484"/>
+<area shape="rect" href="server.rhnRepository.Repository-class.html#set_qos" title="server.rhnRepository.Repository.set_qos" alt="" coords="17,484,439,503"/>
+<area shape="rect" href="server.rhnRepository.Repository-class.html" title="Cache class to perform RHN server file system and DB actions." alt="" coords="16,235,440,504"/>
+<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html#get_function" title="common.RPC_Base&#39;.RPC_Base.get_function" alt="" coords="131,36,325,55"/>
+<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html" title="common.RPC_Base&#39;.RPC_Base" alt="" coords="129,11,327,56"/>
+</map>
+  <img src="uml_class_diagram_for_server_r_41.png" alt='' usemap="#uml_class_diagram_for_server_r_41" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <p>Cache class to perform RHN server file system and DB actions.</p>
@@ -112,7 +137,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="server.rhnRepository.Repository-class.html#getPackageHeader" class="summary-sig-name">getPackageHeader</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">pkgFilename</span>)</span></td>
+        <span class="summary-sig-arg">pkgFilename</span>)</span><br />
+      Get rpm header.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnRepository-pysrc.html#Repository.getPackageHeader">source&nbsp;code</a></span>
             
@@ -425,8 +451,8 @@
       <code><a href="common.rhnRepository.Repository-class.html#_fileFeatures" onclick="show_private();">_fileFeatures</a></code>,
       <code><a href="common.rhnRepository.Repository-class.html#_set_last_modified" onclick="show_private();">_set_last_modified</a></code>
       </p></div>
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.RPC_Base.RPC_Base-class.html">common.RPC_Base.RPC_Base</a></code></b>:
-      <code><a href="common.RPC_Base.RPC_Base-class.html#get_function">get_function</a></code>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.RPC_Base%27.RPC_Base-class.html">common.RPC_Base'.RPC_Base</a></code></b>:
+      <code><a href="common.RPC_Base%27.RPC_Base-class.html#get_function">get_function</a></code>
       </p>
     </td>
   </tr>
@@ -472,7 +498,7 @@
   string.</p>
   <dl class="fields">
     <dt>Overrides:
-        <a href="common.RPC_Base.RPC_Base-class.html#__init__">common.RPC_Base.RPC_Base.__init__</a>
+        <a href="common.RPC_Base%27.RPC_Base-class.html#__init__">common.RPC_Base'.RPC_Base.__init__</a>
     </dt>
   </dl>
 </td></tr></table>
@@ -492,10 +518,12 @@
     </td>
   </tr></table>
   
-  
+  <p>Get rpm header. XXX: stock 8.0 clients could not compress headers, we 
+  need to either change the function name, or version the protocol</p>
   <dl class="fields">
     <dt>Overrides:
         <a href="common.rhnRepository.Repository-class.html#getPackageHeader">common.rhnRepository.Repository.getPackageHeader</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>
 </td></tr></table>
@@ -642,7 +670,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:16 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:13 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

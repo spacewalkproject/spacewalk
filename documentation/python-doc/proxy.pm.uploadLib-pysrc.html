@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>proxy.pm.uploadLib</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="proxy-module.html">Package&nbsp;proxy</a> ::
+        <a href="proxy.pm-module.html">Package&nbsp;pm</a> ::
+        Module&nbsp;uploadLib
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="proxy.pm.uploadLib-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="proxy.pm.uploadLib-module.html">Module proxy.pm.uploadLib</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment"># Uploading function lib</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation.</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment"># system imports</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">string</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">fnmatch</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">getpass</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-comment"># RHN imports</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">rhnpush</tt> <tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module server.handlers.app.rhn_mpm=server.handlers.app.rhn_mpm-module.html,Module spacewalk.common.rhn_mpm=spacewalk.common.rhn_mpm-module.html"><a title="server.handlers.app.rhn_mpm
+spacewalk.common.rhn_mpm" class="py-name" href="#" onclick="return doclink('link-0', 'rhn_mpm', 'link-0');">rhn_mpm</a></tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">rhnpush</tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Module proxy.pm.uploadLib=proxy.pm.uploadLib-module.html"><a title="proxy.pm.uploadLib" class="py-name" href="#" onclick="return doclink('link-1', 'uploadLib', 'link-1');">uploadLib</a></tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"> </tt>
+<a name="UploadClass"></a><div id="UploadClass-def"><a name="L28"></a><tt class="py-lineno"> 28</tt> <a class="py-toggle" href="#" id="UploadClass-toggle" onclick="return toggle('UploadClass');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="proxy.pm.uploadLib.UploadClass-class.html">UploadClass</a><tt class="py-op">(</tt><tt class="py-base-class">uploadLib</tt><tt class="py-op">.</tt><tt class="py-base-class">UploadClass</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="UploadClass-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="UploadClass-expanded"><a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">    <tt class="py-docstring">""" Functionality for an uploading tool """</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"> </tt>
+<a name="UploadClass.list"></a><div id="UploadClass.list-def"><a name="L31"></a><tt class="py-lineno"> 31</tt> <a class="py-toggle" href="#" id="UploadClass.list-toggle" onclick="return toggle('UploadClass.list');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.pm.uploadLib.UploadClass-class.html#list">list</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="UploadClass.list-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="UploadClass.list-expanded"><a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">        <tt class="py-comment"># set the URL</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Method proxy.pm.rhn_package_manager.UploadClass.setURL()=proxy.pm.rhn_package_manager.UploadClass-class.html#setURL"><a title="proxy.pm.rhn_package_manager.UploadClass.setURL" class="py-name" href="#" onclick="return doclink('link-2', 'setURL', 'link-2');">setURL</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">        <tt class="py-comment"># set the channels</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-3" class="py-name" targets="Method satellite_tools.xmlDiskDumper.ChannelFamilyDumper.setChannels()=satellite_tools.xmlDiskDumper.ChannelFamilyDumper-class.html#setChannels"><a title="satellite_tools.xmlDiskDumper.ChannelFamilyDumper.setChannels" class="py-name" href="#" onclick="return doclink('link-3', 'setChannels', 'link-3');">setChannels</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">        <tt class="py-comment"># set the username and password</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">setUsernamePassword</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">        <tt class="py-comment"># set the server</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Method satellite_tools.xmlWireSource.BaseWireSource.setServer()=satellite_tools.xmlWireSource.BaseWireSource-class.html#setServer"><a title="satellite_tools.xmlWireSource.BaseWireSource.setServer" class="py-name" href="#" onclick="return doclink('link-4', 'setServer', 'link-4');">setServer</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">source</tt><tt class="py-op">:</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">die</tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-string">"Listing source rpms not supported"</tt><tt class="py-op">)</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">            <tt class="py-comment"># List the channel's contents</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">            <tt id="link-5" class="py-name" targets="Method proxy.pm.uploadLib.UploadClass.list()=proxy.pm.uploadLib.UploadClass-class.html#list,Method satellite_tools.xmlDiskSource.ChannelDiskSource.list()=satellite_tools.xmlDiskSource.ChannelDiskSource-class.html#list,Method server.handlers.xmlrpc.up2date.Servers.list()=server.handlers.xmlrpc.up2date.Servers-class.html#list"><a title="proxy.pm.uploadLib.UploadClass.list
+satellite_tools.xmlDiskSource.ChannelDiskSource.list
+server.handlers.xmlrpc.up2date.Servers.list" class="py-name" href="#" onclick="return doclink('link-5', 'list', 'link-5');">list</a></tt> <tt class="py-op">=</tt> <tt id="link-6" class="py-name" targets="Method server.handlers.app.channel.Channel.listChannel()=server.handlers.app.channel.Channel-class.html#listChannel,Method server.handlers.app.packages.Packages.listChannel()=server.handlers.app.packages.Packages-class.html#listChannel,Method server.handlers.xp.packages.Packages.listChannel()=server.handlers.xp.packages.Packages-class.html#listChannel,Method server.importlib.backend.Backend.listChannel()=server.importlib.backend.Backend-class.html#listChannel"><a title="server.handlers.app.channel.Channel.listChannel
+server.handlers.app.packages.Packages.listChannel
+server.handlers.xp.packages.Packages.listChannel
+server.importlib.backend.Backend.listChannel" class="py-name" href="#" onclick="return doclink('link-6', 'listChannel', 'link-6');">listChannel</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Package server=server-module.html"><a title="server" class="py-name" href="#" onclick="return doclink('link-7', 'server', 'link-7');">server</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">username</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">password</tt><tt class="py-op">,</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Method satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels()=satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper-class.html#channels"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-8', 'channels', 'link-8');">channels</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">p</tt> <tt class="py-keyword">in</tt> <tt id="link-9" class="py-name"><a title="proxy.pm.uploadLib.UploadClass.list
+satellite_tools.xmlDiskSource.ChannelDiskSource.list
+server.handlers.xmlrpc.up2date.Servers.list" class="py-name" href="#" onclick="return doclink('link-9', 'list', 'link-5');">list</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">            <tt class="py-keyword">print</tt> <tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-number">6</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"> </tt>
+<a name="UploadClass.newest"></a><div id="UploadClass.newest-def"><a name="L50"></a><tt class="py-lineno"> 50</tt> <a class="py-toggle" href="#" id="UploadClass.newest-toggle" onclick="return toggle('UploadClass.newest');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.pm.uploadLib.UploadClass-class.html#newest">newest</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="UploadClass.newest-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="UploadClass.newest-expanded"><a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">        <tt class="py-comment"># set the URL</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name"><a title="proxy.pm.rhn_package_manager.UploadClass.setURL" class="py-name" href="#" onclick="return doclink('link-10', 'setURL', 'link-2');">setURL</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">        <tt class="py-comment"># set the channels</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name"><a title="satellite_tools.xmlDiskDumper.ChannelFamilyDumper.setChannels" class="py-name" href="#" onclick="return doclink('link-11', 'setChannels', 'link-3');">setChannels</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">        <tt class="py-comment"># set the username and password</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">setUsernamePassword</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">        <tt class="py-comment"># set the server</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="satellite_tools.xmlWireSource.BaseWireSource.setServer" class="py-name" href="#" onclick="return doclink('link-12', 'setServer', 'link-4');">setServer</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">         </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">        <tt class="py-name">sources</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">source</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">sources</tt><tt class="py-op">:</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">get_missing_source_packages</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">get_newest_binary_packages</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"> </tt>
+<a name="UploadClass.copyonly"></a><div id="UploadClass.copyonly-def"><a name="L67"></a><tt class="py-lineno"> 67</tt> <a class="py-toggle" href="#" id="UploadClass.copyonly-toggle" onclick="return toggle('UploadClass.copyonly');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.pm.uploadLib.UploadClass-class.html#copyonly">copyonly</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="UploadClass.copyonly-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="UploadClass.copyonly-expanded"><a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">        <tt class="py-comment"># Set the forcing factor</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">setForce</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-comment"># Relative directory</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">setRelativeDir</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt class="py-comment"># Set the count</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">setCount</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">        <tt class="py-comment"># set the org</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">        <tt class="py-comment">#self.setOrg()</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-comment"># set the URL</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">        <tt class="py-comment">#self.setURL()</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">        <tt class="py-comment"># set the channels</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">        <tt class="py-comment">#self.setNoChannels()</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">        <tt class="py-comment"># set the username and password</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">        <tt class="py-comment">#self.setUsernamePassword()</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-comment"># set the server</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">        <tt class="py-comment">#self.setServer()</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">         </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt id="link-13" class="py-name" targets="Variable satellite_tools.xmlDiskSource.ArchesDiskSource.filename=satellite_tools.xmlDiskSource.ArchesDiskSource-class.html#filename,Variable satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename=satellite_tools.xmlDiskSource.ArchesExtraDiskSource-class.html#filename"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename" class="py-name" href="#" onclick="return doclink('link-13', 'filename', 'link-13');">filename</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">files</tt><tt class="py-op">:</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">            <tt class="py-name">fileinfo</tt> <tt class="py-op">=</tt> <tt class="py-name">_processFile</tt><tt class="py-op">(</tt><tt id="link-14" class="py-name"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename" class="py-name" href="#" onclick="return doclink('link-14', 'filename', 'link-13');">filename</a></tt><tt class="py-op">,</tt>\ </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">                                    <tt class="py-name">relativeDir</tt><tt class="py-op">=</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">relativeDir</tt><tt class="py-op">,</tt> <tt class="py-name">source</tt><tt class="py-op">=</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">source</tt><tt class="py-op">,</tt>\ </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">                                    <tt class="py-name">nosig</tt><tt class="py-op">=</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">nosig</tt><tt class="py-op">)</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name" targets="Method proxy.pm.rhn_package_manager.UploadClass.processPackage()=proxy.pm.rhn_package_manager.UploadClass-class.html#processPackage"><a title="proxy.pm.rhn_package_manager.UploadClass.processPackage" class="py-name" href="#" onclick="return doclink('link-15', 'processPackage', 'link-15');">processPackage</a></tt><tt class="py-op">(</tt><tt class="py-name">fileinfo</tt><tt class="py-op">[</tt><tt class="py-string">'nvrea'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt id="link-16" class="py-name"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename" class="py-name" href="#" onclick="return doclink('link-16', 'filename', 'link-13');">filename</a></tt><tt class="py-op">)</tt>  </tt>
+</div><a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">             </tt>
+<a name="UploadClass.uploadHeaders"></a><div id="UploadClass.uploadHeaders-def"><a name="L91"></a><tt class="py-lineno"> 91</tt> <a class="py-toggle" href="#" id="UploadClass.uploadHeaders-toggle" onclick="return toggle('UploadClass.uploadHeaders');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.pm.uploadLib.UploadClass-class.html#uploadHeaders">uploadHeaders</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="UploadClass.uploadHeaders-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="UploadClass.uploadHeaders-expanded"><a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">        <tt class="py-comment"># Set the forcing factor</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">setForce</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">        <tt class="py-comment"># Relative directory</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">setRelativeDir</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">        <tt class="py-comment"># Set the count</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">setCount</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">        <tt class="py-comment"># set the org</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">setOrg</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">        <tt class="py-comment"># set the URL</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="proxy.pm.rhn_package_manager.UploadClass.setURL" class="py-name" href="#" onclick="return doclink('link-17', 'setURL', 'link-2');">setURL</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">        <tt class="py-comment"># set the channels</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Method proxy.pm.rhn_package_manager.UploadClass.setNoChannels()=proxy.pm.rhn_package_manager.UploadClass-class.html#setNoChannels"><a title="proxy.pm.rhn_package_manager.UploadClass.setNoChannels" class="py-name" href="#" onclick="return doclink('link-18', 'setNoChannels', 'link-18');">setNoChannels</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">        <tt class="py-comment"># set the username and password</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">setUsernamePassword</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">        <tt class="py-comment"># set the server</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="satellite_tools.xmlWireSource.BaseWireSource.setServer" class="py-name" href="#" onclick="return doclink('link-19', 'setServer', 'link-4');">setServer</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">        <tt class="py-name">source</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">source</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line"> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">        <tt class="py-keyword">while</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">files</tt><tt class="py-op">:</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">            <tt class="py-name">chunk</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">files</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">count</tt><tt class="py-op">]</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">            <tt class="py-keyword">del</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">files</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">count</tt><tt class="py-op">]</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">            <tt class="py-name">uploadedPackages</tt><tt class="py-op">,</tt> <tt class="py-name">headersList</tt> <tt class="py-op">=</tt> <tt class="py-name">_processBatch</tt><tt class="py-op">(</tt><tt class="py-name">chunk</tt><tt class="py-op">,</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">                <tt class="py-name">relativeDir</tt><tt class="py-op">=</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">relativeDir</tt><tt class="py-op">,</tt> <tt class="py-name">source</tt><tt class="py-op">=</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">source</tt><tt class="py-op">,</tt>  </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">                <tt id="link-20" class="py-name" targets="Variable satellite_tools.updatePackages.verbose=satellite_tools.updatePackages-module.html#verbose"><a title="satellite_tools.updatePackages.verbose" class="py-name" href="#" onclick="return doclink('link-20', 'verbose', 'link-20');">verbose</a></tt><tt class="py-op">=</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="satellite_tools.updatePackages.verbose" class="py-name" href="#" onclick="return doclink('link-21', 'verbose', 'link-20');">verbose</a></tt><tt class="py-op">,</tt> <tt class="py-name">nosig</tt><tt class="py-op">=</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">nosig</tt><tt class="py-op">)</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">headersList</tt><tt class="py-op">:</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">                <tt class="py-comment"># Nothing to do here...</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">                <tt class="py-keyword">continue</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line"> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">            <tt class="py-comment"># Send the big hash</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">            <tt class="py-name">hash</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-string">'packages'</tt> <tt class="py-op">:</tt> <tt class="py-name">headersList</tt><tt class="py-op">}</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">orgId</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt> <tt class="py-keyword">or</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">orgId</tt> <tt class="py-op">==</tt> <tt class="py-string">''</tt><tt class="py-op">:</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">                <tt class="py-name">hash</tt><tt class="py-op">[</tt><tt class="py-string">'orgId'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">orgId</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line"> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">force</tt><tt class="py-op">:</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">                <tt class="py-name">hash</tt><tt class="py-op">[</tt><tt class="py-string">'force'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">force</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line"> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-22" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-22', 'channels', 'link-8');">channels</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">                <tt class="py-name">hash</tt><tt class="py-op">[</tt><tt class="py-string">'channels'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-23', 'channels', 'link-8');">channels</a></tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line"> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">            <tt class="py-comment"># Some feedback</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="satellite_tools.updatePackages.verbose" class="py-name" href="#" onclick="return doclink('link-24', 'verbose', 'link-20');">verbose</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">                <tt class="py-name">ReportError</tt><tt class="py-op">(</tt><tt class="py-string">"Uploading batch:"</tt><tt class="py-op">)</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">                <tt class="py-keyword">for</tt> <tt class="py-name">p</tt> <tt class="py-keyword">in</tt> <tt class="py-name">uploadedPackages</tt><tt class="py-op">.</tt><tt id="link-25" class="py-name" targets="Method common.rhnConfig.RHNOptions.values()=common.rhnConfig.RHNOptions-class.html#values"><a title="common.rhnConfig.RHNOptions.values" class="py-name" href="#" onclick="return doclink('link-25', 'values', 'link-25');">values</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">                    <tt class="py-name">ReportError</tt><tt class="py-op">(</tt><tt class="py-string">"\t\t%s"</tt> <tt class="py-op">%</tt> <tt class="py-name">p</tt><tt class="py-op">)</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line"> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">source</tt><tt class="py-op">:</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">                <tt class="py-name">method</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name"><a title="server" class="py-name" href="#" onclick="return doclink('link-26', 'server', 'link-7');">server</a></tt><tt class="py-op">.</tt><tt id="link-27" class="py-name" targets="Method satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.packages()=satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper-class.html#packages,Module server.action.packages=server.action.packages-module.html,Module server.action_extra_data.packages=server.action_extra_data.packages-module.html,Module server.handlers.app.packages=server.handlers.app.packages-module.html,Module server.handlers.xp.packages=server.handlers.xp.packages-module.html"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.packages
+server.action.packages
+server.action_extra_data.packages
+server.handlers.app.packages
+server.handlers.xp.packages" class="py-name" href="#" onclick="return doclink('link-27', 'packages', 'link-27');">packages</a></tt><tt class="py-op">.</tt><tt id="link-28" class="py-name" targets="Method server.handlers.app.packages.Packages.uploadSourcePackageInfo()=server.handlers.app.packages.Packages-class.html#uploadSourcePackageInfo,Method server.handlers.xp.packages.Packages.uploadSourcePackageInfo()=server.handlers.xp.packages.Packages-class.html#uploadSourcePackageInfo"><a title="server.handlers.app.packages.Packages.uploadSourcePackageInfo
+server.handlers.xp.packages.Packages.uploadSourcePackageInfo" class="py-name" href="#" onclick="return doclink('link-28', 'uploadSourcePackageInfo', 'link-28');">uploadSourcePackageInfo</a></tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">            <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">                <tt class="py-name">method</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="server" class="py-name" href="#" onclick="return doclink('link-29', 'server', 'link-7');">server</a></tt><tt class="py-op">.</tt><tt id="link-30" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.packages
+server.action.packages
+server.action_extra_data.packages
+server.handlers.app.packages
+server.handlers.xp.packages" class="py-name" href="#" onclick="return doclink('link-30', 'packages', 'link-27');">packages</a></tt><tt class="py-op">.</tt><tt id="link-31" class="py-name" targets="Method server.handlers.app.packages.Packages.uploadPackageInfo()=server.handlers.app.packages.Packages-class.html#uploadPackageInfo,Method server.handlers.xp.packages.Packages.uploadPackageInfo()=server.handlers.xp.packages.Packages-class.html#uploadPackageInfo"><a title="server.handlers.app.packages.Packages.uploadPackageInfo
+server.handlers.xp.packages.Packages.uploadPackageInfo" class="py-name" href="#" onclick="return doclink('link-31', 'uploadPackageInfo', 'link-31');">uploadPackageInfo</a></tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line"> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">            <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt id="link-32" class="py-name" targets="Method server.config_common.base_templated_document.TemplatedDocument.call()=server.config_common.base_templated_document.TemplatedDocument-class.html#call"><a title="server.config_common.base_templated_document.TemplatedDocument.call" class="py-name" href="#" onclick="return doclink('link-32', 'call', 'link-32');">call</a></tt><tt class="py-op">(</tt><tt class="py-name">method</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">username</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">password</tt><tt class="py-op">,</tt> <tt class="py-name">hash</tt><tt class="py-op">)</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">ret</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">               <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">die</tt><tt class="py-op">(</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-string">"Upload attempt failed"</tt><tt class="py-op">)</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line"> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">            <tt class="py-comment"># Append the package information</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">            <tt class="py-name">alreadyUploaded</tt><tt class="py-op">,</tt> <tt class="py-name">newPackages</tt> <tt class="py-op">=</tt> <tt class="py-name">ret</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">            <tt class="py-name">pkglists</tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-name">alreadyUploaded</tt><tt class="py-op">,</tt> <tt class="py-name">newPackages</tt><tt class="py-op">)</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line"> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">            <tt class="py-keyword">for</tt> <tt class="py-name">idx</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">pkglists</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">                <tt class="py-keyword">for</tt> <tt class="py-name">p</tt> <tt class="py-keyword">in</tt> <tt class="py-name">pkglists</tt><tt class="py-op">[</tt><tt class="py-name">idx</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">                    <tt class="py-name">key</tt> <tt class="py-op">=</tt> <tt class="py-name">tuple</tt><tt class="py-op">(</tt><tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-number">5</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">                    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">uploadedPackages</tt><tt class="py-op">.</tt><tt id="link-33" class="py-name" targets="Method common.UserDictCase'.UserDictCase.has_key()=common.UserDictCase%27.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Function server.rhnDatabaseCache.has_key()=server.rhnDatabaseCache-module.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-33', 'has_key', 'link-33');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">key</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">                        <tt class="py-comment"># XXX Hmm</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-34" class="py-name" targets="Function common.rhnConfig.warn()=common.rhnConfig-module.html#warn"><a title="common.rhnConfig.warn" class="py-name" href="#" onclick="return doclink('link-34', 'warn', 'link-34');">warn</a></tt><tt class="py-op">(</tt><tt class="py-string">"XXX XXX %s"</tt> <tt class="py-op">%</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">p</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">                    <tt id="link-35" class="py-name"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename" class="py-name" href="#" onclick="return doclink('link-35', 'filename', 'link-13');">filename</a></tt> <tt class="py-op">=</tt> <tt class="py-name">uploadedPackages</tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">                    <tt class="py-comment"># Some debugging</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">                    <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt id="link-36" class="py-name"><a title="satellite_tools.updatePackages.verbose" class="py-name" href="#" onclick="return doclink('link-36', 'verbose', 'link-20');">verbose</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">                        <tt class="py-keyword">if</tt> <tt class="py-name">idx</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">                            <tt id="link-37" class="py-name" targets="Method spacewalk.common.rhn_rpm.MatchIterator.pattern()=spacewalk.common.rhn_rpm.MatchIterator-class.html#pattern"><a title="spacewalk.common.rhn_rpm.MatchIterator.pattern" class="py-name" href="#" onclick="return doclink('link-37', 'pattern', 'link-37');">pattern</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"Already uploaded: %s"</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">                        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">                            <tt id="link-38" class="py-name"><a title="spacewalk.common.rhn_rpm.MatchIterator.pattern" class="py-name" href="#" onclick="return doclink('link-38', 'pattern', 'link-37');">pattern</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"Uploaded: %s"</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">                        <tt class="py-keyword">print</tt> <tt id="link-39" class="py-name"><a title="spacewalk.common.rhn_rpm.MatchIterator.pattern" class="py-name" href="#" onclick="return doclink('link-39', 'pattern', 'link-37');">pattern</a></tt> <tt class="py-op">%</tt> <tt id="link-40" class="py-name"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename" class="py-name" href="#" onclick="return doclink('link-40', 'filename', 'link-13');">filename</a></tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">                    <tt class="py-comment"># Per-package post actions</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">                    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-41" class="py-name"><a title="proxy.pm.rhn_package_manager.UploadClass.processPackage" class="py-name" href="#" onclick="return doclink('link-41', 'processPackage', 'link-15');">processPackage</a></tt><tt class="py-op">(</tt><tt class="py-name">p</tt><tt class="py-op">,</tt> <tt id="link-42" class="py-name"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename" class="py-name" href="#" onclick="return doclink('link-42', 'filename', 'link-13');">filename</a></tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line"> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line"> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line"> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line"><tt class="py-comment"># returns a header from a package file on disk.</tt> </tt>
+<a name="get_header"></a><div id="get_header-def"><a name="L172"></a><tt class="py-lineno">172</tt> <a class="py-toggle" href="#" id="get_header-toggle" onclick="return toggle('get_header');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.pm.uploadLib-module.html#get_header">get_header</a><tt class="py-op">(</tt><tt class="py-param">file</tt><tt class="py-op">,</tt> <tt class="py-param">fildes</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">source</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="get_header-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="get_header-expanded"><a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">    <tt class="py-comment"># rhn_mpm.get_package_header will choose the right thing to do - open the</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">    <tt class="py-comment"># file or use the provided open file descriptor)</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">        <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt id="link-43" class="py-name"><a title="server.handlers.app.rhn_mpm
+spacewalk.common.rhn_mpm" class="py-name" href="#" onclick="return doclink('link-43', 'rhn_mpm', 'link-0');">rhn_mpm</a></tt><tt class="py-op">.</tt><tt id="link-44" class="py-name" targets="Function server.handlers.app.rhn_mpm.get_package_header()=server.handlers.app.rhn_mpm-module.html#get_package_header,Function spacewalk.common.rhn_mpm.get_package_header()=spacewalk.common.rhn_mpm-module.html#get_package_header,Function spacewalk.common.rhn_rpm.get_package_header()=spacewalk.common.rhn_rpm-module.html#get_package_header"><a title="server.handlers.app.rhn_mpm.get_package_header
+spacewalk.common.rhn_mpm.get_package_header
+spacewalk.common.rhn_rpm.get_package_header" class="py-name" href="#" onclick="return doclink('link-44', 'get_package_header', 'link-44');">get_package_header</a></tt><tt class="py-op">(</tt><tt id="link-45" class="py-name"><a title="satellite_tools.xmlDiskSource.ArchesDiskSource.filename
+satellite_tools.xmlDiskSource.ArchesExtraDiskSource.filename" class="py-name" href="#" onclick="return doclink('link-45', 'filename', 'link-13');">filename</a></tt><tt class="py-op">=</tt><tt class="py-name">file</tt><tt class="py-op">,</tt> <tt class="py-name">fd</tt><tt class="py-op">=</tt><tt class="py-name">fildes</tt><tt class="py-op">)</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt id="link-46" class="py-name"><a title="server.handlers.app.rhn_mpm
+spacewalk.common.rhn_mpm" class="py-name" href="#" onclick="return doclink('link-46', 'rhn_mpm', 'link-0');">rhn_mpm</a></tt><tt class="py-op">.</tt><tt id="link-47" class="py-name" targets="Class satellite_exporter.handlers.non_auth_dumper.InvalidPackageError=satellite_exporter.handlers.non_auth_dumper.InvalidPackageError-class.html,Class server.handlers.app.rhn_mpm.InvalidPackageError=server.handlers.app.rhn_mpm.InvalidPackageError-class.html,Class server.importlib.importLib.InvalidPackageError=server.importlib.importLib.InvalidPackageError-class.html,Class spacewalk.common.rhn_mpm.InvalidPackageError=spacewalk.common.rhn_mpm.InvalidPackageError-class.html,Class spacewalk.common.rhn_rpm.InvalidPackageError=spacewalk.common.rhn_rpm.InvalidPackageError-class.html"><a title="satellite_exporter.handlers.non_auth_dumper.InvalidPackageError
+server.handlers.app.rhn_mpm.InvalidPackageError
+server.importlib.importLib.InvalidPackageError
+spacewalk.common.rhn_mpm.InvalidPackageError
+spacewalk.common.rhn_rpm.InvalidPackageError" class="py-name" href="#" onclick="return doclink('link-47', 'InvalidPackageError', 'link-47');">InvalidPackageError</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt class="py-name">UploadError</tt><tt class="py-op">(</tt><tt class="py-string">"Package is invalid"</tt><tt class="py-op">)</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">    <tt class="py-comment"># Verify that this is indeed a binary/source. xor magic</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">    <tt class="py-comment"># xor doesn't work with None values, so compare the negated values - the</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">    <tt class="py-comment"># results are identical</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt class="py-keyword">not</tt> <tt class="py-name">source</tt><tt class="py-op">)</tt> <tt class="py-op">^</tt> <tt class="py-op">(</tt><tt class="py-keyword">not</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt class="py-name">is_source</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt class="py-name">UploadError</tt><tt class="py-op">(</tt><tt class="py-string">"Unexpected RPM package type"</tt><tt class="py-op">)</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">h</tt> </tt>
+</div><a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:21 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

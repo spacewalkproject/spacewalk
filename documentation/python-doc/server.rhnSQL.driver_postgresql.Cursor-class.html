@@ -56,7 +56,23 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Cursor</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnSQL.driver_postgresql-pysrc.html#Cursor">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_r_51" name="uml_class_diagram_for_server_r_51">
+<area shape="rect" href="server.rhnSQL.sql_base.Cursor-class.html#prepare" title="Prepares the current statement." alt="" coords="127,36,377,55"/>
+<area shape="rect" href="server.rhnSQL.sql_base.Cursor-class.html#execute" title="Execute a single query." alt="" coords="127,55,377,73"/>
+<area shape="rect" href="server.rhnSQL.sql_base.Cursor-class.html#executemany" title="Execute a query multiple times with different data sets." alt="" coords="127,73,377,92"/>
+<area shape="rect" href="server.rhnSQL.sql_base.Cursor-class.html#execute_bulk" title="Uses executemany but chops the incoming dict into chunks for each call." alt="" coords="127,92,377,111"/>
+<area shape="rect" href="server.rhnSQL.sql_base.Cursor-class.html#fetchone" title="server.rhnSQL.sql_base.Cursor.fetchone" alt="" coords="127,111,377,129"/>
+<area shape="rect" href="server.rhnSQL.sql_base.Cursor-class.html#fetchall" title="server.rhnSQL.sql_base.Cursor.fetchall" alt="" coords="127,129,377,148"/>
+<area shape="rect" href="server.rhnSQL.sql_base.Cursor-class.html#fetchone_dict" title="Return a dictionary for the row returned mapping column name to it&#39;s value." alt="" coords="127,148,377,167"/>
+<area shape="rect" href="server.rhnSQL.sql_base.Cursor-class.html#fetchall_dict" title="Fetch all rows as a list of dictionaries." alt="" coords="127,167,377,185"/>
+<area shape="rect" href="server.rhnSQL.sql_base.Cursor-class.html" title="A class to implement generic SQL Cursor operations." alt="" coords="125,11,379,187"/>
+<area shape="rect" href="server.rhnSQL.driver_postgresql.Cursor-class.html#__init__" title="server.rhnSQL.driver_postgresql.Cursor.__init__" alt="" coords="17,241,487,260"/>
+<area shape="rect" href="server.rhnSQL.driver_postgresql.Cursor-class.html#_execute_" title="PostgreSQL specific execution of the query." alt="" coords="17,260,487,279"/>
+<area shape="rect" href="server.rhnSQL.driver_postgresql.Cursor-class.html#update_blob" title="PostgreSQL uses bytea columns instead of blobs." alt="" coords="17,279,487,297"/>
+<area shape="rect" href="server.rhnSQL.driver_postgresql.Cursor-class.html" title="PostgreSQL specific wrapper over sql_base.Cursor." alt="" coords="16,216,488,299"/>
+</map>
+  <img src="uml_class_diagram_for_server_r_51.png" alt='' usemap="#uml_class_diagram_for_server_r_51" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <p>PostgreSQL specific wrapper over sql_base.Cursor.</p>
@@ -188,6 +204,28 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="server.rhnSQL.driver_postgresql.Cursor-class.html#update_blob" class="summary-sig-name">update_blob</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">table_name</span>,
+        <span class="summary-sig-arg">column_name</span>,
+        <span class="summary-sig-arg">where_clause</span>,
+        <span class="summary-sig-arg">data</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+      PostgreSQL uses bytea columns instead of blobs.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_postgresql-pysrc.html#Cursor.update_blob">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnSQL.sql_base.Cursor-class.html">sql_base.Cursor</a></code></b>:
@@ -203,10 +241,7 @@
     <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnSQL.sql_base.Cursor-class.html">sql_base.Cursor</a></code></b> (private):
       <code><a href="server.rhnSQL.sql_base.Cursor-class.html#_execute" onclick="show_private();">_execute</a></code>,
       <code><a href="server.rhnSQL.sql_base.Cursor-class.html#_is_sequence_type" onclick="show_private();">_is_sequence_type</a></code>,
-      <code><a href="server.rhnSQL.sql_base.Cursor-class.html#_munge_arg" onclick="show_private();">_munge_arg</a></code>,
-      <code><a href="server.rhnSQL.sql_base.Cursor-class.html#_munge_args" onclick="show_private();">_munge_args</a></code>,
-      <code><a href="server.rhnSQL.sql_base.Cursor-class.html#_prepare" onclick="show_private();">_prepare</a></code>,
-      <code><a href="server.rhnSQL.sql_base.Cursor-class.html#_unmunge_args" onclick="show_private();">_unmunge_args</a></code>
+      <code><a href="server.rhnSQL.sql_base.Cursor-class.html#_prepare" onclick="show_private();">_prepare</a></code>
       </p></div>
     </td>
   </tr>
@@ -399,6 +434,34 @@
   </dl>
 </td></tr></table>
 </div>
+<a name="update_blob"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">update_blob</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">table_name</span>,
+        <span class="sig-arg">column_name</span>,
+        <span class="sig-arg">where_clause</span>,
+        <span class="sig-arg">data</span>,
+        <span class="sig-arg">**kwargs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnSQL.driver_postgresql-pysrc.html#Cursor.update_blob">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>PostgreSQL uses bytea columns instead of blobs. Nothing special needs 
+  to be done to insert text into one.</p>
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="server.rhnSQL.sql_base.Cursor-class.html#update_blob">sql_base.Cursor.update_blob</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
 <br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
@@ -423,7 +486,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:16 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:13 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

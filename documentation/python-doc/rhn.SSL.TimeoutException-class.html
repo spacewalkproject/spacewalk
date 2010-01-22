@@ -55,7 +55,36 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class TimeoutException</h1><p class="nomargin-top"><span class="codelink"><a href="rhn.SSL-pysrc.html#TimeoutException">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_rhn_ssl_" name="uml_class_diagram_for_rhn_ssl_">
+<area shape="rect" href="javascript:void(0);" title="Base class for all standard Python exceptions that do not represent interpreter exiting." alt="" coords="43,309,200,341"/>
+<area shape="rect" href="javascript:void(0);" title="exception errno" alt="" coords="17,388,193,407"/>
+<area shape="rect" href="javascript:void(0);" title="exception filename" alt="" coords="17,407,193,425"/>
+<area shape="rect" href="javascript:void(0);" title="exception strerror" alt="" coords="17,425,193,444"/>
+<area shape="rect" href="javascript:void(0);" title="helper for pickle" alt="" coords="17,447,193,465"/>
+<area shape="rect" href="javascript:void(0);" title="Base class for I/O related errors." alt="" coords="16,371,195,467"/>
+<area shape="rect" href="javascript:void(0);" title="socket.error" alt="" coords="120,571,195,603"/>
+<area shape="rect" href="javascript:void(0);" title="socket.timeout" alt="" coords="127,632,220,664"/>
+<area shape="rect" href="rhn.SSL.TimeoutException-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="168,719,288,737"/>
+<area shape="rect" href="rhn.SSL.TimeoutException-class.html#__str__" title="str(x)" alt="" coords="168,737,288,756"/>
+<area shape="rect" href="rhn.SSL.TimeoutException-class.html" title="rhn.SSL.TimeoutException" alt="" coords="167,693,289,757"/>
+<area shape="rect" href="javascript:void(0);" title="OpenSSL.SSL.Error" alt="" coords="245,403,368,435"/>
+<area shape="rect" href="javascript:void(0);" title="Common base class for all non&#45;exit exceptions." alt="" coords="121,248,255,280"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.BaseException.args" alt="" coords="107,28,269,47"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.BaseException.message" alt="" coords="107,47,269,65"/>
+<area shape="rect" href="javascript:void(0);" title="x.__delattr__(&#39;name&#39;) &lt;==&gt; del x.name" alt="" coords="107,68,269,87"/>
+<area shape="rect" href="javascript:void(0);" title="x.__getattribute__(&#39;name&#39;) &lt;==&gt; x.name" alt="" coords="107,87,269,105"/>
+<area shape="rect" href="javascript:void(0);" title="x[y]" alt="" coords="107,105,269,124"/>
+<area shape="rect" href="javascript:void(0);" title="x[i:j]" alt="" coords="107,124,269,143"/>
+<area shape="rect" href="javascript:void(0);" title="repr(x)" alt="" coords="107,143,269,161"/>
+<area shape="rect" href="javascript:void(0);" title="x.__setattr__(&#39;name&#39;, value) &lt;==&gt; x.name = value" alt="" coords="107,161,269,180"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.BaseException.__setstate__" alt="" coords="107,180,269,199"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.BaseException.__unicode__" alt="" coords="107,199,269,217"/>
+<area shape="rect" href="javascript:void(0);" title="Common base class for all exceptions" alt="" coords="105,11,271,219"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.IOError.__new__" alt="" coords="91,521,205,540"/>
+<area shape="rect" href="javascript:void(0);" title="I/O operation failed." alt="" coords="89,496,207,541"/>
+</map>
+  <img src="uml_class_diagram_for_rhn_ssl_.png" alt='' usemap="#uml_class_diagram_for_rhn_ssl_" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -112,22 +141,28 @@
   </tr>
   <tr>
     <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.Exception</code></b>:
+    <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.IOError</code></b>:
       <code>__new__</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.EnvironmentError</code></b>:
+      <code>__reduce__</code>
       </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.BaseException</code></b>:
       <code>__delattr__</code>,
       <code>__getattribute__</code>,
       <code>__getitem__</code>,
       <code>__getslice__</code>,
-      <code>__reduce__</code>,
       <code>__repr__</code>,
       <code>__setattr__</code>,
-      <code>__setstate__</code>
+      <code>__setstate__</code>,
+      <code>__unicode__</code>
       </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__format__</code>,
       <code>__hash__</code>,
-      <code>__reduce_ex__</code>
+      <code>__reduce_ex__</code>,
+      <code>__sizeof__</code>,
+      <code>__subclasshook__</code>
       </p>
     </td>
   </tr>
@@ -151,6 +186,11 @@
 </tr>
   <tr>
     <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.EnvironmentError</code></b>:
+      <code>errno</code>,
+      <code>filename</code>,
+      <code>strerror</code>
+      </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.BaseException</code></b>:
       <code>args</code>,
       <code>message</code>
@@ -253,7 +293,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:07 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:20 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

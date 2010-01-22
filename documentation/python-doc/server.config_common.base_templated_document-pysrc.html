@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.config_common.base_templated_document</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.config_common-module.html">Package&nbsp;config_common</a> ::
+        Module&nbsp;base_templated_document
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.config_common.base_templated_document-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="server.config_common.base_templated_document-module.html" onclick="show_private();">Module server.config_common.base_templated_document</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment"># Templating code for the configuration management project</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-comment"># $Id$</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">re</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">string</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package common=common-module.html,Package spacewalk.common=spacewalk.common-module.html"><a title="common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-0', 'common', 'link-0');">common</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Function _apache.log_error()=_apache-module.html#log_error,Function common.rhnLog.log_error()=common.rhnLog-module.html#log_error,Function satellite_tools.satComputePkgHeaders.log_error()=satellite_tools.satComputePkgHeaders-module.html#log_error"><a title="_apache.log_error
+common.rhnLog.log_error
+satellite_tools.satComputePkgHeaders.log_error" class="py-name" href="#" onclick="return doclink('link-1', 'log_error', 'link-1');">log_error</a></tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"> </tt>
+<a name="BaseTemplatedDocument"></a><div id="BaseTemplatedDocument-def"><a name="L26"></a><tt class="py-lineno"> 26</tt> <a class="py-toggle" href="#" id="BaseTemplatedDocument-toggle" onclick="return toggle('BaseTemplatedDocument');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.config_common.base_templated_document.BaseTemplatedDocument-class.html">BaseTemplatedDocument</a><tt class="py-op">:</tt> </tt>
+</div><div id="BaseTemplatedDocument-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="BaseTemplatedDocument-expanded"><a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">    <tt id="link-2" class="py-name" targets="Variable server.config_common.base_templated_document.BaseTemplatedDocument.compiled_regexes=server.config_common.base_templated_document.BaseTemplatedDocument-class.html#compiled_regexes"><a title="server.config_common.base_templated_document.BaseTemplatedDocument.compiled_regexes" class="py-name" href="#" onclick="return doclink('link-2', 'compiled_regexes', 'link-2');">compiled_regexes</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"> </tt>
+<a name="BaseTemplatedDocument.__init__"></a><div id="BaseTemplatedDocument.__init__-def"><a name="L29"></a><tt class="py-lineno"> 29</tt> <a class="py-toggle" href="#" id="BaseTemplatedDocument.__init__-toggle" onclick="return toggle('BaseTemplatedDocument.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.config_common.base_templated_document.BaseTemplatedDocument-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">start_delim</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">end_delim</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BaseTemplatedDocument.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="BaseTemplatedDocument.__init__-expanded"><a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">start_delim</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">end_delim</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-3" class="py-name" targets="Method server.config_common.base_templated_document.BaseTemplatedDocument.set_delims()=server.config_common.base_templated_document.BaseTemplatedDocument-class.html#set_delims"><a title="server.config_common.base_templated_document.BaseTemplatedDocument.set_delims" class="py-name" href="#" onclick="return doclink('link-3', 'set_delims', 'link-3');">set_delims</a></tt><tt class="py-op">(</tt><tt class="py-name">start_delim</tt><tt class="py-op">,</tt> <tt class="py-name">end_delim</tt><tt class="py-op">)</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">functions</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">        <tt class="py-comment"># To be overridden in a child class</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Method server.config_common.base_templated_document.BaseTemplatedDocument.set_functions()=server.config_common.base_templated_document.BaseTemplatedDocument-class.html#set_functions,Method server.config_common.templated_document.ServerTemplatedDocument.set_functions()=server.config_common.templated_document.ServerTemplatedDocument-class.html#set_functions"><a title="server.config_common.base_templated_document.BaseTemplatedDocument.set_functions
+server.config_common.templated_document.ServerTemplatedDocument.set_functions" class="py-name" href="#" onclick="return doclink('link-4', 'set_functions', 'link-4');">set_functions</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"> </tt>
+<a name="BaseTemplatedDocument.set_functions"></a><div id="BaseTemplatedDocument.set_functions-def"><a name="L37"></a><tt class="py-lineno"> 37</tt> <a class="py-toggle" href="#" id="BaseTemplatedDocument.set_functions-toggle" onclick="return toggle('BaseTemplatedDocument.set_functions');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.config_common.base_templated_document.BaseTemplatedDocument-class.html#set_functions">set_functions</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BaseTemplatedDocument.set_functions-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="BaseTemplatedDocument.set_functions-expanded"><a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">        <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"> </tt>
+<a name="BaseTemplatedDocument.set_delims"></a><div id="BaseTemplatedDocument.set_delims-def"><a name="L40"></a><tt class="py-lineno"> 40</tt> <a class="py-toggle" href="#" id="BaseTemplatedDocument.set_delims-toggle" onclick="return toggle('BaseTemplatedDocument.set_delims');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.config_common.base_templated_document.BaseTemplatedDocument-class.html#set_delims">set_delims</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">start_delim</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">end_delim</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BaseTemplatedDocument.set_delims-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="BaseTemplatedDocument.set_delims-expanded"><a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-string">'%'</tt> <tt class="py-keyword">in</tt> <tt class="py-op">(</tt><tt class="py-name">start_delim</tt><tt class="py-op">,</tt> <tt class="py-name">end_delim</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">ValueError</tt><tt class="py-op">,</tt> <tt class="py-string">"Cannot use `%' as a delimiter"</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">start_delim</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt> <tt class="py-keyword">and</tt> <tt class="py-name">start_delim</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">            <tt class="py-name">start_delim</tt> <tt class="py-op">=</tt> <tt class="py-string">'{{'</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">start_delim</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt> <tt class="py-keyword">or</tt> <tt class="py-name">start_delim</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">start_delim</tt> <tt class="py-op">=</tt> <tt class="py-name">start_delim</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">        <tt class="py-comment"># if start_delim is None and self.start_denim is set, don't overwrite</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">end_delim</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt> <tt class="py-keyword">and</tt> <tt class="py-name">end_delim</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">            <tt class="py-name">end_delim</tt> <tt class="py-op">=</tt> <tt class="py-string">'{{'</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">end_delim</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt> <tt class="py-keyword">or</tt> <tt class="py-name">end_delim</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">end_delim</tt> <tt class="py-op">=</tt> <tt class="py-name">end_delim</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">        <tt class="py-comment"># delims might have special characters that are regexp-relevant,</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">        <tt class="py-comment"># need to escape those</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">        <tt class="py-name">escaped_start_delim</tt> <tt class="py-op">=</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Function pygettext.escape()=pygettext-module.html#escape"><a title="pygettext.escape" class="py-name" href="#" onclick="return doclink('link-5', 'escape', 'link-5');">escape</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">start_delim</tt><tt class="py-op">)</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">        <tt class="py-name">escaped_end_delim</tt> <tt class="py-op">=</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name"><a title="pygettext.escape" class="py-name" href="#" onclick="return doclink('link-6', 'escape', 'link-5');">escape</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">end_delim</tt><tt class="py-op">)</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">         </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">        <tt class="py-name">regex_key</tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">start_delim</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">end_delim</tt><tt class="py-op">)</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">         </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">        <tt class="py-comment"># At this point, self.start_delim and self.end_delim are non-null</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name"><a title="server.config_common.base_templated_document.BaseTemplatedDocument.compiled_regexes" class="py-name" href="#" onclick="return doclink('link-7', 'compiled_regexes', 'link-2');">compiled_regexes</a></tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Method common.UserDictCase'.UserDictCase.has_key()=common.UserDictCase%27.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Function server.rhnDatabaseCache.has_key()=server.rhnDatabaseCache-module.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-8', 'has_key', 'link-8');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">regex_key</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">            <tt class="py-comment"># We already have the regex compiled</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">regex</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name"><a title="server.config_common.base_templated_document.BaseTemplatedDocument.compiled_regexes" class="py-name" href="#" onclick="return doclink('link-9', 'compiled_regexes', 'link-2');">compiled_regexes</a></tt><tt class="py-op">[</tt><tt class="py-name">regex_key</tt><tt class="py-op">]</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">        <tt class="py-comment"># We have to convince .* to match as few repetitions as possible,</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">        <tt class="py-comment"># otherwise it's possible to match end_delims too; using .*? then</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">regex</tt> <tt class="py-op">=</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Module compile=compile-module.html,Function compile.compile()=compile-module.html#compile,Module proxy.compile=proxy.compile-module.html,Function proxy.compile.compile()=proxy.compile-module.html#compile"><a title="compile
+compile.compile
+proxy.compile
+proxy.compile.compile" class="py-name" href="#" onclick="return doclink('link-10', 'compile', 'link-10');">compile</a></tt><tt class="py-op">(</tt><tt class="py-name">escaped_start_delim</tt> <tt class="py-op">+</tt> <tt class="py-string">r"(.*?)"</tt> <tt class="py-op">+</tt> <tt class="py-name">escaped_end_delim</tt><tt class="py-op">)</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name"><a title="server.config_common.base_templated_document.BaseTemplatedDocument.compiled_regexes" class="py-name" href="#" onclick="return doclink('link-11', 'compiled_regexes', 'link-2');">compiled_regexes</a></tt><tt class="py-op">[</tt><tt class="py-name">regex_key</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">regex</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line"> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="server.config_common.base_templated_document.BaseTemplatedDocument.compiled_regexes" class="py-name" href="#" onclick="return doclink('link-12', 'compiled_regexes', 'link-2');">compiled_regexes</a></tt><tt class="py-op">[</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">start_delim</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name"><a title="compile
+compile.compile
+proxy.compile
+proxy.compile.compile" class="py-name" href="#" onclick="return doclink('link-13', 'compile', 'link-10');">compile</a></tt><tt class="py-op">(</tt><tt class="py-string">"(%s)"</tt> <tt class="py-op">%</tt> <tt class="py-name">escaped_start_delim</tt><tt class="py-op">)</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name"><a title="server.config_common.base_templated_document.BaseTemplatedDocument.compiled_regexes" class="py-name" href="#" onclick="return doclink('link-14', 'compiled_regexes', 'link-2');">compiled_regexes</a></tt><tt class="py-op">[</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">end_delim</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="compile
+compile.compile
+proxy.compile
+proxy.compile.compile" class="py-name" href="#" onclick="return doclink('link-15', 'compile', 'link-10');">compile</a></tt><tt class="py-op">(</tt><tt class="py-string">"(%s)"</tt> <tt class="py-op">%</tt> <tt class="py-name">escaped_end_delim</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"> </tt>
+<a name="BaseTemplatedDocument.repl_func"></a><div id="BaseTemplatedDocument.repl_func-def"><a name="L75"></a><tt class="py-lineno"> 75</tt> <a class="py-toggle" href="#" id="BaseTemplatedDocument.repl_func-toggle" onclick="return toggle('BaseTemplatedDocument.repl_func');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.config_common.base_templated_document.BaseTemplatedDocument-class.html#repl_func">repl_func</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">match_object</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BaseTemplatedDocument.repl_func-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="BaseTemplatedDocument.repl_func-expanded"><a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-16" class="py-name" targets="Method server.config_common.base_templated_document.BaseTemplatedDocument._repl_func()=server.config_common.base_templated_document.BaseTemplatedDocument-class.html#_repl_func,Method server.config_common.base_templated_document.TemplatedDocument._repl_func()=server.config_common.base_templated_document.TemplatedDocument-class.html#_repl_func"><a title="server.config_common.base_templated_document.BaseTemplatedDocument._repl_func
+server.config_common.base_templated_document.TemplatedDocument._repl_func" class="py-name" href="#" onclick="return doclink('link-16', '_repl_func', 'link-16');">_repl_func</a></tt><tt class="py-op">(</tt><tt class="py-name">match_object</tt><tt class="py-op">)</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">ValueError</tt><tt class="py-op">,</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">            <tt id="link-17" class="py-name"><a title="_apache.log_error
+common.rhnLog.log_error
+satellite_tools.satComputePkgHeaders.log_error" class="py-name" href="#" onclick="return doclink('link-17', 'log_error', 'link-1');">log_error</a></tt><tt class="py-op">(</tt><tt class="py-string">"cfg variable interpolation error"</tt><tt class="py-op">,</tt> <tt class="py-name">e</tt><tt class="py-op">)</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">match_object</tt><tt class="py-op">.</tt><tt class="py-name">group</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"> </tt>
+<a name="BaseTemplatedDocument._repl_func"></a><div id="BaseTemplatedDocument._repl_func-def"><a name="L82"></a><tt class="py-lineno"> 82</tt> <a class="py-toggle" href="#" id="BaseTemplatedDocument._repl_func-toggle" onclick="return toggle('BaseTemplatedDocument._repl_func');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.config_common.base_templated_document.BaseTemplatedDocument-class.html#_repl_func">_repl_func</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">match_object</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BaseTemplatedDocument._repl_func-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="BaseTemplatedDocument._repl_func-expanded"><a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">""</tt> </tt>
+</div><a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line"> </tt>
+<a name="BaseTemplatedDocument.interpolate"></a><div id="BaseTemplatedDocument.interpolate-def"><a name="L85"></a><tt class="py-lineno"> 85</tt> <a class="py-toggle" href="#" id="BaseTemplatedDocument.interpolate-toggle" onclick="return toggle('BaseTemplatedDocument.interpolate');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.config_common.base_templated_document.BaseTemplatedDocument-class.html#interpolate">interpolate</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">data</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BaseTemplatedDocument.interpolate-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="BaseTemplatedDocument.interpolate-expanded"><a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">regex</tt><tt class="py-op">.</tt><tt class="py-name">sub</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Method server.config_common.base_templated_document.BaseTemplatedDocument.repl_func()=server.config_common.base_templated_document.BaseTemplatedDocument-class.html#repl_func"><a title="server.config_common.base_templated_document.BaseTemplatedDocument.repl_func" class="py-name" href="#" onclick="return doclink('link-18', 'repl_func', 'link-18');">repl_func</a></tt><tt class="py-op">,</tt> <tt id="link-19" class="py-name" targets="Method satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data()=satellite_exporter.handlers.non_auth_dumper.ContainerWriter-class.html#data,Method satellite_tools.exporter.xmlWriter.XMLWriter.data()=satellite_tools.exporter.xmlWriter.XMLWriter-class.html#data"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-19', 'data', 'link-19');">data</a></tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"> </tt>
+<a name="TemplatedDocument"></a><div id="TemplatedDocument-def"><a name="L89"></a><tt class="py-lineno"> 89</tt> <a class="py-toggle" href="#" id="TemplatedDocument-toggle" onclick="return toggle('TemplatedDocument');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.config_common.base_templated_document.TemplatedDocument-class.html">TemplatedDocument</a><tt class="py-op">(</tt><tt class="py-base-class">BaseTemplatedDocument</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TemplatedDocument-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="TemplatedDocument-expanded"><a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">    <tt id="link-20" class="py-name" targets="Variable server.config_common.base_templated_document.TemplatedDocument.func_regex=server.config_common.base_templated_document.TemplatedDocument-class.html#func_regex"><a title="server.config_common.base_templated_document.TemplatedDocument.func_regex" class="py-name" href="#" onclick="return doclink('link-20', 'func_regex', 'link-20');">func_regex</a></tt> <tt class="py-op">=</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="compile
+compile.compile
+proxy.compile
+proxy.compile.compile" class="py-name" href="#" onclick="return doclink('link-21', 'compile', 'link-10');">compile</a></tt><tt class="py-op">(</tt><tt class="py-string">"^(?P&lt;fname&gt;[^=]+)(=(?P&lt;defval&gt;.*))?$"</tt><tt class="py-op">)</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">    <tt id="link-22" class="py-name" targets="Variable server.config_common.base_templated_document.TemplatedDocument.funcname_regex=server.config_common.base_templated_document.TemplatedDocument-class.html#funcname_regex"><a title="server.config_common.base_templated_document.TemplatedDocument.funcname_regex" class="py-name" href="#" onclick="return doclink('link-22', 'funcname_regex', 'link-22');">funcname_regex</a></tt> <tt class="py-op">=</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name"><a title="compile
+compile.compile
+proxy.compile
+proxy.compile.compile" class="py-name" href="#" onclick="return doclink('link-23', 'compile', 'link-10');">compile</a></tt><tt class="py-op">(</tt><tt class="py-string">"^[A-Za-z][\w._]*$"</tt><tt class="py-op">)</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line"> </tt>
+<a name="TemplatedDocument._repl_func"></a><div id="TemplatedDocument._repl_func-def"><a name="L93"></a><tt class="py-lineno"> 93</tt> <a class="py-toggle" href="#" id="TemplatedDocument._repl_func-toggle" onclick="return toggle('TemplatedDocument._repl_func');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.config_common.base_templated_document.TemplatedDocument-class.html#_repl_func">_repl_func</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">match_object</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TemplatedDocument._repl_func-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="TemplatedDocument._repl_func-expanded"><a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">        <tt class="py-name">funcname</tt> <tt class="py-op">=</tt> <tt class="py-name">match_object</tt><tt class="py-op">.</tt><tt class="py-name">groups</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">        <tt class="py-name">funcname</tt> <tt class="py-op">=</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name" targets="Method server.config_common.base_templated_document.TemplatedDocument.strip()=server.config_common.base_templated_document.TemplatedDocument-class.html#strip"><a title="server.config_common.base_templated_document.TemplatedDocument.strip" class="py-name" href="#" onclick="return doclink('link-24', 'strip', 'link-24');">strip</a></tt><tt class="py-op">(</tt><tt class="py-name">funcname</tt><tt class="py-op">)</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">        <tt class="py-name">fname</tt><tt class="py-op">,</tt> <tt class="py-name">params</tt><tt class="py-op">,</tt> <tt class="py-name">defval</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-25" class="py-name" targets="Method server.config_common.base_templated_document.TemplatedDocument.parse_func_name()=server.config_common.base_templated_document.TemplatedDocument-class.html#parse_func_name"><a title="server.config_common.base_templated_document.TemplatedDocument.parse_func_name" class="py-name" href="#" onclick="return doclink('link-25', 'parse_func_name', 'link-25');">parse_func_name</a></tt><tt class="py-op">(</tt><tt class="py-name">funcname</tt><tt class="py-op">)</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name" targets="Method server.config_common.base_templated_document.TemplatedDocument.call()=server.config_common.base_templated_document.TemplatedDocument-class.html#call"><a title="server.config_common.base_templated_document.TemplatedDocument.call" class="py-name" href="#" onclick="return doclink('link-26', 'call', 'link-26');">call</a></tt><tt class="py-op">(</tt><tt class="py-name">fname</tt><tt class="py-op">,</tt> <tt class="py-name">params</tt><tt class="py-op">,</tt> <tt class="py-name">defval</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line"> </tt>
+<a name="TemplatedDocument.parse_func_name"></a><div id="TemplatedDocument.parse_func_name-def"><a name="L99"></a><tt class="py-lineno"> 99</tt> <a class="py-toggle" href="#" id="TemplatedDocument.parse_func_name-toggle" onclick="return toggle('TemplatedDocument.parse_func_name');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.config_common.base_templated_document.TemplatedDocument-class.html#parse_func_name">parse_func_name</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">fstr</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TemplatedDocument.parse_func_name-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="TemplatedDocument.parse_func_name-expanded"><a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">        <tt class="py-name">mo</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-27" class="py-name"><a title="server.config_common.base_templated_document.TemplatedDocument.func_regex" class="py-name" href="#" onclick="return doclink('link-27', 'func_regex', 'link-20');">func_regex</a></tt><tt class="py-op">.</tt><tt class="py-name">match</tt><tt class="py-op">(</tt><tt class="py-name">fstr</tt><tt class="py-op">)</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">mo</tt><tt class="py-op">:</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">            <tt class="py-comment"># XXX raise exceptions</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-op">(</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">        <tt id="link-28" class="py-name" targets="Method common.UserDictCase'.UserDictCase.dict()=common.UserDictCase%27.UserDictCase-class.html#dict,Method rhn.UserDictCase.UserDictCase.dict()=rhn.UserDictCase.UserDictCase-class.html#dict"><a title="common.UserDictCase'.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-28', 'dict', 'link-28');">dict</a></tt> <tt class="py-op">=</tt> <tt class="py-name">mo</tt><tt class="py-op">.</tt><tt class="py-name">groupdict</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-name">fname</tt> <tt class="py-op">=</tt> <tt id="link-29" class="py-name"><a title="common.UserDictCase'.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-29', 'dict', 'link-28');">dict</a></tt><tt class="py-op">.</tt><tt id="link-30" class="py-name" targets="Method common.rhnCache.Cache.get()=common.rhnCache.Cache-class.html#get,Method common.rhnCache.CompressedCache.get()=common.rhnCache.CompressedCache-class.html#get,Method common.rhnCache.NullCache.get()=common.rhnCache.NullCache-class.html#get,Method common.rhnCache.ObjectCache.get()=common.rhnCache.ObjectCache-class.html#get,Function common.rhnCache.get()=common.rhnCache-module.html#get,Method common.rhnConfig.RHNOptions.get()=common.rhnConfig.RHNOptions-class.html#get,Function common.rhnFlags.get()=common.rhnFlags-module.html#get,Function server.action_extra_data.up2date_config.get()=server.action_extra_data.up2date_config-module.html#get,Method server.handlers.xmlrpc.queue.Queue.get()=server.handlers.xmlrpc.queue.Queue-class.html#get,Method server.handlers.xmlrpc.up2date.Servers.get()=server.handlers.xmlrpc.up2date.Servers-class.html#get,Function server.rhnDatabaseCache.get()=server.rhnDatabaseCache-module.html#get,Method server.rhnSQL.sql_row.Row.get()=server.rhnSQL.sql_row.Row-class.html#get,Method server.rhnSQL.sql_table.Table.get()=server.rhnSQL.sql_table.Table-class.html#get,Function server.rhnServer.get()=server.rhnServer-module.html#get"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-30', 'get', 'link-30');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">'fname'</tt><tt class="py-op">)</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">        <tt class="py-name">defval</tt> <tt class="py-op">=</tt> <tt id="link-31" class="py-name"><a title="common.UserDictCase'.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-31', 'dict', 'link-28');">dict</a></tt><tt class="py-op">.</tt><tt id="link-32" class="py-name"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-32', 'get', 'link-30');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">'defval'</tt><tt class="py-op">)</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">         </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">        <tt class="py-name">fname</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-33" class="py-name"><a title="server.config_common.base_templated_document.TemplatedDocument.strip" class="py-name" href="#" onclick="return doclink('link-33', 'strip', 'link-24');">strip</a></tt><tt class="py-op">(</tt><tt class="py-name">fname</tt><tt class="py-op">)</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">        <tt class="py-name">defval</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-34" class="py-name" targets="Method server.config_common.base_templated_document.TemplatedDocument.unquote()=server.config_common.base_templated_document.TemplatedDocument-class.html#unquote"><a title="server.config_common.base_templated_document.TemplatedDocument.unquote" class="py-name" href="#" onclick="return doclink('link-34', 'unquote', 'link-34');">unquote</a></tt><tt class="py-op">(</tt><tt class="py-name">defval</tt><tt class="py-op">)</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">        <tt class="py-name">params</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">fname</tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">')'</tt><tt class="py-op">:</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">            <tt class="py-comment"># Params are present</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">            <tt class="py-name">i</tt> <tt class="py-op">=</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">rfind</tt><tt class="py-op">(</tt><tt class="py-name">fname</tt><tt class="py-op">,</tt> <tt class="py-string">'('</tt><tt class="py-op">)</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">i</tt> <tt class="py-op">&lt;</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">                <tt class="py-keyword">raise</tt> <tt class="py-name">ValueError</tt><tt class="py-op">,</tt> <tt class="py-string">"Missing ("</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">            <tt class="py-name">params</tt> <tt class="py-op">=</tt> <tt class="py-name">fname</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">+</tt><tt class="py-number">1</tt><tt class="py-op">:</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">            <tt class="py-name">fname</tt> <tt class="py-op">=</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt id="link-35" class="py-name"><a title="server.config_common.base_templated_document.TemplatedDocument.strip" class="py-name" href="#" onclick="return doclink('link-35', 'strip', 'link-24');">strip</a></tt><tt class="py-op">(</tt><tt class="py-name">fname</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-name">i</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line"> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">            <tt class="py-comment"># Parse the params</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">            <tt class="py-name">params</tt> <tt class="py-op">=</tt> <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-36" class="py-name"><a title="server.config_common.base_templated_document.TemplatedDocument.unquote" class="py-name" href="#" onclick="return doclink('link-36', 'unquote', 'link-34');">unquote</a></tt><tt class="py-op">,</tt> <tt class="py-name">filter</tt><tt class="py-op">(</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-name">params</tt><tt class="py-op">,</tt> <tt class="py-string">','</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line"> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">        <tt class="py-comment"># Validate the function name</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-37" class="py-name"><a title="server.config_common.base_templated_document.TemplatedDocument.funcname_regex" class="py-name" href="#" onclick="return doclink('link-37', 'funcname_regex', 'link-22');">funcname_regex</a></tt><tt class="py-op">.</tt><tt class="py-name">match</tt><tt class="py-op">(</tt><tt class="py-name">fname</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">ValueError</tt><tt class="py-op">,</tt> <tt class="py-string">"Invalid function name %s"</tt> <tt class="py-op">%</tt> <tt class="py-name">fname</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">         </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">fname</tt><tt class="py-op">,</tt> <tt class="py-name">params</tt><tt class="py-op">,</tt> <tt class="py-name">defval</tt> </tt>
+</div><a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line"> </tt>
+<a name="TemplatedDocument.null_call"></a><div id="TemplatedDocument.null_call-def"><a name="L130"></a><tt class="py-lineno">130</tt> <a class="py-toggle" href="#" id="TemplatedDocument.null_call-toggle" onclick="return toggle('TemplatedDocument.null_call');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.config_common.base_templated_document.TemplatedDocument-class.html#null_call">null_call</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">fname</tt><tt class="py-op">,</tt> <tt class="py-param">params</tt><tt class="py-op">,</tt> <tt class="py-param">defval</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TemplatedDocument.null_call-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="TemplatedDocument.null_call-expanded"><a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">        <tt class="py-name">val</tt> <tt class="py-op">=</tt> <tt class="py-name">fname</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">params</tt><tt class="py-op">:</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">            <tt class="py-name">val</tt> <tt class="py-op">=</tt> <tt class="py-string">"%s(%s)"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">val</tt><tt class="py-op">,</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">params</tt><tt class="py-op">,</tt> <tt class="py-string">', '</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">defval</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">            <tt class="py-name">val</tt> <tt class="py-op">=</tt> <tt class="py-string">"%s = %s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">val</tt><tt class="py-op">,</tt> <tt class="py-name">defval</tt><tt class="py-op">)</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">"%s %s %s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">start_delim</tt><tt class="py-op">,</tt> <tt class="py-name">val</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">end_delim</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line"> </tt>
+<a name="TemplatedDocument.lookup_function"></a><div id="TemplatedDocument.lookup_function-def"><a name="L138"></a><tt class="py-lineno">138</tt> <a class="py-toggle" href="#" id="TemplatedDocument.lookup_function-toggle" onclick="return toggle('TemplatedDocument.lookup_function');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.config_common.base_templated_document.TemplatedDocument-class.html#lookup_function">lookup_function</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">fname</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TemplatedDocument.lookup_function-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="TemplatedDocument.lookup_function-expanded"><a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">functions</tt><tt class="py-op">.</tt><tt id="link-38" class="py-name"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-38', 'get', 'link-30');">get</a></tt><tt class="py-op">(</tt><tt class="py-name">fname</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line"> </tt>
+<a name="TemplatedDocument.call"></a><div id="TemplatedDocument.call-def"><a name="L141"></a><tt class="py-lineno">141</tt> <a class="py-toggle" href="#" id="TemplatedDocument.call-toggle" onclick="return toggle('TemplatedDocument.call');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.config_common.base_templated_document.TemplatedDocument-class.html#call">call</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">fname</tt><tt class="py-op">,</tt> <tt class="py-param">params</tt><tt class="py-op">,</tt> <tt class="py-param">defval</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TemplatedDocument.call-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="TemplatedDocument.call-expanded"><a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">        <tt class="py-name">f</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-39" class="py-name" targets="Method server.config_common.base_templated_document.TemplatedDocument.lookup_function()=server.config_common.base_templated_document.TemplatedDocument-class.html#lookup_function"><a title="server.config_common.base_templated_document.TemplatedDocument.lookup_function" class="py-name" href="#" onclick="return doclink('link-39', 'lookup_function', 'link-39');">lookup_function</a></tt><tt class="py-op">(</tt><tt class="py-name">fname</tt><tt class="py-op">)</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">f</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-40" class="py-name" targets="Method server.config_common.base_templated_document.TemplatedDocument.fallback_call()=server.config_common.base_templated_document.TemplatedDocument-class.html#fallback_call,Method server.config_common.templated_document.ServerTemplatedDocument.fallback_call()=server.config_common.templated_document.ServerTemplatedDocument-class.html#fallback_call"><a title="server.config_common.base_templated_document.TemplatedDocument.fallback_call
+server.config_common.templated_document.ServerTemplatedDocument.fallback_call" class="py-name" href="#" onclick="return doclink('link-40', 'fallback_call', 'link-40');">fallback_call</a></tt><tt class="py-op">(</tt><tt class="py-name">fname</tt><tt class="py-op">,</tt> <tt class="py-name">params</tt><tt class="py-op">,</tt> <tt class="py-name">defval</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">params</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">            <tt class="py-name">params</tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line"> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">        <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">apply</tt><tt class="py-op">(</tt><tt class="py-name">f</tt><tt class="py-op">,</tt> <tt class="py-name">params</tt><tt class="py-op">)</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line"> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">result</tt> <tt class="py-op">==</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">defval</tt><tt class="py-op">:</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">defval</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-string">''</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line"> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">result</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line"> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">    <tt class="py-comment"># What to do when the function was not found?</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">    <tt class="py-comment"># To be overridden in subclasses</tt> </tt>
+<a name="TemplatedDocument.fallback_call"></a><div id="TemplatedDocument.fallback_call-def"><a name="L159"></a><tt class="py-lineno">159</tt> <a class="py-toggle" href="#" id="TemplatedDocument.fallback_call-toggle" onclick="return toggle('TemplatedDocument.fallback_call');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.config_common.base_templated_document.TemplatedDocument-class.html#fallback_call">fallback_call</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">fname</tt><tt class="py-op">,</tt> <tt class="py-param">params</tt><tt class="py-op">,</tt> <tt class="py-param">defval</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TemplatedDocument.fallback_call-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="TemplatedDocument.fallback_call-expanded"><a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-41" class="py-name" targets="Class server.config_common.base_templated_document.InvalidFunctionError=server.config_common.base_templated_document.InvalidFunctionError-class.html"><a title="server.config_common.base_templated_document.InvalidFunctionError" class="py-name" href="#" onclick="return doclink('link-41', 'InvalidFunctionError', 'link-41');">InvalidFunctionError</a></tt><tt class="py-op">(</tt><tt class="py-name">fname</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line"> </tt>
+<a name="TemplatedDocument.test"></a><div id="TemplatedDocument.test-def"><a name="L162"></a><tt class="py-lineno">162</tt> <a class="py-toggle" href="#" id="TemplatedDocument.test-toggle" onclick="return toggle('TemplatedDocument.test');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.config_common.base_templated_document.TemplatedDocument-class.html#test">test</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TemplatedDocument.test-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="TemplatedDocument.test-expanded"><a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">        <tt class="py-name">escaped</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">regex</tt><tt class="py-op">.</tt><tt class="py-name">sub</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-42" class="py-name"><a title="server.config_common.base_templated_document.BaseTemplatedDocument.repl_func" class="py-name" href="#" onclick="return doclink('link-42', 'repl_func', 'link-18');">repl_func</a></tt><tt class="py-op">,</tt> <tt class="py-string">'abc @@ aa @@ def'</tt><tt class="py-op">)</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-name">escaped</tt> </tt>
+</div><a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line"> </tt>
+<a name="TemplatedDocument.strip"></a><div id="TemplatedDocument.strip-def"><a name="L166"></a><tt class="py-lineno">166</tt> <a class="py-toggle" href="#" id="TemplatedDocument.strip-toggle" onclick="return toggle('TemplatedDocument.strip');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.config_common.base_templated_document.TemplatedDocument-class.html#strip">strip</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">s</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TemplatedDocument.strip-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="TemplatedDocument.strip-expanded"><a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">s</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt id="link-43" class="py-name"><a title="server.config_common.base_templated_document.TemplatedDocument.strip" class="py-name" href="#" onclick="return doclink('link-43', 'strip', 'link-24');">strip</a></tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line"> </tt>
+<a name="TemplatedDocument.unquote"></a><div id="TemplatedDocument.unquote-def"><a name="L171"></a><tt class="py-lineno">171</tt> <a class="py-toggle" href="#" id="TemplatedDocument.unquote-toggle" onclick="return toggle('TemplatedDocument.unquote');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.config_common.base_templated_document.TemplatedDocument-class.html#unquote">unquote</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">s</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TemplatedDocument.unquote-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="TemplatedDocument.unquote-expanded"><a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">s</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">        <tt class="py-name">s</tt> <tt class="py-op">=</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt id="link-44" class="py-name"><a title="server.config_common.base_templated_document.TemplatedDocument.strip" class="py-name" href="#" onclick="return doclink('link-44', 'strip', 'link-24');">strip</a></tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">)</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">)</tt> <tt class="py-op">&lt;=</tt> <tt class="py-number">1</tt><tt class="py-op">:</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">            <tt class="py-comment"># Nothing to unquote</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">s</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">             </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">s</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-name">s</tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-keyword">and</tt> <tt class="py-name">s</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-keyword">in</tt> <tt class="py-op">[</tt><tt class="py-string">'"'</tt><tt class="py-op">,</tt> <tt class="py-string">"'"</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">            <tt class="py-comment"># Strip quotes</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">s</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">:</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line"> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">s</tt> </tt>
+</div></div><a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line"> </tt>
+<a name="InvalidFunctionError"></a><div id="InvalidFunctionError-def"><a name="L185"></a><tt class="py-lineno">185</tt> <a class="py-toggle" href="#" id="InvalidFunctionError-toggle" onclick="return toggle('InvalidFunctionError');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.config_common.base_templated_document.InvalidFunctionError-class.html">InvalidFunctionError</a><tt class="py-op">(</tt><tt class="py-base-class">Exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="InvalidFunctionError-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="InvalidFunctionError-expanded"><a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">    <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:22 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

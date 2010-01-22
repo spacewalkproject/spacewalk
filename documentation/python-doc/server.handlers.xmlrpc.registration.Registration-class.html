@@ -34,11 +34,10 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        server ::
-        handlers ::
-        xmlrpc ::
-        registration ::
-        Registration ::
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.handlers-module.html">Package&nbsp;handlers</a> ::
+        <a href="server.handlers.xmlrpc-module.html">Package&nbsp;xmlrpc</a> ::
+        <a href="server.handlers.xmlrpc.registration-module.html" onclick="show_private();">Module&nbsp;registration</a> ::
         Class&nbsp;Registration
       </span>
     </td>
@@ -58,7 +57,29 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Registration</h1><p class="nomargin-top"><span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_h_17" name="uml_class_diagram_for_server_h_17">
+<area shape="rect" href="server.rhnHandler%27.rhnHandler-class.html#auth_system" title="server.rhnHandler&#39;.rhnHandler.auth_system" alt="" coords="247,111,428,129"/>
+<area shape="rect" href="server.rhnHandler%27.rhnHandler-class.html" title="server.rhnHandler&#39;.rhnHandler" alt="" coords="245,85,429,131"/>
+<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#__init__" title="server.handlers.xmlrpc.registration.Registration.__init__" alt="" coords="17,185,657,204"/>
+<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#reserve_user" title="Get an username and a password and create a record for this user." alt="" coords="17,204,657,223"/>
+<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#new_user" title="Finish off creating the user." alt="" coords="17,223,657,241"/>
+<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#validate_system_input" title="server.handlers.xmlrpc.registration.Registration.validate_system_input" alt="" coords="17,241,657,260"/>
+<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#validate_system_user" title="server.handlers.xmlrpc.registration.Registration.validate_system_user" alt="" coords="17,260,657,279"/>
+<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#create_system" title="Create a system based on the input parameters." alt="" coords="17,279,657,297"/>
+<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#new_system" title="This function expects at the INPUT a dictionary that has at least the &#160;following members: username, password, os_release, email If the username &#160;does not exist, it is created." alt="" coords="17,297,657,316"/>
+<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#new_system_user_pass" title="server.handlers.xmlrpc.registration.Registration.new_system_user_pass" alt="" coords="17,316,657,335"/>
+<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#get_possible_orgs" title="server.handlers.xmlrpc.registration.Registration.get_possible_orgs" alt="" coords="17,335,657,353"/>
+<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#activate_registration_number" title="server.handlers.xmlrpc.registration.Registration.activate_registration_number" alt="" coords="17,353,657,372"/>
+<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#activate_hardware_info" title="Given some hardware&#45;based criteria per&#45;vendor, try giving entitlements." alt="" coords="17,372,657,391"/>
+<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#attempt_eol_mailing" title="server.handlers.xmlrpc.registration.Registration.attempt_eol_mailing" alt="" coords="17,391,657,409"/>
+<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#send_serial" title="Receive a vendor serial number from the client and tag it to the server." alt="" coords="17,409,657,428"/>
+<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html#remaining_subscriptions" title="server.handlers.xmlrpc.registration.Registration.remaining_subscriptions" alt="" coords="17,447,657,465"/>
+<area shape="rect" href="server.handlers.xmlrpc.registration.Registration-class.html" title="server.handlers.xmlrpc.registration.Registration" alt="" coords="16,160,659,467"/>
+<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html#get_function" title="common.RPC_Base&#39;.RPC_Base.get_function" alt="" coords="240,36,435,55"/>
+<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html" title="common.RPC_Base&#39;.RPC_Base" alt="" coords="239,11,436,56"/>
+</map>
+  <img src="uml_class_diagram_for_server_h_17.png" alt='' usemap="#uml_class_diagram_for_server_h_17" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -84,7 +105,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.registration.Registration-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.__init__">source&nbsp;code</a></span>
             
@@ -479,6 +500,28 @@
       
     </td>
   </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_normalize_packages"></a><span class="summary-sig-name">_normalize_packages</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">system_id</span>,
+        <span class="summary-sig-arg">packages</span>,
+        <span class="summary-sig-arg">allow_none</span>=<span class="summary-sig-default">0</span>)</span><br />
+      the function checks if list of packages is well formated and also 
+      converts packages from old list of lists (extended_profile &gt;= 2) 
+      to new list of dicts (extended_profile = 2)</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration._normalize_packages">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
@@ -558,7 +601,7 @@
           <td><span class="summary-sig"><a name="register_product"></a><span class="summary-sig-name">register_product</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
         <span class="summary-sig-arg">product</span>,
-        <span class="summary-sig-arg">oeminfo</span>=<span class="summary-sig-default">{}</span>)</span></td>
+        <span class="summary-sig-arg">oeminfo</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.register_product">source&nbsp;code</a></span>
             
@@ -628,26 +671,9 @@
           <td><span class="summary-sig"><a name="update_contact_info"></a><span class="summary-sig-name">update_contact_info</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">username</span>,
         <span class="summary-sig-arg">password</span>,
-        <span class="summary-sig-arg">info</span>=<span class="summary-sig-default">{}</span>)</span></td>
+        <span class="summary-sig-arg">info</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.update_contact_info">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="validate_reg_num"></a><span class="summary-sig-name">validate_reg_num</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">prodcode</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.validate_reg_num">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -733,7 +759,7 @@
         <tr>
           <td><span class="summary-sig"><a name="register_osad"></a><span class="summary-sig-name">register_osad</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">args</span>=<span class="summary-sig-default">{}</span>)</span></td>
+        <span class="summary-sig-arg">args</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.register_osad">source&nbsp;code</a></span>
             
@@ -751,7 +777,7 @@
         <tr>
           <td><span class="summary-sig"><a name="register_osad_jid"></a><span class="summary-sig-name">register_osad_jid</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">args</span>=<span class="summary-sig-default">{}</span>)</span></td>
+        <span class="summary-sig-arg">args</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.register_osad_jid">source&nbsp;code</a></span>
             
@@ -806,6 +832,16 @@ in the org specified by username/password</td>
       
     </td>
   </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnHandler%27.rhnHandler-class.html">rhnHandler'.rhnHandler</a></code></b>:
+      <code><a href="server.rhnHandler%27.rhnHandler-class.html#auth_system">auth_system</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.RPC_Base%27.RPC_Base-class.html">common.RPC_Base'.RPC_Base</a></code></b>:
+      <code><a href="common.RPC_Base%27.RPC_Base-class.html#get_function">get_function</a></code>
+      </p>
+    </td>
+  </tr>
 </table>
 <!-- ==================== CLASS VARIABLES ==================== -->
 <a name="section-ClassVariables"></a>
@@ -828,9 +864,9 @@ in the org specified by username/password</td>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.xmlrpc.registration.Registration-class.html#_query_get_dispatchers" class="summary-name" onclick="show_private();">_query_get_dispatchers</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.handlers.xmlrpc.registration.Registration-class.html#_query_get_dispatchers" class="summary-name" onclick="show_private();">_query_get_dispatchers</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 151628076; statement=
         select jabber_id from rhnPushDispatcher
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement ins<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -852,6 +888,29 @@ in the org specified by username/password</td>
   </td>
 </tr>
 </table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.registration-pysrc.html#Registration.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="common.RPC_Base%27.RPC_Base-class.html#__init__">common.RPC_Base'.RPC_Base.__init__</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
 <a name="reserve_user"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -1070,9 +1129,9 @@ Returns a dict of the available channels in the format:
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 151628076; statement=
         select jabber_id from rhnPushDispatcher
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -1102,7 +1161,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:14 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:46 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

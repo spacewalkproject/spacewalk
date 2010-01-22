@@ -1,0 +1,894 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.rhnSQL.sql_table</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.rhnSQL-module.html">Package&nbsp;rhnSQL</a> ::
+        Module&nbsp;sql_table
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.rhnSQL.sql_table-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="server.rhnSQL.sql_table-module.html">Module server.rhnSQL.sql_table</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment"># classes definitions for working with a sql table</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">string</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package common=common-module.html,Package spacewalk.common=spacewalk.common-module.html"><a title="common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-0', 'common', 'link-0');">common</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Class common.UserDictCase'.UserDictCase=common.UserDictCase%27.UserDictCase-class.html,Module rhn.UserDictCase=rhn.UserDictCase-module.html,Class rhn.UserDictCase.UserDictCase=rhn.UserDictCase.UserDictCase-class.html"><a title="common.UserDictCase'.UserDictCase
+rhn.UserDictCase
+rhn.UserDictCase.UserDictCase" class="py-name" href="#" onclick="return doclink('link-1', 'UserDictCase', 'link-1');">UserDictCase</a></tt><tt class="py-op">,</tt> <tt id="link-2" class="py-name" targets="Class common.rhnException'.rhnException=common.rhnException%27.rhnException-class.html"><a title="common.rhnException'.rhnException" class="py-name" href="#" onclick="return doclink('link-2', 'rhnException', 'link-2');">rhnException</a></tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-3" class="py-name" targets="Module server.rhnSQL.sql_base=server.rhnSQL.sql_base-module.html"><a title="server.rhnSQL.sql_base" class="py-name" href="#" onclick="return doclink('link-3', 'sql_base', 'link-3');">sql_base</a></tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-4" class="py-name" targets="Module server.rhnSQL.sql_lib=server.rhnSQL.sql_lib-module.html"><a title="server.rhnSQL.sql_lib" class="py-name" href="#" onclick="return doclink('link-4', 'sql_lib', 'link-4');">sql_lib</a></tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-comment"># A class to handle row updates transparently</tt> </tt>
+<a name="RowData"></a><div id="RowData-def"><a name="L27"></a><tt class="py-lineno"> 27</tt> <a class="py-toggle" href="#" id="RowData-toggle" onclick="return toggle('RowData');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.rhnSQL.sql_table.RowData-class.html">RowData</a><tt class="py-op">(</tt><tt class="py-base-class">UserDictCase</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RowData-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="RowData-expanded"><a name="RowData.__init__"></a><div id="RowData.__init__-def"><a name="L28"></a><tt class="py-lineno"> 28</tt> <a class="py-toggle" href="#" id="RowData.__init__-toggle" onclick="return toggle('RowData.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnSQL.sql_table.RowData-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">dict</tt><tt class="py-op">,</tt> <tt class="py-param">db</tt><tt class="py-op">,</tt> <tt class="py-param">sql</tt><tt class="py-op">,</tt> <tt class="py-param">rowid</tt><tt class="py-op">,</tt> <tt class="py-param">cache</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RowData.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="RowData.__init__-expanded"><a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">        <tt id="link-5" class="py-name"><a title="common.UserDictCase'.UserDictCase
+rhn.UserDictCase
+rhn.UserDictCase.UserDictCase" class="py-name" href="#" onclick="return doclink('link-5', 'UserDictCase', 'link-1');">UserDictCase</a></tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Method common.RPC_Base'.RPC_Base.__init__()=common.RPC_Base%27.RPC_Base-class.html#__init__,Method common.UserDictCase'.UserDictCase.__init__()=common.UserDictCase%27.UserDictCase-class.html#__init__,Method common.rhnApache'.rhnApache.__init__()=common.rhnApache%27.rhnApache-class.html#__init__,Method common.rhnCache.ClosingZipFile.__init__()=common.rhnCache.ClosingZipFile-class.html#__init__,Method common.rhnCache.CompressedCache.__init__()=common.rhnCache.CompressedCache-class.html#__init__,Method common.rhnCache.LockedFile.__init__()=common.rhnCache.LockedFile-class.html#__init__,Method common.rhnCache.NullCache.__init__()=common.rhnCache.NullCache-class.html#__init__,Method common.rhnCache.ObjectCache.__init__()=common.rhnCache.ObjectCache-class.html#__init__,Method common.rhnConfig.RHNOptions.__init__()=common.rhnConfig.RHNOptions-class.html#__init__,Method common.rhnException'.redirectException.__init__()=common.rhnException%27.redirectException-class.html#__init__,Method common.rhnException'.rhnException.__init__()=common.rhnException%27.rhnException-class.html#__init__,Method common.rhnException'.rhnFault.__init__()=common.rhnException%27.rhnFault-class.html#__init__,Method common.rhnLockfile.Lockfile.__init__()=common.rhnLockfile.Lockfile-class.html#__init__,Method common.rhnLog.rhnLog.__init__()=common.rhnLog.rhnLog-class.html#__init__,Method common.rhnRepository.Repository.__init__()=common.rhnRepository.Repository-class.html#__init__,Method common.rhnTB.SecurityList.__init__()=common.rhnTB.SecurityList-class.html#__init__,Method common.rhnTranslate.i18n.__init__()=common.rhnTranslate.i18n-class.html#__init__,Method common.rhn_timer.Timer.__init__()=common.rhn_timer.Timer-class.html#__init__,Method proxy.apacheHandler.apacheHandler.__init__()=proxy.apacheHandler.apacheHandler-class.html#__init__,Method proxy.apacheServer.HandlerWrap.__init__()=proxy.apacheServer.HandlerWrap-class.html#__init__,Method proxy.broker.rhnBroker.BrokerHandler.__init__()=proxy.broker.rhnBroker.BrokerHandler-class.html#__init__,Method proxy.broker.rhnRepository.Repository.__init__()=proxy.broker.rhnRepository.Repository-class.html#__init__,Method proxy.redirect.rhnRedirect.RedirectHandler.__init__()=proxy.redirect.rhnRedirect.RedirectHandler-class.html#__init__,Method proxy.responseContext.ResponseContext.__init__()=proxy.responseContext.ResponseContext-class.html#__init__,Method proxy.rhnAuthCacheClient.Shelf.__init__()=proxy.rhnAuthCacheClient.Shelf-class.html#__init__,Method proxy.rhnAuthCacheClient._Method.__init__()=proxy.rhnAuthCacheClient._Method-class.html#__init__,Method proxy.rhnAuthProtocol.CommunicationError.__init__()=proxy.rhnAuthProtocol.CommunicationError-class.html#__init__,Method proxy.rhnProxyAuth.ProxyAuth.__init__()=proxy.rhnProxyAuth.ProxyAuth-class.html#__init__,Method proxy.rhnShared.SharedHandler.__init__()=proxy.rhnShared.SharedHandler-class.html#__init__,Method pygettext.TokenEater.__init__()=pygettext.TokenEater-class.html#__init__,Method rhn.SSL.SSLSocket.__init__()=rhn.SSL.SSLSocket-class.html#__init__,Method rhn.SSL.TimeoutException.__init__()=rhn.SSL.TimeoutException-class.html#__init__,Method rhn.SmartIO.SmartIO.__init__()=rhn.SmartIO.SmartIO-class.html#__init__,Method rhn.UserDictCase.UserDictCase.__init__()=rhn.UserDictCase.UserDictCase-class.html#__init__,Method rhn.connections.HTTPConnection.__init__()=rhn.connections.HTTPConnection-class.html#__init__,Method rhn.connections.HTTPProxyConnection.__init__()=rhn.connections.HTTPProxyConnection-class.html#__init__,Method rhn.connections.HTTPSConnection.__init__()=rhn.connections.HTTPSConnection-class.html#__init__,Method rhn.connections.HTTPSProxyConnection.__init__()=rhn.connections.HTTPSProxyConnection-class.html#__init__,Method rhn.nonblocking.NonBlockingFile.__init__()=rhn.nonblocking.NonBlockingFile-class.html#__init__,Method rhn.rpclib.GETServer.__init__()=rhn.rpclib.GETServer-class.html#__init__,Method rhn.rpclib.Server.__init__()=rhn.rpclib.Server-class.html#__init__,Method rhn.rpclib.Server.__init__()=rhn.rpclib.Server-class.html#__init__,Method rhn.rpclib.SlicingMethod.__init__()=rhn.rpclib.SlicingMethod-class.html#__init__,Method rhn.rpclib._Method.__init__()=rhn.rpclib._Method-class.html#__init__,Method rhn.transports.BaseOutput.__init__()=rhn.transports.BaseOutput-class.html#__init__,Method rhn.transports.File.__init__()=rhn.transports.File-class.html#__init__,Method rhn.transports.Input.__init__()=rhn.transports.Input-class.html#__init__,Method rhn.transports.InputStream.__init__()=rhn.transports.InputStream-class.html#__init__,Method rhn.transports.ProxyTransport.__init__()=rhn.transports.ProxyTransport-class.html#__init__,Method rhn.transports.SafeProxyTransport.__init__()=rhn.transports.SafeProxyTransport-class.html#__init__,Method rhn.transports.SafeTransport.__init__()=rhn.transports.SafeTransport-class.html#__init__,Method rhn.transports.Transport.__init__()=rhn.transports.Transport-class.html#__init__,Method satellite_exporter.handlers.non_auth_dumper.ChannelsDumper.__init__()=satellite_exporter.handlers.non_auth_dumper.ChannelsDumper-class.html#__init__,Method satellite_exporter.handlers.non_auth_dumper.ContainerWriter.__init__()=satellite_exporter.handlers.non_auth_dumper.ContainerWriter-class.html#__init__,Method satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.__init__()=satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper-class.html#__init__,Method satellite_exporter.handlers.non_auth_dumper._ChannelDumper.__init__()=satellite_exporter.handlers.non_auth_dumper._ChannelDumper-class.html#__init__,Method satellite_exporter.satexport.ApacheServer.__init__()=satellite_exporter.satexport.ApacheServer-class.html#__init__,Method satellite_exporter.satexport.BaseApacheServer.__init__()=satellite_exporter.satexport.BaseApacheServer-class.html#__init__,Method satellite_tools.SequenceServer.SequenceServer.__init__()=satellite_tools.SequenceServer.SequenceServer-class.html#__init__,Method satellite_tools.connection.CompressedStream.__init__()=satellite_tools.connection.CompressedStream-class.html#__init__,Method satellite_tools.connection.StreamConnection.__init__()=satellite_tools.connection.StreamConnection-class.html#__init__,Method satellite_tools.connection.Transport.__init__()=satellite_tools.connection.Transport-class.html#__init__,Method satellite_tools.disk_dumper.dumper.CachedDumper.__init__()=satellite_tools.disk_dumper.dumper.CachedDumper-class.html#__init__,Method satellite_tools.disk_dumper.dumper.CachedQueryIterator.__init__()=satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#__init__,Method satellite_tools.disk_dumper.dumper.ChannelsDumper.__init__()=satellite_tools.disk_dumper.dumper.ChannelsDumper-class.html#__init__,Method satellite_tools.disk_dumper.dumper.ChannelsDumperEx.__init__()=satellite_tools.disk_dumper.dumper.ChannelsDumperEx-class.html#__init__,Method satellite_tools.disk_dumper.dumper.DatabaseStatement.__init__()=satellite_tools.disk_dumper.dumper.DatabaseStatement-class.html#__init__,Method satellite_tools.disk_dumper.dumper.ErrataDumper.__init__()=satellite_tools.disk_dumper.dumper.ErrataDumper-class.html#__init__,Method satellite_tools.disk_dumper.dumper.ErrataDumperEx.__init__()=satellite_tools.disk_dumper.dumper.ErrataDumperEx-class.html#__init__,Method satellite_tools.disk_dumper.dumper.KickstartableTreesDumper.__init__()=satellite_tools.disk_dumper.dumper.KickstartableTreesDumper-class.html#__init__,Method satellite_tools.disk_dumper.dumper.PackagesDumper.__init__()=satellite_tools.disk_dumper.dumper.PackagesDumper-class.html#__init__,Method satellite_tools.disk_dumper.dumper.QueryIterator.__init__()=satellite_tools.disk_dumper.dumper.QueryIterator-class.html#__init__,Method satellite_tools.disk_dumper.dumper.ShortPackagesDumper.__init__()=satellite_tools.disk_dumper.dumper.ShortPackagesDumper-class.html#__init__,Method satellite_tools.disk_dumper.dumper.SourcePackagesDumper.__init__()=satellite_tools.disk_dumper.dumper.SourcePackagesDumper-class.html#__init__,Method satellite_tools.disk_dumper.dumper.TeeStream.__init__()=satellite_tools.disk_dumper.dumper.TeeStream-class.html#__init__,Method satellite_tools.disk_dumper.dumper.XML_Dumper.__init__()=satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#__init__,Method satellite_tools.disk_dumper.dumper.XML_DumperEx.__init__()=satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#__init__,Method satellite_tools.disk_dumper.iss.Dumper.__init__()=satellite_tools.disk_dumper.iss.Dumper-class.html#__init__,Method satellite_tools.disk_dumper.iss.ExporterMain.__init__()=satellite_tools.disk_dumper.iss.ExporterMain-class.html#__init__,Method satellite_tools.disk_dumper.iss.FileMapper.__init__()=satellite_tools.disk_dumper.iss.FileMapper-class.html#__init__,Method satellite_tools.disk_dumper.iss.ISSChannelPackageShortDiskSource.__init__()=satellite_tools.disk_dumper.iss.ISSChannelPackageShortDiskSource-class.html#__init__,Method satellite_tools.disk_dumper.iss.ISSError.__init__()=satellite_tools.disk_dumper.iss.ISSError-class.html#__init__,Method satellite_tools.disk_dumper.iss_actions.ActionDeps.__init__()=satellite_tools.disk_dumper.iss_actions.ActionDeps-class.html#__init__,Method satellite_tools.disk_dumper.iss_ui.UI.__init__()=satellite_tools.disk_dumper.iss_ui.UI-class.html#__init__,Method satellite_tools.disk_dumper.string_buffer.StringBuffer.__init__()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#__init__,Method satellite_tools.exporter.exportLib.ArrayIterator.__init__()=satellite_tools.exporter.exportLib.ArrayIterator-class.html#__init__,Method satellite_tools.exporter.exportLib.BaseDumper.__init__()=satellite_tools.exporter.exportLib.BaseDumper-class.html#__init__,Method satellite_tools.exporter.exportLib.BaseRowDumper.__init__()=satellite_tools.exporter.exportLib.BaseRowDumper-class.html#__init__,Method satellite_tools.exporter.exportLib.ChannelDumper.__init__()=satellite_tools.exporter.exportLib.ChannelDumper-class.html#__init__,Method satellite_tools.exporter.exportLib.ChannelFamiliesDumper.__init__()=satellite_tools.exporter.exportLib.ChannelFamiliesDumper-class.html#__init__,Method satellite_tools.exporter.exportLib.ChannelsDumper.__init__()=satellite_tools.exporter.exportLib.ChannelsDumper-class.html#__init__,Method satellite_tools.exporter.exportLib.EmptyDumper.__init__()=satellite_tools.exporter.exportLib.EmptyDumper-class.html#__init__,Method satellite_tools.exporter.exportLib.RestrictedArchCompatDumper.__init__()=satellite_tools.exporter.exportLib.RestrictedArchCompatDumper-class.html#__init__,Method satellite_tools.exporter.exportLib.RestrictedArchesDumper.__init__()=satellite_tools.exporter.exportLib.RestrictedArchesDumper-class.html#__init__,Method satellite_tools.exporter.exportLib.SatelliteDumper.__init__()=satellite_tools.exporter.exportLib.SatelliteDumper-class.html#__init__,Method satellite_tools.exporter.exportLib.SimpleDumper.__init__()=satellite_tools.exporter.exportLib.SimpleDumper-class.html#__init__,Method satellite_tools.exporter.exportLib._ChannelFamilyDumper.__init__()=satellite_tools.exporter.exportLib._ChannelFamilyDumper-class.html#__init__,Method satellite_tools.exporter.exportLib._DependencyDumper.__init__()=satellite_tools.exporter.exportLib._DependencyDumper-class.html#__init__,Method satellite_tools.exporter.exporter.Dumper.__init__()=satellite_tools.exporter.exporter.Dumper-class.html#__init__,Method satellite_tools.exporter.xmlWriter.XMLWriter.__init__()=satellite_tools.exporter.xmlWriter.XMLWriter-class.html#__init__,Method satellite_tools.progress_bar.ProgressBar.__init__()=satellite_tools.progress_bar.ProgressBar-class.html#__init__,Method satellite_tools.repo_plugins.yum_src.ContentSource.__init__()=satellite_tools.repo_plugins.yum_src.ContentSource-class.html#__init__,Method satellite_tools.reposync.ContentPackage.__init__()=satellite_tools.reposync.ContentPackage-class.html#__init__,Method satellite_tools.req_channels.Method.__init__()=satellite_tools.req_channels.Method-class.html#__init__,Method satellite_tools.req_channels.RequestedChannels.__init__()=satellite_tools.req_channels.RequestedChannels-class.html#__init__,Method satellite_tools.satCerts.CertVersionMismatchError.__init__()=satellite_tools.satCerts.CertVersionMismatchError-class.html#__init__,Method satellite_tools.satCerts.NoFreeEntitlementsError.__init__()=satellite_tools.satCerts.NoFreeEntitlementsError-class.html#__init__,Method satellite_tools.satComputePkgHeaders.Runner.__init__()=satellite_tools.satComputePkgHeaders.Runner-class.html#__init__,Method satellite_tools.satsync.Runner.__init__()=satellite_tools.satsync.Runner-class.html#__init__,Method satellite_tools.satsync.StreamProducer.__init__()=satellite_tools.satsync.StreamProducer-class.html#__init__,Method satellite_tools.satsync.Syncer.__init__()=satellite_tools.satsync.Syncer-class.html#__init__,Method satellite_tools.syncCache.BaseCache.__init__()=satellite_tools.syncCache.BaseCache-class.html#__init__,Method satellite_tools.syncLib.FileManip.__init__()=satellite_tools.syncLib.FileManip-class.html#__init__,Method satellite_tools.syncLib.RpmManip.__init__()=satellite_tools.syncLib.RpmManip-class.html#__init__,Method satellite_tools.sync_handlers.BaseCollection.__init__()=satellite_tools.sync_handlers.BaseCollection-class.html#__init__,Method satellite_tools.sync_handlers.ChannelCollection.__init__()=satellite_tools.sync_handlers.ChannelCollection-class.html#__init__,Method satellite_tools.sync_handlers.ContainerHandler.__init__()=satellite_tools.sync_handlers.ContainerHandler-class.html#__init__,Method satellite_tools.sync_handlers.ErrataCollection.__init__()=satellite_tools.sync_handlers.ErrataCollection-class.html#__init__,Method satellite_tools.sync_handlers.ShortPackageCollection.__init__()=satellite_tools.sync_handlers.ShortPackageCollection-class.html#__init__,Method satellite_tools.xmlDiskDumper.Dumper.__init__()=satellite_tools.xmlDiskDumper.Dumper-class.html#__init__,Method satellite_tools.xmlDiskSource.BinaryRPMDiskSource.__init__()=satellite_tools.xmlDiskSource.BinaryRPMDiskSource-class.html#__init__,Method satellite_tools.xmlDiskSource.ChannelDiskSource.__init__()=satellite_tools.xmlDiskSource.ChannelDiskSource-class.html#__init__,Method satellite_tools.xmlDiskSource.DiskSource.__init__()=satellite_tools.xmlDiskSource.DiskSource-class.html#__init__,Method satellite_tools.xmlDiskSource.KickstartDataDiskSource.__init__()=satellite_tools.xmlDiskSource.KickstartDataDiskSource-class.html#__init__,Method satellite_tools.xmlDiskSource.KickstartFileDiskSource.__init__()=satellite_tools.xmlDiskSource.KickstartFileDiskSource-class.html#__init__,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.__init__()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#__init__,Method satellite_tools.xmlSource.BaseDispatchHandler.__init__()=satellite_tools.xmlSource.BaseDispatchHandler-class.html#__init__,Method satellite_tools.xmlSource.ContainerHandler.__init__()=satellite_tools.xmlSource.ContainerHandler-class.html#__init__,Method satellite_tools.xmlSource.IncompatibleVersionError.__init__()=satellite_tools.xmlSource.IncompatibleVersionError-class.html#__init__,Method satellite_tools.xmlSource.Node.__init__()=satellite_tools.xmlSource.Node-class.html#__init__,Method satellite_tools.xmlSource._EndContainerEvent.__init__()=satellite_tools.xmlSource._EndContainerEvent-class.html#__init__,Method satellite_tools.xmlWireSource.BaseWireSource.__init__()=satellite_tools.xmlWireSource.BaseWireSource-class.html#__init__,Method satellite_tools.xmlWireSource.FileWireSource.__init__()=satellite_tools.xmlWireSource.FileWireSource-class.html#__init__,Method satellite_tools.xmlWireSource.RPCGetWireSource.__init__()=satellite_tools.xmlWireSource.RPCGetWireSource-class.html#__init__,Method server.action.utils.ChannelPackage.__init__()=server.action.utils.ChannelPackage-class.html#__init__,Method server.action.utils.PackageInstallScheduler.__init__()=server.action.utils.PackageInstallScheduler-class.html#__init__,Method server.action.utils.SubscribedChannel.__init__()=server.action.utils.SubscribedChannel-class.html#__init__,Method server.action.virt.NoRowFoundException.__init__()=server.action.virt.NoRowFoundException-class.html#__init__,Method server.action.virt.NoUUIDException.__init__()=server.action.virt.NoUUIDException-class.html#__init__,Method server.apacheHandler.apacheHandler.__init__()=server.apacheHandler.apacheHandler-class.html#__init__,Method server.apacheRequest.GetHandler.__init__()=server.apacheRequest.GetHandler-class.html#__init__,Method server.apacheRequest.UnknownXML.__init__()=server.apacheRequest.UnknownXML-class.html#__init__,Method server.apacheRequest.apacheGET.__init__()=server.apacheRequest.apacheGET-class.html#__init__,Method server.apacheRequest.apacheRequest.__init__()=server.apacheRequest.apacheRequest-class.html#__init__,Method server.apacheServer.HandlerWrap.__init__()=server.apacheServer.HandlerWrap-class.html#__init__,Method server.apacheUploadServer.UploadHandler.__init__()=server.apacheUploadServer.UploadHandler-class.html#__init__,Method server.basePackageUpload.BasePackageUpload.__init__()=server.basePackageUpload.BasePackageUpload-class.html#__init__,Method server.configFilesHandler.BaseConfigFileError.__init__()=server.configFilesHandler.BaseConfigFileError-class.html#__init__,Method server.configFilesHandler.ConfigFileError.__init__()=server.configFilesHandler.ConfigFileError-class.html#__init__,Method server.configFilesHandler.ConfigFilesHandler.__init__()=server.configFilesHandler.ConfigFilesHandler-class.html#__init__,Method server.config_common.base_templated_document.BaseTemplatedDocument.__init__()=server.config_common.base_templated_document.BaseTemplatedDocument-class.html#__init__,Method server.config_common.templated_document.ServerTemplatedDocument.__init__()=server.config_common.templated_document.ServerTemplatedDocument-class.html#__init__,Method server.handlers.app.channel.Channel.__init__()=server.handlers.app.channel.Channel-class.html#__init__,Method server.handlers.app.comps.Comps.__init__()=server.handlers.app.comps.Comps-class.html#__init__,Method server.handlers.app.packages.Packages.__init__()=server.handlers.app.packages.Packages-class.html#__init__,Method server.handlers.app.rhn_mpm.MPM_Header.__init__()=server.handlers.app.rhn_mpm.MPM_Header-class.html#__init__,Method server.handlers.app.rhn_mpm.MPM_Package.__init__()=server.handlers.app.rhn_mpm.MPM_Package-class.html#__init__,Method server.handlers.applet.applet.Applet.__init__()=server.handlers.applet.applet.Applet-class.html#__init__,Method server.handlers.config.rhn_config_management.ConfigManagement.__init__()=server.handlers.config.rhn_config_management.ConfigManagement-class.html#__init__,Method server.handlers.config_mgmt.rhn_config_management.ConfigManagement.__init__()=server.handlers.config_mgmt.rhn_config_management.ConfigManagement-class.html#__init__,Method server.handlers.sat.auth.Authentication.__init__()=server.handlers.sat.auth.Authentication-class.html#__init__,Method server.handlers.sat.cert.Certificate.__init__()=server.handlers.sat.cert.Certificate-class.html#__init__,Method server.handlers.xmlrpc.errata.Errata.__init__()=server.handlers.xmlrpc.errata.Errata-class.html#__init__,Method server.handlers.xmlrpc.proxy.Proxy.__init__()=server.handlers.xmlrpc.proxy.Proxy-class.html#__init__,Method server.handlers.xmlrpc.proxy.rhnProxyHandler.__init__()=server.handlers.xmlrpc.proxy.rhnProxyHandler-class.html#__init__,Method server.handlers.xmlrpc.queue.Queue.__init__()=server.handlers.xmlrpc.queue.Queue-class.html#__init__,Method server.handlers.xmlrpc.registration.Registration.__init__()=server.handlers.xmlrpc.registration.Registration-class.html#__init__,Method server.handlers.xmlrpc.up2date.Servers.__init__()=server.handlers.xmlrpc.up2date.Servers-class.html#__init__,Method server.handlers.xmlrpc.up2date.Up2date.__init__()=server.handlers.xmlrpc.up2date.Up2date-class.html#__init__,Method server.handlers.xp.packages.Packages.__init__()=server.handlers.xp.packages.Packages-class.html#__init__,Method server.handlers.xp.rhnlint.RHNLint.__init__()=server.handlers.xp.rhnlint.RHNLint-class.html#__init__,Method server.importlib.archImport.BaseArchCompatImport.__init__()=server.importlib.archImport.BaseArchCompatImport-class.html#__init__,Method server.importlib.backend.Backend.__init__()=server.importlib.backend.Backend-class.html#__init__,Method server.importlib.backend.DML.__init__()=server.importlib.backend.DML-class.html#__init__,Method server.importlib.backendLib.BaseTableLookup.__init__()=server.importlib.backendLib.BaseTableLookup-class.html#__init__,Method server.importlib.backendLib.DBstring.__init__()=server.importlib.backendLib.DBstring-class.html#__init__,Method server.importlib.backendLib.Table.__init__()=server.importlib.backendLib.Table-class.html#__init__,Method server.importlib.backendLib.TableCollection.__init__()=server.importlib.backendLib.TableCollection-class.html#__init__,Method server.importlib.backendLib.TableDelete.__init__()=server.importlib.backendLib.TableDelete-class.html#__init__,Method server.importlib.backendLib.TableInsert.__init__()=server.importlib.backendLib.TableInsert-class.html#__init__,Method server.importlib.backendLib.TableLookup.__init__()=server.importlib.backendLib.TableLookup-class.html#__init__,Method server.importlib.backendLib.TableUpdate.__init__()=server.importlib.backendLib.TableUpdate-class.html#__init__,Method server.importlib.backendOracle.OracleBackend.__init__()=server.importlib.backendOracle.OracleBackend-class.html#__init__,Method server.importlib.blacklistImport.BlacklistObsoletesImport.__init__()=server.importlib.blacklistImport.BlacklistObsoletesImport-class.html#__init__,Method server.importlib.channelImport.ChannelFamilyPermissionsImport.__init__()=server.importlib.channelImport.ChannelFamilyPermissionsImport-class.html#__init__,Method server.importlib.channelImport.ChannelImport.__init__()=server.importlib.channelImport.ChannelImport-class.html#__init__,Method server.importlib.channelImport.DistChannelMapImport.__init__()=server.importlib.channelImport.DistChannelMapImport-class.html#__init__,Method server.importlib.channelImport.ReleaseChannelMapImport.__init__()=server.importlib.channelImport.ReleaseChannelMapImport-class.html#__init__,Method server.importlib.errataImport.ErrataImport.__init__()=server.importlib.errataImport.ErrataImport-class.html#__init__,Method server.importlib.importLib.AlreadyUploadedError.__init__()=server.importlib.importLib.AlreadyUploadedError-class.html#__init__,Method server.importlib.importLib.BaseInformation.__init__()=server.importlib.importLib.BaseInformation-class.html#__init__,Method server.importlib.importLib.ChangeLog.__init__()=server.importlib.importLib.ChangeLog-class.html#__init__,Method server.importlib.importLib.Collection.__init__()=server.importlib.importLib.Collection-class.html#__init__,Method server.importlib.importLib.Dependency.__init__()=server.importlib.importLib.Dependency-class.html#__init__,Method server.importlib.importLib.Diff.__init__()=server.importlib.importLib.Diff-class.html#__init__,Method server.importlib.importLib.File.__init__()=server.importlib.importLib.File-class.html#__init__,Method server.importlib.importLib.GenericPackageImport.__init__()=server.importlib.importLib.GenericPackageImport-class.html#__init__,Method server.importlib.importLib.Import.__init__()=server.importlib.importLib.Import-class.html#__init__,Method server.importlib.importLib.ImportException.__init__()=server.importlib.importLib.ImportException-class.html#__init__,Method server.importlib.importLib.IncompatibleArchError.__init__()=server.importlib.importLib.IncompatibleArchError-class.html#__init__,Method server.importlib.importLib.IncompletePackage.__init__()=server.importlib.importLib.IncompletePackage-class.html#__init__,Method server.importlib.importLib.Information.__init__()=server.importlib.importLib.Information-class.html#__init__,Method server.importlib.importLib.InvalidArchError.__init__()=server.importlib.importLib.InvalidArchError-class.html#__init__,Method server.importlib.importLib.InvalidChannelError.__init__()=server.importlib.importLib.InvalidChannelError-class.html#__init__,Method server.importlib.importLib.InvalidChannelFamilyError.__init__()=server.importlib.importLib.InvalidChannelFamilyError-class.html#__init__,Method server.importlib.importLib.InvalidPackageError.__init__()=server.importlib.importLib.InvalidPackageError-class.html#__init__,Method server.importlib.importLib.InvalidSeverityError.__init__()=server.importlib.importLib.InvalidSeverityError-class.html#__init__,Method server.importlib.importLib.Item.__init__()=server.importlib.importLib.Item-class.html#__init__,Method server.importlib.importLib.MissingParentChannelError.__init__()=server.importlib.importLib.MissingParentChannelError-class.html#__init__,Method server.importlib.importLib.Package.__init__()=server.importlib.importLib.Package-class.html#__init__,Method server.importlib.importLib.SourcePackage.__init__()=server.importlib.importLib.SourcePackage-class.html#__init__,Method server.importlib.importLib.TransactionError.__init__()=server.importlib.importLib.TransactionError-class.html#__init__,Method server.importlib.kickstartImport.KickstartableTreeImport.__init__()=server.importlib.kickstartImport.KickstartableTreeImport-class.html#__init__,Method server.importlib.packageImport.ChannelPackageSubscription.__init__()=server.importlib.packageImport.ChannelPackageSubscription-class.html#__init__,Method server.importlib.packageImport.PackageImport.__init__()=server.importlib.packageImport.PackageImport-class.html#__init__,Method server.importlib.packageImport.SourcePackageImport.__init__()=server.importlib.packageImport.SourcePackageImport-class.html#__init__,Method server.importlib.productNamesImport.ProductNamesImport.__init__()=server.importlib.productNamesImport.ProductNamesImport-class.html#__init__,Method server.importlib.userAuth.UserAuth.__init__()=server.importlib.userAuth.UserAuth-class.html#__init__,Method server.repomd.domain.Channel.__init__()=server.repomd.domain.Channel-class.html#__init__,Method server.repomd.domain.Comps.__init__()=server.repomd.domain.Comps-class.html#__init__,Method server.repomd.domain.Erratum.__init__()=server.repomd.domain.Erratum-class.html#__init__,Method server.repomd.domain.Package.__init__()=server.repomd.domain.Package-class.html#__init__,Method server.repomd.mapper.CachedErratumMapper.__init__()=server.repomd.mapper.CachedErratumMapper-class.html#__init__,Method server.repomd.mapper.CachedPackageMapper.__init__()=server.repomd.mapper.CachedPackageMapper-class.html#__init__,Method server.repomd.mapper.ChannelMapper.__init__()=server.repomd.mapper.ChannelMapper-class.html#__init__,Method server.repomd.mapper.SqlCompsMapper.__init__()=server.repomd.mapper.SqlCompsMapper-class.html#__init__,Method server.repomd.mapper.SqlErratumMapper.__init__()=server.repomd.mapper.SqlErratumMapper-class.html#__init__,Method server.repomd.mapper.SqlPackageMapper.__init__()=server.repomd.mapper.SqlPackageMapper-class.html#__init__,Method server.repomd.repository.CachedRepository.__init__()=server.repomd.repository.CachedRepository-class.html#__init__,Method server.repomd.repository.CompressedRepository.__init__()=server.repomd.repository.CompressedRepository-class.html#__init__,Method server.repomd.repository.MetadataRepository.__init__()=server.repomd.repository.MetadataRepository-class.html#__init__,Method server.repomd.repository.Repository.__init__()=server.repomd.repository.Repository-class.html#__init__,Method server.repomd.view.CompsView.__init__()=server.repomd.view.CompsView-class.html#__init__,Method server.repomd.view.FilelistsView.__init__()=server.repomd.view.FilelistsView-class.html#__init__,Method server.repomd.view.OtherView.__init__()=server.repomd.view.OtherView-class.html#__init__,Method server.repomd.view.PrimaryView.__init__()=server.repomd.view.PrimaryView-class.html#__init__,Method server.repomd.view.RepoView.__init__()=server.repomd.view.RepoView-class.html#__init__,Method server.repomd.view.UpdateinfoView.__init__()=server.repomd.view.UpdateinfoView-class.html#__init__,Method server.rhnActivationKey.ActivationKey.__init__()=server.rhnActivationKey.ActivationKey-class.html#__init__,Method server.rhnActivationKey.CallableObj.__init__()=server.rhnActivationKey.CallableObj-class.html#__init__,Method server.rhnChannel.BaseDatabaseObject.__init__()=server.rhnChannel.BaseDatabaseObject-class.html#__init__,Method server.rhnChannel.Channel.__init__()=server.rhnChannel.Channel-class.html#__init__,Method server.rhnChannel.ChannelException.__init__()=server.rhnChannel.ChannelException-class.html#__init__,Method server.rhnChannel.LiteServer.__init__()=server.rhnChannel.LiteServer-class.html#__init__,Method server.rhnDependency.SolveDependenciesError.__init__()=server.rhnDependency.SolveDependenciesError-class.html#__init__,Method server.rhnHandler'.rhnHandler.__init__()=server.rhnHandler%27.rhnHandler-class.html#__init__,Method server.rhnKickstart.Kickstart.__init__()=server.rhnKickstart.Kickstart-class.html#__init__,Method server.rhnLib.CallableObj.__init__()=server.rhnLib.CallableObj-class.html#__init__,Method server.rhnRepository.Repository.__init__()=server.rhnRepository.Repository-class.html#__init__,Method server.rhnSQL._Callable.__init__()=server.rhnSQL._Callable-class.html#__init__,Method server.rhnSQL._CallableWrapper.__init__()=server.rhnSQL._CallableWrapper-class.html#__init__,Method server.rhnSQL._Function.__init__()=server.rhnSQL._Function-class.html#__init__,Method server.rhnSQL._Procedure.__init__()=server.rhnSQL._Procedure-class.html#__init__,Method server.rhnSQL.driver_cx_Oracle.Cursor.__init__()=server.rhnSQL.driver_cx_Oracle.Cursor-class.html#__init__,Method server.rhnSQL.driver_cx_Oracle.Database.__init__()=server.rhnSQL.driver_cx_Oracle.Database-class.html#__init__,Method server.rhnSQL.driver_cx_Oracle.Function.__init__()=server.rhnSQL.driver_cx_Oracle.Function-class.html#__init__,Method server.rhnSQL.driver_cx_Oracle.Procedure.__init__()=server.rhnSQL.driver_cx_Oracle.Procedure-class.html#__init__,Method server.rhnSQL.driver_postgresql.Cursor.__init__()=server.rhnSQL.driver_postgresql.Cursor-class.html#__init__,Method server.rhnSQL.driver_postgresql.Database.__init__()=server.rhnSQL.driver_postgresql.Database-class.html#__init__,Method server.rhnSQL.driver_postgresql.Procedure.__init__()=server.rhnSQL.driver_postgresql.Procedure-class.html#__init__,Method server.rhnSQL.sql_base.Cursor.__init__()=server.rhnSQL.sql_base.Cursor-class.html#__init__,Method server.rhnSQL.sql_base.Database.__init__()=server.rhnSQL.sql_base.Database-class.html#__init__,Method server.rhnSQL.sql_base.Procedure.__init__()=server.rhnSQL.sql_base.Procedure-class.html#__init__,Method server.rhnSQL.sql_base.SQLConnectError.__init__()=server.rhnSQL.sql_base.SQLConnectError-class.html#__init__,Method server.rhnSQL.sql_base.SQLError.__init__()=server.rhnSQL.sql_base.SQLError-class.html#__init__,Method server.rhnSQL.sql_base.SQLSchemaError.__init__()=server.rhnSQL.sql_base.SQLSchemaError-class.html#__init__,Method server.rhnSQL.sql_base.SQLStatementPrepareError.__init__()=server.rhnSQL.sql_base.SQLStatementPrepareError-class.html#__init__,Method server.rhnSQL.sql_base.Statement.__init__()=server.rhnSQL.sql_base.Statement-class.html#__init__,Method server.rhnSQL.sql_row.Row.__init__()=server.rhnSQL.sql_row.Row-class.html#__init__,Method server.rhnSQL.sql_sequence.Sequence.__init__()=server.rhnSQL.sql_sequence.Sequence-class.html#__init__,Method server.rhnSQL.sql_table.RowData.__init__()=server.rhnSQL.sql_table.RowData-class.html#__init__,Method server.rhnSQL.sql_table.Table.__init__()=server.rhnSQL.sql_table.Table-class.html#__init__,Method server.rhnSQL.sql_types.DatabaseDataType.__init__()=server.rhnSQL.sql_types.DatabaseDataType-class.html#__init__,Method server.rhnSQL.sql_types.STRING.__init__()=server.rhnSQL.sql_types.STRING-class.html#__init__,Method server.rhnServer.satellite_cert.Item.__init__()=server.rhnServer.satellite_cert.Item-class.html#__init__,Method server.rhnServer.satellite_cert.SatelliteCert.__init__()=server.rhnServer.satellite_cert.SatelliteCert-class.html#__init__,Method server.rhnServer.satellite_cert.Slots.__init__()=server.rhnServer.satellite_cert.Slots-class.html#__init__,Method server.rhnServer.search_notify.SearchNotify.__init__()=server.rhnServer.search_notify.SearchNotify-class.html#__init__,Method server.rhnServer.server_certificate.Certificate.__init__()=server.rhnServer.server_certificate.Certificate-class.html#__init__,Method server.rhnServer.server_certificate.Checksum.__init__()=server.rhnServer.server_certificate.Checksum-class.html#__init__,Method server.rhnServer.server_class.Server.__init__()=server.rhnServer.server_class.Server-class.html#__init__,Method server.rhnServer.server_hardware.CPUDevice.__init__()=server.rhnServer.server_hardware.CPUDevice-class.html#__init__,Method server.rhnServer.server_hardware.DMIInformation.__init__()=server.rhnServer.server_hardware.DMIInformation-class.html#__init__,Method server.rhnServer.server_hardware.Device.__init__()=server.rhnServer.server_hardware.Device-class.html#__init__,Method server.rhnServer.server_hardware.GenericDevice.__init__()=server.rhnServer.server_hardware.GenericDevice-class.html#__init__,Method server.rhnServer.server_hardware.Hardware.__init__()=server.rhnServer.server_hardware.Hardware-class.html#__init__,Method server.rhnServer.server_hardware.HardwareDevice.__init__()=server.rhnServer.server_hardware.HardwareDevice-class.html#__init__,Method server.rhnServer.server_hardware.InstallInformation.__init__()=server.rhnServer.server_hardware.InstallInformation-class.html#__init__,Method server.rhnServer.server_hardware.MemoryInformation.__init__()=server.rhnServer.server_hardware.MemoryInformation-class.html#__init__,Method server.rhnServer.server_hardware.NetIfaceInformation.__init__()=server.rhnServer.server_hardware.NetIfaceInformation-class.html#__init__,Method server.rhnServer.server_hardware.NetworkInformation.__init__()=server.rhnServer.server_hardware.NetworkInformation-class.html#__init__,Method server.rhnServer.server_history.History.__init__()=server.rhnServer.server_history.History-class.html#__init__,Method server.rhnServer.server_packages.Packages.__init__()=server.rhnServer.server_packages.Packages-class.html#__init__,Method server.rhnServer.server_packages.dbPackage.__init__()=server.rhnServer.server_packages.dbPackage-class.html#__init__,Method server.rhnServer.server_solarispatches.DBPatch.__init__()=server.rhnServer.server_solarispatches.DBPatch-class.html#__init__,Method server.rhnServer.server_solarispatches.SolarisPatches.__init__()=server.rhnServer.server_solarispatches.SolarisPatches-class.html#__init__,Method server.rhnServer.server_token.ActivationTokens.__init__()=server.rhnServer.server_token.ActivationTokens-class.html#__init__,Method server.rhnServer.server_token.ReRegistrationActivationToken.__init__()=server.rhnServer.server_token.ReRegistrationActivationToken-class.html#__init__,Method server.rhnServer.server_wrapper.ServerWrapper.__init__()=server.rhnServer.server_wrapper.ServerWrapper-class.html#__init__,Method server.rhnServerGroup.CallableObj.__init__()=server.rhnServerGroup.CallableObj-class.html#__init__,Method server.rhnServerGroup.ServerGroup.__init__()=server.rhnServerGroup.ServerGroup-class.html#__init__,Method server.rhnSession.Session.__init__()=server.rhnSession.Session-class.html#__init__,Method server.rhnUser.User.__init__()=server.rhnUser.User-class.html#__init__,Method server.rhnVirtualization.VirtualizationEventHandler.__init__()=server.rhnVirtualization.VirtualizationEventHandler-class.html#__init__,Method server.rhnVirtualization.VirtualizationListener.__init__()=server.rhnVirtualization.VirtualizationListener-class.html#__init__,Method server.taskomatic.RepodataQueueEntry.__init__()=server.taskomatic.RepodataQueueEntry-class.html#__init__,Method server.wsgi.wsgiRequest.WsgiConnection.__init__()=server.wsgi.wsgiRequest.WsgiConnection-class.html#__init__,Method server.wsgi.wsgiRequest.WsgiRequest.__init__()=server.wsgi.wsgiRequest.WsgiRequest-class.html#__init__,Method server.wsgi.wsgiRequest.WsgiServer.__init__()=server.wsgi.wsgiRequest.WsgiServer-class.html#__init__,Method spacewalk.common.fileutils.GecosCache.__init__()=spacewalk.common.fileutils.GecosCache-class.html#__init__,Method spacewalk.common.rhn_mpm.MPM_Header.__init__()=spacewalk.common.rhn_mpm.MPM_Header-class.html#__init__,Method spacewalk.common.rhn_mpm.MPM_Package.__init__()=spacewalk.common.rhn_mpm.MPM_Package-class.html#__init__,Method spacewalk.common.rhn_rpm.MatchIterator.__init__()=spacewalk.common.rhn_rpm.MatchIterator-class.html#__init__,Method spacewalk.common.rhn_rpm.RPMReadOnlyTransaction.__init__()=spacewalk.common.rhn_rpm.RPMReadOnlyTransaction-class.html#__init__,Method spacewalk.common.rhn_rpm.RPMTransaction.__init__()=spacewalk.common.rhn_rpm.RPMTransaction-class.html#__init__,Method spacewalk.common.rhn_rpm.RPM_Header.__init__()=spacewalk.common.rhn_rpm.RPM_Header-class.html#__init__,Method spacewalk.common.rhn_rpm.SharedStateTransaction.__init__()=spacewalk.common.rhn_rpm.SharedStateTransaction-class.html#__init__,Method upload_server.handlers.package_push.package_push.PackagePush.__init__()=upload_server.handlers.package_push.package_push.PackagePush-class.html#__init__"><a title="common.RPC_Base'.RPC_Base.__init__
+common.UserDictCase'.UserDictCase.__init__
+common.rhnApache'.rhnApache.__init__
+common.rhnCache.ClosingZipFile.__init__
+common.rhnCache.CompressedCache.__init__
+common.rhnCache.LockedFile.__init__
+common.rhnCache.NullCache.__init__
+common.rhnCache.ObjectCache.__init__
+common.rhnConfig.RHNOptions.__init__
+common.rhnException'.redirectException.__init__
+common.rhnException'.rhnException.__init__
+common.rhnException'.rhnFault.__init__
+common.rhnLockfile.Lockfile.__init__
+common.rhnLog.rhnLog.__init__
+common.rhnRepository.Repository.__init__
+common.rhnTB.SecurityList.__init__
+common.rhnTranslate.i18n.__init__
+common.rhn_timer.Timer.__init__
+proxy.apacheHandler.apacheHandler.__init__
+proxy.apacheServer.HandlerWrap.__init__
+proxy.broker.rhnBroker.BrokerHandler.__init__
+proxy.broker.rhnRepository.Repository.__init__
+proxy.redirect.rhnRedirect.RedirectHandler.__init__
+proxy.responseContext.ResponseContext.__init__
+proxy.rhnAuthCacheClient.Shelf.__init__
+proxy.rhnAuthCacheClient._Method.__init__
+proxy.rhnAuthProtocol.CommunicationError.__init__
+proxy.rhnProxyAuth.ProxyAuth.__init__
+proxy.rhnShared.SharedHandler.__init__
+pygettext.TokenEater.__init__
+rhn.SSL.SSLSocket.__init__
+rhn.SSL.TimeoutException.__init__
+rhn.SmartIO.SmartIO.__init__
+rhn.UserDictCase.UserDictCase.__init__
+rhn.connections.HTTPConnection.__init__
+rhn.connections.HTTPProxyConnection.__init__
+rhn.connections.HTTPSConnection.__init__
+rhn.connections.HTTPSProxyConnection.__init__
+rhn.nonblocking.NonBlockingFile.__init__
+rhn.rpclib.GETServer.__init__
+rhn.rpclib.Server.__init__
+rhn.rpclib.Server.__init__
+rhn.rpclib.SlicingMethod.__init__
+rhn.rpclib._Method.__init__
+rhn.transports.BaseOutput.__init__
+rhn.transports.File.__init__
+rhn.transports.Input.__init__
+rhn.transports.InputStream.__init__
+rhn.transports.ProxyTransport.__init__
+rhn.transports.SafeProxyTransport.__init__
+rhn.transports.SafeTransport.__init__
+rhn.transports.Transport.__init__
+satellite_exporter.handlers.non_auth_dumper.ChannelsDumper.__init__
+satellite_exporter.handlers.non_auth_dumper.ContainerWriter.__init__
+satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.__init__
+satellite_exporter.handlers.non_auth_dumper._ChannelDumper.__init__
+satellite_exporter.satexport.ApacheServer.__init__
+satellite_exporter.satexport.BaseApacheServer.__init__
+satellite_tools.SequenceServer.SequenceServer.__init__
+satellite_tools.connection.CompressedStream.__init__
+satellite_tools.connection.StreamConnection.__init__
+satellite_tools.connection.Transport.__init__
+satellite_tools.disk_dumper.dumper.CachedDumper.__init__
+satellite_tools.disk_dumper.dumper.CachedQueryIterator.__init__
+satellite_tools.disk_dumper.dumper.ChannelsDumper.__init__
+satellite_tools.disk_dumper.dumper.ChannelsDumperEx.__init__
+satellite_tools.disk_dumper.dumper.DatabaseStatement.__init__
+satellite_tools.disk_dumper.dumper.ErrataDumper.__init__
+satellite_tools.disk_dumper.dumper.ErrataDumperEx.__init__
+satellite_tools.disk_dumper.dumper.KickstartableTreesDumper.__init__
+satellite_tools.disk_dumper.dumper.PackagesDumper.__init__
+satellite_tools.disk_dumper.dumper.QueryIterator.__init__
+satellite_tools.disk_dumper.dumper.ShortPackagesDumper.__init__
+satellite_tools.disk_dumper.dumper.SourcePackagesDumper.__init__
+satellite_tools.disk_dumper.dumper.TeeStream.__init__
+satellite_tools.disk_dumper.dumper.XML_Dumper.__init__
+satellite_tools.disk_dumper.dumper.XML_DumperEx.__init__
+satellite_tools.disk_dumper.iss.Dumper.__init__
+satellite_tools.disk_dumper.iss.ExporterMain.__init__
+satellite_tools.disk_dumper.iss.FileMapper.__init__
+satellite_tools.disk_dumper.iss.ISSChannelPackageShortDiskSource.__init__
+satellite_tools.disk_dumper.iss.ISSError.__init__
+satellite_tools.disk_dumper.iss_actions.ActionDeps.__init__
+satellite_tools.disk_dumper.iss_ui.UI.__init__
+satellite_tools.disk_dumper.string_buffer.StringBuffer.__init__
+satellite_tools.exporter.exportLib.ArrayIterator.__init__
+satellite_tools.exporter.exportLib.BaseDumper.__init__
+satellite_tools.exporter.exportLib.BaseRowDumper.__init__
+satellite_tools.exporter.exportLib.ChannelDumper.__init__
+satellite_tools.exporter.exportLib.ChannelFamiliesDumper.__init__
+satellite_tools.exporter.exportLib.ChannelsDumper.__init__
+satellite_tools.exporter.exportLib.EmptyDumper.__init__
+satellite_tools.exporter.exportLib.RestrictedArchCompatDumper.__init__
+satellite_tools.exporter.exportLib.RestrictedArchesDumper.__init__
+satellite_tools.exporter.exportLib.SatelliteDumper.__init__
+satellite_tools.exporter.exportLib.SimpleDumper.__init__
+satellite_tools.exporter.exportLib._ChannelFamilyDumper.__init__
+satellite_tools.exporter.exportLib._DependencyDumper.__init__
+satellite_tools.exporter.exporter.Dumper.__init__
+satellite_tools.exporter.xmlWriter.XMLWriter.__init__
+satellite_tools.progress_bar.ProgressBar.__init__
+satellite_tools.repo_plugins.yum_src.ContentSource.__init__
+satellite_tools.reposync.ContentPackage.__init__
+satellite_tools.req_channels.Method.__init__
+satellite_tools.req_channels.RequestedChannels.__init__
+satellite_tools.satCerts.CertVersionMismatchError.__init__
+satellite_tools.satCerts.NoFreeEntitlementsError.__init__
+satellite_tools.satComputePkgHeaders.Runner.__init__
+satellite_tools.satsync.Runner.__init__
+satellite_tools.satsync.StreamProducer.__init__
+satellite_tools.satsync.Syncer.__init__
+satellite_tools.syncCache.BaseCache.__init__
+satellite_tools.syncLib.FileManip.__init__
+satellite_tools.syncLib.RpmManip.__init__
+satellite_tools.sync_handlers.BaseCollection.__init__
+satellite_tools.sync_handlers.ChannelCollection.__init__
+satellite_tools.sync_handlers.ContainerHandler.__init__
+satellite_tools.sync_handlers.ErrataCollection.__init__
+satellite_tools.sync_handlers.ShortPackageCollection.__init__
+satellite_tools.xmlDiskDumper.Dumper.__init__
+satellite_tools.xmlDiskSource.BinaryRPMDiskSource.__init__
+satellite_tools.xmlDiskSource.ChannelDiskSource.__init__
+satellite_tools.xmlDiskSource.DiskSource.__init__
+satellite_tools.xmlDiskSource.KickstartDataDiskSource.__init__
+satellite_tools.xmlDiskSource.KickstartFileDiskSource.__init__
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.__init__
+satellite_tools.xmlSource.BaseDispatchHandler.__init__
+satellite_tools.xmlSource.ContainerHandler.__init__
+satellite_tools.xmlSource.IncompatibleVersionError.__init__
+satellite_tools.xmlSource.Node.__init__
+satellite_tools.xmlSource._EndContainerEvent.__init__
+satellite_tools.xmlWireSource.BaseWireSource.__init__
+satellite_tools.xmlWireSource.FileWireSource.__init__
+satellite_tools.xmlWireSource.RPCGetWireSource.__init__
+server.action.utils.ChannelPackage.__init__
+server.action.utils.PackageInstallScheduler.__init__
+server.action.utils.SubscribedChannel.__init__
+server.action.virt.NoRowFoundException.__init__
+server.action.virt.NoUUIDException.__init__
+server.apacheHandler.apacheHandler.__init__
+server.apacheRequest.GetHandler.__init__
+server.apacheRequest.UnknownXML.__init__
+server.apacheRequest.apacheGET.__init__
+server.apacheRequest.apacheRequest.__init__
+server.apacheServer.HandlerWrap.__init__
+server.apacheUploadServer.UploadHandler.__init__
+server.basePackageUpload.BasePackageUpload.__init__
+server.configFilesHandler.BaseConfigFileError.__init__
+server.configFilesHandler.ConfigFileError.__init__
+server.configFilesHandler.ConfigFilesHandler.__init__
+server.config_common.base_templated_document.BaseTemplatedDocument.__init__
+server.config_common.templated_document.ServerTemplatedDocument.__init__
+server.handlers.app.channel.Channel.__init__
+server.handlers.app.comps.Comps.__init__
+server.handlers.app.packages.Packages.__init__
+server.handlers.app.rhn_mpm.MPM_Header.__init__
+server.handlers.app.rhn_mpm.MPM_Package.__init__
+server.handlers.applet.applet.Applet.__init__
+server.handlers.config.rhn_config_management.ConfigManagement.__init__
+server.handlers.config_mgmt.rhn_config_management.ConfigManagement.__init__
+server.handlers.sat.auth.Authentication.__init__
+server.handlers.sat.cert.Certificate.__init__
+server.handlers.xmlrpc.errata.Errata.__init__
+server.handlers.xmlrpc.proxy.Proxy.__init__
+server.handlers.xmlrpc.proxy.rhnProxyHandler.__init__
+server.handlers.xmlrpc.queue.Queue.__init__
+server.handlers.xmlrpc.registration.Registration.__init__
+server.handlers.xmlrpc.up2date.Servers.__init__
+server.handlers.xmlrpc.up2date.Up2date.__init__
+server.handlers.xp.packages.Packages.__init__
+server.handlers.xp.rhnlint.RHNLint.__init__
+server.importlib.archImport.BaseArchCompatImport.__init__
+server.importlib.backend.Backend.__init__
+server.importlib.backend.DML.__init__
+server.importlib.backendLib.BaseTableLookup.__init__
+server.importlib.backendLib.DBstring.__init__
+server.importlib.backendLib.Table.__init__
+server.importlib.backendLib.TableCollection.__init__
+server.importlib.backendLib.TableDelete.__init__
+server.importlib.backendLib.TableInsert.__init__
+server.importlib.backendLib.TableLookup.__init__
+server.importlib.backendLib.TableUpdate.__init__
+server.importlib.backendOracle.OracleBackend.__init__
+server.importlib.blacklistImport.BlacklistObsoletesImport.__init__
+server.importlib.channelImport.ChannelFamilyPermissionsImport.__init__
+server.importlib.channelImport.ChannelImport.__init__
+server.importlib.channelImport.DistChannelMapImport.__init__
+server.importlib.channelImport.ReleaseChannelMapImport.__init__
+server.importlib.errataImport.ErrataImport.__init__
+server.importlib.importLib.AlreadyUploadedError.__init__
+server.importlib.importLib.BaseInformation.__init__
+server.importlib.importLib.ChangeLog.__init__
+server.importlib.importLib.Collection.__init__
+server.importlib.importLib.Dependency.__init__
+server.importlib.importLib.Diff.__init__
+server.importlib.importLib.File.__init__
+server.importlib.importLib.GenericPackageImport.__init__
+server.importlib.importLib.Import.__init__
+server.importlib.importLib.ImportException.__init__
+server.importlib.importLib.IncompatibleArchError.__init__
+server.importlib.importLib.IncompletePackage.__init__
+server.importlib.importLib.Information.__init__
+server.importlib.importLib.InvalidArchError.__init__
+server.importlib.importLib.InvalidChannelError.__init__
+server.importlib.importLib.InvalidChannelFamilyError.__init__
+server.importlib.importLib.InvalidPackageError.__init__
+server.importlib.importLib.InvalidSeverityError.__init__
+server.importlib.importLib.Item.__init__
+server.importlib.importLib.MissingParentChannelError.__init__
+server.importlib.importLib.Package.__init__
+server.importlib.importLib.SourcePackage.__init__
+server.importlib.importLib.TransactionError.__init__
+server.importlib.kickstartImport.KickstartableTreeImport.__init__
+server.importlib.packageImport.ChannelPackageSubscription.__init__
+server.importlib.packageImport.PackageImport.__init__
+server.importlib.packageImport.SourcePackageImport.__init__
+server.importlib.productNamesImport.ProductNamesImport.__init__
+server.importlib.userAuth.UserAuth.__init__
+server.repomd.domain.Channel.__init__
+server.repomd.domain.Comps.__init__
+server.repomd.domain.Erratum.__init__
+server.repomd.domain.Package.__init__
+server.repomd.mapper.CachedErratumMapper.__init__
+server.repomd.mapper.CachedPackageMapper.__init__
+server.repomd.mapper.ChannelMapper.__init__
+server.repomd.mapper.SqlCompsMapper.__init__
+server.repomd.mapper.SqlErratumMapper.__init__
+server.repomd.mapper.SqlPackageMapper.__init__
+server.repomd.repository.CachedRepository.__init__
+server.repomd.repository.CompressedRepository.__init__
+server.repomd.repository.MetadataRepository.__init__
+server.repomd.repository.Repository.__init__
+server.repomd.view.CompsView.__init__
+server.repomd.view.FilelistsView.__init__
+server.repomd.view.OtherView.__init__
+server.repomd.view.PrimaryView.__init__
+server.repomd.view.RepoView.__init__
+server.repomd.view.UpdateinfoView.__init__
+server.rhnActivationKey.ActivationKey.__init__
+server.rhnActivationKey.CallableObj.__init__
+server.rhnChannel.BaseDatabaseObject.__init__
+server.rhnChannel.Channel.__init__
+server.rhnChannel.ChannelException.__init__
+server.rhnChannel.LiteServer.__init__
+server.rhnDependency.SolveDependenciesError.__init__
+server.rhnHandler'.rhnHandler.__init__
+server.rhnKickstart.Kickstart.__init__
+server.rhnLib.CallableObj.__init__
+server.rhnRepository.Repository.__init__
+server.rhnSQL._Callable.__init__
+server.rhnSQL._CallableWrapper.__init__
+server.rhnSQL._Function.__init__
+server.rhnSQL._Procedure.__init__
+server.rhnSQL.driver_cx_Oracle.Cursor.__init__
+server.rhnSQL.driver_cx_Oracle.Database.__init__
+server.rhnSQL.driver_cx_Oracle.Function.__init__
+server.rhnSQL.driver_cx_Oracle.Procedure.__init__
+server.rhnSQL.driver_postgresql.Cursor.__init__
+server.rhnSQL.driver_postgresql.Database.__init__
+server.rhnSQL.driver_postgresql.Procedure.__init__
+server.rhnSQL.sql_base.Cursor.__init__
+server.rhnSQL.sql_base.Database.__init__
+server.rhnSQL.sql_base.Procedure.__init__
+server.rhnSQL.sql_base.SQLConnectError.__init__
+server.rhnSQL.sql_base.SQLError.__init__
+server.rhnSQL.sql_base.SQLSchemaError.__init__
+server.rhnSQL.sql_base.SQLStatementPrepareError.__init__
+server.rhnSQL.sql_base.Statement.__init__
+server.rhnSQL.sql_row.Row.__init__
+server.rhnSQL.sql_sequence.Sequence.__init__
+server.rhnSQL.sql_table.RowData.__init__
+server.rhnSQL.sql_table.Table.__init__
+server.rhnSQL.sql_types.DatabaseDataType.__init__
+server.rhnSQL.sql_types.STRING.__init__
+server.rhnServer.satellite_cert.Item.__init__
+server.rhnServer.satellite_cert.SatelliteCert.__init__
+server.rhnServer.satellite_cert.Slots.__init__
+server.rhnServer.search_notify.SearchNotify.__init__
+server.rhnServer.server_certificate.Certificate.__init__
+server.rhnServer.server_certificate.Checksum.__init__
+server.rhnServer.server_class.Server.__init__
+server.rhnServer.server_hardware.CPUDevice.__init__
+server.rhnServer.server_hardware.DMIInformation.__init__
+server.rhnServer.server_hardware.Device.__init__
+server.rhnServer.server_hardware.GenericDevice.__init__
+server.rhnServer.server_hardware.Hardware.__init__
+server.rhnServer.server_hardware.HardwareDevice.__init__
+server.rhnServer.server_hardware.InstallInformation.__init__
+server.rhnServer.server_hardware.MemoryInformation.__init__
+server.rhnServer.server_hardware.NetIfaceInformation.__init__
+server.rhnServer.server_hardware.NetworkInformation.__init__
+server.rhnServer.server_history.History.__init__
+server.rhnServer.server_packages.Packages.__init__
+server.rhnServer.server_packages.dbPackage.__init__
+server.rhnServer.server_solarispatches.DBPatch.__init__
+server.rhnServer.server_solarispatches.SolarisPatches.__init__
+server.rhnServer.server_token.ActivationTokens.__init__
+server.rhnServer.server_token.ReRegistrationActivationToken.__init__
+server.rhnServer.server_wrapper.ServerWrapper.__init__
+server.rhnServerGroup.CallableObj.__init__
+server.rhnServerGroup.ServerGroup.__init__
+server.rhnSession.Session.__init__
+server.rhnUser.User.__init__
+server.rhnVirtualization.VirtualizationEventHandler.__init__
+server.rhnVirtualization.VirtualizationListener.__init__
+server.taskomatic.RepodataQueueEntry.__init__
+server.wsgi.wsgiRequest.WsgiConnection.__init__
+server.wsgi.wsgiRequest.WsgiRequest.__init__
+server.wsgi.wsgiRequest.WsgiServer.__init__
+spacewalk.common.fileutils.GecosCache.__init__
+spacewalk.common.rhn_mpm.MPM_Header.__init__
+spacewalk.common.rhn_mpm.MPM_Package.__init__
+spacewalk.common.rhn_rpm.MatchIterator.__init__
+spacewalk.common.rhn_rpm.RPMReadOnlyTransaction.__init__
+spacewalk.common.rhn_rpm.RPMTransaction.__init__
+spacewalk.common.rhn_rpm.RPM_Header.__init__
+spacewalk.common.rhn_rpm.SharedStateTransaction.__init__
+upload_server.handlers.package_push.package_push.PackagePush.__init__" class="py-name" href="#" onclick="return doclink('link-6', '__init__', 'link-6');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt id="link-7" class="py-name" targets="Method common.UserDictCase'.UserDictCase.dict()=common.UserDictCase%27.UserDictCase-class.html#dict,Method rhn.UserDictCase.UserDictCase.dict()=rhn.UserDictCase.UserDictCase-class.html#dict"><a title="common.UserDictCase'.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-7', 'dict', 'link-7');">dict</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt class="py-name">db</tt><tt class="py-op">,</tt> <tt id="link-8" class="py-name"><a title="server.rhnSQL.sql_base" class="py-name" href="#" onclick="return doclink('link-8', 'sql_base', 'link-3');">sql_base</a></tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Class server.rhnSQL.driver_cx_Oracle.Database=server.rhnSQL.driver_cx_Oracle.Database-class.html,Class server.rhnSQL.driver_postgresql.Database=server.rhnSQL.driver_postgresql.Database-class.html,Class server.rhnSQL.sql_base.Database=server.rhnSQL.sql_base.Database-class.html"><a title="server.rhnSQL.driver_cx_Oracle.Database
+server.rhnSQL.driver_postgresql.Database
+server.rhnSQL.sql_base.Database" class="py-name" href="#" onclick="return doclink('link-9', 'Database', 'link-9');">Database</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">TypeError</tt><tt class="py-op">,</tt> <tt class="py-string">"Second argument needs to be a database handle"</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__db</tt> <tt class="py-op">=</tt> <tt class="py-name">db</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__sql</tt> <tt class="py-op">=</tt> <tt class="py-name">sql</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__rowid</tt> <tt class="py-op">=</tt> <tt class="py-name">rowid</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt> <tt class="py-op">=</tt> <tt id="link-10" class="py-name" targets="Function proxy.broker.rhnRepository.cache()=proxy.broker.rhnRepository-module.html#cache"><a title="proxy.broker.rhnRepository.cache" class="py-name" href="#" onclick="return doclink('link-10', 'cache', 'link-10');">cache</a></tt> </tt>
+</div><a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">    <tt class="py-comment"># now the real function that supports updating</tt> </tt>
+<a name="RowData.__setitem__"></a><div id="RowData.__setitem__-def"><a name="L38"></a><tt class="py-lineno"> 38</tt> <a class="py-toggle" href="#" id="RowData.__setitem__-toggle" onclick="return toggle('RowData.__setitem__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnSQL.sql_table.RowData-class.html#__setitem__">__setitem__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">key</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RowData.__setitem__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="RowData.__setitem__-expanded"><a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">        <tt class="py-name">sql</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__sql</tt> <tt class="py-op">%</tt> <tt class="py-name">key</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">        <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__db</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Method server.rhnSQL.driver_cx_Oracle.Database.prepare()=server.rhnSQL.driver_cx_Oracle.Database-class.html#prepare,Method server.rhnSQL.driver_postgresql.Database.prepare()=server.rhnSQL.driver_postgresql.Database-class.html#prepare,Function server.rhnSQL.prepare()=server.rhnSQL-module.html#prepare,Method server.rhnSQL.sql_base.Cursor.prepare()=server.rhnSQL.sql_base.Cursor-class.html#prepare,Method server.rhnSQL.sql_base.Database.prepare()=server.rhnSQL.sql_base.Database-class.html#prepare"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-11', 'prepare', 'link-11');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-name">sql</tt><tt class="py-op">)</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">        <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Method satellite_tools.disk_dumper.dumper.DatabaseStatement.execute()=satellite_tools.disk_dumper.dumper.DatabaseStatement-class.html#execute,Method server.rhnSQL.driver_cx_Oracle.Database.execute()=server.rhnSQL.driver_cx_Oracle.Database-class.html#execute,Function server.rhnSQL.execute()=server.rhnSQL-module.html#execute,Method server.rhnSQL.sql_base.Cursor.execute()=server.rhnSQL.sql_base.Cursor-class.html#execute"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-12', 'execute', 'link-12');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">new_val</tt><tt class="py-op">=</tt><tt class="py-name">value</tt><tt class="py-op">,</tt> <tt class="py-name">row_id</tt><tt class="py-op">=</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__rowid</tt><tt class="py-op">)</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">        <tt class="py-comment"># keep self.data in sync</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Method satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data()=satellite_exporter.handlers.non_auth_dumper.ContainerWriter-class.html#data,Method satellite_tools.exporter.xmlWriter.XMLWriter.data()=satellite_tools.exporter.xmlWriter.XMLWriter-class.html#data"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-13', 'data', 'link-13');">data</a></tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">value</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt><tt class="py-op">:</tt> <tt class="py-comment"># maintain cache consistency</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">            <tt class="py-keyword">try</tt><tt class="py-op">:</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt><tt class="py-op">[</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__rowid</tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">value</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+</div></div><a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"><tt class="py-comment"># A class to handle operations on a table.</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt class="py-comment"># While this class allows you to perform queries and updates on a row</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"><tt class="py-comment"># within a table, it is recommended you use the Row class if you ever</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"><tt class="py-comment"># need to touch a single row of data. On the other hand, if you need</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"><tt class="py-comment"># to jump a lot in the table from one row to another this class is</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"><tt class="py-comment"># more efficient because it works as a hash of hashes, if you will...</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"><tt class="py-comment"># Some day we'll figure out how to reduce confusion...</tt> </tt>
+<a name="Table"></a><div id="Table-def"><a name="L57"></a><tt class="py-lineno"> 57</tt> <a class="py-toggle" href="#" id="Table-toggle" onclick="return toggle('Table');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.rhnSQL.sql_table.Table-class.html">Table</a><tt class="py-op">:</tt> </tt>
+</div><div id="Table-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Table-expanded"><a name="Table.__init__"></a><div id="Table.__init__-def"><a name="L58"></a><tt class="py-lineno"> 58</tt> <a class="py-toggle" href="#" id="Table.__init__-toggle" onclick="return toggle('Table.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnSQL.sql_table.Table-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">db</tt><tt class="py-op">,</tt> <tt class="py-param">table</tt><tt class="py-op">,</tt> <tt class="py-param">hashid</tt><tt class="py-op">,</tt> <tt class="py-param">cache</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Table.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Table.__init__-expanded"><a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-14" class="py-name" targets="Variable _apache.table=_apache-module.html#table,Variable satellite_tools.satComputePkgHeaders.table=satellite_tools.satComputePkgHeaders-module.html#table"><a title="_apache.table
+satellite_tools.satComputePkgHeaders.table" class="py-name" href="#" onclick="return doclink('link-14', 'table', 'link-14');">table</a></tt> <tt class="py-keyword">or</tt> <tt class="py-keyword">not</tt> <tt id="link-15" class="py-name" targets="Variable satellite_tools.reposync.RepoSync.type=satellite_tools.reposync.RepoSync-class.html#type"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-15', 'type', 'link-15');">type</a></tt><tt class="py-op">(</tt><tt id="link-16" class="py-name"><a title="_apache.table
+satellite_tools.satComputePkgHeaders.table" class="py-name" href="#" onclick="return doclink('link-16', 'table', 'link-14');">table</a></tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-17" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-17', 'type', 'link-15');">type</a></tt><tt class="py-op">(</tt><tt class="py-string">""</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-18" class="py-name"><a title="common.rhnException'.rhnException" class="py-name" href="#" onclick="return doclink('link-18', 'rhnException', 'link-2');">rhnException</a></tt><tt class="py-op">(</tt><tt class="py-string">"First argument needs to be a table name"</tt><tt class="py-op">,</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">                               <tt id="link-19" class="py-name"><a title="_apache.table
+satellite_tools.satComputePkgHeaders.table" class="py-name" href="#" onclick="return doclink('link-19', 'table', 'link-14');">table</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__table</tt> <tt class="py-op">=</tt> <tt id="link-20" class="py-name"><a title="_apache.table
+satellite_tools.satComputePkgHeaders.table" class="py-name" href="#" onclick="return doclink('link-20', 'table', 'link-14');">table</a></tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">hashid</tt> <tt class="py-keyword">or</tt> <tt class="py-keyword">not</tt> <tt id="link-21" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-21', 'type', 'link-15');">type</a></tt><tt class="py-op">(</tt><tt class="py-name">hashid</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-22" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-22', 'type', 'link-15');">type</a></tt><tt class="py-op">(</tt><tt class="py-string">""</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-23" class="py-name"><a title="common.rhnException'.rhnException" class="py-name" href="#" onclick="return doclink('link-23', 'rhnException', 'link-2');">rhnException</a></tt><tt class="py-op">(</tt><tt class="py-string">"Second argument needs to be the name of the unique index column"</tt><tt class="py-op">,</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">                               <tt class="py-name">hashid</tt><tt class="py-op">)</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__hashid</tt> <tt class="py-op">=</tt> <tt class="py-name">hashid</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt class="py-name">db</tt><tt class="py-op">,</tt> <tt id="link-24" class="py-name"><a title="server.rhnSQL.sql_base" class="py-name" href="#" onclick="return doclink('link-24', 'sql_base', 'link-3');">sql_base</a></tt><tt class="py-op">.</tt><tt id="link-25" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database
+server.rhnSQL.driver_postgresql.Database
+server.rhnSQL.sql_base.Database" class="py-name" href="#" onclick="return doclink('link-25', 'Database', 'link-9');">Database</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-26" class="py-name"><a title="common.rhnException'.rhnException" class="py-name" href="#" onclick="return doclink('link-26', 'rhnException', 'link-2');">rhnException</a></tt><tt class="py-op">(</tt><tt class="py-string">"Argument db is not a database instance"</tt><tt class="py-op">,</tt> <tt class="py-name">db</tt><tt class="py-op">)</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__db</tt> <tt class="py-op">=</tt> <tt class="py-name">db</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-27" class="py-name"><a title="proxy.broker.rhnRepository.cache" class="py-name" href="#" onclick="return doclink('link-27', 'cache', 'link-10');">cache</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">        <tt class="py-comment"># see if the table exists</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">        <tt class="py-name">sql</tt> <tt class="py-op">=</tt> <tt class="py-string">"select %s from %s where rownum = 0"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__hashid</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__table</tt><tt class="py-op">)</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">            <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__db</tt><tt class="py-op">.</tt><tt id="link-28" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-28', 'prepare', 'link-11');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-name">sql</tt><tt class="py-op">)</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">ValueError</tt><tt class="py-op">,</tt><tt class="py-string">"Invalid table or column"</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">        <tt class="py-keyword">del</tt> <tt class="py-name">h</tt> </tt>
+</div><a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"> </tt>
+<a name="Table.set_cache"></a><div id="Table.set_cache-def"><a name="L82"></a><tt class="py-lineno"> 82</tt> <a class="py-toggle" href="#" id="Table.set_cache-toggle" onclick="return toggle('Table.set_cache');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnSQL.sql_table.Table-class.html#set_cache">set_cache</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Table.set_cache-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Table.set_cache-expanded"><a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">value</tt><tt class="py-op">:</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> <tt class="py-comment"># already enabled</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+</div><a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">    <tt class="py-comment"># insert row(s) into the table</tt> </tt>
+<a name="Table.insert"></a><div id="Table.insert-def"><a name="L91"></a><tt class="py-lineno"> 91</tt> <a class="py-toggle" href="#" id="Table.insert-toggle" onclick="return toggle('Table.insert');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnSQL.sql_table.Table-class.html#insert">insert</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">rows</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Table.insert-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Table.insert-expanded"><a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">        <tt class="py-comment"># insert a single row into the table</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">        <tt class="py-keyword">def</tt> <tt class="py-def-name">insert_row</tt><tt class="py-op">(</tt><tt class="py-param">row</tt><tt class="py-op">,</tt> <tt class="py-param">self</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt><tt class="py-op">[</tt><tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__hashid</tt><tt class="py-op">]</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">row</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name" targets="Method common.UserDictCase'.UserDictCase.__setitem__()=common.UserDictCase%27.UserDictCase-class.html#__setitem__,Method proxy.rhnProxyAuth.AuthLocalBackend.__setitem__()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#__setitem__,Method rhn.UserDictCase.UserDictCase.__setitem__()=rhn.UserDictCase.UserDictCase-class.html#__setitem__,Method server.importlib.importLib.Collection.__setitem__()=server.importlib.importLib.Collection-class.html#__setitem__,Method server.rhnSQL.sql_row.Row.__setitem__()=server.rhnSQL.sql_row.Row-class.html#__setitem__,Method server.rhnSQL.sql_table.RowData.__setitem__()=server.rhnSQL.sql_table.RowData-class.html#__setitem__,Method server.rhnSQL.sql_table.Table.__setitem__()=server.rhnSQL.sql_table.Table-class.html#__setitem__,Method server.rhnServer.server_certificate.Certificate.__setitem__()=server.rhnServer.server_certificate.Certificate-class.html#__setitem__,Method spacewalk.common.rhn_mpm.MPM_Header.__setitem__()=spacewalk.common.rhn_mpm.MPM_Header-class.html#__setitem__"><a title="common.UserDictCase'.UserDictCase.__setitem__
+proxy.rhnProxyAuth.AuthLocalBackend.__setitem__
+rhn.UserDictCase.UserDictCase.__setitem__
+server.importlib.importLib.Collection.__setitem__
+server.rhnSQL.sql_row.Row.__setitem__
+server.rhnSQL.sql_table.RowData.__setitem__
+server.rhnSQL.sql_table.Table.__setitem__
+server.rhnServer.server_certificate.Certificate.__setitem__
+spacewalk.common.rhn_mpm.MPM_Header.__setitem__" class="py-name" href="#" onclick="return doclink('link-29', '__setitem__', 'link-29');">__setitem__</a></tt><tt class="py-op">(</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-name">row</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-30" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-30', 'type', 'link-15');">type</a></tt><tt class="py-op">(</tt><tt class="py-name">rows</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-31" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-31', 'type', 'link-15');">type</a></tt><tt class="py-op">(</tt><tt class="py-op">{</tt><tt class="py-op">}</tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt class="py-name">rows</tt><tt class="py-op">,</tt> <tt id="link-32" class="py-name"><a title="common.UserDictCase'.UserDictCase
+rhn.UserDictCase
+rhn.UserDictCase.UserDictCase" class="py-name" href="#" onclick="return doclink('link-32', 'UserDictCase', 'link-1');">UserDictCase</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">insert_row</tt><tt class="py-op">(</tt><tt class="py-name">rows</tt><tt class="py-op">)</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-33" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-33', 'type', 'link-15');">type</a></tt><tt class="py-op">(</tt><tt class="py-name">rows</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-34" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-34', 'type', 'link-15');">type</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">            <tt class="py-keyword">for</tt> <tt class="py-name">x</tt> <tt class="py-keyword">in</tt> <tt class="py-name">rows</tt><tt class="py-op">:</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">                <tt class="py-name">insert_row</tt><tt class="py-op">(</tt><tt class="py-name">x</tt><tt class="py-op">)</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-35" class="py-name"><a title="common.rhnException'.rhnException" class="py-name" href="#" onclick="return doclink('link-35', 'rhnException', 'link-2');">rhnException</a></tt><tt class="py-op">(</tt><tt class="py-string">"Invalid data %s passed"</tt> <tt class="py-op">%</tt> <tt id="link-36" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-36', 'type', 'link-15');">type</a></tt><tt class="py-op">(</tt><tt class="py-name">rows</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">rows</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line"> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">    <tt class="py-comment"># select from the whole table all the entries that match the</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">    <tt class="py-comment"># valuies of the hash provided (kind of a complex select)</tt> </tt>
+<a name="Table.select"></a><div id="Table.select-def"><a name="L107"></a><tt class="py-lineno">107</tt> <a class="py-toggle" href="#" id="Table.select-toggle" onclick="return toggle('Table.select');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnSQL.sql_table.Table-class.html#select">select</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">row</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Table.select-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Table.select-expanded"><a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-37" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-37', 'type', 'link-15');">type</a></tt><tt class="py-op">(</tt><tt class="py-name">row</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-38" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-38', 'type', 'link-15');">type</a></tt><tt class="py-op">(</tt><tt class="py-op">{</tt><tt class="py-op">}</tt><tt class="py-op">)</tt> <tt class="py-keyword">and</tt> <tt class="py-keyword">not</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt class="py-name">row</tt><tt class="py-op">,</tt> <tt id="link-39" class="py-name"><a title="common.UserDictCase'.UserDictCase
+rhn.UserDictCase
+rhn.UserDictCase.UserDictCase" class="py-name" href="#" onclick="return doclink('link-39', 'UserDictCase', 'link-1');">UserDictCase</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-40" class="py-name"><a title="common.rhnException'.rhnException" class="py-name" href="#" onclick="return doclink('link-40', 'rhnException', 'link-2');">rhnException</a></tt><tt class="py-op">(</tt><tt class="py-string">"Expecting hash argument. %s is invalid"</tt> <tt class="py-op">%</tt> <tt id="link-41" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-41', 'type', 'link-15');">type</a></tt><tt class="py-op">(</tt><tt class="py-name">row</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">                               <tt class="py-name">row</tt><tt class="py-op">)</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">row</tt> <tt class="py-op">==</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt><tt class="py-op">:</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-42" class="py-name"><a title="common.rhnException'.rhnException" class="py-name" href="#" onclick="return doclink('link-42', 'rhnException', 'link-2');">rhnException</a></tt><tt class="py-op">(</tt><tt class="py-string">"The hash argument is empty"</tt><tt class="py-op">,</tt> <tt class="py-name">row</tt><tt class="py-op">)</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">        <tt id="link-43" class="py-name" targets="Method common.UserDictCase'.UserDictCase.keys()=common.UserDictCase%27.UserDictCase-class.html#keys,Method common.rhnConfig.RHNOptions.keys()=common.rhnConfig.RHNOptions-class.html#keys,Method rhn.UserDictCase.UserDictCase.keys()=rhn.UserDictCase.UserDictCase-class.html#keys,Method server.rhnSQL.sql_table.Table.keys()=server.rhnSQL.sql_table.Table-class.html#keys"><a title="common.UserDictCase'.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+rhn.UserDictCase.UserDictCase.keys
+server.rhnSQL.sql_table.Table.keys" class="py-name" href="#" onclick="return doclink('link-43', 'keys', 'link-43');">keys</a></tt> <tt class="py-op">=</tt> <tt class="py-name">row</tt><tt class="py-op">.</tt><tt id="link-44" class="py-name"><a title="common.UserDictCase'.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+rhn.UserDictCase.UserDictCase.keys
+server.rhnSQL.sql_table.Table.keys" class="py-name" href="#" onclick="return doclink('link-44', 'keys', 'link-43');">keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">        <tt class="py-comment"># Sort the list of keys, to always get the same list of arguments</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">        <tt id="link-45" class="py-name"><a title="common.UserDictCase'.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+rhn.UserDictCase.UserDictCase.keys
+server.rhnSQL.sql_table.Table.keys" class="py-name" href="#" onclick="return doclink('link-45', 'keys', 'link-43');">keys</a></tt><tt class="py-op">.</tt><tt class="py-name">sort</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">        <tt class="py-name">args</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">col</tt> <tt class="py-keyword">in</tt> <tt id="link-46" class="py-name"><a title="common.UserDictCase'.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+rhn.UserDictCase.UserDictCase.keys
+server.rhnSQL.sql_table.Table.keys" class="py-name" href="#" onclick="return doclink('link-46', 'keys', 'link-43');">keys</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-name">col</tt><tt class="py-op">]</tt> <tt class="py-keyword">in</tt> <tt class="py-op">(</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-string">''</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">                <tt class="py-name">clause</tt> <tt class="py-op">=</tt> <tt class="py-string">"%s is null"</tt> <tt class="py-op">%</tt> <tt class="py-name">col</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">            <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">                <tt class="py-name">clause</tt> <tt class="py-op">=</tt> <tt class="py-string">"%s = :%s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">col</tt><tt class="py-op">,</tt> <tt class="py-name">col</tt><tt class="py-op">)</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">            <tt class="py-name">args</tt><tt class="py-op">.</tt><tt id="link-47" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-47', 'append', 'link-47');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">clause</tt><tt class="py-op">)</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">        <tt class="py-name">sql</tt> <tt class="py-op">=</tt> <tt class="py-string">"select * from %s where "</tt> <tt class="py-op">%</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__table</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">        <tt id="link-48" class="py-name" targets="Function server.rhnSQL.cursor()=server.rhnSQL-module.html#cursor,Method server.rhnSQL.driver_cx_Oracle.Database.cursor()=server.rhnSQL.driver_cx_Oracle.Database-class.html#cursor,Method server.rhnSQL.driver_postgresql.Database.cursor()=server.rhnSQL.driver_postgresql.Database-class.html#cursor,Method server.rhnSQL.sql_base.Database.cursor()=server.rhnSQL.sql_base.Database-class.html#cursor"><a title="server.rhnSQL.cursor
+server.rhnSQL.driver_cx_Oracle.Database.cursor
+server.rhnSQL.driver_postgresql.Database.cursor
+server.rhnSQL.sql_base.Database.cursor" class="py-name" href="#" onclick="return doclink('link-48', 'cursor', 'link-48');">cursor</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__db</tt><tt class="py-op">.</tt><tt id="link-49" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-49', 'prepare', 'link-11');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-name">sql</tt> <tt class="py-op">+</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">args</tt><tt class="py-op">,</tt> <tt class="py-string">" and "</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">        <tt class="py-name">apply</tt><tt class="py-op">(</tt><tt id="link-50" class="py-name"><a title="server.rhnSQL.cursor
+server.rhnSQL.driver_cx_Oracle.Database.cursor
+server.rhnSQL.driver_postgresql.Database.cursor
+server.rhnSQL.sql_base.Database.cursor" class="py-name" href="#" onclick="return doclink('link-50', 'cursor', 'link-48');">cursor</a></tt><tt class="py-op">.</tt><tt id="link-51" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-51', 'execute', 'link-12');">execute</a></tt><tt class="py-op">,</tt> <tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">row</tt><tt class="py-op">)</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">        <tt class="py-name">rows</tt> <tt class="py-op">=</tt> <tt id="link-52" class="py-name"><a title="server.rhnSQL.cursor
+server.rhnSQL.driver_cx_Oracle.Database.cursor
+server.rhnSQL.driver_postgresql.Database.cursor
+server.rhnSQL.sql_base.Database.cursor" class="py-name" href="#" onclick="return doclink('link-52', 'cursor', 'link-48');">cursor</a></tt><tt class="py-op">.</tt><tt id="link-53" class="py-name" targets="Method server.rhnSQL.sql_base.Cursor.fetchall_dict()=server.rhnSQL.sql_base.Cursor-class.html#fetchall_dict"><a title="server.rhnSQL.sql_base.Cursor.fetchall_dict" class="py-name" href="#" onclick="return doclink('link-53', 'fetchall_dict', 'link-53');">fetchall_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">rows</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">        <tt class="py-comment"># fill up the cache</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">            <tt class="py-keyword">for</tt> <tt class="py-name">row</tt> <tt class="py-keyword">in</tt> <tt class="py-name">rows</tt><tt class="py-op">:</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt><tt class="py-op">[</tt><tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__hashid</tt><tt class="py-op">]</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">row</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">a</tt><tt class="py-op">:</tt> <tt id="link-54" class="py-name"><a title="common.UserDictCase'.UserDictCase
+rhn.UserDictCase
+rhn.UserDictCase.UserDictCase" class="py-name" href="#" onclick="return doclink('link-54', 'UserDictCase', 'link-1');">UserDictCase</a></tt><tt class="py-op">(</tt><tt class="py-name">a</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">rows</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line"> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">    <tt class="py-comment"># print it out</tt> </tt>
+<a name="Table.__repr__"></a><div id="Table.__repr__-def"><a name="L136"></a><tt class="py-lineno">136</tt> <a class="py-toggle" href="#" id="Table.__repr__-toggle" onclick="return toggle('Table.__repr__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnSQL.sql_table.Table-class.html#__repr__">__repr__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Table.__repr__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Table.__repr__-expanded"><a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">"&lt;%s&gt; instance for table `%s' keyed on `%s'"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__class__</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__table</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__hashid</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line"> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">    <tt class="py-comment"># make this table look like a dictionary</tt> </tt>
+<a name="Table.__getitem__"></a><div id="Table.__getitem__-def"><a name="L141"></a><tt class="py-lineno">141</tt> <a class="py-toggle" href="#" id="Table.__getitem__-toggle" onclick="return toggle('Table.__getitem__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnSQL.sql_table.Table-class.html#__getitem__">__getitem__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">key</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Table.__getitem__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Table.__getitem__-expanded"><a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt> <tt class="py-keyword">and</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt><tt class="py-op">.</tt><tt id="link-55" class="py-name" targets="Method common.UserDictCase'.UserDictCase.has_key()=common.UserDictCase%27.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Function server.rhnDatabaseCache.has_key()=server.rhnDatabaseCache-module.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-55', 'has_key', 'link-55');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">key</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">        <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__db</tt><tt class="py-op">.</tt><tt id="link-56" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-56', 'prepare', 'link-11');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-string">"select * from %s where %s = :p1"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__table</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__hashid</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">        <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-57" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-57', 'execute', 'link-12');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">p1</tt><tt class="py-op">=</tt><tt class="py-name">key</tt><tt class="py-op">)</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">        <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-58" class="py-name" targets="Method satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict()=satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#fetchone_dict,Method satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict()=satellite_tools.disk_dumper.dumper.QueryIterator-class.html#fetchone_dict,Method satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict()=satellite_tools.exporter.exportLib.ArrayIterator-class.html#fetchone_dict,Method server.rhnSQL.sql_base.Cursor.fetchone_dict()=server.rhnSQL.sql_base.Cursor-class.html#fetchone_dict"><a title="satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict
+satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict
+satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict
+server.rhnSQL.sql_base.Cursor.fetchone_dict" class="py-name" href="#" onclick="return doclink('link-58', 'fetchone_dict', 'link-58');">fetchone_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">ret</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">        <tt class="py-name">xret</tt> <tt class="py-op">=</tt> <tt id="link-59" class="py-name"><a title="common.UserDictCase'.UserDictCase
+rhn.UserDictCase
+rhn.UserDictCase.UserDictCase" class="py-name" href="#" onclick="return doclink('link-59', 'UserDictCase', 'link-1');">UserDictCase</a></tt><tt class="py-op">(</tt><tt class="py-name">ret</tt><tt class="py-op">)</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">xret</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">xret</tt> </tt>
+</div><a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line"> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">    <tt class="py-comment"># this one is pretty much like __getitem__, but returns a nice</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">    <tt class="py-comment"># reference to a RowData instance that allows the returned hash to</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">    <tt class="py-comment"># be modified.</tt> </tt>
+<a name="Table.get"></a><div id="Table.get-def"><a name="L160"></a><tt class="py-lineno">160</tt> <a class="py-toggle" href="#" id="Table.get-toggle" onclick="return toggle('Table.get');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnSQL.sql_table.Table-class.html#get">get</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">key</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Table.get-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Table.get-expanded"><a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">        <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-60" class="py-name" targets="Method common.UserDictCase'.UserDictCase.__getitem__()=common.UserDictCase%27.UserDictCase-class.html#__getitem__,Method proxy.rhnProxyAuth.AuthLocalBackend.__getitem__()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#__getitem__,Method rhn.UserDictCase.UserDictCase.__getitem__()=rhn.UserDictCase.UserDictCase-class.html#__getitem__,Method server.handlers.app.rhn_mpm.MPM_Header.__getitem__()=server.handlers.app.rhn_mpm.MPM_Header-class.html#__getitem__,Method server.rhnSQL.sql_row.Row.__getitem__()=server.rhnSQL.sql_row.Row-class.html#__getitem__,Method server.rhnSQL.sql_table.Table.__getitem__()=server.rhnSQL.sql_table.Table-class.html#__getitem__,Method server.rhnServer.server_certificate.Certificate.__getitem__()=server.rhnServer.server_certificate.Certificate-class.html#__getitem__,Method spacewalk.common.rhn_mpm.MPM_Header.__getitem__()=spacewalk.common.rhn_mpm.MPM_Header-class.html#__getitem__,Method spacewalk.common.rhn_rpm.RPM_Header.__getitem__()=spacewalk.common.rhn_rpm.RPM_Header-class.html#__getitem__"><a title="common.UserDictCase'.UserDictCase.__getitem__
+proxy.rhnProxyAuth.AuthLocalBackend.__getitem__
+rhn.UserDictCase.UserDictCase.__getitem__
+server.handlers.app.rhn_mpm.MPM_Header.__getitem__
+server.rhnSQL.sql_row.Row.__getitem__
+server.rhnSQL.sql_table.Table.__getitem__
+server.rhnServer.server_certificate.Certificate.__getitem__
+spacewalk.common.rhn_mpm.MPM_Header.__getitem__
+spacewalk.common.rhn_rpm.RPM_Header.__getitem__" class="py-name" href="#" onclick="return doclink('link-60', '__getitem__', 'link-60');">__getitem__</a></tt><tt class="py-op">(</tt><tt class="py-name">key</tt><tt class="py-op">)</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt> <tt class="py-keyword">and</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt><tt class="py-op">.</tt><tt id="link-61" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-61', 'has_key', 'link-55');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">key</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">            <tt class="py-keyword">del</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">        <tt class="py-name">sql</tt> <tt class="py-op">=</tt> <tt class="py-string">"update %s set %%s = :new_val where %s = :row_id"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__table</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__hashid</tt><tt class="py-op">)</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-62" class="py-name" targets="Class server.rhnSQL.sql_table.RowData=server.rhnSQL.sql_table.RowData-class.html"><a title="server.rhnSQL.sql_table.RowData" class="py-name" href="#" onclick="return doclink('link-62', 'RowData', 'link-62');">RowData</a></tt><tt class="py-op">(</tt><tt class="py-name">ret</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__db</tt><tt class="py-op">,</tt> <tt class="py-name">sql</tt><tt class="py-op">,</tt> <tt class="py-name">key</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line"> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">    <tt class="py-comment"># database insertion, dictionary style (pass in the hash with the</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">    <tt class="py-comment"># values for all columns except the one that functions as the</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line">    <tt class="py-comment"># primary key identifier</tt> </tt>
+<a name="Table.__setitem__"></a><div id="Table.__setitem__-def"><a name="L171"></a><tt class="py-lineno">171</tt> <a class="py-toggle" href="#" id="Table.__setitem__-toggle" onclick="return toggle('Table.__setitem__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnSQL.sql_table.Table-class.html#__setitem__">__setitem__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">key</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Table.__setitem__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Table.__setitem__-expanded"><a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-63" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-63', 'type', 'link-15');">type</a></tt><tt class="py-op">(</tt><tt class="py-name">value</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-64" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-64', 'type', 'link-15');">type</a></tt><tt class="py-op">(</tt><tt class="py-op">{</tt><tt class="py-op">}</tt><tt class="py-op">)</tt> <tt class="py-keyword">and</tt> <tt class="py-keyword">not</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt class="py-name">value</tt><tt class="py-op">,</tt> <tt id="link-65" class="py-name"><a title="common.UserDictCase'.UserDictCase
+rhn.UserDictCase
+rhn.UserDictCase.UserDictCase" class="py-name" href="#" onclick="return doclink('link-65', 'UserDictCase', 'link-1');">UserDictCase</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">TypeError</tt><tt class="py-op">,</tt> <tt class="py-string">"Expected value to be a hash"</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">value</tt><tt class="py-op">.</tt><tt id="link-66" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-66', 'has_key', 'link-55');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__hashid</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-comment"># we don't need that</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">key</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">                <tt class="py-name">key</tt> <tt class="py-op">=</tt> <tt class="py-name">value</tt><tt class="py-op">[</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__hashid</tt><tt class="py-op">]</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">            <tt class="py-keyword">del</tt> <tt class="py-name">value</tt><tt class="py-op">[</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__hashid</tt><tt class="py-op">]</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line"> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">key</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">KeyError</tt><tt class="py-op">,</tt> <tt class="py-string">"Can not insert entry with NULL key"</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">        <tt id="link-67" class="py-name" targets="Method common.UserDictCase'.UserDictCase.items()=common.UserDictCase%27.UserDictCase-class.html#items,Method common.rhnConfig.RHNOptions.items()=common.rhnConfig.RHNOptions-class.html#items,Method rhn.UserDictCase.UserDictCase.items()=rhn.UserDictCase.UserDictCase-class.html#items"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-67', 'items', 'link-67');">items</a></tt> <tt class="py-op">=</tt> <tt class="py-name">value</tt><tt class="py-op">.</tt><tt id="link-68" class="py-name"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-68', 'items', 'link-67');">items</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-69" class="py-name"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-69', 'items', 'link-67');">items</a></tt> <tt class="py-op">==</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> <tt class="py-comment"># quick check for noop</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">        <tt class="py-name">sql</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-70" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-70', 'has_key', 'link-55');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">key</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">            <tt class="py-name">sql</tt><tt class="py-op">,</tt> <tt class="py-name">pdict</tt> <tt class="py-op">=</tt> <tt id="link-71" class="py-name"><a title="server.rhnSQL.sql_lib" class="py-name" href="#" onclick="return doclink('link-71', 'sql_lib', 'link-4');">sql_lib</a></tt><tt class="py-op">.</tt><tt id="link-72" class="py-name" targets="Function server.rhnSQL.sql_lib.build_sql_update()=server.rhnSQL.sql_lib-module.html#build_sql_update"><a title="server.rhnSQL.sql_lib.build_sql_update" class="py-name" href="#" onclick="return doclink('link-72', 'build_sql_update', 'link-72');">build_sql_update</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__table</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__hashid</tt><tt class="py-op">,</tt> <tt id="link-73" class="py-name"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-73', 'items', 'link-67');">items</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">            <tt class="py-name">sql</tt><tt class="py-op">,</tt> <tt class="py-name">pdict</tt> <tt class="py-op">=</tt> <tt id="link-74" class="py-name"><a title="server.rhnSQL.sql_lib" class="py-name" href="#" onclick="return doclink('link-74', 'sql_lib', 'link-4');">sql_lib</a></tt><tt class="py-op">.</tt><tt id="link-75" class="py-name" targets="Function server.rhnSQL.sql_lib.build_sql_insert()=server.rhnSQL.sql_lib-module.html#build_sql_insert"><a title="server.rhnSQL.sql_lib.build_sql_insert" class="py-name" href="#" onclick="return doclink('link-75', 'build_sql_insert', 'link-75');">build_sql_insert</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__table</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__hashid</tt><tt class="py-op">,</tt> <tt id="link-76" class="py-name"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-76', 'items', 'link-67');">items</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line">        <tt class="py-comment"># import the value of the hash key</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line">        <tt class="py-name">pdict</tt><tt class="py-op">[</tt><tt class="py-string">"p0"</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt>  <tt class="py-name">key</tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line">        <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__db</tt><tt class="py-op">.</tt><tt id="link-77" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-77', 'prepare', 'link-11');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-name">sql</tt><tt class="py-op">)</tt> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line">        <tt class="py-name">apply</tt><tt class="py-op">(</tt><tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-78" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-78', 'execute', 'link-12');">execute</a></tt><tt class="py-op">,</tt> <tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">pdict</tt><tt class="py-op">)</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line">            <tt class="py-name">value</tt><tt class="py-op">[</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__hashid</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">key</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">value</tt> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line">            <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line"> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">    <tt class="py-comment"># length</tt> </tt>
+<a name="Table.__len__"></a><div id="Table.__len__-def"><a name="L200"></a><tt class="py-lineno">200</tt> <a class="py-toggle" href="#" id="Table.__len__-toggle" onclick="return toggle('Table.__len__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnSQL.sql_table.Table-class.html#__len__">__len__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Table.__len__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Table.__len__-expanded"><a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">        <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__db</tt><tt class="py-op">.</tt><tt id="link-79" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-79', 'prepare', 'link-11');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-string">"select count(*) as ID from %s"</tt> <tt class="py-op">%</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__table</tt><tt class="py-op">)</tt> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line">        <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-80" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-80', 'execute', 'link-12');">execute</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line">        <tt class="py-name">row</tt> <tt class="py-op">=</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-81" class="py-name"><a title="satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict
+satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict
+satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict
+server.rhnSQL.sql_base.Cursor.fetchone_dict" class="py-name" href="#" onclick="return doclink('link-81', 'fetchone_dict', 'link-58');">fetchone_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">row</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-number">0</tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">"id"</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line"> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line">    <tt class="py-comment"># delete an entry by the key</tt> </tt>
+<a name="Table.__delitem__"></a><div id="Table.__delitem__-def"><a name="L209"></a><tt class="py-lineno">209</tt> <a class="py-toggle" href="#" id="Table.__delitem__-toggle" onclick="return toggle('Table.__delitem__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnSQL.sql_table.Table-class.html#__delitem__">__delitem__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">key</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Table.__delitem__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Table.__delitem__-expanded"><a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line">        <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__db</tt><tt class="py-op">.</tt><tt id="link-82" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-82', 'prepare', 'link-11');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-string">"delete from %s where %s = :p1"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__table</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__hashid</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line">        <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-83" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-83', 'execute', 'link-12');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">p1</tt><tt class="py-op">=</tt><tt class="py-name">key</tt><tt class="py-op">)</tt> </tt>
+<a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> <tt class="py-keyword">del</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt> </tt>
+<a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt><tt class="py-op">:</tt> <tt class="py-keyword">pass</tt> </tt>
+<a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-number">0</tt> </tt>
+</div><a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line"> </tt>
+<a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line">    <tt class="py-comment"># get all keys</tt> </tt>
+<a name="Table.keys"></a><div id="Table.keys-def"><a name="L218"></a><tt class="py-lineno">218</tt> <a class="py-toggle" href="#" id="Table.keys-toggle" onclick="return toggle('Table.keys');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnSQL.sql_table.Table-class.html#keys">keys</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Table.keys-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Table.keys-expanded"><a name="L219"></a><tt class="py-lineno">219</tt>  <tt class="py-line">        <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__db</tt><tt class="py-op">.</tt><tt id="link-84" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-84', 'prepare', 'link-11');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-string">"select %s NAME from %s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt> </tt>
+<a name="L220"></a><tt class="py-lineno">220</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__hashid</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__table</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L221"></a><tt class="py-lineno">221</tt>  <tt class="py-line">        <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-85" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-85', 'execute', 'link-12');">execute</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L222"></a><tt class="py-lineno">222</tt>  <tt class="py-line">        <tt id="link-86" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-86', 'data', 'link-13');">data</a></tt> <tt class="py-op">=</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-87" class="py-name"><a title="server.rhnSQL.sql_base.Cursor.fetchall_dict" class="py-name" href="#" onclick="return doclink('link-87', 'fetchall_dict', 'link-53');">fetchall_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L223"></a><tt class="py-lineno">223</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-88" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-88', 'data', 'link-13');">data</a></tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L224"></a><tt class="py-lineno">224</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L225"></a><tt class="py-lineno">225</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">a</tt><tt class="py-op">:</tt> <tt class="py-name">a</tt><tt class="py-op">[</tt><tt class="py-string">"name"</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt id="link-89" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-89', 'data', 'link-13');">data</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L226"></a><tt class="py-lineno">226</tt>  <tt class="py-line"> </tt>
+<a name="L227"></a><tt class="py-lineno">227</tt>  <tt class="py-line">    <tt class="py-comment"># has_key</tt> </tt>
+<a name="L228"></a><tt class="py-lineno">228</tt>  <tt class="py-line">    <tt class="py-comment"># if we're caching, fetch the row and cache it; else, fetch the</tt> </tt>
+<a name="L229"></a><tt class="py-lineno">229</tt>  <tt class="py-line">    <tt class="py-comment"># smaller value</tt> </tt>
+<a name="Table.has_key"></a><div id="Table.has_key-def"><a name="L230"></a><tt class="py-lineno">230</tt> <a class="py-toggle" href="#" id="Table.has_key-toggle" onclick="return toggle('Table.has_key');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnSQL.sql_table.Table-class.html#has_key">has_key</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">key</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Table.has_key-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Table.has_key-expanded"><a name="L231"></a><tt class="py-lineno">231</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L232"></a><tt class="py-lineno">232</tt>  <tt class="py-line">            <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__db</tt><tt class="py-op">.</tt><tt id="link-90" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-90', 'prepare', 'link-11');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-string">"select * from %s where %s = :p1"</tt> <tt class="py-op">%</tt> </tt>
+<a name="L233"></a><tt class="py-lineno">233</tt>  <tt class="py-line">                                  <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__table</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__hashid</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L234"></a><tt class="py-lineno">234</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L235"></a><tt class="py-lineno">235</tt>  <tt class="py-line">            <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__db</tt><tt class="py-op">.</tt><tt id="link-91" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-91', 'prepare', 'link-11');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-string">"select %s from %s where %s = :p1"</tt> <tt class="py-op">%</tt> </tt>
+<a name="L236"></a><tt class="py-lineno">236</tt>  <tt class="py-line">                                  <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__hashid</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__table</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__hashid</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L237"></a><tt class="py-lineno">237</tt>  <tt class="py-line">        <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-92" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-92', 'execute', 'link-12');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">p1</tt><tt class="py-op">=</tt><tt class="py-name">key</tt><tt class="py-op">)</tt> </tt>
+<a name="L238"></a><tt class="py-lineno">238</tt>  <tt class="py-line">        <tt class="py-name">row</tt> <tt class="py-op">=</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-93" class="py-name"><a title="satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict
+satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict
+satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict
+server.rhnSQL.sql_base.Cursor.fetchone_dict" class="py-name" href="#" onclick="return doclink('link-93', 'fetchone_dict', 'link-58');">fetchone_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L239"></a><tt class="py-lineno">239</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">:</tt> </tt>
+<a name="L240"></a><tt class="py-lineno">240</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-number">0</tt> </tt>
+<a name="L241"></a><tt class="py-lineno">241</tt>  <tt class="py-line">        <tt class="py-comment"># stuff it in the cache if we need to do so</tt> </tt>
+<a name="L242"></a><tt class="py-lineno">242</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L243"></a><tt class="py-lineno">243</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">row</tt> </tt>
+<a name="L244"></a><tt class="py-lineno">244</tt>  <tt class="py-line">        <tt class="py-comment"># XXX: can this thing fail in any other way?</tt> </tt>
+<a name="L245"></a><tt class="py-lineno">245</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-number">1</tt> </tt>
+</div><a name="L246"></a><tt class="py-lineno">246</tt>  <tt class="py-line"> </tt>
+<a name="L247"></a><tt class="py-lineno">247</tt>  <tt class="py-line">    <tt class="py-comment"># flush the cache. if cache is off, then noop</tt> </tt>
+<a name="Table.flush"></a><div id="Table.flush-def"><a name="L248"></a><tt class="py-lineno">248</tt> <a class="py-toggle" href="#" id="Table.flush-toggle" onclick="return toggle('Table.flush');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnSQL.sql_table.Table-class.html#flush">flush</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Table.flush-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Table.flush-expanded"><a name="L249"></a><tt class="py-lineno">249</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> <tt class="py-comment"># avoid turning caching on when flushing</tt> </tt>
+<a name="L250"></a><tt class="py-lineno">250</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+</div><a name="L251"></a><tt class="py-lineno">251</tt>  <tt class="py-line"> </tt>
+<a name="L252"></a><tt class="py-lineno">252</tt>  <tt class="py-line">    <tt class="py-comment"># passthrough commit</tt> </tt>
+<a name="Table.commit"></a><div id="Table.commit-def"><a name="L253"></a><tt class="py-lineno">253</tt> <a class="py-toggle" href="#" id="Table.commit-toggle" onclick="return toggle('Table.commit');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnSQL.sql_table.Table-class.html#commit">commit</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Table.commit-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Table.commit-expanded"><a name="L254"></a><tt class="py-lineno">254</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__db</tt><tt class="py-op">.</tt><tt id="link-94" class="py-name" targets="Method server.importlib.backend.Backend.commit()=server.importlib.backend.Backend-class.html#commit,Method server.rhnKickstart.Kickstart.commit()=server.rhnKickstart.Kickstart-class.html#commit,Function server.rhnSQL.commit()=server.rhnSQL-module.html#commit,Method server.rhnSQL.driver_cx_Oracle.Database.commit()=server.rhnSQL.driver_cx_Oracle.Database-class.html#commit,Method server.rhnSQL.driver_postgresql.Database.commit()=server.rhnSQL.driver_postgresql.Database-class.html#commit,Method server.rhnSQL.sql_base.Database.commit()=server.rhnSQL.sql_base.Database-class.html#commit,Method server.rhnSQL.sql_table.Table.commit()=server.rhnSQL.sql_table.Table-class.html#commit"><a title="server.importlib.backend.Backend.commit
+server.rhnKickstart.Kickstart.commit
+server.rhnSQL.commit
+server.rhnSQL.driver_cx_Oracle.Database.commit
+server.rhnSQL.driver_postgresql.Database.commit
+server.rhnSQL.sql_base.Database.commit
+server.rhnSQL.sql_table.Table.commit" class="py-name" href="#" onclick="return doclink('link-94', 'commit', 'link-94');">commit</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L255"></a><tt class="py-lineno">255</tt>  <tt class="py-line">    <tt class="py-comment"># passthrough rollback</tt> </tt>
+<a name="Table.rollback"></a><div id="Table.rollback-def"><a name="L256"></a><tt class="py-lineno">256</tt> <a class="py-toggle" href="#" id="Table.rollback-toggle" onclick="return toggle('Table.rollback');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnSQL.sql_table.Table-class.html#rollback">rollback</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Table.rollback-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Table.rollback-expanded"><a name="L257"></a><tt class="py-lineno">257</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-95" class="py-name" targets="Method satellite_tools.disk_dumper.string_buffer.StringBuffer.flush()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#flush,Method satellite_tools.exporter.xmlWriter.XMLWriter.flush()=satellite_tools.exporter.xmlWriter.XMLWriter-class.html#flush,Method server.rhnSQL.sql_table.Table.flush()=server.rhnSQL.sql_table.Table-class.html#flush"><a title="satellite_tools.disk_dumper.string_buffer.StringBuffer.flush
+satellite_tools.exporter.xmlWriter.XMLWriter.flush
+server.rhnSQL.sql_table.Table.flush" class="py-name" href="#" onclick="return doclink('link-95', 'flush', 'link-95');">flush</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L258"></a><tt class="py-lineno">258</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__db</tt><tt class="py-op">.</tt><tt id="link-96" class="py-name" targets="Module server.action.rollback=server.action.rollback-module.html,Function server.action.rollback.rollback()=server.action.rollback-module.html#rollback,Module server.action_extra_data.rollback=server.action_extra_data.rollback-module.html,Function server.action_extra_data.rollback.rollback()=server.action_extra_data.rollback-module.html#rollback,Method server.importlib.backend.Backend.rollback()=server.importlib.backend.Backend-class.html#rollback,Method server.rhnSQL.driver_cx_Oracle.Database.rollback()=server.rhnSQL.driver_cx_Oracle.Database-class.html#rollback,Method server.rhnSQL.driver_postgresql.Database.rollback()=server.rhnSQL.driver_postgresql.Database-class.html#rollback,Function server.rhnSQL.rollback()=server.rhnSQL-module.html#rollback,Method server.rhnSQL.sql_base.Database.rollback()=server.rhnSQL.sql_base.Database-class.html#rollback,Method server.rhnSQL.sql_table.Table.rollback()=server.rhnSQL.sql_table.Table-class.html#rollback"><a title="server.action.rollback
+server.action.rollback.rollback
+server.action_extra_data.rollback
+server.action_extra_data.rollback.rollback
+server.importlib.backend.Backend.rollback
+server.rhnSQL.driver_cx_Oracle.Database.rollback
+server.rhnSQL.driver_postgresql.Database.rollback
+server.rhnSQL.rollback
+server.rhnSQL.sql_base.Database.rollback
+server.rhnSQL.sql_table.Table.rollback" class="py-name" href="#" onclick="return doclink('link-96', 'rollback', 'link-96');">rollback</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L259"></a><tt class="py-lineno">259</tt>  <tt class="py-line"> </tt>
+<a name="Table.printcache"></a><div id="Table.printcache-def"><a name="L260"></a><tt class="py-lineno">260</tt> <a class="py-toggle" href="#" id="Table.printcache-toggle" onclick="return toggle('Table.printcache');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnSQL.sql_table.Table-class.html#printcache">printcache</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Table.printcache-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Table.printcache-expanded"><a name="L261"></a><tt class="py-lineno">261</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__cache</tt> </tt>
+<a name="L262"></a><tt class="py-lineno">262</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> </tt>
+</div></div><a name="L263"></a><tt class="py-lineno">263</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:36 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

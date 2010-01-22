@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>satellite_tools.exporter.exportLib.ErrataSynopsisDumper</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="satellite_tools-module.html">Package&nbsp;satellite_tools</a> ::
+        <a href="satellite_tools.exporter-module.html" onclick="show_private();">Package&nbsp;exporter</a> ::
+        <a href="satellite_tools.exporter.exportLib-module.html">Module&nbsp;exportLib</a> ::
+        Class&nbsp;ErrataSynopsisDumper
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="satellite_tools.exporter.exportLib.ErrataSynopsisDumper-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class ErrataSynopsisDumper</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.exporter.exportLib-pysrc.html#ErrataSynopsisDumper">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_satellit_68" name="uml_class_diagram_for_satellit_68">
+<area shape="rect" href="satellite_tools.exporter.exportLib.ErrataDumper-class.html#tag_name" title="satellite_tools.exporter.exportLib.ErrataDumper.tag_name" alt="" coords="108,196,292,215"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.ErrataDumper-class.html#set_iterator" title="satellite_tools.exporter.exportLib.ErrataDumper.set_iterator" alt="" coords="108,217,292,236"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.ErrataDumper-class.html#dump_subelement" title="satellite_tools.exporter.exportLib.ErrataDumper.dump_subelement" alt="" coords="108,236,292,255"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.ErrataDumper-class.html" title="satellite_tools.exporter.exportLib.ErrataDumper" alt="" coords="107,179,293,256"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.ErrataSynopsisDumper-class.html#synposis_column" title="satellite_tools.exporter.exportLib.ErrataSynopsisDumper.synposis_column" alt="" coords="129,303,271,321"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.ErrataSynopsisDumper-class.html" title="satellite_tools.exporter.exportLib.ErrataSynopsisDumper" alt="" coords="128,285,272,331"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.ErrataDumperEx-class.html" title="satellite_tools.disk_dumper.dumper.ErrataDumperEx" alt="" coords="79,360,321,387"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#__init__" title="satellite_tools.exporter.exportLib.BaseDumper.__init__" alt="" coords="17,36,383,55"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#timer" title="satellite_tools.exporter.exportLib.BaseDumper.timer" alt="" coords="17,55,383,73"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_attributes" title="satellite_tools.exporter.exportLib.BaseDumper.set_attributes" alt="" coords="17,73,383,92"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#dump" title="satellite_tools.exporter.exportLib.BaseDumper.dump" alt="" coords="17,92,383,111"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#get_writer" title="satellite_tools.exporter.exportLib.BaseDumper.get_writer" alt="" coords="17,111,383,129"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_writer" title="satellite_tools.exporter.exportLib.BaseDumper.set_writer" alt="" coords="17,129,383,148"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html" title="satellite_tools.exporter.exportLib.BaseDumper" alt="" coords="16,11,384,149"/>
+</map>
+  <img src="uml_class_diagram_for_satellit_68.png" alt='' usemap="#uml_class_diagram_for_satellit_68" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="satellite_tools.exporter.exportLib.ErrataDumper-class.html">ErrataDumper</a></code></b>:
+      <code><a href="satellite_tools.exporter.exportLib.ErrataDumper-class.html#dump_subelement">dump_subelement</a></code>,
+      <code><a href="satellite_tools.exporter.exportLib.ErrataDumper-class.html#set_iterator">set_iterator</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="satellite_tools.exporter.exportLib.BaseDumper-class.html">BaseDumper</a></code></b>:
+      <code><a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#__init__">__init__</a></code>,
+      <code><a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#dump">dump</a></code>,
+      <code><a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#get_writer">get_writer</a></code>,
+      <code><a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_attributes">set_attributes</a></code>,
+      <code><a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_writer">set_writer</a></code>,
+      <code><a href="satellite_tools.exporter.exportLib.BaseDumper-class.html#timer">timer</a></code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="satellite_tools.exporter.exportLib.ErrataSynopsisDumper-class.html#synposis_column" class="summary-name">synposis_column</a> = <code title="'''
+            (select SUBSTR(label,18) || \':\'
+               from rhnErrataSeverity
+              where id = e.severity_id) || e.synopsis synposis,'''"><code class="variable-quote">'</code><code class="variable-string">\n            (select SUBSTR(label,18) || \</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="satellite_tools.exporter.exportLib.ErrataDumper-class.html">ErrataDumper</a></code></b>:
+      <code><a href="satellite_tools.exporter.exportLib.ErrataDumper-class.html#tag_name">tag_name</a></code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLE DETAILS ==================== -->
+<a name="section-ClassVariableDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variable Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariableDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="synposis_column"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">synposis_column</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">            (select SUBSTR(label,18) || \':\'</code>
+<code class="variable-string">               from rhnErrataSeverity</code>
+<code class="variable-string">              where id = e.severity_id) || e.synopsis synposis,</code><code class="variable-quote">'''</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:29 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

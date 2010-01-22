@@ -35,7 +35,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="satellite_tools-module.html">Package&nbsp;satellite_tools</a> ::
-        <a href="satellite_tools.disk_dumper-module.html">Package&nbsp;disk_dumper</a> ::
+        <a href="satellite_tools.disk_dumper-module.html" onclick="show_private();">Package&nbsp;disk_dumper</a> ::
         <a href="satellite_tools.disk_dumper.dumper-module.html">Module&nbsp;dumper</a> ::
         Class&nbsp;KickstartableTreesDumper
       </span>
@@ -56,7 +56,25 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class KickstartableTreesDumper</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#KickstartableTreesDumper">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_satellit_37" name="uml_class_diagram_for_satellit_37">
+<area shape="rect" href="satellite_tools.exporter.exportLib.KickstartableTreesDumper-class.html#tag_name" title="satellite_tools.exporter.exportLib.KickstartableTreesDumper.tag_name" alt="" coords="17,215,295,233"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.KickstartableTreesDumper-class.html" title="satellite_tools.exporter.exportLib.KickstartableTreesDumper" alt="" coords="16,197,296,243"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.KickstartableTreesDumper-class.html#__init__" title="satellite_tools.disk_dumper.dumper.KickstartableTreesDumper.__init__" alt="" coords="208,316,392,335"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.KickstartableTreesDumper-class.html" title="satellite_tools.disk_dumper.dumper.KickstartableTreesDumper" alt="" coords="207,291,393,336"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.CachedDumper-class.html#cache_get" title="satellite_tools.disk_dumper.dumper.CachedDumper.cache_get" alt="" coords="348,204,540,223"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.CachedDumper-class.html#cache_set" title="satellite_tools.disk_dumper.dumper.CachedDumper.cache_set" alt="" coords="348,223,540,241"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.CachedDumper-class.html#dump_subelement" title="satellite_tools.disk_dumper.dumper.CachedDumper.dump_subelement" alt="" coords="348,241,540,260"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.CachedDumper-class.html" title="satellite_tools.disk_dumper.dumper.CachedDumper" alt="" coords="347,179,541,261"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#timer" title="satellite_tools.exporter.exportLib.BaseDumper.timer" alt="" coords="117,36,483,55"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_attributes" title="satellite_tools.exporter.exportLib.BaseDumper.set_attributes" alt="" coords="117,55,483,73"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_iterator" title="satellite_tools.exporter.exportLib.BaseDumper.set_iterator" alt="" coords="117,73,483,92"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#dump" title="satellite_tools.exporter.exportLib.BaseDumper.dump" alt="" coords="117,92,483,111"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#get_writer" title="satellite_tools.exporter.exportLib.BaseDumper.get_writer" alt="" coords="117,111,483,129"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_writer" title="satellite_tools.exporter.exportLib.BaseDumper.set_writer" alt="" coords="117,129,483,148"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html" title="satellite_tools.exporter.exportLib.BaseDumper" alt="" coords="116,11,484,149"/>
+</map>
+  <img src="uml_class_diagram_for_satellit_37.png" alt='' usemap="#uml_class_diagram_for_satellit_37" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -118,7 +136,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="satellite_tools.disk_dumper.dumper.KickstartableTreesDumper-class.html#_dump_subelement" class="summary-sig-name" onclick="show_private();">_dump_subelement</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">data</span>)</span></td>
+        <span class="summary-sig-arg">data</span>)</span><br />
+      To be overridden in subclasses.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#KickstartableTreesDumper._dump_subelement">source&nbsp;code</a></span>
             
@@ -170,7 +189,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.disk_dumper.dumper.KickstartableTreesDumper-class.html#_query_lookup_ks_tree" class="summary-name" onclick="show_private();">_query_lookup_ks_tree</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.disk_dumper.dumper.KickstartableTreesDumper-class.html#_query_lookup_ks_tree" class="summary-name" onclick="show_private();">_query_lookup_ks_tree</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147403628; statement=
         select kt.id,
                c.label channel,
                kt.base_path &quot;base-path&quot;,
@@ -178,7 +197,7 @@
                kt.boot_image &quot;boot-image&quot;,
                ktt.name &quot;kstree-type-name&quot;,
                ktt.label &quot;kstree-type-label&quot;,
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;server.rhnSQL.sql_base.Statement inst<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
   <tr>
@@ -270,10 +289,11 @@
     </td>
   </tr></table>
   
-  
+  <p>To be overridden in subclasses.</p>
   <dl class="fields">
     <dt>Overrides:
         <a href="satellite_tools.disk_dumper.dumper.CachedDumper-class.html#_dump_subelement" onclick="show_private();">CachedDumper._dump_subelement</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>
 </td></tr></table>
@@ -309,7 +329,7 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 147403628; statement=
         select kt.id,
                c.label channel,
                kt.base_path &quot;base-path&quot;,
@@ -347,7 +367,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:09 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:25 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

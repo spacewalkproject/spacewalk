@@ -328,7 +328,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="import_packages"></a><span class="summary-sig-name">import_packages</span>(<span class="summary-sig-arg">batch</span>)</span></td>
+          <td><span class="summary-sig"><a name="import_packages"></a><span class="summary-sig-name">import_packages</span>(<span class="summary-sig-arg">batch</span>,
+        <span class="summary-sig-arg">sources</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.sync_handlers-pysrc.html#import_packages">source&nbsp;code</a></span>
             
@@ -517,74 +518,66 @@
     </table>
   </td>
 </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="DEFAULT_ORG"></a><span class="summary-name">DEFAULT_ORG</span> = <code title="1">1</code>
+    </td>
+  </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.sync_handlers-module.html#_query_fetch_existing_channel_families" class="summary-name" onclick="show_private();">_query_fetch_existing_channel_families</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.sync_handlers-module.html#_query_fetch_existing_channel_families" class="summary-name" onclick="show_private();">_query_fetch_existing_channel_families</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 161474924; statement=
     select label
      from rhnChannelFamily cf
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_ba<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.sync_handlers-module.html#_query_fetch_channel_family_permissions" class="summary-name" onclick="show_private();">_query_fetch_channel_family_permissions</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
-    select cf.label channel_family, cfp.org_id,
-           cfp.max_members, cfp.current_members, cf.org_id owner_org_i\
-d
+        <a href="satellite_tools.sync_handlers-module.html#_query_fetch_channel_family_permissions" class="summary-name" onclick="show_private();">_query_fetch_channel_family_permissions</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 161474956; statement=
+    select cf.label as channel_family, cfp.org_id,
+           cfp.max_members, cfp.current_members, cf.org_id as owner_or\
+g_id
       from rhnChannelFamilyPermissions cfp, rhnChannelFamily cf
      where cfp.channel_family_id = cf.id
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_b<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.sync_handlers-module.html#_query_purge_extra_channel_families_1" class="summary-name" onclick="show_private();">_query_purge_extra_channel_families_1</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.sync_handlers-module.html#_query_purge_extra_channel_families_1" class="summary-name" onclick="show_private();">_query_purge_extra_channel_families_1</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 161474988; statement=
     delete from rhnPrivateChannelFamily cfp
      where max_members = 0
        and not exists (
         select 1 from rhnChannelFamilyMembers
          where channel_family_id = cfp.channel_family_id
        )
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_bas<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.sync_handlers-module.html#_query_purge_extra_channel_families_2" class="summary-name" onclick="show_private();">_query_purge_extra_channel_families_2</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
-    delete from rhnChannelFamily cf
-     where not exists (
-        select 1 from rhnChannelFamilyMembers
-         where channel_family_id = cf.id
-       )
-       and not exists (
-        select 1 from rhnChannelFamilyPermissions
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+        <a href="satellite_tools.sync_handlers-module.html#_query_purge_private_channel_families" class="summary-name" onclick="show_private();">_query_purge_private_channel_families</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 161475020; statement=
+    delete from rhnChannelFamily
+        where org_id is null
+          and label like '%private%'
+">&lt;server.rhnSQL.sql_bas<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.sync_handlers-module.html#_query_purge_private_channel_families" class="summary-name" onclick="show_private();">_query_purge_private_channel_families</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
-    delete from rhnChannelFamily cf
-        where cf.org_id is null
-          and cf.label like '%private%'
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="satellite_tools.sync_handlers-module.html#_query_update_family_counts" class="summary-name" onclick="show_private();">_query_update_family_counts</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.sync_handlers-module.html#_query_update_family_counts" class="summary-name" onclick="show_private();">_query_update_family_counts</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 161475052; statement=
     declare
         cursor ch_fam_cursor is
             select cf.id channel_family_id, wc.id org_id
@@ -592,7 +585,14 @@ d
     begin
         for row in ch_fam_cursor loop
             rhn_channel.update_family_counts(row.channel_family_id,
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;server.rhnSQL.sql_base.Statemen<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'satellite_tools'"><code class="variable-quote">'</code><code class="variable-string">satellite_tools</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -626,10 +626,10 @@ d
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 161474924; statement=
     select label
      from rhnChannelFamily cf
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -647,13 +647,13 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
-    select cf.label channel_family, cfp.org_id,
-           cfp.max_members, cfp.current_members, cf.org_id owner_org_i<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-d
+&lt;server.rhnSQL.sql_base.Statement instance at 161474956; statement=
+    select cf.label as channel_family, cfp.org_id,
+           cfp.max_members, cfp.current_members, cf.org_id as owner_or<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+g_id
       from rhnChannelFamilyPermissions cfp, rhnChannelFamily cf
      where cfp.channel_family_id = cf.id
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -671,40 +671,14 @@ d
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 161474988; statement=
     delete from rhnPrivateChannelFamily cfp
      where max_members = 0
        and not exists (
         select 1 from rhnChannelFamilyMembers
          where channel_family_id = cfp.channel_family_id
        )
-&quot;&quot;&quot;)
-</pre></td></tr></table>
-</dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="_query_purge_extra_channel_families_2"></a>
-<div class="private">
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <h3 class="epydoc">_query_purge_extra_channel_families_2</h3>
-  
-  <dl class="fields">
-  </dl>
-  <dl class="fields">
-    <dt>Value:</dt>
-      <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
-    delete from rhnChannelFamily cf
-     where not exists (
-        select 1 from rhnChannelFamilyMembers
-         where channel_family_id = cf.id
-       )
-       and not exists (
-        select 1 from rhnChannelFamilyPermissions
-<code class="variable-ellipsis">...</code>
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -722,11 +696,11 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
-    delete from rhnChannelFamily cf
-        where cf.org_id is null
-          and cf.label like '%private%'
-&quot;&quot;&quot;)
+&lt;server.rhnSQL.sql_base.Statement instance at 161475020; statement=
+    delete from rhnChannelFamily
+        where org_id is null
+          and label like '%private%'
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -744,7 +718,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 161475052; statement=
     declare
         cursor ch_fam_cursor is
             select cf.id channel_family_id, wc.id org_id
@@ -782,7 +756,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:14 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

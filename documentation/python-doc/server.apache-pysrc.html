@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.apache</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        Module&nbsp;apache
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.apache-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="server.apache-module.html">Module server.apache</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2010 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation.</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-comment"># constants meant to match the apache.py module of mod_python</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt id="link-0" class="py-name" targets="Variable server.apache.HTTP_CONTINUE=server.apache-module.html#HTTP_CONTINUE"><a title="server.apache.HTTP_CONTINUE" class="py-name" href="#" onclick="return doclink('link-0', 'HTTP_CONTINUE', 'link-0');">HTTP_CONTINUE</a></tt>                     <tt class="py-op">=</tt> <tt class="py-number">100</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt id="link-1" class="py-name" targets="Variable server.apache.HTTP_SWITCHING_PROTOCOLS=server.apache-module.html#HTTP_SWITCHING_PROTOCOLS"><a title="server.apache.HTTP_SWITCHING_PROTOCOLS" class="py-name" href="#" onclick="return doclink('link-1', 'HTTP_SWITCHING_PROTOCOLS', 'link-1');">HTTP_SWITCHING_PROTOCOLS</a></tt>          <tt class="py-op">=</tt> <tt class="py-number">101</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt id="link-2" class="py-name" targets="Variable server.apache.HTTP_PROCESSING=server.apache-module.html#HTTP_PROCESSING"><a title="server.apache.HTTP_PROCESSING" class="py-name" href="#" onclick="return doclink('link-2', 'HTTP_PROCESSING', 'link-2');">HTTP_PROCESSING</a></tt>                   <tt class="py-op">=</tt> <tt class="py-number">102</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt id="link-3" class="py-name" targets="Variable server.apache.HTTP_OK=server.apache-module.html#HTTP_OK"><a title="server.apache.HTTP_OK" class="py-name" href="#" onclick="return doclink('link-3', 'HTTP_OK', 'link-3');">HTTP_OK</a></tt>                           <tt class="py-op">=</tt> <tt class="py-number">200</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt id="link-4" class="py-name" targets="Variable server.apache.HTTP_CREATED=server.apache-module.html#HTTP_CREATED"><a title="server.apache.HTTP_CREATED" class="py-name" href="#" onclick="return doclink('link-4', 'HTTP_CREATED', 'link-4');">HTTP_CREATED</a></tt>                      <tt class="py-op">=</tt> <tt class="py-number">201</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"><tt id="link-5" class="py-name" targets="Variable server.apache.HTTP_ACCEPTED=server.apache-module.html#HTTP_ACCEPTED"><a title="server.apache.HTTP_ACCEPTED" class="py-name" href="#" onclick="return doclink('link-5', 'HTTP_ACCEPTED', 'link-5');">HTTP_ACCEPTED</a></tt>                     <tt class="py-op">=</tt> <tt class="py-number">202</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"><tt id="link-6" class="py-name" targets="Variable server.apache.HTTP_NON_AUTHORITATIVE=server.apache-module.html#HTTP_NON_AUTHORITATIVE"><a title="server.apache.HTTP_NON_AUTHORITATIVE" class="py-name" href="#" onclick="return doclink('link-6', 'HTTP_NON_AUTHORITATIVE', 'link-6');">HTTP_NON_AUTHORITATIVE</a></tt>            <tt class="py-op">=</tt> <tt class="py-number">203</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"><tt id="link-7" class="py-name" targets="Variable server.apache.HTTP_NO_CONTENT=server.apache-module.html#HTTP_NO_CONTENT"><a title="server.apache.HTTP_NO_CONTENT" class="py-name" href="#" onclick="return doclink('link-7', 'HTTP_NO_CONTENT', 'link-7');">HTTP_NO_CONTENT</a></tt>                   <tt class="py-op">=</tt> <tt class="py-number">204</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"><tt id="link-8" class="py-name" targets="Variable server.apache.HTTP_RESET_CONTENT=server.apache-module.html#HTTP_RESET_CONTENT"><a title="server.apache.HTTP_RESET_CONTENT" class="py-name" href="#" onclick="return doclink('link-8', 'HTTP_RESET_CONTENT', 'link-8');">HTTP_RESET_CONTENT</a></tt>                <tt class="py-op">=</tt> <tt class="py-number">205</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line"><tt id="link-9" class="py-name" targets="Variable server.apache.HTTP_PARTIAL_CONTENT=server.apache-module.html#HTTP_PARTIAL_CONTENT"><a title="server.apache.HTTP_PARTIAL_CONTENT" class="py-name" href="#" onclick="return doclink('link-9', 'HTTP_PARTIAL_CONTENT', 'link-9');">HTTP_PARTIAL_CONTENT</a></tt>              <tt class="py-op">=</tt> <tt class="py-number">206</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"><tt id="link-10" class="py-name" targets="Variable server.apache.HTTP_MULTI_STATUS=server.apache-module.html#HTTP_MULTI_STATUS"><a title="server.apache.HTTP_MULTI_STATUS" class="py-name" href="#" onclick="return doclink('link-10', 'HTTP_MULTI_STATUS', 'link-10');">HTTP_MULTI_STATUS</a></tt>                 <tt class="py-op">=</tt> <tt class="py-number">207</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line"><tt id="link-11" class="py-name" targets="Variable server.apache.HTTP_MULTIPLE_CHOICES=server.apache-module.html#HTTP_MULTIPLE_CHOICES"><a title="server.apache.HTTP_MULTIPLE_CHOICES" class="py-name" href="#" onclick="return doclink('link-11', 'HTTP_MULTIPLE_CHOICES', 'link-11');">HTTP_MULTIPLE_CHOICES</a></tt>             <tt class="py-op">=</tt> <tt class="py-number">300</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"><tt id="link-12" class="py-name" targets="Variable server.apache.HTTP_MOVED_PERMANENTLY=server.apache-module.html#HTTP_MOVED_PERMANENTLY"><a title="server.apache.HTTP_MOVED_PERMANENTLY" class="py-name" href="#" onclick="return doclink('link-12', 'HTTP_MOVED_PERMANENTLY', 'link-12');">HTTP_MOVED_PERMANENTLY</a></tt>            <tt class="py-op">=</tt> <tt class="py-number">301</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line"><tt id="link-13" class="py-name" targets="Variable server.apache.HTTP_MOVED_TEMPORARILY=server.apache-module.html#HTTP_MOVED_TEMPORARILY"><a title="server.apache.HTTP_MOVED_TEMPORARILY" class="py-name" href="#" onclick="return doclink('link-13', 'HTTP_MOVED_TEMPORARILY', 'link-13');">HTTP_MOVED_TEMPORARILY</a></tt>            <tt class="py-op">=</tt> <tt class="py-number">302</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line"><tt id="link-14" class="py-name" targets="Variable server.apache.HTTP_SEE_OTHER=server.apache-module.html#HTTP_SEE_OTHER"><a title="server.apache.HTTP_SEE_OTHER" class="py-name" href="#" onclick="return doclink('link-14', 'HTTP_SEE_OTHER', 'link-14');">HTTP_SEE_OTHER</a></tt>                    <tt class="py-op">=</tt> <tt class="py-number">303</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line"><tt id="link-15" class="py-name" targets="Variable server.apache.HTTP_NOT_MODIFIED=server.apache-module.html#HTTP_NOT_MODIFIED"><a title="server.apache.HTTP_NOT_MODIFIED" class="py-name" href="#" onclick="return doclink('link-15', 'HTTP_NOT_MODIFIED', 'link-15');">HTTP_NOT_MODIFIED</a></tt>                 <tt class="py-op">=</tt> <tt class="py-number">304</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"><tt id="link-16" class="py-name" targets="Variable server.apache.HTTP_USE_PROXY=server.apache-module.html#HTTP_USE_PROXY"><a title="server.apache.HTTP_USE_PROXY" class="py-name" href="#" onclick="return doclink('link-16', 'HTTP_USE_PROXY', 'link-16');">HTTP_USE_PROXY</a></tt>                    <tt class="py-op">=</tt> <tt class="py-number">305</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line"><tt id="link-17" class="py-name" targets="Variable server.apache.HTTP_TEMPORARY_REDIRECT=server.apache-module.html#HTTP_TEMPORARY_REDIRECT"><a title="server.apache.HTTP_TEMPORARY_REDIRECT" class="py-name" href="#" onclick="return doclink('link-17', 'HTTP_TEMPORARY_REDIRECT', 'link-17');">HTTP_TEMPORARY_REDIRECT</a></tt>           <tt class="py-op">=</tt> <tt class="py-number">307</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line"><tt id="link-18" class="py-name" targets="Variable server.apache.HTTP_BAD_REQUEST=server.apache-module.html#HTTP_BAD_REQUEST"><a title="server.apache.HTTP_BAD_REQUEST" class="py-name" href="#" onclick="return doclink('link-18', 'HTTP_BAD_REQUEST', 'link-18');">HTTP_BAD_REQUEST</a></tt>                  <tt class="py-op">=</tt> <tt class="py-number">400</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"><tt id="link-19" class="py-name" targets="Variable server.apache.HTTP_UNAUTHORIZED=server.apache-module.html#HTTP_UNAUTHORIZED"><a title="server.apache.HTTP_UNAUTHORIZED" class="py-name" href="#" onclick="return doclink('link-19', 'HTTP_UNAUTHORIZED', 'link-19');">HTTP_UNAUTHORIZED</a></tt>                 <tt class="py-op">=</tt> <tt class="py-number">401</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line"><tt id="link-20" class="py-name" targets="Variable server.apache.HTTP_PAYMENT_REQUIRED=server.apache-module.html#HTTP_PAYMENT_REQUIRED"><a title="server.apache.HTTP_PAYMENT_REQUIRED" class="py-name" href="#" onclick="return doclink('link-20', 'HTTP_PAYMENT_REQUIRED', 'link-20');">HTTP_PAYMENT_REQUIRED</a></tt>             <tt class="py-op">=</tt> <tt class="py-number">402</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line"><tt id="link-21" class="py-name" targets="Variable server.apache.HTTP_FORBIDDEN=server.apache-module.html#HTTP_FORBIDDEN"><a title="server.apache.HTTP_FORBIDDEN" class="py-name" href="#" onclick="return doclink('link-21', 'HTTP_FORBIDDEN', 'link-21');">HTTP_FORBIDDEN</a></tt>                    <tt class="py-op">=</tt> <tt class="py-number">403</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line"><tt id="link-22" class="py-name" targets="Variable server.apache.HTTP_NOT_FOUND=server.apache-module.html#HTTP_NOT_FOUND"><a title="server.apache.HTTP_NOT_FOUND" class="py-name" href="#" onclick="return doclink('link-22', 'HTTP_NOT_FOUND', 'link-22');">HTTP_NOT_FOUND</a></tt>                    <tt class="py-op">=</tt> <tt class="py-number">404</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line"><tt id="link-23" class="py-name" targets="Variable server.apache.HTTP_METHOD_NOT_ALLOWED=server.apache-module.html#HTTP_METHOD_NOT_ALLOWED"><a title="server.apache.HTTP_METHOD_NOT_ALLOWED" class="py-name" href="#" onclick="return doclink('link-23', 'HTTP_METHOD_NOT_ALLOWED', 'link-23');">HTTP_METHOD_NOT_ALLOWED</a></tt>           <tt class="py-op">=</tt> <tt class="py-number">405</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line"><tt id="link-24" class="py-name" targets="Variable server.apache.HTTP_NOT_ACCEPTABLE=server.apache-module.html#HTTP_NOT_ACCEPTABLE"><a title="server.apache.HTTP_NOT_ACCEPTABLE" class="py-name" href="#" onclick="return doclink('link-24', 'HTTP_NOT_ACCEPTABLE', 'link-24');">HTTP_NOT_ACCEPTABLE</a></tt>               <tt class="py-op">=</tt> <tt class="py-number">406</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line"><tt id="link-25" class="py-name" targets="Variable server.apache.HTTP_PROXY_AUTHENTICATION_REQUIRED=server.apache-module.html#HTTP_PROXY_AUTHENTICATION_REQUIRED"><a title="server.apache.HTTP_PROXY_AUTHENTICATION_REQUIRED" class="py-name" href="#" onclick="return doclink('link-25', 'HTTP_PROXY_AUTHENTICATION_REQUIRED', 'link-25');">HTTP_PROXY_AUTHENTICATION_REQUIRED</a></tt><tt class="py-op">=</tt> <tt class="py-number">407</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line"><tt id="link-26" class="py-name" targets="Variable server.apache.HTTP_REQUEST_TIME_OUT=server.apache-module.html#HTTP_REQUEST_TIME_OUT"><a title="server.apache.HTTP_REQUEST_TIME_OUT" class="py-name" href="#" onclick="return doclink('link-26', 'HTTP_REQUEST_TIME_OUT', 'link-26');">HTTP_REQUEST_TIME_OUT</a></tt>             <tt class="py-op">=</tt> <tt class="py-number">408</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line"><tt id="link-27" class="py-name" targets="Variable server.apache.HTTP_CONFLICT=server.apache-module.html#HTTP_CONFLICT"><a title="server.apache.HTTP_CONFLICT" class="py-name" href="#" onclick="return doclink('link-27', 'HTTP_CONFLICT', 'link-27');">HTTP_CONFLICT</a></tt>                     <tt class="py-op">=</tt> <tt class="py-number">409</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line"><tt id="link-28" class="py-name" targets="Variable server.apache.HTTP_GONE=server.apache-module.html#HTTP_GONE"><a title="server.apache.HTTP_GONE" class="py-name" href="#" onclick="return doclink('link-28', 'HTTP_GONE', 'link-28');">HTTP_GONE</a></tt>                         <tt class="py-op">=</tt> <tt class="py-number">410</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line"><tt id="link-29" class="py-name" targets="Variable server.apache.HTTP_LENGTH_REQUIRED=server.apache-module.html#HTTP_LENGTH_REQUIRED"><a title="server.apache.HTTP_LENGTH_REQUIRED" class="py-name" href="#" onclick="return doclink('link-29', 'HTTP_LENGTH_REQUIRED', 'link-29');">HTTP_LENGTH_REQUIRED</a></tt>              <tt class="py-op">=</tt> <tt class="py-number">411</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line"><tt id="link-30" class="py-name" targets="Variable server.apache.HTTP_PRECONDITION_FAILED=server.apache-module.html#HTTP_PRECONDITION_FAILED"><a title="server.apache.HTTP_PRECONDITION_FAILED" class="py-name" href="#" onclick="return doclink('link-30', 'HTTP_PRECONDITION_FAILED', 'link-30');">HTTP_PRECONDITION_FAILED</a></tt>          <tt class="py-op">=</tt> <tt class="py-number">412</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line"><tt id="link-31" class="py-name" targets="Variable server.apache.HTTP_REQUEST_ENTITY_TOO_LARGE=server.apache-module.html#HTTP_REQUEST_ENTITY_TOO_LARGE"><a title="server.apache.HTTP_REQUEST_ENTITY_TOO_LARGE" class="py-name" href="#" onclick="return doclink('link-31', 'HTTP_REQUEST_ENTITY_TOO_LARGE', 'link-31');">HTTP_REQUEST_ENTITY_TOO_LARGE</a></tt>     <tt class="py-op">=</tt> <tt class="py-number">413</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line"><tt id="link-32" class="py-name" targets="Variable server.apache.HTTP_REQUEST_URI_TOO_LARGE=server.apache-module.html#HTTP_REQUEST_URI_TOO_LARGE"><a title="server.apache.HTTP_REQUEST_URI_TOO_LARGE" class="py-name" href="#" onclick="return doclink('link-32', 'HTTP_REQUEST_URI_TOO_LARGE', 'link-32');">HTTP_REQUEST_URI_TOO_LARGE</a></tt>        <tt class="py-op">=</tt> <tt class="py-number">414</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line"><tt id="link-33" class="py-name" targets="Variable server.apache.HTTP_UNSUPPORTED_MEDIA_TYPE=server.apache-module.html#HTTP_UNSUPPORTED_MEDIA_TYPE"><a title="server.apache.HTTP_UNSUPPORTED_MEDIA_TYPE" class="py-name" href="#" onclick="return doclink('link-33', 'HTTP_UNSUPPORTED_MEDIA_TYPE', 'link-33');">HTTP_UNSUPPORTED_MEDIA_TYPE</a></tt>       <tt class="py-op">=</tt> <tt class="py-number">415</tt> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line"><tt id="link-34" class="py-name" targets="Variable server.apache.HTTP_RANGE_NOT_SATISFIABLE=server.apache-module.html#HTTP_RANGE_NOT_SATISFIABLE"><a title="server.apache.HTTP_RANGE_NOT_SATISFIABLE" class="py-name" href="#" onclick="return doclink('link-34', 'HTTP_RANGE_NOT_SATISFIABLE', 'link-34');">HTTP_RANGE_NOT_SATISFIABLE</a></tt>        <tt class="py-op">=</tt> <tt class="py-number">416</tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line"><tt id="link-35" class="py-name" targets="Variable server.apache.HTTP_EXPECTATION_FAILED=server.apache-module.html#HTTP_EXPECTATION_FAILED"><a title="server.apache.HTTP_EXPECTATION_FAILED" class="py-name" href="#" onclick="return doclink('link-35', 'HTTP_EXPECTATION_FAILED', 'link-35');">HTTP_EXPECTATION_FAILED</a></tt>           <tt class="py-op">=</tt> <tt class="py-number">417</tt> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line"><tt id="link-36" class="py-name" targets="Variable server.apache.HTTP_UNPROCESSABLE_ENTITY=server.apache-module.html#HTTP_UNPROCESSABLE_ENTITY"><a title="server.apache.HTTP_UNPROCESSABLE_ENTITY" class="py-name" href="#" onclick="return doclink('link-36', 'HTTP_UNPROCESSABLE_ENTITY', 'link-36');">HTTP_UNPROCESSABLE_ENTITY</a></tt>         <tt class="py-op">=</tt> <tt class="py-number">422</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line"><tt id="link-37" class="py-name" targets="Variable server.apache.HTTP_LOCKED=server.apache-module.html#HTTP_LOCKED"><a title="server.apache.HTTP_LOCKED" class="py-name" href="#" onclick="return doclink('link-37', 'HTTP_LOCKED', 'link-37');">HTTP_LOCKED</a></tt>                       <tt class="py-op">=</tt> <tt class="py-number">423</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line"><tt id="link-38" class="py-name" targets="Variable server.apache.HTTP_FAILED_DEPENDENCY=server.apache-module.html#HTTP_FAILED_DEPENDENCY"><a title="server.apache.HTTP_FAILED_DEPENDENCY" class="py-name" href="#" onclick="return doclink('link-38', 'HTTP_FAILED_DEPENDENCY', 'link-38');">HTTP_FAILED_DEPENDENCY</a></tt>            <tt class="py-op">=</tt> <tt class="py-number">424</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line"><tt id="link-39" class="py-name" targets="Variable server.apache.HTTP_INTERNAL_SERVER_ERROR=server.apache-module.html#HTTP_INTERNAL_SERVER_ERROR"><a title="server.apache.HTTP_INTERNAL_SERVER_ERROR" class="py-name" href="#" onclick="return doclink('link-39', 'HTTP_INTERNAL_SERVER_ERROR', 'link-39');">HTTP_INTERNAL_SERVER_ERROR</a></tt>        <tt class="py-op">=</tt> <tt class="py-number">500</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line"><tt id="link-40" class="py-name" targets="Variable server.apache.HTTP_NOT_IMPLEMENTED=server.apache-module.html#HTTP_NOT_IMPLEMENTED"><a title="server.apache.HTTP_NOT_IMPLEMENTED" class="py-name" href="#" onclick="return doclink('link-40', 'HTTP_NOT_IMPLEMENTED', 'link-40');">HTTP_NOT_IMPLEMENTED</a></tt>              <tt class="py-op">=</tt> <tt class="py-number">501</tt> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line"><tt id="link-41" class="py-name" targets="Variable server.apache.HTTP_BAD_GATEWAY=server.apache-module.html#HTTP_BAD_GATEWAY"><a title="server.apache.HTTP_BAD_GATEWAY" class="py-name" href="#" onclick="return doclink('link-41', 'HTTP_BAD_GATEWAY', 'link-41');">HTTP_BAD_GATEWAY</a></tt>                  <tt class="py-op">=</tt> <tt class="py-number">502</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line"><tt id="link-42" class="py-name" targets="Variable server.apache.HTTP_SERVICE_UNAVAILABLE=server.apache-module.html#HTTP_SERVICE_UNAVAILABLE"><a title="server.apache.HTTP_SERVICE_UNAVAILABLE" class="py-name" href="#" onclick="return doclink('link-42', 'HTTP_SERVICE_UNAVAILABLE', 'link-42');">HTTP_SERVICE_UNAVAILABLE</a></tt>          <tt class="py-op">=</tt> <tt class="py-number">503</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line"><tt id="link-43" class="py-name" targets="Variable server.apache.HTTP_GATEWAY_TIME_OUT=server.apache-module.html#HTTP_GATEWAY_TIME_OUT"><a title="server.apache.HTTP_GATEWAY_TIME_OUT" class="py-name" href="#" onclick="return doclink('link-43', 'HTTP_GATEWAY_TIME_OUT', 'link-43');">HTTP_GATEWAY_TIME_OUT</a></tt>             <tt class="py-op">=</tt> <tt class="py-number">504</tt> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line"><tt id="link-44" class="py-name" targets="Variable server.apache.HTTP_VERSION_NOT_SUPPORTED=server.apache-module.html#HTTP_VERSION_NOT_SUPPORTED"><a title="server.apache.HTTP_VERSION_NOT_SUPPORTED" class="py-name" href="#" onclick="return doclink('link-44', 'HTTP_VERSION_NOT_SUPPORTED', 'link-44');">HTTP_VERSION_NOT_SUPPORTED</a></tt>        <tt class="py-op">=</tt> <tt class="py-number">505</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line"><tt id="link-45" class="py-name" targets="Variable server.apache.HTTP_VARIANT_ALSO_VARIES=server.apache-module.html#HTTP_VARIANT_ALSO_VARIES"><a title="server.apache.HTTP_VARIANT_ALSO_VARIES" class="py-name" href="#" onclick="return doclink('link-45', 'HTTP_VARIANT_ALSO_VARIES', 'link-45');">HTTP_VARIANT_ALSO_VARIES</a></tt>          <tt class="py-op">=</tt> <tt class="py-number">506</tt> </tt>
+<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line"><tt id="link-46" class="py-name" targets="Variable server.apache.HTTP_INSUFFICIENT_STORAGE=server.apache-module.html#HTTP_INSUFFICIENT_STORAGE"><a title="server.apache.HTTP_INSUFFICIENT_STORAGE" class="py-name" href="#" onclick="return doclink('link-46', 'HTTP_INSUFFICIENT_STORAGE', 'link-46');">HTTP_INSUFFICIENT_STORAGE</a></tt>         <tt class="py-op">=</tt> <tt class="py-number">507</tt> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line"><tt id="link-47" class="py-name" targets="Variable server.apache.HTTP_NOT_EXTENDED=server.apache-module.html#HTTP_NOT_EXTENDED"><a title="server.apache.HTTP_NOT_EXTENDED" class="py-name" href="#" onclick="return doclink('link-47', 'HTTP_NOT_EXTENDED', 'link-47');">HTTP_NOT_EXTENDED</a></tt>                 <tt class="py-op">=</tt> <tt class="py-number">510</tt> </tt>
+<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line"><tt id="link-48" class="py-name" targets="Variable server.apache.REMOTE_DOUBLE_REV=server.apache-module.html#REMOTE_DOUBLE_REV"><a title="server.apache.REMOTE_DOUBLE_REV" class="py-name" href="#" onclick="return doclink('link-48', 'REMOTE_DOUBLE_REV', 'link-48');">REMOTE_DOUBLE_REV</a></tt> <tt class="py-op">=</tt> <tt class="py-number">3</tt> </tt>
+<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line"><tt id="link-49" class="py-name" targets="Variable satellite_tools.satComputePkgHeaders.OK=satellite_tools.satComputePkgHeaders-module.html#OK,Variable server.apache.OK=server.apache-module.html#OK"><a title="satellite_tools.satComputePkgHeaders.OK
+server.apache.OK" class="py-name" href="#" onclick="return doclink('link-49', 'OK', 'link-49');">OK</a></tt> <tt class="py-op">=</tt> <tt id="link-50" class="py-name" targets="Variable server.apache.REQ_PROCEED=server.apache-module.html#REQ_PROCEED"><a title="server.apache.REQ_PROCEED" class="py-name" href="#" onclick="return doclink('link-50', 'REQ_PROCEED', 'link-50');">REQ_PROCEED</a></tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:39 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

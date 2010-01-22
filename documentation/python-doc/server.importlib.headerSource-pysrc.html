@@ -1,0 +1,1321 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.importlib.headerSource</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.importlib-module.html">Package&nbsp;importlib</a> ::
+        Module&nbsp;headerSource
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.importlib.headerSource-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="server.importlib.headerSource-module.html" onclick="show_private();">Module server.importlib.headerSource</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008--2009 Red Hat, Inc.</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment"># Converts headers to the intermediate format</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">time</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">string</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Module server.importlib.importLib=server.importlib.importLib-module.html"><a title="server.importlib.importLib" class="py-name" href="#" onclick="return doclink('link-0', 'importLib', 'link-0');">importLib</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Class rhn.transports.File=rhn.transports.File-class.html,Class server.importlib.importLib.File=server.importlib.importLib.File-class.html"><a title="rhn.transports.File
+server.importlib.importLib.File" class="py-name" href="#" onclick="return doclink('link-1', 'File', 'link-1');">File</a></tt><tt class="py-op">,</tt> <tt id="link-2" class="py-name" targets="Class server.importlib.importLib.Dependency=server.importlib.importLib.Dependency-class.html"><a title="server.importlib.importLib.Dependency" class="py-name" href="#" onclick="return doclink('link-2', 'Dependency', 'link-2');">Dependency</a></tt><tt class="py-op">,</tt> <tt id="link-3" class="py-name" targets="Class server.importlib.importLib.ChangeLog=server.importlib.importLib.ChangeLog-class.html"><a title="server.importlib.importLib.ChangeLog" class="py-name" href="#" onclick="return doclink('link-3', 'ChangeLog', 'link-3');">ChangeLog</a></tt><tt class="py-op">,</tt> <tt id="link-4" class="py-name" targets="Class server.handlers.app.channel.Channel=server.handlers.app.channel.Channel-class.html,Class server.importlib.importLib.Channel=server.importlib.importLib.Channel-class.html,Class server.repomd.domain.Channel=server.repomd.domain.Channel-class.html,Class server.rhnChannel.Channel=server.rhnChannel.Channel-class.html"><a title="server.handlers.app.channel.Channel
+server.importlib.importLib.Channel
+server.repomd.domain.Channel
+server.rhnChannel.Channel" class="py-name" href="#" onclick="return doclink('link-4', 'Channel', 'link-4');">Channel</a></tt><tt class="py-op">,</tt> \ </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line">    <tt id="link-5" class="py-name" targets="Class server.importlib.importLib.IncompletePackage=server.importlib.importLib.IncompletePackage-class.html"><a title="server.importlib.importLib.IncompletePackage" class="py-name" href="#" onclick="return doclink('link-5', 'IncompletePackage', 'link-5');">IncompletePackage</a></tt><tt class="py-op">,</tt> <tt id="link-6" class="py-name" targets="Class server.importlib.importLib.Package=server.importlib.importLib.Package-class.html,Class server.repomd.domain.Package=server.repomd.domain.Package-class.html"><a title="server.importlib.importLib.Package
+server.repomd.domain.Package" class="py-name" href="#" onclick="return doclink('link-6', 'Package', 'link-6');">Package</a></tt><tt class="py-op">,</tt> <tt id="link-7" class="py-name" targets="Class server.importlib.importLib.SourcePackage=server.importlib.importLib.SourcePackage-class.html"><a title="server.importlib.importLib.SourcePackage" class="py-name" href="#" onclick="return doclink('link-7', 'SourcePackage', 'link-7');">SourcePackage</a></tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-8" class="py-name" targets="Module server.importlib.backendLib=server.importlib.backendLib-module.html"><a title="server.importlib.backendLib" class="py-name" href="#" onclick="return doclink('link-8', 'backendLib', 'link-8');">backendLib</a></tt> <tt class="py-keyword">import</tt> <tt id="link-9" class="py-name" targets="Function server.handlers.xp.rhnlint.gmtime()=server.handlers.xp.rhnlint-module.html#gmtime,Function server.importlib.backendLib.gmtime()=server.importlib.backendLib-module.html#gmtime"><a title="server.handlers.xp.rhnlint.gmtime
+server.importlib.backendLib.gmtime" class="py-name" href="#" onclick="return doclink('link-9', 'gmtime', 'link-9');">gmtime</a></tt><tt class="py-op">,</tt> <tt id="link-10" class="py-name" targets="Function server.importlib.backendLib.localtime()=server.importlib.backendLib-module.html#localtime"><a title="server.importlib.backendLib.localtime" class="py-name" href="#" onclick="return doclink('link-10', 'localtime', 'link-10');">localtime</a></tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">types</tt> <tt class="py-keyword">import</tt> <tt class="py-name">ListType</tt><tt class="py-op">,</tt> <tt class="py-name">TupleType</tt><tt class="py-op">,</tt> <tt class="py-name">IntType</tt><tt class="py-op">,</tt> <tt class="py-name">LongType</tt><tt class="py-op">,</tt> <tt class="py-name">StringType</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-11" class="py-name" targets="Package common=common-module.html,Package spacewalk.common=spacewalk.common-module.html"><a title="common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-11', 'common', 'link-11');">common</a></tt> <tt class="py-keyword">import</tt> <tt id="link-12" class="py-name" targets="Function common.rhnLog.log_debug()=common.rhnLog-module.html#log_debug"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-12', 'log_debug', 'link-12');">log_debug</a></tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-13" class="py-name" targets="Package spacewalk=spacewalk-module.html"><a title="spacewalk" class="py-name" href="#" onclick="return doclink('link-13', 'spacewalk', 'link-13');">spacewalk</a></tt><tt class="py-op">.</tt><tt id="link-14" class="py-name"><a title="common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-14', 'common', 'link-11');">common</a></tt><tt class="py-op">.</tt><tt id="link-15" class="py-name" targets="Module spacewalk.common.checksum=spacewalk.common.checksum-module.html"><a title="spacewalk.common.checksum" class="py-name" href="#" onclick="return doclink('link-15', 'checksum', 'link-15');">checksum</a></tt> <tt class="py-keyword">import</tt> <tt id="link-16" class="py-name" targets="Function spacewalk.common.checksum.getFileChecksum()=spacewalk.common.checksum-module.html#getFileChecksum"><a title="spacewalk.common.checksum.getFileChecksum" class="py-name" href="#" onclick="return doclink('link-16', 'getFileChecksum', 'link-16');">getFileChecksum</a></tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"> </tt>
+<a name="rpmPackage"></a><div id="rpmPackage-def"><a name="L30"></a><tt class="py-lineno"> 30</tt> <a class="py-toggle" href="#" id="rpmPackage-toggle" onclick="return toggle('rpmPackage');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.importlib.headerSource.rpmPackage-class.html">rpmPackage</a><tt class="py-op">(</tt><tt class="py-base-class">IncompletePackage</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rpmPackage-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="rpmPackage-expanded"><a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">    <tt class="py-comment"># Various mappings</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">    <tt id="link-17" class="py-name" targets="Variable satellite_tools.xmlSource.BaseItem.tagMap=satellite_tools.xmlSource.BaseItem-class.html#tagMap,Variable satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap=satellite_tools.xmlSource.BlacklistObsoleteItem-class.html#tagMap,Variable satellite_tools.xmlSource.BugItem.tagMap=satellite_tools.xmlSource.BugItem-class.html#tagMap,Variable satellite_tools.xmlSource.ChangelogItem.tagMap=satellite_tools.xmlSource.ChangelogItem-class.html#tagMap,Variable satellite_tools.xmlSource.ChannelErratumItem.tagMap=satellite_tools.xmlSource.ChannelErratumItem-class.html#tagMap,Variable satellite_tools.xmlSource.ChannelFamilyItem.tagMap=satellite_tools.xmlSource.ChannelFamilyItem-class.html#tagMap,Variable satellite_tools.xmlSource.ChannelItem.tagMap=satellite_tools.xmlSource.ChannelItem-class.html#tagMap,Variable satellite_tools.xmlSource.ConflictsItem.tagMap=satellite_tools.xmlSource.ConflictsItem-class.html#tagMap,Variable satellite_tools.xmlSource.DistItem.tagMap=satellite_tools.xmlSource.DistItem-class.html#tagMap,Variable satellite_tools.xmlSource.ErrataFileItem.tagMap=satellite_tools.xmlSource.ErrataFileItem-class.html#tagMap,Variable satellite_tools.xmlSource.ErratumItem.tagMap=satellite_tools.xmlSource.ErratumItem-class.html#tagMap,Variable satellite_tools.xmlSource.ErrorItem.tagMap=satellite_tools.xmlSource.ErrorItem-class.html#tagMap,Variable satellite_tools.xmlSource.FileItem.tagMap=satellite_tools.xmlSource.FileItem-class.html#tagMap,Variable satellite_tools.xmlSource.IncompletePackageItem.tagMap=satellite_tools.xmlSource.IncompletePackageItem-class.html#tagMap,Variable satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap=satellite_tools.xmlSource.IncompleteSourcePackageItem-class.html#tagMap,Variable satellite_tools.xmlSource.KeywordItem.tagMap=satellite_tools.xmlSource.KeywordItem-class.html#tagMap,Variable satellite_tools.xmlSource.KickstartFileItem.tagMap=satellite_tools.xmlSource.KickstartFileItem-class.html#tagMap,Variable satellite_tools.xmlSource.KickstartableTreeItem.tagMap=satellite_tools.xmlSource.KickstartableTreeItem-class.html#tagMap,Variable satellite_tools.xmlSource.ObsoletesItem.tagMap=satellite_tools.xmlSource.ObsoletesItem-class.html#tagMap,Variable satellite_tools.xmlSource.PackageItem.tagMap=satellite_tools.xmlSource.PackageItem-class.html#tagMap,Variable satellite_tools.xmlSource.ProductNamesItem.tagMap=satellite_tools.xmlSource.ProductNamesItem-class.html#tagMap,Variable satellite_tools.xmlSource.ProvidesItem.tagMap=satellite_tools.xmlSource.ProvidesItem-class.html#tagMap,Variable satellite_tools.xmlSource.ReleaseItem.tagMap=satellite_tools.xmlSource.ReleaseItem-class.html#tagMap,Variable satellite_tools.xmlSource.RequiresItem.tagMap=satellite_tools.xmlSource.RequiresItem-class.html#tagMap,Variable satellite_tools.xmlSource.SourcePackageItem.tagMap=satellite_tools.xmlSource.SourcePackageItem-class.html#tagMap,Variable server.importlib.headerSource.rpmBinaryPackage.tagMap=server.importlib.headerSource.rpmBinaryPackage-class.html#tagMap,Variable server.importlib.headerSource.rpmChangeLog.tagMap=server.importlib.headerSource.rpmChangeLog-class.html#tagMap,Variable server.importlib.headerSource.rpmConflicts.tagMap=server.importlib.headerSource.rpmConflicts-class.html#tagMap,Variable server.importlib.headerSource.rpmFile.tagMap=server.importlib.headerSource.rpmFile-class.html#tagMap,Variable server.importlib.headerSource.rpmObsoletes.tagMap=server.importlib.headerSource.rpmObsoletes-class.html#tagMap,Variable server.importlib.headerSource.rpmPackage.tagMap=server.importlib.headerSource.rpmPackage-class.html#tagMap,Variable server.importlib.headerSource.rpmProvides.tagMap=server.importlib.headerSource.rpmProvides-class.html#tagMap,Variable server.importlib.headerSource.rpmRequires.tagMap=server.importlib.headerSource.rpmRequires-class.html#tagMap,Variable server.importlib.headerSource.rpmSourcePackage.tagMap=server.importlib.headerSource.rpmSourcePackage-class.html#tagMap,Variable server.importlib.mpmSource.mpmBinaryPackage.tagMap=server.importlib.mpmSource.mpmBinaryPackage-class.html#tagMap,Variable server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap=server.importlib.mpmSource.mpmSolarisPackageInfo-class.html#tagMap,Variable server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap=server.importlib.mpmSource.mpmSolarisPatchInfo-class.html#tagMap,Variable server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap=server.importlib.mpmSource.mpmSolarisPatchPackagesInfo-class.html#tagMap,Variable server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap=server.importlib.mpmSource.mpmSolarisPatchSetInfo-class.html#tagMap,Variable server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap=server.importlib.mpmSource.mpmSolarisPatchSetMember-class.html#tagMap"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-17', 'tagMap', 'link-17');">tagMap</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">        <tt class="py-comment"># Ignoring these tags</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">        <tt class="py-string">'last_modified'</tt>     <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">        <tt class="py-comment"># We set them differently</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">        <tt class="py-string">'checksum'</tt>          <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">        <tt class="py-string">'checksum_type'</tt>     <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">        <tt class="py-string">'sigchecksum'</tt>       <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">        <tt class="py-string">'sigchecksum_type'</tt>  <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">    <tt class="py-op">}</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"> </tt>
+<a name="rpmPackage.populate"></a><div id="rpmPackage.populate-def"><a name="L42"></a><tt class="py-lineno"> 42</tt> <a class="py-toggle" href="#" id="rpmPackage.populate-toggle" onclick="return toggle('rpmPackage.populate');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.headerSource.rpmPackage-class.html#populate">populate</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">header</tt><tt class="py-op">,</tt> <tt class="py-param">size</tt><tt class="py-op">,</tt> <tt class="py-param">checksum_type</tt><tt class="py-op">,</tt> <tt class="py-param">checksum</tt><tt class="py-op">,</tt> <tt class="py-param">path</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">org_id</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">        <tt class="py-param">header_start</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">header_end</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">channels</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rpmPackage.populate-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rpmPackage.populate-expanded"><a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">         </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">        <tt class="py-comment"># XXX is seems to me that this is the place that 'source_rpm' is getting</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">        <tt class="py-comment"># set</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">f</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Method common.UserDictCase'.UserDictCase.keys()=common.UserDictCase%27.UserDictCase-class.html#keys,Method common.rhnConfig.RHNOptions.keys()=common.rhnConfig.RHNOptions-class.html#keys,Method rhn.UserDictCase.UserDictCase.keys()=rhn.UserDictCase.UserDictCase-class.html#keys,Method server.rhnSQL.sql_table.Table.keys()=server.rhnSQL.sql_table.Table-class.html#keys"><a title="common.UserDictCase'.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+rhn.UserDictCase.UserDictCase.keys
+server.rhnSQL.sql_table.Table.keys" class="py-name" href="#" onclick="return doclink('link-18', 'keys', 'link-18');">keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">            <tt class="py-name">field</tt> <tt class="py-op">=</tt> <tt class="py-name">f</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-19', 'tagMap', 'link-17');">tagMap</a></tt><tt class="py-op">.</tt><tt id="link-20" class="py-name" targets="Method common.UserDictCase'.UserDictCase.has_key()=common.UserDictCase%27.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Function server.rhnDatabaseCache.has_key()=server.rhnDatabaseCache-module.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-20', 'has_key', 'link-20');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">f</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">                <tt class="py-name">field</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-21', 'tagMap', 'link-17');">tagMap</a></tt><tt class="py-op">[</tt><tt class="py-name">f</tt><tt class="py-op">]</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">field</tt><tt class="py-op">:</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">                    <tt class="py-comment"># Unsupported</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">                    <tt class="py-keyword">continue</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">            <tt class="py-comment"># get the db field value from the header</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">            <tt class="py-name">val</tt> <tt class="py-op">=</tt> <tt id="link-22" class="py-name" targets="Method server.handlers.xmlrpc.up2date.Up2date.header()=server.handlers.xmlrpc.up2date.Up2date-class.html#header"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-22', 'header', 'link-22');">header</a></tt><tt class="py-op">[</tt><tt class="py-name">field</tt><tt class="py-op">]</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">f</tt> <tt class="py-op">==</tt> <tt class="py-string">'build_time'</tt><tt class="py-op">:</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt id="link-23" class="py-name" targets="Variable satellite_tools.reposync.RepoSync.type=satellite_tools.reposync.RepoSync-class.html#type"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-23', 'type', 'link-23');">type</a></tt><tt class="py-op">(</tt><tt class="py-name">val</tt><tt class="py-op">)</tt> <tt class="py-keyword">in</tt> <tt class="py-op">(</tt><tt class="py-name">IntType</tt><tt class="py-op">,</tt> <tt class="py-name">LongType</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">                    <tt class="py-comment"># A UNIX timestamp</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">                    <tt class="py-name">val</tt> <tt class="py-op">=</tt> <tt id="link-24" class="py-name"><a title="server.handlers.xp.rhnlint.gmtime
+server.importlib.backendLib.gmtime" class="py-name" href="#" onclick="return doclink('link-24', 'gmtime', 'link-9');">gmtime</a></tt><tt class="py-op">(</tt><tt class="py-name">val</tt><tt class="py-op">)</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-name">val</tt><tt class="py-op">:</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">                <tt class="py-comment"># Convert to strings</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt class="py-name">val</tt><tt class="py-op">,</tt> <tt class="py-name">unicode</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">                    <tt class="py-name">val</tt> <tt class="py-op">=</tt> <tt class="py-name">unicode</tt><tt class="py-op">.</tt><tt class="py-name">encode</tt><tt class="py-op">(</tt><tt class="py-name">val</tt><tt class="py-op">,</tt> <tt class="py-string">'utf-8'</tt><tt class="py-op">)</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">                    <tt class="py-name">val</tt> <tt class="py-op">=</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">val</tt><tt class="py-op">)</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-name">val</tt> <tt class="py-op">==</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">                <tt class="py-name">val</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">f</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">val</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'package_size'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">size</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'checksum_type'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-25" class="py-name" targets="Method spacewalk.common.rhn_rpm.RPM_Header.checksum_type()=spacewalk.common.rhn_rpm.RPM_Header-class.html#checksum_type"><a title="spacewalk.common.rhn_rpm.RPM_Header.checksum_type" class="py-name" href="#" onclick="return doclink('link-25', 'checksum_type', 'link-25');">checksum_type</a></tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'checksum'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-26" class="py-name"><a title="spacewalk.common.checksum" class="py-name" href="#" onclick="return doclink('link-26', 'checksum', 'link-15');">checksum</a></tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'path'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">path</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'org_id'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">org_id</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'header_start'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">header_start</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'header_end'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">header_end</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'last_modified'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-27" class="py-name"><a title="server.importlib.backendLib.localtime" class="py-name" href="#" onclick="return doclink('link-27', 'localtime', 'link-10');">localtime</a></tt><tt class="py-op">(</tt><tt class="py-name">time</tt><tt class="py-op">.</tt><tt class="py-name">time</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'sigmd5'</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'sigchecksum_type'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">'md5'</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'sigchecksum'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'sigmd5'</tt><tt class="py-op">]</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-keyword">del</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'sigmd5'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line"> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">        <tt class="py-comment"># Fix some of the information up</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">        <tt class="py-name">vendor</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'vendor'</tt><tt class="py-op">]</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">vendor</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'vendor'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">'Red Hat, Inc.'</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">        <tt class="py-name">payloadFormat</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'payload_format'</tt><tt class="py-op">]</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">payloadFormat</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'payload_format'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">'cpio'</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'payload_size'</tt><tt class="py-op">]</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'payload_size'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt> </tt>
+</div><a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line"> </tt>
+<a name="rpmPackage._populateFromFile"></a><div id="rpmPackage._populateFromFile-def"><a name="L95"></a><tt class="py-lineno"> 95</tt> <a class="py-toggle" href="#" id="rpmPackage._populateFromFile-toggle" onclick="return toggle('rpmPackage._populateFromFile');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.headerSource.rpmPackage-class.html#_populateFromFile">_populateFromFile</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">f_path</tt><tt class="py-op">,</tt> <tt class="py-param">relpath</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">org_id</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">channels</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">            <tt class="py-param">source</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rpmPackage._populateFromFile-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rpmPackage._populateFromFile-expanded"><a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">        <tt class="py-name">f_obj</tt> <tt class="py-op">=</tt> <tt class="py-name">file</tt><tt class="py-op">(</tt><tt class="py-name">f_path</tt><tt class="py-op">)</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">        <tt class="py-keyword">import</tt> <tt id="link-28" class="py-name" targets="Package server=server-module.html"><a title="server" class="py-name" href="#" onclick="return doclink('link-28', 'server', 'link-28');">server</a></tt><tt class="py-op">.</tt><tt id="link-29" class="py-name" targets="Module server.rhnPackageUpload=server.rhnPackageUpload-module.html"><a title="server.rhnPackageUpload" class="py-name" href="#" onclick="return doclink('link-29', 'rhnPackageUpload', 'link-29');">rhnPackageUpload</a></tt> <tt class="py-keyword">as</tt> <tt id="link-30" class="py-name"><a title="server.rhnPackageUpload" class="py-name" href="#" onclick="return doclink('link-30', 'rhnPackageUpload', 'link-29');">rhnPackageUpload</a></tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">        <tt id="link-31" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-31', 'header', 'link-22');">header</a></tt><tt class="py-op">,</tt> <tt class="py-name">payload_stream</tt><tt class="py-op">,</tt> <tt class="py-name">header_start</tt><tt class="py-op">,</tt> <tt class="py-name">header_end</tt> <tt class="py-op">=</tt> \ </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">            <tt id="link-32" class="py-name"><a title="server.rhnPackageUpload" class="py-name" href="#" onclick="return doclink('link-32', 'rhnPackageUpload', 'link-29');">rhnPackageUpload</a></tt><tt class="py-op">.</tt><tt id="link-33" class="py-name" targets="Function server.rhnPackageUpload.load_package()=server.rhnPackageUpload-module.html#load_package"><a title="server.rhnPackageUpload.load_package" class="py-name" href="#" onclick="return doclink('link-33', 'load_package', 'link-33');">load_package</a></tt><tt class="py-op">(</tt><tt class="py-name">f_obj</tt><tt class="py-op">)</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt class="py-name">source</tt> <tt class="py-keyword">and</tt> <tt class="py-keyword">not</tt> <tt id="link-34" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-34', 'header', 'link-22');">header</a></tt><tt class="py-op">.</tt><tt class="py-name">is_source</tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> <tt class="py-op">(</tt><tt class="py-keyword">not</tt> <tt class="py-name">source</tt> <tt class="py-keyword">and</tt> <tt id="link-35" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-35', 'header', 'link-22');">header</a></tt><tt class="py-op">.</tt><tt class="py-name">is_source</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">ValueError</tt><tt class="py-op">(</tt><tt class="py-string">"Unexpected RPM package type"</tt><tt class="py-op">)</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">                     </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">        <tt class="py-comment"># Get the size</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-name">size</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">getsize</tt><tt class="py-op">(</tt><tt class="py-name">f_path</tt><tt class="py-op">)</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">        <tt class="py-name">path</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">relpath</tt><tt class="py-op">:</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">            <tt class="py-comment"># Strip trailing slashes</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">            <tt class="py-name">path</tt> <tt class="py-op">=</tt> <tt class="py-string">"%s/%s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt id="link-36" class="py-name" targets="Function server.importlib.headerSource.sanitizePath()=server.importlib.headerSource-module.html#sanitizePath"><a title="server.importlib.headerSource.sanitizePath" class="py-name" href="#" onclick="return doclink('link-36', 'sanitizePath', 'link-36');">sanitizePath</a></tt><tt class="py-op">(</tt><tt class="py-name">relpath</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">basename</tt><tt class="py-op">(</tt><tt class="py-name">f_path</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">        <tt id="link-37" class="py-name"><a title="spacewalk.common.rhn_rpm.RPM_Header.checksum_type" class="py-name" href="#" onclick="return doclink('link-37', 'checksum_type', 'link-25');">checksum_type</a></tt> <tt class="py-op">=</tt> <tt id="link-38" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-38', 'header', 'link-22');">header</a></tt><tt class="py-op">.</tt><tt id="link-39" class="py-name"><a title="spacewalk.common.rhn_rpm.RPM_Header.checksum_type" class="py-name" href="#" onclick="return doclink('link-39', 'checksum_type', 'link-25');">checksum_type</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">        <tt id="link-40" class="py-name"><a title="spacewalk.common.checksum" class="py-name" href="#" onclick="return doclink('link-40', 'checksum', 'link-15');">checksum</a></tt> <tt class="py-op">=</tt> <tt id="link-41" class="py-name"><a title="spacewalk.common.checksum.getFileChecksum" class="py-name" href="#" onclick="return doclink('link-41', 'getFileChecksum', 'link-16');">getFileChecksum</a></tt><tt class="py-op">(</tt><tt id="link-42" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-42', 'header', 'link-22');">header</a></tt><tt class="py-op">.</tt><tt id="link-43" class="py-name"><a title="spacewalk.common.rhn_rpm.RPM_Header.checksum_type" class="py-name" href="#" onclick="return doclink('link-43', 'checksum_type', 'link-25');">checksum_type</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">file</tt><tt class="py-op">=</tt><tt class="py-name">f_obj</tt><tt class="py-op">)</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-44" class="py-name" targets="Method satellite_tools.xmlSource.BaseChecksummedItem.populate()=satellite_tools.xmlSource.BaseChecksummedItem-class.html#populate,Method satellite_tools.xmlSource.BaseItem.populate()=satellite_tools.xmlSource.BaseItem-class.html#populate,Method server.importlib.headerSource.rpmBinaryPackage.populate()=server.importlib.headerSource.rpmBinaryPackage-class.html#populate,Method server.importlib.headerSource.rpmChangeLog.populate()=server.importlib.headerSource.rpmChangeLog-class.html#populate,Method server.importlib.headerSource.rpmFile.populate()=server.importlib.headerSource.rpmFile-class.html#populate,Method server.importlib.headerSource.rpmPackage.populate()=server.importlib.headerSource.rpmPackage-class.html#populate,Method server.importlib.headerSource.rpmSourcePackage.populate()=server.importlib.headerSource.rpmSourcePackage-class.html#populate,Method server.importlib.importLib.Item.populate()=server.importlib.importLib.Item-class.html#populate,Method server.importlib.mpmSource.mpmBinaryPackage.populate()=server.importlib.mpmSource.mpmBinaryPackage-class.html#populate"><a title="satellite_tools.xmlSource.BaseChecksummedItem.populate
+satellite_tools.xmlSource.BaseItem.populate
+server.importlib.headerSource.rpmBinaryPackage.populate
+server.importlib.headerSource.rpmChangeLog.populate
+server.importlib.headerSource.rpmFile.populate
+server.importlib.headerSource.rpmPackage.populate
+server.importlib.headerSource.rpmSourcePackage.populate
+server.importlib.importLib.Item.populate
+server.importlib.mpmSource.mpmBinaryPackage.populate" class="py-name" href="#" onclick="return doclink('link-44', 'populate', 'link-44');">populate</a></tt><tt class="py-op">(</tt><tt id="link-45" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-45', 'header', 'link-22');">header</a></tt><tt class="py-op">,</tt> <tt class="py-name">size</tt><tt class="py-op">,</tt> <tt id="link-46" class="py-name"><a title="spacewalk.common.rhn_rpm.RPM_Header.checksum_type" class="py-name" href="#" onclick="return doclink('link-46', 'checksum_type', 'link-25');">checksum_type</a></tt><tt class="py-op">,</tt> <tt id="link-47" class="py-name"><a title="spacewalk.common.checksum" class="py-name" href="#" onclick="return doclink('link-47', 'checksum', 'link-15');">checksum</a></tt><tt class="py-op">,</tt> <tt class="py-name">path</tt><tt class="py-op">,</tt> <tt class="py-name">org_id</tt><tt class="py-op">,</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">                 <tt class="py-name">header_start</tt><tt class="py-op">,</tt> <tt class="py-name">header_end</tt><tt class="py-op">,</tt> <tt id="link-48" class="py-name" targets="Method satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels()=satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper-class.html#channels"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-48', 'channels', 'link-48');">channels</a></tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"> </tt>
+<a name="rpmBinaryPackage"></a><div id="rpmBinaryPackage-def"><a name="L115"></a><tt class="py-lineno">115</tt> <a class="py-toggle" href="#" id="rpmBinaryPackage-toggle" onclick="return toggle('rpmBinaryPackage');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.importlib.headerSource.rpmBinaryPackage-class.html">rpmBinaryPackage</a><tt class="py-op">(</tt><tt class="py-base-class">Package</tt><tt class="py-op">,</tt> <tt class="py-base-class">rpmPackage</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rpmBinaryPackage-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="rpmBinaryPackage-expanded"><a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">    <tt class="py-comment"># Various mappings</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">    <tt id="link-49" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-49', 'tagMap', 'link-17');">tagMap</a></tt> <tt class="py-op">=</tt> <tt id="link-50" class="py-name" targets="Class server.importlib.headerSource.rpmPackage=server.importlib.headerSource.rpmPackage-class.html"><a title="server.importlib.headerSource.rpmPackage" class="py-name" href="#" onclick="return doclink('link-50', 'rpmPackage', 'link-50');">rpmPackage</a></tt><tt class="py-op">.</tt><tt id="link-51" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-51', 'tagMap', 'link-17');">tagMap</a></tt><tt class="py-op">.</tt><tt class="py-name">copy</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">    <tt id="link-52" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-52', 'tagMap', 'link-17');">tagMap</a></tt><tt class="py-op">.</tt><tt id="link-53" class="py-name" targets="Method common.UserDictCase'.UserDictCase.update()=common.UserDictCase%27.UserDictCase-class.html#update,Method rhn.UserDictCase.UserDictCase.update()=rhn.UserDictCase.UserDictCase-class.html#update,Method satellite_tools.progress_bar.ProgressBar.update()=satellite_tools.progress_bar.ProgressBar-class.html#update,Function server.action.errata.update()=server.action.errata-module.html#update,Function server.action.packages.update()=server.action.packages-module.html#update,Function server.action_extra_data.errata.update()=server.action_extra_data.errata-module.html#update,Function server.action_extra_data.packages.update()=server.action_extra_data.packages-module.html#update,Function server.action_extra_data.up2date_config.update()=server.action_extra_data.up2date_config-module.html#update"><a title="common.UserDictCase'.UserDictCase.update
+rhn.UserDictCase.UserDictCase.update
+satellite_tools.progress_bar.ProgressBar.update
+server.action.errata.update
+server.action.packages.update
+server.action_extra_data.errata.update
+server.action_extra_data.packages.update
+server.action_extra_data.up2date_config.update" class="py-name" href="#" onclick="return doclink('link-53', 'update', 'link-53');">update</a></tt><tt class="py-op">(</tt><tt class="py-op">{</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">        <tt class="py-string">'package_group'</tt> <tt class="py-op">:</tt> <tt class="py-string">'group'</tt><tt class="py-op">,</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">        <tt class="py-string">'rpm_version'</tt>   <tt class="py-op">:</tt> <tt class="py-string">'rpmversion'</tt><tt class="py-op">,</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">        <tt class="py-string">'payload_size'</tt>  <tt class="py-op">:</tt> <tt class="py-string">'archivesize'</tt><tt class="py-op">,</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">        <tt class="py-string">'payload_format'</tt><tt class="py-op">:</tt> <tt class="py-string">'payloadformat'</tt><tt class="py-op">,</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">        <tt class="py-string">'build_host'</tt>    <tt class="py-op">:</tt> <tt class="py-string">'buildhost'</tt><tt class="py-op">,</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">        <tt class="py-string">'build_time'</tt>    <tt class="py-op">:</tt> <tt class="py-string">'buildtime'</tt><tt class="py-op">,</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">        <tt class="py-string">'source_rpm'</tt>    <tt class="py-op">:</tt> <tt class="py-string">'sourcerpm'</tt><tt class="py-op">,</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">        <tt class="py-comment"># Arrays: require a different mapping</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">        <tt class="py-string">'requires'</tt>      <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">        <tt class="py-string">'provides'</tt>      <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">        <tt class="py-string">'conflicts'</tt>     <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">        <tt class="py-string">'obsoletes'</tt>     <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">        <tt class="py-string">'files'</tt>         <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">        <tt class="py-string">'changelog'</tt>     <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">        <tt class="py-string">'channels'</tt>      <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">        <tt class="py-comment"># We set them differently</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">        <tt class="py-string">'package_size'</tt>  <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">        <tt class="py-string">'org_id'</tt>        <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">        <tt class="py-string">'md5sum'</tt>        <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">        <tt class="py-string">'path'</tt>          <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">        <tt class="py-string">'header_start'</tt>  <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">        <tt class="py-string">'header_end'</tt>    <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">        <tt class="py-comment"># Unsupported</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">        <tt class="py-string">'sigpgp'</tt>        <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">        <tt class="py-string">'siggpg'</tt>        <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">        <tt class="py-string">'package_id'</tt>    <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">    <tt class="py-op">}</tt><tt class="py-op">)</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line"> </tt>
+<a name="rpmBinaryPackage.populate"></a><div id="rpmBinaryPackage.populate-def"><a name="L147"></a><tt class="py-lineno">147</tt> <a class="py-toggle" href="#" id="rpmBinaryPackage.populate-toggle" onclick="return toggle('rpmBinaryPackage.populate');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.headerSource.rpmBinaryPackage-class.html#populate">populate</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">header</tt><tt class="py-op">,</tt> <tt class="py-param">size</tt><tt class="py-op">,</tt> <tt class="py-param">checksum_type</tt><tt class="py-op">,</tt> <tt class="py-param">checksum</tt><tt class="py-op">,</tt> <tt class="py-param">path</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">org_id</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">             <tt class="py-param">header_start</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">header_end</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">channels</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rpmBinaryPackage.populate-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rpmBinaryPackage.populate-expanded"><a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line"> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">        <tt id="link-54" class="py-name"><a title="server.importlib.headerSource.rpmPackage" class="py-name" href="#" onclick="return doclink('link-54', 'rpmPackage', 'link-50');">rpmPackage</a></tt><tt class="py-op">.</tt><tt id="link-55" class="py-name"><a title="satellite_tools.xmlSource.BaseChecksummedItem.populate
+satellite_tools.xmlSource.BaseItem.populate
+server.importlib.headerSource.rpmBinaryPackage.populate
+server.importlib.headerSource.rpmChangeLog.populate
+server.importlib.headerSource.rpmFile.populate
+server.importlib.headerSource.rpmPackage.populate
+server.importlib.headerSource.rpmSourcePackage.populate
+server.importlib.importLib.Item.populate
+server.importlib.mpmSource.mpmBinaryPackage.populate" class="py-name" href="#" onclick="return doclink('link-55', 'populate', 'link-44');">populate</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt id="link-56" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-56', 'header', 'link-22');">header</a></tt><tt class="py-op">,</tt> <tt class="py-name">size</tt><tt class="py-op">,</tt> <tt id="link-57" class="py-name"><a title="spacewalk.common.rhn_rpm.RPM_Header.checksum_type" class="py-name" href="#" onclick="return doclink('link-57', 'checksum_type', 'link-25');">checksum_type</a></tt><tt class="py-op">,</tt> <tt id="link-58" class="py-name"><a title="spacewalk.common.checksum" class="py-name" href="#" onclick="return doclink('link-58', 'checksum', 'link-15');">checksum</a></tt><tt class="py-op">,</tt> <tt class="py-name">path</tt><tt class="py-op">,</tt> <tt class="py-name">org_id</tt><tt class="py-op">,</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">            <tt class="py-name">header_start</tt><tt class="py-op">,</tt> <tt class="py-name">header_end</tt><tt class="py-op">)</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">         </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">        <tt class="py-comment"># Populate file information</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-59" class="py-name" targets="Method server.importlib.headerSource.rpmBinaryPackage._populateFiles()=server.importlib.headerSource.rpmBinaryPackage-class.html#_populateFiles,Method server.importlib.mpmSource.mpmBinaryPackage._populateFiles()=server.importlib.mpmSource.mpmBinaryPackage-class.html#_populateFiles"><a title="server.importlib.headerSource.rpmBinaryPackage._populateFiles
+server.importlib.mpmSource.mpmBinaryPackage._populateFiles" class="py-name" href="#" onclick="return doclink('link-59', '_populateFiles', 'link-59');">_populateFiles</a></tt><tt class="py-op">(</tt><tt id="link-60" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-60', 'header', 'link-22');">header</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">        <tt class="py-comment"># Populate dependency information</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-61" class="py-name" targets="Method server.importlib.headerSource.rpmBinaryPackage._populateDependencyInformation()=server.importlib.headerSource.rpmBinaryPackage-class.html#_populateDependencyInformation,Method server.importlib.mpmSource.mpmBinaryPackage._populateDependencyInformation()=server.importlib.mpmSource.mpmBinaryPackage-class.html#_populateDependencyInformation"><a title="server.importlib.headerSource.rpmBinaryPackage._populateDependencyInformation
+server.importlib.mpmSource.mpmBinaryPackage._populateDependencyInformation" class="py-name" href="#" onclick="return doclink('link-61', '_populateDependencyInformation', 'link-61');">_populateDependencyInformation</a></tt><tt class="py-op">(</tt><tt id="link-62" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-62', 'header', 'link-22');">header</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">        <tt class="py-comment"># Populate changelogs</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-63" class="py-name" targets="Method server.importlib.headerSource.rpmBinaryPackage._populateChangeLog()=server.importlib.headerSource.rpmBinaryPackage-class.html#_populateChangeLog,Method server.importlib.mpmSource.mpmBinaryPackage._populateChangeLog()=server.importlib.mpmSource.mpmBinaryPackage-class.html#_populateChangeLog"><a title="server.importlib.headerSource.rpmBinaryPackage._populateChangeLog
+server.importlib.mpmSource.mpmBinaryPackage._populateChangeLog" class="py-name" href="#" onclick="return doclink('link-63', '_populateChangeLog', 'link-63');">_populateChangeLog</a></tt><tt class="py-op">(</tt><tt id="link-64" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-64', 'header', 'link-22');">header</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">        <tt class="py-comment"># Channels</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-65" class="py-name" targets="Method server.importlib.headerSource.rpmBinaryPackage._populateChannels()=server.importlib.headerSource.rpmBinaryPackage-class.html#_populateChannels"><a title="server.importlib.headerSource.rpmBinaryPackage._populateChannels" class="py-name" href="#" onclick="return doclink('link-65', '_populateChannels', 'link-65');">_populateChannels</a></tt><tt class="py-op">(</tt><tt id="link-66" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-66', 'channels', 'link-48');">channels</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line"> </tt>
+<a name="rpmBinaryPackage.populateFromFile"></a><div id="rpmBinaryPackage.populateFromFile-def"><a name="L162"></a><tt class="py-lineno">162</tt> <a class="py-toggle" href="#" id="rpmBinaryPackage.populateFromFile-toggle" onclick="return toggle('rpmBinaryPackage.populateFromFile');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.headerSource.rpmBinaryPackage-class.html#populateFromFile">populateFromFile</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">file</tt><tt class="py-op">,</tt> <tt class="py-param">relpath</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">org_id</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">channels</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rpmBinaryPackage.populateFromFile-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rpmBinaryPackage.populateFromFile-expanded"><a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-67" class="py-name" targets="Method server.importlib.headerSource.rpmPackage._populateFromFile()=server.importlib.headerSource.rpmPackage-class.html#_populateFromFile"><a title="server.importlib.headerSource.rpmPackage._populateFromFile" class="py-name" href="#" onclick="return doclink('link-67', '_populateFromFile', 'link-67');">_populateFromFile</a></tt><tt class="py-op">(</tt><tt class="py-name">file</tt><tt class="py-op">,</tt> <tt class="py-name">relpath</tt><tt class="py-op">,</tt> <tt class="py-name">org_id</tt><tt class="py-op">,</tt> <tt id="link-68" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-68', 'channels', 'link-48');">channels</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line"> </tt>
+<a name="rpmBinaryPackage._populateFiles"></a><div id="rpmBinaryPackage._populateFiles-def"><a name="L165"></a><tt class="py-lineno">165</tt> <a class="py-toggle" href="#" id="rpmBinaryPackage._populateFiles-toggle" onclick="return toggle('rpmBinaryPackage._populateFiles');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.headerSource.rpmBinaryPackage-class.html#_populateFiles">_populateFiles</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">header</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rpmBinaryPackage._populateFiles-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rpmBinaryPackage._populateFiles-expanded"><a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-69" class="py-name" targets="Method server.importlib.headerSource.rpmBinaryPackage._populateTag()=server.importlib.headerSource.rpmBinaryPackage-class.html#_populateTag"><a title="server.importlib.headerSource.rpmBinaryPackage._populateTag" class="py-name" href="#" onclick="return doclink('link-69', '_populateTag', 'link-69');">_populateTag</a></tt><tt class="py-op">(</tt><tt id="link-70" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-70', 'header', 'link-22');">header</a></tt><tt class="py-op">,</tt> <tt class="py-string">'files'</tt><tt class="py-op">,</tt> <tt id="link-71" class="py-name" targets="Class server.importlib.headerSource.rpmFile=server.importlib.headerSource.rpmFile-class.html"><a title="server.importlib.headerSource.rpmFile" class="py-name" href="#" onclick="return doclink('link-71', 'rpmFile', 'link-71');">rpmFile</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line"> </tt>
+<a name="rpmBinaryPackage._populateDependencyInformation"></a><div id="rpmBinaryPackage._populateDependencyInformation-def"><a name="L168"></a><tt class="py-lineno">168</tt> <a class="py-toggle" href="#" id="rpmBinaryPackage._populateDependencyInformation-toggle" onclick="return toggle('rpmBinaryPackage._populateDependencyInformation');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.headerSource.rpmBinaryPackage-class.html#_populateDependencyInformation">_populateDependencyInformation</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">header</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rpmBinaryPackage._populateDependencyInformation-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rpmBinaryPackage._populateDependencyInformation-expanded"><a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">        <tt class="py-name">mapping</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line">            <tt class="py-string">'provides'</tt>  <tt class="py-op">:</tt> <tt id="link-72" class="py-name" targets="Class server.importlib.headerSource.rpmProvides=server.importlib.headerSource.rpmProvides-class.html"><a title="server.importlib.headerSource.rpmProvides" class="py-name" href="#" onclick="return doclink('link-72', 'rpmProvides', 'link-72');">rpmProvides</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">            <tt class="py-string">'requires'</tt>  <tt class="py-op">:</tt> <tt id="link-73" class="py-name" targets="Class server.importlib.headerSource.rpmRequires=server.importlib.headerSource.rpmRequires-class.html"><a title="server.importlib.headerSource.rpmRequires" class="py-name" href="#" onclick="return doclink('link-73', 'rpmRequires', 'link-73');">rpmRequires</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">            <tt class="py-string">'conflicts'</tt> <tt class="py-op">:</tt> <tt id="link-74" class="py-name" targets="Class server.importlib.headerSource.rpmConflicts=server.importlib.headerSource.rpmConflicts-class.html"><a title="server.importlib.headerSource.rpmConflicts" class="py-name" href="#" onclick="return doclink('link-74', 'rpmConflicts', 'link-74');">rpmConflicts</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">            <tt class="py-string">'obsoletes'</tt> <tt class="py-op">:</tt> <tt id="link-75" class="py-name" targets="Class server.importlib.headerSource.rpmObsoletes=server.importlib.headerSource.rpmObsoletes-class.html"><a title="server.importlib.headerSource.rpmObsoletes" class="py-name" href="#" onclick="return doclink('link-75', 'rpmObsoletes', 'link-75');">rpmObsoletes</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">        <tt class="py-op">}</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt id="link-76" class="py-name" targets="Variable server.repomd.repository.k=server.repomd.repository-module.html#k"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-76', 'k', 'link-76');">k</a></tt><tt class="py-op">,</tt> <tt class="py-name">v</tt> <tt class="py-keyword">in</tt> <tt class="py-name">mapping</tt><tt class="py-op">.</tt><tt id="link-77" class="py-name" targets="Method common.UserDictCase'.UserDictCase.items()=common.UserDictCase%27.UserDictCase-class.html#items,Method common.rhnConfig.RHNOptions.items()=common.rhnConfig.RHNOptions-class.html#items,Method rhn.UserDictCase.UserDictCase.items()=rhn.UserDictCase.UserDictCase-class.html#items"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-77', 'items', 'link-77');">items</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-78" class="py-name"><a title="server.importlib.headerSource.rpmBinaryPackage._populateTag" class="py-name" href="#" onclick="return doclink('link-78', '_populateTag', 'link-69');">_populateTag</a></tt><tt class="py-op">(</tt><tt id="link-79" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-79', 'header', 'link-22');">header</a></tt><tt class="py-op">,</tt> <tt id="link-80" class="py-name"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-80', 'k', 'link-76');">k</a></tt><tt class="py-op">,</tt> <tt class="py-name">v</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line"> </tt>
+<a name="rpmBinaryPackage._populateChangeLog"></a><div id="rpmBinaryPackage._populateChangeLog-def"><a name="L178"></a><tt class="py-lineno">178</tt> <a class="py-toggle" href="#" id="rpmBinaryPackage._populateChangeLog-toggle" onclick="return toggle('rpmBinaryPackage._populateChangeLog');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.headerSource.rpmBinaryPackage-class.html#_populateChangeLog">_populateChangeLog</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">header</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rpmBinaryPackage._populateChangeLog-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rpmBinaryPackage._populateChangeLog-expanded"><a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-81" class="py-name"><a title="server.importlib.headerSource.rpmBinaryPackage._populateTag" class="py-name" href="#" onclick="return doclink('link-81', '_populateTag', 'link-69');">_populateTag</a></tt><tt class="py-op">(</tt><tt id="link-82" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-82', 'header', 'link-22');">header</a></tt><tt class="py-op">,</tt> <tt class="py-string">'changelog'</tt><tt class="py-op">,</tt> <tt id="link-83" class="py-name" targets="Class server.importlib.headerSource.rpmChangeLog=server.importlib.headerSource.rpmChangeLog-class.html"><a title="server.importlib.headerSource.rpmChangeLog" class="py-name" href="#" onclick="return doclink('link-83', 'rpmChangeLog', 'link-83');">rpmChangeLog</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line"> </tt>
+<a name="rpmBinaryPackage._populateChannels"></a><div id="rpmBinaryPackage._populateChannels-def"><a name="L181"></a><tt class="py-lineno">181</tt> <a class="py-toggle" href="#" id="rpmBinaryPackage._populateChannels-toggle" onclick="return toggle('rpmBinaryPackage._populateChannels');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.headerSource.rpmBinaryPackage-class.html#_populateChannels">_populateChannels</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">channels</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rpmBinaryPackage._populateChannels-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rpmBinaryPackage._populateChannels-expanded"><a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">        <tt class="py-name">l</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt id="link-84" class="py-name" targets="Variable satellite_tools.reposync.RepoSync.channel=satellite_tools.reposync.RepoSync-class.html#channel,Module server.handlers.app.channel=server.handlers.app.channel-module.html,Variable server.repomd.repository.Repository.channel=server.repomd.repository.Repository-class.html#channel"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-84', 'channel', 'link-84');">channel</a></tt> <tt class="py-keyword">in</tt> <tt id="link-85" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-85', 'channels', 'link-48');">channels</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">            <tt id="link-86" class="py-name" targets="Method common.UserDictCase'.UserDictCase.dict()=common.UserDictCase%27.UserDictCase-class.html#dict,Method rhn.UserDictCase.UserDictCase.dict()=rhn.UserDictCase.UserDictCase-class.html#dict"><a title="common.UserDictCase'.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-86', 'dict', 'link-86');">dict</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-string">'label'</tt> <tt class="py-op">:</tt> <tt id="link-87" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-87', 'channel', 'link-84');">channel</a></tt><tt class="py-op">}</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line">            <tt class="py-name">obj</tt> <tt class="py-op">=</tt> <tt id="link-88" class="py-name"><a title="server.handlers.app.channel.Channel
+server.importlib.importLib.Channel
+server.repomd.domain.Channel
+server.rhnChannel.Channel" class="py-name" href="#" onclick="return doclink('link-88', 'Channel', 'link-4');">Channel</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">            <tt class="py-name">obj</tt><tt class="py-op">.</tt><tt id="link-89" class="py-name"><a title="satellite_tools.xmlSource.BaseChecksummedItem.populate
+satellite_tools.xmlSource.BaseItem.populate
+server.importlib.headerSource.rpmBinaryPackage.populate
+server.importlib.headerSource.rpmChangeLog.populate
+server.importlib.headerSource.rpmFile.populate
+server.importlib.headerSource.rpmPackage.populate
+server.importlib.headerSource.rpmSourcePackage.populate
+server.importlib.importLib.Item.populate
+server.importlib.mpmSource.mpmBinaryPackage.populate" class="py-name" href="#" onclick="return doclink('link-89', 'populate', 'link-44');">populate</a></tt><tt class="py-op">(</tt><tt id="link-90" class="py-name"><a title="common.UserDictCase'.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-90', 'dict', 'link-86');">dict</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">            <tt class="py-name">l</tt><tt class="py-op">.</tt><tt id="link-91" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-91', 'append', 'link-91');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">obj</tt><tt class="py-op">)</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'channels'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">l</tt> </tt>
+</div><a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line"> </tt>
+<a name="rpmBinaryPackage._populateTag"></a><div id="rpmBinaryPackage._populateTag-def"><a name="L190"></a><tt class="py-lineno">190</tt> <a class="py-toggle" href="#" id="rpmBinaryPackage._populateTag-toggle" onclick="return toggle('rpmBinaryPackage._populateTag');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.headerSource.rpmBinaryPackage-class.html#_populateTag">_populateTag</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">header</tt><tt class="py-op">,</tt> <tt class="py-param">tag</tt><tt class="py-op">,</tt> <tt class="py-param">Class</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rpmBinaryPackage._populateTag-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rpmBinaryPackage._populateTag-expanded"><a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line"><tt class="py-docstring">        Populates a tag with a list of Class instances, getting the</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line"><tt class="py-docstring">        information from a header</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line">        <tt class="py-comment"># First fix rpm's brokenness - sometimes singe-elements lists are</tt> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line">        <tt class="py-comment"># actually single elements</tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line">        <tt id="link-92" class="py-name" targets="Method server.importlib.archImport.BaseArchCompatImport.fix()=server.importlib.archImport.BaseArchCompatImport-class.html#fix,Method server.importlib.archImport.TypedArchImport.fix()=server.importlib.archImport.TypedArchImport-class.html#fix,Method server.importlib.blacklistImport.BlacklistObsoletesImport.fix()=server.importlib.blacklistImport.BlacklistObsoletesImport-class.html#fix,Method server.importlib.channelImport.ChannelFamilyImport.fix()=server.importlib.channelImport.ChannelFamilyImport-class.html#fix,Method server.importlib.channelImport.ChannelFamilyPermissionsImport.fix()=server.importlib.channelImport.ChannelFamilyPermissionsImport-class.html#fix,Method server.importlib.channelImport.ChannelImport.fix()=server.importlib.channelImport.ChannelImport-class.html#fix,Method server.importlib.channelImport.DistChannelMapImport.fix()=server.importlib.channelImport.DistChannelMapImport-class.html#fix,Method server.importlib.channelImport.ReleaseChannelMapImport.fix()=server.importlib.channelImport.ReleaseChannelMapImport-class.html#fix,Method server.importlib.errataImport.ErrataImport.fix()=server.importlib.errataImport.ErrataImport-class.html#fix,Method server.importlib.importLib.Import.fix()=server.importlib.importLib.Import-class.html#fix,Method server.importlib.kickstartImport.KickstartableTreeImport.fix()=server.importlib.kickstartImport.KickstartableTreeImport-class.html#fix,Method server.importlib.packageImport.ChannelPackageSubscription.fix()=server.importlib.packageImport.ChannelPackageSubscription-class.html#fix,Method server.importlib.packageImport.PackageImport.fix()=server.importlib.packageImport.PackageImport-class.html#fix,Method server.importlib.packageImport.SourcePackageImport.fix()=server.importlib.packageImport.SourcePackageImport-class.html#fix,Method server.importlib.productNamesImport.ProductNamesImport.fix()=server.importlib.productNamesImport.ProductNamesImport-class.html#fix"><a title="server.importlib.archImport.BaseArchCompatImport.fix
+server.importlib.archImport.TypedArchImport.fix
+server.importlib.blacklistImport.BlacklistObsoletesImport.fix
+server.importlib.channelImport.ChannelFamilyImport.fix
+server.importlib.channelImport.ChannelFamilyPermissionsImport.fix
+server.importlib.channelImport.ChannelImport.fix
+server.importlib.channelImport.DistChannelMapImport.fix
+server.importlib.channelImport.ReleaseChannelMapImport.fix
+server.importlib.errataImport.ErrataImport.fix
+server.importlib.importLib.Import.fix
+server.importlib.kickstartImport.KickstartableTreeImport.fix
+server.importlib.packageImport.ChannelPackageSubscription.fix
+server.importlib.packageImport.PackageImport.fix
+server.importlib.packageImport.SourcePackageImport.fix
+server.importlib.productNamesImport.ProductNamesImport.fix" class="py-name" href="#" onclick="return doclink('link-92', 'fix', 'link-92');">fix</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line">        <tt class="py-name">itemcount</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line"> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">f</tt><tt class="py-op">,</tt> <tt class="py-name">rf</tt> <tt class="py-keyword">in</tt> <tt class="py-name">Class</tt><tt class="py-op">.</tt><tt id="link-93" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-93', 'tagMap', 'link-17');">tagMap</a></tt><tt class="py-op">.</tt><tt id="link-94" class="py-name"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-94', 'items', 'link-77');">items</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">            <tt class="py-name">v</tt> <tt class="py-op">=</tt> <tt id="link-95" class="py-name" targets="Function server.importlib.headerSource.sanitizeList()=server.importlib.headerSource-module.html#sanitizeList"><a title="server.importlib.headerSource.sanitizeList" class="py-name" href="#" onclick="return doclink('link-95', 'sanitizeList', 'link-95');">sanitizeList</a></tt><tt class="py-op">(</tt><tt id="link-96" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-96', 'header', 'link-22');">header</a></tt><tt class="py-op">[</tt><tt class="py-name">rf</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line">            <tt class="py-name">ic</tt> <tt class="py-op">=</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">v</tt><tt class="py-op">)</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">itemcount</tt> <tt class="py-keyword">or</tt> <tt class="py-name">ic</tt> <tt class="py-op">&lt;</tt> <tt class="py-name">itemcount</tt><tt class="py-op">:</tt> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line">                <tt class="py-name">itemcount</tt> <tt class="py-op">=</tt> <tt class="py-name">ic</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line">            <tt id="link-97" class="py-name"><a title="server.importlib.archImport.BaseArchCompatImport.fix
+server.importlib.archImport.TypedArchImport.fix
+server.importlib.blacklistImport.BlacklistObsoletesImport.fix
+server.importlib.channelImport.ChannelFamilyImport.fix
+server.importlib.channelImport.ChannelFamilyPermissionsImport.fix
+server.importlib.channelImport.ChannelImport.fix
+server.importlib.channelImport.DistChannelMapImport.fix
+server.importlib.channelImport.ReleaseChannelMapImport.fix
+server.importlib.errataImport.ErrataImport.fix
+server.importlib.importLib.Import.fix
+server.importlib.kickstartImport.KickstartableTreeImport.fix
+server.importlib.packageImport.ChannelPackageSubscription.fix
+server.importlib.packageImport.PackageImport.fix
+server.importlib.packageImport.SourcePackageImport.fix
+server.importlib.productNamesImport.ProductNamesImport.fix" class="py-name" href="#" onclick="return doclink('link-97', 'fix', 'link-92');">fix</a></tt><tt class="py-op">[</tt><tt class="py-name">f</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">v</tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line"> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">        <tt class="py-comment"># Now create the array of objects</tt> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">tag</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line">        <tt class="py-name">unique_deps</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">i</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-name">itemcount</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line">            <tt class="py-name">hash</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line">            <tt class="py-keyword">for</tt> <tt id="link-98" class="py-name"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-98', 'k', 'link-76');">k</a></tt><tt class="py-op">,</tt> <tt class="py-name">v</tt> <tt class="py-keyword">in</tt> <tt id="link-99" class="py-name"><a title="server.importlib.archImport.BaseArchCompatImport.fix
+server.importlib.archImport.TypedArchImport.fix
+server.importlib.blacklistImport.BlacklistObsoletesImport.fix
+server.importlib.channelImport.ChannelFamilyImport.fix
+server.importlib.channelImport.ChannelFamilyPermissionsImport.fix
+server.importlib.channelImport.ChannelImport.fix
+server.importlib.channelImport.DistChannelMapImport.fix
+server.importlib.channelImport.ReleaseChannelMapImport.fix
+server.importlib.errataImport.ErrataImport.fix
+server.importlib.importLib.Import.fix
+server.importlib.kickstartImport.KickstartableTreeImport.fix
+server.importlib.packageImport.ChannelPackageSubscription.fix
+server.importlib.packageImport.PackageImport.fix
+server.importlib.packageImport.SourcePackageImport.fix
+server.importlib.productNamesImport.ProductNamesImport.fix" class="py-name" href="#" onclick="return doclink('link-99', 'fix', 'link-92');">fix</a></tt><tt class="py-op">.</tt><tt id="link-100" class="py-name"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-100', 'items', 'link-77');">items</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line">                <tt class="py-comment"># bugzilla 426963: fix for rpm v3 obsoletes header with</tt> </tt>
+<a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line">                <tt class="py-comment"># empty version and flags values</tt> </tt>
+<a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">v</tt><tt class="py-op">)</tt> <tt class="py-keyword">and</tt> <tt id="link-101" class="py-name"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-101', 'k', 'link-76');">k</a></tt> <tt class="py-op">==</tt> <tt class="py-string">'version'</tt><tt class="py-op">:</tt> </tt>
+<a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line">                    <tt class="py-name">hash</tt><tt class="py-op">[</tt><tt id="link-102" class="py-name"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-102', 'k', 'link-76');">k</a></tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">''</tt> </tt>
+<a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line">                <tt class="py-keyword">elif</tt> <tt class="py-keyword">not</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">v</tt><tt class="py-op">)</tt> <tt class="py-keyword">and</tt> <tt id="link-103" class="py-name"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-103', 'k', 'link-76');">k</a></tt> <tt class="py-op">==</tt> <tt class="py-string">'flags'</tt><tt class="py-op">:</tt> </tt>
+<a name="L218"></a><tt class="py-lineno">218</tt>  <tt class="py-line">                    <tt class="py-name">hash</tt><tt class="py-op">[</tt><tt id="link-104" class="py-name"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-104', 'k', 'link-76');">k</a></tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L219"></a><tt class="py-lineno">219</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L220"></a><tt class="py-lineno">220</tt>  <tt class="py-line">                    <tt class="py-name">hash</tt><tt class="py-op">[</tt><tt id="link-105" class="py-name"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-105', 'k', 'link-76');">k</a></tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">v</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> </tt>
+<a name="L221"></a><tt class="py-lineno">221</tt>  <tt class="py-line">            <tt class="py-comment"># Create a file </tt> </tt>
+<a name="L222"></a><tt class="py-lineno">222</tt>  <tt class="py-line">            <tt class="py-name">obj</tt> <tt class="py-op">=</tt> <tt class="py-name">Class</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L223"></a><tt class="py-lineno">223</tt>  <tt class="py-line">            <tt class="py-comment"># Fedora 10+ rpms have duplicate provides deps,</tt> </tt>
+<a name="L224"></a><tt class="py-lineno">224</tt>  <tt class="py-line">            <tt class="py-comment"># Lets clean em up before db inserts.</tt> </tt>
+<a name="L225"></a><tt class="py-lineno">225</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">tag</tt> <tt class="py-keyword">in</tt> <tt class="py-op">[</tt><tt class="py-string">'requires'</tt><tt class="py-op">,</tt> <tt class="py-string">'provides'</tt><tt class="py-op">,</tt> <tt class="py-string">'obsoletes'</tt><tt class="py-op">,</tt> <tt class="py-string">'conflicts'</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L226"></a><tt class="py-lineno">226</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">hash</tt><tt class="py-op">[</tt><tt class="py-string">'name'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L227"></a><tt class="py-lineno">227</tt>  <tt class="py-line">                    <tt class="py-keyword">continue</tt> </tt>
+<a name="L228"></a><tt class="py-lineno">228</tt>  <tt class="py-line">                <tt class="py-name">dep_nv</tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-name">hash</tt><tt class="py-op">[</tt><tt class="py-string">'name'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">hash</tt><tt class="py-op">[</tt><tt class="py-string">'version'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">hash</tt><tt class="py-op">[</tt><tt class="py-string">'flags'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L229"></a><tt class="py-lineno">229</tt>  <tt class="py-line"> </tt>
+<a name="L230"></a><tt class="py-lineno">230</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">dep_nv</tt> <tt class="py-keyword">not</tt> <tt class="py-keyword">in</tt> <tt class="py-name">unique_deps</tt><tt class="py-op">:</tt> </tt>
+<a name="L231"></a><tt class="py-lineno">231</tt>  <tt class="py-line">                    <tt class="py-name">unique_deps</tt><tt class="py-op">.</tt><tt id="link-106" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-106', 'append', 'link-91');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">dep_nv</tt><tt class="py-op">)</tt> </tt>
+<a name="L232"></a><tt class="py-lineno">232</tt>  <tt class="py-line">                    <tt class="py-name">obj</tt><tt class="py-op">.</tt><tt id="link-107" class="py-name"><a title="satellite_tools.xmlSource.BaseChecksummedItem.populate
+satellite_tools.xmlSource.BaseItem.populate
+server.importlib.headerSource.rpmBinaryPackage.populate
+server.importlib.headerSource.rpmChangeLog.populate
+server.importlib.headerSource.rpmFile.populate
+server.importlib.headerSource.rpmPackage.populate
+server.importlib.headerSource.rpmSourcePackage.populate
+server.importlib.importLib.Item.populate
+server.importlib.mpmSource.mpmBinaryPackage.populate" class="py-name" href="#" onclick="return doclink('link-107', 'populate', 'link-44');">populate</a></tt><tt class="py-op">(</tt><tt class="py-name">hash</tt><tt class="py-op">)</tt> </tt>
+<a name="L233"></a><tt class="py-lineno">233</tt>  <tt class="py-line">                    <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">tag</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-108" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-108', 'append', 'link-91');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">obj</tt><tt class="py-op">)</tt> </tt>
+<a name="L234"></a><tt class="py-lineno">234</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L235"></a><tt class="py-lineno">235</tt>  <tt class="py-line">                    <tt class="py-comment"># duplicate dep, ignore</tt> </tt>
+<a name="L236"></a><tt class="py-lineno">236</tt>  <tt class="py-line">                    <tt class="py-keyword">continue</tt> </tt>
+<a name="L237"></a><tt class="py-lineno">237</tt>  <tt class="py-line">            <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L238"></a><tt class="py-lineno">238</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">tag</tt> <tt class="py-op">==</tt> <tt class="py-string">'files'</tt><tt class="py-op">:</tt> </tt>
+<a name="L239"></a><tt class="py-lineno">239</tt>  <tt class="py-line">                    <tt class="py-name">hash</tt><tt class="py-op">[</tt><tt class="py-string">'checksum_type'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'checksum_type'</tt><tt class="py-op">]</tt> </tt>
+<a name="L240"></a><tt class="py-lineno">240</tt>  <tt class="py-line">                <tt class="py-name">obj</tt><tt class="py-op">.</tt><tt id="link-109" class="py-name"><a title="satellite_tools.xmlSource.BaseChecksummedItem.populate
+satellite_tools.xmlSource.BaseItem.populate
+server.importlib.headerSource.rpmBinaryPackage.populate
+server.importlib.headerSource.rpmChangeLog.populate
+server.importlib.headerSource.rpmFile.populate
+server.importlib.headerSource.rpmPackage.populate
+server.importlib.headerSource.rpmSourcePackage.populate
+server.importlib.importLib.Item.populate
+server.importlib.mpmSource.mpmBinaryPackage.populate" class="py-name" href="#" onclick="return doclink('link-109', 'populate', 'link-44');">populate</a></tt><tt class="py-op">(</tt><tt class="py-name">hash</tt><tt class="py-op">)</tt> </tt>
+<a name="L241"></a><tt class="py-lineno">241</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">tag</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-110" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-110', 'append', 'link-91');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">obj</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L242"></a><tt class="py-lineno">242</tt>  <tt class="py-line"> </tt>
+<a name="L243"></a><tt class="py-lineno">243</tt>  <tt class="py-line"> </tt>
+<a name="rpmSourcePackage"></a><div id="rpmSourcePackage-def"><a name="L244"></a><tt class="py-lineno">244</tt> <a class="py-toggle" href="#" id="rpmSourcePackage-toggle" onclick="return toggle('rpmSourcePackage');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.importlib.headerSource.rpmSourcePackage-class.html">rpmSourcePackage</a><tt class="py-op">(</tt><tt class="py-base-class">SourcePackage</tt><tt class="py-op">,</tt> <tt class="py-base-class">rpmPackage</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rpmSourcePackage-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="rpmSourcePackage-expanded"><a name="L245"></a><tt class="py-lineno">245</tt>  <tt class="py-line">    <tt id="link-111" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-111', 'tagMap', 'link-17');">tagMap</a></tt> <tt class="py-op">=</tt> <tt id="link-112" class="py-name"><a title="server.importlib.headerSource.rpmPackage" class="py-name" href="#" onclick="return doclink('link-112', 'rpmPackage', 'link-50');">rpmPackage</a></tt><tt class="py-op">.</tt><tt id="link-113" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-113', 'tagMap', 'link-17');">tagMap</a></tt><tt class="py-op">.</tt><tt class="py-name">copy</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L246"></a><tt class="py-lineno">246</tt>  <tt class="py-line">    <tt id="link-114" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-114', 'tagMap', 'link-17');">tagMap</a></tt><tt class="py-op">.</tt><tt id="link-115" class="py-name"><a title="common.UserDictCase'.UserDictCase.update
+rhn.UserDictCase.UserDictCase.update
+satellite_tools.progress_bar.ProgressBar.update
+server.action.errata.update
+server.action.packages.update
+server.action_extra_data.errata.update
+server.action_extra_data.packages.update
+server.action_extra_data.up2date_config.update" class="py-name" href="#" onclick="return doclink('link-115', 'update', 'link-53');">update</a></tt><tt class="py-op">(</tt><tt class="py-op">{</tt> </tt>
+<a name="L247"></a><tt class="py-lineno">247</tt>  <tt class="py-line">        <tt class="py-string">'package_group'</tt> <tt class="py-op">:</tt> <tt class="py-string">'group'</tt><tt class="py-op">,</tt> </tt>
+<a name="L248"></a><tt class="py-lineno">248</tt>  <tt class="py-line">        <tt class="py-string">'rpm_version'</tt>   <tt class="py-op">:</tt> <tt class="py-string">'rpmversion'</tt><tt class="py-op">,</tt> </tt>
+<a name="L249"></a><tt class="py-lineno">249</tt>  <tt class="py-line">        <tt class="py-string">'payload_size'</tt>  <tt class="py-op">:</tt> <tt class="py-string">'archivesize'</tt><tt class="py-op">,</tt> </tt>
+<a name="L250"></a><tt class="py-lineno">250</tt>  <tt class="py-line">        <tt class="py-string">'build_host'</tt>    <tt class="py-op">:</tt> <tt class="py-string">'buildhost'</tt><tt class="py-op">,</tt> </tt>
+<a name="L251"></a><tt class="py-lineno">251</tt>  <tt class="py-line">        <tt class="py-string">'build_time'</tt>    <tt class="py-op">:</tt> <tt class="py-string">'buildtime'</tt><tt class="py-op">,</tt> </tt>
+<a name="L252"></a><tt class="py-lineno">252</tt>  <tt class="py-line">        <tt class="py-string">'source_rpm'</tt>    <tt class="py-op">:</tt> <tt class="py-string">'sourcerpm'</tt><tt class="py-op">,</tt> </tt>
+<a name="L253"></a><tt class="py-lineno">253</tt>  <tt class="py-line">        <tt class="py-comment"># Arrays: require a different mapping</tt> </tt>
+<a name="L254"></a><tt class="py-lineno">254</tt>  <tt class="py-line">        <tt class="py-comment"># We set them differently</tt> </tt>
+<a name="L255"></a><tt class="py-lineno">255</tt>  <tt class="py-line">        <tt class="py-string">'package_size'</tt>  <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L256"></a><tt class="py-lineno">256</tt>  <tt class="py-line">        <tt class="py-string">'org_id'</tt>        <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L257"></a><tt class="py-lineno">257</tt>  <tt class="py-line">        <tt class="py-string">'md5sum'</tt>        <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L258"></a><tt class="py-lineno">258</tt>  <tt class="py-line">        <tt class="py-string">'path'</tt>          <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L259"></a><tt class="py-lineno">259</tt>  <tt class="py-line">        <tt class="py-comment"># Unsupported</tt> </tt>
+<a name="L260"></a><tt class="py-lineno">260</tt>  <tt class="py-line">        <tt class="py-string">'payload_format'</tt><tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L261"></a><tt class="py-lineno">261</tt>  <tt class="py-line">        <tt class="py-string">'channels'</tt>      <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L262"></a><tt class="py-lineno">262</tt>  <tt class="py-line">        <tt class="py-string">'package_id'</tt>    <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L263"></a><tt class="py-lineno">263</tt>  <tt class="py-line">    <tt class="py-op">}</tt><tt class="py-op">)</tt> </tt>
+<a name="rpmSourcePackage.populate"></a><div id="rpmSourcePackage.populate-def"><a name="L264"></a><tt class="py-lineno">264</tt> <a class="py-toggle" href="#" id="rpmSourcePackage.populate-toggle" onclick="return toggle('rpmSourcePackage.populate');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.headerSource.rpmSourcePackage-class.html#populate">populate</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">header</tt><tt class="py-op">,</tt> <tt class="py-param">size</tt><tt class="py-op">,</tt> <tt class="py-param">checksum_type</tt><tt class="py-op">,</tt> <tt class="py-param">checksum</tt><tt class="py-op">,</tt> <tt class="py-param">path</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">org_id</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L265"></a><tt class="py-lineno">265</tt>  <tt class="py-line">        <tt class="py-param">header_start</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">header_end</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">channels</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rpmSourcePackage.populate-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rpmSourcePackage.populate-expanded"><a name="L266"></a><tt class="py-lineno">266</tt>  <tt class="py-line">        <tt id="link-116" class="py-name"><a title="server.importlib.headerSource.rpmPackage" class="py-name" href="#" onclick="return doclink('link-116', 'rpmPackage', 'link-50');">rpmPackage</a></tt><tt class="py-op">.</tt><tt id="link-117" class="py-name"><a title="satellite_tools.xmlSource.BaseChecksummedItem.populate
+satellite_tools.xmlSource.BaseItem.populate
+server.importlib.headerSource.rpmBinaryPackage.populate
+server.importlib.headerSource.rpmChangeLog.populate
+server.importlib.headerSource.rpmFile.populate
+server.importlib.headerSource.rpmPackage.populate
+server.importlib.headerSource.rpmSourcePackage.populate
+server.importlib.importLib.Item.populate
+server.importlib.mpmSource.mpmBinaryPackage.populate" class="py-name" href="#" onclick="return doclink('link-117', 'populate', 'link-44');">populate</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt id="link-118" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-118', 'header', 'link-22');">header</a></tt><tt class="py-op">,</tt> <tt class="py-name">size</tt><tt class="py-op">,</tt> <tt id="link-119" class="py-name"><a title="spacewalk.common.rhn_rpm.RPM_Header.checksum_type" class="py-name" href="#" onclick="return doclink('link-119', 'checksum_type', 'link-25');">checksum_type</a></tt><tt class="py-op">,</tt> <tt id="link-120" class="py-name"><a title="spacewalk.common.checksum" class="py-name" href="#" onclick="return doclink('link-120', 'checksum', 'link-15');">checksum</a></tt><tt class="py-op">,</tt> <tt class="py-name">path</tt><tt class="py-op">,</tt> <tt class="py-name">org_id</tt><tt class="py-op">,</tt> </tt>
+<a name="L267"></a><tt class="py-lineno">267</tt>  <tt class="py-line">            <tt class="py-name">header_start</tt><tt class="py-op">,</tt> <tt class="py-name">header_end</tt><tt class="py-op">)</tt> </tt>
+<a name="L268"></a><tt class="py-lineno">268</tt>  <tt class="py-line">        <tt id="link-121" class="py-name" targets="Function server.handlers.xp.rhnlint.nvr()=server.handlers.xp.rhnlint-module.html#nvr"><a title="server.handlers.xp.rhnlint.nvr" class="py-name" href="#" onclick="return doclink('link-121', 'nvr', 'link-121');">nvr</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L269"></a><tt class="py-lineno">269</tt>  <tt class="py-line">        <tt class="py-comment"># Fill in source_rpm</tt> </tt>
+<a name="L270"></a><tt class="py-lineno">270</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">tag</tt> <tt class="py-keyword">in</tt> <tt class="py-op">[</tt><tt class="py-string">'name'</tt><tt class="py-op">,</tt> <tt class="py-string">'version'</tt><tt class="py-op">,</tt> <tt class="py-string">'release'</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L271"></a><tt class="py-lineno">271</tt>  <tt class="py-line">            <tt id="link-122" class="py-name"><a title="server.handlers.xp.rhnlint.nvr" class="py-name" href="#" onclick="return doclink('link-122', 'nvr', 'link-121');">nvr</a></tt><tt class="py-op">.</tt><tt id="link-123" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-123', 'append', 'link-91');">append</a></tt><tt class="py-op">(</tt><tt id="link-124" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-124', 'header', 'link-22');">header</a></tt><tt class="py-op">[</tt><tt class="py-name">tag</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L272"></a><tt class="py-lineno">272</tt>  <tt class="py-line">         </tt>
+<a name="L273"></a><tt class="py-lineno">273</tt>  <tt class="py-line">        <tt class="py-comment">#5/13/05 wregglej - 154248 If 1051 is in the list of keys in the header, the package is a nosrc package and needs to be saved as such.</tt> </tt>
+<a name="L274"></a><tt class="py-lineno">274</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-number">1051</tt> <tt class="py-keyword">in</tt> <tt id="link-125" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-125', 'header', 'link-22');">header</a></tt><tt class="py-op">.</tt><tt id="link-126" class="py-name"><a title="common.UserDictCase'.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+rhn.UserDictCase.UserDictCase.keys
+server.rhnSQL.sql_table.Table.keys" class="py-name" href="#" onclick="return doclink('link-126', 'keys', 'link-18');">keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L275"></a><tt class="py-lineno">275</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'source_rpm'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">"%s-%s-%s.nosrc.rpm"</tt> <tt class="py-op">%</tt> <tt class="py-name">tuple</tt><tt class="py-op">(</tt><tt id="link-127" class="py-name"><a title="server.handlers.xp.rhnlint.nvr" class="py-name" href="#" onclick="return doclink('link-127', 'nvr', 'link-121');">nvr</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L276"></a><tt class="py-lineno">276</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L277"></a><tt class="py-lineno">277</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'source_rpm'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">"%s-%s-%s.src.rpm"</tt> <tt class="py-op">%</tt> <tt class="py-name">tuple</tt><tt class="py-op">(</tt><tt id="link-128" class="py-name"><a title="server.handlers.xp.rhnlint.nvr" class="py-name" href="#" onclick="return doclink('link-128', 'nvr', 'link-121');">nvr</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L278"></a><tt class="py-lineno">278</tt>  <tt class="py-line"> </tt>
+<a name="L279"></a><tt class="py-lineno">279</tt>  <tt class="py-line">        <tt class="py-comment"># Convert sigchecksum to ASCII</tt> </tt>
+<a name="L280"></a><tt class="py-lineno">280</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'sigchecksum_type'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">'md5'</tt> </tt>
+<a name="L281"></a><tt class="py-lineno">281</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'sigchecksum'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt> </tt>
+<a name="L282"></a><tt class="py-lineno">282</tt>  <tt class="py-line">            <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">x</tt><tt class="py-op">:</tt> <tt class="py-string">"%02x"</tt> <tt class="py-op">%</tt> <tt class="py-name">ord</tt><tt class="py-op">(</tt><tt class="py-name">x</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'sigchecksum'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-string">''</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L283"></a><tt class="py-lineno">283</tt>  <tt class="py-line"> </tt>
+<a name="rpmSourcePackage.populateFromFile"></a><div id="rpmSourcePackage.populateFromFile-def"><a name="L284"></a><tt class="py-lineno">284</tt> <a class="py-toggle" href="#" id="rpmSourcePackage.populateFromFile-toggle" onclick="return toggle('rpmSourcePackage.populateFromFile');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.headerSource.rpmSourcePackage-class.html#populateFromFile">populateFromFile</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">file</tt><tt class="py-op">,</tt> <tt class="py-param">relpath</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">org_id</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">channels</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rpmSourcePackage.populateFromFile-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rpmSourcePackage.populateFromFile-expanded"><a name="L285"></a><tt class="py-lineno">285</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-129" class="py-name"><a title="server.importlib.headerSource.rpmPackage._populateFromFile" class="py-name" href="#" onclick="return doclink('link-129', '_populateFromFile', 'link-67');">_populateFromFile</a></tt><tt class="py-op">(</tt><tt class="py-name">file</tt><tt class="py-op">,</tt> <tt class="py-name">relpath</tt><tt class="py-op">,</tt> <tt class="py-name">org_id</tt><tt class="py-op">,</tt> <tt id="link-130" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-130', 'channels', 'link-48');">channels</a></tt><tt class="py-op">,</tt> <tt class="py-name">source</tt><tt class="py-op">=</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L286"></a><tt class="py-lineno">286</tt>  <tt class="py-line"> </tt>
+<a name="rpmFile"></a><div id="rpmFile-def"><a name="L287"></a><tt class="py-lineno">287</tt> <a class="py-toggle" href="#" id="rpmFile-toggle" onclick="return toggle('rpmFile');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.importlib.headerSource.rpmFile-class.html">rpmFile</a><tt class="py-op">(</tt><tt class="py-base-class">File</tt><tt class="py-op">,</tt> <tt class="py-base-class">ChangeLog</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rpmFile-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="rpmFile-expanded"><a name="L288"></a><tt class="py-lineno">288</tt>  <tt class="py-line">    <tt class="py-comment"># Mapping from the attribute's names to rpm tags</tt> </tt>
+<a name="L289"></a><tt class="py-lineno">289</tt>  <tt class="py-line">    <tt id="link-131" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-131', 'tagMap', 'link-17');">tagMap</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L290"></a><tt class="py-lineno">290</tt>  <tt class="py-line">        <tt class="py-string">'name'</tt>      <tt class="py-op">:</tt> <tt class="py-string">'filenames'</tt><tt class="py-op">,</tt> </tt>
+<a name="L291"></a><tt class="py-lineno">291</tt>  <tt class="py-line">        <tt class="py-string">'device'</tt>    <tt class="py-op">:</tt> <tt class="py-string">'filedevices'</tt><tt class="py-op">,</tt> </tt>
+<a name="L292"></a><tt class="py-lineno">292</tt>  <tt class="py-line">        <tt class="py-string">'inode'</tt>     <tt class="py-op">:</tt> <tt class="py-string">'fileinodes'</tt><tt class="py-op">,</tt> </tt>
+<a name="L293"></a><tt class="py-lineno">293</tt>  <tt class="py-line">        <tt class="py-string">'file_mode'</tt> <tt class="py-op">:</tt> <tt class="py-string">'filemodes'</tt><tt class="py-op">,</tt> </tt>
+<a name="L294"></a><tt class="py-lineno">294</tt>  <tt class="py-line">        <tt class="py-string">'username'</tt>  <tt class="py-op">:</tt> <tt class="py-string">'fileusername'</tt><tt class="py-op">,</tt> </tt>
+<a name="L295"></a><tt class="py-lineno">295</tt>  <tt class="py-line">        <tt class="py-string">'groupname'</tt> <tt class="py-op">:</tt> <tt class="py-string">'filegroupname'</tt><tt class="py-op">,</tt> </tt>
+<a name="L296"></a><tt class="py-lineno">296</tt>  <tt class="py-line">        <tt class="py-string">'rdev'</tt>      <tt class="py-op">:</tt> <tt class="py-string">'filerdevs'</tt><tt class="py-op">,</tt> </tt>
+<a name="L297"></a><tt class="py-lineno">297</tt>  <tt class="py-line">        <tt class="py-string">'file_size'</tt> <tt class="py-op">:</tt> <tt class="py-string">'filesizes'</tt><tt class="py-op">,</tt> </tt>
+<a name="L298"></a><tt class="py-lineno">298</tt>  <tt class="py-line">        <tt class="py-string">'mtime'</tt>     <tt class="py-op">:</tt> <tt class="py-string">'filemtimes'</tt><tt class="py-op">,</tt> </tt>
+<a name="L299"></a><tt class="py-lineno">299</tt>  <tt class="py-line">        <tt class="py-string">'filedigest'</tt>  <tt class="py-op">:</tt> <tt class="py-string">'filemd5s'</tt><tt class="py-op">,</tt>     <tt class="py-comment"># FILEMD5S is a pre-rpm4.6 name for FILEDIGESTS</tt> </tt>
+<a name="L300"></a><tt class="py-lineno">300</tt>  <tt class="py-line">                                        <tt class="py-comment"># we have to use it for compatibility reason</tt> </tt>
+<a name="L301"></a><tt class="py-lineno">301</tt>  <tt class="py-line">        <tt class="py-string">'linkto'</tt>    <tt class="py-op">:</tt> <tt class="py-string">'filelinktos'</tt><tt class="py-op">,</tt> </tt>
+<a name="L302"></a><tt class="py-lineno">302</tt>  <tt class="py-line">        <tt class="py-string">'flags'</tt>     <tt class="py-op">:</tt> <tt class="py-string">'fileflags'</tt><tt class="py-op">,</tt> </tt>
+<a name="L303"></a><tt class="py-lineno">303</tt>  <tt class="py-line">        <tt class="py-string">'verifyflags'</tt> <tt class="py-op">:</tt> <tt class="py-string">'fileverifyflags'</tt><tt class="py-op">,</tt> </tt>
+<a name="L304"></a><tt class="py-lineno">304</tt>  <tt class="py-line">        <tt class="py-string">'lang'</tt>      <tt class="py-op">:</tt> <tt class="py-string">'filelangs'</tt><tt class="py-op">,</tt> </tt>
+<a name="L305"></a><tt class="py-lineno">305</tt>  <tt class="py-line">    <tt class="py-op">}</tt> </tt>
+<a name="rpmFile.populate"></a><div id="rpmFile.populate-def"><a name="L306"></a><tt class="py-lineno">306</tt> <a class="py-toggle" href="#" id="rpmFile.populate-toggle" onclick="return toggle('rpmFile.populate');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.headerSource.rpmFile-class.html#populate">populate</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">hash</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rpmFile.populate-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rpmFile.populate-expanded"><a name="L307"></a><tt class="py-lineno">307</tt>  <tt class="py-line">        <tt id="link-132" class="py-name"><a title="server.importlib.importLib.ChangeLog" class="py-name" href="#" onclick="return doclink('link-132', 'ChangeLog', 'link-3');">ChangeLog</a></tt><tt class="py-op">.</tt><tt id="link-133" class="py-name"><a title="satellite_tools.xmlSource.BaseChecksummedItem.populate
+satellite_tools.xmlSource.BaseItem.populate
+server.importlib.headerSource.rpmBinaryPackage.populate
+server.importlib.headerSource.rpmChangeLog.populate
+server.importlib.headerSource.rpmFile.populate
+server.importlib.headerSource.rpmPackage.populate
+server.importlib.headerSource.rpmSourcePackage.populate
+server.importlib.importLib.Item.populate
+server.importlib.mpmSource.mpmBinaryPackage.populate" class="py-name" href="#" onclick="return doclink('link-133', 'populate', 'link-44');">populate</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">hash</tt><tt class="py-op">)</tt> </tt>
+<a name="L308"></a><tt class="py-lineno">308</tt>  <tt class="py-line">        <tt class="py-comment"># Fix the time</tt> </tt>
+<a name="L309"></a><tt class="py-lineno">309</tt>  <tt class="py-line">        <tt class="py-name">tm</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'mtime'</tt><tt class="py-op">]</tt> </tt>
+<a name="L310"></a><tt class="py-lineno">310</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-134" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-134', 'type', 'link-23');">type</a></tt><tt class="py-op">(</tt><tt class="py-name">tm</tt><tt class="py-op">)</tt> <tt class="py-keyword">in</tt> <tt class="py-op">(</tt><tt class="py-name">IntType</tt><tt class="py-op">,</tt> <tt class="py-name">LongType</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L311"></a><tt class="py-lineno">311</tt>  <tt class="py-line">            <tt class="py-comment"># A UNIX timestamp</tt> </tt>
+<a name="L312"></a><tt class="py-lineno">312</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'mtime'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-135" class="py-name"><a title="server.handlers.xp.rhnlint.gmtime
+server.importlib.backendLib.gmtime" class="py-name" href="#" onclick="return doclink('link-135', 'gmtime', 'link-9');">gmtime</a></tt><tt class="py-op">(</tt><tt class="py-name">tm</tt><tt class="py-op">)</tt> </tt>
+<a name="L313"></a><tt class="py-lineno">313</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-136" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-136', 'type', 'link-23');">type</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'filedigest'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-name">StringType</tt><tt class="py-op">:</tt> </tt>
+<a name="L314"></a><tt class="py-lineno">314</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'checksum'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'filedigest'</tt><tt class="py-op">]</tt> </tt>
+<a name="L315"></a><tt class="py-lineno">315</tt>  <tt class="py-line">            <tt class="py-keyword">del</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'filedigest'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L316"></a><tt class="py-lineno">316</tt>  <tt class="py-line">     </tt>
+<a name="rpmProvides"></a><div id="rpmProvides-def"><a name="L317"></a><tt class="py-lineno">317</tt> <a class="py-toggle" href="#" id="rpmProvides-toggle" onclick="return toggle('rpmProvides');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.importlib.headerSource.rpmProvides-class.html">rpmProvides</a><tt class="py-op">(</tt><tt class="py-base-class">Dependency</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rpmProvides-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="rpmProvides-expanded"><a name="L318"></a><tt class="py-lineno">318</tt>  <tt class="py-line">    <tt class="py-comment"># More mappings</tt> </tt>
+<a name="L319"></a><tt class="py-lineno">319</tt>  <tt class="py-line">    <tt id="link-137" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-137', 'tagMap', 'link-17');">tagMap</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L320"></a><tt class="py-lineno">320</tt>  <tt class="py-line">        <tt class="py-string">'name'</tt>      <tt class="py-op">:</tt> <tt class="py-string">'provides'</tt><tt class="py-op">,</tt> </tt>
+<a name="L321"></a><tt class="py-lineno">321</tt>  <tt class="py-line">        <tt class="py-string">'version'</tt>   <tt class="py-op">:</tt> <tt class="py-string">'provideversion'</tt><tt class="py-op">,</tt> </tt>
+<a name="L322"></a><tt class="py-lineno">322</tt>  <tt class="py-line">        <tt class="py-string">'flags'</tt>     <tt class="py-op">:</tt> <tt class="py-string">'provideflags'</tt><tt class="py-op">,</tt> </tt>
+<a name="L323"></a><tt class="py-lineno">323</tt>  <tt class="py-line">    <tt class="py-op">}</tt> </tt>
+</div><a name="L324"></a><tt class="py-lineno">324</tt>  <tt class="py-line">     </tt>
+<a name="rpmRequires"></a><div id="rpmRequires-def"><a name="L325"></a><tt class="py-lineno">325</tt> <a class="py-toggle" href="#" id="rpmRequires-toggle" onclick="return toggle('rpmRequires');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.importlib.headerSource.rpmRequires-class.html">rpmRequires</a><tt class="py-op">(</tt><tt class="py-base-class">Dependency</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rpmRequires-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="rpmRequires-expanded"><a name="L326"></a><tt class="py-lineno">326</tt>  <tt class="py-line">    <tt class="py-comment"># More mappings</tt> </tt>
+<a name="L327"></a><tt class="py-lineno">327</tt>  <tt class="py-line">    <tt id="link-138" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-138', 'tagMap', 'link-17');">tagMap</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L328"></a><tt class="py-lineno">328</tt>  <tt class="py-line">        <tt class="py-string">'name'</tt>      <tt class="py-op">:</tt> <tt class="py-string">'requirename'</tt><tt class="py-op">,</tt> </tt>
+<a name="L329"></a><tt class="py-lineno">329</tt>  <tt class="py-line">        <tt class="py-string">'version'</tt>   <tt class="py-op">:</tt> <tt class="py-string">'requireversion'</tt><tt class="py-op">,</tt> </tt>
+<a name="L330"></a><tt class="py-lineno">330</tt>  <tt class="py-line">        <tt class="py-string">'flags'</tt>     <tt class="py-op">:</tt> <tt class="py-string">'requireflags'</tt><tt class="py-op">,</tt> </tt>
+<a name="L331"></a><tt class="py-lineno">331</tt>  <tt class="py-line">    <tt class="py-op">}</tt> </tt>
+</div><a name="L332"></a><tt class="py-lineno">332</tt>  <tt class="py-line"> </tt>
+<a name="rpmConflicts"></a><div id="rpmConflicts-def"><a name="L333"></a><tt class="py-lineno">333</tt> <a class="py-toggle" href="#" id="rpmConflicts-toggle" onclick="return toggle('rpmConflicts');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.importlib.headerSource.rpmConflicts-class.html">rpmConflicts</a><tt class="py-op">(</tt><tt class="py-base-class">Dependency</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rpmConflicts-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="rpmConflicts-expanded"><a name="L334"></a><tt class="py-lineno">334</tt>  <tt class="py-line">    <tt class="py-comment"># More mappings</tt> </tt>
+<a name="L335"></a><tt class="py-lineno">335</tt>  <tt class="py-line">    <tt id="link-139" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-139', 'tagMap', 'link-17');">tagMap</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L336"></a><tt class="py-lineno">336</tt>  <tt class="py-line">        <tt class="py-string">'name'</tt>      <tt class="py-op">:</tt> <tt class="py-string">'conflictname'</tt><tt class="py-op">,</tt> </tt>
+<a name="L337"></a><tt class="py-lineno">337</tt>  <tt class="py-line">        <tt class="py-string">'version'</tt>   <tt class="py-op">:</tt> <tt class="py-string">'conflictversion'</tt><tt class="py-op">,</tt> </tt>
+<a name="L338"></a><tt class="py-lineno">338</tt>  <tt class="py-line">        <tt class="py-string">'flags'</tt>     <tt class="py-op">:</tt> <tt class="py-string">'conflictflags'</tt><tt class="py-op">,</tt> </tt>
+<a name="L339"></a><tt class="py-lineno">339</tt>  <tt class="py-line">    <tt class="py-op">}</tt> </tt>
+</div><a name="L340"></a><tt class="py-lineno">340</tt>  <tt class="py-line"> </tt>
+<a name="rpmObsoletes"></a><div id="rpmObsoletes-def"><a name="L341"></a><tt class="py-lineno">341</tt> <a class="py-toggle" href="#" id="rpmObsoletes-toggle" onclick="return toggle('rpmObsoletes');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.importlib.headerSource.rpmObsoletes-class.html">rpmObsoletes</a><tt class="py-op">(</tt><tt class="py-base-class">Dependency</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rpmObsoletes-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="rpmObsoletes-expanded"><a name="L342"></a><tt class="py-lineno">342</tt>  <tt class="py-line">    <tt class="py-comment"># More mappings</tt> </tt>
+<a name="L343"></a><tt class="py-lineno">343</tt>  <tt class="py-line">    <tt id="link-140" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-140', 'tagMap', 'link-17');">tagMap</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L344"></a><tt class="py-lineno">344</tt>  <tt class="py-line">        <tt class="py-string">'name'</tt>      <tt class="py-op">:</tt> <tt class="py-string">'obsoletename'</tt><tt class="py-op">,</tt> </tt>
+<a name="L345"></a><tt class="py-lineno">345</tt>  <tt class="py-line">        <tt class="py-string">'version'</tt>   <tt class="py-op">:</tt> <tt class="py-string">'obsoleteversion'</tt><tt class="py-op">,</tt> </tt>
+<a name="L346"></a><tt class="py-lineno">346</tt>  <tt class="py-line">        <tt class="py-string">'flags'</tt>     <tt class="py-op">:</tt> <tt class="py-string">'obsoleteflags'</tt><tt class="py-op">,</tt> </tt>
+<a name="L347"></a><tt class="py-lineno">347</tt>  <tt class="py-line">    <tt class="py-op">}</tt> </tt>
+</div><a name="L348"></a><tt class="py-lineno">348</tt>  <tt class="py-line"> </tt>
+<a name="rpmChangeLog"></a><div id="rpmChangeLog-def"><a name="L349"></a><tt class="py-lineno">349</tt> <a class="py-toggle" href="#" id="rpmChangeLog-toggle" onclick="return toggle('rpmChangeLog');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.importlib.headerSource.rpmChangeLog-class.html">rpmChangeLog</a><tt class="py-op">(</tt><tt class="py-base-class">ChangeLog</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rpmChangeLog-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="rpmChangeLog-expanded"><a name="L350"></a><tt class="py-lineno">350</tt>  <tt class="py-line">    <tt id="link-141" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-141', 'tagMap', 'link-17');">tagMap</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L351"></a><tt class="py-lineno">351</tt>  <tt class="py-line">        <tt class="py-string">'name'</tt>  <tt class="py-op">:</tt> <tt class="py-string">'changelogname'</tt><tt class="py-op">,</tt> </tt>
+<a name="L352"></a><tt class="py-lineno">352</tt>  <tt class="py-line">        <tt class="py-string">'text'</tt>  <tt class="py-op">:</tt> <tt class="py-string">'changelogtext'</tt><tt class="py-op">,</tt> </tt>
+<a name="L353"></a><tt class="py-lineno">353</tt>  <tt class="py-line">        <tt class="py-string">'time'</tt>  <tt class="py-op">:</tt> <tt class="py-string">'changelogtime'</tt><tt class="py-op">,</tt> </tt>
+<a name="L354"></a><tt class="py-lineno">354</tt>  <tt class="py-line">    <tt class="py-op">}</tt> </tt>
+<a name="L355"></a><tt class="py-lineno">355</tt>  <tt class="py-line"> </tt>
+<a name="rpmChangeLog.populate"></a><div id="rpmChangeLog.populate-def"><a name="L356"></a><tt class="py-lineno">356</tt> <a class="py-toggle" href="#" id="rpmChangeLog.populate-toggle" onclick="return toggle('rpmChangeLog.populate');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.headerSource.rpmChangeLog-class.html#populate">populate</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">hash</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rpmChangeLog.populate-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rpmChangeLog.populate-expanded"><a name="L357"></a><tt class="py-lineno">357</tt>  <tt class="py-line">        <tt id="link-142" class="py-name"><a title="server.importlib.importLib.ChangeLog" class="py-name" href="#" onclick="return doclink('link-142', 'ChangeLog', 'link-3');">ChangeLog</a></tt><tt class="py-op">.</tt><tt id="link-143" class="py-name"><a title="satellite_tools.xmlSource.BaseChecksummedItem.populate
+satellite_tools.xmlSource.BaseItem.populate
+server.importlib.headerSource.rpmBinaryPackage.populate
+server.importlib.headerSource.rpmChangeLog.populate
+server.importlib.headerSource.rpmFile.populate
+server.importlib.headerSource.rpmPackage.populate
+server.importlib.headerSource.rpmSourcePackage.populate
+server.importlib.importLib.Item.populate
+server.importlib.mpmSource.mpmBinaryPackage.populate" class="py-name" href="#" onclick="return doclink('link-143', 'populate', 'link-44');">populate</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">hash</tt><tt class="py-op">)</tt> </tt>
+<a name="L358"></a><tt class="py-lineno">358</tt>  <tt class="py-line">        <tt class="py-comment"># Fix the time</tt> </tt>
+<a name="L359"></a><tt class="py-lineno">359</tt>  <tt class="py-line">        <tt class="py-name">tm</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'time'</tt><tt class="py-op">]</tt> </tt>
+<a name="L360"></a><tt class="py-lineno">360</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-144" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-144', 'type', 'link-23');">type</a></tt><tt class="py-op">(</tt><tt class="py-name">tm</tt><tt class="py-op">)</tt> <tt class="py-keyword">in</tt> <tt class="py-op">(</tt><tt class="py-name">IntType</tt><tt class="py-op">,</tt> <tt class="py-name">LongType</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L361"></a><tt class="py-lineno">361</tt>  <tt class="py-line">            <tt class="py-comment"># A UNIX timestamp</tt> </tt>
+<a name="L362"></a><tt class="py-lineno">362</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'time'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-145" class="py-name"><a title="server.handlers.xp.rhnlint.gmtime
+server.importlib.backendLib.gmtime" class="py-name" href="#" onclick="return doclink('link-145', 'gmtime', 'link-9');">gmtime</a></tt><tt class="py-op">(</tt><tt class="py-name">tm</tt><tt class="py-op">)</tt> </tt>
+<a name="L363"></a><tt class="py-lineno">363</tt>  <tt class="py-line">        <tt class="py-comment"># In changelog, data is either in UTF-8, or in any other</tt> </tt>
+<a name="L364"></a><tt class="py-lineno">364</tt>  <tt class="py-line">        <tt class="py-comment"># undetermined encoding. Assume ISO-Latin-1 if not UTF-8.</tt> </tt>
+<a name="L365"></a><tt class="py-lineno">365</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">i</tt> <tt class="py-keyword">in</tt> <tt class="py-op">(</tt><tt class="py-string">'text'</tt><tt class="py-op">,</tt> <tt class="py-string">'name'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L366"></a><tt class="py-lineno">366</tt>  <tt class="py-line">            <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L367"></a><tt class="py-lineno">367</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">unicode</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-string">"utf-8"</tt><tt class="py-op">)</tt> </tt>
+<a name="L368"></a><tt class="py-lineno">368</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt> <tt class="py-name">UnicodeDecodeError</tt><tt class="py-op">:</tt> </tt>
+<a name="L369"></a><tt class="py-lineno">369</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">unicode</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-string">"iso-8859-1"</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L370"></a><tt class="py-lineno">370</tt>  <tt class="py-line"> </tt>
+<a name="sanitizePath"></a><div id="sanitizePath-def"><a name="L371"></a><tt class="py-lineno">371</tt> <a class="py-toggle" href="#" id="sanitizePath-toggle" onclick="return toggle('sanitizePath');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.headerSource-module.html#sanitizePath">sanitizePath</a><tt class="py-op">(</tt><tt class="py-param">path</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="sanitizePath-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="sanitizePath-expanded"><a name="L372"></a><tt class="py-lineno">372</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">path</tt><tt class="py-op">:</tt> </tt>
+<a name="L373"></a><tt class="py-lineno">373</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">""</tt> </tt>
+<a name="L374"></a><tt class="py-lineno">374</tt>  <tt class="py-line">    <tt class="py-keyword">while</tt> <tt class="py-name">path</tt><tt class="py-op">:</tt> </tt>
+<a name="L375"></a><tt class="py-lineno">375</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">path</tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">!=</tt> <tt class="py-string">'/'</tt><tt class="py-op">:</tt> </tt>
+<a name="L376"></a><tt class="py-lineno">376</tt>  <tt class="py-line">            <tt class="py-keyword">break</tt> </tt>
+<a name="L377"></a><tt class="py-lineno">377</tt>  <tt class="py-line">        <tt class="py-name">path</tt> <tt class="py-op">=</tt> <tt class="py-name">path</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L378"></a><tt class="py-lineno">378</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">path</tt> </tt>
+</div><a name="L379"></a><tt class="py-lineno">379</tt>  <tt class="py-line"> </tt>
+<a name="sanitizeList"></a><div id="sanitizeList-def"><a name="L380"></a><tt class="py-lineno">380</tt> <a class="py-toggle" href="#" id="sanitizeList-toggle" onclick="return toggle('sanitizeList');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.headerSource-module.html#sanitizeList">sanitizeList</a><tt class="py-op">(</tt><tt class="py-param">l</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="sanitizeList-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="sanitizeList-expanded"><a name="L381"></a><tt class="py-lineno">381</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">l</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L382"></a><tt class="py-lineno">382</tt>  <tt class="py-line">         <tt class="py-keyword">return</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L383"></a><tt class="py-lineno">383</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-146" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-146', 'type', 'link-23');">type</a></tt><tt class="py-op">(</tt><tt class="py-name">l</tt><tt class="py-op">)</tt> <tt class="py-keyword">in</tt> <tt class="py-op">(</tt><tt class="py-name">ListType</tt><tt class="py-op">,</tt> <tt class="py-name">TupleType</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L384"></a><tt class="py-lineno">384</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">l</tt> </tt>
+<a name="L385"></a><tt class="py-lineno">385</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-op">[</tt><tt class="py-name">l</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L386"></a><tt class="py-lineno">386</tt>  <tt class="py-line"> </tt>
+<a name="createPackage"></a><div id="createPackage-def"><a name="L387"></a><tt class="py-lineno">387</tt> <a class="py-toggle" href="#" id="createPackage-toggle" onclick="return toggle('createPackage');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.headerSource-module.html#createPackage">createPackage</a><tt class="py-op">(</tt><tt class="py-param">header</tt><tt class="py-op">,</tt> <tt class="py-param">size</tt><tt class="py-op">,</tt> <tt class="py-param">checksum_type</tt><tt class="py-op">,</tt> <tt class="py-param">checksum</tt><tt class="py-op">,</tt> <tt class="py-param">relpath</tt><tt class="py-op">,</tt> <tt class="py-param">org_id</tt><tt class="py-op">,</tt> <tt class="py-param">header_start</tt><tt class="py-op">,</tt> </tt>
+<a name="L388"></a><tt class="py-lineno">388</tt>  <tt class="py-line">    <tt class="py-param">header_end</tt><tt class="py-op">,</tt> <tt class="py-param">channels</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="createPackage-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="createPackage-expanded"><a name="L389"></a><tt class="py-lineno">389</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L390"></a><tt class="py-lineno">390</tt>  <tt class="py-line"><tt class="py-docstring">    Returns a populated instance of rpmBinaryPackage or rpmSourcePackage</tt> </tt>
+<a name="L391"></a><tt class="py-lineno">391</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L392"></a><tt class="py-lineno">392</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-147" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-147', 'header', 'link-22');">header</a></tt><tt class="py-op">.</tt><tt class="py-name">is_source</tt><tt class="py-op">:</tt> </tt>
+<a name="L393"></a><tt class="py-lineno">393</tt>  <tt class="py-line">        <tt id="link-148" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-148', 'log_debug', 'link-12');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">"Creating source package"</tt><tt class="py-op">)</tt> </tt>
+<a name="L394"></a><tt class="py-lineno">394</tt>  <tt class="py-line">        <tt class="py-name">p</tt> <tt class="py-op">=</tt> <tt id="link-149" class="py-name" targets="Class server.importlib.headerSource.rpmSourcePackage=server.importlib.headerSource.rpmSourcePackage-class.html"><a title="server.importlib.headerSource.rpmSourcePackage" class="py-name" href="#" onclick="return doclink('link-149', 'rpmSourcePackage', 'link-149');">rpmSourcePackage</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L395"></a><tt class="py-lineno">395</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L396"></a><tt class="py-lineno">396</tt>  <tt class="py-line">        <tt id="link-150" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-150', 'log_debug', 'link-12');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">"Creating package"</tt><tt class="py-op">)</tt> </tt>
+<a name="L397"></a><tt class="py-lineno">397</tt>  <tt class="py-line">        <tt class="py-name">p</tt> <tt class="py-op">=</tt> <tt id="link-151" class="py-name" targets="Class server.importlib.headerSource.rpmBinaryPackage=server.importlib.headerSource.rpmBinaryPackage-class.html"><a title="server.importlib.headerSource.rpmBinaryPackage" class="py-name" href="#" onclick="return doclink('link-151', 'rpmBinaryPackage', 'link-151');">rpmBinaryPackage</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L398"></a><tt class="py-lineno">398</tt>  <tt class="py-line"> </tt>
+<a name="L399"></a><tt class="py-lineno">399</tt>  <tt class="py-line">    <tt class="py-comment"># bug #524231 - we need to call fullFilelist() for RPM v3 file list</tt> </tt>
+<a name="L400"></a><tt class="py-lineno">400</tt>  <tt class="py-line">    <tt class="py-comment"># to expand correctly</tt> </tt>
+<a name="L401"></a><tt class="py-lineno">401</tt>  <tt class="py-line">    <tt id="link-152" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-152', 'header', 'link-22');">header</a></tt><tt class="py-op">.</tt><tt class="py-name">hdr</tt><tt class="py-op">.</tt><tt class="py-name">fullFilelist</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L402"></a><tt class="py-lineno">402</tt>  <tt class="py-line">    <tt class="py-name">p</tt><tt class="py-op">.</tt><tt id="link-153" class="py-name"><a title="satellite_tools.xmlSource.BaseChecksummedItem.populate
+satellite_tools.xmlSource.BaseItem.populate
+server.importlib.headerSource.rpmBinaryPackage.populate
+server.importlib.headerSource.rpmChangeLog.populate
+server.importlib.headerSource.rpmFile.populate
+server.importlib.headerSource.rpmPackage.populate
+server.importlib.headerSource.rpmSourcePackage.populate
+server.importlib.importLib.Item.populate
+server.importlib.mpmSource.mpmBinaryPackage.populate" class="py-name" href="#" onclick="return doclink('link-153', 'populate', 'link-44');">populate</a></tt><tt class="py-op">(</tt><tt id="link-154" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-154', 'header', 'link-22');">header</a></tt><tt class="py-op">,</tt> <tt class="py-name">size</tt><tt class="py-op">,</tt> <tt id="link-155" class="py-name"><a title="spacewalk.common.rhn_rpm.RPM_Header.checksum_type" class="py-name" href="#" onclick="return doclink('link-155', 'checksum_type', 'link-25');">checksum_type</a></tt><tt class="py-op">,</tt> <tt id="link-156" class="py-name"><a title="spacewalk.common.checksum" class="py-name" href="#" onclick="return doclink('link-156', 'checksum', 'link-15');">checksum</a></tt><tt class="py-op">,</tt> <tt class="py-name">relpath</tt><tt class="py-op">,</tt> <tt class="py-name">org_id</tt><tt class="py-op">,</tt> <tt class="py-name">header_start</tt><tt class="py-op">,</tt> <tt class="py-name">header_end</tt><tt class="py-op">,</tt> </tt>
+<a name="L403"></a><tt class="py-lineno">403</tt>  <tt class="py-line">        <tt id="link-157" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-157', 'channels', 'link-48');">channels</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L404"></a><tt class="py-lineno">404</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">p</tt> </tt>
+</div><a name="L405"></a><tt class="py-lineno">405</tt>  <tt class="py-line"> </tt>
+<a name="createPackageFromFile"></a><div id="createPackageFromFile-def"><a name="L406"></a><tt class="py-lineno">406</tt> <a class="py-toggle" href="#" id="createPackageFromFile-toggle" onclick="return toggle('createPackageFromFile');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.headerSource-module.html#createPackageFromFile">createPackageFromFile</a><tt class="py-op">(</tt><tt class="py-param">filePath</tt><tt class="py-op">,</tt> <tt class="py-param">relpath</tt><tt class="py-op">,</tt> <tt class="py-param">org_id</tt><tt class="py-op">,</tt> <tt class="py-param">channels</tt><tt class="py-op">,</tt> <tt class="py-param">source</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="createPackageFromFile-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="createPackageFromFile-expanded"><a name="L407"></a><tt class="py-lineno">407</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L408"></a><tt class="py-lineno">408</tt>  <tt class="py-line"><tt class="py-docstring">    Returns a populated instance of rpmBinaryPackage or rpmSourcePackage</tt> </tt>
+<a name="L409"></a><tt class="py-lineno">409</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L410"></a><tt class="py-lineno">410</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">source</tt><tt class="py-op">:</tt> </tt>
+<a name="L411"></a><tt class="py-lineno">411</tt>  <tt class="py-line">        <tt class="py-name">p</tt> <tt class="py-op">=</tt> <tt id="link-158" class="py-name"><a title="server.importlib.headerSource.rpmSourcePackage" class="py-name" href="#" onclick="return doclink('link-158', 'rpmSourcePackage', 'link-149');">rpmSourcePackage</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L412"></a><tt class="py-lineno">412</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L413"></a><tt class="py-lineno">413</tt>  <tt class="py-line">        <tt class="py-name">p</tt> <tt class="py-op">=</tt> <tt id="link-159" class="py-name"><a title="server.importlib.headerSource.rpmBinaryPackage" class="py-name" href="#" onclick="return doclink('link-159', 'rpmBinaryPackage', 'link-151');">rpmBinaryPackage</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L414"></a><tt class="py-lineno">414</tt>  <tt class="py-line"> </tt>
+<a name="L415"></a><tt class="py-lineno">415</tt>  <tt class="py-line">    <tt class="py-name">p</tt><tt class="py-op">.</tt><tt id="link-160" class="py-name" targets="Method server.importlib.headerSource.rpmBinaryPackage.populateFromFile()=server.importlib.headerSource.rpmBinaryPackage-class.html#populateFromFile,Method server.importlib.headerSource.rpmSourcePackage.populateFromFile()=server.importlib.headerSource.rpmSourcePackage-class.html#populateFromFile"><a title="server.importlib.headerSource.rpmBinaryPackage.populateFromFile
+server.importlib.headerSource.rpmSourcePackage.populateFromFile" class="py-name" href="#" onclick="return doclink('link-160', 'populateFromFile', 'link-160');">populateFromFile</a></tt><tt class="py-op">(</tt><tt class="py-name">filePath</tt><tt class="py-op">,</tt> <tt class="py-name">relpath</tt><tt class="py-op">,</tt> <tt class="py-name">org_id</tt><tt class="py-op">,</tt> <tt id="link-161" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-161', 'channels', 'link-48');">channels</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L416"></a><tt class="py-lineno">416</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">p</tt> </tt>
+</div><a name="L417"></a><tt class="py-lineno">417</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:31 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

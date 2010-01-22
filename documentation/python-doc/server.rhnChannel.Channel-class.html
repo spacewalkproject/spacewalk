@@ -55,7 +55,33 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Channel</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnChannel-pysrc.html#Channel">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_r_14" name="uml_class_diagram_for_server_r_14">
+<area shape="rect" href="server.rhnChannel.BaseChannelObject-class.html#load_from_dict" title="server.rhnChannel.BaseChannelObject.load_from_dict" alt="" coords="43,129,197,148"/>
+<area shape="rect" href="server.rhnChannel.BaseChannelObject-class.html#exists" title="server.rhnChannel.BaseChannelObject.exists" alt="" coords="43,148,197,167"/>
+<area shape="rect" href="server.rhnChannel.BaseChannelObject-class.html#get_org_id" title="server.rhnChannel.BaseChannelObject.get_org_id" alt="" coords="43,167,197,185"/>
+<area shape="rect" href="server.rhnChannel.BaseChannelObject-class.html#set_org_id" title="server.rhnChannel.BaseChannelObject.set_org_id" alt="" coords="43,185,197,204"/>
+<area shape="rect" href="server.rhnChannel.BaseChannelObject-class.html" title="server.rhnChannel.BaseChannelObject" alt="" coords="41,104,199,205"/>
+<area shape="rect" href="server.rhnChannel.Channel-class.html#__init__" title="server.rhnChannel.Channel.__init__" alt="" coords="17,260,223,279"/>
+<area shape="rect" href="server.rhnChannel.Channel-class.html#load_by_label" title="server.rhnChannel.Channel.load_by_label" alt="" coords="17,279,223,297"/>
+<area shape="rect" href="server.rhnChannel.Channel-class.html#load_by_id" title="server.rhnChannel.Channel.load_by_id" alt="" coords="17,297,223,316"/>
+<area shape="rect" href="server.rhnChannel.Channel-class.html#set_channel_arch" title="server.rhnChannel.Channel.set_channel_arch" alt="" coords="17,316,223,335"/>
+<area shape="rect" href="server.rhnChannel.Channel-class.html#set_parent_channel" title="server.rhnChannel.Channel.set_parent_channel" alt="" coords="17,335,223,353"/>
+<area shape="rect" href="server.rhnChannel.Channel-class.html#set_channel_families" title="server.rhnChannel.Channel.set_channel_families" alt="" coords="17,353,223,372"/>
+<area shape="rect" href="server.rhnChannel.Channel-class.html#set_end_of_life" title="server.rhnChannel.Channel.set_end_of_life" alt="" coords="17,372,223,391"/>
+<area shape="rect" href="server.rhnChannel.Channel-class.html#add_channel_family" title="server.rhnChannel.Channel.add_channel_family" alt="" coords="17,391,223,409"/>
+<area shape="rect" href="server.rhnChannel.Channel-class.html#add_dist" title="server.rhnChannel.Channel.add_dist" alt="" coords="17,409,223,428"/>
+<area shape="rect" href="server.rhnChannel.Channel-class.html#set_dists" title="server.rhnChannel.Channel.set_dists" alt="" coords="17,428,223,447"/>
+<area shape="rect" href="server.rhnChannel.Channel-class.html#get_parent_channel" title="server.rhnChannel.Channel.get_parent_channel" alt="" coords="17,447,223,465"/>
+<area shape="rect" href="server.rhnChannel.Channel-class.html#get_channel_families" title="server.rhnChannel.Channel.get_channel_families" alt="" coords="17,465,223,484"/>
+<area shape="rect" href="server.rhnChannel.Channel-class.html#get_channel_arch" title="server.rhnChannel.Channel.get_channel_arch" alt="" coords="17,484,223,503"/>
+<area shape="rect" href="server.rhnChannel.Channel-class.html#as_dict" title="server.rhnChannel.Channel.as_dict" alt="" coords="17,521,223,540"/>
+<area shape="rect" href="server.rhnChannel.Channel-class.html" title="server.rhnChannel.Channel" alt="" coords="16,235,224,541"/>
+<area shape="rect" href="server.rhnChannel.BaseDatabaseObject-class.html#__getattr__" title="server.rhnChannel.BaseDatabaseObject.__getattr__" alt="" coords="36,36,204,55"/>
+<area shape="rect" href="server.rhnChannel.BaseDatabaseObject-class.html#save" title="server.rhnChannel.BaseDatabaseObject.save" alt="" coords="36,55,204,73"/>
+<area shape="rect" href="server.rhnChannel.BaseDatabaseObject-class.html" title="server.rhnChannel.BaseDatabaseObject" alt="" coords="35,11,205,75"/>
+</map>
+  <img src="uml_class_diagram_for_server_r_14.png" alt='' usemap="#uml_class_diagram_for_server_r_14" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -676,102 +702,110 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="_table_name"></a><span class="summary-name">_table_name</span> = <code title="'rhnChannel'">'rhnChannel'</code>
+        <a name="_table_name"></a><span class="summary-name">_table_name</span> = <code title="'rhnChannel'"><code class="variable-quote">'</code><code class="variable-string">rhnChannel</code><code class="variable-quote">'</code></code><br />
+      hash(x)
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="_sequence_name"></a><span class="summary-name">_sequence_name</span> = <code title="'rhn_channel_id_seq'">'rhn_channel_id_seq'</code>
+        <a name="_sequence_name"></a><span class="summary-name">_sequence_name</span> = <code title="'rhn_channel_id_seq'"><code class="variable-quote">'</code><code class="variable-string">rhn_channel_id_seq</code><code class="variable-quote">'</code></code><br />
+      hash(x)
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnChannel.Channel-class.html#_generic_fields" class="summary-name" onclick="show_private();">_generic_fields</a> = <code title="['label', 'name', 'summary', 'description', 'basedir', 'org_id', 'gpg_\
-key_url', 'gpg_key_id', 'gpg_key_fp', 'end_of_life', 'channel_families\
-', 'channel_arch',]">['label', 'name', 'summary', 'description', <code class="variable-ellipsis">...</code></code>
+        <a href="server.rhnChannel.Channel-class.html#_generic_fields" class="summary-name" onclick="show_private();">_generic_fields</a> = <code title="['label',
+ 'name',
+ 'summary',
+ 'description',
+ 'basedir',
+ 'org_id',
+ 'gpg_key_url',
+ 'gpg_key_id',
+..."><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">label</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">name</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">summary</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">description</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnChannel.Channel-class.html#_query_get_db_channel_families" class="summary-name" onclick="show_private();">_query_get_db_channel_families</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.rhnChannel.Channel-class.html#_query_get_db_channel_families" class="summary-name" onclick="show_private();">_query_get_db_channel_families</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 144051788; statement=
         select channel_family_id
           from rhnChannelFamilyMembers
          where channel_id = :channel_id
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.State<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnChannel.Channel-class.html#_query_get_db_dists" class="summary-name" onclick="show_private();">_query_get_db_dists</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.rhnChannel.Channel-class.html#_query_get_db_dists" class="summary-name" onclick="show_private();">_query_get_db_dists</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 144051820; statement=
         select os, release
           from rhnDistChannelMap
          where channel_id = :channel_id
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement instan<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnChannel.Channel-class.html#_query_remove_channel_families" class="summary-name" onclick="show_private();">_query_remove_channel_families</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.rhnChannel.Channel-class.html#_query_remove_channel_families" class="summary-name" onclick="show_private();">_query_remove_channel_families</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 144051916; statement=
         delete from rhnChannelFamilyMembers
          where channel_id = :channel_id
            and channel_family_id = :channel_family_id
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.State<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnChannel.Channel-class.html#_query_add_channel_families" class="summary-name" onclick="show_private();">_query_add_channel_families</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.rhnChannel.Channel-class.html#_query_add_channel_families" class="summary-name" onclick="show_private();">_query_add_channel_families</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 144051948; statement=
         insert into rhnChannelFamilyMembers (channel_id, channel_famil\
 y_id)
         values (:channel_id, :channel_family_id)
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statemen<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnChannel.Channel-class.html#_query_add_dists" class="summary-name" onclick="show_private();">_query_add_dists</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.rhnChannel.Channel-class.html#_query_add_dists" class="summary-name" onclick="show_private();">_query_add_dists</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 144051980; statement=
         insert into rhnDistChannelMap 
                (channel_id, channel_arch_id, release, os)
         values (:channel_id, :channel_arch_id, :release, :os)
-        &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+        ">&lt;server.rhnSQL.sql_base.Statement instance <code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnChannel.Channel-class.html#_query_update_dists" class="summary-name" onclick="show_private();">_query_update_dists</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.rhnChannel.Channel-class.html#_query_update_dists" class="summary-name" onclick="show_private();">_query_update_dists</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 144052012; statement=
         update rhnDistChannelMap
            set channel_arch_id = :channel_arch_id,
                os = :os
          where channel_id = :channel_id
            and release = :release
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement instan<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnChannel.Channel-class.html#_query_remove_dists" class="summary-name" onclick="show_private();">_query_remove_dists</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.rhnChannel.Channel-class.html#_query_remove_dists" class="summary-name" onclick="show_private();">_query_remove_dists</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 144052044; statement=
         delete from rhnDistChannelMap
          where channel_id = :channel_id
            and release = :release
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement instan<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -961,9 +995,15 @@ y_id)
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-['label', 'name', 'summary', 'description', 'basedir', 'org_id', 'gpg_<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-key_url', 'gpg_key_id', 'gpg_key_fp', 'end_of_life', 'channel_families<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-', 'channel_arch',]
+<code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">label</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">name</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">summary</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">description</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">basedir</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">org_id</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">gpg_key_url</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">gpg_key_id</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -981,11 +1021,11 @@ key_url', 'gpg_key_id', 'gpg_key_fp', 'end_of_life', 'channel_families<span clas
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 144051788; statement=
         select channel_family_id
           from rhnChannelFamilyMembers
          where channel_id = :channel_id
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -1003,11 +1043,11 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 144051820; statement=
         select os, release
           from rhnDistChannelMap
          where channel_id = :channel_id
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -1025,11 +1065,11 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 144051916; statement=
         delete from rhnChannelFamilyMembers
          where channel_id = :channel_id
            and channel_family_id = :channel_family_id
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -1047,11 +1087,11 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 144051948; statement=
         insert into rhnChannelFamilyMembers (channel_id, channel_famil<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 y_id)
         values (:channel_id, :channel_family_id)
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -1069,11 +1109,11 @@ y_id)
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 144051980; statement=
         insert into rhnDistChannelMap 
                (channel_id, channel_arch_id, release, os)
         values (:channel_id, :channel_arch_id, :release, :os)
-        &quot;&quot;&quot;)
+        
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -1091,13 +1131,13 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 144052012; statement=
         update rhnDistChannelMap
            set channel_arch_id = :channel_arch_id,
                os = :os
          where channel_id = :channel_id
            and release = :release
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -1115,11 +1155,11 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 144052044; statement=
         delete from rhnDistChannelMap
          where channel_id = :channel_id
            and release = :release
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -1149,7 +1189,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:16 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:01 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -36,7 +36,7 @@
       <span class="breadcrumbs">
         <a href="server-module.html">Package&nbsp;server</a> ::
         <a href="server.importlib-module.html">Package&nbsp;importlib</a> ::
-        <a href="server.importlib.packageImport-module.html">Module&nbsp;packageImport</a> ::
+        <a href="server.importlib.packageImport-module.html" onclick="show_private();">Module&nbsp;packageImport</a> ::
         Class&nbsp;PackageImport
       </span>
     </td>
@@ -56,7 +56,28 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class PackageImport</h1><p class="nomargin-top"><span class="codelink"><a href="server.importlib.packageImport-pysrc.html#PackageImport">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_i_109" name="uml_class_diagram_for_server_i_109">
+<area shape="rect" href="server.importlib.packageImport.ChannelPackageSubscription-class.html#preprocess" title="server.importlib.packageImport.ChannelPackageSubscription.preprocess" alt="" coords="64,284,387,303"/>
+<area shape="rect" href="server.importlib.packageImport.ChannelPackageSubscription-class.html#compute_affected_channels" title="server.importlib.packageImport.ChannelPackageSubscription.compute_affected_channels" alt="" coords="64,303,387,321"/>
+<area shape="rect" href="server.importlib.packageImport.ChannelPackageSubscription-class.html#addFromPackageBatch" title="server.importlib.packageImport.ChannelPackageSubscription.addFromPackageBatch" alt="" coords="64,321,387,340"/>
+<area shape="rect" href="server.importlib.packageImport.ChannelPackageSubscription-class.html" title="server.importlib.packageImport.ChannelPackageSubscription" alt="" coords="63,259,388,341"/>
+<area shape="rect" href="server.importlib.packageImport.PackageImport-class.html#__init__" title="server.importlib.packageImport.PackageImport.__init__" alt="" coords="17,396,433,415"/>
+<area shape="rect" href="server.importlib.packageImport.PackageImport-class.html#fix" title="server.importlib.packageImport.PackageImport.fix" alt="" coords="17,415,433,433"/>
+<area shape="rect" href="server.importlib.packageImport.PackageImport-class.html#submit" title="server.importlib.packageImport.PackageImport.submit" alt="" coords="17,433,433,452"/>
+<area shape="rect" href="server.importlib.packageImport.PackageImport-class.html#subscribeToChannels" title="server.importlib.packageImport.PackageImport.subscribeToChannels" alt="" coords="17,452,433,471"/>
+<area shape="rect" href="server.importlib.packageImport.PackageImport-class.html" title="server.importlib.packageImport.PackageImport" alt="" coords="16,371,435,472"/>
+<area shape="rect" href="server.importlib.importLib.Import-class.html#cleanup" title="server.importlib.importLib.Import.cleanup" alt="" coords="129,36,321,55"/>
+<area shape="rect" href="server.importlib.importLib.Import-class.html#run" title="server.importlib.importLib.Import.run" alt="" coords="129,55,321,73"/>
+<area shape="rect" href="server.importlib.importLib.Import-class.html#setForceVerify" title="server.importlib.importLib.Import.setForceVerify" alt="" coords="129,73,321,92"/>
+<area shape="rect" href="server.importlib.importLib.Import-class.html#setIgnoreUploaded" title="server.importlib.importLib.Import.setIgnoreUploaded" alt="" coords="129,92,321,111"/>
+<area shape="rect" href="server.importlib.importLib.Import-class.html#setTransactional" title="server.importlib.importLib.Import.setTransactional" alt="" coords="129,111,321,129"/>
+<area shape="rect" href="server.importlib.importLib.Import-class.html#setUploadForce" title="server.importlib.importLib.Import.setUploadForce" alt="" coords="129,129,321,148"/>
+<area shape="rect" href="server.importlib.importLib.Import-class.html#status" title="server.importlib.importLib.Import.status" alt="" coords="129,148,321,167"/>
+<area shape="rect" href="server.importlib.importLib.Import-class.html" title="server.importlib.importLib.Import" alt="" coords="128,11,323,168"/>
+<area shape="rect" href="server.importlib.importLib.GenericPackageImport-class.html" title="server.importlib.importLib.GenericPackageImport" alt="" coords="124,197,327,229"/>
+</map>
+  <img src="uml_class_diagram_for_server_i_109.png" alt='' usemap="#uml_class_diagram_for_server_i_109" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -184,7 +205,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="__postprocessPackage"></a><span class="summary-sig-name">__postprocessPackage</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">package</span>)</span></td>
+        <span class="summary-sig-arg">package</span>)</span><br />
+      populate the columns foo_id with id numbers from appropriate hashes</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.importlib.packageImport-pysrc.html#PackageImport.__postprocessPackage">source&nbsp;code</a></span>
             
@@ -485,7 +507,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:16 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:00 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

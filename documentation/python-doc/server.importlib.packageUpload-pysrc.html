@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.importlib.packageUpload</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.importlib-module.html">Package&nbsp;importlib</a> ::
+        Module&nbsp;packageUpload
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.importlib.packageUpload-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="server.importlib.packageUpload-module.html" onclick="show_private();">Module server.importlib.packageUpload</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008--2009 Red Hat, Inc.</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment"># Package import code on the app side</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package common=common-module.html,Package spacewalk.common=spacewalk.common-module.html"><a title="common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-0', 'common', 'link-0');">common</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Class common.rhnException'.rhnFault=common.rhnException%27.rhnFault-class.html"><a title="common.rhnException'.rhnFault" class="py-name" href="#" onclick="return doclink('link-1', 'rhnFault', 'link-1');">rhnFault</a></tt><tt class="py-op">,</tt> <tt id="link-2" class="py-name" targets="Function common.rhnLog.log_debug()=common.rhnLog-module.html#log_debug"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-2', 'log_debug', 'link-2');">log_debug</a></tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-3" class="py-name" targets="Package spacewalk=spacewalk-module.html"><a title="spacewalk" class="py-name" href="#" onclick="return doclink('link-3', 'spacewalk', 'link-3');">spacewalk</a></tt><tt class="py-op">.</tt><tt id="link-4" class="py-name"><a title="common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-4', 'common', 'link-0');">common</a></tt> <tt class="py-keyword">import</tt> <tt id="link-5" class="py-name" targets="Module spacewalk.common.rhn_rpm=spacewalk.common.rhn_rpm-module.html"><a title="spacewalk.common.rhn_rpm" class="py-name" href="#" onclick="return doclink('link-5', 'rhn_rpm', 'link-5');">rhn_rpm</a></tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-6" class="py-name" targets="Package server=server-module.html"><a title="server" class="py-name" href="#" onclick="return doclink('link-6', 'server', 'link-6');">server</a></tt> <tt class="py-keyword">import</tt> <tt id="link-7" class="py-name" targets="Module server.rhnChannel=server.rhnChannel-module.html"><a title="server.rhnChannel" class="py-name" href="#" onclick="return doclink('link-7', 'rhnChannel', 'link-7');">rhnChannel</a></tt><tt class="py-op">,</tt> <tt id="link-8" class="py-name" targets="Module server.taskomatic=server.taskomatic-module.html"><a title="server.taskomatic" class="py-name" href="#" onclick="return doclink('link-8', 'taskomatic', 'link-8');">taskomatic</a></tt><tt class="py-op">,</tt> <tt id="link-9" class="py-name" targets="Package server.rhnSQL=server.rhnSQL-module.html"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-9', 'rhnSQL', 'link-9');">rhnSQL</a></tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-10" class="py-name"><a title="server" class="py-name" href="#" onclick="return doclink('link-10', 'server', 'link-6');">server</a></tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Package server.importlib=server.importlib-module.html"><a title="server.importlib" class="py-name" href="#" onclick="return doclink('link-11', 'importlib', 'link-11');">importlib</a></tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Module server.importlib.headerSource=server.importlib.headerSource-module.html"><a title="server.importlib.headerSource" class="py-name" href="#" onclick="return doclink('link-12', 'headerSource', 'link-12');">headerSource</a></tt> <tt class="py-keyword">import</tt> <tt id="link-13" class="py-name" targets="Function server.importlib.headerSource.createPackage()=server.importlib.headerSource-module.html#createPackage"><a title="server.importlib.headerSource.createPackage" class="py-name" href="#" onclick="return doclink('link-13', 'createPackage', 'link-13');">createPackage</a></tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-14" class="py-name"><a title="server" class="py-name" href="#" onclick="return doclink('link-14', 'server', 'link-6');">server</a></tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="server.importlib" class="py-name" href="#" onclick="return doclink('link-15', 'importlib', 'link-11');">importlib</a></tt><tt class="py-op">.</tt><tt id="link-16" class="py-name" targets="Module server.importlib.importLib=server.importlib.importLib-module.html"><a title="server.importlib.importLib" class="py-name" href="#" onclick="return doclink('link-16', 'importLib', 'link-16');">importLib</a></tt> <tt class="py-keyword">import</tt> <tt id="link-17" class="py-name" targets="Class server.importlib.importLib.Collection=server.importlib.importLib.Collection-class.html"><a title="server.importlib.importLib.Collection" class="py-name" href="#" onclick="return doclink('link-17', 'Collection', 'link-17');">Collection</a></tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-18" class="py-name"><a title="server" class="py-name" href="#" onclick="return doclink('link-18', 'server', 'link-6');">server</a></tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="server.importlib" class="py-name" href="#" onclick="return doclink('link-19', 'importlib', 'link-11');">importlib</a></tt><tt class="py-op">.</tt><tt id="link-20" class="py-name" targets="Module server.importlib.packageImport=server.importlib.packageImport-module.html"><a title="server.importlib.packageImport" class="py-name" href="#" onclick="return doclink('link-20', 'packageImport', 'link-20');">packageImport</a></tt> <tt class="py-keyword">import</tt> <tt id="link-21" class="py-name" targets="Function server.importlib.packageImport.packageImporter()=server.importlib.packageImport-module.html#packageImporter"><a title="server.importlib.packageImport.packageImporter" class="py-name" href="#" onclick="return doclink('link-21', 'packageImporter', 'link-21');">packageImporter</a></tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-22" class="py-name"><a title="server" class="py-name" href="#" onclick="return doclink('link-22', 'server', 'link-6');">server</a></tt><tt class="py-op">.</tt><tt id="link-23" class="py-name"><a title="server.importlib" class="py-name" href="#" onclick="return doclink('link-23', 'importlib', 'link-11');">importlib</a></tt><tt class="py-op">.</tt><tt id="link-24" class="py-name" targets="Module server.importlib.backendOracle=server.importlib.backendOracle-module.html"><a title="server.importlib.backendOracle" class="py-name" href="#" onclick="return doclink('link-24', 'backendOracle', 'link-24');">backendOracle</a></tt> <tt class="py-keyword">import</tt> <tt id="link-25" class="py-name" targets="Class server.importlib.backendOracle.OracleBackend=server.importlib.backendOracle.OracleBackend-class.html"><a title="server.importlib.backendOracle.OracleBackend" class="py-name" href="#" onclick="return doclink('link-25', 'OracleBackend', 'link-25');">OracleBackend</a></tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-26" class="py-name"><a title="server" class="py-name" href="#" onclick="return doclink('link-26', 'server', 'link-6');">server</a></tt><tt class="py-op">.</tt><tt id="link-27" class="py-name"><a title="server.importlib" class="py-name" href="#" onclick="return doclink('link-27', 'importlib', 'link-11');">importlib</a></tt><tt class="py-op">.</tt><tt id="link-28" class="py-name" targets="Module server.importlib.errataCache=server.importlib.errataCache-module.html"><a title="server.importlib.errataCache" class="py-name" href="#" onclick="return doclink('link-28', 'errataCache', 'link-28');">errataCache</a></tt> <tt class="py-keyword">import</tt> <tt id="link-29" class="py-name" targets="Function server.importlib.errataCache.schedule_errata_cache_update()=server.importlib.errataCache-module.html#schedule_errata_cache_update"><a title="server.importlib.errataCache.schedule_errata_cache_update" class="py-name" href="#" onclick="return doclink('link-29', 'schedule_errata_cache_update', 'link-29');">schedule_errata_cache_update</a></tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"> </tt>
+<a name="uploadPackages"></a><div id="uploadPackages-def"><a name="L30"></a><tt class="py-lineno"> 30</tt> <a class="py-toggle" href="#" id="uploadPackages-toggle" onclick="return toggle('uploadPackages');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.packageUpload-module.html#uploadPackages">uploadPackages</a><tt class="py-op">(</tt><tt class="py-param">info</tt><tt class="py-op">,</tt> <tt class="py-param">source</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-param">force</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-param">caller</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="uploadPackages-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="uploadPackages-expanded"><a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">    <tt id="link-30" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-30', 'log_debug', 'link-2');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-name">source</tt><tt class="py-op">,</tt> <tt class="py-name">force</tt><tt class="py-op">,</tt> <tt class="py-name">caller</tt><tt class="py-op">)</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">    <tt class="py-name">batch</tt> <tt class="py-op">=</tt> <tt id="link-31" class="py-name"><a title="server.importlib.importLib.Collection" class="py-name" href="#" onclick="return doclink('link-31', 'Collection', 'link-17');">Collection</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">    <tt class="py-name">packageList</tt> <tt class="py-op">=</tt> <tt class="py-name">info</tt><tt class="py-op">.</tt><tt id="link-32" class="py-name" targets="Method common.rhnCache.Cache.get()=common.rhnCache.Cache-class.html#get,Method common.rhnCache.CompressedCache.get()=common.rhnCache.CompressedCache-class.html#get,Method common.rhnCache.NullCache.get()=common.rhnCache.NullCache-class.html#get,Method common.rhnCache.ObjectCache.get()=common.rhnCache.ObjectCache-class.html#get,Function common.rhnCache.get()=common.rhnCache-module.html#get,Method common.rhnConfig.RHNOptions.get()=common.rhnConfig.RHNOptions-class.html#get,Function common.rhnFlags.get()=common.rhnFlags-module.html#get,Function server.action_extra_data.up2date_config.get()=server.action_extra_data.up2date_config-module.html#get,Method server.handlers.xmlrpc.queue.Queue.get()=server.handlers.xmlrpc.queue.Queue-class.html#get,Method server.handlers.xmlrpc.up2date.Servers.get()=server.handlers.xmlrpc.up2date.Servers-class.html#get,Function server.rhnDatabaseCache.get()=server.rhnDatabaseCache-module.html#get,Method server.rhnSQL.sql_row.Row.get()=server.rhnSQL.sql_row.Row-class.html#get,Method server.rhnSQL.sql_table.Table.get()=server.rhnSQL.sql_table.Table-class.html#get,Function server.rhnServer.get()=server.rhnServer-module.html#get"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-32', 'get', 'link-32');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">"packages"</tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">packageList</tt><tt class="py-op">:</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt class="py-name">Exception</tt><tt class="py-op">(</tt><tt class="py-string">"Nothing to do"</tt><tt class="py-op">)</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">    <tt class="py-name">org_id</tt> <tt class="py-op">=</tt> <tt class="py-name">info</tt><tt class="py-op">.</tt><tt id="link-33" class="py-name"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-33', 'get', 'link-32');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">'orgId'</tt><tt class="py-op">)</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">org_id</tt> <tt class="py-op">==</tt> <tt class="py-string">''</tt><tt class="py-op">:</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">        <tt class="py-name">org_id</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">source</tt><tt class="py-op">:</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">        <tt class="py-name">channelList</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">        <tt class="py-name">channelList</tt> <tt class="py-op">=</tt> <tt class="py-name">info</tt><tt class="py-op">.</tt><tt id="link-34" class="py-name"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-34', 'get', 'link-32');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">"channels"</tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt id="link-35" class="py-name" targets="Method server.handlers.xmlrpc.up2date.Up2date.package()=server.handlers.xmlrpc.up2date.Up2date-class.html#package"><a title="server.handlers.xmlrpc.up2date.Up2date.package" class="py-name" href="#" onclick="return doclink('link-35', 'package', 'link-35');">package</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">packageList</tt><tt class="py-op">:</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">        <tt class="py-name">p</tt> <tt class="py-op">=</tt> <tt id="link-36" class="py-name" targets="Function server.importlib.packageUpload.__processPackage()=server.importlib.packageUpload-module.html#__processPackage"><a title="server.importlib.packageUpload.__processPackage" class="py-name" href="#" onclick="return doclink('link-36', '__processPackage', 'link-36');">__processPackage</a></tt><tt class="py-op">(</tt><tt id="link-37" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.package" class="py-name" href="#" onclick="return doclink('link-37', 'package', 'link-35');">package</a></tt><tt class="py-op">,</tt> <tt class="py-name">org_id</tt><tt class="py-op">,</tt> <tt class="py-name">channelList</tt><tt class="py-op">,</tt> <tt class="py-name">source</tt><tt class="py-op">)</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">        <tt class="py-name">batch</tt><tt class="py-op">.</tt><tt id="link-38" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-38', 'append', 'link-38');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">p</tt><tt class="py-op">)</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">    <tt id="link-39" class="py-name" targets="Module server.importlib.backend=server.importlib.backend-module.html"><a title="server.importlib.backend" class="py-name" href="#" onclick="return doclink('link-39', 'backend', 'link-39');">backend</a></tt> <tt class="py-op">=</tt> <tt id="link-40" class="py-name"><a title="server.importlib.backendOracle.OracleBackend" class="py-name" href="#" onclick="return doclink('link-40', 'OracleBackend', 'link-25');">OracleBackend</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">    <tt id="link-41" class="py-name"><a title="server.importlib.backend" class="py-name" href="#" onclick="return doclink('link-41', 'backend', 'link-39');">backend</a></tt><tt class="py-op">.</tt><tt id="link-42" class="py-name" targets="Method satellite_exporter.handlers.non_auth_dumper._ChannelDumper.init()=satellite_exporter.handlers.non_auth_dumper._ChannelDumper-class.html#init,Method satellite_tools.exporter.exporter.Dumper.init()=satellite_tools.exporter.exporter.Dumper-class.html#init,Method server.importlib.backend.Backend.init()=server.importlib.backend.Backend-class.html#init,Method server.importlib.backendOracle.OracleBackend.init()=server.importlib.backendOracle.OracleBackend-class.html#init,Method server.importlib.backendOracle.PostgresqlBackend.init()=server.importlib.backendOracle.PostgresqlBackend-class.html#init"><a title="satellite_exporter.handlers.non_auth_dumper._ChannelDumper.init
+satellite_tools.exporter.exporter.Dumper.init
+server.importlib.backend.Backend.init
+server.importlib.backendOracle.OracleBackend.init
+server.importlib.backendOracle.PostgresqlBackend.init" class="py-name" href="#" onclick="return doclink('link-42', 'init', 'link-42');">init</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">    <tt class="py-name">importer</tt> <tt class="py-op">=</tt> <tt id="link-43" class="py-name"><a title="server.importlib.packageImport.packageImporter" class="py-name" href="#" onclick="return doclink('link-43', 'packageImporter', 'link-21');">packageImporter</a></tt><tt class="py-op">(</tt><tt class="py-name">batch</tt><tt class="py-op">,</tt> <tt id="link-44" class="py-name"><a title="server.importlib.backend" class="py-name" href="#" onclick="return doclink('link-44', 'backend', 'link-39');">backend</a></tt><tt class="py-op">,</tt> <tt class="py-name">source</tt><tt class="py-op">,</tt> <tt class="py-name">caller</tt><tt class="py-op">=</tt><tt class="py-name">caller</tt><tt class="py-op">)</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">    <tt class="py-name">importer</tt><tt class="py-op">.</tt><tt id="link-45" class="py-name" targets="Method server.importlib.importLib.Import.setIgnoreUploaded()=server.importlib.importLib.Import-class.html#setIgnoreUploaded"><a title="server.importlib.importLib.Import.setIgnoreUploaded" class="py-name" href="#" onclick="return doclink('link-45', 'setIgnoreUploaded', 'link-45');">setIgnoreUploaded</a></tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">    <tt class="py-name">importer</tt><tt class="py-op">.</tt><tt id="link-46" class="py-name" targets="Method server.importlib.importLib.Import.setUploadForce()=server.importlib.importLib.Import-class.html#setUploadForce"><a title="server.importlib.importLib.Import.setUploadForce" class="py-name" href="#" onclick="return doclink('link-46', 'setUploadForce', 'link-46');">setUploadForce</a></tt><tt class="py-op">(</tt><tt class="py-name">force</tt><tt class="py-op">)</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">    <tt class="py-name">importer</tt><tt class="py-op">.</tt><tt id="link-47" class="py-name" targets="Method satellite_tools.exporter.exporter.Dumper.run()=satellite_tools.exporter.exporter.Dumper-class.html#run,Function server.action.script.run()=server.action.script-module.html#run,Function server.action_extra_data.script.run()=server.action_extra_data.script-module.html#run,Method server.importlib.importLib.Import.run()=server.importlib.importLib.Import-class.html#run,Method spacewalk.common.rhn_rpm.RPMTransaction.run()=spacewalk.common.rhn_rpm.RPMTransaction-class.html#run"><a title="satellite_tools.exporter.exporter.Dumper.run
+server.action.script.run
+server.action_extra_data.script.run
+server.importlib.importLib.Import.run
+spacewalk.common.rhn_rpm.RPMTransaction.run" class="py-name" href="#" onclick="return doclink('link-47', 'run', 'link-47');">run</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">source</tt><tt class="py-op">:</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">        <tt class="py-name">importer</tt><tt class="py-op">.</tt><tt id="link-48" class="py-name" targets="Method server.importlib.backend.Backend.subscribeToChannels()=server.importlib.backend.Backend-class.html#subscribeToChannels,Method server.importlib.packageImport.PackageImport.subscribeToChannels()=server.importlib.packageImport.PackageImport-class.html#subscribeToChannels"><a title="server.importlib.backend.Backend.subscribeToChannels
+server.importlib.packageImport.PackageImport.subscribeToChannels" class="py-name" href="#" onclick="return doclink('link-48', 'subscribeToChannels', 'link-48');">subscribeToChannels</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">    <tt class="py-comment"># Split the result in two lists - already uploaded and new packages</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">    <tt class="py-name">newpkgs</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">    <tt class="py-name">uploaded</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">pkg</tt> <tt class="py-keyword">in</tt> <tt class="py-name">importer</tt><tt class="py-op">.</tt><tt id="link-49" class="py-name" targets="Variable _apache.status=_apache-module.html#status,Variable satellite_tools.satComputePkgHeaders.status=satellite_tools.satComputePkgHeaders-module.html#status,Method server.importlib.importLib.Import.status()=server.importlib.importLib.Import-class.html#status"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-49', 'status', 'link-49');">status</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">pkg</tt><tt class="py-op">.</tt><tt class="py-name">ignored</tt> <tt class="py-keyword">or</tt> <tt class="py-name">pkg</tt><tt class="py-op">.</tt><tt id="link-50" class="py-name" targets="Function server.action.configfiles.diff()=server.action.configfiles-module.html#diff,Function server.action_extra_data.configfiles.diff()=server.action_extra_data.configfiles-module.html#diff"><a title="server.action.configfiles.diff
+server.action_extra_data.configfiles.diff" class="py-name" href="#" onclick="return doclink('link-50', 'diff', 'link-50');">diff</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">            <tt class="py-name">uploaded</tt><tt class="py-op">.</tt><tt id="link-51" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-51', 'append', 'link-38');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">pkg</tt><tt class="py-op">)</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">            <tt class="py-name">newpkgs</tt><tt class="py-op">.</tt><tt id="link-52" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-52', 'append', 'link-38');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">pkg</tt><tt class="py-op">)</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">    <tt class="py-comment"># Schedule an errata cache update only if we touched the channels</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">source</tt><tt class="py-op">:</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt class="py-comment"># makes sense only for binary packages</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt id="link-53" class="py-name"><a title="server.importlib.errataCache.schedule_errata_cache_update" class="py-name" href="#" onclick="return doclink('link-53', 'schedule_errata_cache_update', 'link-29');">schedule_errata_cache_update</a></tt><tt class="py-op">(</tt><tt class="py-name">importer</tt><tt class="py-op">.</tt><tt class="py-name">affected_channels</tt><tt class="py-op">)</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">        <tt id="link-54" class="py-name"><a title="server.taskomatic" class="py-name" href="#" onclick="return doclink('link-54', 'taskomatic', 'link-8');">taskomatic</a></tt><tt class="py-op">.</tt><tt id="link-55" class="py-name" targets="Function server.taskomatic.add_to_repodata_queue_for_channel_package_subscription()=server.taskomatic-module.html#add_to_repodata_queue_for_channel_package_subscription"><a title="server.taskomatic.add_to_repodata_queue_for_channel_package_subscription" class="py-name" href="#" onclick="return doclink('link-55', 'add_to_repodata_queue_for_channel_package_subscription', 'link-55');">add_to_repodata_queue_for_channel_package_subscription</a></tt><tt class="py-op">(</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">                <tt class="py-name">importer</tt><tt class="py-op">.</tt><tt class="py-name">affected_channels</tt><tt class="py-op">,</tt> <tt class="py-name">batch</tt><tt class="py-op">,</tt> <tt class="py-name">caller</tt><tt class="py-op">)</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt id="link-56" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-56', 'rhnSQL', 'link-9');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-57" class="py-name" targets="Method server.importlib.backend.Backend.commit()=server.importlib.backend.Backend-class.html#commit,Method server.rhnKickstart.Kickstart.commit()=server.rhnKickstart.Kickstart-class.html#commit,Function server.rhnSQL.commit()=server.rhnSQL-module.html#commit,Method server.rhnSQL.driver_cx_Oracle.Database.commit()=server.rhnSQL.driver_cx_Oracle.Database-class.html#commit,Method server.rhnSQL.driver_postgresql.Database.commit()=server.rhnSQL.driver_postgresql.Database-class.html#commit,Method server.rhnSQL.sql_base.Database.commit()=server.rhnSQL.sql_base.Database-class.html#commit,Method server.rhnSQL.sql_table.Table.commit()=server.rhnSQL.sql_table.Table-class.html#commit"><a title="server.importlib.backend.Backend.commit
+server.rhnKickstart.Kickstart.commit
+server.rhnSQL.commit
+server.rhnSQL.driver_cx_Oracle.Database.commit
+server.rhnSQL.driver_postgresql.Database.commit
+server.rhnSQL.sql_base.Database.commit
+server.rhnSQL.sql_table.Table.commit" class="py-name" href="#" onclick="return doclink('link-57', 'commit', 'link-57');">commit</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-58" class="py-name" targets="Function server.importlib.packageUpload._formatStatus()=server.importlib.packageUpload-module.html#_formatStatus"><a title="server.importlib.packageUpload._formatStatus" class="py-name" href="#" onclick="return doclink('link-58', '_formatStatus', 'link-58');">_formatStatus</a></tt><tt class="py-op">(</tt><tt class="py-name">uploaded</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt id="link-59" class="py-name"><a title="server.importlib.packageUpload._formatStatus" class="py-name" href="#" onclick="return doclink('link-59', '_formatStatus', 'link-58');">_formatStatus</a></tt><tt class="py-op">(</tt><tt class="py-name">newpkgs</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"> </tt>
+<a name="__processPackage"></a><div id="__processPackage-def"><a name="L80"></a><tt class="py-lineno"> 80</tt> <a class="py-toggle" href="#" id="__processPackage-toggle" onclick="return toggle('__processPackage');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.packageUpload-module.html#__processPackage">__processPackage</a><tt class="py-op">(</tt><tt class="py-param">package</tt><tt class="py-op">,</tt> <tt class="py-param">org_id</tt><tt class="py-op">,</tt> <tt class="py-param">channels</tt><tt class="py-op">,</tt> <tt class="py-param">source</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="__processPackage-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="__processPackage-expanded"><a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">    <tt id="link-60" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-60', 'log_debug', 'link-2');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-name">org_id</tt><tt class="py-op">,</tt> <tt id="link-61" class="py-name" targets="Method satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels()=satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper-class.html#channels"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-61', 'channels', 'link-61');">channels</a></tt><tt class="py-op">,</tt> <tt class="py-name">source</tt><tt class="py-op">)</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-string">'md5sum'</tt> <tt class="py-keyword">in</tt> <tt id="link-62" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.package" class="py-name" href="#" onclick="return doclink('link-62', 'package', 'link-35');">package</a></tt><tt class="py-op">:</tt> <tt class="py-comment"># for old rhnpush compatibility</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">        <tt id="link-63" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.package" class="py-name" href="#" onclick="return doclink('link-63', 'package', 'link-35');">package</a></tt><tt class="py-op">[</tt><tt class="py-string">'checksum_type'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">'md5'</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">        <tt id="link-64" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.package" class="py-name" href="#" onclick="return doclink('link-64', 'package', 'link-35');">package</a></tt><tt class="py-op">[</tt><tt class="py-string">'checksum'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-65" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.package" class="py-name" href="#" onclick="return doclink('link-65', 'package', 'link-35');">package</a></tt><tt class="py-op">[</tt><tt class="py-string">'md5sum'</tt><tt class="py-op">]</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">        <tt class="py-keyword">del</tt><tt class="py-op">(</tt><tt id="link-66" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.package" class="py-name" href="#" onclick="return doclink('link-66', 'package', 'link-35');">package</a></tt><tt class="py-op">[</tt><tt class="py-string">'md5sum'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-string">'checksum'</tt> <tt class="py-keyword">not</tt> <tt class="py-keyword">in</tt> <tt id="link-67" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.package" class="py-name" href="#" onclick="return doclink('link-67', 'package', 'link-35');">package</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-68" class="py-name"><a title="common.rhnException'.rhnFault" class="py-name" href="#" onclick="return doclink('link-68', 'rhnFault', 'link-1');">rhnFault</a></tt><tt class="py-op">(</tt><tt class="py-number">50</tt><tt class="py-op">,</tt> <tt class="py-string">"The package's checksum digest has not been specified"</tt><tt class="py-op">)</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-69" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.package" class="py-name" href="#" onclick="return doclink('link-69', 'package', 'link-35');">package</a></tt><tt class="py-op">.</tt><tt id="link-70" class="py-name" targets="Method common.UserDictCase'.UserDictCase.has_key()=common.UserDictCase%27.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Function server.rhnDatabaseCache.has_key()=server.rhnDatabaseCache-module.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-70', 'has_key', 'link-70');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'packageSize'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-71" class="py-name"><a title="common.rhnException'.rhnFault" class="py-name" href="#" onclick="return doclink('link-71', 'rhnFault', 'link-1');">rhnFault</a></tt><tt class="py-op">(</tt><tt class="py-number">50</tt><tt class="py-op">,</tt> <tt class="py-string">"The package size has not been specified"</tt><tt class="py-op">)</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line"> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">    <tt id="link-72" class="py-name" targets="Method server.handlers.xmlrpc.up2date.Up2date.header()=server.handlers.xmlrpc.up2date.Up2date-class.html#header"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-72', 'header', 'link-72');">header</a></tt> <tt class="py-op">=</tt> <tt id="link-73" class="py-name"><a title="spacewalk.common.rhn_rpm" class="py-name" href="#" onclick="return doclink('link-73', 'rhn_rpm', 'link-5');">rhn_rpm</a></tt><tt class="py-op">.</tt><tt id="link-74" class="py-name" targets="Function spacewalk.common.rhn_rpm.headerLoad()=spacewalk.common.rhn_rpm-module.html#headerLoad"><a title="spacewalk.common.rhn_rpm.headerLoad" class="py-name" href="#" onclick="return doclink('link-74', 'headerLoad', 'link-74');">headerLoad</a></tt><tt class="py-op">(</tt><tt id="link-75" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.package" class="py-name" href="#" onclick="return doclink('link-75', 'package', 'link-35');">package</a></tt><tt class="py-op">[</tt><tt class="py-string">'header'</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-76" class="py-name" targets="Method satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data()=satellite_exporter.handlers.non_auth_dumper.ContainerWriter-class.html#data,Method satellite_tools.exporter.xmlWriter.XMLWriter.data()=satellite_tools.exporter.xmlWriter.XMLWriter-class.html#data"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-76', 'data', 'link-76');">data</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-77" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-77', 'header', 'link-72');">header</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-78" class="py-name"><a title="common.rhnException'.rhnFault" class="py-name" href="#" onclick="return doclink('link-78', 'rhnFault', 'link-1');">rhnFault</a></tt><tt class="py-op">(</tt><tt class="py-number">50</tt><tt class="py-op">)</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">    <tt class="py-name">packageSize</tt> <tt class="py-op">=</tt> <tt id="link-79" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.package" class="py-name" href="#" onclick="return doclink('link-79', 'package', 'link-35');">package</a></tt><tt class="py-op">[</tt><tt class="py-string">'packageSize'</tt><tt class="py-op">]</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">    <tt class="py-name">relpath</tt> <tt class="py-op">=</tt> <tt id="link-80" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.package" class="py-name" href="#" onclick="return doclink('link-80', 'package', 'link-35');">package</a></tt><tt class="py-op">.</tt><tt id="link-81" class="py-name"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-81', 'get', 'link-32');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">'relativePath'</tt><tt class="py-op">)</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">     </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-82" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.package" class="py-name" href="#" onclick="return doclink('link-82', 'package', 'link-35');">package</a></tt><tt class="py-op">.</tt><tt id="link-83" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-83', 'has_key', 'link-70');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'header_start'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">        <tt class="py-name">header_start</tt> <tt class="py-op">=</tt> <tt id="link-84" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.package" class="py-name" href="#" onclick="return doclink('link-84', 'package', 'link-35');">package</a></tt><tt class="py-op">[</tt><tt class="py-string">'header_start'</tt><tt class="py-op">]</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">        <tt class="py-name">header_start</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-85" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.package" class="py-name" href="#" onclick="return doclink('link-85', 'package', 'link-35');">package</a></tt><tt class="py-op">.</tt><tt id="link-86" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-86', 'has_key', 'link-70');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'header_end'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">        <tt class="py-name">header_end</tt> <tt class="py-op">=</tt> <tt id="link-87" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.package" class="py-name" href="#" onclick="return doclink('link-87', 'package', 'link-35');">package</a></tt><tt class="py-op">[</tt><tt class="py-string">'header_end'</tt><tt class="py-op">]</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-comment"># Just say the whole package</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">        <tt class="py-name">header_end</tt> <tt class="py-op">=</tt> <tt class="py-name">packageSize</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line"> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">    <tt id="link-88" class="py-name" targets="Method spacewalk.common.rhn_rpm.RPM_Header.checksum_type()=spacewalk.common.rhn_rpm.RPM_Header-class.html#checksum_type"><a title="spacewalk.common.rhn_rpm.RPM_Header.checksum_type" class="py-name" href="#" onclick="return doclink('link-88', 'checksum_type', 'link-88');">checksum_type</a></tt> <tt class="py-op">=</tt> <tt id="link-89" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.package" class="py-name" href="#" onclick="return doclink('link-89', 'package', 'link-35');">package</a></tt><tt class="py-op">[</tt><tt class="py-string">'checksum_type'</tt><tt class="py-op">]</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">    <tt id="link-90" class="py-name" targets="Module spacewalk.common.checksum=spacewalk.common.checksum-module.html"><a title="spacewalk.common.checksum" class="py-name" href="#" onclick="return doclink('link-90', 'checksum', 'link-90');">checksum</a></tt> <tt class="py-op">=</tt> <tt id="link-91" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.package" class="py-name" href="#" onclick="return doclink('link-91', 'package', 'link-35');">package</a></tt><tt class="py-op">[</tt><tt class="py-string">'checksum'</tt><tt class="py-op">]</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">    <tt class="py-name">p</tt> <tt class="py-op">=</tt> <tt id="link-92" class="py-name"><a title="server.importlib.headerSource.createPackage" class="py-name" href="#" onclick="return doclink('link-92', 'createPackage', 'link-13');">createPackage</a></tt><tt class="py-op">(</tt><tt id="link-93" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-93', 'header', 'link-72');">header</a></tt><tt class="py-op">,</tt> <tt class="py-name">packageSize</tt><tt class="py-op">,</tt> <tt id="link-94" class="py-name"><a title="spacewalk.common.rhn_rpm.RPM_Header.checksum_type" class="py-name" href="#" onclick="return doclink('link-94', 'checksum_type', 'link-88');">checksum_type</a></tt><tt class="py-op">,</tt> <tt id="link-95" class="py-name"><a title="spacewalk.common.checksum" class="py-name" href="#" onclick="return doclink('link-95', 'checksum', 'link-90');">checksum</a></tt><tt class="py-op">,</tt> <tt class="py-name">relpath</tt><tt class="py-op">,</tt> <tt class="py-name">org_id</tt><tt class="py-op">,</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">        <tt class="py-name">header_start</tt><tt class="py-op">,</tt> <tt class="py-name">header_end</tt><tt class="py-op">,</tt> <tt id="link-96" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-96', 'channels', 'link-61');">channels</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">p</tt> </tt>
+</div><a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"> </tt>
+<a name="_formatStatus"></a><div id="_formatStatus-def"><a name="L114"></a><tt class="py-lineno">114</tt> <a class="py-toggle" href="#" id="_formatStatus-toggle" onclick="return toggle('_formatStatus');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.packageUpload-module.html#_formatStatus">_formatStatus</a><tt class="py-op">(</tt><tt class="py-param">status</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_formatStatus-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="_formatStatus-expanded"><a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">    <tt class="py-name">objlist</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">pkg</tt> <tt class="py-keyword">in</tt> <tt id="link-97" class="py-name"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-97', 'status', 'link-49');">status</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">        <tt id="link-98" class="py-name" targets="Variable satellite_tools.repo_plugins.yum_src.ContentSource.name=satellite_tools.repo_plugins.yum_src.ContentSource-class.html#name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-98', 'name', 'link-98');">name</a></tt> <tt class="py-op">=</tt> <tt class="py-name">pkg</tt><tt class="py-op">.</tt><tt id="link-99" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-99', 'name', 'link-98');">name</a></tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">        <tt class="py-name">epoch</tt> <tt class="py-op">=</tt> <tt class="py-name">pkg</tt><tt class="py-op">.</tt><tt class="py-name">evr</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">epoch</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">            <tt class="py-name">epoch</tt> <tt class="py-op">=</tt> <tt class="py-string">""</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">            <tt class="py-name">epoch</tt> <tt class="py-op">=</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">epoch</tt><tt class="py-op">)</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">        <tt id="link-100" class="py-name" targets="Variable satellite_tools.xmlSource.SatelliteDispatchHandler.version=satellite_tools.xmlSource.SatelliteDispatchHandler-class.html#version"><a title="satellite_tools.xmlSource.SatelliteDispatchHandler.version" class="py-name" href="#" onclick="return doclink('link-100', 'version', 'link-100');">version</a></tt> <tt class="py-op">=</tt> <tt class="py-name">pkg</tt><tt class="py-op">.</tt><tt class="py-name">evr</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">        <tt id="link-101" class="py-name" targets="Method common.rhnLockfile.Lockfile.release()=common.rhnLockfile.Lockfile-class.html#release"><a title="common.rhnLockfile.Lockfile.release" class="py-name" href="#" onclick="return doclink('link-101', 'release', 'link-101');">release</a></tt> <tt class="py-op">=</tt> <tt class="py-name">pkg</tt><tt class="py-op">.</tt><tt class="py-name">evr</tt><tt class="py-op">[</tt><tt class="py-number">2</tt><tt class="py-op">]</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">        <tt id="link-102" class="py-name" targets="Variable server.repomd.repository.arch=server.repomd.repository-module.html#arch"><a title="server.repomd.repository.arch" class="py-name" href="#" onclick="return doclink('link-102', 'arch', 'link-102');">arch</a></tt> <tt class="py-op">=</tt> <tt class="py-name">pkg</tt><tt class="py-op">.</tt><tt id="link-103" class="py-name"><a title="server.repomd.repository.arch" class="py-name" href="#" onclick="return doclink('link-103', 'arch', 'link-102');">arch</a></tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">        <tt class="py-name">hash</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">        <tt class="py-name">ignored</tt> <tt class="py-op">=</tt> <tt class="py-name">pkg</tt><tt class="py-op">.</tt><tt class="py-name">ignored</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">ignored</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">            <tt class="py-name">ignored</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">        <tt class="py-name">hash</tt><tt class="py-op">[</tt><tt class="py-string">'ignored'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">ignored</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">        <tt class="py-name">hash</tt><tt class="py-op">[</tt><tt class="py-string">'diff'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-104" class="py-name" targets="Function server.importlib.packageUpload._dump()=server.importlib.packageUpload-module.html#_dump"><a title="server.importlib.packageUpload._dump" class="py-name" href="#" onclick="return doclink('link-104', '_dump', 'link-104');">_dump</a></tt><tt class="py-op">(</tt><tt class="py-name">pkg</tt><tt class="py-op">.</tt><tt id="link-105" class="py-name"><a title="server.action.configfiles.diff
+server.action_extra_data.configfiles.diff" class="py-name" href="#" onclick="return doclink('link-105', 'diff', 'link-50');">diff</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">        <tt class="py-name">objlist</tt><tt class="py-op">.</tt><tt id="link-106" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-106', 'append', 'link-38');">append</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt id="link-107" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-107', 'name', 'link-98');">name</a></tt><tt class="py-op">,</tt> <tt id="link-108" class="py-name"><a title="satellite_tools.xmlSource.SatelliteDispatchHandler.version" class="py-name" href="#" onclick="return doclink('link-108', 'version', 'link-100');">version</a></tt><tt class="py-op">,</tt> <tt id="link-109" class="py-name"><a title="common.rhnLockfile.Lockfile.release" class="py-name" href="#" onclick="return doclink('link-109', 'release', 'link-101');">release</a></tt><tt class="py-op">,</tt> <tt class="py-name">epoch</tt><tt class="py-op">,</tt> <tt id="link-110" class="py-name"><a title="server.repomd.repository.arch" class="py-name" href="#" onclick="return doclink('link-110', 'arch', 'link-102');">arch</a></tt><tt class="py-op">,</tt> <tt class="py-name">hash</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">objlist</tt> </tt>
+</div><a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">         </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"> </tt>
+<a name="_dump"></a><div id="_dump-def"><a name="L136"></a><tt class="py-lineno">136</tt> <a class="py-toggle" href="#" id="_dump-toggle" onclick="return toggle('_dump');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.packageUpload-module.html#_dump">_dump</a><tt class="py-op">(</tt><tt class="py-param">object</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_dump-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="_dump-expanded"><a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">object</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">''</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">    <tt class="py-keyword">from</tt> <tt class="py-name">types</tt> <tt class="py-keyword">import</tt> <tt class="py-name">IntType</tt><tt class="py-op">,</tt> <tt class="py-name">StringType</tt><tt class="py-op">,</tt> <tt class="py-name">FloatType</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-111" class="py-name" targets="Variable satellite_tools.reposync.RepoSync.type=satellite_tools.reposync.RepoSync-class.html#type"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-111', 'type', 'link-111');">type</a></tt><tt class="py-op">(</tt><tt class="py-name">object</tt><tt class="py-op">)</tt> <tt class="py-keyword">in</tt> <tt class="py-op">(</tt><tt class="py-name">IntType</tt><tt class="py-op">,</tt> <tt class="py-name">StringType</tt><tt class="py-op">,</tt> <tt class="py-name">FloatType</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">object</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">    <tt class="py-keyword">from</tt> <tt class="py-name">types</tt> <tt class="py-keyword">import</tt> <tt class="py-name">ListType</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt class="py-name">object</tt><tt class="py-op">,</tt> <tt class="py-name">ListType</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">map</tt><tt class="py-op">(</tt><tt id="link-112" class="py-name"><a title="server.importlib.packageUpload._dump" class="py-name" href="#" onclick="return doclink('link-112', '_dump', 'link-104');">_dump</a></tt><tt class="py-op">,</tt> <tt class="py-name">object</tt><tt class="py-op">)</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">    <tt class="py-keyword">from</tt> <tt class="py-name">types</tt> <tt class="py-keyword">import</tt> <tt class="py-name">TupleType</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt class="py-name">object</tt><tt class="py-op">,</tt> <tt class="py-name">TupleType</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">tuple</tt><tt class="py-op">(</tt><tt class="py-name">map</tt><tt class="py-op">(</tt><tt id="link-113" class="py-name"><a title="server.importlib.packageUpload._dump" class="py-name" href="#" onclick="return doclink('link-113', '_dump', 'link-104');">_dump</a></tt><tt class="py-op">,</tt> <tt class="py-name">object</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">    <tt class="py-keyword">from</tt> <tt class="py-name">types</tt> <tt class="py-keyword">import</tt> <tt class="py-name">DictType</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt class="py-name">object</tt><tt class="py-op">,</tt> <tt class="py-name">DictType</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">        <tt id="link-114" class="py-name" targets="Method common.UserDictCase'.UserDictCase.dict()=common.UserDictCase%27.UserDictCase-class.html#dict,Method rhn.UserDictCase.UserDictCase.dict()=rhn.UserDictCase.UserDictCase-class.html#dict"><a title="common.UserDictCase'.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-114', 'dict', 'link-114');">dict</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">h</tt><tt class="py-op">,</tt> <tt class="py-name">v</tt> <tt class="py-keyword">in</tt> <tt class="py-name">object</tt><tt class="py-op">.</tt><tt id="link-115" class="py-name" targets="Method common.UserDictCase'.UserDictCase.items()=common.UserDictCase%27.UserDictCase-class.html#items,Method common.rhnConfig.RHNOptions.items()=common.rhnConfig.RHNOptions-class.html#items,Method rhn.UserDictCase.UserDictCase.items()=rhn.UserDictCase.UserDictCase-class.html#items"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-115', 'items', 'link-115');">items</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">            <tt id="link-116" class="py-name"><a title="common.UserDictCase'.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-116', 'dict', 'link-114');">dict</a></tt><tt class="py-op">[</tt><tt id="link-117" class="py-name"><a title="server.importlib.packageUpload._dump" class="py-name" href="#" onclick="return doclink('link-117', '_dump', 'link-104');">_dump</a></tt><tt class="py-op">(</tt><tt class="py-name">h</tt><tt class="py-op">)</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-118" class="py-name"><a title="server.importlib.packageUpload._dump" class="py-name" href="#" onclick="return doclink('link-118', '_dump', 'link-104');">_dump</a></tt><tt class="py-op">(</tt><tt class="py-name">v</tt><tt class="py-op">)</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-119" class="py-name"><a title="common.UserDictCase'.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-119', 'dict', 'link-114');">dict</a></tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">object</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">            </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line"> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">  </tt>
+<a name="listChannelsSource"></a><div id="listChannelsSource-def"><a name="L158"></a><tt class="py-lineno">158</tt> <a class="py-toggle" href="#" id="listChannelsSource-toggle" onclick="return toggle('listChannelsSource');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.packageUpload-module.html#listChannelsSource">listChannelsSource</a><tt class="py-op">(</tt><tt class="py-param">channelList</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="listChannelsSource-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="listChannelsSource-expanded"><a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">    <tt class="py-comment"># Lists the packages from these channels</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">    <tt class="py-comment"># Uniquify the channels</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">    <tt class="py-name">channelHash</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">    <tt id="link-120" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-120', 'channels', 'link-61');">channels</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt id="link-121" class="py-name" targets="Variable satellite_tools.reposync.RepoSync.channel=satellite_tools.reposync.RepoSync-class.html#channel,Module server.handlers.app.channel=server.handlers.app.channel-module.html,Variable server.repomd.repository.Repository.channel=server.repomd.repository.Repository-class.html#channel"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-121', 'channel', 'link-121');">channel</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">channelList</tt><tt class="py-op">:</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">channelHash</tt><tt class="py-op">.</tt><tt id="link-122" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-122', 'has_key', 'link-70');">has_key</a></tt><tt class="py-op">(</tt><tt id="link-123" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-123', 'channel', 'link-121');">channel</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">            <tt class="py-comment"># Already seen</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">            <tt class="py-keyword">continue</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">        <tt id="link-124" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-124', 'channels', 'link-61');">channels</a></tt><tt class="py-op">.</tt><tt id="link-125" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-125', 'append', 'link-38');">append</a></tt><tt class="py-op">(</tt><tt id="link-126" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-126', 'channel', 'link-121');">channel</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">        <tt class="py-name">channelHash</tt><tt class="py-op">[</tt><tt id="link-127" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-127', 'channel', 'link-121');">channel</a></tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">    <tt class="py-comment"># channels is the unique list of channels now</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line">    <tt class="py-name">rez</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt id="link-128" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-128', 'channel', 'link-121');">channel</a></tt> <tt class="py-keyword">in</tt> <tt id="link-129" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-129', 'channels', 'link-61');">channels</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">        <tt class="py-name">c_info</tt> <tt class="py-op">=</tt> <tt id="link-130" class="py-name"><a title="server.rhnChannel" class="py-name" href="#" onclick="return doclink('link-130', 'rhnChannel', 'link-7');">rhnChannel</a></tt><tt class="py-op">.</tt><tt id="link-131" class="py-name" targets="Function server.rhnChannel.channel_info()=server.rhnChannel-module.html#channel_info"><a title="server.rhnChannel.channel_info" class="py-name" href="#" onclick="return doclink('link-131', 'channel_info', 'link-131');">channel_info</a></tt><tt class="py-op">(</tt><tt id="link-132" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-132', 'channel', 'link-121');">channel</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">c_info</tt><tt class="py-op">:</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">            <tt class="py-comment"># No packages in this channel</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">            <tt class="py-keyword">continue</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line"> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">        <tt class="py-name">packageList</tt> <tt class="py-op">=</tt> <tt id="link-133" class="py-name"><a title="server.rhnChannel" class="py-name" href="#" onclick="return doclink('link-133', 'rhnChannel', 'link-7');">rhnChannel</a></tt><tt class="py-op">.</tt><tt id="link-134" class="py-name" targets="Function server.rhnChannel.list_packages_source()=server.rhnChannel-module.html#list_packages_source"><a title="server.rhnChannel.list_packages_source" class="py-name" href="#" onclick="return doclink('link-134', 'list_packages_source', 'link-134');">list_packages_source</a></tt><tt class="py-op">(</tt><tt class="py-name">c_info</tt><tt class="py-op">[</tt><tt class="py-string">'id'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">p</tt> <tt class="py-keyword">in</tt> <tt class="py-name">packageList</tt><tt class="py-op">:</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">            <tt class="py-keyword">for</tt> <tt class="py-name">pkg</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">p</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-name">pkg</tt><tt class="py-op">]</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">                    <tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-name">pkg</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">""</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">            <tt class="py-keyword">print</tt> <tt class="py-name">p</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">            <tt class="py-name">rez</tt><tt class="py-op">.</tt><tt id="link-135" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-135', 'append', 'link-38');">append</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-number">2</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-number">3</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt id="link-136" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-136', 'channel', 'link-121');">channel</a></tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">rez</tt> </tt>
+</div><a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line"> </tt>
+<a name="listChannels"></a><div id="listChannels-def"><a name="L186"></a><tt class="py-lineno">186</tt> <a class="py-toggle" href="#" id="listChannels-toggle" onclick="return toggle('listChannels');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.packageUpload-module.html#listChannels">listChannels</a><tt class="py-op">(</tt><tt class="py-param">channelList</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="listChannels-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="listChannels-expanded"><a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">    <tt class="py-comment"># Lists the packages from these channels</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">    <tt class="py-comment"># Uniquify the channels</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line">    <tt class="py-name">channelHash</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line">    <tt id="link-137" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-137', 'channels', 'link-61');">channels</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt id="link-138" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-138', 'channel', 'link-121');">channel</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">channelList</tt><tt class="py-op">:</tt> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">channelHash</tt><tt class="py-op">.</tt><tt id="link-139" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-139', 'has_key', 'link-70');">has_key</a></tt><tt class="py-op">(</tt><tt id="link-140" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-140', 'channel', 'link-121');">channel</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line">            <tt class="py-comment"># Already seen</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line">            <tt class="py-keyword">continue</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line">        <tt id="link-141" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-141', 'channels', 'link-61');">channels</a></tt><tt class="py-op">.</tt><tt id="link-142" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-142', 'append', 'link-38');">append</a></tt><tt class="py-op">(</tt><tt id="link-143" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-143', 'channel', 'link-121');">channel</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line">        <tt class="py-name">channelHash</tt><tt class="py-op">[</tt><tt id="link-144" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-144', 'channel', 'link-121');">channel</a></tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line">    <tt class="py-comment"># channels is the unique list of channels now</tt> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line">    <tt class="py-name">rez</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt id="link-145" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-145', 'channel', 'link-121');">channel</a></tt> <tt class="py-keyword">in</tt> <tt id="link-146" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-146', 'channels', 'link-61');">channels</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">        <tt class="py-name">c_info</tt> <tt class="py-op">=</tt> <tt id="link-147" class="py-name"><a title="server.rhnChannel" class="py-name" href="#" onclick="return doclink('link-147', 'rhnChannel', 'link-7');">rhnChannel</a></tt><tt class="py-op">.</tt><tt id="link-148" class="py-name"><a title="server.rhnChannel.channel_info" class="py-name" href="#" onclick="return doclink('link-148', 'channel_info', 'link-131');">channel_info</a></tt><tt class="py-op">(</tt><tt id="link-149" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-149', 'channel', 'link-121');">channel</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">c_info</tt><tt class="py-op">:</tt> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line">            <tt class="py-comment"># No packages in this channel</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line">            <tt class="py-keyword">continue</tt> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line"> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line">        <tt class="py-name">packageList</tt> <tt class="py-op">=</tt> <tt id="link-150" class="py-name"><a title="server.rhnChannel" class="py-name" href="#" onclick="return doclink('link-150', 'rhnChannel', 'link-7');">rhnChannel</a></tt><tt class="py-op">.</tt><tt id="link-151" class="py-name" targets="Function server.rhnChannel.list_packages_sql()=server.rhnChannel-module.html#list_packages_sql"><a title="server.rhnChannel.list_packages_sql" class="py-name" href="#" onclick="return doclink('link-151', 'list_packages_sql', 'link-151');">list_packages_sql</a></tt><tt class="py-op">(</tt><tt class="py-name">c_info</tt><tt class="py-op">[</tt><tt class="py-string">'id'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">p</tt> <tt class="py-keyword">in</tt> <tt class="py-name">packageList</tt><tt class="py-op">:</tt> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">            <tt class="py-comment"># We don't care about the size for now, even if we all know size</tt> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line">            <tt class="py-comment"># matters :-)</tt> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line">            <tt class="py-name">rez</tt><tt class="py-op">.</tt><tt id="link-152" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-152', 'append', 'link-38');">append</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-number">2</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-number">3</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">p</tt><tt class="py-op">[</tt><tt class="py-number">4</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt id="link-153" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel
+server.handlers.app.channel
+server.repomd.repository.Repository.channel" class="py-name" href="#" onclick="return doclink('link-153', 'channel', 'link-121');">channel</a></tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">rez</tt> </tt>
+</div><a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:28 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

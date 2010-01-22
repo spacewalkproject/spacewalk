@@ -146,8 +146,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="refresh_list"></a><span class="summary-sig-name">refresh_list</span>(<span class="summary-sig-arg">serverId</span>,
-        <span class="summary-sig-arg">actionId</span>)</span></td>
+          <td><span class="summary-sig"><a href="server.action.packages-module.html#refresh_list" class="summary-sig-name">refresh_list</a>(<span class="summary-sig-arg">serverId</span>,
+        <span class="summary-sig-arg">actionId</span>)</span><br />
+      Call the equivalent of up2date -p.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.action.packages-pysrc.html#refresh_list">source&nbsp;code</a></span>
             
@@ -196,14 +197,14 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.packages-module.html#__rhnexport__" class="summary-name">__rhnexport__</a> = <code title="['update', 'remove', 'refresh_list', 'runTransaction', 'verify']">['update', 'remove', 'refresh_list', 'runTrans<code class="variable-ellipsis">...</code></code>
+        <a href="server.action.packages-module.html#__rhnexport__" class="summary-name">__rhnexport__</a> = <code title="['update', 'remove', 'refresh_list', 'runTransaction', 'verify']"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">update</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">remove</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">refresh_list</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">runTrans</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.packages-module.html#_query_action_verify_packages" class="summary-name" onclick="show_private();">_query_action_verify_packages</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.action.packages-module.html#_query_action_verify_packages" class="summary-name" onclick="show_private();">_query_action_verify_packages</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 158993484; statement=
     select distinct
            pn.name name,
            pe.version version,
@@ -211,14 +212,14 @@
            pe.epoch epoch,
            pa.label arch
       from rhnActionPackage ap,
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;server.rhnSQL.sql_base.Statem<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.packages-module.html#_packageStatement_update" class="summary-name" onclick="show_private();">_packageStatement_update</a> = <code title="&quot;&quot;&quot;
+        <a href="server.action.packages-module.html#_packageStatement_update" class="summary-name" onclick="show_private();">_packageStatement_update</a> = <code title="'''
     select distinct
         pn.name name,
         pe.epoch epoch,
@@ -226,14 +227,14 @@
         pe.release release,
         pa.label  arch
     from rhnActionPackage ap,
-..."><code class="variable-ellipsis">...</code></code>
+..."><code class="variable-quote">'</code><code class="variable-string">\n    select distinct\n        pn.</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.packages-module.html#_packageStatement_remove" class="summary-name" onclick="show_private();">_packageStatement_remove</a> = <code title="&quot;&quot;&quot;
+        <a href="server.action.packages-module.html#_packageStatement_remove" class="summary-name" onclick="show_private();">_packageStatement_remove</a> = <code title="'''
     select distinct
         pn.name name,
         pe.epoch epoch,
@@ -241,10 +242,58 @@
         pe.release release,
         pa.label  arch
     from rhnActionPackage ap,
-..."><code class="variable-ellipsis">...</code></code>
+..."><code class="variable-quote">'</code><code class="variable-string">\n    select distinct\n        pn.</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'server.action'"><code class="variable-quote">'</code><code class="variable-string">server.action</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="refresh_list"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">refresh_list</span>(<span class="sig-arg">serverId</span>,
+        <span class="sig-arg">actionId</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.action.packages-pysrc.html#refresh_list">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Call the equivalent of up2date -p.</p>
+  <p>I.e. update the list of a client's installed packages known by Red 
+  Hat's DB.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== VARIABLES DETAILS ==================== -->
 <a name="section-VariablesDetails"></a>
 <table class="details" border="1" cellpadding="3"
@@ -275,7 +324,7 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-['update', 'remove', 'refresh_list', 'runTransaction', 'verify']
+<code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">update</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">remove</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">refresh_list</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">runTransaction</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">verify</code><code class="variable-quote">'</code><code class="variable-group">]</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -293,7 +342,7 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 158993484; statement=
     select distinct
            pn.name name,
            pe.version version,
@@ -319,14 +368,14 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&quot;&quot;&quot;
-    select distinct
-        pn.name name,
-        pe.epoch epoch,
-        pe.version version,
-        pe.release release,
-        pa.label  arch
-    from rhnActionPackage ap,
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">    select distinct</code>
+<code class="variable-string">        pn.name name,</code>
+<code class="variable-string">        pe.epoch epoch,</code>
+<code class="variable-string">        pe.version version,</code>
+<code class="variable-string">        pe.release release,</code>
+<code class="variable-string">        pa.label  arch</code>
+<code class="variable-string">    from rhnActionPackage ap,</code>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -345,14 +394,14 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&quot;&quot;&quot;
-    select distinct
-        pn.name name,
-        pe.epoch epoch,
-        pe.version version,
-        pe.release release,
-        pa.label  arch
-    from rhnActionPackage ap,
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">    select distinct</code>
+<code class="variable-string">        pn.name name,</code>
+<code class="variable-string">        pe.epoch epoch,</code>
+<code class="variable-string">        pe.version version,</code>
+<code class="variable-string">        pe.release release,</code>
+<code class="variable-string">        pa.label  arch</code>
+<code class="variable-string">    from rhnActionPackage ap,</code>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -383,7 +432,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:15 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

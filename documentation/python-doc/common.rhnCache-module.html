@@ -193,7 +193,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="_lock"></a><span class="summary-sig-name">_lock</span>(<span class="summary-sig-arg">fd</span>,
-        <span class="summary-sig-arg">lock</span>=<span class="summary-sig-default">WRLOCK</span>)</span></td>
+        <span class="summary-sig-arg">lock</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\</code><code class="variable-ellipsis">...</code></span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnCache-pysrc.html#_lock">source&nbsp;code</a></span>
             
@@ -250,9 +250,9 @@
         <span class="summary-sig-arg">modified</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">raw</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">compressed</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">user</span>=<span class="summary-sig-default">'root'</span>,
-        <span class="summary-sig-arg">group</span>=<span class="summary-sig-default">'root'</span>,
-        <span class="summary-sig-arg">mode</span>=<span class="summary-sig-default">0755</span>)</span></td>
+        <span class="summary-sig-arg">user</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">root</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">group</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">root</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">mode</span>=<span class="summary-sig-default">493</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnCache-pysrc.html#set">source&nbsp;code</a></span>
             
@@ -321,7 +321,10 @@
           <td><span class="summary-sig"><a name="_safe_create"></a><span class="summary-sig-name">_safe_create</span>(<span class="summary-sig-arg">fname</span>,
         <span class="summary-sig-arg">user</span>,
         <span class="summary-sig-arg">group</span>,
-        <span class="summary-sig-arg">mode</span>)</span></td>
+        <span class="summary-sig-arg">mode</span>)</span><br />
+      This function returns a file descriptor for the open file fname If 
+      the file is already there, it is truncated otherwise, all the 
+      directories up to it are created and the file is created as well.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnCache-pysrc.html#_safe_create">source&nbsp;code</a></span>
             
@@ -353,28 +356,38 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="CACHEDIR"></a><span class="summary-name">CACHEDIR</span> = <code title="&quot;/var/cache/rhn&quot;">&quot;/var/cache/rhn&quot;</code>
+        <a name="CACHEDIR"></a><span class="summary-name">CACHEDIR</span> = <code title="'/var/cache/rhn'"><code class="variable-quote">'</code><code class="variable-string">/var/cache/rhn</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="common.rhnCache-module.html#WRLOCK" class="summary-name">WRLOCK</a> = <code title="pack(&quot;hhiiii&quot;, rhn_fcntl.F_WRLCK, rhn_posix.SEEK_SET, 0, 0, 0, 0)">pack(&quot;hhiiii&quot;, rhn_fcntl.F_WRLCK, rhn_posix.SEEK_SET,<code class="variable-ellipsis">...</code></code>
+        <a href="common.rhnCache-module.html#WRLOCK" class="summary-name">WRLOCK</a> = <code title="'\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\\
+x00\x00\x00'"><code class="variable-quote">'</code><code class="variable-string">\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="common.rhnCache-module.html#RDLOCK" class="summary-name">RDLOCK</a> = <code title="pack(&quot;hhiiii&quot;, rhn_fcntl.F_RDLCK, rhn_posix.SEEK_SET, 0, 0, 0, 0)">pack(&quot;hhiiii&quot;, rhn_fcntl.F_RDLCK, rhn_posix.SEEK_SET,<code class="variable-ellipsis">...</code></code>
+        <a href="common.rhnCache-module.html#RDLOCK" class="summary-name">RDLOCK</a> = <code title="'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\\
+x00\x00\x00'"><code class="variable-quote">'</code><code class="variable-string">\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="common.rhnCache-module.html#UNLOCK" class="summary-name">UNLOCK</a> = <code title="pack(&quot;hhiiii&quot;, rhn_fcntl.F_UNLCK, rhn_posix.SEEK_SET, 0, 0, 0, 0)">pack(&quot;hhiiii&quot;, rhn_fcntl.F_UNLCK, rhn_posix.SEEK_SET,<code class="variable-ellipsis">...</code></code>
+        <a href="common.rhnCache-module.html#UNLOCK" class="summary-name">UNLOCK</a> = <code title="'\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\\
+x00\x00\x00'"><code class="variable-quote">'</code><code class="variable-string">\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'common'"><code class="variable-quote">'</code><code class="variable-string">common</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -408,7 +421,8 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-pack(&quot;hhiiii&quot;, rhn_fcntl.F_WRLCK, rhn_posix.SEEK_SET, 0, 0, 0, 0)
+<code class="variable-quote">'</code><code class="variable-string">\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-string">x00\x00\x00</code><code class="variable-quote">'</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -426,7 +440,8 @@ pack(&quot;hhiiii&quot;, rhn_fcntl.F_WRLCK, rhn_posix.SEEK_SET, 0, 0, 0, 0)
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-pack(&quot;hhiiii&quot;, rhn_fcntl.F_RDLCK, rhn_posix.SEEK_SET, 0, 0, 0, 0)
+<code class="variable-quote">'</code><code class="variable-string">\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-string">x00\x00\x00</code><code class="variable-quote">'</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -444,7 +459,8 @@ pack(&quot;hhiiii&quot;, rhn_fcntl.F_RDLCK, rhn_posix.SEEK_SET, 0, 0, 0, 0)
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-pack(&quot;hhiiii&quot;, rhn_fcntl.F_UNLCK, rhn_posix.SEEK_SET, 0, 0, 0, 0)
+<code class="variable-quote">'</code><code class="variable-string">\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\</code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-string">x00\x00\x00</code><code class="variable-quote">'</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -474,7 +490,7 @@ pack(&quot;hhiiii&quot;, rhn_fcntl.F_UNLCK, rhn_posix.SEEK_SET, 0, 0, 0, 0)
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:14 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

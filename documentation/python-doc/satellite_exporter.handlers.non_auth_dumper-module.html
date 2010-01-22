@@ -155,7 +155,7 @@
         <tr>
           <td><span class="summary-sig"><a name="list_minus"></a><span class="summary-sig-name">list_minus</span>(<span class="summary-sig-arg">l1</span>,
         <span class="summary-sig-arg">l2</span>,
-        <span class="summary-sig-arg">comp_func</span>=<span class="summary-sig-default">lambda x: x</span>)</span><br />
+        <span class="summary-sig-arg">comp_func</span>=<span class="summary-sig-default">&lt;function &lt;lambda&gt; at 0x8c6309c&gt;</span>)</span><br />
       Returns l1 minus l2, comparing each item of l1 and l2 after filtering
       them through comp_func</td>
           <td align="right" valign="top">
@@ -254,31 +254,31 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_exporter.handlers.non_auth_dumper-module.html#_query_lookup_last_modified_packages" class="summary-name" onclick="show_private();">_query_lookup_last_modified_packages</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_exporter.handlers.non_auth_dumper-module.html#_query_lookup_last_modified_packages" class="summary-name" onclick="show_private();">_query_lookup_last_modified_packages</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147404332; statement=
     select TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modifi\
 ed
       from rhnPackage
      where id = :id
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_exporter.handlers.non_auth_dumper-module.html#_query_lookup_last_modified_errata" class="summary-name" onclick="show_private();">_query_lookup_last_modified_errata</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_exporter.handlers.non_auth_dumper-module.html#_query_lookup_last_modified_errata" class="summary-name" onclick="show_private();">_query_lookup_last_modified_errata</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147404364; statement=
     select TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modifi\
 ed
       from rhnErrata
      where id = :id
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.S<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_exporter.handlers.non_auth_dumper-module.html#_query_lookup_last_modified_ks_trees" class="summary-name" onclick="show_private();">_query_lookup_last_modified_ks_trees</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_exporter.handlers.non_auth_dumper-module.html#_query_lookup_last_modified_ks_trees" class="summary-name" onclick="show_private();">_query_lookup_last_modified_ks_trees</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147404396; statement=
     select TO_CHAR(kt.last_modified, 'YYYY-MM-DD HH24:MI:SS') last_mod\
 ified
       from rhnKickstartableTree kt, rhnChannel c
@@ -286,7 +286,7 @@ ified
        and c.label = :channel_label
        and kt.label = :ks_label
        and kt.org_id is null
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;server.rhnSQL.sql_base<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
@@ -294,6 +294,13 @@ ified
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="rpcClasses"></a><span class="summary-name">rpcClasses</span> = <code title="{'dump': NonAuthenticatedDumper,}">{'dump': NonAuthenticatedDumper,}</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'satellite_exporter.handlers'"><code class="variable-quote">'</code><code class="variable-string">satellite_exporter.handlers</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -327,12 +334,12 @@ ified
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 147404332; statement=
     select TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modifi<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 ed
       from rhnPackage
      where id = :id
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -350,12 +357,12 @@ ed
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 147404364; statement=
     select TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modifi<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 ed
       from rhnErrata
      where id = :id
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -373,7 +380,7 @@ ed
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 147404396; statement=
     select TO_CHAR(kt.last_modified, 'YYYY-MM-DD HH24:MI:SS') last_mod<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 ified
       from rhnKickstartableTree kt, rhnChannel c
@@ -411,7 +418,7 @@ ified
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:14 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

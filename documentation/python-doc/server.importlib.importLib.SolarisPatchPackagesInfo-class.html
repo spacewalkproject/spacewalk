@@ -36,7 +36,7 @@
       <span class="breadcrumbs">
         <a href="server-module.html">Package&nbsp;server</a> ::
         <a href="server.importlib-module.html">Package&nbsp;importlib</a> ::
-        <a href="server.importlib.importLib-module.html">Module&nbsp;importLib</a> ::
+        <a href="server.importlib.importLib-module.html" onclick="show_private();">Module&nbsp;importLib</a> ::
         Class&nbsp;SolarisPatchPackagesInfo
       </span>
     </td>
@@ -56,7 +56,35 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class SolarisPatchPackagesInfo</h1><p class="nomargin-top"><span class="codelink"><a href="server.importlib.importLib-pysrc.html#SolarisPatchPackagesInfo">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_i_95" name="uml_class_diagram_for_server_i_95">
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.__cmp__" alt="" coords="45,36,267,55"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.__len__" alt="" coords="45,55,267,73"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.__getitem__" alt="" coords="45,73,267,92"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.__setitem__" alt="" coords="45,92,267,111"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.__delitem__" alt="" coords="45,111,267,129"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.clear" alt="" coords="45,129,267,148"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.copy" alt="" coords="45,148,267,167"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.keys" alt="" coords="45,167,267,185"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.items" alt="" coords="45,185,267,204"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.iteritems" alt="" coords="45,204,267,223"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.iterkeys" alt="" coords="45,223,267,241"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.itervalues" alt="" coords="45,241,267,260"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.values" alt="" coords="45,260,267,279"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.fromkeys" alt="" coords="45,297,267,316"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict" alt="" coords="44,11,268,317"/>
+<area shape="rect" href="server.importlib.importLib.Item-class.html#populate" title="server.importlib.importLib.Item.populate" alt="" coords="93,372,219,391"/>
+<area shape="rect" href="server.importlib.importLib.Item-class.html#__repr__" title="server.importlib.importLib.Item.__repr__" alt="" coords="93,391,219,409"/>
+<area shape="rect" href="server.importlib.importLib.Item-class.html" title="First level object, that stores information in a hash&#45;like structure" alt="" coords="92,347,220,411"/>
+<area shape="rect" href="server.importlib.importLib.BaseInformation-class.html#toDict" title="server.importlib.importLib.BaseInformation.toDict" alt="" coords="107,465,205,484"/>
+<area shape="rect" href="server.importlib.importLib.BaseInformation-class.html" title="Second level object." alt="" coords="105,440,207,485"/>
+<area shape="rect" href="server.importlib.importLib.Information-class.html#__init__" title="server.importlib.importLib.Information.__init__" alt="" coords="116,540,196,559"/>
+<area shape="rect" href="server.importlib.importLib.Information-class.html" title="server.importlib.importLib.Information" alt="" coords="115,515,197,560"/>
+<area shape="rect" href="server.importlib.mpmSource.mpmSolarisPatchPackagesInfo-class.html" title="server.importlib.mpmSource.mpmSolarisPatchPackagesInfo" alt="" coords="16,664,296,691"/>
+<area shape="rect" href="server.importlib.importLib.SolarisPatchPackagesInfo-class.html#attributeTypes" title="server.importlib.importLib.SolarisPatchPackagesInfo.attributeTypes" alt="" coords="76,607,236,625"/>
+<area shape="rect" href="server.importlib.importLib.SolarisPatchPackagesInfo-class.html" title="server.importlib.importLib.SolarisPatchPackagesInfo" alt="" coords="75,589,237,635"/>
+</map>
+  <img src="uml_class_diagram_for_server_i_95.png" alt='' usemap="#uml_class_diagram_for_server_i_95" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -159,7 +187,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.importlib.importLib.SolarisPatchPackagesInfo-class.html#attributeTypes" class="summary-name">attributeTypes</a> = <code title="{'patch_id': IntType, 'package_nevra_id': IntType,}">{'patch_id': IntType, 'package_nevra_id': Int<code class="variable-ellipsis">...</code></code>
+        <a href="server.importlib.importLib.SolarisPatchPackagesInfo-class.html#attributeTypes" class="summary-name">attributeTypes</a> = <code title="{'package_nevra_id': &lt;type 'int'&gt;, 'patch_id': &lt;type 'int'&gt;}"><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">package_nevra_id</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;type 'int'&gt;<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">patch_id</code><code class="variable-quote">'</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -193,7 +221,7 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-{'patch_id': IntType, 'package_nevra_id': IntType,}
+<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">package_nevra_id</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;type 'int'&gt;<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">patch_id</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;type 'int'&gt;<code class="variable-group">}</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -223,7 +251,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:15 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:59 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

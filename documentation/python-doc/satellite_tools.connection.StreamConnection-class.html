@@ -55,7 +55,28 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class StreamConnection</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.connection-pysrc.html#StreamConnection">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_satellit_14" name="uml_class_diagram_for_satellit_14">
+<area shape="rect" href="satellite_tools.connection._Server-class.html" title="satellite_tools.connection._Server" alt="" coords="428,347,479,379"/>
+<area shape="rect" href="satellite_tools.connection.StreamConnection-class.html#__init__" title="satellite_tools.connection.StreamConnection.__init__" alt="" coords="17,433,889,452"/>
+<area shape="rect" href="satellite_tools.connection.StreamConnection-class.html" title="satellite_tools.connection.StreamConnection" alt="" coords="16,408,891,453"/>
+<area shape="rect" href="javascript:void(0);" title="rhn.rpclib.Server.default_transport" alt="" coords="220,36,687,55"/>
+<area shape="rect" href="javascript:void(0);" title="rhn.rpclib.Server.allow_redirect" alt="" coords="220,55,687,73"/>
+<area shape="rect" href="javascript:void(0);" title="rhn.rpclib.Server.redirected" alt="" coords="220,73,687,92"/>
+<area shape="rect" href="javascript:void(0);" title="rhn.rpclib.Server.set_refresh_callback" alt="" coords="220,92,687,111"/>
+<area shape="rect" href="javascript:void(0);" title="rhn.rpclib.Server.set_buffer_size" alt="" coords="220,111,687,129"/>
+<area shape="rect" href="javascript:void(0);" title="rhn.rpclib.Server.set_progress_callback" alt="" coords="220,129,687,148"/>
+<area shape="rect" href="javascript:void(0);" title="rhn.rpclib.Server.get_response_headers" alt="" coords="220,148,687,167"/>
+<area shape="rect" href="javascript:void(0);" title="rhn.rpclib.Server.get_response_status" alt="" coords="220,167,687,185"/>
+<area shape="rect" href="javascript:void(0);" title="rhn.rpclib.Server.get_response_reason" alt="" coords="220,185,687,204"/>
+<area shape="rect" href="javascript:void(0);" title="Returns a dictionary with three values:..." alt="" coords="220,204,687,223"/>
+<area shape="rect" href="javascript:void(0);" title="rhn.rpclib.Server.accept_ranges" alt="" coords="220,223,687,241"/>
+<area shape="rect" href="javascript:void(0);" title="rhn.rpclib.Server.__repr__" alt="" coords="220,241,687,260"/>
+<area shape="rect" href="javascript:void(0);" title="rhn.rpclib.Server.__str__" alt="" coords="220,260,687,279"/>
+<area shape="rect" href="javascript:void(0);" title="rhn.rpclib.Server.close" alt="" coords="220,297,687,316"/>
+<area shape="rect" href="javascript:void(0);" title="uri [,options] &#45;&gt; a logical connection to an XML&#45;RPC server" alt="" coords="219,11,688,317"/>
+</map>
+  <img src="uml_class_diagram_for_satellit_14.png" alt='' usemap="#uml_class_diagram_for_satellit_14" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== NESTED CLASSES ==================== -->
@@ -115,7 +136,7 @@
         <span class="summary-sig-arg">username</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">password</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">refreshCallback</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">xml_dump_version</span>=<span class="summary-sig-default">&quot;3.3&quot;</span>)</span></td>
+        <span class="summary-sig-arg">xml_dump_version</span>=<span class="summary-sig-default">constants.PROTOCOL_VERSION</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.connection-pysrc.html#StreamConnection.__init__">source&nbsp;code</a></span>
             
@@ -127,34 +148,34 @@
   </tr>
   <tr>
     <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="rhn.rpclib.Server-class.html">rhn.rpclib.Server</a></code></b>:
-      <code><a href="rhn.rpclib.Server-class.html#__getattr__">__getattr__</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#__repr__">__repr__</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#__str__">__str__</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#accept_ranges">accept_ranges</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#add_header">add_header</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#add_trusted_cert">add_trusted_cert</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#allow_redirect">allow_redirect</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#close">close</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#default_transport">default_transport</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#get_content_range">get_content_range</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#get_response_headers">get_response_headers</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#get_response_reason">get_response_reason</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#get_response_status">get_response_status</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#get_transport_flags">get_transport_flags</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#redirected">redirected</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#reset_transport_flags">reset_transport_flags</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#set_buffer_size">set_buffer_size</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#set_header">set_header</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#set_progress_callback">set_progress_callback</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#set_refresh_callback">set_refresh_callback</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#set_transport_flags">set_transport_flags</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#setlang">setlang</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#use_CA_chain">use_CA_chain</a></code>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>rhn.rpclib.Server</code></b>:
+      <code>__getattr__</code>,
+      <code>__repr__</code>,
+      <code>__str__</code>,
+      <code>accept_ranges</code>,
+      <code>add_header</code>,
+      <code>add_trusted_cert</code>,
+      <code>allow_redirect</code>,
+      <code>close</code>,
+      <code>default_transport</code>,
+      <code>get_content_range</code>,
+      <code>get_response_headers</code>,
+      <code>get_response_reason</code>,
+      <code>get_response_status</code>,
+      <code>get_transport_flags</code>,
+      <code>redirected</code>,
+      <code>reset_transport_flags</code>,
+      <code>set_buffer_size</code>,
+      <code>set_header</code>,
+      <code>set_progress_callback</code>,
+      <code>set_refresh_callback</code>,
+      <code>set_transport_flags</code>,
+      <code>setlang</code>,
+      <code>use_CA_chain</code>
       </p>
-    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="rhn.rpclib.Server-class.html">rhn.rpclib.Server</a></code></b> (private):
-      <code><a href="rhn.rpclib.Server-class.html#_req_body" onclick="show_private();">_req_body</a></code>,
-      <code><a href="rhn.rpclib.Server-class.html#_request" onclick="show_private();">_request</a></code>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>rhn.rpclib.Server</code></b> (private):
+      <code>_req_body</code>,
+      <code>_request</code>
       </p></div>
     </td>
   </tr>
@@ -190,7 +211,7 @@
         <span class="sig-arg">username</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">password</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">refreshCallback</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">xml_dump_version</span>=<span class="sig-default">&quot;3.3&quot;</span>)</span>
+        <span class="sig-arg">xml_dump_version</span>=<span class="sig-default">constants.PROTOCOL_VERSION</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -230,7 +251,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:09 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:24 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

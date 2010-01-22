@@ -55,7 +55,18 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class ErratumItem</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.xmlSource-pysrc.html#ErratumItem">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_satellit_211" name="uml_class_diagram_for_satellit_211">
+<area shape="rect" href="satellite_tools.xmlSource.BaseItem-class.html#populate" title="satellite_tools.xmlSource.BaseItem.populate" alt="" coords="17,36,295,55"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseItem-class.html#populateFromAttributes" title="satellite_tools.xmlSource.BaseItem.populateFromAttributes" alt="" coords="17,55,295,73"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseItem-class.html#populateFromElements" title="satellite_tools.xmlSource.BaseItem.populateFromElements" alt="" coords="17,73,295,92"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseItem-class.html" title="satellite_tools.xmlSource.BaseItem" alt="" coords="16,11,296,93"/>
+<area shape="rect" href="satellite_tools.xmlSource.ErratumItem-class.html#item_name" title="hash(x)" alt="" coords="119,140,193,159"/>
+<area shape="rect" href="server.importlib.importLib.Erratum-class.html" title="hash(x)" alt="" coords="119,159,193,177"/>
+<area shape="rect" href="satellite_tools.xmlSource.ErratumItem-class.html#tagMap" title="satellite_tools.xmlSource.ErratumItem.tagMap" alt="" coords="119,177,193,196"/>
+<area shape="rect" href="satellite_tools.xmlSource.ErratumItem-class.html" title="satellite_tools.xmlSource.ErratumItem" alt="" coords="117,123,195,205"/>
+</map>
+  <img src="uml_class_diagram_for_satellit_211.png" alt='' usemap="#uml_class_diagram_for_satellit_211" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== NESTED CLASSES ==================== -->
@@ -79,7 +90,8 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.importlib.importLib.Erratum-class.html" class="summary-name">item_class</a>
+        <a href="server.importlib.importLib.Erratum-class.html" class="summary-name">item_class</a><br />
+      hash(x)
     </td>
   </tr>
 </table>
@@ -131,22 +143,23 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="item_name"></a><span class="summary-name">item_name</span> = <code title="'rhn-erratum'">'rhn-erratum'</code>
+        <a name="item_name"></a><span class="summary-name">item_name</span> = <code title="'rhn-erratum'"><code class="variable-quote">'</code><code class="variable-string">rhn-erratum</code><code class="variable-quote">'</code></code><br />
+      hash(x)
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.xmlSource.ErratumItem-class.html#tagMap" class="summary-name">tagMap</a> = <code title="{'id': 'erratum_id', 'org-id': 'org_id', 'rhn-erratum-advisory-name': \
-'advisory_name', 'rhn-erratum-advisory-rel': 'advisory_rel', 'rhn-erra\
-tum-advisory-type': 'advisory_type', 'rhn-erratum-product': 'product',\
- 'rhn-erratum-description': 'description', 'rhn-erratum-synopsis': 'sy\
-nopsis', 'rhn-erratum-topic': 'topic', 'rhn-erratum-solution': 'soluti\
-on', 'rhn-erratum-issue-date': 'issue_date', 'rhn-erratum-update-date'\
-: 'update_date', 'rhn-erratum-notes': 'notes', 'rhn-erratum-org-id': '\
-org_id', 'rhn-erratum-refers-to': 'refers_to', 'rhn-erratum-channels':\
-...">{'id': 'erratum_id', 'org-id': 'org_id', 'rhn-erratum<code class="variable-ellipsis">...</code></code>
+        <a href="satellite_tools.xmlSource.ErratumItem-class.html#tagMap" class="summary-name">tagMap</a> = <code title="{'cve-names': 'cve',
+ 'id': 'erratum_id',
+ 'org-id': 'org_id',
+ 'rhn-erratum-advisory-name': 'advisory_name',
+ 'rhn-erratum-advisory-rel': 'advisory_rel',
+ 'rhn-erratum-advisory-type': 'advisory_type',
+ 'rhn-erratum-bugs': 'bugs',
+ 'rhn-erratum-channels': 'channels',
+..."><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">cve-names</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">cve</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">id</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">erratum_id</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">org-id</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">o</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -180,14 +193,14 @@ org_id', 'rhn-erratum-refers-to': 'refers_to', 'rhn-erratum-channels':\
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-{'id': 'erratum_id', 'org-id': 'org_id', 'rhn-erratum-advisory-name': <span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-'advisory_name', 'rhn-erratum-advisory-rel': 'advisory_rel', 'rhn-erra<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-tum-advisory-type': 'advisory_type', 'rhn-erratum-product': 'product',<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
- 'rhn-erratum-description': 'description', 'rhn-erratum-synopsis': 'sy<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-nopsis', 'rhn-erratum-topic': 'topic', 'rhn-erratum-solution': 'soluti<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-on', 'rhn-erratum-issue-date': 'issue_date', 'rhn-erratum-update-date'<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-: 'update_date', 'rhn-erratum-notes': 'notes', 'rhn-erratum-org-id': '<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-org_id', 'rhn-erratum-refers-to': 'refers_to', 'rhn-erratum-channels':<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">cve-names</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">cve</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">id</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">erratum_id</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">org-id</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">org_id</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">rhn-erratum-advisory-name</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">advisory_name</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">rhn-erratum-advisory-rel</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">advisory_rel</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">rhn-erratum-advisory-type</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">advisory_type</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">rhn-erratum-bugs</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">bugs</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">rhn-erratum-channels</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">channels</code><code class="variable-quote">'</code><code class="variable-op">,</code>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -218,7 +231,7 @@ org_id', 'rhn-erratum-refers-to': 'refers_to', 'rhn-erratum-channels':<span clas
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:13 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:40 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

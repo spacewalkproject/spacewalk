@@ -55,7 +55,37 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class ConfigFileError</h1><p class="nomargin-top"><span class="codelink"><a href="server.configFilesHandler-pysrc.html#ConfigFileError">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_c_2" name="uml_class_diagram_for_server_c_2">
+<area shape="rect" href="server.configFilesHandler.ConfigFileMissingStatInfo-class.html" title="server.configFilesHandler.ConfigFileMissingStatInfo" alt="" coords="16,496,184,523"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFileTooLargeError-class.html" title="server.configFilesHandler.ConfigFileTooLargeError" alt="" coords="235,496,397,523"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFileError-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="888,447,1032,465"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFileError-class.html" title="server.configFilesHandler.ConfigFileError" alt="" coords="887,421,1033,467"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFileExistsError-class.html" title="server.configFilesHandler.ConfigFileExistsError" alt="" coords="448,496,589,523"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFileMissingDelimError-class.html" title="server.configFilesHandler.ConfigFileMissingDelimError" alt="" coords="640,496,824,523"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFileMissingInfoError-class.html" title="server.configFilesHandler.ConfigFileMissingInfoError" alt="" coords="875,496,1045,523"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFilePathIncomplete-class.html" title="server.configFilesHandler.ConfigFilePathIncomplete" alt="" coords="1096,496,1267,523"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFileVersionMismatchError-class.html" title="server.configFilesHandler.ConfigFileVersionMismatchError" alt="" coords="1317,496,1525,523"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFileExceedsQuota-class.html" title="server.configFilesHandler.ConfigFileExceedsQuota" alt="" coords="1576,496,1744,523"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFileMissingContentError-class.html" title="server.configFilesHandler.ConfigFileMissingContentError" alt="" coords="1795,496,1992,523"/>
+<area shape="rect" href="server.configFilesHandler.BaseConfigFileError-class.html" title="server.configFilesHandler.BaseConfigFileError" alt="" coords="897,360,1023,392"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.BaseException.args" alt="" coords="879,28,1041,47"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.BaseException.message" alt="" coords="879,47,1041,65"/>
+<area shape="rect" href="javascript:void(0);" title="x.__delattr__(&#39;name&#39;) &lt;==&gt; del x.name" alt="" coords="879,68,1041,87"/>
+<area shape="rect" href="javascript:void(0);" title="x.__getattribute__(&#39;name&#39;) &lt;==&gt; x.name" alt="" coords="879,87,1041,105"/>
+<area shape="rect" href="javascript:void(0);" title="x[y]" alt="" coords="879,105,1041,124"/>
+<area shape="rect" href="javascript:void(0);" title="x[i:j]" alt="" coords="879,124,1041,143"/>
+<area shape="rect" href="javascript:void(0);" title="helper for pickle" alt="" coords="879,143,1041,161"/>
+<area shape="rect" href="javascript:void(0);" title="repr(x)" alt="" coords="879,161,1041,180"/>
+<area shape="rect" href="javascript:void(0);" title="x.__setattr__(&#39;name&#39;, value) &lt;==&gt; x.name = value" alt="" coords="879,180,1041,199"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.BaseException.__setstate__" alt="" coords="879,199,1041,217"/>
+<area shape="rect" href="javascript:void(0);" title="str(x)" alt="" coords="879,217,1041,236"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.BaseException.__unicode__" alt="" coords="879,236,1041,255"/>
+<area shape="rect" href="javascript:void(0);" title="Common base class for all exceptions" alt="" coords="877,11,1043,256"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.Exception.__new__" alt="" coords="895,311,1025,329"/>
+<area shape="rect" href="javascript:void(0);" title="Common base class for all non&#45;exit exceptions." alt="" coords="893,285,1027,331"/>
+</map>
+  <img src="uml_class_diagram_for_server_c_2.png" alt='' usemap="#uml_class_diagram_for_server_c_2" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -108,11 +138,15 @@
       <code>__repr__</code>,
       <code>__setattr__</code>,
       <code>__setstate__</code>,
-      <code>__str__</code>
+      <code>__str__</code>,
+      <code>__unicode__</code>
       </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__format__</code>,
       <code>__hash__</code>,
-      <code>__reduce_ex__</code>
+      <code>__reduce_ex__</code>,
+      <code>__sizeof__</code>,
+      <code>__subclasshook__</code>
       </p>
     </td>
   </tr>
@@ -215,7 +249,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:14 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:44 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

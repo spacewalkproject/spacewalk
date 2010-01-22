@@ -36,7 +36,7 @@
       <span class="breadcrumbs">
         <a href="server-module.html">Package&nbsp;server</a> ::
         <a href="server.importlib-module.html">Package&nbsp;importlib</a> ::
-        <a href="server.importlib.headerSource-module.html">Module&nbsp;headerSource</a> ::
+        <a href="server.importlib.headerSource-module.html" onclick="show_private();">Module&nbsp;headerSource</a> ::
         Class&nbsp;rpmBinaryPackage
       </span>
     </td>
@@ -56,7 +56,41 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class rpmBinaryPackage</h1><p class="nomargin-top"><span class="codelink"><a href="server.importlib.headerSource-pysrc.html#rpmBinaryPackage">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_i_35" name="uml_class_diagram_for_server_i_35">
+<area shape="rect" href="server.importlib.mpmSource.mpmBinaryPackage-class.html" title="server.importlib.mpmSource.mpmBinaryPackage" alt="" coords="321,789,535,816"/>
+<area shape="rect" href="server.importlib.headerSource.rpmPackage-class.html" title="server.importlib.headerSource.rpmPackage" alt="" coords="312,608,395,640"/>
+<area shape="rect" href="server.importlib.headerSource.rpmBinaryPackage-class.html#tagMap" title="server.importlib.headerSource.rpmBinaryPackage.tagMap" alt="" coords="17,700,839,719"/>
+<area shape="rect" href="server.importlib.headerSource.rpmBinaryPackage-class.html#populate" title="server.importlib.headerSource.rpmBinaryPackage.populate" alt="" coords="17,721,839,740"/>
+<area shape="rect" href="server.importlib.headerSource.rpmBinaryPackage-class.html#populateFromFile" title="server.importlib.headerSource.rpmBinaryPackage.populateFromFile" alt="" coords="17,740,839,759"/>
+<area shape="rect" href="server.importlib.headerSource.rpmBinaryPackage-class.html" title="server.importlib.headerSource.rpmBinaryPackage" alt="" coords="16,683,840,760"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.__cmp__" alt="" coords="317,36,539,55"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.__len__" alt="" coords="317,55,539,73"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.__getitem__" alt="" coords="317,73,539,92"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.__setitem__" alt="" coords="317,92,539,111"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.__delitem__" alt="" coords="317,111,539,129"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.clear" alt="" coords="317,129,539,148"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.copy" alt="" coords="317,148,539,167"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.keys" alt="" coords="317,167,539,185"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.items" alt="" coords="317,185,539,204"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.iteritems" alt="" coords="317,204,539,223"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.iterkeys" alt="" coords="317,223,539,241"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.itervalues" alt="" coords="317,241,539,260"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.values" alt="" coords="317,260,539,279"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict.fromkeys" alt="" coords="317,297,539,316"/>
+<area shape="rect" href="javascript:void(0);" title="UserDict.UserDict" alt="" coords="316,11,540,317"/>
+<area shape="rect" href="server.importlib.importLib.Item-class.html#__repr__" title="server.importlib.importLib.Item.__repr__" alt="" coords="384,372,472,391"/>
+<area shape="rect" href="server.importlib.importLib.Item-class.html" title="First level object, that stores information in a hash&#45;like structure" alt="" coords="383,347,473,392"/>
+<area shape="rect" href="server.importlib.importLib.IncompletePackage-class.html#get_nevrao" title="server.importlib.importLib.IncompletePackage.get_nevrao" alt="" coords="337,508,519,527"/>
+<area shape="rect" href="server.importlib.importLib.IncompletePackage-class.html#short_str" title="server.importlib.importLib.IncompletePackage.short_str" alt="" coords="337,527,519,545"/>
+<area shape="rect" href="server.importlib.importLib.IncompletePackage-class.html#toDict" title="server.importlib.importLib.IncompletePackage.toDict" alt="" coords="337,545,519,564"/>
+<area shape="rect" href="server.importlib.importLib.IncompletePackage-class.html" title="hash(x)" alt="" coords="336,483,520,565"/>
+<area shape="rect" href="server.importlib.importLib.Package-class.html#attributeTypes" title="server.importlib.importLib.Package.attributeTypes" alt="" coords="447,612,561,631"/>
+<area shape="rect" href="server.importlib.importLib.Package-class.html#__init__" title="server.importlib.importLib.Package.__init__" alt="" coords="447,633,561,652"/>
+<area shape="rect" href="server.importlib.importLib.Package-class.html" title="A package is a hash of attributes" alt="" coords="445,595,563,653"/>
+<area shape="rect" href="server.importlib.importLib.BaseInformation-class.html" title="Second level object." alt="" coords="348,421,508,453"/>
+</map>
+  <img src="uml_class_diagram_for_server_i_35.png" alt='' usemap="#uml_class_diagram_for_server_i_35" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -85,12 +119,13 @@
           <td><span class="summary-sig"><a href="server.importlib.headerSource.rpmBinaryPackage-class.html#populate" class="summary-sig-name">populate</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">header</span>,
         <span class="summary-sig-arg">size</span>,
-        <span class="summary-sig-arg">md5sum</span>,
+        <span class="summary-sig-arg">checksum_type</span>,
+        <span class="summary-sig-arg">checksum</span>,
         <span class="summary-sig-arg">path</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">org_id</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">header_start</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">header_end</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">channels</span>=<span class="summary-sig-default">[]</span>)</span></td>
+        <span class="summary-sig-arg">channels</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.importlib.headerSource-pysrc.html#rpmBinaryPackage.populate">source&nbsp;code</a></span>
             
@@ -110,7 +145,7 @@
         <span class="summary-sig-arg">file</span>,
         <span class="summary-sig-arg">relpath</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">org_id</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">channels</span>=<span class="summary-sig-default">[]</span>)</span></td>
+        <span class="summary-sig-arg">channels</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.importlib.headerSource-pysrc.html#rpmBinaryPackage.populateFromFile">source&nbsp;code</a></span>
             
@@ -296,7 +331,15 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="tagMap"></a><span class="summary-name">tagMap</span> = <code title="rpmPackage.tagMap.copy()">rpmPackage.tagMap.copy()</code>
+        <a href="server.importlib.headerSource.rpmBinaryPackage-class.html#tagMap" class="summary-name">tagMap</a> = <code title="{'build_host': 'buildhost',
+ 'build_time': 'buildtime',
+ 'changelog': None,
+ 'channels': None,
+ 'checksum': None,
+ 'checksum_type': None,
+ 'conflicts': None,
+ 'files': None,
+..."><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">build_host</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">buildhost</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">build_time</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">buildtime</code><code class="variable-quote">'</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
   <tr>
@@ -335,12 +378,13 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">populate</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">header</span>,
         <span class="sig-arg">size</span>,
-        <span class="sig-arg">md5sum</span>,
+        <span class="sig-arg">checksum_type</span>,
+        <span class="sig-arg">checksum</span>,
         <span class="sig-arg">path</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">org_id</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">header_start</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">header_end</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">channels</span>=<span class="sig-default">[]</span>)</span>
+        <span class="sig-arg">channels</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="server.importlib.headerSource-pysrc.html#rpmBinaryPackage.populate">source&nbsp;code</a></span>&nbsp;
@@ -352,6 +396,51 @@
     <dt>Overrides:
         <a href="server.importlib.headerSource.rpmPackage-class.html#populate">rpmPackage.populate</a>
     </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== CLASS VARIABLE DETAILS ==================== -->
+<a name="section-ClassVariableDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variable Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariableDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="tagMap"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">tagMap</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">build_host</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">buildhost</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">build_time</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">buildtime</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">changelog</code><code class="variable-quote">'</code><code class="variable-op">: </code>None<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">channels</code><code class="variable-quote">'</code><code class="variable-op">: </code>None<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">checksum</code><code class="variable-quote">'</code><code class="variable-op">: </code>None<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">checksum_type</code><code class="variable-quote">'</code><code class="variable-op">: </code>None<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">conflicts</code><code class="variable-quote">'</code><code class="variable-op">: </code>None<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">files</code><code class="variable-quote">'</code><code class="variable-op">: </code>None<code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -379,7 +468,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:15 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:50 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

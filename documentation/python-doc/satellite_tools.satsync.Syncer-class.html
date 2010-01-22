@@ -338,7 +338,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="satellite_tools.satsync.Syncer-class.html#_verify_missing_channel_packages" class="summary-sig-name" onclick="show_private();">_verify_missing_channel_packages</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">missing_channel_packages</span>)</span><br />
+        <span class="summary-sig-arg">missing_channel_packages</span>,
+        <span class="summary-sig-arg">sources</span>=<span class="summary-sig-default">0</span>)</span><br />
       Verify if all the missing packages are actually available somehow.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._verify_missing_channel_packages">source&nbsp;code</a></span>
@@ -358,8 +359,9 @@
           <td><span class="summary-sig"><a name="_get_rel_package_path"></a><span class="summary-sig-name">_get_rel_package_path</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">nevra</span>,
         <span class="summary-sig-arg">org_id</span>,
-        <span class="summary-sig-arg">source</span>=<span class="summary-sig-default">0</span>,
-        <span class="summary-sig-arg">md5sum</span>=<span class="summary-sig-default">None</span>)</span></td>
+        <span class="summary-sig-arg">source</span>,
+        <span class="summary-sig-arg">checksum_type</span>,
+        <span class="summary-sig-arg">checksum</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._get_rel_package_path">source&nbsp;code</a></span>
             
@@ -379,10 +381,11 @@
         <span class="summary-sig-arg">path</span>,
         <span class="summary-sig-arg">mtime</span>,
         <span class="summary-sig-arg">size</span>,
-        <span class="summary-sig-arg">md5sum</span>)</span><br />
+        <span class="summary-sig-arg">checksum_type</span>,
+        <span class="summary-sig-arg">checksum</span>)</span><br />
       Verifies if the file is on the filesystem and matches the mtime and
-md5sum
-Computing the md5sum is costly, that's why we rely on mtime
+checksum
+Computing the checksum is costly, that's why we rely on mtime
 comparisons.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._verify_file">source&nbsp;code</a></span>
@@ -464,6 +467,22 @@ comparisons.</td>
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="download_srpms"></a><span class="summary-sig-name">download_srpms</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer.download_srpms">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
@@ -489,6 +508,22 @@ comparisons.</td>
           <td><span class="summary-sig"><a name="_compute_not_cached_source_packages"></a><span class="summary-sig-name">_compute_not_cached_source_packages</span>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._compute_not_cached_source_packages">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_diff_source_packages"></a><span class="summary-sig-name">_diff_source_packages</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._diff_source_packages">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -700,7 +735,8 @@ comparisons.</td>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="import_packages"></a><span class="summary-sig-name">import_packages</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="import_packages"></a><span class="summary-sig-name">import_packages</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">sources</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer.import_packages">source&nbsp;code</a></span>
             
@@ -733,7 +769,8 @@ comparisons.</td>
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="_get_cached_package_batch"></a><span class="summary-sig-name">_get_cached_package_batch</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">chunk</span>)</span></td>
+        <span class="summary-sig-arg">chunk</span>,
+        <span class="summary-sig-arg">sources</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._get_cached_package_batch">source&nbsp;code</a></span>
             
@@ -840,13 +877,28 @@ comparisons.</td>
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="satellite_tools.satsync.Syncer-class.html#_query_compare_packages" class="summary-name" onclick="show_private();">_query_compare_packages</a> = <code title="&quot;&quot;&quot;
-        select p.id, p.md5sum, p.path, p.package_size,
+        select p.id, c.checksum_type, c.checksum, p.path, p.package_si\
+ze,
                TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modif\
 ied
-          from rhnPackage p
+          from rhnPackage p, rhnChecksumView c
          where p.name_id = lookup_package_name(:name)
            and p.evr_id = lookup_evr(:epoch, :version, :release)
-           and p.package_arch_id = lookup_package_arch(:arch)
+..."><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="satellite_tools.satsync.Syncer-class.html#_query_compare_source_packages" class="summary-name" onclick="show_private();">_query_compare_source_packages</a> = <code title="&quot;&quot;&quot;
+        select ps.id, c.checksum_type, c.checksum, ps.path, ps.package\
+_size,
+               TO_CHAR(ps.last_modified, 'YYYYMMDDHH24MISS') last_modi\
+fied
+          from rhnPackageSource ps, rhnChecksumView c
+         where ps.source_rpm_id = lookup_source_name(:package_id)
+           and (ps.org_id = :org_id or
 ..."><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
@@ -975,7 +1027,8 @@ ied
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">_verify_missing_channel_packages</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">missing_channel_packages</span>)</span>
+        <span class="sig-arg">missing_channel_packages</span>,
+        <span class="sig-arg">sources</span>=<span class="sig-default">0</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._verify_missing_channel_packages">source&nbsp;code</a></span>&nbsp;
@@ -1001,7 +1054,8 @@ ied
         <span class="sig-arg">path</span>,
         <span class="sig-arg">mtime</span>,
         <span class="sig-arg">size</span>,
-        <span class="sig-arg">md5sum</span>)</span>
+        <span class="sig-arg">checksum_type</span>,
+        <span class="sig-arg">checksum</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="satellite_tools.satsync-pysrc.html#Syncer._verify_file">source&nbsp;code</a></span>&nbsp;
@@ -1010,16 +1064,16 @@ ied
   
   <pre class="literalblock">
 Verifies if the file is on the filesystem and matches the mtime and
-md5sum
-Computing the md5sum is costly, that's why we rely on mtime
+checksum
+Computing the checksum is costly, that's why we rely on mtime
 comparisons.
 Returns a tuple (error_code, ret_path) where:
-    if the file has the specified mtime and md5sum, error_code is 0
+    if the file has the specified mtime and checksum, error_code is 0
         and ret_path is None
-    if the file has the md5sum, the function sets mtime, error_code is
+    if the file has the checksum, the function sets mtime, error_code is
         0 and ret_path is path
-    if the file exists but has a different md5sum, error_code is the
-        file's current md5sum and ret_path is path
+    if the file exists but has a different checksum, error_code is the
+        file's current checksum and ret_path is path
     if the file does not exist at all, error_code is 1 and ret_path is
         null
 The idea is that error_code is 0 if the file exists or something else
@@ -1083,13 +1137,39 @@ otherwise
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
 &quot;&quot;&quot;
-        select p.id, p.md5sum, p.path, p.package_size,
+        select p.id, c.checksum_type, c.checksum, p.path, p.package_si<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ze,
                TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modif<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 ied
-          from rhnPackage p
+          from rhnPackage p, rhnChecksumView c
          where p.name_id = lookup_package_name(:name)
            and p.evr_id = lookup_evr(:epoch, :version, :release)
-           and p.package_arch_id = lookup_package_arch(:arch)
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_query_compare_source_packages"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_query_compare_source_packages</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+&quot;&quot;&quot;
+        select ps.id, c.checksum_type, c.checksum, ps.path, ps.package<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+_size,
+               TO_CHAR(ps.last_modified, 'YYYYMMDDHH24MISS') last_modi<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+fied
+          from rhnPackageSource ps, rhnChecksumView c
+         where ps.source_rpm_id = lookup_source_name(:package_id)
+           and (ps.org_id = :org_id or
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -1169,7 +1249,7 @@ ied
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:11 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:34 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

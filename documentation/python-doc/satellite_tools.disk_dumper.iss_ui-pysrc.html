@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>satellite_tools.disk_dumper.iss_ui</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="satellite_tools-module.html">Package&nbsp;satellite_tools</a> ::
+        <a href="satellite_tools.disk_dumper-module.html" onclick="show_private();">Package&nbsp;disk_dumper</a> ::
+        Module&nbsp;iss_ui
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="satellite_tools.disk_dumper.iss_ui-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="satellite_tools.disk_dumper.iss_ui-module.html">Module satellite_tools.disk_dumper.iss_ui</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">optparse</tt> <tt class="py-keyword">import</tt> <tt class="py-name">OptionParser</tt><tt class="py-op">,</tt> <tt class="py-name">Option</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-comment">#Not strictly necessary, but makes them easier to type</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-name">option_parser</tt> <tt class="py-op">=</tt> <tt class="py-name">OptionParser</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-name">option</tt> <tt class="py-op">=</tt> <tt class="py-name">Option</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"> </tt>
+<a name="UI"></a><div id="UI-def"><a name="L22"></a><tt class="py-lineno">22</tt> <a class="py-toggle" href="#" id="UI-toggle" onclick="return toggle('UI');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="satellite_tools.disk_dumper.iss_ui.UI-class.html">UI</a><tt class="py-op">:</tt> </tt>
+</div><div id="UI-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="UI-expanded"><a name="UI.__init__"></a><div id="UI.__init__-def"><a name="L23"></a><tt class="py-lineno">23</tt> <a class="py-toggle" href="#" id="UI.__init__-toggle" onclick="return toggle('UI.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.disk_dumper.iss_ui.UI-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="UI.__init__-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="UI.__init__-expanded"><a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">optiontable</tt> <tt class="py-op">=</tt>  <tt class="py-op">[</tt>  </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">            <tt class="py-name">option</tt><tt class="py-op">(</tt><tt class="py-string">"-d"</tt><tt class="py-op">,</tt>    <tt class="py-string">"--dir"</tt><tt class="py-op">,</tt>                    <tt id="link-0" class="py-name" targets="Package server.action=server.action-module.html"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-0', 'action', 'link-0');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store"</tt><tt class="py-op">,</tt>      </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">                <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"This is the directory that the information that you want to sync gets dumped in."</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">            <tt class="py-name">option</tt><tt class="py-op">(</tt>         <tt class="py-string">"--hard-links"</tt><tt class="py-op">,</tt>             <tt id="link-1" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-1', 'action', 'link-0');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store_true"</tt><tt class="py-op">,</tt>        <tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">                <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"Exported RPM and kickstart are hard linked to original files."</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">            <tt class="py-name">option</tt><tt class="py-op">(</tt>         <tt class="py-string">"--list-channels"</tt><tt class="py-op">,</tt>          <tt id="link-2" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-2', 'action', 'link-0');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store_true"</tt><tt class="py-op">,</tt>    <tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">,</tt>   </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">                <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"List all of the channels that can be exported."</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">            <tt class="py-name">option</tt><tt class="py-op">(</tt>         <tt class="py-string">"--list-steps"</tt><tt class="py-op">,</tt>             <tt id="link-3" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-3', 'action', 'link-0');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store_true"</tt><tt class="py-op">,</tt>    <tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">                <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"List all of the steps that rhn-satellite-exporter takes while exporting data. These can be used as values for --step"</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">            <tt class="py-name">option</tt><tt class="py-op">(</tt><tt class="py-string">"-c"</tt><tt class="py-op">,</tt>    <tt class="py-string">"--channel"</tt><tt class="py-op">,</tt>                <tt id="link-4" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-4', 'action', 'link-0');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"append"</tt><tt class="py-op">,</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">                <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"Include this channel in the export."</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">            <tt class="py-name">option</tt><tt class="py-op">(</tt>         <tt class="py-string">"--start-date"</tt><tt class="py-op">,</tt>             <tt id="link-5" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-5', 'action', 'link-0');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store"</tt><tt class="py-op">,</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">                <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"The start date limit that the last modified dates are compared against. Must be in the format 'YYYYMMDDHH24MISS'."</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">            <tt class="py-name">option</tt><tt class="py-op">(</tt>         <tt class="py-string">"--end-date"</tt><tt class="py-op">,</tt>                <tt id="link-6" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-6', 'action', 'link-0');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store"</tt><tt class="py-op">,</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">                <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"The end date limit that the last modified dates are compared against. Must be in the format 'YYYYMMDDHH24MISS'."</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">            <tt class="py-name">option</tt><tt class="py-op">(</tt>         <tt class="py-string">"--make-isos"</tt><tt class="py-op">,</tt>               <tt id="link-7" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-7', 'action', 'link-0');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store"</tt><tt class="py-op">,</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">                <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"Create channel dump isos a directory called satellite-isos. Usage: --make-isos=cd or dvd"</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">            <tt class="py-name">option</tt><tt class="py-op">(</tt><tt class="py-string">"-p"</tt><tt class="py-op">,</tt>    <tt class="py-string">"--print-configuration"</tt><tt class="py-op">,</tt>    <tt id="link-8" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-8', 'action', 'link-0');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store_true"</tt><tt class="py-op">,</tt>    <tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">                <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"Print the configuration and exit."</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">            <tt class="py-name">option</tt><tt class="py-op">(</tt>         <tt class="py-string">"--print-report"</tt><tt class="py-op">,</tt>           <tt id="link-9" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-9', 'action', 'link-0');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store_true"</tt><tt class="py-op">,</tt>    <tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">                <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"Print the report to the terminal when the export is complete."</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">            <tt class="py-name">option</tt><tt class="py-op">(</tt>         <tt class="py-string">"--step"</tt><tt class="py-op">,</tt>                   <tt id="link-10" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-10', 'action', 'link-0');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store"</tt><tt class="py-op">,</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">                <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"Export only up to this step."</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">            <tt class="py-name">option</tt><tt class="py-op">(</tt>         <tt class="py-string">"--no-rpms"</tt><tt class="py-op">,</tt>                <tt id="link-11" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-11', 'action', 'link-0');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store_true"</tt><tt class="py-op">,</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">                <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"Do not export RPMs."</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">            <tt class="py-name">option</tt><tt class="py-op">(</tt>         <tt class="py-string">"--no-packages"</tt><tt class="py-op">,</tt>            <tt id="link-12" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-12', 'action', 'link-0');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store_true"</tt><tt class="py-op">,</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">                <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"Do not export package metadata."</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">            <tt class="py-name">option</tt><tt class="py-op">(</tt>         <tt class="py-string">"--no-errata"</tt><tt class="py-op">,</tt>              <tt id="link-13" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-13', 'action', 'link-0');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store_true"</tt><tt class="py-op">,</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">                <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"Do not export errata data."</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">            <tt class="py-name">option</tt><tt class="py-op">(</tt>         <tt class="py-string">"--no-kickstarts"</tt><tt class="py-op">,</tt>          <tt id="link-14" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-14', 'action', 'link-0');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store_true"</tt><tt class="py-op">,</tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">                <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"Do not export kickstart data."</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">            <tt class="py-name">option</tt><tt class="py-op">(</tt>         <tt class="py-string">"--debug-level"</tt><tt class="py-op">,</tt>            <tt id="link-15" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-15', 'action', 'link-0');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store"</tt><tt class="py-op">,</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">                <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"Set the debug level to this value. Overrides the value in rhn.conf."</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">             <tt class="py-name">option</tt><tt class="py-op">(</tt><tt class="py-string">"-v"</tt><tt class="py-op">,</tt>   <tt class="py-string">"--verbose"</tt><tt class="py-op">,</tt>                <tt id="link-16" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-16', 'action', 'link-0');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store_true"</tt><tt class="py-op">,</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line">                <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"Set debug level to 3. Overrides the value in rhn.conf.."</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line">            <tt class="py-name">option</tt><tt class="py-op">(</tt>         <tt class="py-string">"--email"</tt><tt class="py-op">,</tt>                  <tt id="link-17" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-17', 'action', 'link-0');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store_true"</tt><tt class="py-op">,</tt> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">                <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"Email a report of what was exported."</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">            <tt class="py-name">option</tt><tt class="py-op">(</tt>         <tt class="py-string">"--traceback-mail"</tt><tt class="py-op">,</tt>        <tt id="link-18" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-18', 'action', 'link-0');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store"</tt><tt class="py-op">,</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line">                <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"Alternative email address for --email."</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line">            <tt class="py-name">option</tt><tt class="py-op">(</tt>         <tt class="py-string">"--db"</tt><tt class="py-op">,</tt>                     <tt id="link-19" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-19', 'action', 'link-0');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store"</tt><tt class="py-op">,</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line">                <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"Connect to this database."</tt><tt class="py-op">)</tt><tt class="py-op">,</tt>    </tt>
+<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line">                            <tt class="py-op">]</tt> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">optionparser</tt> <tt class="py-op">=</tt> <tt class="py-name">option_parser</tt><tt class="py-op">(</tt><tt class="py-name">option_list</tt><tt class="py-op">=</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">optiontable</tt><tt class="py-op">)</tt> </tt>
+<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">args</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">optionparser</tt><tt class="py-op">.</tt><tt class="py-name">parse_args</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name" targets="Variable satellite_tools.updatePackages.verbose=satellite_tools.updatePackages-module.html#verbose"><a title="satellite_tools.updatePackages.verbose" class="py-name" href="#" onclick="return doclink('link-20', 'verbose', 'link-20');">verbose</a></tt> <tt class="py-keyword">and</tt> <tt class="py-keyword">not</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">debug_level</tt><tt class="py-op">:</tt> </tt>
+<a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">debug_level</tt><tt class="py-op">=</tt><tt class="py-number">3</tt> </tt>
+<a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line">          </tt>
+<a name="L71"></a><tt class="py-lineno">71</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">i</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">__dict__</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name" targets="Method common.UserDictCase'.UserDictCase.keys()=common.UserDictCase%27.UserDictCase-class.html#keys,Method common.rhnConfig.RHNOptions.keys()=common.rhnConfig.RHNOptions-class.html#keys,Method rhn.UserDictCase.UserDictCase.keys()=rhn.UserDictCase.UserDictCase-class.html#keys,Method server.rhnSQL.sql_table.Table.keys()=server.rhnSQL.sql_table.Table-class.html#keys"><a title="common.UserDictCase'.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+rhn.UserDictCase.UserDictCase.keys
+server.rhnSQL.sql_table.Table.keys" class="py-name" href="#" onclick="return doclink('link-21', 'keys', 'link-21');">keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L72"></a><tt class="py-lineno">72</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__dict__</tt><tt class="py-op">.</tt><tt id="link-22" class="py-name" targets="Method common.UserDictCase'.UserDictCase.has_key()=common.UserDictCase%27.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Function server.rhnDatabaseCache.has_key()=server.rhnDatabaseCache-module.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-22', 'has_key', 'link-22');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">i</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__dict__</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">__dict__</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> </tt>
+</div></div><a name="L74"></a><tt class="py-lineno">74</tt>  <tt class="py-line"> </tt>
+<a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">"__main__"</tt><tt class="py-op">:</tt> </tt>
+<a name="L76"></a><tt class="py-lineno">76</tt>  <tt class="py-line">    <tt class="py-name">a</tt> <tt class="py-op">=</tt> <tt id="link-23" class="py-name" targets="Class satellite_tools.disk_dumper.iss_ui.UI=satellite_tools.disk_dumper.iss_ui.UI-class.html"><a title="satellite_tools.disk_dumper.iss_ui.UI" class="py-name" href="#" onclick="return doclink('link-23', 'UI', 'link-23');">UI</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt>  </tt>
+<a name="L77"></a><tt class="py-lineno">77</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">a</tt><tt class="py-op">.</tt><tt class="py-name">no_errata</tt><tt class="py-op">)</tt> </tt>
+<a name="L78"></a><tt class="py-lineno">78</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:35 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

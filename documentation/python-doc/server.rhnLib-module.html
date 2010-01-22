@@ -143,22 +143,6 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="md5sum"></a><span class="summary-sig-name">md5sum</span>(<span class="summary-sig-arg">*fields</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnLib-pysrc.html#md5sum">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
           <td><span class="summary-sig"><a name="computeSignature"></a><span class="summary-sig-name">computeSignature</span>(<span class="summary-sig-arg">*fields</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnLib-pysrc.html#computeSignature">source&nbsp;code</a></span>
@@ -266,14 +250,17 @@ Understood rules:
           <td><span class="summary-sig"><a name="get_package_path"></a><span class="summary-sig-name">get_package_path</span>(<span class="summary-sig-arg">nevra</span>,
         <span class="summary-sig-arg">org_id</span>,
         <span class="summary-sig-arg">source</span>=<span class="summary-sig-default">0</span>,
-        <span class="summary-sig-arg">prepend</span>=<span class="summary-sig-default">&quot;&quot;</span>,
+        <span class="summary-sig-arg">prepend</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
         <span class="summary-sig-arg">omit_epoch</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">package_type</span>=<span class="summary-sig-default">'rpm'</span>,
-        <span class="summary-sig-arg">md5sum</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">package_type</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">rpm</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">checksum_type</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">checksum</span>=<span class="summary-sig-default">None</span>)</span><br />
       Computes a package path, optionally prepending a prefix The path will
-      look like &lt;prefix&gt;/&lt;org_id&gt;/n/e:v-r/a/n-v-r.a.rpm if not 
-      omit_epoch &lt;prefix&gt;/&lt;org_id&gt;/n/v-r/a/n-v-r.a.rpm if 
-      omit_epoch</td>
+      look like 
+      &lt;prefix&gt;/&lt;org_id&gt;/checksum[:3]/n/e:v-r/a/checksum/n-v-r.a.rpm
+      if not omit_epoch 
+      &lt;prefix&gt;/&lt;org_id&gt;/checksum[:3]/n/v-r/a/checksum/n-v-r.a.rpm
+      if omit_epoch</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnLib-pysrc.html#get_package_path">source&nbsp;code</a></span>
             
@@ -291,8 +278,9 @@ Understood rules:
         <tr>
           <td><span class="summary-sig"><a name="get_package_path_without_package_name"></a><span class="summary-sig-name">get_package_path_without_package_name</span>(<span class="summary-sig-arg">nevra</span>,
         <span class="summary-sig-arg">org_id</span>,
-        <span class="summary-sig-arg">prepend</span>=<span class="summary-sig-default">&quot;&quot;</span>,
-        <span class="summary-sig-arg">md5sum</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">prepend</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">checksum_type</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">checksum</span>=<span class="summary-sig-default">None</span>)</span><br />
       return a package path without the package name appended</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnLib-pysrc.html#get_package_path_without_package_name">source&nbsp;code</a></span>
@@ -325,7 +313,14 @@ Understood rules:
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="re_rpmName"></a><span class="summary-name">re_rpmName</span> = <code title="re.compile(&quot;^(.*)-([^-]*)-([^-]*)$&quot;)">re.compile(&quot;^(.*)-([^-]*)-([^-]*)$&quot;)</code>
+        <a name="re_rpmName"></a><span class="summary-name">re_rpmName</span> = <code title="re.compile(r'^(.*)-([^-]*)-([^-]*)$')">re.compile(r'^<code class="re-group">(</code>.<code class="re-op">*</code><code class="re-group">)</code>-<code class="re-group">(</code><code class="re-group">[^</code>-<code class="re-group">]</code><code class="re-op">*</code><code class="re-group">)</code>-<code class="re-group">(</code><code class="re-group">[^</code>-<code class="re-group">]</code><code class="re-op">*</code><code class="re-group">)</code>$')</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'server'"><code class="variable-quote">'</code><code class="variable-string">server</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -362,7 +357,7 @@ Understood rules:
   </tr></table>
   
   <p>IN:  Package string in, n-n-n-v.v.v-r.r_r, format. OUT: Four strings 
-  (in a tuple): name, version, release, epoch.</p>
+  (in a tuple): name, epoch, version, release.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -392,7 +387,7 @@ Understood rules:
    o Release can include the Epoch, e.g.: 2:4 (4 is the epoch)
    o Epoch: Can include anything except a - and the : seperator???
      XXX: Is epoch info above correct?
-OUT: [n,v,r,e, arch].
+OUT: [n,e,v,r, arch].
 
 </pre>
   <dl class="fields">
@@ -423,7 +418,7 @@ OUT: [n,v,r,e, arch].
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:06 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:15 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

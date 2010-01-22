@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.action_extra_data.errata</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.action_extra_data-module.html">Package&nbsp;action_extra_data</a> ::
+        Module&nbsp;errata
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.action_extra_data.errata-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="server.action_extra_data.errata-module.html">Module server.action_extra_data.errata</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-comment"># errata-related error handling functions</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package common=common-module.html,Package spacewalk.common=spacewalk.common-module.html"><a title="common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-0', 'common', 'link-0');">common</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Function _apache.log_error()=_apache-module.html#log_error,Function common.rhnLog.log_error()=common.rhnLog-module.html#log_error,Function satellite_tools.satComputePkgHeaders.log_error()=satellite_tools.satComputePkgHeaders-module.html#log_error"><a title="_apache.log_error
+common.rhnLog.log_error
+satellite_tools.satComputePkgHeaders.log_error" class="py-name" href="#" onclick="return doclink('link-1', 'log_error', 'link-1');">log_error</a></tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-comment"># the "exposed" functions</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt id="link-2" class="py-name" targets="Variable server.action.activation.__rhnexport__=server.action.activation-module.html#__rhnexport__,Variable server.action.configfiles.__rhnexport__=server.action.configfiles-module.html#__rhnexport__,Variable server.action.errata.__rhnexport__=server.action.errata-module.html#__rhnexport__,Variable server.action.hardware.__rhnexport__=server.action.hardware-module.html#__rhnexport__,Variable server.action.kickstart.__rhnexport__=server.action.kickstart-module.html#__rhnexport__,Variable server.action.kickstart_guest.__rhnexport__=server.action.kickstart_guest-module.html#__rhnexport__,Variable server.action.kickstart_host.__rhnexport__=server.action.kickstart_host-module.html#__rhnexport__,Variable server.action.packages.__rhnexport__=server.action.packages-module.html#__rhnexport__,Variable server.action.reboot.__rhnexport__=server.action.reboot-module.html#__rhnexport__,Variable server.action.rhn_applet.__rhnexport__=server.action.rhn_applet-module.html#__rhnexport__,Variable server.action.rhnsd.__rhnexport__=server.action.rhnsd-module.html#__rhnexport__,Variable server.action.rollback.__rhnexport__=server.action.rollback-module.html#__rhnexport__,Variable server.action.script.__rhnexport__=server.action.script-module.html#__rhnexport__,Variable server.action.solarispkgs.__rhnexport__=server.action.solarispkgs-module.html#__rhnexport__,Variable server.action.virt.__rhnexport__=server.action.virt-module.html#__rhnexport__,Variable server.action_extra_data.configfiles.__rhnexport__=server.action_extra_data.configfiles-module.html#__rhnexport__,Variable server.action_extra_data.errata.__rhnexport__=server.action_extra_data.errata-module.html#__rhnexport__,Variable server.action_extra_data.hardware.__rhnexport__=server.action_extra_data.hardware-module.html#__rhnexport__,Variable server.action_extra_data.kickstart.__rhnexport__=server.action_extra_data.kickstart-module.html#__rhnexport__,Variable server.action_extra_data.kickstart_guest.__rhnexport__=server.action_extra_data.kickstart_guest-module.html#__rhnexport__,Variable server.action_extra_data.kickstart_host.__rhnexport__=server.action_extra_data.kickstart_host-module.html#__rhnexport__,Variable server.action_extra_data.packages.__rhnexport__=server.action_extra_data.packages-module.html#__rhnexport__,Variable server.action_extra_data.reboot.__rhnexport__=server.action_extra_data.reboot-module.html#__rhnexport__,Variable server.action_extra_data.rhn_applet.__rhnexport__=server.action_extra_data.rhn_applet-module.html#__rhnexport__,Variable server.action_extra_data.rhnsd.__rhnexport__=server.action_extra_data.rhnsd-module.html#__rhnexport__,Variable server.action_extra_data.rollback.__rhnexport__=server.action_extra_data.rollback-module.html#__rhnexport__,Variable server.action_extra_data.script.__rhnexport__=server.action_extra_data.script-module.html#__rhnexport__,Variable server.action_extra_data.solarispkgs.__rhnexport__=server.action_extra_data.solarispkgs-module.html#__rhnexport__,Variable server.action_extra_data.up2date_config.__rhnexport__=server.action_extra_data.up2date_config-module.html#__rhnexport__,Variable server.action_extra_data.virt.__rhnexport__=server.action_extra_data.virt-module.html#__rhnexport__"><a title="server.action.activation.__rhnexport__
+server.action.configfiles.__rhnexport__
+server.action.errata.__rhnexport__
+server.action.hardware.__rhnexport__
+server.action.kickstart.__rhnexport__
+server.action.kickstart_guest.__rhnexport__
+server.action.kickstart_host.__rhnexport__
+server.action.packages.__rhnexport__
+server.action.reboot.__rhnexport__
+server.action.rhn_applet.__rhnexport__
+server.action.rhnsd.__rhnexport__
+server.action.rollback.__rhnexport__
+server.action.script.__rhnexport__
+server.action.solarispkgs.__rhnexport__
+server.action.virt.__rhnexport__
+server.action_extra_data.configfiles.__rhnexport__
+server.action_extra_data.errata.__rhnexport__
+server.action_extra_data.hardware.__rhnexport__
+server.action_extra_data.kickstart.__rhnexport__
+server.action_extra_data.kickstart_guest.__rhnexport__
+server.action_extra_data.kickstart_host.__rhnexport__
+server.action_extra_data.packages.__rhnexport__
+server.action_extra_data.reboot.__rhnexport__
+server.action_extra_data.rhn_applet.__rhnexport__
+server.action_extra_data.rhnsd.__rhnexport__
+server.action_extra_data.rollback.__rhnexport__
+server.action_extra_data.script.__rhnexport__
+server.action_extra_data.solarispkgs.__rhnexport__
+server.action_extra_data.up2date_config.__rhnexport__
+server.action_extra_data.virt.__rhnexport__" class="py-name" href="#" onclick="return doclink('link-2', '__rhnexport__', 'link-2');">__rhnexport__</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">'update'</tt><tt class="py-op">]</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"> </tt>
+<a name="update"></a><div id="update-def"><a name="L23"></a><tt class="py-lineno">23</tt> <a class="py-toggle" href="#" id="update-toggle" onclick="return toggle('update');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.action_extra_data.errata-module.html#update">update</a><tt class="py-op">(</tt><tt class="py-param">server_id</tt><tt class="py-op">,</tt> <tt class="py-param">action_id</tt><tt class="py-op">,</tt> <tt class="py-param">data</tt><tt class="py-op">=</tt><tt class="py-op">{</tt><tt class="py-op">}</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="update-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="update-expanded"><a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-3" class="py-name" targets="Method satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data()=satellite_exporter.handlers.non_auth_dumper.ContainerWriter-class.html#data,Method satellite_tools.exporter.xmlWriter.XMLWriter.data()=satellite_tools.exporter.xmlWriter.XMLWriter-class.html#data"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-3', 'data', 'link-3');">data</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">    <tt id="link-4" class="py-name"><a title="_apache.log_error
+common.rhnLog.log_error
+satellite_tools.satComputePkgHeaders.log_error" class="py-name" href="#" onclick="return doclink('link-4', 'log_error', 'link-1');">log_error</a></tt><tt class="py-op">(</tt><tt class="py-string">"action_error.errata.update: Should do something "</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">        <tt class="py-string">"useful with this data"</tt><tt class="py-op">,</tt> <tt class="py-name">server_id</tt><tt class="py-op">,</tt> <tt class="py-name">action_id</tt><tt class="py-op">,</tt> <tt id="link-5" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-5', 'data', 'link-3');">data</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:31 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

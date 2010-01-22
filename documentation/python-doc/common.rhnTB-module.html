@@ -74,7 +74,9 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="common.rhnTB.SecurityList-class.html" class="summary-name">SecurityList</a>
+        <a href="common.rhnTB.SecurityList-class.html" class="summary-name">SecurityList</a><br />
+      The SecurityList is a list of strings that are censored out of a 
+        debug email.
     </td>
   </tr>
 </table>
@@ -101,7 +103,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="print_env"></a><span class="summary-sig-name">print_env</span>(<span class="summary-sig-arg">fd</span>=<span class="summary-sig-default">sys.stderr</span>)</span></td>
+          <td><span class="summary-sig"><a name="print_env"></a><span class="summary-sig-name">print_env</span>(<span class="summary-sig-arg">fd</span>=<span class="summary-sig-default">sys.stdin</span>)</span><br />
+      Dump the environment.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnTB-pysrc.html#print_env">source&nbsp;code</a></span>
             
@@ -117,8 +120,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="print_locals"></a><span class="summary-sig-name">print_locals</span>(<span class="summary-sig-arg">fd</span>=<span class="summary-sig-default">sys.stderr</span>,
-        <span class="summary-sig-arg">tb</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td><span class="summary-sig"><a name="print_locals"></a><span class="summary-sig-name">print_locals</span>(<span class="summary-sig-arg">fd</span>=<span class="summary-sig-default">sys.stdin</span>,
+        <span class="summary-sig-arg">tb</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Dump a listing of all local variables and their value for better 
+      debugging chance.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnTB-pysrc.html#print_locals">source&nbsp;code</a></span>
             
@@ -135,7 +140,9 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="print_req"></a><span class="summary-sig-name">print_req</span>(<span class="summary-sig-arg">req</span>,
-        <span class="summary-sig-arg">fd</span>=<span class="summary-sig-default">sys.stderr</span>)</span></td>
+        <span class="summary-sig-arg">fd</span>=<span class="summary-sig-default">sys.stdin</span>)</span><br />
+      get some debugging information about the current exception for 
+      sending out when we raise an exception</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnTB-pysrc.html#print_req">source&nbsp;code</a></span>
             
@@ -151,13 +158,14 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="Traceback"></a><span class="summary-sig-name">Traceback</span>(<span class="summary-sig-arg">method</span>=<span class="summary-sig-default">None</span>,
+          <td><span class="summary-sig"><a href="common.rhnTB-module.html#Traceback" class="summary-sig-name">Traceback</a>(<span class="summary-sig-arg">method</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">req</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">mail</span>=<span class="summary-sig-default">1</span>,
-        <span class="summary-sig-arg">ostream</span>=<span class="summary-sig-default">sys.stderr</span>,
+        <span class="summary-sig-arg">ostream</span>=<span class="summary-sig-default">sys.stdin</span>,
         <span class="summary-sig-arg">extra</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">severity</span>=<span class="summary-sig-default">&quot;notification&quot;</span>,
-        <span class="summary-sig-arg">with_locals</span>=<span class="summary-sig-default">0</span>)</span></td>
+        <span class="summary-sig-arg">severity</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">notification</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">with_locals</span>=<span class="summary-sig-default">0</span>)</span><br />
+      Reports an traceback error and optionally sends mail about it.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnTB-pysrc.html#Traceback">source&nbsp;code</a></span>
             
@@ -176,7 +184,8 @@
           <td><span class="summary-sig"><a name="fetchTraceback"></a><span class="summary-sig-name">fetchTraceback</span>(<span class="summary-sig-arg">method</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">req</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">extra</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">with_locals</span>=<span class="summary-sig-default">0</span>)</span></td>
+        <span class="summary-sig-arg">with_locals</span>=<span class="summary-sig-default">0</span>)</span><br />
+      a cheat for snagging just the string value of a Traceback</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnTB-pysrc.html#fetchTraceback">source&nbsp;code</a></span>
             
@@ -192,7 +201,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="get_seclist"></a><span class="summary-sig-name">get_seclist</span>()</span></td>
+          <td><span class="summary-sig"><a name="get_seclist"></a><span class="summary-sig-name">get_seclist</span>()</span><br />
+      Returns the list of strings to be censored.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnTB-pysrc.html#get_seclist">source&nbsp;code</a></span>
             
@@ -208,7 +218,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="censor_string"></a><span class="summary-sig-name">censor_string</span>(<span class="summary-sig-arg">strval</span>)</span></td>
+          <td><span class="summary-sig"><a name="censor_string"></a><span class="summary-sig-name">censor_string</span>(<span class="summary-sig-arg">strval</span>)</span><br />
+      Remove all instances of the strings in seclist.sec from strval</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnTB-pysrc.html#censor_string">source&nbsp;code</a></span>
             
@@ -224,7 +235,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="add_to_seclist"></a><span class="summary-sig-name">add_to_seclist</span>(<span class="summary-sig-arg">obj</span>)</span></td>
+          <td><span class="summary-sig"><a name="add_to_seclist"></a><span class="summary-sig-name">add_to_seclist</span>(<span class="summary-sig-arg">obj</span>)</span><br />
+      Adds a string to seclist.sec, but only if it's not already there.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnTB-pysrc.html#add_to_seclist">source&nbsp;code</a></span>
             
@@ -240,7 +252,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="check_with_seclist"></a><span class="summary-sig-name">check_with_seclist</span>(<span class="summary-sig-arg">obj</span>)</span></td>
+          <td><span class="summary-sig"><a href="common.rhnTB-module.html#check_with_seclist" class="summary-sig-name">check_with_seclist</a>(<span class="summary-sig-arg">obj</span>)</span><br />
+      Checks whether a string is in seclist.sec or not.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnTB-pysrc.html#check_with_seclist">source&nbsp;code</a></span>
             
@@ -272,17 +285,90 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="hostname"></a><span class="summary-name">hostname</span> = <code title="socket.gethostname()">socket.gethostname()</code>
+        <a name="hostname"></a><span class="summary-name">hostname</span> = <code title="'magni'"><code class="variable-quote">'</code><code class="variable-string">magni</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="QUIET_MAIL"></a><span class="summary-name">QUIET_MAIL</span> = <code title="None">None</code>
+        <a name="QUIET_MAIL"></a><span class="summary-name">QUIET_MAIL</span> = <code title="None">None</code><br />
+      hash(x)
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'common'"><code class="variable-quote">'</code><code class="variable-string">common</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="Traceback"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">Traceback</span>(<span class="sig-arg">method</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">req</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">mail</span>=<span class="sig-default">1</span>,
+        <span class="sig-arg">ostream</span>=<span class="sig-default">sys.stdin</span>,
+        <span class="sig-arg">extra</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">severity</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">notification</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">with_locals</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="common.rhnTB-pysrc.html#Traceback">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Reports an traceback error and optionally sends mail about it. NOTE: 
+  extra = extra text information.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_with_seclist"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_with_seclist</span>(<span class="sig-arg">obj</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="common.rhnTB-pysrc.html#check_with_seclist">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Checks whether a string is in seclist.sec or not. Returns True or 
+  False.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -306,7 +392,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:14 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

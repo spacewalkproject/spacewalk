@@ -36,7 +36,7 @@
       <span class="breadcrumbs">
         <a href="server-module.html">Package&nbsp;server</a> ::
         <a href="server.importlib-module.html">Package&nbsp;importlib</a> ::
-        <a href="server.importlib.channelImport-module.html">Module&nbsp;channelImport</a> ::
+        <a href="server.importlib.channelImport-module.html" onclick="show_private();">Module&nbsp;channelImport</a> ::
         Class&nbsp;ChannelFamilyImport
       </span>
     </td>
@@ -56,7 +56,23 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class ChannelFamilyImport</h1><p class="nomargin-top"><span class="codelink"><a href="server.importlib.channelImport-pysrc.html#ChannelFamilyImport">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_i_29" name="uml_class_diagram_for_server_i_29">
+<area shape="rect" href="server.importlib.importLib.Import-class.html#__init__" title="server.importlib.importLib.Import.__init__" alt="" coords="17,36,209,55"/>
+<area shape="rect" href="server.importlib.importLib.Import-class.html#cleanup" title="server.importlib.importLib.Import.cleanup" alt="" coords="17,55,209,73"/>
+<area shape="rect" href="server.importlib.importLib.Import-class.html#run" title="server.importlib.importLib.Import.run" alt="" coords="17,73,209,92"/>
+<area shape="rect" href="server.importlib.importLib.Import-class.html#setForceVerify" title="server.importlib.importLib.Import.setForceVerify" alt="" coords="17,92,209,111"/>
+<area shape="rect" href="server.importlib.importLib.Import-class.html#setIgnoreUploaded" title="server.importlib.importLib.Import.setIgnoreUploaded" alt="" coords="17,111,209,129"/>
+<area shape="rect" href="server.importlib.importLib.Import-class.html#setTransactional" title="server.importlib.importLib.Import.setTransactional" alt="" coords="17,129,209,148"/>
+<area shape="rect" href="server.importlib.importLib.Import-class.html#setUploadForce" title="server.importlib.importLib.Import.setUploadForce" alt="" coords="17,148,209,167"/>
+<area shape="rect" href="server.importlib.importLib.Import-class.html#status" title="server.importlib.importLib.Import.status" alt="" coords="17,167,209,185"/>
+<area shape="rect" href="server.importlib.importLib.Import-class.html" title="server.importlib.importLib.Import" alt="" coords="16,11,211,187"/>
+<area shape="rect" href="server.importlib.channelImport.ChannelFamilyImport-class.html#preprocess" title="server.importlib.channelImport.ChannelFamilyImport.preprocess" alt="" coords="49,241,177,260"/>
+<area shape="rect" href="server.importlib.channelImport.ChannelFamilyImport-class.html#fix" title="server.importlib.channelImport.ChannelFamilyImport.fix" alt="" coords="49,260,177,279"/>
+<area shape="rect" href="server.importlib.channelImport.ChannelFamilyImport-class.html#submit" title="server.importlib.channelImport.ChannelFamilyImport.submit" alt="" coords="49,279,177,297"/>
+<area shape="rect" href="server.importlib.channelImport.ChannelFamilyImport-class.html" title="server.importlib.channelImport.ChannelFamilyImport" alt="" coords="48,216,179,299"/>
+</map>
+  <img src="uml_class_diagram_for_server_i_29.png" alt='' usemap="#uml_class_diagram_for_server_i_29" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -117,6 +133,23 @@
           <td><span class="summary-sig"><a href="server.importlib.channelImport.ChannelFamilyImport-class.html#submit" class="summary-sig-name">submit</a>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.importlib.channelImport-pysrc.html#ChannelFamilyImport.submit">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="server.importlib.channelImport.ChannelFamilyImport-class.html#__filterCustomChannelFamilies" class="summary-sig-name" onclick="show_private();">__filterCustomChannelFamilies</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Filter out private channel families from ISS syncs.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.importlib.channelImport-pysrc.html#ChannelFamilyImport.__filterCustomChannelFamilies">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -227,6 +260,26 @@
   </dl>
 </td></tr></table>
 </div>
+<a name="__filterCustomChannelFamilies"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__filterCustomChannelFamilies</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.importlib.channelImport-pysrc.html#ChannelFamilyImport.__filterCustomChannelFamilies">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Filter out private channel families from ISS syncs. WebUI creates 
+  these for us at the org creation time.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
 <br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
@@ -251,7 +304,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:15 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:50 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

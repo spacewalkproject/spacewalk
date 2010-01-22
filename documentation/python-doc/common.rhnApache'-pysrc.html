@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>common.rhnApache'</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="common-module.html">Package&nbsp;common</a> ::
+        Module&nbsp;rhnApache'
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="common.rhnApache%27-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="common.rhnApache%27-module.html">Module common.rhnApache'</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008--2009 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation.</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment"># Code for the shared apache handler class inherited by the</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment"># RHN proxy and server.</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-comment"># system module imports</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">time</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">string</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-comment"># global module imports</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package server=server-module.html"><a title="server" class="py-name" href="#" onclick="return doclink('link-0', 'server', 'link-0');">server</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Module server.apache=server.apache-module.html"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-1', 'apache', 'link-1');">apache</a></tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-comment"># Now local module imports</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Module common.rhnFlags=common.rhnFlags-module.html"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-2', 'rhnFlags', 'link-2');">rhnFlags</a></tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-3" class="py-name" targets="Class common.UserDictCase'.UserDictCase=common.UserDictCase%27.UserDictCase-class.html,Module rhn.UserDictCase=rhn.UserDictCase-module.html,Class rhn.UserDictCase.UserDictCase=rhn.UserDictCase.UserDictCase-class.html"><a title="common.UserDictCase'.UserDictCase
+rhn.UserDictCase
+rhn.UserDictCase.UserDictCase" class="py-name" href="#" onclick="return doclink('link-3', 'UserDictCase', 'link-3');">UserDictCase</a></tt> <tt class="py-keyword">import</tt> <tt id="link-4" class="py-name"><a title="common.UserDictCase'.UserDictCase
+rhn.UserDictCase
+rhn.UserDictCase.UserDictCase" class="py-name" href="#" onclick="return doclink('link-4', 'UserDictCase', 'link-3');">UserDictCase</a></tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-5" class="py-name" targets="Module common.rhnLog=common.rhnLog-module.html,Class common.rhnLog.rhnLog=common.rhnLog.rhnLog-class.html"><a title="common.rhnLog
+common.rhnLog.rhnLog" class="py-name" href="#" onclick="return doclink('link-5', 'rhnLog', 'link-5');">rhnLog</a></tt> <tt class="py-keyword">import</tt> <tt id="link-6" class="py-name" targets="Function common.rhnLog.log_debug()=common.rhnLog-module.html#log_debug"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-6', 'log_debug', 'link-6');">log_debug</a></tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-7" class="py-name"><a title="common.rhnLog
+common.rhnLog.rhnLog" class="py-name" href="#" onclick="return doclink('link-7', 'rhnLog', 'link-5');">rhnLog</a></tt> <tt class="py-keyword">import</tt> <tt id="link-8" class="py-name" targets="Function _apache.log_error()=_apache-module.html#log_error,Function common.rhnLog.log_error()=common.rhnLog-module.html#log_error,Function satellite_tools.satComputePkgHeaders.log_error()=satellite_tools.satComputePkgHeaders-module.html#log_error"><a title="_apache.log_error
+common.rhnLog.log_error
+satellite_tools.satComputePkgHeaders.log_error" class="py-name" href="#" onclick="return doclink('link-8', 'log_error', 'link-8');">log_error</a></tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-9" class="py-name" targets="Module common.rhnTranslate=common.rhnTranslate-module.html"><a title="common.rhnTranslate" class="py-name" href="#" onclick="return doclink('link-9', 'rhnTranslate', 'link-9');">rhnTranslate</a></tt> <tt class="py-keyword">import</tt> <tt id="link-10" class="py-name" targets="Variable common.rhnApache'.cat=common.rhnApache%27-module.html#cat,Variable common.rhnTranslate.cat=common.rhnTranslate-module.html#cat"><a title="common.rhnApache'.cat
+common.rhnTranslate.cat" class="py-name" href="#" onclick="return doclink('link-10', 'cat', 'link-10');">cat</a></tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"> </tt>
+<a name="rhnApache"></a><div id="rhnApache-def"><a name="L36"></a><tt class="py-lineno"> 36</tt> <a class="py-toggle" href="#" id="rhnApache-toggle" onclick="return toggle('rhnApache');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="common.rhnApache'.rhnApache-class.html">rhnApache</a><tt class="py-op">:</tt> </tt>
+</div><div id="rhnApache-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="rhnApache-expanded"><a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">    <tt class="py-docstring">""" Shared rhnApache class: rhnApache classes in proxy and server inherit </tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-docstring">        this class. </tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"><tt class="py-docstring">        Shared apache handler code: headerParserHandler,</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"><tt class="py-docstring">                                handler (defined in class that inherits this),</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-docstring">                                cleanupHandler.</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">    <tt id="link-11" class="py-name" targets="Variable common.rhnApache'.rhnApache._lang_catalog=common.rhnApache%27.rhnApache-class.html#_lang_catalog,Variable proxy.apacheHandler.apacheHandler._lang_catalog=proxy.apacheHandler.apacheHandler-class.html#_lang_catalog,Variable server.apacheHandler.apacheSession._lang_catalog=server.apacheHandler.apacheSession-class.html#_lang_catalog"><a title="common.rhnApache'.rhnApache._lang_catalog
+proxy.apacheHandler.apacheHandler._lang_catalog
+server.apacheHandler.apacheSession._lang_catalog" class="py-name" href="#" onclick="return doclink('link-11', '_lang_catalog', 'link-11');">_lang_catalog</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"common"</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"> </tt>
+<a name="rhnApache.__init__"></a><div id="rhnApache.__init__-def"><a name="L46"></a><tt class="py-lineno"> 46</tt> <a class="py-toggle" href="#" id="rhnApache.__init__-toggle" onclick="return toggle('rhnApache.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnApache'.rhnApache-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rhnApache.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rhnApache.__init__-expanded"><a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">lang</tt> <tt class="py-op">=</tt> <tt class="py-string">"C"</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">clientVersion</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">proxyVersion</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">start_time</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+</div><a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">    <tt class="py-comment">###</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">    <tt class="py-comment"># HANDLERS, in the order which they are called</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">    <tt class="py-comment">###</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"> </tt>
+<a name="rhnApache.headerParserHandler"></a><div id="rhnApache.headerParserHandler-def"><a name="L56"></a><tt class="py-lineno"> 56</tt> <a class="py-toggle" href="#" id="rhnApache.headerParserHandler-toggle" onclick="return toggle('rhnApache.headerParserHandler');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnApache'.rhnApache-class.html#headerParserHandler">headerParserHandler</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">req</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rhnApache.headerParserHandler-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rhnApache.headerParserHandler-expanded"><a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"><tt class="py-docstring">        after a request has been received, first thing we do is to create the</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"><tt class="py-docstring">        input object</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt id="link-12" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-12', 'log_debug', 'link-6');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">start_time</tt> <tt class="py-op">=</tt> <tt class="py-name">time</tt><tt class="py-op">.</tt><tt class="py-name">time</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">        <tt class="py-comment"># Decline if this is a subrequest:</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Function common.rhnLockfile.main()=common.rhnLockfile-module.html#main,Function proxy.pm.rhn_package_manager.main()=proxy.pm.rhn_package_manager-module.html#main,Function pygettext.main()=pygettext-module.html#main,Method satellite_tools.disk_dumper.iss.ExporterMain.main()=satellite_tools.disk_dumper.iss.ExporterMain-class.html#main,Function satellite_tools.exporter.exporter.main()=satellite_tools.exporter.exporter-module.html#main,Function satellite_tools.geniso.main()=satellite_tools.geniso-module.html#main,Function satellite_tools.gentree.main()=satellite_tools.gentree-module.html#main,Method satellite_tools.reposync.RepoSync.main()=satellite_tools.reposync.RepoSync-class.html#main,Function satellite_tools.rhn_satellite_activate.main()=satellite_tools.rhn_satellite_activate-module.html#main,Function satellite_tools.rhn_ssl_dbstore.main()=satellite_tools.rhn_ssl_dbstore-module.html#main,Method satellite_tools.satComputePkgHeaders.Runner.main()=satellite_tools.satComputePkgHeaders.Runner-class.html#main,Function satellite_tools.satrm.main()=satellite_tools.satrm-module.html#main,Method satellite_tools.satsync.Runner.main()=satellite_tools.satsync.Runner-class.html#main,Function satellite_tools.updatePackages.main()=satellite_tools.updatePackages-module.html#main,Function script-db_checker_py.main()=script-db_checker_py-module.html#main,Function script-rhn_entitlement_report_py.main()=script-rhn_entitlement_report_py-module.html#main"><a title="common.rhnLockfile.main
+proxy.pm.rhn_package_manager.main
+pygettext.main
+satellite_tools.disk_dumper.iss.ExporterMain.main
+satellite_tools.exporter.exporter.main
+satellite_tools.geniso.main
+satellite_tools.gentree.main
+satellite_tools.reposync.RepoSync.main
+satellite_tools.rhn_satellite_activate.main
+satellite_tools.rhn_ssl_dbstore.main
+satellite_tools.satComputePkgHeaders.Runner.main
+satellite_tools.satrm.main
+satellite_tools.satsync.Runner.main
+satellite_tools.updatePackages.main
+script-db_checker_py.main
+script-rhn_entitlement_report_py.main" class="py-name" href="#" onclick="return doclink('link-13', 'main', 'link-13');">main</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt id="link-14" class="py-name"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-14', 'apache', 'link-1');">apache</a></tt><tt class="py-op">.</tt><tt class="py-name">DECLINE</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">        <tt id="link-15" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-15', 'log_debug', 'link-6');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">method</tt><tt class="py-op">,</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">path_info</tt><tt class="py-op">,</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">headers_in</tt><tt class="py-op">)</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">        <tt class="py-comment"># Clear the global flags.</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt id="link-16" class="py-name"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-16', 'rhnFlags', 'link-2');">rhnFlags</a></tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Function common.rhnFlags.reset()=common.rhnFlags-module.html#reset,Method satellite_tools.req_channels.RequestedChannels.reset()=satellite_tools.req_channels.RequestedChannels-class.html#reset,Method satellite_tools.sync_handlers.BaseCollection.reset()=satellite_tools.sync_handlers.BaseCollection-class.html#reset,Method satellite_tools.sync_handlers.ChannelCollection.reset()=satellite_tools.sync_handlers.ChannelCollection-class.html#reset,Method satellite_tools.sync_handlers.ContainerHandler.reset()=satellite_tools.sync_handlers.ContainerHandler-class.html#reset,Method satellite_tools.sync_handlers.ErrataCollection.reset()=satellite_tools.sync_handlers.ErrataCollection-class.html#reset,Method satellite_tools.sync_handlers.ShortPackageCollection.reset()=satellite_tools.sync_handlers.ShortPackageCollection-class.html#reset,Method satellite_tools.xmlSource.BaseDispatchHandler.reset()=satellite_tools.xmlSource.BaseDispatchHandler-class.html#reset,Method satellite_tools.xmlSource.ContainerHandler.reset()=satellite_tools.xmlSource.ContainerHandler-class.html#reset,Method server.rhnSQL.sql_row.Row.reset()=server.rhnSQL.sql_row.Row-class.html#reset,Method spacewalk.common.fileutils.GecosCache.reset()=spacewalk.common.fileutils.GecosCache-class.html#reset"><a title="common.rhnFlags.reset
+satellite_tools.req_channels.RequestedChannels.reset
+satellite_tools.sync_handlers.BaseCollection.reset
+satellite_tools.sync_handlers.ChannelCollection.reset
+satellite_tools.sync_handlers.ContainerHandler.reset
+satellite_tools.sync_handlers.ErrataCollection.reset
+satellite_tools.sync_handlers.ShortPackageCollection.reset
+satellite_tools.xmlSource.BaseDispatchHandler.reset
+satellite_tools.xmlSource.ContainerHandler.reset
+server.rhnSQL.sql_row.Row.reset
+spacewalk.common.fileutils.GecosCache.reset" class="py-name" href="#" onclick="return doclink('link-17', 'reset', 'link-17');">reset</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">        <tt class="py-comment"># Init the transport options.</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt id="link-18" class="py-name"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-18', 'rhnFlags', 'link-2');">rhnFlags</a></tt><tt class="py-op">.</tt><tt id="link-19" class="py-name" targets="Method common.rhnCache.Cache.set()=common.rhnCache.Cache-class.html#set,Method common.rhnCache.CompressedCache.set()=common.rhnCache.CompressedCache-class.html#set,Method common.rhnCache.NullCache.set()=common.rhnCache.NullCache-class.html#set,Method common.rhnCache.ObjectCache.set()=common.rhnCache.ObjectCache-class.html#set,Function common.rhnCache.set()=common.rhnCache-module.html#set,Method common.rhnConfig.RHNOptions.set()=common.rhnConfig.RHNOptions-class.html#set,Function common.rhnFlags.set()=common.rhnFlags-module.html#set,Method common.rhnTranslate.i18n.set()=common.rhnTranslate.i18n-class.html#set,Function server.rhnDatabaseCache.set()=server.rhnDatabaseCache-module.html#set"><a title="common.rhnCache.Cache.set
+common.rhnCache.CompressedCache.set
+common.rhnCache.NullCache.set
+common.rhnCache.ObjectCache.set
+common.rhnCache.set
+common.rhnConfig.RHNOptions.set
+common.rhnFlags.set
+common.rhnTranslate.i18n.set
+server.rhnDatabaseCache.set" class="py-name" href="#" onclick="return doclink('link-19', 'set', 'link-19');">set</a></tt><tt class="py-op">(</tt><tt class="py-string">'outputTransportOptions'</tt><tt class="py-op">,</tt> <tt id="link-20" class="py-name"><a title="common.UserDictCase'.UserDictCase
+rhn.UserDictCase
+rhn.UserDictCase.UserDictCase" class="py-name" href="#" onclick="return doclink('link-20', 'UserDictCase', 'link-3');">UserDictCase</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt class="py-comment"># Init the session token dictionary.</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">        <tt id="link-21" class="py-name"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-21', 'rhnFlags', 'link-2');">rhnFlags</a></tt><tt class="py-op">.</tt><tt id="link-22" class="py-name"><a title="common.rhnCache.Cache.set
+common.rhnCache.CompressedCache.set
+common.rhnCache.NullCache.set
+common.rhnCache.ObjectCache.set
+common.rhnCache.set
+common.rhnConfig.RHNOptions.set
+common.rhnFlags.set
+common.rhnTranslate.i18n.set
+server.rhnDatabaseCache.set" class="py-name" href="#" onclick="return doclink('link-22', 'set', 'link-19');">set</a></tt><tt class="py-op">(</tt><tt class="py-string">"AUTH_SESSION_TOKEN"</tt><tt class="py-op">,</tt> <tt id="link-23" class="py-name"><a title="common.UserDictCase'.UserDictCase
+rhn.UserDictCase
+rhn.UserDictCase.UserDictCase" class="py-name" href="#" onclick="return doclink('link-23', 'UserDictCase', 'link-3');">UserDictCase</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line"> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name" targets="Method common.rhnApache'.rhnApache._init_request_processor()=common.rhnApache%27.rhnApache-class.html#_init_request_processor,Method server.apacheHandler.apacheHandler._init_request_processor()=server.apacheHandler.apacheHandler-class.html#_init_request_processor"><a title="common.rhnApache'.rhnApache._init_request_processor
+server.apacheHandler.apacheHandler._init_request_processor" class="py-name" href="#" onclick="return doclink('link-24', '_init_request_processor', 'link-24');">_init_request_processor</a></tt><tt class="py-op">(</tt><tt class="py-name">req</tt><tt class="py-op">)</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">ret</tt> <tt class="py-op">!=</tt> <tt id="link-25" class="py-name"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-25', 'apache', 'link-1');">apache</a></tt><tt class="py-op">.</tt><tt id="link-26" class="py-name" targets="Variable satellite_tools.satComputePkgHeaders.OK=satellite_tools.satComputePkgHeaders-module.html#OK,Variable server.apache.OK=server.apache-module.html#OK"><a title="satellite_tools.satComputePkgHeaders.OK
+server.apache.OK" class="py-name" href="#" onclick="return doclink('link-26', 'OK', 'link-26');">OK</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">ret</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">        <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-27" class="py-name" targets="Method common.rhnApache'.rhnApache._set_client_info()=common.rhnApache%27.rhnApache-class.html#_set_client_info"><a title="common.rhnApache'.rhnApache._set_client_info" class="py-name" href="#" onclick="return doclink('link-27', '_set_client_info', 'link-27');">_set_client_info</a></tt><tt class="py-op">(</tt><tt class="py-name">req</tt><tt class="py-op">)</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">ret</tt> <tt class="py-op">!=</tt> <tt id="link-28" class="py-name"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-28', 'apache', 'link-1');">apache</a></tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="satellite_tools.satComputePkgHeaders.OK
+server.apache.OK" class="py-name" href="#" onclick="return doclink('link-29', 'OK', 'link-26');">OK</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">ret</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line"> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">        <tt class="py-comment"># Check the protocol version</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">proto_num</tt> <tt class="py-op">&lt;</tt> <tt class="py-number">1001</tt><tt class="py-op">:</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">            <tt class="py-comment"># HTTP protocols prior to 1.1 close the connection</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">            <tt id="link-30" class="py-name"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-30', 'rhnFlags', 'link-2');">rhnFlags</a></tt><tt class="py-op">.</tt><tt id="link-31" class="py-name" targets="Method common.rhnCache.Cache.get()=common.rhnCache.Cache-class.html#get,Method common.rhnCache.CompressedCache.get()=common.rhnCache.CompressedCache-class.html#get,Method common.rhnCache.NullCache.get()=common.rhnCache.NullCache-class.html#get,Method common.rhnCache.ObjectCache.get()=common.rhnCache.ObjectCache-class.html#get,Function common.rhnCache.get()=common.rhnCache-module.html#get,Method common.rhnConfig.RHNOptions.get()=common.rhnConfig.RHNOptions-class.html#get,Function common.rhnFlags.get()=common.rhnFlags-module.html#get,Function server.action_extra_data.up2date_config.get()=server.action_extra_data.up2date_config-module.html#get,Method server.handlers.xmlrpc.queue.Queue.get()=server.handlers.xmlrpc.queue.Queue-class.html#get,Method server.handlers.xmlrpc.up2date.Servers.get()=server.handlers.xmlrpc.up2date.Servers-class.html#get,Function server.rhnDatabaseCache.get()=server.rhnDatabaseCache-module.html#get,Method server.rhnSQL.sql_row.Row.get()=server.rhnSQL.sql_row.Row-class.html#get,Method server.rhnSQL.sql_table.Table.get()=server.rhnSQL.sql_table.Table-class.html#get,Function server.rhnServer.get()=server.rhnServer-module.html#get"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-31', 'get', 'link-31');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">'outputTransportOptions'</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-string">"Connection"</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">"close"</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">        <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-32" class="py-name" targets="Method common.rhnApache'.rhnApache._set_proxy_info()=common.rhnApache%27.rhnApache-class.html#_set_proxy_info"><a title="common.rhnApache'.rhnApache._set_proxy_info" class="py-name" href="#" onclick="return doclink('link-32', '_set_proxy_info', 'link-32');">_set_proxy_info</a></tt><tt class="py-op">(</tt><tt class="py-name">req</tt><tt class="py-op">)</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">ret</tt> <tt class="py-op">!=</tt> <tt id="link-33" class="py-name"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-33', 'apache', 'link-1');">apache</a></tt><tt class="py-op">.</tt><tt id="link-34" class="py-name"><a title="satellite_tools.satComputePkgHeaders.OK
+server.apache.OK" class="py-name" href="#" onclick="return doclink('link-34', 'OK', 'link-26');">OK</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">ret</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line"> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">        <tt class="py-comment"># Need to run _set_other first, since _set_lang needs RoodDir set</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">        <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-35" class="py-name" targets="Method common.rhnApache'.rhnApache._set_other()=common.rhnApache%27.rhnApache-class.html#_set_other"><a title="common.rhnApache'.rhnApache._set_other" class="py-name" href="#" onclick="return doclink('link-35', '_set_other', 'link-35');">_set_other</a></tt><tt class="py-op">(</tt><tt class="py-name">req</tt><tt class="py-op">)</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">ret</tt> <tt class="py-op">!=</tt> <tt id="link-36" class="py-name"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-36', 'apache', 'link-1');">apache</a></tt><tt class="py-op">.</tt><tt id="link-37" class="py-name"><a title="satellite_tools.satComputePkgHeaders.OK
+server.apache.OK" class="py-name" href="#" onclick="return doclink('link-37', 'OK', 'link-26');">OK</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">ret</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">        <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-38" class="py-name" targets="Method common.rhnApache'.rhnApache._set_lang()=common.rhnApache%27.rhnApache-class.html#_set_lang"><a title="common.rhnApache'.rhnApache._set_lang" class="py-name" href="#" onclick="return doclink('link-38', '_set_lang', 'link-38');">_set_lang</a></tt><tt class="py-op">(</tt><tt class="py-name">req</tt><tt class="py-op">)</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">ret</tt> <tt class="py-op">!=</tt> <tt id="link-39" class="py-name"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-39', 'apache', 'link-1');">apache</a></tt><tt class="py-op">.</tt><tt id="link-40" class="py-name"><a title="satellite_tools.satComputePkgHeaders.OK
+server.apache.OK" class="py-name" href="#" onclick="return doclink('link-40', 'OK', 'link-26');">OK</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">ret</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line"> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-41" class="py-name"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-41', 'apache', 'link-1');">apache</a></tt><tt class="py-op">.</tt><tt id="link-42" class="py-name"><a title="satellite_tools.satComputePkgHeaders.OK
+server.apache.OK" class="py-name" href="#" onclick="return doclink('link-42', 'OK', 'link-26');">OK</a></tt> </tt>
+</div><a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line"> </tt>
+<a name="rhnApache._set_client_info"></a><div id="rhnApache._set_client_info-def"><a name="L104"></a><tt class="py-lineno">104</tt> <a class="py-toggle" href="#" id="rhnApache._set_client_info-toggle" onclick="return toggle('rhnApache._set_client_info');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnApache'.rhnApache-class.html#_set_client_info">_set_client_info</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">req</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rhnApache._set_client_info-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rhnApache._set_client_info-expanded"><a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-comment"># Figure out the client version</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">        <tt class="py-name">clientVersionHeader</tt> <tt class="py-op">=</tt> <tt class="py-string">'X-RHN-Client-Version'</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">headers_in</tt><tt class="py-op">.</tt><tt id="link-43" class="py-name" targets="Method common.UserDictCase'.UserDictCase.has_key()=common.UserDictCase%27.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Function server.rhnDatabaseCache.has_key()=server.rhnDatabaseCache-module.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-43', 'has_key', 'link-43');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">clientVersionHeader</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">            <tt class="py-comment"># Useful to have it as a separate variable, to see it in a</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">            <tt class="py-comment"># traceback report</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">            <tt class="py-name">clientVersion</tt> <tt class="py-op">=</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">headers_in</tt><tt class="py-op">[</tt><tt class="py-name">clientVersionHeader</tt><tt class="py-op">]</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">clientVersion</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">clientVersion</tt><tt class="py-op">)</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">        <tt class="py-comment"># NOTE: x-client-version is really the cgiwrap xmlrpc API version</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">        <tt class="py-comment">#       NOT the RHN client version... but it works if nothing else</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">        <tt class="py-comment">#       does.</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">        <tt class="py-keyword">elif</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">headers_in</tt><tt class="py-op">.</tt><tt id="link-44" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-44', 'has_key', 'link-43');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'X-Client-Version'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">            <tt class="py-name">clientVersion</tt> <tt class="py-op">=</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">headers_in</tt><tt class="py-op">[</tt><tt class="py-string">'X-Client-Version'</tt><tt class="py-op">]</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">clientVersion</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">clientVersion</tt><tt class="py-op">)</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">clientVersion</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line"> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">        <tt class="py-comment"># Make sure the client version gets set in the headers.</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">        <tt id="link-45" class="py-name"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-45', 'rhnFlags', 'link-2');">rhnFlags</a></tt><tt class="py-op">.</tt><tt id="link-46" class="py-name"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-46', 'get', 'link-31');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">'outputTransportOptions'</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-name">clientVersionHeader</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">                     <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">clientVersion</tt><tt class="py-op">)</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-47" class="py-name"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-47', 'apache', 'link-1');">apache</a></tt><tt class="py-op">.</tt><tt id="link-48" class="py-name"><a title="satellite_tools.satComputePkgHeaders.OK
+server.apache.OK" class="py-name" href="#" onclick="return doclink('link-48', 'OK', 'link-26');">OK</a></tt> </tt>
+</div><a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line"> </tt>
+<a name="rhnApache._set_proxy_info"></a><div id="rhnApache._set_proxy_info-def"><a name="L126"></a><tt class="py-lineno">126</tt> <a class="py-toggle" href="#" id="rhnApache._set_proxy_info-toggle" onclick="return toggle('rhnApache._set_proxy_info');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnApache'.rhnApache-class.html#_set_proxy_info">_set_proxy_info</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">req</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rhnApache._set_proxy_info-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rhnApache._set_proxy_info-expanded"><a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">        <tt class="py-docstring">""" RHN Proxy stuff. """</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">        <tt class="py-name">proxyVersion</tt> <tt class="py-op">=</tt> <tt class="py-string">'X-RHN-Proxy-Version'</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">headers_in</tt><tt class="py-op">.</tt><tt id="link-49" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-49', 'has_key', 'link-43');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">proxyVersion</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">proxyVersion</tt> <tt class="py-op">=</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">headers_in</tt><tt class="py-op">[</tt><tt class="py-name">proxyVersion</tt><tt class="py-op">]</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">        <tt class="py-comment"># Make sure the proxy version gets set in the headers.</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">        <tt id="link-50" class="py-name"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-50', 'rhnFlags', 'link-2');">rhnFlags</a></tt><tt class="py-op">.</tt><tt id="link-51" class="py-name"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-51', 'get', 'link-31');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">'outputTransportOptions'</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-name">proxyVersion</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">                     <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">proxyVersion</tt><tt class="py-op">)</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">        <tt class="py-comment"># Make sure the proxy auth-token gets set in global flags.</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">headers_in</tt><tt class="py-op">.</tt><tt id="link-52" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-52', 'has_key', 'link-43');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'X-RHN-Proxy-Auth'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">            <tt id="link-53" class="py-name"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-53', 'rhnFlags', 'link-2');">rhnFlags</a></tt><tt class="py-op">.</tt><tt id="link-54" class="py-name"><a title="common.rhnCache.Cache.set
+common.rhnCache.CompressedCache.set
+common.rhnCache.NullCache.set
+common.rhnCache.ObjectCache.set
+common.rhnCache.set
+common.rhnConfig.RHNOptions.set
+common.rhnFlags.set
+common.rhnTranslate.i18n.set
+server.rhnDatabaseCache.set" class="py-name" href="#" onclick="return doclink('link-54', 'set', 'link-19');">set</a></tt><tt class="py-op">(</tt><tt class="py-string">'X-RHN-Proxy-Auth'</tt><tt class="py-op">,</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">                         <tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">headers_in</tt><tt class="py-op">[</tt><tt class="py-string">'X-RHN-Proxy-Auth'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-55" class="py-name"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-55', 'apache', 'link-1');">apache</a></tt><tt class="py-op">.</tt><tt id="link-56" class="py-name"><a title="satellite_tools.satComputePkgHeaders.OK
+server.apache.OK" class="py-name" href="#" onclick="return doclink('link-56', 'OK', 'link-26');">OK</a></tt> </tt>
+</div><a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line"> </tt>
+<a name="rhnApache._set_lang"></a><div id="rhnApache._set_lang-def"><a name="L140"></a><tt class="py-lineno">140</tt> <a class="py-toggle" href="#" id="rhnApache._set_lang-toggle" onclick="return toggle('rhnApache._set_lang');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnApache'.rhnApache-class.html#_set_lang">_set_lang</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">req</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rhnApache._set_lang-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rhnApache._set_lang-expanded"><a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">        <tt class="py-docstring">""" determine what language the client prefers """</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">headers_in</tt><tt class="py-op">.</tt><tt id="link-57" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-57', 'has_key', 'link-43');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">"Accept-Language"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">            <tt class="py-comment"># RFC 2616 #3.10: case insensitive</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">            <tt class="py-name">lang</tt> <tt class="py-op">=</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">lower</tt><tt class="py-op">(</tt><tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">headers_in</tt><tt class="py-op">[</tt><tt class="py-string">"Accept-Language"</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">            <tt class="py-name">lang</tt> <tt class="py-op">=</tt> <tt class="py-string">"C"</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-58" class="py-name" targets="Method common.rhnApache'.rhnApache.setlang()=common.rhnApache%27.rhnApache-class.html#setlang,Method rhn.rpclib.Server.setlang()=rhn.rpclib.Server-class.html#setlang,Method rhn.rpclib.Server.setlang()=rhn.rpclib.Server-class.html#setlang,Method rhn.transports.Transport.setlang()=rhn.transports.Transport-class.html#setlang"><a title="common.rhnApache'.rhnApache.setlang
+rhn.rpclib.Server.setlang
+rhn.rpclib.Server.setlang
+rhn.transports.Transport.setlang" class="py-name" href="#" onclick="return doclink('link-58', 'setlang', 'link-58');">setlang</a></tt><tt class="py-op">(</tt><tt class="py-name">lang</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-59" class="py-name"><a title="common.rhnApache'.rhnApache._lang_catalog
+proxy.apacheHandler.apacheHandler._lang_catalog
+server.apacheHandler.apacheSession._lang_catalog" class="py-name" href="#" onclick="return doclink('link-59', '_lang_catalog', 'link-11');">_lang_catalog</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line"> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-60" class="py-name"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-60', 'apache', 'link-1');">apache</a></tt><tt class="py-op">.</tt><tt id="link-61" class="py-name"><a title="satellite_tools.satComputePkgHeaders.OK
+server.apache.OK" class="py-name" href="#" onclick="return doclink('link-61', 'OK', 'link-26');">OK</a></tt> </tt>
+</div><a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line"> </tt>
+<a name="rhnApache._set_other"></a><div id="rhnApache._set_other-def"><a name="L151"></a><tt class="py-lineno">151</tt> <a class="py-toggle" href="#" id="rhnApache._set_other-toggle" onclick="return toggle('rhnApache._set_other');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnApache'.rhnApache-class.html#_set_other">_set_other</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">req</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rhnApache._set_other-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rhnApache._set_other-expanded"><a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">        <tt class="py-name">req_config</tt> <tt class="py-op">=</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt id="link-62" class="py-name" targets="Method server.wsgi.wsgiRequest.WsgiRequest.get_options()=server.wsgi.wsgiRequest.WsgiRequest-class.html#get_options"><a title="server.wsgi.wsgiRequest.WsgiRequest.get_options" class="py-name" href="#" onclick="return doclink('link-62', 'get_options', 'link-62');">get_options</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">        <tt class="py-comment"># XXX: attempt to catch these KeyErrors sometime when there is</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">        <tt class="py-comment"># time to play nicely</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">        <tt class="py-comment"># Save the RootDir in the global flags</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">        <tt class="py-name">root_dir</tt> <tt class="py-op">=</tt> <tt class="py-name">req_config</tt><tt class="py-op">[</tt><tt class="py-string">"RootDir"</tt><tt class="py-op">]</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">        <tt id="link-63" class="py-name"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-63', 'rhnFlags', 'link-2');">rhnFlags</a></tt><tt class="py-op">.</tt><tt id="link-64" class="py-name"><a title="common.rhnCache.Cache.set
+common.rhnCache.CompressedCache.set
+common.rhnCache.NullCache.set
+common.rhnCache.ObjectCache.set
+common.rhnCache.set
+common.rhnConfig.RHNOptions.set
+common.rhnFlags.set
+common.rhnTranslate.i18n.set
+server.rhnDatabaseCache.set" class="py-name" href="#" onclick="return doclink('link-64', 'set', 'link-19');">set</a></tt><tt class="py-op">(</tt><tt class="py-string">"RootDir"</tt><tt class="py-op">,</tt> <tt class="py-name">root_dir</tt><tt class="py-op">)</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-65" class="py-name"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-65', 'apache', 'link-1');">apache</a></tt><tt class="py-op">.</tt><tt id="link-66" class="py-name"><a title="satellite_tools.satComputePkgHeaders.OK
+server.apache.OK" class="py-name" href="#" onclick="return doclink('link-66', 'OK', 'link-26');">OK</a></tt> </tt>
+</div><a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line"> </tt>
+<a name="rhnApache._init_request_processor"></a><div id="rhnApache._init_request_processor-def"><a name="L160"></a><tt class="py-lineno">160</tt> <a class="py-toggle" href="#" id="rhnApache._init_request_processor-toggle" onclick="return toggle('rhnApache._init_request_processor');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnApache'.rhnApache-class.html#_init_request_processor">_init_request_processor</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">req</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rhnApache._init_request_processor-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rhnApache._init_request_processor-expanded"><a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">        <tt class="py-comment"># first, make sure we only allow certain methods</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">method</tt> <tt class="py-op">==</tt> <tt class="py-string">"GET"</tt><tt class="py-op">:</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">            <tt class="py-comment"># This is a request from a cache/client, so verify the signature,</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">            <tt class="py-comment"># system_id, and expiration exist and push into rhnFlags.</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">            <tt class="py-name">token</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-67" class="py-name" targets="Method common.rhnApache'.rhnApache._setSessionToken()=common.rhnApache%27.rhnApache-class.html#_setSessionToken,Method proxy.apacheHandler.apacheHandler._setSessionToken()=proxy.apacheHandler.apacheHandler-class.html#_setSessionToken"><a title="common.rhnApache'.rhnApache._setSessionToken
+proxy.apacheHandler.apacheHandler._setSessionToken" class="py-name" href="#" onclick="return doclink('link-67', '_setSessionToken', 'link-67');">_setSessionToken</a></tt><tt class="py-op">(</tt><tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">headers_in</tt><tt class="py-op">)</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">token</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt id="link-68" class="py-name"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-68', 'apache', 'link-1');">apache</a></tt><tt class="py-op">.</tt><tt id="link-69" class="py-name" targets="Variable server.apache.HTTP_METHOD_NOT_ALLOWED=server.apache-module.html#HTTP_METHOD_NOT_ALLOWED"><a title="server.apache.HTTP_METHOD_NOT_ALLOWED" class="py-name" href="#" onclick="return doclink('link-69', 'HTTP_METHOD_NOT_ALLOWED', 'link-69');">HTTP_METHOD_NOT_ALLOWED</a></tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt id="link-70" class="py-name"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-70', 'apache', 'link-1');">apache</a></tt><tt class="py-op">.</tt><tt id="link-71" class="py-name"><a title="satellite_tools.satComputePkgHeaders.OK
+server.apache.OK" class="py-name" href="#" onclick="return doclink('link-71', 'OK', 'link-26');">OK</a></tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line"> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line">        <tt class="py-keyword">elif</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">method</tt> <tt class="py-op">==</tt> <tt class="py-string">"POST"</tt><tt class="py-op">:</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt id="link-72" class="py-name"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-72', 'apache', 'link-1');">apache</a></tt><tt class="py-op">.</tt><tt id="link-73" class="py-name"><a title="satellite_tools.satComputePkgHeaders.OK
+server.apache.OK" class="py-name" href="#" onclick="return doclink('link-73', 'OK', 'link-26');">OK</a></tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line"> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">        <tt class="py-keyword">elif</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">method</tt> <tt class="py-op">==</tt> <tt class="py-string">"HEAD"</tt><tt class="py-op">:</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">            <tt class="py-comment"># We should only receive this type of request from ourself.</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt id="link-74" class="py-name"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-74', 'apache', 'link-1');">apache</a></tt><tt class="py-op">.</tt><tt id="link-75" class="py-name"><a title="satellite_tools.satComputePkgHeaders.OK
+server.apache.OK" class="py-name" href="#" onclick="return doclink('link-75', 'OK', 'link-26');">OK</a></tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line"> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">        <tt id="link-76" class="py-name"><a title="_apache.log_error
+common.rhnLog.log_error
+satellite_tools.satComputePkgHeaders.log_error" class="py-name" href="#" onclick="return doclink('link-76', 'log_error', 'link-8');">log_error</a></tt><tt class="py-op">(</tt><tt class="py-string">"Unknown HTTP method"</tt><tt class="py-op">,</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">method</tt><tt class="py-op">)</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-77" class="py-name"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-77', 'apache', 'link-1');">apache</a></tt><tt class="py-op">.</tt><tt id="link-78" class="py-name"><a title="server.apache.HTTP_METHOD_NOT_ALLOWED" class="py-name" href="#" onclick="return doclink('link-78', 'HTTP_METHOD_NOT_ALLOWED', 'link-69');">HTTP_METHOD_NOT_ALLOWED</a></tt> </tt>
+</div><a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line"> </tt>
+<a name="rhnApache._cleanup_request_processor"></a><div id="rhnApache._cleanup_request_processor-def"><a name="L180"></a><tt class="py-lineno">180</tt> <a class="py-toggle" href="#" id="rhnApache._cleanup_request_processor-toggle" onclick="return toggle('rhnApache._cleanup_request_processor');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnApache'.rhnApache-class.html#_cleanup_request_processor">_cleanup_request_processor</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rhnApache._cleanup_request_processor-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rhnApache._cleanup_request_processor-expanded"><a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-79" class="py-name"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-79', 'apache', 'link-1');">apache</a></tt><tt class="py-op">.</tt><tt id="link-80" class="py-name"><a title="satellite_tools.satComputePkgHeaders.OK
+server.apache.OK" class="py-name" href="#" onclick="return doclink('link-80', 'OK', 'link-26');">OK</a></tt> </tt>
+</div><a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line"> </tt>
+<a name="rhnApache.handler"></a><div id="rhnApache.handler-def"><a name="L183"></a><tt class="py-lineno">183</tt> <a class="py-toggle" href="#" id="rhnApache.handler-toggle" onclick="return toggle('rhnApache.handler');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnApache'.rhnApache-class.html#handler">handler</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">req</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rhnApache.handler-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rhnApache.handler-expanded"><a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line"><tt class="py-docstring">        a handler - not doing much for the common case, but called from</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line"><tt class="py-docstring">        classes that inherit this one.</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">        <tt id="link-81" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-81', 'log_debug', 'link-6');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line">        <tt class="py-comment"># Set the lang in the output headers</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">lang</tt> <tt class="py-op">!=</tt> <tt class="py-string">"C"</tt><tt class="py-op">:</tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line">            <tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">headers_out</tt><tt class="py-op">[</tt><tt class="py-string">"Content-Language"</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-82" class="py-name" targets="Method common.rhnApache'.rhnApache.getlang()=common.rhnApache%27.rhnApache-class.html#getlang,Method rhn.transports.Input.getlang()=rhn.transports.Input-class.html#getlang"><a title="common.rhnApache'.rhnApache.getlang
+rhn.transports.Input.getlang" class="py-name" href="#" onclick="return doclink('link-82', 'getlang', 'link-82');">getlang</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line"> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line">        <tt id="link-83" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-83', 'log_debug', 'link-6');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">"URI"</tt><tt class="py-op">,</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">unparsed_uri</tt><tt class="py-op">)</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line">        <tt id="link-84" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-84', 'log_debug', 'link-6');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">"CONFIG"</tt><tt class="py-op">,</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt id="link-85" class="py-name" targets="Method server.wsgi.wsgiRequest.WsgiRequest.get_config()=server.wsgi.wsgiRequest.WsgiRequest-class.html#get_config"><a title="server.wsgi.wsgiRequest.WsgiRequest.get_config" class="py-name" href="#" onclick="return doclink('link-85', 'get_config', 'link-85');">get_config</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line">        <tt id="link-86" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-86', 'log_debug', 'link-6');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">"OPTIONS"</tt><tt class="py-op">,</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt id="link-87" class="py-name"><a title="server.wsgi.wsgiRequest.WsgiRequest.get_options" class="py-name" href="#" onclick="return doclink('link-87', 'get_options', 'link-62');">get_options</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line">        <tt id="link-88" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-88', 'log_debug', 'link-6');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">"HEADERS"</tt><tt class="py-op">,</tt> <tt class="py-name">req</tt><tt class="py-op">.</tt><tt class="py-name">headers_in</tt><tt class="py-op">)</tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-89" class="py-name"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-89', 'apache', 'link-1');">apache</a></tt><tt class="py-op">.</tt><tt id="link-90" class="py-name"><a title="satellite_tools.satComputePkgHeaders.OK
+server.apache.OK" class="py-name" href="#" onclick="return doclink('link-90', 'OK', 'link-26');">OK</a></tt> </tt>
+</div><a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line"> </tt>
+<a name="rhnApache.cleanupHandler"></a><div id="rhnApache.cleanupHandler-def"><a name="L199"></a><tt class="py-lineno">199</tt> <a class="py-toggle" href="#" id="rhnApache.cleanupHandler-toggle" onclick="return toggle('rhnApache.cleanupHandler');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnApache'.rhnApache-class.html#cleanupHandler">cleanupHandler</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">req</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rhnApache.cleanupHandler-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rhnApache.cleanupHandler-expanded"><a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line"><tt class="py-docstring">        clean up this session</tt> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line">        <tt id="link-91" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-91', 'log_debug', 'link-6');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">lang</tt> <tt class="py-op">=</tt> <tt class="py-string">"C"</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">clientVersion</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">proxyVersion</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line">        <tt class="py-comment"># clear the global flags</tt> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">        <tt id="link-92" class="py-name"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-92', 'rhnFlags', 'link-2');">rhnFlags</a></tt><tt class="py-op">.</tt><tt id="link-93" class="py-name"><a title="common.rhnFlags.reset
+satellite_tools.req_channels.RequestedChannels.reset
+satellite_tools.sync_handlers.BaseCollection.reset
+satellite_tools.sync_handlers.ChannelCollection.reset
+satellite_tools.sync_handlers.ContainerHandler.reset
+satellite_tools.sync_handlers.ErrataCollection.reset
+satellite_tools.sync_handlers.ShortPackageCollection.reset
+satellite_tools.xmlSource.BaseDispatchHandler.reset
+satellite_tools.xmlSource.ContainerHandler.reset
+server.rhnSQL.sql_row.Row.reset
+spacewalk.common.fileutils.GecosCache.reset" class="py-name" href="#" onclick="return doclink('link-93', 'reset', 'link-17');">reset</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line">        <tt id="link-94" class="py-name" targets="Function common.rhnApache'.timer()=common.rhnApache%27-module.html#timer,Method satellite_tools.exporter.exportLib.BaseDumper.timer()=satellite_tools.exporter.exportLib.BaseDumper-class.html#timer,Function server.apacheHandler.timer()=server.apacheHandler-module.html#timer"><a title="common.rhnApache'.timer
+satellite_tools.exporter.exportLib.BaseDumper.timer
+server.apacheHandler.timer" class="py-name" href="#" onclick="return doclink('link-94', 'timer', 'link-94');">timer</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">start_time</tt><tt class="py-op">)</tt> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-95" class="py-name" targets="Method common.rhnApache'.rhnApache._cleanup_request_processor()=common.rhnApache%27.rhnApache-class.html#_cleanup_request_processor,Method server.apacheHandler.apacheHandler._cleanup_request_processor()=server.apacheHandler.apacheHandler-class.html#_cleanup_request_processor"><a title="common.rhnApache'.rhnApache._cleanup_request_processor
+server.apacheHandler.apacheHandler._cleanup_request_processor" class="py-name" href="#" onclick="return doclink('link-95', '_cleanup_request_processor', 'link-95');">_cleanup_request_processor</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line"> </tt>
+<a name="rhnApache.logHandler"></a><div id="rhnApache.logHandler-def"><a name="L211"></a><tt class="py-lineno">211</tt> <a class="py-toggle" href="#" id="rhnApache.logHandler-toggle" onclick="return toggle('rhnApache.logHandler');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnApache'.rhnApache-class.html#logHandler">logHandler</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">req</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rhnApache.logHandler-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rhnApache.logHandler-expanded"><a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line"><tt class="py-docstring">        A dummy log function</tt> </tt>
+<a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line">        <tt id="link-96" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-96', 'log_debug', 'link-6');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-97" class="py-name"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-97', 'apache', 'link-1');">apache</a></tt><tt class="py-op">.</tt><tt id="link-98" class="py-name"><a title="satellite_tools.satComputePkgHeaders.OK
+server.apache.OK" class="py-name" href="#" onclick="return doclink('link-98', 'OK', 'link-26');">OK</a></tt> </tt>
+</div><a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line"> </tt>
+<a name="rhnApache.setlang"></a><div id="rhnApache.setlang-def"><a name="L218"></a><tt class="py-lineno">218</tt> <a class="py-toggle" href="#" id="rhnApache.setlang-toggle" onclick="return toggle('rhnApache.setlang');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnApache'.rhnApache-class.html#setlang">setlang</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">lang</tt><tt class="py-op">,</tt> <tt class="py-param">domain</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rhnApache.setlang-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rhnApache.setlang-expanded"><a name="L219"></a><tt class="py-lineno">219</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L220"></a><tt class="py-lineno">220</tt>  <tt class="py-line"><tt class="py-docstring">        An entry point for setting the language for the current sesstion</tt> </tt>
+<a name="L221"></a><tt class="py-lineno">221</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L222"></a><tt class="py-lineno">222</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">lang</tt> <tt class="py-op">=</tt> <tt class="py-name">lang</tt> </tt>
+<a name="L223"></a><tt class="py-lineno">223</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-99" class="py-name" targets="Module server.repomd.domain=server.repomd.domain-module.html"><a title="server.repomd.domain" class="py-name" href="#" onclick="return doclink('link-99', 'domain', 'link-99');">domain</a></tt> <tt class="py-op">=</tt> <tt id="link-100" class="py-name"><a title="server.repomd.domain" class="py-name" href="#" onclick="return doclink('link-100', 'domain', 'link-99');">domain</a></tt> </tt>
+<a name="L224"></a><tt class="py-lineno">224</tt>  <tt class="py-line">        <tt class="py-name">rootdir</tt> <tt class="py-op">=</tt> <tt id="link-101" class="py-name"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-101', 'rhnFlags', 'link-2');">rhnFlags</a></tt><tt class="py-op">.</tt><tt id="link-102" class="py-name"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-102', 'get', 'link-31');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">"RootDir"</tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> <tt class="py-string">"."</tt> </tt>
+<a name="L225"></a><tt class="py-lineno">225</tt>  <tt class="py-line">        <tt class="py-name">localedir</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">abspath</tt><tt class="py-op">(</tt><tt class="py-string">"%s/locale"</tt> <tt class="py-op">%</tt> <tt class="py-name">rootdir</tt><tt class="py-op">)</tt> </tt>
+<a name="L226"></a><tt class="py-lineno">226</tt>  <tt class="py-line">        <tt id="link-103" class="py-name"><a title="common.rhnApache'.cat
+common.rhnTranslate.cat" class="py-name" href="#" onclick="return doclink('link-103', 'cat', 'link-10');">cat</a></tt><tt class="py-op">.</tt><tt id="link-104" class="py-name"><a title="common.rhnCache.Cache.set
+common.rhnCache.CompressedCache.set
+common.rhnCache.NullCache.set
+common.rhnCache.ObjectCache.set
+common.rhnCache.set
+common.rhnConfig.RHNOptions.set
+common.rhnFlags.set
+common.rhnTranslate.i18n.set
+server.rhnDatabaseCache.set" class="py-name" href="#" onclick="return doclink('link-104', 'set', 'link-19');">set</a></tt><tt class="py-op">(</tt><tt id="link-105" class="py-name"><a title="server.repomd.domain" class="py-name" href="#" onclick="return doclink('link-105', 'domain', 'link-99');">domain</a></tt><tt class="py-op">=</tt><tt id="link-106" class="py-name"><a title="server.repomd.domain" class="py-name" href="#" onclick="return doclink('link-106', 'domain', 'link-99');">domain</a></tt><tt class="py-op">,</tt> <tt class="py-name">localedir</tt><tt class="py-op">=</tt><tt class="py-name">localedir</tt><tt class="py-op">)</tt> </tt>
+<a name="L227"></a><tt class="py-lineno">227</tt>  <tt class="py-line">        <tt class="py-comment"># If the language presented by the client does not exist, the</tt> </tt>
+<a name="L228"></a><tt class="py-lineno">228</tt>  <tt class="py-line">        <tt class="py-comment"># translation object falls back to printing the original string, which</tt> </tt>
+<a name="L229"></a><tt class="py-lineno">229</tt>  <tt class="py-line">        <tt class="py-comment"># is pretty much the same as translating to en</tt> </tt>
+<a name="L230"></a><tt class="py-lineno">230</tt>  <tt class="py-line">        <tt id="link-107" class="py-name"><a title="common.rhnApache'.cat
+common.rhnTranslate.cat" class="py-name" href="#" onclick="return doclink('link-107', 'cat', 'link-10');">cat</a></tt><tt class="py-op">.</tt><tt id="link-108" class="py-name" targets="Method common.rhnTranslate.i18n.setlangs()=common.rhnTranslate.i18n-class.html#setlangs,Method common.rhnTranslate.i18n_old.setlangs()=common.rhnTranslate.i18n_old-class.html#setlangs"><a title="common.rhnTranslate.i18n.setlangs
+common.rhnTranslate.i18n_old.setlangs" class="py-name" href="#" onclick="return doclink('link-108', 'setlangs', 'link-108');">setlangs</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">lang</tt><tt class="py-op">)</tt> </tt>
+<a name="L231"></a><tt class="py-lineno">231</tt>  <tt class="py-line">        <tt id="link-109" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-109', 'log_debug', 'link-6');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">,</tt> <tt class="py-name">rootdir</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">lang</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-110" class="py-name"><a title="server.repomd.domain" class="py-name" href="#" onclick="return doclink('link-110', 'domain', 'link-99');">domain</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L232"></a><tt class="py-lineno">232</tt>  <tt class="py-line"> </tt>
+<a name="rhnApache.getlang"></a><div id="rhnApache.getlang-def"><a name="L233"></a><tt class="py-lineno">233</tt> <a class="py-toggle" href="#" id="rhnApache.getlang-toggle" onclick="return toggle('rhnApache.getlang');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnApache'.rhnApache-class.html#getlang">getlang</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rhnApache.getlang-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rhnApache.getlang-expanded"><a name="L234"></a><tt class="py-lineno">234</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L235"></a><tt class="py-lineno">235</tt>  <tt class="py-line"><tt class="py-docstring">        And another lang function to produce the list of languages we're</tt> </tt>
+<a name="L236"></a><tt class="py-lineno">236</tt>  <tt class="py-line"><tt class="py-docstring">        handling</tt> </tt>
+<a name="L237"></a><tt class="py-lineno">237</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L238"></a><tt class="py-lineno">238</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt id="link-111" class="py-name"><a title="common.rhnApache'.cat
+common.rhnTranslate.cat" class="py-name" href="#" onclick="return doclink('link-111', 'cat', 'link-10');">cat</a></tt><tt class="py-op">.</tt><tt id="link-112" class="py-name" targets="Method common.rhnTranslate.RHN_Translations.getlangs()=common.rhnTranslate.RHN_Translations-class.html#getlangs,Method common.rhnTranslate.i18n.getlangs()=common.rhnTranslate.i18n-class.html#getlangs,Method common.rhnTranslate.i18n_old.getlangs()=common.rhnTranslate.i18n_old-class.html#getlangs"><a title="common.rhnTranslate.RHN_Translations.getlangs
+common.rhnTranslate.i18n.getlangs
+common.rhnTranslate.i18n_old.getlangs" class="py-name" href="#" onclick="return doclink('link-112', 'getlangs', 'link-112');">getlangs</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-string">"; "</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L239"></a><tt class="py-lineno">239</tt>  <tt class="py-line"> </tt>
+<a name="rhnApache._setSessionToken"></a><div id="rhnApache._setSessionToken-def"><a name="L240"></a><tt class="py-lineno">240</tt> <a class="py-toggle" href="#" id="rhnApache._setSessionToken-toggle" onclick="return toggle('rhnApache._setSessionToken');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnApache'.rhnApache-class.html#_setSessionToken">_setSessionToken</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">headers</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rhnApache._setSessionToken-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="rhnApache._setSessionToken-expanded"><a name="L241"></a><tt class="py-lineno">241</tt>  <tt class="py-line">        <tt class="py-docstring">""" Pushes token into rhnFlags. If doesn't exist, returns None.</tt> </tt>
+<a name="L242"></a><tt class="py-lineno">242</tt>  <tt class="py-line"><tt class="py-docstring">            Pull session token out of the headers and into rhnFlags.</tt> </tt>
+<a name="L243"></a><tt class="py-lineno">243</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L244"></a><tt class="py-lineno">244</tt>  <tt class="py-line">        <tt id="link-113" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-113', 'log_debug', 'link-6');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L245"></a><tt class="py-lineno">245</tt>  <tt class="py-line">        <tt class="py-name">token</tt> <tt class="py-op">=</tt> <tt id="link-114" class="py-name"><a title="common.UserDictCase'.UserDictCase
+rhn.UserDictCase
+rhn.UserDictCase.UserDictCase" class="py-name" href="#" onclick="return doclink('link-114', 'UserDictCase', 'link-3');">UserDictCase</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L246"></a><tt class="py-lineno">246</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">headers</tt><tt class="py-op">.</tt><tt id="link-115" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-115', 'has_key', 'link-43');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'X-RHN-Server-Id'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L247"></a><tt class="py-lineno">247</tt>  <tt class="py-line">            <tt class="py-name">token</tt><tt class="py-op">[</tt><tt class="py-string">'X-RHN-Server-Id'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">headers</tt><tt class="py-op">[</tt><tt class="py-string">'X-RHN-Server-Id'</tt><tt class="py-op">]</tt> </tt>
+<a name="L248"></a><tt class="py-lineno">248</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L249"></a><tt class="py-lineno">249</tt>  <tt class="py-line">            <tt class="py-comment"># This has to be here, or else we blow-up.</tt> </tt>
+<a name="L250"></a><tt class="py-lineno">250</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+<a name="L251"></a><tt class="py-lineno">251</tt>  <tt class="py-line">        <tt class="py-name">prefix</tt> <tt class="py-op">=</tt> <tt class="py-string">"x-rhn-auth"</tt> </tt>
+<a name="L252"></a><tt class="py-lineno">252</tt>  <tt class="py-line">        <tt class="py-name">tokenKeys</tt> <tt class="py-op">=</tt> <tt class="py-name">filter</tt><tt class="py-op">(</tt> </tt>
+<a name="L253"></a><tt class="py-lineno">253</tt>  <tt class="py-line">            <tt class="py-keyword">lambda</tt> <tt class="py-name">x</tt><tt class="py-op">,</tt> <tt class="py-name">prefix</tt><tt class="py-op">=</tt><tt class="py-name">prefix</tt><tt class="py-op">:</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">lower</tt><tt class="py-op">(</tt><tt class="py-name">x</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">prefix</tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-name">prefix</tt><tt class="py-op">,</tt> </tt>
+<a name="L254"></a><tt class="py-lineno">254</tt>  <tt class="py-line">                <tt class="py-name">headers</tt><tt class="py-op">.</tt><tt id="link-116" class="py-name" targets="Method common.UserDictCase'.UserDictCase.keys()=common.UserDictCase%27.UserDictCase-class.html#keys,Method common.rhnConfig.RHNOptions.keys()=common.rhnConfig.RHNOptions-class.html#keys,Method rhn.UserDictCase.UserDictCase.keys()=rhn.UserDictCase.UserDictCase-class.html#keys,Method server.rhnSQL.sql_table.Table.keys()=server.rhnSQL.sql_table.Table-class.html#keys"><a title="common.UserDictCase'.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+rhn.UserDictCase.UserDictCase.keys
+server.rhnSQL.sql_table.Table.keys" class="py-name" href="#" onclick="return doclink('link-116', 'keys', 'link-116');">keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L255"></a><tt class="py-lineno">255</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt id="link-117" class="py-name" targets="Variable server.repomd.repository.k=server.repomd.repository-module.html#k"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-117', 'k', 'link-117');">k</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">tokenKeys</tt><tt class="py-op">:</tt> </tt>
+<a name="L256"></a><tt class="py-lineno">256</tt>  <tt class="py-line">            <tt class="py-name">token</tt><tt class="py-op">[</tt><tt id="link-118" class="py-name"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-118', 'k', 'link-117');">k</a></tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">headers</tt><tt class="py-op">[</tt><tt id="link-119" class="py-name"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-119', 'k', 'link-117');">k</a></tt><tt class="py-op">]</tt> </tt>
+<a name="L257"></a><tt class="py-lineno">257</tt>  <tt class="py-line"> </tt>
+<a name="L258"></a><tt class="py-lineno">258</tt>  <tt class="py-line">        <tt id="link-120" class="py-name"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-120', 'rhnFlags', 'link-2');">rhnFlags</a></tt><tt class="py-op">.</tt><tt id="link-121" class="py-name"><a title="common.rhnCache.Cache.set
+common.rhnCache.CompressedCache.set
+common.rhnCache.NullCache.set
+common.rhnCache.ObjectCache.set
+common.rhnCache.set
+common.rhnConfig.RHNOptions.set
+common.rhnFlags.set
+common.rhnTranslate.i18n.set
+server.rhnDatabaseCache.set" class="py-name" href="#" onclick="return doclink('link-121', 'set', 'link-19');">set</a></tt><tt class="py-op">(</tt><tt class="py-string">"AUTH_SESSION_TOKEN"</tt><tt class="py-op">,</tt> <tt class="py-name">token</tt><tt class="py-op">)</tt> </tt>
+<a name="L259"></a><tt class="py-lineno">259</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">token</tt> </tt>
+</div></div><a name="L260"></a><tt class="py-lineno">260</tt>  <tt class="py-line"> </tt>
+<a name="L261"></a><tt class="py-lineno">261</tt>  <tt class="py-line"> </tt>
+<a name="timer"></a><div id="timer-def"><a name="L262"></a><tt class="py-lineno">262</tt> <a class="py-toggle" href="#" id="timer-toggle" onclick="return toggle('timer');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnApache'-module.html#timer">timer</a><tt class="py-op">(</tt><tt class="py-param">last</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="timer-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="timer-expanded"><a name="L263"></a><tt class="py-lineno">263</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L264"></a><tt class="py-lineno">264</tt>  <tt class="py-line"><tt class="py-docstring">    a lame timer function for pretty logs</tt> </tt>
+<a name="L265"></a><tt class="py-lineno">265</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L266"></a><tt class="py-lineno">266</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">last</tt><tt class="py-op">:</tt> </tt>
+<a name="L267"></a><tt class="py-lineno">267</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-number">0</tt> </tt>
+<a name="L268"></a><tt class="py-lineno">268</tt>  <tt class="py-line">    <tt id="link-122" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-122', 'log_debug', 'link-6');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">2</tt><tt class="py-op">,</tt> <tt class="py-string">"Request served in %.2f sec"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">time</tt><tt class="py-op">.</tt><tt class="py-name">time</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">-</tt> <tt class="py-name">last</tt><tt class="py-op">,</tt> <tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L269"></a><tt class="py-lineno">269</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-number">0</tt> </tt>
+</div><a name="L270"></a><tt class="py-lineno">270</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:35 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

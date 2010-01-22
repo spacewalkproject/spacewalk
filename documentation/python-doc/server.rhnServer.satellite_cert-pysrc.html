@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.rhnServer.satellite_cert</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.rhnServer-module.html">Package&nbsp;rhnServer</a> ::
+        Module&nbsp;satellite_cert
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.rhnServer.satellite_cert-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="server.rhnServer.satellite_cert-module.html">Module server.rhnServer.satellite_cert</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment"># This module exposes the SatelliteCert class, used for parsing a satellite</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-comment"># certificate</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">string</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">xml</tt><tt class="py-op">.</tt><tt class="py-name">dom</tt><tt class="py-op">.</tt><tt class="py-name">minidom</tt> <tt class="py-keyword">import</tt> <tt class="py-name">parseString</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">xml</tt><tt class="py-op">.</tt><tt class="py-name">sax</tt> <tt class="py-keyword">import</tt> <tt class="py-name">SAXParseException</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"> </tt>
+<a name="ParseException"></a><div id="ParseException-def"><a name="L25"></a><tt class="py-lineno"> 25</tt> <a class="py-toggle" href="#" id="ParseException-toggle" onclick="return toggle('ParseException');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.ParseException-class.html">ParseException</a><tt class="py-op">(</tt><tt class="py-base-class">Exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ParseException-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="ParseException-expanded"><a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">    <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-comment"># Generic class to represent items (like channel families)</tt> </tt>
+<a name="Item"></a><div id="Item-def"><a name="L29"></a><tt class="py-lineno"> 29</tt> <a class="py-toggle" href="#" id="Item-toggle" onclick="return toggle('Item');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.Item-class.html">Item</a><tt class="py-op">:</tt> </tt>
+</div><div id="Item-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Item-expanded"><a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">    <tt class="py-comment"># Name to be displayed by repr()</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">    <tt id="link-0" class="py-name" targets="Variable server.rhnServer.satellite_cert.ChannelFamily.pretty_name=server.rhnServer.satellite_cert.ChannelFamily-class.html#pretty_name,Variable server.rhnServer.satellite_cert.Item.pretty_name=server.rhnServer.satellite_cert.Item-class.html#pretty_name"><a title="server.rhnServer.satellite_cert.ChannelFamily.pretty_name
+server.rhnServer.satellite_cert.Item.pretty_name" class="py-name" href="#" onclick="return doclink('link-0', 'pretty_name', 'link-0');">pretty_name</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">    <tt class="py-comment"># Attribute name in the parent class</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">    <tt id="link-1" class="py-name" targets="Variable server.rhnServer.satellite_cert.ChannelFamily.attribute_name=server.rhnServer.satellite_cert.ChannelFamily-class.html#attribute_name,Variable server.rhnServer.satellite_cert.Item.attribute_name=server.rhnServer.satellite_cert.Item-class.html#attribute_name"><a title="server.rhnServer.satellite_cert.ChannelFamily.attribute_name
+server.rhnServer.satellite_cert.Item.attribute_name" class="py-name" href="#" onclick="return doclink('link-1', 'attribute_name', 'link-1');">attribute_name</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">    <tt class="py-comment"># Mapping from XML to local storage</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">    <tt id="link-2" class="py-name" targets="Variable server.rhnServer.satellite_cert.ChannelFamily.attributes=server.rhnServer.satellite_cert.ChannelFamily-class.html#attributes,Variable server.rhnServer.satellite_cert.Item.attributes=server.rhnServer.satellite_cert.Item-class.html#attributes"><a title="server.rhnServer.satellite_cert.ChannelFamily.attributes
+server.rhnServer.satellite_cert.Item.attributes" class="py-name" href="#" onclick="return doclink('link-2', 'attributes', 'link-2');">attributes</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="Item.__init__"></a><div id="Item.__init__-def"><a name="L36"></a><tt class="py-lineno"> 36</tt> <a class="py-toggle" href="#" id="Item.__init__-toggle" onclick="return toggle('Item.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.Item-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">node</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Item.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Item.__init__-expanded"><a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">node</tt><tt class="py-op">:</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">attr_name</tt><tt class="py-op">,</tt> <tt class="py-name">storage_name</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-3" class="py-name"><a title="server.rhnServer.satellite_cert.ChannelFamily.attributes
+server.rhnServer.satellite_cert.Item.attributes" class="py-name" href="#" onclick="return doclink('link-3', 'attributes', 'link-2');">attributes</a></tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Method common.UserDictCase'.UserDictCase.items()=common.UserDictCase%27.UserDictCase-class.html#items,Method common.rhnConfig.RHNOptions.items()=common.rhnConfig.RHNOptions-class.html#items,Method rhn.UserDictCase.UserDictCase.items()=rhn.UserDictCase.UserDictCase-class.html#items"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-4', 'items', 'link-4');">items</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">            <tt class="py-name">attr</tt> <tt class="py-op">=</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Method server.importlib.backendLib.Table.getAttribute()=server.importlib.backendLib.Table-class.html#getAttribute"><a title="server.importlib.backendLib.Table.getAttribute" class="py-name" href="#" onclick="return doclink('link-5', 'getAttribute', 'link-5');">getAttribute</a></tt><tt class="py-op">(</tt><tt class="py-name">attr_name</tt><tt class="py-op">)</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">            <tt class="py-comment"># Make sure we stringify the attribute - it may get out as unicode</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">            <tt class="py-name">setattr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">storage_name</tt><tt class="py-op">,</tt> <tt class="py-name">attr</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"> </tt>
+<a name="Item.__repr__"></a><div id="Item.__repr__-def"><a name="L44"></a><tt class="py-lineno"> 44</tt> <a class="py-toggle" href="#" id="Item.__repr__-toggle" onclick="return toggle('Item.__repr__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.Item-class.html#__repr__">__repr__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Item.__repr__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Item.__repr__-expanded"><a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">"&lt;%s; %s&gt;"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name"><a title="server.rhnServer.satellite_cert.ChannelFamily.pretty_name
+server.rhnServer.satellite_cert.Item.pretty_name" class="py-name" href="#" onclick="return doclink('link-6', 'pretty_name', 'link-0');">pretty_name</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">            <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">                <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">x</tt><tt class="py-op">,</tt> <tt class="py-name">s</tt><tt class="py-op">=</tt><tt class="py-name">self</tt><tt class="py-op">:</tt> <tt class="py-string">'%s="%s"'</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">x</tt><tt class="py-op">,</tt> <tt class="py-name">getattr</tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">,</tt> <tt class="py-name">x</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">,</tt>  </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">                    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name"><a title="server.rhnServer.satellite_cert.ChannelFamily.attributes
+server.rhnServer.satellite_cert.Item.attributes" class="py-name" href="#" onclick="return doclink('link-7', 'attributes', 'link-2');">attributes</a></tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Method common.rhnConfig.RHNOptions.values()=common.rhnConfig.RHNOptions-class.html#values"><a title="common.rhnConfig.RHNOptions.values" class="py-name" href="#" onclick="return doclink('link-8', 'values', 'link-8');">values</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">                <tt class="py-string">', '</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">            <tt class="py-op">)</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">        <tt class="py-op">)</tt> </tt>
+</div></div><a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">         </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">         </tt>
+<a name="ChannelFamily"></a><div id="ChannelFamily-def"><a name="L54"></a><tt class="py-lineno"> 54</tt> <a class="py-toggle" href="#" id="ChannelFamily-toggle" onclick="return toggle('ChannelFamily');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.ChannelFamily-class.html">ChannelFamily</a><tt class="py-op">(</tt><tt class="py-base-class">Item</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ChannelFamily-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="ChannelFamily-expanded"><a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">    <tt id="link-9" class="py-name"><a title="server.rhnServer.satellite_cert.ChannelFamily.pretty_name
+server.rhnServer.satellite_cert.Item.pretty_name" class="py-name" href="#" onclick="return doclink('link-9', 'pretty_name', 'link-0');">pretty_name</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"channel family"</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">    <tt id="link-10" class="py-name"><a title="server.rhnServer.satellite_cert.ChannelFamily.attribute_name
+server.rhnServer.satellite_cert.Item.attribute_name" class="py-name" href="#" onclick="return doclink('link-10', 'attribute_name', 'link-1');">attribute_name</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'channel_families'</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">    <tt id="link-11" class="py-name"><a title="server.rhnServer.satellite_cert.ChannelFamily.attributes
+server.rhnServer.satellite_cert.Item.attributes" class="py-name" href="#" onclick="return doclink('link-11', 'attributes', 'link-2');">attributes</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-string">'family'</tt> <tt class="py-op">:</tt> <tt class="py-string">'name'</tt><tt class="py-op">,</tt> <tt class="py-string">'quantity'</tt> <tt class="py-op">:</tt> <tt class="py-string">'quantity'</tt><tt class="py-op">}</tt> </tt>
+</div><a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"> </tt>
+<a name="Slots"></a><div id="Slots-def"><a name="L59"></a><tt class="py-lineno"> 59</tt> <a class="py-toggle" href="#" id="Slots-toggle" onclick="return toggle('Slots');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.Slots-class.html">Slots</a><tt class="py-op">:</tt> </tt>
+</div><div id="Slots-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Slots-expanded"><a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">    <tt id="link-12" class="py-name" targets="Variable server.rhnServer.satellite_cert.ManagementSlots._db_label=server.rhnServer.satellite_cert.ManagementSlots-class.html#_db_label,Variable server.rhnServer.satellite_cert.MonitoringSlots._db_label=server.rhnServer.satellite_cert.MonitoringSlots-class.html#_db_label,Variable server.rhnServer.satellite_cert.ProvisioningSlots._db_label=server.rhnServer.satellite_cert.ProvisioningSlots-class.html#_db_label,Variable server.rhnServer.satellite_cert.Slots._db_label=server.rhnServer.satellite_cert.Slots-class.html#_db_label,Variable server.rhnServer.satellite_cert.UpdateSlots._db_label=server.rhnServer.satellite_cert.UpdateSlots-class.html#_db_label,Variable server.rhnServer.satellite_cert.VirtualizationPlatformSlots._db_label=server.rhnServer.satellite_cert.VirtualizationPlatformSlots-class.html#_db_label,Variable server.rhnServer.satellite_cert.VirtualizationSlots._db_label=server.rhnServer.satellite_cert.VirtualizationSlots-class.html#_db_label"><a title="server.rhnServer.satellite_cert.ManagementSlots._db_label
+server.rhnServer.satellite_cert.MonitoringSlots._db_label
+server.rhnServer.satellite_cert.ProvisioningSlots._db_label
+server.rhnServer.satellite_cert.Slots._db_label
+server.rhnServer.satellite_cert.UpdateSlots._db_label
+server.rhnServer.satellite_cert.VirtualizationPlatformSlots._db_label
+server.rhnServer.satellite_cert.VirtualizationSlots._db_label" class="py-name" href="#" onclick="return doclink('link-12', '_db_label', 'link-12');">_db_label</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">    <tt id="link-13" class="py-name" targets="Variable server.rhnServer.satellite_cert.ManagementSlots._slot_name=server.rhnServer.satellite_cert.ManagementSlots-class.html#_slot_name,Variable server.rhnServer.satellite_cert.MonitoringSlots._slot_name=server.rhnServer.satellite_cert.MonitoringSlots-class.html#_slot_name,Variable server.rhnServer.satellite_cert.ProvisioningSlots._slot_name=server.rhnServer.satellite_cert.ProvisioningSlots-class.html#_slot_name,Variable server.rhnServer.satellite_cert.Slots._slot_name=server.rhnServer.satellite_cert.Slots-class.html#_slot_name,Variable server.rhnServer.satellite_cert.VirtualizationPlatformSlots._slot_name=server.rhnServer.satellite_cert.VirtualizationPlatformSlots-class.html#_slot_name,Variable server.rhnServer.satellite_cert.VirtualizationSlots._slot_name=server.rhnServer.satellite_cert.VirtualizationSlots-class.html#_slot_name"><a title="server.rhnServer.satellite_cert.ManagementSlots._slot_name
+server.rhnServer.satellite_cert.MonitoringSlots._slot_name
+server.rhnServer.satellite_cert.ProvisioningSlots._slot_name
+server.rhnServer.satellite_cert.Slots._slot_name
+server.rhnServer.satellite_cert.VirtualizationPlatformSlots._slot_name
+server.rhnServer.satellite_cert.VirtualizationSlots._slot_name" class="py-name" href="#" onclick="return doclink('link-13', '_slot_name', 'link-13');">_slot_name</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="Slots.__init__"></a><div id="Slots.__init__-def"><a name="L62"></a><tt class="py-lineno"> 62</tt> <a class="py-toggle" href="#" id="Slots.__init__-toggle" onclick="return toggle('Slots.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.Slots-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">quantity</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Slots.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Slots.__init__-expanded"><a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">quantity</tt> <tt class="py-op">=</tt> <tt class="py-name">quantity</tt> </tt>
+</div><a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"> </tt>
+<a name="Slots.get_quantity"></a><div id="Slots.get_quantity-def"><a name="L65"></a><tt class="py-lineno"> 65</tt> <a class="py-toggle" href="#" id="Slots.get_quantity-toggle" onclick="return toggle('Slots.get_quantity');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.Slots-class.html#get_quantity">get_quantity</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Slots.get_quantity-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Slots.get_quantity-expanded"><a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">quantity</tt> </tt>
+</div><a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"> </tt>
+<a name="Slots.get_db_label"></a><div id="Slots.get_db_label-def"><a name="L68"></a><tt class="py-lineno"> 68</tt> <a class="py-toggle" href="#" id="Slots.get_db_label-toggle" onclick="return toggle('Slots.get_db_label');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.Slots-class.html#get_db_label">get_db_label</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Slots.get_db_label-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Slots.get_db_label-expanded"><a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">        <tt class="py-docstring">"Returns the label of this type of slot in the database"</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name"><a title="server.rhnServer.satellite_cert.ManagementSlots._db_label
+server.rhnServer.satellite_cert.MonitoringSlots._db_label
+server.rhnServer.satellite_cert.ProvisioningSlots._db_label
+server.rhnServer.satellite_cert.Slots._db_label
+server.rhnServer.satellite_cert.UpdateSlots._db_label
+server.rhnServer.satellite_cert.VirtualizationPlatformSlots._db_label
+server.rhnServer.satellite_cert.VirtualizationSlots._db_label" class="py-name" href="#" onclick="return doclink('link-14', '_db_label', 'link-12');">_db_label</a></tt> </tt>
+</div><a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line"> </tt>
+<a name="Slots.get_slot_name"></a><div id="Slots.get_slot_name-def"><a name="L72"></a><tt class="py-lineno"> 72</tt> <a class="py-toggle" href="#" id="Slots.get_slot_name-toggle" onclick="return toggle('Slots.get_slot_name');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.Slots-class.html#get_slot_name">get_slot_name</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Slots.get_slot_name-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Slots.get_slot_name-expanded"><a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt class="py-docstring">"""Returns the name of the slot, used by</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"><tt class="py-docstring">        rhn_entitlements.modify_org_service"""</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="server.rhnServer.satellite_cert.ManagementSlots._slot_name
+server.rhnServer.satellite_cert.MonitoringSlots._slot_name
+server.rhnServer.satellite_cert.ProvisioningSlots._slot_name
+server.rhnServer.satellite_cert.Slots._slot_name
+server.rhnServer.satellite_cert.VirtualizationPlatformSlots._slot_name
+server.rhnServer.satellite_cert.VirtualizationSlots._slot_name" class="py-name" href="#" onclick="return doclink('link-15', '_slot_name', 'link-13');">_slot_name</a></tt> </tt>
+</div></div><a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line"> </tt>
+<a name="UpdateSlots"></a><div id="UpdateSlots-def"><a name="L77"></a><tt class="py-lineno"> 77</tt> <a class="py-toggle" href="#" id="UpdateSlots-toggle" onclick="return toggle('UpdateSlots');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.UpdateSlots-class.html">UpdateSlots</a><tt class="py-op">(</tt><tt class="py-base-class">Slots</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="UpdateSlots-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="UpdateSlots-expanded"><a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">    <tt id="link-16" class="py-name"><a title="server.rhnServer.satellite_cert.ManagementSlots._db_label
+server.rhnServer.satellite_cert.MonitoringSlots._db_label
+server.rhnServer.satellite_cert.ProvisioningSlots._db_label
+server.rhnServer.satellite_cert.Slots._db_label
+server.rhnServer.satellite_cert.UpdateSlots._db_label
+server.rhnServer.satellite_cert.VirtualizationPlatformSlots._db_label
+server.rhnServer.satellite_cert.VirtualizationSlots._db_label" class="py-name" href="#" onclick="return doclink('link-16', '_db_label', 'link-12');">_db_label</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'sw_mgr_entitled'</tt> </tt>
+</div><a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"> </tt>
+<a name="ManagementSlots"></a><div id="ManagementSlots-def"><a name="L80"></a><tt class="py-lineno"> 80</tt> <a class="py-toggle" href="#" id="ManagementSlots-toggle" onclick="return toggle('ManagementSlots');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.ManagementSlots-class.html">ManagementSlots</a><tt class="py-op">(</tt><tt class="py-base-class">Slots</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ManagementSlots-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="ManagementSlots-expanded"><a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">    <tt id="link-17" class="py-name"><a title="server.rhnServer.satellite_cert.ManagementSlots._db_label
+server.rhnServer.satellite_cert.MonitoringSlots._db_label
+server.rhnServer.satellite_cert.ProvisioningSlots._db_label
+server.rhnServer.satellite_cert.Slots._db_label
+server.rhnServer.satellite_cert.UpdateSlots._db_label
+server.rhnServer.satellite_cert.VirtualizationPlatformSlots._db_label
+server.rhnServer.satellite_cert.VirtualizationSlots._db_label" class="py-name" href="#" onclick="return doclink('link-17', '_db_label', 'link-12');">_db_label</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'enterprise_entitled'</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">    <tt id="link-18" class="py-name"><a title="server.rhnServer.satellite_cert.ManagementSlots._slot_name
+server.rhnServer.satellite_cert.MonitoringSlots._slot_name
+server.rhnServer.satellite_cert.ProvisioningSlots._slot_name
+server.rhnServer.satellite_cert.Slots._slot_name
+server.rhnServer.satellite_cert.VirtualizationPlatformSlots._slot_name
+server.rhnServer.satellite_cert.VirtualizationSlots._slot_name" class="py-name" href="#" onclick="return doclink('link-18', '_slot_name', 'link-13');">_slot_name</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'enterprise'</tt> </tt>
+</div><a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line"> </tt>
+<a name="ProvisioningSlots"></a><div id="ProvisioningSlots-def"><a name="L84"></a><tt class="py-lineno"> 84</tt> <a class="py-toggle" href="#" id="ProvisioningSlots-toggle" onclick="return toggle('ProvisioningSlots');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.ProvisioningSlots-class.html">ProvisioningSlots</a><tt class="py-op">(</tt><tt class="py-base-class">Slots</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProvisioningSlots-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="ProvisioningSlots-expanded"><a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">    <tt id="link-19" class="py-name"><a title="server.rhnServer.satellite_cert.ManagementSlots._db_label
+server.rhnServer.satellite_cert.MonitoringSlots._db_label
+server.rhnServer.satellite_cert.ProvisioningSlots._db_label
+server.rhnServer.satellite_cert.Slots._db_label
+server.rhnServer.satellite_cert.UpdateSlots._db_label
+server.rhnServer.satellite_cert.VirtualizationPlatformSlots._db_label
+server.rhnServer.satellite_cert.VirtualizationSlots._db_label" class="py-name" href="#" onclick="return doclink('link-19', '_db_label', 'link-12');">_db_label</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'provisioning_entitled'</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">    <tt id="link-20" class="py-name"><a title="server.rhnServer.satellite_cert.ManagementSlots._slot_name
+server.rhnServer.satellite_cert.MonitoringSlots._slot_name
+server.rhnServer.satellite_cert.ProvisioningSlots._slot_name
+server.rhnServer.satellite_cert.Slots._slot_name
+server.rhnServer.satellite_cert.VirtualizationPlatformSlots._slot_name
+server.rhnServer.satellite_cert.VirtualizationSlots._slot_name" class="py-name" href="#" onclick="return doclink('link-20', '_slot_name', 'link-13');">_slot_name</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'provisioning'</tt> </tt>
+</div><a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"><tt class="py-comment"># Slots for virt entitlements support</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"> </tt>
+<a name="VirtualizationSlots"></a><div id="VirtualizationSlots-def"><a name="L90"></a><tt class="py-lineno"> 90</tt> <a class="py-toggle" href="#" id="VirtualizationSlots-toggle" onclick="return toggle('VirtualizationSlots');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.VirtualizationSlots-class.html">VirtualizationSlots</a><tt class="py-op">(</tt><tt class="py-base-class">Slots</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="VirtualizationSlots-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="VirtualizationSlots-expanded"><a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">    <tt id="link-21" class="py-name"><a title="server.rhnServer.satellite_cert.ManagementSlots._db_label
+server.rhnServer.satellite_cert.MonitoringSlots._db_label
+server.rhnServer.satellite_cert.ProvisioningSlots._db_label
+server.rhnServer.satellite_cert.Slots._db_label
+server.rhnServer.satellite_cert.UpdateSlots._db_label
+server.rhnServer.satellite_cert.VirtualizationPlatformSlots._db_label
+server.rhnServer.satellite_cert.VirtualizationSlots._db_label" class="py-name" href="#" onclick="return doclink('link-21', '_db_label', 'link-12');">_db_label</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'virtualization_host'</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">    <tt id="link-22" class="py-name"><a title="server.rhnServer.satellite_cert.ManagementSlots._slot_name
+server.rhnServer.satellite_cert.MonitoringSlots._slot_name
+server.rhnServer.satellite_cert.ProvisioningSlots._slot_name
+server.rhnServer.satellite_cert.Slots._slot_name
+server.rhnServer.satellite_cert.VirtualizationPlatformSlots._slot_name
+server.rhnServer.satellite_cert.VirtualizationSlots._slot_name" class="py-name" href="#" onclick="return doclink('link-22', '_slot_name', 'link-13');">_slot_name</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'virtualization'</tt> </tt>
+</div><a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line"> </tt>
+<a name="VirtualizationPlatformSlots"></a><div id="VirtualizationPlatformSlots-def"><a name="L94"></a><tt class="py-lineno"> 94</tt> <a class="py-toggle" href="#" id="VirtualizationPlatformSlots-toggle" onclick="return toggle('VirtualizationPlatformSlots');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.VirtualizationPlatformSlots-class.html">VirtualizationPlatformSlots</a><tt class="py-op">(</tt><tt class="py-base-class">Slots</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="VirtualizationPlatformSlots-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="VirtualizationPlatformSlots-expanded"><a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">    <tt id="link-23" class="py-name"><a title="server.rhnServer.satellite_cert.ManagementSlots._db_label
+server.rhnServer.satellite_cert.MonitoringSlots._db_label
+server.rhnServer.satellite_cert.ProvisioningSlots._db_label
+server.rhnServer.satellite_cert.Slots._db_label
+server.rhnServer.satellite_cert.UpdateSlots._db_label
+server.rhnServer.satellite_cert.VirtualizationPlatformSlots._db_label
+server.rhnServer.satellite_cert.VirtualizationSlots._db_label" class="py-name" href="#" onclick="return doclink('link-23', '_db_label', 'link-12');">_db_label</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'virtualization_host_platform'</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">    <tt id="link-24" class="py-name"><a title="server.rhnServer.satellite_cert.ManagementSlots._slot_name
+server.rhnServer.satellite_cert.MonitoringSlots._slot_name
+server.rhnServer.satellite_cert.ProvisioningSlots._slot_name
+server.rhnServer.satellite_cert.Slots._slot_name
+server.rhnServer.satellite_cert.VirtualizationPlatformSlots._slot_name
+server.rhnServer.satellite_cert.VirtualizationSlots._slot_name" class="py-name" href="#" onclick="return doclink('link-24', '_slot_name', 'link-13');">_slot_name</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'virtualization_platform'</tt> </tt>
+</div><a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line"><tt class="py-comment"># NonLinux slots are gone - misa 20050527</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"> </tt>
+<a name="MonitoringSlots"></a><div id="MonitoringSlots-def"><a name="L100"></a><tt class="py-lineno">100</tt> <a class="py-toggle" href="#" id="MonitoringSlots-toggle" onclick="return toggle('MonitoringSlots');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.MonitoringSlots-class.html">MonitoringSlots</a><tt class="py-op">(</tt><tt class="py-base-class">Slots</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MonitoringSlots-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="MonitoringSlots-expanded"><a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">    <tt id="link-25" class="py-name"><a title="server.rhnServer.satellite_cert.ManagementSlots._db_label
+server.rhnServer.satellite_cert.MonitoringSlots._db_label
+server.rhnServer.satellite_cert.ProvisioningSlots._db_label
+server.rhnServer.satellite_cert.Slots._db_label
+server.rhnServer.satellite_cert.UpdateSlots._db_label
+server.rhnServer.satellite_cert.VirtualizationPlatformSlots._db_label
+server.rhnServer.satellite_cert.VirtualizationSlots._db_label" class="py-name" href="#" onclick="return doclink('link-25', '_db_label', 'link-12');">_db_label</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'monitoring_entitled'</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">    <tt id="link-26" class="py-name"><a title="server.rhnServer.satellite_cert.ManagementSlots._slot_name
+server.rhnServer.satellite_cert.MonitoringSlots._slot_name
+server.rhnServer.satellite_cert.ProvisioningSlots._slot_name
+server.rhnServer.satellite_cert.Slots._slot_name
+server.rhnServer.satellite_cert.VirtualizationPlatformSlots._slot_name
+server.rhnServer.satellite_cert.VirtualizationSlots._slot_name" class="py-name" href="#" onclick="return doclink('link-26', '_slot_name', 'link-13');">_slot_name</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'monitoring'</tt> </tt>
+</div><a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line"> </tt>
+<a name="SatelliteCert"></a><div id="SatelliteCert-def"><a name="L104"></a><tt class="py-lineno">104</tt> <a class="py-toggle" href="#" id="SatelliteCert-toggle" onclick="return toggle('SatelliteCert');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.SatelliteCert-class.html">SatelliteCert</a><tt class="py-op">:</tt> </tt>
+</div><div id="SatelliteCert-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="SatelliteCert-expanded"><a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line"> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">    <tt class="py-docstring">"""Satellite certificate class</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line"><tt class="py-docstring">    Usage: </tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"><tt class="py-docstring">    c = SatelliteCert()</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line"><tt class="py-docstring">    c.load('&lt;rhn-cert&gt;&lt;rhn-cert-field name="owner"&gt;John Doe&lt;/rhn-cert-field&gt;&lt;/rhn-cert&gt;')</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line"><tt class="py-docstring">    print c.owner</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">    <tt id="link-27" class="py-name" targets="Variable server.rhnServer.satellite_cert.SatelliteCert.fields_scalar=server.rhnServer.satellite_cert.SatelliteCert-class.html#fields_scalar"><a title="server.rhnServer.satellite_cert.SatelliteCert.fields_scalar" class="py-name" href="#" onclick="return doclink('link-27', 'fields_scalar', 'link-27');">fields_scalar</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">'product'</tt><tt class="py-op">,</tt> <tt class="py-string">'owner'</tt><tt class="py-op">,</tt> <tt class="py-string">'issued'</tt><tt class="py-op">,</tt> <tt class="py-string">'expires'</tt><tt class="py-op">,</tt> <tt class="py-string">'slots'</tt><tt class="py-op">,</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">                     <tt class="py-string">'provisioning-slots'</tt><tt class="py-op">,</tt> <tt class="py-string">'nonlinux-slots'</tt><tt class="py-op">,</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">                     <tt class="py-string">'monitoring-slots'</tt><tt class="py-op">,</tt> <tt class="py-string">'virtualization_host'</tt><tt class="py-op">,</tt>  </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">                     <tt class="py-string">'virtualization_host_platform'</tt><tt class="py-op">,</tt> <tt class="py-string">'satellite-version'</tt><tt class="py-op">,</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">                     <tt class="py-string">'generation'</tt><tt class="py-op">,</tt> <tt class="py-op">]</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">    <tt id="link-28" class="py-name" targets="Variable server.rhnServer.satellite_cert.SatelliteCert.fields_list=server.rhnServer.satellite_cert.SatelliteCert-class.html#fields_list"><a title="server.rhnServer.satellite_cert.SatelliteCert.fields_list" class="py-name" href="#" onclick="return doclink('link-28', 'fields_list', 'link-28');">fields_list</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> <tt class="py-string">'channel-families'</tt> <tt class="py-op">:</tt> <tt id="link-29" class="py-name" targets="Class server.importlib.importLib.ChannelFamily=server.importlib.importLib.ChannelFamily-class.html,Class server.rhnChannel.ChannelFamily=server.rhnChannel.ChannelFamily-class.html,Class server.rhnServer.satellite_cert.ChannelFamily=server.rhnServer.satellite_cert.ChannelFamily-class.html"><a title="server.importlib.importLib.ChannelFamily
+server.rhnChannel.ChannelFamily
+server.rhnServer.satellite_cert.ChannelFamily" class="py-name" href="#" onclick="return doclink('link-29', 'ChannelFamily', 'link-29');">ChannelFamily</a></tt> <tt class="py-op">}</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line"> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">    <tt class="py-comment">#datesFormat_cert = '%a %b %d %H:%M:%S %Y' ## OLD CERT FORMAT</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">    <tt id="link-30" class="py-name" targets="Variable server.rhnServer.satellite_cert.SatelliteCert.datesFormat_cert=server.rhnServer.satellite_cert.SatelliteCert-class.html#datesFormat_cert"><a title="server.rhnServer.satellite_cert.SatelliteCert.datesFormat_cert" class="py-name" href="#" onclick="return doclink('link-30', 'datesFormat_cert', 'link-30');">datesFormat_cert</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'%Y-%m-%d %H:%M:%S'</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">    <tt id="link-31" class="py-name" targets="Variable server.rhnServer.satellite_cert.SatelliteCert.datesFormat_db=server.rhnServer.satellite_cert.SatelliteCert-class.html#datesFormat_db"><a title="server.rhnServer.satellite_cert.SatelliteCert.datesFormat_db" class="py-name" href="#" onclick="return doclink('link-31', 'datesFormat_db', 'link-31');">datesFormat_db</a></tt> <tt class="py-op">=</tt>   <tt class="py-string">'%Y-%m-%d %H:%M:%S'</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line"> </tt>
+<a name="SatelliteCert.__init__"></a><div id="SatelliteCert.__init__-def"><a name="L124"></a><tt class="py-lineno">124</tt> <a class="py-toggle" href="#" id="SatelliteCert.__init__-toggle" onclick="return toggle('SatelliteCert.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.SatelliteCert-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SatelliteCert.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SatelliteCert.__init__-expanded"><a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">f</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-32" class="py-name"><a title="server.rhnServer.satellite_cert.SatelliteCert.fields_scalar" class="py-name" href="#" onclick="return doclink('link-32', 'fields_scalar', 'link-27');">fields_scalar</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">            <tt class="py-name">setattr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">f</tt><tt class="py-op">,</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">f</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-33" class="py-name"><a title="server.rhnServer.satellite_cert.SatelliteCert.fields_list" class="py-name" href="#" onclick="return doclink('link-33', 'fields_list', 'link-28');">fields_list</a></tt><tt class="py-op">.</tt><tt id="link-34" class="py-name"><a title="common.rhnConfig.RHNOptions.values" class="py-name" href="#" onclick="return doclink('link-34', 'values', 'link-8');">values</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">            <tt class="py-name">setattr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-35" class="py-name"><a title="server.rhnServer.satellite_cert.ChannelFamily.attribute_name
+server.rhnServer.satellite_cert.Item.attribute_name" class="py-name" href="#" onclick="return doclink('link-35', 'attribute_name', 'link-1');">attribute_name</a></tt><tt class="py-op">,</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">signature</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_slots</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+</div><a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line"> </tt>
+<a name="SatelliteCert.load"></a><div id="SatelliteCert.load-def"><a name="L132"></a><tt class="py-lineno">132</tt> <a class="py-toggle" href="#" id="SatelliteCert.load-toggle" onclick="return toggle('SatelliteCert.load');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.SatelliteCert-class.html#load">load</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">s</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SatelliteCert.load-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SatelliteCert.load-expanded"><a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-36" class="py-name" targets="Method server.rhnServer.satellite_cert.SatelliteCert._load()=server.rhnServer.satellite_cert.SatelliteCert-class.html#_load"><a title="server.rhnServer.satellite_cert.SatelliteCert._load" class="py-name" href="#" onclick="return doclink('link-36', '_load', 'link-36');">_load</a></tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">)</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">SAXParseException</tt><tt class="py-op">:</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-37" class="py-name" targets="Class satellite_tools.xmlSource.ParseException=satellite_tools.xmlSource.ParseException-class.html,Class server.rhnServer.satellite_cert.ParseException=server.rhnServer.satellite_cert.ParseException-class.html"><a title="satellite_tools.xmlSource.ParseException
+server.rhnServer.satellite_cert.ParseException" class="py-name" href="#" onclick="return doclink('link-37', 'ParseException', 'link-37');">ParseException</a></tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">        <tt class="py-comment"># Now represent the slots in a more meaningful way</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_slots</tt><tt class="py-op">.</tt><tt id="link-38" class="py-name" targets="Method common.UserDictCase'.UserDictCase.clear()=common.UserDictCase%27.UserDictCase-class.html#clear,Method proxy.responseContext.ResponseContext.clear()=proxy.responseContext.ResponseContext-class.html#clear,Method rhn.UserDictCase.UserDictCase.clear()=rhn.UserDictCase.UserDictCase-class.html#clear,Method satellite_tools.sync_handlers.ContainerHandler.clear()=satellite_tools.sync_handlers.ContainerHandler-class.html#clear,Method satellite_tools.xmlSource.BaseDispatchHandler.clear()=satellite_tools.xmlSource.BaseDispatchHandler-class.html#clear"><a title="common.UserDictCase'.UserDictCase.clear
+proxy.responseContext.ResponseContext.clear
+rhn.UserDictCase.UserDictCase.clear
+satellite_tools.sync_handlers.ContainerHandler.clear
+satellite_tools.xmlSource.BaseDispatchHandler.clear" class="py-name" href="#" onclick="return doclink('link-38', 'clear', 'link-38');">clear</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">slot_name</tt><tt class="py-op">,</tt> <tt class="py-op">(</tt><tt class="py-name">slot_attr</tt><tt class="py-op">,</tt> <tt class="py-name">factory</tt><tt class="py-op">)</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-39" class="py-name" targets="Variable server.rhnServer.satellite_cert.SatelliteCert._slot_maps=server.rhnServer.satellite_cert.SatelliteCert-class.html#_slot_maps"><a title="server.rhnServer.satellite_cert.SatelliteCert._slot_maps" class="py-name" href="#" onclick="return doclink('link-39', '_slot_maps', 'link-39');">_slot_maps</a></tt><tt class="py-op">.</tt><tt id="link-40" class="py-name"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-40', 'items', 'link-4');">items</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">            <tt class="py-name">quantity</tt> <tt class="py-op">=</tt> <tt class="py-name">getattr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">slot_attr</tt><tt class="py-op">)</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_slots</tt><tt class="py-op">[</tt><tt class="py-name">slot_name</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">factory</tt><tt class="py-op">(</tt><tt class="py-name">quantity</tt><tt class="py-op">)</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">             </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt> </tt>
+</div><a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line"> </tt>
+<a name="SatelliteCert._load"></a><div id="SatelliteCert._load-def"><a name="L145"></a><tt class="py-lineno">145</tt> <a class="py-toggle" href="#" id="SatelliteCert._load-toggle" onclick="return toggle('SatelliteCert._load');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.SatelliteCert-class.html#_load">_load</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">s</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SatelliteCert._load-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SatelliteCert._load-expanded"><a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">        <tt class="py-name">dom_element</tt> <tt class="py-op">=</tt> <tt class="py-name">parseString</tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">)</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">        <tt class="py-name">certs</tt> <tt class="py-op">=</tt> <tt class="py-name">dom_element</tt><tt class="py-op">.</tt><tt class="py-name">getElementsByTagName</tt><tt class="py-op">(</tt><tt class="py-string">"rhn-cert"</tt><tt class="py-op">)</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">certs</tt><tt class="py-op">:</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_root</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_root</tt> <tt class="py-op">=</tt> <tt class="py-name">certs</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">child</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_root</tt><tt class="py-op">.</tt><tt class="py-name">childNodes</tt><tt class="py-op">:</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">child</tt><tt class="py-op">.</tt><tt class="py-name">nodeType</tt> <tt class="py-op">!=</tt> <tt class="py-name">child</tt><tt class="py-op">.</tt><tt class="py-name">ELEMENT_NODE</tt><tt class="py-op">:</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">                <tt class="py-comment"># Probably white space</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">                <tt class="py-keyword">continue</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">child</tt><tt class="py-op">.</tt><tt class="py-name">nodeName</tt> <tt class="py-op">==</tt> <tt class="py-string">'rhn-cert-field'</tt><tt class="py-op">:</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">                <tt class="py-name">field_name</tt> <tt class="py-op">=</tt> <tt class="py-name">child</tt><tt class="py-op">.</tt><tt id="link-41" class="py-name"><a title="server.importlib.backendLib.Table.getAttribute" class="py-name" href="#" onclick="return doclink('link-41', 'getAttribute', 'link-5');">getAttribute</a></tt><tt class="py-op">(</tt><tt class="py-string">"name"</tt><tt class="py-op">)</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">field_name</tt><tt class="py-op">:</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">                    <tt class="py-comment"># XXX Bogus</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">                    <tt class="py-keyword">continue</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">field_name</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-42" class="py-name"><a title="server.rhnServer.satellite_cert.SatelliteCert.fields_scalar" class="py-name" href="#" onclick="return doclink('link-42', 'fields_scalar', 'link-27');">fields_scalar</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">                    <tt class="py-name">val</tt> <tt class="py-op">=</tt> <tt id="link-43" class="py-name" targets="Function server.rhnServer.satellite_cert.get_text()=server.rhnServer.satellite_cert-module.html#get_text"><a title="server.rhnServer.satellite_cert.get_text" class="py-name" href="#" onclick="return doclink('link-43', 'get_text', 'link-43');">get_text</a></tt><tt class="py-op">(</tt><tt class="py-name">child</tt><tt class="py-op">)</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">                    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">val</tt><tt class="py-op">:</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">                        <tt class="py-keyword">continue</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">                    <tt class="py-name">setattr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">field_name</tt><tt class="py-op">,</tt> <tt class="py-name">val</tt><tt class="py-op">)</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">                    <tt class="py-keyword">continue</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-44" class="py-name"><a title="server.rhnServer.satellite_cert.SatelliteCert.fields_list" class="py-name" href="#" onclick="return doclink('link-44', 'fields_list', 'link-28');">fields_list</a></tt><tt class="py-op">.</tt><tt id="link-45" class="py-name" targets="Method common.UserDictCase'.UserDictCase.has_key()=common.UserDictCase%27.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Function server.rhnDatabaseCache.has_key()=server.rhnDatabaseCache-module.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-45', 'has_key', 'link-45');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">field_name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">                    <tt class="py-name">val</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-46" class="py-name"><a title="server.rhnServer.satellite_cert.SatelliteCert.fields_list" class="py-name" href="#" onclick="return doclink('link-46', 'fields_list', 'link-28');">fields_list</a></tt><tt class="py-op">[</tt><tt class="py-name">field_name</tt><tt class="py-op">]</tt><tt class="py-op">(</tt><tt class="py-name">child</tt><tt class="py-op">)</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">                    <tt class="py-name">l</tt> <tt class="py-op">=</tt> <tt class="py-name">getattr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">val</tt><tt class="py-op">.</tt><tt id="link-47" class="py-name"><a title="server.rhnServer.satellite_cert.ChannelFamily.attribute_name
+server.rhnServer.satellite_cert.Item.attribute_name" class="py-name" href="#" onclick="return doclink('link-47', 'attribute_name', 'link-1');">attribute_name</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line">                    <tt class="py-name">l</tt><tt class="py-op">.</tt><tt id="link-48" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-48', 'append', 'link-48');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">val</tt><tt class="py-op">)</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-name">child</tt><tt class="py-op">.</tt><tt class="py-name">nodeName</tt> <tt class="py-op">==</tt> <tt class="py-string">'rhn-cert-signature'</tt><tt class="py-op">:</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">signature</tt> <tt class="py-op">=</tt> <tt id="link-49" class="py-name"><a title="server.rhnServer.satellite_cert.get_text" class="py-name" href="#" onclick="return doclink('link-49', 'get_text', 'link-43');">get_text</a></tt><tt class="py-op">(</tt><tt class="py-name">child</tt><tt class="py-op">)</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">        <tt class="py-comment"># Python's docs say: When you are finished with a DOM, you should</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">        <tt class="py-comment"># clean it up. This is necessary because some versions of Python do</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">        <tt class="py-comment"># not support garbage collection of objects that refer to each other</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">        <tt class="py-comment"># in a cycle. Until this restriction is removed from all versions of</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">        <tt class="py-comment"># Python, it is safest to write your code as if cycles would not be</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">        <tt class="py-comment"># cleaned up.</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">        <tt class="py-name">dom_element</tt><tt class="py-op">.</tt><tt class="py-name">unlink</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line"> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">    <tt id="link-50" class="py-name"><a title="server.rhnServer.satellite_cert.SatelliteCert._slot_maps" class="py-name" href="#" onclick="return doclink('link-50', '_slot_maps', 'link-39');">_slot_maps</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">        <tt class="py-string">'management'</tt>              <tt class="py-op">:</tt> <tt class="py-op">(</tt><tt class="py-string">'slots'</tt><tt class="py-op">,</tt> <tt id="link-51" class="py-name" targets="Class server.rhnServer.satellite_cert.ManagementSlots=server.rhnServer.satellite_cert.ManagementSlots-class.html"><a title="server.rhnServer.satellite_cert.ManagementSlots" class="py-name" href="#" onclick="return doclink('link-51', 'ManagementSlots', 'link-51');">ManagementSlots</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">        <tt class="py-string">'provisioning'</tt>            <tt class="py-op">:</tt> <tt class="py-op">(</tt><tt class="py-string">'provisioning-slots'</tt><tt class="py-op">,</tt> <tt id="link-52" class="py-name" targets="Class server.rhnServer.satellite_cert.ProvisioningSlots=server.rhnServer.satellite_cert.ProvisioningSlots-class.html"><a title="server.rhnServer.satellite_cert.ProvisioningSlots" class="py-name" href="#" onclick="return doclink('link-52', 'ProvisioningSlots', 'link-52');">ProvisioningSlots</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">        <tt class="py-string">'monitoring'</tt>              <tt class="py-op">:</tt> <tt class="py-op">(</tt><tt class="py-string">'monitoring-slots'</tt><tt class="py-op">,</tt> <tt id="link-53" class="py-name" targets="Class server.rhnServer.satellite_cert.MonitoringSlots=server.rhnServer.satellite_cert.MonitoringSlots-class.html"><a title="server.rhnServer.satellite_cert.MonitoringSlots" class="py-name" href="#" onclick="return doclink('link-53', 'MonitoringSlots', 'link-53');">MonitoringSlots</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line">        <tt class="py-string">'virtualization'</tt>          <tt class="py-op">:</tt> <tt class="py-op">(</tt><tt class="py-string">'virtualization_host'</tt><tt class="py-op">,</tt> <tt id="link-54" class="py-name" targets="Class server.rhnServer.satellite_cert.VirtualizationSlots=server.rhnServer.satellite_cert.VirtualizationSlots-class.html"><a title="server.rhnServer.satellite_cert.VirtualizationSlots" class="py-name" href="#" onclick="return doclink('link-54', 'VirtualizationSlots', 'link-54');">VirtualizationSlots</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">        <tt class="py-string">'virtualization_platform'</tt> <tt class="py-op">:</tt> <tt class="py-op">(</tt><tt class="py-string">'virtualization_host_platform'</tt><tt class="py-op">,</tt> <tt id="link-55" class="py-name" targets="Class server.rhnServer.satellite_cert.VirtualizationPlatformSlots=server.rhnServer.satellite_cert.VirtualizationPlatformSlots-class.html"><a title="server.rhnServer.satellite_cert.VirtualizationPlatformSlots" class="py-name" href="#" onclick="return doclink('link-55', 'VirtualizationPlatformSlots', 'link-55');">VirtualizationPlatformSlots</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">    <tt class="py-op">}</tt> </tt>
+<a name="SatelliteCert.get_slots"></a><div id="SatelliteCert.get_slots-def"><a name="L188"></a><tt class="py-lineno">188</tt> <a class="py-toggle" href="#" id="SatelliteCert.get_slots-toggle" onclick="return toggle('SatelliteCert.get_slots');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.SatelliteCert-class.html#get_slots">get_slots</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">slot_type</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SatelliteCert.get_slots-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SatelliteCert.get_slots-expanded"><a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_slots</tt><tt class="py-op">.</tt><tt id="link-56" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-56', 'has_key', 'link-45');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">slot_type</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">AttributeError</tt><tt class="py-op">(</tt><tt class="py-name">slot_type</tt><tt class="py-op">)</tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_slots</tt><tt class="py-op">[</tt><tt class="py-name">slot_type</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line"> </tt>
+<a name="SatelliteCert.get_slot_types"></a><div id="SatelliteCert.get_slot_types-def"><a name="L193"></a><tt class="py-lineno">193</tt> <a class="py-toggle" href="#" id="SatelliteCert.get_slot_types-toggle" onclick="return toggle('SatelliteCert.get_slot_types');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.SatelliteCert-class.html#get_slot_types">get_slot_types</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SatelliteCert.get_slot_types-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SatelliteCert.get_slot_types-expanded"><a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-57" class="py-name"><a title="server.rhnServer.satellite_cert.SatelliteCert._slot_maps" class="py-name" href="#" onclick="return doclink('link-57', '_slot_maps', 'link-39');">_slot_maps</a></tt><tt class="py-op">.</tt><tt id="link-58" class="py-name" targets="Method common.UserDictCase'.UserDictCase.keys()=common.UserDictCase%27.UserDictCase-class.html#keys,Method common.rhnConfig.RHNOptions.keys()=common.rhnConfig.RHNOptions-class.html#keys,Method rhn.UserDictCase.UserDictCase.keys()=rhn.UserDictCase.UserDictCase-class.html#keys,Method server.rhnSQL.sql_table.Table.keys()=server.rhnSQL.sql_table.Table-class.html#keys"><a title="common.UserDictCase'.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+rhn.UserDictCase.UserDictCase.keys
+server.rhnSQL.sql_table.Table.keys" class="py-name" href="#" onclick="return doclink('link-58', 'keys', 'link-58');">keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line"> </tt>
+<a name="SatelliteCert.lookup_slot_by_db_label"></a><div id="SatelliteCert.lookup_slot_by_db_label-def"><a name="L196"></a><tt class="py-lineno">196</tt> <a class="py-toggle" href="#" id="SatelliteCert.lookup_slot_by_db_label-toggle" onclick="return toggle('SatelliteCert.lookup_slot_by_db_label');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert.SatelliteCert-class.html#lookup_slot_by_db_label">lookup_slot_by_db_label</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">db_label</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SatelliteCert.lookup_slot_by_db_label-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SatelliteCert.lookup_slot_by_db_label-expanded"><a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line">        <tt class="py-comment"># Given a string like 'sw_mgr_entitled', returns a string 'management'</tt> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">label</tt><tt class="py-op">,</tt> <tt class="py-op">(</tt><tt class="py-name">slot_name</tt><tt class="py-op">,</tt> <tt class="py-name">slot_class</tt><tt class="py-op">)</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-59" class="py-name"><a title="server.rhnServer.satellite_cert.SatelliteCert._slot_maps" class="py-name" href="#" onclick="return doclink('link-59', '_slot_maps', 'link-39');">_slot_maps</a></tt><tt class="py-op">.</tt><tt id="link-60" class="py-name"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-60', 'items', 'link-4');">items</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">slot_class</tt><tt class="py-op">.</tt><tt id="link-61" class="py-name"><a title="server.rhnServer.satellite_cert.ManagementSlots._db_label
+server.rhnServer.satellite_cert.MonitoringSlots._db_label
+server.rhnServer.satellite_cert.ProvisioningSlots._db_label
+server.rhnServer.satellite_cert.Slots._db_label
+server.rhnServer.satellite_cert.UpdateSlots._db_label
+server.rhnServer.satellite_cert.VirtualizationPlatformSlots._db_label
+server.rhnServer.satellite_cert.VirtualizationSlots._db_label" class="py-name" href="#" onclick="return doclink('link-61', '_db_label', 'link-12');">_db_label</a></tt> <tt class="py-op">==</tt> <tt class="py-name">db_label</tt><tt class="py-op">:</tt> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">label</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+</div></div><a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line"> </tt>
+<a name="get_text"></a><div id="get_text-def"><a name="L203"></a><tt class="py-lineno">203</tt> <a class="py-toggle" href="#" id="get_text-toggle" onclick="return toggle('get_text');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServer.satellite_cert-module.html#get_text">get_text</a><tt class="py-op">(</tt><tt class="py-param">node</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="get_text-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="get_text-expanded"><a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line">        <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">x</tt><tt class="py-op">:</tt> <tt class="py-name">x</tt><tt class="py-op">.</tt><tt id="link-62" class="py-name" targets="Method satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data()=satellite_exporter.handlers.non_auth_dumper.ContainerWriter-class.html#data,Method satellite_tools.exporter.xmlWriter.XMLWriter.data()=satellite_tools.exporter.xmlWriter.XMLWriter-class.html#data"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-62', 'data', 'link-62');">data</a></tt><tt class="py-op">,</tt>  </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line">            <tt class="py-name">filter</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">x</tt><tt class="py-op">:</tt> <tt class="py-name">x</tt><tt class="py-op">.</tt><tt class="py-name">nodeType</tt> <tt class="py-op">==</tt> <tt class="py-name">x</tt><tt class="py-op">.</tt><tt class="py-name">TEXT_NODE</tt><tt class="py-op">,</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt class="py-name">childNodes</tt><tt class="py-op">)</tt> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">        <tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-string">""</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line"> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">'__main__'</tt><tt class="py-op">:</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line">    <tt class="py-name">c</tt> <tt class="py-op">=</tt> <tt id="link-63" class="py-name" targets="Class server.rhnServer.satellite_cert.SatelliteCert=server.rhnServer.satellite_cert.SatelliteCert-class.html"><a title="server.rhnServer.satellite_cert.SatelliteCert" class="py-name" href="#" onclick="return doclink('link-63', 'SatelliteCert', 'link-63');">SatelliteCert</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line">    <tt class="py-name">c</tt><tt class="py-op">.</tt><tt id="link-64" class="py-name" targets="Method satellite_tools.xmlDiskSource.DiskSource.load()=satellite_tools.xmlDiskSource.DiskSource-class.html#load,Method server.handlers.app.rhn_mpm.MPM_Package.load()=server.handlers.app.rhn_mpm.MPM_Package-class.html#load,Function server.handlers.app.rhn_mpm.load()=server.handlers.app.rhn_mpm-module.html#load,Method server.rhnActivationKey.ActivationKey.load()=server.rhnActivationKey.ActivationKey-class.html#load,Method server.rhnImport.Loader.load()=server.rhnImport.Loader-class.html#load,Function server.rhnImport.load()=server.rhnImport-module.html#load,Method server.rhnSQL.sql_row.Row.load()=server.rhnSQL.sql_row.Row-class.html#load,Method server.rhnServer.satellite_cert.SatelliteCert.load()=server.rhnServer.satellite_cert.SatelliteCert-class.html#load,Method server.rhnServerGroup.ServerGroup.load()=server.rhnServerGroup.ServerGroup-class.html#load,Method server.rhnSession.Session.load()=server.rhnSession.Session-class.html#load,Function server.rhnSession.load()=server.rhnSession-module.html#load,Method spacewalk.common.rhn_mpm.MPM_Package.load()=spacewalk.common.rhn_mpm.MPM_Package-class.html#load,Function spacewalk.common.rhn_mpm.load()=spacewalk.common.rhn_mpm-module.html#load"><a title="satellite_tools.xmlDiskSource.DiskSource.load
+server.handlers.app.rhn_mpm.MPM_Package.load
+server.handlers.app.rhn_mpm.load
+server.rhnActivationKey.ActivationKey.load
+server.rhnImport.Loader.load
+server.rhnImport.load
+server.rhnSQL.sql_row.Row.load
+server.rhnServer.satellite_cert.SatelliteCert.load
+server.rhnServerGroup.ServerGroup.load
+server.rhnSession.Session.load
+server.rhnSession.load
+spacewalk.common.rhn_mpm.MPM_Package.load
+spacewalk.common.rhn_mpm.load" class="py-name" href="#" onclick="return doclink('link-64', 'load', 'link-64');">load</a></tt><tt class="py-op">(</tt><tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-string">"cert"</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-65" class="py-name" targets="Method rhn.SSL.SSLSocket.read()=rhn.SSL.SSLSocket-class.html#read,Method rhn.connections.HTTPResponse.read()=rhn.connections.HTTPResponse-class.html#read,Method rhn.nonblocking.NonBlockingFile.read()=rhn.nonblocking.NonBlockingFile-class.html#read,Method rhn.transports.File.read()=rhn.transports.File-class.html#read,Method rhn.transports.Input.read()=rhn.transports.Input-class.html#read,Method server.wsgi.wsgiRequest.WsgiRequest.read()=server.wsgi.wsgiRequest.WsgiRequest-class.html#read"><a title="rhn.SSL.SSLSocket.read
+rhn.connections.HTTPResponse.read
+rhn.nonblocking.NonBlockingFile.read
+rhn.transports.File.read
+rhn.transports.Input.read
+server.wsgi.wsgiRequest.WsgiRequest.read" class="py-name" href="#" onclick="return doclink('link-65', 'read', 'link-65');">read</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt> <tt class="py-name">c</tt><tt class="py-op">.</tt><tt class="py-name">issued</tt> </tt>
+<a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:19 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

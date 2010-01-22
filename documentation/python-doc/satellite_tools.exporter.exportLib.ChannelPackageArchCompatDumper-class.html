@@ -35,7 +35,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="satellite_tools-module.html">Package&nbsp;satellite_tools</a> ::
-        <a href="satellite_tools.exporter-module.html">Package&nbsp;exporter</a> ::
+        <a href="satellite_tools.exporter-module.html" onclick="show_private();">Package&nbsp;exporter</a> ::
         <a href="satellite_tools.exporter.exportLib-module.html">Module&nbsp;exportLib</a> ::
         Class&nbsp;ChannelPackageArchCompatDumper
       </span>
@@ -56,7 +56,25 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class ChannelPackageArchCompatDumper</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.exporter.exportLib-pysrc.html#ChannelPackageArchCompatDumper">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_satellit_61" name="uml_class_diagram_for_satellit_61">
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseArchesDumper-class.html#table_name" title="satellite_tools.exporter.exportLib.BaseArchesDumper.table_name" alt="" coords="188,177,311,196"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseArchesDumper-class.html#subelement_tag" title="satellite_tools.exporter.exportLib.BaseArchesDumper.subelement_tag" alt="" coords="188,196,311,215"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseArchesDumper-class.html" title="satellite_tools.exporter.exportLib.BaseArchesDumper" alt="" coords="187,160,312,224"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper-class.html#__init__" title="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper.__init__" alt="" coords="17,279,481,297"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper-class.html#set_iterator" title="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper.set_iterator" alt="" coords="17,297,481,316"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper-class.html#dump_subelement" title="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper.dump_subelement" alt="" coords="17,316,481,335"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper-class.html" title="satellite_tools.exporter.exportLib.RestrictedArchCompatDumper" alt="" coords="16,253,483,336"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.ChannelPackageArchCompatDumper-class.html#tag_name" title="satellite_tools.exporter.exportLib.ChannelPackageArchCompatDumper.tag_name" alt="" coords="135,383,364,401"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.ChannelPackageArchCompatDumper-class.html" title="satellite_tools.exporter.exportLib.ChannelPackageArchCompatDumper" alt="" coords="133,365,365,411"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#timer" title="satellite_tools.exporter.exportLib.BaseDumper.timer" alt="" coords="67,36,432,55"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_attributes" title="satellite_tools.exporter.exportLib.BaseDumper.set_attributes" alt="" coords="67,55,432,73"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#dump" title="satellite_tools.exporter.exportLib.BaseDumper.dump" alt="" coords="67,73,432,92"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#get_writer" title="satellite_tools.exporter.exportLib.BaseDumper.get_writer" alt="" coords="67,92,432,111"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_writer" title="satellite_tools.exporter.exportLib.BaseDumper.set_writer" alt="" coords="67,111,432,129"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html" title="satellite_tools.exporter.exportLib.BaseDumper" alt="" coords="65,11,433,131"/>
+</map>
+  <img src="uml_class_diagram_for_satellit_61.png" alt='' usemap="#uml_class_diagram_for_satellit_61" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -114,21 +132,21 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="tag_name"></a><span class="summary-name">tag_name</span> = <code title="'rhn-channel-package-arch-compatibility-map'">'rhn-channel-package-arch-compatibility-map'</code>
+        <a name="tag_name"></a><span class="summary-name">tag_name</span> = <code title="'rhn-channel-package-arch-compatibility-map'"><code class="variable-quote">'</code><code class="variable-string">rhn-channel-package-arch-compatibility-map</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="_subelement_tag"></a><span class="summary-name">_subelement_tag</span> = <code title="'rhn-channel-package-arch-compat'">'rhn-channel-package-arch-compat'</code>
+        <a name="_subelement_tag"></a><span class="summary-name">_subelement_tag</span> = <code title="'rhn-channel-package-arch-compat'"><code class="variable-quote">'</code><code class="variable-string">rhn-channel-package-arch-compat</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.exporter.exportLib.ChannelPackageArchCompatDumper-class.html#_query_rpm_arch_type_only" class="summary-name" onclick="show_private();">_query_rpm_arch_type_only</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.exporter.exportLib.ChannelPackageArchCompatDumper-class.html#_query_rpm_arch_type_only" class="summary-name" onclick="show_private();">_query_rpm_arch_type_only</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147161804; statement=
         select ca.label &quot;channel-arch&quot;,
                pa.label &quot;package-arch&quot;
           from rhnChannelPackageArchCompat cpac, 
@@ -136,14 +154,14 @@
                rhnPackageArch pa,
                rhnArchType aac,
                rhnArchType aap
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;server.rhnSQL.sql_base.Statement <code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.exporter.exportLib.ChannelPackageArchCompatDumper-class.html#_query_arch_type_all" class="summary-name" onclick="show_private();">_query_arch_type_all</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.exporter.exportLib.ChannelPackageArchCompatDumper-class.html#_query_arch_type_all" class="summary-name" onclick="show_private();">_query_arch_type_all</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147161836; statement=
         select ca.label &quot;channel-arch&quot;,
                pa.label &quot;package-arch&quot;
           from rhnChannelPackageArchCompat cpac, 
@@ -151,7 +169,7 @@
                rhnPackageArch pa
          where cpac.channel_arch_id = ca.id
            and cpac.package_arch_id = pa.id
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;server.rhnSQL.sql_base.Statement insta<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
   <tr>
@@ -193,7 +211,7 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 147161804; statement=
         select ca.label &quot;channel-arch&quot;,
                pa.label &quot;package-arch&quot;
           from rhnChannelPackageArchCompat cpac, 
@@ -219,7 +237,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 147161836; statement=
         select ca.label &quot;channel-arch&quot;,
                pa.label &quot;package-arch&quot;
           from rhnChannelPackageArchCompat cpac, 
@@ -257,7 +275,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:10 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:29 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

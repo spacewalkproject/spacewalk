@@ -74,13 +74,6 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnPackageUpload.BasePackageUpload-class.html" class="summary-name">BasePackageUpload</a>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
         <a href="server.rhnPackageUpload.AlreadyUploadedError-class.html" class="summary-name">AlreadyUploadedError</a>
     </td>
   </tr>
@@ -153,7 +146,7 @@
         <tr>
           <td><span class="summary-sig"><a name="authenticate"></a><span class="summary-sig-name">authenticate</span>(<span class="summary-sig-arg">username</span>,
         <span class="summary-sig-arg">password</span>,
-        <span class="summary-sig-arg">channels</span>=<span class="summary-sig-default">[]</span>,
+        <span class="summary-sig-arg">channels</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">null_org</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
@@ -172,7 +165,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="authenticate_session"></a><span class="summary-sig-name">authenticate_session</span>(<span class="summary-sig-arg">session_string</span>,
-        <span class="summary-sig-arg">channels</span>=<span class="summary-sig-default">[]</span>,
+        <span class="summary-sig-arg">channels</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">null_org</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
@@ -211,7 +204,8 @@
         <tr>
           <td><span class="summary-sig"><a name="relative_path_from_header"></a><span class="summary-sig-name">relative_path_from_header</span>(<span class="summary-sig-arg">header</span>,
         <span class="summary-sig-arg">org_id</span>,
-        <span class="summary-sig-arg">md5sum</span>)</span></td>
+        <span class="summary-sig-arg">checksum_type</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">checksum</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnPackageUpload-pysrc.html#relative_path_from_header">source&nbsp;code</a></span>
             
@@ -230,7 +224,8 @@
           <td><span class="summary-sig"><a name="relative_path_from_nevra"></a><span class="summary-sig-name">relative_path_from_nevra</span>(<span class="summary-sig-arg">nevra</span>,
         <span class="summary-sig-arg">org_id</span>,
         <span class="summary-sig-arg">package_type</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">md5sum</span>=<span class="summary-sig-default">None</span>)</span></td>
+        <span class="summary-sig-arg">checksum_type</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">checksum</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnPackageUpload-pysrc.html#relative_path_from_nevra">source&nbsp;code</a></span>
             
@@ -248,7 +243,8 @@
         <tr>
           <td><span class="summary-sig"><a name="relative_path_from_nevra_without_package_name"></a><span class="summary-sig-name">relative_path_from_nevra_without_package_name</span>(<span class="summary-sig-arg">nevra</span>,
         <span class="summary-sig-arg">org_id</span>,
-        <span class="summary-sig-arg">md5sum</span>=<span class="summary-sig-default">None</span>)</span></td>
+        <span class="summary-sig-arg">checksum_type</span>,
+        <span class="summary-sig-arg">checksum</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnPackageUpload-pysrc.html#relative_path_from_nevra_without_package_name">source&nbsp;code</a></span>
             
@@ -266,12 +262,13 @@
         <tr>
           <td><span class="summary-sig"><a name="push_package"></a><span class="summary-sig-name">push_package</span>(<span class="summary-sig-arg">header</span>,
         <span class="summary-sig-arg">payload_stream</span>,
-        <span class="summary-sig-arg">md5sum</span>,
+        <span class="summary-sig-arg">checksum_type</span>,
+        <span class="summary-sig-arg">checksum</span>,
         <span class="summary-sig-arg">org_id</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">header_start</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">header_end</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">channels</span>=<span class="summary-sig-default">[]</span>,
+        <span class="summary-sig-arg">channels</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">relative_path</span>=<span class="summary-sig-default">None</span>)</span><br />
       Uploads an RPM package</td>
           <td align="right" valign="top">
@@ -340,7 +337,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="check_package_exists"></a><span class="summary-sig-name">check_package_exists</span>(<span class="summary-sig-arg">package_path</span>,
-        <span class="summary-sig-arg">package_md5sum</span>,
+        <span class="summary-sig-arg">package_checksum_type</span>,
+        <span class="summary-sig-arg">package_checksum</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnPackageUpload-pysrc.html#check_package_exists">source&nbsp;code</a></span>
@@ -349,6 +347,31 @@
         </tr>
       </table>
       
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'server'"><code class="variable-quote">'</code><code class="variable-string">server</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -415,7 +438,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:06 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:15 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

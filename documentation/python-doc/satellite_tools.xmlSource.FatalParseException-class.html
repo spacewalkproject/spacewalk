@@ -55,11 +55,123 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class FatalParseException</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.xmlSource-pysrc.html#FatalParseException">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_satellit_213" name="uml_class_diagram_for_satellit_213">
+<area shape="rect" href="javascript:void(0);" title="exceptions.Exception.__new__" alt="" coords="77,273,208,292"/>
+<area shape="rect" href="javascript:void(0);" title="Common base class for all non&#45;exit exceptions." alt="" coords="76,248,209,293"/>
+<area shape="rect" href="javascript:void(0);" title="Avoids weird error messages if someone does exception[ix] by mistake, since Exception has __getitem__ defined." alt="" coords="35,348,251,367"/>
+<area shape="rect" href="javascript:void(0);" title="Return the embedded exception, or None if there was none." alt="" coords="35,367,251,385"/>
+<area shape="rect" href="javascript:void(0);" title="Return a message for this exception." alt="" coords="35,385,251,404"/>
+<area shape="rect" href="javascript:void(0);" title="Encapsulate an XML error or warning." alt="" coords="33,323,252,405"/>
+<area shape="rect" href="javascript:void(0);" title="Creates the exception." alt="" coords="17,460,268,479"/>
+<area shape="rect" href="javascript:void(0);" title="Create a string representation of the exception." alt="" coords="17,479,268,497"/>
+<area shape="rect" href="javascript:void(0);" title="The column number of the end of the text where the exception occurred." alt="" coords="17,497,268,516"/>
+<area shape="rect" href="javascript:void(0);" title="The line number of the end of the text where the exception occurred." alt="" coords="17,516,268,535"/>
+<area shape="rect" href="javascript:void(0);" title="Get the public identifier of the entity where the exception occurred." alt="" coords="17,535,268,553"/>
+<area shape="rect" href="javascript:void(0);" title="Get the system identifier of the entity where the exception occurred." alt="" coords="17,553,268,572"/>
+<area shape="rect" href="javascript:void(0);" title="Encapsulate an XML parse error or warning." alt="" coords="16,435,269,573"/>
+<area shape="rect" href="satellite_tools.xmlSource.FatalParseException-class.html" title="exception wrapper for a critical PyXML parser error." alt="" coords="77,603,208,635"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.BaseException.args" alt="" coords="61,28,224,47"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.BaseException.message" alt="" coords="61,47,224,65"/>
+<area shape="rect" href="javascript:void(0);" title="x.__delattr__(&#39;name&#39;) &lt;==&gt; del x.name" alt="" coords="61,68,224,87"/>
+<area shape="rect" href="javascript:void(0);" title="x.__getattribute__(&#39;name&#39;) &lt;==&gt; x.name" alt="" coords="61,87,224,105"/>
+<area shape="rect" href="javascript:void(0);" title="x[i:j]" alt="" coords="61,105,224,124"/>
+<area shape="rect" href="javascript:void(0);" title="helper for pickle" alt="" coords="61,124,224,143"/>
+<area shape="rect" href="javascript:void(0);" title="repr(x)" alt="" coords="61,143,224,161"/>
+<area shape="rect" href="javascript:void(0);" title="x.__setattr__(&#39;name&#39;, value) &lt;==&gt; x.name = value" alt="" coords="61,161,224,180"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.BaseException.__setstate__" alt="" coords="61,180,224,199"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.BaseException.__unicode__" alt="" coords="61,199,224,217"/>
+<area shape="rect" href="javascript:void(0);" title="Common base class for all exceptions" alt="" coords="60,11,225,219"/>
+</map>
+  <img src="uml_class_diagram_for_satellit_213.png" alt='' usemap="#uml_class_diagram_for_satellit_213" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <p>exception wrapper for a critical PyXML parser error.</p>
 
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>xml.sax._exceptions.SAXParseException</code></b>:
+      <code>__init__</code>,
+      <code>__str__</code>,
+      <code>getColumnNumber</code>,
+      <code>getLineNumber</code>,
+      <code>getPublicId</code>,
+      <code>getSystemId</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>xml.sax._exceptions.SAXException</code></b>:
+      <code>__getitem__</code>,
+      <code>getException</code>,
+      <code>getMessage</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.Exception</code></b>:
+      <code>__new__</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.BaseException</code></b>:
+      <code>__delattr__</code>,
+      <code>__getattribute__</code>,
+      <code>__getslice__</code>,
+      <code>__reduce__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__setstate__</code>,
+      <code>__unicode__</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__format__</code>,
+      <code>__hash__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__sizeof__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>exceptions.BaseException</code></b>:
+      <code>args</code>,
+      <code>message</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -83,7 +195,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:13 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:40 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

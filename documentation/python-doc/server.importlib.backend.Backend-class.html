@@ -36,7 +36,7 @@
       <span class="breadcrumbs">
         <a href="server-module.html">Package&nbsp;server</a> ::
         <a href="server.importlib-module.html">Package&nbsp;importlib</a> ::
-        <a href="server.importlib.backend-module.html">Module&nbsp;backend</a> ::
+        <a href="server.importlib.backend-module.html" onclick="show_private();">Module&nbsp;backend</a> ::
         Class&nbsp;Backend
       </span>
     </td>
@@ -55,6 +55,31 @@
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Backend</h1><p class="nomargin-top"><span class="codelink"><a href="server.importlib.backend-pysrc.html#Backend">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_server_i_12" name="uml_class_diagram_for_server_i_12">
+<area shape="rect" href="server.importlib.backendOracle.OracleBackend-class.html" title="server.importlib.backendOracle.OracleBackend" alt="" coords="55,360,260,387"/>
+<area shape="rect" href="server.importlib.backendOracle.PostgresqlBackend-class.html" title="PostgresqlBackend specific implementation." alt="" coords="41,416,273,443"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#tables" title="server.importlib.backend.Backend.tables" alt="" coords="17,28,297,47"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#__init__" title="server.importlib.backend.Backend.__init__" alt="" coords="17,49,297,68"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#init" title="server.importlib.backend.Backend.init" alt="" coords="17,68,297,87"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#setDateFormat" title="server.importlib.backend.Backend.setDateFormat" alt="" coords="17,87,297,105"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#processCapabilities" title="server.importlib.backend.Backend.processCapabilities" alt="" coords="17,105,297,124"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#processCVEs" title="server.importlib.backend.Backend.processCVEs" alt="" coords="17,124,297,143"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupErrataFileTypes" title="server.importlib.backend.Backend.lookupErrataFileTypes" alt="" coords="17,143,297,161"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupChannelArches" title="server.importlib.backend.Backend.lookupChannelArches" alt="" coords="17,161,297,180"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupPackageArches" title="server.importlib.backend.Backend.lookupPackageArches" alt="" coords="17,180,297,199"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupServerArches" title="server.importlib.backend.Backend.lookupServerArches" alt="" coords="17,199,297,217"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupArchTypes" title="server.importlib.backend.Backend.lookupArchTypes" alt="" coords="17,217,297,236"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupOrg" title="server.importlib.backend.Backend.lookupOrg" alt="" coords="17,236,297,255"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#lookupChannels" title="server.importlib.backend.Backend.lookupChannels" alt="" coords="17,255,297,273"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#updateChannelFamilyInfo" title="server.importlib.backend.Backend.updateChannelFamilyInfo" alt="" coords="17,273,297,292"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html#validate_pks" title="server.importlib.backend.Backend.validate_pks" alt="" coords="17,311,297,329"/>
+<area shape="rect" href="server.importlib.backend.Backend-class.html" title="server.importlib.backend.Backend" alt="" coords="16,11,299,331"/>
+</map>
+  <img src="uml_class_diagram_for_server_i_12.png" alt='' usemap="#uml_class_diagram_for_server_i_12" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -403,25 +428,6 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="server.importlib.backend.Backend-class.html#ovalFileMD5sumCheck" class="summary-sig-name">ovalFileMD5sumCheck</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">erratum</span>)</span><br />
-      When oval file is dumped on to RHN filesystem check if file exists 
-      and verifies their md5sum</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.importlib.backend-pysrc.html#Backend.ovalFileMD5sumCheck">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
           <td><span class="summary-sig"><a name="processBugzillaPaths"></a><span class="summary-sig-name">processBugzillaPaths</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">hash</span>)</span></td>
           <td align="right" valign="top">
@@ -460,6 +466,40 @@
         <span class="summary-sig-arg">evrHash</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.importlib.backend-pysrc.html#Backend.lookupEVRs">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="lookupChecksums"></a><span class="summary-sig-name">lookupChecksums</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">checksumHash</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.importlib.backend-pysrc.html#Backend.lookupChecksums">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="lookupChecksumTypes"></a><span class="summary-sig-name">lookupChecksumTypes</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">checksumTypeHash</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.importlib.backend-pysrc.html#Backend.lookupChecksumTypes">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -1116,6 +1156,24 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a href="server.importlib.backend.Backend-class.html#lookupChannelOrg" class="summary-sig-name">lookupChannelOrg</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">label</span>)</span><br />
+      For given label of channel return its org_id.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.importlib.backend-pysrc.html#Backend.lookupChannelOrg">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a name="lookupChannelProduct"></a><span class="summary-sig-name">lookupChannelProduct</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">channel</span>)</span></td>
           <td align="right" valign="top">
@@ -1278,7 +1336,7 @@
           <td><span class="summary-sig"><a name="__processObjectCollection"></a><span class="summary-sig-name">__processObjectCollection</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">objColl</span>,
         <span class="summary-sig-arg">parentTable</span>,
-        <span class="summary-sig-arg">childTables</span>=<span class="summary-sig-default">[]</span>,
+        <span class="summary-sig-arg">childTables</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">colname</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">**kwargs</span>)</span></td>
           <td align="right" valign="top">
@@ -1299,7 +1357,7 @@
           <td><span class="summary-sig"><a name="__processObjectCollection__"></a><span class="summary-sig-name">__processObjectCollection__</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">objColl</span>,
         <span class="summary-sig-arg">parentTable</span>,
-        <span class="summary-sig-arg">childTables</span>=<span class="summary-sig-default">{}</span>,
+        <span class="summary-sig-arg">childTables</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
         <span class="summary-sig-arg">**kwargs</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.importlib.backend-pysrc.html#Backend.__processObjectCollection__">source&nbsp;code</a></span>
@@ -1549,6 +1607,22 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="validate_pks"></a><span class="summary-sig-name">validate_pks</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.importlib.backend-pysrc.html#Backend.validate_pks">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== CLASS VARIABLES ==================== -->
 <a name="section-ClassVariables"></a>
@@ -1571,7 +1645,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="tables"></a><span class="summary-name">tables</span> = <code title="TableCollection()">TableCollection()</code>
+        <a name="tables"></a><span class="summary-name">tables</span> = <code title="{}">{}</code>
     </td>
   </tr>
 </table>
@@ -1593,29 +1667,6 @@
   </td>
 </tr>
 </table>
-<a name="ovalFileMD5sumCheck"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">ovalFileMD5sumCheck</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">erratum</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="server.importlib.backend-pysrc.html#Backend.ovalFileMD5sumCheck">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>When oval file is dumped on to RHN filesystem check if file exists and
-  verifies their md5sum</p>
-  <p>XXX:: as we create these files on RHN itself this call is not used. 
-  But leaving it here in case we decide to change it.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
 <a name="processProductNames"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -1658,6 +1709,27 @@
   </dl>
 </td></tr></table>
 </div>
+<a name="lookupChannelOrg"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">lookupChannelOrg</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">label</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.importlib.backend-pysrc.html#Backend.lookupChannelOrg">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>For given label of channel return its org_id. If channel with given 
+  label does not exist or is NULL, return None.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
 <br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
@@ -1682,7 +1754,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:15 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:49 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

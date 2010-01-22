@@ -458,99 +458,99 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnActivationKey.ActivationKey-class.html#_query_fetch_server_groups" class="summary-name" onclick="show_private();">_query_fetch_server_groups</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.rhnActivationKey.ActivationKey-class.html#_query_fetch_server_groups" class="summary-name" onclick="show_private();">_query_fetch_server_groups</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 150500780; statement=
         select rtsg.server_group_id
           from rhnRegTokenGroups rtsg
          where rtsg.token_id = :token_id
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnActivationKey.ActivationKey-class.html#_query_fetch_channels" class="summary-name" onclick="show_private();">_query_fetch_channels</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.rhnActivationKey.ActivationKey-class.html#_query_fetch_channels" class="summary-name" onclick="show_private();">_query_fetch_channels</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 150500812; statement=
         select rtc.channel_id, c.label
           from rhnRegTokenChannels rtc, rhnChannel c
          where rtc.token_id = :token_id
            and rtc.channel_id = c.id
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement inst<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnActivationKey.ActivationKey-class.html#_query_get_reg_token_entitlements" class="summary-name" onclick="show_private();">_query_get_reg_token_entitlements</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.rhnActivationKey.ActivationKey-class.html#_query_get_reg_token_entitlements" class="summary-name" onclick="show_private();">_query_get_reg_token_entitlements</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 150500844; statement=
         select sgt.label
           from rhnServerGroupType sgt,
                rhnRegTokenEntitlement rte
          where rte.reg_token_id = :reg_token_id
            and rte.server_group_type_id = sgt.id
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.St<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnActivationKey.ActivationKey-class.html#_query_delete_reg_token_entitlements" class="summary-name" onclick="show_private();">_query_delete_reg_token_entitlements</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.rhnActivationKey.ActivationKey-class.html#_query_delete_reg_token_entitlements" class="summary-name" onclick="show_private();">_query_delete_reg_token_entitlements</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 150500876; statement=
         delete from rhnRegTokenEntitlement
          where reg_token_id = :reg_token_id
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnActivationKey.ActivationKey-class.html#_query_insert_reg_token_entitlements" class="summary-name" onclick="show_private();">_query_insert_reg_token_entitlements</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.rhnActivationKey.ActivationKey-class.html#_query_insert_reg_token_entitlements" class="summary-name" onclick="show_private();">_query_insert_reg_token_entitlements</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 150500908; statement=
         insert into rhnRegTokenEntitlement
                (reg_token_id, server_group_type_id)
         values (:reg_token_id, :server_group_type_id)
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnActivationKey.ActivationKey-class.html#_query_delete_groups" class="summary-name" onclick="show_private();">_query_delete_groups</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.rhnActivationKey.ActivationKey-class.html#_query_delete_groups" class="summary-name" onclick="show_private();">_query_delete_groups</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 150500940; statement=
         delete from rhnRegTokenGroups
          where token_id = :token_id
            and server_group_id = :server_group_id
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement insta<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnActivationKey.ActivationKey-class.html#_query_insert_groups" class="summary-name" onclick="show_private();">_query_insert_groups</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.rhnActivationKey.ActivationKey-class.html#_query_insert_groups" class="summary-name" onclick="show_private();">_query_insert_groups</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 150500972; statement=
         insert into rhnRegTokenGroups (token_id, server_group_id)
         values (:token_id, :server_group_id)
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement insta<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnActivationKey.ActivationKey-class.html#_query_delete_channels" class="summary-name" onclick="show_private();">_query_delete_channels</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.rhnActivationKey.ActivationKey-class.html#_query_delete_channels" class="summary-name" onclick="show_private();">_query_delete_channels</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 150501004; statement=
         delete from rhnRegTokenChannels
          where token_id = :token_id
            and channel_id = :channel_id
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement ins<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnActivationKey.ActivationKey-class.html#_query_insert_channels" class="summary-name" onclick="show_private();">_query_insert_channels</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.rhnActivationKey.ActivationKey-class.html#_query_insert_channels" class="summary-name" onclick="show_private();">_query_insert_channels</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 150501036; statement=
         insert into rhnRegTokenChannels(token_id, channel_id)
         values (:token_id, :channel_id)
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement ins<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -584,11 +584,11 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 150500780; statement=
         select rtsg.server_group_id
           from rhnRegTokenGroups rtsg
          where rtsg.token_id = :token_id
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -606,12 +606,12 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 150500812; statement=
         select rtc.channel_id, c.label
           from rhnRegTokenChannels rtc, rhnChannel c
          where rtc.token_id = :token_id
            and rtc.channel_id = c.id
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -629,13 +629,13 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 150500844; statement=
         select sgt.label
           from rhnServerGroupType sgt,
                rhnRegTokenEntitlement rte
          where rte.reg_token_id = :reg_token_id
            and rte.server_group_type_id = sgt.id
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -653,10 +653,10 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 150500876; statement=
         delete from rhnRegTokenEntitlement
          where reg_token_id = :reg_token_id
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -674,11 +674,11 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 150500908; statement=
         insert into rhnRegTokenEntitlement
                (reg_token_id, server_group_type_id)
         values (:reg_token_id, :server_group_type_id)
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -696,11 +696,11 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 150500940; statement=
         delete from rhnRegTokenGroups
          where token_id = :token_id
            and server_group_id = :server_group_id
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -718,10 +718,10 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 150500972; statement=
         insert into rhnRegTokenGroups (token_id, server_group_id)
         values (:token_id, :server_group_id)
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -739,11 +739,11 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 150501004; statement=
         delete from rhnRegTokenChannels
          where token_id = :token_id
            and channel_id = :channel_id
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -761,10 +761,10 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 150501036; statement=
         insert into rhnRegTokenChannels(token_id, channel_id)
         values (:token_id, :channel_id)
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -794,7 +794,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:16 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:00 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

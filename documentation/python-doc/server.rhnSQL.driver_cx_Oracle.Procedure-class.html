@@ -56,9 +56,23 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Procedure</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Procedure">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_r_50" name="uml_class_diagram_for_server_r_50">
+<area shape="rect" href="server.rhnSQL.sql_base.Procedure-class.html#__del__" title="server.rhnSQL.sql_base.Procedure.__del__" alt="" coords="39,36,161,55"/>
+<area shape="rect" href="server.rhnSQL.sql_base.Procedure-class.html" title="Class for calling out to stored procedures." alt="" coords="37,11,163,56"/>
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Procedure-class.html#OracleError" title="server.rhnSQL.driver_cx_Oracle.Procedure.OracleError" alt="" coords="17,103,183,121"/>
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Procedure-class.html#__init__" title="server.rhnSQL.driver_cx_Oracle.Procedure.__init__" alt="" coords="17,124,183,143"/>
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Procedure-class.html#__call__" title="Wrap the __call__ method from the parent class to catch Oracle specific &#160;actions and convert them to something generic." alt="" coords="17,143,183,161"/>
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Procedure-class.html" title="Class for calling out to stored procedures." alt="" coords="16,85,184,163"/>
+</map>
+  <img src="uml_class_diagram_for_server_r_50.png" alt='' usemap="#uml_class_diagram_for_server_r_50" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
+<p>Class for calling out to stored procedures.</p>
+  <p>Written to behave very much like a Python function in that these 
+  Procedure objects are &quot;callable&quot;.</p>
+  <p>See database specific implementations for more details.</p>
+
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -84,7 +98,7 @@
         <tr>
           <td><span class="summary-sig"><a href="server.rhnSQL.driver_cx_Oracle.Procedure-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">proc</span>)</span></td>
+        <span class="summary-sig-arg">cursor</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Procedure.__init__">source&nbsp;code</a></span>
             
@@ -100,7 +114,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="server.rhnSQL.driver_cx_Oracle.Procedure-class.html#__call__" class="summary-sig-name">__call__</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="__call__"></a><span class="summary-sig-name">__call__</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">*args</span>)</span><br />
       Wrap the __call__ method from the parent class to catch Oracle 
       specific actions and convert them to something generic.</td>
@@ -113,17 +127,82 @@
       
     </td>
   </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_munge_args"></a><span class="summary-sig-name">_munge_args</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">args</span>)</span><br />
+      Converts database specific argument types to those defined in 
+      sql_base.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Procedure._munge_args">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_munge_arg"></a><span class="summary-sig-name">_munge_arg</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">val</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Procedure._munge_arg">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_call_proc"></a><span class="summary-sig-name">_call_proc</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">args</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Procedure._call_proc">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_call_proc_ret"></a><span class="summary-sig-name">_call_proc_ret</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">args</span>,
+        <span class="summary-sig-arg">ret_type</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Procedure._call_proc_ret">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnSQL.sql_base.Procedure-class.html">sql_base.Procedure</a></code></b>:
       <code><a href="server.rhnSQL.sql_base.Procedure-class.html#__del__">__del__</a></code>
       </p>
-    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnSQL.sql_base.Procedure-class.html">sql_base.Procedure</a></code></b> (private):
-      <code><a href="server.rhnSQL.sql_base.Procedure-class.html#_call_proc" onclick="show_private();">_call_proc</a></code>,
-      <code><a href="server.rhnSQL.sql_base.Procedure-class.html#_call_proc_ret" onclick="show_private();">_call_proc_ret</a></code>,
-      <code><a href="server.rhnSQL.sql_base.Procedure-class.html#_munge_arg" onclick="show_private();">_munge_arg</a></code>,
-      <code><a href="server.rhnSQL.sql_base.Procedure-class.html#_munge_args" onclick="show_private();">_munge_args</a></code>
-      </p></div>
     </td>
   </tr>
 </table>
@@ -179,7 +258,7 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">name</span>,
-        <span class="sig-arg">proc</span>)</span>
+        <span class="sig-arg">cursor</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -191,31 +270,6 @@
   <dl class="fields">
     <dt>Overrides:
         <a href="server.rhnSQL.sql_base.Procedure-class.html#__init__">sql_base.Procedure.__init__</a>
-    </dt>
-  </dl>
-</td></tr></table>
-</div>
-<a name="__call__"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">__call__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">*args</span>)</span>
-    <br /><em class="fname">(Call operator)</em>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Procedure.__call__">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Wrap the __call__ method from the parent class to catch Oracle 
-  specific actions and convert them to something generic.</p>
-  <dl class="fields">
-    <dt>Overrides:
-        <a href="server.rhnSQL.sql_base.Procedure-class.html#__call__">sql_base.Procedure.__call__</a>
     </dt>
   </dl>
 </td></tr></table>
@@ -244,7 +298,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:16 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:13 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

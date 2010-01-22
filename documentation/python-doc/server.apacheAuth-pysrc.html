@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.apacheAuth</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        Module&nbsp;apacheAuth
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.apacheAuth-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="server.apacheAuth-module.html">Module server.apacheAuth</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">time</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">string</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package common=common-module.html,Package spacewalk.common=spacewalk.common-module.html"><a title="common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-0', 'common', 'link-0');">common</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Variable common.rhnConfig.CFG=common.rhnConfig-module.html#CFG,Variable server.rhnHandler'.CFG=server.rhnHandler%27-module.html#CFG"><a title="common.rhnConfig.CFG
+server.rhnHandler'.CFG" class="py-name" href="#" onclick="return doclink('link-1', 'CFG', 'link-1');">CFG</a></tt><tt class="py-op">,</tt> <tt id="link-2" class="py-name" targets="Module common.rhnFlags=common.rhnFlags-module.html"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-2', 'rhnFlags', 'link-2');">rhnFlags</a></tt><tt class="py-op">,</tt> <tt id="link-3" class="py-name" targets="Class common.rhnException'.rhnFault=common.rhnException%27.rhnFault-class.html"><a title="common.rhnException'.rhnFault" class="py-name" href="#" onclick="return doclink('link-3', 'rhnFault', 'link-3');">rhnFault</a></tt><tt class="py-op">,</tt> <tt id="link-4" class="py-name" targets="Function common.rhnLog.log_debug()=common.rhnLog-module.html#log_debug"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-4', 'log_debug', 'link-4');">log_debug</a></tt><tt class="py-op">,</tt> <tt id="link-5" class="py-name" targets="Function _apache.log_error()=_apache-module.html#log_error,Function common.rhnLog.log_error()=common.rhnLog-module.html#log_error,Function satellite_tools.satComputePkgHeaders.log_error()=satellite_tools.satComputePkgHeaders-module.html#log_error"><a title="_apache.log_error
+common.rhnLog.log_error
+satellite_tools.satComputePkgHeaders.log_error" class="py-name" href="#" onclick="return doclink('link-5', 'log_error', 'link-5');">log_error</a></tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-6" class="py-name"><a title="common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-6', 'common', 'link-0');">common</a></tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Module common.rhnTranslate=common.rhnTranslate-module.html"><a title="common.rhnTranslate" class="py-name" href="#" onclick="return doclink('link-7', 'rhnTranslate', 'link-7');">rhnTranslate</a></tt> <tt class="py-keyword">import</tt> <tt id="link-8" class="py-name" targets="Function common.rhnTranslate._()=common.rhnTranslate-module.html#_"><a title="common.rhnTranslate._" class="py-name" href="#" onclick="return doclink('link-8', '_', 'link-8');">_</a></tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-9" class="py-name" targets="Module common.rhnLib=common.rhnLib-module.html,Module server.rhnLib=server.rhnLib-module.html"><a title="common.rhnLib
+server.rhnLib" class="py-name" href="#" onclick="return doclink('link-9', 'rhnLib', 'link-9');">rhnLib</a></tt> <tt class="py-keyword">import</tt> <tt id="link-10" class="py-name" targets="Function server.rhnLib.computeSignature()=server.rhnLib-module.html#computeSignature"><a title="server.rhnLib.computeSignature" class="py-name" href="#" onclick="return doclink('link-10', 'computeSignature', 'link-10');">computeSignature</a></tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"> </tt>
+<a name="splitProxyAuthToken"></a><div id="splitProxyAuthToken-def"><a name="L26"></a><tt class="py-lineno"> 26</tt> <a class="py-toggle" href="#" id="splitProxyAuthToken-toggle" onclick="return toggle('splitProxyAuthToken');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.apacheAuth-module.html#splitProxyAuthToken">splitProxyAuthToken</a><tt class="py-op">(</tt><tt class="py-param">token</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="splitProxyAuthToken-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="splitProxyAuthToken-expanded"><a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">    <tt class="py-docstring">""" given a token:hostname, split it into a token-list, hostname """</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">    <tt class="py-name">token</tt> <tt class="py-op">=</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-name">token</tt><tt class="py-op">,</tt> <tt class="py-string">':'</tt><tt class="py-op">)</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">    <tt id="link-11" class="py-name" targets="Variable common.rhnTB.hostname=common.rhnTB-module.html#hostname,Variable proxy.rhnProxyAuth.ProxyAuth.hostname=proxy.rhnProxyAuth.ProxyAuth-class.html#hostname,Method server.config_common.templated_document.ServerTemplatedDocument.hostname()=server.config_common.templated_document.ServerTemplatedDocument-class.html#hostname"><a title="common.rhnTB.hostname
+proxy.rhnProxyAuth.ProxyAuth.hostname
+server.config_common.templated_document.ServerTemplatedDocument.hostname" class="py-name" href="#" onclick="return doclink('link-11', 'hostname', 'link-11');">hostname</a></tt> <tt class="py-op">=</tt> <tt class="py-string">''</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">token</tt><tt class="py-op">)</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">5</tt><tt class="py-op">:</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">        <tt id="link-12" class="py-name"><a title="common.rhnTB.hostname
+proxy.rhnProxyAuth.ProxyAuth.hostname
+server.config_common.templated_document.ServerTemplatedDocument.hostname" class="py-name" href="#" onclick="return doclink('link-12', 'hostname', 'link-11');">hostname</a></tt> <tt class="py-op">=</tt> <tt class="py-name">token</tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">        <tt class="py-name">token</tt> <tt class="py-op">=</tt> <tt class="py-name">token</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">        <tt class="py-comment"># RHN Proxy v1.1 (route tracking unsupported)</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">        <tt id="link-13" class="py-name"><a title="common.rhnTB.hostname
+proxy.rhnProxyAuth.ProxyAuth.hostname
+server.config_common.templated_document.ServerTemplatedDocument.hostname" class="py-name" href="#" onclick="return doclink('link-13', 'hostname', 'link-11');">hostname</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">token</tt><tt class="py-op">,</tt> <tt id="link-14" class="py-name"><a title="common.rhnTB.hostname
+proxy.rhnProxyAuth.ProxyAuth.hostname
+server.config_common.templated_document.ServerTemplatedDocument.hostname" class="py-name" href="#" onclick="return doclink('link-14', 'hostname', 'link-11');">hostname</a></tt> </tt>
+</div><a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"> </tt>
+<a name="_verifyProxyAuthToken"></a><div id="_verifyProxyAuthToken-def"><a name="L40"></a><tt class="py-lineno"> 40</tt> <a class="py-toggle" href="#" id="_verifyProxyAuthToken-toggle" onclick="return toggle('_verifyProxyAuthToken');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.apacheAuth-module.html#_verifyProxyAuthToken">_verifyProxyAuthToken</a><tt class="py-op">(</tt><tt class="py-param">auth_token</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_verifyProxyAuthToken-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="_verifyProxyAuthToken-expanded"><a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">    <tt class="py-docstring">""" verifies the validity of a proxy auth token</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"><tt class="py-docstring">        NOTE: X-RHN-Proxy-Auth described in proxy/broker/rhnProxyAuth.py</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">    <tt id="link-15" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-15', 'log_debug', 'link-4');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-name">auth_token</tt><tt class="py-op">)</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">    <tt class="py-name">token</tt><tt class="py-op">,</tt> <tt id="link-16" class="py-name"><a title="common.rhnTB.hostname
+proxy.rhnProxyAuth.ProxyAuth.hostname
+server.config_common.templated_document.ServerTemplatedDocument.hostname" class="py-name" href="#" onclick="return doclink('link-16', 'hostname', 'link-11');">hostname</a></tt> <tt class="py-op">=</tt> <tt id="link-17" class="py-name" targets="Function server.apacheAuth.splitProxyAuthToken()=server.apacheAuth-module.html#splitProxyAuthToken"><a title="server.apacheAuth.splitProxyAuthToken" class="py-name" href="#" onclick="return doclink('link-17', 'splitProxyAuthToken', 'link-17');">splitProxyAuthToken</a></tt><tt class="py-op">(</tt><tt class="py-name">auth_token</tt><tt class="py-op">)</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">    <tt class="py-name">headers</tt> <tt class="py-op">=</tt> <tt id="link-18" class="py-name"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-18', 'rhnFlags', 'link-2');">rhnFlags</a></tt><tt class="py-op">.</tt><tt id="link-19" class="py-name" targets="Method common.rhnCache.Cache.get()=common.rhnCache.Cache-class.html#get,Method common.rhnCache.CompressedCache.get()=common.rhnCache.CompressedCache-class.html#get,Method common.rhnCache.NullCache.get()=common.rhnCache.NullCache-class.html#get,Method common.rhnCache.ObjectCache.get()=common.rhnCache.ObjectCache-class.html#get,Function common.rhnCache.get()=common.rhnCache-module.html#get,Method common.rhnConfig.RHNOptions.get()=common.rhnConfig.RHNOptions-class.html#get,Function common.rhnFlags.get()=common.rhnFlags-module.html#get,Function server.action_extra_data.up2date_config.get()=server.action_extra_data.up2date_config-module.html#get,Method server.handlers.xmlrpc.queue.Queue.get()=server.handlers.xmlrpc.queue.Queue-class.html#get,Method server.handlers.xmlrpc.up2date.Servers.get()=server.handlers.xmlrpc.up2date.Servers-class.html#get,Function server.rhnDatabaseCache.get()=server.rhnDatabaseCache-module.html#get,Method server.rhnSQL.sql_row.Row.get()=server.rhnSQL.sql_row.Row-class.html#get,Method server.rhnSQL.sql_table.Table.get()=server.rhnSQL.sql_table.Table-class.html#get,Function server.rhnServer.get()=server.rhnServer-module.html#get"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-19', 'get', 'link-19');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">'outputTransportOptions'</tt><tt class="py-op">)</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">token</tt><tt class="py-op">)</tt> <tt class="py-op">&lt;</tt> <tt class="py-number">5</tt><tt class="py-op">:</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">        <tt class="py-comment"># Bad auth information; decline any action</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">        <tt id="link-20" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-20', 'log_debug', 'link-4');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">"incomplete proxy authentication token: %s"</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">          <tt class="py-op">%</tt> <tt class="py-name">auth_token</tt><tt class="py-op">)</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">        <tt class="py-name">headers</tt><tt class="py-op">[</tt><tt class="py-string">'X-RHN-Proxy-Auth-Error'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">'%s:%s'</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">            <tt class="py-number">1003</tt><tt class="py-op">,</tt> <tt id="link-21" class="py-name"><a title="common.rhnTranslate._" class="py-name" href="#" onclick="return doclink('link-21', '_', 'link-8');">_</a></tt><tt class="py-op">(</tt><tt class="py-string">"incomplete proxy authentication token: %s"</tt><tt class="py-op">)</tt> <tt class="py-op">%</tt> <tt class="py-name">auth_token</tt><tt class="py-op">)</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-22" class="py-name"><a title="common.rhnException'.rhnFault" class="py-name" href="#" onclick="return doclink('link-22', 'rhnFault', 'link-3');">rhnFault</a></tt><tt class="py-op">(</tt><tt class="py-number">1003</tt><tt class="py-op">)</tt> <tt class="py-comment"># Invalid session key</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">    <tt id="link-23" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-23', 'log_debug', 'link-4');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">5</tt><tt class="py-op">,</tt> <tt class="py-string">"proxy auth token: %s,  hostname: %s"</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">                 <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">repr</tt><tt class="py-op">(</tt><tt class="py-name">token</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt id="link-24" class="py-name"><a title="common.rhnTB.hostname
+proxy.rhnProxyAuth.ProxyAuth.hostname
+server.config_common.templated_document.ServerTemplatedDocument.hostname" class="py-name" href="#" onclick="return doclink('link-24', 'hostname', 'link-11');">hostname</a></tt> <tt class="py-keyword">or</tt> <tt class="py-string">'n/a'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">    <tt class="py-name">proxyId</tt><tt class="py-op">,</tt> <tt class="py-name">proxyUser</tt><tt class="py-op">,</tt> <tt class="py-name">rhnServerTime</tt><tt class="py-op">,</tt> <tt class="py-name">expireOffset</tt><tt class="py-op">,</tt> <tt class="py-name">signature</tt> <tt class="py-op">=</tt> <tt class="py-name">token</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-number">5</tt><tt class="py-op">]</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">    <tt class="py-name">computed</tt> <tt class="py-op">=</tt> <tt id="link-25" class="py-name"><a title="server.rhnLib.computeSignature" class="py-name" href="#" onclick="return doclink('link-25', 'computeSignature', 'link-10');">computeSignature</a></tt><tt class="py-op">(</tt><tt id="link-26" class="py-name"><a title="common.rhnConfig.CFG
+server.rhnHandler'.CFG" class="py-name" href="#" onclick="return doclink('link-26', 'CFG', 'link-1');">CFG</a></tt><tt class="py-op">.</tt><tt class="py-name">SECRET_KEY</tt><tt class="py-op">,</tt> <tt class="py-name">proxyId</tt><tt class="py-op">,</tt> <tt class="py-name">proxyUser</tt><tt class="py-op">,</tt>  </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">                                <tt class="py-name">rhnServerTime</tt><tt class="py-op">,</tt> <tt class="py-name">expireOffset</tt><tt class="py-op">)</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">computed</tt> <tt class="py-op">!=</tt> <tt class="py-name">signature</tt><tt class="py-op">:</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">        <tt id="link-27" class="py-name"><a title="_apache.log_error
+common.rhnLog.log_error
+satellite_tools.satComputePkgHeaders.log_error" class="py-name" href="#" onclick="return doclink('link-27', 'log_error', 'link-5');">log_error</a></tt><tt class="py-op">(</tt><tt class="py-string">"Proxy signature failed: proxy id='%s', proxy user='%s'"</tt> <tt class="py-op">%</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">            <tt class="py-op">(</tt><tt class="py-name">proxyId</tt><tt class="py-op">,</tt> <tt class="py-name">proxyUser</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">        <tt id="link-28" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-28', 'log_debug', 'link-4');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">"Sent proxy signature %s does not match ours %s."</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">            <tt class="py-name">signature</tt><tt class="py-op">,</tt> <tt class="py-name">computed</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-name">headers</tt><tt class="py-op">[</tt><tt class="py-string">'X-RHN-Proxy-Auth-Error'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">'%s:%s'</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">            <tt class="py-number">1003</tt><tt class="py-op">,</tt> <tt id="link-29" class="py-name"><a title="common.rhnTranslate._" class="py-name" href="#" onclick="return doclink('link-29', '_', 'link-8');">_</a></tt><tt class="py-op">(</tt><tt class="py-string">"Sent proxy signature %s does not match ours %s."</tt><tt class="py-op">)</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">            <tt class="py-name">signature</tt><tt class="py-op">,</tt> <tt class="py-name">computed</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-30" class="py-name"><a title="common.rhnException'.rhnFault" class="py-name" href="#" onclick="return doclink('link-30', 'rhnFault', 'link-3');">rhnFault</a></tt><tt class="py-op">(</tt><tt class="py-number">1003</tt><tt class="py-op">)</tt> <tt class="py-comment"># Invalid session key</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">    <tt class="py-comment"># Convert the expiration/time to floats:</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">    <tt class="py-name">rhnServerTime</tt> <tt class="py-op">=</tt> <tt class="py-name">float</tt><tt class="py-op">(</tt><tt class="py-name">rhnServerTime</tt><tt class="py-op">)</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">    <tt class="py-name">expireOffset</tt> <tt class="py-op">=</tt> <tt class="py-name">float</tt><tt class="py-op">(</tt><tt class="py-name">expireOffset</tt><tt class="py-op">)</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line"> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">rhnServerTime</tt> <tt class="py-op">+</tt> <tt class="py-name">expireOffset</tt> <tt class="py-op">&lt;</tt> <tt class="py-name">time</tt><tt class="py-op">.</tt><tt class="py-name">time</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">        <tt id="link-31" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-31', 'log_debug', 'link-4');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">"Expired proxy authentication token"</tt><tt class="py-op">)</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">        <tt class="py-name">headers</tt><tt class="py-op">[</tt><tt class="py-string">'X-RHN-Proxy-Auth-Error'</tt><tt class="py-op">]</tt>  <tt class="py-op">=</tt> <tt class="py-string">'%s:%s'</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-number">1004</tt><tt class="py-op">,</tt> <tt class="py-string">"Expired"</tt><tt class="py-op">)</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-32" class="py-name"><a title="common.rhnException'.rhnFault" class="py-name" href="#" onclick="return doclink('link-32', 'rhnFault', 'link-3');">rhnFault</a></tt><tt class="py-op">(</tt><tt class="py-number">1004</tt><tt class="py-op">)</tt> <tt class="py-comment"># Expired client authentication token</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line"> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">    <tt id="link-33" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-33', 'log_debug', 'link-4');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">"Proxy auth OK: sigs match; not an expired token"</tt><tt class="py-op">)</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-number">1</tt> </tt>
+</div><a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"> </tt>
+<a name="auth_proxy"></a><div id="auth_proxy-def"><a name="L88"></a><tt class="py-lineno"> 88</tt> <a class="py-toggle" href="#" id="auth_proxy-toggle" onclick="return toggle('auth_proxy');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.apacheAuth-module.html#auth_proxy">auth_proxy</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="auth_proxy-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="auth_proxy-expanded"><a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">    <tt class="py-docstring">""" Authenticates a proxy carrying a clients request. For a valid or</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line"><tt class="py-docstring">        unsigned request, this function returns 1 (OK), otherwise it raises</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line"><tt class="py-docstring">        rhnFault</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line"><tt class="py-docstring">        NOTE: X-RHN-Proxy-Auth described in proxy/broker/rhnProxyAuth.py</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line"> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">    <tt id="link-34" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-34', 'log_debug', 'link-4');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">    <tt class="py-name">headers</tt> <tt class="py-op">=</tt> <tt id="link-35" class="py-name"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-35', 'rhnFlags', 'link-2');">rhnFlags</a></tt><tt class="py-op">.</tt><tt id="link-36" class="py-name"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-36', 'get', 'link-19');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">'outputTransportOptions'</tt><tt class="py-op">)</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-37" class="py-name"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-37', 'rhnFlags', 'link-2');">rhnFlags</a></tt><tt class="py-op">.</tt><tt id="link-38" class="py-name" targets="Function common.rhnFlags.test()=common.rhnFlags-module.html#test,Function satellite_tools.req_channels.test()=satellite_tools.req_channels-module.html#test,Method server.config_common.base_templated_document.TemplatedDocument.test()=server.config_common.base_templated_document.TemplatedDocument-class.html#test"><a title="common.rhnFlags.test
+satellite_tools.req_channels.test
+server.config_common.base_templated_document.TemplatedDocument.test" class="py-name" href="#" onclick="return doclink('link-38', 'test', 'link-38');">test</a></tt><tt class="py-op">(</tt><tt class="py-string">'X-RHN-Proxy-Auth'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">        <tt class="py-comment"># No auth information; decline any action</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">        <tt id="link-39" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-39', 'log_debug', 'link-4');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">"declined proxy authentication"</tt><tt class="py-op">)</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">        <tt class="py-name">headers</tt><tt class="py-op">[</tt><tt class="py-string">'X-RHN-Proxy-Auth-Error'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">'%s:%s'</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">            <tt class="py-number">1003</tt><tt class="py-op">,</tt> <tt id="link-40" class="py-name"><a title="common.rhnTranslate._" class="py-name" href="#" onclick="return doclink('link-40', '_', 'link-8');">_</a></tt><tt class="py-op">(</tt><tt class="py-string">"declined proxy authentication"</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-41" class="py-name"><a title="common.rhnException'.rhnFault" class="py-name" href="#" onclick="return doclink('link-41', 'rhnFault', 'link-3');">rhnFault</a></tt><tt class="py-op">(</tt><tt class="py-number">1003</tt><tt class="py-op">)</tt> <tt class="py-comment"># Invalid session key</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line"> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">    <tt class="py-comment"># NOTE:</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">    <tt class="py-comment">#   - &lt; v3.1 RHN proxies send only 1 token in this header</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">    <tt class="py-comment">#   - &gt; v3.1: we send the route of the requests via multiple tokens</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">    <tt class="py-comment">#     "token1:hostname1,token2:hostname2" the first tuple is the first</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">    <tt class="py-comment">#     proxy hit.</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">     </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">    <tt class="py-name">tokens</tt> <tt class="py-op">=</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt id="link-42" class="py-name"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-42', 'rhnFlags', 'link-2');">rhnFlags</a></tt><tt class="py-op">.</tt><tt id="link-43" class="py-name"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-43', 'get', 'link-19');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">'X-RHN-Proxy-Auth'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-string">','</tt><tt class="py-op">)</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">    <tt class="py-name">tokens</tt> <tt class="py-op">=</tt> <tt class="py-name">filter</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">token</tt><tt class="py-op">:</tt> <tt class="py-name">token</tt><tt class="py-op">,</tt> <tt class="py-name">tokens</tt><tt class="py-op">)</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">auth_token</tt> <tt class="py-keyword">in</tt> <tt class="py-name">tokens</tt><tt class="py-op">:</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">        <tt id="link-44" class="py-name" targets="Function server.apacheAuth._verifyProxyAuthToken()=server.apacheAuth-module.html#_verifyProxyAuthToken"><a title="server.apacheAuth._verifyProxyAuthToken" class="py-name" href="#" onclick="return doclink('link-44', '_verifyProxyAuthToken', 'link-44');">_verifyProxyAuthToken</a></tt><tt class="py-op">(</tt><tt class="py-name">auth_token</tt><tt class="py-op">)</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line"> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">    <tt class="py-comment"># if no rhnFault was raised then the tokens all passed</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-number">1</tt> </tt>
+</div><a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line"> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">     </tt>
+<a name="auth_client"></a><div id="auth_client-def"><a name="L121"></a><tt class="py-lineno">121</tt> <a class="py-toggle" href="#" id="auth_client-toggle" onclick="return toggle('auth_client');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.apacheAuth-module.html#auth_client">auth_client</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="auth_client-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="auth_client-expanded"><a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">    <tt class="py-docstring">""" Authenticates a request from a client</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line"><tt class="py-docstring">        For an unsigned request, this function returns 0 (request should be</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line"><tt class="py-docstring">        coming from a client).</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line"> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">    <tt id="link-45" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-45', 'log_debug', 'link-4');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-46" class="py-name"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-46', 'rhnFlags', 'link-2');">rhnFlags</a></tt><tt class="py-op">.</tt><tt id="link-47" class="py-name"><a title="common.rhnFlags.test
+satellite_tools.req_channels.test
+server.config_common.base_templated_document.TemplatedDocument.test" class="py-name" href="#" onclick="return doclink('link-47', 'test', 'link-38');">test</a></tt><tt class="py-op">(</tt><tt class="py-string">"AUTH_SESSION_TOKEN"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">        <tt class="py-comment"># No auth information; decline any GET action (XMLRPC requests</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">        <tt class="py-comment"># ignore this error).</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">        <tt id="link-48" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-48', 'log_debug', 'link-4');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">"declined client authentication for GET requests"</tt><tt class="py-op">)</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-number">0</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line"> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">    <tt class="py-name">token</tt> <tt class="py-op">=</tt> <tt id="link-49" class="py-name"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-49', 'rhnFlags', 'link-2');">rhnFlags</a></tt><tt class="py-op">.</tt><tt id="link-50" class="py-name"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-50', 'get', 'link-19');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">"AUTH_SESSION_TOKEN"</tt><tt class="py-op">)</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">    <tt class="py-comment"># Check to see if everything we need to compute the signature is there</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt id="link-51" class="py-name" targets="Variable server.repomd.repository.k=server.repomd.repository-module.html#k"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-51', 'k', 'link-51');">k</a></tt> <tt class="py-keyword">in</tt> <tt class="py-op">(</tt><tt class="py-string">'X-RHN-Server-Id'</tt><tt class="py-op">,</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">              <tt class="py-string">'X-RHN-Auth'</tt><tt class="py-op">,</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">              <tt class="py-string">'X-RHN-Auth-Server-Time'</tt><tt class="py-op">,</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">              <tt class="py-string">'X-RHN-Auth-Expire-Offset'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">token</tt><tt class="py-op">.</tt><tt id="link-52" class="py-name" targets="Method common.UserDictCase'.UserDictCase.has_key()=common.UserDictCase%27.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Function server.rhnDatabaseCache.has_key()=server.rhnDatabaseCache-module.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-52', 'has_key', 'link-52');">has_key</a></tt><tt class="py-op">(</tt><tt id="link-53" class="py-name"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-53', 'k', 'link-51');">k</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">            <tt class="py-comment"># No auth information; decline any action</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">            <tt id="link-54" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-54', 'log_debug', 'link-4');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">"Declined auth of client for GET requests; "</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">                         <tt class="py-string">"incomplete header info."</tt><tt class="py-op">)</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-number">0</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line"> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">    <tt class="py-name">clientId</tt>       <tt class="py-op">=</tt> <tt class="py-name">token</tt><tt class="py-op">[</tt><tt class="py-string">'X-RHN-Server-Id'</tt><tt class="py-op">]</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">    <tt class="py-name">username</tt>       <tt class="py-op">=</tt> <tt class="py-name">token</tt><tt class="py-op">[</tt><tt class="py-string">'X-RHN-Auth-User-Id'</tt><tt class="py-op">]</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">    <tt class="py-name">signature</tt>      <tt class="py-op">=</tt> <tt class="py-name">token</tt><tt class="py-op">[</tt><tt class="py-string">'X-RHN-Auth'</tt><tt class="py-op">]</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">    <tt class="py-name">rhnServerTime</tt>  <tt class="py-op">=</tt> <tt class="py-name">token</tt><tt class="py-op">[</tt><tt class="py-string">'X-RHN-Auth-Server-Time'</tt><tt class="py-op">]</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">    <tt class="py-name">expireOffset</tt>   <tt class="py-op">=</tt> <tt class="py-name">token</tt><tt class="py-op">[</tt><tt class="py-string">'X-RHN-Auth-Expire-Offset'</tt><tt class="py-op">]</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line"> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">    <tt class="py-name">computed</tt> <tt class="py-op">=</tt> <tt id="link-55" class="py-name"><a title="server.rhnLib.computeSignature" class="py-name" href="#" onclick="return doclink('link-55', 'computeSignature', 'link-10');">computeSignature</a></tt><tt class="py-op">(</tt><tt id="link-56" class="py-name"><a title="common.rhnConfig.CFG
+server.rhnHandler'.CFG" class="py-name" href="#" onclick="return doclink('link-56', 'CFG', 'link-1');">CFG</a></tt><tt class="py-op">.</tt><tt class="py-name">SECRET_KEY</tt><tt class="py-op">,</tt> <tt class="py-name">clientId</tt><tt class="py-op">,</tt> <tt class="py-name">username</tt><tt class="py-op">,</tt>  </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">                                <tt class="py-name">rhnServerTime</tt><tt class="py-op">,</tt> <tt class="py-name">expireOffset</tt><tt class="py-op">)</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">computed</tt> <tt class="py-op">!=</tt> <tt class="py-name">signature</tt><tt class="py-op">:</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">        <tt id="link-57" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-57', 'log_debug', 'link-4');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">"Sent client signature %s does not match ours %s."</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">            <tt class="py-name">signature</tt><tt class="py-op">,</tt> <tt class="py-name">computed</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-58" class="py-name"><a title="common.rhnException'.rhnFault" class="py-name" href="#" onclick="return doclink('link-58', 'rhnFault', 'link-3');">rhnFault</a></tt><tt class="py-op">(</tt><tt class="py-number">33</tt><tt class="py-op">,</tt> <tt class="py-string">"Invalid client session key"</tt><tt class="py-op">)</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line"> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">    <tt class="py-comment"># Convert the expiration/time to floats:</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">    <tt class="py-name">rhnServerTime</tt> <tt class="py-op">=</tt> <tt class="py-name">float</tt><tt class="py-op">(</tt><tt class="py-name">rhnServerTime</tt><tt class="py-op">)</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">    <tt class="py-name">expireOffset</tt> <tt class="py-op">=</tt> <tt class="py-name">float</tt><tt class="py-op">(</tt><tt class="py-name">expireOffset</tt><tt class="py-op">)</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line"> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">rhnServerTime</tt> <tt class="py-op">+</tt> <tt class="py-name">expireOffset</tt> <tt class="py-op">&lt;</tt> <tt class="py-name">time</tt><tt class="py-op">.</tt><tt class="py-name">time</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">        <tt id="link-59" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-59', 'log_debug', 'link-4');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">"Expired client authentication token"</tt><tt class="py-op">)</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-60" class="py-name"><a title="common.rhnException'.rhnFault" class="py-name" href="#" onclick="return doclink('link-60', 'rhnFault', 'link-3');">rhnFault</a></tt><tt class="py-op">(</tt><tt class="py-number">34</tt><tt class="py-op">,</tt> <tt class="py-string">"Expired client authentication token"</tt><tt class="py-op">)</tt>             </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line"> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">    <tt id="link-61" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-61', 'log_debug', 'link-4');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">"Client auth OK"</tt><tt class="py-op">)</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-number">1</tt> </tt>
+</div><a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:25 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

@@ -34,11 +34,10 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        server ::
-        handlers ::
-        sat ::
-        auth ::
-        Authentication ::
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.handlers-module.html">Package&nbsp;handlers</a> ::
+        <a href="server.handlers.sat-module.html" onclick="show_private();">Package&nbsp;sat</a> ::
+        <a href="server.handlers.sat.auth-module.html" onclick="show_private();">Module&nbsp;auth</a> ::
         Class&nbsp;Authentication
       </span>
     </td>
@@ -58,7 +57,19 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Authentication</h1><p class="nomargin-top"><span class="codelink"><a href="server.handlers.sat.auth-pysrc.html#Authentication">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_h_8" name="uml_class_diagram_for_server_h_8">
+<area shape="rect" href="server.rhnHandler%27.rhnHandler-class.html" title="server.rhnHandler&#39;.rhnHandler" alt="" coords="60,85,199,117"/>
+<area shape="rect" href="server.handlers.sat.auth.Authentication-class.html#__init__" title="server.handlers.sat.auth.Authentication.__init__" alt="" coords="17,172,241,191"/>
+<area shape="rect" href="server.handlers.sat.auth.Authentication-class.html#auth_system" title="server.handlers.sat.auth.Authentication.auth_system" alt="" coords="17,191,241,209"/>
+<area shape="rect" href="server.handlers.sat.auth.Authentication-class.html#check" title="xmlrpc authentication." alt="" coords="17,209,241,228"/>
+<area shape="rect" href="server.handlers.sat.auth.Authentication-class.html#login" title="Return a dictionary of session token/channel information." alt="" coords="17,228,241,247"/>
+<area shape="rect" href="server.handlers.sat.auth.Authentication-class.html" title="Simple authentication based on hostname and allowed_iss_slaves variable in rhn_server_iss.conf" alt="" coords="16,147,243,248"/>
+<area shape="rect" href="server.handlers.sat.cert.Certificate-class.html" title="Downloads the satellite cert" alt="" coords="79,277,180,304"/>
+<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html#get_function" title="common.RPC_Base&#39;.RPC_Base.get_function" alt="" coords="32,36,227,55"/>
+<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html" title="common.RPC_Base&#39;.RPC_Base" alt="" coords="31,11,228,56"/>
+</map>
+  <img src="uml_class_diagram_for_server_h_8.png" alt='' usemap="#uml_class_diagram_for_server_h_8" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <p>Simple authentication based on hostname and allowed_iss_slaves 
@@ -87,7 +98,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a href="server.handlers.sat.auth.Authentication-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.sat.auth-pysrc.html#Authentication.__init__">source&nbsp;code</a></span>
             
@@ -103,7 +114,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="auth_system"></a><span class="summary-sig-name">auth_system</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a href="server.handlers.sat.auth.Authentication-class.html#auth_system" class="summary-sig-name">auth_system</a>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.sat.auth-pysrc.html#Authentication.auth_system">source&nbsp;code</a></span>
             
@@ -139,7 +150,7 @@
         <tr>
           <td><span class="summary-sig"><a href="server.handlers.sat.auth.Authentication-class.html#login" class="summary-sig-name">login</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">extra_data</span>=<span class="summary-sig-default">{}</span>)</span><br />
+        <span class="summary-sig-arg">extra_data</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span><br />
       Return a dictionary of session token/channel information.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.sat.auth-pysrc.html#Authentication.login">source&nbsp;code</a></span>
@@ -148,6 +159,13 @@
         </tr>
       </table>
       
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.RPC_Base%27.RPC_Base-class.html">common.RPC_Base'.RPC_Base</a></code></b>:
+      <code><a href="common.RPC_Base%27.RPC_Base-class.html#get_function">get_function</a></code>
+      </p>
     </td>
   </tr>
 </table>
@@ -169,6 +187,51 @@
   </td>
 </tr>
 </table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.sat.auth-pysrc.html#Authentication.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="common.RPC_Base%27.RPC_Base-class.html#__init__">common.RPC_Base'.RPC_Base.__init__</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="auth_system"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">auth_system</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.sat.auth-pysrc.html#Authentication.auth_system">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="server.rhnHandler%27.rhnHandler-class.html#auth_system">rhnHandler'.rhnHandler.auth_system</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
 <a name="login"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -178,7 +241,7 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">login</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">system_id</span>,
-        <span class="sig-arg">extra_data</span>=<span class="sig-default">{}</span>)</span>
+        <span class="sig-arg">extra_data</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="server.handlers.sat.auth-pysrc.html#Authentication.login">source&nbsp;code</a></span>&nbsp;
@@ -215,7 +278,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:14 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:46 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
