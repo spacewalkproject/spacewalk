@@ -22,7 +22,7 @@ import select
 import signal
 import tempfile
 import base64
-from popen2 import MAXFD
+from subprocess import MAXFD
 
 
 # this is ugly, hopefully it will be natively supported in up2date

@@ -23,7 +23,7 @@ import time
 import types
 import shutil
 import string
-import popen2
+import subprocess
 
 from rhnkickstart import lilo
 from rhnkickstart import common
@@ -424,14 +424,16 @@ def _modify_s390(base, vmlinuz, initrd, append, error_messages):
 
 
 def my_popen(cmd):
-    c = popen2.Popen3(cmd, capturestderr=1, bufsize=-1)
-    c.tochild.close()
+    c = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                         stderr=subprocess.PIPE, close_fds=True,
+                         bufsize=-1)
+    c.stdin.close()
     while 1:
         status = c.poll()
-        if os.WIFEXITED(status):
+        if status is not None:
             # Save the exit code, we still have to read from
             # the pipes
-            return os.WEXITSTATUS(status), c.fromchild, c.childerr
+            return status, c.stdout, c.stderr
 
 def local_network_kickstart(extra_append, ks_data, static_device, initrd, preserve_files=[]):
     """

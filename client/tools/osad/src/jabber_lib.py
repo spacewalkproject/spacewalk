@@ -1385,8 +1385,8 @@ def push_to_background():
 
 
     # close file descriptors
-    #import popen2
-    #for i in range(3, popen2.MAXFD):
+    # from subprocess import MAXFD
+    #for i in range(3, MAXFD):
     #    try:
     #        os.close(i)
     #    except:

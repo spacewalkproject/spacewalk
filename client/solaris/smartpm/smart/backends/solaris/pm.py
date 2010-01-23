@@ -22,7 +22,6 @@
 
 import commands
 import os
-import popen2
 import shutil
 import tempfile
 import zipfile
