@@ -209,7 +209,8 @@ def rhn_popen(cmd, progressCallback=None, bufferSize=16384, outputLog=None):
     if type(cmd) in (types.ListType, types.TupleType):
         cmd = map(str, cmd)
     c = subprocess.Popen(cmd, bufsize=0, stdin=subprocess.PIPE,
-                stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True)
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                close_fds=True, shell=True)
 
     # We don't write to the child process
     c.stdin.close()
