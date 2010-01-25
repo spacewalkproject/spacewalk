@@ -206,7 +206,6 @@ def rhn_popen(cmd, progressCallback=None, bufferSize=16384, outputLog=None):
 
     subprocess._cleanup()
 
-    # If you want unbuffered, set bufsize to 0
     if type(cmd) in (types.ListType, types.TupleType):
         cmd = map(str, cmd)
     c = subprocess.Popen(cmd, bufsize=0, stdin=subprocess.PIPE,
