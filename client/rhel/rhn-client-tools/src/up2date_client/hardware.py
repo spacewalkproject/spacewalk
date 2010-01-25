@@ -120,7 +120,7 @@ def _initialize_dmi_data():
             return None
         else :
             dmixml = dmidecode.dmidecodeXML()
-            dmixml = dmixml.SetResultType(dmidecode.DMIXML_DOC)
+            dmixml.SetResultType(dmidecode.DMIXML_DOC)
             # Get all the DMI data and prepare a XPath context
             try:
                 data = dmixml.QuerySection('all')
