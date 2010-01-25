@@ -585,6 +585,7 @@ static void SIGHUP_handler(int signum)
 /* parse systemIdPath from the up2date configuration file */
 static int parse_systemid_path(char* systemid_path, int systemid_path_length)
 {
+    int ret = 1; /* 1 indicates file not found */
     FILE* config_file;
     regex_t re_systemIdPath;
     regmatch_t submatch[SYSTEMID_NMATCH];
@@ -595,16 +596,20 @@ static int parse_systemid_path(char* systemid_path, int systemid_path_length)
         char line[MAX_CONFIG_LINE_SIZE];
         while (NULL != fgets(line, MAX_CONFIG_LINE_SIZE, config_file))
         {
-             int match_length = submatch[1].rm_eo - submatch[1].rm_so;
-             if (systemid_path_length < match_length)
-                   match_length = systemid_path_length - 1;
+            if (regexec(&re_systemIdPath, line, SYSTEMID_NMATCH, submatch, 0) != REG_NOMATCH)
+            {
+                int match_length = submatch[1].rm_eo - submatch[1].rm_so;
+                if (systemid_path_length < match_length)
+                     match_length = systemid_path_length - 1;
 
-             strncpy(systemid_path, &line[submatch[1].rm_so], match_length);
-             systemid_path[match_length] = '\0';
-             return 0;
+                strncpy(systemid_path, &line[submatch[1].rm_so], match_length);
+                systemid_path[match_length] = '\0';
+                ret = 0;
+                break;
+            }
         }
         fclose(config_file);
     }
-    return 1;   /* file / key not found */
+    return ret;
 }
 
