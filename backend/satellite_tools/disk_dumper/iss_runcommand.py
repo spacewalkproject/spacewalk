@@ -36,7 +36,7 @@ def make_fd_nonblocking(file_desc):
 def run_command(command):
     command_process = subprocess.Popen(command, stdin=subprocess.PIPE,
                             stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                            close_fds=True, shell=True)
+                            close_fds=True, shell=(not (type(cmd) in (types.ListType, types.TupleType))) )
     outstring = StringIO.StringIO()
     errstring = StringIO.StringIO()
     
