@@ -347,7 +347,7 @@ public class ConfigDefaults {
      * @return boolean if this sat is disconnected or not
      */
     public boolean isDisconnected() {
-        return (Config.get().getString(SATELLITE_PARENT) != null);
+        return (Config.get().getBoolean(DISCONNECTED));
     }
 
     /**
