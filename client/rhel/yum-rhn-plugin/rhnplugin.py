@@ -16,6 +16,11 @@ import yum.Errors
 
 from urlgrabber.grabber import URLGrabber
 from urlgrabber.grabber import URLGrabError
+try:
+    from urlgrabber.grabber import pycurl
+except:
+    pycurl = None
+
 from iniparse import INIConfig
 import gettext
 _ = gettext.gettext
@@ -339,6 +344,14 @@ class RhnRepo(YumRepository):
         # return the path to the local file
 
         self.setupRhnHttpHeaders()
+        if pycurl:
+            # pycurl/libcurl workaround: in libcurl setting an empty HTTP header means
+            # remove that header from the list
+            # but we have to send and empty X-RHN-Auth-User-Id ...
+            AuthUserH = 'X-RHN-Auth-User-Id'
+            if (AuthUserH in self.http_headers and not self.http_headers[AuthUserH]):
+                self.http_headers[AuthUserH] = "\nX-libcurl-Empty-Header-Workaround: *"
+
         # Turn our dict into a list of 2-tuples
         headers = YumRepository._YumRepository__headersListFromDict(self)
 
