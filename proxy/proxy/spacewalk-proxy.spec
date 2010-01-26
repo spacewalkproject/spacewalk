@@ -128,9 +128,10 @@ Summary: Custom Channel Package Manager for the Spacewalk Proxy Server
 Group:   Applications/Internet
 Requires: spacewalk-backend
 Requires: rhnlib
-Requires: python-optik
+Requires: python
 Requires: rhnpush
 BuildRequires: /usr/bin/docbook2man
+BuildRequires: python-devel
 Obsoletes: rhn_package_manager < 5.3.0
 Obsoletes: rhns-proxy-package-manager < 5.3.0
 
