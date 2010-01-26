@@ -67,7 +67,7 @@ def get_package_path(server_id, pkg_spec, channel):
     """
     h = rhnSQL.prepare(statement)
     pkg = map(str, pkg)
-    h.execute(name = pkg[0], ver = pkg[1], rel = pkg[2], arch = pkg[4],
+    h.execute(name = pkg[0], ver = pkg[2], rel = pkg[3], arch = pkg[4],
               channel = channel, server_id = server_id)
     rs = h.fetchall_dict()
     if not rs:
