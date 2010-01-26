@@ -17108,7 +17108,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
       </trans-unit>
 
      <trans-unit id="tree-form.jspf.location">
-<source>Tree Path:</source>
+<source>Tree Path</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/TreeCreate.do</context>
         </context-group>
