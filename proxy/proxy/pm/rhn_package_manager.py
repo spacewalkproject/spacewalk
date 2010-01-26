@@ -38,6 +38,7 @@ import string
 import shutil
 from types import IntType, StringType
 from operator import truth
+from rhnpush.uploadLib import UploadError
 try:
     from optparse import Option, OptionParser
 except ImportError:
@@ -123,7 +124,7 @@ def main():
 
     try:
         upload.uploadHeaders()
-    except uploadLib.UploadError, e:
+    except UploadError, e:
         sys.stderr.write("Upload error: %s\n" % e)
 
 
