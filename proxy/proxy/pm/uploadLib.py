@@ -22,7 +22,7 @@ import fnmatch
 import getpass
 
 # RHN imports
-from rhnpush import rhn_mpm
+from spacewalk.common import rhn_mpm
 from rhnpush import uploadLib
 
 class UploadClass(uploadLib.UploadClass):
