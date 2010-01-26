@@ -141,7 +141,7 @@ class UploadClass(uploadLib.UploadClass):
             else:
                 method = self.server.packages.uploadPackageInfo
 
-            ret = call(method, self.username, self.password, hash)
+            ret = uploadLib.call(method, self.username, self.password, hash)
             if ret is None:
                self.die(-1, "Upload attempt failed")
 
