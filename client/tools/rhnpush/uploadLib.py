@@ -22,7 +22,7 @@ import getpass
 import rhnpush_cache
 import struct
 from spacewalk.common import rhn_mpm
-from spacewalk.common import checksum
+from spacewalk.common.checksum import getFileChecksum
 
 try:
     from rhn import rpclib
@@ -507,7 +507,7 @@ def _processFile(filename, relativeDir=None, source=None, nosig=None):
     f.seek(0, 0)
     # Compute digest
     checksum_type = h.checksum_type()
-    checksum = checksum.getFileChecksum(checksum_type, file=f)
+    checksum = getFileChecksum(checksum_type, file=f)
     f.close()
     if h is None:
         raise UploadError("%s is not a valid RPM file" % filename)
