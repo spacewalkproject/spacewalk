@@ -111,7 +111,7 @@ class UploadClass(uploadLib.UploadClass):
         while self.files:
             chunk = self.files[:self.count]
             del self.files[:self.count]
-            uploadedPackages, headersList = _processBatch(chunk,
+            uploadedPackages, headersList = uploadLib._processBatch(chunk,
                 relativeDir=self.relativeDir, source=self.options.source, 
                 verbose=self.options.verbose, nosig=self.options.nosig)
 
