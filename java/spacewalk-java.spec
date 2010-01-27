@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.7
+Version: 0.8.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -283,6 +283,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jan 27 2010 Justin Sherrill <jsherril@redhat.com> 0.8.8-1
+- fixing api doc (jsherril@redhat.com)
+
 * Wed Jan 27 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.7-1
 - 529460 - fixing detection of disconnected satellite
 - 530177 - moving cobbler snippet usage before user %post scripts
