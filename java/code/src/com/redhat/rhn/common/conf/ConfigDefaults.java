@@ -390,6 +390,15 @@ public class ConfigDefaults {
     }
     
     /**
+     * get the text to print at the top of a kickstart template
+     * @return the header
+     */
+    public String getKickstartTemplateHeader() {
+        return Config.get().getString("kickstart.header", "#errorCatcher ListErrors");
+    }
+    
+    
+    /**
      * Returns the default network interface for a kickstart profile
      * @return the network interface
      */
