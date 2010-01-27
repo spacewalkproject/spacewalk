@@ -27,7 +27,10 @@ class RepoView:
         self.groups = groups
 
         self.fileobj = fileobj
-        self.checksum_type = checksum_type
+        if checksum_type == 'sha1':
+            self.checksum_type = 'sha'
+        else:
+            self.checksum_type = checksum_type
 
     def _get_data(self, data_type, data_obj):
         output = []
