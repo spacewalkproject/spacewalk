@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.15
+Version: 5.9.16
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -97,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Jan 27 2010 Miroslav Suchy <msuchy@redhat.com> 5.9.16-1
+- replaced popen2 with subprocess in client (michael.mraka@redhat.com)
+
 * Thu Jan 14 2010 Tomas Lestach <tlestach@redhat.com> 5.9.15-1
 - 552757 - temp file creation changed (tlestach@redhat.com)
 
