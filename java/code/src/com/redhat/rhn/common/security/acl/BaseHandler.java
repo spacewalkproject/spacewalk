@@ -44,6 +44,17 @@ public abstract class BaseHandler implements AclHandler {
     
     
     /**
+     * returns true if satellite, false if spacewalk
+     * @param ctx Our current context, containing a crid or cfid.
+     * @param params nothing
+     * @return true if satellite, false if spacewalk 
+     */
+    public boolean aclIsSatellite(Object ctx, String[] params) {
+        return !ConfigDefaults.get().isSpacewalk();
+    }
+    
+    
+    /**
      * Returns a Long object from the given object.  We expect
      * a String[] or String as the input all others return null;
      * @param o object to be converted
