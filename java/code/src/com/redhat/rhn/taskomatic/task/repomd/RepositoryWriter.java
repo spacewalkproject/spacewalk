@@ -108,11 +108,17 @@ public class RepositoryWriter {
         
         log.info("Checksum Type Value" + this.checksumtype);
 
-        // available digests:  MD2, MD5, SHA-1, SHA-256, SHA-384, SHA-512
+        // java.security.MessageDigest recognizes:
+        // MD2, MD5, SHA-1, SHA-256, SHA-384, SHA-512
         String checksumAlgo = this.checksumtype;
         if (checksumAlgo.toUpperCase().startsWith("SHA")) {
             checksumAlgo = this.checksumtype.substring(0, 3) + "-" +
                            this.checksumtype.substring(3);
+        }
+        // translate sha1 to sha for xml repo files
+        String checksumLabel = this.checksumtype;
+        if (checksumLabel == "sha1") {
+            checksumLabel = "sha";
         }
 
         try {
@@ -196,15 +202,15 @@ public class RepositoryWriter {
         RepomdIndexData groupsData = loadCompsFile(channel, checksumAlgo);
         
         //Set the type so yum can read and perform checksum
-        primaryData.setType(this.checksumtype);
-        filelistsData.setType(this.checksumtype);
-        otherData.setType(this.checksumtype);
+        primaryData.setType(checksumLabel);
+        filelistsData.setType(checksumLabel);
+        otherData.setType(checksumLabel);
         if (updateinfoData != null) {
-            updateinfoData.setType(this.checksumtype);
+            updateinfoData.setType(checksumLabel);
         }
         
         if (groupsData != null) {
-            groupsData.setType(this.checksumtype);
+            groupsData.setType(checksumLabel);
         }
         
         log.info("Primary xml's type" + primaryData.getType());
