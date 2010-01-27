@@ -114,9 +114,9 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "kslabel", "Label of kickstart
      * profile to be changed.")
      * @xmlrpc.param #param_desc("boolean", "pre", "whether or not to log
-     *      the pre section of a kickstart to /root/ks-pre.log
+     *      the pre section of a kickstart to /root/ks-pre.log")
      * @xmlrpc.param #param_desc("boolean", "post", "whether or not to log
-     *      the pre section of a kickstart to /root/ks-post.log
+     *      the pre section of a kickstart to /root/ks-post.log")
      * @xmlrpc.returntype #return_int_success()
      */
     public int setLogging(String sessionKey, String kslabel, boolean pre, boolean post) {
