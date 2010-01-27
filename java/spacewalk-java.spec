@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.6
+Version: 0.8.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -283,6 +283,17 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jan 27 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.7-1
+- 529460 - fixing detection of disconnected satellite
+- 530177 - moving cobbler snippet usage before user %post scripts
+- 543879 - support for downloading kickstart profiles through a proxy
+- 493176 - introducing kickstart.tree.getDetails API call
+- 382561 - fixing daily status message to be formatted correctly
+- 543184 - ability to change logging on a kickstart file from the api
+- 513716 - prefix check simplification
+- 506279 - speeding up channel.software.addPackages
+- 518127 - adding a configchannel.deployAllSystems api call
+
 * Fri Jan 15 2010 Tomas Lestach <tlestach@redhat.com> 0.8.6-1
 - removing logic for channel checksum type completion (tlestach@redhat.com)
 - 549752 - fix for check "channel in set" in UpdateChildChannelsCommand
