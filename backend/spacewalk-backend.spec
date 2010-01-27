@@ -259,9 +259,10 @@ export PYTHON_MODULE_VERSION=%{version}
 %{__python} setup.py install -O1 --root $RPM_BUILD_ROOT --prefix=%{_prefix}
 
 %if 0%{?rhel} && 0%{?rhel} < 6
-rm  $RPM_BUILD_ROOT/%{apacheconfd}/zz-spacewalk-server-wsgi.conf
+rm -v $RPM_BUILD_ROOT/%{apacheconfd}/zz-spacewalk-server-wsgi.conf
+rm -rfv $RPM_BUILD_ROOT/%{rhnroot}/server/wsgi
 %else
-rm  $RPM_BUILD_ROOT/%{apacheconfd}/zz-spacewalk-server-python.conf
+rm -v $RPM_BUILD_ROOT/%{apacheconfd}/zz-spacewalk-server-python.conf
 %endif
 
 
@@ -403,7 +404,22 @@ rm -f %{rhnconf}/rhnSecret.py*
 %if 0%{?rhel} && 0%{?rhel} < 6
 %attr(640,root,apache) %config %{apacheconfd}/zz-spacewalk-server-python.conf
 %else
+# wsgi stuff
 %attr(640,root,apache) %config %{apacheconfd}/zz-spacewalk-server-wsgi.conf
+%dir %{rhnroot}/server/wsgi
+%{rhnroot}/server/wsgi/__init__.py*
+%{rhnroot}/server/wsgi/app.py*
+%{rhnroot}/server/wsgi/applet.py*
+%{rhnroot}/server/wsgi/config.py*
+%{rhnroot}/server/wsgi/config_tool.py*
+%{rhnroot}/server/wsgi/package_push.py*
+%{rhnroot}/server/wsgi/package_upload.py*
+%{rhnroot}/server/wsgi/sat.py*
+%{rhnroot}/server/wsgi/sat_dump.py*
+%{rhnroot}/server/wsgi/wsgiHandler.py*
+%{rhnroot}/server/wsgi/wsgiRequest.py*
+%{rhnroot}/server/wsgi/xmlrpc.py*
+%{rhnroot}/server/wsgi/xp.py*
 %endif
 
 # logs and other stuff
