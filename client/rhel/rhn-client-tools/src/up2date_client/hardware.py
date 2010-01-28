@@ -93,14 +93,6 @@ PCI_CLASS_SERIAL_USB =          3
 PCI_CLASS_SERIAL_FIBER =        4
 PCI_CLASS_SERIAL_SMBUS =        5
 
-dmi_warnings = None
-if hasattr(dmidecode, 'get_warnings'):
-    dmi_warnings = dmidecode.get_warnings()
-
-if dmi_warnings:
-    log = up2dateLog.initLog()
-    log.log_debug("Warnings collected during dmidecode import: %s" % dmi_warnings)
-
 # Some systems don't have the _locale module installed
 try:
     import locale
@@ -110,6 +102,18 @@ except ImportError:
 # this does not change, we can cache it
 _dmi_data           = None
 _dmi_not_available  = 0
+
+def dmi_warnings():
+    if not hasattr(dmidecode, 'get_warnings'):
+        return None
+
+    return dmidecode.get_warnings()
+
+dmi_warn = dmi_warnings()
+if dmi_warn:
+    dmidecode.clear_warnings()
+    log = up2dateLog.initLog()
+    log.log_debug("Warnings collected during dmidecode import: %s" % dmi_warn)
 
 def _initialize_dmi_data():
     """ Initialize _dmi_data unless it already exist and returns it """
@@ -127,6 +131,9 @@ def _initialize_dmi_data():
             except:
                 # DMI decode FAIL, this can happend e.g in PV guest
                 _dmi_not_available = 1
+                dmi_warn = dmi_warnings()
+                if dmi_warn:
+                    dmidecode.clear_warnings()
                 return None
             _dmi_data = data.xpathNewContext();
     return _dmi_data
