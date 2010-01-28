@@ -363,28 +363,15 @@ sub initialize_pxt {
   my $xml_req;
   my $status;  # status from call to $apr->parse
 
-  if ($r->headers_in->{"Content-type"} and $r->headers_in->{"Content-type"} =~ m(^text/xml)) {
-    $xml_req = 1;
-    $apr = undef;
+  $apr = Apache2::Request->new($r, POST_MAX => PXT::Config->get("post_max"));
 
-    if ($r->headers_in->{'SOAPAction'}) {
-      $request->xml_request(new PXT::SoapRequest);
-    }
-    else {
-      $request->xml_request(new PXT::XmlrpcRequest);
-    }
-  }
-  else {
-    $apr = Apache2::Request->new($r, POST_MAX => PXT::Config->get("post_max"));
-
-    $status = OK;
-    eval {
+  $status = OK;
+  eval {
       $apr->parse;
-    };
-    if ($@ and ref $@ eq 'APR::Request::Error') {
+  };
+  if ($@ and ref $@ eq 'APR::Request::Error') {
       APR::Request::Error::strerror($@);
       $status = SERVER_ERROR;
-    }
   }
 
   $r->pnotes('pxt_apr', $apr);
