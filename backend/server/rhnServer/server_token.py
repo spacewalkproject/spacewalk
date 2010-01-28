@@ -425,29 +425,27 @@ def token_config_channels(server, tokens_obj):
             config_channels_hash[config_channel_id] = None
 
     ret = []
-    if not config_channels:
-        return ret
+    if config_channels:
+        h = rhnSQL.prepare(_query_set_server_config_channels)
 
-    h = rhnSQL.prepare(_query_set_server_config_channels)
+        h.execute_bulk({
+            'server_id'        : [server_id] * len(config_channels),
+            'config_channel_id': map(lambda c: c['config_channel_id'],
+                  config_channels),
+            'position'         : map(lambda c: c['position'], config_channels),
+            })
 
-    h.execute_bulk({
-        'server_id'        : [server_id] * len(config_channels),
-        'config_channel_id': map(lambda c: c['config_channel_id'], 
-            config_channels),
-        'position'         : map(lambda c: c['position'], config_channels),
-        })
-
-    for channel in config_channels:
-        msg = "Subscribed to config channel %s" % channel['name']
-        log_debug(4, msg)
-        ret.append(msg)
+        for channel in config_channels:
+            msg = "Subscribed to config channel %s" % channel['name']
+            log_debug(4, msg)
+            ret.append(msg)
     
     # Now that we have the server subscribed to config channels, 
     # determine if we have to deploy the files too
     # Don't pass tokens_obj, we only need the token that provided the config
     # channels in the first place
     if deployment:
-        log_debug(2, "All tokens have deploy_configs == Y, deploying configs")
+        log_debug(2, "At least one token has deploy_configs == Y, deploying configs")
         deploy_configs_if_needed(server)
 
     rhnSQL.commit()
