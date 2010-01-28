@@ -895,6 +895,7 @@ SELECT  S.id, S.name
  WHERE  ST.label = :system_set_label
    AND  ST.user_id = :user_id
    AND  ST.element = S.id
+   AND EXISTS(SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = ST.element AND SFV.label = 'ftr_config')
 ORDER BY S.name
   </query>
   <elaborator params="channel_set_label, user_id">

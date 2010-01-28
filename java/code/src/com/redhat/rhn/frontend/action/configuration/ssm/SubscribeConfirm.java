@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.action.configuration.ConfigChannelSetComparator;
+import com.redhat.rhn.frontend.dto.ConfigSystemDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -122,15 +123,15 @@ public class SubscribeConfirm extends RhnAction {
         String position = request.getParameter(POSITION);
         checkPosition(request);
         
-        RhnSet systems = RhnSetDecl.SYSTEMS.get(user);
+        List systems = ConfigurationManager.getInstance().ssmSystemsForSubscribe(user);
         RhnSet channels = RhnSetDecl.CONFIG_CHANNELS_RANKING.get(user);
         
         //visit every server and change their subscriptions
         //keep track of how many servers we have changed
         int successes = 0;
-        Iterator i = systems.getElements().iterator();
+        Iterator i = systems.iterator();
         while (i.hasNext()) {
-            Long sid = ((RhnSetElement)i.next()).getElement();
+            Long sid = ((ConfigSystemDto)i.next()).getId();
             try {
                 Server server = SystemManager.lookupByIdAndUser(sid, user);
                 
