@@ -25,6 +25,9 @@ import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.RepoInfo;
 import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.token.ActivationKey;
+import com.redhat.rhn.domain.token.ActivationKeyFactory;
+import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.channel.ChannelManager;
 
@@ -202,6 +205,15 @@ public class KickstartEditCommand extends BaseKickstartCommand {
         
         KickstartableTree tree = KickstartFactory.findTreeById(treeId, orgId);
         KickstartWizardHelper helper = new KickstartWizardHelper(getUser());
+        
+
+        for (Token token : ksdata.getDefaultRegTokens()) {
+            ActivationKey key = ActivationKeyFactory.lookupByToken(token);
+            if (key != null && key.getKickstartSession() != null) {
+                token.setBaseChannel(tree.getChannel());
+            }
+        }
+        
         if (tree != null) {
 
             this.ksdata.getKickstartDefaults().setKstree(tree);
