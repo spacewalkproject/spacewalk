@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.configuration.ssm;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.rhnset.RhnSet;
@@ -21,6 +22,7 @@ import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.configuration.ConfigActionHelper;
+import com.redhat.rhn.frontend.dto.ConfigSystemDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnListDispatchAction;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
@@ -72,15 +74,15 @@ public class UnsubscribeConfirmSubmitAction extends RhnListDispatchAction {
     public ActionForward confirm(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
         User user = new RequestContext(request).getLoggedInUser();
-        RhnSet systemSet = RhnSetDecl.SYSTEMS.get(user);
         RhnSet channelSet = RhnSetDecl.CONFIG_CHANNELS.get(user);
         ConfigurationManager cm = ConfigurationManager.getInstance();
+        DataResult systemSet = cm.ssmSystemListForChannels(user, null);
         
         int successes = 0;
-        Iterator systems = systemSet.getElements().iterator();
+        Iterator systems = systemSet.iterator();
         //go through each system in the set
         while (systems.hasNext()) {
-            Long sid = ((RhnSetElement)systems.next()).getElement();
+            Long sid = ((ConfigSystemDto)systems.next()).getId();
             Server server;
             boolean hit = false;
             try {

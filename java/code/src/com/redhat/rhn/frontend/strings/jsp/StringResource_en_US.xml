@@ -15515,7 +15515,7 @@ any of these revisions.  Are you sure you want to do this?</source>
            <source>You can unsubscribe systems from the configuration channels below. The channels shown below are all of the global configuration channels to which at least one system in your system set is subscribed.</source>
          </trans-unit>
          <trans-unit id="unsubscribe.jsp.noChannels">
-           <source>No configuration channels.</source>
+           <source>No configuration channels with subscribed systems in the current System Set!</source>
          </trans-unit>
          <trans-unit id="unsubscribe.jsp.systems">
            <source>Systems</source>
