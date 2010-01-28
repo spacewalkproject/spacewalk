@@ -32,6 +32,7 @@ from virtualization.errors             import VirtualizationException
 from virtualization.constants          import StateType,           \
                                               PropertyType,        \
                                               VirtualizationType,  \
+                                              IdentityType,        \
                                               VIRT_STATE_NAME_MAP, \
                                               VIRT_VDSM_STATUS_MAP
 from virtualization.notification       import Plan,                \
@@ -231,6 +232,12 @@ def _send_notifications(poller_state):
         modified = poller_state.get_modified()
 
         plan = Plan()
+
+        # Declare virtualization host first
+        plan.add(EventType.EXISTS,
+                 TargetType.SYSTEM,
+                 { PropertyType.IDENTITY : IdentityType.HOST,
+                   PropertyType.UUID     : '0000000000000000' })
 
         for (uuid, data) in added.items():
             plan.add(EventType.EXISTS, TargetType.DOMAIN, data)
