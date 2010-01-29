@@ -9,7 +9,7 @@
 Summary: Next generation package handling tool
 Name: smartpm
 Source0: smartpm-%{version}.tar.gz
-Version: 0.3
+Version: 0.4
 Release: 1
 License: GPLv2
 Group: Applications/System
@@ -59,6 +59,9 @@ env %{__python} setup.py build
 %{python_sitearch}/rhn/actions/solarispkgs.py*
 
 %changelog
+* Fri Jan 29 2010 Miroslav Suchý <msuchy@redhat.com> 0.4-1
+- replaced popen2 with subprocess in client (michael.mraka@redhat.com)
+
 * Thu Jun 25 2009 John Matthews <jmatthew@redhat.com> 0.3-1
 - 498079 - the -u option has to be specified before the file name, in call to
   unzip. (jpazdziora@redhat.com)
