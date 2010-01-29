@@ -6,7 +6,7 @@
 
 Name:            oracle-xe-selinux
 Version:         10.2
-Release:         15%{?dist}
+Release:         16%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
 License:         GPLv2+
@@ -139,6 +139,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Fri Jan 29 2010 Jan Pazdziora 10.2-16
+- Do semodule -l before any semodule operation.
+
 * Fri Nov 27 2009 Jan Pazdziora 10.2-15
 - Change the port from 9000 to 9055.
 
