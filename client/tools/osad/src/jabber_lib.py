@@ -14,7 +14,7 @@
 #
 
 import os
-import sha
+import hashlib
 import sys
 import time
 import types
@@ -332,9 +332,9 @@ def check_cert(cert_path):
         raise InvalidCertError("Expired certificate", cert_path)
 
 def sign(secret_key, *values):
-    h = sha.new(secret_key).hexdigest()
+    h = hashlib.new('sha1', secret_key).hexdigest()
     for v in values:
-        h = sha.new(h + str(v)).hexdigest()
+        h = hashlib.new('sha1', h + str(v)).hexdigest()
     return h
 
 class JabberCallback:
@@ -870,13 +870,13 @@ class JabberClient(jabber.Client):
             token = auth_ret_query.getTag('token').getData() 
             seq = auth_ret_query.getTag('sequence').getData()
 
-            h = sha.new(sha.new(password).hexdigest() + token).hexdigest()
+            h = hashlib.new('sha1', hashlib.new('sha1', password).hexdigest() + token).hexdigest()
             for i in range(int(seq)):
-                h = sha.new(h).hexdigest()
+                h = hashlib.new('sha1', h).hexdigest()
             q.insertTag('hash').insertData(h)
         elif auth_ret_query.getTag('digest'):
             digest = q.insertTag('digest')
-            digest.insertData(sha.new(
+            digest.insertData(hashlib.new('sha1',
                 self.getIncomingID() + password).hexdigest() )
         else:
             q.insertTag('password').insertData(password)
@@ -1332,7 +1332,7 @@ def generate_random_string(length=20):
         return ''
     random_bytes = 16
     length = int(length)
-    s = sha.new()
+    s = hashlib.new('sha1')
     s.update("%.8f" % time.time())
     s.update(str(os.getpid()))
     devrandom = open('/dev/urandom')
