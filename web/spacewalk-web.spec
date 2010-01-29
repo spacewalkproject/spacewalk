@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.9
+Version: 0.8.10
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -269,6 +269,14 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Jan 29 2010 Miroslav Suchý <msuchy@redhat.com> 0.8.10-1
+- No XMLRPC/SOAP processing in the web/Perl stack, 
+  removing. (jpazdziora@redhat.com)
+- 543879 - adding support to the proxy side to redirect to a url 
+  that will rewrite kickstarts with the proxy name for /cblr 
+  urls (jsherril@redhat.com)
+
+
 * Thu Jan 14 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.9-1
 - force correct UTF-8 in changelog
 - fixed directories and links listing in package detail
