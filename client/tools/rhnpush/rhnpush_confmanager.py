@@ -39,11 +39,6 @@ class  ConfManager:
         regfile = os.path.join(homedir, regular)
         cwdfile = os.path.join(os.getcwd(), regular)
 
-        write_regfile = False
-        write_cwdfile = False
-        regfilename = None  
-        cwdfilename = None
-
         #Test for the existence of each of the configfiles.
         if not os.access(deffile, os.F_OK):
             print "%s not found." % (deffile)
