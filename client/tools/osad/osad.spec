@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.25
+Version: 5.9.26
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -240,6 +240,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
+* Fri Jan 29 2010 Jan Pazdziora 5.9.26-1
+- 559230 - address errors during package removal.
+- Do not hide any error messages produced by semanage port -a.
+
 * Wed Jan 27 2010 Miroslav Suchy <msuchy@redhat.com> 5.9.25-1
 - replaced popen2 with subprocess in client (michael.mraka@redhat.com)
 
