@@ -65,9 +65,6 @@ class RPMTransaction:
         self.ts = rpm.TransactionSet()
         self.tsflags = []
 
-    def __getattr__(self, attr):
-        return getattr(self.ts, attr)
-
     def getMethod(self, method):
         # in theory, we can override this with
         # profile/etc info
@@ -109,6 +106,8 @@ class RPMTransaction:
     def run(self, callback, user_data):
         return self.ts.run(callback, user_data)
 
+    def hdrFromFdno(self, fd):
+	return self.ts.hdrFromFdno(fd)
 
 
 
@@ -274,7 +273,7 @@ def get_package_header(filename=None, file=None, fd=None):
         # RHEL-4 and older, do the old way
         ts = RPMReadOnlyTransaction()
         ts.pushVSFlags(~(rpm.RPMVSF_NOMD5 | rpm.RPMVSF_NEEDPAYLOAD))
-        hdr = RPMReadOnlyTransaction().hdrFromFdno(file_desc)
+        hdr = ts.hdrFromFdno(file_desc)
         ts.popVSFlags()
     if hdr is None:
         raise InvalidPackageError
