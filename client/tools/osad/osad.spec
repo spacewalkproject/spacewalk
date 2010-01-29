@@ -81,7 +81,7 @@ Requires: selinux-policy >= %{selinux_policyver}
 Requires:        selinux-policy >= 2.4.6-114
 %endif
 Requires(post): /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/selinuxenabled, /usr/sbin/semanage
-Requires(postun): /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/semanage
+Requires(postun): /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/semanage, spacewalk-selinux
 Requires: osa-dispatcher
 
 %description -n osa-dispatcher-selinux
