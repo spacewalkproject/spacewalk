@@ -496,7 +496,6 @@ IS
         for channel in server_channels(server_id_in)
         loop
                 unsubscribe_server(server_id_in, channel.channel_id, 1, 1, deleting_server);
-                rhn_channel.update_family_counts(channel.channel_family_id, channel.org_id);
         end loop channel;
     END clear_subscriptions;
 
