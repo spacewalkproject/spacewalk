@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.8
+Version: 0.8.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -283,6 +283,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jan 29 2010 Miroslav Suchý <msuchy@redhat.com> 0.8.9-1
+- 539159 - offering only ssm systems with appropriate permissions for config channel unsubscription (tlestach@redhat.com)
+- 539159 - offering only ssm systems with appropriate permissions for config channel subscription (tlestach@redhat.com)
+- 538435 - fixing issue where cloning a channel wouldnt properly clone the activation keys, and wouldnt update the default session key properly (jsherril@redhat.com)
+- 506950 - fixing issue where RedHat channels tab would show up for spacewalk users (jsherril@redhat.com)
+fixing issue that kept spacewalk from working with the newest cobbler (jsherril@redhat.com)
+- 559284 - fixing issue where _ & - characters were being removed from cobbler names (jsherril@redhat.com)
+
 * Wed Jan 27 2010 Justin Sherrill <jsherril@redhat.com> 0.8.8-1
 - fixing api doc (jsherril@redhat.com)
 
