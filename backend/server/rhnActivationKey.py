@@ -17,7 +17,7 @@
 # $Id$
 
 import os
-import sha
+import hashlib
 import time
 import types
 
@@ -184,7 +184,7 @@ class ActivationKey:
         
 
     def generate_token(self):
-        s = sha.new()
+        s = hashlib.new('sha1')
         s.update(str(os.getpid()))
         for field in ['org_id', 'user_id', 'server_id']:
             if self._row_reg_token.has_key(field):
