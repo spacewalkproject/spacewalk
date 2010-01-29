@@ -117,7 +117,8 @@ if [ $1 -eq 0 ]; then
   # Remove SELinux policy modules
   for selinuxvariant in %{selinux_variants}
     do
-      /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} &> /dev/null || :
+      /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
+        && /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} || :
     done
 
   /usr/sbin/semanage port -d -t oracle_port_t -p tcp 9000 || :
