@@ -80,8 +80,8 @@ Requires: selinux-policy >= %{selinux_policyver}
 %if 0%{?rhel} == 5
 Requires:        selinux-policy >= 2.4.6-114
 %endif
-Requires(post): /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/selinuxenabled
-Requires(postun): /usr/sbin/semodule, /sbin/restorecon
+Requires(post): /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/selinuxenabled, /usr/sbin/semanage
+Requires(postun): /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/semanage
 Requires: osa-dispatcher
 
 %description -n osa-dispatcher-selinux
@@ -172,6 +172,12 @@ fi
 %postun -n osa-dispatcher-selinux
 # Clean up after package removal
 if [ $1 -eq 0 ]; then
+
+  /usr/sbin/semanage port -ln \
+    | perl '-F/,?\s+/' -ane 'print map "$_\n", @F if shift @F eq "osa_dispatcher_upstream_notif_server_port_t" and shift @F eq "tcp"' \
+    | while read port ; do \
+      /usr/sbin/semanage port -d -t osa_dispatcher_upstream_notif_server_port_t -p tcp $port || :
+    done
   for selinuxvariant in %{selinux_variants}
     do
       /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
