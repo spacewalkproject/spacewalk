@@ -928,7 +928,8 @@ is
 	procedure prune_group (
 		group_id_in in number,
 		type_in in char,
-		quantity_in in number
+		quantity_in in number,
+                update_family_countsYN in number := 1
 	) is
 		cursor usergroups is
 			select	user_id, user_group_id, ugt.label
@@ -1008,7 +1009,8 @@ is
             -- if we're removing a base ent, then be sure to
             -- remove the server's channel subscriptions.
             if ( type_is_base = 'Y' ) then
-				   rhn_channel.clear_subscriptions(sg.server_id);
+				   rhn_channel.clear_subscriptions(sg.server_id,
+                                        update_family_countsYN => update_family_countsYN);
             end if;
 
 			end loop;
@@ -1265,10 +1267,15 @@ is
             rhn_exception.raise_exception(
                           'not_enough_entitlements_in_base_org');
         else
+            -- don't update family counts after every server
+            -- will do bulk update afterwards
             rhn_entitlements.set_group_count(org_id_in,
                                              'S',
                                              group_type,
-                                             quantity_in);
+                                             quantity_in,
+                                             update_family_countsYN => 0);
+            -- bulk update family counts
+            rhn_channel.update_group_family_counts(group_label_in, org_id_in);
         end if;
 
 
@@ -1344,7 +1351,8 @@ is
 		customer_id_in in number,
 		type_in in char,
 		group_type_in in number,
-		quantity_in in number
+		quantity_in in number,
+                update_family_countsYN in number := 1
 	) is
 		group_id number;
 		quantity number;
@@ -1373,7 +1381,8 @@ is
 		rhn_entitlements.prune_group(
 			group_id,
 			type_in,
-			quantity
+			quantity,
+                        update_family_countsYN
 		);
 	exception
 		when no_data_found then

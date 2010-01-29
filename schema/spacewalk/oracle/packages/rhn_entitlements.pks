@@ -144,7 +144,8 @@ is
 		customer_id_in in number,	-- customer_id
 		type_in in char,			-- 'U' or 'S'
 		group_type_in in number,	-- rhn[User|Server]GroupType.id
-		quantity_in in number		-- quantity
+		quantity_in in number,		-- quantity
+                update_family_countsYN in number := 1 -- call update_family_counts inside
     );
 
     procedure set_family_count (

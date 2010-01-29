@@ -482,7 +482,8 @@ IS
     end;
 
 
-    PROCEDURE clear_subscriptions(server_id_in IN NUMBER, deleting_server IN NUMBER := 0 )
+    PROCEDURE clear_subscriptions(server_id_in IN NUMBER, deleting_server IN NUMBER := 0,
+                                update_family_countsYN IN NUMBER := 1)
     IS
         cursor server_channels(server_id_in in number) is
                 select  s.org_id, sc.channel_id, cfm.channel_family_id
@@ -495,12 +496,13 @@ IS
     BEGIN
         for channel in server_channels(server_id_in)
         loop
-                unsubscribe_server(server_id_in, channel.channel_id, 1, 1, deleting_server);
+                unsubscribe_server(server_id_in, channel.channel_id, 1, 1, deleting_server, update_family_countsYN);
         end loop channel;
     END clear_subscriptions;
 
     PROCEDURE unsubscribe_server(server_id_in IN NUMBER, channel_id_in NUMBER, immediate_in NUMBER := 1, unsubscribe_children_in number := 0,
-                                 deleting_server IN NUMBER := 0 )
+                                 deleting_server IN NUMBER := 0,
+                                 update_family_countsYN IN NUMBER := 1)
     IS
         channel_family_id_val   NUMBER;
         server_org_id_val       NUMBER;
@@ -537,7 +539,8 @@ IS
                                                                 channel_id_in => child.id,
                                                                 immediate_in => immediate_in,
                                                                 unsubscribe_children_in => unsubscribe_children_in,
-                        deleting_server => deleting_server);
+                        deleting_server => deleting_server,
+                        update_family_countsYN => update_family_countsYN);
             else
                 rhn_exception.raise_exception('channel_unsubscribe_child_exists');
             end if;
@@ -598,7 +601,9 @@ IS
           FROM rhnServer
          WHERE id = server_id_in;
          
-        rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val);
+        if update_family_countsYN = 1 then
+            rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val);
+        end if;
     END unsubscribe_server;
 
     PROCEDURE bulk_unsubscribe_server(channel_id_in IN NUMBER, set_label_in IN VARCHAR2, set_uid_in IN NUMBER)
@@ -708,6 +713,29 @@ IS
 
     END update_family_counts;
     
+    PROCEDURE update_group_family_counts(group_label_in IN VARCHAR2,
+                                   org_id_in IN NUMBER)
+    IS
+    BEGIN
+        FOR i IN (
+                SELECT DISTINCT CFM.channel_family_id, SG.org_id
+                 FROM rhnChannelFamilyMembers CFM
+                 JOIN rhnServerChannel SC
+                   ON SC.channel_id = CFM.channel_id
+                 JOIN rhnServerGroupMembers SGM
+                   ON SC.server_id = SGM.server_id
+                 JOIN rhnServerGroup SG
+                   ON SGM.server_group_id = SG.id
+                 JOIN rhnServerGroupType SGT
+                   ON SG.group_type = SGT.id
+                WHERE SGT.label = group_label_in
+                  AND SG.org_id = org_id_in
+                  AND SGT.is_base = 'Y'
+        ) LOOP
+            rhn_channel.update_family_counts(i.channel_family_id, i.org_id);
+        END LOOP;
+    END update_group_family_counts;
+
     FUNCTION available_chan_subscriptions(channel_id_in IN NUMBER, 
                                           org_id_in IN NUMBER)
     RETURN NUMBER
