@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.8
+Version:        5.4.9
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -140,6 +140,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Jan 29 2010 Miroslav Suchý <msuchy@redhat.com> 5.4.9-1
+- 548812 - include host info in the virt. guests refresh (mzazrivec@redhat.com)
+- Methods __addElementValue and __addElementAttribute do not seem to be used anywhere, removing. (jpazdziora@redhat.com)
+- 548812 - proper support for VDSM in rhn-virtualization (mzazrivec@redhat.com)
+
 * Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 5.4.8-1
 - 552271 - -host needs to require specific version of -common package
 - 546676 - blocking and nostate are always just running
