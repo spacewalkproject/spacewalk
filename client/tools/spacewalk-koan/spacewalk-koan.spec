@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.2.3
+Version: 0.2.4
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Fri Jan 29 2010 Miroslav Suchý <msuchy@redhat.com> 0.2.4-1
+- replaced popen2 with subprocess in client (michael.mraka@redhat.com)
+
 * Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.2.3-1
 - import virtualization module in kickstart_guest section (mzazrivec@redhat.com)
 - 532429 - refresh virt. state after successful guest kickstart (mzazrivec@redhat.com)
