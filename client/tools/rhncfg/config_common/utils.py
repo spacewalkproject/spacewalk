@@ -14,7 +14,17 @@
 #
 
 import os
-import sha
+try:
+    import hashlib
+except ImportError:
+    import sha
+    class hashlib:
+        @staticmethod
+        def new(checksum):
+            if checksum == 'sha1':
+                return sha.new()
+            else:
+                raise ValueError, "Incompatible checksum type"
 import re
 import string
 import shutil
@@ -146,7 +156,7 @@ def rm_trailing_slash(slashstring):
 
 
 def sha1_file(file):
-    engine = sha.new()
+    engine = hashlib.new('sha1')
 
     fh = open(file, "r")
     while 1:
