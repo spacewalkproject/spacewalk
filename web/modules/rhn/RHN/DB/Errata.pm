@@ -769,33 +769,6 @@ EOQ
 }
 
 
-# Returns a list of errata for a given CVE
-sub find_by_cve {
-    my $class = shift;
-    my $cve = shift;
-
-    my $query = <<EOQ;
-SELECT product, advisory
-  FROM rhnErrata e, rhnCVE c, rhnErrataCVE ec
-  WHERE c.name LIKE ? AND
-  c.id = ec.cve_id AND
-  ec.errata_id = e.id
-ORDER BY product ASC
-EOQ
-
-    my $dbh = RHN::DB->connect;
-    my $sth = $dbh->prepare($query);
-
-    #$sth->bind_param( 1, $cve );
-    $sth->execute("%" . $cve);
-    my @ret;
-    while (my ($prod, $adv) = $sth->fetchrow ) {
-        push @ret, [$prod, $adv];
-    }
-
-    return @ret;
-}
-
 sub find_by_advisory {
   my $class = shift;
   my %params = @_;
