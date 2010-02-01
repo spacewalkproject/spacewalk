@@ -18,6 +18,7 @@ BuildRequires:  python
 
 Requires:       python, rpm-python
 Requires:		perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+Requires:       rhnlib >= 2.5.20
 
 %description
 Generic utilities that may be run against a Spacewalk server.  This package

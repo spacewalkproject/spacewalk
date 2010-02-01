@@ -26,8 +26,8 @@ from up2date_client import config
 from up2date_client import clientCaps
 from up2date_client import capabilities
 from up2date_client import rhncli
-from up2date_client import rhnLockfile
 
+from rhn import rhnLockfile
 from rhn import rpclib
 
 cfg = config.initUp2dateConfig()

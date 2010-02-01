@@ -52,7 +52,8 @@ if os.getuid() != 0:
 
 
 try:
-    from common import rhnLockfile, CFG, fetchTraceback
+    from rhn import rhnLockfile
+    from common import CFG, fetchTraceback
 except KeyboardInterrupt:
     systemExit(0, "\nUser interrupted process.")
 except ImportError:

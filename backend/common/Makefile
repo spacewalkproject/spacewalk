@@ -16,7 +16,6 @@ FILES	=   __init__ \
             rhnException \
             rhnFlags \
             rhnLib \
-            rhnLockfile \
             rhnLog \
             rhnMail \
             rhnRepository \

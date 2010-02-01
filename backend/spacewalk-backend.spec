@@ -219,6 +219,7 @@ Requires: PyXML
 Requires: mod_ssl
 Requires: %{name}-xml-export-libs
 Requires: cobbler >= 1.4.3
+Requires: rhnlib  >= 2.5.20
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
 Provides: rhns-satellite-tools = %{version}-%{release}
@@ -308,7 +309,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/common/rhnException.py*
 %{rhnroot}/common/rhnFlags.py*
 %{rhnroot}/common/rhnLib.py*
-%{rhnroot}/common/rhnLockfile.py*
 %{rhnroot}/common/rhnLog.py*
 %{rhnroot}/common/rhnMail.py*
 %{rhnroot}/common/rhnTB.py*

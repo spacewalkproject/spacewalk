@@ -32,10 +32,11 @@ def systemExit(code, msgs=None):
 try:
     import os
     import socket
+    from rhn import rhnLockfile
     _LIBPATH = "/usr/share/rhn"
     if _LIBPATH not in sys.path:
         sys.path.append(_LIBPATH)
-    from common import rhnLockfile, CFG, fetchTraceback
+    from common import CFG, fetchTraceback
     from satellite_tools import reposync
 except KeyboardInterrupt:
     systemExit(0, "\nUser interrupted process.")
