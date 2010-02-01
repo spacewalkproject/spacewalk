@@ -228,15 +228,6 @@ sub session_history_provider {
   return (%ret);
 }
 
-sub crypto_key_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my %ret = $self->default_provider($pxt);
-
-  return (%ret);
-}
-
 sub render_url {
   my $self = shift;
 
