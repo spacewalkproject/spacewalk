@@ -51,8 +51,6 @@ sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('public-secure-links-if-logged-in' => \&secure_links_if_logged_in, 101);
-
   $pxt->register_tag('rhn-login-form', \&rhn_login_form);
 
   $pxt->register_tag('rhn-require' => \&rhn_require, -1000);
@@ -70,25 +68,6 @@ sub register_callbacks {
 
   $pxt->register_callback('rhn:user_prefs_edit_cb' => \&user_prefs_edit_cb);
 }
-
-# secures *all* intraserver links and all links to specified exterior servers
-sub secure_links_if_logged_in {
-  my $pxt = shift;
-  my %params = @_;
-
-  return $params{__block__} unless $pxt->user;
-
-  #  intra server ones...
-  #$params{__block__} =~ s/href="(http:\/\/.*?)"/'href="' . $pxt->derelative_url($1, 'https') . '"'/egism;
-
-  #  inter server ones
-  foreach my $server_str (split /[|]/, $params{servers}) {
-    $params{__block__} =~ s{http://($server_str)}{https://$1}gism;
-  }
-
-  return $params{__block__};
-}
-
 
 
 
