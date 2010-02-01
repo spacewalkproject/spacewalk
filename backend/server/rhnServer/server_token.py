@@ -701,9 +701,6 @@ class ReRegistrationActivationToken(ReRegistrationToken):
 
 
 
-def sortAndUniqEntitlements(entitlements):
-    pass
-
 def _fetch_token_from_cursor(cursor):
     # Fetches a token from a prepared and executed cursor
     # Used by both fetch_token and fetch_org_token
