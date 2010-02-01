@@ -66,48 +66,6 @@ EOQ
   $sth->finish;
   return $retval;
 }
-sub affected_product_lines {
-  my $self_or_id = shift;
-  my $id;
-
-  if (ref $self_or_id) {
-    $id = $self_or_id->id;
-  }
-  else {
-    $id = shift;
-  }
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT DISTINCT PL.name
-  FROM rhnProductLine PL,
-       rhnProduct P,
-       rhnProductChannel PC,
-       rhnErrataFileChannel EFC,
-       rhnErrataFile EF
- WHERE EF.errata_id = ?
-   AND EF.id = EFC.errata_file_id
-   AND EFC.channel_id = PC.channel_id
-   AND PC.product_id = P.id
-   AND P.product_line_id = PL.id
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($id);
-
-  my @ret;
-
-  while (my ($row) = $sth->fetchrow) {
-    push @ret, $row;
-  }
-  $sth->finish;
-
-  return @ret;
-}
 
 sub affected_products {
   my $self = shift;
