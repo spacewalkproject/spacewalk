@@ -153,7 +153,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/up2date_client/clientCaps.*
 %{_datadir}/rhn/up2date_client/capabilities.*
 %{_datadir}/rhn/up2date_client/rhncli.*
-%{_datadir}/rhn/up2date_client/rhnLockfile.*
 %{_datadir}/rhn/__init__.*
 
 %{_sbindir}/rhn-profile-sync
