@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.27
+Version: 5.9.28
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -238,6 +238,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
+* Mon Feb 01 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.28-1
+- use rhnLockfile.py from rhnlib
+
 * Fri Jan 29 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.27-1
 - fixed the sha module is deprecated
 
