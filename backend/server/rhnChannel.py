@@ -24,7 +24,6 @@ from types import IntType, ListType, DictType
 # common module
 from common import log_debug, log_error, rhnFault, rhnException, rhnCache, rhnFlags, CFG
 from common.rhnTranslate import _
-from common.rhnLib import startswith
 from spacewalk.common import rhn_rpm
 from rhnServer import server_lib
 from rhnDependency import MakeEvrError
@@ -82,9 +81,9 @@ class BaseDatabaseObject:
         self._row = None
 
     def __getattr__(self, name):
-        if startswith(name, 'get_'):
+        if name.startswith('get_'):
             return rhnLib.CallableObj(name[4:], self._get)
-        if startswith(name, 'set_'):
+        if name.startswith('set_'):
             return rhnLib.CallableObj(name[4:], self._set)
         raise AttributeError(name)
 

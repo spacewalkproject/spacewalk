@@ -172,11 +172,3 @@ def fix_url(url, scheme="http", path="/"):
         _fragment))
     return url
 
-
-def startswith(s, prefix):
-    """
-    Trivial function that I wish existed in python 1.5
-    """
-    return s[:len(prefix)] == prefix
-
-
