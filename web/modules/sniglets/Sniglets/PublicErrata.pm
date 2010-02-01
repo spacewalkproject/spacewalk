@@ -41,7 +41,6 @@ sub register_tags {
   # for www.redhat.com'ish public errata display
   $pxt->register_tag('public-errata-product-list' => \&public_errata_product_list);
   $pxt->register_tag('public-errata-type' => \&public_errata_type);
-  $pxt->register_tag('public-errata-list' => \&public_errata_list);
   $pxt->register_tag('public-cve-list' => \&public_cve_list);
   $pxt->register_tag('public-cve-details' => \&public_cve_details);
   $pxt->register_tag('public-cve-heading' => \&public_cve_heading);
@@ -458,101 +457,5 @@ sub public_cve_details {
     return $ret;
 }
 
-
-sub public_errata_list {
-  my $pxt = shift;
-  my %params = @_;
-
-  #$my $product = $pxt->param('product');
-  my $path_info = $pxt->path_info;
-  my $product_label;
-
-  if ($path_info) {
-
-    if ($path_info =~ m/\/(.*?)-errata/) {
-      $product_label = $1;
-    }
-    elsif ($path_info =~ m/\/(.*?-powertools)/) {
-      $product_label = $1;
-    }
-
-  }
-
-  $pxt->redirect('/file_not_found.pxt') unless $product_label;
-
-  my $errata_type;
-  my $order_by;
-
-  if ($path_info =~ m/security/) {
-    $errata_type = $errata_types{'security'}->[1];
-  }
-  elsif ($path_info =~ m/bugfixes/) {
-    $errata_type = $errata_types{'bug_fixes'}->[1];
-  }
-  elsif ($path_info =~ m/updates/) {
-    $errata_type = $errata_types{'enhancements'}->[1];
-  }
-
-  if ($pxt->dirty_param('by') and grep { $pxt->dirty_param('by') eq $_ } qw/date synopsis advisory severity/) {
-    $order_by = $pxt->dirty_param('by');
-  }
-
-  my @errata;
-
-  my $product = RHN::Product->name_by_label($product_label);
-  unless ($product) {
-    my $uri = $pxt->uri;
-    $uri =~ s|^.*/||;
-    warn "Invalid product in Sniglets::public_errata_search - '$product_label'\n";
-    $pxt->redirect('http://www.redhat.com/support/errata/archives/' . $uri);
-  }
-
-  @errata = RHN::Errata->errata_list_by_product($product_label, $errata_type, $order_by);
-
-  my $num_errata = @errata;
-  $pxt->pnotes(errata_total => $num_errata);
-
-  my $block = $params{__block__};
-  my $ret = '';
-  my $counter = 1;
-
-  foreach my $errata (@errata) {
-    my %subst;
-
-    if ($counter % 2) {
-      $subst{class} = 'list-row-odd';
-    }
-    else {
-      $subst{class} = 'list-row-even';
-    }
-
-    $counter++;
-
-    $subst{errata_advisory_name} = $errata->[1];
-    $subst{errata_synopsis} = $errata->[2];
-    $subst{errata_update_date} = $errata->[3];
-    $subst{errata_advisory_type} = $errata->[4];
-    $subst{errata_type} = $errata_types_reverse{$errata->[4]};
-    $subst{errata_description} = $errata->[5];
-    $subst{severity} = $errata->[7];
-
-    PXT::Utils->escapeHTML_multi(\%subst);
-
-    my $color = $counter % 2 ? 'grey' : 'white';
-
-    $subst{errata_icon} = PXT::HTML->img(-src => $e_icons{$errata->[4]}->{$color},
-					 -alt => $e_icons{$errata->[4]}->{alt},
-					 -align => "absmiddle");
-
-    $errata->[1] =~ m/^(.*?):(.*?)$/;
-    my $advisory = "$1-$2";
-
-    $subst{errata_advisory_html_version} = "$advisory\.html";
-
-    $ret .= PXT::Utils->perform_substitutions($block, \%subst);
-  }
-
-  return $ret;
-}
 
 1;
