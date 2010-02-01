@@ -281,31 +281,6 @@ def checkin(server_id, commit=1, check_for_abuse=1):
 def set_qos(server_id):
     pass
 
-# set_qos - sets some Quality of Service params for users 
-def set_qos_dummy(server_id):
-    log_debug(3, server_id)
-
-    h = rhnSQL.prepare("""
-    select sum(max_members) max_members, sysdate
-    from rhnServerGroup sg
-    where
-        sg.group_type in (
-            select id
-            from rhnServerGroupType
-            where label in ('sw_mgr_entitled', 'enterprise_entitled')
-        )
-    and sg.org_id = ( select org_id from rhnServer where id = :server_id )
-    """)
-    h.execute(server_id = server_id)
-    row = h.fetchone_dict()
-    if row['max_members'] > 1:
-        # Paying customer
-        return
-
-    # XXX Force the trottling for everybody else, for testing purposes
-    rhnFlags.set('QOS-Max-Bandwidth', 1024)
-
-
 # throttle - limits access to free users if a throttle file exists
 #            NOTE: current check allows for a x-hour long grace-period.
 def throttle(server):
