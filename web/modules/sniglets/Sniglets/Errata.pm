@@ -65,19 +65,6 @@ my %e_icons = ('Security Advisory' => { image => '/img/rhn-icon-security.gif',
 				      alt => "Bug Fix Advisory" } );
 
 
-# returns true if we have db knowledge of an errata.
-sub errata_in_db {
-  my $path_info = shift;
-
-  $path_info =~ m/\/(.*?)-(.*?)\.html/;
-  my ($type, $version) = ($1, $2);
-  $version =~ s/-/:/;
-
-  my $errata = RHN::Errata->find_by_advisory(-type => $type, -version => $version);
-
-  return $errata;
-}
-
 sub errata_name {
   my $pxt = shift;
 
