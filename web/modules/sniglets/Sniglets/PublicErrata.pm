@@ -41,7 +41,6 @@ sub register_tags {
   # for www.redhat.com'ish public errata display
   $pxt->register_tag('public-errata-product-list' => \&public_errata_product_list);
   $pxt->register_tag('public-errata-type' => \&public_errata_type);
-  $pxt->register_tag('public-cve-list' => \&public_cve_list);
   $pxt->register_tag('public-cve-details' => \&public_cve_details);
   $pxt->register_tag('public-cve-heading' => \&public_cve_heading);
 }
@@ -122,33 +121,6 @@ sub public_errata_product_list {
   }
 
   return $ret;
-}
-
-# 
-sub public_cve_list {
-    my $pxt = shift;
-    my $cache_time = PXT::Config->get("public_errata_cache_time") ||
-                                      "15 minutes";
-
-    if ($pxt->path_info eq '/') {
-        # make them choose a product
-        return $pxt->include('/errata_hidden/product_list.pxi');
-    }
-    elsif ($pxt->path_info =~ m {^/(CVE|CAN)-\d\d\d\d-\d\d\d\d.*?\.html}) {
-        if (cve_in_db($pxt->path_info)) {
-            $pxt->cache_document_contents($cache_time);
-            return $pxt->include('/errata_hidden/cve_details.pxi');
-        }
-        else {
-            $pxt->path_info =~ m {^/((CVE|CAN).*?)\.html$};
-            my $attempted_adv = $1;
-            $attempted_adv = PXT::Utils->escapeURI($attempted_adv);
-            $pxt->redirect("/cve_not_found.pxt?attempted_adv=$attempted_adv");
-        }
-    }
-    else {
-        $pxt->redirect("/file_not_found.pxt");
-    }
 }
 
 
