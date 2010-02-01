@@ -244,29 +244,6 @@ sub apply_unscheduled_errata {
   return 1;
 }
 
-sub errata_summary_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  $self->lower(1);
-  $self->upper(10);
-
-  my %ret = $self->default_provider($pxt);
-
-  my $summary = '';
-
-  if (scalar(@{$ret{all_ids}})) {
-    $summary = {errata_shown => scalar(@{$ret{data}}) || '0',
-		errata_total => scalar(@{$ret{all_ids}}) || '0',
-		errata_relevant => scalar(grep { $_->{AFFECTED_SERVER_COUNT} > 0 } @{$ret{data}}) || '0',
-	       };
-  }
-
-  $pxt->pnotes('errata_summary', $summary);
-
-  return (%ret);
-}
-
 sub relevant_to_system_provider {
   my $self = shift;
   my $pxt = shift;
