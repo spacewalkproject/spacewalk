@@ -104,10 +104,7 @@ class rhnpushConfigParser:
 
     def write(self, fileobj):
         try:
-            if hasattr(self.settings, "write"):
-                self.settings.write(fileobj)
-            else:
-                _write(self.settings, fileobj)
+            self.settings.write(fileobj)
         except IOError, e:
             print "Config File Error: line %s, file %s: $s" % (e.lineno, e.filename, e)
             sys.exit(1)
@@ -147,16 +144,4 @@ class rhnpushConfigParser:
                     print "/etc/sysconfig/rhn/rhnpushrc is missing %s option." % (thiskey)
                     print "Option %s is being set to the default value of %s." % (thiskey, self.options_defaults[thiskey])
                     self.__dict__[thiskey] = self.options_defaults[thiskey]
-
-#Used in Python 1.5.2 because its ConfigParser class doesn't have write(). 
-#settings needs to be a ConfigParser object.
-#fileobj is a fileobj that's ready to be written to.
-def _write(settings, fileobj):
-    all_sections = settings.sections()
-    
-    for sect in all_sections:
-        fileobj.write("[%s]\n" % (sect))
-        
-        for opt in settings.options(sect):
-            fileobj.write("%s = %s\n" % (opt, settings.get(sect, opt)))
 
