@@ -202,7 +202,6 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 %{rhnroot}/osad/osad_config.py*
 %{rhnroot}/osad/rhn_log.py*
 %{rhnroot}/osad/rhnLockfile.py*
-%attr(755,root,root) %{rhnroot}/osad/rhn_fcntl.py*
 %config(noreplace) %{_sysconfdir}/sysconfig/rhn/osad.conf
 %config(noreplace) %attr(600,root,root) %{_sysconfdir}/sysconfig/rhn/osad-auth.conf
 %config(noreplace) %{client_caps_dir}/*

@@ -28,7 +28,7 @@ from errno import EEXIST
 
 from rhnLib import timestamp
 import rhn_posix
-import rhn_fcntl
+import fcntl
 
 from spacewalk.common.fileutils import makedirs, setPermsPath
 
@@ -37,9 +37,9 @@ from spacewalk.common.fileutils import makedirs, setPermsPath
 CACHEDIR = "/var/cache/rhn"
 
 # easy structures for locking stuff
-WRLOCK = pack("hhiiii", rhn_fcntl.F_WRLCK, rhn_posix.SEEK_SET, 0, 0, 0, 0)
-RDLOCK = pack("hhiiii", rhn_fcntl.F_RDLCK, rhn_posix.SEEK_SET, 0, 0, 0, 0)
-UNLOCK = pack("hhiiii", rhn_fcntl.F_UNLCK, rhn_posix.SEEK_SET, 0, 0, 0, 0)
+WRLOCK = pack("hhiiii", fcntl.F_WRLCK, rhn_posix.SEEK_SET, 0, 0, 0, 0)
+RDLOCK = pack("hhiiii", fcntl.F_RDLCK, rhn_posix.SEEK_SET, 0, 0, 0, 0)
+UNLOCK = pack("hhiiii", fcntl.F_UNLCK, rhn_posix.SEEK_SET, 0, 0, 0, 0)
 
 def cleanupPath(path):
     """take ~taw/../some/path/$MOUNT_POINT/blah and make it sensible."""
@@ -54,13 +54,13 @@ def cleanupPath(path):
 def _fname(name):
     fname = "%s/%s" % (CACHEDIR, name)
     return cleanupPath(fname)
-# Lock it, using default mode rhn_fcntl.F_WRLCK.
+# Lock it, using default mode fcntl.F_WRLCK.
 def _lock(fd, lock = WRLOCK):
-    fcntl.fcntl(fd, rhn_fcntl.F_SETLKW, lock)
+    fcntl.fcntl(fd, fcntl.F_SETLKW, lock)
 
 def _unlock(fd):
     try:
-        fcntl.fcntl(fd, rhn_fcntl.F_SETLKW, UNLOCK)
+        fcntl.fcntl(fd, fcntl.F_SETLKW, UNLOCK)
     except IOError:
         # If LOCK is not relinquished try flock, 
         # its usually more forgiving.

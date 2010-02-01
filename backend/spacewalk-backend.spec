@@ -300,7 +300,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}
 %dir %{rhnroot}/common
 %{rhnroot}/common/__init__.py*
-%{rhnroot}/common/rhn_fcntl.py*
 %{rhnroot}/common/rhn_posix.py*
 %{rhnroot}/common/rhn_timer.py*
 %{rhnroot}/common/rhnApache.py*

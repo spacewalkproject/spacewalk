@@ -9,7 +9,7 @@ FILES		:= config gui hardware progress \
 		   up2dateLog rpmUtils rhnreg transaction \
 		   up2dateErrors rpcServer up2dateAuth \
 		   rhnPackageInfo rhnChannel \
-                   rhn_fcntl rhnLockfile \
+                   rhnLockfile \
 		   rhnErrata rhnHardware \
 		   clientCaps capabilities \
 		   rhnregGui rhnserver \

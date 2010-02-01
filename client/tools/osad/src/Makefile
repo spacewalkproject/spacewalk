@@ -9,6 +9,6 @@ TOP     = ..
 SUBDIR		= osad
 FILES           = __init__ dispatcher_client jabber_lib osa_dispatcher \
                   osad_client osad osad_config rhn_log _ConfigParser \
-                  rhnLockfile rhn_fcntl
+                  rhnLockfile
 
 include $(TOP)/Makefile.defs

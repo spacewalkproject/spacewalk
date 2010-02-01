@@ -52,7 +52,6 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/utils/systemSnapshot.py*
 %{rhnroot}/utils/migrateSystemProfile.py*
 %{rhnroot}/utils/rhnLockfile.py*
-%{rhnroot}/utils/rhn_fcntl.py*
 %{_mandir}/man8/*
 
 

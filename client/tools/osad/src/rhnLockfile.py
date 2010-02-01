@@ -17,9 +17,7 @@ import os
 import sys
 import fcntl
 from errno import EWOULDBLOCK, EEXIST
-import rhn_fcntl
-
-# NOTE: rhn_fcntl is deprecated in Python 2.2, just use fcntl
+import fcntl
 
 class LockfileLockedException(Exception):
     """thrown ONLY when pid file is locked."""
@@ -78,7 +76,7 @@ class Lockfile:
             else:
                 raise
         # unlock upon exit
-        fcntl.fcntl(self.f, rhn_fcntl.F_SETFD, 1)
+        fcntl.fcntl(self.f, fcntl.F_SETFD, 1)
         # truncate and write the pid
         os.ftruncate(self.f, 0)
         os.write(self.f, str(self.pid) + '\n')
