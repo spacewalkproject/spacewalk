@@ -230,9 +230,6 @@ Various utilities for the Red Hat Network Satellite Server.
 Summary: Red Hat Network XML data exporter
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
-%if "%{pythongen}" == "1.5"
-Requires: python-iconv
-%endif
 Obsoletes: rhns-xml-export-libs < 5.3.0
 Provides: rhns-xml-export-libs = %{version}-%{release}
 
