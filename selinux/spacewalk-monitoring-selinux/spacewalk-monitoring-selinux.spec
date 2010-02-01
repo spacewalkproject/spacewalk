@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        0.8.2
+Version:        0.8.3
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -144,6 +144,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Feb 01 2010 Jan Pazdziora 0.8.3-1
+- 529570 - allow monitoring to use winbind
+
 * Mon Feb 01 2010 Jan Pazdziora 0.8.2-1
 - 558448 - define context for /etc/nocpulse/SatCluster.ini
 
