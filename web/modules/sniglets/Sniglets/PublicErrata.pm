@@ -40,7 +40,6 @@ sub register_tags {
 
   # for www.redhat.com'ish public errata display
   $pxt->register_tag('public-errata-product-list' => \&public_errata_product_list);
-  $pxt->register_tag('public-errata-filter-type-url' => \&public_errata_filter_type_url);
   $pxt->register_tag('public-errata-type' => \&public_errata_type);
   $pxt->register_tag('public-errata-list' => \&public_errata_list);
   $pxt->register_tag('public-cve-list' => \&public_cve_list);
@@ -459,19 +458,6 @@ sub public_cve_details {
     return $ret;
 }
 
-
-sub public_errata_filter_type_url {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-
-  foreach my $by_field (qw/date advisory synopsis severity/) {
-    $block =~ s/\{$by_field\}/'<a href="\/errata' . $pxt->path_info . '?by=' . $by_field. ( $pxt->param('errata_type') ? '&errata_type=' . $pxt->param('errata_type') : '') . '">' . ucfirst $by_field . "<\/a>"/egism;
-  }
-
-  return $block;
-}
 
 sub public_errata_list {
   my $pxt = shift;
