@@ -932,42 +932,6 @@ EOQ
   return @ret;
 }
 
-sub rss_recent_errata {
-  my $class = shift;
-  my $n = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth;
-
-  my $query = <<EOQ;
-SELECT DISTINCT E.id, E.advisory, E.synopsis, E.description, E.topic, E.update_date
-  FROM rhnErrata E,
-       rhnChannelErrata CE,
-       rhnProductChannel PC
- WHERE PC.channel_id = CE.channel_id
-   AND CE.errata_id = E.id
-ORDER BY E.UPDATE_DATE DESC
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute();
-
-  my @ret;
-  while (my @row = $sth->fetchrow) {
-    last unless --$n;
-
-    my $h;
-
-    for my $n (qw/id advisory synopsis description topic/) {
-      $h->{$n} = shift @row || '';
-    }
-
-    push @ret, $h;
-  }
-
-  return @ret;
-}
-
 sub method_names {
   return $e->method_names;
 }
