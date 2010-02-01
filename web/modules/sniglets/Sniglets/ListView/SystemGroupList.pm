@@ -307,27 +307,6 @@ sub group_permissions_cb {
   return 1;
 }
 
-sub group_membership_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my %ret = $self->default_provider($pxt);
-
-  foreach my $row (@{$ret{data}}) {
-
-    $row->{GROUP_MEMBERSHIP_CHECKBOX} =
-      PXT::HTML->checkbox(-name => 'group_' . $row->{ID} . '_member',
-			  -value => 1,
-			  -checked => $row->{IS_SYSTEM_MEMBER});
-
-    $row->{GROUP_MEMBERSHIP_CHECKBOX} .=
-      PXT::HTML->hidden(-name => "sgid", -value => $row->{ID});
-
-  }
-
-  return (%ret);
-}
-
 
 sub ssm_group_membership_provider {
   my $self = shift;
