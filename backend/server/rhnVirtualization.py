@@ -752,10 +752,7 @@ class VirtualizationEventHandler:
         if properties.has_key(PropertyType.UUID):
             uuid = properties[PropertyType.UUID]
             if uuid:
-                if uuid == 'Not Settable':
-                    uuid_as_number = 0
-                else:
-                    uuid_as_number = string.atol(uuid, 16)
+                uuid_as_number = string.atol(uuid, 16)
 
                 if uuid_as_number == 0:
                     # If the UUID is a bunch of null bytes, we will convert it 
