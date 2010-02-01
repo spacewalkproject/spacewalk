@@ -45,7 +45,6 @@ sub register_tags {
   $pxt->register_tag('public-errata-type' => \&public_errata_type);
   $pxt->register_tag('public-errata-list' => \&public_errata_list);
   $pxt->register_tag('public-errata-product-name' => \&public_errata_product_name);
-  $pxt->register_tag('public-errata-cves' => \&public_errata_cves, 2); # render after public_errata_details
   $pxt->register_tag('public-cve-list' => \&public_cve_list);
   $pxt->register_tag('public-cve-details' => \&public_cve_details);
   $pxt->register_tag('public-cve-heading' => \&public_cve_heading);
@@ -461,37 +460,6 @@ sub public_cve_details {
 
     return $ret;
 }
-
-
-sub public_errata_cves {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-
-  return '' unless ($block);
-
-  my $cves_ref = $pxt->pnotes('cves');
-
-  return '' unless $cves_ref;
-  my @cves = @{$cves_ref};
-
-  my $cve_entry_block;
-  $block =~ m{<cve_entry_block>(.*?)</cve_entry_block>}ism;
-  $cve_entry_block = $1;
-
-  my $cves_details = '';
-  foreach my $cve (@cves) {
-    my $current = $cve_entry_block;
-    $current =~ s{\{cve\}}{$cve}gism;
-    $cves_details .= $current;
-  }
-
-  $block =~ s{<cve_entry_block>.*?</cve_entry_block>}{$cves_details}ism;
-
-  return $block;
-}
-
 
 
 sub public_errata_product_name {
