@@ -34,14 +34,6 @@ sub register_tags {
   $pxt->register_tag('rhn-ftp-download', \&ftp_download, 4);
 }
 
-# non-tag access to RHN download links
-sub rhn_download_url {
-  my $class = shift;
-  my %params = validate(@_, { pxt => 1, path => 1, label => 1, location => { default => "local" }});
-
-  return ftp_download($params{pxt}, (-location => $params{location}, -path => $params{path}, __block__ => $params{label}));
-}
-
 sub ftp_download {
   my $pxt = shift;
   my %params = validate(@_, { path => 1, location => { default => "local" },
