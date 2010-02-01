@@ -769,66 +769,6 @@ EOQ
 }
 
 
-sub errata_list_by_product {
-  my $class = shift;
-  my $product = shift;
-  my $errata_type = shift;
-  my $order_by = shift;
-
-  my $errata_type_clause = '';
-  my $order_by_clause = '';
-
-  $order_by = 'update_date' unless $order_by;
-  $order_by = 'update_date' if ($order_by eq 'date');
-
-  if ($errata_type) {
-    $errata_type_clause = " AND E.advisory_type = ?"
-  }
-
-
-  if ($order_by eq 'synopsis') {
-    $order_by_clause = "\n ORDER BY UPPER($order_by)";
-  }
-  elsif ($order_by eq 'advisory') {
-    $order_by_clause = "\n ORDER BY IMPORTANCE, UPPER(E.advisory_name)";
-  }
-  elsif ($order_by eq 'severity') {
-    $order_by_clause = "\n ORDER BY RANK";
-  }
-  else {
-    $order_by_clause = "\n ORDER BY $order_by DESC";
-  }
-
-  my $query = <<EOQ;
-SELECT DISTINCT E.id, E.advisory_name advisory, E.synopsis synopsis, TO_CHAR(E.update_date, 'YYYY-MM-DD') update_date,
-                E.advisory_type, E.description,
-                DECODE(E.advisory_type, 'Security Advisory', 1, 'Bug Fix Advisory', 2, 'Product Enhancement Advisory', 3) IMPORTANCE, 
-                DECODE (E.severity_id, 0, 'Critical', 1, 'Important', 2, 'Moderate', 3, 'Low', ' ') SEVERITY, SEV.rank RANK
-  FROM  rhnErrata E,
-        rhnChannelErrata CE,
-        rhnProductChannel PC,
-        rhnProduct P,
-        rhnErrataSeverity SEV
- WHERE  P.label = ?
-   AND  E.severity_id = SEV.id (+)
-   AND  P.id = PC.product_id
-   AND  PC.channel_id = CE.channel_id 
-   AND  CE.errata_id = E.id $errata_type_clause $order_by_clause
-EOQ
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare($query);
-
-  $sth->execute($product, $errata_type_clause ? ($errata_type) : ());
-
-  my @ret;
-  while (my @row = $sth->fetchrow) {
-      push @ret, [ @row ];
-  }
-
-  return @ret;
-}
-
 # Returns a list of errata for a given CVE
 sub find_by_cve {
     my $class = shift;
