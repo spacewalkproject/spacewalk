@@ -224,19 +224,6 @@ def getUserGroups(login, password):
     return groups, org_id, user_id
 
 
-# Validate the channels for superusers
-def validateChannels(channels):
-    h = rhnSQL.prepare("""
-        select id
-          from rhnChannel
-         where label = :channel
-    """)
-    for channel in channels:
-        h.execute(channel=channel)
-        if not h.fetchone_dict():
-            raise rhnFault(32, _("Channel %s does not exist ") % channel)
-
-
 def user_manages_channels(user_id):
     h = rhnSQL.prepare("""
         select distinct 1 
