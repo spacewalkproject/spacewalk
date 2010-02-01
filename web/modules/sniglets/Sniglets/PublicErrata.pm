@@ -40,7 +40,6 @@ sub register_tags {
 
   # for www.redhat.com'ish public errata display
   $pxt->register_tag('public-errata-product-list' => \&public_errata_product_list);
-  $pxt->register_tag('public-errata-filter' => \&public_errata_filter);
   $pxt->register_tag('public-errata-filter-type-url' => \&public_errata_filter_type_url);
   $pxt->register_tag('public-errata-type' => \&public_errata_type);
   $pxt->register_tag('public-errata-list' => \&public_errata_list);
@@ -472,62 +471,6 @@ sub public_errata_filter_type_url {
   }
 
   return $block;
-}
-
-sub public_errata_filter {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $errata_type = '';
-  my $path_info = $pxt->path_info;
-
-  my $product = '';
-
-  my $is_powertools = '';
-
-  if ($path_info) {
-    if ($path_info =~ m/\/(.*?)-errata/) {
-      $product = $1;
-    }
-    elsif ($path_info =~ m/\/(.*?-powertools)/) {
-      $product = $1;
-      $is_powertools = 1;
-    }
-
-    if ($path_info =~ m/security/) {
-      $errata_type = 'security';
-    }
-    elsif ($path_info =~ m/bugfixes/) {
-      $errata_type = 'bug_fixes';
-    }
-    elsif ($path_info =~ m/updates/) {
-      $errata_type = 'enhancements';
-    }
-  }
-
-  my $base_url = '/errata';
-
-
-  my $all_url = $base_url . "/$product" . ($is_powertools ? "" : "-errata") . ".html";
-  my $security_url = $base_url . "/$product" . ($is_powertools ? "" : "-errata") . "-security.html";
-  my $bug_fix_url = $base_url . "/$product" . ($is_powertools ? "" : "-errata") . "-bugfixes.html";
-  my $enhancement_url = $base_url . "/$product" . ($is_powertools ? "" : "-errata") . "-updates.html";
-
-  return "<font style=\"color:#666666; font-family:helvetica; text-decoration:none; font-size:10pt;\"><strong>Jump to:</strong> [ <font color=\"black\"><strong>all</strong></font> | <strong><a href=\"$security_url\">security</a></strong> | <strong><a href=\"$bug_fix_url\">bug fixes</a></strong> | <strong><a href=\"$enhancement_url\">enhancements</a></strong> ]</font>" unless ($errata_type);
-
-  if ($errata_type eq 'security') {
-      return "<font style=\"color:#666666; font-family:helvetica; text-decoration:none; font-size:10pt;\"><strong>Jump to:</strong> [ <strong><a href=\"$all_url\">all</a></strong> | <font color=\"black\"><strong>security</strong></font> | <strong><a href=\"$bug_fix_url\">bug fixes</a></strong> | <strong><a href=\"$enhancement_url\">enhancements</a></strong> ]</font>";
-  }
-
-  if ($errata_type eq 'bug_fixes') {
-      return "<font style=\"color:#666666; font-family:helvetica; text-decoration:none; font-size:10pt;\"><strong>Jump to:</strong> [ <strong><a href=\"$all_url\">all</a></strong> | <strong><a href=\"$security_url\">security</a></strong> | <font color=\"black\"><strong>bug fixes</strong></font> | <strong><a href=\"$enhancement_url\">enhancements</a></strong> ]</font>";
-  }
-
-  if ($errata_type eq 'enhancements') {
-    return "<font style=\"color:#666666; font-family:helvetica; text-decoration:none; font-size:10pt;\"><strong>Jump to:</strong> [ <strong><a href=\"$all_url\">all</a></strong> | <strong><a href=\"$security_url\">security</a></strong> | <strong><a href=\"$bug_fix_url\">bug fixes</a></strong> | <font color=\"black\"><strong>enhancements</strong></font> ]</font>";
-  }
-
-  return '';
 }
 
 sub public_errata_list {
