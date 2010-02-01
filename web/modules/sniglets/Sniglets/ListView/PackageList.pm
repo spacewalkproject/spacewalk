@@ -550,31 +550,6 @@ sub missing_packages_for_sync_provider {
 	  alphabar => $alphabar);
 }
 
-sub package_name_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my $search = RHN::SearchTypes->find_type('package');
-  my $mode = 'packages_by_name';
-
-  if ($pxt->dirty_param('search_subscribed_channels')) {
-    if ($pxt->user->org->server_count > 0) {
-      $mode = "packages_by_name_smart";
-    }
-    else {
-      $mode = "packages_by_name_clabel";
-    }
-  }
-
-  my $ds = $self->datasource;
-  $ds->mode($mode);
-
-  my %params = map { ("-$_" => ($pxt->passthrough_param($_) || '')) } qw/channel_arch_ia32 channel_arch_ia64 channel_arch_x86_64/;
-  my %ret = $self->default_provider($pxt, %params);
-
-  return %ret;
-}
-
 sub package_removal_failures_provider {
   my $self = shift;
   my $pxt = shift;
