@@ -163,7 +163,12 @@ def dmi_system_uuid():
     """ Return UUID from dmidecode system information.
         If this value could not be fetch, returns empty string.
     """
-    return get_dmi_data('/dmidecode/SystemInfo/SystemUUID')
+    # if guest was created manualy it can have empty UUID, in this
+    # case dmidecode set attribute unavailable to 1
+    uuid = get_dmi_data("/dmidecode/SystemInfo/SystemUUID[not(@unavailable='1')]")
+    if uuid = '':
+        uuid = 0
+    return uuid
 
 # read_hal()
 # 
