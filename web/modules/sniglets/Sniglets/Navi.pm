@@ -250,12 +250,4 @@ sub render_nav {
 
 }
 
-sub some_handler {
-  my $class = shift;
-  my $node = shift;
-  my $pxt = shift;
-
-  warn "***on click handler for node " . $node->name;
-}
-
 1;
