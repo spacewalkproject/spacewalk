@@ -276,37 +276,6 @@ EOQ
     return 1;
 }
 
-# protected means is a red hat errata and has private packages.
-sub is_protected {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT  1
-  FROM  rhnPrivateChannelFamily PCF, rhnChannelFamilyMembers CFM, rhnChannelErrata CE
- WHERE  CE.errata_id = ?
-   AND  CE.channel_id = CFM.channel_id
-   AND  CFM.channel_family_id = PCF.channel_family_id
-   AND  ROWNUM = 1
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  my $has_priv_perms;
-
-  ($has_priv_perms) = $sth->fetchrow;
-  $sth->finish;
-
-  return if (!$has_priv_perms);
-
-  return (defined $self->org_id ? undef : 1);
-}
-
 sub lookup {
   my $class = shift;
   my %params = validate(@_, {id => 0, advisory_name => 0, transaction => 0});
