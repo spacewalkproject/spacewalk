@@ -41,7 +41,6 @@ sub register_tags {
   # for www.redhat.com'ish public errata display
   $pxt->register_tag('public-errata-product-list' => \&public_errata_product_list);
   $pxt->register_tag('public-errata-affected-products' => \&public_errata_affected_products, 2);
-  $pxt->register_tag('public-errata-list-vs-details' => \&public_errata_list_vs_details);
   $pxt->register_tag('public-errata-filter' => \&public_errata_filter);
   $pxt->register_tag('public-errata-filter-type-url' => \&public_errata_filter_type_url);
   $pxt->register_tag('public-errata-type' => \&public_errata_type);
@@ -170,65 +169,6 @@ sub public_cve_list {
     else {
         $pxt->redirect("/file_not_found.pxt");
     }
-}
-
-sub public_errata_list_vs_details {
-  my $pxt = shift;
-
-  my $cache_time = PXT::Config->get("public_errata_cache_time") || "15 minutes";
-
-  return $pxt->include('/errata_hidden/product_list.pxi') unless ($pxt->path_info and $pxt->path_info ne '/');
-
-  PXT::Debug->log(7, "either list or details");
-
-  if ($pxt->path_info eq '/') {
-    return $pxt->include('/errata_hidden/product_list.pxi');
-  }
-
-  if ($pxt->path_info =~ m {^/login.pxt} ) {
-    return $pxt->include('/errata_hidden/login.pxi');
-  }
-  elsif ($pxt->path_info =~ m {^/RH[BES]A-\d\d\d\d-\d\d\d.*?\.html}) {
-    # figure out if we have in db...
-    if (errata_in_db($pxt->path_info)) {
-
-      # cache details page...
-      $pxt->cache_document_contents($cache_time);
-      return $pxt->include('/errata_hidden/details.pxi');;
-    }
-    else {
-      if (-e $pxt->document_root() . '/errata_hidden/static_errata' . $pxt->path_info ) {
-	return $pxt->include('/errata_hidden/static_errata' . $pxt->path_info);
-      }
-      else {
-        $pxt->path_info =~ m {^/(RH[BES]A.*?)\.html$};
-        my $attempted_adv = $1;
-        $attempted_adv = PXT::Utils->escapeURI($attempted_adv);
-        $pxt->redirect("/errata_not_found.pxt?attempted_adv=$attempted_adv");
-      }
-    }
-  }
-  elsif ($pxt->path_info =~ m {^/(CVE|CAN)-\d\d\d\d-\d\d\d\d.*?\.html}) {
-        if (cve_in_db($pxt->path_info)) {
-            $pxt->cache_document_contents($cache_time);
-            return $pxt->include('/errata_hidden/cve_details.pxi');
-        }
-        else {
-            $pxt->path_info =~ m {^/((CVE|CAN).*?)\.html$};
-            my $attempted_adv = $1;
-            $attempted_adv = PXT::Utils->escapeURI($attempted_adv);
-            $pxt->redirect("/cve_not_found.pxt?attempted_adv=$attempted_adv");
-        }
-    }
-  elsif ($pxt->path_info =~ m {^/rh}) {
-
-    # cache errata list page...
-    $pxt->cache_document_contents($cache_time);
-    return $pxt->include('/errata_hidden/list.pxi');
-  }
-  else {
-    $pxt->redirect("/file_not_found.pxt");
-  }
 }
 
 sub public_errata_affected_products {
