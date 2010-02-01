@@ -110,43 +110,4 @@ EOQ
   return $name;
 }
 
-sub products_by_line {
-  my $class = shift;
-  my $line_label = shift;
-  my $order = shift;
-
-  die "no line label" unless $line_label;
-
-  my $order_by_str = '';
-
-  if ($order and (lc $order eq 'desc')) {
-    $order_by_str = 'DESC';
-  }
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-  my $sth;
-  $query = <<EOQ;
-SELECT DISTINCT P.id, P.label, P.name,
-       (SELECT MIN (rhn_channel.channel_priority(PC.channel_id))
-       FROM rhnProductChannel PC
-       WHERE P.id = PC.product_id) as priority
-  FROM rhnProduct P,
-       rhnProductLine PL
- WHERE PL.label = :product_line_label
-   AND PL.id = P.product_line_id
-ORDER BY priority ASC, UPPER(P.name) $order_by_str
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute_h(product_line_label => $line_label);
-
-  my @ret;
-  while(my $row = $sth->fetchrow_hashref) {
-    push @ret, $row;
-  }
-
-  return @ret;
-}
-
 1;
