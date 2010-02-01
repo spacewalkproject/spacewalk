@@ -32,41 +32,6 @@ my @errata_fields = qw/ID ADVISORY ADVISORY_TYPE PRODUCT DESCRIPTION SYNOPSIS TO
 
 my $e = new RHN::DB::TableClass("rhnErrata", "E", "", @errata_fields);
 
-sub oval_file_count {
-  my $self_or_id = shift;
-  my $id;
-  my $retval;
-  my @row;
-
-  if (ref $self_or_id) {
-    $id = $self_or_id->id;
-  }
-  else {
-    $id = shift;
-  }
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT COUNT(*)
-FROM rhnErrataFile EF,
-     rhnErrataFileType EFT
-WHERE EF.type = EFT.id
-      AND EFT.label = 'OVAL'
-      AND EF.errata_id = ?
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($id);
-  @row = $sth->fetchrow_array();
-  $retval = $row[0];
-  $sth->finish;
-  return $retval;
-}
-
 
 sub related_cves {
   my $self_or_id = shift;
