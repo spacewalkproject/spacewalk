@@ -40,7 +40,6 @@ sub register_tags {
 
   # for www.redhat.com'ish public errata display
   $pxt->register_tag('public-errata-product-list' => \&public_errata_product_list);
-  $pxt->register_tag('public-errata-affected-products' => \&public_errata_affected_products, 2);
   $pxt->register_tag('public-errata-filter' => \&public_errata_filter);
   $pxt->register_tag('public-errata-filter-type-url' => \&public_errata_filter_type_url);
   $pxt->register_tag('public-errata-type' => \&public_errata_type);
@@ -155,20 +154,6 @@ sub public_cve_list {
     else {
         $pxt->redirect("/file_not_found.pxt");
     }
-}
-
-sub public_errata_affected_products {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-
-  my $pkgs_ref = $pxt->pnotes('updated_packages');
-  my @products = sort keys %{$pkgs_ref};
-
-  $block =~ s{\{affected_products\}}{ join("<br />\n", map { "<a href=\"#$_\">$_</a>" } @products) }egism;
-
-  return $block;
 }
 
 
