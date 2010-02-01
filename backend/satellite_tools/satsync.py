@@ -407,7 +407,6 @@ class Syncer:
 
         self._channel_kickstarts = {}
         self._uq_channel_kickstarts = {}
-        self.pkg_header_info = []
 
     def initialize(self):
         "Initialization that requires IO, etc."
@@ -1763,14 +1762,32 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 ss.clearChunk()
                 pb.addTo(ss.returnedChunksize)
                 pb.printIncrement()
+            self._import_package_signatures(packages, channel)
             pb.printComplete()
-            # Populate the package key info
-            if len(self.pkg_header_info) > 0:
-                for data in self.pkg_header_info:
-                    server_packages.processPackageKeyAssociations(data['header'],
-                                         data['checksum_type'], data['checksum'])
-
         return self._link_channel_packages()
+
+    def _import_package_signatures(self, packages, channel):
+        for pkg in packages:
+            pkg_dicts = self._lookup_pkgs_by_path(pkg[1])
+            if not pkg_dicts:
+                continue
+            for pkgd in pkg_dicts:
+                full_path = os.path.join(CFG.MOUNT_POINT, pkgd['path'])
+                if os.path.exists(full_path):
+                    header = rhn_rpm.get_package_header(filename=full_path)
+                    server_packages.processPackageKeyAssociations(header,
+                                     pkgd['checksum_type'], pkgd['checksum'])
+
+    def _lookup_pkgs_by_path(self, path):
+       h = rhnSQL.prepare("""select P.id, P.path, CV.checksum, CV.checksum_type
+                               from rhnPackage P left join
+                                    rhnPackageKeyAssociation PA on  PA.package_id = P.id inner join
+                                    rhnChecksumView CV on CV.id = P.checksum_id
+                              where p.path = :path and PA.key_id is null""")
+       h.execute(path=path)
+       return h.fetchall_dict()
+
+
 
     def _link_channel_packages(self):
         log(1, ["", messages.link_channel_packages])
@@ -1983,11 +2000,6 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             filename = os.path.basename(rpmManip.relative_path)
             size = package['package_size']
 
-            hdr = rhn_rpm.get_package_header(filename=rpmManip.full_path)
-
-            self.pkg_header_info.append({'header' : hdr,
-                                         'checksum_type' : package['checksum_type'],
-                                         'checksum' : package['checksum']})
             log(1, messages.package_fetch_successful %
                 (pkg_current, pkgs_total, filename, size))
 
