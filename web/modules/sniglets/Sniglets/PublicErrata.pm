@@ -44,7 +44,6 @@ sub register_tags {
   $pxt->register_tag('public-errata-filter-type-url' => \&public_errata_filter_type_url);
   $pxt->register_tag('public-errata-type' => \&public_errata_type);
   $pxt->register_tag('public-errata-list' => \&public_errata_list);
-  $pxt->register_tag('public-errata-product-name' => \&public_errata_product_name);
   $pxt->register_tag('public-cve-list' => \&public_cve_list);
   $pxt->register_tag('public-cve-details' => \&public_cve_details);
   $pxt->register_tag('public-cve-heading' => \&public_cve_heading);
@@ -461,31 +460,6 @@ sub public_cve_details {
     return $ret;
 }
 
-
-sub public_errata_product_name {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $path_info = $pxt->path_info;
-  my $product;
-
-  if ($path_info) {
-
-    if ($path_info =~ m/\/(.*?)-errata/) {
-      $product = $1;
-    }
-    elsif ($path_info =~ m/\/(.*?-powertools)/) {
-      $product = $1;
-    }
-  }
-
-  die "no product!" unless $product;
-
-  $product = RHN::Product->name_by_label($product);
-  die "no product name!" unless ($product);
-
-  return $product;
-}
 
 sub public_errata_filter_type_url {
   my $pxt = shift;
