@@ -71,46 +71,6 @@ EOQ
 }
 
 
-# should we show this erratum at all?
-sub is_public {
-    my $self = shift;
-
-    # if it's not owned by RH, it ain't public...
-    if (defined $self->org_id) {
-	return undef;
-    }
-
-    my $dbh = RHN::DB->connect;
-
-    my $query;
-    my $sth;
-
-    # if any channels are tied to it that are not in the product list,
-    # it ain't public...
-    $query = <<EOQ;
-SELECT  1
-  FROM  rhnChannelErrata CE
- WHERE  CE.errata_id = ?
-   AND  NOT EXISTS (
-  SELECT 1
-    FROM rhnProductChannel PC
-   WHERE PC.channel_id = CE.channel_id
-)
-EOQ
-
-    $sth = $dbh->prepare($query);
-    $sth->execute($self->id);
-
-    my $hidden_channel;
-
-    ($hidden_channel) = $sth->fetchrow;
-    $sth->finish;
-
-    return if ($hidden_channel);
-
-    return 1;
-}
-
 sub lookup {
   my $class = shift;
   my %params = validate(@_, {id => 0, advisory_name => 0, transaction => 0});
