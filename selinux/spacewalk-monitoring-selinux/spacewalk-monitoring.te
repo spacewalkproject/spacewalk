@@ -163,3 +163,7 @@ corenet_udp_bind_all_nodes(spacewalk_monitoring_t)
 corenet_tcp_connect_ftp_port(spacewalk_monitoring_t)
 
 allow spacewalk_monitoring_t self:process setpgid;
+
+optional_policy(`
+	samba_stream_connect_winbind(spacewalk_monitoring_t)
+')
