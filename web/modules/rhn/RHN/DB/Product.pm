@@ -86,27 +86,6 @@ foreach my $field ($p->method_names) {
 }
 
 
-sub name_by_label {
-  my $class = shift;
-  my $label = shift;
-
-  die 'No label!' unless $label;
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-  my $sth;
-  $query = <<EOQ;
-SELECT name FROM rhnProduct WHERE label = :product_label
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute_h(product_label => $label);
-  my ($name) = $sth->fetchrow;
-  $sth->finish;
-
-  return $name;
-}
-
 sub product_line {
   my $class = shift;
   my $label = shift;
