@@ -133,22 +133,6 @@ EOS
   return $sth->fullfetch_hashref;
 }
 
-sub tablespace_begin_backup {
-  my $self = shift;
-  my $ts = shift;
-
-  my $dbh = $self->sysdba_connect;
-  $dbh->do("ALTER TABLESPACE $ts BEGIN BACKUP");
-}
-
-sub tablespace_end_backup {
-  my $self = shift;
-  my $ts = shift;
-
-  my $dbh = $self->sysdba_connect;
-  $dbh->do("ALTER TABLESPACE $ts END BACKUP");
-}
-
 sub tablespace_extend {
   my $self = shift;
   my $ts = shift;
