@@ -1476,8 +1476,10 @@ is
 				and channel_family_id = channel_family_id_in;
 
 		for sc in serverchannels loop
-			rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id, 1, 1);
+			rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id, 1, 1,
+                                                       update_family_countsYN => 0);
 		end loop;
+                rhn_channel.update_family_counts(channel_family_id_in, customer_id_in);
 	end prune_family;
 		
 	procedure set_family_count (
