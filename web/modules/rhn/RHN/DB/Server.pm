@@ -1846,30 +1846,6 @@ EOS
 	   };
 }
 
-sub canonical_package_list {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-SELECT SP.name_id, PN.name, SP.evr_id, SPE.evr.as_vre_simple(), SPE.epoch, SPE.version, SPE.release
-  FROM rhnPackageName PN,
-       rhnPackageEVR SPE,
-       rhnServerPackage SP
- WHERE PN.id = SP.name_id
-   AND SPE.id = SP.evr_id
-   AND SP.server_id = ?
-ORDER BY upper(PN.name), SPE.evr
-EOS
-  $sth->execute($self->id);
-
-  my @packages;
-  while (my @row = $sth->fetchrow) {
-    push @packages, \@row;
-  }
-
-  return @packages;
-}
-
 sub entitle_server {
   my $self_or_class = shift;
   my $label = shift;

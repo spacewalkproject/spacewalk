@@ -266,31 +266,6 @@ sub compatible_with_channel {
   return @{$ds->execute_query( map { ("-$_", $params{$_} ) } keys %params )};
 }
 
-sub canonical_package_list {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-SELECT SPP.name_id, PN.name, SPP.evr_id, SPPE.evr.as_vre_simple(), SPPE.epoch, SPPE.version, SPPE.release
-  FROM rhnPackageName PN,
-       rhnPackageEVR SPPE,
-       rhnServerProfilePackage SPP
- WHERE PN.id = SPP.name_id
-   AND SPPE.id = SPP.evr_id
-   AND SPP.server_profile_id = ?
-ORDER BY upper(PN.name), SPPE.evr
-EOS
-  $sth->execute($self->id);
-
-  my @packages;
-
-  while (my @row = $sth->fetchrow) {
-    push @packages, \@row;
-  }
-
-  return @packages;
-}
-
 sub load_package_manifest {
   my $self = shift;
   my $mfst = new RHN::Manifest(-org_id => $self->org_id);
