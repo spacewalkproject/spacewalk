@@ -435,7 +435,7 @@ Would you like to enable Monitoring Proxy functionality on this system?
         tar file containing the certificate files using the form
         below.  If the SSL CA certificate included in the tar file does
         not already exist in your org's <a
-        href="/network/keys/key_list.pxt" target="_new">list of SSL
+        href="/rhn/keys/CryptoKeysList.do" target="_new">list of SSL
         keys</a>, it will be added to that list.
       </header>
 
