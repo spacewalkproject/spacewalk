@@ -121,7 +121,10 @@ class rhnpushConfigParser:
 
     #Returns the keys of the options read in from the configuration files.
     def _keys(self):
-        return self.settings.options(self.section)
+        if self.settings.has_section(self.section):
+            return self.settings.options(self.section)
+        else:
+            return ()
 
     #Returns an option read in from the configuration files.
     def __getitem__(self, item):
@@ -136,7 +139,5 @@ class rhnpushConfigParser:
         if ensure_consistency:
             for thiskey in self.options_defaults.keys():
                 if not self.__dict__.has_key(thiskey):
-                    print "/etc/sysconfig/rhn/rhnpushrc is missing %s option." % (thiskey)
-                    print "Option %s is being set to the default value of %s." % (thiskey, self.options_defaults[thiskey])
                     self.__dict__[thiskey] = self.options_defaults[thiskey]
 

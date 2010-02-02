@@ -40,7 +40,7 @@ class  ConfManager:
         cwdfile = os.path.join(os.getcwd(), regular)
 
         self.cfgFileList = [deffile, regfile, cwdfile]
-        self.defaultconfig = rhnpush_config.rhnpushConfigParser()
+        self.defaultconfig = rhnpush_config.rhnpushConfigParser(ensure_consistency=True)
 
         #Get a reference to the object containing command-line options  
         self.cmdconfig = optionparser
