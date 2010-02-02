@@ -8,11 +8,12 @@ import unittest
 #import profileUnittest
 
 TestCase = unittest.TestCase
+test_up2date = "etc-sysconfig-rhn/up2date"
 
 class TestGetProxySetting(TestCase):
     def setUp(self):
         from up2date_client import config
-        self.cfg = config.initUp2dateConfig()
+        self.cfg = config.initUp2dateConfig(test_up2date)
         self.proxy1 = "http://proxy.company.com:8080"
         self.proxy2 = "proxy.company.com:8080"
 
@@ -32,7 +33,7 @@ class TestGetProxySetting(TestCase):
 class TestGetVersion(TestCase):
     def setUp(self):
         from up2date_client import config
-        self.cfg = config.initUp2dateConfig()
+        self.cfg = config.initUp2dateConfig(test_up2date)
 
     def testVersionOverride(self):
         "Verify that specify a version overide works"

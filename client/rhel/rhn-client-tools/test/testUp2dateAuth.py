@@ -10,11 +10,12 @@ import unittest
 #Import the modules you need to test...
 from up2date_client import up2dateAuth
 
+test_up2date = "etc-sysconfig-rhn/up2date"
 
 class TestGetSystemID(unittest.TestCase):
     def setUp(self):
 	self.__setupData()
-        self.cfg = config.initUp2dateConfig()
+        self.cfg = config.initUp2dateConfig(test_up2date)
         self.sysid = self.cfg['systemIdPath']
 
     def __setupData(self):
@@ -40,7 +41,7 @@ class TestMaybeUpdateVersion(unittest.TestCase):
 	self.__setupData()
         import testutils
         testutils.setupConfig("8.0-workstation-i386-1")
-        self.cfg = config.initUp2dateConfig()
+        self.cfg = config.initUp2dateConfig(test_up2date)
         self.origversion = self.cfg['versionOverride']
 
     def __setupData(self):
