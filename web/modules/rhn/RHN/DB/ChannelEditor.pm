@@ -176,56 +176,6 @@ EOQ
   return @channels;
 }
 
-#remove all packages from channel, and replace with contents of set.
-#Caller is responsible for making sure the user is allowed to do this
-sub replace_channel_packages {
-  my $class = shift;
-  my $cid = shift;
-  my $set = shift;
-
-  die "No channel id" unless $cid;
-
-  my $query = <<EOQ;
-DELETE FROM rhnChannelPackage
- WHERE channel_id = ?
-EOQ
-
-  my $dbh = RHN::DB->connect();
-  my $sth = $dbh->prepare($query);
-
-  $sth->execute($cid);
-
-  $query = <<EOQ;
-INSERT INTO rhnChannelPackage
-(channel_id, package_id)
-SELECT $cid, element
-  FROM rhnSet
- WHERE label = ?
-   AND user_id = ?
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  $sth->execute($set->label, $set->uid);
-
-  $sth = $dbh->prepare(<<EOQ);
-INSERT 
-  INTO rhnRepoRegenQueue
-        (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
-VALUES (rhn_repo_regen_queue_id_seq.nextval,
-        :label, 'perl-web::replace_channel_packages', NULL, 'N', 'N', sysdate, sysdate, sysdate)
-EOQ
-
-  my $channel = RHN::Channel->lookup(-id => $cid); 
-  $sth->execute_h(label => $channel->label);
-
-  $dbh->call_procedure('rhn_channel.update_channel', $cid);
-
-  $dbh->commit;
-
-  return 1;
-}
-
 sub add_channel_packages {
   my $class = shift;
   my $cid = shift;
