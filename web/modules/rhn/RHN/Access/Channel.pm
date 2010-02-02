@@ -116,22 +116,6 @@ sub channel_is_protected {
   return $channel->is_protected;
 }
 
-sub channel_is_proxy {
-  my $pxt = shift;
-
-  my $cid = $pxt->param('cid');
-  throw 'no cid param' unless $cid;
-
-}
-
-sub channel_is_proxy {
-  my $pxt = shift;
-
-  my $cid = $pxt->param('cid');
-  throw 'no cid param' unless $cid;
-
-}
-
 sub channel_accessible {
   my $pxt = shift;
 
