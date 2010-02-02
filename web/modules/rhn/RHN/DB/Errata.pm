@@ -490,28 +490,6 @@ sub commit {
   return $transaction;
 }
 
-sub remove_errata_package {
-  my $class = shift;
-  my $errata_id = shift;
-  my $pkg_id = shift;
-
-  if(!$errata_id or !$pkg_id) {
-    croak "${class}->remove_errata_package called without both package_id and errata_id";
-  }
-
-  my $ep_table = $class->table_map('rhnErrataPackage');
-
-  my $query = <<EOQ;
-DELETE FROM $ep_table WHERE errata_id = ? AND package_id = ?
-EOQ
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare($query);
-  $sth->execute($errata_id,$pkg_id); 
-  $dbh->commit;
-}
-
-
 sub find_by_advisory {
   my $class = shift;
   my %params = @_;
