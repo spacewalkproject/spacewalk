@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.8.7
+Version: 0.8.8
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %if 0%{?suse_version: %{suse_version} > 1000} 
@@ -225,6 +225,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Tue Feb 02 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.8-1
+- fixed failed build 
+
 * Mon Feb 01 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.7-1
 - use rhnLockfile.py from rhnlib
 - 543509 - don't send "Not Settable"/"Not Present" when guest have no UUID
