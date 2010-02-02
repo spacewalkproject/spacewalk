@@ -9,6 +9,7 @@ import unittest
 from up2date_client import clientCaps
 from up2date_client import up2dateAuth
 
+test_clientCaps_d = "etc-sysconfig-rhn/clientCaps.d"
 
 class TestClientCaps(unittest.TestCase):
     def setUp(self):
@@ -76,16 +77,16 @@ class TestClientCaps(unittest.TestCase):
 
     def testLoadClientCaps(self):
         "Verify that loadClientCaps works"
-        blip = clientCaps.loadLocalCaps()
+        blip = clientCaps.loadLocalCaps(test_clientCaps_d)
 
     def testLoadClientCapsSkipDirs(self):
         "Verify that client caps loads with dirs in /etc/sysconfig/rhn/clientCaps.d,"
         # bugzilla #114322
-        dirname="/etc/sysconfig/rhn/clientCaps.d/TESTDIR"
+        dirname= test_clientCaps_d + "/TESTDIR"
         if not os.access(dirname, os.R_OK):
             os.makedirs(dirname)
         try:
-            clientCaps.loadLocalCaps()
+            clientCaps.loadLocalCaps(test_clientCaps_d)
             os.rmdir(dirname) 
         except:
             os.rmdir(dirname) 
