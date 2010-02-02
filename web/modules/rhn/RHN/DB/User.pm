@@ -1585,59 +1585,6 @@ sub set_pref {
   $dbh->commit;
 }
 
-sub action_summary {
-  my $self = shift;
-#  my $days = shift or die "No days argument to action_summary";
-
-  my $dbh = RHN::DB->connect;
-  my $sth;
-
-  $sth = $dbh->prepare(<<EOS);
-  SELECT count(distinct SA.action_id)
-    FROM rhnAction A, rhnServerAction SA, rhnUserServerPerms USP
-   WHERE USP.user_id = ?
-     AND SA.server_id = USP.server_id
-     AND SA.action_id = A.id
-     AND SA.status = 3
-     AND A.archived = 0
-EOS
-#     AND (sysdate - SA.completion_time) < $days
-  $sth->execute($self->id);
-  my ($failed) = $sth->fetchrow;
-  $sth->finish;
-
-  $sth = $dbh->prepare(<<EOS);
-  SELECT count(distinct SA.action_id)
-    FROM rhnAction A, rhnServerAction SA, rhnUserServerPerms USP
-   WHERE USP.user_id = ?
-     AND SA.server_id = USP.server_id
-     AND SA.action_id = A.id
-     AND SA.status IN (0, 1)
-     AND A.archived = 0
-EOS
-#     AND ABS(A.earliest_action - sysdate) < $days
-  $sth->execute($self->id);
-  my ($pending) = $sth->fetchrow;
-  $sth->finish;
-
-  $sth = $dbh->prepare(<<EOS);
-  SELECT count(distinct SA.action_id)
-    FROM rhnAction A, rhnServerAction SA, rhnUserServerPerms USP
-   WHERE USP.user_id = ?
-     AND SA.server_id = USP.server_id
-     AND SA.action_id = A.id
-     AND SA.status = 2
-     AND A.archived = 0
-EOS
-#     AND (sysdate - SA.completion_time) < $days
-  $sth->execute($self->id);
-  my ($completed) = $sth->fetchrow;
-  $sth->finish;
-
-  return [ $failed, $pending, $completed, $failed + $pending + $completed ];
-
-}
-
 sub server_group_count {
   my $self = shift;
 
