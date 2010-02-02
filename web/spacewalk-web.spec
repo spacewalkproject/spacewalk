@@ -180,7 +180,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Package/
 %{perl_vendorlib}/RHN/Postal.pm
 %{perl_vendorlib}/RHN/Probe.pm
-%{perl_vendorlib}/RHN/Product.pm
 %{perl_vendorlib}/RHN/Profile.pm
 %{perl_vendorlib}/RHN/ProxyInstall.pm
 %{perl_vendorlib}/RHN/SCDB.pm
