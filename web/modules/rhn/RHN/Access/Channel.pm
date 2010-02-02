@@ -30,7 +30,6 @@ sub register_acl_handlers {
   $acl->register_handler(channel_exists => \&channel_exists);
   $acl->register_handler(channel_accessible => \&channel_accessible);
   $acl->register_handler(base_channel => \&channel_is_base);
-  $acl->register_handler(satellite_channel => \&channel_is_satellite);
   $acl->register_handler(channel_licensed => \&channel_is_licensed);
   $acl->register_handler(channel_eoled => \&channel_eoled);
   $acl->register_handler(org_owns_cloned_channels => \&org_owns_cloned_channels);
