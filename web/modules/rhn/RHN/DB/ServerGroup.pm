@@ -352,25 +352,6 @@ EOQ
   return @ret;
 }
 
-sub add_systems {
-  my $self = shift;
-  my @sids = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-BEGIN
-  rhn_server.insert_into_servergroup(:sid, :sgid);
-END;
-EOQ
-
-  foreach my $sid (@sids) {
-    $sth->execute_h(sid => $sid, sgid => $self->id);
-  }
-
-  $dbh->commit;
-  return;
-}
-
 sub errata_counts {
   my $class = shift;
   my $org_id = shift;
