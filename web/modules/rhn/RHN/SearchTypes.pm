@@ -45,15 +45,6 @@ sub new {
   return $self;
 }
 
-sub acl_test {
-  my $self = shift;
-  my %params = validate(@_, {pxt => 1, acl_string => 1, acl_mixins => 0});
-
-  my $acl_parser = new PXT::ACL (mixins => $params{acl_mixins});
-
-  return $acl_parser->eval_acl($params{pxt}, $params{acl_string});
-}
-
 sub set_name {
   my $self = shift;
 
