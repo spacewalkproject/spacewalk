@@ -9,131 +9,6 @@ import unittest
 
 TestCase = unittest.TestCase
 
-class TestComparePackages(TestCase):
-    def setUp(self):
-        self.pkg1 = ("foo", "1", "1", "")
-        self.pkg2 = ("foo", "2", "1", "")
-        self.pkg3 = ("foo", ".99999999999999999999999999999999999999999999999", "1", "")
-        self.pkg4 = ("foo", "1.0", "1.1", "")
-        self.pkg5 = ("foo", "1.0", "e1", "")
-        self.pkg6 = ("foo", "1.0", "1", "")
-        self.pkg7 = ("foo", "1.0", "2", "")
-        self.pkg8 = ("foo", ".99999999999999999999999999999999999999999999998", "1", "")
-
-        self.oldPackage = self.pkg1
-        self.newPackage = self.pkg2
-        self.pkgNullEpoch = self.pkg6
-        self.pkgZeroEpoch = ("foo", "1.0", "1", "0")
-        self.pkgOneEpoch = ("foo", "1.0", "1", "1")
-        self.pkgHumongousEpoch = ("foo", "1.0", "1", "100000000034023423405345340345345345234")
-
-        # some examples from the real world
-        self.pkgKernelEnterprise = ("kernel", "2.4.9", "e.12", "")
-        self.pkgKernelNormal = ("kernel", "2.4.9", "12", "")
-        
-        
-        
-    def testIntVersionsOlder(self):
-        """Check that int versions are compared correctly: old to new"""
-        res = up2dateUtils.comparePackages(self.oldPackage, self.newPackage)
-        assert res == -1
-
-    def testIntVersionsNewer(self):
-        """Check that int versions are compared correctly: new to old"""
-        res = up2dateUtils.comparePackages(self.newPackage, self.oldPackage)
-        assert res == 1
-
-    def testIntVersionsSame(self):
-        """Check that int versions are compare correctly: same version"""
-        res = up2dateUtils.comparePackages(self.pkg2, self.pkg2)
-        assert res == 0
-
-    def testIntReleaseOlder(self):
-        """Check that int releases are compared correctly: old to new"""
-        res = up2dateUtils.comparePackages(self.pkg6, self.pkg7)
-        assert res == -1
-
-    def testIntReleaseNewer(self):
-        """Check that int releases are compared correctly: new to old"""
-        res = up2dateUtils.comparePackages(self.pkg6, self.pkg7)
-        assert res == -1
-
-    def testIntReleaseSame(self):
-        """Check that int releases are compared correctly: same release"""
-        res = up2dateUtils.comparePackages(self.pkg7, self.pkg7)
-        assert res == 0
-
-    def testZeroEpochNullEpoch(self):
-        """Check that epochs of 0 are compared correctly: 0 v null"""
-        res = up2dateUtils.comparePackages(self.pkgZeroEpoch, self.pkgNullEpoch)
-        assert res == 0
-
-    def testNullEpochZeroEpoch(self):
-        """Check that epochs of 0 are compared correctly: null v 0"""
-        res = up2dateUtils.comparePackages(self.pkgNullEpoch, self.pkgZeroEpoch)
-        assert res == 0
-
-    def testSameVersionNullEpochOneEpoch(self):
-        """Check that a package with a different epoch compares correctly: null v 1"""
-        res = up2dateUtils.comparePackages(self.pkgNullEpoch, self.pkgOneEpoch)
-        assert res == -1
-
-    def testSameVersionOneEpochNullEpoch(self):
-        """Check that a package with a different epoch compares correctly: 1 v null"""
-        res = up2dateUtils.comparePackages(self.pkgOneEpoch, self.pkgNullEpoch)
-        assert res == 1
-
-    def testBadVersionNullEpochOneEpoch(self):
-        """Check that package with a bad version uses epoch correctly: null v 1"""
-        res = up2dateUtils.comparePackages(self.pkg2, self.pkgOneEpoch)
-        assert res == -1
-
-    def testBadVersionOneEpochNullEpoch(self):
-        """Check that package with a bad version uses epoch correctly: 1 v null"""
-        res = up2dateUtils.comparePackages(self.pkgOneEpoch, self.pkg2)
-        assert res == 1
-
-    def testFloatRoundOldNew(self):
-        """Packages with very similar float version #s: .9..98 v .9..99"""
-        res = up2dateUtils.comparePackages(self.pkg8, self.pkg3)
-        assert res == -1
-
-    def testFloatRoundNewOld(self):
-        """Packages with very similar float version #s: .9..99 v .9..98"""
-        res = up2dateUtils.comparePackages(self.pkg3, self.pkg8)
-        assert res == 1
-
-    def testVersionFloatInt(self):
-        """Packages with int 1 vs float 1.0: 1 v 1.0"""
-        res = up2dateUtils.comparePackages(self.pkg6, self.pkg1)
-        assert res == 1
-
-    def testVersionIntFloat(self):
-        """Packages with int 1 vs float 1.0: 1.0 v 1"""
-        res = up2dateUtils.comparePackages(self.pkg1, self.pkg6)
-        assert res == -1
-
-    def testHugeEpochNullEpoch(self):
-        """Packages with a huge epoch versus no epoch: huge v null"""
-        res = up2dateUtils.comparePackages(self.pkgHumongousEpoch, self.pkgNullEpoch)
-        assert res == 1
-
-    def testNullEpocHugeEpoch(self):
-        """Packages with a null epoch versus huge epoch: null v huge"""
-        res = up2dateUtils.comparePackages(self.pkgNullEpoch, self.pkgHumongousEpoch)
-        assert res == -1
-
-    
-    def testReleaseAlphaReleaseNumber(self):
-        """Package with a numeric release versus a alphabetic release: e.12 v 12"""
-        res = up2dateUtils.comparePackages(self.pkgKernelEnterprise, self.pkgKernelNormal)
-        assert res == -1
-
-    def testReleaseNumberReleaseAlpha(self):
-        """Package with a alphabetic release versus a number release: 12 v e.12"""
-        res = up2dateUtils.comparePackages(self.pkgKernelNormal, self.pkgKernelEnterprise)
-        assert res == 1
-
 class TestGetProxySetting(TestCase):
     def setUp(self):
         from up2date_client import config
@@ -322,8 +197,6 @@ class TestTouchTimeStamp(TestCase):
 ##        assert res == (0, "unable to open the timestamp file", {})
 
         
-#testSuite = unittest.makeSuite(TestComparePackages, "test")
-
 #runner = unittest.TextTestRunner(verbosity=2)
 #runner.run(testSuite)
 
@@ -334,7 +207,6 @@ def suite():
     suite.addTest(unittest.makeSuite(TestPprint_pkglist))  
     suite.addTest(unittest.makeSuite(TestGetVersion))
     suite.addTest(unittest.makeSuite(TestGetProxySetting))
-    suite.addTest(unittest.makeSuite(TestComparePackages))
     return suite
 
 if __name__ == "__main__":
