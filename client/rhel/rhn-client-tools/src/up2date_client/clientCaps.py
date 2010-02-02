@@ -36,8 +36,7 @@ class ClientCapabilities(UserDict.UserDict):
 
 caps = ClientCapabilities()
 
-def loadLocalCaps():
-    capsDir = "/etc/sysconfig/rhn/clientCaps.d"
+def loadLocalCaps(capsDir = "/etc/sysconfig/rhn/clientCaps.d"):
 
     capsFiles = glob.glob("%s/*" % capsDir)
 
