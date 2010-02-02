@@ -33,8 +33,6 @@ sub register_acl_handlers {
   $acl->register_handler(global_config => \&global_config_acl_test);
   $acl->register_handler(org_role => \&org_role_acl_test);
   $acl->register_handler(org_entitlement => \&org_entitlement_acl_test);
-  $acl->register_handler(org_satellite_entitlement => \&org_satellite_entitlement_acl_test);
-  $acl->register_handler(support_org_satellite_entitlement => \&support_org_satellite_entitlement_acl_test);
   $acl->register_handler(org_is_paying_customer => \&org_is_paying_customer_acl_test);
   $acl->register_handler(system_entitled => \&system_entitled_acl_test);
   $acl->register_handler(system_locked => \&system_locked_acl_test);
@@ -145,29 +143,6 @@ sub org_channel_family_acl_test {
   die "org_channel_family_acl_test called with no \$pxt->user authenticated" unless $pxt->user;
 
   return $pxt->user->org->has_channel_family_entitlement($cfam) ? 1 : 0;
-}
-
-sub org_satellite_entitlement_acl_test {
-  my $pxt = shift;
-
-  #You are probably here because you intend to implement this acl
-  #in the java code.  This acl is equivalent to the acl,
-  #org_channel_family(rhn-satellite).  I suggest simply changing the acl.
-  return 1 if $pxt->user->org->entitled_satellite_families();
-
-  return 0;
-}
-
-sub support_org_satellite_entitlement_acl_test {
-  my $pxt = shift;
-
-  my $support_org_id = $pxt->param('support_org_id');
-  throw "No support_org_id parameter when testing for support org  entitlement sat entitlement."
-    unless $support_org_id;
-  my $org = RHN::Org->lookup(-id => $support_org_id);
-  return 1 if $org->entitled_satellite_families();
-
-  return 0;
 }
 
 sub system_entitled_acl_test {
