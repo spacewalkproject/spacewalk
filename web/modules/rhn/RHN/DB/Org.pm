@@ -463,18 +463,6 @@ EOQ
   return 0;
 }
 
-sub entitled_satellite_families {
-  my $self = shift;
-
-  my @families;
-
-  foreach my $fam (qw/rhn-satellite/) {
-    push @families, $fam if $self->has_channel_family_entitlement($fam);
-  }
-
-  return @families;
-}
-
 sub has_channel_family_entitlement {
   my $self = shift;
   my $label = shift;
