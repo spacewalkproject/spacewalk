@@ -38,14 +38,6 @@ sub lookup {
   }
 }
 
-sub lookup_user {
-  my $class = shift;
-
-  warn "deprecated use of $class->lookup_foo from (" . join(', ', caller) . ").  Using $class->lookup instead\n";
-
-  return $class->lookup(@_);
-}
-
 sub check_login {
   my $class = shift;
   my $username = shift;
