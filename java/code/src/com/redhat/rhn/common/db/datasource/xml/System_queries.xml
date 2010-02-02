@@ -367,21 +367,23 @@ ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
   <elaborator name="system_overview" />
 </mode>
 
-<mode name="target_systems_for_channel">
+<mode name="target_systems_for_channel" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="org_id, cid, user_id">
-SELECT ES.id
+SELECT ES.id, S.name, 1 as selectable
   FROM rhnChannel C,
        rhnServerChannel SC,
-       rhnEntitledServers ES
+       rhnEntitledServers ES,
+       rhnServer S
  WHERE ES.org_id = :org_id
    AND ES.id = SC.server_id
    AND C.id = :cid
+   AND ES.id = S.id
    AND SC.channel_id = C.parent_channel
    AND NOT EXISTS (SELECT 1 FROM rhnServerChannel WHERE server_id = ES.id AND channel_id = C.id)
    AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = ES.id)
-ORDER BY UPPER(NVL(ES.NAME, '(none)')), ES.ID
   </query>
-  <elaborator name="system_overview" />
+    <elaborator name="system_overview" />
+    <elaborator name="entitlements"/>
 </mode>
 
 <mode name="xmlrpc_visible_to_user">
@@ -424,7 +426,7 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
 
 <mode name="all_systems" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query>
-  SELECT  DISTINCT S.id,
+  SELECT  DISTINCT S.id, 1 as selectable
           S.name AS SERVER_NAME,
           (SELECT 1
              FROM rhnServerFeaturesView SFV
@@ -571,7 +573,7 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
   <elaborator name="system_overview" />
 </mode>
 
-<mode name="in_set">
+<mode name="in_set" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query name="in_set" />
   <elaborator name="system_overview" />
 </mode>

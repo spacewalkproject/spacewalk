@@ -2635,4 +2635,41 @@ public class SystemManager extends BaseManager {
         retval = mode.execute(params);
         return retval;
     }
+
+    /**
+     * list systems that can be subscribed to a particular child channel
+     * @param user the user
+     * @param chan the child channle
+     * @return list of SystemOverview objects
+     */
+    public static List<SystemOverview> listTargetSystemForChannel(User user, Channel chan) {
+        DataResult retval = null;
+        SelectMode mode = ModeFactory.getMode("System_queries",
+                "target_systems_for_channel");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("cid", chan.getId());
+        params.put("org_id", user.getOrg().getId());
+        retval = mode.execute(params);
+        retval.setElaborationParams(Collections.EMPTY_MAP);
+        return retval;
+    }
+
+    /**
+     * Get a list of SystemOverview objects for the systems in an rhnset
+     * @param user the user doing the lookup
+     * @param setLabel the label of the set
+     * @return List of SystemOverview objects
+     */
+    public static List<SystemOverview> inSet(User user, String setLabel) {
+        DataResult retval = null;
+        SelectMode mode = ModeFactory.getMode("System_queries",
+                "in_set");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("set_label", setLabel);
+        retval = mode.execute(params);
+        retval.setElaborationParams(Collections.EMPTY_MAP);
+        return retval;
+    }
 }

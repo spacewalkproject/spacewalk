@@ -1333,4 +1333,24 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
     }
 
+    public void testInSet() throws Exception {
+        User usr = UserTestUtils.findNewUser("testUser", "testOrg");
+        RhnSet newrs = RhnSetManager.createSet(usr.getId(), "test_systems_list",
+                SetCleanup.NOOP);
+
+        for (int i = 0; i < 5; i++) {
+            Server mySystem = ServerFactoryTest.createTestServer(usr);
+            newrs.addElement(mySystem.getId());
+        }
+
+        RhnSetManager.store(newrs);
+
+        List<SystemOverview> dr = SystemManager.inSet(usr, newrs.getLabel());
+        assertEquals(dr.size(), 5);
+        assertTrue(dr.iterator().hasNext());
+
+        SystemOverview m = (dr.iterator().next());
+        assertNotNull(m.getName());
+    }
+
 }

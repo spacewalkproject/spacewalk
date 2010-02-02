@@ -811,26 +811,6 @@ public class UserManager extends BaseManager {
     }
 
     /**
-     * Returns the systems in the given set
-     * @param user The user
-     * @param label The name of the set
-     * @param pc Page Control
-     * @return completed DataResult
-     */
-    public static DataResult systemsInSet(User user, String label, PageControl pc) {
-        SelectMode m = ModeFactory.getMode("System_queries", "in_set");
-        Map params = new HashMap();
-        params.put("user_id", user.getId());
-        params.put("set_label", label);
-        if (pc != null) {
-            return makeDataResult(params, params, pc, m);
-        }
-        DataResult dr = m.execute(params);
-        dr.setTotalSize(dr.size());
-        return dr;
-    }
-
-    /**
      * Returns the users in the given set
      * @param user The user
      * @param label The name of the set

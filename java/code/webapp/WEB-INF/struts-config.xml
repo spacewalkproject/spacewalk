@@ -6453,6 +6453,21 @@
         <forward name="default" path="/WEB-INF/pages/channel/subscribedsystems.jsp" />
       </action>          
 
+	 <action path="/channels/TargetSystems"
+		type="com.redhat.rhn.frontend.action.channel.TargetSystemsAction"
+	        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+	    <forward name="confirm" path="/channels/ConfirmTargetSystems.do" redirect="true"/>
+        <forward name="default" path="/WEB-INF/pages/channel/targetsystems.jsp" />
+      </action>
+
+	 <action path="/channels/ConfirmTargetSystems"
+		type="com.redhat.rhn.frontend.action.channel.TargetSystemsConfirmAction"
+	        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/channel/confirmtargetsystems.jsp" />
+        <forward name="success" path="/channels/TargetSystems.do" redirect="true" />
+      </action>
+
+
    <action path="/systems/customdata/CustomDataList"
         scope="request"
         type="com.redhat.rhn.frontend.action.systems.customkey.CustomKeyListAction">

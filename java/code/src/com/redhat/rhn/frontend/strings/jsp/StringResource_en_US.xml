@@ -13179,6 +13179,30 @@ a file or files, or copy the latest version into a set of local overrides or int
           <context context-type="sourcefile">/rhn/configuration/ChannelSystems.do</context>
         </context-group>
      </trans-unit>
+	<trans-unit id="channeltarget.jsp.header1">
+<source>Target Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/TargetSystems.do</context>
+        </context-group>
+     </trans-unit>
+	<trans-unit id="channeltarget.jsp.header2">
+<source>The following systems can be subscribed to this channel:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/TargetSystems.do</context>
+        </context-group>
+     </trans-unit>
+	<trans-unit id="channeltarget.confirm.jsp.header1">
+<source>Confirm channel subscription</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/TargetSystems.do</context>
+        </context-group>
+     </trans-unit>
+	<trans-unit id="channeltarget.confirm.jsp.header2">
+<source>The following systems will be subscribed to this channel:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/TargetSystems.do</context>
+        </context-group>
+     </trans-unit>
 	<trans-unit id="channelsystems.jsp.descr">
 <source>The following systems are subscribed to {0}. You may deploy any files from {0} to these systems except for those files that the systems override or that are outranked by files in other channels.</source>
         <context-group name="ctx">
