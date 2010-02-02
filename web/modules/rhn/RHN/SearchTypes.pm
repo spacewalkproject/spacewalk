@@ -78,23 +78,6 @@ sub add_mode {
     };
 }
 
-sub render_search_selectbox {
-  my $self = shift;
-  my %params = validate(@_, {pxt => 1});
-
-  my @options;
-  my $current_search_type = $params{pxt}->dirty_param('view_mode') || '';
-
-  foreach my $search (@{$self->{search_modes}}) {
-    my $row = [ $search->{mode_choice_name},
-		$search->{mode_label},
-		$current_search_type eq $search->{mode_label} ? 1 : 0];
-    push @options, $row;
-  }
-
-  return PXT::HTML->select(-name => 'view_mode', -options => \@options);
-}
-
 sub label_to_column_name {
   my $self = shift;
   my $view_mode = shift;
@@ -118,43 +101,6 @@ sub new {
   my $self = bless { categories => [], min_search_length => 0 }, $class;
 
   return $self;
-}
-
-sub render_search_selectbox {
-  my $self = shift;
-  my %params = validate(@_, {pxt => 1, search_type => 0});
-  my $current_search_type = $params{search_type} || '';
-
-  my @options;
-
-  foreach my $cat (@{$self->{categories}}) {
-
-    if (defined $cat->{acl}) {
-      next unless $self->acl_test(pxt => $params{pxt},
-				  acl_string => $cat->{acl},
-				  acl_mixins => defined $cat->{acl_mixins} ? $cat->{acl_mixins} : undef,
-				 );
-    }
-
-    push @options, [ $cat->{label}, '', 0, 'optgroup' ];
-
-    foreach my $search (@{$cat->{modes}}) {
-
-      if (defined $search->{acl}) {
-	next unless $self->acl_test(pxt => $params{pxt},
-				    acl_string => $search->{acl},
-				    acl_mixins => defined $search->{acl_mixins} ? $search->{acl_mixins} : undef,
-				   );
-      }
-
-      my $row = [ $search->{mode_label},
-		  $search->{mode_choice_name},
-		  $current_search_type eq $search->{mode_choice_name} ? 1 : 0];
-      push @options, $row;
-    }
-  }
-
-  return PXT::HTML->select(-name => 'view_mode', -options => \@options);
 }
 
 sub label_to_column_name {
