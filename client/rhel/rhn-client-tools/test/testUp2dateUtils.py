@@ -204,33 +204,6 @@ class TestPprint_pkglist(TestCase):
             self.fail("expected a IndexError")
 
 
-class TestFreeDiskSpace(TestCase):
-    def testNoException(self):
-        "Verify that freeDiskSpace executes with no exceptions"
-        try:
-            res = up2dateUtils.freeDiskSpace()
-        except:
-            self.fail("No exceptions were expected")
-
-    def testNoNegative(self):
-        "Verify that freeDiskSpace does not return negative"
-        res = up2dateUtils.freeDiskSpace()
-        if res < 0.0:
-            self.fail("Returned a negative amount of free disk space")
-
-    def testStoreDirDoesntExist(self):
-        "Verify that freeDiskSpace raises an OSError if storageDir doesnt exist"
-        from up2date_client import config
-        self.cfg = config.initUp2dateConfig()
-        # lets hope that directy doesnt actually exist... ;->
-        self.cfg["storageDir"] = "/a/d/r/i/a/n/w/a/s/h/e/r/e/blippyfoobar"
-        try:
-            res = up2dateUtils.freeDiskSpace()
-        except OSError:
-            pass
-        else:
-            self.fail("Expected an OSerror")
-
 class TestIsObsoleted(TestCase):
     def setUp(self):
         self.obs1 = ['gcc', '3.4.3', '9.EL4', '', 'x86_64', 'libgnat', '3.4.3-9.EL4', '10']
@@ -358,7 +331,6 @@ def suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestTouchTimeStamp))
     suite.addTest(unittest.makeSuite(TestIsObsoleted))
-    suite.addTest(unittest.makeSuite(TestFreeDiskSpace))
     suite.addTest(unittest.makeSuite(TestPprint_pkglist))  
     suite.addTest(unittest.makeSuite(TestGetVersion))
     suite.addTest(unittest.makeSuite(TestGetProxySetting))
