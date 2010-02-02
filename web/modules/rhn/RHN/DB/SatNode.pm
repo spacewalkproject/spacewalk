@@ -100,19 +100,6 @@ sub lookup {
 }
 
 
-# Look up a node by sat cluster ID
-####################
-sub lookup_by_scid {
-####################
-  my $self = shift;
-
-  # <<INSERT CODE HERE>>
-
-}
-
-
-
-
 1;
 
 __END__
@@ -141,12 +128,6 @@ RHN::DB::SatNode - Monitoring scout nodes ("sat nodes")
 =item lookup()
 
 Look up a node by node ID
-
-
-=item lookup_by_scid()
-
-Look up a node by sat cluster ID
-
 
 
 =item <<METHOD()>>
