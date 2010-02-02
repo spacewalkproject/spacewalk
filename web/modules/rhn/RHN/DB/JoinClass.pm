@@ -159,10 +159,4 @@ sub methods_to_columns {
   return map { $self->{m_to_c}->{$_} } @_;
 }
 
-sub column_to_methods {
-  my $self = shift;
-
-  return map { $self->{c_to_m}->{$_} } @_;
-}
-
 1;
