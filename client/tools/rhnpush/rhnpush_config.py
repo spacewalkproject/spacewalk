@@ -34,7 +34,7 @@ False = 0
 class rhnpushConfigParser:
     _instance = None
 
-    def __init__(self, filename, ensure_consistency=False):
+    def __init__(self, filename=None, ensure_consistency=False):
                 
         #Defaults that are used if the ensure_consistency parameter of the constructor is true
         #and the config file that is being read is missing some values.
@@ -69,20 +69,15 @@ class rhnpushConfigParser:
         #Used to parse the config file.
         self.settings = ConfigParser.ConfigParser()
         
-        
-        if filename is None:
-            print "filename not passed to the rhnpushConfigParser constructor."
-            sys.exit(1)
-        else:
-            self.filename = filename
-        
         #use options from the rhnpush section.  
         self.section = "rhnpush"
 
         self.username = None
         self.password = None    
     
-        self._read_config_files()
+        if filename:
+            self.filename = filename
+            self._read_config_files()
 
         #Take all of the options read from the configuration file and add them as attributes 
         #(instance variables, member variables, whatever) of this object.
