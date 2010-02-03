@@ -98,36 +98,6 @@ sub handler {
       $r->status(REDIRECT);
       return REDIRECT;
     }
-
-    # no longer using serverauth
-    my ($ret, $pw) = $r->get_basic_auth_pw;
-    return $ret if $ret;
-
-    my $user;
-    $username = $r->connection->user;
-    eval {
-      if ($username) {
-	$user = RHN::User->lookup(-username => $username);
-	$user_id = $user->id;
-      }
-    };
-
-    if ($@ and catchable($@)) {
-      warn "User lookup failed: $@";
-      return AUTH_REQUIRED;
-    }
-
-    if (not $user) {
-      $r->note_basic_auth_failure;
-      $r->log_reason("User '$username' does not exist");
-      return AUTH_REQUIRED;
-    }
-
-    if ($user->validate_password($pw)) {
-      $r->note_basic_auth_failure;
-      $r->log_reason("User $username supplied invalid password");
-      return AUTH_REQUIRED;
-    }
   }
 
   $r->user($username);
