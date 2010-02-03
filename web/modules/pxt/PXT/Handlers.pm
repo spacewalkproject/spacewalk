@@ -35,10 +35,7 @@ sub register_primary_tags {
 
   $parser->register_tag('pxt-profile' => \&pxt_profile_handler, 5000);
 
-  unless ($pxt->xml_request) {
-    $parser->register_tag('pxt-formvar' => \&pxt_formvar_handler, -500);
-  }
-
+  $parser->register_tag('pxt-formvar' => \&pxt_formvar_handler, -500);
 }
 
 sub register_secondary_tags {
