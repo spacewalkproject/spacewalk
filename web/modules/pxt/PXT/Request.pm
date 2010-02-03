@@ -474,15 +474,6 @@ sub xml_request {
   return $self->{rpc};
 }
 
-sub gzip_output {
-  my $self = shift;
-
-  if (@_) {
-    $self->{gzip_output} = shift;
-  }
-  return $self->{gzip_output};
-}
-
 sub xml_body {
   my $self = shift;
 
