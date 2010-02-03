@@ -161,14 +161,6 @@ EOQ
   $self->crypto_key_type_id($row->{ID});
 }
 
-sub key_type_list {
-  my $class = shift;
-
-  my $ds = new RHN::DataSource::Simple(-querybase => "General_queries");
-  $ds->mode("crypto_key_types");
-  return @{$ds->execute_query};
-}
-
 sub delete {
   my $self = shift;
 
