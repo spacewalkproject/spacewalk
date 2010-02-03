@@ -495,12 +495,6 @@ sub xml_body {
   return $buf;
 }
 
-sub encode_rpc_result {
-  my $self = shift;
-
-  return $self->xml_request->encode_rpc_result(@_);
-}
-
 sub touch_session {
   $_[0]->{session_touched} = 1;
 }
