@@ -1287,7 +1287,7 @@ EOS
 		    v => $_->[1]->version,
 		    r => $_->[1]->release,
 		    e => $_->[1]->epoch,
-		    a => undef,
+		    a => $_->[1]->arch,
 		    operation => $_->[0]) for @delta;
   }
 
