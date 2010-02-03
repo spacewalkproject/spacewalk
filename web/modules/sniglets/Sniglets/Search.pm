@@ -18,7 +18,6 @@ package Sniglets::Search;
 
 use Sniglets::Packages;
 
-use RHN::Search;
 use RHN::SearchTypes;
 use RHN::Server;
 use RHN::Exception;

@@ -188,7 +188,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/SatNode.pm
 %{perl_vendorlib}/RHN/SatelliteCert.pm
 %{perl_vendorlib}/RHN/Scheduler.pm
-%{perl_vendorlib}/RHN/Search.pm
 %{perl_vendorlib}/RHN/SearchTypes.pm
 %{perl_vendorlib}/RHN/Server.pm
 %{perl_vendorlib}/RHN/ServerActions.pm

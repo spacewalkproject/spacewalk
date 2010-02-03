@@ -16,8 +16,6 @@ RHN/DB/Org.pm
 RHN/DB/Package.pm
 RHN/DB.pm
 RHN/DB/Scheduler.pm
-RHN/DB/Search_BAD.pm
-RHN/DB/Search.pm
 RHN/DB/ServerActions.pm
 RHN/DB/Server/CdDevice.pm
 RHN/DB/ServerGroup.pm
@@ -39,7 +37,6 @@ RHN/Package.pm
 RHN/Paginator.pm
 RHN.pm
 RHN/Scheduler.pm
-RHN/Search.pm
 RHN/ServerActions.pm
 RHN/ServerGroup.pm
 RHN/ServerNotes.pm
