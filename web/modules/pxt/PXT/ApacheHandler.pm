@@ -85,12 +85,7 @@ sub handler {
   my $filename = $r->filename;
   my ($file_contents, $file_classes);
 
-  if ($request->xml_request) {
-    $request->content_type("text/xml");
-  }
-  else {
-    $request->content_type("text/html; charset=UTF-8");
-  }
+  $request->content_type("text/html; charset=UTF-8");
 
   my $E;
 
@@ -171,7 +166,7 @@ sub handler {
     }
 
     if (not $r->header_only) {
-      if (PXT::Config->get("enable_i18n") and not $request->xml_request) {
+      if (PXT::Config->get("enable_i18n")) {
 	$file_contents = RHN::I18N->translate($file_contents);
       }
 
@@ -379,18 +374,6 @@ sub initialize_pxt {
 
   my $session_id;
 
-  if ($request->xml_request) {
-    my @a = $request->rpc_params;
-
-    PXT::Debug->log(2, @a);
-
-    if (@a == 2 and ref $a[1] eq 'HASH') {
-      my ($func, $params) = @a;
-
-      $session_id = $params->{session} || $params->{-session};
-    }
-  }
-
   $r->pnotes('pxt_request', $request);
   $r->pnotes('pxt_cookies', $cookies);
 
@@ -414,7 +397,7 @@ sub initialize_pxt {
     elsif (my $pxt_session_cookie = $cookies->{$request->session_cookie_name}) {
       $session = RHN::Session->load($cookies->{$request->session_cookie_name}->value);
     }
-    elsif (not $request->xml_request and $request->dirty_param('pxt_session_id')) {
+    elsif ($request->dirty_param('pxt_session_id')) {
       $session = RHN::Session->load($request->dirty_param('pxt_session_id'));
     }
     else {
@@ -433,17 +416,15 @@ sub initialize_pxt {
 
   $r->pnotes('pxt_session', $session);
 
-  if (not $request->xml_request) {
-    my @formvars = $apr->param;
+  my @formvars = $apr->param;
 
 
-    eval { $request->cleanse_params(); };
-    my $E = $@;
+  eval { $request->cleanse_params(); };
+  my $E = $@;
 
-    if ($E) {
+  if ($E) {
       mail_traceback($request, $r, $E);
       throw $E;
-    }
   }
 
   return $status;
@@ -520,81 +501,6 @@ sub pxt_parse_data {
     $class->register_callbacks($p2) if $class->can("register_callbacks");
   }
 
-  if ($pxt->xml_request) {
-    my %xml = $p2->rpc_handlers;
-    my ($func, @params) = $pxt->rpc_params;
-    my $result;
-
-    PXT::Debug->log(2, "func: $func, params: @params");
-
-    my $handler;
-    if (exists $xml{$func}) {
-      $handler = $xml{$func};
-    }
-    elsif (exists $xml{__default__}) {
-      $handler = $xml{__default__};
-    }
-    else {
-      $$dataref = $pxt->encode_rpc_fault('604', 'Method not found');
-      return;
-    }
-
-    my @result;
-    eval {
-      @result = $handler->($pxt, @params);
-    };
-
-    # exception handling logic.  If the exception object
-    # can("serialize_xmlrpc_fault"), then it was an application
-    # level exception meant for the client.  so we pass it through
-    # like a normal, happy result.  if it wasn't such an exception,
-    # though, we let the traceback handler handle it since it wasn't
-    # expected and should generate a traceback email.  in that case,
-    # the client receives a generic 'unhandled exception' fault.
-
-    my $E = $@;
-    if ($E) {
-      if (ref $E and ref $E eq 'ARRAY') {
-	$$dataref = $pxt->encode_rpc_fault($E->[0], $E->[1]);
-	Carp::cluck "Nonfatal(?) fault handling rpc: $E";
-	return;
-      }
-      elsif (ref $E and $E->isa('PXT::RPCFault')) {
-	PXT::Debug->log(2, "RPC fault:", $E->{fault_text});
-	$$dataref = $pxt->encode_rpc_fault($E->{fault_code}, $E->{fault_text});
-	return;
-      }
-      elsif (ref $E and $E->can("serialize_xmlrpc_fault")) {
-	$$dataref = $pxt->encode_rpc_fault($E->fault_code, $E->fault_text);
-	return;
-      }
-
-      die $E;
-    }
-
-    if (@result > 1) {
-      die "rpc handler for $func attempted to return more than one result, but not as array";
-    }
-    else {
-      $result = $result[0];
-    }
-
-    if ($pxt->xml_return_raw) {
-      $$dataref = $result;
-    }
-    elsif ($pxt->gzip_output) {
-      warn "gzipping output";
-      $pxt->header_out('Content-Encoding', 'x-gzip');
-      $pxt->header_out('Content-Transfer-Encoding', 'binary');
-      $$dataref = Compress::Zlib::memGzip($pxt->encode_rpc_result($pxt, $result));
-    }
-    else {
-      $$dataref = $pxt->encode_rpc_result($pxt, $result);
-    }
-
-    return;
-  }
-
   my %callbacks = $p2->callbacks;
 
   my $cb = $pxt->dirty_param("pxt:trap") || $pxt->dirty_param("pxt_trap");
@@ -625,14 +531,6 @@ sub handle_traceback {
 
   $pxt->trace_request(-result => SERVER_ERROR, -extra => $E);
 
-  if ($pxt->xml_request) {
-    my $result = $pxt->encode_rpc_fault(-1, "Unhandled exception");
-
-    $apache->headers_out->{'Content-Length'} = length $result;
-    $apache->print($result);
-
-    return OK;
-  }
   return SERVER_ERROR;
 }
 
@@ -666,22 +564,11 @@ sub mail_traceback {
     }
 
     my $formvars;
-    if ($pxt->xml_request) {
-      my ($func, @params) = $pxt->rpc_params();
-
-      my $call = "  $func(" . join(", ", @params) . ")";
-      $formvars = <<EOS
-RPC Request:
-$call
-EOS
-    }
-    else {
-      my $pairs = join("\n", map { "  $_ => " . $pxt->passthrough_param($_) } sort $pxt->param);
-      $formvars = <<EOS
+    my $pairs = join("\n", map { "  $_ => " . $pxt->passthrough_param($_) } sort $pxt->param);
+    $formvars = <<EOS
 Form variables:
 $pairs
 EOS
-    }
 
     my $body = <<EOB;
 The following exception occurred while executing this request:
