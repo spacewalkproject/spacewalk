@@ -46,7 +46,6 @@ sub new {
 		     apr => $apache_request,
 		     cookies => $cookies,
 		     session => $session,
-		     rpc => 0,
 		     stage => "",
 		     context => { },
                      no_cache => 1,
@@ -463,15 +462,6 @@ sub pxt_no_cache {
     $self->{no_cache} = shift;
   }
   return $self->{no_cache};
-}
-
-sub xml_request {
-  my $self = shift;
-
-  if (@_) {
-    $self->{rpc} = shift;
-  }
-  return $self->{rpc};
 }
 
 sub touch_session {
