@@ -18,7 +18,6 @@ package RHN::DB;
 use strict;
 use DBI;
 use Carp;
-use Data::Dumper;
 use RHN::Exception;
 use PXT::Config;
 

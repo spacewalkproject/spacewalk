@@ -15,7 +15,6 @@
 
 package RHN::DB::SystemSnapshot;
 
-use Data::Dumper;
 use Params::Validate qw/validate/;
 Params::Validate::validation_options(strip_leading => "-");
 

@@ -30,8 +30,6 @@ use RHN::ServerGroup;
 use PXT::HTML;
 use Storable qw/dclone/;
 
-use Data::Dumper;
-
 sub register_tags {
   my $class = shift;
   my $pxt = shift;

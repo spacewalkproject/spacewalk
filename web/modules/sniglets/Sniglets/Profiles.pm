@@ -24,8 +24,6 @@ use RHN::Exception qw/throw catchable/;
 
 use PXT::Utils;
 
-use Data::Dumper;
-
 sub register_callbacks {
   my $class = shift;
   my $pxt = shift;

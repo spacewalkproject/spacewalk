@@ -45,8 +45,6 @@ use RHN::DataSource::SystemGroup;
 use Digest::MD5;
 use Date::Parse;
 
-use Data::Dumper;
-
 sub register_tags {
   my $class = shift;
   my $pxt = shift;

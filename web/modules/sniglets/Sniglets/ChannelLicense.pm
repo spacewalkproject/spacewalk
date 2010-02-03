@@ -17,7 +17,6 @@ use strict;
 
 package Sniglets::ChannelLicense;
 
-use Data::Dumper;
 use PXT::Utils;
 use RHN::Exception;
 use RHN::ServerActions;

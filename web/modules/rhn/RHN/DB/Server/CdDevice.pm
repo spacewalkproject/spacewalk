@@ -20,7 +20,6 @@ package RHN::DB::Server::CdDevice;
 use RHN::DB;
 use Carp;
 use RHN::DB::TableClass;
-use Data::Dumper;
 
 # Corresponds to an entry in the rhnCdDevice table...
 # basically, a cdrom drive attached to a server?

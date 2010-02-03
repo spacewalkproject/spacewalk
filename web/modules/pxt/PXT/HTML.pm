@@ -17,7 +17,6 @@ package PXT::HTML;
 
 use strict;
 
-use Data::Dumper;
 use Carp;
 use PXT::Utils;
 use Apache2::RequestUtil ();

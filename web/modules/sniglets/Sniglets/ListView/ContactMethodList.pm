@@ -19,7 +19,6 @@ package Sniglets::ListView::ContactMethodList;
 
 use Sniglets::ListView::List;
 use RHN::DataSource::ContactMethod;
-use Data::Dumper;
 
 our @ISA = qw/Sniglets::ListView::List/;
 

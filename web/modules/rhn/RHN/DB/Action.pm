@@ -16,7 +16,6 @@
 package RHN::DB::Action;
 
 use strict;
-use Data::Dumper;
 use Carp;
 use Params::Validate qw/validate/;
 Params::Validate::validation_options(strip_leading => "-");

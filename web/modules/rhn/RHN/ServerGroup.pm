@@ -20,7 +20,6 @@ use strict;
 package RHN::ServerGroup;
 
 use RHN::DB::ServerGroup;   
-use Data::Dumper;
 
 my @server_group = qw(id name description org_id);
 my @server_group_members = qw(web_user_id user_group_id);

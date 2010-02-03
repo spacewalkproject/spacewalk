@@ -20,7 +20,6 @@ package RHN::DB::Server::HwDevice;
 use RHN::DB;
 use Carp;
 use RHN::DB::TableClass;
-use Data::Dumper;
 
 # Corresponds to an entry in the rhnHwDevice table...
 # basically, some hardwarea attached to a server?

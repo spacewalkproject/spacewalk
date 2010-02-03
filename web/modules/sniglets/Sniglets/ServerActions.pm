@@ -18,7 +18,6 @@ use strict;
 package Sniglets::ServerActions;
 
 use Carp;
-use Data::Dumper;
 
 use RHN::Action;
 use RHN::Set;

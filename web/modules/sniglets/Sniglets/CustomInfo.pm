@@ -17,7 +17,6 @@ use strict;
 
 package Sniglets::CustomInfo;
 
-use Data::Dumper;
 use PXT::Utils;
 use RHN::CustomInfoKey;
 use RHN::Access::CustomInfo;

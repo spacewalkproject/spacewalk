@@ -17,7 +17,6 @@ package PXT::ACL;
 
 use strict;
 
-use Data::Dumper;
 use PXT::Utils;
 use PXT::Config;
 use RHN::Exception qw/throw/;

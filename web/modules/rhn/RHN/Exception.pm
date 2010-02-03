@@ -16,7 +16,6 @@
 package RHN::Exception;
 
 use Exporter;
-use Data::Dumper;
 
 use strict;
 

@@ -18,7 +18,6 @@ use strict;
 package Sniglets::ServerNotes;
 
 use Carp;
-use Data::Dumper;
 use RHN::Server;
 use RHN::ServerNotes;
 use RHN::Exception;

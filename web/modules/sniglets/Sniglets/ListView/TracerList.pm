@@ -21,8 +21,6 @@ use Sniglets::ListView::List;
 use RHN::Exception qw/throw/;
 use RHN::Token;
 
-use Data::Dumper;
-
 our @ISA = qw/Sniglets::ListView::List/;
 
 my %mode_data;

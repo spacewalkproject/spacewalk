@@ -17,8 +17,6 @@ use strict;
 
 package Sniglets::Scouts;
 
-use Data::Dumper;
-
 use RHN::SatCluster;
 use RHN::DB::SatCluster;
 

@@ -16,7 +16,6 @@
 use strict;
 
 package Sniglets::Utils;
-use Data::Dumper;
 use PXT::Utils;
 
 sub register_tags {

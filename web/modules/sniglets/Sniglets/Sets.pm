@@ -18,7 +18,6 @@ use strict;
 package Sniglets::Sets;
 
 use Carp;
-use Data::Dumper;
 use RHN::Exception qw/throw/;
 
 use RHN::Set;

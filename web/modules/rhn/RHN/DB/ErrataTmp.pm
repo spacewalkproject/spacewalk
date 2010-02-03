@@ -22,7 +22,6 @@ use Carp;
 use RHN::DB;
 
 use RHN::DB::TableClass;
-use Data::Dumper;
 
 use RHN::Errata;
 use RHN::DB::Errata;

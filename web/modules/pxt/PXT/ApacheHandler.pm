@@ -29,7 +29,6 @@ use Apache2::RequestIO ();
 use BSD::Resource;
 use Carp;
 use Compress::Zlib;
-use Data::Dumper;
 use Sys::Hostname;
 use Scalar::Util;
 use File::Spec;

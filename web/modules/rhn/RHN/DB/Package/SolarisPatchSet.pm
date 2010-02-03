@@ -16,7 +16,6 @@
 package RHN::DB::Package::SolarisPatchSet;
 
 use strict;
-use Data::Dumper;
 use Carp;
 use RHN::DB;
 use RHN::Exception qw/throw/;

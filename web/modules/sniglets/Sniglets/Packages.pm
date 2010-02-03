@@ -18,7 +18,6 @@ use strict;
 package Sniglets::Packages;
 
 use Carp;
-use Data::Dumper;
 
 use PXT::HTML;
 use RHN::Package;
@@ -141,7 +140,6 @@ sub package_change_log {
   my @changelog;
   @changelog = $package->change_log;
 
-  #return "<pre>".Data::Dumper->Dump([(@changelog)])."</pre>";
   my $block = $params{__block__};
   my $ret;
   foreach my $change (@changelog) {

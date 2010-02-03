@@ -20,7 +20,6 @@ use strict;
 package RHN::DB::ServerGroup;
 
 use RHN::DB;
-use Data::Dumper;
 use RHN::DB::TableClass;
 use RHN::User;
 use RHN::Set;

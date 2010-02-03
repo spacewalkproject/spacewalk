@@ -27,8 +27,6 @@ use RHN::Set;
 
 use Sniglets::ListView::List;
 
-use Data::Dumper;
-
 our @ISA = qw/Sniglets::ListView::List/;
 
 my %mode_data;

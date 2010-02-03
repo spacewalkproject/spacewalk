@@ -16,7 +16,6 @@
 package RHN::DB::Notes;
 
 use strict;
-use Data::Dumper;
 use Carp;
 use RHN::DB;
 use RHN::DB::TableClass;

@@ -18,7 +18,6 @@ package RHN::SatInstall;
 use strict;
 
 use File::Spec;
-use Data::Dumper;
 use Frontier::Client;
 use Digest::MD5 qw/md5_hex/;
 

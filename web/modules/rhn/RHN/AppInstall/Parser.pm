@@ -22,7 +22,6 @@ use strict;
 use XML::LibXML;
 use Digest::MD5 qw/md5_hex/;
 use RHN::Exception qw/throw/;
-use Data::Dumper;
 
 use RHN::AppInstall::Instance;
 use RHN::AppInstall::ACL;

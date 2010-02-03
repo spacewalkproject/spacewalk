@@ -23,8 +23,6 @@ use RHN::Exception qw/throw catchable/;
 
 use PXT::HTML;
 
-use Data::Dumper;
-
 our @ISA = qw/Sniglets::ListView::List/;
 
 my %mode_data;

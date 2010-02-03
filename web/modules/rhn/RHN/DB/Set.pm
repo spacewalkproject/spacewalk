@@ -19,7 +19,6 @@ package RHN::DB::Set;
 
 use RHN::DB;
 use Carp;
-use Data::Dumper;
 
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");

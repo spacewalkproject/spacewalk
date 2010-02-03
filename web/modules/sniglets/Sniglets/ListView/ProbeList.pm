@@ -23,8 +23,6 @@ use RHN::Exception qw/throw/;
 use RHN::Token;
 use RHN::DataSource::Probe;
 
-use Data::Dumper;
-
 our @ISA = qw/Sniglets::ListView::List/;
 
 my %mode_data;

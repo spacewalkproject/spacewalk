@@ -37,7 +37,6 @@ use RHN::Access;
 
 use PXT::HTML;
 use PXT::Utils;
-use Data::Dumper;
 use Digest::MD5;
 use RHN::Exception qw/throw/;
 

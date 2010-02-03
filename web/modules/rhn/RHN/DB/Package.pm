@@ -17,7 +17,6 @@ package RHN::DB::Package;
 
 
 use strict;
-use Data::Dumper;
 use Carp;
 use RHN::DB;
 use RHN::DB::TableClass;
@@ -311,7 +310,6 @@ EOQ
   while(@columns = $sth->fetchrow) {
     push @ret, [ @columns ];
   }
-  use Data::Dumper;
   return @ret;
 }
 

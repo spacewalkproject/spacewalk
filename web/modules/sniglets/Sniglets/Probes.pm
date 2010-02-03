@@ -17,8 +17,6 @@ use strict;
 
 package Sniglets::Probes;
 
-use Data::Dumper;
-
 use RHN::Command;
 use RHN::ContactGroup;
 use RHN::DataSource;

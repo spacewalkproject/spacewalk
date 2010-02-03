@@ -20,7 +20,6 @@ package RHN::DB::Server::NetInterface;
 use RHN::DB;
 use Carp;
 use RHN::DB::TableClass;
-use Data::Dumper;
 
 # Corresponds to an entry in the rhnServerNetInterface table...
 

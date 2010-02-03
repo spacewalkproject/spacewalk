@@ -16,7 +16,6 @@
 use strict;
 
 package Sniglets::Header;
-use Data::Dumper;
 use PXT::Utils;
 use RHN::Org;
 

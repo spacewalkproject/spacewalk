@@ -17,8 +17,6 @@ use strict;
 
 package RHN::DB::JoinClass;
 
-use Data::Dumper;
-
 sub new {
   my $class = shift;
   my $tables = shift;

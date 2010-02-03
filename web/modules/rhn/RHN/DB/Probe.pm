@@ -20,7 +20,6 @@ Params::Validate::validation_options(strip_leading => '-');
 
 use strict;
 use Carp;
-use Data::Dumper;
 
 use RHN::DB;
 use RHN::DB::TableClass;

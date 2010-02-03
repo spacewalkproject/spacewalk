@@ -19,7 +19,6 @@ package RHN::DB::User;
 
 use Authen::PAM;
 use Carp;
-use Data::Dumper;
 use Date::Parse;
 use POSIX;
 use Apache2::RequestUtil ();
@@ -562,7 +561,6 @@ sub commit {
 #    carp "update/insert query:  ".$query->[0]."\n";
     my $sth = $dbh->prepare($query->[0]);
     my @vars = ((map { $self->$_() } grep { exists $modified{$_} } @{$query->[1]}), $modified{id} ? () : $self->id);
-#    carp "vars:\n" . Data::Dumper->Dump([@vars]);
     $sth->execute(@vars);
   }
 

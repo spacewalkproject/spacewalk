@@ -18,7 +18,6 @@ use strict;
 package Sniglets::Errata;
 
 use Carp;
-use Data::Dumper;
 use File::Spec;
 
 use RHN::Access;
