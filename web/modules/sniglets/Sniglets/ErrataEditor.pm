@@ -17,7 +17,6 @@ use strict;
 
 package Sniglets::ErrataEditor;
 
-use RHN::Package;
 use RHN::DB;
 
 sub register_tags {

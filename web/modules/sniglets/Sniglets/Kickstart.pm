@@ -27,7 +27,6 @@ use RHN::Kickstart;
 use RHN::TinyURL;
 use RHN::Kickstart::Session;
 use RHN::SessionSwap;
-use RHN::Package;
 
 use RHN::DataSource::Package;
 use RHN::DataSource::General;

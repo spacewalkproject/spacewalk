@@ -20,7 +20,6 @@ package RHN::Kickstart::Post;
 # The 'Post' section - this package is really to hold 'helper' methods.
 
 use PXT::Utils;
-use RHN::Package;
 use RHN::TokenGen::Local;
 
 use Params::Validate qw/:all/;

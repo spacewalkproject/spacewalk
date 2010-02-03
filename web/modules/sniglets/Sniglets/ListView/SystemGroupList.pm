@@ -19,7 +19,6 @@ package Sniglets::ListView::SystemGroupList;
 
 use Sniglets::ListView::List;
 use Sniglets::ServerGroup;
-use RHN::Package;
 use RHN::DataSource::SystemGroup;
 use RHN::ServerGroup;
 
