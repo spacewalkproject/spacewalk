@@ -16,6 +16,8 @@
 package RHN::DB::Scheduler;
 use strict;
 
+use Data::Dumper ();
+
 use RHN::DB;
 use RHN::Exception qw/throw/;
 use RHN::DataSource::Simple;

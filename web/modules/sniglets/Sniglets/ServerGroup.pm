@@ -17,6 +17,8 @@ use strict;
 
 package Sniglets::ServerGroup;
 
+use Data::Dumper ();
+
 use RHN::Server;
 use RHN::ServerGroup;
 use RHN::Org;
