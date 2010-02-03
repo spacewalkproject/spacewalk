@@ -23,7 +23,6 @@ use RHN::DB::TableClass;
 use RHN::Exception qw/throw/;
 use RHN::Action;
 use RHN::Token;
-use RHN::TinyURL;
 use RHN::DataSource::Simple;
 
 use Params::Validate qw/:all/;

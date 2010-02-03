@@ -36,7 +36,6 @@ use RHN::DB;
 use RHN::Exception qw/throw/;
 
 use URI::URL;
-use RHN::TinyURL;
 
 use PXT::Utils;
 
