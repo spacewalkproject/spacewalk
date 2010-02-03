@@ -710,14 +710,8 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
     
     // Test to make sure 
     public void testDeepCopyEmptySets() throws Exception {
-        KickstartData k = createTestKickstartData(user.getOrg());
-        k.setCryptoKeys(null);
-        k.setCommands(null);
-        k.setDefaultRegTokens(null);
-        k.setIps(null);
-        k.setKsPackages(null);
-        k.setPreserveFileLists(null);
-        k.setScripts(null);
+        KickstartData k = createKickstartWithChannel(user.getOrg());
+
         // Now we deep copy it, save and reload
         KickstartData cloned = k.deepCopy(user, 
                 "someNewLabel" + TestUtils.randomString());
