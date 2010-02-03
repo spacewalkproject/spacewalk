@@ -22,7 +22,6 @@ use RHN::Package;
 use RHN::Channel;
 use RHN::DB;
 use RHN::Action;
-use RHN::Errata;
 use RHN::ErrataTmp;
 use RHN::DataSource::Package;
 use RHN::DataSource;

@@ -16,7 +16,6 @@
 package RHN::Access::Errata;
 
 use strict;
-use RHN::Errata;
 use RHN::ErrataTmp;
 use PXT::ACL;
 
