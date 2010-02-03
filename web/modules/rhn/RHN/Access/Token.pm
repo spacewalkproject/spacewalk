@@ -17,7 +17,6 @@ package RHN::Access::Token;
 
 use strict;
 
-use RHN::Entitlements;
 use RHN::Exception qw/throw/;
 use RHN::Token;
 

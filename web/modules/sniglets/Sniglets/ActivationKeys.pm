@@ -23,7 +23,6 @@ use RHN::Token;
 use RHN::DataSource::Channel;
 use RHN::Exception;
 use RHN::Form::Widget;
-use RHN::Entitlements;
 use RHN::Form::Widget::CheckboxGroup;
 use RHN::ServerGroup;
 

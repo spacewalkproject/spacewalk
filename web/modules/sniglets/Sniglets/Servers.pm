@@ -35,7 +35,6 @@ use RHN::Utils;
 use RHN::Exception;
 use RHN::Channel;
 use RHN::ServerActions;
-use RHN::Entitlements;
 use RHN::Form;
 use RHN::Form::Widget::Select;
 use RHN::Form::Widget::CheckboxGroup;
