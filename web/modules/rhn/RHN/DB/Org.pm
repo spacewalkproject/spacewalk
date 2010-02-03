@@ -350,23 +350,6 @@ sub entitlement_data {
   return $ent_data;
 }
 
-# How many systems in the org?
-sub server_count {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-SELECT COUNT(S.id)
-  FROM rhnServer S
- WHERE S.org_id = ?
-EOS
-  $sth->execute($self->id);
-  my ($server_count) = $sth->fetchrow;
-  $sth->finish;
-
-  return ($server_count || 0);
-}
-
 #How many unused basic or enterprise slots does the org have?
 sub unused_entitlements {
   my $self = shift;
