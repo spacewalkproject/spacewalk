@@ -34,7 +34,6 @@ use RHN::Org;
 use RHN::Date;
 use RHN::DB::TableClass;
 use RHN::DB::JoinClass;
-use RHN::EmailAddress;
 use RHN::CustomInfoKey;
 use RHN::FileList;
 use RHN::SystemSnapshot;
