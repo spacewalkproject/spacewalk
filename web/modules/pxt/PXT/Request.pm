@@ -474,27 +474,6 @@ sub xml_request {
   return $self->{rpc};
 }
 
-sub xml_body {
-  my $self = shift;
-
-  return $self->{xml_body} if exists $self->{xml_body};
-  return unless $self->xml_request;
-
-  my $length = $self->header_in('Content-length');
-  return unless $length;
-
-  my $buf;
-  my $bytes_read = $self->{apache}->read($buf, $length);
-
-  if ($bytes_read != $length) {
-    throw "Tried to read $length bytes from rpc request, but only could read $bytes_read";
-  }
-
-  $self->{xml_body} = $buf;
-
-  return $buf;
-}
-
 sub touch_session {
   $_[0]->{session_touched} = 1;
 }
