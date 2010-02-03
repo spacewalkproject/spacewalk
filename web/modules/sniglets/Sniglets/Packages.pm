@@ -21,7 +21,6 @@ use Carp;
 
 use PXT::HTML;
 use RHN::Package;
-use RHN::Utils;
 use RHN::Form;
 use Sniglets::ListView::PackageList;
 

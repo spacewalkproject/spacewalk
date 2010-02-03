@@ -31,7 +31,6 @@ use RHN::Server;
 use RHN::ServerGroup;
 use RHN::Org;
 use RHN::Set;
-use RHN::Utils;
 use RHN::Exception;
 use RHN::Channel;
 use RHN::ServerActions;

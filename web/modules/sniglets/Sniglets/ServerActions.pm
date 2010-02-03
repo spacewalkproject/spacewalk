@@ -26,7 +26,6 @@ use PXT::HTML;
 use RHN::ConfigChannel;
 
 use PXT::Utils;
-use RHN::Utils;
 use Date::Parse;
 
 use RHN::Exception;

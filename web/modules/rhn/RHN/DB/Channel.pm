@@ -23,8 +23,6 @@ Params::Validate::validation_options(strip_leading => "-");
 use RHN::DB;
 use RHN::DB::TableClass;
 
-use RHN::Utils;
-
 use Carp;
 
 use RHN::Exception qw/throw/;

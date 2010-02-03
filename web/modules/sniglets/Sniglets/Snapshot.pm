@@ -22,7 +22,6 @@ use RHN::Action;
 use RHN::Server;
 use RHN::SystemSnapshot;
 use RHN::DataSource::Channel;
-use RHN::Utils;
 use RHN::Exception;
 
 sub register_tags {

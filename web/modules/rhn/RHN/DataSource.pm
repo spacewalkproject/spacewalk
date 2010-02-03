@@ -16,7 +16,6 @@
 package RHN::DataSource;
 
 use strict;
-use RHN::Utils;
 use RHN::DB::DataSource;
 use RHN::Exception qw/throw/;
 use Data::Dumper;

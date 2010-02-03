@@ -17,7 +17,6 @@ package RHN::DB::TinyURL;
 use strict;
 
 use PXT::Utils;
-use RHN::Utils;
 use RHN::DB;
 
 use Params::Validate qw/:all/;

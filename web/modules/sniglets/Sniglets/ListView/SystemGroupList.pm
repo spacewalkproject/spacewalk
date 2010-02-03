@@ -23,7 +23,6 @@ use RHN::Package;
 use RHN::DataSource::SystemGroup;
 use RHN::Server;
 use RHN::ServerGroup;
-use RHN::Utils;
 
 use Data::Dumper;
 

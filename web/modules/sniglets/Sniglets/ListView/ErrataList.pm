@@ -20,7 +20,6 @@ package Sniglets::ListView::ErrataList;
 use Sniglets::ListView::List;
 use RHN::DataSource::Errata;
 use RHN::DataSource::Simple;
-use RHN::Utils;
 use RHN::Server;
 use RHN::Channel;
 use RHN::ChannelEditor;

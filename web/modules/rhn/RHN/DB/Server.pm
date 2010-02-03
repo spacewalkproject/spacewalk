@@ -48,7 +48,6 @@ Params::Validate::validation_options(strip_leading => "-");
 
 use Carp;
 
-use RHN::Utils;
 use RHN::Exception qw/throw/;
 
 

@@ -26,7 +26,6 @@ use RHN::ErrataTmp;
 use RHN::DataSource::Package;
 use RHN::DataSource;
 use RHN::DataSource::Simple;
-use RHN::Utils;
 use PXT::Utils;
 use RHN::Scheduler;
 use RHN::Manifest;

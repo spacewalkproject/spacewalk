@@ -23,8 +23,6 @@ Params::Validate::validation_options(strip_leading => "-");
 use RHN::DB;
 use RHN::DB::TableClass;
 
-use RHN::Utils;
-
 use Carp;
 
 my @channel_fields = qw/ID ORG_ID LABEL DESCRIPTION CREATED_BY LAST_MODIFIED_BY CREATED:longdate MODIFIED:longdate/;

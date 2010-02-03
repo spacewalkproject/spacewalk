@@ -27,7 +27,6 @@ use RHN::SessionSwap;
 use RHN::Mail;
 use RHN::Postal;
 use RHN::TemplateString;
-use RHN::Utils;
 use PXT::ACL;
 use Mail::RFC822::Address;
 use URI;

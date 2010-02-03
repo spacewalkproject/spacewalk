@@ -18,7 +18,6 @@ use strict;
 package RHN::DB::ChannelEditor;
 
 use RHN::DB;
-use RHN::Utils;
 use RHN::DataSource::Errata;
 
 use RHN::Channel;
