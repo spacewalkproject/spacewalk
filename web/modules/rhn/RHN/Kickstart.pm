@@ -22,7 +22,5 @@ Params::Validate::validation_options(strip_leading => "-");
 
 use RHN::DB::Kickstart;
 our @ISA = qw/RHN::DB::Kickstart/;
-use RHN::Kickstart::Commands;
-use RHN::Kickstart::Packages;
 
 1;
