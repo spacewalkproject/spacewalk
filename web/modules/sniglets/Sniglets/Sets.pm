@@ -19,8 +19,6 @@ package Sniglets::Sets;
 
 use Carp;
 
-use RHN::Set;
-
 sub register_tags {
   my $class = shift;
   my $pxt = shift;

@@ -15,8 +15,6 @@
 
 use strict;
 
-use RHN::Set;
-
 package RHN::DB::ServerActions;
 
 use Params::Validate qw/:all/;

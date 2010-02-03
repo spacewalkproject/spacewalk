@@ -15,8 +15,6 @@
 
 use strict;
 
-use RHN::Set;
-
 package RHN::DB::UserActions;
 
 sub assign_set_to_group {
