@@ -19,7 +19,6 @@ use strict;
 use DBI;
 use Carp;
 use Data::Dumper;
-use Time::HiRes;
 use RHN::Exception;
 use PXT::Config;
 

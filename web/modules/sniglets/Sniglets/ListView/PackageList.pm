@@ -34,7 +34,6 @@ use RHN::Manifest;
 
 use RHN::Exception qw/throw/;
 
-use Time::HiRes;
 use Data::Dumper;
 
 our @ISA = qw/Sniglets::ListView::List/;

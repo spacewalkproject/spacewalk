@@ -28,7 +28,6 @@ use RHN::DataSource::Channel;
 
 use Data::Dumper;
 use Date::Parse;
-use Time::HiRes;
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
 
