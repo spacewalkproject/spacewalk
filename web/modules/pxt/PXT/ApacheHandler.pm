@@ -39,8 +39,6 @@ use PXT::Handlers;
 use PXT::Utils;
 use PXT::Config;
 use PXT::Request;
-use PXT::SoapRequest;
-use PXT::XmlrpcRequest;
 use RHN::Session;
 use RHN::Exception;
 use RHN::I18N;
