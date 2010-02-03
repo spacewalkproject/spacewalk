@@ -515,16 +515,6 @@ sub xml_body {
   return $buf;
 }
 
-sub rpc_params {
-  my $self = shift;
-
-  return @{$self->{rpc_params}} if $self->{rpc_params};
-
-  $self->{rpc_params} = $self->xml_request->decode_rpc_params($self->xml_body);
-
-  return @{$self->{rpc_params}};
-}
-
 sub encode_rpc_result {
   my $self = shift;
 
