@@ -23,7 +23,6 @@ Params::Validate::validation_options(strip_leading => "-");
 
 use RHN::DB;
 use RHN::SimpleStruct;
-use RHN::Exception;
 
 our @ISA = qw/RHN::SimpleStruct/;
 

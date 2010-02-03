@@ -20,7 +20,6 @@ use Sniglets::Packages;
 
 use RHN::SearchTypes;
 use RHN::Server;
-use RHN::Exception;
 use PXT::Utils;
 
 my @integer_types = qw/search_id search_cpu_mhz_lt search_cpu_mhz_gt search_ram_lt search_ram_gt search_checkin search_registered/;

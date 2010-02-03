@@ -20,7 +20,6 @@ package Sniglets::Probes;
 use RHN::Command;
 use RHN::ContactGroup;
 use RHN::DataSource;
-use RHN::Exception;
 use RHN::Probe;
 use RHN::Server;
 

@@ -34,8 +34,6 @@ use RHN::DataSource::General;
 
 use RHN::DB;
 
-use RHN::Exception;
-
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
 

@@ -19,7 +19,6 @@ package Sniglets::ErrataEditor;
 
 use RHN::Errata;
 use RHN::ErrataEditor;
-use RHN::Exception;
 use RHN::ChannelEditor;
 use RHN::Package;
 use RHN::DB;
