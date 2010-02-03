@@ -46,7 +46,6 @@ sub new {
 		     apr => $apache_request,
 		     cookies => $cookies,
 		     session => $session,
-		     stage => "",
 		     context => { },
                      no_cache => 1,
 		     cleansed_params => { },
