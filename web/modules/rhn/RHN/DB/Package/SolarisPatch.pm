@@ -18,7 +18,6 @@ package RHN::DB::Package::SolarisPatch;
 use strict;
 use Carp;
 use RHN::DB;
-use RHN::Exception qw/throw/;
 use Params::Validate;
 Params::Validate::validation_options(strip_leading => "-");
 

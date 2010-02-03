@@ -19,7 +19,6 @@ use strict;
 use PXT::Utils;
 use RHN::Utils;
 use RHN::DB;
-use RHN::Exception qw/throw/;
 
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");

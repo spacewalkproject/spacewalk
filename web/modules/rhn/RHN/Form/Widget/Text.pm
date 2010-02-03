@@ -16,7 +16,6 @@
 package RHN::Form::Widget::Text;
 
 use strict;
-use RHN::Exception qw/throw/;
 use PXT::HTML;
 use PXT::Utils;
 

@@ -23,7 +23,6 @@ use RHN::User;
 use RHN::Org;
 use PXT::HTML;
 use RHN::UserActions;
-use RHN::Exception qw/throw catchable/;
 use RHN::SessionSwap;
 use RHN::Mail;
 use RHN::Postal;

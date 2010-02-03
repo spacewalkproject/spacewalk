@@ -17,8 +17,6 @@ package RHN::Form::Response;
 
 use strict;
 
-use RHN::Exception qw/throw/;
-
 use RHN::Form;
 use RHN::Form::Widget;
 

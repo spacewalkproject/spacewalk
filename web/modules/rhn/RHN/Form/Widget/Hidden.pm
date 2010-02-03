@@ -16,7 +16,6 @@
 package RHN::Form::Widget::Hidden;
 
 use strict;
-use RHN::Exception qw/throw/;
 use RHN::Form::Widget;
 
 our @ISA = qw/RHN::Form::Widget/;

@@ -20,7 +20,6 @@ use strict;
 use RHN::AppInstall::Process::Step;
 our @ISA = qw/RHN::AppInstall::Process::Step/;
 
-use RHN::Exception qw/throw/;
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
 

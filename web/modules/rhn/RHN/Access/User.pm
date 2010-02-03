@@ -16,7 +16,6 @@
 package RHN::Access::User;
 
 use strict;
-use RHN::Exception qw/throw/;
 use PXT::ACL;
 
 sub register_acl_handlers {

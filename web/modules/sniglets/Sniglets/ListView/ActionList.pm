@@ -20,7 +20,6 @@ package Sniglets::ListView::ActionList;
 use Sniglets::ListView::List;
 use RHN::Action;
 use RHN::DataSource::Action;
-use RHN::Exception qw/throw catchable/;
 
 use PXT::HTML;
 use Data::Dumper;

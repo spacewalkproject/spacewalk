@@ -18,7 +18,6 @@ use strict;
 package Sniglets::ListView::TracerList;
 
 use Sniglets::ListView::List;
-use RHN::Exception qw/throw/;
 use RHN::Token;
 
 our @ISA = qw/Sniglets::ListView::List/;

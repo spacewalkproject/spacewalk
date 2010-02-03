@@ -20,8 +20,6 @@ use strict;
 use RHN::Form;
 use PXT::HTML;
 
-use RHN::Exception qw/throw/;
-
 use RHN::Form::Widget;
 use RHN::Form::Widget::Hidden;
 

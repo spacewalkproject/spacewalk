@@ -16,7 +16,6 @@
 package RHN::Form::Widget::Multiple;
 
 use strict;
-use RHN::Exception qw/throw/;
 use PXT::HTML;
 
 use RHN::Form::Widget;

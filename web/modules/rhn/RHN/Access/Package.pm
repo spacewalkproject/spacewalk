@@ -16,7 +16,6 @@
 package RHN::Access::Package;
 
 use strict;
-use RHN::Exception qw/throw/;
 use RHN::Package;
 use PXT::ACL;
 

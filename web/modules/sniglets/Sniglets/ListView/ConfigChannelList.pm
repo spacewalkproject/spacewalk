@@ -19,7 +19,7 @@ package Sniglets::ListView::ConfigChannelList;
 
 use Sniglets::ListView::List;
 use RHN::DataSource::ConfigChannel;
-use RHN::Exception qw/throw catchable/;
+use RHN::Exception qw/throw/;
 
 use PXT::HTML;
 

@@ -16,7 +16,6 @@
 package RHN::Form::Widget::Password;
 
 use strict;
-use RHN::Exception qw/throw/;
 use RHN::Form::Widget::Text;
 
 our @ISA = qw/RHN::Form::Widget::Text/;

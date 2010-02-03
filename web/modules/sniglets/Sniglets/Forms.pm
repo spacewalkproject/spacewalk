@@ -19,7 +19,6 @@ package Sniglets::Forms;
 
 use File::Spec;
 use Digest::MD5;
-use RHN::Exception qw/throw/;
 
 use RHN::Form;
 use RHN::Form::Parser;

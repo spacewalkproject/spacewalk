@@ -20,7 +20,6 @@ use strict;
 use RHN::DB::AppInstall::Instance;
 our @ISA = qw/RHN::DB::AppInstall::Instance/;
 
-use RHN::Exception qw/throw/;
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
 

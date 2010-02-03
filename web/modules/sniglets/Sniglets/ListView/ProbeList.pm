@@ -19,7 +19,6 @@ package Sniglets::ListView::ProbeList;
 
 use PXT::Utils;
 use Sniglets::ListView::List;
-use RHN::Exception qw/throw/;
 use RHN::Token;
 use RHN::DataSource::Probe;
 

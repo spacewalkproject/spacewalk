@@ -25,8 +25,6 @@ use RHN::Server;
 use RHN::ServerGroup;
 use RHN::Utils;
 
-use RHN::Exception qw/throw/;
-
 use Data::Dumper;
 
 use PXT::HTML;

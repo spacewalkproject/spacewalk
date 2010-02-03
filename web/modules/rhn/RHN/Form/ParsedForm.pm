@@ -22,8 +22,6 @@ use RHN::Form::RealizedForm;
 use RHN::Form::Response;
 use RHN::Form::NamespaceForm;
 
-use RHN::Exception qw/throw/;
-
 our @ISA = qw/RHN::Form/;
 
 sub realize {
