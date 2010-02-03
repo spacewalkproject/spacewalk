@@ -19,7 +19,6 @@ package Sniglets::ChannelEditor;
 
 use RHN::ChannelEditor;
 use RHN::Channel;
-use RHN::ErrataEditor;
 use RHN::Exception;
 use PXT::Utils;
 use Sniglets::Channel;
