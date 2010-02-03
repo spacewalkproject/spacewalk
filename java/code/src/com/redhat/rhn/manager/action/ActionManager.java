@@ -1020,7 +1020,8 @@ public class ActionManager extends BaseManager {
                       params.put("r", pm.getSystem().getRelease());
                       epoch = pm.getSystem().getEpoch();
                       params.put("e", epoch != null ? epoch : "");
-                      params.put("a", "");
+                      params.put("a", pm.getSystem().getArch() != null ?
+                          pm.getOther().getArch() : "");
                       m.executeUpdate(params);
                   }
                   
@@ -1030,7 +1031,8 @@ public class ActionManager extends BaseManager {
                   params.put("r", pm.getOther().getRelease());
                   epoch = pm.getOther().getEpoch();
                   params.put("e", epoch != null ? epoch : "");
-                  params.put("a", "");
+                  params.put("a", pm.getOther().getArch() != null ?
+                          pm.getOther().getArch() : "");
                   m.executeUpdate(params);
               }
           }
