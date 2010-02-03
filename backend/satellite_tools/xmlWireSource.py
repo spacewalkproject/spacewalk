@@ -40,11 +40,13 @@ class BaseWireSource:
     systemid = None
     nRetries = 3
     server_handler = None
+    xml_dump_version = None
 
-    def __init__(self, systemid, sslYN=0):
+    def __init__(self, systemid, sslYN=0, xml_dump_version=None):
         if not BaseWireSource.systemid:
             BaseWireSource.systemid = systemid
         BaseWireSource.sslYN = sslYN
+        BaseWireSource.xml_dump_version = xml_dump_version
 
     def getServer(self, forcedYN=0):
         if forcedYN:
@@ -101,7 +103,8 @@ class BaseWireSource:
         "Instantiates a connection object"
         
         serverObj = connection.StreamConnection(url, proxy=CFG.HTTP_PROXY, 
-            username=CFG.HTTP_PROXY_USERNAME, password=CFG.HTTP_PROXY_PASSWORD)
+            username=CFG.HTTP_PROXY_USERNAME, password=CFG.HTTP_PROXY_PASSWORD,
+            xml_dump_version=self.xml_dump_version)
         BaseWireSource.serverObj = serverObj
         return serverObj
 
@@ -380,8 +383,8 @@ class RPCGetWireSource(BaseWireSource):
     login_token = None
     get_server_obj = None
 
-    def __init__(self, systemid, sslYN):
-        BaseWireSource.__init__(self, systemid, sslYN)
+    def __init__(self, systemid, sslYN, xml_dump_version):
+        BaseWireSource.__init__(self, systemid, sslYN, xml_dump_version)
         self.extinctErrorYN = 0
 
     def _set_connection_params(self, handler, url):

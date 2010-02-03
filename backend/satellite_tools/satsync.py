@@ -65,6 +65,7 @@ import satCerts
 import req_channels
 import messages
 import sync_handlers
+import constants
 
 _DEFAULT_SYSTEMID_PATH = '/etc/sysconfig/rhn/systemid'
 _DEFAULT_RHN_ENTITLEMENT_CERT_BACKUP = '/etc/sysconfig/rhn/rhn-entitlement-cert.xml'
@@ -378,6 +379,7 @@ class Syncer:
         self.sslYN = not OPTIONS.no_ssl
         self._systemidPath = OPTIONS.systemid or _DEFAULT_SYSTEMID_PATH
         self._batch_size = OPTIONS.batch_size
+        self.xml_dump_version = OPTIONS.dump_version or constants.PROTOCOL_VERSION
 
         # Object to help with channel math
         self._channel_req = None
@@ -417,7 +419,8 @@ class Syncer:
                     '   mp:  %s' % self.mountpoint])
         # Sync across the wire:
         else:
-            self.xmlWireServer = xmlWireSource.MetadataWireSource(self.systemid, self.sslYN)
+            self.xmlWireServer = xmlWireSource.MetadataWireSource(self.systemid,
+                                                    self.sslYN, self.xml_dump_version)
             if CFG.ISS_PARENT:
                 url = self.xmlWireServer.schemeAndUrl(CFG.ISS_PARENT)
             else:
@@ -438,7 +441,8 @@ class Syncer:
             else:
                 raise RhnSyncException, 'ERROR: this server must be registered with RHN.'
             # authorization check of the satellite
-            auth = xmlWireSource.AuthWireSource(self.systemid, self.sslYN)
+            auth = xmlWireSource.AuthWireSource(self.systemid, self.sslYN,
+                                                self.xml_dump_version)
             auth.checkAuth()
 
     def __del__(self):
@@ -531,7 +535,8 @@ class Syncer:
                 return self._process_cert(cert, store_cert=0)
         else:
             log2(1, 3, ["","RHN Entitlement Certificate sync"])
-            certSource = xmlWireSource.CertWireSource(self.systemid, self.sslYN)
+            certSource = xmlWireSource.CertWireSource(self.systemid, self.sslYN,
+                                                      self.xml_dump_version)
             cert = string.strip(certSource.download())
 
         return self._process_cert(cert)
@@ -1489,7 +1494,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         if CFG.ISS_PARENT:
             return self.xmlWireServer.getKickstartFile(kstree_label, relative_path)
         else:
-            srv = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN)
+            srv = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN,
+                                                 self.xml_dump_version)
             return srv.getKickstartFileStream(channel, kstree_label, relative_path)
 
     def _compute_missing_ks_files(self):
@@ -2046,7 +2052,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         if CFG.ISS_PARENT:
             stream  = self.xmlWireServer.getRpm(nvrea, channel)
         else:
-            rpmServer = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN)
+            rpmServer = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN,
+                                                       self.xml_dump_version)
             stream = rpmServer.getPackageStream(channel, nvrea)
 
         return (None, stream)
@@ -2267,6 +2274,8 @@ def processCommandline():
             help='DEBUG ONLY: max. batch-size for XML/database-import processing (1..%s). "man satellite-sync" for more information.' % SequenceServer.NEVER_MORE_THAN),
         Option(     '--list-error-codes',         action='store_true',
             help="help on all error codes satellite-sync returns"),
+        Option(     '--dump-version',        action='store',
+            help="requested version of XML dump (default: %s)" % constants.PROTOCOL_VERSION),
     ]
     optionParser = OptionParser(option_list=optionsTable)
     global OPTIONS
@@ -2504,7 +2513,7 @@ def processCommandline():
         log(-1, msg, 1,1,sys.stderr)
         sys.exit(0) 
 
- 
+
     # return the dictionary of actions, channels
     return actionDict, channels
 
