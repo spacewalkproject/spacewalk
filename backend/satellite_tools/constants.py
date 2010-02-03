@@ -17,6 +17,7 @@ Constant values (protocol versions, etc) for satellite sync/exporter.
 """
 
 PROTOCOL_VERSION = 3.5
+ALLOWED_SYNC_PROTOCOL_VERSIONS = ['3.5', '3.4', '3.3', '3.2', '3.1', '3.0']
 
 # Support for checksums other then md5
 SHA256_SUPPORTED_VERSION = 3.5

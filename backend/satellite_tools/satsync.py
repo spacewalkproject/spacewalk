@@ -379,7 +379,7 @@ class Syncer:
         self.sslYN = not OPTIONS.no_ssl
         self._systemidPath = OPTIONS.systemid or _DEFAULT_SYSTEMID_PATH
         self._batch_size = OPTIONS.batch_size
-        self.xml_dump_version = OPTIONS.dump_version or constants.PROTOCOL_VERSION
+        self.xml_dump_version = OPTIONS.dump_version or str(constants.PROTOCOL_VERSION)
 
         # Object to help with channel math
         self._channel_req = None
@@ -2513,6 +2513,13 @@ def processCommandline():
         log(-1, msg, 1,1,sys.stderr)
         sys.exit(0) 
 
+    if OPTIONS.dump_version:
+        OPTIONS.dump_version = str(OPTIONS.dump_version)
+        if OPTIONS.dump_version not in constants.ALLOWED_SYNC_PROTOCOL_VERSIONS:
+            msg = "ERROR: unknown dump version, try one of %s" % \
+                   constants.ALLOWED_SYNC_PROTOCOL_VERSIONS
+            log2stderr(-1, msg, cleanYN=1)
+            sys.exit(19)
 
     # return the dictionary of actions, channels
     return actionDict, channels
