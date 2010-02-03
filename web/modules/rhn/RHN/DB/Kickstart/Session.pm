@@ -25,7 +25,6 @@ use RHN::Action;
 use RHN::Token;
 use RHN::TinyURL;
 use RHN::DataSource::Simple;
-use RHN::Server;
 
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");

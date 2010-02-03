@@ -21,7 +21,6 @@ use RHN::Command;
 use RHN::ContactGroup;
 use RHN::DataSource;
 use RHN::Probe;
-use RHN::Server;
 
 use RHN::Form::Widget::Checkbox;
 use RHN::Form::Widget::Hidden;

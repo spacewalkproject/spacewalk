@@ -17,7 +17,6 @@ package RHN::AppInstall::ActionHandler;
 
 use strict;
 
-use RHN::Server;
 use RHN::User;
 
 use RHN::Exception qw/throw/;

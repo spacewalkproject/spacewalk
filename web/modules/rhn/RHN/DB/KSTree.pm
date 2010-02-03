@@ -26,7 +26,6 @@ our @ISA = qw/RHN::SimpleStruct/;
 our @simple_struct_fields = qw/id label base_path channel_id files boot_image org_id tree_type tree_type_name tree_type_label install_type install_type_name install_type_label channel_arch_id channel_arch_label channel_arch_name/;
 
 use RHN::DataSource::General;
-use RHN::Server;
 use RHN::Channel;
 use RHN::Exception qw/throw/;
 

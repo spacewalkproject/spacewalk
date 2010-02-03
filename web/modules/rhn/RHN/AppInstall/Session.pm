@@ -28,7 +28,6 @@ use RHN::AppInstall::RequirementHandler;
 use RHN::AppInstall::Replace;
 
 use PXT::ACL;
-use RHN::Server;
 use RHN::User;
 
 use RHN::Exception qw/throw/;

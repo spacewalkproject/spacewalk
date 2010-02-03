@@ -21,7 +21,6 @@ use Sniglets::ListView::List;
 use Sniglets::ServerGroup;
 use RHN::Package;
 use RHN::DataSource::SystemGroup;
-use RHN::Server;
 use RHN::ServerGroup;
 
 use Data::Dumper;
