@@ -21,7 +21,6 @@ use PXT::HTML;
 use PXT::Config;
 
 use RHN::TokenGen::Generator;
-use RHN::Channel;
 
 use File::Spec;
 use Params::Validate;

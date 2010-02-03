@@ -18,7 +18,6 @@ use strict;
 package RHN::DB::ErrataEditor;
 
 use RHN::DB;
-use RHN::Channel;
 use RHN::Errata;
 use RHN::ErrataTmp;
 use RHN::DataSource::Errata;

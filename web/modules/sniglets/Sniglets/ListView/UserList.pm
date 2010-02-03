@@ -17,7 +17,6 @@ package Sniglets::ListView::UserList;
 
 use Sniglets::ListView::List;
 use RHN::DataSource::User;
-use RHN::Channel;
 
 use RHN::Exception qw/throw/;
 use RHN::Utils;
