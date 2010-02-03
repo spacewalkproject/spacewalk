@@ -41,7 +41,6 @@ sub register_acl_handlers {
   $acl->register_handler(system_is_satellite => \&system_is_satellite_acl_test);
   $acl->register_handler(org_channel_family => \&org_channel_family_acl_test);
   $acl->register_handler(formvar_exists => \&formvar_exists_acl_test);
-  $acl->register_handler(org_has_scouts => \&org_has_scouts);
   $acl->register_handler(show_monitoring => \&show_monitoring);
   $acl->register_handler(is_solaris => \&is_solaris_acl_test);
   $acl->register_handler(user_has_access_to_servergroup => \&user_has_access_to_servergroup_acl_test);
@@ -108,14 +107,6 @@ sub org_is_paying_customer_acl_test {
   die "org_is_paying_customer_acl_test called with no \$pxt->user authenticated" unless $pxt->user;
 
   return $pxt->user->org->is_paying_customer() ? 1 : 0;
-}
-
-sub org_has_scouts {
-  my $pxt = shift;
-
-  die "org_has_scouts called with no \$pxt->user authenticated" unless $pxt->user;
-
-  return $pxt->user->org->get_scout_options() ? 1 : 0;
 }
 
 sub show_monitoring {
