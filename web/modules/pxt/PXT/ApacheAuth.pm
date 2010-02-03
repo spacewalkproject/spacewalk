@@ -63,41 +63,27 @@ sub handler {
   if (not $username) {
     my $pxt = $r->pnotes('pxt_request');
 
-    # if we're an xml request, we need to NOT let the default
-    # FORBIDDEN page be shown.  why?  well, the client won't
-    # understand it, and pxt won't be happy to see what looks like a
-    # second request for the error page (the ErrorDocument directives
-    # in httpd.conf result in internal redirects... very ugly)
+    my $destination = $r->uri;
 
-    if ($pxt->xml_request) {
-      # our "fake" forbidden handler
-
-      $r->custom_response(FORBIDDEN, "AUTH Required, this field ignored");
-      return FORBIDDEN;
-    }
-    else {
-      my $destination = $r->uri;
-
-      if ($r->args) {
+    if ($r->args) {
 	$destination .= "?" . $r->args;
-      }
-      $destination = PXT::Utils->escapeURI($destination);
-
-      $destination =~ s(\&)(%26)g;
-
-      my $url = "/rhn/ReLogin.do?url_bounce=" . $destination;
-
-      $url = $pxt->derelative_url($url);
-      $url = $url->canonical;
-
-      $r->content_type('text/html');
-      $r->err_headers_out->{'Location'} = $url;
-      $r->method("GET");
-      $r->method_number(M_GET);
-      $r->headers_in->unset('content-length');
-      $r->status(REDIRECT);
-      return REDIRECT;
     }
+    $destination = PXT::Utils->escapeURI($destination);
+
+    $destination =~ s(\&)(%26)g;
+
+    my $url = "/rhn/ReLogin.do?url_bounce=" . $destination;
+
+    $url = $pxt->derelative_url($url);
+    $url = $url->canonical;
+
+    $r->content_type('text/html');
+    $r->err_headers_out->{'Location'} = $url;
+    $r->method("GET");
+    $r->method_number(M_GET);
+    $r->headers_in->unset('content-length');
+    $r->status(REDIRECT);
+    return REDIRECT;
   }
 
   $r->user($username);
