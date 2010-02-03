@@ -184,7 +184,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/SCDB.pm
 %{perl_vendorlib}/RHN/SatCluster.pm
 %{perl_vendorlib}/RHN/SatInstall.pm
-%{perl_vendorlib}/RHN/SatNode.pm
 %{perl_vendorlib}/RHN/SatelliteCert.pm
 %{perl_vendorlib}/RHN/Scheduler.pm
 %{perl_vendorlib}/RHN/SearchTypes.pm
@@ -213,11 +212,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/RHN::DB::ContactGroup.3pm.gz
 %{_mandir}/man3/RHN::DB::ContactMethod.3pm.gz
 %{_mandir}/man3/RHN::DB::SatCluster.3pm.gz
-%{_mandir}/man3/RHN::DB::SatNode.3pm.gz
 %{_mandir}/man3/RHN::DB::ServerGroup.3pm.gz
 %{_mandir}/man3/RHN::SCDB.3pm.gz
 %{_mandir}/man3/RHN::SatCluster.3pm.gz
-%{_mandir}/man3/RHN::SatNode.3pm.gz
 %{_mandir}/man3/RHN::Session.3pm.gz
 %{_mandir}/man3/RHN::TSDB.3pm.gz
 
