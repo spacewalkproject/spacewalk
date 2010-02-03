@@ -21,7 +21,6 @@ package RHN::DB::ServerGroup;
 
 use RHN::DB;
 use RHN::DB::TableClass;
-use RHN::User;
 use RHN::Set;
 
 use Params::Validate qw/:all/;

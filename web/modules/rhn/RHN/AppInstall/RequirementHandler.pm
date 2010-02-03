@@ -17,8 +17,6 @@ package RHN::AppInstall::RequirementHandler;
 
 use strict;
 
-use RHN::User;
-
 use RHN::Exception qw/throw/;
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");

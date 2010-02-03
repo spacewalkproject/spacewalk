@@ -21,7 +21,6 @@ use RHN::AppInstall::ActionHandler;
 
 our @ISA = qw/RHN::AppInstall::ActionHandler/;
 
-use RHN::User;
 use RHN::ConfigChannel;
 
 use RHN::Exception;
