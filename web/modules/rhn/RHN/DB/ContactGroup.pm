@@ -18,7 +18,6 @@ package RHN::DB::ContactGroup;
 use strict;
 use Carp;
 use RHN::DB;
-use RHN::DB::Time;
 use RHN::DB::TableClass;
 use RHN::DataSource::Simple;
 
