@@ -22,7 +22,6 @@ package RHN::DB::Org;
 use RHN::DB;
 use RHN::DB::TableClass;
 use RHN::Exception;
-use RHN::Probe;
 
 use RHN::DataSource::Channel;
 

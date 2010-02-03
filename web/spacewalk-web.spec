@@ -179,7 +179,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Package.pm
 %{perl_vendorlib}/RHN/Package/
 %{perl_vendorlib}/RHN/Postal.pm
-%{perl_vendorlib}/RHN/Probe.pm
 %{perl_vendorlib}/RHN/Profile.pm
 %{perl_vendorlib}/RHN/ProxyInstall.pm
 %{perl_vendorlib}/RHN/SCDB.pm
@@ -213,11 +212,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/RHN::DB::Command.3pm.gz
 %{_mandir}/man3/RHN::DB::ContactGroup.3pm.gz
 %{_mandir}/man3/RHN::DB::ContactMethod.3pm.gz
-%{_mandir}/man3/RHN::DB::Probe.3pm.gz
 %{_mandir}/man3/RHN::DB::SatCluster.3pm.gz
 %{_mandir}/man3/RHN::DB::SatNode.3pm.gz
 %{_mandir}/man3/RHN::DB::ServerGroup.3pm.gz
-%{_mandir}/man3/RHN::Probe.3pm.gz
 %{_mandir}/man3/RHN::SCDB.3pm.gz
 %{_mandir}/man3/RHN::SatCluster.3pm.gz
 %{_mandir}/man3/RHN::SatNode.3pm.gz
