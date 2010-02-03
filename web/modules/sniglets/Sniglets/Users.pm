@@ -309,7 +309,7 @@ sub rhn_login_cb {
       $pxt->redirect('/rhn/account/UserDetails.do');
     }
     else {
-      if ($pxt->dirty_param('url_bounce') and $pxt->header_in('User-Agent') !~ /Konqueror/) {
+      if ($pxt->dirty_param('url_bounce')) {
 	my $url = $pxt->dirty_param('url_bounce');
 
 	if ($url =~ /\?/) {
@@ -319,12 +319,7 @@ sub rhn_login_cb {
 	$pxt->redirect($url);
       }
       else {
-	if ($pxt->header_in('User-Agent') =~ /Konqueror\/3.0.0/) {
-	  $pxt->redirect('/konq.pxt');
-	}
-	else {
-	  $pxt->redirect('/rhn/YourRhn.do');
-	}
+        $pxt->redirect('/rhn/YourRhn.do');
       }
     }
   }

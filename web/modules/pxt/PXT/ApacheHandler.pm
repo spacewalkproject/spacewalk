@@ -544,10 +544,6 @@ sub mail_traceback {
     my $severity;
     $severity = "unhandled";
 
-    if (defined $apache->headers_in->{'User-Agent'} && $apache->headers_in->{'User-Agent'} =~ /Konqueror/) {
-      $subject .= " (Konqueror)";
-    }
-
     my $raw_uri = $apache->the_request;
     my $uri = $apache->uri;
     my $user = '(not logged in)';

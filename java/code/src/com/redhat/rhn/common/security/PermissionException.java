@@ -84,7 +84,6 @@ public class PermissionException extends RhnRuntimeException  {
         
         //wrap the reasons as an ordered list
         HtmlTag ol = new HtmlTag("ol");
-        addReason(ol, "permission.jsp.summary.acl.reason1", null);
         
         //The second reason gives the minutes for a login session to expire.
         int seconds = Config.get().getInt(ConfigDefaults.WEB_SESSION_DATABASE_LIFETIME);
