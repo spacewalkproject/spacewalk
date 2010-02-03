@@ -805,12 +805,4 @@ EOQ
 }
 
 
-# Get options defined for this Org's list of monitoring Scouts
-sub get_scout_options {
-    my $self = shift;
-    my $scouts = RHN::Probe->list_scouts($self->id);
-    my @scout_options = map { { value => $_->{SAT_CLUSTER_ID}, label => $_->{DESCRIPTION} } } @{$scouts};
-    return @scout_options;
-}
-
 1;
