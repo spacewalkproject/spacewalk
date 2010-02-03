@@ -19,7 +19,6 @@ package Sniglets::ListView::ProbeList;
 
 use PXT::Utils;
 use Sniglets::ListView::List;
-use RHN::Token;
 use RHN::DataSource::Probe;
 
 our @ISA = qw/Sniglets::ListView::List/;

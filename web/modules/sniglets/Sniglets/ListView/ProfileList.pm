@@ -18,7 +18,6 @@ use strict;
 package Sniglets::ListView::ProfileList;
 
 use Sniglets::ListView::List;
-use RHN::Token;
 use RHN::DataSource::Simple;
 
 our @ISA = qw/Sniglets::ListView::List/;

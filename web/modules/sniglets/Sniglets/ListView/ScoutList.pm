@@ -19,7 +19,6 @@ package Sniglets::ListView::ScoutList;
 
 use PXT::HTML;
 
-use RHN::Token;
 use RHN::DataSource::Scout;
 use RHN::SatCluster;
 use RHN::Set;
