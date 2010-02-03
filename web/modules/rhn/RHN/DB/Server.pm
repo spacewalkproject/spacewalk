@@ -35,7 +35,6 @@ use RHN::Entitlements;
 use RHN::Manifest;
 use RHN::Channel;
 use Data::Dumper;
-use Frontier::RPC2;
 use Digest::MD5;
 use Date::Parse;
 
