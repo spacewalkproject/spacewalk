@@ -22,6 +22,9 @@ use RHN::DB;
 use RHN::DB::TableClass;
 use RHN::DataSource;
 
+use RHN::DataSource::Simple ();
+use RHN::SatCluster ();
+
 use Digest::MD5 qw/md5_hex/;
 
 use Params::Validate qw/:all/;
