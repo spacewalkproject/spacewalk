@@ -18,6 +18,8 @@ use strict;
 package RHN::DB::Set;
 
 use RHN::DB;
+use RHN::User ();
+
 use Carp;
 
 use Params::Validate qw/:all/;
