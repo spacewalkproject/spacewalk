@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 0.8.4
+Version: 0.8.5
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -53,6 +53,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.5-1
+- updated copyrights
+
 * Mon Jan 25 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.4-1
 - fixed HTTP Error 401 Authorization Required on Fedora 12
 
