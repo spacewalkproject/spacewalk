@@ -1,5 +1,5 @@
 /*
- * Copright (C) 2000, Red Hat, Inc.
+ * Copright (C) 2000--2010 Red Hat, Inc.
  *
  * Author:
  *	Cristian Gafton <gafton@redhat.com>
@@ -248,7 +248,7 @@ print_version (FILE *stream, struct argp_state *state)
   fprintf (stream, "rhnsd (%s) %s\n", doc, VERSION);
   fprintf (stream, gettext("\
 Copyright (C) %s Red Hat, Inc.\n\
-"), "2000");
+"), "2000--2010");
   fprintf (stream, gettext("\
 Written by %s.\n\
 "), "Cristian Gafton <gafton@redhat.com>");
