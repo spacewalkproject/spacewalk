@@ -22,7 +22,6 @@ use RHN::DataSource::Channel;
 use RHN::Exception;
 use RHN::Form::Widget;
 use RHN::Form::Widget::CheckboxGroup;
-use RHN::ServerGroup;
 
 use PXT::HTML;
 use Storable qw/dclone/;
