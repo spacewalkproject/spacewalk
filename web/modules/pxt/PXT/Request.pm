@@ -35,6 +35,10 @@ use Apache2::RequestIO ();
 use Apache2::Connection ();
 use Apache2::SubRequest ();
 
+use PXT::Config ();
+use PXT::Utils ();
+use PXT::ApacheHandler ();
+
 sub new {
   my $class = shift;
   my $apache = shift;
