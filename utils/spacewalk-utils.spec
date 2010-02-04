@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	0.8.2
+Version:	0.8.3
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -56,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.3-1
+- updated copyrights
+
 * Mon Feb 01 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.2-1
 - use rhnLockfile from rhnlib
 
