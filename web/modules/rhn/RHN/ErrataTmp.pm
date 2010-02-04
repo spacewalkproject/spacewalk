@@ -15,6 +15,7 @@
 
 package RHN::ErrataTmp;
 
+use RHN::Errata ();
 use RHN::DB::ErrataTmp;
 our @ISA = qw/RHN::DB::ErrataTmp/;
 
