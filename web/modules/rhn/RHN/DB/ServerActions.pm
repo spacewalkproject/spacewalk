@@ -17,6 +17,8 @@ use strict;
 
 package RHN::DB::ServerActions;
 
+use RHN::DB ();
+
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
 
