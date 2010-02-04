@@ -23,6 +23,8 @@ Params::Validate::validation_options(strip_leading => "-");
 
 use RHN::DB;
 use RHN::SimpleStruct;
+use RHN::ConfigChannel ();
+use RHN::ConfigRevision ();
 
 our @ISA = qw/RHN::SimpleStruct/;
 
