@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.8.8
+Version:        0.8.9
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,7 +58,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
-* Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.8-1
+* Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.9-1
 - call update_family_counts() only once in prune_family()
 
 * Wed Feb 03 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.7-1
