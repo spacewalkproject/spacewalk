@@ -17,6 +17,11 @@ use strict;
 
 package PXT::Handlers;
 
+use RHN::DB ();
+use PXT::Config ();
+use PXT::Handlers ();
+use PXT::Utils ();
+
 sub register_primary_tags {
   my $class = shift;
   my $parser = shift;
