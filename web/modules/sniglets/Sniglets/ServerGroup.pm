@@ -21,7 +21,6 @@ use Data::Dumper ();
 
 use RHN::Server;
 use RHN::ServerGroup;
-use RHN::Org;
 use RHN::ServerActions;
 use RHN::User;
 use RHN::Exception;

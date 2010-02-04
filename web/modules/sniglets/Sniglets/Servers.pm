@@ -29,7 +29,6 @@ use PXT::HTML;
 
 use RHN::Server;
 use RHN::ServerGroup;
-use RHN::Org;
 use RHN::Set;
 use RHN::Exception;
 use RHN::Channel;

@@ -17,7 +17,6 @@ use strict;
 
 package Sniglets::ActivationKeys;
 
-use RHN::Org;
 use RHN::Token;
 use RHN::DataSource::Channel;
 use RHN::Exception;
