@@ -28,6 +28,8 @@ Params::Validate::validation_options(strip_leading => "-");
 use RHN::Package::SolarisPackage;
 use RHN::Package::SolarisPatch;
 use RHN::Package::SolarisPatchSet;
+use RHN::Package ();
+use RHN::User ();
 
 my @pkg_fields = qw/
 		    id org_id name_id evr_id package_arch_id package_group rpm_version description
