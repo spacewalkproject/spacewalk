@@ -30,6 +30,13 @@ use RHN::DataSource::ConfigChannel;
 use RHN::Exception;
 use RHN::Manifest;
 
+use RHN::Action ();
+use RHN::DataSource::Simple ();
+use RHN::Date ();
+use RHN::Scheduler ();
+use RHN::Server ();
+use RHN::SystemSnapshot ();
+
 my @s_fields = qw/id org_id server_id created:longdate modified:longdate/;
 my @i_fields = qw/id label name/;
 
