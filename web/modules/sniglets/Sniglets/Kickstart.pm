@@ -31,8 +31,6 @@ use RHN::SessionSwap;
 use RHN::DataSource::Package;
 use RHN::DataSource::General;
 
-use RHN::DB;
-
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
 

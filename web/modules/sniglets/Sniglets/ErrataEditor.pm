@@ -17,8 +17,6 @@ use strict;
 
 package Sniglets::ErrataEditor;
 
-use RHN::DB;
-
 sub register_tags {
   my $class = shift;
   my $pxt = shift;
