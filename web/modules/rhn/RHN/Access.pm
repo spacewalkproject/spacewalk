@@ -22,6 +22,8 @@ use PXT::Config;
 
 use RHN::Server;
 use RHN::User;
+use PXT::Debug ();
+use RHN::Entitlements ();
 
 sub register_acl_handlers {
   my $self = shift;
