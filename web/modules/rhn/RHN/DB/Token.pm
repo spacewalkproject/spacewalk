@@ -24,6 +24,10 @@ use RHN::DataSource::Simple;
 use RHN::Exception qw/throw/;
 
 use Digest::MD5 qw(md5_hex);
+
+use RHN::DataSource::General ();
+use RHN::Entitlements ();
+
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
 
