@@ -40,6 +40,9 @@ use RHN::SystemSnapshot;
 use RHN::Tag;
 use RHN::KSTree;
 
+use PXT::Debug ();
+use RHN::User ();
+
 use RHN::Exception qw/throw/;
 
 my @contact_fields = qw/ID ORG_ID LOGIN LOGIN_UC PASSWORD OLD_PASSWORD ORACLE_CONTACT_ID IGNORE_FLAG/;
