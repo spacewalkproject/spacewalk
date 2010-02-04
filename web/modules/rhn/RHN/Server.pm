@@ -18,6 +18,10 @@ use strict;
 
 package RHN::Server;
 
+use PXT::HTML ();
+use PXT::Utils ();
+use RHN::Action ();
+
 use RHN::DB::Server;
 our @ISA = qw/RHN::DB::Server/;
 
