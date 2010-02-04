@@ -27,6 +27,8 @@ use RHN::ErrataTmp;
 use RHN::ErrataEditor;
 use RHN::ChannelEditor;
 
+use RHN::Date ();
+
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
 
