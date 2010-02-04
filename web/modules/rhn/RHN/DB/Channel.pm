@@ -22,6 +22,9 @@ Params::Validate::validation_options(strip_leading => "-");
 
 use RHN::DB;
 use RHN::DB::TableClass;
+use RHN::Channel ();
+use RHN::DataSource::Channel ();
+use RHN::Server ();
 
 use Carp;
 
