@@ -19,7 +19,10 @@ use strict;
 use RHN::Exception qw/throw/;
 use RHN::Package;
 use RHN::DataSource::System;
+use RHN::DataSource::Action ();
 use RHN::Entitlements;
+use RHN::Kickstart::Session ();
+use RHN::Server ();
 
 use PXT::ACL;
 
