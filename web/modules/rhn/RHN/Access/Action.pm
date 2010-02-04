@@ -18,6 +18,7 @@ package RHN::Access::Action;
 use strict;
 use RHN::Exception qw/throw/;
 use PXT::ACL;
+use RHN::Action ();
 
 sub register_acl_handlers {
   my $self = shift;
