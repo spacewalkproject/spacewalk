@@ -18,6 +18,9 @@ package RHN::DB::Package::SolarisPatch;
 use strict;
 use Carp;
 use RHN::DB;
+use RHN::DB::TableClass ();
+use RHN::DataSource::Package ();
+
 use Params::Validate;
 Params::Validate::validation_options(strip_leading => "-");
 
