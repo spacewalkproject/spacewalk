@@ -20,6 +20,10 @@ use Digest::MD5;
 use Storable qw/freeze thaw/;
 use MIME::Base64;
 use RHN::SatInstall;
+
+use PXT::Config ();
+use RHN::DB ();
+
 use strict;
 
 # make a guaranteed unique md5 key.  very fast (16k keys/sec on a p3 500)
