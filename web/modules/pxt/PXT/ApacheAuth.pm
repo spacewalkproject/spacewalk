@@ -23,6 +23,10 @@ use Apache2::Access ();
 use RHN::Exception;
 use PXT::ACL;
 
+use PXT::ApacheHandler ();
+use PXT::Utils ();
+use RHN::User ();
+
 sub handler {
   my $r = shift;
 
