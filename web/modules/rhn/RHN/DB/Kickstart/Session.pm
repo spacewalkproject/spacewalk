@@ -25,6 +25,11 @@ use RHN::Action;
 use RHN::Token;
 use RHN::DataSource::Simple;
 
+use PXT::Config ();
+use RHN::DataSource::General ();
+use RHN::KSTree ();
+use RHN::SessionSwap ();
+
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
 
