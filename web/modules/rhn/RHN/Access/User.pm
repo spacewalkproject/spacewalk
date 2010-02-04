@@ -17,6 +17,7 @@ package RHN::Access::User;
 
 use strict;
 use PXT::ACL;
+use RHN::User ();
 
 sub register_acl_handlers {
   my $self = shift;
