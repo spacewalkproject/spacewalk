@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.8.2
+Version: 0.8.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -298,6 +298,9 @@ fi
 
 
 %changelog
+* Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.3-1
+- updated copyrights
+
 * Wed Jan 27 2010 Miroslav Suchy <msuchy@redhat.com> 0.8.2-1
 - fix usage of uploadLib, which has been rewriten
 - remove python-optik
