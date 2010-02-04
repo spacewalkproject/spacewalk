@@ -17,6 +17,8 @@ use strict;
 
 package RHN::DB::UserActions;
 
+use RHN::DB ();
+
 sub assign_set_to_group {
   my $class = shift;
   my $set = shift;
