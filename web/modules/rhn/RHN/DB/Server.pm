@@ -42,6 +42,14 @@ use Scalar::Util;
 
 use PXT::Config;
 use PXT::Utils;
+use PXT::Debug ();
+use RHN::Action ();
+use RHN::DataSource::Channel ();
+use RHN::DataSource::Simple ();
+use RHN::DataSource::System ();
+use RHN::DB::Package ();
+use RHN::Server ();
+use RHN::SystemSnapshot ();
 
 use Params::Validate qw/validate/;
 Params::Validate::validation_options(strip_leading => "-");
