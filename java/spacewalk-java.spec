@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.9
+Version: 0.8.10
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -283,6 +283,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.10-1
+- updated copyrights
+- 556956 - fixed listSubscribedSystems api call would error
+- 559015 - fixed target systems page
+- removed handler org_has_scouts
+- 531454 - provide architecture even for downgrade/upgrade
+- removed config values web.public_errata_*
+- 561068 - fixed api breakage with new cobbler version
+
 * Fri Jan 29 2010 Miroslav Suchý <msuchy@redhat.com> 0.8.9-1
 - 539159 - offering only ssm systems with appropriate permissions for config channel unsubscription (tlestach@redhat.com)
 - 539159 - offering only ssm systems with appropriate permissions for config channel subscription (tlestach@redhat.com)
