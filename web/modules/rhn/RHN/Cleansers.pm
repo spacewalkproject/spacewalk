@@ -21,6 +21,9 @@ use RHN::Exception qw/throw/;
 use Apache2::RequestUtil ();
 use PXT::Config;
 
+use RHN::Channel ();
+use RHN::Errata ();
+
 use Params::Validate qw/:all/;
 
 # Methods to verify access control to various objects by a user.
