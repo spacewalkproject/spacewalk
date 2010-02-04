@@ -21,6 +21,7 @@ use PXT::Config;
 use RHN::Mail;
 use RHN::TemplateString;
 use Text::Wrap qw/wrap/;
+use PXT::Utils ();
 
 my @allowed_params = qw/wrap_body allow_all_domains/;
 
