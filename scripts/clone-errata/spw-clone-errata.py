@@ -1,7 +1,7 @@
 #!/bin/env python
 # Script that uses RHN API to clone RHN Errata to Satellite
 # or Spacewalk server.
-# Copyright (C) 2008  Red Hat
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # Author: Andy Speagle (andy.speagle@wichita.edu)
 #
