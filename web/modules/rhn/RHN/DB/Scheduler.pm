@@ -23,6 +23,12 @@ use RHN::Exception qw/throw/;
 use RHN::DataSource::Simple;
 use RHN::DataSource::System;
 
+use RHN::DataSource::Errata ();
+use RHN::DB::Set ();
+use RHN::Errata ();
+use RHN::Package ();
+use RHN::Server ();
+
 use Params::Validate;
 Params::Validate::validation_options(strip_leading => "-");
 
