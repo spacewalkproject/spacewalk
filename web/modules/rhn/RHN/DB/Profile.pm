@@ -24,6 +24,9 @@ use RHN::Manifest;
 use RHN::DataSource::Simple;
 use RHN::DataSource::Package;
 
+use RHN::Profile ();
+use RHN::Server ();
+
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
 
