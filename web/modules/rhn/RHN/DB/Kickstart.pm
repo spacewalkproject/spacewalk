@@ -38,6 +38,14 @@ use RHN::Exception qw/throw/;
 use URI::URL;
 
 use PXT::Utils;
+use PXT::Config ();
+use RHN::Kickstart::Include ();
+use RHN::Kickstart::Logvols ();
+use RHN::Kickstart::Partitions ();
+use RHN::Kickstart::Password ();
+use RHN::Kickstart::Raids ();
+use RHN::Kickstart::Volgroups ();
+use RHN::SessionSwap ();
 
 my %valid = (id => { default => 0 },
 	     org_id => { optional => 1 },
