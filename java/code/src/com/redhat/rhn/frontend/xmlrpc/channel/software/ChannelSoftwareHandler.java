@@ -727,7 +727,10 @@ public class ChannelSoftwareHandler extends BaseHandler {
         // Get the channel. 
         Channel channel = lookupChannelByLabel(user.getOrg(), label);
         
-        DataResult dr = SystemManager.systemsSubscribedToChannel(channel, user);
+        DataResult<Map> dr = SystemManager.systemsSubscribedToChannel(channel, user);
+        for (Map sys : dr) {
+            sys.remove("selectable");
+        }
         return dr.toArray();
     }
     
