@@ -582,27 +582,6 @@ foreach my $field ($tc->method_names) {
   croak $@ if($@);
 }
 
-sub source_rpm_path {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth;
-
-  if (defined $self->org_id) {
-    $sth = $dbh->prepare("SELECT PS.path, PS.package_size FROM rhnPackageSource PS WHERE PS.org_id = ? AND PS.source_rpm_id = ?");
-    $sth->execute($self->org_id, $self->source_rpm_id);
-  }
-  else {
-    $sth = $dbh->prepare("SELECT PS.path, PS.package_size FROM rhnPackageSource PS WHERE PS.org_id IS NULL AND PS.source_rpm_id = ?");
-    $sth->execute($self->source_rpm_id);
-  }
-
-  my ($path, $size) = $sth->fetchrow;
-  $sth->finish;
-
-  return ($path, $size);
-}
-
 sub obsoleting_packages {
   my $class = shift;
   my $package_id = shift;
@@ -1099,23 +1078,6 @@ EOQ
   $sth->finish;
 
   return $name;
-}
-
-sub download_link_type {
-  my $self = shift;
-
-  my $arch_type_label = $self->arch_type_label();
-
-  my %download_type_map = ( rpm => 'Package',
-			    'sysv-solaris' => 'Package',
-			    'tar' => 'Tar file',
-			    'solaris-patch' => 'Patch',
-			    'solaris-patch-cluster' => 'Patch Cluster',
-			  );
-
-  my $ret = $download_type_map{$arch_type_label} || 'File';
-
-  return $ret;
 }
 
 sub package_type_capable {
