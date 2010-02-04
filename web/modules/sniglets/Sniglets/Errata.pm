@@ -25,7 +25,6 @@ use RHN::Errata;
 use RHN::ErrataTmp;
 use PXT::Utils;
 use PXT::HTML;
-use Sniglets::Downloads;
 use RHN::Exception;
 
 
