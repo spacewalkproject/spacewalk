@@ -43,6 +43,9 @@ use RHN::Exception;
 use RHN::I18N;
 use RHN::Mail;
 
+use PXT::Debug ();
+use RHN::DB ();
+
 our $make_vile;
 
 sub handler {
