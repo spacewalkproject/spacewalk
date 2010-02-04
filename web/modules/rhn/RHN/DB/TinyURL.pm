@@ -19,6 +19,8 @@ use strict;
 use PXT::Utils;
 use RHN::DB;
 
+use RHN::Date ();
+
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
 
