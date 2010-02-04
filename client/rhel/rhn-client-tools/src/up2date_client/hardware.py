@@ -128,6 +128,11 @@ def _initialize_dmi_data():
             # Get all the DMI data and prepare a XPath context
             try:
                 data = dmixml.QuerySection('all')
+                dmi_warn = dmi_warnings()
+                if dmi_warn:
+                    dmidecode.clear_warnings()
+                    log = up2dateLog.initLog()
+                    log.log_debug("dmidecode warnings: " % dmi_warn)
             except:
                 # DMI decode FAIL, this can happend e.g in PV guest
                 _dmi_not_available = 1
