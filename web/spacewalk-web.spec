@@ -199,7 +199,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/TemplateString.pm
 %{perl_vendorlib}/RHN/TinyURL.pm
 %{perl_vendorlib}/RHN/Token.pm
-%{perl_vendorlib}/RHN/TokenGen/
 %{perl_vendorlib}/RHN/User.pm
 %{perl_vendorlib}/RHN/UserActions.pm
 %{perl_vendorlib}/RHN/Utils.pm
