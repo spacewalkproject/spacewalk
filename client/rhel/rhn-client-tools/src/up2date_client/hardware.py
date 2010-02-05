@@ -955,25 +955,29 @@ def get_hal_system_and_smbios():
     system_and_smbios = {}
 
     for key in props:
-        if key.startswith('system') or key.startswith('smbios'):
+        if key.startswith('system'):
             system_and_smbios[unicode(key)] = unicode(props[key])
 
+    system_and_smbios.update(get_smbios())
     return system_and_smbios
 
-def get_hal_smbios():
-    try:
-        computer = get_hal_computer()
-        props = computer.GetAllProperties()
-    except:
-        log = up2dateLog.initLog()
-        msg = "Error reading smbios information: %s\n" % (sys.exc_type)
-        log.log_debug(msg)
+def get_smbios():
+    """ Returns dictionary with values we are interested for.
+        For historical reason it is in format, which use HAL.
+        Currently in dictionary are keys:
+        smbios.system.uuid, smbios.bios.vendor, smbios.system.serial,
+        smbios.system.manufacturer.
+    """
+    _initialize_dmi_data()
+    if _dmi_not_available:
         return {}
-    smbios = {}
-    for key in props:
-        if key.startswith('smbios'):
-            smbios[str(key)] = props[str(key)]
-    return smbios
+    else:
+        return {
+            'smbios.system.uuid': dmi_system_uuid(),
+            'smbios.bios.vendor': get_dmi_data('/dmidecode/BIOSinfo/Vendor'),
+            'smbios.system.serial': get_dmi_data('/dmidecode/SystemInfo/SerialNumber'),
+            'smbios.system.manufacturer': get_dmi_data('/dmidecode/BaseBoardInfo/Manufacturer')
+        }
 
 def check_hal_dbus_status():
     # check if hal and messagebus are running, if not warn the user
