@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.8.11
+Version: 0.8.12
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %if 0%{?suse_version: %{suse_version} > 1000} 
@@ -225,7 +225,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
-* Fri Feb  5 2010 Miroslav Suchy <msuchy@redhat.com> 0.8.11-1
+* Fri Feb  5 2010 Miroslav Suchy <msuchy@redhat.com> 0.8.12-1
 - 543509 - found another part of code where we use hal for getting DMI inforation, removing
 
 * Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.10-1
