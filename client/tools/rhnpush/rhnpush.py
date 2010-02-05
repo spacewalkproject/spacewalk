@@ -151,9 +151,6 @@ def main():
     if ret != 0:
         return 1
     
-if __name__ == "__main__":
-    sys.exit(main())
-
 class UploadClass(uploadLib.UploadClass):
     def setURL(self):
         server = self.options.server
