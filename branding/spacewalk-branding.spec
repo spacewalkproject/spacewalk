@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.8.2
+Version:    0.9.0
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
