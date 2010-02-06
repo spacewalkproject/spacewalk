@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.10
+Version: 0.8.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -283,6 +283,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Sat Feb 06 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.11-1
+- Fix a NPE in CompareConfigFilesTask
+
 * Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.10-1
 - updated copyrights
 - 556956 - fixed listSubscribedSystems api call would error
