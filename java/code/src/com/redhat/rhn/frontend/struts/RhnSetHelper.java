@@ -90,6 +90,7 @@ public class RhnSetHelper {
     public ActionForward updatelist(Map paramsIn) {
         updateSet();
         paramsIn.put("setupdated", "true");
+        paramsIn.put(RhnAction.SUBMITTED, "true");
         return strutsDelegate.forwardParams(mapping.findForward(forward), paramsIn);
     }
 
@@ -131,6 +132,7 @@ public class RhnSetHelper {
         selectAllData(dr, requestContext.getLoggedInUser());
 
         paramsIn.put("setupdated", "true");
+        paramsIn.put(RhnAction.SUBMITTED, "true");
         return strutsDelegate.forwardParams(mapping.findForward(forward), paramsIn);
     }
 
