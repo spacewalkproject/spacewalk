@@ -23,7 +23,8 @@ CREATE TABLE rhnKickstartPackage
     package_name_id  NUMBER NOT NULL
                          CONSTRAINT rhn_kspackage_pnid_fk
                              REFERENCES rhnPackageName (id),
-    position         NUMBER NOT NULL,
+    position         NUMBER NOT NULL
+                        CONSTRAINT rhn_kspackage_pos_uq UNIQUE,
     created          DATE
                          DEFAULT (sysdate) NOT NULL,
     modified         DATE
