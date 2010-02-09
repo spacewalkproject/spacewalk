@@ -43,16 +43,11 @@ RHN_SYSTEMID_FILE=`awk -F '=[[:space:]]*' '/^[[:space:]]*systemIdPath[[:space:]]
 # Source function library.
 . /etc/rc.d/init.d/functions
 
-# read configuration settings (interval) for rhnsd, if present.
-if [ -f /etc/sysconfig/rhn/rhnsd ]; then
-  . /etc/sysconfig/rhn/rhnsd
-fi
-
 RETVAL=0
 
 start() {
     echo -n $"Starting Red Hat Network Daemon: "
-    daemon rhnsd --interval $INTERVAL
+    daemon rhnsd
     RETVAL=$?
     echo
     [ $RETVAL -eq 0 ] && touch /var/lock/subsys/rhnsd
