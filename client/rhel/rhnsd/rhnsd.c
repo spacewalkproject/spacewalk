@@ -321,7 +321,7 @@ unset_signal_handlers (void)
 /* perform the initialization for the enless loop */
 static int rhn_init(void)
 {
-    syslog(LOG_NOTICE, "%s starting up.", doc);
+    syslog(LOG_NOTICE, "%s starting up, check in interval %d minutes.", doc, interval);
     srand(time(NULL) ^ getpid());
     return 0;
 }
@@ -494,7 +494,6 @@ static void setInterval(char *arg)
         interval = MIN_INTERVAL;
         syslog(LOG_WARNING, "you cannot specify a minimum interval less than %d, interval adjusted.", MIN_INTERVAL);
     }
-    syslog(LOG_NOTICE, "%s running with check_in interval set to %d minutes.", doc, interval);
 }
 
 static int skipLine(char *line)
