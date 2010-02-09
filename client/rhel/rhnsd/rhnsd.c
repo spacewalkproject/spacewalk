@@ -98,7 +98,7 @@ static void unset_signal_handlers (void);
 static void SIGHUP_handler(int);
 
 /* Arguments */
-#define MIN_INTERVAL  1         /* minimal sane interval; RHN will blacklist
+#define MIN_INTERVAL  60         /* minimal sane interval; RHN will blacklist
 				   if lower, so don't think you can recompile
 				   with a lower value than this. */
 
