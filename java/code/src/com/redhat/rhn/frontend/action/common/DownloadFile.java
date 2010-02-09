@@ -331,6 +331,8 @@ public class DownloadFile extends DownloadAction {
             else {
                 data = KickstartManager.getInstance().renderKickstart(url);
             } 
+            //Must set content length or it doesn't quite work right
+            response.addHeader("Content-Length", data.length() + "");
             return getStreamForText(data.getBytes());
         }        
         else {
