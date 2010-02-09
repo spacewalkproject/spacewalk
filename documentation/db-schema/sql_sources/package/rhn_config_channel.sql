@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:06 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PACKAGE "MIM_H1"."RHN_CONFIG_CHANNEL" 
+  CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_CONFIG_CHANNEL"
 IS
     FUNCTION get_user_chan_access(config_channel_id_in IN NUMBER, user_id_in IN NUMBER) RETURN NUMBER;
     FUNCTION get_user_revision_access(config_revision_id_in IN NUMBER, user_id_in IN NUMBER) RETURN NUMBER;
@@ -10,7 +10,7 @@ IS
     FUNCTION action_diff_revision_status(action_config_revision_id_in IN NUMBER) RETURN VARCHAR2;
 
 END rhn_config_channel;
-CREATE OR REPLACE PACKAGE BODY "MIM_H1"."RHN_CONFIG_CHANNEL" 
+CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RHN_CONFIG_CHANNEL"
 IS
     FUNCTION action_diff_revision_status(action_config_revision_id_in IN NUMBER)
     RETURN VARCHAR2

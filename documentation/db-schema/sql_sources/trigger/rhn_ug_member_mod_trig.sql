@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:02 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE TRIGGER "MIM_H1"."RHN_UG_MEMBER_MOD_TRIG" 
+  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_UG_MEMBER_MOD_TRIG"
 before insert or update on rhnUserGroupMembers
 for each row
 declare
@@ -27,6 +27,6 @@ begin
                 where id = :new.user_group_id;
         end if;
 end;
-ALTER TRIGGER "MIM_H1"."RHN_UG_MEMBER_MOD_TRIG" ENABLE
+ALTER TRIGGER "SPACEWALK"."RHN_UG_MEMBER_MOD_TRIG" ENABLE
  
 /

@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:46 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHN_QUANTA" 
+  CREATE TABLE "SPACEWALK"."RHN_QUANTA"
    (	"QUANTUM_ID" VARCHAR2(10) NOT NULL ENABLE, 
 	"BASIC_UNIT_ID" VARCHAR2(20), 
 	"DESCRIPTION" VARCHAR2(200), 

@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:03 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PROCEDURE "MIM_H1"."QUEUE_ERRATA" (errata_id_in IN NUMBER)
+  CREATE OR REPLACE PROCEDURE "SPACEWALK"."QUEUE_ERRATA" (errata_id_in IN NUMBER)
 IS
 BEGIN
 	INSERT INTO rhnSNPErrataQueue (errata_id) VALUES (errata_id_in);

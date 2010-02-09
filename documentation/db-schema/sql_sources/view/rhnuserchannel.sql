@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:40:46 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "MIM_H1"."RHNUSERCHANNEL" ("USER_ID", "ORG_ID", "CHANNEL_ID", "ROLE") AS 
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNUSERCHANNEL" ("USER_ID", "ORG_ID", "CHANNEL_ID", "ROLE") AS
   select
    cfp.user_id,
    cfp.org_id,

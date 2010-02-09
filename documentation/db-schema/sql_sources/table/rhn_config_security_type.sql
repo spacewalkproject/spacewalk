@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:43 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHN_CONFIG_SECURITY_TYPE" 
+  CREATE TABLE "SPACEWALK"."RHN_CONFIG_SECURITY_TYPE"
    (	"NAME" VARCHAR2(255) NOT NULL ENABLE, 
 	"DESCRIPTION" VARCHAR2(255), 
 	 CONSTRAINT "RHN_CONCT_NAME_PK" PRIMARY KEY ("NAME")

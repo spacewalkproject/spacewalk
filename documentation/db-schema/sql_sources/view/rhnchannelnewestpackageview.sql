@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:40:41 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "MIM_H1"."RHNCHANNELNEWESTPACKAGEVIEW" ("CHANNEL_ID", "NAME_ID", "EVR_ID", "PACKAGE_ARCH_ID", "PACKAGE_ID") AS 
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNCHANNELNEWESTPACKAGEVIEW" ("CHANNEL_ID", "NAME_ID", "EVR_ID", "PACKAGE_ARCH_ID", "PACKAGE_ID") AS
   select  cp.channel_id		as channel_id,
 		p.name_id			as name_id,
 		p.evr_id			as evr_id,

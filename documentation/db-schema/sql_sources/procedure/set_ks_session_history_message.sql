@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:03 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PROCEDURE "MIM_H1"."SET_KS_SESSION_HISTORY_MESSAGE" (
+  CREATE OR REPLACE PROCEDURE "SPACEWALK"."SET_KS_SESSION_HISTORY_MESSAGE" (
 	kickstart_session_id_in in number,
 	state_label_in in varchar2,
 	message_in in varchar2

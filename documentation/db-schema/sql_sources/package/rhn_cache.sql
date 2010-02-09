@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:05 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PACKAGE "MIM_H1"."RHN_CACHE" 
+  CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_CACHE"
 is
 	version varchar2(100) := '';
 
@@ -18,7 +18,7 @@ is
 		server_group_id_in in number
 	);
 end rhn_cache;
-CREATE OR REPLACE PACKAGE BODY "MIM_H1"."RHN_CACHE" 
+CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RHN_CACHE"
 is
 	body_version varchar2(100) := '';
 

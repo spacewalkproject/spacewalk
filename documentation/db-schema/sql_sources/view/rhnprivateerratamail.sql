@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:40:43 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "MIM_H1"."RHNPRIVATEERRATAMAIL" ("USER_ID", "SERVER_ID", "ORG_ID", "CHANNEL_ID", "ERRATA_ID") AS 
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNPRIVATEERRATAMAIL" ("USER_ID", "SERVER_ID", "ORG_ID", "CHANNEL_ID", "ERRATA_ID") AS
   select
    w.id user_id,
    s.id server_id,

@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:03 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PROCEDURE "MIM_H1"."NEW_USER_POSTOP" 
+  CREATE OR REPLACE PROCEDURE "SPACEWALK"."NEW_USER_POSTOP"
 (
     user_id_in IN number
 )

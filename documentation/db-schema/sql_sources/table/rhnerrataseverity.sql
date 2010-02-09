@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:14 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNERRATASEVERITY" 
+  CREATE TABLE "SPACEWALK"."RHNERRATASEVERITY"
    (	"ID" NUMBER NOT NULL ENABLE, 
 	"RANK" NUMBER NOT NULL ENABLE, 
 	"LABEL" VARCHAR2(40) NOT NULL ENABLE, 

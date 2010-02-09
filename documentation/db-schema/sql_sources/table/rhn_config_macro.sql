@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:43 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHN_CONFIG_MACRO" 
+  CREATE TABLE "SPACEWALK"."RHN_CONFIG_MACRO"
    (	"NAME" VARCHAR2(255) NOT NULL ENABLE, 
 	"DEFINITION" VARCHAR2(255), 
 	"DESCRIPTION" VARCHAR2(255), 

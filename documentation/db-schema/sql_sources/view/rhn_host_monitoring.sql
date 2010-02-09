@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:40:48 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "MIM_H1"."RHN_HOST_MONITORING" ("RECID", "IP", "NAME", "DESCRIPTION", "CUSTOMER_ID", "OS_ID", "ASSET_ID", "LAST_UPDATE_USER", "LAST_UPDATE_DATE") AS 
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHN_HOST_MONITORING" ("RECID", "IP", "NAME", "DESCRIPTION", "CUSTOMER_ID", "OS_ID", "ASSET_ID", "LAST_UPDATE_USER", "LAST_UPDATE_DATE") AS
   select  s.id            as recid,
 	rhn_server.get_ip_address(s.id)	as ip,
         s.name          as name,

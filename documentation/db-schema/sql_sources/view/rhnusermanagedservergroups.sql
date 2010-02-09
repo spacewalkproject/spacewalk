@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:40:46 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "MIM_H1"."RHNUSERMANAGEDSERVERGROUPS" ("USER_ID", "SERVER_GROUP_ID") AS 
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNUSERMANAGEDSERVERGROUPS" ("USER_ID", "SERVER_GROUP_ID") AS
   select user_id, server_group_id from rhnUserServerGroupPerms
 union
 select wc.id, sg.id

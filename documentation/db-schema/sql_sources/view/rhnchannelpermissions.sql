@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:40:41 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "MIM_H1"."RHNCHANNELPERMISSIONS" ("ORG_ID", "CHANNEL_ID") AS 
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNCHANNELPERMISSIONS" ("ORG_ID", "CHANNEL_ID") AS
   select distinct org_id, channel_id
  from ( select privcf.org_id,
                cfm.channel_id

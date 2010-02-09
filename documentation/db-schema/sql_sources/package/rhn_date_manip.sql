@@ -1,13 +1,13 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:06 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PACKAGE "MIM_H1"."RHN_DATE_MANIP" 
+  CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_DATE_MANIP"
 is
 	periods_ago number;
 	function get_reporting_period_start return date;
 	function get_reporting_period_end return date;
 end rhn_date_manip;
-CREATE OR REPLACE PACKAGE BODY "MIM_H1"."RHN_DATE_MANIP" 
+CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RHN_DATE_MANIP"
 is
 	function get_reporting_period_start
 	return date is

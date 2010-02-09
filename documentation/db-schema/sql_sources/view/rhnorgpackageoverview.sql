@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:40:43 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "MIM_H1"."RHNORGPACKAGEOVERVIEW" ("ORG_ID", "CHANNEL_ARCH_ID", "PACKAGE_ID", "PACKAGE_NVREA") AS 
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNORGPACKAGEOVERVIEW" ("ORG_ID", "CHANNEL_ARCH_ID", "PACKAGE_ID", "PACKAGE_NVREA") AS
   select
     p.org_id as org_id,
     cpac.channel_arch_id,

@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:01 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE TRIGGER "MIM_H1"."RHN_SERVER_GROUP_CREATION" 
+  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_SERVER_GROUP_CREATION"
 AFTER INSERT ON rhnServerGroup
 FOR EACH ROW
 DECLARE
@@ -21,6 +21,6 @@ EXCEPTION
         WHEN NO_DATA_FOUND THEN
           rhn_exception.raise_exception_val('no_org_admin_group', org_id_val);
 END;
-ALTER TRIGGER "MIM_H1"."RHN_SERVER_GROUP_CREATION" ENABLE
+ALTER TRIGGER "SPACEWALK"."RHN_SERVER_GROUP_CREATION" ENABLE
  
 /

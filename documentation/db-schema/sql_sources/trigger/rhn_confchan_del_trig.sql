@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:40:55 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE TRIGGER "MIM_H1"."RHN_CONFCHAN_DEL_TRIG" 
+  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_CONFCHAN_DEL_TRIG"
 before delete on rhnConfigChannel
 for each row
 declare
@@ -19,6 +19,6 @@ begin
 				and config_channel_id = :old.id;
 	end loop;
 end;
-ALTER TRIGGER "MIM_H1"."RHN_CONFCHAN_DEL_TRIG" ENABLE
+ALTER TRIGGER "SPACEWALK"."RHN_CONFCHAN_DEL_TRIG" ENABLE
  
 /

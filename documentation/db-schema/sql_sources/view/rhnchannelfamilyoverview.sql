@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:40:41 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "MIM_H1"."RHNCHANNELFAMILYOVERVIEW" ("ORG_ID", "ID", "NAME", "URL", "LABEL", "CURRENT_MEMBERS", "MAX_MEMBERS", "HAS_SUBSCRIPTION") AS 
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNCHANNELFAMILYOVERVIEW" ("ORG_ID", "ID", "NAME", "URL", "LABEL", "CURRENT_MEMBERS", "MAX_MEMBERS", "HAS_SUBSCRIPTION") AS
   select	pcf.org_id				as org_id,
 	f.id					as id,
 	f.name					as name,

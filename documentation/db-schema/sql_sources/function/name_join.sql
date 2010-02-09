@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:04 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FUNCTION "MIM_H1"."NAME_JOIN" (sep_in IN VARCHAR2, ugi_in IN user_group_name_t)
+  CREATE OR REPLACE FUNCTION "SPACEWALK"."NAME_JOIN" (sep_in IN VARCHAR2, ugi_in IN user_group_name_t)
 RETURN VARCHAR2
 deterministic
 IS

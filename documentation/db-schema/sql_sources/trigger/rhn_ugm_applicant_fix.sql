@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:02 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE TRIGGER "MIM_H1"."RHN_UGM_APPLICANT_FIX" 
+  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_UGM_APPLICANT_FIX"
 after delete on rhnUserGroupMembers
 for each row
 declare
@@ -24,6 +24,6 @@ begin
 	    END IF;
 	END IF;
 end;
-ALTER TRIGGER "MIM_H1"."RHN_UGM_APPLICANT_FIX" ENABLE
+ALTER TRIGGER "SPACEWALK"."RHN_UGM_APPLICANT_FIX" ENABLE
  
 /

@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:02 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PROCEDURE "MIM_H1"."DELETE_ERRATA" (
+  CREATE OR REPLACE PROCEDURE "SPACEWALK"."DELETE_ERRATA" (
 	errata_id_in in number
 ) is
 begin

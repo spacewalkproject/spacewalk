@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:40:57 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE TRIGGER "MIM_H1"."RHN_CURRENT_ALERTS_MOD_TRIG" 
+  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_CURRENT_ALERTS_MOD_TRIG"
 before insert or update on rhn_current_alerts
 referencing new as new old as old
 for each row
@@ -56,6 +56,6 @@ begin
     when others then
     raise;
 end;
-ALTER TRIGGER "MIM_H1"."RHN_CURRENT_ALERTS_MOD_TRIG" ENABLE
+ALTER TRIGGER "SPACEWALK"."RHN_CURRENT_ALERTS_MOD_TRIG" ENABLE
  
 /

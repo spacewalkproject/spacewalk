@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:40:48 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "MIM_H1"."RHN_CONTACT_MONITORING" ("RECID", "CUSTOMER_ID", "CONTACT_LAST_NAME", "CONTACT_FIRST_NAME", "EMAIL_ADDRESS", "USERNAME", "PASSWORD", "SCHEDULE_ID", "PREFERRED_TIME_ZONE") AS 
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHN_CONTACT_MONITORING" ("RECID", "CUSTOMER_ID", "CONTACT_LAST_NAME", "CONTACT_FIRST_NAME", "EMAIL_ADDRESS", "USERNAME", "PASSWORD", "SCHEDULE_ID", "PREFERRED_TIME_ZONE") AS
   select	u.id			as recid,
 	u.org_id		as customer_id,
 	wupi.last_name		as contact_last_name,

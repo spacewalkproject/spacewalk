@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:44 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHN_CURRENT_ALERTS" 
+  CREATE TABLE "SPACEWALK"."RHN_CURRENT_ALERTS"
    (	"RECID" NUMBER(12,0) NOT NULL ENABLE, 
 	"DATE_SUBMITTED" DATE, 
 	"LAST_SERVER_CHANGE" DATE, 

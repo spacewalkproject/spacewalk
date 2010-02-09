@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:09 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNCVE" 
+  CREATE TABLE "SPACEWALK"."RHNCVE"
    (	"ID" NUMBER NOT NULL ENABLE, 
 	"NAME" VARCHAR2(13) NOT NULL ENABLE, 
 	 CONSTRAINT "RHN_CVE_ID_PK" PRIMARY KEY ("ID")

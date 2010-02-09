@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:44 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHN_DEPLOYED_PROBE" 
+  CREATE TABLE "SPACEWALK"."RHN_DEPLOYED_PROBE"
    (	"RECID" NUMBER(12,0) NOT NULL ENABLE, 
 	"PROBE_TYPE" VARCHAR2(15) NOT NULL ENABLE, 
 	"DESCRIPTION" VARCHAR2(255), 

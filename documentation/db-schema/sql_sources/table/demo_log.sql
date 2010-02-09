@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:38:48 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."DEMO_LOG" 
+  CREATE TABLE "SPACEWALK"."DEMO_LOG"
    (	"ORG_ID" NUMBER, 
 	"SERVER_ID" NUMBER
    ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING

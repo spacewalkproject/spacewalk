@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:48 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHN_SCHEDULE_DAYS_NORM" 
+  CREATE TABLE "SPACEWALK"."RHN_SCHEDULE_DAYS_NORM"
    (	"SCHEDULE_ID" NUMBER(12,0), 
 	"ORD" NUMBER(3,0), 
 	"START_INT" NUMBER(12,0), 

@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:46 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHN_PHYSICAL_LOCATION" 
+  CREATE TABLE "SPACEWALK"."RHN_PHYSICAL_LOCATION"
    (	"RECID" NUMBER(12,0) NOT NULL ENABLE, 
 	"LOCATION_NAME" VARCHAR2(40), 
 	"ADDRESS1" VARCHAR2(255), 

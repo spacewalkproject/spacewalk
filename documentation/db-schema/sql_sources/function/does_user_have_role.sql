@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:03 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FUNCTION "MIM_H1"."DOES_USER_HAVE_ROLE" 
+  CREATE OR REPLACE FUNCTION "SPACEWALK"."DOES_USER_HAVE_ROLE"
 (
 	user_id_in in number,
 	role_in in varchar2

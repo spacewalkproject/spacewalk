@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:45 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHN_OS" 
+  CREATE TABLE "SPACEWALK"."RHN_OS"
    (	"RECID" NUMBER(12,0) NOT NULL ENABLE, 
 	"OS_NAME" VARCHAR2(128), 
 	 CONSTRAINT "RHN_OS000_RECID_PK" PRIMARY KEY ("RECID")

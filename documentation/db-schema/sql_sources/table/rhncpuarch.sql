@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:09 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNCPUARCH" 
+  CREATE TABLE "SPACEWALK"."RHNCPUARCH"
    (	"ID" NUMBER NOT NULL ENABLE, 
 	"LABEL" VARCHAR2(64) NOT NULL ENABLE, 
 	"NAME" VARCHAR2(64) NOT NULL ENABLE, 

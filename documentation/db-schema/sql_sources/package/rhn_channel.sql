@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:06 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PACKAGE "MIM_H1"."RHN_CHANNEL" 
+  CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_CHANNEL"
 IS
 	version varchar2(100) := '';
 
@@ -136,7 +136,7 @@ IS
     PRAGMA RESTRICT_REFERENCES(org_channel_setting, WNDS, RNPS, WNPS);
 
 END rhn_channel;
-CREATE OR REPLACE PACKAGE BODY "MIM_H1"."RHN_CHANNEL" 
+CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RHN_CHANNEL"
 IS
         body_version varchar2(100) := '';
 

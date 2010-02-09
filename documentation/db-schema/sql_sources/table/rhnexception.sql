@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:14 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNEXCEPTION" 
+  CREATE TABLE "SPACEWALK"."RHNEXCEPTION"
    (	"ID" NUMBER NOT NULL ENABLE, 
 	"LABEL" VARCHAR2(128) NOT NULL ENABLE, 
 	"MESSAGE" VARCHAR2(2000) NOT NULL ENABLE, 

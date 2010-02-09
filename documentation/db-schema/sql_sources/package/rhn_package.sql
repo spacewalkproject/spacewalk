@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:07 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PACKAGE "MIM_H1"."RHN_PACKAGE" 
+  CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_PACKAGE"
 IS
     CURSOR channel_occupancy_cursor(package_id_in IN NUMBER) IS
     SELECT C.id channel_id, C.name channel_name
@@ -20,7 +20,7 @@ IS
       RETURN VARCHAR2;
 
 END rhn_package;
-CREATE OR REPLACE PACKAGE BODY "MIM_H1"."RHN_PACKAGE" 
+CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RHN_PACKAGE"
 IS
     FUNCTION canonical_name(name_in IN VARCHAR2, evr_in IN EVR_T,
     	                    arch_in IN VARCHAR2)

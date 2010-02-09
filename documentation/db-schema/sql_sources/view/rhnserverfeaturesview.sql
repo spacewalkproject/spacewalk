@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:40:44 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "MIM_H1"."RHNSERVERFEATURESVIEW" ("SERVER_ID", "LABEL") AS 
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNSERVERFEATURESVIEW" ("SERVER_ID", "LABEL") AS
   select
    distinct
    sgm.server_id,

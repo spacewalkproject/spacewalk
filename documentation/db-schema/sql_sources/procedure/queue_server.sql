@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:03 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PROCEDURE "MIM_H1"."QUEUE_SERVER" (server_id_in IN NUMBER, immediate_in IN NUMBER := 1)
+  CREATE OR REPLACE PROCEDURE "SPACEWALK"."QUEUE_SERVER" (server_id_in IN NUMBER, immediate_in IN NUMBER := 1)
 IS
     org_id_tmp NUMBER;
 BEGIN

@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:46 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHN_PROBE_STATE" 
+  CREATE TABLE "SPACEWALK"."RHN_PROBE_STATE"
    (	"PROBE_ID" NUMBER(12,0) NOT NULL ENABLE, 
 	"SCOUT_ID" NUMBER(12,0) NOT NULL ENABLE, 
 	"STATE" VARCHAR2(20), 

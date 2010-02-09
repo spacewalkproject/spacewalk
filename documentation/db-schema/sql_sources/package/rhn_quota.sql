@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:07 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PACKAGE "MIM_H1"."RHN_QUOTA" 
+  CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_QUOTA"
 is
 	function recompute_org_quota_used (
 		org_id_in in number
@@ -20,7 +20,7 @@ is
 		org_id_in in number
 	);
 end rhn_quota;
-CREATE OR REPLACE PACKAGE BODY "MIM_H1"."RHN_QUOTA" 
+CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RHN_QUOTA"
 is
 	function recompute_org_quota_used (
 		org_id_in in number

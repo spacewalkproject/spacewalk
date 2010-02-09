@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:45 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHN_METHOD_TYPES" 
+  CREATE TABLE "SPACEWALK"."RHN_METHOD_TYPES"
    (	"RECID" NUMBER(12,0) NOT NULL ENABLE, 
 	"METHOD_TYPE_NAME" VARCHAR2(20), 
 	"NOTIFICATION_FORMAT_ID" NUMBER(12,0) DEFAULT (4) NOT NULL ENABLE, 

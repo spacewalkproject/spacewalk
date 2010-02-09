@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:03 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FUNCTION "MIM_H1"."CHANNEL_NAME_JOIN" (sep_in in varchar2, ch_in in channel_name_t)
+  CREATE OR REPLACE FUNCTION "SPACEWALK"."CHANNEL_NAME_JOIN" (sep_in in varchar2, ch_in in channel_name_t)
 return varchar2
 deterministic
 is

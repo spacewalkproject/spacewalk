@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:40:45 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "MIM_H1"."RHNUSERACTIONOVERVIEW" ("ORG_ID", "USER_ID", "ID", "TYPE_NAME", "SCHEDULER", "EARLIEST_ACTION", "ACTION_NAME", "ACTION_STATUS_ID", "ACTION_STATUS", "TALLY", "ARCHIVED") AS 
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNUSERACTIONOVERVIEW" ("ORG_ID", "USER_ID", "ID", "TYPE_NAME", "SCHEDULER", "EARLIEST_ACTION", "ACTION_NAME", "ACTION_STATUS_ID", "ACTION_STATUS", "TALLY", "ARCHIVED") AS
   select	ao.org_id                                       as org_id,
 	usp.user_id                                     as user_id,
     	ao.action_id                                    as id,
