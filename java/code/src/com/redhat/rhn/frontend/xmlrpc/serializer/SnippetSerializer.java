@@ -55,7 +55,7 @@ public class SnippetSerializer implements XmlRpcCustomSerializer {
         helper.add("name", snippet.getName());
         helper.add("contents", snippet.getContents());
         helper.add("fragment", snippet.getFragment());
-        helper.add("file", snippet.getPath());
+        helper.add("file", snippet.getPath().getAbsolutePath());
         helper.writeTo(output);
     }
 

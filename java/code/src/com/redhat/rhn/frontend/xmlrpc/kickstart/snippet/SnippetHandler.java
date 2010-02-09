@@ -99,4 +99,55 @@ public class SnippetHandler extends BaseHandler {
         return CobblerSnippetLister.getInstance().listDefault(loggedInUser);
     }
  
+    
+    /**
+     * Create or update a snippet.  If the snippet doesn't exist it will be created.
+     * @param sessionKey the session key
+     * @param name name of the snippet
+     * @param contents the contents of the snippet
+     * @return  the snippet
+     * 
+     * @xmlrpc.doc Will create a snippet with the given name and contents if it 
+     *      doesn't exist. If it does exist, the existing snippet will be updated.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "name")
+     * @xmlrpc.param #param("string", "contents")
+     * @xmlrpc.returntype 
+     *            $SnippetSerializer
+     */
+    public CobblerSnippet createOrUpdate(String sessionKey, String name, String contents) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        verifyKSAdmin(loggedInUser);
+        CobblerSnippet snip = CobblerSnippet.loadEditableIfExists(name, 
+                loggedInUser.getOrg());
+        return CobblerSnippet.createOrUpdate(snip == null, name, contents, 
+                loggedInUser.getOrg());
+    }
+    
+    /**
+     * Delete a snippet.  
+     * @param sessionKey the session key
+     * @param name the name of the snippet
+     * @return 1 for success 0 for not
+     * 
+     * @xmlrpc.doc Delete the specified snippet.  
+     *      If the snippet is not found, 0 is returned.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "name")
+     * @xmlrpc.returntype 
+     *            #return_int_success()
+     */
+    public int delete(String sessionKey, String name) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        verifyKSAdmin(loggedInUser);
+        CobblerSnippet snip = CobblerSnippet.loadEditableIfExists(name, 
+                loggedInUser.getOrg());
+        if (snip != null) {
+            snip.delete();
+            return 1;
+        }
+        return 0;
+    }
+    
+    
 }
