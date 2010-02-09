@@ -502,7 +502,7 @@ static void setInterval(char *arg)
         interval = MIN_INTERVAL;
         syslog(LOG_WARNING, "you cannot specify a minimum interval less than %d, interval adjusted.", MIN_INTERVAL);
     }
-    syslog(LOG_NOTICE, "%s running with check_in interval set to %d seconds.", doc, interval);
+    syslog(LOG_NOTICE, "%s running with check_in interval set to %d minutes.", doc, interval);
 }
 
 static int skipLine(char *line)
