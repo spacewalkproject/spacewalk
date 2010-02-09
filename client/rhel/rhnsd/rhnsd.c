@@ -54,8 +54,6 @@ static const struct argp_option options[] =
 {
     { "interval", 'i', N_("MINS"), 0,
       N_("Connect to Red Hat Network every MINS minutes") },
-    { "verbose", 'v', NULL, 0,
-      N_("Log all actions to syslog") },
     { "foreground", 'f', NULL, 0,
       N_("Run in foreground") },
     { NULL, 0, NULL, 0, NULL }
@@ -104,7 +102,6 @@ static void SIGHUP_handler(int);
 
 static int foreground = 0;       /* run in foreground */
 static int interval = 240;       /* check RHN every interval minutes */
-static int verbose = 0;          /* how verbose should we be */
 
 int main (int argc, char **argv)
 {
@@ -229,11 +226,6 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	    setInterval(arg);
 	    break;
 
-	case 'v':
-	    /* --verbose */
-	    verbose++;
-	    break;
-		
 	default:
 	    return ARGP_ERR_UNKNOWN;
     }
