@@ -175,7 +175,7 @@ int main (int argc, char **argv)
     while(1) {
 	time_t rhn_check_start_time;
 	time_t sleep_until = interval * 60 + time(NULL) - last_run_duration;
-	/* every 12 passes (24 hours with default interval), perturb the
+	/* every 12 passes (48 hours with default interval), perturb the
 	 * checkin counter slightly so as to break up cyclical
 	 * patterns */
 	if (pass_count % 12 == 0) {

@@ -29,7 +29,7 @@
 
 
 # interval in minutes to connect to Red Hat Network. The minimum allowed
-# value is currently 1 hour; by default rhnsd will connect every other hour.
+# value is currently 1 hour; by default rhnsd will connect every four hours.
 # This should be more than suitable for the vast majority of systems.  You
 # may adjust the interval by editing the file /etc/sysconfig/rhn/rhnsd.
 
