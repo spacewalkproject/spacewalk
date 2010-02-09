@@ -567,6 +567,7 @@ static void read_configuration()
 static void SIGHUP_handler(int signum)
 {
     read_configuration();
+    syslog(LOG_NOTICE, "%s reloading, check in interval %d minutes.", doc, interval);
 }
 
 
