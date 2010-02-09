@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.8.10
+Version:        0.8.11
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,7 +58,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
-* Tue Feb 09 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.10-1
+* Tue Feb 09 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.11-1
 - fixed 0..7 -> 0.8 data upgrades
 - making position column unique in the rhnKickstartPackage table
 
