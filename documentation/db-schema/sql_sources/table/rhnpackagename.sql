@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:21 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNPACKAGENAME" 
+  CREATE TABLE "SPACEWALK"."RHNPACKAGENAME"
    (	"ID" NUMBER NOT NULL ENABLE, 
 	"NAME" VARCHAR2(256) NOT NULL ENABLE, 
 	 CONSTRAINT "RHN_PN_ID_PK" PRIMARY KEY ("ID")

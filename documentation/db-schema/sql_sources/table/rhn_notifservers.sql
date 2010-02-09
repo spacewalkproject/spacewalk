@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:45 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHN_NOTIFSERVERS" 
+  CREATE TABLE "SPACEWALK"."RHN_NOTIFSERVERS"
    (	"RECID" NUMBER(12,0) NOT NULL ENABLE, 
 	"NAME" VARCHAR2(255), 
 	 CONSTRAINT "RHN_NOTSV_RECID_PK" PRIMARY KEY ("RECID")

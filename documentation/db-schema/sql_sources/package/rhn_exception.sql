@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:06 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PACKAGE "MIM_H1"."RHN_EXCEPTION" 
+  CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_EXCEPTION"
 IS
     CURSOR exception_details(exception_label_in VARCHAR2) IS
         SELECT id, label, message
@@ -15,7 +15,7 @@ IS
     );
     PROCEDURE lookup_exception(exception_label_in IN VARCHAR2, exception_id_out OUT NUMBER, exception_message_out OUT VARCHAR2);
 END rhn_exception;
-CREATE OR REPLACE PACKAGE BODY "MIM_H1"."RHN_EXCEPTION" 
+CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RHN_EXCEPTION"
 IS
 
     PROCEDURE lookup_exception(exception_label_in IN VARCHAR2, exception_id_out OUT NUMBER, exception_message_out OUT VARCHAR2)

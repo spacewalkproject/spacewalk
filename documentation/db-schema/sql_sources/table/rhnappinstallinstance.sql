@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:03 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNAPPINSTALLINSTANCE" 
+  CREATE TABLE "SPACEWALK"."RHNAPPINSTALLINSTANCE"
    (	"ID" NUMBER NOT NULL ENABLE, 
 	"NAME" VARCHAR2(128) NOT NULL ENABLE, 
 	"LABEL" VARCHAR2(128) NOT NULL ENABLE, 

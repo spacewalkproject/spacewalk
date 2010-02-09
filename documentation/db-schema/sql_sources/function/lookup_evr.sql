@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:03 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FUNCTION "MIM_H1"."LOOKUP_EVR" (e_in IN VARCHAR2, v_in IN VARCHAR2, r_in IN VARCHAR2)
+  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_EVR" (e_in IN VARCHAR2, v_in IN VARCHAR2, r_in IN VARCHAR2)
 RETURN NUMBER
 IS
 	PRAGMA AUTONOMOUS_TRANSACTION;

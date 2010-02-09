@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:48 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHN_SCHEDULE_TYPES" 
+  CREATE TABLE "SPACEWALK"."RHN_SCHEDULE_TYPES"
    (	"RECID" NUMBER(12,0) NOT NULL ENABLE, 
 	"DESCRIPTION" VARCHAR2(40), 
 	 CONSTRAINT "RHN_SCHTP_RECID_CK" CHECK (recid > 0) ENABLE, 

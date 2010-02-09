@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:40:41 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "MIM_H1"."RHNCHANNELFAMILYSERVERVIRTUAL" ("CUSTOMER_ID", "CHANNEL_FAMILY_ID", "SERVER_ID", "CREATED", "MODIFIED") AS 
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNCHANNELFAMILYSERVERVIRTUAL" ("CUSTOMER_ID", "CHANNEL_FAMILY_ID", "SERVER_ID", "CREATED", "MODIFIED") AS
   select	rs.org_id			as customer_id,
 		rcfm.channel_family_id		as channel_family_id,
 		rsc.server_id			as server_id,

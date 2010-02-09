@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:03 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FUNCTION "MIM_H1"."LOOKUP_FIRST_MATCHING_CF" (
+  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_FIRST_MATCHING_CF" (
 	server_id_in in number,
 	path_in in varchar2
 ) return number is

@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:49 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHN_STRATEGIES" 
+  CREATE TABLE "SPACEWALK"."RHN_STRATEGIES"
    (	"RECID" NUMBER(12,0) NOT NULL ENABLE, 
 	"NAME" VARCHAR2(80), 
 	"COMP_CRIT" VARCHAR2(80), 

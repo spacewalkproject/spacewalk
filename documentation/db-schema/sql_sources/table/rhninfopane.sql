@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:15 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNINFOPANE" 
+  CREATE TABLE "SPACEWALK"."RHNINFOPANE"
    (	"ID" NUMBER, 
 	"LABEL" VARCHAR2(64) NOT NULL ENABLE, 
 	"ACL" VARCHAR2(4000), 

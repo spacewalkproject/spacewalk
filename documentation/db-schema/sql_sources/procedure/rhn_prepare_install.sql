@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:03 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PROCEDURE "MIM_H1"."RHN_PREPARE_INSTALL" 
+  CREATE OR REPLACE PROCEDURE "SPACEWALK"."RHN_PREPARE_INSTALL"
 (
     username            in rhn_command_queue_instances.last_update_user%type,
     command_instance_id in out rhn_command_queue_instances.recid%type,

@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:04 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FUNCTION "MIM_H1"."LOOKUP_PACKAGE_NEVRA" (
+  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_PACKAGE_NEVRA" (
 	name_id_in in varchar2,
 	evr_id_in in varchar2,
 	package_arch_id_in in varchar2,

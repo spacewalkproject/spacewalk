@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:41 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHN_COMMAND_QUEUE_COMMANDS" 
+  CREATE TABLE "SPACEWALK"."RHN_COMMAND_QUEUE_COMMANDS"
    (	"RECID" NUMBER(12,0) NOT NULL ENABLE, 
 	"DESCRIPTION" VARCHAR2(40) NOT NULL ENABLE, 
 	"NOTES" VARCHAR2(2000), 

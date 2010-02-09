@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:50 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."STATE_CHANGE" 
+  CREATE TABLE "SPACEWALK"."STATE_CHANGE"
    (	"O_ID" VARCHAR2(64) NOT NULL ENABLE, 
 	"ENTRY_TIME" NUMBER NOT NULL ENABLE, 
 	"DATA" VARCHAR2(4000)

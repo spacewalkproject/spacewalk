@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:38 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNUSERMESSAGETYPE" 
+  CREATE TABLE "SPACEWALK"."RHNUSERMESSAGETYPE"
    (	"ID" NUMBER NOT NULL ENABLE, 
 	"LABEL" VARCHAR2(48) NOT NULL ENABLE, 
 	"NAME" VARCHAR2(96) NOT NULL ENABLE, 

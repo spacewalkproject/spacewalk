@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:04 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FUNCTION "MIM_H1"."LOOKUP_PACKAGE_KEY_TYPE" (label_in in varchar2)
+  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_PACKAGE_KEY_TYPE" (label_in in varchar2)
 return number
 is
 	package_key_type_id number;

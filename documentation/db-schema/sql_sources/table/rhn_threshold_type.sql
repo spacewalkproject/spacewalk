@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:49 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHN_THRESHOLD_TYPE" 
+  CREATE TABLE "SPACEWALK"."RHN_THRESHOLD_TYPE"
    (	"NAME" VARCHAR2(10) NOT NULL ENABLE, 
 	"DESCRIPTION" VARCHAR2(80) NOT NULL ENABLE, 
 	"ORDINAL" NUMBER(3,0) NOT NULL ENABLE, 

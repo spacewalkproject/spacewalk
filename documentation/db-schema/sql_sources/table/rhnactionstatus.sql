@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:01 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNACTIONSTATUS" 
+  CREATE TABLE "SPACEWALK"."RHNACTIONSTATUS"
    (	"ID" NUMBER NOT NULL ENABLE, 
 	"NAME" VARCHAR2(16), 
 	"CREATED" DATE DEFAULT (sysdate) NOT NULL ENABLE, 

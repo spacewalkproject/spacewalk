@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:21 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNPACKAGEGROUP" 
+  CREATE TABLE "SPACEWALK"."RHNPACKAGEGROUP"
    (	"ID" NUMBER NOT NULL ENABLE, 
 	"NAME" VARCHAR2(100) NOT NULL ENABLE, 
 	"CREATED" DATE DEFAULT (sysdate) NOT NULL ENABLE, 

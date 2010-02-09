@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:38 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNUSERRESERVED" 
+  CREATE TABLE "SPACEWALK"."RHNUSERRESERVED"
    (	"LOGIN" VARCHAR2(64) NOT NULL ENABLE, 
 	"LOGIN_UC" VARCHAR2(64) NOT NULL ENABLE, 
 	"PASSWORD" VARCHAR2(38) NOT NULL ENABLE, 

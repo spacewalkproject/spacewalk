@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:40:56 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE TRIGGER "MIM_H1"."RHN_CONFREVISION_ACCT_TRIG" 
+  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_CONFREVISION_ACCT_TRIG"
 after insert on rhnConfigRevision
 for each row
 declare
@@ -27,6 +27,6 @@ begin
 		rhn_exception.raise_exception('not_enough_quota');
 	end if;
 end;
-ALTER TRIGGER "MIM_H1"."RHN_CONFREVISION_ACCT_TRIG" ENABLE
+ALTER TRIGGER "SPACEWALK"."RHN_CONFREVISION_ACCT_TRIG" ENABLE
  
 /

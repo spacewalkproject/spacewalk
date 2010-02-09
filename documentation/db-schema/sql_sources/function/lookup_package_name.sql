@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:04 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FUNCTION "MIM_H1"."LOOKUP_PACKAGE_NAME" (name_in IN VARCHAR2, ignore_null in number := 0)
+  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_PACKAGE_NAME" (name_in IN VARCHAR2, ignore_null in number := 0)
 RETURN NUMBER
 IS
 	PRAGMA AUTONOMOUS_TRANSACTION;

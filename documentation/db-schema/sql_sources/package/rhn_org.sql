@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:07 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PACKAGE "MIM_H1"."RHN_ORG" 
+  CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_ORG"
 IS
 	version varchar2(100) := '';
 
@@ -21,7 +21,7 @@ IS
     procedure delete_user(user_id_in in number, deleting_org in number := 0);
 
 END rhn_org;
-CREATE OR REPLACE PACKAGE BODY "MIM_H1"."RHN_ORG" 
+CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RHN_ORG"
 IS
 	body_version varchar2(100) := '';
 

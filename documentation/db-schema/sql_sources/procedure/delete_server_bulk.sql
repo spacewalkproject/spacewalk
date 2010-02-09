@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:03 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PROCEDURE "MIM_H1"."DELETE_SERVER_BULK" (
+  CREATE OR REPLACE PROCEDURE "SPACEWALK"."DELETE_SERVER_BULK" (
 	user_id_in in number
 ) is
 	cursor systems is

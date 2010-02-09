@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:36 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNTINYURL" 
+  CREATE TABLE "SPACEWALK"."RHNTINYURL"
    (	"TOKEN" VARCHAR2(64) NOT NULL ENABLE, 
 	"URL" VARCHAR2(512) NOT NULL ENABLE, 
 	"ENABLED" VARCHAR2(1) NOT NULL ENABLE, 

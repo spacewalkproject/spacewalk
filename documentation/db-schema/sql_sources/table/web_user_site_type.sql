@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:52 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."WEB_USER_SITE_TYPE" 
+  CREATE TABLE "SPACEWALK"."WEB_USER_SITE_TYPE"
    (	"TYPE" CHAR(1) NOT NULL ENABLE, 
 	"DESCRIPTION" VARCHAR2(64) NOT NULL ENABLE, 
 	 CONSTRAINT "WUST_TYPE_PK" PRIMARY KEY ("TYPE")

@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:40:59 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE TRIGGER "MIM_H1"."RHN_KS_SESSION_HISTORY_TRIGGER" 
+  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_KS_SESSION_HISTORY_TRIGGER"
 after insert or update on rhnKickstartSession
 for each row
 begin
@@ -21,6 +21,6 @@ begin
 	-- table during the trigger in the delete_server() case, so we're
 	-- not doing it now.
 end;
-ALTER TRIGGER "MIM_H1"."RHN_KS_SESSION_HISTORY_TRIGGER" ENABLE
+ALTER TRIGGER "SPACEWALK"."RHN_KS_SESSION_HISTORY_TRIGGER" ENABLE
  
 /

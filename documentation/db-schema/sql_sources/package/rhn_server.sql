@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:07 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PACKAGE "MIM_H1"."RHN_SERVER" 
+  CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_SERVER"
 is
 
     -- i.e., "can this box do management stuff?" and yes if provisioning box
@@ -109,7 +109,7 @@ is
 		server_id_in in number
 	) return varchar2;
 end rhn_server;
-CREATE OR REPLACE PACKAGE BODY "MIM_H1"."RHN_SERVER" 
+CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RHN_SERVER"
 is
     function system_service_level(
     	server_id_in in number,

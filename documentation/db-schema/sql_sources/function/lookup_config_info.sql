@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:03 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FUNCTION "MIM_H1"."LOOKUP_CONFIG_INFO" (
+  CREATE OR REPLACE FUNCTION "SPACEWALK"."LOOKUP_CONFIG_INFO" (
     username_in     in varchar2,
     groupname_in    in varchar2,
     filemode_in     in varchar2,

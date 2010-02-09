@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:36 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNTIMEZONE" 
+  CREATE TABLE "SPACEWALK"."RHNTIMEZONE"
    (	"ID" NUMBER NOT NULL ENABLE, 
 	"OLSON_NAME" VARCHAR2(128) NOT NULL ENABLE, 
 	"DISPLAY_NAME" VARCHAR2(128) NOT NULL ENABLE, 

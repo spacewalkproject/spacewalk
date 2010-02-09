@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:06 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PACKAGE "MIM_H1"."RHN_CONFIG" 
+  CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_CONFIG"
 is
 	procedure prune_org_configs (
 		org_id_in in number,
@@ -48,7 +48,7 @@ is
 		config_channel_id_in in number
 	);
 end rhn_config;
-CREATE OR REPLACE PACKAGE BODY "MIM_H1"."RHN_CONFIG" 
+CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RHN_CONFIG"
 is
 	-- just a stub for now
 	procedure prune_org_configs (

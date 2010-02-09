@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:40:47 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "MIM_H1"."RHNUSERTYPEARRAY" ("USER_ID", "TYPE_ID_T", "TYPE_LABEL_T", "TYPE_NAME_T") AS 
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNUSERTYPEARRAY" ("USER_ID", "TYPE_ID_T", "TYPE_LABEL_T", "TYPE_NAME_T") AS
   select
     U.id,
     cast(multiset(select utb.type_id

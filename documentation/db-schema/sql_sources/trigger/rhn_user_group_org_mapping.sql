@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:02 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE TRIGGER "MIM_H1"."RHN_USER_GROUP_ORG_MAPPING" 
+  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_USER_GROUP_ORG_MAPPING"
 BEFORE INSERT OR UPDATE ON rhnUserGroupMembers
 FOR EACH ROW
 DECLARE
@@ -21,6 +21,6 @@ EXCEPTION
         WHEN NO_DATA_FOUND THEN
           rhn_exception.raise_exception('ugm_different_orgs');
 END;
-ALTER TRIGGER "MIM_H1"."RHN_USER_GROUP_ORG_MAPPING" ENABLE
+ALTER TRIGGER "SPACEWALK"."RHN_USER_GROUP_ORG_MAPPING" ENABLE
  
 /

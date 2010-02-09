@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:26 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNREPOREGENQUEUE" 
+  CREATE TABLE "SPACEWALK"."RHNREPOREGENQUEUE"
    (	"ID" NUMBER, 
 	"CHANNEL_LABEL" VARCHAR2(128) NOT NULL ENABLE, 
 	"CLIENT" VARCHAR2(128), 

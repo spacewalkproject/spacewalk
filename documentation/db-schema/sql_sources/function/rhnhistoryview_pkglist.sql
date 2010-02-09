@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:04 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FUNCTION "MIM_H1"."RHNHISTORYVIEW_PKGLIST" (action_id IN NUMBER, separator IN VARCHAR2 DEFAULT chr(10))
+  CREATE OR REPLACE FUNCTION "SPACEWALK"."RHNHISTORYVIEW_PKGLIST" (action_id IN NUMBER, separator IN VARCHAR2 DEFAULT chr(10))
 return VARCHAR2
 is
     store_var  VARCHAR2(4000);

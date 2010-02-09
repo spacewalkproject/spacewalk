@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:45 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHN_PAGER_TYPES" 
+  CREATE TABLE "SPACEWALK"."RHN_PAGER_TYPES"
    (	"RECID" NUMBER(12,0) NOT NULL ENABLE, 
 	"PAGER_TYPE_NAME" VARCHAR2(50), 
 	 CONSTRAINT "RHN_PGRTP_RECID_CK" CHECK (recid > 0) ENABLE, 

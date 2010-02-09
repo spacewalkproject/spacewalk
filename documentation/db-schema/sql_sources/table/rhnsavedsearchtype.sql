@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:27 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNSAVEDSEARCHTYPE" 
+  CREATE TABLE "SPACEWALK"."RHNSAVEDSEARCHTYPE"
    (	"ID" NUMBER NOT NULL ENABLE, 
 	"LABEL" VARCHAR2(8) NOT NULL ENABLE, 
 	"CREATED" DATE DEFAULT (sysdate) NOT NULL ENABLE, 

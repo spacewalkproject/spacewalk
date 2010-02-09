@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:47 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHN_SATELLITE_STATE" 
+  CREATE TABLE "SPACEWALK"."RHN_SATELLITE_STATE"
    (	"SATELLITE_ID" NUMBER(12,0) NOT NULL ENABLE, 
 	"LAST_CHECK" DATE, 
 	"PROBE_COUNT" NUMBER(10,0), 

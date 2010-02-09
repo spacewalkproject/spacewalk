@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:42 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHN_COMMAND_QUEUE_EXECS_BK" 
+  CREATE TABLE "SPACEWALK"."RHN_COMMAND_QUEUE_EXECS_BK"
    (	"INSTANCE_ID" NUMBER(12,0) NOT NULL ENABLE, 
 	"NETSAINT_ID" NUMBER(12,0) NOT NULL ENABLE, 
 	"DATE_ACCEPTED" DATE, 

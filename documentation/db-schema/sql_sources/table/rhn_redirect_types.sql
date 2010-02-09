@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:47 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHN_REDIRECT_TYPES" 
+  CREATE TABLE "SPACEWALK"."RHN_REDIRECT_TYPES"
    (	"NAME" VARCHAR2(20) NOT NULL ENABLE, 
 	"DESCRIPTION" VARCHAR2(255), 
 	"LONG_NAME" VARCHAR2(80), 

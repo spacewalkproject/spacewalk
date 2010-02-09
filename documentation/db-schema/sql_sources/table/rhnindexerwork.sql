@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:15 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNINDEXERWORK" 
+  CREATE TABLE "SPACEWALK"."RHNINDEXERWORK"
    (	"OBJECT_TYPE" VARCHAR2(40) NOT NULL ENABLE, 
 	"LAST_ID" NUMBER NOT NULL ENABLE, 
 	"LAST_MODIFIED" DATE DEFAULT (sysdate) NOT NULL ENABLE

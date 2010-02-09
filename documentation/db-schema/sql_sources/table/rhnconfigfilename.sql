@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:08 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNCONFIGFILENAME" 
+  CREATE TABLE "SPACEWALK"."RHNCONFIGFILENAME"
    (	"ID" NUMBER NOT NULL ENABLE, 
 	"PATH" VARCHAR2(1024) NOT NULL ENABLE, 
 	"CREATED" DATE DEFAULT (sysdate) NOT NULL ENABLE, 

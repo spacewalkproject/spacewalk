@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:05 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PACKAGE "MIM_H1"."RHN_BEL" 
+  CREATE OR REPLACE PACKAGE "SPACEWALK"."RHN_BEL"
 is
 
    function is_org_paid (
@@ -13,7 +13,7 @@ is
         ) return number;
 
 end;
-CREATE OR REPLACE PACKAGE BODY "MIM_H1"."RHN_BEL" 
+CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RHN_BEL"
 is
 
    function is_org_paid (

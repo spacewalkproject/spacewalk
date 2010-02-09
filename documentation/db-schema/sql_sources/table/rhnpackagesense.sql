@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:22 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNPACKAGESENSE" 
+  CREATE TABLE "SPACEWALK"."RHNPACKAGESENSE"
    (	"ID" NUMBER NOT NULL ENABLE, 
 	"LABEL" VARCHAR2(32) NOT NULL ENABLE, 
 	 CONSTRAINT "RHN_PKG_SENSE_ID_PK" PRIMARY KEY ("ID")

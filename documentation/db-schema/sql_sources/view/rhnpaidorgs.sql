@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:40:43 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "MIM_H1"."RHNPAIDORGS" ("ORG_ID") AS 
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNPAIDORGS" ("ORG_ID") AS
   select	org_id
 from	rhnServerGroup
 where	group_type = lookup_sg_type('enterprise_entitled')

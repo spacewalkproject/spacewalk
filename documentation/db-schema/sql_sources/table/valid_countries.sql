@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:50 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."VALID_COUNTRIES" 
+  CREATE TABLE "SPACEWALK"."VALID_COUNTRIES"
    (	"CODE" VARCHAR2(2) NOT NULL ENABLE, 
 	"SHORT_NAME" VARCHAR2(80) NOT NULL ENABLE, 
 	"NAME" VARCHAR2(240), 

@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:40:46 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "MIM_H1"."RHNUSERAPPLETOVERVIEW" ("USER_ID", "SECURITY_COUNT", "BUG_COUNT", "ENHANCEMENT_COUNT") AS 
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNUSERAPPLETOVERVIEW" ("USER_ID", "SECURITY_COUNT", "BUG_COUNT", "ENHANCEMENT_COUNT") AS
   SELECT      USP.user_id,
     	    SUM((SELECT COUNT(*) FROM rhnServerErrataTypeView SEV
 	         WHERE SEV.server_id = USP.server_id

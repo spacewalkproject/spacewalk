@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:02 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PROCEDURE "MIM_H1"."CREATE_NEW_ORG" 
+  CREATE OR REPLACE PROCEDURE "SPACEWALK"."CREATE_NEW_ORG"
 (
 	name_in      in varchar2,
 	password_in  in varchar2,

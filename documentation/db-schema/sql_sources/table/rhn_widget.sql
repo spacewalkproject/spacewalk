@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:50 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHN_WIDGET" 
+  CREATE TABLE "SPACEWALK"."RHN_WIDGET"
    (	"NAME" VARCHAR2(20) NOT NULL ENABLE, 
 	"DESCRIPTION" VARCHAR2(80) NOT NULL ENABLE, 
 	"LAST_UPDATE_USER" VARCHAR2(40), 

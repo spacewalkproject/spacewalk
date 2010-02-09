@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:49 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHN_TIME_ZONE_NAMES" 
+  CREATE TABLE "SPACEWALK"."RHN_TIME_ZONE_NAMES"
    (	"RECID" NUMBER(12,0) NOT NULL ENABLE, 
 	"JAVA_ID" VARCHAR2(40) NOT NULL ENABLE, 
 	"DISPLAY_NAME" VARCHAR2(60) NOT NULL ENABLE, 

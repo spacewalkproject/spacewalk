@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:19 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNORGCHANNELSETTINGSTYPE" 
+  CREATE TABLE "SPACEWALK"."RHNORGCHANNELSETTINGSTYPE"
    (	"ID" NUMBER NOT NULL ENABLE, 
 	"LABEL" VARCHAR2(32) NOT NULL ENABLE, 
 	"CREATED" DATE DEFAULT (sysdate) NOT NULL ENABLE, 

@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:20 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNPACKAGECAPABILITY" 
+  CREATE TABLE "SPACEWALK"."RHNPACKAGECAPABILITY"
    (	"ID" NUMBER NOT NULL ENABLE, 
 	"NAME" VARCHAR2(4000) NOT NULL ENABLE, 
 	"VERSION" VARCHAR2(64), 

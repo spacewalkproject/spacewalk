@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:18 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNMESSAGEPRIORITY" 
+  CREATE TABLE "SPACEWALK"."RHNMESSAGEPRIORITY"
    (	"ID" NUMBER NOT NULL ENABLE, 
 	"LABEL" VARCHAR2(48) NOT NULL ENABLE, 
 	 CONSTRAINT "RHN_M_PRIORITY_ID_PK" PRIMARY KEY ("ID")

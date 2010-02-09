@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:51 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."WEB_CUSTOMER" 
+  CREATE TABLE "SPACEWALK"."WEB_CUSTOMER"
    (	"ID" NUMBER NOT NULL ENABLE, 
 	"NAME" VARCHAR2(128) NOT NULL ENABLE, 
 	"ORACLE_CUSTOMER_ID" NUMBER, 

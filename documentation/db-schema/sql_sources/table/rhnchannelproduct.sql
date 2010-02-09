@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:06 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNCHANNELPRODUCT" 
+  CREATE TABLE "SPACEWALK"."RHNCHANNELPRODUCT"
    (	"ID" NUMBER NOT NULL ENABLE, 
 	"PRODUCT" VARCHAR2(256) NOT NULL ENABLE, 
 	"VERSION" VARCHAR2(64) NOT NULL ENABLE, 

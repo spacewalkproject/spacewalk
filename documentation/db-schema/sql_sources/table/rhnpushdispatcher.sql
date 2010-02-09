@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:24 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNPUSHDISPATCHER" 
+  CREATE TABLE "SPACEWALK"."RHNPUSHDISPATCHER"
    (	"ID" NUMBER NOT NULL ENABLE, 
 	"JABBER_ID" VARCHAR2(128) NOT NULL ENABLE, 
 	"LAST_CHECKIN" DATE DEFAULT (sysdate) NOT NULL ENABLE, 

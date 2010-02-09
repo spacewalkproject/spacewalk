@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:40:45 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE FORCE VIEW "MIM_H1"."RHNSERVERNEEDEDVIEW" ("ORG_ID", "SERVER_ID", "ERRATA_ID", "PACKAGE_ID", "PACKAGE_NAME_ID", "CHANNEL_ID") AS 
+  CREATE OR REPLACE FORCE VIEW "SPACEWALK"."RHNSERVERNEEDEDVIEW" ("ORG_ID", "SERVER_ID", "ERRATA_ID", "PACKAGE_ID", "PACKAGE_NAME_ID", "CHANNEL_ID") AS
   SELECT DISTINCT S.org_id,
      S.id as server_id,
      ep.errata_id as errata_id,

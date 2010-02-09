@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:23 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNPRODUCTLINE" 
+  CREATE TABLE "SPACEWALK"."RHNPRODUCTLINE"
    (	"ID" NUMBER NOT NULL ENABLE, 
 	"LABEL" VARCHAR2(128) NOT NULL ENABLE, 
 	"NAME" VARCHAR2(128) NOT NULL ENABLE, 

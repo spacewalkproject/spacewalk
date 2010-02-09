@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:11 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNENTITLEMENTLOG" 
+  CREATE TABLE "SPACEWALK"."RHNENTITLEMENTLOG"
    (	"RUN_TIME" DATE DEFAULT (sysdate) NOT NULL ENABLE, 
 	"BDATE" DATE NOT NULL ENABLE, 
 	"EDATE" DATE NOT NULL ENABLE

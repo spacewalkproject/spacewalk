@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:40:54 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE TRIGGER "MIM_H1"."RHN_CHANNEL_ACCESS_TRIG" 
+  CREATE OR REPLACE TRIGGER "SPACEWALK"."RHN_CHANNEL_ACCESS_TRIG"
 after update on rhnChannel
 for each row
 begin
@@ -11,6 +11,6 @@ begin
       delete from rhnChannelTrust where channel_id = :old.id;
    end if;
 end;
-ALTER TRIGGER "MIM_H1"."RHN_CHANNEL_ACCESS_TRIG" ENABLE
+ALTER TRIGGER "SPACEWALK"."RHN_CHANNEL_ACCESS_TRIG" ENABLE
  
 /

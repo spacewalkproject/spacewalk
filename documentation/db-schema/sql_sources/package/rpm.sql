@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:41:07 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE OR REPLACE PACKAGE "MIM_H1"."RPM" AS
+  CREATE OR REPLACE PACKAGE "SPACEWALK"."RPM" AS
     FUNCTION vercmp(
         e1 VARCHAR2, v1 VARCHAR2, r1 VARCHAR2,
         e2 VARCHAR2, v2 VARCHAR2, r2 VARCHAR2)
@@ -21,7 +21,7 @@
     PRAGMA RESTRICT_REFERENCES(vercmpResetCounter, WNDS, RNDS);
 
 END rpm;
-CREATE OR REPLACE PACKAGE BODY "MIM_H1"."RPM" AS
+CREATE OR REPLACE PACKAGE BODY "SPACEWALK"."RPM" AS
     vercmp_counter NUMBER := 0;
 
     FUNCTION isdigit(ch CHAR)

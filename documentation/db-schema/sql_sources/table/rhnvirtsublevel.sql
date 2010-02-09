@@ -1,7 +1,7 @@
 -- created by Oraschemadoc Fri Jan 22 13:39:39 2010
 -- visit http://www.yarpen.cz/oraschemadoc/ for more info
 
-  CREATE TABLE "MIM_H1"."RHNVIRTSUBLEVEL" 
+  CREATE TABLE "SPACEWALK"."RHNVIRTSUBLEVEL"
    (	"ID" NUMBER, 
 	"LABEL" VARCHAR2(32) NOT NULL ENABLE, 
 	"NAME" VARCHAR2(128) NOT NULL ENABLE, 
