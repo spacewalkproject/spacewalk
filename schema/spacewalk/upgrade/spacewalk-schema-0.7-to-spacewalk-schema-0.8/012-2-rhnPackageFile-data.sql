@@ -22,6 +22,7 @@ begin
               from (select distinct md5 as csum
                       from rhnPackageFile
                      where package_id between lmin and lmax
+                       and md5 is not null
                      minus
                     select checksum as csum
                       from rhnChecksum
@@ -32,7 +33,8 @@ begin
                             from rhnChecksum c
                            where checksum_type_id = md5_id
                              and p.md5 =  c.checksum)
-     where package_id between lmin and lmax;
+     where package_id between lmin and lmax
+       and md5 is not null;
     commit;
     lmin := lmax + 1;
     lmax := lmin + 99999;
