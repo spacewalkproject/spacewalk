@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 4.8.3
+Version: 4.9.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -63,6 +63,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Feb 09 2010 Jan Pazdziora 4.9.1-1
+- 563173 - change the logging and config processing logic
+
 * Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 4.8.3-1
 - updated copyrights
 
