@@ -23,8 +23,7 @@ CREATE TABLE rhnKickstartPackage
     package_name_id  NUMBER NOT NULL
                          CONSTRAINT rhn_kspackage_pnid_fk
                              REFERENCES rhnPackageName (id),
-    position         NUMBER NOT NULL
-                         CONSTRAINT rhn_kspackage_pos_uq UNIQUE,
+    position         NUMBER NOT NULL,
     created          DATE
                          DEFAULT (sysdate) NOT NULL,
     modified         DATE
@@ -33,7 +32,7 @@ CREATE TABLE rhnKickstartPackage
 ENABLE ROW MOVEMENT
 ;
 
-CREATE INDEX rhn_kspackage_id_idx
-    ON rhnKickstartPackage (kickstart_id)
-    TABLESPACE [[4m_tbs]];
+ALTER TABLE rhnKickstartPackage
+    ADD CONSTRAINT rhn_kspackage_pos_uq UNIQUE (kickstart_id, position)
+    USING INDEX TABLESPACE [[4m_tbs]];
 
