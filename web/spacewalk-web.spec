@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.14
+Version: 0.8.15
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Feb 09 2010 Jan Pazdziora 0.8.15-1
+- Move PXT::Debug to separate module (file), so that it can be use'd.
+
 * Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.14-1
 - updated copyrights
 - removed a lot of unused code
