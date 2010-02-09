@@ -38,6 +38,7 @@ use Apache2::SubRequest ();
 use PXT::Config ();
 use PXT::Utils ();
 use PXT::ApacheHandler ();
+use PXT::Debug ();
 
 sub new {
   my $class = shift;
@@ -804,32 +805,5 @@ sub use_sessions {
   return $self->{use_sessions};
 }
 
-package PXT::Debug;
-
-sub log {
-  my $class = shift;
-  my $level = shift;
-  my @msg = @_;
-
-  if ($level < PXT::Config->get('debug')) {
-    my (undef, $file, $line) = caller;
-    my @frame = caller(1);
-
-    warn "$frame[3] ($file:$line): " . join(" ", @msg) . "\n";
-  }
-}
-
-sub log_dump {
-  my $class = shift;
-  my $level = shift;
-  my @structs = @_;
-
-  if ($level < PXT::Config->get('debug')) {
-    my (undef, $file, $line) = caller;
-    my @frame = caller(1);
-
-    warn sprintf("$frame[3] ($file:$line): %s\n", Data::Dumper->Dump(\@structs));
-  }
-}
-
 1;
+
