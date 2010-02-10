@@ -17,8 +17,8 @@ package PXT::Debug;
 
 use strict;
 
-package PXT::Config ();
-package Data::Dumper ();
+use PXT::Config ();
+use Data::Dumper ();
 
 sub log {
   my $class = shift;
