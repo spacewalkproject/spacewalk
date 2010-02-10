@@ -32,12 +32,12 @@ class WsgiRequest:
         self.options = {}
         self.main = 0
         self.proto_num = float(env['SERVER_PROTOCOL'].split('/')[1])
-        self.headers_out = WsgiDict()
+        self.headers_out = WsgiMPtable()
         self.sent_header = 0
         self.content_type = ""
         self.the_request = env['REQUEST_METHOD'] + " " + env['SCRIPT_NAME'] + " "  + env['SERVER_PROTOCOL']
         self.output = []
-        self.err_headers_out = WsgiDict() 
+        self.err_headers_out = WsgiMPtable()
         self.status = ""
         self.sent_bodyct = 0
         self.sent_header = 0
@@ -92,6 +92,52 @@ class WsgiConnection:
     def __init__(self, remote_ip):
         self.remote_ip = remote_ip
 
-class WsgiDict(dict):
+class WsgiMPtable:
+    """ This class emulates mod_python's mp_table. See
+        http://www.modpython.org/live/current/doc-html/pyapi-mptable.html
+
+        The table object is a wrapper around the Apache APR table. The table
+        object behaves very much like a dictionary (including the Python 2.2
+        features such as support of the in operator, etc.), with the following
+        differences:
+
+        ...
+        - Duplicate keys are allowed (see add() below). When there is more
+          than one value for a key, a subscript operation returns a list.
+
+        Much of the information that Apache uses is stored in tables.
+        For example, req.headers_in and req.headers_out.
+    """
+    def __init__(self):
+        self.dict = {}
+
     def add(self, key, value):
-        self[key] = value;
+        if self.dict.has_key(key):
+            self.dict[key].append(str(value))
+        else:
+            self.dict[key] = [str(value)]
+
+    def __getitem__(self, key):
+        if len(self.dict[key]) == 1:
+           return self.dict[key][0]
+        return self.dict[key]
+
+    def __setitem__(self, key, value):
+        self.dict[key] = [str(value)]
+
+    def items(self):
+        list = []
+        for k,v in self.dict.items():
+            for vi in v:
+                list.append((k,vi))
+        return list
+
+    def has_key(self, key):
+        return self.dict.has_key(key)
+
+    def keys(self):
+        return self.dict.keys()
+
+    def __str__(self):
+        return str(self.items())
+
