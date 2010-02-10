@@ -763,33 +763,48 @@
        classpathid="playpen.tests.runpath" reportdir="${playpen.testresults.dir}"/>
   </target>
 
+  
+
+  <target name="install-tomcat5"
+           description="Install the webapp to the directory specified by $prefix for tomcat5">
+       <property name="webapp-dir" value="/var/lib/tomcat5/webapps/" />
+       <antcall target="install" />
+  </target>
+
+  <target name="install-tomcat6"
+           description="Install the webapp to the directory specified by $prefix for tomcat5">
+       <property name="webapp-dir" value="/var/lib/tomcat6/webapps/" />
+       <antcall target="install" />
+  </target>
+
+
   <target name="install"
           depends="init-install,init,compile-notests,pack,apidoc-jsp,jspcompile"
           description="Install the webapp to the directory specified by $prefix">
-    <delete dir="${prefix}/var/lib/tomcat5/webapps/rhn" />
+    <delete dir="${prefix}${webapp-dir}/rhn" />
     <delete dir="${prefix}/usr/share/rhn/lib" />
-    <mkdir dir="${prefix}/var/lib/tomcat5/webapps/rhn" />
-    <mkdir dir="${prefix}/var/lib/tomcat5/webapps/rhn/apidoc" />
-    <mkdir dir="${prefix}/var/lib/tomcat5/webapps/rhn/apidoc/handlers" />
+    <mkdir dir="${prefix}${webapp-dir}/rhn" />
+    <mkdir dir="${prefix}${webapp-dir}/rhn/apidoc" />
+    <mkdir dir="${prefix}${webapp-dir}/rhn/apidoc/handlers" />
     <mkdir dir="${prefix}/usr/share/rhn/lib" />
-    <unjar src="${rhn.war}" dest="${prefix}/var/lib/tomcat5/webapps/rhn" />
+    <unjar src="${rhn.war}" dest="${prefix}${webapp-dir}/rhn" />
 
     <!--
      - copy the apidocs to the right place
      -->
     <copy file="${build.dir}/reports/apidocs/jsp/index.jsp"
-          toDir="${prefix}/var/lib/tomcat5/webapps/rhn/apidoc"
+          toDir="${prefix}${webapp-dir}/rhn/apidoc"
           overwrite="true" />
 
     <copy file="${build.dir}/reports/apidocs/jsp/faqs.jsp"
-          toDir="${prefix}/var/lib/tomcat5/webapps/rhn/apidoc"
+          toDir="${prefix}${webapp-dir}/rhn/apidoc"
           overwrite="true" />
 
     <copy file="${build.dir}/reports/apidocs/jsp/scripts.jsp"
-          toDir="${prefix}/var/lib/tomcat5/webapps/rhn/apidoc"
+          toDir="${prefix}${webapp-dir}/rhn/apidoc"
           overwrite="true" />
 
-    <copy toDir="${prefix}/var/lib/tomcat5/webapps/rhn/apidoc/handlers/">
+    <copy toDir="${prefix}${webapp-dir}rhn/apidoc/handlers/">
         <fileset dir="${report.dir}/apidocs/jsp/handlers/" />
     </copy>
 
@@ -797,7 +812,7 @@
      - copy the jar that contains our code to /usr/share/rhn/lib to be shared
      - with taskomatic and the webapp.
      -->
-    <copy file="${prefix}/var/lib/tomcat5/webapps/rhn/WEB-INF/lib/rhn.jar"
+    <copy file="${prefix}${webapp-dir}/rhn/WEB-INF/lib/rhn.jar"
           toDir="${prefix}/usr/share/rhn/lib"
           overwrite="true"  />
 
@@ -806,20 +821,20 @@
      - they can be replaced with symlinks.
      -->
     <delete>
-      <fileset dir="${prefix}/var/lib/tomcat5/webapps/rhn/WEB-INF/lib" >
+      <fileset dir="${prefix}${webapp-dir}/rhn/WEB-INF/lib" >
         <include name="*.jar" />
       </fileset>
     </delete>
 
     <!-- create symlinks for everything -->
     <jpackage-deps jars="${dist.jar.dependencies}"
-        dir="${prefix}/var/lib/tomcat5/webapps/rhn/WEB-INF/lib"/>
-    <symlink link="${prefix}/var/lib/tomcat5/webapps/rhn/WEB-INF/lib/rhn.jar"
+        dir="${prefix}${webapp-dir}/rhn/WEB-INF/lib"/>
+    <symlink link="${prefix}${webapp-dir}/webapps/rhn/WEB-INF/lib/rhn.jar"
              resource="/usr/share/rhn/lib/rhn.jar"
              failonerror="false"
              overwrite="true" />
 
-    <copy toDir="${prefix}/var/lib/tomcat5/webapps/rhn/WEB-INF/lib" overwrite="true">
+    <copy toDir="${prefix}${webapp-dir}/rhn/WEB-INF/lib" overwrite="true">
       <fileset dir="${rhn-home}/buildconf/tempjars">
         <include name="**/*.jar" />
       </fileset>
@@ -830,7 +845,7 @@
      - these are the oracle jars and the servlet jar.
      -->
     <delete>
-      <fileset dir="${prefix}/var/lib/tomcat5/webapps/rhn/WEB-INF/lib">
+      <fileset dir="${prefix}${webapp-dir}/webapps/rhn/WEB-INF/lib">
         <include name="**/ojdbc*" />
         <include name="**/oracle-jdbc*" />
         <include name="**/servlet*" />
