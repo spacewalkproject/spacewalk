@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.0
+Version: 0.9.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -304,6 +304,27 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Feb 10 2010 Justin Sherrill <jsherril@redhat.com> 0.9.2-1
+- initial tomcat6 stuff (jsherril@redhat.com)
+- change checkstyle Header to RegexpHeader (tlestach@redhat.com)
+- change copyright preferencies for newly created java files
+  (tlestach@redhat.com)
+- updated copyrights in all java files to make hudson happy
+  (michael.mraka@redhat.com)
+- adding createOrUpdate and delete to snippet handler as well as tests
+  (jsherril@redhat.com)
+- 558628 - fixing issue with configure-proxy script as well as making /cblr
+  rewrites work over SSL too (jsherril@redhat.com)
+- commiting missing files from previous commit that converted target systems
+  page to java (jsherril@redhat.com)
+- adding kickstart.snippet.list* (jsherril@redhat.com)
+- fixing issue where select all and update set would clear the set before
+  redisplaying the page (jsherril@redhat.com)
+- fixing issue where probe suite probe list was not generating probe links
+  correctly resulting in an error when trying to edit or view the probe
+  (jsherril@redhat.com)
+- let's start Spacewalk 0.9 (michael.mraka@redhat.com)
+
 * Sat Feb 06 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.11-1
 - Fix a NPE in CompareConfigFilesTask
 
