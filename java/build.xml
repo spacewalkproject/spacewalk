@@ -774,6 +774,8 @@
   <target name="install-tomcat6"
            description="Install the webapp to the directory specified by $prefix for tomcat5">
        <property name="webapp-dir" value="/var/lib/tomcat6/webapps/" />
+       <echo message="${prefix}" />
+       <echo message="${webapp-dir}" />
        <antcall target="install" />
   </target>
 
@@ -829,7 +831,7 @@
     <!-- create symlinks for everything -->
     <jpackage-deps jars="${dist.jar.dependencies}"
         dir="${prefix}${webapp-dir}/rhn/WEB-INF/lib"/>
-    <symlink link="${prefix}${webapp-dir}/webapps/rhn/WEB-INF/lib/rhn.jar"
+    <symlink link="${prefix}${webapp-dir}/rhn/WEB-INF/lib/rhn.jar"
              resource="/usr/share/rhn/lib/rhn.jar"
              failonerror="false"
              overwrite="true" />
