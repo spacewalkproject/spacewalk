@@ -93,6 +93,6 @@ case "$1" in
         ;;
     *)
 	echo $"Usage: $0 {start|stop|status|restart|condrestart|try-restart|reload}"
-        exit 1
+        exit 2
 esac
 exit $RETVAL
