@@ -5,7 +5,7 @@
 %define cobdirsnippets  %{_localstatedir}/lib/rhn/kickstarts/snippets
 %define realcobsnippetsdir  %{_localstatedir}/lib/cobbler/snippets
 
-if  0%{?rhel} && 0%{?rhel} < 6
+%if  0%{?rhel} && 0%{?rhel} < 6
 %define appdir          %{_localstatedir}/lib/tomcat5/webapps
 %define jardir          %{_localstatedir}/lib/tomcat5/webapps/rhn/WEB-INF/lib
 %else
@@ -208,7 +208,13 @@ This package contains the Java version of taskomatic.
 %install
 rm -rf $RPM_BUILD_ROOT
 ant -Dprefix=$RPM_BUILD_ROOT install
+%if  0%{?rhel} && 0%{?rhel} < 6
 install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat5/Catalina/localhost/
+install -m 755 conf/rhn.xml $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
+%else
+install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat6/Catalina/localhost/
+install -m 755 conf/rhn.xml $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
+%endif
 install -d -m 755 $RPM_BUILD_ROOT/%{_initrddir}
 install -d -m 755 $RPM_BUILD_ROOT/%{_bindir}
 install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/rhn
@@ -223,7 +229,6 @@ install -d -m 755 $RPM_BUILD_ROOT/%{cobdirsnippets}
 install -d -m 755 $RPM_BUILD_ROOT/%{_var}/satellite/systemlogs
 
 install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/logrotate.d
-install -m 755 conf/rhn.xml $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
 install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_hibernate.conf
 install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_taskomatic_daemon.conf
 install -m 644 conf/default/rhn_taskomatic.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_taskomatic.conf
