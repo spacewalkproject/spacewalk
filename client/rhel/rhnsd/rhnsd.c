@@ -62,7 +62,9 @@ static const struct argp_option options[] =
 /* Short description of program.  */
 static const char doc[] = N_("Red Hat Network Services Daemon");
 #define PROGRAM		"rhnsd"
-#define VERSION		"1.0.2"
+#ifndef VERSION
+#define VERSION		"unknown"
+#endif
 
 /* Configuration parameters */
 static const char* param_name_interval = "interval";
