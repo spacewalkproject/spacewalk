@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 4.9.1
+Version: 4.9.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -63,6 +63,13 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Feb 10 2010 Miroslav Suchý <msuchy@redhat.com> 4.9.2-1
+- Pass version define to the compiler (Jan Pazdziora)
+- 533895 - if init script is run user return code 4
+- 533891 - if reloading fails return code 7
+- 533891 - implement force-reload
+- 533867 - init script, wrong parameter should return 2
+
 * Tue Feb 09 2010 Jan Pazdziora 4.9.1-1
 - 563173 - change the logging and config processing logic
 
