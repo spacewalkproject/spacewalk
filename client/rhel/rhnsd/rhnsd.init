@@ -75,7 +75,7 @@ case "$1" in
         status rhnsd
 	RETVAL=$?
         ;;
-    restart)
+    restart|force-reload)
 	stop
 	start
 	;;
@@ -92,7 +92,7 @@ case "$1" in
         echo
         ;;
     *)
-	echo $"Usage: $0 {start|stop|status|restart|condrestart|try-restart|reload}"
+	echo $"Usage: $0 {start|stop|status|restart|force-reload|condrestart|try-restart|reload}"
         exit 2
 esac
 exit $RETVAL
