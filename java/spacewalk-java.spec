@@ -4,8 +4,15 @@
 %define cobprofdirwiz   %{_localstatedir}/lib/rhn/kickstarts/wizard
 %define cobdirsnippets  %{_localstatedir}/lib/rhn/kickstarts/snippets
 %define realcobsnippetsdir  %{_localstatedir}/lib/cobbler/snippets
+
+if  0%{?rhel} && 0%{?rhel} < 6
 %define appdir          %{_localstatedir}/lib/tomcat5/webapps
 %define jardir          %{_localstatedir}/lib/tomcat5/webapps/rhn/WEB-INF/lib
+%else
+%define appdir          %{_localstatedir}/lib/tomcat6/webapps
+%define jardir          %{_localstatedir}/lib/tomcat6/webapps/rhn/WEB-INF/lib
+%endif
+
 %define jars antlr asm bcel c3p0 cglib commons-beanutils commons-cli commons-codec commons-digester commons-discovery commons-el commons-io commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard xalan-j2 xerces-j2 xml-commons-apis commons-collections postgresql-jdbc
 
 Name: spacewalk-java
@@ -43,7 +50,11 @@ Requires: redstone-xmlrpc
 Requires: oscache
 Requires: servletapi5
 Requires: struts >= 0:1.2.9
+%if  0%{?rhel} && 0%{?rhel} < 6
 Requires: tomcat5
+%else
+Requires: tomcat6
+%endif
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
 Requires: sitemesh
@@ -252,7 +263,11 @@ fi
 %dir %{cobprofdirwiz}
 %dir %{cobdirsnippets}
 %{appdir}/*
+%if  0%{?rhel} && 0%{?rhel} < 6
 %config(noreplace) %{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
+%else
+%config(noreplace) %{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
+%endif
 %{realcobsnippetsdir}/spacewalk
 %attr(755, apache, root) %{_var}/satellite/systemlogs
 %ghost %attr(644, tomcat, root) %{_var}/satellite/systemlogs/audit-review.log
