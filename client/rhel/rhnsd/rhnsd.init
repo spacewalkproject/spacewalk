@@ -39,8 +39,13 @@ RHNSD=/usr/sbin/rhnsd
 [ -x $RHNSD ] || exit 6
 RHN_UP2DATE_FILE="/etc/sysconfig/rhn/up2date"
 [ -f $RHN_UP2DATE_FILE ] || exit 6
-RHN_SYSTEMID_FILE=`awk -F '=[[:space:]]*' '/^[[:space:]]*systemIdPath[[:space:]]*=/ {print $2}' $RHN_UP2DATE_FILE`
-[ -f $RHN_SYSTEMID_FILE ] || exit 6
+if [ -r $RHN_UP2DATE_FILE ]; then
+        RHN_SYSTEMID_FILE=`awk -F '=[[:space:]]*' '/^[[:space:]]*systemIdPath[[:space:]]*=/ {print $2}' $RHN_UP2DATE_FILE`
+        [ -f $RHN_SYSTEMID_FILE ] || exit 6
+elif [ "$1" != "status" ];  then
+        echo "Insufficient privilege. Cannot open file $RHN_UP2DATE_FILE for reading."
+        exit 4
+fi
 
 # Source function library.
 . /etc/rc.d/init.d/functions
