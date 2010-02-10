@@ -561,7 +561,7 @@ sub mail_traceback {
 
     my $formvars;
     my $pairs = join("\n", map { "  $_ => " . $pxt->passthrough_param($_) } sort $pxt->param);
-    $formvars = <<EOS
+    $formvars = <<EOS;
 Form variables:
 $pairs
 EOS
