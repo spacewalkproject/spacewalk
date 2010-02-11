@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.9.1
+Version:    0.9.2
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -80,7 +80,7 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Thu Feb 11 2010 Justin Sherrill <jsherril@redhat.com> 0.9.1-1
+* Thu Feb 11 2010 Justin Sherrill <jsherril@redhat.com> 0.9.2-1
 - updating branding package for tomcat6 (jsherril@redhat.com)
 - let's start Spacewalk 0.9 (michael.mraka@redhat.com)
 
