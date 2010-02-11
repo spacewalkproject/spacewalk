@@ -28,9 +28,10 @@ from optparse import Option, OptionParser
 from common import rhnLib, rhnLog, initLOG, CFG, initCFG
 from spacewalk.common import rhn_rpm
 from server.rhnLib import parseRPMFilename, get_package_path
-from server import rhnSQL
+from server import rhnSQL, rhnPackageUpload
 from server.rhnServer import server_packages
 from satellite_tools.progress_bar import ProgressBar
+from spacewalk.common.checksum import getFileChecksum
 
 initCFG('server.satellite')
 initLOG(CFG.LOG_FILE, CFG.DEBUG)
@@ -40,17 +41,22 @@ debug = 0
 verbose = 0
 
 options_table = [
-    Option("-v", "--verbose",       action="count",
+    Option("--update-sha256", action="store_true",
+        help="Update SHA-256 capable packages"),
+    Option("--update-filer", action="store_true",
+        help="Convert filer structure"),
+    Option("--update-kstrees", action="store_true",
+        help="Fix kickstart trees permissions"),
+    Option("-d", "--db", action="store", help="DB string to connect to"),
+    Option("-v", "--verbose", action="count",
         help="Increase verbosity"),
-    Option("-d", "--db",            action="store",
-        help="DB string to connect to"),
-    Option(   "--debug",            action="store_true",
-        help="logs the debug information to a log file"),
+    Option("--debug", action="store_true",
+        help="Log the debug information to a log file"),
 ]
 
 
 def main():
-    global options_table, debug
+    global options_table, debug, verbose
     parser = OptionParser(option_list=options_table)
 
     (options, args) = parser.parse_args()
@@ -73,10 +79,14 @@ def main():
     print "Connecting to %s" % options.db
     rhnSQL.initDB(options.db)
 
-    process_package_data()
+    if options.update_filer:
+        process_package_data()
 
-    process_kickstart_trees()
+    if options.update_sha256:
+        process_sha256_packages()
 
+    if options.update_kstrees:
+        process_kickstart_trees()
 
 _get_path_query = """
 	select id, checksum_type, checksum, path, epoch, new_path
@@ -141,7 +151,7 @@ def process_package_data():
             if nevra[1] in [ None, '']:
                 nevra[1] = path['epoch']
         except:
-            # probably not qan rpm skip
+            # probably not an rpm skip
             if debug:
                 Log.writeMessage("Skipping: %s Not a valid rpm" \
                                   % old_path_nvrea[-1])
@@ -215,7 +225,164 @@ def process_kickstart_trees():
         for name in files:
             os.chmod(root + '/' + name, 0644)
 
+_get_sha256_packages_query = """
+select p.id, p.path
+from rhnPackage p,
+     rhnPackageRequires pr,
+     rhnPackageCapability pc,
+     rhnChecksumView cv
+where pr.package_id = p.id and
+      pr.capability_id = pc.id and
+      pc.name = 'rpmlib(FileDigests)' and
+      pc.version = '4.6.0-1' and
+      cv.id = p.checksum_id and
+      cv.checksum_type = 'md5'
+"""
+
+_update_sha256_package = """
+update rhnPackage
+set checksum_id = lookup_checksum(:ctype, :csum),
+    path = :path
+where id = :id
+"""
+
+_select_checksum_type_id = """
+select id from rhnChecksumType where label = :ctype
+"""
+
+_update_package_files = """
+declare
+    checksum_id number;
+begin
+    begin
+        insert into rhnChecksum values (
+            rhnChecksum_seq.nextval,
+            :ctype_id,
+            :csum ) returning id into checksum_id;
+    exception when dup_val_on_index then
+        select c.id
+        into checksum_id
+        from rhnChecksum c
+        where c.checksum = :csum and
+              c.checksum_type_id = :ctype_id;
+    end;
+
+    update rhnPackageFile p
+    set p.checksum_id = checksum_id
+    where p.capability_id = (
+        select c.id
+        from rhnPackageCapability c
+        where p.package_id = :pid and
+              c.name = :filename
+    ) and p.package_id = :pid;
+end;
+"""
+
+def process_sha256_packages():
+    global verbose, debug
+
+    if debug:
+        Log = rhnLog.rhnLog('/var/log/rhn/update-packages.log', 5)
+
+    _get_sha256_packages_sql = rhnSQL.prepare(_get_sha256_packages_query)
+    _get_sha256_packages_sql.execute()
+    packages = _get_sha256_packages_sql.fetchall_dict()
+
+    if not packages:
+        print "No SHA256 capable packages to process."
+        if debug:
+            Log.writeMessage("No SHA256 capable packages to process.")
+
+        return
+
+    if verbose:
+        print "Processing %s SHA256 capable packages" % len(packages)
+
+    pb = ProgressBar(prompt='standby: ', endTag=' - Complete!', \
+                     finalSize=len(packages), finalBarLength=40, stream=sys.stdout)
+    pb.printAll(1)
+
+    _update_sha256_package_sql = rhnSQL.prepare(_update_sha256_package)
+    _update_package_files_sql = rhnSQL.prepare(_update_package_files)
+
+    for package in packages:
+        pb.addTo(1)
+        pb.printIncrement()
+
+        old_abs_path = os.path.join(CFG.MOUNT_POINT, package['path'])
+        temp_file = open(old_abs_path, 'rb')
+        header, payload_stream, header_start, header_end = \
+                rhnPackageUpload.load_package(temp_file)
+        checksum_type = header.checksum_type()
+        checksum = getFileChecksum(checksum_type, file=temp_file)
+
+        old_path = package['path'].split('/')
+        nevra = parseRPMFilename(old_path[-1])
+        org_id = old_path[1]
+        new_path = get_package_path(nevra, org_id, prepend=old_path[0], checksum=checksum)
+        new_abs_path = os.path.join(CFG.MOUNT_POINT, new_path)
+
+        # Filer content relocation
+        try:
+            if old_abs_path != new_abs_path:
+                if debug:
+                    Log.writeMessage("Relocating %s to %s on filer" % (old_abs_path, new_abs_path))
+
+                new_abs_dir = os.path.dirname(new_abs_path)
+                if not os.path.isdir(new_abs_dir):
+                    os.makedirs(new_abs_dir)
+
+                # link() the old path to the new path
+                if not os.path.exists(new_abs_path):
+                    os.link(old_abs_path, new_abs_path)
+                elif debug:
+                    Log.writeMessage("File %s already exists" % new_abs_path)
+
+                # Make the new path readable
+                os.chmod(new_abs_path, 0644)
+        except OSError, e:
+            message = "Error when relocating %s to %s on filer: %s" % \
+                      (old_abs_path, new_abs_path, str(e))
+            print message
+            if debug:
+                Log.writeMessage(message)
+            sys.exit(1)
+
+        # Update package checksum in the database
+        _update_sha256_package_sql.execute(ctype=checksum_type, csum=checksum,
+                                           path=new_path, id=package['id'])
+
+        _select_checksum_type_id_sql = rhnSQL.prepare(_select_checksum_type_id)
+        _select_checksum_type_id_sql.execute(ctype=checksum_type)
+        checksum_type_id =_select_checksum_type_id_sql.fetchone()[0]
+
+        # Update checksum of every single file in a package
+        for i, file in enumerate(header['filenames']):
+            csum  = header['filemd5s'][i]
+
+            # Do not update checksums for directories & links
+            if not csum:
+                continue
+
+            _update_package_files_sql.execute(ctype_id=checksum_type_id, csum=csum,
+                                              pid=package['id'], filename=file)
+
+        rhnSQL.commit()
+
+        try:
+            if os.path.exists(old_abs_path):
+                os.unlink(old_abs_path)
+            if os.path.exists(os.path.dirname(old_abs_path)):
+                os.removedirs(os.path.dirname(old_abs_path))
+        except OSError, e:
+            message = "Error when removing %s: %s" % (old_abs_path, str(e))
+            print message
+            if debug:
+                Log.writeMessage(message)
+
+            sys.exit(1)
+
+    pb.printComplete()
 
 if __name__ == '__main__':
     main()
-
