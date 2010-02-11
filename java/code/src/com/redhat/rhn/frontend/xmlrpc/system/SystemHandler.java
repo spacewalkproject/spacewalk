@@ -96,6 +96,7 @@ import com.redhat.rhn.frontend.xmlrpc.SystemIdInstantiationException;
 import com.redhat.rhn.frontend.xmlrpc.SystemsNotDeletedException;
 import com.redhat.rhn.frontend.xmlrpc.UndefinedCustomFieldsException;
 import com.redhat.rhn.frontend.xmlrpc.UnrecognizedCountryException;
+import com.redhat.rhn.frontend.xmlrpc.kickstart.XmlRpcKickstartHelper;
 import com.redhat.rhn.frontend.xmlrpc.user.XmlRpcUserHelper;
 import com.redhat.rhn.manager.MissingCapabilityException;
 import com.redhat.rhn.manager.MissingEntitlementException;
@@ -106,6 +107,8 @@ import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartScheduleCommand;
 import com.redhat.rhn.manager.kickstart.ProvisionVirtualInstanceCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemCreateCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.profile.ProfileManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.ServerGroupManager;
@@ -4074,6 +4077,144 @@ public class SystemHandler extends BaseHandler {
         meta.put(KickstartFormatter.STATIC_NETWORK_VAR, command);
         rec.setKsMeta(meta);
         rec.save();
+        return 1;
+    }
+
+    private KickstartData lookupKsData(String label, Org org) {
+        return XmlRpcKickstartHelper.getInstance().lookupKsData(label, org);
+    }
+
+    /**
+     * Creates a cobbler system record
+     * @param sessionKey session
+     * @param serverId the host system id
+     * @param ksLabel identifies the kickstart profile
+     *
+     * @return int - 1 on success, exception thrown otherwise.
+     *
+     * @xmlrpc.doc Creates a cobbler system record with the specified kickstart label
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param("string", "ksLabel")
+     * @xmlrpc.returntype int - #return_int_success()
+     */
+    public int createSystemRecord(String sessionKey, Integer serverId, String ksLabel) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+
+        Server server = null;
+        try {
+            server = SystemManager.lookupByIdAndUser(serverId.longValue(),
+                    loggedInUser);
+        }
+        catch (LookupException e) {
+            throw new NoSuchSystemException();
+        }
+
+        if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
+            throw new FaultException(-2, "provisionError",
+                    "System does not have provisioning entitlement");
+        }
+
+        KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
+        CobblerSystemCreateCommand cmd = new CobblerSystemCreateCommand(
+                loggedInUser, server, ksData.getCobblerObject(loggedInUser).getName());
+        cmd.store();
+
+        return 1;
+    }
+
+    /**
+     * Returns a list of kickstart variables set for the specified server
+     *
+     * @param sessionKey      identifies the user making the call;
+     * @param serverId        identifies the server
+     * @return map of kickstart variables set for the specified server
+     *
+     * @xmlrpc.doc Lists kickstart variables set for the specified server
+     *
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.returntype
+     *      #struct("System kickstart variables")
+     *          #prop_desc("boolean" "netboot" "netboot enabled")
+     *          #prop_desc("array" "kickstart variables")
+     *              #array()
+     *                  #prop("string", "key")
+     *                  #prop("string or int", "value")
+     *              #array_end()
+     *      #struct_end()
+     */
+    public Map getVariables(String sessionKey, Integer serverId) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+
+        Server server = null;
+        try {
+            server = SystemManager.lookupByIdAndUser(serverId.longValue(), loggedInUser);
+        }
+        catch (LookupException e) {
+            throw new NoSuchSystemException();
+        }
+
+        if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
+            throw new FaultException(-2, "provisionError",
+                    "System does not have provisioning entitlement");
+        }
+
+        SystemRecord rec = SystemRecord.lookupById(
+                CobblerXMLRPCHelper.getConnection(loggedInUser), server.getCobblerId());
+
+        Map vars = new HashMap();
+        vars.put("netboot", rec.isNetbootEnabled());
+        vars.put("variables", rec.getKsMeta());
+
+        return vars;
+    }
+
+    /**
+     * Sets a list of kickstart variables for the specified server
+     *
+     * @param sessionKey      identifies the user making the call
+     * @param serverId        identifies the server
+     * @param netboot         netboot enabled
+     * @param variables       list of system kickstart variables to set
+     * @return int - 1 on success, exception thrown otherwise
+     *
+     * @xmlrpc.doc Sets a list of kickstart variables for the specified server
+     *
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param("boolean","netboot")
+     * @xmlrpc.param #param("array",  "kickstart variables")
+     *      #array()
+     *          #prop("string", "key")
+     *          #prop("string or int", "value")
+     *      #array_end()
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setVariables(String sessionKey, Integer serverId, Boolean netboot,
+                                                        Map<String, Object> variables) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+
+        Server server = null;
+        try {
+            server = SystemManager.lookupByIdAndUser(serverId.longValue(), loggedInUser);
+        }
+        catch (LookupException e) {
+            throw new NoSuchSystemException();
+        }
+
+        if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
+            throw new FaultException(-2, "provisionError",
+                    "System does not have provisioning entitlement");
+        }
+
+        SystemRecord rec = SystemRecord.lookupById(
+                CobblerXMLRPCHelper.getConnection(loggedInUser), server.getCobblerId());
+
+        rec.enableNetboot(netboot);
+        rec.setKsMeta(variables);
         return 1;
     }
 }
