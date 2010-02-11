@@ -1,0 +1,22 @@
+<!--
+  This is a Tomcat 5 Context file.  For more information see:
+    http://jakarta.apache.org/tomcat/tomcat-5.0-doc/config/context.html
+
+  path - is the url path you specify after http://hostname:8080/.  To
+    take over the root, you leave it empty.
+
+  docBase - should the fully qualified path where your
+    rhnwebapp is located.
+    i.e. /home/devel/username/rhn-java/rhnwebapp
+
+  debug - higher number produces more output.
+
+  reloadable - indicates to Tomcat that the webapp should be reloaded
+    when a change occurs.
+
+  allowLinking - true to allow Tomcat to follow symlinks.
+-->
+
+<Context path="/rhn" docBase="/var/lib/tomcat6/webapps/rhn/"
+         debug="0" reloadable="false" allowLinking="true">
+</Context>
