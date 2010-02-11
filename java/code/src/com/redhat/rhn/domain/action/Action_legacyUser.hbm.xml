@@ -26,7 +26,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             column="prerequisite" update="true" insert="true" cascade="all" />
         
         <many-to-one name="schedulerUser"
-            class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"
+            class="com.redhat.rhn.domain.user.legacy.UserImpl"
             column="scheduler" update="true" insert="true" cascade="all" />
         <many-to-one name="actionType"
             class="com.redhat.rhn.domain.action.ActionType"

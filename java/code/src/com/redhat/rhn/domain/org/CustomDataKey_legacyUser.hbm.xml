@@ -16,8 +16,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="description" column="description" type="string"
                   length="4000" not-null="true"/>
 
-        <many-to-one name="creator" column="created_by" class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"/>
-        <many-to-one name="lastModifier" column="last_modified_by" class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"/>
+        <many-to-one name="creator" column="created_by" class="com.redhat.rhn.domain.user.legacy.UserImpl"/>
+        <many-to-one name="lastModifier" column="last_modified_by" class="com.redhat.rhn.domain.user.legacy.UserImpl"/>
         <many-to-one name="org" column="org_id" class="com.redhat.rhn.domain.org.OrgImpl"
                      not-null="true"/>
 

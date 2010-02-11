@@ -15,11 +15,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="date" type="date" column="date_completed"
             insert="false" update="false"/>
 
-        <many-to-one name="user" class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"
+        <many-to-one name="user" class="com.redhat.rhn.domain.user.legacy.UserImpl"
             column="web_contact_id" not-null="true" />
 
         <many-to-one name="changedBy"
-            class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"
+            class="com.redhat.rhn.domain.user.legacy.UserImpl"
             column="web_contact_from_id" not-null="true" />
 
         <many-to-one name="state" class="com.redhat.rhn.domain.user.State"

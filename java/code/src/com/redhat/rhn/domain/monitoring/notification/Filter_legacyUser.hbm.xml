@@ -30,7 +30,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             type="long"/>
         <property name="recurringFrequency" column="recurring_frequency"
             type="long"/>
-        <many-to-one name="user" class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"
+        <many-to-one name="user" class="com.redhat.rhn.domain.user.legacy.UserImpl"
             column="contact_id" update="true" insert="true" cascade="none"/>
         <many-to-one name="org" column="customer_id"
             class="com.redhat.rhn.domain.org.OrgImpl" outer-join="true"

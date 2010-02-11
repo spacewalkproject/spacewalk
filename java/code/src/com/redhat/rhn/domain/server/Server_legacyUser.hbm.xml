@@ -91,7 +91,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl"
             column="org_id" lazy="proxy"/>
 
-        <many-to-one name="creator" class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"
+        <many-to-one name="creator" class="com.redhat.rhn.domain.user.legacy.UserImpl"
             column="creator_id" lazy="proxy"/>
 
         <many-to-one name="serverArch"
@@ -227,7 +227,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	               		s.id = :sid
 	              		and s.org_id = :org_id
 	              		]]>
-	        <return alias="wc" class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"/>
+	        <return alias="wc" class="com.redhat.rhn.domain.user.legacy.UserImpl"/>
     </sql-query>
     
     <sql-query name="Server.findUngrouped">

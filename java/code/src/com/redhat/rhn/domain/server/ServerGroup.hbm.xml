@@ -41,7 +41,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     				cascade="save-update">
         			<key column="server_group_id"/>
       		<many-to-many 
-            		class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl" 
+			class="com.redhat.rhn.domain.user.legacy.UserImpl"
             		column="user_id"/>
     		</set>                    
        </subclass>
@@ -101,7 +101,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                   where 
 	               	sg.id = :sgid
 	              	and sg.org_id = :org_id]]>
-	        <return alias="wc" class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"/>
+	        <return alias="wc" class="com.redhat.rhn.domain.user.legacy.UserImpl"/>
     </sql-query>
 
     

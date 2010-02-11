@@ -24,7 +24,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 			class="com.redhat.rhn.domain.user.RhnTimeZone" cascade="none" />
 
 		<one-to-one name="user"
-                    class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"
+                    class="com.redhat.rhn.domain.user.legacy.UserImpl"
                     constrained="true" />
     </class>
 </hibernate-mapping>

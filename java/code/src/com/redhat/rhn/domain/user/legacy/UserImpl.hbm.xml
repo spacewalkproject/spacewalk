@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-   	<class name="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"
+	<class name="com.redhat.rhn.domain.user.legacy.UserImpl"
            table="WEB_CONTACT">
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
@@ -56,20 +56,20 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <one-to-many class="com.redhat.rhn.domain.user.StateChange" />
         </set>
         <set name = "hiddenPanes"
-        	table="RHNUSERINFOPANE"
-        	lazy="true"
-        	cascade="all">
-        	<key column="user_id"/>
-        	<many-to-many class ="com.redhat.rhn.domain.user.Pane" column="pane_id"/>
+		table="RHNUSERINFOPANE"
+		lazy="true"
+		cascade="all">
+		<key column="user_id"/>
+		<many-to-many class ="com.redhat.rhn.domain.user.Pane" column="pane_id"/>
         </set>
         <set name="associatedServerGroups" lazy="true" table="rhnUserServerGroupPerms"
             cascade="save-update" inverse="true">
             <key column="user_id"/>
-            <many-to-many 
-                class="com.redhat.rhn.domain.server.ServerGroup" 
+            <many-to-many
+                class="com.redhat.rhn.domain.server.ServerGroup"
                 column="server_group_id"
                 />
-        </set>        
+        </set>
 
         <set name="servers" lazy="true" table="rhnUserServerPerms" cascade="all">
             <key column="user_id"/>
@@ -79,36 +79,36 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </class>
 
     <query name="User.findByLogin">
-        <![CDATA[from com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl as u where u.loginUc = :loginUc]]>
+        <![CDATA[from com.redhat.rhn.domain.user.legacy.UserImpl as u where u.loginUc = :loginUc]]>
     </query>
    <query name="User.findByLoginAndOrgId">
-        <![CDATA[from com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl as u where u.loginUc = :loginUc and org_id = :orgId]]>
-    </query>    
+        <![CDATA[from com.redhat.rhn.domain.user.legacy.UserImpl as u where u.loginUc = :loginUc and org_id = :orgId]]>
+    </query>
     <query name="User.findByIdandOrgId">
-        <![CDATA[from com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl as u where u.id = :uid and org_id = :orgId]]>
+        <![CDATA[from com.redhat.rhn.domain.user.legacy.UserImpl as u where u.id = :uid and org_id = :orgId]]>
     </query>
     <query name="User.findByIds">
-        <![CDATA[from com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl as u where u.id in (:userIds)]]>
+        <![CDATA[from com.redhat.rhn.domain.user.legacy.UserImpl as u where u.id in (:userIds)]]>
     </query>
     <query name="User.findAllUsers">
-        <![CDATA[from com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl]]>
+        <![CDATA[from com.redhat.rhn.domain.user.legacy.UserImpl]]>
     </query>
-    
+
     <query name="User.findAllUsersByOrg">
-        <![CDATA[from com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl as u where org_id = :org_id]]>
+        <![CDATA[from com.redhat.rhn.domain.user.legacy.UserImpl as u where org_id = :org_id]]>
     </query>
-    
+
     <query name="User.findAllOrgAdmins">
         <![CDATA[
             select u
-            from com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl as u
+            from com.redhat.rhn.domain.user.legacy.UserImpl as u
             where exists (
-                from com.redhat.rhn.domain.org.usergroup.UserGroupImpl as ug 
+                from com.redhat.rhn.domain.org.usergroup.UserGroupImpl as ug
                     where ug.orgId = :org_id and
                         ug.role.label = 'org_admin' and
                         ug in elements(u.usergroups))
         ]]>
-    </query>            
+    </query>
     <sql-query name="User.findRandomOrgAdmin">
         <return-scalar type="long" column="user_id"/>
         SELECT ugm.user_id as user_id
@@ -120,7 +120,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         AND wc.id = ugm.user_id
         ORDER BY wc.id
     </sql-query>
-        
+
     <sql-query name="User.findResponsibleUser">
         <return-scalar type="long" column="user_id"/>
         <return-scalar type="string" column="login"/>

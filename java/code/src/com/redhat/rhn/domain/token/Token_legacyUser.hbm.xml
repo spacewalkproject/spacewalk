@@ -19,7 +19,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             column="org_id"/>
         
         <many-to-one name="creator"
-            class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"
+            class="com.redhat.rhn.domain.user.legacy.UserImpl"
             column="user_id"/>
         
         <many-to-one name="server" class="com.redhat.rhn.domain.server.Server"

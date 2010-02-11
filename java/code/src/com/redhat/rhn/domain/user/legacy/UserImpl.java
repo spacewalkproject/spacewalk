@@ -53,10 +53,10 @@ import java.util.TreeSet;
  * DB table: web_contact
  * @version $Rev: 75755 $
  */
-public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
+public class UserImpl extends BaseDomainHelper implements User {
 
 
-    private static final Logger LOG = Logger.getLogger(LegacyRhnUserImpl.class);
+    private static final Logger LOG = Logger.getLogger(UserImpl.class);
 
     //private Address address;
     private EnterpriseUserImpl euser;
@@ -85,7 +85,7 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
     /**
      * Create a new empty user
      */
-    public LegacyRhnUserImpl() {
+    public UserImpl() {
         usergroups = new HashSet();
         personalInfo = new PersonalInfo();
         personalInfo.setUser(this);
@@ -218,9 +218,9 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
         UserGroup ug = org.getUserGroup(label);
         if (ug != null) {
             usergroups.add(ug);
-        } 
+        }
         else {
-            throw new IllegalArgumentException("Org doesn't have role: " + label);    
+            throw new IllegalArgumentException("Org doesn't have role: " + label);
         }
     }
 
@@ -427,12 +427,12 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
     public void setLastLoggedIn(Date lastLoggedInIn) {
         this.userInfo.setLastLoggedIn(lastLoggedInIn);
     }
-    
+
     /** {@inheritDoc} */
     public void setPreferredLocale(String locale) {
         this.userInfo.setPreferredLocale(locale);
     }
-    
+
     /** {@inheritDoc} */
     public String getPreferredLocale() {
         return this.userInfo.getPreferredLocale();
@@ -1136,19 +1136,19 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
             return personalInfo.getCompany();
         }
     }
-    
+
     /** {@inheritDoc} */
     public void setEmailNotify(int emailNotifyIn) {
        this.userInfo.setEmailNotify(emailNotifyIn);
     }
-    
+
     /** {@inheritDoc} */
     public int getEmailNotify() {
         return this.userInfo.getEmailNotify();
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     public Set getAssociatedServerGroups() {
@@ -1156,8 +1156,8 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
     }
 
     /**
-     * Sets the associatedServerGroups.. 
-     * Meant for use by hibernate only (hence protected) 
+     * Sets the associatedServerGroups..
+     * Meant for use by hibernate only (hence protected)
      * @param serverGroups the servergroups to set.
      */
     protected void setAssociatedServerGroups(Set serverGroups) {

@@ -26,7 +26,7 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl;
+import com.redhat.rhn.domain.user.legacy.UserImpl;
 import com.redhat.rhn.manager.session.SessionManager;
 
 import org.apache.commons.lang.StringUtils;
@@ -147,7 +147,7 @@ public  class UserFactory extends HibernateFactory {
      * @return the user created
      */
     public static User createUser() {
-        return new LegacyRhnUserImpl();
+        return new UserImpl();
     }
 
     /**
@@ -175,7 +175,7 @@ public  class UserFactory extends HibernateFactory {
      */
     public static User lookupById(Long id) {
         Session session = HibernateFactory.getSession();
-        User u = (User)session.get(LegacyRhnUserImpl.class, id);
+        User u = (User)session.get(UserImpl.class, id);
         return u;
     }
 
@@ -458,7 +458,7 @@ public  class UserFactory extends HibernateFactory {
     protected void syncUserPerms(User usr) {
         // Here we are replacing the functionality in add/remove_from_usergroup
         // and update_perms_for_user stored procedures
-        LegacyRhnUserImpl uimpl = (LegacyRhnUserImpl) usr;
+        UserImpl uimpl = (UserImpl) usr;
 
         boolean orgAdminChanged = false;
         Boolean wasOrgAdmin = uimpl.wasOrgAdmin();

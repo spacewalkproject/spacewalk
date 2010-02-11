@@ -44,7 +44,7 @@
             not-null="true"/>
         
         <many-to-one name="user" column="scheduler" cascade="save-update"
-            class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"/>
+            class="com.redhat.rhn.domain.user.legacy.UserImpl"/>
         
         <many-to-one name="action" class="com.redhat.rhn.domain.action.Action"
             cascade="save-update" column="action_id"/>
