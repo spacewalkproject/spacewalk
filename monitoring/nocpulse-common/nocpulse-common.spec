@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.1.18
+Version:      2.1.19
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -143,6 +143,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Feb 11 2010 Miroslav Suchý <msuchy@redhat.com> 2.1.19-1
+- Fedora guys do not want to have migration code in theirs spec
+ 
 * Thu Sep 17 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.18-1
 - 476851 - removal of tables: rhn_db_environment, rhn_environment
 
