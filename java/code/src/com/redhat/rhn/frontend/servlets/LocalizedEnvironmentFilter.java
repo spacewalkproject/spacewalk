@@ -99,7 +99,7 @@ public class LocalizedEnvironmentFilter implements Filter {
                 tz = new RhnTimeZone();
                 tz.setOlsonName(olsonName);
 
-                LOG.warn("timezone still null");
+                LOG.debug("timezone still null");
             }
         }
         ctx.setTimezone(tz.getTimeZone());
