@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.2
+Version: 0.9.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -304,6 +304,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Feb 11 2010 Justin Sherrill <jsherril@redhat.com> 0.9.3-1
+- adding snippet api unit tests (jsherril@redhat.com)
+
 * Wed Feb 10 2010 Justin Sherrill <jsherril@redhat.com> 0.9.2-1
 - initial tomcat6 stuff (jsherril@redhat.com)
 - change checkstyle Header to RegexpHeader (tlestach@redhat.com)
