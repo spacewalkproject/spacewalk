@@ -71,7 +71,11 @@ rm -rf %{buildroot}
 /%{_var}/www/html/nav/styles/*
 %{_datadir}/spacewalk/
 %{_datadir}/rhn/lib/java-branding.jar
+%if  0%{?rhel} && 0%{?rhel} < 6
 %{_var}/lib/tomcat5/webapps/rhn/WEB-INF/lib/java-branding.jar
+%else
+%{_var}/lib/tomcat6/webapps/rhn/WEB-INF/lib/java-branding.jar
+%endif
 %{_sysconfdir}/rhn/default/rhn_docs.conf
 
 
