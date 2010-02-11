@@ -7,7 +7,7 @@ TOP_DIR_FEDORA=$1
 # top dir of spacewalk git checkout
 TOP_DIR_GIT=$2
 
-PACKAGE_LIST="rhnlib rhn-client-tools rhnsd yum-rhn-plugin rhncfg spacewalk-koan spacewalk-certs-tools rhnpush nocpulse-common perl-Satcon perl-NOCpulse-CLAC perl-NOCpulse-Debug perl-NOCpulse-Gritch perl-NOCpulse-Object perl-NOCpulse-SetID perl-NOCpulse-Utils spacewalk-proxy-html spacewalk-proxy-docs"
+PACKAGE_LIST="nocpulse-common perl-Satcon perl-NOCpulse-CLAC perl-NOCpulse-Debug perl-NOCpulse-Gritch perl-NOCpulse-Object perl-NOCpulse-SetID perl-NOCpulse-Utils spacewalk-proxy-html spacewalk-proxy-docs"
 
 
 if [ -z "$TOP_DIR_FEDORA" -o ! -d "$TOP_DIR_FEDORA" ]; then
