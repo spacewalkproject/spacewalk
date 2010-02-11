@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.44
+Version: 0.8.45
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -621,6 +621,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Feb 11 2010 Milan Zazrivec <mzazrivec@redhat.com> 0.8.45-1
+- mechanism for updating existing sha256 packages
+
 * Wed Feb 10 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.44-1
 - 562644 - added class to emulate mod_python's mp_table
 
